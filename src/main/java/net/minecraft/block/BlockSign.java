@@ -9,8 +9,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySign;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -95,7 +95,7 @@ public class BlockSign extends BlockContainer {
 	/**
 	 * Called when the block is right clicked by a player.
 	 */
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		if (worldIn.isRemote) {
 			return true;
@@ -122,7 +122,7 @@ public class BlockSign extends BlockContainer {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
 		return BlockFaceShape.UNDEFINED;
 	}

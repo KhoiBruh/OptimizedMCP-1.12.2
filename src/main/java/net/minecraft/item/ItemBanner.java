@@ -15,9 +15,9 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.BannerPattern;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityBanner;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -45,7 +45,7 @@ public class ItemBanner extends ItemBlock {
 
 			for (int i = 0; i < nbttaglist.tagCount() && i < 6; ++i) {
 				NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
-				EnumDyeColor enumdyecolor = EnumDyeColor.byDyeDamage(nbttagcompound1.getInteger("Color"));
+				DyeColor enumdyecolor = DyeColor.byDyeDamage(nbttagcompound1.getInteger("Color"));
 				BannerPattern bannerpattern = BannerPattern.byHash(nbttagcompound1.getString("Pattern"));
 
 				if (bannerpattern != null) {
@@ -55,7 +55,7 @@ public class ItemBanner extends ItemBlock {
 		}
 	}
 
-	public static ItemStack makeBanner(EnumDyeColor color, NBTTagList patterns) {
+	public static ItemStack makeBanner(DyeColor color, NBTTagList patterns) {
 
 		ItemStack itemstack = new ItemStack(Items.BANNER, 1, color.getDyeDamage());
 
@@ -66,30 +66,30 @@ public class ItemBanner extends ItemBlock {
 		return itemstack;
 	}
 
-	public static EnumDyeColor getBaseColor(ItemStack stack) {
+	public static DyeColor getBaseColor(ItemStack stack) {
 
-		return EnumDyeColor.byDyeDamage(stack.getMetadata() & 15);
+		return DyeColor.byDyeDamage(stack.getMetadata() & 15);
 	}
 
 	/**
 	 * Called when a Block is right-clicked with this Item
 	 */
-	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		boolean flag = iblockstate.getBlock().isReplaceable(worldIn, pos);
 
-		if (facing != EnumFacing.DOWN && (iblockstate.getMaterial().isSolid() || flag) && (!flag || facing == EnumFacing.UP)) {
+		if (facing != Facing.DOWN && (iblockstate.getMaterial().isSolid() || flag) && (!flag || facing == Facing.UP)) {
 			pos = pos.offset(facing);
 			ItemStack itemstack = player.getHeldItem(hand);
 
 			if (player.canPlayerEdit(pos, facing, itemstack) && Blocks.STANDING_BANNER.canPlaceBlockAt(worldIn, pos)) {
 				if (worldIn.isRemote) {
-					return EnumActionResult.SUCCESS;
+					return ActionResult.SUCCESS;
 				} else {
 					pos = flag ? pos.down() : pos;
 
-					if (facing == EnumFacing.UP) {
+					if (facing == Facing.UP) {
 						int i = MathHelper.floor((double) ((player.rotationYaw + 180F) * 16F / 360F) + 0.5D) & 15;
 						worldIn.setBlockState(pos, Blocks.STANDING_BANNER.getDefaultState().withProperty(BlockStandingSign.ROTATION, i), 3);
 					} else {
@@ -107,20 +107,20 @@ public class ItemBanner extends ItemBlock {
 					}
 
 					itemstack.shrink(1);
-					return EnumActionResult.SUCCESS;
+					return ActionResult.SUCCESS;
 				}
 			} else {
-				return EnumActionResult.FAIL;
+				return ActionResult.FAIL;
 			}
 		} else {
-			return EnumActionResult.FAIL;
+			return ActionResult.FAIL;
 		}
 	}
 
 	public String getItemStackDisplayName(ItemStack stack) {
 
 		String s = "item.banner.";
-		EnumDyeColor enumdyecolor = getBaseColor(stack);
+		DyeColor enumdyecolor = getBaseColor(stack);
 		s = s + enumdyecolor.getUnlocalizedName() + ".name";
 		return I18n.translateToLocal(s);
 	}
@@ -139,7 +139,7 @@ public class ItemBanner extends ItemBlock {
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
 
 		if (isInCreativeTab(tab)) {
-			for (EnumDyeColor enumdyecolor : EnumDyeColor.values()) {
+			for (DyeColor enumdyecolor : DyeColor.values()) {
 				items.add(makeBanner(enumdyecolor, null));
 			}
 		}

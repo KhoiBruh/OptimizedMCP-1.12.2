@@ -1,6 +1,6 @@
 package net.minecraft.block.material;
 
-public enum EnumPushReaction {
+public enum PushReaction {
 	NORMAL,
 	DESTROY,
 	BLOCK,

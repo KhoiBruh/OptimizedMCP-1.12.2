@@ -3,17 +3,17 @@ package net.minecraft.network.play.client;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 
 public class CPacketAnimation implements Packet<INetHandlerPlayServer> {
 
-	private EnumHand hand;
+	private Hand hand;
 
 	public CPacketAnimation() {
 
 	}
 
-	public CPacketAnimation(EnumHand handIn) {
+	public CPacketAnimation(Hand handIn) {
 
 		hand = handIn;
 	}
@@ -23,7 +23,7 @@ public class CPacketAnimation implements Packet<INetHandlerPlayServer> {
 	 */
 	public void readPacketData(PacketBuffer buf) {
 
-		hand = buf.readEnumValue(EnumHand.class);
+		hand = buf.readEnumValue(Hand.class);
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class CPacketAnimation implements Packet<INetHandlerPlayServer> {
 		handler.handleAnimation(this);
 	}
 
-	public EnumHand getHand() {
+	public Hand getHand() {
 
 		return hand;
 	}

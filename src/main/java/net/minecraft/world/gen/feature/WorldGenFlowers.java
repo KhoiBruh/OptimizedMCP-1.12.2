@@ -12,12 +12,12 @@ public class WorldGenFlowers extends WorldGenerator {
 	private BlockFlower flower;
 	private IBlockState state;
 
-	public WorldGenFlowers(BlockFlower flowerIn, BlockFlower.EnumFlowerType type) {
+	public WorldGenFlowers(BlockFlower flowerIn, BlockFlower.FlowerType type) {
 
 		setGeneratedBlock(flowerIn, type);
 	}
 
-	public void setGeneratedBlock(BlockFlower flowerIn, BlockFlower.EnumFlowerType typeIn) {
+	public void setGeneratedBlock(BlockFlower flowerIn, BlockFlower.FlowerType typeIn) {
 
 		flower = flowerIn;
 		state = flowerIn.getDefaultState().withProperty(flowerIn.getTypeProperty(), typeIn);

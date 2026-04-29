@@ -1,6 +1,6 @@
 package net.minecraft.village;
 
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 
 public class VillageDoorInfo {
@@ -14,7 +14,7 @@ public class VillageDoorInfo {
 	/**
 	 * the inside direction is where can see less sky
 	 */
-	private final EnumFacing insideDirection;
+	private final Facing insideDirection;
 	private int lastActivityTimestamp;
 	private boolean isDetachedFromVillageFlag;
 	private int doorOpeningRestrictionCounter;
@@ -24,7 +24,7 @@ public class VillageDoorInfo {
 		this(pos, getFaceDirection(deltaX, deltaZ), timestamp);
 	}
 
-	public VillageDoorInfo(BlockPos pos, EnumFacing facing, int timestamp) {
+	public VillageDoorInfo(BlockPos pos, Facing facing, int timestamp) {
 
 		doorBlockPos = pos;
 		insideDirection = facing;
@@ -32,14 +32,14 @@ public class VillageDoorInfo {
 		lastActivityTimestamp = timestamp;
 	}
 
-	private static EnumFacing getFaceDirection(int deltaX, int deltaZ) {
+	private static Facing getFaceDirection(int deltaX, int deltaZ) {
 
 		if (deltaX < 0) {
-			return EnumFacing.WEST;
+			return Facing.WEST;
 		} else if (deltaX > 0) {
-			return EnumFacing.EAST;
+			return Facing.EAST;
 		} else {
-			return deltaZ < 0 ? EnumFacing.NORTH : EnumFacing.SOUTH;
+			return deltaZ < 0 ? Facing.NORTH : Facing.SOUTH;
 		}
 	}
 
@@ -123,7 +123,7 @@ public class VillageDoorInfo {
 		isDetachedFromVillageFlag = detached;
 	}
 
-	public EnumFacing getInsideDirection() {
+	public Facing getInsideDirection() {
 
 		return insideDirection;
 	}

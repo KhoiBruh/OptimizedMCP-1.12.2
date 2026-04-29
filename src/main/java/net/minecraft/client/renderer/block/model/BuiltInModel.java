@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.block.model;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class BuiltInModel implements IBakedModel {
 		overrideList = p_i46537_2_;
 	}
 
-	public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
+	public List<BakedQuad> getQuads(IBlockState state, Facing side, long rand) {
 
 		return Collections.emptyList();
 	}

@@ -6,7 +6,7 @@ public class EnchantmentBindingCurse extends Enchantment {
 
 	public EnchantmentBindingCurse(Enchantment.Rarity p_i47254_1_, EntityEquipmentSlot... p_i47254_2_) {
 
-		super(p_i47254_1_, EnumEnchantmentType.WEARABLE, p_i47254_2_);
+		super(p_i47254_1_, EnchantmentType.WEARABLE, p_i47254_2_);
 		setName("binding_curse");
 	}
 

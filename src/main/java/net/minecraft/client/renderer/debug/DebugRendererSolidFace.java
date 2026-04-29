@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -54,7 +54,7 @@ public class DebugRendererSolidFace implements DebugRenderer.IDebugRenderer {
 				float f2 = 0F;
 				float f3 = 0.5F;
 
-				if (iblockstate.getBlockFaceShape(world, blockpos, EnumFacing.WEST) == BlockFaceShape.SOLID) {
+				if (iblockstate.getBlockFaceShape(world, blockpos, Facing.WEST) == BlockFaceShape.SOLID) {
 					Tessellator tessellator = Tessellator.getInstance();
 					BufferBuilder bufferbuilder = tessellator.getBuffer();
 					bufferbuilder.begin(5, DefaultVertexFormats.POSITION_COLOR);
@@ -65,7 +65,7 @@ public class DebugRendererSolidFace implements DebugRenderer.IDebugRenderer {
 					tessellator.draw();
 				}
 
-				if (iblockstate.getBlockFaceShape(world, blockpos, EnumFacing.SOUTH) == BlockFaceShape.SOLID) {
+				if (iblockstate.getBlockFaceShape(world, blockpos, Facing.SOUTH) == BlockFaceShape.SOLID) {
 					Tessellator tessellator1 = Tessellator.getInstance();
 					BufferBuilder bufferbuilder1 = tessellator1.getBuffer();
 					bufferbuilder1.begin(5, DefaultVertexFormats.POSITION_COLOR);
@@ -76,7 +76,7 @@ public class DebugRendererSolidFace implements DebugRenderer.IDebugRenderer {
 					tessellator1.draw();
 				}
 
-				if (iblockstate.getBlockFaceShape(world, blockpos, EnumFacing.EAST) == BlockFaceShape.SOLID) {
+				if (iblockstate.getBlockFaceShape(world, blockpos, Facing.EAST) == BlockFaceShape.SOLID) {
 					Tessellator tessellator2 = Tessellator.getInstance();
 					BufferBuilder bufferbuilder2 = tessellator2.getBuffer();
 					bufferbuilder2.begin(5, DefaultVertexFormats.POSITION_COLOR);
@@ -87,7 +87,7 @@ public class DebugRendererSolidFace implements DebugRenderer.IDebugRenderer {
 					tessellator2.draw();
 				}
 
-				if (iblockstate.getBlockFaceShape(world, blockpos, EnumFacing.NORTH) == BlockFaceShape.SOLID) {
+				if (iblockstate.getBlockFaceShape(world, blockpos, Facing.NORTH) == BlockFaceShape.SOLID) {
 					Tessellator tessellator3 = Tessellator.getInstance();
 					BufferBuilder bufferbuilder3 = tessellator3.getBuffer();
 					bufferbuilder3.begin(5, DefaultVertexFormats.POSITION_COLOR);
@@ -98,7 +98,7 @@ public class DebugRendererSolidFace implements DebugRenderer.IDebugRenderer {
 					tessellator3.draw();
 				}
 
-				if (iblockstate.getBlockFaceShape(world, blockpos, EnumFacing.DOWN) == BlockFaceShape.SOLID) {
+				if (iblockstate.getBlockFaceShape(world, blockpos, Facing.DOWN) == BlockFaceShape.SOLID) {
 					Tessellator tessellator4 = Tessellator.getInstance();
 					BufferBuilder bufferbuilder4 = tessellator4.getBuffer();
 					bufferbuilder4.begin(5, DefaultVertexFormats.POSITION_COLOR);
@@ -109,7 +109,7 @@ public class DebugRendererSolidFace implements DebugRenderer.IDebugRenderer {
 					tessellator4.draw();
 				}
 
-				if (iblockstate.getBlockFaceShape(world, blockpos, EnumFacing.UP) == BlockFaceShape.SOLID) {
+				if (iblockstate.getBlockFaceShape(world, blockpos, Facing.UP) == BlockFaceShape.SOLID) {
 					Tessellator tessellator5 = Tessellator.getInstance();
 					BufferBuilder bufferbuilder5 = tessellator5.getBuffer();
 					bufferbuilder5.begin(5, DefaultVertexFormats.POSITION_COLOR);

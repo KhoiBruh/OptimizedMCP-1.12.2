@@ -24,7 +24,7 @@ public class SPacketTeams implements Packet<INetHandlerPlayClient> {
 
 	public SPacketTeams() {
 
-		nameTagVisibility = Team.EnumVisible.ALWAYS.internalName;
+		nameTagVisibility = Team.Visible.ALWAYS.internalName;
 		collisionRule = Team.CollisionRule.ALWAYS.name;
 		color = -1;
 		players = Lists.newArrayList();
@@ -32,7 +32,7 @@ public class SPacketTeams implements Packet<INetHandlerPlayClient> {
 
 	public SPacketTeams(ScorePlayerTeam teamIn, int actionIn) {
 
-		nameTagVisibility = Team.EnumVisible.ALWAYS.internalName;
+		nameTagVisibility = Team.Visible.ALWAYS.internalName;
 		collisionRule = Team.CollisionRule.ALWAYS.name;
 		color = -1;
 		players = Lists.newArrayList();
@@ -56,7 +56,7 @@ public class SPacketTeams implements Packet<INetHandlerPlayClient> {
 
 	public SPacketTeams(ScorePlayerTeam teamIn, Collection<String> playersIn, int actionIn) {
 
-		nameTagVisibility = Team.EnumVisible.ALWAYS.internalName;
+		nameTagVisibility = Team.Visible.ALWAYS.internalName;
 		collisionRule = Team.CollisionRule.ALWAYS.name;
 		color = -1;
 		players = Lists.newArrayList();

@@ -6,7 +6,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
@@ -22,7 +22,7 @@ public class BlockObserver extends BlockDirectional {
 	public BlockObserver() {
 
 		super(Material.ROCK);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.SOUTH).withProperty(POWERED, false));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.SOUTH).withProperty(POWERED, false));
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
@@ -88,7 +88,7 @@ public class BlockObserver extends BlockDirectional {
 
 	protected void updateNeighborsInFront(World worldIn, BlockPos pos, IBlockState state) {
 
-		EnumFacing enumfacing = state.getValue(FACING);
+		Facing enumfacing = state.getValue(FACING);
 		BlockPos blockpos = pos.offset(enumfacing.getOpposite());
 		worldIn.neighborChanged(blockpos, this, pos);
 		worldIn.notifyNeighborsOfStateExcept(blockpos, this, enumfacing);
@@ -102,12 +102,12 @@ public class BlockObserver extends BlockDirectional {
 		return true;
 	}
 
-	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
 		return blockState.getWeakPower(blockAccess, pos, side);
 	}
 
-	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
 		return blockState.getValue(POWERED) && blockState.getValue(FACING) == side ? 15 : 0;
 	}
@@ -140,9 +140,9 @@ public class BlockObserver extends BlockDirectional {
 	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 	 * IBlockstate
 	 */
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
-		return getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer).getOpposite());
+		return getDefaultState().withProperty(FACING, Facing.getDirectionFromEntityLiving(pos, placer).getOpposite());
 	}
 
 	/**
@@ -165,7 +165,7 @@ public class BlockObserver extends BlockDirectional {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7));
+		return getDefaultState().withProperty(FACING, Facing.getFront(meta & 7));
 	}
 
 }

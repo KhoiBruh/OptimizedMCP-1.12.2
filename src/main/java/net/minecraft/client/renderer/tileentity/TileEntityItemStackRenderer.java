@@ -10,13 +10,13 @@ import net.minecraft.client.renderer.BannerTextures;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.*;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import org.apache.commons.lang3.StringUtils;
 
 public class TileEntityItemStackRenderer {
@@ -25,7 +25,7 @@ public class TileEntityItemStackRenderer {
 	public static TileEntityItemStackRenderer instance;
 
 	static {
-		for (EnumDyeColor enumdyecolor : EnumDyeColor.values()) {
+		for (DyeColor enumdyecolor : DyeColor.values()) {
 			SHULKER_BOXES[enumdyecolor.getMetadata()] = new TileEntityShulkerBox(enumdyecolor);
 		}
 
@@ -86,7 +86,7 @@ public class TileEntityItemStackRenderer {
 			if (TileEntitySkullRenderer.instance != null) {
 				GlStateManager.pushMatrix();
 				GlStateManager.disableCull();
-				TileEntitySkullRenderer.instance.renderSkull(0F, 0F, 0F, EnumFacing.UP, 180F, p_192838_1_.getMetadata(), gameprofile, -1, 0F);
+				TileEntitySkullRenderer.instance.renderSkull(0F, 0F, 0F, Facing.UP, 180F, p_192838_1_.getMetadata(), gameprofile, -1, 0F);
 				GlStateManager.enableCull();
 				GlStateManager.popMatrix();
 			}

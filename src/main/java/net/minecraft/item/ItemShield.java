@@ -7,8 +7,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntityBanner;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
@@ -28,7 +28,7 @@ public class ItemShield extends Item {
 	public String getItemStackDisplayName(ItemStack stack) {
 
 		if (stack.getSubCompound("BlockEntityTag") != null) {
-			EnumDyeColor enumdyecolor = TileEntityBanner.getColor(stack);
+			DyeColor enumdyecolor = TileEntityBanner.getColor(stack);
 			return I18n.translateToLocal("item.shield." + enumdyecolor.getUnlocalizedName() + ".name");
 		} else {
 			return I18n.translateToLocal("item.shield.name");
@@ -46,9 +46,9 @@ public class ItemShield extends Item {
 	/**
 	 * returns the action that specifies what animation to play when the items is being used
 	 */
-	public EnumAction getItemUseAction(ItemStack stack) {
+	public Action getItemUseAction(ItemStack stack) {
 
-		return EnumAction.BLOCK;
+		return Action.BLOCK;
 	}
 
 	/**
@@ -59,11 +59,11 @@ public class ItemShield extends Item {
 		return 72000;
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
 
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		playerIn.setActiveHand(handIn);
-		return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
+		return new TypedActionResult<>(ActionResult.SUCCESS, itemstack);
 	}
 
 	/**

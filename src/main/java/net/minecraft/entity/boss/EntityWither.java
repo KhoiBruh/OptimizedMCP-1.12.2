@@ -24,14 +24,14 @@ import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.BossInfo;
 import net.minecraft.world.BossInfoServer;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -43,7 +43,7 @@ public class EntityWither extends EntityMob implements IRangedAttackMob {
 	private static final DataParameter<Integer> THIRD_HEAD_TARGET = EntityDataManager.createKey(EntityWither.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer>[] HEAD_TARGETS = new DataParameter[]{FIRST_HEAD_TARGET, SECOND_HEAD_TARGET, THIRD_HEAD_TARGET};
 	private static final DataParameter<Integer> INVULNERABILITY_TIME = EntityDataManager.createKey(EntityWither.class, DataSerializers.VARINT);
-	private static final Predicate<Entity> NOT_UNDEAD = p_apply_1_ -> p_apply_1_ instanceof EntityLivingBase && ((EntityLivingBase) p_apply_1_).getCreatureAttribute() != EnumCreatureAttribute.UNDEAD && ((EntityLivingBase) p_apply_1_).attackable();
+	private static final Predicate<Entity> NOT_UNDEAD = p_apply_1_ -> p_apply_1_ instanceof EntityLivingBase && ((EntityLivingBase) p_apply_1_).getCreatureAttribute() != CreatureAttribute.UNDEAD && ((EntityLivingBase) p_apply_1_).attackable();
 	private final float[] xRotationHeads = new float[2];
 	private final float[] yRotationHeads = new float[2];
 	private final float[] xRotOHeads = new float[2];
@@ -217,16 +217,16 @@ public class EntityWither extends EntityMob implements IRangedAttackMob {
 			double d10 = getHeadX(l);
 			double d2 = getHeadY(l);
 			double d4 = getHeadZ(l);
-			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d10 + rand.nextGaussian() * 0.30000001192092896D, d2 + rand.nextGaussian() * 0.30000001192092896D, d4 + rand.nextGaussian() * 0.30000001192092896D, 0D, 0D, 0D);
+			world.spawnParticle(ParticleTypes.SMOKE_NORMAL, d10 + rand.nextGaussian() * 0.30000001192092896D, d2 + rand.nextGaussian() * 0.30000001192092896D, d4 + rand.nextGaussian() * 0.30000001192092896D, 0D, 0D, 0D);
 
 			if (flag && world.rand.nextInt(4) == 0) {
-				world.spawnParticle(EnumParticleTypes.SPELL_MOB, d10 + rand.nextGaussian() * 0.30000001192092896D, d2 + rand.nextGaussian() * 0.30000001192092896D, d4 + rand.nextGaussian() * 0.30000001192092896D, 0.699999988079071D, 0.699999988079071D, 0.5D);
+				world.spawnParticle(ParticleTypes.SPELL_MOB, d10 + rand.nextGaussian() * 0.30000001192092896D, d2 + rand.nextGaussian() * 0.30000001192092896D, d4 + rand.nextGaussian() * 0.30000001192092896D, 0.699999988079071D, 0.699999988079071D, 0.5D);
 			}
 		}
 
 		if (getInvulTime() > 0) {
 			for (int i1 = 0; i1 < 3; ++i1) {
-				world.spawnParticle(EnumParticleTypes.SPELL_MOB, posX + rand.nextGaussian(), posY + (double) (rand.nextFloat() * 3.3F), posZ + rand.nextGaussian(), 0.699999988079071D, 0.699999988079071D, 0.8999999761581421D);
+				world.spawnParticle(ParticleTypes.SPELL_MOB, posX + rand.nextGaussian(), posY + (double) (rand.nextFloat() * 3.3F), posZ + rand.nextGaussian(), 0.699999988079071D, 0.699999988079071D, 0.8999999761581421D);
 			}
 		}
 	}
@@ -253,7 +253,7 @@ public class EntityWither extends EntityMob implements IRangedAttackMob {
 				if (ticksExisted >= nextHeadUpdate[i - 1]) {
 					nextHeadUpdate[i - 1] = ticksExisted + 10 + rand.nextInt(10);
 
-					if (world.getDifficulty() == EnumDifficulty.NORMAL || world.getDifficulty() == EnumDifficulty.HARD) {
+					if (world.getDifficulty() == Difficulty.NORMAL || world.getDifficulty() == Difficulty.HARD) {
 						int j3 = i - 1;
 						int k3 = idleHeadUpdates[i - 1];
 						idleHeadUpdates[j3] = idleHeadUpdates[i - 1] + 1;
@@ -601,11 +601,11 @@ public class EntityWither extends EntityMob implements IRangedAttackMob {
 	}
 
 	/**
-	 * Get this Entity's EnumCreatureAttribute
+	 * Get this Entity's CreatureAttribute
 	 */
-	public EnumCreatureAttribute getCreatureAttribute() {
+	public CreatureAttribute getCreatureAttribute() {
 
-		return EnumCreatureAttribute.UNDEAD;
+		return CreatureAttribute.UNDEAD;
 	}
 
 	protected boolean canBeRidden(Entity entityIn) {

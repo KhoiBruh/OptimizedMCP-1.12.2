@@ -6,7 +6,7 @@ public class EnchantmentOxygen extends Enchantment {
 
 	public EnchantmentOxygen(Enchantment.Rarity rarityIn, EntityEquipmentSlot... slots) {
 
-		super(rarityIn, EnumEnchantmentType.ARMOR_HEAD, slots);
+		super(rarityIn, EnchantmentType.ARMOR_HEAD, slots);
 		setName("oxygen");
 	}
 

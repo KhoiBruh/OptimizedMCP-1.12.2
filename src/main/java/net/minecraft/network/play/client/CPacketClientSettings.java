@@ -4,22 +4,22 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
-import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.HandSide;
 
 public class CPacketClientSettings implements Packet<INetHandlerPlayServer> {
 
 	private String lang;
 	private int view;
-	private EntityPlayer.EnumChatVisibility chatVisibility;
+	private EntityPlayer.ChatVisibility chatVisibility;
 	private boolean enableColors;
 	private int modelPartFlags;
-	private EnumHandSide mainHand;
+	private HandSide mainHand;
 
 	public CPacketClientSettings() {
 
 	}
 
-	public CPacketClientSettings(String langIn, int renderDistanceIn, EntityPlayer.EnumChatVisibility chatVisibilityIn, boolean chatColorsIn, int modelPartsIn, EnumHandSide mainHandIn) {
+	public CPacketClientSettings(String langIn, int renderDistanceIn, EntityPlayer.ChatVisibility chatVisibilityIn, boolean chatColorsIn, int modelPartsIn, HandSide mainHandIn) {
 
 		lang = langIn;
 		view = renderDistanceIn;
@@ -36,10 +36,10 @@ public class CPacketClientSettings implements Packet<INetHandlerPlayServer> {
 
 		lang = buf.readString(16);
 		view = buf.readByte();
-		chatVisibility = buf.readEnumValue(EntityPlayer.EnumChatVisibility.class);
+		chatVisibility = buf.readEnumValue(EntityPlayer.ChatVisibility.class);
 		enableColors = buf.readBoolean();
 		modelPartFlags = buf.readUnsignedByte();
-		mainHand = buf.readEnumValue(EnumHandSide.class);
+		mainHand = buf.readEnumValue(HandSide.class);
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class CPacketClientSettings implements Packet<INetHandlerPlayServer> {
 		return lang;
 	}
 
-	public EntityPlayer.EnumChatVisibility getChatVisibility() {
+	public EntityPlayer.ChatVisibility getChatVisibility() {
 
 		return chatVisibility;
 	}
@@ -83,7 +83,7 @@ public class CPacketClientSettings implements Packet<INetHandlerPlayServer> {
 		return modelPartFlags;
 	}
 
-	public EnumHandSide getMainHand() {
+	public HandSide getMainHand() {
 
 		return mainHand;
 	}

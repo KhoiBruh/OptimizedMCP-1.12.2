@@ -9,7 +9,7 @@ import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateFlying;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.pathfinding.PathNodeType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -128,7 +128,7 @@ public class EntityAIFollowOwner extends EntityAIBase {
 
 		BlockPos blockpos = new BlockPos(x + xOffset, y - 1, z + zOffset);
 		IBlockState iblockstate = world.getBlockState(blockpos);
-		return iblockstate.getBlockFaceShape(world, blockpos, EnumFacing.DOWN) == BlockFaceShape.SOLID && iblockstate.canEntitySpawn(tameable) && world.isAirBlock(blockpos.up()) && world.isAirBlock(blockpos.up(2));
+		return iblockstate.getBlockFaceShape(world, blockpos, Facing.DOWN) == BlockFaceShape.SOLID && iblockstate.canEntitySpawn(tameable) && world.isAirBlock(blockpos.up()) && world.isAirBlock(blockpos.up(2));
 	}
 
 }

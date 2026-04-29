@@ -430,7 +430,7 @@ public abstract class World implements IBlockAccess {
 
 		if (provider.hasSkyLight()) {
 			for (int j = y1; j <= y2; ++j) {
-				checkLightFor(EnumSkyBlock.SKY, new BlockPos(x, j, z));
+				checkLightFor(SkyBlock.SKY, new BlockPos(x, j, z));
 			}
 		}
 
@@ -476,29 +476,29 @@ public abstract class World implements IBlockAccess {
 		}
 	}
 
-	public void notifyNeighborsOfStateExcept(BlockPos pos, Block blockType, EnumFacing skipSide) {
+	public void notifyNeighborsOfStateExcept(BlockPos pos, Block blockType, Facing skipSide) {
 
-		if (skipSide != EnumFacing.WEST) {
+		if (skipSide != Facing.WEST) {
 			neighborChanged(pos.west(), blockType, pos);
 		}
 
-		if (skipSide != EnumFacing.EAST) {
+		if (skipSide != Facing.EAST) {
 			neighborChanged(pos.east(), blockType, pos);
 		}
 
-		if (skipSide != EnumFacing.DOWN) {
+		if (skipSide != Facing.DOWN) {
 			neighborChanged(pos.down(), blockType, pos);
 		}
 
-		if (skipSide != EnumFacing.UP) {
+		if (skipSide != Facing.UP) {
 			neighborChanged(pos.up(), blockType, pos);
 		}
 
-		if (skipSide != EnumFacing.NORTH) {
+		if (skipSide != Facing.NORTH) {
 			neighborChanged(pos.north(), blockType, pos);
 		}
 
-		if (skipSide != EnumFacing.SOUTH) {
+		if (skipSide != Facing.SOUTH) {
 			neighborChanged(pos.south(), blockType, pos);
 		}
 	}
@@ -693,9 +693,9 @@ public abstract class World implements IBlockAccess {
 		}
 	}
 
-	public int getLightFromNeighborsFor(EnumSkyBlock type, BlockPos pos) {
+	public int getLightFromNeighborsFor(SkyBlock type, BlockPos pos) {
 
-		if (!provider.hasSkyLight() && type == EnumSkyBlock.SKY) {
+		if (!provider.hasSkyLight() && type == SkyBlock.SKY) {
 			return 0;
 		} else {
 			if (pos.getY() < 0) {
@@ -737,7 +737,7 @@ public abstract class World implements IBlockAccess {
 		}
 	}
 
-	public int getLightFor(EnumSkyBlock type, BlockPos pos) {
+	public int getLightFor(SkyBlock type, BlockPos pos) {
 
 		if (pos.getY() < 0) {
 			pos = new BlockPos(pos.getX(), 0, pos.getZ());
@@ -753,7 +753,7 @@ public abstract class World implements IBlockAccess {
 		}
 	}
 
-	public void setLightFor(EnumSkyBlock type, BlockPos pos, int lightValue) {
+	public void setLightFor(SkyBlock type, BlockPos pos, int lightValue) {
 
 		if (isValid(pos)) {
 			if (isBlockLoaded(pos)) {
@@ -773,8 +773,8 @@ public abstract class World implements IBlockAccess {
 
 	public int getCombinedLight(BlockPos pos, int lightValue) {
 
-		int i = getLightFromNeighborsFor(EnumSkyBlock.SKY, pos);
-		int j = getLightFromNeighborsFor(EnumSkyBlock.BLOCK, pos);
+		int i = getLightFromNeighborsFor(SkyBlock.SKY, pos);
+		int j = getLightFromNeighborsFor(SkyBlock.BLOCK, pos);
 
 		if (j < lightValue) {
 			j = lightValue;
@@ -924,22 +924,22 @@ public abstract class World implements IBlockAccess {
 						d5 = -1.0E-4D;
 					}
 
-					EnumFacing enumfacing;
+					Facing enumfacing;
 
 					if (d3 < d4 && d3 < d5) {
-						enumfacing = i > l ? EnumFacing.WEST : EnumFacing.EAST;
+						enumfacing = i > l ? Facing.WEST : Facing.EAST;
 						vec31 = new Vec3d(d0, vec31.y() + d7 * d3, vec31.z() + d8 * d3);
 					} else if (d4 < d5) {
-						enumfacing = j > i1 ? EnumFacing.DOWN : EnumFacing.UP;
+						enumfacing = j > i1 ? Facing.DOWN : Facing.UP;
 						vec31 = new Vec3d(vec31.x() + d6 * d4, d1, vec31.z() + d8 * d4);
 					} else {
-						enumfacing = k > j1 ? EnumFacing.NORTH : EnumFacing.SOUTH;
+						enumfacing = k > j1 ? Facing.NORTH : Facing.SOUTH;
 						vec31 = new Vec3d(vec31.x() + d6 * d5, vec31.y() + d7 * d5, d2);
 					}
 
-					l = MathHelper.floor(vec31.x()) - (enumfacing == EnumFacing.EAST ? 1 : 0);
-					i1 = MathHelper.floor(vec31.y()) - (enumfacing == EnumFacing.UP ? 1 : 0);
-					j1 = MathHelper.floor(vec31.z()) - (enumfacing == EnumFacing.SOUTH ? 1 : 0);
+					l = MathHelper.floor(vec31.x()) - (enumfacing == Facing.EAST ? 1 : 0);
+					i1 = MathHelper.floor(vec31.y()) - (enumfacing == Facing.UP ? 1 : 0);
+					j1 = MathHelper.floor(vec31.z()) - (enumfacing == Facing.SOUTH ? 1 : 0);
 					blockpos = new BlockPos(l, i1, j1);
 					IBlockState iblockstate1 = getBlockState(blockpos);
 					Block block1 = iblockstate1.getBlock();
@@ -992,7 +992,7 @@ public abstract class World implements IBlockAccess {
 		}
 	}
 
-	public void spawnParticle(EnumParticleTypes particleType, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed, double zSpeed, int... parameters) {
+	public void spawnParticle(ParticleTypes particleType, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed, double zSpeed, int... parameters) {
 
 		spawnParticle(particleType.getParticleID(), particleType.getShouldIgnoreRange(), xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed, parameters);
 	}
@@ -1008,7 +1008,7 @@ public abstract class World implements IBlockAccess {
 		}
 	}
 
-	public void spawnParticle(EnumParticleTypes particleType, boolean ignoreRange, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed, double zSpeed, int... parameters) {
+	public void spawnParticle(ParticleTypes particleType, boolean ignoreRange, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed, double zSpeed, int... parameters) {
 
 		spawnParticle(particleType.getParticleID(), particleType.getShouldIgnoreRange() || ignoreRange, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed, parameters);
 	}
@@ -2016,7 +2016,7 @@ public abstract class World implements IBlockAccess {
 	/**
 	 * Attempts to extinguish a fire
 	 */
-	public boolean extinguishFire(EntityPlayer player, BlockPos pos, EnumFacing side) {
+	public boolean extinguishFire(EntityPlayer player, BlockPos pos, Facing side) {
 
 		pos = pos.offset(side);
 
@@ -2058,7 +2058,7 @@ public abstract class World implements IBlockAccess {
 			}
 
 			if (tileentity2 == null) {
-				tileentity2 = getChunkFromBlockCoords(pos).getTileEntity(pos, Chunk.EnumCreateEntityType.IMMEDIATE);
+				tileentity2 = getChunkFromBlockCoords(pos).getTileEntity(pos, Chunk.CreateEntityType.IMMEDIATE);
 			}
 
 			if (tileentity2 == null) {
@@ -2314,7 +2314,7 @@ public abstract class World implements IBlockAccess {
 		if (f >= 0.15F) {
 			return false;
 		} else {
-			if (pos.getY() >= 0 && pos.getY() < 256 && getLightFor(EnumSkyBlock.BLOCK, pos) < 10) {
+			if (pos.getY() >= 0 && pos.getY() < 256 && getLightFor(SkyBlock.BLOCK, pos) < 10) {
 				IBlockState iblockstate1 = getBlockState(pos);
 				Block block = iblockstate1.getBlock();
 
@@ -2351,7 +2351,7 @@ public abstract class World implements IBlockAccess {
 		} else if (!checkLight) {
 			return true;
 		} else {
-			if (pos.getY() >= 0 && pos.getY() < 256 && getLightFor(EnumSkyBlock.BLOCK, pos) < 10) {
+			if (pos.getY() >= 0 && pos.getY() < 256 && getLightFor(SkyBlock.BLOCK, pos) < 10) {
 				IBlockState iblockstate1 = getBlockState(pos);
 
 				return iblockstate1.getMaterial() == Material.AIR && Blocks.SNOW_LAYER.canPlaceBlockAt(this, pos);
@@ -2366,23 +2366,23 @@ public abstract class World implements IBlockAccess {
 		boolean flag = false;
 
 		if (provider.hasSkyLight()) {
-			flag |= checkLightFor(EnumSkyBlock.SKY, pos);
+			flag |= checkLightFor(SkyBlock.SKY, pos);
 		}
 
-		flag = flag | checkLightFor(EnumSkyBlock.BLOCK, pos);
+		flag = flag | checkLightFor(SkyBlock.BLOCK, pos);
 		return flag;
 	}
 
 	/**
 	 * gets the light level at the supplied position
 	 */
-	private int getRawLight(BlockPos pos, EnumSkyBlock lightType) {
+	private int getRawLight(BlockPos pos, SkyBlock lightType) {
 
-		if (lightType == EnumSkyBlock.SKY && canSeeSky(pos)) {
+		if (lightType == SkyBlock.SKY && canSeeSky(pos)) {
 			return 15;
 		} else {
 			IBlockState iblockstate1 = getBlockState(pos);
-			int j2 = lightType == EnumSkyBlock.SKY ? 0 : iblockstate1.getLightValue();
+			int j2 = lightType == SkyBlock.SKY ? 0 : iblockstate1.getLightValue();
 			int k2 = iblockstate1.getLightOpacity();
 
 			if (k2 >= 15 && iblockstate1.getLightValue() > 0) {
@@ -2401,7 +2401,7 @@ public abstract class World implements IBlockAccess {
 				BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
 
 				try {
-					for (EnumFacing enumfacing : EnumFacing.values()) {
+					for (Facing enumfacing : Facing.values()) {
 						blockpos$pooledmutableblockpos.setPos(pos).move(enumfacing);
 						int l2 = getLightFor(lightType, blockpos$pooledmutableblockpos) - k2;
 
@@ -2422,7 +2422,7 @@ public abstract class World implements IBlockAccess {
 		}
 	}
 
-	public boolean checkLightFor(EnumSkyBlock lightType, BlockPos pos) {
+	public boolean checkLightFor(SkyBlock lightType, BlockPos pos) {
 
 		if (!isAreaLoaded(pos, 17, false)) {
 			return false;
@@ -2461,7 +2461,7 @@ public abstract class World implements IBlockAccess {
 							if (k5 + l5 + i6 < 17) {
 								BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
 
-								for (EnumFacing enumfacing : EnumFacing.values()) {
+								for (Facing enumfacing : Facing.values()) {
 									int j6 = j4 + enumfacing.getFrontOffsetX();
 									int k6 = k4 + enumfacing.getFrontOffsetY();
 									int l6 = l4 + enumfacing.getFrontOffsetZ();
@@ -2709,7 +2709,7 @@ public abstract class World implements IBlockAccess {
 	 * Checks if the given block can be set at {@code pos}. {@code sidePlacedOn} is the side of the backing block that
 	 * was clicked on to trigger this placement.
 	 */
-	public boolean mayPlace(Block blockIn, BlockPos pos, boolean skipCollisionCheck, EnumFacing sidePlacedOn, Entity placer) {
+	public boolean mayPlace(Block blockIn, BlockPos pos, boolean skipCollisionCheck, Facing sidePlacedOn, Entity placer) {
 
 		IBlockState iblockstate1 = getBlockState(pos);
 		AxisAlignedBB axisalignedbb = skipCollisionCheck ? null : blockIn.getDefaultState().getCollisionBoundingBox(this, pos);
@@ -2736,7 +2736,7 @@ public abstract class World implements IBlockAccess {
 		seaLevel = seaLevelIn;
 	}
 
-	public int getStrongPower(BlockPos pos, EnumFacing direction) {
+	public int getStrongPower(BlockPos pos, Facing direction) {
 
 		return getBlockState(pos).getStrongPower(this, pos, direction);
 	}
@@ -2747,37 +2747,37 @@ public abstract class World implements IBlockAccess {
 	}
 
 	/**
-	 * Returns the single highest strong power out of all directions using getStrongPower(BlockPos, EnumFacing)
+	 * Returns the single highest strong power out of all directions using getStrongPower(BlockPos, Facing)
 	 */
 	public int getStrongPower(BlockPos pos) {
 
 		int j2 = 0;
-		j2 = Math.max(j2, getStrongPower(pos.down(), EnumFacing.DOWN));
+		j2 = Math.max(j2, getStrongPower(pos.down(), Facing.DOWN));
 
 		if (j2 >= 15) {
 			return j2;
 		} else {
-			j2 = Math.max(j2, getStrongPower(pos.up(), EnumFacing.UP));
+			j2 = Math.max(j2, getStrongPower(pos.up(), Facing.UP));
 
 			if (j2 >= 15) {
 				return j2;
 			} else {
-				j2 = Math.max(j2, getStrongPower(pos.north(), EnumFacing.NORTH));
+				j2 = Math.max(j2, getStrongPower(pos.north(), Facing.NORTH));
 
 				if (j2 >= 15) {
 					return j2;
 				} else {
-					j2 = Math.max(j2, getStrongPower(pos.south(), EnumFacing.SOUTH));
+					j2 = Math.max(j2, getStrongPower(pos.south(), Facing.SOUTH));
 
 					if (j2 >= 15) {
 						return j2;
 					} else {
-						j2 = Math.max(j2, getStrongPower(pos.west(), EnumFacing.WEST));
+						j2 = Math.max(j2, getStrongPower(pos.west(), Facing.WEST));
 
 						if (j2 >= 15) {
 							return j2;
 						} else {
-							j2 = Math.max(j2, getStrongPower(pos.east(), EnumFacing.EAST));
+							j2 = Math.max(j2, getStrongPower(pos.east(), Facing.EAST));
 							return j2;
 						}
 					}
@@ -2786,12 +2786,12 @@ public abstract class World implements IBlockAccess {
 		}
 	}
 
-	public boolean isSidePowered(BlockPos pos, EnumFacing side) {
+	public boolean isSidePowered(BlockPos pos, Facing side) {
 
 		return getRedstonePower(pos, side) > 0;
 	}
 
-	public int getRedstonePower(BlockPos pos, EnumFacing facing) {
+	public int getRedstonePower(BlockPos pos, Facing facing) {
 
 		IBlockState iblockstate1 = getBlockState(pos);
 		return iblockstate1.isNormalCube() ? getStrongPower(pos) : iblockstate1.getWeakPower(this, pos, facing);
@@ -2799,18 +2799,18 @@ public abstract class World implements IBlockAccess {
 
 	public boolean isBlockPowered(BlockPos pos) {
 
-		if (getRedstonePower(pos.down(), EnumFacing.DOWN) > 0) {
+		if (getRedstonePower(pos.down(), Facing.DOWN) > 0) {
 			return true;
-		} else if (getRedstonePower(pos.up(), EnumFacing.UP) > 0) {
+		} else if (getRedstonePower(pos.up(), Facing.UP) > 0) {
 			return true;
-		} else if (getRedstonePower(pos.north(), EnumFacing.NORTH) > 0) {
+		} else if (getRedstonePower(pos.north(), Facing.NORTH) > 0) {
 			return true;
-		} else if (getRedstonePower(pos.south(), EnumFacing.SOUTH) > 0) {
+		} else if (getRedstonePower(pos.south(), Facing.SOUTH) > 0) {
 			return true;
-		} else if (getRedstonePower(pos.west(), EnumFacing.WEST) > 0) {
+		} else if (getRedstonePower(pos.west(), Facing.WEST) > 0) {
 			return true;
 		} else {
-			return getRedstonePower(pos.east(), EnumFacing.EAST) > 0;
+			return getRedstonePower(pos.east(), Facing.EAST) > 0;
 		}
 	}
 
@@ -2822,7 +2822,7 @@ public abstract class World implements IBlockAccess {
 
 		int j2 = 0;
 
-		for (EnumFacing enumfacing : EnumFacing.values()) {
+		for (Facing enumfacing : Facing.values()) {
 			int k2 = getRedstonePower(pos.offset(enumfacing), enumfacing);
 
 			if (k2 >= 15) {
@@ -3337,7 +3337,7 @@ public abstract class World implements IBlockAccess {
 
 	public void updateComparatorOutputLevel(BlockPos pos, Block blockIn) {
 
-		for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+		for (Facing enumfacing : Facing.Plane.HORIZONTAL) {
 			BlockPos blockpos1 = pos.offset(enumfacing);
 
 			if (isBlockLoaded(blockpos1)) {
@@ -3370,7 +3370,7 @@ public abstract class World implements IBlockAccess {
 		return new DifficultyInstance(getDifficulty(), getWorldTime(), j2, f);
 	}
 
-	public EnumDifficulty getDifficulty() {
+	public Difficulty getDifficulty() {
 
 		return getWorldInfo().getDifficulty();
 	}

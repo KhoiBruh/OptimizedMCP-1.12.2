@@ -6,7 +6,7 @@ public class EnchantmentWaterWorker extends Enchantment {
 
 	public EnchantmentWaterWorker(Enchantment.Rarity rarityIn, EntityEquipmentSlot... slots) {
 
-		super(rarityIn, EnumEnchantmentType.ARMOR_HEAD, slots);
+		super(rarityIn, EnchantmentType.ARMOR_HEAD, slots);
 		setName("waterWorker");
 	}
 

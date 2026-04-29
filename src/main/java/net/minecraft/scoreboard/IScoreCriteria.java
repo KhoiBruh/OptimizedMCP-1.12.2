@@ -26,30 +26,30 @@ public interface IScoreCriteria {
 
 	boolean isReadOnly();
 
-	IScoreCriteria.EnumRenderType getRenderType();
+	IScoreCriteria.RenderType getRenderType();
 
-	enum EnumRenderType {
+	enum RenderType {
 		INTEGER("integer"),
 		HEARTS("hearts");
 
-		private static final Map<String, IScoreCriteria.EnumRenderType> BY_NAME = Maps.newHashMap();
+		private static final Map<String, IScoreCriteria.RenderType> BY_NAME = Maps.newHashMap();
 
 		static {
-			for (IScoreCriteria.EnumRenderType iscorecriteria$enumrendertype : values()) {
+			for (IScoreCriteria.RenderType iscorecriteria$enumrendertype : values()) {
 				BY_NAME.put(iscorecriteria$enumrendertype.getRenderType(), iscorecriteria$enumrendertype);
 			}
 		}
 
 		private final String renderType;
 
-		EnumRenderType(String renderTypeIn) {
+		RenderType(String renderTypeIn) {
 
 			renderType = renderTypeIn;
 		}
 
-		public static IScoreCriteria.EnumRenderType getByName(String name) {
+		public static IScoreCriteria.RenderType getByName(String name) {
 
-			IScoreCriteria.EnumRenderType iscorecriteria$enumrendertype = BY_NAME.get(name);
+			IScoreCriteria.RenderType iscorecriteria$enumrendertype = BY_NAME.get(name);
 			return iscorecriteria$enumrendertype == null ? INTEGER : iscorecriteria$enumrendertype;
 		}
 

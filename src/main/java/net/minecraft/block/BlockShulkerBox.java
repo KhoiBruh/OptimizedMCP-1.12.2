@@ -1,6 +1,6 @@
 package net.minecraft.block;
 
-import net.minecraft.block.material.EnumPushReaction;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
@@ -16,7 +16,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -34,28 +34,28 @@ import java.util.List;
 
 public class BlockShulkerBox extends BlockContainer {
 
-	public static final PropertyEnum<EnumFacing> FACING = PropertyDirection.create("facing");
-	private final EnumDyeColor color;
+	public static final PropertyEnum<Facing> FACING = PropertyDirection.create("facing");
+	private final DyeColor color;
 
-	public BlockShulkerBox(EnumDyeColor colorIn) {
+	public BlockShulkerBox(DyeColor colorIn) {
 
 		super(Material.ROCK, MapColor.AIR);
 		color = colorIn;
 		setCreativeTab(CreativeTabs.DECORATIONS);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.UP));
 	}
 
-	public static EnumDyeColor getColorFromItem(Item itemIn) {
+	public static DyeColor getColorFromItem(Item itemIn) {
 
 		return getColorFromBlock(Block.getBlockFromItem(itemIn));
 	}
 
-	public static EnumDyeColor getColorFromBlock(Block blockIn) {
+	public static DyeColor getColorFromBlock(Block blockIn) {
 
-		return blockIn instanceof BlockShulkerBox ? ((BlockShulkerBox) blockIn).getColor() : EnumDyeColor.PURPLE;
+		return blockIn instanceof BlockShulkerBox ? ((BlockShulkerBox) blockIn).getColor() : DyeColor.PURPLE;
 	}
 
-	public static Block getBlockByColor(EnumDyeColor colorIn) {
+	public static Block getBlockByColor(DyeColor colorIn) {
 
 		return switch (colorIn) {
 			case WHITE -> Blocks.WHITE_SHULKER_BOX;
@@ -77,7 +77,7 @@ public class BlockShulkerBox extends BlockContainer {
 		};
 	}
 
-	public static ItemStack getColoredItemStack(EnumDyeColor colorIn) {
+	public static ItemStack getColoredItemStack(DyeColor colorIn) {
 
 		return new ItemStack(getBlockByColor(colorIn));
 	}
@@ -117,15 +117,15 @@ public class BlockShulkerBox extends BlockContainer {
 	 * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
-	public EnumBlockRenderType getRenderType(IBlockState state) {
+	public BlockRenderType getRenderType(IBlockState state) {
 
-		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
+		return BlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
 	/**
 	 * Called when the block is right clicked by a player.
 	 */
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		if (worldIn.isRemote) {
 			return true;
@@ -135,7 +135,7 @@ public class BlockShulkerBox extends BlockContainer {
 			TileEntity tileentity = worldIn.getTileEntity(pos);
 
 			if (tileentity instanceof TileEntityShulkerBox) {
-				EnumFacing enumfacing = state.getValue(FACING);
+				Facing enumfacing = state.getValue(FACING);
 				boolean flag;
 
 				if (((TileEntityShulkerBox) tileentity).getAnimationStatus() == TileEntityShulkerBox.AnimationStatus.CLOSED) {
@@ -161,7 +161,7 @@ public class BlockShulkerBox extends BlockContainer {
 	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 	 * IBlockstate
 	 */
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
 		return getDefaultState().withProperty(FACING, facing);
 	}
@@ -184,7 +184,7 @@ public class BlockShulkerBox extends BlockContainer {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		EnumFacing enumfacing = EnumFacing.getFront(meta);
+		Facing enumfacing = Facing.getFront(meta);
 		return getDefaultState().withProperty(FACING, enumfacing);
 	}
 
@@ -287,9 +287,9 @@ public class BlockShulkerBox extends BlockContainer {
 		}
 	}
 
-	public EnumPushReaction getMobilityFlag(IBlockState state) {
+	public PushReaction getMobilityFlag(IBlockState state) {
 
-		return EnumPushReaction.DESTROY;
+		return PushReaction.DESTROY;
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
@@ -321,7 +321,7 @@ public class BlockShulkerBox extends BlockContainer {
 		return itemstack;
 	}
 
-	public EnumDyeColor getColor() {
+	public DyeColor getColor() {
 
 		return color;
 	}
@@ -353,10 +353,10 @@ public class BlockShulkerBox extends BlockContainer {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
 		state = getActualState(state, worldIn, pos);
-		EnumFacing enumfacing = state.getValue(FACING);
+		Facing enumfacing = state.getValue(FACING);
 		TileEntityShulkerBox.AnimationStatus tileentityshulkerbox$animationstatus = ((TileEntityShulkerBox) worldIn.getTileEntity(pos)).getAnimationStatus();
 		return tileentityshulkerbox$animationstatus != TileEntityShulkerBox.AnimationStatus.CLOSED && (tileentityshulkerbox$animationstatus != TileEntityShulkerBox.AnimationStatus.OPENED || enumfacing != face.getOpposite() && enumfacing != face) ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
 	}

@@ -4,7 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -13,7 +13,7 @@ public class CPacketUseEntity implements Packet<INetHandlerPlayServer> {
 	private int entityId;
 	private CPacketUseEntity.Action action;
 	private Vec3d hitVec;
-	private EnumHand hand;
+	private Hand hand;
 
 	public CPacketUseEntity() {
 
@@ -25,14 +25,14 @@ public class CPacketUseEntity implements Packet<INetHandlerPlayServer> {
 		action = CPacketUseEntity.Action.ATTACK;
 	}
 
-	public CPacketUseEntity(Entity entityIn, EnumHand handIn) {
+	public CPacketUseEntity(Entity entityIn, Hand handIn) {
 
 		entityId = entityIn.getEntityId();
 		action = CPacketUseEntity.Action.INTERACT;
 		hand = handIn;
 	}
 
-	public CPacketUseEntity(Entity entityIn, EnumHand handIn, Vec3d hitVecIn) {
+	public CPacketUseEntity(Entity entityIn, Hand handIn, Vec3d hitVecIn) {
 
 		entityId = entityIn.getEntityId();
 		action = CPacketUseEntity.Action.INTERACT_AT;
@@ -53,7 +53,7 @@ public class CPacketUseEntity implements Packet<INetHandlerPlayServer> {
 		}
 
 		if (action == CPacketUseEntity.Action.INTERACT || action == CPacketUseEntity.Action.INTERACT_AT) {
-			hand = buf.readEnumValue(EnumHand.class);
+			hand = buf.readEnumValue(Hand.class);
 		}
 	}
 
@@ -95,7 +95,7 @@ public class CPacketUseEntity implements Packet<INetHandlerPlayServer> {
 		return action;
 	}
 
-	public EnumHand getHand() {
+	public Hand getHand() {
 
 		return hand;
 	}

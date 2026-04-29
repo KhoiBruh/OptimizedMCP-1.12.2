@@ -26,7 +26,7 @@ public abstract class BlockPurpurSlab extends BlockSlab {
 		IBlockState iblockstate = blockState.getBaseState();
 
 		if (!isDouble()) {
-			iblockstate = iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
+			iblockstate = iblockstate.withProperty(HALF, BlockSlab.BlockHalf.BOTTOM);
 		}
 
 		setDefaultState(iblockstate.withProperty(VARIANT, BlockPurpurSlab.Variant.DEFAULT));
@@ -54,7 +54,7 @@ public abstract class BlockPurpurSlab extends BlockSlab {
 		IBlockState iblockstate = getDefaultState().withProperty(VARIANT, BlockPurpurSlab.Variant.DEFAULT);
 
 		if (!isDouble()) {
-			iblockstate = iblockstate.withProperty(HALF, (meta & 8) == 0 ? BlockSlab.EnumBlockHalf.BOTTOM : BlockSlab.EnumBlockHalf.TOP);
+			iblockstate = iblockstate.withProperty(HALF, (meta & 8) == 0 ? BlockSlab.BlockHalf.BOTTOM : BlockSlab.BlockHalf.TOP);
 		}
 
 		return iblockstate;
@@ -67,7 +67,7 @@ public abstract class BlockPurpurSlab extends BlockSlab {
 
 		int i = 0;
 
-		if (!isDouble() && state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP) {
+		if (!isDouble() && state.getValue(HALF) == BlockSlab.BlockHalf.TOP) {
 			i |= 8;
 		}
 

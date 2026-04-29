@@ -1,6 +1,6 @@
 package net.minecraft.block.material;
 
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 
 public class MapColor {
 
@@ -63,22 +63,22 @@ public class MapColor {
 	public static final MapColor BLACK_STAINED_HARDENED_CLAY = new MapColor(51, 2430480);
 
 	static {
-		BLOCK_COLORS[EnumDyeColor.WHITE.getMetadata()] = SNOW;
-		BLOCK_COLORS[EnumDyeColor.ORANGE.getMetadata()] = ADOBE;
-		BLOCK_COLORS[EnumDyeColor.MAGENTA.getMetadata()] = MAGENTA;
-		BLOCK_COLORS[EnumDyeColor.LIGHT_BLUE.getMetadata()] = LIGHT_BLUE;
-		BLOCK_COLORS[EnumDyeColor.YELLOW.getMetadata()] = YELLOW;
-		BLOCK_COLORS[EnumDyeColor.LIME.getMetadata()] = LIME;
-		BLOCK_COLORS[EnumDyeColor.PINK.getMetadata()] = PINK;
-		BLOCK_COLORS[EnumDyeColor.GRAY.getMetadata()] = GRAY;
-		BLOCK_COLORS[EnumDyeColor.SILVER.getMetadata()] = SILVER;
-		BLOCK_COLORS[EnumDyeColor.CYAN.getMetadata()] = CYAN;
-		BLOCK_COLORS[EnumDyeColor.PURPLE.getMetadata()] = PURPLE;
-		BLOCK_COLORS[EnumDyeColor.BLUE.getMetadata()] = BLUE;
-		BLOCK_COLORS[EnumDyeColor.BROWN.getMetadata()] = BROWN;
-		BLOCK_COLORS[EnumDyeColor.GREEN.getMetadata()] = GREEN;
-		BLOCK_COLORS[EnumDyeColor.RED.getMetadata()] = RED;
-		BLOCK_COLORS[EnumDyeColor.BLACK.getMetadata()] = BLACK;
+		BLOCK_COLORS[DyeColor.WHITE.getMetadata()] = SNOW;
+		BLOCK_COLORS[DyeColor.ORANGE.getMetadata()] = ADOBE;
+		BLOCK_COLORS[DyeColor.MAGENTA.getMetadata()] = MAGENTA;
+		BLOCK_COLORS[DyeColor.LIGHT_BLUE.getMetadata()] = LIGHT_BLUE;
+		BLOCK_COLORS[DyeColor.YELLOW.getMetadata()] = YELLOW;
+		BLOCK_COLORS[DyeColor.LIME.getMetadata()] = LIME;
+		BLOCK_COLORS[DyeColor.PINK.getMetadata()] = PINK;
+		BLOCK_COLORS[DyeColor.GRAY.getMetadata()] = GRAY;
+		BLOCK_COLORS[DyeColor.SILVER.getMetadata()] = SILVER;
+		BLOCK_COLORS[DyeColor.CYAN.getMetadata()] = CYAN;
+		BLOCK_COLORS[DyeColor.PURPLE.getMetadata()] = PURPLE;
+		BLOCK_COLORS[DyeColor.BLUE.getMetadata()] = BLUE;
+		BLOCK_COLORS[DyeColor.BROWN.getMetadata()] = BROWN;
+		BLOCK_COLORS[DyeColor.GREEN.getMetadata()] = GREEN;
+		BLOCK_COLORS[DyeColor.RED.getMetadata()] = RED;
+		BLOCK_COLORS[DyeColor.BLACK.getMetadata()] = BLACK;
 	}
 
 	/**
@@ -101,7 +101,7 @@ public class MapColor {
 		}
 	}
 
-	public static MapColor getBlockColor(EnumDyeColor dyeColorIn) {
+	public static MapColor getBlockColor(DyeColor dyeColorIn) {
 
 		return BLOCK_COLORS[dyeColorIn.getMetadata()];
 	}

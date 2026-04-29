@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.tileentity.TileEntityEndPortal;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.ResourceLocation;
 
 import java.nio.FloatBuffer;
@@ -83,42 +83,42 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
 			float f4 = (RANDOM.nextFloat() * 0.5F + 0.4F) * f1;
 			float f5 = (RANDOM.nextFloat() * 0.5F + 0.5F) * f1;
 
-			if (te.shouldRenderFace(EnumFacing.SOUTH)) {
+			if (te.shouldRenderFace(Facing.SOUTH)) {
 				bufferbuilder.pos(x, y, z + 1D).color(f3, f4, f5, 1F).endVertex();
 				bufferbuilder.pos(x + 1D, y, z + 1D).color(f3, f4, f5, 1F).endVertex();
 				bufferbuilder.pos(x + 1D, y + 1D, z + 1D).color(f3, f4, f5, 1F).endVertex();
 				bufferbuilder.pos(x, y + 1D, z + 1D).color(f3, f4, f5, 1F).endVertex();
 			}
 
-			if (te.shouldRenderFace(EnumFacing.NORTH)) {
+			if (te.shouldRenderFace(Facing.NORTH)) {
 				bufferbuilder.pos(x, y + 1D, z).color(f3, f4, f5, 1F).endVertex();
 				bufferbuilder.pos(x + 1D, y + 1D, z).color(f3, f4, f5, 1F).endVertex();
 				bufferbuilder.pos(x + 1D, y, z).color(f3, f4, f5, 1F).endVertex();
 				bufferbuilder.pos(x, y, z).color(f3, f4, f5, 1F).endVertex();
 			}
 
-			if (te.shouldRenderFace(EnumFacing.EAST)) {
+			if (te.shouldRenderFace(Facing.EAST)) {
 				bufferbuilder.pos(x + 1D, y + 1D, z).color(f3, f4, f5, 1F).endVertex();
 				bufferbuilder.pos(x + 1D, y + 1D, z + 1D).color(f3, f4, f5, 1F).endVertex();
 				bufferbuilder.pos(x + 1D, y, z + 1D).color(f3, f4, f5, 1F).endVertex();
 				bufferbuilder.pos(x + 1D, y, z).color(f3, f4, f5, 1F).endVertex();
 			}
 
-			if (te.shouldRenderFace(EnumFacing.WEST)) {
+			if (te.shouldRenderFace(Facing.WEST)) {
 				bufferbuilder.pos(x, y, z).color(f3, f4, f5, 1F).endVertex();
 				bufferbuilder.pos(x, y, z + 1D).color(f3, f4, f5, 1F).endVertex();
 				bufferbuilder.pos(x, y + 1D, z + 1D).color(f3, f4, f5, 1F).endVertex();
 				bufferbuilder.pos(x, y + 1D, z).color(f3, f4, f5, 1F).endVertex();
 			}
 
-			if (te.shouldRenderFace(EnumFacing.DOWN)) {
+			if (te.shouldRenderFace(Facing.DOWN)) {
 				bufferbuilder.pos(x, y, z).color(f3, f4, f5, 1F).endVertex();
 				bufferbuilder.pos(x + 1D, y, z).color(f3, f4, f5, 1F).endVertex();
 				bufferbuilder.pos(x + 1D, y, z + 1D).color(f3, f4, f5, 1F).endVertex();
 				bufferbuilder.pos(x, y, z + 1D).color(f3, f4, f5, 1F).endVertex();
 			}
 
-			if (te.shouldRenderFace(EnumFacing.UP)) {
+			if (te.shouldRenderFace(Facing.UP)) {
 				bufferbuilder.pos(x, y + (double) f, z + 1D).color(f3, f4, f5, 1F).endVertex();
 				bufferbuilder.pos(x + 1D, y + (double) f, z + 1D).color(f3, f4, f5, 1F).endVertex();
 				bufferbuilder.pos(x + 1D, y + (double) f, z).color(f3, f4, f5, 1F).endVertex();

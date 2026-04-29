@@ -166,14 +166,14 @@ public class TileEntitySkull extends TileEntity implements ITickable {
 
 	public void mirror(Mirror mirrorIn) {
 
-		if (world != null && world.getBlockState(getPos()).getValue(BlockSkull.FACING) == EnumFacing.UP) {
+		if (world != null && world.getBlockState(getPos()).getValue(BlockSkull.FACING) == Facing.UP) {
 			skullRotation = mirrorIn.mirrorRotation(skullRotation, 16);
 		}
 	}
 
 	public void rotate(Rotation rotationIn) {
 
-		if (world != null && world.getBlockState(getPos()).getValue(BlockSkull.FACING) == EnumFacing.UP) {
+		if (world != null && world.getBlockState(getPos()).getValue(BlockSkull.FACING) == Facing.UP) {
 			skullRotation = rotationIn.rotate(skullRotation, 16);
 		}
 	}

@@ -5,8 +5,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.AbstractSkeleton;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.Hand;
+import net.minecraft.util.HandSide;
 import net.minecraft.util.math.MathHelper;
 
 public class ModelSkeleton extends ModelBiped {
@@ -46,10 +46,10 @@ public class ModelSkeleton extends ModelBiped {
 
 		rightArmPose = ModelBiped.ArmPose.EMPTY;
 		leftArmPose = ModelBiped.ArmPose.EMPTY;
-		ItemStack itemstack = entitylivingbaseIn.getHeldItem(EnumHand.MAIN_HAND);
+		ItemStack itemstack = entitylivingbaseIn.getHeldItem(Hand.MAIN_HAND);
 
 		if (itemstack.getItem() == Items.BOW && ((AbstractSkeleton) entitylivingbaseIn).isSwingingArms()) {
-			if (entitylivingbaseIn.getPrimaryHand() == EnumHandSide.RIGHT) {
+			if (entitylivingbaseIn.getPrimaryHand() == HandSide.RIGHT) {
 				rightArmPose = ModelBiped.ArmPose.BOW_AND_ARROW;
 			} else {
 				leftArmPose = ModelBiped.ArmPose.BOW_AND_ARROW;
@@ -88,9 +88,9 @@ public class ModelSkeleton extends ModelBiped {
 		}
 	}
 
-	public void postRenderArm(float scale, EnumHandSide side) {
+	public void postRenderArm(float scale, HandSide side) {
 
-		float f = side == EnumHandSide.RIGHT ? 1F : -1F;
+		float f = side == HandSide.RIGHT ? 1F : -1F;
 		ModelRenderer modelrenderer = getArmForSide(side);
 		modelrenderer.rotationPointX += f;
 		modelrenderer.postRender(scale);

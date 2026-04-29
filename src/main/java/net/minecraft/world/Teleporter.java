@@ -8,7 +8,7 @@ import net.minecraft.block.state.pattern.BlockPattern;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
@@ -118,15 +118,15 @@ public class Teleporter {
 			double d5 = (double) blockpos.getX() + 0.5D;
 			double d7 = (double) blockpos.getZ() + 0.5D;
 			BlockPattern.PatternHelper blockpattern$patternhelper = Blocks.PORTAL.createPatternHelper(world, blockpos);
-			boolean flag1 = blockpattern$patternhelper.getForwards().rotateY().getAxisDirection() == EnumFacing.AxisDirection.NEGATIVE;
-			double d2 = blockpattern$patternhelper.getForwards().getAxis() == EnumFacing.Axis.X ? (double) blockpattern$patternhelper.getFrontTopLeft().getZ() : (double) blockpattern$patternhelper.getFrontTopLeft().getX();
+			boolean flag1 = blockpattern$patternhelper.getForwards().rotateY().getAxisDirection() == Facing.AxisDirection.NEGATIVE;
+			double d2 = blockpattern$patternhelper.getForwards().getAxis() == Facing.Axis.X ? (double) blockpattern$patternhelper.getFrontTopLeft().getZ() : (double) blockpattern$patternhelper.getFrontTopLeft().getX();
 			double d6 = (double) (blockpattern$patternhelper.getFrontTopLeft().getY() + 1) - entityIn.getLastPortalVec().y() * (double) blockpattern$patternhelper.getHeight();
 
 			if (flag1) {
 				++d2;
 			}
 
-			if (blockpattern$patternhelper.getForwards().getAxis() == EnumFacing.Axis.X) {
+			if (blockpattern$patternhelper.getForwards().getAxis() == Facing.Axis.X) {
 				d7 = d2 + (1D - entityIn.getLastPortalVec().x()) * (double) blockpattern$patternhelper.getWidth() * (double) blockpattern$patternhelper.getForwards().rotateY().getAxisDirection().getOffset();
 			} else {
 				d5 = d2 + (1D - entityIn.getLastPortalVec().x()) * (double) blockpattern$patternhelper.getWidth() * (double) blockpattern$patternhelper.getForwards().rotateY().getAxisDirection().getOffset();
@@ -312,7 +312,7 @@ public class Teleporter {
 			}
 		}
 
-		IBlockState iblockstate = Blocks.PORTAL.getDefaultState().withProperty(BlockPortal.AXIS, l6 == 0 ? EnumFacing.Axis.Z : EnumFacing.Axis.X);
+		IBlockState iblockstate = Blocks.PORTAL.getDefaultState().withProperty(BlockPortal.AXIS, l6 == 0 ? Facing.Axis.Z : Facing.Axis.X);
 
 		for (int i8 = 0; i8 < 4; ++i8) {
 			for (int l8 = 0; l8 < 4; ++l8) {

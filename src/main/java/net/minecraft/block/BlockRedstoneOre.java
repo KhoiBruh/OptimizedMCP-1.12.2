@@ -8,9 +8,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -57,7 +57,7 @@ public class BlockRedstoneOre extends Block {
 	/**
 	 * Called when the block is right clicked by a player.
 	 */
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		activate(worldIn, pos);
 		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
@@ -158,7 +158,7 @@ public class BlockRedstoneOre extends Block {
 			}
 
 			if (d1 < (double) pos.getX() || d1 > (double) (pos.getX() + 1) || d2 < 0D || d2 > (double) (pos.getY() + 1) || d3 < (double) pos.getZ() || d3 > (double) (pos.getZ() + 1)) {
-				worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d1, d2, d3, 0D, 0D, 0D);
+				worldIn.spawnParticle(ParticleTypes.REDSTONE, d1, d2, d3, 0D, 0D, 0D);
 			}
 		}
 	}

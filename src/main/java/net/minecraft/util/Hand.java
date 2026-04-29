@@ -1,6 +1,6 @@
 package net.minecraft.util;
 
-public enum EnumHand {
+public enum Hand {
 	MAIN_HAND,
 	OFF_HAND
 }

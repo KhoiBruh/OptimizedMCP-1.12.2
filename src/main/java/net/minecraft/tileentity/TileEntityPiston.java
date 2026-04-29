@@ -4,13 +4,13 @@ import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.BlockPistonExtension;
-import net.minecraft.block.material.EnumPushReaction;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MoverType;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -21,9 +21,9 @@ import java.util.List;
 
 public class TileEntityPiston extends TileEntity implements ITickable {
 
-	private static final ThreadLocal<EnumFacing> MOVING_ENTITY = ThreadLocal.withInitial(() -> null);
+	private static final ThreadLocal<Facing> MOVING_ENTITY = ThreadLocal.withInitial(() -> null);
 	private IBlockState pistonState;
-	private EnumFacing pistonFacing;
+	private Facing pistonFacing;
 	/**
 	 * if this piston is extending or not
 	 */
@@ -40,7 +40,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 
 	}
 
-	public TileEntityPiston(IBlockState pistonStateIn, EnumFacing pistonFacingIn, boolean extendingIn, boolean shouldHeadBeRenderedIn) {
+	public TileEntityPiston(IBlockState pistonStateIn, Facing pistonFacingIn, boolean extendingIn, boolean shouldHeadBeRenderedIn) {
 
 		pistonState = pistonStateIn;
 		pistonFacing = pistonFacingIn;
@@ -48,19 +48,19 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 		shouldHeadBeRendered = shouldHeadBeRenderedIn;
 	}
 
-	private static double getDeltaX(AxisAlignedBB p_190611_0_, EnumFacing facing, AxisAlignedBB p_190611_2_) {
+	private static double getDeltaX(AxisAlignedBB p_190611_0_, Facing facing, AxisAlignedBB p_190611_2_) {
 
-		return facing.getAxisDirection() == EnumFacing.AxisDirection.POSITIVE ? p_190611_0_.maxX - p_190611_2_.minX : p_190611_2_.maxX - p_190611_0_.minX;
+		return facing.getAxisDirection() == Facing.AxisDirection.POSITIVE ? p_190611_0_.maxX - p_190611_2_.minX : p_190611_2_.maxX - p_190611_0_.minX;
 	}
 
-	private static double getDeltaY(AxisAlignedBB p_190608_0_, EnumFacing facing, AxisAlignedBB p_190608_2_) {
+	private static double getDeltaY(AxisAlignedBB p_190608_0_, Facing facing, AxisAlignedBB p_190608_2_) {
 
-		return facing.getAxisDirection() == EnumFacing.AxisDirection.POSITIVE ? p_190608_0_.maxY - p_190608_2_.minY : p_190608_2_.maxY - p_190608_0_.minY;
+		return facing.getAxisDirection() == Facing.AxisDirection.POSITIVE ? p_190608_0_.maxY - p_190608_2_.minY : p_190608_2_.maxY - p_190608_0_.minY;
 	}
 
-	private static double getDeltaZ(AxisAlignedBB p_190604_0_, EnumFacing facing, AxisAlignedBB p_190604_2_) {
+	private static double getDeltaZ(AxisAlignedBB p_190604_0_, Facing facing, AxisAlignedBB p_190604_2_) {
 
-		return facing.getAxisDirection() == EnumFacing.AxisDirection.POSITIVE ? p_190604_0_.maxZ - p_190604_2_.minZ : p_190604_2_.maxZ - p_190604_0_.minZ;
+		return facing.getAxisDirection() == Facing.AxisDirection.POSITIVE ? p_190604_0_.maxZ - p_190604_2_.minZ : p_190604_2_.maxZ - p_190604_0_.minZ;
 	}
 
 	public static void registerFixesPiston(DataFixer fixer) {
@@ -90,7 +90,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 		return extending;
 	}
 
-	public EnumFacing getFacing() {
+	public Facing getFacing() {
 
 		return pistonFacing;
 	}
@@ -147,12 +147,12 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 
 	private IBlockState getCollisionRelatedBlockState() {
 
-		return !isExtending() && shouldPistonHeadBeRendered() ? Blocks.PISTON_HEAD.getDefaultState().withProperty(BlockPistonExtension.TYPE, pistonState.getBlock() == Blocks.STICKY_PISTON ? BlockPistonExtension.EnumPistonType.STICKY : BlockPistonExtension.EnumPistonType.DEFAULT).withProperty(BlockPistonExtension.FACING, pistonState.getValue(BlockPistonBase.FACING)) : pistonState;
+		return !isExtending() && shouldPistonHeadBeRendered() ? Blocks.PISTON_HEAD.getDefaultState().withProperty(BlockPistonExtension.TYPE, pistonState.getBlock() == Blocks.STICKY_PISTON ? BlockPistonExtension.PistonType.STICKY : BlockPistonExtension.PistonType.DEFAULT).withProperty(BlockPistonExtension.FACING, pistonState.getValue(BlockPistonBase.FACING)) : pistonState;
 	}
 
 	private void moveCollidedEntities(float p_184322_1_) {
 
-		EnumFacing enumfacing = extending ? pistonFacing : pistonFacing.getOpposite();
+		Facing enumfacing = extending ? pistonFacing : pistonFacing.getOpposite();
 		double d0 = p_184322_1_ - progress;
 		List<AxisAlignedBB> list = Lists.newArrayList();
 		getCollisionRelatedBlockState().addCollisionBoxToList(world, BlockPos.ORIGIN, new AxisAlignedBB(BlockPos.ORIGIN), list, null, true);
@@ -165,7 +165,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 				boolean flag = pistonState.getBlock() == Blocks.SLIME_BLOCK;
 
 				for (Entity entity : list1) {
-					if (entity.getPushReaction() != EnumPushReaction.IGNORE) {
+					if (entity.getPushReaction() != PushReaction.IGNORE) {
 						if (flag) {
 							switch (enumfacing.getAxis()) {
 								case X:
@@ -233,7 +233,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 		return new AxisAlignedBB(d0, d1, d2, d3, d4, d5);
 	}
 
-	private double getMovement(AxisAlignedBB p_190612_1_, EnumFacing facing, AxisAlignedBB p_190612_3_) {
+	private double getMovement(AxisAlignedBB p_190612_1_, Facing facing, AxisAlignedBB p_190612_3_) {
 
 		return switch (facing.getAxis()) {
 			case X -> getDeltaX(p_190612_1_, facing, p_190612_3_);
@@ -248,7 +248,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 		return p_190607_1_.offset((double) pos.getX() + d0 * (double) pistonFacing.getFrontOffsetX(), (double) pos.getY() + d0 * (double) pistonFacing.getFrontOffsetY(), (double) pos.getZ() + d0 * (double) pistonFacing.getFrontOffsetZ());
 	}
 
-	private AxisAlignedBB getMovementArea(AxisAlignedBB p_190610_1_, EnumFacing p_190610_2_, double p_190610_3_) {
+	private AxisAlignedBB getMovementArea(AxisAlignedBB p_190610_1_, Facing p_190610_2_, double p_190610_3_) {
 
 		double d0 = p_190610_3_ * (double) p_190610_2_.getAxisDirection().getOffset();
 		double d1 = Math.min(d0, 0D);
@@ -270,13 +270,13 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 		};
 	}
 
-	private void fixEntityWithinPistonBase(Entity p_190605_1_, EnumFacing p_190605_2_, double p_190605_3_) {
+	private void fixEntityWithinPistonBase(Entity p_190605_1_, Facing p_190605_2_, double p_190605_3_) {
 
 		AxisAlignedBB axisalignedbb = p_190605_1_.getEntityBoundingBox();
 		AxisAlignedBB axisalignedbb1 = Block.FULL_BLOCK_AABB.offset(pos);
 
 		if (axisalignedbb.intersects(axisalignedbb1)) {
-			EnumFacing enumfacing = p_190605_2_.getOpposite();
+			Facing enumfacing = p_190605_2_.getOpposite();
 			double d0 = getMovement(axisalignedbb1, enumfacing, axisalignedbb) + 0.01D;
 			double d1 = getMovement(axisalignedbb1, enumfacing, axisalignedbb.intersect(axisalignedbb1)) + 0.01D;
 
@@ -337,7 +337,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 
 		super.readFromNBT(compound);
 		pistonState = Block.getBlockById(compound.getInteger("blockId")).getStateFromMeta(compound.getInteger("blockData"));
-		pistonFacing = EnumFacing.getFront(compound.getInteger("facing"));
+		pistonFacing = Facing.getFront(compound.getInteger("facing"));
 		progress = compound.getFloat("progress");
 		lastProgress = progress;
 		extending = compound.getBoolean("extending");
@@ -362,7 +362,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 			pistonState.withProperty(BlockPistonBase.EXTENDED, true).addCollisionBoxToList(p_190609_1_, p_190609_2_, p_190609_3_, p_190609_4_, p_190609_5_, false);
 		}
 
-		EnumFacing enumfacing = MOVING_ENTITY.get();
+		Facing enumfacing = MOVING_ENTITY.get();
 
 		if ((double) progress >= 1D || enumfacing != (extending ? pistonFacing : pistonFacing.getOpposite())) {
 			int i = p_190609_4_.size();

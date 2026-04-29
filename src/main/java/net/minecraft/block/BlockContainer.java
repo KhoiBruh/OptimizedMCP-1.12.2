@@ -11,8 +11,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.BlockRenderType;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldNameable;
 import net.minecraft.world.World;
@@ -30,23 +30,23 @@ public abstract class BlockContainer extends Block implements ITileEntityProvide
 		hasTileEntity = true;
 	}
 
-	protected boolean isInvalidNeighbor(World worldIn, BlockPos pos, EnumFacing facing) {
+	protected boolean isInvalidNeighbor(World worldIn, BlockPos pos, Facing facing) {
 
 		return worldIn.getBlockState(pos.offset(facing)).getMaterial() == Material.CACTUS;
 	}
 
 	protected boolean hasInvalidNeighbor(World worldIn, BlockPos pos) {
 
-		return isInvalidNeighbor(worldIn, pos, EnumFacing.NORTH) || isInvalidNeighbor(worldIn, pos, EnumFacing.SOUTH) || isInvalidNeighbor(worldIn, pos, EnumFacing.WEST) || isInvalidNeighbor(worldIn, pos, EnumFacing.EAST);
+		return isInvalidNeighbor(worldIn, pos, Facing.NORTH) || isInvalidNeighbor(worldIn, pos, Facing.SOUTH) || isInvalidNeighbor(worldIn, pos, Facing.WEST) || isInvalidNeighbor(worldIn, pos, Facing.EAST);
 	}
 
 	/**
 	 * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
-	public EnumBlockRenderType getRenderType(IBlockState state) {
+	public BlockRenderType getRenderType(IBlockState state) {
 
-		return EnumBlockRenderType.INVISIBLE;
+		return BlockRenderType.INVISIBLE;
 	}
 
 	/**

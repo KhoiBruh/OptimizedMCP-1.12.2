@@ -100,16 +100,16 @@ public class NetworkSystem {
 
 											channel.config().setOption(ChannelOption.TCP_NODELAY, true);
 
-											NetworkManager manager = new NetworkManager(EnumPacketDirection.SERVERBOUND);
+											NetworkManager manager = new NetworkManager(PacketDirection.SERVERBOUND);
 											networkManagers.add(manager);
 
 											channel.pipeline()
 													.addLast("timeout", new ReadTimeoutHandler(30))
 													.addLast("legacy_query", new LegacyPingHandler(NetworkSystem.this))
 													.addLast("splitter", new NettyVarint21FrameDecoder())
-													.addLast("decoder", new NettyPacketDecoder(EnumPacketDirection.SERVERBOUND))
+													.addLast("decoder", new NettyPacketDecoder(PacketDirection.SERVERBOUND))
 													.addLast("prepender", new NettyVarint21FrameEncoder())
-													.addLast("encoder", new NettyPacketEncoder(EnumPacketDirection.CLIENTBOUND))
+													.addLast("encoder", new NettyPacketEncoder(PacketDirection.CLIENTBOUND))
 													.addLast("packet_handler", manager);
 
 											manager.setNetHandler(new NetHandlerHandshakeTCP(mcServer, manager));
@@ -137,7 +137,7 @@ public class NetworkSystem {
 					.childHandler(new ChannelInitializer<>() {
 						              protected void initChannel(Channel channel) {
 
-							              NetworkManager manager = new NetworkManager(EnumPacketDirection.SERVERBOUND);
+							              NetworkManager manager = new NetworkManager(PacketDirection.SERVERBOUND);
 							              manager.setNetHandler(new NetHandlerHandshakeMemory(mcServer, manager));
 							              networkManagers.add(manager);
 							              channel.pipeline().addLast("packet_handler", manager);

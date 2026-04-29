@@ -21,7 +21,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.profiler.Profiler;
 import net.minecraft.scoreboard.Scoreboard;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -54,7 +54,7 @@ public class WorldClient extends World {
 	private ChunkProviderClient clientChunkProvider;
 	private int ambienceTicks;
 
-	public WorldClient(NetHandlerPlayClient netHandler, WorldSettings settings, int dimension, EnumDifficulty difficulty, Profiler profilerIn) {
+	public WorldClient(NetHandlerPlayClient netHandler, WorldSettings settings, int dimension, Difficulty difficulty, Profiler profilerIn) {
 
 		super(new SaveHandlerMP(), new WorldInfo(settings, "MpServer"), DimensionType.getById(dimension).createDimension(), profilerIn, true);
 		ambienceTicks = rand.nextInt(12000);
@@ -313,7 +313,7 @@ public class WorldClient extends World {
 			j = j + p_147467_1_;
 			k = k + p_147467_2_;
 
-			if (iblockstate.getMaterial() == Material.AIR && getLight(blockpos) <= rand.nextInt(8) && getLightFor(EnumSkyBlock.SKY, blockpos) <= 0) {
+			if (iblockstate.getMaterial() == Material.AIR && getLight(blockpos) <= rand.nextInt(8) && getLightFor(SkyBlock.SKY, blockpos) <= 0) {
 				double d0 = mc.player.getDistanceSq((double) j + 0.5D, (double) l + 0.5D, (double) k + 0.5D);
 
 				if (mc.player != null && d0 > 4D && d0 < 256D) {
@@ -348,7 +348,7 @@ public class WorldClient extends World {
 		iblockstate.getBlock().randomDisplayTick(iblockstate, this, pos, random);
 
 		if (holdingBarrier && iblockstate.getBlock() == Blocks.BARRIER) {
-			spawnParticle(EnumParticleTypes.BARRIER, (float) i + 0.5F, (float) j + 0.5F, (float) k + 0.5F, 0D, 0D, 0D);
+			spawnParticle(ParticleTypes.BARRIER, (float) i + 0.5F, (float) j + 0.5F, (float) k + 0.5F, 0D, 0D, 0D);
 		}
 	}
 

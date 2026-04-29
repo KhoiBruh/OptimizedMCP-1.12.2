@@ -13,9 +13,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySkull;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -37,10 +37,10 @@ public class ItemSkull extends Item {
 	/**
 	 * Called when a Block is right-clicked with this Item
 	 */
-	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
-		if (facing == EnumFacing.DOWN) {
-			return EnumActionResult.FAIL;
+		if (facing == Facing.DOWN) {
+			return ActionResult.FAIL;
 		} else {
 			IBlockState iblockstate = worldIn.getBlockState(pos);
 			Block block = iblockstate.getBlock();
@@ -48,7 +48,7 @@ public class ItemSkull extends Item {
 
 			if (!flag) {
 				if (!worldIn.getBlockState(pos).getMaterial().isSolid()) {
-					return EnumActionResult.FAIL;
+					return ActionResult.FAIL;
 				}
 
 				pos = pos.offset(facing);
@@ -58,12 +58,12 @@ public class ItemSkull extends Item {
 
 			if (player.canPlayerEdit(pos, facing, itemstack) && Blocks.SKULL.canPlaceBlockAt(worldIn, pos)) {
 				if (worldIn.isRemote) {
-					return EnumActionResult.SUCCESS;
+					return ActionResult.SUCCESS;
 				} else {
 					worldIn.setBlockState(pos, Blocks.SKULL.getDefaultState().withProperty(BlockSkull.FACING, facing), 11);
 					int i = 0;
 
-					if (facing == EnumFacing.UP) {
+					if (facing == Facing.UP) {
 						i = MathHelper.floor((double) (player.rotationYaw * 16F / 360F) + 0.5D) & 15;
 					}
 
@@ -98,10 +98,10 @@ public class ItemSkull extends Item {
 					}
 
 					itemstack.shrink(1);
-					return EnumActionResult.SUCCESS;
+					return ActionResult.SUCCESS;
 				}
 			} else {
-				return EnumActionResult.FAIL;
+				return ActionResult.FAIL;
 			}
 		}
 	}

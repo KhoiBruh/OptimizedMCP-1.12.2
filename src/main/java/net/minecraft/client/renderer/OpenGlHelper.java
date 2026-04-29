@@ -787,7 +787,7 @@ public class OpenGlHelper {
 
 		String s = fileIn.getAbsolutePath();
 
-		if (Util.getOSType() == Util.EnumOS.OSX) {
+		if (Util.getOSType() == Util.OS.OSX) {
 			try {
 				LOGGER.info(s);
 				Runtime.getRuntime().exec(new String[]{"/usr/bin/open", s});
@@ -795,7 +795,7 @@ public class OpenGlHelper {
 			} catch (IOException ioexception1) {
 				LOGGER.error("Couldn't open file", ioexception1);
 			}
-		} else if (Util.getOSType() == Util.EnumOS.WINDOWS) {
+		} else if (Util.getOSType() == Util.OS.WINDOWS) {
 			String s1 = String.format("cmd.exe /C start \"Open file\" \"%s\"", s);
 
 			try {

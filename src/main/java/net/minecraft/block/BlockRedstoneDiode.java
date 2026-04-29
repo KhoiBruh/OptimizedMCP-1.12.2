@@ -7,7 +7,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -82,9 +82,9 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 		}
 	}
 
-	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
-		return side.getAxis() != EnumFacing.Axis.Y;
+		return side.getAxis() != Facing.Axis.Y;
 	}
 
 	protected boolean isPowered(IBlockState state) {
@@ -92,12 +92,12 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 		return isRepeaterPowered;
 	}
 
-	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
 		return blockState.getWeakPower(blockAccess, pos, side);
 	}
 
-	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
 		if (!isPowered(blockState)) {
 			return 0;
@@ -119,7 +119,7 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 			dropBlockAsItem(worldIn, pos, state, 0);
 			worldIn.setBlockToAir(pos);
 
-			for (EnumFacing enumfacing : EnumFacing.values()) {
+			for (Facing enumfacing : Facing.values()) {
 				worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this, false);
 			}
 		}
@@ -156,7 +156,7 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 
 	protected int calculateInputStrength(World worldIn, BlockPos pos, IBlockState state) {
 
-		EnumFacing enumfacing = state.getValue(FACING);
+		Facing enumfacing = state.getValue(FACING);
 		BlockPos blockpos = pos.offset(enumfacing);
 		int i = worldIn.getRedstonePower(blockpos, enumfacing);
 
@@ -170,13 +170,13 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 
 	protected int getPowerOnSides(IBlockAccess worldIn, BlockPos pos, IBlockState state) {
 
-		EnumFacing enumfacing = state.getValue(FACING);
-		EnumFacing enumfacing1 = enumfacing.rotateY();
-		EnumFacing enumfacing2 = enumfacing.rotateYCCW();
+		Facing enumfacing = state.getValue(FACING);
+		Facing enumfacing1 = enumfacing.rotateY();
+		Facing enumfacing2 = enumfacing.rotateYCCW();
 		return Math.max(getPowerOnSide(worldIn, pos.offset(enumfacing1), enumfacing1), getPowerOnSide(worldIn, pos.offset(enumfacing2), enumfacing2));
 	}
 
-	protected int getPowerOnSide(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+	protected int getPowerOnSide(IBlockAccess worldIn, BlockPos pos, Facing side) {
 
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		Block block = iblockstate.getBlock();
@@ -204,7 +204,7 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 	 * IBlockstate
 	 */
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
 		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
 	}
@@ -229,7 +229,7 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 
 	protected void notifyNeighbors(World worldIn, BlockPos pos, IBlockState state) {
 
-		EnumFacing enumfacing = state.getValue(FACING);
+		Facing enumfacing = state.getValue(FACING);
 		BlockPos blockpos = pos.offset(enumfacing.getOpposite());
 		worldIn.neighborChanged(blockpos, this, pos);
 		worldIn.notifyNeighborsOfStateExcept(blockpos, this, enumfacing);
@@ -241,7 +241,7 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 	public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
 
 		if (isRepeaterPowered) {
-			for (EnumFacing enumfacing : EnumFacing.values()) {
+			for (Facing enumfacing : Facing.values()) {
 				worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this, false);
 			}
 		}
@@ -275,7 +275,7 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 
 	public boolean isFacingTowardsRepeater(World worldIn, BlockPos pos, IBlockState state) {
 
-		EnumFacing enumfacing = state.getValue(FACING).getOpposite();
+		Facing enumfacing = state.getValue(FACING).getOpposite();
 		BlockPos blockpos = pos.offset(enumfacing);
 
 		if (isDiode(worldIn.getBlockState(blockpos))) {
@@ -319,9 +319,9 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
-		return face == EnumFacing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
+		return face == Facing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 
 }

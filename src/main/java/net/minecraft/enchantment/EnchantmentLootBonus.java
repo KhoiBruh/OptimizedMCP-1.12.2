@@ -5,13 +5,13 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 
 public class EnchantmentLootBonus extends Enchantment {
 
-	protected EnchantmentLootBonus(Enchantment.Rarity rarityIn, EnumEnchantmentType typeIn, EntityEquipmentSlot... slots) {
+	protected EnchantmentLootBonus(Enchantment.Rarity rarityIn, EnchantmentType typeIn, EntityEquipmentSlot... slots) {
 
 		super(rarityIn, typeIn, slots);
 
-		if (typeIn == EnumEnchantmentType.DIGGER) {
+		if (typeIn == EnchantmentType.DIGGER) {
 			setName("lootBonusDigger");
-		} else if (typeIn == EnumEnchantmentType.FISHING_ROD) {
+		} else if (typeIn == EnchantmentType.FISHING_ROD) {
 			setName("lootBonusFishing");
 		} else {
 			setName("lootBonus");

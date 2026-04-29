@@ -7,9 +7,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
@@ -20,7 +20,7 @@ public class ItemFirework extends Item {
 	/**
 	 * Called when a Block is right-clicked with this Item
 	 */
-	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		if (!worldIn.isRemote) {
 			ItemStack itemstack = player.getHeldItem(hand);
@@ -32,10 +32,10 @@ public class ItemFirework extends Item {
 			}
 		}
 
-		return EnumActionResult.SUCCESS;
+		return ActionResult.SUCCESS;
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
 
 		if (playerIn.isElytraFlying()) {
 			ItemStack itemstack = playerIn.getHeldItem(handIn);
@@ -49,9 +49,9 @@ public class ItemFirework extends Item {
 				}
 			}
 
-			return new ActionResult<>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
+			return new TypedActionResult<>(ActionResult.SUCCESS, playerIn.getHeldItem(handIn));
 		} else {
-			return new ActionResult<>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
+			return new TypedActionResult<>(ActionResult.PASS, playerIn.getHeldItem(handIn));
 		}
 	}
 

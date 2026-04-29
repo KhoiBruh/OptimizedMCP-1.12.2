@@ -3,18 +3,18 @@ package net.minecraft.dispenser;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.world.World;
 
 public class BehaviorDefaultDispenseItem implements IBehaviorDispenseItem {
 
-	public static void doDispense(World worldIn, ItemStack stack, int speed, EnumFacing facing, IPosition position) {
+	public static void doDispense(World worldIn, ItemStack stack, int speed, Facing facing, IPosition position) {
 
 		double d0 = position.x();
 		double d1 = position.y();
 		double d2 = position.z();
 
-		if (facing.getAxis() == EnumFacing.Axis.Y) {
+		if (facing.getAxis() == Facing.Axis.Y) {
 			d1 = d1 - 0.125D;
 		} else {
 			d1 = d1 - 0.15625D;
@@ -47,7 +47,7 @@ public class BehaviorDefaultDispenseItem implements IBehaviorDispenseItem {
 	 */
 	protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
 
-		EnumFacing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
+		Facing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
 		IPosition iposition = BlockDispenser.getDispensePosition(source);
 		ItemStack itemstack = stack.splitStack(1);
 		doDispense(source.getWorld(), itemstack, 6, enumfacing, iposition);
@@ -65,12 +65,12 @@ public class BehaviorDefaultDispenseItem implements IBehaviorDispenseItem {
 	/**
 	 * Order clients to display dispense particles from the specified block and facing.
 	 */
-	protected void spawnDispenseParticles(IBlockSource source, EnumFacing facingIn) {
+	protected void spawnDispenseParticles(IBlockSource source, Facing facingIn) {
 
 		source.getWorld().playEvent(2000, source.getBlockPos(), getWorldEventDataFrom(facingIn));
 	}
 
-	private int getWorldEventDataFrom(EnumFacing facingIn) {
+	private int getWorldEventDataFrom(Facing facingIn) {
 
 		return facingIn.getFrontOffsetX() + 1 + (facingIn.getFrontOffsetZ() + 1) * 3;
 	}

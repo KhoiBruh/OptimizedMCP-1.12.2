@@ -13,7 +13,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -21,7 +21,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
@@ -141,7 +141,7 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
 				}
 
 				for (int l = 0; l < 16; ++l) {
-					world.spawnParticle(EnumParticleTypes.CLOUD, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, 0D, 0D, 0D);
+					world.spawnParticle(ParticleTypes.CLOUD, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, 0D, 0D, 0D);
 				}
 
 				world.playSound(posX, posY, posZ, SoundEvents.ENTITY_ILLAGER_MIRROR_MOVE, getSoundCategory(), 1F, 1F, false);
@@ -173,7 +173,7 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
 
 		if (super.isOnSameTeam(entityIn)) {
 			return true;
-		} else if (entityIn instanceof EntityLivingBase && ((EntityLivingBase) entityIn).getCreatureAttribute() == EnumCreatureAttribute.ILLAGER) {
+		} else if (entityIn instanceof EntityLivingBase && ((EntityLivingBase) entityIn).getCreatureAttribute() == CreatureAttribute.ILLAGER) {
 			return getTeam() == null && entityIn.getTeam() == null;
 		} else {
 			return false;
@@ -258,7 +258,7 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
 			} else if (getAttackTarget().getEntityId() == lastTargetId) {
 				return false;
 			} else {
-				return world.getDifficultyForLocation(new BlockPos(EntityIllusionIllager.this)).isHarderThan((float) EnumDifficulty.NORMAL.ordinal());
+				return world.getDifficultyForLocation(new BlockPos(EntityIllusionIllager.this)).isHarderThan((float) Difficulty.NORMAL.ordinal());
 			}
 		}
 

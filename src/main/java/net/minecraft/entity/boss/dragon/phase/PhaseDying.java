@@ -1,7 +1,7 @@
 package net.minecraft.entity.boss.dragon.phase;
 
 import net.minecraft.entity.boss.EntityDragon;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.gen.feature.WorldGenEndPodium;
@@ -26,7 +26,7 @@ public class PhaseDying extends PhaseBase {
 			float f = (dragon.getRNG().nextFloat() - 0.5F) * 8F;
 			float f1 = (dragon.getRNG().nextFloat() - 0.5F) * 4F;
 			float f2 = (dragon.getRNG().nextFloat() - 0.5F) * 8F;
-			dragon.world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, dragon.posX + (double) f, dragon.posY + 2D + (double) f1, dragon.posZ + (double) f2, 0D, 0D, 0D);
+			dragon.world.spawnParticle(ParticleTypes.EXPLOSION_HUGE, dragon.posX + (double) f, dragon.posY + 2D + (double) f1, dragon.posZ + (double) f2, 0D, 0D, 0D);
 		}
 	}
 

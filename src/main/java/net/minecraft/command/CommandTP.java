@@ -20,26 +20,26 @@ public class CommandTP extends CommandBase {
 	private static void teleportEntityToCoordinates(Entity teleportingEntity, CommandBase.CoordinateArg argX, CommandBase.CoordinateArg argY, CommandBase.CoordinateArg argZ, CommandBase.CoordinateArg argYaw, CommandBase.CoordinateArg argPitch) {
 
 		if (teleportingEntity instanceof EntityPlayerMP) {
-			Set<SPacketPlayerPosLook.EnumFlags> set = EnumSet.noneOf(SPacketPlayerPosLook.EnumFlags.class);
+			Set<SPacketPlayerPosLook.Flags> set = EnumSet.noneOf(SPacketPlayerPosLook.Flags.class);
 
 			if (argX.isRelative()) {
-				set.add(SPacketPlayerPosLook.EnumFlags.X);
+				set.add(SPacketPlayerPosLook.Flags.X);
 			}
 
 			if (argY.isRelative()) {
-				set.add(SPacketPlayerPosLook.EnumFlags.Y);
+				set.add(SPacketPlayerPosLook.Flags.Y);
 			}
 
 			if (argZ.isRelative()) {
-				set.add(SPacketPlayerPosLook.EnumFlags.Z);
+				set.add(SPacketPlayerPosLook.Flags.Z);
 			}
 
 			if (argPitch.isRelative()) {
-				set.add(SPacketPlayerPosLook.EnumFlags.X_ROT);
+				set.add(SPacketPlayerPosLook.Flags.X_ROT);
 			}
 
 			if (argYaw.isRelative()) {
-				set.add(SPacketPlayerPosLook.EnumFlags.Y_ROT);
+				set.add(SPacketPlayerPosLook.Flags.Y_ROT);
 			}
 
 			float f = (float) argYaw.getAmount();

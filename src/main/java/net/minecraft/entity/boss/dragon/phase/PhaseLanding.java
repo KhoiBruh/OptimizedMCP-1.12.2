@@ -1,7 +1,7 @@
 package net.minecraft.entity.boss.dragon.phase;
 
 import net.minecraft.entity.boss.EntityDragon;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.gen.feature.WorldGenEndPodium;
@@ -31,7 +31,7 @@ public class PhaseLanding extends PhaseBase {
 			double d3 = d0 + dragon.getRNG().nextGaussian() / 2D;
 			double d4 = d1 + dragon.getRNG().nextGaussian() / 2D;
 			double d5 = d2 + dragon.getRNG().nextGaussian() / 2D;
-			dragon.world.spawnParticle(EnumParticleTypes.DRAGON_BREATH, d3, d4, d5, -vec3d.x() * 0.07999999821186066D + dragon.motionX, -vec3d.y() * 0.30000001192092896D + dragon.motionY, -vec3d.z() * 0.07999999821186066D + dragon.motionZ);
+			dragon.world.spawnParticle(ParticleTypes.DRAGON_BREATH, d3, d4, d5, -vec3d.x() * 0.07999999821186066D + dragon.motionX, -vec3d.y() * 0.30000001192092896D + dragon.motionY, -vec3d.z() * 0.07999999821186066D + dragon.motionZ);
 			vec3d.rotateYaw(0.19634955F);
 		}
 	}

@@ -6,7 +6,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -264,7 +264,7 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 		}
 	}
 
-	public boolean shouldRenderFace(EnumFacing p_184313_1_) {
+	public boolean shouldRenderFace(Facing p_184313_1_) {
 
 		return getBlockType().getDefaultState().shouldSideBeRendered(world, getPos(), p_184313_1_);
 	}
@@ -273,7 +273,7 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 
 		int i = 0;
 
-		for (EnumFacing enumfacing : EnumFacing.values()) {
+		for (Facing enumfacing : Facing.values()) {
 			i += shouldRenderFace(enumfacing) ? 1 : 0;
 		}
 

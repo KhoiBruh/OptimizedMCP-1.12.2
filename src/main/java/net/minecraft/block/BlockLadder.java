@@ -8,7 +8,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -27,7 +27,7 @@ public class BlockLadder extends Block {
 	protected BlockLadder() {
 
 		super(Material.CIRCUITS);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH));
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
 
@@ -57,7 +57,7 @@ public class BlockLadder extends Block {
 	/**
 	 * Check whether this Block can be placed at pos, while aiming at the specified side of an adjacent block
 	 */
-	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side) {
+	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Facing side) {
 
 		if (canAttachTo(worldIn, pos.west(), side)) {
 			return true;
@@ -70,7 +70,7 @@ public class BlockLadder extends Block {
 		}
 	}
 
-	private boolean canAttachTo(World p_193392_1_, BlockPos p_193392_2_, EnumFacing p_193392_3_) {
+	private boolean canAttachTo(World p_193392_1_, BlockPos p_193392_2_, Facing p_193392_3_) {
 
 		IBlockState iblockstate = p_193392_1_.getBlockState(p_193392_2_);
 		boolean flag = isExceptBlockForAttachWithPiston(iblockstate.getBlock());
@@ -81,12 +81,12 @@ public class BlockLadder extends Block {
 	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 	 * IBlockstate
 	 */
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
 		if (facing.getAxis().isHorizontal() && canAttachTo(worldIn, pos.offset(facing.getOpposite()), facing)) {
 			return getDefaultState().withProperty(FACING, facing);
 		} else {
-			for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+			for (Facing enumfacing : Facing.Plane.HORIZONTAL) {
 				if (canAttachTo(worldIn, pos.offset(enumfacing.getOpposite()), enumfacing)) {
 					return getDefaultState().withProperty(FACING, enumfacing);
 				}
@@ -103,7 +103,7 @@ public class BlockLadder extends Block {
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
 
-		EnumFacing enumfacing = state.getValue(FACING);
+		Facing enumfacing = state.getValue(FACING);
 
 		if (!canAttachTo(worldIn, pos.offset(enumfacing.getOpposite()), enumfacing)) {
 			dropBlockAsItem(worldIn, pos, state, 0);
@@ -127,10 +127,10 @@ public class BlockLadder extends Block {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		EnumFacing enumfacing = EnumFacing.getFront(meta);
+		Facing enumfacing = Facing.getFront(meta);
 
-		if (enumfacing.getAxis() == EnumFacing.Axis.Y) {
-			enumfacing = EnumFacing.NORTH;
+		if (enumfacing.getAxis() == Facing.Axis.Y) {
+			enumfacing = Facing.NORTH;
 		}
 
 		return getDefaultState().withProperty(FACING, enumfacing);
@@ -176,7 +176,7 @@ public class BlockLadder extends Block {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
 		return BlockFaceShape.UNDEFINED;
 	}

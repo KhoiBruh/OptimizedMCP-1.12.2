@@ -6,7 +6,7 @@ import net.minecraft.client.model.ModelShulker;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderShulker;
 import net.minecraft.tileentity.TileEntityShulkerBox;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 
 public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer<TileEntityShulkerBox> {
 
@@ -19,7 +19,7 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer<Tile
 
 	public void render(TileEntityShulkerBox te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 
-		EnumFacing enumfacing = EnumFacing.UP;
+		Facing enumfacing = Facing.UP;
 
 		if (te.hasWorld()) {
 			IBlockState iblockstate = getWorld().getBlockState(te.getPos());

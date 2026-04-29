@@ -6,9 +6,9 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -77,7 +77,7 @@ public class BlockDragonEgg extends Block {
 	/**
 	 * Called when the block is right clicked by a player.
 	 */
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		teleport(worldIn, pos);
 		return true;
@@ -106,7 +106,7 @@ public class BlockDragonEgg extends Block {
 							double d1 = (double) blockpos.getX() + (double) (pos.getX() - blockpos.getX()) * d0 + (worldIn.rand.nextDouble() - 0.5D) + 0.5D;
 							double d2 = (double) blockpos.getY() + (double) (pos.getY() - blockpos.getY()) * d0 + worldIn.rand.nextDouble() - 0.5D;
 							double d3 = (double) blockpos.getZ() + (double) (pos.getZ() - blockpos.getZ()) * d0 + (worldIn.rand.nextDouble() - 0.5D) + 0.5D;
-							worldIn.spawnParticle(EnumParticleTypes.PORTAL, d1, d2, d3, f, f1, f2);
+							worldIn.spawnParticle(ParticleTypes.PORTAL, d1, d2, d3, f, f1, f2);
 						}
 					} else {
 						worldIn.setBlockState(blockpos, iblockstate, 2);
@@ -140,7 +140,7 @@ public class BlockDragonEgg extends Block {
 		return false;
 	}
 
-	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
 		return true;
 	}
@@ -154,7 +154,7 @@ public class BlockDragonEgg extends Block {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
 		return BlockFaceShape.UNDEFINED;
 	}

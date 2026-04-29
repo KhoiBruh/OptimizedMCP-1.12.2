@@ -9,7 +9,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -20,7 +20,7 @@ import java.util.Random;
 
 public abstract class BlockSlab extends Block {
 
-	public static final PropertyEnum<BlockSlab.EnumBlockHalf> HALF = PropertyEnum.create("half", BlockSlab.EnumBlockHalf.class);
+	public static final PropertyEnum<BlockSlab.BlockHalf> HALF = PropertyEnum.create("half", BlockSlab.BlockHalf.class);
 	protected static final AxisAlignedBB AABB_BOTTOM_HALF = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.5D, 1D);
 	protected static final AxisAlignedBB AABB_TOP_HALF = new AxisAlignedBB(0D, 0.5D, 0D, 1D, 1D, 1D);
 
@@ -52,7 +52,7 @@ public abstract class BlockSlab extends Block {
 		if (isDouble()) {
 			return FULL_BLOCK_AABB;
 		} else {
-			return state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP ? AABB_TOP_HALF : AABB_BOTTOM_HALF;
+			return state.getValue(HALF) == BlockSlab.BlockHalf.TOP ? AABB_TOP_HALF : AABB_BOTTOM_HALF;
 		}
 	}
 
@@ -61,7 +61,7 @@ public abstract class BlockSlab extends Block {
 	 */
 	public boolean isTopSolid(IBlockState state) {
 
-		return ((BlockSlab) state.getBlock()).isDouble() || state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP;
+		return ((BlockSlab) state.getBlock()).isDouble() || state.getValue(HALF) == BlockSlab.BlockHalf.TOP;
 	}
 
 	/**
@@ -73,14 +73,14 @@ public abstract class BlockSlab extends Block {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
 		if (((BlockSlab) state.getBlock()).isDouble()) {
 			return BlockFaceShape.SOLID;
-		} else if (face == EnumFacing.UP && state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP) {
+		} else if (face == Facing.UP && state.getValue(HALF) == BlockSlab.BlockHalf.TOP) {
 			return BlockFaceShape.SOLID;
 		} else {
-			return face == EnumFacing.DOWN && state.getValue(HALF) == BlockSlab.EnumBlockHalf.BOTTOM ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
+			return face == Facing.DOWN && state.getValue(HALF) == BlockSlab.BlockHalf.BOTTOM ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 		}
 	}
 
@@ -96,14 +96,14 @@ public abstract class BlockSlab extends Block {
 	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 	 * IBlockstate
 	 */
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
-		IBlockState iblockstate = super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
+		IBlockState iblockstate = super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(HALF, BlockSlab.BlockHalf.BOTTOM);
 
 		if (isDouble()) {
 			return iblockstate;
 		} else {
-			return facing != EnumFacing.DOWN && (facing == EnumFacing.UP || (double) hitY <= 0.5D) ? iblockstate : iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.TOP);
+			return facing != Facing.DOWN && (facing == Facing.UP || (double) hitY <= 0.5D) ? iblockstate : iblockstate.withProperty(HALF, BlockSlab.BlockHalf.TOP);
 		}
 	}
 
@@ -120,28 +120,28 @@ public abstract class BlockSlab extends Block {
 		return isDouble();
 	}
 
-	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
 		if (isDouble()) {
 			return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
-		} else if (side != EnumFacing.UP && side != EnumFacing.DOWN && !super.shouldSideBeRendered(blockState, blockAccess, pos, side)) {
+		} else if (side != Facing.UP && side != Facing.DOWN && !super.shouldSideBeRendered(blockState, blockAccess, pos, side)) {
 			return false;
 		} else {
 			IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
-			boolean flag = isHalfSlab(iblockstate) && iblockstate.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP;
-			boolean flag1 = isHalfSlab(blockState) && blockState.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP;
+			boolean flag = isHalfSlab(iblockstate) && iblockstate.getValue(HALF) == BlockSlab.BlockHalf.TOP;
+			boolean flag1 = isHalfSlab(blockState) && blockState.getValue(HALF) == BlockSlab.BlockHalf.TOP;
 
 			if (flag1) {
-				if (side == EnumFacing.DOWN) {
+				if (side == Facing.DOWN) {
 					return true;
-				} else if (side == EnumFacing.UP && super.shouldSideBeRendered(blockState, blockAccess, pos, side)) {
+				} else if (side == Facing.UP && super.shouldSideBeRendered(blockState, blockAccess, pos, side)) {
 					return true;
 				} else {
 					return !isHalfSlab(iblockstate) || !flag;
 				}
-			} else if (side == EnumFacing.UP) {
+			} else if (side == Facing.UP) {
 				return true;
-			} else if (side == EnumFacing.DOWN && super.shouldSideBeRendered(blockState, blockAccess, pos, side)) {
+			} else if (side == Facing.DOWN && super.shouldSideBeRendered(blockState, blockAccess, pos, side)) {
 				return true;
 			} else {
 				return !isHalfSlab(iblockstate) || flag;
@@ -160,13 +160,13 @@ public abstract class BlockSlab extends Block {
 
 	public abstract Comparable<?> getTypeForItem(ItemStack stack);
 
-	public enum EnumBlockHalf implements IStringSerializable {
+	public enum BlockHalf implements IStringSerializable {
 		TOP("top"),
 		BOTTOM("bottom");
 
 		private final String name;
 
-		EnumBlockHalf(String name) {
+		BlockHalf(String name) {
 
 			this.name = name;
 		}

@@ -48,9 +48,9 @@ public enum Rotation {
 		};
 	}
 
-	public EnumFacing rotate(EnumFacing facing) {
+	public Facing rotate(Facing facing) {
 
-		if (facing.getAxis() == EnumFacing.Axis.Y) {
+		if (facing.getAxis() == Facing.Axis.Y) {
 			return facing;
 		} else {
 			return switch (this) {

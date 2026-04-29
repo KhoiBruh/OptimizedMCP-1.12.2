@@ -4,12 +4,12 @@ import net.minecraft.block.BlockPumpkin;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.*;
 
-public enum EnumEnchantmentType {
+public enum EnchantmentType {
 	ALL {
 		public boolean canEnchantItem(Item itemIn) {
 
-			for (EnumEnchantmentType enumenchantmenttype : EnumEnchantmentType.values()) {
-				if (enumenchantmenttype != EnumEnchantmentType.ALL && enumenchantmenttype.canEnchantItem(itemIn)) {
+			for (EnchantmentType enumenchantmenttype : EnchantmentType.values()) {
+				if (enumenchantmenttype != EnchantmentType.ALL && enumenchantmenttype.canEnchantItem(itemIn)) {
 					return true;
 				}
 			}
@@ -85,7 +85,7 @@ public enum EnumEnchantmentType {
 		}
 	};
 
-	EnumEnchantmentType() {
+	EnchantmentType() {
 
 	}
 

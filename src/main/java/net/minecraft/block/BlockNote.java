@@ -50,7 +50,7 @@ public class BlockNote extends BlockContainer {
 	/**
 	 * Called when the block is right clicked by a player.
 	 */
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		if (worldIn.isRemote) {
 			return true;
@@ -105,7 +105,7 @@ public class BlockNote extends BlockContainer {
 
 		float f = (float) Math.pow(2D, (double) (param - 12) / 12D);
 		worldIn.playSound(null, pos, getInstrument(id), SoundCategory.RECORDS, 3F, f);
-		worldIn.spawnParticle(EnumParticleTypes.NOTE, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.2D, (double) pos.getZ() + 0.5D, (double) param / 24D, 0D, 0D);
+		worldIn.spawnParticle(ParticleTypes.NOTE, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.2D, (double) pos.getZ() + 0.5D, (double) param / 24D, 0D, 0D);
 		return true;
 	}
 
@@ -113,9 +113,9 @@ public class BlockNote extends BlockContainer {
 	 * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
-	public EnumBlockRenderType getRenderType(IBlockState state) {
+	public BlockRenderType getRenderType(IBlockState state) {
 
-		return EnumBlockRenderType.MODEL;
+		return BlockRenderType.MODEL;
 	}
 
 }

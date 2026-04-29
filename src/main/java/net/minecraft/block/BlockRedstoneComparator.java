@@ -34,7 +34,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
 	public BlockRedstoneComparator(boolean powered) {
 
 		super(powered);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, false).withProperty(MODE, BlockRedstoneComparator.Mode.COMPARE));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(POWERED, false).withProperty(MODE, BlockRedstoneComparator.Mode.COMPARE));
 		hasTileEntity = true;
 	}
 
@@ -68,7 +68,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
 
 		Boolean obool = unpoweredState.getValue(POWERED);
 		BlockRedstoneComparator.Mode blockredstonecomparator$mode = unpoweredState.getValue(MODE);
-		EnumFacing enumfacing = unpoweredState.getValue(FACING);
+		Facing enumfacing = unpoweredState.getValue(FACING);
 		return Blocks.POWERED_COMPARATOR.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWERED, obool).withProperty(MODE, blockredstonecomparator$mode);
 	}
 
@@ -76,7 +76,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
 
 		Boolean obool = poweredState.getValue(POWERED);
 		BlockRedstoneComparator.Mode blockredstonecomparator$mode = poweredState.getValue(MODE);
-		EnumFacing enumfacing = poweredState.getValue(FACING);
+		Facing enumfacing = poweredState.getValue(FACING);
 		return Blocks.UNPOWERED_COMPARATOR.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWERED, obool).withProperty(MODE, blockredstonecomparator$mode);
 	}
 
@@ -118,7 +118,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
 	protected int calculateInputStrength(World worldIn, BlockPos pos, IBlockState state) {
 
 		int i = super.calculateInputStrength(worldIn, pos, state);
-		EnumFacing enumfacing = state.getValue(FACING);
+		Facing enumfacing = state.getValue(FACING);
 		BlockPos blockpos = pos.offset(enumfacing);
 		IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
@@ -143,7 +143,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
 	}
 
 	
-	private EntityItemFrame findItemFrame(World worldIn, final EnumFacing facing, BlockPos pos) {
+	private EntityItemFrame findItemFrame(World worldIn, final Facing facing, BlockPos pos) {
 
 		List<EntityItemFrame> list = worldIn.getEntitiesWithinAABB(EntityItemFrame.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1), (Predicate<Entity>) p_apply_1_ -> p_apply_1_ != null && p_apply_1_.getHorizontalFacing() == facing);
 		return list.size() == 1 ? list.getFirst() : null;
@@ -152,7 +152,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
 	/**
 	 * Called when the block is right clicked by a player.
 	 */
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		if (!playerIn.capabilities.allowEdit) {
 			return false;
@@ -261,7 +261,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta)).withProperty(POWERED, (meta & 8) > 0).withProperty(MODE, (meta & 4) > 0 ? BlockRedstoneComparator.Mode.SUBTRACT : BlockRedstoneComparator.Mode.COMPARE);
+		return getDefaultState().withProperty(FACING, Facing.getHorizontal(meta)).withProperty(POWERED, (meta & 8) > 0).withProperty(MODE, (meta & 4) > 0 ? BlockRedstoneComparator.Mode.SUBTRACT : BlockRedstoneComparator.Mode.COMPARE);
 	}
 
 	/**
@@ -310,7 +310,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
 	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 	 * IBlockstate
 	 */
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
 		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite()).withProperty(POWERED, false).withProperty(MODE, BlockRedstoneComparator.Mode.COMPARE);
 	}

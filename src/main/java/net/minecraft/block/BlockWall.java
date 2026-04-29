@@ -9,7 +9,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -26,14 +26,14 @@ public class BlockWall extends Block {
 	public static final PropertyBool EAST = PropertyBool.create("east");
 	public static final PropertyBool SOUTH = PropertyBool.create("south");
 	public static final PropertyBool WEST = PropertyBool.create("west");
-	public static final PropertyEnum<BlockWall.EnumType> VARIANT = PropertyEnum.create("variant", BlockWall.EnumType.class);
+	public static final PropertyEnum<BlockWall.Type> VARIANT = PropertyEnum.create("variant", BlockWall.Type.class);
 	protected static final AxisAlignedBB[] AABB_BY_INDEX = new AxisAlignedBB[]{new AxisAlignedBB(0.25D, 0D, 0.25D, 0.75D, 1D, 0.75D), new AxisAlignedBB(0.25D, 0D, 0.25D, 0.75D, 1D, 1D), new AxisAlignedBB(0D, 0D, 0.25D, 0.75D, 1D, 0.75D), new AxisAlignedBB(0D, 0D, 0.25D, 0.75D, 1D, 1D), new AxisAlignedBB(0.25D, 0D, 0D, 0.75D, 1D, 0.75D), new AxisAlignedBB(0.3125D, 0D, 0D, 0.6875D, 0.875D, 1D), new AxisAlignedBB(0D, 0D, 0D, 0.75D, 1D, 0.75D), new AxisAlignedBB(0D, 0D, 0D, 0.75D, 1D, 1D), new AxisAlignedBB(0.25D, 0D, 0.25D, 1D, 1D, 0.75D), new AxisAlignedBB(0.25D, 0D, 0.25D, 1D, 1D, 1D), new AxisAlignedBB(0D, 0D, 0.3125D, 1D, 0.875D, 0.6875D), new AxisAlignedBB(0D, 0D, 0.25D, 1D, 1D, 1D), new AxisAlignedBB(0.25D, 0D, 0D, 1D, 1D, 0.75D), new AxisAlignedBB(0.25D, 0D, 0D, 1D, 1D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 1D, 0.75D), new AxisAlignedBB(0D, 0D, 0D, 1D, 1D, 1D)};
 	protected static final AxisAlignedBB[] CLIP_AABB_BY_INDEX = new AxisAlignedBB[]{AABB_BY_INDEX[0].setMaxY(1.5D), AABB_BY_INDEX[1].setMaxY(1.5D), AABB_BY_INDEX[2].setMaxY(1.5D), AABB_BY_INDEX[3].setMaxY(1.5D), AABB_BY_INDEX[4].setMaxY(1.5D), AABB_BY_INDEX[5].setMaxY(1.5D), AABB_BY_INDEX[6].setMaxY(1.5D), AABB_BY_INDEX[7].setMaxY(1.5D), AABB_BY_INDEX[8].setMaxY(1.5D), AABB_BY_INDEX[9].setMaxY(1.5D), AABB_BY_INDEX[10].setMaxY(1.5D), AABB_BY_INDEX[11].setMaxY(1.5D), AABB_BY_INDEX[12].setMaxY(1.5D), AABB_BY_INDEX[13].setMaxY(1.5D), AABB_BY_INDEX[14].setMaxY(1.5D), AABB_BY_INDEX[15].setMaxY(1.5D)};
 
 	public BlockWall(Block modelBlock) {
 
 		super(modelBlock.blockMaterial);
-		setDefaultState(blockState.getBaseState().withProperty(UP, false).withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false).withProperty(VARIANT, BlockWall.EnumType.NORMAL));
+		setDefaultState(blockState.getBaseState().withProperty(UP, false).withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false).withProperty(VARIANT, BlockWall.Type.NORMAL));
 		setHardness(modelBlock.blockHardness);
 		setResistance(modelBlock.blockResistance / 3F);
 		setSoundType(modelBlock.blockSoundType);
@@ -45,19 +45,19 @@ public class BlockWall extends Block {
 		int i = 0;
 
 		if (state.getValue(NORTH)) {
-			i |= 1 << EnumFacing.NORTH.getHorizontalIndex();
+			i |= 1 << Facing.NORTH.getHorizontalIndex();
 		}
 
 		if (state.getValue(EAST)) {
-			i |= 1 << EnumFacing.EAST.getHorizontalIndex();
+			i |= 1 << Facing.EAST.getHorizontalIndex();
 		}
 
 		if (state.getValue(SOUTH)) {
-			i |= 1 << EnumFacing.SOUTH.getHorizontalIndex();
+			i |= 1 << Facing.SOUTH.getHorizontalIndex();
 		}
 
 		if (state.getValue(WEST)) {
-			i |= 1 << EnumFacing.WEST.getHorizontalIndex();
+			i |= 1 << Facing.WEST.getHorizontalIndex();
 		}
 
 		return i;
@@ -95,7 +95,7 @@ public class BlockWall extends Block {
 	 */
 	public String getLocalizedName() {
 
-		return I18n.translateToLocal(getUnlocalizedName() + "." + BlockWall.EnumType.NORMAL.getUnlocalizedName() + ".name");
+		return I18n.translateToLocal(getUnlocalizedName() + "." + BlockWall.Type.NORMAL.getUnlocalizedName() + ".name");
 	}
 
 	public boolean isFullCube(IBlockState state) {
@@ -119,7 +119,7 @@ public class BlockWall extends Block {
 		return false;
 	}
 
-	private boolean canConnectTo(IBlockAccess worldIn, BlockPos pos, EnumFacing p_176253_3_) {
+	private boolean canConnectTo(IBlockAccess worldIn, BlockPos pos, Facing p_176253_3_) {
 
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		Block block = iblockstate.getBlock();
@@ -133,7 +133,7 @@ public class BlockWall extends Block {
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
 
-		for (BlockWall.EnumType blockwall$enumtype : BlockWall.EnumType.values()) {
+		for (BlockWall.Type blockwall$enumtype : BlockWall.Type.values()) {
 			items.add(new ItemStack(this, 1, blockwall$enumtype.getMetadata()));
 		}
 	}
@@ -147,9 +147,9 @@ public class BlockWall extends Block {
 		return state.getValue(VARIANT).getMetadata();
 	}
 
-	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
-		return side != EnumFacing.DOWN || super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+		return side != Facing.DOWN || super.shouldSideBeRendered(blockState, blockAccess, pos, side);
 	}
 
 	/**
@@ -157,7 +157,7 @@ public class BlockWall extends Block {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(VARIANT, BlockWall.EnumType.byMetadata(meta));
+		return getDefaultState().withProperty(VARIANT, BlockWall.Type.byMetadata(meta));
 	}
 
 	/**
@@ -174,10 +174,10 @@ public class BlockWall extends Block {
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 
-		boolean flag = canConnectTo(worldIn, pos.north(), EnumFacing.SOUTH);
-		boolean flag1 = canConnectTo(worldIn, pos.east(), EnumFacing.WEST);
-		boolean flag2 = canConnectTo(worldIn, pos.south(), EnumFacing.NORTH);
-		boolean flag3 = canConnectTo(worldIn, pos.west(), EnumFacing.EAST);
+		boolean flag = canConnectTo(worldIn, pos.north(), Facing.SOUTH);
+		boolean flag1 = canConnectTo(worldIn, pos.east(), Facing.WEST);
+		boolean flag2 = canConnectTo(worldIn, pos.south(), Facing.NORTH);
+		boolean flag3 = canConnectTo(worldIn, pos.west(), Facing.EAST);
 		boolean flag4 = flag && !flag1 && flag2 && !flag3 || !flag && flag1 && !flag2 && flag3;
 		return state.withProperty(UP, !flag4 || !worldIn.isAirBlock(pos.up())).withProperty(NORTH, flag).withProperty(EAST, flag1).withProperty(SOUTH, flag2).withProperty(WEST, flag3);
 	}
@@ -196,19 +196,19 @@ public class BlockWall extends Block {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
-		return face != EnumFacing.UP && face != EnumFacing.DOWN ? BlockFaceShape.MIDDLE_POLE_THICK : BlockFaceShape.CENTER_BIG;
+		return face != Facing.UP && face != Facing.DOWN ? BlockFaceShape.MIDDLE_POLE_THICK : BlockFaceShape.CENTER_BIG;
 	}
 
-	public enum EnumType implements IStringSerializable {
+	public enum Type implements IStringSerializable {
 		NORMAL(0, "cobblestone", "normal"),
 		MOSSY(1, "mossy_cobblestone", "mossy");
 
-		private static final BlockWall.EnumType[] META_LOOKUP = new BlockWall.EnumType[values().length];
+		private static final BlockWall.Type[] META_LOOKUP = new BlockWall.Type[values().length];
 
 		static {
-			for (BlockWall.EnumType blockwall$enumtype : values()) {
+			for (BlockWall.Type blockwall$enumtype : values()) {
 				META_LOOKUP[blockwall$enumtype.getMetadata()] = blockwall$enumtype;
 			}
 		}
@@ -217,14 +217,14 @@ public class BlockWall extends Block {
 		private final String name;
 		private final String unlocalizedName;
 
-		EnumType(int meta, String name, String unlocalizedName) {
+		Type(int meta, String name, String unlocalizedName) {
 
 			this.meta = meta;
 			this.name = name;
 			this.unlocalizedName = unlocalizedName;
 		}
 
-		public static BlockWall.EnumType byMetadata(int meta) {
+		public static BlockWall.Type byMetadata(int meta) {
 
 			if (meta < 0 || meta >= META_LOOKUP.length) {
 				meta = 0;

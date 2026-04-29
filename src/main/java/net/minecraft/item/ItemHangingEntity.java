@@ -5,9 +5,9 @@ import net.minecraft.entity.EntityHanging;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.item.EntityPainting;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -24,12 +24,12 @@ public class ItemHangingEntity extends Item {
 	/**
 	 * Called when a Block is right-clicked with this Item
 	 */
-	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		ItemStack itemstack = player.getHeldItem(hand);
 		BlockPos blockpos = pos.offset(facing);
 
-		if (facing != EnumFacing.DOWN && facing != EnumFacing.UP && player.canPlayerEdit(blockpos, facing, itemstack)) {
+		if (facing != Facing.DOWN && facing != Facing.UP && player.canPlayerEdit(blockpos, facing, itemstack)) {
 			EntityHanging entityhanging = createEntity(worldIn, blockpos, facing);
 
 			if (entityhanging != null && entityhanging.onValidSurface()) {
@@ -41,14 +41,14 @@ public class ItemHangingEntity extends Item {
 				itemstack.shrink(1);
 			}
 
-			return EnumActionResult.SUCCESS;
+			return ActionResult.SUCCESS;
 		} else {
-			return EnumActionResult.FAIL;
+			return ActionResult.FAIL;
 		}
 	}
 
 	
-	private EntityHanging createEntity(World worldIn, BlockPos pos, EnumFacing clickedSide) {
+	private EntityHanging createEntity(World worldIn, BlockPos pos, Facing clickedSide) {
 
 		if (hangingEntityClass == EntityPainting.class) {
 			return new EntityPainting(worldIn, pos, clickedSide);

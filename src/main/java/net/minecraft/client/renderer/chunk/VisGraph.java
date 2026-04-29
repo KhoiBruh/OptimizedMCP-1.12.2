@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.chunk;
 
 import com.google.common.collect.Queues;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.IntegerCache;
 import net.minecraft.util.math.BlockPos;
 
@@ -71,14 +71,14 @@ public class VisGraph {
 		return setvisibility;
 	}
 
-	public Set<EnumFacing> getVisibleFacings(BlockPos pos) {
+	public Set<Facing> getVisibleFacings(BlockPos pos) {
 
 		return floodFill(getIndex(pos));
 	}
 
-	private Set<EnumFacing> floodFill(int pos) {
+	private Set<Facing> floodFill(int pos) {
 
-		Set<EnumFacing> set = EnumSet.noneOf(EnumFacing.class);
+		Set<Facing> set = EnumSet.noneOf(Facing.class);
 		Queue<Integer> queue = Queues.newArrayDeque();
 		queue.add(IntegerCache.getInteger(pos));
 		bitSet.set(pos, true);
@@ -87,7 +87,7 @@ public class VisGraph {
 			int i = queue.poll();
 			addEdges(i, set);
 
-			for (EnumFacing enumfacing : EnumFacing.values()) {
+			for (Facing enumfacing : Facing.values()) {
 				int j = getNeighborIndexAtFace(i, enumfacing);
 
 				if (j >= 0 && !bitSet.get(j)) {
@@ -100,34 +100,34 @@ public class VisGraph {
 		return set;
 	}
 
-	private void addEdges(int pos, Set<EnumFacing> p_178610_2_) {
+	private void addEdges(int pos, Set<Facing> p_178610_2_) {
 
 		int i = pos & 15;
 
 		if (i == 0) {
-			p_178610_2_.add(EnumFacing.WEST);
+			p_178610_2_.add(Facing.WEST);
 		} else if (i == 15) {
-			p_178610_2_.add(EnumFacing.EAST);
+			p_178610_2_.add(Facing.EAST);
 		}
 
 		int j = pos >> 8 & 15;
 
 		if (j == 0) {
-			p_178610_2_.add(EnumFacing.DOWN);
+			p_178610_2_.add(Facing.DOWN);
 		} else if (j == 15) {
-			p_178610_2_.add(EnumFacing.UP);
+			p_178610_2_.add(Facing.UP);
 		}
 
 		int k = pos >> 4 & 15;
 
 		if (k == 0) {
-			p_178610_2_.add(EnumFacing.NORTH);
+			p_178610_2_.add(Facing.NORTH);
 		} else if (k == 15) {
-			p_178610_2_.add(EnumFacing.SOUTH);
+			p_178610_2_.add(Facing.SOUTH);
 		}
 	}
 
-	private int getNeighborIndexAtFace(int pos, EnumFacing facing) {
+	private int getNeighborIndexAtFace(int pos, Facing facing) {
 
 		return switch (facing) {
 			case DOWN -> {

@@ -4,8 +4,8 @@ import net.minecraft.block.BlockFence;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -75,7 +75,7 @@ public class EntityLeashKnot extends EntityHanging {
 	/**
 	 * Updates facing and bounding box based on it
 	 */
-	public void updateFacingWithBoundingBox(EnumFacing facingDirectionIn) {
+	public void updateFacingWithBoundingBox(Facing facingDirectionIn) {
 
 	}
 
@@ -134,7 +134,7 @@ public class EntityLeashKnot extends EntityHanging {
 
 	}
 
-	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
+	public boolean processInitialInteract(EntityPlayer player, Hand hand) {
 
 		if (world.isRemote) {
 			return true;

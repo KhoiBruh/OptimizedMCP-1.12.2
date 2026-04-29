@@ -6,7 +6,7 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
@@ -14,12 +14,12 @@ import net.minecraft.world.IBlockAccess;
 
 public class BlockColored extends Block {
 
-	public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.create("color", EnumDyeColor.class);
+	public static final PropertyEnum<DyeColor> COLOR = PropertyEnum.create("color", DyeColor.class);
 
 	public BlockColored(Material materialIn) {
 
 		super(materialIn);
-		setDefaultState(blockState.getBaseState().withProperty(COLOR, EnumDyeColor.WHITE));
+		setDefaultState(blockState.getBaseState().withProperty(COLOR, DyeColor.WHITE));
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 	}
 
@@ -37,7 +37,7 @@ public class BlockColored extends Block {
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
 
-		for (EnumDyeColor enumdyecolor : EnumDyeColor.values()) {
+		for (DyeColor enumdyecolor : DyeColor.values()) {
 			items.add(new ItemStack(this, 1, enumdyecolor.getMetadata()));
 		}
 	}
@@ -55,7 +55,7 @@ public class BlockColored extends Block {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
+		return getDefaultState().withProperty(COLOR, DyeColor.byMetadata(meta));
 	}
 
 	/**

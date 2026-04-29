@@ -198,7 +198,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 			float f12 = (rand.nextFloat() - 0.5F) * 8F;
 			float f13 = (rand.nextFloat() - 0.5F) * 4F;
 			float f15 = (rand.nextFloat() - 0.5F) * 8F;
-			world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, posX + (double) f12, posY + 2D + (double) f13, posZ + (double) f15, 0D, 0D, 0D);
+			world.spawnParticle(ParticleTypes.EXPLOSION_LARGE, posX + (double) f12, posY + 2D + (double) f13, posZ + (double) f15, 0D, 0D, 0D);
 		} else {
 			updateDragonEnderCrystal();
 			float f11 = 0.2F / (MathHelper.sqrt(motionX * motionX + motionZ * motionZ) * 10F + 1F);
@@ -517,7 +517,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 			double d0 = p_70972_1_.minX + (p_70972_1_.maxX - p_70972_1_.minX) * (double) rand.nextFloat();
 			double d1 = p_70972_1_.minY + (p_70972_1_.maxY - p_70972_1_.minY) * (double) rand.nextFloat();
 			double d2 = p_70972_1_.minZ + (p_70972_1_.maxZ - p_70972_1_.minZ) * (double) rand.nextFloat();
-			world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, d0, d1, d2, 0D, 0D, 0D);
+			world.spawnParticle(ParticleTypes.EXPLOSION_LARGE, d0, d1, d2, 0D, 0D, 0D);
 		}
 
 		return flag;
@@ -605,7 +605,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 			float f = (rand.nextFloat() - 0.5F) * 8F;
 			float f1 = (rand.nextFloat() - 0.5F) * 4F;
 			float f2 = (rand.nextFloat() - 0.5F) * 8F;
-			world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, posX + (double) f, posY + 2D + (double) f1, posZ + (double) f2, 0D, 0D, 0D);
+			world.spawnParticle(ParticleTypes.EXPLOSION_HUGE, posX + (double) f, posY + 2D + (double) f1, posZ + (double) f2, 0D, 0D, 0D);
 		}
 
 		boolean flag = world.getGameRules().getBoolean("doMobLoot");

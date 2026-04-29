@@ -147,14 +147,14 @@ public class ItemMonsterPlacer extends Item {
 	/**
 	 * Called when a Block is right-clicked with this Item
 	 */
-	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (worldIn.isRemote) {
-			return EnumActionResult.SUCCESS;
+			return ActionResult.SUCCESS;
 		} else if (!player.canPlayerEdit(pos.offset(facing), facing, itemstack)) {
-			return EnumActionResult.FAIL;
+			return ActionResult.FAIL;
 		} else {
 			IBlockState iblockstate = worldIn.getBlockState(pos);
 			Block block = iblockstate.getBlock();
@@ -172,7 +172,7 @@ public class ItemMonsterPlacer extends Item {
 						itemstack.shrink(1);
 					}
 
-					return EnumActionResult.SUCCESS;
+					return ActionResult.SUCCESS;
 				}
 			}
 
@@ -192,7 +192,7 @@ public class ItemMonsterPlacer extends Item {
 				}
 			}
 
-			return EnumActionResult.SUCCESS;
+			return ActionResult.SUCCESS;
 		}
 	}
 
@@ -214,12 +214,12 @@ public class ItemMonsterPlacer extends Item {
 		}
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
 
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
 		if (worldIn.isRemote) {
-			return new ActionResult<>(EnumActionResult.PASS, itemstack);
+			return new TypedActionResult<>(ActionResult.PASS, itemstack);
 		} else {
 			RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, true);
 
@@ -227,12 +227,12 @@ public class ItemMonsterPlacer extends Item {
 				BlockPos blockpos = raytraceresult.getBlockPos();
 
 				if (!(worldIn.getBlockState(blockpos).getBlock() instanceof BlockLiquid)) {
-					return new ActionResult<>(EnumActionResult.PASS, itemstack);
+					return new TypedActionResult<>(ActionResult.PASS, itemstack);
 				} else if (worldIn.isBlockModifiable(playerIn, blockpos) && playerIn.canPlayerEdit(blockpos, raytraceresult.sideHit, itemstack)) {
 					Entity entity = spawnCreature(worldIn, getNamedIdFrom(itemstack), (double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.5D, (double) blockpos.getZ() + 0.5D);
 
 					if (entity == null) {
-						return new ActionResult<>(EnumActionResult.PASS, itemstack);
+						return new TypedActionResult<>(ActionResult.PASS, itemstack);
 					} else {
 						if (entity instanceof EntityLivingBase && itemstack.hasDisplayName()) {
 							entity.setCustomNameTag(itemstack.getDisplayName());
@@ -245,13 +245,13 @@ public class ItemMonsterPlacer extends Item {
 						}
 
 						playerIn.addStat(StatList.getObjectUseStats(this));
-						return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
+						return new TypedActionResult<>(ActionResult.SUCCESS, itemstack);
 					}
 				} else {
-					return new ActionResult<>(EnumActionResult.FAIL, itemstack);
+					return new TypedActionResult<>(ActionResult.FAIL, itemstack);
 				}
 			} else {
-				return new ActionResult<>(EnumActionResult.PASS, itemstack);
+				return new TypedActionResult<>(ActionResult.PASS, itemstack);
 			}
 		}
 	}

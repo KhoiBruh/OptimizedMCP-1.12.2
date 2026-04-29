@@ -4,7 +4,7 @@ import com.google.common.collect.Maps;
 import java.util.Map;
 import java.util.Set;
 
-public enum EnumParticleTypes {
+public enum ParticleTypes {
 	EXPLOSION_NORMAL("explode", 0, true),
 	EXPLOSION_LARGE("largeexplode", 1, true),
 	EXPLOSION_HUGE("hugeexplosion", 2, true),
@@ -55,11 +55,11 @@ public enum EnumParticleTypes {
 	TOTEM("totem", 47, false),
 	SPIT("spit", 48, true);
 
-	private static final Map<Integer, EnumParticleTypes> PARTICLES = Maps.newHashMap();
-	private static final Map<String, EnumParticleTypes> BY_NAME = Maps.newHashMap();
+	private static final Map<Integer, ParticleTypes> PARTICLES = Maps.newHashMap();
+	private static final Map<String, ParticleTypes> BY_NAME = Maps.newHashMap();
 
 	static {
-		for (EnumParticleTypes enumparticletypes : values()) {
+		for (ParticleTypes enumparticletypes : values()) {
 			PARTICLES.put(enumparticletypes.getParticleID(), enumparticletypes);
 			BY_NAME.put(enumparticletypes.getParticleName(), enumparticletypes);
 		}
@@ -70,7 +70,7 @@ public enum EnumParticleTypes {
 	private final boolean shouldIgnoreRange;
 	private final int argumentCount;
 
-	EnumParticleTypes(String particleNameIn, int particleIDIn, boolean shouldIgnoreRangeIn, int argumentCountIn) {
+	ParticleTypes(String particleNameIn, int particleIDIn, boolean shouldIgnoreRangeIn, int argumentCountIn) {
 
 		particleName = particleNameIn;
 		particleID = particleIDIn;
@@ -78,7 +78,7 @@ public enum EnumParticleTypes {
 		argumentCount = argumentCountIn;
 	}
 
-	EnumParticleTypes(String particleNameIn, int particleIDIn, boolean shouldIgnoreRangeIn) {
+	ParticleTypes(String particleNameIn, int particleIDIn, boolean shouldIgnoreRangeIn) {
 
 		this(particleNameIn, particleIDIn, shouldIgnoreRangeIn, 0);
 	}
@@ -91,15 +91,15 @@ public enum EnumParticleTypes {
 	
 
 	/**
-	 * Gets the relative EnumParticleTypes by id.
+	 * Gets the relative ParticleTypes by id.
 	 */
-	public static EnumParticleTypes getParticleFromId(int particleId) {
+	public static ParticleTypes getParticleFromId(int particleId) {
 
 		return PARTICLES.get(particleId);
 	}
 
 	
-	public static EnumParticleTypes getByName(String nameIn) {
+	public static ParticleTypes getByName(String nameIn) {
 
 		return BY_NAME.get(nameIn);
 	}

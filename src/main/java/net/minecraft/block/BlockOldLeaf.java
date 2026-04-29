@@ -16,23 +16,23 @@ import net.minecraft.world.World;
 
 public class BlockOldLeaf extends BlockLeaves {
 
-	public static final PropertyEnum<BlockPlanks.EnumType> VARIANT = PropertyEnum.create("variant", BlockPlanks.EnumType.class, p_apply_1_ -> p_apply_1_.getMetadata() < 4);
+	public static final PropertyEnum<BlockPlanks.Type> VARIANT = PropertyEnum.create("variant", BlockPlanks.Type.class, p_apply_1_ -> p_apply_1_.getMetadata() < 4);
 
 	public BlockOldLeaf() {
 
-		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockPlanks.EnumType.OAK).withProperty(CHECK_DECAY, true).withProperty(DECAYABLE, true));
+		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockPlanks.Type.OAK).withProperty(CHECK_DECAY, true).withProperty(DECAYABLE, true));
 	}
 
 	protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance) {
 
-		if (state.getValue(VARIANT) == BlockPlanks.EnumType.OAK && worldIn.rand.nextInt(chance) == 0) {
+		if (state.getValue(VARIANT) == BlockPlanks.Type.OAK && worldIn.rand.nextInt(chance) == 0) {
 			spawnAsEntity(worldIn, pos, new ItemStack(Items.APPLE));
 		}
 	}
 
 	protected int getSaplingDropChance(IBlockState state) {
 
-		return state.getValue(VARIANT) == BlockPlanks.EnumType.JUNGLE ? 40 : super.getSaplingDropChance(state);
+		return state.getValue(VARIANT) == BlockPlanks.Type.JUNGLE ? 40 : super.getSaplingDropChance(state);
 	}
 
 	/**
@@ -40,10 +40,10 @@ public class BlockOldLeaf extends BlockLeaves {
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
 
-		items.add(new ItemStack(this, 1, BlockPlanks.EnumType.OAK.getMetadata()));
-		items.add(new ItemStack(this, 1, BlockPlanks.EnumType.SPRUCE.getMetadata()));
-		items.add(new ItemStack(this, 1, BlockPlanks.EnumType.BIRCH.getMetadata()));
-		items.add(new ItemStack(this, 1, BlockPlanks.EnumType.JUNGLE.getMetadata()));
+		items.add(new ItemStack(this, 1, BlockPlanks.Type.OAK.getMetadata()));
+		items.add(new ItemStack(this, 1, BlockPlanks.Type.SPRUCE.getMetadata()));
+		items.add(new ItemStack(this, 1, BlockPlanks.Type.BIRCH.getMetadata()));
+		items.add(new ItemStack(this, 1, BlockPlanks.Type.JUNGLE.getMetadata()));
 	}
 
 	protected ItemStack getSilkTouchDrop(IBlockState state) {
@@ -78,9 +78,9 @@ public class BlockOldLeaf extends BlockLeaves {
 		return i;
 	}
 
-	public BlockPlanks.EnumType getWoodType(int meta) {
+	public BlockPlanks.Type getWoodType(int meta) {
 
-		return BlockPlanks.EnumType.byMetadata((meta & 3) % 4);
+		return BlockPlanks.Type.byMetadata((meta & 3) % 4);
 	}
 
 	protected BlockStateContainer createBlockState() {

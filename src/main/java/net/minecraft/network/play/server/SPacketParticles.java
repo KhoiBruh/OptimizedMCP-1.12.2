@@ -3,11 +3,11 @@ package net.minecraft.network.play.server;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 
 public class SPacketParticles implements Packet<INetHandlerPlayClient> {
 
-	private EnumParticleTypes particleType;
+	private ParticleTypes particleType;
 	private float xCoord;
 	private float yCoord;
 	private float zCoord;
@@ -27,7 +27,7 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient> {
 
 	}
 
-	public SPacketParticles(EnumParticleTypes particleIn, boolean longDistanceIn, float xIn, float yIn, float zIn, float xOffsetIn, float yOffsetIn, float zOffsetIn, float speedIn, int countIn, int... argumentsIn) {
+	public SPacketParticles(ParticleTypes particleIn, boolean longDistanceIn, float xIn, float yIn, float zIn, float xOffsetIn, float yOffsetIn, float zOffsetIn, float speedIn, int countIn, int... argumentsIn) {
 
 		particleType = particleIn;
 		longDistance = longDistanceIn;
@@ -47,10 +47,10 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient> {
 	 */
 	public void readPacketData(PacketBuffer buf) {
 
-		particleType = EnumParticleTypes.getParticleFromId(buf.readInt());
+		particleType = ParticleTypes.getParticleFromId(buf.readInt());
 
 		if (particleType == null) {
-			particleType = EnumParticleTypes.BARRIER;
+			particleType = ParticleTypes.BARRIER;
 		}
 
 		longDistance = buf.readBoolean();
@@ -92,7 +92,7 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient> {
 		}
 	}
 
-	public EnumParticleTypes getParticleType() {
+	public ParticleTypes getParticleType() {
 
 		return particleType;
 	}

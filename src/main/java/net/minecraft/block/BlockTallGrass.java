@@ -22,13 +22,13 @@ import java.util.Random;
 
 public class BlockTallGrass extends BlockBush implements IGrowable {
 
-	public static final PropertyEnum<BlockTallGrass.EnumType> TYPE = PropertyEnum.create("type", BlockTallGrass.EnumType.class);
+	public static final PropertyEnum<BlockTallGrass.Type> TYPE = PropertyEnum.create("type", BlockTallGrass.Type.class);
 	protected static final AxisAlignedBB TALL_GRASS_AABB = new AxisAlignedBB(0.09999999403953552D, 0D, 0.09999999403953552D, 0.8999999761581421D, 0.800000011920929D, 0.8999999761581421D);
 
 	protected BlockTallGrass() {
 
 		super(Material.VINE);
-		setDefaultState(blockState.getBaseState().withProperty(TYPE, BlockTallGrass.EnumType.DEAD_BUSH));
+		setDefaultState(blockState.getBaseState().withProperty(TYPE, BlockTallGrass.Type.DEAD_BUSH));
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
@@ -94,7 +94,7 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 	 */
 	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
 
-		return state.getValue(TYPE) != BlockTallGrass.EnumType.DEAD_BUSH;
+		return state.getValue(TYPE) != BlockTallGrass.Type.DEAD_BUSH;
 	}
 
 	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
@@ -104,10 +104,10 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 
 	public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
 
-		BlockDoublePlant.EnumPlantType blockdoubleplant$enumplanttype = BlockDoublePlant.EnumPlantType.GRASS;
+		BlockDoublePlant.PlantType blockdoubleplant$enumplanttype = BlockDoublePlant.PlantType.GRASS;
 
-		if (state.getValue(TYPE) == BlockTallGrass.EnumType.FERN) {
-			blockdoubleplant$enumplanttype = BlockDoublePlant.EnumPlantType.FERN;
+		if (state.getValue(TYPE) == BlockTallGrass.Type.FERN) {
+			blockdoubleplant$enumplanttype = BlockDoublePlant.PlantType.FERN;
 		}
 
 		if (Blocks.DOUBLE_PLANT.canPlaceBlockAt(worldIn, pos)) {
@@ -120,7 +120,7 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(TYPE, BlockTallGrass.EnumType.byMetadata(meta));
+		return getDefaultState().withProperty(TYPE, BlockTallGrass.Type.byMetadata(meta));
 	}
 
 	/**
@@ -139,20 +139,20 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 	/**
 	 * Get the OffsetType for this Block. Determines if the model is rendered slightly offset.
 	 */
-	public Block.EnumOffsetType getOffsetType() {
+	public Block.OffsetType getOffsetType() {
 
-		return Block.EnumOffsetType.XYZ;
+		return Block.OffsetType.XYZ;
 	}
 
-	public enum EnumType implements IStringSerializable {
+	public enum Type implements IStringSerializable {
 		DEAD_BUSH(0, "dead_bush"),
 		GRASS(1, "tall_grass"),
 		FERN(2, "fern");
 
-		private static final BlockTallGrass.EnumType[] META_LOOKUP = new BlockTallGrass.EnumType[values().length];
+		private static final BlockTallGrass.Type[] META_LOOKUP = new BlockTallGrass.Type[values().length];
 
 		static {
-			for (BlockTallGrass.EnumType blocktallgrass$enumtype : values()) {
+			for (BlockTallGrass.Type blocktallgrass$enumtype : values()) {
 				META_LOOKUP[blocktallgrass$enumtype.getMeta()] = blocktallgrass$enumtype;
 			}
 		}
@@ -160,13 +160,13 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 		private final int meta;
 		private final String name;
 
-		EnumType(int meta, String name) {
+		Type(int meta, String name) {
 
 			this.meta = meta;
 			this.name = name;
 		}
 
-		public static BlockTallGrass.EnumType byMetadata(int meta) {
+		public static BlockTallGrass.Type byMetadata(int meta) {
 
 			if (meta < 0 || meta >= META_LOOKUP.length) {
 				meta = 0;

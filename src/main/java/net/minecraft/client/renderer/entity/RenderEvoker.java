@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.entity.layers.LayerHeldItem;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySpellcasterIllager;
-import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.HandSide;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderEvoker extends RenderLiving<EntityMob> {
@@ -24,7 +24,7 @@ public class RenderEvoker extends RenderLiving<EntityMob> {
 				}
 			}
 
-			protected void translateToHand(EnumHandSide p_191361_1_) {
+			protected void translateToHand(HandSide p_191361_1_) {
 
 				((ModelIllager) livingEntityRenderer.getMainModel()).getArm(p_191361_1_).postRender(0.0625F);
 			}

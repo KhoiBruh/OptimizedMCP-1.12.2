@@ -2,18 +2,18 @@ package net.minecraft.tileentity;
 
 import net.minecraft.block.BlockBed;
 import net.minecraft.init.Items;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 
 public class TileEntityBed extends TileEntity {
 
-	private EnumDyeColor color = EnumDyeColor.RED;
+	private DyeColor color = DyeColor.RED;
 
 	public void setItemValues(ItemStack p_193051_1_) {
 
-		setColor(EnumDyeColor.byMetadata(p_193051_1_.getMetadata()));
+		setColor(DyeColor.byMetadata(p_193051_1_.getMetadata()));
 	}
 
 	public void readFromNBT(NBTTagCompound compound) {
@@ -21,7 +21,7 @@ public class TileEntityBed extends TileEntity {
 		super.readFromNBT(compound);
 
 		if (compound.hasKey("color")) {
-			color = EnumDyeColor.byMetadata(compound.getInteger("color"));
+			color = DyeColor.byMetadata(compound.getInteger("color"));
 		}
 	}
 
@@ -42,12 +42,12 @@ public class TileEntityBed extends TileEntity {
 		return new SPacketUpdateTileEntity(pos, 11, getUpdateTag());
 	}
 
-	public EnumDyeColor getColor() {
+	public DyeColor getColor() {
 
 		return color;
 	}
 
-	public void setColor(EnumDyeColor color) {
+	public void setColor(DyeColor color) {
 
 		this.color = color;
 		markDirty();

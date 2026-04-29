@@ -3,18 +3,18 @@ package net.minecraft.network.play.server;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 
 public class SPacketServerDifficulty implements Packet<INetHandlerPlayClient> {
 
-	private EnumDifficulty difficulty;
+	private Difficulty difficulty;
 	private boolean difficultyLocked;
 
 	public SPacketServerDifficulty() {
 
 	}
 
-	public SPacketServerDifficulty(EnumDifficulty difficultyIn, boolean difficultyLockedIn) {
+	public SPacketServerDifficulty(Difficulty difficultyIn, boolean difficultyLockedIn) {
 
 		difficulty = difficultyIn;
 		difficultyLocked = difficultyLockedIn;
@@ -33,7 +33,7 @@ public class SPacketServerDifficulty implements Packet<INetHandlerPlayClient> {
 	 */
 	public void readPacketData(PacketBuffer buf) {
 
-		difficulty = EnumDifficulty.getDifficultyEnum(buf.readUnsignedByte());
+		difficulty = Difficulty.getDifficultyEnum(buf.readUnsignedByte());
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class SPacketServerDifficulty implements Packet<INetHandlerPlayClient> {
 		return difficultyLocked;
 	}
 
-	public EnumDifficulty getDifficulty() {
+	public Difficulty getDifficulty() {
 
 		return difficulty;
 	}

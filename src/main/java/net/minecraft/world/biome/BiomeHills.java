@@ -15,7 +15,7 @@ import java.util.Random;
 
 public class BiomeHills extends Biome {
 
-	private final WorldGenerator silverfishSpawner = new WorldGenMinable(Blocks.MONSTER_EGG.getDefaultState().withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.STONE), 9);
+	private final WorldGenerator silverfishSpawner = new WorldGenMinable(Blocks.MONSTER_EGG.getDefaultState().withProperty(BlockSilverfish.VARIANT, BlockSilverfish.Type.STONE), 9);
 	private final WorldGenTaiga2 spruceGenerator = new WorldGenTaiga2(false);
 	private final BiomeHills.Type type;
 

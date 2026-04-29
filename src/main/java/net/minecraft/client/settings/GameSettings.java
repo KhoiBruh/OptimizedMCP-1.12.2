@@ -13,15 +13,15 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.tutorial.TutorialSteps;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EnumPlayerModelParts;
+import net.minecraft.entity.player.PlayerModelParts;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.client.CPacketClientSettings;
-import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.HandSide;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.datafix.FixTypes;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
@@ -69,7 +69,7 @@ public class GameSettings {
 	private static final String[] AMBIENT_OCCLUSIONS = new String[]{"options.ao.off", "options.ao.min", "options.ao.max"};
 	private static final String[] CLOUDS_TYPES = new String[]{"options.off", "options.clouds.fast", "options.clouds.fancy"};
 	private static final String[] ATTACK_INDICATORS = new String[]{"options.off", "options.attack.crosshair", "options.attack.hotbar"};
-	private final Set<EnumPlayerModelParts> setModelParts = Sets.newHashSet(EnumPlayerModelParts.values());
+	private final Set<PlayerModelParts> setModelParts = Sets.newHashSet(PlayerModelParts.values());
 	private final Map<SoundCategory, Float> soundLevels = Maps.newEnumMap(SoundCategory.class);
 	public float mouseSensitivity = 0.5F;
 	public boolean invertMouse;
@@ -89,7 +89,7 @@ public class GameSettings {
 	public int ambientOcclusion = 2;
 	public List<String> resourcePacks = Lists.newArrayList();
 	public List<String> incompatibleResourcePacks = Lists.newArrayList();
-	public EntityPlayer.EnumChatVisibility chatVisibility = EntityPlayer.EnumChatVisibility.FULL;
+	public EntityPlayer.ChatVisibility chatVisibility = EntityPlayer.ChatVisibility.FULL;
 	public boolean chatColours = true;
 	public boolean chatLinks = true;
 	public boolean chatLinksPrompt = true;
@@ -109,7 +109,7 @@ public class GameSettings {
 	 */
 	public boolean pauseOnLostFocus = true;
 	public boolean touchscreen;
-	public EnumHandSide mainHand = EnumHandSide.RIGHT;
+	public HandSide mainHand = HandSide.RIGHT;
 	public int overrideWidth;
 	public int overrideHeight;
 	public boolean heldItemTooltips = true;
@@ -151,7 +151,7 @@ public class GameSettings {
 	public KeyBinding keyBindSaveToolbar = new KeyBinding("key.saveToolbarActivator", 46, "key.categories.creative");
 	public KeyBinding keyBindLoadToolbar = new KeyBinding("key.loadToolbarActivator", 45, "key.categories.creative");
 	public KeyBinding[] keyBindings;
-	public EnumDifficulty difficulty;
+	public Difficulty difficulty;
 	public boolean hideGUI;
 	public int thirdPersonView;
 	/**
@@ -192,7 +192,7 @@ public class GameSettings {
 	public GameSettings(Minecraft mcIn, File mcDataDir) {
 
 		keyBindings = ArrayUtils.addAll(new KeyBinding[]{keyBindAttack, keyBindUseItem, keyBindForward, keyBindLeft, keyBindBack, keyBindRight, keyBindJump, keyBindSneak, keyBindSprint, keyBindDrop, keyBindInventory, keyBindChat, keyBindPlayerList, keyBindPickBlock, keyBindCommand, keyBindScreenshot, keyBindTogglePerspective, keyBindSmoothCamera, keyBindFullscreen, keyBindSpectatorOutlines, keyBindSwapHands, keyBindSaveToolbar, keyBindLoadToolbar, keyBindAdvancements}, keyBindsHotbar);
-		difficulty = EnumDifficulty.NORMAL;
+		difficulty = Difficulty.NORMAL;
 		lastServer = "";
 		fovSetting = 70F;
 		language = "en_us";
@@ -205,7 +205,7 @@ public class GameSettings {
 	public GameSettings() {
 
 		keyBindings = ArrayUtils.addAll(new KeyBinding[]{keyBindAttack, keyBindUseItem, keyBindForward, keyBindLeft, keyBindBack, keyBindRight, keyBindJump, keyBindSneak, keyBindSprint, keyBindDrop, keyBindInventory, keyBindChat, keyBindPlayerList, keyBindPickBlock, keyBindCommand, keyBindScreenshot, keyBindTogglePerspective, keyBindSmoothCamera, keyBindFullscreen, keyBindSpectatorOutlines, keyBindSwapHands, keyBindSaveToolbar, keyBindLoadToolbar, keyBindAdvancements}, keyBindsHotbar);
-		difficulty = EnumDifficulty.NORMAL;
+		difficulty = Difficulty.NORMAL;
 		lastServer = "";
 		fovSetting = 70F;
 		language = "en_us";
@@ -386,7 +386,7 @@ public class GameSettings {
 		}
 
 		if (settingsOption == GameSettings.Options.CHAT_VISIBILITY) {
-			chatVisibility = EntityPlayer.EnumChatVisibility.getEnumChatVisibility((chatVisibility.getChatVisibility() + value) % 3);
+			chatVisibility = EntityPlayer.ChatVisibility.getEnumChatVisibility((chatVisibility.getChatVisibility() + value) % 3);
 		}
 
 		if (settingsOption == GameSettings.Options.CHAT_COLOR) {
@@ -673,7 +673,7 @@ public class GameSettings {
 					}
 
 					if ("difficulty".equals(s1)) {
-						difficulty = EnumDifficulty.getDifficultyEnum(Integer.parseInt(s2));
+						difficulty = Difficulty.getDifficultyEnum(Integer.parseInt(s2));
 					}
 
 					if ("fancyGraphics".equals(s1)) {
@@ -739,7 +739,7 @@ public class GameSettings {
 					}
 
 					if ("chatVisibility".equals(s1)) {
-						chatVisibility = EntityPlayer.EnumChatVisibility.getEnumChatVisibility(Integer.parseInt(s2));
+						chatVisibility = EntityPlayer.ChatVisibility.getEnumChatVisibility(Integer.parseInt(s2));
 					}
 
 					if ("chatColors".equals(s1)) {
@@ -839,7 +839,7 @@ public class GameSettings {
 					}
 
 					if ("mainHand".equals(s1)) {
-						mainHand = "left".equals(s2) ? EnumHandSide.LEFT : EnumHandSide.RIGHT;
+						mainHand = "left".equals(s2) ? HandSide.LEFT : HandSide.RIGHT;
 					}
 
 					if ("showSubtitles".equals(s1)) {
@@ -870,7 +870,7 @@ public class GameSettings {
 						}
 					}
 
-					for (EnumPlayerModelParts enumplayermodelparts : EnumPlayerModelParts.values()) {
+					for (PlayerModelParts enumplayermodelparts : PlayerModelParts.values()) {
 						if (s1.equals("modelPart_" + enumplayermodelparts.getPartName())) {
 							setModelPartEnabled(enumplayermodelparts, "true".equals(s2));
 						}
@@ -978,7 +978,7 @@ public class GameSettings {
 			printwriter.println("reducedDebugInfo:" + reducedDebugInfo);
 			printwriter.println("useNativeTransport:" + useNativeTransport);
 			printwriter.println("entityShadows:" + entityShadows);
-			printwriter.println("mainHand:" + (mainHand == EnumHandSide.LEFT ? "left" : "right"));
+			printwriter.println("mainHand:" + (mainHand == HandSide.LEFT ? "left" : "right"));
 			printwriter.println("attackIndicator:" + attackIndicator);
 			printwriter.println("showSubtitles:" + showSubtitles);
 			printwriter.println("enableWeakAttacks:" + enableWeakAttacks);
@@ -994,7 +994,7 @@ public class GameSettings {
 				printwriter.println("soundCategory_" + soundcategory.getName() + ":" + getSoundLevel(soundcategory));
 			}
 
-			for (EnumPlayerModelParts enumplayermodelparts : EnumPlayerModelParts.values()) {
+			for (PlayerModelParts enumplayermodelparts : PlayerModelParts.values()) {
 				printwriter.println("modelPart_" + enumplayermodelparts.getPartName() + ":" + setModelParts.contains(enumplayermodelparts));
 			}
 		} catch (Exception exception) {
@@ -1025,7 +1025,7 @@ public class GameSettings {
 		if (mc.player != null) {
 			int i = 0;
 
-			for (EnumPlayerModelParts enumplayermodelparts : setModelParts) {
+			for (PlayerModelParts enumplayermodelparts : setModelParts) {
 				i |= enumplayermodelparts.getPartMask();
 			}
 
@@ -1033,12 +1033,12 @@ public class GameSettings {
 		}
 	}
 
-	public Set<EnumPlayerModelParts> getModelParts() {
+	public Set<PlayerModelParts> getModelParts() {
 
 		return ImmutableSet.copyOf(setModelParts);
 	}
 
-	public void setModelPartEnabled(EnumPlayerModelParts modelPart, boolean enable) {
+	public void setModelPartEnabled(PlayerModelParts modelPart, boolean enable) {
 
 		if (enable) {
 			setModelParts.add(modelPart);
@@ -1049,7 +1049,7 @@ public class GameSettings {
 		sendSettingsToServer();
 	}
 
-	public void switchModelPartEnabled(EnumPlayerModelParts modelPart) {
+	public void switchModelPartEnabled(PlayerModelParts modelPart) {
 
 		if (getModelParts().contains(modelPart)) {
 			setModelParts.remove(modelPart);

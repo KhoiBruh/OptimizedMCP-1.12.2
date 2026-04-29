@@ -3,7 +3,7 @@ package net.minecraft.client.particle;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -92,7 +92,7 @@ public class ParticleDrip extends Particle {
 		if (onGround) {
 			if (materialType == Material.WATER) {
 				setExpired();
-				world.spawnParticle(EnumParticleTypes.WATER_SPLASH, posX, posY, posZ, 0D, 0D, 0D);
+				world.spawnParticle(ParticleTypes.WATER_SPLASH, posX, posY, posZ, 0D, 0D, 0D);
 			} else {
 				setParticleTextureIndex(114);
 			}

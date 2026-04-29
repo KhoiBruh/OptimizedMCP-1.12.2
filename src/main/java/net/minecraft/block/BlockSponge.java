@@ -8,8 +8,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.Facing;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.Tuple;
 import net.minecraft.util.math.BlockPos;
@@ -87,7 +87,7 @@ public class BlockSponge extends Block {
 			BlockPos blockpos = tuple.getFirst();
 			int j = tuple.getSecond();
 
-			for (EnumFacing enumfacing : EnumFacing.values()) {
+			for (Facing enumfacing : Facing.values()) {
 				BlockPos blockpos1 = blockpos.offset(enumfacing);
 
 				if (worldIn.getBlockState(blockpos1).getMaterial() == Material.WATER) {
@@ -146,24 +146,24 @@ public class BlockSponge extends Block {
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
 
 		if (stateIn.getValue(WET)) {
-			EnumFacing enumfacing = EnumFacing.random(rand);
+			Facing enumfacing = Facing.random(rand);
 
-			if (enumfacing != EnumFacing.UP && !worldIn.getBlockState(pos.offset(enumfacing)).isTopSolid()) {
+			if (enumfacing != Facing.UP && !worldIn.getBlockState(pos.offset(enumfacing)).isTopSolid()) {
 				double d0 = pos.getX();
 				double d1 = pos.getY();
 				double d2 = pos.getZ();
 
-				if (enumfacing == EnumFacing.DOWN) {
+				if (enumfacing == Facing.DOWN) {
 					d1 = d1 - 0.05D;
 					d0 += rand.nextDouble();
 					d2 += rand.nextDouble();
 				} else {
 					d1 = d1 + rand.nextDouble() * 0.8D;
 
-					if (enumfacing.getAxis() == EnumFacing.Axis.X) {
+					if (enumfacing.getAxis() == Facing.Axis.X) {
 						d2 += rand.nextDouble();
 
-						if (enumfacing == EnumFacing.EAST) {
+						if (enumfacing == Facing.EAST) {
 							++d0;
 						} else {
 							d0 += 0.05D;
@@ -171,7 +171,7 @@ public class BlockSponge extends Block {
 					} else {
 						d0 += rand.nextDouble();
 
-						if (enumfacing == EnumFacing.SOUTH) {
+						if (enumfacing == Facing.SOUTH) {
 							++d2;
 						} else {
 							d2 += 0.05D;
@@ -179,7 +179,7 @@ public class BlockSponge extends Block {
 					}
 				}
 
-				worldIn.spawnParticle(EnumParticleTypes.DRIP_WATER, d0, d1, d2, 0D, 0D, 0D);
+				worldIn.spawnParticle(ParticleTypes.DRIP_WATER, d0, d1, d2, 0D, 0D, 0D);
 			}
 		}
 	}

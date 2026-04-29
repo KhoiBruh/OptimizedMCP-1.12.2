@@ -2,7 +2,7 @@ package net.minecraft.world.gen.feature;
 
 import net.minecraft.block.BlockTorch;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -49,7 +49,7 @@ public class WorldGenEndPodium extends WorldGenerator {
 
 		BlockPos blockpos = position.up(2);
 
-		for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+		for (Facing enumfacing : Facing.Plane.HORIZONTAL) {
 			setBlockAndNotifyAdequately(worldIn, blockpos.offset(enumfacing), Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, enumfacing));
 		}
 

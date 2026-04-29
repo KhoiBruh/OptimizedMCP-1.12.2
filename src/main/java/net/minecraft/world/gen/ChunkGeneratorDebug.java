@@ -3,7 +3,7 @@ package net.minecraft.world.gen;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.CreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -108,7 +108,7 @@ public class ChunkGeneratorDebug implements IChunkGenerator {
 		return false;
 	}
 
-	public List<Biome.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
+	public List<Biome.SpawnListEntry> getPossibleCreatures(CreatureType creatureType, BlockPos pos) {
 
 		Biome biome = world.getBiome(pos);
 		return biome.getSpawnableList(creatureType);

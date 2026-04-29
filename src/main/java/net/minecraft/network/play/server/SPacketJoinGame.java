@@ -3,7 +3,7 @@ package net.minecraft.network.play.server;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.GameType;
 import net.minecraft.world.WorldType;
 
@@ -13,7 +13,7 @@ public class SPacketJoinGame implements Packet<INetHandlerPlayClient> {
 	private boolean hardcoreMode;
 	private GameType gameType;
 	private int dimension;
-	private EnumDifficulty difficulty;
+	private Difficulty difficulty;
 	private int maxPlayers;
 	private WorldType worldType;
 	private boolean reducedDebugInfo;
@@ -22,7 +22,7 @@ public class SPacketJoinGame implements Packet<INetHandlerPlayClient> {
 
 	}
 
-	public SPacketJoinGame(int playerIdIn, GameType gameTypeIn, boolean hardcoreModeIn, int dimensionIn, EnumDifficulty difficultyIn, int maxPlayersIn, WorldType worldTypeIn, boolean reducedDebugInfoIn) {
+	public SPacketJoinGame(int playerIdIn, GameType gameTypeIn, boolean hardcoreModeIn, int dimensionIn, Difficulty difficultyIn, int maxPlayersIn, WorldType worldTypeIn, boolean reducedDebugInfoIn) {
 
 		playerId = playerIdIn;
 		dimension = dimensionIn;
@@ -45,7 +45,7 @@ public class SPacketJoinGame implements Packet<INetHandlerPlayClient> {
 		i = i & -9;
 		gameType = GameType.getByID(i);
 		dimension = buf.readInt();
-		difficulty = EnumDifficulty.getDifficultyEnum(buf.readUnsignedByte());
+		difficulty = Difficulty.getDifficultyEnum(buf.readUnsignedByte());
 		maxPlayers = buf.readUnsignedByte();
 		worldType = WorldType.parseWorldType(buf.readString(16));
 
@@ -104,7 +104,7 @@ public class SPacketJoinGame implements Packet<INetHandlerPlayClient> {
 		return dimension;
 	}
 
-	public EnumDifficulty getDifficulty() {
+	public Difficulty getDifficulty() {
 
 		return difficulty;
 	}

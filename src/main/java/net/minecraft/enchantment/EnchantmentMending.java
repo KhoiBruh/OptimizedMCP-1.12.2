@@ -6,7 +6,7 @@ public class EnchantmentMending extends Enchantment {
 
 	public EnchantmentMending(Enchantment.Rarity rarityIn, EntityEquipmentSlot... slots) {
 
-		super(rarityIn, EnumEnchantmentType.BREAKABLE, slots);
+		super(rarityIn, EnchantmentType.BREAKABLE, slots);
 		setName("mending");
 	}
 

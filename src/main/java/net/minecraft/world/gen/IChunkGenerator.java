@@ -1,6 +1,6 @@
 package net.minecraft.world.gen;
 
-import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.CreatureType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -27,7 +27,7 @@ public interface IChunkGenerator {
 	 */
 	boolean generateStructures(Chunk chunkIn, int x, int z);
 
-	List<Biome.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos);
+	List<Biome.SpawnListEntry> getPossibleCreatures(CreatureType creatureType, BlockPos pos);
 
 	
 	BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored);

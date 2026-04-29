@@ -17,7 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntitySkull;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import org.apache.commons.lang3.StringUtils;
 
 public class LayerCustomHead implements LayerRenderer<EntityLivingBase> {
@@ -80,7 +80,7 @@ public class LayerCustomHead implements LayerRenderer<EntityLivingBase> {
 					}
 				}
 
-				TileEntitySkullRenderer.instance.renderSkull(-0.5F, 0F, -0.5F, EnumFacing.UP, 180F, itemstack.getMetadata(), gameprofile, -1, limbSwing);
+				TileEntitySkullRenderer.instance.renderSkull(-0.5F, 0F, -0.5F, Facing.UP, 180F, itemstack.getMetadata(), gameprofile, -1, limbSwing);
 			} else if (!(item instanceof ItemArmor) || ((ItemArmor) item).getEquipmentSlot() != EntityEquipmentSlot.HEAD) {
 				float f3 = 0.625F;
 				GlStateManager.translate(0F, -0.25F, 0F);

@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.item.EntityPainting;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -30,7 +30,7 @@ public class RenderPainting extends Render<EntityPainting> {
 		GlStateManager.rotate(180F - entityYaw, 0F, 1F, 0F);
 		GlStateManager.enableRescaleNormal();
 		bindEntityTexture(entity);
-		EntityPainting.EnumArt entitypainting$enumart = entity.art;
+		EntityPainting.Art entitypainting$enumart = entity.art;
 		float f = 0.0625F;
 		GlStateManager.scale(0.0625F, 0.0625F, 0.0625F);
 
@@ -125,21 +125,21 @@ public class RenderPainting extends Render<EntityPainting> {
 		int i = MathHelper.floor(painting.posX);
 		int j = MathHelper.floor(painting.posY + (double) (p_77008_3_ / 16F));
 		int k = MathHelper.floor(painting.posZ);
-		EnumFacing enumfacing = painting.facingDirection;
+		Facing enumfacing = painting.facingDirection;
 
-		if (enumfacing == EnumFacing.NORTH) {
+		if (enumfacing == Facing.NORTH) {
 			i = MathHelper.floor(painting.posX + (double) (p_77008_2_ / 16F));
 		}
 
-		if (enumfacing == EnumFacing.WEST) {
+		if (enumfacing == Facing.WEST) {
 			k = MathHelper.floor(painting.posZ - (double) (p_77008_2_ / 16F));
 		}
 
-		if (enumfacing == EnumFacing.SOUTH) {
+		if (enumfacing == Facing.SOUTH) {
 			i = MathHelper.floor(painting.posX - (double) (p_77008_2_ / 16F));
 		}
 
-		if (enumfacing == EnumFacing.EAST) {
+		if (enumfacing == Facing.EAST) {
 			k = MathHelper.floor(painting.posZ + (double) (p_77008_2_ / 16F));
 		}
 

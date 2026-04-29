@@ -11,8 +11,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.Facing;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -273,7 +273,7 @@ public class BlockFire extends Block {
 
 	private boolean canNeighborCatchFire(World worldIn, BlockPos pos) {
 
-		for (EnumFacing enumfacing : EnumFacing.values()) {
+		for (Facing enumfacing : Facing.values()) {
 			if (canCatchFire(worldIn, pos.offset(enumfacing))) {
 				return true;
 			}
@@ -289,7 +289,7 @@ public class BlockFire extends Block {
 		} else {
 			int i = 0;
 
-			for (EnumFacing enumfacing : EnumFacing.values()) {
+			for (Facing enumfacing : Facing.values()) {
 				i = Math.max(getEncouragement(worldIn.getBlockState(pos.offset(enumfacing)).getBlock()), i);
 			}
 
@@ -360,7 +360,7 @@ public class BlockFire extends Block {
 					double d3 = (double) pos.getX() + rand.nextDouble() * 0.10000000149011612D;
 					double d8 = (double) pos.getY() + rand.nextDouble();
 					double d13 = (double) pos.getZ() + rand.nextDouble();
-					worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d3, d8, d13, 0D, 0D, 0D);
+					worldIn.spawnParticle(ParticleTypes.SMOKE_LARGE, d3, d8, d13, 0D, 0D, 0D);
 				}
 			}
 
@@ -369,7 +369,7 @@ public class BlockFire extends Block {
 					double d4 = (double) (pos.getX() + 1) - rand.nextDouble() * 0.10000000149011612D;
 					double d9 = (double) pos.getY() + rand.nextDouble();
 					double d14 = (double) pos.getZ() + rand.nextDouble();
-					worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d4, d9, d14, 0D, 0D, 0D);
+					worldIn.spawnParticle(ParticleTypes.SMOKE_LARGE, d4, d9, d14, 0D, 0D, 0D);
 				}
 			}
 
@@ -378,7 +378,7 @@ public class BlockFire extends Block {
 					double d5 = (double) pos.getX() + rand.nextDouble();
 					double d10 = (double) pos.getY() + rand.nextDouble();
 					double d15 = (double) pos.getZ() + rand.nextDouble() * 0.10000000149011612D;
-					worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d5, d10, d15, 0D, 0D, 0D);
+					worldIn.spawnParticle(ParticleTypes.SMOKE_LARGE, d5, d10, d15, 0D, 0D, 0D);
 				}
 			}
 
@@ -387,7 +387,7 @@ public class BlockFire extends Block {
 					double d6 = (double) pos.getX() + rand.nextDouble();
 					double d11 = (double) pos.getY() + rand.nextDouble();
 					double d16 = (double) (pos.getZ() + 1) - rand.nextDouble() * 0.10000000149011612D;
-					worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d6, d11, d16, 0D, 0D, 0D);
+					worldIn.spawnParticle(ParticleTypes.SMOKE_LARGE, d6, d11, d16, 0D, 0D, 0D);
 				}
 			}
 
@@ -396,7 +396,7 @@ public class BlockFire extends Block {
 					double d7 = (double) pos.getX() + rand.nextDouble();
 					double d12 = (double) (pos.getY() + 1) - rand.nextDouble() * 0.10000000149011612D;
 					double d17 = (double) pos.getZ() + rand.nextDouble();
-					worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d7, d12, d17, 0D, 0D, 0D);
+					worldIn.spawnParticle(ParticleTypes.SMOKE_LARGE, d7, d12, d17, 0D, 0D, 0D);
 				}
 			}
 		} else {
@@ -404,7 +404,7 @@ public class BlockFire extends Block {
 				double d0 = (double) pos.getX() + rand.nextDouble();
 				double d1 = (double) pos.getY() + rand.nextDouble() * 0.5D + 0.5D;
 				double d2 = (double) pos.getZ() + rand.nextDouble();
-				worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d0, d1, d2, 0D, 0D, 0D);
+				worldIn.spawnParticle(ParticleTypes.SMOKE_LARGE, d0, d1, d2, 0D, 0D, 0D);
 			}
 		}
 	}
@@ -456,7 +456,7 @@ public class BlockFire extends Block {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
 		return BlockFaceShape.UNDEFINED;
 	}

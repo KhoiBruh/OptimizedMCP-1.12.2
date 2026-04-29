@@ -1,7 +1,7 @@
 package net.minecraft.util.math;
 
 import com.google.common.annotations.VisibleForTesting;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 
 public class AxisAlignedBB {
 
@@ -466,40 +466,40 @@ public class AxisAlignedBB {
 	public RayTraceResult calculateIntercept(Vec3d vecA, Vec3d vecB) {
 
 		Vec3d vec3d = collideWithXPlane(minX, vecA, vecB);
-		EnumFacing enumfacing = EnumFacing.WEST;
+		Facing enumfacing = Facing.WEST;
 		Vec3d vec3d1 = collideWithXPlane(maxX, vecA, vecB);
 
 		if (vec3d1 != null && isClosest(vecA, vec3d, vec3d1)) {
 			vec3d = vec3d1;
-			enumfacing = EnumFacing.EAST;
+			enumfacing = Facing.EAST;
 		}
 
 		vec3d1 = collideWithYPlane(minY, vecA, vecB);
 
 		if (vec3d1 != null && isClosest(vecA, vec3d, vec3d1)) {
 			vec3d = vec3d1;
-			enumfacing = EnumFacing.DOWN;
+			enumfacing = Facing.DOWN;
 		}
 
 		vec3d1 = collideWithYPlane(maxY, vecA, vecB);
 
 		if (vec3d1 != null && isClosest(vecA, vec3d, vec3d1)) {
 			vec3d = vec3d1;
-			enumfacing = EnumFacing.UP;
+			enumfacing = Facing.UP;
 		}
 
 		vec3d1 = collideWithZPlane(minZ, vecA, vecB);
 
 		if (vec3d1 != null && isClosest(vecA, vec3d, vec3d1)) {
 			vec3d = vec3d1;
-			enumfacing = EnumFacing.NORTH;
+			enumfacing = Facing.NORTH;
 		}
 
 		vec3d1 = collideWithZPlane(maxZ, vecA, vecB);
 
 		if (vec3d1 != null && isClosest(vecA, vec3d, vec3d1)) {
 			vec3d = vec3d1;
-			enumfacing = EnumFacing.SOUTH;
+			enumfacing = Facing.SOUTH;
 		}
 
 		return vec3d == null ? null : new RayTraceResult(vec3d, enumfacing);

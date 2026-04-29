@@ -2,22 +2,22 @@ package net.minecraft.client.particle;
 
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.World;
 
 public class ParticleEmitter extends Particle {
 
 	private final Entity attachedEntity;
 	private final int lifetime;
-	private final EnumParticleTypes particleTypes;
+	private final ParticleTypes particleTypes;
 	private int age;
 
-	public ParticleEmitter(World worldIn, Entity p_i46279_2_, EnumParticleTypes particleTypesIn) {
+	public ParticleEmitter(World worldIn, Entity p_i46279_2_, ParticleTypes particleTypesIn) {
 
 		this(worldIn, p_i46279_2_, particleTypesIn, 3);
 	}
 
-	public ParticleEmitter(World p_i47219_1_, Entity p_i47219_2_, EnumParticleTypes p_i47219_3_, int p_i47219_4_) {
+	public ParticleEmitter(World p_i47219_1_, Entity p_i47219_2_, ParticleTypes p_i47219_3_, int p_i47219_4_) {
 
 		super(p_i47219_1_, p_i47219_2_.posX, p_i47219_2_.getEntityBoundingBox().minY + (double) (p_i47219_2_.height / 2F), p_i47219_2_.posZ, p_i47219_2_.motionX, p_i47219_2_.motionY, p_i47219_2_.motionZ);
 		attachedEntity = p_i47219_2_;

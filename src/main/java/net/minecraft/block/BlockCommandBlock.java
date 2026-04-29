@@ -32,10 +32,10 @@ public class BlockCommandBlock extends BlockContainer {
 	public BlockCommandBlock(MapColor color) {
 
 		super(Material.IRON, color);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(CONDITIONAL, false));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(CONDITIONAL, false));
 	}
 
-	private static void executeChain(World p_193386_0_, BlockPos p_193386_1_, EnumFacing p_193386_2_) {
+	private static void executeChain(World p_193386_0_, BlockPos p_193386_1_, Facing p_193386_2_) {
 
 		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(p_193386_1_);
 		GameRules gamerules = p_193386_0_.getGameRules();
@@ -175,7 +175,7 @@ public class BlockCommandBlock extends BlockContainer {
 	/**
 	 * Called when the block is right clicked by a player.
 	 */
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -240,9 +240,9 @@ public class BlockCommandBlock extends BlockContainer {
 	 * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
-	public EnumBlockRenderType getRenderType(IBlockState state) {
+	public BlockRenderType getRenderType(IBlockState state) {
 
-		return EnumBlockRenderType.MODEL;
+		return BlockRenderType.MODEL;
 	}
 
 	/**
@@ -250,7 +250,7 @@ public class BlockCommandBlock extends BlockContainer {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7)).withProperty(CONDITIONAL, (meta & 8) != 0);
+		return getDefaultState().withProperty(FACING, Facing.getFront(meta & 7)).withProperty(CONDITIONAL, (meta & 8) != 0);
 	}
 
 	/**
@@ -288,9 +288,9 @@ public class BlockCommandBlock extends BlockContainer {
 	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 	 * IBlockstate
 	 */
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
-		return getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer)).withProperty(CONDITIONAL, false);
+		return getDefaultState().withProperty(FACING, Facing.getDirectionFromEntityLiving(pos, placer)).withProperty(CONDITIONAL, false);
 	}
 
 }

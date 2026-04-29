@@ -7,8 +7,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.Facing;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -71,7 +71,7 @@ public class BlockRedstoneTorch extends BlockTorch {
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
 
 		if (isOn) {
-			for (EnumFacing enumfacing : EnumFacing.values()) {
+			for (Facing enumfacing : Facing.values()) {
 				worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this, false);
 			}
 		}
@@ -83,20 +83,20 @@ public class BlockRedstoneTorch extends BlockTorch {
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
 
 		if (isOn) {
-			for (EnumFacing enumfacing : EnumFacing.values()) {
+			for (Facing enumfacing : Facing.values()) {
 				worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this, false);
 			}
 		}
 	}
 
-	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
 		return isOn && blockState.getValue(FACING) != side ? 15 : 0;
 	}
 
 	private boolean shouldBeOff(World worldIn, BlockPos pos, IBlockState state) {
 
-		EnumFacing enumfacing = state.getValue(FACING).getOpposite();
+		Facing enumfacing = state.getValue(FACING).getOpposite();
 		return worldIn.isSidePowered(pos.offset(enumfacing), enumfacing);
 	}
 
@@ -127,7 +127,7 @@ public class BlockRedstoneTorch extends BlockTorch {
 						double d0 = (double) pos.getX() + rand.nextDouble() * 0.6D + 0.2D;
 						double d1 = (double) pos.getY() + rand.nextDouble() * 0.6D + 0.2D;
 						double d2 = (double) pos.getZ() + rand.nextDouble() * 0.6D + 0.2D;
-						worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0D, 0D, 0D);
+						worldIn.spawnParticle(ParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0D, 0D, 0D);
 					}
 
 					worldIn.scheduleUpdate(pos, worldIn.getBlockState(pos).getBlock(), 160);
@@ -152,9 +152,9 @@ public class BlockRedstoneTorch extends BlockTorch {
 		}
 	}
 
-	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
-		return side == EnumFacing.DOWN ? blockState.getWeakPower(blockAccess, pos, side) : 0;
+		return side == Facing.DOWN ? blockState.getWeakPower(blockAccess, pos, side) : 0;
 	}
 
 	/**
@@ -179,17 +179,17 @@ public class BlockRedstoneTorch extends BlockTorch {
 			double d0 = (double) pos.getX() + 0.5D + (rand.nextDouble() - 0.5D) * 0.2D;
 			double d1 = (double) pos.getY() + 0.7D + (rand.nextDouble() - 0.5D) * 0.2D;
 			double d2 = (double) pos.getZ() + 0.5D + (rand.nextDouble() - 0.5D) * 0.2D;
-			EnumFacing enumfacing = stateIn.getValue(FACING);
+			Facing enumfacing = stateIn.getValue(FACING);
 
 			if (enumfacing.getAxis().isHorizontal()) {
-				EnumFacing enumfacing1 = enumfacing.getOpposite();
+				Facing enumfacing1 = enumfacing.getOpposite();
 				double d3 = 0.27D;
 				d0 += 0.27D * (double) enumfacing1.getFrontOffsetX();
 				d1 += 0.22D;
 				d2 += 0.27D * (double) enumfacing1.getFrontOffsetZ();
 			}
 
-			worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0, d1, d2, 0D, 0D, 0D);
+			worldIn.spawnParticle(ParticleTypes.REDSTONE, d0, d1, d2, 0D, 0D, 0D);
 		}
 	}
 

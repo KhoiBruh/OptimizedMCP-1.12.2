@@ -4,12 +4,12 @@ import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
@@ -80,12 +80,12 @@ public class ComponentScatteredFeaturePieces {
 				}
 			}
 
-			IBlockState iblockstate1 = Blocks.SANDSTONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH);
-			IBlockState iblockstate2 = Blocks.SANDSTONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.SOUTH);
-			IBlockState iblockstate3 = Blocks.SANDSTONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.EAST);
-			IBlockState iblockstate = Blocks.SANDSTONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.WEST);
-			int l = ~EnumDyeColor.ORANGE.getDyeDamage() & 15;
-			int i1 = ~EnumDyeColor.BLUE.getDyeDamage() & 15;
+			IBlockState iblockstate1 = Blocks.SANDSTONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH);
+			IBlockState iblockstate2 = Blocks.SANDSTONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.SOUTH);
+			IBlockState iblockstate3 = Blocks.SANDSTONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.EAST);
+			IBlockState iblockstate = Blocks.SANDSTONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.WEST);
+			int l = ~DyeColor.ORANGE.getDyeDamage() & 15;
+			int i1 = ~DyeColor.BLUE.getDyeDamage() & 15;
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 0, 0, 4, 9, 4, Blocks.SANDSTONE.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 10, 1, 3, 10, 3, Blocks.SANDSTONE.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), false);
 			setBlockState(worldIn, iblockstate1, 2, 10, 0, structureBoundingBoxIn);
@@ -100,29 +100,29 @@ public class ComponentScatteredFeaturePieces {
 			setBlockState(worldIn, iblockstate, width - 1, 10, 2, structureBoundingBoxIn);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 8, 0, 0, 12, 4, 4, Blocks.SANDSTONE.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 9, 1, 0, 11, 3, 4, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
-			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), 9, 1, 1, structureBoundingBoxIn);
-			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), 9, 2, 1, structureBoundingBoxIn);
-			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), 9, 3, 1, structureBoundingBoxIn);
-			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), 10, 3, 1, structureBoundingBoxIn);
-			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), 11, 3, 1, structureBoundingBoxIn);
-			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), 11, 2, 1, structureBoundingBoxIn);
-			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), 11, 1, 1, structureBoundingBoxIn);
+			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), 9, 1, 1, structureBoundingBoxIn);
+			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), 9, 2, 1, structureBoundingBoxIn);
+			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), 9, 3, 1, structureBoundingBoxIn);
+			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), 10, 3, 1, structureBoundingBoxIn);
+			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), 11, 3, 1, structureBoundingBoxIn);
+			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), 11, 2, 1, structureBoundingBoxIn);
+			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), 11, 1, 1, structureBoundingBoxIn);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 4, 1, 1, 8, 3, 3, Blocks.SANDSTONE.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 4, 1, 2, 8, 2, 2, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 12, 1, 1, 16, 3, 3, Blocks.SANDSTONE.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 12, 1, 2, 16, 2, 2, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 5, 4, 5, width - 6, 4, depth - 6, Blocks.SANDSTONE.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 9, 4, 9, 11, 4, 11, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
-			fillWithBlocks(worldIn, structureBoundingBoxIn, 8, 1, 8, 8, 3, 8, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), false);
-			fillWithBlocks(worldIn, structureBoundingBoxIn, 12, 1, 8, 12, 3, 8, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), false);
-			fillWithBlocks(worldIn, structureBoundingBoxIn, 8, 1, 12, 8, 3, 12, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), false);
-			fillWithBlocks(worldIn, structureBoundingBoxIn, 12, 1, 12, 12, 3, 12, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), false);
+			fillWithBlocks(worldIn, structureBoundingBoxIn, 8, 1, 8, 8, 3, 8, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), false);
+			fillWithBlocks(worldIn, structureBoundingBoxIn, 12, 1, 8, 12, 3, 8, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), false);
+			fillWithBlocks(worldIn, structureBoundingBoxIn, 8, 1, 12, 8, 3, 12, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), false);
+			fillWithBlocks(worldIn, structureBoundingBoxIn, 12, 1, 12, 12, 3, 12, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 1, 5, 4, 4, 11, Blocks.SANDSTONE.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, width - 5, 1, 5, width - 2, 4, 11, Blocks.SANDSTONE.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 6, 7, 9, 6, 7, 11, Blocks.SANDSTONE.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, width - 7, 7, 9, width - 7, 7, 11, Blocks.SANDSTONE.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), false);
-			fillWithBlocks(worldIn, structureBoundingBoxIn, 5, 5, 9, 5, 7, 11, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), false);
-			fillWithBlocks(worldIn, structureBoundingBoxIn, width - 6, 5, 9, width - 6, 7, 11, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), false);
+			fillWithBlocks(worldIn, structureBoundingBoxIn, 5, 5, 9, 5, 7, 11, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), false);
+			fillWithBlocks(worldIn, structureBoundingBoxIn, width - 6, 5, 9, width - 6, 7, 11, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), false);
 			setBlockState(worldIn, Blocks.AIR.getDefaultState(), 5, 5, 10, structureBoundingBoxIn);
 			setBlockState(worldIn, Blocks.AIR.getDefaultState(), 5, 6, 10, structureBoundingBoxIn);
 			setBlockState(worldIn, Blocks.AIR.getDefaultState(), 6, 6, 10, structureBoundingBoxIn);
@@ -139,8 +139,8 @@ public class ComponentScatteredFeaturePieces {
 			fillWithBlocks(worldIn, structureBoundingBoxIn, width - 3, 1, 3, width - 2, 2, 3, Blocks.SANDSTONE.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), false);
 			setBlockState(worldIn, Blocks.SANDSTONE.getDefaultState(), 1, 1, 2, structureBoundingBoxIn);
 			setBlockState(worldIn, Blocks.SANDSTONE.getDefaultState(), width - 2, 1, 2, structureBoundingBoxIn);
-			setBlockState(worldIn, Blocks.STONE_SLAB.getStateFromMeta(BlockStoneSlab.EnumType.SAND.getMetadata()), 1, 2, 2, structureBoundingBoxIn);
-			setBlockState(worldIn, Blocks.STONE_SLAB.getStateFromMeta(BlockStoneSlab.EnumType.SAND.getMetadata()), width - 2, 2, 2, structureBoundingBoxIn);
+			setBlockState(worldIn, Blocks.STONE_SLAB.getStateFromMeta(BlockStoneSlab.Type.SAND.getMetadata()), 1, 2, 2, structureBoundingBoxIn);
+			setBlockState(worldIn, Blocks.STONE_SLAB.getStateFromMeta(BlockStoneSlab.Type.SAND.getMetadata()), width - 2, 2, 2, structureBoundingBoxIn);
 			setBlockState(worldIn, iblockstate, 2, 1, 2, structureBoundingBoxIn);
 			setBlockState(worldIn, iblockstate3, width - 3, 1, 2, structureBoundingBoxIn);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 4, 3, 5, 4, 3, 18, Blocks.SANDSTONE.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), false);
@@ -149,10 +149,10 @@ public class ComponentScatteredFeaturePieces {
 			fillWithBlocks(worldIn, structureBoundingBoxIn, width - 6, 1, 5, width - 5, 2, 16, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 
 			for (int j1 = 5; j1 <= 17; j1 += 2) {
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), 4, 1, j1, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.CHISELED.getMetadata()), 4, 2, j1, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), width - 5, 1, j1, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.CHISELED.getMetadata()), width - 5, 2, j1, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), 4, 1, j1, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.CHISELED.getMetadata()), 4, 2, j1, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), width - 5, 1, j1, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.CHISELED.getMetadata()), width - 5, 2, j1, structureBoundingBoxIn);
 			}
 
 			setBlockState(worldIn, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(l), 10, 0, 7, structureBoundingBoxIn);
@@ -170,84 +170,84 @@ public class ComponentScatteredFeaturePieces {
 			setBlockState(worldIn, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(i1), 10, 0, 10, structureBoundingBoxIn);
 
 			for (int j2 = 0; j2 <= width - 1; j2 += width - 1) {
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), j2, 2, 1, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), j2, 2, 1, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(l), j2, 2, 2, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), j2, 2, 3, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), j2, 3, 1, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), j2, 2, 3, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), j2, 3, 1, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(l), j2, 3, 2, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), j2, 3, 3, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), j2, 3, 3, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(l), j2, 4, 1, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.CHISELED.getMetadata()), j2, 4, 2, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.CHISELED.getMetadata()), j2, 4, 2, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(l), j2, 4, 3, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), j2, 5, 1, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), j2, 5, 1, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(l), j2, 5, 2, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), j2, 5, 3, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), j2, 5, 3, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(l), j2, 6, 1, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.CHISELED.getMetadata()), j2, 6, 2, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.CHISELED.getMetadata()), j2, 6, 2, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(l), j2, 6, 3, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(l), j2, 7, 1, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(l), j2, 7, 2, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(l), j2, 7, 3, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), j2, 8, 1, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), j2, 8, 2, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), j2, 8, 3, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), j2, 8, 1, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), j2, 8, 2, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), j2, 8, 3, structureBoundingBoxIn);
 			}
 
 			for (int k2 = 2; k2 <= width - 3; k2 += width - 3 - 2) {
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), k2 - 1, 2, 0, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), k2 - 1, 2, 0, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(l), k2, 2, 0, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), k2 + 1, 2, 0, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), k2 - 1, 3, 0, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), k2 + 1, 2, 0, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), k2 - 1, 3, 0, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(l), k2, 3, 0, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), k2 + 1, 3, 0, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), k2 + 1, 3, 0, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(l), k2 - 1, 4, 0, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.CHISELED.getMetadata()), k2, 4, 0, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.CHISELED.getMetadata()), k2, 4, 0, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(l), k2 + 1, 4, 0, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), k2 - 1, 5, 0, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), k2 - 1, 5, 0, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(l), k2, 5, 0, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), k2 + 1, 5, 0, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), k2 + 1, 5, 0, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(l), k2 - 1, 6, 0, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.CHISELED.getMetadata()), k2, 6, 0, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.CHISELED.getMetadata()), k2, 6, 0, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(l), k2 + 1, 6, 0, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(l), k2 - 1, 7, 0, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(l), k2, 7, 0, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(l), k2 + 1, 7, 0, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), k2 - 1, 8, 0, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), k2, 8, 0, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), k2 + 1, 8, 0, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), k2 - 1, 8, 0, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), k2, 8, 0, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), k2 + 1, 8, 0, structureBoundingBoxIn);
 			}
 
-			fillWithBlocks(worldIn, structureBoundingBoxIn, 8, 4, 0, 12, 6, 0, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), false);
+			fillWithBlocks(worldIn, structureBoundingBoxIn, 8, 4, 0, 12, 6, 0, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), false);
 			setBlockState(worldIn, Blocks.AIR.getDefaultState(), 8, 6, 0, structureBoundingBoxIn);
 			setBlockState(worldIn, Blocks.AIR.getDefaultState(), 12, 6, 0, structureBoundingBoxIn);
 			setBlockState(worldIn, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(l), 9, 5, 0, structureBoundingBoxIn);
-			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.CHISELED.getMetadata()), 10, 5, 0, structureBoundingBoxIn);
+			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.CHISELED.getMetadata()), 10, 5, 0, structureBoundingBoxIn);
 			setBlockState(worldIn, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(l), 11, 5, 0, structureBoundingBoxIn);
-			fillWithBlocks(worldIn, structureBoundingBoxIn, 8, -14, 8, 12, -11, 12, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), false);
-			fillWithBlocks(worldIn, structureBoundingBoxIn, 8, -10, 8, 12, -10, 12, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.CHISELED.getMetadata()), Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.CHISELED.getMetadata()), false);
-			fillWithBlocks(worldIn, structureBoundingBoxIn, 8, -9, 8, 12, -9, 12, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), false);
+			fillWithBlocks(worldIn, structureBoundingBoxIn, 8, -14, 8, 12, -11, 12, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), false);
+			fillWithBlocks(worldIn, structureBoundingBoxIn, 8, -10, 8, 12, -10, 12, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.CHISELED.getMetadata()), Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.CHISELED.getMetadata()), false);
+			fillWithBlocks(worldIn, structureBoundingBoxIn, 8, -9, 8, 12, -9, 12, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 8, -8, 8, 12, -1, 12, Blocks.SANDSTONE.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 9, -11, 9, 11, -1, 11, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 			setBlockState(worldIn, Blocks.STONE_PRESSURE_PLATE.getDefaultState(), 10, -11, 10, structureBoundingBoxIn);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 9, -13, 9, 11, -13, 11, Blocks.TNT.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 			setBlockState(worldIn, Blocks.AIR.getDefaultState(), 8, -11, 10, structureBoundingBoxIn);
 			setBlockState(worldIn, Blocks.AIR.getDefaultState(), 8, -10, 10, structureBoundingBoxIn);
-			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.CHISELED.getMetadata()), 7, -10, 10, structureBoundingBoxIn);
-			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), 7, -11, 10, structureBoundingBoxIn);
+			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.CHISELED.getMetadata()), 7, -10, 10, structureBoundingBoxIn);
+			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), 7, -11, 10, structureBoundingBoxIn);
 			setBlockState(worldIn, Blocks.AIR.getDefaultState(), 12, -11, 10, structureBoundingBoxIn);
 			setBlockState(worldIn, Blocks.AIR.getDefaultState(), 12, -10, 10, structureBoundingBoxIn);
-			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.CHISELED.getMetadata()), 13, -10, 10, structureBoundingBoxIn);
-			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), 13, -11, 10, structureBoundingBoxIn);
+			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.CHISELED.getMetadata()), 13, -10, 10, structureBoundingBoxIn);
+			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), 13, -11, 10, structureBoundingBoxIn);
 			setBlockState(worldIn, Blocks.AIR.getDefaultState(), 10, -11, 8, structureBoundingBoxIn);
 			setBlockState(worldIn, Blocks.AIR.getDefaultState(), 10, -10, 8, structureBoundingBoxIn);
-			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.CHISELED.getMetadata()), 10, -10, 7, structureBoundingBoxIn);
-			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), 10, -11, 7, structureBoundingBoxIn);
+			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.CHISELED.getMetadata()), 10, -10, 7, structureBoundingBoxIn);
+			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), 10, -11, 7, structureBoundingBoxIn);
 			setBlockState(worldIn, Blocks.AIR.getDefaultState(), 10, -11, 12, structureBoundingBoxIn);
 			setBlockState(worldIn, Blocks.AIR.getDefaultState(), 10, -10, 12, structureBoundingBoxIn);
-			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.CHISELED.getMetadata()), 10, -10, 13, structureBoundingBoxIn);
-			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata()), 10, -11, 13, structureBoundingBoxIn);
+			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.CHISELED.getMetadata()), 10, -10, 13, structureBoundingBoxIn);
+			setBlockState(worldIn, Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata()), 10, -11, 13, structureBoundingBoxIn);
 
-			for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+			for (Facing enumfacing : Facing.Plane.HORIZONTAL) {
 				if (!hasPlacedChest[enumfacing.getHorizontalIndex()]) {
 					int k1 = enumfacing.getFrontOffsetX() * 2;
 					int l1 = enumfacing.getFrontOffsetZ() * 2;
@@ -277,9 +277,9 @@ public class ComponentScatteredFeaturePieces {
 			width = sizeX;
 			height = sizeY;
 			depth = sizeZ;
-			setCoordBaseMode(EnumFacing.Plane.HORIZONTAL.random(rand));
+			setCoordBaseMode(Facing.Plane.HORIZONTAL.random(rand));
 
-			if (getCoordBaseMode().getAxis() == EnumFacing.Axis.Z) {
+			if (getCoordBaseMode().getAxis() == Facing.Axis.Z) {
 				boundingBox = new StructureBoundingBox(x, y, z, x + sizeX - 1, y + sizeY - 1, z + sizeZ - 1);
 			} else {
 				boundingBox = new StructureBoundingBox(x, y, z, x + sizeZ - 1, y + sizeY - 1, z + sizeX - 1);
@@ -493,10 +493,10 @@ public class ComponentScatteredFeaturePieces {
 				fillWithRandomizedBlocks(worldIn, structureBoundingBoxIn, 4, 9, 10, 4, 9, 10, false, randomIn, cobblestoneSelector);
 				fillWithRandomizedBlocks(worldIn, structureBoundingBoxIn, 7, 9, 10, 7, 9, 10, false, randomIn, cobblestoneSelector);
 				fillWithRandomizedBlocks(worldIn, structureBoundingBoxIn, 5, 9, 7, 6, 9, 7, false, randomIn, cobblestoneSelector);
-				IBlockState iblockstate2 = Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.EAST);
-				IBlockState iblockstate3 = Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.WEST);
-				IBlockState iblockstate = Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.SOUTH);
-				IBlockState iblockstate1 = Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH);
+				IBlockState iblockstate2 = Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.EAST);
+				IBlockState iblockstate3 = Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.WEST);
+				IBlockState iblockstate = Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.SOUTH);
+				IBlockState iblockstate1 = Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH);
 				setBlockState(worldIn, iblockstate1, 5, 9, 6, structureBoundingBoxIn);
 				setBlockState(worldIn, iblockstate1, 6, 9, 6, structureBoundingBoxIn);
 				setBlockState(worldIn, iblockstate, 5, 9, 8, structureBoundingBoxIn);
@@ -540,8 +540,8 @@ public class ComponentScatteredFeaturePieces {
 				fillWithRandomizedBlocks(worldIn, structureBoundingBoxIn, 7, -2, 1, 9, -2, 1, false, randomIn, cobblestoneSelector);
 				fillWithRandomizedBlocks(worldIn, structureBoundingBoxIn, 6, -3, 1, 6, -3, 1, false, randomIn, cobblestoneSelector);
 				fillWithRandomizedBlocks(worldIn, structureBoundingBoxIn, 6, -1, 1, 6, -1, 1, false, randomIn, cobblestoneSelector);
-				setBlockState(worldIn, Blocks.TRIPWIRE_HOOK.getDefaultState().withProperty(BlockTripWireHook.FACING, EnumFacing.EAST).withProperty(BlockTripWireHook.ATTACHED, true), 1, -3, 8, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.TRIPWIRE_HOOK.getDefaultState().withProperty(BlockTripWireHook.FACING, EnumFacing.WEST).withProperty(BlockTripWireHook.ATTACHED, true), 4, -3, 8, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.TRIPWIRE_HOOK.getDefaultState().withProperty(BlockTripWireHook.FACING, Facing.EAST).withProperty(BlockTripWireHook.ATTACHED, true), 1, -3, 8, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.TRIPWIRE_HOOK.getDefaultState().withProperty(BlockTripWireHook.FACING, Facing.WEST).withProperty(BlockTripWireHook.ATTACHED, true), 4, -3, 8, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.TRIPWIRE.getDefaultState().withProperty(BlockTripWire.ATTACHED, true), 2, -3, 8, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.TRIPWIRE.getDefaultState().withProperty(BlockTripWire.ATTACHED, true), 3, -3, 8, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.REDSTONE_WIRE.getDefaultState(), 5, -3, 7, structureBoundingBoxIn);
@@ -555,12 +555,12 @@ public class ComponentScatteredFeaturePieces {
 				setBlockState(worldIn, Blocks.MOSSY_COBBLESTONE.getDefaultState(), 3, -3, 1, structureBoundingBoxIn);
 
 				if (!placedTrap1) {
-					placedTrap1 = createDispenser(worldIn, structureBoundingBoxIn, randomIn, 3, -2, 1, EnumFacing.NORTH, LootTableList.CHESTS_JUNGLE_TEMPLE_DISPENSER);
+					placedTrap1 = createDispenser(worldIn, structureBoundingBoxIn, randomIn, 3, -2, 1, Facing.NORTH, LootTableList.CHESTS_JUNGLE_TEMPLE_DISPENSER);
 				}
 
 				setBlockState(worldIn, Blocks.VINE.getDefaultState().withProperty(BlockVine.SOUTH, true), 3, -2, 2, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.TRIPWIRE_HOOK.getDefaultState().withProperty(BlockTripWireHook.FACING, EnumFacing.NORTH).withProperty(BlockTripWireHook.ATTACHED, true), 7, -3, 1, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.TRIPWIRE_HOOK.getDefaultState().withProperty(BlockTripWireHook.FACING, EnumFacing.SOUTH).withProperty(BlockTripWireHook.ATTACHED, true), 7, -3, 5, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.TRIPWIRE_HOOK.getDefaultState().withProperty(BlockTripWireHook.FACING, Facing.NORTH).withProperty(BlockTripWireHook.ATTACHED, true), 7, -3, 1, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.TRIPWIRE_HOOK.getDefaultState().withProperty(BlockTripWireHook.FACING, Facing.SOUTH).withProperty(BlockTripWireHook.ATTACHED, true), 7, -3, 5, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.TRIPWIRE.getDefaultState().withProperty(BlockTripWire.ATTACHED, true), 7, -3, 2, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.TRIPWIRE.getDefaultState().withProperty(BlockTripWire.ATTACHED, true), 7, -3, 3, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.TRIPWIRE.getDefaultState().withProperty(BlockTripWire.ATTACHED, true), 7, -3, 4, structureBoundingBoxIn);
@@ -571,7 +571,7 @@ public class ComponentScatteredFeaturePieces {
 				setBlockState(worldIn, Blocks.REDSTONE_WIRE.getDefaultState(), 9, -2, 4, structureBoundingBoxIn);
 
 				if (!placedTrap2) {
-					placedTrap2 = createDispenser(worldIn, structureBoundingBoxIn, randomIn, 9, -2, 3, EnumFacing.WEST, LootTableList.CHESTS_JUNGLE_TEMPLE_DISPENSER);
+					placedTrap2 = createDispenser(worldIn, structureBoundingBoxIn, randomIn, 9, -2, 3, Facing.WEST, LootTableList.CHESTS_JUNGLE_TEMPLE_DISPENSER);
 				}
 
 				setBlockState(worldIn, Blocks.VINE.getDefaultState().withProperty(BlockVine.EAST, true), 8, -1, 3, structureBoundingBoxIn);
@@ -595,7 +595,7 @@ public class ComponentScatteredFeaturePieces {
 				setBlockState(worldIn, Blocks.STONEBRICK.getStateFromMeta(BlockStoneBrick.CHISELED_META), 8, -2, 11, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.STONEBRICK.getStateFromMeta(BlockStoneBrick.CHISELED_META), 9, -2, 11, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.STONEBRICK.getStateFromMeta(BlockStoneBrick.CHISELED_META), 10, -2, 11, structureBoundingBoxIn);
-				IBlockState iblockstate4 = Blocks.LEVER.getDefaultState().withProperty(BlockLever.FACING, BlockLever.EnumOrientation.NORTH);
+				IBlockState iblockstate4 = Blocks.LEVER.getDefaultState().withProperty(BlockLever.FACING, BlockLever.Orientation.NORTH);
 				setBlockState(worldIn, iblockstate4, 8, -2, 12, structureBoundingBoxIn);
 				setBlockState(worldIn, iblockstate4, 9, -2, 12, structureBoundingBoxIn);
 				setBlockState(worldIn, iblockstate4, 10, -2, 12, structureBoundingBoxIn);
@@ -605,10 +605,10 @@ public class ComponentScatteredFeaturePieces {
 				setBlockState(worldIn, Blocks.REDSTONE_WIRE.getDefaultState(), 8, -2, 9, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.REDSTONE_WIRE.getDefaultState(), 8, -2, 10, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.REDSTONE_WIRE.getDefaultState(), 10, -1, 9, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.STICKY_PISTON.getDefaultState().withProperty(BlockPistonBase.FACING, EnumFacing.UP), 9, -2, 8, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.STICKY_PISTON.getDefaultState().withProperty(BlockPistonBase.FACING, EnumFacing.WEST), 10, -2, 8, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.STICKY_PISTON.getDefaultState().withProperty(BlockPistonBase.FACING, EnumFacing.WEST), 10, -1, 8, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(BlockRedstoneRepeater.FACING, EnumFacing.NORTH), 10, -2, 10, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.STICKY_PISTON.getDefaultState().withProperty(BlockPistonBase.FACING, Facing.UP), 9, -2, 8, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.STICKY_PISTON.getDefaultState().withProperty(BlockPistonBase.FACING, Facing.WEST), 10, -2, 8, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.STICKY_PISTON.getDefaultState().withProperty(BlockPistonBase.FACING, Facing.WEST), 10, -1, 8, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(BlockRedstoneRepeater.FACING, Facing.NORTH), 10, -2, 10, structureBoundingBoxIn);
 
 				if (!placedHiddenChest) {
 					placedHiddenChest = generateChest(worldIn, structureBoundingBoxIn, randomIn, 9, -3, 10, LootTableList.CHESTS_JUNGLE_TEMPLE);
@@ -667,13 +667,13 @@ public class ComponentScatteredFeaturePieces {
 			if (!offsetToAverageGroundLevel(worldIn, structureBoundingBoxIn, 0)) {
 				return false;
 			} else {
-				fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 1, 1, 5, 1, 7, Blocks.PLANKS.getStateFromMeta(BlockPlanks.EnumType.SPRUCE.getMetadata()), Blocks.PLANKS.getStateFromMeta(BlockPlanks.EnumType.SPRUCE.getMetadata()), false);
-				fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 4, 2, 5, 4, 7, Blocks.PLANKS.getStateFromMeta(BlockPlanks.EnumType.SPRUCE.getMetadata()), Blocks.PLANKS.getStateFromMeta(BlockPlanks.EnumType.SPRUCE.getMetadata()), false);
-				fillWithBlocks(worldIn, structureBoundingBoxIn, 2, 1, 0, 4, 1, 0, Blocks.PLANKS.getStateFromMeta(BlockPlanks.EnumType.SPRUCE.getMetadata()), Blocks.PLANKS.getStateFromMeta(BlockPlanks.EnumType.SPRUCE.getMetadata()), false);
-				fillWithBlocks(worldIn, structureBoundingBoxIn, 2, 2, 2, 3, 3, 2, Blocks.PLANKS.getStateFromMeta(BlockPlanks.EnumType.SPRUCE.getMetadata()), Blocks.PLANKS.getStateFromMeta(BlockPlanks.EnumType.SPRUCE.getMetadata()), false);
-				fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 2, 3, 1, 3, 6, Blocks.PLANKS.getStateFromMeta(BlockPlanks.EnumType.SPRUCE.getMetadata()), Blocks.PLANKS.getStateFromMeta(BlockPlanks.EnumType.SPRUCE.getMetadata()), false);
-				fillWithBlocks(worldIn, structureBoundingBoxIn, 5, 2, 3, 5, 3, 6, Blocks.PLANKS.getStateFromMeta(BlockPlanks.EnumType.SPRUCE.getMetadata()), Blocks.PLANKS.getStateFromMeta(BlockPlanks.EnumType.SPRUCE.getMetadata()), false);
-				fillWithBlocks(worldIn, structureBoundingBoxIn, 2, 2, 7, 4, 3, 7, Blocks.PLANKS.getStateFromMeta(BlockPlanks.EnumType.SPRUCE.getMetadata()), Blocks.PLANKS.getStateFromMeta(BlockPlanks.EnumType.SPRUCE.getMetadata()), false);
+				fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 1, 1, 5, 1, 7, Blocks.PLANKS.getStateFromMeta(BlockPlanks.Type.SPRUCE.getMetadata()), Blocks.PLANKS.getStateFromMeta(BlockPlanks.Type.SPRUCE.getMetadata()), false);
+				fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 4, 2, 5, 4, 7, Blocks.PLANKS.getStateFromMeta(BlockPlanks.Type.SPRUCE.getMetadata()), Blocks.PLANKS.getStateFromMeta(BlockPlanks.Type.SPRUCE.getMetadata()), false);
+				fillWithBlocks(worldIn, structureBoundingBoxIn, 2, 1, 0, 4, 1, 0, Blocks.PLANKS.getStateFromMeta(BlockPlanks.Type.SPRUCE.getMetadata()), Blocks.PLANKS.getStateFromMeta(BlockPlanks.Type.SPRUCE.getMetadata()), false);
+				fillWithBlocks(worldIn, structureBoundingBoxIn, 2, 2, 2, 3, 3, 2, Blocks.PLANKS.getStateFromMeta(BlockPlanks.Type.SPRUCE.getMetadata()), Blocks.PLANKS.getStateFromMeta(BlockPlanks.Type.SPRUCE.getMetadata()), false);
+				fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 2, 3, 1, 3, 6, Blocks.PLANKS.getStateFromMeta(BlockPlanks.Type.SPRUCE.getMetadata()), Blocks.PLANKS.getStateFromMeta(BlockPlanks.Type.SPRUCE.getMetadata()), false);
+				fillWithBlocks(worldIn, structureBoundingBoxIn, 5, 2, 3, 5, 3, 6, Blocks.PLANKS.getStateFromMeta(BlockPlanks.Type.SPRUCE.getMetadata()), Blocks.PLANKS.getStateFromMeta(BlockPlanks.Type.SPRUCE.getMetadata()), false);
+				fillWithBlocks(worldIn, structureBoundingBoxIn, 2, 2, 7, 4, 3, 7, Blocks.PLANKS.getStateFromMeta(BlockPlanks.Type.SPRUCE.getMetadata()), Blocks.PLANKS.getStateFromMeta(BlockPlanks.Type.SPRUCE.getMetadata()), false);
 				fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 0, 2, 1, 3, 2, Blocks.LOG.getDefaultState(), Blocks.LOG.getDefaultState(), false);
 				fillWithBlocks(worldIn, structureBoundingBoxIn, 5, 0, 2, 5, 3, 2, Blocks.LOG.getDefaultState(), Blocks.LOG.getDefaultState(), false);
 				fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 0, 7, 1, 3, 7, Blocks.LOG.getDefaultState(), Blocks.LOG.getDefaultState(), false);
@@ -683,15 +683,15 @@ public class ComponentScatteredFeaturePieces {
 				setBlockState(worldIn, Blocks.AIR.getDefaultState(), 1, 3, 4, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.AIR.getDefaultState(), 5, 3, 4, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.AIR.getDefaultState(), 5, 3, 5, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.FLOWER_POT.getDefaultState().withProperty(BlockFlowerPot.CONTENTS, BlockFlowerPot.EnumFlowerType.MUSHROOM_RED), 1, 3, 5, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.FLOWER_POT.getDefaultState().withProperty(BlockFlowerPot.CONTENTS, BlockFlowerPot.FlowerType.MUSHROOM_RED), 1, 3, 5, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.CRAFTING_TABLE.getDefaultState(), 3, 2, 6, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.CAULDRON.getDefaultState(), 4, 2, 6, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.OAK_FENCE.getDefaultState(), 1, 2, 1, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.OAK_FENCE.getDefaultState(), 5, 2, 1, structureBoundingBoxIn);
-				IBlockState iblockstate = Blocks.SPRUCE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH);
-				IBlockState iblockstate1 = Blocks.SPRUCE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.EAST);
-				IBlockState iblockstate2 = Blocks.SPRUCE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.WEST);
-				IBlockState iblockstate3 = Blocks.SPRUCE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.SOUTH);
+				IBlockState iblockstate = Blocks.SPRUCE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH);
+				IBlockState iblockstate1 = Blocks.SPRUCE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.EAST);
+				IBlockState iblockstate2 = Blocks.SPRUCE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.WEST);
+				IBlockState iblockstate3 = Blocks.SPRUCE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.SOUTH);
 				fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 4, 1, 6, 4, 1, iblockstate, iblockstate, false);
 				fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 4, 2, 0, 4, 7, iblockstate1, iblockstate1, false);
 				fillWithBlocks(worldIn, structureBoundingBoxIn, 6, 4, 2, 6, 4, 7, iblockstate2, iblockstate2, false);

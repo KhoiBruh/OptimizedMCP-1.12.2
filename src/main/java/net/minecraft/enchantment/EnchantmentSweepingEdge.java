@@ -6,7 +6,7 @@ public class EnchantmentSweepingEdge extends Enchantment {
 
 	public EnchantmentSweepingEdge(Enchantment.Rarity p_i47366_1_, EntityEquipmentSlot... p_i47366_2_) {
 
-		super(p_i47366_1_, EnumEnchantmentType.WEAPON, p_i47366_2_);
+		super(p_i47366_1_, EnchantmentType.WEAPON, p_i47366_2_);
 	}
 
 	public static float getSweepingDamageRatio(int p_191526_0_) {

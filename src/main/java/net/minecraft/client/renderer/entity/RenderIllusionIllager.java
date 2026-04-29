@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.entity.layers.LayerHeldItem;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityIllusionIllager;
 import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.HandSide;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -26,7 +26,7 @@ public class RenderIllusionIllager extends RenderLiving<EntityMob> {
 				}
 			}
 
-			protected void translateToHand(EnumHandSide p_191361_1_) {
+			protected void translateToHand(HandSide p_191361_1_) {
 
 				((ModelIllager) livingEntityRenderer.getMainModel()).getArm(p_191361_1_).postRender(0.0625F);
 			}

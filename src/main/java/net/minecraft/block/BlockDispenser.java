@@ -34,7 +34,7 @@ public class BlockDispenser extends BlockContainer {
 	protected BlockDispenser() {
 
 		super(Material.ROCK);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(TRIGGERED, false));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(TRIGGERED, false));
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
@@ -43,7 +43,7 @@ public class BlockDispenser extends BlockContainer {
 	 */
 	public static IPosition getDispensePosition(IBlockSource coords) {
 
-		EnumFacing enumfacing = coords.getBlockState().getValue(FACING);
+		Facing enumfacing = coords.getBlockState().getValue(FACING);
 		double d0 = coords.x() + 0.7D * (double) enumfacing.getFrontOffsetX();
 		double d1 = coords.y() + 0.7D * (double) enumfacing.getFrontOffsetY();
 		double d2 = coords.z() + 0.7D * (double) enumfacing.getFrontOffsetZ();
@@ -70,22 +70,22 @@ public class BlockDispenser extends BlockContainer {
 	private void setDefaultDirection(World worldIn, BlockPos pos, IBlockState state) {
 
 		if (!worldIn.isRemote) {
-			EnumFacing enumfacing = state.getValue(FACING);
+			Facing enumfacing = state.getValue(FACING);
 			boolean flag = worldIn.getBlockState(pos.north()).isFullBlock();
 			boolean flag1 = worldIn.getBlockState(pos.south()).isFullBlock();
 
-			if (enumfacing == EnumFacing.NORTH && flag && !flag1) {
-				enumfacing = EnumFacing.SOUTH;
-			} else if (enumfacing == EnumFacing.SOUTH && flag1 && !flag) {
-				enumfacing = EnumFacing.NORTH;
+			if (enumfacing == Facing.NORTH && flag && !flag1) {
+				enumfacing = Facing.SOUTH;
+			} else if (enumfacing == Facing.SOUTH && flag1 && !flag) {
+				enumfacing = Facing.NORTH;
 			} else {
 				boolean flag2 = worldIn.getBlockState(pos.west()).isFullBlock();
 				boolean flag3 = worldIn.getBlockState(pos.east()).isFullBlock();
 
-				if (enumfacing == EnumFacing.WEST && flag2 && !flag3) {
-					enumfacing = EnumFacing.EAST;
-				} else if (enumfacing == EnumFacing.EAST && flag3 && !flag2) {
-					enumfacing = EnumFacing.WEST;
+				if (enumfacing == Facing.WEST && flag2 && !flag3) {
+					enumfacing = Facing.EAST;
+				} else if (enumfacing == Facing.EAST && flag3 && !flag2) {
+					enumfacing = Facing.WEST;
 				}
 			}
 
@@ -96,7 +96,7 @@ public class BlockDispenser extends BlockContainer {
 	/**
 	 * Called when the block is right clicked by a player.
 	 */
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		if (worldIn.isRemote) {
 			return true;
@@ -180,9 +180,9 @@ public class BlockDispenser extends BlockContainer {
 	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 	 * IBlockstate
 	 */
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
-		return getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer)).withProperty(TRIGGERED, false);
+		return getDefaultState().withProperty(FACING, Facing.getDirectionFromEntityLiving(pos, placer)).withProperty(TRIGGERED, false);
 	}
 
 	/**
@@ -190,7 +190,7 @@ public class BlockDispenser extends BlockContainer {
 	 */
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
 
-		worldIn.setBlockState(pos, state.withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer)), 2);
+		worldIn.setBlockState(pos, state.withProperty(FACING, Facing.getDirectionFromEntityLiving(pos, placer)), 2);
 
 		if (stack.hasDisplayName()) {
 			TileEntity tileentity = worldIn.getTileEntity(pos);
@@ -230,9 +230,9 @@ public class BlockDispenser extends BlockContainer {
 	 * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
-	public EnumBlockRenderType getRenderType(IBlockState state) {
+	public BlockRenderType getRenderType(IBlockState state) {
 
-		return EnumBlockRenderType.MODEL;
+		return BlockRenderType.MODEL;
 	}
 
 	/**
@@ -240,7 +240,7 @@ public class BlockDispenser extends BlockContainer {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7)).withProperty(TRIGGERED, (meta & 8) > 0);
+		return getDefaultState().withProperty(FACING, Facing.getFront(meta & 7)).withProperty(TRIGGERED, (meta & 8) > 0);
 	}
 
 	/**

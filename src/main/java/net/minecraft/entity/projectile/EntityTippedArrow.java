@@ -13,7 +13,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.world.World;
 
@@ -130,7 +130,7 @@ public class EntityTippedArrow extends EntityArrow {
 			double d2 = (double) (i & 255) / 255D;
 
 			for (int j = 0; j < particleCount; ++j) {
-				world.spawnParticle(EnumParticleTypes.SPELL_MOB, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, d0, d1, d2);
+				world.spawnParticle(ParticleTypes.SPELL_MOB, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, d0, d1, d2);
 			}
 		}
 	}
@@ -247,7 +247,7 @@ public class EntityTippedArrow extends EntityArrow {
 				double d2 = (double) (i & 255) / 255D;
 
 				for (int j = 0; j < 20; ++j) {
-					world.spawnParticle(EnumParticleTypes.SPELL_MOB, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, d0, d1, d2);
+					world.spawnParticle(ParticleTypes.SPELL_MOB, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, d0, d1, d2);
 				}
 			}
 		} else {

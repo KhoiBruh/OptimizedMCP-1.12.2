@@ -3,7 +3,7 @@ package net.minecraft.entity.player;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 
-public enum EnumPlayerModelParts {
+public enum PlayerModelParts {
 	CAPE(0, "cape"),
 	JACKET(1, "jacket"),
 	LEFT_SLEEVE(2, "left_sleeve"),
@@ -17,7 +17,7 @@ public enum EnumPlayerModelParts {
 	private final String partName;
 	private final ITextComponent name;
 
-	EnumPlayerModelParts(int partIdIn, String partNameIn) {
+	PlayerModelParts(int partIdIn, String partNameIn) {
 
 		partId = partIdIn;
 		partMask = 1 << partIdIn;

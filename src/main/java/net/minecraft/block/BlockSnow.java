@@ -13,10 +13,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.EnumSkyBlock;
+import net.minecraft.world.SkyBlock;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import java.util.Random;
@@ -64,9 +64,9 @@ public class BlockSnow extends Block {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
-		return face == EnumFacing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
+		return face == Facing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 
 	
@@ -100,7 +100,7 @@ public class BlockSnow extends Block {
 		Block block = iblockstate.getBlock();
 
 		if (block != Blocks.ICE && block != Blocks.PACKED_ICE && block != Blocks.BARRIER) {
-			BlockFaceShape blockfaceshape = iblockstate.getBlockFaceShape(worldIn, pos.down(), EnumFacing.UP);
+			BlockFaceShape blockfaceshape = iblockstate.getBlockFaceShape(worldIn, pos.down(), Facing.UP);
 			return blockfaceshape == BlockFaceShape.SOLID || iblockstate.getMaterial() == Material.LEAVES || block == this && iblockstate.getValue(LAYERS) == 8;
 		} else {
 			return false;
@@ -157,15 +157,15 @@ public class BlockSnow extends Block {
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 
-		if (worldIn.getLightFor(EnumSkyBlock.BLOCK, pos) > 11) {
+		if (worldIn.getLightFor(SkyBlock.BLOCK, pos) > 11) {
 			dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);
 			worldIn.setBlockToAir(pos);
 		}
 	}
 
-	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
-		if (side == EnumFacing.UP) {
+		if (side == Facing.UP) {
 			return true;
 		} else {
 			IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));

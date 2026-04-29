@@ -5,7 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -13,8 +13,8 @@ import java.util.Random;
 
 public class WorldGenTrees extends WorldGenAbstractTree {
 
-	private static final IBlockState DEFAULT_TRUNK = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.OAK);
-	private static final IBlockState DEFAULT_LEAF = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.OAK).withProperty(BlockLeaves.CHECK_DECAY, false);
+	private static final IBlockState DEFAULT_TRUNK = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.Type.OAK);
+	private static final IBlockState DEFAULT_LEAF = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.Type.OAK).withProperty(BlockLeaves.CHECK_DECAY, false);
 
 	/**
 	 * The minimum height of a generated tree.
@@ -178,9 +178,9 @@ public class WorldGenTrees extends WorldGenAbstractTree {
 
 						if (rand.nextInt(5) == 0 && i > 5) {
 							for (int l3 = 0; l3 < 2; ++l3) {
-								for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+								for (Facing enumfacing : Facing.Plane.HORIZONTAL) {
 									if (rand.nextInt(4 - l3) == 0) {
-										EnumFacing enumfacing1 = enumfacing.getOpposite();
+										Facing enumfacing1 = enumfacing.getOpposite();
 										placeCocoa(worldIn, rand.nextInt(3), position.add(enumfacing1.getFrontOffsetX(), i - 5 + l3, enumfacing1.getFrontOffsetZ()), enumfacing);
 									}
 								}
@@ -198,7 +198,7 @@ public class WorldGenTrees extends WorldGenAbstractTree {
 		}
 	}
 
-	private void placeCocoa(World worldIn, int p_181652_2_, BlockPos pos, EnumFacing side) {
+	private void placeCocoa(World worldIn, int p_181652_2_, BlockPos pos, Facing side) {
 
 		setBlockAndNotifyAdequately(worldIn, pos, Blocks.COCOA.getDefaultState().withProperty(BlockCocoa.AGE, p_181652_2_).withProperty(BlockCocoa.FACING, side));
 	}

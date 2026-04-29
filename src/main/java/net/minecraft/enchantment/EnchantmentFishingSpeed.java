@@ -4,7 +4,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 
 public class EnchantmentFishingSpeed extends Enchantment {
 
-	protected EnchantmentFishingSpeed(Enchantment.Rarity rarityIn, EnumEnchantmentType typeIn, EntityEquipmentSlot... slots) {
+	protected EnchantmentFishingSpeed(Enchantment.Rarity rarityIn, EnchantmentType typeIn, EntityEquipmentSlot... slots) {
 
 		super(rarityIn, typeIn, slots);
 		setName("fishingSpeed");

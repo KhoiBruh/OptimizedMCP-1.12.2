@@ -12,7 +12,7 @@ import net.minecraft.enchantment.EnchantmentDurability;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.item.EntityItemFrame;
@@ -225,11 +225,11 @@ public final class ItemStack {
 	 * Called when the player uses this ItemStack on a Block (right-click). Places blocks, etc. (Legacy name:
 	 * tryPlaceItemIntoWorld)
 	 */
-	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public ActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, Hand hand, Facing side, float hitX, float hitY, float hitZ) {
 
-		EnumActionResult enumactionresult = getItem().onItemUse(playerIn, worldIn, pos, hand, side, hitX, hitY, hitZ);
+		ActionResult enumactionresult = getItem().onItemUse(playerIn, worldIn, pos, hand, side, hitX, hitY, hitZ);
 
-		if (enumactionresult == EnumActionResult.SUCCESS) {
+		if (enumactionresult == ActionResult.SUCCESS) {
 			playerIn.addStat(StatList.getObjectUseStats(item));
 		}
 
@@ -241,7 +241,7 @@ public final class ItemStack {
 		return getItem().getDestroySpeed(this, blockIn);
 	}
 
-	public ActionResult<ItemStack> useItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+	public TypedActionResult<ItemStack> useItemRightClick(World worldIn, EntityPlayer playerIn, Hand hand) {
 
 		return getItem().onItemRightClick(worldIn, playerIn, hand);
 	}
@@ -432,7 +432,7 @@ public final class ItemStack {
 		return getItem().canHarvestBlock(blockIn);
 	}
 
-	public boolean interactWithEntity(EntityPlayer playerIn, EntityLivingBase entityIn, EnumHand hand) {
+	public boolean interactWithEntity(EntityPlayer playerIn, EntityLivingBase entityIn, Hand hand) {
 
 		return getItem().itemInteractionForEntity(this, playerIn, entityIn, hand);
 	}
@@ -524,7 +524,7 @@ public final class ItemStack {
 		return getItem().getMaxItemUseDuration(this);
 	}
 
-	public EnumAction getItemUseAction() {
+	public Action getItemUseAction() {
 
 		return getItem().getItemUseAction(this);
 	}
@@ -752,7 +752,7 @@ public final class ItemStack {
 					if (playerIn != null) {
 						if (attributemodifier.getID() == Item.ATTACK_DAMAGE_MODIFIER) {
 							d0 = d0 + playerIn.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getBaseValue();
-							d0 = d0 + (double) EnchantmentHelper.getModifierForCreature(this, EnumCreatureAttribute.UNDEFINED);
+							d0 = d0 + (double) EnchantmentHelper.getModifierForCreature(this, CreatureAttribute.UNDEFINED);
 							flag = true;
 						} else if (attributemodifier.getID() == Item.ATTACK_SPEED_MODIFIER) {
 							d0 += playerIn.getEntityAttribute(SharedMonsterAttributes.ATTACK_SPEED).getBaseValue();
@@ -842,7 +842,7 @@ public final class ItemStack {
 		return getItem().hasEffect(this);
 	}
 
-	public EnumRarity getRarity() {
+	public Rarity getRarity() {
 
 		return getItem().getRarity(this);
 	}

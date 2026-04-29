@@ -31,7 +31,7 @@ import net.minecraft.util.datafix.walkers.ItemStackDataLists;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
@@ -390,7 +390,7 @@ public abstract class EntityLiving extends EntityLivingBase {
 				double d1 = rand.nextGaussian() * 0.02D;
 				double d2 = rand.nextGaussian() * 0.02D;
 				double d3 = 10D;
-				world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, posX + (double) (rand.nextFloat() * width * 2F) - (double) width - d0 * 10D, posY + (double) (rand.nextFloat() * height) - d1 * 10D, posZ + (double) (rand.nextFloat() * width * 2F) - (double) width - d2 * 10D, d0, d1, d2);
+				world.spawnParticle(ParticleTypes.EXPLOSION_NORMAL, posX + (double) (rand.nextFloat() * width * 2F) - (double) width - d0 * 10D, posY + (double) (rand.nextFloat() * height) - d1 * 10D, posZ + (double) (rand.nextFloat() * width * 2F) - (double) width - d2 * 10D, d0, d1, d2);
 			}
 		} else {
 			world.setEntityState(this, (byte) 20);
@@ -1008,7 +1008,7 @@ public abstract class EntityLiving extends EntityLivingBase {
 
 		if (rand.nextFloat() < 0.15F * difficulty.getClampedAdditionalDifficulty()) {
 			int i = rand.nextInt(2);
-			float f = world.getDifficulty() == EnumDifficulty.HARD ? 0.1F : 0.25F;
+			float f = world.getDifficulty() == Difficulty.HARD ? 0.1F : 0.25F;
 
 			if (rand.nextFloat() < 0.095F) {
 				++i;
@@ -1140,7 +1140,7 @@ public abstract class EntityLiving extends EntityLivingBase {
 		return persistenceRequired;
 	}
 
-	public final boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
+	public final boolean processInitialInteract(EntityPlayer player, Hand hand) {
 
 		if (getLeashed() && getLeashHolder() == player) {
 			clearLeashed(true, !player.capabilities.isCreativeMode);
@@ -1158,7 +1158,7 @@ public abstract class EntityLiving extends EntityLivingBase {
 		}
 	}
 
-	protected boolean processInteract(EntityPlayer player, EnumHand hand) {
+	protected boolean processInteract(EntityPlayer player, Hand hand) {
 
 		return false;
 	}
@@ -1345,9 +1345,9 @@ public abstract class EntityLiving extends EntityLivingBase {
 		dataManager.set(AI_FLAGS, leftHanded ? (byte) (b0 | 2) : (byte) (b0 & -3));
 	}
 
-	public EnumHandSide getPrimaryHand() {
+	public HandSide getPrimaryHand() {
 
-		return isLeftHanded() ? EnumHandSide.LEFT : EnumHandSide.RIGHT;
+		return isLeftHanded() ? HandSide.LEFT : HandSide.RIGHT;
 	}
 
 	public enum SpawnPlacementType {

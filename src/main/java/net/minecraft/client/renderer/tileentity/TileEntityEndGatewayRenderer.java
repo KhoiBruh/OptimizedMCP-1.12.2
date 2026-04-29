@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.tileentity;
 
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.tileentity.TileEntityEndGateway;
 import net.minecraft.tileentity.TileEntityEndPortal;
 import net.minecraft.util.ResourceLocation;
@@ -23,7 +23,7 @@ public class TileEntityEndGatewayRenderer extends TileEntityEndPortalRenderer {
 			double d0 = tileentityendgateway.isSpawning() ? 256D - y : 50D;
 			f = MathHelper.sin(f * (float) Math.PI);
 			int i = MathHelper.floor((double) f * d0);
-			float[] afloat = tileentityendgateway.isSpawning() ? EnumDyeColor.MAGENTA.getColorComponentValues() : EnumDyeColor.PURPLE.getColorComponentValues();
+			float[] afloat = tileentityendgateway.isSpawning() ? DyeColor.MAGENTA.getColorComponentValues() : DyeColor.PURPLE.getColorComponentValues();
 			TileEntityBeaconRenderer.renderBeamSegment(x, y, z, partialTicks, f, (double) tileentityendgateway.getWorld().getTotalWorldTime(), 0, i, afloat, 0.15D, 0.175D);
 			TileEntityBeaconRenderer.renderBeamSegment(x, y, z, partialTicks, f, (double) tileentityendgateway.getWorld().getTotalWorldTime(), 0, -i, afloat, 0.15D, 0.175D);
 		}

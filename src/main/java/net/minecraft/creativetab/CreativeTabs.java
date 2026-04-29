@@ -1,7 +1,7 @@
 package net.minecraft.creativetab;
 
 import net.minecraft.block.BlockDoublePlant;
-import net.minecraft.enchantment.EnumEnchantmentType;
+import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
@@ -22,7 +22,7 @@ public abstract class CreativeTabs {
 	public static final CreativeTabs DECORATIONS = new CreativeTabs(1, "decorations") {
 		public ItemStack getTabIconItem() {
 
-			return new ItemStack(Item.getItemFromBlock(Blocks.DOUBLE_PLANT), 1, BlockDoublePlant.EnumPlantType.PAEONIA.getMeta());
+			return new ItemStack(Item.getItemFromBlock(Blocks.DOUBLE_PLANT), 1, BlockDoublePlant.PlantType.PAEONIA.getMeta());
 		}
 	};
 	public static final CreativeTabs REDSTONE = new CreativeTabs(2, "redstone") {
@@ -60,13 +60,13 @@ public abstract class CreativeTabs {
 
 			return new ItemStack(Items.IRON_AXE);
 		}
-	}).setRelevantEnchantmentTypes(EnumEnchantmentType.ALL, EnumEnchantmentType.DIGGER, EnumEnchantmentType.FISHING_ROD, EnumEnchantmentType.BREAKABLE);
+	}).setRelevantEnchantmentTypes(EnchantmentType.ALL, EnchantmentType.DIGGER, EnchantmentType.FISHING_ROD, EnchantmentType.BREAKABLE);
 	public static final CreativeTabs COMBAT = (new CreativeTabs(9, "combat") {
 		public ItemStack getTabIconItem() {
 
 			return new ItemStack(Items.GOLDEN_SWORD);
 		}
-	}).setRelevantEnchantmentTypes(EnumEnchantmentType.ALL, EnumEnchantmentType.ARMOR, EnumEnchantmentType.ARMOR_FEET, EnumEnchantmentType.ARMOR_HEAD, EnumEnchantmentType.ARMOR_LEGS, EnumEnchantmentType.ARMOR_CHEST, EnumEnchantmentType.BOW, EnumEnchantmentType.WEAPON, EnumEnchantmentType.WEARABLE, EnumEnchantmentType.BREAKABLE);
+	}).setRelevantEnchantmentTypes(EnchantmentType.ALL, EnchantmentType.ARMOR, EnchantmentType.ARMOR_FEET, EnchantmentType.ARMOR_HEAD, EnchantmentType.ARMOR_LEGS, EnchantmentType.ARMOR_CHEST, EnchantmentType.BOW, EnchantmentType.WEAPON, EnchantmentType.WEARABLE, EnchantmentType.BREAKABLE);
 	public static final CreativeTabs BREWING = new CreativeTabs(10, "brewing") {
 		public ItemStack getTabIconItem() {
 
@@ -109,7 +109,7 @@ public abstract class CreativeTabs {
 	 * Whether to draw the title in the foreground of the creative GUI
 	 */
 	private boolean drawTitle = true;
-	private EnumEnchantmentType[] enchantmentTypes = new EnumEnchantmentType[0];
+	private EnchantmentType[] enchantmentTypes = new EnchantmentType[0];
 	private ItemStack iconItemStack;
 
 	public CreativeTabs(int index, String label) {
@@ -206,7 +206,7 @@ public abstract class CreativeTabs {
 	/**
 	 * Returns the enchantment types relevant to this tab
 	 */
-	public EnumEnchantmentType[] getRelevantEnchantmentTypes() {
+	public EnchantmentType[] getRelevantEnchantmentTypes() {
 
 		return enchantmentTypes;
 	}
@@ -214,16 +214,16 @@ public abstract class CreativeTabs {
 	/**
 	 * Sets the enchantment types for populating this tab with enchanting books
 	 */
-	public CreativeTabs setRelevantEnchantmentTypes(EnumEnchantmentType... types) {
+	public CreativeTabs setRelevantEnchantmentTypes(EnchantmentType... types) {
 
 		enchantmentTypes = types;
 		return this;
 	}
 
-	public boolean hasRelevantEnchantmentType(EnumEnchantmentType enchantmentType) {
+	public boolean hasRelevantEnchantmentType(EnchantmentType enchantmentType) {
 
 		if (enchantmentType != null) {
-			for (EnumEnchantmentType enumenchantmenttype : enchantmentTypes) {
+			for (EnchantmentType enumenchantmenttype : enchantmentTypes) {
 				if (enumenchantmenttype == enchantmentType) {
 					return true;
 				}

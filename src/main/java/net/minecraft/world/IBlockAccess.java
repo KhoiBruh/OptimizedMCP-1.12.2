@@ -2,7 +2,7 @@ package net.minecraft.world;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 
@@ -23,7 +23,7 @@ public interface IBlockAccess {
 
 	Biome getBiome(BlockPos pos);
 
-	int getStrongPower(BlockPos pos, EnumFacing direction);
+	int getStrongPower(BlockPos pos, Facing direction);
 
 	WorldType getWorldType();
 

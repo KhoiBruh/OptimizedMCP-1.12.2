@@ -13,7 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerAddress;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.network.EnumConnectionState;
+import net.minecraft.network.ConnectionState;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.ServerStatusResponse;
 import net.minecraft.network.handshake.client.C00Handshake;
@@ -145,7 +145,7 @@ public class ServerPinger {
 		});
 
 		try {
-			networkmanager.sendPacket(new C00Handshake(serveraddress.getIP(), serveraddress.getPort(), EnumConnectionState.STATUS));
+			networkmanager.sendPacket(new C00Handshake(serveraddress.getIP(), serveraddress.getPort(), ConnectionState.STATUS));
 			networkmanager.sendPacket(new CPacketServerQuery());
 		} catch (Throwable throwable) {
 			LOGGER.error(throwable);

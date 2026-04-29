@@ -152,7 +152,7 @@ public class EntityVindicator extends AbstractIllager {
 
 		if (super.isOnSameTeam(entityIn)) {
 			return true;
-		} else if (entityIn instanceof EntityLivingBase && ((EntityLivingBase) entityIn).getCreatureAttribute() == EnumCreatureAttribute.ILLAGER) {
+		} else if (entityIn instanceof EntityLivingBase && ((EntityLivingBase) entityIn).getCreatureAttribute() == CreatureAttribute.ILLAGER) {
 			return getTeam() == null && entityIn.getTeam() == null;
 		} else {
 			return false;

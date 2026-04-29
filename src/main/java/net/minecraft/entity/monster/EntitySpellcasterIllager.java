@@ -5,7 +5,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -94,8 +94,8 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 			float f = renderYawOffset * 0.017453292F + MathHelper.cos((float) ticksExisted * 0.6662F) * 0.25F;
 			float f1 = MathHelper.cos(f);
 			float f2 = MathHelper.sin(f);
-			world.spawnParticle(EnumParticleTypes.SPELL_MOB, posX + (double) f1 * 0.6D, posY + 1.8D, posZ + (double) f2 * 0.6D, d0, d1, d2);
-			world.spawnParticle(EnumParticleTypes.SPELL_MOB, posX - (double) f1 * 0.6D, posY + 1.8D, posZ - (double) f2 * 0.6D, d0, d1, d2);
+			world.spawnParticle(ParticleTypes.SPELL_MOB, posX + (double) f1 * 0.6D, posY + 1.8D, posZ + (double) f2 * 0.6D, d0, d1, d2);
+			world.spawnParticle(ParticleTypes.SPELL_MOB, posX - (double) f1 * 0.6D, posY + 1.8D, posZ - (double) f2 * 0.6D, d0, d1, d2);
 		}
 	}
 

@@ -3,7 +3,7 @@ package net.minecraft.block;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -21,7 +21,7 @@ public class BlockWallSign extends BlockSign {
 
 	public BlockWallSign() {
 
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH));
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
@@ -41,7 +41,7 @@ public class BlockWallSign extends BlockSign {
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
 
-		EnumFacing enumfacing = state.getValue(FACING);
+		Facing enumfacing = state.getValue(FACING);
 
 		if (!worldIn.getBlockState(pos.offset(enumfacing.getOpposite())).getMaterial().isSolid()) {
 			dropBlockAsItem(worldIn, pos, state, 0);
@@ -56,10 +56,10 @@ public class BlockWallSign extends BlockSign {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		EnumFacing enumfacing = EnumFacing.getFront(meta);
+		Facing enumfacing = Facing.getFront(meta);
 
-		if (enumfacing.getAxis() == EnumFacing.Axis.Y) {
-			enumfacing = EnumFacing.NORTH;
+		if (enumfacing.getAxis() == Facing.Axis.Y) {
+			enumfacing = Facing.NORTH;
 		}
 
 		return getDefaultState().withProperty(FACING, enumfacing);

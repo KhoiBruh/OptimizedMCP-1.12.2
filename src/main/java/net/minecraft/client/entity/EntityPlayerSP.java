@@ -118,7 +118,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	private int horseJumpPowerCounter;
 	private float horseJumpPower;
 	private boolean handActive;
-	private EnumHand activeHand;
+	private Hand activeHand;
 	private boolean rowingBoat;
 	private boolean autoJumpEnabled = true;
 	private int autoJumpTime;
@@ -286,7 +286,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	public EntityItem dropItem(boolean dropAll) {
 
 		CPacketPlayerDigging.Action cpacketplayerdigging$action = dropAll ? CPacketPlayerDigging.Action.DROP_ALL_ITEMS : CPacketPlayerDigging.Action.DROP_ITEM;
-		connection.sendPacket(new CPacketPlayerDigging(cpacketplayerdigging$action, BlockPos.ORIGIN, EnumFacing.DOWN));
+		connection.sendPacket(new CPacketPlayerDigging(cpacketplayerdigging$action, BlockPos.ORIGIN, Facing.DOWN));
 		return null;
 	}
 
@@ -303,7 +303,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		connection.sendPacket(new CPacketChatMessage(message));
 	}
 
-	public void swingArm(EnumHand hand) {
+	public void swingArm(Hand hand) {
 
 		super.swingArm(hand);
 		connection.sendPacket(new CPacketAnimation(hand));
@@ -606,12 +606,12 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		handActive = false;
 	}
 
-	public EnumHand getActiveHand() {
+	public Hand getActiveHand() {
 
 		return activeHand;
 	}
 
-	public void setActiveHand(EnumHand hand) {
+	public void setActiveHand(Hand hand) {
 
 		ItemStack itemstack = getHeldItem(hand);
 
@@ -628,7 +628,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
 		if (HAND_STATES.equals(key)) {
 			boolean flag = (dataManager.get(HAND_STATES) & 1) > 0;
-			EnumHand enumhand = (dataManager.get(HAND_STATES) & 2) > 0 ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND;
+			Hand enumhand = (dataManager.get(HAND_STATES) & 2) > 0 ? Hand.OFF_HAND : Hand.MAIN_HAND;
 
 			if (flag && !handActive) {
 				setActiveHand(enumhand);
@@ -673,7 +673,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		mc.displayGuiScreen(new GuiEditStructure(structure));
 	}
 
-	public void openBook(ItemStack stack, EnumHand hand) {
+	public void openBook(ItemStack stack, Hand hand) {
 
 		Item item = stack.getItem();
 
@@ -738,12 +738,12 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 */
 	public void onCriticalHit(Entity entityHit) {
 
-		mc.effectRenderer.emitParticleAtEntity(entityHit, EnumParticleTypes.CRIT);
+		mc.effectRenderer.emitParticleAtEntity(entityHit, ParticleTypes.CRIT);
 	}
 
 	public void onEnchantmentCritical(Entity entityHit) {
 
-		mc.effectRenderer.emitParticleAtEntity(entityHit, EnumParticleTypes.CRIT_MAGIC);
+		mc.effectRenderer.emitParticleAtEntity(entityHit, ParticleTypes.CRIT_MAGIC);
 	}
 
 	/**

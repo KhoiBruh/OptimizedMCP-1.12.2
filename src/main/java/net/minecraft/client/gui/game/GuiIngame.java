@@ -31,7 +31,7 @@ import net.minecraft.scoreboard.Score;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
-import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.HandSide;
 import net.minecraft.util.FoodStats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -475,7 +475,7 @@ public class GuiIngame extends Gui {
 			GlStateManager.color(1F, 1F, 1F, 1F);
 			mc.getTextureManager().bindTexture(WIDGETS_TEX_PATH);
 			ItemStack itemstack = entityplayer.getHeldItemOffhand();
-			EnumHandSide enumhandside = entityplayer.getPrimaryHand().opposite();
+			HandSide enumhandside = entityplayer.getPrimaryHand().opposite();
 			int i = sr.getScaledWidth() / 2;
 			float f = zLevel;
 			int j = 182;
@@ -485,7 +485,7 @@ public class GuiIngame extends Gui {
 			drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20, sr.getScaledHeight() - 22 - 1, 0, 22, 24, 22);
 
 			if (!itemstack.isEmpty()) {
-				if (enumhandside == EnumHandSide.LEFT) {
+				if (enumhandside == HandSide.LEFT) {
 					drawTexturedModalRect(i - 91 - 29, sr.getScaledHeight() - 23, 24, 22, 29, 24);
 				} else {
 					drawTexturedModalRect(i + 91, sr.getScaledHeight() - 23, 53, 22, 29, 24);
@@ -507,7 +507,7 @@ public class GuiIngame extends Gui {
 			if (!itemstack.isEmpty()) {
 				int l1 = sr.getScaledHeight() - 16 - 3;
 
-				if (enumhandside == EnumHandSide.LEFT) {
+				if (enumhandside == HandSide.LEFT) {
 					renderHotbarItem(i - 91 - 26, l1, partialTicks, entityplayer, itemstack);
 				} else {
 					renderHotbarItem(i + 91 + 10, l1, partialTicks, entityplayer, itemstack);
@@ -521,7 +521,7 @@ public class GuiIngame extends Gui {
 					int i2 = sr.getScaledHeight() - 20;
 					int j2 = i + 91 + 6;
 
-					if (enumhandside == EnumHandSide.RIGHT) {
+					if (enumhandside == HandSide.RIGHT) {
 						j2 = i - 91 - 22;
 					}
 

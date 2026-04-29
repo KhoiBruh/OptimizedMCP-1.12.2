@@ -9,7 +9,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -26,7 +26,7 @@ public class BlockStem extends BlockBush implements IGrowable {
 
 	protected BlockStem(Block crop) {
 
-		setDefaultState(blockState.getBaseState().withProperty(AGE, 0).withProperty(FACING, EnumFacing.UP));
+		setDefaultState(blockState.getBaseState().withProperty(AGE, 0).withProperty(FACING, Facing.UP));
 		this.crop = crop;
 		setTickRandomly(true);
 		setCreativeTab(null);
@@ -44,9 +44,9 @@ public class BlockStem extends BlockBush implements IGrowable {
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 
 		int i = state.getValue(AGE);
-		state = state.withProperty(FACING, EnumFacing.UP);
+		state = state.withProperty(FACING, Facing.UP);
 
-		for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+		for (Facing enumfacing : Facing.Plane.HORIZONTAL) {
 			if (worldIn.getBlockState(pos.offset(enumfacing)).getBlock() == crop && i == 7) {
 				state = state.withProperty(FACING, enumfacing);
 				break;
@@ -78,13 +78,13 @@ public class BlockStem extends BlockBush implements IGrowable {
 					state = state.withProperty(AGE, i + 1);
 					worldIn.setBlockState(pos, state, 2);
 				} else {
-					for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+					for (Facing enumfacing : Facing.Plane.HORIZONTAL) {
 						if (worldIn.getBlockState(pos.offset(enumfacing)).getBlock() == crop) {
 							return;
 						}
 					}
 
-					pos = pos.offset(EnumFacing.Plane.HORIZONTAL.random(rand));
+					pos = pos.offset(Facing.Plane.HORIZONTAL.random(rand));
 					Block block = worldIn.getBlockState(pos.down()).getBlock();
 
 					if (worldIn.getBlockState(pos).getBlock().blockMaterial == Material.AIR && (block == Blocks.FARMLAND || block == Blocks.DIRT || block == Blocks.GRASS)) {

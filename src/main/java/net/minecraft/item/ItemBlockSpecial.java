@@ -8,9 +8,9 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -27,13 +27,13 @@ public class ItemBlockSpecial extends Item {
 	/**
 	 * Called when a Block is right-clicked with this Item
 	 */
-	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		Block block = iblockstate.getBlock();
 
 		if (block == Blocks.SNOW_LAYER && iblockstate.getValue(BlockSnow.LAYERS) < 1) {
-			facing = EnumFacing.UP;
+			facing = Facing.UP;
 		} else if (!block.isReplaceable(worldIn, pos)) {
 			pos = pos.offset(facing);
 		}
@@ -44,7 +44,7 @@ public class ItemBlockSpecial extends Item {
 			IBlockState iblockstate1 = this.block.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, 0, player);
 
 			if (!worldIn.setBlockState(pos, iblockstate1, 11)) {
-				return EnumActionResult.FAIL;
+				return ActionResult.FAIL;
 			} else {
 				iblockstate1 = worldIn.getBlockState(pos);
 
@@ -60,10 +60,10 @@ public class ItemBlockSpecial extends Item {
 				SoundType soundtype = this.block.getSoundType();
 				worldIn.playSound(player, pos, soundtype.placeSound(), SoundCategory.BLOCKS, (soundtype.volume() + 1F) / 2F, soundtype.pitch() * 0.8F);
 				itemstack.shrink(1);
-				return EnumActionResult.SUCCESS;
+				return ActionResult.SUCCESS;
 			}
 		} else {
-			return EnumActionResult.FAIL;
+			return ActionResult.FAIL;
 		}
 	}
 

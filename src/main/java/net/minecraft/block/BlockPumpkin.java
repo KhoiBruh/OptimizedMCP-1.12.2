@@ -17,8 +17,8 @@ import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntitySnowman;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.Facing;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
@@ -35,7 +35,7 @@ public class BlockPumpkin extends BlockHorizontal {
 	protected BlockPumpkin() {
 
 		super(Material.GOURD, MapColor.ADOBE);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH));
 		setTickRandomly(true);
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 	}
@@ -74,7 +74,7 @@ public class BlockPumpkin extends BlockHorizontal {
 			}
 
 			for (int l = 0; l < 120; ++l) {
-				worldIn.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, (double) blockpos1.getX() + worldIn.rand.nextDouble(), (double) blockpos1.getY() + worldIn.rand.nextDouble() * 2.5D, (double) blockpos1.getZ() + worldIn.rand.nextDouble(), 0D, 0D, 0D);
+				worldIn.spawnParticle(ParticleTypes.SNOW_SHOVEL, (double) blockpos1.getX() + worldIn.rand.nextDouble(), (double) blockpos1.getY() + worldIn.rand.nextDouble() * 2.5D, (double) blockpos1.getZ() + worldIn.rand.nextDouble(), 0D, 0D, 0D);
 			}
 
 			for (int i1 = 0; i1 < getSnowmanPattern().getThumbLength(); ++i1) {
@@ -102,7 +102,7 @@ public class BlockPumpkin extends BlockHorizontal {
 				}
 
 				for (int j1 = 0; j1 < 120; ++j1) {
-					worldIn.spawnParticle(EnumParticleTypes.SNOWBALL, (double) blockpos.getX() + worldIn.rand.nextDouble(), (double) blockpos.getY() + worldIn.rand.nextDouble() * 3.9D, (double) blockpos.getZ() + worldIn.rand.nextDouble(), 0D, 0D, 0D);
+					worldIn.spawnParticle(ParticleTypes.SNOWBALL, (double) blockpos.getX() + worldIn.rand.nextDouble(), (double) blockpos.getY() + worldIn.rand.nextDouble() * 3.9D, (double) blockpos.getZ() + worldIn.rand.nextDouble(), 0D, 0D, 0D);
 				}
 
 				for (int k1 = 0; k1 < getGolemPattern().getPalmLength(); ++k1) {
@@ -145,7 +145,7 @@ public class BlockPumpkin extends BlockHorizontal {
 	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 	 * IBlockstate
 	 */
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
 		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
 	}
@@ -155,7 +155,7 @@ public class BlockPumpkin extends BlockHorizontal {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
+		return getDefaultState().withProperty(FACING, Facing.getHorizontal(meta));
 	}
 
 	/**

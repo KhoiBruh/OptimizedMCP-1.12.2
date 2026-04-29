@@ -50,7 +50,7 @@ public class ItemFishingRod extends Item {
 		return true;
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
 
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
@@ -83,7 +83,7 @@ public class ItemFishingRod extends Item {
 			playerIn.addStat(StatList.getObjectUseStats(this));
 		}
 
-		return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
+		return new TypedActionResult<>(ActionResult.SUCCESS, itemstack);
 	}
 
 	/**

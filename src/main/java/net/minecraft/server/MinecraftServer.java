@@ -362,7 +362,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 	/**
 	 * Get the server's difficulty
 	 */
-	public abstract EnumDifficulty getDifficulty();
+	public abstract Difficulty getDifficulty();
 
 	/**
 	 * Defaults to false.
@@ -952,16 +952,16 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 		worldName = worldNameIn;
 	}
 
-	public void setDifficultyForAllWorlds(EnumDifficulty difficulty) {
+	public void setDifficultyForAllWorlds(Difficulty difficulty) {
 
 		for (WorldServer worldserver1 : worlds) {
 			if (worldserver1 != null) {
 				if (worldserver1.getWorldInfo().isHardcoreModeEnabled()) {
-					worldserver1.getWorldInfo().setDifficulty(EnumDifficulty.HARD);
+					worldserver1.getWorldInfo().setDifficulty(Difficulty.HARD);
 					worldserver1.setAllowedSpawnTypes(true, true);
 				} else if (isSinglePlayer()) {
 					worldserver1.getWorldInfo().setDifficulty(difficulty);
-					worldserver1.setAllowedSpawnTypes(worldserver1.getDifficulty() != EnumDifficulty.PEACEFUL, true);
+					worldserver1.setAllowedSpawnTypes(worldserver1.getDifficulty() != Difficulty.PEACEFUL, true);
 				} else {
 					worldserver1.getWorldInfo().setDifficulty(difficulty);
 					worldserver1.setAllowedSpawnTypes(allowSpawnMonsters(), canSpawnAnimals);

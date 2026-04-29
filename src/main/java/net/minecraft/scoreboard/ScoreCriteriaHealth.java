@@ -12,9 +12,9 @@ public class ScoreCriteriaHealth extends ScoreCriteria {
 		return true;
 	}
 
-	public IScoreCriteria.EnumRenderType getRenderType() {
+	public IScoreCriteria.RenderType getRenderType() {
 
-		return IScoreCriteria.EnumRenderType.HEARTS;
+		return IScoreCriteria.RenderType.HEARTS;
 	}
 
 }

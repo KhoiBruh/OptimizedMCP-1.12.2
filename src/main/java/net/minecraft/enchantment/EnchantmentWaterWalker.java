@@ -7,7 +7,7 @@ public class EnchantmentWaterWalker extends Enchantment {
 
 	public EnchantmentWaterWalker(Enchantment.Rarity rarityIn, EntityEquipmentSlot... slots) {
 
-		super(rarityIn, EnumEnchantmentType.ARMOR_FEET, slots);
+		super(rarityIn, EnchantmentType.ARMOR_FEET, slots);
 		setName("waterWalker");
 	}
 

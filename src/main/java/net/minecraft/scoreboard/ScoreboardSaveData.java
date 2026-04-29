@@ -89,7 +89,7 @@ public class ScoreboardSaveData extends WorldSavedData {
 			}
 
 			if (nbttagcompound.hasKey("NameTagVisibility", 8)) {
-				Team.EnumVisible team$enumvisible = Team.EnumVisible.getByName(nbttagcompound.getString("NameTagVisibility"));
+				Team.Visible team$enumvisible = Team.Visible.getByName(nbttagcompound.getString("NameTagVisibility"));
 
 				if (team$enumvisible != null) {
 					scoreplayerteam.setNameTagVisibility(team$enumvisible);
@@ -97,7 +97,7 @@ public class ScoreboardSaveData extends WorldSavedData {
 			}
 
 			if (nbttagcompound.hasKey("DeathMessageVisibility", 8)) {
-				Team.EnumVisible team$enumvisible1 = Team.EnumVisible.getByName(nbttagcompound.getString("DeathMessageVisibility"));
+				Team.Visible team$enumvisible1 = Team.Visible.getByName(nbttagcompound.getString("DeathMessageVisibility"));
 
 				if (team$enumvisible1 != null) {
 					scoreplayerteam.setDeathMessageVisibility(team$enumvisible1);
@@ -149,7 +149,7 @@ public class ScoreboardSaveData extends WorldSavedData {
 
 				ScoreObjective scoreobjective = scoreboard.addScoreObjective(s, iscorecriteria);
 				scoreobjective.setDisplayName(nbttagcompound.getString("DisplayName"));
-				scoreobjective.setRenderType(IScoreCriteria.EnumRenderType.getByName(nbttagcompound.getString("RenderType")));
+				scoreobjective.setRenderType(IScoreCriteria.RenderType.getByName(nbttagcompound.getString("RenderType")));
 			}
 		}
 	}

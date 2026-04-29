@@ -42,7 +42,7 @@ public abstract class Team {
 	/**
 	 * Gets the visibility flags for player name tags.
 	 */
-	public abstract Team.EnumVisible getNameTagVisibility();
+	public abstract Team.Visible getNameTagVisibility();
 
 	/**
 	 * Gets the color for this team. The team color is used mainly for team kill objectives and team-specific setDisplay
@@ -55,7 +55,7 @@ public abstract class Team {
 	/**
 	 * Gets the visibility flags for player death messages.
 	 */
-	public abstract Team.EnumVisible getDeathMessageVisibility();
+	public abstract Team.Visible getDeathMessageVisibility();
 
 	/**
 	 * Gets the rule to be used for handling collisions with members of this team.
@@ -97,16 +97,16 @@ public abstract class Team {
 		}
 	}
 
-	public enum EnumVisible {
+	public enum Visible {
 		ALWAYS("always", 0),
 		NEVER("never", 1),
 		HIDE_FOR_OTHER_TEAMS("hideForOtherTeams", 2),
 		HIDE_FOR_OWN_TEAM("hideForOwnTeam", 3);
 
-		private static final Map<String, Team.EnumVisible> nameMap = Maps.newHashMap();
+		private static final Map<String, Team.Visible> nameMap = Maps.newHashMap();
 
 		static {
-			for (Team.EnumVisible team$enumvisible : values()) {
+			for (Team.Visible team$enumvisible : values()) {
 				nameMap.put(team$enumvisible.internalName, team$enumvisible);
 			}
 		}
@@ -114,7 +114,7 @@ public abstract class Team {
 		public final String internalName;
 		public final int id;
 
-		EnumVisible(String nameIn, int idIn) {
+		Visible(String nameIn, int idIn) {
 
 			internalName = nameIn;
 			id = idIn;
@@ -126,7 +126,7 @@ public abstract class Team {
 		}
 
 		
-		public static Team.EnumVisible getByName(String nameIn) {
+		public static Team.Visible getByName(String nameIn) {
 
 			return nameMap.get(nameIn);
 		}

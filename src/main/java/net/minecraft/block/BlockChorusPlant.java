@@ -12,7 +12,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -168,7 +168,7 @@ public class BlockChorusPlant extends Block {
 		boolean flag = wordIn.isAirBlock(pos.up());
 		boolean flag1 = wordIn.isAirBlock(pos.down());
 
-		for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+		for (Facing enumfacing : Facing.Plane.HORIZONTAL) {
 			BlockPos blockpos = pos.offset(enumfacing);
 			Block block = wordIn.getBlockState(blockpos).getBlock();
 
@@ -198,10 +198,10 @@ public class BlockChorusPlant extends Block {
 		return BlockRenderLayer.CUTOUT;
 	}
 
-	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
 		Block block = blockAccess.getBlockState(pos.offset(side)).getBlock();
-		return block != this && block != Blocks.CHORUS_FLOWER && (side != EnumFacing.DOWN || block != Blocks.END_STONE);
+		return block != this && block != Blocks.CHORUS_FLOWER && (side != Facing.DOWN || block != Blocks.END_STONE);
 	}
 
 	protected BlockStateContainer createBlockState() {
@@ -226,7 +226,7 @@ public class BlockChorusPlant extends Block {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
 		return BlockFaceShape.UNDEFINED;
 	}

@@ -23,7 +23,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 import java.util.Random;
@@ -81,7 +81,7 @@ public class EntityGhast extends EntityFlying implements IMob {
 
 		super.onUpdate();
 
-		if (!world.isRemote && world.getDifficulty() == EnumDifficulty.PEACEFUL) {
+		if (!world.isRemote && world.getDifficulty() == Difficulty.PEACEFUL) {
 			setDead();
 		}
 	}
@@ -153,7 +153,7 @@ public class EntityGhast extends EntityFlying implements IMob {
 	 */
 	public boolean getCanSpawnHere() {
 
-		return rand.nextInt(20) == 0 && super.getCanSpawnHere() && world.getDifficulty() != EnumDifficulty.PEACEFUL;
+		return rand.nextInt(20) == 0 && super.getCanSpawnHere() && world.getDifficulty() != Difficulty.PEACEFUL;
 	}
 
 	/**

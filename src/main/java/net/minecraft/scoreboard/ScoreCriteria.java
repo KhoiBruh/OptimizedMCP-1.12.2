@@ -20,9 +20,9 @@ public class ScoreCriteria implements IScoreCriteria {
 		return false;
 	}
 
-	public IScoreCriteria.EnumRenderType getRenderType() {
+	public IScoreCriteria.RenderType getRenderType() {
 
-		return IScoreCriteria.EnumRenderType.INTEGER;
+		return IScoreCriteria.RenderType.INTEGER;
 	}
 
 }

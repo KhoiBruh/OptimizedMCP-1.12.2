@@ -3,7 +3,7 @@ package net.minecraft.util.math;
 import com.google.common.collect.AbstractIterator;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.Rotation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -183,7 +183,7 @@ public class BlockPos extends Vec3i {
 	 */
 	public BlockPos up(int n) {
 
-		return offset(EnumFacing.UP, n);
+		return offset(Facing.UP, n);
 	}
 
 	/**
@@ -199,7 +199,7 @@ public class BlockPos extends Vec3i {
 	 */
 	public BlockPos down(int n) {
 
-		return offset(EnumFacing.DOWN, n);
+		return offset(Facing.DOWN, n);
 	}
 
 	/**
@@ -215,7 +215,7 @@ public class BlockPos extends Vec3i {
 	 */
 	public BlockPos north(int n) {
 
-		return offset(EnumFacing.NORTH, n);
+		return offset(Facing.NORTH, n);
 	}
 
 	/**
@@ -231,7 +231,7 @@ public class BlockPos extends Vec3i {
 	 */
 	public BlockPos south(int n) {
 
-		return offset(EnumFacing.SOUTH, n);
+		return offset(Facing.SOUTH, n);
 	}
 
 	/**
@@ -247,7 +247,7 @@ public class BlockPos extends Vec3i {
 	 */
 	public BlockPos west(int n) {
 
-		return offset(EnumFacing.WEST, n);
+		return offset(Facing.WEST, n);
 	}
 
 	/**
@@ -263,13 +263,13 @@ public class BlockPos extends Vec3i {
 	 */
 	public BlockPos east(int n) {
 
-		return offset(EnumFacing.EAST, n);
+		return offset(Facing.EAST, n);
 	}
 
 	/**
 	 * Offset this BlockPos 1 block in the given direction
 	 */
-	public BlockPos offset(EnumFacing facing) {
+	public BlockPos offset(Facing facing) {
 
 		return offset(facing, 1);
 	}
@@ -277,7 +277,7 @@ public class BlockPos extends Vec3i {
 	/**
 	 * Offsets this BlockPos n blocks in the given direction
 	 */
-	public BlockPos offset(EnumFacing facing, int n) {
+	public BlockPos offset(Facing facing, int n) {
 
 		return n == 0 ? this : new BlockPos(getX() + facing.getFrontOffsetX() * n, getY() + facing.getFrontOffsetY() * n, getZ() + facing.getFrontOffsetZ() * n);
 	}
@@ -353,7 +353,7 @@ public class BlockPos extends Vec3i {
 			return super.add(x, y, z).toImmutable();
 		}
 
-		public BlockPos offset(EnumFacing facing, int n) {
+		public BlockPos offset(Facing facing, int n) {
 
 			return super.offset(facing, n).toImmutable();
 		}
@@ -406,12 +406,12 @@ public class BlockPos extends Vec3i {
 			return setPos(vec.getX(), vec.getY(), vec.getZ());
 		}
 
-		public BlockPos.MutableBlockPos move(EnumFacing facing) {
+		public BlockPos.MutableBlockPos move(Facing facing) {
 
 			return move(facing, 1);
 		}
 
-		public BlockPos.MutableBlockPos move(EnumFacing facing, int n) {
+		public BlockPos.MutableBlockPos move(Facing facing, int n) {
 
 			return setPos(x + facing.getFrontOffsetX() * n, y + facing.getFrontOffsetY() * n, z + facing.getFrontOffsetZ() * n);
 		}
@@ -501,12 +501,12 @@ public class BlockPos extends Vec3i {
 			return (BlockPos.PooledMutableBlockPos) super.setPos(vec);
 		}
 
-		public BlockPos.PooledMutableBlockPos move(EnumFacing facing) {
+		public BlockPos.PooledMutableBlockPos move(Facing facing) {
 
 			return (BlockPos.PooledMutableBlockPos) super.move(facing);
 		}
 
-		public BlockPos.PooledMutableBlockPos move(EnumFacing facing, int n) {
+		public BlockPos.PooledMutableBlockPos move(Facing facing, int n) {
 
 			return (BlockPos.PooledMutableBlockPos) super.move(facing, n);
 		}

@@ -4,7 +4,7 @@ import net.minecraft.entity.item.EntityPainting;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.UUID;
@@ -14,7 +14,7 @@ public class SPacketSpawnPainting implements Packet<INetHandlerPlayClient> {
 	private int entityID;
 	private UUID uniqueId;
 	private BlockPos position;
-	private EnumFacing facing;
+	private Facing facing;
 	private String title;
 
 	public SPacketSpawnPainting() {
@@ -37,9 +37,9 @@ public class SPacketSpawnPainting implements Packet<INetHandlerPlayClient> {
 
 		entityID = buf.readVarInt();
 		uniqueId = buf.readUniqueId();
-		title = buf.readString(EntityPainting.EnumArt.MAX_NAME_LENGTH);
+		title = buf.readString(EntityPainting.Art.MAX_NAME_LENGTH);
 		position = buf.readBlockPos();
-		facing = EnumFacing.getHorizontal(buf.readUnsignedByte());
+		facing = Facing.getHorizontal(buf.readUnsignedByte());
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class SPacketSpawnPainting implements Packet<INetHandlerPlayClient> {
 		return position;
 	}
 
-	public EnumFacing getFacing() {
+	public Facing getFacing() {
 
 		return facing;
 	}

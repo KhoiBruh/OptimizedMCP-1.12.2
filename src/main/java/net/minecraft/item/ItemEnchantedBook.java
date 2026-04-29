@@ -86,11 +86,11 @@ public class ItemEnchantedBook extends Item {
 	}
 
 	/**
-	 * Return an item rarity from EnumRarity
+	 * Return an item rarity from Rarity
 	 */
-	public EnumRarity getRarity(ItemStack stack) {
+	public Rarity getRarity(ItemStack stack) {
 
-		return getEnchantments(stack).hasNoTags() ? super.getRarity(stack) : EnumRarity.UNCOMMON;
+		return getEnchantments(stack).hasNoTags() ? super.getRarity(stack) : Rarity.UNCOMMON;
 	}
 
 	/**

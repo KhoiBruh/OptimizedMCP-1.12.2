@@ -65,7 +65,7 @@ public class ItemBlock extends Item {
 	/**
 	 * Called when a Block is right-clicked with this Item
 	 */
-	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		Block block = iblockstate.getBlock();
@@ -97,18 +97,18 @@ public class ItemBlock extends Item {
 				itemstack.shrink(1);
 			}
 
-			return EnumActionResult.SUCCESS;
+			return ActionResult.SUCCESS;
 		} else {
-			return EnumActionResult.FAIL;
+			return ActionResult.FAIL;
 		}
 	}
 
-	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack) {
+	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Facing side, EntityPlayer player, ItemStack stack) {
 
 		Block block = worldIn.getBlockState(pos).getBlock();
 
 		if (block == Blocks.SNOW_LAYER) {
-			side = EnumFacing.UP;
+			side = Facing.UP;
 		} else if (!block.isReplaceable(worldIn, pos)) {
 			pos = pos.offset(side);
 		}

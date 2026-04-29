@@ -13,14 +13,14 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateSwimmer;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
@@ -234,7 +234,7 @@ public class EntityGuardian extends EntityMob {
 				Vec3d vec3d = getLook(0F);
 
 				for (int i = 0; i < 2; ++i) {
-					world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX + (rand.nextDouble() - 0.5D) * (double) width - vec3d.x() * 1.5D, posY + rand.nextDouble() * (double) height - vec3d.y() * 1.5D, posZ + (rand.nextDouble() - 0.5D) * (double) width - vec3d.z() * 1.5D, 0D, 0D, 0D);
+					world.spawnParticle(ParticleTypes.WATER_BUBBLE, posX + (rand.nextDouble() - 0.5D) * (double) width - vec3d.x() * 1.5D, posY + rand.nextDouble() * (double) height - vec3d.y() * 1.5D, posZ + (rand.nextDouble() - 0.5D) * (double) width - vec3d.z() * 1.5D, 0D, 0D, 0D);
 				}
 			}
 
@@ -260,7 +260,7 @@ public class EntityGuardian extends EntityMob {
 
 					while (d4 < d3) {
 						d4 += 1.8D - d5 + rand.nextDouble() * (1.7D - d5);
-						world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX + d0 * d4, posY + d1 * d4 + (double) getEyeHeight(), posZ + d2 * d4, 0D, 0D, 0D);
+						world.spawnParticle(ParticleTypes.WATER_BUBBLE, posX + d0 * d4, posY + d1 * d4 + (double) getEyeHeight(), posZ + d2 * d4, 0D, 0D, 0D);
 					}
 				}
 			}
@@ -435,7 +435,7 @@ public class EntityGuardian extends EntityMob {
 				} else if (tickCounter >= guardian.getAttackDuration()) {
 					float f = 1F;
 
-					if (guardian.world.getDifficulty() == EnumDifficulty.HARD) {
+					if (guardian.world.getDifficulty() == Difficulty.HARD) {
 						f += 2F;
 					}
 

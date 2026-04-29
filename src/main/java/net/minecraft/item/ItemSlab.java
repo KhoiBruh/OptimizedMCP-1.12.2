@@ -8,9 +8,9 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -51,7 +51,7 @@ public class ItemSlab extends ItemBlock {
 	/**
 	 * Called when a Block is right-clicked with this Item
 	 */
-	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		ItemStack itemstack = player.getHeldItem(hand);
 
@@ -62,9 +62,9 @@ public class ItemSlab extends ItemBlock {
 			if (iblockstate.getBlock() == singleSlab) {
 				IProperty<?> iproperty = singleSlab.getVariantProperty();
 				Comparable<?> comparable1 = iblockstate.getValue(iproperty);
-				BlockSlab.EnumBlockHalf blockslab$enumblockhalf = iblockstate.getValue(BlockSlab.HALF);
+				BlockSlab.BlockHalf blockslab$enumblockhalf = iblockstate.getValue(BlockSlab.HALF);
 
-				if ((facing == EnumFacing.UP && blockslab$enumblockhalf == BlockSlab.EnumBlockHalf.BOTTOM || facing == EnumFacing.DOWN && blockslab$enumblockhalf == BlockSlab.EnumBlockHalf.TOP) && comparable1 == comparable) {
+				if ((facing == Facing.UP && blockslab$enumblockhalf == BlockSlab.BlockHalf.BOTTOM || facing == Facing.DOWN && blockslab$enumblockhalf == BlockSlab.BlockHalf.TOP) && comparable1 == comparable) {
 					IBlockState iblockstate1 = makeState(iproperty, comparable1);
 					AxisAlignedBB axisalignedbb = iblockstate1.getCollisionBoundingBox(worldIn, pos);
 
@@ -78,17 +78,17 @@ public class ItemSlab extends ItemBlock {
 						}
 					}
 
-					return EnumActionResult.SUCCESS;
+					return ActionResult.SUCCESS;
 				}
 			}
 
-			return tryPlace(player, itemstack, worldIn, pos.offset(facing), comparable) ? EnumActionResult.SUCCESS : super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+			return tryPlace(player, itemstack, worldIn, pos.offset(facing), comparable) ? ActionResult.SUCCESS : super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
 		} else {
-			return EnumActionResult.FAIL;
+			return ActionResult.FAIL;
 		}
 	}
 
-	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack) {
+	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Facing side, EntityPlayer player, ItemStack stack) {
 
 		BlockPos blockpos = pos;
 		IProperty<?> iproperty = singleSlab.getVariantProperty();
@@ -96,9 +96,9 @@ public class ItemSlab extends ItemBlock {
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 
 		if (iblockstate.getBlock() == singleSlab) {
-			boolean flag = iblockstate.getValue(BlockSlab.HALF) == BlockSlab.EnumBlockHalf.TOP;
+			boolean flag = iblockstate.getValue(BlockSlab.HALF) == BlockSlab.BlockHalf.TOP;
 
-			if ((side == EnumFacing.UP && !flag || side == EnumFacing.DOWN && flag) && comparable == iblockstate.getValue(iproperty)) {
+			if ((side == Facing.UP && !flag || side == Facing.DOWN && flag) && comparable == iblockstate.getValue(iproperty)) {
 				return true;
 			}
 		}

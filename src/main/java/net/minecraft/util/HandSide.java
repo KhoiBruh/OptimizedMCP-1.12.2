@@ -3,18 +3,18 @@ package net.minecraft.util;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 
-public enum EnumHandSide {
+public enum HandSide {
 	LEFT(new TextComponentTranslation("options.mainHand.left")),
 	RIGHT(new TextComponentTranslation("options.mainHand.right"));
 
 	private final ITextComponent handName;
 
-	EnumHandSide(ITextComponent nameIn) {
+	HandSide(ITextComponent nameIn) {
 
 		handName = nameIn;
 	}
 
-	public EnumHandSide opposite() {
+	public HandSide opposite() {
 
 		return this == LEFT ? RIGHT : LEFT;
 	}

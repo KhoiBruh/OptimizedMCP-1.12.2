@@ -1,6 +1,6 @@
 package net.minecraft.util.datafix.fixes;
 
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.datafix.IFixableData;
 
@@ -14,7 +14,7 @@ public class BedItemColor implements IFixableData {
 	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
 
 		if ("minecraft:bed".equals(compound.getString("id")) && compound.getShort("Damage") == 0) {
-			compound.setShort("Damage", (short) EnumDyeColor.RED.getMetadata());
+			compound.setShort("Damage", (short) DyeColor.RED.getMetadata());
 		}
 
 		return compound;

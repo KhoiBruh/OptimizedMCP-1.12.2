@@ -20,7 +20,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -210,7 +210,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 * Gets the horizontal facing direction of this Entity, adjusted to take specially-treated entity types into
 	 * account.
 	 */
-	public EnumFacing getAdjustedHorizontalFacing() {
+	public Facing getAdjustedHorizontalFacing() {
 
 		return isInReverse ? getHorizontalFacing().getOpposite().rotateY() : getHorizontalFacing().rotateY();
 	}
@@ -418,7 +418,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 		}
 
 		double d0 = 0.0078125D;
-		BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = state.getValue(blockrailbase.getShapeProperty());
+		BlockRailBase.RailDirection blockrailbase$enumraildirection = state.getValue(blockrailbase.getShapeProperty());
 
 		switch (blockrailbase$enumraildirection) {
 			case ASCENDING_EAST:
@@ -565,13 +565,13 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 				double d16 = 0.06D;
 				motionX += motionX / d15 * 0.06D;
 				motionZ += motionZ / d15 * 0.06D;
-			} else if (blockrailbase$enumraildirection == BlockRailBase.EnumRailDirection.EAST_WEST) {
+			} else if (blockrailbase$enumraildirection == BlockRailBase.RailDirection.EAST_WEST) {
 				if (world.getBlockState(pos.west()).isNormalCube()) {
 					motionX = 0.02D;
 				} else if (world.getBlockState(pos.east()).isNormalCube()) {
 					motionX = -0.02D;
 				}
-			} else if (blockrailbase$enumraildirection == BlockRailBase.EnumRailDirection.NORTH_SOUTH) {
+			} else if (blockrailbase$enumraildirection == BlockRailBase.RailDirection.NORTH_SOUTH) {
 				if (world.getBlockState(pos.north()).isNormalCube()) {
 					motionZ = 0.02D;
 				} else if (world.getBlockState(pos.south()).isNormalCube()) {
@@ -608,7 +608,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 		IBlockState iblockstate = world.getBlockState(new BlockPos(i, j, k));
 
 		if (BlockRailBase.isRailBlock(iblockstate)) {
-			BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = iblockstate.getValue(((BlockRailBase) iblockstate.getBlock()).getShapeProperty());
+			BlockRailBase.RailDirection blockrailbase$enumraildirection = iblockstate.getValue(((BlockRailBase) iblockstate.getBlock()).getShapeProperty());
 			y = j;
 
 			if (blockrailbase$enumraildirection.isAscending()) {
@@ -650,7 +650,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 		IBlockState iblockstate = world.getBlockState(new BlockPos(i, j, k));
 
 		if (BlockRailBase.isRailBlock(iblockstate)) {
-			BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = iblockstate.getValue(((BlockRailBase) iblockstate.getBlock()).getShapeProperty());
+			BlockRailBase.RailDirection blockrailbase$enumraildirection = iblockstate.getValue(((BlockRailBase) iblockstate.getBlock()).getShapeProperty());
 			int[][] aint = MATRIX[blockrailbase$enumraildirection.getMetadata()];
 			double d0 = (double) i + 0.5D + (double) aint[0][0] * 0.5D;
 			double d1 = (double) j + 0.0625D + (double) aint[0][1] * 0.5D;

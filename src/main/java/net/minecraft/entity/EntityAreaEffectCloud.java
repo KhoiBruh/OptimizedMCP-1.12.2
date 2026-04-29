@@ -2,7 +2,7 @@ package net.minecraft.entity;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import net.minecraft.block.material.EnumPushReaction;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -12,7 +12,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -66,7 +66,7 @@ public class EntityAreaEffectCloud extends Entity {
 		getDataManager().register(COLOR, 0);
 		getDataManager().register(RADIUS, 0.5F);
 		getDataManager().register(IGNORE_RADIUS, false);
-		getDataManager().register(PARTICLE, EnumParticleTypes.SPELL_MOB.getParticleID());
+		getDataManager().register(PARTICLE, ParticleTypes.SPELL_MOB.getParticleID());
 		getDataManager().register(PARTICLE_PARAM_1, 0);
 		getDataManager().register(PARTICLE_PARAM_2, 0);
 	}
@@ -127,12 +127,12 @@ public class EntityAreaEffectCloud extends Entity {
 		getDataManager().set(COLOR, colorIn);
 	}
 
-	public EnumParticleTypes getParticle() {
+	public ParticleTypes getParticle() {
 
-		return EnumParticleTypes.getParticleFromId(getDataManager().get(PARTICLE));
+		return ParticleTypes.getParticleFromId(getDataManager().get(PARTICLE));
 	}
 
-	public void setParticle(EnumParticleTypes particleIn) {
+	public void setParticle(ParticleTypes particleIn) {
 
 		getDataManager().set(PARTICLE, particleIn.getParticleID());
 	}
@@ -193,7 +193,7 @@ public class EntityAreaEffectCloud extends Entity {
 		float f = getRadius();
 
 		if (world.isRemote) {
-			EnumParticleTypes enumparticletypes = getParticle();
+			ParticleTypes enumparticletypes = getParticle();
 			int[] aint = new int[enumparticletypes.getArgumentCount()];
 
 			if (aint.length > 0) {
@@ -212,12 +212,12 @@ public class EntityAreaEffectCloud extends Entity {
 						float f3 = MathHelper.cos(f1) * f2;
 						float f4 = MathHelper.sin(f1) * f2;
 
-						if (enumparticletypes == EnumParticleTypes.SPELL_MOB) {
+						if (enumparticletypes == ParticleTypes.SPELL_MOB) {
 							int j = rand.nextBoolean() ? 16777215 : getColor();
 							int k = j >> 16 & 255;
 							int l = j >> 8 & 255;
 							int i1 = j & 255;
-							world.spawnAlwaysVisibleParticle(EnumParticleTypes.SPELL_MOB.getParticleID(), posX + (double) f3, posY, posZ + (double) f4, (float) k / 255F, (float) l / 255F, (float) i1 / 255F);
+							world.spawnAlwaysVisibleParticle(ParticleTypes.SPELL_MOB.getParticleID(), posX + (double) f3, posY, posZ + (double) f4, (float) k / 255F, (float) l / 255F, (float) i1 / 255F);
 						} else {
 							world.spawnAlwaysVisibleParticle(enumparticletypes.getParticleID(), posX + (double) f3, posY, posZ + (double) f4, 0D, 0D, 0D, aint);
 						}
@@ -232,12 +232,12 @@ public class EntityAreaEffectCloud extends Entity {
 					float f8 = MathHelper.cos(f6) * f7;
 					float f9 = MathHelper.sin(f6) * f7;
 
-					if (enumparticletypes == EnumParticleTypes.SPELL_MOB) {
+					if (enumparticletypes == ParticleTypes.SPELL_MOB) {
 						int l1 = getColor();
 						int i2 = l1 >> 16 & 255;
 						int j2 = l1 >> 8 & 255;
 						int j1 = l1 & 255;
-						world.spawnAlwaysVisibleParticle(EnumParticleTypes.SPELL_MOB.getParticleID(), posX + (double) f8, posY, posZ + (double) f9, (float) i2 / 255F, (float) j2 / 255F, (float) j1 / 255F);
+						world.spawnAlwaysVisibleParticle(ParticleTypes.SPELL_MOB.getParticleID(), posX + (double) f8, posY, posZ + (double) f9, (float) i2 / 255F, (float) j2 / 255F, (float) j1 / 255F);
 					} else {
 						world.spawnAlwaysVisibleParticle(enumparticletypes.getParticleID(), posX + (double) f8, posY, posZ + (double) f9, (0.5D - rand.nextDouble()) * 0.15D, 0.009999999776482582D, (0.5D - rand.nextDouble()) * 0.15D, aint);
 					}
@@ -384,7 +384,7 @@ public class EntityAreaEffectCloud extends Entity {
 		ownerUniqueId = compound.getUniqueId("OwnerUUID");
 
 		if (compound.hasKey("Particle", 8)) {
-			EnumParticleTypes enumparticletypes = EnumParticleTypes.getByName(compound.getString("Particle"));
+			ParticleTypes enumparticletypes = ParticleTypes.getByName(compound.getString("Particle"));
 
 			if (enumparticletypes != null) {
 				setParticle(enumparticletypes);
@@ -464,9 +464,9 @@ public class EntityAreaEffectCloud extends Entity {
 		super.notifyDataManagerChange(key);
 	}
 
-	public EnumPushReaction getPushReaction() {
+	public PushReaction getPushReaction() {
 
-		return EnumPushReaction.IGNORE;
+		return PushReaction.IGNORE;
 	}
 
 }

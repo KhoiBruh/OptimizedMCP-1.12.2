@@ -13,7 +13,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.CommandBlockBaseLogic;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityCommandBlock;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.datafix.FixTypes;
@@ -153,7 +153,7 @@ public class EntityMinecartCommandBlock extends EntityMinecart {
 		}
 	}
 
-	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
+	public boolean processInitialInteract(EntityPlayer player, Hand hand) {
 
 		commandBlockLogic.tryOpenEditCommandBlock(player);
 		return false;

@@ -1,11 +1,11 @@
 package net.minecraft.block;
 
-import net.minecraft.block.material.EnumPushReaction;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.BlockRenderType;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -24,9 +24,9 @@ public class BlockStructureVoid extends Block {
 	 * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
-	public EnumBlockRenderType getRenderType(IBlockState state) {
+	public BlockRenderType getRenderType(IBlockState state) {
 
-		return EnumBlockRenderType.INVISIBLE;
+		return BlockRenderType.INVISIBLE;
 	}
 
 	
@@ -65,9 +65,9 @@ public class BlockStructureVoid extends Block {
 
 	}
 
-	public EnumPushReaction getMobilityFlag(IBlockState state) {
+	public PushReaction getMobilityFlag(IBlockState state) {
 
-		return EnumPushReaction.DESTROY;
+		return PushReaction.DESTROY;
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class BlockStructureVoid extends Block {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
 		return BlockFaceShape.UNDEFINED;
 	}

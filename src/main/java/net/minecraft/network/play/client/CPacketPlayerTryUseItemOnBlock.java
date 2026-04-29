@@ -3,15 +3,15 @@ package net.minecraft.network.play.client;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 
 public class CPacketPlayerTryUseItemOnBlock implements Packet<INetHandlerPlayServer> {
 
 	private BlockPos position;
-	private EnumFacing placedBlockDirection;
-	private EnumHand hand;
+	private Facing placedBlockDirection;
+	private Hand hand;
 	private float facingX;
 	private float facingY;
 	private float facingZ;
@@ -20,7 +20,7 @@ public class CPacketPlayerTryUseItemOnBlock implements Packet<INetHandlerPlaySer
 
 	}
 
-	public CPacketPlayerTryUseItemOnBlock(BlockPos posIn, EnumFacing placedBlockDirectionIn, EnumHand handIn, float facingXIn, float facingYIn, float facingZIn) {
+	public CPacketPlayerTryUseItemOnBlock(BlockPos posIn, Facing placedBlockDirectionIn, Hand handIn, float facingXIn, float facingYIn, float facingZIn) {
 
 		position = posIn;
 		placedBlockDirection = placedBlockDirectionIn;
@@ -36,8 +36,8 @@ public class CPacketPlayerTryUseItemOnBlock implements Packet<INetHandlerPlaySer
 	public void readPacketData(PacketBuffer buf) {
 
 		position = buf.readBlockPos();
-		placedBlockDirection = buf.readEnumValue(EnumFacing.class);
-		hand = buf.readEnumValue(EnumHand.class);
+		placedBlockDirection = buf.readEnumValue(Facing.class);
+		hand = buf.readEnumValue(Hand.class);
 		facingX = buf.readFloat();
 		facingY = buf.readFloat();
 		facingZ = buf.readFloat();
@@ -69,12 +69,12 @@ public class CPacketPlayerTryUseItemOnBlock implements Packet<INetHandlerPlaySer
 		return position;
 	}
 
-	public EnumFacing getDirection() {
+	public Facing getDirection() {
 
 		return placedBlockDirection;
 	}
 
-	public EnumHand getHand() {
+	public Hand getHand() {
 
 		return hand;
 	}

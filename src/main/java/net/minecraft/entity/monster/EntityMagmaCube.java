@@ -4,11 +4,11 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
@@ -36,7 +36,7 @@ public class EntityMagmaCube extends EntitySlime {
 	 */
 	public boolean getCanSpawnHere() {
 
-		return world.getDifficulty() != EnumDifficulty.PEACEFUL;
+		return world.getDifficulty() != Difficulty.PEACEFUL;
 	}
 
 	/**
@@ -66,9 +66,9 @@ public class EntityMagmaCube extends EntitySlime {
 		return 1F;
 	}
 
-	protected EnumParticleTypes getParticleType() {
+	protected ParticleTypes getParticleType() {
 
-		return EnumParticleTypes.FLAME;
+		return ParticleTypes.FLAME;
 	}
 
 	protected EntitySlime createInstance() {

@@ -23,7 +23,7 @@ import java.util.Random;
 public abstract class BlockStoneSlabNew extends BlockSlab {
 
 	public static final PropertyBool SEAMLESS = PropertyBool.create("seamless");
-	public static final PropertyEnum<BlockStoneSlabNew.EnumType> VARIANT = PropertyEnum.create("variant", BlockStoneSlabNew.EnumType.class);
+	public static final PropertyEnum<BlockStoneSlabNew.Type> VARIANT = PropertyEnum.create("variant", BlockStoneSlabNew.Type.class);
 
 	public BlockStoneSlabNew() {
 
@@ -33,10 +33,10 @@ public abstract class BlockStoneSlabNew extends BlockSlab {
 		if (isDouble()) {
 			iblockstate = iblockstate.withProperty(SEAMLESS, false);
 		} else {
-			iblockstate = iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
+			iblockstate = iblockstate.withProperty(HALF, BlockSlab.BlockHalf.BOTTOM);
 		}
 
-		setDefaultState(iblockstate.withProperty(VARIANT, BlockStoneSlabNew.EnumType.RED_SANDSTONE));
+		setDefaultState(iblockstate.withProperty(VARIANT, BlockStoneSlabNew.Type.RED_SANDSTONE));
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 	}
 
@@ -66,7 +66,7 @@ public abstract class BlockStoneSlabNew extends BlockSlab {
 	 */
 	public String getUnlocalizedName(int meta) {
 
-		return super.getUnlocalizedName() + "." + BlockStoneSlabNew.EnumType.byMetadata(meta).getUnlocalizedName();
+		return super.getUnlocalizedName() + "." + BlockStoneSlabNew.Type.byMetadata(meta).getUnlocalizedName();
 	}
 
 	public IProperty<?> getVariantProperty() {
@@ -76,7 +76,7 @@ public abstract class BlockStoneSlabNew extends BlockSlab {
 
 	public Comparable<?> getTypeForItem(ItemStack stack) {
 
-		return BlockStoneSlabNew.EnumType.byMetadata(stack.getMetadata() & 7);
+		return BlockStoneSlabNew.Type.byMetadata(stack.getMetadata() & 7);
 	}
 
 	/**
@@ -84,7 +84,7 @@ public abstract class BlockStoneSlabNew extends BlockSlab {
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
 
-		for (BlockStoneSlabNew.EnumType blockstoneslabnew$enumtype : BlockStoneSlabNew.EnumType.values()) {
+		for (BlockStoneSlabNew.Type blockstoneslabnew$enumtype : BlockStoneSlabNew.Type.values()) {
 			items.add(new ItemStack(this, 1, blockstoneslabnew$enumtype.getMetadata()));
 		}
 	}
@@ -94,12 +94,12 @@ public abstract class BlockStoneSlabNew extends BlockSlab {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		IBlockState iblockstate = getDefaultState().withProperty(VARIANT, BlockStoneSlabNew.EnumType.byMetadata(meta & 7));
+		IBlockState iblockstate = getDefaultState().withProperty(VARIANT, BlockStoneSlabNew.Type.byMetadata(meta & 7));
 
 		if (isDouble()) {
 			iblockstate = iblockstate.withProperty(SEAMLESS, (meta & 8) != 0);
 		} else {
-			iblockstate = iblockstate.withProperty(HALF, (meta & 8) == 0 ? BlockSlab.EnumBlockHalf.BOTTOM : BlockSlab.EnumBlockHalf.TOP);
+			iblockstate = iblockstate.withProperty(HALF, (meta & 8) == 0 ? BlockSlab.BlockHalf.BOTTOM : BlockSlab.BlockHalf.TOP);
 		}
 
 		return iblockstate;
@@ -117,7 +117,7 @@ public abstract class BlockStoneSlabNew extends BlockSlab {
 			if (state.getValue(SEAMLESS)) {
 				i |= 8;
 			}
-		} else if (state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP) {
+		} else if (state.getValue(HALF) == BlockSlab.BlockHalf.TOP) {
 			i |= 8;
 		}
 
@@ -146,13 +146,13 @@ public abstract class BlockStoneSlabNew extends BlockSlab {
 		return state.getValue(VARIANT).getMetadata();
 	}
 
-	public enum EnumType implements IStringSerializable {
-		RED_SANDSTONE(0, "red_sandstone", BlockSand.EnumType.RED_SAND.getMapColor());
+	public enum Type implements IStringSerializable {
+		RED_SANDSTONE(0, "red_sandstone", BlockSand.Type.RED_SAND.getMapColor());
 
-		private static final BlockStoneSlabNew.EnumType[] META_LOOKUP = new BlockStoneSlabNew.EnumType[values().length];
+		private static final BlockStoneSlabNew.Type[] META_LOOKUP = new BlockStoneSlabNew.Type[values().length];
 
 		static {
-			for (BlockStoneSlabNew.EnumType blockstoneslabnew$enumtype : values()) {
+			for (BlockStoneSlabNew.Type blockstoneslabnew$enumtype : values()) {
 				META_LOOKUP[blockstoneslabnew$enumtype.getMetadata()] = blockstoneslabnew$enumtype;
 			}
 		}
@@ -161,14 +161,14 @@ public abstract class BlockStoneSlabNew extends BlockSlab {
 		private final String name;
 		private final MapColor mapColor;
 
-		EnumType(int p_i46391_3_, String p_i46391_4_, MapColor p_i46391_5_) {
+		Type(int p_i46391_3_, String p_i46391_4_, MapColor p_i46391_5_) {
 
 			meta = p_i46391_3_;
 			name = p_i46391_4_;
 			mapColor = p_i46391_5_;
 		}
 
-		public static BlockStoneSlabNew.EnumType byMetadata(int meta) {
+		public static BlockStoneSlabNew.Type byMetadata(int meta) {
 
 			if (meta < 0 || meta >= META_LOOKUP.length) {
 				meta = 0;

@@ -2,7 +2,7 @@ package net.minecraft.client.model;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityVex;
-import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.HandSide;
 import net.minecraft.util.math.MathHelper;
 
 public class ModelVex extends ModelBiped {
@@ -51,7 +51,7 @@ public class ModelVex extends ModelBiped {
 		EntityVex entityvex = (EntityVex) entityIn;
 
 		if (entityvex.isCharging()) {
-			if (entityvex.getPrimaryHand() == EnumHandSide.RIGHT) {
+			if (entityvex.getPrimaryHand() == HandSide.RIGHT) {
 				bipedRightArm.rotateAngleX = 3.7699115F;
 			} else {
 				bipedLeftArm.rotateAngleX = 3.7699115F;

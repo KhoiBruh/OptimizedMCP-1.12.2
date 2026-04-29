@@ -15,8 +15,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerRepair;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -40,7 +40,7 @@ public class BlockAnvil extends BlockFalling {
 	protected BlockAnvil() {
 
 		super(Material.ANVIL);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(DAMAGE, 0));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(DAMAGE, 0));
 		setLightOpacity(0);
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
@@ -59,7 +59,7 @@ public class BlockAnvil extends BlockFalling {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
 		return BlockFaceShape.UNDEFINED;
 	}
@@ -76,9 +76,9 @@ public class BlockAnvil extends BlockFalling {
 	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 	 * IBlockstate
 	 */
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
-		EnumFacing enumfacing = placer.getHorizontalFacing().rotateY();
+		Facing enumfacing = placer.getHorizontalFacing().rotateY();
 
 		try {
 			return super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(FACING, enumfacing).withProperty(DAMAGE, meta >> 2);
@@ -98,7 +98,7 @@ public class BlockAnvil extends BlockFalling {
 	/**
 	 * Called when the block is right clicked by a player.
 	 */
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		if (!worldIn.isRemote) {
 			playerIn.displayGui(new BlockAnvil.Anvil(worldIn, pos));
@@ -118,8 +118,8 @@ public class BlockAnvil extends BlockFalling {
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
-		EnumFacing enumfacing = state.getValue(FACING);
-		return enumfacing.getAxis() == EnumFacing.Axis.X ? X_AXIS_AABB : Z_AXIS_AABB;
+		Facing enumfacing = state.getValue(FACING);
+		return enumfacing.getAxis() == Facing.Axis.X ? X_AXIS_AABB : Z_AXIS_AABB;
 	}
 
 	/**
@@ -147,7 +147,7 @@ public class BlockAnvil extends BlockFalling {
 		worldIn.playEvent(1029, pos, 0);
 	}
 
-	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
 		return true;
 	}
@@ -157,7 +157,7 @@ public class BlockAnvil extends BlockFalling {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta & 3)).withProperty(DAMAGE, (meta & 15) >> 2);
+		return getDefaultState().withProperty(FACING, Facing.getHorizontal(meta & 3)).withProperty(DAMAGE, (meta & 15) >> 2);
 	}
 
 	/**

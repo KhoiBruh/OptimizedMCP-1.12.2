@@ -8,9 +8,9 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
@@ -42,7 +42,7 @@ public class ItemRecord extends Item {
 	/**
 	 * Called when a Block is right-clicked with this Item
 	 */
-	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 
@@ -55,9 +55,9 @@ public class ItemRecord extends Item {
 				player.addStat(StatList.RECORD_PLAYED);
 			}
 
-			return EnumActionResult.SUCCESS;
+			return ActionResult.SUCCESS;
 		} else {
-			return EnumActionResult.PASS;
+			return ActionResult.PASS;
 		}
 	}
 
@@ -75,11 +75,11 @@ public class ItemRecord extends Item {
 	}
 
 	/**
-	 * Return an item rarity from EnumRarity
+	 * Return an item rarity from Rarity
 	 */
-	public EnumRarity getRarity(ItemStack stack) {
+	public Rarity getRarity(ItemStack stack) {
 
-		return EnumRarity.RARE;
+		return Rarity.RARE;
 	}
 
 	public SoundEvent getSound() {

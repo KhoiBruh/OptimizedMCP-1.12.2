@@ -7,9 +7,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -26,13 +26,13 @@ public class ItemFlintAndSteel extends Item {
 	/**
 	 * Called when a Block is right-clicked with this Item
 	 */
-	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		pos = pos.offset(facing);
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (!player.canPlayerEdit(pos, facing, itemstack)) {
-			return EnumActionResult.FAIL;
+			return ActionResult.FAIL;
 		} else {
 			if (worldIn.getBlockState(pos).getMaterial() == Material.AIR) {
 				worldIn.playSound(player, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1F, itemRand.nextFloat() * 0.4F + 0.8F);
@@ -44,7 +44,7 @@ public class ItemFlintAndSteel extends Item {
 			}
 
 			itemstack.damageItem(1, player);
-			return EnumActionResult.SUCCESS;
+			return ActionResult.SUCCESS;
 		}
 	}
 

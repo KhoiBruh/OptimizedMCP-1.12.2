@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EnumPlayerModelParts;
+import net.minecraft.entity.player.PlayerModelParts;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
@@ -391,7 +391,7 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 		} else {
 			String s = TextFormatting.getTextWithoutFormattingCodes(entityLiving.getName());
 
-			if (("Dinnerbone".equals(s) || "Grumm".equals(s)) && (!(entityLiving instanceof EntityPlayer) || ((EntityPlayer) entityLiving).isWearing(EnumPlayerModelParts.CAPE))) {
+			if (("Dinnerbone".equals(s) || "Grumm".equals(s)) && (!(entityLiving instanceof EntityPlayer) || ((EntityPlayer) entityLiving).isWearing(PlayerModelParts.CAPE))) {
 				GlStateManager.translate(0F, entityLiving.height + 0.1F, 0F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 			}
@@ -470,7 +470,7 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 			Team team1 = entityplayersp.getTeam();
 
 			if (team != null) {
-				Team.EnumVisible team$enumvisible = team.getNameTagVisibility();
+				Team.Visible team$enumvisible = team.getNameTagVisibility();
 
 				return switch (team$enumvisible) {
 					case ALWAYS -> flag;

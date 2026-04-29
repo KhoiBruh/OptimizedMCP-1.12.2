@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntitySkull;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.ResourceLocation;
 import java.util.Map;
 import java.util.UUID;
@@ -31,7 +31,7 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
 
 	public void render(TileEntitySkull te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 
-		EnumFacing enumfacing = EnumFacing.getFront(te.getBlockMetadata() & 7);
+		Facing enumfacing = Facing.getFront(te.getBlockMetadata() & 7);
 		float f = te.getAnimationProgress(partialTicks);
 		renderSkull((float) x, (float) y, (float) z, enumfacing, (float) (te.getSkullRotation() * 360) / 16F, te.getSkullType(), te.getPlayerProfile(), destroyStage, f);
 	}
@@ -42,7 +42,7 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
 		instance = this;
 	}
 
-	public void renderSkull(float x, float y, float z, EnumFacing facing, float rotationIn, int skullType, GameProfile profile, int destroyStage, float animateTicks) {
+	public void renderSkull(float x, float y, float z, Facing facing, float rotationIn, int skullType, GameProfile profile, int destroyStage, float animateTicks) {
 
 		ModelBase modelbase = skeletonHead;
 
@@ -101,7 +101,7 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
 		GlStateManager.pushMatrix();
 		GlStateManager.disableCull();
 
-		if (facing == EnumFacing.UP) {
+		if (facing == Facing.UP) {
 			GlStateManager.translate(x + 0.5F, y, z + 0.5F);
 		} else {
 			switch (facing) {

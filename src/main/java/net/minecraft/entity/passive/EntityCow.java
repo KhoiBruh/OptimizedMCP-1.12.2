@@ -10,7 +10,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
@@ -84,7 +84,7 @@ public class EntityCow extends EntityAnimal {
 		return LootTableList.ENTITIES_COW;
 	}
 
-	public boolean processInteract(EntityPlayer player, EnumHand hand) {
+	public boolean processInteract(EntityPlayer player, Hand hand) {
 
 		ItemStack itemstack = player.getHeldItem(hand);
 

@@ -16,13 +16,13 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerBeacon;
 import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -132,7 +132,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 		levels = 0;
 		beamSegments.clear();
 		isComplete = true;
-		TileEntityBeacon.BeamSegment tileentitybeacon$beamsegment = new TileEntityBeacon.BeamSegment(EnumDyeColor.WHITE.getColorComponentValues());
+		TileEntityBeacon.BeamSegment tileentitybeacon$beamsegment = new TileEntityBeacon.BeamSegment(DyeColor.WHITE.getColorComponentValues());
 		beamSegments.add(tileentitybeacon$beamsegment);
 		boolean flag = true;
 		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
@@ -456,7 +456,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 		}
 	}
 
-	public int[] getSlotsForFace(EnumFacing side) {
+	public int[] getSlotsForFace(Facing side) {
 
 		return new int[0];
 	}
@@ -464,7 +464,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	/**
 	 * Returns true if automation can insert the given item in the given slot from the given side.
 	 */
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+	public boolean canInsertItem(int index, ItemStack itemStackIn, Facing direction) {
 
 		return false;
 	}
@@ -472,7 +472,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	/**
 	 * Returns true if automation can extract the given item in the given slot from the given side.
 	 */
-	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+	public boolean canExtractItem(int index, ItemStack stack, Facing direction) {
 
 		return false;
 	}

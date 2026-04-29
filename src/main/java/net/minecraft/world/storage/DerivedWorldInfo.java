@@ -281,12 +281,12 @@ public class DerivedWorldInfo extends WorldInfo {
 		return delegate.getGameRulesInstance();
 	}
 
-	public EnumDifficulty getDifficulty() {
+	public Difficulty getDifficulty() {
 
 		return delegate.getDifficulty();
 	}
 
-	public void setDifficulty(EnumDifficulty newDifficulty) {
+	public void setDifficulty(Difficulty newDifficulty) {
 
 	}
 

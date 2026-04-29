@@ -4,7 +4,7 @@ import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 public class EntityAIBeg extends EntityAIBase {
@@ -78,7 +78,7 @@ public class EntityAIBeg extends EntityAIBase {
 	 */
 	private boolean hasTemptationItemInHand(EntityPlayer player) {
 
-		for (EnumHand enumhand : EnumHand.values()) {
+		for (Hand enumhand : Hand.values()) {
 			ItemStack itemstack = player.getHeldItem(enumhand);
 
 			if (wolf.isTamed() && itemstack.getItem() == Items.BONE) {

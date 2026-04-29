@@ -10,9 +10,9 @@ import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -23,14 +23,14 @@ public class ItemMinecart extends Item {
 
 		public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
 
-			EnumFacing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
+			Facing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
 			World world = source.getWorld();
 			double d0 = source.x() + (double) enumfacing.getFrontOffsetX() * 1.125D;
 			double d1 = Math.floor(source.y()) + (double) enumfacing.getFrontOffsetY();
 			double d2 = source.z() + (double) enumfacing.getFrontOffsetZ() * 1.125D;
 			BlockPos blockpos = source.getBlockPos().offset(enumfacing);
 			IBlockState iblockstate = world.getBlockState(blockpos);
-			BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = iblockstate.getBlock() instanceof BlockRailBase ? iblockstate.getValue(((BlockRailBase) iblockstate.getBlock()).getShapeProperty()) : BlockRailBase.EnumRailDirection.NORTH_SOUTH;
+			BlockRailBase.RailDirection blockrailbase$enumraildirection = iblockstate.getBlock() instanceof BlockRailBase ? iblockstate.getValue(((BlockRailBase) iblockstate.getBlock()).getShapeProperty()) : BlockRailBase.RailDirection.NORTH_SOUTH;
 			double d3;
 
 			if (BlockRailBase.isRailBlock(iblockstate)) {
@@ -45,9 +45,9 @@ public class ItemMinecart extends Item {
 				}
 
 				IBlockState iblockstate1 = world.getBlockState(blockpos.down());
-				BlockRailBase.EnumRailDirection blockrailbase$enumraildirection1 = iblockstate1.getBlock() instanceof BlockRailBase ? iblockstate1.getValue(((BlockRailBase) iblockstate1.getBlock()).getShapeProperty()) : BlockRailBase.EnumRailDirection.NORTH_SOUTH;
+				BlockRailBase.RailDirection blockrailbase$enumraildirection1 = iblockstate1.getBlock() instanceof BlockRailBase ? iblockstate1.getValue(((BlockRailBase) iblockstate1.getBlock()).getShapeProperty()) : BlockRailBase.RailDirection.NORTH_SOUTH;
 
-				if (enumfacing != EnumFacing.DOWN && blockrailbase$enumraildirection1.isAscending()) {
+				if (enumfacing != Facing.DOWN && blockrailbase$enumraildirection1.isAscending()) {
 					d3 = -0.4D;
 				} else {
 					d3 = -0.9D;
@@ -79,17 +79,17 @@ public class ItemMinecart extends Item {
 	/**
 	 * Called when a Block is right-clicked with this Item
 	 */
-	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 
 		if (!BlockRailBase.isRailBlock(iblockstate)) {
-			return EnumActionResult.FAIL;
+			return ActionResult.FAIL;
 		} else {
 			ItemStack itemstack = player.getHeldItem(hand);
 
 			if (!worldIn.isRemote) {
-				BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = iblockstate.getBlock() instanceof BlockRailBase ? iblockstate.getValue(((BlockRailBase) iblockstate.getBlock()).getShapeProperty()) : BlockRailBase.EnumRailDirection.NORTH_SOUTH;
+				BlockRailBase.RailDirection blockrailbase$enumraildirection = iblockstate.getBlock() instanceof BlockRailBase ? iblockstate.getValue(((BlockRailBase) iblockstate.getBlock()).getShapeProperty()) : BlockRailBase.RailDirection.NORTH_SOUTH;
 				double d0 = 0D;
 
 				if (blockrailbase$enumraildirection.isAscending()) {
@@ -106,7 +106,7 @@ public class ItemMinecart extends Item {
 			}
 
 			itemstack.shrink(1);
-			return EnumActionResult.SUCCESS;
+			return ActionResult.SUCCESS;
 		}
 	}
 

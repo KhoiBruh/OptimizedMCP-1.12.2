@@ -19,7 +19,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -369,20 +369,20 @@ public class EntityFishHook extends Entity {
 
 				if (block == Blocks.WATER || block == Blocks.FLOWING_WATER) {
 					if (rand.nextFloat() < 0.15F) {
-						worldserver.spawnParticle(EnumParticleTypes.WATER_BUBBLE, d0, d1 - 0.10000000149011612D, d2, 1, f1, 0.1D, f2, 0D);
+						worldserver.spawnParticle(ParticleTypes.WATER_BUBBLE, d0, d1 - 0.10000000149011612D, d2, 1, f1, 0.1D, f2, 0D);
 					}
 
 					float f3 = f1 * 0.04F;
 					float f4 = f2 * 0.04F;
-					worldserver.spawnParticle(EnumParticleTypes.WATER_WAKE, d0, d1, d2, 0, f4, 0.01D, -f3, 1D);
-					worldserver.spawnParticle(EnumParticleTypes.WATER_WAKE, d0, d1, d2, 0, -f4, 0.01D, f3, 1D);
+					worldserver.spawnParticle(ParticleTypes.WATER_WAKE, d0, d1, d2, 0, f4, 0.01D, -f3, 1D);
+					worldserver.spawnParticle(ParticleTypes.WATER_WAKE, d0, d1, d2, 0, -f4, 0.01D, f3, 1D);
 				}
 			} else {
 				motionY = -0.4F * MathHelper.nextFloat(rand, 0.6F, 1F);
 				playSound(SoundEvents.ENTITY_BOBBER_SPLASH, 0.25F, 1F + (rand.nextFloat() - rand.nextFloat()) * 0.4F);
 				double d3 = getEntityBoundingBox().minY + 0.5D;
-				worldserver.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX, d3, posZ, (int) (1F + width * 20F), width, 0D, width, 0.20000000298023224D);
-				worldserver.spawnParticle(EnumParticleTypes.WATER_WAKE, posX, d3, posZ, (int) (1F + width * 20F), width, 0D, width, 0.20000000298023224D);
+				worldserver.spawnParticle(ParticleTypes.WATER_BUBBLE, posX, d3, posZ, (int) (1F + width * 20F), width, 0D, width, 0.20000000298023224D);
+				worldserver.spawnParticle(ParticleTypes.WATER_WAKE, posX, d3, posZ, (int) (1F + width * 20F), width, 0D, width, 0.20000000298023224D);
 				ticksCatchable = MathHelper.getInt(rand, 20, 40);
 			}
 		} else if (ticksCaughtDelay > 0) {
@@ -406,7 +406,7 @@ public class EntityFishHook extends Entity {
 				Block block1 = worldserver.getBlockState(new BlockPos((int) d4, (int) d5 - 1, (int) d6)).getBlock();
 
 				if (block1 == Blocks.WATER || block1 == Blocks.FLOWING_WATER) {
-					worldserver.spawnParticle(EnumParticleTypes.WATER_SPLASH, d4, d5, d6, 2 + rand.nextInt(2), 0.10000000149011612D, 0D, 0.10000000149011612D, 0D);
+					worldserver.spawnParticle(ParticleTypes.WATER_SPLASH, d4, d5, d6, 2 + rand.nextInt(2), 0.10000000149011612D, 0D, 0.10000000149011612D, 0D);
 				}
 			}
 

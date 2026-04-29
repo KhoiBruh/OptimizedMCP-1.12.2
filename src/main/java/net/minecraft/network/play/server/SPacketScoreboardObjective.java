@@ -10,7 +10,7 @@ public class SPacketScoreboardObjective implements Packet<INetHandlerPlayClient>
 
 	private String objectiveName;
 	private String objectiveValue;
-	private IScoreCriteria.EnumRenderType type;
+	private IScoreCriteria.RenderType type;
 	private int action;
 
 	public SPacketScoreboardObjective() {
@@ -35,7 +35,7 @@ public class SPacketScoreboardObjective implements Packet<INetHandlerPlayClient>
 
 		if (action == 0 || action == 2) {
 			objectiveValue = buf.readString(32);
-			type = IScoreCriteria.EnumRenderType.getByName(buf.readString(16));
+			type = IScoreCriteria.RenderType.getByName(buf.readString(16));
 		}
 	}
 
@@ -76,7 +76,7 @@ public class SPacketScoreboardObjective implements Packet<INetHandlerPlayClient>
 		return action;
 	}
 
-	public IScoreCriteria.EnumRenderType getRenderType() {
+	public IScoreCriteria.RenderType getRenderType() {
 
 		return type;
 	}

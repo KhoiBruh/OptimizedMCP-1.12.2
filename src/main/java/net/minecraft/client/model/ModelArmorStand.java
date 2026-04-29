@@ -3,7 +3,7 @@ package net.minecraft.client.model;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityArmorStand;
-import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.HandSide;
 
 public class ModelArmorStand extends ModelArmorStandArmor {
 
@@ -116,7 +116,7 @@ public class ModelArmorStand extends ModelArmorStandArmor {
 		GlStateManager.popMatrix();
 	}
 
-	public void postRenderArm(float scale, EnumHandSide side) {
+	public void postRenderArm(float scale, HandSide side) {
 
 		ModelRenderer modelrenderer = getArmForSide(side);
 		boolean flag = modelrenderer.showModel;

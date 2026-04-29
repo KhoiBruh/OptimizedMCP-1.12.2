@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
@@ -148,7 +148,7 @@ public class EnchantmentHelper {
 		return ENCHANTMENT_MODIFIER_DAMAGE.damageModifier;
 	}
 
-	public static float getModifierForCreature(ItemStack stack, EnumCreatureAttribute creatureAttribute) {
+	public static float getModifierForCreature(ItemStack stack, CreatureAttribute creatureAttribute) {
 
 		ENCHANTMENT_MODIFIER_LIVING.livingModifier = 0F;
 		ENCHANTMENT_MODIFIER_LIVING.entityLiving = creatureAttribute;
@@ -465,7 +465,7 @@ public class EnchantmentHelper {
 	static final class ModifierLiving implements EnchantmentHelper.IModifier {
 
 		public float livingModifier;
-		public EnumCreatureAttribute entityLiving;
+		public CreatureAttribute entityLiving;
 
 		private ModifierLiving() {
 

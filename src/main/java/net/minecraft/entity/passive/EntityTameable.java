@@ -15,7 +15,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.World;
 import java.util.UUID;
 
@@ -95,10 +95,10 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
 	 */
 	protected void playTameEffect(boolean play) {
 
-		EnumParticleTypes enumparticletypes = EnumParticleTypes.HEART;
+		ParticleTypes enumparticletypes = ParticleTypes.HEART;
 
 		if (!play) {
-			enumparticletypes = EnumParticleTypes.SMOKE_NORMAL;
+			enumparticletypes = ParticleTypes.SMOKE_NORMAL;
 		}
 
 		for (int i = 0; i < 7; ++i) {

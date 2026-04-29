@@ -191,7 +191,7 @@ public class IntegratedServer extends MinecraftServer {
 	/**
 	 * Get the server's difficulty
 	 */
-	public EnumDifficulty getDifficulty() {
+	public Difficulty getDifficulty() {
 
 		return mc.world.getWorldInfo().getDifficulty();
 	}
@@ -281,7 +281,7 @@ public class IntegratedServer extends MinecraftServer {
 		return report;
 	}
 
-	public void setDifficultyForAllWorlds(EnumDifficulty difficulty) {
+	public void setDifficultyForAllWorlds(Difficulty difficulty) {
 
 		super.setDifficultyForAllWorlds(difficulty);
 

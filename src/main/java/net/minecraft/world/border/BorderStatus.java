@@ -1,13 +1,13 @@
 package net.minecraft.world.border;
 
-public enum EnumBorderStatus {
+public enum BorderStatus {
 	GROWING(4259712),
 	SHRINKING(16724016),
 	STATIONARY(2138367);
 
 	private final int color;
 
-	EnumBorderStatus(int color) {
+	BorderStatus(int color) {
 
 		this.color = color;
 	}

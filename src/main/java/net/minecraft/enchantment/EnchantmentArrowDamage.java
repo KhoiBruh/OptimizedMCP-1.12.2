@@ -6,7 +6,7 @@ public class EnchantmentArrowDamage extends Enchantment {
 
 	public EnchantmentArrowDamage(Enchantment.Rarity rarityIn, EntityEquipmentSlot... slots) {
 
-		super(rarityIn, EnumEnchantmentType.BOW, slots);
+		super(rarityIn, EnchantmentType.BOW, slots);
 		setName("arrowDamage");
 	}
 

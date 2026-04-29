@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
@@ -46,9 +46,9 @@ public class BlockFluidRenderer {
 		float f = (float) (i >> 16 & 255) / 255F;
 		float f1 = (float) (i >> 8 & 255) / 255F;
 		float f2 = (float) (i & 255) / 255F;
-		boolean flag1 = blockStateIn.shouldSideBeRendered(blockAccess, blockPosIn, EnumFacing.UP);
-		boolean flag2 = blockStateIn.shouldSideBeRendered(blockAccess, blockPosIn, EnumFacing.DOWN);
-		boolean[] aboolean = new boolean[]{blockStateIn.shouldSideBeRendered(blockAccess, blockPosIn, EnumFacing.NORTH), blockStateIn.shouldSideBeRendered(blockAccess, blockPosIn, EnumFacing.SOUTH), blockStateIn.shouldSideBeRendered(blockAccess, blockPosIn, EnumFacing.WEST), blockStateIn.shouldSideBeRendered(blockAccess, blockPosIn, EnumFacing.EAST)};
+		boolean flag1 = blockStateIn.shouldSideBeRendered(blockAccess, blockPosIn, Facing.UP);
+		boolean flag2 = blockStateIn.shouldSideBeRendered(blockAccess, blockPosIn, Facing.DOWN);
+		boolean[] aboolean = new boolean[]{blockStateIn.shouldSideBeRendered(blockAccess, blockPosIn, Facing.NORTH), blockStateIn.shouldSideBeRendered(blockAccess, blockPosIn, Facing.SOUTH), blockStateIn.shouldSideBeRendered(blockAccess, blockPosIn, Facing.WEST), blockStateIn.shouldSideBeRendered(blockAccess, blockPosIn, Facing.EAST)};
 
 		if (!flag1 && !flag2 && !aboolean[0] && !aboolean[1] && !aboolean[2] && !aboolean[3]) {
 			return false;

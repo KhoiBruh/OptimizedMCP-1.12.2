@@ -4,7 +4,7 @@ import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -41,7 +41,7 @@ public class PhaseSittingFlaming extends PhaseSittingBase {
 				double d5 = d2 + dragon.getRNG().nextGaussian() / 2D;
 
 				for (int j = 0; j < 6; ++j) {
-					dragon.world.spawnParticle(EnumParticleTypes.DRAGON_BREATH, d3, d4, d5, -vec3d.x() * 0.07999999821186066D * (double) j, -vec3d.y() * 0.6000000238418579D, -vec3d.z() * 0.07999999821186066D * (double) j);
+					dragon.world.spawnParticle(ParticleTypes.DRAGON_BREATH, d3, d4, d5, -vec3d.x() * 0.07999999821186066D * (double) j, -vec3d.y() * 0.6000000238418579D, -vec3d.z() * 0.07999999821186066D * (double) j);
 				}
 
 				vec3d.rotateYaw(0.19634955F);
@@ -81,7 +81,7 @@ public class PhaseSittingFlaming extends PhaseSittingBase {
 			areaEffectCloud.setOwner(dragon);
 			areaEffectCloud.setRadius(5F);
 			areaEffectCloud.setDuration(200);
-			areaEffectCloud.setParticle(EnumParticleTypes.DRAGON_BREATH);
+			areaEffectCloud.setParticle(ParticleTypes.DRAGON_BREATH);
 			areaEffectCloud.addEffect(new PotionEffect(MobEffects.INSTANT_DAMAGE));
 			dragon.world.spawnEntity(areaEffectCloud);
 		}

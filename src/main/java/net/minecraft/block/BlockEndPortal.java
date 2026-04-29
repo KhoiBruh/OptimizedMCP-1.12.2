@@ -8,8 +8,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityEndPortal;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.Facing;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -40,9 +40,9 @@ public class BlockEndPortal extends BlockContainer {
 		return END_PORTAL_AABB;
 	}
 
-	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
-		return side == EnumFacing.DOWN && super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+		return side == Facing.DOWN && super.shouldSideBeRendered(blockState, blockAccess, pos, side);
 	}
 
 	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean isActualState) {
@@ -88,7 +88,7 @@ public class BlockEndPortal extends BlockContainer {
 		double d3 = 0D;
 		double d4 = 0D;
 		double d5 = 0D;
-		worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0D, 0D, 0D);
+		worldIn.spawnParticle(ParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0D, 0D, 0D);
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
@@ -113,7 +113,7 @@ public class BlockEndPortal extends BlockContainer {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
 		return BlockFaceShape.UNDEFINED;
 	}

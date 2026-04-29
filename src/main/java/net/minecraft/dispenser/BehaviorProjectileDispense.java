@@ -4,7 +4,7 @@ import net.minecraft.block.BlockDispenser;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.world.World;
 
 public abstract class BehaviorProjectileDispense extends BehaviorDefaultDispenseItem {
@@ -16,7 +16,7 @@ public abstract class BehaviorProjectileDispense extends BehaviorDefaultDispense
 
 		World world = source.getWorld();
 		IPosition iposition = BlockDispenser.getDispensePosition(source);
-		EnumFacing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
+		Facing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
 		IProjectile iprojectile = getProjectileEntity(world, iposition, stack);
 		iprojectile.shoot(enumfacing.getFrontOffsetX(), (float) enumfacing.getFrontOffsetY() + 0.1F, enumfacing.getFrontOffsetZ(), getProjectileVelocity(), getProjectileInaccuracy());
 		world.spawnEntity((Entity) iprojectile);

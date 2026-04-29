@@ -2,7 +2,7 @@ package net.minecraft.tileentity;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockShulkerBox;
-import net.minecraft.block.material.EnumPushReaction;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MoverType;
@@ -13,11 +13,11 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerShulkerBox;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
@@ -42,7 +42,7 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 	private TileEntityShulkerBox.AnimationStatus animationStatus;
 	private float progress;
 	private float progressOld;
-	private EnumDyeColor color;
+	private DyeColor color;
 	private boolean destroyedByCreativePlayer;
 
 	public TileEntityShulkerBox() {
@@ -50,7 +50,7 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 		this(null);
 	}
 
-	public TileEntityShulkerBox(EnumDyeColor colorIn) {
+	public TileEntityShulkerBox(DyeColor colorIn) {
 
 		items = NonNullList.withSize(27, ItemStack.EMPTY);
 		animationStatus = TileEntityShulkerBox.AnimationStatus.CLOSED;
@@ -119,14 +119,14 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 		return getBoundingBox(p_190584_1_.getValue(BlockShulkerBox.FACING));
 	}
 
-	public AxisAlignedBB getBoundingBox(EnumFacing p_190587_1_) {
+	public AxisAlignedBB getBoundingBox(Facing p_190587_1_) {
 
 		return Block.FULL_BLOCK_AABB.expand(0.5F * getProgress(1F) * (float) p_190587_1_.getFrontOffsetX(), 0.5F * getProgress(1F) * (float) p_190587_1_.getFrontOffsetY(), 0.5F * getProgress(1F) * (float) p_190587_1_.getFrontOffsetZ());
 	}
 
-	private AxisAlignedBB getTopBoundingBox(EnumFacing p_190588_1_) {
+	private AxisAlignedBB getTopBoundingBox(Facing p_190588_1_) {
 
-		EnumFacing enumfacing = p_190588_1_.getOpposite();
+		Facing enumfacing = p_190588_1_.getOpposite();
 		return getBoundingBox(p_190588_1_).contract(enumfacing.getFrontOffsetX(), enumfacing.getFrontOffsetY(), enumfacing.getFrontOffsetZ());
 	}
 
@@ -135,13 +135,13 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 		IBlockState iblockstate = world.getBlockState(getPos());
 
 		if (iblockstate.getBlock() instanceof BlockShulkerBox) {
-			EnumFacing enumfacing = iblockstate.getValue(BlockShulkerBox.FACING);
+			Facing enumfacing = iblockstate.getValue(BlockShulkerBox.FACING);
 			AxisAlignedBB axisalignedbb = getTopBoundingBox(enumfacing).offset(pos);
 			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(null, axisalignedbb);
 
 			if (!list.isEmpty()) {
 				for (Entity entity : list) {
-					if (entity.getPushReaction() != EnumPushReaction.IGNORE) {
+					if (entity.getPushReaction() != PushReaction.IGNORE) {
 						double d0 = 0D;
 						double d1 = 0D;
 						double d2 = 0D;
@@ -149,7 +149,7 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 
 						switch (enumfacing.getAxis()) {
 							case X:
-								if (enumfacing.getAxisDirection() == EnumFacing.AxisDirection.POSITIVE) {
+								if (enumfacing.getAxisDirection() == Facing.AxisDirection.POSITIVE) {
 									d0 = axisalignedbb.maxX - axisalignedbb1.minX;
 								} else {
 									d0 = axisalignedbb1.maxX - axisalignedbb.minX;
@@ -159,7 +159,7 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 								break;
 
 							case Y:
-								if (enumfacing.getAxisDirection() == EnumFacing.AxisDirection.POSITIVE) {
+								if (enumfacing.getAxisDirection() == Facing.AxisDirection.POSITIVE) {
 									d1 = axisalignedbb.maxY - axisalignedbb1.minY;
 								} else {
 									d1 = axisalignedbb1.maxY - axisalignedbb.minY;
@@ -169,7 +169,7 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 								break;
 
 							case Z:
-								if (enumfacing.getAxisDirection() == EnumFacing.AxisDirection.POSITIVE) {
+								if (enumfacing.getAxisDirection() == Facing.AxisDirection.POSITIVE) {
 									d2 = axisalignedbb.maxZ - axisalignedbb1.minZ;
 								} else {
 									d2 = axisalignedbb1.maxZ - axisalignedbb.minZ;
@@ -324,7 +324,7 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 		return true;
 	}
 
-	public int[] getSlotsForFace(EnumFacing side) {
+	public int[] getSlotsForFace(Facing side) {
 
 		return SLOTS;
 	}
@@ -332,7 +332,7 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 	/**
 	 * Returns true if automation can insert the given item in the given slot from the given side.
 	 */
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+	public boolean canInsertItem(int index, ItemStack itemStackIn, Facing direction) {
 
 		return !(Block.getBlockFromItem(itemStackIn.getItem()) instanceof BlockShulkerBox);
 	}
@@ -340,7 +340,7 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 	/**
 	 * Returns true if automation can extract the given item in the given slot from the given side.
 	 */
-	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+	public boolean canExtractItem(int index, ItemStack stack, Facing direction) {
 
 		return true;
 	}
@@ -361,7 +361,7 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 		return progressOld + (progress - progressOld) * p_190585_1_;
 	}
 
-	public EnumDyeColor getColor() {
+	public DyeColor getColor() {
 
 		if (color == null) {
 			color = BlockShulkerBox.getColorFromBlock(getBlockType());

@@ -10,7 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionHelper;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.datafix.DataFixer;
@@ -322,19 +322,19 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
 		}
 	}
 
-	public int[] getSlotsForFace(EnumFacing side) {
+	public int[] getSlotsForFace(Facing side) {
 
-		if (side == EnumFacing.UP) {
+		if (side == Facing.UP) {
 			return SLOTS_FOR_UP;
 		} else {
-			return side == EnumFacing.DOWN ? SLOTS_FOR_DOWN : OUTPUT_SLOTS;
+			return side == Facing.DOWN ? SLOTS_FOR_DOWN : OUTPUT_SLOTS;
 		}
 	}
 
 	/**
 	 * Returns true if automation can insert the given item in the given slot from the given side.
 	 */
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+	public boolean canInsertItem(int index, ItemStack itemStackIn, Facing direction) {
 
 		return isItemValidForSlot(index, itemStackIn);
 	}
@@ -342,7 +342,7 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
 	/**
 	 * Returns true if automation can extract the given item in the given slot from the given side.
 	 */
-	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+	public boolean canExtractItem(int index, ItemStack stack, Facing direction) {
 
 		if (index == 3) {
 			return stack.getItem() == Items.GLASS_BOTTLE;

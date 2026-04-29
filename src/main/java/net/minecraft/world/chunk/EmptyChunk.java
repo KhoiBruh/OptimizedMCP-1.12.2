@@ -7,7 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.EnumSkyBlock;
+import net.minecraft.world.SkyBlock;
 import net.minecraft.world.World;
 import java.util.List;
 import java.util.Random;
@@ -51,12 +51,12 @@ public class EmptyChunk extends Chunk {
 		return 255;
 	}
 
-	public int getLightFor(EnumSkyBlock type, BlockPos pos) {
+	public int getLightFor(SkyBlock type, BlockPos pos) {
 
 		return type.defaultLightValue;
 	}
 
-	public void setLightFor(EnumSkyBlock type, BlockPos pos, int value) {
+	public void setLightFor(SkyBlock type, BlockPos pos, int value) {
 
 	}
 
@@ -92,7 +92,7 @@ public class EmptyChunk extends Chunk {
 	}
 
 	
-	public TileEntity getTileEntity(BlockPos pos, Chunk.EnumCreateEntityType creationMode) {
+	public TileEntity getTileEntity(BlockPos pos, Chunk.CreateEntityType creationMode) {
 
 		return null;
 	}

@@ -7,9 +7,9 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -26,7 +26,7 @@ public class ItemSnow extends ItemBlock {
 	/**
 	 * Called when a Block is right-clicked with this Item
 	 */
-	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		ItemStack itemstack = player.getHeldItem(hand);
 
@@ -35,7 +35,7 @@ public class ItemSnow extends ItemBlock {
 			Block block = iblockstate.getBlock();
 			BlockPos blockpos = pos;
 
-			if ((facing != EnumFacing.UP || block != this.block) && !block.isReplaceable(worldIn, pos)) {
+			if ((facing != Facing.UP || block != this.block) && !block.isReplaceable(worldIn, pos)) {
 				blockpos = pos.offset(facing);
 				iblockstate = worldIn.getBlockState(blockpos);
 				block = iblockstate.getBlock();
@@ -57,14 +57,14 @@ public class ItemSnow extends ItemBlock {
 						}
 
 						itemstack.shrink(1);
-						return EnumActionResult.SUCCESS;
+						return ActionResult.SUCCESS;
 					}
 				}
 			}
 
 			return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
 		} else {
-			return EnumActionResult.FAIL;
+			return ActionResult.FAIL;
 		}
 	}
 

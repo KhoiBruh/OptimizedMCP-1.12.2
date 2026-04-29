@@ -9,7 +9,7 @@ import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EnumPlayerModelParts;
+import net.minecraft.entity.player.PlayerModelParts;
 import net.minecraft.scoreboard.IScoreCriteria;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.ScorePlayerTeam;
@@ -80,7 +80,7 @@ public class GuiPlayerTabOverlay extends Gui {
 			int k = mc.fontRenderer.getStringWidth(getPlayerName(networkplayerinfo));
 			i = Math.max(i, k);
 
-			if (scoreObjectiveIn != null && scoreObjectiveIn.getRenderType() != IScoreCriteria.EnumRenderType.HEARTS) {
+			if (scoreObjectiveIn != null && scoreObjectiveIn.getRenderType() != IScoreCriteria.RenderType.HEARTS) {
 				k = mc.fontRenderer.getStringWidth(" " + scoreboardIn.getOrCreateScore(networkplayerinfo.getGameProfile().getName(), scoreObjectiveIn).getScorePoints());
 				j = Math.max(j, k);
 			}
@@ -99,7 +99,7 @@ public class GuiPlayerTabOverlay extends Gui {
 		int l;
 
 		if (scoreObjectiveIn != null) {
-			if (scoreObjectiveIn.getRenderType() == IScoreCriteria.EnumRenderType.HEARTS) {
+			if (scoreObjectiveIn.getRenderType() == IScoreCriteria.RenderType.HEARTS) {
 				l = 90;
 			} else {
 				l = j;
@@ -163,13 +163,13 @@ public class GuiPlayerTabOverlay extends Gui {
 
 				if (flag) {
 					EntityPlayer entityplayer = mc.world.getPlayerEntityByUUID(gameprofile.getId());
-					boolean flag1 = entityplayer != null && entityplayer.isWearing(EnumPlayerModelParts.CAPE) && ("Dinnerbone".equals(gameprofile.getName()) || "Grumm".equals(gameprofile.getName()));
+					boolean flag1 = entityplayer != null && entityplayer.isWearing(PlayerModelParts.CAPE) && ("Dinnerbone".equals(gameprofile.getName()) || "Grumm".equals(gameprofile.getName()));
 					mc.getTextureManager().bindTexture(networkplayerinfo1.getLocationSkin());
 					int l2 = 8 + (flag1 ? 8 : 0);
 					int i3 = 8 * (flag1 ? -1 : 1);
 					Gui.drawScaledCustomSizeModalRect(j2, k2, 8F, (float) l2, 8, i3, 8, 8, 64F, 64F);
 
-					if (entityplayer != null && entityplayer.isWearing(EnumPlayerModelParts.HAT)) {
+					if (entityplayer != null && entityplayer.isWearing(PlayerModelParts.HAT)) {
 						int j3 = 8 + (flag1 ? 8 : 0);
 						int k3 = 8 * (flag1 ? -1 : 1);
 						Gui.drawScaledCustomSizeModalRect(j2, k2, 40F, (float) j3, 8, k3, 8, 8, 64F, 64F);
@@ -241,7 +241,7 @@ public class GuiPlayerTabOverlay extends Gui {
 
 		int i = objective.getScoreboard().getOrCreateScore(name, objective).getScorePoints();
 
-		if (objective.getRenderType() == IScoreCriteria.EnumRenderType.HEARTS) {
+		if (objective.getRenderType() == IScoreCriteria.RenderType.HEARTS) {
 			mc.getTextureManager().bindTexture(ICONS);
 
 			if (lastTimeOpened == info.getRenderVisibilityId()) {

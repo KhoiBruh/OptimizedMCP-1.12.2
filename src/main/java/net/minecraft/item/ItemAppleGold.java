@@ -29,11 +29,11 @@ public class ItemAppleGold extends ItemFood {
 	}
 
 	/**
-	 * Return an item rarity from EnumRarity
+	 * Return an item rarity from Rarity
 	 */
-	public EnumRarity getRarity(ItemStack stack) {
+	public Rarity getRarity(ItemStack stack) {
 
-		return stack.getMetadata() == 0 ? EnumRarity.RARE : EnumRarity.EPIC;
+		return stack.getMetadata() == 0 ? Rarity.RARE : Rarity.EPIC;
 	}
 
 	protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {

@@ -12,7 +12,7 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 
 import java.io.IOException;
 
@@ -56,7 +56,7 @@ public class GuiOptions extends GuiScreen {
 		}
 
 		if (mc.world != null) {
-			EnumDifficulty enumdifficulty = mc.world.getDifficulty();
+			Difficulty enumdifficulty = mc.world.getDifficulty();
 			difficultyButton = new GuiButton(108, width / 2 - 155 + i % 2 * 160, height / 6 - 12 + 24 * (i >> 1), 150, 20, getDifficultyText(enumdifficulty));
 			buttonList.add(difficultyButton);
 
@@ -83,7 +83,7 @@ public class GuiOptions extends GuiScreen {
 		buttonList.add(new GuiButton(200, width / 2 - 100, height / 6 + 168, I18n.format("gui.done")));
 	}
 
-	public String getDifficultyText(EnumDifficulty p_175355_1_) {
+	public String getDifficultyText(Difficulty p_175355_1_) {
 
 		ITextComponent itextcomponent = new TextComponentString("");
 		itextcomponent.appendSibling(new TextComponentTranslation("options.difficulty"));
@@ -130,7 +130,7 @@ public class GuiOptions extends GuiScreen {
 			}
 
 			if (button.id == 108) {
-				mc.world.getWorldInfo().setDifficulty(EnumDifficulty.getDifficultyEnum(mc.world.getDifficulty().getDifficultyId() + 1));
+				mc.world.getWorldInfo().setDifficulty(Difficulty.getDifficultyEnum(mc.world.getDifficulty().getDifficultyId() + 1));
 				difficultyButton.displayString = getDifficultyText(mc.world.getDifficulty());
 			}
 

@@ -6,7 +6,7 @@ import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.init.Biomes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
@@ -126,7 +126,7 @@ public class StructureOceanMonument extends MapGenStructure {
 			random.setSeed(k ^ l ^ worldIn.getSeed());
 			int i1 = chunkX * 16 + 8 - 29;
 			int j1 = chunkZ * 16 + 8 - 29;
-			EnumFacing enumfacing = EnumFacing.Plane.HORIZONTAL.random(random);
+			Facing enumfacing = Facing.Plane.HORIZONTAL.random(random);
 			components.add(new StructureOceanMonumentPieces.MonumentBuilding(random, i1, j1, enumfacing));
 			updateBoundingBox();
 			wasCreated = true;

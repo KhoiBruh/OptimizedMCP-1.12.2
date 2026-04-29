@@ -28,7 +28,7 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 import java.util.Calendar;
@@ -240,7 +240,7 @@ public class EntityZombie extends EntityMob {
 				entitylivingbase = (EntityLivingBase) source.getTrueSource();
 			}
 
-			if (entitylivingbase != null && world.getDifficulty() == EnumDifficulty.HARD && (double) rand.nextFloat() < getEntityAttribute(SPAWN_REINFORCEMENTS_CHANCE).getAttributeValue() && world.getGameRules().getBoolean("doMobSpawning")) {
+			if (entitylivingbase != null && world.getDifficulty() == Difficulty.HARD && (double) rand.nextFloat() < getEntityAttribute(SPAWN_REINFORCEMENTS_CHANCE).getAttributeValue() && world.getGameRules().getBoolean("doMobSpawning")) {
 				int i = MathHelper.floor(posX);
 				int j = MathHelper.floor(posY);
 				int k = MathHelper.floor(posZ);
@@ -313,11 +313,11 @@ public class EntityZombie extends EntityMob {
 	}
 
 	/**
-	 * Get this Entity's EnumCreatureAttribute
+	 * Get this Entity's CreatureAttribute
 	 */
-	public EnumCreatureAttribute getCreatureAttribute() {
+	public CreatureAttribute getCreatureAttribute() {
 
-		return EnumCreatureAttribute.UNDEAD;
+		return CreatureAttribute.UNDEAD;
 	}
 
 	
@@ -333,7 +333,7 @@ public class EntityZombie extends EntityMob {
 
 		super.setEquipmentBasedOnDifficulty(difficulty);
 
-		if (rand.nextFloat() < (world.getDifficulty() == EnumDifficulty.HARD ? 0.05F : 0.01F)) {
+		if (rand.nextFloat() < (world.getDifficulty() == Difficulty.HARD ? 0.05F : 0.01F)) {
 			int i = rand.nextInt(3);
 
 			if (i == 0) {
@@ -379,8 +379,8 @@ public class EntityZombie extends EntityMob {
 
 		super.onKillEntity(entityLivingIn);
 
-		if ((world.getDifficulty() == EnumDifficulty.NORMAL || world.getDifficulty() == EnumDifficulty.HARD) && entityLivingIn instanceof EntityVillager entityvillager) {
-			if (world.getDifficulty() != EnumDifficulty.HARD && rand.nextBoolean()) {
+		if ((world.getDifficulty() == Difficulty.NORMAL || world.getDifficulty() == Difficulty.HARD) && entityLivingIn instanceof EntityVillager entityvillager) {
+			if (world.getDifficulty() != Difficulty.HARD && rand.nextBoolean()) {
 				return;
 			}
 

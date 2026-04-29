@@ -6,7 +6,7 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Mirror;
@@ -17,12 +17,12 @@ import net.minecraft.world.World;
 
 public class BlockStainedGlassPane extends BlockPane {
 
-	public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.create("color", EnumDyeColor.class);
+	public static final PropertyEnum<DyeColor> COLOR = PropertyEnum.create("color", DyeColor.class);
 
 	public BlockStainedGlassPane() {
 
 		super(Material.GLASS, false);
-		setDefaultState(blockState.getBaseState().withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false).withProperty(COLOR, EnumDyeColor.WHITE));
+		setDefaultState(blockState.getBaseState().withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false).withProperty(COLOR, DyeColor.WHITE));
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
 
@@ -40,7 +40,7 @@ public class BlockStainedGlassPane extends BlockPane {
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
 
-		for (int i = 0; i < EnumDyeColor.values().length; ++i) {
+		for (int i = 0; i < DyeColor.values().length; ++i) {
 			items.add(new ItemStack(this, 1, i));
 		}
 	}
@@ -67,7 +67,7 @@ public class BlockStainedGlassPane extends BlockPane {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
+		return getDefaultState().withProperty(COLOR, DyeColor.byMetadata(meta));
 	}
 
 	/**

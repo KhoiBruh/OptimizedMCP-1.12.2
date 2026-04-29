@@ -1,6 +1,6 @@
 package net.minecraft.block;
 
-import net.minecraft.block.material.EnumPushReaction;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
@@ -25,7 +25,7 @@ public class BlockEndRod extends BlockDirectional {
 	protected BlockEndRod() {
 
 		super(Material.CIRCUITS);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.UP));
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
 
@@ -81,12 +81,12 @@ public class BlockEndRod extends BlockDirectional {
 	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 	 * IBlockstate
 	 */
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
 		IBlockState iblockstate = worldIn.getBlockState(pos.offset(facing.getOpposite()));
 
 		if (iblockstate.getBlock() == Blocks.END_ROD) {
-			EnumFacing enumfacing = iblockstate.getValue(FACING);
+			Facing enumfacing = iblockstate.getValue(FACING);
 
 			if (enumfacing == facing) {
 				return getDefaultState().withProperty(FACING, facing.getOpposite());
@@ -98,14 +98,14 @@ public class BlockEndRod extends BlockDirectional {
 
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
 
-		EnumFacing enumfacing = stateIn.getValue(FACING);
+		Facing enumfacing = stateIn.getValue(FACING);
 		double d0 = (double) pos.getX() + 0.55D - (double) (rand.nextFloat() * 0.1F);
 		double d1 = (double) pos.getY() + 0.55D - (double) (rand.nextFloat() * 0.1F);
 		double d2 = (double) pos.getZ() + 0.55D - (double) (rand.nextFloat() * 0.1F);
 		double d3 = 0.4F - (rand.nextFloat() + rand.nextFloat()) * 0.4F;
 
 		if (rand.nextInt(5) == 0) {
-			worldIn.spawnParticle(EnumParticleTypes.END_ROD, d0 + (double) enumfacing.getFrontOffsetX() * d3, d1 + (double) enumfacing.getFrontOffsetY() * d3, d2 + (double) enumfacing.getFrontOffsetZ() * d3, rand.nextGaussian() * 0.005D, rand.nextGaussian() * 0.005D, rand.nextGaussian() * 0.005D);
+			worldIn.spawnParticle(ParticleTypes.END_ROD, d0 + (double) enumfacing.getFrontOffsetX() * d3, d1 + (double) enumfacing.getFrontOffsetY() * d3, d2 + (double) enumfacing.getFrontOffsetZ() * d3, rand.nextGaussian() * 0.005D, rand.nextGaussian() * 0.005D, rand.nextGaussian() * 0.005D);
 		}
 	}
 
@@ -124,7 +124,7 @@ public class BlockEndRod extends BlockDirectional {
 	public IBlockState getStateFromMeta(int meta) {
 
 		IBlockState iblockstate = getDefaultState();
-		iblockstate = iblockstate.withProperty(FACING, EnumFacing.getFront(meta));
+		iblockstate = iblockstate.withProperty(FACING, Facing.getFront(meta));
 		return iblockstate;
 	}
 
@@ -141,9 +141,9 @@ public class BlockEndRod extends BlockDirectional {
 		return new BlockStateContainer(this, FACING);
 	}
 
-	public EnumPushReaction getMobilityFlag(IBlockState state) {
+	public PushReaction getMobilityFlag(IBlockState state) {
 
-		return EnumPushReaction.NORMAL;
+		return PushReaction.NORMAL;
 	}
 
 	/**
@@ -155,7 +155,7 @@ public class BlockEndRod extends BlockDirectional {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
 		return BlockFaceShape.UNDEFINED;
 	}

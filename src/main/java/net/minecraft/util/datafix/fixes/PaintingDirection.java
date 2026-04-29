@@ -1,7 +1,7 @@
 package net.minecraft.util.datafix.fixes;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.datafix.IFixableData;
 
 public class PaintingDirection implements IFixableData {
@@ -18,10 +18,10 @@ public class PaintingDirection implements IFixableData {
 		boolean flag1 = "ItemFrame".equals(s);
 
 		if ((flag || flag1) && !compound.hasKey("Facing", 99)) {
-			EnumFacing enumfacing;
+			Facing enumfacing;
 
 			if (compound.hasKey("Direction", 99)) {
-				enumfacing = EnumFacing.getHorizontal(compound.getByte("Direction"));
+				enumfacing = Facing.getHorizontal(compound.getByte("Direction"));
 				compound.setInteger("TileX", compound.getInteger("TileX") + enumfacing.getFrontOffsetX());
 				compound.setInteger("TileY", compound.getInteger("TileY") + enumfacing.getFrontOffsetY());
 				compound.setInteger("TileZ", compound.getInteger("TileZ") + enumfacing.getFrontOffsetZ());
@@ -31,7 +31,7 @@ public class PaintingDirection implements IFixableData {
 					compound.setByte("ItemRotation", (byte) (compound.getByte("ItemRotation") * 2));
 				}
 			} else {
-				enumfacing = EnumFacing.getHorizontal(compound.getByte("Dir"));
+				enumfacing = Facing.getHorizontal(compound.getByte("Dir"));
 				compound.removeTag("Dir");
 			}
 

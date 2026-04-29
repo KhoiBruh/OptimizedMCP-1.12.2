@@ -25,7 +25,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 	protected BlockRedstoneRepeater(boolean powered) {
 
 		super(powered);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(DELAY, 1).withProperty(LOCKED, false));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(DELAY, 1).withProperty(LOCKED, false));
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 	/**
 	 * Called when the block is right clicked by a player.
 	 */
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		if (!playerIn.capabilities.allowEdit) {
 			return false;
@@ -85,7 +85,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 
 		Integer integer = unpoweredState.getValue(DELAY);
 		Boolean obool = unpoweredState.getValue(LOCKED);
-		EnumFacing enumfacing = unpoweredState.getValue(FACING);
+		Facing enumfacing = unpoweredState.getValue(FACING);
 		return Blocks.POWERED_REPEATER.getDefaultState().withProperty(FACING, enumfacing).withProperty(DELAY, integer).withProperty(LOCKED, obool);
 	}
 
@@ -93,7 +93,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 
 		Integer integer = poweredState.getValue(DELAY);
 		Boolean obool = poweredState.getValue(LOCKED);
-		EnumFacing enumfacing = poweredState.getValue(FACING);
+		Facing enumfacing = poweredState.getValue(FACING);
 		return Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(FACING, enumfacing).withProperty(DELAY, integer).withProperty(LOCKED, obool);
 	}
 
@@ -123,7 +123,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
 
 		if (isRepeaterPowered) {
-			EnumFacing enumfacing = stateIn.getValue(FACING);
+			Facing enumfacing = stateIn.getValue(FACING);
 			double d0 = (double) ((float) pos.getX() + 0.5F) + (double) (rand.nextFloat() - 0.5F) * 0.2D;
 			double d1 = (double) ((float) pos.getY() + 0.4F) + (double) (rand.nextFloat() - 0.5F) * 0.2D;
 			double d2 = (double) ((float) pos.getZ() + 0.5F) + (double) (rand.nextFloat() - 0.5F) * 0.2D;
@@ -136,7 +136,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 			f = f / 16F;
 			double d3 = f * (float) enumfacing.getFrontOffsetX();
 			double d4 = f * (float) enumfacing.getFrontOffsetZ();
-			worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0 + d3, d1, d2 + d4, 0D, 0D, 0D);
+			worldIn.spawnParticle(ParticleTypes.REDSTONE, d0 + d3, d1, d2 + d4, 0D, 0D, 0D);
 		}
 	}
 
@@ -154,7 +154,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta)).withProperty(LOCKED, false).withProperty(DELAY, 1 + (meta >> 2));
+		return getDefaultState().withProperty(FACING, Facing.getHorizontal(meta)).withProperty(LOCKED, false).withProperty(DELAY, 1 + (meta >> 2));
 	}
 
 	/**

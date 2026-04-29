@@ -2,7 +2,7 @@ package net.minecraft.world.gen.structure;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
@@ -36,7 +36,7 @@ public abstract class StructureComponentTemplate extends StructureComponent {
 	protected void setup(Template templateIn, BlockPos pos, PlacementSettings settings) {
 
 		template = templateIn;
-		setCoordBaseMode(EnumFacing.NORTH);
+		setCoordBaseMode(Facing.NORTH);
 		templatePosition = pos;
 		placeSettings = settings;
 		setBoundingBoxFromTemplate();
@@ -114,12 +114,12 @@ public abstract class StructureComponentTemplate extends StructureComponent {
 
 				if (rotation != Rotation.CLOCKWISE_90 && rotation != Rotation.COUNTERCLOCKWISE_90) {
 					if (rotation == Rotation.CLOCKWISE_180) {
-						blockpos2 = blockpos2.offset(EnumFacing.EAST, blockpos.getX());
+						blockpos2 = blockpos2.offset(Facing.EAST, blockpos.getX());
 					} else {
-						blockpos2 = blockpos2.offset(EnumFacing.WEST, blockpos.getX());
+						blockpos2 = blockpos2.offset(Facing.WEST, blockpos.getX());
 					}
 				} else {
-					blockpos2 = blockpos2.offset(rotation.rotate(EnumFacing.WEST), blockpos.getZ());
+					blockpos2 = blockpos2.offset(rotation.rotate(Facing.WEST), blockpos.getZ());
 				}
 
 				boundingBox.offset(blockpos2.getX(), 0, blockpos2.getZ());
@@ -130,12 +130,12 @@ public abstract class StructureComponentTemplate extends StructureComponent {
 
 				if (rotation != Rotation.CLOCKWISE_90 && rotation != Rotation.COUNTERCLOCKWISE_90) {
 					if (rotation == Rotation.CLOCKWISE_180) {
-						blockpos1 = blockpos1.offset(EnumFacing.SOUTH, blockpos.getZ());
+						blockpos1 = blockpos1.offset(Facing.SOUTH, blockpos.getZ());
 					} else {
-						blockpos1 = blockpos1.offset(EnumFacing.NORTH, blockpos.getZ());
+						blockpos1 = blockpos1.offset(Facing.NORTH, blockpos.getZ());
 					}
 				} else {
-					blockpos1 = blockpos1.offset(rotation.rotate(EnumFacing.NORTH), blockpos.getX());
+					blockpos1 = blockpos1.offset(rotation.rotate(Facing.NORTH), blockpos.getX());
 				}
 
 				boundingBox.offset(blockpos1.getX(), 0, blockpos1.getZ());

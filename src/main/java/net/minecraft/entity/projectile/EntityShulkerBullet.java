@@ -10,14 +10,14 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.Facing;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import java.util.List;
@@ -29,7 +29,7 @@ public class EntityShulkerBullet extends Entity {
 	private Entity target;
 
 	
-	private EnumFacing direction;
+	private Facing direction;
 	private int steps;
 	private double targetDeltaX;
 	private double targetDeltaY;
@@ -59,7 +59,7 @@ public class EntityShulkerBullet extends Entity {
 		motionZ = motionZIn;
 	}
 
-	public EntityShulkerBullet(World worldIn, EntityLivingBase ownerIn, Entity targetIn, EnumFacing.Axis p_i46772_4_) {
+	public EntityShulkerBullet(World worldIn, EntityLivingBase ownerIn, Entity targetIn, Facing.Axis p_i46772_4_) {
 
 		this(worldIn);
 		owner = ownerIn;
@@ -69,7 +69,7 @@ public class EntityShulkerBullet extends Entity {
 		double d2 = (double) blockpos.getZ() + 0.5D;
 		setLocationAndAngles(d0, d1, d2, rotationYaw, rotationPitch);
 		target = targetIn;
-		direction = EnumFacing.UP;
+		direction = Facing.UP;
 		selectNextMoveDirection(p_i46772_4_);
 	}
 
@@ -122,7 +122,7 @@ public class EntityShulkerBullet extends Entity {
 		targetDeltaZ = compound.getDouble("TZD");
 
 		if (compound.hasKey("Dir", 99)) {
-			direction = EnumFacing.getFront(compound.getInteger("Dir"));
+			direction = Facing.getFront(compound.getInteger("Dir"));
 		}
 
 		if (compound.hasKey("Owner", 10)) {
@@ -142,12 +142,12 @@ public class EntityShulkerBullet extends Entity {
 
 	}
 
-	private void setDirection(EnumFacing directionIn) {
+	private void setDirection(Facing directionIn) {
 
 		direction = directionIn;
 	}
 
-	private void selectNextMoveDirection(EnumFacing.Axis p_184569_1_) {
+	private void selectNextMoveDirection(Facing.Axis p_184569_1_) {
 
 		double d0 = 0.5D;
 		BlockPos blockpos;
@@ -162,41 +162,41 @@ public class EntityShulkerBullet extends Entity {
 		double d1 = (double) blockpos.getX() + 0.5D;
 		double d2 = (double) blockpos.getY() + d0;
 		double d3 = (double) blockpos.getZ() + 0.5D;
-		EnumFacing enumfacing = null;
+		Facing enumfacing = null;
 
 		if (blockpos.distanceSqToCenter(posX, posY, posZ) >= 4D) {
 			BlockPos blockpos1 = new BlockPos(this);
-			List<EnumFacing> list = Lists.newArrayList();
+			List<Facing> list = Lists.newArrayList();
 
-			if (p_184569_1_ != EnumFacing.Axis.X) {
+			if (p_184569_1_ != Facing.Axis.X) {
 				if (blockpos1.getX() < blockpos.getX() && world.isAirBlock(blockpos1.east())) {
-					list.add(EnumFacing.EAST);
+					list.add(Facing.EAST);
 				} else if (blockpos1.getX() > blockpos.getX() && world.isAirBlock(blockpos1.west())) {
-					list.add(EnumFacing.WEST);
+					list.add(Facing.WEST);
 				}
 			}
 
-			if (p_184569_1_ != EnumFacing.Axis.Y) {
+			if (p_184569_1_ != Facing.Axis.Y) {
 				if (blockpos1.getY() < blockpos.getY() && world.isAirBlock(blockpos1.up())) {
-					list.add(EnumFacing.UP);
+					list.add(Facing.UP);
 				} else if (blockpos1.getY() > blockpos.getY() && world.isAirBlock(blockpos1.down())) {
-					list.add(EnumFacing.DOWN);
+					list.add(Facing.DOWN);
 				}
 			}
 
-			if (p_184569_1_ != EnumFacing.Axis.Z) {
+			if (p_184569_1_ != Facing.Axis.Z) {
 				if (blockpos1.getZ() < blockpos.getZ() && world.isAirBlock(blockpos1.south())) {
-					list.add(EnumFacing.SOUTH);
+					list.add(Facing.SOUTH);
 				} else if (blockpos1.getZ() > blockpos.getZ() && world.isAirBlock(blockpos1.north())) {
-					list.add(EnumFacing.NORTH);
+					list.add(Facing.NORTH);
 				}
 			}
 
-			enumfacing = EnumFacing.random(rand);
+			enumfacing = Facing.random(rand);
 
 			if (list.isEmpty()) {
 				for (int i = 5; !world.isAirBlock(blockpos1.offset(enumfacing)) && i > 0; --i) {
-					enumfacing = EnumFacing.random(rand);
+					enumfacing = Facing.random(rand);
 				}
 			} else {
 				enumfacing = list.get(rand.nextInt(list.size()));
@@ -232,7 +232,7 @@ public class EntityShulkerBullet extends Entity {
 	 */
 	public void onUpdate() {
 
-		if (!world.isRemote && world.getDifficulty() == EnumDifficulty.PEACEFUL) {
+		if (!world.isRemote && world.getDifficulty() == Difficulty.PEACEFUL) {
 			setDead();
 		} else {
 			super.onUpdate();
@@ -284,7 +284,7 @@ public class EntityShulkerBullet extends Entity {
 			ProjectileHelper.rotateTowardsMovement(this, 0.5F);
 
 			if (world.isRemote) {
-				world.spawnParticle(EnumParticleTypes.END_ROD, posX - motionX, posY - motionY + 0.15D, posZ - motionZ, 0D, 0D, 0D);
+				world.spawnParticle(ParticleTypes.END_ROD, posX - motionX, posY - motionY + 0.15D, posZ - motionZ, 0D, 0D, 0D);
 			} else if (target != null && !target.isDead) {
 				if (steps > 0) {
 					--steps;
@@ -296,14 +296,14 @@ public class EntityShulkerBullet extends Entity {
 
 				if (direction != null) {
 					BlockPos blockpos = new BlockPos(this);
-					EnumFacing.Axis enumfacing$axis = direction.getAxis();
+					Facing.Axis enumfacing$axis = direction.getAxis();
 
 					if (world.isBlockNormalCube(blockpos.offset(direction), false)) {
 						selectNextMoveDirection(enumfacing$axis);
 					} else {
 						BlockPos blockpos1 = new BlockPos(target);
 
-						if (enumfacing$axis == EnumFacing.Axis.X && blockpos.getX() == blockpos1.getX() || enumfacing$axis == EnumFacing.Axis.Z && blockpos.getZ() == blockpos1.getZ() || enumfacing$axis == EnumFacing.Axis.Y && blockpos.getY() == blockpos1.getY()) {
+						if (enumfacing$axis == Facing.Axis.X && blockpos.getX() == blockpos1.getX() || enumfacing$axis == Facing.Axis.Z && blockpos.getZ() == blockpos1.getZ() || enumfacing$axis == Facing.Axis.Y && blockpos.getY() == blockpos1.getY()) {
 							selectNextMoveDirection(enumfacing$axis);
 						}
 					}
@@ -344,7 +344,7 @@ public class EntityShulkerBullet extends Entity {
 	protected void bulletHit(RayTraceResult result) {
 
 		if (result.entityHit == null) {
-			((WorldServer) world).spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, posX, posY, posZ, 2, 0.2D, 0.2D, 0.2D, 0D);
+			((WorldServer) world).spawnParticle(ParticleTypes.EXPLOSION_LARGE, posX, posY, posZ, 2, 0.2D, 0.2D, 0.2D, 0D);
 			playSound(SoundEvents.ENTITY_SHULKER_BULLET_HIT, 1F, 1F);
 		} else {
 			boolean flag = result.entityHit.attackEntityFrom(DamageSource.causeIndirectDamage(this, owner).setProjectile(), 4F);
@@ -376,7 +376,7 @@ public class EntityShulkerBullet extends Entity {
 
 		if (!world.isRemote) {
 			playSound(SoundEvents.ENTITY_SHULKER_BULLET_HURT, 1F, 1F);
-			((WorldServer) world).spawnParticle(EnumParticleTypes.CRIT, posX, posY, posZ, 15, 0.2D, 0.2D, 0.2D, 0D);
+			((WorldServer) world).spawnParticle(ParticleTypes.CRIT, posX, posY, posZ, 15, 0.2D, 0.2D, 0.2D, 0D);
 			setDead();
 		}
 

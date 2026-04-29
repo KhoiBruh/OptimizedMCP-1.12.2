@@ -5,7 +5,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -110,7 +110,7 @@ public abstract class EntityFireball extends Entity {
 			if (isInWater()) {
 				for (int i = 0; i < 4; ++i) {
 					float f1 = 0.25F;
-					world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX - motionX * 0.25D, posY - motionY * 0.25D, posZ - motionZ * 0.25D, motionX, motionY, motionZ);
+					world.spawnParticle(ParticleTypes.WATER_BUBBLE, posX - motionX * 0.25D, posY - motionY * 0.25D, posZ - motionZ * 0.25D, motionX, motionY, motionZ);
 				}
 
 				f = 0.8F;
@@ -134,9 +134,9 @@ public abstract class EntityFireball extends Entity {
 		return true;
 	}
 
-	protected EnumParticleTypes getParticleType() {
+	protected ParticleTypes getParticleType() {
 
-		return EnumParticleTypes.SMOKE_NORMAL;
+		return ParticleTypes.SMOKE_NORMAL;
 	}
 
 	/**

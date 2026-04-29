@@ -1,12 +1,12 @@
 package net.minecraft.block.state;
 
-import net.minecraft.block.material.EnumPushReaction;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.BlockRenderType;
+import net.minecraft.util.Facing;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -49,7 +49,7 @@ public interface IBlockProperties {
 
 	boolean hasCustomBreakingProgress();
 
-	EnumBlockRenderType getRenderType();
+	BlockRenderType getRenderType();
 
 	int getPackedLightmapCoords(IBlockAccess source, BlockPos pos);
 
@@ -61,7 +61,7 @@ public interface IBlockProperties {
 
 	boolean canProvidePower();
 
-	int getWeakPower(IBlockAccess blockAccess, BlockPos pos, EnumFacing side);
+	int getWeakPower(IBlockAccess blockAccess, BlockPos pos, Facing side);
 
 	boolean hasComparatorInputOverride();
 
@@ -71,15 +71,15 @@ public interface IBlockProperties {
 
 	float getPlayerRelativeBlockHardness(EntityPlayer player, World worldIn, BlockPos pos);
 
-	int getStrongPower(IBlockAccess blockAccess, BlockPos pos, EnumFacing side);
+	int getStrongPower(IBlockAccess blockAccess, BlockPos pos, Facing side);
 
-	EnumPushReaction getMobilityFlag();
+	PushReaction getMobilityFlag();
 
 	IBlockState getActualState(IBlockAccess blockAccess, BlockPos pos);
 
 	AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos);
 
-	boolean shouldSideBeRendered(IBlockAccess blockAccess, BlockPos pos, EnumFacing facing);
+	boolean shouldSideBeRendered(IBlockAccess blockAccess, BlockPos pos, Facing facing);
 
 	boolean isOpaqueCube();
 
@@ -101,6 +101,6 @@ public interface IBlockProperties {
 
 	boolean causesSuffocation();
 
-	BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, BlockPos pos, EnumFacing facing);
+	BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, BlockPos pos, Facing facing);
 
 }

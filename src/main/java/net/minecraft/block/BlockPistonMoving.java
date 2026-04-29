@@ -13,8 +13,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityPiston;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -29,16 +29,16 @@ import java.util.Random;
 public class BlockPistonMoving extends BlockContainer {
 
 	public static final PropertyDirection FACING = BlockPistonExtension.FACING;
-	public static final PropertyEnum<BlockPistonExtension.EnumPistonType> TYPE = BlockPistonExtension.TYPE;
+	public static final PropertyEnum<BlockPistonExtension.PistonType> TYPE = BlockPistonExtension.TYPE;
 
 	public BlockPistonMoving() {
 
 		super(Material.PISTON);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(TYPE, BlockPistonExtension.EnumPistonType.DEFAULT));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(TYPE, BlockPistonExtension.PistonType.DEFAULT));
 		setHardness(-1F);
 	}
 
-	public static TileEntity createTilePiston(IBlockState blockStateIn, EnumFacing facingIn, boolean extendingIn, boolean shouldHeadBeRenderedIn) {
+	public static TileEntity createTilePiston(IBlockState blockStateIn, Facing facingIn, boolean extendingIn, boolean shouldHeadBeRenderedIn) {
 
 		return new TileEntityPiston(blockStateIn, facingIn, extendingIn, shouldHeadBeRenderedIn);
 	}
@@ -78,7 +78,7 @@ public class BlockPistonMoving extends BlockContainer {
 	/**
 	 * Check whether this Block can be placed at pos, while aiming at the specified side of an adjacent block
 	 */
-	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side) {
+	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Facing side) {
 
 		return false;
 	}
@@ -112,7 +112,7 @@ public class BlockPistonMoving extends BlockContainer {
 	/**
 	 * Called when the block is right clicked by a player.
 	 */
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		if (!worldIn.isRemote && worldIn.getTileEntity(pos) == null) {
 			worldIn.setBlockToAir(pos);
@@ -210,7 +210,7 @@ public class BlockPistonMoving extends BlockContainer {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(FACING, BlockPistonExtension.getFacing(meta)).withProperty(TYPE, (meta & 8) > 0 ? BlockPistonExtension.EnumPistonType.STICKY : BlockPistonExtension.EnumPistonType.DEFAULT);
+		return getDefaultState().withProperty(FACING, BlockPistonExtension.getFacing(meta)).withProperty(TYPE, (meta & 8) > 0 ? BlockPistonExtension.PistonType.STICKY : BlockPistonExtension.PistonType.DEFAULT);
 	}
 
 	/**
@@ -239,7 +239,7 @@ public class BlockPistonMoving extends BlockContainer {
 		int i = 0;
 		i = i | state.getValue(FACING).getIndex();
 
-		if (state.getValue(TYPE) == BlockPistonExtension.EnumPistonType.STICKY) {
+		if (state.getValue(TYPE) == BlockPistonExtension.PistonType.STICKY) {
 			i |= 8;
 		}
 
@@ -260,7 +260,7 @@ public class BlockPistonMoving extends BlockContainer {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
 		return BlockFaceShape.UNDEFINED;
 	}

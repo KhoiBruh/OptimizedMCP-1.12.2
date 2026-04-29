@@ -175,7 +175,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		}
 
 		vertexBufferFormat = new VertexFormat();
-		vertexBufferFormat.addElement(new VertexFormatElement(0, VertexFormatElement.EnumType.FLOAT, VertexFormatElement.EnumUsage.POSITION, 3));
+		vertexBufferFormat.addElement(new VertexFormatElement(0, VertexFormatElement.Type.FLOAT, VertexFormatElement.Usage.POSITION, 3));
 		generateStars();
 		generateSky();
 		generateSky2();
@@ -729,10 +729,10 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 					if (tileentity1 instanceof TileEntityChest tileentitychest) {
 
 						if (tileentitychest.adjacentChestXNeg != null) {
-							blockpos = blockpos.offset(EnumFacing.WEST);
+							blockpos = blockpos.offset(Facing.WEST);
 							tileentity1 = world.getTileEntity(blockpos);
 						} else if (tileentitychest.adjacentChestZNeg != null) {
-							blockpos = blockpos.offset(EnumFacing.NORTH);
+							blockpos = blockpos.offset(Facing.NORTH);
 							tileentity1 = world.getTileEntity(blockpos);
 						}
 					}
@@ -859,11 +859,11 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			if (renderchunk != null) {
 				boolean flag2 = false;
 				RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation3 = new RenderGlobal.ContainerLocalRenderInformation(renderchunk, null, 0);
-				Set<EnumFacing> set1 = getVisibleFacings(blockpos1);
+				Set<Facing> set1 = getVisibleFacings(blockpos1);
 
 				if (set1.size() == 1) {
 					Vector3f vector3f = getViewVector(viewEntity, partialTicks);
-					EnumFacing enumfacing = EnumFacing.getFacingFromVector(vector3f.x, vector3f.y, vector3f.z).getOpposite();
+					Facing enumfacing = Facing.getFacingFromVector(vector3f.x, vector3f.y, vector3f.z).getOpposite();
 					set1.remove(enumfacing);
 				}
 
@@ -901,10 +901,10 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			while (!queue.isEmpty()) {
 				RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation1 = queue.poll();
 				RenderChunk renderchunk3 = renderglobal$containerlocalrenderinformation1.renderChunk;
-				EnumFacing enumfacing2 = renderglobal$containerlocalrenderinformation1.facing;
+				Facing enumfacing2 = renderglobal$containerlocalrenderinformation1.facing;
 				renderInfos.add(renderglobal$containerlocalrenderinformation1);
 
-				for (EnumFacing enumfacing1 : EnumFacing.values()) {
+				for (Facing enumfacing1 : Facing.values()) {
 					RenderChunk renderchunk2 = getRenderChunkOffset(blockpos, renderchunk3, enumfacing1);
 
 					if ((!flag1 || !renderglobal$containerlocalrenderinformation1.hasDirection(enumfacing1.getOpposite())) && (!flag1 || enumfacing2 == null || renderchunk3.getCompiledChunk().isVisible(enumfacing2.getOpposite(), enumfacing1)) && renderchunk2 != null && renderchunk2.setFrameIndex(frameCount) && camera.isBoundingBoxInFrustum(renderchunk2.boundingBox)) {
@@ -952,7 +952,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		mc.profiler.endSection();
 	}
 
-	private Set<EnumFacing> getVisibleFacings(BlockPos pos) {
+	private Set<Facing> getVisibleFacings(BlockPos pos) {
 
 		VisGraph visgraph = new VisGraph();
 		BlockPos blockpos = new BlockPos(pos.getX() >> 4 << 4, pos.getY() >> 4 << 4, pos.getZ() >> 4 << 4);
@@ -972,7 +972,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 	 * Returns RenderChunk offset from given RenderChunk in given direction, or null if it can't be seen by player at
 	 * given BlockPos.
 	 */
-	private RenderChunk getRenderChunkOffset(BlockPos playerPos, RenderChunk renderChunkBase, EnumFacing facing) {
+	private RenderChunk getRenderChunkOffset(BlockPos playerPos, RenderChunk renderChunkBase, Facing facing) {
 
 		BlockPos blockpos = renderChunkBase.getBlockPosOffset16(facing);
 
@@ -1101,7 +1101,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 
 		if (OpenGlHelper.useVbo()) {
 			for (VertexFormatElement vertexformatelement : DefaultVertexFormats.BLOCK.getElements()) {
-				VertexFormatElement.EnumUsage vertexformatelement$enumusage = vertexformatelement.getUsage();
+				VertexFormatElement.Usage vertexformatelement$enumusage = vertexformatelement.getUsage();
 				int k1 = vertexformatelement.getIndex();
 
 				switch (vertexformatelement$enumusage) {
@@ -1924,7 +1924,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		}
 	}
 
-	private void spawnParticle(EnumParticleTypes particleIn, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed, double zSpeed, int... parameters) {
+	private void spawnParticle(ParticleTypes particleIn, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed, double zSpeed, int... parameters) {
 
 		spawnParticle(particleIn.getParticleID(), particleIn.getShouldIgnoreRange(), xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed, parameters);
 	}
@@ -2201,7 +2201,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 					double d27 = (double) j2 * d16 + random.nextGaussian() * 0.01D;
 					double d29 = -0.03D + random.nextGaussian() * 0.01D;
 					double d30 = (double) k1 * d16 + random.nextGaussian() * 0.01D;
-					spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d19, d22, d25, d27, d29, d30);
+					spawnParticle(ParticleTypes.SMOKE_NORMAL, d19, d22, d25, d27, d29, d30);
 				}
 
 				return;
@@ -2224,13 +2224,13 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 				double d12 = blockPosIn.getZ();
 
 				for (int k2 = 0; k2 < 8; ++k2) {
-					spawnParticle(EnumParticleTypes.ITEM_CRACK, d9, d10, d12, random.nextGaussian() * 0.15D, random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D, Item.getIdFromItem(Items.SPLASH_POTION));
+					spawnParticle(ParticleTypes.ITEM_CRACK, d9, d10, d12, random.nextGaussian() * 0.15D, random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D, Item.getIdFromItem(Items.SPLASH_POTION));
 				}
 
 				float f5 = (float) (data >> 16 & 255) / 255F;
 				float f = (float) (data >> 8 & 255) / 255F;
 				float f1 = (float) (data & 255) / 255F;
-				EnumParticleTypes enumparticletypes = type == 2007 ? EnumParticleTypes.SPELL_INSTANT : EnumParticleTypes.SPELL;
+				ParticleTypes enumparticletypes = type == 2007 ? ParticleTypes.SPELL_INSTANT : ParticleTypes.SPELL;
 
 				for (int j3 = 0; j3 < 100; ++j3) {
 					double d18 = random.nextDouble() * 4D;
@@ -2256,12 +2256,12 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 				double d5 = (double) blockPosIn.getZ() + 0.5D;
 
 				for (int l1 = 0; l1 < 8; ++l1) {
-					spawnParticle(EnumParticleTypes.ITEM_CRACK, d3, d4, d5, random.nextGaussian() * 0.15D, random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D, Item.getIdFromItem(Items.ENDER_EYE));
+					spawnParticle(ParticleTypes.ITEM_CRACK, d3, d4, d5, random.nextGaussian() * 0.15D, random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D, Item.getIdFromItem(Items.ENDER_EYE));
 				}
 
 				for (double d14 = 0D; d14 < (Math.PI * 2D); d14 += 0.15707963267948966D) {
-					spawnParticle(EnumParticleTypes.PORTAL, d3 + Math.cos(d14) * 5D, d4 - 0.4D, d5 + Math.sin(d14) * 5D, Math.cos(d14) * -5D, 0D, Math.sin(d14) * -5D);
-					spawnParticle(EnumParticleTypes.PORTAL, d3 + Math.cos(d14) * 5D, d4 - 0.4D, d5 + Math.sin(d14) * 5D, Math.cos(d14) * -7D, 0D, Math.sin(d14) * -7D);
+					spawnParticle(ParticleTypes.PORTAL, d3 + Math.cos(d14) * 5D, d4 - 0.4D, d5 + Math.sin(d14) * 5D, Math.cos(d14) * -5D, 0D, Math.sin(d14) * -5D);
+					spawnParticle(ParticleTypes.PORTAL, d3 + Math.cos(d14) * 5D, d4 - 0.4D, d5 + Math.sin(d14) * 5D, Math.cos(d14) * -7D, 0D, Math.sin(d14) * -7D);
 				}
 
 				return;
@@ -2271,8 +2271,8 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 					double d17 = (double) blockPosIn.getX() + 0.5D + ((double) world.rand.nextFloat() - 0.5D) * 2D;
 					double d20 = (double) blockPosIn.getY() + 0.5D + ((double) world.rand.nextFloat() - 0.5D) * 2D;
 					double d23 = (double) blockPosIn.getZ() + 0.5D + ((double) world.rand.nextFloat() - 0.5D) * 2D;
-					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d17, d20, d23, 0D, 0D, 0D);
-					world.spawnParticle(EnumParticleTypes.FLAME, d17, d20, d23, 0D, 0D, 0D);
+					world.spawnParticle(ParticleTypes.SMOKE_NORMAL, d17, d20, d23, 0D, 0D, 0D);
+					world.spawnParticle(ParticleTypes.FLAME, d17, d20, d23, 0D, 0D, 0D);
 				}
 
 				return;
@@ -2288,7 +2288,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 					double d6 = MathHelper.cos(f3) * f2;
 					double d7 = 0.01D + random.nextDouble() * 0.5D;
 					double d8 = MathHelper.sin(f3) * f2;
-					Particle particle = spawnParticle0(EnumParticleTypes.DRAGON_BREATH.getParticleID(), false, (double) blockPosIn.getX() + d6 * 0.1D, (double) blockPosIn.getY() + 0.3D, (double) blockPosIn.getZ() + d8 * 0.1D, d6, d7, d8);
+					Particle particle = spawnParticle0(ParticleTypes.DRAGON_BREATH.getParticleID(), false, (double) blockPosIn.getX() + d6 * 0.1D, (double) blockPosIn.getY() + 0.3D, (double) blockPosIn.getZ() + d8 * 0.1D, d6, d7, d8);
 
 					if (particle != null) {
 						particle.multiplyVelocity(f2);
@@ -2299,7 +2299,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 				break;
 
 			case 3000:
-				world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, true, (double) blockPosIn.getX() + 0.5D, (double) blockPosIn.getY() + 0.5D, (double) blockPosIn.getZ() + 0.5D, 0D, 0D, 0D);
+				world.spawnParticle(ParticleTypes.EXPLOSION_HUGE, true, (double) blockPosIn.getX() + 0.5D, (double) blockPosIn.getY() + 0.5D, (double) blockPosIn.getZ() + 0.5D, 0D, 0D, 0D);
 				world.playSound(blockPosIn, SoundEvents.BLOCK_END_GATEWAY_SPAWN, SoundCategory.BLOCKS, 10F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F, false);
 				break;
 
@@ -2346,23 +2346,23 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 	class ContainerLocalRenderInformation {
 
 		final RenderChunk renderChunk;
-		final EnumFacing facing;
+		final Facing facing;
 		final int counter;
 		byte setFacing;
 
-		private ContainerLocalRenderInformation(RenderChunk renderChunkIn, EnumFacing facingIn, int counterIn) {
+		private ContainerLocalRenderInformation(RenderChunk renderChunkIn, Facing facingIn, int counterIn) {
 
 			renderChunk = renderChunkIn;
 			facing = facingIn;
 			counter = counterIn;
 		}
 
-		public void setDirection(byte p_189561_1_, EnumFacing p_189561_2_) {
+		public void setDirection(byte p_189561_1_, Facing p_189561_2_) {
 
 			setFacing = (byte) (setFacing | p_189561_1_ | 1 << p_189561_2_.ordinal());
 		}
 
-		public boolean hasDirection(EnumFacing p_189560_1_) {
+		public boolean hasDirection(Facing p_189560_1_) {
 
 			return (setFacing & 1 << p_189560_1_.ordinal()) > 0;
 		}

@@ -61,7 +61,7 @@ public class ItemDye extends Item {
 				double d0 = itemRand.nextGaussian() * 0.02D;
 				double d1 = itemRand.nextGaussian() * 0.02D;
 				double d2 = itemRand.nextGaussian() * 0.02D;
-				worldIn.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, (float) pos.getX() + itemRand.nextFloat(), (double) pos.getY() + (double) itemRand.nextFloat() * iblockstate.getBoundingBox(worldIn, pos).maxY, (float) pos.getZ() + itemRand.nextFloat(), d0, d1, d2);
+				worldIn.spawnParticle(ParticleTypes.VILLAGER_HAPPY, (float) pos.getX() + itemRand.nextFloat(), (double) pos.getY() + (double) itemRand.nextFloat() * iblockstate.getBoundingBox(worldIn, pos).maxY, (float) pos.getZ() + itemRand.nextFloat(), d0, d1, d2);
 			}
 		}
 	}
@@ -73,36 +73,36 @@ public class ItemDye extends Item {
 	public String getUnlocalizedName(ItemStack stack) {
 
 		int i = stack.getMetadata();
-		return super.getUnlocalizedName() + "." + EnumDyeColor.byDyeDamage(i).getUnlocalizedName();
+		return super.getUnlocalizedName() + "." + DyeColor.byDyeDamage(i).getUnlocalizedName();
 	}
 
 	/**
 	 * Called when a Block is right-clicked with this Item
 	 */
-	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (!player.canPlayerEdit(pos.offset(facing), facing, itemstack)) {
-			return EnumActionResult.FAIL;
+			return ActionResult.FAIL;
 		} else {
-			EnumDyeColor enumdyecolor = EnumDyeColor.byDyeDamage(itemstack.getMetadata());
+			DyeColor enumdyecolor = DyeColor.byDyeDamage(itemstack.getMetadata());
 
-			if (enumdyecolor == EnumDyeColor.WHITE) {
+			if (enumdyecolor == DyeColor.WHITE) {
 				if (applyBonemeal(itemstack, worldIn, pos)) {
 					if (!worldIn.isRemote) {
 						worldIn.playEvent(2005, pos, 0);
 					}
 
-					return EnumActionResult.SUCCESS;
+					return ActionResult.SUCCESS;
 				}
-			} else if (enumdyecolor == EnumDyeColor.BROWN) {
+			} else if (enumdyecolor == DyeColor.BROWN) {
 				IBlockState iblockstate = worldIn.getBlockState(pos);
 				Block block = iblockstate.getBlock();
 
-				if (block == Blocks.LOG && iblockstate.getValue(BlockOldLog.VARIANT) == BlockPlanks.EnumType.JUNGLE) {
-					if (facing == EnumFacing.DOWN || facing == EnumFacing.UP) {
-						return EnumActionResult.FAIL;
+				if (block == Blocks.LOG && iblockstate.getValue(BlockOldLog.VARIANT) == BlockPlanks.Type.JUNGLE) {
+					if (facing == Facing.DOWN || facing == Facing.UP) {
+						return ActionResult.FAIL;
 					}
 
 					pos = pos.offset(facing);
@@ -115,24 +115,24 @@ public class ItemDye extends Item {
 							itemstack.shrink(1);
 						}
 
-						return EnumActionResult.SUCCESS;
+						return ActionResult.SUCCESS;
 					}
 				}
 
-				return EnumActionResult.FAIL;
+				return ActionResult.FAIL;
 			}
 
-			return EnumActionResult.PASS;
+			return ActionResult.PASS;
 		}
 	}
 
 	/**
 	 * Returns true if the item can be used on the given entity, e.g. shears on sheep.
 	 */
-	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target, EnumHand hand) {
+	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target, Hand hand) {
 
 		if (target instanceof EntitySheep entitysheep) {
-			EnumDyeColor enumdyecolor = EnumDyeColor.byDyeDamage(stack.getMetadata());
+			DyeColor enumdyecolor = DyeColor.byDyeDamage(stack.getMetadata());
 
 			if (!entitysheep.getSheared() && entitysheep.getFleeceColor() != enumdyecolor) {
 				entitysheep.setFleeceColor(enumdyecolor);

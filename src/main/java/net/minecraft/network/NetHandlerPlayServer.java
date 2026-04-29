@@ -486,20 +486,20 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	/**
 	 * Teleports the player position to the (relative) values specified, and syncs to the client
 	 */
-	public void setPlayerLocation(double x, double y, double z, float yaw, float pitch, Set<SPacketPlayerPosLook.EnumFlags> relativeSet) {
+	public void setPlayerLocation(double x, double y, double z, float yaw, float pitch, Set<SPacketPlayerPosLook.Flags> relativeSet) {
 
-		double d0 = relativeSet.contains(SPacketPlayerPosLook.EnumFlags.X) ? player.posX : 0D;
-		double d1 = relativeSet.contains(SPacketPlayerPosLook.EnumFlags.Y) ? player.posY : 0D;
-		double d2 = relativeSet.contains(SPacketPlayerPosLook.EnumFlags.Z) ? player.posZ : 0D;
+		double d0 = relativeSet.contains(SPacketPlayerPosLook.Flags.X) ? player.posX : 0D;
+		double d1 = relativeSet.contains(SPacketPlayerPosLook.Flags.Y) ? player.posY : 0D;
+		double d2 = relativeSet.contains(SPacketPlayerPosLook.Flags.Z) ? player.posZ : 0D;
 		targetPos = new Vec3d(x + d0, y + d1, z + d2);
 		float f = yaw;
 		float f1 = pitch;
 
-		if (relativeSet.contains(SPacketPlayerPosLook.EnumFlags.Y_ROT)) {
+		if (relativeSet.contains(SPacketPlayerPosLook.Flags.Y_ROT)) {
 			f = yaw + player.rotationYaw;
 		}
 
-		if (relativeSet.contains(SPacketPlayerPosLook.EnumFlags.X_ROT)) {
+		if (relativeSet.contains(SPacketPlayerPosLook.Flags.X_ROT)) {
 			f1 = pitch + player.rotationPitch;
 		}
 
@@ -525,9 +525,9 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 		switch (packetIn.getAction()) {
 			case SWAP_HELD_ITEMS:
 				if (!player.isSpectator()) {
-					ItemStack itemstack = player.getHeldItem(EnumHand.OFF_HAND);
-					player.setHeldItem(EnumHand.OFF_HAND, player.getHeldItem(EnumHand.MAIN_HAND));
-					player.setHeldItem(EnumHand.MAIN_HAND, itemstack);
+					ItemStack itemstack = player.getHeldItem(Hand.OFF_HAND);
+					player.setHeldItem(Hand.OFF_HAND, player.getHeldItem(Hand.MAIN_HAND));
+					player.setHeldItem(Hand.MAIN_HAND, itemstack);
 				}
 
 				return;
@@ -593,13 +593,13 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 		WorldServer worldserver = serverController.getWorld(player.dimension);
-		EnumHand enumhand = packetIn.getHand();
+		Hand enumhand = packetIn.getHand();
 		ItemStack itemstack = player.getHeldItem(enumhand);
 		BlockPos blockpos = packetIn.getPos();
-		EnumFacing enumfacing = packetIn.getDirection();
+		Facing enumfacing = packetIn.getDirection();
 		player.markPlayerActive();
 
-		if (blockpos.getY() < serverController.getBuildLimit() - 1 || enumfacing != EnumFacing.UP && blockpos.getY() < serverController.getBuildLimit()) {
+		if (blockpos.getY() < serverController.getBuildLimit() - 1 || enumfacing != Facing.UP && blockpos.getY() < serverController.getBuildLimit()) {
 			if (targetPos == null && player.getDistanceSq((double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.5D, (double) blockpos.getZ() + 0.5D) < 64D && !serverController.isBlockProtected(worldserver, blockpos, player) && worldserver.getWorldBorder().contains(blockpos)) {
 				player.interactionManager.processRightClickBlock(player, worldserver, itemstack, enumhand, blockpos, enumfacing, packetIn.getFacingX(), packetIn.getFacingY(), packetIn.getFacingZ());
 			}
@@ -620,7 +620,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 		WorldServer worldserver = serverController.getWorld(player.dimension);
-		EnumHand enumhand = packetIn.getHand();
+		Hand enumhand = packetIn.getHand();
 		ItemStack itemstack = player.getHeldItem(enumhand);
 		player.markPlayerActive();
 
@@ -715,13 +715,13 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	public void sendPacket(final Packet<?> packetIn) {
 
 		if (packetIn instanceof SPacketChat spacketchat) {
-			EntityPlayer.EnumChatVisibility entityplayer$enumchatvisibility = player.getChatVisibility();
+			EntityPlayer.ChatVisibility entityplayer$enumchatvisibility = player.getChatVisibility();
 
-			if (entityplayer$enumchatvisibility == EntityPlayer.EnumChatVisibility.HIDDEN && spacketchat.getType() != ChatType.GAME_INFO) {
+			if (entityplayer$enumchatvisibility == EntityPlayer.ChatVisibility.HIDDEN && spacketchat.getType() != ChatType.GAME_INFO) {
 				return;
 			}
 
-			if (entityplayer$enumchatvisibility == EntityPlayer.EnumChatVisibility.SYSTEM && !spacketchat.isSystem()) {
+			if (entityplayer$enumchatvisibility == EntityPlayer.ChatVisibility.SYSTEM && !spacketchat.isSystem()) {
 				return;
 			}
 		}
@@ -758,7 +758,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 
-		if (player.getChatVisibility() == EntityPlayer.EnumChatVisibility.HIDDEN) {
+		if (player.getChatVisibility() == EntityPlayer.ChatVisibility.HIDDEN) {
 			TextComponentTranslation textcomponenttranslation = new TextComponentTranslation("chat.cannotSend");
 			textcomponenttranslation.getStyle().setColor(TextFormatting.RED);
 			sendPacket(new SPacketChat(textcomponenttranslation));
@@ -901,10 +901,10 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
 			if (player.getDistanceSq(entity) < d0) {
 				if (packetIn.getAction() == CPacketUseEntity.Action.INTERACT) {
-					EnumHand enumhand = packetIn.getHand();
+					Hand enumhand = packetIn.getHand();
 					player.interactOn(entity, enumhand);
 				} else if (packetIn.getAction() == CPacketUseEntity.Action.INTERACT_AT) {
-					EnumHand enumhand1 = packetIn.getHand();
+					Hand enumhand1 = packetIn.getHand();
 					entity.applyPlayerInteraction(player, packetIn.getHitVec(), enumhand1);
 				} else if (packetIn.getAction() == CPacketUseEntity.Action.ATTACK) {
 					if (entity instanceof EntityItem || entity instanceof EntityXPOrb || entity instanceof EntityArrow || entity == player) {
@@ -1345,7 +1345,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 				boolean flag1 = packetbuffer3.readBoolean();
 
 				if (commandblockbaselogic != null) {
-					EnumFacing enumfacing = player.world.getBlockState(blockpos1).getValue(BlockCommandBlock.FACING);
+					Facing enumfacing = player.world.getBlockState(blockpos1).getValue(BlockCommandBlock.FACING);
 
 					switch (tileentitycommandblock$mode) {
 						case SEQUENCE:

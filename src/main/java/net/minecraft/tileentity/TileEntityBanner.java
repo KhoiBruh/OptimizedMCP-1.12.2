@@ -1,7 +1,7 @@
 package net.minecraft.tileentity;
 
 import com.google.common.collect.Lists;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemBanner;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -16,7 +16,7 @@ import java.util.List;
 public class TileEntityBanner extends TileEntity implements IWorldNameable {
 
 	private String name;
-	private EnumDyeColor baseColor = EnumDyeColor.BLACK;
+	private DyeColor baseColor = DyeColor.BLACK;
 
 	/**
 	 * A list of all the banner patterns.
@@ -24,7 +24,7 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable {
 	private NBTTagList patterns;
 	private boolean patternDataSet;
 	private List<BannerPattern> patternList;
-	private List<EnumDyeColor> colorList;
+	private List<DyeColor> colorList;
 
 	/**
 	 * This is a String representation of this banners pattern and color lists, used for texture caching.
@@ -64,10 +64,10 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable {
 		}
 	}
 
-	public static EnumDyeColor getColor(ItemStack p_190616_0_) {
+	public static DyeColor getColor(ItemStack p_190616_0_) {
 
 		NBTTagCompound nbttagcompound = p_190616_0_.getSubCompound("BlockEntityTag");
-		return nbttagcompound != null && nbttagcompound.hasKey("Base") ? EnumDyeColor.byDyeDamage(nbttagcompound.getInteger("Base")) : EnumDyeColor.BLACK;
+		return nbttagcompound != null && nbttagcompound.hasKey("Base") ? DyeColor.byDyeDamage(nbttagcompound.getInteger("Base")) : DyeColor.BLACK;
 	}
 
 	public void setItemValues(ItemStack stack, boolean p_175112_2_) {
@@ -135,7 +135,7 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable {
 			name = compound.getString("CustomName");
 		}
 
-		baseColor = EnumDyeColor.byDyeDamage(compound.getInteger("Base"));
+		baseColor = DyeColor.byDyeDamage(compound.getInteger("Base"));
 		patterns = compound.getTagList("Patterns", 10);
 		patternList = null;
 		colorList = null;
@@ -160,7 +160,7 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable {
 		return patternList;
 	}
 
-	public List<EnumDyeColor> getColorList() {
+	public List<DyeColor> getColorList() {
 
 		initializeBannerData();
 		return colorList;
@@ -196,7 +196,7 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable {
 						if (bannerpattern != null) {
 							patternList.add(bannerpattern);
 							int j = nbttagcompound.getInteger("Color");
-							colorList.add(EnumDyeColor.byDyeDamage(j));
+							colorList.add(DyeColor.byDyeDamage(j));
 							patternResourceLocation += bannerpattern.getHashname() + j;
 						}
 					}

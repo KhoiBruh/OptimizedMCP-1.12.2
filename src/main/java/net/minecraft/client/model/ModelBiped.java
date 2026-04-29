@@ -3,8 +3,8 @@ package net.minecraft.client.model;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.Hand;
+import net.minecraft.util.HandSide;
 import net.minecraft.util.math.MathHelper;
 
 public class ModelBiped extends ModelBase {
@@ -212,12 +212,12 @@ public class ModelBiped extends ModelBase {
 		}
 
 		if (swingProgress > 0F) {
-			EnumHandSide enumhandside = getMainHand(entityIn);
+			HandSide enumhandside = getMainHand(entityIn);
 			ModelRenderer modelrenderer = getArmForSide(enumhandside);
 			float f1 = swingProgress;
 			bipedBody.rotateAngleY = MathHelper.sin(MathHelper.sqrt(f1) * ((float) Math.PI * 2F)) * 0.2F;
 
-			if (enumhandside == EnumHandSide.LEFT) {
+			if (enumhandside == HandSide.LEFT) {
 				bipedBody.rotateAngleY *= -1F;
 			}
 
@@ -299,23 +299,23 @@ public class ModelBiped extends ModelBase {
 		bipedLeftLeg.showModel = visible;
 	}
 
-	public void postRenderArm(float scale, EnumHandSide side) {
+	public void postRenderArm(float scale, HandSide side) {
 
 		getArmForSide(side).postRender(scale);
 	}
 
-	protected ModelRenderer getArmForSide(EnumHandSide side) {
+	protected ModelRenderer getArmForSide(HandSide side) {
 
-		return side == EnumHandSide.LEFT ? bipedLeftArm : bipedRightArm;
+		return side == HandSide.LEFT ? bipedLeftArm : bipedRightArm;
 	}
 
-	protected EnumHandSide getMainHand(Entity entityIn) {
+	protected HandSide getMainHand(Entity entityIn) {
 
 		if (entityIn instanceof EntityLivingBase entitylivingbase) {
-			EnumHandSide enumhandside = entitylivingbase.getPrimaryHand();
-			return entitylivingbase.swingingHand == EnumHand.MAIN_HAND ? enumhandside : enumhandside.opposite();
+			HandSide enumhandside = entitylivingbase.getPrimaryHand();
+			return entitylivingbase.swingingHand == Hand.MAIN_HAND ? enumhandside : enumhandside.opposite();
 		} else {
-			return EnumHandSide.RIGHT;
+			return HandSide.RIGHT;
 		}
 	}
 

@@ -4,10 +4,10 @@ import net.minecraft.util.math.MathHelper;
 
 public class DifficultyInstance {
 
-	private final EnumDifficulty worldDifficulty;
+	private final Difficulty worldDifficulty;
 	private final float additionalDifficulty;
 
-	public DifficultyInstance(EnumDifficulty worldDifficulty, long worldTime, long chunkInhabitedTime, float moonPhaseFactor) {
+	public DifficultyInstance(Difficulty worldDifficulty, long worldTime, long chunkInhabitedTime, float moonPhaseFactor) {
 
 		this.worldDifficulty = worldDifficulty;
 		additionalDifficulty = calculateAdditionalDifficulty(worldDifficulty, worldTime, chunkInhabitedTime, moonPhaseFactor);
@@ -32,12 +32,12 @@ public class DifficultyInstance {
 		}
 	}
 
-	private float calculateAdditionalDifficulty(EnumDifficulty difficulty, long worldTime, long chunkInhabitedTime, float moonPhaseFactor) {
+	private float calculateAdditionalDifficulty(Difficulty difficulty, long worldTime, long chunkInhabitedTime, float moonPhaseFactor) {
 
-		if (difficulty == EnumDifficulty.PEACEFUL) {
+		if (difficulty == Difficulty.PEACEFUL) {
 			return 0F;
 		} else {
-			boolean flag = difficulty == EnumDifficulty.HARD;
+			boolean flag = difficulty == Difficulty.HARD;
 			float f = 0.75F;
 			float f1 = MathHelper.clamp(((float) worldTime - 72000F) / 1440000F, 0F, 1F) * 0.25F;
 			f = f + f1;
@@ -45,7 +45,7 @@ public class DifficultyInstance {
 			f2 = f2 + MathHelper.clamp((float) chunkInhabitedTime / 3600000F, 0F, 1F) * (flag ? 1F : 0.75F);
 			f2 = f2 + MathHelper.clamp(moonPhaseFactor * 0.25F, 0F, f1);
 
-			if (difficulty == EnumDifficulty.EASY) {
+			if (difficulty == Difficulty.EASY) {
 				f2 *= 0.5F;
 			}
 

@@ -8,8 +8,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
@@ -30,7 +30,7 @@ public class ItemBoat extends Item {
 		setUnlocalizedName("boat." + typeIn.getName());
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
 
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		float f = 1F;
@@ -51,7 +51,7 @@ public class ItemBoat extends Item {
 		RayTraceResult raytraceresult = worldIn.rayTraceBlocks(vec3d, vec3d1, true);
 
 		if (raytraceresult == null) {
-			return new ActionResult<>(EnumActionResult.PASS, itemstack);
+			return new TypedActionResult<>(ActionResult.PASS, itemstack);
 		} else {
 			Vec3d vec3d2 = playerIn.getLook(1F);
 			boolean flag = false;
@@ -68,9 +68,9 @@ public class ItemBoat extends Item {
 			}
 
 			if (flag) {
-				return new ActionResult<>(EnumActionResult.PASS, itemstack);
+				return new TypedActionResult<>(ActionResult.PASS, itemstack);
 			} else if (raytraceresult.typeOfHit != RayTraceResult.Type.BLOCK) {
-				return new ActionResult<>(EnumActionResult.PASS, itemstack);
+				return new TypedActionResult<>(ActionResult.PASS, itemstack);
 			} else {
 				Block block = worldIn.getBlockState(raytraceresult.getBlockPos()).getBlock();
 				boolean flag1 = block == Blocks.WATER || block == Blocks.FLOWING_WATER;
@@ -79,7 +79,7 @@ public class ItemBoat extends Item {
 				entityboat.rotationYaw = playerIn.rotationYaw;
 
 				if (!worldIn.getCollisionBoxes(entityboat, entityboat.getEntityBoundingBox().grow(-0.1D)).isEmpty()) {
-					return new ActionResult<>(EnumActionResult.FAIL, itemstack);
+					return new TypedActionResult<>(ActionResult.FAIL, itemstack);
 				} else {
 					if (!worldIn.isRemote) {
 						worldIn.spawnEntity(entityboat);
@@ -90,7 +90,7 @@ public class ItemBoat extends Item {
 					}
 
 					playerIn.addStat(StatList.getObjectUseStats(this));
-					return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
+					return new TypedActionResult<>(ActionResult.SUCCESS, itemstack);
 				}
 			}
 		}

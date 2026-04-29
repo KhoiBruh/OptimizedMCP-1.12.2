@@ -4,7 +4,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 
 public class ItemNameTag extends Item {
 
@@ -16,7 +16,7 @@ public class ItemNameTag extends Item {
 	/**
 	 * Returns true if the item can be used on the given entity, e.g. shears on sheep.
 	 */
-	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target, EnumHand hand) {
+	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target, Hand hand) {
 
 		if (stack.hasDisplayName() && !(target instanceof EntityPlayer)) {
 			target.setCustomNameTag(stack.getDisplayName());

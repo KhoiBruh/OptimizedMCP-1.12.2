@@ -14,14 +14,14 @@ public class SPacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
 	private double z;
 	private float yaw;
 	private float pitch;
-	private Set<SPacketPlayerPosLook.EnumFlags> flags;
+	private Set<SPacketPlayerPosLook.Flags> flags;
 	private int teleportId;
 
 	public SPacketPlayerPosLook() {
 
 	}
 
-	public SPacketPlayerPosLook(double xIn, double yIn, double zIn, float yawIn, float pitchIn, Set<SPacketPlayerPosLook.EnumFlags> flagsIn, int teleportIdIn) {
+	public SPacketPlayerPosLook(double xIn, double yIn, double zIn, float yawIn, float pitchIn, Set<SPacketPlayerPosLook.Flags> flagsIn, int teleportIdIn) {
 
 		x = xIn;
 		y = yIn;
@@ -42,7 +42,7 @@ public class SPacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
 		z = buf.readDouble();
 		yaw = buf.readFloat();
 		pitch = buf.readFloat();
-		flags = SPacketPlayerPosLook.EnumFlags.unpack(buf.readUnsignedByte());
+		flags = SPacketPlayerPosLook.Flags.unpack(buf.readUnsignedByte());
 		teleportId = buf.readVarInt();
 	}
 
@@ -56,7 +56,7 @@ public class SPacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
 		buf.writeDouble(z);
 		buf.writeFloat(yaw);
 		buf.writeFloat(pitch);
-		buf.writeByte(SPacketPlayerPosLook.EnumFlags.pack(flags));
+		buf.writeByte(SPacketPlayerPosLook.Flags.pack(flags));
 		buf.writeVarInt(teleportId);
 	}
 
@@ -98,12 +98,12 @@ public class SPacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
 		return teleportId;
 	}
 
-	public Set<SPacketPlayerPosLook.EnumFlags> getFlags() {
+	public Set<SPacketPlayerPosLook.Flags> getFlags() {
 
 		return flags;
 	}
 
-	public enum EnumFlags {
+	public enum Flags {
 		X(0),
 		Y(1),
 		Z(2),
@@ -112,16 +112,16 @@ public class SPacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
 
 		private final int bit;
 
-		EnumFlags(int bitIn) {
+		Flags(int bitIn) {
 
 			bit = bitIn;
 		}
 
-		public static Set<SPacketPlayerPosLook.EnumFlags> unpack(int flags) {
+		public static Set<SPacketPlayerPosLook.Flags> unpack(int flags) {
 
-			Set<SPacketPlayerPosLook.EnumFlags> set = EnumSet.noneOf(SPacketPlayerPosLook.EnumFlags.class);
+			Set<SPacketPlayerPosLook.Flags> set = EnumSet.noneOf(SPacketPlayerPosLook.Flags.class);
 
-			for (SPacketPlayerPosLook.EnumFlags spacketplayerposlook$enumflags : values()) {
+			for (SPacketPlayerPosLook.Flags spacketplayerposlook$enumflags : values()) {
 				if (spacketplayerposlook$enumflags.isSet(flags)) {
 					set.add(spacketplayerposlook$enumflags);
 				}
@@ -130,11 +130,11 @@ public class SPacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
 			return set;
 		}
 
-		public static int pack(Set<SPacketPlayerPosLook.EnumFlags> flags) {
+		public static int pack(Set<SPacketPlayerPosLook.Flags> flags) {
 
 			int i = 0;
 
-			for (SPacketPlayerPosLook.EnumFlags spacketplayerposlook$enumflags : flags) {
+			for (SPacketPlayerPosLook.Flags spacketplayerposlook$enumflags : flags) {
 				i |= spacketplayerposlook$enumflags.getMask();
 			}
 

@@ -8,7 +8,7 @@ import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.datafix.DataFixer;
@@ -224,7 +224,7 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 		}
 	}
 
-	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
+	public boolean processInitialInteract(EntityPlayer player, Hand hand) {
 
 		if (!world.isRemote) {
 			player.displayGUIChest(this);

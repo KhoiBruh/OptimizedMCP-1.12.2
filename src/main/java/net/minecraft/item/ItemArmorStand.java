@@ -5,9 +5,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -28,24 +28,24 @@ public class ItemArmorStand extends Item {
 	/**
 	 * Called when a Block is right-clicked with this Item
 	 */
-	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
-		if (facing == EnumFacing.DOWN) {
-			return EnumActionResult.FAIL;
+		if (facing == Facing.DOWN) {
+			return ActionResult.FAIL;
 		} else {
 			boolean flag = worldIn.getBlockState(pos).getBlock().isReplaceable(worldIn, pos);
 			BlockPos blockpos = flag ? pos : pos.offset(facing);
 			ItemStack itemstack = player.getHeldItem(hand);
 
 			if (!player.canPlayerEdit(blockpos, facing, itemstack)) {
-				return EnumActionResult.FAIL;
+				return ActionResult.FAIL;
 			} else {
 				BlockPos blockpos1 = blockpos.up();
 				boolean flag1 = !worldIn.isAirBlock(blockpos) && !worldIn.getBlockState(blockpos).getBlock().isReplaceable(worldIn, blockpos);
 				flag1 = flag1 | (!worldIn.isAirBlock(blockpos1) && !worldIn.getBlockState(blockpos1).getBlock().isReplaceable(worldIn, blockpos1));
 
 				if (flag1) {
-					return EnumActionResult.FAIL;
+					return ActionResult.FAIL;
 				} else {
 					double d0 = blockpos.getX();
 					double d1 = blockpos.getY();
@@ -53,7 +53,7 @@ public class ItemArmorStand extends Item {
 					List<Entity> list = worldIn.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(d0, d1, d2, d0 + 1D, d1 + 2D, d2 + 1D));
 
 					if (!list.isEmpty()) {
-						return EnumActionResult.FAIL;
+						return ActionResult.FAIL;
 					} else {
 						if (!worldIn.isRemote) {
 							worldIn.setBlockToAir(blockpos);
@@ -68,7 +68,7 @@ public class ItemArmorStand extends Item {
 						}
 
 						itemstack.shrink(1);
-						return EnumActionResult.SUCCESS;
+						return ActionResult.SUCCESS;
 					}
 				}
 			}

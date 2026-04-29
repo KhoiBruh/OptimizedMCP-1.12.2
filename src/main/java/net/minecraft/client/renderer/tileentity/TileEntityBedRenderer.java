@@ -2,9 +2,9 @@ package net.minecraft.client.renderer.tileentity;
 
 import net.minecraft.client.model.ModelBed;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.tileentity.TileEntityBed;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.ResourceLocation;
 
 public class TileEntityBedRenderer extends TileEntitySpecialRenderer<TileEntityBed> {
@@ -12,10 +12,10 @@ public class TileEntityBedRenderer extends TileEntitySpecialRenderer<TileEntityB
 	private static final ResourceLocation[] TEXTURES;
 
 	static {
-		EnumDyeColor[] aenumdyecolor = EnumDyeColor.values();
+		DyeColor[] aenumdyecolor = DyeColor.values();
 		TEXTURES = new ResourceLocation[aenumdyecolor.length];
 
-		for (EnumDyeColor enumdyecolor : aenumdyecolor) {
+		for (DyeColor enumdyecolor : aenumdyecolor) {
 			TEXTURES[enumdyecolor.getMetadata()] = new ResourceLocation("textures/entity/bed/" + enumdyecolor.getDyeColorName() + ".png");
 		}
 	}
@@ -37,7 +37,7 @@ public class TileEntityBedRenderer extends TileEntitySpecialRenderer<TileEntityB
 
 		boolean flag = te.getWorld() != null;
 		boolean flag1 = !flag || te.isHeadPiece();
-		EnumDyeColor enumdyecolor = te != null ? te.getColor() : EnumDyeColor.RED;
+		DyeColor enumdyecolor = te != null ? te.getColor() : DyeColor.RED;
 		int i = flag ? te.getBlockMetadata() & 3 : 0;
 
 		if (destroyStage >= 0) {
@@ -79,16 +79,16 @@ public class TileEntityBedRenderer extends TileEntitySpecialRenderer<TileEntityB
 		float f1 = 0F;
 		float f2 = 0F;
 
-		if (p_193847_8_ == EnumFacing.NORTH.getHorizontalIndex()) {
+		if (p_193847_8_ == Facing.NORTH.getHorizontalIndex()) {
 			f = 0F;
-		} else if (p_193847_8_ == EnumFacing.SOUTH.getHorizontalIndex()) {
+		} else if (p_193847_8_ == Facing.SOUTH.getHorizontalIndex()) {
 			f = 180F;
 			f1 = 1F;
 			f2 = 1F;
-		} else if (p_193847_8_ == EnumFacing.WEST.getHorizontalIndex()) {
+		} else if (p_193847_8_ == Facing.WEST.getHorizontalIndex()) {
 			f = -90F;
 			f2 = 1F;
-		} else if (p_193847_8_ == EnumFacing.EAST.getHorizontalIndex()) {
+		} else if (p_193847_8_ == Facing.EAST.getHorizontalIndex()) {
 			f = 90F;
 			f1 = 1F;
 		}

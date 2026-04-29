@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.block.model;
 
 import com.google.common.collect.Maps;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.MathHelper;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
@@ -69,38 +69,38 @@ public enum ModelRotation {
 		return matrix4d;
 	}
 
-	public EnumFacing rotateFace(EnumFacing facing) {
+	public Facing rotateFace(Facing facing) {
 
-		EnumFacing enumfacing = facing;
+		Facing enumfacing = facing;
 
 		for (int i = 0; i < quartersX; ++i) {
-			enumfacing = enumfacing.rotateAround(EnumFacing.Axis.X);
+			enumfacing = enumfacing.rotateAround(Facing.Axis.X);
 		}
 
-		if (enumfacing.getAxis() != EnumFacing.Axis.Y) {
+		if (enumfacing.getAxis() != Facing.Axis.Y) {
 			for (int j = 0; j < quartersY; ++j) {
-				enumfacing = enumfacing.rotateAround(EnumFacing.Axis.Y);
+				enumfacing = enumfacing.rotateAround(Facing.Axis.Y);
 			}
 		}
 
 		return enumfacing;
 	}
 
-	public int rotateVertex(EnumFacing facing, int vertexIndex) {
+	public int rotateVertex(Facing facing, int vertexIndex) {
 
 		int i = vertexIndex;
 
-		if (facing.getAxis() == EnumFacing.Axis.X) {
+		if (facing.getAxis() == Facing.Axis.X) {
 			i = (vertexIndex + quartersX) % 4;
 		}
 
-		EnumFacing enumfacing = facing;
+		Facing enumfacing = facing;
 
 		for (int j = 0; j < quartersX; ++j) {
-			enumfacing = enumfacing.rotateAround(EnumFacing.Axis.X);
+			enumfacing = enumfacing.rotateAround(Facing.Axis.X);
 		}
 
-		if (enumfacing.getAxis() == EnumFacing.Axis.Y) {
+		if (enumfacing.getAxis() == Facing.Axis.Y) {
 			i = (i + quartersY) % 4;
 		}
 

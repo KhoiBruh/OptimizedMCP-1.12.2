@@ -8,7 +8,7 @@ public class EnchantmentDigging extends Enchantment {
 
 	protected EnchantmentDigging(Enchantment.Rarity rarityIn, EntityEquipmentSlot... slots) {
 
-		super(rarityIn, EnumEnchantmentType.DIGGER, slots);
+		super(rarityIn, EnchantmentType.DIGGER, slots);
 		setName("digging");
 	}
 

@@ -23,7 +23,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SPacketChangeGameState;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.*;
@@ -261,7 +261,7 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 
 			if (getIsCritical()) {
 				for (int k = 0; k < 4; ++k) {
-					world.spawnParticle(EnumParticleTypes.CRIT, posX + motionX * (double) k / 4D, posY + motionY * (double) k / 4D, posZ + motionZ * (double) k / 4D, -motionX, -motionY + 0.2D, -motionZ);
+					world.spawnParticle(ParticleTypes.CRIT, posX + motionX * (double) k / 4D, posY + motionY * (double) k / 4D, posZ + motionZ * (double) k / 4D, -motionX, -motionY + 0.2D, -motionZ);
 				}
 			}
 
@@ -294,7 +294,7 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 			if (isInWater()) {
 				for (int i = 0; i < 4; ++i) {
 					float f3 = 0.25F;
-					world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX - motionX * 0.25D, posY - motionY * 0.25D, posZ - motionZ * 0.25D, motionX, motionY, motionZ);
+					world.spawnParticle(ParticleTypes.WATER_BUBBLE, posX - motionX * 0.25D, posY - motionY * 0.25D, posZ - motionZ * 0.25D, motionX, motionY, motionZ);
 				}
 
 				f1 = 0.6F;

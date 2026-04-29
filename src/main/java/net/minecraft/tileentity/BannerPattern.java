@@ -43,7 +43,7 @@ public enum BannerPattern {
 	GRADIENT_UP("gradient_up", "gru", " # ", " # ", "# #"),
 	BRICKS("bricks", "bri", new ItemStack(Blocks.BRICK_BLOCK)),
 	SKULL("skull", "sku", new ItemStack(Items.SKULL, 1, 1)),
-	FLOWER("flower", "flo", new ItemStack(Blocks.RED_FLOWER, 1, BlockFlower.EnumFlowerType.OXEYE_DAISY.getMeta())),
+	FLOWER("flower", "flo", new ItemStack(Blocks.RED_FLOWER, 1, BlockFlower.FlowerType.OXEYE_DAISY.getMeta())),
 	MOJANG("mojang", "moj", new ItemStack(Items.GOLDEN_APPLE, 1, 1));
 
 	private final String fileName;

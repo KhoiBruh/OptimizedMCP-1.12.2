@@ -4,7 +4,7 @@ import net.minecraft.block.BlockChorusFlower;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.CreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityEndGateway;
@@ -381,7 +381,7 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 		return false;
 	}
 
-	public List<Biome.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
+	public List<Biome.SpawnListEntry> getPossibleCreatures(CreatureType creatureType, BlockPos pos) {
 
 		return world.getBiome(pos).getSpawnableList(creatureType);
 	}

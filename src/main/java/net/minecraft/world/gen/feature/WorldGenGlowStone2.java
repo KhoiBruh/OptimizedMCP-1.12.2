@@ -2,7 +2,7 @@ package net.minecraft.world.gen.feature;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -25,7 +25,7 @@ public class WorldGenGlowStone2 extends WorldGenerator {
 				if (worldIn.getBlockState(blockpos).getMaterial() == Material.AIR) {
 					int j = 0;
 
-					for (EnumFacing enumfacing : EnumFacing.values()) {
+					for (Facing enumfacing : Facing.values()) {
 						if (worldIn.getBlockState(blockpos.offset(enumfacing)).getBlock() == Blocks.GLOWSTONE) {
 							++j;
 						}

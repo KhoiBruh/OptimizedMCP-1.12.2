@@ -1,6 +1,6 @@
 package net.minecraft.server.network;
 
-import net.minecraft.network.EnumConnectionState;
+import net.minecraft.network.ConnectionState;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.handshake.INetHandlerHandshakeServer;
 import net.minecraft.network.handshake.client.C00Handshake;
@@ -29,7 +29,7 @@ public class NetHandlerHandshakeTCP implements INetHandlerHandshakeServer {
 
 		switch (packetIn.getRequestedState()) {
 			case LOGIN:
-				networkManager.setConnectionState(EnumConnectionState.LOGIN);
+				networkManager.setConnectionState(ConnectionState.LOGIN);
 
 				if (packetIn.getProtocolVersion() > 340) {
 					ITextComponent itextcomponent = new TextComponentTranslation("multiplayer.disconnect.outdated_server", "1.12.2");
@@ -46,7 +46,7 @@ public class NetHandlerHandshakeTCP implements INetHandlerHandshakeServer {
 				break;
 
 			case STATUS:
-				networkManager.setConnectionState(EnumConnectionState.STATUS);
+				networkManager.setConnectionState(ConnectionState.STATUS);
 				networkManager.setNetHandler(new NetHandlerStatusServer(server, networkManager));
 				break;
 

@@ -12,7 +12,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,7 +20,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -195,7 +195,7 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 		}
 
 		if (isChild() && i > 0) {
-			world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, posX + (double) (rand.nextFloat() * width * 2F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2F) - (double) width, 0D, 0D, 0D);
+			world.spawnParticle(ParticleTypes.VILLAGER_HAPPY, posX + (double) (rand.nextFloat() * width * 2F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2F) - (double) width, 0D, 0D, 0D);
 
 			if (!world.isRemote) {
 				addGrowth(i);
@@ -335,9 +335,9 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	 */
 	public void onInventoryChanged(IInventory invBasic) {
 
-		EnumDyeColor enumdyecolor = getColor();
+		DyeColor enumdyecolor = getColor();
 		super.onInventoryChanged(invBasic);
-		EnumDyeColor enumdyecolor1 = getColor();
+		DyeColor enumdyecolor1 = getColor();
 
 		if (ticksExisted > 20 && enumdyecolor1 != null && enumdyecolor1 != enumdyecolor) {
 			playSound(SoundEvents.ENTITY_LLAMA_SWAG, 0.5F, 1F);
@@ -358,20 +358,20 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	private void setColorByItem(ItemStack stack) {
 
 		if (isArmor(stack)) {
-			setColor(EnumDyeColor.byMetadata(stack.getMetadata()));
+			setColor(DyeColor.byMetadata(stack.getMetadata()));
 		} else {
 			setColor(null);
 		}
 	}
 
 	
-	public EnumDyeColor getColor() {
+	public DyeColor getColor() {
 
 		int i = dataManager.get(DATA_COLOR_ID);
-		return i == -1 ? null : EnumDyeColor.byMetadata(i);
+		return i == -1 ? null : DyeColor.byMetadata(i);
 	}
 
-	private void setColor(EnumDyeColor color) {
+	private void setColor(DyeColor color) {
 
 		dataManager.set(DATA_COLOR_ID, color == null ? -1 : color.getMetadata());
 	}

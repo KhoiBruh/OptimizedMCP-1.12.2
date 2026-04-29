@@ -8,7 +8,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
@@ -144,7 +144,7 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 	}
 
 	@SuppressWarnings("incomplete-switch")
-	private void setNeighbor(TileEntityChest chestTe, EnumFacing side) {
+	private void setNeighbor(TileEntityChest chestTe, Facing side) {
 
 		if (chestTe.isInvalid()) {
 			adjacentChestChecked = false;
@@ -186,15 +186,15 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 
 		if (!adjacentChestChecked) {
 			adjacentChestChecked = true;
-			adjacentChestXNeg = getAdjacentChest(EnumFacing.WEST);
-			adjacentChestXPos = getAdjacentChest(EnumFacing.EAST);
-			adjacentChestZNeg = getAdjacentChest(EnumFacing.NORTH);
-			adjacentChestZPos = getAdjacentChest(EnumFacing.SOUTH);
+			adjacentChestXNeg = getAdjacentChest(Facing.WEST);
+			adjacentChestXPos = getAdjacentChest(Facing.EAST);
+			adjacentChestZNeg = getAdjacentChest(Facing.NORTH);
+			adjacentChestZPos = getAdjacentChest(Facing.SOUTH);
 		}
 	}
 
 	
-	protected TileEntityChest getAdjacentChest(EnumFacing side) {
+	protected TileEntityChest getAdjacentChest(Facing side) {
 
 		BlockPos blockpos = pos.offset(side);
 

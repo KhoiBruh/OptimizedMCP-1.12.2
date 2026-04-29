@@ -11,8 +11,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -25,19 +25,19 @@ public class ItemLilyPad extends ItemColored {
 		super(block, false);
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
 
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, true);
 
 		if (raytraceresult == null) {
-			return new ActionResult<>(EnumActionResult.PASS, itemstack);
+			return new TypedActionResult<>(ActionResult.PASS, itemstack);
 		} else {
 			if (raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK) {
 				BlockPos blockpos = raytraceresult.getBlockPos();
 
 				if (!worldIn.isBlockModifiable(playerIn, blockpos) || !playerIn.canPlayerEdit(blockpos.offset(raytraceresult.sideHit), raytraceresult.sideHit, itemstack)) {
-					return new ActionResult<>(EnumActionResult.FAIL, itemstack);
+					return new TypedActionResult<>(ActionResult.FAIL, itemstack);
 				}
 
 				BlockPos blockpos1 = blockpos.up();
@@ -56,11 +56,11 @@ public class ItemLilyPad extends ItemColored {
 
 					playerIn.addStat(StatList.getObjectUseStats(this));
 					worldIn.playSound(playerIn, blockpos, SoundEvents.BLOCK_WATERLILY_PLACE, SoundCategory.BLOCKS, 1F, 1F);
-					return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
+					return new TypedActionResult<>(ActionResult.SUCCESS, itemstack);
 				}
 			}
 
-			return new ActionResult<>(EnumActionResult.FAIL, itemstack);
+			return new TypedActionResult<>(ActionResult.FAIL, itemstack);
 		}
 	}
 

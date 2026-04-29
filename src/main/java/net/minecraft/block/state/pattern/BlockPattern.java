@@ -5,7 +5,7 @@ import com.google.common.base.Predicate;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.LoadingCache;
 import net.minecraft.block.state.BlockWorldState;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
@@ -45,7 +45,7 @@ public class BlockPattern {
 	 * Offsets the position of pos in the direction of finger and thumb facing by offset amounts, follows the right-hand
 	 * rule for cross products (finger, thumb, palm) @return A new BlockPos offset in the facing directions
 	 */
-	protected static BlockPos translateOffset(BlockPos pos, EnumFacing finger, EnumFacing thumb, int palmOffset, int thumbOffset, int fingerOffset) {
+	protected static BlockPos translateOffset(BlockPos pos, Facing finger, Facing thumb, int palmOffset, int thumbOffset, int fingerOffset) {
 
 		if (finger != thumb && finger != thumb.getOpposite()) {
 			Vec3i vec3i = new Vec3i(finger.getFrontOffsetX(), finger.getFrontOffsetY(), finger.getFrontOffsetZ());
@@ -77,7 +77,7 @@ public class BlockPattern {
 	/**
 	 * checks that the given pattern & rotation is at the block co-ordinates.
 	 */
-	private BlockPattern.PatternHelper checkPatternAt(BlockPos pos, EnumFacing finger, EnumFacing thumb, LoadingCache<BlockPos, BlockWorldState> lcache) {
+	private BlockPattern.PatternHelper checkPatternAt(BlockPos pos, Facing finger, Facing thumb, LoadingCache<BlockPos, BlockWorldState> lcache) {
 
 		for (int i = 0; i < palmLength; ++i) {
 			for (int j = 0; j < thumbLength; ++j) {
@@ -104,8 +104,8 @@ public class BlockPattern {
 		int i = Math.max(Math.max(palmLength, thumbLength), fingerLength);
 
 		for (BlockPos blockpos : BlockPos.getAllInBox(pos, pos.add(i - 1, i - 1, i - 1))) {
-			for (EnumFacing enumfacing : EnumFacing.values()) {
-				for (EnumFacing enumfacing1 : EnumFacing.values()) {
+			for (Facing enumfacing : Facing.values()) {
+				for (Facing enumfacing1 : Facing.values()) {
 					if (enumfacing1 != enumfacing && enumfacing1 != enumfacing.getOpposite()) {
 						BlockPattern.PatternHelper blockpattern$patternhelper = checkPatternAt(blockpos, enumfacing, enumfacing1, loadingcache);
 
@@ -141,14 +141,14 @@ public class BlockPattern {
 	public static class PatternHelper {
 
 		private final BlockPos frontTopLeft;
-		private final EnumFacing forwards;
-		private final EnumFacing up;
+		private final Facing forwards;
+		private final Facing up;
 		private final LoadingCache<BlockPos, BlockWorldState> lcache;
 		private final int width;
 		private final int height;
 		private final int depth;
 
-		public PatternHelper(BlockPos posIn, EnumFacing fingerIn, EnumFacing thumbIn, LoadingCache<BlockPos, BlockWorldState> lcacheIn, int widthIn, int heightIn, int depthIn) {
+		public PatternHelper(BlockPos posIn, Facing fingerIn, Facing thumbIn, LoadingCache<BlockPos, BlockWorldState> lcacheIn, int widthIn, int heightIn, int depthIn) {
 
 			frontTopLeft = posIn;
 			forwards = fingerIn;
@@ -164,12 +164,12 @@ public class BlockPattern {
 			return frontTopLeft;
 		}
 
-		public EnumFacing getForwards() {
+		public Facing getForwards() {
 
 			return forwards;
 		}
 
-		public EnumFacing getUp() {
+		public Facing getUp() {
 
 			return up;
 		}

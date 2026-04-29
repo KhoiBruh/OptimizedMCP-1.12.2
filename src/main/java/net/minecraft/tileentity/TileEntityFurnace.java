@@ -11,7 +11,7 @@ import net.minecraft.inventory.*;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.datafix.DataFixer;
@@ -396,19 +396,19 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
 		}
 	}
 
-	public int[] getSlotsForFace(EnumFacing side) {
+	public int[] getSlotsForFace(Facing side) {
 
-		if (side == EnumFacing.DOWN) {
+		if (side == Facing.DOWN) {
 			return SLOTS_BOTTOM;
 		} else {
-			return side == EnumFacing.UP ? SLOTS_TOP : SLOTS_SIDES;
+			return side == Facing.UP ? SLOTS_TOP : SLOTS_SIDES;
 		}
 	}
 
 	/**
 	 * Returns true if automation can insert the given item in the given slot from the given side.
 	 */
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+	public boolean canInsertItem(int index, ItemStack itemStackIn, Facing direction) {
 
 		return isItemValidForSlot(index, itemStackIn);
 	}
@@ -416,9 +416,9 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
 	/**
 	 * Returns true if automation can extract the given item in the given slot from the given side.
 	 */
-	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+	public boolean canExtractItem(int index, ItemStack stack, Facing direction) {
 
-		if (direction == EnumFacing.DOWN && index == 1) {
+		if (direction == Facing.DOWN && index == 1) {
 			Item item = stack.getItem();
 
 			return item == Items.WATER_BUCKET || item == Items.BUCKET;

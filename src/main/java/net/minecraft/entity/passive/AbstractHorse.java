@@ -29,7 +29,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.datafix.FixTypes;
@@ -166,7 +166,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 
 	public boolean canBeLeashedTo(EntityPlayer player) {
 
-		return super.canBeLeashedTo(player) && getCreatureAttribute() != EnumCreatureAttribute.UNDEAD;
+		return super.canBeLeashedTo(player) && getCreatureAttribute() != CreatureAttribute.UNDEAD;
 	}
 
 	protected void onLeashDistance(float p_142017_1_) {
@@ -532,7 +532,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		}
 
 		if (isChild() && i > 0) {
-			world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, posX + (double) (rand.nextFloat() * width * 2F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2F) - (double) width, 0D, 0D, 0D);
+			world.spawnParticle(ParticleTypes.VILLAGER_HAPPY, posX + (double) (rand.nextFloat() * width * 2F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2F) - (double) width, 0D, 0D, 0D);
 
 			if (!world.isRemote) {
 				addGrowth(i);
@@ -1007,7 +1007,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 */
 	protected void spawnHorseParticles(boolean p_110216_1_) {
 
-		EnumParticleTypes enumparticletypes = p_110216_1_ ? EnumParticleTypes.HEART : EnumParticleTypes.SMOKE_NORMAL;
+		ParticleTypes enumparticletypes = p_110216_1_ ? ParticleTypes.HEART : ParticleTypes.SMOKE_NORMAL;
 
 		for (int i = 0; i < 7; ++i) {
 			double d0 = rand.nextGaussian() * 0.02D;

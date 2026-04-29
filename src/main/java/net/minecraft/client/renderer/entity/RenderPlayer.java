@@ -5,13 +5,13 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.*;
-import net.minecraft.entity.player.EnumPlayerModelParts;
-import net.minecraft.item.EnumAction;
+import net.minecraft.entity.player.PlayerModelParts;
+import net.minecraft.item.Action;
 import net.minecraft.item.ItemStack;
 import net.minecraft.scoreboard.Score;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.Scoreboard;
-import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.HandSide;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -78,12 +78,12 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 			ItemStack itemstack = clientPlayer.getHeldItemMainhand();
 			ItemStack itemstack1 = clientPlayer.getHeldItemOffhand();
 			modelplayer.setVisible(true);
-			modelplayer.bipedHeadwear.showModel = clientPlayer.isWearing(EnumPlayerModelParts.HAT);
-			modelplayer.bipedBodyWear.showModel = clientPlayer.isWearing(EnumPlayerModelParts.JACKET);
-			modelplayer.bipedLeftLegwear.showModel = clientPlayer.isWearing(EnumPlayerModelParts.LEFT_PANTS_LEG);
-			modelplayer.bipedRightLegwear.showModel = clientPlayer.isWearing(EnumPlayerModelParts.RIGHT_PANTS_LEG);
-			modelplayer.bipedLeftArmwear.showModel = clientPlayer.isWearing(EnumPlayerModelParts.LEFT_SLEEVE);
-			modelplayer.bipedRightArmwear.showModel = clientPlayer.isWearing(EnumPlayerModelParts.RIGHT_SLEEVE);
+			modelplayer.bipedHeadwear.showModel = clientPlayer.isWearing(PlayerModelParts.HAT);
+			modelplayer.bipedBodyWear.showModel = clientPlayer.isWearing(PlayerModelParts.JACKET);
+			modelplayer.bipedLeftLegwear.showModel = clientPlayer.isWearing(PlayerModelParts.LEFT_PANTS_LEG);
+			modelplayer.bipedRightLegwear.showModel = clientPlayer.isWearing(PlayerModelParts.RIGHT_PANTS_LEG);
+			modelplayer.bipedLeftArmwear.showModel = clientPlayer.isWearing(PlayerModelParts.LEFT_SLEEVE);
+			modelplayer.bipedRightArmwear.showModel = clientPlayer.isWearing(PlayerModelParts.RIGHT_SLEEVE);
 			modelplayer.isSneak = clientPlayer.isSneaking();
 			ModelBiped.ArmPose modelbiped$armpose = ModelBiped.ArmPose.EMPTY;
 			ModelBiped.ArmPose modelbiped$armpose1 = ModelBiped.ArmPose.EMPTY;
@@ -92,11 +92,11 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 				modelbiped$armpose = ModelBiped.ArmPose.ITEM;
 
 				if (clientPlayer.getItemInUseCount() > 0) {
-					EnumAction enumaction = itemstack.getItemUseAction();
+					Action enumaction = itemstack.getItemUseAction();
 
-					if (enumaction == EnumAction.BLOCK) {
+					if (enumaction == Action.BLOCK) {
 						modelbiped$armpose = ModelBiped.ArmPose.BLOCK;
-					} else if (enumaction == EnumAction.BOW) {
+					} else if (enumaction == Action.BOW) {
 						modelbiped$armpose = ModelBiped.ArmPose.BOW_AND_ARROW;
 					}
 				}
@@ -106,15 +106,15 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 				modelbiped$armpose1 = ModelBiped.ArmPose.ITEM;
 
 				if (clientPlayer.getItemInUseCount() > 0) {
-					EnumAction enumaction1 = itemstack1.getItemUseAction();
+					Action enumaction1 = itemstack1.getItemUseAction();
 
-					if (enumaction1 == EnumAction.BLOCK) {
+					if (enumaction1 == Action.BLOCK) {
 						modelbiped$armpose1 = ModelBiped.ArmPose.BLOCK;
 					}
 				}
 			}
 
-			if (clientPlayer.getPrimaryHand() == EnumHandSide.RIGHT) {
+			if (clientPlayer.getPrimaryHand() == HandSide.RIGHT) {
 				modelplayer.rightArmPose = modelbiped$armpose;
 				modelplayer.leftArmPose = modelbiped$armpose1;
 			} else {

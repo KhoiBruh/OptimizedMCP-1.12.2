@@ -10,7 +10,7 @@ import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityEndGateway;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -78,7 +78,7 @@ public class EntityEnderPearl extends EntityThrowable {
 		}
 
 		for (int i = 0; i < 32; ++i) {
-			world.spawnParticle(EnumParticleTypes.PORTAL, posX, posY + rand.nextDouble() * 2D, posZ, rand.nextGaussian(), 0D, rand.nextGaussian());
+			world.spawnParticle(ParticleTypes.PORTAL, posX, posY + rand.nextDouble() * 2D, posZ, rand.nextGaussian(), 0D, rand.nextGaussian());
 		}
 
 		if (!world.isRemote) {

@@ -4,7 +4,7 @@ import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.pathfinding.Path;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -146,7 +146,7 @@ public class EntityAIAttackMelee extends EntityAIBase {
 
 		if (distToEnemySqr <= d0 && attackTick <= 0) {
 			attackTick = 20;
-			attacker.swingArm(EnumHand.MAIN_HAND);
+			attacker.swingArm(Hand.MAIN_HAND);
 			attacker.attackEntityAsMob(enemy);
 		}
 	}

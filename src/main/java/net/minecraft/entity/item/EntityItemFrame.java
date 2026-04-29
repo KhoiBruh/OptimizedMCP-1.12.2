@@ -13,8 +13,8 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.datafix.FixTypes;
 import net.minecraft.util.datafix.walkers.ItemStackData;
@@ -37,7 +37,7 @@ public class EntityItemFrame extends EntityHanging {
 		super(worldIn);
 	}
 
-	public EntityItemFrame(World worldIn, BlockPos p_i45852_2_, EnumFacing p_i45852_3_) {
+	public EntityItemFrame(World worldIn, BlockPos p_i45852_2_, Facing p_i45852_3_) {
 
 		super(worldIn, p_i45852_2_);
 		updateFacingWithBoundingBox(p_i45852_3_);
@@ -244,7 +244,7 @@ public class EntityItemFrame extends EntityHanging {
 		super.readEntityFromNBT(compound);
 	}
 
-	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
+	public boolean processInitialInteract(EntityPlayer player, Hand hand) {
 
 		ItemStack itemstack = player.getHeldItem(hand);
 

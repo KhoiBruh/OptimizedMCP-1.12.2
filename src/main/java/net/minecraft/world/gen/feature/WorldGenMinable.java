@@ -94,7 +94,7 @@ public class WorldGenMinable extends WorldGenerator {
 		public boolean apply(IBlockState p_apply_1_) {
 
 			if (p_apply_1_ != null && p_apply_1_.getBlock() == Blocks.STONE) {
-				BlockStone.EnumType blockstone$enumtype = p_apply_1_.getValue(BlockStone.VARIANT);
+				BlockStone.Type blockstone$enumtype = p_apply_1_.getValue(BlockStone.VARIANT);
 				return blockstone$enumtype.isNatural();
 			} else {
 				return false;

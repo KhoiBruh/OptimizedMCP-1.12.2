@@ -2,7 +2,7 @@ package net.minecraft.client.particle;
 
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.World;
 
 public class ParticleExplosionHuge extends Particle {
@@ -31,7 +31,7 @@ public class ParticleExplosionHuge extends Particle {
 			double d0 = posX + (rand.nextDouble() - rand.nextDouble()) * 4D;
 			double d1 = posY + (rand.nextDouble() - rand.nextDouble()) * 4D;
 			double d2 = posZ + (rand.nextDouble() - rand.nextDouble()) * 4D;
-			world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, d0, d1, d2, (float) timeSinceStart / (float) maximumTime, 0D, 0D);
+			world.spawnParticle(ParticleTypes.EXPLOSION_LARGE, d0, d1, d2, (float) timeSinceStart / (float) maximumTime, 0D, 0D);
 		}
 
 		++timeSinceStart;

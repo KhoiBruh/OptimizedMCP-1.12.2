@@ -1,13 +1,13 @@
 package net.minecraft.client.renderer.chunk;
 
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 
 import java.util.BitSet;
 import java.util.Set;
 
 public class SetVisibility {
 
-	private static final int COUNT_FACES = EnumFacing.values().length;
+	private static final int COUNT_FACES = Facing.values().length;
 	private final BitSet bitSet;
 
 	public SetVisibility() {
@@ -15,16 +15,16 @@ public class SetVisibility {
 		bitSet = new BitSet(COUNT_FACES * COUNT_FACES);
 	}
 
-	public void setManyVisible(Set<EnumFacing> facing) {
+	public void setManyVisible(Set<Facing> facing) {
 
-		for (EnumFacing enumfacing : facing) {
-			for (EnumFacing enumfacing1 : facing) {
+		for (Facing enumfacing : facing) {
+			for (Facing enumfacing1 : facing) {
 				setVisible(enumfacing, enumfacing1, true);
 			}
 		}
 	}
 
-	public void setVisible(EnumFacing facing, EnumFacing facing2, boolean p_178619_3_) {
+	public void setVisible(Facing facing, Facing facing2, boolean p_178619_3_) {
 
 		bitSet.set(facing.ordinal() + facing2.ordinal() * COUNT_FACES, p_178619_3_);
 		bitSet.set(facing2.ordinal() + facing.ordinal() * COUNT_FACES, p_178619_3_);
@@ -35,7 +35,7 @@ public class SetVisibility {
 		bitSet.set(0, bitSet.size(), visible);
 	}
 
-	public boolean isVisible(EnumFacing facing, EnumFacing facing2) {
+	public boolean isVisible(Facing facing, Facing facing2) {
 
 		return bitSet.get(facing.ordinal() + facing2.ordinal() * COUNT_FACES);
 	}
@@ -45,16 +45,16 @@ public class SetVisibility {
 		StringBuilder stringbuilder = new StringBuilder();
 		stringbuilder.append(' ');
 
-		for (EnumFacing enumfacing : EnumFacing.values()) {
+		for (Facing enumfacing : Facing.values()) {
 			stringbuilder.append(' ').append(enumfacing.toString().toUpperCase().charAt(0));
 		}
 
 		stringbuilder.append('\n');
 
-		for (EnumFacing enumfacing2 : EnumFacing.values()) {
+		for (Facing enumfacing2 : Facing.values()) {
 			stringbuilder.append(enumfacing2.toString().toUpperCase().charAt(0));
 
-			for (EnumFacing enumfacing1 : EnumFacing.values()) {
+			for (Facing enumfacing1 : Facing.values()) {
 				if (enumfacing2 == enumfacing1) {
 					stringbuilder.append("  ");
 				} else {

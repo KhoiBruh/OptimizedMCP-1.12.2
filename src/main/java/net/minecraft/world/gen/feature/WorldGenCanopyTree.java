@@ -4,7 +4,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -12,8 +12,8 @@ import java.util.Random;
 
 public class WorldGenCanopyTree extends WorldGenAbstractTree {
 
-	private static final IBlockState DARK_OAK_LOG = Blocks.LOG2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.DARK_OAK);
-	private static final IBlockState DARK_OAK_LEAVES = Blocks.LEAVES2.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.EnumType.DARK_OAK).withProperty(BlockLeaves.CHECK_DECAY, false);
+	private static final IBlockState DARK_OAK_LOG = Blocks.LOG2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.Type.DARK_OAK);
+	private static final IBlockState DARK_OAK_LEAVES = Blocks.LEAVES2.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.Type.DARK_OAK).withProperty(BlockLeaves.CHECK_DECAY, false);
 
 	public WorldGenCanopyTree(boolean notify) {
 
@@ -40,7 +40,7 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree {
 				setDirtAt(worldIn, blockpos.east());
 				setDirtAt(worldIn, blockpos.south());
 				setDirtAt(worldIn, blockpos.south().east());
-				EnumFacing enumfacing = EnumFacing.Plane.HORIZONTAL.random(rand);
+				Facing enumfacing = Facing.Plane.HORIZONTAL.random(rand);
 				int i1 = i - rand.nextInt(4);
 				int j1 = 2 - rand.nextInt(3);
 				int k1 = j;

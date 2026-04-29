@@ -158,7 +158,7 @@ public class Bootstrap {
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.SPAWN_EGG, new BehaviorDefaultDispenseItem() {
 			public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
 				
-				EnumFacing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
+				Facing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
 				double d0 = source.x() + (double) enumfacing.getFrontOffsetX();
 				double d1 = (float) (source.getBlockPos().getY() + enumfacing.getFrontOffsetY()) + 0.2F;
 				double d2 = source.z() + (double) enumfacing.getFrontOffsetZ();
@@ -176,7 +176,7 @@ public class Bootstrap {
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.FIREWORKS, new BehaviorDefaultDispenseItem() {
 			public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
 				
-				EnumFacing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
+				Facing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
 				double d0 = source.x() + (double) enumfacing.getFrontOffsetX();
 				double d1 = (float) source.getBlockPos().getY() + 0.2F;
 				double d2 = source.z() + (double) enumfacing.getFrontOffsetZ();
@@ -194,7 +194,7 @@ public class Bootstrap {
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.FIRE_CHARGE, new BehaviorDefaultDispenseItem() {
 			public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
 				
-				EnumFacing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
+				Facing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
 				IPosition iposition = BlockDispenser.getDispensePosition(source);
 				double d0 = iposition.x() + (double) ((float) enumfacing.getFrontOffsetX() * 0.3F);
 				double d1 = iposition.y() + (double) ((float) enumfacing.getFrontOffsetY() * 0.3F);
@@ -297,7 +297,7 @@ public class Bootstrap {
 				
 				successful = true;
 				
-				if (EnumDyeColor.WHITE == EnumDyeColor.byDyeDamage(stack.getMetadata())) {
+				if (DyeColor.WHITE == DyeColor.byDyeDamage(stack.getMetadata())) {
 					World world = source.getWorld();
 					BlockPos blockpos = source.getBlockPos()
 					                          .offset(source.getBlockState().getValue(BlockDispenser.FACING));
@@ -332,7 +332,7 @@ public class Bootstrap {
 			protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
 				
 				World world = source.getWorld();
-				EnumFacing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
+				Facing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
 				BlockPos blockpos = source.getBlockPos().offset(enumfacing);
 				BlockSkull blockskull = Blocks.SKULL;
 				successful = true;
@@ -340,7 +340,7 @@ public class Bootstrap {
 				if (world.isAirBlock(blockpos) && blockskull.canDispenserPlace(world, blockpos, stack)) {
 					if (!world.isRemote) {
 						world.setBlockState(blockpos, blockskull.getDefaultState()
-						                                        .withProperty(BlockSkull.FACING, EnumFacing.UP), 3);
+						                                        .withProperty(BlockSkull.FACING, Facing.UP), 3);
 						TileEntity tileentity = world.getTileEntity(blockpos);
 						
 						if (tileentity instanceof TileEntitySkull) {
@@ -406,7 +406,7 @@ public class Bootstrap {
 			}
 		});
 		
-		for (EnumDyeColor enumdyecolor : EnumDyeColor.values()) {
+		for (DyeColor enumdyecolor : DyeColor.values()) {
 			BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Item.getItemFromBlock(BlockShulkerBox.getBlockByColor(enumdyecolor)), new Bootstrap.BehaviorDispenseShulkerBox());
 		}
 	}
@@ -483,7 +483,7 @@ public class Bootstrap {
 		
 		public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
 			
-			EnumFacing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
+			Facing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
 			World world = source.getWorld();
 			double d0 = source.x() + (double) ((float) enumfacing.getFrontOffsetX() * 1.125F);
 			double d1 = source.y() + (double) ((float) enumfacing.getFrontOffsetY() * 1.125F);
@@ -534,12 +534,12 @@ public class Bootstrap {
 			
 			Block block = Block.getBlockFromItem(stack.getItem());
 			World world = source.getWorld();
-			EnumFacing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
+			Facing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
 			BlockPos blockpos = source.getBlockPos().offset(enumfacing);
-			successful = world.mayPlace(block, blockpos, false, EnumFacing.DOWN, null);
+			successful = world.mayPlace(block, blockpos, false, Facing.DOWN, null);
 			
 			if (successful) {
-				EnumFacing enumfacing1 = world.isAirBlock(blockpos.down()) ? enumfacing : EnumFacing.UP;
+				Facing enumfacing1 = world.isAirBlock(blockpos.down()) ? enumfacing : Facing.UP;
 				IBlockState iblockstate = block.getDefaultState().withProperty(BlockShulkerBox.FACING, enumfacing1);
 				world.setBlockState(blockpos, iblockstate);
 				TileEntity tileentity = world.getTileEntity(blockpos);

@@ -8,8 +8,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.Facing;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -151,7 +151,7 @@ public abstract class BlockLeaves extends Block {
 			double d0 = (float) pos.getX() + rand.nextFloat();
 			double d1 = (double) pos.getY() - 0.05D;
 			double d2 = (float) pos.getZ() + rand.nextFloat();
-			worldIn.spawnParticle(EnumParticleTypes.DRIP_WATER, d0, d1, d2, 0D, 0D, 0D);
+			worldIn.spawnParticle(ParticleTypes.DRIP_WATER, d0, d1, d2, 0D, 0D, 0D);
 		}
 	}
 
@@ -251,9 +251,9 @@ public abstract class BlockLeaves extends Block {
 		return false;
 	}
 
-	public abstract BlockPlanks.EnumType getWoodType(int meta);
+	public abstract BlockPlanks.Type getWoodType(int meta);
 
-	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
 		return (leavesFancy || blockAccess.getBlockState(pos.offset(side)).getBlock() != this) && super.shouldSideBeRendered(blockState, blockAccess, pos, side);
 	}

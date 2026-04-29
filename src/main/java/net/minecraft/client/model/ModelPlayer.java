@@ -2,7 +2,7 @@ package net.minecraft.client.model;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.HandSide;
 
 public class ModelPlayer extends ModelBiped {
 
@@ -142,12 +142,12 @@ public class ModelPlayer extends ModelBiped {
 		bipedDeadmau5Head.showModel = visible;
 	}
 
-	public void postRenderArm(float scale, EnumHandSide side) {
+	public void postRenderArm(float scale, HandSide side) {
 
 		ModelRenderer modelrenderer = getArmForSide(side);
 
 		if (smallArms) {
-			float f = 0.5F * (float) (side == EnumHandSide.RIGHT ? 1 : -1);
+			float f = 0.5F * (float) (side == HandSide.RIGHT ? 1 : -1);
 			modelrenderer.rotationPointX += f;
 			modelrenderer.postRender(scale);
 			modelrenderer.rotationPointX -= f;

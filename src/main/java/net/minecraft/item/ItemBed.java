@@ -28,12 +28,12 @@ public class ItemBed extends Item {
 	/**
 	 * Called when a Block is right-clicked with this Item
 	 */
-	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		if (worldIn.isRemote) {
-			return EnumActionResult.SUCCESS;
-		} else if (facing != EnumFacing.UP) {
-			return EnumActionResult.FAIL;
+			return ActionResult.SUCCESS;
+		} else if (facing != Facing.UP) {
+			return ActionResult.FAIL;
 		} else {
 			IBlockState iblockstate = worldIn.getBlockState(pos);
 			Block block = iblockstate.getBlock();
@@ -44,7 +44,7 @@ public class ItemBed extends Item {
 			}
 
 			int i = MathHelper.floor((double) (player.rotationYaw * 4F / 360F) + 0.5D) & 3;
-			EnumFacing enumfacing = EnumFacing.getHorizontal(i);
+			Facing enumfacing = Facing.getHorizontal(i);
 			BlockPos blockpos = pos.offset(enumfacing);
 			ItemStack itemstack = player.getHeldItem(hand);
 
@@ -55,9 +55,9 @@ public class ItemBed extends Item {
 				boolean flag3 = flag1 || worldIn.isAirBlock(blockpos);
 
 				if (flag2 && flag3 && worldIn.getBlockState(pos.down()).isTopSolid() && worldIn.getBlockState(blockpos.down()).isTopSolid()) {
-					IBlockState iblockstate2 = Blocks.BED.getDefaultState().withProperty(BlockBed.OCCUPIED, false).withProperty(BlockBed.FACING, enumfacing).withProperty(BlockBed.PART, BlockBed.EnumPartType.FOOT);
+					IBlockState iblockstate2 = Blocks.BED.getDefaultState().withProperty(BlockBed.OCCUPIED, false).withProperty(BlockBed.FACING, enumfacing).withProperty(BlockBed.PART, BlockBed.PartType.FOOT);
 					worldIn.setBlockState(pos, iblockstate2, 10);
-					worldIn.setBlockState(blockpos, iblockstate2.withProperty(BlockBed.PART, BlockBed.EnumPartType.HEAD), 10);
+					worldIn.setBlockState(blockpos, iblockstate2.withProperty(BlockBed.PART, BlockBed.PartType.HEAD), 10);
 					SoundType soundtype = iblockstate2.getBlock().getSoundType();
 					worldIn.playSound(null, pos, soundtype.placeSound(), SoundCategory.BLOCKS, (soundtype.volume() + 1F) / 2F, soundtype.pitch() * 0.8F);
 					TileEntity tileentity = worldIn.getTileEntity(blockpos);
@@ -80,12 +80,12 @@ public class ItemBed extends Item {
 					}
 
 					itemstack.shrink(1);
-					return EnumActionResult.SUCCESS;
+					return ActionResult.SUCCESS;
 				} else {
-					return EnumActionResult.FAIL;
+					return ActionResult.FAIL;
 				}
 			} else {
-				return EnumActionResult.FAIL;
+				return ActionResult.FAIL;
 			}
 		}
 	}
@@ -96,7 +96,7 @@ public class ItemBed extends Item {
 	 */
 	public String getUnlocalizedName(ItemStack stack) {
 
-		return super.getUnlocalizedName() + "." + EnumDyeColor.byMetadata(stack.getMetadata()).getUnlocalizedName();
+		return super.getUnlocalizedName() + "." + DyeColor.byMetadata(stack.getMetadata()).getUnlocalizedName();
 	}
 
 	/**

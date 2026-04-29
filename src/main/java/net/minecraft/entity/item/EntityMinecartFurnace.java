@@ -11,9 +11,9 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -71,7 +71,7 @@ public class EntityMinecartFurnace extends EntityMinecart {
 		setMinecartPowered(fuel > 0);
 
 		if (isMinecartPowered() && rand.nextInt(4) == 0) {
-			world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, posX, posY + 0.8D, posZ, 0D, 0D, 0D);
+			world.spawnParticle(ParticleTypes.SMOKE_LARGE, posX, posY + 0.8D, posZ, 0D, 0D, 0D);
 		}
 	}
 
@@ -136,7 +136,7 @@ public class EntityMinecartFurnace extends EntityMinecart {
 		super.applyDrag();
 	}
 
-	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
+	public boolean processInitialInteract(EntityPlayer player, Hand hand) {
 
 		ItemStack itemstack = player.getHeldItem(hand);
 
@@ -187,7 +187,7 @@ public class EntityMinecartFurnace extends EntityMinecart {
 
 	public IBlockState getDefaultDisplayTile() {
 
-		return (isMinecartPowered() ? Blocks.LIT_FURNACE : Blocks.FURNACE).getDefaultState().withProperty(BlockFurnace.FACING, EnumFacing.NORTH);
+		return (isMinecartPowered() ? Blocks.LIT_FURNACE : Blocks.FURNACE).getDefaultState().withProperty(BlockFurnace.FACING, Facing.NORTH);
 	}
 
 }

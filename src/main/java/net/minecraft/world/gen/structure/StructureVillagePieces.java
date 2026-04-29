@@ -8,9 +8,9 @@ import net.minecraft.entity.monster.EntityZombieVillager;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -73,7 +73,7 @@ public class StructureVillagePieces {
 		return flag ? i : -1;
 	}
 
-	private static StructureVillagePieces.Village findAndCreateComponentFactory(StructureVillagePieces.Start start, StructureVillagePieces.PieceWeight weight, List<StructureComponent> structureComponents, Random rand, int structureMinX, int structureMinY, int structureMinZ, EnumFacing facing, int componentType) {
+	private static StructureVillagePieces.Village findAndCreateComponentFactory(StructureVillagePieces.Start start, StructureVillagePieces.PieceWeight weight, List<StructureComponent> structureComponents, Random rand, int structureMinX, int structureMinY, int structureMinZ, Facing facing, int componentType) {
 
 		Class<? extends StructureVillagePieces.Village> oclass = weight.villagePieceClass;
 		StructureVillagePieces.Village structurevillagepieces$village = null;
@@ -101,7 +101,7 @@ public class StructureVillagePieces {
 		return structurevillagepieces$village;
 	}
 
-	private static StructureVillagePieces.Village generateComponent(StructureVillagePieces.Start start, List<StructureComponent> structureComponents, Random rand, int structureMinX, int structureMinY, int structureMinZ, EnumFacing facing, int componentType) {
+	private static StructureVillagePieces.Village generateComponent(StructureVillagePieces.Start start, List<StructureComponent> structureComponents, Random rand, int structureMinX, int structureMinY, int structureMinZ, Facing facing, int componentType) {
 
 		int i = updatePieceWeight(start.structureVillageWeightedPieceList);
 
@@ -148,7 +148,7 @@ public class StructureVillagePieces {
 		}
 	}
 
-	private static StructureComponent generateAndAddComponent(StructureVillagePieces.Start start, List<StructureComponent> structureComponents, Random rand, int structureMinX, int structureMinY, int structureMinZ, EnumFacing facing, int componentType) {
+	private static StructureComponent generateAndAddComponent(StructureVillagePieces.Start start, List<StructureComponent> structureComponents, Random rand, int structureMinX, int structureMinY, int structureMinZ, Facing facing, int componentType) {
 
 		if (componentType > 50) {
 			return null;
@@ -167,7 +167,7 @@ public class StructureVillagePieces {
 		}
 	}
 
-	private static StructureComponent generateAndAddRoadPiece(StructureVillagePieces.Start start, List<StructureComponent> p_176069_1_, Random rand, int p_176069_3_, int p_176069_4_, int p_176069_5_, EnumFacing facing, int p_176069_7_) {
+	private static StructureComponent generateAndAddRoadPiece(StructureVillagePieces.Start start, List<StructureComponent> p_176069_1_, Random rand, int p_176069_3_, int p_176069_4_, int p_176069_5_, Facing facing, int p_176069_7_) {
 
 		if (p_176069_7_ > 3 + start.terrainType) {
 			return null;
@@ -193,14 +193,14 @@ public class StructureVillagePieces {
 
 		}
 
-		public Church(StructureVillagePieces.Start start, int type, Random rand, StructureBoundingBox p_i45564_4_, EnumFacing facing) {
+		public Church(StructureVillagePieces.Start start, int type, Random rand, StructureBoundingBox p_i45564_4_, Facing facing) {
 
 			super(start, type);
 			setCoordBaseMode(facing);
 			boundingBox = p_i45564_4_;
 		}
 
-		public static StructureVillagePieces.Church createPiece(StructureVillagePieces.Start start, List<StructureComponent> p_175854_1_, Random rand, int p_175854_3_, int p_175854_4_, int p_175854_5_, EnumFacing facing, int p_175854_7_) {
+		public static StructureVillagePieces.Church createPiece(StructureVillagePieces.Start start, List<StructureComponent> p_175854_1_, Random rand, int p_175854_3_, int p_175854_4_, int p_175854_5_, Facing facing, int p_175854_7_) {
 
 			StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175854_3_, p_175854_4_, p_175854_5_, 0, 0, 0, 5, 12, 9, facing);
 			return canVillageGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(p_175854_1_, structureboundingbox) == null ? new StructureVillagePieces.Church(start, p_175854_7_, rand, structureboundingbox, facing) : null;
@@ -219,9 +219,9 @@ public class StructureVillagePieces {
 			}
 
 			IBlockState iblockstate = Blocks.COBBLESTONE.getDefaultState();
-			IBlockState iblockstate1 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
-			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.WEST));
-			IBlockState iblockstate3 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.EAST));
+			IBlockState iblockstate1 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH));
+			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.WEST));
+			IBlockState iblockstate3 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.EAST));
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 1, 1, 3, 3, 7, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 5, 1, 3, 9, 3, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 0, 0, 3, 0, 8, iblockstate, iblockstate, false);
@@ -264,11 +264,11 @@ public class StructureVillagePieces {
 			setBlockState(worldIn, Blocks.GLASS_PANE.getDefaultState(), 0, 3, 6, structureBoundingBoxIn);
 			setBlockState(worldIn, Blocks.GLASS_PANE.getDefaultState(), 4, 3, 6, structureBoundingBoxIn);
 			setBlockState(worldIn, Blocks.GLASS_PANE.getDefaultState(), 2, 3, 8, structureBoundingBoxIn);
-			placeTorch(worldIn, EnumFacing.SOUTH, 2, 4, 7, structureBoundingBoxIn);
-			placeTorch(worldIn, EnumFacing.EAST, 1, 4, 6, structureBoundingBoxIn);
-			placeTorch(worldIn, EnumFacing.WEST, 3, 4, 6, structureBoundingBoxIn);
-			placeTorch(worldIn, EnumFacing.NORTH, 2, 4, 5, structureBoundingBoxIn);
-			IBlockState iblockstate4 = Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.WEST);
+			placeTorch(worldIn, Facing.SOUTH, 2, 4, 7, structureBoundingBoxIn);
+			placeTorch(worldIn, Facing.EAST, 1, 4, 6, structureBoundingBoxIn);
+			placeTorch(worldIn, Facing.WEST, 3, 4, 6, structureBoundingBoxIn);
+			placeTorch(worldIn, Facing.NORTH, 2, 4, 5, structureBoundingBoxIn);
+			IBlockState iblockstate4 = Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, Facing.WEST);
 
 			for (int i = 1; i <= 9; ++i) {
 				setBlockState(worldIn, iblockstate4, 3, i, 3, structureBoundingBoxIn);
@@ -276,7 +276,7 @@ public class StructureVillagePieces {
 
 			setBlockState(worldIn, Blocks.AIR.getDefaultState(), 2, 1, 0, structureBoundingBoxIn);
 			setBlockState(worldIn, Blocks.AIR.getDefaultState(), 2, 2, 0, structureBoundingBoxIn);
-			createVillageDoor(worldIn, structureBoundingBoxIn, randomIn, 2, 1, 0, EnumFacing.NORTH);
+			createVillageDoor(worldIn, structureBoundingBoxIn, randomIn, 2, 1, 0, Facing.NORTH);
 
 			if (getBlockStateFromPos(worldIn, 2, 0, -1, structureBoundingBoxIn).getMaterial() == Material.AIR && getBlockStateFromPos(worldIn, 2, -1, -1, structureBoundingBoxIn).getMaterial() != Material.AIR) {
 				setBlockState(worldIn, iblockstate1, 2, 0, -1, structureBoundingBoxIn);
@@ -315,7 +315,7 @@ public class StructureVillagePieces {
 
 		}
 
-		public Field1(StructureVillagePieces.Start start, int type, Random rand, StructureBoundingBox p_i45570_4_, EnumFacing facing) {
+		public Field1(StructureVillagePieces.Start start, int type, Random rand, StructureBoundingBox p_i45570_4_, Facing facing) {
 
 			super(start, type);
 			setCoordBaseMode(facing);
@@ -326,7 +326,7 @@ public class StructureVillagePieces {
 			cropTypeD = getRandomCropType(rand);
 		}
 
-		public static StructureVillagePieces.Field1 createPiece(StructureVillagePieces.Start start, List<StructureComponent> p_175851_1_, Random rand, int p_175851_3_, int p_175851_4_, int p_175851_5_, EnumFacing facing, int p_175851_7_) {
+		public static StructureVillagePieces.Field1 createPiece(StructureVillagePieces.Start start, List<StructureComponent> p_175851_1_, Random rand, int p_175851_3_, int p_175851_4_, int p_175851_5_, Facing facing, int p_175851_7_) {
 
 			StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175851_3_, p_175851_4_, p_175851_5_, 0, 0, 0, 13, 4, 9, facing);
 			return canVillageGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(p_175851_1_, structureboundingbox) == null ? new StructureVillagePieces.Field1(start, p_175851_7_, rand, structureboundingbox, facing) : null;
@@ -442,7 +442,7 @@ public class StructureVillagePieces {
 
 		}
 
-		public Field2(StructureVillagePieces.Start start, int p_i45569_2_, Random rand, StructureBoundingBox p_i45569_4_, EnumFacing facing) {
+		public Field2(StructureVillagePieces.Start start, int p_i45569_2_, Random rand, StructureBoundingBox p_i45569_4_, Facing facing) {
 
 			super(start, p_i45569_2_);
 			setCoordBaseMode(facing);
@@ -451,7 +451,7 @@ public class StructureVillagePieces {
 			cropTypeB = getRandomCropType(rand);
 		}
 
-		public static StructureVillagePieces.Field2 createPiece(StructureVillagePieces.Start start, List<StructureComponent> p_175852_1_, Random rand, int p_175852_3_, int p_175852_4_, int p_175852_5_, EnumFacing facing, int p_175852_7_) {
+		public static StructureVillagePieces.Field2 createPiece(StructureVillagePieces.Start start, List<StructureComponent> p_175852_1_, Random rand, int p_175852_3_, int p_175852_4_, int p_175852_5_, Facing facing, int p_175852_7_) {
 
 			StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175852_3_, p_175852_4_, p_175852_5_, 0, 0, 0, 7, 4, 9, facing);
 			return canVillageGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(p_175852_1_, structureboundingbox) == null ? new StructureVillagePieces.Field2(start, p_175852_7_, rand, structureboundingbox, facing) : null;
@@ -532,14 +532,14 @@ public class StructureVillagePieces {
 
 		}
 
-		public Hall(StructureVillagePieces.Start start, int type, Random rand, StructureBoundingBox p_i45567_4_, EnumFacing facing) {
+		public Hall(StructureVillagePieces.Start start, int type, Random rand, StructureBoundingBox p_i45567_4_, Facing facing) {
 
 			super(start, type);
 			setCoordBaseMode(facing);
 			boundingBox = p_i45567_4_;
 		}
 
-		public static StructureVillagePieces.Hall createPiece(StructureVillagePieces.Start start, List<StructureComponent> p_175857_1_, Random rand, int p_175857_3_, int p_175857_4_, int p_175857_5_, EnumFacing facing, int p_175857_7_) {
+		public static StructureVillagePieces.Hall createPiece(StructureVillagePieces.Start start, List<StructureComponent> p_175857_1_, Random rand, int p_175857_3_, int p_175857_4_, int p_175857_5_, Facing facing, int p_175857_7_) {
 
 			StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175857_3_, p_175857_4_, p_175857_5_, 0, 0, 0, 9, 7, 11, facing);
 			return canVillageGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(p_175857_1_, structureboundingbox) == null ? new StructureVillagePieces.Hall(start, p_175857_7_, rand, structureboundingbox, facing) : null;
@@ -558,9 +558,9 @@ public class StructureVillagePieces {
 			}
 
 			IBlockState iblockstate = getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
-			IBlockState iblockstate1 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
-			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.SOUTH));
-			IBlockState iblockstate3 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.WEST));
+			IBlockState iblockstate1 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH));
+			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.SOUTH));
+			IBlockState iblockstate3 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.WEST));
 			IBlockState iblockstate4 = getBiomeSpecificBlockState(Blocks.PLANKS.getDefaultState());
 			IBlockState iblockstate5 = getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
 			IBlockState iblockstate6 = getBiomeSpecificBlockState(Blocks.OAK_FENCE.getDefaultState());
@@ -615,8 +615,8 @@ public class StructureVillagePieces {
 			setBlockState(worldIn, Blocks.DOUBLE_STONE_SLAB.getDefaultState(), 6, 1, 2, structureBoundingBoxIn);
 			setBlockState(worldIn, Blocks.AIR.getDefaultState(), 2, 1, 0, structureBoundingBoxIn);
 			setBlockState(worldIn, Blocks.AIR.getDefaultState(), 2, 2, 0, structureBoundingBoxIn);
-			placeTorch(worldIn, EnumFacing.NORTH, 2, 3, 1, structureBoundingBoxIn);
-			createVillageDoor(worldIn, structureBoundingBoxIn, randomIn, 2, 1, 0, EnumFacing.NORTH);
+			placeTorch(worldIn, Facing.NORTH, 2, 3, 1, structureBoundingBoxIn);
+			createVillageDoor(worldIn, structureBoundingBoxIn, randomIn, 2, 1, 0, Facing.NORTH);
 
 			if (getBlockStateFromPos(worldIn, 2, 0, -1, structureBoundingBoxIn).getMaterial() == Material.AIR && getBlockStateFromPos(worldIn, 2, -1, -1, structureBoundingBoxIn).getMaterial() != Material.AIR) {
 				setBlockState(worldIn, iblockstate1, 2, 0, -1, structureBoundingBoxIn);
@@ -628,8 +628,8 @@ public class StructureVillagePieces {
 
 			setBlockState(worldIn, Blocks.AIR.getDefaultState(), 6, 1, 5, structureBoundingBoxIn);
 			setBlockState(worldIn, Blocks.AIR.getDefaultState(), 6, 2, 5, structureBoundingBoxIn);
-			placeTorch(worldIn, EnumFacing.SOUTH, 6, 3, 4, structureBoundingBoxIn);
-			createVillageDoor(worldIn, structureBoundingBoxIn, randomIn, 6, 1, 5, EnumFacing.SOUTH);
+			placeTorch(worldIn, Facing.SOUTH, 6, 3, 4, structureBoundingBoxIn);
+			createVillageDoor(worldIn, structureBoundingBoxIn, randomIn, 6, 1, 5, Facing.SOUTH);
 
 			for (int k = 0; k < 5; ++k) {
 				for (int l = 0; l < 9; ++l) {
@@ -655,14 +655,14 @@ public class StructureVillagePieces {
 
 		}
 
-		public House1(StructureVillagePieces.Start start, int type, Random rand, StructureBoundingBox p_i45571_4_, EnumFacing facing) {
+		public House1(StructureVillagePieces.Start start, int type, Random rand, StructureBoundingBox p_i45571_4_, Facing facing) {
 
 			super(start, type);
 			setCoordBaseMode(facing);
 			boundingBox = p_i45571_4_;
 		}
 
-		public static StructureVillagePieces.House1 createPiece(StructureVillagePieces.Start start, List<StructureComponent> p_175850_1_, Random rand, int p_175850_3_, int p_175850_4_, int p_175850_5_, EnumFacing facing, int p_175850_7_) {
+		public static StructureVillagePieces.House1 createPiece(StructureVillagePieces.Start start, List<StructureComponent> p_175850_1_, Random rand, int p_175850_3_, int p_175850_4_, int p_175850_5_, Facing facing, int p_175850_7_) {
 
 			StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175850_3_, p_175850_4_, p_175850_5_, 0, 0, 0, 9, 9, 6, facing);
 			return canVillageGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(p_175850_1_, structureboundingbox) == null ? new StructureVillagePieces.House1(start, p_175850_7_, rand, structureboundingbox, facing) : null;
@@ -681,11 +681,11 @@ public class StructureVillagePieces {
 			}
 
 			IBlockState iblockstate = getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
-			IBlockState iblockstate1 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
-			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.SOUTH));
-			IBlockState iblockstate3 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.EAST));
+			IBlockState iblockstate1 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH));
+			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.SOUTH));
+			IBlockState iblockstate3 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.EAST));
 			IBlockState iblockstate4 = getBiomeSpecificBlockState(Blocks.PLANKS.getDefaultState());
-			IBlockState iblockstate5 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
+			IBlockState iblockstate5 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH));
 			IBlockState iblockstate6 = getBiomeSpecificBlockState(Blocks.OAK_FENCE.getDefaultState());
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 1, 1, 7, 5, 4, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 0, 0, 8, 0, 5, iblockstate, iblockstate, false);
@@ -746,7 +746,7 @@ public class StructureVillagePieces {
 			setBlockState(worldIn, Blocks.CRAFTING_TABLE.getDefaultState(), 7, 1, 1, structureBoundingBoxIn);
 			setBlockState(worldIn, Blocks.AIR.getDefaultState(), 1, 1, 0, structureBoundingBoxIn);
 			setBlockState(worldIn, Blocks.AIR.getDefaultState(), 1, 2, 0, structureBoundingBoxIn);
-			createVillageDoor(worldIn, structureBoundingBoxIn, randomIn, 1, 1, 0, EnumFacing.NORTH);
+			createVillageDoor(worldIn, structureBoundingBoxIn, randomIn, 1, 1, 0, Facing.NORTH);
 
 			if (getBlockStateFromPos(worldIn, 1, 0, -1, structureBoundingBoxIn).getMaterial() == Material.AIR && getBlockStateFromPos(worldIn, 1, -1, -1, structureBoundingBoxIn).getMaterial() != Material.AIR) {
 				setBlockState(worldIn, iblockstate5, 1, 0, -1, structureBoundingBoxIn);
@@ -782,14 +782,14 @@ public class StructureVillagePieces {
 
 		}
 
-		public House2(StructureVillagePieces.Start start, int type, Random rand, StructureBoundingBox p_i45563_4_, EnumFacing facing) {
+		public House2(StructureVillagePieces.Start start, int type, Random rand, StructureBoundingBox p_i45563_4_, Facing facing) {
 
 			super(start, type);
 			setCoordBaseMode(facing);
 			boundingBox = p_i45563_4_;
 		}
 
-		public static StructureVillagePieces.House2 createPiece(StructureVillagePieces.Start start, List<StructureComponent> p_175855_1_, Random rand, int p_175855_3_, int p_175855_4_, int p_175855_5_, EnumFacing facing, int p_175855_7_) {
+		public static StructureVillagePieces.House2 createPiece(StructureVillagePieces.Start start, List<StructureComponent> p_175855_1_, Random rand, int p_175855_3_, int p_175855_4_, int p_175855_5_, Facing facing, int p_175855_7_) {
 
 			StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175855_3_, p_175855_4_, p_175855_5_, 0, 0, 0, 10, 6, 7, facing);
 			return canVillageGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(p_175855_1_, structureboundingbox) == null ? new StructureVillagePieces.House2(start, p_175855_7_, rand, structureboundingbox, facing) : null;
@@ -820,10 +820,10 @@ public class StructureVillagePieces {
 			}
 
 			IBlockState iblockstate = Blocks.COBBLESTONE.getDefaultState();
-			IBlockState iblockstate1 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
-			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.WEST));
+			IBlockState iblockstate1 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH));
+			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.WEST));
 			IBlockState iblockstate3 = getBiomeSpecificBlockState(Blocks.PLANKS.getDefaultState());
-			IBlockState iblockstate4 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
+			IBlockState iblockstate4 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH));
 			IBlockState iblockstate5 = getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
 			IBlockState iblockstate6 = getBiomeSpecificBlockState(Blocks.OAK_FENCE.getDefaultState());
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 1, 0, 9, 4, 6, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
@@ -901,14 +901,14 @@ public class StructureVillagePieces {
 
 		}
 
-		public House3(StructureVillagePieces.Start start, int type, Random rand, StructureBoundingBox p_i45561_4_, EnumFacing facing) {
+		public House3(StructureVillagePieces.Start start, int type, Random rand, StructureBoundingBox p_i45561_4_, Facing facing) {
 
 			super(start, type);
 			setCoordBaseMode(facing);
 			boundingBox = p_i45561_4_;
 		}
 
-		public static StructureVillagePieces.House3 createPiece(StructureVillagePieces.Start start, List<StructureComponent> p_175849_1_, Random rand, int p_175849_3_, int p_175849_4_, int p_175849_5_, EnumFacing facing, int p_175849_7_) {
+		public static StructureVillagePieces.House3 createPiece(StructureVillagePieces.Start start, List<StructureComponent> p_175849_1_, Random rand, int p_175849_3_, int p_175849_4_, int p_175849_5_, Facing facing, int p_175849_7_) {
 
 			StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175849_3_, p_175849_4_, p_175849_5_, 0, 0, 0, 9, 7, 12, facing);
 			return canVillageGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(p_175849_1_, structureboundingbox) == null ? new StructureVillagePieces.House3(start, p_175849_7_, rand, structureboundingbox, facing) : null;
@@ -927,10 +927,10 @@ public class StructureVillagePieces {
 			}
 
 			IBlockState iblockstate = getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
-			IBlockState iblockstate1 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
-			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.SOUTH));
-			IBlockState iblockstate3 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.EAST));
-			IBlockState iblockstate4 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.WEST));
+			IBlockState iblockstate1 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH));
+			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.SOUTH));
+			IBlockState iblockstate3 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.EAST));
+			IBlockState iblockstate4 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.WEST));
 			IBlockState iblockstate5 = getBiomeSpecificBlockState(Blocks.PLANKS.getDefaultState());
 			IBlockState iblockstate6 = getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 1, 1, 7, 4, 4, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
@@ -1014,8 +1014,8 @@ public class StructureVillagePieces {
 			setBlockState(worldIn, iblockstate5, 5, 5, 10, structureBoundingBoxIn);
 			setBlockState(worldIn, Blocks.AIR.getDefaultState(), 2, 1, 0, structureBoundingBoxIn);
 			setBlockState(worldIn, Blocks.AIR.getDefaultState(), 2, 2, 0, structureBoundingBoxIn);
-			placeTorch(worldIn, EnumFacing.NORTH, 2, 3, 1, structureBoundingBoxIn);
-			createVillageDoor(worldIn, structureBoundingBoxIn, randomIn, 2, 1, 0, EnumFacing.NORTH);
+			placeTorch(worldIn, Facing.NORTH, 2, 3, 1, structureBoundingBoxIn);
+			createVillageDoor(worldIn, structureBoundingBoxIn, randomIn, 2, 1, 0, Facing.NORTH);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 0, -1, 3, 2, -1, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 
 			if (getBlockStateFromPos(worldIn, 2, 0, -1, structureBoundingBoxIn).getMaterial() == Material.AIR && getBlockStateFromPos(worldIn, 2, -1, -1, structureBoundingBoxIn).getMaterial() != Material.AIR) {
@@ -1054,7 +1054,7 @@ public class StructureVillagePieces {
 
 		}
 
-		public House4Garden(StructureVillagePieces.Start start, int p_i45566_2_, Random rand, StructureBoundingBox p_i45566_4_, EnumFacing facing) {
+		public House4Garden(StructureVillagePieces.Start start, int p_i45566_2_, Random rand, StructureBoundingBox p_i45566_4_, Facing facing) {
 
 			super(start, p_i45566_2_);
 			setCoordBaseMode(facing);
@@ -1062,7 +1062,7 @@ public class StructureVillagePieces {
 			isRoofAccessible = rand.nextBoolean();
 		}
 
-		public static StructureVillagePieces.House4Garden createPiece(StructureVillagePieces.Start start, List<StructureComponent> p_175858_1_, Random rand, int p_175858_3_, int p_175858_4_, int p_175858_5_, EnumFacing facing, int p_175858_7_) {
+		public static StructureVillagePieces.House4Garden createPiece(StructureVillagePieces.Start start, List<StructureComponent> p_175858_1_, Random rand, int p_175858_3_, int p_175858_4_, int p_175858_5_, Facing facing, int p_175858_7_) {
 
 			StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175858_3_, p_175858_4_, p_175858_5_, 0, 0, 0, 5, 6, 5, facing);
 			return StructureComponent.findIntersecting(p_175858_1_, structureboundingbox) != null ? null : new StructureVillagePieces.House4Garden(start, p_175858_7_, rand, structureboundingbox, facing);
@@ -1094,7 +1094,7 @@ public class StructureVillagePieces {
 
 			IBlockState iblockstate = getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
 			IBlockState iblockstate1 = getBiomeSpecificBlockState(Blocks.PLANKS.getDefaultState());
-			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
+			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH));
 			IBlockState iblockstate3 = getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
 			IBlockState iblockstate4 = getBiomeSpecificBlockState(Blocks.OAK_FENCE.getDefaultState());
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 0, 0, 4, 0, 4, iblockstate, iblockstate, false);
@@ -1156,14 +1156,14 @@ public class StructureVillagePieces {
 			}
 
 			if (isRoofAccessible) {
-				IBlockState iblockstate5 = Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.SOUTH);
+				IBlockState iblockstate5 = Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, Facing.SOUTH);
 				setBlockState(worldIn, iblockstate5, 3, 1, 3, structureBoundingBoxIn);
 				setBlockState(worldIn, iblockstate5, 3, 2, 3, structureBoundingBoxIn);
 				setBlockState(worldIn, iblockstate5, 3, 3, 3, structureBoundingBoxIn);
 				setBlockState(worldIn, iblockstate5, 3, 4, 3, structureBoundingBoxIn);
 			}
 
-			placeTorch(worldIn, EnumFacing.NORTH, 2, 3, 1, structureBoundingBoxIn);
+			placeTorch(worldIn, Facing.NORTH, 2, 3, 1, structureBoundingBoxIn);
 
 			for (int j = 0; j < 5; ++j) {
 				for (int i = 0; i < 5; ++i) {
@@ -1186,7 +1186,7 @@ public class StructureVillagePieces {
 
 		}
 
-		public Path(StructureVillagePieces.Start start, int p_i45562_2_, Random rand, StructureBoundingBox p_i45562_4_, EnumFacing facing) {
+		public Path(StructureVillagePieces.Start start, int p_i45562_2_, Random rand, StructureBoundingBox p_i45562_4_, Facing facing) {
 
 			super(start, p_i45562_2_);
 			setCoordBaseMode(facing);
@@ -1194,7 +1194,7 @@ public class StructureVillagePieces {
 			length = Math.max(p_i45562_4_.getXSize(), p_i45562_4_.getZSize());
 		}
 
-		public static StructureBoundingBox findPieceBox(StructureVillagePieces.Start start, List<StructureComponent> p_175848_1_, Random rand, int p_175848_3_, int p_175848_4_, int p_175848_5_, EnumFacing facing) {
+		public static StructureBoundingBox findPieceBox(StructureVillagePieces.Start start, List<StructureComponent> p_175848_1_, Random rand, int p_175848_3_, int p_175848_4_, int p_175848_5_, Facing facing) {
 
 			for (int i = 7 * MathHelper.getInt(rand, 3, 5); i >= 7; i -= 7) {
 				StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175848_3_, p_175848_4_, p_175848_5_, 0, 0, 0, 3, 3, i, facing);
@@ -1241,25 +1241,25 @@ public class StructureVillagePieces {
 				}
 			}
 
-			EnumFacing enumfacing = getCoordBaseMode();
+			Facing enumfacing = getCoordBaseMode();
 
 			if (flag && rand.nextInt(3) > 0 && enumfacing != null) {
 				switch (enumfacing) {
 					case NORTH:
 					default:
-						StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.minX - 1, boundingBox.minY, boundingBox.minZ, EnumFacing.WEST, getComponentType());
+						StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.minX - 1, boundingBox.minY, boundingBox.minZ, Facing.WEST, getComponentType());
 						break;
 
 					case SOUTH:
-						StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.minX - 1, boundingBox.minY, boundingBox.maxZ - 2, EnumFacing.WEST, getComponentType());
+						StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.minX - 1, boundingBox.minY, boundingBox.maxZ - 2, Facing.WEST, getComponentType());
 						break;
 
 					case WEST:
-						StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.minX, boundingBox.minY, boundingBox.minZ - 1, EnumFacing.NORTH, getComponentType());
+						StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.minX, boundingBox.minY, boundingBox.minZ - 1, Facing.NORTH, getComponentType());
 						break;
 
 					case EAST:
-						StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.maxX - 2, boundingBox.minY, boundingBox.minZ - 1, EnumFacing.NORTH, getComponentType());
+						StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.maxX - 2, boundingBox.minY, boundingBox.minZ - 1, Facing.NORTH, getComponentType());
 				}
 			}
 
@@ -1267,19 +1267,19 @@ public class StructureVillagePieces {
 				switch (enumfacing) {
 					case NORTH:
 					default:
-						StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.maxX + 1, boundingBox.minY, boundingBox.minZ, EnumFacing.EAST, getComponentType());
+						StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.maxX + 1, boundingBox.minY, boundingBox.minZ, Facing.EAST, getComponentType());
 						break;
 
 					case SOUTH:
-						StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.maxX + 1, boundingBox.minY, boundingBox.maxZ - 2, EnumFacing.EAST, getComponentType());
+						StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.maxX + 1, boundingBox.minY, boundingBox.maxZ - 2, Facing.EAST, getComponentType());
 						break;
 
 					case WEST:
-						StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.minX, boundingBox.minY, boundingBox.maxZ + 1, EnumFacing.SOUTH, getComponentType());
+						StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.minX, boundingBox.minY, boundingBox.maxZ + 1, Facing.SOUTH, getComponentType());
 						break;
 
 					case EAST:
-						StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.maxX - 2, boundingBox.minY, boundingBox.maxZ + 1, EnumFacing.SOUTH, getComponentType());
+						StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.maxX - 2, boundingBox.minY, boundingBox.maxZ + 1, Facing.SOUTH, getComponentType());
 				}
 			}
 		}
@@ -1412,14 +1412,14 @@ public class StructureVillagePieces {
 
 		}
 
-		public Torch(StructureVillagePieces.Start start, int p_i45568_2_, Random rand, StructureBoundingBox p_i45568_4_, EnumFacing facing) {
+		public Torch(StructureVillagePieces.Start start, int p_i45568_2_, Random rand, StructureBoundingBox p_i45568_4_, Facing facing) {
 
 			super(start, p_i45568_2_);
 			setCoordBaseMode(facing);
 			boundingBox = p_i45568_4_;
 		}
 
-		public static StructureBoundingBox findPieceBox(StructureVillagePieces.Start start, List<StructureComponent> p_175856_1_, Random rand, int p_175856_3_, int p_175856_4_, int p_175856_5_, EnumFacing facing) {
+		public static StructureBoundingBox findPieceBox(StructureVillagePieces.Start start, List<StructureComponent> p_175856_1_, Random rand, int p_175856_3_, int p_175856_4_, int p_175856_5_, Facing facing) {
 
 			StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175856_3_, p_175856_4_, p_175856_5_, 0, 0, 0, 3, 4, 2, facing);
 			return StructureComponent.findIntersecting(p_175856_1_, structureboundingbox) != null ? null : structureboundingbox;
@@ -1442,11 +1442,11 @@ public class StructureVillagePieces {
 			setBlockState(worldIn, iblockstate, 1, 0, 0, structureBoundingBoxIn);
 			setBlockState(worldIn, iblockstate, 1, 1, 0, structureBoundingBoxIn);
 			setBlockState(worldIn, iblockstate, 1, 2, 0, structureBoundingBoxIn);
-			setBlockState(worldIn, Blocks.WOOL.getStateFromMeta(EnumDyeColor.WHITE.getDyeDamage()), 1, 3, 0, structureBoundingBoxIn);
-			placeTorch(worldIn, EnumFacing.EAST, 2, 3, 0, structureBoundingBoxIn);
-			placeTorch(worldIn, EnumFacing.NORTH, 1, 3, 1, structureBoundingBoxIn);
-			placeTorch(worldIn, EnumFacing.WEST, 0, 3, 0, structureBoundingBoxIn);
-			placeTorch(worldIn, EnumFacing.SOUTH, 1, 3, -1, structureBoundingBoxIn);
+			setBlockState(worldIn, Blocks.WOOL.getStateFromMeta(DyeColor.WHITE.getDyeDamage()), 1, 3, 0, structureBoundingBoxIn);
+			placeTorch(worldIn, Facing.EAST, 2, 3, 0, structureBoundingBoxIn);
+			placeTorch(worldIn, Facing.NORTH, 1, 3, 1, structureBoundingBoxIn);
+			placeTorch(worldIn, Facing.WEST, 0, 3, 0, structureBoundingBoxIn);
+			placeTorch(worldIn, Facing.SOUTH, 1, 3, -1, structureBoundingBoxIn);
 			return true;
 		}
 
@@ -1502,14 +1502,14 @@ public class StructureVillagePieces {
 		
 		protected StructureComponent getNextComponentNN(StructureVillagePieces.Start start, List<StructureComponent> structureComponents, Random rand, int p_74891_4_, int p_74891_5_) {
 
-			EnumFacing enumfacing = getCoordBaseMode();
+			Facing enumfacing = getCoordBaseMode();
 
 			if (enumfacing != null) {
 				return switch (enumfacing) {
 					case WEST, EAST ->
-							StructureVillagePieces.generateAndAddComponent(start, structureComponents, rand, boundingBox.minX + p_74891_5_, boundingBox.minY + p_74891_4_, boundingBox.minZ - 1, EnumFacing.NORTH, getComponentType());
+							StructureVillagePieces.generateAndAddComponent(start, structureComponents, rand, boundingBox.minX + p_74891_5_, boundingBox.minY + p_74891_4_, boundingBox.minZ - 1, Facing.NORTH, getComponentType());
 					default ->
-							StructureVillagePieces.generateAndAddComponent(start, structureComponents, rand, boundingBox.minX - 1, boundingBox.minY + p_74891_4_, boundingBox.minZ + p_74891_5_, EnumFacing.WEST, getComponentType());
+							StructureVillagePieces.generateAndAddComponent(start, structureComponents, rand, boundingBox.minX - 1, boundingBox.minY + p_74891_4_, boundingBox.minZ + p_74891_5_, Facing.WEST, getComponentType());
 				};
 			} else {
 				return null;
@@ -1519,14 +1519,14 @@ public class StructureVillagePieces {
 		
 		protected StructureComponent getNextComponentPP(StructureVillagePieces.Start start, List<StructureComponent> structureComponents, Random rand, int p_74894_4_, int p_74894_5_) {
 
-			EnumFacing enumfacing = getCoordBaseMode();
+			Facing enumfacing = getCoordBaseMode();
 
 			if (enumfacing != null) {
 				return switch (enumfacing) {
 					case WEST, EAST ->
-							StructureVillagePieces.generateAndAddComponent(start, structureComponents, rand, boundingBox.minX + p_74894_5_, boundingBox.minY + p_74894_4_, boundingBox.maxZ + 1, EnumFacing.SOUTH, getComponentType());
+							StructureVillagePieces.generateAndAddComponent(start, structureComponents, rand, boundingBox.minX + p_74894_5_, boundingBox.minY + p_74894_4_, boundingBox.maxZ + 1, Facing.SOUTH, getComponentType());
 					default ->
-							StructureVillagePieces.generateAndAddComponent(start, structureComponents, rand, boundingBox.maxX + 1, boundingBox.minY + p_74894_4_, boundingBox.minZ + p_74894_5_, EnumFacing.EAST, getComponentType());
+							StructureVillagePieces.generateAndAddComponent(start, structureComponents, rand, boundingBox.maxX + 1, boundingBox.minY + p_74894_4_, boundingBox.minZ + p_74894_5_, Facing.EAST, getComponentType());
 				};
 			} else {
 				return null;
@@ -1602,11 +1602,11 @@ public class StructureVillagePieces {
 				}
 
 				if (blockstateIn.getBlock() == Blocks.COBBLESTONE) {
-					return Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.DEFAULT.getMetadata());
+					return Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.DEFAULT.getMetadata());
 				}
 
 				if (blockstateIn.getBlock() == Blocks.PLANKS) {
-					return Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.EnumType.SMOOTH.getMetadata());
+					return Blocks.SANDSTONE.getStateFromMeta(BlockSandStone.Type.SMOOTH.getMetadata());
 				}
 
 				if (blockstateIn.getBlock() == Blocks.OAK_STAIRS) {
@@ -1622,11 +1622,11 @@ public class StructureVillagePieces {
 				}
 			} else if (structureType == 3) {
 				if (blockstateIn.getBlock() == Blocks.LOG || blockstateIn.getBlock() == Blocks.LOG2) {
-					return Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.SPRUCE).withProperty(BlockLog.LOG_AXIS, blockstateIn.getValue(BlockLog.LOG_AXIS));
+					return Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.Type.SPRUCE).withProperty(BlockLog.LOG_AXIS, blockstateIn.getValue(BlockLog.LOG_AXIS));
 				}
 
 				if (blockstateIn.getBlock() == Blocks.PLANKS) {
-					return Blocks.PLANKS.getDefaultState().withProperty(BlockPlanks.VARIANT, BlockPlanks.EnumType.SPRUCE);
+					return Blocks.PLANKS.getDefaultState().withProperty(BlockPlanks.VARIANT, BlockPlanks.Type.SPRUCE);
 				}
 
 				if (blockstateIn.getBlock() == Blocks.OAK_STAIRS) {
@@ -1638,11 +1638,11 @@ public class StructureVillagePieces {
 				}
 			} else if (structureType == 2) {
 				if (blockstateIn.getBlock() == Blocks.LOG || blockstateIn.getBlock() == Blocks.LOG2) {
-					return Blocks.LOG2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.ACACIA).withProperty(BlockLog.LOG_AXIS, blockstateIn.getValue(BlockLog.LOG_AXIS));
+					return Blocks.LOG2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.Type.ACACIA).withProperty(BlockLog.LOG_AXIS, blockstateIn.getValue(BlockLog.LOG_AXIS));
 				}
 
 				if (blockstateIn.getBlock() == Blocks.PLANKS) {
-					return Blocks.PLANKS.getDefaultState().withProperty(BlockPlanks.VARIANT, BlockPlanks.EnumType.ACACIA);
+					return Blocks.PLANKS.getDefaultState().withProperty(BlockPlanks.VARIANT, BlockPlanks.Type.ACACIA);
 				}
 
 				if (blockstateIn.getBlock() == Blocks.OAK_STAIRS) {
@@ -1650,7 +1650,7 @@ public class StructureVillagePieces {
 				}
 
 				if (blockstateIn.getBlock() == Blocks.COBBLESTONE) {
-					return Blocks.LOG2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.ACACIA).withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.Y);
+					return Blocks.LOG2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.Type.ACACIA).withProperty(BlockLog.LOG_AXIS, BlockLog.Axis.Y);
 				}
 
 				if (blockstateIn.getBlock() == Blocks.OAK_FENCE) {
@@ -1670,14 +1670,14 @@ public class StructureVillagePieces {
 			};
 		}
 
-		protected void createVillageDoor(World p_189927_1_, StructureBoundingBox p_189927_2_, Random p_189927_3_, int p_189927_4_, int p_189927_5_, int p_189927_6_, EnumFacing p_189927_7_) {
+		protected void createVillageDoor(World p_189927_1_, StructureBoundingBox p_189927_2_, Random p_189927_3_, int p_189927_4_, int p_189927_5_, int p_189927_6_, Facing p_189927_7_) {
 
 			if (!isZombieInfested) {
-				generateDoor(p_189927_1_, p_189927_2_, p_189927_3_, p_189927_4_, p_189927_5_, p_189927_6_, EnumFacing.NORTH, biomeDoor());
+				generateDoor(p_189927_1_, p_189927_2_, p_189927_3_, p_189927_4_, p_189927_5_, p_189927_6_, Facing.NORTH, biomeDoor());
 			}
 		}
 
-		protected void placeTorch(World p_189926_1_, EnumFacing p_189926_2_, int p_189926_3_, int p_189926_4_, int p_189926_5_, StructureBoundingBox p_189926_6_) {
+		protected void placeTorch(World p_189926_1_, Facing p_189926_2_, int p_189926_3_, int p_189926_4_, int p_189926_5_, StructureBoundingBox p_189926_6_) {
 
 			if (!isZombieInfested) {
 				setBlockState(p_189926_1_, Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, p_189926_2_), p_189926_3_, p_189926_4_, p_189926_5_, p_189926_6_);
@@ -1706,9 +1706,9 @@ public class StructureVillagePieces {
 		public Well(StructureVillagePieces.Start start, int type, Random rand, int x, int z) {
 
 			super(start, type);
-			setCoordBaseMode(EnumFacing.Plane.HORIZONTAL.random(rand));
+			setCoordBaseMode(Facing.Plane.HORIZONTAL.random(rand));
 
-			if (getCoordBaseMode().getAxis() == EnumFacing.Axis.Z) {
+			if (getCoordBaseMode().getAxis() == Facing.Axis.Z) {
 				boundingBox = new StructureBoundingBox(x, 64, z, x + 6 - 1, 78, z + 6 - 1);
 			} else {
 				boundingBox = new StructureBoundingBox(x, 64, z, x + 6 - 1, 78, z + 6 - 1);
@@ -1717,10 +1717,10 @@ public class StructureVillagePieces {
 
 		public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
 
-			StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.minX - 1, boundingBox.maxY - 4, boundingBox.minZ + 1, EnumFacing.WEST, getComponentType());
-			StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.maxX + 1, boundingBox.maxY - 4, boundingBox.minZ + 1, EnumFacing.EAST, getComponentType());
-			StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.minX + 1, boundingBox.maxY - 4, boundingBox.minZ - 1, EnumFacing.NORTH, getComponentType());
-			StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.minX + 1, boundingBox.maxY - 4, boundingBox.maxZ + 1, EnumFacing.SOUTH, getComponentType());
+			StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.minX - 1, boundingBox.maxY - 4, boundingBox.minZ + 1, Facing.WEST, getComponentType());
+			StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.maxX + 1, boundingBox.maxY - 4, boundingBox.minZ + 1, Facing.EAST, getComponentType());
+			StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.minX + 1, boundingBox.maxY - 4, boundingBox.minZ - 1, Facing.NORTH, getComponentType());
+			StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.minX + 1, boundingBox.maxY - 4, boundingBox.maxZ + 1, Facing.SOUTH, getComponentType());
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
@@ -1775,7 +1775,7 @@ public class StructureVillagePieces {
 
 		}
 
-		public WoodHut(StructureVillagePieces.Start start, int type, Random rand, StructureBoundingBox structurebb, EnumFacing facing) {
+		public WoodHut(StructureVillagePieces.Start start, int type, Random rand, StructureBoundingBox structurebb, Facing facing) {
 
 			super(start, type);
 			setCoordBaseMode(facing);
@@ -1784,7 +1784,7 @@ public class StructureVillagePieces {
 			tablePosition = rand.nextInt(3);
 		}
 
-		public static StructureVillagePieces.WoodHut createPiece(StructureVillagePieces.Start start, List<StructureComponent> p_175853_1_, Random rand, int p_175853_3_, int p_175853_4_, int p_175853_5_, EnumFacing facing, int p_175853_7_) {
+		public static StructureVillagePieces.WoodHut createPiece(StructureVillagePieces.Start start, List<StructureComponent> p_175853_1_, Random rand, int p_175853_3_, int p_175853_4_, int p_175853_5_, Facing facing, int p_175853_7_) {
 
 			StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175853_3_, p_175853_4_, p_175853_5_, 0, 0, 0, 4, 6, 5, facing);
 			return canVillageGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(p_175853_1_, structureboundingbox) == null ? new StructureVillagePieces.WoodHut(start, p_175853_7_, rand, structureboundingbox, facing) : null;
@@ -1818,7 +1818,7 @@ public class StructureVillagePieces {
 
 			IBlockState iblockstate = getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
 			IBlockState iblockstate1 = getBiomeSpecificBlockState(Blocks.PLANKS.getDefaultState());
-			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
+			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH));
 			IBlockState iblockstate3 = getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
 			IBlockState iblockstate4 = getBiomeSpecificBlockState(Blocks.OAK_FENCE.getDefaultState());
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 1, 1, 3, 5, 4, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
@@ -1859,7 +1859,7 @@ public class StructureVillagePieces {
 
 			setBlockState(worldIn, Blocks.AIR.getDefaultState(), 1, 1, 0, structureBoundingBoxIn);
 			setBlockState(worldIn, Blocks.AIR.getDefaultState(), 1, 2, 0, structureBoundingBoxIn);
-			createVillageDoor(worldIn, structureBoundingBoxIn, randomIn, 1, 1, 0, EnumFacing.NORTH);
+			createVillageDoor(worldIn, structureBoundingBoxIn, randomIn, 1, 1, 0, Facing.NORTH);
 
 			if (getBlockStateFromPos(worldIn, 1, 0, -1, structureBoundingBoxIn).getMaterial() == Material.AIR && getBlockStateFromPos(worldIn, 1, -1, -1, structureBoundingBoxIn).getMaterial() != Material.AIR) {
 				setBlockState(worldIn, iblockstate2, 1, 0, -1, structureBoundingBoxIn);

@@ -2,7 +2,7 @@ package net.minecraft.command;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -45,7 +45,7 @@ public class CommandParticle extends CommandBase {
 			throw new WrongUsageException("commands.particle.usage");
 		} else {
 			boolean flag = false;
-			EnumParticleTypes enumparticletypes = EnumParticleTypes.getByName(args[0]);
+			ParticleTypes enumparticletypes = ParticleTypes.getByName(args[0]);
 
 			if (enumparticletypes == null) {
 				throw new CommandException("commands.particle.notFound", args[0]);
@@ -106,7 +106,7 @@ public class CommandParticle extends CommandBase {
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
 
 		if (args.length == 1) {
-			return getListOfStringsMatchingLastWord(args, EnumParticleTypes.getParticleNames());
+			return getListOfStringsMatchingLastWord(args, ParticleTypes.getParticleNames());
 		} else if (args.length > 1 && args.length <= 4) {
 			return getTabCompletionCoordinate(args, 1, targetPos);
 		} else if (args.length == 10) {

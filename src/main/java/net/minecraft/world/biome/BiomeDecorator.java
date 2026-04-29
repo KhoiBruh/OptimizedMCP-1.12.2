@@ -52,7 +52,7 @@ public class BiomeDecorator {
 	 * Field that holds Lapis WorldGenMinable
 	 */
 	protected WorldGenerator lapisGen;
-	protected WorldGenFlowers flowerGen = new WorldGenFlowers(Blocks.YELLOW_FLOWER, BlockFlower.EnumFlowerType.DANDELION);
+	protected WorldGenFlowers flowerGen = new WorldGenFlowers(Blocks.YELLOW_FLOWER, BlockFlower.FlowerType.DANDELION);
 	/**
 	 * Field that holds mushroomBrown WorldGenFlowers
 	 */
@@ -138,9 +138,9 @@ public class BiomeDecorator {
 			chunkPos = pos;
 			dirtGen = new WorldGenMinable(Blocks.DIRT.getDefaultState(), chunkProviderSettings.dirtSize);
 			gravelOreGen = new WorldGenMinable(Blocks.GRAVEL.getDefaultState(), chunkProviderSettings.gravelSize);
-			graniteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE), chunkProviderSettings.graniteSize);
-			dioriteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE), chunkProviderSettings.dioriteSize);
-			andesiteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE), chunkProviderSettings.andesiteSize);
+			graniteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.Type.GRANITE), chunkProviderSettings.graniteSize);
+			dioriteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.Type.DIORITE), chunkProviderSettings.dioriteSize);
+			andesiteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.Type.ANDESITE), chunkProviderSettings.andesiteSize);
 			coalGen = new WorldGenMinable(Blocks.COAL_ORE.getDefaultState(), chunkProviderSettings.coalSize);
 			ironGen = new WorldGenMinable(Blocks.IRON_ORE.getDefaultState(), chunkProviderSettings.ironSize);
 			goldGen = new WorldGenMinable(Blocks.GOLD_ORE.getDefaultState(), chunkProviderSettings.goldSize);
@@ -206,7 +206,7 @@ public class BiomeDecorator {
 			if (j14 > 0) {
 				int k17 = random.nextInt(j14);
 				BlockPos blockpos1 = chunkPos.add(i7, k17, l10);
-				BlockFlower.EnumFlowerType blockflower$enumflowertype = biomeIn.pickRandomFlower(random, blockpos1);
+				BlockFlower.FlowerType blockflower$enumflowertype = biomeIn.pickRandomFlower(random, blockpos1);
 				BlockFlower blockflower = blockflower$enumflowertype.getBlockType().getBlock();
 
 				if (blockflower.getDefaultState().getMaterial() != Material.AIR) {

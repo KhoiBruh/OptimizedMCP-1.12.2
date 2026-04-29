@@ -1,6 +1,6 @@
 package net.minecraft.entity.passive;
 
-import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAISkeletonRiders;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,7 +9,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
@@ -59,11 +59,11 @@ public class EntitySkeletonHorse extends AbstractHorse {
 	}
 
 	/**
-	 * Get this Entity's EnumCreatureAttribute
+	 * Get this Entity's CreatureAttribute
 	 */
-	public EnumCreatureAttribute getCreatureAttribute() {
+	public CreatureAttribute getCreatureAttribute() {
 
-		return EnumCreatureAttribute.UNDEAD;
+		return CreatureAttribute.UNDEAD;
 	}
 
 	/**
@@ -131,7 +131,7 @@ public class EntitySkeletonHorse extends AbstractHorse {
 		}
 	}
 
-	public boolean processInteract(EntityPlayer player, EnumHand hand) {
+	public boolean processInteract(EntityPlayer player, Hand hand) {
 
 		ItemStack itemstack = player.getHeldItem(hand);
 		boolean flag = !itemstack.isEmpty();

@@ -30,7 +30,7 @@ public class BlockFurnace extends BlockContainer {
 	protected BlockFurnace(boolean isBurning) {
 
 		super(Material.ROCK);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH));
 		this.isBurning = isBurning;
 	}
 
@@ -79,16 +79,16 @@ public class BlockFurnace extends BlockContainer {
 			IBlockState iblockstate1 = worldIn.getBlockState(pos.south());
 			IBlockState iblockstate2 = worldIn.getBlockState(pos.west());
 			IBlockState iblockstate3 = worldIn.getBlockState(pos.east());
-			EnumFacing enumfacing = state.getValue(FACING);
+			Facing enumfacing = state.getValue(FACING);
 
-			if (enumfacing == EnumFacing.NORTH && iblockstate.isFullBlock() && !iblockstate1.isFullBlock()) {
-				enumfacing = EnumFacing.SOUTH;
-			} else if (enumfacing == EnumFacing.SOUTH && iblockstate1.isFullBlock() && !iblockstate.isFullBlock()) {
-				enumfacing = EnumFacing.NORTH;
-			} else if (enumfacing == EnumFacing.WEST && iblockstate2.isFullBlock() && !iblockstate3.isFullBlock()) {
-				enumfacing = EnumFacing.EAST;
-			} else if (enumfacing == EnumFacing.EAST && iblockstate3.isFullBlock() && !iblockstate2.isFullBlock()) {
-				enumfacing = EnumFacing.WEST;
+			if (enumfacing == Facing.NORTH && iblockstate.isFullBlock() && !iblockstate1.isFullBlock()) {
+				enumfacing = Facing.SOUTH;
+			} else if (enumfacing == Facing.SOUTH && iblockstate1.isFullBlock() && !iblockstate.isFullBlock()) {
+				enumfacing = Facing.NORTH;
+			} else if (enumfacing == Facing.WEST && iblockstate2.isFullBlock() && !iblockstate3.isFullBlock()) {
+				enumfacing = Facing.EAST;
+			} else if (enumfacing == Facing.EAST && iblockstate3.isFullBlock() && !iblockstate2.isFullBlock()) {
+				enumfacing = Facing.WEST;
 			}
 
 			worldIn.setBlockState(pos, state.withProperty(FACING, enumfacing), 2);
@@ -99,7 +99,7 @@ public class BlockFurnace extends BlockContainer {
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
 
 		if (isBurning) {
-			EnumFacing enumfacing = stateIn.getValue(FACING);
+			Facing enumfacing = stateIn.getValue(FACING);
 			double d0 = (double) pos.getX() + 0.5D;
 			double d1 = (double) pos.getY() + rand.nextDouble() * 6D / 16D;
 			double d2 = (double) pos.getZ() + 0.5D;
@@ -112,23 +112,23 @@ public class BlockFurnace extends BlockContainer {
 
 			switch (enumfacing) {
 				case WEST:
-					worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 - 0.52D, d1, d2 + d4, 0D, 0D, 0D);
-					worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 - 0.52D, d1, d2 + d4, 0D, 0D, 0D);
+					worldIn.spawnParticle(ParticleTypes.SMOKE_NORMAL, d0 - 0.52D, d1, d2 + d4, 0D, 0D, 0D);
+					worldIn.spawnParticle(ParticleTypes.FLAME, d0 - 0.52D, d1, d2 + d4, 0D, 0D, 0D);
 					break;
 
 				case EAST:
-					worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + 0.52D, d1, d2 + d4, 0D, 0D, 0D);
-					worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + 0.52D, d1, d2 + d4, 0D, 0D, 0D);
+					worldIn.spawnParticle(ParticleTypes.SMOKE_NORMAL, d0 + 0.52D, d1, d2 + d4, 0D, 0D, 0D);
+					worldIn.spawnParticle(ParticleTypes.FLAME, d0 + 0.52D, d1, d2 + d4, 0D, 0D, 0D);
 					break;
 
 				case NORTH:
-					worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 - 0.52D, 0D, 0D, 0D);
-					worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 - 0.52D, 0D, 0D, 0D);
+					worldIn.spawnParticle(ParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 - 0.52D, 0D, 0D, 0D);
+					worldIn.spawnParticle(ParticleTypes.FLAME, d0 + d4, d1, d2 - 0.52D, 0D, 0D, 0D);
 					break;
 
 				case SOUTH:
-					worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 + 0.52D, 0D, 0D, 0D);
-					worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 + 0.52D, 0D, 0D, 0D);
+					worldIn.spawnParticle(ParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 + 0.52D, 0D, 0D, 0D);
+					worldIn.spawnParticle(ParticleTypes.FLAME, d0 + d4, d1, d2 + 0.52D, 0D, 0D, 0D);
 			}
 		}
 	}
@@ -136,7 +136,7 @@ public class BlockFurnace extends BlockContainer {
 	/**
 	 * Called when the block is right clicked by a player.
 	 */
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		if (worldIn.isRemote) {
 			return true;
@@ -164,7 +164,7 @@ public class BlockFurnace extends BlockContainer {
 	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 	 * IBlockstate
 	 */
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
 		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
 	}
@@ -221,9 +221,9 @@ public class BlockFurnace extends BlockContainer {
 	 * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
-	public EnumBlockRenderType getRenderType(IBlockState state) {
+	public BlockRenderType getRenderType(IBlockState state) {
 
-		return EnumBlockRenderType.MODEL;
+		return BlockRenderType.MODEL;
 	}
 
 	/**
@@ -231,10 +231,10 @@ public class BlockFurnace extends BlockContainer {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		EnumFacing enumfacing = EnumFacing.getFront(meta);
+		Facing enumfacing = Facing.getFront(meta);
 
-		if (enumfacing.getAxis() == EnumFacing.Axis.Y) {
-			enumfacing = EnumFacing.NORTH;
+		if (enumfacing.getAxis() == Facing.Axis.Y) {
+			enumfacing = Facing.NORTH;
 		}
 
 		return getDefaultState().withProperty(FACING, enumfacing);

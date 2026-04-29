@@ -4,7 +4,7 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -65,7 +65,7 @@ public class BlockFrostedIce extends BlockIce {
 
 		int i = 0;
 
-		for (EnumFacing enumfacing : EnumFacing.values()) {
+		for (Facing enumfacing : Facing.values()) {
 			if (worldIn.getBlockState(pos.offset(enumfacing)).getBlock() == this) {
 				++i;
 
@@ -89,7 +89,7 @@ public class BlockFrostedIce extends BlockIce {
 			turnIntoWater(worldIn, pos);
 
 			if (meltNeighbors) {
-				for (EnumFacing enumfacing : EnumFacing.values()) {
+				for (Facing enumfacing : Facing.values()) {
 					BlockPos blockpos = pos.offset(enumfacing);
 					IBlockState iblockstate = worldIn.getBlockState(blockpos);
 

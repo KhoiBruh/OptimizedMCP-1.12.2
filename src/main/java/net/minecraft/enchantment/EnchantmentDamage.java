@@ -2,7 +2,7 @@ package net.minecraft.enchantment;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemAxe;
@@ -38,7 +38,7 @@ public class EnchantmentDamage extends Enchantment {
 
 	public EnchantmentDamage(Enchantment.Rarity rarityIn, int damageTypeIn, EntityEquipmentSlot... slots) {
 
-		super(rarityIn, EnumEnchantmentType.WEAPON, slots);
+		super(rarityIn, EnchantmentType.WEAPON, slots);
 		damageType = damageTypeIn;
 	}
 
@@ -68,16 +68,16 @@ public class EnchantmentDamage extends Enchantment {
 
 	/**
 	 * Calculates the additional damage that will be dealt by an item with this enchantment. This alternative to
-	 * calcModifierDamage is sensitive to the targets EnumCreatureAttribute.
+	 * calcModifierDamage is sensitive to the targets CreatureAttribute.
 	 */
-	public float calcDamageByCreature(int level, EnumCreatureAttribute creatureType) {
+	public float calcDamageByCreature(int level, CreatureAttribute creatureType) {
 
 		if (damageType == 0) {
 			return 1F + (float) Math.max(0, level - 1) * 0.5F;
-		} else if (damageType == 1 && creatureType == EnumCreatureAttribute.UNDEAD) {
+		} else if (damageType == 1 && creatureType == CreatureAttribute.UNDEAD) {
 			return (float) level * 2.5F;
 		} else {
-			return damageType == 2 && creatureType == EnumCreatureAttribute.ARTHROPOD ? (float) level * 2.5F : 0F;
+			return damageType == 2 && creatureType == CreatureAttribute.ARTHROPOD ? (float) level * 2.5F : 0F;
 		}
 	}
 
@@ -112,7 +112,7 @@ public class EnchantmentDamage extends Enchantment {
 
 		if (target instanceof EntityLivingBase entitylivingbase) {
 
-			if (damageType == 2 && entitylivingbase.getCreatureAttribute() == EnumCreatureAttribute.ARTHROPOD) {
+			if (damageType == 2 && entitylivingbase.getCreatureAttribute() == CreatureAttribute.ARTHROPOD) {
 				int i = 20 + user.getRNG().nextInt(10 * level);
 				entitylivingbase.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, i, 3));
 			}

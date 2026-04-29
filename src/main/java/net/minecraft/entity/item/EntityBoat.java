@@ -241,7 +241,7 @@ public class EntityBoat extends Entity {
 	 * Gets the horizontal facing direction of this Entity, adjusted to take specially-treated entity types into
 	 * account.
 	 */
-	public EnumFacing getAdjustedHorizontalFacing() {
+	public Facing getAdjustedHorizontalFacing() {
 
 		return getHorizontalFacing().rotateY();
 	}
@@ -725,7 +725,7 @@ public class EntityBoat extends Entity {
 		}
 	}
 
-	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
+	public boolean processInitialInteract(EntityPlayer player, Hand hand) {
 
 		if (player.isSneaking()) {
 			return false;
@@ -871,12 +871,12 @@ public class EntityBoat extends Entity {
 	}
 
 	public enum Type {
-		OAK(BlockPlanks.EnumType.OAK.getMetadata(), "oak"),
-		SPRUCE(BlockPlanks.EnumType.SPRUCE.getMetadata(), "spruce"),
-		BIRCH(BlockPlanks.EnumType.BIRCH.getMetadata(), "birch"),
-		JUNGLE(BlockPlanks.EnumType.JUNGLE.getMetadata(), "jungle"),
-		ACACIA(BlockPlanks.EnumType.ACACIA.getMetadata(), "acacia"),
-		DARK_OAK(BlockPlanks.EnumType.DARK_OAK.getMetadata(), "dark_oak");
+		OAK(BlockPlanks.Type.OAK.getMetadata(), "oak"),
+		SPRUCE(BlockPlanks.Type.SPRUCE.getMetadata(), "spruce"),
+		BIRCH(BlockPlanks.Type.BIRCH.getMetadata(), "birch"),
+		JUNGLE(BlockPlanks.Type.JUNGLE.getMetadata(), "jungle"),
+		ACACIA(BlockPlanks.Type.ACACIA.getMetadata(), "acacia"),
+		DARK_OAK(BlockPlanks.Type.DARK_OAK.getMetadata(), "dark_oak");
 
 		private final String name;
 		private final int metadata;

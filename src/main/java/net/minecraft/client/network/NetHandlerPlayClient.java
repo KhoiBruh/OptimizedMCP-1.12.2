@@ -203,7 +203,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		} else if (packetIn.getType() == 68) {
 			entity = new EntityLlamaSpit(clientWorldController, d0, d1, d2, (double) packetIn.getSpeedX() / 8000D, (double) packetIn.getSpeedY() / 8000D, (double) packetIn.getSpeedZ() / 8000D);
 		} else if (packetIn.getType() == 71) {
-			entity = new EntityItemFrame(clientWorldController, new BlockPos(d0, d1, d2), EnumFacing.getHorizontal(packetIn.getData()));
+			entity = new EntityItemFrame(clientWorldController, new BlockPos(d0, d1, d2), Facing.getHorizontal(packetIn.getData()));
 			packetIn.setData(0);
 		} else if (packetIn.getType() == 77) {
 			entity = new EntityLeashKnot(clientWorldController, new BlockPos(MathHelper.floor(d0), MathHelper.floor(d1), MathHelper.floor(d2)));
@@ -502,29 +502,29 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		float f = packetIn.getYaw();
 		float f1 = packetIn.getPitch();
 
-		if (packetIn.getFlags().contains(SPacketPlayerPosLook.EnumFlags.X)) {
+		if (packetIn.getFlags().contains(SPacketPlayerPosLook.Flags.X)) {
 			d0 += entityplayer.posX;
 		} else {
 			entityplayer.motionX = 0D;
 		}
 
-		if (packetIn.getFlags().contains(SPacketPlayerPosLook.EnumFlags.Y)) {
+		if (packetIn.getFlags().contains(SPacketPlayerPosLook.Flags.Y)) {
 			d1 += entityplayer.posY;
 		} else {
 			entityplayer.motionY = 0D;
 		}
 
-		if (packetIn.getFlags().contains(SPacketPlayerPosLook.EnumFlags.Z)) {
+		if (packetIn.getFlags().contains(SPacketPlayerPosLook.Flags.Z)) {
 			d2 += entityplayer.posZ;
 		} else {
 			entityplayer.motionZ = 0D;
 		}
 
-		if (packetIn.getFlags().contains(SPacketPlayerPosLook.EnumFlags.X_ROT)) {
+		if (packetIn.getFlags().contains(SPacketPlayerPosLook.Flags.X_ROT)) {
 			f1 += entityplayer.rotationPitch;
 		}
 
-		if (packetIn.getFlags().contains(SPacketPlayerPosLook.EnumFlags.Y_ROT)) {
+		if (packetIn.getFlags().contains(SPacketPlayerPosLook.Flags.Y_ROT)) {
 			f += entityplayer.rotationYaw;
 		}
 
@@ -669,19 +669,19 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		if (entity != null) {
 			if (packetIn.getAnimationType() == 0) {
 				EntityLivingBase entitylivingbase = (EntityLivingBase) entity;
-				entitylivingbase.swingArm(EnumHand.MAIN_HAND);
+				entitylivingbase.swingArm(Hand.MAIN_HAND);
 			} else if (packetIn.getAnimationType() == 3) {
 				EntityLivingBase entitylivingbase1 = (EntityLivingBase) entity;
-				entitylivingbase1.swingArm(EnumHand.OFF_HAND);
+				entitylivingbase1.swingArm(Hand.OFF_HAND);
 			} else if (packetIn.getAnimationType() == 1) {
 				entity.performHurtAnimation();
 			} else if (packetIn.getAnimationType() == 2) {
 				EntityPlayer entityplayer = (EntityPlayer) entity;
 				entityplayer.wakeUpPlayer(false, false, false);
 			} else if (packetIn.getAnimationType() == 4) {
-				gameController.effectRenderer.emitParticleAtEntity(entity, EnumParticleTypes.CRIT);
+				gameController.effectRenderer.emitParticleAtEntity(entity, ParticleTypes.CRIT);
 			} else if (packetIn.getAnimationType() == 5) {
-				gameController.effectRenderer.emitParticleAtEntity(entity, EnumParticleTypes.CRIT_MAGIC);
+				gameController.effectRenderer.emitParticleAtEntity(entity, ParticleTypes.CRIT_MAGIC);
 			}
 		}
 	}
@@ -811,7 +811,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 				gameController.getSoundHandler().playSound(new GuardianSound((EntityGuardian) entity));
 			} else if (packetIn.getOpCode() == 35) {
 				int i = 40;
-				gameController.effectRenderer.emitParticleAtEntity(entity, EnumParticleTypes.TOTEM, 30);
+				gameController.effectRenderer.emitParticleAtEntity(entity, ParticleTypes.TOTEM, 30);
 				clientWorldController.playSound(entity.posX, entity.posY, entity.posZ, SoundEvents.ITEM_TOTEM_USE, entity.getSoundCategory(), 1F, 1F, false);
 
 				if (entity == gameController.player) {
@@ -1101,7 +1101,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		} else if (i == 8) {
 			clientWorldController.setThunderStrength(f);
 		} else if (i == 10) {
-			clientWorldController.spawnParticle(EnumParticleTypes.MOB_APPEARANCE, entityplayer.posX, entityplayer.posY, entityplayer.posZ, 0D, 0D, 0D);
+			clientWorldController.spawnParticle(ParticleTypes.MOB_APPEARANCE, entityplayer.posX, entityplayer.posY, entityplayer.posZ, 0D, 0D, 0D);
 			clientWorldController.playSound(entityplayer, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_ELDER_GUARDIAN_CURSE, SoundCategory.HOSTILE, 1F, 1F);
 		}
 	}
@@ -1559,8 +1559,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		} else if ("MC|Brand".equals(packetIn.getChannelName())) {
 			gameController.player.setServerBrand(packetIn.getBufferData().readString(32767));
 		} else if ("MC|BOpen".equals(packetIn.getChannelName())) {
-			EnumHand enumhand = packetIn.getBufferData().readEnumValue(EnumHand.class);
-			ItemStack itemstack = enumhand == EnumHand.OFF_HAND ? gameController.player.getHeldItemOffhand() : gameController.player.getHeldItemMainhand();
+			Hand enumhand = packetIn.getBufferData().readEnumValue(Hand.class);
+			ItemStack itemstack = enumhand == Hand.OFF_HAND ? gameController.player.getHeldItemOffhand() : gameController.player.getHeldItemMainhand();
 
 			if (itemstack.getItem() == Items.WRITTEN_BOOK) {
 				gameController.displayGuiScreen(new GuiScreenBook(gameController.player, itemstack, false));
@@ -1668,7 +1668,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 			scoreplayerteam.setSuffix(packetIn.getSuffix());
 			scoreplayerteam.setColor(TextFormatting.fromColorIndex(packetIn.getColor()));
 			scoreplayerteam.setFriendlyFlags(packetIn.getFriendlyFlags());
-			Team.EnumVisible team$enumvisible = Team.EnumVisible.getByName(packetIn.getNameTagVisibility());
+			Team.Visible team$enumvisible = Team.Visible.getByName(packetIn.getNameTagVisibility());
 
 			if (team$enumvisible != null) {
 				scoreplayerteam.setNameTagVisibility(team$enumvisible);

@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import java.util.List;
@@ -13,14 +13,14 @@ import java.util.Map;
 public class SimpleBakedModel implements IBakedModel {
 
 	protected final List<BakedQuad> generalQuads;
-	protected final Map<EnumFacing, List<BakedQuad>> faceQuads;
+	protected final Map<Facing, List<BakedQuad>> faceQuads;
 	protected final boolean ambientOcclusion;
 	protected final boolean gui3d;
 	protected final TextureAtlasSprite texture;
 	protected final ItemCameraTransforms cameraTransforms;
 	protected final ItemOverrideList itemOverrideList;
 
-	public SimpleBakedModel(List<BakedQuad> generalQuadsIn, Map<EnumFacing, List<BakedQuad>> faceQuadsIn, boolean ambientOcclusionIn, boolean gui3dIn, TextureAtlasSprite textureIn, ItemCameraTransforms cameraTransformsIn, ItemOverrideList itemOverrideListIn) {
+	public SimpleBakedModel(List<BakedQuad> generalQuadsIn, Map<Facing, List<BakedQuad>> faceQuadsIn, boolean ambientOcclusionIn, boolean gui3dIn, TextureAtlasSprite textureIn, ItemCameraTransforms cameraTransformsIn, ItemOverrideList itemOverrideListIn) {
 
 		generalQuads = generalQuadsIn;
 		faceQuads = faceQuadsIn;
@@ -31,7 +31,7 @@ public class SimpleBakedModel implements IBakedModel {
 		itemOverrideList = itemOverrideListIn;
 	}
 
-	public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
+	public List<BakedQuad> getQuads(IBlockState state, Facing side, long rand) {
 
 		return side == null ? generalQuads : faceQuads.get(side);
 	}
@@ -69,7 +69,7 @@ public class SimpleBakedModel implements IBakedModel {
 	public static class Builder {
 
 		private final List<BakedQuad> builderGeneralQuads;
-		private final Map<EnumFacing, List<BakedQuad>> builderFaceQuads;
+		private final Map<Facing, List<BakedQuad>> builderFaceQuads;
 		private final ItemOverrideList builderItemOverrideList;
 		private final boolean builderAmbientOcclusion;
 		private final boolean builderGui3d;
@@ -87,7 +87,7 @@ public class SimpleBakedModel implements IBakedModel {
 			builderTexture = model.getParticleTexture();
 			long i = MathHelper.getPositionRandom(pos);
 
-			for (EnumFacing enumfacing : EnumFacing.values()) {
+			for (Facing enumfacing : Facing.values()) {
 				addFaceQuads(state, model, texture, enumfacing, i);
 			}
 
@@ -97,9 +97,9 @@ public class SimpleBakedModel implements IBakedModel {
 		private Builder(boolean ambientOcclusion, boolean gui3d, ItemCameraTransforms transforms, ItemOverrideList overrides) {
 
 			builderGeneralQuads = Lists.newArrayList();
-			builderFaceQuads = Maps.newEnumMap(EnumFacing.class);
+			builderFaceQuads = Maps.newEnumMap(Facing.class);
 
-			for (EnumFacing enumfacing : EnumFacing.values()) {
+			for (Facing enumfacing : Facing.values()) {
 				builderFaceQuads.put(enumfacing, Lists.newArrayList());
 			}
 
@@ -109,7 +109,7 @@ public class SimpleBakedModel implements IBakedModel {
 			builderCameraTransforms = transforms;
 		}
 
-		private void addFaceQuads(IBlockState p_188644_1_, IBakedModel p_188644_2_, TextureAtlasSprite p_188644_3_, EnumFacing p_188644_4_, long p_188644_5_) {
+		private void addFaceQuads(IBlockState p_188644_1_, IBakedModel p_188644_2_, TextureAtlasSprite p_188644_3_, Facing p_188644_4_, long p_188644_5_) {
 
 			for (BakedQuad bakedquad : p_188644_2_.getQuads(p_188644_1_, p_188644_4_, p_188644_5_)) {
 				addFaceQuad(p_188644_4_, new BakedQuadRetextured(bakedquad, p_188644_3_));
@@ -123,7 +123,7 @@ public class SimpleBakedModel implements IBakedModel {
 			}
 		}
 
-		public SimpleBakedModel.Builder addFaceQuad(EnumFacing facing, BakedQuad quad) {
+		public SimpleBakedModel.Builder addFaceQuad(Facing facing, BakedQuad quad) {
 
 			(builderFaceQuads.get(facing)).add(quad);
 			return this;

@@ -13,9 +13,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -39,36 +39,36 @@ public class ItemHoe extends Item {
 	/**
 	 * Called when a Block is right-clicked with this Item
 	 */
-	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (!player.canPlayerEdit(pos.offset(facing), facing, itemstack)) {
-			return EnumActionResult.FAIL;
+			return ActionResult.FAIL;
 		} else {
 			IBlockState iblockstate = worldIn.getBlockState(pos);
 			Block block = iblockstate.getBlock();
 
-			if (facing != EnumFacing.DOWN && worldIn.getBlockState(pos.up()).getMaterial() == Material.AIR) {
+			if (facing != Facing.DOWN && worldIn.getBlockState(pos.up()).getMaterial() == Material.AIR) {
 				if (block == Blocks.GRASS || block == Blocks.GRASS_PATH) {
 					setBlock(itemstack, player, worldIn, pos, Blocks.FARMLAND.getDefaultState());
-					return EnumActionResult.SUCCESS;
+					return ActionResult.SUCCESS;
 				}
 
 				if (block == Blocks.DIRT) {
 					switch (iblockstate.getValue(BlockDirt.VARIANT)) {
 						case DIRT:
 							setBlock(itemstack, player, worldIn, pos, Blocks.FARMLAND.getDefaultState());
-							return EnumActionResult.SUCCESS;
+							return ActionResult.SUCCESS;
 
 						case COARSE_DIRT:
 							setBlock(itemstack, player, worldIn, pos, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
-							return EnumActionResult.SUCCESS;
+							return ActionResult.SUCCESS;
 					}
 				}
 			}
 
-			return EnumActionResult.PASS;
+			return ActionResult.PASS;
 		}
 	}
 

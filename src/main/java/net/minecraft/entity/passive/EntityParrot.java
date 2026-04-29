@@ -249,7 +249,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying {
 		flap += flapping * 2F;
 	}
 
-	public boolean processInteract(EntityPlayer player, EnumHand hand) {
+	public boolean processInteract(EntityPlayer player, Hand hand) {
 
 		ItemStack itemstack = player.getHeldItem(hand);
 

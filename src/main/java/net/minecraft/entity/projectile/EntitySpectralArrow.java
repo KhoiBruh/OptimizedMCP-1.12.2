@@ -6,7 +6,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.world.World;
 
@@ -42,7 +42,7 @@ public class EntitySpectralArrow extends EntityArrow {
 		super.onUpdate();
 
 		if (world.isRemote && !inGround) {
-			world.spawnParticle(EnumParticleTypes.SPELL_INSTANT, posX, posY, posZ, 0D, 0D, 0D);
+			world.spawnParticle(ParticleTypes.SPELL_INSTANT, posX, posY, posZ, 0D, 0D, 0D);
 		}
 	}
 

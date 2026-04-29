@@ -9,7 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFishHook;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.HandSide;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -69,7 +69,7 @@ public class RenderFish extends Render<EntityFishHook> {
 
 			GlStateManager.disableRescaleNormal();
 			GlStateManager.popMatrix();
-			int k = entityplayer.getPrimaryHand() == EnumHandSide.RIGHT ? 1 : -1;
+			int k = entityplayer.getPrimaryHand() == HandSide.RIGHT ? 1 : -1;
 			ItemStack itemstack = entityplayer.getHeldItemMainhand();
 
 			if (itemstack.getItem() != Items.FISHING_ROD) {

@@ -3,7 +3,7 @@ package net.minecraft.command;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,26 +41,26 @@ public class CommandDifficulty extends CommandBase {
 		if (args.length == 0) {
 			throw new WrongUsageException("commands.difficulty.usage");
 		} else {
-			EnumDifficulty enumdifficulty = getDifficultyFromCommand(args[0]);
+			Difficulty enumdifficulty = getDifficultyFromCommand(args[0]);
 			server.setDifficultyForAllWorlds(enumdifficulty);
 			notifyCommandListener(sender, this, "commands.difficulty.success", new TextComponentTranslation(enumdifficulty.getDifficultyResourceKey()));
 		}
 	}
 
-	protected EnumDifficulty getDifficultyFromCommand(String difficultyString) throws CommandException {
+	protected Difficulty getDifficultyFromCommand(String difficultyString) throws CommandException {
 
 		if (!"peaceful".equalsIgnoreCase(difficultyString) && !"p".equalsIgnoreCase(difficultyString)) {
 			if (!"easy".equalsIgnoreCase(difficultyString) && !"e".equalsIgnoreCase(difficultyString)) {
 				if (!"normal".equalsIgnoreCase(difficultyString) && !"n".equalsIgnoreCase(difficultyString)) {
-					return !"hard".equalsIgnoreCase(difficultyString) && !"h".equalsIgnoreCase(difficultyString) ? EnumDifficulty.getDifficultyEnum(parseInt(difficultyString, 0, 3)) : EnumDifficulty.HARD;
+					return !"hard".equalsIgnoreCase(difficultyString) && !"h".equalsIgnoreCase(difficultyString) ? Difficulty.getDifficultyEnum(parseInt(difficultyString, 0, 3)) : Difficulty.HARD;
 				} else {
-					return EnumDifficulty.NORMAL;
+					return Difficulty.NORMAL;
 				}
 			} else {
-				return EnumDifficulty.EASY;
+				return Difficulty.EASY;
 			}
 		} else {
-			return EnumDifficulty.PEACEFUL;
+			return Difficulty.PEACEFUL;
 		}
 	}
 

@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class FolderResourcePack extends AbstractResourcePack {
 
-	private static final boolean ON_WINDOWS = Util.getOSType() == Util.EnumOS.WINDOWS;
+	private static final boolean ON_WINDOWS = Util.getOSType() == Util.OS.WINDOWS;
 	private static final CharMatcher BACKSLASH_MATCHER = CharMatcher.is('\\');
 
 	public FolderResourcePack(File resourcePackFileIn) {

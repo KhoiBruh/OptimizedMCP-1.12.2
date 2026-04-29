@@ -14,7 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -176,9 +176,9 @@ public class Explosion {
 		world.playSound(null, x, y, z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
 
 		if (size >= 2F && damagesTerrain) {
-			world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, x, y, z, 1D, 0D, 0D);
+			world.spawnParticle(ParticleTypes.EXPLOSION_HUGE, x, y, z, 1D, 0D, 0D);
 		} else {
-			world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, x, y, z, 1D, 0D, 0D);
+			world.spawnParticle(ParticleTypes.EXPLOSION_LARGE, x, y, z, 1D, 0D, 0D);
 		}
 
 		if (damagesTerrain) {
@@ -202,8 +202,8 @@ public class Explosion {
 					d3 = d3 * d7;
 					d4 = d4 * d7;
 					d5 = d5 * d7;
-					world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (d0 + x) / 2D, (d1 + y) / 2D, (d2 + z) / 2D, d3, d4, d5);
-					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, d3, d4, d5);
+					world.spawnParticle(ParticleTypes.EXPLOSION_NORMAL, (d0 + x) / 2D, (d1 + y) / 2D, (d2 + z) / 2D, d3, d4, d5);
+					world.spawnParticle(ParticleTypes.SMOKE_NORMAL, d0, d1, d2, d3, d4, d5);
 				}
 
 				if (iblockstate.getMaterial() != Material.AIR) {

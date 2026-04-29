@@ -6,7 +6,7 @@ public class EnchantmentVanishingCurse extends Enchantment {
 
 	public EnchantmentVanishingCurse(Enchantment.Rarity p_i47252_1_, EntityEquipmentSlot... p_i47252_2_) {
 
-		super(p_i47252_1_, EnumEnchantmentType.ALL, p_i47252_2_);
+		super(p_i47252_1_, EnchantmentType.ALL, p_i47252_2_);
 		setName("vanishing_curse");
 	}
 

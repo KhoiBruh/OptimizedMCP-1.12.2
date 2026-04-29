@@ -3,14 +3,14 @@ package net.minecraft.network.play.server;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.GameType;
 import net.minecraft.world.WorldType;
 
 public class SPacketRespawn implements Packet<INetHandlerPlayClient> {
 
 	private int dimensionID;
-	private EnumDifficulty difficulty;
+	private Difficulty difficulty;
 	private GameType gameType;
 	private WorldType worldType;
 
@@ -18,7 +18,7 @@ public class SPacketRespawn implements Packet<INetHandlerPlayClient> {
 
 	}
 
-	public SPacketRespawn(int dimensionIdIn, EnumDifficulty difficultyIn, WorldType worldTypeIn, GameType gameModeIn) {
+	public SPacketRespawn(int dimensionIdIn, Difficulty difficultyIn, WorldType worldTypeIn, GameType gameModeIn) {
 
 		dimensionID = dimensionIdIn;
 		difficulty = difficultyIn;
@@ -40,7 +40,7 @@ public class SPacketRespawn implements Packet<INetHandlerPlayClient> {
 	public void readPacketData(PacketBuffer buf) {
 
 		dimensionID = buf.readInt();
-		difficulty = EnumDifficulty.getDifficultyEnum(buf.readUnsignedByte());
+		difficulty = Difficulty.getDifficultyEnum(buf.readUnsignedByte());
 		gameType = GameType.getByID(buf.readUnsignedByte());
 		worldType = WorldType.parseWorldType(buf.readString(16));
 
@@ -65,7 +65,7 @@ public class SPacketRespawn implements Packet<INetHandlerPlayClient> {
 		return dimensionID;
 	}
 
-	public EnumDifficulty getDifficulty() {
+	public Difficulty getDifficulty() {
 
 		return difficulty;
 	}

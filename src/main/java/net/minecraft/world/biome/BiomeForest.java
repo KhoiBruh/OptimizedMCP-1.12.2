@@ -55,12 +55,12 @@ public class BiomeForest extends Biome {
 		}
 	}
 
-	public BlockFlower.EnumFlowerType pickRandomFlower(Random rand, BlockPos pos) {
+	public BlockFlower.FlowerType pickRandomFlower(Random rand, BlockPos pos) {
 
 		if (type == BiomeForest.Type.FLOWER) {
 			double d0 = MathHelper.clamp((1D + GRASS_COLOR_NOISE.getValue((double) pos.getX() / 48D, (double) pos.getZ() / 48D)) / 2D, 0D, 0.9999D);
-			BlockFlower.EnumFlowerType blockflower$enumflowertype = BlockFlower.EnumFlowerType.values()[(int) (d0 * (double) BlockFlower.EnumFlowerType.values().length)];
-			return blockflower$enumflowertype == BlockFlower.EnumFlowerType.BLUE_ORCHID ? BlockFlower.EnumFlowerType.POPPY : blockflower$enumflowertype;
+			BlockFlower.FlowerType blockflower$enumflowertype = BlockFlower.FlowerType.values()[(int) (d0 * (double) BlockFlower.FlowerType.values().length)];
+			return blockflower$enumflowertype == BlockFlower.FlowerType.BLUE_ORCHID ? BlockFlower.FlowerType.POPPY : blockflower$enumflowertype;
 		} else {
 			return super.pickRandomFlower(rand, pos);
 		}
@@ -111,11 +111,11 @@ public class BiomeForest extends Biome {
 			int j = p_185378_2_.nextInt(3);
 
 			if (j == 0) {
-				DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.EnumPlantType.SYRINGA);
+				DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.PlantType.SYRINGA);
 			} else if (j == 1) {
-				DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.EnumPlantType.ROSE);
+				DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.PlantType.ROSE);
 			} else if (j == 2) {
-				DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.EnumPlantType.PAEONIA);
+				DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.PlantType.PAEONIA);
 			}
 
 			for (int k = 0; k < 5; ++k) {

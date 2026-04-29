@@ -9,15 +9,15 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 
 public class ItemFood extends Item {
 
 	/**
-	 * Number of ticks to run while 'EnumAction'ing until result.
+	 * Number of ticks to run while 'Action'ing until result.
 	 */
 	public final int itemUseDuration;
 
@@ -100,20 +100,20 @@ public class ItemFood extends Item {
 	/**
 	 * returns the action that specifies what animation to play when the items is being used
 	 */
-	public EnumAction getItemUseAction(ItemStack stack) {
+	public Action getItemUseAction(ItemStack stack) {
 
-		return EnumAction.EAT;
+		return Action.EAT;
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
 
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
 		if (playerIn.canEat(alwaysEdible)) {
 			playerIn.setActiveHand(handIn);
-			return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
+			return new TypedActionResult<>(ActionResult.SUCCESS, itemstack);
 		} else {
-			return new ActionResult<>(EnumActionResult.FAIL, itemstack);
+			return new TypedActionResult<>(ActionResult.FAIL, itemstack);
 		}
 	}
 

@@ -31,21 +31,21 @@ public class BlockTrapDoor extends Block {
 	protected BlockTrapDoor(Material materialIn) {
 
 		super(materialIn);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(OPEN, false).withProperty(HALF, BlockTrapDoor.DoorHalf.BOTTOM));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(OPEN, false).withProperty(HALF, BlockTrapDoor.DoorHalf.BOTTOM));
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
-	protected static EnumFacing getFacing(int meta) {
+	protected static Facing getFacing(int meta) {
 
 		return switch (meta & 3) {
-			case 0 -> EnumFacing.NORTH;
-			case 1 -> EnumFacing.SOUTH;
-			case 2 -> EnumFacing.WEST;
-			default -> EnumFacing.EAST;
+			case 0 -> Facing.NORTH;
+			case 1 -> Facing.SOUTH;
+			case 2 -> Facing.WEST;
+			default -> Facing.EAST;
 		};
 	}
 
-	protected static int getMetaForFacing(EnumFacing facing) {
+	protected static int getMetaForFacing(Facing facing) {
 
 		return switch (facing) {
 			case NORTH -> 0;
@@ -99,7 +99,7 @@ public class BlockTrapDoor extends Block {
 	/**
 	 * Called when the block is right clicked by a player.
 	 */
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		if (blockMaterial == Material.IRON) {
 			return false;
@@ -147,7 +147,7 @@ public class BlockTrapDoor extends Block {
 	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 	 * IBlockstate
 	 */
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
 		IBlockState iblockstate = getDefaultState();
 
@@ -156,7 +156,7 @@ public class BlockTrapDoor extends Block {
 			iblockstate = iblockstate.withProperty(HALF, hitY > 0.5F ? BlockTrapDoor.DoorHalf.TOP : BlockTrapDoor.DoorHalf.BOTTOM);
 		} else {
 			iblockstate = iblockstate.withProperty(FACING, placer.getHorizontalFacing().getOpposite()).withProperty(OPEN, false);
-			iblockstate = iblockstate.withProperty(HALF, facing == EnumFacing.UP ? BlockTrapDoor.DoorHalf.BOTTOM : BlockTrapDoor.DoorHalf.TOP);
+			iblockstate = iblockstate.withProperty(HALF, facing == Facing.UP ? BlockTrapDoor.DoorHalf.BOTTOM : BlockTrapDoor.DoorHalf.TOP);
 		}
 
 		if (worldIn.isBlockPowered(pos)) {
@@ -169,7 +169,7 @@ public class BlockTrapDoor extends Block {
 	/**
 	 * Check whether this Block can be placed at pos, while aiming at the specified side of an adjacent block
 	 */
-	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side) {
+	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Facing side) {
 
 		return true;
 	}
@@ -242,9 +242,9 @@ public class BlockTrapDoor extends Block {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
-		return (face == EnumFacing.UP && state.getValue(HALF) == BlockTrapDoor.DoorHalf.TOP || face == EnumFacing.DOWN && state.getValue(HALF) == BlockTrapDoor.DoorHalf.BOTTOM) && !state.getValue(OPEN) ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
+		return (face == Facing.UP && state.getValue(HALF) == BlockTrapDoor.DoorHalf.TOP || face == Facing.DOWN && state.getValue(HALF) == BlockTrapDoor.DoorHalf.BOTTOM) && !state.getValue(OPEN) ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 
 	public enum DoorHalf implements IStringSerializable {

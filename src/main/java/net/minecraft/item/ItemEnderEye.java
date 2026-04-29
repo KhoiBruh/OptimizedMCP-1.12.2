@@ -27,14 +27,14 @@ public class ItemEnderEye extends Item {
 	/**
 	 * Called when a Block is right-clicked with this Item
 	 */
-	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (player.canPlayerEdit(pos.offset(facing), facing, itemstack) && iblockstate.getBlock() == Blocks.END_PORTAL_FRAME && !iblockstate.getValue(BlockEndPortalFrame.EYE)) {
 			if (worldIn.isRemote) {
-				return EnumActionResult.SUCCESS;
+				return ActionResult.SUCCESS;
 			} else {
 				worldIn.setBlockState(pos, iblockstate.withProperty(BlockEndPortalFrame.EYE, true), 2);
 				worldIn.updateComparatorOutputLevel(pos, Blocks.END_PORTAL_FRAME);
@@ -47,7 +47,7 @@ public class ItemEnderEye extends Item {
 					double d3 = 0D;
 					double d4 = 0D;
 					double d5 = 0D;
-					worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0D, 0D, 0D);
+					worldIn.spawnParticle(ParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0D, 0D, 0D);
 				}
 
 				worldIn.playSound(null, pos, SoundEvents.BLOCK_END_PORTAL_FRAME_FILL, SoundCategory.BLOCKS, 1F, 1F);
@@ -65,20 +65,20 @@ public class ItemEnderEye extends Item {
 					worldIn.playBroadcastSound(1038, blockpos.add(1, 0, 1), 0);
 				}
 
-				return EnumActionResult.SUCCESS;
+				return ActionResult.SUCCESS;
 			}
 		} else {
-			return EnumActionResult.FAIL;
+			return ActionResult.FAIL;
 		}
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
 
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, false);
 
 		if (raytraceresult != null && raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK && worldIn.getBlockState(raytraceresult.getBlockPos()).getBlock() == Blocks.END_PORTAL_FRAME) {
-			return new ActionResult<>(EnumActionResult.PASS, itemstack);
+			return new TypedActionResult<>(ActionResult.PASS, itemstack);
 		} else {
 			playerIn.setActiveHand(handIn);
 
@@ -102,11 +102,11 @@ public class ItemEnderEye extends Item {
 					}
 
 					playerIn.addStat(StatList.getObjectUseStats(this));
-					return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
+					return new TypedActionResult<>(ActionResult.SUCCESS, itemstack);
 				}
 			}
 
-			return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
+			return new TypedActionResult<>(ActionResult.SUCCESS, itemstack);
 		}
 	}
 

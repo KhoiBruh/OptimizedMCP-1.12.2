@@ -3,7 +3,7 @@ package net.minecraft.entity.projectile;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -37,7 +37,7 @@ public class EntitySnowball extends EntityThrowable {
 
 		if (id == 3) {
 			for (int i = 0; i < 8; ++i) {
-				world.spawnParticle(EnumParticleTypes.SNOWBALL, posX, posY, posZ, 0D, 0D, 0D);
+				world.spawnParticle(ParticleTypes.SNOWBALL, posX, posY, posZ, 0D, 0D, 0D);
 			}
 		}
 	}

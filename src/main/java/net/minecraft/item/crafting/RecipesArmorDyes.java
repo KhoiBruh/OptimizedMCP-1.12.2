@@ -3,7 +3,7 @@ package net.minecraft.item.crafting;
 import com.google.common.collect.Lists;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -86,7 +86,7 @@ public class RecipesArmorDyes implements IRecipe {
 						return ItemStack.EMPTY;
 					}
 
-					float[] afloat = EnumDyeColor.byDyeDamage(itemstack1.getMetadata()).getColorComponentValues();
+					float[] afloat = DyeColor.byDyeDamage(itemstack1.getMetadata()).getColorComponentValues();
 					int l1 = (int) (afloat[0] * 255F);
 					int i2 = (int) (afloat[1] * 255F);
 					int j2 = (int) (afloat[2] * 255F);

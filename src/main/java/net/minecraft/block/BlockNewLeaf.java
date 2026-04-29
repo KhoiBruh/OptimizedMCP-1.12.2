@@ -16,16 +16,16 @@ import net.minecraft.world.World;
 
 public class BlockNewLeaf extends BlockLeaves {
 
-	public static final PropertyEnum<BlockPlanks.EnumType> VARIANT = PropertyEnum.create("variant", BlockPlanks.EnumType.class, p_apply_1_ -> p_apply_1_.getMetadata() >= 4);
+	public static final PropertyEnum<BlockPlanks.Type> VARIANT = PropertyEnum.create("variant", BlockPlanks.Type.class, p_apply_1_ -> p_apply_1_.getMetadata() >= 4);
 
 	public BlockNewLeaf() {
 
-		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockPlanks.EnumType.ACACIA).withProperty(CHECK_DECAY, true).withProperty(DECAYABLE, true));
+		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockPlanks.Type.ACACIA).withProperty(CHECK_DECAY, true).withProperty(DECAYABLE, true));
 	}
 
 	protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance) {
 
-		if (state.getValue(VARIANT) == BlockPlanks.EnumType.DARK_OAK && worldIn.rand.nextInt(chance) == 0) {
+		if (state.getValue(VARIANT) == BlockPlanks.Type.DARK_OAK && worldIn.rand.nextInt(chance) == 0) {
 			spawnAsEntity(worldIn, pos, new ItemStack(Items.APPLE));
 		}
 	}
@@ -85,9 +85,9 @@ public class BlockNewLeaf extends BlockLeaves {
 		return i;
 	}
 
-	public BlockPlanks.EnumType getWoodType(int meta) {
+	public BlockPlanks.Type getWoodType(int meta) {
 
-		return BlockPlanks.EnumType.byMetadata((meta & 3) + 4);
+		return BlockPlanks.Type.byMetadata((meta & 3) + 4);
 	}
 
 	protected BlockStateContainer createBlockState() {

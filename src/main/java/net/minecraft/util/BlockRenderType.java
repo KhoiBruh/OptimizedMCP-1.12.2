@@ -1,6 +1,6 @@
 package net.minecraft.util;
 
-public enum EnumBlockRenderType {
+public enum BlockRenderType {
 	INVISIBLE,
 	LIQUID,
 	ENTITYBLOCK_ANIMATED,

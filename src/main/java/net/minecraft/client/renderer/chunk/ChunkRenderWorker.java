@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.RegionRenderCacheBuilder;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
@@ -77,7 +77,7 @@ public class ChunkRenderWorker implements Runnable {
 				World world = generator.getRenderChunk().getWorld();
 				BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(blockpos1);
 
-				if (!isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(EnumFacing.WEST, 16), world) || !isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(EnumFacing.NORTH, 16), world) || !isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(EnumFacing.EAST, 16), world) || !isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(EnumFacing.SOUTH, 16), world)) {
+				if (!isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(Facing.WEST, 16), world) || !isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(Facing.NORTH, 16), world) || !isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(Facing.EAST, 16), world) || !isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(Facing.SOUTH, 16), world)) {
 					return;
 				}
 			}

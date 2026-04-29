@@ -8,8 +8,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.Hand;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.World;
 
 public abstract class EntityAgeable extends EntityCreature {
@@ -29,7 +29,7 @@ public abstract class EntityAgeable extends EntityCreature {
 	
 	public abstract EntityAgeable createChild(EntityAgeable ageable);
 
-	public boolean processInteract(EntityPlayer player, EnumHand hand) {
+	public boolean processInteract(EntityPlayer player, Hand hand) {
 
 		ItemStack itemstack = player.getHeldItem(hand);
 
@@ -193,7 +193,7 @@ public abstract class EntityAgeable extends EntityCreature {
 		if (world.isRemote) {
 			if (forcedAgeTimer > 0) {
 				if (forcedAgeTimer % 4 == 0) {
-					world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, posX + (double) (rand.nextFloat() * width * 2F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2F) - (double) width, 0D, 0D, 0D);
+					world.spawnParticle(ParticleTypes.VILLAGER_HAPPY, posX + (double) (rand.nextFloat() * width * 2F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2F) - (double) width, 0D, 0D, 0D);
 				}
 
 				--forcedAgeTimer;

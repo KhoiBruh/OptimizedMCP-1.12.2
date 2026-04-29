@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class CompiledChunk {
 			throw new UnsupportedOperationException();
 		}
 
-		public boolean isVisible(EnumFacing facing, EnumFacing facing2) {
+		public boolean isVisible(Facing facing, Facing facing2) {
 
 			return false;
 		}
@@ -69,7 +69,7 @@ public class CompiledChunk {
 		tileEntities.add(tileEntityIn);
 	}
 
-	public boolean isVisible(EnumFacing facing, EnumFacing facing2) {
+	public boolean isVisible(Facing facing, Facing facing2) {
 
 		return setVisibility.isVisible(facing, facing2);
 	}

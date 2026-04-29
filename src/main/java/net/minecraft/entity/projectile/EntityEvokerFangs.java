@@ -5,7 +5,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import java.util.UUID;
@@ -99,7 +99,7 @@ public class EntityEvokerFangs extends Entity {
 						double d3 = (rand.nextDouble() * 2D - 1D) * 0.3D;
 						double d4 = 0.3D + rand.nextDouble() * 0.3D;
 						double d5 = (rand.nextDouble() * 2D - 1D) * 0.3D;
-						world.spawnParticle(EnumParticleTypes.CRIT, d0, d1 + 1D, d2, d3, d4, d5);
+						world.spawnParticle(ParticleTypes.CRIT, d0, d1 + 1D, d2, d3, d4, d5);
 					}
 				}
 			}

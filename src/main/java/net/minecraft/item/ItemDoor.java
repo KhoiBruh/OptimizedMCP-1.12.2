@@ -6,9 +6,9 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -23,7 +23,7 @@ public class ItemDoor extends Item {
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
-	public static void placeDoor(World worldIn, BlockPos pos, EnumFacing facing, Block door, boolean isRightHinge) {
+	public static void placeDoor(World worldIn, BlockPos pos, Facing facing, Block door, boolean isRightHinge) {
 
 		BlockPos blockpos = pos.offset(facing.rotateY());
 		BlockPos blockpos1 = pos.offset(facing.rotateYCCW());
@@ -42,9 +42,9 @@ public class ItemDoor extends Item {
 
 		BlockPos blockpos2 = pos.up();
 		boolean flag2 = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(blockpos2);
-		IBlockState iblockstate = door.getDefaultState().withProperty(BlockDoor.FACING, facing).withProperty(BlockDoor.HINGE, isRightHinge ? BlockDoor.EnumHingePosition.RIGHT : BlockDoor.EnumHingePosition.LEFT).withProperty(BlockDoor.POWERED, flag2).withProperty(BlockDoor.OPEN, flag2);
-		worldIn.setBlockState(pos, iblockstate.withProperty(BlockDoor.HALF, BlockDoor.EnumDoorHalf.LOWER), 2);
-		worldIn.setBlockState(blockpos2, iblockstate.withProperty(BlockDoor.HALF, BlockDoor.EnumDoorHalf.UPPER), 2);
+		IBlockState iblockstate = door.getDefaultState().withProperty(BlockDoor.FACING, facing).withProperty(BlockDoor.HINGE, isRightHinge ? BlockDoor.HingePosition.RIGHT : BlockDoor.HingePosition.LEFT).withProperty(BlockDoor.POWERED, flag2).withProperty(BlockDoor.OPEN, flag2);
+		worldIn.setBlockState(pos, iblockstate.withProperty(BlockDoor.HALF, BlockDoor.DoorHalf.LOWER), 2);
+		worldIn.setBlockState(blockpos2, iblockstate.withProperty(BlockDoor.HALF, BlockDoor.DoorHalf.UPPER), 2);
 		worldIn.notifyNeighborsOfStateChange(pos, door, false);
 		worldIn.notifyNeighborsOfStateChange(blockpos2, door, false);
 	}
@@ -52,10 +52,10 @@ public class ItemDoor extends Item {
 	/**
 	 * Called when a Block is right-clicked with this Item
 	 */
-	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
-		if (facing != EnumFacing.UP) {
-			return EnumActionResult.FAIL;
+		if (facing != Facing.UP) {
+			return ActionResult.FAIL;
 		} else {
 			IBlockState iblockstate = worldIn.getBlockState(pos);
 			Block block = iblockstate.getBlock();
@@ -67,7 +67,7 @@ public class ItemDoor extends Item {
 			ItemStack itemstack = player.getHeldItem(hand);
 
 			if (player.canPlayerEdit(pos, facing, itemstack) && this.block.canPlaceBlockAt(worldIn, pos)) {
-				EnumFacing enumfacing = EnumFacing.fromAngle(player.rotationYaw);
+				Facing enumfacing = Facing.fromAngle(player.rotationYaw);
 				int i = enumfacing.getFrontOffsetX();
 				int j = enumfacing.getFrontOffsetZ();
 				boolean flag = i < 0 && hitZ < 0.5F || i > 0 && hitZ > 0.5F || j < 0 && hitX > 0.5F || j > 0 && hitX < 0.5F;
@@ -75,9 +75,9 @@ public class ItemDoor extends Item {
 				SoundType soundtype = this.block.getSoundType();
 				worldIn.playSound(player, pos, soundtype.placeSound(), SoundCategory.BLOCKS, (soundtype.volume() + 1F) / 2F, soundtype.pitch() * 0.8F);
 				itemstack.shrink(1);
-				return EnumActionResult.SUCCESS;
+				return ActionResult.SUCCESS;
 			} else {
-				return EnumActionResult.FAIL;
+				return ActionResult.FAIL;
 			}
 		}
 	}

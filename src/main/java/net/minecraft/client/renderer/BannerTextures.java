@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.LayeredColorMaskTexture;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.tileentity.BannerPattern;
 import net.minecraft.util.ResourceLocation;
 
@@ -41,7 +41,7 @@ public class BannerTextures {
 		}
 
 		
-		public ResourceLocation getResourceLocation(String id, List<BannerPattern> patternList, List<EnumDyeColor> colorList) {
+		public ResourceLocation getResourceLocation(String id, List<BannerPattern> patternList, List<DyeColor> colorList) {
 
 			if (id.isEmpty()) {
 				return null;

@@ -41,35 +41,35 @@ public enum Mirror {
 	/**
 	 * Determines the rotation that is equivalent to this mirror if the rotating object faces in the given direction
 	 */
-	public Rotation toRotation(EnumFacing facing) {
+	public Rotation toRotation(Facing facing) {
 
-		EnumFacing.Axis enumfacing$axis = facing.getAxis();
-		return (this != LEFT_RIGHT || enumfacing$axis != EnumFacing.Axis.Z) && (this != FRONT_BACK || enumfacing$axis != EnumFacing.Axis.X) ? Rotation.NONE : Rotation.CLOCKWISE_180;
+		Facing.Axis enumfacing$axis = facing.getAxis();
+		return (this != LEFT_RIGHT || enumfacing$axis != Facing.Axis.Z) && (this != FRONT_BACK || enumfacing$axis != Facing.Axis.X) ? Rotation.NONE : Rotation.CLOCKWISE_180;
 	}
 
 	/**
 	 * Mirror the given facing according to this mirror
 	 */
-	public EnumFacing mirror(EnumFacing facing) {
+	public Facing mirror(Facing facing) {
 
 		switch (this) {
 			case FRONT_BACK:
-				if (facing == EnumFacing.WEST) {
-					return EnumFacing.EAST;
+				if (facing == Facing.WEST) {
+					return Facing.EAST;
 				} else {
-					if (facing == EnumFacing.EAST) {
-						return EnumFacing.WEST;
+					if (facing == Facing.EAST) {
+						return Facing.WEST;
 					}
 
 					return facing;
 				}
 
 			case LEFT_RIGHT:
-				if (facing == EnumFacing.NORTH) {
-					return EnumFacing.SOUTH;
+				if (facing == Facing.NORTH) {
+					return Facing.SOUTH;
 				} else {
-					if (facing == EnumFacing.SOUTH) {
-						return EnumFacing.NORTH;
+					if (facing == Facing.SOUTH) {
+						return Facing.NORTH;
 					}
 
 					return facing;

@@ -19,13 +19,13 @@ import java.util.Random;
 
 public class BlockSapling extends BlockBush implements IGrowable {
 
-	public static final PropertyEnum<BlockPlanks.EnumType> TYPE = PropertyEnum.create("type", BlockPlanks.EnumType.class);
+	public static final PropertyEnum<BlockPlanks.Type> TYPE = PropertyEnum.create("type", BlockPlanks.Type.class);
 	public static final PropertyInteger STAGE = PropertyInteger.create("stage", 0, 1);
 	protected static final AxisAlignedBB SAPLING_AABB = new AxisAlignedBB(0.09999999403953552D, 0D, 0.09999999403953552D, 0.8999999761581421D, 0.800000011920929D, 0.8999999761581421D);
 
 	protected BlockSapling() {
 
-		setDefaultState(blockState.getBaseState().withProperty(TYPE, BlockPlanks.EnumType.OAK).withProperty(STAGE, 0));
+		setDefaultState(blockState.getBaseState().withProperty(TYPE, BlockPlanks.Type.OAK).withProperty(STAGE, 0));
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
 
@@ -39,7 +39,7 @@ public class BlockSapling extends BlockBush implements IGrowable {
 	 */
 	public String getLocalizedName() {
 
-		return I18n.translateToLocal(getUnlocalizedName() + "." + BlockPlanks.EnumType.OAK.getUnlocalizedName() + ".name");
+		return I18n.translateToLocal(getUnlocalizedName() + "." + BlockPlanks.Type.OAK.getUnlocalizedName() + ".name");
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
@@ -74,7 +74,7 @@ public class BlockSapling extends BlockBush implements IGrowable {
 				label68:
 				for (i = 0; i >= -1; --i) {
 					for (j = 0; j >= -1; --j) {
-						if (isTwoByTwoOfType(worldIn, pos, i, j, BlockPlanks.EnumType.SPRUCE)) {
+						if (isTwoByTwoOfType(worldIn, pos, i, j, BlockPlanks.Type.SPRUCE)) {
 							worldgenerator = new WorldGenMegaPineTree(false, rand.nextBoolean());
 							flag = true;
 							break label68;
@@ -95,13 +95,13 @@ public class BlockSapling extends BlockBush implements IGrowable {
 				break;
 
 			case JUNGLE:
-				IBlockState iblockstate = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.JUNGLE);
-				IBlockState iblockstate1 = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.JUNGLE).withProperty(BlockLeaves.CHECK_DECAY, false);
+				IBlockState iblockstate = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.Type.JUNGLE);
+				IBlockState iblockstate1 = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.Type.JUNGLE).withProperty(BlockLeaves.CHECK_DECAY, false);
 				label82:
 
 				for (i = 0; i >= -1; --i) {
 					for (j = 0; j >= -1; --j) {
-						if (isTwoByTwoOfType(worldIn, pos, i, j, BlockPlanks.EnumType.JUNGLE)) {
+						if (isTwoByTwoOfType(worldIn, pos, i, j, BlockPlanks.Type.JUNGLE)) {
 							worldgenerator = new WorldGenMegaJungle(true, 10, 20, iblockstate, iblockstate1);
 							flag = true;
 							break label82;
@@ -125,7 +125,7 @@ public class BlockSapling extends BlockBush implements IGrowable {
 				label96:
 				for (i = 0; i >= -1; --i) {
 					for (j = 0; j >= -1; --j) {
-						if (isTwoByTwoOfType(worldIn, pos, i, j, BlockPlanks.EnumType.DARK_OAK)) {
+						if (isTwoByTwoOfType(worldIn, pos, i, j, BlockPlanks.Type.DARK_OAK)) {
 							worldgenerator = new WorldGenCanopyTree(true);
 							flag = true;
 							break label96;
@@ -163,7 +163,7 @@ public class BlockSapling extends BlockBush implements IGrowable {
 		}
 	}
 
-	private boolean isTwoByTwoOfType(World worldIn, BlockPos pos, int p_181624_3_, int p_181624_4_, BlockPlanks.EnumType type) {
+	private boolean isTwoByTwoOfType(World worldIn, BlockPos pos, int p_181624_3_, int p_181624_4_, BlockPlanks.Type type) {
 
 		return isTypeAt(worldIn, pos.add(p_181624_3_, 0, p_181624_4_), type) && isTypeAt(worldIn, pos.add(p_181624_3_ + 1, 0, p_181624_4_), type) && isTypeAt(worldIn, pos.add(p_181624_3_, 0, p_181624_4_ + 1), type) && isTypeAt(worldIn, pos.add(p_181624_3_ + 1, 0, p_181624_4_ + 1), type);
 	}
@@ -171,7 +171,7 @@ public class BlockSapling extends BlockBush implements IGrowable {
 	/**
 	 * Check whether the given BlockPos has a Sapling of the given type
 	 */
-	public boolean isTypeAt(World worldIn, BlockPos pos, BlockPlanks.EnumType type) {
+	public boolean isTypeAt(World worldIn, BlockPos pos, BlockPlanks.Type type) {
 
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		return iblockstate.getBlock() == this && iblockstate.getValue(TYPE) == type;
@@ -191,7 +191,7 @@ public class BlockSapling extends BlockBush implements IGrowable {
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
 
-		for (BlockPlanks.EnumType blockplanks$enumtype : BlockPlanks.EnumType.values()) {
+		for (BlockPlanks.Type blockplanks$enumtype : BlockPlanks.Type.values()) {
 			items.add(new ItemStack(this, 1, blockplanks$enumtype.getMetadata()));
 		}
 	}
@@ -219,7 +219,7 @@ public class BlockSapling extends BlockBush implements IGrowable {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(TYPE, BlockPlanks.EnumType.byMetadata(meta & 7)).withProperty(STAGE, (meta & 8) >> 3);
+		return getDefaultState().withProperty(TYPE, BlockPlanks.Type.byMetadata(meta & 7)).withProperty(STAGE, (meta & 8) >> 3);
 	}
 
 	/**

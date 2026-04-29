@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.HandSide;
 
 public class LayerHeldItem implements LayerRenderer<EntityLivingBase> {
 
@@ -20,7 +20,7 @@ public class LayerHeldItem implements LayerRenderer<EntityLivingBase> {
 
 	public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
-		boolean flag = entitylivingbaseIn.getPrimaryHand() == EnumHandSide.RIGHT;
+		boolean flag = entitylivingbaseIn.getPrimaryHand() == HandSide.RIGHT;
 		ItemStack itemstack = flag ? entitylivingbaseIn.getHeldItemOffhand() : entitylivingbaseIn.getHeldItemMainhand();
 		ItemStack itemstack1 = flag ? entitylivingbaseIn.getHeldItemMainhand() : entitylivingbaseIn.getHeldItemOffhand();
 
@@ -33,13 +33,13 @@ public class LayerHeldItem implements LayerRenderer<EntityLivingBase> {
 				GlStateManager.scale(0.5F, 0.5F, 0.5F);
 			}
 
-			renderHeldItem(entitylivingbaseIn, itemstack1, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, EnumHandSide.RIGHT);
-			renderHeldItem(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, EnumHandSide.LEFT);
+			renderHeldItem(entitylivingbaseIn, itemstack1, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, HandSide.RIGHT);
+			renderHeldItem(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, HandSide.LEFT);
 			GlStateManager.popMatrix();
 		}
 	}
 
-	private void renderHeldItem(EntityLivingBase p_188358_1_, ItemStack p_188358_2_, ItemCameraTransforms.TransformType p_188358_3_, EnumHandSide handSide) {
+	private void renderHeldItem(EntityLivingBase p_188358_1_, ItemStack p_188358_2_, ItemCameraTransforms.TransformType p_188358_3_, HandSide handSide) {
 
 		if (!p_188358_2_.isEmpty()) {
 			GlStateManager.pushMatrix();
@@ -51,14 +51,14 @@ public class LayerHeldItem implements LayerRenderer<EntityLivingBase> {
 
 			GlStateManager.rotate(-90F, 1F, 0F, 0F);
 			GlStateManager.rotate(180F, 0F, 1F, 0F);
-			boolean flag = handSide == EnumHandSide.LEFT;
+			boolean flag = handSide == HandSide.LEFT;
 			GlStateManager.translate((float) (flag ? -1 : 1) / 16F, 0.125F, -0.625F);
 			Minecraft.getMinecraft().getItemRenderer().renderItemSide(p_188358_1_, p_188358_2_, p_188358_3_, flag);
 			GlStateManager.popMatrix();
 		}
 	}
 
-	protected void translateToHand(EnumHandSide p_191361_1_) {
+	protected void translateToHand(HandSide p_191361_1_) {
 
 		((ModelBiped) livingEntityRenderer.getMainModel()).postRenderArm(0.0625F, p_191361_1_);
 	}

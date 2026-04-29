@@ -19,7 +19,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 import java.util.Random;
@@ -136,11 +136,11 @@ public class EntitySpider extends EntityMob {
 	}
 
 	/**
-	 * Get this Entity's EnumCreatureAttribute
+	 * Get this Entity's CreatureAttribute
 	 */
-	public EnumCreatureAttribute getCreatureAttribute() {
+	public CreatureAttribute getCreatureAttribute() {
 
-		return EnumCreatureAttribute.ARTHROPOD;
+		return CreatureAttribute.ARTHROPOD;
 	}
 
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
@@ -205,7 +205,7 @@ public class EntitySpider extends EntityMob {
 		if (livingdata == null) {
 			livingdata = new EntitySpider.GroupData();
 
-			if (world.getDifficulty() == EnumDifficulty.HARD && world.rand.nextFloat() < 0.1F * difficulty.getClampedAdditionalDifficulty()) {
+			if (world.getDifficulty() == Difficulty.HARD && world.rand.nextFloat() < 0.1F * difficulty.getClampedAdditionalDifficulty()) {
 				((EntitySpider.GroupData) livingdata).setRandomEffect(world.rand);
 			}
 		}

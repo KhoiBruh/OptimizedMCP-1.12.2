@@ -9,12 +9,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntityDispenser;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.EnumSkyBlock;
+import net.minecraft.world.SkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.template.TemplateManager;
 import java.util.List;
@@ -31,7 +31,7 @@ public abstract class StructureComponent {
 	
 
 	/** switches the Coordinate System base off the Bounding Box */
-	private EnumFacing coordBaseMode;
+	private Facing coordBaseMode;
 	private Mirror mirror;
 	private Rotation rotation;
 
@@ -69,7 +69,7 @@ public abstract class StructureComponent {
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 		nbttagcompound.setString("id", MapGenStructureIO.getStructureComponentName(this));
 		nbttagcompound.setTag("BB", boundingBox.toNBTTagIntArray());
-		EnumFacing enumfacing = getCoordBaseMode();
+		Facing enumfacing = getCoordBaseMode();
 		nbttagcompound.setInteger("O", enumfacing == null ? -1 : enumfacing.getHorizontalIndex());
 		nbttagcompound.setInteger("GD", componentType);
 		writeStructureToNBT(nbttagcompound);
@@ -93,7 +93,7 @@ public abstract class StructureComponent {
 		}
 
 		int i = tagCompound.getInteger("O");
-		setCoordBaseMode(i == -1 ? null : EnumFacing.getHorizontal(i));
+		setCoordBaseMode(i == -1 ? null : Facing.getHorizontal(i));
 		componentType = tagCompound.getInteger("GD");
 		readStructureFromNBT(tagCompound, worldIn.getSaveHandler().getStructureTemplateManager());
 	}
@@ -183,7 +183,7 @@ public abstract class StructureComponent {
 
 	protected int getXWithOffset(int x, int z) {
 
-		EnumFacing enumfacing = getCoordBaseMode();
+		Facing enumfacing = getCoordBaseMode();
 
 		if (enumfacing == null) {
 			return x;
@@ -204,7 +204,7 @@ public abstract class StructureComponent {
 
 	protected int getZWithOffset(int x, int z) {
 
-		EnumFacing enumfacing = getCoordBaseMode();
+		Facing enumfacing = getCoordBaseMode();
 
 		if (enumfacing == null) {
 			return z;
@@ -250,7 +250,7 @@ public abstract class StructureComponent {
 		int j = getYWithOffset(y + 1);
 		int k = getZWithOffset(x, z);
 		BlockPos blockpos = new BlockPos(i, j, k);
-		return !boundingboxIn.isVecInside(blockpos) ? EnumSkyBlock.SKY.defaultLightValue : worldIn.getLightFor(EnumSkyBlock.SKY, blockpos);
+		return !boundingboxIn.isVecInside(blockpos) ? SkyBlock.SKY.defaultLightValue : worldIn.getLightFor(SkyBlock.SKY, blockpos);
 	}
 
 	/**
@@ -420,7 +420,7 @@ public abstract class StructureComponent {
 		}
 	}
 
-	protected boolean createDispenser(World worldIn, StructureBoundingBox sbb, Random rand, int x, int y, int z, EnumFacing facing, ResourceLocation lootTableIn) {
+	protected boolean createDispenser(World worldIn, StructureBoundingBox sbb, Random rand, int x, int y, int z, Facing facing, ResourceLocation lootTableIn) {
 
 		BlockPos blockpos = new BlockPos(getXWithOffset(x, z), getYWithOffset(y), getZWithOffset(x, z));
 
@@ -438,10 +438,10 @@ public abstract class StructureComponent {
 		}
 	}
 
-	protected void generateDoor(World worldIn, StructureBoundingBox sbb, Random rand, int x, int y, int z, EnumFacing facing, BlockDoor door) {
+	protected void generateDoor(World worldIn, StructureBoundingBox sbb, Random rand, int x, int y, int z, Facing facing, BlockDoor door) {
 
 		setBlockState(worldIn, door.getDefaultState().withProperty(BlockDoor.FACING, facing), x, y, z, sbb);
-		setBlockState(worldIn, door.getDefaultState().withProperty(BlockDoor.FACING, facing).withProperty(BlockDoor.HALF, BlockDoor.EnumDoorHalf.UPPER), x, y + 1, z, sbb);
+		setBlockState(worldIn, door.getDefaultState().withProperty(BlockDoor.FACING, facing).withProperty(BlockDoor.HALF, BlockDoor.DoorHalf.UPPER), x, y + 1, z, sbb);
 	}
 
 	public void offset(int x, int y, int z) {
@@ -450,12 +450,12 @@ public abstract class StructureComponent {
 	}
 
 	
-	public EnumFacing getCoordBaseMode() {
+	public Facing getCoordBaseMode() {
 
 		return coordBaseMode;
 	}
 
-	public void setCoordBaseMode(EnumFacing facing) {
+	public void setCoordBaseMode(Facing facing) {
 
 		coordBaseMode = facing;
 

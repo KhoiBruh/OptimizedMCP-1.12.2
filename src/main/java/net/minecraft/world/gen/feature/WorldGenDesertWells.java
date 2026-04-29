@@ -7,7 +7,7 @@ import net.minecraft.block.BlockStoneSlab;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -15,8 +15,8 @@ import java.util.Random;
 
 public class WorldGenDesertWells extends WorldGenerator {
 
-	private static final BlockStateMatcher IS_SAND = BlockStateMatcher.forBlock(Blocks.SAND).where(BlockSand.VARIANT, Predicates.equalTo(BlockSand.EnumType.SAND));
-	private final IBlockState sandSlab = Blocks.STONE_SLAB.getDefaultState().withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.SAND).withProperty(BlockSlab.HALF, BlockSlab.EnumBlockHalf.BOTTOM);
+	private static final BlockStateMatcher IS_SAND = BlockStateMatcher.forBlock(Blocks.SAND).where(BlockSand.VARIANT, Predicates.equalTo(BlockSand.Type.SAND));
+	private final IBlockState sandSlab = Blocks.STONE_SLAB.getDefaultState().withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.Type.SAND).withProperty(BlockSlab.HALF, BlockSlab.BlockHalf.BOTTOM);
 	private final IBlockState sandstone = Blocks.SANDSTONE.getDefaultState();
 	private final IBlockState water = Blocks.FLOWING_WATER.getDefaultState();
 
@@ -47,7 +47,7 @@ public class WorldGenDesertWells extends WorldGenerator {
 
 			worldIn.setBlockState(position, water, 2);
 
-			for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+			for (Facing enumfacing : Facing.Plane.HORIZONTAL) {
 				worldIn.setBlockState(position.offset(enumfacing), water, 2);
 			}
 

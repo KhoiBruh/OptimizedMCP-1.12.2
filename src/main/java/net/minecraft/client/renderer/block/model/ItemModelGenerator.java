@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.util.vector.Vector3f;
 import java.util.List;
@@ -41,9 +41,9 @@ public class ItemModelGenerator {
 
 	private List<BlockPart> getBlockParts(int tintIndex, String name, TextureAtlasSprite atlasSprite) {
 
-		Map<EnumFacing, BlockPartFace> map = Maps.newHashMap();
-		map.put(EnumFacing.SOUTH, new BlockPartFace(null, tintIndex, name, new BlockFaceUV(new float[]{0F, 0F, 16F, 16F}, 0)));
-		map.put(EnumFacing.NORTH, new BlockPartFace(null, tintIndex, name, new BlockFaceUV(new float[]{16F, 0F, 0F, 16F}, 0)));
+		Map<Facing, BlockPartFace> map = Maps.newHashMap();
+		map.put(Facing.SOUTH, new BlockPartFace(null, tintIndex, name, new BlockFaceUV(new float[]{0F, 0F, 16F, 16F}, 0)));
+		map.put(Facing.NORTH, new BlockPartFace(null, tintIndex, name, new BlockFaceUV(new float[]{16F, 0F, 0F, 16F}, 0)));
 		List<BlockPart> list = Lists.newArrayList();
 		list.add(new BlockPart(new Vector3f(0F, 0F, 7.5F), new Vector3f(16F, 16F, 8.5F), map, null, true));
 		list.addAll(getBlockParts(atlasSprite, name, tintIndex));
@@ -109,9 +109,9 @@ public class ItemModelGenerator {
 
 	private BlockPart verticalElement(int x, int y, int size, int height, float xRatio, float yRatio, String key, int layer) {
 
-		Map<EnumFacing, BlockPartFace> map = Maps.newHashMap(); // todo: maybe hoistable?
-		map.put(EnumFacing.UP, new BlockPartFace(null, layer, key, new BlockFaceUV(new float[]{x / xRatio, (y - size) / yRatio, (x + 1) / xRatio, (y - size + 1) / yRatio}, 0)));
-		map.put(EnumFacing.DOWN, new BlockPartFace(null, layer, key, new BlockFaceUV(new float[]{x / xRatio, (y - 1) / yRatio, (x + 1) / xRatio, y / yRatio}, 0)));
+		Map<Facing, BlockPartFace> map = Maps.newHashMap(); // todo: maybe hoistable?
+		map.put(Facing.UP, new BlockPartFace(null, layer, key, new BlockFaceUV(new float[]{x / xRatio, (y - size) / yRatio, (x + 1) / xRatio, (y - size + 1) / yRatio}, 0)));
+		map.put(Facing.DOWN, new BlockPartFace(null, layer, key, new BlockFaceUV(new float[]{x / xRatio, (y - 1) / yRatio, (x + 1) / xRatio, y / yRatio}, 0)));
 
 		return new BlockPart(
 				new Vector3f(x / xRatio, (height - y) / yRatio, 7.5f),
@@ -122,11 +122,11 @@ public class ItemModelGenerator {
 
 	private BlockPart horizontalElement(int x, int y, int size, int height, float xRatio, float yRatio, String key, int layer) {
 
-		Map<EnumFacing, BlockPartFace> map = Maps.newHashMap(); // todo: maybe hoistable?
-		map.put(EnumFacing.NORTH, new BlockPartFace(null, layer, key, new BlockFaceUV(new float[]{x / xRatio, y / yRatio, (x - size) / xRatio, (y + 1) / yRatio}, 0)));
-		map.put(EnumFacing.SOUTH, new BlockPartFace(null, layer, key, new BlockFaceUV(new float[]{(x - size) / xRatio, y / yRatio, x / xRatio, (y + 1) / yRatio}, 0)));
-		map.put(EnumFacing.WEST, new BlockPartFace(null, layer, key, new BlockFaceUV(new float[]{(x - size) / xRatio, y / yRatio, (x - size + 1) / xRatio, (y + 1) / yRatio}, 0)));
-		map.put(EnumFacing.EAST, new BlockPartFace(null, layer, key, new BlockFaceUV(new float[]{(x - 1) / xRatio, y / yRatio, x / xRatio, (y + 1) / yRatio}, 0)));
+		Map<Facing, BlockPartFace> map = Maps.newHashMap(); // todo: maybe hoistable?
+		map.put(Facing.NORTH, new BlockPartFace(null, layer, key, new BlockFaceUV(new float[]{x / xRatio, y / yRatio, (x - size) / xRatio, (y + 1) / yRatio}, 0)));
+		map.put(Facing.SOUTH, new BlockPartFace(null, layer, key, new BlockFaceUV(new float[]{(x - size) / xRatio, y / yRatio, x / xRatio, (y + 1) / yRatio}, 0)));
+		map.put(Facing.WEST, new BlockPartFace(null, layer, key, new BlockFaceUV(new float[]{(x - size) / xRatio, y / yRatio, (x - size + 1) / xRatio, (y + 1) / yRatio}, 0)));
+		map.put(Facing.EAST, new BlockPartFace(null, layer, key, new BlockFaceUV(new float[]{(x - 1) / xRatio, y / yRatio, x / xRatio, (y + 1) / yRatio}, 0)));
 
 		return new BlockPart(
 				new Vector3f((x - size) / xRatio, (height - (y + 1)) / yRatio, 7.5f),

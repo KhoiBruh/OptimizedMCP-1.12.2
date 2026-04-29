@@ -1,7 +1,7 @@
 package net.minecraft.entity.item;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.world.World;
 
@@ -22,7 +22,7 @@ public class EntityMinecartEmpty extends EntityMinecart {
 		EntityMinecart.registerFixesMinecart(fixer, EntityMinecartEmpty.class);
 	}
 
-	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
+	public boolean processInitialInteract(EntityPlayer player, Hand hand) {
 
 		if (player.isSneaking()) {
 			return false;

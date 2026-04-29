@@ -27,11 +27,11 @@ public class CommandTeleport extends CommandBase {
 	private static void doTeleport(Entity teleportingEntity, CommandBase.CoordinateArg argX, CommandBase.CoordinateArg argY, CommandBase.CoordinateArg argZ, CommandBase.CoordinateArg argYaw, CommandBase.CoordinateArg argPitch) {
 
 		if (teleportingEntity instanceof EntityPlayerMP) {
-			Set<SPacketPlayerPosLook.EnumFlags> set = EnumSet.noneOf(SPacketPlayerPosLook.EnumFlags.class);
+			Set<SPacketPlayerPosLook.Flags> set = EnumSet.noneOf(SPacketPlayerPosLook.Flags.class);
 			float f = (float) argYaw.getAmount();
 
 			if (argYaw.isRelative()) {
-				set.add(SPacketPlayerPosLook.EnumFlags.Y_ROT);
+				set.add(SPacketPlayerPosLook.Flags.Y_ROT);
 			} else {
 				f = MathHelper.wrapDegrees(f);
 			}
@@ -39,7 +39,7 @@ public class CommandTeleport extends CommandBase {
 			float f1 = (float) argPitch.getAmount();
 
 			if (argPitch.isRelative()) {
-				set.add(SPacketPlayerPosLook.EnumFlags.X_ROT);
+				set.add(SPacketPlayerPosLook.Flags.X_ROT);
 			} else {
 				f1 = MathHelper.wrapDegrees(f1);
 			}

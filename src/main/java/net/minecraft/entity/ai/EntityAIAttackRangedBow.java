@@ -5,7 +5,7 @@ import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemBow;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 
 public class EntityAIAttackRangedBow<T extends EntityMob & IRangedAttackMob> extends EntityAIBase {
 
@@ -143,7 +143,7 @@ public class EntityAIAttackRangedBow<T extends EntityMob & IRangedAttackMob> ext
 					}
 				}
 			} else if (--attackTime <= 0 && seeTime >= -60) {
-				entity.setActiveHand(EnumHand.MAIN_HAND);
+				entity.setActiveHand(Hand.MAIN_HAND);
 			}
 		}
 	}

@@ -10,7 +10,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
@@ -74,7 +74,7 @@ public class ContainerEnchantment extends Container {
 		addSlotToContainer(new Slot(tableInventory, 1, 35, 47) {
 			public boolean isItemValid(ItemStack stack) {
 
-				return stack.getItem() == Items.DYE && EnumDyeColor.byDyeDamage(stack.getMetadata()) == EnumDyeColor.BLUE;
+				return stack.getItem() == Items.DYE && DyeColor.byDyeDamage(stack.getMetadata()) == DyeColor.BLUE;
 			}
 		});
 
@@ -338,7 +338,7 @@ public class ContainerEnchantment extends Container {
 				if (!mergeItemStack(itemstack1, 2, 38, true)) {
 					return ItemStack.EMPTY;
 				}
-			} else if (itemstack1.getItem() == Items.DYE && EnumDyeColor.byDyeDamage(itemstack1.getMetadata()) == EnumDyeColor.BLUE) {
+			} else if (itemstack1.getItem() == Items.DYE && DyeColor.byDyeDamage(itemstack1.getMetadata()) == DyeColor.BLUE) {
 				if (!mergeItemStack(itemstack1, 1, 2, true)) {
 					return ItemStack.EMPTY;
 				}

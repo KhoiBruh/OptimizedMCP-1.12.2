@@ -21,7 +21,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import java.util.Calendar;
 
@@ -84,11 +84,11 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 	abstract SoundEvent getStepSound();
 
 	/**
-	 * Get this Entity's EnumCreatureAttribute
+	 * Get this Entity's CreatureAttribute
 	 */
-	public EnumCreatureAttribute getCreatureAttribute() {
+	public CreatureAttribute getCreatureAttribute() {
 
-		return EnumCreatureAttribute.UNDEAD;
+		return CreatureAttribute.UNDEAD;
 	}
 
 	/**
@@ -197,7 +197,7 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 			if (itemstack.getItem() == Items.BOW) {
 				int i = 20;
 
-				if (world.getDifficulty() != EnumDifficulty.HARD) {
+				if (world.getDifficulty() != Difficulty.HARD) {
 					i = 40;
 				}
 

@@ -11,7 +11,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -38,7 +38,7 @@ public class BlockPane extends Block {
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
 
-	private static int getBoundingBoxIndex(EnumFacing p_185729_0_) {
+	private static int getBoundingBoxIndex(Facing p_185729_0_) {
 
 		return 1 << p_185729_0_.getHorizontalIndex();
 	}
@@ -48,19 +48,19 @@ public class BlockPane extends Block {
 		int i = 0;
 
 		if (state.getValue(NORTH)) {
-			i |= getBoundingBoxIndex(EnumFacing.NORTH);
+			i |= getBoundingBoxIndex(Facing.NORTH);
 		}
 
 		if (state.getValue(EAST)) {
-			i |= getBoundingBoxIndex(EnumFacing.EAST);
+			i |= getBoundingBoxIndex(Facing.EAST);
 		}
 
 		if (state.getValue(SOUTH)) {
-			i |= getBoundingBoxIndex(EnumFacing.SOUTH);
+			i |= getBoundingBoxIndex(Facing.SOUTH);
 		}
 
 		if (state.getValue(WEST)) {
-			i |= getBoundingBoxIndex(EnumFacing.WEST);
+			i |= getBoundingBoxIndex(Facing.WEST);
 		}
 
 		return i;
@@ -80,19 +80,19 @@ public class BlockPane extends Block {
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[0]);
 
 		if (state.getValue(NORTH)) {
-			addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[getBoundingBoxIndex(EnumFacing.NORTH)]);
+			addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[getBoundingBoxIndex(Facing.NORTH)]);
 		}
 
 		if (state.getValue(SOUTH)) {
-			addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[getBoundingBoxIndex(EnumFacing.SOUTH)]);
+			addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[getBoundingBoxIndex(Facing.SOUTH)]);
 		}
 
 		if (state.getValue(EAST)) {
-			addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[getBoundingBoxIndex(EnumFacing.EAST)]);
+			addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[getBoundingBoxIndex(Facing.EAST)]);
 		}
 
 		if (state.getValue(WEST)) {
-			addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[getBoundingBoxIndex(EnumFacing.WEST)]);
+			addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[getBoundingBoxIndex(Facing.WEST)]);
 		}
 	}
 
@@ -108,7 +108,7 @@ public class BlockPane extends Block {
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 
-		return state.withProperty(NORTH, attachesTo(worldIn, worldIn.getBlockState(pos.north()), pos.north(), EnumFacing.SOUTH)).withProperty(SOUTH, attachesTo(worldIn, worldIn.getBlockState(pos.south()), pos.south(), EnumFacing.NORTH)).withProperty(WEST, attachesTo(worldIn, worldIn.getBlockState(pos.west()), pos.west(), EnumFacing.EAST)).withProperty(EAST, attachesTo(worldIn, worldIn.getBlockState(pos.east()), pos.east(), EnumFacing.WEST));
+		return state.withProperty(NORTH, attachesTo(worldIn, worldIn.getBlockState(pos.north()), pos.north(), Facing.SOUTH)).withProperty(SOUTH, attachesTo(worldIn, worldIn.getBlockState(pos.south()), pos.south(), Facing.NORTH)).withProperty(WEST, attachesTo(worldIn, worldIn.getBlockState(pos.west()), pos.west(), Facing.EAST)).withProperty(EAST, attachesTo(worldIn, worldIn.getBlockState(pos.east()), pos.east(), Facing.WEST));
 	}
 
 	/**
@@ -132,12 +132,12 @@ public class BlockPane extends Block {
 		return false;
 	}
 
-	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
 		return blockAccess.getBlockState(pos.offset(side)).getBlock() != this && super.shouldSideBeRendered(blockState, blockAccess, pos, side);
 	}
 
-	public final boolean attachesTo(IBlockAccess p_193393_1_, IBlockState state, BlockPos pos, EnumFacing facing) {
+	public final boolean attachesTo(IBlockAccess p_193393_1_, IBlockState state, BlockPos pos, Facing facing) {
 
 		Block block = state.getBlock();
 		BlockFaceShape blockfaceshape = state.getBlockFaceShape(p_193393_1_, pos, facing);
@@ -211,9 +211,9 @@ public class BlockPane extends Block {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
-		return face != EnumFacing.UP && face != EnumFacing.DOWN ? BlockFaceShape.MIDDLE_POLE_THIN : BlockFaceShape.CENTER_SMALL;
+		return face != Facing.UP && face != Facing.DOWN ? BlockFaceShape.MIDDLE_POLE_THIN : BlockFaceShape.CENTER_SMALL;
 	}
 
 }

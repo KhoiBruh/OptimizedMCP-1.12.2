@@ -9,7 +9,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntityMobSpawner;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -92,7 +92,7 @@ public class WorldGenDungeons extends WorldGenerator {
 					if (worldIn.isAirBlock(blockpos2)) {
 						int j3 = 0;
 
-						for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+						for (Facing enumfacing : Facing.Plane.HORIZONTAL) {
 							if (worldIn.getBlockState(blockpos2.offset(enumfacing)).getMaterial().isSolid()) {
 								++j3;
 							}

@@ -1,6 +1,6 @@
 package net.minecraft.block;
 
-import net.minecraft.block.material.EnumPushReaction;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -13,7 +13,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Items;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -28,14 +28,14 @@ import java.util.Random;
 
 public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 
-	public static final PropertyEnum<BlockBed.EnumPartType> PART = PropertyEnum.create("part", BlockBed.EnumPartType.class);
+	public static final PropertyEnum<BlockBed.PartType> PART = PropertyEnum.create("part", BlockBed.PartType.class);
 	public static final PropertyBool OCCUPIED = PropertyBool.create("occupied");
 	protected static final AxisAlignedBB BED_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.5625D, 1D);
 
 	public BlockBed() {
 
 		super(Material.CLOTH);
-		setDefaultState(blockState.getBaseState().withProperty(PART, BlockBed.EnumPartType.FOOT).withProperty(OCCUPIED, false));
+		setDefaultState(blockState.getBaseState().withProperty(PART, BlockBed.PartType.FOOT).withProperty(OCCUPIED, false));
 		hasTileEntity = true;
 	}
 
@@ -46,7 +46,7 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 	 */
 	public static BlockPos getSafeExitLocation(World worldIn, BlockPos pos, int tries) {
 
-		EnumFacing enumfacing = worldIn.getBlockState(pos).getValue(FACING);
+		Facing enumfacing = worldIn.getBlockState(pos).getValue(FACING);
 		int i = pos.getX();
 		int j = pos.getY();
 		int k = pos.getZ();
@@ -90,11 +90,11 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 	 */
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 
-		if (state.getValue(PART) == BlockBed.EnumPartType.FOOT) {
+		if (state.getValue(PART) == BlockBed.PartType.FOOT) {
 			TileEntity tileentity = worldIn.getTileEntity(pos);
 
 			if (tileentity instanceof TileEntityBed) {
-				EnumDyeColor enumdyecolor = ((TileEntityBed) tileentity).getColor();
+				DyeColor enumdyecolor = ((TileEntityBed) tileentity).getColor();
 				return MapColor.getBlockColor(enumdyecolor);
 			}
 		}
@@ -105,12 +105,12 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 	/**
 	 * Called when the block is right clicked by a player.
 	 */
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		if (worldIn.isRemote) {
 			return true;
 		} else {
-			if (state.getValue(PART) != BlockBed.EnumPartType.HEAD) {
+			if (state.getValue(PART) != BlockBed.PartType.HEAD) {
 				pos = pos.offset(state.getValue(FACING));
 				state = worldIn.getBlockState(pos);
 
@@ -220,9 +220,9 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
 
-		EnumFacing enumfacing = state.getValue(FACING);
+		Facing enumfacing = state.getValue(FACING);
 
-		if (state.getValue(PART) == BlockBed.EnumPartType.FOOT) {
+		if (state.getValue(PART) == BlockBed.PartType.FOOT) {
 			if (worldIn.getBlockState(pos.offset(enumfacing)).getBlock() != this) {
 				worldIn.setBlockToAir(pos);
 			}
@@ -240,7 +240,7 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 
-		return state.getValue(PART) == BlockBed.EnumPartType.FOOT ? Items.AIR : Items.BED;
+		return state.getValue(PART) == BlockBed.PartType.FOOT ? Items.AIR : Items.BED;
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
@@ -258,16 +258,16 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 	 */
 	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
 
-		if (state.getValue(PART) == BlockBed.EnumPartType.HEAD) {
+		if (state.getValue(PART) == BlockBed.PartType.HEAD) {
 			TileEntity tileentity = worldIn.getTileEntity(pos);
-			EnumDyeColor enumdyecolor = tileentity instanceof TileEntityBed ? ((TileEntityBed) tileentity).getColor() : EnumDyeColor.RED;
+			DyeColor enumdyecolor = tileentity instanceof TileEntityBed ? ((TileEntityBed) tileentity).getColor() : DyeColor.RED;
 			spawnAsEntity(worldIn, pos, new ItemStack(Items.BED, 1, enumdyecolor.getMetadata()));
 		}
 	}
 
-	public EnumPushReaction getMobilityFlag(IBlockState state) {
+	public PushReaction getMobilityFlag(IBlockState state) {
 
-		return EnumPushReaction.DESTROY;
+		return PushReaction.DESTROY;
 	}
 
 	/**
@@ -283,21 +283,21 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 	 * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
-	public EnumBlockRenderType getRenderType(IBlockState state) {
+	public BlockRenderType getRenderType(IBlockState state) {
 
-		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
+		return BlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
 
 		BlockPos blockpos = pos;
 
-		if (state.getValue(PART) == BlockBed.EnumPartType.FOOT) {
+		if (state.getValue(PART) == BlockBed.PartType.FOOT) {
 			blockpos = pos.offset(state.getValue(FACING));
 		}
 
 		TileEntity tileentity = worldIn.getTileEntity(blockpos);
-		EnumDyeColor enumdyecolor = tileentity instanceof TileEntityBed ? ((TileEntityBed) tileentity).getColor() : EnumDyeColor.RED;
+		DyeColor enumdyecolor = tileentity instanceof TileEntityBed ? ((TileEntityBed) tileentity).getColor() : DyeColor.RED;
 		return new ItemStack(Items.BED, 1, enumdyecolor.getMetadata());
 	}
 
@@ -307,7 +307,7 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 	 */
 	public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
 
-		if (player.capabilities.isCreativeMode && state.getValue(PART) == BlockBed.EnumPartType.FOOT) {
+		if (player.capabilities.isCreativeMode && state.getValue(PART) == BlockBed.PartType.FOOT) {
 			BlockPos blockpos = pos.offset(state.getValue(FACING));
 
 			if (worldIn.getBlockState(blockpos).getBlock() == this) {
@@ -322,7 +322,7 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 	 */
 	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
 
-		if (state.getValue(PART) == BlockBed.EnumPartType.HEAD && te instanceof TileEntityBed tileentitybed) {
+		if (state.getValue(PART) == BlockBed.PartType.HEAD && te instanceof TileEntityBed tileentitybed) {
 			ItemStack itemstack = tileentitybed.getItemStack();
 			spawnAsEntity(worldIn, pos, itemstack);
 		} else {
@@ -344,8 +344,8 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		EnumFacing enumfacing = EnumFacing.getHorizontal(meta);
-		return (meta & 8) > 0 ? getDefaultState().withProperty(PART, BlockBed.EnumPartType.HEAD).withProperty(FACING, enumfacing).withProperty(OCCUPIED, (meta & 4) > 0) : getDefaultState().withProperty(PART, BlockBed.EnumPartType.FOOT).withProperty(FACING, enumfacing);
+		Facing enumfacing = Facing.getHorizontal(meta);
+		return (meta & 8) > 0 ? getDefaultState().withProperty(PART, BlockBed.PartType.HEAD).withProperty(FACING, enumfacing).withProperty(OCCUPIED, (meta & 4) > 0) : getDefaultState().withProperty(PART, BlockBed.PartType.FOOT).withProperty(FACING, enumfacing);
 	}
 
 	/**
@@ -354,7 +354,7 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 
-		if (state.getValue(PART) == BlockBed.EnumPartType.FOOT) {
+		if (state.getValue(PART) == BlockBed.PartType.FOOT) {
 			IBlockState iblockstate = worldIn.getBlockState(pos.offset(state.getValue(FACING)));
 
 			if (iblockstate.getBlock() == this) {
@@ -391,7 +391,7 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 		int i = 0;
 		i = i | state.getValue(FACING).getHorizontalIndex();
 
-		if (state.getValue(PART) == BlockBed.EnumPartType.HEAD) {
+		if (state.getValue(PART) == BlockBed.PartType.HEAD) {
 			i |= 8;
 
 			if (state.getValue(OCCUPIED)) {
@@ -411,7 +411,7 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
 		return BlockFaceShape.UNDEFINED;
 	}
@@ -429,13 +429,13 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 		return new TileEntityBed();
 	}
 
-	public enum EnumPartType implements IStringSerializable {
+	public enum PartType implements IStringSerializable {
 		HEAD("head"),
 		FOOT("foot");
 
 		private final String name;
 
-		EnumPartType(String name) {
+		PartType(String name) {
 
 			this.name = name;
 		}

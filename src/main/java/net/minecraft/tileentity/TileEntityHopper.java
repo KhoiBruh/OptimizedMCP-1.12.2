@@ -11,7 +11,7 @@ import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.datafix.DataFixer;
@@ -37,7 +37,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 	/**
 	 * Returns false if the specified IInventory contains any items
 	 */
-	private static boolean isInventoryEmpty(IInventory inventoryIn, EnumFacing side) {
+	private static boolean isInventoryEmpty(IInventory inventoryIn, Facing side) {
 
 		if (inventoryIn instanceof ISidedInventory isidedinventory) {
 			int[] aint = isidedinventory.getSlotsForFace(side);
@@ -72,7 +72,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 		IInventory iinventory = getSourceInventory(hopper);
 
 		if (iinventory != null) {
-			EnumFacing enumfacing = EnumFacing.DOWN;
+			Facing enumfacing = Facing.DOWN;
 
 			if (isInventoryEmpty(iinventory, enumfacing)) {
 				return false;
@@ -110,7 +110,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 	 * Pulls from the specified slot in the inventory and places in any available slot in the hopper. Returns true if
 	 * the entire stack was moved
 	 */
-	private static boolean pullItemFromSlot(IHopper hopper, IInventory inventoryIn, int index, EnumFacing direction) {
+	private static boolean pullItemFromSlot(IHopper hopper, IInventory inventoryIn, int index, Facing direction) {
 
 		ItemStack itemstack = inventoryIn.getStackInSlot(index);
 
@@ -157,7 +157,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 	/**
 	 * Attempts to place the passed stack in the inventory, using as many slots as required. Returns leftover items
 	 */
-	public static ItemStack putStackInInventoryAllSlots(IInventory source, IInventory destination, ItemStack stack, EnumFacing direction) {
+	public static ItemStack putStackInInventoryAllSlots(IInventory source, IInventory destination, ItemStack stack, Facing direction) {
 
 		if (destination instanceof ISidedInventory isidedinventory && direction != null) {
 			int[] aint = isidedinventory.getSlotsForFace(direction);
@@ -179,7 +179,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 	/**
 	 * Can this hopper insert the specified item from the specified slot on the specified side?
 	 */
-	private static boolean canInsertItemInSlot(IInventory inventoryIn, ItemStack stack, int index, EnumFacing side) {
+	private static boolean canInsertItemInSlot(IInventory inventoryIn, ItemStack stack, int index, Facing side) {
 
 		if (!inventoryIn.isItemValidForSlot(index, stack)) {
 			return false;
@@ -191,7 +191,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 	/**
 	 * Can this hopper extract the specified item from the specified slot on the specified side?
 	 */
-	private static boolean canExtractItemFromSlot(IInventory inventoryIn, ItemStack stack, int index, EnumFacing side) {
+	private static boolean canExtractItemFromSlot(IInventory inventoryIn, ItemStack stack, int index, Facing side) {
 
 		return !(inventoryIn instanceof ISidedInventory) || ((ISidedInventory) inventoryIn).canExtractItem(index, stack, side);
 	}
@@ -199,7 +199,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 	/**
 	 * Insert the specified stack to the specified inventory and return any leftover items
 	 */
-	private static ItemStack insertStack(IInventory source, IInventory destination, ItemStack stack, int index, EnumFacing direction) {
+	private static ItemStack insertStack(IInventory source, IInventory destination, ItemStack stack, int index, Facing direction) {
 
 		ItemStack itemstack = destination.getStackInSlot(index);
 
@@ -460,7 +460,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 		if (iinventory == null) {
 			return false;
 		} else {
-			EnumFacing enumfacing = BlockHopper.getFacing(getBlockMetadata()).getOpposite();
+			Facing enumfacing = BlockHopper.getFacing(getBlockMetadata()).getOpposite();
 
 			if (isInventoryFull(iinventory, enumfacing)) {
 				return false;
@@ -487,7 +487,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 	/**
 	 * Returns false if the inventory has any room to place items in
 	 */
-	private boolean isInventoryFull(IInventory inventoryIn, EnumFacing side) {
+	private boolean isInventoryFull(IInventory inventoryIn, Facing side) {
 
 		if (inventoryIn instanceof ISidedInventory isidedinventory) {
 			int[] aint = isidedinventory.getSlotsForFace(side);
@@ -519,7 +519,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 	 */
 	private IInventory getInventoryForHopperTransfer() {
 
-		EnumFacing enumfacing = BlockHopper.getFacing(getBlockMetadata());
+		Facing enumfacing = BlockHopper.getFacing(getBlockMetadata());
 		return getInventoryAtPosition(getWorld(), getXPos() + (double) enumfacing.getFrontOffsetX(), getYPos() + (double) enumfacing.getFrontOffsetY(), getZPos() + (double) enumfacing.getFrontOffsetZ());
 	}
 

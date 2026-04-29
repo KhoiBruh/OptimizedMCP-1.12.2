@@ -2,7 +2,7 @@ package net.minecraft.item.crafting;
 
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemBanner;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -220,7 +220,7 @@ public class RecipesBanners {
 						return false;
 					}
 
-					EnumDyeColor enumdyecolor = ItemBanner.getBaseColor(itemstack2);
+					DyeColor enumdyecolor = ItemBanner.getBaseColor(itemstack2);
 					boolean flag = TileEntityBanner.getPatterns(itemstack2) > 0;
 
 					if (!itemstack.isEmpty()) {

@@ -2,7 +2,7 @@ package net.minecraft.world.gen.structure;
 
 import com.google.common.base.MoreObjects;
 import net.minecraft.nbt.NBTTagIntArray;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.Vec3i;
 
 public class StructureBoundingBox {
@@ -105,7 +105,7 @@ public class StructureBoundingBox {
 	 * Create a bounding box with the specified dimensions and rotate it. Used to project a possible new component
 	 * Bounding Box - to check if it would cut anything already spawned
 	 */
-	public static StructureBoundingBox getComponentToAddBoundingBox(int structureMinX, int structureMinY, int structureMinZ, int xMin, int yMin, int zMin, int xMax, int yMax, int zMax, EnumFacing facing) {
+	public static StructureBoundingBox getComponentToAddBoundingBox(int structureMinX, int structureMinY, int structureMinZ, int xMin, int yMin, int zMin, int xMax, int yMax, int zMax, Facing facing) {
 
 		return switch (facing) {
 			case NORTH ->

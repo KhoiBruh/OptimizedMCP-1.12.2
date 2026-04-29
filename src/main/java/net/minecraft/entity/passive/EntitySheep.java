@@ -14,7 +14,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
@@ -23,7 +23,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
@@ -38,14 +38,14 @@ import java.util.Random;
 public class EntitySheep extends EntityAnimal {
 
 	private static final DataParameter<Byte> DYE_COLOR = EntityDataManager.createKey(EntitySheep.class, DataSerializers.BYTE);
-	private static final Map<EnumDyeColor, float[]> DYE_TO_RGB = Maps.newEnumMap(EnumDyeColor.class);
+	private static final Map<DyeColor, float[]> DYE_TO_RGB = Maps.newEnumMap(DyeColor.class);
 
 	static {
-		for (EnumDyeColor enumdyecolor : EnumDyeColor.values()) {
+		for (DyeColor enumdyecolor : DyeColor.values()) {
 			DYE_TO_RGB.put(enumdyecolor, createSheepColor(enumdyecolor));
 		}
 
-		DYE_TO_RGB.put(EnumDyeColor.WHITE, new float[]{0.9019608F, 0.9019608F, 0.9019608F});
+		DYE_TO_RGB.put(DyeColor.WHITE, new float[]{0.9019608F, 0.9019608F, 0.9019608F});
 	}
 
 	/**
@@ -73,14 +73,14 @@ public class EntitySheep extends EntityAnimal {
 		inventoryCrafting.setInventorySlotContents(1, new ItemStack(Items.DYE));
 	}
 
-	private static float[] createSheepColor(EnumDyeColor p_192020_0_) {
+	private static float[] createSheepColor(DyeColor p_192020_0_) {
 
 		float[] afloat = p_192020_0_.getColorComponentValues();
 		float f = 0.75F;
 		return new float[]{afloat[0] * 0.75F, afloat[1] * 0.75F, afloat[2] * 0.75F};
 	}
 
-	public static float[] getDyeRgb(EnumDyeColor dyeColor) {
+	public static float[] getDyeRgb(DyeColor dyeColor) {
 
 		return DYE_TO_RGB.get(dyeColor);
 	}
@@ -93,20 +93,20 @@ public class EntitySheep extends EntityAnimal {
 	/**
 	 * Chooses a "vanilla" sheep color based on the provided random.
 	 */
-	public static EnumDyeColor getRandomSheepColor(Random random) {
+	public static DyeColor getRandomSheepColor(Random random) {
 
 		int i = random.nextInt(100);
 
 		if (i < 5) {
-			return EnumDyeColor.BLACK;
+			return DyeColor.BLACK;
 		} else if (i < 10) {
-			return EnumDyeColor.GRAY;
+			return DyeColor.GRAY;
 		} else if (i < 15) {
-			return EnumDyeColor.SILVER;
+			return DyeColor.SILVER;
 		} else if (i < 18) {
-			return EnumDyeColor.BROWN;
+			return DyeColor.BROWN;
 		} else {
-			return random.nextInt(500) == 0 ? EnumDyeColor.PINK : EnumDyeColor.WHITE;
+			return random.nextInt(500) == 0 ? DyeColor.PINK : DyeColor.WHITE;
 		}
 	}
 
@@ -216,7 +216,7 @@ public class EntitySheep extends EntityAnimal {
 		}
 	}
 
-	public boolean processInteract(EntityPlayer player, EnumHand hand) {
+	public boolean processInteract(EntityPlayer player, Hand hand) {
 
 		ItemStack itemstack = player.getHeldItem(hand);
 
@@ -257,7 +257,7 @@ public class EntitySheep extends EntityAnimal {
 
 		super.readEntityFromNBT(compound);
 		setSheared(compound.getBoolean("Sheared"));
-		setFleeceColor(EnumDyeColor.byMetadata(compound.getByte("Color")));
+		setFleeceColor(DyeColor.byMetadata(compound.getByte("Color")));
 	}
 
 	protected SoundEvent getAmbientSound() {
@@ -283,15 +283,15 @@ public class EntitySheep extends EntityAnimal {
 	/**
 	 * Gets the wool color of this sheep.
 	 */
-	public EnumDyeColor getFleeceColor() {
+	public DyeColor getFleeceColor() {
 
-		return EnumDyeColor.byMetadata(dataManager.get(DYE_COLOR) & 15);
+		return DyeColor.byMetadata(dataManager.get(DYE_COLOR) & 15);
 	}
 
 	/**
 	 * Sets the wool color of this sheep
 	 */
-	public void setFleeceColor(EnumDyeColor color) {
+	public void setFleeceColor(DyeColor color) {
 
 		byte b0 = dataManager.get(DYE_COLOR);
 		dataManager.set(DYE_COLOR, (byte) (b0 & 240 | color.getMetadata() & 15));
@@ -366,7 +366,7 @@ public class EntitySheep extends EntityAnimal {
 	/**
 	 * Attempts to mix both parent sheep to come up with a mixed dye color.
 	 */
-	private EnumDyeColor getDyeColorMixFromParents(EntityAnimal father, EntityAnimal mother) {
+	private DyeColor getDyeColorMixFromParents(EntityAnimal father, EntityAnimal mother) {
 
 		int i = ((EntitySheep) father).getFleeceColor().getDyeDamage();
 		int j = ((EntitySheep) mother).getFleeceColor().getDyeDamage();
@@ -381,7 +381,7 @@ public class EntitySheep extends EntityAnimal {
 			k = world.rand.nextBoolean() ? i : j;
 		}
 
-		return EnumDyeColor.byDyeDamage(k);
+		return DyeColor.byDyeDamage(k);
 	}
 
 	public float getEyeHeight() {

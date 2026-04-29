@@ -95,7 +95,7 @@ public class BlockGrass extends Block implements IGrowable {
 				if (j >= i / 16) {
 					if (worldIn.getBlockState(blockpos1).getBlock().blockMaterial == Material.AIR) {
 						if (rand.nextInt(8) == 0) {
-							BlockFlower.EnumFlowerType blockflower$enumflowertype = worldIn.getBiome(blockpos1).pickRandomFlower(rand, blockpos1);
+							BlockFlower.FlowerType blockflower$enumflowertype = worldIn.getBiome(blockpos1).pickRandomFlower(rand, blockpos1);
 							BlockFlower blockflower = blockflower$enumflowertype.getBlockType().getBlock();
 							IBlockState iblockstate = blockflower.getDefaultState().withProperty(blockflower.getTypeProperty(), blockflower$enumflowertype);
 
@@ -103,7 +103,7 @@ public class BlockGrass extends Block implements IGrowable {
 								worldIn.setBlockState(blockpos1, iblockstate, 3);
 							}
 						} else {
-							IBlockState iblockstate1 = Blocks.TALLGRASS.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS);
+							IBlockState iblockstate1 = Blocks.TALLGRASS.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.Type.GRASS);
 
 							if (Blocks.TALLGRASS.canBlockStay(worldIn, blockpos1, iblockstate1)) {
 								worldIn.setBlockState(blockpos1, iblockstate1, 3);

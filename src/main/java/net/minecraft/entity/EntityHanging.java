@@ -9,7 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -25,7 +25,7 @@ public abstract class EntityHanging extends Entity {
 	
 
 	/** The direction the entity is facing */
-	public EnumFacing facingDirection;
+	public Facing facingDirection;
 	protected BlockPos hangingPosition;
 	private int tickCounter1;
 
@@ -48,7 +48,7 @@ public abstract class EntityHanging extends Entity {
 	/**
 	 * Updates facing and bounding box based on it
 	 */
-	protected void updateFacingWithBoundingBox(EnumFacing facingDirectionIn) {
+	protected void updateFacingWithBoundingBox(Facing facingDirectionIn) {
 
 		Validate.notNull(facingDirectionIn);
 		Validate.isTrue(facingDirectionIn.getAxis().isHorizontal());
@@ -73,7 +73,7 @@ public abstract class EntityHanging extends Entity {
 			d0 = d0 - (double) facingDirection.getFrontOffsetX() * 0.46875D;
 			d2 = d2 - (double) facingDirection.getFrontOffsetZ() * 0.46875D;
 			d1 = d1 + d5;
-			EnumFacing enumfacing = facingDirection.rotateYCCW();
+			Facing enumfacing = facingDirection.rotateYCCW();
 			d0 = d0 + d4 * (double) enumfacing.getFrontOffsetX();
 			d2 = d2 + d4 * (double) enumfacing.getFrontOffsetZ();
 			posX = d0;
@@ -83,7 +83,7 @@ public abstract class EntityHanging extends Entity {
 			double d7 = getHeightPixels();
 			double d8 = getWidthPixels();
 
-			if (facingDirection.getAxis() == EnumFacing.Axis.Z) {
+			if (facingDirection.getAxis() == Facing.Axis.Z) {
 				d8 = 1D;
 			} else {
 				d6 = 1D;
@@ -131,14 +131,14 @@ public abstract class EntityHanging extends Entity {
 			int i = Math.max(1, getWidthPixels() / 16);
 			int j = Math.max(1, getHeightPixels() / 16);
 			BlockPos blockpos = hangingPosition.offset(facingDirection.getOpposite());
-			EnumFacing enumfacing = facingDirection.rotateYCCW();
+			Facing enumfacing = facingDirection.rotateYCCW();
 			BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
 			for (int k = 0; k < i; ++k) {
 				for (int l = 0; l < j; ++l) {
 					int i1 = (i - 1) / -2;
 					int j1 = (j - 1) / -2;
-					blockpos$mutableblockpos.setPos(blockpos).move(enumfacing, k + i1).move(EnumFacing.UP, l + j1);
+					blockpos$mutableblockpos.setPos(blockpos).move(enumfacing, k + i1).move(Facing.UP, l + j1);
 					IBlockState iblockstate = world.getBlockState(blockpos$mutableblockpos);
 
 					if (!iblockstate.getMaterial().isSolid() && !BlockRedstoneDiode.isDiode(iblockstate)) {
@@ -170,7 +170,7 @@ public abstract class EntityHanging extends Entity {
 	/**
 	 * Gets the horizontal facing direction of this Entity.
 	 */
-	public EnumFacing getHorizontalFacing() {
+	public Facing getHorizontalFacing() {
 
 		return facingDirection;
 	}
@@ -233,7 +233,7 @@ public abstract class EntityHanging extends Entity {
 	public void readEntityFromNBT(NBTTagCompound compound) {
 
 		hangingPosition = new BlockPos(compound.getInteger("TileX"), compound.getInteger("TileY"), compound.getInteger("TileZ"));
-		updateFacingWithBoundingBox(EnumFacing.getHorizontal(compound.getByte("Facing")));
+		updateFacingWithBoundingBox(Facing.getHorizontal(compound.getByte("Facing")));
 	}
 
 	public abstract int getWidthPixels();
@@ -285,7 +285,7 @@ public abstract class EntityHanging extends Entity {
 	 */
 	public float getRotatedYaw(Rotation transformRotation) {
 
-		if (facingDirection != null && facingDirection.getAxis() != EnumFacing.Axis.Y) {
+		if (facingDirection != null && facingDirection.getAxis() != Facing.Axis.Y) {
 			switch (transformRotation) {
 				case CLOCKWISE_180:
 					facingDirection = facingDirection.getOpposite();

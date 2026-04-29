@@ -12,12 +12,12 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 import java.util.UUID;
@@ -109,7 +109,7 @@ public class EntityPigZombie extends EntityZombie {
 	 */
 	public boolean getCanSpawnHere() {
 
-		return world.getDifficulty() != EnumDifficulty.PEACEFUL;
+		return world.getDifficulty() != Difficulty.PEACEFUL;
 	}
 
 	/**
@@ -213,7 +213,7 @@ public class EntityPigZombie extends EntityZombie {
 		return LootTableList.ENTITIES_ZOMBIE_PIGMAN;
 	}
 
-	public boolean processInteract(EntityPlayer player, EnumHand hand) {
+	public boolean processInteract(EntityPlayer player, Hand hand) {
 
 		return false;
 	}

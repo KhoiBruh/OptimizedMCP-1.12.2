@@ -8,7 +8,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import java.util.Iterator;
@@ -16,20 +16,20 @@ import java.util.List;
 
 public class EntityPainting extends EntityHanging {
 
-	public EntityPainting.EnumArt art;
+	public EntityPainting.Art art;
 
 	public EntityPainting(World worldIn) {
 
 		super(worldIn);
 	}
 
-	public EntityPainting(World worldIn, BlockPos pos, EnumFacing facing) {
+	public EntityPainting(World worldIn, BlockPos pos, Facing facing) {
 
 		super(worldIn, pos);
-		List<EntityPainting.EnumArt> list = Lists.newArrayList();
+		List<EntityPainting.Art> list = Lists.newArrayList();
 		int i = 0;
 
-		for (EntityPainting.EnumArt entitypainting$enumart : EntityPainting.EnumArt.values()) {
+		for (EntityPainting.Art entitypainting$enumart : EntityPainting.Art.values()) {
 			art = entitypainting$enumart;
 			updateFacingWithBoundingBox(facing);
 
@@ -44,10 +44,10 @@ public class EntityPainting extends EntityHanging {
 		}
 
 		if (!list.isEmpty()) {
-			Iterator<EntityPainting.EnumArt> iterator = list.iterator();
+			Iterator<EntityPainting.Art> iterator = list.iterator();
 
 			while (iterator.hasNext()) {
-				EntityPainting.EnumArt entitypainting$enumart1 = iterator.next();
+				EntityPainting.Art entitypainting$enumart1 = iterator.next();
 
 				if (entitypainting$enumart1.sizeX * entitypainting$enumart1.sizeY < i) {
 					iterator.remove();
@@ -60,11 +60,11 @@ public class EntityPainting extends EntityHanging {
 		updateFacingWithBoundingBox(facing);
 	}
 
-	public EntityPainting(World worldIn, BlockPos pos, EnumFacing facing, String title) {
+	public EntityPainting(World worldIn, BlockPos pos, Facing facing, String title) {
 
 		this(worldIn, pos, facing);
 
-		for (EntityPainting.EnumArt entitypainting$enumart : EntityPainting.EnumArt.values()) {
+		for (EntityPainting.Art entitypainting$enumart : EntityPainting.Art.values()) {
 			if (entitypainting$enumart.title.equals(title)) {
 				art = entitypainting$enumart;
 				break;
@@ -90,14 +90,14 @@ public class EntityPainting extends EntityHanging {
 
 		String s = compound.getString("Motive");
 
-		for (EntityPainting.EnumArt entitypainting$enumart : EntityPainting.EnumArt.values()) {
+		for (EntityPainting.Art entitypainting$enumart : EntityPainting.Art.values()) {
 			if (entitypainting$enumart.title.equals(s)) {
 				art = entitypainting$enumart;
 			}
 		}
 
 		if (art == null) {
-			art = EntityPainting.EnumArt.KEBAB;
+			art = EntityPainting.Art.KEBAB;
 		}
 
 		super.readEntityFromNBT(compound);
@@ -154,7 +154,7 @@ public class EntityPainting extends EntityHanging {
 		setPosition(blockpos.getX(), blockpos.getY(), blockpos.getZ());
 	}
 
-	public enum EnumArt {
+	public enum Art {
 		KEBAB("Kebab", 16, 16, 0, 0),
 		AZTEC("Aztec", 16, 16, 16, 0),
 		ALBAN("Alban", 16, 16, 32, 0),
@@ -189,7 +189,7 @@ public class EntityPainting extends EntityHanging {
 		public final int offsetX;
 		public final int offsetY;
 
-		EnumArt(String titleIn, int width, int height, int textureU, int textureV) {
+		Art(String titleIn, int width, int height, int textureU, int textureV) {
 
 			title = titleIn;
 			sizeX = width;

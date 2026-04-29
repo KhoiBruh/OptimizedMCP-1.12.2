@@ -12,7 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityBanner;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -149,7 +149,7 @@ public class BlockBanner extends BlockContainer {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
 		return BlockFaceShape.UNDEFINED;
 	}
@@ -163,7 +163,7 @@ public class BlockBanner extends BlockContainer {
 
 		public BlockBannerHanging() {
 
-			setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+			setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH));
 		}
 
 		public IBlockState withRotation(IBlockState state, Rotation rot) {
@@ -188,7 +188,7 @@ public class BlockBanner extends BlockContainer {
 
 		public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
 
-			EnumFacing enumfacing = state.getValue(FACING);
+			Facing enumfacing = state.getValue(FACING);
 
 			if (!worldIn.getBlockState(pos.offset(enumfacing.getOpposite())).getMaterial().isSolid()) {
 				dropBlockAsItem(worldIn, pos, state, 0);
@@ -200,10 +200,10 @@ public class BlockBanner extends BlockContainer {
 
 		public IBlockState getStateFromMeta(int meta) {
 
-			EnumFacing enumfacing = EnumFacing.getFront(meta);
+			Facing enumfacing = Facing.getFront(meta);
 
-			if (enumfacing.getAxis() == EnumFacing.Axis.Y) {
-				enumfacing = EnumFacing.NORTH;
+			if (enumfacing.getAxis() == Facing.Axis.Y) {
+				enumfacing = Facing.NORTH;
 			}
 
 			return getDefaultState().withProperty(FACING, enumfacing);

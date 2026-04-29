@@ -8,10 +8,10 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -32,7 +32,7 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable {
 	public BlockCocoa() {
 
 		super(Material.PLANTS);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(AGE, 0));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(AGE, 0));
 		setTickRandomly(true);
 	}
 
@@ -53,7 +53,7 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable {
 
 		pos = pos.offset(state.getValue(FACING));
 		IBlockState iblockstate = worldIn.getBlockState(pos);
-		return iblockstate.getBlock() == Blocks.LOG && iblockstate.getValue(BlockOldLog.VARIANT) == BlockPlanks.EnumType.JUNGLE;
+		return iblockstate.getBlock() == Blocks.LOG && iblockstate.getValue(BlockOldLog.VARIANT) == BlockPlanks.Type.JUNGLE;
 	}
 
 	public boolean isFullCube(IBlockState state) {
@@ -104,7 +104,7 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable {
 	 */
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
 
-		EnumFacing enumfacing = EnumFacing.fromAngle(placer.rotationYaw);
+		Facing enumfacing = Facing.fromAngle(placer.rotationYaw);
 		worldIn.setBlockState(pos, state.withProperty(FACING, enumfacing), 2);
 	}
 
@@ -112,10 +112,10 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable {
 	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 	 * IBlockstate
 	 */
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
 		if (!facing.getAxis().isHorizontal()) {
-			facing = EnumFacing.NORTH;
+			facing = Facing.NORTH;
 		}
 
 		return getDefaultState().withProperty(FACING, facing.getOpposite()).withProperty(AGE, 0);
@@ -152,13 +152,13 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable {
 		}
 
 		for (int k = 0; k < j; ++k) {
-			spawnAsEntity(worldIn, pos, new ItemStack(Items.DYE, 1, EnumDyeColor.BROWN.getDyeDamage()));
+			spawnAsEntity(worldIn, pos, new ItemStack(Items.DYE, 1, DyeColor.BROWN.getDyeDamage()));
 		}
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
 
-		return new ItemStack(Items.DYE, 1, EnumDyeColor.BROWN.getDyeDamage());
+		return new ItemStack(Items.DYE, 1, DyeColor.BROWN.getDyeDamage());
 	}
 
 	/**
@@ -193,7 +193,7 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta)).withProperty(AGE, (meta & 15) >> 2);
+		return getDefaultState().withProperty(FACING, Facing.getHorizontal(meta)).withProperty(AGE, (meta & 15) >> 2);
 	}
 
 	/**
@@ -221,7 +221,7 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
 		return BlockFaceShape.UNDEFINED;
 	}

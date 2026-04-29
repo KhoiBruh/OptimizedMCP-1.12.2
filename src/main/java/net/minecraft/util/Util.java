@@ -9,22 +9,22 @@ import java.util.concurrent.FutureTask;
 
 public class Util {
 
-	public static Util.EnumOS getOSType() {
+	public static Util.OS getOSType() {
 
 		String s = System.getProperty("os.name").toLowerCase(Locale.ROOT);
 
 		if (s.contains("win")) {
-			return Util.EnumOS.WINDOWS;
+			return Util.OS.WINDOWS;
 		} else if (s.contains("mac")) {
-			return Util.EnumOS.OSX;
+			return Util.OS.OSX;
 		} else if (s.contains("solaris")) {
-			return Util.EnumOS.SOLARIS;
+			return Util.OS.SOLARIS;
 		} else if (s.contains("sunos")) {
-			return Util.EnumOS.SOLARIS;
+			return Util.OS.SOLARIS;
 		} else if (s.contains("linux")) {
-			return Util.EnumOS.LINUX;
+			return Util.OS.LINUX;
 		} else {
-			return s.contains("unix") ? Util.EnumOS.LINUX : Util.EnumOS.UNKNOWN;
+			return s.contains("unix") ? Util.OS.LINUX : Util.OS.UNKNOWN;
 		}
 	}
 
@@ -43,7 +43,7 @@ public class Util {
 		return list.getLast();
 	}
 
-	public enum EnumOS {
+	public enum OS {
 		LINUX,
 		SOLARIS,
 		WINDOWS,

@@ -3,7 +3,7 @@ package net.minecraft.client.model;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.AbstractIllager;
-import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.HandSide;
 import net.minecraft.util.math.MathHelper;
 
 public class ModelIllager extends ModelBase {
@@ -105,7 +105,7 @@ public class ModelIllager extends ModelBase {
 			rightArm.rotateAngleY = 0.15707964F;
 			leftArm.rotateAngleY = -0.15707964F;
 
-			if (((EntityLivingBase) entityIn).getPrimaryHand() == EnumHandSide.RIGHT) {
+			if (((EntityLivingBase) entityIn).getPrimaryHand() == HandSide.RIGHT) {
 				rightArm.rotateAngleX = -1.8849558F + MathHelper.cos(ageInTicks * 0.09F) * 0.15F;
 				leftArm.rotateAngleX = -0F + MathHelper.cos(ageInTicks * 0.19F) * 0.5F;
 				rightArm.rotateAngleX += f * 2.2F - f1 * 0.4F;
@@ -141,9 +141,9 @@ public class ModelIllager extends ModelBase {
 		}
 	}
 
-	public ModelRenderer getArm(EnumHandSide p_191216_1_) {
+	public ModelRenderer getArm(HandSide p_191216_1_) {
 
-		return p_191216_1_ == EnumHandSide.LEFT ? leftArm : rightArm;
+		return p_191216_1_ == HandSide.LEFT ? leftArm : rightArm;
 	}
 
 }

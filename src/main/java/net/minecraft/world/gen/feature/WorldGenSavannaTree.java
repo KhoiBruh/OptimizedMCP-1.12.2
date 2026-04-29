@@ -4,7 +4,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -12,8 +12,8 @@ import java.util.Random;
 
 public class WorldGenSavannaTree extends WorldGenAbstractTree {
 
-	private static final IBlockState TRUNK = Blocks.LOG2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.ACACIA);
-	private static final IBlockState LEAF = Blocks.LEAVES2.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.EnumType.ACACIA).withProperty(BlockLeaves.CHECK_DECAY, false);
+	private static final IBlockState TRUNK = Blocks.LOG2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.Type.ACACIA);
+	private static final IBlockState LEAF = Blocks.LEAVES2.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.Type.ACACIA).withProperty(BlockLeaves.CHECK_DECAY, false);
 
 	public WorldGenSavannaTree(boolean doBlockNotify) {
 
@@ -59,7 +59,7 @@ public class WorldGenSavannaTree extends WorldGenAbstractTree {
 
 				if ((block == Blocks.GRASS || block == Blocks.DIRT) && position.getY() < 256 - i - 1) {
 					setDirtAt(worldIn, position.down());
-					EnumFacing enumfacing = EnumFacing.Plane.HORIZONTAL.random(rand);
+					Facing enumfacing = Facing.Plane.HORIZONTAL.random(rand);
 					int k2 = i - rand.nextInt(4) - 1;
 					int l2 = 3 - rand.nextInt(3);
 					int i3 = position.getX();
@@ -108,7 +108,7 @@ public class WorldGenSavannaTree extends WorldGenAbstractTree {
 					placeLeafAt(worldIn, blockpos2.north(2));
 					i3 = position.getX();
 					j1 = position.getZ();
-					EnumFacing enumfacing1 = EnumFacing.Plane.HORIZONTAL.random(rand);
+					Facing enumfacing1 = Facing.Plane.HORIZONTAL.random(rand);
 
 					if (enumfacing1 != enumfacing) {
 						int l3 = k2 - rand.nextInt(2) - 1;

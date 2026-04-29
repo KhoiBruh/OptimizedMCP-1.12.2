@@ -371,7 +371,7 @@ public class CommandScoreboard extends CommandBase {
 							throw new WrongUsageException("commands.scoreboard.teams.option.usage");
 						}
 					} else {
-						throw new WrongUsageException("commands.scoreboard.teams.option.noValue", s, joinNiceString(Team.EnumVisible.getNames()));
+						throw new WrongUsageException("commands.scoreboard.teams.option.noValue", s, joinNiceString(Team.Visible.getNames()));
 					}
 				} else {
 					throw new WrongUsageException("commands.scoreboard.teams.option.noValue", s, joinNiceStringFromCollection(Arrays.asList("true", "false")));
@@ -402,18 +402,18 @@ public class CommandScoreboard extends CommandBase {
 
 					scoreplayerteam.setSeeFriendlyInvisiblesEnabled("true".equalsIgnoreCase(s1));
 				} else if ("nametagVisibility".equalsIgnoreCase(s)) {
-					Team.EnumVisible team$enumvisible = Team.EnumVisible.getByName(s1);
+					Team.Visible team$enumvisible = Team.Visible.getByName(s1);
 
 					if (team$enumvisible == null) {
-						throw new WrongUsageException("commands.scoreboard.teams.option.noValue", s, joinNiceString(Team.EnumVisible.getNames()));
+						throw new WrongUsageException("commands.scoreboard.teams.option.noValue", s, joinNiceString(Team.Visible.getNames()));
 					}
 
 					scoreplayerteam.setNameTagVisibility(team$enumvisible);
 				} else if ("deathMessageVisibility".equalsIgnoreCase(s)) {
-					Team.EnumVisible team$enumvisible1 = Team.EnumVisible.getByName(s1);
+					Team.Visible team$enumvisible1 = Team.Visible.getByName(s1);
 
 					if (team$enumvisible1 == null) {
-						throw new WrongUsageException("commands.scoreboard.teams.option.noValue", s, joinNiceString(Team.EnumVisible.getNames()));
+						throw new WrongUsageException("commands.scoreboard.teams.option.noValue", s, joinNiceString(Team.Visible.getNames()));
 					}
 
 					scoreplayerteam.setDeathMessageVisibility(team$enumvisible1);
@@ -1026,7 +1026,7 @@ public class CommandScoreboard extends CommandBase {
 								}
 
 								if ("nametagVisibility".equalsIgnoreCase(args[3]) || "deathMessageVisibility".equalsIgnoreCase(args[3])) {
-									return getListOfStringsMatchingLastWord(args, Team.EnumVisible.getNames());
+									return getListOfStringsMatchingLastWord(args, Team.Visible.getNames());
 								}
 
 								if ("collisionRule".equalsIgnoreCase(args[3])) {

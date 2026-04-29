@@ -6,7 +6,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.IntIdentityHashBiMap;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Rotations;
@@ -258,23 +258,23 @@ public class DataSerializers {
 			return value;
 		}
 	};
-	public static final DataSerializer<EnumFacing> FACING = new DataSerializer<>() {
-		public void write(PacketBuffer buf, EnumFacing value) {
+	public static final DataSerializer<Facing> FACING = new DataSerializer<>() {
+		public void write(PacketBuffer buf, Facing value) {
 
 			buf.writeEnumValue(value);
 		}
 
-		public EnumFacing read(PacketBuffer buf) {
+		public Facing read(PacketBuffer buf) {
 
-			return buf.readEnumValue(EnumFacing.class);
+			return buf.readEnumValue(Facing.class);
 		}
 
-		public DataParameter<EnumFacing> createKey(int id) {
+		public DataParameter<Facing> createKey(int id) {
 
 			return new DataParameter<>(id, this);
 		}
 
-		public EnumFacing copyValue(EnumFacing value) {
+		public Facing copyValue(Facing value) {
 
 			return value;
 		}

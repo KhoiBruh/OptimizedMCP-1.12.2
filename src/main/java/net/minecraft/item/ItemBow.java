@@ -47,10 +47,10 @@ public class ItemBow extends Item {
 
 	private ItemStack findAmmo(EntityPlayer player) {
 
-		if (isArrow(player.getHeldItem(EnumHand.OFF_HAND))) {
-			return player.getHeldItem(EnumHand.OFF_HAND);
-		} else if (isArrow(player.getHeldItem(EnumHand.MAIN_HAND))) {
-			return player.getHeldItem(EnumHand.MAIN_HAND);
+		if (isArrow(player.getHeldItem(Hand.OFF_HAND))) {
+			return player.getHeldItem(Hand.OFF_HAND);
+		} else if (isArrow(player.getHeldItem(Hand.MAIN_HAND))) {
+			return player.getHeldItem(Hand.MAIN_HAND);
 		} else {
 			for (int i = 0; i < player.inventory.getSizeInventory(); ++i) {
 				ItemStack itemstack = player.inventory.getStackInSlot(i);
@@ -150,21 +150,21 @@ public class ItemBow extends Item {
 	/**
 	 * returns the action that specifies what animation to play when the items is being used
 	 */
-	public EnumAction getItemUseAction(ItemStack stack) {
+	public Action getItemUseAction(ItemStack stack) {
 
-		return EnumAction.BOW;
+		return Action.BOW;
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
 
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		boolean flag = !findAmmo(playerIn).isEmpty();
 
 		if (!playerIn.capabilities.isCreativeMode && !flag) {
-			return flag ? new ActionResult<>(EnumActionResult.PASS, itemstack) : new ActionResult<>(EnumActionResult.FAIL, itemstack);
+			return flag ? new TypedActionResult<>(ActionResult.PASS, itemstack) : new TypedActionResult<>(ActionResult.FAIL, itemstack);
 		} else {
 			playerIn.setActiveHand(handIn);
-			return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
+			return new TypedActionResult<>(ActionResult.SUCCESS, itemstack);
 		}
 	}
 

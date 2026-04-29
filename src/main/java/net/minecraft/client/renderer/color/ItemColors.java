@@ -23,8 +23,8 @@ public class ItemColors {
 		itemcolors.registerItemColorHandler((stack, tintIndex) -> tintIndex > 0 ? -1 : ((ItemArmor) stack.getItem()).getColor(stack), Items.LEATHER_HELMET, Items.LEATHER_CHESTPLATE, Items.LEATHER_LEGGINGS, Items.LEATHER_BOOTS);
 		itemcolors.registerItemColorHandler((stack, tintIndex) -> {
 
-			BlockDoublePlant.EnumPlantType blockdoubleplant$enumplanttype = BlockDoublePlant.EnumPlantType.byMetadata(stack.getMetadata());
-			return blockdoubleplant$enumplanttype != BlockDoublePlant.EnumPlantType.GRASS && blockdoubleplant$enumplanttype != BlockDoublePlant.EnumPlantType.FERN ? -1 : ColorizerGrass.getGrassColor(0.5D, 1D);
+			BlockDoublePlant.PlantType blockdoubleplant$enumplanttype = BlockDoublePlant.PlantType.byMetadata(stack.getMetadata());
+			return blockdoubleplant$enumplanttype != BlockDoublePlant.PlantType.GRASS && blockdoubleplant$enumplanttype != BlockDoublePlant.PlantType.FERN ? -1 : ColorizerGrass.getGrassColor(0.5D, 1D);
 		}, Blocks.DOUBLE_PLANT);
 		itemcolors.registerItemColorHandler((stack, tintIndex) -> {
 

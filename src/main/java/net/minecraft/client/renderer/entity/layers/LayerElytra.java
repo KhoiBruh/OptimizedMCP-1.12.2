@@ -5,7 +5,7 @@ import net.minecraft.client.model.ModelElytra;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EnumPlayerModelParts;
+import net.minecraft.entity.player.PlayerModelParts;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -42,7 +42,7 @@ public class LayerElytra implements LayerRenderer<EntityLivingBase> {
 
 				if (abstractclientplayer.isPlayerInfoSet() && abstractclientplayer.getLocationElytra() != null) {
 					renderPlayer.bindTexture(abstractclientplayer.getLocationElytra());
-				} else if (abstractclientplayer.hasPlayerInfo() && abstractclientplayer.getLocationCape() != null && abstractclientplayer.isWearing(EnumPlayerModelParts.CAPE)) {
+				} else if (abstractclientplayer.hasPlayerInfo() && abstractclientplayer.getLocationCape() != null && abstractclientplayer.isWearing(PlayerModelParts.CAPE)) {
 					renderPlayer.bindTexture(abstractclientplayer.getLocationCape());
 				} else {
 					renderPlayer.bindTexture(TEXTURE_ELYTRA);

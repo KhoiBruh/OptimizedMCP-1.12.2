@@ -8,7 +8,7 @@ import com.mojang.authlib.minecraft.MinecraftSessionService;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.game.GuiDisconnected;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.network.EnumConnectionState;
+import net.minecraft.network.ConnectionState;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.login.INetHandlerLoginClient;
 import net.minecraft.network.login.client.CPacketEncryptionResponse;
@@ -82,7 +82,7 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
 	public void handleLoginSuccess(SPacketLoginSuccess packetIn) {
 
 		gameProfile = packetIn.getProfile();
-		networkManager.setConnectionState(EnumConnectionState.PLAY);
+		networkManager.setConnectionState(ConnectionState.PLAY);
 		networkManager.setNetHandler(new NetHandlerPlayClient(mc, previousGuiScreen, networkManager, gameProfile));
 	}
 

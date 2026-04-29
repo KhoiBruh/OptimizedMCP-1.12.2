@@ -7,7 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.BlockRenderType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -77,7 +77,7 @@ public class ParticleFallingDust extends Particle {
 
 			IBlockState iblockstate = Block.getStateById(p_178902_15_[0]);
 
-			if (iblockstate.getBlock() != Blocks.AIR && iblockstate.getRenderType() == EnumBlockRenderType.INVISIBLE) {
+			if (iblockstate.getBlock() != Blocks.AIR && iblockstate.getRenderType() == BlockRenderType.INVISIBLE) {
 				return null;
 			} else {
 				int i = Minecraft.getMinecraft().getBlockColors().getColor(iblockstate, worldIn, new BlockPos(xCoordIn, yCoordIn, zCoordIn));

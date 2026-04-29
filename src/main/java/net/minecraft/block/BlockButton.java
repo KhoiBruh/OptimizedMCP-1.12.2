@@ -11,8 +11,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -42,7 +42,7 @@ public abstract class BlockButton extends BlockDirectional {
 	protected BlockButton(boolean wooden) {
 
 		super(Material.CIRCUITS);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, false));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(POWERED, false));
 		setTickRandomly(true);
 		setCreativeTab(CreativeTabs.REDSTONE);
 		this.wooden = wooden;
@@ -51,14 +51,14 @@ public abstract class BlockButton extends BlockDirectional {
 	/**
 	 * Check whether this block can be placed on the block in the given direction.
 	 */
-	protected static boolean canPlaceBlock(World worldIn, BlockPos pos, EnumFacing direction) {
+	protected static boolean canPlaceBlock(World worldIn, BlockPos pos, Facing direction) {
 
 		BlockPos blockpos = pos.offset(direction.getOpposite());
 		IBlockState iblockstate = worldIn.getBlockState(blockpos);
 		boolean flag = iblockstate.getBlockFaceShape(worldIn, blockpos, direction) == BlockFaceShape.SOLID;
 		Block block = iblockstate.getBlock();
 
-		if (direction == EnumFacing.UP) {
+		if (direction == Facing.UP) {
 			return block == Blocks.HOPPER || !isExceptionBlockForAttaching(block) && flag;
 		} else {
 			return !isExceptBlockForAttachWithPiston(block) && flag;
@@ -95,7 +95,7 @@ public abstract class BlockButton extends BlockDirectional {
 	/**
 	 * Check whether this Block can be placed at pos, while aiming at the specified side of an adjacent block
 	 */
-	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side) {
+	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Facing side) {
 
 		return canPlaceBlock(worldIn, pos, side);
 	}
@@ -105,7 +105,7 @@ public abstract class BlockButton extends BlockDirectional {
 	 */
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
 
-		for (EnumFacing enumfacing : EnumFacing.values()) {
+		for (Facing enumfacing : Facing.values()) {
 			if (canPlaceBlock(worldIn, pos, enumfacing)) {
 				return true;
 			}
@@ -118,9 +118,9 @@ public abstract class BlockButton extends BlockDirectional {
 	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 	 * IBlockstate
 	 */
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
-		return canPlaceBlock(worldIn, pos, facing) ? getDefaultState().withProperty(FACING, facing).withProperty(POWERED, false) : getDefaultState().withProperty(FACING, EnumFacing.DOWN).withProperty(POWERED, false);
+		return canPlaceBlock(worldIn, pos, facing) ? getDefaultState().withProperty(FACING, facing).withProperty(POWERED, false) : getDefaultState().withProperty(FACING, Facing.DOWN).withProperty(POWERED, false);
 	}
 
 	/**
@@ -149,7 +149,7 @@ public abstract class BlockButton extends BlockDirectional {
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
-		EnumFacing enumfacing = state.getValue(FACING);
+		Facing enumfacing = state.getValue(FACING);
 		boolean flag = state.getValue(POWERED);
 
 		return switch (enumfacing) {
@@ -165,7 +165,7 @@ public abstract class BlockButton extends BlockDirectional {
 	/**
 	 * Called when the block is right clicked by a player.
 	 */
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		if (state.getValue(POWERED)) {
 			return true;
@@ -195,12 +195,12 @@ public abstract class BlockButton extends BlockDirectional {
 		super.breakBlock(worldIn, pos, state);
 	}
 
-	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
 		return blockState.getValue(POWERED) ? 15 : 0;
 	}
 
-	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
 		if (!blockState.getValue(POWERED)) {
 			return 0;
@@ -279,7 +279,7 @@ public abstract class BlockButton extends BlockDirectional {
 		}
 	}
 
-	private void notifyNeighbors(World worldIn, BlockPos pos, EnumFacing facing) {
+	private void notifyNeighbors(World worldIn, BlockPos pos, Facing facing) {
 
 		worldIn.notifyNeighborsOfStateChange(pos, this, false);
 		worldIn.notifyNeighborsOfStateChange(pos.offset(facing.getOpposite()), this, false);
@@ -290,13 +290,13 @@ public abstract class BlockButton extends BlockDirectional {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		EnumFacing enumfacing = switch (meta & 7) {
-			case 0 -> EnumFacing.DOWN;
-			case 1 -> EnumFacing.EAST;
-			case 2 -> EnumFacing.WEST;
-			case 3 -> EnumFacing.SOUTH;
-			case 4 -> EnumFacing.NORTH;
-			default -> EnumFacing.UP;
+		Facing enumfacing = switch (meta & 7) {
+			case 0 -> Facing.DOWN;
+			case 1 -> Facing.EAST;
+			case 2 -> Facing.WEST;
+			case 3 -> Facing.SOUTH;
+			case 4 -> Facing.NORTH;
+			default -> Facing.UP;
 		};
 
 		return getDefaultState().withProperty(FACING, enumfacing).withProperty(POWERED, (meta & 8) > 0);
@@ -355,7 +355,7 @@ public abstract class BlockButton extends BlockDirectional {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
 		return BlockFaceShape.UNDEFINED;
 	}

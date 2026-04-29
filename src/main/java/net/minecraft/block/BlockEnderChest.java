@@ -31,7 +31,7 @@ public class BlockEnderChest extends BlockContainer {
 	protected BlockEnderChest() {
 
 		super(Material.ROCK);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH));
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
 
@@ -62,9 +62,9 @@ public class BlockEnderChest extends BlockContainer {
 	 * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
-	public EnumBlockRenderType getRenderType(IBlockState state) {
+	public BlockRenderType getRenderType(IBlockState state) {
 
-		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
+		return BlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class BlockEnderChest extends BlockContainer {
 	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 	 * IBlockstate
 	 */
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
 		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
 	}
@@ -108,7 +108,7 @@ public class BlockEnderChest extends BlockContainer {
 	/**
 	 * Called when the block is right clicked by a player.
 	 */
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		InventoryEnderChest inventoryenderchest = playerIn.getInventoryEnderChest();
 		TileEntity tileentity = worldIn.getTileEntity(pos);
@@ -148,7 +148,7 @@ public class BlockEnderChest extends BlockContainer {
 			double d3 = rand.nextFloat() * (float) j;
 			double d4 = ((double) rand.nextFloat() - 0.5D) * 0.125D;
 			double d5 = rand.nextFloat() * (float) k;
-			worldIn.spawnParticle(EnumParticleTypes.PORTAL, d0, d1, d2, d3, d4, d5);
+			worldIn.spawnParticle(ParticleTypes.PORTAL, d0, d1, d2, d3, d4, d5);
 		}
 	}
 
@@ -157,10 +157,10 @@ public class BlockEnderChest extends BlockContainer {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		EnumFacing enumfacing = EnumFacing.getFront(meta);
+		Facing enumfacing = Facing.getFront(meta);
 
-		if (enumfacing.getAxis() == EnumFacing.Axis.Y) {
-			enumfacing = EnumFacing.NORTH;
+		if (enumfacing.getAxis() == Facing.Axis.Y) {
+			enumfacing = Facing.NORTH;
 		}
 
 		return getDefaultState().withProperty(FACING, enumfacing);
@@ -206,7 +206,7 @@ public class BlockEnderChest extends BlockContainer {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
 		return BlockFaceShape.UNDEFINED;
 	}

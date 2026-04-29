@@ -6,7 +6,7 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.NonNullList;
@@ -18,12 +18,12 @@ import java.util.Random;
 
 public class BlockStainedGlass extends BlockBreakable {
 
-	public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.create("color", EnumDyeColor.class);
+	public static final PropertyEnum<DyeColor> COLOR = PropertyEnum.create("color", DyeColor.class);
 
 	public BlockStainedGlass(Material materialIn) {
 
 		super(materialIn, false);
-		setDefaultState(blockState.getBaseState().withProperty(COLOR, EnumDyeColor.WHITE));
+		setDefaultState(blockState.getBaseState().withProperty(COLOR, DyeColor.WHITE));
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 	}
 
@@ -41,7 +41,7 @@ public class BlockStainedGlass extends BlockBreakable {
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
 
-		for (EnumDyeColor enumdyecolor : EnumDyeColor.values()) {
+		for (DyeColor enumdyecolor : DyeColor.values()) {
 			items.add(new ItemStack(this, 1, enumdyecolor.getMetadata()));
 		}
 	}
@@ -86,7 +86,7 @@ public class BlockStainedGlass extends BlockBreakable {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
+		return getDefaultState().withProperty(COLOR, DyeColor.byMetadata(meta));
 	}
 
 	/**

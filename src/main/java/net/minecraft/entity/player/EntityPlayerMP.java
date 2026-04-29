@@ -129,7 +129,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 */
 	private int lastExperience = -99999999;
 	private int respawnInvulnerabilityTicks = 60;
-	private EntityPlayer.EnumChatVisibility chatVisibility;
+	private EntityPlayer.ChatVisibility chatVisibility;
 	private boolean chatColours = true;
 	private long playerLastActiveTime = System.currentTimeMillis();
 	/**
@@ -455,10 +455,10 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 		if (flag) {
 			Team team = getTeam();
 
-			if (team != null && team.getDeathMessageVisibility() != Team.EnumVisible.ALWAYS) {
-				if (team.getDeathMessageVisibility() == Team.EnumVisible.HIDE_FOR_OTHER_TEAMS) {
+			if (team != null && team.getDeathMessageVisibility() != Team.Visible.ALWAYS) {
+				if (team.getDeathMessageVisibility() == Team.Visible.HIDE_FOR_OTHER_TEAMS) {
 					mcServer.getPlayerList().sendMessageToAllTeamMembers(this, getCombatTracker().getDeathMessage());
-				} else if (team.getDeathMessageVisibility() == Team.EnumVisible.HIDE_FOR_OWN_TEAM) {
+				} else if (team.getDeathMessageVisibility() == Team.Visible.HIDE_FOR_OWN_TEAM) {
 					mcServer.getPlayerList().sendMessageToTeamOrAllPlayers(this, getCombatTracker().getDeathMessage());
 				}
 			} else {
@@ -862,7 +862,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 		openContainer.addListener(this);
 	}
 
-	public void openBook(ItemStack stack, EnumHand hand) {
+	public void openBook(ItemStack stack, Hand hand) {
 
 		Item item = stack.getItem();
 
@@ -1242,10 +1242,10 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 		chatVisibility = packetIn.getChatVisibility();
 		chatColours = packetIn.isColorsEnabled();
 		getDataManager().set(PLAYER_MODEL_FLAG, (byte) packetIn.getModelPartFlags());
-		getDataManager().set(MAIN_HAND, (byte) (packetIn.getMainHand() == EnumHandSide.LEFT ? 0 : 1));
+		getDataManager().set(MAIN_HAND, (byte) (packetIn.getMainHand() == HandSide.LEFT ? 0 : 1));
 	}
 
-	public EntityPlayer.EnumChatVisibility getChatVisibility() {
+	public EntityPlayer.ChatVisibility getChatVisibility() {
 
 		return chatVisibility;
 	}
@@ -1361,7 +1361,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 		return null;
 	}
 
-	public void swingArm(EnumHand hand) {
+	public void swingArm(Hand hand) {
 
 		super.swingArm(hand);
 		resetCooldown();

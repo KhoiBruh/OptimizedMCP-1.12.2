@@ -7,8 +7,8 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
@@ -29,7 +29,7 @@ public class ItemLingeringPotion extends ItemPotion {
 		PotionUtils.addPotionTooltip(stack, tooltip, 0.25F);
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
 
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		ItemStack itemstack1 = playerIn.capabilities.isCreativeMode ? itemstack.copy() : itemstack.splitStack(1);
@@ -42,7 +42,7 @@ public class ItemLingeringPotion extends ItemPotion {
 		}
 
 		playerIn.addStat(StatList.getObjectUseStats(this));
-		return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
+		return new TypedActionResult<>(ActionResult.SUCCESS, itemstack);
 	}
 
 }

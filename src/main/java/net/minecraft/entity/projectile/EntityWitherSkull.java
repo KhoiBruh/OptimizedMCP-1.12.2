@@ -13,7 +13,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
@@ -97,9 +97,9 @@ public class EntityWitherSkull extends EntityFireball {
 				if (result.entityHit instanceof EntityLivingBase) {
 					int i = 0;
 
-					if (world.getDifficulty() == EnumDifficulty.NORMAL) {
+					if (world.getDifficulty() == Difficulty.NORMAL) {
 						i = 10;
-					} else if (world.getDifficulty() == EnumDifficulty.HARD) {
+					} else if (world.getDifficulty() == Difficulty.HARD) {
 						i = 40;
 					}
 

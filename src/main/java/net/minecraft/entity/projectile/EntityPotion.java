@@ -18,7 +18,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.datafix.FixTypes;
 import net.minecraft.util.datafix.walkers.ItemStackData;
@@ -117,7 +117,7 @@ public class EntityPotion extends EntityThrowable {
 				BlockPos blockpos = result.getBlockPos().offset(result.sideHit);
 				extinguishFires(blockpos, result.sideHit);
 
-				for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+				for (Facing enumfacing : Facing.Plane.HORIZONTAL) {
 					extinguishFires(blockpos.offset(enumfacing), enumfacing);
 				}
 			}
@@ -218,7 +218,7 @@ public class EntityPotion extends EntityThrowable {
 		return getPotion().getItem() == Items.LINGERING_POTION;
 	}
 
-	private void extinguishFires(BlockPos pos, EnumFacing p_184542_2_) {
+	private void extinguishFires(BlockPos pos, Facing p_184542_2_) {
 
 		if (world.getBlockState(pos).getBlock() == Blocks.FIRE) {
 			world.extinguishFire(null, pos.offset(p_184542_2_), p_184542_2_.getOpposite());

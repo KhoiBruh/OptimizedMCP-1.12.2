@@ -208,7 +208,7 @@ public class ItemArmor extends Item {
 		return material.getRepairItem() == repair.getItem() || super.getIsRepairable(toRepair, repair);
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
 
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		EntityEquipmentSlot entityequipmentslot = EntityLiving.getSlotForItemStack(itemstack);
@@ -217,9 +217,9 @@ public class ItemArmor extends Item {
 		if (itemstack1.isEmpty()) {
 			playerIn.setItemStackToSlot(entityequipmentslot, itemstack.copy());
 			itemstack.setCount(0);
-			return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
+			return new TypedActionResult<>(ActionResult.SUCCESS, itemstack);
 		} else {
-			return new ActionResult<>(EnumActionResult.FAIL, itemstack);
+			return new TypedActionResult<>(ActionResult.FAIL, itemstack);
 		}
 	}
 

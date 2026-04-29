@@ -9,7 +9,7 @@ import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityEvokerFangs;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
@@ -116,7 +116,7 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 			return true;
 		} else if (entityIn instanceof EntityVex) {
 			return isOnSameTeam(((EntityVex) entityIn).getOwner());
-		} else if (entityIn instanceof EntityLivingBase && ((EntityLivingBase) entityIn).getCreatureAttribute() == EnumCreatureAttribute.ILLAGER) {
+		} else if (entityIn instanceof EntityLivingBase && ((EntityLivingBase) entityIn).getCreatureAttribute() == CreatureAttribute.ILLAGER) {
 			return getTeam() == null && entityIn.getTeam() == null;
 		} else {
 			return false;
@@ -312,7 +312,7 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 
 	public class AIWololoSpell extends EntitySpellcasterIllager.AIUseSpell {
 
-		final Predicate<EntitySheep> wololoSelector = p_apply_1_ -> p_apply_1_.getFleeceColor() == EnumDyeColor.BLUE;
+		final Predicate<EntitySheep> wololoSelector = p_apply_1_ -> p_apply_1_.getFleeceColor() == DyeColor.BLUE;
 
 		public AIWololoSpell() {
 
@@ -356,7 +356,7 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 			EntitySheep entitysheep = getWololoTarget();
 
 			if (entitysheep != null && entitysheep.isEntityAlive()) {
-				entitysheep.setFleeceColor(EnumDyeColor.RED);
+				entitysheep.setFleeceColor(DyeColor.RED);
 			}
 		}
 

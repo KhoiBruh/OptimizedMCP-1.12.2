@@ -15,7 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -51,7 +51,7 @@ public class BlockVine extends Block {
 		return p_193397_0_ instanceof BlockShulkerBox || p_193397_0_ == Blocks.BEACON || p_193397_0_ == Blocks.CAULDRON || p_193397_0_ == Blocks.GLASS || p_193397_0_ == Blocks.STAINED_GLASS || p_193397_0_ == Blocks.PISTON || p_193397_0_ == Blocks.STICKY_PISTON || p_193397_0_ == Blocks.PISTON_HEAD || p_193397_0_ == Blocks.TRAPDOOR;
 	}
 
-	public static PropertyBool getPropertyFor(EnumFacing side) {
+	public static PropertyBool getPropertyFor(Facing side) {
 
 		return switch (side) {
 			case UP -> UP;
@@ -123,7 +123,7 @@ public class BlockVine extends Block {
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 
 		BlockPos blockpos = pos.up();
-		return state.withProperty(UP, worldIn.getBlockState(blockpos).getBlockFaceShape(worldIn, blockpos, EnumFacing.DOWN) == BlockFaceShape.SOLID);
+		return state.withProperty(UP, worldIn.getBlockState(blockpos).getBlockFaceShape(worldIn, blockpos, Facing.DOWN) == BlockFaceShape.SOLID);
 	}
 
 	/**
@@ -150,18 +150,18 @@ public class BlockVine extends Block {
 	/**
 	 * Check whether this Block can be placed at pos, while aiming at the specified side of an adjacent block
 	 */
-	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side) {
+	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Facing side) {
 
-		return side != EnumFacing.DOWN && side != EnumFacing.UP && canAttachTo(worldIn, pos, side);
+		return side != Facing.DOWN && side != Facing.UP && canAttachTo(worldIn, pos, side);
 	}
 
-	public boolean canAttachTo(World p_193395_1_, BlockPos p_193395_2_, EnumFacing p_193395_3_) {
+	public boolean canAttachTo(World p_193395_1_, BlockPos p_193395_2_, Facing p_193395_3_) {
 
 		Block block = p_193395_1_.getBlockState(p_193395_2_.up()).getBlock();
-		return isAcceptableNeighbor(p_193395_1_, p_193395_2_.offset(p_193395_3_.getOpposite()), p_193395_3_) && (block == Blocks.AIR || block == Blocks.VINE || isAcceptableNeighbor(p_193395_1_, p_193395_2_.up(), EnumFacing.UP));
+		return isAcceptableNeighbor(p_193395_1_, p_193395_2_.offset(p_193395_3_.getOpposite()), p_193395_3_) && (block == Blocks.AIR || block == Blocks.VINE || isAcceptableNeighbor(p_193395_1_, p_193395_2_.up(), Facing.UP));
 	}
 
-	private boolean isAcceptableNeighbor(World p_193396_1_, BlockPos p_193396_2_, EnumFacing p_193396_3_) {
+	private boolean isAcceptableNeighbor(World p_193396_1_, BlockPos p_193396_2_, Facing p_193396_3_) {
 
 		IBlockState iblockstate = p_193396_1_.getBlockState(p_193396_2_);
 		return iblockstate.getBlockFaceShape(p_193396_1_, p_193396_2_, p_193396_3_) == BlockFaceShape.SOLID && !isExceptBlockForAttaching(iblockstate.getBlock());
@@ -171,7 +171,7 @@ public class BlockVine extends Block {
 
 		IBlockState iblockstate = state;
 
-		for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+		for (Facing enumfacing : Facing.Plane.HORIZONTAL) {
 			PropertyBool propertybool = getPropertyFor(enumfacing);
 
 			if (state.getValue(propertybool) && !canAttachTo(worldIn, pos, enumfacing.getOpposite())) {
@@ -231,13 +231,13 @@ public class BlockVine extends Block {
 					}
 				}
 
-				EnumFacing enumfacing1 = EnumFacing.random(rand);
+				Facing enumfacing1 = Facing.random(rand);
 				BlockPos blockpos2 = pos.up();
 
-				if (enumfacing1 == EnumFacing.UP && pos.getY() < 255 && worldIn.isAirBlock(blockpos2)) {
+				if (enumfacing1 == Facing.UP && pos.getY() < 255 && worldIn.isAirBlock(blockpos2)) {
 					IBlockState iblockstate2 = state;
 
-					for (EnumFacing enumfacing2 : EnumFacing.Plane.HORIZONTAL) {
+					for (Facing enumfacing2 : Facing.Plane.HORIZONTAL) {
 						if (rand.nextBoolean() && canAttachTo(worldIn, blockpos2, enumfacing2.getOpposite())) {
 							iblockstate2 = iblockstate2.withProperty(getPropertyFor(enumfacing2), true);
 						} else {
@@ -255,8 +255,8 @@ public class BlockVine extends Block {
 						Block block1 = iblockstate3.getBlock();
 
 						if (block1.blockMaterial == Material.AIR) {
-							EnumFacing enumfacing3 = enumfacing1.rotateY();
-							EnumFacing enumfacing4 = enumfacing1.rotateYCCW();
+							Facing enumfacing3 = enumfacing1.rotateY();
+							Facing enumfacing4 = enumfacing1.rotateYCCW();
 							boolean flag1 = state.getValue(getPropertyFor(enumfacing3));
 							boolean flag2 = state.getValue(getPropertyFor(enumfacing4));
 							BlockPos blockpos = blockpos4.offset(enumfacing3);
@@ -284,7 +284,7 @@ public class BlockVine extends Block {
 						if (block.blockMaterial == Material.AIR) {
 							IBlockState iblockstate1 = state;
 
-							for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+							for (Facing enumfacing : Facing.Plane.HORIZONTAL) {
 								if (rand.nextBoolean()) {
 									iblockstate1 = iblockstate1.withProperty(getPropertyFor(enumfacing), false);
 								}
@@ -296,7 +296,7 @@ public class BlockVine extends Block {
 						} else if (block == this) {
 							IBlockState iblockstate4 = iblockstate;
 
-							for (EnumFacing enumfacing5 : EnumFacing.Plane.HORIZONTAL) {
+							for (Facing enumfacing5 : Facing.Plane.HORIZONTAL) {
 								PropertyBool propertybool = getPropertyFor(enumfacing5);
 
 								if (rand.nextBoolean() && state.getValue(propertybool)) {
@@ -318,7 +318,7 @@ public class BlockVine extends Block {
 	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 	 * IBlockstate
 	 */
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
 		IBlockState iblockstate = getDefaultState().withProperty(UP, false).withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false);
 		return facing.getAxis().isHorizontal() ? iblockstate.withProperty(getPropertyFor(facing.getOpposite()), true) : iblockstate;
@@ -442,7 +442,7 @@ public class BlockVine extends Block {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
 		return BlockFaceShape.UNDEFINED;
 	}

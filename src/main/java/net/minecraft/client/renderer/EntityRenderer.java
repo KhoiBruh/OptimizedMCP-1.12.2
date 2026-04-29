@@ -1402,10 +1402,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 								d2 = (double) blockpos2.getZ() + d4;
 							}
 
-							mc.world.spawnParticle(EnumParticleTypes.WATER_DROP, (double) blockpos2.getX() + d3, (double) ((float) blockpos2.getY() + 0.1F) + axisalignedbb.maxY, (double) blockpos2.getZ() + d4, 0D, 0D, 0D);
+							mc.world.spawnParticle(ParticleTypes.WATER_DROP, (double) blockpos2.getX() + d3, (double) ((float) blockpos2.getY() + 0.1F) + axisalignedbb.maxY, (double) blockpos2.getZ() + d4, 0D, 0D, 0D);
 						}
 					} else {
-						mc.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (double) blockpos1.getX() + d3, (double) ((float) blockpos1.getY() + 0.1F) - axisalignedbb.minY, (double) blockpos1.getZ() + d4, 0D, 0D, 0D);
+						mc.world.spawnParticle(ParticleTypes.SMOKE_NORMAL, (double) blockpos1.getX() + d3, (double) ((float) blockpos1.getY() + 0.1F) - axisalignedbb.minY, (double) blockpos1.getZ() + d4, 0D, 0D, 0D);
 					}
 				}
 			}

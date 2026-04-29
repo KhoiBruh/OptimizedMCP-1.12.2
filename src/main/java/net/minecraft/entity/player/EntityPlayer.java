@@ -567,7 +567,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 			--flyToggleTimer;
 		}
 
-		if (world.getDifficulty() == EnumDifficulty.PEACEFUL && world.getGameRules().getBoolean("naturalRegeneration")) {
+		if (world.getDifficulty() == Difficulty.PEACEFUL && world.getGameRules().getBoolean("naturalRegeneration")) {
 			if (getHealth() < getMaxHealth() && ticksExisted % 20 == 0) {
 				heal(1F);
 			}
@@ -959,15 +959,15 @@ public abstract class EntityPlayer extends EntityLivingBase {
 				spawnShoulderEntities();
 
 				if (source.isDifficultyScaled()) {
-					if (world.getDifficulty() == EnumDifficulty.PEACEFUL) {
+					if (world.getDifficulty() == Difficulty.PEACEFUL) {
 						amount = 0F;
 					}
 
-					if (world.getDifficulty() == EnumDifficulty.EASY) {
+					if (world.getDifficulty() == Difficulty.EASY) {
 						amount = Math.min(amount / 2F + 1F, amount);
 					}
 
-					if (world.getDifficulty() == EnumDifficulty.HARD) {
+					if (world.getDifficulty() == Difficulty.HARD) {
 						amount = amount * 3F / 2F;
 					}
 				}
@@ -1010,9 +1010,9 @@ public abstract class EntityPlayer extends EntityLivingBase {
 			activeItemStack.damageItem(i, this);
 
 			if (activeItemStack.isEmpty()) {
-				EnumHand enumhand = getActiveHand();
+				Hand enumhand = getActiveHand();
 
-				if (enumhand == EnumHand.MAIN_HAND) {
+				if (enumhand == Hand.MAIN_HAND) {
 					setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.EMPTY);
 				} else {
 					setItemStackToSlot(EntityEquipmentSlot.OFFHAND, ItemStack.EMPTY);
@@ -1102,18 +1102,18 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
 	}
 
-	public void openBook(ItemStack stack, EnumHand hand) {
+	public void openBook(ItemStack stack, Hand hand) {
 
 	}
 
-	public EnumActionResult interactOn(Entity p_190775_1_, EnumHand p_190775_2_) {
+	public ActionResult interactOn(Entity p_190775_1_, Hand p_190775_2_) {
 
 		if (isSpectator()) {
 			if (p_190775_1_ instanceof IInventory) {
 				displayGUIChest((IInventory) p_190775_1_);
 			}
 
-			return EnumActionResult.PASS;
+			return ActionResult.PASS;
 		} else {
 			ItemStack itemstack = getHeldItem(p_190775_2_);
 			ItemStack itemstack1 = itemstack.isEmpty() ? ItemStack.EMPTY : itemstack.copy();
@@ -1123,7 +1123,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 					itemstack.setCount(itemstack1.getCount());
 				}
 
-				return EnumActionResult.SUCCESS;
+				return ActionResult.SUCCESS;
 			} else {
 				if (!itemstack.isEmpty() && p_190775_1_ instanceof EntityLivingBase) {
 					if (capabilities.isCreativeMode) {
@@ -1135,11 +1135,11 @@ public abstract class EntityPlayer extends EntityLivingBase {
 							setHeldItem(p_190775_2_, ItemStack.EMPTY);
 						}
 
-						return EnumActionResult.SUCCESS;
+						return ActionResult.SUCCESS;
 					}
 				}
 
-				return EnumActionResult.PASS;
+				return ActionResult.PASS;
 			}
 		}
 	}
@@ -1175,7 +1175,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 				if (targetEntity instanceof EntityLivingBase) {
 					f1 = EnchantmentHelper.getModifierForCreature(getHeldItemMainhand(), ((EntityLivingBase) targetEntity).getCreatureAttribute());
 				} else {
-					f1 = EnchantmentHelper.getModifierForCreature(getHeldItemMainhand(), EnumCreatureAttribute.UNDEFINED);
+					f1 = EnchantmentHelper.getModifierForCreature(getHeldItemMainhand(), CreatureAttribute.UNDEFINED);
 				}
 
 				float f2 = getCooledAttackStrength(0.5F);
@@ -1207,7 +1207,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 					double d0 = distanceWalkedModified - prevDistanceWalkedModified;
 
 					if (flag && !flag2 && !flag1 && onGround && d0 < (double) getAIMoveSpeed()) {
-						ItemStack itemstack = getHeldItem(EnumHand.MAIN_HAND);
+						ItemStack itemstack = getHeldItem(Hand.MAIN_HAND);
 
 						if (itemstack.getItem() instanceof ItemSword) {
 							flag3 = true;
@@ -1306,7 +1306,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 							itemstack1.hitEntity((EntityLivingBase) entity, this);
 
 							if (itemstack1.isEmpty()) {
-								setHeldItem(EnumHand.MAIN_HAND, ItemStack.EMPTY);
+								setHeldItem(Hand.MAIN_HAND, ItemStack.EMPTY);
 							}
 						}
 
@@ -1320,7 +1320,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
 							if (world instanceof WorldServer && f5 > 2F) {
 								int k = (int) ((double) f5 * 0.5D);
-								((WorldServer) world).spawnParticle(EnumParticleTypes.DAMAGE_INDICATOR, targetEntity.posX, targetEntity.posY + (double) (targetEntity.height * 0.5F), targetEntity.posZ, k, 0.1D, 0D, 0.1D, 0.2D);
+								((WorldServer) world).spawnParticle(ParticleTypes.DAMAGE_INDICATOR, targetEntity.posX, targetEntity.posY + (double) (targetEntity.height * 0.5F), targetEntity.posZ, k, 0.1D, 0D, 0.1D, 0.2D);
 							}
 						}
 
@@ -1369,7 +1369,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 		double d1 = MathHelper.cos(rotationYaw * 0.017453292F);
 
 		if (world instanceof WorldServer) {
-			((WorldServer) world).spawnParticle(EnumParticleTypes.SWEEP_ATTACK, posX + d0, posY + (double) height * 0.5D, posZ + d1, 0, d0, 0D, d1, 0D);
+			((WorldServer) world).spawnParticle(ParticleTypes.SWEEP_ATTACK, posX + d0, posY + (double) height * 0.5D, posZ + d1, 0, d0, 0D, d1, 0D);
 		}
 	}
 
@@ -1416,7 +1416,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
 	public EntityPlayer.SleepResult trySleep(BlockPos bedLocation) {
 
-		EnumFacing enumfacing = world.getBlockState(bedLocation).getValue(BlockHorizontal.FACING);
+		Facing enumfacing = world.getBlockState(bedLocation).getValue(BlockHorizontal.FACING);
 
 		if (!world.isRemote) {
 			if (isPlayerSleeping() || !isEntityAlive()) {
@@ -1474,7 +1474,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 		return EntityPlayer.SleepResult.OK;
 	}
 
-	private boolean bedInRange(BlockPos p_190774_1_, EnumFacing p_190774_2_) {
+	private boolean bedInRange(BlockPos p_190774_1_, Facing p_190774_2_) {
 
 		if (Math.abs(posX - (double) p_190774_1_.getX()) <= 3D && Math.abs(posY - (double) p_190774_1_.getY()) <= 2D && Math.abs(posZ - (double) p_190774_1_.getZ()) <= 3D) {
 			return true;
@@ -1484,7 +1484,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 		}
 	}
 
-	private void setRenderOffsetForSleep(EnumFacing bedDirection) {
+	private void setRenderOffsetForSleep(Facing bedDirection) {
 
 		renderOffsetX = -1.8F * (float) bedDirection.getFrontOffsetX();
 		renderOffsetZ = -1.8F * (float) bedDirection.getFrontOffsetZ();
@@ -1533,7 +1533,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	public float getBedOrientationInDegrees() {
 
 		if (bedLocation != null) {
-			EnumFacing enumfacing = world.getBlockState(bedLocation).getValue(BlockHorizontal.FACING);
+			Facing enumfacing = world.getBlockState(bedLocation).getValue(BlockHorizontal.FACING);
 
 			switch (enumfacing) {
 				case SOUTH:
@@ -1921,7 +1921,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * @see ItemStack#canEditBlocks()
 	 * @see PlayerCapabilities#allowEdit
 	 */
-	public boolean canPlayerEdit(BlockPos pos, EnumFacing facing, ItemStack stack) {
+	public boolean canPlayerEdit(BlockPos pos, Facing facing, ItemStack stack) {
 
 		if (capabilities.allowEdit) {
 			return true;
@@ -2177,7 +2177,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 		}
 	}
 
-	public boolean isWearing(EnumPlayerModelParts part) {
+	public boolean isWearing(PlayerModelParts part) {
 
 		return (getDataManager().get(PLAYER_MODEL_FLAG) & part.getPartMask()) == part.getPartMask();
 	}
@@ -2255,14 +2255,14 @@ public abstract class EntityPlayer extends EntityLivingBase {
 		hasReducedDebug = reducedDebug;
 	}
 
-	public EnumHandSide getPrimaryHand() {
+	public HandSide getPrimaryHand() {
 
-		return dataManager.get(MAIN_HAND) == 0 ? EnumHandSide.LEFT : EnumHandSide.RIGHT;
+		return dataManager.get(MAIN_HAND) == 0 ? HandSide.LEFT : HandSide.RIGHT;
 	}
 
-	public void setPrimaryHand(EnumHandSide hand) {
+	public void setPrimaryHand(HandSide hand) {
 
-		dataManager.set(MAIN_HAND, (byte) (hand == EnumHandSide.LEFT ? 0 : 1));
+		dataManager.set(MAIN_HAND, (byte) (hand == HandSide.LEFT ? 0 : 1));
 	}
 
 	public NBTTagCompound getLeftShoulderEntity() {
@@ -2331,15 +2331,15 @@ public abstract class EntityPlayer extends EntityLivingBase {
 		return capabilities.isCreativeMode && canUseCommand(2, "");
 	}
 
-	public enum EnumChatVisibility {
+	public enum ChatVisibility {
 		FULL(0, "options.chat.visibility.full"),
 		SYSTEM(1, "options.chat.visibility.system"),
 		HIDDEN(2, "options.chat.visibility.hidden");
 
-		private static final EntityPlayer.EnumChatVisibility[] ID_LOOKUP = new EntityPlayer.EnumChatVisibility[values().length];
+		private static final EntityPlayer.ChatVisibility[] ID_LOOKUP = new EntityPlayer.ChatVisibility[values().length];
 
 		static {
-			for (EntityPlayer.EnumChatVisibility entityplayer$enumchatvisibility : values()) {
+			for (EntityPlayer.ChatVisibility entityplayer$enumchatvisibility : values()) {
 				ID_LOOKUP[entityplayer$enumchatvisibility.chatVisibility] = entityplayer$enumchatvisibility;
 			}
 		}
@@ -2347,13 +2347,13 @@ public abstract class EntityPlayer extends EntityLivingBase {
 		private final int chatVisibility;
 		private final String resourceKey;
 
-		EnumChatVisibility(int id, String resourceKey) {
+		ChatVisibility(int id, String resourceKey) {
 
 			chatVisibility = id;
 			this.resourceKey = resourceKey;
 		}
 
-		public static EntityPlayer.EnumChatVisibility getEnumChatVisibility(int id) {
+		public static EntityPlayer.ChatVisibility getEnumChatVisibility(int id) {
 
 			return ID_LOOKUP[id % ID_LOOKUP.length];
 		}

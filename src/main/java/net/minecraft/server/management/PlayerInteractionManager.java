@@ -17,9 +17,9 @@ import net.minecraft.network.play.server.SPacketPlayerListItem;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.GameType;
 import net.minecraft.world.ILockableContainer;
@@ -148,7 +148,7 @@ public class PlayerInteractionManager {
 	 * If not creative, it calls sendBlockBreakProgress until the block is broken first. tryHarvestBlock can also be the
 	 * result of this call.
 	 */
-	public void onBlockClicked(BlockPos pos, EnumFacing side) {
+	public void onBlockClicked(BlockPos pos, Facing side) {
 
 		if (isCreative()) {
 			if (!world.extinguishFire(null, pos, side)) {
@@ -303,21 +303,21 @@ public class PlayerInteractionManager {
 		}
 	}
 
-	public EnumActionResult processRightClick(EntityPlayer player, World worldIn, ItemStack stack, EnumHand hand) {
+	public ActionResult processRightClick(EntityPlayer player, World worldIn, ItemStack stack, Hand hand) {
 
 		if (gameType == GameType.SPECTATOR) {
-			return EnumActionResult.PASS;
+			return ActionResult.PASS;
 		} else if (player.getCooldownTracker().hasCooldown(stack.getItem())) {
-			return EnumActionResult.PASS;
+			return ActionResult.PASS;
 		} else {
 			int i = stack.getCount();
 			int j = stack.getMetadata();
-			ActionResult<ItemStack> actionresult = stack.useItemRightClick(worldIn, player, hand);
+			TypedActionResult<ItemStack> actionresult = stack.useItemRightClick(worldIn, player, hand);
 			ItemStack itemstack = actionresult.result();
 
 			if (itemstack == stack && itemstack.getCount() == i && itemstack.getMaxItemUseDuration() <= 0 && itemstack.getMetadata() == j) {
 				return actionresult.type();
-			} else if (actionresult.type() == EnumActionResult.FAIL && itemstack.getMaxItemUseDuration() > 0 && !player.isHandActive()) {
+			} else if (actionresult.type() == ActionResult.FAIL && itemstack.getMaxItemUseDuration() > 0 && !player.isHandActive()) {
 				return actionresult.type();
 			} else {
 				player.setHeldItem(hand, itemstack);
@@ -343,7 +343,7 @@ public class PlayerInteractionManager {
 		}
 	}
 
-	public EnumActionResult processRightClickBlock(EntityPlayer player, World worldIn, ItemStack stack, EnumHand hand, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public ActionResult processRightClickBlock(EntityPlayer player, World worldIn, ItemStack stack, Hand hand, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ) {
 
 		if (gameType == GameType.SPECTATOR) {
 			TileEntity tileentity = worldIn.getTileEntity(pos);
@@ -357,40 +357,40 @@ public class PlayerInteractionManager {
 
 				if (ilockablecontainer != null) {
 					player.displayGUIChest(ilockablecontainer);
-					return EnumActionResult.SUCCESS;
+					return ActionResult.SUCCESS;
 				}
 			} else if (tileentity instanceof IInventory) {
 				player.displayGUIChest((IInventory) tileentity);
-				return EnumActionResult.SUCCESS;
+				return ActionResult.SUCCESS;
 			}
 
-			return EnumActionResult.PASS;
+			return ActionResult.PASS;
 		} else {
 			if (!player.isSneaking() || player.getHeldItemMainhand().isEmpty() && player.getHeldItemOffhand().isEmpty()) {
 				IBlockState iblockstate = worldIn.getBlockState(pos);
 
 				if (iblockstate.getBlock().onBlockActivated(worldIn, pos, iblockstate, player, hand, facing, hitX, hitY, hitZ)) {
-					return EnumActionResult.SUCCESS;
+					return ActionResult.SUCCESS;
 				}
 			}
 
 			if (stack.isEmpty()) {
-				return EnumActionResult.PASS;
+				return ActionResult.PASS;
 			} else if (player.getCooldownTracker().hasCooldown(stack.getItem())) {
-				return EnumActionResult.PASS;
+				return ActionResult.PASS;
 			} else {
 				if (stack.getItem() instanceof ItemBlock && !player.canUseCommandBlock()) {
 					Block block = ((ItemBlock) stack.getItem()).getBlock();
 
 					if (block instanceof BlockCommandBlock || block instanceof BlockStructure) {
-						return EnumActionResult.FAIL;
+						return ActionResult.FAIL;
 					}
 				}
 
 				if (isCreative()) {
 					int j = stack.getMetadata();
 					int i = stack.getCount();
-					EnumActionResult enumactionresult = stack.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+					ActionResult enumactionresult = stack.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
 					stack.setItemDamage(j);
 					stack.setCount(i);
 					return enumactionresult;

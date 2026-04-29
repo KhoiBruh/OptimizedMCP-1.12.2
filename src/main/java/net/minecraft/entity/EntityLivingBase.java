@@ -67,7 +67,7 @@ public abstract class EntityLivingBase extends Entity {
 	/**
 	 * The hand that is currently being swung, if {@link #isSwingInProgress} is true.
 	 */
-	public EnumHand swingingHand;
+	public Hand swingingHand;
 	public int swingProgressInt;
 	public int arrowHitTimer;
 	/**
@@ -284,7 +284,7 @@ public abstract class EntityLivingBase extends Entity {
 			if (state.getMaterial() != Material.AIR) {
 				double d0 = Math.min(0.2F + f / 15F, 2.5D);
 				int i = (int) (150D * d0);
-				((WorldServer) world).spawnParticle(EnumParticleTypes.BLOCK_DUST, posX, posY, posZ, i, 0D, 0D, 0D, 0.15000000596046448D, Block.getStateId(state));
+				((WorldServer) world).spawnParticle(ParticleTypes.BLOCK_DUST, posX, posY, posZ, i, 0D, 0D, 0D, 0.15000000596046448D, Block.getStateId(state));
 			}
 		}
 
@@ -342,7 +342,7 @@ public abstract class EntityLivingBase extends Entity {
 							float f2 = rand.nextFloat() - rand.nextFloat();
 							float f = rand.nextFloat() - rand.nextFloat();
 							float f1 = rand.nextFloat() - rand.nextFloat();
-							world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX + (double) f2, posY + (double) f, posZ + (double) f1, motionX, motionY, motionZ);
+							world.spawnParticle(ParticleTypes.WATER_BUBBLE, posX + (double) f2, posY + (double) f, posZ + (double) f1, motionX, motionY, motionZ);
 						}
 
 						attackEntityFrom(DamageSource.DROWN, 2F);
@@ -450,7 +450,7 @@ public abstract class EntityLivingBase extends Entity {
 				double d2 = rand.nextGaussian() * 0.02D;
 				double d0 = rand.nextGaussian() * 0.02D;
 				double d1 = rand.nextGaussian() * 0.02D;
-				world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, posX + (double) (rand.nextFloat() * width * 2F) - (double) width, posY + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2F) - (double) width, d2, d0, d1);
+				world.spawnParticle(ParticleTypes.EXPLOSION_NORMAL, posX + (double) (rand.nextFloat() * width * 2F) - (double) width, posY + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2F) - (double) width, d2, d0, d1);
 			}
 		}
 	}
@@ -693,7 +693,7 @@ public abstract class EntityLivingBase extends Entity {
 				double d0 = (double) (i >> 16 & 255) / 255D;
 				double d1 = (double) (i >> 8 & 255) / 255D;
 				double d2 = (double) (i & 255) / 255D;
-				world.spawnParticle(flag1 ? EnumParticleTypes.SPELL_MOB_AMBIENT : EnumParticleTypes.SPELL_MOB, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, d0, d1, d2);
+				world.spawnParticle(flag1 ? ParticleTypes.SPELL_MOB_AMBIENT : ParticleTypes.SPELL_MOB, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height, posZ + (rand.nextDouble() - 0.5D) * (double) width, d0, d1, d2);
 			}
 		}
 	}
@@ -781,7 +781,7 @@ public abstract class EntityLivingBase extends Entity {
 
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
 
-		if (getCreatureAttribute() == EnumCreatureAttribute.UNDEAD) {
+		if (getCreatureAttribute() == CreatureAttribute.UNDEAD) {
 			Potion potion = potioneffectIn.getPotion();
 
 			return potion != MobEffects.REGENERATION && potion != MobEffects.POISON;
@@ -795,7 +795,7 @@ public abstract class EntityLivingBase extends Entity {
 	 */
 	public boolean isEntityUndead() {
 
-		return getCreatureAttribute() == EnumCreatureAttribute.UNDEAD;
+		return getCreatureAttribute() == CreatureAttribute.UNDEAD;
 	}
 
 	
@@ -1036,7 +1036,7 @@ public abstract class EntityLivingBase extends Entity {
 		} else {
 			ItemStack itemstack = null;
 
-			for (EnumHand enumhand : EnumHand.values()) {
+			for (Hand enumhand : Hand.values()) {
 				ItemStack itemstack1 = getHeldItem(enumhand);
 
 				if (itemstack1.getItem() == Items.TOTEM_OF_UNDYING) {
@@ -1119,7 +1119,7 @@ public abstract class EntityLivingBase extends Entity {
 			vec3d1 = vec3d1.rotatePitch(-rotationPitch * 0.017453292F);
 			vec3d1 = vec3d1.rotateYaw(-rotationYaw * 0.017453292F);
 			vec3d1 = vec3d1.addVector(posX, posY + (double) getEyeHeight(), posZ);
-			world.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec3d1.x(), vec3d1.y(), vec3d1.z(), vec3d.x(), vec3d.y() + 0.05D, vec3d.z(), Item.getIdFromItem(stack.getItem()));
+			world.spawnParticle(ParticleTypes.ITEM_CRACK, vec3d1.x(), vec3d1.y(), vec3d1.z(), vec3d.x(), vec3d.y() + 0.05D, vec3d.z(), Item.getIdFromItem(stack.getItem()));
 		}
 	}
 
@@ -1442,7 +1442,7 @@ public abstract class EntityLivingBase extends Entity {
 		}
 	}
 
-	public void swingArm(EnumHand hand) {
+	public void swingArm(Hand hand) {
 
 		if (!isSwingInProgress || swingProgressInt >= getArmSwingAnimationEnd() / 2 || swingProgressInt < 0) {
 			swingProgressInt = -1;
@@ -1450,7 +1450,7 @@ public abstract class EntityLivingBase extends Entity {
 			swingingHand = hand;
 
 			if (world instanceof WorldServer) {
-				((WorldServer) world).getEntityTracker().sendToTracking(this, new SPacketAnimation(this, hand == EnumHand.MAIN_HAND ? 0 : 3));
+				((WorldServer) world).getEntityTracker().sendToTracking(this, new SPacketAnimation(this, hand == Hand.MAIN_HAND ? 0 : 3));
 			}
 		}
 	}
@@ -1559,11 +1559,11 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	/**
-	 * Get this Entity's EnumCreatureAttribute
+	 * Get this Entity's CreatureAttribute
 	 */
-	public EnumCreatureAttribute getCreatureAttribute() {
+	public CreatureAttribute getCreatureAttribute() {
 
-		return EnumCreatureAttribute.UNDEFINED;
+		return CreatureAttribute.UNDEFINED;
 	}
 
 	public ItemStack getHeldItemMainhand() {
@@ -1576,23 +1576,23 @@ public abstract class EntityLivingBase extends Entity {
 		return getItemStackFromSlot(EntityEquipmentSlot.OFFHAND);
 	}
 
-	public ItemStack getHeldItem(EnumHand hand) {
+	public ItemStack getHeldItem(Hand hand) {
 
-		if (hand == EnumHand.MAIN_HAND) {
+		if (hand == Hand.MAIN_HAND) {
 			return getItemStackFromSlot(EntityEquipmentSlot.MAINHAND);
-		} else if (hand == EnumHand.OFF_HAND) {
+		} else if (hand == Hand.OFF_HAND) {
 			return getItemStackFromSlot(EntityEquipmentSlot.OFFHAND);
 		} else {
 			throw new IllegalArgumentException("Invalid hand " + hand);
 		}
 	}
 
-	public void setHeldItem(EnumHand hand, ItemStack stack) {
+	public void setHeldItem(Hand hand, ItemStack stack) {
 
-		if (hand == EnumHand.MAIN_HAND) {
+		if (hand == Hand.MAIN_HAND) {
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, stack);
 		} else {
-			if (hand != EnumHand.OFF_HAND) {
+			if (hand != Hand.OFF_HAND) {
 				throw new IllegalArgumentException("Invalid hand " + hand);
 			}
 
@@ -1661,10 +1661,10 @@ public abstract class EntityLivingBase extends Entity {
 			double d1 = entityIn.posX;
 			double d13 = entityIn.getEntityBoundingBox().minY + (double) entityIn.height;
 			double d14 = entityIn.posZ;
-			EnumFacing enumfacing1 = entityIn.getAdjustedHorizontalFacing();
+			Facing enumfacing1 = entityIn.getAdjustedHorizontalFacing();
 
 			if (enumfacing1 != null) {
-				EnumFacing enumfacing = enumfacing1.rotateY();
+				Facing enumfacing = enumfacing1.rotateY();
 				int[][] aint1 = new int[][]{{0, 1}, {0, -1}, {-1, 1}, {-1, -1}, {1, 1}, {1, -1}, {-1, 0}, {1, 0}, {0, 1}};
 				double d5 = Math.floor(posX) + 0.5D;
 				double d6 = Math.floor(posZ) + 0.5D;
@@ -1708,7 +1708,7 @@ public abstract class EntityLivingBase extends Entity {
 			if (entityIn instanceof EntityBoat) {
 				f = 0F;
 			} else {
-				f = ((float) Math.PI / 2F) * (float) (getPrimaryHand() == EnumHandSide.RIGHT ? -1 : 1);
+				f = ((float) Math.PI / 2F) * (float) (getPrimaryHand() == HandSide.RIGHT ? -1 : 1);
 			}
 
 			float f1 = -MathHelper.sin(-rotationYaw * 0.017453292F - (float) Math.PI + f);
@@ -2498,19 +2498,19 @@ public abstract class EntityLivingBase extends Entity {
 		potionsNeedUpdate = true;
 	}
 
-	public abstract EnumHandSide getPrimaryHand();
+	public abstract HandSide getPrimaryHand();
 
 	public boolean isHandActive() {
 
 		return (dataManager.get(HAND_STATES) & 1) > 0;
 	}
 
-	public EnumHand getActiveHand() {
+	public Hand getActiveHand() {
 
-		return (dataManager.get(HAND_STATES) & 2) > 0 ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND;
+		return (dataManager.get(HAND_STATES) & 2) > 0 ? Hand.OFF_HAND : Hand.MAIN_HAND;
 	}
 
-	public void setActiveHand(EnumHand hand) {
+	public void setActiveHand(Hand hand) {
 
 		ItemStack itemstack = getHeldItem(hand);
 
@@ -2521,7 +2521,7 @@ public abstract class EntityLivingBase extends Entity {
 			if (!world.isRemote) {
 				int i = 1;
 
-				if (hand == EnumHand.OFF_HAND) {
+				if (hand == Hand.OFF_HAND) {
 					i |= 2;
 				}
 
@@ -2573,11 +2573,11 @@ public abstract class EntityLivingBase extends Entity {
 	protected void updateItemUse(ItemStack stack, int eatingParticleCount) {
 
 		if (!stack.isEmpty() && isHandActive()) {
-			if (stack.getItemUseAction() == EnumAction.DRINK) {
+			if (stack.getItemUseAction() == Action.DRINK) {
 				playSound(SoundEvents.ENTITY_GENERIC_DRINK, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 			}
 
-			if (stack.getItemUseAction() == EnumAction.EAT) {
+			if (stack.getItemUseAction() == Action.EAT) {
 				for (int i = 0; i < eatingParticleCount; ++i) {
 					Vec3d vec3d = new Vec3d(((double) rand.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0D);
 					vec3d = vec3d.rotatePitch(-rotationPitch * 0.017453292F);
@@ -2589,9 +2589,9 @@ public abstract class EntityLivingBase extends Entity {
 					vec3d1 = vec3d1.addVector(posX, posY + (double) getEyeHeight(), posZ);
 
 					if (stack.getHasSubtypes()) {
-						world.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec3d1.x(), vec3d1.y(), vec3d1.z(), vec3d.x(), vec3d.y() + 0.05D, vec3d.z(), Item.getIdFromItem(stack.getItem()), stack.getMetadata());
+						world.spawnParticle(ParticleTypes.ITEM_CRACK, vec3d1.x(), vec3d1.y(), vec3d1.z(), vec3d.x(), vec3d.y() + 0.05D, vec3d.z(), Item.getIdFromItem(stack.getItem()), stack.getMetadata());
 					} else {
-						world.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec3d1.x(), vec3d1.y(), vec3d1.z(), vec3d.x(), vec3d.y() + 0.05D, vec3d.z(), Item.getIdFromItem(stack.getItem()));
+						world.spawnParticle(ParticleTypes.ITEM_CRACK, vec3d1.x(), vec3d1.y(), vec3d1.z(), vec3d.x(), vec3d.y() + 0.05D, vec3d.z(), Item.getIdFromItem(stack.getItem()));
 					}
 				}
 
@@ -2651,7 +2651,7 @@ public abstract class EntityLivingBase extends Entity {
 		if (isHandActive() && !activeItemStack.isEmpty()) {
 			Item item = activeItemStack.getItem();
 
-			if (item.getItemUseAction(activeItemStack) != EnumAction.BLOCK) {
+			if (item.getItemUseAction(activeItemStack) != Action.BLOCK) {
 				return false;
 			} else {
 				return item.getMaxItemUseDuration(activeItemStack) - activeItemStackUseCount >= 5;
@@ -2725,7 +2725,7 @@ public abstract class EntityLivingBase extends Entity {
 				double d3 = d0 + (posX - d0) * d6 + (random.nextDouble() - 0.5D) * (double) width * 2D;
 				double d4 = d1 + (posY - d1) * d6 + random.nextDouble() * (double) height;
 				double d5 = d2 + (posZ - d2) * d6 + (random.nextDouble() - 0.5D) * (double) width * 2D;
-				world.spawnParticle(EnumParticleTypes.PORTAL, d3, d4, d5, f, f1, f2);
+				world.spawnParticle(ParticleTypes.PORTAL, d3, d4, d5, f, f1, f2);
 			}
 
 			if (this instanceof EntityCreature) {

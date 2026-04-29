@@ -8,14 +8,14 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class BlockRotatedPillar extends Block {
 
-	public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.create("axis", EnumFacing.Axis.class);
+	public static final PropertyEnum<Facing.Axis> AXIS = PropertyEnum.create("axis", Facing.Axis.class);
 
 	protected BlockRotatedPillar(Material materialIn) {
 
@@ -35,8 +35,8 @@ public class BlockRotatedPillar extends Block {
 
 		return switch (rot) {
 			case COUNTERCLOCKWISE_90, CLOCKWISE_90 -> switch (state.getValue(AXIS)) {
-				case X -> state.withProperty(AXIS, EnumFacing.Axis.Z);
-				case Z -> state.withProperty(AXIS, EnumFacing.Axis.X);
+				case X -> state.withProperty(AXIS, Facing.Axis.Z);
+				case Z -> state.withProperty(AXIS, Facing.Axis.X);
 				default -> state;
 			};
 			default -> state;
@@ -48,13 +48,13 @@ public class BlockRotatedPillar extends Block {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		EnumFacing.Axis enumfacing$axis = EnumFacing.Axis.Y;
+		Facing.Axis enumfacing$axis = Facing.Axis.Y;
 		int i = meta & 12;
 
 		if (i == 4) {
-			enumfacing$axis = EnumFacing.Axis.X;
+			enumfacing$axis = Facing.Axis.X;
 		} else if (i == 8) {
-			enumfacing$axis = EnumFacing.Axis.Z;
+			enumfacing$axis = Facing.Axis.Z;
 		}
 
 		return getDefaultState().withProperty(AXIS, enumfacing$axis);
@@ -66,11 +66,11 @@ public class BlockRotatedPillar extends Block {
 	public int getMetaFromState(IBlockState state) {
 
 		int i = 0;
-		EnumFacing.Axis enumfacing$axis = state.getValue(AXIS);
+		Facing.Axis enumfacing$axis = state.getValue(AXIS);
 
-		if (enumfacing$axis == EnumFacing.Axis.X) {
+		if (enumfacing$axis == Facing.Axis.X) {
 			i |= 4;
-		} else if (enumfacing$axis == EnumFacing.Axis.Z) {
+		} else if (enumfacing$axis == Facing.Axis.Z) {
 			i |= 8;
 		}
 
@@ -91,7 +91,7 @@ public class BlockRotatedPillar extends Block {
 	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 	 * IBlockstate
 	 */
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
 		return super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(AXIS, facing.getAxis());
 	}

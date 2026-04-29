@@ -5,7 +5,7 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public abstract class BlockLog extends BlockRotatedPillar {
 
-	public static final PropertyEnum<BlockLog.EnumAxis> LOG_AXIS = PropertyEnum.create("axis", BlockLog.EnumAxis.class);
+	public static final PropertyEnum<BlockLog.Axis> LOG_AXIS = PropertyEnum.create("axis", BlockLog.Axis.class);
 
 	public BlockLog() {
 
@@ -46,9 +46,9 @@ public abstract class BlockLog extends BlockRotatedPillar {
 	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 	 * IBlockstate
 	 */
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
-		return getStateFromMeta(meta).withProperty(LOG_AXIS, BlockLog.EnumAxis.fromFacingAxis(facing.getAxis()));
+		return getStateFromMeta(meta).withProperty(LOG_AXIS, BlockLog.Axis.fromFacingAxis(facing.getAxis()));
 	}
 
 	/**
@@ -59,15 +59,15 @@ public abstract class BlockLog extends BlockRotatedPillar {
 
 		return switch (rot) {
 			case COUNTERCLOCKWISE_90, CLOCKWISE_90 -> switch (state.getValue(LOG_AXIS)) {
-				case X -> state.withProperty(LOG_AXIS, EnumAxis.Z);
-				case Z -> state.withProperty(LOG_AXIS, EnumAxis.X);
+				case X -> state.withProperty(LOG_AXIS, Axis.Z);
+				case Z -> state.withProperty(LOG_AXIS, Axis.X);
 				default -> state;
 			};
 			default -> state;
 		};
 	}
 
-	public enum EnumAxis implements IStringSerializable {
+	public enum Axis implements IStringSerializable {
 		X("x"),
 		Y("y"),
 		Z("z"),
@@ -75,12 +75,12 @@ public abstract class BlockLog extends BlockRotatedPillar {
 
 		private final String name;
 
-		EnumAxis(String name) {
+		Axis(String name) {
 
 			this.name = name;
 		}
 
-		public static BlockLog.EnumAxis fromFacingAxis(EnumFacing.Axis axis) {
+		public static BlockLog.Axis fromFacingAxis(Facing.Axis axis) {
 
 			return switch (axis) {
 				case X -> X;

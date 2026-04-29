@@ -15,8 +15,8 @@ public class ScorePlayerTeam extends Team {
 	private String suffix = "";
 	private boolean allowFriendlyFire = true;
 	private boolean canSeeFriendlyInvisibles = true;
-	private Team.EnumVisible nameTagVisibility = Team.EnumVisible.ALWAYS;
-	private Team.EnumVisible deathMessageVisibility = Team.EnumVisible.ALWAYS;
+	private Team.Visible nameTagVisibility = Team.Visible.ALWAYS;
+	private Team.Visible deathMessageVisibility = Team.Visible.ALWAYS;
 	private TextFormatting color = TextFormatting.RESET;
 	private Team.CollisionRule collisionRule = Team.CollisionRule.ALWAYS;
 
@@ -157,7 +157,7 @@ public class ScorePlayerTeam extends Team {
 	/**
 	 * Gets the visibility flags for player name tags.
 	 */
-	public Team.EnumVisible getNameTagVisibility() {
+	public Team.Visible getNameTagVisibility() {
 
 		return nameTagVisibility;
 	}
@@ -165,7 +165,7 @@ public class ScorePlayerTeam extends Team {
 	/**
 	 * Sets the visibility flags for player name tags.
 	 */
-	public void setNameTagVisibility(Team.EnumVisible visibility) {
+	public void setNameTagVisibility(Team.Visible visibility) {
 
 		nameTagVisibility = visibility;
 		scoreboard.broadcastTeamInfoUpdate(this);
@@ -174,7 +174,7 @@ public class ScorePlayerTeam extends Team {
 	/**
 	 * Gets the visibility flags for player death messages.
 	 */
-	public Team.EnumVisible getDeathMessageVisibility() {
+	public Team.Visible getDeathMessageVisibility() {
 
 		return deathMessageVisibility;
 	}
@@ -182,7 +182,7 @@ public class ScorePlayerTeam extends Team {
 	/**
 	 * Sets the visibility flags for player death messages.
 	 */
-	public void setDeathMessageVisibility(Team.EnumVisible visibility) {
+	public void setDeathMessageVisibility(Team.Visible visibility) {
 
 		deathMessageVisibility = visibility;
 		scoreboard.broadcastTeamInfoUpdate(this);

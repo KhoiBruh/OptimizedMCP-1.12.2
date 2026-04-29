@@ -9,7 +9,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
@@ -54,7 +54,7 @@ public class EntityMinecartTNT extends EntityMinecart {
 
 		if (minecartTNTFuse > 0) {
 			--minecartTNTFuse;
-			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX, posY + 0.5D, posZ, 0D, 0D, 0D);
+			world.spawnParticle(ParticleTypes.SMOKE_NORMAL, posX, posY + 0.5D, posZ, 0D, 0D, 0D);
 		} else if (minecartTNTFuse == 0) {
 			explodeCart(motionX * motionX + motionZ * motionZ);
 		}

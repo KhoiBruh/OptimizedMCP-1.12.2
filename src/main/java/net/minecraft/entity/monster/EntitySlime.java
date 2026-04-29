@@ -17,14 +17,14 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
@@ -120,9 +120,9 @@ public class EntitySlime extends EntityLiving implements IMob {
 		return getSlimeSize() <= 1;
 	}
 
-	protected EnumParticleTypes getParticleType() {
+	protected ParticleTypes getParticleType() {
 
-		return EnumParticleTypes.SLIME;
+		return ParticleTypes.SLIME;
 	}
 
 	/**
@@ -130,7 +130,7 @@ public class EntitySlime extends EntityLiving implements IMob {
 	 */
 	public void onUpdate() {
 
-		if (!world.isRemote && world.getDifficulty() == EnumDifficulty.PEACEFUL && getSlimeSize() > 0) {
+		if (!world.isRemote && world.getDifficulty() == Difficulty.PEACEFUL && getSlimeSize() > 0) {
 			isDead = true;
 		}
 
@@ -147,7 +147,7 @@ public class EntitySlime extends EntityLiving implements IMob {
 				float f2 = MathHelper.sin(f) * (float) i * 0.5F * f1;
 				float f3 = MathHelper.cos(f) * (float) i * 0.5F * f1;
 				World world = this.world;
-				EnumParticleTypes enumparticletypes = getParticleType();
+				ParticleTypes enumparticletypes = getParticleType();
 				double d0 = posX + (double) f2;
 				double d1 = posZ + (double) f3;
 				world.spawnParticle(enumparticletypes, d0, getEntityBoundingBox().minY, d1, 0D, 0D, 0D);
@@ -319,7 +319,7 @@ public class EntitySlime extends EntityLiving implements IMob {
 		if (world.getWorldInfo().getTerrainType() == WorldType.FLAT && rand.nextInt(4) != 1) {
 			return false;
 		} else {
-			if (world.getDifficulty() != EnumDifficulty.PEACEFUL) {
+			if (world.getDifficulty() != Difficulty.PEACEFUL) {
 				Biome biome = world.getBiome(blockpos);
 
 				if (biome == Biomes.SWAMPLAND && posY > 50D && posY < 70D && rand.nextFloat() < 0.5F && rand.nextFloat() < world.getCurrentMoonPhaseFactor() && world.getLightFromNeighbors(new BlockPos(this)) <= rand.nextInt(8)) {

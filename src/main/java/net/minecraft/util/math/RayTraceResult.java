@@ -1,7 +1,7 @@
 package net.minecraft.util.math;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 
 public class RayTraceResult {
 
@@ -9,7 +9,7 @@ public class RayTraceResult {
 	 * The type of hit that occured, see {@link RayTraceResult#Type} for possibilities.
 	 */
 	public RayTraceResult.Type typeOfHit;
-	public EnumFacing sideHit;
+	public Facing sideHit;
 	/**
 	 * The vector position of the hit
 	 */
@@ -20,12 +20,12 @@ public class RayTraceResult {
 	public Entity entityHit;
 	private BlockPos blockPos;
 
-	public RayTraceResult(Vec3d hitVecIn, EnumFacing sideHitIn, BlockPos blockPosIn) {
+	public RayTraceResult(Vec3d hitVecIn, Facing sideHitIn, BlockPos blockPosIn) {
 
 		this(RayTraceResult.Type.BLOCK, hitVecIn, sideHitIn, blockPosIn);
 	}
 
-	public RayTraceResult(Vec3d hitVecIn, EnumFacing sideHitIn) {
+	public RayTraceResult(Vec3d hitVecIn, Facing sideHitIn) {
 
 		this(RayTraceResult.Type.BLOCK, hitVecIn, sideHitIn, BlockPos.ORIGIN);
 	}
@@ -35,7 +35,7 @@ public class RayTraceResult {
 		this(entityIn, new Vec3d(entityIn.posX, entityIn.posY, entityIn.posZ));
 	}
 
-	public RayTraceResult(RayTraceResult.Type typeIn, Vec3d hitVecIn, EnumFacing sideHitIn, BlockPos blockPosIn) {
+	public RayTraceResult(RayTraceResult.Type typeIn, Vec3d hitVecIn, Facing sideHitIn, BlockPos blockPosIn) {
 
 		typeOfHit = typeIn;
 		blockPos = blockPosIn;

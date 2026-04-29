@@ -6,7 +6,7 @@ import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.CreatureType;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -242,7 +242,7 @@ public class ChunkProviderServer implements IChunkProvider {
 		return "ServerChunkCache: " + id2ChunkMap.size() + " Drop: " + droppedChunksSet.size();
 	}
 
-	public List<Biome.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
+	public List<Biome.SpawnListEntry> getPossibleCreatures(CreatureType creatureType, BlockPos pos) {
 
 		return chunkGenerator.getPossibleCreatures(creatureType, pos);
 	}

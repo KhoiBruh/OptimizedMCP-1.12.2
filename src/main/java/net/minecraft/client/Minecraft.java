@@ -79,7 +79,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.network.EnumConnectionState;
+import net.minecraft.network.ConnectionState;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.handshake.client.C00Handshake;
 import net.minecraft.network.login.client.CPacketLoginStart;
@@ -103,7 +103,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.*;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.WorldProviderEnd;
 import net.minecraft.world.WorldProviderHell;
 import net.minecraft.world.WorldSettings;
@@ -142,7 +142,7 @@ import java.util.stream.Collectors;
 public class Minecraft implements IThreadListener, ISnooperInfo {
 
 	// Public static fields
-	public static final boolean IS_RUNNING_ON_MAC = Util.getOSType() == Util.EnumOS.OSX;
+	public static final boolean IS_RUNNING_ON_MAC = Util.getOSType() == Util.OS.OSX;
 	public static byte[] memoryReserve = new byte[10485760];
 
 	// Public instance fields
@@ -602,9 +602,9 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	
 	private void setWindowIcon() {
 		
-		Util.EnumOS util$enumos = Util.getOSType();
+		Util.OS util$enumos = Util.getOSType();
 		
-		if (util$enumos != Util.EnumOS.OSX) {
+		if (util$enumos != Util.OS.OSX) {
 			InputStream inputstream = null;
 			InputStream inputstream1 = null;
 			
@@ -1308,7 +1308,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 				if (world.getBlockState(blockpos)
 				         .getMaterial() != Material.AIR && playerController.onPlayerDamageBlock(blockpos, objectMouseOver.sideHit)) {
 					effectRenderer.addBlockHitEffects(blockpos, objectMouseOver.sideHit);
-					player.swingArm(EnumHand.MAIN_HAND);
+					player.swingArm(Hand.MAIN_HAND);
 				}
 			} else {
 				playerController.resetBlockRemoving();
@@ -1347,7 +1347,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 						player.resetCooldown();
 				}
 				
-				player.swingArm(EnumHand.MAIN_HAND);
+				player.swingArm(Hand.MAIN_HAND);
 			}
 		}
 	}
@@ -1365,17 +1365,17 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 					LOGGER.warn("Null returned as 'hitResult', this shouldn't happen!");
 				}
 				
-				for (EnumHand enumhand : EnumHand.values()) {
+				for (Hand enumhand : Hand.values()) {
 					ItemStack itemstack = player.getHeldItem(enumhand);
 					
 					if (objectMouseOver != null) {
 						switch (objectMouseOver.typeOfHit) {
 							case ENTITY:
-								if (playerController.interactWithEntity(player, objectMouseOver.entityHit, objectMouseOver, enumhand) == EnumActionResult.SUCCESS) {
+								if (playerController.interactWithEntity(player, objectMouseOver.entityHit, objectMouseOver, enumhand) == ActionResult.SUCCESS) {
 									return;
 								}
 								
-								if (playerController.interactWithEntity(player, objectMouseOver.entityHit, enumhand) == EnumActionResult.SUCCESS) {
+								if (playerController.interactWithEntity(player, objectMouseOver.entityHit, enumhand) == ActionResult.SUCCESS) {
 									return;
 								}
 								
@@ -1386,9 +1386,9 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 								
 								if (world.getBlockState(blockpos).getMaterial() != Material.AIR) {
 									int i = itemstack.getCount();
-									EnumActionResult enumactionresult = playerController.processRightClickBlock(player, world, blockpos, objectMouseOver.sideHit, objectMouseOver.hitVec, enumhand);
+									ActionResult enumactionresult = playerController.processRightClickBlock(player, world, blockpos, objectMouseOver.sideHit, objectMouseOver.hitVec, enumhand);
 									
-									if (enumactionresult == EnumActionResult.SUCCESS) {
+									if (enumactionresult == ActionResult.SUCCESS) {
 										player.swingArm(enumhand);
 										
 										if (!itemstack.isEmpty() && (itemstack.getCount() != i || playerController.isInCreativeMode())) {
@@ -1401,7 +1401,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 						}
 					}
 					
-					if (!itemstack.isEmpty() && playerController.processRightClick(player, world, enumhand) == EnumActionResult.SUCCESS) {
+					if (!itemstack.isEmpty() && playerController.processRightClick(player, world, enumhand) == ActionResult.SUCCESS) {
 						entityRenderer.itemRenderer.resetEquippedProgress(enumhand);
 						return;
 					}
@@ -1607,7 +1607,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		
 		if (world != null) {
 			if (!isGamePaused) {
-				world.setAllowedSpawnTypes(world.getDifficulty() != EnumDifficulty.PEACEFUL, true);
+				world.setAllowedSpawnTypes(world.getDifficulty() != Difficulty.PEACEFUL, true);
 				tutorial.update();
 				
 				try {
@@ -1846,7 +1846,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		
 		while (gameSettings.keyBindSwapHands.isPressed()) {
 			if (!player.isSpectator()) {
-				getConnection().sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.SWAP_HELD_ITEMS, BlockPos.ORIGIN, EnumFacing.DOWN));
+				getConnection().sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.SWAP_HELD_ITEMS, BlockPos.ORIGIN, Facing.DOWN));
 			}
 		}
 		
@@ -1856,7 +1856,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 			}
 		}
 		
-		boolean flag2 = gameSettings.chatVisibility != EntityPlayer.EnumChatVisibility.HIDDEN;
+		boolean flag2 = gameSettings.chatVisibility != EntityPlayer.ChatVisibility.HIDDEN;
 		
 		if (flag2) {
 			while (gameSettings.keyBindChat.isPressed()) {
@@ -2015,7 +2015,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		SocketAddress socketaddress = integratedServer.getNetworkSystem().addLocalEndpoint();
 		NetworkManager networkmanager = NetworkManager.provideLocalClient(socketaddress);
 		networkmanager.setNetHandler(new NetHandlerLoginClient(networkmanager, this, null));
-		networkmanager.sendPacket(new C00Handshake(socketaddress.toString(), 0, EnumConnectionState.LOGIN));
+		networkmanager.sendPacket(new C00Handshake(socketaddress.toString(), 0, ConnectionState.LOGIN));
 		networkmanager.sendPacket(new CPacketLoginStart(getSession().getProfile()));
 		myNetworkManager = networkmanager;
 	}
@@ -2239,7 +2239,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 				
 				if (flag) {
 					inventoryplayer.setPickedItemStack(itemstack);
-					playerController.sendSlotPacket(player.getHeldItem(EnumHand.MAIN_HAND), 36 + inventoryplayer.currentItem);
+					playerController.sendSlotPacket(player.getHeldItem(Hand.MAIN_HAND), 36 + inventoryplayer.currentItem);
 				} else if (i != -1) {
 					if (InventoryPlayer.isHotbar(i)) {
 						inventoryplayer.currentItem = i;

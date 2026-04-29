@@ -3,7 +3,7 @@ package net.minecraft.item;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.text.TextFormatting;
 
-public enum EnumDyeColor implements IStringSerializable {
+public enum DyeColor implements IStringSerializable {
 	WHITE(0, 15, "white", "white", 16383998, TextFormatting.WHITE),
 	ORANGE(1, 14, "orange", "orange", 16351261, TextFormatting.GOLD),
 	MAGENTA(2, 13, "magenta", "magenta", 13061821, TextFormatting.AQUA),
@@ -21,11 +21,11 @@ public enum EnumDyeColor implements IStringSerializable {
 	RED(14, 1, "red", "red", 11546150, TextFormatting.DARK_RED),
 	BLACK(15, 0, "black", "black", 1908001, TextFormatting.BLACK);
 
-	private static final EnumDyeColor[] META_LOOKUP = new EnumDyeColor[values().length];
-	private static final EnumDyeColor[] DYE_DMG_LOOKUP = new EnumDyeColor[values().length];
+	private static final DyeColor[] META_LOOKUP = new DyeColor[values().length];
+	private static final DyeColor[] DYE_DMG_LOOKUP = new DyeColor[values().length];
 
 	static {
-		for (EnumDyeColor enumdyecolor : values()) {
+		for (DyeColor enumdyecolor : values()) {
 			META_LOOKUP[enumdyecolor.getMetadata()] = enumdyecolor;
 			DYE_DMG_LOOKUP[enumdyecolor.getDyeDamage()] = enumdyecolor;
 		}
@@ -46,7 +46,7 @@ public enum EnumDyeColor implements IStringSerializable {
 	private final float[] colorComponentValues;
 	private final TextFormatting chatColor;
 
-	EnumDyeColor(int metaIn, int dyeDamageIn, String nameIn, String unlocalizedNameIn, int colorValueIn, TextFormatting chatColorIn) {
+	DyeColor(int metaIn, int dyeDamageIn, String nameIn, String unlocalizedNameIn, int colorValueIn, TextFormatting chatColorIn) {
 
 		meta = metaIn;
 		dyeDamage = dyeDamageIn;
@@ -60,7 +60,7 @@ public enum EnumDyeColor implements IStringSerializable {
 		colorComponentValues = new float[]{(float) i / 255F, (float) j / 255F, (float) k / 255F};
 	}
 
-	public static EnumDyeColor byDyeDamage(int damage) {
+	public static DyeColor byDyeDamage(int damage) {
 
 		if (damage < 0 || damage >= DYE_DMG_LOOKUP.length) {
 			damage = 0;
@@ -69,7 +69,7 @@ public enum EnumDyeColor implements IStringSerializable {
 		return DYE_DMG_LOOKUP[damage];
 	}
 
-	public static EnumDyeColor byMetadata(int meta) {
+	public static DyeColor byMetadata(int meta) {
 
 		if (meta < 0 || meta >= META_LOOKUP.length) {
 			meta = 0;

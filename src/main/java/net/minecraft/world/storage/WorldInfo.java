@@ -13,7 +13,7 @@ import java.util.Map.Entry;
 
 public class WorldInfo {
 
-	public static final EnumDifficulty DEFAULT_DIFFICULTY = EnumDifficulty.NORMAL;
+	public static final Difficulty DEFAULT_DIFFICULTY = Difficulty.NORMAL;
 	private final Map<DimensionType, NBTTagCompound> dimensionData = Maps.newEnumMap(DimensionType.class);
 	private String versionName;
 	private int versionId;
@@ -93,7 +93,7 @@ public class WorldInfo {
 	private boolean hardcore;
 	private boolean allowCommands;
 	private boolean initialized;
-	private EnumDifficulty difficulty;
+	private Difficulty difficulty;
 	private boolean difficultyLocked;
 	private double borderCenterX;
 	private double borderCenterZ;
@@ -194,7 +194,7 @@ public class WorldInfo {
 		}
 
 		if (nbt.hasKey("Difficulty", 99)) {
-			difficulty = EnumDifficulty.getDifficultyEnum(nbt.getByte("Difficulty"));
+			difficulty = Difficulty.getDifficultyEnum(nbt.getByte("Difficulty"));
 		}
 
 		if (nbt.hasKey("DifficultyLocked", 1)) {
@@ -838,12 +838,12 @@ public class WorldInfo {
 		borderWarningTime = ticks;
 	}
 
-	public EnumDifficulty getDifficulty() {
+	public Difficulty getDifficulty() {
 
 		return difficulty;
 	}
 
-	public void setDifficulty(EnumDifficulty newDifficulty) {
+	public void setDifficulty(Difficulty newDifficulty) {
 
 		difficulty = newDifficulty;
 	}

@@ -6,7 +6,7 @@ import net.minecraft.block.BlockSand;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -22,8 +22,8 @@ public class BiomeMesa extends Biome {
 	protected static final IBlockState GRASS = Blocks.GRASS.getDefaultState();
 	protected static final IBlockState HARDENED_CLAY = Blocks.HARDENED_CLAY.getDefaultState();
 	protected static final IBlockState STAINED_HARDENED_CLAY = Blocks.STAINED_HARDENED_CLAY.getDefaultState();
-	protected static final IBlockState ORANGE_STAINED_HARDENED_CLAY = STAINED_HARDENED_CLAY.withProperty(BlockColored.COLOR, EnumDyeColor.ORANGE);
-	protected static final IBlockState RED_SAND = Blocks.SAND.getDefaultState().withProperty(BlockSand.VARIANT, BlockSand.EnumType.RED_SAND);
+	protected static final IBlockState ORANGE_STAINED_HARDENED_CLAY = STAINED_HARDENED_CLAY.withProperty(BlockColored.COLOR, DyeColor.ORANGE);
+	protected static final IBlockState RED_SAND = Blocks.SAND.getDefaultState().withProperty(BlockSand.VARIANT, BlockSand.Type.RED_SAND);
 	private final boolean brycePillars;
 	private final boolean hasForest;
 	private IBlockState[] clayBands;
@@ -219,7 +219,7 @@ public class BiomeMesa extends Biome {
 			int k = random.nextInt(64);
 
 			for (int l = 0; k + l < 64 && l < j; ++l) {
-				clayBands[k + l] = STAINED_HARDENED_CLAY.withProperty(BlockColored.COLOR, EnumDyeColor.YELLOW);
+				clayBands[k + l] = STAINED_HARDENED_CLAY.withProperty(BlockColored.COLOR, DyeColor.YELLOW);
 			}
 		}
 
@@ -230,7 +230,7 @@ public class BiomeMesa extends Biome {
 			int l3 = random.nextInt(64);
 
 			for (int i1 = 0; l3 + i1 < 64 && i1 < i3; ++i1) {
-				clayBands[l3 + i1] = STAINED_HARDENED_CLAY.withProperty(BlockColored.COLOR, EnumDyeColor.BROWN);
+				clayBands[l3 + i1] = STAINED_HARDENED_CLAY.withProperty(BlockColored.COLOR, DyeColor.BROWN);
 			}
 		}
 
@@ -241,7 +241,7 @@ public class BiomeMesa extends Biome {
 			int k4 = random.nextInt(64);
 
 			for (int j1 = 0; k4 + j1 < 64 && j1 < i4; ++j1) {
-				clayBands[k4 + j1] = STAINED_HARDENED_CLAY.withProperty(BlockColored.COLOR, EnumDyeColor.RED);
+				clayBands[k4 + j1] = STAINED_HARDENED_CLAY.withProperty(BlockColored.COLOR, DyeColor.RED);
 			}
 		}
 
@@ -253,14 +253,14 @@ public class BiomeMesa extends Biome {
 			j4 += random.nextInt(16) + 4;
 
 			for (int k1 = 0; j4 + k1 < 64 && k1 < 1; ++k1) {
-				clayBands[j4 + k1] = STAINED_HARDENED_CLAY.withProperty(BlockColored.COLOR, EnumDyeColor.WHITE);
+				clayBands[j4 + k1] = STAINED_HARDENED_CLAY.withProperty(BlockColored.COLOR, DyeColor.WHITE);
 
 				if (j4 + k1 > 1 && random.nextBoolean()) {
-					clayBands[j4 + k1 - 1] = STAINED_HARDENED_CLAY.withProperty(BlockColored.COLOR, EnumDyeColor.SILVER);
+					clayBands[j4 + k1 - 1] = STAINED_HARDENED_CLAY.withProperty(BlockColored.COLOR, DyeColor.SILVER);
 				}
 
 				if (j4 + k1 < 63 && random.nextBoolean()) {
-					clayBands[j4 + k1 + 1] = STAINED_HARDENED_CLAY.withProperty(BlockColored.COLOR, EnumDyeColor.SILVER);
+					clayBands[j4 + k1 + 1] = STAINED_HARDENED_CLAY.withProperty(BlockColored.COLOR, DyeColor.SILVER);
 				}
 			}
 		}

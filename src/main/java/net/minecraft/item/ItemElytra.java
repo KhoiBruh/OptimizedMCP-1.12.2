@@ -7,8 +7,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
@@ -39,7 +39,7 @@ public class ItemElytra extends Item {
 		return repair.getItem() == Items.LEATHER;
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
 
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		EntityEquipmentSlot entityequipmentslot = EntityLiving.getSlotForItemStack(itemstack);
@@ -48,9 +48,9 @@ public class ItemElytra extends Item {
 		if (itemstack1.isEmpty()) {
 			playerIn.setItemStackToSlot(entityequipmentslot, itemstack.copy());
 			itemstack.setCount(0);
-			return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
+			return new TypedActionResult<>(ActionResult.SUCCESS, itemstack);
 		} else {
-			return new ActionResult<>(EnumActionResult.FAIL, itemstack);
+			return new TypedActionResult<>(ActionResult.FAIL, itemstack);
 		}
 	}
 

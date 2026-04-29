@@ -6,7 +6,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -100,10 +100,10 @@ public class WalkNodeProcessor extends NodeProcessor {
 
 		BlockPos blockpos = (new BlockPos(currentPoint.x, currentPoint.y, currentPoint.z)).down();
 		double d0 = (double) currentPoint.y - (1D - blockaccess.getBlockState(blockpos).getBoundingBox(blockaccess, blockpos).maxY);
-		PathPoint pathpoint = getSafePoint(currentPoint.x, currentPoint.y, currentPoint.z + 1, j, d0, EnumFacing.SOUTH);
-		PathPoint pathpoint1 = getSafePoint(currentPoint.x - 1, currentPoint.y, currentPoint.z, j, d0, EnumFacing.WEST);
-		PathPoint pathpoint2 = getSafePoint(currentPoint.x + 1, currentPoint.y, currentPoint.z, j, d0, EnumFacing.EAST);
-		PathPoint pathpoint3 = getSafePoint(currentPoint.x, currentPoint.y, currentPoint.z - 1, j, d0, EnumFacing.NORTH);
+		PathPoint pathpoint = getSafePoint(currentPoint.x, currentPoint.y, currentPoint.z + 1, j, d0, Facing.SOUTH);
+		PathPoint pathpoint1 = getSafePoint(currentPoint.x - 1, currentPoint.y, currentPoint.z, j, d0, Facing.WEST);
+		PathPoint pathpoint2 = getSafePoint(currentPoint.x + 1, currentPoint.y, currentPoint.z, j, d0, Facing.EAST);
+		PathPoint pathpoint3 = getSafePoint(currentPoint.x, currentPoint.y, currentPoint.z - 1, j, d0, Facing.NORTH);
 
 		if (pathpoint != null && !pathpoint.visited && pathpoint.distanceTo(targetPoint) < maxDistance) {
 			pathOptions[i++] = pathpoint;
@@ -127,7 +127,7 @@ public class WalkNodeProcessor extends NodeProcessor {
 		boolean flag3 = pathpoint1 == null || pathpoint1.nodeType == PathNodeType.OPEN || pathpoint1.costMalus != 0F;
 
 		if (flag && flag3) {
-			PathPoint pathpoint4 = getSafePoint(currentPoint.x - 1, currentPoint.y, currentPoint.z - 1, j, d0, EnumFacing.NORTH);
+			PathPoint pathpoint4 = getSafePoint(currentPoint.x - 1, currentPoint.y, currentPoint.z - 1, j, d0, Facing.NORTH);
 
 			if (pathpoint4 != null && !pathpoint4.visited && pathpoint4.distanceTo(targetPoint) < maxDistance) {
 				pathOptions[i++] = pathpoint4;
@@ -135,7 +135,7 @@ public class WalkNodeProcessor extends NodeProcessor {
 		}
 
 		if (flag && flag2) {
-			PathPoint pathpoint5 = getSafePoint(currentPoint.x + 1, currentPoint.y, currentPoint.z - 1, j, d0, EnumFacing.NORTH);
+			PathPoint pathpoint5 = getSafePoint(currentPoint.x + 1, currentPoint.y, currentPoint.z - 1, j, d0, Facing.NORTH);
 
 			if (pathpoint5 != null && !pathpoint5.visited && pathpoint5.distanceTo(targetPoint) < maxDistance) {
 				pathOptions[i++] = pathpoint5;
@@ -143,7 +143,7 @@ public class WalkNodeProcessor extends NodeProcessor {
 		}
 
 		if (flag1 && flag3) {
-			PathPoint pathpoint6 = getSafePoint(currentPoint.x - 1, currentPoint.y, currentPoint.z + 1, j, d0, EnumFacing.SOUTH);
+			PathPoint pathpoint6 = getSafePoint(currentPoint.x - 1, currentPoint.y, currentPoint.z + 1, j, d0, Facing.SOUTH);
 
 			if (pathpoint6 != null && !pathpoint6.visited && pathpoint6.distanceTo(targetPoint) < maxDistance) {
 				pathOptions[i++] = pathpoint6;
@@ -151,7 +151,7 @@ public class WalkNodeProcessor extends NodeProcessor {
 		}
 
 		if (flag1 && flag2) {
-			PathPoint pathpoint7 = getSafePoint(currentPoint.x + 1, currentPoint.y, currentPoint.z + 1, j, d0, EnumFacing.SOUTH);
+			PathPoint pathpoint7 = getSafePoint(currentPoint.x + 1, currentPoint.y, currentPoint.z + 1, j, d0, Facing.SOUTH);
 
 			if (pathpoint7 != null && !pathpoint7.visited && pathpoint7.distanceTo(targetPoint) < maxDistance) {
 				pathOptions[i++] = pathpoint7;
@@ -166,7 +166,7 @@ public class WalkNodeProcessor extends NodeProcessor {
 	/**
 	 * Returns a point that the entity can safely move to
 	 */
-	private PathPoint getSafePoint(int x, int y, int z, int p_186332_4_, double p_186332_5_, EnumFacing facing) {
+	private PathPoint getSafePoint(int x, int y, int z, int p_186332_4_, double p_186332_5_, Facing facing) {
 
 		PathPoint pathpoint = null;
 		BlockPos blockpos = new BlockPos(x, y, z);

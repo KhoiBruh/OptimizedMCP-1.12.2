@@ -2,7 +2,7 @@ package net.minecraft.item;
 
 import net.minecraft.util.text.TextFormatting;
 
-public enum EnumRarity {
+public enum Rarity {
 	COMMON(TextFormatting.WHITE, "Common"),
 	UNCOMMON(TextFormatting.YELLOW, "Uncommon"),
 	RARE(TextFormatting.AQUA, "Rare"),
@@ -19,7 +19,7 @@ public enum EnumRarity {
 	 */
 	public final String rarityName;
 
-	EnumRarity(TextFormatting color, String name) {
+	Rarity(TextFormatting color, String name) {
 
 		rarityColor = color;
 		rarityName = name;

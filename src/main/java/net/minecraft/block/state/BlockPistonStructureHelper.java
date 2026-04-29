@@ -3,10 +3,10 @@ package net.minecraft.block.state;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
-import net.minecraft.block.material.EnumPushReaction;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -17,11 +17,11 @@ public class BlockPistonStructureHelper {
 	private final World world;
 	private final BlockPos pistonPos;
 	private final BlockPos blockToMove;
-	private final EnumFacing moveDirection;
+	private final Facing moveDirection;
 	private final List<BlockPos> toMove = Lists.newArrayList();
 	private final List<BlockPos> toDestroy = Lists.newArrayList();
 
-	public BlockPistonStructureHelper(World worldIn, BlockPos posIn, EnumFacing pistonFacing, boolean extending) {
+	public BlockPistonStructureHelper(World worldIn, BlockPos posIn, Facing pistonFacing, boolean extending) {
 
 		world = worldIn;
 		pistonPos = posIn;
@@ -42,7 +42,7 @@ public class BlockPistonStructureHelper {
 		IBlockState iblockstate = world.getBlockState(blockToMove);
 
 		if (!BlockPistonBase.canPush(iblockstate, world, blockToMove, moveDirection, false, moveDirection)) {
-			if (iblockstate.getMobilityFlag() == EnumPushReaction.DESTROY) {
+			if (iblockstate.getMobilityFlag() == PushReaction.DESTROY) {
 				toDestroy.add(blockToMove);
 				return true;
 			} else {
@@ -61,7 +61,7 @@ public class BlockPistonStructureHelper {
 		}
 	}
 
-	private boolean addBlockLine(BlockPos origin, EnumFacing p_177251_2_) {
+	private boolean addBlockLine(BlockPos origin, Facing p_177251_2_) {
 
 		IBlockState iblockstate = world.getBlockState(origin);
 		Block block = iblockstate.getBlock();
@@ -133,7 +133,7 @@ public class BlockPistonStructureHelper {
 						return false;
 					}
 
-					if (iblockstate.getMobilityFlag() == EnumPushReaction.DESTROY) {
+					if (iblockstate.getMobilityFlag() == PushReaction.DESTROY) {
 						toDestroy.add(blockpos1);
 						return true;
 					}
@@ -166,7 +166,7 @@ public class BlockPistonStructureHelper {
 
 	private boolean addBranchingBlocks(BlockPos fromPos) {
 
-		for (EnumFacing enumfacing : EnumFacing.values()) {
+		for (Facing enumfacing : Facing.values()) {
 			if (enumfacing.getAxis() != moveDirection.getAxis() && !addBlockLine(fromPos.offset(enumfacing), enumfacing)) {
 				return false;
 			}

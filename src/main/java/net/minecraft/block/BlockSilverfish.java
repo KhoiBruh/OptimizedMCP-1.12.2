@@ -17,12 +17,12 @@ import java.util.Random;
 
 public class BlockSilverfish extends Block {
 
-	public static final PropertyEnum<BlockSilverfish.EnumType> VARIANT = PropertyEnum.create("variant", BlockSilverfish.EnumType.class);
+	public static final PropertyEnum<BlockSilverfish.Type> VARIANT = PropertyEnum.create("variant", BlockSilverfish.Type.class);
 
 	public BlockSilverfish() {
 
 		super(Material.CLAY);
-		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockSilverfish.EnumType.STONE));
+		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockSilverfish.Type.STONE));
 		setHardness(0F);
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
@@ -30,7 +30,7 @@ public class BlockSilverfish extends Block {
 	public static boolean canContainSilverfish(IBlockState blockState) {
 
 		Block block = blockState.getBlock();
-		return blockState == Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.STONE) || block == Blocks.COBBLESTONE || block == Blocks.STONEBRICK;
+		return blockState == Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.Type.STONE) || block == Blocks.COBBLESTONE || block == Blocks.STONEBRICK;
 	}
 
 	/**
@@ -46,11 +46,11 @@ public class BlockSilverfish extends Block {
 		return switch (state.getValue(VARIANT)) {
 			case COBBLESTONE -> new ItemStack(Blocks.COBBLESTONE);
 			case STONEBRICK -> new ItemStack(Blocks.STONEBRICK);
-			case MOSSY_STONEBRICK -> new ItemStack(Blocks.STONEBRICK, 1, BlockStoneBrick.EnumType.MOSSY.getMetadata());
+			case MOSSY_STONEBRICK -> new ItemStack(Blocks.STONEBRICK, 1, BlockStoneBrick.Type.MOSSY.getMetadata());
 			case CRACKED_STONEBRICK ->
-					new ItemStack(Blocks.STONEBRICK, 1, BlockStoneBrick.EnumType.CRACKED.getMetadata());
+					new ItemStack(Blocks.STONEBRICK, 1, BlockStoneBrick.Type.CRACKED.getMetadata());
 			case CHISELED_STONEBRICK ->
-					new ItemStack(Blocks.STONEBRICK, 1, BlockStoneBrick.EnumType.CHISELED.getMetadata());
+					new ItemStack(Blocks.STONEBRICK, 1, BlockStoneBrick.Type.CHISELED.getMetadata());
 			default -> new ItemStack(Blocks.STONE);
 		};
 	}
@@ -78,7 +78,7 @@ public class BlockSilverfish extends Block {
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
 
-		for (BlockSilverfish.EnumType blocksilverfish$enumtype : BlockSilverfish.EnumType.values()) {
+		for (BlockSilverfish.Type blocksilverfish$enumtype : BlockSilverfish.Type.values()) {
 			items.add(new ItemStack(this, 1, blocksilverfish$enumtype.getMetadata()));
 		}
 	}
@@ -88,7 +88,7 @@ public class BlockSilverfish extends Block {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(VARIANT, BlockSilverfish.EnumType.byMetadata(meta));
+		return getDefaultState().withProperty(VARIANT, BlockSilverfish.Type.byMetadata(meta));
 	}
 
 	/**
@@ -104,11 +104,11 @@ public class BlockSilverfish extends Block {
 		return new BlockStateContainer(this, VARIANT);
 	}
 
-	public enum EnumType implements IStringSerializable {
+	public enum Type implements IStringSerializable {
 		STONE(0, "stone") {
 			public IBlockState getModelBlock() {
 
-				return Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.STONE);
+				return Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.Type.STONE);
 			}
 		},
 		COBBLESTONE(1, "cobblestone", "cobble") {
@@ -120,32 +120,32 @@ public class BlockSilverfish extends Block {
 		STONEBRICK(2, "stone_brick", "brick") {
 			public IBlockState getModelBlock() {
 
-				return Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.DEFAULT);
+				return Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.Type.DEFAULT);
 			}
 		},
 		MOSSY_STONEBRICK(3, "mossy_brick", "mossybrick") {
 			public IBlockState getModelBlock() {
 
-				return Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.MOSSY);
+				return Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.Type.MOSSY);
 			}
 		},
 		CRACKED_STONEBRICK(4, "cracked_brick", "crackedbrick") {
 			public IBlockState getModelBlock() {
 
-				return Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.CRACKED);
+				return Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.Type.CRACKED);
 			}
 		},
 		CHISELED_STONEBRICK(5, "chiseled_brick", "chiseledbrick") {
 			public IBlockState getModelBlock() {
 
-				return Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.CHISELED);
+				return Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.Type.CHISELED);
 			}
 		};
 
-		private static final BlockSilverfish.EnumType[] META_LOOKUP = new BlockSilverfish.EnumType[values().length];
+		private static final BlockSilverfish.Type[] META_LOOKUP = new BlockSilverfish.Type[values().length];
 
 		static {
-			for (BlockSilverfish.EnumType blocksilverfish$enumtype : values()) {
+			for (BlockSilverfish.Type blocksilverfish$enumtype : values()) {
 				META_LOOKUP[blocksilverfish$enumtype.getMetadata()] = blocksilverfish$enumtype;
 			}
 		}
@@ -154,19 +154,19 @@ public class BlockSilverfish extends Block {
 		private final String name;
 		private final String unlocalizedName;
 
-		EnumType(int meta, String name) {
+		Type(int meta, String name) {
 
 			this(meta, name, name);
 		}
 
-		EnumType(int meta, String name, String unlocalizedName) {
+		Type(int meta, String name, String unlocalizedName) {
 
 			this.meta = meta;
 			this.name = name;
 			this.unlocalizedName = unlocalizedName;
 		}
 
-		public static BlockSilverfish.EnumType byMetadata(int meta) {
+		public static BlockSilverfish.Type byMetadata(int meta) {
 
 			if (meta < 0 || meta >= META_LOOKUP.length) {
 				meta = 0;
@@ -175,9 +175,9 @@ public class BlockSilverfish extends Block {
 			return META_LOOKUP[meta];
 		}
 
-		public static BlockSilverfish.EnumType forModelBlock(IBlockState model) {
+		public static BlockSilverfish.Type forModelBlock(IBlockState model) {
 
-			for (BlockSilverfish.EnumType blocksilverfish$enumtype : values()) {
+			for (BlockSilverfish.Type blocksilverfish$enumtype : values()) {
 				if (model == blocksilverfish$enumtype.getModelBlock()) {
 					return blocksilverfish$enumtype;
 				}

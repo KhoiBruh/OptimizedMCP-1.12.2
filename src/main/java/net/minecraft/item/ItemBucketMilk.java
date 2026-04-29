@@ -8,8 +8,8 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 public class ItemBucketMilk extends Item {
@@ -53,15 +53,15 @@ public class ItemBucketMilk extends Item {
 	/**
 	 * returns the action that specifies what animation to play when the items is being used
 	 */
-	public EnumAction getItemUseAction(ItemStack stack) {
+	public Action getItemUseAction(ItemStack stack) {
 
-		return EnumAction.DRINK;
+		return Action.DRINK;
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
 
 		playerIn.setActiveHand(handIn);
-		return new ActionResult<>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
+		return new TypedActionResult<>(ActionResult.SUCCESS, playerIn.getHeldItem(handIn));
 	}
 
 }

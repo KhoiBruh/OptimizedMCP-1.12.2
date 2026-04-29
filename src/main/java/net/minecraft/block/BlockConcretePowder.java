@@ -7,9 +7,9 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -17,12 +17,12 @@ import net.minecraft.world.World;
 
 public class BlockConcretePowder extends BlockFalling {
 
-	public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.create("color", EnumDyeColor.class);
+	public static final PropertyEnum<DyeColor> COLOR = PropertyEnum.create("color", DyeColor.class);
 
 	public BlockConcretePowder() {
 
 		super(Material.SAND);
-		setDefaultState(blockState.getBaseState().withProperty(COLOR, EnumDyeColor.WHITE));
+		setDefaultState(blockState.getBaseState().withProperty(COLOR, DyeColor.WHITE));
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 	}
 
@@ -37,8 +37,8 @@ public class BlockConcretePowder extends BlockFalling {
 
 		boolean flag = false;
 
-		for (EnumFacing enumfacing : EnumFacing.values()) {
-			if (enumfacing != EnumFacing.DOWN) {
+		for (Facing enumfacing : Facing.values()) {
+			if (enumfacing != Facing.DOWN) {
 				BlockPos blockpos = pos.offset(enumfacing);
 
 				if (worldIn.getBlockState(blockpos).getMaterial() == Material.WATER) {
@@ -91,7 +91,7 @@ public class BlockConcretePowder extends BlockFalling {
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
 
-		for (EnumDyeColor enumdyecolor : EnumDyeColor.values()) {
+		for (DyeColor enumdyecolor : DyeColor.values()) {
 			items.add(new ItemStack(this, 1, enumdyecolor.getMetadata()));
 		}
 	}
@@ -109,7 +109,7 @@ public class BlockConcretePowder extends BlockFalling {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
+		return getDefaultState().withProperty(COLOR, DyeColor.byMetadata(meta));
 	}
 
 	/**

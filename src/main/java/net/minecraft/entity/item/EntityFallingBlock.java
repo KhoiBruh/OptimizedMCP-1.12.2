@@ -19,7 +19,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
@@ -176,7 +176,7 @@ public class EntityFallingBlock extends Entity {
 						setDead();
 
 						if (!dontSetBlock) {
-							if (world.mayPlace(block, blockpos1, true, EnumFacing.UP, null) && (flag1 || !BlockFalling.canFallThrough(world.getBlockState(blockpos1.down()))) && world.setBlockState(blockpos1, fallTile, 3)) {
+							if (world.mayPlace(block, blockpos1, true, Facing.UP, null) && (flag1 || !BlockFalling.canFallThrough(world.getBlockState(blockpos1.down()))) && world.setBlockState(blockpos1, fallTile, 3)) {
 								if (block instanceof BlockFalling) {
 									((BlockFalling) block).onEndFalling(world, blockpos1, fallTile, iblockstate);
 								}

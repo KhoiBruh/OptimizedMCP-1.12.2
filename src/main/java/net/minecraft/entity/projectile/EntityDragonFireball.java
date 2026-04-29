@@ -5,7 +5,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -48,7 +48,7 @@ public class EntityDragonFireball extends EntityFireball {
 				List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, getEntityBoundingBox().grow(4D, 2D, 4D));
 				EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(world, posX, posY, posZ);
 				entityareaeffectcloud.setOwner(shootingEntity);
-				entityareaeffectcloud.setParticle(EnumParticleTypes.DRAGON_BREATH);
+				entityareaeffectcloud.setParticle(ParticleTypes.DRAGON_BREATH);
 				entityareaeffectcloud.setRadius(3F);
 				entityareaeffectcloud.setDuration(600);
 				entityareaeffectcloud.setRadiusPerTick((7F - entityareaeffectcloud.getRadius()) / (float) entityareaeffectcloud.getDuration());
@@ -88,9 +88,9 @@ public class EntityDragonFireball extends EntityFireball {
 		return false;
 	}
 
-	protected EnumParticleTypes getParticleType() {
+	protected ParticleTypes getParticleType() {
 
-		return EnumParticleTypes.DRAGON_BREATH;
+		return ParticleTypes.DRAGON_BREATH;
 	}
 
 	protected boolean isFireballFiery() {

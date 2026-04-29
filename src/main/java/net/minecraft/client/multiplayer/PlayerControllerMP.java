@@ -82,7 +82,7 @@ public class PlayerControllerMP {
 		connection = netHandler;
 	}
 
-	public static void clickBlockCreative(Minecraft mcIn, PlayerControllerMP playerController, BlockPos pos, EnumFacing facing) {
+	public static void clickBlockCreative(Minecraft mcIn, PlayerControllerMP playerController, BlockPos pos, Facing facing) {
 
 		if (!mcIn.world.extinguishFire(mcIn.player, pos, facing)) {
 			playerController.onPlayerDestroyBlock(pos);
@@ -176,7 +176,7 @@ public class PlayerControllerMP {
 						itemstack1.onBlockDestroyed(world, iblockstate, pos, mc.player);
 
 						if (itemstack1.isEmpty()) {
-							mc.player.setHeldItem(EnumHand.MAIN_HAND, ItemStack.EMPTY);
+							mc.player.setHeldItem(Hand.MAIN_HAND, ItemStack.EMPTY);
 						}
 					}
 				}
@@ -189,7 +189,7 @@ public class PlayerControllerMP {
 	/**
 	 * Called when the player is hitting a block with an item.
 	 */
-	public boolean clickBlock(BlockPos loc, EnumFacing face) {
+	public boolean clickBlock(BlockPos loc, Facing face) {
 
 		if (currentGameType.hasLimitedInteractions()) {
 			if (currentGameType == GameType.SPECTATOR) {
@@ -254,7 +254,7 @@ public class PlayerControllerMP {
 
 		if (isHittingBlock) {
 			mc.getTutorial().onHitBlock(mc.world, currentBlock, mc.world.getBlockState(currentBlock), -1F);
-			connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.ABORT_DESTROY_BLOCK, currentBlock, EnumFacing.DOWN));
+			connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.ABORT_DESTROY_BLOCK, currentBlock, Facing.DOWN));
 			isHittingBlock = false;
 			curBlockDamageMP = 0F;
 			mc.world.sendBlockBreakProgress(mc.player.getEntityId(), currentBlock, -1);
@@ -262,7 +262,7 @@ public class PlayerControllerMP {
 		}
 	}
 
-	public boolean onPlayerDamageBlock(BlockPos posBlock, EnumFacing directionFacing) {
+	public boolean onPlayerDamageBlock(BlockPos posBlock, Facing directionFacing) {
 
 		syncCurrentPlayItem();
 
@@ -354,7 +354,7 @@ public class PlayerControllerMP {
 		}
 	}
 
-	public EnumActionResult processRightClickBlock(EntityPlayerSP player, WorldClient worldIn, BlockPos pos, EnumFacing direction, Vec3d vec, EnumHand hand) {
+	public ActionResult processRightClickBlock(EntityPlayerSP player, WorldClient worldIn, BlockPos pos, Facing direction, Vec3d vec, Hand hand) {
 
 		syncCurrentPlayItem();
 		ItemStack itemstack = player.getHeldItem(hand);
@@ -364,7 +364,7 @@ public class PlayerControllerMP {
 		boolean flag = false;
 
 		if (!mc.world.getWorldBorder().contains(pos)) {
-			return EnumActionResult.FAIL;
+			return ActionResult.FAIL;
 		} else {
 			if (currentGameType != GameType.SPECTATOR) {
 				IBlockState iblockstate = worldIn.getBlockState(pos);
@@ -376,7 +376,7 @@ public class PlayerControllerMP {
 				if (!flag && itemstack.getItem() instanceof ItemBlock itemblock) {
 
 					if (!itemblock.canPlaceBlockOnSide(worldIn, pos, direction, player, itemstack)) {
-						return EnumActionResult.FAIL;
+						return ActionResult.FAIL;
 					}
 				}
 			}
@@ -385,22 +385,22 @@ public class PlayerControllerMP {
 
 			if (!flag && currentGameType != GameType.SPECTATOR) {
 				if (itemstack.isEmpty()) {
-					return EnumActionResult.PASS;
+					return ActionResult.PASS;
 				} else if (player.getCooldownTracker().hasCooldown(itemstack.getItem())) {
-					return EnumActionResult.PASS;
+					return ActionResult.PASS;
 				} else {
 					if (itemstack.getItem() instanceof ItemBlock && !player.canUseCommandBlock()) {
 						Block block = ((ItemBlock) itemstack.getItem()).getBlock();
 
 						if (block instanceof BlockCommandBlock || block instanceof BlockStructure) {
-							return EnumActionResult.FAIL;
+							return ActionResult.FAIL;
 						}
 					}
 
 					if (currentGameType.isCreative()) {
 						int i = itemstack.getMetadata();
 						int j = itemstack.getCount();
-						EnumActionResult enumactionresult = itemstack.onItemUse(player, worldIn, pos, hand, direction, f, f1, f2);
+						ActionResult enumactionresult = itemstack.onItemUse(player, worldIn, pos, hand, direction, f, f1, f2);
 						itemstack.setItemDamage(i);
 						itemstack.setCount(j);
 						return enumactionresult;
@@ -409,25 +409,25 @@ public class PlayerControllerMP {
 					}
 				}
 			} else {
-				return EnumActionResult.SUCCESS;
+				return ActionResult.SUCCESS;
 			}
 		}
 	}
 
-	public EnumActionResult processRightClick(EntityPlayer player, World worldIn, EnumHand hand) {
+	public ActionResult processRightClick(EntityPlayer player, World worldIn, Hand hand) {
 
 		if (currentGameType == GameType.SPECTATOR) {
-			return EnumActionResult.PASS;
+			return ActionResult.PASS;
 		} else {
 			syncCurrentPlayItem();
 			connection.sendPacket(new CPacketPlayerTryUseItem(hand));
 			ItemStack itemstack = player.getHeldItem(hand);
 
 			if (player.getCooldownTracker().hasCooldown(itemstack.getItem())) {
-				return EnumActionResult.PASS;
+				return ActionResult.PASS;
 			} else {
 				int i = itemstack.getCount();
-				ActionResult<ItemStack> actionresult = itemstack.useItemRightClick(worldIn, player, hand);
+				TypedActionResult<ItemStack> actionresult = itemstack.useItemRightClick(worldIn, player, hand);
 				ItemStack itemstack1 = actionresult.result();
 
 				if (itemstack1 != itemstack || itemstack1.getCount() != i) {
@@ -461,22 +461,22 @@ public class PlayerControllerMP {
 	/**
 	 * Handles right clicking an entity, sends a packet to the server.
 	 */
-	public EnumActionResult interactWithEntity(EntityPlayer player, Entity target, EnumHand hand) {
+	public ActionResult interactWithEntity(EntityPlayer player, Entity target, Hand hand) {
 
 		syncCurrentPlayItem();
 		connection.sendPacket(new CPacketUseEntity(target, hand));
-		return currentGameType == GameType.SPECTATOR ? EnumActionResult.PASS : player.interactOn(target, hand);
+		return currentGameType == GameType.SPECTATOR ? ActionResult.PASS : player.interactOn(target, hand);
 	}
 
 	/**
 	 * Handles right clicking an entity from the entities side, sends a packet to the server.
 	 */
-	public EnumActionResult interactWithEntity(EntityPlayer player, Entity target, RayTraceResult ray, EnumHand hand) {
+	public ActionResult interactWithEntity(EntityPlayer player, Entity target, RayTraceResult ray, Hand hand) {
 
 		syncCurrentPlayItem();
 		Vec3d vec3d = new Vec3d(ray.hitVec.x() - target.posX, ray.hitVec.y() - target.posY, ray.hitVec.z() - target.posZ);
 		connection.sendPacket(new CPacketUseEntity(target, hand, vec3d));
-		return currentGameType == GameType.SPECTATOR ? EnumActionResult.PASS : target.applyPlayerInteraction(player, vec3d, hand);
+		return currentGameType == GameType.SPECTATOR ? ActionResult.PASS : target.applyPlayerInteraction(player, vec3d, hand);
 	}
 
 	/**
@@ -527,7 +527,7 @@ public class PlayerControllerMP {
 	public void onStoppedUsingItem(EntityPlayer playerIn) {
 
 		syncCurrentPlayItem();
-		connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN));
+		connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, Facing.DOWN));
 		playerIn.stopActiveHand();
 	}
 

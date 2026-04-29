@@ -6,7 +6,7 @@ import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.passive.EntityLlama;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
@@ -40,7 +40,7 @@ public class EntityLlamaSpit extends Entity implements IProjectile {
 
 		for (int i = 0; i < 7; ++i) {
 			double d0 = 0.4D + 0.1D * (double) i;
-			worldIn.spawnParticle(EnumParticleTypes.SPIT, x, y, z, p_i47274_8_ * d0, p_i47274_10_, p_i47274_12_ * d0);
+			worldIn.spawnParticle(ParticleTypes.SPIT, x, y, z, p_i47274_8_ * d0, p_i47274_10_, p_i47274_12_ * d0);
 		}
 
 		motionX = p_i47274_8_;

@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockShulkerBox;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
@@ -58,7 +58,7 @@ public class ShulkerBoxRecipes {
 				}
 			}
 
-			ItemStack itemstack3 = BlockShulkerBox.getColoredItemStack(EnumDyeColor.byDyeDamage(itemstack1.getMetadata()));
+			ItemStack itemstack3 = BlockShulkerBox.getColoredItemStack(DyeColor.byDyeDamage(itemstack1.getMetadata()));
 
 			if (itemstack.hasTagCompound()) {
 				itemstack3.setTagCompound(itemstack.getTagCompound().copy());

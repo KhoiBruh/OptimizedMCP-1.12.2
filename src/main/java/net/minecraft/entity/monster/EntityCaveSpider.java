@@ -6,7 +6,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
@@ -35,9 +35,9 @@ public class EntityCaveSpider extends EntitySpider {
 			if (entityIn instanceof EntityLivingBase) {
 				int i = 0;
 
-				if (world.getDifficulty() == EnumDifficulty.NORMAL) {
+				if (world.getDifficulty() == Difficulty.NORMAL) {
 					i = 7;
-				} else if (world.getDifficulty() == EnumDifficulty.HARD) {
+				} else if (world.getDifficulty() == Difficulty.HARD) {
 					i = 15;
 				}
 

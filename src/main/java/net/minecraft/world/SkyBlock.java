@@ -1,12 +1,12 @@
 package net.minecraft.world;
 
-public enum EnumSkyBlock {
+public enum SkyBlock {
 	SKY(15),
 	BLOCK(0);
 
 	public final int defaultLightValue;
 
-	EnumSkyBlock(int defaultLightValueIn) {
+	SkyBlock(int defaultLightValueIn) {
 
 		defaultLightValue = defaultLightValueIn;
 	}

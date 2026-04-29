@@ -8,8 +8,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
@@ -26,7 +26,7 @@ public class ItemKnowledgeBook extends Item {
 		setMaxStackSize(1);
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
 
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		NBTTagCompound nbttagcompound = itemstack.getTagCompound();
@@ -46,7 +46,7 @@ public class ItemKnowledgeBook extends Item {
 
 					if (irecipe == null) {
 						LOGGER.error("Invalid recipe: {}", s);
-						return new ActionResult<>(EnumActionResult.FAIL, itemstack);
+						return new TypedActionResult<>(ActionResult.FAIL, itemstack);
 					}
 
 					list.add(irecipe);
@@ -56,10 +56,10 @@ public class ItemKnowledgeBook extends Item {
 				playerIn.addStat(StatList.getObjectUseStats(this));
 			}
 
-			return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
+			return new TypedActionResult<>(ActionResult.SUCCESS, itemstack);
 		} else {
 			LOGGER.error("Tag not valid: {}", nbttagcompound);
-			return new ActionResult<>(EnumActionResult.FAIL, itemstack);
+			return new TypedActionResult<>(ActionResult.FAIL, itemstack);
 		}
 	}
 

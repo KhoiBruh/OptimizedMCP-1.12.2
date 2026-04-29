@@ -2,7 +2,7 @@ package net.minecraft.entity.item;
 
 import com.google.common.base.Predicate;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.EnumPushReaction;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -339,7 +339,7 @@ public class EntityArmorStand extends EntityLivingBase {
 	/**
 	 * Applies the given player interaction to this Entity.
 	 */
-	public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
+	public ActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, Hand hand) {
 
 		ItemStack itemstack = player.getHeldItem(hand);
 
@@ -356,22 +356,22 @@ public class EntityArmorStand extends EntityLivingBase {
 					}
 				} else {
 					if (isDisabled(entityequipmentslot)) {
-						return EnumActionResult.FAIL;
+						return ActionResult.FAIL;
 					}
 
 					if (entityequipmentslot.getSlotType() == EntityEquipmentSlot.Type.HAND && !getShowArms()) {
-						return EnumActionResult.FAIL;
+						return ActionResult.FAIL;
 					}
 
 					swapItem(player, entityequipmentslot, itemstack, hand);
 				}
 
-				return EnumActionResult.SUCCESS;
+				return ActionResult.SUCCESS;
 			} else {
-				return EnumActionResult.SUCCESS;
+				return ActionResult.SUCCESS;
 			}
 		} else {
-			return EnumActionResult.PASS;
+			return ActionResult.PASS;
 		}
 	}
 
@@ -400,7 +400,7 @@ public class EntityArmorStand extends EntityLivingBase {
 		return (disabledSlots & 1 << slotIn.getSlotIndex()) != 0;
 	}
 
-	private void swapItem(EntityPlayer player, EntityEquipmentSlot p_184795_2_, ItemStack p_184795_3_, EnumHand hand) {
+	private void swapItem(EntityPlayer player, EntityEquipmentSlot p_184795_2_, ItemStack p_184795_3_, Hand hand) {
 
 		ItemStack itemstack = getItemStackFromSlot(p_184795_2_);
 
@@ -525,7 +525,7 @@ public class EntityArmorStand extends EntityLivingBase {
 	private void playParticles() {
 
 		if (world instanceof WorldServer) {
-			((WorldServer) world).spawnParticle(EnumParticleTypes.BLOCK_DUST, posX, posY + (double) height / 1.5D, posZ, 10, width / 4F, height / 4F, width / 4F, 0.05D, Block.getStateId(Blocks.PLANKS.getDefaultState()));
+			((WorldServer) world).spawnParticle(ParticleTypes.BLOCK_DUST, posX, posY + (double) height / 1.5D, posZ, 10, width / 4F, height / 4F, width / 4F, 0.05D, Block.getStateId(Blocks.PLANKS.getDefaultState()));
 		}
 	}
 
@@ -717,9 +717,9 @@ public class EntityArmorStand extends EntityLivingBase {
 		return isInvisible();
 	}
 
-	public EnumPushReaction getPushReaction() {
+	public PushReaction getPushReaction() {
 
-		return hasMarker() ? EnumPushReaction.IGNORE : super.getPushReaction();
+		return hasMarker() ? PushReaction.IGNORE : super.getPushReaction();
 	}
 
 	public boolean isSmall() {
@@ -856,9 +856,9 @@ public class EntityArmorStand extends EntityLivingBase {
 		return super.canBeCollidedWith() && !hasMarker();
 	}
 
-	public EnumHandSide getPrimaryHand() {
+	public HandSide getPrimaryHand() {
 
-		return EnumHandSide.RIGHT;
+		return HandSide.RIGHT;
 	}
 
 	protected SoundEvent getFallSound(int heightIn) {

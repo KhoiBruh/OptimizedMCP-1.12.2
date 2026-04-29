@@ -7,7 +7,7 @@ import net.minecraft.client.model.ModelMinecart;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.item.EntityMinecart;
-import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.BlockRenderType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -94,7 +94,7 @@ public class RenderMinecart<T extends EntityMinecart> extends Render<T> {
 
 		IBlockState iblockstate = entity.getDisplayTile();
 
-		if (iblockstate.getRenderType() != EnumBlockRenderType.INVISIBLE) {
+		if (iblockstate.getRenderType() != BlockRenderType.INVISIBLE) {
 			GlStateManager.pushMatrix();
 			bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			float f4 = 0.75F;

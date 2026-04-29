@@ -441,7 +441,7 @@ public class EntityRabbit extends EntityAnimal {
 
 		BlockCarrot blockcarrot = (BlockCarrot) Blocks.CARROTS;
 		IBlockState iblockstate = blockcarrot.withAge(blockcarrot.getMaxAge());
-		world.spawnParticle(EnumParticleTypes.BLOCK_DUST, posX + (double) (rand.nextFloat() * width * 2F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2F) - (double) width, 0D, 0D, 0D, Block.getStateId(iblockstate));
+		world.spawnParticle(ParticleTypes.BLOCK_DUST, posX + (double) (rand.nextFloat() * width * 2F) - (double) width, posY + 0.5D + (double) (rand.nextFloat() * height), posZ + (double) (rand.nextFloat() * width * 2F) - (double) width, 0D, 0D, 0D, Block.getStateId(iblockstate));
 		carrotTicks = 40;
 	}
 

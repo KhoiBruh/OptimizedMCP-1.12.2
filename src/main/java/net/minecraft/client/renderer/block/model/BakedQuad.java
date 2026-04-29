@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.block.model;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 
 public class BakedQuad {
 
@@ -11,10 +11,10 @@ public class BakedQuad {
 	 */
 	protected final int[] vertexData;
 	protected final int tintIndex;
-	protected final EnumFacing face;
+	protected final Facing face;
 	protected final TextureAtlasSprite sprite;
 
-	public BakedQuad(int[] vertexDataIn, int tintIndexIn, EnumFacing faceIn, TextureAtlasSprite spriteIn) {
+	public BakedQuad(int[] vertexDataIn, int tintIndexIn, Facing faceIn, TextureAtlasSprite spriteIn) {
 
 		vertexData = vertexDataIn;
 		tintIndex = tintIndexIn;
@@ -42,7 +42,7 @@ public class BakedQuad {
 		return tintIndex;
 	}
 
-	public EnumFacing getFace() {
+	public Facing getFace() {
 
 		return face;
 	}

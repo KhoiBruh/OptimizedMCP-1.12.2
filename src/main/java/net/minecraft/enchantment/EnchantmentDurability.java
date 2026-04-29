@@ -10,7 +10,7 @@ public class EnchantmentDurability extends Enchantment {
 
 	protected EnchantmentDurability(Enchantment.Rarity rarityIn, EntityEquipmentSlot... slots) {
 
-		super(rarityIn, EnumEnchantmentType.BREAKABLE, slots);
+		super(rarityIn, EnchantmentType.BREAKABLE, slots);
 		setName("durability");
 	}
 

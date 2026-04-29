@@ -15,8 +15,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.EnumDifficulty;
-import net.minecraft.world.EnumSkyBlock;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.SkyBlock;
 import net.minecraft.world.World;
 
 public abstract class EntityMob extends EntityCreature implements IMob {
@@ -55,7 +55,7 @@ public abstract class EntityMob extends EntityCreature implements IMob {
 
 		super.onUpdate();
 
-		if (!world.isRemote && world.getDifficulty() == EnumDifficulty.PEACEFUL) {
+		if (!world.isRemote && world.getDifficulty() == Difficulty.PEACEFUL) {
 			setDead();
 		}
 	}
@@ -150,7 +150,7 @@ public abstract class EntityMob extends EntityCreature implements IMob {
 
 		BlockPos blockpos = new BlockPos(posX, getEntityBoundingBox().minY, posZ);
 
-		if (world.getLightFor(EnumSkyBlock.SKY, blockpos) > rand.nextInt(32)) {
+		if (world.getLightFor(SkyBlock.SKY, blockpos) > rand.nextInt(32)) {
 			return false;
 		} else {
 			int i = world.getLightFromNeighbors(blockpos);
@@ -171,7 +171,7 @@ public abstract class EntityMob extends EntityCreature implements IMob {
 	 */
 	public boolean getCanSpawnHere() {
 
-		return world.getDifficulty() != EnumDifficulty.PEACEFUL && isValidLightLevel() && super.getCanSpawnHere();
+		return world.getDifficulty() != Difficulty.PEACEFUL && isValidLightLevel() && super.getCanSpawnHere();
 	}
 
 	protected void applyEntityAttributes() {

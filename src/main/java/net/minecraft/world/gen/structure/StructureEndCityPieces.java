@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.Tuple;
@@ -300,7 +300,7 @@ public class StructureEndCityPieces {
 				entityshulker.setAttachmentPos(pos);
 				worldIn.spawnEntity(entityshulker);
 			} else if (function.startsWith("Elytra")) {
-				EntityItemFrame entityitemframe = new EntityItemFrame(worldIn, pos, rotation.rotate(EnumFacing.SOUTH));
+				EntityItemFrame entityitemframe = new EntityItemFrame(worldIn, pos, rotation.rotate(Facing.SOUTH));
 				entityitemframe.setDisplayedItem(new ItemStack(Items.ELYTRA));
 				worldIn.spawnEntity(entityitemframe);
 			}

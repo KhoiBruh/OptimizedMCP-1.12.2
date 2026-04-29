@@ -11,16 +11,16 @@ import net.minecraft.util.NonNullList;
 
 public class BlockStoneBrick extends Block {
 
-	public static final PropertyEnum<BlockStoneBrick.EnumType> VARIANT = PropertyEnum.create("variant", BlockStoneBrick.EnumType.class);
-	public static final int DEFAULT_META = BlockStoneBrick.EnumType.DEFAULT.getMetadata();
-	public static final int MOSSY_META = BlockStoneBrick.EnumType.MOSSY.getMetadata();
-	public static final int CRACKED_META = BlockStoneBrick.EnumType.CRACKED.getMetadata();
-	public static final int CHISELED_META = BlockStoneBrick.EnumType.CHISELED.getMetadata();
+	public static final PropertyEnum<BlockStoneBrick.Type> VARIANT = PropertyEnum.create("variant", BlockStoneBrick.Type.class);
+	public static final int DEFAULT_META = BlockStoneBrick.Type.DEFAULT.getMetadata();
+	public static final int MOSSY_META = BlockStoneBrick.Type.MOSSY.getMetadata();
+	public static final int CRACKED_META = BlockStoneBrick.Type.CRACKED.getMetadata();
+	public static final int CHISELED_META = BlockStoneBrick.Type.CHISELED.getMetadata();
 
 	public BlockStoneBrick() {
 
 		super(Material.ROCK);
-		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockStoneBrick.EnumType.DEFAULT));
+		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockStoneBrick.Type.DEFAULT));
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 	}
 
@@ -38,7 +38,7 @@ public class BlockStoneBrick extends Block {
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
 
-		for (BlockStoneBrick.EnumType blockstonebrick$enumtype : BlockStoneBrick.EnumType.values()) {
+		for (BlockStoneBrick.Type blockstonebrick$enumtype : BlockStoneBrick.Type.values()) {
 			items.add(new ItemStack(this, 1, blockstonebrick$enumtype.getMetadata()));
 		}
 	}
@@ -48,7 +48,7 @@ public class BlockStoneBrick extends Block {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(VARIANT, BlockStoneBrick.EnumType.byMetadata(meta));
+		return getDefaultState().withProperty(VARIANT, BlockStoneBrick.Type.byMetadata(meta));
 	}
 
 	/**
@@ -64,16 +64,16 @@ public class BlockStoneBrick extends Block {
 		return new BlockStateContainer(this, VARIANT);
 	}
 
-	public enum EnumType implements IStringSerializable {
+	public enum Type implements IStringSerializable {
 		DEFAULT(0, "stonebrick", "default"),
 		MOSSY(1, "mossy_stonebrick", "mossy"),
 		CRACKED(2, "cracked_stonebrick", "cracked"),
 		CHISELED(3, "chiseled_stonebrick", "chiseled");
 
-		private static final BlockStoneBrick.EnumType[] META_LOOKUP = new BlockStoneBrick.EnumType[values().length];
+		private static final BlockStoneBrick.Type[] META_LOOKUP = new BlockStoneBrick.Type[values().length];
 
 		static {
-			for (BlockStoneBrick.EnumType blockstonebrick$enumtype : values()) {
+			for (BlockStoneBrick.Type blockstonebrick$enumtype : values()) {
 				META_LOOKUP[blockstonebrick$enumtype.getMetadata()] = blockstonebrick$enumtype;
 			}
 		}
@@ -82,14 +82,14 @@ public class BlockStoneBrick extends Block {
 		private final String name;
 		private final String unlocalizedName;
 
-		EnumType(int meta, String name, String unlocalizedName) {
+		Type(int meta, String name, String unlocalizedName) {
 
 			this.meta = meta;
 			this.name = name;
 			this.unlocalizedName = unlocalizedName;
 		}
 
-		public static BlockStoneBrick.EnumType byMetadata(int meta) {
+		public static BlockStoneBrick.Type byMetadata(int meta) {
 
 			if (meta < 0 || meta >= META_LOOKUP.length) {
 				meta = 0;

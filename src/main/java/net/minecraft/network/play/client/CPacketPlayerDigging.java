@@ -3,13 +3,13 @@ package net.minecraft.network.play.client;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 
 public class CPacketPlayerDigging implements Packet<INetHandlerPlayServer> {
 
 	private BlockPos position;
-	private EnumFacing facing;
+	private Facing facing;
 
 	/**
 	 * Status of the digging (started, ongoing, broken).
@@ -20,7 +20,7 @@ public class CPacketPlayerDigging implements Packet<INetHandlerPlayServer> {
 
 	}
 
-	public CPacketPlayerDigging(CPacketPlayerDigging.Action actionIn, BlockPos posIn, EnumFacing facingIn) {
+	public CPacketPlayerDigging(CPacketPlayerDigging.Action actionIn, BlockPos posIn, Facing facingIn) {
 
 		action = actionIn;
 		position = posIn;
@@ -34,7 +34,7 @@ public class CPacketPlayerDigging implements Packet<INetHandlerPlayServer> {
 
 		action = buf.readEnumValue(Action.class);
 		position = buf.readBlockPos();
-		facing = EnumFacing.getFront(buf.readUnsignedByte());
+		facing = Facing.getFront(buf.readUnsignedByte());
 	}
 
 	/**
@@ -60,7 +60,7 @@ public class CPacketPlayerDigging implements Packet<INetHandlerPlayServer> {
 		return position;
 	}
 
-	public EnumFacing getFacing() {
+	public Facing getFacing() {
 
 		return facing;
 	}

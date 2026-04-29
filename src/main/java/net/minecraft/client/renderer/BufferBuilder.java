@@ -470,7 +470,7 @@ public class BufferBuilder {
 		vertexFormatIndex %= vertexFormat.getElementCount();
 		vertexFormatElement = vertexFormat.getElement(vertexFormatIndex);
 
-		if (vertexFormatElement.getUsage() == VertexFormatElement.EnumUsage.PADDING) {
+		if (vertexFormatElement.getUsage() == VertexFormatElement.Usage.PADDING) {
 			nextVertexFormatIndex();
 		}
 	}

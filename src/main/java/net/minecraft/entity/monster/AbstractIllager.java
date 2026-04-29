@@ -1,6 +1,6 @@
 package net.minecraft.entity.monster;
 
-import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -41,11 +41,11 @@ public abstract class AbstractIllager extends EntityMob {
 	}
 
 	/**
-	 * Get this Entity's EnumCreatureAttribute
+	 * Get this Entity's CreatureAttribute
 	 */
-	public EnumCreatureAttribute getCreatureAttribute() {
+	public CreatureAttribute getCreatureAttribute() {
 
-		return EnumCreatureAttribute.ILLAGER;
+		return CreatureAttribute.ILLAGER;
 	}
 
 	public AbstractIllager.IllagerArmPose getArmPose() {

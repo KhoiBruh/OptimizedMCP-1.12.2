@@ -10,9 +10,9 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySign;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -28,22 +28,22 @@ public class ItemSign extends Item {
 	/**
 	 * Called when a Block is right-clicked with this Item
 	 */
-	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		boolean flag = iblockstate.getBlock().isReplaceable(worldIn, pos);
 
-		if (facing != EnumFacing.DOWN && (iblockstate.getMaterial().isSolid() || flag) && (!flag || facing == EnumFacing.UP)) {
+		if (facing != Facing.DOWN && (iblockstate.getMaterial().isSolid() || flag) && (!flag || facing == Facing.UP)) {
 			pos = pos.offset(facing);
 			ItemStack itemstack = player.getHeldItem(hand);
 
 			if (player.canPlayerEdit(pos, facing, itemstack) && Blocks.STANDING_SIGN.canPlaceBlockAt(worldIn, pos)) {
 				if (worldIn.isRemote) {
-					return EnumActionResult.SUCCESS;
+					return ActionResult.SUCCESS;
 				} else {
 					pos = flag ? pos.down() : pos;
 
-					if (facing == EnumFacing.UP) {
+					if (facing == Facing.UP) {
 						int i = MathHelper.floor((double) ((player.rotationYaw + 180F) * 16F / 360F) + 0.5D) & 15;
 						worldIn.setBlockState(pos, Blocks.STANDING_SIGN.getDefaultState().withProperty(BlockStandingSign.ROTATION, i), 11);
 					} else {
@@ -61,13 +61,13 @@ public class ItemSign extends Item {
 					}
 
 					itemstack.shrink(1);
-					return EnumActionResult.SUCCESS;
+					return ActionResult.SUCCESS;
 				}
 			} else {
-				return EnumActionResult.FAIL;
+				return ActionResult.FAIL;
 			}
 		} else {
-			return EnumActionResult.FAIL;
+			return ActionResult.FAIL;
 		}
 	}
 

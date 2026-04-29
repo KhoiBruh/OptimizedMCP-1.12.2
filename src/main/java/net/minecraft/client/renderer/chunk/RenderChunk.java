@@ -12,8 +12,8 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.BlockRenderType;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ChunkCache;
@@ -87,7 +87,7 @@ public class RenderChunk {
 			position.setPos(x, y, z);
 			boundingBox = new AxisAlignedBB(x, y, z, x + 16, y + 16, z + 16);
 
-			for (EnumFacing enumfacing : EnumFacing.values()) {
+			for (Facing enumfacing : Facing.values()) {
 				mapEnumFacing[enumfacing.ordinal()].setPos(position).move(enumfacing, 16);
 			}
 
@@ -141,7 +141,7 @@ public class RenderChunk {
 				}
 
 				if (block.hasTileEntity()) {
-					TileEntity tileentity = worldView.getTileEntity(blockpos$mutableblockpos, Chunk.EnumCreateEntityType.CHECK);
+					TileEntity tileentity = worldView.getTileEntity(blockpos$mutableblockpos, Chunk.CreateEntityType.CHECK);
 
 					if (tileentity != null) {
 						TileEntitySpecialRenderer<TileEntity> tileentityspecialrenderer = TileEntityRendererDispatcher.instance.getRenderer(tileentity);
@@ -159,7 +159,7 @@ public class RenderChunk {
 				BlockRenderLayer blockrenderlayer1 = block.getBlockLayer();
 				int j = blockrenderlayer1.ordinal();
 
-				if (block.getDefaultState().getRenderType() != EnumBlockRenderType.INVISIBLE) {
+				if (block.getDefaultState().getRenderType() != BlockRenderType.INVISIBLE) {
 					BufferBuilder bufferbuilder = generator.getRegionRenderCacheBuilder().getWorldRendererByLayerId(j);
 
 					if (!compiledchunk.isLayerStarted(blockrenderlayer1)) {
@@ -374,7 +374,7 @@ public class RenderChunk {
 		return needsUpdate && needsImmediateUpdate;
 	}
 
-	public BlockPos getBlockPosOffset16(EnumFacing facing) {
+	public BlockPos getBlockPosOffset16(Facing facing) {
 
 		return mapEnumFacing[facing.ordinal()];
 	}

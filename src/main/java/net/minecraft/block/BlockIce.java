@@ -1,6 +1,6 @@
 package net.minecraft.block;
 
-import net.minecraft.block.material.EnumPushReaction;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -13,7 +13,7 @@ import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.EnumSkyBlock;
+import net.minecraft.world.SkyBlock;
 import net.minecraft.world.World;
 import java.util.Random;
 
@@ -73,7 +73,7 @@ public class BlockIce extends BlockBreakable {
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 
-		if (worldIn.getLightFor(EnumSkyBlock.BLOCK, pos) > 11 - getDefaultState().getLightOpacity()) {
+		if (worldIn.getLightFor(SkyBlock.BLOCK, pos) > 11 - getDefaultState().getLightOpacity()) {
 			turnIntoWater(worldIn, pos);
 		}
 	}
@@ -89,9 +89,9 @@ public class BlockIce extends BlockBreakable {
 		}
 	}
 
-	public EnumPushReaction getMobilityFlag(IBlockState state) {
+	public PushReaction getMobilityFlag(IBlockState state) {
 
-		return EnumPushReaction.NORMAL;
+		return PushReaction.NORMAL;
 	}
 
 }

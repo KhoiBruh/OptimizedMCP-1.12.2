@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -51,10 +51,10 @@ public class EntityAIWanderAvoidWaterFlying extends EntityAIWanderAvoidWater {
 			blockpos1 = (BlockPos) iterator.next();
 
 			if (!blockpos.equals(blockpos1)) {
-				Block block = entity.world.getBlockState(blockpos$mutableblockpos1.setPos(blockpos1).move(EnumFacing.DOWN)).getBlock();
+				Block block = entity.world.getBlockState(blockpos$mutableblockpos1.setPos(blockpos1).move(Facing.DOWN)).getBlock();
 				boolean flag = block instanceof BlockLeaves || block == Blocks.LOG || block == Blocks.LOG2;
 
-				if (flag && entity.world.isAirBlock(blockpos1) && entity.world.isAirBlock(blockpos$mutableblockpos.setPos(blockpos1).move(EnumFacing.UP))) {
+				if (flag && entity.world.isAirBlock(blockpos1) && entity.world.isAirBlock(blockpos$mutableblockpos.setPos(blockpos1).move(Facing.UP))) {
 					break;
 				}
 			}

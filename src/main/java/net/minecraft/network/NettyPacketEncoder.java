@@ -14,16 +14,16 @@ public class NettyPacketEncoder extends MessageToByteEncoder<Packet<?>> {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final Marker RECEIVED_PACKET_MARKER = MarkerManager.getMarker("PACKET_SENT", NetworkManager.NETWORK_PACKETS_MARKER);
-	private final EnumPacketDirection direction;
+	private final PacketDirection direction;
 
-	public NettyPacketEncoder(EnumPacketDirection direction) {
+	public NettyPacketEncoder(PacketDirection direction) {
 
 		this.direction = direction;
 	}
 
 	protected void encode(ChannelHandlerContext p_encode_1_, Packet<?> p_encode_2_, ByteBuf p_encode_3_) throws Exception {
 
-		EnumConnectionState enumconnectionstate = p_encode_1_.channel().attr(NetworkManager.PROTOCOL_ATTRIBUTE_KEY).get();
+		ConnectionState enumconnectionstate = p_encode_1_.channel().attr(NetworkManager.PROTOCOL_ATTRIBUTE_KEY).get();
 
 		if (enumconnectionstate == null) {
 			throw new RuntimeException("ConnectionProtocol unknown: " + p_encode_2_.toString());

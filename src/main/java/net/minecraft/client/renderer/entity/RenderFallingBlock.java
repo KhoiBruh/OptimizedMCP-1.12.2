@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.item.EntityFallingBlock;
-import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.BlockRenderType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -31,10 +31,10 @@ public class RenderFallingBlock extends Render<EntityFallingBlock> {
 		if (entity.getBlock() != null) {
 			IBlockState iblockstate = entity.getBlock();
 
-			if (iblockstate.getRenderType() == EnumBlockRenderType.MODEL) {
+			if (iblockstate.getRenderType() == BlockRenderType.MODEL) {
 				World world = entity.getWorldObj();
 
-				if (iblockstate != world.getBlockState(new BlockPos(entity)) && iblockstate.getRenderType() != EnumBlockRenderType.INVISIBLE) {
+				if (iblockstate != world.getBlockState(new BlockPos(entity)) && iblockstate.getRenderType() != BlockRenderType.INVISIBLE) {
 					bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 					GlStateManager.pushMatrix();
 					GlStateManager.disableLighting();

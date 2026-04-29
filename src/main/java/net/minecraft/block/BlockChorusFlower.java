@@ -14,7 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -32,9 +32,9 @@ public class BlockChorusFlower extends Block {
 		setTickRandomly(true);
 	}
 
-	private static boolean areAllNeighborsEmpty(World worldIn, BlockPos pos, EnumFacing excludingSide) {
+	private static boolean areAllNeighborsEmpty(World worldIn, BlockPos pos, Facing excludingSide) {
 
-		for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+		for (Facing enumfacing : Facing.Plane.HORIZONTAL) {
 			if (enumfacing != excludingSide && !worldIn.isAirBlock(pos.offset(enumfacing))) {
 				return false;
 			}
@@ -77,7 +77,7 @@ public class BlockChorusFlower extends Block {
 			}
 
 			for (int k = 0; k < l; ++k) {
-				EnumFacing enumfacing = EnumFacing.Plane.HORIZONTAL.random(rand);
+				Facing enumfacing = Facing.Plane.HORIZONTAL.random(rand);
 				BlockPos blockpos1 = p_185601_1_.up(i).offset(enumfacing);
 
 				if (Math.abs(blockpos1.getX() - p_185601_3_.getX()) < p_185601_4_ && Math.abs(blockpos1.getZ() - p_185601_3_.getZ()) < p_185601_4_ && worldIn.isAirBlock(blockpos1) && worldIn.isAirBlock(blockpos1.down()) && areAllNeighborsEmpty(worldIn, blockpos1, enumfacing.getOpposite())) {
@@ -161,7 +161,7 @@ public class BlockChorusFlower extends Block {
 						}
 
 						for (int j1 = 0; j1 < l; ++j1) {
-							EnumFacing enumfacing = EnumFacing.Plane.HORIZONTAL.random(rand);
+							Facing enumfacing = Facing.Plane.HORIZONTAL.random(rand);
 							BlockPos blockpos1 = pos.offset(enumfacing);
 
 							if (worldIn.isAirBlock(blockpos1) && worldIn.isAirBlock(blockpos1.down()) && areAllNeighborsEmpty(worldIn, blockpos1, enumfacing.getOpposite())) {
@@ -237,7 +237,7 @@ public class BlockChorusFlower extends Block {
 			if (iblockstate.getMaterial() == Material.AIR) {
 				int i = 0;
 
-				for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+				for (Facing enumfacing : Facing.Plane.HORIZONTAL) {
 					IBlockState iblockstate1 = worldIn.getBlockState(pos.offset(enumfacing));
 					Block block1 = iblockstate1.getBlock();
 
@@ -311,7 +311,7 @@ public class BlockChorusFlower extends Block {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
 		return BlockFaceShape.UNDEFINED;
 	}

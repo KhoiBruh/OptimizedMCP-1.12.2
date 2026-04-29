@@ -9,9 +9,9 @@ import java.util.Random;
 
 public class WorldGenDoublePlant extends WorldGenerator {
 
-	private BlockDoublePlant.EnumPlantType plantType;
+	private BlockDoublePlant.PlantType plantType;
 
-	public void setPlantType(BlockDoublePlant.EnumPlantType plantTypeIn) {
+	public void setPlantType(BlockDoublePlant.PlantType plantTypeIn) {
 
 		plantType = plantTypeIn;
 	}

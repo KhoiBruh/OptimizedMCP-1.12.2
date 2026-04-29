@@ -6,7 +6,7 @@ import net.minecraft.client.gui.game.GuiDisconnected;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.network.NetHandlerLoginClient;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.network.EnumConnectionState;
+import net.minecraft.network.ConnectionState;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.handshake.client.C00Handshake;
 import net.minecraft.network.login.client.CPacketLoginStart;
@@ -61,7 +61,7 @@ public class GuiConnecting extends GuiScreen {
 					inetaddress = InetAddress.getByName(ip);
 					networkManager = NetworkManager.createNetworkManagerAndConnect(inetaddress, port, mc.gameSettings.isUsingNativeTransport());
 					networkManager.setNetHandler(new NetHandlerLoginClient(networkManager, mc, previousGuiScreen));
-					networkManager.sendPacket(new C00Handshake(ip, port, EnumConnectionState.LOGIN));
+					networkManager.sendPacket(new C00Handshake(ip, port, ConnectionState.LOGIN));
 					networkManager.sendPacket(new CPacketLoginStart(mc.getSession().getProfile()));
 				} catch (UnknownHostException unknownhostexception) {
 					if (cancel) {

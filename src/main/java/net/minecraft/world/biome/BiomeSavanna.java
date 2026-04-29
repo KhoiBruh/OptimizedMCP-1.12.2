@@ -37,7 +37,7 @@ public class BiomeSavanna extends Biome {
 
 	public void decorate(World worldIn, Random rand, BlockPos pos) {
 
-		DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.EnumPlantType.GRASS);
+		DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.PlantType.GRASS);
 
 		for (int i = 0; i < 7; ++i) {
 			int j = rand.nextInt(16) + 8;

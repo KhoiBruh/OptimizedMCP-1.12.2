@@ -7,7 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.World;
 
 public class EntityTNTPrimed extends Entity {
@@ -102,7 +102,7 @@ public class EntityTNTPrimed extends Entity {
 			}
 		} else {
 			handleWaterMovement();
-			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX, posY + 0.5D, posZ, 0D, 0D, 0D);
+			world.spawnParticle(ParticleTypes.SMOKE_NORMAL, posX, posY + 0.5D, posZ, 0D, 0D, 0D);
 		}
 	}
 

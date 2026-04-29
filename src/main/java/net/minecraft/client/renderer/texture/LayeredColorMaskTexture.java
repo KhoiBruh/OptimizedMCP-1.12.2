@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.texture;
 
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import org.apache.commons.io.IOUtils;
@@ -26,9 +26,9 @@ public class LayeredColorMaskTexture extends AbstractTexture {
 	 */
 	private final ResourceLocation textureLocation;
 	private final List<String> listTextures;
-	private final List<EnumDyeColor> listDyeColors;
+	private final List<DyeColor> listDyeColors;
 
-	public LayeredColorMaskTexture(ResourceLocation textureLocationIn, List<String> p_i46101_2_, List<EnumDyeColor> p_i46101_3_) {
+	public LayeredColorMaskTexture(ResourceLocation textureLocationIn, List<String> p_i46101_2_, List<DyeColor> p_i46101_3_) {
 
 		textureLocation = textureLocationIn;
 		listTextures = p_i46101_2_;

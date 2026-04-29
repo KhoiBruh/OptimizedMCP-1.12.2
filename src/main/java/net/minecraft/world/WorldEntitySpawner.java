@@ -7,7 +7,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
-import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.CreatureType;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -84,7 +84,7 @@ public final class WorldEntitySpawner {
 	 */
 	public static void performWorldGenSpawning(World worldIn, Biome biomeIn, int centerX, int centerZ, int diameterX, int diameterZ, Random randomIn) {
 
-		List<Biome.SpawnListEntry> list = biomeIn.getSpawnableList(EnumCreatureType.CREATURE);
+		List<Biome.SpawnListEntry> list = biomeIn.getSpawnableList(CreatureType.CREATURE);
 
 		if (!list.isEmpty()) {
 			while (randomIn.nextFloat() < biomeIn.getSpawningChance()) {
@@ -171,7 +171,7 @@ public final class WorldEntitySpawner {
 			int j4 = 0;
 			BlockPos blockpos1 = worldServerIn.getSpawnPoint();
 
-			for (EnumCreatureType enumcreaturetype : EnumCreatureType.values()) {
+			for (CreatureType enumcreaturetype : CreatureType.values()) {
 				if ((!enumcreaturetype.getPeacefulCreature() || spawnPeacefulMobs) && (enumcreaturetype.getPeacefulCreature() || spawnHostileMobs) && (!enumcreaturetype.getAnimal() || spawnOnSetTickRate)) {
 					int k4 = worldServerIn.countEntities(enumcreaturetype.getCreatureClass());
 					int l4 = enumcreaturetype.getMaxNumberOfCreature() * i / MOB_COUNT_DIV;

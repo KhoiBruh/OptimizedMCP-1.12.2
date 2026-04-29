@@ -11,8 +11,8 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -27,7 +27,7 @@ public class ItemGlassBottle extends Item {
 		setCreativeTab(CreativeTabs.BREWING);
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
 
 		List<EntityAreaEffectCloud> list = worldIn.getEntitiesWithinAABB(EntityAreaEffectCloud.class, playerIn.getEntityBoundingBox().grow(2D), p_apply_1_ -> p_apply_1_ != null && p_apply_1_.isEntityAlive() && p_apply_1_.getOwner() instanceof EntityDragon);
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
@@ -36,27 +36,27 @@ public class ItemGlassBottle extends Item {
 			EntityAreaEffectCloud entityareaeffectcloud = list.getFirst();
 			entityareaeffectcloud.setRadius(entityareaeffectcloud.getRadius() - 0.5F);
 			worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ITEM_BOTTLE_FILL_DRAGONBREATH, SoundCategory.NEUTRAL, 1F, 1F);
-			return new ActionResult<>(EnumActionResult.SUCCESS, turnBottleIntoItem(itemstack, playerIn, new ItemStack(Items.DRAGON_BREATH)));
+			return new TypedActionResult<>(ActionResult.SUCCESS, turnBottleIntoItem(itemstack, playerIn, new ItemStack(Items.DRAGON_BREATH)));
 		} else {
 			RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, true);
 
 			if (raytraceresult == null) {
-				return new ActionResult<>(EnumActionResult.PASS, itemstack);
+				return new TypedActionResult<>(ActionResult.PASS, itemstack);
 			} else {
 				if (raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK) {
 					BlockPos blockpos = raytraceresult.getBlockPos();
 
 					if (!worldIn.isBlockModifiable(playerIn, blockpos) || !playerIn.canPlayerEdit(blockpos.offset(raytraceresult.sideHit), raytraceresult.sideHit, itemstack)) {
-						return new ActionResult<>(EnumActionResult.PASS, itemstack);
+						return new TypedActionResult<>(ActionResult.PASS, itemstack);
 					}
 
 					if (worldIn.getBlockState(blockpos).getMaterial() == Material.WATER) {
 						worldIn.playSound(playerIn, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1F, 1F);
-						return new ActionResult<>(EnumActionResult.SUCCESS, turnBottleIntoItem(itemstack, playerIn, PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.WATER)));
+						return new TypedActionResult<>(ActionResult.SUCCESS, turnBottleIntoItem(itemstack, playerIn, PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.WATER)));
 					}
 				}
 
-				return new ActionResult<>(EnumActionResult.PASS, itemstack);
+				return new TypedActionResult<>(ActionResult.PASS, itemstack);
 			}
 		}
 	}

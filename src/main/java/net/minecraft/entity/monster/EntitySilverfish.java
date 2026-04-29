@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockSilverfish;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.player.EntityPlayer;
@@ -160,16 +160,16 @@ public class EntitySilverfish extends EntityMob {
 	}
 
 	/**
-	 * Get this Entity's EnumCreatureAttribute
+	 * Get this Entity's CreatureAttribute
 	 */
-	public EnumCreatureAttribute getCreatureAttribute() {
+	public CreatureAttribute getCreatureAttribute() {
 
-		return EnumCreatureAttribute.ARTHROPOD;
+		return CreatureAttribute.ARTHROPOD;
 	}
 
 	static class AIHideInStone extends EntityAIWander {
 
-		private EnumFacing facing;
+		private Facing facing;
 		private boolean doMerge;
 
 		public AIHideInStone(EntitySilverfish silverfishIn) {
@@ -188,7 +188,7 @@ public class EntitySilverfish extends EntityMob {
 				Random random = entity.getRNG();
 
 				if (entity.world.getGameRules().getBoolean("mobGriefing") && random.nextInt(10) == 0) {
-					facing = EnumFacing.random(random);
+					facing = Facing.random(random);
 					BlockPos blockpos = (new BlockPos(entity.posX, entity.posY + 0.5D, entity.posZ)).offset(facing);
 					IBlockState iblockstate = entity.world.getBlockState(blockpos);
 
@@ -218,7 +218,7 @@ public class EntitySilverfish extends EntityMob {
 				IBlockState iblockstate = world.getBlockState(blockpos);
 
 				if (BlockSilverfish.canContainSilverfish(iblockstate)) {
-					world.setBlockState(blockpos, Blocks.MONSTER_EGG.getDefaultState().withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.forModelBlock(iblockstate)), 3);
+					world.setBlockState(blockpos, Blocks.MONSTER_EGG.getDefaultState().withProperty(BlockSilverfish.VARIANT, BlockSilverfish.Type.forModelBlock(iblockstate)), 3);
 					entity.spawnExplosionParticle();
 					entity.setDead();
 				}

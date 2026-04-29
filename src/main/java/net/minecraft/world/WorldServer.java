@@ -151,8 +151,8 @@ public class WorldServer extends World implements IThreadListener {
 
 		super.tick();
 
-		if (getWorldInfo().isHardcoreModeEnabled() && getDifficulty() != EnumDifficulty.HARD) {
-			getWorldInfo().setDifficulty(EnumDifficulty.HARD);
+		if (getWorldInfo().isHardcoreModeEnabled() && getDifficulty() != Difficulty.HARD) {
+			getWorldInfo().setDifficulty(Difficulty.HARD);
 		}
 
 		provider.getBiomeProvider().cleanupCache();
@@ -202,13 +202,13 @@ public class WorldServer extends World implements IThreadListener {
 	}
 
 	
-	public Biome.SpawnListEntry getSpawnListEntryForTypeAt(EnumCreatureType creatureType, BlockPos pos) {
+	public Biome.SpawnListEntry getSpawnListEntryForTypeAt(CreatureType creatureType, BlockPos pos) {
 
 		List<Biome.SpawnListEntry> list = getChunkProvider().getPossibleCreatures(creatureType, pos);
 		return list != null && !list.isEmpty() ? WeightedRandom.getRandomItem(rand, list) : null;
 	}
 
-	public boolean canCreatureTypeSpawnHere(EnumCreatureType creatureType, Biome.SpawnListEntry spawnListEntry, BlockPos pos) {
+	public boolean canCreatureTypeSpawnHere(CreatureType creatureType, Biome.SpawnListEntry spawnListEntry, BlockPos pos) {
 
 		List<Biome.SpawnListEntry> list = getChunkProvider().getPossibleCreatures(creatureType, pos);
 		return list != null && !list.isEmpty() && list.contains(spawnListEntry);
@@ -781,7 +781,7 @@ public class WorldServer extends World implements IThreadListener {
 		worldInfo.setWorldTime(6000L);
 		worldInfo.setGameType(GameType.SPECTATOR);
 		worldInfo.setHardcore(false);
-		worldInfo.setDifficulty(EnumDifficulty.PEACEFUL);
+		worldInfo.setDifficulty(Difficulty.PEACEFUL);
 		worldInfo.setDifficultyLocked(true);
 		getGameRules().setOrCreateGameRule("doDaylightCycle", "false");
 	}
@@ -1159,7 +1159,7 @@ public class WorldServer extends World implements IThreadListener {
 	/**
 	 * Spawns the desired particle and sends the necessary packets to the relevant connected players.
 	 */
-	public void spawnParticle(EnumParticleTypes particleType, double xCoord, double yCoord, double zCoord, int numberOfParticles, double xOffset, double yOffset, double zOffset, double particleSpeed, int... particleArguments) {
+	public void spawnParticle(ParticleTypes particleType, double xCoord, double yCoord, double zCoord, int numberOfParticles, double xOffset, double yOffset, double zOffset, double particleSpeed, int... particleArguments) {
 
 		spawnParticle(particleType, false, xCoord, yCoord, zCoord, numberOfParticles, xOffset, yOffset, zOffset, particleSpeed, particleArguments);
 	}
@@ -1167,7 +1167,7 @@ public class WorldServer extends World implements IThreadListener {
 	/**
 	 * Spawns the desired particle and sends the necessary packets to the relevant connected players.
 	 */
-	public void spawnParticle(EnumParticleTypes particleType, boolean longDistance, double xCoord, double yCoord, double zCoord, int numberOfParticles, double xOffset, double yOffset, double zOffset, double particleSpeed, int... particleArguments) {
+	public void spawnParticle(ParticleTypes particleType, boolean longDistance, double xCoord, double yCoord, double zCoord, int numberOfParticles, double xOffset, double yOffset, double zOffset, double particleSpeed, int... particleArguments) {
 
 		SPacketParticles spacketparticles = new SPacketParticles(particleType, longDistance, (float) xCoord, (float) yCoord, (float) zCoord, (float) xOffset, (float) yOffset, (float) zOffset, (float) particleSpeed, numberOfParticles, particleArguments);
 
@@ -1177,7 +1177,7 @@ public class WorldServer extends World implements IThreadListener {
 		}
 	}
 
-	public void spawnParticle(EntityPlayerMP player, EnumParticleTypes particle, boolean longDistance, double x, double y, double z, int count, double xOffset, double yOffset, double zOffset, double speed, int... arguments) {
+	public void spawnParticle(EntityPlayerMP player, ParticleTypes particle, boolean longDistance, double x, double y, double z, int count, double xOffset, double yOffset, double zOffset, double speed, int... arguments) {
 
 		Packet<?> packet = new SPacketParticles(particle, longDistance, (float) x, (float) y, (float) z, (float) xOffset, (float) yOffset, (float) zOffset, (float) speed, count, arguments);
 		sendPacketWithinDistance(player, longDistance, x, y, z, packet);

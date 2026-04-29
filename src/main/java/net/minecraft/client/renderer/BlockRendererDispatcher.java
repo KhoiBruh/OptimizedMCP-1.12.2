@@ -9,7 +9,7 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.BlockRenderType;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -36,7 +36,7 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
 
 	public void renderBlockDamage(IBlockState state, BlockPos pos, TextureAtlasSprite texture, IBlockAccess blockAccess) {
 
-		if (state.getRenderType() == EnumBlockRenderType.MODEL) {
+		if (state.getRenderType() == BlockRenderType.MODEL) {
 			state = state.getActualState(blockAccess, pos);
 			IBakedModel ibakedmodel = blockModelShapes.getModelForState(state);
 			IBakedModel ibakedmodel1 = (new SimpleBakedModel.Builder(state, ibakedmodel, texture, pos)).makeBakedModel();
@@ -47,9 +47,9 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
 	public boolean renderBlock(IBlockState state, BlockPos pos, IBlockAccess blockAccess, BufferBuilder bufferBuilderIn) {
 
 		try {
-			EnumBlockRenderType enumblockrendertype = state.getRenderType();
+			BlockRenderType enumblockrendertype = state.getRenderType();
 
-			if (enumblockrendertype == EnumBlockRenderType.INVISIBLE) {
+			if (enumblockrendertype == BlockRenderType.INVISIBLE) {
 				return false;
 			} else {
 				if (blockAccess.getWorldType() != WorldType.DEBUG_ALL_BLOCK_STATES) {
@@ -87,9 +87,9 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
 	@SuppressWarnings("incomplete-switch")
 	public void renderBlockBrightness(IBlockState state, float brightness) {
 
-		EnumBlockRenderType enumblockrendertype = state.getRenderType();
+		BlockRenderType enumblockrendertype = state.getRenderType();
 
-		if (enumblockrendertype != EnumBlockRenderType.INVISIBLE) {
+		if (enumblockrendertype != BlockRenderType.INVISIBLE) {
 			switch (enumblockrendertype) {
 				case MODEL:
 					IBakedModel ibakedmodel = getModelForState(state);

@@ -11,7 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -125,7 +125,7 @@ public class EntityWolf extends EntityTameable {
 		super.entityInit();
 		dataManager.register(DATA_HEALTH_ID, getHealth());
 		dataManager.register(BEGGING, false);
-		dataManager.register(COLLAR_COLOR, EnumDyeColor.RED.getDyeDamage());
+		dataManager.register(COLLAR_COLOR, DyeColor.RED.getDyeDamage());
 	}
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
@@ -152,7 +152,7 @@ public class EntityWolf extends EntityTameable {
 		setAngry(compound.getBoolean("Angry"));
 
 		if (compound.hasKey("CollarColor", 99)) {
-			setCollarColor(EnumDyeColor.byDyeDamage(compound.getByte("CollarColor")));
+			setCollarColor(DyeColor.byDyeDamage(compound.getByte("CollarColor")));
 		}
 	}
 
@@ -252,7 +252,7 @@ public class EntityWolf extends EntityTameable {
 				for (int j = 0; j < i; ++j) {
 					float f1 = (rand.nextFloat() * 2F - 1F) * width * 0.5F;
 					float f2 = (rand.nextFloat() * 2F - 1F) * width * 0.5F;
-					world.spawnParticle(EnumParticleTypes.WATER_SPLASH, posX + (double) f1, f + 0.8F, posZ + (double) f2, motionX, motionY, motionZ);
+					world.spawnParticle(ParticleTypes.WATER_SPLASH, posX + (double) f1, f + 0.8F, posZ + (double) f2, motionX, motionY, motionZ);
 				}
 			}
 		}
@@ -352,7 +352,7 @@ public class EntityWolf extends EntityTameable {
 		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4D);
 	}
 
-	public boolean processInteract(EntityPlayer player, EnumHand hand) {
+	public boolean processInteract(EntityPlayer player, Hand hand) {
 
 		ItemStack itemstack = player.getHeldItem(hand);
 
@@ -369,7 +369,7 @@ public class EntityWolf extends EntityTameable {
 						return true;
 					}
 				} else if (itemstack.getItem() == Items.DYE) {
-					EnumDyeColor enumdyecolor = EnumDyeColor.byDyeDamage(itemstack.getMetadata());
+					DyeColor enumdyecolor = DyeColor.byDyeDamage(itemstack.getMetadata());
 
 					if (enumdyecolor != getCollarColor()) {
 						setCollarColor(enumdyecolor);
@@ -477,12 +477,12 @@ public class EntityWolf extends EntityTameable {
 		}
 	}
 
-	public EnumDyeColor getCollarColor() {
+	public DyeColor getCollarColor() {
 
-		return EnumDyeColor.byDyeDamage(dataManager.get(COLLAR_COLOR) & 15);
+		return DyeColor.byDyeDamage(dataManager.get(COLLAR_COLOR) & 15);
 	}
 
-	public void setCollarColor(EnumDyeColor collarcolor) {
+	public void setCollarColor(DyeColor collarcolor) {
 
 		dataManager.set(COLLAR_COLOR, collarcolor.getDyeDamage());
 	}

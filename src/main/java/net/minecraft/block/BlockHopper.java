@@ -26,7 +26,7 @@ import java.util.List;
 
 public class BlockHopper extends BlockContainer {
 
-	public static final PropertyDirection FACING = PropertyDirection.create("facing", p_apply_1_ -> p_apply_1_ != EnumFacing.UP);
+	public static final PropertyDirection FACING = PropertyDirection.create("facing", p_apply_1_ -> p_apply_1_ != Facing.UP);
 	public static final PropertyBool ENABLED = PropertyBool.create("enabled");
 	protected static final AxisAlignedBB BASE_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.625D, 1D);
 	protected static final AxisAlignedBB SOUTH_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 1D, 0.125D);
@@ -37,13 +37,13 @@ public class BlockHopper extends BlockContainer {
 	public BlockHopper() {
 
 		super(Material.IRON, MapColor.STONE);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN).withProperty(ENABLED, true));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.DOWN).withProperty(ENABLED, true));
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
-	public static EnumFacing getFacing(int meta) {
+	public static Facing getFacing(int meta) {
 
-		return EnumFacing.getFront(meta & 7);
+		return Facing.getFront(meta & 7);
 	}
 
 	/**
@@ -73,12 +73,12 @@ public class BlockHopper extends BlockContainer {
 	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 	 * IBlockstate
 	 */
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
-		EnumFacing enumfacing = facing.getOpposite();
+		Facing enumfacing = facing.getOpposite();
 
-		if (enumfacing == EnumFacing.UP) {
-			enumfacing = EnumFacing.DOWN;
+		if (enumfacing == Facing.UP) {
+			enumfacing = Facing.DOWN;
 		}
 
 		return getDefaultState().withProperty(FACING, enumfacing).withProperty(ENABLED, true);
@@ -127,7 +127,7 @@ public class BlockHopper extends BlockContainer {
 	/**
 	 * Called when the block is right clicked by a player.
 	 */
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		if (worldIn.isRemote) {
 			return true;
@@ -181,9 +181,9 @@ public class BlockHopper extends BlockContainer {
 	 * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
-	public EnumBlockRenderType getRenderType(IBlockState state) {
+	public BlockRenderType getRenderType(IBlockState state) {
 
-		return EnumBlockRenderType.MODEL;
+		return BlockRenderType.MODEL;
 	}
 
 	public boolean isFullCube(IBlockState state) {
@@ -199,7 +199,7 @@ public class BlockHopper extends BlockContainer {
 		return false;
 	}
 
-	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
 		return true;
 	}
@@ -278,9 +278,9 @@ public class BlockHopper extends BlockContainer {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
-		return face == EnumFacing.UP ? BlockFaceShape.BOWL : BlockFaceShape.UNDEFINED;
+		return face == Facing.UP ? BlockFaceShape.BOWL : BlockFaceShape.UNDEFINED;
 	}
 
 }

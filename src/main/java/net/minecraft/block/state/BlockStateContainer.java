@@ -4,7 +4,7 @@ import com.google.common.base.Function;
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.*;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.EnumPushReaction;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -275,7 +275,7 @@ public class BlockStateContainer {
 			return block.hasCustomBreakingProgress(this);
 		}
 
-		public EnumBlockRenderType getRenderType() {
+		public BlockRenderType getRenderType() {
 
 			return block.getRenderType(this);
 		}
@@ -305,7 +305,7 @@ public class BlockStateContainer {
 			return block.canProvidePower(this);
 		}
 
-		public int getWeakPower(IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+		public int getWeakPower(IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
 			return block.getWeakPower(this, blockAccess, pos, side);
 		}
@@ -330,12 +330,12 @@ public class BlockStateContainer {
 			return block.getPlayerRelativeBlockHardness(this, player, worldIn, pos);
 		}
 
-		public int getStrongPower(IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+		public int getStrongPower(IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
 			return block.getStrongPower(this, blockAccess, pos, side);
 		}
 
-		public EnumPushReaction getMobilityFlag() {
+		public PushReaction getMobilityFlag() {
 
 			return block.getMobilityFlag(this);
 		}
@@ -350,7 +350,7 @@ public class BlockStateContainer {
 			return block.getSelectedBoundingBox(this, worldIn, pos);
 		}
 
-		public boolean shouldSideBeRendered(IBlockAccess blockAccess, BlockPos pos, EnumFacing facing) {
+		public boolean shouldSideBeRendered(IBlockAccess blockAccess, BlockPos pos, Facing facing) {
 
 			return block.shouldSideBeRendered(this, blockAccess, pos, facing);
 		}
@@ -406,7 +406,7 @@ public class BlockStateContainer {
 			return block.causesSuffocation(this);
 		}
 
-		public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, BlockPos pos, EnumFacing facing) {
+		public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, BlockPos pos, Facing facing) {
 
 			return block.getBlockFaceShape(worldIn, this, pos, facing);
 		}

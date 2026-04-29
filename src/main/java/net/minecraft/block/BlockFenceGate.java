@@ -9,8 +9,8 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -30,7 +30,7 @@ public class BlockFenceGate extends BlockHorizontal {
 	protected static final AxisAlignedBB AABB_COLLISION_BOX_ZAXIS = new AxisAlignedBB(0D, 0D, 0.375D, 1D, 1.5D, 0.625D);
 	protected static final AxisAlignedBB AABB_COLLISION_BOX_XAXIS = new AxisAlignedBB(0.375D, 0D, 0D, 0.625D, 1.5D, 1D);
 
-	public BlockFenceGate(BlockPlanks.EnumType p_i46394_1_) {
+	public BlockFenceGate(BlockPlanks.Type p_i46394_1_) {
 
 		super(Material.WOOD, p_i46394_1_.getMapColor());
 		setDefaultState(blockState.getBaseState().withProperty(OPEN, false).withProperty(POWERED, false).withProperty(IN_WALL, false));
@@ -42,9 +42,9 @@ public class BlockFenceGate extends BlockHorizontal {
 		state = getActualState(state, source, pos);
 
 		if (state.getValue(IN_WALL)) {
-			return state.getValue(FACING).getAxis() == EnumFacing.Axis.X ? AABB_HITBOX_XAXIS_INWALL : AABB_HITBOX_ZAXIS_INWALL;
+			return state.getValue(FACING).getAxis() == Facing.Axis.X ? AABB_HITBOX_XAXIS_INWALL : AABB_HITBOX_ZAXIS_INWALL;
 		} else {
-			return state.getValue(FACING).getAxis() == EnumFacing.Axis.X ? AABB_HITBOX_XAXIS : AABB_HITBOX_ZAXIS;
+			return state.getValue(FACING).getAxis() == Facing.Axis.X ? AABB_HITBOX_XAXIS : AABB_HITBOX_ZAXIS;
 		}
 	}
 
@@ -54,9 +54,9 @@ public class BlockFenceGate extends BlockHorizontal {
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 
-		EnumFacing.Axis enumfacing$axis = state.getValue(FACING).getAxis();
+		Facing.Axis enumfacing$axis = state.getValue(FACING).getAxis();
 
-		if (enumfacing$axis == EnumFacing.Axis.Z && (worldIn.getBlockState(pos.west()).getBlock() == Blocks.COBBLESTONE_WALL || worldIn.getBlockState(pos.east()).getBlock() == Blocks.COBBLESTONE_WALL) || enumfacing$axis == EnumFacing.Axis.X && (worldIn.getBlockState(pos.north()).getBlock() == Blocks.COBBLESTONE_WALL || worldIn.getBlockState(pos.south()).getBlock() == Blocks.COBBLESTONE_WALL)) {
+		if (enumfacing$axis == Facing.Axis.Z && (worldIn.getBlockState(pos.west()).getBlock() == Blocks.COBBLESTONE_WALL || worldIn.getBlockState(pos.east()).getBlock() == Blocks.COBBLESTONE_WALL) || enumfacing$axis == Facing.Axis.X && (worldIn.getBlockState(pos.north()).getBlock() == Blocks.COBBLESTONE_WALL || worldIn.getBlockState(pos.south()).getBlock() == Blocks.COBBLESTONE_WALL)) {
 			state = state.withProperty(IN_WALL, true);
 		}
 
@@ -95,7 +95,7 @@ public class BlockFenceGate extends BlockHorizontal {
 		if (blockState.getValue(OPEN)) {
 			return NULL_AABB;
 		} else {
-			return blockState.getValue(FACING).getAxis() == EnumFacing.Axis.Z ? AABB_COLLISION_BOX_ZAXIS : AABB_COLLISION_BOX_XAXIS;
+			return blockState.getValue(FACING).getAxis() == Facing.Axis.Z ? AABB_COLLISION_BOX_ZAXIS : AABB_COLLISION_BOX_XAXIS;
 		}
 	}
 
@@ -124,7 +124,7 @@ public class BlockFenceGate extends BlockHorizontal {
 	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 	 * IBlockstate
 	 */
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
 		boolean flag = worldIn.isBlockPowered(pos);
 		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing()).withProperty(OPEN, flag).withProperty(POWERED, flag).withProperty(IN_WALL, false);
@@ -133,13 +133,13 @@ public class BlockFenceGate extends BlockHorizontal {
 	/**
 	 * Called when the block is right clicked by a player.
 	 */
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		if (state.getValue(OPEN)) {
 			state = state.withProperty(OPEN, false);
 			worldIn.setBlockState(pos, state, 10);
 		} else {
-			EnumFacing enumfacing = EnumFacing.fromAngle(playerIn.rotationYaw);
+			Facing enumfacing = Facing.fromAngle(playerIn.rotationYaw);
 
 			if (state.getValue(FACING) == enumfacing.getOpposite()) {
 				state = state.withProperty(FACING, enumfacing);
@@ -173,7 +173,7 @@ public class BlockFenceGate extends BlockHorizontal {
 		}
 	}
 
-	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
 		return true;
 	}
@@ -183,7 +183,7 @@ public class BlockFenceGate extends BlockHorizontal {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta)).withProperty(OPEN, (meta & 4) != 0).withProperty(POWERED, (meta & 8) != 0);
+		return getDefaultState().withProperty(FACING, Facing.getHorizontal(meta)).withProperty(OPEN, (meta & 4) != 0).withProperty(POWERED, (meta & 8) != 0);
 	}
 
 	/**
@@ -219,9 +219,9 @@ public class BlockFenceGate extends BlockHorizontal {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
-		if (face != EnumFacing.UP && face != EnumFacing.DOWN) {
+		if (face != Facing.UP && face != Facing.DOWN) {
 			return state.getValue(FACING).getAxis() == face.rotateY().getAxis() ? BlockFaceShape.MIDDLE_POLE : BlockFaceShape.UNDEFINED;
 		} else {
 			return BlockFaceShape.UNDEFINED;

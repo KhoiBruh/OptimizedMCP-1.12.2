@@ -6,8 +6,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 public class ItemCarrotOnAStick extends Item {
@@ -36,12 +36,12 @@ public class ItemCarrotOnAStick extends Item {
 		return true;
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
 
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
 		if (worldIn.isRemote) {
-			return new ActionResult<>(EnumActionResult.PASS, itemstack);
+			return new TypedActionResult<>(ActionResult.PASS, itemstack);
 		} else {
 			if (playerIn.isRiding() && playerIn.getRidingEntity() instanceof EntityPig entitypig) {
 
@@ -51,15 +51,15 @@ public class ItemCarrotOnAStick extends Item {
 					if (itemstack.isEmpty()) {
 						ItemStack itemstack1 = new ItemStack(Items.FISHING_ROD);
 						itemstack1.setTagCompound(itemstack.getTagCompound());
-						return new ActionResult<>(EnumActionResult.SUCCESS, itemstack1);
+						return new TypedActionResult<>(ActionResult.SUCCESS, itemstack1);
 					}
 
-					return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
+					return new TypedActionResult<>(ActionResult.SUCCESS, itemstack);
 				}
 			}
 
 			playerIn.addStat(StatList.getObjectUseStats(this));
-			return new ActionResult<>(EnumActionResult.PASS, itemstack);
+			return new TypedActionResult<>(ActionResult.PASS, itemstack);
 		}
 	}
 

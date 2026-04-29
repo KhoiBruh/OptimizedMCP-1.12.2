@@ -9,7 +9,7 @@ import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.BlockRenderType;
 
 public class LayerHeldItemWitch implements LayerRenderer<EntityWitch> {
 
@@ -40,7 +40,7 @@ public class LayerHeldItemWitch implements LayerRenderer<EntityWitch> {
 			Item item = itemstack.getItem();
 			Minecraft minecraft = Minecraft.getMinecraft();
 
-			if (Block.getBlockFromItem(item).getDefaultState().getRenderType() == EnumBlockRenderType.ENTITYBLOCK_ANIMATED) {
+			if (Block.getBlockFromItem(item).getDefaultState().getRenderType() == BlockRenderType.ENTITYBLOCK_ANIMATED) {
 				GlStateManager.translate(0F, 0.0625F, -0.25F);
 				GlStateManager.rotate(30F, 1F, 0F, 0F);
 				GlStateManager.rotate(-5F, 0F, 1F, 0F);

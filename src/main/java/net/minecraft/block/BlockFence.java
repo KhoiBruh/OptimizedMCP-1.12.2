@@ -13,8 +13,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemLead;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Facing;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -66,19 +66,19 @@ public class BlockFence extends Block {
 		int i = 0;
 
 		if (state.getValue(NORTH)) {
-			i |= 1 << EnumFacing.NORTH.getHorizontalIndex();
+			i |= 1 << Facing.NORTH.getHorizontalIndex();
 		}
 
 		if (state.getValue(EAST)) {
-			i |= 1 << EnumFacing.EAST.getHorizontalIndex();
+			i |= 1 << Facing.EAST.getHorizontalIndex();
 		}
 
 		if (state.getValue(SOUTH)) {
-			i |= 1 << EnumFacing.SOUTH.getHorizontalIndex();
+			i |= 1 << Facing.SOUTH.getHorizontalIndex();
 		}
 
 		if (state.getValue(WEST)) {
-			i |= 1 << EnumFacing.WEST.getHorizontalIndex();
+			i |= 1 << Facing.WEST.getHorizontalIndex();
 		}
 
 		return i;
@@ -141,7 +141,7 @@ public class BlockFence extends Block {
 		return false;
 	}
 
-	public boolean canConnectTo(IBlockAccess worldIn, BlockPos pos, EnumFacing facing) {
+	public boolean canConnectTo(IBlockAccess worldIn, BlockPos pos, Facing facing) {
 
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		BlockFaceShape blockfaceshape = iblockstate.getBlockFaceShape(worldIn, pos, facing);
@@ -150,7 +150,7 @@ public class BlockFence extends Block {
 		return !isExcepBlockForAttachWithPiston(block) && blockfaceshape == BlockFaceShape.SOLID || flag;
 	}
 
-	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
 		return true;
 	}
@@ -158,7 +158,7 @@ public class BlockFence extends Block {
 	/**
 	 * Called when the block is right clicked by a player.
 	 */
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 
 		if (!worldIn.isRemote) {
 			return ItemLead.attachToFence(playerIn, worldIn, pos);
@@ -182,7 +182,7 @@ public class BlockFence extends Block {
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 
-		return state.withProperty(NORTH, canConnectTo(worldIn, pos.north(), EnumFacing.SOUTH)).withProperty(EAST, canConnectTo(worldIn, pos.east(), EnumFacing.WEST)).withProperty(SOUTH, canConnectTo(worldIn, pos.south(), EnumFacing.NORTH)).withProperty(WEST, canConnectTo(worldIn, pos.west(), EnumFacing.EAST));
+		return state.withProperty(NORTH, canConnectTo(worldIn, pos.north(), Facing.SOUTH)).withProperty(EAST, canConnectTo(worldIn, pos.east(), Facing.WEST)).withProperty(SOUTH, canConnectTo(worldIn, pos.south(), Facing.NORTH)).withProperty(WEST, canConnectTo(worldIn, pos.west(), Facing.EAST));
 	}
 
 	/**
@@ -230,9 +230,9 @@ public class BlockFence extends Block {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
-		return face != EnumFacing.UP && face != EnumFacing.DOWN ? BlockFaceShape.MIDDLE_POLE : BlockFaceShape.CENTER;
+		return face != Facing.UP && face != Facing.DOWN ? BlockFaceShape.MIDDLE_POLE : BlockFaceShape.CENTER;
 	}
 
 }

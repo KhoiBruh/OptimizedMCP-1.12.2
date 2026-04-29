@@ -16,11 +16,11 @@ public class EnchantmentProtection extends Enchantment {
 
 	public EnchantmentProtection(Enchantment.Rarity rarityIn, EnchantmentProtection.Type protectionTypeIn, EntityEquipmentSlot... slots) {
 
-		super(rarityIn, EnumEnchantmentType.ARMOR, slots);
+		super(rarityIn, EnchantmentType.ARMOR, slots);
 		protectionType = protectionTypeIn;
 
 		if (protectionTypeIn == EnchantmentProtection.Type.FALL) {
-			type = EnumEnchantmentType.ARMOR_FEET;
+			type = EnchantmentType.ARMOR_FEET;
 		}
 	}
 

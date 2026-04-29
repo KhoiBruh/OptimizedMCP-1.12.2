@@ -8,8 +8,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.Hand;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.world.World;
@@ -29,7 +29,7 @@ public class EntityMooshroom extends EntityCow {
 		EntityLiving.registerFixesMob(fixer, EntityMooshroom.class);
 	}
 
-	public boolean processInteract(EntityPlayer player, EnumHand hand) {
+	public boolean processInteract(EntityPlayer player, Hand hand) {
 
 		ItemStack itemstack = player.getHeldItem(hand);
 
@@ -45,7 +45,7 @@ public class EntityMooshroom extends EntityCow {
 			return true;
 		} else if (itemstack.getItem() == Items.SHEARS && getGrowingAge() >= 0) {
 			setDead();
-			world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, posX, posY + (double) (height / 2F), posZ, 0D, 0D, 0D);
+			world.spawnParticle(ParticleTypes.EXPLOSION_LARGE, posX, posY + (double) (height / 2F), posZ, 0D, 0D, 0D);
 
 			if (!world.isRemote) {
 				EntityCow entitycow = new EntityCow(world);

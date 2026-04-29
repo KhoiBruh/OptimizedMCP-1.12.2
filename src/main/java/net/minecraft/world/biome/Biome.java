@@ -7,7 +7,7 @@ import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.CreatureType;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.init.Blocks;
@@ -286,12 +286,12 @@ public abstract class Biome {
 	 */
 	public WorldGenerator getRandomWorldGenForGrass(Random rand) {
 
-		return new WorldGenTallGrass(BlockTallGrass.EnumType.GRASS);
+		return new WorldGenTallGrass(BlockTallGrass.Type.GRASS);
 	}
 
-	public BlockFlower.EnumFlowerType pickRandomFlower(Random rand, BlockPos pos) {
+	public BlockFlower.FlowerType pickRandomFlower(Random rand, BlockPos pos) {
 
-		return rand.nextInt(3) > 0 ? BlockFlower.EnumFlowerType.DANDELION : BlockFlower.EnumFlowerType.POPPY;
+		return rand.nextInt(3) > 0 ? BlockFlower.FlowerType.DANDELION : BlockFlower.FlowerType.POPPY;
 	}
 
 	/**
@@ -304,7 +304,7 @@ public abstract class Biome {
 		return MathHelper.hsvToRGB(0.62222224F - currentTemperature * 0.05F, 0.5F + currentTemperature * 0.1F, 1F);
 	}
 
-	public List<Biome.SpawnListEntry> getSpawnableList(EnumCreatureType creatureType) {
+	public List<Biome.SpawnListEntry> getSpawnableList(CreatureType creatureType) {
 
 		return switch (creatureType) {
 			case MONSTER -> spawnableMonsterList;
@@ -448,7 +448,7 @@ public abstract class Biome {
 
 						if (j == 0 && iblockstate1.getBlock() == Blocks.SAND && k > 1) {
 							j = rand.nextInt(4) + Math.max(0, j1 - 63);
-							iblockstate1 = iblockstate1.getValue(BlockSand.VARIANT) == BlockSand.EnumType.RED_SAND ? RED_SANDSTONE : SANDSTONE;
+							iblockstate1 = iblockstate1.getValue(BlockSand.VARIANT) == BlockSand.Type.RED_SAND ? RED_SANDSTONE : SANDSTONE;
 						}
 					}
 				}

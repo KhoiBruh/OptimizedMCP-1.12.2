@@ -5,7 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -112,7 +112,7 @@ public class BlockFalling extends Block {
 				double d0 = (float) pos.getX() + rand.nextFloat();
 				double d1 = (double) pos.getY() - 0.05D;
 				double d2 = (float) pos.getZ() + rand.nextFloat();
-				worldIn.spawnParticle(EnumParticleTypes.FALLING_DUST, d0, d1, d2, 0D, 0D, 0D, Block.getStateId(stateIn));
+				worldIn.spawnParticle(ParticleTypes.FALLING_DUST, d0, d1, d2, 0D, 0D, 0D, Block.getStateId(stateIn));
 			}
 		}
 	}

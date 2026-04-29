@@ -25,14 +25,14 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySkull;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.Facing;
+import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -54,7 +54,7 @@ public class BlockSkull extends BlockContainer {
 	protected BlockSkull() {
 
 		super(Material.CIRCUITS);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(NODROP, false));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(NODROP, false));
 	}
 
 	/**
@@ -98,7 +98,7 @@ public class BlockSkull extends BlockContainer {
 	 * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
 	 * IBlockstate
 	 */
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 
 		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing()).withProperty(NODROP, false);
 	}
@@ -181,7 +181,7 @@ public class BlockSkull extends BlockContainer {
 
 	public boolean canDispenserPlace(World worldIn, BlockPos pos, ItemStack stack) {
 
-		if (stack.getMetadata() == 1 && pos.getY() >= 2 && worldIn.getDifficulty() != EnumDifficulty.PEACEFUL && !worldIn.isRemote) {
+		if (stack.getMetadata() == 1 && pos.getY() >= 2 && worldIn.getDifficulty() != Difficulty.PEACEFUL && !worldIn.isRemote) {
 			return getWitherBasePattern().match(worldIn, pos) != null;
 		} else {
 			return false;
@@ -190,7 +190,7 @@ public class BlockSkull extends BlockContainer {
 
 	public void checkWitherSpawn(World worldIn, BlockPos pos, TileEntitySkull te) {
 
-		if (te.getSkullType() == 1 && pos.getY() >= 2 && worldIn.getDifficulty() != EnumDifficulty.PEACEFUL && !worldIn.isRemote) {
+		if (te.getSkullType() == 1 && pos.getY() >= 2 && worldIn.getDifficulty() != Difficulty.PEACEFUL && !worldIn.isRemote) {
 			BlockPattern blockpattern = getWitherPattern();
 			BlockPattern.PatternHelper blockpattern$patternhelper = blockpattern.match(worldIn, pos);
 
@@ -210,8 +210,8 @@ public class BlockSkull extends BlockContainer {
 				BlockPos blockpos = blockpattern$patternhelper.translateOffset(1, 0, 0).getPos();
 				EntityWither entitywither = new EntityWither(worldIn);
 				BlockPos blockpos1 = blockpattern$patternhelper.translateOffset(1, 2, 0).getPos();
-				entitywither.setLocationAndAngles((double) blockpos1.getX() + 0.5D, (double) blockpos1.getY() + 0.55D, (double) blockpos1.getZ() + 0.5D, blockpattern$patternhelper.getForwards().getAxis() == EnumFacing.Axis.X ? 0F : 90F, 0F);
-				entitywither.renderYawOffset = blockpattern$patternhelper.getForwards().getAxis() == EnumFacing.Axis.X ? 0F : 90F;
+				entitywither.setLocationAndAngles((double) blockpos1.getX() + 0.5D, (double) blockpos1.getY() + 0.55D, (double) blockpos1.getZ() + 0.5D, blockpattern$patternhelper.getForwards().getAxis() == Facing.Axis.X ? 0F : 90F, 0F);
+				entitywither.renderYawOffset = blockpattern$patternhelper.getForwards().getAxis() == Facing.Axis.X ? 0F : 90F;
 				entitywither.ignite();
 
 				for (EntityPlayerMP entityplayermp : worldIn.getEntitiesWithinAABB(EntityPlayerMP.class, entitywither.getEntityBoundingBox().grow(50D))) {
@@ -221,7 +221,7 @@ public class BlockSkull extends BlockContainer {
 				worldIn.spawnEntity(entitywither);
 
 				for (int l = 0; l < 120; ++l) {
-					worldIn.spawnParticle(EnumParticleTypes.SNOWBALL, (double) blockpos.getX() + worldIn.rand.nextDouble(), (double) (blockpos.getY() - 2) + worldIn.rand.nextDouble() * 3.9D, (double) blockpos.getZ() + worldIn.rand.nextDouble(), 0D, 0D, 0D);
+					worldIn.spawnParticle(ParticleTypes.SNOWBALL, (double) blockpos.getX() + worldIn.rand.nextDouble(), (double) (blockpos.getY() - 2) + worldIn.rand.nextDouble() * 3.9D, (double) blockpos.getZ() + worldIn.rand.nextDouble(), 0D, 0D, 0D);
 				}
 
 				for (int i1 = 0; i1 < blockpattern.getPalmLength(); ++i1) {
@@ -239,7 +239,7 @@ public class BlockSkull extends BlockContainer {
 	 */
 	public IBlockState getStateFromMeta(int meta) {
 
-		return getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7)).withProperty(NODROP, (meta & 8) > 0);
+		return getDefaultState().withProperty(FACING, Facing.getFront(meta & 7)).withProperty(NODROP, (meta & 8) > 0);
 	}
 
 	/**
@@ -307,7 +307,7 @@ public class BlockSkull extends BlockContainer {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
 		return BlockFaceShape.UNDEFINED;
 	}

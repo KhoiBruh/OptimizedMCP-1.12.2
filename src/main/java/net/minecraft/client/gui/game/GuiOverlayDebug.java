@@ -14,14 +14,14 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.FrameTimer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumSkyBlock;
+import net.minecraft.world.SkyBlock;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.Chunk;
 import org.lwjgl.opengl.Display;
@@ -64,7 +64,7 @@ public class GuiOverlayDebug extends Gui {
 		return bytes / 1024L / 1024L;
 	}
 
-	private static String getFacingDescription(EnumFacing facing) {
+	private static String getFacingDescription(Facing facing) {
 
 		return switch (facing) {
 			case NORTH -> "Towards negative Z";
@@ -182,7 +182,7 @@ public class GuiOverlayDebug extends Gui {
 			list.add(String.format("Chunk-relative: %d %d %d", blockpos.getX() & 15, blockpos.getY() & 15, blockpos.getZ() & 15));
 			return list;
 		} else {
-			EnumFacing enumfacing = entity.getHorizontalFacing();
+			Facing enumfacing = entity.getHorizontalFacing();
 			List<String> list = getDebugInfoHeader(true);
 			list.add("");
 			list.add(String.format("XYZ: %.3f / %.5f / %.3f", entity.posX, entity.getEntityBoundingBox().minY, entity.posZ));
@@ -196,7 +196,7 @@ public class GuiOverlayDebug extends Gui {
 				if (mc.world.isBlockLoaded(blockpos) && blockpos.getY() >= 0 && blockpos.getY() < 256) {
 					if (!chunk.isEmpty()) {
 						list.add("Biome: " + chunk.getBiome(blockpos, mc.world.getBiomeProvider()).getBiomeName());
-						list.add("Light: " + chunk.getLightSubtracted(blockpos, 0) + " (" + chunk.getLightFor(EnumSkyBlock.SKY, blockpos) + " sky, " + chunk.getLightFor(EnumSkyBlock.BLOCK, blockpos) + " block)");
+						list.add("Light: " + chunk.getLightSubtracted(blockpos, 0) + " (" + chunk.getLightFor(SkyBlock.SKY, blockpos) + " sky, " + chunk.getLightFor(SkyBlock.BLOCK, blockpos) + " block)");
 						DifficultyInstance difficultyinstance = mc.world.getDifficultyForLocation(blockpos);
 
 						if (mc.isIntegratedServerRunning() && mc.getIntegratedServer() != null) {

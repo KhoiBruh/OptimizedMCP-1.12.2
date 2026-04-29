@@ -12,7 +12,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -41,14 +41,14 @@ public class BlockTripWire extends Block {
 		setTickRandomly(true);
 	}
 
-	public static boolean isConnectedTo(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing direction) {
+	public static boolean isConnectedTo(IBlockAccess worldIn, BlockPos pos, IBlockState state, Facing direction) {
 
 		BlockPos blockpos = pos.offset(direction);
 		IBlockState iblockstate = worldIn.getBlockState(blockpos);
 		Block block = iblockstate.getBlock();
 
 		if (block == Blocks.TRIPWIRE_HOOK) {
-			EnumFacing enumfacing = direction.getOpposite();
+			Facing enumfacing = direction.getOpposite();
 			return iblockstate.getValue(BlockTripWireHook.FACING) == enumfacing;
 		} else {
 			return block == Blocks.TRIPWIRE;
@@ -66,7 +66,7 @@ public class BlockTripWire extends Block {
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 
-		return state.withProperty(NORTH, isConnectedTo(worldIn, pos, state, EnumFacing.NORTH)).withProperty(EAST, isConnectedTo(worldIn, pos, state, EnumFacing.EAST)).withProperty(SOUTH, isConnectedTo(worldIn, pos, state, EnumFacing.SOUTH)).withProperty(WEST, isConnectedTo(worldIn, pos, state, EnumFacing.WEST));
+		return state.withProperty(NORTH, isConnectedTo(worldIn, pos, state, Facing.NORTH)).withProperty(EAST, isConnectedTo(worldIn, pos, state, Facing.EAST)).withProperty(SOUTH, isConnectedTo(worldIn, pos, state, Facing.SOUTH)).withProperty(WEST, isConnectedTo(worldIn, pos, state, Facing.WEST));
 	}
 
 	
@@ -142,7 +142,7 @@ public class BlockTripWire extends Block {
 
 	private void notifyHook(World worldIn, BlockPos pos, IBlockState state) {
 
-		for (EnumFacing enumfacing : new EnumFacing[]{EnumFacing.SOUTH, EnumFacing.WEST}) {
+		for (Facing enumfacing : new Facing[]{Facing.SOUTH, Facing.WEST}) {
 			for (int i = 1; i < 42; ++i) {
 				BlockPos blockpos = pos.offset(enumfacing, i);
 				IBlockState iblockstate = worldIn.getBlockState(blockpos);
@@ -292,7 +292,7 @@ public class BlockTripWire extends Block {
 	 *
 	 * @return an approximation of the form of the given face
 	 */
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 
 		return BlockFaceShape.UNDEFINED;
 	}

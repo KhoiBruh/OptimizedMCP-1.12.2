@@ -5,7 +5,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.*;
-import net.minecraft.block.material.EnumPushReaction;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockPattern;
@@ -234,7 +234,7 @@ public abstract class Entity implements ICommandSender {
 	/**
 	 * A direction related to the position of the last portal the entity was in
 	 */
-	protected EnumFacing teleportDirection;
+	protected Facing teleportDirection;
 	protected UUID entityUniqueID;
 	protected String cachedUniqueIdString;
 	protected boolean glowing;
@@ -688,7 +688,7 @@ public abstract class Entity implements ICommandSender {
 				}
 
 				if (x != 0D) {
-					int j = EnumFacing.Axis.X.ordinal();
+					int j = Facing.Axis.X.ordinal();
 					double d0 = MathHelper.clamp(x + pistonDeltas[j], -0.51D, 0.51D);
 					x = d0 - pistonDeltas[j];
 					pistonDeltas[j] = d0;
@@ -697,7 +697,7 @@ public abstract class Entity implements ICommandSender {
 						return;
 					}
 				} else if (y != 0D) {
-					int l4 = EnumFacing.Axis.Y.ordinal();
+					int l4 = Facing.Axis.Y.ordinal();
 					double d12 = MathHelper.clamp(y + pistonDeltas[l4], -0.51D, 0.51D);
 					y = d12 - pistonDeltas[l4];
 					pistonDeltas[l4] = d12;
@@ -710,7 +710,7 @@ public abstract class Entity implements ICommandSender {
 						return;
 					}
 
-					int i5 = EnumFacing.Axis.Z.ordinal();
+					int i5 = Facing.Axis.Z.ordinal();
 					double d13 = MathHelper.clamp(z + pistonDeltas[i5], -0.51D, 0.51D);
 					z = d13 - pistonDeltas[i5];
 					pistonDeltas[i5] = d13;
@@ -1272,13 +1272,13 @@ public abstract class Entity implements ICommandSender {
 		for (int i = 0; (float) i < 1F + width * 20F; ++i) {
 			float f3 = (rand.nextFloat() * 2F - 1F) * width;
 			float f4 = (rand.nextFloat() * 2F - 1F) * width;
-			world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX + (double) f3, f2 + 1F, posZ + (double) f4, motionX, motionY - (double) (rand.nextFloat() * 0.2F), motionZ);
+			world.spawnParticle(ParticleTypes.WATER_BUBBLE, posX + (double) f3, f2 + 1F, posZ + (double) f4, motionX, motionY - (double) (rand.nextFloat() * 0.2F), motionZ);
 		}
 
 		for (int j = 0; (float) j < 1F + width * 20F; ++j) {
 			float f5 = (rand.nextFloat() * 2F - 1F) * width;
 			float f6 = (rand.nextFloat() * 2F - 1F) * width;
-			world.spawnParticle(EnumParticleTypes.WATER_SPLASH, posX + (double) f5, f2 + 1F, posZ + (double) f6, motionX, motionY, motionZ);
+			world.spawnParticle(ParticleTypes.WATER_SPLASH, posX + (double) f5, f2 + 1F, posZ + (double) f6, motionX, motionY, motionZ);
 		}
 	}
 
@@ -1300,8 +1300,8 @@ public abstract class Entity implements ICommandSender {
 		BlockPos blockpos = new BlockPos(i, j, k);
 		IBlockState iblockstate = world.getBlockState(blockpos);
 
-		if (iblockstate.getRenderType() != EnumBlockRenderType.INVISIBLE) {
-			world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, posX + ((double) rand.nextFloat() - 0.5D) * (double) width, getEntityBoundingBox().minY + 0.1D, posZ + ((double) rand.nextFloat() - 0.5D) * (double) width, -motionX * 4D, 1.5D, -motionZ * 4D, Block.getStateId(iblockstate));
+		if (iblockstate.getRenderType() != BlockRenderType.INVISIBLE) {
+			world.spawnParticle(ParticleTypes.BLOCK_CRACK, posX + ((double) rand.nextFloat() - 0.5D) * (double) width, getEntityBoundingBox().minY + 0.1D, posZ + ((double) rand.nextFloat() - 0.5D) * (double) width, -motionX * 4D, 1.5D, -motionZ * 4D, Block.getStateId(iblockstate));
 		}
 	}
 
@@ -1996,7 +1996,7 @@ public abstract class Entity implements ICommandSender {
 		}
 	}
 
-	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
+	public boolean processInitialInteract(EntityPlayer player, Hand hand) {
 
 		return false;
 	}
@@ -2191,9 +2191,9 @@ public abstract class Entity implements ICommandSender {
 			if (!world.isRemote && !pos.equals(lastPortalPos)) {
 				lastPortalPos = new BlockPos(pos);
 				BlockPattern.PatternHelper blockpattern$patternhelper = Blocks.PORTAL.createPatternHelper(world, lastPortalPos);
-				double d0 = blockpattern$patternhelper.getForwards().getAxis() == EnumFacing.Axis.X ? (double) blockpattern$patternhelper.getFrontTopLeft().getZ() : (double) blockpattern$patternhelper.getFrontTopLeft().getX();
-				double d1 = blockpattern$patternhelper.getForwards().getAxis() == EnumFacing.Axis.X ? posZ : posX;
-				d1 = Math.abs(MathHelper.pct(d1 - (double) (blockpattern$patternhelper.getForwards().rotateY().getAxisDirection() == EnumFacing.AxisDirection.NEGATIVE ? 1 : 0), d0, d0 - (double) blockpattern$patternhelper.getWidth()));
+				double d0 = blockpattern$patternhelper.getForwards().getAxis() == Facing.Axis.X ? (double) blockpattern$patternhelper.getFrontTopLeft().getZ() : (double) blockpattern$patternhelper.getFrontTopLeft().getX();
+				double d1 = blockpattern$patternhelper.getForwards().getAxis() == Facing.Axis.X ? posZ : posX;
+				d1 = Math.abs(MathHelper.pct(d1 - (double) (blockpattern$patternhelper.getForwards().rotateY().getAxisDirection() == Facing.AxisDirection.NEGATIVE ? 1 : 0), d0, d0 - (double) blockpattern$patternhelper.getWidth()));
 				double d2 = MathHelper.pct(posY - 1D, blockpattern$patternhelper.getFrontTopLeft().getY(), blockpattern$patternhelper.getFrontTopLeft().getY() - blockpattern$patternhelper.getHeight());
 				lastPortalVec = new Vec3d(d1, d2, 0D);
 				teleportDirection = blockpattern$patternhelper.getForwards();
@@ -2432,45 +2432,45 @@ public abstract class Entity implements ICommandSender {
 		if (!world.collidesWithAnyBlock(getEntityBoundingBox())) {
 			return false;
 		} else {
-			EnumFacing enumfacing = EnumFacing.UP;
+			Facing enumfacing = Facing.UP;
 			double d3 = Double.MAX_VALUE;
 
 			if (!world.isBlockFullCube(blockpos.west()) && d0 < d3) {
 				d3 = d0;
-				enumfacing = EnumFacing.WEST;
+				enumfacing = Facing.WEST;
 			}
 
 			if (!world.isBlockFullCube(blockpos.east()) && 1D - d0 < d3) {
 				d3 = 1D - d0;
-				enumfacing = EnumFacing.EAST;
+				enumfacing = Facing.EAST;
 			}
 
 			if (!world.isBlockFullCube(blockpos.north()) && d2 < d3) {
 				d3 = d2;
-				enumfacing = EnumFacing.NORTH;
+				enumfacing = Facing.NORTH;
 			}
 
 			if (!world.isBlockFullCube(blockpos.south()) && 1D - d2 < d3) {
 				d3 = 1D - d2;
-				enumfacing = EnumFacing.SOUTH;
+				enumfacing = Facing.SOUTH;
 			}
 
 			if (!world.isBlockFullCube(blockpos.up()) && 1D - d1 < d3) {
-				enumfacing = EnumFacing.UP;
+				enumfacing = Facing.UP;
 			}
 
 			float f = rand.nextFloat() * 0.2F + 0.1F;
 			float f1 = (float) enumfacing.getAxisDirection().getOffset();
 
-			if (enumfacing.getAxis() == EnumFacing.Axis.X) {
+			if (enumfacing.getAxis() == Facing.Axis.X) {
 				motionX = f1 * f;
 				motionY *= 0.75D;
 				motionZ *= 0.75D;
-			} else if (enumfacing.getAxis() == EnumFacing.Axis.Y) {
+			} else if (enumfacing.getAxis() == Facing.Axis.Y) {
 				motionX *= 0.75D;
 				motionY = f1 * f;
 				motionZ *= 0.75D;
-			} else if (enumfacing.getAxis() == EnumFacing.Axis.Z) {
+			} else if (enumfacing.getAxis() == Facing.Axis.Z) {
 				motionX *= 0.75D;
 				motionY *= 0.75D;
 				motionZ = f1 * f;
@@ -2719,7 +2719,7 @@ public abstract class Entity implements ICommandSender {
 		return lastPortalVec;
 	}
 
-	public EnumFacing getTeleportDirection() {
+	public Facing getTeleportDirection() {
 
 		return teleportDirection;
 	}
@@ -2840,16 +2840,16 @@ public abstract class Entity implements ICommandSender {
 	/**
 	 * Gets the horizontal facing direction of this Entity.
 	 */
-	public EnumFacing getHorizontalFacing() {
+	public Facing getHorizontalFacing() {
 
-		return EnumFacing.getHorizontal(MathHelper.floor((double) (rotationYaw * 4F / 360F) + 0.5D) & 3);
+		return Facing.getHorizontal(MathHelper.floor((double) (rotationYaw * 4F / 360F) + 0.5D) & 3);
 	}
 
 	/**
 	 * Gets the horizontal facing direction of this Entity, adjusted to take specially-treated entity types into
 	 * account.
 	 */
-	public EnumFacing getAdjustedHorizontalFacing() {
+	public Facing getAdjustedHorizontalFacing() {
 
 		return getHorizontalFacing();
 	}
@@ -3003,9 +3003,9 @@ public abstract class Entity implements ICommandSender {
 	/**
 	 * Applies the given player interaction to this Entity.
 	 */
-	public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
+	public ActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, Hand hand) {
 
-		return EnumActionResult.PASS;
+		return ActionResult.PASS;
 	}
 
 	public boolean isImmuneToExplosions() {
@@ -3182,9 +3182,9 @@ public abstract class Entity implements ICommandSender {
 		return ridingEntity;
 	}
 
-	public EnumPushReaction getPushReaction() {
+	public PushReaction getPushReaction() {
 
-		return EnumPushReaction.NORMAL;
+		return PushReaction.NORMAL;
 	}
 
 	public SoundCategory getSoundCategory() {

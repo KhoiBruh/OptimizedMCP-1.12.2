@@ -1,8 +1,8 @@
 package net.minecraft.client.renderer.block.model;
 
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import org.lwjgl.util.vector.Vector3f;
 
-public record BlockPartRotation(Vector3f origin, EnumFacing.Axis axis, float angle, boolean rescale) {
+public record BlockPartRotation(Vector3f origin, Facing.Axis axis, float angle, boolean rescale) {
 
 }

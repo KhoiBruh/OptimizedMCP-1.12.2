@@ -7,7 +7,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
@@ -193,8 +193,8 @@ public class VillageCollection extends WorldSavedData {
 
 	private void addToNewDoorsList(BlockPos doorBlock) {
 
-		EnumFacing enumfacing = BlockDoor.getFacing(world, doorBlock);
-		EnumFacing enumfacing1 = enumfacing.getOpposite();
+		Facing enumfacing = BlockDoor.getFacing(world, doorBlock);
+		Facing enumfacing1 = enumfacing.getOpposite();
 		int i = countBlocksCanSeeSky(doorBlock, enumfacing, 5);
 		int j = countBlocksCanSeeSky(doorBlock, enumfacing1, i + 1);
 
@@ -206,7 +206,7 @@ public class VillageCollection extends WorldSavedData {
 	/**
 	 * Check five blocks in the direction. The centerPos will not be checked.
 	 */
-	private int countBlocksCanSeeSky(BlockPos centerPos, EnumFacing direction, int limitation) {
+	private int countBlocksCanSeeSky(BlockPos centerPos, Facing direction, int limitation) {
 
 		int i = 0;
 
