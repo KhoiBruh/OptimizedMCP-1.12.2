@@ -6,14 +6,13 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.Facing;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.util.vector.Vector3f;
+import org.joml.Vector3f;
 import java.util.List;
 import java.util.Map;
 
 public class ItemModelGenerator {
 
 	public static final List<String> LAYERS = Lists.newArrayList("layer0", "layer1", "layer2", "layer3", "layer4");
-
 	
 	public ModelBlock makeItemModel(TextureMap textureMapIn, ModelBlock blockModel) {
 

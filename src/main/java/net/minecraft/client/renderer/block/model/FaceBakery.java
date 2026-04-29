@@ -5,9 +5,8 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.Facing;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3i;
-import org.lwjgl.util.vector.Matrix4f;
-import org.lwjgl.util.vector.Vector3f;
-import org.lwjgl.util.vector.Vector4f;
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
 
 public class FaceBakery {
 
@@ -143,34 +142,33 @@ public class FaceBakery {
 		Vector3f vector3f = new Vector3f(Float.intBitsToFloat(faceData[0]), Float.intBitsToFloat(faceData[1]), Float.intBitsToFloat(faceData[2]));
 		Vector3f vector3f1 = new Vector3f(Float.intBitsToFloat(faceData[7]), Float.intBitsToFloat(faceData[8]), Float.intBitsToFloat(faceData[9]));
 		Vector3f vector3f2 = new Vector3f(Float.intBitsToFloat(faceData[14]), Float.intBitsToFloat(faceData[15]), Float.intBitsToFloat(faceData[16]));
-		Vector3f vector3f3 = new Vector3f();
-		Vector3f vector3f4 = new Vector3f();
-		Vector3f vector3f5 = new Vector3f();
-		Vector3f.sub(vector3f, vector3f1, vector3f3);
-		Vector3f.sub(vector3f2, vector3f1, vector3f4);
-		Vector3f.cross(vector3f4, vector3f3, vector3f5);
-		float f = (float) Math.sqrt(vector3f5.x * vector3f5.x + vector3f5.y * vector3f5.y + vector3f5.z * vector3f5.z);
-		vector3f5.x /= f;
-		vector3f5.y /= f;
-		vector3f5.z /= f;
-		Facing enumfacing = null;
+		Vector3f vector3f3 = new Vector3f(vector3f.x - vector3f1.x, vector3f.y - vector3f1.y, vector3f.z - vector3f1.z);
+		Vector3f vector3f4 = new Vector3f(vector3f2.x - vector3f1.x, vector3f2.y - vector3f1.y, vector3f2.z - vector3f1.z);
+		Vector3f vector3f5 = new Vector3f(
+				vector3f4.y * vector3f3.z - vector3f4.z * vector3f3.y,
+				vector3f4.z * vector3f3.x - vector3f4.x * vector3f3.z,
+				vector3f4.x * vector3f3.y - vector3f4.y * vector3f3.x
+		);
+		float dist = vector3f5.lengthSquared();
+		vector3f5.div(dist);
+		Facing currentFacing = null;
 		float f1 = 0F;
 
-		for (Facing enumfacing1 : Facing.values()) {
-			Vec3i vec3i = enumfacing1.getDirectionVec();
-			Vector3f vector3f6 = new Vector3f((float) vec3i.getX(), (float) vec3i.getY(), (float) vec3i.getZ());
-			float f2 = Vector3f.dot(vector3f5, vector3f6);
+		for (Facing facing : Facing.values()) {
+			Vec3i vec3i = facing.getDirectionVec();
+			Vector3f vector3f6 = new Vector3f(vec3i.getX(), vec3i.getY(), vec3i.getZ());
+			float f2 = vector3f5.x * vector3f6.x + vector3f5.y * vector3f6.y + vector3f5.z * vector3f6.z;
 
 			if (f2 >= 0F && f2 > f1) {
 				f1 = f2;
-				enumfacing = enumfacing1;
+				currentFacing = facing;
 			}
 		}
 
-		if (enumfacing == null) {
+		if (currentFacing == null) {
 			return Facing.UP;
 		} else {
-			return enumfacing;
+			return currentFacing;
 		}
 	}
 
@@ -273,37 +271,47 @@ public class FaceBakery {
 
 		if (partRotation != null) {
 			Matrix4f matrix4f = getMatrixIdentity();
-			Vector3f vector3f = new Vector3f(0F, 0F, 0F);
+			Vector3f vector3f = new Vector3f();
 
 			switch (partRotation.axis()) {
 				case X:
-					Matrix4f.rotate(partRotation.angle() * 0.017453292F, new Vector3f(1F, 0F, 0F), matrix4f, matrix4f);
-					vector3f.set(0F, 1F, 1F);
+					matrix4f.rotateX((float) Math.toRadians(partRotation.angle()));
+					vector3f.x = 0F;
+					vector3f.y = 1F;
+					vector3f.z = 1F;
 					break;
 
 				case Y:
-					Matrix4f.rotate(partRotation.angle() * 0.017453292F, new Vector3f(0F, 1F, 0F), matrix4f, matrix4f);
-					vector3f.set(1F, 0F, 1F);
+					matrix4f.rotateY((float) Math.toRadians(partRotation.angle()));
+					vector3f.x = 1F;
+					vector3f.y = 0F;
+					vector3f.z = 1F;
 					break;
 
 				case Z:
-					Matrix4f.rotate(partRotation.angle() * 0.017453292F, new Vector3f(0F, 0F, 1F), matrix4f, matrix4f);
-					vector3f.set(1F, 1F, 0F);
+					matrix4f.rotateZ((float) Math.toRadians(partRotation.angle()));
+					vector3f.x = 1F;
+					vector3f.y = 1F;
+					vector3f.z = 0F;
 			}
 
 			if (partRotation.rescale()) {
 				if (Math.abs(partRotation.angle()) == 22.5F) {
-					vector3f.scale(SCALE_ROTATION_22_5);
+					vector3f.mul(SCALE_ROTATION_22_5);
 				} else {
-					vector3f.scale(SCALE_ROTATION_GENERAL);
+					vector3f.mul(SCALE_ROTATION_GENERAL);
 				}
 
-				Vector3f.add(vector3f, new Vector3f(1F, 1F, 1F), vector3f);
+				vector3f.x += 1F;
+				vector3f.y += 1F;
+				vector3f.z += 1F;
 			} else {
-				vector3f.set(1F, 1F, 1F);
+				vector3f.x = 1F;
+				vector3f.y = 1F;
+				vector3f.z = 1F;
 			}
 
-			rotateScale(p_178407_1_, new Vector3f(partRotation.origin()), matrix4f, vector3f);
+			rotateScale(p_178407_1_, new Vector3f(partRotation.origin().x, partRotation.origin().y, partRotation.origin().z), matrix4f, vector3f);
 		}
 	}
 
@@ -319,19 +327,17 @@ public class FaceBakery {
 
 	private void rotateScale(Vector3f position, Vector3f rotationOrigin, Matrix4f rotationMatrix, Vector3f scale) {
 
-		Vector4f vector4f = new Vector4f(position.x - rotationOrigin.x, position.y - rotationOrigin.y, position.z - rotationOrigin.z, 1F);
-		Matrix4f.transform(rotationMatrix, vector4f, vector4f);
-		vector4f.x *= scale.x;
-		vector4f.y *= scale.y;
-		vector4f.z *= scale.z;
-		position.set(vector4f.x + rotationOrigin.x, vector4f.y + rotationOrigin.y, vector4f.z + rotationOrigin.z);
+		Vector3f vector3f = new Vector3f(position.x - rotationOrigin.x, position.y - rotationOrigin.y, position.z - rotationOrigin.z);
+		rotationMatrix.transformPosition(vector3f, vector3f);
+		vector3f.mul(scale);
+		position.x = vector3f.x + rotationOrigin.x;
+		position.y = vector3f.y + rotationOrigin.y;
+		position.z = vector3f.z + rotationOrigin.z;
 	}
 
 	private Matrix4f getMatrixIdentity() {
 
-		Matrix4f matrix4f = new Matrix4f();
-		matrix4f.setIdentity();
-		return matrix4f;
+		return new Matrix4f().identity();
 	}
 
 	private void applyFacing(int[] p_178408_1_, Facing p_178408_2_) {

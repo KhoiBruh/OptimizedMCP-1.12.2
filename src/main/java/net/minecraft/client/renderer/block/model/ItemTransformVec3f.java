@@ -3,7 +3,7 @@ package net.minecraft.client.renderer.block.model;
 import com.google.gson.*;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.math.MathHelper;
-import org.lwjgl.util.vector.Vector3f;
+import org.joml.Vector3f;
 
 import java.lang.reflect.Type;
 
@@ -12,10 +12,9 @@ public record ItemTransformVec3f(Vector3f rotation, Vector3f translation, Vector
 	public static final ItemTransformVec3f DEFAULT = new ItemTransformVec3f(new Vector3f(), new Vector3f(), new Vector3f(1F, 1F, 1F));
 
 	public ItemTransformVec3f(Vector3f rotation, Vector3f translation, Vector3f scale) {
-
-		this.rotation = new Vector3f(rotation);
-		this.translation = new Vector3f(translation);
-		this.scale = new Vector3f(scale);
+		this.rotation = new Vector3f(rotation.x, rotation.y, rotation.z);
+		this.translation = new Vector3f(translation.x, translation.y, translation.z);
+		this.scale = new Vector3f(scale.x, scale.y, scale.z);
 	}
 
 	public boolean equals(Object p_equals_1_) {
@@ -41,7 +40,7 @@ public record ItemTransformVec3f(Vector3f rotation, Vector3f translation, Vector
 			JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
 			Vector3f vector3f = parseVector3f(jsonobject, "rotation", ROTATION_DEFAULT);
 			Vector3f vector3f1 = parseVector3f(jsonobject, "translation", TRANSLATION_DEFAULT);
-			vector3f1.scale(0.0625F);
+			vector3f1.mul(0.0625F);
 			vector3f1.x = MathHelper.clamp(vector3f1.x, -5F, 5F);
 			vector3f1.y = MathHelper.clamp(vector3f1.y, -5F, 5F);
 			vector3f1.z = MathHelper.clamp(vector3f1.z, -5F, 5F);

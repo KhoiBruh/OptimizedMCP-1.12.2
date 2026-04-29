@@ -3,8 +3,7 @@ package net.minecraft.client.renderer.block.model;
 import com.google.common.collect.Maps;
 import net.minecraft.util.Facing;
 import net.minecraft.util.math.MathHelper;
-import org.lwjgl.util.vector.Matrix4f;
-import org.lwjgl.util.vector.Vector3f;
+import org.joml.Matrix4f;
 
 import java.util.Map;
 
@@ -42,16 +41,9 @@ public enum ModelRotation {
 	ModelRotation(int x, int y) {
 
 		combinedXY = combineXY(x, y);
-		matrix4d = new Matrix4f();
-		Matrix4f matrix4f = new Matrix4f();
-		matrix4f.setIdentity();
-		Matrix4f.rotate((float) (-x) * 0.017453292F, new Vector3f(1F, 0F, 0F), matrix4f, matrix4f);
+		matrix4d = JomlRotationMath.modelRotation(x, y);
 		quartersX = MathHelper.abs(x / 90);
-		Matrix4f matrix4f1 = new Matrix4f();
-		matrix4f1.setIdentity();
-		Matrix4f.rotate((float) (-y) * 0.017453292F, new Vector3f(0F, 1F, 0F), matrix4f1, matrix4f1);
 		quartersY = MathHelper.abs(y / 90);
-		Matrix4f.mul(matrix4f1, matrix4f, matrix4d);
 	}
 
 	private static int combineXY(int p_177521_0_, int p_177521_1_) {

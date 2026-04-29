@@ -5,7 +5,7 @@ import com.google.gson.*;
 import net.minecraft.util.Facing;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.math.MathHelper;
-import org.lwjgl.util.vector.Vector3f;
+import org.joml.Vector3f;
 import java.lang.reflect.Type;
 import java.util.Locale;
 import java.util.Map;
@@ -72,7 +72,7 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<Facing, 
 			if (object.has("rotation")) {
 				JsonObject jsonobject = JsonUtils.getJsonObject(object, "rotation");
 				Vector3f vector3f = parsePosition(jsonobject, "origin");
-				vector3f.scale(0.0625F);
+				vector3f.mul(0.0625F);
 				Facing.Axis enumfacing$axis = parseAxis(jsonobject);
 				float f = parseAngle(jsonobject);
 				boolean flag = JsonUtils.getBoolean(jsonobject, "rescale", false);

@@ -44,8 +44,16 @@ dependencies {
     implementation "it.unimi.dsi:fastutil:8.5.18"
     implementation "org.apache.logging.log4j:log4j-api:2.25.4"
     implementation "org.apache.logging.log4j:log4j-core:2.25.4"
-    implementation "org.lwjgl:lwjgl:2.9.4-nightly-20150209"
-    implementation "org.lwjgl:lwjgl_util:2.9.4-nightly-20150209"
+    implementation "org.lwjgl.lwjgl:lwjgl:2.9.3"
+    implementation "org.lwjgl.lwjgl:lwjgl_util:2.9.3"
+    implementation "org.joml:joml:1.10.8"
     implementation "com.mojang:text2speech:1.10.3"
     implementation "com.mojang:authlib:1.5.25"
+
+    testImplementation "org.junit.jupiter:junit-jupiter:5.11.4"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher:1.11.4"
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
