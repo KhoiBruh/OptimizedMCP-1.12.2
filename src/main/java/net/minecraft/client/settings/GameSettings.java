@@ -73,7 +73,7 @@ public class GameSettings {
 	private final Map<SoundCategory, Float> soundLevels = Maps.newEnumMap(SoundCategory.class);
 	public float mouseSensitivity = 0.5F;
 	public boolean invertMouse;
-	public int renderDistanceChunks = -1;
+	public int renderDistanceChunks = 8;
 	public boolean viewBobbing = true;
 	public boolean anaglyph;
 	public boolean fboEnable = true;
@@ -200,13 +200,6 @@ public class GameSettings {
 		mc = mcIn;
 		optionsFile = new File(mcDataDir, "options.txt");
 
-		if (mcIn.isJava64bit() && Runtime.getRuntime().maxMemory() >= 1000000000L) {
-			GameSettings.Options.RENDER_DISTANCE.setValueMax(32.0F);
-		} else {
-			GameSettings.Options.RENDER_DISTANCE.setValueMax(16.0F);
-		}
-
-		renderDistanceChunks = mcIn.isJava64bit() ? 12 : 8;
 		loadOptions();
 	}
 
@@ -1100,7 +1093,7 @@ public class GameSettings {
 		FOV("options.fov", true, false, 30.0F, 110.0F, 1.0F),
 		GAMMA("options.gamma", true, false),
 		SATURATION("options.saturation", true, false),
-		RENDER_DISTANCE("options.renderDistance", true, false, 2.0F, 16.0F, 1.0F),
+		RENDER_DISTANCE("options.renderDistance", true, false, 2.0F, 32.0F, 1.0F),
 		VIEW_BOBBING("options.viewBobbing", false, true),
 		ANAGLYPH("options.anaglyph", false, true),
 		FRAMERATE_LIMIT("options.framerateLimit", true, false, 10.0F, 260.0F, 10.0F),

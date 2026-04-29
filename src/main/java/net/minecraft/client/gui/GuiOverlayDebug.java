@@ -254,7 +254,7 @@ public class GuiOverlayDebug extends Gui {
 		long freeMemory = runtime.freeMemory();
 		long usedMemory = totalMemory - freeMemory;
 		List<String> list = Lists.newArrayList(
-				String.format("Java: %s %dbit", System.getProperty("java.version"), mc.isJava64bit() ? 64 : 32),
+				String.format("Java: %s", System.getProperty("java.version")),
 				String.format("Mem: % 2d%% %03d/%03dMB", usedMemory * 100L / maxMemory, bytesToMb(usedMemory), bytesToMb(maxMemory)),
 				String.format("Allocated: % 2d%% %03dMB", totalMemory * 100L / maxMemory, bytesToMb(totalMemory)), "",
 				String.format("CPU: %s", OpenGlHelper.getCpu()), "",

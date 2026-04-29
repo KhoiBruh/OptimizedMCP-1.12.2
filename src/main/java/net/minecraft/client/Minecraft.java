@@ -131,215 +131,114 @@ import java.util.concurrent.FutureTask;
 import java.util.stream.Collectors;
 
 public class Minecraft implements IThreadListener, ISnooperInfo {
-	
+
+	// Public static fields
 	public static final boolean IS_RUNNING_ON_MAC = Util.getOSType() == Util.EnumOS.OSX;
-	private static final Logger LOGGER = LogManager.getLogger();
-	private static final ResourceLocation LOCATION_MOJANG_PNG = new ResourceLocation("textures/gui/title/mojang.png");
-	/**
-	 * A 10MiB preallocation to ensure the heap is reasonably sized. {@linkplain #freeMemory() Freed} when the game runs
-	 * out of memory.
-	 *
-	 * @see #freeMemory()
-	 */
 	public static byte[] memoryReserve = new byte[10485760];
-	/**
-	 * The instance of the Minecraft Client, set in the constructor.
-	 */
-	private static Minecraft instance;
-	/**
-	 * This is set to fpsCounter every debug screen update, and is shown on the debug screen. It's also sent as part of
-	 * the usage snooping.
-	 */
-	private static int debugFPS;
-	public final File mcDataDir;
-	/**
-	 * The FrameTimer's instance
-	 */
-	public final FrameTimer frameTimer = new FrameTimer();
-	/**
-	 * The profiler instance
-	 */
-	public final Profiler profiler = new Profiler();
-	private final File fileResourcepacks;
-	/**
-	 * The player's GameProfile properties
-	 */
-	private final PropertyMap profileProperties;
-	private final DataFixer dataFixer;
-	private final Timer timer = new Timer(20F);
-	/**
-	 * Instance of PlayerUsageSnooper.
-	 */
-	private final Snooper usageSnooper = new Snooper("client", this, MinecraftServer.getCurrentTimeMillis());
-	/**
-	 * Manages all search trees
-	 */
-	private final SearchTreeManager searchTreeManager = new SearchTreeManager();
-	private final Session session;
-	/**
-	 * Display width
-	 */
-	private final int tempDisplayWidth;
-	/**
-	 * Display height
-	 */
-	private final int tempDisplayHeight;
-	private final File fileAssets;
-	private final String launchedVersion;
-	private final String versionType;
-	private final Proxy proxy;
-	private final boolean jvm64bit;
-	private final MetadataSerializer metadataSerializer_ = new MetadataSerializer();
-	private final List<IResourcePack> defaultResourcePacks = Lists.newArrayList();
-	private final DefaultResourcePack mcDefaultResourcePack;
-	private final MinecraftSessionService sessionService;
-	private final Queue<FutureTask<?>> scheduledTasks = Queues.newArrayDeque();
-	private final Thread mcThread = Thread.currentThread();
-	private final GuiToast toastGui;
-	private final Tutorial tutorial;
-	public PlayerControllerMP playerController;
-	public int displayWidth;
-	public int displayHeight;
-	public WorldClient world;
-	public RenderGlobal renderGlobal;
-	public EntityPlayerSP player;
-	public Entity pointedEntity;
-	public ParticleManager effectRenderer;
-	/**
-	 * The font renderer used for displaying and measuring text
-	 */
-	public FontRenderer fontRenderer;
-	public FontRenderer standardGalacticFontRenderer;
-	
-	public ScaledResolution scaledResolution;
-	
-	/* The GuiScreen that's being displayed at the moment. */
-	public GuiScreen currentScreen;
-	public LoadingScreenRenderer loadingScreen;
-	public EntityRenderer entityRenderer;
-	public DebugRenderer debugRenderer;
-	public GuiIngame ingameGUI;
-	/**
-	 * Skip render world
-	 */
-	public boolean skipRenderWorld;
-	/**
-	 * The ray trace hit that the mouse is over.
-	 */
-	public RayTraceResult objectMouseOver;
-	/**
-	 * The game settings that currently hold effect.
-	 */
-	public GameSettings gameSettings;
+
+	// Public instance fields
 	public CreativeSettings creativeSettings;
-	/**
-	 * Mouse helper instance.
-	 */
-	public MouseHelper mouseHelper;
-	/**
-	 * Does the actual gameplay have focus. If so then mouse and keys will effect the player instead of menus.
-	 */
-	public boolean inGameHasFocus;
-	/**
-	 * String that shows the debug information
-	 */
+	public GuiScreen currentScreen;
 	public String debug = "";
+	public DebugRenderer debugRenderer;
+	public int displayHeight;
+	public int displayWidth;
+	public ParticleManager effectRenderer;
+	public EntityRenderer entityRenderer;
+	public FontRenderer fontRenderer;
+	public final FrameTimer frameTimer = new FrameTimer();
+	public GameSettings gameSettings;
+	public GuiIngame ingameGUI;
+	public boolean inGameHasFocus;
+	public LoadingScreenRenderer loadingScreen;
+	public final File mcDataDir;
+	public MouseHelper mouseHelper;
+	public RayTraceResult objectMouseOver;
+	public EntityPlayerSP player;
+	public PlayerControllerMP playerController;
+	public Entity pointedEntity;
+	public final Profiler profiler = new Profiler();
 	public boolean renderChunksMany = true;
-	long systemTime = getSystemTime();
-	/**
-	 * Time in nanoseconds of when the class is loaded
-	 */
-	long startNanoTime = System.nanoTime();
-	/**
-	 * Set to true to keep the game loop running. Set to false by shutdown() to allow the game loop to exit cleanly.
-	 */
-	volatile boolean running = true;
+	public RenderGlobal renderGlobal;
+	public ScaledResolution scaledResolution;
+	public boolean skipRenderWorld;
+	public FontRenderer standardGalacticFontRenderer;
+	public WorldClient world;
+
+	// Package-private fields
 	long prevFrameTime = -1L;
+	volatile boolean running = true;
+	long startNanoTime = System.nanoTime();
+	long systemTime = getSystemTime();
+
+	// Private static fields
+	private static int debugFPS;
+	private static Minecraft instance;
+	private static final ResourceLocation LOCATION_MOJANG_PNG = new ResourceLocation("textures/gui/title/mojang.png");
+	private static final Logger LOGGER = LogManager.getLogger();
+
+	// Private instance fields
+	private boolean actionKeyF3;
+	private BlockColors blockColors;
+	private BlockRendererDispatcher blockRenderDispatcher;
+	private boolean connectedToRealms;
+	private CrashReport crashReporter;
 	private ServerData currentServerData;
-	/**
-	 * The RenderEngine instance used by Minecraft
-	 */
-	private TextureManager renderEngine;
+	private final DataFixer dataFixer;
+	private long debugCrashKeyPressTime = -1L;
+	private String debugProfilerName = "root";
+	private long debugUpdateTime = getSystemTime();
+	private final List<IResourcePack> defaultResourcePacks = Lists.newArrayList();
+	private final File fileAssets;
+	private final File fileResourcepacks;
+	private Framebuffer framebufferMc;
+	private int fpsCounter;
 	private boolean fullscreen;
 	private boolean hasCrashed;
-	/**
-	 * Instance of CrashReport.
-	 */
-	private CrashReport crashReporter;
-	/**
-	 * True if the player is connected to a realms server
-	 */
-	private boolean connectedToRealms;
-	private RenderManager renderManager;
-	private RenderItem renderItem;
-	private ItemRenderer itemRenderer;
-	
-	
-	private Entity renderViewEntity;
-	private boolean isGamePaused;
-	/**
-	 * Time passed since the last update in ticks. Used instead of this.timer.renderPartialTicks when paused in
-	 * singleplayer.
-	 */
-	private float renderPartialTicksPaused;
-	/**
-	 * Mouse left click counter
-	 */
-	private int leftClickCounter;
-	
-	
-	
-	/* Instance of IntegratedServer. */
 	private IntegratedServer integratedServer;
-	private ISaveFormat saveLoader;
-	/**
-	 * When you place a block, it's set to 6, decremented once per tick, when it's 0, you can place another block.
-	 */
-	private int rightClickDelayTimer;
-	private String serverName;
-	private int serverPort;
-	/**
-	 * Join player counter
-	 */
-	private int joinPlayerCounter;
-	
-	
-	private NetworkManager myNetworkManager;
 	private boolean integratedServerIsRunning;
-	/**
-	 * Keeps track of how long the debug crash keycombo (F3+C) has been pressed for, in order to crash after 10 seconds.
-	 */
-	private long debugCrashKeyPressTime = -1L;
+	private boolean isGamePaused;
+	private ItemColors itemColors;
+	private ItemRenderer itemRenderer;
+	private int joinPlayerCounter;
+	private final String launchedVersion;
+	private int leftClickCounter;
+	private final DefaultResourcePack mcDefaultResourcePack;
+	private LanguageManager mcLanguageManager;
+	private MusicTicker mcMusicTicker;
 	private IReloadableResourceManager mcResourceManager;
 	private ResourcePackRepository mcResourcePackRepository;
-	private LanguageManager mcLanguageManager;
-	private BlockColors blockColors;
-	private ItemColors itemColors;
-	private Framebuffer framebufferMc;
-	private TextureMap textureMapBlocks;
 	private SoundHandler mcSoundHandler;
-	private MusicTicker mcMusicTicker;
-	private ResourceLocation mojangLogo;
-	private SkinManager skinManager;
+	private final Thread mcThread = Thread.currentThread();
+	private final MetadataSerializer metadataSerializer = new MetadataSerializer();
 	private ModelManager modelManager;
-	/**
-	 * The BlockRenderDispatcher instance that will be used based off gamesettings
-	 */
-	private BlockRendererDispatcher blockRenderDispatcher;
-	/**
-	 * Approximate time (in ms) of last update to debug string
-	 */
-	private long debugUpdateTime = getSystemTime();
-	/**
-	 * holds the current fps
-	 */
-	private int fpsCounter;
-	private boolean actionKeyF3;
-	/**
-	 * Profiler currently displayed in the debug screen pie chart
-	 */
-	private String debugProfilerName = "root";
-	
+	private ResourceLocation mojangLogo;
+	private NetworkManager myNetworkManager;
+	private final PropertyMap profileProperties;
+	private final Proxy proxy;
+	private TextureManager renderEngine;
+	private RenderItem renderItem;
+	private RenderManager renderManager;
+	private float renderPartialTicksPaused;
+	private Entity renderViewEntity;
+	private int rightClickDelayTimer;
+	private ISaveFormat saveLoader;
+	private final Queue<FutureTask<?>> scheduledTasks = Queues.newArrayDeque();
+	private final SearchTreeManager searchTreeManager = new SearchTreeManager();
+	private String serverName;
+	private int serverPort;
+	private final Session session;
+	private final MinecraftSessionService sessionService;
+	private SkinManager skinManager;
+	private final int tempDisplayHeight;
+	private final int tempDisplayWidth;
+	private TextureMap textureMapBlocks;
+	private final Timer timer = new Timer(20F);
+	private final GuiToast toastGui;
+	private final Tutorial tutorial;
+	private final Snooper usageSnooper = new Snooper("client", this, MinecraftServer.getCurrentTimeMillis());
+	private final String versionType;
+
 	public Minecraft(GameConfiguration gameConfig) {
 		
 		instance = this;
@@ -361,7 +260,6 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		tempDisplayWidth = gameConfig.displayInfo().width();
 		tempDisplayHeight = gameConfig.displayInfo().height();
 		fullscreen = gameConfig.displayInfo().fullscreen();
-		jvm64bit = isJvm64bit();
 		integratedServer = null;
 		
 		if (gameConfig.serverInfo().serverName() != null) {
@@ -376,21 +274,6 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		dataFixer = DataFixesManager.createFixer();
 		toastGui = new GuiToast(this);
 		tutorial = new Tutorial(this);
-	}
-	
-	private static boolean isJvm64bit() {
-		
-		String[] astring = new String[]{"sun.arch.data.model", "com.ibm.vm.bitmode", "os.arch"};
-		
-		for (String s : astring) {
-			String s1 = System.getProperty(s);
-			
-			if (s1 != null && s1.contains("64")) {
-				return true;
-			}
-		}
-		
-		return false;
 	}
 	
 	public static boolean isGuiEnabled() {
@@ -531,9 +414,9 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		framebufferMc = new Framebuffer(displayWidth, displayHeight, true);
 		framebufferMc.setFramebufferColor(0F, 0F, 0F, 0F);
 		registerMetadataSerializers();
-		mcResourcePackRepository = new ResourcePackRepository(fileResourcepacks, new File(mcDataDir, "server-resource-packs"), mcDefaultResourcePack, metadataSerializer_, gameSettings);
-		mcResourceManager = new SimpleReloadableResourceManager(metadataSerializer_);
-		mcLanguageManager = new LanguageManager(metadataSerializer_, gameSettings.language);
+		mcResourcePackRepository = new ResourcePackRepository(fileResourcepacks, new File(mcDataDir, "server-resource-packs"), mcDefaultResourcePack, metadataSerializer, gameSettings);
+		mcResourceManager = new SimpleReloadableResourceManager(metadataSerializer);
+		mcLanguageManager = new LanguageManager(metadataSerializer, gameSettings.language);
 		mcResourceManager.registerReloadListener(mcLanguageManager);
 		scaledResolution = new ScaledResolution(this);
 		refreshResources();
@@ -667,11 +550,11 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	
 	private void registerMetadataSerializers() {
 		
-		metadataSerializer_.registerMetadataSectionType(new TextureMetadataSectionSerializer(), TextureMetadataSection.class);
-		metadataSerializer_.registerMetadataSectionType(new FontMetadataSectionSerializer(), FontMetadataSection.class);
-		metadataSerializer_.registerMetadataSectionType(new AnimationMetadataSectionSerializer(), AnimationMetadataSection.class);
-		metadataSerializer_.registerMetadataSectionType(new PackMetadataSectionSerializer(), PackMetadataSection.class);
-		metadataSerializer_.registerMetadataSectionType(new LanguageMetadataSectionSerializer(), LanguageMetadataSection.class);
+		metadataSerializer.registerMetadataSectionType(new TextureMetadataSectionSerializer(), TextureMetadataSection.class);
+		metadataSerializer.registerMetadataSectionType(new FontMetadataSectionSerializer(), FontMetadataSection.class);
+		metadataSerializer.registerMetadataSectionType(new AnimationMetadataSectionSerializer(), AnimationMetadataSection.class);
+		metadataSerializer.registerMetadataSectionType(new PackMetadataSectionSerializer(), PackMetadataSection.class);
+		metadataSerializer.registerMetadataSectionType(new LanguageMetadataSectionSerializer(), LanguageMetadataSection.class);
 	}
 	
 	private void createDisplay() throws LWJGLException {
@@ -1567,6 +1450,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		
 		displayWidth = Math.max(1, width);
 		displayHeight = Math.max(1, height);
+		scaledResolution = new ScaledResolution(this);
 		
 		if (currentScreen != null) currentScreen.onResize(
 				this,
@@ -2703,11 +2587,6 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	public TextureMap getTextureMapBlocks() {
 		
 		return textureMapBlocks;
-	}
-	
-	public boolean isJava64bit() {
-		
-		return jvm64bit;
 	}
 	
 	public boolean isGamePaused() {

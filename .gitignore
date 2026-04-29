@@ -1,5 +1,4 @@
 .gradle
-.idea
 build
 workspace/assets/log_configs
 workspace/assets/objects
@@ -13,3 +12,4 @@ workspace/server.properties
 workspace/servers.dat
 workspace/usercache.json
 README.md
+/out/
