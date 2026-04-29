@@ -2,9 +2,6 @@ package net.minecraft.world;
 
 import net.minecraft.util.math.MathHelper;
 
-import javax.annotation.concurrent.Immutable;
-
-@Immutable
 public class DifficultyInstance {
 
 	private final EnumDifficulty worldDifficulty;

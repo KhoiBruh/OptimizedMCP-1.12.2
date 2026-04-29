@@ -7,8 +7,6 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.util.vector.Vector3f;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +14,7 @@ public class ItemModelGenerator {
 
 	public static final List<String> LAYERS = Lists.newArrayList("layer0", "layer1", "layer2", "layer3", "layer4");
 
-	@Nullable
+	
 	public ModelBlock makeItemModel(TextureMap textureMapIn, ModelBlock blockModel) {
 
 		Map<String, String> map = Maps.newHashMap();

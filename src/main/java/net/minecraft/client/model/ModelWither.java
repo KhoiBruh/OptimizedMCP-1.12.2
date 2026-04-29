@@ -16,26 +16,26 @@ public class ModelWither extends ModelBase {
 		textureHeight = 64;
 		upperBodyParts = new ModelRenderer[3];
 		upperBodyParts[0] = new ModelRenderer(this, 0, 16);
-		upperBodyParts[0].addBox(-10.0F, 3.9F, -0.5F, 20, 3, 3, p_i46302_1_);
+		upperBodyParts[0].addBox(-10F, 3.9F, -0.5F, 20, 3, 3, p_i46302_1_);
 		upperBodyParts[1] = (new ModelRenderer(this)).setTextureSize(textureWidth, textureHeight);
-		upperBodyParts[1].setRotationPoint(-2.0F, 6.9F, -0.5F);
-		upperBodyParts[1].setTextureOffset(0, 22).addBox(0.0F, 0.0F, 0.0F, 3, 10, 3, p_i46302_1_);
-		upperBodyParts[1].setTextureOffset(24, 22).addBox(-4.0F, 1.5F, 0.5F, 11, 2, 2, p_i46302_1_);
-		upperBodyParts[1].setTextureOffset(24, 22).addBox(-4.0F, 4.0F, 0.5F, 11, 2, 2, p_i46302_1_);
-		upperBodyParts[1].setTextureOffset(24, 22).addBox(-4.0F, 6.5F, 0.5F, 11, 2, 2, p_i46302_1_);
+		upperBodyParts[1].setRotationPoint(-2F, 6.9F, -0.5F);
+		upperBodyParts[1].setTextureOffset(0, 22).addBox(0F, 0F, 0F, 3, 10, 3, p_i46302_1_);
+		upperBodyParts[1].setTextureOffset(24, 22).addBox(-4F, 1.5F, 0.5F, 11, 2, 2, p_i46302_1_);
+		upperBodyParts[1].setTextureOffset(24, 22).addBox(-4F, 4F, 0.5F, 11, 2, 2, p_i46302_1_);
+		upperBodyParts[1].setTextureOffset(24, 22).addBox(-4F, 6.5F, 0.5F, 11, 2, 2, p_i46302_1_);
 		upperBodyParts[2] = new ModelRenderer(this, 12, 22);
-		upperBodyParts[2].addBox(0.0F, 0.0F, 0.0F, 3, 6, 3, p_i46302_1_);
+		upperBodyParts[2].addBox(0F, 0F, 0F, 3, 6, 3, p_i46302_1_);
 		heads = new ModelRenderer[3];
 		heads[0] = new ModelRenderer(this, 0, 0);
-		heads[0].addBox(-4.0F, -4.0F, -4.0F, 8, 8, 8, p_i46302_1_);
+		heads[0].addBox(-4F, -4F, -4F, 8, 8, 8, p_i46302_1_);
 		heads[1] = new ModelRenderer(this, 32, 0);
-		heads[1].addBox(-4.0F, -4.0F, -4.0F, 6, 6, 6, p_i46302_1_);
-		heads[1].rotationPointX = -8.0F;
-		heads[1].rotationPointY = 4.0F;
+		heads[1].addBox(-4F, -4F, -4F, 6, 6, 6, p_i46302_1_);
+		heads[1].rotationPointX = -8F;
+		heads[1].rotationPointY = 4F;
 		heads[2] = new ModelRenderer(this, 32, 0);
-		heads[2].addBox(-4.0F, -4.0F, -4.0F, 6, 6, 6, p_i46302_1_);
-		heads[2].rotationPointX = 10.0F;
-		heads[2].rotationPointY = 4.0F;
+		heads[2].addBox(-4F, -4F, -4F, 6, 6, 6, p_i46302_1_);
+		heads[2].rotationPointX = 10F;
+		heads[2].rotationPointY = 4F;
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class ModelWither extends ModelBase {
 
 		float f = MathHelper.cos(ageInTicks * 0.1F);
 		upperBodyParts[1].rotateAngleX = (0.065F + 0.05F * f) * (float) Math.PI;
-		upperBodyParts[2].setRotationPoint(-2.0F, 6.9F + MathHelper.cos(upperBodyParts[1].rotateAngleX) * 10.0F, -0.5F + MathHelper.sin(upperBodyParts[1].rotateAngleX) * 10.0F);
+		upperBodyParts[2].setRotationPoint(-2F, 6.9F + MathHelper.cos(upperBodyParts[1].rotateAngleX) * 10F, -0.5F + MathHelper.sin(upperBodyParts[1].rotateAngleX) * 10F);
 		upperBodyParts[2].rotateAngleX = (0.265F + 0.1F * f) * (float) Math.PI;
 		heads[0].rotateAngleY = netHeadYaw * 0.017453292F;
 		heads[0].rotateAngleX = headPitch * 0.017453292F;

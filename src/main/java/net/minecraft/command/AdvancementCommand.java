@@ -9,8 +9,6 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
@@ -192,7 +190,7 @@ public class AdvancementCommand extends CommandBase {
 		}
 	}
 
-	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
+	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
 
 		if (args.length == 1) {
 			return getListOfStringsMatchingLastWord(args, "grant", "revoke", "test");
@@ -319,7 +317,7 @@ public class AdvancementCommand extends CommandBase {
 			baseTranslationKey = "commands.advancement." + nameIn;
 		}
 
-		@Nullable
+		
 		static AdvancementCommand.ActionType byName(String nameIn) {
 
 			for (AdvancementCommand.ActionType advancementcommand$actiontype : values()) {
@@ -380,7 +378,7 @@ public class AdvancementCommand extends CommandBase {
 			children = p_i47556_5_;
 		}
 
-		@Nullable
+		
 		static AdvancementCommand.Mode byName(String nameIn) {
 
 			for (AdvancementCommand.Mode advancementcommand$mode : values()) {

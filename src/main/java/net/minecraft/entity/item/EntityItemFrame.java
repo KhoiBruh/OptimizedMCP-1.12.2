@@ -22,8 +22,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.MapData;
 
-import javax.annotation.Nullable;
-
 public class EntityItemFrame extends EntityHanging {
 
 	private static final DataParameter<ItemStack> ITEM = EntityDataManager.createKey(EntityItemFrame.class, DataSerializers.ITEM_STACK);
@@ -99,7 +97,7 @@ public class EntityItemFrame extends EntityHanging {
 	/**
 	 * Called when this entity is broken. Entity parameter may be null.
 	 */
-	public void onBroken(@Nullable Entity brokenEntity) {
+	public void onBroken(Entity brokenEntity) {
 
 		playSound(SoundEvents.ENTITY_ITEMFRAME_BREAK, 1.0F, 1.0F);
 		dropItemOrSelf(brokenEntity, true);
@@ -110,7 +108,7 @@ public class EntityItemFrame extends EntityHanging {
 		playSound(SoundEvents.ENTITY_ITEMFRAME_PLACE, 1.0F, 1.0F);
 	}
 
-	public void dropItemOrSelf(@Nullable Entity entityIn, boolean p_146065_2_) {
+	public void dropItemOrSelf(Entity entityIn, boolean p_146065_2_) {
 
 		if (world.getGameRules().getBoolean("doEntityDrops")) {
 			ItemStack itemstack = getDisplayedItem();

@@ -19,8 +19,6 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.chunk.storage.IChunkLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -73,7 +71,7 @@ public class ChunkProviderServer implements IChunkProvider {
 		}
 	}
 
-	@Nullable
+	
 	public Chunk getLoadedChunk(int x, int z) {
 
 		long i = ChunkPos.asLong(x, z);
@@ -86,7 +84,7 @@ public class ChunkProviderServer implements IChunkProvider {
 		return chunk;
 	}
 
-	@Nullable
+	
 	public Chunk loadChunk(int x, int z) {
 
 		Chunk chunk = getLoadedChunk(x, z);
@@ -130,7 +128,7 @@ public class ChunkProviderServer implements IChunkProvider {
 		return chunk;
 	}
 
-	@Nullable
+	
 	private Chunk loadChunkFromFile(int x, int z) {
 
 		try {
@@ -249,7 +247,7 @@ public class ChunkProviderServer implements IChunkProvider {
 		return chunkGenerator.getPossibleCreatures(creatureType, pos);
 	}
 
-	@Nullable
+	
 	public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
 
 		return chunkGenerator.getNearestStructurePos(worldIn, structureName, position, findUnexplored);

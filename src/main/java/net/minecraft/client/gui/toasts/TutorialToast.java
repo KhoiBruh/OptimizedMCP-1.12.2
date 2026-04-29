@@ -5,8 +5,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 
-import javax.annotation.Nullable;
-
 public class TutorialToast implements IToast {
 
 	private final TutorialToast.Icons icon;
@@ -18,7 +16,7 @@ public class TutorialToast implements IToast {
 	private float displayedProgress;
 	private float currentProgress;
 
-	public TutorialToast(TutorialToast.Icons iconIn, ITextComponent titleComponent, @Nullable ITextComponent subtitleComponent, boolean drawProgressBar) {
+	public TutorialToast(TutorialToast.Icons iconIn, ITextComponent titleComponent, ITextComponent subtitleComponent, boolean drawProgressBar) {
 
 		icon = iconIn;
 		title = titleComponent.getFormattedText();

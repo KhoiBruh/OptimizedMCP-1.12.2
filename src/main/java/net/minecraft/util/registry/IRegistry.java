@@ -1,11 +1,9 @@
 package net.minecraft.util.registry;
-
-import javax.annotation.Nullable;
 import java.util.Set;
 
 public interface IRegistry<K, V> extends Iterable<V> {
 
-	@Nullable
+	
 	V getObject(K name);
 
 	/**

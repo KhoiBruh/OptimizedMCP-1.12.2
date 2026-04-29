@@ -2,8 +2,6 @@ package net.minecraft.scoreboard;
 
 import com.google.common.collect.Sets;
 import net.minecraft.util.text.TextFormatting;
-
-import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Set;
 
@@ -32,7 +30,7 @@ public class ScorePlayerTeam extends Team {
 	/**
 	 * Formats the given text as a member of the given team, using the team's prefix and suffix.
 	 */
-	public static String formatPlayerName(@Nullable Team teamIn, String string) {
+	public static String formatPlayerName(Team teamIn, String string) {
 
 		return teamIn == null ? string : teamIn.formatString(string);
 	}

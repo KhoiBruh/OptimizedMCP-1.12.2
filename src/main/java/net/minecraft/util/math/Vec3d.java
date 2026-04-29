@@ -1,7 +1,5 @@
 package net.minecraft.util.math;
 
-import javax.annotation.Nullable;
-
 /**
  * @param x X coordinate of Vec3D
  * @param y Y coordinate of Vec3D
@@ -154,7 +152,7 @@ public record Vec3d(double x, double y, double z) {
 		return x * x + y * y + z * z;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns a new vector with x value equal to the second parameter, along the line between this vector and the
@@ -174,7 +172,7 @@ public record Vec3d(double x, double y, double z) {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns a new vector with y value equal to the second parameter, along the line between this vector and the
@@ -194,7 +192,7 @@ public record Vec3d(double x, double y, double z) {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns a new vector with z value equal to the second parameter, along the line between this vector and the

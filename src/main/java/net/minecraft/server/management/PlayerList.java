@@ -41,8 +41,6 @@ import net.minecraft.world.storage.IPlayerFileData;
 import net.minecraft.world.storage.WorldInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.io.File;
 import java.net.SocketAddress;
 import java.text.SimpleDateFormat;
@@ -267,7 +265,7 @@ public abstract class PlayerList {
 		});
 	}
 
-	public void preparePlayer(EntityPlayerMP playerIn, @Nullable WorldServer worldIn) {
+	public void preparePlayer(EntityPlayerMP playerIn, WorldServer worldIn) {
 
 		WorldServer worldserver = playerIn.getServerWorld();
 
@@ -292,7 +290,7 @@ public abstract class PlayerList {
 		return PlayerChunkMap.getFurthestViewableBlock(getViewDistance());
 	}
 
-	@Nullable
+	
 
 	/**
 	 * called during player login. reads the player information from disk.
@@ -774,7 +772,7 @@ public abstract class PlayerList {
 		return ops.hasEntry(profile) || mcServer.isSinglePlayer() && mcServer.worlds[0].getWorldInfo().areCommandsAllowed() && mcServer.getServerOwner().equalsIgnoreCase(profile.getName()) || commandsAllowedForAll;
 	}
 
-	@Nullable
+	
 	public EntityPlayerMP getPlayerByUsername(String username) {
 
 		for (EntityPlayerMP entityplayermp : playerEntityList) {
@@ -790,7 +788,7 @@ public abstract class PlayerList {
 	 * params: srcPlayer,x,y,z,r,dimension. The packet is not sent to the srcPlayer, but all other players within the
 	 * search radius
 	 */
-	public void sendToAllNearExcept(@Nullable EntityPlayer except, double x, double y, double z, double radius, int dimension, Packet<?> packetIn) {
+	public void sendToAllNearExcept(EntityPlayer except, double x, double y, double z, double radius, int dimension, Packet<?> packetIn) {
 
 		for (EntityPlayerMP entityplayermp : playerEntityList) {
 			if (entityplayermp != except && entityplayermp.dimension == dimension) {

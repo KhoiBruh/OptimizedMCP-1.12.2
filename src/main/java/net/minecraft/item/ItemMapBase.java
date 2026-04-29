@@ -4,8 +4,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.Packet;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class ItemMapBase extends Item {
 
 	/**
@@ -16,7 +14,7 @@ public class ItemMapBase extends Item {
 		return true;
 	}
 
-	@Nullable
+	
 	public Packet<?> createMapDataPacket(ItemStack stack, World worldIn, EntityPlayer player) {
 
 		return null;

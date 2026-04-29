@@ -5,8 +5,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemOverrideList {
@@ -25,8 +23,8 @@ public class ItemOverrideList {
 		}
 	}
 
-	@Nullable
-	public ResourceLocation applyOverride(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+	
+	public ResourceLocation applyOverride(ItemStack stack, World worldIn, EntityLivingBase entityIn) {
 
 		if (!overrides.isEmpty()) {
 			for (ItemOverride itemoverride : overrides) {

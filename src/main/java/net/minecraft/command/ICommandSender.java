@@ -8,8 +8,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public interface ICommandSender {
 
 	/**
@@ -47,7 +45,7 @@ public interface ICommandSender {
 	 */
 	World getEntityWorld();
 
-	@Nullable
+	
 
 	default Entity getCommandSenderEntity() {
 
@@ -63,7 +61,7 @@ public interface ICommandSender {
 
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Get the Minecraft server instance

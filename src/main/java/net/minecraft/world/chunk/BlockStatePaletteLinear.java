@@ -4,8 +4,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.network.PacketBuffer;
 
-import javax.annotation.Nullable;
-
 public class BlockStatePaletteLinear implements IBlockStatePalette {
 
 	private final IBlockState[] states;
@@ -39,7 +37,7 @@ public class BlockStatePaletteLinear implements IBlockStatePalette {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Gets the block state by the palette id.

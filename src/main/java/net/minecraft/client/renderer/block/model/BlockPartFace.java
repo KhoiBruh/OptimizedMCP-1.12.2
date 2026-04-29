@@ -3,15 +3,13 @@ package net.minecraft.client.renderer.block.model;
 import com.google.gson.*;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.JsonUtils;
-
-import javax.annotation.Nullable;
 import java.lang.reflect.Type;
 
 public record BlockPartFace(EnumFacing cullFace, int tintIndex, String texture, BlockFaceUV blockFaceUV) {
 
 	public static final EnumFacing FACING_DEFAULT = null;
 
-	public BlockPartFace(@Nullable EnumFacing cullFace, int tintIndex, String texture, BlockFaceUV blockFaceUV) {
+	public BlockPartFace(EnumFacing cullFace, int tintIndex, String texture, BlockFaceUV blockFaceUV) {
 
 		this.cullFace = cullFace;
 		this.tintIndex = tintIndex;
@@ -41,7 +39,7 @@ public record BlockPartFace(EnumFacing cullFace, int tintIndex, String texture, 
 			return JsonUtils.getString(object, "texture");
 		}
 
-		@Nullable
+		
 		private EnumFacing parseCullFace(JsonObject object) {
 
 			String s = JsonUtils.getString(object, "cullface", "");

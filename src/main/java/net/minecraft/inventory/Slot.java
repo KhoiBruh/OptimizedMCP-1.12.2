@@ -3,8 +3,6 @@ package net.minecraft.inventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
-import javax.annotation.Nullable;
-
 public class Slot {
 
 	/**
@@ -130,7 +128,7 @@ public class Slot {
 		return getSlotStackLimit();
 	}
 
-	@Nullable
+	
 	public String getSlotTexture() {
 
 		return null;

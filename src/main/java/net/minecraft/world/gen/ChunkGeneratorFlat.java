@@ -13,8 +13,6 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenDungeons;
 import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraft.world.gen.structure.*;
-
-import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -202,7 +200,7 @@ public class ChunkGeneratorFlat implements IChunkGenerator {
 		return biome.getSpawnableList(creatureType);
 	}
 
-	@Nullable
+	
 	public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
 
 		MapGenStructure mapgenstructure = structureGenerators.get(structureName);

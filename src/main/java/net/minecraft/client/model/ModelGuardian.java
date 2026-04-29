@@ -19,29 +19,29 @@ public class ModelGuardian extends ModelBase {
 		textureHeight = 64;
 		guardianSpines = new ModelRenderer[12];
 		guardianBody = new ModelRenderer(this);
-		guardianBody.setTextureOffset(0, 0).addBox(-6.0F, 10.0F, -8.0F, 12, 12, 16);
-		guardianBody.setTextureOffset(0, 28).addBox(-8.0F, 10.0F, -6.0F, 2, 12, 12);
-		guardianBody.setTextureOffset(0, 28).addBox(6.0F, 10.0F, -6.0F, 2, 12, 12, true);
-		guardianBody.setTextureOffset(16, 40).addBox(-6.0F, 8.0F, -6.0F, 12, 2, 12);
-		guardianBody.setTextureOffset(16, 40).addBox(-6.0F, 22.0F, -6.0F, 12, 2, 12);
+		guardianBody.setTextureOffset(0, 0).addBox(-6F, 10F, -8F, 12, 12, 16);
+		guardianBody.setTextureOffset(0, 28).addBox(-8F, 10F, -6F, 2, 12, 12);
+		guardianBody.setTextureOffset(0, 28).addBox(6F, 10F, -6F, 2, 12, 12, true);
+		guardianBody.setTextureOffset(16, 40).addBox(-6F, 8F, -6F, 12, 2, 12);
+		guardianBody.setTextureOffset(16, 40).addBox(-6F, 22F, -6F, 12, 2, 12);
 
 		for (int i = 0; i < guardianSpines.length; ++i) {
 			guardianSpines[i] = new ModelRenderer(this, 0, 0);
-			guardianSpines[i].addBox(-1.0F, -4.5F, -1.0F, 2, 9, 2);
+			guardianSpines[i].addBox(-1F, -4.5F, -1F, 2, 9, 2);
 			guardianBody.addChild(guardianSpines[i]);
 		}
 
 		guardianEye = new ModelRenderer(this, 8, 0);
-		guardianEye.addBox(-1.0F, 15.0F, 0.0F, 2, 2, 1);
+		guardianEye.addBox(-1F, 15F, 0F, 2, 2, 1);
 		guardianBody.addChild(guardianEye);
 		guardianTail = new ModelRenderer[3];
 		guardianTail[0] = new ModelRenderer(this, 40, 0);
-		guardianTail[0].addBox(-2.0F, 14.0F, 7.0F, 4, 4, 8);
+		guardianTail[0].addBox(-2F, 14F, 7F, 4, 4, 8);
 		guardianTail[1] = new ModelRenderer(this, 0, 54);
-		guardianTail[1].addBox(0.0F, 14.0F, 0.0F, 3, 3, 7);
+		guardianTail[1].addBox(0F, 14F, 0F, 3, 3, 7);
 		guardianTail[2] = new ModelRenderer(this);
-		guardianTail[2].setTextureOffset(41, 32).addBox(0.0F, 14.0F, 0.0F, 2, 2, 6);
-		guardianTail[2].setTextureOffset(25, 19).addBox(1.0F, 10.5F, 3.0F, 1, 9, 9);
+		guardianTail[2].setTextureOffset(41, 32).addBox(0F, 14F, 0F, 2, 2, 6);
+		guardianTail[2].setTextureOffset(25, 19).addBox(1F, 10.5F, 3F, 1, 9, 9);
 		guardianBody.addChild(guardianTail[0]);
 		guardianTail[0].addChild(guardianTail[1]);
 		guardianTail[1].addChild(guardianTail[2]);
@@ -67,21 +67,21 @@ public class ModelGuardian extends ModelBase {
 		float f = ageInTicks - (float) entityguardian.ticksExisted;
 		guardianBody.rotateAngleY = netHeadYaw * 0.017453292F;
 		guardianBody.rotateAngleX = headPitch * 0.017453292F;
-		float[] afloat = new float[]{1.75F, 0.25F, 0.0F, 0.0F, 0.5F, 0.5F, 0.5F, 0.5F, 1.25F, 0.75F, 0.0F, 0.0F};
-		float[] afloat1 = new float[]{0.0F, 0.0F, 0.0F, 0.0F, 0.25F, 1.75F, 1.25F, 0.75F, 0.0F, 0.0F, 0.0F, 0.0F};
-		float[] afloat2 = new float[]{0.0F, 0.0F, 0.25F, 1.75F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.75F, 1.25F};
-		float[] afloat3 = new float[]{0.0F, 0.0F, 8.0F, -8.0F, -8.0F, 8.0F, 8.0F, -8.0F, 0.0F, 0.0F, 8.0F, -8.0F};
-		float[] afloat4 = new float[]{-8.0F, -8.0F, -8.0F, -8.0F, 0.0F, 0.0F, 0.0F, 0.0F, 8.0F, 8.0F, 8.0F, 8.0F};
-		float[] afloat5 = new float[]{8.0F, -8.0F, 0.0F, 0.0F, -8.0F, -8.0F, 8.0F, 8.0F, 8.0F, -8.0F, 0.0F, 0.0F};
-		float f1 = (1.0F - entityguardian.getSpikesAnimation(f)) * 0.55F;
+		float[] afloat = new float[]{1.75F, 0.25F, 0F, 0F, 0.5F, 0.5F, 0.5F, 0.5F, 1.25F, 0.75F, 0F, 0F};
+		float[] afloat1 = new float[]{0F, 0F, 0F, 0F, 0.25F, 1.75F, 1.25F, 0.75F, 0F, 0F, 0F, 0F};
+		float[] afloat2 = new float[]{0F, 0F, 0.25F, 1.75F, 0F, 0F, 0F, 0F, 0F, 0F, 0.75F, 1.25F};
+		float[] afloat3 = new float[]{0F, 0F, 8F, -8F, -8F, 8F, 8F, -8F, 0F, 0F, 8F, -8F};
+		float[] afloat4 = new float[]{-8F, -8F, -8F, -8F, 0F, 0F, 0F, 0F, 8F, 8F, 8F, 8F};
+		float[] afloat5 = new float[]{8F, -8F, 0F, 0F, -8F, -8F, 8F, 8F, 8F, -8F, 0F, 0F};
+		float f1 = (1F - entityguardian.getSpikesAnimation(f)) * 0.55F;
 
 		for (int i = 0; i < 12; ++i) {
 			guardianSpines[i].rotateAngleX = (float) Math.PI * afloat[i];
 			guardianSpines[i].rotateAngleY = (float) Math.PI * afloat1[i];
 			guardianSpines[i].rotateAngleZ = (float) Math.PI * afloat2[i];
-			guardianSpines[i].rotationPointX = afloat3[i] * (1.0F + MathHelper.cos(ageInTicks * 1.5F + (float) i) * 0.01F - f1);
-			guardianSpines[i].rotationPointY = 16.0F + afloat4[i] * (1.0F + MathHelper.cos(ageInTicks * 1.5F + (float) i) * 0.01F - f1);
-			guardianSpines[i].rotationPointZ = afloat5[i] * (1.0F + MathHelper.cos(ageInTicks * 1.5F + (float) i) * 0.01F - f1);
+			guardianSpines[i].rotationPointX = afloat3[i] * (1F + MathHelper.cos(ageInTicks * 1.5F + (float) i) * 0.01F - f1);
+			guardianSpines[i].rotationPointY = 16F + afloat4[i] * (1F + MathHelper.cos(ageInTicks * 1.5F + (float) i) * 0.01F - f1);
+			guardianSpines[i].rotationPointZ = afloat5[i] * (1F + MathHelper.cos(ageInTicks * 1.5F + (float) i) * 0.01F - f1);
 		}
 
 		guardianEye.rotationPointZ = -8.25F;
@@ -92,21 +92,21 @@ public class ModelGuardian extends ModelBase {
 		}
 
 		if (entity != null) {
-			Vec3d vec3d = entity.getPositionEyes(0.0F);
-			Vec3d vec3d1 = entityIn.getPositionEyes(0.0F);
+			Vec3d vec3d = entity.getPositionEyes(0F);
+			Vec3d vec3d1 = entityIn.getPositionEyes(0F);
 			double d0 = vec3d.y() - vec3d1.y();
 
-			if (d0 > 0.0D) {
-				guardianEye.rotationPointY = 0.0F;
+			if (d0 > 0D) {
+				guardianEye.rotationPointY = 0F;
 			} else {
-				guardianEye.rotationPointY = 1.0F;
+				guardianEye.rotationPointY = 1F;
 			}
 
-			Vec3d vec3d2 = entityIn.getLook(0.0F);
-			vec3d2 = new Vec3d(vec3d2.x(), 0.0D, vec3d2.z());
-			Vec3d vec3d3 = (new Vec3d(vec3d1.x() - vec3d.x(), 0.0D, vec3d1.z() - vec3d.z())).normalize().rotateYaw(((float) Math.PI / 2F));
+			Vec3d vec3d2 = entityIn.getLook(0F);
+			vec3d2 = new Vec3d(vec3d2.x(), 0D, vec3d2.z());
+			Vec3d vec3d3 = (new Vec3d(vec3d1.x() - vec3d.x(), 0D, vec3d1.z() - vec3d.z())).normalize().rotateYaw(((float) Math.PI / 2F));
 			double d1 = vec3d2.dotProduct(vec3d3);
-			guardianEye.rotationPointX = MathHelper.sqrt((float) Math.abs(d1)) * 2.0F * (float) Math.signum(d1);
+			guardianEye.rotationPointX = MathHelper.sqrt((float) Math.abs(d1)) * 2F * (float) Math.signum(d1);
 		}
 
 		guardianEye.showModel = true;
@@ -115,11 +115,11 @@ public class ModelGuardian extends ModelBase {
 		guardianTail[1].rotateAngleY = MathHelper.sin(f2) * (float) Math.PI * 0.1F;
 		guardianTail[1].rotationPointX = -1.5F;
 		guardianTail[1].rotationPointY = 0.5F;
-		guardianTail[1].rotationPointZ = 14.0F;
+		guardianTail[1].rotationPointZ = 14F;
 		guardianTail[2].rotateAngleY = MathHelper.sin(f2) * (float) Math.PI * 0.15F;
 		guardianTail[2].rotationPointX = 0.5F;
 		guardianTail[2].rotationPointY = 0.5F;
-		guardianTail[2].rotationPointZ = 6.0F;
+		guardianTail[2].rotationPointZ = 6F;
 	}
 
 }

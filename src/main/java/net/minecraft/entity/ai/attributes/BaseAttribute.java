@@ -1,7 +1,5 @@
 package net.minecraft.entity.ai.attributes;
 
-import javax.annotation.Nullable;
-
 public abstract class BaseAttribute implements IAttribute {
 
 	private final IAttribute parent;
@@ -9,7 +7,7 @@ public abstract class BaseAttribute implements IAttribute {
 	private final double defaultValue;
 	private boolean shouldWatch;
 
-	protected BaseAttribute(@Nullable IAttribute parentIn, String unlocalizedNameIn, double defaultValueIn) {
+	protected BaseAttribute(IAttribute parentIn, String unlocalizedNameIn, double defaultValueIn) {
 
 		parent = parentIn;
 		unlocalizedName = unlocalizedNameIn;
@@ -41,7 +39,7 @@ public abstract class BaseAttribute implements IAttribute {
 		return this;
 	}
 
-	@Nullable
+	
 	public IAttribute getParent() {
 
 		return parent;

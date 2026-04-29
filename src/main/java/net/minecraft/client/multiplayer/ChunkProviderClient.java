@@ -11,8 +11,6 @@ import net.minecraft.world.chunk.IChunkProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.Nullable;
-
 public class ChunkProviderClient implements IChunkProvider {
 
 	private static final Logger LOGGER = LogManager.getLogger();
@@ -57,7 +55,7 @@ public class ChunkProviderClient implements IChunkProvider {
 		chunkMapping.remove(ChunkPos.asLong(x, z));
 	}
 
-	@Nullable
+	
 	public Chunk getLoadedChunk(int x, int z) {
 
 		return chunkMapping.get(ChunkPos.asLong(x, z));

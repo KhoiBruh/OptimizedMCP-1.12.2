@@ -4,8 +4,6 @@ import com.google.common.base.Predicate;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 
-import javax.annotation.Nullable;
-
 public class BlockMaterialMatcher implements Predicate<IBlockState> {
 
 	private final Material material;
@@ -20,7 +18,7 @@ public class BlockMaterialMatcher implements Predicate<IBlockState> {
 		return new BlockMaterialMatcher(materialIn);
 	}
 
-	public boolean apply(@Nullable IBlockState p_apply_1_) {
+	public boolean apply(IBlockState p_apply_1_) {
 
 		return p_apply_1_ != null && p_apply_1_.getMaterial() == material;
 	}

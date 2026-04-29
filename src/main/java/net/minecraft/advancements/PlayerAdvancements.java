@@ -17,8 +17,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentTranslation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -42,7 +40,7 @@ public class PlayerAdvancements {
 	private final Set<Advancement> progressChanged = Sets.newLinkedHashSet();
 	private EntityPlayerMP player;
 
-	@Nullable
+	
 	private Advancement lastSelectedTab;
 	private boolean isFirstPacket = true;
 
@@ -288,7 +286,7 @@ public class PlayerAdvancements {
 		isFirstPacket = false;
 	}
 
-	public void setSelectedTab(@Nullable Advancement p_194220_1_) {
+	public void setSelectedTab(Advancement p_194220_1_) {
 
 		Advancement advancement = lastSelectedTab;
 

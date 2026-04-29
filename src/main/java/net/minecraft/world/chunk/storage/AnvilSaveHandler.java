@@ -8,8 +8,6 @@ import net.minecraft.world.WorldProviderHell;
 import net.minecraft.world.storage.SaveHandler;
 import net.minecraft.world.storage.ThreadedFileIOBase;
 import net.minecraft.world.storage.WorldInfo;
-
-import javax.annotation.Nullable;
 import java.io.File;
 
 public class AnvilSaveHandler extends SaveHandler {
@@ -42,7 +40,7 @@ public class AnvilSaveHandler extends SaveHandler {
 	/**
 	 * Saves the given World Info with the given NBTTagCompound as the Player.
 	 */
-	public void saveWorldInfoWithPlayer(WorldInfo worldInformation, @Nullable NBTTagCompound tagCompound) {
+	public void saveWorldInfoWithPlayer(WorldInfo worldInformation, NBTTagCompound tagCompound) {
 
 		worldInformation.setSaveVersion(19133);
 		super.saveWorldInfoWithPlayer(worldInformation, tagCompound);

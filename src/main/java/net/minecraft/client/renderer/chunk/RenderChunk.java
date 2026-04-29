@@ -19,8 +19,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ChunkCache;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
-
-import javax.annotation.Nullable;
 import java.nio.FloatBuffer;
 import java.util.HashSet;
 import java.util.Set;
@@ -242,7 +240,7 @@ public class RenderChunk {
 		worldView = new ChunkCache(world, position.add(-1, -1, -1), position.add(16, 16, 16), 1);
 	}
 
-	@Nullable
+	
 	public ChunkCompileTaskGenerator makeCompileTaskTransparency() {
 
 		lockCompileTask.lock();

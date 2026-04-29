@@ -14,8 +14,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.UUID;
 
@@ -44,7 +42,7 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
 		instance = this;
 	}
 
-	public void renderSkull(float x, float y, float z, EnumFacing facing, float rotationIn, int skullType, @Nullable GameProfile profile, int destroyStage, float animateTicks) {
+	public void renderSkull(float x, float y, float z, EnumFacing facing, float rotationIn, int skullType, GameProfile profile, int destroyStage, float animateTicks) {
 
 		ModelBase modelbase = skeletonHead;
 

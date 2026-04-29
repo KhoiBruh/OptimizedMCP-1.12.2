@@ -17,12 +17,12 @@ public class ModelShulker extends ModelBase {
 		lid = new ModelRenderer(this);
 		base = new ModelRenderer(this);
 		head = new ModelRenderer(this);
-		lid.setTextureOffset(0, 0).addBox(-8.0F, -16.0F, -8.0F, 16, 12, 16);
-		lid.setRotationPoint(0.0F, 24.0F, 0.0F);
-		base.setTextureOffset(0, 28).addBox(-8.0F, -8.0F, -8.0F, 16, 8, 16);
-		base.setRotationPoint(0.0F, 24.0F, 0.0F);
-		head.setTextureOffset(0, 52).addBox(-3.0F, 0.0F, -3.0F, 6, 6, 6);
-		head.setRotationPoint(0.0F, 12.0F, 0.0F);
+		lid.setTextureOffset(0, 0).addBox(-8F, -16F, -8F, 16, 12, 16);
+		lid.setRotationPoint(0F, 24F, 0F);
+		base.setTextureOffset(0, 28).addBox(-8F, -8F, -8F, 16, 8, 16);
+		base.setRotationPoint(0F, 24F, 0F);
+		head.setTextureOffset(0, 52).addBox(-3F, 0F, -3F, 6, 6, 6);
+		head.setRotationPoint(0F, 12F, 0F);
 	}
 
 	/**
@@ -35,19 +35,19 @@ public class ModelShulker extends ModelBase {
 		EntityShulker entityshulker = (EntityShulker) entityIn;
 		float f = ageInTicks - (float) entityshulker.ticksExisted;
 		float f1 = (0.5F + entityshulker.getClientPeekAmount(f)) * (float) Math.PI;
-		float f2 = -1.0F + MathHelper.sin(f1);
-		float f3 = 0.0F;
+		float f2 = -1F + MathHelper.sin(f1);
+		float f3 = 0F;
 
 		if (f1 > (float) Math.PI) {
 			f3 = MathHelper.sin(ageInTicks * 0.1F) * 0.7F;
 		}
 
-		lid.setRotationPoint(0.0F, 16.0F + MathHelper.sin(f1) * 8.0F + f3, 0.0F);
+		lid.setRotationPoint(0F, 16F + MathHelper.sin(f1) * 8F + f3, 0F);
 
 		if (entityshulker.getClientPeekAmount(f) > 0.3F) {
 			lid.rotateAngleY = f2 * f2 * f2 * f2 * (float) Math.PI * 0.125F;
 		} else {
-			lid.rotateAngleY = 0.0F;
+			lid.rotateAngleY = 0F;
 		}
 
 		head.rotateAngleX = headPitch * 0.017453292F;

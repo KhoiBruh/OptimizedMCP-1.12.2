@@ -8,42 +8,42 @@ public class ModelBook extends ModelBase {
 	/**
 	 * Right cover renderer (when facing the book)
 	 */
-	public ModelRenderer coverRight = (new ModelRenderer(this)).setTextureOffset(0, 0).addBox(-6.0F, -5.0F, 0.0F, 6, 10, 0);
+	public ModelRenderer coverRight = (new ModelRenderer(this)).setTextureOffset(0, 0).addBox(-6F, -5F, 0F, 6, 10, 0);
 
 	/**
 	 * Left cover renderer (when facing the book)
 	 */
-	public ModelRenderer coverLeft = (new ModelRenderer(this)).setTextureOffset(16, 0).addBox(0.0F, -5.0F, 0.0F, 6, 10, 0);
+	public ModelRenderer coverLeft = (new ModelRenderer(this)).setTextureOffset(16, 0).addBox(0F, -5F, 0F, 6, 10, 0);
 
 	/**
 	 * The right pages renderer (when facing the book)
 	 */
-	public ModelRenderer pagesRight = (new ModelRenderer(this)).setTextureOffset(0, 10).addBox(0.0F, -4.0F, -0.99F, 5, 8, 1);
+	public ModelRenderer pagesRight = (new ModelRenderer(this)).setTextureOffset(0, 10).addBox(0F, -4F, -0.99F, 5, 8, 1);
 
 	/**
 	 * The left pages renderer (when facing the book)
 	 */
-	public ModelRenderer pagesLeft = (new ModelRenderer(this)).setTextureOffset(12, 10).addBox(0.0F, -4.0F, -0.01F, 5, 8, 1);
+	public ModelRenderer pagesLeft = (new ModelRenderer(this)).setTextureOffset(12, 10).addBox(0F, -4F, -0.01F, 5, 8, 1);
 
 	/**
 	 * Right cover renderer (when facing the book)
 	 */
-	public ModelRenderer flippingPageRight = (new ModelRenderer(this)).setTextureOffset(24, 10).addBox(0.0F, -4.0F, 0.0F, 5, 8, 0);
+	public ModelRenderer flippingPageRight = (new ModelRenderer(this)).setTextureOffset(24, 10).addBox(0F, -4F, 0F, 5, 8, 0);
 
 	/**
 	 * Right cover renderer (when facing the book)
 	 */
-	public ModelRenderer flippingPageLeft = (new ModelRenderer(this)).setTextureOffset(24, 10).addBox(0.0F, -4.0F, 0.0F, 5, 8, 0);
+	public ModelRenderer flippingPageLeft = (new ModelRenderer(this)).setTextureOffset(24, 10).addBox(0F, -4F, 0F, 5, 8, 0);
 
 	/**
 	 * The renderer of spine of the book
 	 */
-	public ModelRenderer bookSpine = (new ModelRenderer(this)).setTextureOffset(12, 0).addBox(-1.0F, -5.0F, 0.0F, 2, 10, 0);
+	public ModelRenderer bookSpine = (new ModelRenderer(this)).setTextureOffset(12, 0).addBox(-1F, -5F, 0F, 2, 10, 0);
 
 	public ModelBook() {
 
-		coverRight.setRotationPoint(0.0F, 0.0F, -1.0F);
-		coverLeft.setRotationPoint(0.0F, 0.0F, 1.0F);
+		coverRight.setRotationPoint(0F, 0F, -1F);
+		coverLeft.setRotationPoint(0F, 0F, 1F);
 		bookSpine.rotateAngleY = ((float) Math.PI / 2F);
 	}
 
@@ -74,8 +74,8 @@ public class ModelBook extends ModelBase {
 		coverLeft.rotateAngleY = -f;
 		pagesRight.rotateAngleY = f;
 		pagesLeft.rotateAngleY = -f;
-		flippingPageRight.rotateAngleY = f - f * 2.0F * limbSwingAmount;
-		flippingPageLeft.rotateAngleY = f - f * 2.0F * ageInTicks;
+		flippingPageRight.rotateAngleY = f - f * 2F * limbSwingAmount;
+		flippingPageLeft.rotateAngleY = f - f * 2F * ageInTicks;
 		pagesRight.rotationPointX = MathHelper.sin(f);
 		pagesLeft.rotationPointX = MathHelper.sin(f);
 		flippingPageRight.rotationPointX = MathHelper.sin(f);

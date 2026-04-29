@@ -17,8 +17,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-import javax.annotation.Nullable;
-
 public class EntityEndermite extends EntityMob {
 
 	private int lifetime;
@@ -89,7 +87,7 @@ public class EntityEndermite extends EntityMob {
 		playSound(SoundEvents.ENTITY_ENDERMITE_STEP, 0.15F, 1.0F);
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_ENDERMITE;

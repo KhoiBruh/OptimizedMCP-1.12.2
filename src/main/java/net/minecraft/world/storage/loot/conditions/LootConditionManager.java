@@ -5,8 +5,6 @@ import com.google.gson.*;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootContext;
-
-import javax.annotation.Nullable;
 import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.Random;
@@ -39,7 +37,7 @@ public class LootConditionManager {
 		}
 	}
 
-	public static boolean testAllConditions(@Nullable LootCondition[] conditions, Random rand, LootContext context) {
+	public static boolean testAllConditions(LootCondition[] conditions, Random rand, LootContext context) {
 
 		if (conditions == null) {
 			return true;

@@ -6,8 +6,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.WeightedRandom;
-
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,7 +27,7 @@ public class WeightedBakedModel implements IBakedModel {
 		return WeightedRandom.getRandomItem(models, Math.abs((int) p_188627_1_ >> 16) % totalWeight).model;
 	}
 
-	public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
+	public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
 
 		return getRandomModel(rand).getQuads(state, side, rand);
 	}

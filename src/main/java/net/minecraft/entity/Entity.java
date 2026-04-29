@@ -46,8 +46,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.*;
 
 public abstract class Entity implements ICommandSender {
@@ -1159,7 +1157,7 @@ public abstract class Entity implements ICommandSender {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns the <b>solid</b> collision bounding box for this entity. Used to make (e.g.) boats solid. Return null if
@@ -1617,7 +1615,7 @@ public abstract class Entity implements ICommandSender {
 		}
 	}
 
-	@Nullable
+	
 	public RayTraceResult rayTrace(double blockReachDistance, float partialTicks) {
 
 		Vec3d vec3d = getPositionEyes(partialTicks);
@@ -1882,7 +1880,7 @@ public abstract class Entity implements ICommandSender {
 		return true;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns the string that identifies this Entity's class
@@ -1931,19 +1929,19 @@ public abstract class Entity implements ICommandSender {
 		return nbttaglist;
 	}
 
-	@Nullable
+	
 	public EntityItem dropItem(Item itemIn, int size) {
 
 		return dropItemWithOffset(itemIn, size, 0.0F);
 	}
 
-	@Nullable
+	
 	public EntityItem dropItemWithOffset(Item itemIn, int size, float offsetY) {
 
 		return entityDropItem(new ItemStack(itemIn, size, 0), offsetY);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Drops an item at the position of the entity.
@@ -2003,7 +2001,7 @@ public abstract class Entity implements ICommandSender {
 		return false;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns a boundingBox used to collide the entity with other entities and blocks. This enables the entity to be
@@ -2349,7 +2347,7 @@ public abstract class Entity implements ICommandSender {
 		}
 	}
 
-	@Nullable
+	
 	public Team getTeam() {
 
 		return world.getScoreboard().getPlayersTeam(getCachedUniqueIdString());
@@ -2509,7 +2507,7 @@ public abstract class Entity implements ICommandSender {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Return the Entity parts making up this Entity (currently only for dragons)
@@ -2610,7 +2608,7 @@ public abstract class Entity implements ICommandSender {
 		teleportDirection = entityIn.teleportDirection;
 	}
 
-	@Nullable
+	
 	public Entity changeDimension(int dimensionIn) {
 
 		if (!world.isRemote && !isDead) {
@@ -2979,7 +2977,7 @@ public abstract class Entity implements ICommandSender {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Get the Minecraft server instance
@@ -3081,7 +3079,7 @@ public abstract class Entity implements ICommandSender {
 		return flag;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * For vehicles, the first passenger is generally considered the controller and "drives" the vehicle. For example,
@@ -3174,7 +3172,7 @@ public abstract class Entity implements ICommandSender {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Get entity this is riding

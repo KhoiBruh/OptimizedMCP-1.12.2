@@ -5,8 +5,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public class EntityAIFleeSun extends EntityAIBase {
@@ -69,7 +67,7 @@ public class EntityAIFleeSun extends EntityAIBase {
 		creature.getNavigator().tryMoveToXYZ(shelterX, shelterY, shelterZ, movementSpeed);
 	}
 
-	@Nullable
+	
 	private Vec3d findPossibleShelter() {
 
 		Random random = creature.getRNG();

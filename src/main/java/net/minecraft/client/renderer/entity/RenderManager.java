@@ -32,8 +32,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.Map;
 
 public class RenderManager {
@@ -184,7 +182,7 @@ public class RenderManager {
 		return render;
 	}
 
-	@Nullable
+	
 	public <T extends Entity> Render<T> getEntityRenderObject(Entity entityIn) {
 
 		if (entityIn instanceof AbstractClientPlayer) {
@@ -408,7 +406,7 @@ public class RenderManager {
 	/**
 	 * World sets this RenderManager's worldObj to the world provided
 	 */
-	public void setWorld(@Nullable World worldIn) {
+	public void setWorld(World worldIn) {
 
 		world = worldIn;
 

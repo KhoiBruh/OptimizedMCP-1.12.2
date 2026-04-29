@@ -23,8 +23,6 @@ import net.minecraft.util.registry.RegistrySimple;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -417,7 +415,7 @@ public class ModelBakery {
 		}
 	}
 
-	@Nullable
+	
 	private IBakedModel createRandomModelForVariantList(VariantList variantsIn, String modelLocation) {
 
 		if (variantsIn.variantList().isEmpty()) {
@@ -522,7 +520,7 @@ public class ModelBakery {
 		return set;
 	}
 
-	@Nullable
+	
 	private IBakedModel bakeModel(ModelBlock modelBlockIn, ModelRotation modelRotationIn, boolean uvLocked) {
 
 		TextureAtlasSprite textureatlassprite = sprites.get(new ResourceLocation(modelBlockIn.resolveTextureName("particle")));
@@ -614,7 +612,7 @@ public class ModelBakery {
 		return list;
 	}
 
-	@Nullable
+	
 	private ResourceLocation getParentLocation(ResourceLocation p_177576_1_) {
 
 		for (Entry<ResourceLocation, ModelBlock> entry : models.entrySet()) {
@@ -687,7 +685,7 @@ public class ModelBakery {
 		return set;
 	}
 
-	private boolean hasItemModel(@Nullable ModelBlock p_177581_1_) {
+	private boolean hasItemModel(ModelBlock p_177581_1_) {
 
 		if (p_177581_1_ == null) {
 			return false;
@@ -696,7 +694,7 @@ public class ModelBakery {
 		}
 	}
 
-	private boolean isCustomRenderer(@Nullable ModelBlock p_177587_1_) {
+	private boolean isCustomRenderer(ModelBlock p_177587_1_) {
 
 		if (p_177587_1_ == null) {
 			return false;

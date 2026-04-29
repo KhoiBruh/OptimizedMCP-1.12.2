@@ -4,8 +4,6 @@ import com.mojang.authlib.properties.PropertyMap;
 import net.minecraft.client.resources.ResourceIndex;
 import net.minecraft.client.resources.ResourceIndexFolder;
 import net.minecraft.util.Session;
-
-import javax.annotation.Nullable;
 import java.io.File;
 import java.net.Proxy;
 
@@ -23,7 +21,7 @@ public record GameConfiguration(
 
 	public record FolderInformation(File mcDataDir, File resourcePacksDir, File assetsDir, String assetIndex) {
 
-		public FolderInformation(File mcDataDir, File resourcePacksDir, File assetsDir, @Nullable String assetIndex) {
+		public FolderInformation(File mcDataDir, File resourcePacksDir, File assetsDir, String assetIndex) {
 
 			this.mcDataDir = mcDataDir;
 			this.resourcePacksDir = resourcePacksDir;

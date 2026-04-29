@@ -115,7 +115,7 @@ public class GuiOverlayDebug extends Gui {
 
 	public void renderDebugInfo(ScaledResolution scaledResolutionIn) {
 
-		mc.mcProfiler.startSection("debug");
+		mc.profiler.startSection("debug");
 		try {
 			GlStateManager.pushMatrix();
 			try {
@@ -129,7 +129,7 @@ public class GuiOverlayDebug extends Gui {
 				renderLagometer();
 			}
 		} finally {
-			mc.mcProfiler.endSection();
+			mc.profiler.endSection();
 		}
 	}
 
@@ -294,8 +294,8 @@ public class GuiOverlayDebug extends Gui {
 		int i = frametimer.getLastIndex();
 		int j = frametimer.getIndex();
 		long[] along = frametimer.getFrames();
-		ScaledResolution scaledresolution = new ScaledResolution(mc);
-		int scaledHeight = scaledresolution.getScaledHeight();
+		ScaledResolution scaledResolution = mc.scaledResolution;
+		int scaledHeight = scaledResolution.getScaledHeight();
 		int top = scaledHeight - LAGOMETER_HEIGHT;
 		int right = LAGOMETER_WIDTH - 1;
 		int k = i;

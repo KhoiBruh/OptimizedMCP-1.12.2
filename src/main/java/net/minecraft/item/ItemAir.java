@@ -3,8 +3,6 @@ package net.minecraft.item;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemAir extends Item {
@@ -36,7 +34,7 @@ public class ItemAir extends Item {
 	/**
 	 * allows items to add custom lines of information to the mouseover description
 	 */
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 		block.addInformation(stack, worldIn, tooltip, flagIn);

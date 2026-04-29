@@ -5,8 +5,6 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
 import net.minecraft.world.WorldServer;
-
-import javax.annotation.Nullable;
 import java.util.UUID;
 
 public class CPacketSpectate implements Packet<INetHandlerPlayServer> {
@@ -46,7 +44,7 @@ public class CPacketSpectate implements Packet<INetHandlerPlayServer> {
 		handler.handleSpectate(this);
 	}
 
-	@Nullable
+	
 	public Entity getEntity(WorldServer worldIn) {
 
 		return worldIn.getEntityFromUuid(id);

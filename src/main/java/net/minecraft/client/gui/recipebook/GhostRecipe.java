@@ -11,8 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.math.MathHelper;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class GhostRecipe {
@@ -43,7 +41,7 @@ public class GhostRecipe {
 		return ingredients.size();
 	}
 
-	@Nullable
+	
 	public IRecipe getRecipe() {
 
 		return recipe;

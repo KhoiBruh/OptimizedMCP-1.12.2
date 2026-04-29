@@ -10,25 +10,23 @@ import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
 
-import javax.annotation.Nullable;
-
 public class LocationPredicate {
 
 	public static LocationPredicate ANY = new LocationPredicate(MinMaxBounds.UNBOUNDED, MinMaxBounds.UNBOUNDED, MinMaxBounds.UNBOUNDED, null, null, null);
 
-	@Nullable
+	
 	final Biome biome;
 	private final MinMaxBounds x;
 	private final MinMaxBounds y;
 	private final MinMaxBounds z;
 
-	@Nullable
+	
 	private final String feature;
 
-	@Nullable
+	
 	private final DimensionType dimension;
 
-	public LocationPredicate(MinMaxBounds x, MinMaxBounds y, MinMaxBounds z, @Nullable Biome biome, @Nullable String feature, @Nullable DimensionType dimension) {
+	public LocationPredicate(MinMaxBounds x, MinMaxBounds y, MinMaxBounds z, Biome biome, String feature, DimensionType dimension) {
 
 		this.x = x;
 		this.y = y;
@@ -38,7 +36,7 @@ public class LocationPredicate {
 		this.dimension = dimension;
 	}
 
-	public static LocationPredicate deserialize(@Nullable JsonElement element) {
+	public static LocationPredicate deserialize(JsonElement element) {
 
 		if (element != null && !element.isJsonNull()) {
 			JsonObject jsonobject = JsonUtils.getJsonObject(element, "location");

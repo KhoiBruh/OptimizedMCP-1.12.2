@@ -1,6 +1,4 @@
 package net.minecraft.entity.ai.attributes;
-
-import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -21,7 +19,7 @@ public interface IAttributeInstance {
 
 	boolean hasModifier(AttributeModifier modifier);
 
-	@Nullable
+	
 
 	/**
 	 * Returns attribute modifier, if any, by the given UUID

@@ -8,7 +8,6 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.tileentity.BannerPattern;
 import net.minecraft.util.ResourceLocation;
 
-import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +40,7 @@ public class BannerTextures {
 			cacheResourceBase = resourcePath;
 		}
 
-		@Nullable
+		
 		public ResourceLocation getResourceLocation(String id, List<BannerPattern> patternList, List<EnumDyeColor> colorList) {
 
 			if (id.isEmpty()) {

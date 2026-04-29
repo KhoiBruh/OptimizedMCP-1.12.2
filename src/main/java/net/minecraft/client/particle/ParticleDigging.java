@@ -9,8 +9,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class ParticleDigging extends Particle {
 
 	private final IBlockState sourceState;
@@ -56,7 +54,7 @@ public class ParticleDigging extends Particle {
 		}
 	}
 
-	protected void multiplyColor(@Nullable BlockPos p_187154_1_) {
+	protected void multiplyColor(BlockPos p_187154_1_) {
 
 		int i = Minecraft.getMinecraft().getBlockColors().colorMultiplier(sourceState, world, p_187154_1_, 0);
 		particleRed *= (float) (i >> 16 & 255) / 255.0F;

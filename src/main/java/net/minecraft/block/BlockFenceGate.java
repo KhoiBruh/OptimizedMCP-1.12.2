@@ -18,8 +18,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class BlockFenceGate extends BlockHorizontal {
 
 	public static final PropertyBool OPEN = PropertyBool.create("open");
@@ -91,7 +89,7 @@ public class BlockFenceGate extends BlockHorizontal {
 		return worldIn.getBlockState(pos.down()).getMaterial().isSolid() && super.canPlaceBlockAt(worldIn, pos);
 	}
 
-	@Nullable
+	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 
 		if (blockState.getValue(OPEN)) {

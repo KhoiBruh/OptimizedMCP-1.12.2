@@ -8,8 +8,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 
-import javax.annotation.Nullable;
-
 public class SwimNodeProcessor extends NodeProcessor {
 
 	public PathPoint getStart() {
@@ -50,7 +48,7 @@ public class SwimNodeProcessor extends NodeProcessor {
 		return PathNodeType.WATER;
 	}
 
-	@Nullable
+	
 	private PathPoint getWaterNode(int p_186328_1_, int p_186328_2_, int p_186328_3_) {
 
 		PathNodeType pathnodetype = isFree(p_186328_1_, p_186328_2_, p_186328_3_);

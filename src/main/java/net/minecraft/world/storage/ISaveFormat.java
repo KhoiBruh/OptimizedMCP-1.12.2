@@ -2,8 +2,6 @@ package net.minecraft.world.storage;
 
 import net.minecraft.client.AnvilConverterException;
 import net.minecraft.util.IProgressUpdate;
-
-import javax.annotation.Nullable;
 import java.io.File;
 import java.util.List;
 
@@ -23,7 +21,7 @@ public interface ISaveFormat {
 
 	void flushCache();
 
-	@Nullable
+	
 
 	/**
 	 * Returns the world's WorldInfo object

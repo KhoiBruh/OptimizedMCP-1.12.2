@@ -24,8 +24,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
@@ -41,7 +39,7 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 		hasTileEntity = true;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns a safe BlockPos to disembark the bed
@@ -165,7 +163,7 @@ public class BlockBed extends BlockHorizontal implements ITileEntityProvider {
 		}
 	}
 
-	@Nullable
+	
 	private EntityPlayer getPlayerInBed(World worldIn, BlockPos pos) {
 
 		for (EntityPlayer entityplayer : worldIn.playerEntities) {

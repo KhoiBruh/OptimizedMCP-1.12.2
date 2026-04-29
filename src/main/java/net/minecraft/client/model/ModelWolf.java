@@ -50,35 +50,35 @@ public class ModelWolf extends ModelBase {
 
 	public ModelWolf() {
 
-		float f = 0.0F;
+		float f = 0F;
 		float f1 = 13.5F;
 		wolfHeadMain = new ModelRenderer(this, 0, 0);
-		wolfHeadMain.addBox(-2.0F, -3.0F, -2.0F, 6, 6, 4, 0.0F);
-		wolfHeadMain.setRotationPoint(-1.0F, 13.5F, -7.0F);
+		wolfHeadMain.addBox(-2F, -3F, -2F, 6, 6, 4, 0F);
+		wolfHeadMain.setRotationPoint(-1F, 13.5F, -7F);
 		wolfBody = new ModelRenderer(this, 18, 14);
-		wolfBody.addBox(-3.0F, -2.0F, -3.0F, 6, 9, 6, 0.0F);
-		wolfBody.setRotationPoint(0.0F, 14.0F, 2.0F);
+		wolfBody.addBox(-3F, -2F, -3F, 6, 9, 6, 0F);
+		wolfBody.setRotationPoint(0F, 14F, 2F);
 		wolfMane = new ModelRenderer(this, 21, 0);
-		wolfMane.addBox(-3.0F, -3.0F, -3.0F, 8, 6, 7, 0.0F);
-		wolfMane.setRotationPoint(-1.0F, 14.0F, 2.0F);
+		wolfMane.addBox(-3F, -3F, -3F, 8, 6, 7, 0F);
+		wolfMane.setRotationPoint(-1F, 14F, 2F);
 		wolfLeg1 = new ModelRenderer(this, 0, 18);
-		wolfLeg1.addBox(0.0F, 0.0F, -1.0F, 2, 8, 2, 0.0F);
-		wolfLeg1.setRotationPoint(-2.5F, 16.0F, 7.0F);
+		wolfLeg1.addBox(0F, 0F, -1F, 2, 8, 2, 0F);
+		wolfLeg1.setRotationPoint(-2.5F, 16F, 7F);
 		wolfLeg2 = new ModelRenderer(this, 0, 18);
-		wolfLeg2.addBox(0.0F, 0.0F, -1.0F, 2, 8, 2, 0.0F);
-		wolfLeg2.setRotationPoint(0.5F, 16.0F, 7.0F);
+		wolfLeg2.addBox(0F, 0F, -1F, 2, 8, 2, 0F);
+		wolfLeg2.setRotationPoint(0.5F, 16F, 7F);
 		wolfLeg3 = new ModelRenderer(this, 0, 18);
-		wolfLeg3.addBox(0.0F, 0.0F, -1.0F, 2, 8, 2, 0.0F);
-		wolfLeg3.setRotationPoint(-2.5F, 16.0F, -4.0F);
+		wolfLeg3.addBox(0F, 0F, -1F, 2, 8, 2, 0F);
+		wolfLeg3.setRotationPoint(-2.5F, 16F, -4F);
 		wolfLeg4 = new ModelRenderer(this, 0, 18);
-		wolfLeg4.addBox(0.0F, 0.0F, -1.0F, 2, 8, 2, 0.0F);
-		wolfLeg4.setRotationPoint(0.5F, 16.0F, -4.0F);
+		wolfLeg4.addBox(0F, 0F, -1F, 2, 8, 2, 0F);
+		wolfLeg4.setRotationPoint(0.5F, 16F, -4F);
 		wolfTail = new ModelRenderer(this, 9, 18);
-		wolfTail.addBox(0.0F, 0.0F, -1.0F, 2, 8, 2, 0.0F);
-		wolfTail.setRotationPoint(-1.0F, 12.0F, 8.0F);
-		wolfHeadMain.setTextureOffset(16, 14).addBox(-2.0F, -5.0F, 0.0F, 2, 2, 1, 0.0F);
-		wolfHeadMain.setTextureOffset(16, 14).addBox(2.0F, -5.0F, 0.0F, 2, 2, 1, 0.0F);
-		wolfHeadMain.setTextureOffset(0, 10).addBox(-0.5F, 0.0F, -5.0F, 3, 3, 4, 0.0F);
+		wolfTail.addBox(0F, 0F, -1F, 2, 8, 2, 0F);
+		wolfTail.setRotationPoint(-1F, 12F, 8F);
+		wolfHeadMain.setTextureOffset(16, 14).addBox(-2F, -5F, 0F, 2, 2, 1, 0F);
+		wolfHeadMain.setTextureOffset(16, 14).addBox(2F, -5F, 0F, 2, 2, 1, 0F);
+		wolfHeadMain.setTextureOffset(0, 10).addBox(-0.5F, 0F, -5F, 3, 3, 4, 0F);
 	}
 
 	/**
@@ -90,14 +90,14 @@ public class ModelWolf extends ModelBase {
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
 		if (isChild) {
-			float f = 2.0F;
+			float f = 2F;
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(0.0F, 5.0F * scale, 2.0F * scale);
+			GlStateManager.translate(0F, 5F * scale, 2F * scale);
 			wolfHeadMain.renderWithRotation(scale);
 			GlStateManager.popMatrix();
 			GlStateManager.pushMatrix();
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);
-			GlStateManager.translate(0.0F, 24.0F * scale, 0.0F);
+			GlStateManager.translate(0F, 24F * scale, 0F);
 			wolfBody.render(scale);
 			wolfLeg1.render(scale);
 			wolfLeg2.render(scale);
@@ -127,43 +127,43 @@ public class ModelWolf extends ModelBase {
 		EntityWolf entitywolf = (EntityWolf) entitylivingbaseIn;
 
 		if (entitywolf.isAngry()) {
-			wolfTail.rotateAngleY = 0.0F;
+			wolfTail.rotateAngleY = 0F;
 		} else {
 			wolfTail.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
 		}
 
 		if (entitywolf.isSitting()) {
-			wolfMane.setRotationPoint(-1.0F, 16.0F, -3.0F);
+			wolfMane.setRotationPoint(-1F, 16F, -3F);
 			wolfMane.rotateAngleX = ((float) Math.PI * 2F / 5F);
-			wolfMane.rotateAngleY = 0.0F;
-			wolfBody.setRotationPoint(0.0F, 18.0F, 0.0F);
+			wolfMane.rotateAngleY = 0F;
+			wolfBody.setRotationPoint(0F, 18F, 0F);
 			wolfBody.rotateAngleX = ((float) Math.PI / 4F);
-			wolfTail.setRotationPoint(-1.0F, 21.0F, 6.0F);
-			wolfLeg1.setRotationPoint(-2.5F, 22.0F, 2.0F);
+			wolfTail.setRotationPoint(-1F, 21F, 6F);
+			wolfLeg1.setRotationPoint(-2.5F, 22F, 2F);
 			wolfLeg1.rotateAngleX = ((float) Math.PI * 3F / 2F);
-			wolfLeg2.setRotationPoint(0.5F, 22.0F, 2.0F);
+			wolfLeg2.setRotationPoint(0.5F, 22F, 2F);
 			wolfLeg2.rotateAngleX = ((float) Math.PI * 3F / 2F);
 			wolfLeg3.rotateAngleX = 5.811947F;
-			wolfLeg3.setRotationPoint(-2.49F, 17.0F, -4.0F);
+			wolfLeg3.setRotationPoint(-2.49F, 17F, -4F);
 			wolfLeg4.rotateAngleX = 5.811947F;
-			wolfLeg4.setRotationPoint(0.51F, 17.0F, -4.0F);
+			wolfLeg4.setRotationPoint(0.51F, 17F, -4F);
 		} else {
-			wolfBody.setRotationPoint(0.0F, 14.0F, 2.0F);
+			wolfBody.setRotationPoint(0F, 14F, 2F);
 			wolfBody.rotateAngleX = ((float) Math.PI / 2F);
-			wolfMane.setRotationPoint(-1.0F, 14.0F, -3.0F);
+			wolfMane.setRotationPoint(-1F, 14F, -3F);
 			wolfMane.rotateAngleX = wolfBody.rotateAngleX;
-			wolfTail.setRotationPoint(-1.0F, 12.0F, 8.0F);
-			wolfLeg1.setRotationPoint(-2.5F, 16.0F, 7.0F);
-			wolfLeg2.setRotationPoint(0.5F, 16.0F, 7.0F);
-			wolfLeg3.setRotationPoint(-2.5F, 16.0F, -4.0F);
-			wolfLeg4.setRotationPoint(0.5F, 16.0F, -4.0F);
+			wolfTail.setRotationPoint(-1F, 12F, 8F);
+			wolfLeg1.setRotationPoint(-2.5F, 16F, 7F);
+			wolfLeg2.setRotationPoint(0.5F, 16F, 7F);
+			wolfLeg3.setRotationPoint(-2.5F, 16F, -4F);
+			wolfLeg4.setRotationPoint(0.5F, 16F, -4F);
 			wolfLeg1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
 			wolfLeg2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
 			wolfLeg3.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
 			wolfLeg4.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
 		}
 
-		wolfHeadMain.rotateAngleZ = entitywolf.getInterestedAngle(partialTickTime) + entitywolf.getShakeAngle(partialTickTime, 0.0F);
+		wolfHeadMain.rotateAngleZ = entitywolf.getInterestedAngle(partialTickTime) + entitywolf.getShakeAngle(partialTickTime, 0F);
 		wolfMane.rotateAngleZ = entitywolf.getShakeAngle(partialTickTime, -0.08F);
 		wolfBody.rotateAngleZ = entitywolf.getShakeAngle(partialTickTime, -0.16F);
 		wolfTail.rotateAngleZ = entitywolf.getShakeAngle(partialTickTime, -0.2F);

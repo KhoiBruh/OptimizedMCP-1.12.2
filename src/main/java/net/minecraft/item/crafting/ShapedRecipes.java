@@ -11,8 +11,6 @@ import net.minecraft.util.JsonUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -189,7 +187,7 @@ public class ShapedRecipes implements IRecipe {
 		return map;
 	}
 
-	public static Ingredient deserializeIngredient(@Nullable JsonElement p_193361_0_) {
+	public static Ingredient deserializeIngredient(JsonElement p_193361_0_) {
 
 		if (p_193361_0_ != null && !p_193361_0_.isJsonNull()) {
 			if (p_193361_0_.isJsonObject()) {

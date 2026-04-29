@@ -6,8 +6,6 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.JsonUtils;
 
-import javax.annotation.Nullable;
-
 public class DamagePredicate {
 
 	public static DamagePredicate ANY = new DamagePredicate();
@@ -26,7 +24,7 @@ public class DamagePredicate {
 		type = DamageSourcePredicate.ANY;
 	}
 
-	public DamagePredicate(MinMaxBounds dealt, MinMaxBounds taken, EntityPredicate sourceEntity, @Nullable Boolean blocked, DamageSourcePredicate type) {
+	public DamagePredicate(MinMaxBounds dealt, MinMaxBounds taken, EntityPredicate sourceEntity, Boolean blocked, DamageSourcePredicate type) {
 
 		this.dealt = dealt;
 		this.taken = taken;
@@ -35,7 +33,7 @@ public class DamagePredicate {
 		this.type = type;
 	}
 
-	public static DamagePredicate deserialize(@Nullable JsonElement element) {
+	public static DamagePredicate deserialize(JsonElement element) {
 
 		if (element != null && !element.isJsonNull()) {
 			JsonObject jsonobject = JsonUtils.getJsonObject(element, "damage");

@@ -3,8 +3,6 @@ package net.minecraft.util.text;
 import com.google.gson.*;
 import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.util.text.event.HoverEvent;
-
-import javax.annotation.Nullable;
 import java.lang.reflect.Type;
 
 public class Style {
@@ -13,7 +11,7 @@ public class Style {
 	 * The base of the ChatStyle hierarchy.  All ChatStyle instances are implicitly children of this.
 	 */
 	private static final Style ROOT = new Style() {
-		@Nullable
+		
 		public TextFormatting getColor() {
 
 			return null;
@@ -44,19 +42,19 @@ public class Style {
 			return false;
 		}
 
-		@Nullable
+		
 		public ClickEvent getClickEvent() {
 
 			return null;
 		}
 
-		@Nullable
+		
 		public HoverEvent getHoverEvent() {
 
 			return null;
 		}
 
-		@Nullable
+		
 		public String getInsertion() {
 
 			return null;
@@ -141,7 +139,7 @@ public class Style {
 	private HoverEvent hoverEvent;
 	private String insertion;
 
-	@Nullable
+	
 
 	/**
 	 * Gets the effective color of this ChatStyle.
@@ -259,7 +257,7 @@ public class Style {
 		return bold == null && italic == null && strikethrough == null && underlined == null && obfuscated == null && color == null && clickEvent == null && hoverEvent == null && insertion == null;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * The effective chat click event.
@@ -278,7 +276,7 @@ public class Style {
 		return this;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * The effective chat hover event.
@@ -297,7 +295,7 @@ public class Style {
 		return this;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Get the text to be inserted into Chat when the component is shift-clicked
@@ -483,7 +481,7 @@ public class Style {
 
 	public static class Serializer implements JsonDeserializer<Style>, JsonSerializer<Style> {
 
-		@Nullable
+		
 		public Style deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
 
 			if (p_deserialize_1_.isJsonObject()) {
@@ -557,7 +555,7 @@ public class Style {
 			}
 		}
 
-		@Nullable
+		
 		public JsonElement serialize(Style p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
 
 			if (p_serialize_1_.isEmpty()) {

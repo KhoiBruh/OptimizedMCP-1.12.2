@@ -17,8 +17,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class ItemBucket extends Item {
 
 	/**
@@ -108,7 +106,7 @@ public class ItemBucket extends Item {
 		}
 	}
 
-	public boolean tryPlaceContainedLiquid(@Nullable EntityPlayer player, World worldIn, BlockPos posIn) {
+	public boolean tryPlaceContainedLiquid(EntityPlayer player, World worldIn, BlockPos posIn) {
 
 		if (containedBlock == Blocks.AIR) {
 			return false;

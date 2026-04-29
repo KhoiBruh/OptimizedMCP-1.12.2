@@ -8,16 +8,14 @@ import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public interface IMerchant {
 
-	@Nullable
+	
 	EntityPlayer getCustomer();
 
 	void setCustomer(EntityPlayer player);
 
-	@Nullable
+	
 	MerchantRecipeList getRecipes(EntityPlayer player);
 
 	void setRecipes(MerchantRecipeList recipeList);

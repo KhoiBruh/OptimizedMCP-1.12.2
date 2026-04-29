@@ -12,8 +12,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Tuple;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
-
-import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +32,7 @@ public class PotionUtils {
 		return list;
 	}
 
-	public static List<PotionEffect> getEffectsFromTag(@Nullable NBTTagCompound tag) {
+	public static List<PotionEffect> getEffectsFromTag(NBTTagCompound tag) {
 
 		List<PotionEffect> list = Lists.newArrayList();
 		list.addAll(getPotionTypeFromNBT(tag).getEffects());
@@ -47,14 +45,14 @@ public class PotionUtils {
 		return getFullEffectsFromTag(itemIn.getTagCompound());
 	}
 
-	public static List<PotionEffect> getFullEffectsFromTag(@Nullable NBTTagCompound tag) {
+	public static List<PotionEffect> getFullEffectsFromTag(NBTTagCompound tag) {
 
 		List<PotionEffect> list = Lists.newArrayList();
 		addCustomPotionEffectToList(tag, list);
 		return list;
 	}
 
-	public static void addCustomPotionEffectToList(@Nullable NBTTagCompound tag, List<PotionEffect> effectList) {
+	public static void addCustomPotionEffectToList(NBTTagCompound tag, List<PotionEffect> effectList) {
 
 		if (tag != null && tag.hasKey("CustomPotionEffects", 9)) {
 			NBTTagList nbttaglist = tag.getTagList("CustomPotionEffects", 10);
@@ -128,7 +126,7 @@ public class PotionUtils {
 	/**
 	 * If no correct potion is found, returns the default one : PotionTypes.water
 	 */
-	public static PotionType getPotionTypeFromNBT(@Nullable NBTTagCompound tag) {
+	public static PotionType getPotionTypeFromNBT(NBTTagCompound tag) {
 
 		return tag == null ? PotionTypes.EMPTY : PotionType.getPotionTypeForName(tag.getString("Potion"));
 	}

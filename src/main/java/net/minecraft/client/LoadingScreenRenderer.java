@@ -17,7 +17,6 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 	 * A reference to the Minecraft object.
 	 */
 	private final Minecraft mc;
-	private final ScaledResolution scaledResolution;
 	private final Framebuffer framebuffer;
 	private String message = "";
 	/**
@@ -36,7 +35,6 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 	public LoadingScreenRenderer(Minecraft mcIn) {
 
 		mc = mcIn;
-		scaledResolution = new ScaledResolution(mcIn);
 		framebuffer = new Framebuffer(mcIn.displayWidth, mcIn.displayHeight, false);
 		framebuffer.setFramebufferFilter(9728);
 	}
@@ -72,13 +70,13 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 			GlStateManager.clear(256);
 			GlStateManager.matrixMode(5889);
 			GlStateManager.loadIdentity();
+			ScaledResolution scaledResolution = mc.scaledResolution;
 
 			if (OpenGlHelper.isFramebufferEnabled()) {
-				int i = scaledResolution.getScaleFactor();
-				GlStateManager.ortho(0.0D, scaledResolution.getScaledWidth() * i, scaledResolution.getScaledHeight() * i, 0.0D, 100.0D, 300.0D);
+				int factor = scaledResolution.getScaleFactor();
+				GlStateManager.ortho(0.0D, scaledResolution.getScaledWidth() * factor, scaledResolution.getScaledHeight() * factor, 0.0D, 100.0D, 300.0D);
 			} else {
-				ScaledResolution scaledresolution = new ScaledResolution(mc);
-				GlStateManager.ortho(0.0D, scaledresolution.getScaledWidth_double(), scaledresolution.getScaledHeight_double(), 0.0D, 100.0D, 300.0D);
+				GlStateManager.ortho(0.0D, scaledResolution.getScaledWidth_double(), scaledResolution.getScaledHeight_double(), 0.0D, 100.0D, 300.0D);
 			}
 
 			GlStateManager.matrixMode(5888);
@@ -118,10 +116,10 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 
 			if (i - systemTime >= 100L) {
 				systemTime = i;
-				ScaledResolution scaledresolution = new ScaledResolution(mc);
-				int j = scaledresolution.getScaleFactor();
-				int k = scaledresolution.getScaledWidth();
-				int l = scaledresolution.getScaledHeight();
+				ScaledResolution scaledResolution = mc.scaledResolution;
+				int j = scaledResolution.getScaleFactor();
+				int k = scaledResolution.getScaledWidth();
+				int l = scaledResolution.getScaledHeight();
 
 				if (OpenGlHelper.isFramebufferEnabled()) {
 					framebuffer.framebufferClear();
@@ -132,7 +130,7 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 				framebuffer.bindFramebuffer(false);
 				GlStateManager.matrixMode(5889);
 				GlStateManager.loadIdentity();
-				GlStateManager.ortho(0.0D, scaledresolution.getScaledWidth_double(), scaledresolution.getScaledHeight_double(), 0.0D, 100.0D, 300.0D);
+				GlStateManager.ortho(0.0D, scaledResolution.getScaledWidth_double(), scaledResolution.getScaledHeight_double(), 0.0D, 100.0D, 300.0D);
 				GlStateManager.matrixMode(5888);
 				GlStateManager.loadIdentity();
 				GlStateManager.translate(0.0F, 0.0F, -200.0F);

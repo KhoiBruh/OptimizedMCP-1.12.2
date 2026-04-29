@@ -1,6 +1,4 @@
 package net.minecraft.util;
-
-import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -37,7 +35,7 @@ public class IntHashMap<V> {
 		return hash & slotCount - 1;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns the object associated to a key
@@ -63,7 +61,7 @@ public class IntHashMap<V> {
 		return lookupEntry(hashEntry) != null;
 	}
 
-	@Nullable
+	
 	final IntHashMap.Entry<V> lookupEntry(int hashEntry) {
 
 		int i = computeHash(hashEntry);
@@ -142,7 +140,7 @@ public class IntHashMap<V> {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Removes the specified object from the map and returns it
@@ -153,7 +151,7 @@ public class IntHashMap<V> {
 		return entry == null ? null : entry.valueEntry;
 	}
 
-	@Nullable
+	
 	final IntHashMap.Entry<V> removeEntry(int p_76036_1_) {
 
 		int i = computeHash(p_76036_1_);

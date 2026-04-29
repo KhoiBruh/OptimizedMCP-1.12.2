@@ -17,8 +17,6 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenDungeons;
 import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraft.world.gen.structure.*;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
@@ -460,7 +458,7 @@ public class ChunkGeneratorOverworld implements IChunkGenerator {
 		}
 	}
 
-	@Nullable
+	
 	public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
 
 		if (!mapFeaturesEnabled) {

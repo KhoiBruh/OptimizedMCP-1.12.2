@@ -6,8 +6,6 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.JsonUtils;
 
-import javax.annotation.Nullable;
-
 public class DamageSourcePredicate {
 
 	public static DamageSourcePredicate ANY = new DamageSourcePredicate();
@@ -34,7 +32,7 @@ public class DamageSourcePredicate {
 		sourceEntity = EntityPredicate.ANY;
 	}
 
-	public DamageSourcePredicate(@Nullable Boolean isProjectile, @Nullable Boolean isExplosion, @Nullable Boolean bypassesArmor, @Nullable Boolean bypassesInvulnerability, @Nullable Boolean bypassesMagic, @Nullable Boolean isFire, @Nullable Boolean isMagic, EntityPredicate directEntity, EntityPredicate sourceEntity) {
+	public DamageSourcePredicate(Boolean isProjectile, Boolean isExplosion, Boolean bypassesArmor, Boolean bypassesInvulnerability, Boolean bypassesMagic, Boolean isFire, Boolean isMagic, EntityPredicate directEntity, EntityPredicate sourceEntity) {
 
 		this.isProjectile = isProjectile;
 		this.isExplosion = isExplosion;
@@ -47,7 +45,7 @@ public class DamageSourcePredicate {
 		this.sourceEntity = sourceEntity;
 	}
 
-	public static DamageSourcePredicate deserialize(@Nullable JsonElement element) {
+	public static DamageSourcePredicate deserialize(JsonElement element) {
 
 		if (element != null && !element.isJsonNull()) {
 			JsonObject jsonobject = JsonUtils.getJsonObject(element, "damage type");
@@ -66,7 +64,7 @@ public class DamageSourcePredicate {
 		}
 	}
 
-	@Nullable
+	
 	private static Boolean optionalBoolean(JsonObject object, String memberName) {
 
 		return object.has(memberName) ? JsonUtils.getBoolean(object, memberName) : null;

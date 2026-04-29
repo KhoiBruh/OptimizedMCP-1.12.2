@@ -6,8 +6,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
 import net.minecraft.util.ResourceLocation;
 
-import javax.annotation.Nullable;
-
 public class CPacketSeenAdvancements implements Packet<INetHandlerPlayServer> {
 
 	private CPacketSeenAdvancements.Action action;
@@ -17,7 +15,7 @@ public class CPacketSeenAdvancements implements Packet<INetHandlerPlayServer> {
 
 	}
 
-	public CPacketSeenAdvancements(CPacketSeenAdvancements.Action p_i47595_1_, @Nullable ResourceLocation p_i47595_2_) {
+	public CPacketSeenAdvancements(CPacketSeenAdvancements.Action p_i47595_1_, ResourceLocation p_i47595_2_) {
 
 		action = p_i47595_1_;
 		tab = p_i47595_2_;

@@ -12,8 +12,6 @@ import net.minecraft.world.chunk.storage.IChunkLoader;
 import net.minecraft.world.gen.structure.template.TemplateManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.io.*;
 
 public class SaveHandler implements ISaveHandler, IPlayerFileData {
@@ -110,7 +108,7 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData {
 		throw new RuntimeException("Old Chunk Storage is no longer supported.");
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Loads and returns the world info
@@ -134,7 +132,7 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData {
 	/**
 	 * Saves the given World Info with the given NBTTagCompound as the Player.
 	 */
-	public void saveWorldInfoWithPlayer(WorldInfo worldInformation, @Nullable NBTTagCompound tagCompound) {
+	public void saveWorldInfoWithPlayer(WorldInfo worldInformation, NBTTagCompound tagCompound) {
 
 		NBTTagCompound nbttagcompound = worldInformation.cloneNBTCompound(tagCompound);
 		NBTTagCompound nbttagcompound1 = new NBTTagCompound();
@@ -195,7 +193,7 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Reads the player data from disk into the specified PlayerEntityMP.

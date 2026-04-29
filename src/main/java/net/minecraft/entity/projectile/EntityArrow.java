@@ -28,8 +28,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -434,7 +432,7 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 
 	}
 
-	@Nullable
+	
 	protected Entity findEntityOnPath(Vec3d start, Vec3d end) {
 
 		Entity entity = null;

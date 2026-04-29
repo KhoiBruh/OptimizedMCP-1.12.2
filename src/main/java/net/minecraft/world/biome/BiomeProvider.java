@@ -11,8 +11,6 @@ import net.minecraft.world.gen.ChunkGeneratorSettings;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 import net.minecraft.world.storage.WorldInfo;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
@@ -115,7 +113,7 @@ public class BiomeProvider {
 	 * Gets biomes to use for the blocks and loads the other data like temperature and humidity onto the
 	 * WorldChunkManager.
 	 */
-	public Biome[] getBiomes(@Nullable Biome[] oldBiomeList, int x, int z, int width, int depth) {
+	public Biome[] getBiomes(Biome[] oldBiomeList, int x, int z, int width, int depth) {
 
 		return getBiomes(oldBiomeList, x, z, width, depth, true);
 	}
@@ -123,7 +121,7 @@ public class BiomeProvider {
 	/**
 	 * Gets a list of biomes for the specified blocks.
 	 */
-	public Biome[] getBiomes(@Nullable Biome[] listToReuse, int x, int z, int width, int length, boolean cacheFlag) {
+	public Biome[] getBiomes(Biome[] listToReuse, int x, int z, int width, int length, boolean cacheFlag) {
 
 		IntCache.resetIntCache();
 
@@ -182,7 +180,7 @@ public class BiomeProvider {
 		}
 	}
 
-	@Nullable
+	
 	public BlockPos findBiomePosition(int x, int z, int range, List<Biome> biomes, Random random) {
 
 		IntCache.resetIntCache();

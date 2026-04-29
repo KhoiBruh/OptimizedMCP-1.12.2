@@ -11,8 +11,6 @@ import net.minecraft.world.storage.loot.RandomValueRange;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.Random;
 import java.util.UUID;
 
@@ -50,11 +48,11 @@ public class SetAttributes extends LootFunction {
 		private final int operation;
 		private final RandomValueRange amount;
 
-		@Nullable
+		
 		private final UUID uuid;
 		private final EntityEquipmentSlot[] slots;
 
-		private Modifier(String modifName, String attrName, int operationIn, RandomValueRange randomAmount, EntityEquipmentSlot[] slotsIn, @Nullable UUID uuidIn) {
+		private Modifier(String modifName, String attrName, int operationIn, RandomValueRange randomAmount, EntityEquipmentSlot[] slotsIn, UUID uuidIn) {
 
 			modifierName = modifName;
 			attributeName = attrName;

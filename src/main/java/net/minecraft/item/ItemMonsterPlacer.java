@@ -23,8 +23,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,7 +36,7 @@ public class ItemMonsterPlacer extends Item {
 	/**
 	 * Applies the data in the EntityTag tag of the given ItemStack to the given Entity.
 	 */
-	public static void applyItemEntityDataToEntity(World entityWorld, @Nullable EntityPlayer player, ItemStack stack, @Nullable Entity targetEntity) {
+	public static void applyItemEntityDataToEntity(World entityWorld, EntityPlayer player, ItemStack stack, Entity targetEntity) {
 
 		MinecraftServer minecraftserver = entityWorld.getMinecraftServer();
 
@@ -59,13 +57,13 @@ public class ItemMonsterPlacer extends Item {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Spawns the creature specified by the egg's type in the location specified by the last three parameters.
 	 * Parameters: world, entityID, x, y, z.
 	 */
-	public static Entity spawnCreature(World worldIn, @Nullable ResourceLocation entityID, double x, double y, double z) {
+	public static Entity spawnCreature(World worldIn, ResourceLocation entityID, double x, double y, double z) {
 
 		if (entityID != null && EntityList.ENTITY_EGGS.containsKey(entityID)) {
 			Entity entity = null;
@@ -101,7 +99,7 @@ public class ItemMonsterPlacer extends Item {
 		stack.setTagCompound(nbttagcompound);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Gets the entity type ID from the given itemstack.

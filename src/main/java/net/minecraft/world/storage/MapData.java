@@ -12,8 +12,6 @@ import net.minecraft.network.play.server.SPacketMaps;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 
@@ -238,7 +236,7 @@ public class MapData extends WorldSavedData {
 		mapDecorations.put(decorationName, new MapDecoration(type, b0, b1, b2));
 	}
 
-	@Nullable
+	
 	public Packet<?> getMapPacket(ItemStack mapStack, World worldIn, EntityPlayer player) {
 
 		MapData.MapInfo mapdata$mapinfo = playersHashMap.get(player);
@@ -283,7 +281,7 @@ public class MapData extends WorldSavedData {
 			this.player = player;
 		}
 
-		@Nullable
+		
 		public Packet<?> getPacket(ItemStack stack) {
 
 			if (isDirty) {

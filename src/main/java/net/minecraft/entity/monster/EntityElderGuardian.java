@@ -15,8 +15,6 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class EntityElderGuardian extends EntityGuardian {
@@ -45,7 +43,7 @@ public class EntityElderGuardian extends EntityGuardian {
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_ELDER_GUARDIAN;

@@ -1,7 +1,5 @@
 package net.minecraft.entity.ai.attributes;
 
-import javax.annotation.Nullable;
-
 public interface IAttribute {
 
 	String getName();
@@ -12,7 +10,7 @@ public interface IAttribute {
 
 	boolean getShouldWatch();
 
-	@Nullable
+	
 	IAttribute getParent();
 
 }

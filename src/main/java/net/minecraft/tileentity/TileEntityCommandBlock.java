@@ -13,8 +13,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class TileEntityCommandBlock extends TileEntity {
 
 	private final CommandBlockBaseLogic commandBlockLogic = new CommandBlockBaseLogic() {
@@ -86,7 +84,7 @@ public class TileEntityCommandBlock extends TileEntity {
 		setAuto(compound.getBoolean("auto"));
 	}
 
-	@Nullable
+	
 	public SPacketUpdateTileEntity getUpdatePacket() {
 
 		if (isSendToClient()) {

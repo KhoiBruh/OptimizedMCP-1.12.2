@@ -20,8 +20,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
@@ -258,7 +256,7 @@ public class BlockStairs extends Block {
 		return state.getBlock() instanceof BlockStairs;
 	}
 
-	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState) {
+	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean isActualState) {
 
 		if (!isActualState) {
 			state = getActualState(state, worldIn, pos);
@@ -473,7 +471,7 @@ public class BlockStairs extends Block {
 		return facing != EnumFacing.DOWN && (facing == EnumFacing.UP || (double) hitY <= 0.5D) ? iblockstate.withProperty(HALF, BlockStairs.EnumHalf.BOTTOM) : iblockstate.withProperty(HALF, BlockStairs.EnumHalf.TOP);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Ray traces through the blocks collision from start vector to end vector returning a ray trace hit.

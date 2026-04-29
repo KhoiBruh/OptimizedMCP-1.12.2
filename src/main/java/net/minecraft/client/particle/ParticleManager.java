@@ -21,7 +21,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
 import java.util.*;
 
 public class ParticleManager {
@@ -124,7 +123,7 @@ public class ParticleManager {
 		particleEmitters.add(new ParticleEmitter(world, p_191271_1_, p_191271_2_, p_191271_3_));
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Spawns the relevant particle according to the particle id.
@@ -337,7 +336,7 @@ public class ParticleManager {
 		}
 	}
 
-	public void clearEffects(@Nullable World worldIn) {
+	public void clearEffects(World worldIn) {
 
 		world = worldIn;
 

@@ -4,7 +4,7 @@ import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 
 public class Items {
-
+	
 	public static final Item AIR;
 	public static final Item IRON_SHOVEL;
 	public static final Item IRON_PICKAXE;
@@ -215,7 +215,7 @@ public class Items {
 	public static final Item SHULKER_SHELL;
 	public static final Item IRON_NUGGET;
 	public static final Item KNOWLEDGE_BOOK;
-
+	
 	static {
 		if (!Bootstrap.isRegistered()) {
 			throw new RuntimeException("Accessed Items before Bootstrap!");
@@ -432,15 +432,16 @@ public class Items {
 			KNOWLEDGE_BOOK = getRegisteredItem("knowledge_book");
 		}
 	}
-
+	
 	private static Item getRegisteredItem(String name) {
-
+		
 		Item item = Item.REGISTRY.getObject(new ResourceLocation(name));
-
+		
 		if (item == null) {
 			throw new IllegalStateException("Invalid Item requested: " + name);
 		} else {
 			return item;
 		}
 	}
+	
 }

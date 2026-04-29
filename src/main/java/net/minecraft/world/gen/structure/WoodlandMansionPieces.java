@@ -14,8 +14,6 @@ import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraft.world.gen.structure.template.Template;
 import net.minecraft.world.gen.structure.template.TemplateManager;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -134,7 +132,7 @@ public class WoodlandMansionPieces {
 			return (floorRooms[p_191114_4_].get(p_191114_2_, p_191114_3_) & 65535) == p_191114_5_;
 		}
 
-		@Nullable
+		
 		public EnumFacing get1x2RoomDirection(WoodlandMansionPieces.SimpleGrid p_191113_1_, int p_191113_2_, int p_191113_3_, int p_191113_4_, int p_191113_5_) {
 
 			for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL.facings()) {
@@ -670,7 +668,7 @@ public class WoodlandMansionPieces {
 			}
 		}
 
-		private void createRoof(List<WoodlandMansionPieces.MansionTemplate> p_191123_1_, BlockPos p_191123_2_, Rotation p_191123_3_, WoodlandMansionPieces.SimpleGrid p_191123_4_, @Nullable WoodlandMansionPieces.SimpleGrid p_191123_5_) {
+		private void createRoof(List<WoodlandMansionPieces.MansionTemplate> p_191123_1_, BlockPos p_191123_2_, Rotation p_191123_3_, WoodlandMansionPieces.SimpleGrid p_191123_4_, WoodlandMansionPieces.SimpleGrid p_191123_5_) {
 
 			for (int i = 0; i < p_191123_4_.height; ++i) {
 				for (int j = 0; j < p_191123_4_.width; ++j) {

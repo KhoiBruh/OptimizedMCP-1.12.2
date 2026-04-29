@@ -11,8 +11,6 @@ import net.minecraft.util.text.event.ClickEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.BufferUtils;
-
-import javax.annotation.Nullable;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -49,7 +47,7 @@ public class ScreenShotHelper {
 	 * Saves a screenshot in the game directory with the given file name (or null to generate a time-stamped name).
 	 * Returns an ITextComponent indicating the success/failure of the saving.
 	 */
-	public static ITextComponent saveScreenshot(File gameDirectory, @Nullable String screenshotName, int width, int height, Framebuffer buffer) {
+	public static ITextComponent saveScreenshot(File gameDirectory, String screenshotName, int width, int height, Framebuffer buffer) {
 
 		try {
 			File file1 = new File(gameDirectory, "screenshots");

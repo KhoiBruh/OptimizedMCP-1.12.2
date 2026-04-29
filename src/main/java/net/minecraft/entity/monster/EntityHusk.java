@@ -15,8 +15,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-import javax.annotation.Nullable;
-
 public class EntityHusk extends EntityZombie {
 
 	public EntityHusk(World worldIn) {
@@ -62,7 +60,7 @@ public class EntityHusk extends EntityZombie {
 		return SoundEvents.ENTITY_HUSK_STEP;
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_HUSK;

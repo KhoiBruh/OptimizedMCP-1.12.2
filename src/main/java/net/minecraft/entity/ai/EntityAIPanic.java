@@ -8,8 +8,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class EntityAIPanic extends EntityAIBase {
 
 	protected final EntityCreature creature;
@@ -78,7 +76,7 @@ public class EntityAIPanic extends EntityAIBase {
 		return !creature.getNavigator().noPath();
 	}
 
-	@Nullable
+	
 	private BlockPos getRandPos(World worldIn, Entity entityIn, int horizontalRange, int verticalRange) {
 
 		BlockPos blockpos = new BlockPos(entityIn);

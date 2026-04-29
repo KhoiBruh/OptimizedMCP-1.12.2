@@ -26,8 +26,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public class EntityGhast extends EntityFlying implements IMob {
@@ -136,7 +134,7 @@ public class EntityGhast extends EntityFlying implements IMob {
 		return SoundEvents.ENTITY_GHAST_DEATH;
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_GHAST;

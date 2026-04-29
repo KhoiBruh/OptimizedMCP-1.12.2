@@ -10,8 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.NonNullList;
 
-import javax.annotation.Nullable;
-
 public abstract class CreativeTabs {
 
 	public static final CreativeTabs[] CREATIVE_TAB_ARRAY = new CreativeTabs[12];
@@ -222,7 +220,7 @@ public abstract class CreativeTabs {
 		return this;
 	}
 
-	public boolean hasRelevantEnchantmentType(@Nullable EnumEnchantmentType enchantmentType) {
+	public boolean hasRelevantEnchantmentType(EnumEnchantmentType enchantmentType) {
 
 		if (enchantmentType != null) {
 			for (EnumEnchantmentType enumenchantmenttype : enchantmentTypes) {

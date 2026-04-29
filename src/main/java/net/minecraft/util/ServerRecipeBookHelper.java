@@ -12,8 +12,6 @@ import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.network.play.server.SPacketPlaceGhostRecipe;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.List;
 
@@ -28,7 +26,7 @@ public class ServerRecipeBookHelper {
 	private InventoryCrafting field_194336_g;
 	private List<Slot> field_194337_h;
 
-	public void func_194327_a(EntityPlayerMP p_194327_1_, @Nullable IRecipe p_194327_2_, boolean p_194327_3_) {
+	public void func_194327_a(EntityPlayerMP p_194327_1_, IRecipe p_194327_2_, boolean p_194327_3_) {
 
 		if (p_194327_2_ != null && p_194327_1_.getRecipeBook().isUnlocked(p_194327_2_)) {
 			field_194332_c = p_194327_1_;

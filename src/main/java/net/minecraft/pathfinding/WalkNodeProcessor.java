@@ -11,8 +11,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
-
-import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.Set;
 
@@ -163,7 +161,7 @@ public class WalkNodeProcessor extends NodeProcessor {
 		return i;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns a point that the entity can safely move to

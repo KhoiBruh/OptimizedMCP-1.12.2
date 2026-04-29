@@ -36,8 +36,6 @@ import net.minecraft.world.gen.feature.WorldGenEndPodium;
 import net.minecraft.world.gen.feature.WorldGenSpikes;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.*;
 
 public class DragonFightManager {
@@ -243,7 +241,7 @@ public class DragonFightManager {
 		return false;
 	}
 
-	@Nullable
+	
 	private BlockPattern.PatternHelper findExitPortal() {
 
 		for (int i = -8; i <= 8; ++i) {

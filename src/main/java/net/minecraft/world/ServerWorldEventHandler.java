@@ -12,8 +12,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 
-import javax.annotation.Nullable;
-
 public class ServerWorldEventHandler implements IWorldEventListener {
 
 	/**
@@ -67,7 +65,7 @@ public class ServerWorldEventHandler implements IWorldEventListener {
 		}
 	}
 
-	public void playSoundToAllNearExcept(@Nullable EntityPlayer player, SoundEvent soundIn, SoundCategory category, double x, double y, double z, float volume, float pitch) {
+	public void playSoundToAllNearExcept(EntityPlayer player, SoundEvent soundIn, SoundCategory category, double x, double y, double z, float volume, float pitch) {
 
 		mcServer.getPlayerList().sendToAllNearExcept(player, x, y, z, volume > 1.0F ? (double) (16.0F * volume) : 16.0D, world.provider.getDimensionType().getId(), new SPacketSoundEffect(soundIn, category, x, y, z, volume, pitch));
 	}

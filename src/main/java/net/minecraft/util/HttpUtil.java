@@ -9,8 +9,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
@@ -56,7 +54,7 @@ public class HttpUtil {
 	/**
 	 * Sends a POST to the given URL using the map as the POST args
 	 */
-	public static String postMap(URL url, Map<String, Object> data, boolean skipLoggingErrors, @Nullable Proxy proxyIn) {
+	public static String postMap(URL url, Map<String, Object> data, boolean skipLoggingErrors, Proxy proxyIn) {
 
 		return post(url, buildPostString(data), skipLoggingErrors, proxyIn);
 	}
@@ -64,7 +62,7 @@ public class HttpUtil {
 	/**
 	 * Sends a POST to the given URL
 	 */
-	private static String post(URL url, String content, boolean skipLoggingErrors, @Nullable Proxy p_151225_3_) {
+	private static String post(URL url, String content, boolean skipLoggingErrors, Proxy p_151225_3_) {
 
 		try {
 			if (p_151225_3_ == null) {
@@ -103,7 +101,7 @@ public class HttpUtil {
 		}
 	}
 
-	public static ListenableFuture<Object> downloadResourcePack(final File saveFile, final String packUrl, final Map<String, String> p_180192_2_, final int maxSize, @Nullable final IProgressUpdate p_180192_4_, final Proxy p_180192_5_) {
+	public static ListenableFuture<Object> downloadResourcePack(final File saveFile, final String packUrl, final Map<String, String> p_180192_2_, final int maxSize, final IProgressUpdate p_180192_4_, final Proxy p_180192_5_) {
 
 		ListenableFuture<?> listenablefuture = DOWNLOADER_EXECUTOR.submit(() -> {
 

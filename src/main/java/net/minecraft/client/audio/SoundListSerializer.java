@@ -31,7 +31,7 @@ public class SoundListSerializer implements JsonDeserializer<SoundList> {
 
 				if (JsonUtils.isString(jsonelement)) {
 					String s = JsonUtils.getString(jsonelement, "sound");
-					list.add(new Sound(s, 1.0F, 1.0F, 1, Sound.Type.FILE, false));
+					list.add(new Sound(s, 1F, 1F, 1, Sound.Type.FILE, false));
 				} else {
 					list.add(deserializeSound(JsonUtils.getJsonObject(jsonelement, "sound")));
 				}
@@ -45,10 +45,10 @@ public class SoundListSerializer implements JsonDeserializer<SoundList> {
 
 		String s = JsonUtils.getString(object, "name");
 		Sound.Type sound$type = deserializeType(object, Sound.Type.FILE);
-		float f = JsonUtils.getFloat(object, "volume", 1.0F);
-		Validate.isTrue(f > 0.0F, "Invalid volume");
-		float f1 = JsonUtils.getFloat(object, "pitch", 1.0F);
-		Validate.isTrue(f1 > 0.0F, "Invalid pitch");
+		float f = JsonUtils.getFloat(object, "volume", 1F);
+		Validate.isTrue(f > 0F, "Invalid volume");
+		float f1 = JsonUtils.getFloat(object, "pitch", 1F);
+		Validate.isTrue(f1 > 0F, "Invalid pitch");
 		int i = JsonUtils.getInt(object, "weight", 1);
 		Validate.isTrue(i > 0, "Invalid weight");
 		boolean flag = JsonUtils.getBoolean(object, "stream", false);

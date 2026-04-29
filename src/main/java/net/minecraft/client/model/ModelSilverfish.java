@@ -29,8 +29,8 @@ public class ModelSilverfish extends ModelBase {
 
 		for (int i = 0; i < silverfishBodyParts.length; ++i) {
 			silverfishBodyParts[i] = new ModelRenderer(this, SILVERFISH_TEXTURE_POSITIONS[i][0], SILVERFISH_TEXTURE_POSITIONS[i][1]);
-			silverfishBodyParts[i].addBox((float) SILVERFISH_BOX_LENGTH[i][0] * -0.5F, 0.0F, (float) SILVERFISH_BOX_LENGTH[i][2] * -0.5F, SILVERFISH_BOX_LENGTH[i][0], SILVERFISH_BOX_LENGTH[i][1], SILVERFISH_BOX_LENGTH[i][2]);
-			silverfishBodyParts[i].setRotationPoint(0.0F, (float) (24 - SILVERFISH_BOX_LENGTH[i][1]), f);
+			silverfishBodyParts[i].addBox((float) SILVERFISH_BOX_LENGTH[i][0] * -0.5F, 0F, (float) SILVERFISH_BOX_LENGTH[i][2] * -0.5F, SILVERFISH_BOX_LENGTH[i][0], SILVERFISH_BOX_LENGTH[i][1], SILVERFISH_BOX_LENGTH[i][2]);
+			silverfishBodyParts[i].setRotationPoint(0F, (float) (24 - SILVERFISH_BOX_LENGTH[i][1]), f);
 			zPlacement[i] = f;
 
 			if (i < silverfishBodyParts.length - 1) {
@@ -40,14 +40,14 @@ public class ModelSilverfish extends ModelBase {
 
 		silverfishWings = new ModelRenderer[3];
 		silverfishWings[0] = new ModelRenderer(this, 20, 0);
-		silverfishWings[0].addBox(-5.0F, 0.0F, (float) SILVERFISH_BOX_LENGTH[2][2] * -0.5F, 10, 8, SILVERFISH_BOX_LENGTH[2][2]);
-		silverfishWings[0].setRotationPoint(0.0F, 16.0F, zPlacement[2]);
+		silverfishWings[0].addBox(-5F, 0F, (float) SILVERFISH_BOX_LENGTH[2][2] * -0.5F, 10, 8, SILVERFISH_BOX_LENGTH[2][2]);
+		silverfishWings[0].setRotationPoint(0F, 16F, zPlacement[2]);
 		silverfishWings[1] = new ModelRenderer(this, 20, 11);
-		silverfishWings[1].addBox(-3.0F, 0.0F, (float) SILVERFISH_BOX_LENGTH[4][2] * -0.5F, 6, 4, SILVERFISH_BOX_LENGTH[4][2]);
-		silverfishWings[1].setRotationPoint(0.0F, 20.0F, zPlacement[4]);
+		silverfishWings[1].addBox(-3F, 0F, (float) SILVERFISH_BOX_LENGTH[4][2] * -0.5F, 6, 4, SILVERFISH_BOX_LENGTH[4][2]);
+		silverfishWings[1].setRotationPoint(0F, 20F, zPlacement[4]);
 		silverfishWings[2] = new ModelRenderer(this, 20, 18);
-		silverfishWings[2].addBox(-3.0F, 0.0F, (float) SILVERFISH_BOX_LENGTH[4][2] * -0.5F, 6, 5, SILVERFISH_BOX_LENGTH[1][2]);
-		silverfishWings[2].setRotationPoint(0.0F, 19.0F, zPlacement[1]);
+		silverfishWings[2].addBox(-3F, 0F, (float) SILVERFISH_BOX_LENGTH[4][2] * -0.5F, 6, 5, SILVERFISH_BOX_LENGTH[1][2]);
+		silverfishWings[2].setRotationPoint(0F, 19F, zPlacement[1]);
 	}
 
 	/**

@@ -17,8 +17,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import javax.annotation.Nullable;
 import java.util.Calendar;
 
 public class EntityBat extends EntityAmbientCreature {
@@ -64,7 +62,7 @@ public class EntityBat extends EntityAmbientCreature {
 		return super.getSoundPitch() * 0.95F;
 	}
 
-	@Nullable
+	
 	public SoundEvent getAmbientSound() {
 
 		return getIsBatHanging() && rand.nextInt(4) != 0 ? null : SoundEvents.ENTITY_BAT_AMBIENT;
@@ -273,7 +271,7 @@ public class EntityBat extends EntityAmbientCreature {
 		return height / 2.0F;
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_BAT;

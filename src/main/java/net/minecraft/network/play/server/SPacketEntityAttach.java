@@ -5,8 +5,6 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 
-import javax.annotation.Nullable;
-
 public class SPacketEntityAttach implements Packet<INetHandlerPlayClient> {
 
 	private int entityId;
@@ -16,7 +14,7 @@ public class SPacketEntityAttach implements Packet<INetHandlerPlayClient> {
 
 	}
 
-	public SPacketEntityAttach(Entity entityIn, @Nullable Entity vehicleIn) {
+	public SPacketEntityAttach(Entity entityIn, Entity vehicleIn) {
 
 		entityId = entityIn.getEntityId();
 		vehicleEntityId = vehicleIn != null ? vehicleIn.getEntityId() : -1;

@@ -27,8 +27,6 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.GameType;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
@@ -72,7 +70,7 @@ public class EntitySelector {
 		return argument;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns the one player that matches the given at-token.  Returns null if more than one player matches.
@@ -87,14 +85,14 @@ public class EntitySelector {
 		return matchEntities(sender, token, EntityPlayerMP.class);
 	}
 
-	@Nullable
+	
 	public static <T extends Entity> T matchOneEntity(ICommandSender sender, String token, Class<? extends T> targetClass) throws CommandException {
 
 		List<T> list = matchEntities(sender, token, targetClass);
 		return (T) (list.size() == 1 ? (Entity) list.getFirst() : null);
 	}
 
-	@Nullable
+	
 	public static ITextComponent matchEntitiesToTextComponent(ICommandSender sender, String token) throws CommandException {
 
 		List<Entity> list = matchEntities(sender, token, Entity.class);
@@ -591,7 +589,7 @@ public class EntitySelector {
 		return params.containsKey(key) ? MathHelper.getInt(params.get(key), defaultI) : defaultI;
 	}
 
-	@Nullable
+	
 	private static String getArgument(Map<String, String> params, String key) {
 
 		return params.get(key);
@@ -635,7 +633,7 @@ public class EntitySelector {
 		return TOKEN_PATTERN.matcher(selectorStr).matches();
 	}
 
-	private static Map<String, String> getArgumentMap(@Nullable String argumentString) throws CommandException {
+	private static Map<String, String> getArgumentMap(String argumentString) throws CommandException {
 
 		Map<String, String> map = Maps.newHashMap();
 

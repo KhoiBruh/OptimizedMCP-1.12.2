@@ -3,8 +3,6 @@ package net.minecraft.util.math;
 import com.google.common.annotations.VisibleForTesting;
 import net.minecraft.util.EnumFacing;
 
-import javax.annotation.Nullable;
-
 public class AxisAlignedBB {
 
 	/**
@@ -464,7 +462,7 @@ public class AxisAlignedBB {
 		return grow(-value);
 	}
 
-	@Nullable
+	
 	public RayTraceResult calculateIntercept(Vec3d vecA, Vec3d vecB) {
 
 		Vec3d vec3d = collideWithXPlane(minX, vecA, vecB);
@@ -508,12 +506,12 @@ public class AxisAlignedBB {
 	}
 
 	@VisibleForTesting
-	boolean isClosest(Vec3d p_186661_1_, @Nullable Vec3d p_186661_2_, Vec3d p_186661_3_) {
+	boolean isClosest(Vec3d p_186661_1_, Vec3d p_186661_2_, Vec3d p_186661_3_) {
 
 		return p_186661_2_ == null || p_186661_1_.squareDistanceTo(p_186661_3_) < p_186661_1_.squareDistanceTo(p_186661_2_);
 	}
 
-	@Nullable
+	
 	@VisibleForTesting
 	Vec3d collideWithXPlane(double p_186671_1_, Vec3d p_186671_3_, Vec3d p_186671_4_) {
 
@@ -521,7 +519,7 @@ public class AxisAlignedBB {
 		return vec3d != null && intersectsWithYZ(vec3d) ? vec3d : null;
 	}
 
-	@Nullable
+	
 	@VisibleForTesting
 	Vec3d collideWithYPlane(double p_186663_1_, Vec3d p_186663_3_, Vec3d p_186663_4_) {
 
@@ -529,7 +527,7 @@ public class AxisAlignedBB {
 		return vec3d != null && intersectsWithXZ(vec3d) ? vec3d : null;
 	}
 
-	@Nullable
+	
 	@VisibleForTesting
 	Vec3d collideWithZPlane(double p_186665_1_, Vec3d p_186665_3_, Vec3d p_186665_4_) {
 

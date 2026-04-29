@@ -24,7 +24,7 @@ public class GuiBossOverlay extends Gui {
 	public void renderBossHealth() {
 
 		if (!mapBossInfos.isEmpty()) {
-			ScaledResolution scaledresolution = new ScaledResolution(client);
+			ScaledResolution scaledresolution = client.scaledResolution;
 			int i = scaledresolution.getScaledWidth();
 			int j = 12;
 

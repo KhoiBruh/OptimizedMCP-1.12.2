@@ -8,50 +8,50 @@ public class ModelZombieVillager extends ModelBiped {
 
 	public ModelZombieVillager() {
 
-		this(0.0F, 0.0F, false);
+		this(0F, 0F, false);
 	}
 
 	public ModelZombieVillager(float p_i1165_1_, float p_i1165_2_, boolean p_i1165_3_) {
 
-		super(p_i1165_1_, 0.0F, 64, p_i1165_3_ ? 32 : 64);
+		super(p_i1165_1_, 0F, 64, p_i1165_3_ ? 32 : 64);
 
 		if (p_i1165_3_) {
 			bipedHead = new ModelRenderer(this, 0, 0);
-			bipedHead.addBox(-4.0F, -10.0F, -4.0F, 8, 8, 8, p_i1165_1_);
-			bipedHead.setRotationPoint(0.0F, 0.0F + p_i1165_2_, 0.0F);
+			bipedHead.addBox(-4F, -10F, -4F, 8, 8, 8, p_i1165_1_);
+			bipedHead.setRotationPoint(0F, 0F + p_i1165_2_, 0F);
 			bipedBody = new ModelRenderer(this, 16, 16);
-			bipedBody.setRotationPoint(0.0F, 0.0F + p_i1165_2_, 0.0F);
-			bipedBody.addBox(-4.0F, 0.0F, -2.0F, 8, 12, 4, p_i1165_1_ + 0.1F);
+			bipedBody.setRotationPoint(0F, 0F + p_i1165_2_, 0F);
+			bipedBody.addBox(-4F, 0F, -2F, 8, 12, 4, p_i1165_1_ + 0.1F);
 			bipedRightLeg = new ModelRenderer(this, 0, 16);
-			bipedRightLeg.setRotationPoint(-2.0F, 12.0F + p_i1165_2_, 0.0F);
-			bipedRightLeg.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, p_i1165_1_ + 0.1F);
+			bipedRightLeg.setRotationPoint(-2F, 12F + p_i1165_2_, 0F);
+			bipedRightLeg.addBox(-2F, 0F, -2F, 4, 12, 4, p_i1165_1_ + 0.1F);
 			bipedLeftLeg = new ModelRenderer(this, 0, 16);
 			bipedLeftLeg.mirror = true;
-			bipedLeftLeg.setRotationPoint(2.0F, 12.0F + p_i1165_2_, 0.0F);
-			bipedLeftLeg.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, p_i1165_1_ + 0.1F);
+			bipedLeftLeg.setRotationPoint(2F, 12F + p_i1165_2_, 0F);
+			bipedLeftLeg.addBox(-2F, 0F, -2F, 4, 12, 4, p_i1165_1_ + 0.1F);
 		} else {
 			bipedHead = new ModelRenderer(this, 0, 0);
-			bipedHead.setRotationPoint(0.0F, p_i1165_2_, 0.0F);
-			bipedHead.setTextureOffset(0, 0).addBox(-4.0F, -10.0F, -4.0F, 8, 10, 8, p_i1165_1_);
-			bipedHead.setTextureOffset(24, 0).addBox(-1.0F, -3.0F, -6.0F, 2, 4, 2, p_i1165_1_);
+			bipedHead.setRotationPoint(0F, p_i1165_2_, 0F);
+			bipedHead.setTextureOffset(0, 0).addBox(-4F, -10F, -4F, 8, 10, 8, p_i1165_1_);
+			bipedHead.setTextureOffset(24, 0).addBox(-1F, -3F, -6F, 2, 4, 2, p_i1165_1_);
 			bipedBody = new ModelRenderer(this, 16, 20);
-			bipedBody.setRotationPoint(0.0F, 0.0F + p_i1165_2_, 0.0F);
-			bipedBody.addBox(-4.0F, 0.0F, -3.0F, 8, 12, 6, p_i1165_1_);
-			bipedBody.setTextureOffset(0, 38).addBox(-4.0F, 0.0F, -3.0F, 8, 18, 6, p_i1165_1_ + 0.05F);
+			bipedBody.setRotationPoint(0F, 0F + p_i1165_2_, 0F);
+			bipedBody.addBox(-4F, 0F, -3F, 8, 12, 6, p_i1165_1_);
+			bipedBody.setTextureOffset(0, 38).addBox(-4F, 0F, -3F, 8, 18, 6, p_i1165_1_ + 0.05F);
 			bipedRightArm = new ModelRenderer(this, 44, 38);
-			bipedRightArm.addBox(-3.0F, -2.0F, -2.0F, 4, 12, 4, p_i1165_1_);
-			bipedRightArm.setRotationPoint(-5.0F, 2.0F + p_i1165_2_, 0.0F);
+			bipedRightArm.addBox(-3F, -2F, -2F, 4, 12, 4, p_i1165_1_);
+			bipedRightArm.setRotationPoint(-5F, 2F + p_i1165_2_, 0F);
 			bipedLeftArm = new ModelRenderer(this, 44, 38);
 			bipedLeftArm.mirror = true;
-			bipedLeftArm.addBox(-1.0F, -2.0F, -2.0F, 4, 12, 4, p_i1165_1_);
-			bipedLeftArm.setRotationPoint(5.0F, 2.0F + p_i1165_2_, 0.0F);
+			bipedLeftArm.addBox(-1F, -2F, -2F, 4, 12, 4, p_i1165_1_);
+			bipedLeftArm.setRotationPoint(5F, 2F + p_i1165_2_, 0F);
 			bipedRightLeg = new ModelRenderer(this, 0, 22);
-			bipedRightLeg.setRotationPoint(-2.0F, 12.0F + p_i1165_2_, 0.0F);
-			bipedRightLeg.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, p_i1165_1_);
+			bipedRightLeg.setRotationPoint(-2F, 12F + p_i1165_2_, 0F);
+			bipedRightLeg.addBox(-2F, 0F, -2F, 4, 12, 4, p_i1165_1_);
 			bipedLeftLeg = new ModelRenderer(this, 0, 22);
 			bipedLeftLeg.mirror = true;
-			bipedLeftLeg.setRotationPoint(2.0F, 12.0F + p_i1165_2_, 0.0F);
-			bipedLeftLeg.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, p_i1165_1_);
+			bipedLeftLeg.setRotationPoint(2F, 12F + p_i1165_2_, 0F);
+			bipedLeftLeg.addBox(-2F, 0F, -2F, 4, 12, 4, p_i1165_1_);
 		}
 	}
 
@@ -65,9 +65,9 @@ public class ModelZombieVillager extends ModelBiped {
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 		EntityZombie entityzombie = (EntityZombie) entityIn;
 		float f = MathHelper.sin(swingProgress * (float) Math.PI);
-		float f1 = MathHelper.sin((1.0F - (1.0F - swingProgress) * (1.0F - swingProgress)) * (float) Math.PI);
-		bipedRightArm.rotateAngleZ = 0.0F;
-		bipedLeftArm.rotateAngleZ = 0.0F;
+		float f1 = MathHelper.sin((1F - (1F - swingProgress) * (1F - swingProgress)) * (float) Math.PI);
+		bipedRightArm.rotateAngleZ = 0F;
+		bipedLeftArm.rotateAngleZ = 0F;
 		bipedRightArm.rotateAngleY = -(0.1F - f * 0.6F);
 		bipedLeftArm.rotateAngleY = 0.1F - f * 0.6F;
 		float f2 = -(float) Math.PI / (entityzombie.isArmsRaised() ? 1.5F : 2.25F);

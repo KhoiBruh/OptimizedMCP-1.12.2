@@ -31,8 +31,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import javax.annotation.Nullable;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
@@ -105,7 +103,7 @@ public class EntityEnderman extends EntityMob {
 	/**
 	 * Sets the active target the Task system uses for tracking
 	 */
-	public void setAttackTarget(@Nullable EntityLivingBase entitylivingbaseIn) {
+	public void setAttackTarget(EntityLivingBase entitylivingbaseIn) {
 
 		super.setAttackTarget(entitylivingbaseIn);
 		IAttributeInstance iattributeinstance = getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
@@ -314,13 +312,13 @@ public class EntityEnderman extends EntityMob {
 		}
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_ENDERMAN;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Gets this enderman's held block state
@@ -333,7 +331,7 @@ public class EntityEnderman extends EntityMob {
 	/**
 	 * Sets this enderman's held block state
 	 */
-	public void setHeldBlockState(@Nullable IBlockState state) {
+	public void setHeldBlockState(IBlockState state) {
 
 		dataManager.set(CARRIED_BLOCK, Optional.fromNullable(state));
 	}

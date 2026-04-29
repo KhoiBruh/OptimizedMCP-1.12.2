@@ -3,8 +3,6 @@ package net.minecraft.entity.ai;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.util.math.Vec3d;
 
-import javax.annotation.Nullable;
-
 public class EntityAIWanderAvoidWater extends EntityAIWander {
 
 	protected final float probability;
@@ -20,7 +18,7 @@ public class EntityAIWanderAvoidWater extends EntityAIWander {
 		probability = p_i47302_4_;
 	}
 
-	@Nullable
+	
 	protected Vec3d getPosition() {
 
 		if (entity.isInWater()) {

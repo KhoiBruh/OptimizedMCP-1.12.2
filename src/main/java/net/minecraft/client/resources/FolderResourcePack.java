@@ -5,7 +5,6 @@ import com.google.common.collect.Sets;
 import net.minecraft.util.Util;
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
 
-import javax.annotation.Nullable;
 import java.io.*;
 import java.util.Set;
 
@@ -46,7 +45,7 @@ public class FolderResourcePack extends AbstractResourcePack {
 		return getFile(name) != null;
 	}
 
-	@Nullable
+	
 	private File getFile(String p_191385_1_) {
 
 		try {

@@ -6,8 +6,6 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
-
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public class PlacementSettings {
@@ -16,29 +14,29 @@ public class PlacementSettings {
 	private Rotation rotation = Rotation.NONE;
 	private boolean ignoreEntities;
 
-	@Nullable
+	
 
 	/**
 	 * the type of block in the world that will get replaced by the structure
 	 */
 	private Block replacedBlock;
 
-	@Nullable
+	
 
 	/** the chunk the structure is within */
 	private ChunkPos chunk;
 
-	@Nullable
+	
 
 	/** the bounds the structure is contained within */
 	private StructureBoundingBox boundingBox;
 	private boolean ignoreStructureBlock = true;
 	private float integrity = 1.0F;
 
-	@Nullable
+	
 	private Random random;
 
-	@Nullable
+	
 	private Long setSeed;
 
 	public PlacementSettings copy() {
@@ -63,13 +61,13 @@ public class PlacementSettings {
 		return this;
 	}
 
-	public PlacementSettings setSeed(@Nullable Long seedIn) {
+	public PlacementSettings setSeed(Long seedIn) {
 
 		setSeed = seedIn;
 		return this;
 	}
 
-	public PlacementSettings setRandom(@Nullable Random randomIn) {
+	public PlacementSettings setRandom(Random randomIn) {
 
 		random = randomIn;
 		return this;
@@ -97,7 +95,7 @@ public class PlacementSettings {
 		return this;
 	}
 
-	public Random getRandom(@Nullable BlockPos seed) {
+	public Random getRandom(BlockPos seed) {
 
 		if (random != null) {
 			return random;
@@ -134,7 +132,7 @@ public class PlacementSettings {
 		return this;
 	}
 
-	@Nullable
+	
 	public Block getReplacedBlock() {
 
 		return replacedBlock;
@@ -146,7 +144,7 @@ public class PlacementSettings {
 		return this;
 	}
 
-	@Nullable
+	
 	public StructureBoundingBox getBoundingBox() {
 
 		if (boundingBox == null && chunk != null) {
@@ -178,8 +176,8 @@ public class PlacementSettings {
 		boundingBox = getBoundingBoxFromChunk(chunk);
 	}
 
-	@Nullable
-	private StructureBoundingBox getBoundingBoxFromChunk(@Nullable ChunkPos pos) {
+	
+	private StructureBoundingBox getBoundingBoxFromChunk(ChunkPos pos) {
 
 		if (pos == null) {
 			return null;

@@ -16,8 +16,8 @@ public class ModelSkeletonHead extends ModelBase {
 		textureWidth = p_i1155_3_;
 		textureHeight = p_i1155_4_;
 		skeletonHead = new ModelRenderer(this, p_i1155_1_, p_i1155_2_);
-		skeletonHead.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, 0.0F);
-		skeletonHead.setRotationPoint(0.0F, 0.0F, 0.0F);
+		skeletonHead.addBox(-4F, -8F, -4F, 8, 8, 8, 0F);
+		skeletonHead.setRotationPoint(0F, 0F, 0F);
 	}
 
 	/**

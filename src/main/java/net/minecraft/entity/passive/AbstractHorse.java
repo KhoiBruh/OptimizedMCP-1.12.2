@@ -38,8 +38,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.UUID;
 
 public abstract class AbstractHorse extends EntityAnimal implements IInventoryChangedListener, IJumpingMount {
@@ -127,13 +125,13 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		return getHorseWatchableBoolean(2);
 	}
 
-	@Nullable
+	
 	public UUID getOwnerUniqueId() {
 
 		return dataManager.get(OWNER_UNIQUE_ID).orNull();
 	}
 
-	public void setOwnerUniqueId(@Nullable UUID uniqueId) {
+	public void setOwnerUniqueId(UUID uniqueId) {
 
 		dataManager.set(OWNER_UNIQUE_ID, Optional.fromNullable(uniqueId));
 	}
@@ -333,7 +331,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		}
 	}
 
-	@Nullable
+	
 	protected AbstractHorse getClosestHorse(Entity entityIn, double distance) {
 
 		double d0 = Double.MAX_VALUE;
@@ -356,14 +354,14 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		return getEntityAttribute(JUMP_STRENGTH).getAttributeValue();
 	}
 
-	@Nullable
+	
 	protected SoundEvent getDeathSound() {
 
 		openHorseMouth();
 		return null;
 	}
 
-	@Nullable
+	
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
 
 		openHorseMouth();
@@ -375,7 +373,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		return null;
 	}
 
-	@Nullable
+	
 	protected SoundEvent getAmbientSound() {
 
 		openHorseMouth();
@@ -402,7 +400,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		setHorseWatchableBoolean(4, saddled);
 	}
 
-	@Nullable
+	
 	protected SoundEvent getAngrySound() {
 
 		openHorseMouth();
@@ -931,7 +929,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		return !isBeingRidden() && !isRiding() && isTame() && !isChild() && getHealth() >= getMaxHealth() && isInLove();
 	}
 
-	@Nullable
+	
 	public EntityAgeable createChild(EntityAgeable ageable) {
 
 		return null;
@@ -1128,7 +1126,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * For vehicles, the first passenger is generally considered the controller and "drives" the vehicle. For example,
@@ -1139,7 +1137,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		return getPassengers().isEmpty() ? null : getPassengers().getFirst();
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
@@ -1155,7 +1153,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * @param difficulty The current local difficulty
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 

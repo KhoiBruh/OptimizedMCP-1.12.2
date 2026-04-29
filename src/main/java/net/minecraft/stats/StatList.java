@@ -15,8 +15,6 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentTranslation;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -120,37 +118,37 @@ public class StatList {
 	private static final StatBase[] OBJECTS_PICKED_UP_STATS = new StatBase[32000];
 	private static final StatBase[] OBJECTS_DROPPED_STATS = new StatBase[32000];
 
-	@Nullable
+	
 	public static StatBase getBlockStats(Block blockIn) {
 
 		return BLOCKS_STATS[Block.getIdFromBlock(blockIn)];
 	}
 
-	@Nullable
+	
 	public static StatBase getCraftStats(Item itemIn) {
 
 		return CRAFTS_STATS[Item.getIdFromItem(itemIn)];
 	}
 
-	@Nullable
+	
 	public static StatBase getObjectUseStats(Item itemIn) {
 
 		return OBJECT_USE_STATS[Item.getIdFromItem(itemIn)];
 	}
 
-	@Nullable
+	
 	public static StatBase getObjectBreakStats(Item itemIn) {
 
 		return OBJECT_BREAK_STATS[Item.getIdFromItem(itemIn)];
 	}
 
-	@Nullable
+	
 	public static StatBase getObjectsPickedUpStats(Item itemIn) {
 
 		return OBJECTS_PICKED_UP_STATS[Item.getIdFromItem(itemIn)];
 	}
 
-	@Nullable
+	
 	public static StatBase getDroppedObjectStats(Item itemIn) {
 
 		return OBJECTS_DROPPED_STATS[Item.getIdFromItem(itemIn)];
@@ -328,7 +326,7 @@ public class StatList {
 		return s == null ? null : (new StatBase("stat.entityKilledBy." + s, new TextComponentTranslation("stat.entityKilledBy", new TextComponentTranslation("entity." + s + ".name")))).registerStat();
 	}
 
-	@Nullable
+	
 	public static StatBase getOneShotStat(String statName) {
 
 		return ID_TO_STAT_MAP.get(statName);

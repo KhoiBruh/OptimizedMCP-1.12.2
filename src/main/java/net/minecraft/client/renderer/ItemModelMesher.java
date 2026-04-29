@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -59,7 +58,7 @@ public class ItemModelMesher {
 		return stack.getMaxDamage() > 0 ? 0 : stack.getMetadata();
 	}
 
-	@Nullable
+	
 	protected IBakedModel getItemModel(Item item, int meta) {
 
 		return simpleShapesCache.get(getIndex(item, meta));

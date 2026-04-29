@@ -9,8 +9,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemEnchantedBook extends Item {
@@ -98,7 +96,7 @@ public class ItemEnchantedBook extends Item {
 	/**
 	 * allows items to add custom lines of information to the mouseover description
 	 */
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 		NBTTagList nbttaglist = getEnchantments(stack);

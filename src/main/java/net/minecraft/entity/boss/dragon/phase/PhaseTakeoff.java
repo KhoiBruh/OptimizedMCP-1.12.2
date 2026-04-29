@@ -6,8 +6,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.gen.feature.WorldGenEndPodium;
 
-import javax.annotation.Nullable;
-
 public class PhaseTakeoff extends PhaseBase {
 
 	private boolean firstTick;
@@ -91,7 +89,7 @@ public class PhaseTakeoff extends PhaseBase {
 		targetLocation = new Vec3d(vec3d.x(), d0, vec3d.z());
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns the location the dragon is flying toward

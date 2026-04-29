@@ -3,8 +3,6 @@ package net.minecraft.util;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.text.ITextComponent;
 
-import javax.annotation.Nullable;
-
 public class CombatEntry {
 
 	private final DamageSource damageSrc;
@@ -45,13 +43,13 @@ public class CombatEntry {
 		return damageSrc.getTrueSource() instanceof EntityLivingBase;
 	}
 
-	@Nullable
+	
 	public String getFallSuffix() {
 
 		return fallSuffix;
 	}
 
-	@Nullable
+	
 	public ITextComponent getDamageSrcDisplayName() {
 
 		return getDamageSrc().getTrueSource() == null ? null : getDamageSrc().getTrueSource().getDisplayName();

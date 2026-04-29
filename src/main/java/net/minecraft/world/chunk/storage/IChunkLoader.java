@@ -3,13 +3,11 @@ package net.minecraft.world.chunk.storage;
 import net.minecraft.world.MinecraftException;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
-
-import javax.annotation.Nullable;
 import java.io.IOException;
 
 public interface IChunkLoader {
 
-	@Nullable
+	
 
 	/**
 	 * Loads the specified(XZ) chunk into the specified world.

@@ -11,8 +11,6 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.server.management.PlayerProfileCache;
 import net.minecraft.util.*;
 
-import javax.annotation.Nullable;
-
 public class TileEntitySkull extends TileEntity implements ITickable {
 
 	private static PlayerProfileCache profileCache;
@@ -115,20 +113,20 @@ public class TileEntitySkull extends TileEntity implements ITickable {
 		return dragonAnimated ? (float) dragonAnimatedTicks + p_184295_1_ : (float) dragonAnimatedTicks;
 	}
 
-	@Nullable
+	
 	public GameProfile getPlayerProfile() {
 
 		return playerProfile;
 	}
 
-	public void setPlayerProfile(@Nullable GameProfile playerProfile) {
+	public void setPlayerProfile(GameProfile playerProfile) {
 
 		skullType = 3;
 		this.playerProfile = playerProfile;
 		updatePlayerProfile();
 	}
 
-	@Nullable
+	
 	public SPacketUpdateTileEntity getUpdatePacket() {
 
 		return new SPacketUpdateTileEntity(pos, 4, getUpdateTag());

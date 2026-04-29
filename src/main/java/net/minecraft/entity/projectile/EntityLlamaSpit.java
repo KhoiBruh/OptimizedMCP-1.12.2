@@ -12,8 +12,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
@@ -143,7 +141,7 @@ public class EntityLlamaSpit extends Entity implements IProjectile {
 		}
 	}
 
-	@Nullable
+	
 	private Entity getHitEntity(Vec3d p_190538_1_, Vec3d p_190538_2_) {
 
 		Entity entity = null;

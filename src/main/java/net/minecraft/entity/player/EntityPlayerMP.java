@@ -61,8 +61,6 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.ILootContainer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -598,7 +596,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 		return mcServer.isPVPEnabled();
 	}
 
-	@Nullable
+	
 	public Entity changeDimension(int dimensionIn) {
 
 		invulnerableDimensionChange = true;
@@ -1352,7 +1350,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 		return playerLastActiveTime;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns null which indicates the tab list should just display the player's name, return a different value to
@@ -1395,7 +1393,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 		return advancements;
 	}
 
-	@Nullable
+	
 	public Vec3d getEnteredNetherPosition() {
 
 		return enteredNetherPosition;

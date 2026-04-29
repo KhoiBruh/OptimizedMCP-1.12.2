@@ -10,8 +10,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -90,7 +88,7 @@ public class GuiAdvancement extends Gui {
 		}
 	}
 
-	@Nullable
+	
 	private GuiAdvancement getFirstVisibleParent(Advancement advancementIn) {
 
 		while (true) {

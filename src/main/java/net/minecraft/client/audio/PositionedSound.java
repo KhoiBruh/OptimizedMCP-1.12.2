@@ -4,8 +4,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 
-import javax.annotation.Nullable;
-
 public abstract class PositionedSound implements ISound {
 
 	protected Sound sound;
@@ -23,7 +21,7 @@ public abstract class PositionedSound implements ISound {
 	protected int repeatDelay;
 	protected ISound.AttenuationType attenuationType;
 
-	@Nullable
+	
 	private SoundEventAccessor soundEvent;
 
 	protected PositionedSound(SoundEvent soundIn, SoundCategory categoryIn) {
@@ -33,8 +31,8 @@ public abstract class PositionedSound implements ISound {
 
 	protected PositionedSound(ResourceLocation soundId, SoundCategory categoryIn) {
 
-		volume = 1.0F;
-		pitch = 1.0F;
+		volume = 1F;
+		pitch = 1F;
 		attenuationType = ISound.AttenuationType.LINEAR;
 		positionedSoundLocation = soundId;
 		category = categoryIn;

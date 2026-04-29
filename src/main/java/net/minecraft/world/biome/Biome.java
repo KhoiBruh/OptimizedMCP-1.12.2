@@ -25,8 +25,6 @@ import net.minecraft.world.gen.NoiseGeneratorPerlin;
 import net.minecraft.world.gen.feature.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -99,7 +97,7 @@ public abstract class Biome {
 	 */
 	private final boolean enableRain;
 
-	@Nullable
+	
 
 	/** The unique identifier of the biome for which this is a mutation of. */
 	private final String baseBiomeRegName;
@@ -156,19 +154,19 @@ public abstract class Biome {
 		return REGISTRY.getIDForObject(biome);
 	}
 
-	@Nullable
+	
 	public static Biome getBiomeForId(int id) {
 
 		return REGISTRY.getObjectById(id);
 	}
 
-	@Nullable
+	
 	public static Biome getMutationForBiome(Biome biome) {
 
 		return MUTATION_TO_BASE_ID_MAP.getByValue(getIdForBiome(biome));
 	}
 
-	@Nullable
+	
 
 	/**
 	 * return the biome specified by biomeID, or 0 (ocean) if out of bounds
@@ -536,7 +534,7 @@ public abstract class Biome {
 		private boolean enableSnow;
 		private boolean enableRain = true;
 
-		@Nullable
+		
 		private String baseBiomeRegName;
 
 		public BiomeProperties(String nameIn) {

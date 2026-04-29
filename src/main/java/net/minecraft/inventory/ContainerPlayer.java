@@ -7,8 +7,6 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 
-import javax.annotation.Nullable;
-
 public class ContainerPlayer extends Container {
 
 	private static final EntityEquipmentSlot[] VALID_EQUIPMENT_SLOTS = new EntityEquipmentSlot[]{EntityEquipmentSlot.HEAD, EntityEquipmentSlot.CHEST, EntityEquipmentSlot.LEGS, EntityEquipmentSlot.FEET};
@@ -54,7 +52,7 @@ public class ContainerPlayer extends Container {
 					return (itemstack.isEmpty() || playerIn.isCreative() || !EnchantmentHelper.hasBindingCurse(itemstack)) && super.canTakeStack(playerIn);
 				}
 
-				@Nullable
+				
 				public String getSlotTexture() {
 
 					return ItemArmor.EMPTY_SLOT_NAMES[entityequipmentslot.getIndex()];
@@ -73,7 +71,7 @@ public class ContainerPlayer extends Container {
 		}
 
 		addSlotToContainer(new Slot(playerInventory, 40, 77, 62) {
-			@Nullable
+			
 			public String getSlotTexture() {
 
 				return "minecraft:items/empty_armor_slot_shield";

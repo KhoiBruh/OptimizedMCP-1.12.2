@@ -17,8 +17,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.storage.MapData;
 
-import javax.annotation.Nullable;
-
 public class RenderItemFrame extends Render<EntityItemFrame> {
 
 	private static final ResourceLocation MAP_BACKGROUND_TEXTURES = new ResourceLocation("textures/map/map_background.png");
@@ -78,7 +76,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
 		renderName(entity, x + (double) ((float) entity.facingDirection.getFrontOffsetX() * 0.3F), y - 0.25D, z + (double) ((float) entity.facingDirection.getFrontOffsetZ() * 0.3F));
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.

@@ -15,8 +15,6 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.structure.MapGenNetherBridge;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
@@ -398,7 +396,7 @@ public class ChunkGeneratorHell implements IChunkGenerator {
 		return biome.getSpawnableList(creatureType);
 	}
 
-	@Nullable
+	
 	public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
 
 		return "Fortress".equals(structureName) && genNetherBridge != null ? genNetherBridge.getNearestStructurePos(worldIn, position, findUnexplored) : null;

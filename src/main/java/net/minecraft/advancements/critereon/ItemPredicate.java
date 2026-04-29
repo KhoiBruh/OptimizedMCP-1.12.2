@@ -12,8 +12,6 @@ import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nullable;
 import java.util.Map;
 
 public class ItemPredicate {
@@ -38,7 +36,7 @@ public class ItemPredicate {
 		nbt = NBTPredicate.ANY;
 	}
 
-	public ItemPredicate(@Nullable Item item, @Nullable Integer data, MinMaxBounds count, MinMaxBounds durability, EnchantmentPredicate[] enchantments, @Nullable PotionType potion, NBTPredicate nbt) {
+	public ItemPredicate(Item item, Integer data, MinMaxBounds count, MinMaxBounds durability, EnchantmentPredicate[] enchantments, PotionType potion, NBTPredicate nbt) {
 
 		this.item = item;
 		this.data = data;
@@ -49,7 +47,7 @@ public class ItemPredicate {
 		this.nbt = nbt;
 	}
 
-	public static ItemPredicate deserialize(@Nullable JsonElement element) {
+	public static ItemPredicate deserialize(JsonElement element) {
 
 		if (element != null && !element.isJsonNull()) {
 			JsonObject jsonobject = JsonUtils.getJsonObject(element, "item");
@@ -87,7 +85,7 @@ public class ItemPredicate {
 		}
 	}
 
-	public static ItemPredicate[] deserializeArray(@Nullable JsonElement element) {
+	public static ItemPredicate[] deserializeArray(JsonElement element) {
 
 		if (element != null && !element.isJsonNull()) {
 			JsonArray jsonarray = JsonUtils.getJsonArray(element, "items");

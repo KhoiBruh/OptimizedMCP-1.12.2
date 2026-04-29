@@ -12,8 +12,6 @@ import net.minecraft.tileentity.TileEntityBanner;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class RecipesBanners {
 
 	public static class RecipeAddPattern implements IRecipe {
@@ -112,7 +110,7 @@ public class RecipesBanners {
 			return nonnulllist;
 		}
 
-		@Nullable
+		
 		private BannerPattern matchPatterns(InventoryCrafting p_190933_1_) {
 
 			for (BannerPattern bannerpattern : BannerPattern.values()) {

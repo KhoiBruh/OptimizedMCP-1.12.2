@@ -8,15 +8,13 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-
-import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Map;
 
 public class EnumTypeAdapterFactory implements TypeAdapterFactory {
 
-	@Nullable
+	
 	public <T> TypeAdapter<T> create(Gson p_create_1_, TypeToken<T> p_create_2_) {
 
 		Class<T> oclass = (Class<T>) p_create_2_.getRawType();
@@ -40,7 +38,7 @@ public class EnumTypeAdapterFactory implements TypeAdapterFactory {
 					}
 				}
 
-				@Nullable
+				
 				public T read(JsonReader p_read_1_) throws IOException {
 
 					if (p_read_1_.peek() == JsonToken.NULL) {

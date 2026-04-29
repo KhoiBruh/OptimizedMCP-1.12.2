@@ -22,8 +22,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public class EntitySpider extends EntityMob {
@@ -115,7 +113,7 @@ public class EntitySpider extends EntityMob {
 		playSound(SoundEvents.ENTITY_SPIDER_STEP, 0.15F, 1.0F);
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_SPIDER;
@@ -176,7 +174,7 @@ public class EntitySpider extends EntityMob {
 		dataManager.set(CLIMBING, b0);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
@@ -192,7 +190,7 @@ public class EntitySpider extends EntityMob {
 	 * @param difficulty The current local difficulty
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 

@@ -8,8 +8,6 @@ import net.minecraft.util.datafix.IDataFixer;
 import net.minecraft.util.datafix.IDataWalker;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.Map;
 
 public class BlockEntityTag implements IDataWalker {
@@ -109,7 +107,7 @@ public class BlockEntityTag implements IDataWalker {
 		map.put("minecraft:shield", "minecraft:shield");
 	}
 
-	@Nullable
+	
 	private static String getBlockEntityID(int blockID, String p_188267_1_) {
 
 		return blockID < 515 ? NEW_TO_OLD_ID_MAP.get((new ResourceLocation(p_188267_1_)).toString()) : ITEM_ID_TO_BLOCK_ENTITY_ID.get((new ResourceLocation(p_188267_1_)).toString());

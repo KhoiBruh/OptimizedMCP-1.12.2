@@ -9,8 +9,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 
-import javax.annotation.Nullable;
-
 public class ChunkCache implements IBlockAccess {
 
 	protected int chunkX;
@@ -62,13 +60,13 @@ public class ChunkCache implements IBlockAccess {
 		return empty;
 	}
 
-	@Nullable
+	
 	public TileEntity getTileEntity(BlockPos pos) {
 
 		return getTileEntity(pos, Chunk.EnumCreateEntityType.IMMEDIATE);
 	}
 
-	@Nullable
+	
 	public TileEntity getTileEntity(BlockPos pos, Chunk.EnumCreateEntityType p_190300_2_) {
 
 		int i = (pos.getX() >> 4) - chunkX;

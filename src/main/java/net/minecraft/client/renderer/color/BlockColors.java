@@ -15,8 +15,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
 
-import javax.annotation.Nullable;
-
 public class BlockColors {
 
 	private final ObjectIntIdentityMap<IBlockColor> mapBlockColors = new ObjectIntIdentityMap<>(32);
@@ -95,7 +93,7 @@ public class BlockColors {
 		}
 	}
 
-	public int colorMultiplier(IBlockState state, @Nullable IBlockAccess blockAccess, @Nullable BlockPos pos, int renderPass) {
+	public int colorMultiplier(IBlockState state, IBlockAccess blockAccess, BlockPos pos, int renderPass) {
 
 		IBlockColor iblockcolor = mapBlockColors.getByValue(Block.getIdFromBlock(state.getBlock()));
 		return iblockcolor == null ? -1 : iblockcolor.colorMultiplier(state, blockAccess, pos, renderPass);

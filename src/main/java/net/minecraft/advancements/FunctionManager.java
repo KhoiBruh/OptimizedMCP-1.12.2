@@ -13,8 +13,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayDeque;
@@ -52,14 +50,14 @@ public class FunctionManager implements ITickable {
 	private FunctionObject gameLoopFunction;
 	private boolean isExecuting = false;
 
-	public FunctionManager(@Nullable File functionDirIn, MinecraftServer serverIn) {
+	public FunctionManager(File functionDirIn, MinecraftServer serverIn) {
 
 		functionDir = functionDirIn;
 		server = serverIn;
 		reload();
 	}
 
-	@Nullable
+	
 	public FunctionObject getFunction(ResourceLocation id) {
 
 		return functions.get(id);

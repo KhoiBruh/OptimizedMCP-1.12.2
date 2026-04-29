@@ -30,9 +30,9 @@ public class MovingSoundMinecartRiding extends MovingSound {
 			float f = MathHelper.sqrt(minecart.motionX * minecart.motionX + minecart.motionZ * minecart.motionZ);
 
 			if ((double) f >= 0.01D) {
-				volume = 0.0F + MathHelper.clamp(f, 0.0F, 1.0F) * 0.75F;
+				volume = 0F + MathHelper.clamp(f, 0F, 1F) * 0.75F;
 			} else {
-				volume = 0.0F;
+				volume = 0F;
 			}
 		} else {
 			donePlaying = true;

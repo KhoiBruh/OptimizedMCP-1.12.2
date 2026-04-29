@@ -30,7 +30,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class RenderItem implements IResourceManagerReloadListener {
@@ -208,7 +207,7 @@ public class RenderItem implements IResourceManagerReloadListener {
 		}
 	}
 
-	public IBakedModel getItemModelWithOverrides(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entitylivingbaseIn) {
+	public IBakedModel getItemModelWithOverrides(ItemStack stack, World worldIn, EntityLivingBase entitylivingbaseIn) {
 
 		IBakedModel ibakedmodel = itemModelMesher.getItemModel(stack);
 		Item item = stack.getItem();
@@ -311,7 +310,7 @@ public class RenderItem implements IResourceManagerReloadListener {
 		renderItemAndEffectIntoGUI(Minecraft.getMinecraft().player, stack, xPosition, yPosition);
 	}
 
-	public void renderItemAndEffectIntoGUI(@Nullable EntityLivingBase p_184391_1_, final ItemStack p_184391_2_, int p_184391_3_, int p_184391_4_) {
+	public void renderItemAndEffectIntoGUI(EntityLivingBase p_184391_1_, final ItemStack p_184391_2_, int p_184391_3_, int p_184391_4_) {
 
 		if (!p_184391_2_.isEmpty()) {
 			zLevel += 50.0F;
@@ -340,7 +339,7 @@ public class RenderItem implements IResourceManagerReloadListener {
 	/**
 	 * Renders the stack size and/or damage bar for the given ItemStack.
 	 */
-	public void renderItemOverlayIntoGUI(FontRenderer fr, ItemStack stack, int xPosition, int yPosition, @Nullable String text) {
+	public void renderItemOverlayIntoGUI(FontRenderer fr, ItemStack stack, int xPosition, int yPosition, String text) {
 
 		if (!stack.isEmpty()) {
 			if (stack.getCount() != 1 || text != null) {

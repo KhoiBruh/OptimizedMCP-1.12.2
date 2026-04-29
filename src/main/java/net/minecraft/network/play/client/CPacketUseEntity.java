@@ -8,8 +8,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class CPacketUseEntity implements Packet<INetHandlerPlayServer> {
 
 	private int entityId;
@@ -86,7 +84,7 @@ public class CPacketUseEntity implements Packet<INetHandlerPlayServer> {
 		handler.processUseEntity(this);
 	}
 
-	@Nullable
+	
 	public Entity getEntityFromWorld(World worldIn) {
 
 		return worldIn.getEntityByID(entityId);

@@ -11,8 +11,6 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.DimensionType;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -78,13 +76,13 @@ public class ChangeDimensionTrigger implements ICriterionTrigger<ChangeDimension
 
 	public static class Instance extends AbstractCriterionInstance {
 
-		@Nullable
+		
 		private final DimensionType from;
 
-		@Nullable
+		
 		private final DimensionType to;
 
-		public Instance(@Nullable DimensionType from, @Nullable DimensionType to) {
+		public Instance(DimensionType from, DimensionType to) {
 
 			super(ChangeDimensionTrigger.ID);
 			this.from = from;

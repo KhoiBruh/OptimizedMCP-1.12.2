@@ -6,8 +6,6 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.INetHandlerPlayClient;
-
-import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
@@ -127,7 +125,7 @@ public class SPacketSpawnMob implements Packet<INetHandlerPlayClient> {
 		handler.handleSpawnMob(this);
 	}
 
-	@Nullable
+	
 	public List<EntityDataManager.DataEntry<?>> getDataManagerEntries() {
 
 		return dataManagerEntries;

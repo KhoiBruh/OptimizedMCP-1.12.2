@@ -7,7 +7,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 
-import javax.annotation.Nullable;
 import java.util.BitSet;
 import java.util.List;
 
@@ -61,22 +60,22 @@ public class RecipeItemHelper {
 		itemToCount.put(p_194117_1_, itemToCount.get(p_194117_1_) + amount);
 	}
 
-	public boolean canCraft(IRecipe recipe, @Nullable IntList p_194116_2_) {
+	public boolean canCraft(IRecipe recipe, IntList p_194116_2_) {
 
 		return canCraft(recipe, p_194116_2_, 1);
 	}
 
-	public boolean canCraft(IRecipe recipe, @Nullable IntList p_194118_2_, int p_194118_3_) {
+	public boolean canCraft(IRecipe recipe, IntList p_194118_2_, int p_194118_3_) {
 
 		return (new RecipeItemHelper.RecipePicker(recipe)).tryPick(p_194118_3_, p_194118_2_);
 	}
 
-	public int getBiggestCraftableStack(IRecipe recipe, @Nullable IntList p_194114_2_) {
+	public int getBiggestCraftableStack(IRecipe recipe, IntList p_194114_2_) {
 
 		return getBiggestCraftableStack(recipe, Integer.MAX_VALUE, p_194114_2_);
 	}
 
-	public int getBiggestCraftableStack(IRecipe recipe, int p_194121_2_, @Nullable IntList p_194121_3_) {
+	public int getBiggestCraftableStack(IRecipe recipe, int p_194121_2_, IntList p_194121_3_) {
 
 		return (new RecipeItemHelper.RecipePicker(recipe)).tryPickAll(p_194121_2_, p_194121_3_);
 	}
@@ -118,7 +117,7 @@ public class RecipeItemHelper {
 			}
 		}
 
-		public boolean tryPick(int p_194092_1_, @Nullable IntList listIn) {
+		public boolean tryPick(int p_194092_1_, IntList listIn) {
 
 			if (p_194092_1_ <= 0) {
 				return true;
@@ -285,7 +284,7 @@ public class RecipeItemHelper {
 			return (p_194099_1_ ? 0 : ingredientCount) + p_194099_2_;
 		}
 
-		public int tryPickAll(int p_194102_1_, @Nullable IntList list) {
+		public int tryPickAll(int p_194102_1_, IntList list) {
 
 			int k = 0;
 			int l = Math.min(p_194102_1_, getMinIngredientCount()) + 1;

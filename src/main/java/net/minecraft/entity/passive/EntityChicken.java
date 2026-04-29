@@ -19,8 +19,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import javax.annotation.Nullable;
 import java.util.Set;
 
 public class EntityChicken extends EntityAnimal {
@@ -130,7 +128,7 @@ public class EntityChicken extends EntityAnimal {
 		playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.15F, 1.0F);
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_CHICKEN;

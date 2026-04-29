@@ -9,8 +9,6 @@ import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
-
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
@@ -99,7 +97,7 @@ public class CommandTrigger extends CommandBase {
 		}
 	}
 
-	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
+	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
 
 		if (args.length == 1) {
 			Scoreboard scoreboard = server.getWorld(0).getScoreboard();

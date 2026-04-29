@@ -8,8 +8,6 @@ import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.WorldSummary;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
@@ -91,7 +89,7 @@ public class GuiListWorldSelection extends GuiListExtended {
 		return slotIndex == selectedIdx;
 	}
 
-	@Nullable
+	
 	public GuiListWorldSelectionEntry getSelectedWorld() {
 
 		return selectedIdx >= 0 && selectedIdx < getSize() ? getListEntry(selectedIdx) : null;

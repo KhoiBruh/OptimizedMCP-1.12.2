@@ -5,8 +5,6 @@ import com.google.common.collect.Maps;
 import com.google.gson.*;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JsonUtils;
-
-import javax.annotation.Nullable;
 import java.lang.reflect.Type;
 import java.util.*;
 import java.util.Map.Entry;
@@ -122,7 +120,7 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 		}
 	}
 
-	@Nullable
+	
 	public CriterionProgress getCriterionProgress(String criterionIn) {
 
 		return criteria.get(criterionIn);
@@ -139,7 +137,7 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 		}
 	}
 
-	@Nullable
+	
 	public String getProgressText() {
 
 		if (criteria.isEmpty()) {
@@ -206,7 +204,7 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 		return list;
 	}
 
-	@Nullable
+	
 	public Date getFirstProgressDate() {
 
 		Date date = null;

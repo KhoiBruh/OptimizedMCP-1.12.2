@@ -5,8 +5,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-
-import javax.annotation.Nullable;
 import java.util.Set;
 
 public class PathFinder {
@@ -28,19 +26,19 @@ public class PathFinder {
 		nodeProcessor = processor;
 	}
 
-	@Nullable
+	
 	public Path findPath(IBlockAccess worldIn, EntityLiving entitylivingIn, Entity targetEntity, float maxDistance) {
 
 		return findPath(worldIn, entitylivingIn, targetEntity.posX, targetEntity.getEntityBoundingBox().minY, targetEntity.posZ, maxDistance);
 	}
 
-	@Nullable
+	
 	public Path findPath(IBlockAccess worldIn, EntityLiving entitylivingIn, BlockPos targetPos, float maxDistance) {
 
 		return findPath(worldIn, entitylivingIn, (float) targetPos.getX() + 0.5F, (float) targetPos.getY() + 0.5F, (float) targetPos.getZ() + 0.5F, maxDistance);
 	}
 
-	@Nullable
+	
 	private Path findPath(IBlockAccess worldIn, EntityLiving entitylivingIn, double x, double y, double z, float maxDistance) {
 
 		path.clearPath();
@@ -52,7 +50,7 @@ public class PathFinder {
 		return path;
 	}
 
-	@Nullable
+	
 	private Path findPath(PathPoint pathFrom, PathPoint pathTo, float maxDistance) {
 
 		pathFrom.totalPathDistance = 0.0F;

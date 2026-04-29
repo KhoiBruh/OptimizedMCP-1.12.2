@@ -14,8 +14,6 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-import javax.annotation.Nullable;
-
 public class EntityZombieHorse extends AbstractHorse {
 
 	public EntityZombieHorse(World worldIn) {
@@ -62,7 +60,7 @@ public class EntityZombieHorse extends AbstractHorse {
 		return SoundEvents.ENTITY_ZOMBIE_HORSE_HURT;
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_ZOMBIE_HORSE;

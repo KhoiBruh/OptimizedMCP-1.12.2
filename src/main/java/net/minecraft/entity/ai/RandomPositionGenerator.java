@@ -6,8 +6,6 @@ import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public class RandomPositionGenerator {
@@ -18,7 +16,7 @@ public class RandomPositionGenerator {
 	 */
 	private static Vec3d staticVector = Vec3d.ZERO;
 
-	@Nullable
+	
 
 	/**
 	 * finds a random target within par1(x,z) and par2 (y) blocks
@@ -28,13 +26,13 @@ public class RandomPositionGenerator {
 		return findRandomTargetBlock(entitycreatureIn, xz, y, null);
 	}
 
-	@Nullable
+	
 	public static Vec3d getLandPos(EntityCreature p_191377_0_, int p_191377_1_, int p_191377_2_) {
 
 		return generateRandomPos(p_191377_0_, p_191377_1_, p_191377_2_, null, false);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * finds a random target within par1(x,z) and par2 (y) blocks in the direction of the point par3
@@ -45,7 +43,7 @@ public class RandomPositionGenerator {
 		return findRandomTargetBlock(entitycreatureIn, xz, y, staticVector);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * finds a random target within par1(x,z) and par2 (y) blocks in the reverse direction of the point par3
@@ -56,19 +54,19 @@ public class RandomPositionGenerator {
 		return findRandomTargetBlock(entitycreatureIn, xz, y, staticVector);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * searches 10 blocks at random in a within par1(x,z) and par2 (y) distance, ignores those not in the direction of
 	 * par3Vec3, then points to the tile for which creature.getBlockPathWeight returns the highest number
 	 */
-	private static Vec3d findRandomTargetBlock(EntityCreature entitycreatureIn, int xz, int y, @Nullable Vec3d targetVec3) {
+	private static Vec3d findRandomTargetBlock(EntityCreature entitycreatureIn, int xz, int y, Vec3d targetVec3) {
 
 		return generateRandomPos(entitycreatureIn, xz, y, targetVec3, true);
 	}
 
-	@Nullable
-	private static Vec3d generateRandomPos(EntityCreature p_191379_0_, int p_191379_1_, int p_191379_2_, @Nullable Vec3d p_191379_3_, boolean p_191379_4_) {
+	
+	private static Vec3d generateRandomPos(EntityCreature p_191379_0_, int p_191379_1_, int p_191379_2_, Vec3d p_191379_3_, boolean p_191379_4_) {
 
 		PathNavigate pathnavigate = p_191379_0_.getNavigator();
 		Random random = p_191379_0_.getRNG();

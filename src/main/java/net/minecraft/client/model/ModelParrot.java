@@ -25,42 +25,42 @@ public class ModelParrot extends ModelBase {
 		textureWidth = 32;
 		textureHeight = 32;
 		body = new ModelRenderer(this, 2, 8);
-		body.addBox(-1.5F, 0.0F, -1.5F, 3, 6, 3);
-		body.setRotationPoint(0.0F, 16.5F, -3.0F);
+		body.addBox(-1.5F, 0F, -1.5F, 3, 6, 3);
+		body.setRotationPoint(0F, 16.5F, -3F);
 		tail = new ModelRenderer(this, 22, 1);
-		tail.addBox(-1.5F, -1.0F, -1.0F, 3, 4, 1);
-		tail.setRotationPoint(0.0F, 21.07F, 1.16F);
+		tail.addBox(-1.5F, -1F, -1F, 3, 4, 1);
+		tail.setRotationPoint(0F, 21.07F, 1.16F);
 		wingLeft = new ModelRenderer(this, 19, 8);
-		wingLeft.addBox(-0.5F, 0.0F, -1.5F, 1, 5, 3);
+		wingLeft.addBox(-0.5F, 0F, -1.5F, 1, 5, 3);
 		wingLeft.setRotationPoint(1.5F, 16.94F, -2.76F);
 		wingRight = new ModelRenderer(this, 19, 8);
-		wingRight.addBox(-0.5F, 0.0F, -1.5F, 1, 5, 3);
+		wingRight.addBox(-0.5F, 0F, -1.5F, 1, 5, 3);
 		wingRight.setRotationPoint(-1.5F, 16.94F, -2.76F);
 		head = new ModelRenderer(this, 2, 2);
-		head.addBox(-1.0F, -1.5F, -1.0F, 2, 3, 2);
-		head.setRotationPoint(0.0F, 15.69F, -2.76F);
+		head.addBox(-1F, -1.5F, -1F, 2, 3, 2);
+		head.setRotationPoint(0F, 15.69F, -2.76F);
 		head2 = new ModelRenderer(this, 10, 0);
-		head2.addBox(-1.0F, -0.5F, -2.0F, 2, 1, 4);
-		head2.setRotationPoint(0.0F, -2.0F, -1.0F);
+		head2.addBox(-1F, -0.5F, -2F, 2, 1, 4);
+		head2.setRotationPoint(0F, -2F, -1F);
 		head.addChild(head2);
 		beak1 = new ModelRenderer(this, 11, 7);
-		beak1.addBox(-0.5F, -1.0F, -0.5F, 1, 2, 1);
-		beak1.setRotationPoint(0.0F, -0.5F, -1.5F);
+		beak1.addBox(-0.5F, -1F, -0.5F, 1, 2, 1);
+		beak1.setRotationPoint(0F, -0.5F, -1.5F);
 		head.addChild(beak1);
 		beak2 = new ModelRenderer(this, 16, 7);
-		beak2.addBox(-0.5F, 0.0F, -0.5F, 1, 2, 1);
-		beak2.setRotationPoint(0.0F, -1.75F, -2.45F);
+		beak2.addBox(-0.5F, 0F, -0.5F, 1, 2, 1);
+		beak2.setRotationPoint(0F, -1.75F, -2.45F);
 		head.addChild(beak2);
 		feather = new ModelRenderer(this, 2, 18);
-		feather.addBox(0.0F, -4.0F, -2.0F, 0, 5, 4);
-		feather.setRotationPoint(0.0F, -2.15F, 0.15F);
+		feather.addBox(0F, -4F, -2F, 0, 5, 4);
+		feather.setRotationPoint(0F, -2.15F, 0.15F);
 		head.addChild(feather);
 		legLeft = new ModelRenderer(this, 14, 18);
-		legLeft.addBox(-0.5F, 0.0F, -0.5F, 1, 2, 1);
-		legLeft.setRotationPoint(1.0F, 22.0F, -1.05F);
+		legLeft.addBox(-0.5F, 0F, -0.5F, 1, 2, 1);
+		legLeft.setRotationPoint(1F, 22F, -1.05F);
 		legRight = new ModelRenderer(this, 14, 18);
-		legRight.addBox(-0.5F, 0.0F, -0.5F, 1, 2, 1);
-		legRight.setRotationPoint(-1.0F, 22.0F, -1.05F);
+		legRight.addBox(-0.5F, 0F, -0.5F, 1, 2, 1);
+		legRight.setRotationPoint(-1F, 22F, -1.05F);
 	}
 
 	/**
@@ -87,10 +87,10 @@ public class ModelParrot extends ModelBase {
 		float f = ageInTicks * 0.3F;
 		head.rotateAngleX = headPitch * 0.017453292F;
 		head.rotateAngleY = netHeadYaw * 0.017453292F;
-		head.rotateAngleZ = 0.0F;
-		head.rotationPointX = 0.0F;
-		body.rotationPointX = 0.0F;
-		tail.rotationPointX = 0.0F;
+		head.rotateAngleZ = 0F;
+		head.rotationPointX = 0F;
+		body.rotationPointX = 0F;
+		tail.rotationPointX = 0F;
 		wingRight.rotationPointX = -1.5F;
 		wingLeft.rotationPointX = 1.5F;
 
@@ -104,8 +104,8 @@ public class ModelParrot extends ModelBase {
 				float f2 = MathHelper.sin((float) entityIn.ticksExisted);
 				head.rotationPointX = f1;
 				head.rotationPointY = 15.69F + f2;
-				head.rotateAngleX = 0.0F;
-				head.rotateAngleY = 0.0F;
+				head.rotateAngleX = 0F;
+				head.rotateAngleY = 0F;
 				head.rotateAngleZ = MathHelper.sin((float) entityIn.ticksExisted) * 0.4F;
 				body.rotationPointX = f1;
 				body.rotationPointY = 16.5F + f2;
@@ -132,8 +132,8 @@ public class ModelParrot extends ModelBase {
 		wingLeft.rotationPointY = 16.94F + f;
 		wingRight.rotateAngleZ = 0.0873F + ageInTicks;
 		wingRight.rotationPointY = 16.94F + f;
-		legLeft.rotationPointY = 22.0F + f;
-		legRight.rotationPointY = 22.0F + f;
+		legLeft.rotationPointY = 22F + f;
+		legRight.rotationPointY = 22F + f;
 	}
 
 	/**
@@ -150,8 +150,8 @@ public class ModelParrot extends ModelBase {
 		wingRight.rotateAngleY = -(float) Math.PI;
 		legLeft.rotateAngleX = -0.0299F;
 		legRight.rotateAngleX = -0.0299F;
-		legLeft.rotationPointY = 22.0F;
-		legRight.rotationPointY = 22.0F;
+		legLeft.rotationPointY = 22F;
+		legRight.rotationPointY = 22F;
 
 		if (entitylivingbaseIn instanceof EntityParrot entityparrot) {
 
@@ -185,8 +185,8 @@ public class ModelParrot extends ModelBase {
 				state = ModelParrot.State.STANDING;
 			}
 
-			legLeft.rotateAngleZ = 0.0F;
-			legRight.rotateAngleZ = 0.0F;
+			legLeft.rotateAngleZ = 0F;
+			legRight.rotateAngleZ = 0F;
 		}
 	}
 

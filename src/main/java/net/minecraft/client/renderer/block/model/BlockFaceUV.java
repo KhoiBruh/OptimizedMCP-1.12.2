@@ -2,8 +2,6 @@ package net.minecraft.client.renderer.block.model;
 
 import com.google.gson.*;
 import net.minecraft.util.JsonUtils;
-
-import javax.annotation.Nullable;
 import java.lang.reflect.Type;
 
 public class BlockFaceUV {
@@ -11,7 +9,7 @@ public class BlockFaceUV {
 	public final int rotation;
 	public float[] uvs;
 
-	public BlockFaceUV(@Nullable float[] uvsIn, int rotationIn) {
+	public BlockFaceUV(float[] uvsIn, int rotationIn) {
 
 		uvs = uvsIn;
 		rotation = rotationIn;
@@ -75,7 +73,7 @@ public class BlockFaceUV {
 			}
 		}
 
-		@Nullable
+		
 		private float[] parseUV(JsonObject object) {
 
 			if (!object.has("uv")) {

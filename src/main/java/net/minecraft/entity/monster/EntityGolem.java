@@ -6,8 +6,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public abstract class EntityGolem extends EntityCreature implements IAnimals {
 
 	public EntityGolem(World worldIn) {
@@ -19,13 +17,13 @@ public abstract class EntityGolem extends EntityCreature implements IAnimals {
 
 	}
 
-	@Nullable
+	
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
 
 		return null;
 	}
 
-	@Nullable
+	
 	protected SoundEvent getDeathSound() {
 
 		return null;

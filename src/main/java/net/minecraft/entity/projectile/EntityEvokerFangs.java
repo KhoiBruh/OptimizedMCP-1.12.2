@@ -8,8 +8,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-
-import javax.annotation.Nullable;
 import java.util.UUID;
 
 public class EntityEvokerFangs extends Entity {
@@ -41,7 +39,7 @@ public class EntityEvokerFangs extends Entity {
 
 	}
 
-	@Nullable
+	
 	public EntityLivingBase getCaster() {
 
 		if (caster == null && casterUuid != null && world instanceof WorldServer) {
@@ -55,7 +53,7 @@ public class EntityEvokerFangs extends Entity {
 		return caster;
 	}
 
-	public void setCaster(@Nullable EntityLivingBase p_190549_1_) {
+	public void setCaster(EntityLivingBase p_190549_1_) {
 
 		caster = p_190549_1_;
 		casterUuid = p_190549_1_ == null ? null : p_190549_1_.getUniqueID();

@@ -13,8 +13,6 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenBase;
-
-import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -146,7 +144,7 @@ public abstract class MapGenStructure extends MapGenBase {
 		}
 	}
 
-	@Nullable
+	
 	protected StructureStart getStructureAt(BlockPos pos) {
 
 		ObjectIterator<StructureStart> objectiterator = structureMap.values().iterator();
@@ -190,7 +188,7 @@ public abstract class MapGenStructure extends MapGenBase {
 		return false;
 	}
 
-	@Nullable
+	
 	public abstract BlockPos getNearestStructurePos(World worldIn, BlockPos pos, boolean findUnexplored);
 
 	protected void initializeStructureData(World worldIn) {

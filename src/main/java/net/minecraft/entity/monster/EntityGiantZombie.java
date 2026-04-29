@@ -8,8 +8,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-import javax.annotation.Nullable;
-
 public class EntityGiantZombie extends EntityMob {
 
 	public EntityGiantZombie(World worldIn) {
@@ -41,7 +39,7 @@ public class EntityGiantZombie extends EntityMob {
 		return world.getLightBrightness(pos) - 0.5F;
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_GIANT;

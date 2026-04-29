@@ -5,14 +5,14 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 public abstract class NBTBase {
-
+	
 	public static final String[] NBT_TYPES = new String[]{"END", "BYTE", "SHORT", "INT", "LONG", "FLOAT", "DOUBLE", "BYTE[]", "STRING", "LIST", "COMPOUND", "INT[]", "LONG[]"};
-
+	
 	/**
 	 * Creates a new NBTBase object that corresponds with the passed in id.
 	 */
 	protected static NBTBase createNewByType(byte id) {
-
+		
 		return switch (id) {
 			case 0 -> new NBTTagEnd();
 			case 1 -> new NBTTagByte();
@@ -30,9 +30,9 @@ public abstract class NBTBase {
 			default -> null;
 		};
 	}
-
+	
 	public static String getTagTypeName(int p_193581_0_) {
-
+		
 		return switch (p_193581_0_) {
 			case 0 -> "TAG_End";
 			case 1 -> "TAG_Byte";
@@ -51,47 +51,47 @@ public abstract class NBTBase {
 			default -> "UNKNOWN";
 		};
 	}
-
+	
 	/**
 	 * Write the actual data contents of the tag, implemented in NBT extension classes
 	 */
 	abstract void write(DataOutput output) throws IOException;
-
+	
 	abstract void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException;
-
+	
 	public abstract String toString();
-
+	
 	/**
 	 * Gets the type byte for the tag.
 	 */
 	public abstract byte getId();
-
+	
 	/**
 	 * Creates a clone of the tag.
 	 */
 	public abstract NBTBase copy();
-
+	
 	/**
 	 * Return whether this compound has no tags.
 	 */
 	public boolean hasNoTags() {
-
+		
 		return false;
 	}
-
+	
 	public boolean equals(Object p_equals_1_) {
-
+		
 		return p_equals_1_ instanceof NBTBase && getId() == ((NBTBase) p_equals_1_).getId();
 	}
-
+	
 	public int hashCode() {
-
+		
 		return getId();
 	}
-
+	
 	protected String getString() {
-
+		
 		return toString();
 	}
-
+	
 }

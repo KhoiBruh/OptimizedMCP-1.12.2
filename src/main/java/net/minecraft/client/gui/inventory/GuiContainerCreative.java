@@ -31,8 +31,6 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-
-import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -119,7 +117,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 	/**
 	 * Called when the mouse is clicked over a slot or outside the gui.
 	 */
-	protected void handleMouseClick(@Nullable Slot slotIn, int slotId, int mouseButton, ClickType type) {
+	protected void handleMouseClick(Slot slotIn, int slotId, int mouseButton, ClickType type) {
 
 		clearSearch = true;
 		boolean flag = type == ClickType.QUICK_MOVE;
@@ -923,7 +921,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 			return slot.getItemStackLimit(stack);
 		}
 
-		@Nullable
+		
 		public String getSlotTexture() {
 
 			return slot.getSlotTexture();

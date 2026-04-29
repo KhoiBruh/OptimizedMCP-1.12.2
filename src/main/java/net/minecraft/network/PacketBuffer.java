@@ -15,8 +15,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
-
-import javax.annotation.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -132,12 +130,12 @@ public class PacketBuffer extends ByteBuf {
 	/**
 	 * Reads a length-prefixed array of longs from the buffer.
 	 */
-	public long[] readLongArray(@Nullable long[] array) {
+	public long[] readLongArray(long[] array) {
 
 		return readLongArray(array, readableBytes() / 8);
 	}
 
-	public long[] readLongArray(@Nullable long[] array, int maxLength) {
+	public long[] readLongArray(long[] array, int maxLength) {
 
 		int i = readVarInt();
 
@@ -276,7 +274,7 @@ public class PacketBuffer extends ByteBuf {
 	/**
 	 * Writes a compressed NBTTagCompound to this buffer
 	 */
-	public PacketBuffer writeCompoundTag(@Nullable NBTTagCompound nbt) {
+	public PacketBuffer writeCompoundTag(NBTTagCompound nbt) {
 
 		if (nbt == null) {
 			writeByte(0);
@@ -291,7 +289,7 @@ public class PacketBuffer extends ByteBuf {
 		return this;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Reads a compressed NBTTagCompound from this buffer

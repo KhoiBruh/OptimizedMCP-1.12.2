@@ -23,8 +23,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.Calendar;
 
 public abstract class AbstractSkeleton extends EntityMob implements IRangedAttackMob {
@@ -150,7 +148,7 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
@@ -166,7 +164,7 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 	 * @param difficulty The current local difficulty
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 		setEquipmentBasedOnDifficulty(difficulty);

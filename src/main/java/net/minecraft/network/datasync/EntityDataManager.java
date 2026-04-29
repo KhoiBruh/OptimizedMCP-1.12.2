@@ -12,8 +12,6 @@ import net.minecraft.util.ReportedException;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -108,7 +106,7 @@ public class EntityDataManager {
 		}
 	}
 
-	@Nullable
+	
 	public static List<EntityDataManager.DataEntry<?>> readEntries(PacketBuffer buf) throws IOException {
 
 		List<EntityDataManager.DataEntry<?>> list = null;
@@ -196,7 +194,7 @@ public class EntityDataManager {
 		return dirty;
 	}
 
-	@Nullable
+	
 	public List<EntityDataManager.DataEntry<?>> getDirty() {
 
 		List<EntityDataManager.DataEntry<?>> list = null;
@@ -241,7 +239,7 @@ public class EntityDataManager {
 		buf.writeByte(255);
 	}
 
-	@Nullable
+	
 	public List<EntityDataManager.DataEntry<?>> getAll() {
 
 		List<EntityDataManager.DataEntry<?>> list = null;

@@ -20,8 +20,6 @@ import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldServer;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -137,7 +135,7 @@ public class PlacedBlockTrigger implements ICriterionTrigger<PlacedBlockTrigger.
 		private final LocationPredicate location;
 		private final ItemPredicate item;
 
-		public Instance(@Nullable Block block, @Nullable Map<IProperty<?>, Object> propertiesIn, LocationPredicate locationIn, ItemPredicate itemIn) {
+		public Instance(Block block, Map<IProperty<?>, Object> propertiesIn, LocationPredicate locationIn, ItemPredicate itemIn) {
 
 			super(PlacedBlockTrigger.ID);
 			this.block = block;

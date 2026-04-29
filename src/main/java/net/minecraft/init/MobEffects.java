@@ -3,8 +3,6 @@ package net.minecraft.init;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
 
-import javax.annotation.Nullable;
-
 public class MobEffects {
 
 	public static final Potion SPEED;
@@ -121,7 +119,7 @@ public class MobEffects {
 		}
 	}
 
-	@Nullable
+	
 	private static Potion getRegisteredMobEffect(String id) {
 
 		Potion potion = Potion.REGISTRY.getObject(new ResourceLocation(id));

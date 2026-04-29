@@ -10,13 +10,13 @@ public class ModelSheep2 extends ModelQuadruped {
 
 	public ModelSheep2() {
 
-		super(12, 0.0F);
+		super(12, 0F);
 		head = new ModelRenderer(this, 0, 0);
-		head.addBox(-3.0F, -4.0F, -6.0F, 6, 6, 8, 0.0F);
-		head.setRotationPoint(0.0F, 6.0F, -8.0F);
+		head.addBox(-3F, -4F, -6F, 6, 6, 8, 0F);
+		head.setRotationPoint(0F, 6F, -8F);
 		body = new ModelRenderer(this, 28, 8);
-		body.addBox(-4.0F, -10.0F, -7.0F, 8, 16, 6, 0.0F);
-		body.setRotationPoint(0.0F, 5.0F, 2.0F);
+		body.addBox(-4F, -10F, -7F, 8, 16, 6, 0F);
+		body.setRotationPoint(0F, 5F, 2F);
 	}
 
 	/**
@@ -26,7 +26,7 @@ public class ModelSheep2 extends ModelQuadruped {
 	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTickTime) {
 
 		super.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTickTime);
-		head.rotationPointY = 6.0F + ((EntitySheep) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;
+		head.rotationPointY = 6F + ((EntitySheep) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9F;
 		headRotationAngleX = ((EntitySheep) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
 	}
 

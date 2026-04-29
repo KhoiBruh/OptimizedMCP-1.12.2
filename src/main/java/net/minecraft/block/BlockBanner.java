@@ -20,8 +20,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public class BlockBanner extends BlockContainer {
@@ -43,7 +41,7 @@ public class BlockBanner extends BlockContainer {
 		return I18n.translateToLocal("item.banner.white.name");
 	}
 
-	@Nullable
+	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 
 		return NULL_AABB;
@@ -132,7 +130,7 @@ public class BlockBanner extends BlockContainer {
 	 * Spawns the block's drops in the world. By the time this is called the Block has possibly been set to air via
 	 * Block.removedByPlayer
 	 */
-	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
+	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
 
 		if (te instanceof TileEntityBanner tileentitybanner) {
 			ItemStack itemstack = tileentitybanner.getItem();

@@ -46,8 +46,6 @@ import net.minecraft.world.storage.MapDecoration;
 import net.minecraft.world.storage.loot.LootTableList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.Locale;
 import java.util.Random;
 
@@ -65,12 +63,12 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant {
 	private boolean isMating;
 	private boolean isPlaying;
 
-	@Nullable
+	
 
 	/** This villager's current customer. */
 	private EntityPlayer buyingPlayer;
 
-	@Nullable
+	
 
 	/** Initialises the MerchantRecipeList.java */
 	private MerchantRecipeList buyingList;
@@ -356,7 +354,7 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant {
 		return SoundEvents.ENTITY_VILLAGER_DEATH;
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_VILLAGER;
@@ -396,7 +394,7 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant {
 	 * Hint to AI tasks that we were attacked by the passed EntityLivingBase and should retaliate. Is not guaranteed to
 	 * change our actual active target (for example if we are currently busy attacking someone else)
 	 */
-	public void setRevengeTarget(@Nullable EntityLivingBase livingBase) {
+	public void setRevengeTarget(EntityLivingBase livingBase) {
 
 		super.setRevengeTarget(livingBase);
 
@@ -445,13 +443,13 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant {
 		super.onDeath(cause);
 	}
 
-	@Nullable
+	
 	public EntityPlayer getCustomer() {
 
 		return buyingPlayer;
 	}
 
-	public void setCustomer(@Nullable EntityPlayer player) {
+	public void setCustomer(EntityPlayer player) {
 
 		buyingPlayer = player;
 	}
@@ -544,7 +542,7 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant {
 		}
 	}
 
-	@Nullable
+	
 	public MerchantRecipeList getRecipes(EntityPlayer player) {
 
 		if (buyingList == null) {
@@ -585,7 +583,7 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant {
 		}
 	}
 
-	public void setRecipes(@Nullable MerchantRecipeList recipeList) {
+	public void setRecipes(MerchantRecipeList recipeList) {
 
 	}
 
@@ -717,7 +715,7 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
@@ -733,12 +731,12 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant {
 	 * @param difficulty The current local difficulty
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 
 		return finalizeMobSpawn(difficulty, livingdata, true);
 	}
 
-	public IEntityLivingData finalizeMobSpawn(DifficultyInstance p_190672_1_, @Nullable IEntityLivingData p_190672_2_, boolean p_190672_3_) {
+	public IEntityLivingData finalizeMobSpawn(DifficultyInstance p_190672_1_, IEntityLivingData p_190672_2_, boolean p_190672_3_) {
 
 		p_190672_2_ = super.onInitialSpawn(p_190672_1_, p_190672_2_);
 

@@ -3,8 +3,6 @@ package net.minecraft.entity.boss.dragon.phase;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.util.math.Vec3d;
 
-import javax.annotation.Nullable;
-
 public class PhaseHover extends PhaseBase {
 
 	private Vec3d targetLocation;
@@ -46,7 +44,7 @@ public class PhaseHover extends PhaseBase {
 		return 1.0F;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns the location the dragon is flying toward

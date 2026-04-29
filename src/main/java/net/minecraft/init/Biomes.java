@@ -4,7 +4,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 
 public abstract class Biomes {
-
+	
 	public static final Biome OCEAN;
 	public static final Biome DEFAULT;
 	public static final Biome PLAINS;
@@ -15,7 +15,7 @@ public abstract class Biomes {
 	public static final Biome SWAMPLAND;
 	public static final Biome RIVER;
 	public static final Biome HELL;
-
+	
 	/**
 	 * Is the biome used for sky world.
 	 */
@@ -26,32 +26,32 @@ public abstract class Biomes {
 	public static final Biome ICE_MOUNTAINS;
 	public static final Biome MUSHROOM_ISLAND;
 	public static final Biome MUSHROOM_ISLAND_SHORE;
-
+	
 	/**
 	 * Beach biome.
 	 */
 	public static final Biome BEACH;
-
+	
 	/**
 	 * Desert Hills biome.
 	 */
 	public static final Biome DESERT_HILLS;
-
+	
 	/**
 	 * Forest Hills biome.
 	 */
 	public static final Biome FOREST_HILLS;
-
+	
 	/**
 	 * Taiga Hills biome.
 	 */
 	public static final Biome TAIGA_HILLS;
-
+	
 	/**
 	 * Extreme Hills Edge biome.
 	 */
 	public static final Biome EXTREME_HILLS_EDGE;
-
+	
 	/**
 	 * Jungle biome identifier
 	 */
@@ -96,7 +96,7 @@ public abstract class Biomes {
 	public static final Biome MUTATED_MESA;
 	public static final Biome MUTATED_MESA_ROCK;
 	public static final Biome MUTATED_MESA_CLEAR_ROCK;
-
+	
 	static {
 		if (!Bootstrap.isRegistered()) {
 			throw new RuntimeException("Accessed Biomes before Bootstrap!");
@@ -166,15 +166,16 @@ public abstract class Biomes {
 			MUTATED_MESA_CLEAR_ROCK = getRegisteredBiome("mutated_mesa_clear_rock");
 		}
 	}
-
+	
 	private static Biome getRegisteredBiome(String id) {
-
+		
 		Biome biome = Biome.REGISTRY.getObject(new ResourceLocation(id));
-
+		
 		if (biome == null) {
 			throw new IllegalStateException("Invalid Biome requested: " + id);
 		} else {
 			return biome;
 		}
 	}
+	
 }

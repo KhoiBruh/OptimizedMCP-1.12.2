@@ -22,8 +22,6 @@ import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.*;
@@ -157,7 +155,7 @@ public class ResourcePackRepository {
 		repositoryEntriesAll = list;
 	}
 
-	@Nullable
+	
 	public ResourcePackRepository.Entry getResourcePackEntry() {
 
 		if (serverResourcePack != null) {
@@ -221,7 +219,7 @@ public class ResourcePackRepository {
 			final SettableFuture<Object> settablefuture = SettableFuture.create();
 			downloadingPacks = HttpUtil.downloadResourcePack(file1, url, map, 52428800, guiscreenworking, minecraft.getProxy());
 			Futures.addCallback(downloadingPacks, new FutureCallback<>() {
-				public void onSuccess(@Nullable Object p_onSuccess_1_) {
+				public void onSuccess(Object p_onSuccess_1_) {
 
 					if (checkHash(s1, file1)) {
 						setServerResourcePack(file1);
@@ -311,7 +309,7 @@ public class ResourcePackRepository {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Getter for the IResourcePack instance associated with this ResourcePackRepository

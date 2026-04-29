@@ -19,8 +19,6 @@ import net.minecraft.util.text.TextComponentUtils;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemWrittenBook extends Item {
@@ -67,7 +65,7 @@ public class ItemWrittenBook extends Item {
 	/**
 	 * allows items to add custom lines of information to the mouseover description
 	 */
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 
 		if (stack.hasTagCompound()) {
 			NBTTagCompound nbttagcompound = stack.getTagCompound();

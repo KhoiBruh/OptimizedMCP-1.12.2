@@ -10,13 +10,11 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class EntityTNTPrimed extends Entity {
 
 	private static final DataParameter<Integer> FUSE = EntityDataManager.createKey(EntityTNTPrimed.class, DataSerializers.VARINT);
 
-	@Nullable
+	
 	private EntityLivingBase tntPlacedBy;
 
 	/**
@@ -130,7 +128,7 @@ public class EntityTNTPrimed extends Entity {
 		setFuse(compound.getShort("Fuse"));
 	}
 
-	@Nullable
+	
 
 	/**
 	 * returns null or the entityliving it was placed or ignited by

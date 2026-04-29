@@ -24,11 +24,11 @@ public class ModelMagmaCube extends ModelBase {
 			}
 
 			segments[i] = new ModelRenderer(this, j, k);
-			segments[i].addBox(-4.0F, (float) (16 + i), -4.0F, 8, 1, 8);
+			segments[i].addBox(-4F, (float) (16 + i), -4F, 8, 1, 8);
 		}
 
 		core = new ModelRenderer(this, 0, 16);
-		core.addBox(-2.0F, 18.0F, -2.0F, 4, 4, 4);
+		core.addBox(-2F, 18F, -2F, 4, 4, 4);
 	}
 
 	/**
@@ -40,8 +40,8 @@ public class ModelMagmaCube extends ModelBase {
 		EntityMagmaCube entitymagmacube = (EntityMagmaCube) entitylivingbaseIn;
 		float f = entitymagmacube.prevSquishFactor + (entitymagmacube.squishFactor - entitymagmacube.prevSquishFactor) * partialTickTime;
 
-		if (f < 0.0F) {
-			f = 0.0F;
+		if (f < 0F) {
+			f = 0F;
 		}
 
 		for (int i = 0; i < segments.length; ++i) {

@@ -15,33 +15,33 @@ public class ModelCreeper extends ModelBase {
 
 	public ModelCreeper() {
 
-		this(0.0F);
+		this(0F);
 	}
 
 	public ModelCreeper(float p_i46366_1_) {
 
 		int i = 6;
 		head = new ModelRenderer(this, 0, 0);
-		head.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, p_i46366_1_);
-		head.setRotationPoint(0.0F, 6.0F, 0.0F);
+		head.addBox(-4F, -8F, -4F, 8, 8, 8, p_i46366_1_);
+		head.setRotationPoint(0F, 6F, 0F);
 		creeperArmor = new ModelRenderer(this, 32, 0);
-		creeperArmor.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, p_i46366_1_ + 0.5F);
-		creeperArmor.setRotationPoint(0.0F, 6.0F, 0.0F);
+		creeperArmor.addBox(-4F, -8F, -4F, 8, 8, 8, p_i46366_1_ + 0.5F);
+		creeperArmor.setRotationPoint(0F, 6F, 0F);
 		body = new ModelRenderer(this, 16, 16);
-		body.addBox(-4.0F, 0.0F, -2.0F, 8, 12, 4, p_i46366_1_);
-		body.setRotationPoint(0.0F, 6.0F, 0.0F);
+		body.addBox(-4F, 0F, -2F, 8, 12, 4, p_i46366_1_);
+		body.setRotationPoint(0F, 6F, 0F);
 		leg1 = new ModelRenderer(this, 0, 16);
-		leg1.addBox(-2.0F, 0.0F, -2.0F, 4, 6, 4, p_i46366_1_);
-		leg1.setRotationPoint(-2.0F, 18.0F, 4.0F);
+		leg1.addBox(-2F, 0F, -2F, 4, 6, 4, p_i46366_1_);
+		leg1.setRotationPoint(-2F, 18F, 4F);
 		leg2 = new ModelRenderer(this, 0, 16);
-		leg2.addBox(-2.0F, 0.0F, -2.0F, 4, 6, 4, p_i46366_1_);
-		leg2.setRotationPoint(2.0F, 18.0F, 4.0F);
+		leg2.addBox(-2F, 0F, -2F, 4, 6, 4, p_i46366_1_);
+		leg2.setRotationPoint(2F, 18F, 4F);
 		leg3 = new ModelRenderer(this, 0, 16);
-		leg3.addBox(-2.0F, 0.0F, -2.0F, 4, 6, 4, p_i46366_1_);
-		leg3.setRotationPoint(-2.0F, 18.0F, -4.0F);
+		leg3.addBox(-2F, 0F, -2F, 4, 6, 4, p_i46366_1_);
+		leg3.setRotationPoint(-2F, 18F, -4F);
 		leg4 = new ModelRenderer(this, 0, 16);
-		leg4.addBox(-2.0F, 0.0F, -2.0F, 4, 6, 4, p_i46366_1_);
-		leg4.setRotationPoint(2.0F, 18.0F, -4.0F);
+		leg4.addBox(-2F, 0F, -2F, 4, 6, 4, p_i46366_1_);
+		leg4.setRotationPoint(2F, 18F, -4F);
 	}
 
 	/**

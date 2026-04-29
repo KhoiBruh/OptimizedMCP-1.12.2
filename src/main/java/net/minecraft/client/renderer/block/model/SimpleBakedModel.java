@@ -7,8 +7,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +31,7 @@ public class SimpleBakedModel implements IBakedModel {
 		itemOverrideList = itemOverrideListIn;
 	}
 
-	public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
+	public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
 
 		return side == null ? generalQuads : faceQuads.get(side);
 	}

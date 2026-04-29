@@ -2,8 +2,6 @@ package net.minecraft.util;
 
 import org.apache.commons.lang3.Validate;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.*;
 
 public class NonNullList<E> extends AbstractList<E> {
@@ -16,7 +14,7 @@ public class NonNullList<E> extends AbstractList<E> {
 		this(new ArrayList<>(), null);
 	}
 
-	protected NonNullList(List<E> delegateIn, @Nullable E listType) {
+	protected NonNullList(List<E> delegateIn, E listType) {
 
 		delegate = delegateIn;
 		defaultElement = listType;
@@ -40,8 +38,6 @@ public class NonNullList<E> extends AbstractList<E> {
 
 		return new NonNullList<>(Arrays.asList(elements), defaultElementIn);
 	}
-
-	@Nonnull
 	public E get(int p_get_1_) {
 
 		return delegate.get(p_get_1_);

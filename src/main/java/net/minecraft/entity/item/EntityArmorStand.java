@@ -28,8 +28,6 @@ import net.minecraft.util.math.Rotations;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class EntityArmorStand extends EntityLivingBase {
@@ -868,13 +866,13 @@ public class EntityArmorStand extends EntityLivingBase {
 		return SoundEvents.ENTITY_ARMORSTAND_FALL;
 	}
 
-	@Nullable
+	
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
 
 		return SoundEvents.ENTITY_ARMORSTAND_HIT;
 	}
 
-	@Nullable
+	
 	protected SoundEvent getDeathSound() {
 
 		return SoundEvents.ENTITY_ARMORSTAND_BREAK;

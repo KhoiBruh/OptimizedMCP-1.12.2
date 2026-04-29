@@ -9,8 +9,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.List;
 
@@ -228,18 +226,16 @@ public class GuiNewChat extends Gui {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Gets the chat component under the mouse
 	 */
 	public ITextComponent getChatComponent(int mouseX, int mouseY) {
-
-		if (!getChatOpen()) {
-			return null;
-		} else {
-			ScaledResolution scaledresolution = new ScaledResolution(mc);
-			int i = scaledresolution.getScaleFactor();
+		
+		if (getChatOpen()) {
+			ScaledResolution scaledResolution = mc.scaledResolution;
+			int i = scaledResolution.getScaleFactor();
 			float f = getChatScale();
 			int j = mouseX / i - 2;
 			int k = mouseY / i - 40;
@@ -266,15 +262,12 @@ public class GuiNewChat extends Gui {
 							}
 						}
 					}
-
-					return null;
-				} else {
-					return null;
+					
 				}
-			} else {
-				return null;
 			}
 		}
+		
+		return null;
 	}
 
 	/**

@@ -4,8 +4,6 @@ import com.google.common.collect.Maps;
 import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.*;
 
 public class RegistrySimple<K, V> implements IRegistry<K, V> {
@@ -19,8 +17,8 @@ public class RegistrySimple<K, V> implements IRegistry<K, V> {
 		return Maps.newHashMap();
 	}
 
-	@Nullable
-	public V getObject(@Nullable K name) {
+	
+	public V getObject(K name) {
 
 		return registryObjects.get(name);
 	}
@@ -46,7 +44,7 @@ public class RegistrySimple<K, V> implements IRegistry<K, V> {
 		return Collections.unmodifiableSet(registryObjects.keySet());
 	}
 
-	@Nullable
+	
 	public V getRandomObject(Random random) {
 
 		if (values == null) {

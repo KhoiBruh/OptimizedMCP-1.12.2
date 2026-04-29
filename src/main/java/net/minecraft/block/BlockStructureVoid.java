@@ -11,8 +11,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class BlockStructureVoid extends Block {
 
 	private static final AxisAlignedBB STRUCTURE_VOID_AABB = new AxisAlignedBB(0.3D, 0.3D, 0.3D, 0.7D, 0.7D, 0.7D);
@@ -31,7 +29,7 @@ public class BlockStructureVoid extends Block {
 		return EnumBlockRenderType.INVISIBLE;
 	}
 
-	@Nullable
+	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 
 		return NULL_AABB;

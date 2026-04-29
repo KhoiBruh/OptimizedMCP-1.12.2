@@ -9,8 +9,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 
-import javax.annotation.Nullable;
-
 public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEntityBanner> {
 
 	private final ModelBanner bannerModel = new ModelBanner();
@@ -68,7 +66,7 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEnti
 		GlStateManager.popMatrix();
 	}
 
-	@Nullable
+	
 	private ResourceLocation getBannerResourceLocation(TileEntityBanner bannerObj) {
 
 		return BannerTextures.BANNER_DESIGNS.getResourceLocation(bannerObj.getPatternResourceLocation(), bannerObj.getPatternList(), bannerObj.getColorList());

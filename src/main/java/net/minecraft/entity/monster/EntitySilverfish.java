@@ -15,8 +15,6 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public class EntitySilverfish extends EntityMob {
@@ -111,7 +109,7 @@ public class EntitySilverfish extends EntityMob {
 		}
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_SILVERFISH;

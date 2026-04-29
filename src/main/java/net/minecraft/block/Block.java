@@ -31,8 +31,6 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -42,7 +40,7 @@ public class Block {
 	public static final ObjectIntIdentityMap<IBlockState> BLOCK_STATE_IDS = new ObjectIntIdentityMap<>();
 	public static final AxisAlignedBB FULL_BLOCK_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
 
-	@Nullable
+	
 	public static final AxisAlignedBB NULL_AABB = null;
 	/**
 	 * ResourceLocation for the Air block
@@ -149,12 +147,12 @@ public class Block {
 		return getBlockById(i).getStateFromMeta(j);
 	}
 
-	public static Block getBlockFromItem(@Nullable Item itemIn) {
+	public static Block getBlockFromItem(Item itemIn) {
 
 		return itemIn instanceof ItemBlock ? ((ItemBlock) itemIn).getBlock() : Blocks.AIR;
 	}
 
-	@Nullable
+	
 	public static Block getBlockFromName(String name) {
 
 		ResourceLocation resourcelocation = new ResourceLocation(name);
@@ -180,7 +178,7 @@ public class Block {
 		return isExceptionBlockForAttaching(attachBlock) || attachBlock == Blocks.PISTON || attachBlock == Blocks.STICKY_PISTON || attachBlock == Blocks.PISTON_HEAD;
 	}
 
-	protected static void addCollisionBoxToList(BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable AxisAlignedBB blockBox) {
+	protected static void addCollisionBoxToList(BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, AxisAlignedBB blockBox) {
 
 		if (blockBox != NULL_AABB) {
 			AxisAlignedBB axisalignedbb = blockBox.offset(pos);
@@ -907,13 +905,13 @@ public class Block {
 	}
 
 	@Deprecated
-	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState) {
+	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean isActualState) {
 
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, state.getCollisionBoundingBox(worldIn, pos));
 	}
 
 	@Deprecated
-	@Nullable
+	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 
 		return blockState.getBoundingBox(worldIn, pos);
@@ -1091,7 +1089,7 @@ public class Block {
 	}
 
 	@Deprecated
-	@Nullable
+	
 
 	/**
 	 * Ray traces through the blocks collision from start vector to end vector returning a ray trace hit.
@@ -1101,7 +1099,7 @@ public class Block {
 		return rayTrace(pos, start, end, blockState.getBoundingBox(worldIn, pos));
 	}
 
-	@Nullable
+	
 	protected RayTraceResult rayTrace(BlockPos pos, Vec3d start, Vec3d end, AxisAlignedBB boundingBox) {
 
 		Vec3d vec3d = start.subtract(pos.getX(), pos.getY(), pos.getZ());
@@ -1208,7 +1206,7 @@ public class Block {
 	 * Spawns the block's drops in the world. By the time this is called the Block has possibly been set to air via
 	 * Block.removedByPlayer
 	 */
-	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
+	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
 
 		player.addStat(StatList.getBlockStats(this));
 		player.addExhaustion(0.005F);
@@ -1471,7 +1469,7 @@ public class Block {
 		return "Block{" + REGISTRY.getNameForObject(this) + "}";
 	}
 
-	public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
+	public void addInformation(ItemStack stack, World player, List<String> tooltip, ITooltipFlag advanced) {
 
 	}
 

@@ -11,8 +11,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class ItemHangingEntity extends Item {
 
 	private final Class<? extends EntityHanging> hangingEntityClass;
@@ -49,7 +47,7 @@ public class ItemHangingEntity extends Item {
 		}
 	}
 
-	@Nullable
+	
 	private EntityHanging createEntity(World worldIn, BlockPos pos, EnumFacing clickedSide) {
 
 		if (hangingEntityClass == EntityPainting.class) {

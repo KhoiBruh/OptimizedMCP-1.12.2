@@ -6,11 +6,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 
-import javax.annotation.Nullable;
-
 public interface IBlockAccess {
 
-	@Nullable
+	
 	TileEntity getTileEntity(BlockPos pos);
 
 	int getCombinedLight(BlockPos pos, int lightValue);

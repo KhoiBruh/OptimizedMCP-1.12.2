@@ -33,8 +33,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -142,7 +140,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying {
 		return (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
@@ -158,7 +156,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying {
 	 * @param difficulty The current local difficulty
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 
 		setVariant(rand.nextInt(5));
 		return super.onInitialSpawn(difficulty, livingdata);
@@ -335,7 +333,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying {
 		return false;
 	}
 
-	@Nullable
+	
 	public EntityAgeable createChild(EntityAgeable ageable) {
 
 		return null;
@@ -346,7 +344,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying {
 		return entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 3.0F);
 	}
 
-	@Nullable
+	
 	public SoundEvent getAmbientSound() {
 
 		return getAmbientSound(rand);
@@ -451,7 +449,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying {
 		setVariant(compound.getInteger("Variant"));
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_PARROT;

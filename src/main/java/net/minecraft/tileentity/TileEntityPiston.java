@@ -17,8 +17,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class TileEntityPiston extends TileEntity implements ITickable {
@@ -358,7 +356,7 @@ public class TileEntityPiston extends TileEntity implements ITickable {
 		return compound;
 	}
 
-	public void addCollissionAABBs(World p_190609_1_, BlockPos p_190609_2_, AxisAlignedBB p_190609_3_, List<AxisAlignedBB> p_190609_4_, @Nullable Entity p_190609_5_) {
+	public void addCollissionAABBs(World p_190609_1_, BlockPos p_190609_2_, AxisAlignedBB p_190609_3_, List<AxisAlignedBB> p_190609_4_, Entity p_190609_5_) {
 
 		if (!extending && shouldHeadBeRendered) {
 			pistonState.withProperty(BlockPistonBase.EXTENDED, true).addCollisionBoxToList(p_190609_1_, p_190609_2_, p_190609_3_, p_190609_4_, p_190609_5_, false);

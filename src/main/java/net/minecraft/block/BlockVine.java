@@ -22,8 +22,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public class BlockVine extends Block {
@@ -78,7 +76,7 @@ public class BlockVine extends Block {
 		return i;
 	}
 
-	@Nullable
+	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 
 		return NULL_AABB;
@@ -346,7 +344,7 @@ public class BlockVine extends Block {
 	 * Spawns the block's drops in the world. By the time this is called the Block has possibly been set to air via
 	 * Block.removedByPlayer
 	 */
-	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
+	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
 
 		if (!worldIn.isRemote && stack.getItem() == Items.SHEARS) {
 			player.addStat(StatList.getBlockStats(this));

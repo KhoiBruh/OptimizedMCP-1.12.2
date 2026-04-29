@@ -11,8 +11,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.RegistryNamespaced;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public abstract class Enchantment {
@@ -25,7 +23,7 @@ public abstract class Enchantment {
 	private final EntityEquipmentSlot[] applicableEquipmentTypes;
 	private final Enchantment.Rarity rarity;
 
-	@Nullable
+	
 
 	/** The EnumEnchantmentType given to this Enchantment. */
 	public EnumEnchantmentType type;
@@ -42,7 +40,7 @@ public abstract class Enchantment {
 		applicableEquipmentTypes = slots;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Gets an Enchantment from the registry, based on a numeric ID.
@@ -60,7 +58,7 @@ public abstract class Enchantment {
 		return REGISTRY.getIDForObject(enchantmentIn);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Retrieves an enchantment by using its location name.

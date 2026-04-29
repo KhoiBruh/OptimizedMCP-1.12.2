@@ -8,8 +8,6 @@ import com.google.gson.JsonSyntaxException;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -95,7 +93,7 @@ public record Criterion(ICriterionInstance criterionInstance) {
 	}
 
 	@Override
-	@Nullable
+	
 	public ICriterionInstance criterionInstance() {
 
 		return criterionInstance;

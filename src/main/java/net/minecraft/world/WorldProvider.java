@@ -12,8 +12,6 @@ import net.minecraft.world.biome.BiomeProviderSingle;
 import net.minecraft.world.border.WorldBorder;
 import net.minecraft.world.gen.*;
 
-import javax.annotation.Nullable;
-
 public abstract class WorldProvider {
 
 	public static final float[] MOON_PHASE_FACTORS = new float[]{1.0F, 0.75F, 0.5F, 0.25F, 0.0F, 0.25F, 0.5F, 0.75F};
@@ -155,7 +153,7 @@ public abstract class WorldProvider {
 		return true;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns array with sunrise/sunset colors
@@ -217,7 +215,7 @@ public abstract class WorldProvider {
 		return true;
 	}
 
-	@Nullable
+	
 	public BlockPos getSpawnCoordinate() {
 
 		return null;

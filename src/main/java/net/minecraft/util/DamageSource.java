@@ -11,8 +11,6 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.Explosion;
 
-import javax.annotation.Nullable;
-
 public class DamageSource {
 
 	public static final DamageSource IN_FIRE = (new DamageSource("inFire")).setFireDamage();
@@ -90,7 +88,7 @@ public class DamageSource {
 	/**
 	 * returns EntityDamageSourceIndirect of an arrow
 	 */
-	public static DamageSource causeArrowDamage(EntityArrow arrow, @Nullable Entity indirectEntityIn) {
+	public static DamageSource causeArrowDamage(EntityArrow arrow, Entity indirectEntityIn) {
 
 		return (new EntityDamageSourceIndirect("arrow", arrow, indirectEntityIn)).setProjectile();
 	}
@@ -98,17 +96,17 @@ public class DamageSource {
 	/**
 	 * returns EntityDamageSourceIndirect of a fireball
 	 */
-	public static DamageSource causeFireballDamage(EntityFireball fireball, @Nullable Entity indirectEntityIn) {
+	public static DamageSource causeFireballDamage(EntityFireball fireball, Entity indirectEntityIn) {
 
 		return indirectEntityIn == null ? (new EntityDamageSourceIndirect("onFire", fireball, fireball)).setFireDamage().setProjectile() : (new EntityDamageSourceIndirect("fireball", fireball, indirectEntityIn)).setFireDamage().setProjectile();
 	}
 
-	public static DamageSource causeThrownDamage(Entity source, @Nullable Entity indirectEntityIn) {
+	public static DamageSource causeThrownDamage(Entity source, Entity indirectEntityIn) {
 
 		return (new EntityDamageSourceIndirect("thrown", source, indirectEntityIn)).setProjectile();
 	}
 
-	public static DamageSource causeIndirectMagicDamage(Entity source, @Nullable Entity indirectEntityIn) {
+	public static DamageSource causeIndirectMagicDamage(Entity source, Entity indirectEntityIn) {
 
 		return (new EntityDamageSourceIndirect("indirectMagic", source, indirectEntityIn)).setDamageBypassesArmor().setMagicDamage();
 	}
@@ -121,12 +119,12 @@ public class DamageSource {
 		return (new EntityDamageSource("thorns", source)).setIsThornsDamage().setMagicDamage();
 	}
 
-	public static DamageSource causeExplosionDamage(@Nullable Explosion explosionIn) {
+	public static DamageSource causeExplosionDamage(Explosion explosionIn) {
 
 		return explosionIn != null && explosionIn.getExplosivePlacedBy() != null ? (new EntityDamageSource("explosion.player", explosionIn.getExplosivePlacedBy())).setDifficultyScaled().setExplosion() : (new DamageSource("explosion")).setDifficultyScaled().setExplosion();
 	}
 
-	public static DamageSource causeExplosionDamage(@Nullable EntityLivingBase entityLivingBaseIn) {
+	public static DamageSource causeExplosionDamage(EntityLivingBase entityLivingBaseIn) {
 
 		return entityLivingBaseIn != null ? (new EntityDamageSource("explosion.player", entityLivingBaseIn)).setDifficultyScaled().setExplosion() : (new DamageSource("explosion")).setDifficultyScaled().setExplosion();
 	}
@@ -185,7 +183,7 @@ public class DamageSource {
 		return damageIsAbsolute;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Retrieves the immediate causer of the damage, e.g. the arrow entity, not its shooter
@@ -195,7 +193,7 @@ public class DamageSource {
 		return getTrueSource();
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Retrieves the true causer of the damage, e.g. the player who fired an arrow, the shulker who fired the bullet,
@@ -306,7 +304,7 @@ public class DamageSource {
 		return entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Gets the location from which the damage originates.

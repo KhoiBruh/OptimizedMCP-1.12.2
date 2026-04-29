@@ -7,7 +7,7 @@ public class ModelArmorStandArmor extends ModelBiped {
 
 	public ModelArmorStandArmor() {
 
-		this(0.0F);
+		this(0F);
 	}
 
 	public ModelArmorStandArmor(float modelSize) {
@@ -17,7 +17,7 @@ public class ModelArmorStandArmor extends ModelBiped {
 
 	protected ModelArmorStandArmor(float modelSize, int textureWidthIn, int textureHeightIn) {
 
-		super(modelSize, 0.0F, textureWidthIn, textureHeightIn);
+		super(modelSize, 0F, textureWidthIn, textureHeightIn);
 	}
 
 	/**
@@ -31,7 +31,7 @@ public class ModelArmorStandArmor extends ModelBiped {
 			bipedHead.rotateAngleX = 0.017453292F * entityarmorstand.getHeadRotation().x();
 			bipedHead.rotateAngleY = 0.017453292F * entityarmorstand.getHeadRotation().y();
 			bipedHead.rotateAngleZ = 0.017453292F * entityarmorstand.getHeadRotation().z();
-			bipedHead.setRotationPoint(0.0F, 1.0F, 0.0F);
+			bipedHead.setRotationPoint(0F, 1F, 0F);
 			bipedBody.rotateAngleX = 0.017453292F * entityarmorstand.getBodyRotation().x();
 			bipedBody.rotateAngleY = 0.017453292F * entityarmorstand.getBodyRotation().y();
 			bipedBody.rotateAngleZ = 0.017453292F * entityarmorstand.getBodyRotation().z();
@@ -44,11 +44,11 @@ public class ModelArmorStandArmor extends ModelBiped {
 			bipedLeftLeg.rotateAngleX = 0.017453292F * entityarmorstand.getLeftLegRotation().x();
 			bipedLeftLeg.rotateAngleY = 0.017453292F * entityarmorstand.getLeftLegRotation().y();
 			bipedLeftLeg.rotateAngleZ = 0.017453292F * entityarmorstand.getLeftLegRotation().z();
-			bipedLeftLeg.setRotationPoint(1.9F, 11.0F, 0.0F);
+			bipedLeftLeg.setRotationPoint(1.9F, 11F, 0F);
 			bipedRightLeg.rotateAngleX = 0.017453292F * entityarmorstand.getRightLegRotation().x();
 			bipedRightLeg.rotateAngleY = 0.017453292F * entityarmorstand.getRightLegRotation().y();
 			bipedRightLeg.rotateAngleZ = 0.017453292F * entityarmorstand.getRightLegRotation().z();
-			bipedRightLeg.setRotationPoint(-1.9F, 11.0F, 0.0F);
+			bipedRightLeg.setRotationPoint(-1.9F, 11F, 0F);
 			copyModelAngles(bipedHead, bipedHeadwear);
 		}
 	}

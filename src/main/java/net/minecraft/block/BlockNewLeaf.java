@@ -14,8 +14,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class BlockNewLeaf extends BlockLeaves {
 
 	public static final PropertyEnum<BlockPlanks.EnumType> VARIANT = PropertyEnum.create("variant", BlockPlanks.EnumType.class, p_apply_1_ -> p_apply_1_.getMetadata() >= 4);
@@ -101,7 +99,7 @@ public class BlockNewLeaf extends BlockLeaves {
 	 * Spawns the block's drops in the world. By the time this is called the Block has possibly been set to air via
 	 * Block.removedByPlayer
 	 */
-	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
+	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
 
 		if (!worldIn.isRemote && stack.getItem() == Items.SHEARS) {
 			player.addStat(StatList.getBlockStats(this));

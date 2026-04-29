@@ -4,21 +4,19 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.util.JsonUtils;
 
-import javax.annotation.Nullable;
-
 public class MinMaxBounds {
 
 	public static final MinMaxBounds UNBOUNDED = new MinMaxBounds(null, null);
 	private final Float min;
 	private final Float max;
 
-	public MinMaxBounds(@Nullable Float min, @Nullable Float max) {
+	public MinMaxBounds(Float min, Float max) {
 
 		this.min = min;
 		this.max = max;
 	}
 
-	public static MinMaxBounds deserialize(@Nullable JsonElement element) {
+	public static MinMaxBounds deserialize(JsonElement element) {
 
 		if (element != null && !element.isJsonNull()) {
 			if (JsonUtils.isNumber(element)) {

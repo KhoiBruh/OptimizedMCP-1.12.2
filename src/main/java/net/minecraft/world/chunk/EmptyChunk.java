@@ -9,8 +9,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
@@ -93,7 +91,7 @@ public class EmptyChunk extends Chunk {
 		return false;
 	}
 
-	@Nullable
+	
 	public TileEntity getTileEntity(BlockPos pos, Chunk.EnumCreateEntityType creationMode) {
 
 		return null;
@@ -135,7 +133,7 @@ public class EmptyChunk extends Chunk {
 	/**
 	 * Fills the given list of all entities that intersect within the given bounding box that aren't the passed entity.
 	 */
-	public void getEntitiesWithinAABBForEntity(@Nullable Entity entityIn, AxisAlignedBB aabb, List<Entity> listToFill, Predicate<? super Entity> filter) {
+	public void getEntitiesWithinAABBForEntity(Entity entityIn, AxisAlignedBB aabb, List<Entity> listToFill, Predicate<? super Entity> filter) {
 
 	}
 

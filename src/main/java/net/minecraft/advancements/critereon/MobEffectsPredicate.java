@@ -10,8 +10,6 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -29,7 +27,7 @@ public class MobEffectsPredicate {
 		this.effects = effects;
 	}
 
-	public static MobEffectsPredicate deserialize(@Nullable JsonElement element) {
+	public static MobEffectsPredicate deserialize(JsonElement element) {
 
 		if (element != null && !element.isJsonNull()) {
 			JsonObject jsonobject = JsonUtils.getJsonObject(element, "effects");
@@ -89,13 +87,13 @@ public class MobEffectsPredicate {
 		private final MinMaxBounds amplifier;
 		private final MinMaxBounds duration;
 
-		@Nullable
+		
 		private final Boolean ambient;
 
-		@Nullable
+		
 		private final Boolean visible;
 
-		public InstancePredicate(MinMaxBounds amplifier, MinMaxBounds duration, @Nullable Boolean ambient, @Nullable Boolean visible) {
+		public InstancePredicate(MinMaxBounds amplifier, MinMaxBounds duration, Boolean ambient, Boolean visible) {
 
 			this.amplifier = amplifier;
 			this.duration = duration;
@@ -112,7 +110,7 @@ public class MobEffectsPredicate {
 			return new MobEffectsPredicate.InstancePredicate(minmaxbounds, minmaxbounds1, obool, obool1);
 		}
 
-		public boolean test(@Nullable PotionEffect effect) {
+		public boolean test(PotionEffect effect) {
 
 			if (effect == null) {
 				return false;

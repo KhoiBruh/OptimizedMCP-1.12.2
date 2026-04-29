@@ -8,8 +8,6 @@ import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemTippedArrow extends ItemArrow {
@@ -36,7 +34,7 @@ public class ItemTippedArrow extends ItemArrow {
 	/**
 	 * allows items to add custom lines of information to the mouseover description
 	 */
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 
 		PotionUtils.addPotionTooltip(stack, tooltip, 0.125F);
 	}

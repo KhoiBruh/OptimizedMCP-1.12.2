@@ -8,8 +8,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 
-import javax.annotation.Nullable;
-
 public class InventoryCraftResult implements IInventory {
 
 	private final NonNullList<ItemStack> stackResult = NonNullList.withSize(1, ItemStack.EMPTY);
@@ -150,13 +148,13 @@ public class InventoryCraftResult implements IInventory {
 		stackResult.clear();
 	}
 
-	@Nullable
+	
 	public IRecipe getRecipeUsed() {
 
 		return recipeUsed;
 	}
 
-	public void setRecipeUsed(@Nullable IRecipe p_193056_1_) {
+	public void setRecipeUsed(IRecipe p_193056_1_) {
 
 		recipeUsed = p_193056_1_;
 	}

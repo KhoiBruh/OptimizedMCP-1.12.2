@@ -12,8 +12,6 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.URI;
@@ -163,7 +161,7 @@ public class CraftingManager {
 		return ItemStack.EMPTY;
 	}
 
-	@Nullable
+	
 	public static IRecipe findMatchingRecipe(InventoryCrafting craftMatrix, World worldIn) {
 
 		for (IRecipe irecipe : REGISTRY) {
@@ -192,7 +190,7 @@ public class CraftingManager {
 		return nonnulllist;
 	}
 
-	@Nullable
+	
 	public static IRecipe getRecipe(ResourceLocation name) {
 
 		return REGISTRY.getObject(name);
@@ -203,7 +201,7 @@ public class CraftingManager {
 		return REGISTRY.getIDForObject(recipe);
 	}
 
-	@Nullable
+	
 	public static IRecipe getRecipeById(int id) {
 
 		return REGISTRY.getObjectById(id);

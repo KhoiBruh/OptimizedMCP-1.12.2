@@ -4,8 +4,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.*;
 
-import javax.annotation.Nullable;
-
 public class DerivedWorldInfo extends WorldInfo {
 
 	/**
@@ -21,7 +19,7 @@ public class DerivedWorldInfo extends WorldInfo {
 	/**
 	 * Creates a new NBTTagCompound for the world, with the given NBTTag as the "Player"
 	 */
-	public NBTTagCompound cloneNBTCompound(@Nullable NBTTagCompound nbt) {
+	public NBTTagCompound cloneNBTCompound(NBTTagCompound nbt) {
 
 		return delegate.cloneNBTCompound(nbt);
 	}

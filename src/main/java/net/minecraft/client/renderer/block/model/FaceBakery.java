@@ -9,8 +9,6 @@ import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 
-import javax.annotation.Nullable;
-
 public class FaceBakery {
 
 	private static final float SCALE_ROTATION_22_5 = 1.0F / (float) Math.cos(0.39269909262657166D) - 1.0F;
@@ -186,7 +184,7 @@ public class FaceBakery {
 		return ModelRotation.values().length * p_188014_1_.ordinal() + p_188014_0_.ordinal();
 	}
 
-	public BakedQuad makeBakedQuad(Vector3f posFrom, Vector3f posTo, BlockPartFace face, TextureAtlasSprite sprite, EnumFacing facing, ModelRotation modelRotationIn, @Nullable BlockPartRotation partRotation, boolean uvLocked, boolean shade) {
+	public BakedQuad makeBakedQuad(Vector3f posFrom, Vector3f posTo, BlockPartFace face, TextureAtlasSprite sprite, EnumFacing facing, ModelRotation modelRotationIn, BlockPartRotation partRotation, boolean uvLocked, boolean shade) {
 
 		BlockFaceUV blockfaceuv = face.blockFaceUV();
 
@@ -209,7 +207,7 @@ public class FaceBakery {
 		return UV_ROTATIONS[getIndex(p_188010_3_, p_188010_2_)].rotateUV(p_188010_1_);
 	}
 
-	private int[] makeQuadVertexData(BlockFaceUV uvs, TextureAtlasSprite sprite, EnumFacing orientation, float[] p_188012_4_, ModelRotation rotationIn, @Nullable BlockPartRotation partRotation, boolean shade) {
+	private int[] makeQuadVertexData(BlockFaceUV uvs, TextureAtlasSprite sprite, EnumFacing orientation, float[] p_188012_4_, ModelRotation rotationIn, BlockPartRotation partRotation, boolean shade) {
 
 		int[] aint = new int[28];
 
@@ -249,7 +247,7 @@ public class FaceBakery {
 		return afloat;
 	}
 
-	private void fillVertexData(int[] p_188015_1_, int p_188015_2_, EnumFacing p_188015_3_, BlockFaceUV p_188015_4_, float[] p_188015_5_, TextureAtlasSprite p_188015_6_, ModelRotation p_188015_7_, @Nullable BlockPartRotation p_188015_8_, boolean p_188015_9_) {
+	private void fillVertexData(int[] p_188015_1_, int p_188015_2_, EnumFacing p_188015_3_, BlockFaceUV p_188015_4_, float[] p_188015_5_, TextureAtlasSprite p_188015_6_, ModelRotation p_188015_7_, BlockPartRotation p_188015_8_, boolean p_188015_9_) {
 
 		EnumFacing enumfacing = p_188015_7_.rotateFace(p_188015_3_);
 		int i = p_188015_9_ ? getFaceShadeColor(enumfacing) : -1;
@@ -271,7 +269,7 @@ public class FaceBakery {
 		faceData[i + 4 + 1] = Float.floatToRawIntBits(sprite.getInterpolatedV(faceUV.getVertexV(vertexIndex)));
 	}
 
-	private void rotatePart(Vector3f p_178407_1_, @Nullable BlockPartRotation partRotation) {
+	private void rotatePart(Vector3f p_178407_1_, BlockPartRotation partRotation) {
 
 		if (partRotation != null) {
 			Matrix4f matrix4f = getMatrixIdentity();

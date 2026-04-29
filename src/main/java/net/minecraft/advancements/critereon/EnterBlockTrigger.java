@@ -17,8 +17,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -129,7 +127,7 @@ public class EnterBlockTrigger implements ICriterionTrigger<EnterBlockTrigger.In
 		private final Block block;
 		private final Map<IProperty<?>, Object> properties;
 
-		public Instance(@Nullable Block blockIn, @Nullable Map<IProperty<?>, Object> propertiesIn) {
+		public Instance(Block blockIn, Map<IProperty<?>, Object> propertiesIn) {
 
 			super(EnterBlockTrigger.ID);
 			block = blockIn;

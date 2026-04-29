@@ -5,8 +5,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class ParticleBlockDust extends ParticleDigging {
 
 	protected ParticleBlockDust(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, IBlockState state) {
@@ -19,7 +17,7 @@ public class ParticleBlockDust extends ParticleDigging {
 
 	public static class Factory implements IParticleFactory {
 
-		@Nullable
+		
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
 
 			IBlockState iblockstate = Block.getStateById(p_178902_15_[0]);

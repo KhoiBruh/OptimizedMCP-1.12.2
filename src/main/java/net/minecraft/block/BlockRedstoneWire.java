@@ -18,8 +18,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Random;
@@ -79,7 +77,7 @@ public class BlockRedstoneWire extends Block {
 		return canConnectTo(state, null);
 	}
 
-	protected static boolean canConnectTo(IBlockState blockState, @Nullable EnumFacing side) {
+	protected static boolean canConnectTo(IBlockState blockState, EnumFacing side) {
 
 		Block block = blockState.getBlock();
 
@@ -165,7 +163,7 @@ public class BlockRedstoneWire extends Block {
 		}
 	}
 
-	@Nullable
+	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 
 		return NULL_AABB;

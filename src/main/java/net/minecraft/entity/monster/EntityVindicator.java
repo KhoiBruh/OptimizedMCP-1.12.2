@@ -18,8 +18,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-import javax.annotation.Nullable;
-
 public class EntityVindicator extends AbstractIllager {
 
 	private static final Predicate<Entity> JOHNNY_SELECTOR = p_apply_1_ -> p_apply_1_ instanceof EntityLivingBase && ((EntityLivingBase) p_apply_1_).attackable();
@@ -109,7 +107,7 @@ public class EntityVindicator extends AbstractIllager {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
@@ -125,7 +123,7 @@ public class EntityVindicator extends AbstractIllager {
 	 * @param difficulty The current local difficulty
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 
 		IEntityLivingData ientitylivingdata = super.onInitialSpawn(difficulty, livingdata);
 		setEquipmentBasedOnDifficulty(difficulty);

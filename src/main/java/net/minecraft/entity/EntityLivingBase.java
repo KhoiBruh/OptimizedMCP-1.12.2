@@ -44,8 +44,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.*;
 
 public abstract class EntityLivingBase extends Entity {
@@ -495,7 +493,7 @@ public abstract class EntityLivingBase extends Entity {
 		return rand;
 	}
 
-	@Nullable
+	
 	public EntityLivingBase getRevengeTarget() {
 
 		return revengeTarget;
@@ -505,7 +503,7 @@ public abstract class EntityLivingBase extends Entity {
 	 * Hint to AI tasks that we were attacked by the passed EntityLivingBase and should retaliate. Is not guaranteed to
 	 * change our actual active target (for example if we are currently busy attacking someone else)
 	 */
-	public void setRevengeTarget(@Nullable EntityLivingBase livingBase) {
+	public void setRevengeTarget(EntityLivingBase livingBase) {
 
 		revengeTarget = livingBase;
 		revengeTimer = ticksExisted;
@@ -753,7 +751,7 @@ public abstract class EntityLivingBase extends Entity {
 		return activePotionsMap.containsKey(potionIn);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * returns the PotionEffect for the supplied Potion if it is active, null otherwise.
@@ -800,13 +798,13 @@ public abstract class EntityLivingBase extends Entity {
 		return getCreatureAttribute() == EnumCreatureAttribute.UNDEAD;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Removes the given potion effect from the active potion map and returns it. Does not call cleanup callbacks for
 	 * the end of the potion effect.
 	 */
-	public PotionEffect removeActivePotionEffect(@Nullable Potion potioneffectin) {
+	public PotionEffect removeActivePotionEffect(Potion potioneffectin) {
 
 		return activePotionsMap.remove(potioneffectin);
 	}
@@ -1065,7 +1063,7 @@ public abstract class EntityLivingBase extends Entity {
 		}
 	}
 
-	@Nullable
+	
 	public DamageSource getLastDamageSource() {
 
 		if (world.getTotalWorldTime() - lastDamageStamp > 40L) {
@@ -1206,13 +1204,13 @@ public abstract class EntityLivingBase extends Entity {
 		}
 	}
 
-	@Nullable
+	
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
 
 		return SoundEvents.ENTITY_GENERIC_HURT;
 	}
 
-	@Nullable
+	
 	protected SoundEvent getDeathSound() {
 
 		return SoundEvents.ENTITY_GENERIC_DEATH;
@@ -1395,7 +1393,7 @@ public abstract class EntityLivingBase extends Entity {
 		return combatTracker;
 	}
 
-	@Nullable
+	
 	public EntityLivingBase getAttackingEntity() {
 
 		if (combatTracker.getBestAttacker() != null) {

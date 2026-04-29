@@ -7,8 +7,6 @@ import com.google.gson.JsonSyntaxException;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nullable;
 import java.util.Map;
 
 public class EnchantmentPredicate {
@@ -26,13 +24,13 @@ public class EnchantmentPredicate {
 		levels = MinMaxBounds.UNBOUNDED;
 	}
 
-	public EnchantmentPredicate(@Nullable Enchantment enchantment, MinMaxBounds levels) {
+	public EnchantmentPredicate(Enchantment enchantment, MinMaxBounds levels) {
 
 		this.enchantment = enchantment;
 		this.levels = levels;
 	}
 
-	public static EnchantmentPredicate deserialize(@Nullable JsonElement element) {
+	public static EnchantmentPredicate deserialize(JsonElement element) {
 
 		if (element != null && !element.isJsonNull()) {
 			JsonObject jsonobject = JsonUtils.getJsonObject(element, "enchantment");
@@ -54,7 +52,7 @@ public class EnchantmentPredicate {
 		}
 	}
 
-	public static EnchantmentPredicate[] deserializeArray(@Nullable JsonElement element) {
+	public static EnchantmentPredicate[] deserializeArray(JsonElement element) {
 
 		if (element != null && !element.isJsonNull()) {
 			JsonArray jsonarray = JsonUtils.getJsonArray(element, "enchantments");

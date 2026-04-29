@@ -13,8 +13,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.event.HoverEvent;
 import org.apache.commons.lang3.ArrayUtils;
-
-import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
@@ -32,7 +30,7 @@ public class Advancement {
 	private final Set<Advancement> children = Sets.newLinkedHashSet();
 	private final ITextComponent displayText;
 
-	public Advancement(ResourceLocation id, @Nullable Advancement parentIn, @Nullable DisplayInfo displayIn, AdvancementRewards rewardsIn, Map<String, Criterion> criteriaIn, String[][] requirementsIn) {
+	public Advancement(ResourceLocation id, Advancement parentIn, DisplayInfo displayIn, AdvancementRewards rewardsIn, Map<String, Criterion> criteriaIn, String[][] requirementsIn) {
 
 		this.id = id;
 		display = displayIn;
@@ -71,7 +69,7 @@ public class Advancement {
 		return new Advancement.Builder(parent == null ? null : parent.getId(), display, rewards, criteria, requirements);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Get the {@code Advancement} that is this {@code Advancement}'s parent. This determines the tree structure that
@@ -84,7 +82,7 @@ public class Advancement {
 		return parent;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Get information that defines this {@code Advancement}'s appearance in GUIs.
@@ -192,7 +190,7 @@ public class Advancement {
 		private final String[][] requirements;
 		private Advancement parent;
 
-		Builder(@Nullable ResourceLocation p_i47414_1_, @Nullable DisplayInfo p_i47414_2_, AdvancementRewards p_i47414_3_, Map<String, Criterion> p_i47414_4_, String[][] p_i47414_5_) {
+		Builder(ResourceLocation p_i47414_1_, DisplayInfo p_i47414_2_, AdvancementRewards p_i47414_3_, Map<String, Criterion> p_i47414_4_, String[][] p_i47414_5_) {
 
 			parentId = p_i47414_1_;
 			display = p_i47414_2_;

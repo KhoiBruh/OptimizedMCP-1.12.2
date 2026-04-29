@@ -12,8 +12,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public abstract class EntityAgeable extends EntityCreature {
 
 	private static final DataParameter<Boolean> BABY = EntityDataManager.createKey(EntityAgeable.class, DataSerializers.BOOLEAN);
@@ -28,7 +26,7 @@ public abstract class EntityAgeable extends EntityCreature {
 		super(worldIn);
 	}
 
-	@Nullable
+	
 	public abstract EntityAgeable createChild(EntityAgeable ageable);
 
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {

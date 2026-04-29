@@ -3,8 +3,6 @@ package net.minecraft.entity.ai;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.util.math.Vec3d;
 
-import javax.annotation.Nullable;
-
 public class EntityAIWander extends EntityAIBase {
 
 	protected final EntityCreature entity;
@@ -56,7 +54,7 @@ public class EntityAIWander extends EntityAIBase {
 		}
 	}
 
-	@Nullable
+	
 	protected Vec3d getPosition() {
 
 		return RandomPositionGenerator.findRandomTarget(entity, 10, 7);

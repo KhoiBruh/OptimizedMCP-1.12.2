@@ -6,8 +6,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class ItemClock extends Item {
 
 	public ItemClock() {
@@ -17,7 +15,7 @@ public class ItemClock extends Item {
 			double rota;
 			long lastUpdateTick;
 
-			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+			public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn) {
 
 				boolean flag = entityIn != null;
 				Entity entity = flag ? entityIn : stack.getItemFrame();

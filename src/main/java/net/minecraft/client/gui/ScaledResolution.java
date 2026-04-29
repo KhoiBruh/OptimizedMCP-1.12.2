@@ -11,13 +11,13 @@ public class ScaledResolution {
 	private int scaledHeight;
 	private int scaleFactor;
 
-	public ScaledResolution(Minecraft minecraftClient) {
+	public ScaledResolution(Minecraft mc) {
 
-		scaledWidth = minecraftClient.displayWidth;
-		scaledHeight = minecraftClient.displayHeight;
+		scaledWidth = mc.displayWidth;
+		scaledHeight = mc.displayHeight;
 		scaleFactor = 1;
-		boolean flag = minecraftClient.isUnicode();
-		int i = minecraftClient.gameSettings.guiScale;
+		boolean flag = mc.isUnicode();
+		int i = mc.gameSettings.guiScale;
 
 		if (i == 0) {
 			i = 1000;

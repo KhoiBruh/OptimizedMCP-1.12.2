@@ -16,8 +16,6 @@ import net.minecraft.network.status.client.CPacketServerQuery;
 import net.minecraft.network.status.server.SPacketPong;
 import net.minecraft.network.status.server.SPacketServerInfo;
 import org.apache.logging.log4j.LogManager;
-
-import javax.annotation.Nullable;
 import java.util.Map;
 
 public enum EnumConnectionState {
@@ -231,7 +229,7 @@ public enum EnumConnectionState {
 		return (Integer) ((BiMap) directionMaps.get(direction)).inverse().get(packetIn.getClass());
 	}
 
-	@Nullable
+	
 	public Packet<?> getPacket(EnumPacketDirection direction, int packetId) throws InstantiationException, IllegalAccessException {
 
 		Class<? extends Packet<?>> oclass = (Class) ((BiMap) directionMaps.get(direction)).get(packetId);

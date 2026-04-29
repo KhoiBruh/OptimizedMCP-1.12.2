@@ -1,7 +1,5 @@
 package net.minecraft.world.storage;
 
-import javax.annotation.Nullable;
-
 public class SaveDataMemoryStorage extends MapStorage {
 
 	public SaveDataMemoryStorage() {
@@ -9,7 +7,7 @@ public class SaveDataMemoryStorage extends MapStorage {
 		super(null);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Loads an existing MapDataBase corresponding to the given id from disk, instantiating the given Class, or returns

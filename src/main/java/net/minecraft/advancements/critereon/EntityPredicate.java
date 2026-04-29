@@ -9,8 +9,6 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 
-import javax.annotation.Nullable;
-
 public class EntityPredicate {
 
 	/**
@@ -23,7 +21,7 @@ public class EntityPredicate {
 	private final MobEffectsPredicate effects;
 	private final NBTPredicate nbt;
 
-	public EntityPredicate(@Nullable ResourceLocation type, DistancePredicate distance, LocationPredicate location, MobEffectsPredicate effects, NBTPredicate nbt) {
+	public EntityPredicate(ResourceLocation type, DistancePredicate distance, LocationPredicate location, MobEffectsPredicate effects, NBTPredicate nbt) {
 
 		this.type = type;
 		this.distance = distance;
@@ -32,7 +30,7 @@ public class EntityPredicate {
 		this.nbt = nbt;
 	}
 
-	public static EntityPredicate deserialize(@Nullable JsonElement element) {
+	public static EntityPredicate deserialize(JsonElement element) {
 
 		if (element != null && !element.isJsonNull()) {
 			JsonObject jsonobject = JsonUtils.getJsonObject(element, "entity");
@@ -56,7 +54,7 @@ public class EntityPredicate {
 		}
 	}
 
-	public boolean test(EntityPlayerMP player, @Nullable Entity entity) {
+	public boolean test(EntityPlayerMP player, Entity entity) {
 
 		if (this == ANY) {
 			return true;

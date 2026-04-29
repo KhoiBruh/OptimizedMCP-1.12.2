@@ -8,8 +8,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEntitySpawner;
-
-import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.List;
 
@@ -164,7 +162,7 @@ public class VillageSiege {
 		}
 	}
 
-	@Nullable
+	
 	private Vec3d findRandomSpawnPos(BlockPos pos) {
 
 		for (int i = 0; i < 10; ++i) {

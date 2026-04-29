@@ -12,8 +12,6 @@ import net.minecraft.network.play.server.SPacketAdvancementInfo;
 import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -24,10 +22,10 @@ public class ClientAdvancementManager {
 	private final AdvancementList advancementList = new AdvancementList();
 	private final Map<Advancement, AdvancementProgress> advancementToProgress = Maps.newHashMap();
 
-	@Nullable
+	
 	private ClientAdvancementManager.IListener listener;
 
-	@Nullable
+	
 	private Advancement selectedTab;
 
 	public ClientAdvancementManager(Minecraft p_i47380_1_) {
@@ -71,7 +69,7 @@ public class ClientAdvancementManager {
 		return advancementList;
 	}
 
-	public void setSelectedTab(@Nullable Advancement p_194230_1_, boolean tellServer) {
+	public void setSelectedTab(Advancement p_194230_1_, boolean tellServer) {
 
 		NetHandlerPlayClient nethandlerplayclient = mc.getConnection();
 
@@ -88,7 +86,7 @@ public class ClientAdvancementManager {
 		}
 	}
 
-	public void setListener(@Nullable ClientAdvancementManager.IListener p_192798_1_) {
+	public void setListener(ClientAdvancementManager.IListener p_192798_1_) {
 
 		listener = p_192798_1_;
 		advancementList.setListener(p_192798_1_);

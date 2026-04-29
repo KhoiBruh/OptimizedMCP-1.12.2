@@ -5,8 +5,6 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
-
-import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -15,8 +13,8 @@ public abstract class BlockStateBase implements IBlockState {
 
 	private static final Joiner COMMA_JOINER = Joiner.on(',');
 	private static final Function<Entry<IProperty<?>, Comparable<?>>, String> MAP_ENTRY_TO_STRING = new Function<>() {
-		@Nullable
-		public String apply(@Nullable Entry<IProperty<?>, Comparable<?>> p_apply_1_) {
+		
+		public String apply(Entry<IProperty<?>, Comparable<?>> p_apply_1_) {
 
 			if (p_apply_1_ == null) {
 				return "<NULL>";

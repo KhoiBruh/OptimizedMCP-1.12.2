@@ -12,8 +12,6 @@ import com.mojang.authlib.ProfileLookupCallback;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.JsonUtils;
 import org.apache.commons.io.IOUtils;
-
-import javax.annotation.Nullable;
 import java.io.*;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -131,7 +129,7 @@ public class PlayerProfileCache {
 		save();
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Get a player's GameProfile given their username. Mojang's server's will be contacted if the entry is not cached
@@ -175,7 +173,7 @@ public class PlayerProfileCache {
 		return list.toArray(new String[0]);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Get a player's {@link GameProfile} given their UUID

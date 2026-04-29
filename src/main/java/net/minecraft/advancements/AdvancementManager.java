@@ -13,8 +13,6 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -43,7 +41,7 @@ public class AdvancementManager {
 	private final File advancementsDir;
 	private boolean hasErrored;
 
-	public AdvancementManager(@Nullable File advancementsDirIn) {
+	public AdvancementManager(File advancementsDirIn) {
 
 		advancementsDir = advancementsDirIn;
 		reload();
@@ -172,7 +170,7 @@ public class AdvancementManager {
 		}
 	}
 
-	@Nullable
+	
 	public Advancement getAdvancement(ResourceLocation id) {
 
 		return ADVANCEMENT_LIST.getAdvancement(id);

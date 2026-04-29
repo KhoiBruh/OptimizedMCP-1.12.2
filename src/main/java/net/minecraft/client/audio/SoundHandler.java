@@ -15,7 +15,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.Nullable;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,7 +27,7 @@ import java.util.Map.Entry;
 
 public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 
-	public static final Sound MISSING_SOUND = new Sound("meta:missing_sound", 1.0F, 1.0F, 1, Sound.Type.FILE, false);
+	public static final Sound MISSING_SOUND = new Sound("meta:missing_sound", 1F, 1F, 1, Sound.Type.FILE, false);
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final Gson GSON = (new GsonBuilder()).registerTypeHierarchyAdapter(ITextComponent.class, new ITextComponent.Serializer()).registerTypeAdapter(SoundList.class, new SoundListSerializer()).create();
 	private static final ParameterizedType TYPE = new ParameterizedType() {
@@ -99,7 +98,7 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 		sndManager.reloadSoundSystem();
 	}
 
-	@Nullable
+	
 	protected Map<String, SoundList> getSoundMap(InputStream stream) {
 
 		Map<String, SoundList> map;
@@ -194,7 +193,7 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 		return flag;
 	}
 
-	@Nullable
+	
 	public SoundEventAccessor getAccessor(ResourceLocation location) {
 
 		return soundRegistry.getObject(location);
@@ -251,7 +250,7 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 
 	public void setSoundLevel(SoundCategory category, float volume) {
 
-		if (category == SoundCategory.MASTER && volume <= 0.0F) {
+		if (category == SoundCategory.MASTER && volume <= 0F) {
 			stopSounds();
 		}
 

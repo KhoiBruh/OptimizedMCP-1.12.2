@@ -5,7 +5,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
@@ -16,7 +15,7 @@ public class SoundEventAccessor implements ISoundEventAccessor<Sound> {
 	private final ResourceLocation location;
 	private final ITextComponent subtitle;
 
-	public SoundEventAccessor(ResourceLocation locationIn, @Nullable String subtitleIn) {
+	public SoundEventAccessor(ResourceLocation locationIn, String subtitleIn) {
 
 		location = locationIn;
 		subtitle = subtitleIn == null ? null : new TextComponentTranslation(subtitleIn);
@@ -64,7 +63,7 @@ public class SoundEventAccessor implements ISoundEventAccessor<Sound> {
 		return location;
 	}
 
-	@Nullable
+	
 	public ITextComponent getSubtitle() {
 
 		return subtitle;

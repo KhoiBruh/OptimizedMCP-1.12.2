@@ -17,8 +17,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.GameType;
-
-import javax.annotation.Nullable;
 import java.util.Comparator;
 import java.util.List;
 
@@ -70,7 +68,7 @@ public class GuiPlayerTabOverlay extends Gui {
 	/**
 	 * Renders the playerlist, its background, headers and footers.
 	 */
-	public void renderPlayerlist(int width, Scoreboard scoreboardIn, @Nullable ScoreObjective scoreObjectiveIn) {
+	public void renderPlayerlist(int width, Scoreboard scoreboardIn, ScoreObjective scoreObjectiveIn) {
 
 		NetHandlerPlayClient nethandlerplayclient = mc.player.connection;
 		List<NetworkPlayerInfo> list = ENTRY_ORDERING.sortedCopy(nethandlerplayclient.getPlayerInfoMap());
@@ -314,12 +312,12 @@ public class GuiPlayerTabOverlay extends Gui {
 		}
 	}
 
-	public void setFooter(@Nullable ITextComponent footerIn) {
+	public void setFooter(ITextComponent footerIn) {
 
 		footer = footerIn;
 	}
 
-	public void setHeader(@Nullable ITextComponent headerIn) {
+	public void setHeader(ITextComponent headerIn) {
 
 		header = headerIn;
 	}

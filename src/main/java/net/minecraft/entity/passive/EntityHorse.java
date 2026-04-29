@@ -24,8 +24,6 @@ import net.minecraft.util.datafix.walkers.ItemStackData;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import javax.annotation.Nullable;
 import java.util.UUID;
 
 public class EntityHorse extends AbstractHorse {
@@ -358,7 +356,7 @@ public class EntityHorse extends AbstractHorse {
 		return HorseArmorType.isHorseArmor(stack.getItem());
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
@@ -374,7 +372,7 @@ public class EntityHorse extends AbstractHorse {
 	 * @param difficulty The current local difficulty
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 		int i;

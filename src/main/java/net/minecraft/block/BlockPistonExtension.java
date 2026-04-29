@@ -18,8 +18,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
@@ -54,7 +52,7 @@ public class BlockPistonExtension extends BlockDirectional {
 		setHardness(0.5F);
 	}
 
-	@Nullable
+	
 	public static EnumFacing getFacing(int meta) {
 
 		int i = meta & 7;
@@ -73,7 +71,7 @@ public class BlockPistonExtension extends BlockDirectional {
 		};
 	}
 
-	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState) {
+	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean isActualState) {
 
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, state.getBoundingBox(worldIn, pos));
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, getArmShape(state));

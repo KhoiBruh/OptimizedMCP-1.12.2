@@ -10,8 +10,6 @@ import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class NpcMerchant implements IMerchant {
 
 	/**
@@ -36,23 +34,23 @@ public class NpcMerchant implements IMerchant {
 		merchantInventory = new InventoryMerchant(customerIn, this);
 	}
 
-	@Nullable
+	
 	public EntityPlayer getCustomer() {
 
 		return customer;
 	}
 
-	public void setCustomer(@Nullable EntityPlayer player) {
+	public void setCustomer(EntityPlayer player) {
 
 	}
 
-	@Nullable
+	
 	public MerchantRecipeList getRecipes(EntityPlayer player) {
 
 		return recipeList;
 	}
 
-	public void setRecipes(@Nullable MerchantRecipeList recipeList) {
+	public void setRecipes(MerchantRecipeList recipeList) {
 
 		this.recipeList = recipeList;
 	}

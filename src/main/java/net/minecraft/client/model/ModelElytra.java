@@ -13,10 +13,10 @@ public class ModelElytra extends ModelBase {
 
 	public ModelElytra() {
 
-		leftWing.addBox(-10.0F, 0.0F, 0.0F, 10, 20, 2, 1.0F);
+		leftWing.addBox(-10F, 0F, 0F, 10, 20, 2, 1F);
 		rightWing = new ModelRenderer(this, 22, 0);
 		rightWing.mirror = true;
-		rightWing.addBox(0.0F, 0.0F, 0.0F, 10, 20, 2, 1.0F);
+		rightWing.addBox(0F, 0F, 0F, 10, 20, 2, 1F);
 	}
 
 	/**
@@ -30,7 +30,7 @@ public class ModelElytra extends ModelBase {
 		if (entityIn instanceof EntityLivingBase && ((EntityLivingBase) entityIn).isChild()) {
 			GlStateManager.pushMatrix();
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);
-			GlStateManager.translate(0.0F, 1.5F, -0.1F);
+			GlStateManager.translate(0F, 1.5F, -0.1F);
 			leftWing.render(scale);
 			rightWing.render(scale);
 			GlStateManager.popMatrix();
@@ -50,27 +50,27 @@ public class ModelElytra extends ModelBase {
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 		float f = 0.2617994F;
 		float f1 = -0.2617994F;
-		float f2 = 0.0F;
-		float f3 = 0.0F;
+		float f2 = 0F;
+		float f3 = 0F;
 
 		if (entityIn instanceof EntityLivingBase && ((EntityLivingBase) entityIn).isElytraFlying()) {
-			float f4 = 1.0F;
+			float f4 = 1F;
 
-			if (entityIn.motionY < 0.0D) {
+			if (entityIn.motionY < 0D) {
 				Vec3d vec3d = (new Vec3d(entityIn.motionX, entityIn.motionY, entityIn.motionZ)).normalize();
-				f4 = 1.0F - (float) Math.pow(-vec3d.y(), 1.5D);
+				f4 = 1F - (float) Math.pow(-vec3d.y(), 1.5D);
 			}
 
-			f = f4 * 0.34906584F + (1.0F - f4) * f;
-			f1 = f4 * -((float) Math.PI / 2F) + (1.0F - f4) * f1;
+			f = f4 * 0.34906584F + (1F - f4) * f;
+			f1 = f4 * -((float) Math.PI / 2F) + (1F - f4) * f1;
 		} else if (entityIn.isSneaking()) {
 			f = ((float) Math.PI * 2F / 9F);
 			f1 = -((float) Math.PI / 4F);
-			f2 = 3.0F;
+			f2 = 3F;
 			f3 = 0.08726646F;
 		}
 
-		leftWing.rotationPointX = 5.0F;
+		leftWing.rotationPointX = 5F;
 		leftWing.rotationPointY = f2;
 
 		if (entityIn instanceof AbstractClientPlayer abstractclientplayer) {

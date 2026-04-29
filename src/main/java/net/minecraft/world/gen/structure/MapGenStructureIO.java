@@ -5,8 +5,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.Map;
 
 public class MapGenStructureIO {
@@ -58,7 +56,7 @@ public class MapGenStructureIO {
 		return componentClassToNameMap.get(component.getClass());
 	}
 
-	@Nullable
+	
 	public static StructureStart getStructureStart(NBTTagCompound tagCompound, World worldIn) {
 
 		StructureStart structurestart = null;

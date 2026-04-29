@@ -9,8 +9,6 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-import javax.annotation.Nullable;
-
 public class EntityDonkey extends AbstractChestHorse {
 
 	public EntityDonkey(World worldIn) {
@@ -23,7 +21,7 @@ public class EntityDonkey extends AbstractChestHorse {
 		AbstractChestHorse.registerFixesAbstractChestHorse(fixer, EntityDonkey.class);
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_DONKEY;

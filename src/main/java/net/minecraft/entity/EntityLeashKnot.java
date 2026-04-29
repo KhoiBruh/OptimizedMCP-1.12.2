@@ -10,8 +10,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class EntityLeashKnot extends EntityHanging {
@@ -40,7 +38,7 @@ public class EntityLeashKnot extends EntityHanging {
 		return entityleashknot;
 	}
 
-	@Nullable
+	
 	public static EntityLeashKnot getKnotForPosition(World worldIn, BlockPos pos) {
 
 		int i = pos.getX();
@@ -107,7 +105,7 @@ public class EntityLeashKnot extends EntityHanging {
 	/**
 	 * Called when this entity is broken. Entity parameter may be null.
 	 */
-	public void onBroken(@Nullable Entity brokenEntity) {
+	public void onBroken(Entity brokenEntity) {
 
 		playSound(SoundEvents.ENTITY_LEASHKNOT_BREAK, 1.0F, 1.0F);
 	}

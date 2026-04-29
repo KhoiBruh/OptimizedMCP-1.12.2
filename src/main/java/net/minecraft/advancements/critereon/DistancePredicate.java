@@ -5,8 +5,6 @@ import com.google.gson.JsonObject;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.math.MathHelper;
 
-import javax.annotation.Nullable;
-
 public class DistancePredicate {
 
 	/**
@@ -28,7 +26,7 @@ public class DistancePredicate {
 		this.absolute = absolute;
 	}
 
-	public static DistancePredicate deserialize(@Nullable JsonElement element) {
+	public static DistancePredicate deserialize(JsonElement element) {
 
 		if (element != null && !element.isJsonNull()) {
 			JsonObject jsonobject = JsonUtils.getJsonObject(element, "distance");

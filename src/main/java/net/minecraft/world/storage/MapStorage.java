@@ -6,8 +6,6 @@ import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagShort;
-
-import javax.annotation.Nullable;
 import java.io.*;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +23,7 @@ public class MapStorage {
 		loadIdCounts();
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Loads an existing MapDataBase corresponding to the given id from disk, instantiating the given Class, or returns

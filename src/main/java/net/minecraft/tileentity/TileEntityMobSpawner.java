@@ -13,8 +13,6 @@ import net.minecraft.util.datafix.FixTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class TileEntityMobSpawner extends TileEntity implements ITickable {
 
 	private final MobSpawnerBaseLogic spawnerLogic = new MobSpawnerBaseLogic() {
@@ -86,7 +84,7 @@ public class TileEntityMobSpawner extends TileEntity implements ITickable {
 		spawnerLogic.updateSpawner();
 	}
 
-	@Nullable
+	
 	public SPacketUpdateTileEntity getUpdatePacket() {
 
 		return new SPacketUpdateTileEntity(pos, 1, getUpdateTag());

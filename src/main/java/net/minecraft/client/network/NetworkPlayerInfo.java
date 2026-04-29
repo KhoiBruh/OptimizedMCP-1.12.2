@@ -12,7 +12,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.GameType;
 
-import javax.annotation.Nullable;
 import java.util.Map;
 
 public class NetworkPlayerInfo {
@@ -98,14 +97,14 @@ public class NetworkPlayerInfo {
 		return MoreObjects.firstNonNull(playerTextures.get(Type.SKIN), DefaultPlayerSkin.getDefaultSkin(gameProfile.getId()));
 	}
 
-	@Nullable
+	
 	public ResourceLocation getLocationCape() {
 
 		loadPlayerTextures();
 		return playerTextures.get(Type.CAPE);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Gets the special Elytra texture for the player.
@@ -116,7 +115,7 @@ public class NetworkPlayerInfo {
 		return playerTextures.get(Type.ELYTRA);
 	}
 
-	@Nullable
+	
 	public ScorePlayerTeam getPlayerTeam() {
 
 		return Minecraft.getMinecraft().world.getScoreboard().getPlayersTeam(getGameProfile().getName());
@@ -152,13 +151,13 @@ public class NetworkPlayerInfo {
 		}
 	}
 
-	@Nullable
+	
 	public ITextComponent getDisplayName() {
 
 		return displayName;
 	}
 
-	public void setDisplayName(@Nullable ITextComponent displayNameIn) {
+	public void setDisplayName(ITextComponent displayNameIn) {
 
 		displayName = displayNameIn;
 	}

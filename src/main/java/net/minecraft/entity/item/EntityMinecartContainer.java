@@ -21,8 +21,6 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.ILootContainer;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootTable;
-
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public abstract class EntityMinecartContainer extends EntityMinecart implements ILockableContainer, ILootContainer {
@@ -165,7 +163,7 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 		return 64;
 	}
 
-	@Nullable
+	
 	public Entity changeDimension(int dimensionIn) {
 
 		dropContentsWhenDead = false;
@@ -280,7 +278,7 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 	/**
 	 * Adds loot to the minecart's contents.
 	 */
-	public void addLoot(@Nullable EntityPlayer player) {
+	public void addLoot(EntityPlayer player) {
 
 		if (lootTable != null) {
 			LootTable loottable = world.getLootTableManager().getLootTableFromLocation(lootTable);

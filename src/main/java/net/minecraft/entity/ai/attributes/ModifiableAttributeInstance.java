@@ -3,8 +3,6 @@ package net.minecraft.entity.ai.attributes;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-
-import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -76,7 +74,7 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
 		return set;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns attribute modifier, if any, by the given UUID

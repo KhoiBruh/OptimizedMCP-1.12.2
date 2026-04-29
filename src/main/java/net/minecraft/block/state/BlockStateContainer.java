@@ -14,8 +14,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -27,8 +25,8 @@ public class BlockStateContainer {
 
 	private static final Pattern NAME_PATTERN = Pattern.compile("^[a-z0-9_]+$");
 	private static final Function<IProperty<?>, String> GET_NAME_FUNC = new Function<>() {
-		@Nullable
-		public String apply(@Nullable IProperty<?> p_apply_1_) {
+		
+		public String apply(IProperty<?> p_apply_1_) {
 
 			return p_apply_1_ == null ? "<NULL>" : p_apply_1_.getName();
 		}
@@ -121,7 +119,7 @@ public class BlockStateContainer {
 		return MoreObjects.toStringHelper(this).add("block", Block.REGISTRY.getNameForObject(block)).add("properties", Iterables.transform(properties.values(), GET_NAME_FUNC)).toString();
 	}
 
-	@Nullable
+	
 	public IProperty<?> getProperty(String propertyName) {
 
 		return properties.get(propertyName);
@@ -362,13 +360,13 @@ public class BlockStateContainer {
 			return block.isOpaqueCube(this);
 		}
 
-		@Nullable
+		
 		public AxisAlignedBB getCollisionBoundingBox(IBlockAccess worldIn, BlockPos pos) {
 
 			return block.getCollisionBoundingBox(this, worldIn, pos);
 		}
 
-		public void addCollisionBoxToList(World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean p_185908_6_) {
+		public void addCollisionBoxToList(World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean p_185908_6_) {
 
 			block.addCollisionBoxToList(this, worldIn, pos, entityBox, collidingBoxes, entityIn, p_185908_6_);
 		}

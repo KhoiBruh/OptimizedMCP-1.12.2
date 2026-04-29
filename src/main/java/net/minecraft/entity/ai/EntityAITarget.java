@@ -9,8 +9,6 @@ import net.minecraft.scoreboard.Team;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 
-import javax.annotation.Nullable;
-
 public abstract class EntityAITarget extends EntityAIBase {
 
 	/**
@@ -57,7 +55,7 @@ public abstract class EntityAITarget extends EntityAIBase {
 	/**
 	 * A static method used to see if an entity is a suitable target through a number of checks.
 	 */
-	public static boolean isSuitableTarget(EntityLiving attacker, @Nullable EntityLivingBase target, boolean includeInvincibles, boolean checkSight) {
+	public static boolean isSuitableTarget(EntityLiving attacker, EntityLivingBase target, boolean includeInvincibles, boolean checkSight) {
 
 		if (target == null) {
 			return false;
@@ -161,7 +159,7 @@ public abstract class EntityAITarget extends EntityAIBase {
 	 * A method used to see if an entity is a suitable target through a number of checks. Args : entity,
 	 * canTargetInvinciblePlayer
 	 */
-	protected boolean isSuitableTarget(@Nullable EntityLivingBase target, boolean includeInvincibles) {
+	protected boolean isSuitableTarget(EntityLivingBase target, boolean includeInvincibles) {
 
 		if (!isSuitableTarget(taskOwner, target, includeInvincibles, shouldCheckSight)) {
 			return false;

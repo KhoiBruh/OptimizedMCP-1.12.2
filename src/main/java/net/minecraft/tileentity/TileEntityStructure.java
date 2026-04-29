@@ -21,8 +21,6 @@ import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraft.world.gen.structure.template.Template;
 import net.minecraft.world.gen.structure.template.TemplateManager;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class TileEntityStructure extends TileEntity {
@@ -126,7 +124,7 @@ public class TileEntityStructure extends TileEntity {
 		}
 	}
 
-	@Nullable
+	
 	public SPacketUpdateTileEntity getUpdatePacket() {
 
 		return new SPacketUpdateTileEntity(pos, 7, getUpdateTag());
@@ -534,7 +532,7 @@ public class TileEntityStructure extends TileEntity {
 		showBoundingBox = showBoundingBoxIn;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Get the formatted ChatComponent that will be used for the sender's username in chat

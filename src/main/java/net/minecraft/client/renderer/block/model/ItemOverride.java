@@ -9,8 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -34,7 +32,7 @@ public class ItemOverride {
 		return location;
 	}
 
-	boolean matchesItemStack(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase livingEntity) {
+	boolean matchesItemStack(ItemStack stack, World worldIn, EntityLivingBase livingEntity) {
 
 		Item item = stack.getItem();
 

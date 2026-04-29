@@ -9,8 +9,6 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.datafix.FixTypes;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -37,7 +35,7 @@ public class SaveFormatOld implements ISaveFormat {
 		savesDirectory = savesDirectoryIn;
 	}
 
-	@Nullable
+	
 	public static WorldInfo getWorldData(File p_186353_0_, DataFixer dataFixerIn) {
 
 		try {
@@ -100,7 +98,7 @@ public class SaveFormatOld implements ISaveFormat {
 
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns the world's WorldInfo object

@@ -5,8 +5,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class BlockWorldState {
 
 	private final World world;
@@ -41,7 +39,7 @@ public class BlockWorldState {
 		return state;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Gets the tile entity as currently held, or (if it has not gotten it from the world) loads it from the world.

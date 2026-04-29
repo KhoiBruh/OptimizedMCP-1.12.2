@@ -16,8 +16,6 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -350,7 +348,7 @@ public class EntityAreaEffectCloud extends Entity {
 		waitTime = waitTimeIn;
 	}
 
-	@Nullable
+	
 	public EntityLivingBase getOwner() {
 
 		if (owner == null && ownerUniqueId != null && world instanceof WorldServer) {
@@ -364,7 +362,7 @@ public class EntityAreaEffectCloud extends Entity {
 		return owner;
 	}
 
-	public void setOwner(@Nullable EntityLivingBase ownerIn) {
+	public void setOwner(EntityLivingBase ownerIn) {
 
 		owner = ownerIn;
 		ownerUniqueId = ownerIn == null ? null : ownerIn.getUniqueID();

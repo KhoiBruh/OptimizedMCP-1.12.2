@@ -5,8 +5,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.PacketBuffer;
-
-import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -50,7 +48,7 @@ public class MerchantRecipeList extends ArrayList<MerchantRecipe> {
 		return merchantrecipelist;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * can par1,par2 be used to in crafting recipe par3

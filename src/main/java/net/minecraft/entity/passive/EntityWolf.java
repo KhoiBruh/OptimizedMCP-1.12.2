@@ -24,8 +24,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import javax.annotation.Nullable;
 import java.util.UUID;
 
 public class EntityWolf extends EntityTameable {
@@ -106,7 +104,7 @@ public class EntityWolf extends EntityTameable {
 	/**
 	 * Sets the active target the Task system uses for tracking
 	 */
-	public void setAttackTarget(@Nullable EntityLivingBase entitylivingbaseIn) {
+	public void setAttackTarget(EntityLivingBase entitylivingbaseIn) {
 
 		super.setAttackTarget(entitylivingbaseIn);
 
@@ -187,7 +185,7 @@ public class EntityWolf extends EntityTameable {
 		return 0.4F;
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_WOLF;

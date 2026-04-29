@@ -20,8 +20,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -233,7 +231,7 @@ public class Explosion {
 		return playerKnockbackMap;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns either the entity that placed the explosive block, the entity that caused the explosion or null.

@@ -6,8 +6,6 @@ import com.google.common.base.Predicates;
 import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.IntHashMap;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class GuiPageButtonList extends GuiListExtended {
@@ -145,8 +143,8 @@ public class GuiPageButtonList extends GuiListExtended {
 		}
 	}
 
-	@Nullable
-	private Gui createEntry(@Nullable GuiPageButtonList.GuiListEntry p_178058_1_, int p_178058_2_, boolean p_178058_3_) {
+	
+	private Gui createEntry(GuiPageButtonList.GuiListEntry p_178058_1_, int p_178058_2_, boolean p_178058_3_) {
 
 		return switch (p_178058_1_) {
 			case GuiSlideEntry guiSlideEntry -> createSlider(width / 2 - 155 + p_178058_2_, 0, guiSlideEntry);
@@ -365,7 +363,7 @@ public class GuiPageButtonList extends GuiListExtended {
 		private final Gui component2;
 		private Gui focusedControl;
 
-		public GuiEntry(@Nullable Gui p_i45533_1_, @Nullable Gui p_i45533_2_) {
+		public GuiEntry(Gui p_i45533_1_, Gui p_i45533_2_) {
 
 			component1 = p_i45533_1_;
 			component2 = p_i45533_2_;

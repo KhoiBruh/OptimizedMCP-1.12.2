@@ -17,8 +17,6 @@ import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.Nullable;
-
 public abstract class TileEntity {
 
 	private static final Logger LOGGER = LogManager.getLogger();
@@ -69,13 +67,13 @@ public abstract class TileEntity {
 		REGISTRY.putObject(new ResourceLocation(id), clazz);
 	}
 
-	@Nullable
+	
 	public static ResourceLocation getKey(Class<? extends TileEntity> clazz) {
 
 		return REGISTRY.getNameForObject(clazz);
 	}
 
-	@Nullable
+	
 	public static TileEntity create(World worldIn, NBTTagCompound compound) {
 
 		TileEntity tileentity = null;
@@ -224,7 +222,7 @@ public abstract class TileEntity {
 		return blockType;
 	}
 
-	@Nullable
+	
 	public SPacketUpdateTileEntity getUpdatePacket() {
 
 		return null;
@@ -303,7 +301,7 @@ public abstract class TileEntity {
 		return false;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Get the formatted ChatComponent that will be used for the sender's username in chat

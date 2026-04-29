@@ -51,8 +51,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.world.*;
-
-import javax.annotation.Nullable;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.UUID;
@@ -148,7 +146,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 */
 	public float experience;
 
-	@Nullable
+	
 
 	/**
 	 * An instance of a fishing rod's hook. If this isn't null, the icon image of the fishing rod is slightly different
@@ -214,7 +212,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 		});
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Return null if bed is invalid
@@ -639,7 +637,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 		}
 	}
 
-	private void playShoulderEntityAmbientSound(@Nullable NBTTagCompound p_192028_1_) {
+	private void playShoulderEntityAmbientSound(NBTTagCompound p_192028_1_) {
 
 		if (p_192028_1_ != null && !p_192028_1_.hasKey("Silent") || !p_192028_1_.getBoolean("Silent")) {
 			String s = p_192028_1_.getString("id");
@@ -735,7 +733,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 		return SoundEvents.ENTITY_PLAYER_DEATH;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Drop one item out of the currently selected stack if {@code dropAll} is false. If {@code dropItem} is true the
@@ -746,7 +744,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 		return dropItem(inventory.decrStackSize(inventory.currentItem, dropAll && !inventory.getCurrentItem().isEmpty() ? inventory.getCurrentItem().getCount() : 1), false, true);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Drops an item into the world.
@@ -756,7 +754,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 		return dropItem(itemStackIn, false, unused);
 	}
 
-	@Nullable
+	
 	public EntityItem dropItem(ItemStack droppedItem, boolean dropAround, boolean traceItem) {
 
 		if (droppedItem.isEmpty()) {
@@ -2067,7 +2065,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 		setRightShoulderEntity(new NBTTagCompound());
 	}
 
-	private void spawnShoulderEntity(@Nullable NBTTagCompound p_192026_1_) {
+	private void spawnShoulderEntity(NBTTagCompound p_192026_1_) {
 
 		if (!world.isRemote && !p_192026_1_.hasNoTags()) {
 			Entity entity = EntityList.createEntityFromNBT(p_192026_1_, world);
@@ -2389,7 +2387,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 			player = playerIn;
 		}
 
-		public boolean apply(@Nullable EntityMob p_apply_1_) {
+		public boolean apply(EntityMob p_apply_1_) {
 
 			return p_apply_1_.isPreventingPlayerRest(player);
 		}

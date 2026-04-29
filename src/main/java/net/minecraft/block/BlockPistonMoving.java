@@ -23,8 +23,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
@@ -45,7 +43,7 @@ public class BlockPistonMoving extends BlockContainer {
 		return new TileEntityPiston(blockStateIn, facingIn, extendingIn, shouldHeadBeRenderedIn);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns a new instance of a block's tile entity class. Called on placing the block.
@@ -147,7 +145,7 @@ public class BlockPistonMoving extends BlockContainer {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Ray traces through the blocks collision from start vector to end vector returning a ray trace hit.
@@ -169,14 +167,14 @@ public class BlockPistonMoving extends BlockContainer {
 		}
 	}
 
-	@Nullable
+	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 
 		TileEntityPiston tileentitypiston = getTilePistonAt(worldIn, pos);
 		return tileentitypiston == null ? null : tileentitypiston.getAABB(worldIn, pos);
 	}
 
-	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState) {
+	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean isActualState) {
 
 		TileEntityPiston tileentitypiston = getTilePistonAt(worldIn, pos);
 
@@ -191,7 +189,7 @@ public class BlockPistonMoving extends BlockContainer {
 		return tileentitypiston != null ? tileentitypiston.getAABB(source, pos) : FULL_BLOCK_AABB;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Gets a TileEntityPiston at the given position. Returns null if the tile is not an instance of TileEntityPiston.

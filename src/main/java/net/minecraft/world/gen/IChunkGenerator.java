@@ -5,8 +5,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public interface IChunkGenerator {
@@ -31,7 +29,7 @@ public interface IChunkGenerator {
 
 	List<Biome.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos);
 
-	@Nullable
+	
 	BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored);
 
 	/**

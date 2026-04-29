@@ -12,8 +12,6 @@ import net.minecraft.entity.passive.EntityParrot;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nullable;
 import java.util.UUID;
 
 public class LayerEntityOnShoulder implements LayerRenderer<EntityPlayer> {
@@ -66,7 +64,7 @@ public class LayerEntityOnShoulder implements LayerRenderer<EntityPlayer> {
 		}
 	}
 
-	private LayerEntityOnShoulder.DataHolder renderEntityOnShoulder(EntityPlayer p_192864_1_, @Nullable UUID p_192864_2_, NBTTagCompound p_192864_3_, RenderLivingBase<? extends EntityLivingBase> p_192864_4_, ModelBase p_192864_5_, ResourceLocation p_192864_6_, Class<?> p_192864_7_, float p_192864_8_, float p_192864_9_, float p_192864_10_, float p_192864_11_, float p_192864_12_, float p_192864_13_, float p_192864_14_, boolean p_192864_15_) {
+	private LayerEntityOnShoulder.DataHolder renderEntityOnShoulder(EntityPlayer p_192864_1_, UUID p_192864_2_, NBTTagCompound p_192864_3_, RenderLivingBase<? extends EntityLivingBase> p_192864_4_, ModelBase p_192864_5_, ResourceLocation p_192864_6_, Class<?> p_192864_7_, float p_192864_8_, float p_192864_9_, float p_192864_10_, float p_192864_11_, float p_192864_12_, float p_192864_13_, float p_192864_14_, boolean p_192864_15_) {
 
 		if (p_192864_2_ == null || !p_192864_2_.equals(p_192864_3_.getUniqueId("UUID"))) {
 			p_192864_2_ = p_192864_3_.getUniqueId("UUID");

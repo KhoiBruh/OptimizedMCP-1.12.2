@@ -21,8 +21,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class TileEntityHopper extends TileEntityLockableLoot implements IHopper, ITickable {
@@ -159,7 +157,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 	/**
 	 * Attempts to place the passed stack in the inventory, using as many slots as required. Returns leftover items
 	 */
-	public static ItemStack putStackInInventoryAllSlots(IInventory source, IInventory destination, ItemStack stack, @Nullable EnumFacing direction) {
+	public static ItemStack putStackInInventoryAllSlots(IInventory source, IInventory destination, ItemStack stack, EnumFacing direction) {
 
 		if (destination instanceof ISidedInventory isidedinventory && direction != null) {
 			int[] aint = isidedinventory.getSlotsForFace(direction);

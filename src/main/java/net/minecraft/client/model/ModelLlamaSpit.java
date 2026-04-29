@@ -8,21 +8,21 @@ public class ModelLlamaSpit extends ModelBase {
 
 	public ModelLlamaSpit() {
 
-		this(0.0F);
+		this(0F);
 	}
 
 	public ModelLlamaSpit(float p_i47225_1_) {
 
 		main = new ModelRenderer(this);
 		int i = 2;
-		main.setTextureOffset(0, 0).addBox(-4.0F, 0.0F, 0.0F, 2, 2, 2, p_i47225_1_);
-		main.setTextureOffset(0, 0).addBox(0.0F, -4.0F, 0.0F, 2, 2, 2, p_i47225_1_);
-		main.setTextureOffset(0, 0).addBox(0.0F, 0.0F, -4.0F, 2, 2, 2, p_i47225_1_);
-		main.setTextureOffset(0, 0).addBox(0.0F, 0.0F, 0.0F, 2, 2, 2, p_i47225_1_);
-		main.setTextureOffset(0, 0).addBox(2.0F, 0.0F, 0.0F, 2, 2, 2, p_i47225_1_);
-		main.setTextureOffset(0, 0).addBox(0.0F, 2.0F, 0.0F, 2, 2, 2, p_i47225_1_);
-		main.setTextureOffset(0, 0).addBox(0.0F, 0.0F, 2.0F, 2, 2, 2, p_i47225_1_);
-		main.setRotationPoint(0.0F, 0.0F, 0.0F);
+		main.setTextureOffset(0, 0).addBox(-4F, 0F, 0F, 2, 2, 2, p_i47225_1_);
+		main.setTextureOffset(0, 0).addBox(0F, -4F, 0F, 2, 2, 2, p_i47225_1_);
+		main.setTextureOffset(0, 0).addBox(0F, 0F, -4F, 2, 2, 2, p_i47225_1_);
+		main.setTextureOffset(0, 0).addBox(0F, 0F, 0F, 2, 2, 2, p_i47225_1_);
+		main.setTextureOffset(0, 0).addBox(2F, 0F, 0F, 2, 2, 2, p_i47225_1_);
+		main.setTextureOffset(0, 0).addBox(0F, 2F, 0F, 2, 2, 2, p_i47225_1_);
+		main.setTextureOffset(0, 0).addBox(0F, 0F, 2F, 2, 2, 2, p_i47225_1_);
+		main.setRotationPoint(0F, 0F, 0F);
 	}
 
 	/**

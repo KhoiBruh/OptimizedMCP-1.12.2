@@ -16,8 +16,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class BlockLever extends Block {
 
 	public static final PropertyEnum<BlockLever.EnumOrientation> FACING = PropertyEnum.create("facing", BlockLever.EnumOrientation.class);
@@ -41,7 +39,7 @@ public class BlockLever extends Block {
 		return BlockButton.canPlaceBlock(worldIn, p_181090_1_, p_181090_2_);
 	}
 
-	@Nullable
+	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 
 		return NULL_AABB;

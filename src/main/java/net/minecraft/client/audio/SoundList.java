@@ -1,6 +1,5 @@
 package net.minecraft.client.audio;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class SoundList {
@@ -30,7 +29,7 @@ public class SoundList {
 		return replaceExisting;
 	}
 
-	@Nullable
+	
 	public String getSubtitle() {
 
 		return subtitle;

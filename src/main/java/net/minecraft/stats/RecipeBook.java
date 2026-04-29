@@ -2,8 +2,6 @@ package net.minecraft.stats;
 
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
-
-import javax.annotation.Nullable;
 import java.util.BitSet;
 
 public class RecipeBook {
@@ -17,7 +15,7 @@ public class RecipeBook {
 	protected boolean isGuiOpen;
 	protected boolean isFilteringCraftable;
 
-	protected static int getRecipeId(@Nullable IRecipe recipe) {
+	protected static int getRecipeId(IRecipe recipe) {
 
 		return CraftingManager.REGISTRY.getIDForObject(recipe);
 	}
@@ -37,7 +35,7 @@ public class RecipeBook {
 		}
 	}
 
-	public boolean isUnlocked(@Nullable IRecipe recipe) {
+	public boolean isUnlocked(IRecipe recipe) {
 
 		return recipes.get(getRecipeId(recipe));
 	}

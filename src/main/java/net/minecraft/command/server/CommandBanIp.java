@@ -7,8 +7,6 @@ import net.minecraft.server.management.UserListIPBansEntry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
-
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -78,12 +76,12 @@ public class CommandBanIp extends CommandBase {
 		}
 	}
 
-	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
+	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
 
 		return args.length == 1 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) : Collections.emptyList();
 	}
 
-	protected void banIp(MinecraftServer server, ICommandSender sender, String ipAddress, @Nullable String banReason) {
+	protected void banIp(MinecraftServer server, ICommandSender sender, String ipAddress, String banReason) {
 
 		UserListIPBansEntry userlistipbansentry = new UserListIPBansEntry(ipAddress, null, sender.getName(), null, banReason);
 		server.getPlayerList().getBannedIPs().addEntry(userlistipbansentry);

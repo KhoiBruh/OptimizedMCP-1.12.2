@@ -9,8 +9,6 @@ import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.io.Reader;
 import java.io.StringReader;
 import java.lang.reflect.Type;
@@ -41,7 +39,7 @@ public class ModelBlock {
 	@VisibleForTesting
 	protected ResourceLocation parentLocation;
 
-	public ModelBlock(@Nullable ResourceLocation parentLocationIn, List<BlockPart> elementsIn, Map<String, String> texturesIn, boolean ambientOcclusionIn, boolean gui3dIn, ItemCameraTransforms cameraTransformsIn, List<ItemOverride> overridesIn) {
+	public ModelBlock(ResourceLocation parentLocationIn, List<BlockPart> elementsIn, Map<String, String> texturesIn, boolean ambientOcclusionIn, boolean gui3dIn, ItemCameraTransforms cameraTransformsIn, List<ItemOverride> overridesIn) {
 
 		elements = elementsIn;
 		ambientOcclusion = ambientOcclusionIn;
@@ -176,7 +174,7 @@ public class ModelBlock {
 		return hash.charAt(0) == '#';
 	}
 
-	@Nullable
+	
 	public ResourceLocation getParentLocation() {
 
 		return parentLocation;

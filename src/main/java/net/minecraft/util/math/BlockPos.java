@@ -8,10 +8,8 @@ import net.minecraft.util.Rotation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.concurrent.Immutable;
 import java.util.List;
 
-@Immutable
 public class BlockPos extends Vec3i {
 
 	/**

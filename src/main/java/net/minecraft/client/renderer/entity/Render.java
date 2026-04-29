@@ -22,8 +22,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public abstract class Render<T extends Entity> {
 
 	private static final ResourceLocation SHADOW_TEXTURES = new ResourceLocation("textures/misc/shadow.png");
@@ -140,7 +138,7 @@ public abstract class Render<T extends Entity> {
 		renderLivingLabel(entityIn, name, x, y, z, 64);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.

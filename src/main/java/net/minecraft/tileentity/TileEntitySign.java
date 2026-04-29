@@ -17,8 +17,6 @@ import net.minecraft.util.text.TextComponentUtils;
 import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class TileEntitySign extends TileEntity {
 
 	public final ITextComponent[] signText = new ITextComponent[]{new TextComponentString(""), new TextComponentString(""), new TextComponentString(""), new TextComponentString("")};
@@ -99,7 +97,7 @@ public class TileEntitySign extends TileEntity {
 		stats.readStatsFromNBT(compound);
 	}
 
-	@Nullable
+	
 	public SPacketUpdateTileEntity getUpdatePacket() {
 
 		return new SPacketUpdateTileEntity(pos, 9, getUpdateTag());

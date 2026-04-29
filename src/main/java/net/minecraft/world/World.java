@@ -40,8 +40,6 @@ import net.minecraft.world.storage.MapStorage;
 import net.minecraft.world.storage.WorldInfo;
 import net.minecraft.world.storage.WorldSavedData;
 import net.minecraft.world.storage.loot.LootTableManager;
-
-import javax.annotation.Nullable;
 import java.util.*;
 
 public abstract class World implements IBlockAccess {
@@ -193,7 +191,7 @@ public abstract class World implements IBlockAccess {
 		worldInfo.setServerInitialized(true);
 	}
 
-	@Nullable
+	
 	public MinecraftServer getMinecraftServer() {
 
 		return null;
@@ -808,7 +806,7 @@ public abstract class World implements IBlockAccess {
 		return skylightSubtracted < 4;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * ray traces all blocks, including non-collideable ones
@@ -818,13 +816,13 @@ public abstract class World implements IBlockAccess {
 		return rayTraceBlocks(start, end, false, false, false);
 	}
 
-	@Nullable
+	
 	public RayTraceResult rayTraceBlocks(Vec3d start, Vec3d end, boolean stopOnLiquid) {
 
 		return rayTraceBlocks(start, end, stopOnLiquid, false, false);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Performs a raycast against all blocks in the world. Args : Vec1, Vec2, stopOnLiquid,
@@ -971,12 +969,12 @@ public abstract class World implements IBlockAccess {
 	/**
 	 * Plays the specified sound for a player at the center of the given block position.
 	 */
-	public void playSound(@Nullable EntityPlayer player, BlockPos pos, SoundEvent soundIn, SoundCategory category, float volume, float pitch) {
+	public void playSound(EntityPlayer player, BlockPos pos, SoundEvent soundIn, SoundCategory category, float volume, float pitch) {
 
 		playSound(player, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, soundIn, category, volume, pitch);
 	}
 
-	public void playSound(@Nullable EntityPlayer player, double x, double y, double z, SoundEvent soundIn, SoundCategory category, float volume, float pitch) {
+	public void playSound(EntityPlayer player, double x, double y, double z, SoundEvent soundIn, SoundCategory category, float volume, float pitch) {
 
 		for (IWorldEventListener eventListener : eventListeners) {
 			eventListener.playSoundToAllNearExcept(player, soundIn, category, x, y, z, volume, pitch);
@@ -987,7 +985,7 @@ public abstract class World implements IBlockAccess {
 
 	}
 
-	public void playRecord(BlockPos blockPositionIn, @Nullable SoundEvent soundEventIn) {
+	public void playRecord(BlockPos blockPositionIn, SoundEvent soundEventIn) {
 
 		for (IWorldEventListener eventListener : eventListeners) {
 			eventListener.playRecord(soundEventIn, blockPositionIn);
@@ -1145,7 +1143,7 @@ public abstract class World implements IBlockAccess {
 	 * @param outList  A list to store the intersecting AABBs.
 	 * @return true if any box intersects (i.e. resultList is not empty)
 	 */
-	private boolean getCollisionBoxes(@Nullable Entity entityIn, AxisAlignedBB aabb, boolean p_191504_3_, @Nullable List<AxisAlignedBB> outList) {
+	private boolean getCollisionBoxes(Entity entityIn, AxisAlignedBB aabb, boolean p_191504_3_, List<AxisAlignedBB> outList) {
 
 		int i = MathHelper.floor(aabb.minX) - 1;
 		int j = MathHelper.ceil(aabb.maxX) + 1;
@@ -1202,7 +1200,7 @@ public abstract class World implements IBlockAccess {
 		return !outList.isEmpty();
 	}
 
-	public List<AxisAlignedBB> getCollisionBoxes(@Nullable Entity entityIn, AxisAlignedBB aabb) {
+	public List<AxisAlignedBB> getCollisionBoxes(Entity entityIn, AxisAlignedBB aabb) {
 
 		List<AxisAlignedBB> list = Lists.newArrayList();
 		getCollisionBoxes(entityIn, aabb, false, list);
@@ -1775,7 +1773,7 @@ public abstract class World implements IBlockAccess {
 	/**
 	 * Returns true if there are no solid, live entities in the specified AxisAlignedBB, excluding the given entity
 	 */
-	public boolean checkNoEntityCollision(AxisAlignedBB bb, @Nullable Entity entityIn) {
+	public boolean checkNoEntityCollision(AxisAlignedBB bb, Entity entityIn) {
 
 		List<Entity> list = getEntitiesWithinAABBExcludingEntity(null, bb);
 
@@ -1962,7 +1960,7 @@ public abstract class World implements IBlockAccess {
 	/**
 	 * Creates an explosion in the world.
 	 */
-	public Explosion createExplosion(@Nullable Entity entityIn, double x, double y, double z, float strength, boolean isSmoking) {
+	public Explosion createExplosion(Entity entityIn, double x, double y, double z, float strength, boolean isSmoking) {
 
 		return newExplosion(entityIn, x, y, z, strength, false, isSmoking);
 	}
@@ -1970,7 +1968,7 @@ public abstract class World implements IBlockAccess {
 	/**
 	 * returns a new explosion. Does initiation (at time of writing Explosion is not finished)
 	 */
-	public Explosion newExplosion(@Nullable Entity entityIn, double x, double y, double z, float strength, boolean isFlaming, boolean isSmoking) {
+	public Explosion newExplosion(Entity entityIn, double x, double y, double z, float strength, boolean isFlaming, boolean isSmoking) {
 
 		Explosion explosion = new Explosion(this, entityIn, x, y, z, strength, isFlaming, isSmoking);
 		explosion.doExplosionA();
@@ -2018,7 +2016,7 @@ public abstract class World implements IBlockAccess {
 	/**
 	 * Attempts to extinguish a fire
 	 */
-	public boolean extinguishFire(@Nullable EntityPlayer player, BlockPos pos, EnumFacing side) {
+	public boolean extinguishFire(EntityPlayer player, BlockPos pos, EnumFacing side) {
 
 		pos = pos.offset(side);
 
@@ -2047,7 +2045,7 @@ public abstract class World implements IBlockAccess {
 		return chunkProvider.makeString();
 	}
 
-	@Nullable
+	
 	public TileEntity getTileEntity(BlockPos pos) {
 
 		if (isOutsideBuildHeight(pos)) {
@@ -2071,7 +2069,7 @@ public abstract class World implements IBlockAccess {
 		}
 	}
 
-	@Nullable
+	
 	private TileEntity getPendingTileEntityAt(BlockPos pos) {
 
 		for (TileEntity tileentity2 : addedTileEntityList) {
@@ -2083,7 +2081,7 @@ public abstract class World implements IBlockAccess {
 		return null;
 	}
 
-	public void setTileEntity(BlockPos pos, @Nullable TileEntity tileEntityIn) {
+	public void setTileEntity(BlockPos pos, TileEntity tileEntityIn) {
 
 		if (!isOutsideBuildHeight(pos)) {
 			if (tileEntityIn != null && !tileEntityIn.isInvalid()) {
@@ -2548,24 +2546,24 @@ public abstract class World implements IBlockAccess {
 		return false;
 	}
 
-	@Nullable
+	
 	public List<NextTickListEntry> getPendingBlockUpdates(Chunk chunkIn, boolean remove) {
 
 		return null;
 	}
 
-	@Nullable
+	
 	public List<NextTickListEntry> getPendingBlockUpdates(StructureBoundingBox structureBB, boolean remove) {
 
 		return null;
 	}
 
-	public List<Entity> getEntitiesWithinAABBExcludingEntity(@Nullable Entity entityIn, AxisAlignedBB bb) {
+	public List<Entity> getEntitiesWithinAABBExcludingEntity(Entity entityIn, AxisAlignedBB bb) {
 
 		return getEntitiesInAABBexcluding(entityIn, bb, EntitySelectors.NOT_SPECTATING);
 	}
 
-	public List<Entity> getEntitiesInAABBexcluding(@Nullable Entity entityIn, AxisAlignedBB boundingBox, @Nullable Predicate<? super Entity> predicate) {
+	public List<Entity> getEntitiesInAABBexcluding(Entity entityIn, AxisAlignedBB boundingBox, Predicate<? super Entity> predicate) {
 
 		List<Entity> list = Lists.newArrayList();
 		int j2 = MathHelper.floor((boundingBox.minX - 2.0D) / 16.0D);
@@ -2615,7 +2613,7 @@ public abstract class World implements IBlockAccess {
 		return getEntitiesWithinAABB(classEntity, bb, EntitySelectors.NOT_SPECTATING);
 	}
 
-	public <T extends Entity> List<T> getEntitiesWithinAABB(Class<? extends T> clazz, AxisAlignedBB aabb, @Nullable Predicate<? super T> filter) {
+	public <T extends Entity> List<T> getEntitiesWithinAABB(Class<? extends T> clazz, AxisAlignedBB aabb, Predicate<? super T> filter) {
 
 		int j2 = MathHelper.floor((aabb.minX - 2.0D) / 16.0D);
 		int k2 = MathHelper.ceil((aabb.maxX + 2.0D) / 16.0D);
@@ -2634,7 +2632,7 @@ public abstract class World implements IBlockAccess {
 		return list;
 	}
 
-	@Nullable
+	
 	public <T extends Entity> T findNearestEntityWithinAABB(Class<? extends T> entityType, AxisAlignedBB aabb, T closestTo) {
 
 		List<T> list = getEntitiesWithinAABB(entityType, aabb);
@@ -2655,7 +2653,7 @@ public abstract class World implements IBlockAccess {
 		return t;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns the Entity with the given ID, or null if it doesn't exist in this World.
@@ -2711,7 +2709,7 @@ public abstract class World implements IBlockAccess {
 	 * Checks if the given block can be set at {@code pos}. {@code sidePlacedOn} is the side of the backing block that
 	 * was clicked on to trigger this placement.
 	 */
-	public boolean mayPlace(Block blockIn, BlockPos pos, boolean skipCollisionCheck, EnumFacing sidePlacedOn, @Nullable Entity placer) {
+	public boolean mayPlace(Block blockIn, BlockPos pos, boolean skipCollisionCheck, EnumFacing sidePlacedOn, Entity placer) {
 
 		IBlockState iblockstate1 = getBlockState(pos);
 		AxisAlignedBB axisalignedbb = skipCollisionCheck ? null : blockIn.getDefaultState().getCollisionBoundingBox(this, pos);
@@ -2839,7 +2837,7 @@ public abstract class World implements IBlockAccess {
 		return j2;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Gets the closest player to the entity within the specified distance.
@@ -2849,20 +2847,20 @@ public abstract class World implements IBlockAccess {
 		return getClosestPlayer(entityIn.posX, entityIn.posY, entityIn.posZ, distance, false);
 	}
 
-	@Nullable
+	
 	public EntityPlayer getNearestPlayerNotCreative(Entity entityIn, double distance) {
 
 		return getClosestPlayer(entityIn.posX, entityIn.posY, entityIn.posZ, distance, true);
 	}
 
-	@Nullable
+	
 	public EntityPlayer getClosestPlayer(double posX, double posY, double posZ, double distance, boolean spectator) {
 
 		Predicate<Entity> predicate = spectator ? EntitySelectors.CAN_AI_TARGET : EntitySelectors.NOT_SPECTATING;
 		return getClosestPlayer(posX, posY, posZ, distance, predicate);
 	}
 
-	@Nullable
+	
 	public EntityPlayer getClosestPlayer(double x, double y, double z, double p_190525_7_, Predicate<Entity> p_190525_9_) {
 
 		double d0 = -1.0D;
@@ -2897,20 +2895,20 @@ public abstract class World implements IBlockAccess {
 		return false;
 	}
 
-	@Nullable
+	
 	public EntityPlayer getNearestAttackablePlayer(Entity entityIn, double maxXZDistance, double maxYDistance) {
 
 		return getNearestAttackablePlayer(entityIn.posX, entityIn.posY, entityIn.posZ, maxXZDistance, maxYDistance, null, null);
 	}
 
-	@Nullable
+	
 	public EntityPlayer getNearestAttackablePlayer(BlockPos pos, double maxXZDistance, double maxYDistance) {
 
 		return getNearestAttackablePlayer((float) pos.getX() + 0.5F, (float) pos.getY() + 0.5F, (float) pos.getZ() + 0.5F, maxXZDistance, maxYDistance, null, null);
 	}
 
-	@Nullable
-	public EntityPlayer getNearestAttackablePlayer(double posX, double posY, double posZ, double maxXZDistance, double maxYDistance, @Nullable Function<EntityPlayer, Double> playerToDouble, @Nullable Predicate<EntityPlayer> p_184150_12_) {
+	
+	public EntityPlayer getNearestAttackablePlayer(double posX, double posY, double posZ, double maxXZDistance, double maxYDistance, Function<EntityPlayer, Double> playerToDouble, Predicate<EntityPlayer> p_184150_12_) {
 
 		double d0 = -1.0D;
 		EntityPlayer entityplayer = null;
@@ -2948,7 +2946,7 @@ public abstract class World implements IBlockAccess {
 		return entityplayer;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Find a player by name in this world.
@@ -2964,7 +2962,7 @@ public abstract class World implements IBlockAccess {
 		return null;
 	}
 
-	@Nullable
+	
 	public EntityPlayer getPlayerEntityByUUID(UUID uuid) {
 
 		for (EntityPlayer entityplayer : playerEntities) {
@@ -3192,7 +3190,7 @@ public abstract class World implements IBlockAccess {
 		return biome.isHighHumidity();
 	}
 
-	@Nullable
+	
 	public MapStorage getMapStorage() {
 
 		return mapStorage;
@@ -3207,7 +3205,7 @@ public abstract class World implements IBlockAccess {
 		mapStorage.setData(dataID, worldSavedDataIn);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Loads an existing MapDataBase corresponding to the given String id from disk using the MapStorage, instantiating
@@ -3239,7 +3237,7 @@ public abstract class World implements IBlockAccess {
 		playEvent(null, type, pos, data);
 	}
 
-	public void playEvent(@Nullable EntityPlayer player, int type, BlockPos pos, int data) {
+	public void playEvent(EntityPlayer player, int type, BlockPos pos, int data) {
 
 		try {
 			for (IWorldEventListener eventListener : eventListeners) {
@@ -3328,7 +3326,7 @@ public abstract class World implements IBlockAccess {
 		return calendar;
 	}
 
-	public void makeFireworks(double x, double y, double z, double motionX, double motionY, double motionZ, @Nullable NBTTagCompound compound) {
+	public void makeFireworks(double x, double y, double z, double motionX, double motionY, double motionZ, NBTTagCompound compound) {
 
 	}
 
@@ -3429,7 +3427,7 @@ public abstract class World implements IBlockAccess {
 		return lootTable;
 	}
 
-	@Nullable
+	
 	public BlockPos findNearestStructure(String p_190528_1_, BlockPos p_190528_2_, boolean p_190528_3_) {
 
 		return null;

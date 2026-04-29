@@ -19,8 +19,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderEnd;
-
-import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Random;
 
@@ -98,7 +96,7 @@ public class BlockFire extends Block {
 		flammabilities.put(blockIn, flammability);
 	}
 
-	@Nullable
+	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 
 		return NULL_AABB;

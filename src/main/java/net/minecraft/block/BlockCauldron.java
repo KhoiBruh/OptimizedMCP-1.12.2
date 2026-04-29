@@ -27,8 +27,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
@@ -47,7 +45,7 @@ public class BlockCauldron extends Block {
 		setDefaultState(blockState.getBaseState().withProperty(LEVEL, 0));
 	}
 
-	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState) {
+	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean isActualState) {
 
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_LEGS);
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_WALL_WEST);

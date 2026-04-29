@@ -15,8 +15,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CancellationException;
@@ -33,7 +31,7 @@ public class ChunkRenderWorker implements Runnable {
 		this(chunkRenderDispatcherIn, null);
 	}
 
-	public ChunkRenderWorker(ChunkRenderDispatcher chunkRenderDispatcherIn, @Nullable RegionRenderCacheBuilder regionRenderCacheBuilderIn) {
+	public ChunkRenderWorker(ChunkRenderDispatcher chunkRenderDispatcherIn, RegionRenderCacheBuilder regionRenderCacheBuilderIn) {
 
 		shouldRun = true;
 		chunkRenderDispatcher = chunkRenderDispatcherIn;
@@ -139,7 +137,7 @@ public class ChunkRenderWorker implements Runnable {
 			final ListenableFuture<List<Object>> listenablefuture = Futures.allAsList(arraylist);
 			generator.addFinishRunnable(() -> listenablefuture.cancel(false));
 			Futures.addCallback(listenablefuture, new FutureCallback<>() {
-				public void onSuccess(@Nullable List<Object> p_onSuccess_1_) {
+				public void onSuccess(List<Object> p_onSuccess_1_) {
 
 					freeRenderBuilder(generator);
 					generator.getLock().lock();

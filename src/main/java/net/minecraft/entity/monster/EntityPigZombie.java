@@ -20,8 +20,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import javax.annotation.Nullable;
 import java.util.UUID;
 
 public class EntityPigZombie extends EntityZombie {
@@ -55,7 +53,7 @@ public class EntityPigZombie extends EntityZombie {
 	 * Hint to AI tasks that we were attacked by the passed EntityLivingBase and should retaliate. Is not guaranteed to
 	 * change our actual active target (for example if we are currently busy attacking someone else)
 	 */
-	public void setRevengeTarget(@Nullable EntityLivingBase livingBase) {
+	public void setRevengeTarget(EntityLivingBase livingBase) {
 
 		super.setRevengeTarget(livingBase);
 
@@ -209,7 +207,7 @@ public class EntityPigZombie extends EntityZombie {
 		return SoundEvents.ENTITY_ZOMBIE_PIG_DEATH;
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_ZOMBIE_PIGMAN;

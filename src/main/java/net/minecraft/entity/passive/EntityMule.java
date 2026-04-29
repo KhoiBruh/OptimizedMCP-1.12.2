@@ -8,8 +8,6 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-import javax.annotation.Nullable;
-
 public class EntityMule extends AbstractChestHorse {
 
 	public EntityMule(World worldIn) {
@@ -22,7 +20,7 @@ public class EntityMule extends AbstractChestHorse {
 		AbstractChestHorse.registerFixesAbstractChestHorse(fixer, EntityMule.class);
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_MULE;

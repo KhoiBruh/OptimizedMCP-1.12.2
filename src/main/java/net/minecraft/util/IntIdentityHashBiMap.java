@@ -3,8 +3,6 @@ package net.minecraft.util;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterators;
 import net.minecraft.util.math.MathHelper;
-
-import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Iterator;
 
@@ -25,12 +23,12 @@ public class IntIdentityHashBiMap<K> implements IObjectIntIterable<K> {
 		byId = (K[]) (new Object[initialCapacity]);
 	}
 
-	public int getId(@Nullable K p_186815_1_) {
+	public int getId(K p_186815_1_) {
 
 		return getValue(getIndex(p_186815_1_, hashObject(p_186815_1_)));
 	}
 
-	@Nullable
+	
 	public K get(int idIn) {
 
 		return idIn >= 0 && idIn < byId.length ? byId[idIn] : null;
@@ -107,12 +105,12 @@ public class IntIdentityHashBiMap<K> implements IObjectIntIterable<K> {
 		}
 	}
 
-	private int hashObject(@Nullable K obectIn) {
+	private int hashObject(K obectIn) {
 
 		return (MathHelper.hash(System.identityHashCode(obectIn)) & Integer.MAX_VALUE) % values.length;
 	}
 
-	private int getIndex(@Nullable K objectIn, int p_186816_2_) {
+	private int getIndex(K objectIn, int p_186816_2_) {
 
 		for (int i = p_186816_2_; i < values.length; ++i) {
 			if (values[i] == objectIn) {

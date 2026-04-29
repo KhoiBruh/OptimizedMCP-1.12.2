@@ -12,8 +12,6 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.chunk.Chunk;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class PlayerChunkMapEntry {
@@ -24,7 +22,7 @@ public class PlayerChunkMapEntry {
 	private final ChunkPos pos;
 	private final short[] changedBlocks = new short[64];
 
-	@Nullable
+	
 	private Chunk chunk;
 	private int changes;
 	private int changedSectionFilter;
@@ -209,7 +207,7 @@ public class PlayerChunkMapEntry {
 		}
 	}
 
-	private void sendBlockEntity(@Nullable TileEntity be) {
+	private void sendBlockEntity(TileEntity be) {
 
 		if (be != null) {
 			SPacketUpdateTileEntity spacketupdatetileentity = be.getUpdatePacket();
@@ -250,7 +248,7 @@ public class PlayerChunkMapEntry {
 		return sentToPlayers;
 	}
 
-	@Nullable
+	
 	public Chunk getChunk() {
 
 		return chunk;

@@ -10,8 +10,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.storage.AnvilChunkLoader;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public abstract class MobSpawnerBaseLogic {
@@ -52,14 +50,14 @@ public abstract class MobSpawnerBaseLogic {
 	 */
 	private int spawnRange = 4;
 
-	@Nullable
+	
 	private ResourceLocation getEntityId() {
 
 		String s = spawnData.getNbt().getString("id");
 		return StringUtils.isNullOrEmpty(s) ? null : new ResourceLocation(s);
 	}
 
-	public void setEntityId(@Nullable ResourceLocation id) {
+	public void setEntityId(ResourceLocation id) {
 
 		if (id != null) {
 			spawnData.getNbt().setString("id", id.toString());

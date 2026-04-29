@@ -3,8 +3,6 @@ package net.minecraft.command;
 import com.google.common.collect.Lists;
 import net.minecraft.advancements.FunctionManager;
 import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nullable;
 import java.util.ArrayDeque;
 import java.util.List;
 
@@ -53,12 +51,12 @@ public record FunctionObject(Entry[] entries) {
 
 		public static final CacheableFunction EMPTY = new CacheableFunction((ResourceLocation) null);
 
-		@Nullable
+		
 		private final ResourceLocation id;
 		private boolean isValid;
 		private FunctionObject function;
 
-		public CacheableFunction(@Nullable ResourceLocation idIn) {
+		public CacheableFunction(ResourceLocation idIn) {
 
 			id = idIn;
 		}
@@ -69,7 +67,7 @@ public record FunctionObject(Entry[] entries) {
 			function = functionIn;
 		}
 
-		@Nullable
+		
 		public FunctionObject get(FunctionManager functionManagerIn) {
 
 			if (!isValid) {

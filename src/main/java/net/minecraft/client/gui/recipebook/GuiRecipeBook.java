@@ -28,8 +28,6 @@ import net.minecraft.network.play.client.CPacketRecipeInfo;
 import net.minecraft.stats.RecipeBook;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
-
-import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -134,7 +132,7 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 		sendUpdateSettings();
 	}
 
-	public void slotClicked(@Nullable Slot slotIn) {
+	public void slotClicked(Slot slotIn) {
 
 		if (slotIn != null && slotIn.slotNumber <= 9) {
 			ghostRecipe.clear();

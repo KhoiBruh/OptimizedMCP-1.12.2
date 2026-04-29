@@ -21,8 +21,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.template.TemplateManager;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
@@ -36,7 +34,7 @@ public class StructureMineshaftPieces {
 		MapGenStructureIO.registerStructureComponent(StructureMineshaftPieces.Stairs.class, "MSStairs");
 	}
 
-	private static StructureMineshaftPieces.Peice createRandomShaftPiece(List<StructureComponent> p_189940_0_, Random p_189940_1_, int p_189940_2_, int p_189940_3_, int p_189940_4_, @Nullable EnumFacing p_189940_5_, int p_189940_6_, MapGenMineshaft.Type p_189940_7_) {
+	private static StructureMineshaftPieces.Peice createRandomShaftPiece(List<StructureComponent> p_189940_0_, Random p_189940_1_, int p_189940_2_, int p_189940_3_, int p_189940_4_, EnumFacing p_189940_5_, int p_189940_6_, MapGenMineshaft.Type p_189940_7_) {
 
 		int i = p_189940_1_.nextInt(100);
 
@@ -382,7 +380,7 @@ public class StructureMineshaftPieces {
 
 		}
 
-		public Cross(int p_i47139_1_, Random p_i47139_2_, StructureBoundingBox p_i47139_3_, @Nullable EnumFacing p_i47139_4_, MapGenMineshaft.Type p_i47139_5_) {
+		public Cross(int p_i47139_1_, Random p_i47139_2_, StructureBoundingBox p_i47139_3_, EnumFacing p_i47139_4_, MapGenMineshaft.Type p_i47139_5_) {
 
 			super(p_i47139_1_, p_i47139_5_);
 			corridorDirection = p_i47139_4_;

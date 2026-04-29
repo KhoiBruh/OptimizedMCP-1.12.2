@@ -19,8 +19,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public class BlockSnow extends Block {
@@ -71,7 +69,7 @@ public class BlockSnow extends Block {
 		return face == EnumFacing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 
-	@Nullable
+	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 
 		int i = blockState.getValue(LAYERS) - 1;
@@ -134,7 +132,7 @@ public class BlockSnow extends Block {
 	 * Spawns the block's drops in the world. By the time this is called the Block has possibly been set to air via
 	 * Block.removedByPlayer
 	 */
-	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
+	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
 
 		spawnAsEntity(worldIn, pos, new ItemStack(Items.SNOWBALL, state.getValue(LAYERS) + 1, 0));
 		worldIn.setBlockToAir(pos);

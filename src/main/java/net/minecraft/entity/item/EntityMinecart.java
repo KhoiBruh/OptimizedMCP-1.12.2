@@ -30,8 +30,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IWorldNameable;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 
@@ -116,7 +114,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 		dataManager.register(SHOW_BLOCK, false);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns a boundingBox used to collide the entity with other entities and blocks. This enables the entity to be
@@ -596,7 +594,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 		}
 	}
 
-	@Nullable
+	
 	public Vec3d getPosOffset(double x, double y, double z, double offset) {
 
 		int i = MathHelper.floor(x);
@@ -638,7 +636,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 		}
 	}
 
-	@Nullable
+	
 	public Vec3d getPos(double p_70489_1_, double p_70489_3_, double p_70489_5_) {
 
 		int i = MathHelper.floor(p_70489_1_);

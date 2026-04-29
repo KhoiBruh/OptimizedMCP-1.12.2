@@ -14,8 +14,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-import javax.annotation.Nullable;
-
 public class EntityStray extends AbstractSkeleton {
 
 	public EntityStray(World worldIn) {
@@ -36,7 +34,7 @@ public class EntityStray extends AbstractSkeleton {
 		return super.getCanSpawnHere() && world.canSeeSky(new BlockPos(this));
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_STRAY;

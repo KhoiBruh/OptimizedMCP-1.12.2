@@ -29,8 +29,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-import javax.annotation.Nullable;
-
 public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob {
 
 	private static final DataParameter<Integer> DATA_STRENGTH_ID = EntityDataManager.createKey(EntityLlama.class, DataSerializers.VARINT);
@@ -38,10 +36,10 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	private static final DataParameter<Integer> DATA_VARIANT_ID = EntityDataManager.createKey(EntityLlama.class, DataSerializers.VARINT);
 	private boolean didSpit;
 
-	@Nullable
+	
 	private EntityLlama caravanHead;
 
-	@Nullable
+	
 	private EntityLlama caravanTail;
 
 	public EntityLlama(World worldIn) {
@@ -229,7 +227,7 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 		return getHealth() <= 0.0F || isEatingHaystack();
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
@@ -245,7 +243,7 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	 * @param difficulty The current local difficulty
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 		setRandomStrength();
@@ -306,7 +304,7 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 		}
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_LLAMA;
@@ -366,14 +364,14 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 		}
 	}
 
-	@Nullable
+	
 	public EnumDyeColor getColor() {
 
 		int i = dataManager.get(DATA_COLOR_ID);
 		return i == -1 ? null : EnumDyeColor.byMetadata(i);
 	}
 
-	private void setColor(@Nullable EnumDyeColor color) {
+	private void setColor(EnumDyeColor color) {
 
 		dataManager.set(DATA_COLOR_ID, color == null ? -1 : color.getMetadata());
 	}
@@ -475,7 +473,7 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 		return caravanHead != null;
 	}
 
-	@Nullable
+	
 	public EntityLlama getCaravanHead() {
 
 		return caravanHead;

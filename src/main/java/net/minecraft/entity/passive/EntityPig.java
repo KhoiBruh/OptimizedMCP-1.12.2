@@ -28,8 +28,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import javax.annotation.Nullable;
 import java.util.Set;
 
 public class EntityPig extends EntityAnimal {
@@ -72,7 +70,7 @@ public class EntityPig extends EntityAnimal {
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * For vehicles, the first passenger is generally considered the controller and "drives" the vehicle. For example,
@@ -193,7 +191,7 @@ public class EntityPig extends EntityAnimal {
 		}
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_PIG;

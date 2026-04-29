@@ -31,8 +31,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.storage.loot.LootTableList;
 
-import javax.annotation.Nullable;
-
 public class EntitySlime extends EntityLiving implements IMob {
 
 	private static final DataParameter<Integer> SLIME_SIZE = EntityDataManager.createKey(EntitySlime.class, DataSerializers.VARINT);
@@ -304,7 +302,7 @@ public class EntitySlime extends EntityLiving implements IMob {
 		return getSlimeSize() == 1 ? Items.SLIME_BALL : null;
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return getSlimeSize() == 1 ? LootTableList.ENTITIES_SLIME : LootTableList.EMPTY;
@@ -371,7 +369,7 @@ public class EntitySlime extends EntityLiving implements IMob {
 		isAirBorne = true;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
@@ -387,7 +385,7 @@ public class EntitySlime extends EntityLiving implements IMob {
 	 * @param difficulty The current local difficulty
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 
 		int i = rand.nextInt(3);
 

@@ -8,8 +8,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-
-import javax.annotation.Nullable;
 import java.util.Iterator;
 
 public class EntityAIWanderAvoidWaterFlying extends EntityAIWanderAvoidWater {
@@ -19,7 +17,7 @@ public class EntityAIWanderAvoidWaterFlying extends EntityAIWanderAvoidWater {
 		super(p_i47413_1_, p_i47413_2_);
 	}
 
-	@Nullable
+	
 	protected Vec3d getPosition() {
 
 		Vec3d vec3d = null;
@@ -35,7 +33,7 @@ public class EntityAIWanderAvoidWaterFlying extends EntityAIWanderAvoidWater {
 		return vec3d == null ? super.getPosition() : vec3d;
 	}
 
-	@Nullable
+	
 	private Vec3d getTreePos() {
 
 		BlockPos blockpos = new BlockPos(entity);

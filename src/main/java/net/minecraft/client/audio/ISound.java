@@ -3,13 +3,11 @@ package net.minecraft.client.audio;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 
-import javax.annotation.Nullable;
-
 public interface ISound {
 
 	ResourceLocation getSoundLocation();
 
-	@Nullable
+	
 	SoundEventAccessor createAccessor(SoundHandler handler);
 
 	Sound getSound();

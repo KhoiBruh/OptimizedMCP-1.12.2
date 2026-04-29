@@ -4,8 +4,6 @@ import com.google.common.collect.Sets;
 import net.minecraft.profiler.Profiler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -184,7 +182,7 @@ public class EntityAITasks {
 			action = task;
 		}
 
-		public boolean equals(@Nullable Object p_equals_1_) {
+		public boolean equals(Object p_equals_1_) {
 
 			if (this == p_equals_1_) {
 				return true;

@@ -1,8 +1,6 @@
 package net.minecraft.util;
 
 import com.google.common.collect.Maps;
-
-import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Set;
 
@@ -90,7 +88,7 @@ public enum EnumParticleTypes {
 		return BY_NAME.keySet();
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Gets the relative EnumParticleTypes by id.
@@ -100,7 +98,7 @@ public enum EnumParticleTypes {
 		return PARTICLES.get(particleId);
 	}
 
-	@Nullable
+	
 	public static EnumParticleTypes getByName(String nameIn) {
 
 		return BY_NAME.get(nameIn);

@@ -4,8 +4,6 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.util.text.ITextComponent;
-
-import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.Locale;
 
@@ -31,7 +29,7 @@ public class SPacketTitle implements Packet<INetHandlerPlayClient> {
 		this(SPacketTitle.Type.TIMES, null, fadeInTimeIn, displayTimeIn, fadeOutTimeIn);
 	}
 
-	public SPacketTitle(SPacketTitle.Type typeIn, @Nullable ITextComponent messageIn, int fadeInTimeIn, int displayTimeIn, int fadeOutTimeIn) {
+	public SPacketTitle(SPacketTitle.Type typeIn, ITextComponent messageIn, int fadeInTimeIn, int displayTimeIn, int fadeOutTimeIn) {
 
 		type = typeIn;
 		message = messageIn;

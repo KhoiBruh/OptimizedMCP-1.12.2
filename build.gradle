@@ -18,7 +18,7 @@ repositories {
 dependencies {
     implementation "com.github.oshi:oshi-core:6.6.5"
     implementation "com.ibm.icu:icu4j:78.3"
-    implementation "net.sf.jopt-simple:jopt-simple:5.0.4"
+    implementation "info.picocli:picocli:4.7.7"
     implementation "com.paulscode:codecjorbis:20101023"
     implementation "com.paulscode:codecwav:20101023"
     implementation "com.paulscode:libraryjavasound:20101123"
@@ -42,7 +42,6 @@ dependencies {
     implementation "org.lwjgl:lwjgl:2.9.4-nightly-20150209"
     implementation "org.lwjgl:lwjgl_util:2.9.4-nightly-20150209"
     implementation "com.mojang:text2speech:1.10.3"
-    implementation "com.google.code.findbugs:jsr305:3.0.2"
     implementation "com.mojang:realms:1.10.18"
     implementation "com.mojang:authlib:1.5.25"
 }

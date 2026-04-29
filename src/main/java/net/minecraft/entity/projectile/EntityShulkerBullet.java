@@ -20,8 +20,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,18 +28,18 @@ public class EntityShulkerBullet extends Entity {
 	private EntityLivingBase owner;
 	private Entity target;
 
-	@Nullable
+	
 	private EnumFacing direction;
 	private int steps;
 	private double targetDeltaX;
 	private double targetDeltaY;
 	private double targetDeltaZ;
 
-	@Nullable
+	
 	private UUID ownerUniqueId;
 	private BlockPos ownerBlockPos;
 
-	@Nullable
+	
 	private UUID targetUniqueId;
 	private BlockPos targetBlockPos;
 
@@ -144,12 +142,12 @@ public class EntityShulkerBullet extends Entity {
 
 	}
 
-	private void setDirection(@Nullable EnumFacing directionIn) {
+	private void setDirection(EnumFacing directionIn) {
 
 		direction = directionIn;
 	}
 
-	private void selectNextMoveDirection(@Nullable EnumFacing.Axis p_184569_1_) {
+	private void selectNextMoveDirection(EnumFacing.Axis p_184569_1_) {
 
 		double d0 = 0.5D;
 		BlockPos blockpos;

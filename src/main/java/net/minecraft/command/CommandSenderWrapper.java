@@ -6,30 +6,28 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.Objects;
 
 public class CommandSenderWrapper implements ICommandSender {
 
 	private final ICommandSender delegate;
 
-	@Nullable
+	
 	private final Vec3d positionVector;
 
-	@Nullable
+	
 	private final BlockPos position;
 
-	@Nullable
+	
 	private final Integer permissionLevel;
 
-	@Nullable
+	
 	private final Entity entity;
 
-	@Nullable
+	
 	private final Boolean sendCommandFeedback;
 
-	public CommandSenderWrapper(ICommandSender delegateIn, @Nullable Vec3d positionVectorIn, @Nullable BlockPos positionIn, @Nullable Integer permissionLevelIn, @Nullable Entity entityIn, @Nullable Boolean sendCommandFeedbackIn) {
+	public CommandSenderWrapper(ICommandSender delegateIn, Vec3d positionVectorIn, BlockPos positionIn, Integer permissionLevelIn, Entity entityIn, Boolean sendCommandFeedbackIn) {
 
 		delegate = delegateIn;
 		positionVector = positionVectorIn;
@@ -133,7 +131,7 @@ public class CommandSenderWrapper implements ICommandSender {
 		return entity != null ? entity.getEntityWorld() : delegate.getEntityWorld();
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns the entity associated with the command sender. MAY BE NULL!
@@ -160,7 +158,7 @@ public class CommandSenderWrapper implements ICommandSender {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Get the Minecraft server instance

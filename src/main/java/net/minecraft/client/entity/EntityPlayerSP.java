@@ -42,7 +42,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class EntityPlayerSP extends AbstractClientPlayer {
@@ -278,7 +277,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Drop one item out of the currently selected stack if {@code dropAll} is false. If {@code dropItem} is true the
@@ -971,13 +970,13 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		return rowingBoat;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Removes the given potion effect from the active potion map and returns it. Does not call cleanup callbacks for
 	 * the end of the potion effect.
 	 */
-	public PotionEffect removeActivePotionEffect(@Nullable Potion potioneffectin) {
+	public PotionEffect removeActivePotionEffect(Potion potioneffectin) {
 
 		if (potioneffectin == MobEffects.NAUSEA) {
 			prevTimeInPortal = 0.0F;

@@ -6,21 +6,19 @@ import net.minecraft.network.play.INetHandlerPlayServer;
 import net.minecraft.util.math.BlockPos;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.annotation.Nullable;
-
 public class CPacketTabComplete implements Packet<INetHandlerPlayServer> {
 
 	private String message;
 	private boolean hasTargetBlock;
 
-	@Nullable
+	
 	private BlockPos targetBlock;
 
 	public CPacketTabComplete() {
 
 	}
 
-	public CPacketTabComplete(String messageIn, @Nullable BlockPos targetBlockIn, boolean hasTargetBlockIn) {
+	public CPacketTabComplete(String messageIn, BlockPos targetBlockIn, boolean hasTargetBlockIn) {
 
 		message = messageIn;
 		targetBlock = targetBlockIn;
@@ -69,7 +67,7 @@ public class CPacketTabComplete implements Packet<INetHandlerPlayServer> {
 		return message;
 	}
 
-	@Nullable
+	
 	public BlockPos getTargetBlock() {
 
 		return targetBlock;

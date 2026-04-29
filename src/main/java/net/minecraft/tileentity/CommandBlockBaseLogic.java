@@ -12,8 +12,6 @@ import net.minecraft.util.ReportedException;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -65,7 +63,7 @@ public abstract class CommandBlockBaseLogic implements ICommandSender {
 		return lastOutput == null ? new TextComponentString("") : lastOutput;
 	}
 
-	public void setLastOutput(@Nullable ITextComponent lastOutputMessage) {
+	public void setLastOutput(ITextComponent lastOutputMessage) {
 
 		lastOutput = lastOutputMessage;
 	}

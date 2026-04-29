@@ -2,8 +2,6 @@ package net.minecraft.world.chunk.storage;
 
 import com.google.common.collect.Lists;
 import net.minecraft.server.MinecraftServer;
-
-import javax.annotation.Nullable;
 import java.io.*;
 import java.util.List;
 import java.util.zip.DeflaterOutputStream;
@@ -80,7 +78,7 @@ public class RegionFile {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns an uncompressed chunk stream from the region file.
@@ -132,7 +130,7 @@ public class RegionFile {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns an output stream used to write chunk data. Data is on disk when the returned stream is closed.

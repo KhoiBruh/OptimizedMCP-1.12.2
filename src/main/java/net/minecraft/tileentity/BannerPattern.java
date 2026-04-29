@@ -5,8 +5,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
-import javax.annotation.Nullable;
-
 public enum BannerPattern {
 	BASE("base", "b"),
 	SQUARE_BOTTOM_LEFT("square_bottom_left", "bl", "   ", "   ", "#  "),
@@ -75,7 +73,7 @@ public enum BannerPattern {
 		patterns[2] = p_i47247_7_;
 	}
 
-	@Nullable
+	
 	public static BannerPattern byHash(String hash) {
 
 		for (BannerPattern bannerpattern : values()) {

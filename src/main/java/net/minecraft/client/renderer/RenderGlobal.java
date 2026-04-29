@@ -56,7 +56,6 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 
-import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.*;
 
@@ -485,7 +484,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 	/**
 	 * set null to clear
 	 */
-	public void setWorldAndLoadRenderers(@Nullable WorldClient worldClientIn) {
+	public void setWorldAndLoadRenderers(WorldClient worldClientIn) {
 
 		if (world != null) {
 			world.removeEventListener(this);
@@ -748,7 +747,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 
 			postRenderDamagedBlocks();
 			mc.entityRenderer.disableLightmap();
-			mc.mcProfiler.endSection();
+			mc.profiler.endSection();
 		}
 	}
 
@@ -837,7 +836,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			camera = frustum;
 		}
 
-		mc.mcProfiler.endStartSection("culling");
+		mc.profiler.endStartSection("culling");
 		BlockPos blockpos1 = new BlockPos(d3, d4 + (double) viewEntity.getEyeHeight(), d5);
 		RenderChunk renderchunk = viewFrustum.getRenderChunk(blockpos1);
 		BlockPos blockpos = new BlockPos(MathHelper.floor(d3 / 16.0D) * 16, MathHelper.floor(d4 / 16.0D) * 16, MathHelper.floor(d5 / 16.0D) * 16);
@@ -848,7 +847,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		lastViewEntityPitch = viewEntity.rotationPitch;
 		lastViewEntityYaw = viewEntity.rotationYaw;
 		boolean flag = debugFixedClippingHelper != null;
-		mc.mcProfiler.endStartSection("update");
+		mc.profiler.endStartSection("update");
 
 		if (!flag && displayListEntitiesDirty) {
 			displayListEntitiesDirty = false;
@@ -897,7 +896,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 				}
 			}
 
-			mc.mcProfiler.startSection("iteration");
+			mc.profiler.startSection("iteration");
 
 			while (!queue.isEmpty()) {
 				RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation1 = queue.poll();
@@ -916,17 +915,17 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 				}
 			}
 
-			mc.mcProfiler.endSection();
+			mc.profiler.endSection();
 		}
 
-		mc.mcProfiler.endStartSection("captureFrustum");
+		mc.profiler.endStartSection("captureFrustum");
 
 		if (debugFixTerrainFrustum) {
 			fixTerrainFrustum(d3, d4, d5);
 			debugFixTerrainFrustum = false;
 		}
 
-		mc.mcProfiler.endStartSection("rebuildNear");
+		mc.profiler.endStartSection("rebuildNear");
 		Set<RenderChunk> set = chunksToUpdate;
 		chunksToUpdate = Sets.newLinkedHashSet();
 
@@ -941,16 +940,16 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 				if (!renderchunk4.needsImmediateUpdate() && !flag3) {
 					chunksToUpdate.add(renderchunk4);
 				} else {
-					mc.mcProfiler.startSection("build near");
+					mc.profiler.startSection("build near");
 					renderDispatcher.updateChunkNow(renderchunk4);
 					renderchunk4.clearNeedsUpdate();
-					mc.mcProfiler.endSection();
+					mc.profiler.endSection();
 				}
 			}
 		}
 
 		chunksToUpdate.addAll(set);
-		mc.mcProfiler.endSection();
+		mc.profiler.endSection();
 	}
 
 	private Set<EnumFacing> getVisibleFacings(BlockPos pos) {
@@ -967,7 +966,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		return visgraph.getVisibleFacings(pos);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns RenderChunk offset from given RenderChunk in given direction, or null if it can't be seen by player at
@@ -1039,7 +1038,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		RenderHelper.disableStandardItemLighting();
 
 		if (blockLayerIn == BlockRenderLayer.TRANSLUCENT) {
-			mc.mcProfiler.startSection("translucent_sort");
+			mc.profiler.startSection("translucent_sort");
 			double d0 = entityIn.posX - prevRenderSortX;
 			double d1 = entityIn.posY - prevRenderSortY;
 			double d2 = entityIn.posZ - prevRenderSortZ;
@@ -1057,10 +1056,10 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 				}
 			}
 
-			mc.mcProfiler.endSection();
+			mc.profiler.endSection();
 		}
 
-		mc.mcProfiler.startSection("filterempty");
+		mc.profiler.startSection("filterempty");
 		int l = 0;
 		boolean flag = blockLayerIn == BlockRenderLayer.TRANSLUCENT;
 		int i1 = flag ? renderInfos.size() - 1 : 0;
@@ -1076,10 +1075,10 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			}
 		}
 
-		mc.mcProfiler.func_194339_b(() ->
+		mc.profiler.func_194339_b(() ->
 				"render_" + blockLayerIn);
 		renderBlockLayer(blockLayerIn);
-		mc.mcProfiler.endSection();
+		mc.profiler.endSection();
 		return l;
 	}
 
@@ -1867,7 +1866,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		markBlocksForUpdate(x1 - 1, y1 - 1, z1 - 1, x2 + 1, y2 + 1, z2 + 1, false);
 	}
 
-	public void playRecord(@Nullable SoundEvent soundIn, BlockPos pos) {
+	public void playRecord(SoundEvent soundIn, BlockPos pos) {
 
 		ISound isound = mapSoundPositions.get(pos);
 
@@ -1898,7 +1897,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		}
 	}
 
-	public void playSoundToAllNearExcept(@Nullable EntityPlayer player, SoundEvent soundIn, SoundCategory category, double x, double y, double z, float volume, float pitch) {
+	public void playSoundToAllNearExcept(EntityPlayer player, SoundEvent soundIn, SoundCategory category, double x, double y, double z, float volume, float pitch) {
 
 	}
 
@@ -1930,13 +1929,13 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		spawnParticle(particleIn.getParticleID(), particleIn.getShouldIgnoreRange(), xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed, parameters);
 	}
 
-	@Nullable
+	
 	private Particle spawnParticle0(int particleID, boolean ignoreRange, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed, double zSpeed, int... parameters) {
 
 		return spawnParticle0(particleID, ignoreRange, false, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed, parameters);
 	}
 
-	@Nullable
+	
 	private Particle spawnParticle0(int particleID, boolean ignoreRange, boolean minParticles, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed, double zSpeed, int... parameters) {
 
 		Entity entity = mc.getRenderViewEntity();
@@ -2351,7 +2350,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		final int counter;
 		byte setFacing;
 
-		private ContainerLocalRenderInformation(RenderChunk renderChunkIn, EnumFacing facingIn, @Nullable int counterIn) {
+		private ContainerLocalRenderInformation(RenderChunk renderChunkIn, EnumFacing facingIn, int counterIn) {
 
 			renderChunk = renderChunkIn;
 			facing = facingIn;

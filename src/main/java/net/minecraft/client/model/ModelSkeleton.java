@@ -13,28 +13,28 @@ public class ModelSkeleton extends ModelBiped {
 
 	public ModelSkeleton() {
 
-		this(0.0F, false);
+		this(0F, false);
 	}
 
 	public ModelSkeleton(float modelSize, boolean p_i46303_2_) {
 
-		super(modelSize, 0.0F, 64, 32);
+		super(modelSize, 0F, 64, 32);
 
 		if (!p_i46303_2_) {
 			bipedRightArm = new ModelRenderer(this, 40, 16);
-			bipedRightArm.addBox(-1.0F, -2.0F, -1.0F, 2, 12, 2, modelSize);
-			bipedRightArm.setRotationPoint(-5.0F, 2.0F, 0.0F);
+			bipedRightArm.addBox(-1F, -2F, -1F, 2, 12, 2, modelSize);
+			bipedRightArm.setRotationPoint(-5F, 2F, 0F);
 			bipedLeftArm = new ModelRenderer(this, 40, 16);
 			bipedLeftArm.mirror = true;
-			bipedLeftArm.addBox(-1.0F, -2.0F, -1.0F, 2, 12, 2, modelSize);
-			bipedLeftArm.setRotationPoint(5.0F, 2.0F, 0.0F);
+			bipedLeftArm.addBox(-1F, -2F, -1F, 2, 12, 2, modelSize);
+			bipedLeftArm.setRotationPoint(5F, 2F, 0F);
 			bipedRightLeg = new ModelRenderer(this, 0, 16);
-			bipedRightLeg.addBox(-1.0F, 0.0F, -1.0F, 2, 12, 2, modelSize);
-			bipedRightLeg.setRotationPoint(-2.0F, 12.0F, 0.0F);
+			bipedRightLeg.addBox(-1F, 0F, -1F, 2, 12, 2, modelSize);
+			bipedRightLeg.setRotationPoint(-2F, 12F, 0F);
 			bipedLeftLeg = new ModelRenderer(this, 0, 16);
 			bipedLeftLeg.mirror = true;
-			bipedLeftLeg.addBox(-1.0F, 0.0F, -1.0F, 2, 12, 2, modelSize);
-			bipedLeftLeg.setRotationPoint(2.0F, 12.0F, 0.0F);
+			bipedLeftLeg.addBox(-1F, 0F, -1F, 2, 12, 2, modelSize);
+			bipedLeftLeg.setRotationPoint(2F, 12F, 0F);
 		}
 	}
 
@@ -72,9 +72,9 @@ public class ModelSkeleton extends ModelBiped {
 
 		if (abstractskeleton.isSwingingArms() && (itemstack.isEmpty() || itemstack.getItem() != Items.BOW)) {
 			float f = MathHelper.sin(swingProgress * (float) Math.PI);
-			float f1 = MathHelper.sin((1.0F - (1.0F - swingProgress) * (1.0F - swingProgress)) * (float) Math.PI);
-			bipedRightArm.rotateAngleZ = 0.0F;
-			bipedLeftArm.rotateAngleZ = 0.0F;
+			float f1 = MathHelper.sin((1F - (1F - swingProgress) * (1F - swingProgress)) * (float) Math.PI);
+			bipedRightArm.rotateAngleZ = 0F;
+			bipedLeftArm.rotateAngleZ = 0F;
 			bipedRightArm.rotateAngleY = -(0.1F - f * 0.6F);
 			bipedLeftArm.rotateAngleY = 0.1F - f * 0.6F;
 			bipedRightArm.rotateAngleX = -((float) Math.PI / 2F);
@@ -90,7 +90,7 @@ public class ModelSkeleton extends ModelBiped {
 
 	public void postRenderArm(float scale, EnumHandSide side) {
 
-		float f = side == EnumHandSide.RIGHT ? 1.0F : -1.0F;
+		float f = side == EnumHandSide.RIGHT ? 1F : -1F;
 		ModelRenderer modelrenderer = getArmForSide(side);
 		modelrenderer.rotationPointX += f;
 		modelrenderer.postRender(scale);

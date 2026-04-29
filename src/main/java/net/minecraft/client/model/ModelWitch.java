@@ -11,29 +11,29 @@ public class ModelWitch extends ModelVillager {
 
 	public ModelWitch(float scale) {
 
-		super(scale, 0.0F, 64, 128);
-		mole.setRotationPoint(0.0F, -2.0F, 0.0F);
-		mole.setTextureOffset(0, 0).addBox(0.0F, 3.0F, -6.75F, 1, 1, 1, -0.25F);
+		super(scale, 0F, 64, 128);
+		mole.setRotationPoint(0F, -2F, 0F);
+		mole.setTextureOffset(0, 0).addBox(0F, 3F, -6.75F, 1, 1, 1, -0.25F);
 		villagerNose.addChild(mole);
 		witchHat = (new ModelRenderer(this)).setTextureSize(64, 128);
-		witchHat.setRotationPoint(-5.0F, -10.03125F, -5.0F);
-		witchHat.setTextureOffset(0, 64).addBox(0.0F, 0.0F, 0.0F, 10, 2, 10);
+		witchHat.setRotationPoint(-5F, -10.03125F, -5F);
+		witchHat.setTextureOffset(0, 64).addBox(0F, 0F, 0F, 10, 2, 10);
 		villagerHead.addChild(witchHat);
 		ModelRenderer modelrenderer = (new ModelRenderer(this)).setTextureSize(64, 128);
-		modelrenderer.setRotationPoint(1.75F, -4.0F, 2.0F);
-		modelrenderer.setTextureOffset(0, 76).addBox(0.0F, 0.0F, 0.0F, 7, 4, 7);
+		modelrenderer.setRotationPoint(1.75F, -4F, 2F);
+		modelrenderer.setTextureOffset(0, 76).addBox(0F, 0F, 0F, 7, 4, 7);
 		modelrenderer.rotateAngleX = -0.05235988F;
 		modelrenderer.rotateAngleZ = 0.02617994F;
 		witchHat.addChild(modelrenderer);
 		ModelRenderer modelrenderer1 = (new ModelRenderer(this)).setTextureSize(64, 128);
-		modelrenderer1.setRotationPoint(1.75F, -4.0F, 2.0F);
-		modelrenderer1.setTextureOffset(0, 87).addBox(0.0F, 0.0F, 0.0F, 4, 4, 4);
+		modelrenderer1.setRotationPoint(1.75F, -4F, 2F);
+		modelrenderer1.setTextureOffset(0, 87).addBox(0F, 0F, 0F, 4, 4, 4);
 		modelrenderer1.rotateAngleX = -0.10471976F;
 		modelrenderer1.rotateAngleZ = 0.05235988F;
 		modelrenderer.addChild(modelrenderer1);
 		ModelRenderer modelrenderer2 = (new ModelRenderer(this)).setTextureSize(64, 128);
-		modelrenderer2.setRotationPoint(1.75F, -2.0F, 2.0F);
-		modelrenderer2.setTextureOffset(0, 95).addBox(0.0F, 0.0F, 0.0F, 1, 2, 1, 0.25F);
+		modelrenderer2.setRotationPoint(1.75F, -2F, 2F);
+		modelrenderer2.setTextureOffset(0, 95).addBox(0F, 0F, 0F, 1, 2, 1, 0.25F);
 		modelrenderer2.rotateAngleX = -0.20943952F;
 		modelrenderer2.rotateAngleZ = 0.10471976F;
 		modelrenderer1.addChild(modelrenderer2);
@@ -47,12 +47,12 @@ public class ModelWitch extends ModelVillager {
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
-		villagerNose.offsetX = 0.0F;
-		villagerNose.offsetY = 0.0F;
-		villagerNose.offsetZ = 0.0F;
+		villagerNose.offsetX = 0F;
+		villagerNose.offsetY = 0F;
+		villagerNose.offsetZ = 0F;
 		float f = 0.01F * (float) (entityIn.getEntityId() % 10);
 		villagerNose.rotateAngleX = MathHelper.sin((float) entityIn.ticksExisted * f) * 4.5F * 0.017453292F;
-		villagerNose.rotateAngleY = 0.0F;
+		villagerNose.rotateAngleY = 0F;
 		villagerNose.rotateAngleZ = MathHelper.cos((float) entityIn.ticksExisted * f) * 2.5F * 0.017453292F;
 
 		if (holdingItem) {

@@ -17,8 +17,6 @@ import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.UUID;
 
 public abstract class EntityTameable extends EntityAnimal implements IEntityOwnable {
@@ -163,13 +161,13 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
 		}
 	}
 
-	@Nullable
+	
 	public UUID getOwnerId() {
 
 		return dataManager.get(OWNER_UNIQUE_ID).orNull();
 	}
 
-	public void setOwnerId(@Nullable UUID p_184754_1_) {
+	public void setOwnerId(UUID p_184754_1_) {
 
 		dataManager.set(OWNER_UNIQUE_ID, Optional.fromNullable(p_184754_1_));
 	}
@@ -184,7 +182,7 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
 		}
 	}
 
-	@Nullable
+	
 	public EntityLivingBase getOwner() {
 
 		try {

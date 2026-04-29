@@ -53,8 +53,8 @@ public class ModelRenderer {
 
 	public ModelRenderer(ModelBase model, String boxNameIn) {
 
-		textureWidth = 64.0F;
-		textureHeight = 32.0F;
+		textureWidth = 64F;
+		textureHeight = 32F;
 		showModel = true;
 		cubeList = Lists.newArrayList();
 		baseModel = model;
@@ -98,19 +98,19 @@ public class ModelRenderer {
 		partName = boxName + "." + partName;
 		TextureOffset textureoffset = baseModel.getTextureOffset(partName);
 		setTextureOffset(textureoffset.textureOffsetX(), textureoffset.textureOffsetY());
-		cubeList.add((new ModelBox(this, textureOffsetX, textureOffsetY, offX, offY, offZ, width, height, depth, 0.0F)).setBoxName(partName));
+		cubeList.add((new ModelBox(this, textureOffsetX, textureOffsetY, offX, offY, offZ, width, height, depth, 0F)).setBoxName(partName));
 		return this;
 	}
 
 	public ModelRenderer addBox(float offX, float offY, float offZ, int width, int height, int depth) {
 
-		cubeList.add(new ModelBox(this, textureOffsetX, textureOffsetY, offX, offY, offZ, width, height, depth, 0.0F));
+		cubeList.add(new ModelBox(this, textureOffsetX, textureOffsetY, offX, offY, offZ, width, height, depth, 0F));
 		return this;
 	}
 
 	public ModelRenderer addBox(float offX, float offY, float offZ, int width, int height, int depth, boolean mirrored) {
 
-		cubeList.add(new ModelBox(this, textureOffsetX, textureOffsetY, offX, offY, offZ, width, height, depth, 0.0F, mirrored));
+		cubeList.add(new ModelBox(this, textureOffsetX, textureOffsetY, offX, offY, offZ, width, height, depth, 0F, mirrored));
 		return this;
 	}
 
@@ -139,8 +139,8 @@ public class ModelRenderer {
 
 				GlStateManager.translate(offsetX, offsetY, offsetZ);
 
-				if (rotateAngleX == 0.0F && rotateAngleY == 0.0F && rotateAngleZ == 0.0F) {
-					if (rotationPointX == 0.0F && rotationPointY == 0.0F && rotationPointZ == 0.0F) {
+				if (rotateAngleX == 0F && rotateAngleY == 0F && rotateAngleZ == 0F) {
+					if (rotationPointX == 0F && rotationPointY == 0F && rotationPointZ == 0F) {
 						GlStateManager.callList(displayList);
 
 						if (childModels != null) {
@@ -164,16 +164,16 @@ public class ModelRenderer {
 					GlStateManager.pushMatrix();
 					GlStateManager.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
 
-					if (rotateAngleZ != 0.0F) {
-						GlStateManager.rotate(rotateAngleZ * (180F / (float) Math.PI), 0.0F, 0.0F, 1.0F);
+					if (rotateAngleZ != 0F) {
+						GlStateManager.rotate(rotateAngleZ * (180F / (float) Math.PI), 0F, 0F, 1F);
 					}
 
-					if (rotateAngleY != 0.0F) {
-						GlStateManager.rotate(rotateAngleY * (180F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
+					if (rotateAngleY != 0F) {
+						GlStateManager.rotate(rotateAngleY * (180F / (float) Math.PI), 0F, 1F, 0F);
 					}
 
-					if (rotateAngleX != 0.0F) {
-						GlStateManager.rotate(rotateAngleX * (180F / (float) Math.PI), 1.0F, 0.0F, 0.0F);
+					if (rotateAngleX != 0F) {
+						GlStateManager.rotate(rotateAngleX * (180F / (float) Math.PI), 1F, 0F, 0F);
 					}
 
 					GlStateManager.callList(displayList);
@@ -203,16 +203,16 @@ public class ModelRenderer {
 				GlStateManager.pushMatrix();
 				GlStateManager.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
 
-				if (rotateAngleY != 0.0F) {
-					GlStateManager.rotate(rotateAngleY * (180F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
+				if (rotateAngleY != 0F) {
+					GlStateManager.rotate(rotateAngleY * (180F / (float) Math.PI), 0F, 1F, 0F);
 				}
 
-				if (rotateAngleX != 0.0F) {
-					GlStateManager.rotate(rotateAngleX * (180F / (float) Math.PI), 1.0F, 0.0F, 0.0F);
+				if (rotateAngleX != 0F) {
+					GlStateManager.rotate(rotateAngleX * (180F / (float) Math.PI), 1F, 0F, 0F);
 				}
 
-				if (rotateAngleZ != 0.0F) {
-					GlStateManager.rotate(rotateAngleZ * (180F / (float) Math.PI), 0.0F, 0.0F, 1.0F);
+				if (rotateAngleZ != 0F) {
+					GlStateManager.rotate(rotateAngleZ * (180F / (float) Math.PI), 0F, 0F, 1F);
 				}
 
 				GlStateManager.callList(displayList);
@@ -232,23 +232,23 @@ public class ModelRenderer {
 					compileDisplayList(scale);
 				}
 
-				if (rotateAngleX == 0.0F && rotateAngleY == 0.0F && rotateAngleZ == 0.0F) {
-					if (rotationPointX != 0.0F || rotationPointY != 0.0F || rotationPointZ != 0.0F) {
+				if (rotateAngleX == 0F && rotateAngleY == 0F && rotateAngleZ == 0F) {
+					if (rotationPointX != 0F || rotationPointY != 0F || rotationPointZ != 0F) {
 						GlStateManager.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
 					}
 				} else {
 					GlStateManager.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
 
-					if (rotateAngleZ != 0.0F) {
-						GlStateManager.rotate(rotateAngleZ * (180F / (float) Math.PI), 0.0F, 0.0F, 1.0F);
+					if (rotateAngleZ != 0F) {
+						GlStateManager.rotate(rotateAngleZ * (180F / (float) Math.PI), 0F, 0F, 1F);
 					}
 
-					if (rotateAngleY != 0.0F) {
-						GlStateManager.rotate(rotateAngleY * (180F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
+					if (rotateAngleY != 0F) {
+						GlStateManager.rotate(rotateAngleY * (180F / (float) Math.PI), 0F, 1F, 0F);
 					}
 
-					if (rotateAngleX != 0.0F) {
-						GlStateManager.rotate(rotateAngleX * (180F / (float) Math.PI), 1.0F, 0.0F, 0.0F);
+					if (rotateAngleX != 0F) {
+						GlStateManager.rotate(rotateAngleX * (180F / (float) Math.PI), 1F, 0F, 0F);
 					}
 				}
 			}

@@ -5,13 +5,11 @@ import net.minecraft.world.MinecraftException;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.chunk.storage.IChunkLoader;
 import net.minecraft.world.gen.structure.template.TemplateManager;
-
-import javax.annotation.Nullable;
 import java.io.File;
 
 public interface ISaveHandler {
 
-	@Nullable
+	
 
 	/**
 	 * Loads and returns the world info

@@ -3,8 +3,6 @@ package net.minecraft.util.text;
 import com.google.gson.*;
 import net.minecraft.util.EnumTypeAdapterFactory;
 import net.minecraft.util.JsonUtils;
-
-import javax.annotation.Nullable;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map.Entry;
@@ -85,13 +83,13 @@ public interface ITextComponent extends Iterable<ITextComponent> {
 			return GSON.toJson(component);
 		}
 
-		@Nullable
+		
 		public static ITextComponent jsonToComponent(String json) {
 
 			return JsonUtils.gsonDeserialize(GSON, json, ITextComponent.class, false);
 		}
 
-		@Nullable
+		
 		public static ITextComponent fromJsonLenient(String json) {
 
 			return JsonUtils.gsonDeserialize(GSON, json, ITextComponent.class, true);

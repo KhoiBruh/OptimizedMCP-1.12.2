@@ -14,8 +14,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.template.TemplateManager;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
@@ -957,7 +955,7 @@ public class StructureNetherBridgePieces {
 			return StructureNetherBridgePieces.End.createPiece(p_175871_3_, p_175871_4_, p_175871_5_, p_175871_6_, p_175871_7_, p_175871_8_, p_175871_9_);
 		}
 
-		private StructureComponent generateAndAddPiece(StructureNetherBridgePieces.Start p_175870_1_, List<StructureComponent> p_175870_2_, Random p_175870_3_, int p_175870_4_, int p_175870_5_, int p_175870_6_, @Nullable EnumFacing p_175870_7_, int p_175870_8_, boolean p_175870_9_) {
+		private StructureComponent generateAndAddPiece(StructureNetherBridgePieces.Start p_175870_1_, List<StructureComponent> p_175870_2_, Random p_175870_3_, int p_175870_4_, int p_175870_5_, int p_175870_6_, EnumFacing p_175870_7_, int p_175870_8_, boolean p_175870_9_) {
 
 			if (Math.abs(p_175870_4_ - p_175870_1_.getBoundingBox().minX) <= 112 && Math.abs(p_175870_6_ - p_175870_1_.getBoundingBox().minZ) <= 112) {
 				List<StructureNetherBridgePieces.PieceWeight> list = p_175870_1_.primaryWeights;
@@ -979,7 +977,7 @@ public class StructureNetherBridgePieces {
 			}
 		}
 
-		@Nullable
+		
 		protected StructureComponent getNextComponentNormal(StructureNetherBridgePieces.Start p_74963_1_, List<StructureComponent> p_74963_2_, Random p_74963_3_, int p_74963_4_, int p_74963_5_, boolean p_74963_6_) {
 
 			EnumFacing enumfacing = getCoordBaseMode();
@@ -1003,7 +1001,7 @@ public class StructureNetherBridgePieces {
 			return null;
 		}
 
-		@Nullable
+		
 		protected StructureComponent getNextComponentX(StructureNetherBridgePieces.Start p_74961_1_, List<StructureComponent> p_74961_2_, Random p_74961_3_, int p_74961_4_, int p_74961_5_, boolean p_74961_6_) {
 
 			EnumFacing enumfacing = getCoordBaseMode();
@@ -1021,7 +1019,7 @@ public class StructureNetherBridgePieces {
 			return null;
 		}
 
-		@Nullable
+		
 		protected StructureComponent getNextComponentZ(StructureNetherBridgePieces.Start p_74965_1_, List<StructureComponent> p_74965_2_, Random p_74965_3_, int p_74965_4_, int p_74965_5_, boolean p_74965_6_) {
 
 			EnumFacing enumfacing = getCoordBaseMode();

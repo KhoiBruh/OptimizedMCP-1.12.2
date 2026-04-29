@@ -14,9 +14,9 @@ public class ModelSign extends ModelBase {
 
 	public ModelSign() {
 
-		signBoard.addBox(-12.0F, -14.0F, -1.0F, 24, 12, 2, 0.0F);
+		signBoard.addBox(-12F, -14F, -1F, 24, 12, 2, 0F);
 		signStick = new ModelRenderer(this, 0, 14);
-		signStick.addBox(-1.0F, -2.0F, -1.0F, 2, 14, 2, 0.0F);
+		signStick.addBox(-1F, -2F, -1F, 2, 14, 2, 0F);
 	}
 
 	/**

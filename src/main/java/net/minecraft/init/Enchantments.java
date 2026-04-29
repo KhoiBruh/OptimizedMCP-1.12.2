@@ -3,8 +3,6 @@ package net.minecraft.init;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.util.ResourceLocation;
 
-import javax.annotation.Nullable;
-
 public class Enchantments {
 
 	public static final Enchantment PROTECTION = getRegisteredEnchantment("protection");
@@ -52,7 +50,7 @@ public class Enchantments {
 		}
 	}
 
-	@Nullable
+	
 	private static Enchantment getRegisteredEnchantment(String id) {
 
 		Enchantment enchantment = Enchantment.REGISTRY.getObject(new ResourceLocation(id));

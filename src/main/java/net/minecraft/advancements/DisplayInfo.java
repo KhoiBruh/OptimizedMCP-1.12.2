@@ -9,8 +9,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-
-import javax.annotation.Nullable;
 import java.io.IOException;
 
 public class DisplayInfo {
@@ -26,7 +24,7 @@ public class DisplayInfo {
 	private float x;
 	private float y;
 
-	public DisplayInfo(ItemStack icon, ITextComponent title, ITextComponent description, @Nullable ResourceLocation background, FrameType frame, boolean showToast, boolean announceToChat, boolean hidden) {
+	public DisplayInfo(ItemStack icon, ITextComponent title, ITextComponent description, ResourceLocation background, FrameType frame, boolean showToast, boolean announceToChat, boolean hidden) {
 
 		this.title = title;
 		this.description = description;
@@ -103,7 +101,7 @@ public class DisplayInfo {
 		return icon;
 	}
 
-	@Nullable
+	
 	public ResourceLocation getBackground() {
 
 		return background;

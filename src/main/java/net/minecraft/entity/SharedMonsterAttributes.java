@@ -5,8 +5,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -114,7 +112,7 @@ public class SharedMonsterAttributes {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Creates an AttributeModifier from an NBTTagCompound

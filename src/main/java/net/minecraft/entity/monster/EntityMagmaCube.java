@@ -12,8 +12,6 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-import javax.annotation.Nullable;
-
 public class EntityMagmaCube extends EntitySlime {
 
 	public EntityMagmaCube(World worldIn) {
@@ -78,7 +76,7 @@ public class EntityMagmaCube extends EntitySlime {
 		return new EntityMagmaCube(world);
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return isSmallSlime() ? LootTableList.EMPTY : LootTableList.ENTITIES_MAGMA_CUBE;

@@ -20,8 +20,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class EntityEvoker extends EntitySpellcasterIllager {
@@ -140,13 +138,13 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 		return SoundEvents.ENTITY_EVOCATION_ILLAGER_HURT;
 	}
 
-	@Nullable
+	
 	private EntitySheep getWololoTarget() {
 
 		return wololoTarget;
 	}
 
-	private void setWololoTarget(@Nullable EntitySheep wololoTargetIn) {
+	private void setWololoTarget(EntitySheep wololoTargetIn) {
 
 		wololoTarget = wololoTargetIn;
 	}

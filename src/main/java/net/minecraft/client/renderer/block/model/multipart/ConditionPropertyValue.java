@@ -5,8 +5,6 @@ import com.google.common.collect.Iterables;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class ConditionPropertyValue implements ICondition {
@@ -46,8 +44,8 @@ public class ConditionPropertyValue implements ICondition {
 					predicate = makePredicate(iproperty, s);
 				} else {
 					predicate = Predicates.or(Iterables.transform(list, new Function<String, Predicate<IBlockState>>() {
-						@Nullable
-						public Predicate<IBlockState> apply(@Nullable String p_apply_1_) {
+						
+						public Predicate<IBlockState> apply(String p_apply_1_) {
 
 							return makePredicate(iproperty, p_apply_1_);
 						}

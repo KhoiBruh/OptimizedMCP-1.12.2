@@ -8,8 +8,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.MinecraftException;
 import net.minecraft.world.WorldServer;
-
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
@@ -76,7 +74,7 @@ public class CommandSaveAll extends CommandBase {
 		notifyCommandListener(sender, this, "commands.save.success");
 	}
 
-	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
+	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
 
 		return args.length == 1 ? getListOfStringsMatchingLastWord(args, "flush") : Collections.emptyList();
 	}

@@ -15,8 +15,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +33,7 @@ public class ItemRecord extends Item {
 		RECORDS.put(sound, this);
 	}
 
-	@Nullable
+	
 	public static ItemRecord getBySound(SoundEvent soundIn) {
 
 		return RECORDS.get(soundIn);
@@ -66,7 +64,7 @@ public class ItemRecord extends Item {
 	/**
 	 * allows items to add custom lines of information to the mouseover description
 	 */
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 
 		tooltip.add(getRecordNameLocal());
 	}

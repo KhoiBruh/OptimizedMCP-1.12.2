@@ -25,8 +25,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.ILockableContainer;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class BlockChest extends BlockContainer {
 
 	public static final PropertyDirection FACING = BlockHorizontal.FACING;
@@ -391,13 +389,13 @@ public class BlockChest extends BlockContainer {
 		}
 	}
 
-	@Nullable
+	
 	public ILockableContainer getLockableContainer(World worldIn, BlockPos pos) {
 
 		return getContainer(worldIn, pos, false);
 	}
 
-	@Nullable
+	
 	public ILockableContainer getContainer(World worldIn, BlockPos pos, boolean allowBlocking) {
 
 		TileEntity tileentity = worldIn.getTileEntity(pos);

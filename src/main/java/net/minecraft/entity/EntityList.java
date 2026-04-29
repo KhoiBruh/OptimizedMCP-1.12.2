@@ -19,8 +19,6 @@ import net.minecraft.util.registry.RegistryNamespaced;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -35,7 +33,7 @@ public class EntityList {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final List<String> OLD_NAMES = Lists.newArrayList();
 
-	@Nullable
+	
 
 	/**
 	 * Gets the {@link ResourceLocation} that identifies the given entity's type.
@@ -45,7 +43,7 @@ public class EntityList {
 		return getKey(entityIn.getClass());
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Gets the {@link ResourceLocation} that identifies the given entity's type.
@@ -57,7 +55,7 @@ public class EntityList {
 		return REGISTRY.getNameForObject(entityIn);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Gets the original name for the entity, used in versions prior to 1.11. This name is also used for translation
@@ -71,7 +69,7 @@ public class EntityList {
 		return i == -1 ? null : OLD_NAMES.get(i);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Gets the original name for the given entity type, used in versions prior to 1.11. Note that even entities added
@@ -83,32 +81,32 @@ public class EntityList {
 	 *
 	 * @return The original entity name, or null if there is no known entity for that type.
 	 */
-	public static String getTranslationName(@Nullable ResourceLocation entityType) {
+	public static String getTranslationName(ResourceLocation entityType) {
 
 		int i = REGISTRY.getIDForObject(REGISTRY.getObject(entityType));
 		return i == -1 ? null : OLD_NAMES.get(i);
 	}
 
-	@Nullable
+	
 	public static Class<? extends Entity> getClassFromID(int entityID) {
 
 		return REGISTRY.getObjectById(entityID);
 	}
 
-	@Nullable
+	
 	public static Class<? extends Entity> getClassFromName(String p_192839_0_) {
 
 		return REGISTRY.getObject(new ResourceLocation(p_192839_0_));
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Creates a new entity of the given type in the given world.
 	 *
 	 * @return The newly created entity, or null if creation failed
 	 */
-	public static Entity newEntity(@Nullable Class<? extends Entity> clazz, World worldIn) {
+	public static Entity newEntity(Class<? extends Entity> clazz, World worldIn) {
 
 		if (clazz == null) {
 			return null;
@@ -122,7 +120,7 @@ public class EntityList {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Creates a new entity with the given numeric networked entity type ID in the given world.
@@ -134,7 +132,7 @@ public class EntityList {
 		return newEntity(getClassFromID(entityID), worldIn);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Creates a new entity of the given type in the given world.
@@ -146,7 +144,7 @@ public class EntityList {
 		return newEntity(REGISTRY.getObject(name), worldIn);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Creates a new entity from the given NBT data in the given world.

@@ -2,8 +2,6 @@ package net.minecraft.scoreboard;
 
 import com.google.common.collect.Maps;
 import net.minecraft.util.text.TextFormatting;
-
-import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Map;
 
@@ -12,7 +10,7 @@ public abstract class Team {
 	/**
 	 * Same as ==
 	 */
-	public boolean isSameTeam(@Nullable Team other) {
+	public boolean isSameTeam(Team other) {
 
 		if (other == null) {
 			return false;
@@ -92,7 +90,7 @@ public abstract class Team {
 			return nameMap.keySet().toArray(new String[0]);
 		}
 
-		@Nullable
+		
 		public static Team.CollisionRule getByName(String nameIn) {
 
 			return nameMap.get(nameIn);
@@ -127,7 +125,7 @@ public abstract class Team {
 			return nameMap.keySet().toArray(new String[0]);
 		}
 
-		@Nullable
+		
 		public static Team.EnumVisible getByName(String nameIn) {
 
 			return nameMap.get(nameIn);

@@ -23,8 +23,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
-
-import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -171,7 +169,7 @@ public class Template {
 	/**
 	 * takes blocks from the world and puts the data them into this template
 	 */
-	public void takeBlocksFromWorld(World worldIn, BlockPos startPos, BlockPos endPos, boolean takeEntities, @Nullable Block toIgnore) {
+	public void takeBlocksFromWorld(World worldIn, BlockPos startPos, BlockPos endPos, boolean takeEntities, Block toIgnore) {
 
 		if (endPos.getX() >= 1 && endPos.getY() >= 1 && endPos.getZ() >= 1) {
 			BlockPos blockpos = startPos.add(endPos).add(-1, -1, -1);
@@ -319,7 +317,7 @@ public class Template {
 	 * @param placementIn       Placement settings to use
 	 * @param flags             Flags to pass to {@link World#setBlockState(BlockPos, IBlockState, int)}
 	 */
-	public void addBlocksToWorld(World worldIn, BlockPos pos, @Nullable ITemplateProcessor templateProcessor, PlacementSettings placementIn, int flags) {
+	public void addBlocksToWorld(World worldIn, BlockPos pos, ITemplateProcessor templateProcessor, PlacementSettings placementIn, int flags) {
 
 		if ((!blocks.isEmpty() || !placementIn.getIgnoreEntities() && !entities.isEmpty()) && size.getX() >= 1 && size.getY() >= 1 && size.getZ() >= 1) {
 			Block block = placementIn.getReplacedBlock();
@@ -388,7 +386,7 @@ public class Template {
 		}
 	}
 
-	private void addEntitiesToWorld(World worldIn, BlockPos pos, Mirror mirrorIn, Rotation rotationIn, @Nullable StructureBoundingBox aabb) {
+	private void addEntitiesToWorld(World worldIn, BlockPos pos, Mirror mirrorIn, Rotation rotationIn, StructureBoundingBox aabb) {
 
 		for (Template.EntityInfo template$entityinfo : entities) {
 			BlockPos blockpos = transformedBlockPos(template$entityinfo.blockPos, mirrorIn, rotationIn).add(pos);
@@ -573,7 +571,7 @@ public class Template {
 			return i;
 		}
 
-		@Nullable
+		
 		public IBlockState stateFor(int id) {
 
 			IBlockState iblockstate = ids.getByValue(id);
@@ -594,7 +592,7 @@ public class Template {
 
 	public record BlockInfo(BlockPos pos, IBlockState blockState, NBTTagCompound tileentityData) {
 
-		public BlockInfo(BlockPos pos, IBlockState blockState, @Nullable NBTTagCompound tileentityData) {
+		public BlockInfo(BlockPos pos, IBlockState blockState, NBTTagCompound tileentityData) {
 
 			this.pos = pos;
 			this.blockState = blockState;

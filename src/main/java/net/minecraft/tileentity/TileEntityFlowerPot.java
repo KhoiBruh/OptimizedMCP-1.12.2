@@ -7,8 +7,6 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.datafix.DataFixer;
 
-import javax.annotation.Nullable;
-
 public class TileEntityFlowerPot extends TileEntity {
 
 	private Item flowerPotItem;
@@ -50,7 +48,7 @@ public class TileEntityFlowerPot extends TileEntity {
 		flowerPotData = compound.getInteger("Data");
 	}
 
-	@Nullable
+	
 	public SPacketUpdateTileEntity getUpdatePacket() {
 
 		return new SPacketUpdateTileEntity(pos, 5, getUpdateTag());
@@ -72,7 +70,7 @@ public class TileEntityFlowerPot extends TileEntity {
 		return flowerPotItem == null ? ItemStack.EMPTY : new ItemStack(flowerPotItem, 1, flowerPotData);
 	}
 
-	@Nullable
+	
 	public Item getFlowerPotItem() {
 
 		return flowerPotItem;

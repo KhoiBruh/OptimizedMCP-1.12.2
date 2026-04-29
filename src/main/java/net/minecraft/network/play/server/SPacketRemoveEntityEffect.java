@@ -7,8 +7,6 @@ import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.potion.Potion;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class SPacketRemoveEntityEffect implements Packet<INetHandlerPlayClient> {
 
 	private int entityId;
@@ -50,13 +48,13 @@ public class SPacketRemoveEntityEffect implements Packet<INetHandlerPlayClient> 
 		handler.handleRemoveEntityEffect(this);
 	}
 
-	@Nullable
+	
 	public Entity getEntity(World worldIn) {
 
 		return worldIn.getEntityByID(entityId);
 	}
 
-	@Nullable
+	
 	public Potion getPotion() {
 
 		return effectId;

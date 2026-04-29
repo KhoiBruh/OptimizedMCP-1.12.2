@@ -32,8 +32,6 @@ import net.minecraft.util.registry.RegistryNamespaced;
 import net.minecraft.util.registry.RegistrySimple;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -100,7 +98,7 @@ public class Item {
 		return item == null ? Items.AIR : item;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Tries to get an Item by it's name (e.g. minecraft:apple) or a String representation of a numerical ID. If both
@@ -572,7 +570,7 @@ public class Item {
 		properties.putObject(key, getter);
 	}
 
-	@Nullable
+	
 	public IItemPropertyGetter getPropertyGetter(ResourceLocation key) {
 
 		return properties.getObject(key);
@@ -782,7 +780,7 @@ public class Item {
 		return true;
 	}
 
-	@Nullable
+	
 	public Item getContainerItem() {
 
 		return containerItem;
@@ -851,7 +849,7 @@ public class Item {
 	/**
 	 * allows items to add custom lines of information to the mouseover description
 	 */
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 
 	}
 
@@ -932,7 +930,7 @@ public class Item {
 		return creativetabs != null && (targetTab == CreativeTabs.SEARCH || targetTab == creativetabs);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * gets the CreativeTab this item is displayed on

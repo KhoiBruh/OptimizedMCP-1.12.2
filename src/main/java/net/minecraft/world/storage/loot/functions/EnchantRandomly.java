@@ -14,8 +14,6 @@ import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -25,7 +23,7 @@ public class EnchantRandomly extends LootFunction {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private final List<Enchantment> enchantments;
 
-	public EnchantRandomly(LootCondition[] conditionsIn, @Nullable List<Enchantment> enchantmentsIn) {
+	public EnchantRandomly(LootCondition[] conditionsIn, List<Enchantment> enchantmentsIn) {
 
 		super(conditionsIn);
 		enchantments = enchantmentsIn == null ? Collections.emptyList() : enchantmentsIn;

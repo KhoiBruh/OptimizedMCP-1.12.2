@@ -10,8 +10,6 @@ import net.minecraft.util.ITabCompleter;
 import net.minecraft.util.TabCompleter;
 import net.minecraft.util.math.BlockPos;
 import org.lwjgl.input.Keyboard;
-
-import javax.annotation.Nullable;
 import java.io.IOException;
 
 public class GuiCommandBlock extends GuiScreen implements ITabCompleter {
@@ -78,7 +76,7 @@ public class GuiCommandBlock extends GuiScreen implements ITabCompleter {
 		conditionalBtn.enabled = false;
 		autoExecBtn.enabled = false;
 		tabCompleter = new TabCompleter(commandTextField, true) {
-			@Nullable
+			
 			public BlockPos getTargetBlockPos() {
 
 				return commandblockbaselogic.getPosition();

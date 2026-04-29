@@ -3,8 +3,6 @@ package net.minecraft.advancements;
 import com.google.common.collect.Maps;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nullable;
 import java.util.Map;
 
 public class CriteriaTriggers {
@@ -49,7 +47,7 @@ public class CriteriaTriggers {
 		}
 	}
 
-	@Nullable
+	
 	public static <T extends ICriterionInstance> ICriterionTrigger<T> get(ResourceLocation id) {
 
 		return (ICriterionTrigger<T>) REGISTRY.get(id);

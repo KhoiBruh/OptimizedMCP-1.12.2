@@ -25,8 +25,6 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.datafix.FixTypes;
 import net.minecraft.util.datafix.walkers.ItemStackDataLists;
 import net.minecraft.util.math.AxisAlignedBB;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITickable, ISidedInventory {
@@ -52,7 +50,7 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 		this(null);
 	}
 
-	public TileEntityShulkerBox(@Nullable EnumDyeColor colorIn) {
+	public TileEntityShulkerBox(EnumDyeColor colorIn) {
 
 		items = NonNullList.withSize(27, ItemStack.EMPTY);
 		animationStatus = TileEntityShulkerBox.AnimationStatus.CLOSED;
@@ -372,7 +370,7 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 		return color;
 	}
 
-	@Nullable
+	
 	public SPacketUpdateTileEntity getUpdatePacket() {
 
 		return new SPacketUpdateTileEntity(pos, 10, getUpdateTag());

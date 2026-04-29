@@ -16,8 +16,8 @@ public class ModelLeashKnot extends ModelBase {
 		textureWidth = p_i46365_3_;
 		textureHeight = p_i46365_4_;
 		knotRenderer = new ModelRenderer(this, p_i46365_1_, p_i46365_2_);
-		knotRenderer.addBox(-3.0F, -6.0F, -3.0F, 6, 8, 6, 0.0F);
-		knotRenderer.setRotationPoint(0.0F, 0.0F, 0.0F);
+		knotRenderer.addBox(-3F, -6F, -3F, 6, 8, 6, 0F);
+		knotRenderer.setRotationPoint(0F, 0F, 0F);
 	}
 
 	/**

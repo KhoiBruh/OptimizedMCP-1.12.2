@@ -18,19 +18,19 @@ public class ModelSquid extends ModelBase {
 
 		int i = -16;
 		squidBody = new ModelRenderer(this, 0, 0);
-		squidBody.addBox(-6.0F, -8.0F, -6.0F, 12, 16, 12);
-		squidBody.rotationPointY += 8.0F;
+		squidBody.addBox(-6F, -8F, -6F, 12, 16, 12);
+		squidBody.rotationPointY += 8F;
 
 		for (int j = 0; j < squidTentacles.length; ++j) {
 			squidTentacles[j] = new ModelRenderer(this, 48, 0);
-			double d0 = (double) j * Math.PI * 2.0D / (double) squidTentacles.length;
-			float f = (float) Math.cos(d0) * 5.0F;
-			float f1 = (float) Math.sin(d0) * 5.0F;
-			squidTentacles[j].addBox(-1.0F, 0.0F, -1.0F, 2, 18, 2);
+			double d0 = (double) j * Math.PI * 2D / (double) squidTentacles.length;
+			float f = (float) Math.cos(d0) * 5F;
+			float f1 = (float) Math.sin(d0) * 5F;
+			squidTentacles[j].addBox(-1F, 0F, -1F, 2, 18, 2);
 			squidTentacles[j].rotationPointX = f;
 			squidTentacles[j].rotationPointZ = f1;
-			squidTentacles[j].rotationPointY = 15.0F;
-			d0 = (double) j * Math.PI * -2.0D / (double) squidTentacles.length + (Math.PI / 2D);
+			squidTentacles[j].rotationPointY = 15F;
+			d0 = (double) j * Math.PI * -2D / (double) squidTentacles.length + (Math.PI / 2D);
 			squidTentacles[j].rotateAngleY = (float) d0;
 		}
 	}

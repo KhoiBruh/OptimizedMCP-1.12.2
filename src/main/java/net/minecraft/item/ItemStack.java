@@ -38,8 +38,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.event.HoverEvent;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map.Entry;
@@ -349,7 +347,7 @@ public final class ItemStack {
 	 * getMaxDamage(). Returns false otherwise or if the ItemStack can't be damaged or if all points of damage are
 	 * negated.
 	 */
-	public boolean attemptDamageItem(int amount, Random rand, @Nullable EntityPlayerMP damager) {
+	public boolean attemptDamageItem(int amount, Random rand, EntityPlayerMP damager) {
 
 		if (!isItemStackDamageable()) {
 			return false;
@@ -547,7 +545,7 @@ public final class ItemStack {
 		return !isEmpty && stackTagCompound != null;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns the NBTTagCompound of the ItemStack.
@@ -560,7 +558,7 @@ public final class ItemStack {
 	/**
 	 * Assigns a NBTTagCompound to the ItemStack, minecraft validates that only non-stackable items can have it.
 	 */
-	public void setTagCompound(@Nullable NBTTagCompound nbt) {
+	public void setTagCompound(NBTTagCompound nbt) {
 
 		stackTagCompound = nbt;
 	}
@@ -576,7 +574,7 @@ public final class ItemStack {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Get an NBTTagCompound from this stack's NBT data.
@@ -659,7 +657,7 @@ public final class ItemStack {
 		return nbttagcompound != null && nbttagcompound.hasKey("Name", 8);
 	}
 
-	public List<String> getTooltip(@Nullable EntityPlayer playerIn, ITooltipFlag advanced) {
+	public List<String> getTooltip(EntityPlayer playerIn, ITooltipFlag advanced) {
 
 		List<String> list = Lists.newArrayList();
 		String s = getDisplayName();
@@ -922,7 +920,7 @@ public final class ItemStack {
 		return itemFrame != null;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Return the item frame this stack is on. Returns null if not on an item frame.
@@ -983,7 +981,7 @@ public final class ItemStack {
 		return multimap;
 	}
 
-	public void addAttributeModifier(String attributeName, AttributeModifier modifier, @Nullable EntityEquipmentSlot equipmentSlot) {
+	public void addAttributeModifier(String attributeName, AttributeModifier modifier, EntityEquipmentSlot equipmentSlot) {
 
 		if (stackTagCompound == null) {
 			stackTagCompound = new NBTTagCompound();

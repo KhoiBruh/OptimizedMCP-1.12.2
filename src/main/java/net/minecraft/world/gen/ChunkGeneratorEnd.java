@@ -18,8 +18,6 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenEndGateway;
 import net.minecraft.world.gen.feature.WorldGenEndIsland;
 import net.minecraft.world.gen.structure.MapGenEndCity;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
@@ -388,7 +386,7 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 		return world.getBiome(pos).getSpawnableList(creatureType);
 	}
 
-	@Nullable
+	
 	public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
 
 		return "EndCity".equals(structureName) && endCityGen != null ? endCityGen.getNearestStructurePos(worldIn, position, findUnexplored) : null;

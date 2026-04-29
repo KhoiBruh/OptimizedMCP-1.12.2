@@ -83,8 +83,6 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.storage.MapData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -158,7 +156,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, gameController);
 		gameController.playerController = new PlayerControllerMP(gameController, this);
-		clientWorldController = new WorldClient(this, new WorldSettings(0L, packetIn.getGameType(), false, packetIn.isHardcoreMode(), packetIn.getWorldType()), packetIn.getDimension(), packetIn.getDifficulty(), gameController.mcProfiler);
+		clientWorldController = new WorldClient(this, new WorldSettings(0L, packetIn.getGameType(), false, packetIn.isHardcoreMode(), packetIn.getWorldType()), packetIn.getDimension(), packetIn.getDifficulty(), gameController.profiler);
 		gameController.gameSettings.difficulty = packetIn.getDifficulty();
 		gameController.loadWorld(clientWorldController);
 		gameController.player.dimension = packetIn.getDimension();
@@ -851,7 +849,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		if (packetIn.getDimensionID() != gameController.player.dimension) {
 			doneLoadingTerrain = false;
 			Scoreboard scoreboard = clientWorldController.getScoreboard();
-			clientWorldController = new WorldClient(this, new WorldSettings(0L, packetIn.getGameType(), false, gameController.world.getWorldInfo().isHardcoreModeEnabled(), packetIn.getWorldType()), packetIn.getDimensionID(), packetIn.getDifficulty(), gameController.mcProfiler);
+			clientWorldController = new WorldClient(this, new WorldSettings(0L, packetIn.getGameType(), false, gameController.world.getWorldInfo().isHardcoreModeEnabled(), packetIn.getWorldType()), packetIn.getDimensionID(), packetIn.getDifficulty(), gameController.profiler);
 			clientWorldController.setWorldScoreboard(scoreboard);
 			gameController.loadWorld(clientWorldController);
 			gameController.player.dimension = packetIn.getDimensionID();
@@ -1496,7 +1494,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 	private FutureCallback<Object> createDownloadCallback() {
 
 		return new FutureCallback<>() {
-			public void onSuccess(@Nullable Object p_onSuccess_1_) {
+			public void onSuccess(Object p_onSuccess_1_) {
 
 				netManager.sendPacket(new CPacketResourcePackStatus(CPacketResourcePackStatus.Action.SUCCESSFULLY_LOADED));
 			}
@@ -1807,7 +1805,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		return playerInfoMap.get(uniqueId);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Gets the client's description information about another player on the server.

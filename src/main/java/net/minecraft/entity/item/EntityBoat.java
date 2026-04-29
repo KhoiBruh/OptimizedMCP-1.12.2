@@ -27,8 +27,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class EntityBoat extends Entity {
@@ -108,7 +106,7 @@ public class EntityBoat extends Entity {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns a boundingBox used to collide the entity with other entities and blocks. This enables the entity to be
@@ -119,7 +117,7 @@ public class EntityBoat extends Entity {
 		return entityIn.canBePushed() ? entityIn.getEntityBoundingBox() : null;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns the <b>solid</b> collision bounding box for this entity. Used to make (e.g.) boats solid. Return null if
@@ -336,7 +334,7 @@ public class EntityBoat extends Entity {
 		}
 	}
 
-	@Nullable
+	
 	protected SoundEvent getPaddleSound() {
 
 		return switch (getBoatStatus()) {
@@ -529,7 +527,7 @@ public class EntityBoat extends Entity {
 		return flag;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Decides whether the boat is currently underwater.
@@ -844,7 +842,7 @@ public class EntityBoat extends Entity {
 		return getPassengers().size() < 2;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * For vehicles, the first passenger is generally considered the controller and "drives" the vehicle. For example,

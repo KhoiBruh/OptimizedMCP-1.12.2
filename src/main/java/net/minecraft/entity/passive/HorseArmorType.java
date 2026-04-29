@@ -4,8 +4,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import javax.annotation.Nullable;
-
 public enum HorseArmorType {
 	NONE(0),
 	IRON(5, "iron", "meo"),
@@ -71,7 +69,7 @@ public enum HorseArmorType {
 		return protection;
 	}
 
-	@Nullable
+	
 	public String getTextureName() {
 
 		return textureName;

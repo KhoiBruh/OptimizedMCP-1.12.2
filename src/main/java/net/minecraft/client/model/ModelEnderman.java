@@ -16,28 +16,28 @@ public class ModelEnderman extends ModelBiped {
 
 	public ModelEnderman(float scale) {
 
-		super(0.0F, -14.0F, 64, 32);
-		float f = -14.0F;
+		super(0F, -14F, 64, 32);
+		float f = -14F;
 		bipedHeadwear = new ModelRenderer(this, 0, 16);
-		bipedHeadwear.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, scale - 0.5F);
-		bipedHeadwear.setRotationPoint(0.0F, -14.0F, 0.0F);
+		bipedHeadwear.addBox(-4F, -8F, -4F, 8, 8, 8, scale - 0.5F);
+		bipedHeadwear.setRotationPoint(0F, -14F, 0F);
 		bipedBody = new ModelRenderer(this, 32, 16);
-		bipedBody.addBox(-4.0F, 0.0F, -2.0F, 8, 12, 4, scale);
-		bipedBody.setRotationPoint(0.0F, -14.0F, 0.0F);
+		bipedBody.addBox(-4F, 0F, -2F, 8, 12, 4, scale);
+		bipedBody.setRotationPoint(0F, -14F, 0F);
 		bipedRightArm = new ModelRenderer(this, 56, 0);
-		bipedRightArm.addBox(-1.0F, -2.0F, -1.0F, 2, 30, 2, scale);
-		bipedRightArm.setRotationPoint(-3.0F, -12.0F, 0.0F);
+		bipedRightArm.addBox(-1F, -2F, -1F, 2, 30, 2, scale);
+		bipedRightArm.setRotationPoint(-3F, -12F, 0F);
 		bipedLeftArm = new ModelRenderer(this, 56, 0);
 		bipedLeftArm.mirror = true;
-		bipedLeftArm.addBox(-1.0F, -2.0F, -1.0F, 2, 30, 2, scale);
-		bipedLeftArm.setRotationPoint(5.0F, -12.0F, 0.0F);
+		bipedLeftArm.addBox(-1F, -2F, -1F, 2, 30, 2, scale);
+		bipedLeftArm.setRotationPoint(5F, -12F, 0F);
 		bipedRightLeg = new ModelRenderer(this, 56, 0);
-		bipedRightLeg.addBox(-1.0F, 0.0F, -1.0F, 2, 30, 2, scale);
-		bipedRightLeg.setRotationPoint(-2.0F, -2.0F, 0.0F);
+		bipedRightLeg.addBox(-1F, 0F, -1F, 2, 30, 2, scale);
+		bipedRightLeg.setRotationPoint(-2F, -2F, 0F);
 		bipedLeftLeg = new ModelRenderer(this, 56, 0);
 		bipedLeftLeg.mirror = true;
-		bipedLeftLeg.addBox(-1.0F, 0.0F, -1.0F, 2, 30, 2, scale);
-		bipedLeftLeg.setRotationPoint(2.0F, -2.0F, 0.0F);
+		bipedLeftLeg.addBox(-1F, 0F, -1F, 2, 30, 2, scale);
+		bipedLeftLeg.setRotationPoint(2F, -2F, 0F);
 	}
 
 	/**
@@ -49,12 +49,12 @@ public class ModelEnderman extends ModelBiped {
 
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 		bipedHead.showModel = true;
-		float f = -14.0F;
-		bipedBody.rotateAngleX = 0.0F;
-		bipedBody.rotationPointY = -14.0F;
-		bipedBody.rotationPointZ = -0.0F;
-		bipedRightLeg.rotateAngleX -= 0.0F;
-		bipedLeftLeg.rotateAngleX -= 0.0F;
+		float f = -14F;
+		bipedBody.rotateAngleX = 0F;
+		bipedBody.rotationPointY = -14F;
+		bipedBody.rotationPointZ = -0F;
+		bipedRightLeg.rotateAngleX -= 0F;
+		bipedLeftLeg.rotateAngleX -= 0F;
 		bipedRightArm.rotateAngleX = (float) ((double) bipedRightArm.rotateAngleX * 0.5D);
 		bipedLeftArm.rotateAngleX = (float) ((double) bipedLeftArm.rotateAngleX * 0.5D);
 		bipedRightLeg.rotateAngleX = (float) ((double) bipedRightLeg.rotateAngleX * 0.5D);
@@ -100,14 +100,14 @@ public class ModelEnderman extends ModelBiped {
 			bipedLeftArm.rotateAngleZ = -0.05F;
 		}
 
-		bipedRightArm.rotationPointZ = 0.0F;
-		bipedLeftArm.rotationPointZ = 0.0F;
-		bipedRightLeg.rotationPointZ = 0.0F;
-		bipedLeftLeg.rotationPointZ = 0.0F;
-		bipedRightLeg.rotationPointY = -5.0F;
-		bipedLeftLeg.rotationPointY = -5.0F;
-		bipedHead.rotationPointZ = -0.0F;
-		bipedHead.rotationPointY = -13.0F;
+		bipedRightArm.rotationPointZ = 0F;
+		bipedLeftArm.rotationPointZ = 0F;
+		bipedRightLeg.rotationPointZ = 0F;
+		bipedLeftLeg.rotationPointZ = 0F;
+		bipedRightLeg.rotationPointY = -5F;
+		bipedLeftLeg.rotationPointY = -5F;
+		bipedHead.rotationPointZ = -0F;
+		bipedHead.rotationPointY = -13F;
 		bipedHeadwear.rotationPointX = bipedHead.rotationPointX;
 		bipedHeadwear.rotationPointY = bipedHead.rotationPointY;
 		bipedHeadwear.rotationPointZ = bipedHead.rotationPointZ;
@@ -116,8 +116,8 @@ public class ModelEnderman extends ModelBiped {
 		bipedHeadwear.rotateAngleZ = bipedHead.rotateAngleZ;
 
 		if (isAttacking) {
-			float f2 = 1.0F;
-			bipedHead.rotationPointY -= 5.0F;
+			float f2 = 1F;
+			bipedHead.rotationPointY -= 5F;
 		}
 	}
 

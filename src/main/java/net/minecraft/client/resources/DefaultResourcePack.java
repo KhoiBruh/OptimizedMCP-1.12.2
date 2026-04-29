@@ -5,8 +5,6 @@ import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.MetadataSerializer;
 import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nullable;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
@@ -39,14 +37,14 @@ public class DefaultResourcePack implements IResourcePack {
 		}
 	}
 
-	@Nullable
+	
 	public InputStream getInputStreamAssets(ResourceLocation location) throws IOException {
 
 		File file1 = resourceIndex.getFile(location);
 		return file1 != null && file1.isFile() ? new FileInputStream(file1) : null;
 	}
 
-	@Nullable
+	
 	private InputStream getResourceStream(ResourceLocation location) {
 
 		String s = "/assets/" + location.getResourceDomain() + "/" + location.getResourcePath();
@@ -69,7 +67,7 @@ public class DefaultResourcePack implements IResourcePack {
 		return DEFAULT_RESOURCE_DOMAINS;
 	}
 
-	@Nullable
+	
 	public <T extends IMetadataSection> T getPackMetadata(MetadataSerializer metadataSerializer, String metadataSectionName) {
 
 		try {

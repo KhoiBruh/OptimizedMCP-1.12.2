@@ -2,9 +2,6 @@ package net.minecraft.util.math;
 
 import com.google.common.base.MoreObjects;
 
-import javax.annotation.concurrent.Immutable;
-
-@Immutable
 public class Vec3i implements Comparable<Vec3i> {
 
 	/**

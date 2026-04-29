@@ -6,8 +6,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public class WorldGenSpikes extends WorldGenerator {
@@ -69,7 +67,7 @@ public class WorldGenSpikes extends WorldGenerator {
 	 * Sets the value that will be used in a call to entitycrystal.setBeamTarget.
 	 * At the moment, WorldGenSpikes.setBeamTarget is only ever called with a value of (0, 128, 0)
 	 */
-	public void setBeamTarget(@Nullable BlockPos pos) {
+	public void setBeamTarget(BlockPos pos) {
 
 		beamTarget = pos;
 	}

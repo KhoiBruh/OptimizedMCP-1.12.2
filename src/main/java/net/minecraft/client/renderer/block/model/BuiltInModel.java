@@ -3,8 +3,6 @@ package net.minecraft.client.renderer.block.model;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumFacing;
-
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,7 +17,7 @@ public class BuiltInModel implements IBakedModel {
 		overrideList = p_i46537_2_;
 	}
 
-	public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
+	public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
 
 		return Collections.emptyList();
 	}

@@ -13,8 +13,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
 
@@ -71,7 +69,7 @@ public abstract class Container {
 	/**
 	 * Checks if it's possible to add the given itemstack to the given slot.
 	 */
-	public static boolean canAddItemToSlot(@Nullable Slot slotIn, ItemStack stack, boolean stackSizeMatters) {
+	public static boolean canAddItemToSlot(Slot slotIn, ItemStack stack, boolean stackSizeMatters) {
 
 		boolean flag = slotIn == null || !slotIn.getHasStack();
 
@@ -107,12 +105,12 @@ public abstract class Container {
 	/**
 	 * Like the version that takes an inventory. If the given TileEntity is not an Inventory, 0 is returned instead.
 	 */
-	public static int calcRedstone(@Nullable TileEntity te) {
+	public static int calcRedstone(TileEntity te) {
 
 		return te instanceof IInventory ? calcRedstoneFromInventory((IInventory) te) : 0;
 	}
 
-	public static int calcRedstoneFromInventory(@Nullable IInventory inv) {
+	public static int calcRedstoneFromInventory(IInventory inv) {
 
 		if (inv == null) {
 			return 0;
@@ -203,7 +201,7 @@ public abstract class Container {
 		return false;
 	}
 
-	@Nullable
+	
 	public Slot getSlotFromInventory(IInventory inv, int slotIn) {
 
 		for (Slot slot : inventorySlots) {

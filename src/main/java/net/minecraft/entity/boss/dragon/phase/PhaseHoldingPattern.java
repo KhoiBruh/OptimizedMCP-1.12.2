@@ -10,8 +10,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.gen.feature.WorldGenEndPodium;
 
-import javax.annotation.Nullable;
-
 public class PhaseHoldingPattern extends PhaseBase {
 
 	private Path currentPath;
@@ -50,7 +48,7 @@ public class PhaseHoldingPattern extends PhaseBase {
 		targetLocation = null;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns the location the dragon is flying toward
@@ -148,7 +146,7 @@ public class PhaseHoldingPattern extends PhaseBase {
 		}
 	}
 
-	public void onCrystalDestroyed(EntityEnderCrystal crystal, BlockPos pos, DamageSource dmgSrc, @Nullable EntityPlayer plyr) {
+	public void onCrystalDestroyed(EntityEnderCrystal crystal, BlockPos pos, DamageSource dmgSrc, EntityPlayer plyr) {
 
 		if (plyr != null && !plyr.capabilities.disableDamage) {
 			strafePlayer(plyr);

@@ -25,8 +25,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-
-import javax.annotation.Nullable;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -194,7 +192,7 @@ public abstract class CommandBase implements ICommand {
 		return getPlayer(server, EntitySelector.matchOnePlayer(sender, target), target);
 	}
 
-	private static EntityPlayerMP getPlayer(MinecraftServer p_193512_0_, @Nullable EntityPlayerMP p_193512_1_, String p_193512_2_) throws CommandException {
+	private static EntityPlayerMP getPlayer(MinecraftServer p_193512_0_, EntityPlayerMP p_193512_1_, String p_193512_2_) throws CommandException {
 
 		if (p_193512_1_ == null) {
 			try {
@@ -558,7 +556,7 @@ public abstract class CommandBase implements ICommand {
 		}
 	}
 
-	@Nullable
+	
 	private static <T extends Comparable<T>> T getValueHelper(IProperty<T> p_190792_0_, String p_190792_1_) {
 
 		return p_190792_0_.parseValue(p_190792_1_).orNull();
@@ -618,7 +616,7 @@ public abstract class CommandBase implements ICommand {
 		return joinNiceString(strings.toArray(new String[0]));
 	}
 
-	public static List<String> getTabCompletionCoordinate(String[] inputArgs, int index, @Nullable BlockPos pos) {
+	public static List<String> getTabCompletionCoordinate(String[] inputArgs, int index, BlockPos pos) {
 
 		if (pos == null) {
 			return Lists.newArrayList("~");
@@ -642,7 +640,7 @@ public abstract class CommandBase implements ICommand {
 		}
 	}
 
-	public static List<String> getTabCompletionCoordinateXZ(String[] inputArgs, int index, @Nullable BlockPos lookedPos) {
+	public static List<String> getTabCompletionCoordinateXZ(String[] inputArgs, int index, BlockPos lookedPos) {
 
 		if (lookedPos == null) {
 			return Lists.newArrayList("~");
@@ -742,7 +740,7 @@ public abstract class CommandBase implements ICommand {
 		return sender.canUseCommand(getRequiredPermissionLevel(), getName());
 	}
 
-	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
+	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
 
 		return Collections.emptyList();
 	}

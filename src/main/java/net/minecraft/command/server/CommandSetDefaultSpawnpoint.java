@@ -7,8 +7,6 @@ import net.minecraft.command.WrongUsageException;
 import net.minecraft.network.play.server.SPacketSpawnPosition;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
-
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
@@ -60,7 +58,7 @@ public class CommandSetDefaultSpawnpoint extends CommandBase {
 		notifyCommandListener(sender, this, "commands.setworldspawn.success", blockpos.getX(), blockpos.getY(), blockpos.getZ());
 	}
 
-	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
+	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
 
 		return args.length > 0 && args.length <= 3 ? getTabCompletionCoordinate(args, 0, targetPos) : Collections.emptyList();
 	}

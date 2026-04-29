@@ -14,8 +14,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.ChunkCache;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public abstract class PathNavigate {
 
 	/**
@@ -26,7 +24,7 @@ public abstract class PathNavigate {
 	protected EntityLiving entity;
 	protected World world;
 
-	@Nullable
+	
 
 	/** The PathEntity being followed. */
 	protected Path currentPath;
@@ -102,7 +100,7 @@ public abstract class PathNavigate {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns the path to the given coordinates. Args : x, y, z
@@ -112,7 +110,7 @@ public abstract class PathNavigate {
 		return getPathToPos(new BlockPos(x, y, z));
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns path to given BlockPos
@@ -136,7 +134,7 @@ public abstract class PathNavigate {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns the path to the given EntityLiving. Args : entity
@@ -185,7 +183,7 @@ public abstract class PathNavigate {
 	 * Sets a new path. If it's diferent from the old path. Checks to adjust path for sun avoiding, and stores start
 	 * coords. Args : path, speed
 	 */
-	public boolean setPath(@Nullable Path pathentityIn, double speedIn) {
+	public boolean setPath(Path pathentityIn, double speedIn) {
 
 		if (pathentityIn == null) {
 			currentPath = null;
@@ -209,7 +207,7 @@ public abstract class PathNavigate {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * gets the actively used PathEntity

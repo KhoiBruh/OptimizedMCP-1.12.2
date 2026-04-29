@@ -12,8 +12,6 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.network.play.client.CPacketSeenAdvancements;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Mouse;
-
-import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.Map;
 
@@ -231,7 +229,7 @@ public class GuiScreenAdvancements extends GuiScreen implements ClientAdvancemen
 		}
 	}
 
-	public void setSelectedTab(@Nullable Advancement p_193982_1_) {
+	public void setSelectedTab(Advancement p_193982_1_) {
 
 		selectedTab = tabs.get(p_193982_1_);
 	}
@@ -242,14 +240,14 @@ public class GuiScreenAdvancements extends GuiScreen implements ClientAdvancemen
 		selectedTab = null;
 	}
 
-	@Nullable
+	
 	public GuiAdvancement getAdvancementGui(Advancement p_191938_1_) {
 
 		GuiAdvancementTab guiadvancementtab = getTab(p_191938_1_);
 		return guiadvancementtab == null ? null : guiadvancementtab.getAdvancementGui(p_191938_1_);
 	}
 
-	@Nullable
+	
 	private GuiAdvancementTab getTab(Advancement p_191935_1_) {
 
 		while (p_191935_1_.getParent() != null) {

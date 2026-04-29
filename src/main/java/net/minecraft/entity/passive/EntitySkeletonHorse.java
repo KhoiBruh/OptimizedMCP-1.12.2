@@ -16,8 +16,6 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-import javax.annotation.Nullable;
-
 public class EntitySkeletonHorse extends AbstractHorse {
 
 	private final EntityAISkeletonRiders skeletonTrapAI = new EntityAISkeletonRiders(this);
@@ -76,7 +74,7 @@ public class EntitySkeletonHorse extends AbstractHorse {
 		return super.getMountedYOffset() - 0.1875D;
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_SKELETON_HORSE;

@@ -15,19 +15,19 @@ public class ModelGhast extends ModelBase {
 
 		int i = -16;
 		body = new ModelRenderer(this, 0, 0);
-		body.addBox(-8.0F, -8.0F, -8.0F, 16, 16, 16);
-		body.rotationPointY += 8.0F;
+		body.addBox(-8F, -8F, -8F, 16, 16, 16);
+		body.rotationPointY += 8F;
 		Random random = new Random(1660L);
 
 		for (int j = 0; j < tentacles.length; ++j) {
 			tentacles[j] = new ModelRenderer(this, 0, 0);
-			float f = (((float) (j % 3) - (float) (j / 3 % 2) * 0.5F + 0.25F) / 2.0F * 2.0F - 1.0F) * 5.0F;
-			float f1 = ((float) (j / 3) / 2.0F * 2.0F - 1.0F) * 5.0F;
+			float f = (((float) (j % 3) - (float) (j / 3 % 2) * 0.5F + 0.25F) / 2F * 2F - 1F) * 5F;
+			float f1 = ((float) (j / 3) / 2F * 2F - 1F) * 5F;
 			int k = random.nextInt(7) + 8;
-			tentacles[j].addBox(-1.0F, 0.0F, -1.0F, 2, k, 2);
+			tentacles[j].addBox(-1F, 0F, -1F, 2, k, 2);
 			tentacles[j].rotationPointX = f;
 			tentacles[j].rotationPointZ = f1;
-			tentacles[j].rotationPointY = 15.0F;
+			tentacles[j].rotationPointY = 15F;
 		}
 	}
 
@@ -50,7 +50,7 @@ public class ModelGhast extends ModelBase {
 
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(0.0F, 0.6F, 0.0F);
+		GlStateManager.translate(0F, 0.6F, 0F);
 		body.render(scale);
 
 		for (ModelRenderer modelrenderer : tentacles) {

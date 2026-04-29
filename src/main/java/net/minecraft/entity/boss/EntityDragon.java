@@ -34,8 +34,6 @@ import net.minecraft.world.gen.feature.WorldGenEndPodium;
 import net.minecraft.world.storage.loot.LootTableList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob {
@@ -740,7 +738,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 		return i;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Find and return a path among the circles described by pathPoints, or null if the shortest path would just be
@@ -749,7 +747,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 * Starting with pathPoint[startIdx], it searches the neighboring points (and their neighboring points, and so on)
 	 * until it reaches pathPoint[finishIdx], at which point it calls makePath to seal the deal.
 	 */
-	public Path findPath(int startIdx, int finishIdx, @Nullable PathPoint andThen) {
+	public Path findPath(int startIdx, int finishIdx, PathPoint andThen) {
 
 		for (int i = 0; i < 24; ++i) {
 			PathPoint pathpoint = pathPoints[i];
@@ -935,7 +933,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 		return 5.0F;
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_ENDER_DRAGON;
@@ -1025,7 +1023,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 		return phaseManager;
 	}
 
-	@Nullable
+	
 	public DragonFightManager getFightManager() {
 
 		return fightManager;

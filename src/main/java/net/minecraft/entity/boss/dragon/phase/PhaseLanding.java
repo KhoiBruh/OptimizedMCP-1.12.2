@@ -6,8 +6,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.gen.feature.WorldGenEndPodium;
 
-import javax.annotation.Nullable;
-
 public class PhaseLanding extends PhaseBase {
 
 	private Vec3d targetLocation;
@@ -77,7 +75,7 @@ public class PhaseLanding extends PhaseBase {
 		targetLocation = null;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns the location the dragon is flying toward

@@ -24,8 +24,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class BlockPistonBase extends BlockDirectional {
@@ -53,7 +51,7 @@ public class BlockPistonBase extends BlockDirectional {
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
-	@Nullable
+	
 	public static EnumFacing getFacing(int meta) {
 
 		int i = meta & 7;
@@ -130,7 +128,7 @@ public class BlockPistonBase extends BlockDirectional {
 		return !state.getValue(EXTENDED) || state.getValue(FACING) == EnumFacing.DOWN;
 	}
 
-	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState) {
+	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean isActualState) {
 
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, state.getBoundingBox(worldIn, pos));
 	}

@@ -2,9 +2,6 @@ package net.minecraft.world;
 
 import net.minecraft.nbt.NBTTagCompound;
 
-import javax.annotation.concurrent.Immutable;
-
-@Immutable
 public class LockCode {
 
 	public static final LockCode EMPTY_CODE = new LockCode("");

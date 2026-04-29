@@ -5,8 +5,6 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 
-import javax.annotation.Nullable;
-
 public class GuiGameOver extends GuiScreen {
 
 	private final ITextComponent causeOfDeath;
@@ -15,7 +13,7 @@ public class GuiGameOver extends GuiScreen {
 	 */
 	private int enableButtonsTimer;
 
-	public GuiGameOver(@Nullable ITextComponent causeOfDeathIn) {
+	public GuiGameOver(ITextComponent causeOfDeathIn) {
 
 		causeOfDeath = causeOfDeathIn;
 	}
@@ -120,7 +118,7 @@ public class GuiGameOver extends GuiScreen {
 		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
 
-	@Nullable
+	
 	public ITextComponent getClickedComponentAt(int p_184870_1_) {
 
 		if (causeOfDeath == null) {

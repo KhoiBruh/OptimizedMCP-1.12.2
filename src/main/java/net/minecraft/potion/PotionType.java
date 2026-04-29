@@ -4,8 +4,6 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.init.MobEffects;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.RegistryNamespacedDefaultedByKey;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class PotionType {
@@ -25,13 +23,13 @@ public class PotionType {
 		this(null, p_i46739_1_);
 	}
 
-	public PotionType(@Nullable String p_i46740_1_, PotionEffect... p_i46740_2_) {
+	public PotionType(String p_i46740_1_, PotionEffect... p_i46740_2_) {
 
 		baseName = p_i46740_1_;
 		effects = ImmutableList.copyOf(p_i46740_2_);
 	}
 
-	@Nullable
+	
 	public static PotionType getPotionTypeForName(String p_185168_0_) {
 
 		return REGISTRY.getObject(new ResourceLocation(p_185168_0_));

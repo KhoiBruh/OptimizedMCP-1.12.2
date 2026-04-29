@@ -38,12 +38,12 @@ public class ModelIronGolem extends ModelBase {
 
 	public ModelIronGolem() {
 
-		this(0.0F);
+		this(0F);
 	}
 
 	public ModelIronGolem(float p_i1161_1_) {
 
-		this(p_i1161_1_, -7.0F);
+		this(p_i1161_1_, -7F);
 	}
 
 	public ModelIronGolem(float p_i46362_1_, float p_i46362_2_) {
@@ -51,26 +51,26 @@ public class ModelIronGolem extends ModelBase {
 		int i = 128;
 		int j = 128;
 		ironGolemHead = (new ModelRenderer(this)).setTextureSize(128, 128);
-		ironGolemHead.setRotationPoint(0.0F, 0.0F + p_i46362_2_, -2.0F);
-		ironGolemHead.setTextureOffset(0, 0).addBox(-4.0F, -12.0F, -5.5F, 8, 10, 8, p_i46362_1_);
-		ironGolemHead.setTextureOffset(24, 0).addBox(-1.0F, -5.0F, -7.5F, 2, 4, 2, p_i46362_1_);
+		ironGolemHead.setRotationPoint(0F, 0F + p_i46362_2_, -2F);
+		ironGolemHead.setTextureOffset(0, 0).addBox(-4F, -12F, -5.5F, 8, 10, 8, p_i46362_1_);
+		ironGolemHead.setTextureOffset(24, 0).addBox(-1F, -5F, -7.5F, 2, 4, 2, p_i46362_1_);
 		ironGolemBody = (new ModelRenderer(this)).setTextureSize(128, 128);
-		ironGolemBody.setRotationPoint(0.0F, 0.0F + p_i46362_2_, 0.0F);
-		ironGolemBody.setTextureOffset(0, 40).addBox(-9.0F, -2.0F, -6.0F, 18, 12, 11, p_i46362_1_);
-		ironGolemBody.setTextureOffset(0, 70).addBox(-4.5F, 10.0F, -3.0F, 9, 5, 6, p_i46362_1_ + 0.5F);
+		ironGolemBody.setRotationPoint(0F, 0F + p_i46362_2_, 0F);
+		ironGolemBody.setTextureOffset(0, 40).addBox(-9F, -2F, -6F, 18, 12, 11, p_i46362_1_);
+		ironGolemBody.setTextureOffset(0, 70).addBox(-4.5F, 10F, -3F, 9, 5, 6, p_i46362_1_ + 0.5F);
 		ironGolemRightArm = (new ModelRenderer(this)).setTextureSize(128, 128);
-		ironGolemRightArm.setRotationPoint(0.0F, -7.0F, 0.0F);
-		ironGolemRightArm.setTextureOffset(60, 21).addBox(-13.0F, -2.5F, -3.0F, 4, 30, 6, p_i46362_1_);
+		ironGolemRightArm.setRotationPoint(0F, -7F, 0F);
+		ironGolemRightArm.setTextureOffset(60, 21).addBox(-13F, -2.5F, -3F, 4, 30, 6, p_i46362_1_);
 		ironGolemLeftArm = (new ModelRenderer(this)).setTextureSize(128, 128);
-		ironGolemLeftArm.setRotationPoint(0.0F, -7.0F, 0.0F);
-		ironGolemLeftArm.setTextureOffset(60, 58).addBox(9.0F, -2.5F, -3.0F, 4, 30, 6, p_i46362_1_);
+		ironGolemLeftArm.setRotationPoint(0F, -7F, 0F);
+		ironGolemLeftArm.setTextureOffset(60, 58).addBox(9F, -2.5F, -3F, 4, 30, 6, p_i46362_1_);
 		ironGolemLeftLeg = (new ModelRenderer(this, 0, 22)).setTextureSize(128, 128);
-		ironGolemLeftLeg.setRotationPoint(-4.0F, 18.0F + p_i46362_2_, 0.0F);
-		ironGolemLeftLeg.setTextureOffset(37, 0).addBox(-3.5F, -3.0F, -3.0F, 6, 16, 5, p_i46362_1_);
+		ironGolemLeftLeg.setRotationPoint(-4F, 18F + p_i46362_2_, 0F);
+		ironGolemLeftLeg.setTextureOffset(37, 0).addBox(-3.5F, -3F, -3F, 6, 16, 5, p_i46362_1_);
 		ironGolemRightLeg = (new ModelRenderer(this, 0, 22)).setTextureSize(128, 128);
 		ironGolemRightLeg.mirror = true;
-		ironGolemRightLeg.setTextureOffset(60, 0).setRotationPoint(5.0F, 18.0F + p_i46362_2_, 0.0F);
-		ironGolemRightLeg.addBox(-3.5F, -3.0F, -3.0F, 6, 16, 5, p_i46362_1_);
+		ironGolemRightLeg.setTextureOffset(60, 0).setRotationPoint(5F, 18F + p_i46362_2_, 0F);
+		ironGolemRightLeg.addBox(-3.5F, -3F, -3F, 6, 16, 5, p_i46362_1_);
 	}
 
 	/**
@@ -96,10 +96,10 @@ public class ModelIronGolem extends ModelBase {
 
 		ironGolemHead.rotateAngleY = netHeadYaw * 0.017453292F;
 		ironGolemHead.rotateAngleX = headPitch * 0.017453292F;
-		ironGolemLeftLeg.rotateAngleX = -1.5F * triangleWave(limbSwing, 13.0F) * limbSwingAmount;
-		ironGolemRightLeg.rotateAngleX = 1.5F * triangleWave(limbSwing, 13.0F) * limbSwingAmount;
-		ironGolemLeftLeg.rotateAngleY = 0.0F;
-		ironGolemRightLeg.rotateAngleY = 0.0F;
+		ironGolemLeftLeg.rotateAngleX = -1.5F * triangleWave(limbSwing, 13F) * limbSwingAmount;
+		ironGolemRightLeg.rotateAngleX = 1.5F * triangleWave(limbSwing, 13F) * limbSwingAmount;
+		ironGolemLeftLeg.rotateAngleY = 0F;
+		ironGolemRightLeg.rotateAngleY = 0F;
 	}
 
 	/**
@@ -112,17 +112,17 @@ public class ModelIronGolem extends ModelBase {
 		int i = entityirongolem.getAttackTimer();
 
 		if (i > 0) {
-			ironGolemRightArm.rotateAngleX = -2.0F + 1.5F * triangleWave((float) i - partialTickTime, 10.0F);
-			ironGolemLeftArm.rotateAngleX = -2.0F + 1.5F * triangleWave((float) i - partialTickTime, 10.0F);
+			ironGolemRightArm.rotateAngleX = -2F + 1.5F * triangleWave((float) i - partialTickTime, 10F);
+			ironGolemLeftArm.rotateAngleX = -2F + 1.5F * triangleWave((float) i - partialTickTime, 10F);
 		} else {
 			int j = entityirongolem.getHoldRoseTick();
 
 			if (j > 0) {
-				ironGolemRightArm.rotateAngleX = -0.8F + 0.025F * triangleWave((float) j, 70.0F);
-				ironGolemLeftArm.rotateAngleX = 0.0F;
+				ironGolemRightArm.rotateAngleX = -0.8F + 0.025F * triangleWave((float) j, 70F);
+				ironGolemLeftArm.rotateAngleX = 0F;
 			} else {
-				ironGolemRightArm.rotateAngleX = (-0.2F + 1.5F * triangleWave(limbSwing, 13.0F)) * limbSwingAmount;
-				ironGolemLeftArm.rotateAngleX = (-0.2F - 1.5F * triangleWave(limbSwing, 13.0F)) * limbSwingAmount;
+				ironGolemRightArm.rotateAngleX = (-0.2F + 1.5F * triangleWave(limbSwing, 13F)) * limbSwingAmount;
+				ironGolemLeftArm.rotateAngleX = (-0.2F - 1.5F * triangleWave(limbSwing, 13F)) * limbSwingAmount;
 			}
 		}
 	}

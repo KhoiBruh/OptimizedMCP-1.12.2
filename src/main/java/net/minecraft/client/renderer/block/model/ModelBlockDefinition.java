@@ -7,8 +7,6 @@ import com.google.gson.*;
 import net.minecraft.client.renderer.block.model.multipart.Multipart;
 import net.minecraft.client.renderer.block.model.multipart.Selector;
 import net.minecraft.util.JsonUtils;
-
-import javax.annotation.Nullable;
 import java.io.Reader;
 import java.lang.reflect.Type;
 import java.util.List;
@@ -140,7 +138,7 @@ public class ModelBlockDefinition {
 			return map;
 		}
 
-		@Nullable
+		
 		protected Multipart parseMultipart(JsonDeserializationContext deserializationContext, JsonObject object) {
 
 			if (!object.has("multipart")) {

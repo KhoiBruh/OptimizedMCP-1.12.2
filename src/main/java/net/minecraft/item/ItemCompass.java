@@ -8,8 +8,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class ItemCompass extends Item {
 
 	public ItemCompass() {
@@ -19,7 +17,7 @@ public class ItemCompass extends Item {
 			double rota;
 			long lastUpdateTick;
 
-			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+			public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn) {
 
 				if (entityIn == null && !stack.isOnItemFrame()) {
 					return 0.0F;

@@ -14,8 +14,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
-
-import javax.annotation.Nullable;
 import java.util.*;
 
 public class PlayerChunkMap {
@@ -200,7 +198,7 @@ public class PlayerChunkMap {
 		return entryMap.get(i) != null;
 	}
 
-	@Nullable
+	
 	public PlayerChunkMapEntry getEntry(int x, int z) {
 
 		return entryMap.get(getIndex(x, z));

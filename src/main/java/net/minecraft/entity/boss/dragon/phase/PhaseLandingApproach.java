@@ -8,8 +8,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.gen.feature.WorldGenEndPodium;
 
-import javax.annotation.Nullable;
-
 public class PhaseLandingApproach extends PhaseBase {
 
 	private Path currentPath;
@@ -47,7 +45,7 @@ public class PhaseLandingApproach extends PhaseBase {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns the location the dragon is flying toward

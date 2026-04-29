@@ -4,8 +4,6 @@ import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.UnmodifiableIterator;
-
-import javax.annotation.Nullable;
 import java.lang.reflect.Array;
 import java.util.*;
 
@@ -48,7 +46,7 @@ public class Cartesian {
 
 		}
 
-		public List<T> apply(@Nullable Object[] p_apply_1_) {
+		public List<T> apply(Object[] p_apply_1_) {
 
 			return Arrays.asList((T[]) p_apply_1_);
 		}

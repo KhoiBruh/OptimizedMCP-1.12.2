@@ -42,17 +42,17 @@ public class PositionedSoundRecord extends PositionedSound {
 
 	public static PositionedSoundRecord getRecord(SoundEvent soundIn, float pitchIn, float volumeIn) {
 
-		return new PositionedSoundRecord(soundIn, SoundCategory.MASTER, volumeIn, pitchIn, false, 0, ISound.AttenuationType.NONE, 0.0F, 0.0F, 0.0F);
+		return new PositionedSoundRecord(soundIn, SoundCategory.MASTER, volumeIn, pitchIn, false, 0, ISound.AttenuationType.NONE, 0F, 0F, 0F);
 	}
 
 	public static PositionedSoundRecord getMusicRecord(SoundEvent soundIn) {
 
-		return new PositionedSoundRecord(soundIn, SoundCategory.MUSIC, 1.0F, 1.0F, false, 0, ISound.AttenuationType.NONE, 0.0F, 0.0F, 0.0F);
+		return new PositionedSoundRecord(soundIn, SoundCategory.MUSIC, 1F, 1F, false, 0, ISound.AttenuationType.NONE, 0F, 0F, 0F);
 	}
 
 	public static PositionedSoundRecord getRecordSoundRecord(SoundEvent soundIn, float xIn, float yIn, float zIn) {
 
-		return new PositionedSoundRecord(soundIn, SoundCategory.RECORDS, 4.0F, 1.0F, false, 0, ISound.AttenuationType.LINEAR, xIn, yIn, zIn);
+		return new PositionedSoundRecord(soundIn, SoundCategory.RECORDS, 4F, 1F, false, 0, ISound.AttenuationType.LINEAR, xIn, yIn, zIn);
 	}
 
 }

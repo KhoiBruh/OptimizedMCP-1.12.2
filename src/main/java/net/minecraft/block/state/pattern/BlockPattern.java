@@ -10,8 +10,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class BlockPattern {
 
 	private final Predicate<BlockWorldState>[][][] blockMatches;
@@ -74,7 +72,7 @@ public class BlockPattern {
 		return palmLength;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * checks that the given pattern & rotation is at the block co-ordinates.
@@ -94,7 +92,7 @@ public class BlockPattern {
 		return new BlockPattern.PatternHelper(pos, finger, thumb, lcache, palmLength, thumbLength, fingerLength);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Calculates whether the given world position matches the pattern. Warning, fairly heavy function. @return a

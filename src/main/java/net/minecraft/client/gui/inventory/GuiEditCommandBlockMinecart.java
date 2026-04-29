@@ -12,8 +12,6 @@ import net.minecraft.util.ITabCompleter;
 import net.minecraft.util.TabCompleter;
 import net.minecraft.util.math.BlockPos;
 import org.lwjgl.input.Keyboard;
-
-import javax.annotation.Nullable;
 import java.io.IOException;
 
 public class GuiEditCommandBlockMinecart extends GuiScreen implements ITabCompleter {
@@ -63,7 +61,7 @@ public class GuiEditCommandBlockMinecart extends GuiScreen implements ITabComple
 		updateCommandOutput();
 		doneButton.enabled = !commandField.getText().trim().isEmpty();
 		tabCompleter = new TabCompleter(commandField, true) {
-			@Nullable
+			
 			public BlockPos getTargetBlockPos() {
 
 				return commandBlockLogic.getPosition();

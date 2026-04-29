@@ -7,8 +7,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.BitArray;
 import net.minecraft.util.math.MathHelper;
 
-import javax.annotation.Nullable;
-
 public class BlockStateContainer implements IBlockStatePaletteResizer {
 
 	protected static final IBlockState AIR_BLOCK_STATE = Blocks.AIR.getDefaultState();
@@ -105,7 +103,7 @@ public class BlockStateContainer implements IBlockStatePaletteResizer {
 		buf.writeLongArray(storage.getBackingLongArray());
 	}
 
-	@Nullable
+	
 	public NibbleArray getDataForNBT(byte[] blockIds, NibbleArray data) {
 
 		NibbleArray nibblearray = null;
@@ -131,7 +129,7 @@ public class BlockStateContainer implements IBlockStatePaletteResizer {
 		return nibblearray;
 	}
 
-	public void setDataFromNBT(byte[] blockIds, NibbleArray data, @Nullable NibbleArray blockIdExtension) {
+	public void setDataFromNBT(byte[] blockIds, NibbleArray data, NibbleArray blockIdExtension) {
 
 		for (int i = 0; i < 4096; ++i) {
 			int j = i & 15;

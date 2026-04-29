@@ -17,8 +17,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.template.TemplateManager;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
@@ -30,7 +28,7 @@ public abstract class StructureComponent {
 	 */
 	protected int componentType;
 
-	@Nullable
+	
 
 	/** switches the Coordinate System base off the Bounding Box */
 	private EnumFacing coordBaseMode;
@@ -402,7 +400,7 @@ public abstract class StructureComponent {
 		return generateChest(worldIn, structurebb, randomIn, blockpos, loot, null);
 	}
 
-	protected boolean generateChest(World p_191080_1_, StructureBoundingBox p_191080_2_, Random p_191080_3_, BlockPos p_191080_4_, ResourceLocation p_191080_5_, @Nullable IBlockState p_191080_6_) {
+	protected boolean generateChest(World p_191080_1_, StructureBoundingBox p_191080_2_, Random p_191080_3_, BlockPos p_191080_4_, ResourceLocation p_191080_5_, IBlockState p_191080_6_) {
 
 		if (p_191080_2_.isVecInside(p_191080_4_) && p_191080_1_.getBlockState(p_191080_4_).getBlock() != Blocks.CHEST) {
 			if (p_191080_6_ == null) {
@@ -451,13 +449,13 @@ public abstract class StructureComponent {
 		boundingBox.offset(x, y, z);
 	}
 
-	@Nullable
+	
 	public EnumFacing getCoordBaseMode() {
 
 		return coordBaseMode;
 	}
 
-	public void setCoordBaseMode(@Nullable EnumFacing facing) {
+	public void setCoordBaseMode(EnumFacing facing) {
 
 		coordBaseMode = facing;
 

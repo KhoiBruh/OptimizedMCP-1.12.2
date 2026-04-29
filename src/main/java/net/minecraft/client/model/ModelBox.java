@@ -69,14 +69,14 @@ public class ModelBox {
 			x = f3;
 		}
 
-		PositionTextureVertex positiontexturevertex7 = new PositionTextureVertex(x, y, z, 0.0F, 0.0F);
-		PositionTextureVertex positiontexturevertex = new PositionTextureVertex(f, y, z, 0.0F, 8.0F);
-		PositionTextureVertex positiontexturevertex1 = new PositionTextureVertex(f, f1, z, 8.0F, 8.0F);
-		PositionTextureVertex positiontexturevertex2 = new PositionTextureVertex(x, f1, z, 8.0F, 0.0F);
-		PositionTextureVertex positiontexturevertex3 = new PositionTextureVertex(x, y, f2, 0.0F, 0.0F);
-		PositionTextureVertex positiontexturevertex4 = new PositionTextureVertex(f, y, f2, 0.0F, 8.0F);
-		PositionTextureVertex positiontexturevertex5 = new PositionTextureVertex(f, f1, f2, 8.0F, 8.0F);
-		PositionTextureVertex positiontexturevertex6 = new PositionTextureVertex(x, f1, f2, 8.0F, 0.0F);
+		PositionTextureVertex positiontexturevertex7 = new PositionTextureVertex(x, y, z, 0F, 0F);
+		PositionTextureVertex positiontexturevertex = new PositionTextureVertex(f, y, z, 0F, 8F);
+		PositionTextureVertex positiontexturevertex1 = new PositionTextureVertex(f, f1, z, 8F, 8F);
+		PositionTextureVertex positiontexturevertex2 = new PositionTextureVertex(x, f1, z, 8F, 0F);
+		PositionTextureVertex positiontexturevertex3 = new PositionTextureVertex(x, y, f2, 0F, 0F);
+		PositionTextureVertex positiontexturevertex4 = new PositionTextureVertex(f, y, f2, 0F, 8F);
+		PositionTextureVertex positiontexturevertex5 = new PositionTextureVertex(f, f1, f2, 8F, 8F);
+		PositionTextureVertex positiontexturevertex6 = new PositionTextureVertex(x, f1, f2, 8F, 0F);
 		vertexPositions[0] = positiontexturevertex7;
 		vertexPositions[1] = positiontexturevertex;
 		vertexPositions[2] = positiontexturevertex1;

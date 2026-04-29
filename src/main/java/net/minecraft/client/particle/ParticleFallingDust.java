@@ -12,8 +12,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class ParticleFallingDust extends Particle {
 
 	final float rotSpeed;
@@ -74,7 +72,7 @@ public class ParticleFallingDust extends Particle {
 
 	public static class Factory implements IParticleFactory {
 
-		@Nullable
+		
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
 
 			IBlockState iblockstate = Block.getStateById(p_178902_15_[0]);

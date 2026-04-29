@@ -14,8 +14,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.template.TemplateManager;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
@@ -87,7 +85,7 @@ public class StructureStrongholdPieces {
 		return flag;
 	}
 
-	private static StructureStrongholdPieces.Stronghold findAndCreatePieceFactory(Class<? extends StructureStrongholdPieces.Stronghold> clazz, List<StructureComponent> p_175954_1_, Random p_175954_2_, int p_175954_3_, int p_175954_4_, int p_175954_5_, @Nullable EnumFacing p_175954_6_, int p_175954_7_) {
+	private static StructureStrongholdPieces.Stronghold findAndCreatePieceFactory(Class<? extends StructureStrongholdPieces.Stronghold> clazz, List<StructureComponent> p_175954_1_, Random p_175954_2_, int p_175954_3_, int p_175954_4_, int p_175954_5_, EnumFacing p_175954_6_, int p_175954_7_) {
 
 		StructureStrongholdPieces.Stronghold structurestrongholdpieces$stronghold = null;
 
@@ -172,7 +170,7 @@ public class StructureStrongholdPieces {
 		}
 	}
 
-	private static StructureComponent generateAndAddPiece(StructureStrongholdPieces.Stairs2 p_175953_0_, List<StructureComponent> p_175953_1_, Random p_175953_2_, int p_175953_3_, int p_175953_4_, int p_175953_5_, @Nullable EnumFacing p_175953_6_, int p_175953_7_) {
+	private static StructureComponent generateAndAddPiece(StructureStrongholdPieces.Stairs2 p_175953_0_, List<StructureComponent> p_175953_1_, Random p_175953_2_, int p_175953_3_, int p_175953_4_, int p_175953_5_, EnumFacing p_175953_6_, int p_175953_7_) {
 
 		if (p_175953_7_ > 50) {
 			return null;
@@ -1406,7 +1404,7 @@ public class StructureStrongholdPieces {
 			};
 		}
 
-		@Nullable
+		
 		protected StructureComponent getNextComponentNormal(StructureStrongholdPieces.Stairs2 p_74986_1_, List<StructureComponent> p_74986_2_, Random p_74986_3_, int p_74986_4_, int p_74986_5_) {
 
 			EnumFacing enumfacing = getCoordBaseMode();
@@ -1430,7 +1428,7 @@ public class StructureStrongholdPieces {
 			return null;
 		}
 
-		@Nullable
+		
 		protected StructureComponent getNextComponentX(StructureStrongholdPieces.Stairs2 p_74989_1_, List<StructureComponent> p_74989_2_, Random p_74989_3_, int p_74989_4_, int p_74989_5_) {
 
 			EnumFacing enumfacing = getCoordBaseMode();
@@ -1448,7 +1446,7 @@ public class StructureStrongholdPieces {
 			return null;
 		}
 
-		@Nullable
+		
 		protected StructureComponent getNextComponentZ(StructureStrongholdPieces.Stairs2 p_74987_1_, List<StructureComponent> p_74987_2_, Random p_74987_3_, int p_74987_4_, int p_74987_5_) {
 
 			EnumFacing enumfacing = getCoordBaseMode();

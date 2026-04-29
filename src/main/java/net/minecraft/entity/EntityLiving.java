@@ -36,8 +36,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootTable;
-
-import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Random;
@@ -139,7 +137,7 @@ public abstract class EntityLiving extends EntityLivingBase {
 		}
 	}
 
-	@Nullable
+	
 	public static Item getArmorByChance(EntityEquipmentSlot slotIn, int chance) {
 
 		switch (slotIn) {
@@ -268,7 +266,7 @@ public abstract class EntityLiving extends EntityLivingBase {
 		return senses;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Gets the active target the Task system uses for tracking
@@ -281,7 +279,7 @@ public abstract class EntityLiving extends EntityLivingBase {
 	/**
 	 * Sets the active target the Task system uses for tracking
 	 */
-	public void setAttackTarget(@Nullable EntityLivingBase entitylivingbaseIn) {
+	public void setAttackTarget(EntityLivingBase entitylivingbaseIn) {
 
 		attackTarget = entitylivingbaseIn;
 	}
@@ -437,13 +435,13 @@ public abstract class EntityLiving extends EntityLivingBase {
 		return p_110146_2_;
 	}
 
-	@Nullable
+	
 	protected SoundEvent getAmbientSound() {
 
 		return null;
 	}
 
-	@Nullable
+	
 	protected Item getDropItem() {
 
 		return null;
@@ -611,7 +609,7 @@ public abstract class EntityLiving extends EntityLivingBase {
 		setNoAI(compound.getBoolean("NoAI"));
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return null;
@@ -1070,7 +1068,7 @@ public abstract class EntityLiving extends EntityLivingBase {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
@@ -1086,7 +1084,7 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * @param difficulty The current local difficulty
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 
 		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", rand.nextGaussian() * 0.05D, 1));
 

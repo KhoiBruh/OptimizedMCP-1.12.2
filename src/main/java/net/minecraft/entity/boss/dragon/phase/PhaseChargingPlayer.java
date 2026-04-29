@@ -5,8 +5,6 @@ import net.minecraft.util.math.Vec3d;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.Nullable;
-
 public class PhaseChargingPlayer extends PhaseBase {
 
 	private static final Logger LOGGER = LogManager.getLogger();
@@ -60,7 +58,7 @@ public class PhaseChargingPlayer extends PhaseBase {
 		return 3.0F;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns the location the dragon is flying toward

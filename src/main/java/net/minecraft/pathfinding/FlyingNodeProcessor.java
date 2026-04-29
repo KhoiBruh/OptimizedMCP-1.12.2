@@ -7,8 +7,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
-
-import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.Set;
 
@@ -209,7 +207,7 @@ public class FlyingNodeProcessor extends WalkNodeProcessor {
 		return i;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns a mapped point or creates and adds one

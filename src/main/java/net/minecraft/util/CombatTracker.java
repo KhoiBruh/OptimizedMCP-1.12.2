@@ -10,8 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class CombatTracker {
@@ -117,7 +115,7 @@ public class CombatTracker {
 		}
 	}
 
-	@Nullable
+	
 	public EntityLivingBase getBestAttacker() {
 
 		EntityLivingBase entitylivingbase = null;
@@ -144,7 +142,7 @@ public class CombatTracker {
 		}
 	}
 
-	@Nullable
+	
 	private CombatEntry getBestCombatEntry() {
 
 		CombatEntry combatentry = null;

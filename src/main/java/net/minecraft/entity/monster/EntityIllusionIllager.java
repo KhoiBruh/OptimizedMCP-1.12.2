@@ -25,8 +25,6 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-import javax.annotation.Nullable;
-
 public class EntityIllusionIllager extends EntitySpellcasterIllager implements IRangedAttackMob {
 
 	private final Vec3d[][] renderLocations;
@@ -327,7 +325,7 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
 			addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 1200));
 		}
 
-		@Nullable
+		
 		protected SoundEvent getSpellPrepareSound() {
 
 			return SoundEvents.ENTITY_ILLAGER_PREPARE_MIRROR;

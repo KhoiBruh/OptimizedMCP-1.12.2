@@ -51,8 +51,6 @@ import net.minecraft.world.storage.WorldSavedDataCallableSave;
 import net.minecraft.world.storage.loot.LootTableManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.io.File;
 import java.util.*;
 
@@ -203,7 +201,7 @@ public class WorldServer extends World implements IThreadListener {
 		sendQueuedBlockEvents();
 	}
 
-	@Nullable
+	
 	public Biome.SpawnListEntry getSpawnListEntryForTypeAt(EnumCreatureType creatureType, BlockPos pos) {
 
 		List<Biome.SpawnListEntry> list = getChunkProvider().getPossibleCreatures(creatureType, pos);
@@ -657,7 +655,7 @@ public class WorldServer extends World implements IThreadListener {
 		}
 	}
 
-	@Nullable
+	
 	public List<NextTickListEntry> getPendingBlockUpdates(Chunk chunkIn, boolean remove) {
 
 		ChunkPos chunkpos = chunkIn.getPos();
@@ -668,7 +666,7 @@ public class WorldServer extends World implements IThreadListener {
 		return getPendingBlockUpdates(new StructureBoundingBox(i, 0, k, j, 256, l), remove);
 	}
 
-	@Nullable
+	
 	public List<NextTickListEntry> getPendingBlockUpdates(StructureBoundingBox structureBB, boolean remove) {
 
 		List<NextTickListEntry> list = null;
@@ -853,7 +851,7 @@ public class WorldServer extends World implements IThreadListener {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns null for anything other than the End
@@ -866,7 +864,7 @@ public class WorldServer extends World implements IThreadListener {
 	/**
 	 * Saves all chunks to disk while updating progress bar.
 	 */
-	public void saveAllChunks(boolean all, @Nullable IProgressUpdate progressCallback) throws MinecraftException {
+	public void saveAllChunks(boolean all, IProgressUpdate progressCallback) throws MinecraftException {
 
 		ChunkProviderServer chunkproviderserver = getChunkProvider();
 
@@ -1036,7 +1034,7 @@ public class WorldServer extends World implements IThreadListener {
 	/**
 	 * returns a new explosion. Does initiation (at time of writing Explosion is not finished)
 	 */
-	public Explosion newExplosion(@Nullable Entity entityIn, double x, double y, double z, float strength, boolean isFlaming, boolean isSmoking) {
+	public Explosion newExplosion(Entity entityIn, double x, double y, double z, float strength, boolean isFlaming, boolean isSmoking) {
 
 		Explosion explosion = new Explosion(this, entityIn, x, y, z, strength, isFlaming, isSmoking);
 		explosion.doExplosionA();
@@ -1126,7 +1124,7 @@ public class WorldServer extends World implements IThreadListener {
 		}
 	}
 
-	@Nullable
+	
 	public MinecraftServer getMinecraftServer() {
 
 		return mcServer;
@@ -1195,7 +1193,7 @@ public class WorldServer extends World implements IThreadListener {
 		}
 	}
 
-	@Nullable
+	
 	public Entity getEntityFromUuid(UUID uuid) {
 
 		return entitiesByUuid.get(uuid);
@@ -1211,7 +1209,7 @@ public class WorldServer extends World implements IThreadListener {
 		return mcServer.isCallingFromMinecraftThread();
 	}
 
-	@Nullable
+	
 	public BlockPos findNearestStructure(String p_190528_1_, BlockPos p_190528_2_, boolean p_190528_3_) {
 
 		return getChunkProvider().getNearestStructurePos(this, p_190528_1_, p_190528_2_, p_190528_3_);

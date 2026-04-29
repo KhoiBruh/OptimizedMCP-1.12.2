@@ -17,8 +17,6 @@ import net.minecraft.util.StringUtils;
 import net.minecraft.world.GameType;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public abstract class AbstractClientPlayer extends EntityPlayer {
 
 	public float rotateElytraX;
@@ -75,7 +73,7 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 		return getPlayerInfo() != null;
 	}
 
-	@Nullable
+	
 	protected NetworkPlayerInfo getPlayerInfo() {
 
 		if (playerInfo == null) {
@@ -103,7 +101,7 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 		return networkplayerinfo == null ? DefaultPlayerSkin.getDefaultSkin(getUniqueID()) : networkplayerinfo.getLocationSkin();
 	}
 
-	@Nullable
+	
 	public ResourceLocation getLocationCape() {
 
 		NetworkPlayerInfo networkplayerinfo = getPlayerInfo();
@@ -115,7 +113,7 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 		return getPlayerInfo() != null;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Gets the special Elytra texture for the player.

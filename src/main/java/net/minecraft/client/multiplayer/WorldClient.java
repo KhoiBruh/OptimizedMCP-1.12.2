@@ -34,8 +34,6 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.storage.SaveDataMemoryStorage;
 import net.minecraft.world.storage.SaveHandlerMP;
 import net.minecraft.world.storage.WorldInfo;
-
-import javax.annotation.Nullable;
 import java.util.Random;
 import java.util.Set;
 
@@ -253,7 +251,7 @@ public class WorldClient extends World {
 		entitiesById.addKey(entityID, entityToSpawn);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns the Entity with the given ID, or null if it doesn't exist in this World.
@@ -415,7 +413,7 @@ public class WorldClient extends World {
 		return crashreportcategory;
 	}
 
-	public void playSound(@Nullable EntityPlayer player, double x, double y, double z, SoundEvent soundIn, SoundCategory category, float volume, float pitch) {
+	public void playSound(EntityPlayer player, double x, double y, double z, SoundEvent soundIn, SoundCategory category, float volume, float pitch) {
 
 		if (player == mc.player) {
 			playSound(x, y, z, soundIn, category, volume, pitch, false);
@@ -440,7 +438,7 @@ public class WorldClient extends World {
 		}
 	}
 
-	public void makeFireworks(double x, double y, double z, double motionX, double motionY, double motionZ, @Nullable NBTTagCompound compound) {
+	public void makeFireworks(double x, double y, double z, double motionX, double motionY, double motionZ, NBTTagCompound compound) {
 
 		mc.effectRenderer.addEffect(new ParticleFirework.Starter(this, x, y, z, motionX, motionY, motionZ, mc.effectRenderer, compound));
 	}

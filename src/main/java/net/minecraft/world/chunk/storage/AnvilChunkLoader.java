@@ -22,8 +22,6 @@ import net.minecraft.world.storage.IThreadedFileIO;
 import net.minecraft.world.storage.ThreadedFileIOBase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -80,7 +78,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 		});
 	}
 
-	@Nullable
+	
 	public static Entity readChunkEntity(NBTTagCompound compound, World worldIn, Chunk chunkIn) {
 
 		Entity entity = createEntityFromNBT(compound, worldIn);
@@ -106,7 +104,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 		}
 	}
 
-	@Nullable
+	
 	public static Entity readWorldEntityPos(NBTTagCompound compound, World worldIn, double x, double y, double z, boolean attemptSpawn) {
 
 		Entity entity = createEntityFromNBT(compound, worldIn);
@@ -136,7 +134,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 		}
 	}
 
-	@Nullable
+	
 	protected static Entity createEntityFromNBT(NBTTagCompound compound, World worldIn) {
 
 		try {
@@ -155,7 +153,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 		}
 	}
 
-	@Nullable
+	
 	public static Entity readWorldEntity(NBTTagCompound compound, World worldIn, boolean p_186051_2_) {
 
 		Entity entity = createEntityFromNBT(compound, worldIn);
@@ -181,7 +179,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Loads the specified(XZ) chunk into the specified world.
@@ -211,7 +209,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 		return nbttagcompound != null || RegionFileCache.chunkExists(chunkSaveLocation, x, z);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Wraps readChunkFromNBT. Checks the coordinates and several NBT tags.

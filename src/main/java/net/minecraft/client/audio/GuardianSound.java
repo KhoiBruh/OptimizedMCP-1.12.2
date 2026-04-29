@@ -26,8 +26,8 @@ public class GuardianSound extends MovingSound {
 			xPosF = (float) guardian.posX;
 			yPosF = (float) guardian.posY;
 			zPosF = (float) guardian.posZ;
-			float f = guardian.getAttackAnimationScale(0.0F);
-			volume = 0.0F + 1.0F * f * f;
+			float f = guardian.getAttackAnimationScale(0F);
+			volume = 0F + 1F * f * f;
 			pitch = 0.7F + 0.5F * f;
 		} else {
 			donePlaying = true;

@@ -3,8 +3,6 @@ package net.minecraft.client.gui.toasts;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.text.ITextComponent;
 
-import javax.annotation.Nullable;
-
 public class SystemToast implements IToast {
 
 	private final SystemToast.Type type;
@@ -13,14 +11,14 @@ public class SystemToast implements IToast {
 	private long firstDrawTime;
 	private boolean newDisplay;
 
-	public SystemToast(SystemToast.Type typeIn, ITextComponent titleComponent, @Nullable ITextComponent subtitleComponent) {
+	public SystemToast(SystemToast.Type typeIn, ITextComponent titleComponent, ITextComponent subtitleComponent) {
 
 		type = typeIn;
 		title = titleComponent.getUnformattedText();
 		subtitle = subtitleComponent == null ? null : subtitleComponent.getUnformattedText();
 	}
 
-	public static void addOrUpdate(GuiToast p_193657_0_, SystemToast.Type p_193657_1_, ITextComponent p_193657_2_, @Nullable ITextComponent p_193657_3_) {
+	public static void addOrUpdate(GuiToast p_193657_0_, SystemToast.Type p_193657_1_, ITextComponent p_193657_2_, ITextComponent p_193657_3_) {
 
 		SystemToast systemtoast = p_193657_0_.getToast(SystemToast.class, p_193657_1_);
 
@@ -52,7 +50,7 @@ public class SystemToast implements IToast {
 		return delta - firstDrawTime < 5000L ? IToast.Visibility.SHOW : IToast.Visibility.HIDE;
 	}
 
-	public void setDisplayedText(ITextComponent titleComponent, @Nullable ITextComponent subtitleComponent) {
+	public void setDisplayedText(ITextComponent titleComponent, ITextComponent subtitleComponent) {
 
 		title = titleComponent.getUnformattedText();
 		subtitle = subtitleComponent == null ? null : subtitleComponent.getUnformattedText();

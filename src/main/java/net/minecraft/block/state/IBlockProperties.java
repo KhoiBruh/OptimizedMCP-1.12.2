@@ -15,8 +15,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public interface IBlockProperties {
@@ -85,7 +83,7 @@ public interface IBlockProperties {
 
 	boolean isOpaqueCube();
 
-	@Nullable
+	
 	AxisAlignedBB getCollisionBoundingBox(IBlockAccess worldIn, BlockPos pos);
 
 	void addCollisionBoxToList(World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean p_185908_6_);

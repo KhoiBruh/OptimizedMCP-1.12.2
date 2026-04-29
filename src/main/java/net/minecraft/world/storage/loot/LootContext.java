@@ -8,8 +8,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.WorldServer;
-
-import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.Set;
 
@@ -19,17 +17,17 @@ public class LootContext {
 	private final WorldServer world;
 	private final LootTableManager lootTableManager;
 
-	@Nullable
+	
 	private final Entity lootedEntity;
 
-	@Nullable
+	
 	private final EntityPlayer player;
 
-	@Nullable
+	
 	private final DamageSource damageSource;
 	private final Set<LootTable> lootTables = Sets.newLinkedHashSet();
 
-	public LootContext(float luckIn, WorldServer worldIn, LootTableManager lootTableManagerIn, @Nullable Entity lootedEntityIn, @Nullable EntityPlayer playerIn, @Nullable DamageSource damageSourceIn) {
+	public LootContext(float luckIn, WorldServer worldIn, LootTableManager lootTableManagerIn, Entity lootedEntityIn, EntityPlayer playerIn, DamageSource damageSourceIn) {
 
 		luck = luckIn;
 		world = worldIn;
@@ -39,19 +37,19 @@ public class LootContext {
 		damageSource = damageSourceIn;
 	}
 
-	@Nullable
+	
 	public Entity getLootedEntity() {
 
 		return lootedEntity;
 	}
 
-	@Nullable
+	
 	public Entity getKillerPlayer() {
 
 		return player;
 	}
 
-	@Nullable
+	
 	public Entity getKiller() {
 
 		return damageSource == null ? null : damageSource.getTrueSource();
@@ -77,7 +75,7 @@ public class LootContext {
 		return luck;
 	}
 
-	@Nullable
+	
 	public Entity getEntity(LootContext.EntityTarget target) {
 
 		return switch (target) {

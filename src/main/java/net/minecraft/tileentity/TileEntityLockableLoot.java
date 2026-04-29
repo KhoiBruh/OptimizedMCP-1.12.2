@@ -10,8 +10,6 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.ILootContainer;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootTable;
-
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public abstract class TileEntityLockableLoot extends TileEntityLockable implements ILootContainer {
@@ -46,7 +44,7 @@ public abstract class TileEntityLockableLoot extends TileEntityLockable implemen
 		}
 	}
 
-	public void fillWithLoot(@Nullable EntityPlayer player) {
+	public void fillWithLoot(EntityPlayer player) {
 
 		if (lootTable != null) {
 			LootTable loottable = world.getLootTableManager().getLootTableFromLocation(lootTable);
@@ -129,7 +127,7 @@ public abstract class TileEntityLockableLoot extends TileEntityLockable implemen
 	/**
 	 * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
 	 */
-	public void setInventorySlotContents(int index, @Nullable ItemStack stack) {
+	public void setInventorySlotContents(int index, ItemStack stack) {
 
 		fillWithLoot(null);
 		getItems().set(index, stack);

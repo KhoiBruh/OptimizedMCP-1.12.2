@@ -8,12 +8,12 @@ public class ModelZombie extends ModelBiped {
 
 	public ModelZombie() {
 
-		this(0.0F, false);
+		this(0F, false);
 	}
 
 	public ModelZombie(float modelSize, boolean p_i1168_2_) {
 
-		super(modelSize, 0.0F, 64, p_i1168_2_ ? 32 : 64);
+		super(modelSize, 0F, 64, p_i1168_2_ ? 32 : 64);
 	}
 
 	/**
@@ -26,9 +26,9 @@ public class ModelZombie extends ModelBiped {
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 		boolean flag = entityIn instanceof EntityZombie && ((EntityZombie) entityIn).isArmsRaised();
 		float f = MathHelper.sin(swingProgress * (float) Math.PI);
-		float f1 = MathHelper.sin((1.0F - (1.0F - swingProgress) * (1.0F - swingProgress)) * (float) Math.PI);
-		bipedRightArm.rotateAngleZ = 0.0F;
-		bipedLeftArm.rotateAngleZ = 0.0F;
+		float f1 = MathHelper.sin((1F - (1F - swingProgress) * (1F - swingProgress)) * (float) Math.PI);
+		bipedRightArm.rotateAngleZ = 0F;
+		bipedLeftArm.rotateAngleZ = 0F;
 		bipedRightArm.rotateAngleY = -(0.1F - f * 0.6F);
 		bipedLeftArm.rotateAngleY = 0.1F - f * 0.6F;
 		float f2 = -(float) Math.PI / (flag ? 1.5F : 2.25F);

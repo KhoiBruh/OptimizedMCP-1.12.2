@@ -8,8 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.util.JsonUtils;
 
-import javax.annotation.Nullable;
-
 public class NBTPredicate {
 
 	/**
@@ -17,15 +15,15 @@ public class NBTPredicate {
 	 */
 	public static final NBTPredicate ANY = new NBTPredicate(null);
 
-	@Nullable
+	
 	private final NBTTagCompound tag;
 
-	public NBTPredicate(@Nullable NBTTagCompound tag) {
+	public NBTPredicate(NBTTagCompound tag) {
 
 		this.tag = tag;
 	}
 
-	public static NBTPredicate deserialize(@Nullable JsonElement json) {
+	public static NBTPredicate deserialize(JsonElement json) {
 
 		if (json != null && !json.isJsonNull()) {
 			NBTTagCompound nbttagcompound;
@@ -52,7 +50,7 @@ public class NBTPredicate {
 		return this == ANY || test(CommandBase.entityToNBT(entityIn));
 	}
 
-	public boolean test(@Nullable NBTBase nbt) {
+	public boolean test(NBTBase nbt) {
 
 		if (nbt == null) {
 			return this == ANY;

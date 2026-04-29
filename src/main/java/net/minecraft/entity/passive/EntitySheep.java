@@ -32,8 +32,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Random;
 
@@ -158,7 +156,7 @@ public class EntitySheep extends EntityAnimal {
 		dataManager.register(DYE_COLOR, (byte) 0);
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		if (getSheared()) {
@@ -342,7 +340,7 @@ public class EntitySheep extends EntityAnimal {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
@@ -358,7 +356,7 @@ public class EntitySheep extends EntityAnimal {
 	 * @param difficulty The current local difficulty
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 		setFleeceColor(getRandomSheepColor(world.rand));

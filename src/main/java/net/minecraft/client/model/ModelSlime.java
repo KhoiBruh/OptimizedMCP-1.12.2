@@ -29,16 +29,16 @@ public class ModelSlime extends ModelBase {
 
 		if (p_i1157_1_ > 0) {
 			slimeBodies = new ModelRenderer(this, 0, p_i1157_1_);
-			slimeBodies.addBox(-3.0F, 17.0F, -3.0F, 6, 6, 6);
+			slimeBodies.addBox(-3F, 17F, -3F, 6, 6, 6);
 			slimeRightEye = new ModelRenderer(this, 32, 0);
-			slimeRightEye.addBox(-3.25F, 18.0F, -3.5F, 2, 2, 2);
+			slimeRightEye.addBox(-3.25F, 18F, -3.5F, 2, 2, 2);
 			slimeLeftEye = new ModelRenderer(this, 32, 4);
-			slimeLeftEye.addBox(1.25F, 18.0F, -3.5F, 2, 2, 2);
+			slimeLeftEye.addBox(1.25F, 18F, -3.5F, 2, 2, 2);
 			slimeMouth = new ModelRenderer(this, 32, 8);
-			slimeMouth.addBox(0.0F, 21.0F, -3.5F, 1, 1, 1);
+			slimeMouth.addBox(0F, 21F, -3.5F, 1, 1, 1);
 		} else {
 			slimeBodies = new ModelRenderer(this, 0, p_i1157_1_);
-			slimeBodies.addBox(-4.0F, 16.0F, -4.0F, 8, 8, 8);
+			slimeBodies.addBox(-4F, 16F, -4F, 8, 8, 8);
 		}
 	}
 
@@ -48,7 +48,7 @@ public class ModelSlime extends ModelBase {
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
-		GlStateManager.translate(0.0F, 0.001F, 0.0F);
+		GlStateManager.translate(0F, 0.001F, 0F);
 		slimeBodies.render(scale);
 
 		if (slimeRightEye != null) {

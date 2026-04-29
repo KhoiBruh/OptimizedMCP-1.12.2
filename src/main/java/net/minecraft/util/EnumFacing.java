@@ -7,8 +7,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3i;
-
-import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
@@ -75,7 +73,7 @@ public enum EnumFacing implements IStringSerializable {
 		directionVec = directionVecIn;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Get the facing specified by the given name
@@ -360,7 +358,7 @@ public enum EnumFacing implements IStringSerializable {
 			this.plane = plane;
 		}
 
-		@Nullable
+		
 		public static EnumFacing.Axis byName(String name) {
 
 			return name == null ? null : NAME_LOOKUP.get(name.toLowerCase(Locale.ROOT));
@@ -386,7 +384,7 @@ public enum EnumFacing implements IStringSerializable {
 			return name;
 		}
 
-		public boolean apply(@Nullable EnumFacing p_apply_1_) {
+		public boolean apply(EnumFacing p_apply_1_) {
 
 			return p_apply_1_ != null && p_apply_1_.getAxis() == this;
 		}
@@ -445,7 +443,7 @@ public enum EnumFacing implements IStringSerializable {
 			return aenumfacing[rand.nextInt(aenumfacing.length)];
 		}
 
-		public boolean apply(@Nullable EnumFacing p_apply_1_) {
+		public boolean apply(EnumFacing p_apply_1_) {
 
 			return p_apply_1_ != null && p_apply_1_.getAxis().getPlane() == this;
 		}

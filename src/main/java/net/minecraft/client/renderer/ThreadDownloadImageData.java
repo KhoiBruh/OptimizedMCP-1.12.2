@@ -9,7 +9,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.Nullable;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -23,21 +22,21 @@ public class ThreadDownloadImageData extends SimpleTexture {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final AtomicInteger TEXTURE_DOWNLOADER_THREAD_ID = new AtomicInteger(0);
 
-	@Nullable
+	
 	private final File cacheFile;
 	private final String imageUrl;
 
-	@Nullable
+	
 	private final IImageBuffer imageBuffer;
 
-	@Nullable
+	
 	private BufferedImage bufferedImage;
 
-	@Nullable
+	
 	private Thread imageThread;
 	private boolean textureUploaded;
 
-	public ThreadDownloadImageData(@Nullable File cacheFileIn, String imageUrlIn, ResourceLocation textureResourceLocation, @Nullable IImageBuffer imageBufferIn) {
+	public ThreadDownloadImageData(File cacheFileIn, String imageUrlIn, ResourceLocation textureResourceLocation, IImageBuffer imageBufferIn) {
 
 		super(textureResourceLocation);
 		cacheFile = cacheFileIn;

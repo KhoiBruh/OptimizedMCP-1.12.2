@@ -4,8 +4,6 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import net.minecraft.util.LowerStringMap;
-
-import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -21,7 +19,7 @@ public abstract class AbstractAttributeMap {
 		return attributes.get(attribute);
 	}
 
-	@Nullable
+	
 	public IAttributeInstance getAttributeInstanceByName(String attributeName) {
 
 		return attributesByName.get(attributeName);

@@ -11,8 +11,6 @@ import net.minecraft.util.IntIdentityHashBiMap;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Rotations;
 import net.minecraft.util.text.ITextComponent;
-
-import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -351,7 +349,7 @@ public class DataSerializers {
 		REGISTRY.add(serializer);
 	}
 
-	@Nullable
+	
 	public static DataSerializer<?> getSerializer(int id) {
 
 		return REGISTRY.get(id);

@@ -15,8 +15,6 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-import javax.annotation.Nullable;
-
 public class EntitySkeleton extends AbstractSkeleton {
 
 	public EntitySkeleton(World worldIn) {
@@ -29,7 +27,7 @@ public class EntitySkeleton extends AbstractSkeleton {
 		EntityLiving.registerFixesMob(fixer, EntitySkeleton.class);
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_SKELETON;

@@ -36,7 +36,6 @@ import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.FoodStats;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StringUtils;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
@@ -165,14 +164,14 @@ public class GuiIngame extends Gui {
 
 	public void renderGameOverlay(float partialTicks) {
 
-		ScaledResolution scaledresolution = new ScaledResolution(mc);
-		int i = scaledresolution.getScaledWidth();
-		int j = scaledresolution.getScaledHeight();
+		ScaledResolution scaledResolution = mc.scaledResolution;
+		int i = scaledResolution.getScaledWidth();
+		int j = scaledResolution.getScaledHeight();
 		FontRenderer fontrenderer = getFontRenderer();
 		GlStateManager.enableBlend();
 
 		if (Minecraft.isFancyGraphicsEnabled()) {
-			renderVignette(mc.player.getBrightness(), scaledresolution);
+			renderVignette(mc.player.getBrightness(), scaledResolution);
 		} else {
 			GlStateManager.enableDepth();
 			GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
@@ -181,43 +180,43 @@ public class GuiIngame extends Gui {
 		ItemStack itemstack = mc.player.inventory.armorItemInSlot(3);
 
 		if (mc.gameSettings.thirdPersonView == 0 && itemstack.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN)) {
-			renderPumpkinOverlay(scaledresolution);
+			renderPumpkinOverlay(scaledResolution);
 		}
 
 		if (!mc.player.isPotionActive(MobEffects.NAUSEA)) {
 			float f = mc.player.prevTimeInPortal + (mc.player.timeInPortal - mc.player.prevTimeInPortal) * partialTicks;
 
 			if (f > 0.0F) {
-				renderPortal(f, scaledresolution);
+				renderPortal(f, scaledResolution);
 			}
 		}
 
 		if (mc.playerController.isSpectator()) {
-			spectatorGui.renderTooltip(scaledresolution, partialTicks);
+			spectatorGui.renderTooltip(scaledResolution, partialTicks);
 		} else {
-			renderHotbar(scaledresolution, partialTicks);
+			renderHotbar(scaledResolution, partialTicks);
 		}
 
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.getTextureManager().bindTexture(ICONS);
 		GlStateManager.enableBlend();
-		renderAttackIndicator(partialTicks, scaledresolution);
+		renderAttackIndicator(partialTicks, scaledResolution);
 		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-		mc.mcProfiler.startSection("bossHealth");
+		mc.profiler.startSection("bossHealth");
 		overlayBoss.renderBossHealth();
-		mc.mcProfiler.endSection();
+		mc.profiler.endSection();
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.getTextureManager().bindTexture(ICONS);
 
 		if (mc.playerController.shouldDrawHUD()) {
-			renderPlayerStats(scaledresolution);
+			renderPlayerStats(scaledResolution);
 		}
 
-		renderMountHealth(scaledresolution);
+		renderMountHealth(scaledResolution);
 		GlStateManager.disableBlend();
 
 		if (mc.player.getSleepTimer() > 0) {
-			mc.mcProfiler.startSection("sleep");
+			mc.profiler.startSection("sleep");
 			GlStateManager.disableDepth();
 			GlStateManager.disableAlpha();
 			int j1 = mc.player.getSleepTimer();
@@ -231,32 +230,32 @@ public class GuiIngame extends Gui {
 			drawRect(0, 0, i, j, k);
 			GlStateManager.enableAlpha();
 			GlStateManager.enableDepth();
-			mc.mcProfiler.endSection();
+			mc.profiler.endSection();
 		}
 
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		int k1 = i / 2 - 91;
 
 		if (mc.player.isRidingHorse()) {
-			renderHorseJumpBar(scaledresolution, k1);
+			renderHorseJumpBar(scaledResolution, k1);
 		} else if (mc.playerController.gameIsSurvivalOrAdventure()) {
-			renderExpBar(scaledresolution, k1);
+			renderExpBar(scaledResolution, k1);
 		}
 
 		if (mc.gameSettings.heldItemTooltips && !mc.playerController.isSpectator()) {
-			renderSelectedItem(scaledresolution);
+			renderSelectedItem(scaledResolution);
 		} else if (mc.player.isSpectator()) {
-			spectatorGui.renderSelectedItem(scaledresolution);
+			spectatorGui.renderSelectedItem(scaledResolution);
 		}
 
-		renderPotionEffects(scaledresolution);
+		renderPotionEffects(scaledResolution);
 
 		if (mc.gameSettings.showDebugInfo) {
-			overlayDebug.renderDebugInfo(scaledresolution);
+			overlayDebug.renderDebugInfo(scaledResolution);
 		}
 
 		if (overlayMessageTime > 0) {
-			mc.mcProfiler.startSection("overlayMessage");
+			mc.profiler.startSection("overlayMessage");
 			float f2 = (float) overlayMessageTime - partialTicks;
 			int l1 = (int) (f2 * 255.0F / 20.0F);
 
@@ -280,13 +279,13 @@ public class GuiIngame extends Gui {
 				GlStateManager.popMatrix();
 			}
 
-			mc.mcProfiler.endSection();
+			mc.profiler.endSection();
 		}
 
-		overlaySubtitle.renderSubtitles(scaledresolution);
+		overlaySubtitle.renderSubtitles(scaledResolution);
 
 		if (titlesTimer > 0) {
-			mc.mcProfiler.startSection("titleAndSubtitle");
+			mc.profiler.startSection("titleAndSubtitle");
 			float f3 = (float) titlesTimer - partialTicks;
 			int i2 = 255;
 
@@ -319,7 +318,7 @@ public class GuiIngame extends Gui {
 				GlStateManager.popMatrix();
 			}
 
-			mc.mcProfiler.endSection();
+			mc.profiler.endSection();
 		}
 
 		Scoreboard scoreboard = mc.world.getScoreboard();
@@ -337,7 +336,7 @@ public class GuiIngame extends Gui {
 		ScoreObjective scoreobjective1 = scoreobjective != null ? scoreobjective : scoreboard.getObjectiveInDisplaySlot(1);
 
 		if (scoreobjective1 != null) {
-			renderScoreboard(scoreobjective1, scaledresolution);
+			renderScoreboard(scoreobjective1, scaledResolution);
 		}
 
 		GlStateManager.enableBlend();
@@ -345,9 +344,9 @@ public class GuiIngame extends Gui {
 		GlStateManager.disableAlpha();
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(0.0F, (float) (j - 48), 0.0F);
-		mc.mcProfiler.startSection("chat");
+		mc.profiler.startSection("chat");
 		persistantChatGUI.drawChat(updateCounter);
-		mc.mcProfiler.endSection();
+		mc.profiler.endSection();
 		GlStateManager.popMatrix();
 		scoreobjective1 = scoreboard.getObjectiveInDisplaySlot(0);
 
@@ -544,7 +543,7 @@ public class GuiIngame extends Gui {
 
 	public void renderHorseJumpBar(ScaledResolution scaledRes, int x) {
 
-		mc.mcProfiler.startSection("jumpBar");
+		mc.profiler.startSection("jumpBar");
 		mc.getTextureManager().bindTexture(Gui.ICONS);
 		float f = mc.player.getHorseJumpPower();
 		int i = 182;
@@ -556,12 +555,12 @@ public class GuiIngame extends Gui {
 			drawTexturedModalRect(x, k, 0, 89, j, 5);
 		}
 
-		mc.mcProfiler.endSection();
+		mc.profiler.endSection();
 	}
 
 	public void renderExpBar(ScaledResolution scaledRes, int x) {
 
-		mc.mcProfiler.startSection("expBar");
+		mc.profiler.startSection("expBar");
 		mc.getTextureManager().bindTexture(Gui.ICONS);
 		int i = mc.player.xpBarCap();
 
@@ -576,10 +575,10 @@ public class GuiIngame extends Gui {
 			}
 		}
 
-		mc.mcProfiler.endSection();
+		mc.profiler.endSection();
 
 		if (mc.player.experienceLevel > 0) {
-			mc.mcProfiler.startSection("expLevel");
+			mc.profiler.startSection("expLevel");
 			String s = "" + mc.player.experienceLevel;
 			int i1 = (scaledRes.getScaledWidth() - getFontRenderer().getStringWidth(s)) / 2;
 			int j1 = scaledRes.getScaledHeight() - 31 - 4;
@@ -588,13 +587,13 @@ public class GuiIngame extends Gui {
 			getFontRenderer().drawString(s, i1, j1 + 1, 0);
 			getFontRenderer().drawString(s, i1, j1 - 1, 0);
 			getFontRenderer().drawString(s, i1, j1, 8453920);
-			mc.mcProfiler.endSection();
+			mc.profiler.endSection();
 		}
 	}
 
 	public void renderSelectedItem(ScaledResolution scaledRes) {
 
-		mc.mcProfiler.startSection("selectedItemName");
+		mc.profiler.startSection("selectedItemName");
 
 		if (remainingHighlightTicks > 0 && !highlightingItemStack.isEmpty()) {
 			String s = highlightingItemStack.getDisplayName();
@@ -626,7 +625,7 @@ public class GuiIngame extends Gui {
 			}
 		}
 
-		mc.mcProfiler.endSection();
+		mc.profiler.endSection();
 	}
 
 	private void renderScoreboard(ScoreObjective objective, ScaledResolution scaledRes) {
@@ -718,7 +717,7 @@ public class GuiIngame extends Gui {
 				j3 = updateCounter % MathHelper.ceil(f + 5.0F);
 			}
 
-			mc.mcProfiler.startSection("armor");
+			mc.profiler.startSection("armor");
 
 			for (int k3 = 0; k3 < 10; ++k3) {
 				if (i3 > 0) {
@@ -738,7 +737,7 @@ public class GuiIngame extends Gui {
 				}
 			}
 
-			mc.mcProfiler.endStartSection("health");
+			mc.profiler.endStartSection("health");
 
 			for (int j5 = MathHelper.ceil((f + (float) k1) / 2.0F) - 1; j5 >= 0; --j5) {
 				int k5 = 16;
@@ -807,7 +806,7 @@ public class GuiIngame extends Gui {
 			Entity entity = entityplayer.getRidingEntity();
 
 			if (!(entity instanceof EntityLivingBase)) {
-				mc.mcProfiler.endStartSection("food");
+				mc.profiler.endStartSection("food");
 
 				for (int l5 = 0; l5 < 10; ++l5) {
 					int j6 = j1;
@@ -836,7 +835,7 @@ public class GuiIngame extends Gui {
 				}
 			}
 
-			mc.mcProfiler.endStartSection("air");
+			mc.profiler.endStartSection("air");
 
 			if (entityplayer.isInsideOfMaterial(Material.WATER)) {
 				int i6 = mc.player.getAir();
@@ -852,7 +851,7 @@ public class GuiIngame extends Gui {
 				}
 			}
 
-			mc.mcProfiler.endSection();
+			mc.profiler.endSection();
 		}
 	}
 
@@ -862,7 +861,7 @@ public class GuiIngame extends Gui {
 			Entity entity = entityplayer.getRidingEntity();
 
 			if (entity instanceof EntityLivingBase entitylivingbase) {
-				mc.mcProfiler.endStartSection("mountHealth");
+				mc.profiler.endStartSection("mountHealth");
 				int i = (int) Math.ceil(entitylivingbase.getHealth());
 				float f = entitylivingbase.getMaxHealth();
 				int j = (int) (f + 0.5F) / 2;

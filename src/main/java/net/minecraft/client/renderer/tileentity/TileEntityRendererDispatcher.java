@@ -15,8 +15,6 @@ import net.minecraft.util.ReportedException;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.Map;
 
 public class TileEntityRendererDispatcher {
@@ -80,8 +78,8 @@ public class TileEntityRendererDispatcher {
 		return tileentityspecialrenderer;
 	}
 
-	@Nullable
-	public <T extends TileEntity> TileEntitySpecialRenderer<T> getRenderer(@Nullable TileEntity tileEntityIn) {
+	
+	public <T extends TileEntity> TileEntitySpecialRenderer<T> getRenderer(TileEntity tileEntityIn) {
 
 		return tileEntityIn == null ? null : getRenderer(tileEntityIn.getClass());
 	}
@@ -146,7 +144,7 @@ public class TileEntityRendererDispatcher {
 		}
 	}
 
-	public void setWorld(@Nullable World worldIn) {
+	public void setWorld(World worldIn) {
 
 		world = worldIn;
 

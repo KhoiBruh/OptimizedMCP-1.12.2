@@ -19,8 +19,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -214,7 +212,7 @@ public class InventoryPlayer implements IInventory {
 	 * @param itemNBT     The NBT data to match, null ignores.
 	 * @return The number of items removed from the inventory.
 	 */
-	public int clearMatchingItems(@Nullable Item itemIn, int metadataIn, int removeCount, @Nullable NBTTagCompound itemNBT) {
+	public int clearMatchingItems(Item itemIn, int metadataIn, int removeCount, NBTTagCompound itemNBT) {
 
 		int i = 0;
 

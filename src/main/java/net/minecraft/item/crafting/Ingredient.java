@@ -8,12 +8,10 @@ import net.minecraft.client.util.RecipeItemHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import javax.annotation.Nullable;
-
 public class Ingredient implements Predicate<ItemStack> {
 
 	public static final Ingredient EMPTY = new Ingredient() {
-		public boolean apply(@Nullable ItemStack p_apply_1_) {
+		public boolean apply(ItemStack p_apply_1_) {
 
 			return p_apply_1_.isEmpty();
 		}
@@ -58,7 +56,7 @@ public class Ingredient implements Predicate<ItemStack> {
 		return matchingStacks;
 	}
 
-	public boolean apply(@Nullable ItemStack p_apply_1_) {
+	public boolean apply(ItemStack p_apply_1_) {
 
 		if (p_apply_1_ == null) {
 			return false;

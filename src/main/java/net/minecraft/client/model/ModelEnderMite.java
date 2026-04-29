@@ -17,8 +17,8 @@ public class ModelEnderMite extends ModelBase {
 
 		for (int i = 0; i < bodyParts.length; ++i) {
 			bodyParts[i] = new ModelRenderer(this, BODY_TEXS[i][0], BODY_TEXS[i][1]);
-			bodyParts[i].addBox((float) BODY_SIZES[i][0] * -0.5F, 0.0F, (float) BODY_SIZES[i][2] * -0.5F, BODY_SIZES[i][0], BODY_SIZES[i][1], BODY_SIZES[i][2]);
-			bodyParts[i].setRotationPoint(0.0F, (float) (24 - BODY_SIZES[i][1]), f);
+			bodyParts[i].addBox((float) BODY_SIZES[i][0] * -0.5F, 0F, (float) BODY_SIZES[i][2] * -0.5F, BODY_SIZES[i][0], BODY_SIZES[i][1], BODY_SIZES[i][2]);
+			bodyParts[i].setRotationPoint(0F, (float) (24 - BODY_SIZES[i][1]), f);
 
 			if (i < bodyParts.length - 1) {
 				f += (float) (BODY_SIZES[i][2] + BODY_SIZES[i + 1][2]) * 0.5F;

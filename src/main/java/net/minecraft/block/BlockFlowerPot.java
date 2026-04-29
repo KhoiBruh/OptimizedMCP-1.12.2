@@ -23,8 +23,6 @@ import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
-
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public class BlockFlowerPot extends BlockContainer {
@@ -201,7 +199,7 @@ public class BlockFlowerPot extends BlockContainer {
 		return Items.FLOWER_POT;
 	}
 
-	@Nullable
+	
 	private TileEntityFlowerPot getTileEntity(World worldIn, BlockPos pos) {
 
 		TileEntity tileentity = worldIn.getTileEntity(pos);

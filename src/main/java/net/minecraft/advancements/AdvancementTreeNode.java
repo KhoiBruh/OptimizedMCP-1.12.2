@@ -1,8 +1,6 @@
 package net.minecraft.advancements;
 
 import com.google.common.collect.Lists;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class AdvancementTreeNode {
@@ -20,7 +18,7 @@ public class AdvancementTreeNode {
 	private float change;
 	private float shift;
 
-	public AdvancementTreeNode(Advancement advancementIn, @Nullable AdvancementTreeNode parentIn, @Nullable AdvancementTreeNode siblingIn, int indexIn, int xIn) {
+	public AdvancementTreeNode(Advancement advancementIn, AdvancementTreeNode parentIn, AdvancementTreeNode siblingIn, int indexIn, int xIn) {
 
 		if (advancementIn.getDisplay() == null) {
 			throw new IllegalArgumentException("Can't position an invisible advancement!");
@@ -57,8 +55,8 @@ public class AdvancementTreeNode {
 		}
 	}
 
-	@Nullable
-	private AdvancementTreeNode buildSubTree(Advancement advancementIn, @Nullable AdvancementTreeNode previous) {
+	
+	private AdvancementTreeNode buildSubTree(Advancement advancementIn, AdvancementTreeNode previous) {
 
 		if (advancementIn.getDisplay() != null) {
 			previous = new AdvancementTreeNode(advancementIn, this, previous, children.size() + 1, x + 1);
@@ -139,7 +137,7 @@ public class AdvancementTreeNode {
 		}
 	}
 
-	@Nullable
+	
 	private AdvancementTreeNode getFirstChild() {
 
 		if (thread != null) {
@@ -149,7 +147,7 @@ public class AdvancementTreeNode {
 		}
 	}
 
-	@Nullable
+	
 	private AdvancementTreeNode getLastChild() {
 
 		if (thread != null) {

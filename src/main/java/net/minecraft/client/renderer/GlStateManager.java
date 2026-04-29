@@ -3,8 +3,6 @@ package net.minecraft.client.renderer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
 import org.lwjgl.util.vector.Quaternion;
-
-import javax.annotation.Nullable;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -483,7 +481,7 @@ public class GlStateManager {
 		}
 	}
 
-	public static void glTexImage2D(int target, int level, int internalFormat, int width, int height, int border, int format, int type, @Nullable IntBuffer pixels) {
+	public static void glTexImage2D(int target, int level, int internalFormat, int width, int height, int border, int format, int type, IntBuffer pixels) {
 
 		GL11.glTexImage2D(target, level, internalFormat, width, height, border, format, type, pixels);
 	}

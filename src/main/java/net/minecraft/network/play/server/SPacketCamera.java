@@ -6,8 +6,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class SPacketCamera implements Packet<INetHandlerPlayClient> {
 
 	public int entityId;
@@ -45,7 +43,7 @@ public class SPacketCamera implements Packet<INetHandlerPlayClient> {
 		handler.handleCamera(this);
 	}
 
-	@Nullable
+	
 	public Entity getEntity(World worldIn) {
 
 		return worldIn.getEntityByID(entityId);

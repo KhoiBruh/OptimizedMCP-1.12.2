@@ -10,8 +10,6 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -145,7 +143,7 @@ public abstract class CommandHandler implements ICommandManager {
 		return command;
 	}
 
-	public List<String> getTabCompletions(ICommandSender sender, String input, @Nullable BlockPos pos) {
+	public List<String> getTabCompletions(ICommandSender sender, String input, BlockPos pos) {
 
 		String[] astring = input.split(" ", -1);
 		String s = astring[0];

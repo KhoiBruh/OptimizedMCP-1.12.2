@@ -15,8 +15,6 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-import javax.annotation.Nullable;
-
 public class EntityMooshroom extends EntityCow {
 
 	public EntityMooshroom(World worldIn) {
@@ -80,7 +78,7 @@ public class EntityMooshroom extends EntityCow {
 		return new EntityMooshroom(world);
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_MUSHROOM_COW;

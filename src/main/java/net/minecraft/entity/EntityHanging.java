@@ -18,13 +18,11 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.Validate;
 
-import javax.annotation.Nullable;
-
 public abstract class EntityHanging extends Entity {
 
 	private static final Predicate<Entity> IS_HANGING_ENTITY = p_apply_1_ -> p_apply_1_ instanceof EntityHanging;
 
-	@Nullable
+	
 
 	/** The direction the entity is facing */
 	public EnumFacing facingDirection;

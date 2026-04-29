@@ -26,8 +26,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-
-import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -56,12 +54,12 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	 */
 	private int levels = -1;
 
-	@Nullable
+	
 
 	/** Primary potion effect given by this beacon. */
 	private Potion primaryEffect;
 
-	@Nullable
+	
 
 	/** Secondary potion effect given by this beacon. */
 	private Potion secondaryEffect;
@@ -71,7 +69,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	private ItemStack payment = ItemStack.EMPTY;
 	private String customName;
 
-	@Nullable
+	
 	private static Potion isBeaconEffect(int p_184279_0_) {
 
 		Potion potion = Potion.getPotionById(p_184279_0_);
@@ -248,7 +246,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 		return levels;
 	}
 
-	@Nullable
+	
 	public SPacketUpdateTileEntity getUpdatePacket() {
 
 		return new SPacketUpdateTileEntity(pos, 3, getUpdateTag());

@@ -26,8 +26,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-import javax.annotation.Nullable;
-
 public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 
 	private static final DataParameter<Byte> PUMPKIN_EQUIPPED = EntityDataManager.createKey(EntitySnowman.class, DataSerializers.BYTE);
@@ -124,7 +122,7 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 		}
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_SNOWMAN;
@@ -179,19 +177,19 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 		}
 	}
 
-	@Nullable
+	
 	protected SoundEvent getAmbientSound() {
 
 		return SoundEvents.ENTITY_SNOWMAN_AMBIENT;
 	}
 
-	@Nullable
+	
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
 
 		return SoundEvents.ENTITY_SNOWMAN_HURT;
 	}
 
-	@Nullable
+	
 	protected SoundEvent getDeathSound() {
 
 		return SoundEvents.ENTITY_SNOWMAN_DEATH;

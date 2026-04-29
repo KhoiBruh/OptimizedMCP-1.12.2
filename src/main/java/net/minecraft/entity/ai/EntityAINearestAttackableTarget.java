@@ -15,8 +15,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.math.AxisAlignedBB;
-
-import javax.annotation.Nullable;
 import java.util.Comparator;
 import java.util.List;
 
@@ -41,7 +39,7 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
 		this(creature, classTarget, 10, checkSight, onlyNearby, null);
 	}
 
-	public EntityAINearestAttackableTarget(EntityCreature creature, Class<T> classTarget, int chance, boolean checkSight, boolean onlyNearby, @Nullable final Predicate<? super T> targetSelector) {
+	public EntityAINearestAttackableTarget(EntityCreature creature, Class<T> classTarget, int chance, boolean checkSight, boolean onlyNearby, final Predicate<? super T> targetSelector) {
 
 		super(creature, checkSight, onlyNearby);
 		targetClass = classTarget;
@@ -79,8 +77,8 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
 			}
 		} else {
 			targetEntity = (T) taskOwner.world.getNearestAttackablePlayer(taskOwner.posX, taskOwner.posY + (double) taskOwner.getEyeHeight(), taskOwner.posZ, getTargetDistance(), getTargetDistance(), new Function<>() {
-				@Nullable
-				public Double apply(@Nullable EntityPlayer p_apply_1_) {
+				
+				public Double apply(EntityPlayer p_apply_1_) {
 
 					ItemStack itemstack = p_apply_1_.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
 

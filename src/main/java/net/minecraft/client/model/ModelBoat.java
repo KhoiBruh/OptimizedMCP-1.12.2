@@ -31,30 +31,30 @@ public class ModelBoat extends ModelBase implements IMultipassModel {
 		int k = 20;
 		int l = 4;
 		int i1 = 28;
-		boatSides[0].addBox(-14.0F, -9.0F, -3.0F, 28, 16, 3, 0.0F);
-		boatSides[0].setRotationPoint(0.0F, 3.0F, 1.0F);
-		boatSides[1].addBox(-13.0F, -7.0F, -1.0F, 18, 6, 2, 0.0F);
-		boatSides[1].setRotationPoint(-15.0F, 4.0F, 4.0F);
-		boatSides[2].addBox(-8.0F, -7.0F, -1.0F, 16, 6, 2, 0.0F);
-		boatSides[2].setRotationPoint(15.0F, 4.0F, 0.0F);
-		boatSides[3].addBox(-14.0F, -7.0F, -1.0F, 28, 6, 2, 0.0F);
-		boatSides[3].setRotationPoint(0.0F, 4.0F, -9.0F);
-		boatSides[4].addBox(-14.0F, -7.0F, -1.0F, 28, 6, 2, 0.0F);
-		boatSides[4].setRotationPoint(0.0F, 4.0F, 9.0F);
+		boatSides[0].addBox(-14F, -9F, -3F, 28, 16, 3, 0F);
+		boatSides[0].setRotationPoint(0F, 3F, 1F);
+		boatSides[1].addBox(-13F, -7F, -1F, 18, 6, 2, 0F);
+		boatSides[1].setRotationPoint(-15F, 4F, 4F);
+		boatSides[2].addBox(-8F, -7F, -1F, 16, 6, 2, 0F);
+		boatSides[2].setRotationPoint(15F, 4F, 0F);
+		boatSides[3].addBox(-14F, -7F, -1F, 28, 6, 2, 0F);
+		boatSides[3].setRotationPoint(0F, 4F, -9F);
+		boatSides[4].addBox(-14F, -7F, -1F, 28, 6, 2, 0F);
+		boatSides[4].setRotationPoint(0F, 4F, 9F);
 		boatSides[0].rotateAngleX = ((float) Math.PI / 2F);
 		boatSides[1].rotateAngleY = ((float) Math.PI * 3F / 2F);
 		boatSides[2].rotateAngleY = ((float) Math.PI / 2F);
 		boatSides[3].rotateAngleY = (float) Math.PI;
 		paddles[0] = makePaddle(true);
-		paddles[0].setRotationPoint(3.0F, -5.0F, 9.0F);
+		paddles[0].setRotationPoint(3F, -5F, 9F);
 		paddles[1] = makePaddle(false);
-		paddles[1].setRotationPoint(3.0F, -5.0F, -9.0F);
+		paddles[1].setRotationPoint(3F, -5F, -9F);
 		paddles[1].rotateAngleY = (float) Math.PI;
 		paddles[0].rotateAngleZ = 0.19634955F;
 		paddles[1].rotateAngleZ = 0.19634955F;
 		noWater = (new ModelRenderer(this, 0, 0)).setTextureSize(128, 64);
-		noWater.addBox(-14.0F, -9.0F, -3.0F, 28, 16, 3, 0.0F);
-		noWater.setRotationPoint(0.0F, -3.0F, 1.0F);
+		noWater.addBox(-14F, -9F, -3F, 28, 16, 3, 0F);
+		noWater.setRotationPoint(0F, -3F, 1F);
 		noWater.rotateAngleX = ((float) Math.PI / 2F);
 	}
 
@@ -63,7 +63,7 @@ public class ModelBoat extends ModelBase implements IMultipassModel {
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
-		GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
+		GlStateManager.rotate(90F, 0F, 1F, 0F);
 		EntityBoat entityboat = (EntityBoat) entityIn;
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
@@ -77,7 +77,7 @@ public class ModelBoat extends ModelBase implements IMultipassModel {
 
 	public void renderMultipass(Entity p_187054_1_, float p_187054_2_, float p_187054_3_, float p_187054_4_, float p_187054_5_, float p_187054_6_, float scale) {
 
-		GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
+		GlStateManager.rotate(90F, 0F, 1F, 0F);
 		GlStateManager.colorMask(false, false, false, false);
 		noWater.render(scale);
 		GlStateManager.colorMask(true, true, true, true);
@@ -89,9 +89,9 @@ public class ModelBoat extends ModelBase implements IMultipassModel {
 		int i = 20;
 		int j = 7;
 		int k = 6;
-		float f = -5.0F;
-		modelrenderer.addBox(-1.0F, 0.0F, -5.0F, 2, 2, 18);
-		modelrenderer.addBox(p_187056_1_ ? -1.001F : 0.001F, -3.0F, 8.0F, 1, 6, 7);
+		float f = -5F;
+		modelrenderer.addBox(-1F, 0F, -5F, 2, 2, 18);
+		modelrenderer.addBox(p_187056_1_ ? -1.001F : 0.001F, -3F, 8F, 1, 6, 7);
 		return modelrenderer;
 	}
 
@@ -99,8 +99,8 @@ public class ModelBoat extends ModelBase implements IMultipassModel {
 
 		float f = boat.getRowingTime(paddle, limbSwing);
 		ModelRenderer modelrenderer = paddles[paddle];
-		modelrenderer.rotateAngleX = (float) MathHelper.clampedLerp(-1.0471975803375244D, -0.2617993950843811D, (MathHelper.sin(-f) + 1.0F) / 2.0F);
-		modelrenderer.rotateAngleY = (float) MathHelper.clampedLerp(-(Math.PI / 4D), (Math.PI / 4D), (MathHelper.sin(-f + 1.0F) + 1.0F) / 2.0F);
+		modelrenderer.rotateAngleX = (float) MathHelper.clampedLerp(-1.0471975803375244D, -0.2617993950843811D, (MathHelper.sin(-f) + 1F) / 2F);
+		modelrenderer.rotateAngleY = (float) MathHelper.clampedLerp(-(Math.PI / 4D), (Math.PI / 4D), (MathHelper.sin(-f + 1F) + 1F) / 2F);
 
 		if (paddle == 1) {
 			modelrenderer.rotateAngleY = (float) Math.PI - modelrenderer.rotateAngleY;

@@ -27,8 +27,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class EntityFallingBlock extends Entity {
@@ -335,7 +333,7 @@ public class EntityFallingBlock extends Entity {
 		}
 	}
 
-	@Nullable
+	
 	public IBlockState getBlock() {
 
 		return fallTile;

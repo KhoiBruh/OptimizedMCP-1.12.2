@@ -11,8 +11,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class ChunkGeneratorDebug implements IChunkGenerator {
@@ -116,7 +114,7 @@ public class ChunkGeneratorDebug implements IChunkGenerator {
 		return biome.getSpawnableList(creatureType);
 	}
 
-	@Nullable
+	
 	public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
 
 		return null;

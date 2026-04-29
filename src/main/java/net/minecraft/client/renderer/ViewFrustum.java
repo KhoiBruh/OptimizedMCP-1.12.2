@@ -6,8 +6,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class ViewFrustum {
 
 	protected final RenderGlobal renderGlobal;
@@ -128,7 +126,7 @@ public class ViewFrustum {
 		}
 	}
 
-	@Nullable
+	
 	protected RenderChunk getRenderChunk(BlockPos pos) {
 
 		int i = MathHelper.intFloorDiv(pos.getX(), 16);

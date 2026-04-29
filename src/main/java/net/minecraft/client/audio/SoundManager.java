@@ -170,7 +170,7 @@ public class SoundManager {
 				}, "Sound Library Loader")).start();
 			} catch (RuntimeException runtimeexception) {
 				LOGGER.error(LOG_MARKER, "Error starting SoundSystem. Turning off sounds & music", runtimeexception);
-				options.setSoundLevel(SoundCategory.MASTER, 0.0F);
+				options.setSoundLevel(SoundCategory.MASTER, 0F);
 				options.saveOptions();
 			}
 		}
@@ -178,7 +178,7 @@ public class SoundManager {
 
 	private float getVolume(SoundCategory category) {
 
-		return category != null && category != SoundCategory.MASTER ? options.getSoundLevel(category) : 1.0F;
+		return category != null && category != SoundCategory.MASTER ? options.getSoundLevel(category) : 1F;
 	}
 
 	public void setVolume(SoundCategory category, float volume) {
@@ -191,7 +191,7 @@ public class SoundManager {
 					ISound isound = playingSounds.get(s);
 					float f = getClampedVolume(isound);
 
-					if (f <= 0.0F) {
+					if (f <= 0F) {
 						stopSound(isound);
 					} else {
 						sndSystem.setVolume(s, f);
@@ -356,7 +356,7 @@ public class SoundManager {
 					}
 				}
 
-				if (sndSystem.getMasterVolume() <= 0.0F) {
+				if (sndSystem.getMasterVolume() <= 0F) {
 					LOGGER.debug(LOG_MARKER, "Skipped playing soundEvent: {}, master volume was zero", resourcelocation);
 				} else {
 					Sound sound = p_sound.getSound();
@@ -367,9 +367,9 @@ public class SoundManager {
 						}
 					} else {
 						float f3 = p_sound.getVolume();
-						float f = 16.0F;
+						float f = 16F;
 
-						if (f3 > 1.0F) {
+						if (f3 > 1F) {
 							f *= f3;
 						}
 
@@ -377,7 +377,7 @@ public class SoundManager {
 						float f1 = getClampedVolume(p_sound);
 						float f2 = getClampedPitch(p_sound);
 
-						if (f1 == 0.0F) {
+						if (f1 == 0F) {
 							LOGGER.debug(LOG_MARKER, "Skipped playing sound {}, volume was zero.", sound.getSoundLocation());
 						} else {
 							boolean flag = p_sound.canRepeat() && p_sound.getRepeatDelay() == 0;
@@ -410,12 +410,12 @@ public class SoundManager {
 
 	private float getClampedPitch(ISound soundIn) {
 
-		return MathHelper.clamp(soundIn.getPitch(), 0.5F, 2.0F);
+		return MathHelper.clamp(soundIn.getPitch(), 0.5F, 2F);
 	}
 
 	private float getClampedVolume(ISound soundIn) {
 
-		return MathHelper.clamp(soundIn.getVolume() * getVolume(soundIn.getCategory()), 0.0F, 1.0F);
+		return MathHelper.clamp(soundIn.getVolume() * getVolume(soundIn.getCategory()), 0F, 1F);
 	}
 
 	/**
@@ -467,12 +467,12 @@ public class SoundManager {
 			double d0 = player.prevPosX + (player.posX - player.prevPosX) * (double) p_148615_2_;
 			double d1 = player.prevPosY + (player.posY - player.prevPosY) * (double) p_148615_2_ + (double) player.getEyeHeight();
 			double d2 = player.prevPosZ + (player.posZ - player.prevPosZ) * (double) p_148615_2_;
-			float f2 = MathHelper.cos((f1 + 90.0F) * 0.017453292F);
-			float f3 = MathHelper.sin((f1 + 90.0F) * 0.017453292F);
+			float f2 = MathHelper.cos((f1 + 90F) * 0.017453292F);
+			float f3 = MathHelper.sin((f1 + 90F) * 0.017453292F);
 			float f4 = MathHelper.cos(-f * 0.017453292F);
 			float f5 = MathHelper.sin(-f * 0.017453292F);
-			float f6 = MathHelper.cos((-f + 90.0F) * 0.017453292F);
-			float f7 = MathHelper.sin((-f + 90.0F) * 0.017453292F);
+			float f6 = MathHelper.cos((-f + 90F) * 0.017453292F);
+			float f7 = MathHelper.sin((-f + 90F) * 0.017453292F);
 			float f8 = f2 * f4;
 			float f9 = f3 * f4;
 			float f10 = f2 * f6;

@@ -11,10 +11,10 @@ public class ModelShulkerBullet extends ModelBase {
 		textureWidth = 64;
 		textureHeight = 32;
 		renderer = new ModelRenderer(this);
-		renderer.setTextureOffset(0, 0).addBox(-4.0F, -4.0F, -1.0F, 8, 8, 2, 0.0F);
-		renderer.setTextureOffset(0, 10).addBox(-1.0F, -4.0F, -4.0F, 2, 8, 8, 0.0F);
-		renderer.setTextureOffset(20, 0).addBox(-4.0F, -1.0F, -4.0F, 8, 2, 8, 0.0F);
-		renderer.setRotationPoint(0.0F, 0.0F, 0.0F);
+		renderer.setTextureOffset(0, 0).addBox(-4F, -4F, -1F, 8, 8, 2, 0F);
+		renderer.setTextureOffset(0, 10).addBox(-1F, -4F, -4F, 2, 8, 8, 0F);
+		renderer.setTextureOffset(20, 0).addBox(-4F, -1F, -4F, 8, 2, 8, 0F);
+		renderer.setRotationPoint(0F, 0F, 0F);
 	}
 
 	/**

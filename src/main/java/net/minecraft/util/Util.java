@@ -2,7 +2,6 @@ package net.minecraft.util;
 
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
@@ -29,17 +28,14 @@ public class Util {
 		}
 	}
 
-	@Nullable
-	public static <V> V runTask(FutureTask<V> task, Logger logger) {
+	public static <V> void runTask(FutureTask<V> task, Logger logger) {
 
 		try {
 			task.run();
-			return task.get();
-		} catch (ExecutionException | InterruptedException executionexception) {
-			logger.fatal("Error executing task", executionexception);
+			task.get();
+		} catch (ExecutionException | InterruptedException exception) {
+			logger.fatal("Error executing task", exception);
 		}
-
-		return null;
 	}
 
 	public static <T> T getLastElement(List<T> list) {

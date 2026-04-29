@@ -10,8 +10,6 @@ import net.minecraft.world.end.DragonFightManager;
 import net.minecraft.world.gen.ChunkGeneratorEnd;
 import net.minecraft.world.gen.IChunkGenerator;
 
-import javax.annotation.Nullable;
-
 public class WorldProviderEnd extends WorldProvider {
 
 	private DragonFightManager dragonFightManager;
@@ -42,7 +40,7 @@ public class WorldProviderEnd extends WorldProvider {
 		return 0.0F;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns array with sunrise/sunset colors
@@ -147,7 +145,7 @@ public class WorldProviderEnd extends WorldProvider {
 		}
 	}
 
-	@Nullable
+	
 	public DragonFightManager getDragonFightManager() {
 
 		return dragonFightManager;

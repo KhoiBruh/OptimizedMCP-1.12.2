@@ -19,8 +19,6 @@ import net.minecraft.world.gen.feature.WorldGenEndGateway;
 import net.minecraft.world.gen.feature.WorldGenEndIsland;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
@@ -60,7 +58,7 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 		return worldIn.getChunkFromChunkCoords(MathHelper.floor(vec3.x() / 16.0D), MathHelper.floor(vec3.z() / 16.0D));
 	}
 
-	@Nullable
+	
 	private static BlockPos findSpawnpointInChunk(Chunk chunkIn) {
 
 		BlockPos blockpos = new BlockPos(chunkIn.x * 16, 30, chunkIn.z * 16);
@@ -166,7 +164,7 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 		return 1.0F - MathHelper.clamp(((float) teleportCooldown - p_184305_1_) / 40.0F, 0.0F, 1.0F);
 	}
 
-	@Nullable
+	
 	public SPacketUpdateTileEntity getUpdatePacket() {
 
 		return new SPacketUpdateTileEntity(pos, 8, getUpdateTag());

@@ -20,8 +20,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -242,7 +240,7 @@ public class Village {
 		return villagedoorinfo;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * if door not existed in this village, null will be returned
@@ -290,7 +288,7 @@ public class Village {
 		villageAgressors.add(new Village.VillageAggressor(entitylivingbaseIn, tickCounter));
 	}
 
-	@Nullable
+	
 	public EntityLivingBase findNearestVillageAggressor(EntityLivingBase entitylivingbaseIn) {
 
 		double d0 = Double.MAX_VALUE;

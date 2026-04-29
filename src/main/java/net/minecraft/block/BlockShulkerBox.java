@@ -30,8 +30,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class BlockShulkerBox extends BlockContainer {
@@ -253,7 +251,7 @@ public class BlockShulkerBox extends BlockContainer {
 		super.breakBlock(worldIn, pos, state);
 	}
 
-	public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
+	public void addInformation(ItemStack stack, World player, List<String> tooltip, ITooltipFlag advanced) {
 
 		super.addInformation(stack, player, tooltip, advanced);
 		NBTTagCompound nbttagcompound = stack.getTagCompound();

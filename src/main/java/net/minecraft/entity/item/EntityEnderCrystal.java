@@ -15,8 +15,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderEnd;
 import net.minecraft.world.end.DragonFightManager;
 
-import javax.annotation.Nullable;
-
 public class EntityEnderCrystal extends Entity {
 
 	private static final DataParameter<Optional<BlockPos>> BEAM_TARGET = EntityDataManager.createKey(EntityEnderCrystal.class, DataSerializers.OPTIONAL_BLOCK_POS);
@@ -155,13 +153,13 @@ public class EntityEnderCrystal extends Entity {
 		}
 	}
 
-	@Nullable
+	
 	public BlockPos getBeamTarget() {
 
 		return getDataManager().get(BEAM_TARGET).orNull();
 	}
 
-	public void setBeamTarget(@Nullable BlockPos beamTarget) {
+	public void setBeamTarget(BlockPos beamTarget) {
 
 		getDataManager().set(BEAM_TARGET, Optional.fromNullable(beamTarget));
 	}

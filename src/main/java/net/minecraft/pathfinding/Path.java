@@ -4,8 +4,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.Vec3d;
 
-import javax.annotation.Nullable;
-
 public class Path {
 
 	/**
@@ -78,7 +76,7 @@ public class Path {
 		return currentPathIndex >= pathLength;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * returns the last PathPoint of the Array

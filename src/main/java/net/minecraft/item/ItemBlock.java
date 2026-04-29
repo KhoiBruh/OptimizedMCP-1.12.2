@@ -15,8 +15,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemBlock extends Item {
@@ -28,7 +26,7 @@ public class ItemBlock extends Item {
 		this.block = block;
 	}
 
-	public static boolean setTileEntityNBT(World worldIn, @Nullable EntityPlayer player, BlockPos pos, ItemStack stackIn) {
+	public static boolean setTileEntityNBT(World worldIn, EntityPlayer player, BlockPos pos, ItemStack stackIn) {
 
 		MinecraftServer minecraftserver = worldIn.getMinecraftServer();
 
@@ -156,7 +154,7 @@ public class ItemBlock extends Item {
 	/**
 	 * allows items to add custom lines of information to the mouseover description
 	 */
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 		block.addInformation(stack, worldIn, tooltip, flagIn);

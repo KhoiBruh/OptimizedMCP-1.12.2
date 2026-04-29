@@ -11,8 +11,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.scoreboard.Team;
 
-import javax.annotation.Nullable;
-
 public final class EntitySelectors {
 
 	public static final Predicate<Entity> IS_ALIVE = p_apply_1_ -> p_apply_1_.isEntityAlive();
@@ -86,7 +84,7 @@ public final class EntitySelectors {
 			this.armor = armor;
 		}
 
-		public boolean apply(@Nullable Entity p_apply_1_) {
+		public boolean apply(Entity p_apply_1_) {
 
 			if (!p_apply_1_.isEntityAlive()) {
 				return false;

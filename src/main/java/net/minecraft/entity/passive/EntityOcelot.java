@@ -25,8 +25,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-import javax.annotation.Nullable;
-
 public class EntityOcelot extends EntityTameable {
 
 	private static final DataParameter<Integer> OCELOT_VARIANT = EntityDataManager.createKey(EntityOcelot.class, DataSerializers.VARINT);
@@ -129,7 +127,7 @@ public class EntityOcelot extends EntityTameable {
 		setTameSkin(compound.getInteger("CatType"));
 	}
 
-	@Nullable
+	
 	protected SoundEvent getAmbientSound() {
 
 		if (isTamed()) {
@@ -182,7 +180,7 @@ public class EntityOcelot extends EntityTameable {
 		}
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_OCELOT;
@@ -327,7 +325,7 @@ public class EntityOcelot extends EntityTameable {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
@@ -343,7 +341,7 @@ public class EntityOcelot extends EntityTameable {
 	 * @param difficulty The current local difficulty
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 

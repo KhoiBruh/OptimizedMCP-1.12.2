@@ -6,8 +6,6 @@ import com.google.common.collect.Maps;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumFacing;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -32,7 +30,7 @@ public class MultipartBakedModel implements IBakedModel {
 		overrides = ibakedmodel.getOverrides();
 	}
 
-	public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
+	public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
 
 		List<BakedQuad> list = Lists.newArrayList();
 

@@ -13,8 +13,6 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
@@ -341,7 +339,7 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 		thrower = getThrower();
 	}
 
-	@Nullable
+	
 	public EntityLivingBase getThrower() {
 
 		if (thrower == null && throwerName != null && !throwerName.isEmpty()) {

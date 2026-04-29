@@ -5,18 +5,16 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.util.ResourceLocation;
 
-import javax.annotation.Nullable;
-
 public class SPacketSelectAdvancementsTab implements Packet<INetHandlerPlayClient> {
 
-	@Nullable
+	
 	private ResourceLocation tab;
 
 	public SPacketSelectAdvancementsTab() {
 
 	}
 
-	public SPacketSelectAdvancementsTab(@Nullable ResourceLocation p_i47596_1_) {
+	public SPacketSelectAdvancementsTab(ResourceLocation p_i47596_1_) {
 
 		tab = p_i47596_1_;
 	}
@@ -51,7 +49,7 @@ public class SPacketSelectAdvancementsTab implements Packet<INetHandlerPlayClien
 		}
 	}
 
-	@Nullable
+	
 	public ResourceLocation getTab() {
 
 		return tab;

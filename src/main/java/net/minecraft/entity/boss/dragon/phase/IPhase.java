@@ -7,8 +7,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
-import javax.annotation.Nullable;
-
 public interface IPhase {
 
 	boolean getIsStationary();
@@ -43,7 +41,7 @@ public interface IPhase {
 
 	PhaseList<? extends IPhase> getType();
 
-	@Nullable
+	
 
 	/**
 	 * Returns the location the dragon is flying toward

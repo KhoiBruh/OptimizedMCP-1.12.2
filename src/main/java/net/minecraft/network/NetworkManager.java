@@ -28,8 +28,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
-
-import javax.annotation.Nullable;
 import javax.crypto.SecretKey;
 import java.net.InetAddress;
 import java.net.SocketAddress;
@@ -249,7 +247,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	 * Will commit the packet to the channel. If the current thread 'owns' the channel it will write and flush the
 	 * packet, otherwise it will add a task for the channel eventloop thread to do that.
 	 */
-	private void dispatchPacket(final Packet<?> inPacket, @Nullable final GenericFutureListener<? extends Future<? super Void>>[] futureListeners) {
+	private void dispatchPacket(final Packet<?> inPacket, final GenericFutureListener<? extends Future<? super Void>>[] futureListeners) {
 
 		final EnumConnectionState enumconnectionstate = EnumConnectionState.getFromPacket(inPacket);
 		final EnumConnectionState enumconnectionstate1 = channel.attr(PROTOCOL_ATTRIBUTE_KEY).get();

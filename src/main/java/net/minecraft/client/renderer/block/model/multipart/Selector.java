@@ -9,8 +9,6 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.VariantList;
 import net.minecraft.util.JsonUtils;
-
-import javax.annotation.Nullable;
 import java.lang.reflect.Type;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -66,14 +64,14 @@ public class Selector {
 	public static class Deserializer implements JsonDeserializer<Selector> {
 
 		private static final Function<Entry<String, JsonElement>, ICondition> FUNCTION_PROPERTY_VALUE = new Function<>() {
-			@Nullable
-			public ICondition apply(@Nullable Entry<String, JsonElement> p_apply_1_) {
+			
+			public ICondition apply(Entry<String, JsonElement> p_apply_1_) {
 
 				return p_apply_1_ == null ? null : Selector.Deserializer.makePropertyValue(p_apply_1_);
 			}
 		};		private static final Function<JsonElement, ICondition> FUNCTION_OR_AND = new Function<>() {
-			@Nullable
-			public ICondition apply(@Nullable JsonElement p_apply_1_) {
+			
+			public ICondition apply(JsonElement p_apply_1_) {
 
 				return p_apply_1_ == null ? null : Selector.Deserializer.getOrAndCondition(p_apply_1_.getAsJsonObject());
 			}

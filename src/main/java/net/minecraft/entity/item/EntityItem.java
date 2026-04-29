@@ -24,8 +24,6 @@ import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.Nullable;
-
 public class EntityItem extends Entity {
 
 	private static final Logger LOGGER = LogManager.getLogger();
@@ -379,7 +377,7 @@ public class EntityItem extends Entity {
 		return false;
 	}
 
-	@Nullable
+	
 	public Entity changeDimension(int dimensionIn) {
 
 		Entity entity = super.changeDimension(dimensionIn);

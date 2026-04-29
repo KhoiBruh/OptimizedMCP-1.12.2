@@ -17,8 +17,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public class BlockTripWireHook extends Block {
@@ -49,7 +47,7 @@ public class BlockTripWireHook extends Block {
 		};
 	}
 
-	@Nullable
+	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 
 		return NULL_AABB;
@@ -136,7 +134,7 @@ public class BlockTripWireHook extends Block {
 		}
 	}
 
-	public void calculateState(World worldIn, BlockPos pos, IBlockState hookState, boolean p_176260_4_, boolean p_176260_5_, int p_176260_6_, @Nullable IBlockState p_176260_7_) {
+	public void calculateState(World worldIn, BlockPos pos, IBlockState hookState, boolean p_176260_4_, boolean p_176260_5_, int p_176260_6_, IBlockState p_176260_7_) {
 
 		EnumFacing enumfacing = hookState.getValue(FACING);
 		boolean flag = hookState.getValue(ATTACHED);

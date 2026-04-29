@@ -11,8 +11,6 @@ import net.minecraft.util.math.Vec3d;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.Nullable;
-
 public class PhaseStrafePlayer extends PhaseBase {
 
 	private static final Logger LOGGER = LogManager.getLogger();
@@ -188,7 +186,7 @@ public class PhaseStrafePlayer extends PhaseBase {
 		}
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns the location the dragon is flying toward

@@ -20,8 +20,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public class BlockDoublePlant extends BlockBush implements IGrowable {
@@ -157,7 +155,7 @@ public class BlockDoublePlant extends BlockBush implements IGrowable {
 	 * Spawns the block's drops in the world. By the time this is called the Block has possibly been set to air via
 	 * Block.removedByPlayer
 	 */
-	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
+	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
 
 		if (worldIn.isRemote || stack.getItem() != Items.SHEARS || state.getValue(HALF) != BlockDoublePlant.EnumBlockHalf.LOWER || !onHarvest(worldIn, pos, state, player)) {
 			super.harvestBlock(worldIn, player, pos, state, te, stack);

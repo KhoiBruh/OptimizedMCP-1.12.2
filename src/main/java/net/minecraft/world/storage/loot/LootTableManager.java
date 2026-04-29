@@ -16,8 +16,6 @@ import net.minecraft.world.storage.loot.functions.LootFunction;
 import net.minecraft.world.storage.loot.functions.LootFunctionManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -30,7 +28,7 @@ public class LootTableManager {
 	private final LoadingCache<ResourceLocation, LootTable> registeredLootTables = CacheBuilder.newBuilder().build(new LootTableManager.Loader());
 	private final File baseFolder;
 
-	public LootTableManager(@Nullable File folder) {
+	public LootTableManager(File folder) {
 
 		baseFolder = folder;
 		reloadLootTables();
@@ -77,7 +75,7 @@ public class LootTableManager {
 			}
 		}
 
-		@Nullable
+		
 		private LootTable loadLootTable(ResourceLocation resource) {
 
 			if (baseFolder == null) {
@@ -112,7 +110,7 @@ public class LootTableManager {
 			}
 		}
 
-		@Nullable
+		
 		private LootTable loadBuiltinLootTable(ResourceLocation resource) {
 
 			URL url = LootTableManager.class.getResource("/assets/" + resource.getResourceDomain() + "/loot_tables/" + resource.getResourcePath() + ".json");

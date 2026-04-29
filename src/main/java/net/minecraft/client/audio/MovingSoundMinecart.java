@@ -8,7 +8,7 @@ import net.minecraft.util.math.MathHelper;
 public class MovingSoundMinecart extends MovingSound {
 
 	private final EntityMinecart minecart;
-	private float distance = 0.0F;
+	private float distance = 0F;
 
 	public MovingSoundMinecart(EntityMinecart minecartIn) {
 
@@ -32,11 +32,11 @@ public class MovingSoundMinecart extends MovingSound {
 			float f = MathHelper.sqrt(minecart.motionX * minecart.motionX + minecart.motionZ * minecart.motionZ);
 
 			if ((double) f >= 0.01D) {
-				distance = MathHelper.clamp(distance + 0.0025F, 0.0F, 1.0F);
-				volume = 0.0F + MathHelper.clamp(f, 0.0F, 0.5F) * 0.7F;
+				distance = MathHelper.clamp(distance + 0.0025F, 0F, 1F);
+				volume = 0F + MathHelper.clamp(f, 0F, 0.5F) * 0.7F;
 			} else {
-				distance = 0.0F;
-				volume = 0.0F;
+				distance = 0F;
+				volume = 0F;
 			}
 		}
 	}

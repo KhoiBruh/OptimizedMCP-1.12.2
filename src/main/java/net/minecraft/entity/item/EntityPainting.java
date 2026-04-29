@@ -11,8 +11,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.List;
 
@@ -118,7 +116,7 @@ public class EntityPainting extends EntityHanging {
 	/**
 	 * Called when this entity is broken. Entity parameter may be null.
 	 */
-	public void onBroken(@Nullable Entity brokenEntity) {
+	public void onBroken(Entity brokenEntity) {
 
 		if (world.getGameRules().getBoolean("doEntityDrops")) {
 			playSound(SoundEvents.ENTITY_PAINTING_BREAK, 1.0F, 1.0F);

@@ -18,8 +18,6 @@ import net.minecraft.util.datafix.walkers.ItemStackDataLists;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 
-import javax.annotation.Nullable;
-
 public class TileEntityChest extends TileEntityLockableLoot implements ITickable {
 
 	/**
@@ -195,7 +193,7 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 		}
 	}
 
-	@Nullable
+	
 	protected TileEntityChest getAdjacentChest(EnumFacing side) {
 
 		BlockPos blockpos = pos.offset(side);

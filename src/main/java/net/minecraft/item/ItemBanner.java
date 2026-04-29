@@ -23,8 +23,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemBanner extends ItemBlock {
@@ -57,7 +55,7 @@ public class ItemBanner extends ItemBlock {
 		}
 	}
 
-	public static ItemStack makeBanner(EnumDyeColor color, @Nullable NBTTagList patterns) {
+	public static ItemStack makeBanner(EnumDyeColor color, NBTTagList patterns) {
 
 		ItemStack itemstack = new ItemStack(Items.BANNER, 1, color.getDyeDamage());
 
@@ -130,7 +128,7 @@ public class ItemBanner extends ItemBlock {
 	/**
 	 * allows items to add custom lines of information to the mouseover description
 	 */
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 
 		appendHoverTextFromTileEntityTag(stack, tooltip);
 	}

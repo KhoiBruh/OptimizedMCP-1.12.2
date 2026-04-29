@@ -4,8 +4,6 @@ import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import net.minecraft.item.Item;
-
-import javax.annotation.Nullable;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
@@ -289,12 +287,12 @@ public class JsonUtils {
 	 * Gets the JsonArray field on the JsonObject with the given name, or the given default value if the field is
 	 * missing.
 	 */
-	public static JsonArray getJsonArray(JsonObject json, String memberName, @Nullable JsonArray fallback) {
+	public static JsonArray getJsonArray(JsonObject json, String memberName, JsonArray fallback) {
 
 		return json.has(memberName) ? getJsonArray(json.get(memberName), memberName) : fallback;
 	}
 
-	public static <T> T deserializeClass(@Nullable JsonElement json, String memberName, JsonDeserializationContext context, Class<? extends T> adapter) {
+	public static <T> T deserializeClass(JsonElement json, String memberName, JsonDeserializationContext context, Class<? extends T> adapter) {
 
 		if (json != null) {
 			return context.deserialize(json, adapter);
@@ -349,7 +347,7 @@ public class JsonUtils {
 		}
 	}
 
-	@Nullable
+	
 	public static <T> T gsonDeserialize(Gson gsonIn, Reader readerIn, Class<T> adapter, boolean lenient) {
 
 		try {
@@ -361,7 +359,7 @@ public class JsonUtils {
 		}
 	}
 
-	@Nullable
+	
 	public static <T> T fromJson(Gson p_193838_0_, Reader p_193838_1_, Type p_193838_2_, boolean p_193838_3_) {
 
 		try {
@@ -373,37 +371,37 @@ public class JsonUtils {
 		}
 	}
 
-	@Nullable
+	
 	public static <T> T fromJson(Gson p_193837_0_, String p_193837_1_, Type p_193837_2_, boolean p_193837_3_) {
 
 		return fromJson(p_193837_0_, new StringReader(p_193837_1_), p_193837_2_, p_193837_3_);
 	}
 
-	@Nullable
+	
 	public static <T> T gsonDeserialize(Gson gsonIn, String json, Class<T> adapter, boolean lenient) {
 
 		return gsonDeserialize(gsonIn, new StringReader(json), adapter, lenient);
 	}
 
-	@Nullable
+	
 	public static <T> T fromJson(Gson p_193841_0_, Reader p_193841_1_, Type p_193841_2_) {
 
 		return fromJson(p_193841_0_, p_193841_1_, p_193841_2_, false);
 	}
 
-	@Nullable
+	
 	public static <T> T gsonDeserialize(Gson p_193840_0_, String p_193840_1_, Type p_193840_2_) {
 
 		return fromJson(p_193840_0_, p_193840_1_, p_193840_2_, false);
 	}
 
-	@Nullable
+	
 	public static <T> T fromJson(Gson p_193839_0_, Reader p_193839_1_, Class<T> p_193839_2_) {
 
 		return gsonDeserialize(p_193839_0_, p_193839_1_, p_193839_2_, false);
 	}
 
-	@Nullable
+	
 	public static <T> T gsonDeserialize(Gson gsonIn, String json, Class<T> adapter) {
 
 		return gsonDeserialize(gsonIn, json, adapter, false);

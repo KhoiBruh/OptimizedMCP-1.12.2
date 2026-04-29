@@ -16,8 +16,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class EntityEnderPearl extends EntityThrowable {
 
 	private EntityLivingBase perlThrower;
@@ -125,7 +123,7 @@ public class EntityEnderPearl extends EntityThrowable {
 		}
 	}
 
-	@Nullable
+	
 	public Entity changeDimension(int dimensionIn) {
 
 		if (thrower.dimension != dimensionIn) {

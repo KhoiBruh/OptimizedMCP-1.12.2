@@ -31,8 +31,6 @@ import net.minecraft.world.gen.ChunkGeneratorDebug;
 import net.minecraft.world.gen.IChunkGenerator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -182,7 +180,7 @@ public class Chunk {
 		return heightMap[z << 4 | x];
 	}
 
-	@Nullable
+	
 	private ExtendedBlockStorage getLastExtendedBlockStorage() {
 
 		for (int i = storageArrays.length - 1; i >= 0; --i) {
@@ -511,7 +509,7 @@ public class Chunk {
 		}
 	}
 
-	@Nullable
+	
 	public IBlockState setBlockState(BlockPos pos, IBlockState state) {
 
 		int i = pos.getX() & 15;
@@ -732,7 +730,7 @@ public class Chunk {
 		return j >= heightMap[k << 4 | i];
 	}
 
-	@Nullable
+	
 	private TileEntity createNewTileEntity(BlockPos pos) {
 
 		IBlockState iblockstate = getBlockState(pos);
@@ -740,7 +738,7 @@ public class Chunk {
 		return !block.hasTileEntity() ? null : ((ITileEntityProvider) block).createNewTileEntity(world, iblockstate.getBlock().getMetaFromState(iblockstate));
 	}
 
-	@Nullable
+	
 	public TileEntity getTileEntity(BlockPos pos, Chunk.EnumCreateEntityType creationMode) {
 
 		TileEntity tileentity = tileEntities.get(pos);
@@ -835,7 +833,7 @@ public class Chunk {
 	/**
 	 * Fills the given list of all entities that intersect within the given bounding box that aren't the passed entity.
 	 */
-	public void getEntitiesWithinAABBForEntity(@Nullable Entity entityIn, AxisAlignedBB aabb, List<Entity> listToFill, Predicate<? super Entity> filter) {
+	public void getEntitiesWithinAABBForEntity(Entity entityIn, AxisAlignedBB aabb, List<Entity> listToFill, Predicate<? super Entity> filter) {
 
 		int i = MathHelper.floor((aabb.minY - 2.0D) / 16.0D);
 		int j = MathHelper.floor((aabb.maxY + 2.0D) / 16.0D);

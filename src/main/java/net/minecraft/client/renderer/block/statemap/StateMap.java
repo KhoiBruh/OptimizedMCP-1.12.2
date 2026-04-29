@@ -6,8 +6,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +16,7 @@ public class StateMap extends StateMapperBase {
 	private final String suffix;
 	private final List<IProperty<?>> ignored;
 
-	private StateMap(@Nullable IProperty<?> name, @Nullable String suffix, List<IProperty<?>> ignored) {
+	private StateMap(IProperty<?> name, String suffix, List<IProperty<?>> ignored) {
 
 		this.name = name;
 		this.suffix = suffix;

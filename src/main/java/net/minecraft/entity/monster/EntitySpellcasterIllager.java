@@ -10,8 +10,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public abstract class EntitySpellcasterIllager extends AbstractIllager {
 
 	private static final DataParameter<Byte> SPELL = EntityDataManager.createKey(EntitySpellcasterIllager.class, DataSerializers.BYTE);
@@ -226,7 +224,7 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 
 		protected abstract int getCastingInterval();
 
-		@Nullable
+		
 		protected abstract SoundEvent getSpellPrepareSound();
 
 		protected abstract EntitySpellcasterIllager.SpellType getSpellType();

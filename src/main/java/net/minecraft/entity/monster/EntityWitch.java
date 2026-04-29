@@ -30,8 +30,6 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
@@ -199,7 +197,7 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
 		return damage;
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_WITCH;

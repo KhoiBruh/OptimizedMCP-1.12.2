@@ -5,8 +5,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.IntIdentityHashBiMap;
 
-import javax.annotation.Nullable;
-
 public class BlockStatePaletteHashMap implements IBlockStatePalette {
 
 	private final IntIdentityHashBiMap<IBlockState> statePaletteMap;
@@ -35,7 +33,7 @@ public class BlockStatePaletteHashMap implements IBlockStatePalette {
 		return i;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Gets the block state by the palette id.

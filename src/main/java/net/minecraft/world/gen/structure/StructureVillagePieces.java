@@ -17,8 +17,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.structure.template.TemplateManager;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
@@ -1501,7 +1499,7 @@ public class StructureVillagePieces {
 			isZombieInfested = tagCompound.getBoolean("Zombie");
 		}
 
-		@Nullable
+		
 		protected StructureComponent getNextComponentNN(StructureVillagePieces.Start start, List<StructureComponent> structureComponents, Random rand, int p_74891_4_, int p_74891_5_) {
 
 			EnumFacing enumfacing = getCoordBaseMode();
@@ -1518,7 +1516,7 @@ public class StructureVillagePieces {
 			}
 		}
 
-		@Nullable
+		
 		protected StructureComponent getNextComponentPP(StructureVillagePieces.Start start, List<StructureComponent> structureComponents, Random rand, int p_74894_4_, int p_74894_5_) {
 
 			EnumFacing enumfacing = getCoordBaseMode();

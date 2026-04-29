@@ -7,8 +7,6 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.math.MathHelper;
-
-import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Deque;
 
@@ -42,7 +40,7 @@ public class GuiToast extends Gui {
 		}
 	}
 
-	@Nullable
+	
 	public <T extends IToast> T getToast(Class<? extends T> p_192990_1_, Object p_192990_2_) {
 
 		for (GuiToast.ToastInstance<?> toastinstance : visible) {

@@ -9,8 +9,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
-import javax.annotation.Nullable;
-
 public abstract class PhaseBase implements IPhase {
 
 	protected final EntityDragon dragon;
@@ -41,7 +39,7 @@ public abstract class PhaseBase implements IPhase {
 
 	}
 
-	public void onCrystalDestroyed(EntityEnderCrystal crystal, BlockPos pos, DamageSource dmgSrc, @Nullable EntityPlayer plyr) {
+	public void onCrystalDestroyed(EntityEnderCrystal crystal, BlockPos pos, DamageSource dmgSrc, EntityPlayer plyr) {
 
 	}
 
@@ -64,7 +62,7 @@ public abstract class PhaseBase implements IPhase {
 		return 0.6F;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns the location the dragon is flying toward

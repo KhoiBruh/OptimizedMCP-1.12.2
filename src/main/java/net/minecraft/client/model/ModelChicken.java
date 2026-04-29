@@ -19,29 +19,29 @@ public class ModelChicken extends ModelBase {
 
 		int i = 16;
 		head = new ModelRenderer(this, 0, 0);
-		head.addBox(-2.0F, -6.0F, -2.0F, 4, 6, 3, 0.0F);
-		head.setRotationPoint(0.0F, 15.0F, -4.0F);
+		head.addBox(-2F, -6F, -2F, 4, 6, 3, 0F);
+		head.setRotationPoint(0F, 15F, -4F);
 		bill = new ModelRenderer(this, 14, 0);
-		bill.addBox(-2.0F, -4.0F, -4.0F, 4, 2, 2, 0.0F);
-		bill.setRotationPoint(0.0F, 15.0F, -4.0F);
+		bill.addBox(-2F, -4F, -4F, 4, 2, 2, 0F);
+		bill.setRotationPoint(0F, 15F, -4F);
 		chin = new ModelRenderer(this, 14, 4);
-		chin.addBox(-1.0F, -2.0F, -3.0F, 2, 2, 2, 0.0F);
-		chin.setRotationPoint(0.0F, 15.0F, -4.0F);
+		chin.addBox(-1F, -2F, -3F, 2, 2, 2, 0F);
+		chin.setRotationPoint(0F, 15F, -4F);
 		body = new ModelRenderer(this, 0, 9);
-		body.addBox(-3.0F, -4.0F, -3.0F, 6, 8, 6, 0.0F);
-		body.setRotationPoint(0.0F, 16.0F, 0.0F);
+		body.addBox(-3F, -4F, -3F, 6, 8, 6, 0F);
+		body.setRotationPoint(0F, 16F, 0F);
 		rightLeg = new ModelRenderer(this, 26, 0);
-		rightLeg.addBox(-1.0F, 0.0F, -3.0F, 3, 5, 3);
-		rightLeg.setRotationPoint(-2.0F, 19.0F, 1.0F);
+		rightLeg.addBox(-1F, 0F, -3F, 3, 5, 3);
+		rightLeg.setRotationPoint(-2F, 19F, 1F);
 		leftLeg = new ModelRenderer(this, 26, 0);
-		leftLeg.addBox(-1.0F, 0.0F, -3.0F, 3, 5, 3);
-		leftLeg.setRotationPoint(1.0F, 19.0F, 1.0F);
+		leftLeg.addBox(-1F, 0F, -3F, 3, 5, 3);
+		leftLeg.setRotationPoint(1F, 19F, 1F);
 		rightWing = new ModelRenderer(this, 24, 13);
-		rightWing.addBox(0.0F, 0.0F, -3.0F, 1, 4, 6);
-		rightWing.setRotationPoint(-4.0F, 13.0F, 0.0F);
+		rightWing.addBox(0F, 0F, -3F, 1, 4, 6);
+		rightWing.setRotationPoint(-4F, 13F, 0F);
 		leftWing = new ModelRenderer(this, 24, 13);
-		leftWing.addBox(-1.0F, 0.0F, -3.0F, 1, 4, 6);
-		leftWing.setRotationPoint(4.0F, 13.0F, 0.0F);
+		leftWing.addBox(-1F, 0F, -3F, 1, 4, 6);
+		leftWing.setRotationPoint(4F, 13F, 0F);
 	}
 
 	/**
@@ -52,16 +52,16 @@ public class ModelChicken extends ModelBase {
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
 		if (isChild) {
-			float f = 2.0F;
+			float f = 2F;
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(0.0F, 5.0F * scale, 2.0F * scale);
+			GlStateManager.translate(0F, 5F * scale, 2F * scale);
 			head.render(scale);
 			bill.render(scale);
 			chin.render(scale);
 			GlStateManager.popMatrix();
 			GlStateManager.pushMatrix();
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);
-			GlStateManager.translate(0.0F, 24.0F * scale, 0.0F);
+			GlStateManager.translate(0F, 24F * scale, 0F);
 			body.render(scale);
 			rightLeg.render(scale);
 			leftLeg.render(scale);

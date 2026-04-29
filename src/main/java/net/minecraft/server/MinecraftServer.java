@@ -44,8 +44,6 @@ import net.minecraft.world.storage.WorldInfo;
 import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -239,7 +237,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 		}
 	}
 
-	@Nullable
+	
 
 	public synchronized String getUserMessage() {
 
@@ -828,7 +826,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 		return report;
 	}
 
-	public List<String> getTabCompletions(ICommandSender sender, String input, @Nullable BlockPos pos, boolean hasTargetBlock) {
+	public List<String> getTabCompletions(ICommandSender sender, String input, BlockPos pos, boolean hasTargetBlock) {
 
 		List<String> list = Lists.newArrayList();
 		boolean flag = input.startsWith("/");
@@ -1256,7 +1254,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 		nanoTimeSinceStatusRefresh = 0L;
 	}
 
-	@Nullable
+	
 	public Entity getEntityFromUuid(UUID uuid) {
 
 		for (WorldServer worldserver1 : worlds) {
@@ -1332,7 +1330,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 		return 256;
 	}
 
-	public int getSpawnRadius(@Nullable WorldServer worldIn) {
+	public int getSpawnRadius(WorldServer worldIn) {
 
 		return worldIn != null ? worldIn.getGameRules().getInt("spawnRadius") : 10;
 	}

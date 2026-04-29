@@ -6,8 +6,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.math.MathHelper;
 import org.lwjgl.util.vector.Vector3f;
-
-import javax.annotation.Nullable;
 import java.lang.reflect.Type;
 import java.util.Locale;
 import java.util.Map;
@@ -16,7 +14,7 @@ import java.util.Map.Entry;
 public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<EnumFacing, BlockPartFace> mapFaces,
                         BlockPartRotation partRotation, boolean shade) {
 
-	public BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<EnumFacing, BlockPartFace> mapFaces, @Nullable BlockPartRotation partRotation, boolean shade) {
+	public BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<EnumFacing, BlockPartFace> mapFaces, BlockPartRotation partRotation, boolean shade) {
 
 		this.positionFrom = positionFrom;
 		this.positionTo = positionTo;
@@ -66,7 +64,7 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<EnumFaci
 			}
 		}
 
-		@Nullable
+		
 		private BlockPartRotation parseRotation(JsonObject object) {
 
 			BlockPartRotation blockpartrotation = null;

@@ -18,7 +18,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.IBlockAccess;
 
-import javax.annotation.Nullable;
 import java.util.BitSet;
 import java.util.List;
 
@@ -142,7 +141,7 @@ public class BlockModelRenderer {
 		}
 	}
 
-	private void fillQuadBounds(IBlockState stateIn, int[] vertexData, EnumFacing face, @Nullable float[] quadBounds, BitSet boundsFlags) {
+	private void fillQuadBounds(IBlockState stateIn, int[] vertexData, EnumFacing face, float[] quadBounds, BitSet boundsFlags) {
 
 		float f = 32.0F;
 		float f1 = 32.0F;

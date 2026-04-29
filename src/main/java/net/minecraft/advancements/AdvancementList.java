@@ -6,8 +6,6 @@ import com.google.common.collect.Sets;
 import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -133,13 +131,13 @@ public class AdvancementList {
 		return advancements.values();
 	}
 
-	@Nullable
+	
 	public Advancement getAdvancement(ResourceLocation id) {
 
 		return advancements.get(id);
 	}
 
-	public void setListener(@Nullable AdvancementList.Listener listenerIn) {
+	public void setListener(AdvancementList.Listener listenerIn) {
 
 		listener = listenerIn;
 

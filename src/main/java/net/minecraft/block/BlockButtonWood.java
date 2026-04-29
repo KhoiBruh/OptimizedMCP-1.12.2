@@ -6,8 +6,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class BlockButtonWood extends BlockButton {
 
 	protected BlockButtonWood() {
@@ -15,7 +13,7 @@ public class BlockButtonWood extends BlockButton {
 		super(true);
 	}
 
-	protected void playClickSound(@Nullable EntityPlayer player, World worldIn, BlockPos pos) {
+	protected void playClickSound(EntityPlayer player, World worldIn, BlockPos pos) {
 
 		worldIn.playSound(player, pos, SoundEvents.BLOCK_WOOD_BUTTON_CLICK_ON, SoundCategory.BLOCKS, 0.3F, 0.6F);
 	}

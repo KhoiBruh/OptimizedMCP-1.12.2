@@ -17,8 +17,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldNameable;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public abstract class BlockContainer extends Block implements ITileEntityProvider {
 
 	protected BlockContainer(Material materialIn) {
@@ -64,7 +62,7 @@ public abstract class BlockContainer extends Block implements ITileEntityProvide
 	 * Spawns the block's drops in the world. By the time this is called the Block has possibly been set to air via
 	 * Block.removedByPlayer
 	 */
-	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
+	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
 
 		if (te instanceof IWorldNameable && ((IWorldNameable) te).hasCustomName()) {
 			player.addStat(StatList.getBlockStats(this));

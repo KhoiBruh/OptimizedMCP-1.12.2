@@ -9,8 +9,8 @@ public class ModelHumanoidHead extends ModelSkeletonHead {
 	public ModelHumanoidHead() {
 
 		super(0, 0, 64, 64);
-		head.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, 0.25F);
-		head.setRotationPoint(0.0F, 0.0F, 0.0F);
+		head.addBox(-4F, -8F, -4F, 8, 8, 8, 0.25F);
+		head.setRotationPoint(0F, 0F, 0F);
 	}
 
 	/**

@@ -5,8 +5,6 @@ import com.google.common.collect.Lists;
 import net.minecraft.client.resources.I18n;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.io.IOException;
 
 public class GuiWorldSelection extends GuiScreen {
@@ -139,7 +137,7 @@ public class GuiWorldSelection extends GuiScreen {
 		worldVersTooltip = p_184861_1_;
 	}
 
-	public void selectWorld(@Nullable GuiListWorldSelectionEntry entry) {
+	public void selectWorld(GuiListWorldSelectionEntry entry) {
 
 		boolean flag = entry != null;
 		selectButton.enabled = flag;

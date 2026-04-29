@@ -18,8 +18,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-import javax.annotation.Nullable;
-
 public class EntityCow extends EntityAnimal {
 
 	public EntityCow(World worldIn) {
@@ -80,7 +78,7 @@ public class EntityCow extends EntityAnimal {
 		return 0.4F;
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_COW;

@@ -9,11 +9,9 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.translation.I18n;
 
-import javax.annotation.Nullable;
-
 public class EntityDamageSource extends DamageSource {
 
-	@Nullable
+	
 	protected Entity damageSourceEntity;
 
 	/**
@@ -21,7 +19,7 @@ public class EntityDamageSource extends DamageSource {
 	 */
 	private boolean isThornsDamage;
 
-	public EntityDamageSource(String damageTypeIn, @Nullable Entity damageSourceEntityIn) {
+	public EntityDamageSource(String damageTypeIn, Entity damageSourceEntityIn) {
 
 		super(damageTypeIn);
 		damageSourceEntity = damageSourceEntityIn;
@@ -41,7 +39,7 @@ public class EntityDamageSource extends DamageSource {
 		return isThornsDamage;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Retrieves the true causer of the damage, e.g. the player who fired an arrow, the shulker who fired the bullet,
@@ -71,7 +69,7 @@ public class EntityDamageSource extends DamageSource {
 		return damageSourceEntity != null && damageSourceEntity instanceof EntityLivingBase && !(damageSourceEntity instanceof EntityPlayer);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Gets the location from which the damage originates.

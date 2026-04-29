@@ -22,14 +22,12 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-import javax.annotation.Nullable;
-
 public class EntityVex extends EntityMob {
 
 	protected static final DataParameter<Byte> VEX_FLAGS = EntityDataManager.createKey(EntityVex.class, DataSerializers.BYTE);
 	private EntityLiving owner;
 
-	@Nullable
+	
 	private BlockPos boundOrigin;
 	private boolean limitedLifespan;
 	private int limitedLifeTicks;
@@ -143,13 +141,13 @@ public class EntityVex extends EntityMob {
 		owner = ownerIn;
 	}
 
-	@Nullable
+	
 	public BlockPos getBoundOrigin() {
 
 		return boundOrigin;
 	}
 
-	public void setBoundOrigin(@Nullable BlockPos boundOriginIn) {
+	public void setBoundOrigin(BlockPos boundOriginIn) {
 
 		boundOrigin = boundOriginIn;
 	}
@@ -204,7 +202,7 @@ public class EntityVex extends EntityMob {
 		return SoundEvents.ENTITY_VEX_HURT;
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_VEX;
@@ -223,7 +221,7 @@ public class EntityVex extends EntityMob {
 		return 1.0F;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
@@ -239,7 +237,7 @@ public class EntityVex extends EntityMob {
 	 * @param difficulty The current local difficulty
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 
 		setEquipmentBasedOnDifficulty(difficulty);
 		setEnchantmentBasedOnDifficulty(difficulty);

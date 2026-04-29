@@ -11,8 +11,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class CommandResultStats {
 
 	/**
@@ -40,7 +38,7 @@ public class CommandResultStats {
 	/**
 	 * Set a stat in the scoreboard
 	 */
-	public static void setScoreBoardStat(CommandResultStats stats, CommandResultStats.Type resultType, @Nullable String entityID, @Nullable String objectiveName) {
+	public static void setScoreBoardStat(CommandResultStats stats, CommandResultStats.Type resultType, String entityID, String objectiveName) {
 
 		if (entityID != null && !entityID.isEmpty() && objectiveName != null && !objectiveName.isEmpty()) {
 			if (stats.entitiesID == STRING_RESULT_TYPES || stats.objectives == STRING_RESULT_TYPES) {
@@ -239,7 +237,7 @@ public class CommandResultStats {
 			return astring;
 		}
 
-		@Nullable
+		
 		public static CommandResultStats.Type getTypeByName(String name) {
 
 			for (CommandResultStats.Type commandresultstats$type : values()) {

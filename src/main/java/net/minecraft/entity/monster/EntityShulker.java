@@ -27,8 +27,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
@@ -62,7 +60,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 		EntityLiving.registerFixesMob(fixer, EntityShulker.class);
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
@@ -78,7 +76,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 	 * @param difficulty The current local difficulty
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 
 		renderYawOffset = 180.0F;
 		prevRenderYawOffset = 180.0F;
@@ -496,7 +494,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 		return getPeekTick() == 0;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns the <b>solid</b> collision bounding box for this entity. Used to make (e.g.) boats solid. Return null if
@@ -516,13 +514,13 @@ public class EntityShulker extends EntityGolem implements IMob {
 		return dataManager.get(ATTACHED_FACE);
 	}
 
-	@Nullable
+	
 	public BlockPos getAttachmentPos() {
 
 		return dataManager.get(ATTACHED_BLOCK_POS).orNull();
 	}
 
-	public void setAttachmentPos(@Nullable BlockPos pos) {
+	public void setAttachmentPos(BlockPos pos) {
 
 		dataManager.set(ATTACHED_BLOCK_POS, Optional.fromNullable(pos));
 	}
@@ -597,7 +595,7 @@ public class EntityShulker extends EntityGolem implements IMob {
 		return currentAttachmentPosition != null && getAttachmentPos() != null;
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_SHULKER;

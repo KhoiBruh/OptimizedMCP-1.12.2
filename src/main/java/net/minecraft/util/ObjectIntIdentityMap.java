@@ -3,8 +3,6 @@ package net.minecraft.util;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
-
-import javax.annotation.Nullable;
 import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -42,7 +40,7 @@ public class ObjectIntIdentityMap<T> implements IObjectIntIterable<T> {
 		return integer == null ? -1 : integer;
 	}
 
-	@Nullable
+	
 	public final T getByValue(int value) {
 
 		return value >= 0 && value < objectList.size() ? objectList.get(value) : null;

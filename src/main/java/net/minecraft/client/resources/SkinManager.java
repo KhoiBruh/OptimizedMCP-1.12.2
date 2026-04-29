@@ -16,8 +16,6 @@ import net.minecraft.client.renderer.ThreadDownloadImageData;
 import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nullable;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Map;
@@ -62,7 +60,7 @@ public class SkinManager {
 	/**
 	 * May download the skin if its not in the cache, can be passed a SkinManager#SkinAvailableCallback for handling
 	 */
-	public ResourceLocation loadSkin(final MinecraftProfileTexture profileTexture, final Type textureType, @Nullable final SkinManager.SkinAvailableCallback skinAvailableCallback) {
+	public ResourceLocation loadSkin(final MinecraftProfileTexture profileTexture, final Type textureType, final SkinManager.SkinAvailableCallback skinAvailableCallback) {
 
 		final ResourceLocation resourcelocation = new ResourceLocation("skins/" + profileTexture.getHash());
 		ITextureObject itextureobject = textureManager.getTexture(resourcelocation);

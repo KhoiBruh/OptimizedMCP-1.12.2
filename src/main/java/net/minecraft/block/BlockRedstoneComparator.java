@@ -23,8 +23,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
@@ -144,7 +142,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
 		return i;
 	}
 
-	@Nullable
+	
 	private EntityItemFrame findItemFrame(World worldIn, final EnumFacing facing, BlockPos pos) {
 
 		List<EntityItemFrame> list = worldIn.getEntitiesWithinAABB(EntityItemFrame.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1), (Predicate<Entity>) p_apply_1_ -> p_apply_1_ != null && p_apply_1_.getHorizontalFacing() == facing);

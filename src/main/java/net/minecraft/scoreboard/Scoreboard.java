@@ -5,8 +5,6 @@ import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextFormatting;
-
-import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -85,7 +83,7 @@ public class Scoreboard {
 		return displaySlots;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns a ScoreObjective for the objective name
@@ -264,7 +262,7 @@ public class Scoreboard {
 		objectiveDisplaySlots[objectiveSlot] = objective;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * 0 is tab menu, 1 is sidebar, 2 is below name
@@ -372,7 +370,7 @@ public class Scoreboard {
 		return teams.values();
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Gets the ScorePlayerTeam object for the given username.

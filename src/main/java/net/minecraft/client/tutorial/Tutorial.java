@@ -12,13 +12,11 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentKeybind;
 import net.minecraft.world.GameType;
 
-import javax.annotation.Nullable;
-
 public class Tutorial {
 
 	private final Minecraft minecraft;
 
-	@Nullable
+	
 	private ITutorialStep tutorialStep;
 
 	public Tutorial(Minecraft minecraft) {
@@ -47,7 +45,7 @@ public class Tutorial {
 		}
 	}
 
-	public void onMouseHover(@Nullable WorldClient worldIn, @Nullable RayTraceResult result) {
+	public void onMouseHover(WorldClient worldIn, RayTraceResult result) {
 
 		if (tutorialStep != null && result != null && worldIn != null) {
 			tutorialStep.onMouseHover(worldIn, result);

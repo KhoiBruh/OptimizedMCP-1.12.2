@@ -15,8 +15,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-
-import javax.annotation.Nullable;
 import java.util.*;
 
 public class CommandScoreboard extends CommandBase {
@@ -904,7 +902,7 @@ public class CommandScoreboard extends CommandBase {
 		}
 	}
 
-	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
+	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
 
 		if (args.length == 1) {
 			return getListOfStringsMatchingLastWord(args, "objectives", "players", "teams");

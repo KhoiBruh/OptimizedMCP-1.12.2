@@ -24,8 +24,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
-
-import javax.annotation.Nullable;
 import java.util.Collection;
 
 public class EntityCreeper extends EntityMob {
@@ -229,7 +227,7 @@ public class EntityCreeper extends EntityMob {
 		return ((float) lastActiveTime + (float) (timeSinceIgnited - lastActiveTime) * p_70831_1_) / (float) (fuseTime - 2);
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_CREEPER;

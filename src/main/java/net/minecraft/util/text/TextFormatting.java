@@ -2,8 +2,6 @@ package net.minecraft.util.text;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-
-import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
@@ -91,27 +89,27 @@ public enum TextFormatting {
 		return p_175745_0_.toLowerCase(Locale.ROOT).replaceAll("[^a-z]", "");
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns a copy of the given string, with formatting codes stripped away.
 	 */
-	public static String getTextWithoutFormattingCodes(@Nullable String text) {
+	public static String getTextWithoutFormattingCodes(String text) {
 
 		return text == null ? null : FORMATTING_CODE_PATTERN.matcher(text).replaceAll("");
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Gets a value by its friendly name; null if the given name does not map to a defined value.
 	 */
-	public static TextFormatting getValueByName(@Nullable String friendlyName) {
+	public static TextFormatting getValueByName(String friendlyName) {
 
 		return friendlyName == null ? null : NAME_MAPPING.get(lowercaseAlpha(friendlyName));
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Get a TextFormatting from it's color index

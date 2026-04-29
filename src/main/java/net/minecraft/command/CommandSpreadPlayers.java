@@ -12,8 +12,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.*;
 
 public class CommandSpreadPlayers extends CommandBase {
@@ -241,7 +239,7 @@ public class CommandSpreadPlayers extends CommandBase {
 		return acommandspreadplayers$position;
 	}
 
-	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
+	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
 
 		return args.length >= 1 && args.length <= 2 ? getTabCompletionCoordinateXZ(args, 0, targetPos) : Collections.emptyList();
 	}

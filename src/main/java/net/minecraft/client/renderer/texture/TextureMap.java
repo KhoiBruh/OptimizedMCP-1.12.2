@@ -14,8 +14,6 @@ import net.minecraft.util.math.MathHelper;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +37,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 		this(basePathIn, null);
 	}
 
-	public TextureMap(String basePathIn, @Nullable ITextureMapPopulator iconCreatorIn) {
+	public TextureMap(String basePathIn, ITextureMapPopulator iconCreatorIn) {
 
 		listAnimatedSprites = Lists.newArrayList();
 		mapRegisteredSprites = Maps.newHashMap();

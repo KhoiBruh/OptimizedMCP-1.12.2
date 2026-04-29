@@ -10,8 +10,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.GameType;
-
-import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.List;
 
@@ -214,7 +212,7 @@ public class SPacketPlayerListItem implements Packet<INetHandlerPlayClient> {
 		private final GameProfile profile;
 		private final ITextComponent displayName;
 
-		public AddPlayerData(GameProfile profileIn, int latencyIn, GameType gameModeIn, @Nullable ITextComponent displayNameIn) {
+		public AddPlayerData(GameProfile profileIn, int latencyIn, GameType gameModeIn, ITextComponent displayNameIn) {
 
 			profile = profileIn;
 			ping = latencyIn;
@@ -237,7 +235,7 @@ public class SPacketPlayerListItem implements Packet<INetHandlerPlayClient> {
 			return gamemode;
 		}
 
-		@Nullable
+		
 		public ITextComponent getDisplayName() {
 
 			return displayName;

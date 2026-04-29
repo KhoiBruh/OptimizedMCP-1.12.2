@@ -12,8 +12,6 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.potion.PotionType;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -91,7 +89,7 @@ public class BrewedPotionTrigger implements ICriterionTrigger<BrewedPotionTrigge
 
 		private final PotionType potion;
 
-		public Instance(@Nullable PotionType potion) {
+		public Instance(PotionType potion) {
 
 			super(BrewedPotionTrigger.ID);
 			this.potion = potion;

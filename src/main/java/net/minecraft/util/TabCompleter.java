@@ -5,8 +5,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.network.play.client.CPacketTabComplete;
 import net.minecraft.util.math.BlockPos;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public abstract class TabCompleter {
@@ -66,7 +64,7 @@ public abstract class TabCompleter {
 		}
 	}
 
-	@Nullable
+	
 	public abstract BlockPos getTargetBlockPos();
 
 	/**

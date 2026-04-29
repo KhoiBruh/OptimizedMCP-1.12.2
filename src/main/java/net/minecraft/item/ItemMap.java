@@ -22,8 +22,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.storage.MapData;
-
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemMap extends ItemMapBase {
@@ -48,7 +46,7 @@ public class ItemMap extends ItemMapBase {
 		return itemstack;
 	}
 
-	@Nullable
+	
 	public static MapData loadMapData(int mapId, World worldIn) {
 
 		String s = "map_" + mapId;
@@ -199,7 +197,7 @@ public class ItemMap extends ItemMapBase {
 		}
 	}
 
-	@Nullable
+	
 	public MapData getMapData(ItemStack stack, World worldIn) {
 
 		String s = "map_" + stack.getMetadata();
@@ -379,7 +377,7 @@ public class ItemMap extends ItemMapBase {
 		}
 	}
 
-	@Nullable
+	
 	public Packet<?> createMapDataPacket(ItemStack stack, World worldIn, EntityPlayer player) {
 
 		return getMapData(stack, worldIn).getMapPacket(stack, worldIn, player);
@@ -406,7 +404,7 @@ public class ItemMap extends ItemMapBase {
 	/**
 	 * allows items to add custom lines of information to the mouseover description
 	 */
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 
 		if (flagIn.isAdvanced()) {
 			MapData mapdata = worldIn == null ? null : getMapData(stack, worldIn);

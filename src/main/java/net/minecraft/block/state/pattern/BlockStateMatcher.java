@@ -6,8 +6,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-
-import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -27,7 +25,7 @@ public class BlockStateMatcher implements Predicate<IBlockState> {
 		return new BlockStateMatcher(blockIn.getBlockState());
 	}
 
-	public boolean apply(@Nullable IBlockState p_apply_1_) {
+	public boolean apply(IBlockState p_apply_1_) {
 
 		if (p_apply_1_ != null && p_apply_1_.getBlock().equals(blockstate.getBlock())) {
 			if (propertyPredicates.isEmpty()) {

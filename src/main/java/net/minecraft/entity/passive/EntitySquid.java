@@ -14,8 +14,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-import javax.annotation.Nullable;
-
 public class EntitySquid extends EntityWaterMob {
 
 	public float squidPitch;
@@ -114,7 +112,7 @@ public class EntitySquid extends EntityWaterMob {
 		return false;
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_SQUID;

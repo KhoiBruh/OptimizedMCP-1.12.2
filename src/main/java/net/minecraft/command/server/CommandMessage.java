@@ -7,8 +7,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-
-import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -67,7 +65,7 @@ public class CommandMessage extends CommandBase {
 		}
 	}
 
-	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
+	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
 
 		return getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames());
 	}

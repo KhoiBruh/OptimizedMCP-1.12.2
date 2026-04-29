@@ -15,8 +15,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.RegistryNamespaced;
-
-import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
@@ -61,7 +59,7 @@ public class Potion {
 		liquidColor = liquidColorIn;
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Gets a Potion from the potion registry using a numeric Id.
@@ -79,7 +77,7 @@ public class Potion {
 		return REGISTRY.getIDForObject(potionIn);
 	}
 
-	@Nullable
+	
 	public static Potion getPotionFromResourceLocation(String location) {
 
 		return REGISTRY.getObject(new ResourceLocation(location));
@@ -162,7 +160,7 @@ public class Potion {
 		}
 	}
 
-	public void affectEntity(@Nullable Entity source, @Nullable Entity indirectSource, EntityLivingBase entityLivingBaseIn, int amplifier, double health) {
+	public void affectEntity(Entity source, Entity indirectSource, EntityLivingBase entityLivingBaseIn, int amplifier, double health) {
 
 		if ((this != MobEffects.INSTANT_HEALTH || entityLivingBaseIn.isEntityUndead()) && (this != MobEffects.INSTANT_DAMAGE || !entityLivingBaseIn.isEntityUndead())) {
 			if (this == MobEffects.INSTANT_DAMAGE && !entityLivingBaseIn.isEntityUndead() || this == MobEffects.INSTANT_HEALTH && entityLivingBaseIn.isEntityUndead()) {

@@ -24,8 +24,6 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-import javax.annotation.Nullable;
-
 public class EntityGuardian extends EntityMob {
 
 	private static final DataParameter<Boolean> MOVING = EntityDataManager.createKey(EntityGuardian.class, DataSerializers.BOOLEAN);
@@ -114,7 +112,7 @@ public class EntityGuardian extends EntityMob {
 		return dataManager.get(TARGET_ENTITY) != 0;
 	}
 
-	@Nullable
+	
 	public EntityLivingBase getTargetedEntity() {
 
 		if (!hasTargetedEntity()) {
@@ -306,7 +304,7 @@ public class EntityGuardian extends EntityMob {
 		return ((float) clientSideAttackTime + p_175477_1_) / (float) getAttackDuration();
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_GUARDIAN;
@@ -520,7 +518,7 @@ public class EntityGuardian extends EntityMob {
 			parentEntity = guardian;
 		}
 
-		public boolean apply(@Nullable EntityLivingBase p_apply_1_) {
+		public boolean apply(EntityLivingBase p_apply_1_) {
 
 			return (p_apply_1_ instanceof EntityPlayer || p_apply_1_ instanceof EntitySquid) && p_apply_1_.getDistanceSq(parentEntity) > 9.0D;
 		}

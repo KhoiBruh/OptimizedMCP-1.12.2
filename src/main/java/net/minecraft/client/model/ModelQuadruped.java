@@ -12,28 +12,28 @@ public class ModelQuadruped extends ModelBase {
 	public ModelRenderer leg2;
 	public ModelRenderer leg3;
 	public ModelRenderer leg4;
-	protected float childYOffset = 8.0F;
-	protected float childZOffset = 4.0F;
+	protected float childYOffset = 8F;
+	protected float childZOffset = 4F;
 
 	public ModelQuadruped(int height, float scale) {
 
-		head.addBox(-4.0F, -4.0F, -8.0F, 8, 8, 8, scale);
-		head.setRotationPoint(0.0F, (float) (18 - height), -6.0F);
+		head.addBox(-4F, -4F, -8F, 8, 8, 8, scale);
+		head.setRotationPoint(0F, (float) (18 - height), -6F);
 		body = new ModelRenderer(this, 28, 8);
-		body.addBox(-5.0F, -10.0F, -7.0F, 10, 16, 8, scale);
-		body.setRotationPoint(0.0F, (float) (17 - height), 2.0F);
+		body.addBox(-5F, -10F, -7F, 10, 16, 8, scale);
+		body.setRotationPoint(0F, (float) (17 - height), 2F);
 		leg1 = new ModelRenderer(this, 0, 16);
-		leg1.addBox(-2.0F, 0.0F, -2.0F, 4, height, 4, scale);
-		leg1.setRotationPoint(-3.0F, (float) (24 - height), 7.0F);
+		leg1.addBox(-2F, 0F, -2F, 4, height, 4, scale);
+		leg1.setRotationPoint(-3F, (float) (24 - height), 7F);
 		leg2 = new ModelRenderer(this, 0, 16);
-		leg2.addBox(-2.0F, 0.0F, -2.0F, 4, height, 4, scale);
-		leg2.setRotationPoint(3.0F, (float) (24 - height), 7.0F);
+		leg2.addBox(-2F, 0F, -2F, 4, height, 4, scale);
+		leg2.setRotationPoint(3F, (float) (24 - height), 7F);
 		leg3 = new ModelRenderer(this, 0, 16);
-		leg3.addBox(-2.0F, 0.0F, -2.0F, 4, height, 4, scale);
-		leg3.setRotationPoint(-3.0F, (float) (24 - height), -5.0F);
+		leg3.addBox(-2F, 0F, -2F, 4, height, 4, scale);
+		leg3.setRotationPoint(-3F, (float) (24 - height), -5F);
 		leg4 = new ModelRenderer(this, 0, 16);
-		leg4.addBox(-2.0F, 0.0F, -2.0F, 4, height, 4, scale);
-		leg4.setRotationPoint(3.0F, (float) (24 - height), -5.0F);
+		leg4.addBox(-2F, 0F, -2F, 4, height, 4, scale);
+		leg4.setRotationPoint(3F, (float) (24 - height), -5F);
 	}
 
 	/**
@@ -44,14 +44,14 @@ public class ModelQuadruped extends ModelBase {
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
 		if (isChild) {
-			float f = 2.0F;
+			float f = 2F;
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(0.0F, childYOffset * scale, childZOffset * scale);
+			GlStateManager.translate(0F, childYOffset * scale, childZOffset * scale);
 			head.render(scale);
 			GlStateManager.popMatrix();
 			GlStateManager.pushMatrix();
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);
-			GlStateManager.translate(0.0F, 24.0F * scale, 0.0F);
+			GlStateManager.translate(0F, 24F * scale, 0F);
 			body.render(scale);
 			leg1.render(scale);
 			leg2.render(scale);

@@ -7,8 +7,6 @@ import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.MetadataSerializer;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.io.IOUtils;
-
-import javax.annotation.Nullable;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -51,7 +49,7 @@ public class SimpleResource implements IResource {
 		return mcmetaInputStream != null;
 	}
 
-	@Nullable
+	
 	public <T extends IMetadataSection> T getMetadata(String sectionName) {
 
 		if (!hasMetadata()) {

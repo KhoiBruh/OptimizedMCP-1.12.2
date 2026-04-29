@@ -16,8 +16,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class BlockTrapDoor extends Block {
 
 	public static final PropertyDirection FACING = BlockHorizontal.FACING;
@@ -113,7 +111,7 @@ public class BlockTrapDoor extends Block {
 		}
 	}
 
-	protected void playSound(@Nullable EntityPlayer player, World worldIn, BlockPos pos, boolean p_185731_4_) {
+	protected void playSound(EntityPlayer player, World worldIn, BlockPos pos, boolean p_185731_4_) {
 
 		if (p_185731_4_) {
 			int i = blockMaterial == Material.IRON ? 1037 : 1007;

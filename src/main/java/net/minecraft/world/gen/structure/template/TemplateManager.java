@@ -8,8 +8,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.datafix.FixTypes;
 import org.apache.commons.io.IOUtils;
-
-import javax.annotation.Nullable;
 import java.io.*;
 import java.util.Map;
 
@@ -29,7 +27,7 @@ public class TemplateManager {
 		fixer = p_i47239_2_;
 	}
 
-	public Template getTemplate(@Nullable MinecraftServer server, ResourceLocation id) {
+	public Template getTemplate(MinecraftServer server, ResourceLocation id) {
 
 		Template template = get(server, id);
 
@@ -41,8 +39,8 @@ public class TemplateManager {
 		return template;
 	}
 
-	@Nullable
-	public Template get(@Nullable MinecraftServer server, ResourceLocation templatePath) {
+	
+	public Template get(MinecraftServer server, ResourceLocation templatePath) {
 
 		String s = templatePath.getResourcePath();
 
@@ -131,7 +129,7 @@ public class TemplateManager {
 	/**
 	 * writes the template to an external folder
 	 */
-	public boolean writeTemplate(@Nullable MinecraftServer server, ResourceLocation id) {
+	public boolean writeTemplate(MinecraftServer server, ResourceLocation id) {
 
 		String s = id.getResourcePath();
 

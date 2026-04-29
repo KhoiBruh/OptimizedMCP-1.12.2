@@ -16,8 +16,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-import javax.annotation.Nullable;
-
 public class EntityWitherSkeleton extends AbstractSkeleton {
 
 	public EntityWitherSkeleton(World worldIn) {
@@ -32,7 +30,7 @@ public class EntityWitherSkeleton extends AbstractSkeleton {
 		EntityLiving.registerFixesMob(fixer, EntityWitherSkeleton.class);
 	}
 
-	@Nullable
+	
 	protected ResourceLocation getLootTable() {
 
 		return LootTableList.ENTITIES_WITHER_SKELETON;
@@ -89,7 +87,7 @@ public class EntityWitherSkeleton extends AbstractSkeleton {
 
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
@@ -105,7 +103,7 @@ public class EntityWitherSkeleton extends AbstractSkeleton {
 	 * @param difficulty The current local difficulty
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 
 		IEntityLivingData ientitylivingdata = super.onInitialSpawn(difficulty, livingdata);
 		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);

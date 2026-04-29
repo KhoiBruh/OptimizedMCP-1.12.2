@@ -14,8 +14,6 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 import java.util.UUID;
 
 public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
@@ -187,7 +185,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 		}
 	}
 
-	@Nullable
+	
 	public EntityPlayerMP getLoveCause() {
 
 		if (playerInLove == null) {
@@ -206,7 +204,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 		return inLove > 0;
 	}
 
-	public void setInLove(@Nullable EntityPlayer player) {
+	public void setInLove(EntityPlayer player) {
 
 		inLove = 600;
 

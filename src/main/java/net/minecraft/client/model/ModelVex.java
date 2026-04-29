@@ -12,22 +12,22 @@ public class ModelVex extends ModelBiped {
 
 	public ModelVex() {
 
-		this(0.0F);
+		this(0F);
 	}
 
 	public ModelVex(float p_i47224_1_) {
 
-		super(p_i47224_1_, 0.0F, 64, 64);
+		super(p_i47224_1_, 0F, 64, 64);
 		bipedLeftLeg.showModel = false;
 		bipedHeadwear.showModel = false;
 		bipedRightLeg = new ModelRenderer(this, 32, 0);
-		bipedRightLeg.addBox(-1.0F, -1.0F, -2.0F, 6, 10, 4, 0.0F);
-		bipedRightLeg.setRotationPoint(-1.9F, 12.0F, 0.0F);
+		bipedRightLeg.addBox(-1F, -1F, -2F, 6, 10, 4, 0F);
+		bipedRightLeg.setRotationPoint(-1.9F, 12F, 0F);
 		rightWing = new ModelRenderer(this, 0, 32);
-		rightWing.addBox(-20.0F, 0.0F, 0.0F, 20, 12, 1);
+		rightWing.addBox(-20F, 0F, 0F, 20, 12, 1);
 		leftWing = new ModelRenderer(this, 0, 32);
 		leftWing.mirror = true;
-		leftWing.addBox(0.0F, 0.0F, 0.0F, 20, 12, 1);
+		leftWing.addBox(0F, 0F, 0F, 20, 12, 1);
 	}
 
 	/**
@@ -59,10 +59,10 @@ public class ModelVex extends ModelBiped {
 		}
 
 		bipedRightLeg.rotateAngleX += ((float) Math.PI / 5F);
-		rightWing.rotationPointZ = 2.0F;
-		leftWing.rotationPointZ = 2.0F;
-		rightWing.rotationPointY = 1.0F;
-		leftWing.rotationPointY = 1.0F;
+		rightWing.rotationPointZ = 2F;
+		leftWing.rotationPointZ = 2F;
+		rightWing.rotationPointY = 1F;
+		leftWing.rotationPointY = 1F;
 		rightWing.rotateAngleY = 0.47123894F + MathHelper.cos(ageInTicks * 0.8F) * (float) Math.PI * 0.05F;
 		leftWing.rotateAngleY = -rightWing.rotateAngleY;
 		leftWing.rotateAngleZ = -0.47123894F;

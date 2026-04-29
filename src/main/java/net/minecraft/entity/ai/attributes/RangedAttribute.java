@@ -2,15 +2,13 @@ package net.minecraft.entity.ai.attributes;
 
 import net.minecraft.util.math.MathHelper;
 
-import javax.annotation.Nullable;
-
 public class RangedAttribute extends BaseAttribute {
 
 	private final double minimumValue;
 	private final double maximumValue;
 	private String description;
 
-	public RangedAttribute(@Nullable IAttribute parentIn, String unlocalizedNameIn, double defaultValue, double minimumValueIn, double maximumValueIn) {
+	public RangedAttribute(IAttribute parentIn, String unlocalizedNameIn, double defaultValue, double minimumValueIn, double maximumValueIn) {
 
 		super(parentIn, unlocalizedNameIn, defaultValue);
 		minimumValue = minimumValueIn;

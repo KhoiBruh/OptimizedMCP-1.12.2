@@ -6,8 +6,6 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public class RenderLightningBolt extends Render<EntityLightningBolt> {
@@ -125,7 +123,7 @@ public class RenderLightningBolt extends Render<EntityLightningBolt> {
 		GlStateManager.enableTexture2D();
 	}
 
-	@Nullable
+	
 
 	/**
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.

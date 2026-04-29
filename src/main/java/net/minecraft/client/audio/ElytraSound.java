@@ -31,26 +31,26 @@ public class ElytraSound extends MovingSound {
 			yPosF = (float) player.posY;
 			zPosF = (float) player.posZ;
 			float f = MathHelper.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ + player.motionY * player.motionY);
-			float f1 = f / 2.0F;
+			float f1 = f / 2F;
 
 			if ((double) f >= 0.01D) {
-				volume = MathHelper.clamp(f1 * f1, 0.0F, 1.0F);
+				volume = MathHelper.clamp(f1 * f1, 0F, 1F);
 			} else {
-				volume = 0.0F;
+				volume = 0F;
 			}
 
 			if (time < 20) {
-				volume = 0.0F;
+				volume = 0F;
 			} else if (time < 40) {
-				volume = (float) ((double) volume * ((double) (time - 20) / 20.0D));
+				volume = (float) ((double) volume * ((double) (time - 20) / 20D));
 			}
 
 			float f2 = 0.8F;
 
 			if (volume > 0.8F) {
-				pitch = 1.0F + (volume - 0.8F);
+				pitch = 1F + (volume - 0.8F);
 			} else {
-				pitch = 1.0F;
+				pitch = 1F;
 			}
 		} else {
 			donePlaying = true;
