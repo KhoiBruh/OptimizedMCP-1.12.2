@@ -34,8 +34,7 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
 	
 	private final GuiScreen previousGuiScreen;
 	private final NetworkManager networkManager;
-	private GameProfile gameProfile;
-
+	
 	public NetHandlerLoginClient(NetworkManager networkManagerIn, Minecraft mcIn, GuiScreen previousScreenIn) {
 
 		networkManager = networkManagerIn;
@@ -80,8 +79,8 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
 	}
 
 	public void handleLoginSuccess(SPacketLoginSuccess packetIn) {
-
-		gameProfile = packetIn.getProfile();
+		
+		GameProfile gameProfile = packetIn.getProfile();
 		networkManager.setConnectionState(ConnectionState.PLAY);
 		networkManager.setNetHandler(new NetHandlerPlayClient(mc, previousGuiScreen, networkManager, gameProfile));
 	}

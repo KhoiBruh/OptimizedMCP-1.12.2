@@ -12,12 +12,12 @@ public abstract class Filtered implements IDataWalker {
 
 	private final ResourceLocation key;
 
-	public Filtered(Class<?> p_i47309_1_) {
+	public Filtered(Class<?> aClass) {
 
-		if (Entity.class.isAssignableFrom(p_i47309_1_)) {
-			key = EntityList.getKey((Class<Entity>) p_i47309_1_);
-		} else if (TileEntity.class.isAssignableFrom(p_i47309_1_)) {
-			key = TileEntity.getKey((Class<TileEntity>) p_i47309_1_);
+		if (Entity.class.isAssignableFrom(aClass)) {
+			key = EntityList.getKey((Class<Entity>) aClass);
+		} else if (TileEntity.class.isAssignableFrom(aClass)) {
+			key = TileEntity.getKey((Class<TileEntity>) aClass);
 		} else {
 			key = null;
 		}

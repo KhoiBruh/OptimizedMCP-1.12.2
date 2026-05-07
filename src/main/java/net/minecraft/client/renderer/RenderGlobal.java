@@ -14,9 +14,6 @@ import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.chunk.*;
-import net.minecraft.client.renderer.culling.ClippingHelper;
-import net.minecraft.client.renderer.culling.ClippingHelperImpl;
-import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -56,10 +53,9 @@ import net.minecraft.world.IWorldEventListener;
 import net.minecraft.world.World;
 import net.minecraft.world.border.WorldBorder;
 import net.minecraft.world.chunk.Chunk;
+import org.joml.Vector3f;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.util.vector.Vector3f;
-import org.lwjgl.util.vector.Vector4f;
 
 import java.io.IOException;
 import java.util.*;
@@ -88,8 +84,6 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 	private final Map<Integer, DestroyBlockProgress> damagedBlocks = Maps.newHashMap();
 	private final Map<BlockPos, ISound> mapSoundPositions = Maps.newHashMap();
 	private final TextureAtlasSprite[] destroyBlockIcons = new TextureAtlasSprite[10];
-	private final Vector4f[] debugTerrainMatrix = new Vector4f[8];
-	private final Vector3d debugTerrainFrustumPosition = new Vector3d();
 	private final Set<BlockPos> setLightUpdates = Sets.newHashSet();
 	IRenderChunkFactory renderChunkFactory;
 	private WorldClient world;
@@ -150,8 +144,6 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 	 * Count entities hidden
 	 */
 	private int countEntitiesHidden;
-	private boolean debugFixTerrainFrustum;
-	private ClippingHelper debugFixedClippingHelper;
 	private boolean vboEnabled;
 	private double prevRenderSortX;
 	private double prevRenderSortY;
@@ -751,6 +743,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			}
 
 			postRenderDamagedBlocks();
+			
 			mc.entityRenderer.disableLightmap();
 			mc.profiler.endSection();
 		}
@@ -835,12 +828,6 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		renderContainer.initialize(d3, d4, d5);
 		world.profiler.endStartSection("cull");
 
-		if (debugFixedClippingHelper != null) {
-			Frustum frustum = new Frustum(debugFixedClippingHelper);
-			frustum.setPosition(debugTerrainFrustumPosition.x, debugTerrainFrustumPosition.y, debugTerrainFrustumPosition.z);
-			camera = frustum;
-		}
-
 		mc.profiler.endStartSection("culling");
 		BlockPos blockpos1 = new BlockPos(d3, d4 + (double) viewEntity.getEyeHeight(), d5);
 		RenderChunk renderchunk = viewFrustum.getRenderChunk(blockpos1);
@@ -851,10 +838,9 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		lastViewEntityZ = viewEntity.posZ;
 		lastViewEntityPitch = viewEntity.rotationPitch;
 		lastViewEntityYaw = viewEntity.rotationYaw;
-		boolean flag = debugFixedClippingHelper != null;
 		mc.profiler.endStartSection("update");
 
-		if (!flag && displayListEntitiesDirty) {
+		if (displayListEntitiesDirty) {
 			displayListEntitiesDirty = false;
 			renderInfos = Lists.newArrayList();
 			Queue<RenderGlobal.ContainerLocalRenderInformation> queue = Queues.newArrayDeque();
@@ -923,13 +909,6 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			mc.profiler.endSection();
 		}
 
-		mc.profiler.endStartSection("captureFrustum");
-
-		if (debugFixTerrainFrustum) {
-			fixTerrainFrustum(d3, d4, d5);
-			debugFixTerrainFrustum = false;
-		}
-
 		mc.profiler.endStartSection("rebuildNear");
 		Set<RenderChunk> set = chunksToUpdate;
 		chunksToUpdate = Sets.newLinkedHashSet();
@@ -987,38 +966,6 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			return MathHelper.abs(playerPos.getZ() - blockpos.getZ()) > renderDistanceChunks * 16 ? null : viewFrustum.getRenderChunk(blockpos);
 		} else {
 			return null;
-		}
-	}
-
-	private void fixTerrainFrustum(double x, double y, double z) {
-
-		debugFixedClippingHelper = new ClippingHelperImpl();
-		((ClippingHelperImpl) debugFixedClippingHelper).init();
-		Matrix4f matrix4f = new Matrix4f(debugFixedClippingHelper.modelviewMatrix);
-		matrix4f.transpose();
-		Matrix4f matrix4f1 = new Matrix4f(debugFixedClippingHelper.projectionMatrix);
-		matrix4f1.transpose();
-		Matrix4f matrix4f2 = new Matrix4f();
-		Matrix4f.mul(matrix4f1, matrix4f, matrix4f2);
-		matrix4f2.invert();
-		debugTerrainFrustumPosition.x = x;
-		debugTerrainFrustumPosition.y = y;
-		debugTerrainFrustumPosition.z = z;
-		debugTerrainMatrix[0] = new Vector4f(-1F, -1F, -1F, 1F);
-		debugTerrainMatrix[1] = new Vector4f(1F, -1F, -1F, 1F);
-		debugTerrainMatrix[2] = new Vector4f(1F, 1F, -1F, 1F);
-		debugTerrainMatrix[3] = new Vector4f(-1F, 1F, -1F, 1F);
-		debugTerrainMatrix[4] = new Vector4f(-1F, -1F, 1F, 1F);
-		debugTerrainMatrix[5] = new Vector4f(1F, -1F, 1F, 1F);
-		debugTerrainMatrix[6] = new Vector4f(1F, 1F, 1F, 1F);
-		debugTerrainMatrix[7] = new Vector4f(-1F, 1F, 1F, 1F);
-
-		for (int i = 0; i < 8; ++i) {
-			Matrix4f.transform(matrix4f2, debugTerrainMatrix[i], debugTerrainMatrix[i]);
-			debugTerrainMatrix[i].x /= debugTerrainMatrix[i].w;
-			debugTerrainMatrix[i].y /= debugTerrainMatrix[i].w;
-			debugTerrainMatrix[i].z /= debugTerrainMatrix[i].w;
-			debugTerrainMatrix[i].w = 1F;
 		}
 	}
 
@@ -2319,7 +2266,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			DestroyBlockProgress destroyblockprogress = damagedBlocks.get(breakerId);
 
 			if (destroyblockprogress == null || destroyblockprogress.getPosition().getX() != pos.getX() || destroyblockprogress.getPosition().getY() != pos.getY() || destroyblockprogress.getPosition().getZ() != pos.getZ()) {
-				destroyblockprogress = new DestroyBlockProgress(breakerId, pos);
+				destroyblockprogress = new DestroyBlockProgress(pos);
 				damagedBlocks.put(breakerId, destroyblockprogress);
 			}
 

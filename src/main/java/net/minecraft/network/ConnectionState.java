@@ -16,6 +16,8 @@ import net.minecraft.network.status.client.CPacketServerQuery;
 import net.minecraft.network.status.server.SPacketPong;
 import net.minecraft.network.status.server.SPacketServerInfo;
 import org.apache.logging.log4j.LogManager;
+
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 public enum ConnectionState {
@@ -225,15 +227,14 @@ public enum ConnectionState {
 	}
 
 	public Integer getPacketId(PacketDirection direction, Packet<?> packetIn) {
-
-		return (Integer) ((BiMap) directionMaps.get(direction)).inverse().get(packetIn.getClass());
+		return directionMaps.get(direction).inverse().get(packetIn.getClass());
 	}
 
 	
-	public Packet<?> getPacket(PacketDirection direction, int packetId) throws InstantiationException, IllegalAccessException {
+	public Packet<?> getPacket(PacketDirection direction, int packetId) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 
-		Class<? extends Packet<?>> oclass = (Class) ((BiMap) directionMaps.get(direction)).get(packetId);
-		return oclass == null ? null : oclass.newInstance();
+		Class<? extends Packet<?>> oclass = directionMaps.get(direction).get(packetId);
+		return oclass == null ? null : oclass.getConstructor().newInstance();
 	}
 
 	public int getId() {

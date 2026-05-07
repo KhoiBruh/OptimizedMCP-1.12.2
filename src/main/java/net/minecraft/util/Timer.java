@@ -28,7 +28,7 @@ public class Timer {
 
 	public Timer(float tps) {
 
-		tickLength = 1000F / tps;
+		tickLength = 1000 / tps;
 		lastSyncSysClock = Minecraft.getSystemTime();
 	}
 

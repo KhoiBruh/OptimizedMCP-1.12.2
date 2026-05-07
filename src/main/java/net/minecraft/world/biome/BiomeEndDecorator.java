@@ -11,6 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenSpikes;
 
+import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -18,12 +19,14 @@ import java.util.concurrent.TimeUnit;
 
 public class BiomeEndDecorator extends BiomeDecorator {
 
-	private static final LoadingCache<Long, WorldGenSpikes.EndSpike[]> SPIKE_CACHE = CacheBuilder.newBuilder().expireAfterWrite(5L, TimeUnit.MINUTES).build(new BiomeEndDecorator.SpikeCacheLoader());
+	private static final LoadingCache<Long, WorldGenSpikes.EndSpike[]> SPIKE_CACHE = CacheBuilder.newBuilder()
+	                                                                                             .expireAfterWrite(Duration.ofMinutes(5L))
+	                                                                                             .build(new BiomeEndDecorator.SpikeCacheLoader());
 	private final WorldGenSpikes spikeGen = new WorldGenSpikes();
 
-	public static WorldGenSpikes.EndSpike[] getSpikesForWorld(World p_185426_0_) {
+	public static WorldGenSpikes.EndSpike[] getSpikesForWorld(World world) {
 
-		Random random = new Random(p_185426_0_.getSeed());
+		Random random = new Random(world.getSeed());
 		long i = random.nextLong() & 65535L;
 		return SPIKE_CACHE.getUnchecked(i);
 	}

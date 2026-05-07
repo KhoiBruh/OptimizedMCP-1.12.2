@@ -1293,7 +1293,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 
 	public <V> ListenableFuture<V> callFromMainThread(Callable<V> callable) {
 
-		Validate.notNull(callable);
+		Objects.requireNonNull(callable);
 
 		if (!isCallingFromMinecraftThread() && !isServerStopped()) {
 			ListenableFutureTask<V> listenablefuturetask = ListenableFutureTask.create(callable);
@@ -1312,8 +1312,8 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 	}
 
 	public ListenableFuture<Object> addScheduledTask(Runnable runnableToSchedule) {
-
-		Validate.notNull(runnableToSchedule);
+		
+		Objects.requireNonNull(runnableToSchedule);
 		return callFromMainThread(Executors.callable(runnableToSchedule));
 	}
 

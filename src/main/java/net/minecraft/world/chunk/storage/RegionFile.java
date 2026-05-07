@@ -11,34 +11,20 @@ import java.util.zip.InflaterInputStream;
 public class RegionFile {
 
 	private static final byte[] EMPTY_SECTOR = new byte[4096];
-	private final File fileName;
 	private final int[] offsets = new int[1024];
 	private final int[] chunkTimestamps = new int[1024];
 	private RandomAccessFile dataFile;
 	private List<Boolean> sectorFree;
-
-	/**
-	 * McRegion sizeDelta
-	 */
-	private int sizeDelta;
-	private long lastModified;
-
+	
 	public RegionFile(File fileNameIn) {
-
-		fileName = fileNameIn;
-		sizeDelta = 0;
-
+		
 		try {
-			if (fileNameIn.exists()) {
-				lastModified = fileNameIn.lastModified();
-			}
 
 			dataFile = new RandomAccessFile(fileNameIn, "rw");
 
 			if (dataFile.length() < 4096L) {
 				dataFile.write(EMPTY_SECTOR);
 				dataFile.write(EMPTY_SECTOR);
-				sizeDelta += 8192;
 			}
 
 			if ((dataFile.length() & 4095L) != 0L) {
@@ -201,8 +187,7 @@ public class RegionFile {
 						dataFile.write(EMPTY_SECTOR);
 						sectorFree.add(false);
 					}
-
-					sizeDelta += 4096 * l;
+					
 					write(j, data, length);
 					setOffset(x, z, j << 8 | l);
 				}

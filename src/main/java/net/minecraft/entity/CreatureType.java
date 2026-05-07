@@ -1,6 +1,5 @@
 package net.minecraft.entity;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityAmbientCreature;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -8,15 +7,14 @@ import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.entity.passive.IAnimals;
 
 public enum CreatureType {
-	MONSTER(IMob.class, 70, Material.AIR, false, false),
-	CREATURE(EntityAnimal.class, 10, Material.AIR, true, true),
-	AMBIENT(EntityAmbientCreature.class, 15, Material.AIR, true, false),
-	WATER_CREATURE(EntityWaterMob.class, 5, Material.WATER, true, false);
+	MONSTER(IMob.class, 70, false, false),
+	CREATURE(EntityAnimal.class, 10, true, true),
+	AMBIENT(EntityAmbientCreature.class, 15, true, false),
+	WATER_CREATURE(EntityWaterMob.class, 5, true, false);
 
 	private final Class<? extends IAnimals> creatureClass;
 	private final int maxNumberOfCreature;
-	private final Material creatureMaterial;
-
+	
 	/**
 	 * A flag indicating whether this creature type is peaceful.
 	 */
@@ -27,11 +25,10 @@ public enum CreatureType {
 	 */
 	private final boolean isAnimal;
 
-	CreatureType(Class<? extends IAnimals> creatureClassIn, int maxNumberOfCreatureIn, Material creatureMaterialIn, boolean isPeacefulCreatureIn, boolean isAnimalIn) {
+	CreatureType(Class<? extends IAnimals> creatureClassIn, int maxNumberOfCreatureIn, boolean isPeacefulCreatureIn, boolean isAnimalIn) {
 
 		creatureClass = creatureClassIn;
 		maxNumberOfCreature = maxNumberOfCreatureIn;
-		creatureMaterial = creatureMaterialIn;
 		isPeacefulCreature = isPeacefulCreatureIn;
 		isAnimal = isAnimalIn;
 	}

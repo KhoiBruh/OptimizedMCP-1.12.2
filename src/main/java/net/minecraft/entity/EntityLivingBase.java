@@ -1386,7 +1386,7 @@ public abstract class EntityLivingBase extends Entity {
 			if (damageAmount != 0F) {
 				float f1 = getHealth();
 				setHealth(f1 - damageAmount);
-				getCombatTracker().trackDamage(damageSrc, f1, damageAmount);
+				getCombatTracker().trackDamage(damageSrc, damageAmount);
 				setAbsorptionAmount(getAbsorptionAmount() - damageAmount);
 			}
 		}

@@ -89,7 +89,7 @@ public class BlockPattern {
 			}
 		}
 
-		return new BlockPattern.PatternHelper(pos, finger, thumb, lcache, palmLength, thumbLength, fingerLength);
+		return new BlockPattern.PatternHelper(pos, finger, thumb, lcache, palmLength, thumbLength);
 	}
 
 	
@@ -146,9 +146,8 @@ public class BlockPattern {
 		private final LoadingCache<BlockPos, BlockWorldState> lcache;
 		private final int width;
 		private final int height;
-		private final int depth;
-
-		public PatternHelper(BlockPos posIn, Facing fingerIn, Facing thumbIn, LoadingCache<BlockPos, BlockWorldState> lcacheIn, int widthIn, int heightIn, int depthIn) {
+		
+		public PatternHelper(BlockPos posIn, Facing fingerIn, Facing thumbIn, LoadingCache<BlockPos, BlockWorldState> lcacheIn, int widthIn, int heightIn) {
 
 			frontTopLeft = posIn;
 			forwards = fingerIn;
@@ -156,7 +155,6 @@ public class BlockPattern {
 			lcache = lcacheIn;
 			width = widthIn;
 			height = heightIn;
-			depth = depthIn;
 		}
 
 		public BlockPos getFrontTopLeft() {

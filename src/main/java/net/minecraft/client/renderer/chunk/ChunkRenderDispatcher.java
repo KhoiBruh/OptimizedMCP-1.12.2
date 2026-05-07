@@ -198,22 +198,22 @@ public class ChunkRenderDispatcher {
 		return flag;
 	}
 
-	public ListenableFuture<Object> uploadChunk(final BlockRenderLayer p_188245_1_, final BufferBuilder p_188245_2_, final RenderChunk p_188245_3_, final CompiledChunk p_188245_4_, final double p_188245_5_) {
+	public ListenableFuture<Object> uploadChunk(final BlockRenderLayer layer, final BufferBuilder bufferBuilder, final RenderChunk chunk, final CompiledChunk compiledChunk, final double v) {
 
 		if (Minecraft.getMinecraft().isCallingFromMinecraftThread()) {
 			if (OpenGlHelper.useVbo()) {
-				uploadVertexBuffer(p_188245_2_, p_188245_3_.getVertexBufferByLayer(p_188245_1_.ordinal()));
+				uploadVertexBuffer(bufferBuilder, chunk.getVertexBufferByLayer(layer.ordinal()));
 			} else {
-				uploadDisplayList(p_188245_2_, ((ListedRenderChunk) p_188245_3_).getDisplayList(p_188245_1_, p_188245_4_), p_188245_3_);
+				uploadDisplayList(bufferBuilder, ((ListedRenderChunk) chunk).getDisplayList(layer, compiledChunk), chunk);
 			}
 
-			p_188245_2_.setTranslation(0D, 0D, 0D);
+			bufferBuilder.setTranslation(0D, 0D, 0D);
 			return Futures.immediateFuture(null);
 		} else {
-			ListenableFutureTask<Object> listenablefuturetask = ListenableFutureTask.create(() -> uploadChunk(p_188245_1_, p_188245_2_, p_188245_3_, p_188245_4_, p_188245_5_), null);
+			ListenableFutureTask<Object> listenablefuturetask = ListenableFutureTask.create(() -> uploadChunk(layer, bufferBuilder, chunk, compiledChunk, v), null);
 
 			synchronized (queueChunkUploads) {
-				queueChunkUploads.add(new ChunkRenderDispatcher.PendingUpload(listenablefuturetask, p_188245_5_));
+				queueChunkUploads.add(new ChunkRenderDispatcher.PendingUpload(listenablefuturetask, v));
 				return listenablefuturetask;
 			}
 		}

@@ -10,6 +10,7 @@ import net.minecraft.util.text.ITextComponent;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
+import java.util.UUID;
 
 public class BossInfoServer extends BossInfo {
 
@@ -19,7 +20,7 @@ public class BossInfoServer extends BossInfo {
 
 	public BossInfoServer(ITextComponent nameIn, BossInfo.Color colorIn, BossInfo.Overlay overlayIn) {
 
-		super(MathHelper.getRandomUUID(), nameIn, colorIn, overlayIn);
+		super(UUID.randomUUID(), nameIn, colorIn, overlayIn);
 		readOnlyPlayers = Collections.unmodifiableSet(players);
 		visible = true;
 	}

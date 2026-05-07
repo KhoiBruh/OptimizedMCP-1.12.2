@@ -3,7 +3,7 @@ package net.minecraft.client.renderer.block.model;
 import com.google.gson.*;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.math.MathHelper;
-import org.lwjgl.util.vector.Quaternion;
+import org.joml.Quaternionf;
 
 import java.lang.reflect.Type;
 
@@ -76,7 +76,7 @@ public class ItemCameraTransforms {
 		}
 	}
 
-	private static Quaternion makeQuaternion(float p_188035_0_, float p_188035_1_, float p_188035_2_) {
+	private static Quaternionf makeQuaternion(float p_188035_0_, float p_188035_1_, float p_188035_2_) {
 
 		float f = p_188035_0_ * 0.017453292F;
 		float f1 = p_188035_1_ * 0.017453292F;
@@ -87,7 +87,7 @@ public class ItemCameraTransforms {
 		float f6 = MathHelper.cos(0.5F * f1);
 		float f7 = MathHelper.sin(0.5F * f2);
 		float f8 = MathHelper.cos(0.5F * f2);
-		return new Quaternion(f3 * f6 * f8 + f4 * f5 * f7, f4 * f5 * f8 - f3 * f6 * f7, f3 * f5 * f8 + f4 * f6 * f7, f4 * f6 * f8 - f3 * f5 * f7);
+		return new Quaternionf(f3 * f6 * f8 + f4 * f5 * f7, f4 * f5 * f8 - f3 * f6 * f7, f3 * f5 * f8 + f4 * f6 * f7, f4 * f6 * f8 - f3 * f5 * f7);
 	}
 
 	public void applyTransform(ItemCameraTransforms.TransformType type) {

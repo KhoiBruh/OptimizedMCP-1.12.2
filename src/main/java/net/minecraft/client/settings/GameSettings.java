@@ -606,7 +606,7 @@ public class GameSettings {
 			}
 
 			soundLevels.clear();
-			List<String> list = IOUtils.readLines(new FileInputStream(optionsFile));
+			List<String> list = IOUtils.readLines(new FileInputStream(optionsFile), StandardCharsets.UTF_8);
 			NBTTagCompound nbttagcompound = new NBTTagCompound();
 
 			for (String s : list) {

@@ -3,8 +3,7 @@ package net.minecraft.client.particle;
 import net.minecraft.world.World;
 
 public class ParticleEnchantmentTable extends Particle {
-
-	private final float oSize;
+	
 	private final double coordX;
 	private final double coordY;
 	private final double coordZ;
@@ -26,7 +25,6 @@ public class ParticleEnchantmentTable extends Particle {
 		posZ = prevPosZ;
 		float f = rand.nextFloat() * 0.6F + 0.4F;
 		particleScale = rand.nextFloat() * 0.5F + 0.2F;
-		oSize = particleScale;
 		particleRed = 0.9F * f;
 		particleGreen = 0.9F * f;
 		particleBlue = f;

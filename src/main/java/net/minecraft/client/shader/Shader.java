@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.IResourceManager;
-import org.lwjgl.util.vector.Matrix4f;
+import org.joml.Matrix4f;
 
 import java.io.IOException;
 import java.util.List;

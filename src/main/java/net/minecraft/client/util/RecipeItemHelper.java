@@ -130,7 +130,7 @@ public class RecipeItemHelper {
 					setSatisfied(path.getInt(l));
 
 					for (int i1 = 0; i1 < l; ++i1) {
-						toggleResidual((i1 & 1) == 0, path.get(i1), path.get(i1 + 1));
+						toggleResidual((i1 & 1) == 0, path.getInt(i1), path.getInt(i1 + 1));
 					}
 
 					path.clear();
@@ -317,7 +317,7 @@ public class RecipeItemHelper {
 				int i1;
 
 				for (IntListIterator intlistiterator = ingredient.getValidItemStacksPacked().iterator(); intlistiterator.hasNext(); l = Math.max(l, itemToCount.get(i1))) {
-					i1 = intlistiterator.next();
+					i1 = intlistiterator.nextInt();
 				}
 
 				if (k > 0) {

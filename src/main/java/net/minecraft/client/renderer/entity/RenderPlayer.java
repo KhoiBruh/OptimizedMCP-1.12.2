@@ -17,12 +17,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
-
-	/**
-	 * this field is used to indicate the 3-pixel wide arms
-	 */
-	private final boolean smallArms;
-
+	
 	public RenderPlayer(RenderManager renderManager) {
 
 		this(renderManager, false);
@@ -31,7 +26,6 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 	public RenderPlayer(RenderManager renderManager, boolean useSmallArms) {
 
 		super(renderManager, new ModelPlayer(0F, useSmallArms), 0.5F);
-		smallArms = useSmallArms;
 		addLayer(new LayerBipedArmor(this));
 		addLayer(new LayerHeldItem(this));
 		addLayer(new LayerArrow(this));

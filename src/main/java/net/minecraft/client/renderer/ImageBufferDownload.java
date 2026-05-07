@@ -7,18 +7,12 @@ import java.awt.image.DataBufferInt;
 public class ImageBufferDownload implements IImageBuffer {
 
 	private int[] imageData;
-	private int imageWidth;
-	private int imageHeight;
-
+	private final int imageSize = 64;
 	
 	public BufferedImage parseUserSkin(BufferedImage image) {
-
-		if (image == null) {
-			return null;
-		} else {
-			imageWidth = 64;
-			imageHeight = 64;
-			BufferedImage bufferedimage = new BufferedImage(imageWidth, imageHeight, 2);
+		
+		if (image != null) {
+			BufferedImage bufferedimage = new BufferedImage(imageSize, imageSize, 2);
 			Graphics graphics = bufferedimage.getGraphics();
 			graphics.drawImage(image, 0, 0, null);
 			boolean flag = image.getHeight() == 32;
@@ -44,13 +38,13 @@ public class ImageBufferDownload implements IImageBuffer {
 			imageData = ((DataBufferInt) bufferedimage.getRaster().getDataBuffer()).getData();
 			setAreaOpaque(0, 0, 32, 16);
 
-			if (flag) {
-				setAreaTransparent(32, 0, 64, 32);
-			}
+			if (flag) setAreaTransparent(32, 0, 64, 32);
 
 			setAreaOpaque(0, 16, 64, 32);
 			setAreaOpaque(16, 48, 48, 64);
 			return bufferedimage;
+		} else {
+			return null;
 		}
 	}
 
@@ -62,7 +56,7 @@ public class ImageBufferDownload implements IImageBuffer {
 
 		for (int i = x; i < width; ++i) {
 			for (int j = y; j < height; ++j) {
-				int k = imageData[i + j * imageWidth];
+				int k = imageData[i + j * imageSize];
 
 				if ((k >> 24 & 255) < 128) {
 					return;
@@ -72,7 +66,7 @@ public class ImageBufferDownload implements IImageBuffer {
 
 		for (int l = x; l < width; ++l) {
 			for (int i1 = y; i1 < height; ++i1) {
-				imageData[l + i1 * imageWidth] &= 16777215;
+				imageData[l + i1 * imageSize] &= 16777215;
 			}
 		}
 	}
@@ -84,7 +78,7 @@ public class ImageBufferDownload implements IImageBuffer {
 
 		for (int i = x; i < width; ++i) {
 			for (int j = y; j < height; ++j) {
-				imageData[i + j * imageWidth] |= -16777216;
+				imageData[i + j * imageSize] |= -16777216;
 			}
 		}
 	}

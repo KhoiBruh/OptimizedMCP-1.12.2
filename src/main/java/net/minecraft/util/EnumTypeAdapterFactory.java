@@ -15,9 +15,9 @@ import java.util.Map;
 public class EnumTypeAdapterFactory implements TypeAdapterFactory {
 
 	
-	public <T> TypeAdapter<T> create(Gson p_create_1_, TypeToken<T> p_create_2_) {
+	public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
 
-		Class<T> oclass = (Class<T>) p_create_2_.getRawType();
+		Class<T> oclass = (Class<T>) typeToken.getRawType();
 
 		if (!oclass.isEnum()) {
 			return null;

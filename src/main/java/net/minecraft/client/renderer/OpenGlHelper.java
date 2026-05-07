@@ -2,7 +2,6 @@ package net.minecraft.client.renderer;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.Util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -74,14 +73,11 @@ public class OpenGlHelper {
 	public static boolean openGL21;
 	public static boolean shadersSupported;
 	public static boolean vboSupported;
-	public static boolean vboSupportedAti;
 	public static int GL_ARRAY_BUFFER;
 	public static int GL_STATIC_DRAW;
 	private static OpenGlHelper.FboMode framebufferType;
-	private static boolean shadersAvailable;
 	private static boolean arbShaders;
 	private static boolean arbMultitexture;
-	private static boolean arbTextureEnvCombine;
 	private static boolean openGL14;
 	private static String logText = "";
 	private static String cpu;
@@ -94,7 +90,7 @@ public class OpenGlHelper {
 
 		ContextCapabilities contextcapabilities = GLContext.getCapabilities();
 		arbMultitexture = contextcapabilities.GL_ARB_multitexture && !contextcapabilities.OpenGL13;
-		arbTextureEnvCombine = contextcapabilities.GL_ARB_texture_env_combine && !contextcapabilities.OpenGL13;
+		boolean arbTextureEnvCombine = contextcapabilities.GL_ARB_texture_env_combine && !contextcapabilities.OpenGL13;
 
 		if (arbMultitexture) {
 			logText = logText + "Using ARB_multitexture.\n";
@@ -206,25 +202,21 @@ public class OpenGlHelper {
 		}
 
 		openGL21 = contextcapabilities.OpenGL21;
-		shadersAvailable = openGL21 || contextcapabilities.GL_ARB_vertex_shader && contextcapabilities.GL_ARB_fragment_shader && contextcapabilities.GL_ARB_shader_objects;
+		boolean shadersAvailable = openGL21 || contextcapabilities.GL_ARB_vertex_shader && contextcapabilities.GL_ARB_fragment_shader && contextcapabilities.GL_ARB_shader_objects;
 		logText = logText + "Shaders are " + (shadersAvailable ? "" : "not ") + "available because ";
 
 		if (shadersAvailable) {
 			if (contextcapabilities.OpenGL21) {
 				logText = logText + "OpenGL 2.1 is supported.\n";
 				arbShaders = false;
-				GL_LINK_STATUS = 35714;
-				GL_COMPILE_STATUS = 35713;
-				GL_VERTEX_SHADER = 35633;
-				GL_FRAGMENT_SHADER = 35632;
 			} else {
 				logText = logText + "ARB_shader_objects, ARB_vertex_shader, and ARB_fragment_shader are supported.\n";
 				arbShaders = true;
-				GL_LINK_STATUS = 35714;
-				GL_COMPILE_STATUS = 35713;
-				GL_VERTEX_SHADER = 35633;
-				GL_FRAGMENT_SHADER = 35632;
 			}
+			GL_LINK_STATUS = 35714;
+			GL_COMPILE_STATUS = 35713;
+			GL_VERTEX_SHADER = 35633;
+			GL_FRAGMENT_SHADER = 35632;
 		} else {
 			logText = logText + "OpenGL 2.1 is " + (contextcapabilities.OpenGL21 ? "" : "not ") + "supported, ";
 			logText = logText + "ARB_shader_objects is " + (contextcapabilities.GL_ARB_shader_objects ? "" : "not ") + "supported, ";
@@ -784,10 +776,10 @@ public class OpenGlHelper {
 				LOGGER.error("Couldn't open file", ioexception1);
 			}
 		} else if (Util.getOSType() == Util.OS.WINDOWS) {
-			String s1 = String.format("cmd.exe /C start \"Open file\" \"%s\"", s);
+			String[] cmd = new String[]{"cmd.exe", "/C", "start", "Open file", s };
 
 			try {
-				Runtime.getRuntime().exec(s1);
+				Runtime.getRuntime().exec(cmd);
 				return;
 			} catch (IOException ioexception) {
 				LOGGER.error("Couldn't open file", ioexception);

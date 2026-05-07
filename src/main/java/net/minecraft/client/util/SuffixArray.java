@@ -58,19 +58,8 @@ public class SuffixArray<T> {
 		final int[] aint1 = new int[i];
 		final int[] aint2 = new int[i];
 		int[] aint3 = new int[i];
-		IntComparator intcomparator = new IntComparator() {
-			public int compare(int p_compare_1_, int p_compare_2_) {
-
-				return aint1[p_compare_1_] == aint1[p_compare_2_] ? Integer.compare(aint2[p_compare_1_], aint2[p_compare_2_]) : Integer.compare(aint1[p_compare_1_], aint1[p_compare_2_]);
-			}
-
-			public int compare(Integer p_compare_1_, Integer p_compare_2_) {
-
-				return compare(p_compare_1_.intValue(), p_compare_2_.intValue());
-			}
-		};
-		Swapper swapper = (p_194054_3_, p_194054_4_) ->
-		{
+		IntComparator comparator = (one, another) -> aint1[one] == aint1[another] ? Integer.compare(aint2[one], aint2[another]) : Integer.compare(aint1[one], aint1[another]);
+		Swapper swapper = (p_194054_3_, p_194054_4_) -> {
 			if (p_194054_3_ != p_194054_4_) {
 				int i2 = aint1[p_194054_3_];
 				aint1[p_194054_3_] = aint1[p_194054_4_];
@@ -96,7 +85,7 @@ public class SuffixArray<T> {
 				aint2[l] = l + k1 < i ? aint[l + k1] : -2;
 			}
 
-			Arrays.quickSort(0, i, intcomparator, swapper);
+			Arrays.quickSort(0, i, comparator, swapper);
 
 			for (int l1 = 0; l1 < i; ++l1) {
 				if (l1 > 0 && aint1[l1] == aint1[l1 - 1] && aint2[l1] == aint2[l1 - 1]) {
@@ -146,7 +135,7 @@ public class SuffixArray<T> {
 				stringbuilder.append('^');
 			}
 
-			int l2 = chars.get(j2 + k2);
+			int l2 = chars.getInt(j2 + k2);
 
 			if (l2 == -1) {
 				break;

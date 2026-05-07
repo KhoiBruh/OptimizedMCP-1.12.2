@@ -52,11 +52,11 @@ public class CombatTracker {
 	/**
 	 * Adds an entry for the combat tracker
 	 */
-	public void trackDamage(DamageSource damageSrc, float healthIn, float damageAmount) {
+	public void trackDamage(DamageSource damageSrc, float damageAmount) {
 
 		reset();
 		calculateFallSuffix();
-		CombatEntry combatentry = new CombatEntry(damageSrc, fighter.ticksExisted, healthIn, damageAmount, fallSuffix, fighter.fallDistance);
+		CombatEntry combatentry = new CombatEntry(damageSrc, damageAmount, fallSuffix, fighter.fallDistance);
 		combatEntries.add(combatentry);
 		lastDamageTime = fighter.ticksExisted;
 		takingDamage = true;

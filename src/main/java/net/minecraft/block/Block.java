@@ -536,7 +536,6 @@ public class Block {
 		registerBlock(id, new ResourceLocation(textualID), block_);
 	}
 
-	@Deprecated
 
 	/**
 	 * Determines if the block is solid enough on the top side to support other blocks, like redstone components.
@@ -546,7 +545,6 @@ public class Block {
 		return state.getMaterial().isOpaque() && state.isFullCube();
 	}
 
-	@Deprecated
 
 	/**
 	 * @return true if the state occupies all of its 1x1x1 cube
@@ -556,19 +554,16 @@ public class Block {
 		return fullBlock;
 	}
 
-	@Deprecated
 	public boolean canEntitySpawn(IBlockState state, Entity entityIn) {
 
 		return true;
 	}
 
-	@Deprecated
 	public int getLightOpacity(IBlockState state) {
 
 		return lightOpacity;
 	}
 
-	@Deprecated
 
 	/**
 	 * Used in the renderer to apply ambient occlusion
@@ -578,13 +573,11 @@ public class Block {
 		return translucent;
 	}
 
-	@Deprecated
 	public int getLightValue(IBlockState state) {
 
 		return lightValue;
 	}
 
-	@Deprecated
 
 	/**
 	 * Should block use the brightest neighbor light value as its own
@@ -594,7 +587,6 @@ public class Block {
 		return useNeighborBrightness;
 	}
 
-	@Deprecated
 
 	/**
 	 * Get a material of block
@@ -604,7 +596,6 @@ public class Block {
 		return blockMaterial;
 	}
 
-	@Deprecated
 
 	/**
 	 * Get the MapColor for this Block and the given BlockState
@@ -614,7 +605,6 @@ public class Block {
 		return blockMapColor;
 	}
 
-	@Deprecated
 
 	/**
 	 * Convert the given metadata into a BlockState for this Block
@@ -636,7 +626,6 @@ public class Block {
 		}
 	}
 
-	@Deprecated
 
 	/**
 	 * Get the actual Block state of this Block at the given position. This applies properties not visible in the
@@ -647,7 +636,6 @@ public class Block {
 		return state;
 	}
 
-	@Deprecated
 
 	/**
 	 * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
@@ -658,7 +646,6 @@ public class Block {
 		return state;
 	}
 
-	@Deprecated
 
 	/**
 	 * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
@@ -696,7 +683,6 @@ public class Block {
 		return this;
 	}
 
-	@Deprecated
 
 	/**
 	 * Indicate if a material is a normal solid opaque cube
@@ -706,7 +692,6 @@ public class Block {
 		return state.getMaterial().blocksMovement() && state.isFullCube();
 	}
 
-	@Deprecated
 
 	/**
 	 * Used for nearly all game logic (non-rendering) purposes. Use Forge-provided isNormalCube(IBlockAccess, BlockPos)
@@ -717,19 +702,16 @@ public class Block {
 		return state.getMaterial().isOpaque() && state.isFullCube() && !state.canProvidePower();
 	}
 
-	@Deprecated
 	public boolean causesSuffocation(IBlockState state) {
 
 		return blockMaterial.blocksMovement() && getDefaultState().isFullCube();
 	}
 
-	@Deprecated
 	public boolean isFullCube(IBlockState state) {
 
 		return true;
 	}
 
-	@Deprecated
 	public boolean hasCustomBreakingProgress(IBlockState state) {
 
 		return false;
@@ -743,7 +725,6 @@ public class Block {
 		return !blockMaterial.blocksMovement();
 	}
 
-	@Deprecated
 
 	/**
 	 * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
@@ -782,7 +763,6 @@ public class Block {
 		return this;
 	}
 
-	@Deprecated
 	public float getBlockHardness(IBlockState blockState, World worldIn, BlockPos pos) {
 
 		return blockHardness;
@@ -811,13 +791,11 @@ public class Block {
 		return hasTileEntity;
 	}
 
-	@Deprecated
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
 		return FULL_BLOCK_AABB;
 	}
 
-	@Deprecated
 	public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
 
 		int i = source.getCombinedLight(pos, state.getLightValue());
@@ -831,7 +809,6 @@ public class Block {
 		}
 	}
 
-	@Deprecated
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
 		AxisAlignedBB axisalignedbb = blockState.getBoundingBox(blockAccess, pos);
@@ -881,7 +858,6 @@ public class Block {
 		return !blockAccess.getBlockState(pos.offset(side)).isOpaqueCube();
 	}
 
-	@Deprecated
 
 	/**
 	 * Get the geometry of the queried face at the given position and state. This is used to decide whether things like
@@ -896,7 +872,6 @@ public class Block {
 		return BlockFaceShape.SOLID;
 	}
 
-	@Deprecated
 
 	/**
 	 * Return an AABB (in world coords!) that should be highlighted when the player is targeting this Block
@@ -906,20 +881,17 @@ public class Block {
 		return state.getBoundingBox(worldIn, pos).offset(pos);
 	}
 
-	@Deprecated
 	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean isActualState) {
 
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, state.getCollisionBoundingBox(worldIn, pos));
 	}
 
-	@Deprecated
 	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 
 		return blockState.getBoundingBox(worldIn, pos);
 	}
 
-	@Deprecated
 
 	/**
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
@@ -966,7 +938,6 @@ public class Block {
 
 	}
 
-	@Deprecated
 
 	/**
 	 * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor
@@ -1015,7 +986,6 @@ public class Block {
 		return Item.getItemFromBlock(this);
 	}
 
-	@Deprecated
 
 	/**
 	 * Get the hardness of this Block relative to the ability of the given player
@@ -1090,7 +1060,6 @@ public class Block {
 		return blockResistance / 5F;
 	}
 
-	@Deprecated
 	
 
 	/**
@@ -1175,13 +1144,11 @@ public class Block {
 		return motion;
 	}
 
-	@Deprecated
 	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
 		return 0;
 	}
 
-	@Deprecated
 
 	/**
 	 * Can this block provide power. Only wire currently seems to have this change based on its state.
@@ -1198,7 +1165,6 @@ public class Block {
 
 	}
 
-	@Deprecated
 	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
 
 		return 0;
@@ -1284,7 +1250,6 @@ public class Block {
 		return this;
 	}
 
-	@Deprecated
 
 	/**
 	 * Called on server when World#addBlockEvent is called. If server returns true, then also called on the client. On
@@ -1310,13 +1275,11 @@ public class Block {
 		return this;
 	}
 
-	@Deprecated
 	public PushReaction getMobilityFlag(IBlockState state) {
 
 		return blockMaterial.getMobilityFlag();
 	}
 
-	@Deprecated
 	public float getAmbientOcclusionLightValue(IBlockState state) {
 
 		return state.isBlockNormalCube() ? 0.2F : 1F;
@@ -1399,13 +1362,11 @@ public class Block {
 		return this == other;
 	}
 
-	@Deprecated
 	public boolean hasComparatorInputOverride(IBlockState state) {
 
 		return false;
 	}
 
-	@Deprecated
 	public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
 
 		return 0;
@@ -1439,7 +1400,6 @@ public class Block {
 		return Block.OffsetType.NONE;
 	}
 
-	@Deprecated
 	public Vec3d getOffset(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 
 		Block.OffsetType block$enumoffsettype = getOffsetType();

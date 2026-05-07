@@ -13,7 +13,6 @@ import net.minecraft.client.gui.game.MapItemRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.culling.ClippingHelperImpl;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -1203,9 +1202,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		setupCameraTransform(partialTicks, pass);
 		ActiveRenderInfo.updateRenderInfo(mc.player, mc.gameSettings.thirdPersonView == 2);
 		mc.profiler.endStartSection("frustum");
-		ClippingHelperImpl.getInstance();
 		mc.profiler.endStartSection("culling");
-		ICamera icamera = new Frustum();
+		ICamera icamera = Frustum.getInstance();
 		Entity entity = mc.getRenderViewEntity();
 		double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double) partialTicks;
 		double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double) partialTicks;

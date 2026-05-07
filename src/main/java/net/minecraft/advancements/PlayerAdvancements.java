@@ -113,7 +113,7 @@ public class PlayerAdvancements {
 
 		if (progressFile.isFile()) {
 			try {
-				String s = Files.toString(progressFile, StandardCharsets.UTF_8);
+				String s = Files.asCharSource(progressFile, StandardCharsets.UTF_8).read();
 				Map<ResourceLocation, AdvancementProgress> map = JsonUtils.gsonDeserialize(GSON, s, MAP_TOKEN.getType());
 
 				if (map == null) {
@@ -160,7 +160,7 @@ public class PlayerAdvancements {
 		}
 
 		try {
-			Files.write(GSON.toJson(map), progressFile, StandardCharsets.UTF_8);
+			Files.asCharSink(progressFile, StandardCharsets.UTF_8).write(GSON.toJson(map));
 		} catch (IOException ioexception) {
 			LOGGER.error("Couldn't save player advancements to {}", progressFile, ioexception);
 		}

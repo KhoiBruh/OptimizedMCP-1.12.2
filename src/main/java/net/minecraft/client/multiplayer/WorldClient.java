@@ -273,7 +273,6 @@ public class WorldClient extends World {
 		return entity;
 	}
 
-	@Deprecated
 	public boolean invalidateRegionAndSetBlock(BlockPos pos, IBlockState state) {
 
 		int i = pos.getX();

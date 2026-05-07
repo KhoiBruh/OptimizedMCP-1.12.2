@@ -12,14 +12,13 @@ public class Session {
 	private final String username;
 	private final String playerID;
 	private final String token;
-	private final Session.Type sessionType;
-
+	
 	public Session(String usernameIn, String playerIDIn, String tokenIn, String sessionTypeIn) {
 
 		username = usernameIn;
 		playerID = playerIDIn;
 		token = tokenIn;
-		sessionType = Session.Type.setSessionType(sessionTypeIn);
+		Type.setSessionType(sessionTypeIn);
 	}
 
 	public String getSessionID() {

@@ -1,22 +1,43 @@
 package net.minecraft.client.renderer.culling;
 
+import net.minecraft.client.renderer.GLAllocation;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.math.AxisAlignedBB;
+import org.joml.FrustumIntersection;
+import org.joml.Matrix4f;
+
+import java.nio.FloatBuffer;
 
 public class Frustum implements ICamera {
 
-	private final ClippingHelper clippingHelper;
+	private static final Frustum instance = new Frustum();
+	private final Matrix4f projectionMatrix = new Matrix4f();
+	private final Matrix4f modelviewMatrix = new Matrix4f();
+	private final Matrix4f clipMatrix = new Matrix4f();
+	private final FrustumIntersection frustum = new FrustumIntersection();
+	private final FloatBuffer projectionMatrixBuffer = GLAllocation.createDirectFloatBuffer(16);
+	private final FloatBuffer modelviewMatrixBuffer = GLAllocation.createDirectFloatBuffer(16);
 	private double x;
 	private double y;
 	private double z;
 
-	public Frustum() {
+	public static Frustum getInstance() {
 
-		this(ClippingHelperImpl.getInstance());
+		instance.init();
+		return instance;
 	}
 
-	public Frustum(ClippingHelper clippingHelperIn) {
+	public void init() {
 
-		clippingHelper = clippingHelperIn;
+		projectionMatrixBuffer.clear();
+		modelviewMatrixBuffer.clear();
+		GlStateManager.getFloat(2983, projectionMatrixBuffer);
+		GlStateManager.getFloat(2982, modelviewMatrixBuffer);
+		projectionMatrixBuffer.rewind();
+		modelviewMatrixBuffer.rewind();
+		projectionMatrix.set(projectionMatrixBuffer);
+		modelviewMatrix.set(modelviewMatrixBuffer);
+		setClipMatrix(new Matrix4f(projectionMatrix).mul(modelviewMatrix));
 	}
 
 	public void setPosition(double xIn, double yIn, double zIn) {
@@ -29,17 +50,23 @@ public class Frustum implements ICamera {
 	/**
 	 * Calls the clipping helper. Returns true if the box is inside all 6 clipping planes, otherwise returns false.
 	 */
-	public boolean isBoxInFrustum(double p_78548_1_, double p_78548_3_, double p_78548_5_, double p_78548_7_, double p_78548_9_, double p_78548_11_) {
+	public boolean isBoxInFrustum(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
 
-		return clippingHelper.isBoxInFrustum(p_78548_1_ - x, p_78548_3_ - y, p_78548_5_ - z, p_78548_7_ - x, p_78548_9_ - y, p_78548_11_ - z);
+		return frustum.testAab((float) (minX - x), (float) (minY - y), (float) (minZ - z), (float) (maxX - x), (float) (maxY - y), (float) (maxZ - z));
 	}
 
 	/**
 	 * Returns true if the bounding box is inside all 6 clipping planes, otherwise returns false.
 	 */
-	public boolean isBoundingBoxInFrustum(AxisAlignedBB p_78546_1_) {
+	public boolean isBoundingBoxInFrustum(AxisAlignedBB bb) {
 
-		return isBoxInFrustum(p_78546_1_.minX, p_78546_1_.minY, p_78546_1_.minZ, p_78546_1_.maxX, p_78546_1_.maxY, p_78546_1_.maxZ);
+		return isBoxInFrustum(bb.minX, bb.minY, bb.minZ, bb.maxX, bb.maxY, bb.maxZ);
+	}
+
+	void setClipMatrix(Matrix4f matrix) {
+
+		clipMatrix.set(matrix);
+		frustum.set(clipMatrix);
 	}
 
 }

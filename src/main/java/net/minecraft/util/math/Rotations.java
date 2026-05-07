@@ -31,13 +31,13 @@ public record Rotations(float x, float y, float z) {
 		return nbttaglist;
 	}
 
-	public boolean equals(Object p_equals_1_) {
-
-		if (!(p_equals_1_ instanceof Rotations(float x1, float y1, float z1))) {
-			return false;
-		} else {
+	public boolean equals(Object other) {
+		
+		if (other instanceof Rotations(float x1, float y1, float z1)) {
 			return x == x1 && y == y1 && z == z1;
 		}
+		
+		return false;
 	}
 
 	/**

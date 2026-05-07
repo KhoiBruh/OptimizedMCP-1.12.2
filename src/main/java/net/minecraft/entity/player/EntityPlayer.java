@@ -1056,9 +1056,8 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
 			if (damageAmount != 0F) {
 				addExhaustion(damageSrc.getHungerDamage());
-				float f1 = getHealth();
 				setHealth(getHealth() - damageAmount);
-				getCombatTracker().trackDamage(damageSrc, f1, damageAmount);
+				getCombatTracker().trackDamage(damageSrc, damageAmount);
 
 				if (damageAmount < 3.4028235E37F) {
 					addStat(StatList.DAMAGE_TAKEN, Math.round(damageAmount * 10F));

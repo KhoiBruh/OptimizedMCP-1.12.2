@@ -14,22 +14,18 @@ import net.minecraft.world.World;
 public class DebugRendererWater implements DebugRenderer.IDebugRenderer {
 
 	private final Minecraft minecraft;
-	private EntityPlayer player;
-	private double xo;
-	private double yo;
-	private double zo;
-
+	
 	public DebugRendererWater(Minecraft minecraftIn) {
 
 		minecraft = minecraftIn;
 	}
 
 	public void render(float partialTicks, long finishTimeNano) {
-
-		player = minecraft.player;
-		xo = player.lastTickPosX + (player.posX - player.lastTickPosX) * (double) partialTicks;
-		yo = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double) partialTicks;
-		zo = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double) partialTicks;
+		
+		EntityPlayer player = minecraft.player;
+		double xo = player.lastTickPosX + (player.posX - player.lastTickPosX) * (double) partialTicks;
+		double yo = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double) partialTicks;
+		double zo = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double) partialTicks;
 		BlockPos blockpos = minecraft.player.getPosition();
 		World world = minecraft.player.world;
 		GlStateManager.enableBlend();

@@ -3,8 +3,8 @@ package net.minecraft.client.shader;
 import net.minecraft.client.renderer.OpenGlHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
-import org.lwjgl.util.vector.Matrix4f;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -197,7 +197,7 @@ public class ShaderUniform {
 
 	public void set(Matrix4f matrix) {
 
-		set(matrix.m00, matrix.m01, matrix.m02, matrix.m03, matrix.m10, matrix.m11, matrix.m12, matrix.m13, matrix.m20, matrix.m21, matrix.m22, matrix.m23, matrix.m30, matrix.m31, matrix.m32, matrix.m33);
+		set(matrix.m00(), matrix.m01(), matrix.m02(), matrix.m03(), matrix.m10(), matrix.m11(), matrix.m12(), matrix.m13(), matrix.m20(), matrix.m21(), matrix.m22(), matrix.m23(), matrix.m30(), matrix.m31(), matrix.m32(), matrix.m33());
 	}
 
 	public void upload() {

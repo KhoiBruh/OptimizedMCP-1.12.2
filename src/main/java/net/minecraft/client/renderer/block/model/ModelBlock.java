@@ -52,7 +52,7 @@ public class ModelBlock {
 
 	public static ModelBlock deserialize(Reader readerIn) {
 
-		return JsonUtils.gsonDeserialize(SERIALIZER, readerIn, ModelBlock.class, false);
+		return JsonUtils.gsonDeserialize(SERIALIZER, readerIn, ModelBlock.class);
 	}
 
 	public static ModelBlock deserialize(String jsonString) {

@@ -17,7 +17,6 @@ public class EntityAITasks {
 	 * Instance of Profiler.
 	 */
 	private final Profiler profiler;
-	private final int tickRate = 3;
 	private int tickCount;
 	private int disabledControlFlags;
 
@@ -61,7 +60,8 @@ public class EntityAITasks {
 	public void onUpdateTasks() {
 
 		profiler.startSection("goalSetup");
-
+		
+		int tickRate = 3;
 		if (tickCount++ % tickRate == 0) {
 			for (EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry : taskEntries) {
 				if (entityaitasks$entityaitaskentry.using) {

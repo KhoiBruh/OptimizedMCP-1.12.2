@@ -14,7 +14,7 @@ import java.util.List;
 public class NettyPacketDecoder extends ByteToMessageDecoder {
 
 	private static final Logger LOGGER = LogManager.getLogger();
-	private static final Marker RECEIVED_PACKET_MARKER = MarkerManager.getMarker("PACKET_RECEIVED", NetworkManager.NETWORK_PACKETS_MARKER);
+	private static final Marker RECEIVED_PACKET_MARKER = MarkerManager.getMarker("PACKET_RECEIVED").setParents(NetworkManager.NETWORK_PACKETS_MARKER);
 	private final PacketDirection direction;
 
 	public NettyPacketDecoder(PacketDirection direction) {

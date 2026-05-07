@@ -14,23 +14,15 @@ import java.util.Set;
 public class LootContext {
 
 	private final float luck;
-	private final WorldServer world;
 	private final LootTableManager lootTableManager;
-
-	
 	private final Entity lootedEntity;
-
-	
 	private final EntityPlayer player;
-
-	
 	private final DamageSource damageSource;
 	private final Set<LootTable> lootTables = Sets.newLinkedHashSet();
 
-	public LootContext(float luckIn, WorldServer worldIn, LootTableManager lootTableManagerIn, Entity lootedEntityIn, EntityPlayer playerIn, DamageSource damageSourceIn) {
+	public LootContext(float luckIn, LootTableManager lootTableManagerIn, Entity lootedEntityIn, EntityPlayer playerIn, DamageSource damageSourceIn) {
 
 		luck = luckIn;
-		world = worldIn;
 		lootTableManager = lootTableManagerIn;
 		lootedEntity = lootedEntityIn;
 		player = playerIn;
@@ -162,7 +154,7 @@ public class LootContext {
 
 		public LootContext build() {
 
-			return new LootContext(luck, world, world.getLootTableManager(), lootedEntity, player, damageSource);
+			return new LootContext(luck, world.getLootTableManager(), lootedEntity, player, damageSource);
 		}
 
 	}

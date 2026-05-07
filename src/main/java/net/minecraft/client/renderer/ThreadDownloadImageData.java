@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -108,7 +109,7 @@ public class ThreadDownloadImageData extends SimpleTexture {
 				ThreadDownloadImageData.LOGGER.debug("Downloading http texture from {} to {}", imageUrl, cacheFile);
 
 				try {
-					httpurlconnection = (HttpURLConnection) (new URL(imageUrl)).openConnection(Minecraft.getMinecraft().getProxy());
+					httpurlconnection = (HttpURLConnection) URI.create(imageUrl).toURL().openConnection(Minecraft.getMinecraft().getProxy());
 					httpurlconnection.setDoInput(true);
 					httpurlconnection.setDoOutput(false);
 					httpurlconnection.connect();

@@ -267,7 +267,7 @@ public abstract class Entity implements ICommandSender {
 		rand = new Random();
 		fire = -getFireImmuneTicks();
 		firstUpdate = true;
-		entityUniqueID = MathHelper.getRandomUUID(rand);
+		entityUniqueID = UUID.randomUUID();
 		cachedUniqueIdString = entityUniqueID.toString();
 		cmdResultStats = new CommandResultStats();
 		tags = Sets.newHashSet();

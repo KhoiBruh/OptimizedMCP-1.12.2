@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.time.Duration;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -37,7 +38,7 @@ public class SkinManager {
 		textureManager = textureManagerInstance;
 		skinCacheDir = skinCacheDirectory;
 		this.sessionService = sessionService;
-		skinCacheLoader = CacheBuilder.newBuilder().expireAfterAccess(15L, TimeUnit.SECONDS).build(new CacheLoader<>() {
+		skinCacheLoader = CacheBuilder.newBuilder().expireAfterAccess(Duration.ofSeconds(15L)).build(new CacheLoader<>() {
 			public Map<Type, MinecraftProfileTexture> load(GameProfile p_load_1_) {
 
 				try {

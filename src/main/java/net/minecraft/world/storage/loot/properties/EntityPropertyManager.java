@@ -14,10 +14,10 @@ public class EntityPropertyManager {
 		registerProperty(new EntityOnFire.Serializer());
 	}
 
-	public static <T extends EntityProperty> void registerProperty(EntityProperty.Serializer<? extends T> serializer) {
+	public static <T extends EntityProperty> void registerProperty(EntityProperty.Serializer<T> serializer) {
 
 		ResourceLocation resourcelocation = serializer.getName();
-		Class<T> oclass = (Class<T>) serializer.getPropertyClass();
+		Class<T> oclass = serializer.getPropertyClass();
 
 		if (NAME_TO_SERIALIZER_MAP.containsKey(resourcelocation)) {
 			throw new IllegalArgumentException("Can't re-register entity property name " + resourcelocation);

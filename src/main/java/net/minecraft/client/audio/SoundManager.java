@@ -19,15 +19,9 @@ import paulscode.sound.libraries.LibraryLWJGLOpenAL;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLStreamHandler;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.net.*;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 
 public class SoundManager {
 
@@ -47,8 +41,8 @@ public class SoundManager {
 	 * Reference to the GameSettings object.
 	 */
 	private final GameSettings options;
-	private final Map<String, ISound> playingSounds = HashBiMap.create();
-	private final Map<ISound, String> invPlayingSounds;
+	private final BiMap<String, ISound> playingSounds = HashBiMap.create();
+	private final BiMap<ISound, String> invPlayingSounds;
 	private final Multimap<SoundCategory, String> categorySounds;
 	private final List<ITickableSound> tickableSounds;
 	private final Map<ISound, Integer> delayedSounds;
@@ -70,7 +64,7 @@ public class SoundManager {
 
 	public SoundManager(SoundHandler p_i45119_1_, GameSettings p_i45119_2_) {
 
-		invPlayingSounds = ((BiMap) playingSounds).inverse();
+		invPlayingSounds = playingSounds.inverse();
 		categorySounds = HashMultimap.create();
 		tickableSounds = Lists.newArrayList();
 		delayedSounds = Maps.newHashMap();
@@ -108,7 +102,7 @@ public class SoundManager {
 		};
 
 		try {
-			return new URL(null, s, urlstreamhandler);
+			return URL.of(URI.create(s), urlstreamhandler);
 		} catch (MalformedURLException var4) {
 			throw new Error("TODO: Sanely handle url exception! :D");
 		}
@@ -381,7 +375,7 @@ public class SoundManager {
 							LOGGER.debug(LOG_MARKER, "Skipped playing sound {}, volume was zero.", sound.getSoundLocation());
 						} else {
 							boolean flag = p_sound.canRepeat() && p_sound.getRepeatDelay() == 0;
-							String s = MathHelper.getRandomUUID(ThreadLocalRandom.current()).toString();
+							String s = UUID.randomUUID().toString();
 							ResourceLocation resourcelocation1 = sound.getSoundAsOggLocation();
 
 							if (sound.isStreaming()) {

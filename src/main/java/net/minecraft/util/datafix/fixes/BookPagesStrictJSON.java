@@ -32,7 +32,7 @@ public class BookPagesStrictJSON implements IFixableData {
 					if (!"null".equals(s) && !StringUtils.isNullOrEmpty(s)) {
 						if (s.charAt(0) == '"' && s.charAt(s.length() - 1) == '"' || s.charAt(0) == '{' && s.charAt(s.length() - 1) == '}') {
 							try {
-								itextcomponent = JsonUtils.gsonDeserialize(SignStrictJSON.GSON_INSTANCE, s, ITextComponent.class, true);
+								itextcomponent = JsonUtils.gsonDeserialize(SignStrictJSON.GSON_INSTANCE, s, ITextComponent.class);
 
 								if (itextcomponent == null) {
 									itextcomponent = new TextComponentString("");

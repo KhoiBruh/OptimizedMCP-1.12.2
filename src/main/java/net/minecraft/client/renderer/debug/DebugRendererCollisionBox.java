@@ -12,22 +12,18 @@ import java.util.List;
 public class DebugRendererCollisionBox implements DebugRenderer.IDebugRenderer {
 
 	private final Minecraft minecraft;
-	private EntityPlayer player;
-	private double renderPosX;
-	private double renderPosY;
-	private double renderPosZ;
-
+	
 	public DebugRendererCollisionBox(Minecraft minecraftIn) {
 
 		minecraft = minecraftIn;
 	}
 
 	public void render(float partialTicks, long finishTimeNano) {
-
-		player = minecraft.player;
-		renderPosX = player.lastTickPosX + (player.posX - player.lastTickPosX) * (double) partialTicks;
-		renderPosY = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double) partialTicks;
-		renderPosZ = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double) partialTicks;
+		
+		EntityPlayer player = minecraft.player;
+		double renderPosX = player.lastTickPosX + (player.posX - player.lastTickPosX) * (double) partialTicks;
+		double renderPosY = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double) partialTicks;
+		double renderPosZ = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double) partialTicks;
 		World world = minecraft.player.world;
 		List<AxisAlignedBB> list = world.getCollisionBoxes(player, player.getEntityBoundingBox().grow(6D));
 		GlStateManager.enableBlend();

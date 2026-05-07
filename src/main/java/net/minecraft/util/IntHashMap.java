@@ -8,7 +8,7 @@ public class IntHashMap<V> {
 	 * The scale factor used to determine when to grow the table
 	 */
 	private final float growFactor = 0.75F;
-	private transient IntHashMap.Entry<V>[] slots = new IntHashMap.Entry[16];
+	private transient Entry<V>[] slots = new Entry[16];
 	/**
 	 * The number of items stored in this map
 	 */

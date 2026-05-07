@@ -19,7 +19,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class HttpUtil {
 
-	public static final ListeningExecutorService DOWNLOADER_EXECUTOR = MoreExecutors.listeningDecorator(Executors.newCachedThreadPool((new ThreadFactoryBuilder()).setDaemon(true).setNameFormat("Downloader %d").build()));
+	public static final ListeningExecutorService DOWNLOADER_EXECUTOR = MoreExecutors.listeningDecorator(
+			Executors.newCachedThreadPool(new ThreadFactoryBuilder().setDaemon(true).setNameFormat("Downloader %d").build())
+	);
 
 	/**
 	 * The number of download threads that we have started so far.
@@ -117,7 +119,7 @@ public class HttpUtil {
 			try {
 				try {
 					byte[] abyte = new byte[4096];
-					URL url = new URL(packUrl);
+					URL url = new URI(packUrl).toURL();
 					httpurlconnection = (HttpURLConnection) url.openConnection(p_180192_5_);
 					httpurlconnection.setInstanceFollowRedirects(true);
 					float f = 0F;
@@ -203,10 +205,10 @@ public class HttpUtil {
 					throwable.printStackTrace();
 
 					if (httpurlconnection != null) {
-						InputStream inputstream1 = httpurlconnection.getErrorStream();
+						InputStream errorStream = httpurlconnection.getErrorStream();
 
 						try {
-							HttpUtil.LOGGER.error(IOUtils.toString(inputstream1));
+							HttpUtil.LOGGER.error(IOUtils.toString(errorStream, StandardCharsets.UTF_8));
 						} catch (IOException ioexception) {
 							ioexception.printStackTrace();
 						}

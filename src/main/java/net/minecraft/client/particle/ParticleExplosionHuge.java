@@ -6,11 +6,7 @@ import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.World;
 
 public class ParticleExplosionHuge extends Particle {
-
-	/**
-	 * the maximum time for the explosion
-	 */
-	private final int maximumTime = 8;
+	
 	private int timeSinceStart;
 
 	protected ParticleExplosionHuge(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i1214_8_, double p_i1214_10_, double p_i1214_12_) {
@@ -26,7 +22,11 @@ public class ParticleExplosionHuge extends Particle {
 	}
 
 	public void onUpdate() {
-
+		
+		/**
+		 * the maximum time for the explosion
+		 */
+		int maximumTime = 8;
 		for (int i = 0; i < 6; ++i) {
 			double d0 = posX + (rand.nextDouble() - rand.nextDouble()) * 4D;
 			double d1 = posY + (rand.nextDouble() - rand.nextDouble()) * 4D;

@@ -117,7 +117,7 @@ public class SpectatorMenu {
 
 	public SpectatorDetails getCurrentPage() {
 
-		return new SpectatorDetails(category, getItems(), selectedSlot);
+		return new SpectatorDetails(getItems(), selectedSlot);
 	}
 
 	static class EndSpectatorObject implements ISpectatorMenuObject {

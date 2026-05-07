@@ -104,11 +104,6 @@ public class MathHelper {
 		return value < (double) i ? i - 1L : i;
 	}
 
-	public static int absFloor(double value) {
-
-		return (int) (value >= 0D ? value : -value + 1D);
-	}
-
 	public static float abs(float value) {
 
 		return value >= 0F ? value : -value;
@@ -255,13 +250,8 @@ public class MathHelper {
 
 		value = value % 360F;
 
-		if (value >= 180F) {
-			value -= 360F;
-		}
-
-		if (value < -180F) {
-			value += 360F;
-		}
+		if (value >= 180F) value -= 360F;
+		if (value < -180F) value += 360F;
 
 		return value;
 	}
@@ -273,13 +263,8 @@ public class MathHelper {
 
 		value = value % 360D;
 
-		if (value >= 180D) {
-			value -= 360D;
-		}
-
-		if (value < -180D) {
-			value += 360D;
-		}
+		if (value >= 180D) value -= 360D;
+		if (value < -180D) value += 360D;
 
 		return value;
 	}
@@ -291,13 +276,8 @@ public class MathHelper {
 
 		angle = angle % 360;
 
-		if (angle >= 180) {
-			angle -= 360;
-		}
-
-		if (angle < -180) {
-			angle += 360;
-		}
+		if (angle >= 180) angle -= 360;
+		if (angle < -180) angle += 360;
 
 		return angle;
 	}
@@ -455,62 +435,51 @@ public class MathHelper {
 		return i;
 	}
 
-	public static UUID getRandomUUID(Random rand) {
-
-		long i = rand.nextLong() & -61441L | 16384L;
-		long j = rand.nextLong() & 4611686018427387903L | Long.MIN_VALUE;
-		return new UUID(i, j);
-	}
-
-	/**
-	 * Generates a random UUID using the shared random
-	 */
-	public static UUID getRandomUUID() {
-
-		return getRandomUUID(RANDOM);
-	}
-
 	public static double pct(double p_181160_0_, double p_181160_2_, double p_181160_4_) {
 
 		return (p_181160_0_ - p_181160_2_) / (p_181160_4_ - p_181160_2_);
 	}
+	
+	public static float atan2(float y, float x) {
+		return (float) Math.atan2(y, x);
+	}
 
-	public static double atan2(double p_181159_0_, double p_181159_2_) {
+	public static double atan2(double y, double x) {
 
-		double d0 = p_181159_2_ * p_181159_2_ + p_181159_0_ * p_181159_0_;
+		double d0 = x * x + y * y;
 
 		if (Double.isNaN(d0)) {
 			return Double.NaN;
 		} else {
-			boolean flag = p_181159_0_ < 0D;
+			boolean flag = y < 0D;
 
 			if (flag) {
-				p_181159_0_ = -p_181159_0_;
+				y = -y;
 			}
 
-			boolean flag1 = p_181159_2_ < 0D;
+			boolean flag1 = x < 0D;
 
 			if (flag1) {
-				p_181159_2_ = -p_181159_2_;
+				x = -x;
 			}
 
-			boolean flag2 = p_181159_0_ > p_181159_2_;
+			boolean flag2 = y > x;
 
 			if (flag2) {
-				double d1 = p_181159_2_;
-				p_181159_2_ = p_181159_0_;
-				p_181159_0_ = d1;
+				double d1 = x;
+				x = y;
+				y = d1;
 			}
 
 			double d9 = fastInvSqrt(d0);
-			p_181159_2_ = p_181159_2_ * d9;
-			p_181159_0_ = p_181159_0_ * d9;
-			double d2 = FRAC_BIAS + p_181159_0_;
+			x = x * d9;
+			y = y * d9;
+			double d2 = FRAC_BIAS + y;
 			int i = (int) Double.doubleToRawLongBits(d2);
 			double d3 = ASINE_TAB[i];
 			double d4 = COS_TAB[i];
 			double d5 = d2 - FRAC_BIAS;
-			double d6 = p_181159_0_ * d4 - p_181159_2_ * d5;
+			double d6 = y * d4 - x * d5;
 			double d7 = (6D + d6 * d6) * d6 * 0.16666666666666666D;
 			double d8 = d3 + d7;
 
@@ -534,14 +503,14 @@ public class MathHelper {
 	 * Computes 1/sqrt(n) using <a href="https://en.wikipedia.org/wiki/Fast_inverse_square_root">the fast inverse square
 	 * root</a> with a constant of 0x5FE6EB50C7B537AA.
 	 */
-	public static double fastInvSqrt(double p_181161_0_) {
+	public static double fastInvSqrt(double value) {
 
-		double d0 = 0.5D * p_181161_0_;
-		long i = Double.doubleToRawLongBits(p_181161_0_);
+		double d0 = 0.5D * value;
+		long i = Double.doubleToRawLongBits(value);
 		i = 6910469410427058090L - (i >> 1);
-		p_181161_0_ = Double.longBitsToDouble(i);
-		p_181161_0_ = p_181161_0_ * (1.5D - d0 * p_181161_0_ * p_181161_0_);
-		return p_181161_0_;
+		value = Double.longBitsToDouble(i);
+		value = value * (1.5D - d0 * value * value);
+		return value;
 	}
 
 	public static int hsvToRGB(float hue, float saturation, float value) {
@@ -602,13 +571,13 @@ public class MathHelper {
 		return j << 16 | k << 8 | l;
 	}
 
-	public static int hash(int p_188208_0_) {
+	public static int hash(int value) {
 
-		p_188208_0_ = p_188208_0_ ^ p_188208_0_ >>> 16;
-		p_188208_0_ = p_188208_0_ * -2048144789;
-		p_188208_0_ = p_188208_0_ ^ p_188208_0_ >>> 13;
-		p_188208_0_ = p_188208_0_ * -1028477387;
-		p_188208_0_ = p_188208_0_ ^ p_188208_0_ >>> 16;
-		return p_188208_0_;
+		value = value ^ value >>> 16;
+		value = value * -2048144789;
+		value = value ^ value >>> 13;
+		value = value * -1028477387;
+		value = value ^ value >>> 16;
+		return value;
 	}
 }

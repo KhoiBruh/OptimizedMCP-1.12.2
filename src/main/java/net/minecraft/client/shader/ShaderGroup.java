@@ -12,7 +12,7 @@ import net.minecraft.client.util.JsonException;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.io.IOUtils;
-import org.lwjgl.util.vector.Matrix4f;
+import org.joml.Matrix4f;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -48,13 +48,11 @@ public class ShaderGroup {
 	}
 
 	public void parseGroup(TextureManager p_152765_1_, ResourceLocation p_152765_2_) throws IOException, JsonSyntaxException {
-
-		JsonParser jsonparser = new JsonParser();
 		IResource iresource = null;
 
 		try {
 			iresource = resourceManager.getResource(p_152765_2_);
-			JsonObject jsonobject = jsonparser.parse(IOUtils.toString(iresource.getInputStream(), StandardCharsets.UTF_8)).getAsJsonObject();
+			JsonObject jsonobject = JsonParser.parseString(IOUtils.toString(iresource.getInputStream(), StandardCharsets.UTF_8)).getAsJsonObject();
 
 			if (JsonUtils.isJsonArray(jsonobject, "targets")) {
 				JsonArray jsonarray = jsonobject.getAsJsonArray("targets");
@@ -288,15 +286,14 @@ public class ShaderGroup {
 
 	private void resetProjectionMatrix() {
 
-		projectionMatrix = new Matrix4f();
-		projectionMatrix.setIdentity();
-		projectionMatrix.m00 = 2F / (float) mainFramebuffer.framebufferTextureWidth;
-		projectionMatrix.m11 = 2F / (float) (-mainFramebuffer.framebufferTextureHeight);
-		projectionMatrix.m22 = -0.0020001999F;
-		projectionMatrix.m33 = 1F;
-		projectionMatrix.m03 = -1F;
-		projectionMatrix.m13 = 1F;
-		projectionMatrix.m23 = -1.0001999F;
+		projectionMatrix = new Matrix4f().zero();
+		projectionMatrix.m00(2F / (float) mainFramebuffer.framebufferTextureWidth);
+		projectionMatrix.m11(2F / (float) (-mainFramebuffer.framebufferTextureHeight));
+		projectionMatrix.m22(-0.0020001999F);
+		projectionMatrix.m33(1F);
+		projectionMatrix.m03(-1F);
+		projectionMatrix.m13(1F);
+		projectionMatrix.m23(-1.0001999F);
 	}
 
 	public void createBindFramebuffers(int width, int height) {

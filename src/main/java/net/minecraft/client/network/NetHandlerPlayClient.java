@@ -137,8 +137,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 	 * reset upon respawning
 	 */
 	private boolean doneLoadingTerrain;
-	private boolean hasStatistics;
-
+	
 	public NetHandlerPlayClient(Minecraft mcIn, GuiScreen p_i46300_2_, NetworkManager networkManagerIn, GameProfile profileIn) {
 
 		gameController = mcIn;
@@ -1181,9 +1180,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 			int k = entry.getValue();
 			gameController.player.getStatFileWriter().unlockAchievement(gameController.player, statbase, k);
 		}
-
-		hasStatistics = true;
-
+		
 		if (gameController.currentScreen instanceof IProgressMeter) {
 			((IProgressMeter) gameController.currentScreen).onStatsUpdated();
 		}

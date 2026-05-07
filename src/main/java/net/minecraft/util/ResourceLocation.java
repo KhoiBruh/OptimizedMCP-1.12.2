@@ -5,6 +5,7 @@ import org.apache.commons.lang3.Validate;
 
 import java.lang.reflect.Type;
 import java.util.Locale;
+import java.util.Objects;
 
 public class ResourceLocation implements Comparable<ResourceLocation> {
 
@@ -15,7 +16,7 @@ public class ResourceLocation implements Comparable<ResourceLocation> {
 
 		resourceDomain = org.apache.commons.lang3.StringUtils.isEmpty(resourceName[0]) ? "minecraft" : resourceName[0].toLowerCase(Locale.ROOT);
 		resourcePath = resourceName[1].toLowerCase(Locale.ROOT);
-		Validate.notNull(resourcePath);
+		Objects.requireNonNull(resourcePath);
 	}
 
 	public ResourceLocation(String resourceName) {

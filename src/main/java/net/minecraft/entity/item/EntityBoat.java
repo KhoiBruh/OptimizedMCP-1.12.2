@@ -39,7 +39,10 @@ public class EntityBoat extends Entity {
 	private static final DataParameter<Integer> FORWARD_DIRECTION = EntityDataManager.createKey(EntityBoat.class, DataSerializers.VARINT);
 	private static final DataParameter<Float> DAMAGE_TAKEN = EntityDataManager.createKey(EntityBoat.class, DataSerializers.FLOAT);
 	private static final DataParameter<Integer> BOAT_TYPE = EntityDataManager.createKey(EntityBoat.class, DataSerializers.VARINT);
-	private static final DataParameter<Boolean>[] DATA_ID_PADDLE = new DataParameter[]{EntityDataManager.createKey(EntityBoat.class, DataSerializers.BOOLEAN), EntityDataManager.createKey(EntityBoat.class, DataSerializers.BOOLEAN)};
+	private static final DataParameter<Boolean>[] DATA_ID_PADDLE = new DataParameter[]{
+			EntityDataManager.createKey(EntityBoat.class, DataSerializers.BOOLEAN),
+			EntityDataManager.createKey(EntityBoat.class, DataSerializers.BOOLEAN)
+	};
 	private final float[] paddlePositions;
 
 	/**

@@ -1,8 +1,8 @@
 package net.minecraft.client.renderer;
 
+import org.joml.Quaternionf;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
-import org.lwjgl.util.vector.Quaternion;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -629,12 +629,12 @@ public class GlStateManager {
 		GL11.glMultMatrix(matrix);
 	}
 
-	public static void rotate(Quaternion quaternionIn) {
+	public static void rotate(Quaternionf quaternionIn) {
 
 		multMatrix(quatToGlMatrix(BUF_FLOAT_16, quaternionIn));
 	}
 
-	public static FloatBuffer quatToGlMatrix(FloatBuffer buffer, Quaternion quaternionIn) {
+	public static FloatBuffer quatToGlMatrix(FloatBuffer buffer, Quaternionf quaternionIn) {
 
 		buffer.clear();
 		float f = quaternionIn.x * quaternionIn.x;

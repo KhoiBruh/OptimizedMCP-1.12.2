@@ -86,13 +86,13 @@ public interface ITextComponent extends Iterable<ITextComponent> {
 		
 		public static ITextComponent jsonToComponent(String json) {
 
-			return JsonUtils.gsonDeserialize(GSON, json, ITextComponent.class, false);
+			return JsonUtils.gsonDeserialize(GSON, json, ITextComponent.class);
 		}
 
 		
 		public static ITextComponent fromJsonLenient(String json) {
 
-			return JsonUtils.gsonDeserialize(GSON, json, ITextComponent.class, true);
+			return JsonUtils.gsonDeserialize(GSON, json, ITextComponent.class);
 		}
 
 		public ITextComponent deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {

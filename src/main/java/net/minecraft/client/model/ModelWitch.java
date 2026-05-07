@@ -4,18 +4,17 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 
 public class ModelWitch extends ModelVillager {
-
-	private final ModelRenderer mole = (new ModelRenderer(this)).setTextureSize(64, 128);
-	private final ModelRenderer witchHat;
+	
 	public boolean holdingItem;
 
 	public ModelWitch(float scale) {
 
 		super(scale, 0F, 64, 128);
+		ModelRenderer mole = new ModelRenderer(this).setTextureSize(64, 128);
 		mole.setRotationPoint(0F, -2F, 0F);
 		mole.setTextureOffset(0, 0).addBox(0F, 3F, -6.75F, 1, 1, 1, -0.25F);
 		villagerNose.addChild(mole);
-		witchHat = (new ModelRenderer(this)).setTextureSize(64, 128);
+		ModelRenderer witchHat = (new ModelRenderer(this)).setTextureSize(64, 128);
 		witchHat.setRotationPoint(-5F, -10.03125F, -5F);
 		witchHat.setTextureOffset(0, 64).addBox(0F, 0F, 0F, 10, 2, 10);
 		villagerHead.addChild(witchHat);

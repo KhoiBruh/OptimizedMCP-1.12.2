@@ -38,7 +38,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 
 	public static final Marker NETWORK_MARKER = MarkerManager.getMarker("NETWORK");
-	public static final Marker NETWORK_PACKETS_MARKER = MarkerManager.getMarker("NETWORK_PACKETS", NETWORK_MARKER);
+	public static final Marker NETWORK_PACKETS_MARKER = MarkerManager.getMarker("NETWORK_PACKETS").setParents(NETWORK_MARKER);
 	public static final AttributeKey<ConnectionState> PROTOCOL_ATTRIBUTE_KEY = AttributeKey.valueOf("protocol");
 
 	public static final ThreadFactory nettyIOFactory = Thread.ofVirtual().name("Netty IO #%d", 0).factory();

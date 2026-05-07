@@ -30,7 +30,6 @@ public class ShaderManager {
 	private static final ShaderDefault DEFAULT_SHADER_UNIFORM = new ShaderDefault();
 	private static ShaderManager staticShaderManager;
 	private static int currentProgram = -1;
-	private static boolean lastCull = true;
 	private final Map<String, Object> shaderSamplers = Maps.newHashMap();
 	private final List<String> samplerNames = Lists.newArrayList();
 	private final List<Integer> shaderSamplerLocations = Lists.newArrayList();
@@ -41,22 +40,19 @@ public class ShaderManager {
 	private final String programFilename;
 	private final boolean useFaceCulling;
 	private final JsonBlendingMode blendingMode;
-	private final List<Integer> attribLocations;
-	private final List<String> attributes;
 	private final ShaderLoader vertexShaderLoader;
 	private final ShaderLoader fragmentShaderLoader;
 	private boolean isDirty;
 
 	public ShaderManager(IResourceManager resourceManager, String programName) throws IOException {
 
-		JsonParser jsonparser = new JsonParser();
 		ResourceLocation resourcelocation = new ResourceLocation("shaders/program/" + programName + ".json");
 		programFilename = programName;
 		IResource iresource = null;
 
 		try {
 			iresource = resourceManager.getResource(resourcelocation);
-			JsonObject jsonobject = jsonparser.parse(IOUtils.toString(iresource.getInputStream(), StandardCharsets.UTF_8)).getAsJsonObject();
+			JsonObject jsonobject = JsonParser.parseString(IOUtils.toString(iresource.getInputStream(), StandardCharsets.UTF_8)).getAsJsonObject();
 			String s = JsonUtils.getString(jsonobject, "vertex");
 			String s1 = JsonUtils.getString(jsonobject, "fragment");
 			JsonArray jsonarray = JsonUtils.getJsonArray(jsonobject, "samplers", null);
@@ -78,7 +74,9 @@ public class ShaderManager {
 			}
 
 			JsonArray jsonarray1 = JsonUtils.getJsonArray(jsonobject, "attributes", null);
-
+			
+			List<Integer> attribLocations;
+			List<String> attributes;
 			if (jsonarray1 != null) {
 				int j = 0;
 				attribLocations = Lists.newArrayListWithCapacity(jsonarray1.size());
@@ -153,8 +151,7 @@ public class ShaderManager {
 		OpenGlHelper.glUseProgram(0);
 		currentProgram = -1;
 		staticShaderManager = null;
-		lastCull = true;
-
+		
 		for (int i = 0; i < shaderSamplerLocations.size(); ++i) {
 			if (shaderSamplers.get(samplerNames.get(i)) != null) {
 				GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit + i);

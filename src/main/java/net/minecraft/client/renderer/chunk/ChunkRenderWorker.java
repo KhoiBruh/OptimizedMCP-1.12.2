@@ -122,7 +122,7 @@ public class ChunkRenderWorker implements Runnable {
 			}
 
 			final CompiledChunk compiledchunk = generator.getCompiledChunk();
-			ArrayList arraylist = Lists.newArrayList();
+			ArrayList<ListenableFuture<Object>> arraylist = Lists.newArrayList();
 
 			if (chunkcompiletaskgenerator$type == ChunkCompileTaskGenerator.Type.REBUILD_CHUNK) {
 				for (BlockRenderLayer blockrenderlayer : BlockRenderLayer.values()) {

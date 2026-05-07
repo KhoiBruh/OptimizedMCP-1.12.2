@@ -2,20 +2,17 @@ package net.minecraft.client.gui.spectator.categories;
 
 import com.google.common.base.MoreObjects;
 import net.minecraft.client.gui.spectator.ISpectatorMenuObject;
-import net.minecraft.client.gui.spectator.ISpectatorMenuView;
 import net.minecraft.client.gui.spectator.SpectatorMenu;
 
 import java.util.List;
 
 public class SpectatorDetails {
-
-	private final ISpectatorMenuView category;
+	
 	private final List<ISpectatorMenuObject> items;
 	private final int selectedSlot;
 
-	public SpectatorDetails(ISpectatorMenuView categoryIn, List<ISpectatorMenuObject> itemsIn, int selectedIndex) {
-
-		category = categoryIn;
+	public SpectatorDetails(List<ISpectatorMenuObject> itemsIn, int selectedIndex) {
+		
 		items = itemsIn;
 		selectedSlot = selectedIndex;
 	}

@@ -74,9 +74,9 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
 		}
 	}
 
-	public boolean remove(Object p_remove_1_) {
+	public boolean remove(Object object) {
 
-		T t = (T) p_remove_1_;
+		T t = (T) object;
 		boolean flag = false;
 
 		for (Class<?> oclass : knownKeys) {

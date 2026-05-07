@@ -31,7 +31,6 @@ public class RenderChunk {
 	private final ReentrantLock lockCompileTask = new ReentrantLock();
 	private final ReentrantLock lockCompiledChunk = new ReentrantLock();
 	private final Set<TileEntity> setTileEntities = Sets.newHashSet();
-	private final int index;
 	private final FloatBuffer modelviewMatrix = GLAllocation.createDirectFloatBuffer(16);
 	private final VertexBuffer[] vertexBuffers = new VertexBuffer[BlockRenderLayer.values().length];
 	private final BlockPos.MutableBlockPos position = new BlockPos.MutableBlockPos(-1, -1, -1);
@@ -45,7 +44,7 @@ public class RenderChunk {
 	private boolean needsImmediateUpdate;
 	private ChunkCache worldView;
 
-	public RenderChunk(World worldIn, RenderGlobal renderGlobalIn, int indexIn) {
+	public RenderChunk(World worldIn, RenderGlobal renderGlobalIn) {
 
 		for (int i = 0; i < mapEnumFacing.length; ++i) {
 			mapEnumFacing[i] = new BlockPos.MutableBlockPos();
@@ -53,8 +52,7 @@ public class RenderChunk {
 
 		world = worldIn;
 		renderGlobal = renderGlobalIn;
-		index = indexIn;
-
+		
 		if (OpenGlHelper.useVbo()) {
 			for (int j = 0; j < BlockRenderLayer.values().length; ++j) {
 				vertexBuffers[j] = new VertexBuffer(DefaultVertexFormats.BLOCK);

@@ -276,14 +276,14 @@ public class BlockPortal extends BlockBreakable {
 		}
 
 		if (!blockportal$size.isValid()) {
-			return new BlockPattern.PatternHelper(p_181089_2_, Facing.NORTH, Facing.UP, loadingcache, 1, 1, 1);
+			return new BlockPattern.PatternHelper(p_181089_2_, Facing.NORTH, Facing.UP, loadingcache, 1, 1);
 		} else {
 			int[] aint = new int[Facing.AxisDirection.values().length];
 			Facing enumfacing = blockportal$size.rightDir.rotateYCCW();
 			BlockPos blockpos = blockportal$size.bottomLeft.up(blockportal$size.getHeight() - 1);
 
 			for (Facing.AxisDirection enumfacing$axisdirection : Facing.AxisDirection.values()) {
-				BlockPattern.PatternHelper blockpattern$patternhelper = new BlockPattern.PatternHelper(enumfacing.getAxisDirection() == enumfacing$axisdirection ? blockpos : blockpos.offset(blockportal$size.rightDir, blockportal$size.getWidth() - 1), Facing.getFacingFromAxis(enumfacing$axisdirection, enumfacing$axis), Facing.UP, loadingcache, blockportal$size.getWidth(), blockportal$size.getHeight(), 1);
+				BlockPattern.PatternHelper blockpattern$patternhelper = new BlockPattern.PatternHelper(enumfacing.getAxisDirection() == enumfacing$axisdirection ? blockpos : blockpos.offset(blockportal$size.rightDir, blockportal$size.getWidth() - 1), Facing.getFacingFromAxis(enumfacing$axisdirection, enumfacing$axis), Facing.UP, loadingcache, blockportal$size.getWidth(), blockportal$size.getHeight());
 
 				for (int i = 0; i < blockportal$size.getWidth(); ++i) {
 					for (int j = 0; j < blockportal$size.getHeight(); ++j) {
@@ -304,7 +304,7 @@ public class BlockPortal extends BlockBreakable {
 				}
 			}
 
-			return new BlockPattern.PatternHelper(enumfacing.getAxisDirection() == enumfacing$axisdirection1 ? blockpos : blockpos.offset(blockportal$size.rightDir, blockportal$size.getWidth() - 1), Facing.getFacingFromAxis(enumfacing$axisdirection1, enumfacing$axis), Facing.UP, loadingcache, blockportal$size.getWidth(), blockportal$size.getHeight(), 1);
+			return new BlockPattern.PatternHelper(enumfacing.getAxisDirection() == enumfacing$axisdirection1 ? blockpos : blockpos.offset(blockportal$size.rightDir, blockportal$size.getWidth() - 1), Facing.getFacingFromAxis(enumfacing$axisdirection1, enumfacing$axis), Facing.UP, loadingcache, blockportal$size.getWidth(), blockportal$size.getHeight());
 		}
 	}
 

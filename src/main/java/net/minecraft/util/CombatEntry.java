@@ -6,18 +6,14 @@ import net.minecraft.util.text.ITextComponent;
 public class CombatEntry {
 
 	private final DamageSource damageSrc;
-	private final int time;
 	private final float damage;
-	private final float health;
 	private final String fallSuffix;
 	private final float fallDistance;
 
-	public CombatEntry(DamageSource damageSrcIn, int timeIn, float healthAmount, float damageAmount, String fallSuffixIn, float fallDistanceIn) {
+	public CombatEntry(DamageSource damageSrcIn, float damageAmount, String fallSuffixIn, float fallDistanceIn) {
 
 		damageSrc = damageSrcIn;
-		time = timeIn;
 		damage = damageAmount;
-		health = healthAmount;
 		fallSuffix = fallSuffixIn;
 		fallDistance = fallDistanceIn;
 	}

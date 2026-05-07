@@ -88,7 +88,7 @@ public class LootTableManager {
 						String s;
 
 						try {
-							s = Files.toString(file1, StandardCharsets.UTF_8);
+							s = Files.asCharSource(file1, StandardCharsets.UTF_8).read();
 						} catch (IOException ioexception) {
 							LootTableManager.LOGGER.warn("Couldn't load loot table {} from {}", resource, file1, ioexception);
 							return LootTable.EMPTY_LOOT_TABLE;
