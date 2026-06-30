@@ -1503,7 +1503,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	
 	private void runTickKeyboard() throws IOException {
 		while (Keyboard.next()) {
-			int i = Keyboard.getEventKey() == 0 ? Keyboard.getEventCharacter() + 256 : Keyboard.getEventKey();
+			int i = Keyboard.getEventKey();
 			
 			if (debugCrashKeyPressTime > 0L) {
 				if (getSystemTime() - debugCrashKeyPressTime >= 6000L) {
@@ -2424,7 +2424,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	}
 	
 	public void dispatchKeypresses() {
-		int i = Keyboard.getEventKey() == 0 ? Keyboard.getEventCharacter() + 256 : Keyboard.getEventKey();
+		int i = Keyboard.getEventKey();
 		
 		if (i != 0 && !Keyboard.isRepeatEvent()) {
 			if (!(currentScreen instanceof GuiControls) || ((GuiControls) currentScreen).time <= getSystemTime() - 20L) {

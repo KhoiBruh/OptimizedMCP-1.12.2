@@ -563,7 +563,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 
 		char c0 = Keyboard.getEventCharacter();
 
-		if (Keyboard.getEventKey() == 0 && c0 >= ' ' || Keyboard.getEventKeyState()) {
+		if (Keyboard.getEventKeyState()) {
 			keyTyped(c0, Keyboard.getEventKey());
 		}
 
