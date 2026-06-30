@@ -7,7 +7,6 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL;
-import org.lwjgl.opengl.PixelFormat;
 
 import java.nio.ByteBuffer;
 
@@ -34,16 +33,14 @@ public final class Window {
 	
 	@Getter
 	private int guiScale;
+	
+	@Getter
+	private boolean fullscreen;
+	
+	@Getter
+	private boolean resized = false;
 
     private String title;
-	
-    private boolean vSync = false;
-	
-    @Getter
-    private boolean fullscreen;
-	
-    @Getter
-    private boolean resized = false;
 
     private long lastFrameTime = 0L;
 
@@ -52,10 +49,6 @@ public final class Window {
         this.width = Math.max(width, 1);
         this.height = Math.max(height, 1);
         this.fullscreen = fullscreen;
-    }
-
-    public void create() throws Exception {
-        create(new PixelFormat());
     }
 	
     public void setGuiScale(int setting, boolean unicode) {
@@ -71,15 +64,13 @@ public final class Window {
         scaledHeight = height / scale;
     }
 	
-	public void create(PixelFormat pixelFormat) throws Exception {
+	public void create(int depthBits) throws Exception {
         if (!glfwInit()) throw new Exception("Failed to initialise GLFW");
 
         glfwDefaultWindowHints();
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
 
-        if (pixelFormat.getDepthBits() > 0) glfwWindowHint(GLFW_DEPTH_BITS, pixelFormat.getDepthBits());
-        if (pixelFormat.getStencilBits() > 0) glfwWindowHint(GLFW_STENCIL_BITS, pixelFormat.getStencilBits());
-        if (pixelFormat.getSamples() > 0) glfwWindowHint(GLFW_SAMPLES, pixelFormat.getSamples());
+        if (depthBits > 0) glfwWindowHint(GLFW_DEPTH_BITS, depthBits);
 
         long monitor = fullscreen ? glfwGetPrimaryMonitor() : NULL;
 
@@ -97,8 +88,6 @@ public final class Window {
 
         glfwMakeContextCurrent(handle);
         GL.createCapabilities();
-
-        glfwSwapInterval(vSync ? 1 : 0);
 
         glfwSetFramebufferSizeCallback(handle, (win, w, h) -> {
             width = w;
@@ -208,11 +197,11 @@ public final class Window {
         return new DisplayMode(width, height, 32, 60);
     }
 
-    public void setFullscreen(boolean fs) {
-        fullscreen = fs;
+    public void setFullscreen(boolean fullscreen) {
+        this.fullscreen = fullscreen;
         if (handle == NULL) return;
 
-        if (fs) {
+        if (fullscreen) {
             long monitor = glfwGetPrimaryMonitor();
             GLFWVidMode vm = glfwGetVideoMode(monitor);
             if (vm != null) glfwSetWindowMonitor(handle, monitor, 0, 0, vm.width(), vm.height(), vm.refreshRate());
@@ -227,7 +216,6 @@ public final class Window {
     }
 
     public void setVSync(boolean vsync) {
-        vSync = vsync;
         if (handle != NULL) glfwSwapInterval(vsync ? 1 : 0);
     }
 	

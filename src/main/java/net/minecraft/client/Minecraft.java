@@ -268,7 +268,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		int w = gameConfig.displayInfo().width();
 		int h = gameConfig.displayInfo().height();
 		boolean fs = gameConfig.displayInfo().fullscreen();
-		window = new Window("Minecraft 1.12.2", Math.max(w, 1), Math.max(h, 1), fs);
+		window = new Window("Minecraft 1.12.2", w, h, fs);
 		tempDisplayWidth = w;
 		tempDisplayHeight = h;
 		integratedServer = null;
@@ -569,7 +569,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	private void createDisplay() throws Exception {
 
 		try {
-			window.create((new PixelFormat()).withDepthBits(24));
+			window.create(24);
 		} catch (Exception lwjglexception) {
 			LOGGER.error("Couldn't set pixel format", lwjglexception);
 
@@ -582,7 +582,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 				updateDisplayMode();
 			}
 
-			window.create();
+			window.create(24);
 		}
 	}
 
