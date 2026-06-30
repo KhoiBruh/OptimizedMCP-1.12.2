@@ -1510,10 +1510,10 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 					throw new ReportedException(new CrashReport("Manually triggered debug crash", new Throwable()));
 				}
 				
-				if (!Keyboard.isKeyDown(67) || !Keyboard.isKeyDown(GLFW_KEY_F3)) {
+				if (!Keyboard.isKeyDown(GLFW_KEY_C) || !Keyboard.isKeyDown(GLFW_KEY_F3)) {
 					debugCrashKeyPressTime = -1L;
 				}
-			} else if (Keyboard.isKeyDown(67) && Keyboard.isKeyDown(GLFW_KEY_F3)) {
+			} else if (Keyboard.isKeyDown(GLFW_KEY_C) && Keyboard.isKeyDown(GLFW_KEY_F3)) {
 				actionKeyF3 = true;
 				debugCrashKeyPressTime = getSystemTime();
 			}
@@ -1546,7 +1546,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 				}
 				
 				if (gameSettings.showDebugProfilerChart) {
-					if (i == 48) updateDebugProfilerName(0);
+					if (i == GLFW_KEY_0) updateDebugProfilerName(0);
 					
 					for (int j = 0; j < 9; ++j) {
 						if (i == 49 + j) updateDebugProfilerName(j + 1);
