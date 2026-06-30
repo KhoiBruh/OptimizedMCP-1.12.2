@@ -2,10 +2,8 @@ package net.minecraft.client.settings;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import com.google.gson.Gson;
+import lombok.Getter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.chat.GuiNewChat;
 import net.minecraft.client.gui.chat.NarratorChatListener;
@@ -28,15 +26,13 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jspecify.annotations.NonNull;
 
 import java.io.*;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -47,11 +43,11 @@ public class GameSettings {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final Gson GSON = new Gson();
 	private static final Type TYPE_LIST_STRING = new ParameterizedType() {
-		public Type[] getActualTypeArguments() {
+		public Type @NonNull [] getActualTypeArguments() {
 			return new Type[]{String.class};
 		}
 		
-		public Type getRawType() {
+		public @NonNull Type getRawType() {
 			return List.class;
 		}
 		
@@ -67,8 +63,10 @@ public class GameSettings {
 	private static final String[] AMBIENT_OCCLUSIONS = new String[]{"options.ao.off", "options.ao.min", "options.ao.max"};
 	private static final String[] CLOUDS_TYPES = new String[]{"options.off", "options.clouds.fast", "options.clouds.fancy"};
 	private static final String[] ATTACK_INDICATORS = new String[]{"options.off", "options.attack.crosshair", "options.attack.hotbar"};
-	private final Set<PlayerModelParts> setModelParts = Sets.newHashSet(PlayerModelParts.values());
-	private final Map<SoundCategory, Float> soundLevels = Maps.newEnumMap(SoundCategory.class);
+	
+	private final Set<PlayerModelParts> modelParts = new HashSet<>(List.of(PlayerModelParts.values()));
+	private final Map<SoundCategory, Float> soundLevels = new EnumMap<>(SoundCategory.class);
+	
 	public float mouseSensitivity = 0.5F;
 	public boolean invertMouse;
 	public int renderDistanceChunks = 8;
@@ -85,8 +83,8 @@ public class GameSettings {
 	 * Smooth Lighting
 	 */
 	public int ambientOcclusion = 2;
-	public List<String> resourcePacks = Lists.newArrayList();
-	public List<String> incompatibleResourcePacks = Lists.newArrayList();
+	public List<String> resourcePacks = new ArrayList<>();
+	public List<String> incompatibleResourcePacks = new ArrayList<>();
 	public EntityPlayer.ChatVisibility chatVisibility = EntityPlayer.ChatVisibility.FULL;
 	public boolean chatColours = true;
 	public boolean chatLinks = true;
@@ -147,7 +145,7 @@ public class GameSettings {
 	public KeyBinding keySpectatorOutlines = new KeyBinding("key.spectatorOutlines", GLFW_KEY_UNKNOWN, "key.categories.misc");
 	public KeyBinding keyAdvancements = new KeyBinding("key.advancements", GLFW_KEY_L, "key.categories.misc");
 	
-	public KeyBinding[] keyHotbar = new KeyBinding[] {
+	public KeyBinding[] keyHotbar = new KeyBinding[]{
 			new KeyBinding("key.hotbar.1", GLFW_KEY_1, "key.categories.inventory"),
 			new KeyBinding("key.hotbar.2", GLFW_KEY_2, "key.categories.inventory"),
 			new KeyBinding("key.hotbar.3", GLFW_KEY_3, "key.categories.inventory"),
@@ -273,228 +271,140 @@ public class GameSettings {
 	/**
 	 * If the specified option is controlled by a slider (float value), this will set the float value.
 	 */
-	public void setOptionFloatValue(GameSettings.Options settingsOption, float value) {
-		if (settingsOption == GameSettings.Options.SENSITIVITY) {
-			mouseSensitivity = value;
-		}
-		
-		if (settingsOption == GameSettings.Options.FOV) {
-			fovSetting = value;
-		}
-		
-		if (settingsOption == GameSettings.Options.GAMMA) {
-			gammaSetting = value;
-		}
-		
-		if (settingsOption == GameSettings.Options.FRAMERATE_LIMIT) {
-			limitFramerate = (int) value;
-		}
-		
-		if (settingsOption == GameSettings.Options.CHAT_OPACITY) {
-			chatOpacity = value;
-			mc.ingameGUI.getChatGUI().refreshChat();
-		}
-		
-		if (settingsOption == GameSettings.Options.CHAT_HEIGHT_FOCUSED) {
-			chatHeightFocused = value;
-			mc.ingameGUI.getChatGUI().refreshChat();
-		}
-		
-		if (settingsOption == GameSettings.Options.CHAT_HEIGHT_UNFOCUSED) {
-			chatHeightUnfocused = value;
-			mc.ingameGUI.getChatGUI().refreshChat();
-		}
-		
-		if (settingsOption == GameSettings.Options.CHAT_WIDTH) {
-			chatWidth = value;
-			mc.ingameGUI.getChatGUI().refreshChat();
-		}
-		
-		if (settingsOption == GameSettings.Options.CHAT_SCALE) {
-			chatScale = value;
-			mc.ingameGUI.getChatGUI().refreshChat();
-		}
-		
-		if (settingsOption == GameSettings.Options.MIPMAP_LEVELS) {
-			int i = mipmapLevels;
-			mipmapLevels = (int) value;
-			
-			if ((float) i != value) {
-				mc.getTextureMapBlocks().setMipmapLevels(mipmapLevels);
-				mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-				mc.getTextureMapBlocks().setBlurMipmapDirect(false, mipmapLevels > 0);
-				mc.scheduleResourcesRefresh();
+	public void setOptionFloatValue(GameSettings.Options options, float value) {
+		switch (options) {
+			case SENSITIVITY -> mouseSensitivity = value;
+			case FOV -> fovSetting = value;
+			case GAMMA -> gammaSetting = value;
+			case FRAMERATE_LIMIT -> limitFramerate = (int) value;
+			case CHAT_OPACITY -> {
+				chatOpacity = value;
+				mc.ingameGUI.getChatGUI().refreshChat();
 			}
-		}
-		
-		if (settingsOption == GameSettings.Options.RENDER_DISTANCE) {
-			renderDistanceChunks = (int) value;
-			mc.renderGlobal.setDisplayListEntitiesDirty();
+			case CHAT_HEIGHT_FOCUSED -> {
+				chatHeightFocused = value;
+				mc.ingameGUI.getChatGUI().refreshChat();
+			}
+			case CHAT_HEIGHT_UNFOCUSED -> {
+				chatHeightUnfocused = value;
+				mc.ingameGUI.getChatGUI().refreshChat();
+			}
+			case CHAT_WIDTH -> {
+				chatWidth = value;
+				mc.ingameGUI.getChatGUI().refreshChat();
+			}
+			case CHAT_SCALE -> {
+				chatScale = value;
+				mc.ingameGUI.getChatGUI().refreshChat();
+			}
+			case MIPMAP_LEVELS -> {
+				int i = mipmapLevels;
+				mipmapLevels = (int) value;
+				if ((float) i != value) {
+					mc.getTextureMapBlocks().setMipmapLevels(mipmapLevels);
+					mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+					mc.getTextureMapBlocks().setBlurMipmapDirect(false, mipmapLevels > 0);
+					mc.scheduleResourcesRefresh();
+				}
+			}
+			case RENDER_DISTANCE -> {
+				renderDistanceChunks = (int) value;
+				mc.renderGlobal.setDisplayListEntitiesDirty();
+			}
+			default -> {
+			}
 		}
 	}
 	
 	/**
 	 * For non-float options. Toggles the option on/off, or cycles through the list i.e. render distances.
 	 */
-	public void setOptionValue(GameSettings.Options settingsOption, int value) {
-		if (settingsOption == GameSettings.Options.RENDER_DISTANCE) {
-			setOptionFloatValue(settingsOption, MathHelper.clamp((float) (renderDistanceChunks + value), settingsOption.getValueMin(), settingsOption.getValueMax()));
-		}
-		
-		if (settingsOption == GameSettings.Options.MAIN_HAND) {
-			mainHand = mainHand.opposite();
-		}
-		
-		if (settingsOption == GameSettings.Options.INVERT_MOUSE) {
-			invertMouse = !invertMouse;
-		}
-		
-		if (settingsOption == GameSettings.Options.GUI_SCALE) {
-			guiScale = guiScale + value & 3;
-			mc.getWindow().setGuiScale(guiScale, mc.isUnicode());
-		}
-		
-		if (settingsOption == GameSettings.Options.PARTICLES) {
-			particleSetting = (particleSetting + value) % 3;
-		}
-		
-		if (settingsOption == GameSettings.Options.VIEW_BOBBING) {
-			viewBobbing = !viewBobbing;
-		}
-		
-		if (settingsOption == GameSettings.Options.RENDER_CLOUDS) {
-			clouds = (clouds + value) % 3;
-		}
-		
-		if (settingsOption == GameSettings.Options.FORCE_UNICODE_FONT) {
-			forceUnicodeFont = !forceUnicodeFont;
-			mc.fontRenderer.setUnicodeFlag(mc.getLanguageManager().isCurrentLocaleUnicode() || forceUnicodeFont);
-		}
-		
-		if (settingsOption == GameSettings.Options.FBO_ENABLE) {
-			fboEnable = !fboEnable;
-		}
-		
-		if (settingsOption == GameSettings.Options.ANAGLYPH) {
-			anaglyph = !anaglyph;
-			mc.refreshResources();
-		}
-		
-		if (settingsOption == GameSettings.Options.GRAPHICS) {
-			fancyGraphics = !fancyGraphics;
-			mc.renderGlobal.loadRenderers();
-		}
-		
-		if (settingsOption == GameSettings.Options.AMBIENT_OCCLUSION) {
-			ambientOcclusion = (ambientOcclusion + value) % 3;
-			mc.renderGlobal.loadRenderers();
-		}
-		
-		if (settingsOption == GameSettings.Options.CHAT_VISIBILITY) {
-			chatVisibility = EntityPlayer.ChatVisibility.getEnumChatVisibility((chatVisibility.getChatVisibility() + value) % 3);
-		}
-		
-		if (settingsOption == GameSettings.Options.CHAT_COLOR) {
-			chatColours = !chatColours;
-		}
-		
-		if (settingsOption == GameSettings.Options.CHAT_LINKS) {
-			chatLinks = !chatLinks;
-		}
-		
-		if (settingsOption == GameSettings.Options.CHAT_LINKS_PROMPT) {
-			chatLinksPrompt = !chatLinksPrompt;
-		}
-		
-		if (settingsOption == GameSettings.Options.SNOOPER_ENABLED) {
-			snooperEnabled = !snooperEnabled;
-		}
-		
-		if (settingsOption == GameSettings.Options.TOUCHSCREEN) {
-			touchscreen = !touchscreen;
-		}
-		
-		if (settingsOption == GameSettings.Options.USE_FULLSCREEN) {
-			fullScreen = !fullScreen;
-			
-			if (mc.isFullScreen() != fullScreen) {
-				mc.toggleFullscreen();
+	public void setOptionValue(GameSettings.Options options, int value) {
+		switch (options) {
+			case RENDER_DISTANCE ->
+					setOptionFloatValue(options, MathHelper.clamp((float) (renderDistanceChunks + value), options.min, options.max));
+			case MAIN_HAND -> mainHand = mainHand.opposite();
+			case INVERT_MOUSE -> invertMouse = !invertMouse;
+			case GUI_SCALE -> {
+				guiScale = guiScale + value & 3;
+				mc.getWindow().setGuiScale(guiScale, mc.isUnicode());
 			}
-		}
-		
-		if (settingsOption == GameSettings.Options.ENABLE_VSYNC) {
-			enableVsync = !enableVsync;
-			mc.getWindow().setVSync(enableVsync);
-		}
-		
-		if (settingsOption == GameSettings.Options.USE_VBO) {
-			useVbo = !useVbo;
-			mc.renderGlobal.loadRenderers();
-		}
-		
-		if (settingsOption == GameSettings.Options.REDUCED_DEBUG_INFO) {
-			reducedDebugInfo = !reducedDebugInfo;
-		}
-		
-		if (settingsOption == GameSettings.Options.ENTITY_SHADOWS) {
-			entityShadows = !entityShadows;
-		}
-		
-		if (settingsOption == GameSettings.Options.ATTACK_INDICATOR) {
-			attackIndicator = (attackIndicator + value) % 3;
-		}
-		
-		if (settingsOption == GameSettings.Options.SHOW_SUBTITLES) {
-			showSubtitles = !showSubtitles;
-		}
-		
-		if (settingsOption == GameSettings.Options.AUTO_JUMP) {
-			autoJump = !autoJump;
-		}
-		
-		if (settingsOption == GameSettings.Options.NARRATOR) {
-			if (NarratorChatListener.INSTANCE.isActive()) {
-				narrator = (narrator + value) % NARRATOR_MODES.length;
-			} else {
-				narrator = 0;
+			case PARTICLES -> particleSetting = (particleSetting + value) % 3;
+			case VIEW_BOBBING -> viewBobbing = !viewBobbing;
+			case RENDER_CLOUDS -> clouds = (clouds + value) % 3;
+			case FORCE_UNICODE_FONT -> {
+				forceUnicodeFont = !forceUnicodeFont;
+				mc.fontRenderer.setUnicodeFlag(mc.getLanguageManager().isCurrentLocaleUnicode() || forceUnicodeFont);
 			}
-			
-			NarratorChatListener.INSTANCE.announceMode(narrator);
+			case FBO_ENABLE -> fboEnable = !fboEnable;
+			case ANAGLYPH -> {
+				anaglyph = !anaglyph;
+				mc.refreshResources();
+			}
+			case GRAPHICS -> {
+				fancyGraphics = !fancyGraphics;
+				mc.renderGlobal.loadRenderers();
+			}
+			case AMBIENT_OCCLUSION -> {
+				ambientOcclusion = (ambientOcclusion + value) % 3;
+				mc.renderGlobal.loadRenderers();
+			}
+			case CHAT_VISIBILITY ->
+					chatVisibility = EntityPlayer.ChatVisibility.getEnumChatVisibility((chatVisibility.getChatVisibility() + value) % 3);
+			case CHAT_COLOR -> chatColours = !chatColours;
+			case CHAT_LINKS -> chatLinks = !chatLinks;
+			case CHAT_LINKS_PROMPT -> chatLinksPrompt = !chatLinksPrompt;
+			case SNOOPER_ENABLED -> snooperEnabled = !snooperEnabled;
+			case TOUCHSCREEN -> touchscreen = !touchscreen;
+			case USE_FULLSCREEN -> {
+				fullScreen = !fullScreen;
+				if (mc.isFullScreen() != fullScreen) mc.toggleFullscreen();
+			}
+			case ENABLE_VSYNC -> {
+				enableVsync = !enableVsync;
+				mc.getWindow().setVSync(enableVsync);
+			}
+			case USE_VBO -> {
+				useVbo = !useVbo;
+				mc.renderGlobal.loadRenderers();
+			}
+			case REDUCED_DEBUG_INFO -> reducedDebugInfo = !reducedDebugInfo;
+			case ENTITY_SHADOWS -> entityShadows = !entityShadows;
+			case ATTACK_INDICATOR -> attackIndicator = (attackIndicator + value) % 3;
+			case SHOW_SUBTITLES -> showSubtitles = !showSubtitles;
+			case AUTO_JUMP -> autoJump = !autoJump;
+			case NARRATOR -> {
+				if (NarratorChatListener.INSTANCE.isActive()) narrator = (narrator + value) % NARRATOR_MODES.length;
+				else narrator = 0;
+				NarratorChatListener.INSTANCE.announceMode(narrator);
+			}
+			default -> {
+			}
 		}
 		
 		saveOptions();
 	}
 	
-	public float getOptionFloatValue(GameSettings.Options settingOption) {
-		if (settingOption == GameSettings.Options.FOV) {
-			return fovSetting;
-		} else if (settingOption == GameSettings.Options.GAMMA) {
-			return gammaSetting;
-		} else if (settingOption == GameSettings.Options.SATURATION) {
-			return saturation;
-		} else if (settingOption == GameSettings.Options.SENSITIVITY) {
-			return mouseSensitivity;
-		} else if (settingOption == GameSettings.Options.CHAT_OPACITY) {
-			return chatOpacity;
-		} else if (settingOption == GameSettings.Options.CHAT_HEIGHT_FOCUSED) {
-			return chatHeightFocused;
-		} else if (settingOption == GameSettings.Options.CHAT_HEIGHT_UNFOCUSED) {
-			return chatHeightUnfocused;
-		} else if (settingOption == GameSettings.Options.CHAT_SCALE) {
-			return chatScale;
-		} else if (settingOption == GameSettings.Options.CHAT_WIDTH) {
-			return chatWidth;
-		} else if (settingOption == GameSettings.Options.FRAMERATE_LIMIT) {
-			return (float) limitFramerate;
-		} else if (settingOption == GameSettings.Options.MIPMAP_LEVELS) {
-			return (float) mipmapLevels;
-		} else {
-			return settingOption == GameSettings.Options.RENDER_DISTANCE ? (float) renderDistanceChunks : 0F;
-		}
+	public float getOptionFloatValue(GameSettings.Options options) {
+		return switch (options) {
+			case FOV -> fovSetting;
+			case GAMMA -> gammaSetting;
+			case SATURATION -> saturation;
+			case SENSITIVITY -> mouseSensitivity;
+			case CHAT_OPACITY -> chatOpacity;
+			case CHAT_HEIGHT_FOCUSED -> chatHeightFocused;
+			case CHAT_HEIGHT_UNFOCUSED -> chatHeightUnfocused;
+			case CHAT_SCALE -> chatScale;
+			case CHAT_WIDTH -> chatWidth;
+			case FRAMERATE_LIMIT -> limitFramerate;
+			case MIPMAP_LEVELS -> mipmapLevels;
+			case RENDER_DISTANCE -> renderDistanceChunks;
+			default -> 0;
+		};
 	}
 	
-	public boolean getOptionOrdinalValue(GameSettings.Options settingOption) {
-		return switch (settingOption) {
+	public boolean getOptionOrdinalValue(GameSettings.Options options) {
+		return switch (options) {
 			case INVERT_MOUSE -> invertMouse;
 			case VIEW_BOBBING -> viewBobbing;
 			case ANAGLYPH -> anaglyph;
@@ -520,79 +430,59 @@ public class GameSettings {
 	/**
 	 * Gets a key binding.
 	 */
-	public String getKeyBinding(GameSettings.Options settingOption) {
-		String s = I18n.format(settingOption.getTranslation()) + ": ";
+	public String getKeyBinding(GameSettings.Options options) {
+		String s = I18n.format(options.getTranslation()) + ": ";
 		
-		if (settingOption.isFloat()) {
-			float f1 = getOptionFloatValue(settingOption);
-			float f = settingOption.normalizeValue(f1);
+		if (options.isFloat()) {
+			float f1 = getOptionFloatValue(options);
+			float f = options.normalize(f1);
 			
-			if (settingOption == GameSettings.Options.SENSITIVITY) {
-				if (f == 0F) {
-					return s + I18n.format("options.sensitivity.min");
-				} else {
-					return f == 1F ? s + I18n.format("options.sensitivity.max") : s + (int) (f * 200F) + "%";
+			return switch (options) {
+				case SENSITIVITY -> {
+					if (f == 0F) yield s + I18n.format("options.sensitivity.min");
+					else if (f == 1F) yield s + I18n.format("options.sensitivity.max");
+					else yield s + (int) (f * 200F) + "%";
 				}
-			} else if (settingOption == GameSettings.Options.FOV) {
-				if (f1 == 70F) {
-					return s + I18n.format("options.fov.min");
-				} else {
-					return f1 == 110F ? s + I18n.format("options.fov.max") : s + (int) f1;
+				case FOV -> {
+					if (f1 == 70F) yield s + I18n.format("options.fov.min");
+					else if (f1 == 110F) yield s + I18n.format("options.fov.max");
+					else yield s + (int) f1;
 				}
-			} else if (settingOption == GameSettings.Options.FRAMERATE_LIMIT) {
-				return f1 == settingOption.valueMax ? s + I18n.format("options.framerateLimit.max") : s + I18n.format("options.framerate", (int) f1);
-			} else if (settingOption == GameSettings.Options.RENDER_CLOUDS) {
-				return f1 == settingOption.valueMin ? s + I18n.format("options.cloudHeight.min") : s + ((int) f1 + 128);
-			} else if (settingOption == GameSettings.Options.GAMMA) {
-				if (f == 0F) {
-					return s + I18n.format("options.gamma.min");
-				} else {
-					return f == 1F ? s + I18n.format("options.gamma.max") : s + "+" + (int) (f * 100F) + "%";
+				case FRAMERATE_LIMIT ->
+						f1 == options.max ? s + I18n.format("options.framerateLimit.max") : s + I18n.format("options.framerate", (int) f1);
+				case RENDER_CLOUDS ->
+						f1 == options.min ? s + I18n.format("options.cloudHeight.min") : s + ((int) f1 + 128);
+				case GAMMA -> {
+					if (f == 0F) yield s + I18n.format("options.gamma.min");
+					else if (f == 1F) yield s + I18n.format("options.gamma.max");
+					else yield s + "+" + (int) (f * 100F) + "%";
 				}
-			} else if (settingOption == GameSettings.Options.SATURATION) {
-				return s + (int) (f * 400F) + "%";
-			} else if (settingOption == GameSettings.Options.CHAT_OPACITY) {
-				return s + (int) (f * 90F + 10F) + "%";
-			} else if (settingOption == GameSettings.Options.CHAT_HEIGHT_UNFOCUSED) {
-				return s + GuiNewChat.calculateChatboxHeight(f) + "px";
-			} else if (settingOption == GameSettings.Options.CHAT_HEIGHT_FOCUSED) {
-				return s + GuiNewChat.calculateChatboxHeight(f) + "px";
-			} else if (settingOption == GameSettings.Options.CHAT_WIDTH) {
-				return s + GuiNewChat.calculateChatboxWidth(f) + "px";
-			} else if (settingOption == GameSettings.Options.RENDER_DISTANCE) {
-				return s + I18n.format("options.chunks", (int) f1);
-			} else if (settingOption == GameSettings.Options.MIPMAP_LEVELS) {
-				return f1 == 0F ? s + I18n.format("options.off") : s + (int) f1;
-			} else {
-				return f == 0F ? s + I18n.format("options.off") : s + (int) (f * 100F) + "%";
-			}
-		} else if (settingOption.isBoolean()) {
-			boolean flag = getOptionOrdinalValue(settingOption);
+				case SATURATION -> s + (int) (f * 400F) + "%";
+				case CHAT_OPACITY -> s + (int) (f * 90F + 10F) + "%";
+				case CHAT_HEIGHT_UNFOCUSED, CHAT_HEIGHT_FOCUSED -> s + GuiNewChat.calculateChatboxHeight(f) + "px";
+				case CHAT_WIDTH -> s + GuiNewChat.calculateChatboxWidth(f) + "px";
+				case RENDER_DISTANCE -> s + I18n.format("options.chunks", (int) f1);
+				case MIPMAP_LEVELS -> f1 == 0F ? s + I18n.format("options.off") : s + (int) f1;
+				default -> f == 0F ? s + I18n.format("options.off") : s + (int) (f * 100F) + "%";
+			};
+		} else if (options.isBoolean()) {
+			boolean flag = getOptionOrdinalValue(options);
 			return flag ? s + I18n.format("options.on") : s + I18n.format("options.off");
-		} else if (settingOption == GameSettings.Options.MAIN_HAND) {
-			return s + mainHand;
-		} else if (settingOption == GameSettings.Options.GUI_SCALE) {
-			return s + getTranslation(GUISCALES, guiScale);
-		} else if (settingOption == GameSettings.Options.CHAT_VISIBILITY) {
-			return s + I18n.format(chatVisibility.getResourceKey());
-		} else if (settingOption == GameSettings.Options.PARTICLES) {
-			return s + getTranslation(PARTICLES, particleSetting);
-		} else if (settingOption == GameSettings.Options.AMBIENT_OCCLUSION) {
-			return s + getTranslation(AMBIENT_OCCLUSIONS, ambientOcclusion);
-		} else if (settingOption == GameSettings.Options.RENDER_CLOUDS) {
-			return s + getTranslation(CLOUDS_TYPES, clouds);
-		} else if (settingOption == GameSettings.Options.GRAPHICS) {
-			if (fancyGraphics) {
-				return s + I18n.format("options.graphics.fancy");
-			} else {
-				return s + I18n.format("options.graphics.fast");
-			}
-		} else if (settingOption == GameSettings.Options.ATTACK_INDICATOR) {
-			return s + getTranslation(ATTACK_INDICATORS, attackIndicator);
-		} else if (settingOption == GameSettings.Options.NARRATOR) {
-			return NarratorChatListener.INSTANCE.isActive() ? s + getTranslation(NARRATOR_MODES, narrator) : s + I18n.format("options.narrator.notavailable");
 		} else {
-			return s;
+			return switch (options) {
+				case MAIN_HAND -> s + mainHand;
+				case GUI_SCALE -> s + getTranslation(GUISCALES, guiScale);
+				case CHAT_VISIBILITY -> s + I18n.format(chatVisibility.getResourceKey());
+				case PARTICLES -> s + getTranslation(PARTICLES, particleSetting);
+				case AMBIENT_OCCLUSION -> s + getTranslation(AMBIENT_OCCLUSIONS, ambientOcclusion);
+				case RENDER_CLOUDS -> s + getTranslation(CLOUDS_TYPES, clouds);
+				case GRAPHICS ->
+						fancyGraphics ? s + I18n.format("options.graphics.fancy") : s + I18n.format("options.graphics.fast");
+				case ATTACK_INDICATOR -> s + getTranslation(ATTACK_INDICATORS, attackIndicator);
+				case NARRATOR ->
+						NarratorChatListener.INSTANCE.isActive() ? s + getTranslation(NARRATOR_MODES, narrator) : s + I18n.format("options.narrator.notavailable");
+				default -> s;
+			};
 		}
 	}
 	
@@ -601,261 +491,97 @@ public class GameSettings {
 	 */
 	public void loadOptions() {
 		try {
-			if (!optionsFile.exists()) {
-				return;
-			}
+			if (!optionsFile.exists()) return;
 			
 			soundLevels.clear();
-			List<String> list = IOUtils.readLines(new FileInputStream(optionsFile), StandardCharsets.UTF_8);
-			NBTTagCompound nbttagcompound = new NBTTagCompound();
+			List<String> options = IOUtils.readLines(new FileInputStream(optionsFile), StandardCharsets.UTF_8);
+			NBTTagCompound compound = new NBTTagCompound();
 			
-			for (String s : list) {
+			for (String s : options) {
 				try {
 					Iterator<String> iterator = COLON_SPLITTER.omitEmptyStrings().limit(2).split(s).iterator();
-					nbttagcompound.setString(iterator.next(), iterator.next());
+					compound.setString(iterator.next(), iterator.next());
 				} catch (Exception var10) {
 					LOGGER.warn("Skipping bad option: {}", s);
 				}
 			}
 			
-			nbttagcompound = dataFix(nbttagcompound);
+			compound = dataFix(compound);
 			
-			for (String s1 : nbttagcompound.getKeySet()) {
-				String s2 = nbttagcompound.getString(s1);
+			for (String s1 : compound.getKeySet()) {
+				String s2 = compound.getString(s1);
 				
 				try {
-					if ("mouseSensitivity".equals(s1)) {
-						mouseSensitivity = parseFloat(s2);
-					}
-					
-					if ("fov".equals(s1)) {
-						fovSetting = parseFloat(s2) * 40F + 70F;
-					}
-					
-					if ("gamma".equals(s1)) {
-						gammaSetting = parseFloat(s2);
-					}
-					
-					if ("saturation".equals(s1)) {
-						saturation = parseFloat(s2);
-					}
-					
-					if ("invertYMouse".equals(s1)) {
-						invertMouse = "true".equals(s2);
-					}
-					
-					if ("renderDistance".equals(s1)) {
-						renderDistanceChunks = Integer.parseInt(s2);
-					}
-					
-					if ("guiScale".equals(s1)) {
-						guiScale = Integer.parseInt(s2);
-					}
-					
-					if ("particles".equals(s1)) {
-						particleSetting = Integer.parseInt(s2);
-					}
-					
-					if ("bobView".equals(s1)) {
-						viewBobbing = "true".equals(s2);
-					}
-					
-					if ("anaglyph3d".equals(s1)) {
-						anaglyph = "true".equals(s2);
-					}
-					
-					if ("maxFps".equals(s1)) {
-						limitFramerate = Integer.parseInt(s2);
-					}
-					
-					if ("fboEnable".equals(s1)) {
-						fboEnable = "true".equals(s2);
-					}
-					
-					if ("difficulty".equals(s1)) {
-						difficulty = Difficulty.getDifficultyEnum(Integer.parseInt(s2));
-					}
-					
-					if ("fancyGraphics".equals(s1)) {
-						fancyGraphics = "true".equals(s2);
-					}
-					
-					if ("tutorialStep".equals(s1)) {
-						tutorialStep = TutorialSteps.getTutorial(s2);
-					}
-					
-					if ("ao".equals(s1)) {
-						if ("true".equals(s2)) {
-							ambientOcclusion = 2;
-						} else if ("false".equals(s2)) {
-							ambientOcclusion = 0;
-						} else {
-							ambientOcclusion = Integer.parseInt(s2);
+					switch (s1) {
+						case "mouseSensitivity" -> mouseSensitivity = parseFloat(s2);
+						case "fov" -> fovSetting = parseFloat(s2) * 40F + 70F;
+						case "gamma" -> gammaSetting = parseFloat(s2);
+						case "saturation" -> saturation = parseFloat(s2);
+						case "invertYMouse" -> invertMouse = "true".equals(s2);
+						case "renderDistance" -> renderDistanceChunks = Integer.parseInt(s2);
+						case "guiScale" -> guiScale = Integer.parseInt(s2);
+						case "particles" -> particleSetting = Integer.parseInt(s2);
+						case "bobView" -> viewBobbing = "true".equals(s2);
+						case "anaglyph3d" -> anaglyph = "true".equals(s2);
+						case "maxFps" -> limitFramerate = Integer.parseInt(s2);
+						case "fboEnable" -> fboEnable = "true".equals(s2);
+						case "difficulty" -> difficulty = Difficulty.getDifficultyEnum(Integer.parseInt(s2));
+						case "fancyGraphics" -> fancyGraphics = "true".equals(s2);
+						case "tutorialStep" -> tutorialStep = TutorialSteps.getTutorial(s2);
+						case "ao" -> {
+							if ("true".equals(s2)) ambientOcclusion = 2;
+							else if ("false".equals(s2)) ambientOcclusion = 0;
+							else ambientOcclusion = Integer.parseInt(s2);
 						}
-					}
-					
-					if ("renderClouds".equals(s1)) {
-						if ("true".equals(s2)) {
-							clouds = 2;
-						} else if ("false".equals(s2)) {
-							clouds = 0;
-						} else if ("fast".equals(s2)) {
-							clouds = 1;
+						case "renderClouds" -> {
+							if ("true".equals(s2)) clouds = 2;
+							else if ("false".equals(s2)) clouds = 0;
+							else if ("fast".equals(s2)) clouds = 1;
 						}
-					}
-					
-					if ("attackIndicator".equals(s1)) {
-						if ("0".equals(s2)) {
-							attackIndicator = 0;
-						} else if ("1".equals(s2)) {
-							attackIndicator = 1;
-						} else if ("2".equals(s2)) {
-							attackIndicator = 2;
+						case "attackIndicator" -> attackIndicator = Integer.parseInt(s2);
+						case "resourcePacks" -> {
+							resourcePacks = JsonUtils.gsonDeserialize(GSON, s2, TYPE_LIST_STRING);
+							if (resourcePacks == null) resourcePacks = new ArrayList<>();
 						}
-					}
-					
-					if ("resourcePacks".equals(s1)) {
-						resourcePacks = JsonUtils.gsonDeserialize(GSON, s2, TYPE_LIST_STRING);
-						
-						if (resourcePacks == null) {
-							resourcePacks = Lists.newArrayList();
+						case "incompatibleResourcePacks" -> {
+							incompatibleResourcePacks = JsonUtils.gsonDeserialize(GSON, s2, TYPE_LIST_STRING);
+							if (incompatibleResourcePacks == null) incompatibleResourcePacks = new ArrayList<>();
 						}
-					}
-					
-					if ("incompatibleResourcePacks".equals(s1)) {
-						incompatibleResourcePacks = JsonUtils.gsonDeserialize(GSON, s2, TYPE_LIST_STRING);
-						
-						if (incompatibleResourcePacks == null) {
-							incompatibleResourcePacks = Lists.newArrayList();
+						case "lastServer" -> lastServer = s2;
+						case "lang" -> language = s2;
+						case "chatVisibility" ->
+								chatVisibility = EntityPlayer.ChatVisibility.getEnumChatVisibility(Integer.parseInt(s2));
+						case "chatColors" -> chatColours = "true".equals(s2);
+						case "chatLinks" -> chatLinks = "true".equals(s2);
+						case "chatLinksPrompt" -> chatLinksPrompt = "true".equals(s2);
+						case "chatOpacity" -> chatOpacity = parseFloat(s2);
+						case "snooperEnabled" -> snooperEnabled = "true".equals(s2);
+						case "fullscreen" -> fullScreen = "true".equals(s2);
+						case "enableVsync" -> enableVsync = "true".equals(s2);
+						case "useVbo" -> useVbo = "true".equals(s2);
+						case "hideServerAddress" -> hideServerAddress = "true".equals(s2);
+						case "advancedItemTooltips" -> advancedItemTooltips = "true".equals(s2);
+						case "pauseOnLostFocus" -> pauseOnLostFocus = "true".equals(s2);
+						case "touchscreen" -> touchscreen = "true".equals(s2);
+						case "overrideHeight" -> overrideHeight = Integer.parseInt(s2);
+						case "overrideWidth" -> overrideWidth = Integer.parseInt(s2);
+						case "heldItemTooltips" -> heldItemTooltips = "true".equals(s2);
+						case "chatHeightFocused" -> chatHeightFocused = parseFloat(s2);
+						case "chatHeightUnfocused" -> chatHeightUnfocused = parseFloat(s2);
+						case "chatScale" -> chatScale = parseFloat(s2);
+						case "chatWidth" -> chatWidth = parseFloat(s2);
+						case "mipmapLevels" -> mipmapLevels = Integer.parseInt(s2);
+						case "forceUnicodeFont" -> forceUnicodeFont = "true".equals(s2);
+						case "reducedDebugInfo" -> reducedDebugInfo = "true".equals(s2);
+						case "useNativeTransport" -> useNativeTransport = "true".equals(s2);
+						case "entityShadows" -> entityShadows = "true".equals(s2);
+						case "mainHand" -> mainHand = "left".equals(s2) ? HandSide.LEFT : HandSide.RIGHT;
+						case "showSubtitles" -> showSubtitles = "true".equals(s2);
+						case "enableWeakAttacks" -> enableWeakAttacks = "true".equals(s2);
+						case "autoJump" -> autoJump = "true".equals(s2);
+						case "narrator" -> narrator = Integer.parseInt(s2);
+						default -> {
 						}
-					}
-					
-					if ("lastServer".equals(s1)) {
-						lastServer = s2;
-					}
-					
-					if ("lang".equals(s1)) {
-						language = s2;
-					}
-					
-					if ("chatVisibility".equals(s1)) {
-						chatVisibility = EntityPlayer.ChatVisibility.getEnumChatVisibility(Integer.parseInt(s2));
-					}
-					
-					if ("chatColors".equals(s1)) {
-						chatColours = "true".equals(s2);
-					}
-					
-					if ("chatLinks".equals(s1)) {
-						chatLinks = "true".equals(s2);
-					}
-					
-					if ("chatLinksPrompt".equals(s1)) {
-						chatLinksPrompt = "true".equals(s2);
-					}
-					
-					if ("chatOpacity".equals(s1)) {
-						chatOpacity = parseFloat(s2);
-					}
-					
-					if ("snooperEnabled".equals(s1)) {
-						snooperEnabled = "true".equals(s2);
-					}
-					
-					if ("fullscreen".equals(s1)) {
-						fullScreen = "true".equals(s2);
-					}
-					
-					if ("enableVsync".equals(s1)) {
-						enableVsync = "true".equals(s2);
-					}
-					
-					if ("useVbo".equals(s1)) {
-						useVbo = "true".equals(s2);
-					}
-					
-					if ("hideServerAddress".equals(s1)) {
-						hideServerAddress = "true".equals(s2);
-					}
-					
-					if ("advancedItemTooltips".equals(s1)) {
-						advancedItemTooltips = "true".equals(s2);
-					}
-					
-					if ("pauseOnLostFocus".equals(s1)) {
-						pauseOnLostFocus = "true".equals(s2);
-					}
-					
-					if ("touchscreen".equals(s1)) {
-						touchscreen = "true".equals(s2);
-					}
-					
-					if ("overrideHeight".equals(s1)) {
-						overrideHeight = Integer.parseInt(s2);
-					}
-					
-					if ("overrideWidth".equals(s1)) {
-						overrideWidth = Integer.parseInt(s2);
-					}
-					
-					if ("heldItemTooltips".equals(s1)) {
-						heldItemTooltips = "true".equals(s2);
-					}
-					
-					if ("chatHeightFocused".equals(s1)) {
-						chatHeightFocused = parseFloat(s2);
-					}
-					
-					if ("chatHeightUnfocused".equals(s1)) {
-						chatHeightUnfocused = parseFloat(s2);
-					}
-					
-					if ("chatScale".equals(s1)) {
-						chatScale = parseFloat(s2);
-					}
-					
-					if ("chatWidth".equals(s1)) {
-						chatWidth = parseFloat(s2);
-					}
-					
-					if ("mipmapLevels".equals(s1)) {
-						mipmapLevels = Integer.parseInt(s2);
-					}
-					
-					if ("forceUnicodeFont".equals(s1)) {
-						forceUnicodeFont = "true".equals(s2);
-					}
-					
-					if ("reducedDebugInfo".equals(s1)) {
-						reducedDebugInfo = "true".equals(s2);
-					}
-					
-					if ("useNativeTransport".equals(s1)) {
-						useNativeTransport = "true".equals(s2);
-					}
-					
-					if ("entityShadows".equals(s1)) {
-						entityShadows = "true".equals(s2);
-					}
-					
-					if ("mainHand".equals(s1)) {
-						mainHand = "left".equals(s2) ? HandSide.LEFT : HandSide.RIGHT;
-					}
-					
-					if ("showSubtitles".equals(s1)) {
-						showSubtitles = "true".equals(s2);
-					}
-					
-					if ("enableWeakAttacks".equals(s1)) {
-						enableWeakAttacks = "true".equals(s2);
-					}
-					
-					if ("autoJump".equals(s1)) {
-						autoJump = "true".equals(s2);
-					}
-					
-					if ("narrator".equals(s1)) {
-						narrator = Integer.parseInt(s2);
 					}
 					
 					for (KeyBinding keybinding : keyBindings) {
@@ -875,36 +601,36 @@ public class GameSettings {
 							setModelPartEnabled(enumplayermodelparts, "true".equals(s2));
 						}
 					}
-				} catch (Exception var11) {
+				} catch (Exception e) {
 					LOGGER.warn("Skipping bad option: {}:{}", s1, s2);
 				}
 			}
 			
 			KeyBinding.resetKeyBindingArrayAndHash();
-		} catch (Exception exception) {
-			LOGGER.error("Failed to load options", exception);
+		} catch (Exception e) {
+			LOGGER.error("Failed to load options", e);
 		}
 	}
 	
-	private NBTTagCompound dataFix(NBTTagCompound p_189988_1_) {
+	private NBTTagCompound dataFix(NBTTagCompound compound) {
 		int i = 0;
 		
 		try {
-			i = Integer.parseInt(p_189988_1_.getString("version"));
+			i = Integer.parseInt(compound.getString("version"));
 		} catch (RuntimeException ignored) {
 		}
 		
-		return mc.getDataFixer().process(FixTypes.OPTIONS, p_189988_1_, i);
+		return mc.getDataFixer().process(FixTypes.OPTIONS, compound, i);
 	}
 	
 	/**
 	 * Parses a string into a float.
 	 */
 	private float parseFloat(String str) {
-		if ("true".equals(str)) {
+		if (str.equals("true")) {
 			return 1F;
 		} else {
-			return "false".equals(str) ? 0F : Float.parseFloat(str);
+			return str.equals("false") ? 0F : Float.parseFloat(str);
 		}
 	}
 	
@@ -912,92 +638,80 @@ public class GameSettings {
 	 * Saves the options to the options file.
 	 */
 	public void saveOptions() {
-		PrintWriter printwriter = null;
-		
-		try {
-			printwriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(optionsFile), StandardCharsets.UTF_8));
-			printwriter.println("version:1343");
-			printwriter.println("invertYMouse:" + invertMouse);
-			printwriter.println("mouseSensitivity:" + mouseSensitivity);
-			printwriter.println("fov:" + (fovSetting - 70F) / 40F);
-			printwriter.println("gamma:" + gammaSetting);
-			printwriter.println("saturation:" + saturation);
-			printwriter.println("renderDistance:" + renderDistanceChunks);
-			printwriter.println("guiScale:" + guiScale);
-			printwriter.println("particles:" + particleSetting);
-			printwriter.println("bobView:" + viewBobbing);
-			printwriter.println("anaglyph3d:" + anaglyph);
-			printwriter.println("maxFps:" + limitFramerate);
-			printwriter.println("fboEnable:" + fboEnable);
-			printwriter.println("difficulty:" + difficulty.getDifficultyId());
-			printwriter.println("fancyGraphics:" + fancyGraphics);
-			printwriter.println("ao:" + ambientOcclusion);
+		try (var writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(optionsFile), StandardCharsets.UTF_8))) {
+			writer.println("version:1343");
+			writer.println("invertYMouse:" + invertMouse);
+			writer.println("mouseSensitivity:" + mouseSensitivity);
+			writer.println("fov:" + (fovSetting - 70F) / 40F);
+			writer.println("gamma:" + gammaSetting);
+			writer.println("saturation:" + saturation);
+			writer.println("renderDistance:" + renderDistanceChunks);
+			writer.println("guiScale:" + guiScale);
+			writer.println("particles:" + particleSetting);
+			writer.println("bobView:" + viewBobbing);
+			writer.println("anaglyph3d:" + anaglyph);
+			writer.println("maxFps:" + limitFramerate);
+			writer.println("fboEnable:" + fboEnable);
+			writer.println("difficulty:" + difficulty.getDifficultyId());
+			writer.println("fancyGraphics:" + fancyGraphics);
+			writer.println("ao:" + ambientOcclusion);
 			
 			switch (clouds) {
-				case 0:
-					printwriter.println("renderClouds:false");
-					break;
-				
-				case 1:
-					printwriter.println("renderClouds:fast");
-					break;
-				
-				case 2:
-					printwriter.println("renderClouds:true");
+				case 0 -> writer.println("renderClouds:false");
+				case 1 -> writer.println("renderClouds:fast");
+				case 2 -> writer.println("renderClouds:true");
 			}
 			
-			printwriter.println("resourcePacks:" + GSON.toJson(resourcePacks));
-			printwriter.println("incompatibleResourcePacks:" + GSON.toJson(incompatibleResourcePacks));
-			printwriter.println("lastServer:" + lastServer);
-			printwriter.println("lang:" + language);
-			printwriter.println("chatVisibility:" + chatVisibility.getChatVisibility());
-			printwriter.println("chatColors:" + chatColours);
-			printwriter.println("chatLinks:" + chatLinks);
-			printwriter.println("chatLinksPrompt:" + chatLinksPrompt);
-			printwriter.println("chatOpacity:" + chatOpacity);
-			printwriter.println("snooperEnabled:" + snooperEnabled);
-			printwriter.println("fullscreen:" + fullScreen);
-			printwriter.println("enableVsync:" + enableVsync);
-			printwriter.println("useVbo:" + useVbo);
-			printwriter.println("hideServerAddress:" + hideServerAddress);
-			printwriter.println("advancedItemTooltips:" + advancedItemTooltips);
-			printwriter.println("pauseOnLostFocus:" + pauseOnLostFocus);
-			printwriter.println("touchscreen:" + touchscreen);
-			printwriter.println("overrideWidth:" + overrideWidth);
-			printwriter.println("overrideHeight:" + overrideHeight);
-			printwriter.println("heldItemTooltips:" + heldItemTooltips);
-			printwriter.println("chatHeightFocused:" + chatHeightFocused);
-			printwriter.println("chatHeightUnfocused:" + chatHeightUnfocused);
-			printwriter.println("chatScale:" + chatScale);
-			printwriter.println("chatWidth:" + chatWidth);
-			printwriter.println("mipmapLevels:" + mipmapLevels);
-			printwriter.println("forceUnicodeFont:" + forceUnicodeFont);
-			printwriter.println("reducedDebugInfo:" + reducedDebugInfo);
-			printwriter.println("useNativeTransport:" + useNativeTransport);
-			printwriter.println("entityShadows:" + entityShadows);
-			printwriter.println("mainHand:" + (mainHand == HandSide.LEFT ? "left" : "right"));
-			printwriter.println("attackIndicator:" + attackIndicator);
-			printwriter.println("showSubtitles:" + showSubtitles);
-			printwriter.println("enableWeakAttacks:" + enableWeakAttacks);
-			printwriter.println("autoJump:" + autoJump);
-			printwriter.println("narrator:" + narrator);
-			printwriter.println("tutorialStep:" + tutorialStep.getName());
+			writer.println("resourcePacks:" + GSON.toJson(resourcePacks));
+			writer.println("incompatibleResourcePacks:" + GSON.toJson(incompatibleResourcePacks));
+			writer.println("lastServer:" + lastServer);
+			writer.println("lang:" + language);
+			writer.println("chatVisibility:" + chatVisibility.getChatVisibility());
+			writer.println("chatColors:" + chatColours);
+			writer.println("chatLinks:" + chatLinks);
+			writer.println("chatLinksPrompt:" + chatLinksPrompt);
+			writer.println("chatOpacity:" + chatOpacity);
+			writer.println("snooperEnabled:" + snooperEnabled);
+			writer.println("fullscreen:" + fullScreen);
+			writer.println("enableVsync:" + enableVsync);
+			writer.println("useVbo:" + useVbo);
+			writer.println("hideServerAddress:" + hideServerAddress);
+			writer.println("advancedItemTooltips:" + advancedItemTooltips);
+			writer.println("pauseOnLostFocus:" + pauseOnLostFocus);
+			writer.println("touchscreen:" + touchscreen);
+			writer.println("overrideWidth:" + overrideWidth);
+			writer.println("overrideHeight:" + overrideHeight);
+			writer.println("heldItemTooltips:" + heldItemTooltips);
+			writer.println("chatHeightFocused:" + chatHeightFocused);
+			writer.println("chatHeightUnfocused:" + chatHeightUnfocused);
+			writer.println("chatScale:" + chatScale);
+			writer.println("chatWidth:" + chatWidth);
+			writer.println("mipmapLevels:" + mipmapLevels);
+			writer.println("forceUnicodeFont:" + forceUnicodeFont);
+			writer.println("reducedDebugInfo:" + reducedDebugInfo);
+			writer.println("useNativeTransport:" + useNativeTransport);
+			writer.println("entityShadows:" + entityShadows);
+			writer.println("mainHand:" + (mainHand == HandSide.LEFT ? "left" : "right"));
+			writer.println("attackIndicator:" + attackIndicator);
+			writer.println("showSubtitles:" + showSubtitles);
+			writer.println("enableWeakAttacks:" + enableWeakAttacks);
+			writer.println("autoJump:" + autoJump);
+			writer.println("narrator:" + narrator);
+			writer.println("tutorialStep:" + tutorialStep.getName());
 			
-			for (KeyBinding keybinding : keyBindings) {
-				printwriter.println("key_" + keybinding.getKeyDescription() + ":" + keybinding.getKeyCode());
+			for (KeyBinding key : keyBindings) {
+				writer.println("key_" + key.getKeyDescription() + ":" + key.getKeyCode());
 			}
 			
-			for (SoundCategory soundcategory : SoundCategory.values()) {
-				printwriter.println("soundCategory_" + soundcategory.getName() + ":" + getSoundLevel(soundcategory));
+			for (SoundCategory sound : SoundCategory.values()) {
+				writer.println("soundCategory_" + sound.getName() + ":" + getSoundLevel(sound));
 			}
 			
-			for (PlayerModelParts enumplayermodelparts : PlayerModelParts.values()) {
-				printwriter.println("modelPart_" + enumplayermodelparts.getPartName() + ":" + setModelParts.contains(enumplayermodelparts));
+			for (PlayerModelParts parts : PlayerModelParts.values()) {
+				writer.println("modelPart_" + parts.getPartName() + ":" + modelParts.contains(parts));
 			}
 		} catch (Exception exception) {
 			LOGGER.error("Failed to save options", exception);
-		} finally {
-			IOUtils.closeQuietly(printwriter);
 		}
 		
 		sendSettingsToServer();
@@ -1019,8 +733,8 @@ public class GameSettings {
 		if (mc.player != null) {
 			int i = 0;
 			
-			for (PlayerModelParts enumplayermodelparts : setModelParts) {
-				i |= enumplayermodelparts.getPartMask();
+			for (PlayerModelParts parts : modelParts) {
+				i |= parts.getPartMask();
 			}
 			
 			mc.player.connection.sendPacket(new CPacketClientSettings(language, renderDistanceChunks, chatVisibility, chatColours, i, mainHand));
@@ -1028,24 +742,24 @@ public class GameSettings {
 	}
 	
 	public Set<PlayerModelParts> getModelParts() {
-		return ImmutableSet.copyOf(setModelParts);
+		return ImmutableSet.copyOf(modelParts);
 	}
 	
-	public void setModelPartEnabled(PlayerModelParts modelPart, boolean enable) {
+	public void setModelPartEnabled(PlayerModelParts parts, boolean enable) {
 		if (enable) {
-			setModelParts.add(modelPart);
+			modelParts.add(parts);
 		} else {
-			setModelParts.remove(modelPart);
+			modelParts.remove(parts);
 		}
 		
 		sendSettingsToServer();
 	}
 	
-	public void switchModelPartEnabled(PlayerModelParts modelPart) {
-		if (getModelParts().contains(modelPart)) {
-			setModelParts.remove(modelPart);
+	public void switchModelPartEnabled(PlayerModelParts parts) {
+		if (getModelParts().contains(parts)) {
+			modelParts.remove(parts);
 		} else {
-			setModelParts.add(modelPart);
+			modelParts.add(parts);
 		}
 		
 		sendSettingsToServer();
@@ -1065,6 +779,7 @@ public class GameSettings {
 		return useNativeTransport;
 	}
 	
+	@Getter
 	public enum Options {
 		INVERT_MOUSE("options.invertMouse", false, true),
 		SENSITIVITY("options.sensitivity", true, false),
@@ -1109,72 +824,46 @@ public class GameSettings {
 		private final boolean isFloat;
 		private final boolean isBoolean;
 		private final String translation;
-		private final float valueStep;
-		private final float valueMin;
-		private float valueMax;
+		private final float step;
+		private final float min;
+		private final float max;
 		
 		Options(String translation, boolean isFloat, boolean isBoolean) {
 			this(translation, isFloat, isBoolean, 0F, 1F, 0F);
 		}
 		
-		Options(String translation, boolean isFloat, boolean isBoolean, float valMin, float valMax, float valStep) {
+		Options(String translation, boolean isFloat, boolean isBoolean, float min, float max, float step) {
 			this.translation = translation;
 			this.isFloat = isFloat;
 			this.isBoolean = isBoolean;
-			valueMin = valMin;
-			valueMax = valMax;
-			valueStep = valStep;
+			this.min = min;
+			this.max = max;
+			this.step = step;
 		}
 		
 		public static GameSettings.Options byOrdinal(int ordinal) {
-			for (GameSettings.Options gamesettings$options : values()) {
-				if (gamesettings$options.ordinal() == ordinal) {
-					return gamesettings$options;
-				}
+			for (GameSettings.Options options : values()) {
+				if (options.ordinal() == ordinal) return options;
 			}
 			
 			return null;
 		}
 		
-		public boolean isFloat() {
-			return isFloat;
+		public float normalize(float value) {
+			return MathHelper.clamp((stepClamp(value) - min) / (max - min), 0F, 1F);
 		}
 		
-		public boolean isBoolean() {
-			return isBoolean;
+		public float denormalize(float value) {
+			return stepClamp(min + (max - min) * MathHelper.clamp(value, 0F, 1F));
 		}
 		
-		public String getTranslation() {
-			return translation;
+		public float stepClamp(float value) {
+			value = snapStep(value);
+			return MathHelper.clamp(value, min, max);
 		}
 		
-		public float getValueMin() {
-			return valueMin;
-		}
-		
-		public float getValueMax() {
-			return valueMax;
-		}
-		
-		public void setValueMax(float value) {
-			valueMax = value;
-		}
-		
-		public float normalizeValue(float value) {
-			return MathHelper.clamp((snapToStepClamp(value) - valueMin) / (valueMax - valueMin), 0F, 1F);
-		}
-		
-		public float denormalizeValue(float value) {
-			return snapToStepClamp(valueMin + (valueMax - valueMin) * MathHelper.clamp(value, 0F, 1F));
-		}
-		
-		public float snapToStepClamp(float value) {
-			value = snapToStep(value);
-			return MathHelper.clamp(value, valueMin, valueMax);
-		}
-		
-		private float snapToStep(float value) {
-			if (valueStep > 0F) value = valueStep * (float) Math.round(value / valueStep);
+		private float snapStep(float value) {
+			if (step > 0F) value = step * Math.round(value / step);
 			return value;
 		}
 	}

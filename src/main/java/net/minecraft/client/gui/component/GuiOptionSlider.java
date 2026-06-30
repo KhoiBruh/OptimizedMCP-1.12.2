@@ -26,7 +26,7 @@ public class GuiOptionSlider extends GuiButton {
 		minValue = minValueIn;
 		this.maxValue = maxValue;
 		Minecraft minecraft = Minecraft.getMinecraft();
-		sliderValue = optionIn.normalizeValue(minecraft.gameSettings.getOptionFloatValue(optionIn));
+		sliderValue = optionIn.normalize(minecraft.gameSettings.getOptionFloatValue(optionIn));
 		displayString = minecraft.gameSettings.getKeyBinding(optionIn);
 	}
 
@@ -48,9 +48,9 @@ public class GuiOptionSlider extends GuiButton {
 			if (dragging) {
 				sliderValue = (float) (mouseX - (x + 4)) / (float) (width - 8);
 				sliderValue = MathHelper.clamp(sliderValue, 0F, 1F);
-				float f = options.denormalizeValue(sliderValue);
+				float f = options.denormalize(sliderValue);
 				mc.gameSettings.setOptionFloatValue(options, f);
-				sliderValue = options.normalizeValue(f);
+				sliderValue = options.normalize(f);
 				displayString = mc.gameSettings.getKeyBinding(options);
 			}
 
@@ -70,7 +70,7 @@ public class GuiOptionSlider extends GuiButton {
 		if (super.mousePressed(mc, mouseX, mouseY)) {
 			sliderValue = (float) (mouseX - (x + 4)) / (float) (width - 8);
 			sliderValue = MathHelper.clamp(sliderValue, 0F, 1F);
-			mc.gameSettings.setOptionFloatValue(options, options.denormalizeValue(sliderValue));
+			mc.gameSettings.setOptionFloatValue(options, options.denormalize(sliderValue));
 			displayString = mc.gameSettings.getKeyBinding(options);
 			dragging = true;
 			return true;

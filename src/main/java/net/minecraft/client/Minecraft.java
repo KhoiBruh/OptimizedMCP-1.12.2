@@ -953,7 +953,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		
 		while (getSystemTime() >= debugUpdateTime + 1000L) {
 			debugFPS = fpsCounter;
-			debug = String.format("%d fps (%d chunk update%s) T: %s%s%s%s%s", debugFPS, RenderChunk.renderChunksUpdated, RenderChunk.renderChunksUpdated == 1 ? "" : "s", (float) gameSettings.limitFramerate == GameSettings.Options.FRAMERATE_LIMIT.getValueMax() ? "inf" : gameSettings.limitFramerate, gameSettings.enableVsync ? " vsync" : "", gameSettings.fancyGraphics ? "" : " fast", gameSettings.clouds == 0 ? "" : (gameSettings.clouds == 1 ? " fast-clouds" : " fancy-clouds"), OpenGlHelper.useVbo() ? " vbo" : "");
+			debug = String.format("%d fps (%d chunk update%s) T: %s%s%s%s%s", debugFPS, RenderChunk.renderChunksUpdated, RenderChunk.renderChunksUpdated == 1 ? "" : "s", (float) gameSettings.limitFramerate == GameSettings.Options.FRAMERATE_LIMIT.getMax() ? "inf" : gameSettings.limitFramerate, gameSettings.enableVsync ? " vsync" : "", gameSettings.fancyGraphics ? "" : " fast", gameSettings.clouds == 0 ? "" : (gameSettings.clouds == 1 ? " fast-clouds" : " fancy-clouds"), OpenGlHelper.useVbo() ? " vbo" : "");
 			RenderChunk.renderChunksUpdated = 0;
 			debugUpdateTime += 1000L;
 			fpsCounter = 0;
@@ -991,7 +991,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	}
 	
 	public boolean isFramerateLimitBelowMax() {
-		return getLimitFramerate() < GameSettings.Options.FRAMERATE_LIMIT.getValueMax();
+		return getLimitFramerate() < GameSettings.Options.FRAMERATE_LIMIT.getMax();
 	}
 	
 	/**
