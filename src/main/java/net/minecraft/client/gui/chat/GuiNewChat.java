@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiUtilRenderComponents;
-import net.minecraft.client.gui.ScaledResolution;
+
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.MathHelper;
@@ -237,8 +237,7 @@ public class GuiNewChat extends Gui {
 	public ITextComponent getChatComponent(int mouseX, int mouseY) {
 		
 		if (getChatOpen()) {
-			ScaledResolution scaledResolution = mc.scaledResolution;
-			int i = scaledResolution.getScaleFactor();
+			int i = mc.getWindow().getGuiScale();
 			float f = getChatScale();
 			int j = mouseX / i - 2;
 			int k = mouseY / i - 40;

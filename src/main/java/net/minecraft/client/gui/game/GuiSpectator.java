@@ -2,7 +2,7 @@ package net.minecraft.client.gui.game;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.ScaledResolution;
+
 import net.minecraft.client.gui.spectator.ISpectatorMenuObject;
 import net.minecraft.client.gui.spectator.ISpectatorMenuRecipient;
 import net.minecraft.client.gui.spectator.SpectatorMenu;
@@ -43,7 +43,7 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 		return MathHelper.clamp((float) i / 2000F, 0F, 1F);
 	}
 
-	public void renderTooltip(ScaledResolution p_175264_1_, float p_175264_2_) {
+	public void renderTooltip(float p_175264_2_) {
 
 		if (menu != null) {
 			float f = getHotbarAlpha();
@@ -51,18 +51,18 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 			if (f <= 0F) {
 				menu.exit();
 			} else {
-				int i = p_175264_1_.getScaledWidth() / 2;
+				int i = mc.getWindow().getScaledWidth() / 2;
 				float f1 = zLevel;
 				zLevel = -90F;
-				float f2 = (float) p_175264_1_.getScaledHeight() - 22F * f;
+				float f2 = (float) mc.getWindow().getScaledHeight() - 22F * f;
 				SpectatorDetails spectatordetails = menu.getCurrentPage();
-				renderPage(p_175264_1_, f, i, f2, spectatordetails);
+				renderPage(f, i, f2, spectatordetails);
 				zLevel = f1;
 			}
 		}
 	}
 
-	protected void renderPage(ScaledResolution p_175258_1_, float p_175258_2_, int p_175258_3_, float p_175258_4_, SpectatorDetails p_175258_5_) {
+	protected void renderPage(float p_175258_2_, int p_175258_3_, float p_175258_4_, SpectatorDetails p_175258_5_) {
 
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.enableBlend();
@@ -78,7 +78,7 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 		RenderHelper.enableGUIStandardItemLighting();
 
 		for (int i = 0; i < 9; ++i) {
-			renderSlot(i, p_175258_1_.getScaledWidth() / 2 - 90 + i * 20 + 2, p_175258_4_ + 3F, p_175258_2_, p_175258_5_.getObject(i));
+			renderSlot(i, mc.getWindow().getScaledWidth() / 2 - 90 + i * 20 + 2, p_175258_4_ + 3F, p_175258_2_, p_175258_5_.getObject(i));
 		}
 
 		RenderHelper.disableStandardItemLighting();
@@ -106,7 +106,7 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 		}
 	}
 
-	public void renderSelectedItem(ScaledResolution p_175263_1_) {
+	public void renderSelectedItem() {
 
 		int i = (int) (getHotbarAlpha() * 255F);
 
@@ -115,8 +115,8 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 			String s = ispectatormenuobject == SpectatorMenu.EMPTY_SLOT ? menu.getSelectedCategory().getPrompt().getFormattedText() : ispectatormenuobject.getSpectatorName().getFormattedText();
 
 			if (s != null) {
-				int j = (p_175263_1_.getScaledWidth() - mc.fontRenderer.getStringWidth(s)) / 2;
-				int k = p_175263_1_.getScaledHeight() - 35;
+				int j = (mc.getWindow().getScaledWidth() - mc.fontRenderer.getStringWidth(s)) / 2;
+				int k = mc.getWindow().getScaledHeight() - 35;
 				GlStateManager.pushMatrix();
 				GlStateManager.enableBlend();
 				GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);

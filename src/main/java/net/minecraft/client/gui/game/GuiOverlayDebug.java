@@ -9,7 +9,7 @@ import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.ScaledResolution;
+
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.entity.Entity;
@@ -116,14 +116,14 @@ public class GuiOverlayDebug extends Gui {
 		return alpha << 24 | red << 16 | green << 8 | blue;
 	}
 
-	public void renderDebugInfo(ScaledResolution scaledResolutionIn) {
+	public void renderDebugInfo() {
 
 		mc.profiler.startSection("debug");
 		try {
 			GlStateManager.pushMatrix();
 			try {
 				renderDebugInfoLeft();
-				renderDebugInfoRight(scaledResolutionIn);
+				renderDebugInfoRight();
 			} finally {
 				GlStateManager.popMatrix();
 			}
@@ -145,9 +145,9 @@ public class GuiOverlayDebug extends Gui {
 		drawDebugText(list, DEBUG_MARGIN, false);
 	}
 
-	protected void renderDebugInfoRight(ScaledResolution scaledRes) {
+	protected void renderDebugInfoRight() {
 
-		drawDebugText(getDebugInfoRight(), scaledRes.getScaledWidth() - DEBUG_MARGIN, true);
+		drawDebugText(getDebugInfoRight(), mc.getWindow().getScaledWidth() - DEBUG_MARGIN, true);
 	}
 
 	private void drawDebugText(List<String> lines, int xAnchor, boolean alignRight) {
@@ -297,8 +297,7 @@ public class GuiOverlayDebug extends Gui {
 		int i = frametimer.getLastIndex();
 		int j = frametimer.getIndex();
 		long[] along = frametimer.getFrames();
-		ScaledResolution scaledResolution = mc.scaledResolution;
-		int scaledHeight = scaledResolution.getScaledHeight();
+		int scaledHeight = mc.getWindow().getScaledHeight();
 		int top = scaledHeight - LAGOMETER_HEIGHT;
 		int right = LAGOMETER_WIDTH - 1;
 		int k = i;

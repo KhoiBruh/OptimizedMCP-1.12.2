@@ -10,7 +10,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.game.MapItemRenderer;
-import net.minecraft.client.gui.ScaledResolution;
+
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.culling.Frustum;
@@ -1024,9 +1024,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
 		if (!mc.skipRenderWorld) {
 			anaglyphEnable = mc.gameSettings.anaglyph;
-			final ScaledResolution scaledresolution = mc.scaledResolution;
-			int i1 = scaledresolution.getScaledWidth();
-			int j1 = scaledresolution.getScaledHeight();
+			int i1 = mc.getWindow().getScaledWidth();
+			int j1 = mc.getWindow().getScaledHeight();
 			final int k1 = Mouse.getX() * i1 / mc.getWindow().getWidth();
 			final int l1 = j1 - Mouse.getY() * j1 / mc.getWindow().getHeight() - 1;
 			int i2 = mc.gameSettings.limitFramerate;
@@ -1092,7 +1091,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 					CrashReportCategory crashreportcategory = crashreport.makeCategory("Screen render details");
 					crashreportcategory.addDetail("Screen name", () -> mc.currentScreen.getClass().getCanonicalName());
 					crashreportcategory.addDetail("Mouse location", () -> String.format("Scaled: (%d, %d). Absolute: (%d, %d)", k1, l1, Mouse.getX(), Mouse.getY()));
-					crashreportcategory.addDetail("Screen size", () -> String.format("Scaled: (%d, %d). Absolute: (%d, %d). Scale factor of %d", scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight(), mc.getWindow().getWidth(), mc.getWindow().getHeight(), scaledresolution.getScaleFactor()));
+					crashreportcategory.addDetail("Screen size", () -> String.format("Scaled: (%d, %d). Absolute: (%d, %d). Scale factor of %d", mc.getWindow().getScaledWidth(), mc.getWindow().getScaledHeight(), mc.getWindow().getWidth(), mc.getWindow().getHeight(), mc.getWindow().getGuiScale()));
 					throw new ReportedException(crashreport);
 				}
 			}
@@ -1562,11 +1561,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	 */
 	public void setupOverlayRendering() {
 
-		ScaledResolution scaledresolution = mc.scaledResolution;
 		GlStateManager.clear(256);
 		GlStateManager.matrixMode(5889);
 		GlStateManager.loadIdentity();
-		GlStateManager.ortho(0D, scaledresolution.getScaledWidth_double(), scaledresolution.getScaledHeight_double(), 0D, 1000D, 3000D);
+		GlStateManager.ortho(0D, mc.getWindow().getScaledWidth(), mc.getWindow().getScaledHeight(), 0D, 1000D, 3000D);
 		GlStateManager.matrixMode(5888);
 		GlStateManager.loadIdentity();
 		GlStateManager.translate(0F, 0F, -2000F);

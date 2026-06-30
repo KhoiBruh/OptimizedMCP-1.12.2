@@ -171,7 +171,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	public final Profiler profiler = new Profiler();
 	public boolean renderChunksMany = true;
 	public RenderGlobal renderGlobal;
-	public ScaledResolution scaledResolution;
+	// Removed: scaledResolution field (merged into Window)
 	public boolean skipRenderWorld;
 	public FontRenderer standardGalacticFontRenderer;
 	public WorldClient world;
@@ -428,7 +428,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		mcResourceManager = new SimpleReloadableResourceManager(metadataSerializer);
 		mcLanguageManager = new LanguageManager(metadataSerializer, gameSettings.language);
 		mcResourceManager.registerReloadListener(mcLanguageManager);
-		scaledResolution = new ScaledResolution(this);
+		window.setGuiScale(gameSettings.guiScale, isUnicode());
 		refreshResources();
 		renderEngine = new TextureManager(mcResourceManager);
 		mcResourceManager.registerReloadListener(renderEngine);
@@ -757,12 +757,12 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	
 	private void drawSplashScreen(TextureManager textureManagerInstance) {
 		
-		int i = scaledResolution.getScaleFactor();
-		Framebuffer framebuffer = new Framebuffer(scaledResolution.getScaledWidth() * i, scaledResolution.getScaledHeight() * i, true);
+		int i = window.getGuiScale();
+		Framebuffer framebuffer = new Framebuffer(window.getScaledWidth() * i, window.getScaledHeight() * i, true);
 		framebuffer.bindFramebuffer(false);
 		GlStateManager.matrixMode(5889);
 		GlStateManager.loadIdentity();
-		GlStateManager.ortho(0D, scaledResolution.getScaledWidth(), scaledResolution.getScaledHeight(), 0D, 1000D, 3000D);
+		GlStateManager.ortho(0D, window.getScaledWidth(), window.getScaledHeight(), 0D, 1000D, 3000D);
 		GlStateManager.matrixMode(5888);
 		GlStateManager.loadIdentity();
 		GlStateManager.translate(0F, 0F, -2000F);
@@ -791,11 +791,11 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		bufferbuilder.pos(0D, 0D, 0D).tex(0D, 0D).color(255, 255, 255, 255).endVertex();
 		tessellator.draw();
 		GlStateManager.color(1F, 1F, 1F, 1F);
-		draw((scaledResolution.getScaledWidth() - 256) / 2, (scaledResolution.getScaledHeight() - 256) / 2, 0, 0, 256, 256, 255, 255, 255, 255);
+		draw((window.getScaledWidth() - 256) / 2, (window.getScaledHeight() - 256) / 2, 0, 0, 256, 256, 255, 255, 255, 255);
 		GlStateManager.disableLighting();
 		GlStateManager.disableFog();
 		framebuffer.unbindFramebuffer();
-		framebuffer.framebufferRender(scaledResolution.getScaledWidth() * i, scaledResolution.getScaledHeight() * i);
+		framebuffer.framebufferRender(window.getScaledWidth() * i, window.getScaledHeight() * i);
 		GlStateManager.enableAlpha();
 		GlStateManager.alphaFunc(516, 0.1F);
 		updateDisplay();
@@ -877,8 +877,8 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 			while (Keyboard.next()) {
 			}
 			
-			int i = scaledResolution.getScaledWidth();
-			int j = scaledResolution.getScaledHeight();
+			int i = window.getScaledWidth();
+			int j = window.getScaledHeight();
 			guiScreenIn.setWorldAndResolution(this, i, j);
 			skipRenderWorld = false;
 		} else {
@@ -973,7 +973,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 			profiler.endStartSection("gameRenderer");
 			entityRenderer.updateCameraAndRender(isGamePaused ? renderPartialTicksPaused : timer.renderPartialTicks, i);
 			profiler.endStartSection("toasts");
-			toastGui.drawToast(scaledResolution);
+			toastGui.drawToast();
 			profiler.endSection();
 		}
 		
@@ -1429,12 +1429,12 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	 */
 	private void resize(int width, int height) {
 
-		scaledResolution = new ScaledResolution(this);
+		window.setGuiScale(gameSettings.guiScale, isUnicode());
 
 		if (currentScreen != null) currentScreen.onResize(
 				this,
-				scaledResolution.getScaledWidth(),
-				scaledResolution.getScaledHeight()
+				window.getScaledWidth(),
+				window.getScaledHeight()
 		);
 
 		loadingScreen = new LoadingScreenRenderer(this);

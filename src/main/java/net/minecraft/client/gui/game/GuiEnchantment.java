@@ -2,7 +2,7 @@ package net.minecraft.client.gui.game;
 
 import com.google.common.collect.Lists;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.ScaledResolution;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.model.ModelBook;
 import net.minecraft.client.renderer.GlStateManager;
@@ -120,8 +120,7 @@ public class GuiEnchantment extends GuiContainer {
 		GlStateManager.matrixMode(5889);
 		GlStateManager.pushMatrix();
 		GlStateManager.loadIdentity();
-		ScaledResolution scaledresolution = mc.scaledResolution;
-		GlStateManager.viewport((scaledresolution.getScaledWidth() - 320) / 2 * scaledresolution.getScaleFactor(), (scaledresolution.getScaledHeight() - 240) / 2 * scaledresolution.getScaleFactor(), 320 * scaledresolution.getScaleFactor(), 240 * scaledresolution.getScaleFactor());
+		GlStateManager.viewport((mc.getWindow().getScaledWidth() - 320) / 2 * mc.getWindow().getGuiScale(), (mc.getWindow().getScaledHeight() - 240) / 2 * mc.getWindow().getGuiScale(), 320 * mc.getWindow().getGuiScale(), 240 * mc.getWindow().getGuiScale());
 		GlStateManager.translate(-0.34F, 0.23F, 0F);
 		Project.gluPerspective(90F, 1.3333334F, 9F, 80F);
 		float f = 1F;

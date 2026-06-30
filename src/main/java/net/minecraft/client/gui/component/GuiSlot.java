@@ -2,7 +2,7 @@ package net.minecraft.client.gui.component;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.ScaledResolution;
+
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -458,8 +458,7 @@ public abstract class GuiSlot {
 
 	protected void enableScissor(int leftIn, int topIn, int rightIn, int bottomIn) {
 
-		ScaledResolution scaledresolution = new ScaledResolution(mc);
-		int scaleFactor = scaledresolution.getScaleFactor();
+		int scaleFactor = mc.getWindow().getGuiScale();
 		int left = leftIn * scaleFactor;
 		int bottom = mc.getWindow().getHeight() - bottomIn * scaleFactor;
 		int right = (rightIn - leftIn) * scaleFactor;

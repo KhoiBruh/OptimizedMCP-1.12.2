@@ -25,6 +25,15 @@ public final class Window {
 
     @Getter
     private int height;
+	
+	@Getter
+	private int scaledWidth;
+	
+	@Getter
+	private int scaledHeight;
+	
+	@Getter
+	private int guiScale;
 
     private String title;
 	
@@ -48,8 +57,21 @@ public final class Window {
     public void create() throws Exception {
         create(new PixelFormat());
     }
+	
+    public void setGuiScale(int setting, boolean unicode) {
+        int scale = 1;
+        int maxScale = setting == 0 ? 100 : setting;
 
-    public void create(PixelFormat pixelFormat) throws Exception {
+        while (scale < maxScale && width >= (scale + 1) * 320 && height >= (scale + 1) * 240) scale++;
+
+        if (unicode && scale > 1 && (scale & 1) == 1) scale--;
+
+        guiScale = scale;
+        scaledWidth = width / scale;
+        scaledHeight = height / scale;
+    }
+	
+	public void create(PixelFormat pixelFormat) throws Exception {
         if (!glfwInit()) throw new Exception("Failed to initialise GLFW");
 
         glfwDefaultWindowHints();
@@ -182,9 +204,7 @@ public final class Window {
 
     public DisplayMode getDesktopDisplayMode() {
         GLFWVidMode vm = glfwGetVideoMode(glfwGetPrimaryMonitor());
-        if (vm != null) {
-            return new DisplayMode(vm.width(), vm.height(), vm.redBits() + vm.greenBits() + vm.blueBits(), vm.refreshRate());
-        }
+        if (vm != null) return new DisplayMode(vm.width(), vm.height(), vm.redBits() + vm.greenBits() + vm.blueBits(), vm.refreshRate());
         return new DisplayMode(width, height, 32, 60);
     }
 

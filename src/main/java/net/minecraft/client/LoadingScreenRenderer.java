@@ -1,7 +1,7 @@
 package net.minecraft.client;
 
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.ScaledResolution;
+
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -66,17 +66,16 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 			if (!loadingSuccess) {
 				throw new MinecraftError();
 			}
-		} else {
+		} 		else {
 			GlStateManager.clear(256);
 			GlStateManager.matrixMode(5889);
 			GlStateManager.loadIdentity();
-			ScaledResolution scaledResolution = mc.scaledResolution;
 
 			if (OpenGlHelper.isFramebufferEnabled()) {
-				int factor = scaledResolution.getScaleFactor();
-				GlStateManager.ortho(0D, scaledResolution.getScaledWidth() * factor, scaledResolution.getScaledHeight() * factor, 0D, 100D, 300D);
+				int factor = mc.getWindow().getGuiScale();
+				GlStateManager.ortho(0D, mc.getWindow().getScaledWidth() * factor, mc.getWindow().getScaledHeight() * factor, 0D, 100D, 300D);
 			} else {
-				GlStateManager.ortho(0D, scaledResolution.getScaledWidth_double(), scaledResolution.getScaledHeight_double(), 0D, 100D, 300D);
+				GlStateManager.ortho(0D, mc.getWindow().getScaledWidth(), mc.getWindow().getScaledHeight(), 0, 100, 300);
 			}
 
 			GlStateManager.matrixMode(5888);
@@ -116,10 +115,9 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 
 			if (i - systemTime >= 100L) {
 				systemTime = i;
-				ScaledResolution scaledResolution = mc.scaledResolution;
-				int j = scaledResolution.getScaleFactor();
-				int k = scaledResolution.getScaledWidth();
-				int l = scaledResolution.getScaledHeight();
+				int j = mc.getWindow().getGuiScale();
+				int k = mc.getWindow().getScaledWidth();
+				int l = mc.getWindow().getScaledHeight();
 
 				if (OpenGlHelper.isFramebufferEnabled()) {
 					framebuffer.framebufferClear();
@@ -130,7 +128,7 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 				framebuffer.bindFramebuffer(false);
 				GlStateManager.matrixMode(5889);
 				GlStateManager.loadIdentity();
-				GlStateManager.ortho(0D, scaledResolution.getScaledWidth_double(), scaledResolution.getScaledHeight_double(), 0D, 100D, 300D);
+				GlStateManager.ortho(0D, mc.getWindow().getScaledWidth(), mc.getWindow().getScaledHeight(), 0D, 100D, 300D);
 				GlStateManager.matrixMode(5888);
 				GlStateManager.loadIdentity();
 				GlStateManager.translate(0F, 0F, -200F);

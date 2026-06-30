@@ -347,6 +347,7 @@ public class GameSettings {
 
 		if (settingsOption == GameSettings.Options.GUI_SCALE) {
 			guiScale = guiScale + value & 3;
+			mc.getWindow().setGuiScale(guiScale, mc.isUnicode());
 		}
 
 		if (settingsOption == GameSettings.Options.PARTICLES) {

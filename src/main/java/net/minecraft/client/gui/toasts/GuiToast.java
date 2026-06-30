@@ -3,7 +3,7 @@ package net.minecraft.client.gui.toasts;
 import com.google.common.collect.Queues;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.ScaledResolution;
+
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.math.MathHelper;
@@ -21,7 +21,7 @@ public class GuiToast extends Gui {
 		mc = mcIn;
 	}
 
-	public void drawToast(ScaledResolution resolution) {
+	public void drawToast() {
 
 		if (!mc.gameSettings.hideGUI) {
 			RenderHelper.disableStandardItemLighting();
@@ -29,7 +29,7 @@ public class GuiToast extends Gui {
 			for (int i = 0; i < visible.length; ++i) {
 				GuiToast.ToastInstance<?> toastinstance = visible[i];
 
-				if (toastinstance != null && toastinstance.render(resolution.getScaledWidth(), i)) {
+				if (toastinstance != null && toastinstance.render(mc.getWindow().getScaledWidth(), i)) {
 					visible[i] = null;
 				}
 

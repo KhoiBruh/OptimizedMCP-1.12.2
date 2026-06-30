@@ -162,14 +162,13 @@ public class GuiIngame extends Gui {
 
 	public void renderGameOverlay(float partialTicks) {
 
-		ScaledResolution scaledResolution = mc.scaledResolution;
-		int i = scaledResolution.getScaledWidth();
-		int j = scaledResolution.getScaledHeight();
+		int i = mc.getWindow().getScaledWidth();
+		int j = mc.getWindow().getScaledHeight();
 		FontRenderer fontrenderer = getFontRenderer();
 		GlStateManager.enableBlend();
 
 		if (Minecraft.isFancyGraphicsEnabled()) {
-			renderVignette(mc.player.getBrightness(), scaledResolution);
+			renderVignette(mc.player.getBrightness());
 		} else {
 			GlStateManager.enableDepth();
 			GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
@@ -178,27 +177,27 @@ public class GuiIngame extends Gui {
 		ItemStack itemstack = mc.player.inventory.armorItemInSlot(3);
 
 		if (mc.gameSettings.thirdPersonView == 0 && itemstack.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN)) {
-			renderPumpkinOverlay(scaledResolution);
+			renderPumpkinOverlay();
 		}
 
 		if (!mc.player.isPotionActive(MobEffects.NAUSEA)) {
 			float f = mc.player.prevTimeInPortal + (mc.player.timeInPortal - mc.player.prevTimeInPortal) * partialTicks;
 
 			if (f > 0F) {
-				renderPortal(f, scaledResolution);
+				renderPortal(f);
 			}
 		}
 
 		if (mc.playerController.isSpectator()) {
-			spectatorGui.renderTooltip(scaledResolution, partialTicks);
+			spectatorGui.renderTooltip(partialTicks);
 		} else {
-			renderHotbar(scaledResolution, partialTicks);
+			renderHotbar(partialTicks);
 		}
 
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(ICONS);
 		GlStateManager.enableBlend();
-		renderAttackIndicator(partialTicks, scaledResolution);
+		renderAttackIndicator(partialTicks);
 		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		mc.profiler.startSection("bossHealth");
 		overlayBoss.renderBossHealth();
@@ -207,10 +206,10 @@ public class GuiIngame extends Gui {
 		mc.getTextureManager().bindTexture(ICONS);
 
 		if (mc.playerController.shouldDrawHUD()) {
-			renderPlayerStats(scaledResolution);
+			renderPlayerStats();
 		}
 
-		renderMountHealth(scaledResolution);
+		renderMountHealth();
 		GlStateManager.disableBlend();
 
 		if (mc.player.getSleepTimer() > 0) {
@@ -235,21 +234,21 @@ public class GuiIngame extends Gui {
 		int k1 = i / 2 - 91;
 
 		if (mc.player.isRidingHorse()) {
-			renderHorseJumpBar(scaledResolution, k1);
+			renderHorseJumpBar(k1);
 		} else if (mc.playerController.gameIsSurvivalOrAdventure()) {
-			renderExpBar(scaledResolution, k1);
+			renderExpBar(k1);
 		}
 
 		if (mc.gameSettings.heldItemTooltips && !mc.playerController.isSpectator()) {
-			renderSelectedItem(scaledResolution);
+			renderSelectedItem();
 		} else if (mc.player.isSpectator()) {
-			spectatorGui.renderSelectedItem(scaledResolution);
+			spectatorGui.renderSelectedItem();
 		}
 
-		renderPotionEffects(scaledResolution);
+		renderPotionEffects();
 
 		if (mc.gameSettings.showDebugInfo) {
-			overlayDebug.renderDebugInfo(scaledResolution);
+			overlayDebug.renderDebugInfo();
 		}
 
 		if (overlayMessageTime > 0) {
@@ -280,7 +279,7 @@ public class GuiIngame extends Gui {
 			mc.profiler.endSection();
 		}
 
-		overlaySubtitle.renderSubtitles(scaledResolution);
+		overlaySubtitle.renderSubtitles();
 
 		if (titlesTimer > 0) {
 			mc.profiler.startSection("titleAndSubtitle");
@@ -334,7 +333,7 @@ public class GuiIngame extends Gui {
 		ScoreObjective scoreobjective1 = scoreobjective != null ? scoreobjective : scoreboard.getObjectiveInDisplaySlot(1);
 
 		if (scoreobjective1 != null) {
-			renderScoreboard(scoreobjective1, scaledResolution);
+			renderScoreboard(scoreobjective1);
 		}
 
 		GlStateManager.enableBlend();
@@ -360,7 +359,7 @@ public class GuiIngame extends Gui {
 		GlStateManager.enableAlpha();
 	}
 
-	private void renderAttackIndicator(float p_184045_1_, ScaledResolution p_184045_2_) {
+	private void renderAttackIndicator(float p_184045_1_) {
 
 		GameSettings gamesettings = mc.gameSettings;
 
@@ -379,8 +378,8 @@ public class GuiIngame extends Gui {
 				}
 			}
 
-			int l = p_184045_2_.getScaledWidth();
-			int i1 = p_184045_2_.getScaledHeight();
+			int l = mc.getWindow().getScaledWidth();
+			int i1 = mc.getWindow().getScaledHeight();
 
 			if (gamesettings.showDebugInfo && !gamesettings.hideGUI && !mc.player.hasReducedDebug() && !gamesettings.reducedDebugInfo) {
 				GlStateManager.pushMatrix();
@@ -420,7 +419,7 @@ public class GuiIngame extends Gui {
 		}
 	}
 
-	protected void renderPotionEffects(ScaledResolution resolution) {
+	protected void renderPotionEffects() {
 
 		Collection<PotionEffect> collection = mc.player.getActivePotionEffects();
 
@@ -434,7 +433,7 @@ public class GuiIngame extends Gui {
 				Potion potion = potioneffect.getPotion();
 
 				if (potion.hasStatusIcon() && potioneffect.doesShowParticles()) {
-					int k = resolution.getScaledWidth();
+					int k = mc.getWindow().getScaledWidth();
 					int l = 1;
 
 					int i1 = potion.getStatusIconIndex();
@@ -469,26 +468,26 @@ public class GuiIngame extends Gui {
 		}
 	}
 
-	protected void renderHotbar(ScaledResolution sr, float partialTicks) {
+	protected void renderHotbar(float partialTicks) {
 
 		if (mc.getRenderViewEntity() instanceof EntityPlayer entityplayer) {
 			GlStateManager.color(1F, 1F, 1F, 1F);
 			mc.getTextureManager().bindTexture(WIDGETS_TEX_PATH);
 			ItemStack itemstack = entityplayer.getHeldItemOffhand();
 			HandSide enumhandside = entityplayer.getPrimaryHand().opposite();
-			int i = sr.getScaledWidth() / 2;
+			int i = mc.getWindow().getScaledWidth() / 2;
 			float f = zLevel;
 			int j = 182;
 			int k = 91;
 			zLevel = -90F;
-			drawTexturedModalRect(i - 91, sr.getScaledHeight() - 22, 0, 0, 182, 22);
-			drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20, sr.getScaledHeight() - 22 - 1, 0, 22, 24, 22);
+			drawTexturedModalRect(i - 91, mc.getWindow().getScaledHeight() - 22, 0, 0, 182, 22);
+			drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20, mc.getWindow().getScaledHeight() - 22 - 1, 0, 22, 24, 22);
 
 			if (!itemstack.isEmpty()) {
 				if (enumhandside == HandSide.LEFT) {
-					drawTexturedModalRect(i - 91 - 29, sr.getScaledHeight() - 23, 24, 22, 29, 24);
+					drawTexturedModalRect(i - 91 - 29, mc.getWindow().getScaledHeight() - 23, 24, 22, 29, 24);
 				} else {
-					drawTexturedModalRect(i + 91, sr.getScaledHeight() - 23, 53, 22, 29, 24);
+					drawTexturedModalRect(i + 91, mc.getWindow().getScaledHeight() - 23, 53, 22, 29, 24);
 				}
 			}
 
@@ -500,12 +499,12 @@ public class GuiIngame extends Gui {
 
 			for (int l = 0; l < 9; ++l) {
 				int i1 = i - 90 + l * 20 + 2;
-				int j1 = sr.getScaledHeight() - 16 - 3;
+				int j1 = mc.getWindow().getScaledHeight() - 16 - 3;
 				renderHotbarItem(i1, j1, partialTicks, entityplayer, entityplayer.inventory.mainInventory.get(l));
 			}
 
 			if (!itemstack.isEmpty()) {
-				int l1 = sr.getScaledHeight() - 16 - 3;
+				int l1 = mc.getWindow().getScaledHeight() - 16 - 3;
 
 				if (enumhandside == HandSide.LEFT) {
 					renderHotbarItem(i - 91 - 26, l1, partialTicks, entityplayer, itemstack);
@@ -518,7 +517,7 @@ public class GuiIngame extends Gui {
 				float f1 = mc.player.getCooledAttackStrength(0F);
 
 				if (f1 < 1F) {
-					int i2 = sr.getScaledHeight() - 20;
+					int i2 = mc.getWindow().getScaledHeight() - 20;
 					int j2 = i + 91 + 6;
 
 					if (enumhandside == HandSide.RIGHT) {
@@ -539,14 +538,14 @@ public class GuiIngame extends Gui {
 		}
 	}
 
-	public void renderHorseJumpBar(ScaledResolution scaledRes, int x) {
+	public void renderHorseJumpBar(int x) {
 
 		mc.profiler.startSection("jumpBar");
 		mc.getTextureManager().bindTexture(Gui.ICONS);
 		float f = mc.player.getHorseJumpPower();
 		int i = 182;
 		int j = (int) (f * 183F);
-		int k = scaledRes.getScaledHeight() - 32 + 3;
+		int k = mc.getWindow().getScaledHeight() - 32 + 3;
 		drawTexturedModalRect(x, k, 0, 84, 182, 5);
 
 		if (j > 0) {
@@ -556,7 +555,7 @@ public class GuiIngame extends Gui {
 		mc.profiler.endSection();
 	}
 
-	public void renderExpBar(ScaledResolution scaledRes, int x) {
+	public void renderExpBar(int x) {
 
 		mc.profiler.startSection("expBar");
 		mc.getTextureManager().bindTexture(Gui.ICONS);
@@ -565,7 +564,7 @@ public class GuiIngame extends Gui {
 		if (i > 0) {
 			int j = 182;
 			int k = (int) (mc.player.experience * 183F);
-			int l = scaledRes.getScaledHeight() - 32 + 3;
+			int l = mc.getWindow().getScaledHeight() - 32 + 3;
 			drawTexturedModalRect(x, l, 0, 64, 182, 5);
 
 			if (k > 0) {
@@ -578,8 +577,8 @@ public class GuiIngame extends Gui {
 		if (mc.player.experienceLevel > 0) {
 			mc.profiler.startSection("expLevel");
 			String s = "" + mc.player.experienceLevel;
-			int i1 = (scaledRes.getScaledWidth() - getFontRenderer().getStringWidth(s)) / 2;
-			int j1 = scaledRes.getScaledHeight() - 31 - 4;
+			int i1 = (mc.getWindow().getScaledWidth() - getFontRenderer().getStringWidth(s)) / 2;
+			int j1 = mc.getWindow().getScaledHeight() - 31 - 4;
 			getFontRenderer().drawString(s, i1 + 1, j1, 0);
 			getFontRenderer().drawString(s, i1 - 1, j1, 0);
 			getFontRenderer().drawString(s, i1, j1 + 1, 0);
@@ -589,7 +588,7 @@ public class GuiIngame extends Gui {
 		}
 	}
 
-	public void renderSelectedItem(ScaledResolution scaledRes) {
+	public void renderSelectedItem() {
 
 		mc.profiler.startSection("selectedItemName");
 
@@ -600,8 +599,8 @@ public class GuiIngame extends Gui {
 				s = TextFormatting.ITALIC + s;
 			}
 
-			int i = (scaledRes.getScaledWidth() - getFontRenderer().getStringWidth(s)) / 2;
-			int j = scaledRes.getScaledHeight() - 59;
+			int i = (mc.getWindow().getScaledWidth() - getFontRenderer().getStringWidth(s)) / 2;
+			int j = mc.getWindow().getScaledHeight() - 59;
 
 			if (!mc.playerController.shouldDrawHUD()) {
 				j += 14;
@@ -626,7 +625,7 @@ public class GuiIngame extends Gui {
 		mc.profiler.endSection();
 	}
 
-	private void renderScoreboard(ScoreObjective objective, ScaledResolution scaledRes) {
+	private void renderScoreboard(ScoreObjective objective) {
 
 		Scoreboard scoreboard = objective.getScoreboard();
 		Collection<Score> collection = scoreboard.getSortedScores(objective);
@@ -647,9 +646,9 @@ public class GuiIngame extends Gui {
 		}
 
 		int i1 = collection.size() * getFontRenderer().FONT_HEIGHT;
-		int j1 = scaledRes.getScaledHeight() / 2 + i1 / 3;
+		int j1 = mc.getWindow().getScaledHeight() / 2 + i1 / 3;
 		int k1 = 3;
-		int l1 = scaledRes.getScaledWidth() - i - 3;
+		int l1 = mc.getWindow().getScaledWidth() - i - 3;
 		int j = 0;
 
 		for (Score score1 : collection) {
@@ -658,7 +657,7 @@ public class GuiIngame extends Gui {
 			String s1 = ScorePlayerTeam.formatPlayerName(scoreplayerteam1, score1.getPlayerName());
 			String s2 = TextFormatting.RED + "" + score1.getScorePoints();
 			int k = j1 - j * getFontRenderer().FONT_HEIGHT;
-			int l = scaledRes.getScaledWidth() - 3 + 2;
+			int l = mc.getWindow().getScaledWidth() - 3 + 2;
 			drawRect(l1 - 2, k, l, k + getFontRenderer().FONT_HEIGHT, 1342177280);
 			getFontRenderer().drawString(s1, l1, k, 553648127);
 			getFontRenderer().drawString(s2, l - getFontRenderer().getStringWidth(s2), k, 553648127);
@@ -672,7 +671,7 @@ public class GuiIngame extends Gui {
 		}
 	}
 
-	private void renderPlayerStats(ScaledResolution scaledRes) {
+	private void renderPlayerStats() {
 
 		if (mc.getRenderViewEntity() instanceof EntityPlayer entityplayer) {
 			int i = MathHelper.ceil(entityplayer.getHealth());
@@ -698,9 +697,9 @@ public class GuiIngame extends Gui {
 			FoodStats foodstats = entityplayer.getFoodStats();
 			int k = foodstats.getFoodLevel();
 			IAttributeInstance iattributeinstance = entityplayer.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH);
-			int l = scaledRes.getScaledWidth() / 2 - 91;
-			int i1 = scaledRes.getScaledWidth() / 2 + 91;
-			int j1 = scaledRes.getScaledHeight() - 39;
+			int l = mc.getWindow().getScaledWidth() / 2 - 91;
+			int i1 = mc.getWindow().getScaledWidth() / 2 + 91;
+			int j1 = mc.getWindow().getScaledHeight() - 39;
 			float f = (float) iattributeinstance.getAttributeValue();
 			int k1 = MathHelper.ceil(entityplayer.getAbsorptionAmount());
 			int l1 = MathHelper.ceil((f + (float) k1) / 2F / 10F);
@@ -853,7 +852,7 @@ public class GuiIngame extends Gui {
 		}
 	}
 
-	private void renderMountHealth(ScaledResolution p_184047_1_) {
+	private void renderMountHealth() {
 
 		if (mc.getRenderViewEntity() instanceof EntityPlayer entityplayer) {
 			Entity entity = entityplayer.getRidingEntity();
@@ -868,8 +867,8 @@ public class GuiIngame extends Gui {
 					j = 30;
 				}
 
-				int k = p_184047_1_.getScaledHeight() - 39;
-				int l = p_184047_1_.getScaledWidth() / 2 + 91;
+				int k = mc.getWindow().getScaledHeight() - 39;
+				int l = mc.getWindow().getScaledWidth() / 2 + 91;
 				int i1 = k;
 				int j1 = 0;
 
@@ -898,7 +897,7 @@ public class GuiIngame extends Gui {
 		}
 	}
 
-	private void renderPumpkinOverlay(ScaledResolution scaledRes) {
+	private void renderPumpkinOverlay() {
 
 		GlStateManager.disableDepth();
 		GlStateManager.depthMask(false);
@@ -909,9 +908,9 @@ public class GuiIngame extends Gui {
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-		bufferbuilder.pos(0D, scaledRes.getScaledHeight(), -90D).tex(0D, 1D).endVertex();
-		bufferbuilder.pos(scaledRes.getScaledWidth(), scaledRes.getScaledHeight(), -90D).tex(1D, 1D).endVertex();
-		bufferbuilder.pos(scaledRes.getScaledWidth(), 0D, -90D).tex(1D, 0D).endVertex();
+		bufferbuilder.pos(0D, mc.getWindow().getScaledHeight(), -90D).tex(0D, 1D).endVertex();
+		bufferbuilder.pos(mc.getWindow().getScaledWidth(), mc.getWindow().getScaledHeight(), -90D).tex(1D, 1D).endVertex();
+		bufferbuilder.pos(mc.getWindow().getScaledWidth(), 0D, -90D).tex(1D, 0D).endVertex();
 		bufferbuilder.pos(0D, 0D, -90D).tex(0D, 0D).endVertex();
 		tessellator.draw();
 		GlStateManager.depthMask(true);
@@ -923,7 +922,7 @@ public class GuiIngame extends Gui {
 	/**
 	 * Renders a Vignette arount the entire screen that changes with light level.
 	 */
-	private void renderVignette(float lightLevel, ScaledResolution scaledRes) {
+	private void renderVignette(float lightLevel) {
 
 		lightLevel = 1F - lightLevel;
 		lightLevel = MathHelper.clamp(lightLevel, 0F, 1F);
@@ -953,9 +952,9 @@ public class GuiIngame extends Gui {
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-		bufferbuilder.pos(0D, scaledRes.getScaledHeight(), -90D).tex(0D, 1D).endVertex();
-		bufferbuilder.pos(scaledRes.getScaledWidth(), scaledRes.getScaledHeight(), -90D).tex(1D, 1D).endVertex();
-		bufferbuilder.pos(scaledRes.getScaledWidth(), 0D, -90D).tex(1D, 0D).endVertex();
+		bufferbuilder.pos(0D, mc.getWindow().getScaledHeight(), -90D).tex(0D, 1D).endVertex();
+		bufferbuilder.pos(mc.getWindow().getScaledWidth(), mc.getWindow().getScaledHeight(), -90D).tex(1D, 1D).endVertex();
+		bufferbuilder.pos(mc.getWindow().getScaledWidth(), 0D, -90D).tex(1D, 0D).endVertex();
 		bufferbuilder.pos(0D, 0D, -90D).tex(0D, 0D).endVertex();
 		tessellator.draw();
 		GlStateManager.depthMask(true);
@@ -964,7 +963,7 @@ public class GuiIngame extends Gui {
 		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 	}
 
-	private void renderPortal(float timeInPortal, ScaledResolution scaledRes) {
+	private void renderPortal(float timeInPortal) {
 
 		if (timeInPortal < 1F) {
 			timeInPortal = timeInPortal * timeInPortal;
@@ -986,9 +985,9 @@ public class GuiIngame extends Gui {
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-		bufferbuilder.pos(0D, scaledRes.getScaledHeight(), -90D).tex(f, f3).endVertex();
-		bufferbuilder.pos(scaledRes.getScaledWidth(), scaledRes.getScaledHeight(), -90D).tex(f2, f3).endVertex();
-		bufferbuilder.pos(scaledRes.getScaledWidth(), 0D, -90D).tex(f2, f1).endVertex();
+		bufferbuilder.pos(0D, mc.getWindow().getScaledHeight(), -90D).tex(f, f3).endVertex();
+		bufferbuilder.pos(mc.getWindow().getScaledWidth(), mc.getWindow().getScaledHeight(), -90D).tex(f2, f3).endVertex();
+		bufferbuilder.pos(mc.getWindow().getScaledWidth(), 0D, -90D).tex(f2, f1).endVertex();
 		bufferbuilder.pos(0D, 0D, -90D).tex(f, f1).endVertex();
 		tessellator.draw();
 		GlStateManager.depthMask(true);

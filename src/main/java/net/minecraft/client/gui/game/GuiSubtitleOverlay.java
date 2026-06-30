@@ -6,7 +6,7 @@ import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.ISoundEventListener;
 import net.minecraft.client.audio.SoundEventAccessor;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.ScaledResolution;
+
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -25,7 +25,7 @@ public class GuiSubtitleOverlay extends Gui implements ISoundEventListener {
 		client = clientIn;
 	}
 
-	public void renderSubtitles(ScaledResolution resolution) {
+	public void renderSubtitles() {
 
 		if (!enabled && client.gameSettings.showSubtitles) {
 			client.getSoundHandler().addListener(this);
@@ -74,7 +74,7 @@ public class GuiSubtitleOverlay extends Gui implements ISoundEventListener {
 				int l1 = MathHelper.floor(MathHelper.clampedLerp(255D, 75D, (float) (Minecraft.getSystemTime() - guisubtitleoverlay$subtitle1.getStartTime()) / 3000F));
 				int i2 = l1 << 16 | l1 << 8 | l1;
 				GlStateManager.pushMatrix();
-				GlStateManager.translate((float) resolution.getScaledWidth() - (float) l - 2F, (float) (resolution.getScaledHeight() - 30) - (float) (i * (i1 + 1)), 0F);
+				GlStateManager.translate((float) client.getWindow().getScaledWidth() - (float) l - 2F, (float) (client.getWindow().getScaledHeight() - 30) - (float) (i * (i1 + 1)), 0F);
 				GlStateManager.scale(1F, 1F, 1F);
 				drawRect(-l - 1, -j1 - 1, l + 1, j1 + 1, -872415232);
 				GlStateManager.enableBlend();
