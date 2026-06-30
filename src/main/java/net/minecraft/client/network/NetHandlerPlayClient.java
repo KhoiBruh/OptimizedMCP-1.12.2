@@ -776,7 +776,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 					entity1.startRiding(entity, true);
 
 					if (entity1 == gameController.player && !flag) {
-						gameController.ingameGUI.setOverlayMessage(I18n.format("mount.onboard", GameSettings.getKeyDisplayString(gameController.gameSettings.keyBindSneak.getKeyCode())), false);
+						gameController.ingameGUI.setOverlayMessage(I18n.format("mount.onboard", GameSettings.getKeyDisplayString(gameController.gameSettings.keySneak.getKeyCode())), false);
 					}
 				}
 			}

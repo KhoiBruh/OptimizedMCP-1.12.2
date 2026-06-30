@@ -124,30 +124,30 @@ public class GameSettings {
 	public boolean autoJump = true;
 	public TutorialSteps tutorialStep = TutorialSteps.MOVEMENT;
 	
-	public KeyBinding keyBindForward = new KeyBinding("key.forward", GLFW_KEY_W, "key.categories.movement");
-	public KeyBinding keyBindLeft = new KeyBinding("key.left", GLFW_KEY_A, "key.categories.movement");
-	public KeyBinding keyBindBack = new KeyBinding("key.back", GLFW_KEY_S, "key.categories.movement");
-	public KeyBinding keyBindRight = new KeyBinding("key.right", GLFW_KEY_D, "key.categories.movement");
-	public KeyBinding keyBindJump = new KeyBinding("key.jump", GLFW_KEY_SPACE, "key.categories.movement");
-	public KeyBinding keyBindSneak = new KeyBinding("key.sneak", GLFW_KEY_LEFT_SHIFT, "key.categories.movement");
-	public KeyBinding keyBindSprint = new KeyBinding("key.sprint", GLFW_KEY_LEFT_CONTROL, "key.categories.movement");
-	public KeyBinding keyBindInventory = new KeyBinding("key.inventory", GLFW_KEY_E, "key.categories.inventory");
-	public KeyBinding keyBindSwapHands = new KeyBinding("key.swapHands", GLFW_KEY_F, "key.categories.inventory");
-	public KeyBinding keyBindDrop = new KeyBinding("key.drop", GLFW_KEY_Q, "key.categories.inventory");
-	public KeyBinding keyBindUseItem = new KeyBinding("key.use", GLFW_MOUSE_BUTTON_1, "key.categories.gameplay");
-	public KeyBinding keyBindAttack = new KeyBinding("key.attack", GLFW_MOUSE_BUTTON_2, "key.categories.gameplay");
-	public KeyBinding keyBindPickBlock = new KeyBinding("key.pickItem", GLFW_MOUSE_BUTTON_3, "key.categories.gameplay");
-	public KeyBinding keyBindChat = new KeyBinding("key.chat", GLFW_KEY_T, "key.categories.multiplayer");
-	public KeyBinding keyBindPlayerList = new KeyBinding("key.playerlist", GLFW_KEY_TAB, "key.categories.multiplayer");
-	public KeyBinding keyBindCommand = new KeyBinding("key.command", GLFW_KEY_SLASH, "key.categories.multiplayer");
-	public KeyBinding keyBindScreenshot = new KeyBinding("key.screenshot", GLFW_KEY_F2, "key.categories.misc");
-	public KeyBinding keyBindTogglePerspective = new KeyBinding("key.togglePerspective", GLFW_KEY_F5, "key.categories.misc");
-	public KeyBinding keyBindSmoothCamera = new KeyBinding("key.smoothCamera", GLFW_KEY_UNKNOWN, "key.categories.misc");
-	public KeyBinding keyBindFullscreen = new KeyBinding("key.fullscreen", GLFW_KEY_F11, "key.categories.misc");
-	public KeyBinding keyBindSpectatorOutlines = new KeyBinding("key.spectatorOutlines", GLFW_KEY_UNKNOWN, "key.categories.misc");
-	public KeyBinding keyBindAdvancements = new KeyBinding("key.advancements", GLFW_KEY_L, "key.categories.misc");
+	public KeyBinding keyForward = new KeyBinding("key.forward", GLFW_KEY_W, "key.categories.movement");
+	public KeyBinding keyLeft = new KeyBinding("key.left", GLFW_KEY_A, "key.categories.movement");
+	public KeyBinding keyBack = new KeyBinding("key.back", GLFW_KEY_S, "key.categories.movement");
+	public KeyBinding keyRight = new KeyBinding("key.right", GLFW_KEY_D, "key.categories.movement");
+	public KeyBinding keyJump = new KeyBinding("key.jump", GLFW_KEY_SPACE, "key.categories.movement");
+	public KeyBinding keySneak = new KeyBinding("key.sneak", GLFW_KEY_LEFT_SHIFT, "key.categories.movement");
+	public KeyBinding keySprint = new KeyBinding("key.sprint", GLFW_KEY_LEFT_CONTROL, "key.categories.movement");
+	public KeyBinding keyInventory = new KeyBinding("key.inventory", GLFW_KEY_E, "key.categories.inventory");
+	public KeyBinding keySwapHands = new KeyBinding("key.swapHands", GLFW_KEY_F, "key.categories.inventory");
+	public KeyBinding keyDrop = new KeyBinding("key.drop", GLFW_KEY_Q, "key.categories.inventory");
+	public KeyBinding keyUseItem = new KeyBinding("key.use", GLFW_MOUSE_BUTTON_1, "key.categories.gameplay");
+	public KeyBinding keyAttack = new KeyBinding("key.attack", GLFW_MOUSE_BUTTON_2, "key.categories.gameplay");
+	public KeyBinding keyPickBlock = new KeyBinding("key.pickItem", GLFW_MOUSE_BUTTON_3, "key.categories.gameplay");
+	public KeyBinding keyChat = new KeyBinding("key.chat", GLFW_KEY_T, "key.categories.multiplayer");
+	public KeyBinding keyPlayerList = new KeyBinding("key.playerlist", GLFW_KEY_TAB, "key.categories.multiplayer");
+	public KeyBinding keyCommand = new KeyBinding("key.command", GLFW_KEY_SLASH, "key.categories.multiplayer");
+	public KeyBinding keyScreenshot = new KeyBinding("key.screenshot", GLFW_KEY_F2, "key.categories.misc");
+	public KeyBinding keyTogglePerspective = new KeyBinding("key.togglePerspective", GLFW_KEY_F5, "key.categories.misc");
+	public KeyBinding keySmoothCamera = new KeyBinding("key.smoothCamera", GLFW_KEY_UNKNOWN, "key.categories.misc");
+	public KeyBinding keyFullscreen = new KeyBinding("key.fullscreen", GLFW_KEY_F11, "key.categories.misc");
+	public KeyBinding keySpectatorOutlines = new KeyBinding("key.spectatorOutlines", GLFW_KEY_UNKNOWN, "key.categories.misc");
+	public KeyBinding keyAdvancements = new KeyBinding("key.advancements", GLFW_KEY_L, "key.categories.misc");
 	
-	public KeyBinding[] keyBindsHotbar = new KeyBinding[] {
+	public KeyBinding[] keyHotbar = new KeyBinding[] {
 			new KeyBinding("key.hotbar.1", GLFW_KEY_1, "key.categories.inventory"),
 			new KeyBinding("key.hotbar.2", GLFW_KEY_2, "key.categories.inventory"),
 			new KeyBinding("key.hotbar.3", GLFW_KEY_3, "key.categories.inventory"),
@@ -159,8 +159,8 @@ public class GameSettings {
 			new KeyBinding("key.hotbar.9", GLFW_KEY_9, "key.categories.inventory")
 	};
 	
-	public KeyBinding keyBindSaveToolbar = new KeyBinding("key.saveToolbarActivator", GLFW_KEY_UNKNOWN, "key.categories.creative");
-	public KeyBinding keyBindLoadToolbar = new KeyBinding("key.loadToolbarActivator", GLFW_KEY_UNKNOWN, "key.categories.creative");
+	public KeyBinding keySaveToolbar = new KeyBinding("key.saveToolbarActivator", GLFW_KEY_UNKNOWN, "key.categories.creative");
+	public KeyBinding keyLoadToolbar = new KeyBinding("key.loadToolbarActivator", GLFW_KEY_UNKNOWN, "key.categories.creative");
 	
 	public KeyBinding[] keyBindings;
 	public Difficulty difficulty;
@@ -202,7 +202,7 @@ public class GameSettings {
 	private File optionsFile;
 	
 	public GameSettings(Minecraft mcIn, File mcDataDir) {
-		keyBindings = ArrayUtils.addAll(new KeyBinding[]{keyBindAttack, keyBindUseItem, keyBindForward, keyBindLeft, keyBindBack, keyBindRight, keyBindJump, keyBindSneak, keyBindSprint, keyBindDrop, keyBindInventory, keyBindChat, keyBindPlayerList, keyBindPickBlock, keyBindCommand, keyBindScreenshot, keyBindTogglePerspective, keyBindSmoothCamera, keyBindFullscreen, keyBindSpectatorOutlines, keyBindSwapHands, keyBindSaveToolbar, keyBindLoadToolbar, keyBindAdvancements}, keyBindsHotbar);
+		keyBindings = ArrayUtils.addAll(new KeyBinding[]{keyAttack, keyUseItem, keyForward, keyLeft, keyBack, keyRight, keyJump, keySneak, keySprint, keyDrop, keyInventory, keyChat, keyPlayerList, keyPickBlock, keyCommand, keyScreenshot, keyTogglePerspective, keySmoothCamera, keyFullscreen, keySpectatorOutlines, keySwapHands, keySaveToolbar, keyLoadToolbar, keyAdvancements}, keyHotbar);
 		difficulty = Difficulty.NORMAL;
 		lastServer = "";
 		fovSetting = 70F;
@@ -214,7 +214,7 @@ public class GameSettings {
 	}
 	
 	public GameSettings() {
-		keyBindings = ArrayUtils.addAll(new KeyBinding[]{keyBindAttack, keyBindUseItem, keyBindForward, keyBindLeft, keyBindBack, keyBindRight, keyBindJump, keyBindSneak, keyBindSprint, keyBindDrop, keyBindInventory, keyBindChat, keyBindPlayerList, keyBindPickBlock, keyBindCommand, keyBindScreenshot, keyBindTogglePerspective, keyBindSmoothCamera, keyBindFullscreen, keyBindSpectatorOutlines, keyBindSwapHands, keyBindSaveToolbar, keyBindLoadToolbar, keyBindAdvancements}, keyBindsHotbar);
+		keyBindings = ArrayUtils.addAll(new KeyBinding[]{keyAttack, keyUseItem, keyForward, keyLeft, keyBack, keyRight, keyJump, keySneak, keySprint, keyDrop, keyInventory, keyChat, keyPlayerList, keyPickBlock, keyCommand, keyScreenshot, keyTogglePerspective, keySmoothCamera, keyFullscreen, keySpectatorOutlines, keySwapHands, keySaveToolbar, keyLoadToolbar, keyAdvancements}, keyHotbar);
 		difficulty = Difficulty.NORMAL;
 		lastServer = "";
 		fovSetting = 70F;
@@ -585,7 +585,6 @@ public class GameSettings {
 			if (fancyGraphics) {
 				return s + I18n.format("options.graphics.fancy");
 			} else {
-				String s1 = "options.graphics.fast";
 				return s + I18n.format("options.graphics.fast");
 			}
 		} else if (settingOption == GameSettings.Options.ATTACK_INDICATOR) {

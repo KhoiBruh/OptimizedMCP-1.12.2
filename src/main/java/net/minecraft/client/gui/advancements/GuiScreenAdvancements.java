@@ -87,7 +87,7 @@ public class GuiScreenAdvancements extends GuiScreen implements ClientAdvancemen
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
 
-		if (keyCode == mc.gameSettings.keyBindAdvancements.getKeyCode()) {
+		if (keyCode == mc.gameSettings.keyAdvancements.getKeyCode()) {
 			mc.displayGuiScreen(null);
 			mc.setIngameFocus();
 		} else {

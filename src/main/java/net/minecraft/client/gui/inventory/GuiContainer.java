@@ -346,7 +346,7 @@ public abstract class GuiContainer extends GuiScreen {
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
 
 		super.mouseClicked(mouseX, mouseY, mouseButton);
-		boolean flag = mouseButton == mc.gameSettings.keyBindPickBlock.getKeyCode() + 100;
+		boolean flag = mouseButton == mc.gameSettings.keyPickBlock.getKeyCode() + 100;
 		Slot slot = getSlotAtPosition(mouseX, mouseY);
 		long i = Minecraft.getSystemTime();
 		doubleClick = lastClickSlot == slot && i - lastClickTime < 250L && lastClickButton == mouseButton;
@@ -382,7 +382,7 @@ public abstract class GuiContainer extends GuiScreen {
 					}
 				} else if (!dragSplitting) {
 					if (mc.player.inventory.getItemStack().isEmpty()) {
-						if (mouseButton == mc.gameSettings.keyBindPickBlock.getKeyCode() + 100) {
+						if (mouseButton == mc.gameSettings.keyPickBlock.getKeyCode() + 100) {
 							handleMouseClick(slot, l, mouseButton, ClickType.CLONE);
 						} else {
 							boolean flag2 = l != -999 && (Keyboard.isKeyDown(340) || Keyboard.isKeyDown(344));
@@ -408,7 +408,7 @@ public abstract class GuiContainer extends GuiScreen {
 							dragSplittingLimit = 0;
 						} else if (mouseButton == 1) {
 							dragSplittingLimit = 1;
-						} else if (mouseButton == mc.gameSettings.keyBindPickBlock.getKeyCode() + 100) {
+						} else if (mouseButton == mc.gameSettings.keyPickBlock.getKeyCode() + 100) {
 							dragSplittingLimit = 2;
 						}
 					}
@@ -553,7 +553,7 @@ public abstract class GuiContainer extends GuiScreen {
 
 				handleMouseClick(null, -999, Container.getQuickcraftMask(2, dragSplittingLimit), ClickType.QUICK_CRAFT);
 			} else if (!mc.player.inventory.getItemStack().isEmpty()) {
-				if (state == mc.gameSettings.keyBindPickBlock.getKeyCode() + 100) {
+				if (state == mc.gameSettings.keyPickBlock.getKeyCode() + 100) {
 					handleMouseClick(slot, k, state, ClickType.CLONE);
 				} else {
 					boolean flag1 = k != -999 && (Keyboard.isKeyDown(340) || Keyboard.isKeyDown(344));
@@ -613,16 +613,16 @@ public abstract class GuiContainer extends GuiScreen {
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
 
-		if (keyCode == 256 || keyCode == mc.gameSettings.keyBindInventory.getKeyCode()) {
+		if (keyCode == 256 || keyCode == mc.gameSettings.keyInventory.getKeyCode()) {
 			mc.player.closeScreen();
 		}
 
 		checkHotbarKeys(keyCode);
 
 		if (hoveredSlot != null && hoveredSlot.getHasStack()) {
-			if (keyCode == mc.gameSettings.keyBindPickBlock.getKeyCode()) {
+			if (keyCode == mc.gameSettings.keyPickBlock.getKeyCode()) {
 				handleMouseClick(hoveredSlot, hoveredSlot.slotNumber, 0, ClickType.CLONE);
-			} else if (keyCode == mc.gameSettings.keyBindDrop.getKeyCode()) {
+			} else if (keyCode == mc.gameSettings.keyDrop.getKeyCode()) {
 				handleMouseClick(hoveredSlot, hoveredSlot.slotNumber, isCtrlKeyDown() ? 1 : 0, ClickType.THROW);
 			}
 		}
@@ -637,7 +637,7 @@ public abstract class GuiContainer extends GuiScreen {
 
 		if (mc.player.inventory.getItemStack().isEmpty() && hoveredSlot != null) {
 			for (int i = 0; i < 9; ++i) {
-				if (keyCode == mc.gameSettings.keyBindsHotbar[i].getKeyCode()) {
+				if (keyCode == mc.gameSettings.keyHotbar[i].getKeyCode()) {
 					handleMouseClick(hoveredSlot, hoveredSlot.slotNumber, i, ClickType.SWAP);
 					return true;
 				}

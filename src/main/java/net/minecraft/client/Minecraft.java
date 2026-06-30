@@ -1636,7 +1636,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	}
 	
 	private void processKeyBinds() {
-		for (; gameSettings.keyBindTogglePerspective.isPressed(); renderGlobal.setDisplayListEntitiesDirty()) {
+		for (; gameSettings.keyTogglePerspective.isPressed(); renderGlobal.setDisplayListEntitiesDirty()) {
 			++gameSettings.thirdPersonView;
 			
 			if (gameSettings.thirdPersonView > 2) {
@@ -1650,15 +1650,15 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 			}
 		}
 		
-		while (gameSettings.keyBindSmoothCamera.isPressed()) {
+		while (gameSettings.keySmoothCamera.isPressed()) {
 			gameSettings.smoothCamera = !gameSettings.smoothCamera;
 		}
 		
 		for (int i = 0; i < 9; ++i) {
-			boolean flag = gameSettings.keyBindSaveToolbar.isKeyDown();
-			boolean flag1 = gameSettings.keyBindLoadToolbar.isKeyDown();
+			boolean flag = gameSettings.keySaveToolbar.isKeyDown();
+			boolean flag1 = gameSettings.keyLoadToolbar.isKeyDown();
 			
-			if (gameSettings.keyBindsHotbar[i].isPressed()) {
+			if (gameSettings.keyHotbar[i].isPressed()) {
 				if (player.isSpectator()) {
 					ingameGUI.getSpectatorGui().onHotbarSelected(i);
 				} else if (!player.isCreative() || currentScreen != null || !flag1 && !flag) {
@@ -1669,7 +1669,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 			}
 		}
 		
-		while (gameSettings.keyBindInventory.isPressed()) {
+		while (gameSettings.keyInventory.isPressed()) {
 			if (playerController.isRidingHorse()) {
 				player.sendHorseInventory();
 			} else {
@@ -1678,17 +1678,17 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 			}
 		}
 		
-		while (gameSettings.keyBindAdvancements.isPressed()) {
+		while (gameSettings.keyAdvancements.isPressed()) {
 			displayGuiScreen(new GuiScreenAdvancements(player.connection.getAdvancementManager()));
 		}
 		
-		while (gameSettings.keyBindSwapHands.isPressed()) {
+		while (gameSettings.keySwapHands.isPressed()) {
 			if (!player.isSpectator()) {
 				getConnection().sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.SWAP_HELD_ITEMS, BlockPos.ORIGIN, Facing.DOWN));
 			}
 		}
 		
-		while (gameSettings.keyBindDrop.isPressed()) {
+		while (gameSettings.keyDrop.isPressed()) {
 			if (!player.isSpectator()) {
 				player.dropItem(GuiScreen.isCtrlKeyDown());
 			}
@@ -1697,53 +1697,53 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		boolean flag2 = gameSettings.chatVisibility != EntityPlayer.ChatVisibility.HIDDEN;
 		
 		if (flag2) {
-			while (gameSettings.keyBindChat.isPressed()) {
+			while (gameSettings.keyChat.isPressed()) {
 				displayGuiScreen(new GuiChat());
 			}
 			
-			if (currentScreen == null && gameSettings.keyBindCommand.isPressed()) {
+			if (currentScreen == null && gameSettings.keyCommand.isPressed()) {
 				displayGuiScreen(new GuiChat("/"));
 			}
 		}
 		
 		if (player.isHandActive()) {
-			if (!gameSettings.keyBindUseItem.isKeyDown()) {
+			if (!gameSettings.keyUseItem.isKeyDown()) {
 				playerController.onStoppedUsingItem(player);
 			}
 			
 			label109:
 			
 			while (true) {
-				if (!gameSettings.keyBindAttack.isPressed()) {
-					while (gameSettings.keyBindUseItem.isPressed()) {
+				if (!gameSettings.keyAttack.isPressed()) {
+					while (gameSettings.keyUseItem.isPressed()) {
 					}
 					
 					while (true) {
-						if (gameSettings.keyBindPickBlock.isPressed()) continue;
+						if (gameSettings.keyPickBlock.isPressed()) continue;
 						
 						break label109;
 					}
 				}
 			}
 		} else {
-			while (gameSettings.keyBindAttack.isPressed()) {
+			while (gameSettings.keyAttack.isPressed()) {
 				clickMouse();
 			}
 			
-			while (gameSettings.keyBindUseItem.isPressed()) {
+			while (gameSettings.keyUseItem.isPressed()) {
 				rightClickMouse();
 			}
 			
-			while (gameSettings.keyBindPickBlock.isPressed()) {
+			while (gameSettings.keyPickBlock.isPressed()) {
 				middleClickMouse();
 			}
 		}
 		
-		if (gameSettings.keyBindUseItem.isKeyDown() && rightClickDelayTimer == 0 && !player.isHandActive()) {
+		if (gameSettings.keyUseItem.isKeyDown() && rightClickDelayTimer == 0 && !player.isHandActive()) {
 			rightClickMouse();
 		}
 		
-		sendClickBlockToController(currentScreen == null && gameSettings.keyBindAttack.isKeyDown() && inGameHasFocus);
+		sendClickBlockToController(currentScreen == null && gameSettings.keyAttack.isKeyDown() && inGameHasFocus);
 	}
 	
 	private void runTickMouse() throws IOException {
@@ -2429,9 +2429,9 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		if (i != 0 && !Keyboard.isRepeatEvent()) {
 			if (!(currentScreen instanceof GuiControls) || ((GuiControls) currentScreen).time <= getSystemTime() - 20L) {
 				if (Keyboard.getEventKeyState()) {
-					if (i == gameSettings.keyBindFullscreen.getKeyCode()) {
+					if (i == gameSettings.keyFullscreen.getKeyCode()) {
 						toggleFullscreen();
-					} else if (i == gameSettings.keyBindScreenshot.getKeyCode()) {
+					} else if (i == gameSettings.keyScreenshot.getKeyCode()) {
 						ingameGUI.getChatGUI()
 						         .printChatMessage(ScreenShotHelper.saveScreenshot(mcDataDir, window.getWidth(), window.getHeight(), framebufferMc));
 					} else if (i == 66 && GuiScreen.isCtrlKeyDown() && (currentScreen == null || currentScreen != null && !currentScreen.isFocused())) {

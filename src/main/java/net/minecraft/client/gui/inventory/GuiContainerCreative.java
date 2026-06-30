@@ -97,8 +97,8 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 				hotbarsnapshot.set(j, entityplayersp.inventory.getStackInSlot(j).copy());
 			}
 
-			String s = GameSettings.getKeyDisplayString(p_192044_0_.gameSettings.keyBindsHotbar[p_192044_1_].getKeyCode());
-			String s1 = GameSettings.getKeyDisplayString(p_192044_0_.gameSettings.keyBindLoadToolbar.getKeyCode());
+			String s = GameSettings.getKeyDisplayString(p_192044_0_.gameSettings.keyHotbar[p_192044_1_].getKeyCode());
+			String s1 = GameSettings.getKeyDisplayString(p_192044_0_.gameSettings.keyLoadToolbar.getKeyCode());
 			p_192044_0_.ingameGUI.setOverlayMessage(new TextComponentTranslation("inventory.hotbarSaved", s1, s), false);
 			creativesettings.write();
 		}
@@ -308,7 +308,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
 
 		if (selectedTabIndex != CreativeTabs.SEARCH.getTabIndex()) {
-			if (GameSettings.isKeyDown(mc.gameSettings.keyBindChat)) {
+			if (GameSettings.isKeyDown(mc.gameSettings.keyChat)) {
 				setCurrentCreativeTab(CreativeTabs.SEARCH);
 			} else {
 				super.keyTyped(typedChar, keyCode);
@@ -426,8 +426,8 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 						if (k == j) {
 							ItemStack itemstack = new ItemStack(Items.PAPER);
 							itemstack.getOrCreateSubCompound("CustomCreativeLock");
-							String s = GameSettings.getKeyDisplayString(mc.gameSettings.keyBindsHotbar[j].getKeyCode());
-							String s1 = GameSettings.getKeyDisplayString(mc.gameSettings.keyBindSaveToolbar.getKeyCode());
+							String s = GameSettings.getKeyDisplayString(mc.gameSettings.keyHotbar[j].getKeyCode());
+							String s1 = GameSettings.getKeyDisplayString(mc.gameSettings.keySaveToolbar.getKeyCode());
 							itemstack.setStackDisplayName((new TextComponentTranslation("inventory.hotbarInfo", s1, s)).getUnformattedText());
 							guicontainercreative$containercreative.itemList.add(itemstack);
 						} else {

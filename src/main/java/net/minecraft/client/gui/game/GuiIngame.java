@@ -347,7 +347,7 @@ public class GuiIngame extends Gui {
 		GlStateManager.popMatrix();
 		scoreobjective1 = scoreboard.getObjectiveInDisplaySlot(0);
 
-		if (!mc.gameSettings.keyBindPlayerList.isKeyDown() || mc.isIntegratedServerRunning() && mc.player.connection.getPlayerInfoMap().size() <= 1 && scoreobjective1 == null) {
+		if (!mc.gameSettings.keyPlayerList.isKeyDown() || mc.isIntegratedServerRunning() && mc.player.connection.getPlayerInfoMap().size() <= 1 && scoreobjective1 == null) {
 			overlayPlayerList.updatePlayerList(false);
 		} else {
 			overlayPlayerList.updatePlayerList(true);

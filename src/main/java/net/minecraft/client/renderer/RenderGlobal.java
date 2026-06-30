@@ -760,7 +760,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			return false;
 		} else if (entityIn.isGlowing()) {
 			return true;
-		} else if (mc.player.isSpectator() && mc.gameSettings.keyBindSpectatorOutlines.isKeyDown() && entityIn instanceof EntityPlayer) {
+		} else if (mc.player.isSpectator() && mc.gameSettings.keySpectatorOutlines.isKeyDown() && entityIn instanceof EntityPlayer) {
 			return entityIn.ignoreFrustumCheck || camera.isBoundingBoxInFrustum(entityIn.getEntityBoundingBox()) || entityIn.isRidingOrBeingRiddenBy(mc.player);
 		} else {
 			return false;

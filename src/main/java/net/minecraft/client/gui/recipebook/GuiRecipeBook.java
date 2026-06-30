@@ -346,7 +346,7 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 				setVisible(false);
 				return true;
 			} else {
-				if (GameSettings.isKeyDown(mc.gameSettings.keyBindChat) && !searchBar.isFocused()) {
+				if (GameSettings.isKeyDown(mc.gameSettings.keyChat) && !searchBar.isFocused()) {
 					searchBar.setFocused(true);
 				} else if (searchBar.textboxKeyTyped(typedChar, keycode)) {
 					String s1 = searchBar.getText().toLowerCase(Locale.ROOT);

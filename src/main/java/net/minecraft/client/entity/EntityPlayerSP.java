@@ -858,14 +858,14 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		boolean flag4 = (float) getFoodStats().getFoodLevel() > 6F || capabilities.allowFlying;
 
 		if (onGround && !flag1 && !flag2 && movementInput.moveForward >= 0.8F && !isSprinting() && flag4 && !isHandActive() && !isPotionActive(MobEffects.BLINDNESS)) {
-			if (sprintToggleTimer <= 0 && !mc.gameSettings.keyBindSprint.isKeyDown()) {
+			if (sprintToggleTimer <= 0 && !mc.gameSettings.keySprint.isKeyDown()) {
 				sprintToggleTimer = 7;
 			} else {
 				setSprinting(true);
 			}
 		}
 
-		if (!isSprinting() && movementInput.moveForward >= 0.8F && flag4 && !isHandActive() && !isPotionActive(MobEffects.BLINDNESS) && mc.gameSettings.keyBindSprint.isKeyDown()) {
+		if (!isSprinting() && movementInput.moveForward >= 0.8F && flag4 && !isHandActive() && !isPotionActive(MobEffects.BLINDNESS) && mc.gameSettings.keySprint.isKeyDown()) {
 			setSprinting(true);
 		}
 
