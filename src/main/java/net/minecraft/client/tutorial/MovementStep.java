@@ -1,7 +1,7 @@
 package net.minecraft.client.tutorial;
 
 import net.minecraft.client.gui.toasts.TutorialToast;
-import net.minecraft.util.MouseHelper;
+import net.minecraft.client.util.Mouse;
 import net.minecraft.util.MovementInput;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
@@ -116,12 +116,10 @@ public class MovementStep implements ITutorialStep {
 
 	/**
 	 * Handles mouse mouvement
-	 *
-	 * @param mouseHelperIn A MouseHelper providing you informations about the player mouse
 	 */
-	public void handleMouse(MouseHelper mouseHelperIn) {
+	public void handleMouse() {
 
-		if ((double) MathHelper.abs(mouseHelperIn.deltaX) > 0.01D || (double) MathHelper.abs(mouseHelperIn.deltaY) > 0.01D) {
+		if ((double) MathHelper.abs(Mouse.getDX()) > 0.01D || (double) MathHelper.abs(Mouse.getDY()) > 0.01D) {
 			turned = true;
 		}
 	}

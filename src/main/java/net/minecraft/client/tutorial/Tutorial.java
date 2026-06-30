@@ -4,7 +4,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MouseHelper;
 import net.minecraft.util.MovementInput;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -38,10 +37,10 @@ public class Tutorial {
 		}
 	}
 
-	public void handleMouse(MouseHelper p_193299_1_) {
+	public void handleMouse() {
 
 		if (tutorialStep != null) {
-			tutorialStep.handleMouse(p_193299_1_);
+			tutorialStep.handleMouse();
 		}
 	}
 

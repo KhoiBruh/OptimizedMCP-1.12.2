@@ -144,6 +144,17 @@ public final class Mouse {
 		long handle = window.getHandle();
 		glfwSetInputMode(handle, GLFW_CURSOR, grab ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
 	}
+
+	public static void grabMouseCursor() {
+		setGrabbed(true);
+		lastX = x;
+		lastY = y;
+	}
+
+	public static void ungrabMouseCursor() {
+		if (window != null) setCursorPosition(window.getWidth() / 2, window.getHeight() / 2);
+		setGrabbed(false);
+	}
 	
 	public static void setCursorPosition(int x, int y) {
 		if (window == null) return;

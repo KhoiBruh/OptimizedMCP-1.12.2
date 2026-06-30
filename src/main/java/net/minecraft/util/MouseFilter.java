@@ -9,22 +9,20 @@ public class MouseFilter {
 	/**
 	 * Smooths mouse input
 	 */
-	public float smooth(float p_76333_1_, float p_76333_2_) {
+	public float smooth(float value, float factor) {
+		targetValue += value;
+		value = (targetValue - remainingValue) * factor;
+		lastAmount += (value - lastAmount) * 0.5F;
 
-		targetValue += p_76333_1_;
-		p_76333_1_ = (targetValue - remainingValue) * p_76333_2_;
-		lastAmount += (p_76333_1_ - lastAmount) * 0.5F;
-
-		if (p_76333_1_ > 0F && p_76333_1_ > lastAmount || p_76333_1_ < 0F && p_76333_1_ < lastAmount) {
-			p_76333_1_ = lastAmount;
+		if (value > 0F && value > lastAmount || value < 0F && value < lastAmount) {
+			value = lastAmount;
 		}
 
-		remainingValue += p_76333_1_;
-		return p_76333_1_;
+		remainingValue += value;
+		return value;
 	}
 
 	public void reset() {
-
 		targetValue = 0F;
 		remainingValue = 0F;
 		lastAmount = 0F;

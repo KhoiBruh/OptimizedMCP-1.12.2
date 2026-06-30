@@ -188,7 +188,6 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	public GuiIngame ingameGUI;
 	public boolean inGameHasFocus;
 	public LoadingScreenRenderer loadingScreen;
-	public MouseHelper mouseHelper;
 	public RayTraceResult objectMouseOver;
 	public EntityPlayerSP player;
 	public PlayerControllerMP playerController;
@@ -432,7 +431,6 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		mcResourceManager.registerReloadListener(standardGalacticFontRenderer);
 		mcResourceManager.registerReloadListener(new GrassColorReloadListener());
 		mcResourceManager.registerReloadListener(new FoliageColorReloadListener());
-		mouseHelper = new MouseHelper();
 		checkGLError("Pre startup");
 		GlStateManager.enableTexture2D();
 		GlStateManager.shadeModel(7425);
@@ -1159,7 +1157,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 				if (!IS_RUNNING_ON_MAC) KeyBinding.updateKeyBindState();
 				
 				inGameHasFocus = true;
-				mouseHelper.grabMouseCursor();
+				Mouse.grabMouseCursor();
 				displayGuiScreen(null);
 				leftClickCounter = 10000;
 			}
@@ -1172,7 +1170,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	public void setIngameNotInFocus() {
 		if (inGameHasFocus) {
 			inGameHasFocus = false;
-			mouseHelper.ungrabMouseCursor();
+			Mouse.ungrabMouseCursor();
 		}
 	}
 	

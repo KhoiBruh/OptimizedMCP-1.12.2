@@ -3,7 +3,6 @@ package net.minecraft.client.tutorial;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MouseHelper;
 import net.minecraft.util.MovementInput;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -22,7 +21,7 @@ public interface ITutorialStep {
 
 	}
 
-	default void handleMouse(MouseHelper mouseHelperIn) {
+	default void handleMouse() {
 
 	}
 

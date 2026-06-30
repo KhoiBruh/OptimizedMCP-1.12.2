@@ -993,12 +993,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		}
 
 		if (mc.inGameHasFocus && flag) {
-			mc.mouseHelper.mouseXYChange();
-			mc.getTutorial().handleMouse(mc.mouseHelper);
+			mc.getTutorial().handleMouse();
 			float f = mc.gameSettings.mouseSensitivity * 0.6F + 0.2F;
 			float f1 = f * f * f * 8F;
-			float f2 = (float) mc.mouseHelper.deltaX * f1;
-			float f3 = (float) mc.mouseHelper.deltaY * f1;
+			float f2 = (float) Mouse.getDX() * f1;
+			float f3 = (float) Mouse.getDY() * f1;
 			int i = 1;
 
 			if (mc.gameSettings.invertMouse) {
