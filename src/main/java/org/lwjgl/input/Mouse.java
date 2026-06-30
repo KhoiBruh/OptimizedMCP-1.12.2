@@ -20,18 +20,21 @@ public final class Mouse {
     private static double y = 0;
     private static double lastX = 0;
     private static double lastY = 0;
-	
+
+    private static double lastEventX = 0;
+    private static double lastEventY = 0;
+
     private static int width = 854;
     private static int height = 480;
 
     private static double scrollAccum = 0.0;
-	
+
     @Getter
     private static boolean grabbed = false;
-	
+
     @Getter
     private static boolean created = false;
-	
+
     private static MouseEvent currentEvent = null;
 
     private static GLFWCursorPosCallback cursorPos;
@@ -44,34 +47,33 @@ public final class Mouse {
         Mouse.handle = handle;
         created = true;
 
-//        int[] w = new int[1];
-//	    int[] h = new int[1];
-//	    glfwGetWindowSize(handle, w, h);
-//        width = w[0];
-//        height = h[0];
-
         double[] xPos = new double[1];
-	    double[] yPos = new double[1];
-	    glfwGetCursorPos(handle, xPos, yPos);
-        x = lastX = xPos[0];
-        y = lastY = yPos[0];
+        double[] yPos = new double[1];
+        glfwGetCursorPos(handle, xPos, yPos);
+        x = lastX = lastEventX = xPos[0];
+        y = lastY = lastEventY = yPos[0];
 
-        cursorPos = GLFWCursorPosCallback.create((win, x, y) -> {
-            Mouse.x = x;
-            Mouse.y = y;
+        cursorPos = GLFWCursorPosCallback.create((win, cx, cy) -> {
+            double dx = cx - lastEventX;
+            double dy = lastEventY - cy;
+            lastEventX = cx;
+            lastEventY = cy;
+            Mouse.x = cx;
+            Mouse.y = cy;
+            eventQueue.addLast(new MouseEvent(-1, false, 0.0, cx, cy, dx, dy));
         });
 
         mouseButton = GLFWMouseButtonCallback.create((win, btn, action, mods) -> {
             if (btn >= 0 && btn < buttonState.length) {
                 boolean pressed = (action != GLFW_RELEASE);
                 buttonState[btn] = pressed;
-                eventQueue.addLast(new MouseEvent(btn, pressed, 0.0, x, y));
+                eventQueue.addLast(new MouseEvent(btn, pressed, 0.0, x, y, 0.0, 0.0));
             }
         });
 
         scroll = GLFWScrollCallback.create((win, xOff, yOff) -> {
             scrollAccum += yOff;
-            eventQueue.addLast(new MouseEvent(-1, false, yOff, x, y));
+            eventQueue.addLast(new MouseEvent(-1, false, yOff, x, y, 0.0, 0.0));
         });
 
         glfwSetCursorPosCallback(handle, cursorPos);
@@ -101,8 +103,8 @@ public final class Mouse {
     public static void destroy() {
         created = false;
     }
-	
-	public static int getDX() {
+
+    public static int getDX() {
         return (int) (x - lastX);
     }
 
@@ -126,8 +128,8 @@ public final class Mouse {
         if (button < 0 || button >= buttonState.length) return false;
         return buttonState[button];
     }
-	
-	public static void setGrabbed(boolean grab) {
+
+    public static void setGrabbed(boolean grab) {
         grabbed = grab;
         if (handle == 0L) return;
         glfwSetInputMode(handle, GLFW_CURSOR,
@@ -137,8 +139,8 @@ public final class Mouse {
     public static void setCursorPosition(int x, int y) {
         if (handle == 0L) return;
         glfwSetCursorPos(handle, x, y);
-        Mouse.x = x;
-        Mouse.y = y;
+        Mouse.x = lastEventX = x;
+        Mouse.y = lastEventY = y;
     }
 
     public static boolean isInsideWindow() {
@@ -173,6 +175,16 @@ public final class Mouse {
         return height - (int) currentEvent.y;
     }
 
+    public static int getEventDX() {
+        if (currentEvent == null) return 0;
+        return (int) currentEvent.dx;
+    }
+
+    public static int getEventDY() {
+        if (currentEvent == null) return 0;
+        return (int) currentEvent.dy;
+    }
+
     public static int getEventDWheel() {
         if (currentEvent == null) return 0;
         return (int) (currentEvent.dWheel * 120.0);
@@ -182,7 +194,7 @@ public final class Mouse {
         Mouse.width = width;
         Mouse.height = height;
     }
-	
-	private record MouseEvent(int button, boolean buttonState, double dWheel, double x, double y) { }
+
+    private record MouseEvent(int button, boolean buttonState, double dWheel, double x, double y, double dx, double dy) { }
 
 }

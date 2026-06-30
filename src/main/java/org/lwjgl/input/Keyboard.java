@@ -141,21 +141,22 @@ public final class Keyboard {
 
     private static final Deque<KeyEvent> eventQueue = new ArrayDeque<>();
     private static KeyEvent currentEvent = null;
-	
-	@Getter
-	@Setter
+
+    private static final Deque<Character> charQueue = new ArrayDeque<>();
+
+    @Getter
+    @Setter
     private static boolean repeat = false;
-	
+
     @Getter
     private static boolean created = false;
     private static GLFWKeyCallback cbKey;
     private static GLFWCharCallback cbChar;
-    private static char pendingChar = '\0';
 
     private Keyboard() {}
 
     static {
-	    Arrays.fill(keyNames, "UNKNOWN");
+        Arrays.fill(keyNames, "UNKNOWN");
         initKeyNames();
         initKeyMapping();
     }
@@ -292,11 +293,15 @@ public final class Keyboard {
     public static void destroy() {
         created = false;
     }
-	
-	public static void init(long handle) {
+
+    public static void init(long handle) {
         created = true;
 
-        cbChar = GLFWCharCallback.create((win, codepoint) -> pendingChar = (char) codepoint);
+        cbChar = GLFWCharCallback.create((win, codepoint) -> {
+            synchronized (charQueue) {
+                charQueue.addLast((char) codepoint);
+            }
+        });
 
         cbKey = GLFWKeyCallback.create((win, glfwKey, scancode, action, mods) -> {
             if (glfwKey == GLFW_KEY_UNKNOWN) return;
@@ -310,8 +315,10 @@ public final class Keyboard {
             keyState[lwjglCode] = pressed;
 
             if (!isRepeat || repeat) {
-                char ch = pendingChar;
-                pendingChar = '\0';
+                char ch;
+                synchronized (charQueue) {
+                    ch = charQueue.isEmpty() ? '\0' : charQueue.pollFirst();
+                }
                 eventQueue.addLast(new KeyEvent(lwjglCode, ch, pressed, isRepeat));
             }
         });
@@ -337,7 +344,6 @@ public final class Keyboard {
 
     public static void poll() {
         currentEvent = null;
-        pendingChar = '\0';
     }
 
     public static void enableRepeatEvents(boolean enable) {
@@ -383,7 +389,7 @@ public final class Keyboard {
     public static boolean isRepeatEvent() {
         return currentEvent != null && currentEvent.repeat;
     }
-	
-	private record KeyEvent(int key, char character, boolean keyState, boolean repeat) { }
+
+    private record KeyEvent(int key, char character, boolean keyState, boolean repeat) { }
 
 }
