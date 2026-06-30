@@ -13,7 +13,6 @@ import org.lwjgl.opengl.PixelFormat;
 import java.nio.ByteBuffer;
 
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.input.Mouse.setWindowSize;
 import static org.lwjgl.opengl.GL11.glViewport;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
@@ -86,7 +85,7 @@ public final class Window {
 			height = h;
 			resized = true;
 			glViewport(0, 0, w, h);
-			setWindowSize(w, h);
+			Mouse.setWindowSize(w, h);
 		});
 		
 		Mouse.init(handle);
