@@ -79,7 +79,7 @@ public class GuiScreenServerList extends GuiScreen {
 
 		if (ipEdit.textboxKeyTyped(typedChar, keyCode)) {
 			(buttonList.getFirst()).enabled = !ipEdit.getText().isEmpty() && ipEdit.getText().split(":").length > 0;
-		} else if (keyCode == 28 || keyCode == 156) {
+		} else if (keyCode == 257 || keyCode == 335) {
 			actionPerformed(buttonList.getFirst());
 		}
 	}

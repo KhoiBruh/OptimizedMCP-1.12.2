@@ -164,7 +164,7 @@ public class GuiCommandBlock extends GuiScreen implements ITabCompleter {
 
 		tabCompleter.resetRequested();
 
-		if (keyCode == 15) {
+		if (keyCode == 258) {
 			tabCompleter.complete();
 		} else {
 			tabCompleter.resetDidComplete();
@@ -173,8 +173,8 @@ public class GuiCommandBlock extends GuiScreen implements ITabCompleter {
 		commandTextField.textboxKeyTyped(typedChar, keyCode);
 		previousOutputTextField.textboxKeyTyped(typedChar, keyCode);
 
-		if (keyCode != 28 && keyCode != 156) {
-			if (keyCode == 1) {
+		if (keyCode != 257 && keyCode != 335) {
+			if (keyCode == 256) {
 				actionPerformed(cancelBtn);
 			}
 		} else {

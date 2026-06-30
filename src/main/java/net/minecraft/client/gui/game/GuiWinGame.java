@@ -64,7 +64,7 @@ public class GuiWinGame extends GuiScreen {
 	 */
 	protected void keyTyped(char typedChar, int keyCode) {
 
-		if (keyCode == 1) {
+		if (keyCode == 256) {
 			sendRespawnPacket();
 		}
 	}

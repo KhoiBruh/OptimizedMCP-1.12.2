@@ -118,9 +118,9 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	public static boolean isCtrlKeyDown() {
 
 		if (Minecraft.IS_RUNNING_ON_MAC) {
-			return Keyboard.isKeyDown(219) || Keyboard.isKeyDown(220);
+			return Keyboard.isKeyDown(343) || Keyboard.isKeyDown(347);
 		} else {
-			return Keyboard.isKeyDown(29) || Keyboard.isKeyDown(157);
+			return Keyboard.isKeyDown(341) || Keyboard.isKeyDown(345);
 		}
 	}
 
@@ -129,7 +129,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	 */
 	public static boolean isShiftKeyDown() {
 
-		return Keyboard.isKeyDown(42) || Keyboard.isKeyDown(54);
+		return Keyboard.isKeyDown(340) || Keyboard.isKeyDown(344);
 	}
 
 	/**
@@ -137,27 +137,27 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	 */
 	public static boolean isAltKeyDown() {
 
-		return Keyboard.isKeyDown(56) || Keyboard.isKeyDown(184);
+		return Keyboard.isKeyDown(342) || Keyboard.isKeyDown(346);
 	}
 
 	public static boolean isKeyComboCtrlX(int keyID) {
 
-		return keyID == 45 && isCtrlKeyDown() && !isShiftKeyDown() && !isAltKeyDown();
+		return keyID == 88 && isCtrlKeyDown() && !isShiftKeyDown() && !isAltKeyDown();
 	}
 
 	public static boolean isKeyComboCtrlV(int keyID) {
 
-		return keyID == 47 && isCtrlKeyDown() && !isShiftKeyDown() && !isAltKeyDown();
+		return keyID == 86 && isCtrlKeyDown() && !isShiftKeyDown() && !isAltKeyDown();
 	}
 
 	public static boolean isKeyComboCtrlC(int keyID) {
 
-		return keyID == 46 && isCtrlKeyDown() && !isShiftKeyDown() && !isAltKeyDown();
+		return keyID == 67 && isCtrlKeyDown() && !isShiftKeyDown() && !isAltKeyDown();
 	}
 
 	public static boolean isKeyComboCtrlA(int keyID) {
 
-		return keyID == 30 && isCtrlKeyDown() && !isShiftKeyDown() && !isAltKeyDown();
+		return keyID == 65 && isCtrlKeyDown() && !isShiftKeyDown() && !isAltKeyDown();
 	}
 
 	/**
@@ -180,7 +180,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
 
-		if (keyCode == 1) {
+		if (keyCode == 256) {
 			mc.displayGuiScreen(null);
 
 			if (mc.currentScreen == null) {

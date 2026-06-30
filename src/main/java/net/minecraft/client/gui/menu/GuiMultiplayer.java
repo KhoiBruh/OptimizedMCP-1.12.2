@@ -405,11 +405,11 @@ public class GuiMultiplayer extends GuiScreen {
 		int i = serverListSelector.getSelected();
 		GuiListExtended.IGuiListEntry guilistextended$iguilistentry = i < 0 ? null : serverListSelector.getListEntry(i);
 
-		if (keyCode == 63) {
+		if (keyCode == 294) {
 			refreshServerList();
 		} else {
 			if (i >= 0) {
-				if (keyCode == 200) {
+				if (keyCode == 265) {
 					if (isShiftKeyDown()) {
 						if (i > 0 && guilistextended$iguilistentry instanceof ServerListEntryNormal) {
 							savedServerList.swapServers(i, i - 1);
@@ -432,7 +432,7 @@ public class GuiMultiplayer extends GuiScreen {
 					} else {
 						selectServer(-1);
 					}
-				} else if (keyCode == 208) {
+				} else if (keyCode == 264) {
 					if (isShiftKeyDown()) {
 						if (i < savedServerList.countServers() - 1) {
 							savedServerList.swapServers(i, i + 1);
@@ -455,7 +455,7 @@ public class GuiMultiplayer extends GuiScreen {
 					} else {
 						selectServer(-1);
 					}
-				} else if (keyCode != 28 && keyCode != 156) {
+				} else if (keyCode != 257 && keyCode != 335) {
 					super.keyTyped(typedChar, keyCode);
 				} else {
 					actionPerformed(buttonList.get(2));

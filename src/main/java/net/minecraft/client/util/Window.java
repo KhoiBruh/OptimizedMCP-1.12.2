@@ -94,7 +94,7 @@ public final class Window {
         });
 
         Mouse.init(this);
-        Keyboard.init(handle);
+        Keyboard.init(this);
         glfwShowWindow(handle);
 
         lastFrameTime = System.nanoTime();
@@ -103,7 +103,7 @@ public final class Window {
     public void destroy() {
         if (handle != NULL) {
             Mouse.removeCallbacks();
-            Keyboard.removeCallbacks(handle);
+            Keyboard.removeCallbacks();
             glfwDestroyWindow(handle);
             handle = NULL;
         }

@@ -35,9 +35,9 @@ public class ScreenChatOptions extends GuiScreen {
 
 		for (GameSettings.Options gamesettings$options : CHAT_OPTIONS) {
 			if (gamesettings$options.isFloat()) {
-				buttonList.add(new GuiOptionSlider(gamesettings$options.getOrdinal(), width / 2 - 155 + i % 2 * 160, height / 6 + 24 * (i >> 1), gamesettings$options));
+				buttonList.add(new GuiOptionSlider(gamesettings$options.ordinal(), width / 2 - 155 + i % 2 * 160, height / 6 + 24 * (i >> 1), gamesettings$options));
 			} else {
-				GuiOptionButton guioptionbutton = new GuiOptionButton(gamesettings$options.getOrdinal(), width / 2 - 155 + i % 2 * 160, height / 6 + 24 * (i >> 1), gamesettings$options, game_settings.getKeyBinding(gamesettings$options));
+				GuiOptionButton guioptionbutton = new GuiOptionButton(gamesettings$options.ordinal(), width / 2 - 155 + i % 2 * 160, height / 6 + 24 * (i >> 1), gamesettings$options, game_settings.getKeyBinding(gamesettings$options));
 				buttonList.add(guioptionbutton);
 
 				if (gamesettings$options == GameSettings.Options.NARRATOR) {
@@ -58,7 +58,7 @@ public class ScreenChatOptions extends GuiScreen {
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
 
-		if (keyCode == 1) {
+		if (keyCode == 256) {
 			mc.gameSettings.saveOptions();
 		}
 

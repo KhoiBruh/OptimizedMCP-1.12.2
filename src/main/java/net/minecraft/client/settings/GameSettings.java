@@ -12,6 +12,8 @@ import net.minecraft.client.gui.chat.NarratorChatListener;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.tutorial.TutorialSteps;
+import net.minecraft.client.util.Keyboard;
+import net.minecraft.client.util.Mouse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.PlayerModelParts;
 import net.minecraft.nbt.NBTTagCompound;
@@ -27,9 +29,6 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import net.minecraft.client.util.Keyboard;
-import net.minecraft.client.util.Mouse;
-
 import java.io.*;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -39,25 +38,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class GameSettings {
+import static org.lwjgl.glfw.GLFW.*;
 
+public class GameSettings {
+	
 	public static final Splitter COLON_SPLITTER = Splitter.on(':');
 	public static final String[] NARRATOR_MODES = new String[]{"options.narrator.off", "options.narrator.all", "options.narrator.chat", "options.narrator.system"};
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final Gson GSON = new Gson();
 	private static final Type TYPE_LIST_STRING = new ParameterizedType() {
 		public Type[] getActualTypeArguments() {
-
 			return new Type[]{String.class};
 		}
-
+		
 		public Type getRawType() {
-
 			return List.class;
 		}
-
+		
 		public Type getOwnerType() {
-
 			return null;
 		}
 	};
@@ -125,31 +123,45 @@ public class GameSettings {
 	public boolean showSubtitles;
 	public boolean autoJump = true;
 	public TutorialSteps tutorialStep = TutorialSteps.MOVEMENT;
-	public KeyBinding keyBindForward = new KeyBinding("key.forward", 17, "key.categories.movement");
-	public KeyBinding keyBindLeft = new KeyBinding("key.left", 30, "key.categories.movement");
-	public KeyBinding keyBindBack = new KeyBinding("key.back", 31, "key.categories.movement");
-	public KeyBinding keyBindRight = new KeyBinding("key.right", 32, "key.categories.movement");
-	public KeyBinding keyBindJump = new KeyBinding("key.jump", 57, "key.categories.movement");
-	public KeyBinding keyBindSneak = new KeyBinding("key.sneak", 42, "key.categories.movement");
-	public KeyBinding keyBindSprint = new KeyBinding("key.sprint", 29, "key.categories.movement");
-	public KeyBinding keyBindInventory = new KeyBinding("key.inventory", 18, "key.categories.inventory");
-	public KeyBinding keyBindSwapHands = new KeyBinding("key.swapHands", 33, "key.categories.inventory");
-	public KeyBinding keyBindDrop = new KeyBinding("key.drop", 16, "key.categories.inventory");
-	public KeyBinding keyBindUseItem = new KeyBinding("key.use", -99, "key.categories.gameplay");
-	public KeyBinding keyBindAttack = new KeyBinding("key.attack", -100, "key.categories.gameplay");
-	public KeyBinding keyBindPickBlock = new KeyBinding("key.pickItem", -98, "key.categories.gameplay");
-	public KeyBinding keyBindChat = new KeyBinding("key.chat", 20, "key.categories.multiplayer");
-	public KeyBinding keyBindPlayerList = new KeyBinding("key.playerlist", 15, "key.categories.multiplayer");
-	public KeyBinding keyBindCommand = new KeyBinding("key.command", 53, "key.categories.multiplayer");
-	public KeyBinding keyBindScreenshot = new KeyBinding("key.screenshot", 60, "key.categories.misc");
-	public KeyBinding keyBindTogglePerspective = new KeyBinding("key.togglePerspective", 63, "key.categories.misc");
-	public KeyBinding keyBindSmoothCamera = new KeyBinding("key.smoothCamera", 0, "key.categories.misc");
-	public KeyBinding keyBindFullscreen = new KeyBinding("key.fullscreen", 87, "key.categories.misc");
-	public KeyBinding keyBindSpectatorOutlines = new KeyBinding("key.spectatorOutlines", 0, "key.categories.misc");
-	public KeyBinding keyBindAdvancements = new KeyBinding("key.advancements", 38, "key.categories.misc");
-	public KeyBinding[] keyBindsHotbar = new KeyBinding[]{new KeyBinding("key.hotbar.1", 2, "key.categories.inventory"), new KeyBinding("key.hotbar.2", 3, "key.categories.inventory"), new KeyBinding("key.hotbar.3", 4, "key.categories.inventory"), new KeyBinding("key.hotbar.4", 5, "key.categories.inventory"), new KeyBinding("key.hotbar.5", 6, "key.categories.inventory"), new KeyBinding("key.hotbar.6", 7, "key.categories.inventory"), new KeyBinding("key.hotbar.7", 8, "key.categories.inventory"), new KeyBinding("key.hotbar.8", 9, "key.categories.inventory"), new KeyBinding("key.hotbar.9", 10, "key.categories.inventory")};
-	public KeyBinding keyBindSaveToolbar = new KeyBinding("key.saveToolbarActivator", 46, "key.categories.creative");
-	public KeyBinding keyBindLoadToolbar = new KeyBinding("key.loadToolbarActivator", 45, "key.categories.creative");
+	
+	public KeyBinding keyBindForward = new KeyBinding("key.forward", GLFW_KEY_W, "key.categories.movement");
+	public KeyBinding keyBindLeft = new KeyBinding("key.left", GLFW_KEY_A, "key.categories.movement");
+	public KeyBinding keyBindBack = new KeyBinding("key.back", GLFW_KEY_S, "key.categories.movement");
+	public KeyBinding keyBindRight = new KeyBinding("key.right", GLFW_KEY_D, "key.categories.movement");
+	public KeyBinding keyBindJump = new KeyBinding("key.jump", GLFW_KEY_SPACE, "key.categories.movement");
+	public KeyBinding keyBindSneak = new KeyBinding("key.sneak", GLFW_KEY_LEFT_SHIFT, "key.categories.movement");
+	public KeyBinding keyBindSprint = new KeyBinding("key.sprint", GLFW_KEY_LEFT_CONTROL, "key.categories.movement");
+	public KeyBinding keyBindInventory = new KeyBinding("key.inventory", GLFW_KEY_E, "key.categories.inventory");
+	public KeyBinding keyBindSwapHands = new KeyBinding("key.swapHands", GLFW_KEY_F, "key.categories.inventory");
+	public KeyBinding keyBindDrop = new KeyBinding("key.drop", GLFW_KEY_Q, "key.categories.inventory");
+	public KeyBinding keyBindUseItem = new KeyBinding("key.use", GLFW_MOUSE_BUTTON_1, "key.categories.gameplay");
+	public KeyBinding keyBindAttack = new KeyBinding("key.attack", GLFW_MOUSE_BUTTON_2, "key.categories.gameplay");
+	public KeyBinding keyBindPickBlock = new KeyBinding("key.pickItem", GLFW_MOUSE_BUTTON_3, "key.categories.gameplay");
+	public KeyBinding keyBindChat = new KeyBinding("key.chat", GLFW_KEY_T, "key.categories.multiplayer");
+	public KeyBinding keyBindPlayerList = new KeyBinding("key.playerlist", GLFW_KEY_TAB, "key.categories.multiplayer");
+	public KeyBinding keyBindCommand = new KeyBinding("key.command", GLFW_KEY_SLASH, "key.categories.multiplayer");
+	public KeyBinding keyBindScreenshot = new KeyBinding("key.screenshot", GLFW_KEY_F2, "key.categories.misc");
+	public KeyBinding keyBindTogglePerspective = new KeyBinding("key.togglePerspective", GLFW_KEY_F5, "key.categories.misc");
+	public KeyBinding keyBindSmoothCamera = new KeyBinding("key.smoothCamera", GLFW_KEY_UNKNOWN, "key.categories.misc");
+	public KeyBinding keyBindFullscreen = new KeyBinding("key.fullscreen", GLFW_KEY_F11, "key.categories.misc");
+	public KeyBinding keyBindSpectatorOutlines = new KeyBinding("key.spectatorOutlines", GLFW_KEY_UNKNOWN, "key.categories.misc");
+	public KeyBinding keyBindAdvancements = new KeyBinding("key.advancements", GLFW_KEY_L, "key.categories.misc");
+	
+	public KeyBinding[] keyBindsHotbar = new KeyBinding[] {
+			new KeyBinding("key.hotbar.1", GLFW_KEY_1, "key.categories.inventory"),
+			new KeyBinding("key.hotbar.2", GLFW_KEY_2, "key.categories.inventory"),
+			new KeyBinding("key.hotbar.3", GLFW_KEY_3, "key.categories.inventory"),
+			new KeyBinding("key.hotbar.4", GLFW_KEY_4, "key.categories.inventory"),
+			new KeyBinding("key.hotbar.5", GLFW_KEY_5, "key.categories.inventory"),
+			new KeyBinding("key.hotbar.6", GLFW_KEY_6, "key.categories.inventory"),
+			new KeyBinding("key.hotbar.7", GLFW_KEY_7, "key.categories.inventory"),
+			new KeyBinding("key.hotbar.8", GLFW_KEY_8, "key.categories.inventory"),
+			new KeyBinding("key.hotbar.9", GLFW_KEY_9, "key.categories.inventory")
+	};
+	
+	public KeyBinding keyBindSaveToolbar = new KeyBinding("key.saveToolbarActivator", GLFW_KEY_UNKNOWN, "key.categories.creative");
+	public KeyBinding keyBindLoadToolbar = new KeyBinding("key.loadToolbarActivator", GLFW_KEY_UNKNOWN, "key.categories.creative");
+	
 	public KeyBinding[] keyBindings;
 	public Difficulty difficulty;
 	public boolean hideGUI;
@@ -188,9 +200,8 @@ public class GameSettings {
 	public boolean forceUnicodeFont;
 	protected Minecraft mc;
 	private File optionsFile;
-
+	
 	public GameSettings(Minecraft mcIn, File mcDataDir) {
-
 		keyBindings = ArrayUtils.addAll(new KeyBinding[]{keyBindAttack, keyBindUseItem, keyBindForward, keyBindLeft, keyBindBack, keyBindRight, keyBindJump, keyBindSneak, keyBindSprint, keyBindDrop, keyBindInventory, keyBindChat, keyBindPlayerList, keyBindPickBlock, keyBindCommand, keyBindScreenshot, keyBindTogglePerspective, keyBindSmoothCamera, keyBindFullscreen, keyBindSpectatorOutlines, keyBindSwapHands, keyBindSaveToolbar, keyBindLoadToolbar, keyBindAdvancements}, keyBindsHotbar);
 		difficulty = Difficulty.NORMAL;
 		lastServer = "";
@@ -198,24 +209,22 @@ public class GameSettings {
 		language = "en_us";
 		mc = mcIn;
 		optionsFile = new File(mcDataDir, "options.txt");
-
+		
 		loadOptions();
 	}
-
+	
 	public GameSettings() {
-
 		keyBindings = ArrayUtils.addAll(new KeyBinding[]{keyBindAttack, keyBindUseItem, keyBindForward, keyBindLeft, keyBindBack, keyBindRight, keyBindJump, keyBindSneak, keyBindSprint, keyBindDrop, keyBindInventory, keyBindChat, keyBindPlayerList, keyBindPickBlock, keyBindCommand, keyBindScreenshot, keyBindTogglePerspective, keyBindSmoothCamera, keyBindFullscreen, keyBindSpectatorOutlines, keyBindSwapHands, keyBindSaveToolbar, keyBindLoadToolbar, keyBindAdvancements}, keyBindsHotbar);
 		difficulty = Difficulty.NORMAL;
 		lastServer = "";
 		fovSetting = 70F;
 		language = "en_us";
 	}
-
+	
 	/**
 	 * Gets the display name for a key.
 	 */
 	public static String getKeyDisplayString(int key) {
-
 		if (key < 0) {
 			return switch (key) {
 				case -100 -> I18n.format("key.mouse.left");
@@ -224,96 +233,89 @@ public class GameSettings {
 				default -> I18n.format("key.mouseButton", key + 101);
 			};
 		} else {
-			return key < 256 ? Keyboard.getKeyName(key) : String.format("%c", (char) (key - 256)).toUpperCase();
+			String name = Keyboard.getKeyName(key);
+			if (!name.equals("UNKNOWN")) return name;
+			return String.format("%c", (char) (key - 256)).toUpperCase();
 		}
 	}
-
+	
 	/**
 	 * Returns whether the specified key binding is currently being pressed.
 	 */
 	public static boolean isKeyDown(KeyBinding key) {
-
 		int i = key.getKeyCode();
-
-		if (i != 0 && i < 256) {
-			return i < 0 ? Mouse.isButtonDown(i + 100) : Keyboard.isKeyDown(i);
-		} else {
-			return false;
-		}
+		if (i == 0) return false;
+		if (i < 0) return Mouse.isButtonDown(i + 100);
+		return Keyboard.isKeyDown(i);
 	}
-
+	
 	/**
 	 * Returns the translation of the given index in the given String array. If the index is smaller than 0 or greater
 	 * than/equal to the length of the String array, it is changed to 0.
 	 */
 	private static String getTranslation(String[] strArray, int index) {
-
-		if (index < 0 || index >= strArray.length) {
-			index = 0;
-		}
-
+		if (index < 0 || index >= strArray.length) index = 0;
+		
 		return I18n.format(strArray[index]);
 	}
-
+	
 	/**
 	 * Sets a key binding and then saves all settings.
 	 */
 	public void setOptionKeyBinding(KeyBinding key, int keyCode) {
-
 		key.setKeyCode(keyCode);
 		saveOptions();
 	}
-
+	
 	/**
 	 * If the specified option is controlled by a slider (float value), this will set the float value.
 	 */
 	public void setOptionFloatValue(GameSettings.Options settingsOption, float value) {
-
 		if (settingsOption == GameSettings.Options.SENSITIVITY) {
 			mouseSensitivity = value;
 		}
-
+		
 		if (settingsOption == GameSettings.Options.FOV) {
 			fovSetting = value;
 		}
-
+		
 		if (settingsOption == GameSettings.Options.GAMMA) {
 			gammaSetting = value;
 		}
-
+		
 		if (settingsOption == GameSettings.Options.FRAMERATE_LIMIT) {
 			limitFramerate = (int) value;
 		}
-
+		
 		if (settingsOption == GameSettings.Options.CHAT_OPACITY) {
 			chatOpacity = value;
 			mc.ingameGUI.getChatGUI().refreshChat();
 		}
-
+		
 		if (settingsOption == GameSettings.Options.CHAT_HEIGHT_FOCUSED) {
 			chatHeightFocused = value;
 			mc.ingameGUI.getChatGUI().refreshChat();
 		}
-
+		
 		if (settingsOption == GameSettings.Options.CHAT_HEIGHT_UNFOCUSED) {
 			chatHeightUnfocused = value;
 			mc.ingameGUI.getChatGUI().refreshChat();
 		}
-
+		
 		if (settingsOption == GameSettings.Options.CHAT_WIDTH) {
 			chatWidth = value;
 			mc.ingameGUI.getChatGUI().refreshChat();
 		}
-
+		
 		if (settingsOption == GameSettings.Options.CHAT_SCALE) {
 			chatScale = value;
 			mc.ingameGUI.getChatGUI().refreshChat();
 		}
-
+		
 		if (settingsOption == GameSettings.Options.MIPMAP_LEVELS) {
 			int i = mipmapLevels;
 			mipmapLevels = (int) value;
-
+			
 			if ((float) i != value) {
 				mc.getTextureMapBlocks().setMipmapLevels(mipmapLevels);
 				mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
@@ -321,148 +323,146 @@ public class GameSettings {
 				mc.scheduleResourcesRefresh();
 			}
 		}
-
+		
 		if (settingsOption == GameSettings.Options.RENDER_DISTANCE) {
 			renderDistanceChunks = (int) value;
 			mc.renderGlobal.setDisplayListEntitiesDirty();
 		}
 	}
-
+	
 	/**
 	 * For non-float options. Toggles the option on/off, or cycles through the list i.e. render distances.
 	 */
 	public void setOptionValue(GameSettings.Options settingsOption, int value) {
-
 		if (settingsOption == GameSettings.Options.RENDER_DISTANCE) {
 			setOptionFloatValue(settingsOption, MathHelper.clamp((float) (renderDistanceChunks + value), settingsOption.getValueMin(), settingsOption.getValueMax()));
 		}
-
+		
 		if (settingsOption == GameSettings.Options.MAIN_HAND) {
 			mainHand = mainHand.opposite();
 		}
-
+		
 		if (settingsOption == GameSettings.Options.INVERT_MOUSE) {
 			invertMouse = !invertMouse;
 		}
-
+		
 		if (settingsOption == GameSettings.Options.GUI_SCALE) {
 			guiScale = guiScale + value & 3;
 			mc.getWindow().setGuiScale(guiScale, mc.isUnicode());
 		}
-
+		
 		if (settingsOption == GameSettings.Options.PARTICLES) {
 			particleSetting = (particleSetting + value) % 3;
 		}
-
+		
 		if (settingsOption == GameSettings.Options.VIEW_BOBBING) {
 			viewBobbing = !viewBobbing;
 		}
-
+		
 		if (settingsOption == GameSettings.Options.RENDER_CLOUDS) {
 			clouds = (clouds + value) % 3;
 		}
-
+		
 		if (settingsOption == GameSettings.Options.FORCE_UNICODE_FONT) {
 			forceUnicodeFont = !forceUnicodeFont;
 			mc.fontRenderer.setUnicodeFlag(mc.getLanguageManager().isCurrentLocaleUnicode() || forceUnicodeFont);
 		}
-
+		
 		if (settingsOption == GameSettings.Options.FBO_ENABLE) {
 			fboEnable = !fboEnable;
 		}
-
+		
 		if (settingsOption == GameSettings.Options.ANAGLYPH) {
 			anaglyph = !anaglyph;
 			mc.refreshResources();
 		}
-
+		
 		if (settingsOption == GameSettings.Options.GRAPHICS) {
 			fancyGraphics = !fancyGraphics;
 			mc.renderGlobal.loadRenderers();
 		}
-
+		
 		if (settingsOption == GameSettings.Options.AMBIENT_OCCLUSION) {
 			ambientOcclusion = (ambientOcclusion + value) % 3;
 			mc.renderGlobal.loadRenderers();
 		}
-
+		
 		if (settingsOption == GameSettings.Options.CHAT_VISIBILITY) {
 			chatVisibility = EntityPlayer.ChatVisibility.getEnumChatVisibility((chatVisibility.getChatVisibility() + value) % 3);
 		}
-
+		
 		if (settingsOption == GameSettings.Options.CHAT_COLOR) {
 			chatColours = !chatColours;
 		}
-
+		
 		if (settingsOption == GameSettings.Options.CHAT_LINKS) {
 			chatLinks = !chatLinks;
 		}
-
+		
 		if (settingsOption == GameSettings.Options.CHAT_LINKS_PROMPT) {
 			chatLinksPrompt = !chatLinksPrompt;
 		}
-
+		
 		if (settingsOption == GameSettings.Options.SNOOPER_ENABLED) {
 			snooperEnabled = !snooperEnabled;
 		}
-
+		
 		if (settingsOption == GameSettings.Options.TOUCHSCREEN) {
 			touchscreen = !touchscreen;
 		}
-
+		
 		if (settingsOption == GameSettings.Options.USE_FULLSCREEN) {
 			fullScreen = !fullScreen;
-
+			
 			if (mc.isFullScreen() != fullScreen) {
 				mc.toggleFullscreen();
 			}
 		}
-
+		
 		if (settingsOption == GameSettings.Options.ENABLE_VSYNC) {
 			enableVsync = !enableVsync;
 			mc.getWindow().setVSync(enableVsync);
 		}
-
+		
 		if (settingsOption == GameSettings.Options.USE_VBO) {
 			useVbo = !useVbo;
 			mc.renderGlobal.loadRenderers();
 		}
-
+		
 		if (settingsOption == GameSettings.Options.REDUCED_DEBUG_INFO) {
 			reducedDebugInfo = !reducedDebugInfo;
 		}
-
+		
 		if (settingsOption == GameSettings.Options.ENTITY_SHADOWS) {
 			entityShadows = !entityShadows;
 		}
-
+		
 		if (settingsOption == GameSettings.Options.ATTACK_INDICATOR) {
 			attackIndicator = (attackIndicator + value) % 3;
 		}
-
+		
 		if (settingsOption == GameSettings.Options.SHOW_SUBTITLES) {
 			showSubtitles = !showSubtitles;
 		}
-
+		
 		if (settingsOption == GameSettings.Options.AUTO_JUMP) {
 			autoJump = !autoJump;
 		}
-
+		
 		if (settingsOption == GameSettings.Options.NARRATOR) {
 			if (NarratorChatListener.INSTANCE.isActive()) {
 				narrator = (narrator + value) % NARRATOR_MODES.length;
 			} else {
 				narrator = 0;
 			}
-
+			
 			NarratorChatListener.INSTANCE.announceMode(narrator);
 		}
-
+		
 		saveOptions();
 	}
-
+	
 	public float getOptionFloatValue(GameSettings.Options settingOption) {
-
 		if (settingOption == GameSettings.Options.FOV) {
 			return fovSetting;
 		} else if (settingOption == GameSettings.Options.GAMMA) {
@@ -489,9 +489,8 @@ public class GameSettings {
 			return settingOption == GameSettings.Options.RENDER_DISTANCE ? (float) renderDistanceChunks : 0F;
 		}
 	}
-
+	
 	public boolean getOptionOrdinalValue(GameSettings.Options settingOption) {
-
 		return switch (settingOption) {
 			case INVERT_MOUSE -> invertMouse;
 			case VIEW_BOBBING -> viewBobbing;
@@ -514,18 +513,17 @@ public class GameSettings {
 			default -> false;
 		};
 	}
-
+	
 	/**
 	 * Gets a key binding.
 	 */
 	public String getKeyBinding(GameSettings.Options settingOption) {
-
 		String s = I18n.format(settingOption.getTranslation()) + ": ";
-
+		
 		if (settingOption.isFloat()) {
 			float f1 = getOptionFloatValue(settingOption);
 			float f = settingOption.normalizeValue(f1);
-
+			
 			if (settingOption == GameSettings.Options.SENSITIVITY) {
 				if (f == 0F) {
 					return s + I18n.format("options.sensitivity.min");
@@ -595,21 +593,20 @@ public class GameSettings {
 			return s;
 		}
 	}
-
+	
 	/**
 	 * Loads the options from the options file. It appears that this has replaced the previous 'loadOptions'
 	 */
 	public void loadOptions() {
-
 		try {
 			if (!optionsFile.exists()) {
 				return;
 			}
-
+			
 			soundLevels.clear();
 			List<String> list = IOUtils.readLines(new FileInputStream(optionsFile), StandardCharsets.UTF_8);
 			NBTTagCompound nbttagcompound = new NBTTagCompound();
-
+			
 			for (String s : list) {
 				try {
 					Iterator<String> iterator = COLON_SPLITTER.omitEmptyStrings().limit(2).split(s).iterator();
@@ -618,73 +615,73 @@ public class GameSettings {
 					LOGGER.warn("Skipping bad option: {}", s);
 				}
 			}
-
+			
 			nbttagcompound = dataFix(nbttagcompound);
-
+			
 			for (String s1 : nbttagcompound.getKeySet()) {
 				String s2 = nbttagcompound.getString(s1);
-
+				
 				try {
 					if ("mouseSensitivity".equals(s1)) {
 						mouseSensitivity = parseFloat(s2);
 					}
-
+					
 					if ("fov".equals(s1)) {
 						fovSetting = parseFloat(s2) * 40F + 70F;
 					}
-
+					
 					if ("gamma".equals(s1)) {
 						gammaSetting = parseFloat(s2);
 					}
-
+					
 					if ("saturation".equals(s1)) {
 						saturation = parseFloat(s2);
 					}
-
+					
 					if ("invertYMouse".equals(s1)) {
 						invertMouse = "true".equals(s2);
 					}
-
+					
 					if ("renderDistance".equals(s1)) {
 						renderDistanceChunks = Integer.parseInt(s2);
 					}
-
+					
 					if ("guiScale".equals(s1)) {
 						guiScale = Integer.parseInt(s2);
 					}
-
+					
 					if ("particles".equals(s1)) {
 						particleSetting = Integer.parseInt(s2);
 					}
-
+					
 					if ("bobView".equals(s1)) {
 						viewBobbing = "true".equals(s2);
 					}
-
+					
 					if ("anaglyph3d".equals(s1)) {
 						anaglyph = "true".equals(s2);
 					}
-
+					
 					if ("maxFps".equals(s1)) {
 						limitFramerate = Integer.parseInt(s2);
 					}
-
+					
 					if ("fboEnable".equals(s1)) {
 						fboEnable = "true".equals(s2);
 					}
-
+					
 					if ("difficulty".equals(s1)) {
 						difficulty = Difficulty.getDifficultyEnum(Integer.parseInt(s2));
 					}
-
+					
 					if ("fancyGraphics".equals(s1)) {
 						fancyGraphics = "true".equals(s2);
 					}
-
+					
 					if ("tutorialStep".equals(s1)) {
 						tutorialStep = TutorialSteps.getTutorial(s2);
 					}
-
+					
 					if ("ao".equals(s1)) {
 						if ("true".equals(s2)) {
 							ambientOcclusion = 2;
@@ -694,7 +691,7 @@ public class GameSettings {
 							ambientOcclusion = Integer.parseInt(s2);
 						}
 					}
-
+					
 					if ("renderClouds".equals(s1)) {
 						if ("true".equals(s2)) {
 							clouds = 2;
@@ -704,7 +701,7 @@ public class GameSettings {
 							clouds = 1;
 						}
 					}
-
+					
 					if ("attackIndicator".equals(s1)) {
 						if ("0".equals(s2)) {
 							attackIndicator = 0;
@@ -714,163 +711,163 @@ public class GameSettings {
 							attackIndicator = 2;
 						}
 					}
-
+					
 					if ("resourcePacks".equals(s1)) {
 						resourcePacks = JsonUtils.gsonDeserialize(GSON, s2, TYPE_LIST_STRING);
-
+						
 						if (resourcePacks == null) {
 							resourcePacks = Lists.newArrayList();
 						}
 					}
-
+					
 					if ("incompatibleResourcePacks".equals(s1)) {
 						incompatibleResourcePacks = JsonUtils.gsonDeserialize(GSON, s2, TYPE_LIST_STRING);
-
+						
 						if (incompatibleResourcePacks == null) {
 							incompatibleResourcePacks = Lists.newArrayList();
 						}
 					}
-
+					
 					if ("lastServer".equals(s1)) {
 						lastServer = s2;
 					}
-
+					
 					if ("lang".equals(s1)) {
 						language = s2;
 					}
-
+					
 					if ("chatVisibility".equals(s1)) {
 						chatVisibility = EntityPlayer.ChatVisibility.getEnumChatVisibility(Integer.parseInt(s2));
 					}
-
+					
 					if ("chatColors".equals(s1)) {
 						chatColours = "true".equals(s2);
 					}
-
+					
 					if ("chatLinks".equals(s1)) {
 						chatLinks = "true".equals(s2);
 					}
-
+					
 					if ("chatLinksPrompt".equals(s1)) {
 						chatLinksPrompt = "true".equals(s2);
 					}
-
+					
 					if ("chatOpacity".equals(s1)) {
 						chatOpacity = parseFloat(s2);
 					}
-
+					
 					if ("snooperEnabled".equals(s1)) {
 						snooperEnabled = "true".equals(s2);
 					}
-
+					
 					if ("fullscreen".equals(s1)) {
 						fullScreen = "true".equals(s2);
 					}
-
+					
 					if ("enableVsync".equals(s1)) {
 						enableVsync = "true".equals(s2);
 					}
-
+					
 					if ("useVbo".equals(s1)) {
 						useVbo = "true".equals(s2);
 					}
-
+					
 					if ("hideServerAddress".equals(s1)) {
 						hideServerAddress = "true".equals(s2);
 					}
-
+					
 					if ("advancedItemTooltips".equals(s1)) {
 						advancedItemTooltips = "true".equals(s2);
 					}
-
+					
 					if ("pauseOnLostFocus".equals(s1)) {
 						pauseOnLostFocus = "true".equals(s2);
 					}
-
+					
 					if ("touchscreen".equals(s1)) {
 						touchscreen = "true".equals(s2);
 					}
-
+					
 					if ("overrideHeight".equals(s1)) {
 						overrideHeight = Integer.parseInt(s2);
 					}
-
+					
 					if ("overrideWidth".equals(s1)) {
 						overrideWidth = Integer.parseInt(s2);
 					}
-
+					
 					if ("heldItemTooltips".equals(s1)) {
 						heldItemTooltips = "true".equals(s2);
 					}
-
+					
 					if ("chatHeightFocused".equals(s1)) {
 						chatHeightFocused = parseFloat(s2);
 					}
-
+					
 					if ("chatHeightUnfocused".equals(s1)) {
 						chatHeightUnfocused = parseFloat(s2);
 					}
-
+					
 					if ("chatScale".equals(s1)) {
 						chatScale = parseFloat(s2);
 					}
-
+					
 					if ("chatWidth".equals(s1)) {
 						chatWidth = parseFloat(s2);
 					}
-
+					
 					if ("mipmapLevels".equals(s1)) {
 						mipmapLevels = Integer.parseInt(s2);
 					}
-
+					
 					if ("forceUnicodeFont".equals(s1)) {
 						forceUnicodeFont = "true".equals(s2);
 					}
-
+					
 					if ("reducedDebugInfo".equals(s1)) {
 						reducedDebugInfo = "true".equals(s2);
 					}
-
+					
 					if ("useNativeTransport".equals(s1)) {
 						useNativeTransport = "true".equals(s2);
 					}
-
+					
 					if ("entityShadows".equals(s1)) {
 						entityShadows = "true".equals(s2);
 					}
-
+					
 					if ("mainHand".equals(s1)) {
 						mainHand = "left".equals(s2) ? HandSide.LEFT : HandSide.RIGHT;
 					}
-
+					
 					if ("showSubtitles".equals(s1)) {
 						showSubtitles = "true".equals(s2);
 					}
-
+					
 					if ("enableWeakAttacks".equals(s1)) {
 						enableWeakAttacks = "true".equals(s2);
 					}
-
+					
 					if ("autoJump".equals(s1)) {
 						autoJump = "true".equals(s2);
 					}
-
+					
 					if ("narrator".equals(s1)) {
 						narrator = Integer.parseInt(s2);
 					}
-
+					
 					for (KeyBinding keybinding : keyBindings) {
 						if (s1.equals("key_" + keybinding.getKeyDescription())) {
 							keybinding.setKeyCode(Integer.parseInt(s2));
 						}
 					}
-
+					
 					for (SoundCategory soundcategory : SoundCategory.values()) {
 						if (s1.equals("soundCategory_" + soundcategory.getName())) {
 							soundLevels.put(soundcategory, parseFloat(s2));
 						}
 					}
-
+					
 					for (PlayerModelParts enumplayermodelparts : PlayerModelParts.values()) {
 						if (s1.equals("modelPart_" + enumplayermodelparts.getPartName())) {
 							setModelPartEnabled(enumplayermodelparts, "true".equals(s2));
@@ -880,44 +877,41 @@ public class GameSettings {
 					LOGGER.warn("Skipping bad option: {}:{}", s1, s2);
 				}
 			}
-
+			
 			KeyBinding.resetKeyBindingArrayAndHash();
 		} catch (Exception exception) {
 			LOGGER.error("Failed to load options", exception);
 		}
 	}
-
+	
 	private NBTTagCompound dataFix(NBTTagCompound p_189988_1_) {
-
 		int i = 0;
-
+		
 		try {
 			i = Integer.parseInt(p_189988_1_.getString("version"));
 		} catch (RuntimeException ignored) {
 		}
-
+		
 		return mc.getDataFixer().process(FixTypes.OPTIONS, p_189988_1_, i);
 	}
-
+	
 	/**
 	 * Parses a string into a float.
 	 */
 	private float parseFloat(String str) {
-
 		if ("true".equals(str)) {
 			return 1F;
 		} else {
 			return "false".equals(str) ? 0F : Float.parseFloat(str);
 		}
 	}
-
+	
 	/**
 	 * Saves the options to the options file.
 	 */
 	public void saveOptions() {
-
 		PrintWriter printwriter = null;
-
+		
 		try {
 			printwriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(optionsFile), StandardCharsets.UTF_8));
 			printwriter.println("version:1343");
@@ -936,20 +930,20 @@ public class GameSettings {
 			printwriter.println("difficulty:" + difficulty.getDifficultyId());
 			printwriter.println("fancyGraphics:" + fancyGraphics);
 			printwriter.println("ao:" + ambientOcclusion);
-
+			
 			switch (clouds) {
 				case 0:
 					printwriter.println("renderClouds:false");
 					break;
-
+				
 				case 1:
 					printwriter.println("renderClouds:fast");
 					break;
-
+				
 				case 2:
 					printwriter.println("renderClouds:true");
 			}
-
+			
 			printwriter.println("resourcePacks:" + GSON.toJson(resourcePacks));
 			printwriter.println("incompatibleResourcePacks:" + GSON.toJson(incompatibleResourcePacks));
 			printwriter.println("lastServer:" + lastServer);
@@ -986,15 +980,15 @@ public class GameSettings {
 			printwriter.println("autoJump:" + autoJump);
 			printwriter.println("narrator:" + narrator);
 			printwriter.println("tutorialStep:" + tutorialStep.getName());
-
+			
 			for (KeyBinding keybinding : keyBindings) {
 				printwriter.println("key_" + keybinding.getKeyDescription() + ":" + keybinding.getKeyCode());
 			}
-
+			
 			for (SoundCategory soundcategory : SoundCategory.values()) {
 				printwriter.println("soundCategory_" + soundcategory.getName() + ":" + getSoundLevel(soundcategory));
 			}
-
+			
 			for (PlayerModelParts enumplayermodelparts : PlayerModelParts.values()) {
 				printwriter.println("modelPart_" + enumplayermodelparts.getPartName() + ":" + setModelParts.contains(enumplayermodelparts));
 			}
@@ -1003,80 +997,72 @@ public class GameSettings {
 		} finally {
 			IOUtils.closeQuietly(printwriter);
 		}
-
+		
 		sendSettingsToServer();
 	}
-
+	
 	public float getSoundLevel(SoundCategory category) {
-
 		return soundLevels.getOrDefault(category, 1F);
 	}
-
+	
 	public void setSoundLevel(SoundCategory category, float volume) {
-
 		mc.getSoundHandler().setSoundLevel(category, volume);
 		soundLevels.put(category, volume);
 	}
-
+	
 	/**
 	 * Send a client info packet with settings information to the server
 	 */
 	public void sendSettingsToServer() {
-
 		if (mc.player != null) {
 			int i = 0;
-
+			
 			for (PlayerModelParts enumplayermodelparts : setModelParts) {
 				i |= enumplayermodelparts.getPartMask();
 			}
-
+			
 			mc.player.connection.sendPacket(new CPacketClientSettings(language, renderDistanceChunks, chatVisibility, chatColours, i, mainHand));
 		}
 	}
-
+	
 	public Set<PlayerModelParts> getModelParts() {
-
 		return ImmutableSet.copyOf(setModelParts);
 	}
-
+	
 	public void setModelPartEnabled(PlayerModelParts modelPart, boolean enable) {
-
 		if (enable) {
 			setModelParts.add(modelPart);
 		} else {
 			setModelParts.remove(modelPart);
 		}
-
+		
 		sendSettingsToServer();
 	}
-
+	
 	public void switchModelPartEnabled(PlayerModelParts modelPart) {
-
 		if (getModelParts().contains(modelPart)) {
 			setModelParts.remove(modelPart);
 		} else {
 			setModelParts.add(modelPart);
 		}
-
+		
 		sendSettingsToServer();
 	}
-
+	
 	/**
 	 * Return true if the clouds should be rendered
 	 */
 	public int shouldRenderClouds() {
-
 		return renderDistanceChunks >= 4 ? clouds : 0;
 	}
-
+	
 	/**
 	 * Return true if the client connect to a server using the native transport system
 	 */
 	public boolean isUsingNativeTransport() {
-
 		return useNativeTransport;
 	}
-
+	
 	public enum Options {
 		INVERT_MOUSE("options.invertMouse", false, true),
 		SENSITIVITY("options.sensitivity", true, false),
@@ -1117,21 +1103,19 @@ public class GameSettings {
 		SHOW_SUBTITLES("options.showSubtitles", false, true),
 		AUTO_JUMP("options.autoJump", false, true),
 		NARRATOR("options.narrator", false, false);
-
+		
 		private final boolean isFloat;
 		private final boolean isBoolean;
 		private final String translation;
 		private final float valueStep;
 		private final float valueMin;
 		private float valueMax;
-
+		
 		Options(String translation, boolean isFloat, boolean isBoolean) {
-
 			this(translation, isFloat, isBoolean, 0F, 1F, 0F);
 		}
-
+		
 		Options(String translation, boolean isFloat, boolean isBoolean, float valMin, float valMax, float valStep) {
-
 			this.translation = translation;
 			this.isFloat = isFloat;
 			this.isBoolean = isBoolean;
@@ -1139,77 +1123,58 @@ public class GameSettings {
 			valueMax = valMax;
 			valueStep = valStep;
 		}
-
+		
 		public static GameSettings.Options byOrdinal(int ordinal) {
-
 			for (GameSettings.Options gamesettings$options : values()) {
-				if (gamesettings$options.getOrdinal() == ordinal) {
+				if (gamesettings$options.ordinal() == ordinal) {
 					return gamesettings$options;
 				}
 			}
-
+			
 			return null;
 		}
-
+		
 		public boolean isFloat() {
-
 			return isFloat;
 		}
-
+		
 		public boolean isBoolean() {
-
 			return isBoolean;
 		}
-
-		public int getOrdinal() {
-
-			return ordinal();
-		}
-
+		
 		public String getTranslation() {
-
 			return translation;
 		}
-
+		
 		public float getValueMin() {
-
 			return valueMin;
 		}
-
+		
 		public float getValueMax() {
-
 			return valueMax;
 		}
-
+		
 		public void setValueMax(float value) {
-
 			valueMax = value;
 		}
-
+		
 		public float normalizeValue(float value) {
-
 			return MathHelper.clamp((snapToStepClamp(value) - valueMin) / (valueMax - valueMin), 0F, 1F);
 		}
-
+		
 		public float denormalizeValue(float value) {
-
 			return snapToStepClamp(valueMin + (valueMax - valueMin) * MathHelper.clamp(value, 0F, 1F));
 		}
-
+		
 		public float snapToStepClamp(float value) {
-
 			value = snapToStep(value);
 			return MathHelper.clamp(value, valueMin, valueMax);
 		}
-
+		
 		private float snapToStep(float value) {
-
-			if (valueStep > 0F) {
-				value = valueStep * (float) Math.round(value / valueStep);
-			}
-
+			if (valueStep > 0F) value = valueStep * (float) Math.round(value / valueStep);
 			return value;
 		}
 	}
-
+	
 }

@@ -86,22 +86,22 @@ public class GuiChat extends GuiScreen implements ITabCompleter {
 
 		tabCompleter.resetRequested();
 
-		if (keyCode == 15) {
+		if (keyCode == 258) {
 			tabCompleter.complete();
 		} else {
 			tabCompleter.resetDidComplete();
 		}
 
-		if (keyCode == 1) {
+		if (keyCode == 256) {
 			mc.displayGuiScreen(null);
-		} else if (keyCode != 28 && keyCode != 156) {
-			if (keyCode == 200) {
+		} else if (keyCode != 257 && keyCode != 335) {
+			if (keyCode == 265) {
 				getSentHistory(-1);
-			} else if (keyCode == 208) {
+			} else if (keyCode == 264) {
 				getSentHistory(1);
-			} else if (keyCode == 201) {
+			} else if (keyCode == 266) {
 				mc.ingameGUI.getChatGUI().scroll(mc.ingameGUI.getChatGUI().getLineCount() - 1);
-			} else if (keyCode == 209) {
+			} else if (keyCode == 267) {
 				mc.ingameGUI.getChatGUI().scroll(-mc.ingameGUI.getChatGUI().getLineCount() + 1);
 			} else {
 				inputField.textboxKeyTyped(typedChar, keyCode);

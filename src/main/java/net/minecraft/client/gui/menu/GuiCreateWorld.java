@@ -395,7 +395,7 @@ public class GuiCreateWorld extends GuiScreen {
 			worldSeed = worldSeedField.getText();
 		}
 
-		if (keyCode == 28 || keyCode == 156) {
+		if (keyCode == 257 || keyCode == 335) {
 			actionPerformed(buttonList.getFirst());
 		}
 

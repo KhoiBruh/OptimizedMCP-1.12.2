@@ -95,17 +95,17 @@ public class GuiEditSign extends GuiScreen {
 	 */
 	protected void keyTyped(char typedChar, int keyCode) {
 
-		if (keyCode == 200) {
+		if (keyCode == 265) {
 			editLine = editLine - 1 & 3;
 		}
 
-		if (keyCode == 208 || keyCode == 28 || keyCode == 156) {
+		if (keyCode == 264 || keyCode == 257 || keyCode == 335) {
 			editLine = editLine + 1 & 3;
 		}
 
 		String s = tileSign.signText[editLine].getUnformattedText();
 
-		if (keyCode == 14 && !s.isEmpty()) {
+		if (keyCode == 259 && !s.isEmpty()) {
 			s = s.substring(0, s.length() - 1);
 		}
 
@@ -115,7 +115,7 @@ public class GuiEditSign extends GuiScreen {
 
 		tileSign.signText[editLine] = new TextComponentString(s);
 
-		if (keyCode == 1) {
+		if (keyCode == 256) {
 			actionPerformed(doneBtn);
 		}
 	}

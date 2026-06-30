@@ -528,7 +528,7 @@ public class GuiEditStructure extends GuiScreen {
 			dataEdit.textboxKeyTyped(typedChar, keyCode);
 		}
 
-		if (keyCode == 15) {
+		if (keyCode == 258) {
 			GuiTextField guitextfield = null;
 			GuiTextField guitextfield1 = null;
 
@@ -558,8 +558,8 @@ public class GuiEditStructure extends GuiScreen {
 			}
 		}
 
-		if (keyCode != 28 && keyCode != 156) {
-			if (keyCode == 1) {
+		if (keyCode != 257 && keyCode != 335) {
+			if (keyCode == 256) {
 				actionPerformed(cancelButton);
 			}
 		} else {

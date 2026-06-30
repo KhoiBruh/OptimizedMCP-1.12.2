@@ -26,9 +26,9 @@ public class GuiSleepMP extends GuiChat {
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
 
-		if (keyCode == 1) {
+		if (keyCode == 256) {
 			wakeFromSleep();
-		} else if (keyCode != 28 && keyCode != 156) {
+		} else if (keyCode != 257 && keyCode != 335) {
 			super.keyTyped(typedChar, keyCode);
 		} else {
 			String s = inputField.getText().trim();

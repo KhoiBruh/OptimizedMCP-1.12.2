@@ -77,7 +77,7 @@ public class KeyBinding implements Comparable<KeyBinding> {
 
 		for (KeyBinding keybinding : KEYBIND_ARRAY.values()) {
 			try {
-				setKeyBindState(keybinding.keyCode, keybinding.keyCode < 256 && Keyboard.isKeyDown(keybinding.keyCode));
+				setKeyBindState(keybinding.keyCode, Keyboard.isKeyDown(keybinding.keyCode));
 			} catch (IndexOutOfBoundsException ignored) {
 			}
 		}

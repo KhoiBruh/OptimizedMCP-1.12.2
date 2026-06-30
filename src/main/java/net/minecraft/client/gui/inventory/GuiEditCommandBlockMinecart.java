@@ -114,7 +114,7 @@ public class GuiEditCommandBlockMinecart extends GuiScreen implements ITabComple
 
 		tabCompleter.resetRequested();
 
-		if (keyCode == 15) {
+		if (keyCode == 258) {
 			tabCompleter.complete();
 		} else {
 			tabCompleter.resetDidComplete();
@@ -124,8 +124,8 @@ public class GuiEditCommandBlockMinecart extends GuiScreen implements ITabComple
 		previousEdit.textboxKeyTyped(typedChar, keyCode);
 		doneButton.enabled = !commandField.getText().trim().isEmpty();
 
-		if (keyCode != 28 && keyCode != 156) {
-			if (keyCode == 1) {
+		if (keyCode != 257 && keyCode != 335) {
+			if (keyCode == 256) {
 				actionPerformed(cancelButton);
 			}
 		} else {

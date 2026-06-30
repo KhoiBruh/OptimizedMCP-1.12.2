@@ -93,7 +93,7 @@ public class GuiWorldEdit extends GuiScreen {
 		nameEdit.textboxKeyTyped(typedChar, keyCode);
 		(buttonList.get(2)).enabled = !nameEdit.getText().trim().isEmpty();
 
-		if (keyCode == 28 || keyCode == 156) {
+		if (keyCode == 257 || keyCode == 335) {
 			actionPerformed(buttonList.get(2));
 		}
 	}

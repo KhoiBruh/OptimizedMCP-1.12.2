@@ -385,7 +385,7 @@ public abstract class GuiContainer extends GuiScreen {
 						if (mouseButton == mc.gameSettings.keyBindPickBlock.getKeyCode() + 100) {
 							handleMouseClick(slot, l, mouseButton, ClickType.CLONE);
 						} else {
-							boolean flag2 = l != -999 && (Keyboard.isKeyDown(42) || Keyboard.isKeyDown(54));
+							boolean flag2 = l != -999 && (Keyboard.isKeyDown(340) || Keyboard.isKeyDown(344));
 							ClickType clicktype = ClickType.PICKUP;
 
 							if (flag2) {
@@ -556,7 +556,7 @@ public abstract class GuiContainer extends GuiScreen {
 				if (state == mc.gameSettings.keyBindPickBlock.getKeyCode() + 100) {
 					handleMouseClick(slot, k, state, ClickType.CLONE);
 				} else {
-					boolean flag1 = k != -999 && (Keyboard.isKeyDown(42) || Keyboard.isKeyDown(54));
+					boolean flag1 = k != -999 && (Keyboard.isKeyDown(340) || Keyboard.isKeyDown(344));
 
 					if (flag1) {
 						shiftClickedSlot = slot != null && slot.getHasStack() ? slot.getStack().copy() : ItemStack.EMPTY;
@@ -613,7 +613,7 @@ public abstract class GuiContainer extends GuiScreen {
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
 
-		if (keyCode == 1 || keyCode == mc.gameSettings.keyBindInventory.getKeyCode()) {
+		if (keyCode == 256 || keyCode == mc.gameSettings.keyBindInventory.getKeyCode()) {
 			mc.player.closeScreen();
 		}
 

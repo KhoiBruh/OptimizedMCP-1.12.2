@@ -64,7 +64,7 @@ public class GuiScreenOptionsSounds extends GuiScreen {
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
 
-		if (keyCode == 1) {
+		if (keyCode == 256) {
 			mc.gameSettings.saveOptions();
 		}
 

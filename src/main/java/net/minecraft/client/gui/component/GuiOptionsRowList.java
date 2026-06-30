@@ -29,7 +29,7 @@ public class GuiOptionsRowList extends GuiListExtended {
 		if (options == null) {
 			return null;
 		} else {
-			int i = options.getOrdinal();
+			int i = options.ordinal();
 			return options.isFloat() ? new GuiOptionSlider(i, p_148182_2_, p_148182_3_, options) : new GuiOptionButton(i, p_148182_2_, p_148182_3_, options, mcIn.gameSettings.getKeyBinding(options));
 		}
 	}

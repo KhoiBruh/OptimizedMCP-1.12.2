@@ -342,7 +342,7 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 	public boolean keyPressed(char typedChar, int keycode) {
 
 		if (isVisible() && !mc.player.isSpectator()) {
-			if (keycode == 1 && !isOffsetNextToMainGUI()) {
+			if (keycode == 256 && !isOffsetNextToMainGUI()) {
 				setVisible(false);
 				return true;
 			} else {

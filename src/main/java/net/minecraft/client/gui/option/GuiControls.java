@@ -52,9 +52,9 @@ public class GuiControls extends GuiScreen {
 
 		for (GameSettings.Options gamesettings$options : OPTIONS_ARR) {
 			if (gamesettings$options.isFloat()) {
-				buttonList.add(new GuiOptionSlider(gamesettings$options.getOrdinal(), width / 2 - 155 + i % 2 * 160, 18 + 24 * (i >> 1), gamesettings$options));
+				buttonList.add(new GuiOptionSlider(gamesettings$options.ordinal(), width / 2 - 155 + i % 2 * 160, 18 + 24 * (i >> 1), gamesettings$options));
 			} else {
-				buttonList.add(new GuiOptionButton(gamesettings$options.getOrdinal(), width / 2 - 155 + i % 2 * 160, 18 + 24 * (i >> 1), gamesettings$options, options.getKeyBinding(gamesettings$options)));
+				buttonList.add(new GuiOptionButton(gamesettings$options.ordinal(), width / 2 - 155 + i % 2 * 160, 18 + 24 * (i >> 1), gamesettings$options, options.getKeyBinding(gamesettings$options)));
 			}
 
 			++i;
@@ -120,7 +120,7 @@ public class GuiControls extends GuiScreen {
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
 
 		if (buttonId != null) {
-			if (keyCode == 1) {
+			if (keyCode == 256) {
 				options.setOptionKeyBinding(buttonId, 0);
 			} else if (keyCode != 0) {
 				options.setOptionKeyBinding(buttonId, keyCode);

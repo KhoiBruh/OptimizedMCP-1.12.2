@@ -111,12 +111,12 @@ public class GuiScreenAddServer extends GuiScreen {
 		serverNameField.textboxKeyTyped(typedChar, keyCode);
 		serverIPField.textboxKeyTyped(typedChar, keyCode);
 
-		if (keyCode == 15) {
+		if (keyCode == 258) {
 			serverNameField.setFocused(!serverNameField.isFocused());
 			serverIPField.setFocused(!serverIPField.isFocused());
 		}
 
-		if (keyCode == 28 || keyCode == 156) {
+		if (keyCode == 257 || keyCode == 335) {
 			actionPerformed(buttonList.getFirst());
 		}
 
