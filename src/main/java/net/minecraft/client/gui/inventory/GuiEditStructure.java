@@ -15,7 +15,7 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.input.Keyboard;
+import net.minecraft.client.util.Keyboard;
 
 import java.io.IOException;
 import java.text.DecimalFormat;

@@ -23,7 +23,7 @@ import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatCrafting;
 import net.minecraft.stats.StatList;
 import net.minecraft.stats.StatisticsManager;
-import org.lwjgl.input.Mouse;
+import net.minecraft.client.util.Mouse;
 
 import java.io.IOException;
 import java.util.Comparator;

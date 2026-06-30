@@ -12,7 +12,7 @@ import net.minecraft.network.play.client.CPacketUpdateSign;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.text.TextComponentString;
-import org.lwjgl.input.Keyboard;
+import net.minecraft.client.util.Keyboard;
 
 public class GuiEditSign extends GuiScreen {
 

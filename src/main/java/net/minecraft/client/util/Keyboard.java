@@ -1,4 +1,4 @@
-package org.lwjgl.input;
+package net.minecraft.client.util;
 
 import lombok.Getter;
 import lombok.Setter;

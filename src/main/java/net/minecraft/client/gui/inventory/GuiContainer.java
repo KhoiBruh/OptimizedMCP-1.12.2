@@ -16,7 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
-import org.lwjgl.input.Keyboard;
+import net.minecraft.client.util.Keyboard;
 
 import java.io.IOException;
 import java.util.Set;

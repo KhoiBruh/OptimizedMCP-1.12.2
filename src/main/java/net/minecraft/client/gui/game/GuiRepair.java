@@ -14,7 +14,7 @@ import net.minecraft.network.play.client.CPacketCustomPayload;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import org.lwjgl.input.Keyboard;
+import net.minecraft.client.util.Keyboard;
 
 import java.io.IOException;
 

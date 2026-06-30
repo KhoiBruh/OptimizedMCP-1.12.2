@@ -22,8 +22,8 @@ import net.minecraft.util.text.event.HoverEvent;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
+import net.minecraft.client.util.Keyboard;
+import net.minecraft.client.util.Mouse;
 
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;

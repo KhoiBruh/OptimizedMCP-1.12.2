@@ -1,4 +1,4 @@
-package org.lwjgl.input;
+package net.minecraft.client.util;
 
 import lombok.Getter;
 import org.lwjgl.glfw.GLFWCursorPosCallback;
@@ -14,7 +14,7 @@ public final class Mouse {
 
     private static final boolean[] buttonState = new boolean[16];
     private static final Deque<MouseEvent> eventQueue = new ArrayDeque<>();
-    private static long handle = 0L;
+    private static Window window;
 
     private static double x = 0;
     private static double y = 0;
@@ -23,9 +23,6 @@ public final class Mouse {
 
     private static double lastEventX = 0;
     private static double lastEventY = 0;
-
-    private static int width = 854;
-    private static int height = 480;
 
     private static double scrollAccum = 0.0;
 
@@ -43,8 +40,9 @@ public final class Mouse {
 
     private Mouse() {}
 
-    public static void init(long handle) {
-        Mouse.handle = handle;
+    public static void init(Window window) {
+        Mouse.window = window;
+        long handle = window.getHandle();
         created = true;
 
         double[] xPos = new double[1];
@@ -81,7 +79,8 @@ public final class Mouse {
         glfwSetScrollCallback(handle, scroll);
     }
 
-    public static void removeCallbacks(long handle) {
+    public static void removeCallbacks() {
+        long handle = window != null ? window.getHandle() : 0L;
         glfwSetCursorPosCallback(handle, null);
         glfwSetMouseButtonCallback(handle, null);
         glfwSetScrollCallback(handle, null);
@@ -117,7 +116,7 @@ public final class Mouse {
     }
 
     public static int getY() {
-        return height - (int) y;
+        return (window != null ? window.getHeight() : 0) - (int) y;
     }
 
     public static int getDWheel() {
@@ -131,21 +130,23 @@ public final class Mouse {
 
     public static void setGrabbed(boolean grab) {
         grabbed = grab;
-        if (handle == 0L) return;
+        if (window == null) return;
+        long handle = window.getHandle();
         glfwSetInputMode(handle, GLFW_CURSOR,
                          grab ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
     }
 
     public static void setCursorPosition(int x, int y) {
-        if (handle == 0L) return;
+        if (window == null) return;
+        long handle = window.getHandle();
         glfwSetCursorPos(handle, x, y);
         Mouse.x = lastEventX = x;
         Mouse.y = lastEventY = y;
     }
 
     public static boolean isInsideWindow() {
-        if (handle == 0L) return false;
-        return glfwGetWindowAttrib(handle, GLFW_HOVERED) == GLFW_TRUE;
+        if (window == null) return false;
+        return glfwGetWindowAttrib(window.getHandle(), GLFW_HOVERED) == GLFW_TRUE;
     }
 
     public static boolean next() {
@@ -172,7 +173,7 @@ public final class Mouse {
 
     public static int getEventY() {
         if (currentEvent == null) return 0;
-        return height - (int) currentEvent.y;
+        return (window != null ? window.getHeight() : 0) - (int) currentEvent.y;
     }
 
     public static int getEventDX() {
@@ -188,11 +189,6 @@ public final class Mouse {
     public static int getEventDWheel() {
         if (currentEvent == null) return 0;
         return (int) (currentEvent.dWheel * 120.0);
-    }
-
-    public static void setWindowSize(int width, int height) {
-        Mouse.width = width;
-        Mouse.height = height;
     }
 
     private record MouseEvent(int button, boolean buttonState, double dWheel, double x, double y, double dx, double dy) { }

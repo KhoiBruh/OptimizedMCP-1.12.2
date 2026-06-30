@@ -7,7 +7,7 @@ import net.minecraft.client.gui.component.GuiTextField;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.StringUtils;
-import org.lwjgl.input.Keyboard;
+import net.minecraft.client.util.Keyboard;
 
 import java.io.IOException;
 import java.net.IDN;

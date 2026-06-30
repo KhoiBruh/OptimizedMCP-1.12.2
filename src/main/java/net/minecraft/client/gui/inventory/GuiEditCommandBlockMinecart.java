@@ -11,7 +11,7 @@ import net.minecraft.tileentity.CommandBlockBaseLogic;
 import net.minecraft.util.ITabCompleter;
 import net.minecraft.util.TabCompleter;
 import net.minecraft.util.math.BlockPos;
-import org.lwjgl.input.Keyboard;
+import net.minecraft.client.util.Keyboard;
 import java.io.IOException;
 
 public class GuiEditCommandBlockMinecart extends GuiScreen implements ITabCompleter {

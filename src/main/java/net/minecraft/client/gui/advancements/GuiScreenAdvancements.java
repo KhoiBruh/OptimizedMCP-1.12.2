@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.network.play.client.CPacketSeenAdvancements;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.input.Mouse;
+import net.minecraft.client.util.Mouse;
 import java.io.IOException;
 import java.util.Map;
 

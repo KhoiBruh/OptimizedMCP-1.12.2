@@ -27,7 +27,7 @@ import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.network.play.client.CPacketRecipeInfo;
 import net.minecraft.stats.RecipeBook;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.input.Keyboard;
+import net.minecraft.client.util.Keyboard;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;

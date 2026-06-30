@@ -4,7 +4,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.IntHashMap;
-import org.lwjgl.input.Keyboard;
+import net.minecraft.client.util.Keyboard;
 
 import java.util.Map;
 import java.util.Set;

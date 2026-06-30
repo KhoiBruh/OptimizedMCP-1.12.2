@@ -120,8 +120,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.Sys;
 import net.minecraft.client.util.Window;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
+import net.minecraft.client.util.Keyboard;
+import net.minecraft.client.util.Mouse;
+import org.lwjgl.Version;
 import org.lwjgl.opengl.*;
 import org.lwjgl.util.glu.GLU;
 import javax.imageio.ImageIO;
@@ -416,7 +417,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 			window.setWindowedSize(gameSettings.overrideWidth, gameSettings.overrideHeight);
 		}
 		
-		LOGGER.info("LWJGL Version: {}", Sys.getVersion());
+		LOGGER.info("LWJGL Version: {}", Version.getVersion());
 		setWindowIcon();
 		setInitialDisplayMode();
 		createDisplay();
@@ -2240,7 +2241,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	public CrashReport addGraphicsAndWorldToCrashReport(CrashReport theCrash) {
 		
 		theCrash.getCategory().addDetail("Launched Version", () -> launchedVersion);
-		theCrash.getCategory().addDetail("LWJGL", Sys::getVersion);
+		theCrash.getCategory().addDetail("LWJGL", Version::getVersion);
 		theCrash.getCategory()
 		        .addDetail("OpenGL", () -> GlStateManager.glGetString(7937) + " GL version " + GlStateManager.glGetString(7938) + ", " + GlStateManager.glGetString(7936));
 		theCrash.getCategory().addDetail("GL Caps", OpenGlHelper::getLogText);

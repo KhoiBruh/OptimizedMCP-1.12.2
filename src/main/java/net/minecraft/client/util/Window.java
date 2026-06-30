@@ -3,8 +3,6 @@ package net.minecraft.client.util;
 import lombok.Getter;
 import org.lwjgl.glfw.GLFWImage;
 import org.lwjgl.glfw.GLFWVidMode;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL;
 
 import java.nio.ByteBuffer;
@@ -93,10 +91,9 @@ public final class Window {
             height = h;
             resized = true;
             glViewport(0, 0, w, h);
-            Mouse.setWindowSize(w, h);
         });
 
-        Mouse.init(handle);
+        Mouse.init(this);
         Keyboard.init(handle);
         glfwShowWindow(handle);
 
@@ -105,7 +102,7 @@ public final class Window {
 
     public void destroy() {
         if (handle != NULL) {
-            Mouse.removeCallbacks(handle);
+            Mouse.removeCallbacks();
             Keyboard.removeCallbacks(handle);
             glfwDestroyWindow(handle);
             handle = NULL;

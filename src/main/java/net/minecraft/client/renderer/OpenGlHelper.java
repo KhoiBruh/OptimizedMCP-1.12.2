@@ -5,14 +5,15 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.Util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.Sys;
 import org.lwjgl.opengl.*;
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -791,9 +792,7 @@ public class OpenGlHelper {
 		boolean flag = false;
 
 		try {
-			Class<?> oclass = Class.forName("java.awt.Desktop");
-			Object object = oclass.getMethod("getDesktop").invoke(null);
-			oclass.getMethod("browse", URI.class).invoke(object, fileIn.toURI());
+			Desktop.getDesktop().browse(fileIn.toURI());
 		} catch (Throwable throwable) {
 			LOGGER.error("Couldn't open link", throwable);
 			flag = true;
@@ -801,7 +800,11 @@ public class OpenGlHelper {
 
 		if (flag) {
 			LOGGER.info("Opening via system class!");
-			Sys.openURL("file://" + s);
+			try {
+				Desktop.getDesktop().browse(new URI("file://" + s));
+			} catch (IOException | URISyntaxException ignore) {
+			
+			}
 		}
 	}
 
