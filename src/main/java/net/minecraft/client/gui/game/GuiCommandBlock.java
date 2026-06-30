@@ -58,7 +58,7 @@ public class GuiCommandBlock extends GuiScreen implements ITabCompleter {
 	public void initGui() {
 
 		final CommandBlockBaseLogic commandblockbaselogic = commandBlock.getCommandBlockLogic();
-		Keyboard.enableRepeatEvents(true);
+		Keyboard.setRepeat(true);
 		buttonList.clear();
 		doneBtn = addButton(new GuiButton(0, width / 2 - 4 - 150, height / 4 + 120 + 12, 150, 20, I18n.format("gui.done")));
 		cancelBtn = addButton(new GuiButton(1, width / 2 + 4, height / 4 + 120 + 12, 150, 20, I18n.format("gui.cancel")));
@@ -111,7 +111,7 @@ public class GuiCommandBlock extends GuiScreen implements ITabCompleter {
 	 */
 	public void onGuiClosed() {
 
-		Keyboard.enableRepeatEvents(false);
+		Keyboard.setRepeat(false);
 	}
 
 	/**

@@ -35,7 +35,7 @@ public class GuiScreenServerList extends GuiScreen {
 	 */
 	public void initGui() {
 
-		Keyboard.enableRepeatEvents(true);
+		Keyboard.setRepeat(true);
 		buttonList.clear();
 		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 96 + 12, I18n.format("selectServer.select")));
 		buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 120 + 12, I18n.format("gui.cancel")));
@@ -51,7 +51,7 @@ public class GuiScreenServerList extends GuiScreen {
 	 */
 	public void onGuiClosed() {
 
-		Keyboard.enableRepeatEvents(false);
+		Keyboard.setRepeat(false);
 		mc.gameSettings.lastServer = ipEdit.getText();
 		mc.gameSettings.saveOptions();
 	}

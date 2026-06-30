@@ -39,7 +39,7 @@ public class GuiRepair extends GuiContainer implements IContainerListener {
 	public void initGui() {
 
 		super.initGui();
-		Keyboard.enableRepeatEvents(true);
+		Keyboard.setRepeat(true);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
 		nameField = new GuiTextField(0, fontRenderer, i + 62, j + 24, 103, 12);
@@ -57,7 +57,7 @@ public class GuiRepair extends GuiContainer implements IContainerListener {
 	public void onGuiClosed() {
 
 		super.onGuiClosed();
-		Keyboard.enableRepeatEvents(false);
+		Keyboard.setRepeat(false);
 		inventorySlots.removeListener(this);
 	}
 

@@ -48,7 +48,7 @@ public class GuiEditSign extends GuiScreen {
 	public void initGui() {
 
 		buttonList.clear();
-		Keyboard.enableRepeatEvents(true);
+		Keyboard.setRepeat(true);
 		doneBtn = addButton(new GuiButton(0, width / 2 - 100, height / 4 + 120, I18n.format("gui.done")));
 		tileSign.setEditable(false);
 	}
@@ -58,7 +58,7 @@ public class GuiEditSign extends GuiScreen {
 	 */
 	public void onGuiClosed() {
 
-		Keyboard.enableRepeatEvents(false);
+		Keyboard.setRepeat(false);
 		NetHandlerPlayClient nethandlerplayclient = mc.getConnection();
 
 		if (nethandlerplayclient != null) {

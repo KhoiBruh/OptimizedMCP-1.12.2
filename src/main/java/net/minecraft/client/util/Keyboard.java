@@ -15,7 +15,6 @@ public final class Keyboard {
 
     private static final boolean[] keyState = new boolean[MAX_KEY];
     private static final Map<Integer, String> keyNames = new HashMap<>();
-    private static final Map<String, Integer> nameToKey = new HashMap<>();
 
     private static final Deque<KeyEvent> eventQueue = new ArrayDeque<>();
     private static KeyEvent currentEvent = null;
@@ -35,120 +34,116 @@ public final class Keyboard {
     private Keyboard() {}
 
     static {
-        initKeyNames();
+	    putKey(GLFW_KEY_UNKNOWN, "NONE");
+	    putKey(GLFW_KEY_SPACE, "SPACE");
+	    putKey(GLFW_KEY_APOSTROPHE, "APOSTROPHE");
+	    putKey(GLFW_KEY_COMMA, "COMMA");
+	    putKey(GLFW_KEY_MINUS, "MINUS");
+	    putKey(GLFW_KEY_PERIOD, "PERIOD");
+	    putKey(GLFW_KEY_SLASH, "SLASH");
+	    putKey(GLFW_KEY_0, "0");
+	    putKey(GLFW_KEY_1, "1");
+	    putKey(GLFW_KEY_2, "2");
+	    putKey(GLFW_KEY_3, "3");
+	    putKey(GLFW_KEY_4, "4");
+	    putKey(GLFW_KEY_5, "5");
+	    putKey(GLFW_KEY_6, "6");
+	    putKey(GLFW_KEY_7, "7");
+	    putKey(GLFW_KEY_8, "8");
+	    putKey(GLFW_KEY_9, "9");
+	    putKey(GLFW_KEY_SEMICOLON, "SEMICOLON");
+	    putKey(GLFW_KEY_EQUAL, "EQUALS");
+	    putKey(GLFW_KEY_A, "A");
+	    putKey(GLFW_KEY_B, "B");
+	    putKey(GLFW_KEY_C, "C");
+	    putKey(GLFW_KEY_D, "D");
+	    putKey(GLFW_KEY_E, "E");
+	    putKey(GLFW_KEY_F, "F");
+	    putKey(GLFW_KEY_G, "G");
+	    putKey(GLFW_KEY_H, "H");
+	    putKey(GLFW_KEY_I, "I");
+	    putKey(GLFW_KEY_J, "J");
+	    putKey(GLFW_KEY_K, "K");
+	    putKey(GLFW_KEY_L, "L");
+	    putKey(GLFW_KEY_M, "M");
+	    putKey(GLFW_KEY_N, "N");
+	    putKey(GLFW_KEY_O, "O");
+	    putKey(GLFW_KEY_P, "P");
+	    putKey(GLFW_KEY_Q, "Q");
+	    putKey(GLFW_KEY_R, "R");
+	    putKey(GLFW_KEY_S, "S");
+	    putKey(GLFW_KEY_T, "T");
+	    putKey(GLFW_KEY_U, "U");
+	    putKey(GLFW_KEY_V, "V");
+	    putKey(GLFW_KEY_W, "W");
+	    putKey(GLFW_KEY_X, "X");
+	    putKey(GLFW_KEY_Y, "Y");
+	    putKey(GLFW_KEY_Z, "Z");
+	    putKey(GLFW_KEY_LEFT_BRACKET, "LBRACKET");
+	    putKey(GLFW_KEY_BACKSLASH, "BACKSLASH");
+	    putKey(GLFW_KEY_RIGHT_BRACKET, "RBRACKET");
+	    putKey(GLFW_KEY_GRAVE_ACCENT, "GRAVE");
+	    putKey(GLFW_KEY_ESCAPE, "ESCAPE");
+	    putKey(GLFW_KEY_ENTER, "RETURN");
+	    putKey(GLFW_KEY_TAB, "TAB");
+	    putKey(GLFW_KEY_BACKSPACE, "BACK");
+	    putKey(GLFW_KEY_INSERT, "INSERT");
+	    putKey(GLFW_KEY_DELETE, "DELETE");
+	    putKey(GLFW_KEY_RIGHT, "RIGHT");
+	    putKey(GLFW_KEY_LEFT, "LEFT");
+	    putKey(GLFW_KEY_DOWN, "DOWN");
+	    putKey(GLFW_KEY_UP, "UP");
+	    putKey(GLFW_KEY_PAGE_UP, "PRIOR");
+	    putKey(GLFW_KEY_PAGE_DOWN, "NEXT");
+	    putKey(GLFW_KEY_HOME, "HOME");
+	    putKey(GLFW_KEY_END, "END");
+	    putKey(GLFW_KEY_CAPS_LOCK, "CAPITAL");
+	    putKey(GLFW_KEY_SCROLL_LOCK, "SCROLL");
+	    putKey(GLFW_KEY_NUM_LOCK, "NUMLOCK");
+	    putKey(GLFW_KEY_PRINT_SCREEN, "SYSRQ");
+	    putKey(GLFW_KEY_PAUSE, "PAUSE");
+	    putKey(GLFW_KEY_F1, "F1");
+	    putKey(GLFW_KEY_F2, "F2");
+	    putKey(GLFW_KEY_F3, "F3");
+	    putKey(GLFW_KEY_F4, "F4");
+	    putKey(GLFW_KEY_F5, "F5");
+	    putKey(GLFW_KEY_F6, "F6");
+	    putKey(GLFW_KEY_F7, "F7");
+	    putKey(GLFW_KEY_F8, "F8");
+	    putKey(GLFW_KEY_F9, "F9");
+	    putKey(GLFW_KEY_F10, "F10");
+	    putKey(GLFW_KEY_F11, "F11");
+	    putKey(GLFW_KEY_F12, "F12");
+	    putKey(GLFW_KEY_KP_0, "NUMPAD0");
+	    putKey(GLFW_KEY_KP_1, "NUMPAD1");
+	    putKey(GLFW_KEY_KP_2, "NUMPAD2");
+	    putKey(GLFW_KEY_KP_3, "NUMPAD3");
+	    putKey(GLFW_KEY_KP_4, "NUMPAD4");
+	    putKey(GLFW_KEY_KP_5, "NUMPAD5");
+	    putKey(GLFW_KEY_KP_6, "NUMPAD6");
+	    putKey(GLFW_KEY_KP_7, "NUMPAD7");
+	    putKey(GLFW_KEY_KP_8, "NUMPAD8");
+	    putKey(GLFW_KEY_KP_9, "NUMPAD9");
+	    putKey(GLFW_KEY_KP_DECIMAL, "DECIMAL");
+	    putKey(GLFW_KEY_KP_DIVIDE, "DIVIDE");
+	    putKey(GLFW_KEY_KP_MULTIPLY, "MULTIPLY");
+	    putKey(GLFW_KEY_KP_SUBTRACT, "SUBTRACT");
+	    putKey(GLFW_KEY_KP_ADD, "ADD");
+	    putKey(GLFW_KEY_KP_ENTER, "NUMPADENTER");
+	    putKey(GLFW_KEY_KP_EQUAL, "NUMPADEQUALS");
+	    putKey(GLFW_KEY_LEFT_SHIFT, "LSHIFT");
+	    putKey(GLFW_KEY_LEFT_CONTROL, "LCONTROL");
+	    putKey(GLFW_KEY_LEFT_ALT, "LMENU");
+	    putKey(GLFW_KEY_LEFT_SUPER, "LMETA");
+	    putKey(GLFW_KEY_RIGHT_SHIFT, "RSHIFT");
+	    putKey(GLFW_KEY_RIGHT_CONTROL, "RCONTROL");
+	    putKey(GLFW_KEY_RIGHT_ALT, "RMENU");
+	    putKey(GLFW_KEY_RIGHT_SUPER, "RMETA");
+	    putKey(GLFW_KEY_MENU, "APPS");
     }
 
-    private static void initKeyNames() {
-        registerKey(GLFW_KEY_SPACE, "SPACE");
-        registerKey(GLFW_KEY_APOSTROPHE, "APOSTROPHE");
-        registerKey(GLFW_KEY_COMMA, "COMMA");
-        registerKey(GLFW_KEY_MINUS, "MINUS");
-        registerKey(GLFW_KEY_PERIOD, "PERIOD");
-        registerKey(GLFW_KEY_SLASH, "SLASH");
-        registerKey(GLFW_KEY_0, "0");
-        registerKey(GLFW_KEY_1, "1");
-        registerKey(GLFW_KEY_2, "2");
-        registerKey(GLFW_KEY_3, "3");
-        registerKey(GLFW_KEY_4, "4");
-        registerKey(GLFW_KEY_5, "5");
-        registerKey(GLFW_KEY_6, "6");
-        registerKey(GLFW_KEY_7, "7");
-        registerKey(GLFW_KEY_8, "8");
-        registerKey(GLFW_KEY_9, "9");
-        registerKey(GLFW_KEY_SEMICOLON, "SEMICOLON");
-        registerKey(GLFW_KEY_EQUAL, "EQUALS");
-        registerKey(GLFW_KEY_A, "A");
-        registerKey(GLFW_KEY_B, "B");
-        registerKey(GLFW_KEY_C, "C");
-        registerKey(GLFW_KEY_D, "D");
-        registerKey(GLFW_KEY_E, "E");
-        registerKey(GLFW_KEY_F, "F");
-        registerKey(GLFW_KEY_G, "G");
-        registerKey(GLFW_KEY_H, "H");
-        registerKey(GLFW_KEY_I, "I");
-        registerKey(GLFW_KEY_J, "J");
-        registerKey(GLFW_KEY_K, "K");
-        registerKey(GLFW_KEY_L, "L");
-        registerKey(GLFW_KEY_M, "M");
-        registerKey(GLFW_KEY_N, "N");
-        registerKey(GLFW_KEY_O, "O");
-        registerKey(GLFW_KEY_P, "P");
-        registerKey(GLFW_KEY_Q, "Q");
-        registerKey(GLFW_KEY_R, "R");
-        registerKey(GLFW_KEY_S, "S");
-        registerKey(GLFW_KEY_T, "T");
-        registerKey(GLFW_KEY_U, "U");
-        registerKey(GLFW_KEY_V, "V");
-        registerKey(GLFW_KEY_W, "W");
-        registerKey(GLFW_KEY_X, "X");
-        registerKey(GLFW_KEY_Y, "Y");
-        registerKey(GLFW_KEY_Z, "Z");
-        registerKey(GLFW_KEY_LEFT_BRACKET, "LBRACKET");
-        registerKey(GLFW_KEY_BACKSLASH, "BACKSLASH");
-        registerKey(GLFW_KEY_RIGHT_BRACKET, "RBRACKET");
-        registerKey(GLFW_KEY_GRAVE_ACCENT, "GRAVE");
-        registerKey(GLFW_KEY_ESCAPE, "ESCAPE");
-        registerKey(GLFW_KEY_ENTER, "RETURN");
-        registerKey(GLFW_KEY_TAB, "TAB");
-        registerKey(GLFW_KEY_BACKSPACE, "BACK");
-        registerKey(GLFW_KEY_INSERT, "INSERT");
-        registerKey(GLFW_KEY_DELETE, "DELETE");
-        registerKey(GLFW_KEY_RIGHT, "RIGHT");
-        registerKey(GLFW_KEY_LEFT, "LEFT");
-        registerKey(GLFW_KEY_DOWN, "DOWN");
-        registerKey(GLFW_KEY_UP, "UP");
-        registerKey(GLFW_KEY_PAGE_UP, "PRIOR");
-        registerKey(GLFW_KEY_PAGE_DOWN, "NEXT");
-        registerKey(GLFW_KEY_HOME, "HOME");
-        registerKey(GLFW_KEY_END, "END");
-        registerKey(GLFW_KEY_CAPS_LOCK, "CAPITAL");
-        registerKey(GLFW_KEY_SCROLL_LOCK, "SCROLL");
-        registerKey(GLFW_KEY_NUM_LOCK, "NUMLOCK");
-        registerKey(GLFW_KEY_PRINT_SCREEN, "SYSRQ");
-        registerKey(GLFW_KEY_PAUSE, "PAUSE");
-        registerKey(GLFW_KEY_F1, "F1");
-        registerKey(GLFW_KEY_F2, "F2");
-        registerKey(GLFW_KEY_F3, "F3");
-        registerKey(GLFW_KEY_F4, "F4");
-        registerKey(GLFW_KEY_F5, "F5");
-        registerKey(GLFW_KEY_F6, "F6");
-        registerKey(GLFW_KEY_F7, "F7");
-        registerKey(GLFW_KEY_F8, "F8");
-        registerKey(GLFW_KEY_F9, "F9");
-        registerKey(GLFW_KEY_F10, "F10");
-        registerKey(GLFW_KEY_F11, "F11");
-        registerKey(GLFW_KEY_F12, "F12");
-        registerKey(GLFW_KEY_KP_0, "NUMPAD0");
-        registerKey(GLFW_KEY_KP_1, "NUMPAD1");
-        registerKey(GLFW_KEY_KP_2, "NUMPAD2");
-        registerKey(GLFW_KEY_KP_3, "NUMPAD3");
-        registerKey(GLFW_KEY_KP_4, "NUMPAD4");
-        registerKey(GLFW_KEY_KP_5, "NUMPAD5");
-        registerKey(GLFW_KEY_KP_6, "NUMPAD6");
-        registerKey(GLFW_KEY_KP_7, "NUMPAD7");
-        registerKey(GLFW_KEY_KP_8, "NUMPAD8");
-        registerKey(GLFW_KEY_KP_9, "NUMPAD9");
-        registerKey(GLFW_KEY_KP_DECIMAL, "DECIMAL");
-        registerKey(GLFW_KEY_KP_DIVIDE, "DIVIDE");
-        registerKey(GLFW_KEY_KP_MULTIPLY, "MULTIPLY");
-        registerKey(GLFW_KEY_KP_SUBTRACT, "SUBTRACT");
-        registerKey(GLFW_KEY_KP_ADD, "ADD");
-        registerKey(GLFW_KEY_KP_ENTER, "NUMPADENTER");
-        registerKey(GLFW_KEY_KP_EQUAL, "NUMPADEQUALS");
-        registerKey(GLFW_KEY_LEFT_SHIFT, "LSHIFT");
-        registerKey(GLFW_KEY_LEFT_CONTROL, "LCONTROL");
-        registerKey(GLFW_KEY_LEFT_ALT, "LMENU");
-        registerKey(GLFW_KEY_LEFT_SUPER, "LMETA");
-        registerKey(GLFW_KEY_RIGHT_SHIFT, "RSHIFT");
-        registerKey(GLFW_KEY_RIGHT_CONTROL, "RCONTROL");
-        registerKey(GLFW_KEY_RIGHT_ALT, "RMENU");
-        registerKey(GLFW_KEY_RIGHT_SUPER, "RMETA");
-        registerKey(GLFW_KEY_MENU, "APPS");
-    }
-
-    private static void registerKey(int key, String name) {
+    private static void putKey(int key, String name) {
         keyNames.put(key, name);
-        nameToKey.put(name, key);
     }
 
     public static void destroy() {
@@ -196,19 +191,17 @@ public final class Keyboard {
             cbKey.free();
             cbKey = null;
         }
+		
         if (cbChar != null) {
             cbChar.free();
             cbChar = null;
         }
+		
         created = false;
     }
 
     public static void poll() {
         currentEvent = null;
-    }
-
-    public static void enableRepeatEvents(boolean enable) {
-        repeat = enable;
     }
 
     public static boolean isKeyDown(int key) {
@@ -221,11 +214,6 @@ public final class Keyboard {
         if (name != null) return name;
         String glfwName = glfwGetKeyName(key, 0);
         return glfwName != null ? glfwName.toUpperCase() : "UNKNOWN";
-    }
-
-    public static int getKeyIndex(String name) {
-        Integer key = nameToKey.get(name);
-        return key != null ? key : GLFW_KEY_UNKNOWN;
     }
 
     public static boolean next() {

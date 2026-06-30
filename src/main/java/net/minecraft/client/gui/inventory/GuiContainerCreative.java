@@ -271,7 +271,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 		if (mc.playerController.isInCreativeMode()) {
 			super.initGui();
 			buttonList.clear();
-			Keyboard.enableRepeatEvents(true);
+			Keyboard.setRepeat(true);
 			searchField = new GuiTextField(0, fontRenderer, guiLeft + 82, guiTop + 6, 80, fontRenderer.FONT_HEIGHT);
 			searchField.setMaxStringLength(50);
 			searchField.setEnableBackgroundDrawing(false);
@@ -298,7 +298,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 			mc.player.inventoryContainer.removeListener(listener);
 		}
 
-		Keyboard.enableRepeatEvents(false);
+		Keyboard.setRepeat(false);
 	}
 
 	/**

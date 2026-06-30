@@ -50,7 +50,7 @@ public class GuiChat extends GuiScreen implements ITabCompleter {
 	 */
 	public void initGui() {
 
-		Keyboard.enableRepeatEvents(true);
+		Keyboard.setRepeat(true);
 		sentHistoryCursor = mc.ingameGUI.getChatGUI().getSentMessages().size();
 		inputField = new GuiTextField(0, fontRenderer, 4, height - 12, width - 4, 12);
 		inputField.setMaxStringLength(256);
@@ -66,7 +66,7 @@ public class GuiChat extends GuiScreen implements ITabCompleter {
 	 */
 	public void onGuiClosed() {
 
-		Keyboard.enableRepeatEvents(false);
+		Keyboard.setRepeat(false);
 		mc.ingameGUI.getChatGUI().resetScroll();
 	}
 

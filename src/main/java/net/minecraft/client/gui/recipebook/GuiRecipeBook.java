@@ -69,7 +69,7 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 			initVisuals(p_194303_4_, p_194303_5_);
 		}
 
-		Keyboard.enableRepeatEvents(true);
+		Keyboard.setRepeat(true);
 	}
 
 	public void initVisuals(boolean p_193014_1_, InventoryCrafting p_193014_2_) {
@@ -95,7 +95,7 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 
 	public void removed() {
 
-		Keyboard.enableRepeatEvents(false);
+		Keyboard.setRepeat(false);
 	}
 
 	public int updateScreenPosition(boolean p_193011_1_, int p_193011_2_, int p_193011_3_) {

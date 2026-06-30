@@ -110,7 +110,7 @@ public class GuiEditStructure extends GuiScreen {
 	 */
 	public void initGui() {
 
-		Keyboard.enableRepeatEvents(true);
+		Keyboard.setRepeat(true);
 		buttonList.clear();
 		doneButton = addButton(new GuiButton(0, width / 2 - 4 - 150, 210, 150, 20, I18n.format("gui.done")));
 		cancelButton = addButton(new GuiButton(1, width / 2 + 4, 210, 150, 20, I18n.format("gui.cancel")));
@@ -187,7 +187,7 @@ public class GuiEditStructure extends GuiScreen {
 	 */
 	public void onGuiClosed() {
 
-		Keyboard.enableRepeatEvents(false);
+		Keyboard.setRepeat(false);
 	}
 
 	/**

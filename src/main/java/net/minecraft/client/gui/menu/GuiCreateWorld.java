@@ -105,7 +105,7 @@ public class GuiCreateWorld extends GuiScreen {
 	 */
 	public void initGui() {
 
-		Keyboard.enableRepeatEvents(true);
+		Keyboard.setRepeat(true);
 		buttonList.clear();
 		buttonList.add(new GuiButton(0, width / 2 - 155, height - 28, 150, 20, I18n.format("selectWorld.create")));
 		buttonList.add(new GuiButton(1, width / 2 + 5, height - 28, 150, 20, I18n.format("gui.cancel")));
@@ -188,7 +188,7 @@ public class GuiCreateWorld extends GuiScreen {
 	 */
 	public void onGuiClosed() {
 
-		Keyboard.enableRepeatEvents(false);
+		Keyboard.setRepeat(false);
 	}
 
 	/**

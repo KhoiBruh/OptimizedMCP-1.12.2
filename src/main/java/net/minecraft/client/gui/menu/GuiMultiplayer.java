@@ -73,7 +73,7 @@ public class GuiMultiplayer extends GuiScreen {
 	 */
 	public void initGui() {
 
-		Keyboard.enableRepeatEvents(true);
+		Keyboard.setRepeat(true);
 		buttonList.clear();
 		viewportTexture = new DynamicTexture(256, 256);
 		backgroundTexture = mc.getTextureManager().getDynamicTextureLocation("multiplayer_background", viewportTexture);
@@ -142,7 +142,7 @@ public class GuiMultiplayer extends GuiScreen {
 	 */
 	public void onGuiClosed() {
 
-		Keyboard.enableRepeatEvents(false);
+		Keyboard.setRepeat(false);
 
 		if (lanServerDetector != null) {
 			lanServerDetector.interrupt();

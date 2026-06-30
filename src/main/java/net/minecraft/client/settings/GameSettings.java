@@ -225,18 +225,21 @@ public class GameSettings {
 	 * Gets the display name for a key.
 	 */
 	public static String getKeyDisplayString(int key) {
-		if (key < 0) {
-			return switch (key) {
-				case -100 -> I18n.format("key.mouse.left");
-				case -99 -> I18n.format("key.mouse.right");
-				case -98 -> I18n.format("key.mouse.middle");
-				default -> I18n.format("key.mouseButton", key + 101);
-			};
-		} else {
-			String name = Keyboard.getKeyName(key);
-			if (!name.equals("UNKNOWN")) return name;
-			return String.format("%c", (char) (key - 256)).toUpperCase();
-		}
+		String name = Keyboard.getKeyName(key);
+		if (!name.equals("UNKNOWN")) return name;
+		return String.format("%c", (char) (key - 256)).toUpperCase();
+//		if (key < 0) {
+//			return switch (key) {
+//				case -100 -> I18n.format("key.mouse.left");
+//				case -99 -> I18n.format("key.mouse.right");
+//				case -98 -> I18n.format("key.mouse.middle");
+//				default -> I18n.format("key.mouseButton", key + 101);
+//			};
+//		} else {
+//			String name = Keyboard.getKeyName(key);
+//			if (!name.equals("UNKNOWN")) return name;
+//			return String.format("%c", (char) (key - 256)).toUpperCase();
+//		}
 	}
 	
 	/**

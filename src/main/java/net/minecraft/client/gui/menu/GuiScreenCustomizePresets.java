@@ -65,7 +65,7 @@ public class GuiScreenCustomizePresets extends GuiScreen {
 	public void initGui() {
 
 		buttonList.clear();
-		Keyboard.enableRepeatEvents(true);
+		Keyboard.setRepeat(true);
 		title = I18n.format("createWorld.customize.custom.presets.title");
 		shareText = I18n.format("createWorld.customize.presets.share");
 		listText = I18n.format("createWorld.customize.presets.list");
@@ -92,7 +92,7 @@ public class GuiScreenCustomizePresets extends GuiScreen {
 	 */
 	public void onGuiClosed() {
 
-		Keyboard.enableRepeatEvents(false);
+		Keyboard.setRepeat(false);
 	}
 
 	/**

@@ -114,7 +114,7 @@ public class GuiScreenBook extends GuiScreen {
 	public void initGui() {
 
 		buttonList.clear();
-		Keyboard.enableRepeatEvents(true);
+		Keyboard.setRepeat(true);
 
 		if (bookIsUnsigned) {
 			buttonSign = addButton(new GuiButton(3, width / 2 - 100, 196, 98, 20, I18n.format("book.signButton")));
@@ -137,7 +137,7 @@ public class GuiScreenBook extends GuiScreen {
 	 */
 	public void onGuiClosed() {
 
-		Keyboard.enableRepeatEvents(false);
+		Keyboard.setRepeat(false);
 	}
 
 	private void updateButtons() {

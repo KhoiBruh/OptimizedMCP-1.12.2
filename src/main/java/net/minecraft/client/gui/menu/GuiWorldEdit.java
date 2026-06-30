@@ -38,7 +38,7 @@ public class GuiWorldEdit extends GuiScreen {
 	 */
 	public void initGui() {
 
-		Keyboard.enableRepeatEvents(true);
+		Keyboard.setRepeat(true);
 		buttonList.clear();
 		GuiButton guibutton = addButton(new GuiButton(3, width / 2 - 100, height / 4 + 24 + 12, I18n.format("selectWorld.edit.resetIcon")));
 		buttonList.add(new GuiButton(4, width / 2 - 100, height / 4 + 48 + 12, I18n.format("selectWorld.edit.openFolder")));
@@ -58,7 +58,7 @@ public class GuiWorldEdit extends GuiScreen {
 	 */
 	public void onGuiClosed() {
 
-		Keyboard.enableRepeatEvents(false);
+		Keyboard.setRepeat(false);
 	}
 
 	/**
