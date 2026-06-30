@@ -5,7 +5,6 @@ import org.lwjgl.glfw.GLFWImage;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL;
 
 import java.nio.ByteBuffer;
@@ -171,19 +170,10 @@ public final class Window {
         return y[0];
     }
 
-    public DisplayMode getDisplayMode() {
-        if (handle != NULL) {
-            int[] w = new int[1], h = new int[1];
-            glfwGetWindowSize(handle, w, h);
-            return new DisplayMode(w[0], h[0], 32, 60);
-        }
-        return new DisplayMode(width, height, 32, 60);
-    }
-
-    public void setDisplayMode(DisplayMode mode) {
-        width = mode.width();
-        height = mode.height();
-        if (handle != NULL) glfwSetWindowSize(handle, width, height);
+    public void setWindowSize(int width, int height) {
+        this.width = Math.max(width, 1);
+        this.height = Math.max(height, 1);
+        if (handle != NULL) glfwSetWindowSize(handle, this.width, this.height);
     }
 
     public void setWindowedSize(int width, int height) {
@@ -191,10 +181,14 @@ public final class Window {
         this.height = Math.max(height, 1);
     }
 
-    public DisplayMode getDesktopDisplayMode() {
+    public int getRefreshRate() {
         GLFWVidMode vm = glfwGetVideoMode(glfwGetPrimaryMonitor());
-        if (vm != null) return new DisplayMode(vm.width(), vm.height(), vm.redBits() + vm.greenBits() + vm.blueBits(), vm.refreshRate());
-        return new DisplayMode(width, height, 32, 60);
+        return vm != null ? vm.refreshRate() : 60;
+    }
+
+    public void applyDesktopSize() {
+        GLFWVidMode vm = glfwGetVideoMode(glfwGetPrimaryMonitor());
+        if (vm != null) setWindowSize(vm.width(), vm.height());
     }
 
     public void setFullscreen(boolean fullscreen) {

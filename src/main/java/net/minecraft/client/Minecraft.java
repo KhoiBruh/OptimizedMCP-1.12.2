@@ -410,7 +410,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		gameSettings = new GameSettings(this, mcDataDir);
 		creativeSettings = new CreativeSettings(this, mcDataDir);
 		defaultResourcePacks.add(mcDefaultResourcePack);
-		startTimerHackThread();
+//		startTimerHackThread();
 		
 		if (gameSettings.overrideHeight > 0 && gameSettings.overrideWidth > 0) {
 			window.setWindowedSize(gameSettings.overrideWidth, gameSettings.overrideHeight);
@@ -578,10 +578,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 			} catch (InterruptedException ignored) {
 			}
 
-			if (window.isFullscreen()) {
-				updateDisplayMode();
-			}
-
+			if (window.isFullscreen()) updateDisplayMode();
 			window.create(24);
 		}
 	}
@@ -590,10 +587,9 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 
 		if (window.isFullscreen()) {
 			window.setFullscreen(true);
-			DisplayMode displaymode = window.getDisplayMode();
-			window.setWindowedSize(Math.max(1, displaymode.width()), Math.max(1, displaymode.height()));
+			window.setWindowedSize(window.getWidth(), window.getHeight());
 		} else {
-			window.setDisplayMode(new DisplayMode(window.getWidth(), window.getHeight()));
+			window.setWindowSize(window.getWidth(), window.getHeight());
 		}
 	}
 
@@ -749,10 +745,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	}
 	
 	private void updateDisplayMode() {
-
-		DisplayMode displayMode = window.getDesktopDisplayMode();
-
-		window.setDisplayMode(displayMode);
+		window.applyDesktopSize();
 	}
 	
 	private void drawSplashScreen(TextureManager textureManagerInstance) {
@@ -1406,7 +1399,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 				updateDisplayMode();
 				window.setWindowedSize(window.getWidth(), window.getHeight());
 			} else {
-				window.setDisplayMode(new DisplayMode(tempDisplayWidth, tempDisplayHeight));
+				window.setWindowSize(tempDisplayWidth, tempDisplayHeight);
 				window.setWindowedSize(Math.max(tempDisplayWidth, 1), Math.max(tempDisplayHeight, 1));
 			}
 
@@ -2302,7 +2295,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		
 		playerSnooper.addClientStat("fps", debugFPS);
 		playerSnooper.addClientStat("vsync_enabled", gameSettings.enableVsync);
-		playerSnooper.addClientStat("display_frequency", window.getDisplayMode().frequency());
+		playerSnooper.addClientStat("display_frequency", window.getRefreshRate());
 		playerSnooper.addClientStat("display_type", window.isFullscreen() ? "fullscreen" : "windowed");
 		playerSnooper.addClientStat("run_time", (MinecraftServer.getCurrentTimeMillis() - playerSnooper.getMinecraftStartTimeMillis()) / 60L * 1000L);
 		playerSnooper.addClientStat("current_action", getCurrentAction());
