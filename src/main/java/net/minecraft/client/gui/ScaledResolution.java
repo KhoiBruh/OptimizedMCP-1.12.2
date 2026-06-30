@@ -13,8 +13,8 @@ public class ScaledResolution {
 
 	public ScaledResolution(Minecraft mc) {
 
-		scaledWidth = mc.displayWidth;
-		scaledHeight = mc.displayHeight;
+		scaledWidth = mc.getWindow().getWidth();
+		scaledHeight = mc.getWindow().getHeight();
 		scaleFactor = 1;
 		boolean flag = mc.isUnicode();
 		int i = mc.gameSettings.guiScale;

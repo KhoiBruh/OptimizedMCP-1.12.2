@@ -35,7 +35,7 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 	public LoadingScreenRenderer(Minecraft mcIn) {
 
 		mc = mcIn;
-		framebuffer = new Framebuffer(mcIn.displayWidth, mcIn.displayHeight, false);
+		framebuffer = new Framebuffer(mcIn.getWindow().getWidth(), mcIn.getWindow().getHeight(), false);
 		framebuffer.setFramebufferFilter(9728);
 	}
 

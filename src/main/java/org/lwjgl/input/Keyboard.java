@@ -346,7 +346,7 @@ public final class Keyboard {
         currentEvent = null;
     }
 
-    public static void enableRepeatEvents(boolean enable) {
+	public static void enableRepeatEvents(boolean enable) {
         repeat = enable;
     }
 

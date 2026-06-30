@@ -165,7 +165,7 @@ public class GuiEnchantment extends GuiContainer {
 		GlStateManager.disableRescaleNormal();
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.matrixMode(5889);
-		GlStateManager.viewport(0, 0, mc.displayWidth, mc.displayHeight);
+		GlStateManager.viewport(0, 0, mc.getWindow().getWidth(), mc.getWindow().getHeight());
 		GlStateManager.popMatrix();
 		GlStateManager.matrixMode(5888);
 		GlStateManager.popMatrix();

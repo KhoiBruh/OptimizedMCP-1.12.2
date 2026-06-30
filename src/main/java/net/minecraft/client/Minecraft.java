@@ -119,7 +119,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.Sys;
-import org.lwjgl.Window;
+import net.minecraft.client.util.Window;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.*;
@@ -154,8 +154,6 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	public GuiScreen currentScreen;
 	public String debug = "";
 	public DebugRenderer debugRenderer;
-	public int displayHeight;
-	public int displayWidth;
 	public ParticleManager effectRenderer;
 	public EntityRenderer entityRenderer;
 	public FontRenderer fontRenderer;
@@ -205,7 +203,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	private final File fileResourcepacks;
 	private Framebuffer framebufferMc;
 	private int fpsCounter;
-	private boolean fullscreen;
+	private final Window window;
 	private boolean hasCrashed;
 	private IntegratedServer integratedServer;
 	private boolean integratedServerIsRunning;
@@ -267,11 +265,12 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		session = gameConfig.userInfo().session();
 		LOGGER.info("Setting user: {}", session.getUsername());
 		LOGGER.debug("(Session ID is {})", session.getSessionID());
-		displayWidth = gameConfig.displayInfo().width() > 0 ? gameConfig.displayInfo().width() : 1;
-		displayHeight = gameConfig.displayInfo().height() > 0 ? gameConfig.displayInfo().height() : 1;
-		tempDisplayWidth = gameConfig.displayInfo().width();
-		tempDisplayHeight = gameConfig.displayInfo().height();
-		fullscreen = gameConfig.displayInfo().fullscreen();
+		int w = gameConfig.displayInfo().width();
+		int h = gameConfig.displayInfo().height();
+		boolean fs = gameConfig.displayInfo().fullscreen();
+		window = new Window("Minecraft 1.12.2", Math.max(w, 1), Math.max(h, 1), fs);
+		tempDisplayWidth = w;
+		tempDisplayHeight = h;
 		integratedServer = null;
 		
 		if (gameConfig.serverInfo().serverName() != null) {
@@ -414,8 +413,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		startTimerHackThread();
 		
 		if (gameSettings.overrideHeight > 0 && gameSettings.overrideWidth > 0) {
-			displayWidth = gameSettings.overrideWidth;
-			displayHeight = gameSettings.overrideHeight;
+			window.setWindowedSize(gameSettings.overrideWidth, gameSettings.overrideHeight);
 		}
 		
 		LOGGER.info("LWJGL Version: {}", Sys.getVersion());
@@ -423,7 +421,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		setInitialDisplayMode();
 		createDisplay();
 		OpenGlHelper.initializeTextures();
-		framebufferMc = new Framebuffer(displayWidth, displayHeight, true);
+		framebufferMc = new Framebuffer(window.getWidth(), window.getHeight(), true);
 		framebufferMc.setFramebufferColor(0F, 0F, 0F, 0F);
 		registerMetadataSerializers();
 		mcResourcePackRepository = new ResourcePackRepository(fileResourcepacks, new File(mcDataDir, "server-resource-packs"), mcDefaultResourcePack, metadataSerializer, gameSettings);
@@ -487,7 +485,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		mcResourceManager.registerReloadListener(renderGlobal);
 		populateSearchTreeManager();
 		mcResourceManager.registerReloadListener(searchTreeManager);
-		GlStateManager.viewport(0, 0, displayWidth, displayHeight);
+		GlStateManager.viewport(0, 0, window.getWidth(), window.getHeight());
 		effectRenderer = new ParticleManager(world, renderEngine);
 		checkGLError("Post startup");
 		ingameGUI = new GuiIngame(this);
@@ -503,12 +501,12 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		loadingScreen = new LoadingScreenRenderer(this);
 		debugRenderer = new DebugRenderer(this);
 		
-		if (gameSettings.fullScreen && !fullscreen) {
+		if (gameSettings.fullScreen && !window.isFullscreen()) {
 			toggleFullscreen();
 		}
-		
+
 		try {
-			Window.setVSync(gameSettings.enableVsync);
+			window.setVSync(gameSettings.enableVsync);
 		} catch (RuntimeException var2) {
 			gameSettings.enableVsync = false;
 			gameSettings.saveOptions();
@@ -569,54 +567,50 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	}
 	
 	private void createDisplay() throws Exception {
-		
-		Window.setResizable(true);
-		Window.setTitle("Minecraft 1.12.2");
-		
+
 		try {
-			Window.create((new PixelFormat()).withDepthBits(24));
+			window.create((new PixelFormat()).withDepthBits(24));
 		} catch (Exception lwjglexception) {
 			LOGGER.error("Couldn't set pixel format", lwjglexception);
-			
+
 			try {
 				Thread.sleep(1000L);
 			} catch (InterruptedException ignored) {
 			}
-			
-			if (fullscreen) {
+
+			if (window.isFullscreen()) {
 				updateDisplayMode();
 			}
-			
-			Window.create();
+
+			window.create();
 		}
 	}
-	
+
 	private void setInitialDisplayMode() {
-		
-		if (fullscreen) {
-			Window.setFullscreen(true);
-			DisplayMode displaymode = Window.getDisplayMode();
-			displayWidth = Math.max(1, displaymode.width());
-			displayHeight = Math.max(1, displaymode.height());
+
+		if (window.isFullscreen()) {
+			window.setFullscreen(true);
+			DisplayMode displaymode = window.getDisplayMode();
+			window.setWindowedSize(Math.max(1, displaymode.width()), Math.max(1, displaymode.height()));
 		} else {
-			Window.setDisplayMode(new DisplayMode(displayWidth, displayHeight));
+			window.setDisplayMode(new DisplayMode(window.getWidth(), window.getHeight()));
 		}
 	}
-	
+
 	private void setWindowIcon() {
-		
+
 		Util.OS util$enumos = Util.getOSType();
-		
+
 		if (util$enumos != Util.OS.OSX) {
 			InputStream inputstream = null;
 			InputStream inputstream1 = null;
-			
+
 			try {
 				inputstream = mcDefaultResourcePack.getInputStreamAssets(new ResourceLocation("icons/icon_16x16.png"));
 				inputstream1 = mcDefaultResourcePack.getInputStreamAssets(new ResourceLocation("icons/icon_32x32.png"));
-				
+
 				if (inputstream != null && inputstream1 != null) {
-					Window.setIcon(new ByteBuffer[]{readImageToBuffer(inputstream), readImageToBuffer(inputstream1)});
+					window.setIcon(new ByteBuffer[]{readImageToBuffer(inputstream), readImageToBuffer(inputstream1)});
 				}
 			} catch (IOException ioexception) {
 				LOGGER.error("Couldn't set icon", ioexception);
@@ -628,8 +622,13 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	}
 	
 	public Framebuffer getFramebuffer() {
-		
+
 		return framebufferMc;
+	}
+
+	public Window getWindow() {
+
+		return window;
 	}
 	
 	/**
@@ -750,12 +749,10 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	}
 	
 	private void updateDisplayMode() {
-		
-		DisplayMode displayMode = Window.getDesktopDisplayMode();
-		
-		Window.setDisplayMode(displayMode);
-		displayWidth = displayMode.width();
-		displayHeight = displayMode.height();
+
+		DisplayMode displayMode = window.getDesktopDisplayMode();
+
+		window.setDisplayMode(displayMode);
 	}
 	
 	private void drawSplashScreen(TextureManager textureManagerInstance) {
@@ -788,9 +785,9 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-		bufferbuilder.pos(0D, displayHeight, 0D).tex(0D, 0D).color(255, 255, 255, 255).endVertex();
-		bufferbuilder.pos(displayWidth, displayHeight, 0D).tex(0D, 0D).color(255, 255, 255, 255).endVertex();
-		bufferbuilder.pos(displayWidth, 0D, 0D).tex(0D, 0D).color(255, 255, 255, 255).endVertex();
+		bufferbuilder.pos(0D, window.getHeight(), 0D).tex(0D, 0D).color(255, 255, 255, 255).endVertex();
+		bufferbuilder.pos(window.getWidth(), window.getHeight(), 0D).tex(0D, 0D).color(255, 255, 255, 255).endVertex();
+		bufferbuilder.pos(window.getWidth(), 0D, 0D).tex(0D, 0D).color(255, 255, 255, 255).endVertex();
 		bufferbuilder.pos(0D, 0D, 0D).tex(0D, 0D).color(255, 255, 255, 255).endVertex();
 		tessellator.draw();
 		GlStateManager.color(1F, 1F, 1F, 1F);
@@ -921,7 +918,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 			
 			mcSoundHandler.unloadSounds();
 		} finally {
-			Window.destroy();
+			window.destroy();
 			
 			if (!hasCrashed) {
 				System.exit(0);
@@ -939,7 +936,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		long i = System.nanoTime();
 		profiler.startSection("root");
 		
-		if (Window.isCloseRequested()) shutdown();
+		if (window.isCloseRequested()) shutdown();
 		
 		timer.updateTimer();
 		profiler.startSection("scheduledExecutables");
@@ -997,7 +994,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		framebufferMc.unbindFramebuffer();
 		GlStateManager.popMatrix();
 		GlStateManager.pushMatrix();
-		framebufferMc.framebufferRender(displayWidth, displayHeight);
+		framebufferMc.framebufferRender(window.getWidth(), window.getHeight());
 		GlStateManager.popMatrix();
 		GlStateManager.pushMatrix();
 		entityRenderer.renderStreamIndicator(timer.renderPartialTicks);
@@ -1038,40 +1035,25 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		
 		if (isFramerateLimitBelowMax()) {
 			profiler.startSection("fpslimit_wait");
-			Window.sync(getLimitFramerate());
+			window.sync(getLimitFramerate());
 			profiler.endSection();
 		}
-		
+
 		profiler.endSection();
 	}
-	
+
 	public void updateDisplay() {
-		
+
 		profiler.startSection("display_update");
-		Window.update();
+		window.update();
 		profiler.endSection();
 		checkWindowResize();
 	}
-	
+
 	protected void checkWindowResize() {
-		
-		if (!fullscreen && Window.wasResized()) {
-			int i = displayWidth;
-			int j = displayHeight;
-			displayWidth = Window.getWidth();
-			displayHeight = Window.getHeight();
-			
-			if (displayWidth != i || displayHeight != j) {
-				if (displayWidth <= 0) {
-					displayWidth = 1;
-				}
-				
-				if (displayHeight <= 0) {
-					displayHeight = 1;
-				}
-				
-				resize(displayWidth, displayHeight);
-			}
+
+		if (!window.isFullscreen() && window.isResized()) {
+			resize(window.getWidth(), window.getHeight());
 		}
 	}
 	
@@ -1149,7 +1131,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 			GlStateManager.matrixMode(5889);
 			GlStateManager.enableColorMaterial();
 			GlStateManager.loadIdentity();
-			GlStateManager.ortho(0D, displayWidth, displayHeight, 0D, 1000D, 3000D);
+			GlStateManager.ortho(0D, window.getWidth(), window.getHeight(), 0D, 1000D, 3000D);
 			GlStateManager.matrixMode(5888);
 			GlStateManager.loadIdentity();
 			GlStateManager.translate(0F, 0F, -2000F);
@@ -1158,8 +1140,8 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferbuilder = tessellator.getBuffer();
 			int i = 160;
-			int j = displayWidth - 160 - 10;
-			int k = displayHeight - 320;
+			int j = window.getWidth() - 160 - 10;
+			int k = window.getHeight() - 320;
 			GlStateManager.enableBlend();
 			bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
 			bufferbuilder.pos((float) j - 176F, (float) k - 96F - 16F, 0D).color(200, 0, 0, 0).endVertex();
@@ -1257,7 +1239,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	 */
 	public void setIngameFocus() {
 		
-		if (Window.isActive()) {
+		if (window.isActive()) {
 			if (!inGameHasFocus) {
 				if (!IS_RUNNING_ON_MAC) {
 					KeyBinding.updateKeyBindState();
@@ -1417,35 +1399,25 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	public void toggleFullscreen() {
 		
 		try {
-			fullscreen = !fullscreen;
-			gameSettings.fullScreen = fullscreen;
-			
-			if (fullscreen) {
+			boolean newFullscreen = !window.isFullscreen();
+			gameSettings.fullScreen = newFullscreen;
+
+			if (newFullscreen) {
 				updateDisplayMode();
-				displayWidth = Window.getDisplayMode().width();
-				displayHeight = Window.getDisplayMode().height();
-				
+				window.setWindowedSize(window.getWidth(), window.getHeight());
 			} else {
-				Window.setDisplayMode(new DisplayMode(tempDisplayWidth, tempDisplayHeight));
-				displayWidth = tempDisplayWidth;
-				displayHeight = tempDisplayHeight;
-				
+				window.setDisplayMode(new DisplayMode(tempDisplayWidth, tempDisplayHeight));
+				window.setWindowedSize(Math.max(tempDisplayWidth, 1), Math.max(tempDisplayHeight, 1));
 			}
-			if (displayWidth <= 0) {
-				displayWidth = 1;
-			}
-			if (displayHeight <= 0) {
-				displayHeight = 1;
-			}
-			
+
 			if (currentScreen != null) {
-				resize(displayWidth, displayHeight);
+				resize(window.getWidth(), window.getHeight());
 			} else {
 				updateFramebufferSize();
 			}
-			
-			Window.setFullscreen(fullscreen);
-			Window.setVSync(gameSettings.enableVsync);
+
+			window.setFullscreen(newFullscreen);
+			window.setVSync(gameSettings.enableVsync);
 			updateDisplay();
 		} catch (Exception exception) {
 			LOGGER.error("Couldn't toggle fullscreen", exception);
@@ -1456,27 +1428,25 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	 * Called to resize the current screen.
 	 */
 	private void resize(int width, int height) {
-		
-		displayWidth = Math.max(1, width);
-		displayHeight = Math.max(1, height);
+
 		scaledResolution = new ScaledResolution(this);
-		
+
 		if (currentScreen != null) currentScreen.onResize(
 				this,
 				scaledResolution.getScaledWidth(),
 				scaledResolution.getScaledHeight()
 		);
-		
+
 		loadingScreen = new LoadingScreenRenderer(this);
 		updateFramebufferSize();
 	}
-	
+
 	private void updateFramebufferSize() {
-		
-		framebufferMc.createBindFramebuffer(displayWidth, displayHeight);
-		
+
+		framebufferMc.createBindFramebuffer(window.getWidth(), window.getHeight());
+
 		if (entityRenderer != null) {
-			entityRenderer.updateShaderGroupSize(displayWidth, displayHeight);
+			entityRenderer.updateShaderGroupSize(window.getWidth(), window.getHeight());
 		}
 	}
 	
@@ -2332,8 +2302,8 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		
 		playerSnooper.addClientStat("fps", debugFPS);
 		playerSnooper.addClientStat("vsync_enabled", gameSettings.enableVsync);
-		playerSnooper.addClientStat("display_frequency", Window.getDisplayMode().frequency());
-		playerSnooper.addClientStat("display_type", fullscreen ? "fullscreen" : "windowed");
+		playerSnooper.addClientStat("display_frequency", window.getDisplayMode().frequency());
+		playerSnooper.addClientStat("display_type", window.isFullscreen() ? "fullscreen" : "windowed");
 		playerSnooper.addClientStat("run_time", (MinecraftServer.getCurrentTimeMillis() - playerSnooper.getMinecraftStartTimeMillis()) / 60L * 1000L);
 		playerSnooper.addClientStat("current_action", getCurrentAction());
 		playerSnooper.addClientStat("language", gameSettings.language == null ? "en_us" : gameSettings.language);
@@ -2539,8 +2509,8 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	 * Returns whether we're in full screen or not.
 	 */
 	public boolean isFullScreen() {
-		
-		return fullscreen;
+
+		return window.isFullscreen();
 	}
 	
 	public Session getSession() {
@@ -2630,7 +2600,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 						toggleFullscreen();
 					} else if (i == gameSettings.keyBindScreenshot.getKeyCode()) {
 						ingameGUI.getChatGUI()
-						         .printChatMessage(ScreenShotHelper.saveScreenshot(mcDataDir, displayWidth, displayHeight, framebufferMc));
+						         .printChatMessage(ScreenShotHelper.saveScreenshot(mcDataDir, window.getWidth(), window.getHeight(), framebufferMc));
 					} else if (i == 48 && GuiScreen.isCtrlKeyDown() && (currentScreen == null || currentScreen != null && !currentScreen.isFocused())) {
 						gameSettings.setOptionValue(GameSettings.Options.NARRATOR, 1);
 						

@@ -80,7 +80,7 @@ public class Shader {
 		manager.getShaderUniformOrDefault("OutSize").set(f, f1);
 		manager.getShaderUniformOrDefault("Time").set(partialTicks);
 		Minecraft minecraft = Minecraft.getMinecraft();
-		manager.getShaderUniformOrDefault("ScreenSize").set((float) minecraft.displayWidth, (float) minecraft.displayHeight);
+			manager.getShaderUniformOrDefault("ScreenSize").set((float) minecraft.getWindow().getWidth(), (float) minecraft.getWindow().getHeight());
 		manager.useShader();
 		framebufferOut.framebufferClear();
 		framebufferOut.bindFramebuffer(false);

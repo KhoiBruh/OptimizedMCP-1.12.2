@@ -461,7 +461,7 @@ public abstract class GuiSlot {
 		ScaledResolution scaledresolution = new ScaledResolution(mc);
 		int scaleFactor = scaledresolution.getScaleFactor();
 		int left = leftIn * scaleFactor;
-		int bottom = mc.displayHeight - bottomIn * scaleFactor;
+		int bottom = mc.getWindow().getHeight() - bottomIn * scaleFactor;
 		int right = (rightIn - leftIn) * scaleFactor;
 		int top = (bottomIn - topIn) * scaleFactor;
 		GL11.glEnable(GL11.GL_SCISSOR_TEST);

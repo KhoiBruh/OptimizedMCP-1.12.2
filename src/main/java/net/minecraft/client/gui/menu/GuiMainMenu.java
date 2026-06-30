@@ -399,7 +399,7 @@ public class GuiMainMenu extends GuiScreen {
 		rotateAndBlurSkybox();
 		rotateAndBlurSkybox();
 		mc.getFramebuffer().bindFramebuffer(true);
-		GlStateManager.viewport(0, 0, mc.displayWidth, mc.displayHeight);
+		GlStateManager.viewport(0, 0, mc.getWindow().getWidth(), mc.getWindow().getHeight());
 		float f = 120F / (float) (Math.max(width, height));
 		float f1 = (float) height * f / 256F;
 		float f2 = (float) width * f / 256F;

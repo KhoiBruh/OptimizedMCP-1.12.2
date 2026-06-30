@@ -49,7 +49,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.Window;
+
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.util.glu.Project;
@@ -307,7 +307,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
 		try {
 			shaderGroup = new ShaderGroup(mc.getTextureManager(), resourceManager, mc.getFramebuffer(), resourceLocationIn);
-			shaderGroup.createBindFramebuffers(mc.displayWidth, mc.displayHeight);
+			shaderGroup.createBindFramebuffers(mc.getWindow().getWidth(), mc.getWindow().getHeight());
 			useShader = true;
 		} catch (IOException | JsonSyntaxException ioexception) {
 			LOGGER.warn("Failed to load shader: {}", resourceLocationIn, ioexception);
@@ -700,7 +700,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			GlStateManager.scale(cameraZoom, cameraZoom, 1D);
 		}
 
-		Project.gluPerspective(getFOVModifier(partialTicks, true), (float) mc.displayWidth / (float) mc.displayHeight, 0.05F, farPlaneDistance * MathHelper.SQRT_2);
+		Project.gluPerspective(getFOVModifier(partialTicks, true), (float) mc.getWindow().getWidth() / (float) mc.getWindow().getHeight(), 0.05F, farPlaneDistance * MathHelper.SQRT_2);
 		GlStateManager.matrixMode(5888);
 		GlStateManager.loadIdentity();
 
@@ -770,7 +770,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 				GlStateManager.translate((float) (-(pass * 2 - 1)) * 0.07F, 0F, 0F);
 			}
 
-			Project.gluPerspective(getFOVModifier(partialTicks, false), (float) mc.displayWidth / (float) mc.displayHeight, 0.05F, farPlaneDistance * 2F);
+			Project.gluPerspective(getFOVModifier(partialTicks, false), (float) mc.getWindow().getWidth() / (float) mc.getWindow().getHeight(), 0.05F, farPlaneDistance * 2F);
 			GlStateManager.matrixMode(5888);
 			GlStateManager.loadIdentity();
 
@@ -974,7 +974,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
 	public void updateCameraAndRender(float partialTicks, long nanoTime) {
 
-		boolean flag = Window.isActive();
+		boolean flag = mc.getWindow().isActive();
 
 		if (!flag && mc.gameSettings.pauseOnLostFocus && (!mc.gameSettings.touchscreen || !Mouse.isButtonDown(1))) {
 			if (Minecraft.getSystemTime() - prevFrameTime > 500L) {
@@ -988,7 +988,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
 		if (flag && Minecraft.IS_RUNNING_ON_MAC && mc.inGameHasFocus && !Mouse.isInsideWindow()) {
 			Mouse.setGrabbed(false);
-			Mouse.setCursorPosition(Window.getWidth() / 2, Window.getHeight() / 2 - 20);
+			Mouse.setCursorPosition(mc.getWindow().getWidth() / 2, mc.getWindow().getHeight() / 2 - 20);
 			Mouse.setGrabbed(true);
 		}
 
@@ -1027,8 +1027,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			final ScaledResolution scaledresolution = mc.scaledResolution;
 			int i1 = scaledresolution.getScaledWidth();
 			int j1 = scaledresolution.getScaledHeight();
-			final int k1 = Mouse.getX() * i1 / mc.displayWidth;
-			final int l1 = j1 - Mouse.getY() * j1 / mc.displayHeight - 1;
+			final int k1 = Mouse.getX() * i1 / mc.getWindow().getWidth();
+			final int l1 = j1 - Mouse.getY() * j1 / mc.getWindow().getHeight() - 1;
 			int i2 = mc.gameSettings.limitFramerate;
 
 			if (mc.world != null) {
@@ -1073,7 +1073,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
 				mc.profiler.endSection();
 			} else {
-				GlStateManager.viewport(0, 0, mc.displayWidth, mc.displayHeight);
+				GlStateManager.viewport(0, 0, mc.getWindow().getWidth(), mc.getWindow().getHeight());
 				GlStateManager.matrixMode(5889);
 				GlStateManager.loadIdentity();
 				GlStateManager.matrixMode(5888);
@@ -1092,7 +1092,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 					CrashReportCategory crashreportcategory = crashreport.makeCategory("Screen render details");
 					crashreportcategory.addDetail("Screen name", () -> mc.currentScreen.getClass().getCanonicalName());
 					crashreportcategory.addDetail("Mouse location", () -> String.format("Scaled: (%d, %d). Absolute: (%d, %d)", k1, l1, Mouse.getX(), Mouse.getY()));
-					crashreportcategory.addDetail("Screen size", () -> String.format("Scaled: (%d, %d). Absolute: (%d, %d). Scale factor of %d", scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight(), mc.displayWidth, mc.displayHeight, scaledresolution.getScaleFactor()));
+					crashreportcategory.addDetail("Screen size", () -> String.format("Scaled: (%d, %d). Absolute: (%d, %d). Scale factor of %d", scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight(), mc.getWindow().getWidth(), mc.getWindow().getHeight(), scaledresolution.getScaleFactor()));
 					throw new ReportedException(crashreport);
 				}
 			}
@@ -1102,7 +1102,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	private void createWorldIcon() {
 
 		if (mc.renderGlobal.getRenderedChunks() > 10 && mc.renderGlobal.hasNoChunkUpdates() && !mc.getIntegratedServer().isWorldIconSet()) {
-			BufferedImage bufferedimage = ScreenShotHelper.createScreenshot(mc.displayWidth, mc.displayHeight, mc.getFramebuffer());
+			BufferedImage bufferedimage = ScreenShotHelper.createScreenshot(mc.getWindow().getWidth(), mc.getWindow().getHeight(), mc.getFramebuffer());
 			int i = bufferedimage.getWidth();
 			int j = bufferedimage.getHeight();
 			int k = 0;
@@ -1195,7 +1195,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		boolean flag = isDrawBlockOutline();
 		GlStateManager.enableCull();
 		mc.profiler.endStartSection("clear");
-		GlStateManager.viewport(0, 0, mc.displayWidth, mc.displayHeight);
+		GlStateManager.viewport(0, 0, mc.getWindow().getWidth(), mc.getWindow().getHeight());
 		updateFogColor(partialTicks);
 		GlStateManager.clear(16640);
 		mc.profiler.endStartSection("camera");
@@ -1215,12 +1215,12 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			mc.profiler.endStartSection("sky");
 			GlStateManager.matrixMode(5889);
 			GlStateManager.loadIdentity();
-			Project.gluPerspective(getFOVModifier(partialTicks, true), (float) mc.displayWidth / (float) mc.displayHeight, 0.05F, farPlaneDistance * 2F);
+			Project.gluPerspective(getFOVModifier(partialTicks, true), (float) mc.getWindow().getWidth() / (float) mc.getWindow().getHeight(), 0.05F, farPlaneDistance * 2F);
 			GlStateManager.matrixMode(5888);
 			renderglobal.renderSky(partialTicks, pass);
 			GlStateManager.matrixMode(5889);
 			GlStateManager.loadIdentity();
-			Project.gluPerspective(getFOVModifier(partialTicks, true), (float) mc.displayWidth / (float) mc.displayHeight, 0.05F, farPlaneDistance * MathHelper.SQRT_2);
+			Project.gluPerspective(getFOVModifier(partialTicks, true), (float) mc.getWindow().getWidth() / (float) mc.getWindow().getHeight(), 0.05F, farPlaneDistance * MathHelper.SQRT_2);
 			GlStateManager.matrixMode(5888);
 		}
 
@@ -1343,7 +1343,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			mc.profiler.endStartSection("clouds");
 			GlStateManager.matrixMode(5889);
 			GlStateManager.loadIdentity();
-			Project.gluPerspective(getFOVModifier(partialTicks, true), (float) mc.displayWidth / (float) mc.displayHeight, 0.05F, farPlaneDistance * 4F);
+			Project.gluPerspective(getFOVModifier(partialTicks, true), (float) mc.getWindow().getWidth() / (float) mc.getWindow().getHeight(), 0.05F, farPlaneDistance * 4F);
 			GlStateManager.matrixMode(5888);
 			GlStateManager.pushMatrix();
 			setupFog(0, partialTicks);
@@ -1352,7 +1352,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			GlStateManager.popMatrix();
 			GlStateManager.matrixMode(5889);
 			GlStateManager.loadIdentity();
-			Project.gluPerspective(getFOVModifier(partialTicks, true), (float) mc.displayWidth / (float) mc.displayHeight, 0.05F, farPlaneDistance * MathHelper.SQRT_2);
+			Project.gluPerspective(getFOVModifier(partialTicks, true), (float) mc.getWindow().getWidth() / (float) mc.getWindow().getHeight(), 0.05F, farPlaneDistance * MathHelper.SQRT_2);
 			GlStateManager.matrixMode(5888);
 		}
 	}

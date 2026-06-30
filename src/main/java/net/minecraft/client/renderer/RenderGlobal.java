@@ -290,7 +290,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 
 			try {
 				entityOutlineShader = new ShaderGroup(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), resourcelocation);
-				entityOutlineShader.createBindFramebuffers(mc.displayWidth, mc.displayHeight);
+				entityOutlineShader.createBindFramebuffers(mc.getWindow().getWidth(), mc.getWindow().getHeight());
 				entityOutlineFramebuffer = entityOutlineShader.getFramebufferRaw("final");
 			} catch (IOException | JsonSyntaxException ioexception) {
 				LOGGER.warn("Failed to load shader: {}", resourcelocation, ioexception);
@@ -308,7 +308,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		if (isRenderEntityOutlines()) {
 			GlStateManager.enableBlend();
 			GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ZERO, GlStateManager.DestFactor.ONE);
-			entityOutlineFramebuffer.framebufferRenderExt(mc.displayWidth, mc.displayHeight, false);
+			entityOutlineFramebuffer.framebufferRenderExt(mc.getWindow().getWidth(), mc.getWindow().getHeight(), false);
 			GlStateManager.disableBlend();
 		}
 	}
