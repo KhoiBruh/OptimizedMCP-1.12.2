@@ -26,9 +26,9 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.Window;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.Display;
 
 import java.io.*;
 import java.lang.reflect.ParameterizedType;
@@ -419,7 +419,7 @@ public class GameSettings {
 
 		if (settingsOption == GameSettings.Options.ENABLE_VSYNC) {
 			enableVsync = !enableVsync;
-			Display.setVSyncEnabled(enableVsync);
+			Window.setVSync(enableVsync);
 		}
 
 		if (settingsOption == GameSettings.Options.USE_VBO) {

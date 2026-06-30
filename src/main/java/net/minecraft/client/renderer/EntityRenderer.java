@@ -49,9 +49,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.Window;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.GLContext;
+import org.lwjgl.opengl.GL;
 import org.lwjgl.util.glu.Project;
 
 import javax.imageio.ImageIO;
@@ -974,7 +974,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
 	public void updateCameraAndRender(float partialTicks, long nanoTime) {
 
-		boolean flag = Display.isActive();
+		boolean flag = Window.isActive();
 
 		if (!flag && mc.gameSettings.pauseOnLostFocus && (!mc.gameSettings.touchscreen || !Mouse.isButtonDown(1))) {
 			if (Minecraft.getSystemTime() - prevFrameTime > 500L) {
@@ -988,7 +988,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
 		if (flag && Minecraft.IS_RUNNING_ON_MAC && mc.inGameHasFocus && !Mouse.isInsideWindow()) {
 			Mouse.setGrabbed(false);
-			Mouse.setCursorPosition(Display.getWidth() / 2, Display.getHeight() / 2 - 20);
+			Mouse.setCursorPosition(Window.getWidth() / 2, Window.getHeight() / 2 - 20);
 			Mouse.setGrabbed(true);
 		}
 
@@ -1753,7 +1753,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 				GlStateManager.setFogEnd(f1);
 			}
 
-			if (GLContext.getCapabilities().GL_NV_fog_distance) {
+			if (GL.getCapabilities().GL_NV_fog_distance) {
 				GlStateManager.glFogi(34138, 34139);
 			}
 		} else if (cloudFog) {
@@ -1785,8 +1785,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 				GlStateManager.setFogStart(f * 0.75F);
 				GlStateManager.setFogEnd(f);
 			}
-
-			if (GLContext.getCapabilities().GL_NV_fog_distance) {
+			
+			if (GL.getCapabilities().GL_NV_fog_distance) {
 				GlStateManager.glFogi(34138, 34139);
 			}
 

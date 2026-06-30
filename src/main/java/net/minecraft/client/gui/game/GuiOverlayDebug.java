@@ -24,7 +24,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.SkyBlock;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.Chunk;
-import org.lwjgl.opengl.Display;
+import org.lwjgl.Window;
 import org.lwjgl.opengl.GL11;
 
 import java.util.List;
@@ -261,7 +261,7 @@ public class GuiOverlayDebug extends Gui {
 				String.format("Mem: % 2d%% %03d/%03dMB", usedMemory * 100L / maxMemory, bytesToMb(usedMemory), bytesToMb(maxMemory)),
 				String.format("Allocated: % 2d%% %03dMB", totalMemory * 100L / maxMemory, bytesToMb(totalMemory)), "",
 				String.format("CPU: %s", OpenGlHelper.getCpu()), "",
-				String.format("Display: %dx%d (%s)", Display.getWidth(), Display.getHeight(), vendor),
+				String.format("Display: %dx%d (%s)", Window.getWidth(), Window.getHeight(), vendor),
 				renderer, version
 		);
 

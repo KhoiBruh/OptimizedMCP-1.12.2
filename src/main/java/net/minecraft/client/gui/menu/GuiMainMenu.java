@@ -25,7 +25,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GLContext;
+import org.lwjgl.opengl.GL;
 import org.lwjgl.util.glu.Project;
 
 import java.awt.*;
@@ -151,7 +151,7 @@ public class GuiMainMenu extends GuiScreen {
 		minceraftRoll = RANDOM.nextFloat();
 		openGLWarning1 = "";
 
-		if (!GLContext.getCapabilities().OpenGL20 && !OpenGlHelper.areShadersSupported()) {
+		if (!GL.getCapabilities().OpenGL20 && !OpenGlHelper.areShadersSupported()) {
 			openGLWarning1 = I18n.format("title.oldgl1");
 			openGLWarning2 = I18n.format("title.oldgl2");
 			openGLWarningLink = "https://help.mojang.com/customer/portal/articles/325948?ref=game";
