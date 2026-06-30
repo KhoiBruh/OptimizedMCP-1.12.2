@@ -132,8 +132,8 @@ public class GameSettings {
 	public KeyBinding keyInventory = new KeyBinding("key.inventory", GLFW_KEY_E, "key.categories.inventory");
 	public KeyBinding keySwapHands = new KeyBinding("key.swapHands", GLFW_KEY_F, "key.categories.inventory");
 	public KeyBinding keyDrop = new KeyBinding("key.drop", GLFW_KEY_Q, "key.categories.inventory");
-	public KeyBinding keyUseItem = new KeyBinding("key.use", GLFW_MOUSE_BUTTON_1, "key.categories.gameplay");
-	public KeyBinding keyAttack = new KeyBinding("key.attack", GLFW_MOUSE_BUTTON_2, "key.categories.gameplay");
+	public KeyBinding keyUseItem = new KeyBinding("key.use", GLFW_MOUSE_BUTTON_2, "key.categories.gameplay");
+	public KeyBinding keyAttack = new KeyBinding("key.attack", GLFW_MOUSE_BUTTON_1, "key.categories.gameplay");
 	public KeyBinding keyPickBlock = new KeyBinding("key.pickItem", GLFW_MOUSE_BUTTON_3, "key.categories.gameplay");
 	public KeyBinding keyChat = new KeyBinding("key.chat", GLFW_KEY_T, "key.categories.multiplayer");
 	public KeyBinding keyPlayerList = new KeyBinding("key.playerlist", GLFW_KEY_TAB, "key.categories.multiplayer");
@@ -223,21 +223,22 @@ public class GameSettings {
 	 * Gets the display name for a key.
 	 */
 	public static String getKeyDisplayString(int key) {
-		String name = Keyboard.getKeyName(key);
-		if (!name.equals("UNKNOWN")) return name;
-		return String.format("%c", (char) (key - 256)).toUpperCase();
-//		if (key < 0) {
-//			return switch (key) {
-//				case -100 -> I18n.format("key.mouse.left");
-//				case -99 -> I18n.format("key.mouse.right");
-//				case -98 -> I18n.format("key.mouse.middle");
-//				default -> I18n.format("key.mouseButton", key + 101);
-//			};
-//		} else {
-//			String name = Keyboard.getKeyName(key);
-//			if (!name.equals("UNKNOWN")) return name;
-//			return String.format("%c", (char) (key - 256)).toUpperCase();
-//		}
+		if (key < 0) {
+			String name = Keyboard.getKeyName(key);
+			if (!name.equals("UNKNOWN")) return name;
+			return String.format("%c", (char) (key - 256)).toUpperCase();
+		} else if (key <= GLFW_MOUSE_BUTTON_LAST) {
+			return switch (key) {
+				case 0 -> I18n.format("key.mouse.left");
+				case 1 -> I18n.format("key.mouse.right");
+				case 2 -> I18n.format("key.mouse.middle");
+				default -> I18n.format("key.mouseButton", key + 1);
+			};
+		} else {
+			String name = Keyboard.getKeyName(key);
+			if (!name.equals("UNKNOWN")) return name;
+			return String.format("%c", (char) (key - 256)).toUpperCase();
+		}
 	}
 	
 	/**
@@ -245,8 +246,8 @@ public class GameSettings {
 	 */
 	public static boolean isKeyDown(KeyBinding key) {
 		int i = key.getKeyCode();
-		if (i == 0) return false;
-		if (i < 0) return Mouse.isButtonDown(i + 100);
+		if (i == GLFW_KEY_UNKNOWN) return false;
+		if (i >= 0 && i < 16) return Mouse.isButtonDown(i);
 		return Keyboard.isKeyDown(i);
 	}
 	
@@ -585,7 +586,7 @@ public class GameSettings {
 					}
 					
 					for (KeyBinding keybinding : keyBindings) {
-						if (s1.equals("key_" + keybinding.getKeyDescription())) {
+						if (s1.equals("key_" + keybinding.getDescription())) {
 							keybinding.setKeyCode(Integer.parseInt(s2));
 						}
 					}
@@ -700,7 +701,7 @@ public class GameSettings {
 			writer.println("tutorialStep:" + tutorialStep.getName());
 			
 			for (KeyBinding key : keyBindings) {
-				writer.println("key_" + key.getKeyDescription() + ":" + key.getKeyCode());
+				writer.println("key_" + key.getDescription() + ":" + key.getKeyCode());
 			}
 			
 			for (SoundCategory sound : SoundCategory.values()) {

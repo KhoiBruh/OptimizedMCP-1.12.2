@@ -30,14 +30,14 @@ public class GuiKeyBindingList extends GuiListExtended {
 		String s = null;
 
 		for (KeyBinding keybinding : akeybinding) {
-			String s1 = keybinding.getKeyCategory();
+			String s1 = keybinding.getCategory();
 
 			if (!s1.equals(s)) {
 				s = s1;
 				listEntries[i++] = new GuiKeyBindingList.CategoryEntry(s1);
 			}
 
-			int j = mcIn.fontRenderer.getStringWidth(I18n.format(keybinding.getKeyDescription()));
+			int j = mcIn.fontRenderer.getStringWidth(I18n.format(keybinding.getDescription()));
 
 			if (j > maxListLabelWidth) {
 				maxListLabelWidth = j;
@@ -114,8 +114,8 @@ public class GuiKeyBindingList extends GuiListExtended {
 		private KeyEntry(KeyBinding name) {
 
 			keybinding = name;
-			keyDesc = I18n.format(name.getKeyDescription());
-			btnChangeKeyBinding = new GuiButton(0, 0, 0, 75, 20, I18n.format(name.getKeyDescription()));
+			keyDesc = I18n.format(name.getDescription());
+			btnChangeKeyBinding = new GuiButton(0, 0, 0, 75, 20, I18n.format(name.getDescription()));
 			btnReset = new GuiButton(0, 0, 0, 50, 20, I18n.format("controls.reset"));
 		}
 
@@ -125,14 +125,14 @@ public class GuiKeyBindingList extends GuiListExtended {
 			mc.fontRenderer.drawString(keyDesc, x + 90 - maxListLabelWidth, y + slotHeight / 2 - mc.fontRenderer.FONT_HEIGHT / 2, 16777215);
 			btnReset.x = x + 190;
 			btnReset.y = y;
-			btnReset.enabled = keybinding.getKeyCode() != keybinding.getKeyCodeDefault();
+			btnReset.enabled = keybinding.getKeyCode() != keybinding.getDefaultKeyCode();
 			btnReset.drawButton(mc, mouseX, mouseY, partialTicks);
 			btnChangeKeyBinding.x = x + 105;
 			btnChangeKeyBinding.y = y;
 			btnChangeKeyBinding.displayString = GameSettings.getKeyDisplayString(keybinding.getKeyCode());
 			boolean flag1 = false;
 
-			if (keybinding.getKeyCode() != 0) {
+			if (keybinding.getKeyCode() != -1) {
 				for (KeyBinding keybinding : mc.gameSettings.keyBindings) {
 					if (keybinding != this.keybinding && keybinding.getKeyCode() == this.keybinding.getKeyCode()) {
 						flag1 = true;
@@ -156,7 +156,7 @@ public class GuiKeyBindingList extends GuiListExtended {
 				controlsScreen.buttonId = keybinding;
 				return true;
 			} else if (btnReset.mousePressed(mc, mouseX, mouseY)) {
-				mc.gameSettings.setOptionKeyBinding(keybinding, keybinding.getKeyCodeDefault());
+				mc.gameSettings.setOptionKeyBinding(keybinding, keybinding.getDefaultKeyCode());
 				KeyBinding.resetKeyBindingArrayAndHash();
 				return true;
 			} else {

@@ -79,7 +79,7 @@ public class GuiControls extends GuiScreen {
 			mc.displayGuiScreen(parentScreen);
 		} else if (button.id == 201) {
 			for (KeyBinding keybinding : mc.gameSettings.keyBindings) {
-				keybinding.setKeyCode(keybinding.getKeyCodeDefault());
+				keybinding.setKeyCode(keybinding.getDefaultKeyCode());
 			}
 
 			KeyBinding.resetKeyBindingArrayAndHash();
@@ -147,7 +147,7 @@ public class GuiControls extends GuiScreen {
 		boolean flag = false;
 
 		for (KeyBinding keybinding : options.keyBindings) {
-			if (keybinding.getKeyCode() != keybinding.getKeyCodeDefault()) {
+			if (keybinding.getKeyCode() != keybinding.getDefaultKeyCode()) {
 				flag = true;
 				break;
 			}

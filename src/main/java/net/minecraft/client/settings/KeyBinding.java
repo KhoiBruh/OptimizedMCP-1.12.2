@@ -2,6 +2,8 @@ package net.minecraft.client.settings;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.IntHashMap;
 import net.minecraft.client.util.Keyboard;
@@ -9,6 +11,8 @@ import net.minecraft.client.util.Keyboard;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
+
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_UNKNOWN;
 
 public class KeyBinding implements Comparable<KeyBinding> {
 
@@ -27,9 +31,17 @@ public class KeyBinding implements Comparable<KeyBinding> {
 		CATEGORY_ORDER.put("key.categories.misc", 7);
 	}
 
-	private final String keyDescription;
-	private final int keyCodeDefault;
-	private final String keyCategory;
+	@Getter
+	private final String description;
+	
+	@Getter
+	private final int defaultKeyCode;
+	
+	@Getter
+	private final String category;
+	
+	@Setter
+	@Getter
 	private int keyCode;
 	/**
 	 * Is the key held down?
@@ -38,35 +50,28 @@ public class KeyBinding implements Comparable<KeyBinding> {
 	private int pressTime;
 
 	public KeyBinding(String description, int keyCode, String category) {
-
-		keyDescription = description;
+		this.description = description;
 		this.keyCode = keyCode;
-		keyCodeDefault = keyCode;
-		keyCategory = category;
+		defaultKeyCode = keyCode;
+		this.category = category;
 		KEYBIND_ARRAY.put(description, this);
 		HASH.addKey(keyCode, this);
 		KEYBIND_SET.add(category);
 	}
 
 	public static void onTick(int keyCode) {
+		if (keyCode != GLFW_KEY_UNKNOWN) {
+			KeyBinding key = HASH.lookup(keyCode);
 
-		if (keyCode != 0) {
-			KeyBinding keybinding = HASH.lookup(keyCode);
-
-			if (keybinding != null) {
-				++keybinding.pressTime;
-			}
+			if (key != null) key.pressTime++;
 		}
 	}
 
 	public static void setKeyBindState(int keyCode, boolean pressed) {
+		if (keyCode != GLFW_KEY_UNKNOWN) {
+			KeyBinding key = HASH.lookup(keyCode);
 
-		if (keyCode != 0) {
-			KeyBinding keybinding = HASH.lookup(keyCode);
-
-			if (keybinding != null) {
-				keybinding.pressed = pressed;
-			}
+			if (key != null) key.pressed = pressed;
 		}
 	}
 
@@ -74,99 +79,61 @@ public class KeyBinding implements Comparable<KeyBinding> {
 	 * Completely recalculates whether any keybinds are held, from scratch.
 	 */
 	public static void updateKeyBindState() {
-
-		for (KeyBinding keybinding : KEYBIND_ARRAY.values()) {
+		for (KeyBinding key : KEYBIND_ARRAY.values()) {
 			try {
-				setKeyBindState(keybinding.keyCode, Keyboard.isKeyDown(keybinding.keyCode));
+				setKeyBindState(key.keyCode, Keyboard.isKeyDown(key.keyCode));
 			} catch (IndexOutOfBoundsException ignored) {
 			}
 		}
 	}
 
 	public static void unPressAllKeys() {
-
-		for (KeyBinding keybinding : KEYBIND_ARRAY.values()) {
-			keybinding.unpressKey();
+		for (KeyBinding key : KEYBIND_ARRAY.values()) {
+			key.unpressKey();
 		}
 	}
 
 	public static void resetKeyBindingArrayAndHash() {
-
 		HASH.clearMap();
 
-		for (KeyBinding keybinding : KEYBIND_ARRAY.values()) {
-			HASH.addKey(keybinding.keyCode, keybinding);
+		for (KeyBinding key : KEYBIND_ARRAY.values()) {
+			HASH.addKey(key.keyCode, key);
 		}
 	}
 
 	public static Set<String> getKeybinds() {
-
 		return KEYBIND_SET;
 	}
 
 	public static Supplier<String> getDisplayString(String key) {
-
 		KeyBinding keybinding = KEYBIND_ARRAY.get(key);
-		return keybinding == null ? () ->
-				key : () ->
-				GameSettings.getKeyDisplayString(keybinding.getKeyCode());
+		return keybinding == null ? () -> key : () -> GameSettings.getKeyDisplayString(keybinding.getKeyCode());
 	}
 
 	/**
 	 * Returns true if the key is pressed (used for continuous querying). Should be used in tickers.
 	 */
 	public boolean isKeyDown() {
-
 		return pressed;
 	}
-
-	public String getKeyCategory() {
-
-		return keyCategory;
-	}
-
-	/**
-	 * Returns true on the initial key press. For continuous querying use {@link isKeyDown()}. Should be used in key
-	 * events.
-	 */
+	
 	public boolean isPressed() {
-
 		if (pressTime == 0) {
 			return false;
 		} else {
-			--pressTime;
+			pressTime--;
 			return true;
 		}
 	}
 
 	private void unpressKey() {
-
 		pressTime = 0;
 		pressed = false;
 	}
-
-	public String getKeyDescription() {
-
-		return keyDescription;
-	}
-
-	public int getKeyCodeDefault() {
-
-		return keyCodeDefault;
-	}
-
-	public int getKeyCode() {
-
-		return keyCode;
-	}
-
-	public void setKeyCode(int keyCode) {
-
-		this.keyCode = keyCode;
-	}
-
-	public int compareTo(KeyBinding p_compareTo_1_) {
-
-		return keyCategory.equals(p_compareTo_1_.keyCategory) ? I18n.format(keyDescription).compareTo(I18n.format(p_compareTo_1_.keyDescription)) : CATEGORY_ORDER.get(keyCategory).compareTo(CATEGORY_ORDER.get(p_compareTo_1_.keyCategory));
+	
+	public int compareTo(KeyBinding other) {
+		return category.equals(other.category) ?
+				I18n.format(description).compareTo(I18n.format(other.description)) :
+				CATEGORY_ORDER.get(category).compareTo(CATEGORY_ORDER.get(other.category));
 	}
 }

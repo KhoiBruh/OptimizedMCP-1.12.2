@@ -1750,13 +1750,13 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		
 		while (Mouse.next()) {
 			int i = Mouse.getEventButton();
-			KeyBinding.setKeyBindState(i - 100, Mouse.getEventButtonState());
+			KeyBinding.setKeyBindState(i, Mouse.getEventButtonState());
 			
 			if (Mouse.getEventButtonState()) {
 				if (player.isSpectator() && i == 2) {
 					ingameGUI.getSpectatorGui().onMiddleClick();
 				} else {
-					KeyBinding.onTick(i - 100);
+					KeyBinding.onTick(i);
 				}
 			}
 			
