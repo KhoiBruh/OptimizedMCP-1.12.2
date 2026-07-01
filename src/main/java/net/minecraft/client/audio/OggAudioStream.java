@@ -45,16 +45,16 @@ public class OggAudioStream implements AutoCloseable {
         }
     }
 
-	public synchronized int read(ShortBuffer buffer) {
+	public int read(ShortBuffer buffer) {
         int read = STBVorbis.stb_vorbis_get_samples_short_interleaved(handle, channels, buffer);
         return read * channels;
     }
 
-    public synchronized void rewind() {
+    public void rewind() {
         STBVorbis.stb_vorbis_seek_start(handle);
     }
 
-    public synchronized ShortBuffer readAll() {
+    public ShortBuffer readAll() {
         rewind();
         int totalSamples = STBVorbis.stb_vorbis_stream_length_in_samples(handle) * channels;
         ShortBuffer pcmBuffer = BufferUtils.createShortBuffer(totalSamples);
@@ -64,7 +64,7 @@ public class OggAudioStream implements AutoCloseable {
     }
 
     @Override
-    public synchronized void close() {
+    public void close() {
         if (handle != 0) STBVorbis.stb_vorbis_close(handle);
     }
 }

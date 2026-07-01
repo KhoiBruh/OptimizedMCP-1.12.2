@@ -14,7 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.audio.MusicTicker;
-import net.minecraft.client.audio.SoundHandler;
+import net.minecraft.client.audio.SoundManager;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
@@ -219,10 +219,9 @@ public class Minecraft implements IThreadListener {
 	private int joinPlayerCounter;
 	private int leftClickCounter;
 	private LanguageManager mcLanguageManager;
-	private MusicTicker mcMusicTicker;
 	private IReloadableResourceManager mcResourceManager;
 	private ResourcePackRepository mcResourcePackRepository;
-	private SoundHandler mcSoundHandler;
+	private SoundManager mcSoundHandler;
 	private ModelManager modelManager;
 	private ResourceLocation mojangLogo;
 	private NetworkManager myNetworkManager;
@@ -396,9 +395,8 @@ public class Minecraft implements IThreadListener {
 		drawSplashScreen(renderEngine);
 		skinManager = new SkinManager(renderEngine, new File(fileAssets, "skins"), sessionService);
 		saveLoader = new AnvilSaveConverter(new File(mcDataDir, "saves"), dataFixer);
-		mcSoundHandler = new SoundHandler(mcResourceManager, gameSettings);
+		mcSoundHandler = new SoundManager(mcResourceManager, gameSettings, this);
 		mcResourceManager.registerReloadListener(mcSoundHandler);
-		mcMusicTicker = new MusicTicker(this);
 		fontRenderer = new FontRenderer(gameSettings, new ResourceLocation("textures/font/ascii.png"), renderEngine, false);
 		
 		if (gameSettings.language != null) {
@@ -1299,13 +1297,10 @@ public class Minecraft implements IThreadListener {
 		if (entityRenderer != null) entityRenderer.updateShaderGroupSize(window.getWidth(), window.getHeight());
 	}
 	
-	/**
-	 * Return the musicTicker's instance
-	 */
 	public MusicTicker getMusicTicker() {
-		return mcMusicTicker;
+		return mcSoundHandler.getMusicTicker();
 	}
-	
+
 	/**
 	 * Runs the current tick.
 	 */
@@ -1409,7 +1404,6 @@ public class Minecraft implements IThreadListener {
 		}
 		
 		if (!isGamePaused) {
-			mcMusicTicker.update();
 			mcSoundHandler.update();
 		}
 		
@@ -2153,7 +2147,7 @@ public class Minecraft implements IThreadListener {
 		return isGamePaused;
 	}
 	
-	public SoundHandler getSoundHandler() {
+	public SoundManager getSoundHandler() {
 		return mcSoundHandler;
 	}
 	

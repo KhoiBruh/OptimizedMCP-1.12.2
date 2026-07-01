@@ -2,7 +2,7 @@ package net.minecraft.client.gui.component;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.client.audio.SoundHandler;
+import net.minecraft.client.audio.SoundManager;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
@@ -143,7 +143,7 @@ public class GuiButton extends Gui {
 
 	}
 
-	public void playPressSound(SoundHandler soundHandlerIn) {
+	public void playPressSound(SoundManager soundHandlerIn) {
 
 		soundHandlerIn.playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1F));
 	}

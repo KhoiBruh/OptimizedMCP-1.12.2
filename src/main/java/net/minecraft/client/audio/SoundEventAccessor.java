@@ -48,7 +48,7 @@ public class SoundEventAccessor implements ISoundEventAccessor<Sound> {
 			}
 		}
 
-		return SoundHandler.MISSING_SOUND;
+		return SoundManager.MISSING_SOUND;
 	}
 
 	public void addSound(ISoundEventAccessor<Sound> accessor) {
