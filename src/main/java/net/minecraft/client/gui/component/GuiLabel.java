@@ -63,7 +63,7 @@ public class GuiLabel extends Gui {
 
 		if (visible) {
 			GlStateManager.enableBlend();
-			GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 			drawLabelBackground(mc, mouseX, mouseY);
 			int i = y + height / 2 + border / 2;
 			int j = i - labels.size() * 10 / 2;

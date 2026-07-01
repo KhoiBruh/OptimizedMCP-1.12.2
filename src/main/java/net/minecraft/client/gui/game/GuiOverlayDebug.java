@@ -54,9 +54,9 @@ public class GuiOverlayDebug extends Gui {
 
 		this.mc = mc;
 		fontRenderer = mc.fontRenderer;
-		vendor = GlStateManager.glGetString(GL11.GL_VENDOR);
-		renderer = GlStateManager.glGetString(GL11.GL_RENDERER);
-		version = GlStateManager.glGetString(GL11.GL_VERSION);
+		vendor = GlStateManager.getString(GL11.GL_VENDOR);
+		renderer = GlStateManager.getString(GL11.GL_RENDERER);
+		version = GlStateManager.getString(GL11.GL_VERSION);
 	}
 
 	private static long bytesToMb(long bytes) {

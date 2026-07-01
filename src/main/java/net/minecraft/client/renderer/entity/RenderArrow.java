@@ -55,14 +55,14 @@ public abstract class RenderArrow<T extends EntityArrow> extends Render<T> {
 			GlStateManager.enableOutlineMode(getTeamColor(entity));
 		}
 
-		GlStateManager.glNormal3f(0.05625F, 0F, 0F);
+		GlStateManager.normal3f(0.05625F, 0F, 0F);
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
 		bufferbuilder.pos(-7D, -2D, -2D).tex(0D, 0.15625D).endVertex();
 		bufferbuilder.pos(-7D, -2D, 2D).tex(0.15625D, 0.15625D).endVertex();
 		bufferbuilder.pos(-7D, 2D, 2D).tex(0.15625D, 0.3125D).endVertex();
 		bufferbuilder.pos(-7D, 2D, -2D).tex(0D, 0.3125D).endVertex();
 		tessellator.draw();
-		GlStateManager.glNormal3f(-0.05625F, 0F, 0F);
+		GlStateManager.normal3f(-0.05625F, 0F, 0F);
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
 		bufferbuilder.pos(-7D, 2D, -2D).tex(0D, 0.15625D).endVertex();
 		bufferbuilder.pos(-7D, 2D, 2D).tex(0.15625D, 0.15625D).endVertex();
@@ -72,7 +72,7 @@ public abstract class RenderArrow<T extends EntityArrow> extends Render<T> {
 
 		for (int j = 0; j < 4; ++j) {
 			GlStateManager.rotate(90F, 1F, 0F, 0F);
-			GlStateManager.glNormal3f(0F, 0F, 0.05625F);
+			GlStateManager.normal3f(0F, 0F, 0.05625F);
 			bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
 			bufferbuilder.pos(-8D, -2D, 0D).tex(0D, 0D).endVertex();
 			bufferbuilder.pos(8D, -2D, 0D).tex(0.5D, 0D).endVertex();

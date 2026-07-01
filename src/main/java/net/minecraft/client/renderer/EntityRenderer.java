@@ -218,7 +218,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x, y, z);
-		GlStateManager.glNormal3f(0F, 1F, 0F);
+		GlStateManager.normal3f(0F, 1F, 0F);
 		GlStateManager.rotate(-viewerYaw, 0F, 1F, 0F);
 		GlStateManager.rotate((float) (isThirdPersonFrontal ? -1 : 1) * viewerPitch, 1F, 0F, 0F);
 		GlStateManager.scale(-0.025F, -0.025F, 0.025F);
@@ -230,7 +230,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		}
 
 		GlStateManager.enableBlend();
-		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		int i = fontRendererIn.getStringWidth(str) / 2;
 		GlStateManager.disableTexture2D();
 		Tessellator tessellator = Tessellator.getInstance();
@@ -802,10 +802,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		GlStateManager.translate(8F, 8F, 8F);
 		GlStateManager.matrixMode(5888);
 		mc.getTextureManager().bindTexture(locationLightMap);
-		GlStateManager.glTexParameteri(3553, 10241, 9729);
-		GlStateManager.glTexParameteri(3553, 10240, 9729);
-		GlStateManager.glTexParameteri(3553, 10242, 10496);
-		GlStateManager.glTexParameteri(3553, 10243, 10496);
+		GlStateManager.texParameteri(3553, 10241, 9729);
+		GlStateManager.texParameteri(3553, 10240, 9729);
+		GlStateManager.texParameteri(3553, 10242, 10496);
+		GlStateManager.texParameteri(3553, 10243, 10496);
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.enableTexture2D();
 		GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
@@ -1249,7 +1249,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
 		mc.profiler.endStartSection("destroyProgress");
 		GlStateManager.enableBlend();
-		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		mc.getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false);
 		renderglobal.drawBlockDamageTexture(Tessellator.getInstance(), Tessellator.getInstance().getBuffer(), entity, partialTicks);
 		mc.getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap();
@@ -1274,7 +1274,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		renderglobal.renderWorldBorder(entity, partialTicks);
 		GlStateManager.disableBlend();
 		GlStateManager.enableCull();
-		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		GlStateManager.alphaFunc(516, 0.1F);
 		setupFog(0, partialTicks);
 		GlStateManager.enableBlend();
@@ -1406,9 +1406,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferbuilder = tessellator.getBuffer();
 			GlStateManager.disableCull();
-			GlStateManager.glNormal3f(0F, 1F, 0F);
+			GlStateManager.normal3f(0F, 1F, 0F);
 			GlStateManager.enableBlend();
-			GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 			GlStateManager.alphaFunc(516, 0.1F);
 			double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double) partialTicks;
 			double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double) partialTicks;
@@ -1688,7 +1688,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
 		Entity entity = mc.getRenderViewEntity();
 		setupFogColor(false);
-		GlStateManager.glNormal3f(0F, -1F, 0F);
+		GlStateManager.normal3f(0F, -1F, 0F);
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		IBlockState iblockstate = ActiveRenderInfo.getBlockStateAtEntityViewpoint(mc.world, entity, partialTicks);
 
@@ -1711,7 +1711,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			}
 
 			if (GL.getCapabilities().GL_NV_fog_distance) {
-				GlStateManager.glFogi(34138, 34139);
+				GlStateManager.fog(34138, 34139);
 			}
 		} else if (cloudFog) {
 			GlStateManager.setFog(GlStateManager.FogMode.EXP);
@@ -1744,7 +1744,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			}
 			
 			if (GL.getCapabilities().GL_NV_fog_distance) {
-				GlStateManager.glFogi(34138, 34139);
+				GlStateManager.fog(34138, 34139);
 			}
 
 			if (mc.world.provider.doesXZShowFog((int) entity.posX, (int) entity.posZ) || mc.ingameGUI.getBossOverlay().shouldCreateFog()) {
@@ -1761,9 +1761,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	public void setupFogColor(boolean black) {
 
 		if (black) {
-			GlStateManager.glFog(2918, setFogColorBuffer(0F, 0F, 0F, 1F));
+			GlStateManager.fog(2918, setFogColorBuffer(0F, 0F, 0F, 1F));
 		} else {
-			GlStateManager.glFog(2918, setFogColorBuffer(fogColorRed, fogColorGreen, fogColorBlue, 1F));
+			GlStateManager.fog(2918, setFogColorBuffer(fogColorRed, fogColorGreen, fogColorBlue, 1F));
 		}
 	}
 

@@ -87,7 +87,7 @@ public class TileEntityStructureRenderer extends TileEntitySpecialRenderer<TileE
 					GlStateManager.disableLighting();
 					GlStateManager.disableTexture2D();
 					GlStateManager.enableBlend();
-					GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+					GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 					setLightmapDisabled(true);
 
 					if (te.getMode() == TileEntityStructure.Mode.SAVE || te.showsBoundingBox()) {
@@ -100,7 +100,7 @@ public class TileEntityStructureRenderer extends TileEntitySpecialRenderer<TileE
 					}
 
 					setLightmapDisabled(false);
-					GlStateManager.glLineWidth(1F);
+					GlStateManager.lineWidth(1F);
 					GlStateManager.enableLighting();
 					GlStateManager.enableTexture2D();
 					GlStateManager.enableDepth();
@@ -113,7 +113,7 @@ public class TileEntityStructureRenderer extends TileEntitySpecialRenderer<TileE
 
 	private void renderInvisibleBlocks(TileEntityStructure p_190054_1_, double p_190054_2_, double p_190054_4_, double p_190054_6_, BlockPos p_190054_8_, Tessellator p_190054_9_, BufferBuilder p_190054_10_, boolean p_190054_11_) {
 
-		GlStateManager.glLineWidth(p_190054_11_ ? 3F : 1F);
+		GlStateManager.lineWidth(p_190054_11_ ? 3F : 1F);
 		p_190054_10_.begin(3, DefaultVertexFormats.POSITION_COLOR);
 		World world = p_190054_1_.getWorld();
 		BlockPos blockpos = p_190054_1_.getPos();
@@ -148,7 +148,7 @@ public class TileEntityStructureRenderer extends TileEntitySpecialRenderer<TileE
 
 	private void renderBox(Tessellator p_190055_1_, BufferBuilder p_190055_2_, double p_190055_3_, double p_190055_5_, double p_190055_7_, double p_190055_9_, double p_190055_11_, double p_190055_13_, int p_190055_15_, int p_190055_16_, int p_190055_17_) {
 
-		GlStateManager.glLineWidth(2F);
+		GlStateManager.lineWidth(2F);
 		p_190055_2_.begin(3, DefaultVertexFormats.POSITION_COLOR);
 		p_190055_2_.pos(p_190055_3_, p_190055_5_, p_190055_7_).color((float) p_190055_16_, (float) p_190055_16_, (float) p_190055_16_, 0F).endVertex();
 		p_190055_2_.pos(p_190055_3_, p_190055_5_, p_190055_7_).color(p_190055_16_, p_190055_16_, p_190055_16_, p_190055_15_).endVertex();
@@ -169,7 +169,7 @@ public class TileEntityStructureRenderer extends TileEntitySpecialRenderer<TileE
 		p_190055_2_.pos(p_190055_9_, p_190055_5_, p_190055_7_).color(p_190055_16_, p_190055_16_, p_190055_16_, p_190055_15_).endVertex();
 		p_190055_2_.pos(p_190055_9_, p_190055_5_, p_190055_7_).color((float) p_190055_16_, (float) p_190055_16_, (float) p_190055_16_, 0F).endVertex();
 		p_190055_1_.draw();
-		GlStateManager.glLineWidth(1F);
+		GlStateManager.lineWidth(1F);
 	}
 
 	public boolean isGlobalRenderer(TileEntityStructure te) {

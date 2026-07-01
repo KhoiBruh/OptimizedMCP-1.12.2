@@ -32,7 +32,7 @@ public class VertexBuffer {
 
 	public void drawArrays(int mode) {
 
-		GlStateManager.glDrawArrays(mode, 0, count);
+		GlStateManager.drawArrays(mode, 0, count);
 	}
 
 	public void unbindBuffer() {

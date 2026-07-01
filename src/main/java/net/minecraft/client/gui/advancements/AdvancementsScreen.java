@@ -159,7 +159,7 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 			}
 
 			GlStateManager.enableRescaleNormal();
-			GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 			RenderHelper.enableGUIStandardItemLighting();
 
 			for (GuiAdvancementTab guiadvancementtab1 : tabs.values()) {

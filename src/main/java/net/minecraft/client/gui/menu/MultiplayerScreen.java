@@ -272,7 +272,7 @@ public class MultiplayerScreen extends Screen {
 		GlStateManager.disableAlpha();
 		GlStateManager.disableCull();
 		GlStateManager.depthMask(false);
-		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 
 		for (int j = 0; j < 64; ++j) {
 			GlStateManager.pushMatrix();
@@ -337,11 +337,11 @@ public class MultiplayerScreen extends Screen {
 	private void rotateAndBlurSkybox() {
 
 		mc.getTextureManager().bindTexture(backgroundTexture);
-		GlStateManager.glTexParameteri(3553, 10241, 9729);
-		GlStateManager.glTexParameteri(3553, 10240, 9729);
-		GlStateManager.glCopyTexSubImage2D(3553, 0, 0, 0, 0, 0, 256, 256);
+		GlStateManager.texParameteri(3553, 10241, 9729);
+		GlStateManager.texParameteri(3553, 10240, 9729);
+		GlStateManager.copyTexSubImage2D(3553, 0, 0, 0, 0, 0, 256, 256);
 		GlStateManager.enableBlend();
-		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		GlStateManager.colorMask(true, true, true, false);
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();

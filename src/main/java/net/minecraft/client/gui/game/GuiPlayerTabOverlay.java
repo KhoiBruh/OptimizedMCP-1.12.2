@@ -155,7 +155,7 @@ public class GuiPlayerTabOverlay extends Gui {
 			GlStateManager.color(1F, 1F, 1F, 1F);
 			GlStateManager.enableAlpha();
 			GlStateManager.enableBlend();
-			GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 
 			if (k4 < list.size()) {
 				NetworkPlayerInfo networkplayerinfo1 = list.get(k4);

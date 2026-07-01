@@ -30,7 +30,7 @@ public class DebugRendererChunkBorder implements DebugRenderer.IDebugRenderer {
 		GlStateManager.disableBlend();
 		double d5 = (double) (entityplayer.chunkCoordX << 4) - d0;
 		double d6 = (double) (entityplayer.chunkCoordZ << 4) - d2;
-		GlStateManager.glLineWidth(1F);
+		GlStateManager.lineWidth(1F);
 		bufferbuilder.begin(3, DefaultVertexFormats.POSITION_COLOR);
 
 		for (int i = -16; i <= 32; i += 16) {
@@ -76,7 +76,7 @@ public class DebugRendererChunkBorder implements DebugRenderer.IDebugRenderer {
 		}
 
 		tessellator.draw();
-		GlStateManager.glLineWidth(2F);
+		GlStateManager.lineWidth(2F);
 		bufferbuilder.begin(3, DefaultVertexFormats.POSITION_COLOR);
 
 		for (int j1 = 0; j1 <= 16; j1 += 16) {
@@ -100,7 +100,7 @@ public class DebugRendererChunkBorder implements DebugRenderer.IDebugRenderer {
 		}
 
 		tessellator.draw();
-		GlStateManager.glLineWidth(1F);
+		GlStateManager.lineWidth(1F);
 		GlStateManager.enableBlend();
 		GlStateManager.enableTexture2D();
 	}

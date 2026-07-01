@@ -74,7 +74,7 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
 		float f3 = 0.010416667F;
 		GlStateManager.translate(0F, 0.33333334F, 0.046666667F);
 		GlStateManager.scale(0.010416667F, -0.010416667F, 0.010416667F);
-		GlStateManager.glNormal3f(0F, 0F, -0.010416667F);
+		GlStateManager.normal3f(0F, 0F, -0.010416667F);
 		GlStateManager.depthMask(false);
 		int i = 0;
 

@@ -157,8 +157,8 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		renderManager = mcIn.getRenderManager();
 		renderEngine = mcIn.getTextureManager();
 		renderEngine.bindTexture(FORCEFIELD_TEXTURES);
-		GlStateManager.glTexParameteri(3553, 10242, 10497);
-		GlStateManager.glTexParameteri(3553, 10243, 10497);
+		GlStateManager.texParameteri(3553, 10242, 10497);
+		GlStateManager.texParameteri(3553, 10243, 10497);
 		GlStateManager.bindTexture(0);
 		updateDestroyBlockIcons();
 		vboEnabled = OpenGlHelper.useVbo();
@@ -307,7 +307,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 
 		if (isRenderEntityOutlines()) {
 			GlStateManager.enableBlend();
-			GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ZERO, GlStateManager.DestFactor.ONE);
+			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ZERO, GlStateManager.DestFactor.ONE);
 			entityOutlineFramebuffer.framebufferRenderExt(mc.getWindow().getWidth(), mc.getWindow().getHeight(), false);
 			GlStateManager.disableBlend();
 		}
@@ -340,10 +340,10 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			sky2VBO.bufferData(bufferbuilder.getByteBuffer());
 		} else {
 			glSkyList2 = GLAllocation.generateDisplayLists(1);
-			GlStateManager.glNewList(glSkyList2, 4864);
+			GlStateManager.newList(glSkyList2, 4864);
 			renderSky(bufferbuilder, -16F, true);
 			tessellator.draw();
-			GlStateManager.glEndList();
+			GlStateManager.endList();
 		}
 	}
 
@@ -369,10 +369,10 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			skyVBO.bufferData(bufferbuilder.getByteBuffer());
 		} else {
 			glSkyList = GLAllocation.generateDisplayLists(1);
-			GlStateManager.glNewList(glSkyList, 4864);
+			GlStateManager.newList(glSkyList, 4864);
 			renderSky(bufferbuilder, 16F, false);
 			tessellator.draw();
-			GlStateManager.glEndList();
+			GlStateManager.endList();
 		}
 	}
 
@@ -423,10 +423,10 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		} else {
 			starGLCallList = GLAllocation.generateDisplayLists(1);
 			GlStateManager.pushMatrix();
-			GlStateManager.glNewList(starGLCallList, 4864);
+			GlStateManager.newList(starGLCallList, 4864);
 			renderStars(bufferbuilder);
 			tessellator.draw();
-			GlStateManager.glEndList();
+			GlStateManager.endList();
 			GlStateManager.popMatrix();
 		}
 	}
@@ -1040,13 +1040,13 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		mc.entityRenderer.enableLightmap();
 
 		if (OpenGlHelper.useVbo()) {
-			GlStateManager.glEnableClientState(32884);
+			GlStateManager.enableClientState(32884);
 			OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
-			GlStateManager.glEnableClientState(32888);
+			GlStateManager.enableClientState(32888);
 			OpenGlHelper.setClientActiveTexture(OpenGlHelper.lightmapTexUnit);
-			GlStateManager.glEnableClientState(32888);
+			GlStateManager.enableClientState(32888);
 			OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
-			GlStateManager.glEnableClientState(32886);
+			GlStateManager.enableClientState(32886);
 		}
 
 		renderContainer.renderChunkLayer(blockLayerIn);
@@ -1058,17 +1058,17 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 
 				switch (vertexformatelement$enumusage) {
 					case POSITION:
-						GlStateManager.glDisableClientState(32884);
+						GlStateManager.disableClientState(32884);
 						break;
 
 					case UV:
 						OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit + k1);
-						GlStateManager.glDisableClientState(32888);
+						GlStateManager.disableClientState(32888);
 						OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
 						break;
 
 					case COLOR:
-						GlStateManager.glDisableClientState(32886);
+						GlStateManager.disableClientState(32886);
 						GlStateManager.resetColor();
 				}
 			}
@@ -1116,7 +1116,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		GlStateManager.disableFog();
 		GlStateManager.disableAlpha();
 		GlStateManager.enableBlend();
-		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.depthMask(false);
 		renderEngine.bindTexture(END_SKY_TEXTURES);
@@ -1182,11 +1182,11 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 
 			if (vboEnabled) {
 				skyVBO.bindBuffer();
-				GlStateManager.glEnableClientState(32884);
-				GlStateManager.glVertexPointer(3, 5126, 12, 0);
+				GlStateManager.enableClientState(32884);
+				GlStateManager.vertexPointer(3, 5126, 12, 0);
 				skyVBO.drawArrays(7);
 				skyVBO.unbindBuffer();
-				GlStateManager.glDisableClientState(32884);
+				GlStateManager.disableClientState(32884);
 			} else {
 				GlStateManager.callList(glSkyList);
 			}
@@ -1194,7 +1194,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			GlStateManager.disableFog();
 			GlStateManager.disableAlpha();
 			GlStateManager.enableBlend();
-			GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 			RenderHelper.disableStandardItemLighting();
 			float[] afloat = world.provider.calcSunriseSunsetColors(world.getCelestialAngle(partialTicks), partialTicks);
 
@@ -1228,7 +1228,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			}
 
 			GlStateManager.enableTexture2D();
-			GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 			GlStateManager.pushMatrix();
 			float f16 = 1F - world.getRainStrength(partialTicks);
 			GlStateManager.color(1F, 1F, 1F, f16);
@@ -1265,11 +1265,11 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 
 				if (vboEnabled) {
 					starVBO.bindBuffer();
-					GlStateManager.glEnableClientState(32884);
-					GlStateManager.glVertexPointer(3, 5126, 12, 0);
+					GlStateManager.enableClientState(32884);
+					GlStateManager.vertexPointer(3, 5126, 12, 0);
 					starVBO.drawArrays(7);
 					starVBO.unbindBuffer();
-					GlStateManager.glDisableClientState(32884);
+					GlStateManager.disableClientState(32884);
 				} else {
 					GlStateManager.callList(starGLCallList);
 				}
@@ -1290,11 +1290,11 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 
 				if (vboEnabled) {
 					sky2VBO.bindBuffer();
-					GlStateManager.glEnableClientState(32884);
-					GlStateManager.glVertexPointer(3, 5126, 12, 0);
+					GlStateManager.enableClientState(32884);
+					GlStateManager.vertexPointer(3, 5126, 12, 0);
 					sky2VBO.drawArrays(7);
 					sky2VBO.unbindBuffer();
-					GlStateManager.glDisableClientState(32884);
+					GlStateManager.disableClientState(32884);
 				} else {
 					GlStateManager.callList(glSkyList2);
 				}
@@ -1355,7 +1355,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 				BufferBuilder bufferbuilder = tessellator.getBuffer();
 				renderEngine.bindTexture(CLOUDS_TEXTURES);
 				GlStateManager.enableBlend();
-				GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+				GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 				Vec3d vec3d = world.getCloudColour(partialTicks);
 				float f = (float) vec3d.x();
 				float f1 = (float) vec3d.y();
@@ -1417,7 +1417,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		d5 = d5 - (double) (l1 * 2048);
 		renderEngine.bindTexture(CLOUDS_TEXTURES);
 		GlStateManager.enableBlend();
-		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		Vec3d vec3d = world.getCloudColour(partialTicks);
 		float f3 = (float) vec3d.x();
 		float f4 = (float) vec3d.y();
@@ -1565,7 +1565,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			double d6 = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * (double) partialTicks;
 			double d7 = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * (double) partialTicks;
 			GlStateManager.enableBlend();
-			GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 			renderEngine.bindTexture(FORCEFIELD_TEXTURES);
 			GlStateManager.depthMask(false);
 			GlStateManager.pushMatrix();
@@ -1662,7 +1662,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 
 	private void preRenderDamagedBlocks() {
 
-		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.DST_COLOR, GlStateManager.DestFactor.SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		GlStateManager.blendFunc(GlStateManager.SourceFactor.DST_COLOR, GlStateManager.DestFactor.SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		GlStateManager.enableBlend();
 		GlStateManager.color(1F, 1F, 1F, 0.5F);
 		GlStateManager.doPolygonOffset(-3F, -3F);
@@ -1733,8 +1733,8 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 
 		if (execute == 0 && movingObjectPositionIn.typeOfHit == RayTraceResult.Type.BLOCK) {
 			GlStateManager.enableBlend();
-			GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-			GlStateManager.glLineWidth(2F);
+			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+			GlStateManager.lineWidth(2F);
 			GlStateManager.disableTexture2D();
 			GlStateManager.depthMask(false);
 			BlockPos blockpos = movingObjectPositionIn.getBlockPos();

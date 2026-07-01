@@ -292,8 +292,8 @@ public class Minecraft implements IThreadListener {
 	
 	public static int getGLMaximumTextureSize() {
 		for (int i = 16384; i > 0; i >>= 1) {
-			GlStateManager.glTexImage2D(32868, 0, 6408, i, i, 0, 6408, 5121, null);
-			int j = GlStateManager.glGetTexLevelParameteri(32868, 0, 4096);
+			GlStateManager.texImage2D(32868, 0, 6408, i, i, 0, 6408, 5121, null);
+			int j = GlStateManager.getTexLevelParameteri(32868, 0, 4096);
 			
 			if (j != 0) return i;
 		}
@@ -796,7 +796,7 @@ public class Minecraft implements IThreadListener {
 	 * Checks for an OpenGL error. If there is one, prints the error ID and error string.
 	 */
 	private void checkGLError(String message) {
-		int i = GlStateManager.glGetError();
+		int i = GlStateManager.getError();
 		
 		if (i != 0) {
 			String s = Projection.getErrorString(i);
@@ -1019,7 +1019,7 @@ public class Minecraft implements IThreadListener {
 			GlStateManager.matrixMode(5888);
 			GlStateManager.loadIdentity();
 			GlStateManager.translate(0F, 0F, -2000F);
-			GlStateManager.glLineWidth(1F);
+			GlStateManager.lineWidth(1F);
 			GlStateManager.disableTexture2D();
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferbuilder = tessellator.getBuffer();
@@ -2014,9 +2014,9 @@ public class Minecraft implements IThreadListener {
 		report.getCategory().addDetail("Launched Version", () -> version);
 		report.getCategory().addDetail("LWJGL", Version::getVersion);
 		report.getCategory().addDetail("OpenGL",
-		                                 () -> GlStateManager.glGetString(7937) +
-				                                 " GL version " + GlStateManager.glGetString(7938) +
-				                                 ", " + GlStateManager.glGetString(7936)
+		                                 () -> GlStateManager.getString(7937) +
+				                                 " GL version " + GlStateManager.getString(7938) +
+				                                 ", " + GlStateManager.getString(7936)
 		);
 		report.getCategory().addDetail("GL Caps", OpenGlHelper::getLogText);
 		report.getCategory().addDetail("Using VBOs", () -> gameSettings.useVbo ? "Yes" : "No");

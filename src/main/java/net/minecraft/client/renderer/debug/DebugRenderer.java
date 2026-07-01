@@ -51,7 +51,7 @@ public class DebugRenderer {
 			double d2 = entityplayer.lastTickPosZ + (entityplayer.posZ - entityplayer.lastTickPosZ) * (double) partialTicks;
 			GlStateManager.pushMatrix();
 			GlStateManager.translate((float) (x - d0), (float) (y - d1) + 0.07F, (float) (z - d2));
-			GlStateManager.glNormal3f(0F, 1F, 0F);
+			GlStateManager.normal3f(0F, 1F, 0F);
 			GlStateManager.scale(0.02F, -0.02F, 0.02F);
 			RenderManager rendermanager = minecraft.getRenderManager();
 			GlStateManager.rotate(-rendermanager.playerViewY, 0F, 1F, 0F);

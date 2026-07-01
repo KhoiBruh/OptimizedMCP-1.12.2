@@ -28,11 +28,11 @@ public class VboRenderList extends ChunkRenderContainer {
 
 	private void setupArrayPointers() {
 
-		GlStateManager.glVertexPointer(3, 5126, 28, 0);
-		GlStateManager.glColorPointer(4, 5121, 28, 12);
-		GlStateManager.glTexCoordPointer(2, 5126, 28, 16);
+		GlStateManager.vertexPointer(3, 5126, 28, 0);
+		GlStateManager.colorPointer(4, 5121, 28, 12);
+		GlStateManager.texCoordPointer(2, 5126, 28, 16);
 		OpenGlHelper.setClientActiveTexture(OpenGlHelper.lightmapTexUnit);
-		GlStateManager.glTexCoordPointer(2, 5122, 28, 24);
+		GlStateManager.texCoordPointer(2, 5122, 28, 24);
 		OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
 	}
 

@@ -160,11 +160,11 @@ public class ShaderGroup {
 							boolean lvt_23_1_ = JsonUtils.getBoolean(jsonobject1, "bilinear");
 
 							if (lvt_23_1_) {
-								GlStateManager.glTexParameteri(3553, 10241, 9729);
-								GlStateManager.glTexParameteri(3553, 10240, 9729);
+								GlStateManager.texParameteri(3553, 10241, 9729);
+								GlStateManager.texParameteri(3553, 10240, 9729);
 							} else {
-								GlStateManager.glTexParameteri(3553, 10241, 9728);
-								GlStateManager.glTexParameteri(3553, 10240, 9728);
+								GlStateManager.texParameteri(3553, 10241, 9728);
+								GlStateManager.texParameteri(3553, 10240, 9728);
 							}
 
 							shader.addAuxFramebuffer(s4, lvt_20_2_.getGlTextureId(), lvt_21_1_, lvt_22_1_);

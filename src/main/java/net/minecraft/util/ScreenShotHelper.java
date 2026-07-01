@@ -86,15 +86,15 @@ public class ScreenShotHelper {
 			pixelValues = new int[i];
 		}
 
-		GlStateManager.glPixelStorei(3333, 1);
-		GlStateManager.glPixelStorei(3317, 1);
+		GlStateManager.pixelStorei(3333, 1);
+		GlStateManager.pixelStorei(3317, 1);
 		pixelBuffer.clear();
 
 		if (OpenGlHelper.isFramebufferEnabled()) {
 			GlStateManager.bindTexture(framebufferIn.framebufferTexture);
-			GlStateManager.glGetTexImage(3553, 0, 32993, 33639, pixelBuffer);
+			GlStateManager.getTexImage(3553, 0, 32993, 33639, pixelBuffer);
 		} else {
-			GlStateManager.glReadPixels(0, 0, width, height, 32993, 33639, pixelBuffer);
+			GlStateManager.readPixels(0, 0, width, height, 32993, 33639, pixelBuffer);
 		}
 
 		pixelBuffer.get(pixelValues);

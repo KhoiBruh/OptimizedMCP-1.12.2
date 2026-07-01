@@ -38,7 +38,7 @@ public class GuiSubtitleOverlay extends Gui implements ISoundEventListener {
 		if (enabled && !subtitles.isEmpty()) {
 			GlStateManager.pushMatrix();
 			GlStateManager.enableBlend();
-			GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 			Vec3d vec3d = new Vec3d(client.player.posX, client.player.posY + (double) client.player.getEyeHeight(), client.player.posZ);
 			Vec3d vec3d1 = (new Vec3d(0D, 0D, -1D)).rotatePitch(-client.player.rotationPitch * 0.017453292F).rotateYaw(-client.player.rotationYaw * 0.017453292F);
 			Vec3d vec3d2 = (new Vec3d(0D, 1D, 0D)).rotatePitch(-client.player.rotationPitch * 0.017453292F).rotateYaw(-client.player.rotationYaw * 0.017453292F);

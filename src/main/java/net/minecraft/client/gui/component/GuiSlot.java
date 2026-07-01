@@ -251,7 +251,7 @@ public abstract class GuiSlot {
 				drawSelectionBox(k, l, mouseXIn, mouseYIn, partialTicks);
 				GlStateManager.disableDepth();
 				GlStateManager.enableBlend();
-				GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ZERO, GlStateManager.DestFactor.ONE);
+				GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ZERO, GlStateManager.DestFactor.ONE);
 				GlStateManager.disableAlpha();
 				GlStateManager.shadeModel(7425);
 				GlStateManager.disableTexture2D();

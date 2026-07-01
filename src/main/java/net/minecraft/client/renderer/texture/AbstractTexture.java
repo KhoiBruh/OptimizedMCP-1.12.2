@@ -25,8 +25,8 @@ public abstract class AbstractTexture implements ITextureObject {
 			j = 9728;
 		}
 
-		GlStateManager.glTexParameteri(3553, 10241, i);
-		GlStateManager.glTexParameteri(3553, 10240, j);
+		GlStateManager.texParameteri(3553, 10241, i);
+		GlStateManager.texParameteri(3553, 10240, j);
 	}
 
 	public void setBlurMipmap(boolean blurIn, boolean mipmapIn) {

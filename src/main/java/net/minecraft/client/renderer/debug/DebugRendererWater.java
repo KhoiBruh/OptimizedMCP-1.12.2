@@ -29,10 +29,10 @@ public class DebugRendererWater implements DebugRenderer.IDebugRenderer {
 		BlockPos blockpos = minecraft.player.getPosition();
 		World world = minecraft.player.world;
 		GlStateManager.enableBlend();
-		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		GlStateManager.color(0F, 1F, 0F, 0.75F);
 		GlStateManager.disableTexture2D();
-		GlStateManager.glLineWidth(6F);
+		GlStateManager.lineWidth(6F);
 
 		for (BlockPos blockpos1 : BlockPos.getAllInBox(blockpos.add(-10, -10, -10), blockpos.add(10, 10, 10))) {
 			IBlockState iblockstate = world.getBlockState(blockpos1);

@@ -88,7 +88,7 @@ public class RenderEntityItem extends Render<EntityItem> {
 		GlStateManager.alphaFunc(516, 0.1F);
 		GlStateManager.enableBlend();
 		RenderHelper.enableStandardItemLighting();
-		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		GlStateManager.pushMatrix();
 		IBakedModel ibakedmodel = itemRenderer.getItemModelWithOverrides(itemstack, entity.world, null);
 		int j = transformModelCount(entity, x, y, z, partialTicks, ibakedmodel);

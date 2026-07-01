@@ -290,16 +290,16 @@ public class FontRenderer implements IResourceManagerReloadListener {
 		textureManager.bindTexture(locationFontTexture);
 		int l = charWidth[ch];
 		float f = (float) l - 0.01F;
-		GlStateManager.glBegin(5);
-		GlStateManager.glTexCoord2f((float) i / 128F, (float) j / 128F);
-		GlStateManager.glVertex3f(posX + (float) k, posY, 0F);
-		GlStateManager.glTexCoord2f((float) i / 128F, ((float) j + 7.99F) / 128F);
-		GlStateManager.glVertex3f(posX - (float) k, posY + 7.99F, 0F);
-		GlStateManager.glTexCoord2f(((float) i + f - 1F) / 128F, (float) j / 128F);
-		GlStateManager.glVertex3f(posX + f - 1F + (float) k, posY, 0F);
-		GlStateManager.glTexCoord2f(((float) i + f - 1F) / 128F, ((float) j + 7.99F) / 128F);
-		GlStateManager.glVertex3f(posX + f - 1F - (float) k, posY + 7.99F, 0F);
-		GlStateManager.glEnd();
+		GlStateManager.begin(5);
+		GlStateManager.texCoord2f((float) i / 128F, (float) j / 128F);
+		GlStateManager.vertex3f(posX + (float) k, posY, 0F);
+		GlStateManager.texCoord2f((float) i / 128F, ((float) j + 7.99F) / 128F);
+		GlStateManager.vertex3f(posX - (float) k, posY + 7.99F, 0F);
+		GlStateManager.texCoord2f(((float) i + f - 1F) / 128F, (float) j / 128F);
+		GlStateManager.vertex3f(posX + f - 1F + (float) k, posY, 0F);
+		GlStateManager.texCoord2f(((float) i + f - 1F) / 128F, ((float) j + 7.99F) / 128F);
+		GlStateManager.vertex3f(posX + f - 1F - (float) k, posY + 7.99F, 0F);
+		GlStateManager.end();
 		return (float) l;
 	}
 
@@ -340,16 +340,16 @@ public class FontRenderer implements IResourceManagerReloadListener {
 			float f3 = (float) ((ch & 255) / 16 * 16);
 			float f4 = f1 - f - 0.02F;
 			float f5 = italic ? 1F : 0F;
-			GlStateManager.glBegin(5);
-			GlStateManager.glTexCoord2f(f2 / 256F, f3 / 256F);
-			GlStateManager.glVertex3f(posX + f5, posY, 0F);
-			GlStateManager.glTexCoord2f(f2 / 256F, (f3 + 15.98F) / 256F);
-			GlStateManager.glVertex3f(posX - f5, posY + 7.99F, 0F);
-			GlStateManager.glTexCoord2f((f2 + f4) / 256F, f3 / 256F);
-			GlStateManager.glVertex3f(posX + f4 / 2F + f5, posY, 0F);
-			GlStateManager.glTexCoord2f((f2 + f4) / 256F, (f3 + 15.98F) / 256F);
-			GlStateManager.glVertex3f(posX + f4 / 2F - f5, posY + 7.99F, 0F);
-			GlStateManager.glEnd();
+			GlStateManager.begin(5);
+			GlStateManager.texCoord2f(f2 / 256F, f3 / 256F);
+			GlStateManager.vertex3f(posX + f5, posY, 0F);
+			GlStateManager.texCoord2f(f2 / 256F, (f3 + 15.98F) / 256F);
+			GlStateManager.vertex3f(posX - f5, posY + 7.99F, 0F);
+			GlStateManager.texCoord2f((f2 + f4) / 256F, f3 / 256F);
+			GlStateManager.vertex3f(posX + f4 / 2F + f5, posY, 0F);
+			GlStateManager.texCoord2f((f2 + f4) / 256F, (f3 + 15.98F) / 256F);
+			GlStateManager.vertex3f(posX + f4 / 2F - f5, posY + 7.99F, 0F);
+			GlStateManager.end();
 			return (f1 - f) / 2F + 1F;
 		}
 	}

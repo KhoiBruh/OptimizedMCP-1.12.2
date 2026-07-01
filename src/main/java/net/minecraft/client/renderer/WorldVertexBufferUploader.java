@@ -25,29 +25,29 @@ public class WorldVertexBufferUploader {
 
 				switch (vertexformatelement$enumusage) {
 					case POSITION:
-						GlStateManager.glVertexPointer(vertexformatelement.getElementCount(), k, i, bytebuffer);
-						GlStateManager.glEnableClientState(32884);
+						GlStateManager.vertexPointer(vertexformatelement.getElementCount(), k, i, bytebuffer);
+						GlStateManager.enableClientState(32884);
 						break;
 
 					case UV:
 						OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit + l);
-						GlStateManager.glTexCoordPointer(vertexformatelement.getElementCount(), k, i, bytebuffer);
-						GlStateManager.glEnableClientState(32888);
+						GlStateManager.texCoordPointer(vertexformatelement.getElementCount(), k, i, bytebuffer);
+						GlStateManager.enableClientState(32888);
 						OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
 						break;
 
 					case COLOR:
-						GlStateManager.glColorPointer(vertexformatelement.getElementCount(), k, i, bytebuffer);
-						GlStateManager.glEnableClientState(32886);
+						GlStateManager.colorPointer(vertexformatelement.getElementCount(), k, i, bytebuffer);
+						GlStateManager.enableClientState(32886);
 						break;
 
 					case NORMAL:
-						GlStateManager.glNormalPointer(k, i, bytebuffer);
-						GlStateManager.glEnableClientState(32885);
+						GlStateManager.normalPointer(k, i, bytebuffer);
+						GlStateManager.enableClientState(32885);
 				}
 			}
 
-			GlStateManager.glDrawArrays(bufferBuilderIn.getDrawMode(), 0, bufferBuilderIn.getVertexCount());
+			GlStateManager.drawArrays(bufferBuilderIn.getDrawMode(), 0, bufferBuilderIn.getVertexCount());
 			int i1 = 0;
 
 			for (int j1 = list.size(); i1 < j1; ++i1) {
@@ -57,22 +57,22 @@ public class WorldVertexBufferUploader {
 
 				switch (vertexformatelement$enumusage1) {
 					case POSITION:
-						GlStateManager.glDisableClientState(32884);
+						GlStateManager.disableClientState(32884);
 						break;
 
 					case UV:
 						OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit + k1);
-						GlStateManager.glDisableClientState(32888);
+						GlStateManager.disableClientState(32888);
 						OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
 						break;
 
 					case COLOR:
-						GlStateManager.glDisableClientState(32886);
+						GlStateManager.disableClientState(32886);
 						GlStateManager.resetColor();
 						break;
 
 					case NORMAL:
-						GlStateManager.glDisableClientState(32885);
+						GlStateManager.disableClientState(32885);
 				}
 			}
 		}

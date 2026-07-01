@@ -168,7 +168,7 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 				}
 
 				GlStateManager.enableBlend();
-				GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+				GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 				mc.fontRenderer.drawStringWithShadow(currentlyDisplayedText, (float) ((k - mc.fontRenderer.getStringWidth(currentlyDisplayedText)) / 2), (float) (l / 2 - 4 - 16), 16777215);
 				mc.fontRenderer.drawStringWithShadow(message, (float) ((k - mc.fontRenderer.getStringWidth(message)) / 2), (float) (l / 2 - 4 + 8), 16777215);
 				framebuffer.unbindFramebuffer();

@@ -179,15 +179,15 @@ public class GlStateManager {
 		}
 	}
 
-	public static void glLight(int light, int pname, FloatBuffer params) {
+	public static void light(int light, int pname, FloatBuffer params) {
 		GL11.glLightfv(light, pname, params);
 	}
 
-	public static void glLightModel(int pname, FloatBuffer params) {
+	public static void lightModel(int pname, FloatBuffer params) {
 		GL11.glLightModelfv(pname, params);
 	}
 
-	public static void glNormal3f(float nx, float ny, float nz) {
+	public static void normal3f(float nx, float ny, float nz) {
 		GL11.glNormal3f(nx, ny, nz);
 	}
 
@@ -245,11 +245,11 @@ public class GlStateManager {
 		}
 	}
 
-	public static void tryBlendFuncSeparate(GlStateManager.SourceFactor srcFactor, GlStateManager.DestFactor dstFactor, GlStateManager.SourceFactor srcFactorAlpha, GlStateManager.DestFactor dstFactorAlpha) {
-		tryBlendFuncSeparate(srcFactor.factor, dstFactor.factor, srcFactorAlpha.factor, dstFactorAlpha.factor);
+	public static void blendFunc(GlStateManager.SourceFactor srcFactor, GlStateManager.DestFactor dstFactor, GlStateManager.SourceFactor srcFactorAlpha, GlStateManager.DestFactor dstFactorAlpha) {
+		blendFunc(srcFactor.factor, dstFactor.factor, srcFactorAlpha.factor, dstFactorAlpha.factor);
 	}
 
-	public static void tryBlendFuncSeparate(int srcFactor, int dstFactor, int srcFactorAlpha, int dstFactorAlpha) {
+	public static void blendFunc(int srcFactor, int dstFactor, int srcFactorAlpha, int dstFactorAlpha) {
 		if (srcFactor != blendSrcFactor || dstFactor != blendDstFactor || srcFactorAlpha != blendSrcFactorAlpha || dstFactorAlpha != blendDstFactorAlpha) {
 			blendSrcFactor = srcFactor;
 			blendDstFactor = dstFactor;
@@ -259,8 +259,8 @@ public class GlStateManager {
 		}
 	}
 
-	public static void glBlendEquation(int blendEquation) {
-		GL14.glBlendEquation(blendEquation);
+	public static void blendEquation(int mode) {
+		GL14.glBlendEquation(mode);
 	}
 
 	public static void enableOutlineMode(int color) {
@@ -268,24 +268,24 @@ public class GlStateManager {
 		BUF_FLOAT_4.put(1, (float) (color >> 8 & 255) / 255F);
 		BUF_FLOAT_4.put(2, (float) (color & 255) / 255F);
 		BUF_FLOAT_4.put(3, (float) (color >> 24 & 255) / 255F);
-		glTexEnv(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_COLOR, BUF_FLOAT_4);
-		glTexEnvi(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, GL13.GL_COMBINE);
-		glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_COMBINE_RGB, GL11.GL_REPLACE);
-		glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_SOURCE0_RGB, GL13.GL_CONSTANT);
-		glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_OPERAND0_RGB, GL11.GL_SRC_COLOR);
-		glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_COMBINE_ALPHA, GL11.GL_REPLACE);
-		glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_SOURCE0_ALPHA, GL11.GL_TEXTURE);
-		glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_OPERAND0_ALPHA, GL11.GL_SRC_ALPHA);
+		texEnv(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_COLOR, BUF_FLOAT_4);
+		texEnv(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, GL13.GL_COMBINE);
+		texEnv(GL11.GL_TEXTURE_ENV, GL13.GL_COMBINE_RGB, GL11.GL_REPLACE);
+		texEnv(GL11.GL_TEXTURE_ENV, GL13.GL_SOURCE0_RGB, GL13.GL_CONSTANT);
+		texEnv(GL11.GL_TEXTURE_ENV, GL13.GL_OPERAND0_RGB, GL11.GL_SRC_COLOR);
+		texEnv(GL11.GL_TEXTURE_ENV, GL13.GL_COMBINE_ALPHA, GL11.GL_REPLACE);
+		texEnv(GL11.GL_TEXTURE_ENV, GL13.GL_SOURCE0_ALPHA, GL11.GL_TEXTURE);
+		texEnv(GL11.GL_TEXTURE_ENV, GL13.GL_OPERAND0_ALPHA, GL11.GL_SRC_ALPHA);
 	}
 
 	public static void disableOutlineMode() {
-		glTexEnvi(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, GL11.GL_MODULATE);
-		glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_COMBINE_RGB, GL11.GL_MODULATE);
-		glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_COMBINE_ALPHA, GL11.GL_MODULATE);
-		glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_SOURCE0_RGB, GL11.GL_TEXTURE);
-		glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_SOURCE1_RGB, GL13.GL_PREVIOUS);
-		glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_OPERAND0_RGB, GL11.GL_SRC_COLOR);
-		glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_OPERAND0_ALPHA, GL11.GL_SRC_ALPHA);
+		texEnv(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, GL11.GL_MODULATE);
+		texEnv(GL11.GL_TEXTURE_ENV, GL13.GL_COMBINE_RGB, GL11.GL_MODULATE);
+		texEnv(GL11.GL_TEXTURE_ENV, GL13.GL_COMBINE_ALPHA, GL11.GL_MODULATE);
+		texEnv(GL11.GL_TEXTURE_ENV, GL13.GL_SOURCE0_RGB, GL11.GL_TEXTURE);
+		texEnv(GL11.GL_TEXTURE_ENV, GL13.GL_SOURCE1_RGB, GL13.GL_PREVIOUS);
+		texEnv(GL11.GL_TEXTURE_ENV, GL13.GL_OPERAND0_RGB, GL11.GL_SRC_COLOR);
+		texEnv(GL11.GL_TEXTURE_ENV, GL13.GL_OPERAND0_ALPHA, GL11.GL_SRC_ALPHA);
 	}
 
 	public static void enableFog() {
@@ -302,8 +302,8 @@ public class GlStateManager {
 		}
 	}
 
-	public static void setFog(GlStateManager.FogMode p_fogMode) {
-		setFog(p_fogMode.capabilityId);
+	public static void setFog(GlStateManager.FogMode mode) {
+		setFog(mode.capabilityId);
 	}
 
 	private static void setFog(int param) {
@@ -334,11 +334,11 @@ public class GlStateManager {
 		}
 	}
 
-	public static void glFog(int pname, FloatBuffer param) {
+	public static void fog(int pname, FloatBuffer param) {
 		GL11.glFogfv(pname, param);
 	}
 
-	public static void glFogi(int pname, int param) {
+	public static void fog(int pname, int param) {
 		GL11.glFogi(pname, param);
 	}
 
@@ -356,8 +356,8 @@ public class GlStateManager {
 		}
 	}
 
-	public static void cullFace(GlStateManager.CullFace p_cullFace) {
-		cullFace(p_cullFace.mode);
+	public static void cullFace(GlStateManager.CullFace cullFace) {
+		cullFace(cullFace.mode);
 	}
 
 	private static void cullFace(int mode) {
@@ -532,24 +532,24 @@ public class GlStateManager {
 		}
 	}
 
-	public static void glTexEnv(int target, int parameterName, FloatBuffer parameters) {
-		GL11.glTexEnvfv(target, parameterName, parameters);
+	public static void texEnv(int target, int name, FloatBuffer params) {
+		GL11.glTexEnvfv(target, name, params);
 	}
 
-	public static void glTexEnvi(int target, int parameterName, int parameter) {
-		GL11.glTexEnvi(target, parameterName, parameter);
+	public static void texEnv(int target, int name, int param) {
+		GL11.glTexEnvi(target, name, param);
 	}
 
-	public static void glTexParameterf(int target, int parameterName, float parameter) {
-		GL11.glTexParameterf(target, parameterName, parameter);
+	public static void texParameterf(int target, int name, float param) {
+		GL11.glTexParameterf(target, name, param);
 	}
 
-	public static void glTexParameteri(int target, int parameterName, int parameter) {
-		GL11.glTexParameteri(target, parameterName, parameter);
+	public static void texParameteri(int target, int name, int param) {
+		GL11.glTexParameteri(target, name, param);
 	}
 
-	public static int glGetTexLevelParameteri(int target, int level, int parameterName) {
-		return GL11.glGetTexLevelParameteri(target, level, parameterName);
+	public static int getTexLevelParameteri(int target, int level, int param) {
+		return GL11.glGetTexLevelParameteri(target, level, param);
 	}
 
 	public static int generateTexture() {
@@ -572,19 +572,19 @@ public class GlStateManager {
 		}
 	}
 
-	public static void glTexImage2D(int target, int level, int internalFormat, int width, int height, int border, int format, int type, IntBuffer pixels) {
+	public static void texImage2D(int target, int level, int internalFormat, int width, int height, int border, int format, int type, IntBuffer pixels) {
 		GL11.glTexImage2D(target, level, internalFormat, width, height, border, format, type, pixels);
 	}
 
-	public static void glTexSubImage2D(int target, int level, int xOffset, int yOffset, int width, int height, int format, int type, IntBuffer pixels) {
+	public static void texSubImage2D(int target, int level, int xOffset, int yOffset, int width, int height, int format, int type, IntBuffer pixels) {
 		GL11.glTexSubImage2D(target, level, xOffset, yOffset, width, height, format, type, pixels);
 	}
 
-	public static void glCopyTexSubImage2D(int target, int level, int xOffset, int yOffset, int x, int y, int width, int height) {
+	public static void copyTexSubImage2D(int target, int level, int xOffset, int yOffset, int x, int y, int width, int height) {
 		GL11.glCopyTexSubImage2D(target, level, xOffset, yOffset, x, y, width, height);
 	}
 
-	public static void glGetTexImage(int target, int level, int format, int type, IntBuffer pixels) {
+	public static void getTexImage(int target, int level, int format, int type, IntBuffer pixels) {
 		GL11.glGetTexImage(target, level, format, type, pixels);
 	}
 
@@ -756,11 +756,11 @@ public class GlStateManager {
 		color(red, green, blue, 1F);
 	}
 
-	public static void glTexCoord2f(float sCoord, float tCoord) {
+	public static void texCoord2f(float sCoord, float tCoord) {
 		GL11.glTexCoord2f(sCoord, tCoord);
 	}
 
-	public static void glVertex3f(float x, float y, float z) {
+	public static void vertex3f(float x, float y, float z) {
 		GL11.glVertex3f(x, y, z);
 	}
 
@@ -771,55 +771,55 @@ public class GlStateManager {
 		colorStateAlpha = -1F;
 	}
 
-	public static void glNormalPointer(int type, int stride, ByteBuffer buffer) {
+	public static void normalPointer(int type, int stride, ByteBuffer buffer) {
 		GL11.glNormalPointer(type, stride, buffer);
 	}
 
-	public static void glTexCoordPointer(int size, int type, int stride, int offset) {
+	public static void texCoordPointer(int size, int type, int stride, int offset) {
 		GL11.glTexCoordPointer(size, type, stride, offset);
 	}
 
-	public static void glTexCoordPointer(int size, int type, int stride, ByteBuffer buffer) {
+	public static void texCoordPointer(int size, int type, int stride, ByteBuffer buffer) {
 		GL11.glTexCoordPointer(size, type, stride, buffer);
 	}
 
-	public static void glVertexPointer(int size, int type, int stride, int offset) {
+	public static void vertexPointer(int size, int type, int stride, int offset) {
 		GL11.glVertexPointer(size, type, stride, offset);
 	}
 
-	public static void glVertexPointer(int size, int type, int stride, ByteBuffer buffer) {
+	public static void vertexPointer(int size, int type, int stride, ByteBuffer buffer) {
 		GL11.glVertexPointer(size, type, stride, buffer);
 	}
 
-	public static void glColorPointer(int size, int type, int stride, int offset) {
+	public static void colorPointer(int size, int type, int stride, int offset) {
 		GL11.glColorPointer(size, type, stride, offset);
 	}
 
-	public static void glColorPointer(int size, int type, int stride, ByteBuffer buffer) {
+	public static void colorPointer(int size, int type, int stride, ByteBuffer buffer) {
 		GL11.glColorPointer(size, type, stride, buffer);
 	}
 
-	public static void glDisableClientState(int cap) {
+	public static void disableClientState(int cap) {
 		GL11.glDisableClientState(cap);
 	}
 
-	public static void glEnableClientState(int cap) {
+	public static void enableClientState(int cap) {
 		GL11.glEnableClientState(cap);
 	}
 
-	public static void glBegin(int mode) {
+	public static void begin(int mode) {
 		GL11.glBegin(mode);
 	}
 
-	public static void glEnd() {
+	public static void end() {
 		GL11.glEnd();
 	}
 
-	public static void glDrawArrays(int mode, int first, int count) {
+	public static void drawArrays(int mode, int first, int count) {
 		GL11.glDrawArrays(mode, first, count);
 	}
 
-	public static void glLineWidth(float width) {
+	public static void lineWidth(float width) {
 		GL11.glLineWidth(width);
 	}
 
@@ -827,45 +827,45 @@ public class GlStateManager {
 		GL11.glCallList(list);
 	}
 
-	public static void glDeleteLists(int list, int range) {
+	public static void deleteLists(int list, int range) {
 		GL11.glDeleteLists(list, range);
 	}
 
-	public static void glNewList(int list, int mode) {
+	public static void newList(int list, int mode) {
 		GL11.glNewList(list, mode);
 	}
 
-	public static void glEndList() {
+	public static void endList() {
 		GL11.glEndList();
 	}
 
-	public static int glGenLists(int range) {
+	public static int genLists(int range) {
 		return GL11.glGenLists(range);
 	}
 
-	public static void glPixelStorei(int parameterName, int param) {
-		GL11.glPixelStorei(parameterName, param);
+	public static void pixelStorei(int name, int param) {
+		GL11.glPixelStorei(name, param);
 	}
 
-	public static void glReadPixels(int x, int y, int width, int height, int format, int type, IntBuffer pixels) {
+	public static void readPixels(int x, int y, int width, int height, int format, int type, IntBuffer pixels) {
 		GL11.glReadPixels(x, y, width, height, format, type, pixels);
 	}
 
-	public static int glGetError() {
+	public static int getError() {
 		return GL11.glGetError();
 	}
 
-	public static String glGetString(int name) {
+	public static String getString(int name) {
 		return GL11.glGetString(name);
 	}
 
-	public static void glGetInteger(int parameterName, IntBuffer parameters) {
-		parameters.clear();
-		GL11.glGetIntegerv(parameterName, parameters);
+	public static void getInteger(int name, IntBuffer params) {
+		params.clear();
+		GL11.glGetIntegerv(name, params);
 	}
 
-	public static int glGetInteger(int parameterName) {
-		return GL11.glGetInteger(parameterName);
+	public static int getInteger(int name) {
+		return GL11.glGetInteger(name);
 	}
 
 	public static void enableBlendProfile(GlStateManager.Profile profile) {
@@ -971,7 +971,7 @@ public class GlStateManager {
 				depthMask(true);
 				disableBlend();
 				blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-				tryBlendFuncSeparate(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+				blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 				GL14.glBlendEquation(GL14.GL_FUNC_ADD);
 				disableFog();
 				GL11.glFogi(GL11.GL_FOG_MODE, GL11.GL_EXP);
@@ -979,9 +979,7 @@ public class GlStateManager {
 				setFogStart(0F);
 				setFogEnd(1F);
 				GL11.glFogfv(GL11.GL_FOG_COLOR, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
-				if (GL.getCapabilities().GL_NV_fog_distance) {
-					GL11.glFogi(GL11.GL_FOG_MODE, 34140);
-				}
+				if (GL.getCapabilities().GL_NV_fog_distance) GL11.glFogi(GL11.GL_FOG_MODE, 34140);
 				doPolygonOffset(0F, 0F);
 				disableColorLogic();
 				colorLogicOp(GL11.GL_COPY);
@@ -1045,7 +1043,7 @@ public class GlStateManager {
 		PLAYER_SKIN {
 			public void apply() {
 				enableBlend();
-				tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
+				blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
 			}
 
 			public void clean() {

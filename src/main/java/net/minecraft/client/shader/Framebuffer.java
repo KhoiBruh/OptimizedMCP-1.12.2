@@ -95,7 +95,7 @@ public class Framebuffer {
 
 			setFramebufferFilter(9728);
 			GlStateManager.bindTexture(framebufferTexture);
-			GlStateManager.glTexImage2D(3553, 0, 32856, framebufferTextureWidth, framebufferTextureHeight, 0, 6408, 5121, null);
+			GlStateManager.texImage2D(3553, 0, 32856, framebufferTextureWidth, framebufferTextureHeight, 0, 6408, 5121, null);
 			OpenGlHelper.glBindFramebuffer(OpenGlHelper.GL_FRAMEBUFFER, framebufferObject);
 			OpenGlHelper.glFramebufferTexture2D(OpenGlHelper.GL_FRAMEBUFFER, OpenGlHelper.GL_COLOR_ATTACHMENT0, 3553, framebufferTexture, 0);
 
@@ -115,10 +115,10 @@ public class Framebuffer {
 		if (OpenGlHelper.isFramebufferEnabled()) {
 			framebufferFilter = framebufferFilterIn;
 			GlStateManager.bindTexture(framebufferTexture);
-			GlStateManager.glTexParameteri(3553, 10241, framebufferFilterIn);
-			GlStateManager.glTexParameteri(3553, 10240, framebufferFilterIn);
-			GlStateManager.glTexParameteri(3553, 10242, 10496);
-			GlStateManager.glTexParameteri(3553, 10243, 10496);
+			GlStateManager.texParameteri(3553, 10241, framebufferFilterIn);
+			GlStateManager.texParameteri(3553, 10240, framebufferFilterIn);
+			GlStateManager.texParameteri(3553, 10242, 10496);
+			GlStateManager.texParameteri(3553, 10243, 10496);
 			GlStateManager.bindTexture(0);
 		}
 	}

@@ -261,14 +261,14 @@ public class ModelRenderer {
 	private void compileDisplayList(float scale) {
 
 		displayList = GLAllocation.generateDisplayLists(1);
-		GlStateManager.glNewList(displayList, 4864);
+		GlStateManager.newList(displayList, 4864);
 		BufferBuilder bufferbuilder = Tessellator.getInstance().getBuffer();
 
 		for (ModelBox modelBox : cubeList) {
 			modelBox.render(bufferbuilder, scale);
 		}
 
-		GlStateManager.glEndList();
+		GlStateManager.endList();
 		compiled = true;
 	}
 

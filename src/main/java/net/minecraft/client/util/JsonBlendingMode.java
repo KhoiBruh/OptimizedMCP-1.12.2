@@ -160,10 +160,10 @@ public class JsonBlendingMode {
 				GlStateManager.enableBlend();
 			}
 
-			GlStateManager.glBlendEquation(blendFunction);
+			GlStateManager.blendEquation(blendFunction);
 
 			if (separateBlend) {
-				GlStateManager.tryBlendFuncSeparate(srcColorFactor, destColorFactor, srcAlphaFactor, destAlphaFactor);
+				GlStateManager.blendFunc(srcColorFactor, destColorFactor, srcAlphaFactor, destAlphaFactor);
 			} else {
 				GlStateManager.blendFunc(srcColorFactor, destColorFactor);
 			}

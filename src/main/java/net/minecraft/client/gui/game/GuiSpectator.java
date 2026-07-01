@@ -66,7 +66,7 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.enableBlend();
-		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		GlStateManager.color(1F, 1F, 1F, p_175258_2_);
 		mc.getTextureManager().bindTexture(WIDGETS);
 		drawTexturedModalRect((float) (p_175258_3_ - 91), p_175258_4_, 0, 0, 182, 22);
@@ -119,7 +119,7 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 				int k = mc.getWindow().getScaledHeight() - 35;
 				GlStateManager.pushMatrix();
 				GlStateManager.enableBlend();
-				GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+				GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 				mc.fontRenderer.drawStringWithShadow(s, (float) j, (float) k, 16777215 + (i << 24));
 				GlStateManager.disableBlend();
 				GlStateManager.popMatrix();

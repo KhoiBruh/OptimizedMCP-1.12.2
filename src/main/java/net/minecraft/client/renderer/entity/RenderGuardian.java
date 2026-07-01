@@ -64,15 +64,15 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferbuilder = tessellator.getBuffer();
 			bindTexture(GUARDIAN_BEAM_TEXTURE);
-			GlStateManager.glTexParameteri(3553, 10242, 10497);
-			GlStateManager.glTexParameteri(3553, 10243, 10497);
+			GlStateManager.texParameteri(3553, 10242, 10497);
+			GlStateManager.texParameteri(3553, 10243, 10497);
 			GlStateManager.disableLighting();
 			GlStateManager.disableCull();
 			GlStateManager.disableBlend();
 			GlStateManager.depthMask(true);
 			float f1 = 240F;
 			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240F, 240F);
-			GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 			float f2 = (float) entity.world.getTotalWorldTime() + partialTicks;
 			float f3 = f2 * 0.5F % 1F;
 			float f4 = entity.getEyeHeight();

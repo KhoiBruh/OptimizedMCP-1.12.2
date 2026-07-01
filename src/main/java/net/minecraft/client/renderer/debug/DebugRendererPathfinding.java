@@ -48,10 +48,10 @@ public class DebugRendererPathfinding implements DebugRenderer.IDebugRenderer {
 			zo = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double) partialTicks;
 			GlStateManager.pushMatrix();
 			GlStateManager.enableBlend();
-			GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 			GlStateManager.color(0F, 1F, 0F, 0.75F);
 			GlStateManager.disableTexture2D();
-			GlStateManager.glLineWidth(6F);
+			GlStateManager.lineWidth(6F);
 
 			for (Integer integer : pathMap.keySet()) {
 				Path path = pathMap.get(integer);

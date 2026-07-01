@@ -14,10 +14,10 @@ public class GLAllocation {
 	 */
 	public static synchronized int generateDisplayLists(int range) {
 
-		int i = GlStateManager.glGenLists(range);
+		int i = GlStateManager.genLists(range);
 
 		if (i == 0) {
-			int j = GlStateManager.glGetError();
+			int j = GlStateManager.getError();
 			String s = "No error code reported";
 
 			if (j != 0) {
@@ -32,7 +32,7 @@ public class GLAllocation {
 
 	public static synchronized void deleteDisplayLists(int list, int range) {
 
-		GlStateManager.glDeleteLists(list, range);
+		GlStateManager.deleteLists(list, range);
 	}
 
 	public static synchronized void deleteDisplayLists(int list) {
