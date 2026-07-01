@@ -6,7 +6,7 @@ import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.GuiSlot;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -180,7 +180,7 @@ public class CreateFlatWorldScreen extends Screen {
 		private void drawItem(int x, int z, ItemStack itemToDraw) {
 
 			drawItemBackground(x + 1, z + 1);
-			GlStateManager.enableRescaleNormal();
+			GLS.enableRescaleNormal();
 
 			if (!itemToDraw.isEmpty()) {
 				RenderHelper.enableGUIStandardItemLighting();
@@ -188,7 +188,7 @@ public class CreateFlatWorldScreen extends Screen {
 				RenderHelper.disableStandardItemLighting();
 			}
 
-			GlStateManager.disableRescaleNormal();
+			GLS.disableRescaleNormal();
 		}
 
 		private void drawItemBackground(int x, int y) {
@@ -198,7 +198,7 @@ public class CreateFlatWorldScreen extends Screen {
 
 		private void drawItemBackground(int x, int z, int textureX, int textureY) {
 
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GLS.color(1F, 1F, 1F, 1F);
 			mc.getTextureManager().bindTexture(Gui.STAT_ICONS);
 			float f = 0.0078125F;
 			float f1 = 0.0078125F;

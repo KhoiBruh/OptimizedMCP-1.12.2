@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.model.ModelLeashKnot;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.EntityLeashKnot;
 import net.minecraft.util.ResourceLocation;
 
@@ -20,28 +20,28 @@ public class RenderLeashKnot extends Render<EntityLeashKnot> {
 	 */
 	public void doRender(EntityLeashKnot entity, double x, double y, double z, float entityYaw, float partialTicks) {
 
-		GlStateManager.pushMatrix();
-		GlStateManager.disableCull();
-		GlStateManager.translate((float) x, (float) y, (float) z);
+		GLS.pushMatrix();
+		GLS.disableCull();
+		GLS.translate((float) x, (float) y, (float) z);
 		float f = 0.0625F;
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.scale(-1F, -1F, 1F);
-		GlStateManager.enableAlpha();
+		GLS.enableRescaleNormal();
+		GLS.scale(-1F, -1F, 1F);
+		GLS.enableAlpha();
 		bindEntityTexture(entity);
 
 		if (renderOutlines) {
-			GlStateManager.enableColorMaterial();
-			GlStateManager.enableOutlineMode(getTeamColor(entity));
+			GLS.enableColorMaterial();
+			GLS.enableOutlineMode(getTeamColor(entity));
 		}
 
 		leashKnotModel.render(entity, 0F, 0F, 0F, 0F, 0F, 0.0625F);
 
 		if (renderOutlines) {
-			GlStateManager.disableOutlineMode();
-			GlStateManager.disableColorMaterial();
+			GLS.disableOutlineMode();
+			GLS.disableColorMaterial();
 		}
 
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);
 	}
 

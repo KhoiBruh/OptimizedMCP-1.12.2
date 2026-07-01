@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.debug;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -49,22 +49,22 @@ public class DebugRenderer {
 			double d0 = entityplayer.lastTickPosX + (entityplayer.posX - entityplayer.lastTickPosX) * (double) partialTicks;
 			double d1 = entityplayer.lastTickPosY + (entityplayer.posY - entityplayer.lastTickPosY) * (double) partialTicks;
 			double d2 = entityplayer.lastTickPosZ + (entityplayer.posZ - entityplayer.lastTickPosZ) * (double) partialTicks;
-			GlStateManager.pushMatrix();
-			GlStateManager.translate((float) (x - d0), (float) (y - d1) + 0.07F, (float) (z - d2));
-			GlStateManager.normal3f(0F, 1F, 0F);
-			GlStateManager.scale(0.02F, -0.02F, 0.02F);
+			GLS.pushMatrix();
+			GLS.translate((float) (x - d0), (float) (y - d1) + 0.07F, (float) (z - d2));
+			GLS.normal3f(0F, 1F, 0F);
+			GLS.scale(0.02F, -0.02F, 0.02F);
 			RenderManager rendermanager = minecraft.getRenderManager();
-			GlStateManager.rotate(-rendermanager.playerViewY, 0F, 1F, 0F);
-			GlStateManager.rotate((float) (rendermanager.options.thirdPersonView == 2 ? 1 : -1) * rendermanager.playerViewX, 1F, 0F, 0F);
-			GlStateManager.disableLighting();
-			GlStateManager.enableTexture2D();
-			GlStateManager.enableDepth();
-			GlStateManager.depthMask(true);
-			GlStateManager.scale(-1F, 1F, 1F);
+			GLS.rotate(-rendermanager.playerViewY, 0F, 1F, 0F);
+			GLS.rotate((float) (rendermanager.options.thirdPersonView == 2 ? 1 : -1) * rendermanager.playerViewX, 1F, 0F, 0F);
+			GLS.disableLighting();
+			GLS.enableTexture2D();
+			GLS.enableDepth();
+			GLS.depthMask(true);
+			GLS.scale(-1F, 1F, 1F);
 			fontrenderer.drawString(str, -fontrenderer.getStringWidth(str) / 2, 0, color);
-			GlStateManager.enableLighting();
-			GlStateManager.color(1F, 1F, 1F, 1F);
-			GlStateManager.popMatrix();
+			GLS.enableLighting();
+			GLS.color(1F, 1F, 1F, 1F);
+			GLS.popMatrix();
 		}
 	}
 

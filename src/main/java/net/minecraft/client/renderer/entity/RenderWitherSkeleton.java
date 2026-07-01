@@ -1,6 +1,6 @@
 package net.minecraft.client.renderer.entity;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.monster.AbstractSkeleton;
 import net.minecraft.util.ResourceLocation;
 
@@ -26,7 +26,7 @@ public class RenderWitherSkeleton extends RenderSkeleton {
 	 */
 	protected void preRenderCallback(AbstractSkeleton entitylivingbaseIn, float partialTickTime) {
 
-		GlStateManager.scale(1.2F, 1.2F, 1.2F);
+		GLS.scale(1.2F, 1.2F, 1.2F);
 	}
 
 }

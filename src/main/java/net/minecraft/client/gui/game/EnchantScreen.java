@@ -5,7 +5,7 @@ import net.minecraft.client.gui.FontRenderer;
 
 import net.minecraft.client.gui.inventory.ContainerScreen;
 import net.minecraft.client.model.ModelBook;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.Enchantment;
@@ -111,33 +111,33 @@ public class EnchantScreen extends ContainerScreen {
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(ENCHANTMENT_TABLE_GUI_TEXTURE);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
 		drawTexturedModalRect(i, j, 0, 0, xSize, ySize);
-		GlStateManager.pushMatrix();
-		GlStateManager.matrixMode(5889);
-		GlStateManager.pushMatrix();
-		GlStateManager.loadIdentity();
-		GlStateManager.viewport((mc.getWindow().getScaledWidth() - 320) / 2 * mc.getWindow().getGuiScale(), (mc.getWindow().getScaledHeight() - 240) / 2 * mc.getWindow().getGuiScale(), 320 * mc.getWindow().getGuiScale(), 240 * mc.getWindow().getGuiScale());
-		GlStateManager.translate(-0.34F, 0.23F, 0F);
+		GLS.pushMatrix();
+		GLS.matrixMode(5889);
+		GLS.pushMatrix();
+		GLS.loadIdentity();
+		GLS.viewport((mc.getWindow().getScaledWidth() - 320) / 2 * mc.getWindow().getGuiScale(), (mc.getWindow().getScaledHeight() - 240) / 2 * mc.getWindow().getGuiScale(), 320 * mc.getWindow().getGuiScale(), 240 * mc.getWindow().getGuiScale());
+		GLS.translate(-0.34F, 0.23F, 0F);
 		Projection.perspective(90F, 1.3333334F, 9F, 80F);
 		float f = 1F;
-		GlStateManager.matrixMode(5888);
-		GlStateManager.loadIdentity();
+		GLS.matrixMode(5888);
+		GLS.loadIdentity();
 		RenderHelper.enableStandardItemLighting();
-		GlStateManager.translate(0F, 3.3F, -16F);
-		GlStateManager.scale(1F, 1F, 1F);
+		GLS.translate(0F, 3.3F, -16F);
+		GLS.scale(1F, 1F, 1F);
 		float f1 = 5F;
-		GlStateManager.scale(5F, 5F, 5F);
-		GlStateManager.rotate(180F, 0F, 0F, 1F);
+		GLS.scale(5F, 5F, 5F);
+		GLS.rotate(180F, 0F, 0F, 1F);
 		mc.getTextureManager().bindTexture(ENCHANTMENT_TABLE_BOOK_TEXTURE);
-		GlStateManager.rotate(20F, 1F, 0F, 0F);
+		GLS.rotate(20F, 1F, 0F, 0F);
 		float f2 = oOpen + (open - oOpen) * partialTicks;
-		GlStateManager.translate((1F - f2) * 0.2F, (1F - f2) * 0.1F, (1F - f2) * 0.25F);
-		GlStateManager.rotate(-(1F - f2) * 90F - 90F, 0F, 1F, 0F);
-		GlStateManager.rotate(180F, 1F, 0F, 0F);
+		GLS.translate((1F - f2) * 0.2F, (1F - f2) * 0.1F, (1F - f2) * 0.25F);
+		GLS.rotate(-(1F - f2) * 90F - 90F, 0F, 1F, 0F);
+		GLS.rotate(180F, 1F, 0F, 0F);
 		float f3 = oFlip + (flip - oFlip) * partialTicks + 0.25F;
 		float f4 = oFlip + (flip - oFlip) * partialTicks + 0.75F;
 		f3 = (f3 - (float) MathHelper.fastFloor(f3)) * 1.6F - 0.3F;
@@ -159,17 +159,17 @@ public class EnchantScreen extends ContainerScreen {
 			f4 = 1F;
 		}
 
-		GlStateManager.enableRescaleNormal();
+		GLS.enableRescaleNormal();
 		MODEL_BOOK.render(null, 0F, f3, f4, f2, 0F, 0.0625F);
-		GlStateManager.disableRescaleNormal();
+		GLS.disableRescaleNormal();
 		RenderHelper.disableStandardItemLighting();
-		GlStateManager.matrixMode(5889);
-		GlStateManager.viewport(0, 0, mc.getWindow().getWidth(), mc.getWindow().getHeight());
-		GlStateManager.popMatrix();
-		GlStateManager.matrixMode(5888);
-		GlStateManager.popMatrix();
+		GLS.matrixMode(5889);
+		GLS.viewport(0, 0, mc.getWindow().getWidth(), mc.getWindow().getHeight());
+		GLS.popMatrix();
+		GLS.matrixMode(5888);
+		GLS.popMatrix();
 		RenderHelper.disableStandardItemLighting();
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		EnchantmentNameParts.getInstance().reseedRandomGenerator(container.xpSeed);
 		int k = container.getLapisAmount();
 
@@ -179,7 +179,7 @@ public class EnchantScreen extends ContainerScreen {
 			zLevel = 0F;
 			mc.getTextureManager().bindTexture(ENCHANTMENT_TABLE_GUI_TEXTURE);
 			int k1 = container.enchantLevels[l];
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GLS.color(1F, 1F, 1F, 1F);
 
 			if (k1 == 0) {
 				drawTexturedModalRect(i1, j + 14 + 19 * l, 0, 185, 108, 19);

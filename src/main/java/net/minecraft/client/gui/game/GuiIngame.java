@@ -165,13 +165,13 @@ public class GuiIngame extends Gui {
 		int i = mc.getWindow().getScaledWidth();
 		int j = mc.getWindow().getScaledHeight();
 		FontRenderer fontrenderer = getFontRenderer();
-		GlStateManager.enableBlend();
+		GLS.enableBlend();
 
 		if (Minecraft.isFancyGraphicsEnabled()) {
 			renderVignette(mc.player.getBrightness());
 		} else {
-			GlStateManager.enableDepth();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+			GLS.enableDepth();
+			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 		}
 
 		ItemStack itemstack = mc.player.inventory.armorItemInSlot(3);
@@ -194,15 +194,15 @@ public class GuiIngame extends Gui {
 			renderHotbar(partialTicks);
 		}
 
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(ICONS);
-		GlStateManager.enableBlend();
+		GLS.enableBlend();
 		renderAttackIndicator(partialTicks);
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 		mc.profiler.startSection("bossHealth");
 		overlayBoss.renderBossHealth();
 		mc.profiler.endSection();
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(ICONS);
 
 		if (mc.playerController.shouldDrawHUD()) {
@@ -210,12 +210,12 @@ public class GuiIngame extends Gui {
 		}
 
 		renderMountHealth();
-		GlStateManager.disableBlend();
+		GLS.disableBlend();
 
 		if (mc.player.getSleepTimer() > 0) {
 			mc.profiler.startSection("sleep");
-			GlStateManager.disableDepth();
-			GlStateManager.disableAlpha();
+			GLS.disableDepth();
+			GLS.disableAlpha();
 			int j1 = mc.player.getSleepTimer();
 			float f1 = (float) j1 / 100F;
 
@@ -225,12 +225,12 @@ public class GuiIngame extends Gui {
 
 			int k = (int) (220F * f1) << 24 | 1052704;
 			drawRect(0, 0, i, j, k);
-			GlStateManager.enableAlpha();
-			GlStateManager.enableDepth();
+			GLS.enableAlpha();
+			GLS.enableDepth();
 			mc.profiler.endSection();
 		}
 
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		int k1 = i / 2 - 91;
 
 		if (mc.player.isRidingHorse()) {
@@ -261,10 +261,10 @@ public class GuiIngame extends Gui {
 			}
 
 			if (l1 > 8) {
-				GlStateManager.pushMatrix();
-				GlStateManager.translate((float) (i / 2), (float) (j - 68), 0F);
-				GlStateManager.enableBlend();
-				GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+				GLS.pushMatrix();
+				GLS.translate((float) (i / 2), (float) (j - 68), 0F);
+				GLS.enableBlend();
+				GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 				int l = 16777215;
 
 				if (animateOverlayMessageColor) {
@@ -272,8 +272,8 @@ public class GuiIngame extends Gui {
 				}
 
 				fontrenderer.drawString(overlayMessage, -fontrenderer.getStringWidth(overlayMessage) / 2, -4, l + (l1 << 24 & -16777216));
-				GlStateManager.disableBlend();
-				GlStateManager.popMatrix();
+				GLS.disableBlend();
+				GLS.popMatrix();
 			}
 
 			mc.profiler.endSection();
@@ -298,21 +298,21 @@ public class GuiIngame extends Gui {
 			i2 = MathHelper.clamp(i2, 0, 255);
 
 			if (i2 > 8) {
-				GlStateManager.pushMatrix();
-				GlStateManager.translate((float) (i / 2), (float) (j / 2), 0F);
-				GlStateManager.enableBlend();
-				GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-				GlStateManager.pushMatrix();
-				GlStateManager.scale(4F, 4F, 4F);
+				GLS.pushMatrix();
+				GLS.translate((float) (i / 2), (float) (j / 2), 0F);
+				GLS.enableBlend();
+				GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
+				GLS.pushMatrix();
+				GLS.scale(4F, 4F, 4F);
 				int j2 = i2 << 24 & -16777216;
 				fontrenderer.drawString(displayedTitle, (float) (-fontrenderer.getStringWidth(displayedTitle) / 2), -10F, 16777215 | j2, true);
-				GlStateManager.popMatrix();
-				GlStateManager.pushMatrix();
-				GlStateManager.scale(2F, 2F, 2F);
+				GLS.popMatrix();
+				GLS.pushMatrix();
+				GLS.scale(2F, 2F, 2F);
 				fontrenderer.drawString(displayedSubTitle, (float) (-fontrenderer.getStringWidth(displayedSubTitle) / 2), 5F, 16777215 | j2, true);
-				GlStateManager.popMatrix();
-				GlStateManager.disableBlend();
-				GlStateManager.popMatrix();
+				GLS.popMatrix();
+				GLS.disableBlend();
+				GLS.popMatrix();
 			}
 
 			mc.profiler.endSection();
@@ -336,15 +336,15 @@ public class GuiIngame extends Gui {
 			renderScoreboard(scoreobjective1);
 		}
 
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-		GlStateManager.disableAlpha();
-		GlStateManager.pushMatrix();
-		GlStateManager.translate(0F, (float) (j - 48), 0F);
+		GLS.enableBlend();
+		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
+		GLS.disableAlpha();
+		GLS.pushMatrix();
+		GLS.translate(0F, (float) (j - 48), 0F);
 		mc.profiler.startSection("chat");
 		persistantChatGUI.drawChat(updateCounter);
 		mc.profiler.endSection();
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 		scoreobjective1 = scoreboard.getObjectiveInDisplaySlot(0);
 
 		if (!mc.gameSettings.keyPlayerList.isDown() || mc.isIntegratedServerRunning() && mc.player.connection.getPlayerInfoMap().size() <= 1 && scoreobjective1 == null) {
@@ -354,9 +354,9 @@ public class GuiIngame extends Gui {
 			overlayPlayerList.renderPlayerlist(i, scoreboard, scoreobjective1);
 		}
 
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.disableLighting();
-		GlStateManager.enableAlpha();
+		GLS.color(1F, 1F, 1F, 1F);
+		GLS.disableLighting();
+		GLS.enableAlpha();
 	}
 
 	private void renderAttackIndicator(float p_184045_1_) {
@@ -382,17 +382,17 @@ public class GuiIngame extends Gui {
 			int i1 = mc.getWindow().getScaledHeight();
 
 			if (gamesettings.showDebugInfo && !gamesettings.hideGUI && !mc.player.hasReducedDebug() && !gamesettings.reducedDebugInfo) {
-				GlStateManager.pushMatrix();
-				GlStateManager.translate((float) (l / 2), (float) (i1 / 2), zLevel);
+				GLS.pushMatrix();
+				GLS.translate((float) (l / 2), (float) (i1 / 2), zLevel);
 				Entity entity = mc.getRenderViewEntity();
-				GlStateManager.rotate(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * p_184045_1_, -1F, 0F, 0F);
-				GlStateManager.rotate(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * p_184045_1_, 0F, 1F, 0F);
-				GlStateManager.scale(-1F, -1F, -1F);
+				GLS.rotate(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * p_184045_1_, -1F, 0F, 0F);
+				GLS.rotate(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * p_184045_1_, 0F, 1F, 0F);
+				GLS.scale(-1F, -1F, -1F);
 				OpenGlHelper.renderDirections(10);
-				GlStateManager.popMatrix();
+				GLS.popMatrix();
 			} else {
-				GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-				GlStateManager.enableAlpha();
+				GLS.blendFunc(GLS.SourceFactor.ONE_MINUS_DST_COLOR, GLS.DestFactor.ONE_MINUS_SRC_COLOR, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
+				GLS.enableAlpha();
 				drawTexturedModalRect(l / 2 - 7, i1 / 2 - 7, 0, 0, 16, 16);
 
 				if (mc.gameSettings.attackIndicator == 1) {
@@ -425,7 +425,7 @@ public class GuiIngame extends Gui {
 
 		if (!collection.isEmpty()) {
 			mc.getTextureManager().bindTexture(ContainerScreen.INVENTORY_BACKGROUND);
-			GlStateManager.enableBlend();
+			GLS.enableBlend();
 			int i = 0;
 			int j = 0;
 
@@ -447,7 +447,7 @@ public class GuiIngame extends Gui {
 						l += 26;
 					}
 
-					GlStateManager.color(1F, 1F, 1F, 1F);
+					GLS.color(1F, 1F, 1F, 1F);
 					float f = 1F;
 
 					if (potioneffect.getIsAmbient()) {
@@ -461,7 +461,7 @@ public class GuiIngame extends Gui {
 						}
 					}
 
-					GlStateManager.color(1F, 1F, 1F, f);
+					GLS.color(1F, 1F, 1F, f);
 					drawTexturedModalRect(k + 3, l + 3, i1 % 8 * 18, 198 + i1 / 8 * 18, 18, 18);
 				}
 			}
@@ -471,7 +471,7 @@ public class GuiIngame extends Gui {
 	protected void renderHotbar(float partialTicks) {
 
 		if (mc.getRenderViewEntity() instanceof EntityPlayer entityplayer) {
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GLS.color(1F, 1F, 1F, 1F);
 			mc.getTextureManager().bindTexture(WIDGETS_TEX_PATH);
 			ItemStack itemstack = entityplayer.getHeldItemOffhand();
 			HandSide enumhandside = entityplayer.getPrimaryHand().opposite();
@@ -492,9 +492,9 @@ public class GuiIngame extends Gui {
 			}
 
 			zLevel = f;
-			GlStateManager.enableRescaleNormal();
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+			GLS.enableRescaleNormal();
+			GLS.enableBlend();
+			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 			RenderHelper.enableGUIStandardItemLighting();
 
 			for (int l = 0; l < 9; ++l) {
@@ -526,15 +526,15 @@ public class GuiIngame extends Gui {
 
 					mc.getTextureManager().bindTexture(Gui.ICONS);
 					int k1 = (int) (f1 * 19F);
-					GlStateManager.color(1F, 1F, 1F, 1F);
+					GLS.color(1F, 1F, 1F, 1F);
 					drawTexturedModalRect(j2, i2, 0, 94, 18, 18);
 					drawTexturedModalRect(j2, i2 + 18 - k1, 18, 112 - k1, 18, k1);
 				}
 			}
 
 			RenderHelper.disableStandardItemLighting();
-			GlStateManager.disableRescaleNormal();
-			GlStateManager.disableBlend();
+			GLS.disableRescaleNormal();
+			GLS.disableBlend();
 		}
 	}
 
@@ -613,12 +613,12 @@ public class GuiIngame extends Gui {
 			}
 
 			if (k > 0) {
-				GlStateManager.pushMatrix();
-				GlStateManager.enableBlend();
-				GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+				GLS.pushMatrix();
+				GLS.enableBlend();
+				GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 				getFontRenderer().drawStringWithShadow(s, (float) i, (float) j, 16777215 + (k << 24));
-				GlStateManager.disableBlend();
-				GlStateManager.popMatrix();
+				GLS.disableBlend();
+				GLS.popMatrix();
 			}
 		}
 
@@ -899,11 +899,11 @@ public class GuiIngame extends Gui {
 
 	private void renderPumpkinOverlay() {
 
-		GlStateManager.disableDepth();
-		GlStateManager.depthMask(false);
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.disableAlpha();
+		GLS.disableDepth();
+		GLS.depthMask(false);
+		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
+		GLS.color(1F, 1F, 1F, 1F);
+		GLS.disableAlpha();
 		mc.getTextureManager().bindTexture(PUMPKIN_BLUR_TEX_PATH);
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
@@ -913,10 +913,10 @@ public class GuiIngame extends Gui {
 		bufferbuilder.pos(mc.getWindow().getScaledWidth(), 0D, -90D).tex(1D, 0D).endVertex();
 		bufferbuilder.pos(0D, 0D, -90D).tex(0D, 0D).endVertex();
 		tessellator.draw();
-		GlStateManager.depthMask(true);
-		GlStateManager.enableDepth();
-		GlStateManager.enableAlpha();
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.depthMask(true);
+		GLS.enableDepth();
+		GLS.enableAlpha();
+		GLS.color(1F, 1F, 1F, 1F);
 	}
 
 	/**
@@ -938,14 +938,14 @@ public class GuiIngame extends Gui {
 		}
 
 		prevVignetteBrightness = (float) ((double) prevVignetteBrightness + (double) (lightLevel - prevVignetteBrightness) * 0.01D);
-		GlStateManager.disableDepth();
-		GlStateManager.depthMask(false);
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.ZERO, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		GLS.disableDepth();
+		GLS.depthMask(false);
+		GLS.blendFunc(GLS.SourceFactor.ZERO, GLS.DestFactor.ONE_MINUS_SRC_COLOR, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 
 		if (f > 0F) {
-			GlStateManager.color(0F, f, f, 1F);
+			GLS.color(0F, f, f, 1F);
 		} else {
-			GlStateManager.color(prevVignetteBrightness, prevVignetteBrightness, prevVignetteBrightness, 1F);
+			GLS.color(prevVignetteBrightness, prevVignetteBrightness, prevVignetteBrightness, 1F);
 		}
 
 		mc.getTextureManager().bindTexture(VIGNETTE_TEX_PATH);
@@ -957,10 +957,10 @@ public class GuiIngame extends Gui {
 		bufferbuilder.pos(mc.getWindow().getScaledWidth(), 0D, -90D).tex(1D, 0D).endVertex();
 		bufferbuilder.pos(0D, 0D, -90D).tex(0D, 0D).endVertex();
 		tessellator.draw();
-		GlStateManager.depthMask(true);
-		GlStateManager.enableDepth();
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		GLS.depthMask(true);
+		GLS.enableDepth();
+		GLS.color(1F, 1F, 1F, 1F);
+		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 	}
 
 	private void renderPortal(float timeInPortal) {
@@ -971,11 +971,11 @@ public class GuiIngame extends Gui {
 			timeInPortal = timeInPortal * 0.8F + 0.2F;
 		}
 
-		GlStateManager.disableAlpha();
-		GlStateManager.disableDepth();
-		GlStateManager.depthMask(false);
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-		GlStateManager.color(1F, 1F, 1F, timeInPortal);
+		GLS.disableAlpha();
+		GLS.disableDepth();
+		GLS.depthMask(false);
+		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
+		GLS.color(1F, 1F, 1F, timeInPortal);
 		mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		TextureAtlasSprite textureatlassprite = mc.getBlockRendererDispatcher().getBlockModelShapes().getTexture(Blocks.PORTAL.getDefaultState());
 		float f = textureatlassprite.getMinU();
@@ -990,10 +990,10 @@ public class GuiIngame extends Gui {
 		bufferbuilder.pos(mc.getWindow().getScaledWidth(), 0D, -90D).tex(f2, f1).endVertex();
 		bufferbuilder.pos(0D, 0D, -90D).tex(f, f1).endVertex();
 		tessellator.draw();
-		GlStateManager.depthMask(true);
-		GlStateManager.enableDepth();
-		GlStateManager.enableAlpha();
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.depthMask(true);
+		GLS.enableDepth();
+		GLS.enableAlpha();
+		GLS.color(1F, 1F, 1F, 1F);
 	}
 
 	private void renderHotbarItem(int p_184044_1_, int p_184044_2_, float p_184044_3_, EntityPlayer player, ItemStack stack) {
@@ -1002,17 +1002,17 @@ public class GuiIngame extends Gui {
 			float f = (float) stack.getAnimationsToGo() - p_184044_3_;
 
 			if (f > 0F) {
-				GlStateManager.pushMatrix();
+				GLS.pushMatrix();
 				float f1 = 1F + f / 5F;
-				GlStateManager.translate((float) (p_184044_1_ + 8), (float) (p_184044_2_ + 12), 0F);
-				GlStateManager.scale(1F / f1, (f1 + 1F) / 2F, 1F);
-				GlStateManager.translate((float) (-(p_184044_1_ + 8)), (float) (-(p_184044_2_ + 12)), 0F);
+				GLS.translate((float) (p_184044_1_ + 8), (float) (p_184044_2_ + 12), 0F);
+				GLS.scale(1F / f1, (f1 + 1F) / 2F, 1F);
+				GLS.translate((float) (-(p_184044_1_ + 8)), (float) (-(p_184044_2_ + 12)), 0F);
 			}
 
 			itemRenderer.renderItemAndEffectIntoGUI(player, stack, p_184044_1_, p_184044_2_);
 
 			if (f > 0F) {
-				GlStateManager.popMatrix();
+				GLS.popMatrix();
 			}
 
 			itemRenderer.renderItemOverlays(mc.fontRenderer, stack, p_184044_1_, p_184044_2_);

@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.entity.layers;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelWither;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.entity.RenderWither;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.util.ResourceLocation;
@@ -22,30 +22,30 @@ public class LayerWitherAura implements LayerRenderer<EntityWither> {
 	public void doRenderLayer(EntityWither entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
 		if (entitylivingbaseIn.isArmored()) {
-			GlStateManager.depthMask(!entitylivingbaseIn.isInvisible());
+			GLS.depthMask(!entitylivingbaseIn.isInvisible());
 			witherRenderer.bindTexture(WITHER_ARMOR);
-			GlStateManager.matrixMode(5890);
-			GlStateManager.loadIdentity();
+			GLS.matrixMode(5890);
+			GLS.loadIdentity();
 			float f = (float) entitylivingbaseIn.ticksExisted + partialTicks;
 			float f1 = MathHelper.cos(f * 0.02F) * 3F;
 			float f2 = f * 0.01F;
-			GlStateManager.translate(f1, f2, 0F);
-			GlStateManager.matrixMode(5888);
-			GlStateManager.enableBlend();
+			GLS.translate(f1, f2, 0F);
+			GLS.matrixMode(5888);
+			GLS.enableBlend();
 			float f3 = 0.5F;
-			GlStateManager.color(0.5F, 0.5F, 0.5F, 1F);
-			GlStateManager.disableLighting();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
+			GLS.color(0.5F, 0.5F, 0.5F, 1F);
+			GLS.disableLighting();
+			GLS.blendFunc(GLS.SourceFactor.ONE, GLS.DestFactor.ONE);
 			witherModel.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks);
 			witherModel.setModelAttributes(witherRenderer.getMainModel());
 			Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
 			witherModel.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 			Minecraft.getMinecraft().entityRenderer.setupFogColor(false);
-			GlStateManager.matrixMode(5890);
-			GlStateManager.loadIdentity();
-			GlStateManager.matrixMode(5888);
-			GlStateManager.enableLighting();
-			GlStateManager.disableBlend();
+			GLS.matrixMode(5890);
+			GLS.loadIdentity();
+			GLS.matrixMode(5888);
+			GLS.enableLighting();
+			GLS.disableBlend();
 		}
 	}
 

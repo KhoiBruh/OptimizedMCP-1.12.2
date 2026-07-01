@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.model.ModelCreeper;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.entity.layers.LayerCreeperCharge;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.util.ResourceLocation;
@@ -29,7 +29,7 @@ public class RenderCreeper extends RenderLiving<EntityCreeper> {
 		f = f * f;
 		float f2 = (1F + f * 0.4F) * f1;
 		float f3 = (1F + f * 0.1F) / f1;
-		GlStateManager.scale(f2, f3, f2);
+		GLS.scale(f2, f3, f2);
 	}
 
 	/**

@@ -1,7 +1,7 @@
 package net.minecraft.client.gui.component;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.util.ResourceLocation;
 
 public class ImageButton extends Button {
@@ -34,7 +34,7 @@ public class ImageButton extends Button {
 		if (visible) {
 			hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 			mc.getTextureManager().bindTexture(resourceLocation);
-			GlStateManager.disableDepth();
+			GLS.disableDepth();
 			int j = yTexStart;
 
 			if (hovered) {
@@ -42,7 +42,7 @@ public class ImageButton extends Button {
 			}
 
 			drawTexturedModalRect(x, y, xTexStart, j, width, height);
-			GlStateManager.enableDepth();
+			GLS.enableDepth();
 		}
 	}
 

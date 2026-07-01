@@ -1,6 +1,6 @@
 package net.minecraft.client.model;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.Entity;
 
 public class ModelDragonHead extends ModelBase {
@@ -55,8 +55,8 @@ public class ModelDragonHead extends ModelBase {
 		jaw.rotateAngleX = (float) (Math.sin(limbSwing * (float) Math.PI * 0.2F) + 1D) * 0.2F;
 		head.rotateAngleY = netHeadYaw * 0.017453292F;
 		head.rotateAngleX = headPitch * 0.017453292F;
-		GlStateManager.translate(0F, -0.374375F, 0F);
-		GlStateManager.scale(0.75F, 0.75F, 0.75F);
+		GLS.translate(0F, -0.374375F, 0F);
+		GLS.scale(0.75F, 0.75F, 0.75F);
 		head.render(scale);
 	}
 

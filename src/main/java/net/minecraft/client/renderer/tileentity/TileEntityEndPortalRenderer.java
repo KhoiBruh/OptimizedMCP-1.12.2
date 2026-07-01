@@ -3,7 +3,7 @@ package net.minecraft.client.renderer.tileentity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GLAllocation;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.tileentity.TileEntityEndPortal;
@@ -24,24 +24,24 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
 
 	public void render(TileEntityEndPortal te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 
-		GlStateManager.disableLighting();
+		GLS.disableLighting();
 		RANDOM.setSeed(31100L);
-		GlStateManager.getFloat(2982, MODELVIEW);
-		GlStateManager.getFloat(2983, PROJECTION);
+		GLS.getFloat(2982, MODELVIEW);
+		GLS.getFloat(2983, PROJECTION);
 		double d0 = x * x + y * y + z * z;
 		int i = getPasses(d0);
 		float f = getOffset();
 		boolean flag = false;
 
 		for (int j = 0; j < i; ++j) {
-			GlStateManager.pushMatrix();
+			GLS.pushMatrix();
 			float f1 = 2F / (float) (18 - j);
 
 			if (j == 0) {
 				bindTexture(END_SKY_TEXTURE);
 				f1 = 0.15F;
-				GlStateManager.enableBlend();
-				GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+				GLS.enableBlend();
+				GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA);
 			}
 
 			if (j >= 1) {
@@ -51,31 +51,31 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
 			}
 
 			if (j == 1) {
-				GlStateManager.enableBlend();
-				GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
+				GLS.enableBlend();
+				GLS.blendFunc(GLS.SourceFactor.ONE, GLS.DestFactor.ONE);
 			}
 
-			GlStateManager.texGen(GlStateManager.TexGen.S, 9216);
-			GlStateManager.texGen(GlStateManager.TexGen.T, 9216);
-			GlStateManager.texGen(GlStateManager.TexGen.R, 9216);
-			GlStateManager.texGen(GlStateManager.TexGen.S, 9474, getBuffer(1F, 0F, 0F, 0F));
-			GlStateManager.texGen(GlStateManager.TexGen.T, 9474, getBuffer(0F, 1F, 0F, 0F));
-			GlStateManager.texGen(GlStateManager.TexGen.R, 9474, getBuffer(0F, 0F, 1F, 0F));
-			GlStateManager.enableTexGenCoord(GlStateManager.TexGen.S);
-			GlStateManager.enableTexGenCoord(GlStateManager.TexGen.T);
-			GlStateManager.enableTexGenCoord(GlStateManager.TexGen.R);
-			GlStateManager.popMatrix();
-			GlStateManager.matrixMode(5890);
-			GlStateManager.pushMatrix();
-			GlStateManager.loadIdentity();
-			GlStateManager.translate(0.5F, 0.5F, 0F);
-			GlStateManager.scale(0.5F, 0.5F, 1F);
+			GLS.texGen(GLS.TexGen.S, 9216);
+			GLS.texGen(GLS.TexGen.T, 9216);
+			GLS.texGen(GLS.TexGen.R, 9216);
+			GLS.texGen(GLS.TexGen.S, 9474, getBuffer(1F, 0F, 0F, 0F));
+			GLS.texGen(GLS.TexGen.T, 9474, getBuffer(0F, 1F, 0F, 0F));
+			GLS.texGen(GLS.TexGen.R, 9474, getBuffer(0F, 0F, 1F, 0F));
+			GLS.enableTexGenCoord(GLS.TexGen.S);
+			GLS.enableTexGenCoord(GLS.TexGen.T);
+			GLS.enableTexGenCoord(GLS.TexGen.R);
+			GLS.popMatrix();
+			GLS.matrixMode(5890);
+			GLS.pushMatrix();
+			GLS.loadIdentity();
+			GLS.translate(0.5F, 0.5F, 0F);
+			GLS.scale(0.5F, 0.5F, 1F);
 			float f2 = (float) (j + 1);
-			GlStateManager.translate(17F / f2, (2F + f2 / 1.5F) * ((float) Minecraft.getSystemTime() % 800000F / 800000F), 0F);
-			GlStateManager.rotate((f2 * f2 * 4321F + f2 * 9F) * 2F, 0F, 0F, 1F);
-			GlStateManager.scale(4.5F - f2 / 4F, 4.5F - f2 / 4F, 1F);
-			GlStateManager.multMatrix(PROJECTION);
-			GlStateManager.multMatrix(MODELVIEW);
+			GLS.translate(17F / f2, (2F + f2 / 1.5F) * ((float) Minecraft.getSystemTime() % 800000F / 800000F), 0F);
+			GLS.rotate((f2 * f2 * 4321F + f2 * 9F) * 2F, 0F, 0F, 1F);
+			GLS.scale(4.5F - f2 / 4F, 4.5F - f2 / 4F, 1F);
+			GLS.multMatrix(PROJECTION);
+			GLS.multMatrix(MODELVIEW);
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferbuilder = tessellator.getBuffer();
 			bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
@@ -126,16 +126,16 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
 			}
 
 			tessellator.draw();
-			GlStateManager.popMatrix();
-			GlStateManager.matrixMode(5888);
+			GLS.popMatrix();
+			GLS.matrixMode(5888);
 			bindTexture(END_SKY_TEXTURE);
 		}
 
-		GlStateManager.disableBlend();
-		GlStateManager.disableTexGenCoord(GlStateManager.TexGen.S);
-		GlStateManager.disableTexGenCoord(GlStateManager.TexGen.T);
-		GlStateManager.disableTexGenCoord(GlStateManager.TexGen.R);
-		GlStateManager.enableLighting();
+		GLS.disableBlend();
+		GLS.disableTexGenCoord(GLS.TexGen.S);
+		GLS.disableTexGenCoord(GLS.TexGen.T);
+		GLS.disableTexGenCoord(GLS.TexGen.R);
+		GLS.enableLighting();
 
 		if (flag) {
 			Minecraft.getMinecraft().entityRenderer.setupFogColor(false);

@@ -7,7 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.network.NetworkPlayerInfo;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.PlayerModelParts;
 import net.minecraft.scoreboard.IScoreCriteria;
@@ -152,10 +152,10 @@ public class GuiPlayerTabOverlay extends Gui {
 			int j2 = j1 + l4 * i1 + l4 * 5;
 			int k2 = k1 + i5 * 9;
 			drawRect(j2, k2, j2 + i1, k2 + 8, 553648127);
-			GlStateManager.color(1F, 1F, 1F, 1F);
-			GlStateManager.enableAlpha();
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+			GLS.color(1F, 1F, 1F, 1F);
+			GLS.enableAlpha();
+			GLS.enableBlend();
+			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 
 			if (k4 < list.size()) {
 				NetworkPlayerInfo networkplayerinfo1 = list.get(k4);
@@ -213,7 +213,7 @@ public class GuiPlayerTabOverlay extends Gui {
 
 	protected void drawPing(int p_175245_1_, int p_175245_2_, int p_175245_3_, NetworkPlayerInfo networkPlayerInfoIn) {
 
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(ICONS);
 		int i = 0;
 		int j;

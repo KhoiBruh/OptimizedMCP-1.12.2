@@ -8,7 +8,7 @@ import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.GuiSlot;
 import net.minecraft.client.gui.component.GuiTextField;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -215,11 +215,11 @@ public class FlatPresetsScreen extends Screen {
 		private void renderIcon(int p_178054_1_, int p_178054_2_, Item icon, int iconMetadata) {
 
 			blitSlotBg(p_178054_1_ + 1, p_178054_2_ + 1);
-			GlStateManager.enableRescaleNormal();
+			GLS.enableRescaleNormal();
 			RenderHelper.enableGUIStandardItemLighting();
 			itemRender.renderItemIntoGUI(new ItemStack(icon, 1, icon.getHasSubtypes() ? iconMetadata : 0), p_178054_1_ + 2, p_178054_2_ + 2);
 			RenderHelper.disableStandardItemLighting();
-			GlStateManager.disableRescaleNormal();
+			GLS.disableRescaleNormal();
 		}
 
 		private void blitSlotBg(int p_148173_1_, int p_148173_2_) {
@@ -229,7 +229,7 @@ public class FlatPresetsScreen extends Screen {
 
 		private void blitSlotIcon(int p_148171_1_, int p_148171_2_, int p_148171_3_, int p_148171_4_) {
 
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GLS.color(1F, 1F, 1F, 1F);
 			mc.getTextureManager().bindTexture(Gui.STAT_ICONS);
 			float f = 0.0078125F;
 			float f1 = 0.0078125F;

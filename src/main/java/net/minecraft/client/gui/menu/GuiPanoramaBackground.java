@@ -2,7 +2,7 @@ package net.minecraft.client.gui.menu;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -31,10 +31,10 @@ public final class GuiPanoramaBackground {
 	public static void render(Minecraft mc, int width, int height) {
 
 		ensureBackgroundTexture(mc);
-		GlStateManager.disableLighting();
-		GlStateManager.disableFog();
+		GLS.disableLighting();
+		GLS.disableFog();
 		mc.getFramebuffer().unbindFramebuffer();
-		GlStateManager.viewport(0, 0, 256, 256);
+		GLS.viewport(0, 0, 256, 256);
 		drawPanorama(mc);
 		rotateAndBlurSkybox(mc, width, height);
 		rotateAndBlurSkybox(mc, width, height);
@@ -44,7 +44,7 @@ public final class GuiPanoramaBackground {
 		rotateAndBlurSkybox(mc, width, height);
 		rotateAndBlurSkybox(mc, width, height);
 		mc.getFramebuffer().bindFramebuffer(true);
-		GlStateManager.viewport(0, 0, mc.getWindow().getWidth(), mc.getWindow().getHeight());
+		GLS.viewport(0, 0, mc.getWindow().getWidth(), mc.getWindow().getHeight());
 		float f = 120F / (float) Math.max(width, height);
 		float f1 = (float) height * f / 256F;
 		float f2 = (float) width * f / 256F;
@@ -74,39 +74,39 @@ public final class GuiPanoramaBackground {
 
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
-		GlStateManager.matrixMode(5889);
-		GlStateManager.pushMatrix();
-		GlStateManager.loadIdentity();
+		GLS.matrixMode(5889);
+		GLS.pushMatrix();
+		GLS.loadIdentity();
 		Projection.perspective(120F, 1F, 0.05F, 10F);
-		GlStateManager.matrixMode(5888);
-		GlStateManager.pushMatrix();
-		GlStateManager.loadIdentity();
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.rotate(180F, 1F, 0F, 0F);
-		GlStateManager.rotate(90F, 0F, 0F, 1F);
-		GlStateManager.enableBlend();
-		GlStateManager.disableAlpha();
-		GlStateManager.disableCull();
-		GlStateManager.depthMask(false);
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		GLS.matrixMode(5888);
+		GLS.pushMatrix();
+		GLS.loadIdentity();
+		GLS.color(1F, 1F, 1F, 1F);
+		GLS.rotate(180F, 1F, 0F, 0F);
+		GLS.rotate(90F, 0F, 0F, 1F);
+		GLS.enableBlend();
+		GLS.disableAlpha();
+		GLS.disableCull();
+		GLS.depthMask(false);
+		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 		float panoramaTimer = getPanoramaTimer();
 
 		for (int j = 0; j < 64; ++j) {
-			GlStateManager.pushMatrix();
+			GLS.pushMatrix();
 			float f = ((float) (j % 8) / 8F - 0.5F) / 64F;
 			float f1 = ((float) (j / 8) / 8F - 0.5F) / 64F;
-			GlStateManager.translate(f, f1, 0F);
-			GlStateManager.rotate(MathHelper.sin(panoramaTimer / 400F) * 25F + 20F, 1F, 0F, 0F);
-			GlStateManager.rotate(-panoramaTimer * 0.1F, 0F, 1F, 0F);
+			GLS.translate(f, f1, 0F);
+			GLS.rotate(MathHelper.sin(panoramaTimer / 400F) * 25F + 20F, 1F, 0F, 0F);
+			GLS.rotate(-panoramaTimer * 0.1F, 0F, 1F, 0F);
 
 			for (int k = 0; k < 6; ++k) {
-				GlStateManager.pushMatrix();
+				GLS.pushMatrix();
 
-				if (k == 1) GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
-				if (k == 2) GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
-				if (k == 3) GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
-				if (k == 4) GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
-				if (k == 5) GlStateManager.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
+				if (k == 1) GLS.rotate(90.0F, 0.0F, 1.0F, 0.0F);
+				if (k == 2) GLS.rotate(180.0F, 0.0F, 1.0F, 0.0F);
+				if (k == 3) GLS.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
+				if (k == 4) GLS.rotate(90.0F, 1.0F, 0.0F, 0.0F);
+				if (k == 5) GLS.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
 
 				mc.getTextureManager().bindTexture(TITLE_PANORAMA_PATHS[k]);
 				bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
@@ -116,37 +116,37 @@ public final class GuiPanoramaBackground {
 				bufferbuilder.pos(1D, 1D, 1D).tex(1D, 1D).color(255, 255, 255, l).endVertex();
 				bufferbuilder.pos(-1D, 1D, 1D).tex(0D, 1D).color(255, 255, 255, l).endVertex();
 				tessellator.draw();
-				GlStateManager.popMatrix();
+				GLS.popMatrix();
 			}
 
-			GlStateManager.popMatrix();
-			GlStateManager.colorMask(true, true, true, false);
+			GLS.popMatrix();
+			GLS.colorMask(true, true, true, false);
 		}
 
 		bufferbuilder.setTranslation(0D, 0D, 0D);
-		GlStateManager.colorMask(true, true, true, true);
-		GlStateManager.matrixMode(5889);
-		GlStateManager.popMatrix();
-		GlStateManager.matrixMode(5888);
-		GlStateManager.popMatrix();
-		GlStateManager.depthMask(true);
-		GlStateManager.enableCull();
-		GlStateManager.enableDepth();
+		GLS.colorMask(true, true, true, true);
+		GLS.matrixMode(5889);
+		GLS.popMatrix();
+		GLS.matrixMode(5888);
+		GLS.popMatrix();
+		GLS.depthMask(true);
+		GLS.enableCull();
+		GLS.enableDepth();
 	}
 
 	private static void rotateAndBlurSkybox(Minecraft mc, int width, int height) {
 
 		mc.getTextureManager().bindTexture(backgroundTexture);
-		GlStateManager.texParameteri(3553, 10241, 9729);
-		GlStateManager.texParameteri(3553, 10240, 9729);
-		GlStateManager.copyTexSubImage2D(3553, 0, 0, 0, 0, 0, 256, 256);
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-		GlStateManager.colorMask(true, true, true, false);
+		GLS.texParameteri(3553, 10241, 9729);
+		GLS.texParameteri(3553, 10240, 9729);
+		GLS.copyTexSubImage2D(3553, 0, 0, 0, 0, 0, 256, 256);
+		GLS.enableBlend();
+		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
+		GLS.colorMask(true, true, true, false);
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-		GlStateManager.disableAlpha();
+		GLS.disableAlpha();
 
 		for (int j = 0; j < 3; ++j) {
 			float f = 1F / (float) (j + 1);
@@ -158,7 +158,7 @@ public final class GuiPanoramaBackground {
 		}
 
 		tessellator.draw();
-		GlStateManager.enableAlpha();
-		GlStateManager.colorMask(true, true, true, true);
+		GLS.enableAlpha();
+		GLS.colorMask(true, true, true, true);
 	}
 }

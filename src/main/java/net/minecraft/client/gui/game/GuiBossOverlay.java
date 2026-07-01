@@ -4,7 +4,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.network.play.server.SPacketUpdateBossInfo;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.BossInfo;
@@ -31,7 +31,7 @@ public class GuiBossOverlay extends Gui {
 
 			for (BossInfoClient bossinfoclient : mapBossInfos.values()) {
 				int k = i / 2 - 91;
-				GlStateManager.color(1F, 1F, 1F, 1F);
+				GLS.color(1F, 1F, 1F, 1F);
 				client.getTextureManager().bindTexture(GUI_BARS_TEXTURES);
 				render(k, j, bossinfoclient);
 				String s = bossinfoclient.getName().getFormattedText();

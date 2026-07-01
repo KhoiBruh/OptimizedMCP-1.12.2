@@ -3,7 +3,7 @@ package net.minecraft.client.renderer.entity;
 import net.minecraft.client.model.IMultipassModel;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBoat;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
@@ -28,30 +28,30 @@ public class RenderBoat extends Render<EntityBoat> {
 	 */
 	public void doRender(EntityBoat entity, double x, double y, double z, float entityYaw, float partialTicks) {
 
-		GlStateManager.pushMatrix();
+		GLS.pushMatrix();
 		setupTranslation(x, y, z);
 		setupRotation(entity, entityYaw, partialTicks);
 		bindEntityTexture(entity);
 
 		if (renderOutlines) {
-			GlStateManager.enableColorMaterial();
-			GlStateManager.enableOutlineMode(getTeamColor(entity));
+			GLS.enableColorMaterial();
+			GLS.enableOutlineMode(getTeamColor(entity));
 		}
 
 		modelBoat.render(entity, partialTicks, 0F, -0.1F, 0F, 0F, 0.0625F);
 
 		if (renderOutlines) {
-			GlStateManager.disableOutlineMode();
-			GlStateManager.disableColorMaterial();
+			GLS.disableOutlineMode();
+			GLS.disableColorMaterial();
 		}
 
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);
 	}
 
 	public void setupRotation(EntityBoat p_188311_1_, float p_188311_2_, float p_188311_3_) {
 
-		GlStateManager.rotate(180F - p_188311_2_, 0F, 1F, 0F);
+		GLS.rotate(180F - p_188311_2_, 0F, 1F, 0F);
 		float f = (float) p_188311_1_.getTimeSinceHit() - p_188311_3_;
 		float f1 = p_188311_1_.getDamageTaken() - p_188311_3_;
 
@@ -60,15 +60,15 @@ public class RenderBoat extends Render<EntityBoat> {
 		}
 
 		if (f > 0F) {
-			GlStateManager.rotate(MathHelper.sin(f) * f * f1 / 10F * (float) p_188311_1_.getForwardDirection(), 1F, 0F, 0F);
+			GLS.rotate(MathHelper.sin(f) * f * f1 / 10F * (float) p_188311_1_.getForwardDirection(), 1F, 0F, 0F);
 		}
 
-		GlStateManager.scale(-1F, -1F, 1F);
+		GLS.scale(-1F, -1F, 1F);
 	}
 
 	public void setupTranslation(double p_188309_1_, double p_188309_3_, double p_188309_5_) {
 
-		GlStateManager.translate((float) p_188309_1_, (float) p_188309_3_ + 0.375F, (float) p_188309_5_);
+		GLS.translate((float) p_188309_1_, (float) p_188309_3_ + 0.375F, (float) p_188309_5_);
 	}
 
 	/**
@@ -86,12 +86,12 @@ public class RenderBoat extends Render<EntityBoat> {
 
 	public void renderMultipass(EntityBoat p_188300_1_, double p_188300_2_, double p_188300_4_, double p_188300_6_, float p_188300_8_, float p_188300_9_) {
 
-		GlStateManager.pushMatrix();
+		GLS.pushMatrix();
 		setupTranslation(p_188300_2_, p_188300_4_, p_188300_6_);
 		setupRotation(p_188300_1_, p_188300_8_, p_188300_9_);
 		bindEntityTexture(p_188300_1_);
 		((IMultipassModel) modelBoat).renderMultipass(p_188300_1_, p_188300_9_, 0F, -0.1F, 0F, 0F, 0.0625F);
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 	}
 
 }

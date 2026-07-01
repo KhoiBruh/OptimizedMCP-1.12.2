@@ -6,7 +6,7 @@ import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.multiplayer.ClientAdvancementManager;
 import net.minecraft.client.network.NetHandlerPlayClient;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.network.play.client.CPacketSeenAdvancements;
@@ -133,20 +133,20 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 			fontRenderer.drawString(s, p_191936_3_ + 9 + 117 - i / 2, p_191936_4_ + 18 + 56 - fontRenderer.FONT_HEIGHT / 2, -1);
 			fontRenderer.drawString(":(", p_191936_3_ + 9 + 117 - fontRenderer.getStringWidth(":(") / 2, p_191936_4_ + 18 + 113 - fontRenderer.FONT_HEIGHT, -1);
 		} else {
-			GlStateManager.pushMatrix();
-			GlStateManager.translate((float) (p_191936_3_ + 9), (float) (p_191936_4_ + 18), -400F);
-			GlStateManager.enableDepth();
+			GLS.pushMatrix();
+			GLS.translate((float) (p_191936_3_ + 9), (float) (p_191936_4_ + 18), -400F);
+			GLS.enableDepth();
 			guiadvancementtab.drawContents();
-			GlStateManager.popMatrix();
-			GlStateManager.depthFunc(515);
-			GlStateManager.disableDepth();
+			GLS.popMatrix();
+			GLS.depthFunc(515);
+			GLS.disableDepth();
 		}
 	}
 
 	public void renderWindow(int p_191934_1_, int p_191934_2_) {
 
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.enableBlend();
+		GLS.color(1F, 1F, 1F, 1F);
+		GLS.enableBlend();
 		RenderHelper.disableStandardItemLighting();
 		mc.getTextureManager().bindTexture(WINDOW);
 		drawTexturedModalRect(p_191934_1_, p_191934_2_, 0, 0, 252, 140);
@@ -158,15 +158,15 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 				guiadvancementtab.drawTab(p_191934_1_, p_191934_2_, guiadvancementtab == selectedTab);
 			}
 
-			GlStateManager.enableRescaleNormal();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+			GLS.enableRescaleNormal();
+			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 			RenderHelper.enableGUIStandardItemLighting();
 
 			for (GuiAdvancementTab guiadvancementtab1 : tabs.values()) {
 				guiadvancementtab1.drawIcon(p_191934_1_, p_191934_2_, itemRender);
 			}
 
-			GlStateManager.disableBlend();
+			GLS.disableBlend();
 		}
 
 		fontRenderer.drawString(I18n.format("gui.advancements"), p_191934_1_ + 8, p_191934_2_ + 6, 4210752);
@@ -174,15 +174,15 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 
 	private void renderToolTips(int p_191937_1_, int p_191937_2_, int p_191937_3_, int p_191937_4_) {
 
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 
 		if (selectedTab != null) {
-			GlStateManager.pushMatrix();
-			GlStateManager.enableDepth();
-			GlStateManager.translate((float) (p_191937_3_ + 9), (float) (p_191937_4_ + 18), 400F);
+			GLS.pushMatrix();
+			GLS.enableDepth();
+			GLS.translate((float) (p_191937_3_ + 9), (float) (p_191937_4_ + 18), 400F);
 			selectedTab.drawToolTips(p_191937_1_ - p_191937_3_ - 9, p_191937_2_ - p_191937_4_ - 18, p_191937_3_, p_191937_4_);
-			GlStateManager.disableDepth();
-			GlStateManager.popMatrix();
+			GLS.disableDepth();
+			GLS.popMatrix();
 		}
 
 		if (tabs.size() > 1) {

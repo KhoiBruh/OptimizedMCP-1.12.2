@@ -11,28 +11,28 @@ public class VboRenderList extends ChunkRenderContainer {
 		if (initialized) {
 			for (RenderChunk renderchunk : renderChunks) {
 				VertexBuffer vertexbuffer = renderchunk.getVertexBufferByLayer(layer.ordinal());
-				GlStateManager.pushMatrix();
+				GLS.pushMatrix();
 				preRenderChunk(renderchunk);
 				renderchunk.multModelviewMatrix();
 				vertexbuffer.bindBuffer();
 				setupArrayPointers();
 				vertexbuffer.drawArrays(7);
-				GlStateManager.popMatrix();
+				GLS.popMatrix();
 			}
 
 			OpenGlHelper.glBindBuffer(OpenGlHelper.GL_ARRAY_BUFFER, 0);
-			GlStateManager.resetColor();
+			GLS.resetColor();
 			renderChunks.clear();
 		}
 	}
 
 	private void setupArrayPointers() {
 
-		GlStateManager.vertexPointer(3, 5126, 28, 0);
-		GlStateManager.colorPointer(4, 5121, 28, 12);
-		GlStateManager.texCoordPointer(2, 5126, 28, 16);
+		GLS.vertexPointer(3, 5126, 28, 0);
+		GLS.colorPointer(4, 5121, 28, 12);
+		GLS.texCoordPointer(2, 5126, 28, 16);
 		OpenGlHelper.setClientActiveTexture(OpenGlHelper.lightmapTexUnit);
-		GlStateManager.texCoordPointer(2, 5122, 28, 24);
+		GLS.texCoordPointer(2, 5122, 28, 24);
 		OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
 	}
 

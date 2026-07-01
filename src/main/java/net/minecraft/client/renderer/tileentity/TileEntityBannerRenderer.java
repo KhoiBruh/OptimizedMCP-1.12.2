@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.tileentity;
 
 import net.minecraft.client.model.ModelBanner;
 import net.minecraft.client.renderer.BannerTextures;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntityBanner;
 import net.minecraft.util.ResourceLocation;
@@ -19,13 +19,13 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEnti
 		boolean flag1 = !flag || te.getBlockType() == Blocks.STANDING_BANNER;
 		int i = flag ? te.getBlockMetadata() : 0;
 		long j = flag ? te.getWorld().getTotalWorldTime() : 0L;
-		GlStateManager.pushMatrix();
+		GLS.pushMatrix();
 		float f = 0.6666667F;
 
 		if (flag1) {
-			GlStateManager.translate((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
+			GLS.translate((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
 			float f1 = (float) (i * 360) / 16F;
-			GlStateManager.rotate(-f1, 0F, 1F, 0F);
+			GLS.rotate(-f1, 0F, 1F, 0F);
 			bannerModel.bannerStand.showModel = true;
 		} else {
 			float f2 = 0F;
@@ -42,28 +42,28 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEnti
 				f2 = -90F;
 			}
 
-			GlStateManager.translate((float) x + 0.5F, (float) y - 0.16666667F, (float) z + 0.5F);
-			GlStateManager.rotate(-f2, 0F, 1F, 0F);
-			GlStateManager.translate(0F, -0.3125F, -0.4375F);
+			GLS.translate((float) x + 0.5F, (float) y - 0.16666667F, (float) z + 0.5F);
+			GLS.rotate(-f2, 0F, 1F, 0F);
+			GLS.translate(0F, -0.3125F, -0.4375F);
 			bannerModel.bannerStand.showModel = false;
 		}
 
 		BlockPos blockpos = te.getPos();
 		float f3 = (float) (blockpos.getX() * 7 + blockpos.getY() * 9 + blockpos.getZ() * 13) + (float) j + partialTicks;
 		bannerModel.bannerSlate.rotateAngleX = (-0.0125F + 0.01F * MathHelper.cos(f3 * (float) Math.PI * 0.02F)) * (float) Math.PI;
-		GlStateManager.enableRescaleNormal();
+		GLS.enableRescaleNormal();
 		ResourceLocation resourcelocation = getBannerResourceLocation(te);
 
 		if (resourcelocation != null) {
 			bindTexture(resourcelocation);
-			GlStateManager.pushMatrix();
-			GlStateManager.scale(0.6666667F, -0.6666667F, -0.6666667F);
+			GLS.pushMatrix();
+			GLS.scale(0.6666667F, -0.6666667F, -0.6666667F);
 			bannerModel.renderBanner();
-			GlStateManager.popMatrix();
+			GLS.popMatrix();
 		}
 
-		GlStateManager.color(1F, 1F, 1F, alpha);
-		GlStateManager.popMatrix();
+		GLS.color(1F, 1F, 1F, alpha);
+		GLS.popMatrix();
 	}
 
 	

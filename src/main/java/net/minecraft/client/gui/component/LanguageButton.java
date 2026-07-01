@@ -1,7 +1,7 @@
 package net.minecraft.client.gui.component;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 
 public class LanguageButton extends Button {
 
@@ -17,7 +17,7 @@ public class LanguageButton extends Button {
 
 		if (visible) {
 			mc.getTextureManager().bindTexture(Button.BUTTON_TEXTURES);
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GLS.color(1F, 1F, 1F, 1F);
 			boolean flag = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 			int i = 106;
 

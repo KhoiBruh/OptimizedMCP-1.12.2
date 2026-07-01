@@ -1,6 +1,6 @@
 package net.minecraft.client.model;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.HandSide;
 
@@ -70,12 +70,12 @@ public class ModelPlayer extends ModelBiped {
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
 		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-		GlStateManager.pushMatrix();
+		GLS.pushMatrix();
 
 		if (isChild) {
 			float f = 2F;
-			GlStateManager.scale(0.5F, 0.5F, 0.5F);
-			GlStateManager.translate(0F, 24F * scale, 0F);
+			GLS.scale(0.5F, 0.5F, 0.5F);
+			GLS.translate(0F, 24F * scale, 0F);
 			bipedLeftLegwear.render(scale);
 			bipedRightLegwear.render(scale);
 			bipedLeftArmwear.render(scale);
@@ -83,7 +83,7 @@ public class ModelPlayer extends ModelBiped {
 			bipedBodyWear.render(scale);
 		} else {
 			if (entityIn.isSneaking()) {
-				GlStateManager.translate(0F, 0.2F, 0F);
+				GLS.translate(0F, 0.2F, 0F);
 			}
 
 			bipedLeftLegwear.render(scale);
@@ -93,7 +93,7 @@ public class ModelPlayer extends ModelBiped {
 			bipedBodyWear.render(scale);
 		}
 
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 	}
 
 	public void renderDeadmau5Head(float scale) {

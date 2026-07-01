@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.model.ModelZombie;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.entity.layers.LayerBipedArmor;
 import net.minecraft.client.renderer.entity.layers.LayerHeldItem;
 import net.minecraft.entity.monster.EntityGiantZombie;
@@ -32,7 +32,7 @@ public class RenderGiantZombie extends RenderLiving<EntityGiantZombie> {
 
 	public void transformHeldFull3DItemLayer() {
 
-		GlStateManager.translate(0F, 0.1875F, 0F);
+		GLS.translate(0F, 0.1875F, 0F);
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class RenderGiantZombie extends RenderLiving<EntityGiantZombie> {
 	 */
 	protected void preRenderCallback(EntityGiantZombie entitylivingbaseIn, float partialTickTime) {
 
-		GlStateManager.scale(scale, scale, scale);
+		GLS.scale(scale, scale, scale);
 	}
 
 	/**

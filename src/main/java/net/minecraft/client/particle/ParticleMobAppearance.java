@@ -2,7 +2,7 @@ package net.minecraft.client.particle;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
@@ -58,27 +58,27 @@ public class ParticleMobAppearance extends Particle {
 			rendermanager.setRenderPosition(Particle.interpPosX, Particle.interpPosY, Particle.interpPosZ);
 			float f = 0.42553192F;
 			float f1 = ((float) particleAge + partialTicks) / (float) particleMaxAge;
-			GlStateManager.depthMask(true);
-			GlStateManager.enableBlend();
-			GlStateManager.enableDepth();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+			GLS.depthMask(true);
+			GLS.enableBlend();
+			GLS.enableDepth();
+			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA);
 			float f2 = 240F;
 			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240F, 240F);
-			GlStateManager.pushMatrix();
+			GLS.pushMatrix();
 			float f3 = 0.05F + 0.5F * MathHelper.sin(f1 * (float) Math.PI);
-			GlStateManager.color(1F, 1F, 1F, f3);
-			GlStateManager.translate(0F, 1.8F, 0F);
-			GlStateManager.rotate(180F - entityIn.rotationYaw, 0F, 1F, 0F);
-			GlStateManager.rotate(60F - 150F * f1 - entityIn.rotationPitch, 1F, 0F, 0F);
-			GlStateManager.translate(0F, -0.4F, -1.5F);
-			GlStateManager.scale(0.42553192F, 0.42553192F, 0.42553192F);
+			GLS.color(1F, 1F, 1F, f3);
+			GLS.translate(0F, 1.8F, 0F);
+			GLS.rotate(180F - entityIn.rotationYaw, 0F, 1F, 0F);
+			GLS.rotate(60F - 150F * f1 - entityIn.rotationPitch, 1F, 0F, 0F);
+			GLS.translate(0F, -0.4F, -1.5F);
+			GLS.scale(0.42553192F, 0.42553192F, 0.42553192F);
 			entity.rotationYaw = 0F;
 			entity.rotationYawHead = 0F;
 			entity.prevRotationYaw = 0F;
 			entity.prevRotationYawHead = 0F;
 			rendermanager.renderEntity(entity, 0D, 0D, 0D, 0F, partialTicks, false);
-			GlStateManager.popMatrix();
-			GlStateManager.enableDepth();
+			GLS.popMatrix();
+			GLS.enableDepth();
 		}
 	}
 

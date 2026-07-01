@@ -8,10 +8,10 @@ import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
-public class GlStateManager {
+public class GLS {
 
-	private static final FloatBuffer BUF_FLOAT_16 = BufferUtils.createFloatBuffer(16);
-	private static final FloatBuffer BUF_FLOAT_4 = BufferUtils.createFloatBuffer(4);
+	private static final FloatBuffer FLOAT_16 = BufferUtils.createFloatBuffer(16);
+	private static final FloatBuffer FLOAT_4 = BufferUtils.createFloatBuffer(4);
 
 	private static final boolean[] light = new boolean[8];
 
@@ -144,15 +144,15 @@ public class GlStateManager {
 	}
 
 	public static void enableLight(int light) {
-		if (!GlStateManager.light[light]) {
-			GlStateManager.light[light] = true;
+		if (!GLS.light[light]) {
+			GLS.light[light] = true;
 			GL11.glEnable(GL11.GL_LIGHT0 + light);
 		}
 	}
 
 	public static void disableLight(int light) {
-		if (GlStateManager.light[light]) {
-			GlStateManager.light[light] = false;
+		if (GLS.light[light]) {
+			GLS.light[light] = false;
 			GL11.glDisable(GL11.GL_LIGHT0 + light);
 		}
 	}
@@ -233,7 +233,7 @@ public class GlStateManager {
 		}
 	}
 
-	public static void blendFunc(GlStateManager.SourceFactor srcFactor, GlStateManager.DestFactor dstFactor) {
+	public static void blendFunc(GLS.SourceFactor srcFactor, GLS.DestFactor dstFactor) {
 		blendFunc(srcFactor.factor, dstFactor.factor);
 	}
 
@@ -245,7 +245,7 @@ public class GlStateManager {
 		}
 	}
 
-	public static void blendFunc(GlStateManager.SourceFactor srcFactor, GlStateManager.DestFactor dstFactor, GlStateManager.SourceFactor srcFactorAlpha, GlStateManager.DestFactor dstFactorAlpha) {
+	public static void blendFunc(GLS.SourceFactor srcFactor, GLS.DestFactor dstFactor, GLS.SourceFactor srcFactorAlpha, GLS.DestFactor dstFactorAlpha) {
 		blendFunc(srcFactor.factor, dstFactor.factor, srcFactorAlpha.factor, dstFactorAlpha.factor);
 	}
 
@@ -264,11 +264,11 @@ public class GlStateManager {
 	}
 
 	public static void enableOutlineMode(int color) {
-		BUF_FLOAT_4.put(0, (float) (color >> 16 & 255) / 255F);
-		BUF_FLOAT_4.put(1, (float) (color >> 8 & 255) / 255F);
-		BUF_FLOAT_4.put(2, (float) (color & 255) / 255F);
-		BUF_FLOAT_4.put(3, (float) (color >> 24 & 255) / 255F);
-		texEnv(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_COLOR, BUF_FLOAT_4);
+		FLOAT_4.put(0, (float) (color >> 16 & 255) / 255F);
+		FLOAT_4.put(1, (float) (color >> 8 & 255) / 255F);
+		FLOAT_4.put(2, (float) (color & 255) / 255F);
+		FLOAT_4.put(3, (float) (color >> 24 & 255) / 255F);
+		texEnv(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_COLOR, FLOAT_4);
 		texEnv(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, GL13.GL_COMBINE);
 		texEnv(GL11.GL_TEXTURE_ENV, GL13.GL_COMBINE_RGB, GL11.GL_REPLACE);
 		texEnv(GL11.GL_TEXTURE_ENV, GL13.GL_SOURCE0_RGB, GL13.GL_CONSTANT);
@@ -302,7 +302,7 @@ public class GlStateManager {
 		}
 	}
 
-	public static void setFog(GlStateManager.FogMode mode) {
+	public static void setFog(GLS.FogMode mode) {
 		setFog(mode.capabilityId);
 	}
 
@@ -356,7 +356,7 @@ public class GlStateManager {
 		}
 	}
 
-	public static void cullFace(GlStateManager.CullFace cullFace) {
+	public static void cullFace(GLS.CullFace cullFace) {
 		cullFace(cullFace.mode);
 	}
 
@@ -403,7 +403,7 @@ public class GlStateManager {
 		}
 	}
 
-	public static void colorLogicOp(GlStateManager.LogicOp logicOperation) {
+	public static void colorLogicOp(GLS.LogicOp logicOperation) {
 		colorLogicOp(logicOperation.opcode);
 	}
 
@@ -414,7 +414,7 @@ public class GlStateManager {
 		}
 	}
 
-	public static void enableTexGenCoord(GlStateManager.TexGen texGen) {
+	public static void enableTexGenCoord(GLS.TexGen texGen) {
 		switch (texGen) {
 			case S:
 				if (!texGenS) {
@@ -443,7 +443,7 @@ public class GlStateManager {
 		}
 	}
 
-	public static void disableTexGenCoord(GlStateManager.TexGen texGen) {
+	public static void disableTexGenCoord(GLS.TexGen texGen) {
 		switch (texGen) {
 			case S:
 				if (texGenS) {
@@ -472,7 +472,7 @@ public class GlStateManager {
 		}
 	}
 
-	public static void texGen(GlStateManager.TexGen texGen, int param) {
+	public static void texGen(GLS.TexGen texGen, int param) {
 		switch (texGen) {
 			case S:
 				if (param != texGenSMode) {
@@ -501,7 +501,7 @@ public class GlStateManager {
 		}
 	}
 
-	public static void texGen(GlStateManager.TexGen texGen, int pname, FloatBuffer params) {
+	public static void texGen(GLS.TexGen texGen, int pname, FloatBuffer params) {
 		int coord = switch (texGen) {
 			case S -> GL11.GL_TEXTURE_GEN_S;
 			case T -> GL11.GL_TEXTURE_GEN_T;
@@ -558,16 +558,16 @@ public class GlStateManager {
 
 	public static void deleteTexture(int texture) {
 		GL11.glDeleteTextures(texture);
-		for (int i = 0; i < GlStateManager.texture.length; ++i) {
-			if (GlStateManager.texture[i] == texture) {
-				GlStateManager.texture[i] = -1;
+		for (int i = 0; i < GLS.texture.length; ++i) {
+			if (GLS.texture[i] == texture) {
+				GLS.texture[i] = -1;
 			}
 		}
 	}
 
 	public static void bindTexture(int texture) {
-		if (texture != GlStateManager.texture[activeTextureUnit]) {
-			GlStateManager.texture[activeTextureUnit] = texture;
+		if (texture != GLS.texture[activeTextureUnit]) {
+			GLS.texture[activeTextureUnit] = texture;
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture);
 		}
 	}
@@ -708,7 +708,7 @@ public class GlStateManager {
 	}
 
 	public static void rotate(Quaternionf quaternionIn) {
-		multMatrix(quatToGlMatrix(BUF_FLOAT_16, quaternionIn));
+		multMatrix(quatToGlMatrix(FLOAT_16, quaternionIn));
 	}
 
 	public static FloatBuffer quatToGlMatrix(FloatBuffer buffer, Quaternionf quaternionIn) {
@@ -868,11 +868,11 @@ public class GlStateManager {
 		return GL11.glGetInteger(name);
 	}
 
-	public static void enableBlendProfile(GlStateManager.Profile profile) {
+	public static void enableBlendProfile(GLS.Profile profile) {
 		profile.apply();
 	}
 
-	public static void disableBlendProfile(GlStateManager.Profile profile) {
+	public static void disableBlendProfile(GLS.Profile profile) {
 		profile.clean();
 	}
 
@@ -970,8 +970,8 @@ public class GlStateManager {
 				depthFunc(GL11.GL_LESS);
 				depthMask(true);
 				disableBlend();
-				blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-				blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+				blendFunc(GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
+				blendFunc(GLS.SourceFactor.ONE, GLS.DestFactor.ZERO, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 				GL14.glBlendEquation(GL14.GL_FUNC_ADD);
 				disableFog();
 				GL11.glFogi(GL11.GL_FOG_MODE, GL11.GL_EXP);
@@ -983,22 +983,22 @@ public class GlStateManager {
 				doPolygonOffset(0F, 0F);
 				disableColorLogic();
 				colorLogicOp(GL11.GL_COPY);
-				disableTexGenCoord(GlStateManager.TexGen.S);
-				texGen(GlStateManager.TexGen.S, GL11.GL_TEXTURE_GEN_MODE);
-				texGen(GlStateManager.TexGen.S, GL11.GL_OBJECT_PLANE, RenderHelper.setColorBuffer(1F, 0F, 0F, 0F));
-				texGen(GlStateManager.TexGen.S, GL11.GL_EYE_PLANE, RenderHelper.setColorBuffer(1F, 0F, 0F, 0F));
-				disableTexGenCoord(GlStateManager.TexGen.T);
-				texGen(GlStateManager.TexGen.T, GL11.GL_TEXTURE_GEN_MODE);
-				texGen(GlStateManager.TexGen.T, GL11.GL_OBJECT_PLANE, RenderHelper.setColorBuffer(0F, 1F, 0F, 0F));
-				texGen(GlStateManager.TexGen.T, GL11.GL_EYE_PLANE, RenderHelper.setColorBuffer(0F, 1F, 0F, 0F));
-				disableTexGenCoord(GlStateManager.TexGen.R);
-				texGen(GlStateManager.TexGen.R, GL11.GL_TEXTURE_GEN_MODE);
-				texGen(GlStateManager.TexGen.R, GL11.GL_OBJECT_PLANE, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
-				texGen(GlStateManager.TexGen.R, GL11.GL_EYE_PLANE, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
-				disableTexGenCoord(GlStateManager.TexGen.Q);
-				texGen(GlStateManager.TexGen.Q, GL11.GL_TEXTURE_GEN_MODE);
-				texGen(GlStateManager.TexGen.Q, GL11.GL_OBJECT_PLANE, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
-				texGen(GlStateManager.TexGen.Q, GL11.GL_EYE_PLANE, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
+				disableTexGenCoord(GLS.TexGen.S);
+				texGen(GLS.TexGen.S, GL11.GL_TEXTURE_GEN_MODE);
+				texGen(GLS.TexGen.S, GL11.GL_OBJECT_PLANE, RenderHelper.setColorBuffer(1F, 0F, 0F, 0F));
+				texGen(GLS.TexGen.S, GL11.GL_EYE_PLANE, RenderHelper.setColorBuffer(1F, 0F, 0F, 0F));
+				disableTexGenCoord(GLS.TexGen.T);
+				texGen(GLS.TexGen.T, GL11.GL_TEXTURE_GEN_MODE);
+				texGen(GLS.TexGen.T, GL11.GL_OBJECT_PLANE, RenderHelper.setColorBuffer(0F, 1F, 0F, 0F));
+				texGen(GLS.TexGen.T, GL11.GL_EYE_PLANE, RenderHelper.setColorBuffer(0F, 1F, 0F, 0F));
+				disableTexGenCoord(GLS.TexGen.R);
+				texGen(GLS.TexGen.R, GL11.GL_TEXTURE_GEN_MODE);
+				texGen(GLS.TexGen.R, GL11.GL_OBJECT_PLANE, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
+				texGen(GLS.TexGen.R, GL11.GL_EYE_PLANE, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
+				disableTexGenCoord(GLS.TexGen.Q);
+				texGen(GLS.TexGen.Q, GL11.GL_TEXTURE_GEN_MODE);
+				texGen(GLS.TexGen.Q, GL11.GL_OBJECT_PLANE, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
+				texGen(GLS.TexGen.Q, GL11.GL_EYE_PLANE, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
 				setActiveTexture(0);
 				GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
 				GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST_MIPMAP_LINEAR);
@@ -1055,7 +1055,7 @@ public class GlStateManager {
 				color(1F, 1F, 1F, 0.15F);
 				depthMask(false);
 				enableBlend();
-				blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+				blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA);
 				alphaFunc(GL11.GL_GREATER, 0.003921569F);
 			}
 

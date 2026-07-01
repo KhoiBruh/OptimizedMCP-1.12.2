@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.model.ModelGuardian;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.culling.ICamera;
@@ -64,20 +64,20 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferbuilder = tessellator.getBuffer();
 			bindTexture(GUARDIAN_BEAM_TEXTURE);
-			GlStateManager.texParameteri(3553, 10242, 10497);
-			GlStateManager.texParameteri(3553, 10243, 10497);
-			GlStateManager.disableLighting();
-			GlStateManager.disableCull();
-			GlStateManager.disableBlend();
-			GlStateManager.depthMask(true);
+			GLS.texParameteri(3553, 10242, 10497);
+			GLS.texParameteri(3553, 10243, 10497);
+			GLS.disableLighting();
+			GLS.disableCull();
+			GLS.disableBlend();
+			GLS.depthMask(true);
 			float f1 = 240F;
 			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240F, 240F);
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 			float f2 = (float) entity.world.getTotalWorldTime() + partialTicks;
 			float f3 = f2 * 0.5F % 1F;
 			float f4 = entity.getEyeHeight();
-			GlStateManager.pushMatrix();
-			GlStateManager.translate((float) x, (float) y + f4, (float) z);
+			GLS.pushMatrix();
+			GLS.translate((float) x, (float) y + f4, (float) z);
 			Vec3d vec3d = getPosition(entitylivingbase, (double) entitylivingbase.height * 0.5D, partialTicks);
 			Vec3d vec3d1 = getPosition(entity, f4, partialTicks);
 			Vec3d vec3d2 = vec3d.subtract(vec3d1);
@@ -85,8 +85,8 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
 			vec3d2 = vec3d2.normalize();
 			float f5 = (float) Math.acos(vec3d2.y());
 			float f6 = (float) Math.atan2(vec3d2.z(), vec3d2.x());
-			GlStateManager.rotate((((float) Math.PI / 2F) - f6) * (180F / (float) Math.PI), 0F, 1F, 0F);
-			GlStateManager.rotate(f5 * (180F / (float) Math.PI), 1F, 0F, 0F);
+			GLS.rotate((((float) Math.PI / 2F) - f6) * (180F / (float) Math.PI), 0F, 1F, 0F);
+			GLS.rotate(f5 * (180F / (float) Math.PI), 1F, 0F, 0F);
 			int i = 1;
 			double d1 = (double) f2 * 0.05D * -1.5D;
 			bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
@@ -135,7 +135,7 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
 			bufferbuilder.pos(d10, d0, d11).tex(1D, d24).color(j, k, l, 255).endVertex();
 			bufferbuilder.pos(d8, d0, d9).tex(0.5D, d24).color(j, k, l, 255).endVertex();
 			tessellator.draw();
-			GlStateManager.popMatrix();
+			GLS.popMatrix();
 		}
 	}
 

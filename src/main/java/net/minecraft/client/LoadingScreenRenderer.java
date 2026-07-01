@@ -3,7 +3,7 @@ package net.minecraft.client;
 import net.minecraft.client.gui.Gui;
 
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -67,20 +67,20 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 				throw new MinecraftError();
 			}
 		} 		else {
-			GlStateManager.clear(256);
-			GlStateManager.matrixMode(5889);
-			GlStateManager.loadIdentity();
+			GLS.clear(256);
+			GLS.matrixMode(5889);
+			GLS.loadIdentity();
 
 			if (OpenGlHelper.isFramebufferEnabled()) {
 				int factor = mc.getWindow().getGuiScale();
-				GlStateManager.ortho(0D, mc.getWindow().getScaledWidth() * factor, mc.getWindow().getScaledHeight() * factor, 0D, 100D, 300D);
+				GLS.ortho(0D, mc.getWindow().getScaledWidth() * factor, mc.getWindow().getScaledHeight() * factor, 0D, 100D, 300D);
 			} else {
-				GlStateManager.ortho(0D, mc.getWindow().getScaledWidth(), mc.getWindow().getScaledHeight(), 0, 100, 300);
+				GLS.ortho(0D, mc.getWindow().getScaledWidth(), mc.getWindow().getScaledHeight(), 0, 100, 300);
 			}
 
-			GlStateManager.matrixMode(5888);
-			GlStateManager.loadIdentity();
-			GlStateManager.translate(0F, 0F, -200F);
+			GLS.matrixMode(5888);
+			GLS.loadIdentity();
+			GLS.translate(0F, 0F, -200F);
 		}
 	}
 
@@ -122,19 +122,19 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 				if (OpenGlHelper.isFramebufferEnabled()) {
 					framebuffer.framebufferClear();
 				} else {
-					GlStateManager.clear(256);
+					GLS.clear(256);
 				}
 
 				framebuffer.bindFramebuffer(false);
-				GlStateManager.matrixMode(5889);
-				GlStateManager.loadIdentity();
-				GlStateManager.ortho(0D, mc.getWindow().getScaledWidth(), mc.getWindow().getScaledHeight(), 0D, 100D, 300D);
-				GlStateManager.matrixMode(5888);
-				GlStateManager.loadIdentity();
-				GlStateManager.translate(0F, 0F, -200F);
+				GLS.matrixMode(5889);
+				GLS.loadIdentity();
+				GLS.ortho(0D, mc.getWindow().getScaledWidth(), mc.getWindow().getScaledHeight(), 0D, 100D, 300D);
+				GLS.matrixMode(5888);
+				GLS.loadIdentity();
+				GLS.translate(0F, 0F, -200F);
 
 				if (!OpenGlHelper.isFramebufferEnabled()) {
-					GlStateManager.clear(16640);
+					GLS.clear(16640);
 				}
 
 				Tessellator tessellator = Tessellator.getInstance();
@@ -153,7 +153,7 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 					int j1 = 2;
 					int k1 = k / 2 - 50;
 					int l1 = l / 2 + 16;
-					GlStateManager.disableTexture2D();
+					GLS.disableTexture2D();
 					bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
 					bufferbuilder.pos(k1, l1, 0D).color(128, 128, 128, 255).endVertex();
 					bufferbuilder.pos(k1, l1 + 2, 0D).color(128, 128, 128, 255).endVertex();
@@ -164,11 +164,11 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 					bufferbuilder.pos(k1 + progress, l1 + 2, 0D).color(128, 255, 128, 255).endVertex();
 					bufferbuilder.pos(k1 + progress, l1, 0D).color(128, 255, 128, 255).endVertex();
 					tessellator.draw();
-					GlStateManager.enableTexture2D();
+					GLS.enableTexture2D();
 				}
 
-				GlStateManager.enableBlend();
-				GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+				GLS.enableBlend();
+				GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 				mc.fontRenderer.drawStringWithShadow(currentlyDisplayedText, (float) ((k - mc.fontRenderer.getStringWidth(currentlyDisplayedText)) / 2), (float) (l / 2 - 4 - 16), 16777215);
 				mc.fontRenderer.drawStringWithShadow(message, (float) ((k - mc.fontRenderer.getStringWidth(message)) / 2), (float) (l / 2 - 4 + 8), 16777215);
 				framebuffer.unbindFramebuffer();

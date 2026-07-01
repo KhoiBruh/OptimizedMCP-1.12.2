@@ -1,7 +1,7 @@
 package net.minecraft.client.gui.component;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.util.ResourceLocation;
 
 public class ToggleButton extends Button {
@@ -52,7 +52,7 @@ public class ToggleButton extends Button {
 		if (visible) {
 			hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 			mc.getTextureManager().bindTexture(resourceLocation);
-			GlStateManager.disableDepth();
+			GLS.disableDepth();
 			int i = xTexStart;
 			int j = yTexStart;
 
@@ -65,7 +65,7 @@ public class ToggleButton extends Button {
 			}
 
 			drawTexturedModalRect(x, y, i, j, width, height);
-			GlStateManager.enableDepth();
+			GLS.enableDepth();
 		}
 	}
 

@@ -1,6 +1,6 @@
 package net.minecraft.client.model;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityPolarBear;
 
@@ -58,20 +58,20 @@ public class ModelPolarBear extends ModelQuadruped {
 			float f = 2F;
 			childYOffset = 16F;
 			childZOffset = 4F;
-			GlStateManager.pushMatrix();
-			GlStateManager.scale(0.6666667F, 0.6666667F, 0.6666667F);
-			GlStateManager.translate(0F, childYOffset * scale, childZOffset * scale);
+			GLS.pushMatrix();
+			GLS.scale(0.6666667F, 0.6666667F, 0.6666667F);
+			GLS.translate(0F, childYOffset * scale, childZOffset * scale);
 			head.render(scale);
-			GlStateManager.popMatrix();
-			GlStateManager.pushMatrix();
-			GlStateManager.scale(0.5F, 0.5F, 0.5F);
-			GlStateManager.translate(0F, 24F * scale, 0F);
+			GLS.popMatrix();
+			GLS.pushMatrix();
+			GLS.scale(0.5F, 0.5F, 0.5F);
+			GLS.translate(0F, 24F * scale, 0F);
 			body.render(scale);
 			leg1.render(scale);
 			leg2.render(scale);
 			leg3.render(scale);
 			leg4.render(scale);
-			GlStateManager.popMatrix();
+			GLS.popMatrix();
 		} else {
 			head.render(scale);
 			body.render(scale);

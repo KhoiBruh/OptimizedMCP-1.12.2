@@ -4,7 +4,7 @@ import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.ImageButton;
 import net.minecraft.client.gui.recipebook.GuiRecipeBook;
 import net.minecraft.client.gui.recipebook.IRecipeShownListener;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ClickType;
@@ -91,7 +91,7 @@ public class CraftingScreen extends ContainerScreen implements IRecipeShownListe
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(CRAFTING_TABLE_GUI_TEXTURES);
 		int i = guiLeft;
 		int j = (height - ySize) / 2;

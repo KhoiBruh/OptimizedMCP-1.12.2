@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -25,29 +25,29 @@ public class RenderPainting extends Render<EntityPainting> {
 	 */
 	public void doRender(EntityPainting entity, double x, double y, double z, float entityYaw, float partialTicks) {
 
-		GlStateManager.pushMatrix();
-		GlStateManager.translate(x, y, z);
-		GlStateManager.rotate(180F - entityYaw, 0F, 1F, 0F);
-		GlStateManager.enableRescaleNormal();
+		GLS.pushMatrix();
+		GLS.translate(x, y, z);
+		GLS.rotate(180F - entityYaw, 0F, 1F, 0F);
+		GLS.enableRescaleNormal();
 		bindEntityTexture(entity);
 		EntityPainting.Art entitypainting$enumart = entity.art;
 		float f = 0.0625F;
-		GlStateManager.scale(0.0625F, 0.0625F, 0.0625F);
+		GLS.scale(0.0625F, 0.0625F, 0.0625F);
 
 		if (renderOutlines) {
-			GlStateManager.enableColorMaterial();
-			GlStateManager.enableOutlineMode(getTeamColor(entity));
+			GLS.enableColorMaterial();
+			GLS.enableOutlineMode(getTeamColor(entity));
 		}
 
 		renderPainting(entity, entitypainting$enumart.sizeX, entitypainting$enumart.sizeY, entitypainting$enumart.offsetX, entitypainting$enumart.offsetY);
 
 		if (renderOutlines) {
-			GlStateManager.disableOutlineMode();
-			GlStateManager.disableColorMaterial();
+			GLS.disableOutlineMode();
+			GLS.disableColorMaterial();
 		}
 
-		GlStateManager.disableRescaleNormal();
-		GlStateManager.popMatrix();
+		GLS.disableRescaleNormal();
+		GLS.popMatrix();
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);
 	}
 
@@ -147,7 +147,7 @@ public class RenderPainting extends Render<EntityPainting> {
 		int i1 = l % 65536;
 		int j1 = l / 65536;
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) i1, (float) j1);
-		GlStateManager.color(1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F);
 	}
 
 }

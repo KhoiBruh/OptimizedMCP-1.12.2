@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.debug;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -27,10 +27,10 @@ public class DebugRendererHeightMap implements DebugRenderer.IDebugRenderer {
 		double d0 = entityplayer.lastTickPosX + (entityplayer.posX - entityplayer.lastTickPosX) * (double) partialTicks;
 		double d1 = entityplayer.lastTickPosY + (entityplayer.posY - entityplayer.lastTickPosY) * (double) partialTicks;
 		double d2 = entityplayer.lastTickPosZ + (entityplayer.posZ - entityplayer.lastTickPosZ) * (double) partialTicks;
-		GlStateManager.pushMatrix();
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-		GlStateManager.disableTexture2D();
+		GLS.pushMatrix();
+		GLS.enableBlend();
+		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
+		GLS.disableTexture2D();
 		BlockPos blockpos = new BlockPos(entityplayer.posX, 0D, entityplayer.posZ);
 		Iterable<BlockPos> iterable = BlockPos.getAllInBox(blockpos.add(-40, 0, -40), blockpos.add(40, 0, 40));
 		Tessellator tessellator = Tessellator.getInstance();
@@ -48,8 +48,8 @@ public class DebugRendererHeightMap implements DebugRenderer.IDebugRenderer {
 		}
 
 		tessellator.draw();
-		GlStateManager.enableTexture2D();
-		GlStateManager.popMatrix();
+		GLS.enableTexture2D();
+		GLS.popMatrix();
 	}
 
 }

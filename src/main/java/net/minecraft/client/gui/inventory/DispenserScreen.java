@@ -1,6 +1,6 @@
 package net.minecraft.client.gui.inventory;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ContainerDispenser;
 import net.minecraft.inventory.IInventory;
@@ -52,7 +52,7 @@ public class DispenserScreen extends ContainerScreen {
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(DISPENSER_GUI_TEXTURES);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;

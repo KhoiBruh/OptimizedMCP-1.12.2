@@ -5,7 +5,7 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.ItemStack;
@@ -95,14 +95,14 @@ public class GuiAdvancementTab extends Gui {
 			centered = true;
 		}
 
-		GlStateManager.depthFunc(518);
+		GLS.depthFunc(518);
 		drawRect(0, 0, 234, 113, -16777216);
-		GlStateManager.depthFunc(515);
+		GLS.depthFunc(515);
 		ResourceLocation resourcelocation = display.getBackground();
 
 		minecraft.getTextureManager().bindTexture(Objects.requireNonNullElse(resourcelocation, TextureManager.RESOURCE_LOCATION_EMPTY));
 
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		int i = scrollX % 16;
 		int j = scrollY % 16;
 
@@ -119,8 +119,8 @@ public class GuiAdvancementTab extends Gui {
 
 	public void drawToolTips(int p_192991_1_, int p_192991_2_, int p_192991_3_, int p_192991_4_) {
 
-		GlStateManager.pushMatrix();
-		GlStateManager.translate(0F, 0F, 200F);
+		GLS.pushMatrix();
+		GLS.translate(0F, 0F, 200F);
 		drawRect(0, 0, 234, 113, MathHelper.floor(fade * 255F) << 24);
 		boolean flag = false;
 
@@ -134,7 +134,7 @@ public class GuiAdvancementTab extends Gui {
 			}
 		}
 
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 
 		if (flag) {
 			fade = MathHelper.clamp(fade + 0.02F, 0F, 0.3F);

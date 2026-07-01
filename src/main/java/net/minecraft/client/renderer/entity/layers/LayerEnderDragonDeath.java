@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity.layers;
 
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -25,23 +25,23 @@ public class LayerEnderDragonDeath implements LayerRenderer<EntityDragon> {
 			}
 
 			Random random = new Random(432L);
-			GlStateManager.disableTexture2D();
-			GlStateManager.shadeModel(7425);
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
-			GlStateManager.disableAlpha();
-			GlStateManager.enableCull();
-			GlStateManager.depthMask(false);
-			GlStateManager.pushMatrix();
-			GlStateManager.translate(0F, -1F, -2F);
+			GLS.disableTexture2D();
+			GLS.shadeModel(7425);
+			GLS.enableBlend();
+			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE);
+			GLS.disableAlpha();
+			GLS.enableCull();
+			GLS.depthMask(false);
+			GLS.pushMatrix();
+			GLS.translate(0F, -1F, -2F);
 
 			for (int i = 0; (float) i < (f + f * f) / 2F * 60F; ++i) {
-				GlStateManager.rotate(random.nextFloat() * 360F, 1F, 0F, 0F);
-				GlStateManager.rotate(random.nextFloat() * 360F, 0F, 1F, 0F);
-				GlStateManager.rotate(random.nextFloat() * 360F, 0F, 0F, 1F);
-				GlStateManager.rotate(random.nextFloat() * 360F, 1F, 0F, 0F);
-				GlStateManager.rotate(random.nextFloat() * 360F, 0F, 1F, 0F);
-				GlStateManager.rotate(random.nextFloat() * 360F + f * 90F, 0F, 0F, 1F);
+				GLS.rotate(random.nextFloat() * 360F, 1F, 0F, 0F);
+				GLS.rotate(random.nextFloat() * 360F, 0F, 1F, 0F);
+				GLS.rotate(random.nextFloat() * 360F, 0F, 0F, 1F);
+				GLS.rotate(random.nextFloat() * 360F, 1F, 0F, 0F);
+				GLS.rotate(random.nextFloat() * 360F, 0F, 1F, 0F);
+				GLS.rotate(random.nextFloat() * 360F + f * 90F, 0F, 0F, 1F);
 				float f2 = random.nextFloat() * 20F + 5F + f1 * 10F;
 				float f3 = random.nextFloat() * 2F + 1F + f1 * 2F;
 				bufferbuilder.begin(6, DefaultVertexFormats.POSITION_COLOR);
@@ -53,14 +53,14 @@ public class LayerEnderDragonDeath implements LayerRenderer<EntityDragon> {
 				tessellator.draw();
 			}
 
-			GlStateManager.popMatrix();
-			GlStateManager.depthMask(true);
-			GlStateManager.disableCull();
-			GlStateManager.disableBlend();
-			GlStateManager.shadeModel(7424);
-			GlStateManager.color(1F, 1F, 1F, 1F);
-			GlStateManager.enableTexture2D();
-			GlStateManager.enableAlpha();
+			GLS.popMatrix();
+			GLS.depthMask(true);
+			GLS.disableCull();
+			GLS.disableBlend();
+			GLS.shadeModel(7424);
+			GLS.color(1F, 1F, 1F, 1F);
+			GLS.enableTexture2D();
+			GLS.enableAlpha();
 			RenderHelper.enableStandardItemLighting();
 		}
 	}

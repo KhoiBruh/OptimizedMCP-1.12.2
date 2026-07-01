@@ -4,7 +4,7 @@ import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.inventory.ContainerScreen;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.IMerchant;
@@ -136,7 +136,7 @@ public class MerchantScreen extends ContainerScreen {
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(MERCHANT_GUI_TEXTURE);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
@@ -154,8 +154,8 @@ public class MerchantScreen extends ContainerScreen {
 
 			if (merchantrecipe.isRecipeDisabled()) {
 				mc.getTextureManager().bindTexture(MERCHANT_GUI_TEXTURE);
-				GlStateManager.color(1F, 1F, 1F, 1F);
-				GlStateManager.disableLighting();
+				GLS.color(1F, 1F, 1F, 1F);
+				GLS.disableLighting();
 				drawTexturedModalRect(guiLeft + 83, guiTop + 21, 212, 0, 28, 21);
 				drawTexturedModalRect(guiLeft + 83, guiTop + 51, 212, 0, 28, 21);
 			}
@@ -179,12 +179,12 @@ public class MerchantScreen extends ContainerScreen {
 			ItemStack itemstack = merchantrecipe.getItemToBuy();
 			ItemStack itemstack1 = merchantrecipe.getSecondItemToBuy();
 			ItemStack itemstack2 = merchantrecipe.getItemToSell();
-			GlStateManager.pushMatrix();
+			GLS.pushMatrix();
 			RenderHelper.enableGUIStandardItemLighting();
-			GlStateManager.disableLighting();
-			GlStateManager.enableRescaleNormal();
-			GlStateManager.enableColorMaterial();
-			GlStateManager.enableLighting();
+			GLS.disableLighting();
+			GLS.enableRescaleNormal();
+			GLS.enableColorMaterial();
+			GLS.enableLighting();
 			itemRender.zLevel = 100F;
 			itemRender.renderItemAndEffectIntoGUI(itemstack, i + 36, j + 24);
 			itemRender.renderItemOverlays(fontRenderer, itemstack, i + 36, j + 24);
@@ -197,7 +197,7 @@ public class MerchantScreen extends ContainerScreen {
 			itemRender.renderItemAndEffectIntoGUI(itemstack2, i + 120, j + 24);
 			itemRender.renderItemOverlays(fontRenderer, itemstack2, i + 120, j + 24);
 			itemRender.zLevel = 0F;
-			GlStateManager.disableLighting();
+			GLS.disableLighting();
 
 			if (isPointInRegion(36, 24, 16, 16, mouseX, mouseY) && !itemstack.isEmpty()) {
 				renderToolTip(itemstack, mouseX, mouseY);
@@ -209,9 +209,9 @@ public class MerchantScreen extends ContainerScreen {
 				drawHoveringText(I18n.format("merchant.deprecated"), mouseX, mouseY);
 			}
 
-			GlStateManager.popMatrix();
-			GlStateManager.enableLighting();
-			GlStateManager.enableDepth();
+			GLS.popMatrix();
+			GLS.enableLighting();
+			GLS.enableDepth();
 			RenderHelper.enableStandardItemLighting();
 		}
 
@@ -237,7 +237,7 @@ public class MerchantScreen extends ContainerScreen {
 
 			if (visible) {
 				mc.getTextureManager().bindTexture(MerchantScreen.MERCHANT_GUI_TEXTURE);
-				GlStateManager.color(1F, 1F, 1F, 1F);
+				GLS.color(1F, 1F, 1F, 1F);
 				boolean flag = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 				int i = 0;
 				int j = 176;

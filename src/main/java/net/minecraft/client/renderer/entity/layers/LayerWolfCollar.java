@@ -1,6 +1,6 @@
 package net.minecraft.client.renderer.entity.layers;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.entity.RenderWolf;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.util.ResourceLocation;
@@ -20,7 +20,7 @@ public class LayerWolfCollar implements LayerRenderer<EntityWolf> {
 		if (entitylivingbaseIn.isTamed() && !entitylivingbaseIn.isInvisible()) {
 			wolfRenderer.bindTexture(WOLF_COLLAR);
 			float[] afloat = entitylivingbaseIn.getCollarColor().getColorComponentValues();
-			GlStateManager.color(afloat[0], afloat[1], afloat[2]);
+			GLS.color(afloat[0], afloat[1], afloat[2]);
 			wolfRenderer.getMainModel().render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		}
 	}

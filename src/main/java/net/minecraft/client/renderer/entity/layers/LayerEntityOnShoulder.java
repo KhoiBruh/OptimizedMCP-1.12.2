@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.entity.layers;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelParrot;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderParrot;
@@ -36,8 +36,8 @@ public class LayerEntityOnShoulder implements LayerRenderer<EntityPlayer> {
 	public void doRenderLayer(EntityPlayer entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
 		if (entitylivingbaseIn.getLeftShoulderEntity() != null || entitylivingbaseIn.getRightShoulderEntity() != null) {
-			GlStateManager.enableRescaleNormal();
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GLS.enableRescaleNormal();
+			GLS.color(1F, 1F, 1F, 1F);
 			NBTTagCompound nbttagcompound = entitylivingbaseIn.getLeftShoulderEntity();
 
 			if (!nbttagcompound.hasNoTags()) {
@@ -60,7 +60,7 @@ public class LayerEntityOnShoulder implements LayerRenderer<EntityPlayer> {
 				rightEntityClass = layerentityonshoulder$dataholder1.clazz;
 			}
 
-			GlStateManager.disableRescaleNormal();
+			GLS.disableRescaleNormal();
 		}
 	}
 
@@ -78,10 +78,10 @@ public class LayerEntityOnShoulder implements LayerRenderer<EntityPlayer> {
 		}
 
 		p_192864_4_.bindTexture(p_192864_6_);
-		GlStateManager.pushMatrix();
+		GLS.pushMatrix();
 		float f = p_192864_1_.isSneaking() ? -1.3F : -1.5F;
 		float f1 = p_192864_15_ ? 0.4F : -0.4F;
-		GlStateManager.translate(f1, f, 0F);
+		GLS.translate(f1, f, 0F);
 
 		if (p_192864_7_ == EntityParrot.class) {
 			p_192864_11_ = 0F;
@@ -90,7 +90,7 @@ public class LayerEntityOnShoulder implements LayerRenderer<EntityPlayer> {
 		p_192864_5_.setLivingAnimations(p_192864_1_, p_192864_8_, p_192864_9_, p_192864_10_);
 		p_192864_5_.setRotationAngles(p_192864_8_, p_192864_9_, p_192864_11_, p_192864_12_, p_192864_13_, p_192864_14_, p_192864_1_);
 		p_192864_5_.render(p_192864_1_, p_192864_8_, p_192864_9_, p_192864_11_, p_192864_12_, p_192864_13_, p_192864_14_);
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 		return new LayerEntityOnShoulder.DataHolder(p_192864_2_, p_192864_4_, p_192864_5_, p_192864_6_, p_192864_7_);
 	}
 

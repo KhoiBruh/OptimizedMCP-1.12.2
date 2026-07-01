@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity.layers;
 
 import net.minecraft.client.model.ModelSheep1;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.entity.RenderSheep;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.item.DyeColor;
@@ -32,10 +32,10 @@ public class LayerSheepWool implements LayerRenderer<EntitySheep> {
 				float f = ((float) (entitylivingbaseIn.ticksExisted % 25) + partialTicks) / 25F;
 				float[] afloat1 = EntitySheep.getDyeRgb(DyeColor.byMetadata(k));
 				float[] afloat2 = EntitySheep.getDyeRgb(DyeColor.byMetadata(l));
-				GlStateManager.color(afloat1[0] * (1F - f) + afloat2[0] * f, afloat1[1] * (1F - f) + afloat2[1] * f, afloat1[2] * (1F - f) + afloat2[2] * f);
+				GLS.color(afloat1[0] * (1F - f) + afloat2[0] * f, afloat1[1] * (1F - f) + afloat2[1] * f, afloat1[2] * (1F - f) + afloat2[2] * f);
 			} else {
 				float[] afloat = EntitySheep.getDyeRgb(entitylivingbaseIn.getFleeceColor());
-				GlStateManager.color(afloat[0], afloat[1], afloat[2]);
+				GLS.color(afloat[0], afloat[1], afloat[2]);
 			}
 
 			sheepModel.setModelAttributes(sheepRenderer.getMainModel());

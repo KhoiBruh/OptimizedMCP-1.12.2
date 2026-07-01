@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity.layers;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.entity.RenderSnowMan;
 import net.minecraft.entity.monster.EntitySnowman;
@@ -20,14 +20,14 @@ public class LayerSnowmanHead implements LayerRenderer<EntitySnowman> {
 	public void doRenderLayer(EntitySnowman entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
 		if (!entitylivingbaseIn.isInvisible() && entitylivingbaseIn.isPumpkinEquipped()) {
-			GlStateManager.pushMatrix();
+			GLS.pushMatrix();
 			snowManRenderer.getMainModel().head.postRender(0.0625F);
 			float f = 0.625F;
-			GlStateManager.translate(0F, -0.34375F, 0F);
-			GlStateManager.rotate(180F, 0F, 1F, 0F);
-			GlStateManager.scale(0.625F, -0.625F, -0.625F);
+			GLS.translate(0F, -0.34375F, 0F);
+			GLS.rotate(180F, 0F, 1F, 0F);
+			GLS.scale(0.625F, -0.625F, -0.625F);
 			Minecraft.getMinecraft().getItemRenderer().renderItem(entitylivingbaseIn, new ItemStack(Blocks.PUMPKIN, 1), ItemCameraTransforms.TransformType.HEAD);
-			GlStateManager.popMatrix();
+			GLS.popMatrix();
 		}
 	}
 

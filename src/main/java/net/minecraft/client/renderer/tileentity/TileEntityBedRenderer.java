@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.tileentity;
 
 import net.minecraft.client.model.ModelBed;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.item.DyeColor;
 import net.minecraft.tileentity.TileEntityBed;
 import net.minecraft.util.Facing;
@@ -42,11 +42,11 @@ public class TileEntityBedRenderer extends TileEntitySpecialRenderer<TileEntityB
 
 		if (destroyStage >= 0) {
 			bindTexture(DESTROY_STAGES[destroyStage]);
-			GlStateManager.matrixMode(5890);
-			GlStateManager.pushMatrix();
-			GlStateManager.scale(4F, 4F, 1F);
-			GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
-			GlStateManager.matrixMode(5888);
+			GLS.matrixMode(5890);
+			GLS.pushMatrix();
+			GLS.scale(4F, 4F, 1F);
+			GLS.translate(0.0625F, 0.0625F, 0.0625F);
+			GLS.matrixMode(5888);
 		} else {
 			ResourceLocation resourcelocation = TEXTURES[enumdyecolor.getMetadata()];
 
@@ -58,23 +58,23 @@ public class TileEntityBedRenderer extends TileEntitySpecialRenderer<TileEntityB
 		if (flag) {
 			renderPiece(flag1, x, y, z, i, alpha);
 		} else {
-			GlStateManager.pushMatrix();
+			GLS.pushMatrix();
 			renderPiece(true, x, y, z, i, alpha);
 			renderPiece(false, x, y, z - 1D, i, alpha);
-			GlStateManager.popMatrix();
+			GLS.popMatrix();
 		}
 
 		if (destroyStage >= 0) {
-			GlStateManager.matrixMode(5890);
-			GlStateManager.popMatrix();
-			GlStateManager.matrixMode(5888);
+			GLS.matrixMode(5890);
+			GLS.popMatrix();
+			GLS.matrixMode(5888);
 		}
 	}
 
 	private void renderPiece(boolean p_193847_1_, double x, double y, double z, int p_193847_8_, float alpha) {
 
 		model.preparePiece(p_193847_1_);
-		GlStateManager.pushMatrix();
+		GLS.pushMatrix();
 		float f = 0F;
 		float f1 = 0F;
 		float f2 = 0F;
@@ -93,14 +93,14 @@ public class TileEntityBedRenderer extends TileEntitySpecialRenderer<TileEntityB
 			f1 = 1F;
 		}
 
-		GlStateManager.translate((float) x + f1, (float) y + 0.5625F, (float) z + f2);
-		GlStateManager.rotate(90F, 1F, 0F, 0F);
-		GlStateManager.rotate(f, 0F, 0F, 1F);
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.pushMatrix();
+		GLS.translate((float) x + f1, (float) y + 0.5625F, (float) z + f2);
+		GLS.rotate(90F, 1F, 0F, 0F);
+		GLS.rotate(f, 0F, 0F, 1F);
+		GLS.enableRescaleNormal();
+		GLS.pushMatrix();
 		model.render();
-		GlStateManager.popMatrix();
-		GlStateManager.color(1F, 1F, 1F, alpha);
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
+		GLS.color(1F, 1F, 1F, alpha);
+		GLS.popMatrix();
 	}
 }

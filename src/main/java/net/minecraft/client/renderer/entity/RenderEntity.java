@@ -1,6 +1,6 @@
 package net.minecraft.client.renderer.entity;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 
@@ -16,9 +16,9 @@ public class RenderEntity extends Render<Entity> {
 	 */
 	public void doRender(Entity entity, double x, double y, double z, float entityYaw, float partialTicks) {
 
-		GlStateManager.pushMatrix();
+		GLS.pushMatrix();
 		renderOffsetAABB(entity.getEntityBoundingBox(), x - entity.lastTickPosX, y - entity.lastTickPosY, z - entity.lastTickPosZ);
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);
 	}
 

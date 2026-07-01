@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.culling;
 
 import net.minecraft.client.renderer.GLAllocation;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.util.math.AxisAlignedBB;
 import org.joml.FrustumIntersection;
 import org.joml.Matrix4f;
@@ -31,8 +31,8 @@ public class Frustum implements ICamera {
 
 		projectionMatrixBuffer.clear();
 		modelviewMatrixBuffer.clear();
-		GlStateManager.getFloat(2983, projectionMatrixBuffer);
-		GlStateManager.getFloat(2982, modelviewMatrixBuffer);
+		GLS.getFloat(2983, projectionMatrixBuffer);
+		GLS.getFloat(2982, modelviewMatrixBuffer);
 		projectionMatrixBuffer.rewind();
 		modelviewMatrixBuffer.rewind();
 		projectionMatrix.set(projectionMatrixBuffer);

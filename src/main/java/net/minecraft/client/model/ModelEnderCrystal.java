@@ -1,6 +1,6 @@
 package net.minecraft.client.model;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.Entity;
 
 public class ModelEnderCrystal extends ModelBase {
@@ -37,28 +37,28 @@ public class ModelEnderCrystal extends ModelBase {
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
-		GlStateManager.pushMatrix();
-		GlStateManager.scale(2F, 2F, 2F);
-		GlStateManager.translate(0F, -0.5F, 0F);
+		GLS.pushMatrix();
+		GLS.scale(2F, 2F, 2F);
+		GLS.translate(0F, -0.5F, 0F);
 
 		if (base != null) {
 			base.render(scale);
 		}
 
-		GlStateManager.rotate(limbSwingAmount, 0F, 1F, 0F);
-		GlStateManager.translate(0F, 0.8F + ageInTicks, 0F);
-		GlStateManager.rotate(60F, 0.7071F, 0F, 0.7071F);
+		GLS.rotate(limbSwingAmount, 0F, 1F, 0F);
+		GLS.translate(0F, 0.8F + ageInTicks, 0F);
+		GLS.rotate(60F, 0.7071F, 0F, 0.7071F);
 		glass.render(scale);
 		float f = 0.875F;
-		GlStateManager.scale(0.875F, 0.875F, 0.875F);
-		GlStateManager.rotate(60F, 0.7071F, 0F, 0.7071F);
-		GlStateManager.rotate(limbSwingAmount, 0F, 1F, 0F);
+		GLS.scale(0.875F, 0.875F, 0.875F);
+		GLS.rotate(60F, 0.7071F, 0F, 0.7071F);
+		GLS.rotate(limbSwingAmount, 0F, 1F, 0F);
 		glass.render(scale);
-		GlStateManager.scale(0.875F, 0.875F, 0.875F);
-		GlStateManager.rotate(60F, 0.7071F, 0F, 0.7071F);
-		GlStateManager.rotate(limbSwingAmount, 0F, 1F, 0F);
+		GLS.scale(0.875F, 0.875F, 0.875F);
+		GLS.rotate(60F, 0.7071F, 0F, 0.7071F);
+		GLS.rotate(limbSwingAmount, 0F, 1F, 0F);
 		cube.render(scale);
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 	}
 
 }

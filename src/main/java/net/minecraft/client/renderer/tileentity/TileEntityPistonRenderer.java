@@ -29,14 +29,14 @@ public class TileEntityPistonRenderer extends TileEntitySpecialRenderer<TileEnti
 			BufferBuilder bufferbuilder = tessellator.getBuffer();
 			bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			RenderHelper.disableStandardItemLighting();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-			GlStateManager.enableBlend();
-			GlStateManager.disableCull();
+			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA);
+			GLS.enableBlend();
+			GLS.disableCull();
 
 			if (Minecraft.isAmbientOcclusionEnabled()) {
-				GlStateManager.shadeModel(7425);
+				GLS.shadeModel(7425);
 			} else {
-				GlStateManager.shadeModel(7424);
+				GLS.shadeModel(7424);
 			}
 
 			bufferbuilder.begin(7, DefaultVertexFormats.BLOCK);

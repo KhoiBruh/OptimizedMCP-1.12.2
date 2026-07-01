@@ -221,12 +221,12 @@ public class ChunkRenderDispatcher {
 
 	private void uploadDisplayList(BufferBuilder bufferBuilderIn, int list, RenderChunk chunkRenderer) {
 
-		GlStateManager.newList(list, 4864);
-		GlStateManager.pushMatrix();
+		GLS.newList(list, 4864);
+		GLS.pushMatrix();
 		chunkRenderer.multModelviewMatrix();
 		worldVertexUploader.draw(bufferBuilderIn);
-		GlStateManager.popMatrix();
-		GlStateManager.endList();
+		GLS.popMatrix();
+		GLS.endList();
 	}
 
 	private void uploadVertexBuffer(BufferBuilder p_178506_1_, VertexBuffer vertexBufferIn) {

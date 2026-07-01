@@ -27,7 +27,7 @@ public abstract class ChunkRenderContainer {
 	public void preRenderChunk(RenderChunk renderChunkIn) {
 
 		BlockPos blockpos = renderChunkIn.getPosition();
-		GlStateManager.translate((float) ((double) blockpos.getX() - viewEntityX), (float) ((double) blockpos.getY() - viewEntityY), (float) ((double) blockpos.getZ() - viewEntityZ));
+		GLS.translate((float) ((double) blockpos.getX() - viewEntityX), (float) ((double) blockpos.getY() - viewEntityY), (float) ((double) blockpos.getZ() - viewEntityZ));
 	}
 
 	public void addRenderChunk(RenderChunk renderChunkIn, BlockRenderLayer layer) {

@@ -3,7 +3,7 @@ package net.minecraft.client.renderer.entity.layers;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderEnderman;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -24,23 +24,23 @@ public class LayerHeldBlock implements LayerRenderer<EntityEnderman> {
 
 		if (iblockstate != null) {
 			BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
-			GlStateManager.enableRescaleNormal();
-			GlStateManager.pushMatrix();
-			GlStateManager.translate(0F, 0.6875F, -0.75F);
-			GlStateManager.rotate(20F, 1F, 0F, 0F);
-			GlStateManager.rotate(45F, 0F, 1F, 0F);
-			GlStateManager.translate(0.25F, 0.1875F, 0.25F);
+			GLS.enableRescaleNormal();
+			GLS.pushMatrix();
+			GLS.translate(0F, 0.6875F, -0.75F);
+			GLS.rotate(20F, 1F, 0F, 0F);
+			GLS.rotate(45F, 0F, 1F, 0F);
+			GLS.translate(0.25F, 0.1875F, 0.25F);
 			float f = 0.5F;
-			GlStateManager.scale(-0.5F, -0.5F, 0.5F);
+			GLS.scale(-0.5F, -0.5F, 0.5F);
 			int i = entitylivingbaseIn.getBrightnessForRender();
 			int j = i % 65536;
 			int k = i / 65536;
 			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GLS.color(1F, 1F, 1F, 1F);
 			endermanRenderer.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			blockrendererdispatcher.renderBlockBrightness(iblockstate, 1F);
-			GlStateManager.popMatrix();
-			GlStateManager.disableRescaleNormal();
+			GLS.popMatrix();
+			GLS.disableRescaleNormal();
 		}
 	}
 

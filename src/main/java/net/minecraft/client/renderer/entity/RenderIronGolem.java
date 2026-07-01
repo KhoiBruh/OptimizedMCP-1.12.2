@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.model.ModelIronGolem;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.entity.layers.LayerIronGolemFlower;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.util.ResourceLocation;
@@ -32,7 +32,7 @@ public class RenderIronGolem extends RenderLiving<EntityIronGolem> {
 			float f = 13F;
 			float f1 = entityLiving.limbSwing - entityLiving.limbSwingAmount * (1F - partialTicks) + 6F;
 			float f2 = (Math.abs(f1 % 13F - 6.5F) - 3.25F) / 3.25F;
-			GlStateManager.rotate(6.5F * f2, 0F, 0F, 1F);
+			GLS.rotate(6.5F * f2, 0F, 0F, 1F);
 		}
 	}
 

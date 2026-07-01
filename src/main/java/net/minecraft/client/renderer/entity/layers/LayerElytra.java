@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.entity.layers;
 
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelElytra;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.PlayerModelParts;
@@ -34,9 +34,9 @@ public class LayerElytra implements LayerRenderer<EntityLivingBase> {
 		ItemStack itemstack = entitylivingbaseIn.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
 		if (itemstack.getItem() == Items.ELYTRA) {
-			GlStateManager.color(1F, 1F, 1F, 1F);
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+			GLS.color(1F, 1F, 1F, 1F);
+			GLS.enableBlend();
+			GLS.blendFunc(GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 
 			if (entitylivingbaseIn instanceof AbstractClientPlayer abstractclientplayer) {
 
@@ -51,8 +51,8 @@ public class LayerElytra implements LayerRenderer<EntityLivingBase> {
 				renderPlayer.bindTexture(TEXTURE_ELYTRA);
 			}
 
-			GlStateManager.pushMatrix();
-			GlStateManager.translate(0F, 0F, 0.125F);
+			GLS.pushMatrix();
+			GLS.translate(0F, 0F, 0.125F);
 			modelElytra.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entitylivingbaseIn);
 			modelElytra.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 
@@ -60,8 +60,8 @@ public class LayerElytra implements LayerRenderer<EntityLivingBase> {
 				LayerArmorBase.renderEnchantedGlint(renderPlayer, entitylivingbaseIn, modelElytra, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
 			}
 
-			GlStateManager.disableBlend();
-			GlStateManager.popMatrix();
+			GLS.disableBlend();
+			GLS.popMatrix();
 		}
 	}
 

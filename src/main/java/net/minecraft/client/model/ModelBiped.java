@@ -1,6 +1,6 @@
 package net.minecraft.client.model;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.Hand;
@@ -87,17 +87,17 @@ public class ModelBiped extends ModelBase {
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
-		GlStateManager.pushMatrix();
+		GLS.pushMatrix();
 
 		if (isChild) {
 			float f = 2F;
-			GlStateManager.scale(0.75F, 0.75F, 0.75F);
-			GlStateManager.translate(0F, 16F * scale, 0F);
+			GLS.scale(0.75F, 0.75F, 0.75F);
+			GLS.translate(0F, 16F * scale, 0F);
 			bipedHead.render(scale);
-			GlStateManager.popMatrix();
-			GlStateManager.pushMatrix();
-			GlStateManager.scale(0.5F, 0.5F, 0.5F);
-			GlStateManager.translate(0F, 24F * scale, 0F);
+			GLS.popMatrix();
+			GLS.pushMatrix();
+			GLS.scale(0.5F, 0.5F, 0.5F);
+			GLS.translate(0F, 24F * scale, 0F);
 			bipedBody.render(scale);
 			bipedRightArm.render(scale);
 			bipedLeftArm.render(scale);
@@ -106,7 +106,7 @@ public class ModelBiped extends ModelBase {
 			bipedHeadwear.render(scale);
 		} else {
 			if (entityIn.isSneaking()) {
-				GlStateManager.translate(0F, 0.2F, 0F);
+				GLS.translate(0F, 0.2F, 0F);
 			}
 
 			bipedHead.render(scale);
@@ -118,7 +118,7 @@ public class ModelBiped extends ModelBase {
 			bipedHeadwear.render(scale);
 		}
 
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 	}
 
 	@SuppressWarnings("incomplete-switch")

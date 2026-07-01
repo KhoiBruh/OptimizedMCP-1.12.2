@@ -7,7 +7,7 @@ import net.minecraft.client.gui.spectator.ISpectatorMenuObject;
 import net.minecraft.client.gui.spectator.ISpectatorMenuRecipient;
 import net.minecraft.client.gui.spectator.SpectatorMenu;
 import net.minecraft.client.gui.spectator.categories.SpectatorDetails;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.ResourceLocation;
@@ -64,10 +64,10 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 
 	protected void renderPage(float p_175258_2_, int p_175258_3_, float p_175258_4_, SpectatorDetails p_175258_5_) {
 
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-		GlStateManager.color(1F, 1F, 1F, p_175258_2_);
+		GLS.enableRescaleNormal();
+		GLS.enableBlend();
+		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
+		GLS.color(1F, 1F, 1F, p_175258_2_);
 		mc.getTextureManager().bindTexture(WIDGETS);
 		drawTexturedModalRect((float) (p_175258_3_ - 91), p_175258_4_, 0, 0, 182, 22);
 
@@ -82,8 +82,8 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 		}
 
 		RenderHelper.disableStandardItemLighting();
-		GlStateManager.disableRescaleNormal();
-		GlStateManager.disableBlend();
+		GLS.disableRescaleNormal();
+		GLS.disableBlend();
 	}
 
 	private void renderSlot(int p_175266_1_, int p_175266_2_, float p_175266_3_, float p_175266_4_, ISpectatorMenuObject p_175266_5_) {
@@ -92,12 +92,12 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 
 		if (p_175266_5_ != SpectatorMenu.EMPTY_SLOT) {
 			int i = (int) (p_175266_4_ * 255F);
-			GlStateManager.pushMatrix();
-			GlStateManager.translate((float) p_175266_2_, p_175266_3_, 0F);
+			GLS.pushMatrix();
+			GLS.translate((float) p_175266_2_, p_175266_3_, 0F);
 			float f = p_175266_5_.isEnabled() ? 1F : 0.25F;
-			GlStateManager.color(f, f, f, p_175266_4_);
+			GLS.color(f, f, f, p_175266_4_);
 			p_175266_5_.renderIcon(f, i);
-			GlStateManager.popMatrix();
+			GLS.popMatrix();
 			String s = String.valueOf(GameSettings.getKeyDisplayString(mc.gameSettings.keyHotbar[p_175266_1_].getKeyCode()));
 
 			if (i > 3 && p_175266_5_.isEnabled()) {
@@ -117,12 +117,12 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 			if (s != null) {
 				int j = (mc.getWindow().getScaledWidth() - mc.fontRenderer.getStringWidth(s)) / 2;
 				int k = mc.getWindow().getScaledHeight() - 35;
-				GlStateManager.pushMatrix();
-				GlStateManager.enableBlend();
-				GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+				GLS.pushMatrix();
+				GLS.enableBlend();
+				GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 				mc.fontRenderer.drawStringWithShadow(s, (float) j, (float) k, 16777215 + (i << 24));
-				GlStateManager.disableBlend();
-				GlStateManager.popMatrix();
+				GLS.disableBlend();
+				GLS.popMatrix();
 			}
 		}
 	}

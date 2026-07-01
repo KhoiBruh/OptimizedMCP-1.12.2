@@ -3,7 +3,7 @@ package net.minecraft.client.renderer.debug;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -28,11 +28,11 @@ public class DebugRendererWater implements DebugRenderer.IDebugRenderer {
 		double zo = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double) partialTicks;
 		BlockPos blockpos = minecraft.player.getPosition();
 		World world = minecraft.player.world;
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-		GlStateManager.color(0F, 1F, 0F, 0.75F);
-		GlStateManager.disableTexture2D();
-		GlStateManager.lineWidth(6F);
+		GLS.enableBlend();
+		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
+		GLS.color(0F, 1F, 0F, 0.75F);
+		GLS.disableTexture2D();
+		GLS.lineWidth(6F);
 
 		for (BlockPos blockpos1 : BlockPos.getAllInBox(blockpos.add(-10, -10, -10), blockpos.add(10, 10, 10))) {
 			IBlockState iblockstate = world.getBlockState(blockpos1);
@@ -54,8 +54,8 @@ public class DebugRendererWater implements DebugRenderer.IDebugRenderer {
 			}
 		}
 
-		GlStateManager.enableTexture2D();
-		GlStateManager.disableBlend();
+		GLS.enableTexture2D();
+		GLS.disableBlend();
 	}
 
 }

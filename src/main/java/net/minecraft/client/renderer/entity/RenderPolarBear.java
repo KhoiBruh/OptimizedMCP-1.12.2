@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.model.ModelPolarBear;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.monster.EntityPolarBear;
 import net.minecraft.util.ResourceLocation;
 
@@ -35,7 +35,7 @@ public class RenderPolarBear extends RenderLiving<EntityPolarBear> {
 	 */
 	protected void preRenderCallback(EntityPolarBear entitylivingbaseIn, float partialTickTime) {
 
-		GlStateManager.scale(1.2F, 1.2F, 1.2F);
+		GLS.scale(1.2F, 1.2F, 1.2F);
 		super.preRenderCallback(entitylivingbaseIn, partialTickTime);
 	}
 

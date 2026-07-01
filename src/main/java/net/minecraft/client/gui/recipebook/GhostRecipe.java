@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.Screen;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.item.ItemStack;
@@ -59,7 +59,7 @@ public class GhostRecipe {
 		}
 
 		RenderHelper.enableGUIStandardItemLighting();
-		GlStateManager.disableLighting();
+		GLS.disableLighting();
 
 		for (int i = 0; i < ingredients.size(); ++i) {
 			GhostRecipe.GhostIngredient ghostrecipe$ghostingredient = ingredients.get(i);
@@ -72,19 +72,19 @@ public class GhostRecipe {
 				Gui.drawRect(j, k, j + 16, k + 16, 822018048);
 			}
 
-			GlStateManager.disableLighting();
+			GLS.disableLighting();
 			ItemStack itemstack = ghostrecipe$ghostingredient.getItem();
 			RenderItem renderitem = p_194188_1_.getRenderItem();
 			renderitem.renderItemAndEffectIntoGUI(p_194188_1_.player, itemstack, j, k);
-			GlStateManager.depthFunc(516);
+			GLS.depthFunc(516);
 			Gui.drawRect(j, k, j + 16, k + 16, 822083583);
-			GlStateManager.depthFunc(515);
+			GLS.depthFunc(515);
 
 			if (i == 0) {
 				renderitem.renderItemOverlays(p_194188_1_.fontRenderer, itemstack, j, k);
 			}
 
-			GlStateManager.enableLighting();
+			GLS.enableLighting();
 		}
 
 		RenderHelper.disableStandardItemLighting();

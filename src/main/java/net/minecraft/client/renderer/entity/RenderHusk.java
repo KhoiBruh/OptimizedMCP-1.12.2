@@ -1,6 +1,6 @@
 package net.minecraft.client.renderer.entity;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.util.ResourceLocation;
 
@@ -19,7 +19,7 @@ public class RenderHusk extends RenderZombie {
 	protected void preRenderCallback(EntityZombie entitylivingbaseIn, float partialTickTime) {
 
 		float f = 1.0625F;
-		GlStateManager.scale(1.0625F, 1.0625F, 1.0625F);
+		GLS.scale(1.0625F, 1.0625F, 1.0625F);
 		super.preRenderCallback(entitylivingbaseIn, partialTickTime);
 	}
 

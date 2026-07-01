@@ -1,6 +1,6 @@
 package net.minecraft.client.model;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.AbstractChestHorse;
 
@@ -67,29 +67,29 @@ public class ModelLlama extends ModelQuadruped {
 
 		if (isChild) {
 			float f = 2F;
-			GlStateManager.pushMatrix();
-			GlStateManager.translate(0F, childYOffset * scale, childZOffset * scale);
-			GlStateManager.popMatrix();
-			GlStateManager.pushMatrix();
+			GLS.pushMatrix();
+			GLS.translate(0F, childYOffset * scale, childZOffset * scale);
+			GLS.popMatrix();
+			GLS.pushMatrix();
 			float f1 = 0.7F;
-			GlStateManager.scale(0.71428573F, 0.64935064F, 0.7936508F);
-			GlStateManager.translate(0F, 21F * scale, 0.22F);
+			GLS.scale(0.71428573F, 0.64935064F, 0.7936508F);
+			GLS.translate(0F, 21F * scale, 0.22F);
 			head.render(scale);
-			GlStateManager.popMatrix();
-			GlStateManager.pushMatrix();
+			GLS.popMatrix();
+			GLS.pushMatrix();
 			float f2 = 1.1F;
-			GlStateManager.scale(0.625F, 0.45454544F, 0.45454544F);
-			GlStateManager.translate(0F, 33F * scale, 0F);
+			GLS.scale(0.625F, 0.45454544F, 0.45454544F);
+			GLS.translate(0F, 33F * scale, 0F);
 			body.render(scale);
-			GlStateManager.popMatrix();
-			GlStateManager.pushMatrix();
-			GlStateManager.scale(0.45454544F, 0.41322312F, 0.45454544F);
-			GlStateManager.translate(0F, 33F * scale, 0F);
+			GLS.popMatrix();
+			GLS.pushMatrix();
+			GLS.scale(0.45454544F, 0.41322312F, 0.45454544F);
+			GLS.translate(0F, 33F * scale, 0F);
 			leg1.render(scale);
 			leg2.render(scale);
 			leg3.render(scale);
 			leg4.render(scale);
-			GlStateManager.popMatrix();
+			GLS.popMatrix();
 		} else {
 			head.render(scale);
 			body.render(scale);

@@ -9,7 +9,7 @@ import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.GuiSlot;
 import net.minecraft.client.gui.IProgressMeter;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -166,11 +166,11 @@ public class StatsScreen extends Screen implements IProgressMeter {
 	private void drawStatsScreen(int x, int y, Item itemIn) {
 
 		drawButtonBackground(x + 1, y + 1);
-		GlStateManager.enableRescaleNormal();
+		GLS.enableRescaleNormal();
 		RenderHelper.enableGUIStandardItemLighting();
 		itemRender.renderItemIntoGUI(itemIn.getDefaultInstance(), x + 2, y + 2);
 		RenderHelper.disableStandardItemLighting();
-		GlStateManager.disableRescaleNormal();
+		GLS.disableRescaleNormal();
 	}
 
 	/**
@@ -186,7 +186,7 @@ public class StatsScreen extends Screen implements IProgressMeter {
 	 */
 	private void drawSprite(int x, int y, int u, int v) {
 
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(STAT_ICONS);
 		float f = 0.0078125F;
 		float f1 = 0.0078125F;

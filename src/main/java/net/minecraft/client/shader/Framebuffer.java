@@ -1,7 +1,7 @@
 package net.minecraft.client.shader;
 
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureUtil;
@@ -40,7 +40,7 @@ public class Framebuffer {
 			framebufferWidth = width;
 			framebufferHeight = height;
 		} else {
-			GlStateManager.enableDepth();
+			GLS.enableDepth();
 
 			if (framebufferObject >= 0) {
 				deleteFramebuffer();
@@ -94,8 +94,8 @@ public class Framebuffer {
 			}
 
 			setFramebufferFilter(9728);
-			GlStateManager.bindTexture(framebufferTexture);
-			GlStateManager.texImage2D(3553, 0, 32856, framebufferTextureWidth, framebufferTextureHeight, 0, 6408, 5121, null);
+			GLS.bindTexture(framebufferTexture);
+			GLS.texImage2D(3553, 0, 32856, framebufferTextureWidth, framebufferTextureHeight, 0, 6408, 5121, null);
 			OpenGlHelper.glBindFramebuffer(OpenGlHelper.GL_FRAMEBUFFER, framebufferObject);
 			OpenGlHelper.glFramebufferTexture2D(OpenGlHelper.GL_FRAMEBUFFER, OpenGlHelper.GL_COLOR_ATTACHMENT0, 3553, framebufferTexture, 0);
 
@@ -114,12 +114,12 @@ public class Framebuffer {
 
 		if (OpenGlHelper.isFramebufferEnabled()) {
 			framebufferFilter = framebufferFilterIn;
-			GlStateManager.bindTexture(framebufferTexture);
-			GlStateManager.texParameteri(3553, 10241, framebufferFilterIn);
-			GlStateManager.texParameteri(3553, 10240, framebufferFilterIn);
-			GlStateManager.texParameteri(3553, 10242, 10496);
-			GlStateManager.texParameteri(3553, 10243, 10496);
-			GlStateManager.bindTexture(0);
+			GLS.bindTexture(framebufferTexture);
+			GLS.texParameteri(3553, 10241, framebufferFilterIn);
+			GLS.texParameteri(3553, 10240, framebufferFilterIn);
+			GLS.texParameteri(3553, 10242, 10496);
+			GLS.texParameteri(3553, 10243, 10496);
+			GLS.bindTexture(0);
 		}
 	}
 
@@ -145,14 +145,14 @@ public class Framebuffer {
 	public void bindFramebufferTexture() {
 
 		if (OpenGlHelper.isFramebufferEnabled()) {
-			GlStateManager.bindTexture(framebufferTexture);
+			GLS.bindTexture(framebufferTexture);
 		}
 	}
 
 	public void unbindFramebufferTexture() {
 
 		if (OpenGlHelper.isFramebufferEnabled()) {
-			GlStateManager.bindTexture(0);
+			GLS.bindTexture(0);
 		}
 	}
 
@@ -162,7 +162,7 @@ public class Framebuffer {
 			OpenGlHelper.glBindFramebuffer(OpenGlHelper.GL_FRAMEBUFFER, framebufferObject);
 
 			if (p_147610_1_) {
-				GlStateManager.viewport(0, 0, framebufferWidth, framebufferHeight);
+				GLS.viewport(0, 0, framebufferWidth, framebufferHeight);
 			}
 		}
 	}
@@ -190,26 +190,26 @@ public class Framebuffer {
 	public void framebufferRenderExt(int width, int height, boolean p_178038_3_) {
 
 		if (OpenGlHelper.isFramebufferEnabled()) {
-			GlStateManager.colorMask(true, true, true, false);
-			GlStateManager.disableDepth();
-			GlStateManager.depthMask(false);
-			GlStateManager.matrixMode(5889);
-			GlStateManager.loadIdentity();
-			GlStateManager.ortho(0D, width, height, 0D, 1000D, 3000D);
-			GlStateManager.matrixMode(5888);
-			GlStateManager.loadIdentity();
-			GlStateManager.translate(0F, 0F, -2000F);
-			GlStateManager.viewport(0, 0, width, height);
-			GlStateManager.enableTexture2D();
-			GlStateManager.disableLighting();
-			GlStateManager.disableAlpha();
+			GLS.colorMask(true, true, true, false);
+			GLS.disableDepth();
+			GLS.depthMask(false);
+			GLS.matrixMode(5889);
+			GLS.loadIdentity();
+			GLS.ortho(0D, width, height, 0D, 1000D, 3000D);
+			GLS.matrixMode(5888);
+			GLS.loadIdentity();
+			GLS.translate(0F, 0F, -2000F);
+			GLS.viewport(0, 0, width, height);
+			GLS.enableTexture2D();
+			GLS.disableLighting();
+			GLS.disableAlpha();
 
 			if (p_178038_3_) {
-				GlStateManager.disableBlend();
-				GlStateManager.enableColorMaterial();
+				GLS.disableBlend();
+				GLS.enableColorMaterial();
 			}
 
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GLS.color(1F, 1F, 1F, 1F);
 			bindFramebufferTexture();
 			float f = (float) width;
 			float f1 = (float) height;
@@ -224,23 +224,23 @@ public class Framebuffer {
 			bufferbuilder.pos(0D, 0D, 0D).tex(0D, f3).color(255, 255, 255, 255).endVertex();
 			tessellator.draw();
 			unbindFramebufferTexture();
-			GlStateManager.depthMask(true);
-			GlStateManager.colorMask(true, true, true, true);
+			GLS.depthMask(true);
+			GLS.colorMask(true, true, true, true);
 		}
 	}
 
 	public void framebufferClear() {
 
 		bindFramebuffer(true);
-		GlStateManager.clearColor(framebufferColor[0], framebufferColor[1], framebufferColor[2], framebufferColor[3]);
+		GLS.clearColor(framebufferColor[0], framebufferColor[1], framebufferColor[2], framebufferColor[3]);
 		int i = 16384;
 
 		if (useDepth) {
-			GlStateManager.clearDepth(1D);
+			GLS.clearDepth(1D);
 			i |= 256;
 		}
 
-		GlStateManager.clear(i);
+		GLS.clear(i);
 		unbindFramebuffer();
 	}
 

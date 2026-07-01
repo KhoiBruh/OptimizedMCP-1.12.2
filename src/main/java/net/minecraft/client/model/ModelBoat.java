@@ -1,7 +1,7 @@
 package net.minecraft.client.model;
 
 import net.minecraft.client.renderer.GLAllocation;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.util.math.MathHelper;
@@ -63,7 +63,7 @@ public class ModelBoat extends ModelBase implements IMultipassModel {
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
-		GlStateManager.rotate(90F, 0F, 1F, 0F);
+		GLS.rotate(90F, 0F, 1F, 0F);
 		EntityBoat entityboat = (EntityBoat) entityIn;
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
@@ -77,10 +77,10 @@ public class ModelBoat extends ModelBase implements IMultipassModel {
 
 	public void renderMultipass(Entity p_187054_1_, float p_187054_2_, float p_187054_3_, float p_187054_4_, float p_187054_5_, float p_187054_6_, float scale) {
 
-		GlStateManager.rotate(90F, 0F, 1F, 0F);
-		GlStateManager.colorMask(false, false, false, false);
+		GLS.rotate(90F, 0F, 1F, 0F);
+		GLS.colorMask(false, false, false, false);
 		noWater.render(scale);
-		GlStateManager.colorMask(true, true, true, true);
+		GLS.colorMask(true, true, true, true);
 	}
 
 	protected ModelRenderer makePaddle(boolean p_187056_1_) {

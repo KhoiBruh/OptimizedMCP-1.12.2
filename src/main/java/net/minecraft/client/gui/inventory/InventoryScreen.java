@@ -5,7 +5,7 @@ import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.ImageButton;
 import net.minecraft.client.gui.recipebook.GuiRecipeBook;
 import net.minecraft.client.gui.recipebook.IRecipeShownListener;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.InventoryEffectRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
@@ -45,26 +45,26 @@ public class InventoryScreen extends InventoryEffectRenderer implements IRecipeS
 	 */
 	public static void drawEntityOnScreen(int posX, int posY, int scale, float mouseX, float mouseY, EntityLivingBase ent) {
 
-		GlStateManager.enableColorMaterial();
-		GlStateManager.pushMatrix();
-		GlStateManager.translate((float) posX, (float) posY, 50F);
-		GlStateManager.scale((float) (-scale), (float) scale, (float) scale);
-		GlStateManager.rotate(180F, 0F, 0F, 1F);
+		GLS.enableColorMaterial();
+		GLS.pushMatrix();
+		GLS.translate((float) posX, (float) posY, 50F);
+		GLS.scale((float) (-scale), (float) scale, (float) scale);
+		GLS.rotate(180F, 0F, 0F, 1F);
 		float f = ent.renderYawOffset;
 		float f1 = ent.rotationYaw;
 		float f2 = ent.rotationPitch;
 		float f3 = ent.prevRotationYawHead;
 		float f4 = ent.rotationYawHead;
-		GlStateManager.rotate(135F, 0F, 1F, 0F);
+		GLS.rotate(135F, 0F, 1F, 0F);
 		RenderHelper.enableStandardItemLighting();
-		GlStateManager.rotate(-135F, 0F, 1F, 0F);
-		GlStateManager.rotate(-((float) Math.atan(mouseY / 40F)) * 20F, 1F, 0F, 0F);
+		GLS.rotate(-135F, 0F, 1F, 0F);
+		GLS.rotate(-((float) Math.atan(mouseY / 40F)) * 20F, 1F, 0F, 0F);
 		ent.renderYawOffset = (float) Math.atan(mouseX / 40F) * 20F;
 		ent.rotationYaw = (float) Math.atan(mouseX / 40F) * 40F;
 		ent.rotationPitch = -((float) Math.atan(mouseY / 40F)) * 20F;
 		ent.rotationYawHead = ent.rotationYaw;
 		ent.prevRotationYawHead = ent.rotationYaw;
-		GlStateManager.translate(0F, 0F, 0F);
+		GLS.translate(0F, 0F, 0F);
 		RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
 		rendermanager.setPlayerViewY(180F);
 		rendermanager.setRenderShadow(false);
@@ -75,12 +75,12 @@ public class InventoryScreen extends InventoryEffectRenderer implements IRecipeS
 		ent.rotationPitch = f2;
 		ent.prevRotationYawHead = f3;
 		ent.rotationYawHead = f4;
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 		RenderHelper.disableStandardItemLighting();
-		GlStateManager.disableRescaleNormal();
-		GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-		GlStateManager.disableTexture2D();
-		GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
+		GLS.disableRescaleNormal();
+		GLS.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+		GLS.disableTexture2D();
+		GLS.setActiveTexture(OpenGlHelper.defaultTexUnit);
 	}
 
 	/**
@@ -152,7 +152,7 @@ public class InventoryScreen extends InventoryEffectRenderer implements IRecipeS
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(INVENTORY_BACKGROUND);
 		int i = guiLeft;
 		int j = guiTop;

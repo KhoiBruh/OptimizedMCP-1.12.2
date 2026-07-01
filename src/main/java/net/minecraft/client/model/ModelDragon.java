@@ -1,6 +1,6 @@
 package net.minecraft.client.model;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragon;
@@ -161,14 +161,14 @@ public class ModelDragon extends ModelBase {
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
-		GlStateManager.pushMatrix();
+		GLS.pushMatrix();
 		EntityDragon entitydragon = (EntityDragon) entityIn;
 		float f = entitydragon.prevAnimTime + (entitydragon.animTime - entitydragon.prevAnimTime) * partialTicks;
 		jaw.rotateAngleX = (float) (Math.sin(f * ((float) Math.PI * 2F)) + 1D) * 0.2F;
 		float f1 = (float) (Math.sin(f * ((float) Math.PI * 2F) - 1F) + 1D);
 		f1 = (f1 * f1 + f1 * 2F) * 0.05F;
-		GlStateManager.translate(0F, f1 - 2F, -3F);
-		GlStateManager.rotate(f1 * 2F, 1F, 0F, 0F);
+		GLS.translate(0F, f1 - 2F, -3F);
+		GLS.rotate(f1 * 2F, 1F, 0F, 0F);
 		float f2;
 		float f4 = 0F;
 		float f5 = 1.5F;
@@ -202,15 +202,15 @@ public class ModelDragon extends ModelBase {
 		head.rotateAngleX = updateRotations(entitydragon.getHeadPartYOffset(6, adouble, adouble2)) * 0.017453292F * 1.5F * 5F;
 		head.rotateAngleZ = -updateRotations(adouble2[0] - (double) f7) * 0.017453292F;
 		head.render(scale);
-		GlStateManager.pushMatrix();
-		GlStateManager.translate(0F, 1F, 0F);
-		GlStateManager.rotate(-f6 * 1.5F, 0F, 0F, 1F);
-		GlStateManager.translate(0F, -1F, 0F);
+		GLS.pushMatrix();
+		GLS.translate(0F, 1F, 0F);
+		GLS.rotate(-f6 * 1.5F, 0F, 0F, 1F);
+		GLS.translate(0F, -1F, 0F);
 		body.rotateAngleZ = 0F;
 		body.render(scale);
 
 		for (int j = 0; j < 2; ++j) {
-			GlStateManager.enableCull();
+			GLS.enableCull();
 			float f11 = f * ((float) Math.PI * 2F);
 			wing.rotateAngleX = 0.125F - (float) Math.cos(f11) * 0.2F;
 			wing.rotateAngleY = 0.25F;
@@ -225,16 +225,16 @@ public class ModelDragon extends ModelBase {
 			wing.render(scale);
 			frontLeg.render(scale);
 			rearLeg.render(scale);
-			GlStateManager.scale(-1F, 1F, 1F);
+			GLS.scale(-1F, 1F, 1F);
 
 			if (j == 0) {
-				GlStateManager.cullFace(GlStateManager.CullFace.FRONT);
+				GLS.cullFace(GLS.CullFace.FRONT);
 			}
 		}
 
-		GlStateManager.popMatrix();
-		GlStateManager.cullFace(GlStateManager.CullFace.BACK);
-		GlStateManager.disableCull();
+		GLS.popMatrix();
+		GLS.cullFace(GLS.CullFace.BACK);
+		GLS.disableCull();
 		float f10 = -((float) Math.sin(f * ((float) Math.PI * 2F))) * 0F;
 		f8 = f * ((float) Math.PI * 2F);
 		f2 = 10F;
@@ -257,7 +257,7 @@ public class ModelDragon extends ModelBase {
 			spine.render(scale);
 		}
 
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 	}
 
 	/**

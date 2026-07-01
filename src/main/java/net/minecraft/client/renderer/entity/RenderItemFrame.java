@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -36,13 +36,13 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
 	 */
 	public void doRender(EntityItemFrame entity, double x, double y, double z, float entityYaw, float partialTicks) {
 
-		GlStateManager.pushMatrix();
+		GLS.pushMatrix();
 		BlockPos blockpos = entity.getHangingPosition();
 		double d0 = (double) blockpos.getX() - entity.posX + x;
 		double d1 = (double) blockpos.getY() - entity.posY + y;
 		double d2 = (double) blockpos.getZ() - entity.posZ + z;
-		GlStateManager.translate(d0 + 0.5D, d1 + 0.5D, d2 + 0.5D);
-		GlStateManager.rotate(180F - entity.rotationYaw, 0F, 1F, 0F);
+		GLS.translate(d0 + 0.5D, d1 + 0.5D, d2 + 0.5D);
+		GLS.rotate(180F - entity.rotationYaw, 0F, 1F, 0F);
 		renderManager.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		BlockRendererDispatcher blockrendererdispatcher = mc.getBlockRendererDispatcher();
 		ModelManager modelmanager = blockrendererdispatcher.getBlockModelShapes().getModelManager();
@@ -54,25 +54,25 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
 			ibakedmodel = modelmanager.getModel(itemFrameModel);
 		}
 
-		GlStateManager.pushMatrix();
-		GlStateManager.translate(-0.5F, -0.5F, -0.5F);
+		GLS.pushMatrix();
+		GLS.translate(-0.5F, -0.5F, -0.5F);
 
 		if (renderOutlines) {
-			GlStateManager.enableColorMaterial();
-			GlStateManager.enableOutlineMode(getTeamColor(entity));
+			GLS.enableColorMaterial();
+			GLS.enableOutlineMode(getTeamColor(entity));
 		}
 
 		blockrendererdispatcher.getBlockModelRenderer().renderModelBrightnessColor(ibakedmodel, 1F, 1F, 1F, 1F);
 
 		if (renderOutlines) {
-			GlStateManager.disableOutlineMode();
-			GlStateManager.disableColorMaterial();
+			GLS.disableOutlineMode();
+			GLS.disableColorMaterial();
 		}
 
-		GlStateManager.popMatrix();
-		GlStateManager.translate(0F, 0F, 0.4375F);
+		GLS.popMatrix();
+		GLS.translate(0F, 0F, 0.4375F);
 		renderItem(entity);
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 		renderName(entity, x + (double) ((float) entity.facingDirection.getFrontOffsetX() * 0.3F), y - 0.25D, z + (double) ((float) entity.facingDirection.getFrontOffsetZ() * 0.3F));
 	}
 
@@ -91,35 +91,35 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
 		ItemStack itemstack = itemFrame.getDisplayedItem();
 
 		if (!itemstack.isEmpty()) {
-			GlStateManager.pushMatrix();
-			GlStateManager.disableLighting();
+			GLS.pushMatrix();
+			GLS.disableLighting();
 			boolean flag = itemstack.getItem() == Items.FILLED_MAP;
 			int i = flag ? itemFrame.getRotation() % 4 * 2 : itemFrame.getRotation();
-			GlStateManager.rotate((float) i * 360F / 8F, 0F, 0F, 1F);
+			GLS.rotate((float) i * 360F / 8F, 0F, 0F, 1F);
 
 			if (flag) {
 				renderManager.renderEngine.bindTexture(MAP_BACKGROUND_TEXTURES);
-				GlStateManager.rotate(180F, 0F, 0F, 1F);
+				GLS.rotate(180F, 0F, 0F, 1F);
 				float f = 0.0078125F;
-				GlStateManager.scale(0.0078125F, 0.0078125F, 0.0078125F);
-				GlStateManager.translate(-64F, -64F, 0F);
+				GLS.scale(0.0078125F, 0.0078125F, 0.0078125F);
+				GLS.translate(-64F, -64F, 0F);
 				MapData mapdata = Items.FILLED_MAP.getMapData(itemstack, itemFrame.world);
-				GlStateManager.translate(0F, 0F, -1F);
+				GLS.translate(0F, 0F, -1F);
 
 				if (mapdata != null) {
 					mc.entityRenderer.getMapItemRenderer().renderMap(mapdata, true);
 				}
 			} else {
-				GlStateManager.scale(0.5F, 0.5F, 0.5F);
-				GlStateManager.pushAttrib();
+				GLS.scale(0.5F, 0.5F, 0.5F);
+				GLS.pushAttrib();
 				RenderHelper.enableStandardItemLighting();
 				itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.FIXED);
 				RenderHelper.disableStandardItemLighting();
-				GlStateManager.popAttrib();
+				GLS.popAttrib();
 			}
 
-			GlStateManager.enableLighting();
-			GlStateManager.popMatrix();
+			GLS.enableLighting();
+			GLS.popMatrix();
 		}
 	}
 

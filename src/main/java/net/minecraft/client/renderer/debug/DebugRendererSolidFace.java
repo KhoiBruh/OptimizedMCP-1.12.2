@@ -4,7 +4,7 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,11 +32,11 @@ public class DebugRendererSolidFace implements DebugRenderer.IDebugRenderer {
 		double d2 = entityplayer.lastTickPosZ + (entityplayer.posZ - entityplayer.lastTickPosZ) * (double) partialTicks;
 		World world = minecraft.player.world;
 		Iterable<BlockPos> iterable = BlockPos.getAllInBox(MathHelper.floor(entityplayer.posX - 6D), MathHelper.floor(entityplayer.posY - 6D), MathHelper.floor(entityplayer.posZ - 6D), MathHelper.floor(entityplayer.posX + 6D), MathHelper.floor(entityplayer.posY + 6D), MathHelper.floor(entityplayer.posZ + 6D));
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-		GlStateManager.lineWidth(2F);
-		GlStateManager.disableTexture2D();
-		GlStateManager.depthMask(false);
+		GLS.enableBlend();
+		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
+		GLS.lineWidth(2F);
+		GLS.disableTexture2D();
+		GLS.depthMask(false);
 
 		for (BlockPos blockpos : iterable) {
 			IBlockState iblockstate = world.getBlockState(blockpos);
@@ -122,9 +122,9 @@ public class DebugRendererSolidFace implements DebugRenderer.IDebugRenderer {
 			}
 		}
 
-		GlStateManager.depthMask(true);
-		GlStateManager.enableTexture2D();
-		GlStateManager.disableBlend();
+		GLS.depthMask(true);
+		GLS.enableTexture2D();
+		GLS.disableBlend();
 	}
 
 }

@@ -1,6 +1,6 @@
 package net.minecraft.client.model;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 
@@ -49,15 +49,15 @@ public class ModelGhast extends ModelBase {
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
-		GlStateManager.pushMatrix();
-		GlStateManager.translate(0F, 0.6F, 0F);
+		GLS.pushMatrix();
+		GLS.translate(0F, 0.6F, 0F);
 		body.render(scale);
 
 		for (ModelRenderer modelrenderer : tentacles) {
 			modelrenderer.render(scale);
 		}
 
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 	}
 
 }

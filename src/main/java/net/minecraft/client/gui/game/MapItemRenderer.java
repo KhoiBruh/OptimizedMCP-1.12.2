@@ -3,7 +3,7 @@ package net.minecraft.client.gui.game;
 import com.google.common.collect.Maps;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -117,27 +117,27 @@ public class MapItemRenderer {
 			BufferBuilder bufferbuilder = tessellator.getBuffer();
 			float f = 0F;
 			textureManager.bindTexture(location);
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ZERO, GlStateManager.DestFactor.ONE);
-			GlStateManager.disableAlpha();
+			GLS.enableBlend();
+			GLS.blendFunc(GLS.SourceFactor.ONE, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ZERO, GLS.DestFactor.ONE);
+			GLS.disableAlpha();
 			bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
 			bufferbuilder.pos(0D, 128D, -0.009999999776482582D).tex(0D, 1D).endVertex();
 			bufferbuilder.pos(128D, 128D, -0.009999999776482582D).tex(1D, 1D).endVertex();
 			bufferbuilder.pos(128D, 0D, -0.009999999776482582D).tex(1D, 0D).endVertex();
 			bufferbuilder.pos(0D, 0D, -0.009999999776482582D).tex(0D, 0D).endVertex();
 			tessellator.draw();
-			GlStateManager.enableAlpha();
-			GlStateManager.disableBlend();
+			GLS.enableAlpha();
+			GLS.disableBlend();
 			textureManager.bindTexture(MapItemRenderer.TEXTURE_MAP_ICONS);
 			int k = 0;
 
 			for (MapDecoration mapdecoration : mapData.mapDecorations.values()) {
 				if (!noOverlayRendering || mapdecoration.renderOnFrame()) {
-					GlStateManager.pushMatrix();
-					GlStateManager.translate(0F + (float) mapdecoration.x() / 2F + 64F, 0F + (float) mapdecoration.y() / 2F + 64F, -0.02F);
-					GlStateManager.rotate((float) (mapdecoration.rotation() * 360) / 16F, 0F, 0F, 1F);
-					GlStateManager.scale(4F, 4F, 3F);
-					GlStateManager.translate(-0.125F, 0.125F, 0F);
+					GLS.pushMatrix();
+					GLS.translate(0F + (float) mapdecoration.x() / 2F + 64F, 0F + (float) mapdecoration.y() / 2F + 64F, -0.02F);
+					GLS.rotate((float) (mapdecoration.rotation() * 360) / 16F, 0F, 0F, 1F);
+					GLS.scale(4F, 4F, 3F);
+					GLS.translate(-0.125F, 0.125F, 0F);
 					byte b0 = mapdecoration.getImage();
 					float f1 = (float) (b0 % 4) / 4F;
 					float f2 = (float) (b0 / 4) / 4F;
@@ -150,15 +150,15 @@ public class MapItemRenderer {
 					bufferbuilder.pos(1D, -1D, (float) k * -0.001F).tex(f3, f4).endVertex();
 					bufferbuilder.pos(-1D, -1D, (float) k * -0.001F).tex(f1, f4).endVertex();
 					tessellator.draw();
-					GlStateManager.popMatrix();
+					GLS.popMatrix();
 					++k;
 				}
 			}
 
-			GlStateManager.pushMatrix();
-			GlStateManager.translate(0F, 0F, -0.04F);
-			GlStateManager.scale(1F, 1F, 1F);
-			GlStateManager.popMatrix();
+			GLS.pushMatrix();
+			GLS.translate(0F, 0F, -0.04F);
+			GLS.scale(1F, 1F, 1F);
+			GLS.popMatrix();
 		}
 
 	}

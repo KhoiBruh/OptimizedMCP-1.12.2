@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -26,11 +26,11 @@ public class RenderFireball extends Render<EntityFireball> {
 	 */
 	public void doRender(EntityFireball entity, double x, double y, double z, float entityYaw, float partialTicks) {
 
-		GlStateManager.pushMatrix();
+		GLS.pushMatrix();
 		bindEntityTexture(entity);
-		GlStateManager.translate((float) x, (float) y, (float) z);
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.scale(scale, scale, scale);
+		GLS.translate((float) x, (float) y, (float) z);
+		GLS.enableRescaleNormal();
+		GLS.scale(scale, scale, scale);
 		TextureAtlasSprite textureatlassprite = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getParticleIcon(Items.FIRE_CHARGE);
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
@@ -41,12 +41,12 @@ public class RenderFireball extends Render<EntityFireball> {
 		float f4 = 1F;
 		float f5 = 0.5F;
 		float f6 = 0.25F;
-		GlStateManager.rotate(180F - renderManager.playerViewY, 0F, 1F, 0F);
-		GlStateManager.rotate((float) (renderManager.options.thirdPersonView == 2 ? -1 : 1) * -renderManager.playerViewX, 1F, 0F, 0F);
+		GLS.rotate(180F - renderManager.playerViewY, 0F, 1F, 0F);
+		GLS.rotate((float) (renderManager.options.thirdPersonView == 2 ? -1 : 1) * -renderManager.playerViewX, 1F, 0F, 0F);
 
 		if (renderOutlines) {
-			GlStateManager.enableColorMaterial();
-			GlStateManager.enableOutlineMode(getTeamColor(entity));
+			GLS.enableColorMaterial();
+			GLS.enableOutlineMode(getTeamColor(entity));
 		}
 
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_NORMAL);
@@ -57,12 +57,12 @@ public class RenderFireball extends Render<EntityFireball> {
 		tessellator.draw();
 
 		if (renderOutlines) {
-			GlStateManager.disableOutlineMode();
-			GlStateManager.disableColorMaterial();
+			GLS.disableOutlineMode();
+			GLS.disableColorMaterial();
 		}
 
-		GlStateManager.disableRescaleNormal();
-		GlStateManager.popMatrix();
+		GLS.disableRescaleNormal();
+		GLS.popMatrix();
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);
 	}
 

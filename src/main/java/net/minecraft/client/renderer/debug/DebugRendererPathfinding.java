@@ -3,7 +3,7 @@ package net.minecraft.client.renderer.debug;
 import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -46,12 +46,12 @@ public class DebugRendererPathfinding implements DebugRenderer.IDebugRenderer {
 			xo = player.lastTickPosX + (player.posX - player.lastTickPosX) * (double) partialTicks;
 			yo = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double) partialTicks;
 			zo = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double) partialTicks;
-			GlStateManager.pushMatrix();
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-			GlStateManager.color(0F, 1F, 0F, 0.75F);
-			GlStateManager.disableTexture2D();
-			GlStateManager.lineWidth(6F);
+			GLS.pushMatrix();
+			GLS.enableBlend();
+			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
+			GLS.color(0F, 1F, 0F, 0.75F);
+			GLS.disableTexture2D();
+			GLS.lineWidth(6F);
 
 			for (Integer integer : pathMap.keySet()) {
 				Path path = pathMap.get(integer);
@@ -108,9 +108,9 @@ public class DebugRendererPathfinding implements DebugRenderer.IDebugRenderer {
 				}
 			}
 
-			GlStateManager.enableTexture2D();
-			GlStateManager.disableBlend();
-			GlStateManager.popMatrix();
+			GLS.enableTexture2D();
+			GLS.disableBlend();
+			GLS.popMatrix();
 		}
 	}
 

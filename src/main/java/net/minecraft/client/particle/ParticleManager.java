@@ -7,7 +7,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -252,9 +252,9 @@ public class ParticleManager {
 		Particle.interpPosY = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * (double) partialTicks;
 		Particle.interpPosZ = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * (double) partialTicks;
 		Particle.cameraViewDir = entityIn.getLook(partialTicks);
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-		GlStateManager.alphaFunc(516, 0.003921569F);
+		GLS.enableBlend();
+		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA);
+		GLS.alphaFunc(516, 0.003921569F);
 
 		for (int i_nf = 0; i_nf < 3; ++i_nf) {
 			final int i = i_nf;
@@ -263,11 +263,11 @@ public class ParticleManager {
 				if (!fxLayers[i][j].isEmpty()) {
 					switch (j) {
 						case 0:
-							GlStateManager.depthMask(false);
+							GLS.depthMask(false);
 							break;
 
 						case 1:
-							GlStateManager.depthMask(true);
+							GLS.depthMask(true);
 					}
 
 					switch (i) {
@@ -280,7 +280,7 @@ public class ParticleManager {
 							renderer.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 					}
 
-					GlStateManager.color(1F, 1F, 1F, 1F);
+					GLS.color(1F, 1F, 1F, 1F);
 					Tessellator tessellator = Tessellator.getInstance();
 					BufferBuilder bufferbuilder = tessellator.getBuffer();
 					bufferbuilder.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
@@ -311,9 +311,9 @@ public class ParticleManager {
 			}
 		}
 
-		GlStateManager.depthMask(true);
-		GlStateManager.disableBlend();
-		GlStateManager.alphaFunc(516, 0.1F);
+		GLS.depthMask(true);
+		GLS.disableBlend();
+		GLS.alphaFunc(516, 0.1F);
 	}
 
 	public void renderLitParticles(Entity entityIn, float partialTick) {

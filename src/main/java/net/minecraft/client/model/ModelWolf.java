@@ -1,6 +1,6 @@
 package net.minecraft.client.model;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityWolf;
@@ -91,13 +91,13 @@ public class ModelWolf extends ModelBase {
 
 		if (isChild) {
 			float f = 2F;
-			GlStateManager.pushMatrix();
-			GlStateManager.translate(0F, 5F * scale, 2F * scale);
+			GLS.pushMatrix();
+			GLS.translate(0F, 5F * scale, 2F * scale);
 			wolfHeadMain.renderWithRotation(scale);
-			GlStateManager.popMatrix();
-			GlStateManager.pushMatrix();
-			GlStateManager.scale(0.5F, 0.5F, 0.5F);
-			GlStateManager.translate(0F, 24F * scale, 0F);
+			GLS.popMatrix();
+			GLS.pushMatrix();
+			GLS.scale(0.5F, 0.5F, 0.5F);
+			GLS.translate(0F, 24F * scale, 0F);
 			wolfBody.render(scale);
 			wolfLeg1.render(scale);
 			wolfLeg2.render(scale);
@@ -105,7 +105,7 @@ public class ModelWolf extends ModelBase {
 			wolfLeg4.render(scale);
 			wolfTail.renderWithRotation(scale);
 			wolfMane.render(scale);
-			GlStateManager.popMatrix();
+			GLS.popMatrix();
 		} else {
 			wolfHeadMain.renderWithRotation(scale);
 			wolfBody.render(scale);

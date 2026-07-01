@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity.layers;
 
 import net.minecraft.client.model.ModelSkeleton;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.entity.monster.EntityStray;
 import net.minecraft.util.ResourceLocation;
@@ -21,7 +21,7 @@ public class LayerStrayClothing implements LayerRenderer<EntityStray> {
 
 		layerModel.setModelAttributes(renderer.getMainModel());
 		layerModel.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks);
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		renderer.bindTexture(STRAY_CLOTHES_TEXTURES);
 		layerModel.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 	}

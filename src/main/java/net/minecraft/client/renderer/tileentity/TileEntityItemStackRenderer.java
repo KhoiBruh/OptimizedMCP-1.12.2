@@ -7,7 +7,7 @@ import net.minecraft.block.BlockShulkerBox;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelShield;
 import net.minecraft.client.renderer.BannerTextures;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.DyeColor;
@@ -63,10 +63,10 @@ public class TileEntityItemStackRenderer {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(BannerTextures.SHIELD_BASE_TEXTURE);
 			}
 
-			GlStateManager.pushMatrix();
-			GlStateManager.scale(1F, -1F, -1F);
+			GLS.pushMatrix();
+			GLS.scale(1F, -1F, -1F);
 			modelShield.render();
-			GlStateManager.popMatrix();
+			GLS.popMatrix();
 		} else if (item == Items.SKULL) {
 			GameProfile gameprofile = null;
 
@@ -84,11 +84,11 @@ public class TileEntityItemStackRenderer {
 			}
 
 			if (TileEntitySkullRenderer.instance != null) {
-				GlStateManager.pushMatrix();
-				GlStateManager.disableCull();
+				GLS.pushMatrix();
+				GLS.disableCull();
 				TileEntitySkullRenderer.instance.renderSkull(0F, 0F, 0F, Facing.UP, 180F, p_192838_1_.getMetadata(), gameprofile, -1, 0F);
-				GlStateManager.enableCull();
-				GlStateManager.popMatrix();
+				GLS.enableCull();
+				GLS.popMatrix();
 			}
 		} else if (item == Item.getItemFromBlock(Blocks.ENDER_CHEST)) {
 			TileEntityRendererDispatcher.instance.render(enderChest, 0D, 0D, 0D, 0F, partialTicks);

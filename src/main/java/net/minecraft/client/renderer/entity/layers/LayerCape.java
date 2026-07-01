@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity.layers;
 
 import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.player.PlayerModelParts;
 import net.minecraft.init.Items;
@@ -24,10 +24,10 @@ public class LayerCape implements LayerRenderer<AbstractClientPlayer> {
 			ItemStack itemstack = entitylivingbaseIn.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
 			if (itemstack.getItem() != Items.ELYTRA) {
-				GlStateManager.color(1F, 1F, 1F, 1F);
+				GLS.color(1F, 1F, 1F, 1F);
 				playerRenderer.bindTexture(entitylivingbaseIn.getLocationCape());
-				GlStateManager.pushMatrix();
-				GlStateManager.translate(0F, 0F, 0.125F);
+				GLS.pushMatrix();
+				GLS.translate(0F, 0F, 0.125F);
 				double d0 = entitylivingbaseIn.prevChasingPosX + (entitylivingbaseIn.chasingPosX - entitylivingbaseIn.prevChasingPosX) * (double) partialTicks - (entitylivingbaseIn.prevPosX + (entitylivingbaseIn.posX - entitylivingbaseIn.prevPosX) * (double) partialTicks);
 				double d1 = entitylivingbaseIn.prevChasingPosY + (entitylivingbaseIn.chasingPosY - entitylivingbaseIn.prevChasingPosY) * (double) partialTicks - (entitylivingbaseIn.prevPosY + (entitylivingbaseIn.posY - entitylivingbaseIn.prevPosY) * (double) partialTicks);
 				double d2 = entitylivingbaseIn.prevChasingPosZ + (entitylivingbaseIn.chasingPosZ - entitylivingbaseIn.prevChasingPosZ) * (double) partialTicks - (entitylivingbaseIn.prevPosZ + (entitylivingbaseIn.posZ - entitylivingbaseIn.prevPosZ) * (double) partialTicks);
@@ -50,12 +50,12 @@ public class LayerCape implements LayerRenderer<AbstractClientPlayer> {
 					f1 += 25F;
 				}
 
-				GlStateManager.rotate(6F + f2 / 2F + f1, 1F, 0F, 0F);
-				GlStateManager.rotate(f3 / 2F, 0F, 0F, 1F);
-				GlStateManager.rotate(-f3 / 2F, 0F, 1F, 0F);
-				GlStateManager.rotate(180F, 0F, 1F, 0F);
+				GLS.rotate(6F + f2 / 2F + f1, 1F, 0F, 0F);
+				GLS.rotate(f3 / 2F, 0F, 0F, 1F);
+				GLS.rotate(-f3 / 2F, 0F, 1F, 0F);
+				GLS.rotate(180F, 0F, 1F, 0F);
 				playerRenderer.getMainModel().renderCape(0.0625F);
-				GlStateManager.popMatrix();
+				GLS.popMatrix();
 			}
 		}
 	}

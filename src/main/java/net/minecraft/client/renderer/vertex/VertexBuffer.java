@@ -1,6 +1,6 @@
 package net.minecraft.client.renderer.vertex;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.OpenGlHelper;
 
 import java.nio.ByteBuffer;
@@ -32,7 +32,7 @@ public class VertexBuffer {
 
 	public void drawArrays(int mode) {
 
-		GlStateManager.drawArrays(mode, 0, count);
+		GLS.drawArrays(mode, 0, count);
 	}
 
 	public void unbindBuffer() {

@@ -5,7 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GLAllocation;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -86,8 +86,8 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 	 */
 	public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
 
-		GlStateManager.pushMatrix();
-		GlStateManager.disableCull();
+		GLS.pushMatrix();
+		GLS.disableCull();
 		mainModel.swingProgress = getSwingProgress(entity, partialTicks);
 		mainModel.isRiding = entity.isRiding();
 		mainModel.isChild = entity.isChild();
@@ -140,14 +140,14 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 				}
 			}
 
-			GlStateManager.enableAlpha();
+			GLS.enableAlpha();
 			mainModel.setLivingAnimations(entity, f6, f5, partialTicks);
 			mainModel.setRotationAngles(f6, f5, f8, f2, f7, f4, entity);
 
 			if (renderOutlines) {
 				boolean flag1 = setScoreTeamColor(entity);
-				GlStateManager.enableColorMaterial();
-				GlStateManager.enableOutlineMode(getTeamColor(entity));
+				GLS.enableColorMaterial();
+				GLS.enableOutlineMode(getTeamColor(entity));
 
 				if (!renderMarker) {
 					renderModel(entity, f6, f5, f8, f2, f7, f4);
@@ -157,8 +157,8 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 					renderLayers(entity, f6, f5, partialTicks, f8, f2, f7, f4);
 				}
 
-				GlStateManager.disableOutlineMode();
-				GlStateManager.disableColorMaterial();
+				GLS.disableOutlineMode();
+				GLS.disableColorMaterial();
 
 				if (flag1) {
 					unsetScoreTeamColor();
@@ -171,51 +171,51 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 					unsetBrightness();
 				}
 
-				GlStateManager.depthMask(true);
+				GLS.depthMask(true);
 
 				if (!(entity instanceof EntityPlayer) || !((EntityPlayer) entity).isSpectator()) {
 					renderLayers(entity, f6, f5, partialTicks, f8, f2, f7, f4);
 				}
 			}
 
-			GlStateManager.disableRescaleNormal();
+			GLS.disableRescaleNormal();
 		} catch (Exception exception) {
 			LOGGER.error("Couldn't render entity", exception);
 		}
 
-		GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-		GlStateManager.enableTexture2D();
-		GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
-		GlStateManager.enableCull();
-		GlStateManager.popMatrix();
+		GLS.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+		GLS.enableTexture2D();
+		GLS.setActiveTexture(OpenGlHelper.defaultTexUnit);
+		GLS.enableCull();
+		GLS.popMatrix();
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);
 	}
 
 	public float prepareScale(T entitylivingbaseIn, float partialTicks) {
 
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.scale(-1F, -1F, 1F);
+		GLS.enableRescaleNormal();
+		GLS.scale(-1F, -1F, 1F);
 		preRenderCallback(entitylivingbaseIn, partialTicks);
 		float f = 0.0625F;
-		GlStateManager.translate(0F, -1.501F, 0F);
+		GLS.translate(0F, -1.501F, 0F);
 		return 0.0625F;
 	}
 
 	protected boolean setScoreTeamColor(T entityLivingBaseIn) {
 
-		GlStateManager.disableLighting();
-		GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-		GlStateManager.disableTexture2D();
-		GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
+		GLS.disableLighting();
+		GLS.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+		GLS.disableTexture2D();
+		GLS.setActiveTexture(OpenGlHelper.defaultTexUnit);
 		return true;
 	}
 
 	protected void unsetScoreTeamColor() {
 
-		GlStateManager.enableLighting();
-		GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-		GlStateManager.enableTexture2D();
-		GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
+		GLS.enableLighting();
+		GLS.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+		GLS.enableTexture2D();
+		GLS.setActiveTexture(OpenGlHelper.defaultTexUnit);
 	}
 
 	/**
@@ -232,13 +232,13 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 			}
 
 			if (flag1) {
-				GlStateManager.enableBlendProfile(GlStateManager.Profile.TRANSPARENT_MODEL);
+				GLS.enableBlendProfile(GLS.Profile.TRANSPARENT_MODEL);
 			}
 
 			mainModel.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
 
 			if (flag1) {
-				GlStateManager.disableBlendProfile(GlStateManager.Profile.TRANSPARENT_MODEL);
+				GLS.disableBlendProfile(GLS.Profile.TRANSPARENT_MODEL);
 			}
 		}
 	}
@@ -265,30 +265,30 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 		} else if (!flag && !combineTextures) {
 			return false;
 		} else {
-			GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
-			GlStateManager.enableTexture2D();
-			GlStateManager.texEnv(8960, 8704, OpenGlHelper.GL_COMBINE);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_COMBINE_RGB, 8448);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_SOURCE0_RGB, OpenGlHelper.defaultTexUnit);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_SOURCE1_RGB, OpenGlHelper.GL_PRIMARY_COLOR);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_OPERAND0_RGB, 768);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_OPERAND1_RGB, 768);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_COMBINE_ALPHA, 7681);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_SOURCE0_ALPHA, OpenGlHelper.defaultTexUnit);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_OPERAND0_ALPHA, 770);
-			GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-			GlStateManager.enableTexture2D();
-			GlStateManager.texEnv(8960, 8704, OpenGlHelper.GL_COMBINE);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_COMBINE_RGB, OpenGlHelper.GL_INTERPOLATE);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_SOURCE0_RGB, OpenGlHelper.GL_CONSTANT);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_SOURCE1_RGB, OpenGlHelper.GL_PREVIOUS);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_SOURCE2_RGB, OpenGlHelper.GL_CONSTANT);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_OPERAND0_RGB, 768);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_OPERAND1_RGB, 768);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_OPERAND2_RGB, 770);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_COMBINE_ALPHA, 7681);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_SOURCE0_ALPHA, OpenGlHelper.GL_PREVIOUS);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_OPERAND0_ALPHA, 770);
+			GLS.setActiveTexture(OpenGlHelper.defaultTexUnit);
+			GLS.enableTexture2D();
+			GLS.texEnv(8960, 8704, OpenGlHelper.GL_COMBINE);
+			GLS.texEnv(8960, OpenGlHelper.GL_COMBINE_RGB, 8448);
+			GLS.texEnv(8960, OpenGlHelper.GL_SOURCE0_RGB, OpenGlHelper.defaultTexUnit);
+			GLS.texEnv(8960, OpenGlHelper.GL_SOURCE1_RGB, OpenGlHelper.GL_PRIMARY_COLOR);
+			GLS.texEnv(8960, OpenGlHelper.GL_OPERAND0_RGB, 768);
+			GLS.texEnv(8960, OpenGlHelper.GL_OPERAND1_RGB, 768);
+			GLS.texEnv(8960, OpenGlHelper.GL_COMBINE_ALPHA, 7681);
+			GLS.texEnv(8960, OpenGlHelper.GL_SOURCE0_ALPHA, OpenGlHelper.defaultTexUnit);
+			GLS.texEnv(8960, OpenGlHelper.GL_OPERAND0_ALPHA, 770);
+			GLS.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+			GLS.enableTexture2D();
+			GLS.texEnv(8960, 8704, OpenGlHelper.GL_COMBINE);
+			GLS.texEnv(8960, OpenGlHelper.GL_COMBINE_RGB, OpenGlHelper.GL_INTERPOLATE);
+			GLS.texEnv(8960, OpenGlHelper.GL_SOURCE0_RGB, OpenGlHelper.GL_CONSTANT);
+			GLS.texEnv(8960, OpenGlHelper.GL_SOURCE1_RGB, OpenGlHelper.GL_PREVIOUS);
+			GLS.texEnv(8960, OpenGlHelper.GL_SOURCE2_RGB, OpenGlHelper.GL_CONSTANT);
+			GLS.texEnv(8960, OpenGlHelper.GL_OPERAND0_RGB, 768);
+			GLS.texEnv(8960, OpenGlHelper.GL_OPERAND1_RGB, 768);
+			GLS.texEnv(8960, OpenGlHelper.GL_OPERAND2_RGB, 770);
+			GLS.texEnv(8960, OpenGlHelper.GL_COMBINE_ALPHA, 7681);
+			GLS.texEnv(8960, OpenGlHelper.GL_SOURCE0_ALPHA, OpenGlHelper.GL_PREVIOUS);
+			GLS.texEnv(8960, OpenGlHelper.GL_OPERAND0_ALPHA, 770);
 			brightnessBuffer.position(0);
 
 			if (flag1) {
@@ -308,63 +308,63 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 			}
 
 			brightnessBuffer.flip();
-			GlStateManager.texEnv(8960, 8705, brightnessBuffer);
-			GlStateManager.setActiveTexture(OpenGlHelper.GL_TEXTURE2);
-			GlStateManager.enableTexture2D();
-			GlStateManager.bindTexture(TEXTURE_BRIGHTNESS.getGlTextureId());
-			GlStateManager.texEnv(8960, 8704, OpenGlHelper.GL_COMBINE);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_COMBINE_RGB, 8448);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_SOURCE0_RGB, OpenGlHelper.GL_PREVIOUS);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_SOURCE1_RGB, OpenGlHelper.lightmapTexUnit);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_OPERAND0_RGB, 768);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_OPERAND1_RGB, 768);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_COMBINE_ALPHA, 7681);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_SOURCE0_ALPHA, OpenGlHelper.GL_PREVIOUS);
-			GlStateManager.texEnv(8960, OpenGlHelper.GL_OPERAND0_ALPHA, 770);
-			GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
+			GLS.texEnv(8960, 8705, brightnessBuffer);
+			GLS.setActiveTexture(OpenGlHelper.GL_TEXTURE2);
+			GLS.enableTexture2D();
+			GLS.bindTexture(TEXTURE_BRIGHTNESS.getGlTextureId());
+			GLS.texEnv(8960, 8704, OpenGlHelper.GL_COMBINE);
+			GLS.texEnv(8960, OpenGlHelper.GL_COMBINE_RGB, 8448);
+			GLS.texEnv(8960, OpenGlHelper.GL_SOURCE0_RGB, OpenGlHelper.GL_PREVIOUS);
+			GLS.texEnv(8960, OpenGlHelper.GL_SOURCE1_RGB, OpenGlHelper.lightmapTexUnit);
+			GLS.texEnv(8960, OpenGlHelper.GL_OPERAND0_RGB, 768);
+			GLS.texEnv(8960, OpenGlHelper.GL_OPERAND1_RGB, 768);
+			GLS.texEnv(8960, OpenGlHelper.GL_COMBINE_ALPHA, 7681);
+			GLS.texEnv(8960, OpenGlHelper.GL_SOURCE0_ALPHA, OpenGlHelper.GL_PREVIOUS);
+			GLS.texEnv(8960, OpenGlHelper.GL_OPERAND0_ALPHA, 770);
+			GLS.setActiveTexture(OpenGlHelper.defaultTexUnit);
 			return true;
 		}
 	}
 
 	protected void unsetBrightness() {
 
-		GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
-		GlStateManager.enableTexture2D();
-		GlStateManager.texEnv(8960, 8704, OpenGlHelper.GL_COMBINE);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_COMBINE_RGB, 8448);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_SOURCE0_RGB, OpenGlHelper.defaultTexUnit);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_SOURCE1_RGB, OpenGlHelper.GL_PRIMARY_COLOR);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_OPERAND0_RGB, 768);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_OPERAND1_RGB, 768);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_COMBINE_ALPHA, 8448);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_SOURCE0_ALPHA, OpenGlHelper.defaultTexUnit);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_SOURCE1_ALPHA, OpenGlHelper.GL_PRIMARY_COLOR);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_OPERAND0_ALPHA, 770);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_OPERAND1_ALPHA, 770);
-		GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-		GlStateManager.texEnv(8960, 8704, OpenGlHelper.GL_COMBINE);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_COMBINE_RGB, 8448);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_OPERAND0_RGB, 768);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_OPERAND1_RGB, 768);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_SOURCE0_RGB, 5890);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_SOURCE1_RGB, OpenGlHelper.GL_PREVIOUS);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_COMBINE_ALPHA, 8448);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_OPERAND0_ALPHA, 770);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_SOURCE0_ALPHA, 5890);
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.setActiveTexture(OpenGlHelper.GL_TEXTURE2);
-		GlStateManager.disableTexture2D();
-		GlStateManager.bindTexture(0);
-		GlStateManager.texEnv(8960, 8704, OpenGlHelper.GL_COMBINE);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_COMBINE_RGB, 8448);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_OPERAND0_RGB, 768);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_OPERAND1_RGB, 768);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_SOURCE0_RGB, 5890);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_SOURCE1_RGB, OpenGlHelper.GL_PREVIOUS);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_COMBINE_ALPHA, 8448);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_OPERAND0_ALPHA, 770);
-		GlStateManager.texEnv(8960, OpenGlHelper.GL_SOURCE0_ALPHA, 5890);
-		GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
+		GLS.setActiveTexture(OpenGlHelper.defaultTexUnit);
+		GLS.enableTexture2D();
+		GLS.texEnv(8960, 8704, OpenGlHelper.GL_COMBINE);
+		GLS.texEnv(8960, OpenGlHelper.GL_COMBINE_RGB, 8448);
+		GLS.texEnv(8960, OpenGlHelper.GL_SOURCE0_RGB, OpenGlHelper.defaultTexUnit);
+		GLS.texEnv(8960, OpenGlHelper.GL_SOURCE1_RGB, OpenGlHelper.GL_PRIMARY_COLOR);
+		GLS.texEnv(8960, OpenGlHelper.GL_OPERAND0_RGB, 768);
+		GLS.texEnv(8960, OpenGlHelper.GL_OPERAND1_RGB, 768);
+		GLS.texEnv(8960, OpenGlHelper.GL_COMBINE_ALPHA, 8448);
+		GLS.texEnv(8960, OpenGlHelper.GL_SOURCE0_ALPHA, OpenGlHelper.defaultTexUnit);
+		GLS.texEnv(8960, OpenGlHelper.GL_SOURCE1_ALPHA, OpenGlHelper.GL_PRIMARY_COLOR);
+		GLS.texEnv(8960, OpenGlHelper.GL_OPERAND0_ALPHA, 770);
+		GLS.texEnv(8960, OpenGlHelper.GL_OPERAND1_ALPHA, 770);
+		GLS.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+		GLS.texEnv(8960, 8704, OpenGlHelper.GL_COMBINE);
+		GLS.texEnv(8960, OpenGlHelper.GL_COMBINE_RGB, 8448);
+		GLS.texEnv(8960, OpenGlHelper.GL_OPERAND0_RGB, 768);
+		GLS.texEnv(8960, OpenGlHelper.GL_OPERAND1_RGB, 768);
+		GLS.texEnv(8960, OpenGlHelper.GL_SOURCE0_RGB, 5890);
+		GLS.texEnv(8960, OpenGlHelper.GL_SOURCE1_RGB, OpenGlHelper.GL_PREVIOUS);
+		GLS.texEnv(8960, OpenGlHelper.GL_COMBINE_ALPHA, 8448);
+		GLS.texEnv(8960, OpenGlHelper.GL_OPERAND0_ALPHA, 770);
+		GLS.texEnv(8960, OpenGlHelper.GL_SOURCE0_ALPHA, 5890);
+		GLS.color(1F, 1F, 1F, 1F);
+		GLS.setActiveTexture(OpenGlHelper.GL_TEXTURE2);
+		GLS.disableTexture2D();
+		GLS.bindTexture(0);
+		GLS.texEnv(8960, 8704, OpenGlHelper.GL_COMBINE);
+		GLS.texEnv(8960, OpenGlHelper.GL_COMBINE_RGB, 8448);
+		GLS.texEnv(8960, OpenGlHelper.GL_OPERAND0_RGB, 768);
+		GLS.texEnv(8960, OpenGlHelper.GL_OPERAND1_RGB, 768);
+		GLS.texEnv(8960, OpenGlHelper.GL_SOURCE0_RGB, 5890);
+		GLS.texEnv(8960, OpenGlHelper.GL_SOURCE1_RGB, OpenGlHelper.GL_PREVIOUS);
+		GLS.texEnv(8960, OpenGlHelper.GL_COMBINE_ALPHA, 8448);
+		GLS.texEnv(8960, OpenGlHelper.GL_OPERAND0_ALPHA, 770);
+		GLS.texEnv(8960, OpenGlHelper.GL_SOURCE0_ALPHA, 5890);
+		GLS.setActiveTexture(OpenGlHelper.defaultTexUnit);
 	}
 
 	/**
@@ -372,12 +372,12 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 	 */
 	protected void renderLivingAt(T entityLivingBaseIn, double x, double y, double z) {
 
-		GlStateManager.translate((float) x, (float) y, (float) z);
+		GLS.translate((float) x, (float) y, (float) z);
 	}
 
 	protected void applyRotations(T entityLiving, float p_77043_2_, float rotationYaw, float partialTicks) {
 
-		GlStateManager.rotate(180F - rotationYaw, 0F, 1F, 0F);
+		GLS.rotate(180F - rotationYaw, 0F, 1F, 0F);
 
 		if (entityLiving.deathTime > 0) {
 			float f = ((float) entityLiving.deathTime + partialTicks - 1F) / 20F * 1.6F;
@@ -387,13 +387,13 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 				f = 1F;
 			}
 
-			GlStateManager.rotate(f * getDeathMaxRotation(entityLiving), 0F, 0F, 1F);
+			GLS.rotate(f * getDeathMaxRotation(entityLiving), 0F, 0F, 1F);
 		} else {
 			String s = TextFormat.getTextWithoutFormattingCodes(entityLiving.getName());
 
 			if (("Dinnerbone".equals(s) || "Grumm".equals(s)) && (!(entityLiving instanceof EntityPlayer) || ((EntityPlayer) entityLiving).isWearing(PlayerModelParts.CAPE))) {
-				GlStateManager.translate(0F, entityLiving.height + 0.1F, 0F);
-				GlStateManager.rotate(180F, 0F, 0F, 1F);
+				GLS.translate(0F, entityLiving.height + 0.1F, 0F);
+				GLS.rotate(180F, 0F, 0F, 1F);
 			}
 		}
 	}
@@ -454,7 +454,7 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 
 			if (d0 < (double) (f * f)) {
 				String s = entity.getDisplayName().getFormattedText();
-				GlStateManager.alphaFunc(516, 0.1F);
+				GLS.alphaFunc(516, 0.1F);
 				renderEntityName(entity, x, y, z, s, d0);
 			}
 		}

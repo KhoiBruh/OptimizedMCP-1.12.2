@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.entity.layers;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.entity.EntityLivingBase;
@@ -25,36 +25,36 @@ public class LayerHeldItem implements LayerRenderer<EntityLivingBase> {
 		ItemStack itemstack1 = flag ? entitylivingbaseIn.getHeldItemMainhand() : entitylivingbaseIn.getHeldItemOffhand();
 
 		if (!itemstack.isEmpty() || !itemstack1.isEmpty()) {
-			GlStateManager.pushMatrix();
+			GLS.pushMatrix();
 
 			if (livingEntityRenderer.getMainModel().isChild) {
 				float f = 0.5F;
-				GlStateManager.translate(0F, 0.75F, 0F);
-				GlStateManager.scale(0.5F, 0.5F, 0.5F);
+				GLS.translate(0F, 0.75F, 0F);
+				GLS.scale(0.5F, 0.5F, 0.5F);
 			}
 
 			renderHeldItem(entitylivingbaseIn, itemstack1, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, HandSide.RIGHT);
 			renderHeldItem(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, HandSide.LEFT);
-			GlStateManager.popMatrix();
+			GLS.popMatrix();
 		}
 	}
 
 	private void renderHeldItem(EntityLivingBase p_188358_1_, ItemStack p_188358_2_, ItemCameraTransforms.TransformType p_188358_3_, HandSide handSide) {
 
 		if (!p_188358_2_.isEmpty()) {
-			GlStateManager.pushMatrix();
+			GLS.pushMatrix();
 			translateToHand(handSide);
 
 			if (p_188358_1_.isSneaking()) {
-				GlStateManager.translate(0F, 0.2F, 0F);
+				GLS.translate(0F, 0.2F, 0F);
 			}
 
-			GlStateManager.rotate(-90F, 1F, 0F, 0F);
-			GlStateManager.rotate(180F, 0F, 1F, 0F);
+			GLS.rotate(-90F, 1F, 0F, 0F);
+			GLS.rotate(180F, 0F, 1F, 0F);
 			boolean flag = handSide == HandSide.LEFT;
-			GlStateManager.translate((float) (flag ? -1 : 1) / 16F, 0.125F, -0.625F);
+			GLS.translate((float) (flag ? -1 : 1) / 16F, 0.125F, -0.625F);
 			Minecraft.getMinecraft().getItemRenderer().renderItemSide(p_188358_1_, p_188358_2_, p_188358_3_, flag);
-			GlStateManager.popMatrix();
+			GLS.popMatrix();
 		}
 	}
 

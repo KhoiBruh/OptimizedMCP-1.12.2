@@ -3,7 +3,7 @@ package net.minecraft.client.shader;
 import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.IResourceManager;
@@ -45,15 +45,15 @@ public class Shader {
 
 	private void preRender() {
 
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.disableBlend();
-		GlStateManager.disableDepth();
-		GlStateManager.disableAlpha();
-		GlStateManager.disableFog();
-		GlStateManager.disableLighting();
-		GlStateManager.disableColorMaterial();
-		GlStateManager.enableTexture2D();
-		GlStateManager.bindTexture(0);
+		GLS.color(1F, 1F, 1F, 1F);
+		GLS.disableBlend();
+		GLS.disableDepth();
+		GLS.disableAlpha();
+		GLS.disableFog();
+		GLS.disableLighting();
+		GLS.disableColorMaterial();
+		GLS.enableTexture2D();
+		GLS.bindTexture(0);
 	}
 
 	public void setProjectionMatrix(Matrix4f projectionMatrixIn) {
@@ -67,7 +67,7 @@ public class Shader {
 		framebufferIn.unbindFramebuffer();
 		float f = (float) framebufferOut.framebufferTextureWidth;
 		float f1 = (float) framebufferOut.framebufferTextureHeight;
-		GlStateManager.viewport(0, 0, (int) f, (int) f1);
+		GLS.viewport(0, 0, (int) f, (int) f1);
 		manager.addSamplerTexture("DiffuseSampler", framebufferIn);
 
 		for (int i = 0; i < listAuxFramebuffers.size(); ++i) {
@@ -84,8 +84,8 @@ public class Shader {
 		manager.useShader();
 		framebufferOut.framebufferClear();
 		framebufferOut.bindFramebuffer(false);
-		GlStateManager.depthMask(false);
-		GlStateManager.colorMask(true, true, true, true);
+		GLS.depthMask(false);
+		GLS.colorMask(true, true, true, true);
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
@@ -94,8 +94,8 @@ public class Shader {
 		bufferbuilder.pos(f, 0D, 500D).color(255, 255, 255, 255).endVertex();
 		bufferbuilder.pos(0D, 0D, 500D).color(255, 255, 255, 255).endVertex();
 		tessellator.draw();
-		GlStateManager.depthMask(true);
-		GlStateManager.colorMask(true, true, true, true);
+		GLS.depthMask(true);
+		GLS.colorMask(true, true, true, true);
 		manager.endShader();
 		framebufferOut.unbindFramebuffer();
 		framebufferIn.unbindFramebufferTexture();

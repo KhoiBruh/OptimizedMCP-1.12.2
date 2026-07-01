@@ -2,7 +2,7 @@ package net.minecraft.client.gui.recipebook;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.component.ToggleButton;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.util.RecipeBookClient;
@@ -59,15 +59,15 @@ public class RecipeTabButton extends ToggleButton {
 		if (visible) {
 			if (animationTime > 0F) {
 				float f = 1F + 0.1F * (float) Math.sin(animationTime / 15F * (float) Math.PI);
-				GlStateManager.pushMatrix();
-				GlStateManager.translate((float) (x + 8), (float) (y + 12), 0F);
-				GlStateManager.scale(1F, f, 1F);
-				GlStateManager.translate((float) (-(x + 8)), (float) (-(y + 12)), 0F);
+				GLS.pushMatrix();
+				GLS.translate((float) (x + 8), (float) (y + 12), 0F);
+				GLS.scale(1F, f, 1F);
+				GLS.translate((float) (-(x + 8)), (float) (-(y + 12)), 0F);
 			}
 
 			hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 			mc.getTextureManager().bindTexture(resourceLocation);
-			GlStateManager.disableDepth();
+			GLS.disableDepth();
 			int k = xTexStart;
 			int i = yTexStart;
 
@@ -85,17 +85,17 @@ public class RecipeTabButton extends ToggleButton {
 				j -= 2;
 			}
 
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GLS.color(1F, 1F, 1F, 1F);
 			drawTexturedModalRect(j, y, k, i, width, height);
-			GlStateManager.enableDepth();
+			GLS.enableDepth();
 			RenderHelper.enableGUIStandardItemLighting();
-			GlStateManager.disableLighting();
+			GLS.disableLighting();
 			renderIcon(mc.getRenderItem());
-			GlStateManager.enableLighting();
+			GLS.enableLighting();
 			RenderHelper.disableStandardItemLighting();
 
 			if (animationTime > 0F) {
-				GlStateManager.popMatrix();
+				GLS.popMatrix();
 				animationTime -= partialTicks;
 			}
 		}

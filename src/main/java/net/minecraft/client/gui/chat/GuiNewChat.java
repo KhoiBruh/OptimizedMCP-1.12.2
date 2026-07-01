@@ -5,7 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiUtilRenderComponents;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
@@ -56,9 +56,9 @@ public class GuiNewChat extends Gui {
 
 				float f1 = getChatScale();
 				int k = MathHelper.ceil((float) getChatWidth() / f1);
-				GlStateManager.pushMatrix();
-				GlStateManager.translate(2F, 8F, 0F);
-				GlStateManager.scale(f1, f1, 1F);
+				GLS.pushMatrix();
+				GLS.translate(2F, 8F, 0F);
+				GLS.scale(f1, f1, 1F);
 				int l = 0;
 
 				for (int i1 = 0; i1 + scrollPos < drawnChatLines.size() && i1 < i; ++i1) {
@@ -87,10 +87,10 @@ public class GuiNewChat extends Gui {
 								int j2 = -i1 * 9;
 								drawRect(-2, j2 - 9, k + 4, j2, l1 / 2 << 24);
 								String s = chatline.getChatComponent().getFormattedText();
-								GlStateManager.enableBlend();
+								GLS.enableBlend();
 								mc.fontRenderer.drawStringWithShadow(s, 0F, (float) (j2 - 8), 16777215 + (l1 << 24));
-								GlStateManager.disableAlpha();
-								GlStateManager.disableBlend();
+								GLS.disableAlpha();
+								GLS.disableBlend();
 							}
 						}
 					}
@@ -98,7 +98,7 @@ public class GuiNewChat extends Gui {
 
 				if (flag) {
 					int k2 = mc.fontRenderer.FONT_HEIGHT;
-					GlStateManager.translate(-3F, 0F, 0F);
+					GLS.translate(-3F, 0F, 0F);
 					int l2 = j * k2 + j;
 					int i3 = l * k2 + l;
 					int j3 = scrollPos * i3 / j;
@@ -112,7 +112,7 @@ public class GuiNewChat extends Gui {
 					}
 				}
 
-				GlStateManager.popMatrix();
+				GLS.popMatrix();
 			}
 		}
 	}

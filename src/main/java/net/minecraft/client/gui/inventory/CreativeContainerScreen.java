@@ -6,7 +6,7 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.GuiTextField;
 import net.minecraft.client.gui.achievement.StatsScreen;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.InventoryEffectRenderer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
@@ -354,7 +354,7 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 		CreativeTabs creativetabs = CreativeTabs.CREATIVE_TAB_ARRAY[selectedTabIndex];
 
 		if (creativetabs.drawInForegroundOfTab()) {
-			GlStateManager.disableBlend();
+			GLS.disableBlend();
 			fontRenderer.drawString(I18n.format(creativetabs.getTranslatedTabLabel()), 8, 6, 4210752);
 		}
 	}
@@ -573,8 +573,8 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 			drawHoveringText(I18n.format("inventory.binSlot"), mouseX, mouseY);
 		}
 
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.disableLighting();
+		GLS.color(1F, 1F, 1F, 1F);
+		GLS.disableLighting();
 		renderHoveredToolTip(mouseX, mouseY);
 	}
 
@@ -622,7 +622,7 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		RenderHelper.enableGUIStandardItemLighting();
 		CreativeTabs creativetabs = CreativeTabs.CREATIVE_TAB_ARRAY[selectedTabIndex];
 
@@ -637,7 +637,7 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 		mc.getTextureManager().bindTexture(new ResourceLocation("textures/gui/container/creative_inventory/tab_" + creativetabs.getBackgroundImageName()));
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 		searchField.drawTextBox();
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		int i = guiLeft + 175;
 		int j = guiTop + 18;
 		int k = j + 112;
@@ -740,18 +740,18 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 			i1 = i1 + (ySize - 4);
 		}
 
-		GlStateManager.disableLighting();
+		GLS.disableLighting();
 		drawTexturedModalRect(l, i1, j, k, 28, 32);
 		zLevel = 100F;
 		itemRender.zLevel = 100F;
 		l = l + 6;
 		i1 = i1 + 8 + (flag1 ? 1 : -1);
-		GlStateManager.enableLighting();
-		GlStateManager.enableRescaleNormal();
+		GLS.enableLighting();
+		GLS.enableRescaleNormal();
 		ItemStack itemstack = tab.getIconItemStack();
 		itemRender.renderItemAndEffectIntoGUI(itemstack, l, i1);
 		itemRender.renderItemOverlays(fontRenderer, itemstack, l, i1);
-		GlStateManager.disableLighting();
+		GLS.disableLighting();
 		itemRender.zLevel = 0F;
 		zLevel = 0F;
 	}

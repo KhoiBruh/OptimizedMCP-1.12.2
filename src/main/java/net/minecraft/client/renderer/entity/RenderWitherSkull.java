@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.model.ModelSkeletonHead;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.projectile.EntityWitherSkull;
 import net.minecraft.util.ResourceLocation;
 
@@ -39,30 +39,30 @@ public class RenderWitherSkull extends Render<EntityWitherSkull> {
 	 */
 	public void doRender(EntityWitherSkull entity, double x, double y, double z, float entityYaw, float partialTicks) {
 
-		GlStateManager.pushMatrix();
-		GlStateManager.disableCull();
+		GLS.pushMatrix();
+		GLS.disableCull();
 		float f = getRenderYaw(entity.prevRotationYaw, entity.rotationYaw, partialTicks);
 		float f1 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
-		GlStateManager.translate((float) x, (float) y, (float) z);
+		GLS.translate((float) x, (float) y, (float) z);
 		float f2 = 0.0625F;
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.scale(-1F, -1F, 1F);
-		GlStateManager.enableAlpha();
+		GLS.enableRescaleNormal();
+		GLS.scale(-1F, -1F, 1F);
+		GLS.enableAlpha();
 		bindEntityTexture(entity);
 
 		if (renderOutlines) {
-			GlStateManager.enableColorMaterial();
-			GlStateManager.enableOutlineMode(getTeamColor(entity));
+			GLS.enableColorMaterial();
+			GLS.enableOutlineMode(getTeamColor(entity));
 		}
 
 		skeletonHeadModel.render(entity, 0F, 0F, 0F, f, f1, 0.0625F);
 
 		if (renderOutlines) {
-			GlStateManager.disableOutlineMode();
-			GlStateManager.disableColorMaterial();
+			GLS.disableOutlineMode();
+			GLS.disableColorMaterial();
 		}
 
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);
 	}
 

@@ -8,7 +8,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelDragonHead;
 import net.minecraft.client.model.ModelHumanoidHead;
 import net.minecraft.client.model.ModelSkeletonHead;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntitySkull;
@@ -48,11 +48,11 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
 
 		if (destroyStage >= 0) {
 			bindTexture(DESTROY_STAGES[destroyStage]);
-			GlStateManager.matrixMode(5890);
-			GlStateManager.pushMatrix();
-			GlStateManager.scale(4F, 2F, 1F);
-			GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
-			GlStateManager.matrixMode(5888);
+			GLS.matrixMode(5890);
+			GLS.pushMatrix();
+			GLS.scale(4F, 2F, 1F);
+			GLS.translate(0.0625F, 0.0625F, 0.0625F);
+			GLS.matrixMode(5888);
 		} else {
 			switch (skullType) {
 				case 0:
@@ -98,50 +98,50 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
 			}
 		}
 
-		GlStateManager.pushMatrix();
-		GlStateManager.disableCull();
+		GLS.pushMatrix();
+		GLS.disableCull();
 
 		if (facing == Facing.UP) {
-			GlStateManager.translate(x + 0.5F, y, z + 0.5F);
+			GLS.translate(x + 0.5F, y, z + 0.5F);
 		} else {
 			switch (facing) {
 				case NORTH:
-					GlStateManager.translate(x + 0.5F, y + 0.25F, z + 0.74F);
+					GLS.translate(x + 0.5F, y + 0.25F, z + 0.74F);
 					break;
 
 				case SOUTH:
-					GlStateManager.translate(x + 0.5F, y + 0.25F, z + 0.26F);
+					GLS.translate(x + 0.5F, y + 0.25F, z + 0.26F);
 					rotationIn = 180F;
 					break;
 
 				case WEST:
-					GlStateManager.translate(x + 0.74F, y + 0.25F, z + 0.5F);
+					GLS.translate(x + 0.74F, y + 0.25F, z + 0.5F);
 					rotationIn = 270F;
 					break;
 
 				case EAST:
 				default:
-					GlStateManager.translate(x + 0.26F, y + 0.25F, z + 0.5F);
+					GLS.translate(x + 0.26F, y + 0.25F, z + 0.5F);
 					rotationIn = 90F;
 			}
 		}
 
 		float f = 0.0625F;
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.scale(-1F, -1F, 1F);
-		GlStateManager.enableAlpha();
+		GLS.enableRescaleNormal();
+		GLS.scale(-1F, -1F, 1F);
+		GLS.enableAlpha();
 
 		if (skullType == 3) {
-			GlStateManager.enableBlendProfile(GlStateManager.Profile.PLAYER_SKIN);
+			GLS.enableBlendProfile(GLS.Profile.PLAYER_SKIN);
 		}
 
 		modelbase.render(null, animateTicks, 0F, 0F, rotationIn, 0F, 0.0625F);
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 
 		if (destroyStage >= 0) {
-			GlStateManager.matrixMode(5890);
-			GlStateManager.popMatrix();
-			GlStateManager.matrixMode(5888);
+			GLS.matrixMode(5890);
+			GLS.popMatrix();
+			GLS.matrixMode(5888);
 		}
 	}
 

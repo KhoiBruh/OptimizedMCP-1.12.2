@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.model.ModelArmorStand;
 import net.minecraft.client.model.ModelArmorStandArmor;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.entity.layers.LayerBipedArmor;
 import net.minecraft.client.renderer.entity.layers.LayerCustomHead;
 import net.minecraft.client.renderer.entity.layers.LayerElytra;
@@ -49,11 +49,11 @@ public class RenderArmorStand extends RenderLivingBase<EntityArmorStand> {
 
 	protected void applyRotations(EntityArmorStand entityLiving, float p_77043_2_, float rotationYaw, float partialTicks) {
 
-		GlStateManager.rotate(180F - rotationYaw, 0F, 1F, 0F);
+		GLS.rotate(180F - rotationYaw, 0F, 1F, 0F);
 		float f = (float) (entityLiving.world.getTotalWorldTime() - entityLiving.punchCooldown) + partialTicks;
 
 		if (f < 5F) {
-			GlStateManager.rotate(MathHelper.sin(f / 1.5F * (float) Math.PI) * 3F, 0F, 1F, 0F);
+			GLS.rotate(MathHelper.sin(f / 1.5F * (float) Math.PI) * 3F, 0F, 1F, 0F);
 		}
 	}
 

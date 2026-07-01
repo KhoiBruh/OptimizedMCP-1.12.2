@@ -157,9 +157,9 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		renderManager = mcIn.getRenderManager();
 		renderEngine = mcIn.getTextureManager();
 		renderEngine.bindTexture(FORCEFIELD_TEXTURES);
-		GlStateManager.texParameteri(3553, 10242, 10497);
-		GlStateManager.texParameteri(3553, 10243, 10497);
-		GlStateManager.bindTexture(0);
+		GLS.texParameteri(3553, 10242, 10497);
+		GLS.texParameteri(3553, 10243, 10497);
+		GLS.bindTexture(0);
 		updateDestroyBlockIcons();
 		vboEnabled = OpenGlHelper.useVbo();
 
@@ -306,10 +306,10 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 	public void renderEntityOutlineFramebuffer() {
 
 		if (isRenderEntityOutlines()) {
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ZERO, GlStateManager.DestFactor.ONE);
+			GLS.enableBlend();
+			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ZERO, GLS.DestFactor.ONE);
 			entityOutlineFramebuffer.framebufferRenderExt(mc.getWindow().getWidth(), mc.getWindow().getHeight(), false);
-			GlStateManager.disableBlend();
+			GLS.disableBlend();
 		}
 	}
 
@@ -340,10 +340,10 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			sky2VBO.bufferData(bufferbuilder.getByteBuffer());
 		} else {
 			glSkyList2 = GLAllocation.generateDisplayLists(1);
-			GlStateManager.newList(glSkyList2, 4864);
+			GLS.newList(glSkyList2, 4864);
 			renderSky(bufferbuilder, -16F, true);
 			tessellator.draw();
-			GlStateManager.endList();
+			GLS.endList();
 		}
 	}
 
@@ -369,10 +369,10 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			skyVBO.bufferData(bufferbuilder.getByteBuffer());
 		} else {
 			glSkyList = GLAllocation.generateDisplayLists(1);
-			GlStateManager.newList(glSkyList, 4864);
+			GLS.newList(glSkyList, 4864);
 			renderSky(bufferbuilder, 16F, false);
 			tessellator.draw();
-			GlStateManager.endList();
+			GLS.endList();
 		}
 	}
 
@@ -422,12 +422,12 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			starVBO.bufferData(bufferbuilder.getByteBuffer());
 		} else {
 			starGLCallList = GLAllocation.generateDisplayLists(1);
-			GlStateManager.pushMatrix();
-			GlStateManager.newList(starGLCallList, 4864);
+			GLS.pushMatrix();
+			GLS.newList(starGLCallList, 4864);
 			renderStars(bufferbuilder);
 			tessellator.draw();
-			GlStateManager.endList();
-			GlStateManager.popMatrix();
+			GLS.endList();
+			GLS.popMatrix();
 		}
 	}
 
@@ -669,8 +669,8 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 				entityOutlinesRendered = !list1.isEmpty();
 
 				if (!list1.isEmpty()) {
-					GlStateManager.depthFunc(519);
-					GlStateManager.disableFog();
+					GLS.depthFunc(519);
+					GLS.disableFog();
 					entityOutlineFramebuffer.bindFramebuffer(false);
 					RenderHelper.disableStandardItemLighting();
 					renderManager.setRenderOutlines(true);
@@ -681,16 +681,16 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 
 					renderManager.setRenderOutlines(false);
 					RenderHelper.enableStandardItemLighting();
-					GlStateManager.depthMask(false);
+					GLS.depthMask(false);
 					entityOutlineShader.render(partialTicks);
-					GlStateManager.enableLighting();
-					GlStateManager.depthMask(true);
-					GlStateManager.enableFog();
-					GlStateManager.enableBlend();
-					GlStateManager.enableColorMaterial();
-					GlStateManager.depthFunc(515);
-					GlStateManager.enableDepth();
-					GlStateManager.enableAlpha();
+					GLS.enableLighting();
+					GLS.depthMask(true);
+					GLS.enableFog();
+					GLS.enableBlend();
+					GLS.enableColorMaterial();
+					GLS.depthFunc(515);
+					GLS.enableDepth();
+					GLS.enableAlpha();
 				}
 
 				mc.getFramebuffer().bindFramebuffer(false);
@@ -1040,13 +1040,13 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		mc.entityRenderer.enableLightmap();
 
 		if (OpenGlHelper.useVbo()) {
-			GlStateManager.enableClientState(32884);
+			GLS.enableClientState(32884);
 			OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
-			GlStateManager.enableClientState(32888);
+			GLS.enableClientState(32888);
 			OpenGlHelper.setClientActiveTexture(OpenGlHelper.lightmapTexUnit);
-			GlStateManager.enableClientState(32888);
+			GLS.enableClientState(32888);
 			OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
-			GlStateManager.enableClientState(32886);
+			GLS.enableClientState(32886);
 		}
 
 		renderContainer.renderChunkLayer(blockLayerIn);
@@ -1058,18 +1058,18 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 
 				switch (vertexformatelement$enumusage) {
 					case POSITION:
-						GlStateManager.disableClientState(32884);
+						GLS.disableClientState(32884);
 						break;
 
 					case UV:
 						OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit + k1);
-						GlStateManager.disableClientState(32888);
+						GLS.disableClientState(32888);
 						OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
 						break;
 
 					case COLOR:
-						GlStateManager.disableClientState(32886);
-						GlStateManager.resetColor();
+						GLS.disableClientState(32886);
+						GLS.resetColor();
 				}
 			}
 		}
@@ -1113,37 +1113,37 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 
 	private void renderSkyEnd() {
 
-		GlStateManager.disableFog();
-		GlStateManager.disableAlpha();
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		GLS.disableFog();
+		GLS.disableAlpha();
+		GLS.enableBlend();
+		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 		RenderHelper.disableStandardItemLighting();
-		GlStateManager.depthMask(false);
+		GLS.depthMask(false);
 		renderEngine.bindTexture(END_SKY_TEXTURES);
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 
 		for (int k1 = 0; k1 < 6; ++k1) {
-			GlStateManager.pushMatrix();
+			GLS.pushMatrix();
 
 			if (k1 == 1) {
-				GlStateManager.rotate(90F, 1F, 0F, 0F);
+				GLS.rotate(90F, 1F, 0F, 0F);
 			}
 
 			if (k1 == 2) {
-				GlStateManager.rotate(-90F, 1F, 0F, 0F);
+				GLS.rotate(-90F, 1F, 0F, 0F);
 			}
 
 			if (k1 == 3) {
-				GlStateManager.rotate(180F, 1F, 0F, 0F);
+				GLS.rotate(180F, 1F, 0F, 0F);
 			}
 
 			if (k1 == 4) {
-				GlStateManager.rotate(90F, 0F, 0F, 1F);
+				GLS.rotate(90F, 0F, 0F, 1F);
 			}
 
 			if (k1 == 5) {
-				GlStateManager.rotate(-90F, 0F, 0F, 1F);
+				GLS.rotate(-90F, 0F, 0F, 1F);
 			}
 
 			bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
@@ -1152,12 +1152,12 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			bufferbuilder.pos(100D, -100D, 100D).tex(16D, 16D).color(40, 40, 40, 255).endVertex();
 			bufferbuilder.pos(100D, -100D, -100D).tex(16D, 0D).color(40, 40, 40, 255).endVertex();
 			tessellator.draw();
-			GlStateManager.popMatrix();
+			GLS.popMatrix();
 		}
 
-		GlStateManager.depthMask(true);
-		GlStateManager.enableTexture2D();
-		GlStateManager.enableAlpha();
+		GLS.depthMask(true);
+		GLS.enableTexture2D();
+		GLS.enableAlpha();
 	}
 
 	public void renderSky(float partialTicks, int pass) {
@@ -1165,7 +1165,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		if (mc.world.provider.getDimensionType().getId() == 1) {
 			renderSkyEnd();
 		} else if (mc.world.provider.isSurfaceWorld()) {
-			GlStateManager.disableTexture2D();
+			GLS.disableTexture2D();
 			Vec3d vec3d = world.getSkyColor(mc.getRenderViewEntity(), partialTicks);
 			float f = (float) vec3d.x();
 			float f1 = (float) vec3d.y();
@@ -1173,38 +1173,38 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 
 
 
-			GlStateManager.color(f, f1, f2);
+			GLS.color(f, f1, f2);
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferbuilder = tessellator.getBuffer();
-			GlStateManager.depthMask(false);
-			GlStateManager.enableFog();
-			GlStateManager.color(f, f1, f2);
+			GLS.depthMask(false);
+			GLS.enableFog();
+			GLS.color(f, f1, f2);
 
 			if (vboEnabled) {
 				skyVBO.bindBuffer();
-				GlStateManager.enableClientState(32884);
-				GlStateManager.vertexPointer(3, 5126, 12, 0);
+				GLS.enableClientState(32884);
+				GLS.vertexPointer(3, 5126, 12, 0);
 				skyVBO.drawArrays(7);
 				skyVBO.unbindBuffer();
-				GlStateManager.disableClientState(32884);
+				GLS.disableClientState(32884);
 			} else {
-				GlStateManager.callList(glSkyList);
+				GLS.callList(glSkyList);
 			}
 
-			GlStateManager.disableFog();
-			GlStateManager.disableAlpha();
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+			GLS.disableFog();
+			GLS.disableAlpha();
+			GLS.enableBlend();
+			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 			RenderHelper.disableStandardItemLighting();
 			float[] afloat = world.provider.calcSunriseSunsetColors(world.getCelestialAngle(partialTicks), partialTicks);
 
 			if (afloat != null) {
-				GlStateManager.disableTexture2D();
-				GlStateManager.shadeModel(7425);
-				GlStateManager.pushMatrix();
-				GlStateManager.rotate(90F, 1F, 0F, 0F);
-				GlStateManager.rotate(MathHelper.sin(world.getCelestialAngleRadians(partialTicks)) < 0F ? 180F : 0F, 0F, 0F, 1F);
-				GlStateManager.rotate(90F, 0F, 0F, 1F);
+				GLS.disableTexture2D();
+				GLS.shadeModel(7425);
+				GLS.pushMatrix();
+				GLS.rotate(90F, 1F, 0F, 0F);
+				GLS.rotate(MathHelper.sin(world.getCelestialAngleRadians(partialTicks)) < 0F ? 180F : 0F, 0F, 0F, 1F);
+				GLS.rotate(90F, 0F, 0F, 1F);
 				float f6 = afloat[0];
 				float f7 = afloat[1];
 				float f8 = afloat[2];
@@ -1223,17 +1223,17 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 				}
 
 				tessellator.draw();
-				GlStateManager.popMatrix();
-				GlStateManager.shadeModel(7424);
+				GLS.popMatrix();
+				GLS.shadeModel(7424);
 			}
 
-			GlStateManager.enableTexture2D();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-			GlStateManager.pushMatrix();
+			GLS.enableTexture2D();
+			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
+			GLS.pushMatrix();
 			float f16 = 1F - world.getRainStrength(partialTicks);
-			GlStateManager.color(1F, 1F, 1F, f16);
-			GlStateManager.rotate(-90F, 0F, 1F, 0F);
-			GlStateManager.rotate(world.getCelestialAngle(partialTicks) * 360F, 1F, 0F, 0F);
+			GLS.color(1F, 1F, 1F, f16);
+			GLS.rotate(-90F, 0F, 1F, 0F);
+			GLS.rotate(world.getCelestialAngle(partialTicks) * 360F, 1F, 0F, 0F);
 			float f17 = 30F;
 			renderEngine.bindTexture(SUN_TEXTURES);
 			bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
@@ -1257,49 +1257,49 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			bufferbuilder.pos(f17, -100D, -f17).tex(f22, f23).endVertex();
 			bufferbuilder.pos(-f17, -100D, -f17).tex(f24, f23).endVertex();
 			tessellator.draw();
-			GlStateManager.disableTexture2D();
+			GLS.disableTexture2D();
 			float f15 = world.getStarBrightness(partialTicks) * f16;
 
 			if (f15 > 0F) {
-				GlStateManager.color(f15, f15, f15, f15);
+				GLS.color(f15, f15, f15, f15);
 
 				if (vboEnabled) {
 					starVBO.bindBuffer();
-					GlStateManager.enableClientState(32884);
-					GlStateManager.vertexPointer(3, 5126, 12, 0);
+					GLS.enableClientState(32884);
+					GLS.vertexPointer(3, 5126, 12, 0);
 					starVBO.drawArrays(7);
 					starVBO.unbindBuffer();
-					GlStateManager.disableClientState(32884);
+					GLS.disableClientState(32884);
 				} else {
-					GlStateManager.callList(starGLCallList);
+					GLS.callList(starGLCallList);
 				}
 			}
 
-			GlStateManager.color(1F, 1F, 1F, 1F);
-			GlStateManager.disableBlend();
-			GlStateManager.enableAlpha();
-			GlStateManager.enableFog();
-			GlStateManager.popMatrix();
-			GlStateManager.disableTexture2D();
-			GlStateManager.color(0F, 0F, 0F);
+			GLS.color(1F, 1F, 1F, 1F);
+			GLS.disableBlend();
+			GLS.enableAlpha();
+			GLS.enableFog();
+			GLS.popMatrix();
+			GLS.disableTexture2D();
+			GLS.color(0F, 0F, 0F);
 			double d3 = mc.player.getPositionEyes(partialTicks).y() - world.getHorizon();
 
 			if (d3 < 0D) {
-				GlStateManager.pushMatrix();
-				GlStateManager.translate(0F, 12F, 0F);
+				GLS.pushMatrix();
+				GLS.translate(0F, 12F, 0F);
 
 				if (vboEnabled) {
 					sky2VBO.bindBuffer();
-					GlStateManager.enableClientState(32884);
-					GlStateManager.vertexPointer(3, 5126, 12, 0);
+					GLS.enableClientState(32884);
+					GLS.vertexPointer(3, 5126, 12, 0);
 					sky2VBO.drawArrays(7);
 					sky2VBO.unbindBuffer();
-					GlStateManager.disableClientState(32884);
+					GLS.disableClientState(32884);
 				} else {
-					GlStateManager.callList(glSkyList2);
+					GLS.callList(glSkyList2);
 				}
 
-				GlStateManager.popMatrix();
+				GLS.popMatrix();
 				float f18 = 1F;
 				float f19 = -((float) (d3 + 65D));
 				float f20 = -1F;
@@ -1328,17 +1328,17 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			}
 
 			if (world.provider.isSkyColored()) {
-				GlStateManager.color(f * 0.2F + 0.04F, f1 * 0.2F + 0.04F, f2 * 0.6F + 0.1F);
+				GLS.color(f * 0.2F + 0.04F, f1 * 0.2F + 0.04F, f2 * 0.6F + 0.1F);
 			} else {
-				GlStateManager.color(f, f1, f2);
+				GLS.color(f, f1, f2);
 			}
 
-			GlStateManager.pushMatrix();
-			GlStateManager.translate(0F, -((float) (d3 - 16D)), 0F);
-			GlStateManager.callList(glSkyList2);
-			GlStateManager.popMatrix();
-			GlStateManager.enableTexture2D();
-			GlStateManager.depthMask(true);
+			GLS.pushMatrix();
+			GLS.translate(0F, -((float) (d3 - 16D)), 0F);
+			GLS.callList(glSkyList2);
+			GLS.popMatrix();
+			GLS.enableTexture2D();
+			GLS.depthMask(true);
 		}
 	}
 
@@ -1348,14 +1348,14 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			if (mc.gameSettings.shouldRenderClouds() == 2) {
 				renderCloudsFancy(partialTicks, pass, p_180447_3_, p_180447_5_, p_180447_7_);
 			} else {
-				GlStateManager.disableCull();
+				GLS.disableCull();
 				int k1 = 32;
 				int l1 = 8;
 				Tessellator tessellator = Tessellator.getInstance();
 				BufferBuilder bufferbuilder = tessellator.getBuffer();
 				renderEngine.bindTexture(CLOUDS_TEXTURES);
-				GlStateManager.enableBlend();
-				GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+				GLS.enableBlend();
+				GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 				Vec3d vec3d = world.getCloudColour(partialTicks);
 				float f = (float) vec3d.x();
 				float f1 = (float) vec3d.y();
@@ -1385,9 +1385,9 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 				}
 
 				tessellator.draw();
-				GlStateManager.color(1F, 1F, 1F, 1F);
-				GlStateManager.disableBlend();
-				GlStateManager.enableCull();
+				GLS.color(1F, 1F, 1F, 1F);
+				GLS.disableBlend();
+				GLS.enableCull();
 			}
 		}
 	}
@@ -1402,7 +1402,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 
 	private void renderCloudsFancy(float partialTicks, int pass, double x, double y, double z) {
 
-		GlStateManager.disableCull();
+		GLS.disableCull();
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		float f = 12F;
@@ -1416,8 +1416,8 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		d4 = d4 - (double) (k1 * 2048);
 		d5 = d5 - (double) (l1 * 2048);
 		renderEngine.bindTexture(CLOUDS_TEXTURES);
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		GLS.enableBlend();
+		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 		Vec3d vec3d = world.getCloudColour(partialTicks);
 		float f3 = (float) vec3d.x();
 		float f4 = (float) vec3d.y();
@@ -1442,13 +1442,13 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		int i2 = 8;
 		int j2 = 4;
 		float f20 = 9.765625E-4F;
-		GlStateManager.scale(12F, 1F, 12F);
+		GLS.scale(12F, 1F, 12F);
 
 		for (int k2 = 0; k2 < 2; ++k2) {
 			if (k2 == 0) {
-				GlStateManager.colorMask(false, false, false, false);
+				GLS.colorMask(false, false, false, false);
 			} else {
-				GlStateManager.colorMask(true, true, true, true);
+				GLS.colorMask(true, true, true, true);
 			}
 
 			for (int l2 = -3; l2 <= 4; ++l2) {
@@ -1514,9 +1514,9 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			}
 		}
 
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.disableBlend();
-		GlStateManager.enableCull();
+		GLS.color(1F, 1F, 1F, 1F);
+		GLS.disableBlend();
+		GLS.enableCull();
 	}
 
 	public void updateChunks(long finishTimeNano) {
@@ -1564,21 +1564,21 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			double d5 = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * (double) partialTicks;
 			double d6 = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * (double) partialTicks;
 			double d7 = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * (double) partialTicks;
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+			GLS.enableBlend();
+			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 			renderEngine.bindTexture(FORCEFIELD_TEXTURES);
-			GlStateManager.depthMask(false);
-			GlStateManager.pushMatrix();
+			GLS.depthMask(false);
+			GLS.pushMatrix();
 			int k1 = worldborder.getStatus().getColor();
 			float f = (float) (k1 >> 16 & 255) / 255F;
 			float f1 = (float) (k1 >> 8 & 255) / 255F;
 			float f2 = (float) (k1 & 255) / 255F;
-			GlStateManager.color(f, f1, f2, (float) d4);
-			GlStateManager.doPolygonOffset(-3F, -3F);
-			GlStateManager.enablePolygonOffset();
-			GlStateManager.alphaFunc(516, 0.1F);
-			GlStateManager.enableAlpha();
-			GlStateManager.disableCull();
+			GLS.color(f, f1, f2, (float) d4);
+			GLS.doPolygonOffset(-3F, -3F);
+			GLS.enablePolygonOffset();
+			GLS.alphaFunc(516, 0.1F);
+			GLS.enableAlpha();
+			GLS.disableCull();
 			float f3 = (float) (Minecraft.getSystemTime() % 3000L) / 3000F;
 			float f4 = 0F;
 			float f5 = 0F;
@@ -1649,37 +1649,37 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 
 			tessellator.draw();
 			bufferbuilder.setTranslation(0D, 0D, 0D);
-			GlStateManager.enableCull();
-			GlStateManager.disableAlpha();
-			GlStateManager.doPolygonOffset(0F, 0F);
-			GlStateManager.disablePolygonOffset();
-			GlStateManager.enableAlpha();
-			GlStateManager.disableBlend();
-			GlStateManager.popMatrix();
-			GlStateManager.depthMask(true);
+			GLS.enableCull();
+			GLS.disableAlpha();
+			GLS.doPolygonOffset(0F, 0F);
+			GLS.disablePolygonOffset();
+			GLS.enableAlpha();
+			GLS.disableBlend();
+			GLS.popMatrix();
+			GLS.depthMask(true);
 		}
 	}
 
 	private void preRenderDamagedBlocks() {
 
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.DST_COLOR, GlStateManager.DestFactor.SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-		GlStateManager.enableBlend();
-		GlStateManager.color(1F, 1F, 1F, 0.5F);
-		GlStateManager.doPolygonOffset(-3F, -3F);
-		GlStateManager.enablePolygonOffset();
-		GlStateManager.alphaFunc(516, 0.1F);
-		GlStateManager.enableAlpha();
-		GlStateManager.pushMatrix();
+		GLS.blendFunc(GLS.SourceFactor.DST_COLOR, GLS.DestFactor.SRC_COLOR, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
+		GLS.enableBlend();
+		GLS.color(1F, 1F, 1F, 0.5F);
+		GLS.doPolygonOffset(-3F, -3F);
+		GLS.enablePolygonOffset();
+		GLS.alphaFunc(516, 0.1F);
+		GLS.enableAlpha();
+		GLS.pushMatrix();
 	}
 
 	private void postRenderDamagedBlocks() {
 
-		GlStateManager.disableAlpha();
-		GlStateManager.doPolygonOffset(0F, 0F);
-		GlStateManager.disablePolygonOffset();
-		GlStateManager.enableAlpha();
-		GlStateManager.depthMask(true);
-		GlStateManager.popMatrix();
+		GLS.disableAlpha();
+		GLS.doPolygonOffset(0F, 0F);
+		GLS.disablePolygonOffset();
+		GLS.enableAlpha();
+		GLS.depthMask(true);
+		GLS.popMatrix();
 	}
 
 	public void drawBlockDamageTexture(Tessellator tessellatorIn, BufferBuilder bufferBuilderIn, Entity entityIn, float partialTicks) {
@@ -1732,11 +1732,11 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 	public void drawSelectionBox(EntityPlayer player, RayTraceResult movingObjectPositionIn, int execute, float partialTicks) {
 
 		if (execute == 0 && movingObjectPositionIn.typeOfHit == RayTraceResult.Type.BLOCK) {
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-			GlStateManager.lineWidth(2F);
-			GlStateManager.disableTexture2D();
-			GlStateManager.depthMask(false);
+			GLS.enableBlend();
+			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
+			GLS.lineWidth(2F);
+			GLS.disableTexture2D();
+			GLS.depthMask(false);
 			BlockPos blockpos = movingObjectPositionIn.getBlockPos();
 			IBlockState iblockstate = world.getBlockState(blockpos);
 
@@ -1747,9 +1747,9 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 				drawSelectionBoundingBox(iblockstate.getSelectedBoundingBox(world, blockpos).grow(0.0020000000949949026D).offset(-d3, -d4, -d5), 0F, 0F, 0F, 0.4F);
 			}
 
-			GlStateManager.depthMask(true);
-			GlStateManager.enableTexture2D();
-			GlStateManager.disableBlend();
+			GLS.depthMask(true);
+			GLS.enableTexture2D();
+			GLS.disableBlend();
 		}
 	}
 

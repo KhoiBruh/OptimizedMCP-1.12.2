@@ -1,7 +1,7 @@
 package net.minecraft.client.gui.component;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 
 public class LockIconButton extends Button {
 
@@ -29,7 +29,7 @@ public class LockIconButton extends Button {
 
 		if (visible) {
 			mc.getTextureManager().bindTexture(Button.BUTTON_TEXTURES);
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GLS.color(1F, 1F, 1F, 1F);
 			boolean flag = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 			LockIconButton.Icon guilockiconbutton$icon;
 

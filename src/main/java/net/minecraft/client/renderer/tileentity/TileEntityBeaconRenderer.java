@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.tileentity;
 
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.tileentity.TileEntityBeacon;
@@ -22,13 +22,13 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
 	public static void renderBeamSegment(double x, double y, double z, double partialTicks, double textureScale, double totalWorldTime, int yOffset, int height, float[] colors, double beamRadius, double glowRadius) {
 
 		int i = yOffset + height;
-		GlStateManager.texParameteri(3553, 10242, 10497);
-		GlStateManager.texParameteri(3553, 10243, 10497);
-		GlStateManager.disableLighting();
-		GlStateManager.disableCull();
-		GlStateManager.disableBlend();
-		GlStateManager.depthMask(true);
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		GLS.texParameteri(3553, 10242, 10497);
+		GLS.texParameteri(3553, 10243, 10497);
+		GLS.disableLighting();
+		GLS.disableCull();
+		GLS.disableBlend();
+		GLS.depthMask(true);
+		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		double d0 = totalWorldTime + partialTicks;
@@ -68,9 +68,9 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
 		bufferbuilder.pos(x + d4, y + (double) yOffset, z + d5).tex(0D, d14).color(f, f1, f2, 1F).endVertex();
 		bufferbuilder.pos(x + d4, y + (double) i, z + d5).tex(0D, d15).color(f, f1, f2, 1F).endVertex();
 		tessellator.draw();
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-		GlStateManager.depthMask(false);
+		GLS.enableBlend();
+		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
+		GLS.depthMask(false);
 		d3 = 0.5D - glowRadius;
 		d4 = 0.5D - glowRadius;
 		d5 = 0.5D + glowRadius;
@@ -99,9 +99,9 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
 		bufferbuilder.pos(x + d3, y + (double) yOffset, z + d4).tex(0D, d13).color(f, f1, f2, 0.125F).endVertex();
 		bufferbuilder.pos(x + d3, y + (double) i, z + d4).tex(0D, d14).color(f, f1, f2, 0.125F).endVertex();
 		tessellator.draw();
-		GlStateManager.enableLighting();
-		GlStateManager.enableTexture2D();
-		GlStateManager.depthMask(true);
+		GLS.enableLighting();
+		GLS.enableTexture2D();
+		GLS.depthMask(true);
 	}
 
 	public void render(TileEntityBeacon te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
@@ -111,11 +111,11 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
 
 	public void renderBeacon(double x, double y, double z, double partialTicks, double textureScale, List<TileEntityBeacon.BeamSegment> beamSegments, double totalWorldTime) {
 
-		GlStateManager.alphaFunc(516, 0.1F);
+		GLS.alphaFunc(516, 0.1F);
 		bindTexture(TEXTURE_BEACON_BEAM);
 
 		if (textureScale > 0D) {
-			GlStateManager.disableFog();
+			GLS.disableFog();
 			int i = 0;
 
 			for (TileEntityBeacon.BeamSegment tileentitybeacon$beamsegment : beamSegments) {
@@ -123,7 +123,7 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
 				i += tileentitybeacon$beamsegment.getHeight();
 			}
 
-			GlStateManager.enableFog();
+			GLS.enableFog();
 		}
 	}
 

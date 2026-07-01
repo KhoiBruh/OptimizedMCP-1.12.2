@@ -166,10 +166,10 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 
 	public void drawHoveringText(List<String> textLines, int x, int y) {
 		if (!textLines.isEmpty()) {
-			GlStateManager.disableRescaleNormal();
+			GLS.disableRescaleNormal();
 			RenderHelper.disableStandardItemLighting();
-			GlStateManager.disableLighting();
-			GlStateManager.disableDepth();
+			GLS.disableLighting();
+			GLS.disableDepth();
 			int i = 0;
 
 			for (String s : textLines) {
@@ -211,10 +211,10 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 
 			zLevel = 0F;
 			itemRender.zLevel = 0F;
-			GlStateManager.enableLighting();
-			GlStateManager.enableDepth();
+			GLS.enableLighting();
+			GLS.enableDepth();
 			RenderHelper.enableStandardItemLighting();
-			GlStateManager.enableRescaleNormal();
+			GLS.enableRescaleNormal();
 		}
 	}
 
@@ -258,7 +258,7 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 				}
 			}
 
-			GlStateManager.disableLighting();
+			GLS.disableLighting();
 		}
 	}
 
@@ -410,9 +410,9 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 
 	public void drawDefaultBackground() {
 		if (mc.world == null) {
-			GlStateManager.disableAlpha();
+			GLS.disableAlpha();
 			GuiPanoramaBackground.render(mc, width, height);
-			GlStateManager.enableAlpha();
+			GLS.enableAlpha();
 			drawGradientRect(0, 0, width, height, -2130706433, 16777215);
 			drawGradientRect(0, 0, width, height, 0, Integer.MIN_VALUE);
 		} else drawWorldBackground(0);
@@ -427,12 +427,12 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 	}
 
 	public void drawBackground(int tint) {
-		GlStateManager.disableLighting();
-		GlStateManager.disableFog();
+		GLS.disableLighting();
+		GLS.disableFog();
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		mc.getTextureManager().bindTexture(OPTIONS_BACKGROUND);
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
 		bufferbuilder.pos(0D, height, 0D).tex(0D, (float) height / 32F + (float) tint).color(64, 64, 64, 255).endVertex();
 		bufferbuilder.pos(width, height, 0D).tex((float) width / 32F, (float) height / 32F + (float) tint).color(64, 64, 64, 255).endVertex();

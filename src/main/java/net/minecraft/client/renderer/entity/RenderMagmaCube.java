@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.model.ModelMagmaCube;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.monster.EntityMagmaCube;
 import net.minecraft.util.ResourceLocation;
 
@@ -30,7 +30,7 @@ public class RenderMagmaCube extends RenderLiving<EntityMagmaCube> {
 		int i = entitylivingbaseIn.getSlimeSize();
 		float f = (entitylivingbaseIn.prevSquishFactor + (entitylivingbaseIn.squishFactor - entitylivingbaseIn.prevSquishFactor) * partialTickTime) / ((float) i * 0.5F + 1F);
 		float f1 = 1F / (f + 1F);
-		GlStateManager.scale(f1 * (float) i, 1F / f1 * (float) i, f1 * (float) i);
+		GLS.scale(f1 * (float) i, 1F / f1 * (float) i, f1 * (float) i);
 	}
 
 }

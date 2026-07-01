@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.culling.ICamera;
@@ -98,9 +98,9 @@ public abstract class RenderLiving<T extends EntityLiving> extends RenderLivingB
 			double d13 = (float) (d6 - d10);
 			double d14 = (float) (d7 - d11);
 			double d15 = (float) (d8 - d12);
-			GlStateManager.disableTexture2D();
-			GlStateManager.disableLighting();
-			GlStateManager.disableCull();
+			GLS.disableTexture2D();
+			GLS.disableLighting();
+			GLS.disableCull();
 			int i = 24;
 			double d16 = 0.025D;
 			bufferbuilder.begin(5, DefaultVertexFormats.POSITION_COLOR);
@@ -141,9 +141,9 @@ public abstract class RenderLiving<T extends EntityLiving> extends RenderLivingB
 			}
 
 			tessellator.draw();
-			GlStateManager.enableLighting();
-			GlStateManager.enableTexture2D();
-			GlStateManager.enableCull();
+			GLS.enableLighting();
+			GLS.enableTexture2D();
+			GLS.enableCull();
 		}
 	}
 

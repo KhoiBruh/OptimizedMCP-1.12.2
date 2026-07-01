@@ -4,7 +4,7 @@ import com.google.common.collect.Queues;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.math.MathHelper;
 import java.util.Arrays;
@@ -114,10 +114,10 @@ public class GuiToast extends Gui {
 				visibleTime = i;
 			}
 
-			GlStateManager.pushMatrix();
-			GlStateManager.translate((float) p_193684_1_ - 160F * getVisibility(i), (float) (p_193684_2_ * 32), (float) (500 + p_193684_2_));
+			GLS.pushMatrix();
+			GLS.translate((float) p_193684_1_ - 160F * getVisibility(i), (float) (p_193684_2_ * 32), (float) (500 + p_193684_2_));
 			IToast.Visibility itoast$visibility = toast.draw(GuiToast.this, i - visibleTime);
-			GlStateManager.popMatrix();
+			GLS.popMatrix();
 
 			if (itoast$visibility != visibility) {
 				animationTime = i - (long) ((int) ((1F - getVisibility(i)) * 600F));

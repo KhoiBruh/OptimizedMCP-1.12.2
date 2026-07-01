@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelEnderCrystal;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.util.ResourceLocation;
@@ -27,15 +27,15 @@ public class RenderEnderCrystal extends Render<EntityEnderCrystal> {
 	public void doRender(EntityEnderCrystal entity, double x, double y, double z, float entityYaw, float partialTicks) {
 
 		float f = (float) entity.innerRotation + partialTicks;
-		GlStateManager.pushMatrix();
-		GlStateManager.translate((float) x, (float) y, (float) z);
+		GLS.pushMatrix();
+		GLS.translate((float) x, (float) y, (float) z);
 		bindTexture(ENDER_CRYSTAL_TEXTURES);
 		float f1 = MathHelper.sin(f * 0.2F) / 2F + 0.5F;
 		f1 = f1 * f1 + f1;
 
 		if (renderOutlines) {
-			GlStateManager.enableColorMaterial();
-			GlStateManager.enableOutlineMode(getTeamColor(entity));
+			GLS.enableColorMaterial();
+			GLS.enableOutlineMode(getTeamColor(entity));
 		}
 
 		if (entity.shouldShowBottom()) {
@@ -45,11 +45,11 @@ public class RenderEnderCrystal extends Render<EntityEnderCrystal> {
 		}
 
 		if (renderOutlines) {
-			GlStateManager.disableOutlineMode();
-			GlStateManager.disableColorMaterial();
+			GLS.disableOutlineMode();
+			GLS.disableColorMaterial();
 		}
 
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 		BlockPos blockpos = entity.getBeamTarget();
 
 		if (blockpos != null) {

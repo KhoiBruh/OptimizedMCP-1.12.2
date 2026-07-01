@@ -3,7 +3,7 @@ package net.minecraft.client.shader;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.*;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.IResource;
@@ -160,11 +160,11 @@ public class ShaderGroup {
 							boolean lvt_23_1_ = JsonUtils.getBoolean(jsonobject1, "bilinear");
 
 							if (lvt_23_1_) {
-								GlStateManager.texParameteri(3553, 10241, 9729);
-								GlStateManager.texParameteri(3553, 10240, 9729);
+								GLS.texParameteri(3553, 10241, 9729);
+								GLS.texParameteri(3553, 10240, 9729);
 							} else {
-								GlStateManager.texParameteri(3553, 10241, 9728);
-								GlStateManager.texParameteri(3553, 10240, 9728);
+								GLS.texParameteri(3553, 10241, 9728);
+								GLS.texParameteri(3553, 10240, 9728);
 							}
 
 							shader.addAuxFramebuffer(s4, lvt_20_2_.getGlTextureId(), lvt_21_1_, lvt_22_1_);

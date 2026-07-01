@@ -4,7 +4,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelMinecart;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.util.BlockRenderType;
@@ -32,14 +32,14 @@ public class RenderMinecart<T extends EntityMinecart> extends Render<T> {
 	 */
 	public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
 
-		GlStateManager.pushMatrix();
+		GLS.pushMatrix();
 		bindEntityTexture(entity);
 		long i = (long) entity.getEntityId() * 493286711L;
 		i = i * i * 4392167121L + i * 98761L;
 		float f = (((float) (i >> 16 & 7L) + 0.5F) / 8F - 0.5F) * 0.004F;
 		float f1 = (((float) (i >> 20 & 7L) + 0.5F) / 8F - 0.5F) * 0.004F;
 		float f2 = (((float) (i >> 24 & 7L) + 0.5F) / 8F - 0.5F) * 0.004F;
-		GlStateManager.translate(f, f1, f2);
+		GLS.translate(f, f1, f2);
 		double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double) partialTicks;
 		double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double) partialTicks;
 		double d2 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * (double) partialTicks;
@@ -71,9 +71,9 @@ public class RenderMinecart<T extends EntityMinecart> extends Render<T> {
 			}
 		}
 
-		GlStateManager.translate((float) x, (float) y + 0.375F, (float) z);
-		GlStateManager.rotate(180F - entityYaw, 0F, 1F, 0F);
-		GlStateManager.rotate(-f3, 0F, 0F, 1F);
+		GLS.translate((float) x, (float) y + 0.375F, (float) z);
+		GLS.rotate(180F - entityYaw, 0F, 1F, 0F);
+		GLS.rotate(-f3, 0F, 0F, 1F);
 		float f5 = (float) entity.getRollingAmplitude() - partialTicks;
 		float f6 = entity.getDamage() - partialTicks;
 
@@ -82,37 +82,37 @@ public class RenderMinecart<T extends EntityMinecart> extends Render<T> {
 		}
 
 		if (f5 > 0F) {
-			GlStateManager.rotate(MathHelper.sin(f5) * f5 * f6 / 10F * (float) entity.getRollingDirection(), 1F, 0F, 0F);
+			GLS.rotate(MathHelper.sin(f5) * f5 * f6 / 10F * (float) entity.getRollingDirection(), 1F, 0F, 0F);
 		}
 
 		int j = entity.getDisplayTileOffset();
 
 		if (renderOutlines) {
-			GlStateManager.enableColorMaterial();
-			GlStateManager.enableOutlineMode(getTeamColor(entity));
+			GLS.enableColorMaterial();
+			GLS.enableOutlineMode(getTeamColor(entity));
 		}
 
 		IBlockState iblockstate = entity.getDisplayTile();
 
 		if (iblockstate.getRenderType() != BlockRenderType.INVISIBLE) {
-			GlStateManager.pushMatrix();
+			GLS.pushMatrix();
 			bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			float f4 = 0.75F;
-			GlStateManager.scale(0.75F, 0.75F, 0.75F);
-			GlStateManager.translate(-0.5F, (float) (j - 8) / 16F, 0.5F);
+			GLS.scale(0.75F, 0.75F, 0.75F);
+			GLS.translate(-0.5F, (float) (j - 8) / 16F, 0.5F);
 			renderCartContents(entity, partialTicks, iblockstate);
-			GlStateManager.popMatrix();
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GLS.popMatrix();
+			GLS.color(1F, 1F, 1F, 1F);
 			bindEntityTexture(entity);
 		}
 
-		GlStateManager.scale(-1F, -1F, 1F);
+		GLS.scale(-1F, -1F, 1F);
 		modelMinecart.render(entity, 0F, 0F, -0.1F, 0F, 0F, 0.0625F);
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 
 		if (renderOutlines) {
-			GlStateManager.disableOutlineMode();
-			GlStateManager.disableColorMaterial();
+			GLS.disableOutlineMode();
+			GLS.disableColorMaterial();
 		}
 
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);
@@ -128,9 +128,9 @@ public class RenderMinecart<T extends EntityMinecart> extends Render<T> {
 
 	protected void renderCartContents(T p_188319_1_, float partialTicks, IBlockState p_188319_3_) {
 
-		GlStateManager.pushMatrix();
+		GLS.pushMatrix();
 		Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(p_188319_3_, p_188319_1_.getBrightness());
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 	}
 
 }

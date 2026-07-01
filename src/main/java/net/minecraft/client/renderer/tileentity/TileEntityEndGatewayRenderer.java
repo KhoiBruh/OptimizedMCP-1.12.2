@@ -1,6 +1,6 @@
 package net.minecraft.client.renderer.tileentity;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.item.DyeColor;
 import net.minecraft.tileentity.TileEntityEndGateway;
 import net.minecraft.tileentity.TileEntityEndPortal;
@@ -13,11 +13,11 @@ public class TileEntityEndGatewayRenderer extends TileEntityEndPortalRenderer {
 
 	public void render(TileEntityEndPortal te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 
-		GlStateManager.disableFog();
+		GLS.disableFog();
 		TileEntityEndGateway tileentityendgateway = (TileEntityEndGateway) te;
 
 		if (tileentityendgateway.isSpawning() || tileentityendgateway.isCoolingDown()) {
-			GlStateManager.alphaFunc(516, 0.1F);
+			GLS.alphaFunc(516, 0.1F);
 			bindTexture(END_GATEWAY_BEAM_TEXTURE);
 			float f = tileentityendgateway.isSpawning() ? tileentityendgateway.getSpawnPercent(partialTicks) : tileentityendgateway.getCooldownPercent(partialTicks);
 			double d0 = tileentityendgateway.isSpawning() ? 256D - y : 50D;
@@ -29,7 +29,7 @@ public class TileEntityEndGatewayRenderer extends TileEntityEndPortalRenderer {
 		}
 
 		super.render(te, x, y, z, partialTicks, destroyStage, alpha);
-		GlStateManager.enableFog();
+		GLS.enableFog();
 	}
 
 	protected int getPasses(double p_191286_1_) {

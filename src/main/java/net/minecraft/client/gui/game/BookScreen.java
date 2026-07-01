@@ -7,7 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.GuiUtilRenderComponents;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -360,7 +360,7 @@ public class BookScreen extends Screen {
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
 
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(BOOK_GUI_TEXTURES);
 		int i = (width - 192) / 2;
 		int j = 2;
@@ -548,7 +548,7 @@ public class BookScreen extends Screen {
 
 			if (visible) {
 				boolean flag = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
-				GlStateManager.color(1F, 1F, 1F, 1F);
+				GLS.color(1F, 1F, 1F, 1F);
 				mc.getTextureManager().bindTexture(BookScreen.BOOK_GUI_TEXTURES);
 				int i = 0;
 				int j = 192;

@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.block.model;
 
 import com.google.gson.*;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.util.math.MathHelper;
 import org.joml.Quaternionf;
 
@@ -61,7 +61,7 @@ public class ItemCameraTransforms {
 
 		if (vec != ItemTransformVec3f.DEFAULT) {
 			int i = leftHand ? -1 : 1;
-			GlStateManager.translate((float) i * (offsetTranslateX + vec.translation().x), offsetTranslateY + vec.translation().y, offsetTranslateZ + vec.translation().z);
+			GLS.translate((float) i * (offsetTranslateX + vec.translation().x), offsetTranslateY + vec.translation().y, offsetTranslateZ + vec.translation().z);
 			float f = offsetRotationX + vec.rotation().x;
 			float f1 = offsetRotationY + vec.rotation().y;
 			float f2 = offsetRotationZ + vec.rotation().z;
@@ -71,8 +71,8 @@ public class ItemCameraTransforms {
 				f2 = -f2;
 			}
 
-			GlStateManager.rotate(makeQuaternion(f, f1, f2));
-			GlStateManager.scale(offsetScaleX + vec.scale().x, offsetScaleY + vec.scale().y, offsetScaleZ + vec.scale().z);
+			GLS.rotate(makeQuaternion(f, f1, f2));
+			GLS.scale(offsetScaleX + vec.scale().x, offsetScaleY + vec.scale().y, offsetScaleZ + vec.scale().z);
 		}
 	}
 

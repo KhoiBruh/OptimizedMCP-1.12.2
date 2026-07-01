@@ -1,6 +1,6 @@
 package net.minecraft.client.model;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityOcelot;
@@ -94,14 +94,14 @@ public class ModelOcelot extends ModelBase {
 
 		if (isChild) {
 			float f = 2F;
-			GlStateManager.pushMatrix();
-			GlStateManager.scale(0.75F, 0.75F, 0.75F);
-			GlStateManager.translate(0F, 10F * scale, 4F * scale);
+			GLS.pushMatrix();
+			GLS.scale(0.75F, 0.75F, 0.75F);
+			GLS.translate(0F, 10F * scale, 4F * scale);
 			ocelotHead.render(scale);
-			GlStateManager.popMatrix();
-			GlStateManager.pushMatrix();
-			GlStateManager.scale(0.5F, 0.5F, 0.5F);
-			GlStateManager.translate(0F, 24F * scale, 0F);
+			GLS.popMatrix();
+			GLS.pushMatrix();
+			GLS.scale(0.5F, 0.5F, 0.5F);
+			GLS.translate(0F, 24F * scale, 0F);
 			ocelotBody.render(scale);
 			ocelotBackLeftLeg.render(scale);
 			ocelotBackRightLeg.render(scale);
@@ -109,7 +109,7 @@ public class ModelOcelot extends ModelBase {
 			ocelotFrontRightLeg.render(scale);
 			ocelotTail.render(scale);
 			ocelotTail2.render(scale);
-			GlStateManager.popMatrix();
+			GLS.popMatrix();
 		} else {
 			ocelotHead.render(scale);
 			ocelotBody.render(scale);

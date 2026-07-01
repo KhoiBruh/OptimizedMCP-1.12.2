@@ -2,7 +2,7 @@ package net.minecraft.client.particle;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
@@ -46,11 +46,11 @@ public class ParticleItemPickup extends Particle {
 		int j = i % 65536;
 		int k = i / 65536;
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		d6 = d6 - interpPosX;
 		d7 = d7 - interpPosY;
 		d8 = d8 - interpPosZ;
-		GlStateManager.enableLighting();
+		GLS.enableLighting();
 		renderManager.renderEntity(item, d6, d7, d8, item.rotationYaw, partialTicks, false);
 	}
 

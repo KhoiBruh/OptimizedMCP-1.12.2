@@ -6,7 +6,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.color.BlockColors;
-import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
@@ -266,7 +265,7 @@ public class BlockModelRenderer {
 	public void renderModelBrightness(IBakedModel model, IBlockState state, float brightness, boolean p_178266_4_) {
 
 		Block block = state.getBlock();
-		GlStateManager.rotate(90F, 0F, 1F, 0F);
+		GLS.rotate(90F, 0F, 1F, 0F);
 		int i = blockColors.colorMultiplier(state, null, null, 0);
 
 
@@ -276,7 +275,7 @@ public class BlockModelRenderer {
 		float f2 = (float) (i & 255) / 255F;
 
 		if (!p_178266_4_) {
-			GlStateManager.color(brightness, brightness, brightness, 1F);
+			GLS.color(brightness, brightness, brightness, 1F);
 		}
 
 		renderModelBrightnessColor(state, model, brightness, f, f1, f2);

@@ -5,7 +5,7 @@ import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.component.GuiListExtended;
 import net.minecraft.client.gui.menu.ResourcePacksScreen;
 import net.minecraft.client.gui.menu.YesNoScreen;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -32,12 +32,12 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
 		int i = getResourcePackFormat();
 
 		if (i != 3) {
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GLS.color(1F, 1F, 1F, 1F);
 			Gui.drawRect(x - 1, y - 1, x + listWidth - 9, y + slotHeight + 1, -8978432);
 		}
 
 		bindResourcePackIcon();
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		Gui.drawModalRectWithCustomSizedTexture(x, y, 0F, 0F, 32, 32, 32F, 32F);
 		String s = getResourcePackName();
 		String s1 = getResourcePackDescription();
@@ -45,7 +45,7 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
 		if (showHoverOverlay() && (mc.gameSettings.touchscreen || isSelected)) {
 			mc.getTextureManager().bindTexture(RESOURCE_PACKS_TEXTURE);
 			Gui.drawRect(x, y, x + 32, y + 32, -1601138544);
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GLS.color(1F, 1F, 1F, 1F);
 			int j = mouseX - x;
 			int k = mouseY - y;
 

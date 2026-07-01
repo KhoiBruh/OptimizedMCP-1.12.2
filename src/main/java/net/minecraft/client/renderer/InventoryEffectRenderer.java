@@ -65,8 +65,8 @@ public abstract class InventoryEffectRenderer extends ContainerScreen {
 		Collection<PotionEffect> collection = mc.player.getActivePotionEffects();
 
 		if (!collection.isEmpty()) {
-			GlStateManager.color(1F, 1F, 1F, 1F);
-			GlStateManager.disableLighting();
+			GLS.color(1F, 1F, 1F, 1F);
+			GLS.disableLighting();
 			int l = 33;
 
 			if (collection.size() > 5) {
@@ -75,7 +75,7 @@ public abstract class InventoryEffectRenderer extends ContainerScreen {
 
 			for (PotionEffect potioneffect : Ordering.natural().sortedCopy(collection)) {
 				Potion potion = potioneffect.getPotion();
-				GlStateManager.color(1F, 1F, 1F, 1F);
+				GLS.color(1F, 1F, 1F, 1F);
 				mc.getTextureManager().bindTexture(INVENTORY_BACKGROUND);
 				drawTexturedModalRect(i, j, 0, 166, 140, 32);
 

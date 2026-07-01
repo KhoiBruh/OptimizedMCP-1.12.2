@@ -1,6 +1,6 @@
 package net.minecraft.util;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.shader.Framebuffer;
@@ -86,15 +86,15 @@ public class ScreenShotHelper {
 			pixelValues = new int[i];
 		}
 
-		GlStateManager.pixelStorei(3333, 1);
-		GlStateManager.pixelStorei(3317, 1);
+		GLS.pixelStorei(3333, 1);
+		GLS.pixelStorei(3317, 1);
 		pixelBuffer.clear();
 
 		if (OpenGlHelper.isFramebufferEnabled()) {
-			GlStateManager.bindTexture(framebufferIn.framebufferTexture);
-			GlStateManager.getTexImage(3553, 0, 32993, 33639, pixelBuffer);
+			GLS.bindTexture(framebufferIn.framebufferTexture);
+			GLS.getTexImage(3553, 0, 32993, 33639, pixelBuffer);
 		} else {
-			GlStateManager.readPixels(0, 0, width, height, 32993, 33639, pixelBuffer);
+			GLS.readPixels(0, 0, width, height, 32993, 33639, pixelBuffer);
 		}
 
 		pixelBuffer.get(pixelValues);

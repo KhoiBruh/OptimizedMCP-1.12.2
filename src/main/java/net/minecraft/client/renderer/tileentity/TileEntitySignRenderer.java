@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiUtilRenderComponents;
 import net.minecraft.client.model.ModelSign;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.ResourceLocation;
@@ -24,13 +24,13 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
 	public void render(TileEntitySign te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 
 		Block block = te.getBlockType();
-		GlStateManager.pushMatrix();
+		GLS.pushMatrix();
 		float f = 0.6666667F;
 
 		if (block == Blocks.STANDING_SIGN) {
-			GlStateManager.translate((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
+			GLS.translate((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
 			float f1 = (float) (te.getBlockMetadata() * 360) / 16F;
-			GlStateManager.rotate(-f1, 0F, 1F, 0F);
+			GLS.rotate(-f1, 0F, 1F, 0F);
 			model.signStick.showModel = true;
 		} else {
 			int k = te.getBlockMetadata();
@@ -48,34 +48,34 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
 				f2 = -90F;
 			}
 
-			GlStateManager.translate((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
-			GlStateManager.rotate(-f2, 0F, 1F, 0F);
-			GlStateManager.translate(0F, -0.3125F, -0.4375F);
+			GLS.translate((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
+			GLS.rotate(-f2, 0F, 1F, 0F);
+			GLS.translate(0F, -0.3125F, -0.4375F);
 			model.signStick.showModel = false;
 		}
 
 		if (destroyStage >= 0) {
 			bindTexture(DESTROY_STAGES[destroyStage]);
-			GlStateManager.matrixMode(5890);
-			GlStateManager.pushMatrix();
-			GlStateManager.scale(4F, 2F, 1F);
-			GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
-			GlStateManager.matrixMode(5888);
+			GLS.matrixMode(5890);
+			GLS.pushMatrix();
+			GLS.scale(4F, 2F, 1F);
+			GLS.translate(0.0625F, 0.0625F, 0.0625F);
+			GLS.matrixMode(5888);
 		} else {
 			bindTexture(SIGN_TEXTURE);
 		}
 
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.pushMatrix();
-		GlStateManager.scale(0.6666667F, -0.6666667F, -0.6666667F);
+		GLS.enableRescaleNormal();
+		GLS.pushMatrix();
+		GLS.scale(0.6666667F, -0.6666667F, -0.6666667F);
 		model.renderSign();
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 		FontRenderer fontrenderer = getFontRenderer();
 		float f3 = 0.010416667F;
-		GlStateManager.translate(0F, 0.33333334F, 0.046666667F);
-		GlStateManager.scale(0.010416667F, -0.010416667F, 0.010416667F);
-		GlStateManager.normal3f(0F, 0F, -0.010416667F);
-		GlStateManager.depthMask(false);
+		GLS.translate(0F, 0.33333334F, 0.046666667F);
+		GLS.scale(0.010416667F, -0.010416667F, 0.010416667F);
+		GLS.normal3f(0F, 0F, -0.010416667F);
+		GLS.depthMask(false);
 		int i = 0;
 
 		if (destroyStage < 0) {
@@ -95,14 +95,14 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
 			}
 		}
 
-		GlStateManager.depthMask(true);
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.popMatrix();
+		GLS.depthMask(true);
+		GLS.color(1F, 1F, 1F, 1F);
+		GLS.popMatrix();
 
 		if (destroyStage >= 0) {
-			GlStateManager.matrixMode(5890);
-			GlStateManager.popMatrix();
-			GlStateManager.matrixMode(5888);
+			GLS.matrixMode(5890);
+			GLS.popMatrix();
+			GLS.matrixMode(5888);
 		}
 	}
 

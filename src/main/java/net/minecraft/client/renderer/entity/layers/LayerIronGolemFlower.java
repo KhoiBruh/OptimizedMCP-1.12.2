@@ -3,7 +3,7 @@ package net.minecraft.client.renderer.entity.layers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelIronGolem;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderIronGolem;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -23,22 +23,22 @@ public class LayerIronGolemFlower implements LayerRenderer<EntityIronGolem> {
 
 		if (entitylivingbaseIn.getHoldRoseTick() != 0) {
 			BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
-			GlStateManager.enableRescaleNormal();
-			GlStateManager.pushMatrix();
-			GlStateManager.rotate(5F + 180F * ((ModelIronGolem) ironGolemRenderer.getMainModel()).ironGolemRightArm.rotateAngleX / (float) Math.PI, 1F, 0F, 0F);
-			GlStateManager.rotate(90F, 1F, 0F, 0F);
-			GlStateManager.translate(-0.9375F, -0.625F, -0.9375F);
+			GLS.enableRescaleNormal();
+			GLS.pushMatrix();
+			GLS.rotate(5F + 180F * ((ModelIronGolem) ironGolemRenderer.getMainModel()).ironGolemRightArm.rotateAngleX / (float) Math.PI, 1F, 0F, 0F);
+			GLS.rotate(90F, 1F, 0F, 0F);
+			GLS.translate(-0.9375F, -0.625F, -0.9375F);
 			float f = 0.5F;
-			GlStateManager.scale(0.5F, -0.5F, 0.5F);
+			GLS.scale(0.5F, -0.5F, 0.5F);
 			int i = entitylivingbaseIn.getBrightnessForRender();
 			int j = i % 65536;
 			int k = i / 65536;
 			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GLS.color(1F, 1F, 1F, 1F);
 			ironGolemRenderer.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			blockrendererdispatcher.renderBlockBrightness(Blocks.RED_FLOWER.getDefaultState(), 1F);
-			GlStateManager.popMatrix();
-			GlStateManager.disableRescaleNormal();
+			GLS.popMatrix();
+			GLS.disableRescaleNormal();
 		}
 	}
 

@@ -5,7 +5,7 @@ import com.ibm.icu.text.ArabicShapingException;
 import com.ibm.icu.text.Bidi;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureUtil;
@@ -290,16 +290,16 @@ public class FontRenderer implements IResourceManagerReloadListener {
 		textureManager.bindTexture(locationFontTexture);
 		int l = charWidth[ch];
 		float f = (float) l - 0.01F;
-		GlStateManager.begin(5);
-		GlStateManager.texCoord2f((float) i / 128F, (float) j / 128F);
-		GlStateManager.vertex3f(posX + (float) k, posY, 0F);
-		GlStateManager.texCoord2f((float) i / 128F, ((float) j + 7.99F) / 128F);
-		GlStateManager.vertex3f(posX - (float) k, posY + 7.99F, 0F);
-		GlStateManager.texCoord2f(((float) i + f - 1F) / 128F, (float) j / 128F);
-		GlStateManager.vertex3f(posX + f - 1F + (float) k, posY, 0F);
-		GlStateManager.texCoord2f(((float) i + f - 1F) / 128F, ((float) j + 7.99F) / 128F);
-		GlStateManager.vertex3f(posX + f - 1F - (float) k, posY + 7.99F, 0F);
-		GlStateManager.end();
+		GLS.begin(5);
+		GLS.texCoord2f((float) i / 128F, (float) j / 128F);
+		GLS.vertex3f(posX + (float) k, posY, 0F);
+		GLS.texCoord2f((float) i / 128F, ((float) j + 7.99F) / 128F);
+		GLS.vertex3f(posX - (float) k, posY + 7.99F, 0F);
+		GLS.texCoord2f(((float) i + f - 1F) / 128F, (float) j / 128F);
+		GLS.vertex3f(posX + f - 1F + (float) k, posY, 0F);
+		GLS.texCoord2f(((float) i + f - 1F) / 128F, ((float) j + 7.99F) / 128F);
+		GLS.vertex3f(posX + f - 1F - (float) k, posY + 7.99F, 0F);
+		GLS.end();
 		return (float) l;
 	}
 
@@ -340,16 +340,16 @@ public class FontRenderer implements IResourceManagerReloadListener {
 			float f3 = (float) ((ch & 255) / 16 * 16);
 			float f4 = f1 - f - 0.02F;
 			float f5 = italic ? 1F : 0F;
-			GlStateManager.begin(5);
-			GlStateManager.texCoord2f(f2 / 256F, f3 / 256F);
-			GlStateManager.vertex3f(posX + f5, posY, 0F);
-			GlStateManager.texCoord2f(f2 / 256F, (f3 + 15.98F) / 256F);
-			GlStateManager.vertex3f(posX - f5, posY + 7.99F, 0F);
-			GlStateManager.texCoord2f((f2 + f4) / 256F, f3 / 256F);
-			GlStateManager.vertex3f(posX + f4 / 2F + f5, posY, 0F);
-			GlStateManager.texCoord2f((f2 + f4) / 256F, (f3 + 15.98F) / 256F);
-			GlStateManager.vertex3f(posX + f4 / 2F - f5, posY + 7.99F, 0F);
-			GlStateManager.end();
+			GLS.begin(5);
+			GLS.texCoord2f(f2 / 256F, f3 / 256F);
+			GLS.vertex3f(posX + f5, posY, 0F);
+			GLS.texCoord2f(f2 / 256F, (f3 + 15.98F) / 256F);
+			GLS.vertex3f(posX - f5, posY + 7.99F, 0F);
+			GLS.texCoord2f((f2 + f4) / 256F, f3 / 256F);
+			GLS.vertex3f(posX + f4 / 2F + f5, posY, 0F);
+			GLS.texCoord2f((f2 + f4) / 256F, (f3 + 15.98F) / 256F);
+			GLS.vertex3f(posX + f4 / 2F - f5, posY + 7.99F, 0F);
+			GLS.end();
 			return (f1 - f) / 2F + 1F;
 		}
 	}
@@ -375,7 +375,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 */
 	public int drawString(String text, float x, float y, int color, boolean dropShadow) {
 
-		GlStateManager.enableAlpha();
+		GLS.enableAlpha();
 		resetStyles();
 		int i;
 
@@ -443,7 +443,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
 
 					int j1 = colorCode[i1];
 					textColor = j1;
-					GlStateManager.color((float) (j1 >> 16) / 255F, (float) (j1 >> 8 & 255) / 255F, (float) (j1 & 255) / 255F, alpha);
+					GLS.color((float) (j1 >> 16) / 255F, (float) (j1 >> 8 & 255) / 255F, (float) (j1 & 255) / 255F, alpha);
 				} else if (i1 == 16) {
 					randomStyle = true;
 				} else if (i1 == 17) {
@@ -460,7 +460,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
 					strikethroughStyle = false;
 					underlineStyle = false;
 					italicStyle = false;
-					GlStateManager.color(red, blue, green, alpha);
+					GLS.color(red, blue, green, alpha);
 				}
 
 				++i;
@@ -520,20 +520,20 @@ public class FontRenderer implements IResourceManagerReloadListener {
 				if (strikethroughStyle) {
 					Tessellator tessellator = Tessellator.getInstance();
 					BufferBuilder bufferbuilder = tessellator.getBuffer();
-					GlStateManager.disableTexture2D();
+					GLS.disableTexture2D();
 					bufferbuilder.begin(7, DefaultVertexFormats.POSITION);
 					bufferbuilder.pos(posX, posY + (float) (FONT_HEIGHT / 2), 0D).endVertex();
 					bufferbuilder.pos(posX + f, posY + (float) (FONT_HEIGHT / 2), 0D).endVertex();
 					bufferbuilder.pos(posX + f, posY + (float) (FONT_HEIGHT / 2) - 1F, 0D).endVertex();
 					bufferbuilder.pos(posX, posY + (float) (FONT_HEIGHT / 2) - 1F, 0D).endVertex();
 					tessellator.draw();
-					GlStateManager.enableTexture2D();
+					GLS.enableTexture2D();
 				}
 
 				if (underlineStyle) {
 					Tessellator tessellator1 = Tessellator.getInstance();
 					BufferBuilder bufferbuilder1 = tessellator1.getBuffer();
-					GlStateManager.disableTexture2D();
+					GLS.disableTexture2D();
 					bufferbuilder1.begin(7, DefaultVertexFormats.POSITION);
 					int l = underlineStyle ? -1 : 0;
 					bufferbuilder1.pos(posX + (float) l, posY + (float) FONT_HEIGHT, 0D).endVertex();
@@ -541,7 +541,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
 					bufferbuilder1.pos(posX + f, posY + (float) FONT_HEIGHT - 1F, 0D).endVertex();
 					bufferbuilder1.pos(posX + (float) l, posY + (float) FONT_HEIGHT - 1F, 0D).endVertex();
 					tessellator1.draw();
-					GlStateManager.enableTexture2D();
+					GLS.enableTexture2D();
 				}
 
 				posX += (float) ((int) f);
@@ -586,7 +586,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
 			blue = (float) (color >> 8 & 255) / 255F;
 			green = (float) (color & 255) / 255F;
 			alpha = (float) (color >> 24 & 255) / 255F;
-			GlStateManager.color(red, blue, green, alpha);
+			GLS.color(red, blue, green, alpha);
 			posX = x;
 			posY = y;
 			renderStringAtPos(text, dropShadow);

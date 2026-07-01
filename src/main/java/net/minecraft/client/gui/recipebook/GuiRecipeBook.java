@@ -8,7 +8,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.component.ToggleButton;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.GuiTextField;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.resources.Language;
@@ -211,11 +211,11 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 
 		if (isVisible()) {
 			RenderHelper.enableGUIStandardItemLighting();
-			GlStateManager.disableLighting();
-			GlStateManager.pushMatrix();
-			GlStateManager.translate(0F, 0F, 100F);
+			GLS.disableLighting();
+			GLS.pushMatrix();
+			GLS.translate(0F, 0F, 100F);
 			mc.getTextureManager().bindTexture(RECIPE_BOOK);
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GLS.color(1F, 1F, 1F, 1F);
 			int i = (width - 147) / 2 - xOffset;
 			int j = (height - 166) / 2;
 			drawTexturedModalRect(i, j, 1, 1, 147, 166);
@@ -228,7 +228,7 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 
 			toggleRecipesBtn.drawButton(mc, mouseX, mouseY, partialTicks);
 			recipeBookPage.render(i, j, mouseX, mouseY, partialTicks);
-			GlStateManager.popMatrix();
+			GLS.popMatrix();
 		}
 	}
 

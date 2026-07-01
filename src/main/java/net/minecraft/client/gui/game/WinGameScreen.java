@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.IResource;
@@ -182,16 +182,16 @@ public class WinGameScreen extends Screen {
 		int k = height + 50;
 		time += partialTicks;
 		float f = -time * scrollSpeed;
-		GlStateManager.pushMatrix();
-		GlStateManager.translate(0F, f, 0F);
+		GLS.pushMatrix();
+		GLS.translate(0F, f, 0F);
 		mc.getTextureManager().bindTexture(MINECRAFT_LOGO);
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.enableAlpha();
+		GLS.color(1F, 1F, 1F, 1F);
+		GLS.enableAlpha();
 		drawTexturedModalRect(j, k, 0, 0, 155, 44);
 		drawTexturedModalRect(j + 155, k, 0, 45, 155, 44);
 		mc.getTextureManager().bindTexture(field_194401_g);
 		drawModalRectWithCustomSizedTexture(j + 88, k + 37, 0F, 0F, 98, 14, 128F, 16F);
-		GlStateManager.disableAlpha();
+		GLS.disableAlpha();
 		int l = k + 100;
 
 		for (int i1 = 0; i1 < lines.size(); ++i1) {
@@ -199,7 +199,7 @@ public class WinGameScreen extends Screen {
 				float f1 = (float) l + f - (float) (height / 2 - 6);
 
 				if (f1 < 0F) {
-					GlStateManager.translate(0F, -f1, 0F);
+					GLS.translate(0F, -f1, 0F);
 				}
 			}
 
@@ -217,10 +217,10 @@ public class WinGameScreen extends Screen {
 			l += 12;
 		}
 
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 		mc.getTextureManager().bindTexture(VIGNETTE_TEXTURE);
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.ZERO, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR);
+		GLS.enableBlend();
+		GLS.blendFunc(GLS.SourceFactor.ZERO, GLS.DestFactor.ONE_MINUS_SRC_COLOR);
 		int j1 = width;
 		int k1 = height;
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
@@ -229,7 +229,7 @@ public class WinGameScreen extends Screen {
 		bufferbuilder.pos(j1, 0D, zLevel).tex(1D, 0D).color(1F, 1F, 1F, 1F).endVertex();
 		bufferbuilder.pos(0D, 0D, zLevel).tex(0D, 0D).color(1F, 1F, 1F, 1F).endVertex();
 		tessellator.draw();
-		GlStateManager.disableBlend();
+		GLS.disableBlend();
 		super.draw(mouseX, mouseY, partialTicks);
 	}
 

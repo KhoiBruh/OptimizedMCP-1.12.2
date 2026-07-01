@@ -1,7 +1,7 @@
 package net.minecraft.client.gui.component;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.resources.I18n;
 
 public class Slider extends Button {
@@ -108,7 +108,7 @@ public class Slider extends Button {
 				responder.setEntryValue(id, getSliderValue());
 			}
 
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GLS.color(1F, 1F, 1F, 1F);
 			drawTexturedModalRect(x + (int) (sliderPosition * (float) (width - 8)), y, 0, 66, 4, 20);
 			drawTexturedModalRect(x + (int) (sliderPosition * (float) (width - 8)) + 4, y, 196, 66, 4, 20);
 		}

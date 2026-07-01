@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.model.ModelVex;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.monster.EntityVex;
 import net.minecraft.util.ResourceLocation;
 
@@ -45,7 +45,7 @@ public class RenderVex extends RenderBiped<EntityVex> {
 	 */
 	protected void preRenderCallback(EntityVex entitylivingbaseIn, float partialTickTime) {
 
-		GlStateManager.scale(0.4F, 0.4F, 0.4F);
+		GLS.scale(0.4F, 0.4F, 0.4F);
 	}
 
 }

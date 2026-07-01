@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.entity.layers;
 
 import net.minecraft.client.model.ModelBox;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.entity.Entity;
@@ -31,7 +31,7 @@ public class LayerArrow implements LayerRenderer<EntityLivingBase> {
 			RenderHelper.disableStandardItemLighting();
 
 			for (int j = 0; j < i; ++j) {
-				GlStateManager.pushMatrix();
+				GLS.pushMatrix();
 				ModelRenderer modelrenderer = renderer.getMainModel().getRandomModelBox(random);
 				ModelBox modelbox = modelrenderer.cubeList.get(random.nextInt(modelrenderer.cubeList.size()));
 				modelrenderer.postRender(0.0625F);
@@ -41,7 +41,7 @@ public class LayerArrow implements LayerRenderer<EntityLivingBase> {
 				float f3 = (modelbox.posX1 + (modelbox.posX2 - modelbox.posX1) * f) / 16F;
 				float f4 = (modelbox.posY1 + (modelbox.posY2 - modelbox.posY1) * f1) / 16F;
 				float f5 = (modelbox.posZ1 + (modelbox.posZ2 - modelbox.posZ1) * f2) / 16F;
-				GlStateManager.translate(f3, f4, f5);
+				GLS.translate(f3, f4, f5);
 				f = f * 2F - 1F;
 				f1 = f1 * 2F - 1F;
 				f2 = f2 * 2F - 1F;
@@ -57,7 +57,7 @@ public class LayerArrow implements LayerRenderer<EntityLivingBase> {
 				double d1 = 0D;
 				double d2 = 0D;
 				renderer.getRenderManager().renderEntity(entity, 0D, 0D, 0D, 0F, partialTicks, false);
-				GlStateManager.popMatrix();
+				GLS.popMatrix();
 			}
 
 			RenderHelper.enableStandardItemLighting();

@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,10 +31,10 @@ public class RenderFish extends Render<EntityFishHook> {
 		EntityPlayer entityplayer = entity.getAngler();
 
 		if (entityplayer != null && !renderOutlines) {
-			GlStateManager.pushMatrix();
-			GlStateManager.translate((float) x, (float) y, (float) z);
-			GlStateManager.enableRescaleNormal();
-			GlStateManager.scale(0.5F, 0.5F, 0.5F);
+			GLS.pushMatrix();
+			GLS.translate((float) x, (float) y, (float) z);
+			GLS.enableRescaleNormal();
+			GLS.scale(0.5F, 0.5F, 0.5F);
 			bindEntityTexture(entity);
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferbuilder = tessellator.getBuffer();
@@ -47,12 +47,12 @@ public class RenderFish extends Render<EntityFishHook> {
 			float f4 = 1F;
 			float f5 = 0.5F;
 			float f6 = 0.5F;
-			GlStateManager.rotate(180F - renderManager.playerViewY, 0F, 1F, 0F);
-			GlStateManager.rotate((float) (renderManager.options.thirdPersonView == 2 ? -1 : 1) * -renderManager.playerViewX, 1F, 0F, 0F);
+			GLS.rotate(180F - renderManager.playerViewY, 0F, 1F, 0F);
+			GLS.rotate((float) (renderManager.options.thirdPersonView == 2 ? -1 : 1) * -renderManager.playerViewX, 1F, 0F, 0F);
 
 			if (renderOutlines) {
-				GlStateManager.enableColorMaterial();
-				GlStateManager.enableOutlineMode(getTeamColor(entity));
+				GLS.enableColorMaterial();
+				GLS.enableOutlineMode(getTeamColor(entity));
 			}
 
 			bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_NORMAL);
@@ -63,12 +63,12 @@ public class RenderFish extends Render<EntityFishHook> {
 			tessellator.draw();
 
 			if (renderOutlines) {
-				GlStateManager.disableOutlineMode();
-				GlStateManager.disableColorMaterial();
+				GLS.disableOutlineMode();
+				GLS.disableColorMaterial();
 			}
 
-			GlStateManager.disableRescaleNormal();
-			GlStateManager.popMatrix();
+			GLS.disableRescaleNormal();
+			GLS.popMatrix();
 			int k = entityplayer.getPrimaryHand() == HandSide.RIGHT ? 1 : -1;
 			ItemStack itemstack = entityplayer.getHeldItemMainhand();
 
@@ -113,8 +113,8 @@ public class RenderFish extends Render<EntityFishHook> {
 			double d10 = (float) (d4 - d13);
 			double d11 = (double) ((float) (d5 - d8)) + d7;
 			double d12 = (float) (d6 - d9);
-			GlStateManager.disableTexture2D();
-			GlStateManager.disableLighting();
+			GLS.disableTexture2D();
+			GLS.disableLighting();
 			bufferbuilder.begin(3, DefaultVertexFormats.POSITION_COLOR);
 			int l = 16;
 
@@ -124,8 +124,8 @@ public class RenderFish extends Render<EntityFishHook> {
 			}
 
 			tessellator.draw();
-			GlStateManager.enableLighting();
-			GlStateManager.enableTexture2D();
+			GLS.enableLighting();
+			GLS.enableTexture2D();
 			super.doRender(entity, x, y, z, entityYaw, partialTicks);
 		}
 	}

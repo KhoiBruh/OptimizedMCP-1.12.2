@@ -5,7 +5,7 @@ import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.component.OptionButton;
 import net.minecraft.client.gui.Screen;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.init.SoundEvents;
@@ -135,7 +135,7 @@ public class SoundOptionsScreen extends Screen {
 					displayString = categoryName + ": " + getDisplayString(category);
 				}
 
-				GlStateManager.color(1F, 1F, 1F, 1F);
+				GLS.color(1F, 1F, 1F, 1F);
 				drawTexturedModalRect(x + (int) (volume * (float) (width - 8)), y, 0, 66, 4, 20);
 				drawTexturedModalRect(x + (int) (volume * (float) (width - 8)) + 4, y, 196, 66, 4, 20);
 			}

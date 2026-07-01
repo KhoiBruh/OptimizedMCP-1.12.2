@@ -3,7 +3,7 @@ package net.minecraft.client.gui.recipebook;
 import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -106,11 +106,11 @@ public class GuiRecipeOverlay extends Gui {
 		if (visible) {
 			time += p_191842_3_;
 			RenderHelper.enableGUIStandardItemLighting();
-			GlStateManager.enableBlend();
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GLS.enableBlend();
+			GLS.color(1F, 1F, 1F, 1F);
 			mc.getTextureManager().bindTexture(RECIPE_BOOK_TEXTURE);
-			GlStateManager.pushMatrix();
-			GlStateManager.translate(0F, 0F, 170F);
+			GLS.pushMatrix();
+			GLS.translate(0F, 0F, 170F);
 			int i = buttonList.size() <= 16 ? 4 : 5;
 			int j = Math.min(buttonList.size(), i);
 			int k = MathHelper.ceil((float) buttonList.size() / (float) i);
@@ -119,14 +119,14 @@ public class GuiRecipeOverlay extends Gui {
 			int j1 = 82;
 			int k1 = 208;
 			nineInchSprite(j, k, 24, 4, 82, 208);
-			GlStateManager.disableBlend();
+			GLS.disableBlend();
 			RenderHelper.disableStandardItemLighting();
 
 			for (GuiRecipeOverlay.Button guirecipeoverlay$button : buttonList) {
 				guirecipeoverlay$button.drawButton(mc, p_191842_1_, p_191842_2_, p_191842_3_);
 			}
 
-			GlStateManager.popMatrix();
+			GLS.popMatrix();
 		}
 	}
 
@@ -190,7 +190,7 @@ public class GuiRecipeOverlay extends Gui {
 		public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
 
 			RenderHelper.enableGUIStandardItemLighting();
-			GlStateManager.enableAlpha();
+			GLS.enableAlpha();
 			mc.getTextureManager().bindTexture(GuiRecipeOverlay.RECIPE_BOOK_TEXTURE);
 			hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 			int i = 152;
@@ -225,21 +225,21 @@ public class GuiRecipeOverlay extends Gui {
 
 						if (aitemstack.length != 0) {
 							int l1 = 3 + k1 * 7;
-							GlStateManager.pushMatrix();
+							GLS.pushMatrix();
 							float f = 0.42F;
 							int i2 = (int) ((float) (x + l1) / 0.42F - 3F);
 							int j2 = (int) ((float) (y + j1) / 0.42F - 3F);
-							GlStateManager.scale(0.42F, 0.42F, 1F);
-							GlStateManager.enableLighting();
+							GLS.scale(0.42F, 0.42F, 1F);
+							GLS.enableLighting();
 							mc.getRenderItem().renderItemAndEffectIntoGUI(aitemstack[MathHelper.floor(time / 30F) % aitemstack.length], i2, j2);
-							GlStateManager.disableLighting();
-							GlStateManager.popMatrix();
+							GLS.disableLighting();
+							GLS.popMatrix();
 						}
 					}
 				}
 			}
 
-			GlStateManager.disableAlpha();
+			GLS.disableAlpha();
 			RenderHelper.disableStandardItemLighting();
 		}
 

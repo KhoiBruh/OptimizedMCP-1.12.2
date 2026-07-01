@@ -739,8 +739,8 @@ public class OpenGlHelper {
 
 	public static void renderDirections(int p_188785_0_) {
 
-		GlStateManager.disableTexture2D();
-		GlStateManager.depthMask(false);
+		GLS.disableTexture2D();
+		GLS.depthMask(false);
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		GL11.glLineWidth(4F);
@@ -762,8 +762,8 @@ public class OpenGlHelper {
 		bufferbuilder.pos(0D, 0D, p_188785_0_).color(127, 127, 255, 255).endVertex();
 		tessellator.draw();
 		GL11.glLineWidth(1F);
-		GlStateManager.depthMask(true);
-		GlStateManager.enableTexture2D();
+		GLS.depthMask(true);
+		GLS.enableTexture2D();
 	}
 
 	public static void openFile(File fileIn) {

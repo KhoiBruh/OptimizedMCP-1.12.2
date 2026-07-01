@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.entity;
 
 import com.google.common.collect.Maps;
 import net.minecraft.client.model.ModelHorse;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.passive.*;
 import net.minecraft.util.ResourceLocation;
 
@@ -37,7 +37,7 @@ public class RenderAbstractHorse extends RenderLiving<AbstractHorse> {
 	 */
 	protected void preRenderCallback(AbstractHorse entitylivingbaseIn, float partialTickTime) {
 
-		GlStateManager.scale(scale, scale, scale);
+		GLS.scale(scale, scale, scale);
 		super.preRenderCallback(entitylivingbaseIn, partialTickTime);
 	}
 

@@ -3,7 +3,7 @@ package net.minecraft.client.gui.inventory;
 import com.google.common.collect.Sets;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Screen;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -111,21 +111,21 @@ public abstract class ContainerScreen extends Screen {
 		int i = guiLeft;
 		int j = guiTop;
 		drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
-		GlStateManager.disableRescaleNormal();
+		GLS.disableRescaleNormal();
 		RenderHelper.disableStandardItemLighting();
-		GlStateManager.disableLighting();
-		GlStateManager.disableDepth();
+		GLS.disableLighting();
+		GLS.disableDepth();
 		super.draw(mouseX, mouseY, partialTicks);
 		RenderHelper.enableGUIStandardItemLighting();
-		GlStateManager.pushMatrix();
-		GlStateManager.translate((float) i, (float) j, 0F);
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.enableRescaleNormal();
+		GLS.pushMatrix();
+		GLS.translate((float) i, (float) j, 0F);
+		GLS.color(1F, 1F, 1F, 1F);
+		GLS.enableRescaleNormal();
 		hoveredSlot = null;
 		int k = 240;
 		int l = 240;
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240F, 240F);
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 
 		for (int i1 = 0; i1 < inventorySlots.inventorySlots.size(); ++i1) {
 			Slot slot = inventorySlots.inventorySlots.get(i1);
@@ -136,15 +136,15 @@ public abstract class ContainerScreen extends Screen {
 
 			if (isMouseOverSlot(slot, mouseX, mouseY) && slot.isEnabled()) {
 				hoveredSlot = slot;
-				GlStateManager.disableLighting();
-				GlStateManager.disableDepth();
+				GLS.disableLighting();
+				GLS.disableDepth();
 				int j1 = slot.xPos;
 				int k1 = slot.yPos;
-				GlStateManager.colorMask(true, true, true, false);
+				GLS.colorMask(true, true, true, false);
 				drawGradientRect(j1, k1, j1 + 16, k1 + 16, -2130706433, -2130706433);
-				GlStateManager.colorMask(true, true, true, true);
-				GlStateManager.enableLighting();
-				GlStateManager.enableDepth();
+				GLS.colorMask(true, true, true, true);
+				GLS.enableLighting();
+				GLS.enableDepth();
 			}
 		}
 
@@ -189,9 +189,9 @@ public abstract class ContainerScreen extends Screen {
 			drawItemStack(returningStack, l1, i2, null);
 		}
 
-		GlStateManager.popMatrix();
-		GlStateManager.enableLighting();
-		GlStateManager.enableDepth();
+		GLS.popMatrix();
+		GLS.enableLighting();
+		GLS.enableDepth();
 		RenderHelper.enableStandardItemLighting();
 	}
 
@@ -209,7 +209,7 @@ public abstract class ContainerScreen extends Screen {
 	 */
 	private void drawItemStack(ItemStack stack, int x, int y, String altText) {
 
-		GlStateManager.translate(0F, 0F, 32F);
+		GLS.translate(0F, 0F, 32F);
 		zLevel = 200F;
 		itemRender.zLevel = 200F;
 		itemRender.renderItemAndEffectIntoGUI(stack, x, y);
@@ -275,10 +275,10 @@ public abstract class ContainerScreen extends Screen {
 
 			if (s1 != null) {
 				TextureAtlasSprite textureatlassprite = mc.getBlockTextures().getAtlasSprite(s1);
-				GlStateManager.disableLighting();
+				GLS.disableLighting();
 				mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 				drawTexturedModalRect(i, j, textureatlassprite, 16, 16);
-				GlStateManager.enableLighting();
+				GLS.enableLighting();
 				flag1 = true;
 			}
 		}
@@ -288,7 +288,7 @@ public abstract class ContainerScreen extends Screen {
 				drawRect(i, j, i + 16, j + 16, -2130706433);
 			}
 
-			GlStateManager.enableDepth();
+			GLS.enableDepth();
 			itemRender.renderItemAndEffectIntoGUI(mc.player, itemstack, i, j);
 			itemRender.renderItemOverlayIntoGUI(fontRenderer, itemstack, i, j, s);
 		}

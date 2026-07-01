@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.model.ModelSlime;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.entity.layers.LayerSlimeGel;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.util.ResourceLocation;
@@ -31,11 +31,11 @@ public class RenderSlime extends RenderLiving<EntitySlime> {
 	protected void preRenderCallback(EntitySlime entitylivingbaseIn, float partialTickTime) {
 
 		float f = 0.999F;
-		GlStateManager.scale(0.999F, 0.999F, 0.999F);
+		GLS.scale(0.999F, 0.999F, 0.999F);
 		float f1 = (float) entitylivingbaseIn.getSlimeSize();
 		float f2 = (entitylivingbaseIn.prevSquishFactor + (entitylivingbaseIn.squishFactor - entitylivingbaseIn.prevSquishFactor) * partialTickTime) / (f1 * 0.5F + 1F);
 		float f3 = 1F / (f2 + 1F);
-		GlStateManager.scale(f3 * f1, 1F / f3 * f1, f3 * f1);
+		GLS.scale(f3 * f1, 1F / f3 * f1, f3 * f1);
 	}
 
 	/**

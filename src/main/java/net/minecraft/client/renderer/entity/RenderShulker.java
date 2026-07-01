@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.model.ModelShulker;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.monster.EntityShulker;
@@ -83,31 +83,31 @@ public class RenderShulker extends RenderLiving<EntityShulker> {
 				break;
 
 			case EAST:
-				GlStateManager.translate(0.5F, 0.5F, 0F);
-				GlStateManager.rotate(90F, 1F, 0F, 0F);
-				GlStateManager.rotate(90F, 0F, 0F, 1F);
+				GLS.translate(0.5F, 0.5F, 0F);
+				GLS.rotate(90F, 1F, 0F, 0F);
+				GLS.rotate(90F, 0F, 0F, 1F);
 				break;
 
 			case WEST:
-				GlStateManager.translate(-0.5F, 0.5F, 0F);
-				GlStateManager.rotate(90F, 1F, 0F, 0F);
-				GlStateManager.rotate(-90F, 0F, 0F, 1F);
+				GLS.translate(-0.5F, 0.5F, 0F);
+				GLS.rotate(90F, 1F, 0F, 0F);
+				GLS.rotate(-90F, 0F, 0F, 1F);
 				break;
 
 			case NORTH:
-				GlStateManager.translate(0F, 0.5F, -0.5F);
-				GlStateManager.rotate(90F, 1F, 0F, 0F);
+				GLS.translate(0F, 0.5F, -0.5F);
+				GLS.rotate(90F, 1F, 0F, 0F);
 				break;
 
 			case SOUTH:
-				GlStateManager.translate(0F, 0.5F, 0.5F);
-				GlStateManager.rotate(90F, 1F, 0F, 0F);
-				GlStateManager.rotate(180F, 0F, 0F, 1F);
+				GLS.translate(0F, 0.5F, 0.5F);
+				GLS.rotate(90F, 1F, 0F, 0F);
+				GLS.rotate(180F, 0F, 0F, 1F);
 				break;
 
 			case UP:
-				GlStateManager.translate(0F, 1F, 0F);
-				GlStateManager.rotate(180F, 1F, 0F, 0F);
+				GLS.translate(0F, 1F, 0F);
+				GLS.rotate(180F, 1F, 0F, 0F);
 		}
 	}
 
@@ -117,7 +117,7 @@ public class RenderShulker extends RenderLiving<EntityShulker> {
 	protected void preRenderCallback(EntityShulker entitylivingbaseIn, float partialTickTime) {
 
 		float f = 0.999F;
-		GlStateManager.scale(0.999F, 0.999F, 0.999F);
+		GLS.scale(0.999F, 0.999F, 0.999F);
 	}
 
 	class HeadLayer implements LayerRenderer<EntityShulker> {
@@ -128,7 +128,7 @@ public class RenderShulker extends RenderLiving<EntityShulker> {
 
 		public void doRenderLayer(EntityShulker entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
-			GlStateManager.pushMatrix();
+			GLS.pushMatrix();
 
 			switch (entitylivingbaseIn.getAttachmentFacing()) {
 				case DOWN:
@@ -136,33 +136,33 @@ public class RenderShulker extends RenderLiving<EntityShulker> {
 					break;
 
 				case EAST:
-					GlStateManager.rotate(90F, 0F, 0F, 1F);
-					GlStateManager.rotate(90F, 1F, 0F, 0F);
-					GlStateManager.translate(1F, -1F, 0F);
-					GlStateManager.rotate(180F, 0F, 1F, 0F);
+					GLS.rotate(90F, 0F, 0F, 1F);
+					GLS.rotate(90F, 1F, 0F, 0F);
+					GLS.translate(1F, -1F, 0F);
+					GLS.rotate(180F, 0F, 1F, 0F);
 					break;
 
 				case WEST:
-					GlStateManager.rotate(-90F, 0F, 0F, 1F);
-					GlStateManager.rotate(90F, 1F, 0F, 0F);
-					GlStateManager.translate(-1F, -1F, 0F);
-					GlStateManager.rotate(180F, 0F, 1F, 0F);
+					GLS.rotate(-90F, 0F, 0F, 1F);
+					GLS.rotate(90F, 1F, 0F, 0F);
+					GLS.translate(-1F, -1F, 0F);
+					GLS.rotate(180F, 0F, 1F, 0F);
 					break;
 
 				case NORTH:
-					GlStateManager.rotate(90F, 1F, 0F, 0F);
-					GlStateManager.translate(0F, -1F, -1F);
+					GLS.rotate(90F, 1F, 0F, 0F);
+					GLS.translate(0F, -1F, -1F);
 					break;
 
 				case SOUTH:
-					GlStateManager.rotate(180F, 0F, 0F, 1F);
-					GlStateManager.rotate(90F, 1F, 0F, 0F);
-					GlStateManager.translate(0F, -1F, 1F);
+					GLS.rotate(180F, 0F, 0F, 1F);
+					GLS.rotate(90F, 1F, 0F, 0F);
+					GLS.translate(0F, -1F, 1F);
 					break;
 
 				case UP:
-					GlStateManager.rotate(180F, 1F, 0F, 0F);
-					GlStateManager.translate(0F, -2F, 0F);
+					GLS.rotate(180F, 1F, 0F, 0F);
+					GLS.translate(0F, -2F, 0F);
 			}
 
 			ModelRenderer modelrenderer = getMainModel().head;
@@ -170,7 +170,7 @@ public class RenderShulker extends RenderLiving<EntityShulker> {
 			modelrenderer.rotateAngleX = headPitch * 0.017453292F;
 			bindTexture(RenderShulker.SHULKER_ENDERGOLEM_TEXTURE[entitylivingbaseIn.getColor().getMetadata()]);
 			modelrenderer.render(scale);
-			GlStateManager.popMatrix();
+			GLS.popMatrix();
 		}
 
 		public boolean shouldCombineTextures() {

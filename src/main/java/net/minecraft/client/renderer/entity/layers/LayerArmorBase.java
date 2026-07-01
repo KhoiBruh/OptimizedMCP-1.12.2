@@ -3,7 +3,7 @@ package net.minecraft.client.renderer.entity.layers;
 import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -37,35 +37,35 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
 		float f = (float) p_188364_1_.ticksExisted + p_188364_5_;
 		p_188364_0_.bindTexture(ENCHANTED_ITEM_GLINT_RES);
 		Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
-		GlStateManager.enableBlend();
-		GlStateManager.depthFunc(514);
-		GlStateManager.depthMask(false);
+		GLS.enableBlend();
+		GLS.depthFunc(514);
+		GLS.depthMask(false);
 		float f1 = 0.5F;
-		GlStateManager.color(0.5F, 0.5F, 0.5F, 1F);
+		GLS.color(0.5F, 0.5F, 0.5F, 1F);
 
 		for (int i = 0; i < 2; ++i) {
-			GlStateManager.disableLighting();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_COLOR, GlStateManager.DestFactor.ONE);
+			GLS.disableLighting();
+			GLS.blendFunc(GLS.SourceFactor.SRC_COLOR, GLS.DestFactor.ONE);
 			float f2 = 0.76F;
-			GlStateManager.color(0.38F, 0.19F, 0.608F, 1F);
-			GlStateManager.matrixMode(5890);
-			GlStateManager.loadIdentity();
+			GLS.color(0.38F, 0.19F, 0.608F, 1F);
+			GLS.matrixMode(5890);
+			GLS.loadIdentity();
 			float f3 = 0.33333334F;
-			GlStateManager.scale(0.33333334F, 0.33333334F, 0.33333334F);
-			GlStateManager.rotate(30F - (float) i * 60F, 0F, 0F, 1F);
-			GlStateManager.translate(0F, f * (0.001F + (float) i * 0.003F) * 20F, 0F);
-			GlStateManager.matrixMode(5888);
+			GLS.scale(0.33333334F, 0.33333334F, 0.33333334F);
+			GLS.rotate(30F - (float) i * 60F, 0F, 0F, 1F);
+			GLS.translate(0F, f * (0.001F + (float) i * 0.003F) * 20F, 0F);
+			GLS.matrixMode(5888);
 			model.render(p_188364_1_, p_188364_3_, p_188364_4_, p_188364_6_, p_188364_7_, p_188364_8_, p_188364_9_);
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+			GLS.blendFunc(GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 		}
 
-		GlStateManager.matrixMode(5890);
-		GlStateManager.loadIdentity();
-		GlStateManager.matrixMode(5888);
-		GlStateManager.enableLighting();
-		GlStateManager.depthMask(true);
-		GlStateManager.depthFunc(515);
-		GlStateManager.disableBlend();
+		GLS.matrixMode(5890);
+		GLS.loadIdentity();
+		GLS.matrixMode(5888);
+		GLS.enableLighting();
+		GLS.depthMask(true);
+		GLS.depthFunc(515);
+		GLS.disableBlend();
 		Minecraft.getMinecraft().entityRenderer.setupFogColor(false);
 	}
 
@@ -102,7 +102,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
 						float f = (float) (i >> 16 & 255) / 255F;
 						float f1 = (float) (i >> 8 & 255) / 255F;
 						float f2 = (float) (i & 255) / 255F;
-						GlStateManager.color(colorR * f, colorG * f1, colorB * f2, alpha);
+						GLS.color(colorR * f, colorG * f1, colorB * f2, alpha);
 						t.render(entityLivingBaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 						renderer.bindTexture(getArmorResource(itemarmor, flag, "overlay"));
 
@@ -110,7 +110,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
 					case IRON:
 					case GOLD:
 					case DIAMOND:
-						GlStateManager.color(colorR, colorG, colorB, alpha);
+						GLS.color(colorR, colorG, colorB, alpha);
 						t.render(entityLivingBaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 
 					default:

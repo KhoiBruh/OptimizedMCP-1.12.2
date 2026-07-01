@@ -3,7 +3,7 @@ package net.minecraft.client.renderer.entity;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelPlayer;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.entity.layers.*;
 import net.minecraft.entity.player.PlayerModelParts;
 import net.minecraft.item.Action;
@@ -54,9 +54,9 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 			}
 
 			setModelVisibilities(entity);
-			GlStateManager.enableBlendProfile(GlStateManager.Profile.PLAYER_SKIN);
+			GLS.enableBlendProfile(GLS.Profile.PLAYER_SKIN);
 			super.doRender(entity, x, d0, z, entityYaw, partialTicks);
-			GlStateManager.disableBlendProfile(GlStateManager.Profile.PLAYER_SKIN);
+			GLS.disableBlendProfile(GLS.Profile.PLAYER_SKIN);
 		}
 	}
 
@@ -128,7 +128,7 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 
 	public void transformHeldFull3DItemLayer() {
 
-		GlStateManager.translate(0F, 0.1875F, 0F);
+		GLS.translate(0F, 0.1875F, 0F);
 	}
 
 	/**
@@ -137,7 +137,7 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 	protected void preRenderCallback(AbstractClientPlayer entitylivingbaseIn, float partialTickTime) {
 
 		float f = 0.9375F;
-		GlStateManager.scale(0.9375F, 0.9375F, 0.9375F);
+		GLS.scale(0.9375F, 0.9375F, 0.9375F);
 	}
 
 	protected void renderEntityName(AbstractClientPlayer entityIn, double x, double y, double z, String name, double distanceSq) {
@@ -159,11 +159,11 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 	public void renderRightArm(AbstractClientPlayer clientPlayer) {
 
 		float f = 1F;
-		GlStateManager.color(1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F);
 		float f1 = 0.0625F;
 		ModelPlayer modelplayer = getMainModel();
 		setModelVisibilities(clientPlayer);
-		GlStateManager.enableBlend();
+		GLS.enableBlend();
 		modelplayer.swingProgress = 0F;
 		modelplayer.isSneak = false;
 		modelplayer.setRotationAngles(0F, 0F, 0F, 0F, 0F, 0.0625F, clientPlayer);
@@ -171,17 +171,17 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 		modelplayer.bipedRightArm.render(0.0625F);
 		modelplayer.bipedRightArmwear.rotateAngleX = 0F;
 		modelplayer.bipedRightArmwear.render(0.0625F);
-		GlStateManager.disableBlend();
+		GLS.disableBlend();
 	}
 
 	public void renderLeftArm(AbstractClientPlayer clientPlayer) {
 
 		float f = 1F;
-		GlStateManager.color(1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F);
 		float f1 = 0.0625F;
 		ModelPlayer modelplayer = getMainModel();
 		setModelVisibilities(clientPlayer);
-		GlStateManager.enableBlend();
+		GLS.enableBlend();
 		modelplayer.isSneak = false;
 		modelplayer.swingProgress = 0F;
 		modelplayer.setRotationAngles(0F, 0F, 0F, 0F, 0F, 0.0625F, clientPlayer);
@@ -189,7 +189,7 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 		modelplayer.bipedLeftArm.render(0.0625F);
 		modelplayer.bipedLeftArmwear.rotateAngleX = 0F;
 		modelplayer.bipedLeftArmwear.render(0.0625F);
-		GlStateManager.disableBlend();
+		GLS.disableBlend();
 	}
 
 	/**
@@ -207,14 +207,14 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 	protected void applyRotations(AbstractClientPlayer entityLiving, float p_77043_2_, float rotationYaw, float partialTicks) {
 
 		if (entityLiving.isEntityAlive() && entityLiving.isPlayerSleeping()) {
-			GlStateManager.rotate(entityLiving.getBedOrientationInDegrees(), 0F, 1F, 0F);
-			GlStateManager.rotate(getDeathMaxRotation(entityLiving), 0F, 0F, 1F);
-			GlStateManager.rotate(270F, 0F, 1F, 0F);
+			GLS.rotate(entityLiving.getBedOrientationInDegrees(), 0F, 1F, 0F);
+			GLS.rotate(getDeathMaxRotation(entityLiving), 0F, 0F, 1F);
+			GLS.rotate(270F, 0F, 1F, 0F);
 		} else if (entityLiving.isElytraFlying()) {
 			super.applyRotations(entityLiving, p_77043_2_, rotationYaw, partialTicks);
 			float f = (float) entityLiving.getTicksElytraFlying() + partialTicks;
 			float f1 = MathHelper.clamp(f * f / 100F, 0F, 1F);
-			GlStateManager.rotate(f1 * (-90F - entityLiving.rotationPitch), 1F, 0F, 0F);
+			GLS.rotate(f1 * (-90F - entityLiving.rotationPitch), 1F, 0F, 0F);
 			Vec3d vec3d = entityLiving.getLook(partialTicks);
 			double d0 = entityLiving.motionX * entityLiving.motionX + entityLiving.motionZ * entityLiving.motionZ;
 			double d1 = vec3d.x() * vec3d.x() + vec3d.z() * vec3d.z();
@@ -222,7 +222,7 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 			if (d0 > 0D && d1 > 0D) {
 				double d2 = (entityLiving.motionX * vec3d.x() + entityLiving.motionZ * vec3d.z()) / (Math.sqrt(d0) * Math.sqrt(d1));
 				double d3 = entityLiving.motionX * vec3d.z() - entityLiving.motionZ * vec3d.x();
-				GlStateManager.rotate((float) (Math.signum(d3) * Math.acos(d2)) * 180F / (float) Math.PI, 0F, 1F, 0F);
+				GLS.rotate((float) (Math.signum(d3) * Math.acos(d2)) * 180F / (float) Math.PI, 0F, 1F, 0F);
 			}
 		} else {
 			super.applyRotations(entityLiving, p_77043_2_, rotationYaw, partialTicks);

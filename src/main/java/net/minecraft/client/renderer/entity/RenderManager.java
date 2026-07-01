@@ -282,7 +282,7 @@ public class RenderManager {
 		int j = i % 65536;
 		int k = i / 65536;
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		renderEntity(entityIn, d0 - renderPosX, d1 - renderPosY, d2 - renderPosZ, f, partialTicks, p_188388_3_);
 	}
 
@@ -351,7 +351,7 @@ public class RenderManager {
 		int j = i % 65536;
 		int k = i / 65536;
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		Render<Entity> render = getEntityRenderObject(p_188389_1_);
 
 		if (render != null && renderEngine != null) {
@@ -364,11 +364,11 @@ public class RenderManager {
 	 */
 	private void renderDebugBoundingBox(Entity entityIn, double x, double y, double z, float entityYaw, float partialTicks) {
 
-		GlStateManager.depthMask(false);
-		GlStateManager.disableTexture2D();
-		GlStateManager.disableLighting();
-		GlStateManager.disableCull();
-		GlStateManager.disableBlend();
+		GLS.depthMask(false);
+		GLS.disableTexture2D();
+		GLS.disableLighting();
+		GLS.disableCull();
+		GLS.disableBlend();
 		float f = entityIn.width / 2F;
 		AxisAlignedBB axisalignedbb = entityIn.getEntityBoundingBox();
 		RenderGlobal.drawBoundingBox(axisalignedbb.minX - entityIn.posX + x, axisalignedbb.minY - entityIn.posY + y, axisalignedbb.minZ - entityIn.posZ + z, axisalignedbb.maxX - entityIn.posX + x, axisalignedbb.maxY - entityIn.posY + y, axisalignedbb.maxZ - entityIn.posZ + z, 1F, 1F, 1F, 1F);
@@ -396,11 +396,11 @@ public class RenderManager {
 		bufferbuilder.pos(x, y + (double) entityIn.getEyeHeight(), z).color(0, 0, 255, 255).endVertex();
 		bufferbuilder.pos(x + vec3d.x() * 2D, y + (double) entityIn.getEyeHeight() + vec3d.y() * 2D, z + vec3d.z() * 2D).color(0, 0, 255, 255).endVertex();
 		tessellator.draw();
-		GlStateManager.enableTexture2D();
-		GlStateManager.enableLighting();
-		GlStateManager.enableCull();
-		GlStateManager.disableBlend();
-		GlStateManager.depthMask(true);
+		GLS.enableTexture2D();
+		GLS.enableLighting();
+		GLS.enableCull();
+		GLS.disableBlend();
+		GLS.depthMask(true);
 	}
 
 	/**

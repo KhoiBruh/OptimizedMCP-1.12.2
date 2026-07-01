@@ -2,7 +2,7 @@ package net.minecraft.client.gui.inventory;
 
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -182,7 +182,7 @@ public class BeaconScreen extends ContainerScreen {
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(BEACON_GUI_TEXTURES);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
@@ -214,7 +214,7 @@ public class BeaconScreen extends ContainerScreen {
 
 			if (visible) {
 				mc.getTextureManager().bindTexture(BeaconScreen.BEACON_GUI_TEXTURES);
-				GlStateManager.color(1F, 1F, 1F, 1F);
+				GLS.color(1F, 1F, 1F, 1F);
 				hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 				int i = 219;
 				int j = 0;

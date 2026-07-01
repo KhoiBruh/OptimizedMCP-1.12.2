@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.model.ModelDragon;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.layers.LayerEnderDragonDeath;
@@ -32,15 +32,15 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
 		float f2 = (float) (p_188325_18_ - p_188325_11_);
 		float f3 = MathHelper.sqrt(f * f + f2 * f2);
 		float f4 = MathHelper.sqrt(f * f + f1 * f1 + f2 * f2);
-		GlStateManager.pushMatrix();
-		GlStateManager.translate((float) p_188325_0_, (float) p_188325_2_ + 2F, (float) p_188325_4_);
-		GlStateManager.rotate((float) (-Math.atan2(f2, f)) * (180F / (float) Math.PI) - 90F, 0F, 1F, 0F);
-		GlStateManager.rotate((float) (-Math.atan2(f3, f1)) * (180F / (float) Math.PI) - 90F, 1F, 0F, 0F);
+		GLS.pushMatrix();
+		GLS.translate((float) p_188325_0_, (float) p_188325_2_ + 2F, (float) p_188325_4_);
+		GLS.rotate((float) (-Math.atan2(f2, f)) * (180F / (float) Math.PI) - 90F, 0F, 1F, 0F);
+		GLS.rotate((float) (-Math.atan2(f3, f1)) * (180F / (float) Math.PI) - 90F, 1F, 0F, 0F);
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		RenderHelper.disableStandardItemLighting();
-		GlStateManager.disableCull();
-		GlStateManager.shadeModel(7425);
+		GLS.disableCull();
+		GLS.shadeModel(7425);
 		float f5 = 0F - ((float) p_188325_13_ + p_188325_6_) * 0.01F;
 		float f6 = MathHelper.sqrt(f * f + f1 * f1 + f2 * f2) / 32F - ((float) p_188325_13_ + p_188325_6_) * 0.01F;
 		bufferbuilder.begin(5, DefaultVertexFormats.POSITION_TEX_COLOR);
@@ -55,19 +55,19 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
 		}
 
 		tessellator.draw();
-		GlStateManager.enableCull();
-		GlStateManager.shadeModel(7424);
+		GLS.enableCull();
+		GLS.shadeModel(7424);
 		RenderHelper.enableStandardItemLighting();
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 	}
 
 	protected void applyRotations(EntityDragon entityLiving, float p_77043_2_, float rotationYaw, float partialTicks) {
 
 		float f = (float) entityLiving.getMovementOffsets(7, partialTicks)[0];
 		float f1 = (float) (entityLiving.getMovementOffsets(5, partialTicks)[1] - entityLiving.getMovementOffsets(10, partialTicks)[1]);
-		GlStateManager.rotate(-f, 0F, 1F, 0F);
-		GlStateManager.rotate(f1 * 10F, 1F, 0F, 0F);
-		GlStateManager.translate(0F, 0F, 1F);
+		GLS.rotate(-f, 0F, 1F, 0F);
+		GLS.rotate(f1 * 10F, 1F, 0F, 0F);
+		GLS.translate(0F, 0F, 1F);
 
 		if (entityLiving.deathTime > 0) {
 			float f2 = ((float) entityLiving.deathTime + partialTicks - 1F) / 20F * 1.6F;
@@ -77,7 +77,7 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
 				f2 = 1F;
 			}
 
-			GlStateManager.rotate(f2 * getDeathMaxRotation(entityLiving), 0F, 0F, 1F);
+			GLS.rotate(f2 * getDeathMaxRotation(entityLiving), 0F, 0F, 1F);
 		}
 	}
 
@@ -88,28 +88,28 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
 
 		if (entitylivingbaseIn.deathTicks > 0) {
 			float f = (float) entitylivingbaseIn.deathTicks / 200F;
-			GlStateManager.depthFunc(515);
-			GlStateManager.enableAlpha();
-			GlStateManager.alphaFunc(516, f);
+			GLS.depthFunc(515);
+			GLS.enableAlpha();
+			GLS.alphaFunc(516, f);
 			bindTexture(DRAGON_EXPLODING_TEXTURES);
 			mainModel.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
-			GlStateManager.alphaFunc(516, 0.1F);
-			GlStateManager.depthFunc(514);
+			GLS.alphaFunc(516, 0.1F);
+			GLS.depthFunc(514);
 		}
 
 		bindEntityTexture(entitylivingbaseIn);
 		mainModel.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
 
 		if (entitylivingbaseIn.hurtTime > 0) {
-			GlStateManager.depthFunc(514);
-			GlStateManager.disableTexture2D();
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-			GlStateManager.color(1F, 0F, 0F, 0.5F);
+			GLS.depthFunc(514);
+			GLS.disableTexture2D();
+			GLS.enableBlend();
+			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA);
+			GLS.color(1F, 0F, 0F, 0.5F);
 			mainModel.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
-			GlStateManager.enableTexture2D();
-			GlStateManager.disableBlend();
-			GlStateManager.depthFunc(515);
+			GLS.enableTexture2D();
+			GLS.disableBlend();
+			GLS.depthFunc(515);
 		}
 	}
 

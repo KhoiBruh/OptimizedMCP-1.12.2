@@ -4,7 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.math.MathHelper;
@@ -233,8 +233,8 @@ public abstract class GuiSlot {
 			int i = getScrollBarX();
 			int j = i + 6;
 			bindAmountScrolled();
-			GlStateManager.disableLighting();
-			GlStateManager.disableFog();
+			GLS.disableLighting();
+			GLS.disableFog();
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferbuilder = tessellator.getBuffer();
 			Gui.drawRect(left, top, right, bottom, Integer.MIN_VALUE);
@@ -249,12 +249,12 @@ public abstract class GuiSlot {
 				}
 
 				drawSelectionBox(k, l, mouseXIn, mouseYIn, partialTicks);
-				GlStateManager.disableDepth();
-				GlStateManager.enableBlend();
-				GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ZERO, GlStateManager.DestFactor.ONE);
-				GlStateManager.disableAlpha();
-				GlStateManager.shadeModel(7425);
-				GlStateManager.disableTexture2D();
+				GLS.disableDepth();
+				GLS.enableBlend();
+				GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ZERO, GLS.DestFactor.ONE);
+				GLS.disableAlpha();
+				GLS.shadeModel(7425);
+				GLS.disableTexture2D();
 				bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
 				bufferbuilder.pos(left, top + 4, 0.0D).tex(0.0D, 1.0D).color(0, 0, 0, 0).endVertex();
 				bufferbuilder.pos(right, top + 4, 0.0D).tex(1.0D, 1.0D).color(0, 0, 0, 0).endVertex();
@@ -299,10 +299,10 @@ public abstract class GuiSlot {
 				}
 
 				renderDecorations(mouseXIn, mouseYIn);
-				GlStateManager.enableTexture2D();
-				GlStateManager.shadeModel(7424);
-				GlStateManager.enableAlpha();
-				GlStateManager.disableBlend();
+				GLS.enableTexture2D();
+				GLS.shadeModel(7424);
+				GLS.enableAlpha();
+				GLS.disableBlend();
 			} finally {
 				disableScissor();
 			}
@@ -432,8 +432,8 @@ public abstract class GuiSlot {
 			if (showSelectionBox && isSelected(j)) {
 				int i1 = left + (width / 2 - getListWidth() / 2);
 				int j1 = left + width / 2 + getListWidth() / 2;
-				GlStateManager.color(1F, 1F, 1F, 1F);
-				GlStateManager.disableTexture2D();
+				GLS.color(1F, 1F, 1F, 1F);
+				GLS.disableTexture2D();
 				bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
 				bufferbuilder.pos(i1, k + l + 2, 0D).tex(0D, 1D).color(128, 128, 128, 255).endVertex();
 				bufferbuilder.pos(j1, k + l + 2, 0D).tex(1D, 1D).color(128, 128, 128, 255).endVertex();
@@ -444,7 +444,7 @@ public abstract class GuiSlot {
 				bufferbuilder.pos(j1 - 1, k - 1, 0D).tex(1D, 0D).color(0, 0, 0, 255).endVertex();
 				bufferbuilder.pos(i1 + 1, k - 1, 0D).tex(0D, 0D).color(0, 0, 0, 255).endVertex();
 				tessellator.draw();
-				GlStateManager.enableTexture2D();
+				GLS.enableTexture2D();
 			}
 
 			drawSlot(j, insideLeft, k, l, mouseXIn, mouseYIn, partialTicks);

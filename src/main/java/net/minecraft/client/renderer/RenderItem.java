@@ -107,12 +107,12 @@ public class RenderItem implements IResourceManagerReloadListener {
 	public void renderItem(ItemStack stack, IBakedModel model) {
 
 		if (!stack.isEmpty()) {
-			GlStateManager.pushMatrix();
-			GlStateManager.translate(-0.5F, -0.5F, -0.5F);
+			GLS.pushMatrix();
+			GLS.translate(-0.5F, -0.5F, -0.5F);
 
 			if (model.isBuiltInRenderer()) {
-				GlStateManager.color(1F, 1F, 1F, 1F);
-				GlStateManager.enableRescaleNormal();
+				GLS.color(1F, 1F, 1F, 1F);
+				GLS.enableRescaleNormal();
 				TileEntityItemStackRenderer.instance.renderByItem(stack);
 			} else {
 				renderModel(model, stack);
@@ -122,37 +122,37 @@ public class RenderItem implements IResourceManagerReloadListener {
 				}
 			}
 
-			GlStateManager.popMatrix();
+			GLS.popMatrix();
 		}
 	}
 
 	private void renderEffect(IBakedModel model) {
 
-		GlStateManager.depthMask(false);
-		GlStateManager.depthFunc(514);
-		GlStateManager.disableLighting();
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_COLOR, GlStateManager.DestFactor.ONE);
+		GLS.depthMask(false);
+		GLS.depthFunc(514);
+		GLS.disableLighting();
+		GLS.blendFunc(GLS.SourceFactor.SRC_COLOR, GLS.DestFactor.ONE);
 		textureManager.bindTexture(RES_ITEM_GLINT);
-		GlStateManager.matrixMode(5890);
-		GlStateManager.pushMatrix();
-		GlStateManager.scale(8F, 8F, 8F);
+		GLS.matrixMode(5890);
+		GLS.pushMatrix();
+		GLS.scale(8F, 8F, 8F);
 		float f = (float) (Minecraft.getSystemTime() % 3000L) / 3000F / 8F;
-		GlStateManager.translate(f, 0F, 0F);
-		GlStateManager.rotate(-50F, 0F, 0F, 1F);
+		GLS.translate(f, 0F, 0F);
+		GLS.rotate(-50F, 0F, 0F, 1F);
 		renderModel(model, -8372020);
-		GlStateManager.popMatrix();
-		GlStateManager.pushMatrix();
-		GlStateManager.scale(8F, 8F, 8F);
+		GLS.popMatrix();
+		GLS.pushMatrix();
+		GLS.scale(8F, 8F, 8F);
 		float f1 = (float) (Minecraft.getSystemTime() % 4873L) / 4873F / 8F;
-		GlStateManager.translate(-f1, 0F, 0F);
-		GlStateManager.rotate(10F, 0F, 0F, 1F);
+		GLS.translate(-f1, 0F, 0F);
+		GLS.rotate(10F, 0F, 0F, 1F);
 		renderModel(model, -8372020);
-		GlStateManager.popMatrix();
-		GlStateManager.matrixMode(5888);
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-		GlStateManager.enableLighting();
-		GlStateManager.depthFunc(515);
-		GlStateManager.depthMask(true);
+		GLS.popMatrix();
+		GLS.matrixMode(5888);
+		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA);
+		GLS.enableLighting();
+		GLS.depthFunc(515);
+		GLS.depthMask(true);
 		textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 	}
 
@@ -228,24 +228,24 @@ public class RenderItem implements IResourceManagerReloadListener {
 		if (!stack.isEmpty()) {
 			textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			textureManager.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false);
-			GlStateManager.color(1F, 1F, 1F, 1F);
-			GlStateManager.enableRescaleNormal();
-			GlStateManager.alphaFunc(516, 0.1F);
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-			GlStateManager.pushMatrix();
+			GLS.color(1F, 1F, 1F, 1F);
+			GLS.enableRescaleNormal();
+			GLS.alphaFunc(516, 0.1F);
+			GLS.enableBlend();
+			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
+			GLS.pushMatrix();
 			ItemCameraTransforms itemcameratransforms = bakedmodel.getItemCameraTransforms();
 			ItemCameraTransforms.applyTransformSide(itemcameratransforms.getTransform(transform), leftHanded);
 
 			if (isThereOneNegativeScale(itemcameratransforms.getTransform(transform))) {
-				GlStateManager.cullFace(GlStateManager.CullFace.FRONT);
+				GLS.cullFace(GLS.CullFace.FRONT);
 			}
 
 			renderItem(stack, bakedmodel);
-			GlStateManager.cullFace(GlStateManager.CullFace.BACK);
-			GlStateManager.popMatrix();
-			GlStateManager.disableRescaleNormal();
-			GlStateManager.disableBlend();
+			GLS.cullFace(GLS.CullFace.BACK);
+			GLS.popMatrix();
+			GLS.disableRescaleNormal();
+			GLS.disableBlend();
 			textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			textureManager.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap();
 		}
@@ -266,37 +266,37 @@ public class RenderItem implements IResourceManagerReloadListener {
 
 	protected void renderItemModelIntoGUI(ItemStack stack, int x, int y, IBakedModel bakedmodel) {
 
-		GlStateManager.pushMatrix();
+		GLS.pushMatrix();
 		textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		textureManager.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false);
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.enableAlpha();
-		GlStateManager.alphaFunc(516, 0.1F);
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.enableRescaleNormal();
+		GLS.enableAlpha();
+		GLS.alphaFunc(516, 0.1F);
+		GLS.enableBlend();
+		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA);
+		GLS.color(1F, 1F, 1F, 1F);
 		setupGuiTransform(x, y, bakedmodel.isGui3d());
 		bakedmodel.getItemCameraTransforms().applyTransform(ItemCameraTransforms.TransformType.GUI);
 		renderItem(stack, bakedmodel);
-		GlStateManager.disableAlpha();
-		GlStateManager.disableRescaleNormal();
-		GlStateManager.disableLighting();
-		GlStateManager.popMatrix();
+		GLS.disableAlpha();
+		GLS.disableRescaleNormal();
+		GLS.disableLighting();
+		GLS.popMatrix();
 		textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		textureManager.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap();
 	}
 
 	private void setupGuiTransform(int xPosition, int yPosition, boolean isGui3d) {
 
-		GlStateManager.translate((float) xPosition, (float) yPosition, 100F + zLevel);
-		GlStateManager.translate(8F, 8F, 0F);
-		GlStateManager.scale(1F, -1F, 1F);
-		GlStateManager.scale(16F, 16F, 16F);
+		GLS.translate((float) xPosition, (float) yPosition, 100F + zLevel);
+		GLS.translate(8F, 8F, 0F);
+		GLS.scale(1F, -1F, 1F);
+		GLS.scale(16F, 16F, 16F);
 
 		if (isGui3d) {
-			GlStateManager.enableLighting();
+			GLS.enableLighting();
 		} else {
-			GlStateManager.disableLighting();
+			GLS.disableLighting();
 		}
 	}
 
@@ -339,20 +339,20 @@ public class RenderItem implements IResourceManagerReloadListener {
 		if (!stack.isEmpty()) {
 			if (stack.getCount() != 1 || text != null) {
 				String s = text == null ? String.valueOf(stack.getCount()) : text;
-				GlStateManager.disableLighting();
-				GlStateManager.disableDepth();
-				GlStateManager.disableBlend();
+				GLS.disableLighting();
+				GLS.disableDepth();
+				GLS.disableBlend();
 				fr.drawStringWithShadow(s, (float) (xPosition + 19 - 2 - fr.getStringWidth(s)), (float) (yPosition + 6 + 3), 16777215);
-				GlStateManager.enableLighting();
-				GlStateManager.enableDepth();
+				GLS.enableLighting();
+				GLS.enableDepth();
 			}
 
 			if (stack.isItemDamaged()) {
-				GlStateManager.disableLighting();
-				GlStateManager.disableDepth();
-				GlStateManager.disableTexture2D();
-				GlStateManager.disableAlpha();
-				GlStateManager.disableBlend();
+				GLS.disableLighting();
+				GLS.disableDepth();
+				GLS.disableTexture2D();
+				GLS.disableAlpha();
+				GLS.disableBlend();
 				Tessellator tessellator = Tessellator.getInstance();
 				BufferBuilder bufferbuilder = tessellator.getBuffer();
 				float f = (float) stack.getItemDamage();
@@ -362,26 +362,26 @@ public class RenderItem implements IResourceManagerReloadListener {
 				int j = MathHelper.hsvToRGB(f2 / 3F, 1F, 1F);
 				draw(bufferbuilder, xPosition + 2, yPosition + 13, 13, 2, 0, 0, 0, 255);
 				draw(bufferbuilder, xPosition + 2, yPosition + 13, i, 1, j >> 16 & 255, j >> 8 & 255, j & 255, 255);
-				GlStateManager.enableBlend();
-				GlStateManager.enableAlpha();
-				GlStateManager.enableTexture2D();
-				GlStateManager.enableLighting();
-				GlStateManager.enableDepth();
+				GLS.enableBlend();
+				GLS.enableAlpha();
+				GLS.enableTexture2D();
+				GLS.enableLighting();
+				GLS.enableDepth();
 			}
 
 			EntityPlayerSP entityplayersp = Minecraft.getMinecraft().player;
 			float f3 = entityplayersp == null ? 0F : entityplayersp.getCooldownTracker().getCooldown(stack.getItem(), Minecraft.getMinecraft().getRenderPartialTicks());
 
 			if (f3 > 0F) {
-				GlStateManager.disableLighting();
-				GlStateManager.disableDepth();
-				GlStateManager.disableTexture2D();
+				GLS.disableLighting();
+				GLS.disableDepth();
+				GLS.disableTexture2D();
 				Tessellator tessellator1 = Tessellator.getInstance();
 				BufferBuilder bufferbuilder1 = tessellator1.getBuffer();
 				draw(bufferbuilder1, xPosition, yPosition + MathHelper.floor(16F * (1F - f3)), 16, MathHelper.ceil(16F * f3), 255, 255, 255, 127);
-				GlStateManager.enableTexture2D();
-				GlStateManager.enableLighting();
-				GlStateManager.enableDepth();
+				GLS.enableTexture2D();
+				GLS.enableLighting();
+				GLS.enableDepth();
 			}
 		}
 	}

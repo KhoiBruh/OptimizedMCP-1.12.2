@@ -18,10 +18,10 @@ public class RenderHelper {
 	 */
 	public static void disableStandardItemLighting() {
 
-		GlStateManager.disableLighting();
-		GlStateManager.disableLight(0);
-		GlStateManager.disableLight(1);
-		GlStateManager.disableColorMaterial();
+		GLS.disableLighting();
+		GLS.disableLight(0);
+		GLS.disableLight(1);
+		GLS.disableColorMaterial();
 	}
 
 	/**
@@ -29,23 +29,23 @@ public class RenderHelper {
 	 */
 	public static void enableStandardItemLighting() {
 
-		GlStateManager.enableLighting();
-		GlStateManager.enableLight(0);
-		GlStateManager.enableLight(1);
-		GlStateManager.enableColorMaterial();
-		GlStateManager.colorMaterial(1032, 5634);
-		GlStateManager.light(16384, 4611, setColorBuffer(LIGHT0_POS.x(), LIGHT0_POS.y(), LIGHT0_POS.z(), 0D));
+		GLS.enableLighting();
+		GLS.enableLight(0);
+		GLS.enableLight(1);
+		GLS.enableColorMaterial();
+		GLS.colorMaterial(1032, 5634);
+		GLS.light(16384, 4611, setColorBuffer(LIGHT0_POS.x(), LIGHT0_POS.y(), LIGHT0_POS.z(), 0D));
 		float f = 0.6F;
-		GlStateManager.light(16384, 4609, setColorBuffer(0.6F, 0.6F, 0.6F, 1F));
-		GlStateManager.light(16384, 4608, setColorBuffer(0F, 0F, 0F, 1F));
-		GlStateManager.light(16384, 4610, setColorBuffer(0F, 0F, 0F, 1F));
-		GlStateManager.light(16385, 4611, setColorBuffer(LIGHT1_POS.x(), LIGHT1_POS.y(), LIGHT1_POS.z(), 0D));
-		GlStateManager.light(16385, 4609, setColorBuffer(0.6F, 0.6F, 0.6F, 1F));
-		GlStateManager.light(16385, 4608, setColorBuffer(0F, 0F, 0F, 1F));
-		GlStateManager.light(16385, 4610, setColorBuffer(0F, 0F, 0F, 1F));
-		GlStateManager.shadeModel(7424);
+		GLS.light(16384, 4609, setColorBuffer(0.6F, 0.6F, 0.6F, 1F));
+		GLS.light(16384, 4608, setColorBuffer(0F, 0F, 0F, 1F));
+		GLS.light(16384, 4610, setColorBuffer(0F, 0F, 0F, 1F));
+		GLS.light(16385, 4611, setColorBuffer(LIGHT1_POS.x(), LIGHT1_POS.y(), LIGHT1_POS.z(), 0D));
+		GLS.light(16385, 4609, setColorBuffer(0.6F, 0.6F, 0.6F, 1F));
+		GLS.light(16385, 4608, setColorBuffer(0F, 0F, 0F, 1F));
+		GLS.light(16385, 4610, setColorBuffer(0F, 0F, 0F, 1F));
+		GLS.shadeModel(7424);
 		float f1 = 0.4F;
-		GlStateManager.lightModel(2899, setColorBuffer(0.4F, 0.4F, 0.4F, 1F));
+		GLS.lightModel(2899, setColorBuffer(0.4F, 0.4F, 0.4F, 1F));
 	}
 
 	/**
@@ -72,11 +72,11 @@ public class RenderHelper {
 	 */
 	public static void enableGUIStandardItemLighting() {
 
-		GlStateManager.pushMatrix();
-		GlStateManager.rotate(-30F, 0F, 1F, 0F);
-		GlStateManager.rotate(165F, 1F, 0F, 0F);
+		GLS.pushMatrix();
+		GLS.rotate(-30F, 0F, 1F, 0F);
+		GLS.rotate(165F, 1F, 0F, 0F);
 		enableStandardItemLighting();
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 	}
 
 }

@@ -2,7 +2,7 @@ package net.minecraft.client.gui.game;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.ContainerScreen;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ContainerHopper;
 import net.minecraft.inventory.IInventory;
@@ -58,7 +58,7 @@ public class HopperScreen extends ContainerScreen {
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(HOPPER_GUI_TEXTURE);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;

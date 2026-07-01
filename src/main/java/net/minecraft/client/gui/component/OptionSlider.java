@@ -1,7 +1,7 @@
 package net.minecraft.client.gui.component;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.math.MathHelper;
 
@@ -55,7 +55,7 @@ public class OptionSlider extends Button {
 			}
 
 			mc.getTextureManager().bindTexture(BUTTON_TEXTURES);
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GLS.color(1F, 1F, 1F, 1F);
 			drawTexturedModalRect(x + (int) (sliderValue * (float) (width - 8)), y, 0, 66, 4, 20);
 			drawTexturedModalRect(x + (int) (sliderValue * (float) (width - 8)) + 4, y, 196, 66, 4, 20);
 		}

@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.model.ModelSquid;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.util.ResourceLocation;
 
@@ -26,11 +26,11 @@ public class RenderSquid extends RenderLiving<EntitySquid> {
 
 		float f = entityLiving.prevSquidPitch + (entityLiving.squidPitch - entityLiving.prevSquidPitch) * partialTicks;
 		float f1 = entityLiving.prevSquidYaw + (entityLiving.squidYaw - entityLiving.prevSquidYaw) * partialTicks;
-		GlStateManager.translate(0F, 0.5F, 0F);
-		GlStateManager.rotate(180F - rotationYaw, 0F, 1F, 0F);
-		GlStateManager.rotate(f, 1F, 0F, 0F);
-		GlStateManager.rotate(f1, 0F, 1F, 0F);
-		GlStateManager.translate(0F, -1.2F, 0F);
+		GLS.translate(0F, 0.5F, 0F);
+		GLS.rotate(180F - rotationYaw, 0F, 1F, 0F);
+		GLS.rotate(f, 1F, 0F, 0F);
+		GLS.rotate(f1, 0F, 1F, 0F);
+		GLS.translate(0F, -1.2F, 0F);
 	}
 
 	/**

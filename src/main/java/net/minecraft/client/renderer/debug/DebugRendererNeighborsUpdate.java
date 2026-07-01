@@ -4,7 +4,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -47,11 +47,11 @@ public class DebugRendererNeighborsUpdate implements DebugRenderer.IDebugRendere
 		double d1 = entityplayer.lastTickPosY + (entityplayer.posY - entityplayer.lastTickPosY) * (double) partialTicks;
 		double d2 = entityplayer.lastTickPosZ + (entityplayer.posZ - entityplayer.lastTickPosZ) * (double) partialTicks;
 		World world = minecraft.player.world;
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-		GlStateManager.lineWidth(2F);
-		GlStateManager.disableTexture2D();
-		GlStateManager.depthMask(false);
+		GLS.enableBlend();
+		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
+		GLS.lineWidth(2F);
+		GLS.disableTexture2D();
+		GLS.depthMask(false);
 		int j = 200;
 		double d3 = 0.0025D;
 		Set<BlockPos> set = Sets.newHashSet();
@@ -85,9 +85,9 @@ public class DebugRendererNeighborsUpdate implements DebugRenderer.IDebugRendere
 			DebugRenderer.renderDebugText(String.valueOf(integer1), blockpos1.getX(), blockpos1.getY(), blockpos1.getZ(), partialTicks, -1);
 		}
 
-		GlStateManager.depthMask(true);
-		GlStateManager.enableTexture2D();
-		GlStateManager.disableBlend();
+		GLS.depthMask(true);
+		GLS.enableTexture2D();
+		GLS.disableBlend();
 	}
 
 }

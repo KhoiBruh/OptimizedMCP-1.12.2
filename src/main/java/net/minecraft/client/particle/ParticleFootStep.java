@@ -2,7 +2,7 @@ package net.minecraft.client.particle;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -42,23 +42,23 @@ public class ParticleFootStep extends Particle {
 		}
 
 		f1 = f1 * 0.2F;
-		GlStateManager.disableLighting();
+		GLS.disableLighting();
 		float f2 = 0.125F;
 		float f3 = (float) (posX - interpPosX);
 		float f4 = (float) (posY - interpPosY);
 		float f5 = (float) (posZ - interpPosZ);
 		float f6 = world.getLightBrightness(new BlockPos(posX, posY, posZ));
 		currentFootSteps.bindTexture(FOOTPRINT_TEXTURE);
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+		GLS.enableBlend();
+		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA);
 		buffer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
 		buffer.pos(f3 - 0.125F, f4, f5 + 0.125F).tex(0D, 1D).color(f6, f6, f6, f1).endVertex();
 		buffer.pos(f3 + 0.125F, f4, f5 + 0.125F).tex(1D, 1D).color(f6, f6, f6, f1).endVertex();
 		buffer.pos(f3 + 0.125F, f4, f5 - 0.125F).tex(1D, 0D).color(f6, f6, f6, f1).endVertex();
 		buffer.pos(f3 - 0.125F, f4, f5 - 0.125F).tex(0D, 0D).color(f6, f6, f6, f1).endVertex();
 		Tessellator.getInstance().draw();
-		GlStateManager.disableBlend();
-		GlStateManager.enableLighting();
+		GLS.disableBlend();
+		GLS.enableLighting();
 	}
 
 	public void onUpdate() {

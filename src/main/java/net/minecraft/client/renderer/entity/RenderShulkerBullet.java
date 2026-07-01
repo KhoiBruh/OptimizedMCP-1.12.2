@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.model.ModelShulkerBullet;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.projectile.EntityShulkerBullet;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
@@ -35,25 +35,25 @@ public class RenderShulkerBullet extends Render<EntityShulkerBullet> {
 	 */
 	public void doRender(EntityShulkerBullet entity, double x, double y, double z, float entityYaw, float partialTicks) {
 
-		GlStateManager.pushMatrix();
+		GLS.pushMatrix();
 		float f = rotLerp(entity.prevRotationYaw, entity.rotationYaw, partialTicks);
 		float f1 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
 		float f2 = (float) entity.ticksExisted + partialTicks;
-		GlStateManager.translate((float) x, (float) y + 0.15F, (float) z);
-		GlStateManager.rotate(MathHelper.sin(f2 * 0.1F) * 180F, 0F, 1F, 0F);
-		GlStateManager.rotate(MathHelper.cos(f2 * 0.1F) * 180F, 1F, 0F, 0F);
-		GlStateManager.rotate(MathHelper.sin(f2 * 0.15F) * 360F, 0F, 0F, 1F);
+		GLS.translate((float) x, (float) y + 0.15F, (float) z);
+		GLS.rotate(MathHelper.sin(f2 * 0.1F) * 180F, 0F, 1F, 0F);
+		GLS.rotate(MathHelper.cos(f2 * 0.1F) * 180F, 1F, 0F, 0F);
+		GLS.rotate(MathHelper.sin(f2 * 0.15F) * 360F, 0F, 0F, 1F);
 		float f3 = 0.03125F;
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.scale(-1F, -1F, 1F);
+		GLS.enableRescaleNormal();
+		GLS.scale(-1F, -1F, 1F);
 		bindEntityTexture(entity);
 		model.render(entity, 0F, 0F, 0F, f, f1, 0.03125F);
-		GlStateManager.enableBlend();
-		GlStateManager.color(1F, 1F, 1F, 0.5F);
-		GlStateManager.scale(1.5F, 1.5F, 1.5F);
+		GLS.enableBlend();
+		GLS.color(1F, 1F, 1F, 0.5F);
+		GLS.scale(1.5F, 1.5F, 1.5F);
 		model.render(entity, 0F, 0F, 0F, f, f1, 0.03125F);
-		GlStateManager.disableBlend();
-		GlStateManager.popMatrix();
+		GLS.disableBlend();
+		GLS.popMatrix();
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);
 	}
 

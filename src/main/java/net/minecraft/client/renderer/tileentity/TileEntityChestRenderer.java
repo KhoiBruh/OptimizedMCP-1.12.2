@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.client.model.ModelChest;
 import net.minecraft.client.model.ModelLargeChest;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.ResourceLocation;
 
@@ -33,9 +33,9 @@ public class TileEntityChestRenderer extends TileEntitySpecialRenderer<TileEntit
 
 	public void render(TileEntityChest te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 
-		GlStateManager.enableDepth();
-		GlStateManager.depthFunc(515);
-		GlStateManager.depthMask(true);
+		GLS.enableDepth();
+		GLS.depthFunc(515);
+		GLS.depthMask(true);
 		int i;
 
 		if (te.hasWorld()) {
@@ -60,11 +60,11 @@ public class TileEntityChestRenderer extends TileEntitySpecialRenderer<TileEntit
 
 				if (destroyStage >= 0) {
 					bindTexture(DESTROY_STAGES[destroyStage]);
-					GlStateManager.matrixMode(5890);
-					GlStateManager.pushMatrix();
-					GlStateManager.scale(4F, 4F, 1F);
-					GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
-					GlStateManager.matrixMode(5888);
+					GLS.matrixMode(5890);
+					GLS.pushMatrix();
+					GLS.scale(4F, 4F, 1F);
+					GLS.translate(0.0625F, 0.0625F, 0.0625F);
+					GLS.matrixMode(5888);
 				} else if (isChristmas) {
 					bindTexture(TEXTURE_CHRISTMAS);
 				} else if (te.getChestType() == BlockChest.Type.TRAP) {
@@ -77,11 +77,11 @@ public class TileEntityChestRenderer extends TileEntitySpecialRenderer<TileEntit
 
 				if (destroyStage >= 0) {
 					bindTexture(DESTROY_STAGES[destroyStage]);
-					GlStateManager.matrixMode(5890);
-					GlStateManager.pushMatrix();
-					GlStateManager.scale(8F, 4F, 1F);
-					GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
-					GlStateManager.matrixMode(5888);
+					GLS.matrixMode(5890);
+					GLS.pushMatrix();
+					GLS.scale(8F, 4F, 1F);
+					GLS.translate(0.0625F, 0.0625F, 0.0625F);
+					GLS.matrixMode(5888);
 				} else if (isChristmas) {
 					bindTexture(TEXTURE_CHRISTMAS_DOUBLE);
 				} else if (te.getChestType() == BlockChest.Type.TRAP) {
@@ -91,16 +91,16 @@ public class TileEntityChestRenderer extends TileEntitySpecialRenderer<TileEntit
 				}
 			}
 
-			GlStateManager.pushMatrix();
-			GlStateManager.enableRescaleNormal();
+			GLS.pushMatrix();
+			GLS.enableRescaleNormal();
 
 			if (destroyStage < 0) {
-				GlStateManager.color(1F, 1F, 1F, alpha);
+				GLS.color(1F, 1F, 1F, alpha);
 			}
 
-			GlStateManager.translate((float) x, (float) y + 1F, (float) z + 1F);
-			GlStateManager.scale(1F, -1F, -1F);
-			GlStateManager.translate(0.5F, 0.5F, 0.5F);
+			GLS.translate((float) x, (float) y + 1F, (float) z + 1F);
+			GLS.scale(1F, -1F, -1F);
+			GLS.translate(0.5F, 0.5F, 0.5F);
 			int j = 0;
 
 			if (i == 2) {
@@ -120,15 +120,15 @@ public class TileEntityChestRenderer extends TileEntitySpecialRenderer<TileEntit
 			}
 
 			if (i == 2 && te.adjacentChestXPos != null) {
-				GlStateManager.translate(1F, 0F, 0F);
+				GLS.translate(1F, 0F, 0F);
 			}
 
 			if (i == 5 && te.adjacentChestZPos != null) {
-				GlStateManager.translate(0F, 0F, -1F);
+				GLS.translate(0F, 0F, -1F);
 			}
 
-			GlStateManager.rotate((float) j, 0F, 1F, 0F);
-			GlStateManager.translate(-0.5F, -0.5F, -0.5F);
+			GLS.rotate((float) j, 0F, 1F, 0F);
+			GLS.translate(-0.5F, -0.5F, -0.5F);
 			float f = te.prevLidAngle + (te.lidAngle - te.prevLidAngle) * partialTicks;
 
 			if (te.adjacentChestZNeg != null) {
@@ -151,14 +151,14 @@ public class TileEntityChestRenderer extends TileEntitySpecialRenderer<TileEntit
 			f = 1F - f * f * f;
 			modelchest.chestLid.rotateAngleX = -(f * ((float) Math.PI / 2F));
 			modelchest.renderAll();
-			GlStateManager.disableRescaleNormal();
-			GlStateManager.popMatrix();
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GLS.disableRescaleNormal();
+			GLS.popMatrix();
+			GLS.color(1F, 1F, 1F, 1F);
 
 			if (destroyStage >= 0) {
-				GlStateManager.matrixMode(5890);
-				GlStateManager.popMatrix();
-				GlStateManager.matrixMode(5888);
+				GLS.matrixMode(5890);
+				GLS.popMatrix();
+				GLS.matrixMode(5888);
 			}
 		}
 	}

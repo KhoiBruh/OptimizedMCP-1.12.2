@@ -2,7 +2,7 @@ package net.minecraft.client.particle;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -50,8 +50,8 @@ public class ParticleSweepAttack extends Particle {
 			float f5 = (float) (prevPosX + (posX - prevPosX) * (double) partialTicks - interpPosX);
 			float f6 = (float) (prevPosY + (posY - prevPosY) * (double) partialTicks - interpPosY);
 			float f7 = (float) (prevPosZ + (posZ - prevPosZ) * (double) partialTicks - interpPosZ);
-			GlStateManager.color(1F, 1F, 1F, 1F);
-			GlStateManager.disableLighting();
+			GLS.color(1F, 1F, 1F, 1F);
+			GLS.disableLighting();
 			RenderHelper.disableStandardItemLighting();
 			buffer.begin(7, VERTEX_FORMAT);
 			buffer.pos(f5 - rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4 * 0.5F, f7 - rotationYZ * f4 - rotationXZ * f4).tex(f1, f3).color(particleRed, particleGreen, particleBlue, 1F).lightmap(0, 240).normal(0F, 1F, 0F).endVertex();
@@ -59,7 +59,7 @@ public class ParticleSweepAttack extends Particle {
 			buffer.pos(f5 + rotationX * f4 + rotationXY * f4, f6 + rotationZ * f4 * 0.5F, f7 + rotationYZ * f4 + rotationXZ * f4).tex(f, f2).color(particleRed, particleGreen, particleBlue, 1F).lightmap(0, 240).normal(0F, 1F, 0F).endVertex();
 			buffer.pos(f5 + rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4 * 0.5F, f7 + rotationYZ * f4 - rotationXZ * f4).tex(f, f3).color(particleRed, particleGreen, particleBlue, 1F).lightmap(0, 240).normal(0F, 1F, 0F).endVertex();
 			Tessellator.getInstance().draw();
-			GlStateManager.enableLighting();
+			GLS.enableLighting();
 		}
 	}
 

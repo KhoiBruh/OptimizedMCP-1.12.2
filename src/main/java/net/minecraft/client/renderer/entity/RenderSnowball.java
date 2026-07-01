@@ -1,6 +1,6 @@
 package net.minecraft.client.renderer.entity;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -26,28 +26,28 @@ public class RenderSnowball<T extends Entity> extends Render<T> {
 	 */
 	public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
 
-		GlStateManager.pushMatrix();
-		GlStateManager.translate((float) x, (float) y, (float) z);
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.rotate(-renderManager.playerViewY, 0F, 1F, 0F);
-		GlStateManager.rotate((float) (renderManager.options.thirdPersonView == 2 ? -1 : 1) * renderManager.playerViewX, 1F, 0F, 0F);
-		GlStateManager.rotate(180F, 0F, 1F, 0F);
+		GLS.pushMatrix();
+		GLS.translate((float) x, (float) y, (float) z);
+		GLS.enableRescaleNormal();
+		GLS.rotate(-renderManager.playerViewY, 0F, 1F, 0F);
+		GLS.rotate((float) (renderManager.options.thirdPersonView == 2 ? -1 : 1) * renderManager.playerViewX, 1F, 0F, 0F);
+		GLS.rotate(180F, 0F, 1F, 0F);
 		bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
 		if (renderOutlines) {
-			GlStateManager.enableColorMaterial();
-			GlStateManager.enableOutlineMode(getTeamColor(entity));
+			GLS.enableColorMaterial();
+			GLS.enableOutlineMode(getTeamColor(entity));
 		}
 
 		itemRenderer.renderItem(getStackToRender(entity), ItemCameraTransforms.TransformType.GROUND);
 
 		if (renderOutlines) {
-			GlStateManager.disableOutlineMode();
-			GlStateManager.disableColorMaterial();
+			GLS.disableOutlineMode();
+			GLS.disableColorMaterial();
 		}
 
-		GlStateManager.disableRescaleNormal();
-		GlStateManager.popMatrix();
+		GLS.disableRescaleNormal();
+		GLS.popMatrix();
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);
 	}
 

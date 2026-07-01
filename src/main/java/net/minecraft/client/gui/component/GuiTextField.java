@@ -7,7 +7,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ChatAllowedCharacters;
@@ -542,18 +542,18 @@ public class GuiTextField extends Gui {
 
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
-		GlStateManager.color(0F, 0F, 255F, 255F);
-		GlStateManager.disableTexture2D();
-		GlStateManager.enableColorLogic();
-		GlStateManager.colorLogicOp(GlStateManager.LogicOp.OR_REVERSE);
+		GLS.color(0F, 0F, 255F, 255F);
+		GLS.disableTexture2D();
+		GLS.enableColorLogic();
+		GLS.colorLogicOp(GLS.LogicOp.OR_REVERSE);
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION);
 		bufferbuilder.pos(startX, endY, 0D).endVertex();
 		bufferbuilder.pos(endX, endY, 0D).endVertex();
 		bufferbuilder.pos(endX, startY, 0D).endVertex();
 		bufferbuilder.pos(startX, startY, 0D).endVertex();
 		tessellator.draw();
-		GlStateManager.disableColorLogic();
-		GlStateManager.enableTexture2D();
+		GLS.disableColorLogic();
+		GLS.enableTexture2D();
 	}
 
 	/**

@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.model.ModelEvokerFangs;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.projectile.EntityEvokerFangs;
 import net.minecraft.util.ResourceLocation;
 
@@ -29,18 +29,18 @@ public class RenderEvokerFangs extends Render<EntityEvokerFangs> {
 				f1 = (float) ((double) f1 * ((1D - (double) f) / 0.10000000149011612D));
 			}
 
-			GlStateManager.pushMatrix();
-			GlStateManager.disableCull();
-			GlStateManager.enableAlpha();
+			GLS.pushMatrix();
+			GLS.disableCull();
+			GLS.enableAlpha();
 			bindEntityTexture(entity);
-			GlStateManager.translate((float) x, (float) y, (float) z);
-			GlStateManager.rotate(90F - entity.rotationYaw, 0F, 1F, 0F);
-			GlStateManager.scale(-f1, -f1, f1);
+			GLS.translate((float) x, (float) y, (float) z);
+			GLS.rotate(90F - entity.rotationYaw, 0F, 1F, 0F);
+			GLS.scale(-f1, -f1, f1);
 			float f2 = 0.03125F;
-			GlStateManager.translate(0F, -0.626F, 0F);
+			GLS.translate(0F, -0.626F, 0F);
 			model.render(entity, f, 0F, 0F, entity.rotationYaw, entity.rotationPitch, 0.03125F);
-			GlStateManager.popMatrix();
-			GlStateManager.enableCull();
+			GLS.popMatrix();
+			GLS.enableCull();
 			super.doRender(entity, x, y, z, entityYaw, partialTicks);
 		}
 	}

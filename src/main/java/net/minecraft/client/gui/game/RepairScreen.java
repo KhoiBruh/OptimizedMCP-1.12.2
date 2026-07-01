@@ -4,7 +4,7 @@ import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.component.GuiTextField;
 import net.minecraft.client.gui.inventory.ContainerScreen;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.*;
@@ -66,8 +66,8 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 	 */
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 
-		GlStateManager.disableLighting();
-		GlStateManager.disableBlend();
+		GLS.disableLighting();
+		GLS.disableBlend();
 		fontRenderer.drawString(I18n.format("container.repair"), 60, 6, 4210752);
 
 		if (anvil.maximumCost > 0) {
@@ -102,7 +102,7 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 			}
 		}
 
-		GlStateManager.enableLighting();
+		GLS.enableLighting();
 	}
 
 	/**
@@ -148,8 +148,8 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 		drawDefaultBackground();
 		super.draw(mouseX, mouseY, partialTicks);
 		renderHoveredToolTip(mouseX, mouseY);
-		GlStateManager.disableLighting();
-		GlStateManager.disableBlend();
+		GLS.disableLighting();
+		GLS.disableBlend();
 		nameField.drawTextBox();
 	}
 
@@ -158,7 +158,7 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(ANVIL_RESOURCE);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;

@@ -1,6 +1,6 @@
 package net.minecraft.client.model;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.util.HandSide;
@@ -92,19 +92,19 @@ public class ModelArmorStand extends ModelArmorStandArmor {
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
 		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-		GlStateManager.pushMatrix();
+		GLS.pushMatrix();
 
 		if (isChild) {
 			float f = 2F;
-			GlStateManager.scale(0.5F, 0.5F, 0.5F);
-			GlStateManager.translate(0F, 24F * scale, 0F);
+			GLS.scale(0.5F, 0.5F, 0.5F);
+			GLS.translate(0F, 24F * scale, 0F);
 			standRightSide.render(scale);
 			standLeftSide.render(scale);
 			standWaist.render(scale);
 			standBase.render(scale);
 		} else {
 			if (entityIn.isSneaking()) {
-				GlStateManager.translate(0F, 0.2F, 0F);
+				GLS.translate(0F, 0.2F, 0F);
 			}
 
 			standRightSide.render(scale);
@@ -113,7 +113,7 @@ public class ModelArmorStand extends ModelArmorStandArmor {
 			standBase.render(scale);
 		}
 
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 	}
 
 	public void postRenderArm(float scale, HandSide side) {

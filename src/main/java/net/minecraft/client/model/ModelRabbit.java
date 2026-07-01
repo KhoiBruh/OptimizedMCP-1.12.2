@@ -1,6 +1,6 @@
 package net.minecraft.client.model;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityRabbit;
@@ -153,17 +153,17 @@ public class ModelRabbit extends ModelBase {
 
 		if (isChild) {
 			float f = 1.5F;
-			GlStateManager.pushMatrix();
-			GlStateManager.scale(0.56666666F, 0.56666666F, 0.56666666F);
-			GlStateManager.translate(0F, 22F * scale, 2F * scale);
+			GLS.pushMatrix();
+			GLS.scale(0.56666666F, 0.56666666F, 0.56666666F);
+			GLS.translate(0F, 22F * scale, 2F * scale);
 			rabbitHead.render(scale);
 			rabbitLeftEar.render(scale);
 			rabbitRightEar.render(scale);
 			rabbitNose.render(scale);
-			GlStateManager.popMatrix();
-			GlStateManager.pushMatrix();
-			GlStateManager.scale(0.4F, 0.4F, 0.4F);
-			GlStateManager.translate(0F, 36F * scale, 0F);
+			GLS.popMatrix();
+			GLS.pushMatrix();
+			GLS.scale(0.4F, 0.4F, 0.4F);
+			GLS.translate(0F, 36F * scale, 0F);
 			rabbitLeftFoot.render(scale);
 			rabbitRightFoot.render(scale);
 			rabbitLeftThigh.render(scale);
@@ -172,11 +172,11 @@ public class ModelRabbit extends ModelBase {
 			rabbitLeftArm.render(scale);
 			rabbitRightArm.render(scale);
 			rabbitTail.render(scale);
-			GlStateManager.popMatrix();
+			GLS.popMatrix();
 		} else {
-			GlStateManager.pushMatrix();
-			GlStateManager.scale(0.6F, 0.6F, 0.6F);
-			GlStateManager.translate(0F, 16F * scale, 0F);
+			GLS.pushMatrix();
+			GLS.scale(0.6F, 0.6F, 0.6F);
+			GLS.translate(0F, 16F * scale, 0F);
 			rabbitLeftFoot.render(scale);
 			rabbitRightFoot.render(scale);
 			rabbitLeftThigh.render(scale);
@@ -189,7 +189,7 @@ public class ModelRabbit extends ModelBase {
 			rabbitLeftEar.render(scale);
 			rabbitTail.render(scale);
 			rabbitNose.render(scale);
-			GlStateManager.popMatrix();
+			GLS.popMatrix();
 		}
 	}
 

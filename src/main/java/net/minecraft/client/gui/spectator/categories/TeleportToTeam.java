@@ -10,7 +10,7 @@ import net.minecraft.client.gui.spectator.ISpectatorMenuObject;
 import net.minecraft.client.gui.spectator.ISpectatorMenuView;
 import net.minecraft.client.gui.spectator.SpectatorMenu;
 import net.minecraft.client.network.NetworkPlayerInfo;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.util.ResourceLocation;
@@ -127,7 +127,7 @@ public class TeleportToTeam implements ISpectatorMenuView, ISpectatorMenuObject 
 			}
 
 			Minecraft.getMinecraft().getTextureManager().bindTexture(location);
-			GlStateManager.color(brightness, brightness, brightness, (float) alpha / 255F);
+			GLS.color(brightness, brightness, brightness, (float) alpha / 255F);
 			Gui.drawScaledCustomSizeModalRect(2, 2, 8F, 8F, 8, 8, 12, 12, 64F, 64F);
 			Gui.drawScaledCustomSizeModalRect(2, 2, 40F, 8F, 8, 8, 12, 12, 64F, 64F);
 		}

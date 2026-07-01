@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.model.ModelOcelot;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.util.ResourceLocation;
 
@@ -38,7 +38,7 @@ public class RenderOcelot extends RenderLiving<EntityOcelot> {
 		super.preRenderCallback(entitylivingbaseIn, partialTickTime);
 
 		if (entitylivingbaseIn.isTamed()) {
-			GlStateManager.scale(0.8F, 0.8F, 0.8F);
+			GLS.scale(0.8F, 0.8F, 0.8F);
 		}
 	}
 

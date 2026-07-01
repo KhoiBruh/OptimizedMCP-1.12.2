@@ -5,7 +5,7 @@ import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.GuiUtilRenderComponents;
 import net.minecraft.client.gui.menu.YesNoScreen;
 import net.minecraft.client.gui.menu.MainMenuScreen;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormat;
@@ -101,10 +101,10 @@ public class GameOverScreen extends Screen {
 
 		boolean flag = mc.world.getWorldInfo().isHardcoreModeEnabled();
 		drawGradientRect(0, 0, width, height, 1615855616, -1602211792);
-		GlStateManager.pushMatrix();
-		GlStateManager.scale(2F, 2F, 2F);
+		GLS.pushMatrix();
+		GLS.scale(2F, 2F, 2F);
 		drawCenteredString(fontRenderer, I18n.format(flag ? "deathScreen.title.hardcore" : "deathScreen.title"), width / 2 / 2, 30, 16777215);
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 
 		if (causeOfDeath != null) {
 			drawCenteredString(fontRenderer, causeOfDeath.getFormattedText(), width / 2, 85, 16777215);

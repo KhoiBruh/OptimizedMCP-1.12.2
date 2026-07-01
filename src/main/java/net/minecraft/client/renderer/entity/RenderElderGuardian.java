@@ -1,6 +1,6 @@
 package net.minecraft.client.renderer.entity;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.util.ResourceLocation;
 
@@ -18,7 +18,7 @@ public class RenderElderGuardian extends RenderGuardian {
 	 */
 	protected void preRenderCallback(EntityGuardian entitylivingbaseIn, float partialTickTime) {
 
-		GlStateManager.scale(2.35F, 2.35F, 2.35F);
+		GLS.scale(2.35F, 2.35F, 2.35F);
 	}
 
 	/**

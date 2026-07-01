@@ -3,7 +3,7 @@ package net.minecraft.client.renderer.entity;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.item.EntityMinecartTNT;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.MathHelper;
@@ -25,25 +25,25 @@ public class RenderTntMinecart extends RenderMinecart<EntityMinecartTNT> {
 			f = f * f;
 			f = f * f;
 			float f1 = 1F + f * 0.3F;
-			GlStateManager.scale(f1, f1, f1);
+			GLS.scale(f1, f1, f1);
 		}
 
 		super.renderCartContents(p_188319_1_, partialTicks, p_188319_3_);
 
 		if (i > -1 && i / 5 % 2 == 0) {
 			BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
-			GlStateManager.disableTexture2D();
-			GlStateManager.disableLighting();
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.DST_ALPHA);
-			GlStateManager.color(1F, 1F, 1F, (1F - ((float) i - partialTicks + 1F) / 100F) * 0.8F);
-			GlStateManager.pushMatrix();
+			GLS.disableTexture2D();
+			GLS.disableLighting();
+			GLS.enableBlend();
+			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.DST_ALPHA);
+			GLS.color(1F, 1F, 1F, (1F - ((float) i - partialTicks + 1F) / 100F) * 0.8F);
+			GLS.pushMatrix();
 			blockrendererdispatcher.renderBlockBrightness(Blocks.TNT.getDefaultState(), 1F);
-			GlStateManager.popMatrix();
-			GlStateManager.color(1F, 1F, 1F, 1F);
-			GlStateManager.disableBlend();
-			GlStateManager.enableLighting();
-			GlStateManager.enableTexture2D();
+			GLS.popMatrix();
+			GLS.color(1F, 1F, 1F, 1F);
+			GLS.disableBlend();
+			GLS.enableLighting();
+			GLS.enableTexture2D();
 		}
 	}
 

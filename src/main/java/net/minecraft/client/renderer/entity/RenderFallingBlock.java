@@ -4,7 +4,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -36,30 +36,30 @@ public class RenderFallingBlock extends Render<EntityFallingBlock> {
 
 				if (iblockstate != world.getBlockState(new BlockPos(entity)) && iblockstate.getRenderType() != BlockRenderType.INVISIBLE) {
 					bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-					GlStateManager.pushMatrix();
-					GlStateManager.disableLighting();
+					GLS.pushMatrix();
+					GLS.disableLighting();
 					Tessellator tessellator = Tessellator.getInstance();
 					BufferBuilder bufferbuilder = tessellator.getBuffer();
 
 					if (renderOutlines) {
-						GlStateManager.enableColorMaterial();
-						GlStateManager.enableOutlineMode(getTeamColor(entity));
+						GLS.enableColorMaterial();
+						GLS.enableOutlineMode(getTeamColor(entity));
 					}
 
 					bufferbuilder.begin(7, DefaultVertexFormats.BLOCK);
 					BlockPos blockpos = new BlockPos(entity.posX, entity.getEntityBoundingBox().maxY, entity.posZ);
-					GlStateManager.translate((float) (x - (double) blockpos.getX() - 0.5D), (float) (y - (double) blockpos.getY()), (float) (z - (double) blockpos.getZ() - 0.5D));
+					GLS.translate((float) (x - (double) blockpos.getX() - 0.5D), (float) (y - (double) blockpos.getY()), (float) (z - (double) blockpos.getZ() - 0.5D));
 					BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
 					blockrendererdispatcher.getBlockModelRenderer().renderModel(world, blockrendererdispatcher.getModelForState(iblockstate), iblockstate, blockpos, bufferbuilder, false, MathHelper.getPositionRandom(entity.getOrigin()));
 					tessellator.draw();
 
 					if (renderOutlines) {
-						GlStateManager.disableOutlineMode();
-						GlStateManager.disableColorMaterial();
+						GLS.disableOutlineMode();
+						GLS.disableColorMaterial();
 					}
 
-					GlStateManager.enableLighting();
-					GlStateManager.popMatrix();
+					GLS.enableLighting();
+					GLS.popMatrix();
 					super.doRender(entity, x, y, z, entityYaw, partialTicks);
 				}
 			}

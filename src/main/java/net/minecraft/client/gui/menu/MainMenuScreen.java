@@ -9,7 +9,7 @@ import net.minecraft.client.gui.component.LanguageButton;
 import net.minecraft.client.gui.game.WinGameScreen;
 import net.minecraft.client.gui.option.LanguageScreen;
 import net.minecraft.client.gui.option.OptionsScreen;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.resources.I18n;
@@ -251,7 +251,7 @@ public class MainMenuScreen extends Screen {
 		drawDefaultBackground();
 		int j = width / 2 - 137;
 		mc.getTextureManager().bindTexture(MINECRAFT_TITLE_TEXTURES);
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 
 		if ((double) minceraftRoll < 1.0E-4D) {
 			drawTexturedModalRect(j, 30, 0, 0, 99, 44);
@@ -266,14 +266,14 @@ public class MainMenuScreen extends Screen {
 
 		mc.getTextureManager().bindTexture(field_194400_H);
 		drawModalRectWithCustomSizedTexture(j + 88, 67, 0F, 0F, 98, 14, 128F, 16F);
-		GlStateManager.pushMatrix();
-		GlStateManager.translate((float) (width / 2 + 90), 70F, 0F);
-		GlStateManager.rotate(-20F, 0F, 0F, 1F);
+		GLS.pushMatrix();
+		GLS.translate((float) (width / 2 + 90), 70F, 0F);
+		GLS.rotate(-20F, 0F, 0F, 1F);
 		float f = 1.8F - MathHelper.abs(MathHelper.sin((float) (Minecraft.getSystemTime() % 1000L) / 1000F * ((float) Math.PI * 2F)) * 0.1F);
 		f = f * 100F / (float) (fontRenderer.getStringWidth(splashText) + 32);
-		GlStateManager.scale(f, f, f);
+		GLS.scale(f, f, f);
 		drawCenteredString(fontRenderer, splashText, 0, -8, -256);
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 		String s = "Minecraft 1.12.2";
 
 		s = s + ("release".equalsIgnoreCase(mc.getVersionType()) ? "" : "/" + mc.getVersionType());

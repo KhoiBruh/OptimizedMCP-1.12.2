@@ -6,7 +6,7 @@ import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
@@ -150,8 +150,8 @@ public class GuiAdvancement extends Gui {
 			}
 
 			minecraft.getTextureManager().bindTexture(WIDGETS);
-			GlStateManager.color(1F, 1F, 1F, 1F);
-			GlStateManager.enableBlend();
+			GLS.color(1F, 1F, 1F, 1F);
+			GLS.enableBlend();
 			drawTexturedModalRect(p_191817_1_ + x + 3, p_191817_2_ + y, displayInfo.getFrame().getIcon(), 128 + advancementstate.getId() * 26, 26, 26);
 			RenderHelper.enableGUIStandardItemLighting();
 			minecraft.getRenderItem().renderItemAndEffectIntoGUI(null, displayInfo.getIcon(), p_191817_1_ + x + 8, p_191817_2_ + y + 5);
@@ -207,8 +207,8 @@ public class GuiAdvancement extends Gui {
 
 		int k = width - j;
 		minecraft.getTextureManager().bindTexture(WIDGETS);
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.enableBlend();
+		GLS.color(1F, 1F, 1F, 1F);
+		GLS.enableBlend();
 		int l = p_191821_2_ + y;
 		int i1;
 

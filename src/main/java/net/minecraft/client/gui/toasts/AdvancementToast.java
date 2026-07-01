@@ -4,7 +4,7 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.SoundEvents;
@@ -25,7 +25,7 @@ public class AdvancementToast implements IToast {
 	public IToast.Visibility draw(GuiToast toastGui, long delta) {
 
 		toastGui.getMinecraft().getTextureManager().bindTexture(TEXTURE_TOASTS);
-		GlStateManager.color(1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F);
 		DisplayInfo displayinfo = advancement.getDisplay();
 		toastGui.drawTexturedModalRect(0, 0, 0, 0, 160, 32);
 

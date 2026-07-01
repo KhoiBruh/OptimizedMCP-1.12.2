@@ -10,7 +10,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -54,9 +54,9 @@ public class GuiOverlayDebug extends Gui {
 
 		this.mc = mc;
 		fontRenderer = mc.fontRenderer;
-		vendor = GlStateManager.getString(GL11.GL_VENDOR);
-		renderer = GlStateManager.getString(GL11.GL_RENDERER);
-		version = GlStateManager.getString(GL11.GL_VERSION);
+		vendor = GLS.getString(GL11.GL_VENDOR);
+		renderer = GLS.getString(GL11.GL_RENDERER);
+		version = GLS.getString(GL11.GL_VERSION);
 	}
 
 	private static long bytesToMb(long bytes) {
@@ -120,12 +120,12 @@ public class GuiOverlayDebug extends Gui {
 
 		mc.profiler.startSection("debug");
 		try {
-			GlStateManager.pushMatrix();
+			GLS.pushMatrix();
 			try {
 				renderDebugInfoLeft();
 				renderDebugInfoRight();
 			} finally {
-				GlStateManager.popMatrix();
+				GLS.popMatrix();
 			}
 
 			if (mc.gameSettings.showLagometer) {
@@ -292,7 +292,7 @@ public class GuiOverlayDebug extends Gui {
 
 	private void renderLagometer() {
 
-		GlStateManager.disableDepth();
+		GLS.disableDepth();
 		FrameTimer frametimer = mc.getFrameTimer();
 		int i = frametimer.getLastIndex();
 		int j = frametimer.getIndex();
@@ -322,7 +322,7 @@ public class GuiOverlayDebug extends Gui {
 			drawHorizontalLine(0, right, top + mc.gameSettings.limitFramerate / 2, LAGOMETER_LIMIT_COLOR);
 		}
 
-		GlStateManager.enableDepth();
+		GLS.enableDepth();
 	}
 
 	private void drawLagometerLabel(String text, int y) {

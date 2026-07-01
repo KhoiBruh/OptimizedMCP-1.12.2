@@ -1,7 +1,7 @@
 package net.minecraft.client.model;
 
 import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.Vec3d;
@@ -24,16 +24,16 @@ public class ModelElytra extends ModelBase {
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
-		GlStateManager.disableRescaleNormal();
-		GlStateManager.disableCull();
+		GLS.disableRescaleNormal();
+		GLS.disableCull();
 
 		if (entityIn instanceof EntityLivingBase && ((EntityLivingBase) entityIn).isChild()) {
-			GlStateManager.pushMatrix();
-			GlStateManager.scale(0.5F, 0.5F, 0.5F);
-			GlStateManager.translate(0F, 1.5F, -0.1F);
+			GLS.pushMatrix();
+			GLS.scale(0.5F, 0.5F, 0.5F);
+			GLS.translate(0F, 1.5F, -0.1F);
 			leftWing.render(scale);
 			rightWing.render(scale);
-			GlStateManager.popMatrix();
+			GLS.popMatrix();
 		} else {
 			leftWing.render(scale);
 			rightWing.render(scale);

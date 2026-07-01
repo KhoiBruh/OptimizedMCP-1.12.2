@@ -5,7 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.EntityRenderer;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -44,10 +44,10 @@ public abstract class Render<T extends Entity> {
 	 */
 	public static void renderOffsetAABB(AxisAlignedBB boundingBox, double x, double y, double z) {
 
-		GlStateManager.disableTexture2D();
+		GLS.disableTexture2D();
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		bufferbuilder.setTranslation(x, y, z);
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_NORMAL);
 		bufferbuilder.pos(boundingBox.minX, boundingBox.maxY, boundingBox.minZ).normal(0F, 0F, -1F).endVertex();
@@ -76,7 +76,7 @@ public abstract class Render<T extends Entity> {
 		bufferbuilder.pos(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ).normal(1F, 0F, 0F).endVertex();
 		tessellator.draw();
 		bufferbuilder.setTranslation(0D, 0D, 0D);
-		GlStateManager.enableTexture2D();
+		GLS.enableTexture2D();
 	}
 
 	public void setRenderOutlines(boolean renderOutlinesIn) {
@@ -167,23 +167,23 @@ public abstract class Render<T extends Entity> {
 	 */
 	private void renderEntityOnFire(Entity entity, double x, double y, double z, float partialTicks) {
 
-		GlStateManager.disableLighting();
+		GLS.disableLighting();
 		TextureMap texturemap = Minecraft.getMinecraft().getBlockTextures();
 		TextureAtlasSprite textureatlassprite = texturemap.getAtlasSprite("minecraft:blocks/fire_layer_0");
 		TextureAtlasSprite textureatlassprite1 = texturemap.getAtlasSprite("minecraft:blocks/fire_layer_1");
-		GlStateManager.pushMatrix();
-		GlStateManager.translate((float) x, (float) y, (float) z);
+		GLS.pushMatrix();
+		GLS.translate((float) x, (float) y, (float) z);
 		float f = entity.width * 1.4F;
-		GlStateManager.scale(f, f, f);
+		GLS.scale(f, f, f);
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		float f1 = 0.5F;
 		float f2 = 0F;
 		float f3 = entity.height / f;
 		float f4 = (float) (entity.posY - entity.getEntityBoundingBox().minY);
-		GlStateManager.rotate(-renderManager.playerViewY, 0F, 1F, 0F);
-		GlStateManager.translate(0F, 0F, -0.3F + (float) ((int) f3) * 0.02F);
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.rotate(-renderManager.playerViewY, 0F, 1F, 0F);
+		GLS.translate(0F, 0F, -0.3F + (float) ((int) f3) * 0.02F);
+		GLS.color(1F, 1F, 1F, 1F);
 		float f5 = 0F;
 		int i = 0;
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
@@ -214,8 +214,8 @@ public abstract class Render<T extends Entity> {
 		}
 
 		tessellator.draw();
-		GlStateManager.popMatrix();
-		GlStateManager.enableLighting();
+		GLS.popMatrix();
+		GLS.enableLighting();
 	}
 
 	/**
@@ -223,11 +223,11 @@ public abstract class Render<T extends Entity> {
 	 */
 	private void renderShadow(Entity entityIn, double x, double y, double z, float shadowAlpha, float partialTicks) {
 
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+		GLS.enableBlend();
+		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA);
 		renderManager.renderEngine.bindTexture(SHADOW_TEXTURES);
 		World world = getWorldFromRenderManager();
-		GlStateManager.depthMask(false);
+		GLS.depthMask(false);
 		float f = shadowSize;
 
 		if (entityIn instanceof EntityLiving entityliving) {
@@ -263,9 +263,9 @@ public abstract class Render<T extends Entity> {
 		}
 
 		tessellator.draw();
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.disableBlend();
-		GlStateManager.depthMask(true);
+		GLS.color(1F, 1F, 1F, 1F);
+		GLS.disableBlend();
+		GLS.depthMask(true);
 	}
 
 	/**

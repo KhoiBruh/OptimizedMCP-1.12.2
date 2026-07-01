@@ -1,7 +1,7 @@
 package net.minecraft.client.gui;
 
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -37,18 +37,18 @@ public class Gui {
 		float f2 = (float) (color & 255) / 255F;
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
-		GlStateManager.enableBlend();
-		GlStateManager.disableTexture2D();
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-		GlStateManager.color(f, f1, f2, f3);
+		GLS.enableBlend();
+		GLS.disableTexture2D();
+		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
+		GLS.color(f, f1, f2, f3);
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION);
 		bufferbuilder.pos(left, bottom, 0D).endVertex();
 		bufferbuilder.pos(right, bottom, 0D).endVertex();
 		bufferbuilder.pos(right, top, 0D).endVertex();
 		bufferbuilder.pos(left, top, 0D).endVertex();
 		tessellator.draw();
-		GlStateManager.enableTexture2D();
-		GlStateManager.disableBlend();
+		GLS.enableTexture2D();
+		GLS.disableBlend();
 	}
 
 	/**
@@ -127,11 +127,11 @@ public class Gui {
 		float f5 = (float) (endColor >> 16 & 255) / 255F;
 		float f6 = (float) (endColor >> 8 & 255) / 255F;
 		float f7 = (float) (endColor & 255) / 255F;
-		GlStateManager.disableTexture2D();
-		GlStateManager.enableBlend();
-		GlStateManager.disableAlpha();
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-		GlStateManager.shadeModel(7425);
+		GLS.disableTexture2D();
+		GLS.enableBlend();
+		GLS.disableAlpha();
+		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
+		GLS.shadeModel(7425);
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
@@ -140,10 +140,10 @@ public class Gui {
 		bufferbuilder.pos(left, bottom, zLevel).color(f5, f6, f7, f4).endVertex();
 		bufferbuilder.pos(right, bottom, zLevel).color(f5, f6, f7, f4).endVertex();
 		tessellator.draw();
-		GlStateManager.shadeModel(7424);
-		GlStateManager.disableBlend();
-		GlStateManager.enableAlpha();
-		GlStateManager.enableTexture2D();
+		GLS.shadeModel(7424);
+		GLS.disableBlend();
+		GLS.enableAlpha();
+		GLS.enableTexture2D();
 	}
 
 	/**

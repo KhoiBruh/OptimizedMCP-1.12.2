@@ -3,7 +3,7 @@ package net.minecraft.client.model;
 import com.google.common.collect.Lists;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GLAllocation;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.Tessellator;
 
 import java.util.List;
@@ -137,11 +137,11 @@ public class ModelRenderer {
 					compileDisplayList(scale);
 				}
 
-				GlStateManager.translate(offsetX, offsetY, offsetZ);
+				GLS.translate(offsetX, offsetY, offsetZ);
 
 				if (rotateAngleX == 0F && rotateAngleY == 0F && rotateAngleZ == 0F) {
 					if (rotationPointX == 0F && rotationPointY == 0F && rotationPointZ == 0F) {
-						GlStateManager.callList(displayList);
+						GLS.callList(displayList);
 
 						if (childModels != null) {
 							for (ModelRenderer childModel : childModels) {
@@ -149,8 +149,8 @@ public class ModelRenderer {
 							}
 						}
 					} else {
-						GlStateManager.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
-						GlStateManager.callList(displayList);
+						GLS.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
+						GLS.callList(displayList);
 
 						if (childModels != null) {
 							for (ModelRenderer childModel : childModels) {
@@ -158,25 +158,25 @@ public class ModelRenderer {
 							}
 						}
 
-						GlStateManager.translate(-rotationPointX * scale, -rotationPointY * scale, -rotationPointZ * scale);
+						GLS.translate(-rotationPointX * scale, -rotationPointY * scale, -rotationPointZ * scale);
 					}
 				} else {
-					GlStateManager.pushMatrix();
-					GlStateManager.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
+					GLS.pushMatrix();
+					GLS.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
 
 					if (rotateAngleZ != 0F) {
-						GlStateManager.rotate(rotateAngleZ * (180F / (float) Math.PI), 0F, 0F, 1F);
+						GLS.rotate(rotateAngleZ * (180F / (float) Math.PI), 0F, 0F, 1F);
 					}
 
 					if (rotateAngleY != 0F) {
-						GlStateManager.rotate(rotateAngleY * (180F / (float) Math.PI), 0F, 1F, 0F);
+						GLS.rotate(rotateAngleY * (180F / (float) Math.PI), 0F, 1F, 0F);
 					}
 
 					if (rotateAngleX != 0F) {
-						GlStateManager.rotate(rotateAngleX * (180F / (float) Math.PI), 1F, 0F, 0F);
+						GLS.rotate(rotateAngleX * (180F / (float) Math.PI), 1F, 0F, 0F);
 					}
 
-					GlStateManager.callList(displayList);
+					GLS.callList(displayList);
 
 					if (childModels != null) {
 						for (ModelRenderer childModel : childModels) {
@@ -184,10 +184,10 @@ public class ModelRenderer {
 						}
 					}
 
-					GlStateManager.popMatrix();
+					GLS.popMatrix();
 				}
 
-				GlStateManager.translate(-offsetX, -offsetY, -offsetZ);
+				GLS.translate(-offsetX, -offsetY, -offsetZ);
 			}
 		}
 	}
@@ -200,23 +200,23 @@ public class ModelRenderer {
 					compileDisplayList(scale);
 				}
 
-				GlStateManager.pushMatrix();
-				GlStateManager.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
+				GLS.pushMatrix();
+				GLS.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
 
 				if (rotateAngleY != 0F) {
-					GlStateManager.rotate(rotateAngleY * (180F / (float) Math.PI), 0F, 1F, 0F);
+					GLS.rotate(rotateAngleY * (180F / (float) Math.PI), 0F, 1F, 0F);
 				}
 
 				if (rotateAngleX != 0F) {
-					GlStateManager.rotate(rotateAngleX * (180F / (float) Math.PI), 1F, 0F, 0F);
+					GLS.rotate(rotateAngleX * (180F / (float) Math.PI), 1F, 0F, 0F);
 				}
 
 				if (rotateAngleZ != 0F) {
-					GlStateManager.rotate(rotateAngleZ * (180F / (float) Math.PI), 0F, 0F, 1F);
+					GLS.rotate(rotateAngleZ * (180F / (float) Math.PI), 0F, 0F, 1F);
 				}
 
-				GlStateManager.callList(displayList);
-				GlStateManager.popMatrix();
+				GLS.callList(displayList);
+				GLS.popMatrix();
 			}
 		}
 	}
@@ -234,21 +234,21 @@ public class ModelRenderer {
 
 				if (rotateAngleX == 0F && rotateAngleY == 0F && rotateAngleZ == 0F) {
 					if (rotationPointX != 0F || rotationPointY != 0F || rotationPointZ != 0F) {
-						GlStateManager.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
+						GLS.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
 					}
 				} else {
-					GlStateManager.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
+					GLS.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
 
 					if (rotateAngleZ != 0F) {
-						GlStateManager.rotate(rotateAngleZ * (180F / (float) Math.PI), 0F, 0F, 1F);
+						GLS.rotate(rotateAngleZ * (180F / (float) Math.PI), 0F, 0F, 1F);
 					}
 
 					if (rotateAngleY != 0F) {
-						GlStateManager.rotate(rotateAngleY * (180F / (float) Math.PI), 0F, 1F, 0F);
+						GLS.rotate(rotateAngleY * (180F / (float) Math.PI), 0F, 1F, 0F);
 					}
 
 					if (rotateAngleX != 0F) {
-						GlStateManager.rotate(rotateAngleX * (180F / (float) Math.PI), 1F, 0F, 0F);
+						GLS.rotate(rotateAngleX * (180F / (float) Math.PI), 1F, 0F, 0F);
 					}
 				}
 			}
@@ -261,14 +261,14 @@ public class ModelRenderer {
 	private void compileDisplayList(float scale) {
 
 		displayList = GLAllocation.generateDisplayLists(1);
-		GlStateManager.newList(displayList, 4864);
+		GLS.newList(displayList, 4864);
 		BufferBuilder bufferbuilder = Tessellator.getInstance().getBuffer();
 
 		for (ModelBox modelBox : cubeList) {
 			modelBox.render(bufferbuilder, scale);
 		}
 
-		GlStateManager.endList();
+		GLS.endList();
 		compiled = true;
 	}
 

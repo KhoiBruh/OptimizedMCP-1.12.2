@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.model.ModelIllager;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.entity.layers.LayerHeldItem;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
@@ -53,7 +53,7 @@ public class RenderVindicator extends RenderLiving<EntityMob> {
 	protected void preRenderCallback(EntityMob entitylivingbaseIn, float partialTickTime) {
 
 		float f = 0.9375F;
-		GlStateManager.scale(0.9375F, 0.9375F, 0.9375F);
+		GLS.scale(0.9375F, 0.9375F, 0.9375F);
 	}
 
 }

@@ -292,8 +292,8 @@ public class Minecraft implements IThreadListener {
 	
 	public static int getGLMaximumTextureSize() {
 		for (int i = 16384; i > 0; i >>= 1) {
-			GlStateManager.texImage2D(32868, 0, 6408, i, i, 0, 6408, 5121, null);
-			int j = GlStateManager.getTexLevelParameteri(32868, 0, 4096);
+			GLS.texImage2D(32868, 0, 6408, i, i, 0, 6408, 5121, null);
+			int j = GLS.getTexLevelParameteri(32868, 0, 4096);
 			
 			if (j != 0) return i;
 		}
@@ -412,17 +412,17 @@ public class Minecraft implements IThreadListener {
 		resourceManager.registerReloadListener(new GrassColorReloadListener());
 		resourceManager.registerReloadListener(new FoliageColorReloadListener());
 		checkGLError("Pre startup");
-		GlStateManager.enableTexture2D();
-		GlStateManager.shadeModel(7425);
-		GlStateManager.clearDepth(1D);
-		GlStateManager.enableDepth();
-		GlStateManager.depthFunc(515);
-		GlStateManager.enableAlpha();
-		GlStateManager.alphaFunc(516, 0.1F);
-		GlStateManager.cullFace(GlStateManager.CullFace.BACK);
-		GlStateManager.matrixMode(5889);
-		GlStateManager.loadIdentity();
-		GlStateManager.matrixMode(5888);
+		GLS.enableTexture2D();
+		GLS.shadeModel(7425);
+		GLS.clearDepth(1D);
+		GLS.enableDepth();
+		GLS.depthFunc(515);
+		GLS.enableAlpha();
+		GLS.alphaFunc(516, 0.1F);
+		GLS.cullFace(GLS.CullFace.BACK);
+		GLS.matrixMode(5889);
+		GLS.loadIdentity();
+		GLS.matrixMode(5888);
 		checkGLError("Startup");
 		blockTextures = new TextureMap("textures");
 		blockTextures.setMipmapLevels(gameSettings.mipmapLevels);
@@ -445,7 +445,7 @@ public class Minecraft implements IThreadListener {
 		resourceManager.registerReloadListener(renderGlobal);
 		populateSearchTreeManager();
 		resourceManager.registerReloadListener(searchTreeManager);
-		GlStateManager.viewport(0, 0, window.getWidth(), window.getHeight());
+		GLS.viewport(0, 0, window.getWidth(), window.getHeight());
 		effectRenderer = new ParticleManager(world, renderEngine);
 		checkGLError("Post startup");
 		ingameGUI = new GuiIngame(this);
@@ -673,16 +673,16 @@ public class Minecraft implements IThreadListener {
 		int i = window.getGuiScale();
 		Framebuffer framebuffer = new Framebuffer(window.getScaledWidth() * i, window.getScaledHeight() * i, true);
 		framebuffer.bindFramebuffer(false);
-		GlStateManager.matrixMode(5889);
-		GlStateManager.loadIdentity();
-		GlStateManager.ortho(0D, window.getScaledWidth(), window.getScaledHeight(), 0D, 1000D, 3000D);
-		GlStateManager.matrixMode(5888);
-		GlStateManager.loadIdentity();
-		GlStateManager.translate(0F, 0F, -2000F);
-		GlStateManager.disableLighting();
-		GlStateManager.disableFog();
-		GlStateManager.disableDepth();
-		GlStateManager.enableTexture2D();
+		GLS.matrixMode(5889);
+		GLS.loadIdentity();
+		GLS.ortho(0D, window.getScaledWidth(), window.getScaledHeight(), 0D, 1000D, 3000D);
+		GLS.matrixMode(5888);
+		GLS.loadIdentity();
+		GLS.translate(0F, 0F, -2000F);
+		GLS.disableLighting();
+		GLS.disableFog();
+		GLS.disableDepth();
+		GLS.enableTexture2D();
 		InputStream inputstream = null;
 		
 		try {
@@ -703,14 +703,14 @@ public class Minecraft implements IThreadListener {
 		bufferbuilder.pos(window.getWidth(), 0D, 0D).tex(0D, 0D).color(255, 255, 255, 255).endVertex();
 		bufferbuilder.pos(0D, 0D, 0D).tex(0D, 0D).color(255, 255, 255, 255).endVertex();
 		tessellator.draw();
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		draw((window.getScaledWidth() - 256) / 2, (window.getScaledHeight() - 256) / 2, 0, 0, 256, 256, 255, 255, 255, 255);
-		GlStateManager.disableLighting();
-		GlStateManager.disableFog();
+		GLS.disableLighting();
+		GLS.disableFog();
 		framebuffer.unbindFramebuffer();
 		framebuffer.framebufferRender(window.getScaledWidth() * i, window.getScaledHeight() * i);
-		GlStateManager.enableAlpha();
-		GlStateManager.alphaFunc(516, 0.1F);
+		GLS.enableAlpha();
+		GLS.alphaFunc(516, 0.1F);
 		updateDisplay();
 	}
 	
@@ -796,7 +796,7 @@ public class Minecraft implements IThreadListener {
 	 * Checks for an OpenGL error. If there is one, prints the error ID and error string.
 	 */
 	private void checkGLError(String message) {
-		int i = GlStateManager.getError();
+		int i = GLS.getError();
 		
 		if (i != 0) {
 			String s = Projection.getErrorString(i);
@@ -862,11 +862,11 @@ public class Minecraft implements IThreadListener {
 		soundHandler.setListener(player, timer.renderPartialTicks);
 		profiler.endSection();
 		profiler.startSection("render");
-		GlStateManager.pushMatrix();
-		GlStateManager.clear(16640);
+		GLS.pushMatrix();
+		GLS.clear(16640);
 		framebuffer.bindFramebuffer(true);
 		profiler.startSection("display");
-		GlStateManager.enableTexture2D();
+		GLS.enableTexture2D();
 		profiler.endSection();
 		
 		if (!skipRenderWorld) {
@@ -892,13 +892,13 @@ public class Minecraft implements IThreadListener {
 		}
 		
 		framebuffer.unbindFramebuffer();
-		GlStateManager.popMatrix();
-		GlStateManager.pushMatrix();
+		GLS.popMatrix();
+		GLS.pushMatrix();
 		framebuffer.framebufferRender(window.getWidth(), window.getHeight());
-		GlStateManager.popMatrix();
-		GlStateManager.pushMatrix();
+		GLS.popMatrix();
+		GLS.pushMatrix();
 		entityRenderer.renderStreamIndicator(timer.renderPartialTicks);
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 		profiler.startSection("root");
 		updateDisplay();
 		Thread.yield();
@@ -1011,28 +1011,28 @@ public class Minecraft implements IThreadListener {
 		if (profiler.profilingEnabled) {
 			List<Profiler.Result> list = profiler.getProfilingData(debugProfilerName);
 			Profiler.Result profiler$result = list.removeFirst();
-			GlStateManager.clear(256);
-			GlStateManager.matrixMode(5889);
-			GlStateManager.enableColorMaterial();
-			GlStateManager.loadIdentity();
-			GlStateManager.ortho(0D, window.getWidth(), window.getHeight(), 0D, 1000D, 3000D);
-			GlStateManager.matrixMode(5888);
-			GlStateManager.loadIdentity();
-			GlStateManager.translate(0F, 0F, -2000F);
-			GlStateManager.lineWidth(1F);
-			GlStateManager.disableTexture2D();
+			GLS.clear(256);
+			GLS.matrixMode(5889);
+			GLS.enableColorMaterial();
+			GLS.loadIdentity();
+			GLS.ortho(0D, window.getWidth(), window.getHeight(), 0D, 1000D, 3000D);
+			GLS.matrixMode(5888);
+			GLS.loadIdentity();
+			GLS.translate(0F, 0F, -2000F);
+			GLS.lineWidth(1F);
+			GLS.disableTexture2D();
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferbuilder = tessellator.getBuffer();
 			int j = window.getWidth() - 160 - 10;
 			int k = window.getHeight() - 320;
-			GlStateManager.enableBlend();
+			GLS.enableBlend();
 			bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
 			bufferbuilder.pos((float) j - 176F, (float) k - 96F - 16F, 0D).color(200, 0, 0, 0).endVertex();
 			bufferbuilder.pos((float) j - 176F, k + 320, 0D).color(200, 0, 0, 0).endVertex();
 			bufferbuilder.pos((float) j + 176F, k + 320, 0D).color(200, 0, 0, 0).endVertex();
 			bufferbuilder.pos((float) j + 176F, (float) k - 96F - 16F, 0D).color(200, 0, 0, 0).endVertex();
 			tessellator.draw();
-			GlStateManager.disableBlend();
+			GLS.disableBlend();
 			double d0 = 0D;
 			
 			for (Profiler.Result profiler$result1 : list) {
@@ -1071,7 +1071,7 @@ public class Minecraft implements IThreadListener {
 			}
 			
 			DecimalFormat decimalformat = new DecimalFormat("##0.00");
-			GlStateManager.enableTexture2D();
+			GLS.enableTexture2D();
 			String s = "";
 			
 			if (!"unspecified".equals(profiler$result.profilerName)) s = s + "[0] ";
@@ -2014,9 +2014,9 @@ public class Minecraft implements IThreadListener {
 		report.getCategory().addDetail("Launched Version", () -> version);
 		report.getCategory().addDetail("LWJGL", Version::getVersion);
 		report.getCategory().addDetail("OpenGL",
-		                                 () -> GlStateManager.getString(7937) +
-				                                 " GL version " + GlStateManager.getString(7938) +
-				                                 ", " + GlStateManager.getString(7936)
+		                                 () -> GLS.getString(7937) +
+				                                 " GL version " + GLS.getString(7938) +
+				                                 ", " + GLS.getString(7936)
 		);
 		report.getCategory().addDetail("GL Caps", OpenGlHelper::getLogText);
 		report.getCategory().addDetail("Using VBOs", () -> gameSettings.useVbo ? "Yes" : "No");

@@ -1,6 +1,6 @@
 package net.minecraft.client.model;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.AbstractChestHorse;
@@ -254,9 +254,9 @@ public class ModelHorse extends ModelBase {
 		}
 
 		if (flag) {
-			GlStateManager.pushMatrix();
-			GlStateManager.scale(f1, 0.5F + f1 * 0.5F, f1);
-			GlStateManager.translate(0F, 0.95F * (1F - f1), 0F);
+			GLS.pushMatrix();
+			GLS.scale(f1, 0.5F + f1 * 0.5F, f1);
+			GLS.translate(0F, 0.95F * (1F - f1), 0F);
 		}
 
 		backLeftLeg.render(scale);
@@ -273,10 +273,10 @@ public class ModelHorse extends ModelBase {
 		frontRightHoof.render(scale);
 
 		if (flag) {
-			GlStateManager.popMatrix();
-			GlStateManager.pushMatrix();
-			GlStateManager.scale(f1, f1, f1);
-			GlStateManager.translate(0F, 1.35F * (1F - f1), 0F);
+			GLS.popMatrix();
+			GLS.pushMatrix();
+			GLS.scale(f1, f1, f1);
+			GLS.translate(0F, 1.35F * (1F - f1), 0F);
 		}
 
 		body.render(scale);
@@ -287,15 +287,15 @@ public class ModelHorse extends ModelBase {
 		mane.render(scale);
 
 		if (flag) {
-			GlStateManager.popMatrix();
-			GlStateManager.pushMatrix();
+			GLS.popMatrix();
+			GLS.pushMatrix();
 			float f2 = 0.5F + f1 * f1 * 0.5F;
-			GlStateManager.scale(f2, f2, f2);
+			GLS.scale(f2, f2, f2);
 
 			if (f <= 0F) {
-				GlStateManager.translate(0F, 1.35F * (1F - f1), 0F);
+				GLS.translate(0F, 1.35F * (1F - f1), 0F);
 			} else {
-				GlStateManager.translate(0F, 0.9F * (1F - f1) * f + 1.35F * (1F - f1) * (1F - f), 0.15F * (1F - f1) * f);
+				GLS.translate(0F, 0.9F * (1F - f1) * f + 1.35F * (1F - f1) * (1F - f), 0.15F * (1F - f1) * f);
 			}
 		}
 
@@ -310,7 +310,7 @@ public class ModelHorse extends ModelBase {
 		head.render(scale);
 
 		if (flag) {
-			GlStateManager.popMatrix();
+			GLS.popMatrix();
 		}
 
 		if (flag3) {

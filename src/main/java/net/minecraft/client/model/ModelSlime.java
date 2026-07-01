@@ -1,6 +1,6 @@
 package net.minecraft.client.model;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.Entity;
 
 public class ModelSlime extends ModelBase {
@@ -48,7 +48,7 @@ public class ModelSlime extends ModelBase {
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
-		GlStateManager.translate(0F, 0.001F, 0F);
+		GLS.translate(0F, 0.001F, 0F);
 		slimeBodies.render(scale);
 
 		if (slimeRightEye != null) {

@@ -3,7 +3,7 @@ package net.minecraft.client.gui.recipebook;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.Screen;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
@@ -67,7 +67,7 @@ public class RecipeButton extends Button {
 			hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 			RenderHelper.enableGUIStandardItemLighting();
 			mc.getTextureManager().bindTexture(RECIPE_BOOK);
-			GlStateManager.disableLighting();
+			GLS.disableLighting();
 			int i = 29;
 
 			if (!list.containsCraftableRecipes()) {
@@ -84,10 +84,10 @@ public class RecipeButton extends Button {
 
 			if (flag) {
 				float f = 1F + 0.1F * (float) Math.sin(animationTime / 15F * (float) Math.PI);
-				GlStateManager.pushMatrix();
-				GlStateManager.translate((float) (x + 8), (float) (y + 12), 0F);
-				GlStateManager.scale(f, f, 1F);
-				GlStateManager.translate((float) (-(x + 8)), (float) (-(y + 12)), 0F);
+				GLS.pushMatrix();
+				GLS.translate((float) (x + 8), (float) (y + 12), 0F);
+				GLS.scale(f, f, 1F);
+				GLS.translate((float) (-(x + 8)), (float) (-(y + 12)), 0F);
 				animationTime -= partialTicks;
 			}
 
@@ -105,10 +105,10 @@ public class RecipeButton extends Button {
 			mc.getRenderItem().renderItemAndEffectIntoGUI(itemstack, x + k, y + k);
 
 			if (flag) {
-				GlStateManager.popMatrix();
+				GLS.popMatrix();
 			}
 
-			GlStateManager.enableLighting();
+			GLS.enableLighting();
 			RenderHelper.disableStandardItemLighting();
 		}
 	}

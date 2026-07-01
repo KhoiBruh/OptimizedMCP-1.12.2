@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity.layers;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderSpider;
 import net.minecraft.entity.monster.EntitySpider;
@@ -20,17 +20,17 @@ public class LayerSpiderEyes<T extends EntitySpider> implements LayerRenderer<T>
 	public void doRenderLayer(T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
 		spiderRenderer.bindTexture(SPIDER_EYES);
-		GlStateManager.enableBlend();
-		GlStateManager.disableAlpha();
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
+		GLS.enableBlend();
+		GLS.disableAlpha();
+		GLS.blendFunc(GLS.SourceFactor.ONE, GLS.DestFactor.ONE);
 
-		GlStateManager.depthMask(!entitylivingbaseIn.isInvisible());
+		GLS.depthMask(!entitylivingbaseIn.isInvisible());
 
 		int i = 61680;
 		int j = i % 65536;
 		int k = i / 65536;
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
 		spiderRenderer.getMainModel().render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		Minecraft.getMinecraft().entityRenderer.setupFogColor(false);
@@ -39,8 +39,8 @@ public class LayerSpiderEyes<T extends EntitySpider> implements LayerRenderer<T>
 		k = i / 65536;
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
 		spiderRenderer.setLightmap(entitylivingbaseIn);
-		GlStateManager.disableBlend();
-		GlStateManager.enableAlpha();
+		GLS.disableBlend();
+		GLS.enableAlpha();
 	}
 
 	public boolean shouldCombineTextures() {

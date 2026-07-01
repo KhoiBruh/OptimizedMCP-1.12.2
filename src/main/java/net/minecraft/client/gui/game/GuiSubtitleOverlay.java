@@ -7,7 +7,7 @@ import net.minecraft.client.audio.ISoundEventListener;
 import net.minecraft.client.audio.SoundEventAccessor;
 import net.minecraft.client.gui.Gui;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
@@ -36,9 +36,9 @@ public class GuiSubtitleOverlay extends Gui implements ISoundEventListener {
 		}
 
 		if (enabled && !subtitles.isEmpty()) {
-			GlStateManager.pushMatrix();
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+			GLS.pushMatrix();
+			GLS.enableBlend();
+			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 			Vec3d vec3d = new Vec3d(client.player.posX, client.player.posY + (double) client.player.getEyeHeight(), client.player.posZ);
 			Vec3d vec3d1 = (new Vec3d(0D, 0D, -1D)).rotatePitch(-client.player.rotationPitch * 0.017453292F).rotateYaw(-client.player.rotationYaw * 0.017453292F);
 			Vec3d vec3d2 = (new Vec3d(0D, 1D, 0D)).rotatePitch(-client.player.rotationPitch * 0.017453292F).rotateYaw(-client.player.rotationYaw * 0.017453292F);
@@ -73,11 +73,11 @@ public class GuiSubtitleOverlay extends Gui implements ISoundEventListener {
 				int k1 = client.fontRenderer.getStringWidth(s);
 				int l1 = MathHelper.floor(MathHelper.clampedLerp(255D, 75D, (float) (Minecraft.getSystemTime() - guisubtitleoverlay$subtitle1.getStartTime()) / 3000F));
 				int i2 = l1 << 16 | l1 << 8 | l1;
-				GlStateManager.pushMatrix();
-				GlStateManager.translate((float) client.getWindow().getScaledWidth() - (float) l - 2F, (float) (client.getWindow().getScaledHeight() - 30) - (float) (i * (i1 + 1)), 0F);
-				GlStateManager.scale(1F, 1F, 1F);
+				GLS.pushMatrix();
+				GLS.translate((float) client.getWindow().getScaledWidth() - (float) l - 2F, (float) (client.getWindow().getScaledHeight() - 30) - (float) (i * (i1 + 1)), 0F);
+				GLS.scale(1F, 1F, 1F);
 				drawRect(-l - 1, -j1 - 1, l + 1, j1 + 1, -872415232);
-				GlStateManager.enableBlend();
+				GLS.enableBlend();
 
 				if (!flag) {
 					if (d0 > 0D) {
@@ -88,12 +88,12 @@ public class GuiSubtitleOverlay extends Gui implements ISoundEventListener {
 				}
 
 				client.fontRenderer.drawString(s, -k1 / 2, -j1, i2 - 16777216);
-				GlStateManager.popMatrix();
+				GLS.popMatrix();
 				++i;
 			}
 
-			GlStateManager.disableBlend();
-			GlStateManager.popMatrix();
+			GLS.disableBlend();
+			GLS.popMatrix();
 		}
 	}
 

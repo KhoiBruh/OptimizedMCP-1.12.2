@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.debug;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,11 +26,11 @@ public class DebugRendererChunkBorder implements DebugRenderer.IDebugRenderer {
 		double d2 = entityplayer.lastTickPosZ + (entityplayer.posZ - entityplayer.lastTickPosZ) * (double) partialTicks;
 		double d3 = 0D - d1;
 		double d4 = 256D - d1;
-		GlStateManager.disableTexture2D();
-		GlStateManager.disableBlend();
+		GLS.disableTexture2D();
+		GLS.disableBlend();
 		double d5 = (double) (entityplayer.chunkCoordX << 4) - d0;
 		double d6 = (double) (entityplayer.chunkCoordZ << 4) - d2;
-		GlStateManager.lineWidth(1F);
+		GLS.lineWidth(1F);
 		bufferbuilder.begin(3, DefaultVertexFormats.POSITION_COLOR);
 
 		for (int i = -16; i <= 32; i += 16) {
@@ -76,7 +76,7 @@ public class DebugRendererChunkBorder implements DebugRenderer.IDebugRenderer {
 		}
 
 		tessellator.draw();
-		GlStateManager.lineWidth(2F);
+		GLS.lineWidth(2F);
 		bufferbuilder.begin(3, DefaultVertexFormats.POSITION_COLOR);
 
 		for (int j1 = 0; j1 <= 16; j1 += 16) {
@@ -100,9 +100,9 @@ public class DebugRendererChunkBorder implements DebugRenderer.IDebugRenderer {
 		}
 
 		tessellator.draw();
-		GlStateManager.lineWidth(1F);
-		GlStateManager.enableBlend();
-		GlStateManager.enableTexture2D();
+		GLS.lineWidth(1F);
+		GLS.enableBlend();
+		GLS.enableTexture2D();
 	}
 
 }

@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.network.NetHandlerPlayClient;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
@@ -127,18 +127,18 @@ public class EditSignScreen extends Screen {
 
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, I18n.format("sign.edit"), width / 2, 40, 16777215);
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.pushMatrix();
-		GlStateManager.translate((float) (width / 2), 0F, 50F);
+		GLS.color(1F, 1F, 1F, 1F);
+		GLS.pushMatrix();
+		GLS.translate((float) (width / 2), 0F, 50F);
 		float f = 93.75F;
-		GlStateManager.scale(-93.75F, -93.75F, -93.75F);
-		GlStateManager.rotate(180F, 0F, 1F, 0F);
+		GLS.scale(-93.75F, -93.75F, -93.75F);
+		GLS.rotate(180F, 0F, 1F, 0F);
 		Block block = tileSign.getBlockType();
 
 		if (block == Blocks.STANDING_SIGN) {
 			float f1 = (float) (tileSign.getBlockMetadata() * 360) / 16F;
-			GlStateManager.rotate(f1, 0F, 1F, 0F);
-			GlStateManager.translate(0F, -1.0625F, 0F);
+			GLS.rotate(f1, 0F, 1F, 0F);
+			GLS.translate(0F, -1.0625F, 0F);
 		} else {
 			int i = tileSign.getBlockMetadata();
 			float f2 = 0F;
@@ -155,8 +155,8 @@ public class EditSignScreen extends Screen {
 				f2 = -90F;
 			}
 
-			GlStateManager.rotate(f2, 0F, 1F, 0F);
-			GlStateManager.translate(0F, -1.0625F, 0F);
+			GLS.rotate(f2, 0F, 1F, 0F);
+			GLS.translate(0F, -1.0625F, 0F);
 		}
 
 		if (updateCounter / 6 % 2 == 0) {
@@ -165,7 +165,7 @@ public class EditSignScreen extends Screen {
 
 		TileEntityRendererDispatcher.instance.render(tileSign, -0.5D, -0.75D, -0.5D, 0F);
 		tileSign.lineBeingEdited = -1;
-		GlStateManager.popMatrix();
+		GLS.popMatrix();
 		super.draw(mouseX, mouseY, partialTicks);
 	}
 

@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.tileentity;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.EntityRenderer;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.Entity;
@@ -33,15 +33,15 @@ public abstract class TileEntitySpecialRenderer<T extends TileEntity> {
 	 */
 	protected void setLightmapDisabled(boolean disabled) {
 
-		GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+		GLS.setActiveTexture(OpenGlHelper.lightmapTexUnit);
 
 		if (disabled) {
-			GlStateManager.disableTexture2D();
+			GLS.disableTexture2D();
 		} else {
-			GlStateManager.enableTexture2D();
+			GLS.enableTexture2D();
 		}
 
-		GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
+		GLS.setActiveTexture(OpenGlHelper.defaultTexUnit);
 	}
 
 	protected void bindTexture(ResourceLocation location) {

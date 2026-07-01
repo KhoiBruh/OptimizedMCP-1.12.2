@@ -1,7 +1,7 @@
 package net.minecraft.client.util;
 
 import com.google.gson.JsonObject;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.util.JsonUtils;
 
 import java.util.Locale;
@@ -153,19 +153,19 @@ public class JsonBlendingMode {
 				lastApplied = this;
 
 				if (opaque) {
-					GlStateManager.disableBlend();
+					GLS.disableBlend();
 					return;
 				}
 
-				GlStateManager.enableBlend();
+				GLS.enableBlend();
 			}
 
-			GlStateManager.blendEquation(blendFunction);
+			GLS.blendEquation(blendFunction);
 
 			if (separateBlend) {
-				GlStateManager.blendFunc(srcColorFactor, destColorFactor, srcAlphaFactor, destAlphaFactor);
+				GLS.blendFunc(srcColorFactor, destColorFactor, srcAlphaFactor, destAlphaFactor);
 			} else {
-				GlStateManager.blendFunc(srcColorFactor, destColorFactor);
+				GLS.blendFunc(srcColorFactor, destColorFactor);
 			}
 		}
 	}

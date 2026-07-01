@@ -10,7 +10,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.component.GuiListExtended;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.multiplayer.ServerData;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.I18n;
@@ -125,7 +125,7 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
 			s1 = I18n.format("multiplayer.status.pinging");
 		}
 
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(Gui.ICONS);
 		Gui.drawModalRectWithCustomSizedTexture(x + listWidth - 15, y, (float) (k * 10), (float) (176 + l * 8), 10, 8, 256F, 256F);
 
@@ -153,7 +153,7 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
 		if (mc.gameSettings.touchscreen || isSelected) {
 			mc.getTextureManager().bindTexture(SERVER_SELECTION_BUTTONS);
 			Gui.drawRect(x, y, x + 32, y + 32, -1601138544);
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GLS.color(1F, 1F, 1F, 1F);
 			int k1 = mouseX - x;
 			int l1 = mouseY - y;
 
@@ -186,9 +186,9 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
 	protected void drawTextureAt(int p_178012_1_, int p_178012_2_, ResourceLocation p_178012_3_) {
 
 		mc.getTextureManager().bindTexture(p_178012_3_);
-		GlStateManager.enableBlend();
+		GLS.enableBlend();
 		Gui.drawModalRectWithCustomSizedTexture(p_178012_1_, p_178012_2_, 0F, 0F, 32, 32, 32F, 32F);
-		GlStateManager.disableBlend();
+		GLS.disableBlend();
 	}
 
 	private boolean canJoin() {

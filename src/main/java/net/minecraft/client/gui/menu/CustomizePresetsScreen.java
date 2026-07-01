@@ -6,7 +6,7 @@ import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.GuiSlot;
 import net.minecraft.client.gui.component.GuiTextField;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
@@ -216,7 +216,7 @@ public class CustomizePresetsScreen extends Screen {
 			drawHorizontalLine(i - 1, i + 32, p_178051_2_ + 32, -6250336);
 			drawVerticalLine(i - 1, p_178051_2_ - 1, p_178051_2_ + 32, -2039584);
 			drawVerticalLine(i + 32, p_178051_2_ - 1, p_178051_2_ + 32, -6250336);
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GLS.color(1F, 1F, 1F, 1F);
 			mc.getTextureManager().bindTexture(texture);
 			int j = 32;
 			int k = 32;
