@@ -11,28 +11,23 @@ public class MovingSoundMinecartRiding extends MovingSound {
 	private final EntityPlayer player;
 	private final EntityMinecart minecart;
 
-	public MovingSoundMinecartRiding(EntityPlayer playerRiding, EntityMinecart minecart) {
-
+	public MovingSoundMinecartRiding(EntityPlayer player, EntityMinecart minecart) {
 		super(SoundEvents.ENTITY_MINECART_INSIDE, SoundCategory.NEUTRAL);
-		player = playerRiding;
+		this.player = player;
 		this.minecart = minecart;
 		attenuationType = ISound.AttenuationType.NONE;
 		repeat = true;
 		repeatDelay = 0;
 	}
 
-	/**
-	 * Like the old updateEntity(), except more generic.
-	 */
 	public void update() {
-
 		if (!minecart.isDead && player.isRiding() && player.getRidingEntity() == minecart) {
 			float f = MathHelper.sqrt(minecart.motionX * minecart.motionX + minecart.motionZ * minecart.motionZ);
 
-			if ((double) f >= 0.01D) {
-				volume = 0F + MathHelper.clamp(f, 0F, 1F) * 0.75F;
+			if (f >= 0.01) {
+				volume = MathHelper.clamp(f, 0, 1) * 0.75F;
 			} else {
-				volume = 0F;
+				volume = 0;
 			}
 		} else {
 			donePlaying = true;

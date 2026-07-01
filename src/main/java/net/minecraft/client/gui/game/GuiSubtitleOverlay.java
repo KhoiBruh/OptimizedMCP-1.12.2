@@ -97,7 +97,7 @@ public class GuiSubtitleOverlay extends Gui implements ISoundEventListener {
 		}
 	}
 
-	public void soundPlay(ISound soundIn, SoundEventAccessor accessor) {
+	public void soundPlay(ISound sound, SoundEventAccessor accessor) {
 
 		if (accessor.getSubtitle() != null) {
 			String s = accessor.getSubtitle().getFormattedText();
@@ -105,13 +105,13 @@ public class GuiSubtitleOverlay extends Gui implements ISoundEventListener {
 			if (!subtitles.isEmpty()) {
 				for (GuiSubtitleOverlay.Subtitle guisubtitleoverlay$subtitle : subtitles) {
 					if (guisubtitleoverlay$subtitle.getString().equals(s)) {
-						guisubtitleoverlay$subtitle.refresh(new Vec3d(soundIn.getXPosF(), soundIn.getYPosF(), soundIn.getZPosF()));
+						guisubtitleoverlay$subtitle.refresh(new Vec3d(sound.getX(), sound.getY(), sound.getZ()));
 						return;
 					}
 				}
 			}
 
-			subtitles.add(new GuiSubtitleOverlay.Subtitle(s, new Vec3d(soundIn.getXPosF(), soundIn.getYPosF(), soundIn.getZPosF())));
+			subtitles.add(new GuiSubtitleOverlay.Subtitle(s, new Vec3d(sound.getX(), sound.getY(), sound.getZ())));
 		}
 	}
 

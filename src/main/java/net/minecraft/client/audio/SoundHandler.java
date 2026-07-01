@@ -15,6 +15,7 @@ import net.minecraft.util.SoundCategory;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jspecify.annotations.NonNull;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -32,40 +33,35 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final Gson GSON = (new GsonBuilder()).registerTypeHierarchyAdapter(ITextComponent.class, new ITextComponent.Serializer()).registerTypeAdapter(SoundList.class, new SoundListSerializer()).create();
 	private static final ParameterizedType TYPE = new ParameterizedType() {
-		public Type[] getActualTypeArguments() {
-
+		public Type @NonNull [] getActualTypeArguments() {
 			return new Type[]{String.class, SoundList.class};
 		}
 
-		public Type getRawType() {
-
+		public @NonNull Type getRawType() {
 			return Map.class;
 		}
 
 		public Type getOwnerType() {
-
 			return null;
 		}
 	};
 	private final SoundRegistry soundRegistry = new SoundRegistry();
-	private final SoundManager sndManager;
-	private final IResourceManager mcResourceManager;
+	private final SoundManager soundManager;
+	private final IResourceManager resourceManager;
 
-	public SoundHandler(IResourceManager manager, GameSettings gameSettingsIn) {
-
-		mcResourceManager = manager;
-		sndManager = new SoundManager(this, gameSettingsIn);
+	public SoundHandler(IResourceManager manager, GameSettings settings) {
+		resourceManager = manager;
+		soundManager = new SoundManager(this, settings);
 	}
 
-	public void onResourceManagerReload(IResourceManager resourceManager) {
-
+	public void onResourceManagerReload(IResourceManager manager) {
 		soundRegistry.clearMap();
 
-		for (String s : resourceManager.getResourceDomains()) {
+		for (String s : manager.getResourceDomains()) {
 			try {
-				for (IResource iresource : resourceManager.getAllResources(new ResourceLocation(s, "sounds.json"))) {
+				for (IResource resource : manager.getAllResources(new ResourceLocation(s, "sounds.json"))) {
 					try {
-						Map<String, SoundList> map = getSoundMap(iresource.getInputStream());
+						Map<String, SoundList> map = getSoundMap(resource.getInputStream());
 
 						for (Entry<String, SoundList> entry : map.entrySet()) {
 							loadSoundResource(new ResourceLocation(s, entry.getKey()), entry.getValue());
@@ -78,15 +74,13 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 			}
 		}
 
-		for (ResourceLocation resourcelocation : soundRegistry.getKeys()) {
-			SoundEventAccessor soundeventaccessor = soundRegistry.getObject(resourcelocation);
+		for (ResourceLocation location : soundRegistry.getKeys()) {
+			SoundEventAccessor accessor = soundRegistry.getObject(location);
 
-			if (soundeventaccessor.getSubtitle() instanceof TextComponentTranslation) {
-				String s1 = ((TextComponentTranslation) soundeventaccessor.getSubtitle()).getKey();
+			if (accessor.getSubtitle() instanceof TextComponentTranslation) {
+				String s1 = ((TextComponentTranslation) accessor.getSubtitle()).getKey();
 
-				if (!I18n.hasKey(s1)) {
-					LOGGER.debug("Missing subtitle {} for event: {}", s1, resourcelocation);
-				}
+				if (!I18n.hasKey(s1)) LOGGER.debug("Missing subtitle {} for event: {}", s1, location);
 			}
 		}
 
@@ -96,12 +90,11 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 			}
 		}
 
-		sndManager.reloadSoundSystem();
+		soundManager.reloadSoundSystem();
 	}
 
 	
 	protected Map<String, SoundList> getSoundMap(InputStream stream) {
-
 		Map<String, SoundList> map;
 
 		try {
@@ -114,89 +107,75 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 	}
 
 	private void loadSoundResource(ResourceLocation location, SoundList sounds) {
-
-		SoundEventAccessor soundeventaccessor = soundRegistry.getObject(location);
-		boolean flag = soundeventaccessor == null;
+		SoundEventAccessor accessor = soundRegistry.getObject(location);
+		boolean flag = accessor == null;
 
 		if (flag || sounds.canReplaceExisting()) {
 			if (!flag) {
 				LOGGER.debug("Replaced sound event location {}", location);
 			}
 
-			soundeventaccessor = new SoundEventAccessor(location, sounds.getSubtitle());
-			soundRegistry.add(soundeventaccessor);
+			accessor = new SoundEventAccessor(location, sounds.getSubtitle());
+			soundRegistry.add(accessor);
 		}
 
 		for (final Sound sound : sounds.getSounds()) {
-			final ResourceLocation resourcelocation = sound.getSoundLocation();
-			ISoundEventAccessor<Sound> isoundeventaccessor;
+			final ResourceLocation name = sound.name();
+			ISoundEventAccessor<Sound> eventAccessor;
 
-			switch (sound.getType()) {
-				case FILE:
-					if (!validateSoundResource(sound, location)) {
-						continue;
+			switch (sound.type()) {
+				case FILE -> {
+					if (!validateSoundResource(sound, location)) continue;
+					eventAccessor = sound;
+				}
+
+				case SOUND_EVENT -> eventAccessor = new ISoundEventAccessor<>() {
+					public int weight() {
+						SoundEventAccessor soundeventaccessor1 = soundRegistry.getObject(name);
+						return soundeventaccessor1 == null ? 0 : soundeventaccessor1.weight();
 					}
 
-					isoundeventaccessor = sound;
-					break;
+					public Sound cloneEntry() {
+						SoundEventAccessor accessor = soundRegistry.getObject(name);
 
-				case SOUND_EVENT:
-					isoundeventaccessor = new ISoundEventAccessor<>() {
-						public int getWeight() {
-
-							SoundEventAccessor soundeventaccessor1 = soundRegistry.getObject(resourcelocation);
-							return soundeventaccessor1 == null ? 0 : soundeventaccessor1.getWeight();
+						if (accessor == null) {
+							return SoundHandler.MISSING_SOUND;
+						} else {
+							Sound other = accessor.cloneEntry();
+							return new Sound(other.name().toString(), other.volume() * sound.volume(), other.pitch() * sound.pitch(), sound.weight(), Sound.Type.FILE, other.streaming() || sound.streaming());
 						}
+					}
+				};
 
-						public Sound cloneEntry() {
-
-							SoundEventAccessor soundeventaccessor1 = soundRegistry.getObject(resourcelocation);
-
-							if (soundeventaccessor1 == null) {
-								return SoundHandler.MISSING_SOUND;
-							} else {
-								Sound sound1 = soundeventaccessor1.cloneEntry();
-								return new Sound(sound1.getSoundLocation().toString(), sound1.getVolume() * sound.getVolume(), sound1.getPitch() * sound.getPitch(), sound.getWeight(), Sound.Type.FILE, sound1.isStreaming() || sound.isStreaming());
-							}
-						}
-					};
-
-					break;
-				default:
-					throw new IllegalStateException("Unknown SoundEventRegistration type: " + sound.getType());
+				default -> throw new IllegalStateException("Unknown SoundEventRegistration type: " + sound.type());
 			}
 
-			soundeventaccessor.addSound(isoundeventaccessor);
+			accessor.addSound(eventAccessor);
 		}
 	}
 
-	private boolean validateSoundResource(Sound p_184401_1_, ResourceLocation p_184401_2_) {
-
-		ResourceLocation resourcelocation = p_184401_1_.getSoundAsOggLocation();
-		IResource iresource = null;
-		boolean flag;
+	private boolean validateSoundResource(Sound sound, ResourceLocation location) {
+		ResourceLocation oggLocation = sound.getOggLocation();
+		IResource resource = null;
 
 		try {
-			iresource = mcResourceManager.getResource(resourcelocation);
-			iresource.getInputStream();
+			resource = resourceManager.getResource(oggLocation);
+			resource.getInputStream();
 			return true;
 		} catch (FileNotFoundException var11) {
-			LOGGER.warn("File {} does not exist, cannot add it to event {}", resourcelocation, p_184401_2_);
-			flag = false;
+			LOGGER.warn("File {} does not exist, cannot add it to event {}", oggLocation, location);
 		} catch (IOException ioexception) {
-			LOGGER.warn("Could not load sound file {}, cannot add it to event {}", resourcelocation, p_184401_2_, ioexception);
-			flag = false;
-			return flag;
+			LOGGER.warn("Could not load sound file {}, cannot add it to event {}", oggLocation, location, ioexception);
+			return false;
 		} finally {
-			IOUtils.closeQuietly(iresource);
+			IOUtils.closeQuietly(resource);
 		}
 
-		return flag;
+		return false;
 	}
 
 	
 	public SoundEventAccessor getAccessor(ResourceLocation location) {
-
 		return soundRegistry.getObject(location);
 	}
 
@@ -204,83 +183,67 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 	 * Play a sound
 	 */
 	public void playSound(ISound sound) {
-
-		sndManager.playSound(sound);
+		soundManager.playSound(sound);
 	}
 
 	/**
 	 * Plays the sound in n ticks
 	 */
 	public void playDelayedSound(ISound sound, int delay) {
-
-		sndManager.playDelayedSound(sound, delay);
+		soundManager.playDelayedSound(sound, delay);
 	}
 
-	public void setListener(EntityPlayer player, float p_147691_2_) {
-
-		sndManager.setListener(player, p_147691_2_);
+	public void setListener(EntityPlayer player, float partialTicks) {
+		soundManager.setListener(player, partialTicks);
 	}
 
 	public void pauseSounds() {
-
-		sndManager.pauseAllSounds();
+		soundManager.pauseAllSounds();
 	}
 
 	public void stopSounds() {
-
-		sndManager.stopAllSounds();
+		soundManager.stopAllSounds();
 	}
 
 	public void unloadSounds() {
-
-		sndManager.unloadSoundSystem();
+		soundManager.unloadSoundSystem();
 	}
 
 	/**
 	 * Like the old updateEntity(), except more generic.
 	 */
 	public void update() {
-
-		sndManager.updateAllSounds();
+		soundManager.updateAllSounds();
 	}
 
 	public void resumeSounds() {
-
-		sndManager.resumeAllSounds();
+		soundManager.resumeAllSounds();
 	}
 
 	public void setSoundLevel(SoundCategory category, float volume) {
+		if (category == SoundCategory.MASTER && volume <= 0F) stopSounds();
 
-		if (category == SoundCategory.MASTER && volume <= 0F) {
-			stopSounds();
-		}
-
-		sndManager.setVolume(category, volume);
+		soundManager.setVolume(category, volume);
 	}
 
 	public void stopSound(ISound soundIn) {
-
-		sndManager.stopSound(soundIn);
+		soundManager.stopSound(soundIn);
 	}
 
 	public boolean isSoundPlaying(ISound sound) {
-
-		return sndManager.isSoundPlaying(sound);
+		return soundManager.isSoundPlaying(sound);
 	}
 
 	public void addListener(ISoundEventListener listener) {
-
-		sndManager.addListener(listener);
+		soundManager.addListener(listener);
 	}
 
 	public void removeListener(ISoundEventListener listener) {
-
-		sndManager.removeListener(listener);
+		soundManager.removeListener(listener);
 	}
 
-	public void stop(String p_189520_1_, SoundCategory p_189520_2_) {
-
-		sndManager.stop(p_189520_1_, p_189520_2_);
+	public void stop(String name, SoundCategory category) {
+		soundManager.stop(name, category);
 	}
 
 }

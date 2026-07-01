@@ -1,5 +1,6 @@
 package net.minecraft.client.audio;
 
+import lombok.Getter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ITickable;
@@ -13,49 +14,39 @@ public class MusicTicker implements ITickable {
 	private final Random rand = new Random();
 	private final Minecraft mc;
 	private ISound currentMusic;
-	private int timeUntilNextMusic = 100;
+	private int nextMusicTime = 100;
 
-	public MusicTicker(Minecraft mcIn) {
-
-		mc = mcIn;
+	public MusicTicker(Minecraft mc) {
+		this.mc = mc;
 	}
 
-	/**
-	 * Like the old updateEntity(), except more generic.
-	 */
 	public void update() {
-
-		MusicTicker.MusicType musicticker$musictype = mc.getAmbientMusicType();
+		MusicTicker.MusicType musicType = mc.getAmbientMusicType();
 
 		if (currentMusic != null) {
-			if (!musicticker$musictype.getMusicLocation().soundName().equals(currentMusic.getSoundLocation())) {
+			if (!musicType.getMusicLocation().soundName().equals(currentMusic.getSoundLocation())) {
 				mc.getSoundHandler().stopSound(currentMusic);
-				timeUntilNextMusic = MathHelper.getInt(rand, 0, musicticker$musictype.getMinDelay() / 2);
+				nextMusicTime = MathHelper.getInt(rand, 0, musicType.getMinDelay() / 2);
 			}
 
 			if (!mc.getSoundHandler().isSoundPlaying(currentMusic)) {
 				currentMusic = null;
-				timeUntilNextMusic = Math.min(MathHelper.getInt(rand, musicticker$musictype.getMinDelay(), musicticker$musictype.getMaxDelay()), timeUntilNextMusic);
+				nextMusicTime = Math.min(MathHelper.getInt(rand, musicType.getMinDelay(), musicType.getMaxDelay()), nextMusicTime);
 			}
 		}
 
-		timeUntilNextMusic = Math.min(timeUntilNextMusic, musicticker$musictype.getMaxDelay());
+		nextMusicTime = Math.min(nextMusicTime, musicType.getMaxDelay());
 
-		if (currentMusic == null && timeUntilNextMusic-- <= 0) {
-			playMusic(musicticker$musictype);
-		}
+		if (currentMusic == null && nextMusicTime-- <= 0) playMusic(musicType);
 	}
 
-	/**
-	 * Plays a music track for the maximum allowable period of time
-	 */
-	public void playMusic(MusicTicker.MusicType requestedMusicType) {
-
-		currentMusic = PositionedSoundRecord.getMusicRecord(requestedMusicType.getMusicLocation());
+	public void playMusic(MusicTicker.MusicType musicType) {
+		currentMusic = PositionedSoundRecord.getMusicRecord(musicType.getMusicLocation());
 		mc.getSoundHandler().playSound(currentMusic);
-		timeUntilNextMusic = Integer.MAX_VALUE;
+		nextMusicTime = Integer.MAX_VALUE;
 	}
 
+	@Getter
 	public enum MusicType {
 		MENU(SoundEvents.MUSIC_MENU, 20, 600),
 		GAME(SoundEvents.MUSIC_GAME, 12000, 24000),
@@ -70,26 +61,11 @@ public class MusicTicker implements ITickable {
 		private final int maxDelay;
 
 		MusicType(SoundEvent musicLocationIn, int minDelayIn, int maxDelayIn) {
-
 			musicLocation = musicLocationIn;
 			minDelay = minDelayIn;
 			maxDelay = maxDelayIn;
 		}
 
-		public SoundEvent getMusicLocation() {
-
-			return musicLocation;
-		}
-
-		public int getMinDelay() {
-
-			return minDelay;
-		}
-
-		public int getMaxDelay() {
-
-			return maxDelay;
-		}
 	}
 
 }

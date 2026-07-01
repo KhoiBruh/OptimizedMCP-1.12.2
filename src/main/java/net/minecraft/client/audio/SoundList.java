@@ -13,25 +13,20 @@ public class SoundList {
 	private final String subtitle;
 
 	public SoundList(List<Sound> soundsIn, boolean replceIn, String subtitleIn) {
-
 		sounds = soundsIn;
 		replaceExisting = replceIn;
 		subtitle = subtitleIn;
 	}
 
 	public List<Sound> getSounds() {
-
 		return sounds;
 	}
 
 	public boolean canReplaceExisting() {
-
 		return replaceExisting;
 	}
 
-	
 	public String getSubtitle() {
-
 		return subtitle;
 	}
 

@@ -1,5 +1,6 @@
 package net.minecraft.client.audio;
 
+import lombok.Getter;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 
@@ -7,7 +8,6 @@ public interface ISound {
 
 	ResourceLocation getSoundLocation();
 
-	
 	SoundEventAccessor createAccessor(SoundHandler handler);
 
 	Sound getSound();
@@ -22,29 +22,25 @@ public interface ISound {
 
 	float getPitch();
 
-	float getXPosF();
+	float getX();
 
-	float getYPosF();
+	float getY();
 
-	float getZPosF();
+	float getZ();
 
 	ISound.AttenuationType getAttenuationType();
 
+	@Getter
 	enum AttenuationType {
 		NONE(0),
 		LINEAR(2);
 
 		private final int type;
 
-		AttenuationType(int typeIn) {
-
-			type = typeIn;
+		AttenuationType(int type) {
+			this.type = type;
 		}
 
-		public int getTypeInt() {
-
-			return type;
-		}
 	}
 
 }

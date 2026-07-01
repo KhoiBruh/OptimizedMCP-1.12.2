@@ -10,17 +10,15 @@ import java.util.List;
 
 public class SoundListSerializer implements JsonDeserializer<SoundList> {
 
-	public SoundList deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-
-		JsonObject jsonobject = JsonUtils.getJsonObject(p_deserialize_1_, "entry");
-		boolean flag = JsonUtils.getBoolean(jsonobject, "replace", false);
-		String s = JsonUtils.getString(jsonobject, "subtitle", null);
-		List<Sound> list = deserializeSounds(jsonobject);
+	public SoundList deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
+		JsonObject object = JsonUtils.getJsonObject(json, "entry");
+		boolean flag = JsonUtils.getBoolean(object, "replace", false);
+		String s = JsonUtils.getString(object, "subtitle", null);
+		List<Sound> list = deserializeSounds(object);
 		return new SoundList(list, flag, s);
 	}
 
 	private List<Sound> deserializeSounds(JsonObject object) {
-
 		List<Sound> list = Lists.newArrayList();
 
 		if (object.has("sounds")) {
@@ -42,9 +40,8 @@ public class SoundListSerializer implements JsonDeserializer<SoundList> {
 	}
 
 	private Sound deserializeSound(JsonObject object) {
-
 		String s = JsonUtils.getString(object, "name");
-		Sound.Type sound$type = deserializeType(object, Sound.Type.FILE);
+		Sound.Type sound$type = deserializeType(object);
 		float f = JsonUtils.getFloat(object, "volume", 1F);
 		Validate.isTrue(f > 0F, "Invalid volume");
 		float f1 = JsonUtils.getFloat(object, "pitch", 1F);
@@ -55,16 +52,15 @@ public class SoundListSerializer implements JsonDeserializer<SoundList> {
 		return new Sound(s, f, f1, i, sound$type, flag);
 	}
 
-	private Sound.Type deserializeType(JsonObject object, Sound.Type defaultValue) {
-
-		Sound.Type sound$type = defaultValue;
+	private Sound.Type deserializeType(JsonObject object) {
+		Sound.Type type = Sound.Type.FILE;
 
 		if (object.has("type")) {
-			sound$type = Sound.Type.getByName(JsonUtils.getString(object, "type"));
-			Validate.notNull(sound$type, "Invalid type");
+			type = Sound.Type.getByName(JsonUtils.getString(object, "type"));
+			Validate.notNull(type, "Invalid type");
 		}
 
-		return sound$type;
+		return type;
 	}
 
 }

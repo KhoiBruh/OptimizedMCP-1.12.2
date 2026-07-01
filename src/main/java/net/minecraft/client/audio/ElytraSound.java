@@ -27,9 +27,9 @@ public class ElytraSound extends MovingSound {
 		++time;
 
 		if (!player.isDead && (time <= 20 || player.isElytraFlying())) {
-			xPosF = (float) player.posX;
-			yPosF = (float) player.posY;
-			zPosF = (float) player.posZ;
+			x = (float) player.posX;
+			y = (float) player.posY;
+			z = (float) player.posZ;
 			float f = MathHelper.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ + player.motionY * player.motionY);
 			float f1 = f / 2F;
 

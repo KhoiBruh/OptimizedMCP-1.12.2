@@ -87,8 +87,7 @@ public final class Window {
         GL.createCapabilities();
 
         glfwSetFramebufferSizeCallback(handle, (win, w, h) -> {
-            width = w;
-            height = h;
+            setWindowedSize(w, h);
             resized = true;
             glViewport(0, 0, w, h);
         });
