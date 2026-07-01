@@ -2,7 +2,7 @@ package net.minecraft.client.gui.option;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.client.audio.SoundManager;
+import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.component.GuiButton;
 import net.minecraft.client.gui.component.GuiOptionButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -157,7 +157,7 @@ public class GuiScreenOptionsSounds extends GuiScreen {
 			}
 		}
 
-		public void playPressSound(SoundManager soundHandlerIn) {
+		public void playPressSound(SoundHandler soundHandlerIn) {
 
 		}
 

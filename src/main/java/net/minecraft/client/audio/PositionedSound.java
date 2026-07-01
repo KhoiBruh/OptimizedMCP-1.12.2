@@ -50,11 +50,11 @@ public abstract class PositionedSound implements ISound {
 		return location;
 	}
 
-	public SoundEventAccessor createAccessor(SoundManager handler) {
+	public SoundEventAccessor createAccessor(SoundHandler handler) {
 		SoundEventAccessor soundEvent = handler.getAccessor(location);
 
 		if (soundEvent == null) {
-			sound = SoundManager.MISSING_SOUND;
+			sound = SoundHandler.MISSING_SOUND;
 		} else {
 			sound = soundEvent.cloneEntry();
 		}

@@ -8,7 +8,7 @@ public interface ISound {
 
 	ResourceLocation getSoundLocation();
 
-	SoundEventAccessor createAccessor(SoundManager handler);
+	SoundEventAccessor createAccessor(SoundHandler handler);
 
 	Sound getSound();
 

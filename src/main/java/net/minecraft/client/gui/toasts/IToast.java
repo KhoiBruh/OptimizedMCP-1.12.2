@@ -1,7 +1,7 @@
 package net.minecraft.client.gui.toasts;
 
 import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.client.audio.SoundManager;
+import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
@@ -29,7 +29,7 @@ public interface IToast {
 			sound = soundIn;
 		}
 
-		public void playSound(SoundManager handler) {
+		public void playSound(SoundHandler handler) {
 
 			handler.playSound(PositionedSoundRecord.getRecord(sound, 1F, 1F));
 		}
