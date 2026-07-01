@@ -15,7 +15,6 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.HttpUtil;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormat;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import org.apache.commons.io.filefilter.TrueFileFilter;
@@ -23,6 +22,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Pattern;
@@ -193,7 +195,7 @@ public class ResourcePackRepository {
 
 	public ListenableFuture<Object> downloadResourcePack(String url, String hash) {
 
-		String s = DigestUtils.sha1Hex(url);
+		String s = sha1Hex(url);
 		final String s1 = SHA1.matcher(hash).matches() ? hash : "";
 		final File file1 = new File(dirServerResourcepacks, s);
 		lock.lock();
@@ -243,23 +245,19 @@ public class ResourcePackRepository {
 
 	private boolean checkHash(String p_190113_1_, File p_190113_2_) {
 
-		try {
-			String s = DigestUtils.sha1Hex(new FileInputStream(p_190113_2_));
+		String s = sha1Hex(p_190113_2_);
 
-			if (p_190113_1_.isEmpty()) {
-				LOGGER.info("Found file {} without verification hash", p_190113_2_);
-				return true;
-			}
-
-			if (s.toLowerCase(java.util.Locale.ROOT).equals(p_190113_1_.toLowerCase(java.util.Locale.ROOT))) {
-				LOGGER.info("Found file {} matching requested hash {}", p_190113_2_, p_190113_1_);
-				return true;
-			}
-
-			LOGGER.warn("File {} had wrong hash (expected {}, found {}).", p_190113_2_, p_190113_1_, s);
-		} catch (IOException ioexception) {
-			LOGGER.warn("File {} couldn't be hashed.", p_190113_2_, ioexception);
+		if (p_190113_1_.isEmpty()) {
+			LOGGER.info("Found file {} without verification hash", p_190113_2_);
+			return true;
 		}
+
+		if (s.toLowerCase(java.util.Locale.ROOT).equals(p_190113_1_.toLowerCase(java.util.Locale.ROOT))) {
+			LOGGER.info("Found file {} matching requested hash {}", p_190113_2_, p_190113_1_);
+			return true;
+		}
+
+		LOGGER.warn("File {} had wrong hash (expected {}, found {}).", p_190113_2_, p_190113_1_, s);
 
 		return false;
 	}
@@ -335,6 +333,29 @@ public class ResourcePackRepository {
 			}
 		} finally {
 			lock.unlock();
+		}
+	}
+
+	private static String sha1Hex(String data) {
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-1");
+			return HexFormat.of().formatHex(md.digest(data.getBytes(StandardCharsets.UTF_8)));
+		} catch (NoSuchAlgorithmException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	private static String sha1Hex(File file) {
+		try (InputStream in = new FileInputStream(file)) {
+			MessageDigest md = MessageDigest.getInstance("SHA-1");
+			byte[] buffer = new byte[8192];
+			int len;
+			while ((len = in.read(buffer)) != -1) {
+				md.update(buffer, 0, len);
+			}
+			return HexFormat.of().formatHex(md.digest());
+		} catch (NoSuchAlgorithmException | IOException e) {
+			throw new RuntimeException(e);
 		}
 	}
 
