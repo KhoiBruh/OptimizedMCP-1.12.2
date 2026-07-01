@@ -176,7 +176,7 @@ public class GuiScreenResourcePacks extends GuiScreen {
 		availableResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
 		selectedResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
 		drawCenteredString(fontRenderer, I18n.format("resourcePack.title"), width / 2, 16, 16777215);
-		drawCenteredString(fontRenderer, I18n.format("resourcePack.folderInfo"), width / 2 - 77, height - 26, 8421504);
+		drawCenteredString(fontRenderer, I18n.format("resourcePack.folder"), width / 2 - 77, height - 26, 8421504);
 		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
 

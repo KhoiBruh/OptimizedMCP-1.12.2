@@ -215,7 +215,7 @@ public class GuiMainMenu extends GuiScreen {
 	}
 
 	/**
-	 * Adds Singleplayer and Multiplayer buttons on Main Menu for players who have bought the game.
+	 * Adds Singleplayer and Multiplayer buttons on net.minecraft.client.main.Main Menu for players who have bought the game.
 	 */
 	private void addSingleplayerMultiplayerButtons(int p_73969_1_, int p_73969_2_) {
 

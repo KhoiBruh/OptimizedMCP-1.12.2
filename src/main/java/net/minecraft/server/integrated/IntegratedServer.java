@@ -121,7 +121,7 @@ public class IntegratedServer extends MinecraftServer {
 	}
 
 	/**
-	 * Main function called by run() every loop.
+	 * net.minecraft.client.main.Main function called by run() every loop.
 	 */
 	public void tick() {
 

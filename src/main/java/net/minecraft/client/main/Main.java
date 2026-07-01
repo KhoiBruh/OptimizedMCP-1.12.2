@@ -1,9 +1,10 @@
+package net.minecraft.client.main;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.authlib.properties.PropertyMap.Serializer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.main.GameConfiguration;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.Session;
 import picocli.CommandLine;
@@ -23,13 +24,12 @@ public class Main {
 
 	private static final String DEFAULT_USER_TYPE = "legacy";
 	private static final String DEFAULT_VERSION_TYPE = "release";
-	private static final String DEFAULT_PROPERTIES_JSON = "{}";
+	private static final String DEFAULT_PROPERTIES = "{}";
 	private static final Gson GSON = new GsonBuilder()
 			.registerTypeAdapter(PropertyMap.class, new Serializer())
 			.create();
 
 	public static void main(String[] args) {
-
 		LaunchOptions options = parseLaunchOptions(args);
 		System.out.println("Completely ignored arguments: " + options.unmatcheds);
 
@@ -37,15 +37,14 @@ public class Main {
 		proxyAuth(proxy, options.proxyUser, options.proxyPass);
 
 		Session session = new Session(options.username, options.uuid, options.accessToken, options.userType);
-		PropertyMap userProperties = JsonUtils.gsonDeserialize(GSON, options.userPropertiesJson, PropertyMap.class);
-		PropertyMap profileProperties = JsonUtils.gsonDeserialize(GSON, options.profilePropertiesJson, PropertyMap.class);
+		PropertyMap userProperties = JsonUtils.gsonDeserialize(GSON, options.userProperties, PropertyMap.class);
+		PropertyMap profileProperties = JsonUtils.gsonDeserialize(GSON, options.profileProperties, PropertyMap.class);
 
-		GameConfiguration configuration = new GameConfiguration(
-				new GameConfiguration.UserInformation(session, userProperties, profileProperties, proxy),
-				new GameConfiguration.DisplayInformation(options.width, options.height, options.fullscreen),
-				new GameConfiguration.FolderInformation(options.gameDir, options.resourcePackDir, options.assetsDir, options.assetIndex),
-				new GameConfiguration.GameInformation(options.version, options.versionType),
-				new GameConfiguration.ServerInformation(options.server, options.port)
+		GameConfig config = new GameConfig(
+				new GameConfig.User(session, userProperties, profileProperties, proxy),
+				new GameConfig.Display(options.width, options.height, options.fullscreen),
+				new GameConfig.Folder(options.gameDir, options.resourcePackDir, options.assetsDir, options.assetIndex),
+				new GameConfig.Game(options.version, options.versionType)
 		);
 
 		Runtime.getRuntime().addShutdownHook(new Thread("Client Shutdown Thread") {
@@ -55,19 +54,17 @@ public class Main {
 		});
 
 		Thread.currentThread().setName("Client Thread");
-		new Minecraft(configuration).run();
+		new Minecraft(config).run();
 	}
 
 	private static LaunchOptions parseLaunchOptions(String[] args) {
-
 		LaunchOptions options = new LaunchOptions();
 		new CommandLine(options).setUnmatchedArgumentsAllowed(true).parseArgs(args);
-		options.applyDerivedDefaults();
+		options.useDefault();
 		return options;
 	}
 
 	private static Proxy createProxy(String host, int port) {
-
 		if (host == null) return Proxy.NO_PROXY;
 
 		try {
@@ -78,11 +75,9 @@ public class Main {
 	}
 
 	private static void proxyAuth(Proxy proxy, final String username, final String password) {
-
 		if (!proxy.equals(Proxy.NO_PROXY) && isNotNullOrEmpty(username) && isNotNullOrEmpty(password)) {
 			Authenticator.setDefault(new Authenticator() {
 				protected PasswordAuthentication getPasswordAuthentication() {
-
 					return new PasswordAuthentication(username, password.toCharArray());
 				}
 			});
@@ -90,7 +85,6 @@ public class Main {
 	}
 
 	private static boolean isNotNullOrEmpty(String str) {
-
 		return str != null && !str.isEmpty();
 	}
 
@@ -98,12 +92,6 @@ public class Main {
 
 		@Unmatched
 		List<String> unmatcheds = new ArrayList<>();
-
-		@Option(names = "--server")
-		String server;
-
-		@Option(names = "--port", defaultValue = "25565")
-		int port;
 
 		@Option(names = "--gameDir", defaultValue = ".")
 		File gameDir;
@@ -147,11 +135,11 @@ public class Main {
 		@Option(names = "--fullscreen")
 		boolean fullscreen;
 
-		@Option(names = "--userProperties", defaultValue = DEFAULT_PROPERTIES_JSON)
-		String userPropertiesJson;
+		@Option(names = "--userProperties", defaultValue = DEFAULT_PROPERTIES)
+		String userProperties;
 
-		@Option(names = "--profileProperties", defaultValue = DEFAULT_PROPERTIES_JSON)
-		String profilePropertiesJson;
+		@Option(names = "--profileProperties", defaultValue = DEFAULT_PROPERTIES)
+		String profileProperties;
 
 		@Option(names = "--assetIndex")
 		String assetIndex;
@@ -159,11 +147,10 @@ public class Main {
 		@Option(names = "--userType", defaultValue = DEFAULT_USER_TYPE)
 		String userType;
 
-		@Option(names = "--versionType", defaultValue = DEFAULT_VERSION_TYPE)
+		@Option(names = "--type", defaultValue = DEFAULT_VERSION_TYPE)
 		String versionType;
 
-		private void applyDerivedDefaults() {
-
+		private void useDefault() {
 			if (username == null) username = "Player" + Minecraft.getSystemTime() % 1000L;
 			if (uuid == null) uuid = username;
 			if (assetsDir == null) assetsDir = new File(gameDir, "assets/");

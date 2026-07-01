@@ -33,7 +33,7 @@ import net.minecraft.client.gui.option.GuiControls;
 import net.minecraft.client.gui.option.ScreenChatOptions;
 import net.minecraft.client.gui.recipebook.RecipeList;
 import net.minecraft.client.gui.toasts.GuiToast;
-import net.minecraft.client.main.GameConfiguration;
+import net.minecraft.client.main.GameConfig;
 import net.minecraft.client.multiplayer.GuiConnecting;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.multiplayer.ServerData;
@@ -238,32 +238,27 @@ public class Minecraft implements IThreadListener {
 	private SkinManager skinManager;
 	private TextureMap textureMapBlocks;
 	
-	public Minecraft(GameConfiguration gameConfig) {
+	public Minecraft(GameConfig gameConfig) {
 		instance = this;
-		mcDataDir = gameConfig.folderInfo().mcDataDir();
-		fileAssets = gameConfig.folderInfo().assetsDir();
-		fileResourcepacks = gameConfig.folderInfo().resourcePacksDir();
-		launchedVersion = gameConfig.gameInfo().version();
-		versionType = gameConfig.gameInfo().versionType();
-		profileProperties = gameConfig.userInfo().profileProperties();
-		mcDefaultResourcePack = new DefaultResourcePack(gameConfig.folderInfo().getAssetsIndex());
-		proxy = gameConfig.userInfo().proxy() == null ? Proxy.NO_PROXY : gameConfig.userInfo().proxy();
+		mcDataDir = gameConfig.folder().dataDir();
+		fileAssets = gameConfig.folder().assetsDir();
+		fileResourcepacks = gameConfig.folder().resourcePacksDir();
+		launchedVersion = gameConfig.game().version();
+		versionType = gameConfig.game().type();
+		profileProperties = gameConfig.user().profileProperties();
+		mcDefaultResourcePack = new DefaultResourcePack(gameConfig.folder().getAssetsIndex());
+		proxy = gameConfig.user().proxy() == null ? Proxy.NO_PROXY : gameConfig.user().proxy();
 		sessionService = new YggdrasilAuthenticationService(proxy, UUID.randomUUID().toString()).createMinecraftSessionService();
-		session = gameConfig.userInfo().session();
+		session = gameConfig.user().session();
 		LOGGER.info("Setting user: {}", session.getUsername());
 		LOGGER.debug("(Session ID is {})", session.getSessionID());
-		int w = gameConfig.displayInfo().width();
-		int h = gameConfig.displayInfo().height();
-		boolean fs = gameConfig.displayInfo().fullscreen();
+		int w = gameConfig.display().width();
+		int h = gameConfig.display().height();
+		boolean fs = gameConfig.display().fullscreen();
 		window = new Window("Minecraft 1.12.2", w, h, fs);
 		tempDisplayWidth = w;
 		tempDisplayHeight = h;
 		integratedServer = null;
-		
-		if (gameConfig.serverInfo().serverName() != null) {
-			serverName = gameConfig.serverInfo().serverName();
-			serverPort = gameConfig.serverInfo().serverPort();
-		}
 		
 		ImageIO.setUseCache(false);
 		Locale.setDefault(Locale.ROOT);
@@ -595,7 +590,7 @@ public class Minecraft implements IThreadListener {
 	
 	/**
 	 * Gets the type of version that Minecraft was launched under (as specified in the version JSON). Specified via the
-	 * <code>--versionType</code> flag.
+	 * <code>--type</code> flag.
 	 */
 	public String getVersionType() {
 		return versionType;
