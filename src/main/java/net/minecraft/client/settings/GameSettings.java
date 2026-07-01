@@ -220,16 +220,18 @@ public class GameSettings {
 	 */
 	public static String getKeyDisplayString(int key) {
 		if (key < 0) {
+			int button = key + 100;
+			if (button >= 0 && button <= GLFW_MOUSE_BUTTON_LAST) {
+				return switch (button) {
+					case 0 -> I18n.format("key.mouse.left");
+					case 1 -> I18n.format("key.mouse.right");
+					case 2 -> I18n.format("key.mouse.middle");
+					default -> I18n.format("key.mouseButton", button + 1);
+				};
+			}
 			String name = Keyboard.getKeyName(key);
 			if (!name.equals("UNKNOWN")) return name;
 			return String.format("%c", (char) (key - 256)).toUpperCase();
-		} else if (key <= GLFW_MOUSE_BUTTON_LAST) {
-			return switch (key) {
-				case 0 -> I18n.format("key.mouse.left");
-				case 1 -> I18n.format("key.mouse.right");
-				case 2 -> I18n.format("key.mouse.middle");
-				default -> I18n.format("key.mouseButton", key + 1);
-			};
 		} else {
 			String name = Keyboard.getKeyName(key);
 			if (!name.equals("UNKNOWN")) return name;
@@ -243,7 +245,7 @@ public class GameSettings {
 	public static boolean isKeyDown(KeyBinding key) {
 		int i = key.getKeyCode();
 		if (i == GLFW_KEY_UNKNOWN) return false;
-		if (i >= 0 && i < 16) return Mouse.isButtonDown(i);
+		if (i < 0) return Mouse.isButtonDown(i + 100);
 		return Keyboard.isKeyDown(i);
 	}
 	

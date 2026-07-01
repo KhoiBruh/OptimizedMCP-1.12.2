@@ -81,7 +81,7 @@ public class KeyBinding implements Comparable<KeyBinding> {
 	public static void updateKeyBindState() {
 		for (KeyBinding key : KEYBIND_ARRAY.values()) {
 			try {
-				setKeyBindState(key.keyCode, Keyboard.isKeyDown(key.keyCode));
+				setKeyBindState(key.keyCode, GameSettings.isKeyDown(key));
 			} catch (IndexOutOfBoundsException ignored) {
 			}
 		}

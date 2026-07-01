@@ -1701,13 +1701,15 @@ public class Minecraft implements IThreadListener {
 		
 		while (Mouse.next()) {
 			int i = Mouse.getEventButton();
-			KeyBinding.setKeyBindState(i, Mouse.getEventButtonState());
+			if (i != -1) {
+				KeyBinding.setKeyBindState(i - 100, Mouse.getEventButtonState());
+			}
 			
 			if (Mouse.getEventButtonState()) {
 				if (player.isSpectator() && i == 2) {
 					ingameGUI.getSpectatorGui().onMiddleClick();
-				} else {
-					KeyBinding.onTick(i);
+				} else if (i != -1) {
+					KeyBinding.onTick(i - 100);
 				}
 			}
 			

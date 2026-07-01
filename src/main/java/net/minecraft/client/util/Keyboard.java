@@ -20,8 +20,15 @@ public final class Keyboard {
 	private static final Map<Integer, String> keyNames = new HashMap<>();
 	
 	private static final Deque<KeyEvent> eventQueue = new ArrayDeque<>();
-	private static final Deque<Character> charQueue = new ArrayDeque<>();
+	private static KeyEvent pendingKeyEvent = null;
 	private static KeyEvent currentEvent = null;
+
+	private static void flushPending() {
+		if (pendingKeyEvent != null) {
+			eventQueue.addLast(pendingKeyEvent);
+			pendingKeyEvent = null;
+		}
+	}
 	
 	@Getter
 	@Setter
@@ -160,8 +167,9 @@ public final class Keyboard {
 		created = true;
 		
 		charCb = GLFWCharCallback.create((win, codepoint) -> {
-			synchronized (charQueue) {
-				charQueue.addLast((char) codepoint);
+			if (pendingKeyEvent != null) {
+				pendingKeyEvent = new KeyEvent(pendingKeyEvent.key, (char) codepoint, pendingKeyEvent.state, pendingKeyEvent.repeat);
+				flushPending();
 			}
 		});
 		
@@ -174,11 +182,11 @@ public final class Keyboard {
 			states[key] = pressed;
 			
 			if (!isRepeat || repeat) {
-				char ch;
-				synchronized (charQueue) {
-					ch = charQueue.isEmpty() ? '\0' : charQueue.pollFirst();
+				flushPending();
+				pendingKeyEvent = new KeyEvent(key, '\0', pressed, isRepeat);
+				if (!pressed) {
+					flushPending();
 				}
-				eventQueue.addLast(new KeyEvent(key, ch, pressed, isRepeat));
 			}
 		});
 		
@@ -204,6 +212,7 @@ public final class Keyboard {
 	}
 	
 	public static void poll() {
+		flushPending();
 		currentEvent = null;
 	}
 	
