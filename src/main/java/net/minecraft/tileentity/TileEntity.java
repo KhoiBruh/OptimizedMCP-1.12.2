@@ -83,7 +83,7 @@ public abstract class TileEntity {
 			Class<? extends TileEntity> oclass = REGISTRY.getObject(new ResourceLocation(s));
 
 			if (oclass != null) {
-				tileentity = oclass.newInstance();
+				tileentity = oclass.getConstructor().newInstance();
 			}
 		} catch (Throwable throwable1) {
 			LOGGER.error("Failed to create block entity {}", s, throwable1);

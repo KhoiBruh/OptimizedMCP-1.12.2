@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.block.model;
 
 import net.minecraft.util.ResourceLocation;
-import org.apache.commons.lang3.StringUtils;
+
 
 import java.util.Locale;
 
@@ -12,7 +12,7 @@ public class ModelResourceLocation extends ResourceLocation {
 	protected ModelResourceLocation(int unused, String... resourceName) {
 
 		super(0, resourceName[0], resourceName[1]);
-		variant = StringUtils.isEmpty(resourceName[2]) ? "normal" : resourceName[2].toLowerCase(Locale.ROOT);
+		variant = (resourceName[2] == null || resourceName[2].isEmpty()) ? "normal" : resourceName[2].toLowerCase(Locale.ROOT);
 	}
 
 	public ModelResourceLocation(String pathIn) {

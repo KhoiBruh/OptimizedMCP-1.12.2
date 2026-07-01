@@ -11,7 +11,7 @@ import net.minecraft.world.WorldSettings;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.WorldInfo;
-import org.apache.commons.lang3.StringUtils;
+
 
 import java.io.IOException;
 import java.util.Random;
@@ -142,9 +142,7 @@ public class CreateWorldScreen extends Screen {
 			saveDirName = saveDirName.replace(c0, '_');
 		}
 
-		if (StringUtils.isEmpty(saveDirName)) {
-			saveDirName = "World";
-		}
+		if (saveDirName.isEmpty()) saveDirName = "World";
 
 		saveDirName = getUncollidingSaveDirName(mc.getSaveLoader(), saveDirName);
 	}
@@ -210,7 +208,7 @@ public class CreateWorldScreen extends Screen {
 				long i = (new Random()).nextLong();
 				String s = worldSeedField.getText();
 
-				if (!StringUtils.isEmpty(s)) {
+				if (s != null && !s.isEmpty()) {
 					try {
 						long j = Long.parseLong(s);
 

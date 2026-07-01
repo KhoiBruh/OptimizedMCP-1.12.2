@@ -15,7 +15,6 @@ import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.SaveFormatOld;
 import net.minecraft.world.storage.WorldInfo;
 import net.minecraft.world.storage.WorldSummary;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -59,7 +58,7 @@ public class AnvilSaveConverter extends SaveFormatOld {
 						boolean flag = worldinfo.getSaveVersion() != getSaveVersion();
 						String s1 = worldinfo.getWorldName();
 
-						if (StringUtils.isEmpty(s1)) {
+						if (s1 == null || s1.isEmpty()) {
 							s1 = s;
 						}
 

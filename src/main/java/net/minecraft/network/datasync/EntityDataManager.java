@@ -9,13 +9,13 @@ import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ReportedException;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -182,7 +182,7 @@ public class EntityDataManager {
 
 		EntityDataManager.DataEntry<T> dataentry = getEntry(key);
 
-		if (ObjectUtils.notEqual(value, dataentry.getValue())) {
+		if (!Objects.equals(value, dataentry.getValue())) {
 			dataentry.setValue(value);
 			entity.notifyDataManagerChange(key);
 			dataentry.setDirty(true);

@@ -1,7 +1,6 @@
 package net.minecraft.client.util;
 
 import com.google.common.collect.Lists;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -73,7 +72,7 @@ public class JsonException extends IOException {
 
 		public String getJsonKeys() {
 
-			return StringUtils.join(jsonKeys, "->");
+			return String.join("->", jsonKeys);
 		}
 
 		public String toString() {

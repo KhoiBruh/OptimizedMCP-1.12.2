@@ -182,7 +182,7 @@ public enum ConnectionState {
 					}
 
 					try {
-						oclass.newInstance();
+						oclass.getConstructor().newInstance();
 					} catch (Throwable var10) {
 						throw new Error("Packet " + oclass + " fails instantiation checks! " + oclass);
 					}

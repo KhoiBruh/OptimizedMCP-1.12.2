@@ -21,7 +21,6 @@ import net.minecraft.util.datafix.FixTypes;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.Difficulty;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jspecify.annotations.NonNull;
@@ -193,7 +192,10 @@ public class GameSettings {
 	private File optionsFile;
 	
 	public GameSettings(Minecraft mcIn, File mcDataDir) {
-		keyBindings = ArrayUtils.addAll(new KeyBinding[]{keyAttack, keyUseItem, keyForward, keyLeft, keyBack, keyRight, keyJump, keySneak, keySprint, keyDrop, keyInventory, keyChat, keyPlayerList, keyPickBlock, keyCommand, keyScreenshot, keyTogglePerspective, keySmoothCamera, keyFullscreen, keySpectatorOutlines, keySwapHands, keySaveToolbar, keyLoadToolbar, keyAdvancements}, keyHotbar);
+		KeyBinding[] akeybinding = new KeyBinding[]{keyAttack, keyUseItem, keyForward, keyLeft, keyBack, keyRight, keyJump, keySneak, keySprint, keyDrop, keyInventory, keyChat, keyPlayerList, keyPickBlock, keyCommand, keyScreenshot, keyTogglePerspective, keySmoothCamera, keyFullscreen, keySpectatorOutlines, keySwapHands, keySaveToolbar, keyLoadToolbar, keyAdvancements};
+		keyBindings = new KeyBinding[akeybinding.length + keyHotbar.length];
+		System.arraycopy(akeybinding, 0, keyBindings, 0, akeybinding.length);
+		System.arraycopy(keyHotbar, 0, keyBindings, akeybinding.length, keyHotbar.length);
 		difficulty = Difficulty.NORMAL;
 		lastServer = "";
 		fovSetting = 70F;
@@ -205,7 +207,10 @@ public class GameSettings {
 	}
 	
 	public GameSettings() {
-		keyBindings = ArrayUtils.addAll(new KeyBinding[]{keyAttack, keyUseItem, keyForward, keyLeft, keyBack, keyRight, keyJump, keySneak, keySprint, keyDrop, keyInventory, keyChat, keyPlayerList, keyPickBlock, keyCommand, keyScreenshot, keyTogglePerspective, keySmoothCamera, keyFullscreen, keySpectatorOutlines, keySwapHands, keySaveToolbar, keyLoadToolbar, keyAdvancements}, keyHotbar);
+		KeyBinding[] akeybinding = new KeyBinding[]{keyAttack, keyUseItem, keyForward, keyLeft, keyBack, keyRight, keyJump, keySneak, keySprint, keyDrop, keyInventory, keyChat, keyPlayerList, keyPickBlock, keyCommand, keyScreenshot, keyTogglePerspective, keySmoothCamera, keyFullscreen, keySpectatorOutlines, keySwapHands, keySaveToolbar, keyLoadToolbar, keyAdvancements};
+		keyBindings = new KeyBinding[akeybinding.length + keyHotbar.length];
+		System.arraycopy(akeybinding, 0, keyBindings, 0, akeybinding.length);
+		System.arraycopy(keyHotbar, 0, keyBindings, akeybinding.length, keyHotbar.length);
 		difficulty = Difficulty.NORMAL;
 		lastServer = "";
 		fovSetting = 70F;

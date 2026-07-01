@@ -47,7 +47,6 @@ import net.minecraft.util.text.*;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.GameType;
 import net.minecraft.world.WorldServer;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -765,7 +764,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 		} else {
 			player.markPlayerActive();
 			String s = packetIn.getMessage();
-			s = StringUtils.normalizeSpace(s);
+			s = s.trim().replaceAll("\\s+", " ");
 
 			for (int i = 0; i < s.length(); ++i) {
 				if (!ChatAllowedCharacters.isAllowedCharacter(s.charAt(i))) {

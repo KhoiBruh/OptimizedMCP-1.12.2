@@ -26,7 +26,7 @@ public class StringUtils {
 	 */
 	public static boolean isNullOrEmpty(String string) {
 
-		return org.apache.commons.lang3.StringUtils.isEmpty(string);
+		return string == null || string.isEmpty();
 	}
 
 }

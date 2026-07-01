@@ -21,7 +21,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-import org.apache.commons.lang3.StringUtils;
+
 
 public class ItemSkull extends Item {
 
@@ -79,7 +79,7 @@ public class ItemSkull extends Item {
 
 								if (nbttagcompound.hasKey("SkullOwner", 10)) {
 									gameprofile = NBTUtil.readGameProfileFromNBT(nbttagcompound.getCompoundTag("SkullOwner"));
-								} else if (nbttagcompound.hasKey("SkullOwner", 8) && !StringUtils.isBlank(nbttagcompound.getString("SkullOwner"))) {
+								} else if (nbttagcompound.hasKey("SkullOwner", 8) && !nbttagcompound.getString("SkullOwner").isBlank()) {
 									gameprofile = new GameProfile(null, nbttagcompound.getString("SkullOwner"));
 								}
 							}
@@ -168,7 +168,7 @@ public class ItemSkull extends Item {
 
 		super.updateItemStackNBT(nbt);
 
-		if (nbt.hasKey("SkullOwner", 8) && !StringUtils.isBlank(nbt.getString("SkullOwner"))) {
+		if (nbt.hasKey("SkullOwner", 8) && !nbt.getString("SkullOwner").isBlank()) {
 			GameProfile gameprofile = new GameProfile(null, nbt.getString("SkullOwner"));
 			gameprofile = TileEntitySkull.updateGameprofile(gameprofile);
 			nbt.setTag("SkullOwner", NBTUtil.writeGameProfile(new NBTTagCompound(), gameprofile));

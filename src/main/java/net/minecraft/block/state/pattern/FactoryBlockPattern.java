@@ -6,8 +6,6 @@ import com.google.common.base.Predicates;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.block.state.BlockWorldState;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Array;
 import java.util.List;
@@ -38,7 +36,7 @@ public class FactoryBlockPattern {
 	 */
 	public FactoryBlockPattern aisle(String... aisle) {
 
-		if (!ArrayUtils.isEmpty(aisle) && !StringUtils.isEmpty(aisle[0])) {
+		if (aisle != null && aisle.length > 0 && !aisle[0].isEmpty()) {
 			if (depth.isEmpty()) {
 				aisleHeight = aisle.length;
 				rowWidth = aisle[0].length();

@@ -12,7 +12,6 @@ import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -271,7 +270,7 @@ public class ContainerRepair extends Container {
 				}
 			}
 
-			if (StringUtils.isBlank(repairedItemName)) {
+			if (repairedItemName == null || repairedItemName.isBlank()) {
 				if (itemstack.hasDisplayName()) {
 					k = 1;
 					i += k;
@@ -407,7 +406,7 @@ public class ContainerRepair extends Container {
 		if (getSlot(2).getHasStack()) {
 			ItemStack itemstack = getSlot(2).getStack();
 
-			if (StringUtils.isBlank(newName)) {
+			if (newName == null || newName.isBlank()) {
 				itemstack.clearCustomName();
 			} else {
 				itemstack.setStackDisplayName(repairedItemName);

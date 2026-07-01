@@ -3,7 +3,6 @@ package net.minecraft.crash;
 import com.google.common.collect.Lists;
 import net.minecraft.util.ReportedException;
 import net.minecraft.world.gen.layer.IntCache;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,6 +11,7 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -148,7 +148,7 @@ public class CrashReport {
 	public void getSectionsInStringBuilder(StringBuilder builder) {
 
 		if ((stacktrace == null || stacktrace.length == 0) && !crashReportSections.isEmpty()) {
-			stacktrace = ArrayUtils.subarray(crashReportSections.getFirst().getStackTrace(), 0, 1);
+			stacktrace = Arrays.copyOfRange(crashReportSections.getFirst().getStackTrace(), 0, 1);
 		}
 
 		if (stacktrace != null && stacktrace.length > 0) {

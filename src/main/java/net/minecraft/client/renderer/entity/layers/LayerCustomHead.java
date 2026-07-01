@@ -18,7 +18,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.Facing;
-import org.apache.commons.lang3.StringUtils;
+
 
 public class LayerCustomHead implements LayerRenderer<EntityLivingBase> {
 
@@ -73,7 +73,7 @@ public class LayerCustomHead implements LayerRenderer<EntityLivingBase> {
 					} else if (nbttagcompound.hasKey("SkullOwner", 8)) {
 						String s = nbttagcompound.getString("SkullOwner");
 
-						if (!StringUtils.isBlank(s)) {
+						if (s != null && !s.isBlank()) {
 							gameprofile = TileEntitySkull.updateGameprofile(new GameProfile(null, s));
 							nbttagcompound.setTag("SkullOwner", NBTUtil.writeGameProfile(new NBTTagCompound(), gameprofile));
 						}

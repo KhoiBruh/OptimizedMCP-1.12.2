@@ -17,7 +17,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.Facing;
-import org.apache.commons.lang3.StringUtils;
+
 
 public class TileEntityItemStackRenderer {
 
@@ -75,7 +75,7 @@ public class TileEntityItemStackRenderer {
 
 				if (nbttagcompound.hasKey("SkullOwner", 10)) {
 					gameprofile = NBTUtil.readGameProfileFromNBT(nbttagcompound.getCompoundTag("SkullOwner"));
-				} else if (nbttagcompound.hasKey("SkullOwner", 8) && !StringUtils.isBlank(nbttagcompound.getString("SkullOwner"))) {
+				} else if (nbttagcompound.hasKey("SkullOwner", 8) && !nbttagcompound.getString("SkullOwner").isBlank()) {
 					GameProfile gameprofile1 = new GameProfile(null, nbttagcompound.getString("SkullOwner"));
 					gameprofile = TileEntitySkull.updateGameprofile(gameprofile1);
 					nbttagcompound.removeTag("SkullOwner");

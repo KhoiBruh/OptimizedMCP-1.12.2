@@ -13,7 +13,7 @@ public class ResourceLocation implements Comparable<ResourceLocation> {
 
 	protected ResourceLocation(int unused, String... resourceName) {
 
-		resourceDomain = org.apache.commons.lang3.StringUtils.isEmpty(resourceName[0]) ? "minecraft" : resourceName[0].toLowerCase(Locale.ROOT);
+		resourceDomain = (resourceName[0] == null || resourceName[0].isEmpty()) ? "minecraft" : resourceName[0].toLowerCase(Locale.ROOT);
 		resourcePath = resourceName[1].toLowerCase(Locale.ROOT);
 		Objects.requireNonNull(resourcePath);
 	}

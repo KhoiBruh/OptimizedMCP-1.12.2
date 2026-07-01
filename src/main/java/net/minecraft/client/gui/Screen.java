@@ -18,7 +18,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormat;
 import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.util.text.event.HoverEvent;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -72,7 +71,7 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 	}
 
 	public static void setClipboard(String text) {
-		if (!StringUtils.isEmpty(text)) {
+		if (text != null && !text.isEmpty()) {
 			try {
 				StringSelection stringselection = new StringSelection(text);
 				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringselection, null);

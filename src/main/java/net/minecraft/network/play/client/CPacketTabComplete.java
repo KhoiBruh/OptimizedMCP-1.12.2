@@ -4,7 +4,6 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
 import net.minecraft.util.math.BlockPos;
-import org.apache.commons.lang3.StringUtils;
 
 public class CPacketTabComplete implements Packet<INetHandlerPlayServer> {
 
@@ -44,7 +43,7 @@ public class CPacketTabComplete implements Packet<INetHandlerPlayServer> {
 	 */
 	public void writePacketData(PacketBuffer buf) {
 
-		buf.writeString(StringUtils.substring(message, 0, 32767));
+		buf.writeString(message.length() > 32767 ? message.substring(0, 32767) : message);
 		buf.writeBoolean(hasTargetBlock);
 		boolean flag = targetBlock != null;
 		buf.writeBoolean(flag);

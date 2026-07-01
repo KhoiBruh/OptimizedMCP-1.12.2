@@ -24,8 +24,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
-import org.apache.commons.lang3.exception.ExceptionUtils;
-
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -35,12 +33,20 @@ public abstract class CommandBase implements ICommand {
 	private static final Splitter EQUAL_SPLITTER = Splitter.on('=').limit(2);
 	private static ICommandListener commandListener;
 
+	private static Throwable getRootCause(Throwable throwable) {
+		Throwable cause = throwable;
+		while (cause.getCause() != null && cause.getCause() != cause) {
+			cause = cause.getCause();
+		}
+		return cause;
+	}
+
 	/**
 	 * Convert a JsonParseException into a user-friendly exception
 	 */
 	protected static SyntaxErrorException toSyntaxException(JsonParseException e) {
 
-		Throwable throwable = ExceptionUtils.getRootCause(e);
+		Throwable throwable = getRootCause(e);
 		String s = "";
 
 		if (throwable != null) {

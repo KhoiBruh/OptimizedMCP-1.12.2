@@ -7,8 +7,6 @@ import net.minecraft.util.JsonUtils;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
-import org.apache.commons.lang3.ArrayUtils;
-
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
@@ -101,7 +99,7 @@ public class LootPool {
 				jsonobject.add("bonus_rolls", p_serialize_3_.serialize(p_serialize_1_.bonusRolls));
 			}
 
-			if (!ArrayUtils.isEmpty(p_serialize_1_.poolConditions)) {
+			if (p_serialize_1_.poolConditions != null && p_serialize_1_.poolConditions.length > 0) {
 				jsonobject.add("conditions", p_serialize_3_.serialize(p_serialize_1_.poolConditions));
 			}
 

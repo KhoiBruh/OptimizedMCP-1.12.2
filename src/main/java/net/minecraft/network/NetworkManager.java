@@ -23,7 +23,6 @@ import net.minecraft.util.LazyLoadBase;
 import net.minecraft.util.Validate;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
@@ -230,14 +229,18 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	@SafeVarargs
 	public final void sendPacket(Packet<?> packetIn, GenericFutureListener<? extends Future<? super Void>> listener, GenericFutureListener<? extends Future<? super Void>>... listeners) {
 
+		GenericFutureListener<? extends Future<? super Void>>[] futureListeners = new GenericFutureListener[listeners.length + 1];
+		futureListeners[0] = listener;
+		System.arraycopy(listeners, 0, futureListeners, 1, listeners.length);
+
 		if (isChannelOpen()) {
 			flushOutboundQueue();
-			dispatchPacket(packetIn, ArrayUtils.insert(0, listeners, listener));
+			dispatchPacket(packetIn, futureListeners);
 		} else {
 			readWriteLock.writeLock().lock();
 
 			try {
-				outboundPacketsQueue.add(new NetworkManager.InboundHandlerTuplePacketListener(packetIn, ArrayUtils.insert(0, listeners, listener)));
+				outboundPacketsQueue.add(new NetworkManager.InboundHandlerTuplePacketListener(packetIn, futureListeners));
 			} finally {
 				readWriteLock.writeLock().unlock();
 			}

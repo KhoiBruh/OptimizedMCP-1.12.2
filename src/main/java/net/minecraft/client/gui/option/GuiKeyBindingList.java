@@ -7,8 +7,6 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.util.text.TextFormat;
-import org.apache.commons.lang3.ArrayUtils;
-
 import java.util.Arrays;
 
 public class GuiKeyBindingList extends GuiListExtended {
@@ -23,7 +21,7 @@ public class GuiKeyBindingList extends GuiListExtended {
 		super(mcIn, controls.width + 45, controls.height, 63, controls.height - 32, 20);
 		controlsScreen = controls;
 		mc = mcIn;
-		KeyBinding[] akeybinding = ArrayUtils.clone(mcIn.gameSettings.keyBindings);
+		KeyBinding[] akeybinding = mcIn.gameSettings.keyBindings.clone();
 		listEntries = new GuiListExtended.IGuiListEntry[akeybinding.length + KeyBinding.getKeybinds().size()];
 		Arrays.sort(akeybinding);
 		int i = 0;

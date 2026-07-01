@@ -33,7 +33,8 @@ public class EnchantmentNameParts {
 		}
 
 		List<String> list = fontRendererIn.formatToWidth(s.toString(), length);
-		return org.apache.commons.lang3.StringUtils.join(list.size() >= 2 ? list.subList(0, 2) : list, " ");
+		List<String> parts = list.size() >= 2 ? list.subList(0, 2) : list;
+		return String.join(" ", parts);
 	}
 
 	/**

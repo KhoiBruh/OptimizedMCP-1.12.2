@@ -27,7 +27,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormat;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -82,7 +81,7 @@ public class ServerPinger {
 					if (serverstatusresponse.getPlayers() != null) {
 						server.populationInfo = TextFormat.GRAY + "" + serverstatusresponse.getPlayers().getOnlinePlayerCount() + TextFormat.DARK_GRAY + "/" + TextFormat.GRAY + serverstatusresponse.getPlayers().getMaxPlayers();
 
-						if (ArrayUtils.isNotEmpty(serverstatusresponse.getPlayers().getPlayers())) {
+						if (serverstatusresponse.getPlayers().getPlayers() != null && serverstatusresponse.getPlayers().getPlayers().length > 0) {
 							StringBuilder stringbuilder = new StringBuilder();
 
 							for (GameProfile gameprofile : serverstatusresponse.getPlayers().getPlayers()) {

@@ -321,7 +321,7 @@ public class JsonUtils {
 	 */
 	public static String toString(JsonElement json) {
 		
-		String s = org.apache.commons.lang3.StringUtils.abbreviateMiddle(String.valueOf(json), "...", 10);
+		String s = abbreviateMiddle(String.valueOf(json), "...", 10);
 		
 		if (json == null) {
 			return "null (missing)";
@@ -388,6 +388,12 @@ public class JsonUtils {
 	public static <T> T fromJson(Gson gson, Reader reader, Class<T> adapter) {
 		
 		return gsonDeserialize(gson, reader, adapter);
+	}
+
+	private static String abbreviateMiddle(String str, String middle, int maxLength) {
+		if (str == null || str.length() <= maxLength) return str;
+		int half = Math.max(0, (maxLength - middle.length()) / 2);
+		return str.substring(0, half) + middle + str.substring(str.length() - half);
 	}
 	
 }

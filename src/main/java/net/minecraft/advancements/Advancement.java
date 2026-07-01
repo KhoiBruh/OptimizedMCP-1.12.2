@@ -12,8 +12,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.event.HoverEvent;
-import org.apache.commons.lang3.ArrayUtils;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
@@ -247,7 +245,7 @@ public class Advancement {
 					boolean flag = false;
 
 					for (String[] astring2 : astring) {
-						if (ArrayUtils.contains(astring2, s1)) {
+						if (Arrays.asList(astring2).contains(s1)) {
 							flag = true;
 							break;
 						}

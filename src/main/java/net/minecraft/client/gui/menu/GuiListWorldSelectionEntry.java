@@ -16,7 +16,7 @@ import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.WorldInfo;
 import net.minecraft.world.storage.WorldSummary;
-import org.apache.commons.lang3.StringUtils;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -64,7 +64,7 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 		String s1 = worldSummary.getFileName() + " (" + DATE_FORMAT.format(new Date(worldSummary.getLastTimePlayed())) + ")";
 		String s2 = "";
 
-		if (StringUtils.isEmpty(s)) {
+		if (s == null || s.isEmpty()) {
 			s = I18n.format("selectWorld.world") + " " + (slotIndex + 1);
 		}
 
