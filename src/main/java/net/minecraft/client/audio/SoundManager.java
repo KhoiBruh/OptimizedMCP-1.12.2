@@ -249,26 +249,23 @@ public class SoundManager {
                 SoundSource src = this.playingSources.get(s1);
 
                 if (src == null || !src.isPlaying()) {
-                    int i = this.playingSoundsStopTime.get(s1);
-                    if (i <= this.playTime) {
-                        int j = isound.getRepeatDelay();
-                        if (isound.canRepeat() && j > 0) {
-                            this.delayedSounds.put(isound, this.playTime + j);
-                        }
-                        iterator.remove();
-                        LOGGER.debug(LOG_MARKER, "Removed channel {} because it's not playing anymore", s1);
-                        if (src != null) {
-                            src.stop();
-                            this.playingSources.remove(s1);
-                        }
-                        this.playingSoundsStopTime.remove(s1);
-                        try {
-                            this.categorySounds.remove(isound.getCategory(), s1);
-                        } catch (RuntimeException ignored) {
-                        }
-                        if (isound instanceof ITickableSound) {
-                            this.tickableSounds.remove(isound);
-                        }
+                    int j = isound.getRepeatDelay();
+                    if (isound.canRepeat() && j > 0) {
+                        this.delayedSounds.put(isound, this.playTime + j);
+                    }
+                    iterator.remove();
+                    LOGGER.debug(LOG_MARKER, "Removed channel {} because it's not playing anymore", s1);
+                    if (src != null) {
+                        src.stop();
+                        this.playingSources.remove(s1);
+                    }
+                    this.playingSoundsStopTime.remove(s1);
+                    try {
+                        this.categorySounds.remove(isound.getCategory(), s1);
+                    } catch (RuntimeException ignored) {
+                    }
+                    if (isound instanceof ITickableSound) {
+                        this.tickableSounds.remove(isound);
                     }
                 } else {
                     src.updateStream();
@@ -412,13 +409,7 @@ public class SoundManager {
 
     private SoundSource getFreeSource() {
         for (SoundSource src : this.sources) {
-            if (!src.isPlaying()) {
-                src.stop();
-                return src;
-            }
-        }
-        for (SoundSource src : this.sources) {
-            if (AL10.alGetSourcei(src.getSourceId(), AL10.AL_SOURCE_STATE) != AL10.AL_PLAYING) {
+            if (!this.playingSources.containsValue(src)) {
                 src.stop();
                 return src;
             }

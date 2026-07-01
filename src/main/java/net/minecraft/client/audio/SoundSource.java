@@ -74,7 +74,8 @@ public class SoundSource {
             tempBuffer.clear();
             int read = stream.read(tempBuffer);
             if (read > 0) {
-                tempBuffer.flip();
+                tempBuffer.position(0);
+                tempBuffer.limit(read);
                 AL10.alBufferData(this.streamBuffers[i], stream.getFormat(), tempBuffer, stream.getSampleRate());
                 AL10.alSourceQueueBuffers(this.sourceId, this.streamBuffers[i]);
                 queued++;
@@ -125,7 +126,8 @@ public class SoundSource {
             }
 
             if (read > 0) {
-                tempBuffer.flip();
+                tempBuffer.position(0);
+                tempBuffer.limit(read);
                 AL10.alBufferData(bufferId, this.stream.getFormat(), tempBuffer, this.stream.getSampleRate());
                 AL10.alSourceQueueBuffers(this.sourceId, bufferId);
                 processed--;
