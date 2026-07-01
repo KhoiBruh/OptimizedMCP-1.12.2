@@ -6,7 +6,7 @@ import net.minecraft.client.gui.component.GuiListExtended;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.Arrays;
@@ -142,9 +142,9 @@ public class GuiKeyBindingList extends GuiListExtended {
 			}
 
 			if (flag) {
-				btnChangeKeyBinding.displayString = TextFormatting.WHITE + "> " + TextFormatting.YELLOW + btnChangeKeyBinding.displayString + TextFormatting.WHITE + " <";
+				btnChangeKeyBinding.displayString = TextFormat.WHITE + "> " + TextFormat.YELLOW + btnChangeKeyBinding.displayString + TextFormat.WHITE + " <";
 			} else if (flag1) {
-				btnChangeKeyBinding.displayString = TextFormatting.RED + btnChangeKeyBinding.displayString;
+				btnChangeKeyBinding.displayString = TextFormat.RED + btnChangeKeyBinding.displayString;
 			}
 
 			btnChangeKeyBinding.drawButton(mc, mouseX, mouseY, partialTicks);

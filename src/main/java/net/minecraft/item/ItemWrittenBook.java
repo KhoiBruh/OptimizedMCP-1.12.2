@@ -16,7 +16,7 @@ import net.minecraft.util.StringUtils;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentUtils;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import java.util.List;
@@ -72,10 +72,10 @@ public class ItemWrittenBook extends Item {
 			String s = nbttagcompound.getString("author");
 
 			if (!StringUtils.isNullOrEmpty(s)) {
-				tooltip.add(TextFormatting.GRAY + I18n.translateToLocalFormatted("book.byAuthor", s));
+				tooltip.add(TextFormat.GRAY + I18n.translateToLocalFormatted("book.byAuthor", s));
 			}
 
-			tooltip.add(TextFormatting.GRAY + I18n.translateToLocal("book.generation." + nbttagcompound.getInteger("generation")));
+			tooltip.add(TextFormat.GRAY + I18n.translateToLocal("book.generation." + nbttagcompound.getInteger("generation")));
 		}
 	}
 

@@ -3,7 +3,7 @@ package net.minecraft.client.renderer.entity;
 import net.minecraft.client.model.ModelRabbit;
 import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 
 public class RenderRabbit extends RenderLiving<EntityRabbit> {
 
@@ -26,7 +26,7 @@ public class RenderRabbit extends RenderLiving<EntityRabbit> {
 	 */
 	protected ResourceLocation getEntityTexture(EntityRabbit entity) {
 
-		String s = TextFormatting.getTextWithoutFormattingCodes(entity.getName());
+		String s = TextFormat.getTextWithoutFormattingCodes(entity.getName());
 
 		if ("Toast".equals(s)) {
 			return TOAST;

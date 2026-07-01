@@ -77,7 +77,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import net.minecraft.util.Facing;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ParticleTypes;
@@ -1666,7 +1666,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 			scoreplayerteam.setDisplayName(packetIn.getDisplayName());
 			scoreplayerteam.setPrefix(packetIn.getPrefix());
 			scoreplayerteam.setSuffix(packetIn.getSuffix());
-			scoreplayerteam.setColor(TextFormatting.fromColorIndex(packetIn.getColor()));
+			scoreplayerteam.setColor(TextFormat.fromColorIndex(packetIn.getColor()));
 			scoreplayerteam.setFriendlyFlags(packetIn.getFriendlyFlags());
 			Team.Visible team$enumvisible = Team.Visible.getByName(packetIn.getNameTagVisibility());
 

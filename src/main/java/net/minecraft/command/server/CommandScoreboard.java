@@ -14,7 +14,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import java.util.*;
 
 public class CommandScoreboard extends CommandBase {
@@ -236,7 +236,7 @@ public class CommandScoreboard extends CommandBase {
 					list.add(s1);
 				} catch (CommandException commandexception) {
 					TextComponentTranslation textcomponenttranslation = new TextComponentTranslation(commandexception.getMessage(), commandexception.getErrorObjects());
-					textcomponenttranslation.getStyle().setColor(TextFormatting.RED);
+					textcomponenttranslation.getStyle().setColor(TextFormat.RED);
 					sender.sendMessage(textcomponenttranslation);
 				}
 			}
@@ -362,7 +362,7 @@ public class CommandScoreboard extends CommandBase {
 				throw new WrongUsageException("commands.scoreboard.teams.option.usage");
 			} else if (args.length == 4) {
 				if ("color".equalsIgnoreCase(s)) {
-					throw new WrongUsageException("commands.scoreboard.teams.option.noValue", s, joinNiceStringFromCollection(TextFormatting.getValidValues(true, false)));
+					throw new WrongUsageException("commands.scoreboard.teams.option.noValue", s, joinNiceStringFromCollection(TextFormat.getValidValues(true, false)));
 				} else if (!"friendlyfire".equalsIgnoreCase(s) && !"seeFriendlyInvisibles".equalsIgnoreCase(s)) {
 					if (!"nametagVisibility".equalsIgnoreCase(s) && !"deathMessageVisibility".equalsIgnoreCase(s)) {
 						if ("collisionRule".equalsIgnoreCase(s)) {
@@ -380,15 +380,15 @@ public class CommandScoreboard extends CommandBase {
 				String s1 = args[startIndex];
 
 				if ("color".equalsIgnoreCase(s)) {
-					TextFormatting textformatting = TextFormatting.getValueByName(s1);
+					TextFormat textformatting = TextFormat.getValueByName(s1);
 
 					if (textformatting == null || textformatting.isFancyStyling()) {
-						throw new WrongUsageException("commands.scoreboard.teams.option.noValue", s, joinNiceStringFromCollection(TextFormatting.getValidValues(true, false)));
+						throw new WrongUsageException("commands.scoreboard.teams.option.noValue", s, joinNiceStringFromCollection(TextFormat.getValidValues(true, false)));
 					}
 
 					scoreplayerteam.setColor(textformatting);
 					scoreplayerteam.setPrefix(textformatting.toString());
-					scoreplayerteam.setSuffix(TextFormatting.RESET.toString());
+					scoreplayerteam.setSuffix(TextFormat.RESET.toString());
 				} else if ("friendlyfire".equalsIgnoreCase(s)) {
 					if (!"true".equalsIgnoreCase(s1) && !"false".equalsIgnoreCase(s1)) {
 						throw new WrongUsageException("commands.scoreboard.teams.option.noValue", s, joinNiceStringFromCollection(Arrays.asList("true", "false")));
@@ -462,7 +462,7 @@ public class CommandScoreboard extends CommandBase {
 			}
 
 			TextComponentTranslation textcomponenttranslation = new TextComponentTranslation("commands.scoreboard.teams.list.player.count", collection.size(), scoreplayerteam.getName());
-			textcomponenttranslation.getStyle().setColor(TextFormatting.DARK_GREEN);
+			textcomponenttranslation.getStyle().setColor(TextFormat.DARK_GREEN);
 			sender.sendMessage(textcomponenttranslation);
 			sender.sendMessage(new TextComponentString(joinNiceString(collection.toArray())));
 		} else {
@@ -474,7 +474,7 @@ public class CommandScoreboard extends CommandBase {
 			}
 
 			TextComponentTranslation textcomponenttranslation1 = new TextComponentTranslation("commands.scoreboard.teams.list.count", collection1.size());
-			textcomponenttranslation1.getStyle().setColor(TextFormatting.DARK_GREEN);
+			textcomponenttranslation1.getStyle().setColor(TextFormat.DARK_GREEN);
 			sender.sendMessage(textcomponenttranslation1);
 
 			for (ScorePlayerTeam scoreplayerteam1 : collection1) {
@@ -622,7 +622,7 @@ public class CommandScoreboard extends CommandBase {
 			throw new CommandException("commands.scoreboard.objectives.list.empty");
 		} else {
 			TextComponentTranslation textcomponenttranslation = new TextComponentTranslation("commands.scoreboard.objectives.list.count", collection.size());
-			textcomponenttranslation.getStyle().setColor(TextFormatting.DARK_GREEN);
+			textcomponenttranslation.getStyle().setColor(TextFormat.DARK_GREEN);
 			sender.sendMessage(textcomponenttranslation);
 
 			for (ScoreObjective scoreobjective : collection) {
@@ -669,7 +669,7 @@ public class CommandScoreboard extends CommandBase {
 			}
 
 			TextComponentTranslation textcomponenttranslation = new TextComponentTranslation("commands.scoreboard.players.list.player.count", map.size(), s);
-			textcomponenttranslation.getStyle().setColor(TextFormatting.DARK_GREEN);
+			textcomponenttranslation.getStyle().setColor(TextFormat.DARK_GREEN);
 			sender.sendMessage(textcomponenttranslation);
 
 			for (Score score : map.values()) {
@@ -684,7 +684,7 @@ public class CommandScoreboard extends CommandBase {
 			}
 
 			TextComponentTranslation textcomponenttranslation1 = new TextComponentTranslation("commands.scoreboard.players.list.count", collection.size());
-			textcomponenttranslation1.getStyle().setColor(TextFormatting.DARK_GREEN);
+			textcomponenttranslation1.getStyle().setColor(TextFormat.DARK_GREEN);
 			sender.sendMessage(textcomponenttranslation1);
 			sender.sendMessage(new TextComponentString(joinNiceString(collection.toArray())));
 		}
@@ -858,7 +858,7 @@ public class CommandScoreboard extends CommandBase {
 		if ("list".equals(s1)) {
 			if (!set.isEmpty()) {
 				TextComponentTranslation textcomponenttranslation = new TextComponentTranslation("commands.scoreboard.players.tag.list", s);
-				textcomponenttranslation.getStyle().setColor(TextFormatting.DARK_GREEN);
+				textcomponenttranslation.getStyle().setColor(TextFormat.DARK_GREEN);
 				sender.sendMessage(textcomponenttranslation);
 				sender.sendMessage(new TextComponentString(joinNiceString(set.toArray())));
 			}
@@ -1022,7 +1022,7 @@ public class CommandScoreboard extends CommandBase {
 
 							if (args.length == 5) {
 								if ("color".equalsIgnoreCase(args[3])) {
-									return getListOfStringsMatchingLastWord(args, TextFormatting.getValidValues(true, false));
+									return getListOfStringsMatchingLastWord(args, TextFormat.getValidValues(true, false));
 								}
 
 								if ("nametagVisibility".equalsIgnoreCase(args[3]) || "deathMessageVisibility".equalsIgnoreCase(args[3])) {

@@ -8,7 +8,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-public enum TextFormatting {
+public enum TextFormat {
 	BLACK("BLACK", '0', 0),
 	DARK_BLUE("DARK_BLUE", '1', 1),
 	DARK_GREEN("DARK_GREEN", '2', 2),
@@ -32,7 +32,7 @@ public enum TextFormatting {
 	ITALIC("ITALIC", 'o', true),
 	RESET("RESET", 'r', -1);
 
-	private static final Map<String, TextFormatting> NAME_MAPPING = Maps.newHashMap();
+	private static final Map<String, TextFormat> NAME_MAPPING = Maps.newHashMap();
 
 	/**
 	 * Matches formatting codes that indicate that the client should treat the following text as bold, recolored,
@@ -41,7 +41,7 @@ public enum TextFormatting {
 	private static final Pattern FORMATTING_CODE_PATTERN = Pattern.compile("(?i)§[0-9A-FK-OR]");
 
 	static {
-		for (TextFormatting textformatting : values()) {
+		for (TextFormat textformatting : values()) {
 			NAME_MAPPING.put(lowercaseAlpha(textformatting.name), textformatting);
 		}
 	}
@@ -65,17 +65,17 @@ public enum TextFormatting {
 	 */
 	private final int colorIndex;
 
-	TextFormatting(String formattingName, char formattingCodeIn, int colorIndex) {
+	TextFormat(String formattingName, char formattingCodeIn, int colorIndex) {
 
 		this(formattingName, formattingCodeIn, false, colorIndex);
 	}
 
-	TextFormatting(String formattingName, char formattingCodeIn, boolean fancyStylingIn) {
+	TextFormat(String formattingName, char formattingCodeIn, boolean fancyStylingIn) {
 
 		this(formattingName, formattingCodeIn, fancyStylingIn, -1);
 	}
 
-	TextFormatting(String formattingName, char formattingCodeIn, boolean fancyStylingIn, int colorIndex) {
+	TextFormat(String formattingName, char formattingCodeIn, boolean fancyStylingIn, int colorIndex) {
 
 		name = formattingName;
 		formattingCode = formattingCodeIn;
@@ -104,7 +104,7 @@ public enum TextFormatting {
 	/**
 	 * Gets a value by its friendly name; null if the given name does not map to a defined value.
 	 */
-	public static TextFormatting getValueByName(String friendlyName) {
+	public static TextFormat getValueByName(String friendlyName) {
 
 		return friendlyName == null ? null : NAME_MAPPING.get(lowercaseAlpha(friendlyName));
 	}
@@ -114,12 +114,12 @@ public enum TextFormatting {
 	/**
 	 * Get a TextFormatting from it's color index
 	 */
-	public static TextFormatting fromColorIndex(int index) {
+	public static TextFormat fromColorIndex(int index) {
 
 		if (index < 0) {
 			return RESET;
 		} else {
-			for (TextFormatting textformatting : values()) {
+			for (TextFormat textformatting : values()) {
 				if (textformatting.getColorIndex() == index) {
 					return textformatting;
 				}
@@ -133,7 +133,7 @@ public enum TextFormatting {
 
 		List<String> list = Lists.newArrayList();
 
-		for (TextFormatting textformatting : values()) {
+		for (TextFormat textformatting : values()) {
 			if ((!textformatting.isColor() || p_96296_0_) && (!textformatting.isFancyStyling() || p_96296_1_)) {
 				list.add(textformatting.getFriendlyName());
 			}

@@ -20,7 +20,7 @@ import net.minecraft.client.resources.IResource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -41,7 +41,7 @@ import java.util.Random;
 
 public class MainMenuScreen extends Screen {
 
-	public static final String MORE_INFO_TEXT = "Please click " + TextFormatting.UNDERLINE + "here" + TextFormatting.RESET + " for more information.";
+	public static final String MORE_INFO_TEXT = "Please click " + TextFormat.UNDERLINE + "here" + TextFormat.RESET + " for more information.";
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final Random RANDOM = new Random();
 	private static final ResourceLocation SPLASH_TEXTS = new ResourceLocation("texts/splashes.txt");
@@ -471,9 +471,9 @@ public class MainMenuScreen extends Screen {
 	/**
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
-	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
 
-		super.mouseClicked(mouseX, mouseY, mouseButton);
+		super.mouseClicked(mouseX, mouseY, mouse);
 
 		synchronized (threadLock) {
 			if (!openGLWarning1.isEmpty() && !StringUtils.isNullOrEmpty(openGLWarningLink) && mouseX >= openGLWarningX1 && mouseX <= openGLWarningX2 && mouseY >= openGLWarningY1 && mouseY <= openGLWarningY2) {

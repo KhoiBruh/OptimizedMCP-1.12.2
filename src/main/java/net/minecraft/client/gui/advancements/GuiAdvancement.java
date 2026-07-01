@@ -60,7 +60,7 @@ public class GuiAdvancement extends Gui {
 		if (p_192995_1_.isEmpty()) {
 			return Collections.emptyList();
 		} else {
-			List<String> list = minecraft.fontRenderer.listFormattedStringToWidth(p_192995_1_, p_192995_2_);
+			List<String> list = minecraft.fontRenderer.formatToWidth(p_192995_1_, p_192995_2_);
 
 			if (list.size() < 2) {
 				return list;
@@ -70,7 +70,7 @@ public class GuiAdvancement extends Gui {
 				int i = minecraft.fontRenderer.getStringWidth(s + ' ' + s1.split(" ")[0]);
 
 				if (i - p_192995_2_ <= 10) {
-					return minecraft.fontRenderer.listFormattedStringToWidth(p_192995_1_, i);
+					return minecraft.fontRenderer.formatToWidth(p_192995_1_, i);
 				} else {
 					Matcher matcher = PATTERN.matcher(s);
 
@@ -78,7 +78,7 @@ public class GuiAdvancement extends Gui {
 						int j = minecraft.fontRenderer.getStringWidth(matcher.group(1));
 
 						if (p_192995_2_ - j <= 10) {
-							return minecraft.fontRenderer.listFormattedStringToWidth(p_192995_1_, j);
+							return minecraft.fontRenderer.formatToWidth(p_192995_1_, j);
 						}
 					}
 

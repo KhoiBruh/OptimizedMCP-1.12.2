@@ -1,17 +1,17 @@
 package net.minecraft.advancements;
 
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 
 public enum FrameType {
-	TASK("task", 0, TextFormatting.GREEN),
-	CHALLENGE("challenge", 26, TextFormatting.DARK_PURPLE),
-	GOAL("goal", 52, TextFormatting.GREEN);
+	TASK("task", 0, TextFormat.GREEN),
+	CHALLENGE("challenge", 26, TextFormat.DARK_PURPLE),
+	GOAL("goal", 52, TextFormat.GREEN);
 
 	private final String name;
 	private final int icon;
-	private final TextFormatting format;
+	private final TextFormat format;
 
-	FrameType(String nameIn, int iconIn, TextFormatting formatIn) {
+	FrameType(String nameIn, int iconIn, TextFormat formatIn) {
 
 		name = nameIn;
 		icon = iconIn;
@@ -39,7 +39,7 @@ public enum FrameType {
 		return icon;
 	}
 
-	public TextFormatting getFormat() {
+	public TextFormat getFormat() {
 
 		return format;
 	}

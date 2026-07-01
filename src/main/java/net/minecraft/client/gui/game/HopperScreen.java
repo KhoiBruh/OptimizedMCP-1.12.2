@@ -30,7 +30,7 @@ public class HopperScreen extends ContainerScreen {
 		super(new ContainerHopper(playerInv, hopperInv, Minecraft.getMinecraft().player));
 		playerInventory = playerInv;
 		hopperInventory = hopperInv;
-		allowUserInput = false;
+		allowInput = false;
 		ySize = 133;
 	}
 

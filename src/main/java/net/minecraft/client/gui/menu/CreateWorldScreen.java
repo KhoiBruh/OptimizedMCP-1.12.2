@@ -406,14 +406,14 @@ public class CreateWorldScreen extends Screen {
 	/**
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
-	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
 
-		super.mouseClicked(mouseX, mouseY, mouseButton);
+		super.mouseClicked(mouseX, mouseY, mouse);
 
 		if (inMoreWorldOptionsDisplay) {
-			worldSeedField.mouseClicked(mouseX, mouseY, mouseButton);
+			worldSeedField.mouseClicked(mouseX, mouseY, mouse);
 		} else {
-			worldNameField.mouseClicked(mouseX, mouseY, mouseButton);
+			worldNameField.mouseClicked(mouseX, mouseY, mouse);
 		}
 	}
 

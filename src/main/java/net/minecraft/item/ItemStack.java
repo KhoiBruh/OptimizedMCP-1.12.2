@@ -34,7 +34,7 @@ import net.minecraft.util.datafix.walkers.EntityTag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import net.minecraft.util.text.event.HoverEvent;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.util.ActionResult;
@@ -666,10 +666,10 @@ public final class ItemStack {
 		String s = getDisplayName();
 
 		if (hasDisplayName()) {
-			s = TextFormatting.ITALIC + s;
+			s = TextFormat.ITALIC + s;
 		}
 
-		s = s + TextFormatting.RESET;
+		s = s + TextFormat.RESET;
 
 		if (advanced.isAdvanced()) {
 			String s1 = "";
@@ -724,7 +724,7 @@ public final class ItemStack {
 					if (advanced.isAdvanced()) {
 						list.add(I18n.translateToLocalFormatted("item.color", String.format("#%06X", nbttagcompound1.getInteger("color"))));
 					} else {
-						list.add(TextFormatting.ITALIC + I18n.translateToLocal("item.dyed"));
+						list.add(TextFormat.ITALIC + I18n.translateToLocal("item.dyed"));
 					}
 				}
 
@@ -733,7 +733,7 @@ public final class ItemStack {
 
 					if (!nbttaglist3.hasNoTags()) {
 						for (int l1 = 0; l1 < nbttaglist3.tagCount(); ++l1) {
-							list.add(TextFormatting.DARK_PURPLE + "" + TextFormatting.ITALIC + nbttaglist3.getStringTagAt(l1));
+							list.add(TextFormat.DARK_PURPLE + "" + TextFormat.ITALIC + nbttaglist3.getStringTagAt(l1));
 						}
 					}
 				}
@@ -774,17 +774,17 @@ public final class ItemStack {
 					if (flag) {
 						list.add(" " + I18n.translateToLocalFormatted("attribute.modifier.equals." + attributemodifier.getOperation(), DECIMALFORMAT.format(d1), I18n.translateToLocal("attribute.name." + entry.getKey())));
 					} else if (d0 > 0D) {
-						list.add(TextFormatting.BLUE + " " + I18n.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier.getOperation(), DECIMALFORMAT.format(d1), I18n.translateToLocal("attribute.name." + entry.getKey())));
+						list.add(TextFormat.BLUE + " " + I18n.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier.getOperation(), DECIMALFORMAT.format(d1), I18n.translateToLocal("attribute.name." + entry.getKey())));
 					} else if (d0 < 0D) {
 						d1 = d1 * -1D;
-						list.add(TextFormatting.RED + " " + I18n.translateToLocalFormatted("attribute.modifier.take." + attributemodifier.getOperation(), DECIMALFORMAT.format(d1), I18n.translateToLocal("attribute.name." + entry.getKey())));
+						list.add(TextFormat.RED + " " + I18n.translateToLocalFormatted("attribute.modifier.take." + attributemodifier.getOperation(), DECIMALFORMAT.format(d1), I18n.translateToLocal("attribute.name." + entry.getKey())));
 					}
 				}
 			}
 		}
 
 		if (hasTagCompound() && getTagCompound().getBoolean("Unbreakable") && (i1 & 4) == 0) {
-			list.add(TextFormatting.BLUE + I18n.translateToLocal("item.unbreakable"));
+			list.add(TextFormat.BLUE + I18n.translateToLocal("item.unbreakable"));
 		}
 
 		if (hasTagCompound() && stackTagCompound.hasKey("CanDestroy", 9) && (i1 & 8) == 0) {
@@ -792,15 +792,15 @@ public final class ItemStack {
 
 			if (!nbttaglist1.hasNoTags()) {
 				list.add("");
-				list.add(TextFormatting.GRAY + I18n.translateToLocal("item.canBreak"));
+				list.add(TextFormat.GRAY + I18n.translateToLocal("item.canBreak"));
 
 				for (int j1 = 0; j1 < nbttaglist1.tagCount(); ++j1) {
 					Block block = Block.getBlockFromName(nbttaglist1.getStringTagAt(j1));
 
 					if (block != null) {
-						list.add(TextFormatting.DARK_GRAY + block.getLocalizedName());
+						list.add(TextFormat.DARK_GRAY + block.getLocalizedName());
 					} else {
-						list.add(TextFormatting.DARK_GRAY + "missingno");
+						list.add(TextFormat.DARK_GRAY + "missingno");
 					}
 				}
 			}
@@ -811,15 +811,15 @@ public final class ItemStack {
 
 			if (!nbttaglist2.hasNoTags()) {
 				list.add("");
-				list.add(TextFormatting.GRAY + I18n.translateToLocal("item.canPlace"));
+				list.add(TextFormat.GRAY + I18n.translateToLocal("item.canPlace"));
 
 				for (int k1 = 0; k1 < nbttaglist2.tagCount(); ++k1) {
 					Block block1 = Block.getBlockFromName(nbttaglist2.getStringTagAt(k1));
 
 					if (block1 != null) {
-						list.add(TextFormatting.DARK_GRAY + block1.getLocalizedName());
+						list.add(TextFormat.DARK_GRAY + block1.getLocalizedName());
 					} else {
-						list.add(TextFormatting.DARK_GRAY + "missingno");
+						list.add(TextFormat.DARK_GRAY + "missingno");
 					}
 				}
 			}
@@ -830,10 +830,10 @@ public final class ItemStack {
 				list.add(I18n.translateToLocalFormatted("item.durability", getMaxDamage() - getItemDamage(), getMaxDamage()));
 			}
 
-			list.add(TextFormatting.DARK_GRAY + Item.REGISTRY.getNameForObject(item).toString());
+			list.add(TextFormat.DARK_GRAY + Item.REGISTRY.getNameForObject(item).toString());
 
 			if (hasTagCompound()) {
-				list.add(TextFormatting.DARK_GRAY + I18n.translateToLocalFormatted("item.nbt_tags", getTagCompound().getKeySet().size()));
+				list.add(TextFormat.DARK_GRAY + I18n.translateToLocalFormatted("item.nbt_tags", getTagCompound().getKeySet().size()));
 			}
 		}
 

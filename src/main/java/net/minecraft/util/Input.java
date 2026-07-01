@@ -25,32 +25,28 @@ public class Input {
 		strafe = 0F;
 		forward = 0F;
 
-		if (gameSettings.keyForward.isKeyDown()) {
-			forward++;
+		if (gameSettings.keyForward.isDown()) {
 			forwardKey = true;
-		} else {
-			forwardKey = false;
-		}
+			forward++;
+		} else forwardKey = false;
 
-		if (gameSettings.keyBack.isKeyDown()) {
-			forward--;
+		if (gameSettings.keyBack.isDown()) {
 			backKey = true;
-		} else {
-			backKey = false;
-		}
+			forward--;
+		} else backKey = false;
 
-		if (gameSettings.keyLeft.isKeyDown()) {
-			strafe++;
+		if (gameSettings.keyLeft.isDown()) {
 			leftKey = true;
+			strafe++;
 		} else leftKey = false;
 
-		if (gameSettings.keyRight.isKeyDown()) {
-			strafe++;
+		if (gameSettings.keyRight.isDown()) {
 			rightKey = true;
+			strafe--;
 		} else rightKey = false;
 
-		jump = gameSettings.keyJump.isKeyDown();
-		sneak = gameSettings.keySneak.isKeyDown();
+		jump = gameSettings.keyJump.isDown();
+		sneak = gameSettings.keySneak.isDown();
 
 		if (sneak) {
 			strafe = (float) (strafe * 0.3);

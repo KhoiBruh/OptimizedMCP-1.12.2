@@ -3,7 +3,7 @@ package net.minecraft.scoreboard;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import net.minecraft.world.storage.WorldSavedData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -74,7 +74,7 @@ public class ScoreboardSaveData extends WorldSavedData {
 			scoreplayerteam.setDisplayName(s1);
 
 			if (nbttagcompound.hasKey("TeamColor", 8)) {
-				scoreplayerteam.setColor(TextFormatting.getValueByName(nbttagcompound.getString("TeamColor")));
+				scoreplayerteam.setColor(TextFormat.getValueByName(nbttagcompound.getString("TeamColor")));
 			}
 
 			scoreplayerteam.setPrefix(nbttagcompound.getString("Prefix"));

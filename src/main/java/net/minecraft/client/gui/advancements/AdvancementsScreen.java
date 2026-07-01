@@ -64,9 +64,9 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 	/**
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
-	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
 
-		if (mouseButton == 0) {
+		if (mouse == 0) {
 			int i = (width - 252) / 2;
 			int j = (height - 140) / 2;
 
@@ -78,7 +78,7 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 			}
 		}
 
-		super.mouseClicked(mouseX, mouseY, mouseButton);
+		super.mouseClicked(mouseX, mouseY, mouse);
 	}
 
 	/**

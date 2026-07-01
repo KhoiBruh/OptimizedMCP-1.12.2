@@ -136,11 +136,11 @@ public class EditCommandBlockMinecartScreen extends Screen implements ITabComple
 	/**
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
-	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
 
-		super.mouseClicked(mouseX, mouseY, mouseButton);
-		commandField.mouseClicked(mouseX, mouseY, mouseButton);
-		previousEdit.mouseClicked(mouseX, mouseY, mouseButton);
+		super.mouseClicked(mouseX, mouseY, mouse);
+		commandField.mouseClicked(mouseX, mouseY, mouse);
+		previousEdit.mouseClicked(mouseX, mouseY, mouse);
 	}
 
 	/**

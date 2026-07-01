@@ -25,7 +25,7 @@ public class ChestScreen extends ContainerScreen {
 		super(new ContainerChest(upperInv, lowerInv, Minecraft.getMinecraft().player));
 		upperChestInventory = upperInv;
 		lowerChestInventory = lowerInv;
-		allowUserInput = false;
+		allowInput = false;
 		int i = 222;
 		int j = 114;
 		inventoryRows = lowerInv.getSizeInventory() / 9;

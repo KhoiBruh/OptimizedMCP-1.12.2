@@ -26,7 +26,7 @@ import net.minecraft.tileentity.TileEntityShulkerBox;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -281,7 +281,7 @@ public class BlockShulkerBox extends BlockContainer {
 				}
 
 				if (j - i > 0) {
-					tooltip.add(String.format(TextFormatting.ITALIC + I18n.translateToLocal("container.shulkerBox.more"), j - i));
+					tooltip.add(String.format(TextFormat.ITALIC + I18n.translateToLocal("container.shulkerBox.more"), j - i));
 				}
 			}
 		}

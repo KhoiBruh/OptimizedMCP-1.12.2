@@ -16,7 +16,7 @@ import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import net.minecraft.world.GameType;
 import java.util.Comparator;
 import java.util.List;
@@ -115,7 +115,7 @@ public class GuiPlayerTabOverlay extends Gui {
 		List<String> list1 = null;
 
 		if (header != null) {
-			list1 = mc.fontRenderer.listFormattedStringToWidth(header.getFormattedText(), width - 50);
+			list1 = mc.fontRenderer.formatToWidth(header.getFormattedText(), width - 50);
 
 			for (String s : list1) {
 				l1 = Math.max(l1, mc.fontRenderer.getStringWidth(s));
@@ -125,7 +125,7 @@ public class GuiPlayerTabOverlay extends Gui {
 		List<String> list2 = null;
 
 		if (footer != null) {
-			list2 = mc.fontRenderer.listFormattedStringToWidth(footer.getFormattedText(), width - 50);
+			list2 = mc.fontRenderer.formatToWidth(footer.getFormattedText(), width - 50);
 
 			for (String s1 : list2) {
 				l1 = Math.max(l1, mc.fontRenderer.getStringWidth(s1));
@@ -181,7 +181,7 @@ public class GuiPlayerTabOverlay extends Gui {
 				String s4 = getPlayerName(networkplayerinfo1);
 
 				if (networkplayerinfo1.getGameType() == GameType.SPECTATOR) {
-					mc.fontRenderer.drawStringWithShadow(TextFormatting.ITALIC + s4, (float) j2, (float) k2, -1862270977);
+					mc.fontRenderer.drawStringWithShadow(TextFormat.ITALIC + s4, (float) j2, (float) k2, -1862270977);
 				} else {
 					mc.fontRenderer.drawStringWithShadow(s4, (float) j2, (float) k2, -1);
 				}
@@ -308,7 +308,7 @@ public class GuiPlayerTabOverlay extends Gui {
 				}
 			}
 		} else {
-			String s1 = TextFormatting.YELLOW + "" + i;
+			String s1 = TextFormat.YELLOW + "" + i;
 			mc.fontRenderer.drawStringWithShadow(s1, (float) (p_175247_5_ - mc.fontRenderer.getStringWidth(s1)), (float) p_175247_2_, 16777215);
 		}
 	}

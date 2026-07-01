@@ -39,7 +39,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ChatType;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import net.minecraft.world.border.WorldBorder;
 
 import java.util.Collection;
@@ -347,7 +347,7 @@ public class GuiIngame extends Gui {
 		GlStateManager.popMatrix();
 		scoreobjective1 = scoreboard.getObjectiveInDisplaySlot(0);
 
-		if (!mc.gameSettings.keyPlayerList.isKeyDown() || mc.isIntegratedServerRunning() && mc.player.connection.getPlayerInfoMap().size() <= 1 && scoreobjective1 == null) {
+		if (!mc.gameSettings.keyPlayerList.isDown() || mc.isIntegratedServerRunning() && mc.player.connection.getPlayerInfoMap().size() <= 1 && scoreobjective1 == null) {
 			overlayPlayerList.updatePlayerList(false);
 		} else {
 			overlayPlayerList.updatePlayerList(true);
@@ -596,7 +596,7 @@ public class GuiIngame extends Gui {
 			String s = highlightingItemStack.getDisplayName();
 
 			if (highlightingItemStack.hasDisplayName()) {
-				s = TextFormatting.ITALIC + s;
+				s = TextFormat.ITALIC + s;
 			}
 
 			int i = (mc.getWindow().getScaledWidth() - getFontRenderer().getStringWidth(s)) / 2;
@@ -641,7 +641,7 @@ public class GuiIngame extends Gui {
 
 		for (Score score : collection) {
 			ScorePlayerTeam scoreplayerteam = scoreboard.getPlayersTeam(score.getPlayerName());
-			String s = ScorePlayerTeam.formatPlayerName(scoreplayerteam, score.getPlayerName()) + ": " + TextFormatting.RED + score.getScorePoints();
+			String s = ScorePlayerTeam.formatPlayerName(scoreplayerteam, score.getPlayerName()) + ": " + TextFormat.RED + score.getScorePoints();
 			i = Math.max(i, getFontRenderer().getStringWidth(s));
 		}
 
@@ -655,7 +655,7 @@ public class GuiIngame extends Gui {
 			++j;
 			ScorePlayerTeam scoreplayerteam1 = scoreboard.getPlayersTeam(score1.getPlayerName());
 			String s1 = ScorePlayerTeam.formatPlayerName(scoreplayerteam1, score1.getPlayerName());
-			String s2 = TextFormatting.RED + "" + score1.getScorePoints();
+			String s2 = TextFormat.RED + "" + score1.getScorePoints();
 			int k = j1 - j * getFontRenderer().FONT_HEIGHT;
 			int l = mc.getWindow().getScaledWidth() - 3 + 2;
 			drawRect(l1 - 2, k, l, k + getFontRenderer().FONT_HEIGHT, 1342177280);

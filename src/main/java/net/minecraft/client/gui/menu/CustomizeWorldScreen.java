@@ -890,12 +890,12 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 	/**
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
-	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
 
-		super.mouseClicked(mouseX, mouseY, mouseButton);
+		super.mouseClicked(mouseX, mouseY, mouse);
 
 		if (confirmMode == 0 && !confirmDismissed) {
-			list.mouseClicked(mouseX, mouseY, mouseButton);
+			list.mouseClicked(mouseX, mouseY, mouse);
 		}
 	}
 

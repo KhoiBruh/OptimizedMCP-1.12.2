@@ -45,7 +45,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	/**
 	 * The RenderEngine used to load and setup glyph textures.
 	 */
-	private final TextureManager renderEngine;
+	private final TextureManager textureManager;
 	/**
 	 * the height in pixels of default text
 	 */
@@ -124,7 +124,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	public FontRenderer(GameSettings gameSettingsIn, ResourceLocation location, TextureManager textureManagerIn, boolean unicode) {
 
 		locationFontTexture = location;
-		renderEngine = textureManagerIn;
+		textureManager = textureManagerIn;
 		unicodeFlag = unicode;
 		textureManagerIn.bindTexture(locationFontTexture);
 
@@ -287,7 +287,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
 		int i = ch % 16 * 8;
 		int j = ch / 16 * 8;
 		int k = italic ? 1 : 0;
-		renderEngine.bindTexture(locationFontTexture);
+		textureManager.bindTexture(locationFontTexture);
 		int l = charWidth[ch];
 		float f = (float) l - 0.01F;
 		GlStateManager.glBegin(5);
@@ -317,7 +317,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 */
 	private void loadGlyphTexture(int page) {
 
-		renderEngine.bindTexture(getUnicodePageLocation(page));
+		textureManager.bindTexture(getUnicodePageLocation(page));
 	}
 
 	/**
@@ -764,7 +764,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 */
 	private void renderSplitString(String str, int x, int y, int wrapWidth, boolean addShadow) {
 
-		for (String s : listFormattedStringToWidth(str, wrapWidth)) {
+		for (String s : formatToWidth(str, wrapWidth)) {
 			renderStringAligned(s, x, y, wrapWidth, textColor, addShadow);
 			y += FONT_HEIGHT;
 		}
@@ -775,7 +775,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 */
 	public int getWordWrappedHeight(String str, int maxLength) {
 
-		return FONT_HEIGHT * listFormattedStringToWidth(str, maxLength).size();
+		return FONT_HEIGHT * formatToWidth(str, maxLength).size();
 	}
 
 	/**
@@ -796,9 +796,9 @@ public class FontRenderer implements IResourceManagerReloadListener {
 		unicodeFlag = unicodeFlagIn;
 	}
 
-	public List<String> listFormattedStringToWidth(String str, int wrapWidth) {
+	public List<String> formatToWidth(String text, int wrapWidth) {
 
-		return Arrays.asList(wrapFormattedStringToWidth(str, wrapWidth).split("\n"));
+		return Arrays.asList(wrapFormattedStringToWidth(text, wrapWidth).split("\n"));
 	}
 
 	/**

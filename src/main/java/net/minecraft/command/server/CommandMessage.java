@@ -6,7 +6,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -57,8 +57,8 @@ public class CommandMessage extends CommandBase {
 				ITextComponent itextcomponent = getChatComponentFromNthArg(sender, args, 1, !(sender instanceof EntityPlayer));
 				TextComponentTranslation textcomponenttranslation = new TextComponentTranslation("commands.message.display.incoming", sender.getDisplayName(), itextcomponent.createCopy());
 				TextComponentTranslation textcomponenttranslation1 = new TextComponentTranslation("commands.message.display.outgoing", entityplayer.getDisplayName(), itextcomponent.createCopy());
-				textcomponenttranslation.getStyle().setColor(TextFormatting.GRAY).setItalic(true);
-				textcomponenttranslation1.getStyle().setColor(TextFormatting.GRAY).setItalic(true);
+				textcomponenttranslation.getStyle().setColor(TextFormat.GRAY).setItalic(true);
+				textcomponenttranslation1.getStyle().setColor(TextFormat.GRAY).setItalic(true);
 				entityplayer.sendMessage(textcomponenttranslation);
 				sender.sendMessage(textcomponenttranslation1);
 			}

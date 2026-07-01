@@ -30,7 +30,7 @@ public class AdvancementToast implements IToast {
 		toastGui.drawTexturedModalRect(0, 0, 0, 0, 160, 32);
 
 		if (displayinfo != null) {
-			List<String> list = toastGui.getMinecraft().fontRenderer.listFormattedStringToWidth(displayinfo.getTitle().getFormattedText(), 125);
+			List<String> list = toastGui.getMinecraft().fontRenderer.formatToWidth(displayinfo.getTitle().getFormattedText(), 125);
 			int i = displayinfo.getFrame() == FrameType.CHALLENGE ? 16746751 : 16776960;
 
 			if (list.size() == 1) {

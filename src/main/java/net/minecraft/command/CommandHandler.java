@@ -7,7 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.util.Collections;
@@ -56,7 +56,7 @@ public abstract class CommandHandler implements ICommandManager {
 
 			if (icommand == null) {
 				TextComponentTranslation textcomponenttranslation1 = new TextComponentTranslation("commands.generic.notFound");
-				textcomponenttranslation1.getStyle().setColor(TextFormatting.RED);
+				textcomponenttranslation1.getStyle().setColor(TextFormat.RED);
 				sender.sendMessage(textcomponenttranslation1);
 			} else if (icommand.checkPermission(getServer(), sender)) {
 				if (j > -1) {
@@ -86,12 +86,12 @@ public abstract class CommandHandler implements ICommandManager {
 				}
 			} else {
 				TextComponentTranslation textcomponenttranslation2 = new TextComponentTranslation("commands.generic.permission");
-				textcomponenttranslation2.getStyle().setColor(TextFormatting.RED);
+				textcomponenttranslation2.getStyle().setColor(TextFormat.RED);
 				sender.sendMessage(textcomponenttranslation2);
 			}
 		} catch (CommandException commandexception) {
 			TextComponentTranslation textcomponenttranslation = new TextComponentTranslation(commandexception.getMessage(), commandexception.getErrorObjects());
-			textcomponenttranslation.getStyle().setColor(TextFormatting.RED);
+			textcomponenttranslation.getStyle().setColor(TextFormat.RED);
 			sender.sendMessage(textcomponenttranslation);
 		}
 
@@ -106,15 +106,15 @@ public abstract class CommandHandler implements ICommandManager {
 			return true;
 		} catch (WrongUsageException wrongusageexception) {
 			TextComponentTranslation textcomponenttranslation2 = new TextComponentTranslation("commands.generic.usage", new TextComponentTranslation(wrongusageexception.getMessage(), wrongusageexception.getErrorObjects()));
-			textcomponenttranslation2.getStyle().setColor(TextFormatting.RED);
+			textcomponenttranslation2.getStyle().setColor(TextFormat.RED);
 			sender.sendMessage(textcomponenttranslation2);
 		} catch (CommandException commandexception) {
 			TextComponentTranslation textcomponenttranslation1 = new TextComponentTranslation(commandexception.getMessage(), commandexception.getErrorObjects());
-			textcomponenttranslation1.getStyle().setColor(TextFormatting.RED);
+			textcomponenttranslation1.getStyle().setColor(TextFormat.RED);
 			sender.sendMessage(textcomponenttranslation1);
 		} catch (Throwable throwable) {
 			TextComponentTranslation textcomponenttranslation = new TextComponentTranslation("commands.generic.exception");
-			textcomponenttranslation.getStyle().setColor(TextFormatting.RED);
+			textcomponenttranslation.getStyle().setColor(TextFormat.RED);
 			sender.sendMessage(textcomponenttranslation);
 			LOGGER.warn("Couldn't process command: {}", input, throwable);
 		}

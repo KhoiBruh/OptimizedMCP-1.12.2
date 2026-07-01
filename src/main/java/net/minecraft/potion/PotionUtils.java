@@ -10,7 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Tuple;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import net.minecraft.util.text.translation.I18n;
 import java.util.Collection;
 import java.util.List;
@@ -178,7 +178,7 @@ public class PotionUtils {
 
 		if (list.isEmpty()) {
 			String s = I18n.translateToLocal("effect.none").trim();
-			lores.add(TextFormatting.GRAY + s);
+			lores.add(TextFormat.GRAY + s);
 		} else {
 			for (PotionEffect potioneffect : list) {
 				String s1 = I18n.translateToLocal(potioneffect.getEffectName()).trim();
@@ -202,16 +202,16 @@ public class PotionUtils {
 				}
 
 				if (potion.isBadEffect()) {
-					lores.add(TextFormatting.RED + s1);
+					lores.add(TextFormat.RED + s1);
 				} else {
-					lores.add(TextFormatting.BLUE + s1);
+					lores.add(TextFormat.BLUE + s1);
 				}
 			}
 		}
 
 		if (!list1.isEmpty()) {
 			lores.add("");
-			lores.add(TextFormatting.DARK_PURPLE + I18n.translateToLocal("potion.whenDrank"));
+			lores.add(TextFormat.DARK_PURPLE + I18n.translateToLocal("potion.whenDrank"));
 
 			for (Tuple<String, AttributeModifier> tuple : list1) {
 				AttributeModifier attributemodifier2 = tuple.getSecond();
@@ -225,10 +225,10 @@ public class PotionUtils {
 				}
 
 				if (d0 > 0D) {
-					lores.add(TextFormatting.BLUE + I18n.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier2.getOperation(), ItemStack.DECIMALFORMAT.format(d1), I18n.translateToLocal("attribute.name." + tuple.getFirst())));
+					lores.add(TextFormat.BLUE + I18n.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier2.getOperation(), ItemStack.DECIMALFORMAT.format(d1), I18n.translateToLocal("attribute.name." + tuple.getFirst())));
 				} else if (d0 < 0D) {
 					d1 = d1 * -1D;
-					lores.add(TextFormatting.RED + I18n.translateToLocalFormatted("attribute.modifier.take." + attributemodifier2.getOperation(), ItemStack.DECIMALFORMAT.format(d1), I18n.translateToLocal("attribute.name." + tuple.getFirst())));
+					lores.add(TextFormat.RED + I18n.translateToLocalFormatted("attribute.modifier.take." + attributemodifier2.getOperation(), ItemStack.DECIMALFORMAT.format(d1), I18n.translateToLocal("attribute.name." + tuple.getFirst())));
 				}
 			}
 		}

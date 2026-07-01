@@ -91,7 +91,7 @@ public class LanguageScreen extends Screen {
 						button.displayString = game_settings_3.getKeyBinding(GameSettings.Options.FORCE_UNICODE_FONT);
 						int i = mc.getWindow().getScaledWidth();
 						int j = mc.getWindow().getScaledHeight();
-						setWorldAndResolution(mc, i, j);
+						setResolution(mc, i, j);
 					}
 
 					break;

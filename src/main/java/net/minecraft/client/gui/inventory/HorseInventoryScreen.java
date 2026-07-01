@@ -44,7 +44,7 @@ public class HorseInventoryScreen extends ContainerScreen {
 		playerInventory = playerInv;
 		horseInventory = horseInv;
 		horseEntity = horse;
-		allowUserInput = false;
+		allowInput = false;
 	}
 
 	/**

@@ -92,14 +92,14 @@ public class ControlsScreen extends Screen {
 	/**
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
-	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
 
 		if (buttonId != null) {
-			options.setOptionKeyBinding(buttonId, -100 + mouseButton);
+			options.setOptionKeyBinding(buttonId, -100 + mouse);
 			buttonId = null;
 			KeyBinding.resetKeyBindingArrayAndHash();
-		} else if (mouseButton != 0 || !keyBindingList.mouseClicked(mouseX, mouseY, mouseButton)) {
-			super.mouseClicked(mouseX, mouseY, mouseButton);
+		} else if (mouse != 0 || !keyBindingList.mouseClicked(mouseX, mouseY, mouse)) {
+			super.mouseClicked(mouseX, mouseY, mouse);
 		}
 	}
 

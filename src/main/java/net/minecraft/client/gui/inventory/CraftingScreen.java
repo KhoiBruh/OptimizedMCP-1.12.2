@@ -110,11 +110,11 @@ public class CraftingScreen extends ContainerScreen implements IRecipeShownListe
 	/**
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
-	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
 
-		if (!recipeBookGui.mouseClicked(mouseX, mouseY, mouseButton)) {
+		if (!recipeBookGui.mouseClicked(mouseX, mouseY, mouse)) {
 			if (!widthTooNarrow || !recipeBookGui.isVisible()) {
-				super.mouseClicked(mouseX, mouseY, mouseButton);
+				super.mouseClicked(mouseX, mouseY, mouse);
 			}
 		}
 	}

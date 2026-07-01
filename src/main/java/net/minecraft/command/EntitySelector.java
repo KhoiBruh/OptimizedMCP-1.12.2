@@ -24,7 +24,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import net.minecraft.world.GameType;
 import net.minecraft.world.World;
 import java.util.*;
@@ -203,7 +203,7 @@ public class EntitySelector {
 				return true;
 			} else {
 				TextComponentTranslation textcomponenttranslation = new TextComponentTranslation("commands.generic.entity.invalidType", resourcelocation);
-				textcomponenttranslation.getStyle().setColor(TextFormatting.RED);
+				textcomponenttranslation.getStyle().setColor(TextFormat.RED);
 				commandSender.sendMessage(textcomponenttranslation);
 				return false;
 			}

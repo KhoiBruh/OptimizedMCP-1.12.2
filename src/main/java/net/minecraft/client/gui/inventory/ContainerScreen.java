@@ -15,7 +15,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import net.minecraft.client.util.Keyboard;
 
 import java.io.IOException;
@@ -167,7 +167,7 @@ public abstract class ContainerScreen extends Screen {
 				itemstack.setCount(dragSplittingRemnant);
 
 				if (itemstack.isEmpty()) {
-					s = TextFormatting.YELLOW + "0";
+					s = TextFormat.YELLOW + "0";
 				}
 			}
 
@@ -258,7 +258,7 @@ public abstract class ContainerScreen extends Screen {
 				int k = Math.min(itemstack.getMaxStackSize(), slotIn.getItemStackLimit(itemstack));
 
 				if (itemstack.getCount() > k) {
-					s = TextFormatting.YELLOW.toString() + k;
+					s = TextFormat.YELLOW.toString() + k;
 					itemstack.setCount(k);
 				}
 			} else {
@@ -343,16 +343,16 @@ public abstract class ContainerScreen extends Screen {
 	/**
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
-	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
 
-		super.mouseClicked(mouseX, mouseY, mouseButton);
-		boolean flag = mouseButton == mc.gameSettings.keyPickBlock.getKeyCode() + 100;
+		super.mouseClicked(mouseX, mouseY, mouse);
+		boolean flag = mouse == mc.gameSettings.keyPickBlock.getKeyCode() + 100;
 		Slot slot = getSlotAtPosition(mouseX, mouseY);
 		long i = Minecraft.getSystemTime();
-		doubleClick = lastClickSlot == slot && i - lastClickTime < 250L && lastClickButton == mouseButton;
+		doubleClick = lastClickSlot == slot && i - lastClickTime < 250L && lastClickButton == mouse;
 		ignoreMouseUp = false;
 
-		if (mouseButton == 0 || mouseButton == 1 || flag) {
+		if (mouse == 0 || mouse == 1 || flag) {
 			int j = guiLeft;
 			int k = guiTop;
 			boolean flag1 = hasClickedOutside(mouseX, mouseY, j, k);
@@ -376,14 +376,14 @@ public abstract class ContainerScreen extends Screen {
 					if (slot != null && slot.getHasStack()) {
 						clickedSlot = slot;
 						draggedStack = ItemStack.EMPTY;
-						isRightMouseClick = mouseButton == 1;
+						isRightMouseClick = mouse == 1;
 					} else {
 						clickedSlot = null;
 					}
 				} else if (!dragSplitting) {
 					if (mc.player.inventory.getItemStack().isEmpty()) {
-						if (mouseButton == mc.gameSettings.keyPickBlock.getKeyCode() + 100) {
-							handleMouseClick(slot, l, mouseButton, ClickType.CLONE);
+						if (mouse == mc.gameSettings.keyPickBlock.getKeyCode() + 100) {
+							handleMouseClick(slot, l, mouse, ClickType.CLONE);
 						} else {
 							boolean flag2 = l != -999 && (Keyboard.isKeyDown(340) || Keyboard.isKeyDown(344));
 							ClickType clicktype = ClickType.PICKUP;
@@ -395,20 +395,20 @@ public abstract class ContainerScreen extends Screen {
 								clicktype = ClickType.THROW;
 							}
 
-							handleMouseClick(slot, l, mouseButton, clicktype);
+							handleMouseClick(slot, l, mouse, clicktype);
 						}
 
 						ignoreMouseUp = true;
 					} else {
 						dragSplitting = true;
-						dragSplittingButton = mouseButton;
+						dragSplittingButton = mouse;
 						dragSplittingSlots.clear();
 
-						if (mouseButton == 0) {
+						if (mouse == 0) {
 							dragSplittingLimit = 0;
-						} else if (mouseButton == 1) {
+						} else if (mouse == 1) {
 							dragSplittingLimit = 1;
-						} else if (mouseButton == mc.gameSettings.keyPickBlock.getKeyCode() + 100) {
+						} else if (mouse == mc.gameSettings.keyPickBlock.getKeyCode() + 100) {
 							dragSplittingLimit = 2;
 						}
 					}
@@ -418,7 +418,7 @@ public abstract class ContainerScreen extends Screen {
 
 		lastClickSlot = slot;
 		lastClickTime = i;
-		lastClickButton = mouseButton;
+		lastClickButton = mouse;
 	}
 
 	protected boolean hasClickedOutside(int p_193983_1_, int p_193983_2_, int p_193983_3_, int p_193983_4_) {
@@ -430,13 +430,13 @@ public abstract class ContainerScreen extends Screen {
 	 * Called when a mouse button is pressed and the mouse is moved around. Parameters are : mouseX, mouseY,
 	 * lastButtonClicked & timeSinceMouseClick.
 	 */
-	protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
+	protected void mouseClickMove(int mouseX, int mouseY, int button, long timeSinceLastClick) {
 
 		Slot slot = getSlotAtPosition(mouseX, mouseY);
 		ItemStack itemstack = mc.player.inventory.getItemStack();
 
 		if (clickedSlot != null && mc.gameSettings.touchscreen) {
-			if (clickedMouseButton == 0 || clickedMouseButton == 1) {
+			if (button == 0 || button == 1) {
 				if (draggedStack.isEmpty()) {
 					if (slot != clickedSlot && !clickedSlot.getStack().isEmpty()) {
 						draggedStack = clickedSlot.getStack().copy();

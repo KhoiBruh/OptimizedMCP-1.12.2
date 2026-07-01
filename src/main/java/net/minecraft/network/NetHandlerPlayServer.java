@@ -611,7 +611,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 			}
 		} else {
 			TextComponentTranslation textcomponenttranslation = new TextComponentTranslation("build.tooHigh", serverController.getBuildLimit());
-			textcomponenttranslation.getStyle().setColor(TextFormatting.RED);
+			textcomponenttranslation.getStyle().setColor(TextFormat.RED);
 			player.connection.sendPacket(new SPacketChat(textcomponenttranslation, ChatType.GAME_INFO));
 		}
 
@@ -707,7 +707,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 		LOGGER.info("{} lost connection: {}", player.getName(), reason.getUnformattedText());
 		serverController.refreshStatusNextTick();
 		TextComponentTranslation textcomponenttranslation = new TextComponentTranslation("multiplayer.player.left", player.getDisplayName());
-		textcomponenttranslation.getStyle().setColor(TextFormatting.YELLOW);
+		textcomponenttranslation.getStyle().setColor(TextFormat.YELLOW);
 		serverController.getPlayerList().sendMessage(textcomponenttranslation);
 		player.mountEntityAndWakeUp();
 		serverController.getPlayerList().playerLoggedOut(player);
@@ -766,7 +766,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
 		if (player.getChatVisibility() == EntityPlayer.ChatVisibility.HIDDEN) {
 			TextComponentTranslation textcomponenttranslation = new TextComponentTranslation("chat.cannotSend");
-			textcomponenttranslation.getStyle().setColor(TextFormatting.RED);
+			textcomponenttranslation.getStyle().setColor(TextFormat.RED);
 			sendPacket(new SPacketChat(textcomponenttranslation));
 		} else {
 			player.markPlayerActive();
@@ -1129,7 +1129,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 			String[] astring = packetIn.getLines();
 
 			for (int i = 0; i < astring.length; ++i) {
-				tileentitysign.signText[i] = new TextComponentString(TextFormatting.getTextWithoutFormattingCodes(astring[i]));
+				tileentitysign.signText[i] = new TextComponentString(TextFormat.getTextWithoutFormattingCodes(astring[i]));
 			}
 
 			tileentitysign.markDirty();

@@ -103,16 +103,16 @@ public class VideoOptionsScreen extends Screen {
 	/**
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
-	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
 
 		int i = guiGameSettings.guiScale;
-		super.mouseClicked(mouseX, mouseY, mouseButton);
-		optionsRowList.mouseClicked(mouseX, mouseY, mouseButton);
+		super.mouseClicked(mouseX, mouseY, mouse);
+		optionsRowList.mouseClicked(mouseX, mouseY, mouse);
 
 		if (guiGameSettings.guiScale != i) {
 			int j = mc.getWindow().getScaledWidth();
 			int k = mc.getWindow().getScaledHeight();
-			setWorldAndResolution(mc, j, k);
+			setResolution(mc, j, k);
 		}
 	}
 
@@ -128,7 +128,7 @@ public class VideoOptionsScreen extends Screen {
 		if (guiGameSettings.guiScale != i) {
 			int j = mc.getWindow().getScaledWidth();
 			int k = mc.getWindow().getScaledHeight();
-			setWorldAndResolution(mc, j, k);
+			setResolution(mc, j, k);
 		}
 	}
 

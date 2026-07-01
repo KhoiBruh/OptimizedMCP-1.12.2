@@ -570,48 +570,48 @@ public class EditStructureScreen extends Screen {
 	/**
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
-	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
 
-		super.mouseClicked(mouseX, mouseY, mouseButton);
+		super.mouseClicked(mouseX, mouseY, mouse);
 
 		if (nameEdit.getVisible()) {
-			nameEdit.mouseClicked(mouseX, mouseY, mouseButton);
+			nameEdit.mouseClicked(mouseX, mouseY, mouse);
 		}
 
 		if (posXEdit.getVisible()) {
-			posXEdit.mouseClicked(mouseX, mouseY, mouseButton);
+			posXEdit.mouseClicked(mouseX, mouseY, mouse);
 		}
 
 		if (posYEdit.getVisible()) {
-			posYEdit.mouseClicked(mouseX, mouseY, mouseButton);
+			posYEdit.mouseClicked(mouseX, mouseY, mouse);
 		}
 
 		if (posZEdit.getVisible()) {
-			posZEdit.mouseClicked(mouseX, mouseY, mouseButton);
+			posZEdit.mouseClicked(mouseX, mouseY, mouse);
 		}
 
 		if (sizeXEdit.getVisible()) {
-			sizeXEdit.mouseClicked(mouseX, mouseY, mouseButton);
+			sizeXEdit.mouseClicked(mouseX, mouseY, mouse);
 		}
 
 		if (sizeYEdit.getVisible()) {
-			sizeYEdit.mouseClicked(mouseX, mouseY, mouseButton);
+			sizeYEdit.mouseClicked(mouseX, mouseY, mouse);
 		}
 
 		if (sizeZEdit.getVisible()) {
-			sizeZEdit.mouseClicked(mouseX, mouseY, mouseButton);
+			sizeZEdit.mouseClicked(mouseX, mouseY, mouse);
 		}
 
 		if (integrityEdit.getVisible()) {
-			integrityEdit.mouseClicked(mouseX, mouseY, mouseButton);
+			integrityEdit.mouseClicked(mouseX, mouseY, mouse);
 		}
 
 		if (seedEdit.getVisible()) {
-			seedEdit.mouseClicked(mouseX, mouseY, mouseButton);
+			seedEdit.mouseClicked(mouseX, mouseY, mouse);
 		}
 
 		if (dataEdit.getVisible()) {
-			dataEdit.mouseClicked(mouseX, mouseY, mouseButton);
+			dataEdit.mouseClicked(mouseX, mouseY, mouse);
 		}
 	}
 

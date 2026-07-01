@@ -29,7 +29,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ChatType;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.GameType;
 import net.minecraft.world.World;
@@ -156,7 +156,7 @@ public abstract class PlayerList {
 			textcomponenttranslation = new TextComponentTranslation("multiplayer.player.joined.renamed", playerIn.getDisplayName(), s);
 		}
 
-		textcomponenttranslation.getStyle().setColor(TextFormatting.YELLOW);
+		textcomponenttranslation.getStyle().setColor(TextFormat.YELLOW);
 		sendMessage(textcomponenttranslation);
 		playerLoggedIn(playerIn);
 		nethandlerplayserver.setPlayerLocation(playerIn.posX, playerIn.posY, playerIn.posZ, playerIn.rotationYaw, playerIn.rotationPitch);

@@ -28,7 +28,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import net.minecraft.client.util.Keyboard;
 import net.minecraft.client.util.Mouse;
 import java.io.IOException;
@@ -73,7 +73,7 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 
 		super(new CreativeContainerScreen.ContainerCreative(player));
 		player.openContainer = inventorySlots;
-		allowUserInput = true;
+		allowInput = true;
 		ySize = 136;
 		xSize = 195;
 	}
@@ -362,9 +362,9 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	/**
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
-	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
 
-		if (mouseButton == 0) {
+		if (mouse == 0) {
 			int i = mouseX - guiLeft;
 			int j = mouseY - guiTop;
 
@@ -375,7 +375,7 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 			}
 		}
 
-		super.mouseClicked(mouseX, mouseY, mouseButton);
+		super.mouseClicked(mouseX, mouseY, mouse);
 	}
 
 	/**
@@ -600,14 +600,14 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 			}
 
 			if (creativetabs != null) {
-				list.add(1, "" + TextFormatting.BOLD + TextFormatting.BLUE + I18n.format(creativetabs.getTranslatedTabLabel()));
+				list.add(1, "" + TextFormat.BOLD + TextFormat.BLUE + I18n.format(creativetabs.getTranslatedTabLabel()));
 			}
 
 			for (int i = 0; i < list.size(); ++i) {
 				if (i == 0) {
 					list.set(i, stack.getRarity().rarityColor + list.get(i));
 				} else {
-					list.set(i, TextFormatting.GRAY + list.get(i));
+					list.set(i, TextFormat.GRAY + list.get(i));
 				}
 			}
 

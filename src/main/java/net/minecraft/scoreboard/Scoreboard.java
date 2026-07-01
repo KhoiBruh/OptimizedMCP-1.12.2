@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -33,9 +33,9 @@ public class Scoreboard {
 			case 2 -> "belowName";
 			default -> {
 				if (id >= 3 && id <= 18) {
-					TextFormatting textformatting = TextFormatting.fromColorIndex(id - 3);
+					TextFormat textformatting = TextFormat.fromColorIndex(id - 3);
 
-					if (textformatting != null && textformatting != TextFormatting.RESET) {
+					if (textformatting != null && textformatting != TextFormat.RESET) {
 						yield "sidebar.team." + textformatting.getFriendlyName();
 					}
 				}
@@ -59,7 +59,7 @@ public class Scoreboard {
 		} else {
 			if (name.startsWith("sidebar.team.")) {
 				String s = name.substring("sidebar.team.".length());
-				TextFormatting textformatting = TextFormatting.getValueByName(s);
+				TextFormat textformatting = TextFormat.getValueByName(s);
 
 				if (textformatting != null && textformatting.getColorIndex() >= 0) {
 					return textformatting.getColorIndex() + 3;

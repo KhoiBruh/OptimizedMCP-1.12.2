@@ -1,25 +1,25 @@
 package net.minecraft.item;
 
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 
 public enum Rarity {
-	COMMON(TextFormatting.WHITE, "Common"),
-	UNCOMMON(TextFormatting.YELLOW, "Uncommon"),
-	RARE(TextFormatting.AQUA, "Rare"),
-	EPIC(TextFormatting.LIGHT_PURPLE, "Epic");
+	COMMON(TextFormat.WHITE, "Common"),
+	UNCOMMON(TextFormat.YELLOW, "Uncommon"),
+	RARE(TextFormat.AQUA, "Rare"),
+	EPIC(TextFormat.LIGHT_PURPLE, "Epic");
 
 	/**
 	 * A decimal representation of the hex color codes of a the color assigned to this rarity type. (13 becomes d as in
 	 * \247d which is light purple)
 	 */
-	public final TextFormatting rarityColor;
+	public final TextFormat rarityColor;
 
 	/**
 	 * Rarity name.
 	 */
 	public final String rarityName;
 
-	Rarity(TextFormatting color, String name) {
+	Rarity(TextFormat color, String name) {
 
 		rarityColor = color;
 		rarityName = name;

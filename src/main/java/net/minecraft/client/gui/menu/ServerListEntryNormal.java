@@ -15,7 +15,7 @@ import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -63,10 +63,10 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
 					owner.getOldServerPinger().ping(server);
 				} catch (UnknownHostException var2) {
 					server.pingToServer = -1L;
-					server.serverMOTD = TextFormatting.DARK_RED + I18n.format("multiplayer.status.cannot_resolve");
+					server.serverMOTD = TextFormat.DARK_RED + I18n.format("multiplayer.status.cannot_resolve");
 				} catch (Exception var3) {
 					server.pingToServer = -1L;
-					server.serverMOTD = TextFormatting.DARK_RED + I18n.format("multiplayer.status.cannot_connect");
+					server.serverMOTD = TextFormat.DARK_RED + I18n.format("multiplayer.status.cannot_connect");
 				}
 			});
 		}
@@ -75,13 +75,13 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
 		boolean flag1 = server.version < 340;
 		boolean flag2 = flag || flag1;
 		mc.fontRenderer.drawString(server.serverName, x + 32 + 3, y + 1, 16777215);
-		List<String> list = mc.fontRenderer.listFormattedStringToWidth(server.serverMOTD, listWidth - 32 - 2);
+		List<String> list = mc.fontRenderer.formatToWidth(server.serverMOTD, listWidth - 32 - 2);
 
 		for (int i = 0; i < Math.min(list.size(), 2); ++i) {
 			mc.fontRenderer.drawString(list.get(i), x + 32 + 3, y + 12 + mc.fontRenderer.FONT_HEIGHT * i, 8421504);
 		}
 
-		String s2 = flag2 ? TextFormatting.DARK_RED + server.gameVersion : server.populationInfo;
+		String s2 = flag2 ? TextFormat.DARK_RED + server.gameVersion : server.populationInfo;
 		int j = mc.fontRenderer.getStringWidth(s2);
 		mc.fontRenderer.drawString(s2, x + listWidth - j - 15 - 2, y + 1, 8421504);
 		int k = 0;

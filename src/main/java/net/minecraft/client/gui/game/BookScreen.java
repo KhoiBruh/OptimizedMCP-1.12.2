@@ -22,7 +22,7 @@ import net.minecraft.util.ResourceLocation;
 import static org.lwjgl.glfw.GLFW.*;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import net.minecraft.util.text.event.ClickEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -348,7 +348,7 @@ public class BookScreen extends Screen {
 
 		String s = pageGetCurrent();
 		String s1 = s + p_146459_1_;
-		int i = fontRenderer.getWordWrappedHeight(s1 + TextFormatting.BLACK + "_", 118);
+		int i = fontRenderer.getWordWrappedHeight(s1 + TextFormat.BLACK + "_", 118);
 
 		if (i <= 128 && s1.length() < 256) {
 			pageSetCurrent(s1);
@@ -371,9 +371,9 @@ public class BookScreen extends Screen {
 
 			if (bookIsUnsigned) {
 				if (updateCount / 6 % 2 == 0) {
-					s = s + TextFormatting.BLACK + "_";
+					s = s + TextFormat.BLACK + "_";
 				} else {
-					s = s + TextFormatting.GRAY + "_";
+					s = s + TextFormat.GRAY + "_";
 				}
 			}
 
@@ -384,7 +384,7 @@ public class BookScreen extends Screen {
 			fontRenderer.drawString(s, i + 36 + (116 - l) / 2, 50, 0);
 			String s2 = I18n.format("book.byAuthor", editingPlayer.getName());
 			int i1 = fontRenderer.getStringWidth(s2);
-			fontRenderer.drawString(TextFormatting.DARK_GRAY + s2, i + 36 + (116 - i1) / 2, 60, 0);
+			fontRenderer.drawString(TextFormat.DARK_GRAY + s2, i + 36 + (116 - i1) / 2, 60, 0);
 			String s3 = I18n.format("book.finalizeWarning");
 			fontRenderer.drawSplitString(s3, i + 36, 82, 116, 0);
 		} else {
@@ -399,9 +399,9 @@ public class BookScreen extends Screen {
 				if (fontRenderer.getBidiFlag()) {
 					s5 = s5 + "_";
 				} else if (updateCount / 6 % 2 == 0) {
-					s5 = s5 + TextFormatting.BLACK + "_";
+					s5 = s5 + TextFormat.BLACK + "_";
 				} else {
-					s5 = s5 + TextFormatting.GRAY + "_";
+					s5 = s5 + TextFormat.GRAY + "_";
 				}
 			} else if (cachedPage != currPage) {
 				if (ItemWrittenBook.validBookTagContents(book.getTagCompound())) {
@@ -412,7 +412,7 @@ public class BookScreen extends Screen {
 						cachedComponents = null;
 					}
 				} else {
-					TextComponentString textcomponentstring = new TextComponentString(TextFormatting.DARK_RED + "* Invalid book tag *");
+					TextComponentString textcomponentstring = new TextComponentString(TextFormat.DARK_RED + "* Invalid book tag *");
 					cachedComponents = Lists.newArrayList(textcomponentstring);
 				}
 
@@ -446,9 +446,9 @@ public class BookScreen extends Screen {
 	/**
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
-	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
 
-		if (mouseButton == 0) {
+		if (mouse == 0) {
 			ITextComponent itextcomponent = getClickedComponentAt(mouseX, mouseY);
 
 			if (itextcomponent != null && handleComponentClick(itextcomponent)) {
@@ -456,7 +456,7 @@ public class BookScreen extends Screen {
 			}
 		}
 
-		super.mouseClicked(mouseX, mouseY, mouseButton);
+		super.mouseClicked(mouseX, mouseY, mouse);
 	}
 
 	/**

@@ -4,7 +4,7 @@ import net.minecraft.scoreboard.IScoreCriteria;
 import net.minecraft.scoreboard.ScoreCriteriaStat;
 import net.minecraft.util.IJsonSerializable;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -104,7 +104,7 @@ public class StatBase {
 	public ITextComponent getStatName() {
 
 		ITextComponent itextcomponent = statName.createCopy();
-		itextcomponent.getStyle().setColor(TextFormatting.GRAY);
+		itextcomponent.getStyle().setColor(TextFormat.GRAY);
 		return itextcomponent;
 	}
 

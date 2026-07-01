@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public class GuiUtilRenderComponents {
 
 	public static String removeTextColorsIfConfigured(String text, boolean forceColor) {
 
-		return !forceColor && !Minecraft.getMinecraft().gameSettings.chatColours ? TextFormatting.getTextWithoutFormattingCodes(text) : text;
+		return !forceColor && !Minecraft.getMinecraft().gameSettings.chatColours ? TextFormat.getTextWithoutFormattingCodes(text) : text;
 	}
 
 	public static List<ITextComponent> splitText(ITextComponent textComponent, int maxTextLenght, FontRenderer fontRendererIn, boolean p_178908_3_, boolean forceTextColor) {

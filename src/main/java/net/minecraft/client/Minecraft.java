@@ -477,7 +477,7 @@ public class Minecraft implements IThreadListener {
 				stack ->
 						stack.getTooltip(null, ITooltipFlag.TooltipFlags.NORMAL)
 						     .stream()
-						     .map(TextFormatting::getTextWithoutFormattingCodes)
+						     .map(TextFormat::getTextWithoutFormattingCodes)
 						     .map(String::trim)
 						     .filter(name -> !name.isEmpty())
 						     .collect(Collectors.toList()),
@@ -499,7 +499,7 @@ public class Minecraft implements IThreadListener {
 												                .getTooltip(null, ITooltipFlag.TooltipFlags.NORMAL)
 												                .stream()
 				                        )
-				                        .map(TextFormatting::getTextWithoutFormattingCodes)
+				                        .map(TextFormat::getTextWithoutFormattingCodes)
 				                        .map(String::trim)
 				                        .filter(name -> !name.isEmpty()).collect(Collectors.toList()),
 				
@@ -784,7 +784,7 @@ public class Minecraft implements IThreadListener {
 			
 			int i = window.getScaledWidth();
 			int j = window.getScaledHeight();
-			screen.setWorldAndResolution(this, i, j);
+			screen.setResolution(this, i, j);
 			skipRenderWorld = false;
 		} else {
 			soundHandler.resumeSounds();
@@ -1357,7 +1357,7 @@ public class Minecraft implements IThreadListener {
 			}
 		}
 		
-		if (currentScreen == null || currentScreen.allowUserInput) {
+		if (currentScreen == null || currentScreen.allowInput) {
 			profiler.endStartSection("mouse");
 			tickMouse();
 			
@@ -1605,8 +1605,8 @@ public class Minecraft implements IThreadListener {
 			gameSettings.smoothCamera = !gameSettings.smoothCamera;
 		}
 		
-		boolean saveToolbar = gameSettings.keySaveToolbar.isKeyDown();
-		boolean loadToolbar = gameSettings.keyLoadToolbar.isKeyDown();
+		boolean saveToolbar = gameSettings.keySaveToolbar.isDown();
+		boolean loadToolbar = gameSettings.keyLoadToolbar.isDown();
 		
 		for (int i = 0; i < 9; i++) {
 			if (gameSettings.keyHotbar[i].isPressed()) {
@@ -1657,7 +1657,7 @@ public class Minecraft implements IThreadListener {
 		}
 		
 		if (player.isHandActive()) {
-			if (!gameSettings.keyUseItem.isKeyDown()) playerController.onStoppedUsingItem(player);
+			if (!gameSettings.keyUseItem.isDown()) playerController.onStoppedUsingItem(player);
 			
 			while (gameSettings.keyAttack.isPressed());
 			while (gameSettings.keyUseItem.isPressed());
@@ -1668,9 +1668,9 @@ public class Minecraft implements IThreadListener {
 			while (gameSettings.keyPickBlock.isPressed()) midClick();
 		}
 		
-		if (gameSettings.keyUseItem.isKeyDown() && rightClicks == 0 && !player.isHandActive()) rightClick();
+		if (gameSettings.keyUseItem.isDown() && rightClicks == 0 && !player.isHandActive()) rightClick();
 		
-		sendClickBlockToController(currentScreen == null && gameSettings.keyAttack.isKeyDown() && inGameHasFocus);
+		sendClickBlockToController(currentScreen == null && gameSettings.keyAttack.isDown() && inGameHasFocus);
 	}
 	
 	private void tickMouse() throws IOException {
@@ -1726,7 +1726,7 @@ public class Minecraft implements IThreadListener {
 						 new TextComponentString("")
 								 .appendSibling(
 										 new TextComponentTranslation("debug.prefix")
-												 .setStyle(new Style().setColor(TextFormatting.YELLOW).setBold(true))
+												 .setStyle(new Style().setColor(TextFormat.YELLOW).setBold(true))
 								 ).appendText(" ")
 								 .appendSibling(new TextComponentTranslation(template, objs))
 		         );

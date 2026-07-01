@@ -1,10 +1,8 @@
 package net.minecraft.client.gui;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.component.Button;
-import net.minecraft.client.gui.component.GuiLabel;
 import net.minecraft.client.gui.menu.ConfirmOpenLinkScreen;
 import net.minecraft.client.gui.menu.GuiPanoramaBackground;
 import net.minecraft.client.renderer.*;
@@ -15,7 +13,7 @@ import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.util.text.event.HoverEvent;
 import org.apache.commons.lang3.StringUtils;
@@ -43,13 +41,12 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 	public int width;
 	public int height;
 
-	public boolean allowUserInput;
+	public boolean allowInput;
 
 	protected Minecraft mc;
 
 	protected RenderItem itemRender;
 	protected List<Button> buttons = new ArrayList<>();
-	protected List<GuiLabel> labelList = new ArrayList<>();
 
 	protected FontRenderer fontRenderer;
 
@@ -58,7 +55,7 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 	private long lastMouseEvent;
 
 	private int touch;
-	private URI clickedLinkURI;
+	private URI clickedLink;
 	private boolean focused;
 
 	public static String getClipboard() {
@@ -120,19 +117,13 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 		for (Button button : buttons) {
 			button.drawButton(mc, mouseX, mouseY, partialTicks);
 		}
-
-		for (GuiLabel guiLabel : labelList) {
-			guiLabel.drawLabel(mc, mouseX, mouseY);
-		}
 	}
 
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
 		if (keyCode == 256) {
 			mc.displayScreen(null);
 
-			if (mc.currentScreen == null) {
-				mc.setIngameFocus();
-			}
+			if (mc.currentScreen == null) mc.setIngameFocus();
 		}
 	}
 
@@ -146,17 +137,17 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 	}
 
 	public List<String> getItemToolTip(ItemStack item) {
-		List<String> list = item.getTooltip(mc.player, mc.gameSettings.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL);
+		List<String> tooltip = item.getTooltip(mc.player, mc.gameSettings.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL);
 
-		for (int i = 0; i < list.size(); ++i) {
+		for (int i = 0; i < tooltip.size(); ++i) {
 			if (i == 0) {
-				list.set(i, item.getRarity().rarityColor + list.get(i));
+				tooltip.set(i, item.getRarity().rarityColor + tooltip.get(i));
 			} else {
-				list.set(i, TextFormatting.GRAY + list.get(i));
+				tooltip.set(i, TextFormat.GRAY + tooltip.get(i));
 			}
 		}
 
-		return list;
+		return tooltip;
 	}
 
 	public void drawHoveringText(String text, int x, int y) {
@@ -229,43 +220,42 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 
 	protected void handleComponentHover(ITextComponent component, int x, int y) {
 		if (component != null && component.getStyle().getHoverEvent() != null) {
-			HoverEvent hoverevent = component.getStyle().getHoverEvent();
+			HoverEvent event = component.getStyle().getHoverEvent();
 
-			if (hoverevent.action() == HoverEvent.Action.SHOW_ITEM) {
-				ItemStack itemstack = ItemStack.EMPTY;
+			switch (event.action()) {
+				case SHOW_TEXT -> drawHoveringText(mc.fontRenderer.formatToWidth(event.value().getFormattedText(), Math.max(width / 2, 200)), x, y);
+				case SHOW_ITEM -> {
+					ItemStack item = ItemStack.EMPTY;
 
-				try {
-					NBTTagCompound nbtbase = JsonToNBT.getTagFromJson(hoverevent.value().getUnformattedText());
-
-					if (nbtbase != null) itemstack = new ItemStack(nbtbase);
-				} catch (NBTException ignored) {
-				}
-
-				if (itemstack.isEmpty()) {
-					drawHoveringText(TextFormatting.RED + "Invalid Item!", x, y);
-				} else {
-					renderToolTip(itemstack, x, y);
-				}
-			} else if (hoverevent.action() == HoverEvent.Action.SHOW_ENTITY) {
-				if (mc.gameSettings.advancedItemTooltips) {
 					try {
-						NBTTagCompound nbttagcompound = JsonToNBT.getTagFromJson(hoverevent.value().getUnformattedText());
-						List<String> list = Lists.newArrayList();
-						list.add(nbttagcompound.getString("name"));
+						NBTTagCompound tag = JsonToNBT.getTagFromJson(event.value().getUnformattedText());
 
-						if (nbttagcompound.hasKey("type", 8)) {
-							String s = nbttagcompound.getString("type");
-							list.add("Type: " + s);
+						if (tag != null) item = new ItemStack(tag);
+					} catch (NBTException ignored) {
+					}
+
+					if (item.isEmpty()) drawHoveringText(TextFormat.RED + "Invalid Item!", x, y);
+					else renderToolTip(item, x, y);
+				}
+				case SHOW_ENTITY -> {
+					if (mc.gameSettings.advancedItemTooltips) {
+						try {
+							NBTTagCompound tag = JsonToNBT.getTagFromJson(event.value().getUnformattedText());
+							List<String> tags = new ArrayList<>();
+							tags.add(tag.getString("name"));
+
+							if (tag.hasKey("type", 8)) {
+								String s = tag.getString("type");
+								tags.add("Type: " + s);
+							}
+
+							tags.add(tag.getString("id"));
+							drawHoveringText(tags, x, y);
+						} catch (NBTException var8) {
+							drawHoveringText(TextFormat.RED + "Invalid Entity!", x, y);
 						}
-
-						list.add(nbttagcompound.getString("id"));
-						drawHoveringText(list, x, y);
-					} catch (NBTException var8) {
-						drawHoveringText(TextFormatting.RED + "Invalid Entity!", x, y);
 					}
 				}
-			} else if (hoverevent.action() == HoverEvent.Action.SHOW_TEXT) {
-				drawHoveringText(mc.fontRenderer.listFormattedStringToWidth(hoverevent.value().getFormattedText(), Math.max(width / 2, 200)), x, y);
 			}
 
 			GlStateManager.disableLighting();
@@ -278,41 +268,40 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 
 	public boolean handleComponentClick(ITextComponent component) {
 		if (component != null) {
-			ClickEvent clickevent = component.getStyle().getClickEvent();
+			ClickEvent event = component.getStyle().getClickEvent();
 
 			if (isShiftDown()) {
-				if (component.getStyle().getInsertion() != null) {
+				if (component.getStyle().getInsertion() != null)
 					setText(component.getStyle().getInsertion(), false);
-				}
-			} else if (clickevent != null) {
-				if (clickevent.action() == ClickEvent.Action.OPEN_URL) {
-					if (!mc.gameSettings.chatLinks) return false;
-
-					try {
-						URI uri = new URI(clickevent.value());
-						String s = uri.getScheme();
-
-						if (s == null) throw new URISyntaxException(clickevent.value(), "Missing protocol");
-
-						if (!PROTOCOLS.contains(s.toLowerCase(Locale.ROOT)))
-							throw new URISyntaxException(clickevent.value(), "Unsupported protocol: " + s.toLowerCase(Locale.ROOT));
-
-						if (mc.gameSettings.chatLinksPrompt) {
-							clickedLinkURI = uri;
-							mc.displayScreen(new ConfirmOpenLinkScreen(this, clickevent.value(), 31102009, false));
-						} else openLink(uri);
-					} catch (URISyntaxException urisyntaxexception) {
-						LOGGER.error("Can't open url for {}", clickevent, urisyntaxexception);
+			} else if (event != null) {
+				switch (event.action()) {
+					case RUN_COMMAND -> sendChatMessage(event.value(), false);
+					case SUGGEST_COMMAND -> setText(event.value(), true);
+					case OPEN_FILE -> {
+						URI uri = new File(event.value()).toURI();
+						openLink(uri);
 					}
-				} else if (clickevent.action() == ClickEvent.Action.OPEN_FILE) {
-					URI uri1 = (new File(clickevent.value())).toURI();
-					openLink(uri1);
-				} else if (clickevent.action() == ClickEvent.Action.SUGGEST_COMMAND) {
-					setText(clickevent.value(), true);
-				} else if (clickevent.action() == ClickEvent.Action.RUN_COMMAND) {
-					sendChatMessage(clickevent.value(), false);
-				} else {
-					LOGGER.error("Don't know how to handle {}", clickevent);
+					case OPEN_URL -> {
+						if (!mc.gameSettings.chatLinks) return false;
+
+						try {
+							URI uri = new URI(event.value());
+							String s = uri.getScheme();
+
+							if (s == null) throw new URISyntaxException(event.value(), "Missing protocol");
+
+							if (!PROTOCOLS.contains(s.toLowerCase(Locale.ROOT)))
+								throw new URISyntaxException(event.value(), "Unsupported protocol: " + s.toLowerCase(Locale.ROOT));
+
+							if (mc.gameSettings.chatLinksPrompt) {
+								clickedLink = uri;
+								mc.displayScreen(new ConfirmOpenLinkScreen(this, event.value(), 31102009, false));
+							} else openLink(uri);
+						} catch (URISyntaxException urisyntaxexception) {
+							LOGGER.error("Can't open url for {}", event, urisyntaxexception);
+						}
+					}
+					default -> LOGGER.error("Don't know how to handle {}", event);
 				}
 
 				return true;
@@ -333,13 +322,13 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 		mc.player.sendChatMessage(msg);
 	}
 
-	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-		if (mouseButton == 0) {
-			for (Button guibutton : new ArrayList<>(buttons)) {
-				if (guibutton.mousePressed(mc, mouseX, mouseY)) {
-					selected = guibutton;
-					guibutton.playPressSound(mc.getSoundHandler());
-					action(guibutton);
+	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
+		if (mouse == 0) {
+			for (Button button : new ArrayList<>(buttons)) {
+				if (button.mousePressed(mc, mouseX, mouseY)) {
+					selected = button;
+					button.playPressSound(mc.getSoundHandler());
+					action(button);
 					return;
 				}
 			}
@@ -353,7 +342,7 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 		}
 	}
 
-	protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
+	protected void mouseClickMove(int mouseX, int mouseY, int button, long timeSinceLastClick) {
 
 	}
 
@@ -361,7 +350,7 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 
 	}
 
-	public void setWorldAndResolution(Minecraft mc, int width, int height) {
+	public void setResolution(Minecraft mc, int width, int height) {
 		this.mc = mc;
 		itemRender = mc.getRenderItem();
 		fontRenderer = mc.fontRenderer;
@@ -458,9 +447,9 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 
 	public void confirmClicked(boolean result, int id) {
 		if (id == 31102009) {
-			if (result) openLink(clickedLinkURI);
+			if (result) openLink(clickedLink);
 
-			clickedLinkURI = null;
+			clickedLink = null;
 			mc.displayScreen(this);
 		}
 	}
@@ -475,7 +464,7 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 	}
 
 	public void onResize(Minecraft mcIn, int w, int h) {
-		setWorldAndResolution(mcIn, w, h);
+		setResolution(mcIn, w, h);
 	}
 
 }

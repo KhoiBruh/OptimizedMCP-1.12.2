@@ -12,7 +12,7 @@ public class Style {
 	 */
 	private static final Style ROOT = new Style() {
 		
-		public TextFormatting getColor() {
+		public TextFormat getColor() {
 
 			return null;
 		}
@@ -60,7 +60,7 @@ public class Style {
 			return null;
 		}
 
-		public Style setColor(TextFormatting color) {
+		public Style setColor(TextFormat color) {
 
 			throw new UnsupportedOperationException();
 		}
@@ -129,7 +129,7 @@ public class Style {
 	 * The parent of this ChatStyle.  Used for looking up values that this instance does not override.
 	 */
 	private Style parentStyle;
-	private TextFormatting color;
+	private TextFormat color;
 	private Boolean bold;
 	private Boolean italic;
 	private Boolean underlined;
@@ -144,7 +144,7 @@ public class Style {
 	/**
 	 * Gets the effective color of this ChatStyle.
 	 */
-	public TextFormatting getColor() {
+	public TextFormat getColor() {
 
 		return color == null ? getParent().getColor() : color;
 	}
@@ -153,7 +153,7 @@ public class Style {
 	 * Sets the color for this ChatStyle to the given value.  Only use color values for this; set other values using the
 	 * specific methods.
 	 */
-	public Style setColor(TextFormatting color) {
+	public Style setColor(TextFormat color) {
 
 		this.color = color;
 		return this;
@@ -341,23 +341,23 @@ public class Style {
 			}
 
 			if (getBold()) {
-				stringbuilder.append(TextFormatting.BOLD);
+				stringbuilder.append(TextFormat.BOLD);
 			}
 
 			if (getItalic()) {
-				stringbuilder.append(TextFormatting.ITALIC);
+				stringbuilder.append(TextFormat.ITALIC);
 			}
 
 			if (getUnderlined()) {
-				stringbuilder.append(TextFormatting.UNDERLINE);
+				stringbuilder.append(TextFormat.UNDERLINE);
 			}
 
 			if (getObfuscated()) {
-				stringbuilder.append(TextFormatting.OBFUSCATED);
+				stringbuilder.append(TextFormat.OBFUSCATED);
 			}
 
 			if (getStrikethrough()) {
-				stringbuilder.append(TextFormatting.STRIKETHROUGH);
+				stringbuilder.append(TextFormat.STRIKETHROUGH);
 			}
 
 			return stringbuilder.toString();
@@ -512,7 +512,7 @@ public class Style {
 					}
 
 					if (jsonobject.has("color")) {
-						style.color = p_deserialize_3_.deserialize(jsonobject.get("color"), TextFormatting.class);
+						style.color = p_deserialize_3_.deserialize(jsonobject.get("color"), TextFormat.class);
 					}
 
 					if (jsonobject.has("insertion")) {

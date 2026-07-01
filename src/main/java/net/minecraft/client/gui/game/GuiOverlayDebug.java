@@ -19,7 +19,7 @@ import net.minecraft.util.FrameTimer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.SkyBlock;
 import net.minecraft.world.WorldType;
@@ -80,9 +80,9 @@ public class GuiOverlayDebug extends Gui {
 		String valueName = getPropertyValueName(property, value);
 
 		if (Boolean.TRUE.equals(value)) {
-			valueName = TextFormatting.GREEN + valueName;
+			valueName = TextFormat.GREEN + valueName;
 		} else if (Boolean.FALSE.equals(value)) {
-			valueName = TextFormatting.RED + valueName;
+			valueName = TextFormat.RED + valueName;
 		}
 
 		return property.getName() + ": " + valueName;

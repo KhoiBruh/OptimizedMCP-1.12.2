@@ -1,7 +1,7 @@
 package net.minecraft.scoreboard;
 
 import com.google.common.collect.Maps;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import java.util.Collection;
 import java.util.Map;
 
@@ -48,7 +48,7 @@ public abstract class Team {
 	 * Gets the color for this team. The team color is used mainly for team kill objectives and team-specific setDisplay
 	 * usage; it does _not_ affect all situations (for instance, the prefix is used for the glowing effect).
 	 */
-	public abstract TextFormatting getColor();
+	public abstract TextFormat getColor();
 
 	public abstract Collection<String> getMembershipCollection();
 

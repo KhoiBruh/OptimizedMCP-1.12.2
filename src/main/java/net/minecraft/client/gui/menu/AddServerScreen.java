@@ -126,11 +126,11 @@ public class AddServerScreen extends Screen {
 	/**
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
-	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
 
-		super.mouseClicked(mouseX, mouseY, mouseButton);
-		serverIPField.mouseClicked(mouseX, mouseY, mouseButton);
-		serverNameField.mouseClicked(mouseX, mouseY, mouseButton);
+		super.mouseClicked(mouseX, mouseY, mouse);
+		serverIPField.mouseClicked(mouseX, mouseY, mouse);
+		serverNameField.mouseClicked(mouseX, mouseY, mouse);
 	}
 
 	/**

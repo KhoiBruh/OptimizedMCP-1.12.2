@@ -789,7 +789,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	public void displayGui(IInteractionObject guiOwner) {
 
 		if (guiOwner instanceof ILootContainer && ((ILootContainer) guiOwner).getLootTable() != null && isSpectator()) {
-			sendStatusMessage((new TextComponentTranslation("container.spectatorCantOpen")).setStyle((new Style()).setColor(TextFormatting.RED)), true);
+			sendStatusMessage((new TextComponentTranslation("container.spectatorCantOpen")).setStyle((new Style()).setColor(TextFormat.RED)), true);
 		} else {
 			getNextWindowId();
 			connection.sendPacket(new SPacketOpenWindow(currentWindowId, guiOwner.guiID(), guiOwner.displayName()));
@@ -805,7 +805,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	public void displayGUIChest(IInventory chestInventory) {
 
 		if (chestInventory instanceof ILootContainer && ((ILootContainer) chestInventory).getLootTable() != null && isSpectator()) {
-			sendStatusMessage((new TextComponentTranslation("container.spectatorCantOpen")).setStyle((new Style()).setColor(TextFormatting.RED)), true);
+			sendStatusMessage((new TextComponentTranslation("container.spectatorCantOpen")).setStyle((new Style()).setColor(TextFormat.RED)), true);
 		} else {
 			if (openContainer != inventoryContainer) {
 				closeScreen();

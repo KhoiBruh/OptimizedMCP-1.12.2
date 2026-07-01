@@ -15,7 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.entity.EnchantmentNameParts;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import net.minecraft.world.IWorldNameable;
 import net.minecraft.world.World;
 import net.minecraft.client.util.Projection;
@@ -90,9 +90,9 @@ public class EnchantScreen extends ContainerScreen {
 	/**
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
-	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
 
-		super.mouseClicked(mouseX, mouseY, mouseButton);
+		super.mouseClicked(mouseX, mouseY, mouse);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
 
@@ -237,13 +237,13 @@ public class EnchantScreen extends ContainerScreen {
 
 			if (isPointInRegion(60, 14 + 19 * j, 108, 17, mouseX, mouseY) && k > 0 && l >= 0 && enchantment != null) {
 				List<String> list = Lists.newArrayList();
-				list.add("" + TextFormatting.WHITE + TextFormatting.ITALIC + I18n.format("container.enchant.clue", enchantment.getTranslatedName(l)));
+				list.add("" + TextFormat.WHITE + TextFormat.ITALIC + I18n.format("container.enchant.clue", enchantment.getTranslatedName(l)));
 
 				if (!flag) {
 					list.add("");
 
 					if (mc.player.experienceLevel < k) {
-						list.add(TextFormatting.RED + I18n.format("container.enchant.level.requirement", container.enchantLevels[j]));
+						list.add(TextFormat.RED + I18n.format("container.enchant.level.requirement", container.enchantLevels[j]));
 					} else {
 						String s;
 
@@ -253,7 +253,7 @@ public class EnchantScreen extends ContainerScreen {
 							s = I18n.format("container.enchant.lapis.many", i1);
 						}
 
-						TextFormatting textformatting = i >= i1 ? TextFormatting.GRAY : TextFormatting.RED;
+						TextFormat textformatting = i >= i1 ? TextFormat.GRAY : TextFormat.RED;
 						list.add(textformatting + s);
 
 						if (i1 == 1) {
@@ -262,7 +262,7 @@ public class EnchantScreen extends ContainerScreen {
 							s = I18n.format("container.enchant.level.many", i1);
 						}
 
-						list.add(TextFormatting.GRAY + s);
+						list.add(TextFormat.GRAY + s);
 					}
 				}
 

@@ -37,7 +37,7 @@ public class DisconnectedScreen extends Screen {
 	public void init() {
 
 		buttons.clear();
-		multilineMessage = fontRenderer.listFormattedStringToWidth(message.getFormattedText(), width - 50);
+		multilineMessage = fontRenderer.formatToWidth(message.getFormattedText(), width - 50);
 		textHeight = multilineMessage.size() * fontRenderer.FONT_HEIGHT;
 		buttons.add(new Button(0, width / 2 - 100, Math.min(height / 2 + textHeight / 2 + fontRenderer.FONT_HEIGHT, height - 30), I18n.format("gui.toMenu")));
 	}

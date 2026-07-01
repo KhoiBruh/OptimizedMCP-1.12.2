@@ -32,7 +32,7 @@ public class EnchantmentNameParts {
 			s.append(namePartsArray[rand.nextInt(namePartsArray.length)]);
 		}
 
-		List<String> list = fontRendererIn.listFormattedStringToWidth(s.toString(), length);
+		List<String> list = fontRendererIn.formatToWidth(s.toString(), length);
 		return org.apache.commons.lang3.StringUtils.join(list.size() >= 2 ? list.subList(0, 2) : list, " ");
 	}
 

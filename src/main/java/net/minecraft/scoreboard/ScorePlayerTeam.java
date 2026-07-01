@@ -1,7 +1,7 @@
 package net.minecraft.scoreboard;
 
 import com.google.common.collect.Sets;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import java.util.Collection;
 import java.util.Set;
 
@@ -17,7 +17,7 @@ public class ScorePlayerTeam extends Team {
 	private boolean canSeeFriendlyInvisibles = true;
 	private Team.Visible nameTagVisibility = Team.Visible.ALWAYS;
 	private Team.Visible deathMessageVisibility = Team.Visible.ALWAYS;
-	private TextFormatting color = TextFormatting.RESET;
+	private TextFormat color = TextFormat.RESET;
 	private Team.CollisionRule collisionRule = Team.CollisionRule.ALWAYS;
 
 	public ScorePlayerTeam(Scoreboard scoreboardIn, String name) {
@@ -236,7 +236,7 @@ public class ScorePlayerTeam extends Team {
 	 * Gets the color for this team. The team color is used mainly for team kill objectives and team-specific setDisplay
 	 * usage; it does _not_ affect all situations (for instance, the prefix is used for the glowing effect).
 	 */
-	public TextFormatting getColor() {
+	public TextFormat getColor() {
 
 		return color;
 	}
@@ -245,7 +245,7 @@ public class ScorePlayerTeam extends Team {
 	 * Sets the color for this team. The team color is used mainly for team kill objectives and team-specific setDisplay
 	 * usage; it does _not_ affect all situations (for instance, the prefix is used for the glowing effect).
 	 */
-	public void setColor(TextFormatting color) {
+	public void setColor(TextFormat color) {
 
 		this.color = color;
 	}

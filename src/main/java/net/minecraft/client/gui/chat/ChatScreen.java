@@ -145,9 +145,9 @@ public class ChatScreen extends Screen implements ITabCompleter {
 	/**
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
-	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
 
-		if (mouseButton == 0) {
+		if (mouse == 0) {
 			ITextComponent itextcomponent = mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());
 
 			if (itextcomponent != null && handleComponentClick(itextcomponent)) {
@@ -155,8 +155,8 @@ public class ChatScreen extends Screen implements ITabCompleter {
 			}
 		}
 
-		inputField.mouseClicked(mouseX, mouseY, mouseButton);
-		super.mouseClicked(mouseX, mouseY, mouseButton);
+		inputField.mouseClicked(mouseX, mouseY, mouse);
+		super.mouseClicked(mouseX, mouseY, mouse);
 	}
 
 	/**

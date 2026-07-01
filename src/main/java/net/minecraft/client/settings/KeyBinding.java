@@ -112,7 +112,7 @@ public class KeyBinding implements Comparable<KeyBinding> {
 	/**
 	 * Returns true if the key is pressed (used for continuous querying). Should be used in tickers.
 	 */
-	public boolean isKeyDown() {
+	public boolean isDown() {
 		return pressed;
 	}
 	

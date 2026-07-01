@@ -1,12 +1,12 @@
 package net.minecraft.scoreboard;
 
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 
 public class ScoreCriteriaColored implements IScoreCriteria {
 
 	private final String goalName;
 
-	public ScoreCriteriaColored(String name, TextFormatting format) {
+	public ScoreCriteriaColored(String name, TextFormat format) {
 
 		goalName = name + format.getFriendlyName();
 		IScoreCriteria.INSTANCES.put(goalName, this);

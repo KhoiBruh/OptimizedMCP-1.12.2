@@ -8,7 +8,7 @@ import net.minecraft.client.gui.menu.MainMenuScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 
 public class GameOverScreen extends Screen {
 
@@ -110,7 +110,7 @@ public class GameOverScreen extends Screen {
 			drawCenteredString(fontRenderer, causeOfDeath.getFormattedText(), width / 2, 85, 16777215);
 		}
 
-		drawCenteredString(fontRenderer, I18n.format("deathScreen.score") + ": " + TextFormatting.YELLOW + mc.player.getScore(), width / 2, 100, 16777215);
+		drawCenteredString(fontRenderer, I18n.format("deathScreen.score") + ": " + TextFormat.YELLOW + mc.player.getScore(), width / 2, 100, 16777215);
 
 		if (causeOfDeath != null && mouseY > 85 && mouseY < 85 + fontRenderer.FONT_HEIGHT) {
 			ITextComponent itextcomponent = getClickedComponentAt(mouseX);

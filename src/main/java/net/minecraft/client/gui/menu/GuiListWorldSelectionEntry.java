@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.WorldInfo;
@@ -74,7 +74,7 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 			s2 = I18n.format("gameMode." + worldSummary.getEnumGameType().getName());
 
 			if (worldSummary.isHardcoreModeEnabled()) {
-				s2 = TextFormatting.DARK_RED + I18n.format("gameMode.hardcore") + TextFormatting.RESET;
+				s2 = TextFormat.DARK_RED + I18n.format("gameMode.hardcore") + TextFormat.RESET;
 			}
 
 			if (worldSummary.getCheatsEnabled()) {
@@ -85,9 +85,9 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 
 			if (worldSummary.markVersionInList()) {
 				if (worldSummary.askToOpenWorld()) {
-					s2 = s2 + ", " + I18n.format("selectWorld.version") + " " + TextFormatting.RED + s3 + TextFormatting.RESET;
+					s2 = s2 + ", " + I18n.format("selectWorld.version") + " " + TextFormat.RED + s3 + TextFormat.RESET;
 				} else {
-					s2 = s2 + ", " + I18n.format("selectWorld.version") + " " + TextFormatting.ITALIC + s3 + TextFormatting.RESET;
+					s2 = s2 + ", " + I18n.format("selectWorld.version") + " " + TextFormat.ITALIC + s3 + TextFormat.RESET;
 				}
 			} else {
 				s2 = s2 + ", " + I18n.format("selectWorld.version") + " " + s3;
@@ -117,13 +117,13 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 					Gui.drawModalRectWithCustomSizedTexture(x, y, 96F, (float) i, 32, 32, 256F, 256F);
 
 					if (j < 32) {
-						worldSelScreen.setVersionTooltip(TextFormatting.RED + I18n.format("selectWorld.tooltip.fromNewerVersion1") + "\n" + TextFormatting.RED + I18n.format("selectWorld.tooltip.fromNewerVersion2"));
+						worldSelScreen.setVersionTooltip(TextFormat.RED + I18n.format("selectWorld.tooltip.fromNewerVersion1") + "\n" + TextFormat.RED + I18n.format("selectWorld.tooltip.fromNewerVersion2"));
 					}
 				} else {
 					Gui.drawModalRectWithCustomSizedTexture(x, y, 64F, (float) i, 32, 32, 256F, 256F);
 
 					if (j < 32) {
-						worldSelScreen.setVersionTooltip(TextFormatting.GOLD + I18n.format("selectWorld.tooltip.snapshot1") + "\n" + TextFormatting.GOLD + I18n.format("selectWorld.tooltip.snapshot2"));
+						worldSelScreen.setVersionTooltip(TextFormat.GOLD + I18n.format("selectWorld.tooltip.snapshot1") + "\n" + TextFormat.GOLD + I18n.format("selectWorld.tooltip.snapshot2"));
 					}
 				}
 			} else {

@@ -7,7 +7,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.CommandBlockBaseLogic;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 
 public class ServerCommandManager extends CommandHandler implements ICommandListener {
 
@@ -102,7 +102,7 @@ public class ServerCommandManager extends CommandHandler implements ICommandList
 		}
 
 		ITextComponent itextcomponent = new TextComponentTranslation("chat.type.admin", sender.getName(), new TextComponentTranslation(translationKey, translationArgs));
-		itextcomponent.getStyle().setColor(TextFormatting.GRAY);
+		itextcomponent.getStyle().setColor(TextFormat.GRAY);
 		itextcomponent.getStyle().setItalic(true);
 
 		if (flag) {

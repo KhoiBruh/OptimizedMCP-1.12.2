@@ -59,7 +59,7 @@ public class YesNoScreen extends Screen {
 		buttons.add(new OptionButton(0, width / 2 - 155, height / 6 + 96, confirmButtonText));
 		buttons.add(new OptionButton(1, width / 2 - 155 + 160, height / 6 + 96, cancelButtonText));
 		listLines.clear();
-		listLines.addAll(fontRenderer.listFormattedStringToWidth(messageLine2, width - 50));
+		listLines.addAll(fontRenderer.formatToWidth(messageLine2, width - 50));
 	}
 
 	/**

@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -86,7 +86,7 @@ public class WinGameScreen extends Screen {
 			IResource iresource = null;
 
 			try {
-				String s = "" + TextFormatting.WHITE + TextFormatting.OBFUSCATED + TextFormatting.GREEN + TextFormatting.AQUA;
+				String s = "" + TextFormat.WHITE + TextFormat.OBFUSCATED + TextFormat.GREEN + TextFormat.AQUA;
 				int i = 274;
 
 				if (poem) {
@@ -100,13 +100,13 @@ public class WinGameScreen extends Screen {
 						String s2;
 						String s3;
 
-						for (s1 = s1.replaceAll("PLAYERNAME", mc.getSession().getUsername()); s1.contains(s); s1 = s2 + TextFormatting.WHITE + TextFormatting.OBFUSCATED + "XXXXXXXX".substring(0, random.nextInt(4) + 3) + s3) {
+						for (s1 = s1.replaceAll("PLAYERNAME", mc.getSession().getUsername()); s1.contains(s); s1 = s2 + TextFormat.WHITE + TextFormat.OBFUSCATED + "XXXXXXXX".substring(0, random.nextInt(4) + 3) + s3) {
 							int j = s1.indexOf(s);
 							s2 = s1.substring(0, j);
 							s3 = s1.substring(j + s.length());
 						}
 
-						lines.addAll(mc.fontRenderer.listFormattedStringToWidth(s1, 274));
+						lines.addAll(mc.fontRenderer.formatToWidth(s1, 274));
 						lines.add("");
 					}
 
@@ -124,7 +124,7 @@ public class WinGameScreen extends Screen {
 				while ((s4 = bufferedreader1.readLine()) != null) {
 					s4 = s4.replaceAll("PLAYERNAME", mc.getSession().getUsername());
 					s4 = s4.replaceAll("\t", "    ");
-					lines.addAll(mc.fontRenderer.listFormattedStringToWidth(s4, 274));
+					lines.addAll(mc.fontRenderer.formatToWidth(s4, 274));
 					lines.add("");
 				}
 

@@ -4,7 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.component.GuiListExtended;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.resources.ResourcePackListEntry;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public abstract class GuiResourcePackList extends GuiListExtended {
 	 */
 	protected void drawListHeader(int insideLeft, int insideTop, Tessellator tessellatorIn) {
 
-		String s = TextFormatting.UNDERLINE + "" + TextFormatting.BOLD + getListHeader();
+		String s = TextFormat.UNDERLINE + "" + TextFormat.BOLD + getListHeader();
 		mc.fontRenderer.drawString(s, insideLeft + width / 2 - mc.fontRenderer.getStringWidth(s) / 2, Math.min(top + 3, insideTop), 16777215);
 	}
 

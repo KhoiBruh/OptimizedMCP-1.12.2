@@ -26,7 +26,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -80,7 +80,7 @@ public class ServerPinger {
 					}
 
 					if (serverstatusresponse.getPlayers() != null) {
-						server.populationInfo = TextFormatting.GRAY + "" + serverstatusresponse.getPlayers().getOnlinePlayerCount() + TextFormatting.DARK_GRAY + "/" + TextFormatting.GRAY + serverstatusresponse.getPlayers().getMaxPlayers();
+						server.populationInfo = TextFormat.GRAY + "" + serverstatusresponse.getPlayers().getOnlinePlayerCount() + TextFormat.DARK_GRAY + "/" + TextFormat.GRAY + serverstatusresponse.getPlayers().getMaxPlayers();
 
 						if (ArrayUtils.isNotEmpty(serverstatusresponse.getPlayers().getPlayers())) {
 							StringBuilder stringbuilder = new StringBuilder();
@@ -104,7 +104,7 @@ public class ServerPinger {
 							server.playerList = stringbuilder.toString();
 						}
 					} else {
-						server.populationInfo = TextFormatting.DARK_GRAY + I18n.format("multiplayer.status.unknown");
+						server.populationInfo = TextFormat.DARK_GRAY + I18n.format("multiplayer.status.unknown");
 					}
 
 					if (serverstatusresponse.getFavicon() != null) {
@@ -137,7 +137,7 @@ public class ServerPinger {
 
 				if (!successful) {
 					ServerPinger.LOGGER.error("Can't ping {}: {}", server.serverIP, reason.getUnformattedText());
-					server.serverMOTD = TextFormatting.DARK_RED + I18n.format("multiplayer.status.cannot_connect");
+					server.serverMOTD = TextFormat.DARK_RED + I18n.format("multiplayer.status.cannot_connect");
 					server.populationInfo = "";
 					tryCompatibilityPing(server);
 				}
@@ -213,7 +213,7 @@ public class ServerPinger {
 								server.version = -1;
 								server.gameVersion = s1;
 								server.serverMOTD = s2;
-								server.populationInfo = TextFormatting.GRAY + "" + j + TextFormatting.DARK_GRAY + "/" + TextFormatting.GRAY + k;
+								server.populationInfo = TextFormat.GRAY + "" + j + TextFormat.DARK_GRAY + "/" + TextFormat.GRAY + k;
 							}
 						}
 

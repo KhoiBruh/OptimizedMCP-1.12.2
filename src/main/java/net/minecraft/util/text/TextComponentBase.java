@@ -121,7 +121,7 @@ public abstract class TextComponentBase implements ITextComponent {
 			if (!s.isEmpty()) {
 				stringbuilder.append(itextcomponent.getStyle().getFormattingCode());
 				stringbuilder.append(s);
-				stringbuilder.append(TextFormatting.RESET);
+				stringbuilder.append(TextFormat.RESET);
 			}
 		}
 

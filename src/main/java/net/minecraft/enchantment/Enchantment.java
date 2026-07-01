@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.RegistryNamespaced;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import net.minecraft.util.text.translation.I18n;
 import java.util.List;
 
@@ -217,7 +217,7 @@ public abstract class Enchantment {
 		String s = I18n.translateToLocal(getName());
 
 		if (isCurse()) {
-			s = TextFormatting.RED + s;
+			s = TextFormat.RED + s;
 		}
 
 		return level == 1 && getMaxLevel() == 1 ? s : s + " " + I18n.translateToLocal("enchantment.level." + level);

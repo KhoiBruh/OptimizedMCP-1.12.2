@@ -6,7 +6,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import net.minecraft.util.text.event.ClickEvent;
 import java.util.*;
 
@@ -76,7 +76,7 @@ public class CommandHelp extends CommandBase {
 
 			int l = Math.min((k + 1) * 7, list.size());
 			TextComponentTranslation textcomponenttranslation1 = new TextComponentTranslation("commands.help.header", k + 1, j + 1);
-			textcomponenttranslation1.getStyle().setColor(TextFormatting.DARK_GREEN);
+			textcomponenttranslation1.getStyle().setColor(TextFormat.DARK_GREEN);
 			sender.sendMessage(textcomponenttranslation1);
 
 			for (int i1 = k * 7; i1 < l; ++i1) {
@@ -88,7 +88,7 @@ public class CommandHelp extends CommandBase {
 
 			if (k == 0) {
 				TextComponentTranslation textcomponenttranslation2 = new TextComponentTranslation("commands.help.footer");
-				textcomponenttranslation2.getStyle().setColor(TextFormatting.GREEN);
+				textcomponenttranslation2.getStyle().setColor(TextFormat.GREEN);
 				sender.sendMessage(textcomponenttranslation2);
 			}
 		}

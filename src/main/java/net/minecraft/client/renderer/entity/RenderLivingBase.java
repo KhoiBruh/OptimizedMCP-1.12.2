@@ -14,7 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.PlayerModelParts;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TextFormat;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -389,7 +389,7 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 
 			GlStateManager.rotate(f * getDeathMaxRotation(entityLiving), 0F, 0F, 1F);
 		} else {
-			String s = TextFormatting.getTextWithoutFormattingCodes(entityLiving.getName());
+			String s = TextFormat.getTextWithoutFormattingCodes(entityLiving.getName());
 
 			if (("Dinnerbone".equals(s) || "Grumm".equals(s)) && (!(entityLiving instanceof EntityPlayer) || ((EntityPlayer) entityLiving).isWearing(PlayerModelParts.CAPE))) {
 				GlStateManager.translate(0F, entityLiving.height + 0.1F, 0F);
