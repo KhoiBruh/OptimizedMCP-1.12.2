@@ -3,6 +3,7 @@ package net.minecraft.client.renderer;
 import org.joml.Quaternionf;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
+
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -11,406 +12,506 @@ public class GlStateManager {
 
 	private static final FloatBuffer BUF_FLOAT_16 = BufferUtils.createFloatBuffer(16);
 	private static final FloatBuffer BUF_FLOAT_4 = BufferUtils.createFloatBuffer(4);
-	private static final GlStateManager.AlphaState alphaState = new GlStateManager.AlphaState();
-	private static final GlStateManager.BooleanState lightingState = new GlStateManager.BooleanState(2896);
-	private static final GlStateManager.BooleanState[] lightState = new GlStateManager.BooleanState[8];
-	private static final GlStateManager.ColorMaterialState colorMaterialState;
-	private static final GlStateManager.BlendState blendState;
-	private static final GlStateManager.DepthState depthState;
-	private static final GlStateManager.FogState fogState;
-	private static final GlStateManager.CullState cullState;
-	private static final GlStateManager.PolygonOffsetState polygonOffsetState;
-	private static final GlStateManager.ColorLogicState colorLogicState;
-	private static final GlStateManager.TexGenState texGenState;
-	private static final GlStateManager.ClearState clearState;
-	private static final GlStateManager.StencilState stencilState;
-	private static final GlStateManager.BooleanState normalizeState;
-	private static final GlStateManager.TextureState[] textureState;
-	private static final GlStateManager.BooleanState rescaleNormalState;
-	private static final GlStateManager.ColorMask colorMaskState;
-	private static final GlStateManager.Color colorState;
+
+	private static final boolean[] light = new boolean[8];
+
+	// Texture State
+	private static final boolean[] texture2D = new boolean[8];
+	private static final int[] texture = new int[8];
+
+	// Alpha State
+	private static boolean alphaTest;
+	private static int alphaTestFunc = GL11.GL_ALWAYS;
+	private static float alphaTestRef = -1F;
+
+	// Lighting State
+	private static boolean lightingEnabled;
+
+	// ColorMaterial State
+	private static boolean colorMaterial;
+	private static int colorMaterialFace = GL11.GL_FRONT_AND_BACK;
+	private static int colorMaterialMode = GL11.GL_AMBIENT_AND_DIFFUSE;
+
+	// Blend State
+	private static boolean blend;
+	private static int blendSrcFactor = GL11.GL_ONE;
+	private static int blendDstFactor = GL11.GL_ZERO;
+	private static int blendSrcFactorAlpha = GL11.GL_ONE;
+	private static int blendDstFactorAlpha = GL11.GL_ZERO;
+
+	// Depth State
+	private static boolean depthTest;
+	private static boolean depthMask = true;
+	private static int depthFunc = GL11.GL_LESS;
+
+	// Fog State
+	private static boolean fog;
+	private static int fogMode = GL11.GL_EXP;
+	private static float fogDensity = 1F;
+	private static float fogStart;
+	private static float fogEnd = 1F;
+
+	// Cull State
+	private static boolean cullFace;
+	private static int cullFaceMode = GL11.GL_BACK;
+
+	// PolygonOffset State
+	private static boolean polygonOffsetFill;
+	private static float polygonOffsetFactor;
+	private static float polygonOffsetUnits;
+
+	// ColorLogic State
+	private static boolean colorLogicOp;
+	private static int colorLogicOpcode = GL11.GL_COPY;
+
+	// TexGen State
+	private static boolean texGenS;
+	private static boolean texGenT;
+	private static boolean texGenR;
+	private static boolean texGenQ;
+	private static int texGenSMode = -1;
+	private static int texGenTMode = -1;
+	private static int texGenRMode = -1;
+	private static int texGenQMode = -1;
+
+	// Clear State
+	private static double clearDepth = 1D;
+	private static float clearRed;
+	private static float clearGreen;
+	private static float clearBlue;
+	private static float clearColorAlpha;
+
+	// Normalize State
+	private static boolean normalize;
 	private static int activeTextureUnit;
-	private static int activeShadeModel;
+	private static int activeShadeModel = GL11.GL_SMOOTH;
+	private static boolean rescaleNormal;
 
-	static {
-		for (int i = 0; i < 8; ++i) {
-			lightState[i] = new GlStateManager.BooleanState(16384 + i);
-		}
+	// ColorMask State
+	private static boolean colorMaskRed = true;
+	private static boolean colorMaskGreen = true;
+	private static boolean colorMaskBlue = true;
+	private static boolean colorMaskAlpha = true;
 
-		colorMaterialState = new GlStateManager.ColorMaterialState();
-		blendState = new GlStateManager.BlendState();
-		depthState = new GlStateManager.DepthState();
-		fogState = new GlStateManager.FogState();
-		cullState = new GlStateManager.CullState();
-		polygonOffsetState = new GlStateManager.PolygonOffsetState();
-		colorLogicState = new GlStateManager.ColorLogicState();
-		texGenState = new GlStateManager.TexGenState();
-		clearState = new GlStateManager.ClearState();
-		stencilState = new GlStateManager.StencilState();
-		normalizeState = new GlStateManager.BooleanState(2977);
-		textureState = new GlStateManager.TextureState[8];
+	// Color State
+	private static float colorStateRed = -1F;
+	private static float colorStateGreen = -1F;
+	private static float colorStateBlue = -1F;
+	private static float colorStateAlpha = -1F;
 
-		for (int j = 0; j < 8; ++j) {
-			textureState[j] = new GlStateManager.TextureState();
-		}
-
-		activeShadeModel = 7425;
-		rescaleNormalState = new GlStateManager.BooleanState(32826);
-		colorMaskState = new GlStateManager.ColorMask();
-		colorState = new GlStateManager.Color();
-	}
-
-	/**
-	 * Do not use (see MinecraftForge issue #1637)
-	 */
 	public static void pushAttrib() {
-
-		GL11.glPushAttrib(8256);
+		GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
 	}
 
-	/**
-	 * Do not use (see MinecraftForge issue #1637)
-	 */
 	public static void popAttrib() {
-
 		GL11.glPopAttrib();
 	}
 
 	public static void disableAlpha() {
-
-		alphaState.alphaTest.setDisabled();
+		if (alphaTest) {
+			alphaTest = false;
+			GL11.glDisable(GL11.GL_ALPHA_TEST);
+		}
 	}
 
 	public static void enableAlpha() {
-
-		alphaState.alphaTest.setEnabled();
+		if (!alphaTest) {
+			alphaTest = true;
+			GL11.glEnable(GL11.GL_ALPHA_TEST);
+		}
 	}
 
 	public static void alphaFunc(int func, float ref) {
-
-		if (func != alphaState.func || ref != alphaState.ref) {
-			alphaState.func = func;
-			alphaState.ref = ref;
+		if (func != alphaTestFunc || ref != alphaTestRef) {
+			alphaTestFunc = func;
+			alphaTestRef = ref;
 			GL11.glAlphaFunc(func, ref);
 		}
 	}
 
 	public static void enableLighting() {
-
-		lightingState.setEnabled();
+		if (!lightingEnabled) {
+			lightingEnabled = true;
+			GL11.glEnable(GL11.GL_LIGHTING);
+		}
 	}
 
 	public static void disableLighting() {
-
-		lightingState.setDisabled();
+		if (lightingEnabled) {
+			lightingEnabled = false;
+			GL11.glDisable(GL11.GL_LIGHTING);
+		}
 	}
 
 	public static void enableLight(int light) {
-
-		lightState[light].setEnabled();
+		if (!GlStateManager.light[light]) {
+			GlStateManager.light[light] = true;
+			GL11.glEnable(GL11.GL_LIGHT0 + light);
+		}
 	}
 
 	public static void disableLight(int light) {
-
-		lightState[light].setDisabled();
+		if (GlStateManager.light[light]) {
+			GlStateManager.light[light] = false;
+			GL11.glDisable(GL11.GL_LIGHT0 + light);
+		}
 	}
 
 	public static void enableColorMaterial() {
-
-		colorMaterialState.colorMaterial.setEnabled();
+		if (!colorMaterial) {
+			colorMaterial = true;
+			GL11.glEnable(GL11.GL_COLOR_MATERIAL);
+		}
 	}
 
 	public static void disableColorMaterial() {
-
-		colorMaterialState.colorMaterial.setDisabled();
+		if (colorMaterial) {
+			colorMaterial = false;
+			GL11.glDisable(GL11.GL_COLOR_MATERIAL);
+		}
 	}
 
 	public static void colorMaterial(int face, int mode) {
-
-		if (face != colorMaterialState.face || mode != colorMaterialState.mode) {
-			colorMaterialState.face = face;
-			colorMaterialState.mode = mode;
+		if (face != colorMaterialFace || mode != colorMaterialMode) {
+			colorMaterialFace = face;
+			colorMaterialMode = mode;
 			GL11.glColorMaterial(face, mode);
 		}
 	}
 
 	public static void glLight(int light, int pname, FloatBuffer params) {
-
 		GL11.glLightfv(light, pname, params);
 	}
 
 	public static void glLightModel(int pname, FloatBuffer params) {
-
 		GL11.glLightModelfv(pname, params);
 	}
 
 	public static void glNormal3f(float nx, float ny, float nz) {
-
 		GL11.glNormal3f(nx, ny, nz);
 	}
 
 	public static void disableDepth() {
-
-		depthState.depthTest.setDisabled();
+		if (depthTest) {
+			depthTest = false;
+			GL11.glDisable(GL11.GL_DEPTH_TEST);
+		}
 	}
 
 	public static void enableDepth() {
-
-		depthState.depthTest.setEnabled();
+		if (!depthTest) {
+			depthTest = true;
+			GL11.glEnable(GL11.GL_DEPTH_TEST);
+		}
 	}
 
-	public static void depthFunc(int depthFunc) {
-
-		if (depthFunc != depthState.depthFunc) {
-			depthState.depthFunc = depthFunc;
-			GL11.glDepthFunc(depthFunc);
+	public static void depthFunc(int depthFuncIn) {
+		if (depthFuncIn != depthFunc) {
+			depthFunc = depthFuncIn;
+			GL11.glDepthFunc(depthFuncIn);
 		}
 	}
 
 	public static void depthMask(boolean flagIn) {
-
-		if (flagIn != depthState.maskEnabled) {
-			depthState.maskEnabled = flagIn;
+		if (flagIn != depthMask) {
+			depthMask = flagIn;
 			GL11.glDepthMask(flagIn);
 		}
 	}
 
 	public static void disableBlend() {
-
-		blendState.blend.setDisabled();
+		if (blend) {
+			blend = false;
+			GL11.glDisable(GL11.GL_BLEND);
+		}
 	}
 
 	public static void enableBlend() {
-
-		blendState.blend.setEnabled();
+		if (!blend) {
+			blend = true;
+			GL11.glEnable(GL11.GL_BLEND);
+		}
 	}
 
 	public static void blendFunc(GlStateManager.SourceFactor srcFactor, GlStateManager.DestFactor dstFactor) {
-
 		blendFunc(srcFactor.factor, dstFactor.factor);
 	}
 
 	public static void blendFunc(int srcFactor, int dstFactor) {
-
-		if (srcFactor != blendState.srcFactor || dstFactor != blendState.dstFactor) {
-			blendState.srcFactor = srcFactor;
-			blendState.dstFactor = dstFactor;
+		if (srcFactor != blendSrcFactor || dstFactor != blendDstFactor) {
+			blendSrcFactor = srcFactor;
+			blendDstFactor = dstFactor;
 			GL11.glBlendFunc(srcFactor, dstFactor);
 		}
 	}
 
 	public static void tryBlendFuncSeparate(GlStateManager.SourceFactor srcFactor, GlStateManager.DestFactor dstFactor, GlStateManager.SourceFactor srcFactorAlpha, GlStateManager.DestFactor dstFactorAlpha) {
-
 		tryBlendFuncSeparate(srcFactor.factor, dstFactor.factor, srcFactorAlpha.factor, dstFactorAlpha.factor);
 	}
 
 	public static void tryBlendFuncSeparate(int srcFactor, int dstFactor, int srcFactorAlpha, int dstFactorAlpha) {
-
-		if (srcFactor != blendState.srcFactor || dstFactor != blendState.dstFactor || srcFactorAlpha != blendState.srcFactorAlpha || dstFactorAlpha != blendState.dstFactorAlpha) {
-			blendState.srcFactor = srcFactor;
-			blendState.dstFactor = dstFactor;
-			blendState.srcFactorAlpha = srcFactorAlpha;
-			blendState.dstFactorAlpha = dstFactorAlpha;
+		if (srcFactor != blendSrcFactor || dstFactor != blendDstFactor || srcFactorAlpha != blendSrcFactorAlpha || dstFactorAlpha != blendDstFactorAlpha) {
+			blendSrcFactor = srcFactor;
+			blendDstFactor = dstFactor;
+			blendSrcFactorAlpha = srcFactorAlpha;
+			blendDstFactorAlpha = dstFactorAlpha;
 			OpenGlHelper.glBlendFunc(srcFactor, dstFactor, srcFactorAlpha, dstFactorAlpha);
 		}
 	}
 
 	public static void glBlendEquation(int blendEquation) {
-
 		GL14.glBlendEquation(blendEquation);
 	}
 
 	public static void enableOutlineMode(int color) {
-
 		BUF_FLOAT_4.put(0, (float) (color >> 16 & 255) / 255F);
 		BUF_FLOAT_4.put(1, (float) (color >> 8 & 255) / 255F);
 		BUF_FLOAT_4.put(2, (float) (color & 255) / 255F);
 		BUF_FLOAT_4.put(3, (float) (color >> 24 & 255) / 255F);
-		glTexEnv(8960, 8705, BUF_FLOAT_4);
-		glTexEnvi(8960, 8704, 34160);
-		glTexEnvi(8960, 34161, 7681);
-		glTexEnvi(8960, 34176, 34166);
-		glTexEnvi(8960, 34192, 768);
-		glTexEnvi(8960, 34162, 7681);
-		glTexEnvi(8960, 34184, 5890);
-		glTexEnvi(8960, 34200, 770);
+		glTexEnv(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_COLOR, BUF_FLOAT_4);
+		glTexEnvi(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, GL13.GL_COMBINE);
+		glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_COMBINE_RGB, GL11.GL_REPLACE);
+		glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_SOURCE0_RGB, GL13.GL_CONSTANT);
+		glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_OPERAND0_RGB, GL11.GL_SRC_COLOR);
+		glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_COMBINE_ALPHA, GL11.GL_REPLACE);
+		glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_SOURCE0_ALPHA, GL11.GL_TEXTURE);
+		glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_OPERAND0_ALPHA, GL11.GL_SRC_ALPHA);
 	}
 
 	public static void disableOutlineMode() {
-
-		glTexEnvi(8960, 8704, 8448);
-		glTexEnvi(8960, 34161, 8448);
-		glTexEnvi(8960, 34162, 8448);
-		glTexEnvi(8960, 34176, 5890);
-		glTexEnvi(8960, 34184, 5890);
-		glTexEnvi(8960, 34192, 768);
-		glTexEnvi(8960, 34200, 770);
+		glTexEnvi(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, GL11.GL_MODULATE);
+		glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_COMBINE_RGB, GL11.GL_MODULATE);
+		glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_COMBINE_ALPHA, GL11.GL_MODULATE);
+		glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_SOURCE0_RGB, GL11.GL_TEXTURE);
+		glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_SOURCE1_RGB, GL13.GL_PREVIOUS);
+		glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_OPERAND0_RGB, GL11.GL_SRC_COLOR);
+		glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_OPERAND0_ALPHA, GL11.GL_SRC_ALPHA);
 	}
 
 	public static void enableFog() {
-
-		fogState.fog.setEnabled();
+		if (!fog) {
+			fog = true;
+			GL11.glEnable(GL11.GL_FOG);
+		}
 	}
 
 	public static void disableFog() {
-
-		fogState.fog.setDisabled();
+		if (fog) {
+			fog = false;
+			GL11.glDisable(GL11.GL_FOG);
+		}
 	}
 
-	public static void setFog(GlStateManager.FogMode fogMode) {
-
-		setFog(fogMode.capabilityId);
+	public static void setFog(GlStateManager.FogMode p_fogMode) {
+		setFog(p_fogMode.capabilityId);
 	}
 
 	private static void setFog(int param) {
-
-		if (param != fogState.mode) {
-			fogState.mode = param;
+		if (param != fogMode) {
+			fogMode = param;
 			GL11.glFogi(GL11.GL_FOG_MODE, param);
 		}
 	}
 
 	public static void setFogDensity(float param) {
-
-		if (param != fogState.density) {
-			fogState.density = param;
+		if (param != fogDensity) {
+			fogDensity = param;
 			GL11.glFogf(GL11.GL_FOG_DENSITY, param);
 		}
 	}
 
 	public static void setFogStart(float param) {
-
-		if (param != fogState.start) {
-			fogState.start = param;
+		if (param != fogStart) {
+			fogStart = param;
 			GL11.glFogf(GL11.GL_FOG_START, param);
 		}
 	}
 
 	public static void setFogEnd(float param) {
-
-		if (param != fogState.end) {
-			fogState.end = param;
+		if (param != fogEnd) {
+			fogEnd = param;
 			GL11.glFogf(GL11.GL_FOG_END, param);
 		}
 	}
 
 	public static void glFog(int pname, FloatBuffer param) {
-
 		GL11.glFogfv(pname, param);
 	}
 
 	public static void glFogi(int pname, int param) {
-
 		GL11.glFogi(pname, param);
 	}
 
 	public static void enableCull() {
-
-		cullState.cullFace.setEnabled();
+		if (!cullFace) {
+			cullFace = true;
+			GL11.glEnable(GL11.GL_CULL_FACE);
+		}
 	}
 
 	public static void disableCull() {
-
-		cullState.cullFace.setDisabled();
+		if (cullFace) {
+			cullFace = false;
+			GL11.glDisable(GL11.GL_CULL_FACE);
+		}
 	}
 
-	public static void cullFace(GlStateManager.CullFace cullFace) {
-
-		cullFace(cullFace.mode);
+	public static void cullFace(GlStateManager.CullFace p_cullFace) {
+		cullFace(p_cullFace.mode);
 	}
 
 	private static void cullFace(int mode) {
-
-		if (mode != cullState.mode) {
-			cullState.mode = mode;
+		if (mode != cullFaceMode) {
+			cullFaceMode = mode;
 			GL11.glCullFace(mode);
 		}
 	}
 
-	public static void glPolygonMode(int face, int mode) {
-
-		GL11.glPolygonMode(face, mode);
-	}
-
 	public static void enablePolygonOffset() {
-
-		polygonOffsetState.polygonOffsetFill.setEnabled();
+		if (!polygonOffsetFill) {
+			polygonOffsetFill = true;
+			GL11.glEnable(GL11.GL_POLYGON_OFFSET_FILL);
+		}
 	}
 
 	public static void disablePolygonOffset() {
-
-		polygonOffsetState.polygonOffsetFill.setDisabled();
+		if (polygonOffsetFill) {
+			polygonOffsetFill = false;
+			GL11.glDisable(GL11.GL_POLYGON_OFFSET_FILL);
+		}
 	}
 
 	public static void doPolygonOffset(float factor, float units) {
-
-		if (factor != polygonOffsetState.factor || units != polygonOffsetState.units) {
-			polygonOffsetState.factor = factor;
-			polygonOffsetState.units = units;
+		if (factor != polygonOffsetFactor || units != polygonOffsetUnits) {
+			polygonOffsetFactor = factor;
+			polygonOffsetUnits = units;
 			GL11.glPolygonOffset(factor, units);
 		}
 	}
 
 	public static void enableColorLogic() {
-
-		colorLogicState.colorLogicOp.setEnabled();
+		if (!colorLogicOp) {
+			colorLogicOp = true;
+			GL11.glEnable(GL11.GL_COLOR_LOGIC_OP);
+		}
 	}
 
 	public static void disableColorLogic() {
-
-		colorLogicState.colorLogicOp.setDisabled();
+		if (colorLogicOp) {
+			colorLogicOp = false;
+			GL11.glDisable(GL11.GL_COLOR_LOGIC_OP);
+		}
 	}
 
 	public static void colorLogicOp(GlStateManager.LogicOp logicOperation) {
-
 		colorLogicOp(logicOperation.opcode);
 	}
 
 	public static void colorLogicOp(int opcode) {
-
-		if (opcode != colorLogicState.opcode) {
-			colorLogicState.opcode = opcode;
+		if (opcode != colorLogicOpcode) {
+			colorLogicOpcode = opcode;
 			GL11.glLogicOp(opcode);
 		}
 	}
 
 	public static void enableTexGenCoord(GlStateManager.TexGen texGen) {
-
-		texGenCoord(texGen).textureGen.setEnabled();
+		switch (texGen) {
+			case S:
+				if (!texGenS) {
+					texGenS = true;
+					GL11.glEnable(GL11.GL_TEXTURE_GEN_S);
+				}
+				break;
+			case T:
+				if (!texGenT) {
+					texGenT = true;
+					GL11.glEnable(GL11.GL_TEXTURE_GEN_T);
+				}
+				break;
+			case R:
+				if (!texGenR) {
+					texGenR = true;
+					GL11.glEnable(GL11.GL_TEXTURE_GEN_R);
+				}
+				break;
+			case Q:
+				if (!texGenQ) {
+					texGenQ = true;
+					GL11.glEnable(GL11.GL_TEXTURE_GEN_Q);
+				}
+				break;
+		}
 	}
 
 	public static void disableTexGenCoord(GlStateManager.TexGen texGen) {
-
-		texGenCoord(texGen).textureGen.setDisabled();
+		switch (texGen) {
+			case S:
+				if (texGenS) {
+					texGenS = false;
+					GL11.glDisable(GL11.GL_TEXTURE_GEN_S);
+				}
+				break;
+			case T:
+				if (texGenT) {
+					texGenT = false;
+					GL11.glDisable(GL11.GL_TEXTURE_GEN_T);
+				}
+				break;
+			case R:
+				if (texGenR) {
+					texGenR = false;
+					GL11.glDisable(GL11.GL_TEXTURE_GEN_R);
+				}
+				break;
+			case Q:
+				if (texGenQ) {
+					texGenQ = false;
+					GL11.glDisable(GL11.GL_TEXTURE_GEN_Q);
+				}
+				break;
+		}
 	}
 
 	public static void texGen(GlStateManager.TexGen texGen, int param) {
-
-		GlStateManager.TexGenCoord glstatemanager$texgencoord = texGenCoord(texGen);
-
-		if (param != glstatemanager$texgencoord.param) {
-			glstatemanager$texgencoord.param = param;
-			GL11.glTexGeni(glstatemanager$texgencoord.coord, GL11.GL_TEXTURE_GEN_MODE, param);
+		switch (texGen) {
+			case S:
+				if (param != texGenSMode) {
+					texGenSMode = param;
+					GL11.glTexGeni(GL11.GL_TEXTURE_GEN_S, GL11.GL_TEXTURE_GEN_MODE, param);
+				}
+				break;
+			case T:
+				if (param != texGenTMode) {
+					texGenTMode = param;
+					GL11.glTexGeni(GL11.GL_TEXTURE_GEN_T, GL11.GL_TEXTURE_GEN_MODE, param);
+				}
+				break;
+			case R:
+				if (param != texGenRMode) {
+					texGenRMode = param;
+					GL11.glTexGeni(GL11.GL_TEXTURE_GEN_R, GL11.GL_TEXTURE_GEN_MODE, param);
+				}
+				break;
+			case Q:
+				if (param != texGenQMode) {
+					texGenQMode = param;
+					GL11.glTexGeni(GL11.GL_TEXTURE_GEN_Q, GL11.GL_TEXTURE_GEN_MODE, param);
+				}
+				break;
 		}
 	}
 
 	public static void texGen(GlStateManager.TexGen texGen, int pname, FloatBuffer params) {
-
-		GL11.glTexGenfv(texGenCoord(texGen).coord, pname, params);
-	}
-
-	private static GlStateManager.TexGenCoord texGenCoord(GlStateManager.TexGen texGen) {
-
-		return switch (texGen) {
-			case T -> texGenState.t;
-			case R -> texGenState.r;
-			case Q -> texGenState.q;
-			default -> texGenState.s;
+		int coord = switch (texGen) {
+			case S -> GL11.GL_TEXTURE_GEN_S;
+			case T -> GL11.GL_TEXTURE_GEN_T;
+			case R -> GL11.GL_TEXTURE_GEN_R;
+			case Q -> GL11.GL_TEXTURE_GEN_Q;
 		};
+		GL11.glTexGenfv(coord, pname, params);
 	}
 
 	public static void setActiveTexture(int texture) {
-
 		if (activeTextureUnit != texture - OpenGlHelper.defaultTexUnit) {
 			activeTextureUnit = texture - OpenGlHelper.defaultTexUnit;
 			OpenGlHelper.setActiveTexture(texture);
@@ -418,101 +519,90 @@ public class GlStateManager {
 	}
 
 	public static void enableTexture2D() {
-
-		textureState[activeTextureUnit].texture2DState.setEnabled();
+		if (!texture2D[activeTextureUnit]) {
+			texture2D[activeTextureUnit] = true;
+			GL11.glEnable(GL11.GL_TEXTURE_2D);
+		}
 	}
 
 	public static void disableTexture2D() {
-
-		textureState[activeTextureUnit].texture2DState.setDisabled();
+		if (texture2D[activeTextureUnit]) {
+			texture2D[activeTextureUnit] = false;
+			GL11.glDisable(GL11.GL_TEXTURE_2D);
+		}
 	}
 
 	public static void glTexEnv(int target, int parameterName, FloatBuffer parameters) {
-
 		GL11.glTexEnvfv(target, parameterName, parameters);
 	}
 
 	public static void glTexEnvi(int target, int parameterName, int parameter) {
-
 		GL11.glTexEnvi(target, parameterName, parameter);
 	}
 
-	public static void glTexEnvf(int target, int parameterName, float parameter) {
-
-		GL11.glTexEnvf(target, parameterName, parameter);
-	}
-
 	public static void glTexParameterf(int target, int parameterName, float parameter) {
-
 		GL11.glTexParameterf(target, parameterName, parameter);
 	}
 
 	public static void glTexParameteri(int target, int parameterName, int parameter) {
-
 		GL11.glTexParameteri(target, parameterName, parameter);
 	}
 
 	public static int glGetTexLevelParameteri(int target, int level, int parameterName) {
-
 		return GL11.glGetTexLevelParameteri(target, level, parameterName);
 	}
 
 	public static int generateTexture() {
-
 		return GL11.glGenTextures();
 	}
 
 	public static void deleteTexture(int texture) {
-
 		GL11.glDeleteTextures(texture);
-
-		for (GlStateManager.TextureState glstatemanager$texturestate : textureState) {
-			if (glstatemanager$texturestate.textureName == texture) {
-				glstatemanager$texturestate.textureName = -1;
+		for (int i = 0; i < GlStateManager.texture.length; ++i) {
+			if (GlStateManager.texture[i] == texture) {
+				GlStateManager.texture[i] = -1;
 			}
 		}
 	}
 
 	public static void bindTexture(int texture) {
-
-		if (texture != textureState[activeTextureUnit].textureName) {
-			textureState[activeTextureUnit].textureName = texture;
+		if (texture != GlStateManager.texture[activeTextureUnit]) {
+			GlStateManager.texture[activeTextureUnit] = texture;
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture);
 		}
 	}
 
 	public static void glTexImage2D(int target, int level, int internalFormat, int width, int height, int border, int format, int type, IntBuffer pixels) {
-
 		GL11.glTexImage2D(target, level, internalFormat, width, height, border, format, type, pixels);
 	}
 
 	public static void glTexSubImage2D(int target, int level, int xOffset, int yOffset, int width, int height, int format, int type, IntBuffer pixels) {
-
 		GL11.glTexSubImage2D(target, level, xOffset, yOffset, width, height, format, type, pixels);
 	}
 
 	public static void glCopyTexSubImage2D(int target, int level, int xOffset, int yOffset, int x, int y, int width, int height) {
-
 		GL11.glCopyTexSubImage2D(target, level, xOffset, yOffset, x, y, width, height);
 	}
 
 	public static void glGetTexImage(int target, int level, int format, int type, IntBuffer pixels) {
-
 		GL11.glGetTexImage(target, level, format, type, pixels);
 	}
 
 	public static void enableNormalize() {
-
-		normalizeState.setEnabled();
+		if (!normalize) {
+			normalize = true;
+			GL11.glEnable(GL11.GL_NORMALIZE);
+		}
 	}
 
 	public static void disableNormalize() {
-
-		normalizeState.setDisabled();
+		if (normalize) {
+			normalize = false;
+			GL11.glDisable(GL11.GL_NORMALIZE);
+		}
 	}
 
 	public static void shadeModel(int mode) {
-
 		if (mode != activeShadeModel) {
 			activeShadeModel = mode;
 			GL11.glShadeModel(mode);
@@ -520,123 +610,108 @@ public class GlStateManager {
 	}
 
 	public static void enableRescaleNormal() {
-
-		rescaleNormalState.setEnabled();
+		if (!rescaleNormal) {
+			rescaleNormal = true;
+			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		}
 	}
 
 	public static void disableRescaleNormal() {
-
-		rescaleNormalState.setDisabled();
+		if (rescaleNormal) {
+			rescaleNormal = false;
+			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+		}
 	}
 
 	public static void viewport(int x, int y, int width, int height) {
-
 		GL11.glViewport(x, y, width, height);
 	}
 
 	public static void colorMask(boolean red, boolean green, boolean blue, boolean alpha) {
-
-		if (red != colorMaskState.red || green != colorMaskState.green || blue != colorMaskState.blue || alpha != colorMaskState.alpha) {
-			colorMaskState.red = red;
-			colorMaskState.green = green;
-			colorMaskState.blue = blue;
-			colorMaskState.alpha = alpha;
+		if (red != colorMaskRed || green != colorMaskGreen || blue != colorMaskBlue || alpha != colorMaskAlpha) {
+			colorMaskRed = red;
+			colorMaskGreen = green;
+			colorMaskBlue = blue;
+			colorMaskAlpha = alpha;
 			GL11.glColorMask(red, green, blue, alpha);
 		}
 	}
 
 	public static void clearDepth(double depth) {
-
-		if (depth != clearState.depth) {
-			clearState.depth = depth;
+		if (depth != clearDepth) {
+			clearDepth = depth;
 			GL11.glClearDepth(depth);
 		}
 	}
 
 	public static void clearColor(float red, float green, float blue, float alpha) {
-
-		if (red != clearState.color.red || green != clearState.color.green || blue != clearState.color.blue || alpha != clearState.color.alpha) {
-			clearState.color.red = red;
-			clearState.color.green = green;
-			clearState.color.blue = blue;
-			clearState.color.alpha = alpha;
+		if (red != clearRed || green != clearGreen || blue != clearBlue || alpha != clearColorAlpha) {
+			clearRed = red;
+			clearGreen = green;
+			clearBlue = blue;
+			clearColorAlpha = alpha;
 			GL11.glClearColor(red, green, blue, alpha);
 		}
 	}
 
 	public static void clear(int mask) {
-
 		GL11.glClear(mask);
 	}
 
 	public static void matrixMode(int mode) {
-
 		GL11.glMatrixMode(mode);
 	}
 
 	public static void loadIdentity() {
-
 		GL11.glLoadIdentity();
 	}
 
 	public static void pushMatrix() {
-
 		GL11.glPushMatrix();
 	}
 
 	public static void popMatrix() {
-
 		GL11.glPopMatrix();
 	}
 
 	public static void getFloat(int pname, FloatBuffer params) {
-
 		params.clear();
 		GL11.glGetFloatv(pname, params);
 	}
 
 	public static void ortho(double left, double right, double bottom, double top, double zNear, double zFar) {
-
 		GL11.glOrtho(left, right, bottom, top, zNear, zFar);
 	}
 
 	public static void rotate(float angle, float x, float y, float z) {
-
 		GL11.glRotatef(angle, x, y, z);
 	}
 
 	public static void scale(float x, float y, float z) {
-
 		GL11.glScalef(x, y, z);
 	}
 
 	public static void scale(double x, double y, double z) {
-
 		GL11.glScaled(x, y, z);
 	}
 
 	public static void translate(float x, float y, float z) {
-
 		GL11.glTranslatef(x, y, z);
 	}
 
 	public static void translate(double x, double y, double z) {
-
 		GL11.glTranslated(x, y, z);
 	}
 
 	public static void multMatrix(FloatBuffer matrix) {
-
 		GL11.glMultMatrixf(matrix);
 	}
 
 	public static void rotate(Quaternionf quaternionIn) {
-
 		multMatrix(quatToGlMatrix(BUF_FLOAT_16, quaternionIn));
 	}
 
 	public static FloatBuffer quatToGlMatrix(FloatBuffer buffer, Quaternionf quaternionIn) {
-
 		buffer.clear();
 		float f = quaternionIn.x * quaternionIn.x;
 		float f1 = quaternionIn.x * quaternionIn.y;
@@ -667,243 +742,205 @@ public class GlStateManager {
 		return buffer;
 	}
 
-	public static void color(float colorRed, float colorGreen, float colorBlue, float colorAlpha) {
-
-		if (colorRed != colorState.red || colorGreen != colorState.green || colorBlue != colorState.blue || colorAlpha != colorState.alpha) {
-			colorState.red = colorRed;
-			colorState.green = colorGreen;
-			colorState.blue = colorBlue;
-			colorState.alpha = colorAlpha;
-			GL11.glColor4f(colorRed, colorGreen, colorBlue, colorAlpha);
+	public static void color(float red, float green, float blue, float colorAlpha) {
+		if (red != colorStateRed || green != colorStateGreen || blue != colorStateBlue || colorAlpha != colorStateAlpha) {
+			colorStateRed = red;
+			colorStateGreen = green;
+			colorStateBlue = blue;
+			colorStateAlpha = colorAlpha;
+			GL11.glColor4f(red, green, blue, colorAlpha);
 		}
 	}
 
-	public static void color(float colorRed, float colorGreen, float colorBlue) {
-
-		color(colorRed, colorGreen, colorBlue, 1F);
+	public static void color(float red, float green, float blue) {
+		color(red, green, blue, 1F);
 	}
 
 	public static void glTexCoord2f(float sCoord, float tCoord) {
-
 		GL11.glTexCoord2f(sCoord, tCoord);
 	}
 
 	public static void glVertex3f(float x, float y, float z) {
-
 		GL11.glVertex3f(x, y, z);
 	}
 
 	public static void resetColor() {
-
-		colorState.red = -1F;
-		colorState.green = -1F;
-		colorState.blue = -1F;
-		colorState.alpha = -1F;
+		colorStateRed = -1F;
+		colorStateGreen = -1F;
+		colorStateBlue = -1F;
+		colorStateAlpha = -1F;
 	}
 
 	public static void glNormalPointer(int type, int stride, ByteBuffer buffer) {
-
 		GL11.glNormalPointer(type, stride, buffer);
 	}
 
-	public static void glTexCoordPointer(int size, int type, int stride, int buffer_offset) {
-
-		GL11.glTexCoordPointer(size, type, stride, buffer_offset);
+	public static void glTexCoordPointer(int size, int type, int stride, int offset) {
+		GL11.glTexCoordPointer(size, type, stride, offset);
 	}
 
 	public static void glTexCoordPointer(int size, int type, int stride, ByteBuffer buffer) {
-
 		GL11.glTexCoordPointer(size, type, stride, buffer);
 	}
 
-	public static void glVertexPointer(int size, int type, int stride, int buffer_offset) {
-
-		GL11.glVertexPointer(size, type, stride, buffer_offset);
+	public static void glVertexPointer(int size, int type, int stride, int offset) {
+		GL11.glVertexPointer(size, type, stride, offset);
 	}
 
 	public static void glVertexPointer(int size, int type, int stride, ByteBuffer buffer) {
-
 		GL11.glVertexPointer(size, type, stride, buffer);
 	}
 
-	public static void glColorPointer(int size, int type, int stride, int buffer_offset) {
-
-		GL11.glColorPointer(size, type, stride, buffer_offset);
+	public static void glColorPointer(int size, int type, int stride, int offset) {
+		GL11.glColorPointer(size, type, stride, offset);
 	}
 
 	public static void glColorPointer(int size, int type, int stride, ByteBuffer buffer) {
-
 		GL11.glColorPointer(size, type, stride, buffer);
 	}
 
 	public static void glDisableClientState(int cap) {
-
 		GL11.glDisableClientState(cap);
 	}
 
 	public static void glEnableClientState(int cap) {
-
 		GL11.glEnableClientState(cap);
 	}
 
 	public static void glBegin(int mode) {
-
 		GL11.glBegin(mode);
 	}
 
 	public static void glEnd() {
-
 		GL11.glEnd();
 	}
 
 	public static void glDrawArrays(int mode, int first, int count) {
-
 		GL11.glDrawArrays(mode, first, count);
 	}
 
 	public static void glLineWidth(float width) {
-
 		GL11.glLineWidth(width);
 	}
 
 	public static void callList(int list) {
-
 		GL11.glCallList(list);
 	}
 
 	public static void glDeleteLists(int list, int range) {
-
 		GL11.glDeleteLists(list, range);
 	}
 
 	public static void glNewList(int list, int mode) {
-
 		GL11.glNewList(list, mode);
 	}
 
 	public static void glEndList() {
-
 		GL11.glEndList();
 	}
 
 	public static int glGenLists(int range) {
-
 		return GL11.glGenLists(range);
 	}
 
 	public static void glPixelStorei(int parameterName, int param) {
-
 		GL11.glPixelStorei(parameterName, param);
 	}
 
 	public static void glReadPixels(int x, int y, int width, int height, int format, int type, IntBuffer pixels) {
-
 		GL11.glReadPixels(x, y, width, height, format, type, pixels);
 	}
 
 	public static int glGetError() {
-
 		return GL11.glGetError();
 	}
 
 	public static String glGetString(int name) {
-
 		return GL11.glGetString(name);
 	}
 
 	public static void glGetInteger(int parameterName, IntBuffer parameters) {
-
 		parameters.clear();
 		GL11.glGetIntegerv(parameterName, parameters);
 	}
 
 	public static int glGetInteger(int parameterName) {
-
 		return GL11.glGetInteger(parameterName);
 	}
 
-	public static void enableBlendProfile(GlStateManager.Profile p_187408_0_) {
-
-		p_187408_0_.apply();
+	public static void enableBlendProfile(GlStateManager.Profile profile) {
+		profile.apply();
 	}
 
-	public static void disableBlendProfile(GlStateManager.Profile p_187440_0_) {
-
-		p_187440_0_.clean();
+	public static void disableBlendProfile(GlStateManager.Profile profile) {
+		profile.clean();
 	}
 
 	public enum CullFace {
-		FRONT(1028),
-		BACK(1029),
-		FRONT_AND_BACK(1032);
-
+		FRONT(GL11.GL_FRONT),
+		BACK(GL11.GL_BACK),
+		FRONT_AND_BACK(GL11.GL_FRONT_AND_BACK);
+		
 		public final int mode;
 
 		CullFace(int modeIn) {
-
 			mode = modeIn;
 		}
 	}
 
 	public enum DestFactor {
-		CONSTANT_ALPHA(32771),
-		CONSTANT_COLOR(32769),
-		DST_ALPHA(772),
-		DST_COLOR(774),
-		ONE(1),
-		ONE_MINUS_CONSTANT_ALPHA(32772),
-		ONE_MINUS_CONSTANT_COLOR(32770),
-		ONE_MINUS_DST_ALPHA(773),
-		ONE_MINUS_DST_COLOR(775),
-		ONE_MINUS_SRC_ALPHA(771),
-		ONE_MINUS_SRC_COLOR(769),
-		SRC_ALPHA(770),
-		SRC_COLOR(768),
-		ZERO(0);
-
+		CONSTANT_ALPHA(GL14.GL_CONSTANT_ALPHA),
+		CONSTANT_COLOR(GL14.GL_CONSTANT_COLOR),
+		DST_ALPHA(GL11.GL_DST_ALPHA),
+		DST_COLOR(GL11.GL_DST_COLOR),
+		ONE(GL11.GL_ONE),
+		ONE_MINUS_CONSTANT_ALPHA(GL14.GL_ONE_MINUS_CONSTANT_ALPHA),
+		ONE_MINUS_CONSTANT_COLOR(GL14.GL_ONE_MINUS_CONSTANT_COLOR),
+		ONE_MINUS_DST_ALPHA(GL11.GL_ONE_MINUS_DST_ALPHA),
+		ONE_MINUS_DST_COLOR(GL11.GL_ONE_MINUS_DST_COLOR),
+		ONE_MINUS_SRC_ALPHA(GL11.GL_ONE_MINUS_SRC_ALPHA),
+		ONE_MINUS_SRC_COLOR(GL11.GL_ONE_MINUS_SRC_COLOR),
+		SRC_ALPHA(GL11.GL_SRC_ALPHA),
+		SRC_COLOR(GL11.GL_SRC_COLOR),
+		ZERO(GL11.GL_ZERO);
 		public final int factor;
 
 		DestFactor(int factorIn) {
-
 			factor = factorIn;
 		}
 	}
 
 	public enum FogMode {
-		LINEAR(9729),
-		EXP(2048),
-		EXP2(2049);
-
+		LINEAR(GL11.GL_LINEAR),
+		EXP(GL11.GL_EXP),
+		EXP2(GL11.GL_EXP2);
 		public final int capabilityId;
 
 		FogMode(int capabilityIn) {
-
 			capabilityId = capabilityIn;
 		}
 	}
 
 	public enum LogicOp {
-		AND(5377),
-		AND_INVERTED(5380),
-		AND_REVERSE(5378),
-		CLEAR(5376),
-		COPY(5379),
-		COPY_INVERTED(5388),
-		EQUIV(5385),
-		INVERT(5386),
-		NAND(5390),
-		NOOP(5381),
-		NOR(5384),
-		OR(5383),
-		OR_INVERTED(5389),
-		OR_REVERSE(5387),
-		SET(5391),
-		XOR(5382);
-
+		AND(GL11.GL_AND),
+		AND_INVERTED(GL11.GL_AND_INVERTED),
+		AND_REVERSE(GL11.GL_AND_REVERSE),
+		CLEAR(GL11.GL_CLEAR),
+		COPY(GL11.GL_COPY),
+		COPY_INVERTED(GL11.GL_COPY_INVERTED),
+		EQUIV(GL11.GL_EQUIV),
+		INVERT(GL11.GL_INVERT),
+		NAND(GL11.GL_NAND),
+		NOOP(GL11.GL_NOOP),
+		NOR(GL11.GL_NOR),
+		OR(GL11.GL_OR),
+		OR_INVERTED(GL11.GL_OR_INVERTED),
+		OR_REVERSE(GL11.GL_OR_REVERSE),
+		SET(GL11.GL_SET),
+		XOR(GL11.GL_XOR);
 		public final int opcode;
 
 		LogicOp(int opcodeIn) {
-
 			opcode = opcodeIn;
 		}
 	}
@@ -911,17 +948,14 @@ public class GlStateManager {
 	public enum Profile {
 		DEFAULT {
 			public void apply() {
-
-				GlStateManager.disableAlpha();
-				GlStateManager.alphaFunc(519, 0F);
-				GlStateManager.disableLighting();
+				disableAlpha();
+				alphaFunc(GL11.GL_ALWAYS, 0F);
+				disableLighting();
 				GL11.glLightModelfv(GL11.GL_LIGHT_MODEL_AMBIENT, RenderHelper.setColorBuffer(0.2F, 0.2F, 0.2F, 1F));
-
 				for (int i = 0; i < 8; ++i) {
-					GlStateManager.disableLight(i);
+					disableLight(i);
 					GL11.glLightfv(GL11.GL_LIGHT0 + i, GL11.GL_AMBIENT, RenderHelper.setColorBuffer(0F, 0F, 0F, 1F));
 					GL11.glLightfv(GL11.GL_LIGHT0 + i, GL11.GL_POSITION, RenderHelper.setColorBuffer(0F, 0F, 1F, 0F));
-
 					if (i == 0) {
 						GL11.glLightfv(GL11.GL_LIGHT0 + i, GL11.GL_DIFFUSE, RenderHelper.setColorBuffer(1F, 1F, 1F, 1F));
 						GL11.glLightfv(GL11.GL_LIGHT0 + i, GL11.GL_SPECULAR, RenderHelper.setColorBuffer(1F, 1F, 1F, 1F));
@@ -930,47 +964,44 @@ public class GlStateManager {
 						GL11.glLightfv(GL11.GL_LIGHT0 + i, GL11.GL_SPECULAR, RenderHelper.setColorBuffer(0F, 0F, 0F, 1F));
 					}
 				}
-
-				GlStateManager.disableColorMaterial();
-				GlStateManager.colorMaterial(1032, 5634);
-				GlStateManager.disableDepth();
-				GlStateManager.depthFunc(513);
-				GlStateManager.depthMask(true);
-				GlStateManager.disableBlend();
-				GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-				GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+				disableColorMaterial();
+				colorMaterial(GL11.GL_FRONT_AND_BACK, GL11.GL_AMBIENT_AND_DIFFUSE);
+				disableDepth();
+				depthFunc(GL11.GL_LESS);
+				depthMask(true);
+				disableBlend();
+				blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+				tryBlendFuncSeparate(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 				GL14.glBlendEquation(GL14.GL_FUNC_ADD);
-				GlStateManager.disableFog();
+				disableFog();
 				GL11.glFogi(GL11.GL_FOG_MODE, GL11.GL_EXP);
-				GlStateManager.setFogDensity(1F);
-				GlStateManager.setFogStart(0F);
-				GlStateManager.setFogEnd(1F);
+				setFogDensity(1F);
+				setFogStart(0F);
+				setFogEnd(1F);
 				GL11.glFogfv(GL11.GL_FOG_COLOR, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
-
 				if (GL.getCapabilities().GL_NV_fog_distance) {
 					GL11.glFogi(GL11.GL_FOG_MODE, 34140);
 				}
-
-				GlStateManager.doPolygonOffset(0F, 0F);
-				GlStateManager.disableColorLogic();
-				GlStateManager.colorLogicOp(5379);
-				GlStateManager.disableTexGenCoord(GlStateManager.TexGen.S);
-				GlStateManager.texGen(GlStateManager.TexGen.S, 9216);
-				GlStateManager.texGen(GlStateManager.TexGen.S, 9474, RenderHelper.setColorBuffer(1F, 0F, 0F, 0F));
-				GlStateManager.texGen(GlStateManager.TexGen.S, 9217, RenderHelper.setColorBuffer(1F, 0F, 0F, 0F));
-				GlStateManager.disableTexGenCoord(GlStateManager.TexGen.T);
-				GlStateManager.texGen(GlStateManager.TexGen.T, 9216);
-				GlStateManager.texGen(GlStateManager.TexGen.T, 9474, RenderHelper.setColorBuffer(0F, 1F, 0F, 0F));
-				GlStateManager.texGen(GlStateManager.TexGen.T, 9217, RenderHelper.setColorBuffer(0F, 1F, 0F, 0F));
-				GlStateManager.disableTexGenCoord(GlStateManager.TexGen.R);
-				GlStateManager.texGen(GlStateManager.TexGen.R, 9216);
-				GlStateManager.texGen(GlStateManager.TexGen.R, 9474, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
-				GlStateManager.texGen(GlStateManager.TexGen.R, 9217, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
-				GlStateManager.disableTexGenCoord(GlStateManager.TexGen.Q);
-				GlStateManager.texGen(GlStateManager.TexGen.Q, 9216);
-				GlStateManager.texGen(GlStateManager.TexGen.Q, 9474, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
-				GlStateManager.texGen(GlStateManager.TexGen.Q, 9217, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
-				GlStateManager.setActiveTexture(0);
+				doPolygonOffset(0F, 0F);
+				disableColorLogic();
+				colorLogicOp(GL11.GL_COPY);
+				disableTexGenCoord(GlStateManager.TexGen.S);
+				texGen(GlStateManager.TexGen.S, GL11.GL_TEXTURE_GEN_MODE);
+				texGen(GlStateManager.TexGen.S, GL11.GL_OBJECT_PLANE, RenderHelper.setColorBuffer(1F, 0F, 0F, 0F));
+				texGen(GlStateManager.TexGen.S, GL11.GL_EYE_PLANE, RenderHelper.setColorBuffer(1F, 0F, 0F, 0F));
+				disableTexGenCoord(GlStateManager.TexGen.T);
+				texGen(GlStateManager.TexGen.T, GL11.GL_TEXTURE_GEN_MODE);
+				texGen(GlStateManager.TexGen.T, GL11.GL_OBJECT_PLANE, RenderHelper.setColorBuffer(0F, 1F, 0F, 0F));
+				texGen(GlStateManager.TexGen.T, GL11.GL_EYE_PLANE, RenderHelper.setColorBuffer(0F, 1F, 0F, 0F));
+				disableTexGenCoord(GlStateManager.TexGen.R);
+				texGen(GlStateManager.TexGen.R, GL11.GL_TEXTURE_GEN_MODE);
+				texGen(GlStateManager.TexGen.R, GL11.GL_OBJECT_PLANE, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
+				texGen(GlStateManager.TexGen.R, GL11.GL_EYE_PLANE, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
+				disableTexGenCoord(GlStateManager.TexGen.Q);
+				texGen(GlStateManager.TexGen.Q, GL11.GL_TEXTURE_GEN_MODE);
+				texGen(GlStateManager.TexGen.Q, GL11.GL_OBJECT_PLANE, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
+				texGen(GlStateManager.TexGen.Q, GL11.GL_EYE_PLANE, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
+				setActiveTexture(0);
 				GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
 				GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST_MIPMAP_LINEAR);
 				GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
@@ -997,11 +1028,11 @@ public class GlStateManager {
 				GL11.glTexEnvi(GL11.GL_TEXTURE_ENV, GL13.GL_OPERAND2_ALPHA, GL11.GL_SRC_ALPHA);
 				GL11.glTexEnvf(GL11.GL_TEXTURE_ENV, GL13.GL_RGB_SCALE, 1F);
 				GL11.glTexEnvf(GL11.GL_TEXTURE_ENV, GL11.GL_ALPHA_SCALE, 1F);
-				GlStateManager.disableNormalize();
-				GlStateManager.shadeModel(7425);
-				GlStateManager.disableRescaleNormal();
-				GlStateManager.colorMask(true, true, true, true);
-				GlStateManager.clearDepth(1D);
+				disableNormalize();
+				shadeModel(GL11.GL_SMOOTH);
+				disableRescaleNormal();
+				colorMask(true, true, true, true);
+				clearDepth(1D);
 				GL11.glLineWidth(1F);
 				GL11.glNormal3f(0F, 0F, 1F);
 				GL11.glPolygonMode(GL11.GL_FRONT, GL11.GL_FILL);
@@ -1009,41 +1040,35 @@ public class GlStateManager {
 			}
 
 			public void clean() {
-
 			}
 		},
 		PLAYER_SKIN {
 			public void apply() {
-
-				GlStateManager.enableBlend();
-				GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+				enableBlend();
+				tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
 			}
 
 			public void clean() {
-
-				GlStateManager.disableBlend();
+				disableBlend();
 			}
 		},
 		TRANSPARENT_MODEL {
 			public void apply() {
-
-				GlStateManager.color(1F, 1F, 1F, 0.15F);
-				GlStateManager.depthMask(false);
-				GlStateManager.enableBlend();
-				GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-				GlStateManager.alphaFunc(516, 0.003921569F);
+				color(1F, 1F, 1F, 0.15F);
+				depthMask(false);
+				enableBlend();
+				blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+				alphaFunc(GL11.GL_GREATER, 0.003921569F);
 			}
 
 			public void clean() {
-
-				GlStateManager.disableBlend();
-				GlStateManager.alphaFunc(516, 0.1F);
-				GlStateManager.depthMask(true);
+				disableBlend();
+				alphaFunc(GL11.GL_GREATER, 0.1F);
+				depthMask(true);
 			}
 		};
 
 		Profile() {
-
 		}
 
 		public abstract void apply();
@@ -1052,324 +1077,30 @@ public class GlStateManager {
 	}
 
 	public enum SourceFactor {
-		CONSTANT_ALPHA(32771),
-		CONSTANT_COLOR(32769),
-		DST_ALPHA(772),
-		DST_COLOR(774),
-		ONE(1),
-		ONE_MINUS_CONSTANT_ALPHA(32772),
-		ONE_MINUS_CONSTANT_COLOR(32770),
-		ONE_MINUS_DST_ALPHA(773),
-		ONE_MINUS_DST_COLOR(775),
-		ONE_MINUS_SRC_ALPHA(771),
-		ONE_MINUS_SRC_COLOR(769),
-		SRC_ALPHA(770),
-		SRC_ALPHA_SATURATE(776),
-		SRC_COLOR(768),
-		ZERO(0);
-
+		CONSTANT_ALPHA(GL14.GL_CONSTANT_ALPHA),
+		CONSTANT_COLOR(GL14.GL_CONSTANT_COLOR),
+		DST_ALPHA(GL11.GL_DST_ALPHA),
+		DST_COLOR(GL11.GL_DST_COLOR),
+		ONE(GL11.GL_ONE),
+		ONE_MINUS_CONSTANT_ALPHA(GL14.GL_ONE_MINUS_CONSTANT_ALPHA),
+		ONE_MINUS_CONSTANT_COLOR(GL14.GL_ONE_MINUS_CONSTANT_COLOR),
+		ONE_MINUS_DST_ALPHA(GL11.GL_ONE_MINUS_DST_ALPHA),
+		ONE_MINUS_DST_COLOR(GL11.GL_ONE_MINUS_DST_COLOR),
+		ONE_MINUS_SRC_ALPHA(GL11.GL_ONE_MINUS_SRC_ALPHA),
+		ONE_MINUS_SRC_COLOR(GL11.GL_ONE_MINUS_SRC_COLOR),
+		SRC_ALPHA(GL11.GL_SRC_ALPHA),
+		SRC_ALPHA_SATURATE(GL11.GL_SRC_ALPHA_SATURATE),
+		SRC_COLOR(GL11.GL_SRC_COLOR),
+		ZERO(GL11.GL_ZERO);
 		public final int factor;
 
 		SourceFactor(int factorIn) {
-
 			factor = factorIn;
 		}
 	}
 
 	public enum TexGen {
-		S,
-		T,
-		R,
-		Q
-	}
-
-	static class AlphaState {
-
-		public GlStateManager.BooleanState alphaTest;
-		public int func;
-		public float ref;
-
-		private AlphaState() {
-
-			alphaTest = new GlStateManager.BooleanState(3008);
-			func = 519;
-			ref = -1F;
-		}
-
-	}
-
-	static class BlendState {
-
-		public GlStateManager.BooleanState blend;
-		public int srcFactor;
-		public int dstFactor;
-		public int srcFactorAlpha;
-		public int dstFactorAlpha;
-
-		private BlendState() {
-
-			blend = new GlStateManager.BooleanState(3042);
-			srcFactor = 1;
-			dstFactor = 0;
-			srcFactorAlpha = 1;
-			dstFactorAlpha = 0;
-		}
-
-	}
-
-	static class BooleanState {
-
-		private final int capability;
-		private boolean currentState;
-
-		public BooleanState(int capabilityIn) {
-
-			capability = capabilityIn;
-		}
-
-		public void setDisabled() {
-
-			setState(false);
-		}
-
-		public void setEnabled() {
-
-			setState(true);
-		}
-
-		public void setState(boolean state) {
-
-			if (state != currentState) {
-				currentState = state;
-
-				if (state) {
-					GL11.glEnable(capability);
-				} else {
-					GL11.glDisable(capability);
-				}
-			}
-		}
-
-	}
-
-	static class ClearState {
-
-		public double depth;
-		public GlStateManager.Color color;
-
-		private ClearState() {
-
-			depth = 1D;
-			color = new GlStateManager.Color(0F, 0F, 0F, 0F);
-		}
-
-	}
-
-	static class Color {
-
-		public float red;
-		public float green;
-		public float blue;
-		public float alpha;
-
-		public Color() {
-
-			this(1F, 1F, 1F, 1F);
-		}
-
-		public Color(float redIn, float greenIn, float blueIn, float alphaIn) {
-
-			red = 1F;
-			green = 1F;
-			blue = 1F;
-			alpha = 1F;
-			red = redIn;
-			green = greenIn;
-			blue = blueIn;
-			alpha = alphaIn;
-		}
-
-	}
-
-	static class ColorLogicState {
-
-		public GlStateManager.BooleanState colorLogicOp;
-		public int opcode;
-
-		private ColorLogicState() {
-
-			colorLogicOp = new GlStateManager.BooleanState(3058);
-			opcode = 5379;
-		}
-
-	}
-
-	static class ColorMask {
-
-		public boolean red;
-		public boolean green;
-		public boolean blue;
-		public boolean alpha;
-
-		private ColorMask() {
-
-			red = true;
-			green = true;
-			blue = true;
-			alpha = true;
-		}
-
-	}
-
-	static class ColorMaterialState {
-
-		public GlStateManager.BooleanState colorMaterial;
-		public int face;
-		public int mode;
-
-		private ColorMaterialState() {
-
-			colorMaterial = new GlStateManager.BooleanState(2903);
-			face = 1032;
-			mode = 5634;
-		}
-
-	}
-
-	static class CullState {
-
-		public GlStateManager.BooleanState cullFace;
-		public int mode;
-
-		private CullState() {
-
-			cullFace = new GlStateManager.BooleanState(2884);
-			mode = 1029;
-		}
-
-	}
-
-	static class DepthState {
-
-		public GlStateManager.BooleanState depthTest;
-		public boolean maskEnabled;
-		public int depthFunc;
-
-		private DepthState() {
-
-			depthTest = new GlStateManager.BooleanState(2929);
-			maskEnabled = true;
-			depthFunc = 513;
-		}
-
-	}
-
-	static class FogState {
-
-		public GlStateManager.BooleanState fog;
-		public int mode;
-		public float density;
-		public float start;
-		public float end;
-
-		private FogState() {
-
-			fog = new GlStateManager.BooleanState(2912);
-			mode = 2048;
-			density = 1F;
-			end = 1F;
-		}
-
-	}
-
-	static class PolygonOffsetState {
-
-		public GlStateManager.BooleanState polygonOffsetFill;
-		public GlStateManager.BooleanState polygonOffsetLine;
-		public float factor;
-		public float units;
-
-		private PolygonOffsetState() {
-
-			polygonOffsetFill = new GlStateManager.BooleanState(32823);
-			polygonOffsetLine = new GlStateManager.BooleanState(10754);
-		}
-
-	}
-
-	static class StencilFunc {
-
-		public int func;
-		public int mask;
-
-		private StencilFunc() {
-
-			func = 519;
-			mask = -1;
-		}
-
-	}
-
-	static class StencilState {
-
-		public GlStateManager.StencilFunc func;
-		public int mask;
-		public int fail;
-		public int zfail;
-		public int zpass;
-
-		private StencilState() {
-
-			func = new GlStateManager.StencilFunc();
-			mask = -1;
-			fail = 7680;
-			zfail = 7680;
-			zpass = 7680;
-		}
-
-	}
-
-	static class TexGenCoord {
-
-		public GlStateManager.BooleanState textureGen;
-		public int coord;
-		public int param = -1;
-
-		public TexGenCoord(int coordIn, int capabilityIn) {
-
-			coord = coordIn;
-			textureGen = new GlStateManager.BooleanState(capabilityIn);
-		}
-
-	}
-
-	static class TexGenState {
-
-		public GlStateManager.TexGenCoord s;
-		public GlStateManager.TexGenCoord t;
-		public GlStateManager.TexGenCoord r;
-		public GlStateManager.TexGenCoord q;
-
-		private TexGenState() {
-
-			s = new GlStateManager.TexGenCoord(8192, 3168);
-			t = new GlStateManager.TexGenCoord(8193, 3169);
-			r = new GlStateManager.TexGenCoord(8194, 3170);
-			q = new GlStateManager.TexGenCoord(8195, 3171);
-		}
-
-	}
-
-	static class TextureState {
-
-		public GlStateManager.BooleanState texture2DState;
-		public int textureName;
-
-		private TextureState() {
-
-			texture2DState = new GlStateManager.BooleanState(3553);
-		}
-
+		S, T, R, Q
 	}
 
 }
