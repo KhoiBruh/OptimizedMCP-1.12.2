@@ -834,7 +834,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		float f = 0.8F;
 		boolean flag2 = movementInput.moveForward >= 0.8F;
 		movementInput.updatePlayerMoveState();
-		mc.getTutorial().handleMovement(movementInput);
 
 		if (isHandActive() && !isRiding()) {
 			movementInput.moveStrafe *= 0.2F;

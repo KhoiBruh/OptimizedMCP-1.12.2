@@ -3,3 +3,4 @@ build
 workspace
 README.md
 /out/
+/.idea/

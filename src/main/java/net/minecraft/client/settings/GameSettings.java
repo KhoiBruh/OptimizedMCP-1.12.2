@@ -9,7 +9,6 @@ import net.minecraft.client.gui.chat.GuiNewChat;
 import net.minecraft.client.gui.chat.NarratorChatListener;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.client.tutorial.TutorialSteps;
 import net.minecraft.client.util.Keyboard;
 import net.minecraft.client.util.Mouse;
 import net.minecraft.entity.player.EntityPlayer;
@@ -119,7 +118,6 @@ public class GameSettings {
 	public boolean enableWeakAttacks;
 	public boolean showSubtitles;
 	public boolean autoJump = true;
-	public TutorialSteps tutorialStep = TutorialSteps.MOVEMENT;
 	
 	public KeyBinding keyForward = new KeyBinding("key.forward", GLFW_KEY_W, "key.categories.movement");
 	public KeyBinding keyLeft = new KeyBinding("key.left", GLFW_KEY_A, "key.categories.movement");
@@ -525,7 +523,6 @@ public class GameSettings {
 						case "fboEnable" -> fboEnable = "true".equals(s2);
 						case "difficulty" -> difficulty = Difficulty.getDifficultyEnum(Integer.parseInt(s2));
 						case "fancyGraphics" -> fancyGraphics = "true".equals(s2);
-						case "tutorialStep" -> tutorialStep = TutorialSteps.getTutorial(s2);
 						case "ao" -> {
 							if ("true".equals(s2)) ambientOcclusion = 2;
 							else if ("false".equals(s2)) ambientOcclusion = 0;
@@ -693,7 +690,6 @@ public class GameSettings {
 			writer.println("enableWeakAttacks:" + enableWeakAttacks);
 			writer.println("autoJump:" + autoJump);
 			writer.println("narrator:" + narrator);
-			writer.println("tutorialStep:" + tutorialStep.getName());
 			
 			for (KeyBinding key : keyBindings) {
 				writer.println("key_" + key.getDescription() + ":" + key.getKeyCode());

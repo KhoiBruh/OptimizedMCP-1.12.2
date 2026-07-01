@@ -217,7 +217,6 @@ public class PlayerControllerMP {
 			return false;
 		} else {
 			if (currentGameType.isCreative()) {
-				mc.getTutorial().onHitBlock(mc.world, loc, mc.world.getBlockState(loc), 1F);
 				connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.START_DESTROY_BLOCK, loc, face));
 				clickBlockCreative(mc, this, loc, face);
 				blockHitDelay = 5;
@@ -227,7 +226,6 @@ public class PlayerControllerMP {
 				}
 
 				IBlockState iblockstate = mc.world.getBlockState(loc);
-				mc.getTutorial().onHitBlock(mc.world, loc, iblockstate, 0F);
 				connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.START_DESTROY_BLOCK, loc, face));
 				boolean flag = iblockstate.getMaterial() != Material.AIR;
 
@@ -257,7 +255,6 @@ public class PlayerControllerMP {
 	public void resetBlockRemoving() {
 
 		if (isHittingBlock) {
-			mc.getTutorial().onHitBlock(mc.world, currentBlock, mc.world.getBlockState(currentBlock), -1F);
 			connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.ABORT_DESTROY_BLOCK, currentBlock, Facing.DOWN));
 			isHittingBlock = false;
 			curBlockDamageMP = 0F;
@@ -275,7 +272,6 @@ public class PlayerControllerMP {
 			return true;
 		} else if (currentGameType.isCreative() && mc.world.getWorldBorder().contains(posBlock)) {
 			blockHitDelay = 5;
-			mc.getTutorial().onHitBlock(mc.world, posBlock, mc.world.getBlockState(posBlock), 1F);
 			connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.START_DESTROY_BLOCK, posBlock, directionFacing));
 			clickBlockCreative(mc, this, posBlock, directionFacing);
 			return true;
@@ -295,8 +291,7 @@ public class PlayerControllerMP {
 				}
 
 				++stepSoundTickCounter;
-				mc.getTutorial().onHitBlock(mc.world, posBlock, iblockstate, MathHelper.clamp(curBlockDamageMP, 0F, 1F));
-
+	
 				if (curBlockDamageMP >= 1F) {
 					isHittingBlock = false;
 					connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, posBlock, directionFacing));

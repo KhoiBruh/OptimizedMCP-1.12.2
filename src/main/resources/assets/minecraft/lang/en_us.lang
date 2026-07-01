@@ -3323,18 +3323,7 @@ resourcepack.downloading=Downloading Resource Pack
 resourcepack.requesting=Making Request...
 resourcepack.progress=Downloading file (%s MB)...
 
-tutorial.move.title=Move with %s, %s, %s and %s
-tutorial.move.description=Jump with %s
-tutorial.look.title=Look around
-tutorial.look.description=Use your mouse to turn
-tutorial.find_tree.title=Find a tree
-tutorial.find_tree.description=Punch it to collect wood
-tutorial.punch_tree.title=Destroy the tree
-tutorial.punch_tree.description=Hold down %s
-tutorial.open_inventory.title=Open your inventory
-tutorial.open_inventory.description=Press %s
-tutorial.craft_planks.title=Craft wooden planks
-tutorial.craft_planks.description=The recipe book can help
+
 
 advancements.adventure.adventuring_time.title=Adventuring Time
 advancements.adventure.adventuring_time.description=Discover every biome

@@ -63,7 +63,6 @@ public class SystemToast implements IToast {
 	}
 
 	public enum Type {
-		TUTORIAL_HINT,
 		NARRATOR_TOGGLE
 	}
 

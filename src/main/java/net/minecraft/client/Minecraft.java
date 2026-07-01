@@ -61,7 +61,6 @@ import net.minecraft.client.settings.CreativeSettings;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.shader.Framebuffer;
-import net.minecraft.client.tutorial.Tutorial;
 import net.minecraft.client.util.*;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
@@ -171,7 +170,6 @@ public class Minecraft implements IThreadListener {
 	private final int tempDisplayWidth;
 	private final Timer timer = new Timer(20F);
 	private final GuiToast toastGui;
-	private final Tutorial tutorial;
 	private final String versionType;
 	// Public instance fields
 	public CreativeSettings creativeSettings;
@@ -273,7 +271,6 @@ public class Minecraft implements IThreadListener {
 		TextComponentKeybind.displaySupplierFunction = KeyBinding::getDisplayString;
 		dataFixer = DataFixesManager.createFixer();
 		toastGui = new GuiToast(this);
-		tutorial = new Tutorial(this);
 	}
 	
 	public static boolean isGuiEnabled() {
@@ -1356,7 +1353,6 @@ public class Minecraft implements IThreadListener {
 		
 		profiler.endSection();
 		entityRenderer.getMouseOver(1F);
-		tutorial.onMouseHover(world, objectMouseOver);
 		profiler.startSection("gameMode");
 		
 		if (!isGamePaused && world != null) playerController.updateController();
@@ -1454,8 +1450,7 @@ public class Minecraft implements IThreadListener {
 		if (world != null) {
 			if (!isGamePaused) {
 				world.setAllowedSpawnTypes(world.getDifficulty() != Difficulty.PEACEFUL, true);
-				tutorial.update();
-				
+					
 				try {
 					world.tick();
 				} catch (Throwable throwable2) {
@@ -1660,7 +1655,6 @@ public class Minecraft implements IThreadListener {
 			if (playerController.isRidingHorse()) {
 				player.sendHorseInventory();
 			} else {
-				tutorial.openInventory();
 				displayGuiScreen(new GuiInventory(player));
 			}
 		}
@@ -2359,10 +2353,6 @@ public class Minecraft implements IThreadListener {
 	
 	public GuiToast getToastGui() {
 		return toastGui;
-	}
-	
-	public Tutorial getTutorial() {
-		return tutorial;
 	}
 	
 }
