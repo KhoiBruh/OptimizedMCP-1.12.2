@@ -29,7 +29,6 @@ public class SoundSource {
     }
 
     public void stop() {
-        if (!this.active) return;
         AL10.alSourceStop(this.sourceId);
         AL10.alSourcei(this.sourceId, AL10.AL_BUFFER, 0);
         this.active = false;

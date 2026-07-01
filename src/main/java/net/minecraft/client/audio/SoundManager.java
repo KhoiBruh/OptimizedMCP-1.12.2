@@ -226,7 +226,7 @@ public class SoundManager {
         if (this.loaded) {
             checkContext();
 
-            for (ITickableSound itickablesound : this.tickableSounds) {
+            for (ITickableSound itickablesound : com.google.common.collect.Lists.newArrayList(this.tickableSounds)) {
                 itickablesound.update();
                 if (itickablesound.isDonePlaying()) {
                     stopSound(itickablesound);
@@ -241,9 +241,8 @@ public class SoundManager {
                 }
             }
 
-            Iterator<Entry<String, ISound>> iterator = this.playingSounds.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Entry<String, ISound> entry = iterator.next();
+            List<Entry<String, ISound>> playingCopy = com.google.common.collect.Lists.newArrayList(this.playingSounds.entrySet());
+            for (Entry<String, ISound> entry : playingCopy) {
                 String s1 = entry.getKey();
                 ISound isound = entry.getValue();
                 SoundSource src = this.playingSources.get(s1);
@@ -253,7 +252,7 @@ public class SoundManager {
                     if (isound.canRepeat() && j > 0) {
                         this.delayedSounds.put(isound, this.playTime + j);
                     }
-                    iterator.remove();
+                    this.playingSounds.remove(s1);
                     LOGGER.debug(LOG_MARKER, "Removed channel {} because it's not playing anymore", s1);
                     if (src != null) {
                         src.stop();
