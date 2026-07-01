@@ -5,7 +5,6 @@ import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
-import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -292,22 +291,14 @@ public class TextureUtil {
 
 	public static int[] readImageData(IResourceManager resourceManager, ResourceLocation imageLocation) throws IOException {
 
-		IResource iresource = null;
-		int[] aint1;
-
-		try {
-			iresource = resourceManager.getResource(imageLocation);
+		try (IResource iresource = resourceManager.getResource(imageLocation)) {
 			BufferedImage bufferedimage = readBufferedImage(iresource.getInputStream());
 			int i = bufferedimage.getWidth();
 			int j = bufferedimage.getHeight();
 			int[] aint = new int[i * j];
 			bufferedimage.getRGB(0, 0, i, j, aint, 0, i);
-			aint1 = aint;
-		} finally {
-			IOUtils.closeQuietly(iresource);
+			return aint;
 		}
-
-		return aint1;
 	}
 
 	public static BufferedImage readBufferedImage(InputStream imageStream) throws IOException {

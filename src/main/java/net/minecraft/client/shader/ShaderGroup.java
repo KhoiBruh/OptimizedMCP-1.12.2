@@ -48,10 +48,7 @@ public class ShaderGroup {
 	}
 
 	public void parseGroup(TextureManager p_152765_1_, ResourceLocation p_152765_2_) throws IOException, JsonSyntaxException {
-		IResource iresource = null;
-
-		try {
-			iresource = resourceManager.getResource(p_152765_2_);
+		try (IResource iresource = resourceManager.getResource(p_152765_2_)) {
 			JsonObject jsonobject = JsonParser.parseString(IOUtils.toString(iresource.getInputStream(), StandardCharsets.UTF_8)).getAsJsonObject();
 
 			if (JsonUtils.isJsonArray(jsonobject, "targets")) {
@@ -91,8 +88,6 @@ public class ShaderGroup {
 			JsonException jsonexception = JsonException.forException(exception2);
 			jsonexception.setFilenameAndFlush(p_152765_2_.getResourcePath());
 			throw jsonexception;
-		} finally {
-			IOUtils.closeQuietly(iresource);
 		}
 	}
 
@@ -143,14 +138,10 @@ public class ShaderGroup {
 
 						if (framebuffer2 == null) {
 							ResourceLocation resourcelocation = new ResourceLocation("textures/effect/" + s3 + ".png");
-							IResource iresource = null;
 
-							try {
-								iresource = resourceManager.getResource(resourcelocation);
+							try (IResource iresource = resourceManager.getResource(resourcelocation)) {
 							} catch (FileNotFoundException var29) {
 								throw new JsonException("Render target or texture '" + s3 + "' does not exist");
-							} finally {
-								IOUtils.closeQuietly(iresource);
 							}
 
 							p_152764_1_.bindTexture(resourcelocation);

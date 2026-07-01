@@ -48,10 +48,7 @@ public class ShaderManager {
 
 		ResourceLocation resourcelocation = new ResourceLocation("shaders/program/" + programName + ".json");
 		programFilename = programName;
-		IResource iresource = null;
-
-		try {
-			iresource = resourceManager.getResource(resourcelocation);
+		try (IResource iresource = resourceManager.getResource(resourcelocation)) {
 			JsonObject jsonobject = JsonParser.parseString(IOUtils.toString(iresource.getInputStream(), StandardCharsets.UTF_8)).getAsJsonObject();
 			String s = JsonUtils.getString(jsonobject, "vertex");
 			String s1 = JsonUtils.getString(jsonobject, "fragment");
@@ -134,8 +131,6 @@ public class ShaderManager {
 			JsonException jsonexception = JsonException.forException(exception3);
 			jsonexception.setFilenameAndFlush(resourcelocation.getResourcePath());
 			throw jsonexception;
-		} finally {
-			IOUtils.closeQuietly(iresource);
 		}
 
 		markDirty();

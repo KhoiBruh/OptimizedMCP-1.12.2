@@ -20,7 +20,6 @@ import net.minecraft.util.Facing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.IRegistry;
 import net.minecraft.util.registry.RegistrySimple;
-import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.*;
@@ -175,19 +174,11 @@ public class ModelBakery {
 
 	private ModelBlockDefinition loadModelBlockDefinition(ResourceLocation location, IResource resource) {
 
-		InputStream inputstream = null;
-		ModelBlockDefinition lvt_4_1_;
-
-		try {
-			inputstream = resource.getInputStream();
-			lvt_4_1_ = ModelBlockDefinition.parseFromReader(new InputStreamReader(inputstream, StandardCharsets.UTF_8));
+		try (InputStream inputstream = resource.getInputStream()) {
+			return ModelBlockDefinition.parseFromReader(new InputStreamReader(inputstream, StandardCharsets.UTF_8));
 		} catch (Exception exception) {
 			throw new RuntimeException("Encountered an exception when loading model definition of '" + location + "' from: '" + resource.getResourceLocation() + "' in resourcepack: '" + resource.getResourcePackName() + "'", exception);
-		} finally {
-			IOUtils.closeQuietly(inputstream);
 		}
-
-		return lvt_4_1_;
 	}
 
 	private ResourceLocation getBlockstateLocation(ResourceLocation location) {
@@ -230,45 +221,37 @@ public class ModelBakery {
 
 	private ModelBlock loadModel(ResourceLocation location) throws IOException {
 
-		Reader reader = null;
-		IResource iresource = null;
-		ModelBlock lvt_5_2_;
+		String s = location.getResourcePath();
 
-		try {
-			String s = location.getResourcePath();
-
-			if (!"builtin/generated".equals(s)) {
-				if ("builtin/entity".equals(s)) {
-					lvt_5_2_ = MODEL_ENTITY;
-					return lvt_5_2_;
-				}
-
-				if (s.startsWith("builtin/")) {
-					String s2 = s.substring("builtin/".length());
-					String s1 = BUILT_IN_MODELS.get(s2);
-
-					if (s1 == null) {
-						throw new FileNotFoundException(location.toString());
-					}
-
-					reader = new StringReader(s1);
-				} else {
-					iresource = resourceManager.getResource(getModelLocation(location));
-					reader = new InputStreamReader(iresource.getInputStream(), StandardCharsets.UTF_8);
-				}
-
-				lvt_5_2_ = ModelBlock.deserialize(reader);
-				lvt_5_2_.name = location.toString();
-				return lvt_5_2_;
+		if (!"builtin/generated".equals(s)) {
+			if ("builtin/entity".equals(s)) {
+				return MODEL_ENTITY;
 			}
 
-			lvt_5_2_ = MODEL_GENERATED;
-		} finally {
-			IOUtils.closeQuietly(reader);
-			IOUtils.closeQuietly(iresource);
+			if (s.startsWith("builtin/")) {
+				String s2 = s.substring("builtin/".length());
+				String s1 = BUILT_IN_MODELS.get(s2);
+
+				if (s1 == null) {
+					throw new FileNotFoundException(location.toString());
+				}
+
+				try (Reader reader = new StringReader(s1)) {
+					ModelBlock modelblock = ModelBlock.deserialize(reader);
+					modelblock.name = location.toString();
+					return modelblock;
+				}
+			}
+
+			try (IResource iresource = resourceManager.getResource(getModelLocation(location));
+				 Reader reader = new InputStreamReader(iresource.getInputStream(), StandardCharsets.UTF_8)) {
+				ModelBlock modelblock = ModelBlock.deserialize(reader);
+				modelblock.name = location.toString();
+				return modelblock;
+			}
 		}
 
-		return lvt_5_2_;
+		return MODEL_GENERATED;
 	}
 
 	private ResourceLocation getModelLocation(ResourceLocation location) {

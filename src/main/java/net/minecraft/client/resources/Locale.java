@@ -74,21 +74,18 @@ public class Locale {
 	 * Loads the locale data for the list of resources.
 	 */
 	private void loadLocaleData(List<IResource> resourcesList) {
-
-		for (IResource iresource : resourcesList) {
-			InputStream inputstream = iresource.getInputStream();
-
-			try {
+		for (IResource resource : resourcesList) {
+			try (InputStream inputstream = resource.getInputStream()) {
 				loadLocaleData(inputstream);
-			} finally {
-				IOUtils.closeQuietly(inputstream);
+			} catch (Exception ignored) {
+
 			}
 		}
 	}
 
-	private void loadLocaleData(InputStream inputStreamIn) {
+	private void loadLocaleData(InputStream stream) {
 
-		for (String s : IOUtils.readLines(inputStreamIn, StandardCharsets.UTF_8)) {
+		for (String s : IOUtils.readLines(stream, StandardCharsets.UTF_8)) {
 			if (!s.isEmpty() && s.charAt(0) != '#') {
 				String[] astring = Iterables.toArray(SPLITTER.split(s), String.class);
 

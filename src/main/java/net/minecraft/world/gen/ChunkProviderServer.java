@@ -207,7 +207,7 @@ public class ChunkProviderServer implements IChunkProvider {
 				Iterator<Long> iterator = droppedChunksSet.iterator();
 
 				for (int i = 0; i < 100 && iterator.hasNext(); iterator.remove()) {
-					Long olong = iterator.next();
+					long olong = iterator.next();
 					Chunk chunk = id2ChunkMap.get(olong);
 
 					if (chunk != null && chunk.unloadQueued) {

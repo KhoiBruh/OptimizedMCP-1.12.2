@@ -15,7 +15,6 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.ResourceLocation;
-import org.apache.commons.io.IOUtils;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -198,16 +197,12 @@ public class FontRenderer implements IResourceManagerReloadListener {
 
 	private void readFontTexture() {
 
-		IResource iresource = null;
 		BufferedImage bufferedimage;
 
-		try {
-			iresource = Minecraft.getMinecraft().getResourceManager().getResource(locationFontTexture);
+		try (IResource iresource = Minecraft.getMinecraft().getResourceManager().getResource(locationFontTexture)) {
 			bufferedimage = TextureUtil.readBufferedImage(iresource.getInputStream());
 		} catch (IOException ioexception) {
 			throw new RuntimeException(ioexception);
-		} finally {
-			IOUtils.closeQuietly(iresource);
 		}
 
 		int lvt_3_2_ = bufferedimage.getWidth();
@@ -254,15 +249,10 @@ public class FontRenderer implements IResourceManagerReloadListener {
 
 	private void readGlyphSizes() {
 
-		IResource iresource = null;
-
-		try {
-			iresource = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("font/glyph_sizes.bin"));
+		try (IResource iresource = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("font/glyph_sizes.bin"))) {
 			iresource.getInputStream().read(glyphWidth);
 		} catch (IOException ioexception) {
 			throw new RuntimeException(ioexception);
-		} finally {
-			IOUtils.closeQuietly(iresource);
 		}
 	}
 

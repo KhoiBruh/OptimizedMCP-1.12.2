@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormat;
-import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -83,37 +82,37 @@ public class WinGameScreen extends Screen {
 
 		if (lines == null) {
 			lines = Lists.newArrayList();
-			IResource iresource = null;
 
 			try {
 				String s = "" + TextFormat.WHITE + TextFormat.OBFUSCATED + TextFormat.GREEN + TextFormat.AQUA;
 				int i = 274;
 
 				if (poem) {
-					iresource = mc.getResourceManager().getResource(new ResourceLocation("texts/end.txt"));
-					InputStream inputstream = iresource.getInputStream();
-					BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(inputstream, StandardCharsets.UTF_8));
-					Random random = new Random(8124371L);
-					String s1;
+					try (IResource iresource = mc.getResourceManager().getResource(new ResourceLocation("texts/end.txt"))) {
+						InputStream inputstream = iresource.getInputStream();
+						BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(inputstream, StandardCharsets.UTF_8));
+						Random random = new Random(8124371L);
+						String s1;
 
-					while ((s1 = bufferedreader.readLine()) != null) {
-						String s2;
-						String s3;
+						while ((s1 = bufferedreader.readLine()) != null) {
+							String s2;
+							String s3;
 
-						for (s1 = s1.replaceAll("PLAYERNAME", mc.getSession().getUsername()); s1.contains(s); s1 = s2 + TextFormat.WHITE + TextFormat.OBFUSCATED + "XXXXXXXX".substring(0, random.nextInt(4) + 3) + s3) {
-							int j = s1.indexOf(s);
-							s2 = s1.substring(0, j);
-							s3 = s1.substring(j + s.length());
+							for (s1 = s1.replaceAll("PLAYERNAME", mc.getSession().getUsername()); s1.contains(s); s1 = s2 + TextFormat.WHITE + TextFormat.OBFUSCATED + "XXXXXXXX".substring(0, random.nextInt(4) + 3) + s3) {
+								int j = s1.indexOf(s);
+								s2 = s1.substring(0, j);
+								s3 = s1.substring(j + s.length());
+							}
+
+							lines.addAll(mc.fontRenderer.formatToWidth(s1, 274));
+							lines.add("");
 						}
 
-						lines.addAll(mc.fontRenderer.formatToWidth(s1, 274));
-						lines.add("");
-					}
+						inputstream.close();
 
-					inputstream.close();
-
-					for (int k = 0; k < 8; ++k) {
-						lines.add("");
+						for (int k = 0; k < 8; ++k) {
+							lines.add("");
+						}
 					}
 				}
 
@@ -132,8 +131,6 @@ public class WinGameScreen extends Screen {
 				totalScrollLength = lines.size() * 12;
 			} catch (Exception exception) {
 				LOGGER.error("Couldn't load credits", exception);
-			} finally {
-				IOUtils.closeQuietly(iresource);
 			}
 		}
 	}

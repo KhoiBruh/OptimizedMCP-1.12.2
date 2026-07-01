@@ -104,7 +104,6 @@ import net.minecraft.world.chunk.storage.AnvilSaveConverter;
 import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.WorldInfo;
-import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.Version;
@@ -548,21 +547,14 @@ public class Minecraft implements IThreadListener {
 		Util.OS util$enumos = Util.getOSType();
 		
 		if (util$enumos != Util.OS.OSX) {
-			InputStream inputstream = null;
-			InputStream inputstream1 = null;
-			
-			try {
-				inputstream = defaultResourcePack.getInputStreamAssets(new ResourceLocation("icons/icon_16x16.png"));
-				inputstream1 = defaultResourcePack.getInputStreamAssets(new ResourceLocation("icons/icon_32x32.png"));
+			try (InputStream inputstream = defaultResourcePack.getInputStreamAssets(new ResourceLocation("icons/icon_16x16.png"));
+				 InputStream inputstream1 = defaultResourcePack.getInputStreamAssets(new ResourceLocation("icons/icon_32x32.png"))) {
 				
 				if (inputstream != null && inputstream1 != null) {
 					window.setIcon(new ByteBuffer[]{readImageToBuffer(inputstream), readImageToBuffer(inputstream1)});
 				}
 			} catch (IOException ioexception) {
 				LOGGER.error("Couldn't set icon", ioexception);
-			} finally {
-				IOUtils.closeQuietly(inputstream);
-				IOUtils.closeQuietly(inputstream1);
 			}
 		}
 	}
@@ -682,16 +674,11 @@ public class Minecraft implements IThreadListener {
 		GLS.disableFog();
 		GLS.disableDepth();
 		GLS.enableTexture2D();
-		InputStream inputstream = null;
-		
-		try {
-			inputstream = defaultResourcePack.getInputStream(LOCATION_MOJANG_PNG);
+		try (InputStream inputstream = defaultResourcePack.getInputStream(LOCATION_MOJANG_PNG)) {
 			mojangLogo = textureManagerInstance.getDynamicTextureLocation("logo", new DynamicTexture(ImageIO.read(inputstream)));
 			textureManagerInstance.bindTexture(mojangLogo);
 		} catch (IOException ioexception) {
 			LOGGER.error("Unable to load logo: {}", LOCATION_MOJANG_PNG, ioexception);
-		} finally {
-			IOUtils.closeQuietly(inputstream);
 		}
 		
 		Tessellator tessellator = Tessellator.getInstance();

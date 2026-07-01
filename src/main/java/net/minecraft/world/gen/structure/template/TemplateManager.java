@@ -7,7 +7,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.datafix.FixTypes;
-import org.apache.commons.io.IOUtils;
 import java.io.*;
 import java.util.Map;
 
@@ -62,29 +61,19 @@ public class TemplateManager {
 	 * This first attempts get the template from an external folder.
 	 * If it isn't there then it attempts to take it from the minecraft jar.
 	 */
-	public boolean readTemplate(ResourceLocation server) {
+	public void readTemplate(ResourceLocation server) {
 
-		String s = server.getResourcePath();
-		File file1 = new File(baseFolder, s + ".nbt");
+		String path = server.getResourcePath();
+		File file = new File(baseFolder, path + ".nbt");
 
-		if (!file1.exists()) {
-			return readTemplateFromJar(server);
-		} else {
-			InputStream inputstream = null;
-			boolean flag;
+		if (file.exists()) {
 
-			try {
-				inputstream = new FileInputStream(file1);
-				readTemplateFromStream(s, inputstream);
-				return true;
+			try (InputStream stream = new FileInputStream(file)) {
+				readTemplateFromStream(path, stream);
 			} catch (Throwable var10) {
-				flag = false;
-			} finally {
-				IOUtils.closeQuietly(inputstream);
 			}
 
-			return flag;
-		}
+		} else readTemplateFromJar(server);
 	}
 
 	/**
@@ -94,17 +83,13 @@ public class TemplateManager {
 
 		String s = id.getResourceDomain();
 		String s1 = id.getResourcePath();
-		InputStream inputstream = null;
 		boolean flag;
 
-		try {
-			inputstream = MinecraftServer.class.getResourceAsStream("/assets/" + s + "/structures/" + s1 + ".nbt");
+		try (InputStream inputstream = MinecraftServer.class.getResourceAsStream("/assets/" + s + "/structures/" + s1 + ".nbt")) {
 			readTemplateFromStream(s1, inputstream);
 			return true;
 		} catch (Throwable var10) {
 			flag = false;
-		} finally {
-			IOUtils.closeQuietly(inputstream);
 		}
 
 		return flag;
@@ -146,18 +131,14 @@ public class TemplateManager {
 
 			File file2 = new File(file1, s + ".nbt");
 			Template template = templates.get(s);
-			OutputStream outputstream = null;
 			boolean flag;
 
-			try {
+			try (OutputStream outputstream = new FileOutputStream(file2)) {
 				NBTTagCompound nbttagcompound = template.writeToNBT(new NBTTagCompound());
-				outputstream = new FileOutputStream(file2);
 				CompressedStreamTools.writeCompressed(nbttagcompound, outputstream);
 				return true;
 			} catch (Throwable var13) {
 				flag = false;
-			} finally {
-				IOUtils.closeQuietly(outputstream);
 			}
 
 			return flag;

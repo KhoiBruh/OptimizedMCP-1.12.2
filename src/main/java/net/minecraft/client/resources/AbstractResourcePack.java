@@ -7,7 +7,6 @@ import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.MetadataSerializer;
 import net.minecraft.util.ResourceLocation;
-import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -37,16 +36,13 @@ public abstract class AbstractResourcePack implements IResourcePack {
 
 	static <T extends IMetadataSection> T readMetadata(MetadataSerializer metadataSerializer, InputStream p_110596_1_, String sectionName) {
 
-		JsonObject jsonobject;
-		BufferedReader bufferedreader = null;
+		JsonObject jsonobject = null;
 
-		try {
-			bufferedreader = new BufferedReader(new InputStreamReader(p_110596_1_, StandardCharsets.UTF_8));
+		try (BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(p_110596_1_, StandardCharsets.UTF_8))) {
 			jsonobject = JsonParser.parseReader(bufferedreader).getAsJsonObject();
 		} catch (RuntimeException runtimeexception) {
 			throw new JsonParseException(runtimeexception);
-		} finally {
-			IOUtils.closeQuietly(bufferedreader);
+		} catch (IOException ignored) {
 		}
 
 		return metadataSerializer.parseMetadataSection(sectionName, jsonobject);

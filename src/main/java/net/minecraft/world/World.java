@@ -679,8 +679,6 @@ public abstract class World implements IBlockAccess {
 		return i;
 	}
 
-	@Deprecated
-
 	/**
 	 * Gets the lowest height of the chunk where sunlight directly reaches
 	 */

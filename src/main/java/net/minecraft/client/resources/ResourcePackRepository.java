@@ -17,7 +17,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormat;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.logging.log4j.LogManager;
@@ -387,8 +386,10 @@ public class ResourcePackRepository {
 
 		public void closeResourcePack() {
 
-			if (reResourcePack instanceof Closeable) {
-				IOUtils.closeQuietly((Closeable) reResourcePack);
+			if (reResourcePack instanceof Closeable closeable) {
+				try (closeable) {
+				} catch (IOException ignored) {
+				}
 			}
 		}
 

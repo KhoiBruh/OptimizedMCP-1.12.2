@@ -19,6 +19,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -66,7 +67,7 @@ public class StatisticsManagerServer extends StatisticsManager {
 		if (statsFile.isFile()) {
 			try {
 				statsData.clear();
-				statsData.putAll(parseJson(FileUtils.readFileToString(statsFile)));
+				statsData.putAll(parseJson(FileUtils.readFileToString(statsFile, StandardCharsets.UTF_8)));
 			} catch (IOException ioexception) {
 				LOGGER.error("Couldn't read statistics file {}", statsFile, ioexception);
 			} catch (JsonParseException jsonparseexception) {
@@ -78,7 +79,7 @@ public class StatisticsManagerServer extends StatisticsManager {
 	public void saveStatFile() {
 
 		try {
-			FileUtils.writeStringToFile(statsFile, dumpJson(statsData));
+			FileUtils.writeStringToFile(statsFile, dumpJson(statsData), StandardCharsets.UTF_8);
 		} catch (IOException ioexception) {
 			LOGGER.error("Couldn't save stats", ioexception);
 		}
@@ -102,7 +103,7 @@ public class StatisticsManagerServer extends StatisticsManager {
 
 	public Map<StatBase, TupleIntJsonSerializable> parseJson(String p_150881_1_) {
 
-		JsonElement jsonelement = (new JsonParser()).parse(p_150881_1_);
+		JsonElement jsonelement = JsonParser.parseString(p_150881_1_);
 
 		if (!jsonelement.isJsonObject()) {
 			return Maps.newHashMap();

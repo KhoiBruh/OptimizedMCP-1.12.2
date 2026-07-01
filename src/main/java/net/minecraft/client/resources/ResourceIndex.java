@@ -8,12 +8,12 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
-import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -31,10 +31,7 @@ public class ResourceIndex {
 
 		File file1 = new File(assetsFolder, "objects");
 		File file2 = new File(assetsFolder, "indexes/" + indexName + ".json");
-		BufferedReader bufferedreader = null;
-
-		try {
-			bufferedreader = Files.newReader(file2, StandardCharsets.UTF_8);
+		try (BufferedReader bufferedreader = Files.newReader(file2, StandardCharsets.UTF_8)) {
 			JsonObject jsonobject = JsonParser.parseReader(bufferedreader).getAsJsonObject();
 			JsonObject jsonobject1 = JsonUtils.getJsonObject(jsonobject, "objects", null);
 
@@ -53,8 +50,7 @@ public class ResourceIndex {
 			LOGGER.error("Unable to parse resource index file: {}", file2);
 		} catch (FileNotFoundException var21) {
 			LOGGER.error("Can't find the resource index file: {}", file2);
-		} finally {
-			IOUtils.closeQuietly(bufferedreader);
+		} catch (IOException ignored) {
 		}
 	}
 

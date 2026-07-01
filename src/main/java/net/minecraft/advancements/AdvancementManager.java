@@ -10,7 +10,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.BufferedReader;
@@ -105,17 +104,15 @@ public class AdvancementManager {
 
 	private void loadBuiltInAdvancements(Map<ResourceLocation, Advancement.Builder> map) {
 
-		FileSystem filesystem = null;
-
 		try {
 			URL url = AdvancementManager.class.getResource("/assets/.mcassetsroot");
 
 			if (url != null) {
 				URI uri = url.toURI();
-				Path path;
 
 				if ("file".equals(uri.getScheme())) {
-					path = Paths.get(CraftingManager.class.getResource("/assets/minecraft/advancements").toURI());
+					Path path = Paths.get(CraftingManager.class.getResource("/assets/minecraft/advancements").toURI());
+					loadAdvancementsFromPath(map, path);
 				} else {
 					if (!"jar".equals(uri.getScheme())) {
 						LOGGER.error("Unsupported scheme {} trying to list all built-in advancements (NYI?)", uri);
@@ -123,37 +120,9 @@ public class AdvancementManager {
 						return;
 					}
 
-					filesystem = FileSystems.newFileSystem(uri, Collections.emptyMap());
-					path = filesystem.getPath("/assets/minecraft/advancements");
-				}
-
-				Iterator<Path> iterator = Files.walk(path).iterator();
-
-				while (iterator.hasNext()) {
-					Path path1 = iterator.next();
-
-					if ("json".equals(FilenameUtils.getExtension(path1.toString()))) {
-						Path path2 = path.relativize(path1);
-						String s = FilenameUtils.removeExtension(path2.toString()).replaceAll("\\\\", "/");
-						ResourceLocation resourcelocation = new ResourceLocation("minecraft", s);
-
-						if (!map.containsKey(resourcelocation)) {
-							BufferedReader bufferedreader = null;
-
-							try {
-								bufferedreader = Files.newBufferedReader(path1);
-								Advancement.Builder advancement$builder = JsonUtils.fromJson(GSON, bufferedreader, Advancement.Builder.class);
-								map.put(resourcelocation, advancement$builder);
-							} catch (JsonParseException jsonparseexception) {
-								LOGGER.error("Parsing error loading built-in advancement {}", resourcelocation, jsonparseexception);
-								hasErrored = true;
-							} catch (IOException ioexception) {
-								LOGGER.error("Couldn't read advancement {} from {}", resourcelocation, path1, ioexception);
-								hasErrored = true;
-							} finally {
-								IOUtils.closeQuietly(bufferedreader);
-							}
-						}
+					try (FileSystem filesystem = FileSystems.newFileSystem(uri, Collections.emptyMap())) {
+						Path path = filesystem.getPath("/assets/minecraft/advancements");
+						loadAdvancementsFromPath(map, path);
 					}
 				}
 
@@ -165,8 +134,34 @@ public class AdvancementManager {
 		} catch (IOException | URISyntaxException urisyntaxexception) {
 			LOGGER.error("Couldn't get a list of all built-in advancement files", urisyntaxexception);
 			hasErrored = true;
-		} finally {
-			IOUtils.closeQuietly(filesystem);
+		}
+	}
+
+	private void loadAdvancementsFromPath(Map<ResourceLocation, Advancement.Builder> map, Path path) throws IOException {
+
+		Iterator<Path> iterator = Files.walk(path).iterator();
+
+		while (iterator.hasNext()) {
+			Path path1 = iterator.next();
+
+			if ("json".equals(FilenameUtils.getExtension(path1.toString()))) {
+				Path path2 = path.relativize(path1);
+				String s = FilenameUtils.removeExtension(path2.toString()).replaceAll("\\\\", "/");
+				ResourceLocation resourcelocation = new ResourceLocation("minecraft", s);
+
+				if (!map.containsKey(resourcelocation)) {
+					try (BufferedReader bufferedreader = Files.newBufferedReader(path1)) {
+						Advancement.Builder advancement$builder = JsonUtils.fromJson(GSON, bufferedreader, Advancement.Builder.class);
+						map.put(resourcelocation, advancement$builder);
+					} catch (JsonParseException jsonparseexception) {
+						LOGGER.error("Parsing error loading built-in advancement {}", resourcelocation, jsonparseexception);
+						hasErrored = true;
+					} catch (IOException ioexception) {
+						LOGGER.error("Couldn't read advancement {} from {}", resourcelocation, path1, ioexception);
+						hasErrored = true;
+					}
+				}
+			}
 		}
 	}
 

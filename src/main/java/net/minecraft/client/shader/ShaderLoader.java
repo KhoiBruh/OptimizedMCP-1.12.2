@@ -35,10 +35,8 @@ public class ShaderLoader {
 
 		if (shaderloader == null) {
 			ResourceLocation resourcelocation = new ResourceLocation("shaders/program/" + filename + type.getShaderExtension());
-			IResource iresource = resourceManager.getResource(resourcelocation);
-
-			try {
-				byte[] abyte = IOUtils.toByteArray(new BufferedInputStream(iresource.getInputStream()));
+			try (IResource resource = resourceManager.getResource(resourcelocation)) {
+				byte[] abyte = new BufferedInputStream(resource.getInputStream()).readAllBytes();
 				ByteBuffer bytebuffer = BufferUtils.createByteBuffer(abyte.length);
 				bytebuffer.put(abyte);
 				bytebuffer.position(0);
@@ -55,8 +53,6 @@ public class ShaderLoader {
 
 				shaderloader = new ShaderLoader(type, i, filename);
 				type.getLoadedShaders().put(filename, shaderloader);
-			} finally {
-				IOUtils.closeQuietly(iresource);
 			}
 		}
 

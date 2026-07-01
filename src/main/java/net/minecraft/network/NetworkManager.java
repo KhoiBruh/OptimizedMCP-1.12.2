@@ -231,12 +231,12 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 
 		if (isChannelOpen()) {
 			flushOutboundQueue();
-			dispatchPacket(packetIn, ArrayUtils.add(listeners, 0, listener));
+			dispatchPacket(packetIn, ArrayUtils.insert(0, listeners, listener));
 		} else {
 			readWriteLock.writeLock().lock();
 
 			try {
-				outboundPacketsQueue.add(new NetworkManager.InboundHandlerTuplePacketListener(packetIn, ArrayUtils.add(listeners, 0, listener)));
+				outboundPacketsQueue.add(new NetworkManager.InboundHandlerTuplePacketListener(packetIn, ArrayUtils.insert(0, listeners, listener)));
 			} finally {
 				readWriteLock.writeLock().unlock();
 			}

@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.io.Files;
 import com.google.gson.*;
-import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -141,13 +140,9 @@ public class UserList<K, V extends UserListEntry<K>> {
 
 		Collection<V> collection = values.values();
 		String s = gson.toJson(collection);
-		BufferedWriter bufferedwriter = null;
 
-		try {
-			bufferedwriter = Files.newWriter(saveFile, StandardCharsets.UTF_8);
+		try (BufferedWriter bufferedwriter = Files.newWriter(saveFile, StandardCharsets.UTF_8)) {
 			bufferedwriter.write(s);
-		} finally {
-			IOUtils.closeQuietly(bufferedwriter);
 		}
 	}
 

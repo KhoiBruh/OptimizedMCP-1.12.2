@@ -12,7 +12,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.SoundCategory;
-import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jspecify.annotations.NonNull;
@@ -95,15 +94,12 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 
 	
 	protected Map<String, SoundList> getSoundMap(InputStream stream) {
-		Map<String, SoundList> map;
 
-		try {
-			map = JsonUtils.fromJson(GSON, new InputStreamReader(stream, StandardCharsets.UTF_8), TYPE);
-		} finally {
-			IOUtils.closeQuietly(stream);
+		try (InputStream s = stream) {
+			return JsonUtils.fromJson(GSON, new InputStreamReader(s, StandardCharsets.UTF_8), TYPE);
+		} catch (IOException ignored) {
+			return new java.util.HashMap<>();
 		}
-
-		return map;
 	}
 
 	private void loadSoundResource(ResourceLocation location, SoundList sounds) {
@@ -156,10 +152,8 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 
 	private boolean validateSoundResource(Sound sound, ResourceLocation location) {
 		ResourceLocation oggLocation = sound.getOggLocation();
-		IResource resource = null;
 
-		try {
-			resource = resourceManager.getResource(oggLocation);
+		try (IResource resource = resourceManager.getResource(oggLocation)) {
 			resource.getInputStream();
 			return true;
 		} catch (FileNotFoundException var11) {
@@ -167,8 +161,6 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 		} catch (IOException ioexception) {
 			LOGGER.warn("Could not load sound file {}, cannot add it to event {}", oggLocation, location, ioexception);
 			return false;
-		} finally {
-			IOUtils.closeQuietly(resource);
 		}
 
 		return false;

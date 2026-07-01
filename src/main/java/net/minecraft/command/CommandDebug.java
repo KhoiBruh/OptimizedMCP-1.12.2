@@ -3,7 +3,6 @@ package net.minecraft.command;
 import net.minecraft.profiler.Profiler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
-import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.File;
@@ -113,15 +112,10 @@ public class CommandDebug extends CommandBase {
 
 		File file1 = new File(server.getFile("debug"), "profile-results-" + (new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss")).format(new Date()) + ".txt");
 		file1.getParentFile().mkdirs();
-		Writer writer = null;
-
-		try {
-			writer = new OutputStreamWriter(new FileOutputStream(file1), StandardCharsets.UTF_8);
+		try (Writer writer = new OutputStreamWriter(new FileOutputStream(file1), StandardCharsets.UTF_8)) {
 			writer.write(getProfilerResults(timeSpan, tickSpan, server));
 		} catch (Throwable throwable) {
 			LOGGER.error("Could not save profiler results to {}", file1, throwable);
-		} finally {
-			IOUtils.closeQuietly(writer);
 		}
 	}
 

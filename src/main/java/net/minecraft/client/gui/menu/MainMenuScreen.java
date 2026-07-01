@@ -18,7 +18,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormat;
-import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import net.minecraft.client.util.Mouse;
@@ -100,11 +99,9 @@ public class MainMenuScreen extends Screen {
 
 		openGLWarning2 = MORE_INFO_TEXT;
 		splashText = "missingno";
-		IResource iresource = null;
 
-		try {
+		try (IResource iresource = Minecraft.getMinecraft().getResourceManager().getResource(SPLASH_TEXTS)) {
 			List<String> list = Lists.newArrayList();
-			iresource = Minecraft.getMinecraft().getResourceManager().getResource(SPLASH_TEXTS);
 			BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(iresource.getInputStream(), StandardCharsets.UTF_8));
 			String s;
 
@@ -123,8 +120,6 @@ public class MainMenuScreen extends Screen {
 				} while (splashText.hashCode() == 125780783);
 			}
 		} catch (IOException ignored) {
-		} finally {
-			IOUtils.closeQuietly(iresource);
 		}
 
 		minceraftRoll = RANDOM.nextFloat();

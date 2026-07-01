@@ -5,7 +5,6 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.item.DyeColor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -38,12 +37,10 @@ public class LayeredColorMaskTexture extends AbstractTexture {
 	public void loadTexture(IResourceManager resourceManager) {
 
 		deleteGlTexture();
-		IResource iresource = null;
 		BufferedImage bufferedimage;
 		label255:
 		{
-			try {
-				iresource = resourceManager.getResource(textureLocation);
+			try (IResource iresource = resourceManager.getResource(textureLocation)) {
 				BufferedImage bufferedimage1 = TextureUtil.readBufferedImage(iresource.getInputStream());
 				int i = bufferedimage1.getType();
 
@@ -61,14 +58,11 @@ public class LayeredColorMaskTexture extends AbstractTexture {
 						break label255;
 					}
 
-					IResource iresource1 = null;
-
-					try {
+					try (IResource iresource1 = resourceManager.getResource(new ResourceLocation(listTextures.get(j)))) {
 						String s = listTextures.get(j);
 						int k = listDyeColors.get(j).getColorValue();
 
 						if (s != null) {
-							iresource1 = resourceManager.getResource(new ResourceLocation(s));
 							BufferedImage bufferedimage2 = TextureUtil.readBufferedImage(iresource1.getInputStream());
 
 							if (bufferedimage2.getWidth() == bufferedimage.getWidth() && bufferedimage2.getHeight() == bufferedimage.getHeight() && bufferedimage2.getType() == 6) {
@@ -88,16 +82,12 @@ public class LayeredColorMaskTexture extends AbstractTexture {
 								bufferedimage.getGraphics().drawImage(bufferedimage2, 0, 0, null);
 							}
 						}
-					} finally {
-						IOUtils.closeQuietly(iresource1);
 					}
 
 					++j;
 				}
 			} catch (IOException ioexception) {
 				LOGGER.error("Couldn't load layered image", ioexception);
-			} finally {
-				IOUtils.closeQuietly(iresource);
 			}
 
 			return;

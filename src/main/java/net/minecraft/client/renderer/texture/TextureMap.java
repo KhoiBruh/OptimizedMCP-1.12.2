@@ -11,7 +11,6 @@ import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.IOException;
@@ -85,11 +84,8 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 		for (Entry<String, TextureAtlasSprite> entry : mapRegisteredSprites.entrySet()) {
 			TextureAtlasSprite textureatlassprite = entry.getValue();
 			ResourceLocation resourcelocation = getResourceLocation(textureatlassprite);
-			IResource iresource = null;
-
-			try {
+			try (IResource iresource = resourceManager.getResource(resourcelocation)) {
 				PngSizeInfo pngsizeinfo = PngSizeInfo.makeFromResource(resourceManager.getResource(resourcelocation));
-				iresource = resourceManager.getResource(resourcelocation);
 				boolean flag = iresource.getMetadata("animation") != null;
 				textureatlassprite.loadSprite(pngsizeinfo, flag);
 			} catch (RuntimeException runtimeexception) {
@@ -98,8 +94,6 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 			} catch (IOException ioexception) {
 				LOGGER.error("Using missing texture, unable to load {}", resourcelocation, ioexception);
 				continue;
-			} finally {
-				IOUtils.closeQuietly(iresource);
 			}
 
 			j = Math.min(j, Math.min(textureatlassprite.getIconWidth(), textureatlassprite.getIconHeight()));
@@ -160,13 +154,11 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 	private boolean generateMipmaps(IResourceManager resourceManager, final TextureAtlasSprite texture) {
 
 		ResourceLocation resourcelocation = getResourceLocation(texture);
-		IResource iresource = null;
 		label62:
 		{
 			boolean flag;
 
-			try {
-				iresource = resourceManager.getResource(resourcelocation);
+			try (IResource iresource = resourceManager.getResource(resourcelocation)) {
 				texture.loadSpriteFrames(iresource, mipmapLevels + 1);
 				break label62;
 			} catch (RuntimeException runtimeexception) {
@@ -176,8 +168,6 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 				LOGGER.error("Using missing texture, unable to load {}", resourcelocation, ioexception);
 				flag = false;
 				return flag;
-			} finally {
-				IOUtils.closeQuietly(iresource);
 			}
 
 			return flag;

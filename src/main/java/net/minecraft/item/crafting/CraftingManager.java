@@ -9,7 +9,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.RegistryNamespaced;
 import net.minecraft.world.World;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.BufferedReader;
@@ -49,58 +48,26 @@ public class CraftingManager {
 
 	private static boolean parseJsonRecipes() {
 
-		FileSystem filesystem = null;
 		Gson gson = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
-		boolean flag1;
 
 		try {
 			URL url = CraftingManager.class.getResource("/assets/.mcassetsroot");
 
 			if (url != null) {
 				URI uri = url.toURI();
-				Path path;
 
 				if ("file".equals(uri.getScheme())) {
-					path = Paths.get(CraftingManager.class.getResource("/assets/minecraft/recipes").toURI());
+					Path path = Paths.get(CraftingManager.class.getResource("/assets/minecraft/recipes").toURI());
+					if (!loadRecipesFromPath(gson, path)) return false;
 				} else {
 					if (!"jar".equals(uri.getScheme())) {
 						LOGGER.error("Unsupported scheme {} trying to list all recipes", uri);
 						return false;
 					}
 
-					filesystem = FileSystems.newFileSystem(uri, Collections.emptyMap());
-					path = filesystem.getPath("/assets/minecraft/recipes");
-				}
-
-				Iterator<Path> iterator = Files.walk(path).iterator();
-
-				while (iterator.hasNext()) {
-					Path path1 = iterator.next();
-
-					if ("json".equals(FilenameUtils.getExtension(path1.toString()))) {
-						Path path2 = path.relativize(path1);
-						String s = FilenameUtils.removeExtension(path2.toString()).replaceAll("\\\\", "/");
-						ResourceLocation resourcelocation = new ResourceLocation(s);
-						BufferedReader bufferedreader = null;
-
-						try {
-							boolean flag;
-
-							try {
-								bufferedreader = Files.newBufferedReader(path1);
-								register(s, parseRecipeJson(JsonUtils.fromJson(gson, bufferedreader, JsonObject.class)));
-							} catch (JsonParseException jsonparseexception) {
-								LOGGER.error("Parsing error loading recipe {}", resourcelocation, jsonparseexception);
-								flag = false;
-								return flag;
-							} catch (IOException ioexception) {
-								LOGGER.error("Couldn't read recipe {} from {}", resourcelocation, path1, ioexception);
-								flag = false;
-								return flag;
-							}
-						} finally {
-							IOUtils.closeQuietly(bufferedreader);
-						}
+					try (FileSystem filesystem = FileSystems.newFileSystem(uri, Collections.emptyMap())) {
+						Path path = filesystem.getPath("/assets/minecraft/recipes");
+						if (!loadRecipesFromPath(gson, path)) return false;
 					}
 				}
 
@@ -108,16 +75,38 @@ public class CraftingManager {
 			}
 
 			LOGGER.error("Couldn't find .mcassetsroot");
-			flag1 = false;
+			return false;
 		} catch (IOException | URISyntaxException urisyntaxexception) {
 			LOGGER.error("Couldn't get a list of all recipe files", urisyntaxexception);
-			flag1 = false;
-			return flag1;
-		} finally {
-			IOUtils.closeQuietly(filesystem);
+			return false;
+		}
+	}
+
+	private static boolean loadRecipesFromPath(Gson gson, Path path) throws IOException {
+
+		Iterator<Path> iterator = Files.walk(path).iterator();
+
+		while (iterator.hasNext()) {
+			Path path1 = iterator.next();
+
+			if ("json".equals(FilenameUtils.getExtension(path1.toString()))) {
+				Path path2 = path.relativize(path1);
+				String s = FilenameUtils.removeExtension(path2.toString()).replaceAll("\\\\", "/");
+				ResourceLocation resourcelocation = new ResourceLocation(s);
+
+				try (BufferedReader bufferedreader = Files.newBufferedReader(path1)) {
+					register(s, parseRecipeJson(JsonUtils.fromJson(gson, bufferedreader, JsonObject.class)));
+				} catch (JsonParseException jsonparseexception) {
+					LOGGER.error("Parsing error loading recipe {}", resourcelocation, jsonparseexception);
+					return false;
+				} catch (IOException ioexception) {
+					LOGGER.error("Couldn't read recipe {} from {}", resourcelocation, path1, ioexception);
+					return false;
+				}
+			}
 		}
 
-		return flag1;
+		return true;
 	}
 
 	private static IRecipe parseRecipeJson(JsonObject p_193376_0_) {

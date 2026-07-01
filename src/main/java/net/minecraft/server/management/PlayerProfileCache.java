@@ -11,7 +11,6 @@ import com.mojang.authlib.GameProfileRepository;
 import com.mojang.authlib.ProfileLookupCallback;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.JsonUtils;
-import org.apache.commons.io.IOUtils;
 import java.io.*;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -205,10 +204,7 @@ public class PlayerProfileCache {
 	 */
 	public void load() {
 
-		BufferedReader bufferedreader = null;
-
-		try {
-			bufferedreader = Files.newReader(usercacheFile, StandardCharsets.UTF_8);
+		try (BufferedReader bufferedreader = Files.newReader(usercacheFile, StandardCharsets.UTF_8)) {
 			List<PlayerProfileCache.ProfileEntry> list = JsonUtils.fromJson(gson, bufferedreader, TYPE);
 			usernameToProfileEntryMap.clear();
 			uuidToProfileEntryMap.clear();
@@ -221,9 +217,7 @@ public class PlayerProfileCache {
 					}
 				}
 			}
-		} catch (FileNotFoundException | JsonParseException ignored) {
-		} finally {
-			IOUtils.closeQuietly(bufferedreader);
+		} catch (JsonParseException | IOException ignored) {
 		}
 	}
 
@@ -233,14 +227,9 @@ public class PlayerProfileCache {
 	public void save() {
 
 		String s = gson.toJson(getEntriesWithLimit(1000));
-		BufferedWriter bufferedwriter = null;
-
-		try {
-			bufferedwriter = Files.newWriter(usercacheFile, StandardCharsets.UTF_8);
+		try (BufferedWriter bufferedwriter = Files.newWriter(usercacheFile, StandardCharsets.UTF_8)) {
 			bufferedwriter.write(s);
 		} catch (IOException ignored) {
-		} finally {
-			IOUtils.closeQuietly(bufferedwriter);
 		}
 	}
 

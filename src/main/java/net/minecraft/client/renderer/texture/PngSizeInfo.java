@@ -1,7 +1,6 @@
 package net.minecraft.client.renderer.texture;
 
 import net.minecraft.client.resources.IResource;
-import org.apache.commons.io.IOUtils;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -14,32 +13,25 @@ public class PngSizeInfo {
 
 	public PngSizeInfo(InputStream stream) throws IOException {
 
-		DataInputStream datainputstream = new DataInputStream(stream);
-
-		if (datainputstream.readLong() != -8552249625308161526L) {
-			throw new IOException("Bad PNG Signature");
-		} else if (datainputstream.readInt() != 13) {
-			throw new IOException("Bad length for IHDR chunk!");
-		} else if (datainputstream.readInt() != 1229472850) {
-			throw new IOException("Bad type for IHDR chunk!");
-		} else {
-			pngWidth = datainputstream.readInt();
-			pngHeight = datainputstream.readInt();
-			IOUtils.closeQuietly(datainputstream);
+		try (DataInputStream datainputstream = new DataInputStream(stream)) {
+			if (datainputstream.readLong() != -8552249625308161526L) {
+				throw new IOException("Bad PNG Signature");
+			} else if (datainputstream.readInt() != 13) {
+				throw new IOException("Bad length for IHDR chunk!");
+			} else if (datainputstream.readInt() != 1229472850) {
+				throw new IOException("Bad type for IHDR chunk!");
+			} else {
+				pngWidth = datainputstream.readInt();
+				pngHeight = datainputstream.readInt();
+			}
 		}
 	}
 
 	public static PngSizeInfo makeFromResource(IResource resource) throws IOException {
 
-		PngSizeInfo pngsizeinfo;
-
-		try {
-			pngsizeinfo = new PngSizeInfo(resource.getInputStream());
-		} finally {
-			IOUtils.closeQuietly(resource);
+		try (resource) {
+			return new PngSizeInfo(resource.getInputStream());
 		}
-
-		return pngsizeinfo;
 	}
 
 }

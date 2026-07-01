@@ -3,7 +3,6 @@ package net.minecraft.crash;
 import com.google.common.collect.Lists;
 import net.minecraft.util.ReportedException;
 import net.minecraft.world.gen.layer.IntCache;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -178,8 +177,6 @@ public class CrashReport {
 	 */
 	public String getCauseStackTraceOrString() {
 
-		StringWriter stringwriter = null;
-		PrintWriter printwriter = null;
 		Throwable throwable = cause;
 
 		if (throwable.getMessage() == null) {
@@ -197,14 +194,11 @@ public class CrashReport {
 		throwable.toString();
 		String s;
 
-		try {
-			stringwriter = new StringWriter();
-			printwriter = new PrintWriter(stringwriter);
+		try (StringWriter stringwriter = new StringWriter(); PrintWriter printwriter = new PrintWriter(stringwriter)) {
 			throwable.printStackTrace(printwriter);
 			s = stringwriter.toString();
-		} finally {
-			IOUtils.closeQuietly(stringwriter);
-			IOUtils.closeQuietly(printwriter);
+		} catch (IOException ignored) {
+			s = "";
 		}
 
 		return s;
@@ -256,22 +250,15 @@ public class CrashReport {
 				toFile.getParentFile().mkdirs();
 			}
 
-			Writer writer = null;
-			boolean flag1;
-
-			try {
-				writer = new OutputStreamWriter(new FileOutputStream(toFile), StandardCharsets.UTF_8);
+				try (Writer writer = new OutputStreamWriter(new FileOutputStream(toFile), StandardCharsets.UTF_8)) {
 				writer.write(getCompleteReport());
 				crashReportFile = toFile;
 				return true;
 			} catch (Throwable throwable) {
 				LOGGER.error("Could not save crash report to {}", toFile, throwable);
-				flag1 = false;
-			} finally {
-				IOUtils.closeQuietly(writer);
 			}
 
-			return flag1;
+			return false;
 		}
 	}
 

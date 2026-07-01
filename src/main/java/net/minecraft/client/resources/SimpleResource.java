@@ -6,7 +6,6 @@ import com.google.gson.JsonParser;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.MetadataSerializer;
 import net.minecraft.util.ResourceLocation;
-import org.apache.commons.io.IOUtils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -57,13 +56,9 @@ public class SimpleResource implements IResource {
 		} else {
 			if (mcmetaJson == null && !mcmetaJsonChecked) {
 				mcmetaJsonChecked = true;
-				BufferedReader bufferedreader = null;
-
-				try {
-					bufferedreader = new BufferedReader(new InputStreamReader(mcmetaInputStream, StandardCharsets.UTF_8));
+				try (BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(mcmetaInputStream, StandardCharsets.UTF_8))) {
 					mcmetaJson = JsonParser.parseReader(bufferedreader).getAsJsonObject();
-				} finally {
-					IOUtils.closeQuietly(bufferedreader);
+				} catch (IOException ignored) {
 				}
 			}
 
