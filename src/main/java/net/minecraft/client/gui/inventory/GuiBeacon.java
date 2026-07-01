@@ -120,7 +120,7 @@ public class GuiBeacon extends GuiContainer {
 
 		if (button.id == -2) {
 			mc.player.connection.sendPacket(new CPacketCloseWindow(mc.player.openContainer.windowId));
-			mc.displayGuiScreen(null);
+			mc.displayScreen(null);
 		} else if (button.id == -1) {
 			String s = "MC|Beacon";
 			PacketBuffer packetbuffer = new PacketBuffer(Unpooled.buffer());
@@ -128,7 +128,7 @@ public class GuiBeacon extends GuiContainer {
 			packetbuffer.writeInt(tileBeacon.getField(2));
 			mc.getConnection().sendPacket(new CPacketCustomPayload("MC|Beacon", packetbuffer));
 			mc.player.connection.sendPacket(new CPacketCloseWindow(mc.player.openContainer.windowId));
-			mc.displayGuiScreen(null);
+			mc.displayScreen(null);
 		} else if (button instanceof PowerButton guibeacon$powerbutton) {
 
 			if (guibeacon$powerbutton.isSelected()) {

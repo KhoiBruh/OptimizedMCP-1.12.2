@@ -203,20 +203,20 @@ public class GuiEditStructure extends GuiScreen {
 				tileStructure.setIgnoresEntities(ignoreEntities);
 				tileStructure.setShowAir(showAir);
 				tileStructure.setShowBoundingBox(showBoundingBox);
-				mc.displayGuiScreen(null);
+				mc.displayScreen(null);
 			} else if (button.id == 0) {
 				if (sendToServer(1)) {
-					mc.displayGuiScreen(null);
+					mc.displayScreen(null);
 				}
 			} else if (button.id == 9) {
 				if (tileStructure.getMode() == TileEntityStructure.Mode.SAVE) {
 					sendToServer(2);
-					mc.displayGuiScreen(null);
+					mc.displayScreen(null);
 				}
 			} else if (button.id == 10) {
 				if (tileStructure.getMode() == TileEntityStructure.Mode.LOAD) {
 					sendToServer(3);
-					mc.displayGuiScreen(null);
+					mc.displayScreen(null);
 				}
 			} else if (button.id == 11) {
 				tileStructure.setRotation(Rotation.NONE);
@@ -236,7 +236,7 @@ public class GuiEditStructure extends GuiScreen {
 			} else if (button.id == 19) {
 				if (tileStructure.getMode() == TileEntityStructure.Mode.SAVE) {
 					sendToServer(4);
-					mc.displayGuiScreen(null);
+					mc.displayScreen(null);
 				}
 			} else if (button.id == 20) {
 				tileStructure.setIgnoresEntities(!tileStructure.ignoresEntities());

@@ -198,9 +198,9 @@ public class GuiCreateWorld extends GuiScreen {
 
 		if (button.enabled) {
 			if (button.id == 1) {
-				mc.displayGuiScreen(parentScreen);
+				mc.displayScreen(parentScreen);
 			} else if (button.id == 0) {
-				mc.displayGuiScreen(null);
+				mc.displayScreen(null);
 
 				if (alreadyGenerated) {
 					return;
@@ -302,9 +302,9 @@ public class GuiCreateWorld extends GuiScreen {
 				updateDisplayState();
 			} else if (button.id == 8) {
 				if (WorldType.WORLD_TYPES[selectedIndex] == WorldType.FLAT) {
-					mc.displayGuiScreen(new GuiCreateFlatWorld(this, chunkProviderSettingsJson));
+					mc.displayScreen(new GuiCreateFlatWorld(this, chunkProviderSettingsJson));
 				} else {
-					mc.displayGuiScreen(new GuiCustomizeWorldScreen(this, chunkProviderSettingsJson));
+					mc.displayScreen(new GuiCustomizeWorldScreen(this, chunkProviderSettingsJson));
 				}
 			}
 		}

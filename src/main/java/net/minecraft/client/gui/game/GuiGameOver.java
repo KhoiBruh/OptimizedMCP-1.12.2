@@ -65,15 +65,15 @@ public class GuiGameOver extends GuiScreen {
 		switch (button.id) {
 			case 0:
 				mc.player.respawnPlayer();
-				mc.displayGuiScreen(null);
+				mc.displayScreen(null);
 				break;
 
 			case 1:
 				if (mc.world.getWorldInfo().isHardcoreModeEnabled()) {
-					mc.displayGuiScreen(new GuiMainMenu());
+					mc.displayScreen(new GuiMainMenu());
 				} else {
 					GuiYesNo guiyesno = new GuiYesNo(this, I18n.format("deathScreen.quit.confirm"), "", I18n.format("deathScreen.titleScreen"), I18n.format("deathScreen.respawn"), 0);
-					mc.displayGuiScreen(guiyesno);
+					mc.displayScreen(guiyesno);
 					guiyesno.setButtonDelay(20);
 				}
 		}
@@ -87,10 +87,10 @@ public class GuiGameOver extends GuiScreen {
 			}
 
 			mc.loadWorld(null);
-			mc.displayGuiScreen(new GuiMainMenu());
+			mc.displayScreen(new GuiMainMenu());
 		} else {
 			mc.player.respawnPlayer();
-			mc.displayGuiScreen(null);
+			mc.displayScreen(null);
 		}
 	}
 

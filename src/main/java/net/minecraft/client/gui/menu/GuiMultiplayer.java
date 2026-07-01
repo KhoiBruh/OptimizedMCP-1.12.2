@@ -170,26 +170,26 @@ public class GuiMultiplayer extends GuiScreen {
 					String s2 = I18n.format("selectServer.deleteButton");
 					String s3 = I18n.format("gui.cancel");
 					GuiYesNo guiyesno = new GuiYesNo(this, s, s1, s2, s3, serverListSelector.getSelected());
-					mc.displayGuiScreen(guiyesno);
+					mc.displayScreen(guiyesno);
 				}
 			} else if (button.id == 1) {
 				connectToSelected();
 			} else if (button.id == 4) {
 				directConnect = true;
 				selectedServer = new ServerData(I18n.format("selectServer.defaultName"), "", false);
-				mc.displayGuiScreen(new GuiScreenServerList(this, selectedServer));
+				mc.displayScreen(new GuiScreenServerList(this, selectedServer));
 			} else if (button.id == 3) {
 				addingServer = true;
 				selectedServer = new ServerData(I18n.format("selectServer.defaultName"), "", false);
-				mc.displayGuiScreen(new GuiScreenAddServer(this, selectedServer));
+				mc.displayScreen(new GuiScreenAddServer(this, selectedServer));
 			} else if (button.id == 7 && guilistextended$iguilistentry instanceof ServerListEntryNormal) {
 				editingServer = true;
 				ServerData serverdata = ((ServerListEntryNormal) guilistextended$iguilistentry).getServerData();
 				selectedServer = new ServerData(serverdata.serverName, serverdata.serverIP, false);
 				selectedServer.copyFrom(serverdata);
-				mc.displayGuiScreen(new GuiScreenAddServer(this, selectedServer));
+				mc.displayScreen(new GuiScreenAddServer(this, selectedServer));
 			} else if (button.id == 0) {
-				mc.displayGuiScreen(parentScreen);
+				mc.displayScreen(parentScreen);
 			} else if (button.id == 8) {
 				refreshServerList();
 			}
@@ -198,7 +198,7 @@ public class GuiMultiplayer extends GuiScreen {
 
 	private void refreshServerList() {
 
-		mc.displayGuiScreen(new GuiMultiplayer(parentScreen));
+		mc.displayScreen(new GuiMultiplayer(parentScreen));
 	}
 
 	public void confirmClicked(boolean result, int id) {
@@ -215,14 +215,14 @@ public class GuiMultiplayer extends GuiScreen {
 				serverListSelector.updateOnlineServers(savedServerList);
 			}
 
-			mc.displayGuiScreen(this);
+			mc.displayScreen(this);
 		} else if (directConnect) {
 			directConnect = false;
 
 			if (result) {
 				connectToServer(selectedServer);
 			} else {
-				mc.displayGuiScreen(this);
+				mc.displayScreen(this);
 			}
 		} else if (addingServer) {
 			addingServer = false;
@@ -234,7 +234,7 @@ public class GuiMultiplayer extends GuiScreen {
 				serverListSelector.updateOnlineServers(savedServerList);
 			}
 
-			mc.displayGuiScreen(this);
+			mc.displayScreen(this);
 		} else if (editingServer) {
 			editingServer = false;
 
@@ -247,7 +247,7 @@ public class GuiMultiplayer extends GuiScreen {
 				serverListSelector.updateOnlineServers(savedServerList);
 			}
 
-			mc.displayGuiScreen(this);
+			mc.displayScreen(this);
 		}
 	}
 
@@ -496,7 +496,7 @@ public class GuiMultiplayer extends GuiScreen {
 
 	private void connectToServer(ServerData server) {
 
-		mc.displayGuiScreen(new GuiConnecting(this, mc, server));
+		mc.displayScreen(new GuiConnecting(this, mc, server));
 	}
 
 	public void selectServer(int index) {

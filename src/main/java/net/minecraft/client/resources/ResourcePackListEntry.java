@@ -159,10 +159,10 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
 				} else {
 					String s = I18n.format("resourcePack.incompatible.confirm.title");
 					String s1 = I18n.format("resourcePack.incompatible.confirm." + (l > 3 ? "new" : "old"));
-					mc.displayGuiScreen(new GuiYesNo((result, id) -> {
+					mc.displayScreen(new GuiYesNo((result, id) -> {
 
 						List<ResourcePackListEntry> list2 = resourcePacksGUI.getListContaining(this);
-						mc.displayGuiScreen(resourcePacksGUI);
+						mc.displayScreen(resourcePacksGUI);
 
 						if (result) {
 							list2.remove(this);

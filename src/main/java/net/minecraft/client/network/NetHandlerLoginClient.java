@@ -89,7 +89,7 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
 	 * Invoked when disconnecting, the parameter is a ChatComponent describing the reason for termination
 	 */
 	public void onDisconnect(ITextComponent reason) {
-		if (previousGuiScreen == null) mc.displayGuiScreen(new GuiDisconnected(null, "connect.failed", reason));
+		if (previousGuiScreen == null) mc.displayScreen(new GuiDisconnected(null, "connect.failed", reason));
 	}
 
 	public void handleDisconnect(SPacketDisconnect packetIn) {

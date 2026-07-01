@@ -69,7 +69,7 @@ public class GuiConnecting extends GuiScreen {
 					}
 
 					GuiConnecting.LOGGER.error("Couldn't connect to server", unknownhostexception);
-					mc.displayGuiScreen(new GuiDisconnected(previousGuiScreen, "connect.failed", new TextComponentTranslation("disconnect.genericReason", "Unknown host")));
+					mc.displayScreen(new GuiDisconnected(previousGuiScreen, "connect.failed", new TextComponentTranslation("disconnect.genericReason", "Unknown host")));
 				} catch (Exception exception) {
 					if (cancel) {
 						return;
@@ -83,7 +83,7 @@ public class GuiConnecting extends GuiScreen {
 						s = s.replaceAll(s1, "");
 					}
 
-					mc.displayGuiScreen(new GuiDisconnected(previousGuiScreen, "connect.failed", new TextComponentTranslation("disconnect.genericReason", s)));
+					mc.displayScreen(new GuiDisconnected(previousGuiScreen, "connect.failed", new TextComponentTranslation("disconnect.genericReason", s)));
 				}
 			}
 		}).start();
@@ -133,7 +133,7 @@ public class GuiConnecting extends GuiScreen {
 				networkManager.closeChannel(new TextComponentString("Aborted"));
 			}
 
-			mc.displayGuiScreen(previousGuiScreen);
+			mc.displayScreen(previousGuiScreen);
 		}
 	}
 

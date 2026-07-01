@@ -155,12 +155,12 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 	public void joinWorld() {
 
 		if (worldSummary.askToOpenWorld()) {
-			client.displayGuiScreen(new GuiYesNo((result, id) -> {
+			client.displayScreen(new GuiYesNo((result, id) -> {
 
 				if (result) {
 					loadWorld();
 				} else {
-					client.displayGuiScreen(worldSelScreen);
+					client.displayScreen(worldSelScreen);
 				}
 			}, I18n.format("selectWorld.versionQuestion"), I18n.format("selectWorld.versionWarning", worldSummary.getVersionName()), I18n.format("selectWorld.versionJoinButton"), I18n.format("gui.cancel"), 0));
 		} else {
@@ -170,28 +170,28 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 
 	public void deleteWorld() {
 
-		client.displayGuiScreen(new GuiYesNo((result, id) -> {
+		client.displayScreen(new GuiYesNo((result, id) -> {
 
 			if (result) {
-				client.displayGuiScreen(new GuiScreenWorking());
+				client.displayScreen(new GuiScreenWorking());
 				ISaveFormat isaveformat = client.getSaveLoader();
 				isaveformat.flushCache();
 				isaveformat.deleteWorldDirectory(worldSummary.getFileName());
 				containingListSel.refreshList();
 			}
 
-			client.displayGuiScreen(worldSelScreen);
+			client.displayScreen(worldSelScreen);
 		}, I18n.format("selectWorld.deleteQuestion"), "'" + worldSummary.getDisplayName() + "' " + I18n.format("selectWorld.deleteWarning"), I18n.format("selectWorld.deleteButton"), I18n.format("gui.cancel"), 0));
 	}
 
 	public void editWorld() {
 
-		client.displayGuiScreen(new GuiWorldEdit(worldSelScreen, worldSummary.getFileName()));
+		client.displayScreen(new GuiWorldEdit(worldSelScreen, worldSummary.getFileName()));
 	}
 
 	public void recreateWorld() {
 
-		client.displayGuiScreen(new GuiScreenWorking());
+		client.displayScreen(new GuiScreenWorking());
 		GuiCreateWorld guicreateworld = new GuiCreateWorld(worldSelScreen);
 		ISaveHandler isavehandler = client.getSaveLoader().getSaveLoader(worldSummary.getFileName(), false);
 		WorldInfo worldinfo = isavehandler.loadWorldInfo();
@@ -199,7 +199,7 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 
 		if (worldinfo != null) {
 			guicreateworld.recreateFromExistingWorld(worldinfo);
-			client.displayGuiScreen(guicreateworld);
+			client.displayScreen(guicreateworld);
 		}
 	}
 

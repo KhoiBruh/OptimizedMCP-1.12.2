@@ -82,7 +82,7 @@ public class GuiLanguage extends GuiScreen {
 					break;
 
 				case 6:
-					mc.displayGuiScreen(parentScreen);
+					mc.displayScreen(parentScreen);
 					break;
 
 				case 100:

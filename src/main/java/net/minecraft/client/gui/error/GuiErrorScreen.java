@@ -49,7 +49,7 @@ public class GuiErrorScreen extends GuiScreen {
 	 */
 	protected void actionPerformed(GuiButton button) {
 
-		mc.displayGuiScreen(null);
+		mc.displayScreen(null);
 	}
 
 }

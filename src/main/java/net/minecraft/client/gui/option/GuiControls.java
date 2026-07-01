@@ -76,7 +76,7 @@ public class GuiControls extends GuiScreen {
 	protected void actionPerformed(GuiButton button) {
 
 		if (button.id == 200) {
-			mc.displayGuiScreen(parentScreen);
+			mc.displayScreen(parentScreen);
 		} else if (button.id == 201) {
 			for (KeyBinding keybinding : mc.gameSettings.keyBindings) {
 				keybinding.setKeyCode(keybinding.getDefaultKeyCode());

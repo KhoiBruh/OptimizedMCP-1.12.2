@@ -197,7 +197,7 @@ public class GuiScreenBook extends GuiScreen {
 
 		if (button.enabled) {
 			if (button.id == 0) {
-				mc.displayGuiScreen(null);
+				mc.displayScreen(null);
 				sendBookToServer(false);
 			} else if (button.id == 3 && bookIsUnsigned) {
 				bookGettingSigned = true;
@@ -217,7 +217,7 @@ public class GuiScreenBook extends GuiScreen {
 				}
 			} else if (button.id == 5 && bookGettingSigned) {
 				sendBookToServer(true);
-				mc.displayGuiScreen(null);
+				mc.displayScreen(null);
 			} else if (button.id == 4 && bookGettingSigned) {
 				bookGettingSigned = false;
 			}
@@ -301,7 +301,7 @@ public class GuiScreenBook extends GuiScreen {
 			case 156:
 				if (!bookTitle.isEmpty()) {
 					sendBookToServer(true);
-					mc.displayGuiScreen(null);
+					mc.displayScreen(null);
 				}
 
 				return;
@@ -480,7 +480,7 @@ public class GuiScreenBook extends GuiScreen {
 			boolean flag = super.handleComponentClick(component);
 
 			if (flag && clickevent.action() == ClickEvent.Action.RUN_COMMAND) {
-				mc.displayGuiScreen(null);
+				mc.displayScreen(null);
 			}
 
 			return flag;

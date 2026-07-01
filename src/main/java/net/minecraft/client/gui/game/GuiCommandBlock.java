@@ -124,7 +124,7 @@ public class GuiCommandBlock extends GuiScreen implements ITabCompleter {
 
 			if (button.id == 1) {
 				commandblockbaselogic.setTrackOutput(trackOutput);
-				mc.displayGuiScreen(null);
+				mc.displayScreen(null);
 			} else if (button.id == 0) {
 				PacketBuffer packetbuffer = new PacketBuffer(Unpooled.buffer());
 				commandblockbaselogic.fillInInfo(packetbuffer);
@@ -139,7 +139,7 @@ public class GuiCommandBlock extends GuiScreen implements ITabCompleter {
 					commandblockbaselogic.setLastOutput(null);
 				}
 
-				mc.displayGuiScreen(null);
+				mc.displayScreen(null);
 			} else if (button.id == 4) {
 				commandblockbaselogic.setTrackOutput(!commandblockbaselogic.shouldTrackOutput());
 				updateCmdOutput();

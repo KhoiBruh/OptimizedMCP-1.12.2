@@ -118,12 +118,12 @@ public class GuiCreateFlatWorld extends GuiScreen {
 		int i = generatorInfo.getFlatLayers().size() - createFlatWorldListSlotGui.selectedLayer - 1;
 
 		if (button.id == 1) {
-			mc.displayGuiScreen(createWorldGui);
+			mc.displayScreen(createWorldGui);
 		} else if (button.id == 0) {
 			createWorldGui.chunkProviderSettingsJson = getPreset();
-			mc.displayGuiScreen(createWorldGui);
+			mc.displayScreen(createWorldGui);
 		} else if (button.id == 5) {
-			mc.displayGuiScreen(new GuiFlatPresets(this));
+			mc.displayScreen(new GuiFlatPresets(this));
 		} else if (button.id == 4 && hasSelectedLayer()) {
 			generatorInfo.getFlatLayers().remove(i);
 			createFlatWorldListSlotGui.selectedLayer = Math.min(createFlatWorldListSlotGui.selectedLayer, generatorInfo.getFlatLayers().size() - 1);

@@ -85,7 +85,7 @@ public class GuiEditCommandBlockMinecart extends GuiScreen implements ITabComple
 		if (button.enabled) {
 			if (button.id == 1) {
 				commandBlockLogic.setTrackOutput(trackOutput);
-				mc.displayGuiScreen(null);
+				mc.displayScreen(null);
 			} else if (button.id == 0) {
 				PacketBuffer packetbuffer = new PacketBuffer(Unpooled.buffer());
 				packetbuffer.writeByte(commandBlockLogic.getCommandBlockType());
@@ -98,7 +98,7 @@ public class GuiEditCommandBlockMinecart extends GuiScreen implements ITabComple
 					commandBlockLogic.setLastOutput(null);
 				}
 
-				mc.displayGuiScreen(null);
+				mc.displayScreen(null);
 			} else if (button.id == 4) {
 				commandBlockLogic.setTrackOutput(!commandBlockLogic.shouldTrackOutput());
 				updateCommandOutput();

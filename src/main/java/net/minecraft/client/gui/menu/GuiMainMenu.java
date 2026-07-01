@@ -229,19 +229,19 @@ public class GuiMainMenu extends GuiScreen {
 	protected void actionPerformed(GuiButton button) {
 
 		if (button.id == 0) {
-			mc.displayGuiScreen(new GuiOptions(this, mc.gameSettings));
+			mc.displayScreen(new GuiOptions(this, mc.gameSettings));
 		}
 
 		if (button.id == 5) {
-			mc.displayGuiScreen(new GuiLanguage(this, mc.gameSettings, mc.getLanguageManager()));
+			mc.displayScreen(new GuiLanguage(this, mc.gameSettings, mc.getLanguageManager()));
 		}
 
 		if (button.id == 1) {
-			mc.displayGuiScreen(new GuiWorldSelection(this));
+			mc.displayScreen(new GuiWorldSelection(this));
 		}
 
 		if (button.id == 2) {
-			mc.displayGuiScreen(new GuiMultiplayer(this));
+			mc.displayScreen(new GuiMultiplayer(this));
 		}
 
 		if (button.id == 4) {
@@ -252,7 +252,7 @@ public class GuiMainMenu extends GuiScreen {
 	public void confirmClicked(boolean result, int id) {
 
 		if (id == 12) {
-			mc.displayGuiScreen(this);
+			mc.displayScreen(this);
 		} else if (id == 13) {
 			if (result) {
 				try {
@@ -262,7 +262,7 @@ public class GuiMainMenu extends GuiScreen {
 				}
 			}
 
-			mc.displayGuiScreen(this);
+			mc.displayScreen(this);
 		}
 	}
 
@@ -479,12 +479,12 @@ public class GuiMainMenu extends GuiScreen {
 			if (!openGLWarning1.isEmpty() && !StringUtils.isNullOrEmpty(openGLWarningLink) && mouseX >= openGLWarningX1 && mouseX <= openGLWarningX2 && mouseY >= openGLWarningY1 && mouseY <= openGLWarningY2) {
 				GuiConfirmOpenLink guiconfirmopenlink = new GuiConfirmOpenLink(this, openGLWarningLink, 13, true);
 				guiconfirmopenlink.disableSecurityWarning();
-				mc.displayGuiScreen(guiconfirmopenlink);
+				mc.displayScreen(guiconfirmopenlink);
 			}
 		}
 
 		if (mouseX > widthCopyrightRest && mouseX < widthCopyrightRest + widthCopyright && mouseY > height - 10 && mouseY < height) {
-			mc.displayGuiScreen(new GuiWinGame(false, Runnables.doNothing()));
+			mc.displayScreen(new GuiWinGame(false, Runnables.doNothing()));
 		}
 	}
 

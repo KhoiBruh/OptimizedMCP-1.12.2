@@ -48,7 +48,7 @@ public class GuiDisconnected extends GuiScreen {
 	protected void actionPerformed(GuiButton button) {
 
 		if (button.id == 0) {
-			mc.displayGuiScreen(parentScreen);
+			mc.displayScreen(parentScreen);
 		}
 	}
 

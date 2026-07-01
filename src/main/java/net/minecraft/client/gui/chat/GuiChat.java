@@ -93,7 +93,7 @@ public class GuiChat extends GuiScreen implements ITabCompleter {
 		}
 
 		if (keyCode == 256) {
-			mc.displayGuiScreen(null);
+			mc.displayScreen(null);
 		} else if (keyCode != 257 && keyCode != 335) {
 			if (keyCode == 265) {
 				getSentHistory(-1);
@@ -113,7 +113,7 @@ public class GuiChat extends GuiScreen implements ITabCompleter {
 				sendChatMessage(s);
 			}
 
-			mc.displayGuiScreen(null);
+			mc.displayScreen(null);
 		}
 	}
 

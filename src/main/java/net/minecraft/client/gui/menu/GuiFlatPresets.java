@@ -147,9 +147,9 @@ public class GuiFlatPresets extends GuiScreen {
 
 		if (button.id == 0 && hasValidSelection()) {
 			parentScreen.setPreset(export.getText());
-			mc.displayGuiScreen(parentScreen);
+			mc.displayScreen(parentScreen);
 		} else if (button.id == 1) {
-			mc.displayGuiScreen(parentScreen);
+			mc.displayScreen(parentScreen);
 		}
 	}
 

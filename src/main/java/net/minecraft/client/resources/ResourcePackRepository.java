@@ -215,7 +215,7 @@ public class ResourcePackRepository {
 			final GuiScreenWorking guiscreenworking = new GuiScreenWorking();
 			Map<String, String> map = getDownloadHeaders();
 			final Minecraft minecraft = Minecraft.getMinecraft();
-			Futures.getUnchecked(minecraft.addScheduledTask(() -> minecraft.displayGuiScreen(guiscreenworking)));
+			Futures.getUnchecked(minecraft.addScheduledTask(() -> minecraft.displayScreen(guiscreenworking)));
 			final SettableFuture<Object> settablefuture = SettableFuture.create();
 			downloadingPacks = HttpUtil.downloadResourcePack(file1, url, map, 52428800, guiscreenworking, minecraft.getProxy());
 			Futures.addCallback(downloadingPacks, new FutureCallback<>() {

@@ -68,11 +68,11 @@ public class GuiWorldEdit extends GuiScreen {
 
 		if (button.enabled) {
 			if (button.id == 1) {
-				mc.displayGuiScreen(lastScreen);
+				mc.displayScreen(lastScreen);
 			} else if (button.id == 0) {
 				ISaveFormat isaveformat = mc.getSaveLoader();
 				isaveformat.renameWorld(worldId, nameEdit.getText().trim());
-				mc.displayGuiScreen(lastScreen);
+				mc.displayScreen(lastScreen);
 			} else if (button.id == 3) {
 				ISaveFormat isaveformat1 = mc.getSaveLoader();
 				FileUtils.deleteQuietly(isaveformat1.getFile(worldId, "icon.png"));

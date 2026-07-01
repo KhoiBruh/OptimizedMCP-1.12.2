@@ -123,11 +123,11 @@ public class GuiScreenCustomizePresets extends GuiScreen {
 		switch (button.id) {
 			case 0:
 				parent.loadValues(export.getText());
-				mc.displayGuiScreen(parent);
+				mc.displayScreen(parent);
 				break;
 
 			case 1:
-				mc.displayGuiScreen(parent);
+				mc.displayScreen(parent);
 		}
 	}
 

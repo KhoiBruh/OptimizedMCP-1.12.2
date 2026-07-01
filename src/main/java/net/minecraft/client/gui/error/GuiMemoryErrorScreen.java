@@ -25,7 +25,7 @@ public class GuiMemoryErrorScreen extends GuiScreen {
 	protected void actionPerformed(GuiButton button) {
 
 		if (button.id == 0) {
-			mc.displayGuiScreen(new GuiMainMenu());
+			mc.displayScreen(new GuiMainMenu());
 		} else if (button.id == 1) {
 			mc.shutdown();
 		}

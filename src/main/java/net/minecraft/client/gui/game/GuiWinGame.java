@@ -72,7 +72,7 @@ public class GuiWinGame extends GuiScreen {
 	private void sendRespawnPacket() {
 
 		onFinished.run();
-		mc.displayGuiScreen(null);
+		mc.displayScreen(null);
 	}
 
 	/**

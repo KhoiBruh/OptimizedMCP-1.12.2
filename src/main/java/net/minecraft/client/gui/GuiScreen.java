@@ -181,7 +181,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
 
 		if (keyCode == 256) {
-			mc.displayGuiScreen(null);
+			mc.displayScreen(null);
 
 			if (mc.currentScreen == null) {
 				mc.setIngameFocus();
@@ -391,7 +391,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 
 						if (mc.gameSettings.chatLinksPrompt) {
 							clickedLinkURI = uri;
-							mc.displayGuiScreen(new GuiConfirmOpenLink(this, clickevent.value(), 31102009, false));
+							mc.displayScreen(new GuiConfirmOpenLink(this, clickevent.value(), 31102009, false));
 						} else {
 							openWebLink(uri);
 						}
@@ -642,7 +642,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 			if (result) openWebLink(clickedLinkURI);
 
 			clickedLinkURI = null;
-			mc.displayGuiScreen(this);
+			mc.displayScreen(this);
 		}
 	}
 

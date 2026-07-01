@@ -85,13 +85,13 @@ public class GuiWorldSelection extends GuiScreen {
 					guilistworldselectionentry.joinWorld();
 				}
 			} else if (button.id == 3) {
-				mc.displayGuiScreen(new GuiCreateWorld(this));
+				mc.displayScreen(new GuiCreateWorld(this));
 			} else if (button.id == 4) {
 				if (guilistworldselectionentry != null) {
 					guilistworldselectionentry.editWorld();
 				}
 			} else if (button.id == 0) {
-				mc.displayGuiScreen(prevScreen);
+				mc.displayScreen(prevScreen);
 			} else if (button.id == 5 && guilistworldselectionentry != null) {
 				guilistworldselectionentry.recreateWorld();
 			}

@@ -114,7 +114,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
 
 		if (button.enabled) {
 			if (button.id == 0) {
-				mc.displayGuiScreen(parentScreen);
+				mc.displayScreen(parentScreen);
 			} else if (button.id == 1) {
 				displaySlot = generalStats;
 			} else if (button.id == 3) {

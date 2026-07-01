@@ -46,7 +46,7 @@ public class GuiIngameMenu extends GuiScreen {
 
 		switch (button.id) {
 			case 0:
-				mc.displayGuiScreen(new GuiOptions(this, mc.gameSettings));
+				mc.displayScreen(new GuiOptions(this, mc.gameSettings));
 				break;
 
 			case 1:
@@ -56,9 +56,9 @@ public class GuiIngameMenu extends GuiScreen {
 				mc.loadWorld(null);
 
 				if (flag) {
-					mc.displayGuiScreen(new GuiMainMenu());
+					mc.displayScreen(new GuiMainMenu());
 				} else {
-					mc.displayGuiScreen(new GuiMultiplayer(new GuiMainMenu()));
+					mc.displayScreen(new GuiMultiplayer(new GuiMainMenu()));
 				}
 
 			case 2:
@@ -67,20 +67,20 @@ public class GuiIngameMenu extends GuiScreen {
 				break;
 
 			case 4:
-				mc.displayGuiScreen(null);
+				mc.displayScreen(null);
 				mc.setIngameFocus();
 				break;
 
 			case 5:
-				mc.displayGuiScreen(new GuiScreenAdvancements(mc.player.connection.getAdvancementManager()));
+				mc.displayScreen(new GuiScreenAdvancements(mc.player.connection.getAdvancementManager()));
 				break;
 
 			case 6:
-				mc.displayGuiScreen(new GuiStats(this, mc.player.getStatFileWriter()));
+				mc.displayScreen(new GuiStats(this, mc.player.getStatFileWriter()));
 				break;
 
 			case 7:
-				mc.displayGuiScreen(new GuiShareToLan(this));
+				mc.displayScreen(new GuiShareToLan(this));
 		}
 	}
 

@@ -95,7 +95,7 @@ public class GuiVideoSettings extends GuiScreen {
 		if (button.enabled) {
 			if (button.id == 200) {
 				mc.gameSettings.saveOptions();
-				mc.displayGuiScreen(parentGuiScreen);
+				mc.displayScreen(parentGuiScreen);
 			}
 		}
 	}

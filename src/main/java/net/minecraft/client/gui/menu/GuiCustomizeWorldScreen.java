@@ -714,7 +714,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
 			switch (button.id) {
 				case 300:
 					parent.chunkProviderSettingsJson = settings.toString();
-					mc.displayGuiScreen(parent);
+					mc.displayScreen(parent);
 					break;
 
 				case 301:
@@ -765,7 +765,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
 					break;
 
 				case 305:
-					mc.displayGuiScreen(new GuiScreenCustomizePresets(this));
+					mc.displayScreen(new GuiScreenCustomizePresets(this));
 					break;
 
 				case 306:

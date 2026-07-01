@@ -367,7 +367,7 @@ public abstract class GuiContainer extends GuiScreen {
 			}
 
 			if (mc.gameSettings.touchscreen && flag1 && mc.player.inventory.getItemStack().isEmpty()) {
-				mc.displayGuiScreen(null);
+				mc.displayScreen(null);
 				return;
 			}
 

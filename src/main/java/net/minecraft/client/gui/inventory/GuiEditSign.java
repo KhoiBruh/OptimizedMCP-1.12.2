@@ -84,7 +84,7 @@ public class GuiEditSign extends GuiScreen {
 		if (button.enabled) {
 			if (button.id == 0) {
 				tileSign.markDirty();
-				mc.displayGuiScreen(null);
+				mc.displayScreen(null);
 			}
 		}
 	}

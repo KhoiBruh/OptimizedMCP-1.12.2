@@ -167,7 +167,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		gameController.gameSettings.difficulty = packetIn.getDifficulty();
 		gameController.loadWorld(clientWorldController);
 		gameController.player.dimension = packetIn.getDimension();
-		gameController.displayGuiScreen(new GuiDownloadTerrain());
+		gameController.displayScreen(new GuiDownloadTerrain());
 		gameController.player.setEntityId(packetIn.getPlayerId());
 		currentServerMaxPlayers = packetIn.getMaxPlayers();
 		gameController.player.setReducedDebug(packetIn.isReducedDebugInfo());
@@ -540,7 +540,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 			gameController.player.prevPosY = gameController.player.posY;
 			gameController.player.prevPosZ = gameController.player.posZ;
 			doneLoadingTerrain = true;
-			gameController.displayGuiScreen(null);
+			gameController.displayScreen(null);
 		}
 	}
 
@@ -617,7 +617,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 	public void onDisconnect(ITextComponent reason) {
 
 		gameController.loadWorld(null);
-		if (guiScreenServer == null) gameController.displayGuiScreen(new GuiDisconnected(new GuiMultiplayer(new GuiMainMenu()), "disconnect.lost", reason));
+		if (guiScreenServer == null) gameController.displayScreen(new GuiDisconnected(new GuiMultiplayer(new GuiMainMenu()), "disconnect.lost", reason));
 	}
 
 	public void sendPacket(Packet<?> packetIn) {
@@ -851,7 +851,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 			clientWorldController.setWorldScoreboard(scoreboard);
 			gameController.loadWorld(clientWorldController);
 			gameController.player.dimension = packetIn.getDimensionID();
-			gameController.displayGuiScreen(new GuiDownloadTerrain());
+			gameController.displayScreen(new GuiDownloadTerrain());
 		}
 
 		gameController.setDimensionAndSpawnPlayer(packetIn.getDimensionID());
@@ -1091,9 +1091,9 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		} else if (i == 4) {
 			if (j == 0) {
 				gameController.player.connection.sendPacket(new CPacketClientStatus(CPacketClientStatus.State.PERFORM_RESPAWN));
-				gameController.displayGuiScreen(new GuiDownloadTerrain());
+				gameController.displayScreen(new GuiDownloadTerrain());
 			} else if (j == 1) {
-				gameController.displayGuiScreen(new GuiWinGame(true, () ->
+				gameController.displayScreen(new GuiWinGame(true, () ->
 						gameController.player.connection.sendPacket(new CPacketClientStatus(CPacketClientStatus.State.PERFORM_RESPAWN))));
 			}
 		} else if (i == 6) {
@@ -1254,7 +1254,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 			Entity entity = clientWorldController.getEntityByID(packetIn.playerId);
 
 			if (entity == gameController.player) {
-				gameController.displayGuiScreen(new GuiGameOver(packetIn.deathMessage));
+				gameController.displayScreen(new GuiGameOver(packetIn.deathMessage));
 			}
 		}
 	}
@@ -1438,7 +1438,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 				} else if (serverdata != null && serverdata.getResourceMode() != ServerData.ServerResourceMode.PROMPT) {
 					netManager.sendPacket(new CPacketResourcePackStatus(CPacketResourcePackStatus.Action.DECLINED));
 				} else {
-					gameController.addScheduledTask(() -> gameController.displayGuiScreen(new GuiYesNo((result, id) -> {
+					gameController.addScheduledTask(() -> gameController.displayScreen(new GuiYesNo((result, id) -> {
 
 						gameController = Minecraft.getMinecraft();
 						ServerData serverdata1 = gameController.getCurrentServerData();
@@ -1459,7 +1459,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 						}
 
 						ServerList.saveSingleServer(serverdata1);
-						gameController.displayGuiScreen(null);
+						gameController.displayScreen(null);
 					}, I18n.format("multiplayer.texturePrompt.line1"), I18n.format("multiplayer.texturePrompt.line2"), 0)));
 				}
 			}
@@ -1563,7 +1563,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 			ItemStack itemstack = enumhand == Hand.OFF_HAND ? gameController.player.getHeldItemOffhand() : gameController.player.getHeldItemMainhand();
 
 			if (itemstack.getItem() == Items.WRITTEN_BOOK) {
-				gameController.displayGuiScreen(new GuiScreenBook(gameController.player, itemstack, false));
+				gameController.displayScreen(new GuiScreenBook(gameController.player, itemstack, false));
 			}
 		} else if ("MC|DebugPath".equals(packetIn.getChannelName())) {
 			PacketBuffer packetbuffer1 = packetIn.getBufferData();

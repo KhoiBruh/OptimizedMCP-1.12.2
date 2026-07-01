@@ -338,7 +338,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
 		inventory.setItemStack(ItemStack.EMPTY);
 		super.closeScreen();
-		mc.displayGuiScreen(null);
+		mc.displayScreen(null);
 	}
 
 	/**
@@ -655,22 +655,22 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
 	public void openEditSign(TileEntitySign signTile) {
 
-		mc.displayGuiScreen(new GuiEditSign(signTile));
+		mc.displayScreen(new GuiEditSign(signTile));
 	}
 
 	public void displayGuiEditCommandCart(CommandBlockBaseLogic commandBlock) {
 
-		mc.displayGuiScreen(new GuiEditCommandBlockMinecart(commandBlock));
+		mc.displayScreen(new GuiEditCommandBlockMinecart(commandBlock));
 	}
 
 	public void displayGuiCommandBlock(TileEntityCommandBlock commandBlock) {
 
-		mc.displayGuiScreen(new GuiCommandBlock(commandBlock));
+		mc.displayScreen(new GuiCommandBlock(commandBlock));
 	}
 
 	public void openEditStructure(TileEntityStructure structure) {
 
-		mc.displayGuiScreen(new GuiEditStructure(structure));
+		mc.displayScreen(new GuiEditStructure(structure));
 	}
 
 	public void openBook(ItemStack stack, Hand hand) {
@@ -678,7 +678,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		Item item = stack.getItem();
 
 		if (item == Items.WRITABLE_BOOK) {
-			mc.displayGuiScreen(new GuiScreenBook(this, stack, true));
+			mc.displayScreen(new GuiScreenBook(this, stack, true));
 		}
 	}
 
@@ -690,29 +690,29 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		String s = chestInventory instanceof IInteractionObject ? ((IInteractionObject) chestInventory).guiID() : "minecraft:container";
 
 		if ("minecraft:chest".equals(s)) {
-			mc.displayGuiScreen(new GuiChest(inventory, chestInventory));
+			mc.displayScreen(new GuiChest(inventory, chestInventory));
 		} else if ("minecraft:hopper".equals(s)) {
-			mc.displayGuiScreen(new GuiHopper(inventory, chestInventory));
+			mc.displayScreen(new GuiHopper(inventory, chestInventory));
 		} else if ("minecraft:furnace".equals(s)) {
-			mc.displayGuiScreen(new GuiFurnace(inventory, chestInventory));
+			mc.displayScreen(new GuiFurnace(inventory, chestInventory));
 		} else if ("minecraft:brewing_stand".equals(s)) {
-			mc.displayGuiScreen(new GuiBrewingStand(inventory, chestInventory));
+			mc.displayScreen(new GuiBrewingStand(inventory, chestInventory));
 		} else if ("minecraft:beacon".equals(s)) {
-			mc.displayGuiScreen(new GuiBeacon(inventory, chestInventory));
+			mc.displayScreen(new GuiBeacon(inventory, chestInventory));
 		} else if (!"minecraft:dispenser".equals(s) && !"minecraft:dropper".equals(s)) {
 			if ("minecraft:shulker_box".equals(s)) {
-				mc.displayGuiScreen(new GuiShulkerBox(inventory, chestInventory));
+				mc.displayScreen(new GuiShulkerBox(inventory, chestInventory));
 			} else {
-				mc.displayGuiScreen(new GuiChest(inventory, chestInventory));
+				mc.displayScreen(new GuiChest(inventory, chestInventory));
 			}
 		} else {
-			mc.displayGuiScreen(new GuiDispenser(inventory, chestInventory));
+			mc.displayScreen(new GuiDispenser(inventory, chestInventory));
 		}
 	}
 
 	public void openGuiHorseInventory(AbstractHorse horse, IInventory inventoryIn) {
 
-		mc.displayGuiScreen(new GuiScreenHorseInventory(inventory, inventoryIn, horse));
+		mc.displayScreen(new GuiScreenHorseInventory(inventory, inventoryIn, horse));
 	}
 
 	public void displayGui(IInteractionObject guiOwner) {
@@ -720,17 +720,17 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		String s = guiOwner.guiID();
 
 		if ("minecraft:crafting_table".equals(s)) {
-			mc.displayGuiScreen(new GuiCrafting(inventory, world));
+			mc.displayScreen(new GuiCrafting(inventory, world));
 		} else if ("minecraft:enchanting_table".equals(s)) {
-			mc.displayGuiScreen(new GuiEnchantment(inventory, world, guiOwner));
+			mc.displayScreen(new GuiEnchantment(inventory, world, guiOwner));
 		} else if ("minecraft:anvil".equals(s)) {
-			mc.displayGuiScreen(new GuiRepair(inventory, world));
+			mc.displayScreen(new GuiRepair(inventory, world));
 		}
 	}
 
 	public void displayVillagerTradeGui(IMerchant villager) {
 
-		mc.displayGuiScreen(new GuiMerchant(inventory, villager, world));
+		mc.displayScreen(new GuiMerchant(inventory, villager, world));
 	}
 
 	/**
@@ -795,7 +795,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 					closeScreen();
 				}
 
-				mc.displayGuiScreen(null);
+				mc.displayScreen(null);
 			}
 
 			if (timeInPortal == 0F) {

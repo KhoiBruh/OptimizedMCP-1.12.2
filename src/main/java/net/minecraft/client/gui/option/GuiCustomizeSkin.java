@@ -71,7 +71,7 @@ public class GuiCustomizeSkin extends GuiScreen {
 		if (button.enabled) {
 			if (button.id == 200) {
 				mc.gameSettings.saveOptions();
-				mc.displayGuiScreen(parentScreen);
+				mc.displayScreen(parentScreen);
 			} else if (button.id == 199) {
 				mc.gameSettings.setOptionValue(GameSettings.Options.MAIN_HAND, 1);
 				button.displayString = mc.gameSettings.getKeyBinding(GameSettings.Options.MAIN_HAND);

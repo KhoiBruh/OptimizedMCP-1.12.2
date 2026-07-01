@@ -79,7 +79,7 @@ public class GuiScreenOptionsSounds extends GuiScreen {
 		if (button.enabled) {
 			if (button.id == 200) {
 				mc.gameSettings.saveOptions();
-				mc.displayGuiScreen(parent);
+				mc.displayScreen(parent);
 			} else if (button.id == 201) {
 				mc.gameSettings.setOptionValue(GameSettings.Options.SHOW_SUBTITLES, 1);
 				button.displayString = mc.gameSettings.getKeyBinding(GameSettings.Options.SHOW_SUBTITLES);

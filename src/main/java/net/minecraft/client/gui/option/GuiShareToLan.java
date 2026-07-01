@@ -53,7 +53,7 @@ public class GuiShareToLan extends GuiScreen {
 	protected void actionPerformed(GuiButton button) {
 
 		if (button.id == 102) {
-			mc.displayGuiScreen(lastScreen);
+			mc.displayScreen(lastScreen);
 		} else if (button.id == 104) {
 			switch (gameMode) {
 				case "spectator" -> gameMode = "creative";
@@ -67,7 +67,7 @@ public class GuiShareToLan extends GuiScreen {
 			allowCheats = !allowCheats;
 			updateDisplayNames();
 		} else if (button.id == 101) {
-			mc.displayGuiScreen(null);
+			mc.displayScreen(null);
 			String s = mc.getIntegratedServer().shareToLAN(GameType.getByName(gameMode), allowCheats);
 			ITextComponent itextcomponent;
 

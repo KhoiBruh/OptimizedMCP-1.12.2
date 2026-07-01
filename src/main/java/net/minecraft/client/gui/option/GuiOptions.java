@@ -93,7 +93,7 @@ public class GuiOptions extends GuiScreen {
 
 	public void confirmClicked(boolean result, int id) {
 
-		mc.displayGuiScreen(this);
+		mc.displayScreen(this);
 
 		if (id == 109 && result && mc.world != null) {
 			mc.world.getWorldInfo().setDifficultyLocked(true);
@@ -134,47 +134,47 @@ public class GuiOptions extends GuiScreen {
 			}
 
 			if (button.id == 109) {
-				mc.displayGuiScreen(new GuiYesNo(this, (new TextComponentTranslation("difficulty.lock.title")).getFormattedText(), (new TextComponentTranslation("difficulty.lock.question", new TextComponentTranslation(mc.world.getWorldInfo().getDifficulty().getDifficultyResourceKey()))).getFormattedText(), 109));
+				mc.displayScreen(new GuiYesNo(this, (new TextComponentTranslation("difficulty.lock.title")).getFormattedText(), (new TextComponentTranslation("difficulty.lock.question", new TextComponentTranslation(mc.world.getWorldInfo().getDifficulty().getDifficultyResourceKey()))).getFormattedText(), 109));
 			}
 
 			if (button.id == 110) {
 				mc.gameSettings.saveOptions();
-				mc.displayGuiScreen(new GuiCustomizeSkin(this));
+				mc.displayScreen(new GuiCustomizeSkin(this));
 			}
 
 			if (button.id == 101) {
 				mc.gameSettings.saveOptions();
-				mc.displayGuiScreen(new GuiVideoSettings(this, settings));
+				mc.displayScreen(new GuiVideoSettings(this, settings));
 			}
 
 			if (button.id == 100) {
 				mc.gameSettings.saveOptions();
-				mc.displayGuiScreen(new GuiControls(this, settings));
+				mc.displayScreen(new GuiControls(this, settings));
 			}
 
 			if (button.id == 102) {
 				mc.gameSettings.saveOptions();
-				mc.displayGuiScreen(new GuiLanguage(this, settings, mc.getLanguageManager()));
+				mc.displayScreen(new GuiLanguage(this, settings, mc.getLanguageManager()));
 			}
 
 			if (button.id == 103) {
 				mc.gameSettings.saveOptions();
-				mc.displayGuiScreen(new ScreenChatOptions(this, settings));
+				mc.displayScreen(new ScreenChatOptions(this, settings));
 			}
 
 			if (button.id == 200) {
 				mc.gameSettings.saveOptions();
-				mc.displayGuiScreen(lastScreen);
+				mc.displayScreen(lastScreen);
 			}
 
 			if (button.id == 105) {
 				mc.gameSettings.saveOptions();
-				mc.displayGuiScreen(new GuiScreenResourcePacks(this));
+				mc.displayScreen(new GuiScreenResourcePacks(this));
 			}
 
 			if (button.id == 106) {
 				mc.gameSettings.saveOptions();
-				mc.displayGuiScreen(new GuiScreenOptionsSounds(this, settings));
+				mc.displayScreen(new GuiScreenOptionsSounds(this, settings));
 			}
 		}
 	}

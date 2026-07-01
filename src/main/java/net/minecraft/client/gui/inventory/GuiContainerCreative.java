@@ -110,7 +110,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 	public void updateScreen() {
 
 		if (!mc.playerController.isInCreativeMode()) {
-			mc.displayGuiScreen(new GuiInventory(mc.player));
+			mc.displayScreen(new GuiInventory(mc.player));
 		}
 	}
 
@@ -283,7 +283,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 			listener = new CreativeCrafting(mc);
 			mc.player.inventoryContainer.addListener(listener);
 		} else {
-			mc.displayGuiScreen(new GuiInventory(mc.player));
+			mc.displayScreen(new GuiInventory(mc.player));
 		}
 	}
 
@@ -762,7 +762,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
 	protected void actionPerformed(GuiButton button) {
 
 		if (button.id == 1) {
-			mc.displayGuiScreen(new GuiStats(this, mc.player.getStatFileWriter()));
+			mc.displayScreen(new GuiStats(this, mc.player.getStatFileWriter()));
 		}
 	}
 

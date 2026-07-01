@@ -89,7 +89,7 @@ public class GuiInventory extends InventoryEffectRenderer implements IRecipeShow
 	public void updateScreen() {
 
 		if (mc.playerController.isInCreativeMode()) {
-			mc.displayGuiScreen(new GuiContainerCreative(mc.player));
+			mc.displayScreen(new GuiContainerCreative(mc.player));
 		}
 
 		recipeBookGui.tick();
@@ -104,7 +104,7 @@ public class GuiInventory extends InventoryEffectRenderer implements IRecipeShow
 		buttonList.clear();
 
 		if (mc.playerController.isInCreativeMode()) {
-			mc.displayGuiScreen(new GuiContainerCreative(mc.player));
+			mc.displayScreen(new GuiContainerCreative(mc.player));
 		} else {
 			super.initGui();
 		}

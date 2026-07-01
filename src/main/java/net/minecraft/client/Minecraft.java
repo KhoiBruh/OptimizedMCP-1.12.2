@@ -1,8 +1,6 @@
 package net.minecraft.client;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Queues;
-import com.google.common.hash.Hashing;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListenableFutureTask;
@@ -113,8 +111,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.Sys;
 import org.lwjgl.Version;
-import org.lwjgl.opengl.GL;
-import org.lwjgl.opengl.GLCapabilities;
 import org.lwjgl.util.glu.GLU;
 
 import javax.imageio.ImageIO;
@@ -125,8 +121,6 @@ import java.io.InputStream;
 import java.net.Proxy;
 import java.net.SocketAddress;
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -152,7 +146,7 @@ public class Minecraft implements IThreadListener {
 	public final File mcDataDir;
 	public final Profiler profiler = new Profiler();
 	private final DataFixer dataFixer;
-	private final List<IResourcePack> defaultResourcePacks = Lists.newArrayList();
+	private final List<IResourcePack> defaultResourcePacks = new ArrayList<>();
 	private final File fileAssets;
 	private final File fileResourcepacks;
 	private final Window window;
@@ -162,7 +156,7 @@ public class Minecraft implements IThreadListener {
 	private final MetadataSerializer metadataSerializer = new MetadataSerializer();
 	private final PropertyMap profileProperties;
 	private final Proxy proxy;
-	private final Queue<FutureTask<?>> scheduledTasks = Queues.newArrayDeque();
+	private final Queue<FutureTask<?>> scheduledTasks = new ArrayDeque<>();
 	private final SearchTreeManager searchTreeManager = new SearchTreeManager();
 	private final Session session;
 	private final MinecraftSessionService sessionService;
@@ -230,7 +224,7 @@ public class Minecraft implements IThreadListener {
 	private RenderManager renderManager;
 	private float renderPartialTicksPaused;
 	private Entity renderViewEntity;
-	private int rightClickDelayTimer;
+	private int rightClickDelay;
 	private ISaveFormat saveLoader;
 	private String serverName;
 	private int serverPort;
@@ -247,8 +241,7 @@ public class Minecraft implements IThreadListener {
 		profileProperties = gameConfig.userInfo().profileProperties();
 		mcDefaultResourcePack = new DefaultResourcePack(gameConfig.folderInfo().getAssetsIndex());
 		proxy = gameConfig.userInfo().proxy() == null ? Proxy.NO_PROXY : gameConfig.userInfo().proxy();
-		sessionService = (new YggdrasilAuthenticationService(proxy, UUID.randomUUID()
-		                                                                .toString())).createMinecraftSessionService();
+		sessionService = new YggdrasilAuthenticationService(proxy, UUID.randomUUID().toString()).createMinecraftSessionService();
 		session = gameConfig.userInfo().session();
 		LOGGER.info("Setting user: {}", session.getUsername());
 		LOGGER.debug("(Session ID is {})", session.getSessionID());
@@ -349,7 +342,7 @@ public class Minecraft implements IThreadListener {
 							runGameLoop();
 						} catch (OutOfMemoryError var10) {
 							freeMemory();
-							displayGuiScreen(new GuiMemoryErrorScreen());
+							displayScreen(new GuiMemoryErrorScreen());
 							System.gc();
 						}
 					} else {
@@ -462,9 +455,9 @@ public class Minecraft implements IThreadListener {
 		ingameGUI = new GuiIngame(this);
 		
 		if (serverName != null) {
-			displayGuiScreen(new GuiConnecting(new GuiMainMenu(), this, serverName, serverPort));
+			displayScreen(new GuiConnecting(new GuiMainMenu(), this, serverName, serverPort));
 		} else {
-			displayGuiScreen(new GuiMainMenu());
+			displayScreen(new GuiMainMenu());
 		}
 		
 		renderEngine.deleteTexture(mojangLogo);
@@ -772,37 +765,34 @@ public class Minecraft implements IThreadListener {
 	 * minecraft.addScheduledTask(() -> minecraft.displayGuiScreen(gui));
 	 * </pre>
 	 *
-	 * @param guiScreenIn The {@link GuiScreen} to display. If it is {@code null}, any open GUI will be closed.
+	 * @param screen The {@link GuiScreen} to display. If it is {@code null}, any open GUI will be closed.
 	 */
-	public void displayGuiScreen(GuiScreen guiScreenIn) {
+	public void displayScreen(GuiScreen screen) {
 		if (currentScreen != null) currentScreen.onGuiClosed();
 		
-		if (guiScreenIn == null && world == null) {
-			guiScreenIn = new GuiMainMenu();
-		} else if (guiScreenIn == null && player.getHealth() <= 0F) {
-			guiScreenIn = new GuiGameOver(null);
+		if (screen == null && world == null) {
+			screen = new GuiMainMenu();
+		} else if (screen == null && player.getHealth() <= 0F) {
+			screen = new GuiGameOver(null);
 		}
 		
-		if (guiScreenIn instanceof GuiMainMenu || guiScreenIn instanceof GuiMultiplayer) {
+		if (screen instanceof GuiMainMenu || screen instanceof GuiMultiplayer) {
 			gameSettings.showDebugInfo = false;
 			ingameGUI.getChatGUI().clearChatMessages(true);
 		}
 		
-		currentScreen = guiScreenIn;
+		currentScreen = screen;
 		
-		if (guiScreenIn != null) {
+		if (screen != null) {
 			setIngameNotInFocus();
 			KeyBinding.unPressAllKeys();
 			
-			while (Mouse.next()) {
-			}
-			
-			while (Keyboard.next()) {
-			}
+			while (Mouse.next());
+			while (Keyboard.next());
 			
 			int i = window.getScaledWidth();
 			int j = window.getScaledHeight();
-			guiScreenIn.setWorldAndResolution(this, i, j);
+			screen.setWorldAndResolution(this, i, j);
 			skipRenderWorld = false;
 		} else {
 			mcSoundHandler.resumeSounds();
@@ -871,9 +861,7 @@ public class Minecraft implements IThreadListener {
 		long l = System.nanoTime();
 		profiler.startSection("tick");
 		
-		for (int j = 0; j < Math.min(10, timer.elapsedTicks); ++j) {
-			runTick();
-		}
+		for (int j = 0; j < Math.min(10, timer.elapsedTicks); j++) tick();
 		
 		profiler.endStartSection("preRenderErrors");
 		long i1 = System.nanoTime() - l;
@@ -923,7 +911,7 @@ public class Minecraft implements IThreadListener {
 		updateDisplay();
 		Thread.yield();
 		checkGLError("Post render");
-		++fpsCounter;
+		fpsCounter++;
 		boolean flag = isSingleplayer() && currentScreen != null && currentScreen.doesGuiPauseGame() && !integratedServer.getPublic();
 		
 		if (isGamePaused != flag) {
@@ -1064,7 +1052,7 @@ public class Minecraft implements IThreadListener {
 				int i2 = j1 & 255;
 				bufferbuilder.pos(j, k, 0D).color(k1, l1, i2, 255).endVertex();
 				
-				for (int j2 = i1; j2 >= 0; --j2) {
+				for (int j2 = i1; j2 >= 0; j2--) {
 					float f = (float) ((d0 + profiler$result1.usePercentage * (double) j2 / (double) i1) * (Math.PI * 2D) / 100D);
 					float f1 = MathHelper.sin(f) * 160F;
 					float f2 = MathHelper.cos(f) * 160F * 0.5F;
@@ -1074,7 +1062,7 @@ public class Minecraft implements IThreadListener {
 				tessellator.draw();
 				bufferbuilder.begin(5, DefaultVertexFormats.POSITION_COLOR);
 				
-				for (int i3 = i1; i3 >= 0; --i3) {
+				for (int i3 = i1; i3 >= 0; i3--) {
 					float f3 = (float) ((d0 + profiler$result1.usePercentage * (double) i3 / (double) i1) * (Math.PI * 2D) / 100D);
 					float f4 = MathHelper.sin(f3) * 160F;
 					float f5 = MathHelper.cos(f3) * 160F * 0.5F;
@@ -1106,7 +1094,7 @@ public class Minecraft implements IThreadListener {
 			s = decimalformat.format(profiler$result.totalUsePercentage) + "%";
 			fontRenderer.drawStringWithShadow(s, (float) (j + 160 - fontRenderer.getStringWidth(s)), (float) (k - 80 - 16), 16777215);
 			
-			for (int k2 = 0; k2 < list.size(); ++k2) {
+			for (int k2 = 0; k2 < list.size(); k2++) {
 				Profiler.Result profiler$result2 = list.get(k2);
 				StringBuilder stringbuilder = new StringBuilder();
 				
@@ -1138,15 +1126,13 @@ public class Minecraft implements IThreadListener {
 	 * currently displayed
 	 */
 	public void setIngameFocus() {
-		if (window.isActive()) {
-			if (!inGameHasFocus) {
-				if (!IS_RUNNING_ON_MAC) KeyBinding.updateKeyBindState();
-				
-				inGameHasFocus = true;
-				Mouse.grabMouseCursor();
-				displayGuiScreen(null);
-				leftClickCounter = 10000;
-			}
+		if (window.isActive() && !inGameHasFocus) {
+			if (!IS_RUNNING_ON_MAC) KeyBinding.updateKeyBindState();
+			
+			inGameHasFocus = true;
+			Mouse.grabMouseCursor();
+			displayScreen(null);
+			leftClickCounter = 10000;
 		}
 	}
 	
@@ -1165,7 +1151,7 @@ public class Minecraft implements IThreadListener {
 	 */
 	public void displayInGameMenu() {
 		if (currentScreen == null) {
-			displayGuiScreen(new GuiIngameMenu());
+			displayScreen(new GuiIngameMenu());
 			
 			if (isSingleplayer() && !integratedServer.getPublic()) {
 				mcSoundHandler.pauseSounds();
@@ -1191,7 +1177,7 @@ public class Minecraft implements IThreadListener {
 		}
 	}
 	
-	private void clickMouse() {
+	private void leftClick() {
 		if (leftClickCounter <= 0) {
 			if (objectMouseOver == null) {
 				LOGGER.error("Null returned as 'hitResult', this shouldn't happen!");
@@ -1229,9 +1215,9 @@ public class Minecraft implements IThreadListener {
 	/*
 	  Called when user clicked he's mouse right button (place)
 	 */
-	private void rightClickMouse() {
+	private void rightClick() {
 		if (!playerController.getIsHittingBlock()) {
-			rightClickDelayTimer = 4;
+			rightClickDelay = 4;
 			
 			if (!player.isRowingBoat()) {
 				if (objectMouseOver == null) LOGGER.warn("Null returned as 'hitResult', this shouldn't happen!");
@@ -1343,9 +1329,9 @@ public class Minecraft implements IThreadListener {
 	/**
 	 * Runs the current tick.
 	 */
-	public void runTick() throws IOException {
+	public void tick() throws IOException {
 		
-		if (rightClickDelayTimer > 0) rightClickDelayTimer--;
+		if (rightClickDelay > 0) rightClickDelay--;
 		
 		profiler.startSection("gui");
 		
@@ -1363,12 +1349,12 @@ public class Minecraft implements IThreadListener {
 		
 		if (currentScreen == null && player != null) {
 			if (player.getHealth() <= 0F && !(currentScreen instanceof GuiGameOver)) {
-				displayGuiScreen(null);
+				displayScreen(null);
 			} else if (player.isPlayerSleeping() && world != null) {
-				displayGuiScreen(new GuiSleepMP());
+				displayScreen(new GuiSleepMP());
 			}
 		} else if (currentScreen != null && currentScreen instanceof GuiSleepMP && !player.isPlayerSleeping()) {
-			displayGuiScreen(null);
+			displayScreen(null);
 		}
 		
 		if (currentScreen != null) leftClickCounter = 10000;
@@ -1397,19 +1383,19 @@ public class Minecraft implements IThreadListener {
 		
 		if (currentScreen == null || currentScreen.allowUserInput) {
 			profiler.endStartSection("mouse");
-			runTickMouse();
+			tickMouse();
 			
 			if (leftClickCounter > 0) {
-				--leftClickCounter;
+				leftClickCounter--;
 			}
 			
 			profiler.endStartSection("keyboard");
-			runTickKeyboard();
+			tickKeyboard();
 		}
 		
 		if (world != null) {
 			if (player != null) {
-				++joinPlayerCounter;
+				joinPlayerCounter++;
 				
 				if (joinPlayerCounter == 30) {
 					joinPlayerCounter = 0;
@@ -1483,7 +1469,7 @@ public class Minecraft implements IThreadListener {
 		systemTime = getSystemTime();
 	}
 	
-	private void runTickKeyboard() throws IOException {
+	private void tickKeyboard() throws IOException {
 		while (Keyboard.next()) {
 			int i = Keyboard.getEventKey();
 			
@@ -1528,10 +1514,10 @@ public class Minecraft implements IThreadListener {
 				}
 				
 				if (gameSettings.showDebugProfilerChart) {
-					if (i == GLFW_KEY_0) updateDebugProfilerName(0);
-					
-					for (int j = 0; j < 9; ++j) {
-						if (i == 49 + j) updateDebugProfilerName(j + 1);
+					if (i == GLFW_KEY_0) {
+						updateDebugProfilerName(0);
+					} else if (i >= GLFW_KEY_1 && i <= GLFW_KEY_9) {
+						updateDebugProfilerName(i - GLFW_KEY_1 + 1);
 					}
 				}
 			} else {
@@ -1553,100 +1539,107 @@ public class Minecraft implements IThreadListener {
 	}
 	
 	private boolean processKeyF3(int auxKey) {
-		if (auxKey == GLFW_KEY_A) {
-			renderGlobal.loadRenderers();
-			debugFeedbackTranslated("debug.reload_chunks.message");
-			return true;
-		} else if (auxKey == GLFW_KEY_B) {
-			boolean flag1 = !renderManager.isDebugBoundingBox();
-			renderManager.setDebugBoundingBox(flag1);
-			debugFeedbackTranslated(flag1 ? "debug.show_hitboxes.on" : "debug.show_hitboxes.off");
-			return true;
-		} else if (auxKey == GLFW_KEY_D) {
-			if (ingameGUI != null) ingameGUI.getChatGUI().clearChatMessages(false);
-			
-			return true;
-		} else if (auxKey == 70) {
-			gameSettings.setOptionValue(GameSettings.Options.RENDER_DISTANCE, GuiScreen.isShiftKeyDown() ? -1 : 1);
-			debugFeedbackTranslated("debug.cycle_renderdistance.message", gameSettings.renderDistanceChunks);
-			return true;
-		} else if (auxKey == GLFW_KEY_G) {
-			boolean flag = debugRenderer.toggleChunkBorders();
-			debugFeedbackTranslated(flag ? "debug.chunk_boundaries.on" : "debug.chunk_boundaries.off");
-			return true;
-		} else if (auxKey == GLFW_KEY_H) {
-			gameSettings.advancedItemTooltips = !gameSettings.advancedItemTooltips;
-			debugFeedbackTranslated(gameSettings.advancedItemTooltips ? "debug.advanced_tooltips.on" : "debug.advanced_tooltips.off");
-			gameSettings.saveOptions();
-			return true;
-		} else if (auxKey == 78) {
-			if (!player.canUseCommand(2, "")) {
-				debugFeedbackTranslated("debug.creative_spectator.error");
-			} else if (player.isCreative()) {
-				player.sendChatMessage("/gamemode spectator");
-			} else if (player.isSpectator()) {
-				player.sendChatMessage("/gamemode creative");
+		return switch (auxKey) {
+			case GLFW_KEY_A -> {
+				renderGlobal.loadRenderers();
+				debugFeedbackTranslated("debug.reload_chunks.message");
+				yield true;
 			}
-			
-			return true;
-		} else if (auxKey == 80) {
-			gameSettings.pauseOnLostFocus = !gameSettings.pauseOnLostFocus;
-			gameSettings.saveOptions();
-			debugFeedbackTranslated(gameSettings.pauseOnLostFocus ? "debug.pause_focus.on" : "debug.pause_focus.off");
-			return true;
-		} else if (auxKey == GLFW_KEY_Q) {
-			debugFeedbackTranslated("debug.help.message");
-			GuiNewChat guinewchat = ingameGUI.getChatGUI();
-			guinewchat.printChatMessage(new TextComponentTranslation("debug.reload_chunks.help"));
-			guinewchat.printChatMessage(new TextComponentTranslation("debug.show_hitboxes.help"));
-			guinewchat.printChatMessage(new TextComponentTranslation("debug.clear_chat.help"));
-			guinewchat.printChatMessage(new TextComponentTranslation("debug.cycle_renderdistance.help"));
-			guinewchat.printChatMessage(new TextComponentTranslation("debug.chunk_boundaries.help"));
-			guinewchat.printChatMessage(new TextComponentTranslation("debug.advanced_tooltips.help"));
-			guinewchat.printChatMessage(new TextComponentTranslation("debug.creative_spectator.help"));
-			guinewchat.printChatMessage(new TextComponentTranslation("debug.pause_focus.help"));
-			guinewchat.printChatMessage(new TextComponentTranslation("debug.help.help"));
-			guinewchat.printChatMessage(new TextComponentTranslation("debug.reload_resourcepacks.help"));
-			return true;
-		} else if (auxKey == GLFW_KEY_T) {
-			debugFeedbackTranslated("debug.reload_resourcepacks.message");
-			refreshResources();
-			return true;
-		} else {
-			return false;
-		}
+			case GLFW_KEY_B -> {
+				boolean flag1 = !renderManager.isDebugBoundingBox();
+				renderManager.setDebugBoundingBox(flag1);
+				debugFeedbackTranslated(flag1 ? "debug.show_hitboxes.on" : "debug.show_hitboxes.off");
+				yield true;
+			}
+			case GLFW_KEY_D -> {
+				if (ingameGUI != null) ingameGUI.getChatGUI().clearChatMessages(false);
+				yield true;
+			}
+			case GLFW_KEY_F -> {
+				gameSettings.setOptionValue(GameSettings.Options.RENDER_DISTANCE, GuiScreen.isShiftKeyDown() ? -1 : 1);
+				debugFeedbackTranslated("debug.cycle_renderdistance.message", gameSettings.renderDistanceChunks);
+				yield true;
+			}
+			case GLFW_KEY_G -> {
+				boolean flag = debugRenderer.toggleChunkBorders();
+				debugFeedbackTranslated(flag ? "debug.chunk_boundaries.on" : "debug.chunk_boundaries.off");
+				yield true;
+			}
+			case GLFW_KEY_H -> {
+				gameSettings.advancedItemTooltips = !gameSettings.advancedItemTooltips;
+				debugFeedbackTranslated(gameSettings.advancedItemTooltips ? "debug.advanced_tooltips.on" : "debug.advanced_tooltips.off");
+				gameSettings.saveOptions();
+				yield true;
+			}
+			case GLFW_KEY_N -> {
+				if (!player.canUseCommand(2, "")) {
+					debugFeedbackTranslated("debug.creative_spectator.error");
+				} else if (player.isCreative()) {
+					player.sendChatMessage("/gamemode spectator");
+				} else if (player.isSpectator()) {
+					player.sendChatMessage("/gamemode creative");
+				}
+				yield true;
+			}
+			case GLFW_KEY_P -> {
+				gameSettings.pauseOnLostFocus = !gameSettings.pauseOnLostFocus;
+				gameSettings.saveOptions();
+				debugFeedbackTranslated(gameSettings.pauseOnLostFocus ? "debug.pause_focus.on" : "debug.pause_focus.off");
+				yield true;
+			}
+			case GLFW_KEY_Q -> {
+				debugFeedbackTranslated("debug.help.message");
+				GuiNewChat guinewchat = ingameGUI.getChatGUI();
+				guinewchat.printChatMessage(new TextComponentTranslation("debug.reload_chunks.help"));
+				guinewchat.printChatMessage(new TextComponentTranslation("debug.show_hitboxes.help"));
+				guinewchat.printChatMessage(new TextComponentTranslation("debug.clear_chat.help"));
+				guinewchat.printChatMessage(new TextComponentTranslation("debug.cycle_renderdistance.help"));
+				guinewchat.printChatMessage(new TextComponentTranslation("debug.chunk_boundaries.help"));
+				guinewchat.printChatMessage(new TextComponentTranslation("debug.advanced_tooltips.help"));
+				guinewchat.printChatMessage(new TextComponentTranslation("debug.creative_spectator.help"));
+				guinewchat.printChatMessage(new TextComponentTranslation("debug.creative_spectator.help"));
+				guinewchat.printChatMessage(new TextComponentTranslation("debug.pause_focus.help"));
+				guinewchat.printChatMessage(new TextComponentTranslation("debug.help.help"));
+				guinewchat.printChatMessage(new TextComponentTranslation("debug.reload_resourcepacks.help"));
+				yield true;
+			}
+			case GLFW_KEY_T -> {
+				debugFeedbackTranslated("debug.reload_resourcepacks.message");
+				refreshResources();
+				yield true;
+			}
+			default -> false;
+		};
 	}
 	
 	private void processKeyBinds() {
-		for (; gameSettings.keyTogglePerspective.isPressed(); renderGlobal.setDisplayListEntitiesDirty()) {
-			++gameSettings.thirdPersonView;
-			
-			if (gameSettings.thirdPersonView > 2) {
-				gameSettings.thirdPersonView = 0;
-			}
+		while (gameSettings.keyTogglePerspective.isPressed()) {
+			gameSettings.thirdPersonView = (gameSettings.thirdPersonView + 1) % 3;
 			
 			if (gameSettings.thirdPersonView == 0) {
 				entityRenderer.loadEntityShader(getRenderViewEntity());
 			} else if (gameSettings.thirdPersonView == 1) {
 				entityRenderer.loadEntityShader(null);
 			}
+			
+			renderGlobal.setDisplayListEntitiesDirty();
 		}
 		
 		while (gameSettings.keySmoothCamera.isPressed()) {
 			gameSettings.smoothCamera = !gameSettings.smoothCamera;
 		}
 		
-		for (int i = 0; i < 9; ++i) {
-			boolean flag = gameSettings.keySaveToolbar.isKeyDown();
-			boolean flag1 = gameSettings.keyLoadToolbar.isKeyDown();
-			
+		boolean saveToolbar = gameSettings.keySaveToolbar.isKeyDown();
+		boolean loadToolbar = gameSettings.keyLoadToolbar.isKeyDown();
+		
+		for (int i = 0; i < 9; i++) {
 			if (gameSettings.keyHotbar[i].isPressed()) {
 				if (player.isSpectator()) {
 					ingameGUI.getSpectatorGui().onHotbarSelected(i);
-				} else if (!player.isCreative() || currentScreen != null || !flag1 && !flag) {
+				} else if (!player.isCreative() || currentScreen != null || (!loadToolbar && !saveToolbar)) {
 					player.inventory.currentItem = i;
 				} else {
-					GuiContainerCreative.handleHotbarSnapshots(this, i, flag1, flag);
+					GuiContainerCreative.handleHotbarSnapshots(this, i, loadToolbar, saveToolbar);
 				}
 			}
 		}
@@ -1655,12 +1648,12 @@ public class Minecraft implements IThreadListener {
 			if (playerController.isRidingHorse()) {
 				player.sendHorseInventory();
 			} else {
-				displayGuiScreen(new GuiInventory(player));
+				displayScreen(new GuiInventory(player));
 			}
 		}
 		
 		while (gameSettings.keyAdvancements.isPressed()) {
-			displayGuiScreen(new GuiScreenAdvancements(player.connection.getAdvancementManager()));
+			displayScreen(new GuiScreenAdvancements(player.connection.getAdvancementManager()));
 		}
 		
 		while (gameSettings.keySwapHands.isPressed()) {
@@ -1675,59 +1668,36 @@ public class Minecraft implements IThreadListener {
 			}
 		}
 		
-		boolean flag2 = gameSettings.chatVisibility != EntityPlayer.ChatVisibility.HIDDEN;
+		boolean chatEnabled = gameSettings.chatVisibility != EntityPlayer.ChatVisibility.HIDDEN;
 		
-		if (flag2) {
+		if (chatEnabled) {
 			while (gameSettings.keyChat.isPressed()) {
-				displayGuiScreen(new GuiChat());
+				displayScreen(new GuiChat());
 			}
 			
 			if (currentScreen == null && gameSettings.keyCommand.isPressed()) {
-				displayGuiScreen(new GuiChat("/"));
+				displayScreen(new GuiChat("/"));
 			}
 		}
 		
 		if (player.isHandActive()) {
-			if (!gameSettings.keyUseItem.isKeyDown()) {
-				playerController.onStoppedUsingItem(player);
-			}
+			if (!gameSettings.keyUseItem.isKeyDown()) playerController.onStoppedUsingItem(player);
 			
-			label109:
-			
-			while (true) {
-				if (!gameSettings.keyAttack.isPressed()) {
-					while (gameSettings.keyUseItem.isPressed()) {
-					}
-					
-					while (true) {
-						if (gameSettings.keyPickBlock.isPressed()) continue;
-						
-						break label109;
-					}
-				}
-			}
+			while (gameSettings.keyAttack.isPressed());
+			while (gameSettings.keyUseItem.isPressed());
+			while (gameSettings.keyPickBlock.isPressed());
 		} else {
-			while (gameSettings.keyAttack.isPressed()) {
-				clickMouse();
-			}
-			
-			while (gameSettings.keyUseItem.isPressed()) {
-				rightClickMouse();
-			}
-			
-			while (gameSettings.keyPickBlock.isPressed()) {
-				middleClickMouse();
-			}
+			while (gameSettings.keyAttack.isPressed()) leftClick();
+			while (gameSettings.keyUseItem.isPressed()) rightClick();
+			while (gameSettings.keyPickBlock.isPressed()) midClick();
 		}
 		
-		if (gameSettings.keyUseItem.isKeyDown() && rightClickDelayTimer == 0 && !player.isHandActive()) {
-			rightClickMouse();
-		}
+		if (gameSettings.keyUseItem.isKeyDown() && rightClickDelay == 0 && !player.isHandActive()) rightClick();
 		
 		sendClickBlockToController(currentScreen == null && gameSettings.keyAttack.isKeyDown() && inGameHasFocus);
 	}
 	
-	private void runTickMouse() throws IOException {
+	private void tickMouse() throws IOException {
 		
 		while (Mouse.next()) {
 			int i = Mouse.getEventButton();
@@ -1772,12 +1742,16 @@ public class Minecraft implements IThreadListener {
 		}
 	}
 	
-	private void debugFeedbackTranslated(String untranslatedTemplate, Object... objs) {
+	private void debugFeedbackTranslated(String template, Object... objs) {
 		ingameGUI.getChatGUI()
-		         .printChatMessage((new TextComponentString("")).appendSibling((new TextComponentTranslation("debug.prefix")).setStyle((new Style()).setColor(TextFormatting.YELLOW)
-		                                                                                                                                            .setBold(true)))
-		                                                        .appendText(" ")
-		                                                        .appendSibling(new TextComponentTranslation(untranslatedTemplate, objs)));
+		         .printChatMessage(
+						 new TextComponentString("")
+								 .appendSibling(
+										 new TextComponentTranslation("debug.prefix")
+												 .setStyle(new Style().setColor(TextFormatting.YELLOW).setBold(true))
+								 ).appendText(" ")
+								 .appendSibling(new TextComponentTranslation(template, objs))
+		         );
 	}
 	
 	/**
@@ -1828,7 +1802,7 @@ public class Minecraft implements IThreadListener {
 			}
 		}
 		
-		displayGuiScreen(new GuiScreenWorking());
+		displayScreen(new GuiScreenWorking());
 		SocketAddress socketaddress = integratedServer.getNetworkSystem().addLocalEndpoint();
 		NetworkManager networkmanager = NetworkManager.provideLocalClient(socketaddress);
 		networkmanager.setNetHandler(new NetHandlerLoginClient(networkmanager, this, null));
@@ -1951,7 +1925,7 @@ public class Minecraft implements IThreadListener {
 		playerController.setPlayerCapabilities(player);
 		player.setReducedDebug(entityplayersp.hasReducedDebug());
 		
-		if (currentScreen instanceof GuiGameOver) displayGuiScreen(null);
+		if (currentScreen instanceof GuiGameOver) displayScreen(null);
 	}
 	
 	public NetHandlerPlayClient getConnection() {
@@ -1961,7 +1935,7 @@ public class Minecraft implements IThreadListener {
 	/**
 	 * Called when user clicked he's mouse middle button (pick block)
 	 */
-	private void middleClickMouse() {
+	private void midClick() {
 		if (objectMouseOver != null && objectMouseOver.typeOfHit != RayTraceResult.Type.MISS) {
 			boolean flag = player.capabilities.isCreativeMode;
 			TileEntity tileentity = null;
