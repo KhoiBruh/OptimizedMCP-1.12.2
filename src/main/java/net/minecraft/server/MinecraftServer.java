@@ -25,9 +25,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.NetworkSystem;
 import net.minecraft.network.ServerStatusResponse;
 import net.minecraft.network.play.server.SPacketTimeUpdate;
-import net.minecraft.profiler.ISnooperInfo;
 import net.minecraft.profiler.Profiler;
-import net.minecraft.profiler.Snooper;
 import net.minecraft.server.management.PlayerList;
 import net.minecraft.server.management.PlayerProfileCache;
 import net.minecraft.util.*;
@@ -60,7 +58,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 
-public abstract class MinecraftServer implements ICommandSender, Runnable, IThreadListener, ISnooperInfo {
+public abstract class MinecraftServer implements ICommandSender, Runnable, IThreadListener {
 
 	public static final File USER_CACHE_FILE = new File("usercache.json");
 	private static final Logger LOGGER = LogManager.getLogger();
@@ -70,10 +68,6 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 	public final Queue<FutureTask<?>> futureTaskQueue = Queues.newArrayDeque();
 	protected final Proxy serverProxy;
 	private final ISaveFormat anvilConverterForAnvilFile;
-	/**
-	 * The PlayerUsageSnooper instance.
-	 */
-	private final Snooper usageSnooper = new Snooper("server", this, getCurrentTimeMillis());
 	private final File anvilFile;
 	private final List<ITickable> tickables = Lists.newArrayList();
 	private final NetworkSystem networkSystem;
@@ -454,10 +448,6 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 				}
 			}
 		}
-
-		if (usageSnooper.isSnooperRunning()) {
-			usageSnooper.stopSnooper();
-		}
 	}
 
 	public boolean isServerRunning() {
@@ -645,17 +635,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 		profiler.startSection("tallying");
 		tickTimeArray[tickCounter % 100] = System.nanoTime() - i;
 		profiler.endSection();
-		profiler.startSection("snooper");
 
-		if (!usageSnooper.isSnooperRunning() && tickCounter > 100) {
-			usageSnooper.startSnooper();
-		}
-
-		if (tickCounter % 6000 == 0) {
-			usageSnooper.addMemoryStatsToSnooper();
-		}
-
-		profiler.endSection();
 		profiler.endSection();
 	}
 
@@ -1001,59 +981,6 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 		resourcePackHash = hash;
 	}
 
-	public void addServerStatsToSnooper(Snooper playerSnooper) {
-
-		playerSnooper.addClientStat("whitelist_enabled", false);
-		playerSnooper.addClientStat("whitelist_count", 0);
-
-		if (playerList != null) {
-			playerSnooper.addClientStat("players_current", getCurrentPlayerCount());
-			playerSnooper.addClientStat("players_max", getMaxPlayers());
-			playerSnooper.addClientStat("players_seen", playerList.getAvailablePlayerDat().length);
-		}
-
-		playerSnooper.addClientStat("uses_auth", onlineMode);
-		playerSnooper.addClientStat("gui_state", getGuiEnabled() ? "enabled" : "disabled");
-		playerSnooper.addClientStat("run_time", (getCurrentTimeMillis() - playerSnooper.getMinecraftStartTimeMillis()) / 60L * 1000L);
-		playerSnooper.addClientStat("avg_tick_ms", (int) (MathHelper.average(tickTimeArray) * 1.0E-6D));
-		int l = 0;
-
-		if (worlds != null) {
-			for (WorldServer worldserver1 : worlds) {
-				if (worldserver1 != null) {
-					WorldInfo worldinfo = worldserver1.getWorldInfo();
-					playerSnooper.addClientStat("world[" + l + "][dimension]", worldserver1.provider.getDimensionType().getId());
-					playerSnooper.addClientStat("world[" + l + "][mode]", worldinfo.getGameType());
-					playerSnooper.addClientStat("world[" + l + "][difficulty]", worldserver1.getDifficulty());
-					playerSnooper.addClientStat("world[" + l + "][hardcore]", worldinfo.isHardcoreModeEnabled());
-					playerSnooper.addClientStat("world[" + l + "][generator_name]", worldinfo.getTerrainType().getName());
-					playerSnooper.addClientStat("world[" + l + "][generator_version]", worldinfo.getTerrainType().getVersion());
-					playerSnooper.addClientStat("world[" + l + "][height]", buildLimit);
-					playerSnooper.addClientStat("world[" + l + "][chunks_loaded]", worldserver1.getChunkProvider().getLoadedChunkCount());
-					++l;
-				}
-			}
-		}
-
-		playerSnooper.addClientStat("worlds", l);
-	}
-
-	public void addServerTypeToSnooper(Snooper playerSnooper) {
-
-		playerSnooper.addStatToSnooper("singleplayer", isSinglePlayer());
-		playerSnooper.addStatToSnooper("server_brand", getServerModName());
-		playerSnooper.addStatToSnooper("gui_supported", GraphicsEnvironment.isHeadless() ? "headless" : "supported");
-		playerSnooper.addStatToSnooper("dedicated", isDedicatedServer());
-	}
-
-	/**
-	 * Returns whether snooping is enabled or not.
-	 */
-	public boolean isSnooperEnabled() {
-
-		return true;
-	}
-
 	public abstract boolean isDedicatedServer();
 
 	public boolean isServerInOnlineMode() {
@@ -1185,11 +1112,6 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 	public void enableProfiling() {
 
 		startProfiling = true;
-	}
-
-	public Snooper getPlayerUsageSnooper() {
-
-		return usageSnooper;
 	}
 
 	/**

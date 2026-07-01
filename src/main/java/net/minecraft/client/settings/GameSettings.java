@@ -90,7 +90,6 @@ public class GameSettings {
 	public boolean chatLinks = true;
 	public boolean chatLinksPrompt = true;
 	public float chatOpacity = 1F;
-	public boolean snooperEnabled = true;
 	public boolean fullScreen;
 	public boolean enableVsync = true;
 	public boolean useVbo = true;
@@ -355,7 +354,6 @@ public class GameSettings {
 			case CHAT_COLOR -> chatColours = !chatColours;
 			case CHAT_LINKS -> chatLinks = !chatLinks;
 			case CHAT_LINKS_PROMPT -> chatLinksPrompt = !chatLinksPrompt;
-			case SNOOPER_ENABLED -> snooperEnabled = !snooperEnabled;
 			case TOUCHSCREEN -> touchscreen = !touchscreen;
 			case USE_FULLSCREEN -> {
 				fullScreen = !fullScreen;
@@ -413,7 +411,6 @@ public class GameSettings {
 			case CHAT_COLOR -> chatColours;
 			case CHAT_LINKS -> chatLinks;
 			case CHAT_LINKS_PROMPT -> chatLinksPrompt;
-			case SNOOPER_ENABLED -> snooperEnabled;
 			case USE_FULLSCREEN -> fullScreen;
 			case ENABLE_VSYNC -> enableVsync;
 			case USE_VBO -> useVbo;
@@ -556,7 +553,6 @@ public class GameSettings {
 						case "chatLinks" -> chatLinks = "true".equals(s2);
 						case "chatLinksPrompt" -> chatLinksPrompt = "true".equals(s2);
 						case "chatOpacity" -> chatOpacity = parseFloat(s2);
-						case "snooperEnabled" -> snooperEnabled = "true".equals(s2);
 						case "fullscreen" -> fullScreen = "true".equals(s2);
 						case "enableVsync" -> enableVsync = "true".equals(s2);
 						case "useVbo" -> useVbo = "true".equals(s2);
@@ -672,7 +668,6 @@ public class GameSettings {
 			writer.println("chatLinks:" + chatLinks);
 			writer.println("chatLinksPrompt:" + chatLinksPrompt);
 			writer.println("chatOpacity:" + chatOpacity);
-			writer.println("snooperEnabled:" + snooperEnabled);
 			writer.println("fullscreen:" + fullScreen);
 			writer.println("enableVsync:" + enableVsync);
 			writer.println("useVbo:" + useVbo);
@@ -802,7 +797,6 @@ public class GameSettings {
 		CHAT_LINKS("options.chat.links", false, true),
 		CHAT_OPACITY("options.chat.opacity", true, false),
 		CHAT_LINKS_PROMPT("options.chat.links.prompt", false, true),
-		SNOOPER_ENABLED("options.snooper", false, true),
 		USE_FULLSCREEN("options.fullscreen", false, true),
 		ENABLE_VSYNC("options.vsync", false, true),
 		USE_VBO("options.vbo", false, true),

@@ -79,7 +79,6 @@ public class GuiOptions extends GuiScreen {
 		buttonList.add(new GuiButton(102, width / 2 - 155, height / 6 + 96 - 6, 150, 20, I18n.format("options.language")));
 		buttonList.add(new GuiButton(103, width / 2 + 5, height / 6 + 96 - 6, 150, 20, I18n.format("options.chat.title")));
 		buttonList.add(new GuiButton(105, width / 2 - 155, height / 6 + 120 - 6, 150, 20, I18n.format("options.resourcepack")));
-		buttonList.add(new GuiButton(104, width / 2 + 5, height / 6 + 120 - 6, 150, 20, I18n.format("options.snooper.view")));
 		buttonList.add(new GuiButton(200, width / 2 - 100, height / 6 + 168, I18n.format("gui.done")));
 	}
 
@@ -161,11 +160,6 @@ public class GuiOptions extends GuiScreen {
 			if (button.id == 103) {
 				mc.gameSettings.saveOptions();
 				mc.displayGuiScreen(new ScreenChatOptions(this, settings));
-			}
-
-			if (button.id == 104) {
-				mc.gameSettings.saveOptions();
-				mc.displayGuiScreen(new GuiSnooper(this, settings));
 			}
 
 			if (button.id == 200) {
