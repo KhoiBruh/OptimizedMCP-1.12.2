@@ -12,6 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Tuple;
 import net.minecraft.util.text.TextFormat;
 import net.minecraft.util.text.translation.I18n;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;

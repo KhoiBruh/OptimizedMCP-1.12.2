@@ -3,6 +3,7 @@ package net.minecraft.client.renderer.block.model;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.Facing;
+
 import java.util.Collections;
 import java.util.List;
 

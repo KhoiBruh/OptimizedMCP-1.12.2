@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;

@@ -9,6 +9,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.VariantList;
 import net.minecraft.util.JsonUtils;
+
 import java.lang.reflect.Type;
 import java.util.Map.Entry;
 import java.util.Set;

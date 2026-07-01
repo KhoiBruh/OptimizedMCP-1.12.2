@@ -11,8 +11,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.IHopper;
 import net.minecraft.tileentity.TileEntityHopper;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.entity.EntitySelectors;
 import net.minecraft.util.datafix.DataFixer;
+import net.minecraft.util.entity.EntitySelectors;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 

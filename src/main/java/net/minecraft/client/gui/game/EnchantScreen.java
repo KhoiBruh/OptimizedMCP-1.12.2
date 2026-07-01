@@ -2,23 +2,22 @@ package net.minecraft.client.gui.game;
 
 import com.google.common.collect.Lists;
 import net.minecraft.client.gui.FontRenderer;
-
 import net.minecraft.client.gui.inventory.ContainerScreen;
 import net.minecraft.client.model.ModelBook;
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.Projection;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ContainerEnchantment;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.entity.EnchantmentNameParts;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.entity.EnchantmentNameParts;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormat;
 import net.minecraft.world.IWorldNameable;
 import net.minecraft.world.World;
-import net.minecraft.client.util.Projection;
 
 import java.io.IOException;
 import java.util.List;

@@ -3,10 +3,10 @@ package net.minecraft.client.gui.toasts;
 import com.google.common.collect.Queues;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.math.MathHelper;
+
 import java.util.Arrays;
 import java.util.Deque;
 

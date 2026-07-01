@@ -1,9 +1,9 @@
 package net.minecraft.client.multiplayer;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.game.DisconnectedScreen;
-import net.minecraft.client.gui.Screen;
 import net.minecraft.client.network.NetHandlerLoginClient;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.network.ConnectionState;

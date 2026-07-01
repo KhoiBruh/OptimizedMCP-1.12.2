@@ -3,6 +3,7 @@ package net.minecraft.item;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.world.World;
+
 import java.util.List;
 
 public class ItemAir extends Item {

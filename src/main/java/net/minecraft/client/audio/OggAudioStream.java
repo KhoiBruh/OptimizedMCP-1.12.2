@@ -1,7 +1,6 @@
 package net.minecraft.client.audio;
 
 import lombok.Getter;
-import org.apache.commons.io.IOUtils;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.openal.AL10;
 import org.lwjgl.stb.STBVorbis;

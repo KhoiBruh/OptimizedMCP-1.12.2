@@ -1,6 +1,7 @@
 package net.minecraft.world.biome;
 
 import net.minecraft.util.math.BlockPos;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;

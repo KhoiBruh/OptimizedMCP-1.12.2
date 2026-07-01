@@ -3,6 +3,7 @@ package net.minecraft.util.text;
 import com.google.gson.*;
 import net.minecraft.util.EnumTypeAdapterFactory;
 import net.minecraft.util.JsonUtils;
+
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map.Entry;

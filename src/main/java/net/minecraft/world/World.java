@@ -27,12 +27,8 @@ import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
-import net.minecraft.util.IntHashMap;
 import net.minecraft.util.entity.EntitySelectors;
 import net.minecraft.util.math.*;
-import net.minecraft.util.Facing;
-import net.minecraft.util.ParticleTypes;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.village.VillageCollection;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeProvider;
@@ -45,6 +41,7 @@ import net.minecraft.world.storage.MapStorage;
 import net.minecraft.world.storage.WorldInfo;
 import net.minecraft.world.storage.WorldSavedData;
 import net.minecraft.world.storage.loot.LootTableManager;
+
 import java.util.*;
 
 public abstract class World implements IBlockAccess {

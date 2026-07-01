@@ -4,7 +4,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.util.text.ITextComponent;
-import java.io.IOException;
+
 import java.util.Locale;
 
 public class SPacketTitle implements Packet<INetHandlerPlayClient> {

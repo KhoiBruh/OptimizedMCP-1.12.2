@@ -1,8 +1,8 @@
 package net.minecraft.client.gui.menu;
 
 import com.google.common.collect.Lists;
-import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.GuiYesNoCallback;
+import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.OptionButton;
 import net.minecraft.client.resources.I18n;

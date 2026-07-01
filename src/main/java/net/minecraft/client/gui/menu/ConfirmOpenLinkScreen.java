@@ -1,7 +1,7 @@
 package net.minecraft.client.gui.menu;
 
-import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.GuiYesNoCallback;
+import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.resources.I18n;
 
 public class ConfirmOpenLinkScreen extends YesNoScreen {

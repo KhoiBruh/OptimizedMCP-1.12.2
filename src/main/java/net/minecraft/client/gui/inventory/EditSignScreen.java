@@ -1,18 +1,18 @@
 package net.minecraft.client.gui.inventory;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.Screen;
+import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.Keyboard;
 import net.minecraft.init.Blocks;
 import net.minecraft.network.play.client.CPacketUpdateSign;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.client.util.Keyboard;
 
 public class EditSignScreen extends Screen {
 

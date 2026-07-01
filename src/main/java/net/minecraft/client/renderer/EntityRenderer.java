@@ -10,7 +10,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.game.MapItemRenderer;
-
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.culling.Frustum;
@@ -22,6 +21,8 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.client.shader.ShaderGroup;
 import net.minecraft.client.shader.ShaderLinkHelper;
+import net.minecraft.client.util.Mouse;
+import net.minecraft.client.util.Projection;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -41,18 +42,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.entity.EntitySelectors;
 import net.minecraft.util.math.*;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.ParticleTypes;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.world.GameType;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import net.minecraft.client.util.Mouse;
 import org.lwjgl.opengl.GL;
-import net.minecraft.client.util.Projection;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

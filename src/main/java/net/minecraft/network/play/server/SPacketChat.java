@@ -6,8 +6,6 @@ import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.util.text.ChatType;
 import net.minecraft.util.text.ITextComponent;
 
-import java.io.IOException;
-
 public class SPacketChat implements Packet<INetHandlerPlayClient> {
 
 	private ITextComponent chatComponent;

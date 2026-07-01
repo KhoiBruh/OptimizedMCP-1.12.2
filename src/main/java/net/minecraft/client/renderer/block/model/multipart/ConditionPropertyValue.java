@@ -5,6 +5,7 @@ import com.google.common.collect.Iterables;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+
 import java.util.List;
 
 public class ConditionPropertyValue implements ICondition {

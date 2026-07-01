@@ -8,6 +8,7 @@ import com.google.gson.JsonSyntaxException;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
+
 import java.util.Map;
 import java.util.Map.Entry;
 

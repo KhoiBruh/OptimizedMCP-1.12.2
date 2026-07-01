@@ -2,7 +2,8 @@ package net.minecraft.client.gui.menu;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.GuiSlot;
 import net.minecraft.client.renderer.BufferBuilder;

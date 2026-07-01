@@ -2,6 +2,7 @@ package net.minecraft.world.gen.structure.template;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
 import java.util.Random;
 
 public class BlockRotationProcessor implements ITemplateProcessor {

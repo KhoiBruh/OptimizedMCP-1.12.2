@@ -1,7 +1,7 @@
 package net.minecraft.client.gui.menu;
 
-import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.Screen;
+import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.GuiTextField;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.resources.I18n;

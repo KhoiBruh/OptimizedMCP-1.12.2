@@ -8,6 +8,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+
 import java.util.UUID;
 
 public class EntityEvokerFangs extends Entity {

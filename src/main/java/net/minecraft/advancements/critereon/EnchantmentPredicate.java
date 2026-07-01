@@ -7,6 +7,7 @@ import com.google.gson.JsonSyntaxException;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
+
 import java.util.Map;
 
 public class EnchantmentPredicate {

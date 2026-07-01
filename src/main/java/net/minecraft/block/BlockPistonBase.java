@@ -1,8 +1,8 @@
 package net.minecraft.block;
 
 import com.google.common.collect.Lists;
-import net.minecraft.block.material.PushReaction;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockPistonStructureHelper;
@@ -24,6 +24,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
 import java.util.List;
 
 public class BlockPistonBase extends BlockDirectional {

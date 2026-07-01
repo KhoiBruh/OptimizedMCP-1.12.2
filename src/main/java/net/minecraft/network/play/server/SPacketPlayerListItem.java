@@ -10,7 +10,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.GameType;
-import java.io.IOException;
+
 import java.util.List;
 
 public class SPacketPlayerListItem implements Packet<INetHandlerPlayClient> {

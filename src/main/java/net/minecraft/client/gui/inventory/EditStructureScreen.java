@@ -2,10 +2,11 @@ package net.minecraft.client.gui.inventory;
 
 import com.google.common.collect.Lists;
 import io.netty.buffer.Unpooled;
-import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.Screen;
+import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.GuiTextField;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.Keyboard;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.client.CPacketCustomPayload;
 import net.minecraft.tileentity.TileEntityStructure;
@@ -15,7 +16,6 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import net.minecraft.client.util.Keyboard;
 
 import java.io.IOException;
 import java.text.DecimalFormat;

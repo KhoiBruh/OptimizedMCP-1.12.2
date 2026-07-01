@@ -2,13 +2,12 @@ package net.minecraft.client.gui.component;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.client.util.Mouse;
+import net.minecraft.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 public abstract class GuiSlot {

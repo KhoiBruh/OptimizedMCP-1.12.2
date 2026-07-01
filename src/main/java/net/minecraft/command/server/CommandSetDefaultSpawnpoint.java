@@ -7,6 +7,7 @@ import net.minecraft.command.WrongUsageException;
 import net.minecraft.network.play.server.SPacketSpawnPosition;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
+
 import java.util.Collections;
 import java.util.List;
 

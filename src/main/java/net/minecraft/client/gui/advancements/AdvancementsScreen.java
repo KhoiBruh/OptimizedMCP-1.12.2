@@ -9,9 +9,10 @@ import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.Mouse;
 import net.minecraft.network.play.client.CPacketSeenAdvancements;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.client.util.Mouse;
+
 import java.io.IOException;
 import java.util.Map;
 

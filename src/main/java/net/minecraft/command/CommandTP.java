@@ -7,6 +7,7 @@ import net.minecraft.network.play.server.SPacketPlayerPosLook;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;

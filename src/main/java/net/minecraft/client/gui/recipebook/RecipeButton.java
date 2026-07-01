@@ -1,8 +1,8 @@
 package net.minecraft.client.gui.recipebook;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.Screen;
+import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;

@@ -2,7 +2,8 @@ package net.minecraft.client.gui.menu;
 
 import com.google.common.base.Predicate;
 import com.google.common.primitives.Floats;
-import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.*;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GLS;

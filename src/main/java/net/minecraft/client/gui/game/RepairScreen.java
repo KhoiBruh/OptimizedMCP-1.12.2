@@ -6,6 +6,7 @@ import net.minecraft.client.gui.component.GuiTextField;
 import net.minecraft.client.gui.inventory.ContainerScreen;
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.Keyboard;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
@@ -14,7 +15,6 @@ import net.minecraft.network.play.client.CPacketCustomPayload;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraft.client.util.Keyboard;
 
 import java.io.IOException;
 

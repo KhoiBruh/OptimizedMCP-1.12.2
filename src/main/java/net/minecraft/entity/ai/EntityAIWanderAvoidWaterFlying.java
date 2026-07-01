@@ -8,6 +8,7 @@ import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+
 import java.util.Iterator;
 
 public class EntityAIWanderAvoidWaterFlying extends EntityAIWanderAvoidWater {

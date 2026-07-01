@@ -18,6 +18,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormat;
 import net.minecraft.world.GameType;
+
 import java.util.Comparator;
 import java.util.List;
 

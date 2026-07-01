@@ -3,6 +3,8 @@ package net.minecraft.client.gui.chat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.GuiTextField;
+import net.minecraft.client.util.Keyboard;
+import net.minecraft.client.util.Mouse;
 import net.minecraft.util.ITabCompleter;
 import net.minecraft.util.TabCompleter;
 import net.minecraft.util.math.BlockPos;
@@ -12,8 +14,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import net.minecraft.client.util.Keyboard;
-import net.minecraft.client.util.Mouse;
+
 import java.io.IOException;
 
 public class ChatScreen extends Screen implements ITabCompleter {

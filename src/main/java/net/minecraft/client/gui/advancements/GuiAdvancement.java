@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;

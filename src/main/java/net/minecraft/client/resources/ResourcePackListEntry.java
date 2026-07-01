@@ -1,7 +1,7 @@
 package net.minecraft.client.resources;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.component.GuiListExtended;
 import net.minecraft.client.gui.menu.ResourcePacksScreen;
 import net.minecraft.client.gui.menu.YesNoScreen;

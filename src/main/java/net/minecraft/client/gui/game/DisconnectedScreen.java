@@ -1,7 +1,7 @@
 package net.minecraft.client.gui.game;
 
-import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.Screen;
+import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.ITextComponent;
 

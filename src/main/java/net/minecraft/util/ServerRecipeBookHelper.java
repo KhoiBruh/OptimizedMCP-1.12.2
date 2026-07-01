@@ -12,6 +12,7 @@ import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.network.play.server.SPacketPlaceGhostRecipe;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import java.util.Iterator;
 import java.util.List;
 

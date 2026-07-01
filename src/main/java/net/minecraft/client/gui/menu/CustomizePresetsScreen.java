@@ -1,8 +1,8 @@
 package net.minecraft.client.gui.menu;
 
 import com.google.common.collect.Lists;
-import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.Screen;
+import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.GuiSlot;
 import net.minecraft.client.gui.component.GuiTextField;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -10,9 +10,9 @@ import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.Keyboard;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.gen.ChunkGeneratorSettings;
-import net.minecraft.client.util.Keyboard;
 
 import java.io.IOException;
 import java.util.List;

@@ -3,6 +3,7 @@ package net.minecraft.client.resources;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.MetadataSerializer;
 import net.minecraft.util.ResourceLocation;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;

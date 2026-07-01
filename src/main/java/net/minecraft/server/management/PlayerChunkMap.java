@@ -14,7 +14,10 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
-import java.util.*;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 public class PlayerChunkMap {
 

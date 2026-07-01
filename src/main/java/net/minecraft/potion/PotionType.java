@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.init.MobEffects;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.RegistryNamespacedDefaultedByKey;
+
 import java.util.List;
 
 public class PotionType {

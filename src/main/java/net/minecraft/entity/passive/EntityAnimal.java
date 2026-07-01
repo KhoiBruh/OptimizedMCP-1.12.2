@@ -14,6 +14,7 @@ import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+
 import java.util.UUID;
 
 public abstract class EntityAnimal extends EntityAgeable implements IAnimals {

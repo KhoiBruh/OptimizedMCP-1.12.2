@@ -1,10 +1,11 @@
 package net.minecraft.client.gui.game;
 
 import io.netty.buffer.Unpooled;
-import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.Screen;
+import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.GuiTextField;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.Keyboard;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.client.CPacketCustomPayload;
 import net.minecraft.tileentity.CommandBlockBaseLogic;
@@ -12,7 +13,7 @@ import net.minecraft.tileentity.TileEntityCommandBlock;
 import net.minecraft.util.ITabCompleter;
 import net.minecraft.util.TabCompleter;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.client.util.Keyboard;
+
 import java.io.IOException;
 
 public class CommandBlockScreen extends Screen implements ITabCompleter {

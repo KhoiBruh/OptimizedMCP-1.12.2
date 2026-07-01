@@ -7,11 +7,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntityBanner;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+
 import java.util.List;
 
 public class ItemShield extends Item {

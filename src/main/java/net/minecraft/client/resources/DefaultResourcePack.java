@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.MetadataSerializer;
 import net.minecraft.util.ResourceLocation;
+
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;

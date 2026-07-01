@@ -10,15 +10,16 @@ import net.minecraft.nbt.NBTTagString;
 import net.minecraft.network.play.server.SPacketSetSlot;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.StringUtils;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentUtils;
 import net.minecraft.util.text.TextFormat;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+
 import java.util.List;
 
 public class ItemWrittenBook extends Item {

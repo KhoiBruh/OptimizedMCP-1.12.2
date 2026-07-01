@@ -8,6 +8,8 @@ import net.minecraft.client.gui.menu.GuiPanoramaBackground;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.client.util.Keyboard;
+import net.minecraft.client.util.Mouse;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
@@ -19,8 +21,6 @@ import net.minecraft.util.text.event.HoverEvent;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import net.minecraft.client.util.Keyboard;
-import net.minecraft.client.util.Mouse;
 
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;

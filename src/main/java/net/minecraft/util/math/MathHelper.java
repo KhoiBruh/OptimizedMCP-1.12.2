@@ -1,7 +1,6 @@
 package net.minecraft.util.math;
 
 import java.util.Random;
-import java.util.UUID;
 
 public class MathHelper {
 

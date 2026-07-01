@@ -4,6 +4,7 @@ import com.google.common.collect.Sets;
 import net.minecraft.profiler.Profiler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import java.util.Iterator;
 import java.util.Set;
 

@@ -9,7 +9,6 @@ import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
-
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.entity.Entity;
@@ -24,7 +23,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.SkyBlock;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.Chunk;
-
 import org.lwjgl.opengl.GL11;
 
 import java.util.List;

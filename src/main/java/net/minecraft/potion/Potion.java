@@ -15,6 +15,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.RegistryNamespaced;
+
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;

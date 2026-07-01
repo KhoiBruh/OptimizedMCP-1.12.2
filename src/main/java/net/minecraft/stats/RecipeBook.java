@@ -2,6 +2,7 @@ package net.minecraft.stats;
 
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+
 import java.util.BitSet;
 
 public class RecipeBook {

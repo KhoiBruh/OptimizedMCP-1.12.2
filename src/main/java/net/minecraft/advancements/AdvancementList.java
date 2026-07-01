@@ -6,6 +6,7 @@ import com.google.common.collect.Sets;
 import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;

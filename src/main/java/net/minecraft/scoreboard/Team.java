@@ -2,6 +2,7 @@ package net.minecraft.scoreboard;
 
 import com.google.common.collect.Maps;
 import net.minecraft.util.text.TextFormat;
+
 import java.util.Collection;
 import java.util.Map;
 

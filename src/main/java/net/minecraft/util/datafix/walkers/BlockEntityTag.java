@@ -8,6 +8,7 @@ import net.minecraft.util.datafix.IDataFixer;
 import net.minecraft.util.datafix.IDataWalker;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import java.util.Map;
 
 public class BlockEntityTag implements IDataWalker {

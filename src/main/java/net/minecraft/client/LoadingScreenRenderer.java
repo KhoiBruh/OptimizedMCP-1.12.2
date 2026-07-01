@@ -1,7 +1,6 @@
 package net.minecraft.client;
 
 import net.minecraft.client.gui.Gui;
-
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.OpenGlHelper;

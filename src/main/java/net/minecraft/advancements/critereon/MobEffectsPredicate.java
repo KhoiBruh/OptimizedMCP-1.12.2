@@ -10,6 +10,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
+
 import java.util.Collections;
 import java.util.Map;
 import java.util.Map.Entry;

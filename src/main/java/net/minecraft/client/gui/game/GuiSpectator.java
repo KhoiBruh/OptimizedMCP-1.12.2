@@ -2,7 +2,6 @@ package net.minecraft.client.gui.game;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-
 import net.minecraft.client.gui.spectator.ISpectatorMenuObject;
 import net.minecraft.client.gui.spectator.ISpectatorMenuRecipient;
 import net.minecraft.client.gui.spectator.SpectatorMenu;

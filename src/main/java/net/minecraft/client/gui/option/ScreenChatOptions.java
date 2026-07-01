@@ -1,9 +1,9 @@
 package net.minecraft.client.gui.option;
 
+import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.OptionButton;
 import net.minecraft.client.gui.component.OptionSlider;
-import net.minecraft.client.gui.Screen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 

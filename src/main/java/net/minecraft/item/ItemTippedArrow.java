@@ -8,6 +8,7 @@ import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+
 import java.util.List;
 
 public class ItemTippedArrow extends ItemArrow {

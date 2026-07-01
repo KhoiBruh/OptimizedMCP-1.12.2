@@ -4,6 +4,7 @@ import com.mojang.authlib.properties.PropertyMap;
 import net.minecraft.client.resources.ResourceIndex;
 import net.minecraft.client.resources.ResourceIndexFolder;
 import net.minecraft.util.Session;
+
 import java.io.File;
 import java.net.Proxy;
 

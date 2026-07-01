@@ -1,9 +1,9 @@
 package net.minecraft.enchantment;
 
 import com.google.common.collect.Lists;
+import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -11,6 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.RegistryNamespaced;
 import net.minecraft.util.text.TextFormat;
 import net.minecraft.util.text.translation.I18n;
+
 import java.util.List;
 
 public abstract class Enchantment {

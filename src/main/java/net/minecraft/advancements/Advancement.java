@@ -13,6 +13,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.event.HoverEvent;
 import org.apache.commons.lang3.ArrayUtils;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;

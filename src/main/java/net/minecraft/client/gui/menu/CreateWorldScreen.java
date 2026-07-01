@@ -1,9 +1,10 @@
 package net.minecraft.client.gui.menu;
 
-import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.GuiTextField;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.Keyboard;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.world.GameType;
 import net.minecraft.world.WorldSettings;
@@ -11,7 +12,6 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.WorldInfo;
 import org.apache.commons.lang3.StringUtils;
-import net.minecraft.client.util.Keyboard;
 
 import java.io.IOException;
 import java.util.Random;

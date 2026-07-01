@@ -1,7 +1,5 @@
 package net.minecraft.entity.ai.attributes;
 
-import io.netty.util.internal.ThreadLocalRandom;
-import net.minecraft.util.math.MathHelper;
 import org.apache.commons.lang3.Validate;
 
 import java.util.UUID;

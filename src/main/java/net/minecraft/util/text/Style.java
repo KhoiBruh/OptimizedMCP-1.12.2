@@ -3,6 +3,7 @@ package net.minecraft.util.text;
 import com.google.gson.*;
 import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.util.text.event.HoverEvent;
+
 import java.lang.reflect.Type;
 
 public class Style {

@@ -13,11 +13,12 @@ import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+
 import java.util.List;
 
 public class ItemPotion extends Item {

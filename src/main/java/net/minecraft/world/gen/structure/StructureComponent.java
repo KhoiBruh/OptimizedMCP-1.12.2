@@ -17,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.SkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.template.TemplateManager;
+
 import java.util.List;
 import java.util.Random;
 

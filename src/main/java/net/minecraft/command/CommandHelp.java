@@ -8,6 +8,7 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormat;
 import net.minecraft.util.text.event.ClickEvent;
+
 import java.util.*;
 
 public class CommandHelp extends CommandBase {

@@ -1,7 +1,6 @@
 package net.minecraft.util;
 
 import com.google.gson.*;
-import org.apache.commons.lang3.Validate;
 
 import java.lang.reflect.Type;
 import java.util.Locale;

@@ -3,6 +3,7 @@ package net.minecraft.command;
 import com.google.common.collect.Lists;
 import net.minecraft.advancements.FunctionManager;
 import net.minecraft.util.ResourceLocation;
+
 import java.util.ArrayDeque;
 import java.util.List;
 

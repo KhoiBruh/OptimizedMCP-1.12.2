@@ -6,6 +6,7 @@ import net.minecraft.client.gui.component.ToggleButton;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.stats.RecipeBook;
+
 import java.util.List;
 
 public class RecipeBookPage {

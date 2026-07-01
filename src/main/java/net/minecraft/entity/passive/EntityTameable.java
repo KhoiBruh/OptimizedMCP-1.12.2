@@ -17,6 +17,7 @@ import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ParticleTypes;
 import net.minecraft.world.World;
+
 import java.util.UUID;
 
 public abstract class EntityTameable extends EntityAnimal implements IEntityOwnable {

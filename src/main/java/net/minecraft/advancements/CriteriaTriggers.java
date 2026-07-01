@@ -3,6 +3,7 @@ package net.minecraft.advancements;
 import com.google.common.collect.Maps;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.util.ResourceLocation;
+
 import java.util.Map;
 
 public class CriteriaTriggers {

@@ -5,6 +5,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextFormat;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;

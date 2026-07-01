@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.MapData;
 import net.minecraft.world.storage.MapDecoration;
+
 import java.util.Arrays;
 import java.util.Map;
 

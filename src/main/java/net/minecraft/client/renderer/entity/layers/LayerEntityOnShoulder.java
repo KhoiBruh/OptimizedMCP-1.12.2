@@ -12,6 +12,7 @@ import net.minecraft.entity.passive.EntityParrot;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+
 import java.util.UUID;
 
 public class LayerEntityOnShoulder implements LayerRenderer<EntityPlayer> {

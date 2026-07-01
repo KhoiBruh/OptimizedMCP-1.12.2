@@ -3,7 +3,6 @@ package net.minecraft.client.gui.game;
 import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.network.play.server.SPacketUpdateBossInfo;
 import net.minecraft.util.ResourceLocation;

@@ -6,7 +6,6 @@ import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.ISoundEventListener;
 import net.minecraft.client.audio.SoundEventAccessor;
 import net.minecraft.client.gui.Gui;
-
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;

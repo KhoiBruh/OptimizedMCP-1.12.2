@@ -8,8 +8,6 @@ import net.minecraft.util.CombatTracker;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 
-import java.io.IOException;
-
 public class SPacketCombatEvent implements Packet<INetHandlerPlayClient> {
 
 	public SPacketCombatEvent.Event eventType;

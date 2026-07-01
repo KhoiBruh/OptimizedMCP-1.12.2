@@ -29,7 +29,6 @@ import net.minecraft.client.gui.loading.WorkingScreen;
 import net.minecraft.client.gui.menu.MainMenuScreen;
 import net.minecraft.client.gui.menu.MultiplayerScreen;
 import net.minecraft.client.gui.option.ControlsScreen;
-import net.minecraft.client.gui.option.ScreenChatOptions;
 import net.minecraft.client.gui.recipebook.RecipeList;
 import net.minecraft.client.gui.toasts.GuiToast;
 import net.minecraft.client.main.GameConfig;
@@ -107,7 +106,6 @@ import net.minecraft.world.storage.WorldInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.Version;
-import net.minecraft.client.util.Projection;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -1157,7 +1155,7 @@ public class Minecraft implements IThreadListener {
 		if (leftClicks <= 0) {
 			if (objectMouseOver == null) {
 				LOGGER.error("Null returned as 'hitResult', this shouldn't happen!");
-				
+
 				if (playerController.isNotCreative()) leftClicks = 10;
 			} else if (!player.isRowingBoat()) {
 				switch (objectMouseOver.typeOfHit) {
@@ -1172,7 +1170,7 @@ public class Minecraft implements IThreadListener {
 						player.resetCooldown();
 					}
 				}
-				
+
 				player.swingArm(Hand.MAIN_HAND);
 			}
 		}

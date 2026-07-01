@@ -1,7 +1,7 @@
 package net.minecraft.client.gui.game;
 
-import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.chat.ChatScreen;
+import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.network.play.client.CPacketEntityAction;

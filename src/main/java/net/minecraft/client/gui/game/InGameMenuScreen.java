@@ -1,13 +1,13 @@
 package net.minecraft.client.gui.game;
 
-import net.minecraft.client.gui.component.Button;
-import net.minecraft.client.gui.option.OptionsScreen;
 import net.minecraft.client.gui.Screen;
-import net.minecraft.client.gui.option.ShareToLanScreen;
 import net.minecraft.client.gui.achievement.StatsScreen;
 import net.minecraft.client.gui.advancements.AdvancementsScreen;
+import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.menu.MainMenuScreen;
 import net.minecraft.client.gui.menu.MultiplayerScreen;
+import net.minecraft.client.gui.option.OptionsScreen;
+import net.minecraft.client.gui.option.ShareToLanScreen;
 import net.minecraft.client.resources.I18n;
 
 public class InGameMenuScreen extends Screen {

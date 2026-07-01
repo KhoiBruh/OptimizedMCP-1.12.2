@@ -6,6 +6,7 @@ import net.minecraft.util.Facing;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.math.MathHelper;
 import org.joml.Vector3f;
+
 import java.lang.reflect.Type;
 import java.util.Locale;
 import java.util.Map;

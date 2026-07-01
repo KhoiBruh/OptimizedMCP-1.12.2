@@ -1,7 +1,7 @@
 package net.minecraft.block;
 
-import net.minecraft.block.material.PushReaction;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockRenderType;
