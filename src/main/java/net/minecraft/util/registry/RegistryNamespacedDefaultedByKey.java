@@ -1,6 +1,6 @@
 package net.minecraft.util.registry;
 
-import org.apache.commons.lang3.Validate;
+import net.minecraft.util.Validate;
 
 import java.util.Random;
 

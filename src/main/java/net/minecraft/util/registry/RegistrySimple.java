@@ -1,7 +1,7 @@
 package net.minecraft.util.registry;
 
 import com.google.common.collect.Maps;
-import org.apache.commons.lang3.Validate;
+import net.minecraft.util.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

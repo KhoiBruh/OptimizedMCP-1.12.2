@@ -5,7 +5,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
-import org.apache.commons.lang3.Validate;
+import net.minecraft.util.Validate;
 
 public class SPacketSoundEffect implements Packet<INetHandlerPlayClient> {
 

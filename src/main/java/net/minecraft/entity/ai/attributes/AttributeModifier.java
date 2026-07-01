@@ -1,6 +1,6 @@
 package net.minecraft.entity.ai.attributes;
 
-import org.apache.commons.lang3.Validate;
+import net.minecraft.util.Validate;
 
 import java.util.UUID;
 
@@ -87,11 +87,6 @@ public class AttributeModifier {
 	public int hashCode() {
 
 		return id != null ? id.hashCode() : 0;
-	}
-
-	public String toString() {
-
-		return "AttributeModifier{amount=" + amount + ", operation=" + operation + ", name='" + name + '\'' + ", id=" + id + ", serialize=" + isSaved + '}';
 	}
 
 }

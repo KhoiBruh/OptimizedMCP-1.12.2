@@ -3,7 +3,7 @@ package net.minecraft.client.audio;
 import com.google.common.collect.Lists;
 import com.google.gson.*;
 import net.minecraft.util.JsonUtils;
-import org.apache.commons.lang3.Validate;
+import net.minecraft.util.Validate;
 
 import java.lang.reflect.Type;
 import java.util.List;
