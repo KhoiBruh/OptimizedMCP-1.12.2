@@ -9,12 +9,9 @@ import net.minecraft.client.gui.component.LanguageButton;
 import net.minecraft.client.gui.game.WinGameScreen;
 import net.minecraft.client.gui.option.LanguageScreen;
 import net.minecraft.client.gui.option.OptionsScreen;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.DynamicTexture;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.util.ResourceLocation;
@@ -26,7 +23,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import net.minecraft.client.util.Mouse;
 import org.lwjgl.opengl.GL;
-import net.minecraft.client.util.Projection;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -48,10 +44,6 @@ public class MainMenuScreen extends Screen {
 	private static final ResourceLocation MINECRAFT_TITLE_TEXTURES = new ResourceLocation("textures/gui/title/minecraft.png");
 	private static final ResourceLocation field_194400_H = new ResourceLocation("textures/gui/title/edition.png");
 	/**
-	 * An array of all the paths to the panorama pictures.
-	 */
-	private static final ResourceLocation[] TITLE_PANORAMA_PATHS = new ResourceLocation[]{new ResourceLocation("textures/gui/title/background/panorama_0.png"), new ResourceLocation("textures/gui/title/background/panorama_1.png"), new ResourceLocation("textures/gui/title/background/panorama_2.png"), new ResourceLocation("textures/gui/title/background/panorama_3.png"), new ResourceLocation("textures/gui/title/background/panorama_4.png"), new ResourceLocation("textures/gui/title/background/panorama_5.png")};
-	/**
 	 * A random number between 0.0 and 1.0, used to determine if the title screen says <a
 	 * href="https://minecraft.gamepedia.com/Menu_screen#Minceraft">Minceraft</a> instead of Minecraft. Set during
 	 * construction; if the value is less than .0001, then Minceraft is displayed.
@@ -61,17 +53,8 @@ public class MainMenuScreen extends Screen {
 	 * The Object object utilized as a thread lock when performing non thread-safe operations
 	 */
 	private final Object threadLock = new Object();
-	/**
-	 * The splash message.
-	 */
 	private String splashText;
-	/**
-	 * Timer used to rotate the panorama, increases every tick.
-	 */
-	private float panoramaTimer;
-	/**
-	 * Texture allocated for the current viewport of the main menu's panorama background.
-	 */
+
 	private DynamicTexture viewportTexture;
 	/**
 	 * Width of openGLWarning2
@@ -109,7 +92,6 @@ public class MainMenuScreen extends Screen {
 	 * Link to the Mojang Support about minimum requirements
 	 */
 	private String openGLWarningLink;
-	private ResourceLocation backgroundTexture;
 
 	private int widthCopyright;
 	private int widthCopyrightRest;
@@ -135,13 +117,10 @@ public class MainMenuScreen extends Screen {
 			}
 
 			if (!list.isEmpty()) {
-				while (true) {
+				do {
 					splashText = list.get(RANDOM.nextInt(list.size()));
 
-					if (splashText.hashCode() != 125780783) {
-						break;
-					}
-				}
+				} while (splashText.hashCode() == 125780783);
 			}
 		} catch (IOException ignored) {
 		} finally {
@@ -181,7 +160,6 @@ public class MainMenuScreen extends Screen {
 	public void init() {
 
 		viewportTexture = new DynamicTexture(256, 256);
-		backgroundTexture = mc.getTextureManager().getDynamicTextureLocation("background", viewportTexture);
 		widthCopyright = fontRenderer.getStringWidth("Copyright Mojang AB. Do not distribute!");
 		widthCopyrightRest = width - widthCopyright - 2;
 		Calendar calendar = Calendar.getInstance();
@@ -267,163 +245,11 @@ public class MainMenuScreen extends Screen {
 	}
 
 	/**
-	 * Draws the main menu panorama
-	 */
-	private void drawPanorama(int mouseX, int mouseY, float partialTicks) {
-
-		Tessellator tessellator = Tessellator.getInstance();
-		BufferBuilder bufferbuilder = tessellator.getBuffer();
-		GlStateManager.matrixMode(5889);
-		GlStateManager.pushMatrix();
-		GlStateManager.loadIdentity();
-		Projection.perspective(120F, 1F, 0.05F, 10F);
-		GlStateManager.matrixMode(5888);
-		GlStateManager.pushMatrix();
-		GlStateManager.loadIdentity();
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.rotate(180F, 1F, 0F, 0F);
-		GlStateManager.rotate(90F, 0F, 0F, 1F);
-		GlStateManager.enableBlend();
-		GlStateManager.disableAlpha();
-		GlStateManager.disableCull();
-		GlStateManager.depthMask(false);
-		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-		int i = 8;
-
-		for (int j = 0; j < 64; ++j) {
-			GlStateManager.pushMatrix();
-			float f = ((float) (j % 8) / 8F - 0.5F) / 64F;
-			float f1 = ((float) (j / 8) / 8F - 0.5F) / 64F;
-			float f2 = 0F;
-			GlStateManager.translate(f, f1, 0F);
-			GlStateManager.rotate(MathHelper.sin(panoramaTimer / 400F) * 25F + 20F, 1F, 0F, 0F);
-			GlStateManager.rotate(-panoramaTimer * 0.1F, 0F, 1F, 0F);
-
-			for (int k = 0; k < 6; ++k) {
-				GlStateManager.pushMatrix();
-
-				if (k == 1) {
-					GlStateManager.rotate(90F, 0F, 1F, 0F);
-				}
-
-				if (k == 2) {
-					GlStateManager.rotate(180F, 0F, 1F, 0F);
-				}
-
-				if (k == 3) {
-					GlStateManager.rotate(-90F, 0F, 1F, 0F);
-				}
-
-				if (k == 4) {
-					GlStateManager.rotate(90F, 1F, 0F, 0F);
-				}
-
-				if (k == 5) {
-					GlStateManager.rotate(-90F, 1F, 0F, 0F);
-				}
-
-				mc.getTextureManager().bindTexture(TITLE_PANORAMA_PATHS[k]);
-				bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-				int l = 255 / (j + 1);
-				float f3 = 0F;
-				bufferbuilder.pos(-1D, -1D, 1D).tex(0D, 0D).color(255, 255, 255, l).endVertex();
-				bufferbuilder.pos(1D, -1D, 1D).tex(1D, 0D).color(255, 255, 255, l).endVertex();
-				bufferbuilder.pos(1D, 1D, 1D).tex(1D, 1D).color(255, 255, 255, l).endVertex();
-				bufferbuilder.pos(-1D, 1D, 1D).tex(0D, 1D).color(255, 255, 255, l).endVertex();
-				tessellator.draw();
-				GlStateManager.popMatrix();
-			}
-
-			GlStateManager.popMatrix();
-			GlStateManager.colorMask(true, true, true, false);
-		}
-
-		bufferbuilder.setTranslation(0D, 0D, 0D);
-		GlStateManager.colorMask(true, true, true, true);
-		GlStateManager.matrixMode(5889);
-		GlStateManager.popMatrix();
-		GlStateManager.matrixMode(5888);
-		GlStateManager.popMatrix();
-		GlStateManager.depthMask(true);
-		GlStateManager.enableCull();
-		GlStateManager.enableDepth();
-	}
-
-	/**
-	 * Rotate and blurs the skybox view in the main menu
-	 */
-	private void rotateAndBlurSkybox() {
-
-		mc.getTextureManager().bindTexture(backgroundTexture);
-		GlStateManager.glTexParameteri(3553, 10241, 9729);
-		GlStateManager.glTexParameteri(3553, 10240, 9729);
-		GlStateManager.glCopyTexSubImage2D(3553, 0, 0, 0, 0, 0, 256, 256);
-		GlStateManager.enableBlend();
-		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-		GlStateManager.colorMask(true, true, true, false);
-		Tessellator tessellator = Tessellator.getInstance();
-		BufferBuilder bufferbuilder = tessellator.getBuffer();
-		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-		GlStateManager.disableAlpha();
-		int i = 3;
-
-		for (int j = 0; j < 3; ++j) {
-			float f = 1F / (float) (j + 1);
-			int k = width;
-			int l = height;
-			float f1 = (float) (j - 1) / 256F;
-			bufferbuilder.pos(k, l, zLevel).tex(0F + f1, 1D).color(1F, 1F, 1F, f).endVertex();
-			bufferbuilder.pos(k, 0D, zLevel).tex(1F + f1, 1D).color(1F, 1F, 1F, f).endVertex();
-			bufferbuilder.pos(0D, 0D, zLevel).tex(1F + f1, 0D).color(1F, 1F, 1F, f).endVertex();
-			bufferbuilder.pos(0D, l, zLevel).tex(0F + f1, 0D).color(1F, 1F, 1F, f).endVertex();
-		}
-
-		tessellator.draw();
-		GlStateManager.enableAlpha();
-		GlStateManager.colorMask(true, true, true, true);
-	}
-
-	/**
-	 * Renders the skybox in the main menu
-	 */
-	private void renderSkybox(int mouseX, int mouseY, float partialTicks) {
-
-		mc.getFramebuffer().unbindFramebuffer();
-		GlStateManager.viewport(0, 0, 256, 256);
-		drawPanorama(mouseX, mouseY, partialTicks);
-		rotateAndBlurSkybox();
-		rotateAndBlurSkybox();
-		rotateAndBlurSkybox();
-		rotateAndBlurSkybox();
-		rotateAndBlurSkybox();
-		rotateAndBlurSkybox();
-		rotateAndBlurSkybox();
-		mc.getFramebuffer().bindFramebuffer(true);
-		GlStateManager.viewport(0, 0, mc.getWindow().getWidth(), mc.getWindow().getHeight());
-		float f = 120F / (float) (Math.max(width, height));
-		float f1 = (float) height * f / 256F;
-		float f2 = (float) width * f / 256F;
-		int i = width;
-		int j = height;
-		Tessellator tessellator = Tessellator.getInstance();
-		BufferBuilder bufferbuilder = tessellator.getBuffer();
-		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-		bufferbuilder.pos(0D, j, zLevel).tex(0.5F - f1, 0.5F + f2).color(1F, 1F, 1F, 1F).endVertex();
-		bufferbuilder.pos(i, j, zLevel).tex(0.5F - f1, 0.5F - f2).color(1F, 1F, 1F, 1F).endVertex();
-		bufferbuilder.pos(i, 0D, zLevel).tex(0.5F + f1, 0.5F - f2).color(1F, 1F, 1F, 1F).endVertex();
-		bufferbuilder.pos(0D, 0D, zLevel).tex(0.5F + f1, 0.5F + f2).color(1F, 1F, 1F, 1F).endVertex();
-		tessellator.draw();
-	}
-
-	/**
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
-		int i = 274;
 		int j = width / 2 - 137;
-		int k = 30;
 		mc.getTextureManager().bindTexture(MINECRAFT_TITLE_TEXTURES);
 		GlStateManager.color(1F, 1F, 1F, 1F);
 

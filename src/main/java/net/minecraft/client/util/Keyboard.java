@@ -20,8 +20,8 @@ public final class Keyboard {
 	private static final Map<Integer, String> keyNames = new HashMap<>();
 	
 	private static final Deque<KeyEvent> eventQueue = new ArrayDeque<>();
-	private static KeyEvent pendingKeyEvent = null;
-	private static KeyEvent currentEvent = null;
+	private static KeyEvent pendingKeyEvent;
+	private static KeyEvent currentEvent;
 
 	private static void flushPending() {
 		if (pendingKeyEvent != null) {
@@ -32,10 +32,10 @@ public final class Keyboard {
 	
 	@Getter
 	@Setter
-	private static boolean repeat = false;
+	private static boolean repeat;
 	
 	@Getter
-	private static boolean created = false;
+	private static boolean created;
 	
 	private static Window window;
 	private static GLFWKeyCallback keyCb;

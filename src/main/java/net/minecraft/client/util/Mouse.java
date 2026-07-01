@@ -16,21 +16,20 @@ public final class Mouse {
 	private static final Deque<MouseEvent> eventQueue = new ArrayDeque<>();
 	private static Window window;
 	
-	private static double x = 0;
-	private static double y = 0;
-	private static double lastX = 0;
-	private static double lastY = 0;
-	
-	private static double lastEventX = 0;
-	private static double lastEventY = 0;
-	
-	@Getter
-	private static boolean grabbed = false;
+	private static double x;
+	private static double y;
+	private static double lastX;
+	private static double lastY;
+	private static double lastEventX;
+	private static double lastEventY;
 	
 	@Getter
-	private static boolean created = false;
+	private static boolean grabbed;
 	
-	private static MouseEvent currentEvent = null;
+	@Getter
+	private static boolean created;
+	
+	private static MouseEvent currentEvent;
 	
 	private static GLFWCursorPosCallback posCb;
 	private static GLFWMouseButtonCallback buttonCb;
@@ -172,16 +171,6 @@ public final class Mouse {
 	
 	public static boolean getEventButtonState() {
 		return currentEvent != null && currentEvent.buttonState;
-	}
-	
-	public static int getEventX() {
-		if (currentEvent == null) return 0;
-		return (int) currentEvent.x;
-	}
-	
-	public static int getEventY() {
-		if (currentEvent == null) return 0;
-		return (window != null ? window.getHeight() : 0) - (int) currentEvent.y;
 	}
 	
 	public static int getEventDWheel() {
