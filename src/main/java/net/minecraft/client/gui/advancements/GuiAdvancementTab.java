@@ -17,7 +17,7 @@ import java.util.Objects;
 public class GuiAdvancementTab extends Gui {
 
 	private final Minecraft minecraft;
-	private final GuiScreenAdvancements screen;
+	private final AdvancementsScreen screen;
 	private final AdvancementTabType type;
 	private final int index;
 	private final Advancement advancement;
@@ -35,7 +35,7 @@ public class GuiAdvancementTab extends Gui {
 	private float fade;
 	private boolean centered;
 
-	public GuiAdvancementTab(Minecraft p_i47589_1_, GuiScreenAdvancements p_i47589_2_, AdvancementTabType p_i47589_3_, int p_i47589_4_, Advancement p_i47589_5_, DisplayInfo p_i47589_6_) {
+	public GuiAdvancementTab(Minecraft p_i47589_1_, AdvancementsScreen p_i47589_2_, AdvancementTabType p_i47589_3_, int p_i47589_4_, Advancement p_i47589_5_, DisplayInfo p_i47589_6_) {
 
 		minecraft = p_i47589_1_;
 		screen = p_i47589_2_;
@@ -50,7 +50,7 @@ public class GuiAdvancementTab extends Gui {
 	}
 
 	
-	public static GuiAdvancementTab create(Minecraft p_193936_0_, GuiScreenAdvancements p_193936_1_, int p_193936_2_, Advancement p_193936_3_) {
+	public static GuiAdvancementTab create(Minecraft p_193936_0_, AdvancementsScreen p_193936_1_, int p_193936_2_, Advancement p_193936_3_) {
 
 		if (p_193936_3_.getDisplay() == null) {
 			return null;
@@ -190,7 +190,7 @@ public class GuiAdvancementTab extends Gui {
 		return guis.get(p_191794_1_);
 	}
 
-	public GuiScreenAdvancements getScreen() {
+	public AdvancementsScreen getScreen() {
 
 		return screen;
 	}

@@ -3,7 +3,7 @@ package net.minecraft.client.gui.recipebook;
 import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.Screen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
@@ -54,7 +54,7 @@ public class GhostRecipe {
 
 	public void render(Minecraft p_194188_1_, int p_194188_2_, int p_194188_3_, boolean p_194188_4_, float p_194188_5_) {
 
-		if (!GuiScreen.isCtrlKeyDown()) {
+		if (!Screen.isCtrlDown()) {
 			time += p_194188_5_;
 		}
 

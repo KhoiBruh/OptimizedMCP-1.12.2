@@ -5,8 +5,8 @@ import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import it.unimi.dsi.fastutil.objects.ObjectSet;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.component.GuiButtonToggle;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.component.ToggleButton;
+import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.GuiTextField;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
@@ -36,17 +36,17 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 
 	protected static final ResourceLocation RECIPE_BOOK = new ResourceLocation("textures/gui/recipe_book.png");
 	private final GhostRecipe ghostRecipe = new GhostRecipe();
-	private final List<GuiButtonRecipeTab> recipeTabs = Lists.newArrayList(new GuiButtonRecipeTab(0, CreativeTabs.SEARCH), new GuiButtonRecipeTab(0, CreativeTabs.TOOLS), new GuiButtonRecipeTab(0, CreativeTabs.BUILDING_BLOCKS), new GuiButtonRecipeTab(0, CreativeTabs.MISC), new GuiButtonRecipeTab(0, CreativeTabs.REDSTONE));
+	private final List<RecipeTabButton> recipeTabs = Lists.newArrayList(new RecipeTabButton(0, CreativeTabs.SEARCH), new RecipeTabButton(0, CreativeTabs.TOOLS), new RecipeTabButton(0, CreativeTabs.BUILDING_BLOCKS), new RecipeTabButton(0, CreativeTabs.MISC), new RecipeTabButton(0, CreativeTabs.REDSTONE));
 	private final RecipeBookPage recipeBookPage = new RecipeBookPage();
 	private final RecipeItemHelper stackedContents = new RecipeItemHelper();
 	private int xOffset;
 	private int width;
 	private int height;
-	private GuiButtonRecipeTab currentTab;
+	private RecipeTabButton currentTab;
 	/**
 	 * This button toggles between showing all recipes and showing only craftable recipes
 	 */
-	private GuiButtonToggle toggleRecipesBtn;
+	private ToggleButton toggleRecipesBtn;
 	private InventoryCrafting craftingSlots;
 	private Minecraft mc;
 	private GuiTextField searchBar;
@@ -87,7 +87,7 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 		searchBar.setTextColor(16777215);
 		recipeBookPage.init(mc, i, j);
 		recipeBookPage.addListener(this);
-		toggleRecipesBtn = new GuiButtonToggle(0, i + 110, j + 12, 26, 16, recipeBook.isFilteringCraftable());
+		toggleRecipesBtn = new ToggleButton(0, i + 110, j + 12, 26, 16, recipeBook.isFilteringCraftable());
 		toggleRecipesBtn.initTextureValues(152, 41, 28, 18, RECIPE_BOOK);
 		updateCollections(false);
 		updateTabs();
@@ -176,7 +176,7 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 		int k = 27;
 		int l = 0;
 
-		for (GuiButtonRecipeTab guibuttonrecipetab : recipeTabs) {
+		for (RecipeTabButton guibuttonrecipetab : recipeTabs) {
 			CreativeTabs creativetabs = guibuttonrecipetab.getCategory();
 
 			if (creativetabs == CreativeTabs.SEARCH) {
@@ -222,7 +222,7 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 			searchBar.drawTextBox();
 			RenderHelper.disableStandardItemLighting();
 
-			for (GuiButtonRecipeTab guibuttonrecipetab : recipeTabs) {
+			for (RecipeTabButton guibuttonrecipetab : recipeTabs) {
 				guibuttonrecipetab.drawButton(mc, mouseX, mouseY, partialTicks);
 			}
 
@@ -286,7 +286,7 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 					}
 
 					ghostRecipe.clear();
-					mc.playerController.func_194338_a(mc.player.openContainer.windowId, irecipe, GuiScreen.isShiftKeyDown(), mc.player);
+					mc.playerController.func_194338_a(mc.player.openContainer.windowId, irecipe, Screen.isShiftDown(), mc.player);
 
 					if (!isOffsetNextToMainGUI() && p_191862_3_ == 0) {
 						setVisible(false);
@@ -307,7 +307,7 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 				updateCollections(false);
 				return true;
 			} else {
-				for (GuiButtonRecipeTab guibuttonrecipetab : recipeTabs) {
+				for (RecipeTabButton guibuttonrecipetab : recipeTabs) {
 					if (guibuttonrecipetab.mousePressed(mc, p_191862_1_, p_191862_2_)) {
 						if (currentTab != guibuttonrecipetab) {
 							guibuttonrecipetab.playPressSound(mc.getSoundHandler());

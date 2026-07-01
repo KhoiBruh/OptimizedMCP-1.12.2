@@ -5,7 +5,7 @@ import com.google.common.base.Predicates;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.Screen;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -317,21 +317,21 @@ public class GuiTextField extends Gui {
 
 		if (!isFocused) {
 			return false;
-		} else if (GuiScreen.isKeyComboCtrlA(keyCode)) {
+		} else if (Screen.isCtrlA(keyCode)) {
 			setCursorPositionEnd();
 			setSelectionPos(0);
 			return true;
-		} else if (GuiScreen.isKeyComboCtrlC(keyCode)) {
-			GuiScreen.setClipboardString(getSelectedText());
+		} else if (Screen.isCtrlC(keyCode)) {
+			Screen.setClipboard(getSelectedText());
 			return true;
-		} else if (GuiScreen.isKeyComboCtrlV(keyCode)) {
+		} else if (Screen.isCtrlV(keyCode)) {
 			if (isEnabled) {
-				writeText(GuiScreen.getClipboardString());
+				writeText(Screen.getClipboard());
 			}
 
 			return true;
-		} else if (GuiScreen.isKeyComboCtrlX(keyCode)) {
-			GuiScreen.setClipboardString(getSelectedText());
+		} else if (Screen.isCtrlX(keyCode)) {
+			Screen.setClipboard(getSelectedText());
 
 			if (isEnabled) {
 				writeText("");
@@ -342,7 +342,7 @@ public class GuiTextField extends Gui {
 			switch (keyCode) {
 				case 14:
 				case GLFW_KEY_BACKSPACE:
-					if (GuiScreen.isCtrlKeyDown()) {
+					if (Screen.isCtrlDown()) {
 						if (isEnabled) {
 							deleteWords(-1);
 						}
@@ -354,7 +354,7 @@ public class GuiTextField extends Gui {
 
 				case 199:
 				case GLFW_KEY_HOME:
-					if (GuiScreen.isShiftKeyDown()) {
+					if (Screen.isShiftDown()) {
 						setSelectionPos(0);
 					} else {
 						setCursorPositionZero();
@@ -364,13 +364,13 @@ public class GuiTextField extends Gui {
 
 				case 203:
 				case GLFW_KEY_LEFT:
-					if (GuiScreen.isShiftKeyDown()) {
-						if (GuiScreen.isCtrlKeyDown()) {
+					if (Screen.isShiftDown()) {
+						if (Screen.isCtrlDown()) {
 							setSelectionPos(getNthWordFromPos(-1, getSelectionEnd()));
 						} else {
 							setSelectionPos(getSelectionEnd() - 1);
 						}
-					} else if (GuiScreen.isCtrlKeyDown()) {
+					} else if (Screen.isCtrlDown()) {
 						setCursorPosition(getNthWordFromCursor(-1));
 					} else {
 						moveCursorBy(-1);
@@ -380,13 +380,13 @@ public class GuiTextField extends Gui {
 
 				case 205:
 				case GLFW_KEY_RIGHT:
-					if (GuiScreen.isShiftKeyDown()) {
-						if (GuiScreen.isCtrlKeyDown()) {
+					if (Screen.isShiftDown()) {
+						if (Screen.isCtrlDown()) {
 							setSelectionPos(getNthWordFromPos(1, getSelectionEnd()));
 						} else {
 							setSelectionPos(getSelectionEnd() + 1);
 						}
-					} else if (GuiScreen.isCtrlKeyDown()) {
+					} else if (Screen.isCtrlDown()) {
 						setCursorPosition(getNthWordFromCursor(1));
 					} else {
 						moveCursorBy(1);
@@ -396,7 +396,7 @@ public class GuiTextField extends Gui {
 
 				case 207:
 				case GLFW_KEY_END:
-					if (GuiScreen.isShiftKeyDown()) {
+					if (Screen.isShiftDown()) {
 						setSelectionPos(text.length());
 					} else {
 						setCursorPositionEnd();
@@ -406,7 +406,7 @@ public class GuiTextField extends Gui {
 
 				case 211:
 				case GLFW_KEY_DELETE:
-					if (GuiScreen.isCtrlKeyDown()) {
+					if (Screen.isCtrlDown()) {
 						if (isEnabled) {
 							deleteWords(1);
 						}

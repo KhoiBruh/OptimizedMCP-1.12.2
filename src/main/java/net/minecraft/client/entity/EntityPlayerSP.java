@@ -655,22 +655,22 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
 	public void openEditSign(TileEntitySign signTile) {
 
-		mc.displayScreen(new GuiEditSign(signTile));
+		mc.displayScreen(new EditSignScreen(signTile));
 	}
 
 	public void displayGuiEditCommandCart(CommandBlockBaseLogic commandBlock) {
 
-		mc.displayScreen(new GuiEditCommandBlockMinecart(commandBlock));
+		mc.displayScreen(new EditCommandBlockMinecartScreen(commandBlock));
 	}
 
 	public void displayGuiCommandBlock(TileEntityCommandBlock commandBlock) {
 
-		mc.displayScreen(new GuiCommandBlock(commandBlock));
+		mc.displayScreen(new CommandBlockScreen(commandBlock));
 	}
 
 	public void openEditStructure(TileEntityStructure structure) {
 
-		mc.displayScreen(new GuiEditStructure(structure));
+		mc.displayScreen(new EditStructureScreen(structure));
 	}
 
 	public void openBook(ItemStack stack, Hand hand) {
@@ -678,7 +678,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		Item item = stack.getItem();
 
 		if (item == Items.WRITABLE_BOOK) {
-			mc.displayScreen(new GuiScreenBook(this, stack, true));
+			mc.displayScreen(new BookScreen(this, stack, true));
 		}
 	}
 
@@ -690,29 +690,29 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		String s = chestInventory instanceof IInteractionObject ? ((IInteractionObject) chestInventory).guiID() : "minecraft:container";
 
 		if ("minecraft:chest".equals(s)) {
-			mc.displayScreen(new GuiChest(inventory, chestInventory));
+			mc.displayScreen(new ChestScreen(inventory, chestInventory));
 		} else if ("minecraft:hopper".equals(s)) {
-			mc.displayScreen(new GuiHopper(inventory, chestInventory));
+			mc.displayScreen(new HopperScreen(inventory, chestInventory));
 		} else if ("minecraft:furnace".equals(s)) {
-			mc.displayScreen(new GuiFurnace(inventory, chestInventory));
+			mc.displayScreen(new FurnaceScreen(inventory, chestInventory));
 		} else if ("minecraft:brewing_stand".equals(s)) {
-			mc.displayScreen(new GuiBrewingStand(inventory, chestInventory));
+			mc.displayScreen(new BrewingStandScreen(inventory, chestInventory));
 		} else if ("minecraft:beacon".equals(s)) {
-			mc.displayScreen(new GuiBeacon(inventory, chestInventory));
+			mc.displayScreen(new BeaconScreen(inventory, chestInventory));
 		} else if (!"minecraft:dispenser".equals(s) && !"minecraft:dropper".equals(s)) {
 			if ("minecraft:shulker_box".equals(s)) {
-				mc.displayScreen(new GuiShulkerBox(inventory, chestInventory));
+				mc.displayScreen(new ShulkerBoxScreen(inventory, chestInventory));
 			} else {
-				mc.displayScreen(new GuiChest(inventory, chestInventory));
+				mc.displayScreen(new ChestScreen(inventory, chestInventory));
 			}
 		} else {
-			mc.displayScreen(new GuiDispenser(inventory, chestInventory));
+			mc.displayScreen(new DispenserScreen(inventory, chestInventory));
 		}
 	}
 
 	public void openGuiHorseInventory(AbstractHorse horse, IInventory inventoryIn) {
 
-		mc.displayScreen(new GuiScreenHorseInventory(inventory, inventoryIn, horse));
+		mc.displayScreen(new HorseInventoryScreen(inventory, inventoryIn, horse));
 	}
 
 	public void displayGui(IInteractionObject guiOwner) {
@@ -720,17 +720,17 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		String s = guiOwner.guiID();
 
 		if ("minecraft:crafting_table".equals(s)) {
-			mc.displayScreen(new GuiCrafting(inventory, world));
+			mc.displayScreen(new CraftingScreen(inventory, world));
 		} else if ("minecraft:enchanting_table".equals(s)) {
-			mc.displayScreen(new GuiEnchantment(inventory, world, guiOwner));
+			mc.displayScreen(new EnchantScreen(inventory, world, guiOwner));
 		} else if ("minecraft:anvil".equals(s)) {
-			mc.displayScreen(new GuiRepair(inventory, world));
+			mc.displayScreen(new RepairScreen(inventory, world));
 		}
 	}
 
 	public void displayVillagerTradeGui(IMerchant villager) {
 
-		mc.displayScreen(new GuiMerchant(inventory, villager, world));
+		mc.displayScreen(new MerchantScreen(inventory, villager, world));
 	}
 
 	/**
@@ -790,8 +790,8 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		prevTimeInPortal = timeInPortal;
 
 		if (inPortal) {
-			if (mc.currentScreen != null && !mc.currentScreen.doesGuiPauseGame()) {
-				if (mc.currentScreen instanceof GuiContainer) {
+			if (mc.currentScreen != null && !mc.currentScreen.pauseGame()) {
+				if (mc.currentScreen instanceof ContainerScreen) {
 					closeScreen();
 				}
 

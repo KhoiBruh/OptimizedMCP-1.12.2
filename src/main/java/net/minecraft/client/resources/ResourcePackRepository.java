@@ -5,7 +5,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.util.concurrent.*;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.loading.GuiScreenWorking;
+import net.minecraft.client.gui.loading.WorkingScreen;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureUtil;
@@ -212,7 +212,7 @@ public class ResourcePackRepository {
 			}
 
 			deleteOldServerResourcesPacks();
-			final GuiScreenWorking guiscreenworking = new GuiScreenWorking();
+			final WorkingScreen guiscreenworking = new WorkingScreen();
 			Map<String, String> map = getDownloadHeaders();
 			final Minecraft minecraft = Minecraft.getMinecraft();
 			Futures.getUnchecked(minecraft.addScheduledTask(() -> minecraft.displayScreen(guiscreenworking)));

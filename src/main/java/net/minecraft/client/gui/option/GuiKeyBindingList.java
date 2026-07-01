@@ -1,7 +1,7 @@
 package net.minecraft.client.gui.option;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.component.GuiButton;
+import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.GuiListExtended;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
@@ -13,12 +13,12 @@ import java.util.Arrays;
 
 public class GuiKeyBindingList extends GuiListExtended {
 
-	private final GuiControls controlsScreen;
+	private final ControlsScreen controlsScreen;
 	private final Minecraft mc;
 	private final GuiListExtended.IGuiListEntry[] listEntries;
 	private int maxListLabelWidth;
 
-	public GuiKeyBindingList(GuiControls controls, Minecraft mcIn) {
+	public GuiKeyBindingList(ControlsScreen controls, Minecraft mcIn) {
 
 		super(mcIn, controls.width + 45, controls.height, 63, controls.height - 32, 20);
 		controlsScreen = controls;
@@ -108,15 +108,15 @@ public class GuiKeyBindingList extends GuiListExtended {
 
 		private final KeyBinding keybinding;
 		private final String keyDesc;
-		private final GuiButton btnChangeKeyBinding;
-		private final GuiButton btnReset;
+		private final Button btnChangeKeyBinding;
+		private final Button btnReset;
 
 		private KeyEntry(KeyBinding name) {
 
 			keybinding = name;
 			keyDesc = I18n.format(name.getDescription());
-			btnChangeKeyBinding = new GuiButton(0, 0, 0, 75, 20, I18n.format(name.getDescription()));
-			btnReset = new GuiButton(0, 0, 0, 50, 20, I18n.format("controls.reset"));
+			btnChangeKeyBinding = new Button(0, 0, 0, 75, 20, I18n.format(name.getDescription()));
+			btnReset = new Button(0, 0, 0, 50, 20, I18n.format("controls.reset"));
 		}
 
 		public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected, float partialTicks) {

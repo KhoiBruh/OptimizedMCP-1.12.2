@@ -3,8 +3,8 @@ package net.minecraft.client.resources;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.component.GuiListExtended;
-import net.minecraft.client.gui.menu.GuiScreenResourcePacks;
-import net.minecraft.client.gui.menu.GuiYesNo;
+import net.minecraft.client.gui.menu.ResourcePacksScreen;
+import net.minecraft.client.gui.menu.YesNoScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -19,9 +19,9 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
 	private static final ITextComponent INCOMPATIBLE_OLD = new TextComponentTranslation("resourcePack.incompatible.old");
 	private static final ITextComponent INCOMPATIBLE_NEW = new TextComponentTranslation("resourcePack.incompatible.new");
 	protected final Minecraft mc;
-	protected final GuiScreenResourcePacks resourcePacksGUI;
+	protected final ResourcePacksScreen resourcePacksGUI;
 
-	public ResourcePackListEntry(GuiScreenResourcePacks resourcePacksGUIIn) {
+	public ResourcePackListEntry(ResourcePacksScreen resourcePacksGUIIn) {
 
 		resourcePacksGUI = resourcePacksGUIIn;
 		mc = Minecraft.getMinecraft();
@@ -159,7 +159,7 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
 				} else {
 					String s = I18n.format("resourcePack.incompatible.confirm.title");
 					String s1 = I18n.format("resourcePack.incompatible.confirm." + (l > 3 ? "new" : "old"));
-					mc.displayScreen(new GuiYesNo((result, id) -> {
+					mc.displayScreen(new YesNoScreen((result, id) -> {
 
 						List<ResourcePackListEntry> list2 = resourcePacksGUI.getListContaining(this);
 						mc.displayScreen(resourcePacksGUI);

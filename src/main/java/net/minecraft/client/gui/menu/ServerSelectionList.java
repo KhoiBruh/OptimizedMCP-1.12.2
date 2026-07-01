@@ -10,13 +10,13 @@ import java.util.List;
 
 public class ServerSelectionList extends GuiListExtended {
 
-	private final GuiMultiplayer owner;
+	private final MultiplayerScreen owner;
 	private final List<ServerListEntryNormal> serverListInternet = Lists.newArrayList();
 	private final List<ServerListEntryLanDetected> serverListLan = Lists.newArrayList();
 	private final GuiListExtended.IGuiListEntry lanScanEntry = new ServerListEntryLanScan();
 	private int selectedSlotIndex = -1;
 
-	public ServerSelectionList(GuiMultiplayer ownerIn, Minecraft mcIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn) {
+	public ServerSelectionList(MultiplayerScreen ownerIn, Minecraft mcIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn) {
 
 		super(mcIn, widthIn, heightIn, topIn, bottomIn, slotHeightIn);
 		owner = ownerIn;

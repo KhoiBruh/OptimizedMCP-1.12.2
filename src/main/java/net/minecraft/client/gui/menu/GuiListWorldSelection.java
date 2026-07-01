@@ -3,7 +3,7 @@ package net.minecraft.client.gui.menu;
 import com.google.common.collect.Lists;
 import net.minecraft.client.AnvilConverterException;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.error.GuiErrorScreen;
+import net.minecraft.client.gui.error.ErrorScreen;
 import net.minecraft.client.gui.component.GuiListExtended;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.world.storage.ISaveFormat;
@@ -16,7 +16,7 @@ import java.util.List;
 public class GuiListWorldSelection extends GuiListExtended {
 
 	private static final Logger LOGGER = LogManager.getLogger();
-	private final GuiWorldSelection worldSelection;
+	private final WorldSelectScreen worldSelection;
 	private final List<GuiListWorldSelectionEntry> entries = Lists.newArrayList();
 
 	/**
@@ -24,7 +24,7 @@ public class GuiListWorldSelection extends GuiListExtended {
 	 */
 	private int selectedIdx = -1;
 
-	public GuiListWorldSelection(GuiWorldSelection p_i46590_1_, Minecraft clientIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn) {
+	public GuiListWorldSelection(WorldSelectScreen p_i46590_1_, Minecraft clientIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn) {
 
 		super(clientIn, widthIn, heightIn, topIn, bottomIn, slotHeightIn);
 		worldSelection = p_i46590_1_;
@@ -40,7 +40,7 @@ public class GuiListWorldSelection extends GuiListExtended {
 			list = isaveformat.getSaveList();
 		} catch (AnvilConverterException anvilconverterexception) {
 			LOGGER.error("Couldn't load level list", anvilconverterexception);
-			mc.displayScreen(new GuiErrorScreen(I18n.format("selectWorld.unable_to_load"), anvilconverterexception.getMessage()));
+			mc.displayScreen(new ErrorScreen(I18n.format("selectWorld.unable_to_load"), anvilconverterexception.getMessage()));
 			return;
 		}
 
@@ -97,7 +97,7 @@ public class GuiListWorldSelection extends GuiListExtended {
 		return selectedIdx >= 0 && selectedIdx < getSize() ? getListEntry(selectedIdx) : null;
 	}
 
-	public GuiWorldSelection getGuiWorldSelection() {
+	public WorldSelectScreen getGuiWorldSelection() {
 
 		return worldSelection;
 	}

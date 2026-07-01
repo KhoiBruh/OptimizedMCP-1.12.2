@@ -209,7 +209,7 @@ public abstract class GuiSlot {
 		initialClickY = -2;
 	}
 
-	public void actionPerformed(GuiButton button) {
+	public void actionPerformed(Button button) {
 
 		if (button.enabled) {
 			if (button.id == scrollUpButtonID) {

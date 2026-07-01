@@ -1061,7 +1061,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 				GlStateManager.clear(256);
 
 				try {
-					mc.currentScreen.drawScreen(k1, l1, mc.getTickLength());
+					mc.currentScreen.draw(k1, l1, mc.getTickLength());
 				} catch (Throwable throwable) {
 					CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Rendering screen");
 					CrashReportCategory crashreportcategory = crashreport.makeCategory("Screen render details");

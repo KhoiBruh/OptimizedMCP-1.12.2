@@ -4,7 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.component.GuiListExtended;
-import net.minecraft.client.gui.loading.GuiScreenWorking;
+import net.minecraft.client.gui.loading.WorkingScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.resources.I18n;
@@ -34,7 +34,7 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 	private static final ResourceLocation ICON_MISSING = new ResourceLocation("textures/misc/unknown_server.png");
 	private static final ResourceLocation ICON_OVERLAY_LOCATION = new ResourceLocation("textures/gui/world_selection.png");
 	private final Minecraft client;
-	private final GuiWorldSelection worldSelScreen;
+	private final WorldSelectScreen worldSelScreen;
 	private final WorldSummary worldSummary;
 	private final ResourceLocation iconLocation;
 	private final GuiListWorldSelection containingListSel;
@@ -155,7 +155,7 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 	public void joinWorld() {
 
 		if (worldSummary.askToOpenWorld()) {
-			client.displayScreen(new GuiYesNo((result, id) -> {
+			client.displayScreen(new YesNoScreen((result, id) -> {
 
 				if (result) {
 					loadWorld();
@@ -170,10 +170,10 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 
 	public void deleteWorld() {
 
-		client.displayScreen(new GuiYesNo((result, id) -> {
+		client.displayScreen(new YesNoScreen((result, id) -> {
 
 			if (result) {
-				client.displayScreen(new GuiScreenWorking());
+				client.displayScreen(new WorkingScreen());
 				ISaveFormat isaveformat = client.getSaveLoader();
 				isaveformat.flushCache();
 				isaveformat.deleteWorldDirectory(worldSummary.getFileName());
@@ -186,13 +186,13 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 
 	public void editWorld() {
 
-		client.displayScreen(new GuiWorldEdit(worldSelScreen, worldSummary.getFileName()));
+		client.displayScreen(new WorldEditScreen(worldSelScreen, worldSummary.getFileName()));
 	}
 
 	public void recreateWorld() {
 
-		client.displayScreen(new GuiScreenWorking());
-		GuiCreateWorld guicreateworld = new GuiCreateWorld(worldSelScreen);
+		client.displayScreen(new WorkingScreen());
+		CreateWorldScreen guicreateworld = new CreateWorldScreen(worldSelScreen);
 		ISaveHandler isavehandler = client.getSaveLoader().getSaveLoader(worldSummary.getFileName(), false);
 		WorldInfo worldinfo = isavehandler.loadWorldInfo();
 		isavehandler.flush();

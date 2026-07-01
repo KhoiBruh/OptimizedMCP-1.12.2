@@ -9,10 +9,10 @@ public class ServerListEntryLanDetected implements GuiListExtended.IGuiListEntry
 
 	protected final Minecraft mc;
 	protected final LanServerInfo serverData;
-	private final GuiMultiplayer screen;
+	private final MultiplayerScreen screen;
 	private long lastClickTime;
 
-	protected ServerListEntryLanDetected(GuiMultiplayer p_i47141_1_, LanServerInfo p_i47141_2_) {
+	protected ServerListEntryLanDetected(MultiplayerScreen p_i47141_1_, LanServerInfo p_i47141_2_) {
 
 		screen = p_i47141_1_;
 		serverData = p_i47141_2_;

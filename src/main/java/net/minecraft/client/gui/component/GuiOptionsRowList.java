@@ -18,19 +18,19 @@ public class GuiOptionsRowList extends GuiListExtended {
 		for (int i = 0; i < p_i45015_7_.length; i += 2) {
 			GameSettings.Options gamesettings$options = p_i45015_7_[i];
 			GameSettings.Options gamesettings$options1 = i < p_i45015_7_.length - 1 ? p_i45015_7_[i + 1] : null;
-			GuiButton guibutton = createButton(mcIn, p_i45015_2_ / 2 - 155, 0, gamesettings$options);
-			GuiButton guibutton1 = createButton(mcIn, p_i45015_2_ / 2 - 155 + 160, 0, gamesettings$options1);
+			Button guibutton = createButton(mcIn, p_i45015_2_ / 2 - 155, 0, gamesettings$options);
+			Button guibutton1 = createButton(mcIn, p_i45015_2_ / 2 - 155 + 160, 0, gamesettings$options1);
 			options.add(new GuiOptionsRowList.Row(guibutton, guibutton1));
 		}
 	}
 
-	private GuiButton createButton(Minecraft mcIn, int p_148182_2_, int p_148182_3_, GameSettings.Options options) {
+	private Button createButton(Minecraft mcIn, int p_148182_2_, int p_148182_3_, GameSettings.Options options) {
 
 		if (options == null) {
 			return null;
 		} else {
 			int i = options.ordinal();
-			return options.isFloat() ? new GuiOptionSlider(i, p_148182_2_, p_148182_3_, options) : new GuiOptionButton(i, p_148182_2_, p_148182_3_, options, mcIn.gameSettings.getKeyBinding(options));
+			return options.isFloat() ? new OptionSlider(i, p_148182_2_, p_148182_3_, options) : new OptionButton(i, p_148182_2_, p_148182_3_, options, mcIn.gameSettings.getKeyBinding(options));
 		}
 	}
 
@@ -63,10 +63,10 @@ public class GuiOptionsRowList extends GuiListExtended {
 	public static class Row implements GuiListExtended.IGuiListEntry {
 
 		private final Minecraft client = Minecraft.getMinecraft();
-		private final GuiButton buttonA;
-		private final GuiButton buttonB;
+		private final Button buttonA;
+		private final Button buttonB;
 
-		public Row(GuiButton buttonAIn, GuiButton buttonBIn) {
+		public Row(Button buttonAIn, Button buttonBIn) {
 
 			buttonA = buttonAIn;
 			buttonB = buttonBIn;
@@ -88,15 +88,15 @@ public class GuiOptionsRowList extends GuiListExtended {
 		public boolean mousePressed(int slotIndex, int mouseX, int mouseY, int mouseEvent, int relativeX, int relativeY) {
 
 			if (buttonA.mousePressed(client, mouseX, mouseY)) {
-				if (buttonA instanceof GuiOptionButton) {
-					client.gameSettings.setOptionValue(((GuiOptionButton) buttonA).getOption(), 1);
+				if (buttonA instanceof OptionButton) {
+					client.gameSettings.setOptionValue(((OptionButton) buttonA).getOption(), 1);
 					buttonA.displayString = client.gameSettings.getKeyBinding(GameSettings.Options.byOrdinal(buttonA.id));
 				}
 
 				return true;
 			} else if (buttonB != null && buttonB.mousePressed(client, mouseX, mouseY)) {
-				if (buttonB instanceof GuiOptionButton) {
-					client.gameSettings.setOptionValue(((GuiOptionButton) buttonB).getOption(), 1);
+				if (buttonB instanceof OptionButton) {
+					client.gameSettings.setOptionValue(((OptionButton) buttonB).getOption(), 1);
 					buttonB.displayString = client.gameSettings.getKeyBinding(GameSettings.Options.byOrdinal(buttonB.id));
 				}
 

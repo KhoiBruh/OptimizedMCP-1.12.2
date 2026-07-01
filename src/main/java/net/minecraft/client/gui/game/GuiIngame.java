@@ -8,7 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.chat.*;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.inventory.ContainerScreen;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -424,7 +424,7 @@ public class GuiIngame extends Gui {
 		Collection<PotionEffect> collection = mc.player.getActivePotionEffects();
 
 		if (!collection.isEmpty()) {
-			mc.getTextureManager().bindTexture(GuiContainer.INVENTORY_BACKGROUND);
+			mc.getTextureManager().bindTexture(ContainerScreen.INVENTORY_BACKGROUND);
 			GlStateManager.enableBlend();
 			int i = 0;
 			int j = 0;

@@ -135,8 +135,8 @@ public class GuiPageButtonList extends GuiListExtended {
 
 	private void setComponentVisibility(Gui p_178066_1_, boolean p_178066_2_) {
 
-		if (p_178066_1_ instanceof GuiButton) {
-			((GuiButton) p_178066_1_).visible = p_178066_2_;
+		if (p_178066_1_ instanceof Button) {
+			((Button) p_178066_1_).visible = p_178066_2_;
 		} else if (p_178066_1_ instanceof GuiTextField) {
 			((GuiTextField) p_178066_1_).setVisible(p_178066_2_);
 		} else if (p_178066_1_ instanceof GuiLabel) {
@@ -159,12 +159,12 @@ public class GuiPageButtonList extends GuiListExtended {
 	public void setActive(boolean p_181155_1_) {
 
 		for (GuiPageButtonList.GuiEntry guipagebuttonlist$guientry : entries) {
-			if (guipagebuttonlist$guientry.component1 instanceof GuiButton) {
-				((GuiButton) guipagebuttonlist$guientry.component1).enabled = p_181155_1_;
+			if (guipagebuttonlist$guientry.component1 instanceof Button) {
+				((Button) guipagebuttonlist$guientry.component1).enabled = p_181155_1_;
 			}
 
-			if (guipagebuttonlist$guientry.component2 instanceof GuiButton) {
-				((GuiButton) guipagebuttonlist$guientry.component2).enabled = p_181155_1_;
+			if (guipagebuttonlist$guientry.component2 instanceof Button) {
+				((Button) guipagebuttonlist$guientry.component2).enabled = p_181155_1_;
 			}
 		}
 	}
@@ -187,16 +187,16 @@ public class GuiPageButtonList extends GuiListExtended {
 		return flag;
 	}
 
-	private GuiSlider createSlider(int p_178067_1_, int p_178067_2_, GuiPageButtonList.GuiSlideEntry p_178067_3_) {
+	private Slider createSlider(int p_178067_1_, int p_178067_2_, GuiPageButtonList.GuiSlideEntry p_178067_3_) {
 
-		GuiSlider guislider = new GuiSlider(responder, p_178067_3_.getId(), p_178067_1_, p_178067_2_, p_178067_3_.getCaption(), p_178067_3_.getMinValue(), p_178067_3_.getMaxValue(), p_178067_3_.getInitalValue(), p_178067_3_.getFormatter());
+		Slider guislider = new Slider(responder, p_178067_3_.getId(), p_178067_1_, p_178067_2_, p_178067_3_.getCaption(), p_178067_3_.getMinValue(), p_178067_3_.getMaxValue(), p_178067_3_.getInitalValue(), p_178067_3_.getFormatter());
 		guislider.visible = p_178067_3_.shouldStartVisible();
 		return guislider;
 	}
 
-	private GuiListButton createButton(int p_178065_1_, int p_178065_2_, GuiPageButtonList.GuiButtonEntry p_178065_3_) {
+	private ButtonList createButton(int p_178065_1_, int p_178065_2_, GuiPageButtonList.GuiButtonEntry p_178065_3_) {
 
-		GuiListButton guilistbutton = new GuiListButton(responder, p_178065_3_.getId(), p_178065_1_, p_178065_2_, p_178065_3_.getCaption(), p_178065_3_.getInitialValue());
+		ButtonList guilistbutton = new ButtonList(responder, p_178065_3_.getId(), p_178065_1_, p_178065_2_, p_178065_3_.getCaption(), p_178065_3_.getInitialValue());
 		guilistbutton.visible = p_178065_3_.shouldStartVisible();
 		return guilistbutton;
 	}
@@ -231,12 +231,12 @@ public class GuiPageButtonList extends GuiListExtended {
 
 		if (focusedControl instanceof GuiTextField guitextfield) {
 
-			if (!GuiScreen.isKeyComboCtrlV(p_178062_2_)) {
+			if (!Screen.isCtrlV(p_178062_2_)) {
 				if (p_178062_2_ == 15) {
 					guitextfield.setFocused(false);
 					int k = editBoxes.indexOf(focusedControl);
 
-					if (GuiScreen.isShiftKeyDown()) {
+					if (Screen.isShiftDown()) {
 						if (k == 0) {
 							k = editBoxes.size() - 1;
 						} else {
@@ -263,7 +263,7 @@ public class GuiPageButtonList extends GuiListExtended {
 					guitextfield.textboxKeyTyped(p_178062_1_, p_178062_2_);
 				}
 			} else {
-				String s = GuiScreen.getClipboardString();
+				String s = Screen.getClipboard();
 				String[] astring = s.split(";");
 				int i = editBoxes.indexOf(focusedControl);
 				int j = i;
@@ -390,8 +390,8 @@ public class GuiPageButtonList extends GuiListExtended {
 
 			if (p_192636_1_ != null) {
 				switch (p_192636_1_) {
-					case GuiButton guiButton ->
-							renderButton(guiButton, p_192636_2_, p_192636_3_, p_192636_4_, p_192636_5_, p_192636_6_);
+					case Button button ->
+							renderButton(button, p_192636_2_, p_192636_3_, p_192636_4_, p_192636_5_, p_192636_6_);
 					case GuiTextField guiTextField -> renderTextField(guiTextField, p_192636_2_, p_192636_5_);
 					case GuiLabel guiLabel -> renderLabel(guiLabel, p_192636_2_, p_192636_3_, p_192636_4_, p_192636_5_);
 					default -> {
@@ -400,7 +400,7 @@ public class GuiPageButtonList extends GuiListExtended {
 			}
 		}
 
-		private void renderButton(GuiButton p_192635_1_, int p_192635_2_, int p_192635_3_, int p_192635_4_, boolean p_192635_5_, float p_192635_6_) {
+		private void renderButton(Button p_192635_1_, int p_192635_2_, int p_192635_3_, int p_192635_4_, boolean p_192635_5_, float p_192635_6_) {
 
 			p_192635_1_.y = p_192635_2_;
 
@@ -444,8 +444,8 @@ public class GuiPageButtonList extends GuiListExtended {
 
 			if (p_178026_1_ == null) {
 				return false;
-			} else if (p_178026_1_ instanceof GuiButton) {
-				return clickButton((GuiButton) p_178026_1_, p_178026_2_, p_178026_3_, p_178026_4_);
+			} else if (p_178026_1_ instanceof Button) {
+				return clickButton((Button) p_178026_1_, p_178026_2_, p_178026_3_, p_178026_4_);
 			} else {
 				if (p_178026_1_ instanceof GuiTextField) {
 					clickTextField((GuiTextField) p_178026_1_, p_178026_2_, p_178026_3_, p_178026_4_);
@@ -455,7 +455,7 @@ public class GuiPageButtonList extends GuiListExtended {
 			}
 		}
 
-		private boolean clickButton(GuiButton p_178023_1_, int p_178023_2_, int p_178023_3_, int p_178023_4_) {
+		private boolean clickButton(Button p_178023_1_, int p_178023_2_, int p_178023_3_, int p_178023_4_) {
 
 			boolean flag = p_178023_1_.mousePressed(client, p_178023_2_, p_178023_3_);
 
@@ -484,13 +484,13 @@ public class GuiPageButtonList extends GuiListExtended {
 		private void releaseComponent(Gui p_178016_1_, int p_178016_2_, int p_178016_3_, int p_178016_4_) {
 
 			if (p_178016_1_ != null) {
-				if (p_178016_1_ instanceof GuiButton) {
-					releaseButton((GuiButton) p_178016_1_, p_178016_2_, p_178016_3_, p_178016_4_);
+				if (p_178016_1_ instanceof Button) {
+					releaseButton((Button) p_178016_1_, p_178016_2_, p_178016_3_, p_178016_4_);
 				}
 			}
 		}
 
-		private void releaseButton(GuiButton p_178019_1_, int p_178019_2_, int p_178019_3_, int p_178019_4_) {
+		private void releaseButton(Button p_178019_1_, int p_178019_2_, int p_178019_3_, int p_178019_4_) {
 
 			p_178019_1_.mouseReleased(p_178019_2_, p_178019_3_);
 		}
@@ -538,12 +538,12 @@ public class GuiPageButtonList extends GuiListExtended {
 
 	public static class GuiSlideEntry extends GuiPageButtonList.GuiListEntry {
 
-		private final GuiSlider.FormatHelper formatter;
+		private final Slider.FormatHelper formatter;
 		private final float minValue;
 		private final float maxValue;
 		private final float initialValue;
 
-		public GuiSlideEntry(int p_i45530_1_, String p_i45530_2_, boolean p_i45530_3_, GuiSlider.FormatHelper p_i45530_4_, float p_i45530_5_, float p_i45530_6_, float p_i45530_7_) {
+		public GuiSlideEntry(int p_i45530_1_, String p_i45530_2_, boolean p_i45530_3_, Slider.FormatHelper p_i45530_4_, float p_i45530_5_, float p_i45530_6_, float p_i45530_7_) {
 
 			super(p_i45530_1_, p_i45530_2_, p_i45530_3_);
 			formatter = p_i45530_4_;
@@ -552,7 +552,7 @@ public class GuiPageButtonList extends GuiListExtended {
 			initialValue = p_i45530_7_;
 		}
 
-		public GuiSlider.FormatHelper getFormatter() {
+		public Slider.FormatHelper getFormatter() {
 
 			return formatter;
 		}

@@ -17,19 +17,19 @@ import net.minecraft.client.audio.MusicTicker;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.advancements.GuiScreenAdvancements;
-import net.minecraft.client.gui.chat.GuiChat;
+import net.minecraft.client.gui.Screen;
+import net.minecraft.client.gui.advancements.AdvancementsScreen;
+import net.minecraft.client.gui.chat.ChatScreen;
 import net.minecraft.client.gui.chat.GuiNewChat;
 import net.minecraft.client.gui.chat.NarratorChatListener;
-import net.minecraft.client.gui.error.GuiMemoryErrorScreen;
+import net.minecraft.client.gui.error.MemoryErrorScreen;
 import net.minecraft.client.gui.game.*;
-import net.minecraft.client.gui.inventory.GuiContainerCreative;
-import net.minecraft.client.gui.inventory.GuiInventory;
-import net.minecraft.client.gui.loading.GuiScreenWorking;
-import net.minecraft.client.gui.menu.GuiMainMenu;
-import net.minecraft.client.gui.menu.GuiMultiplayer;
-import net.minecraft.client.gui.option.GuiControls;
+import net.minecraft.client.gui.inventory.CreativeContainerScreen;
+import net.minecraft.client.gui.inventory.InventoryScreen;
+import net.minecraft.client.gui.loading.WorkingScreen;
+import net.minecraft.client.gui.menu.MainMenuScreen;
+import net.minecraft.client.gui.menu.MultiplayerScreen;
+import net.minecraft.client.gui.option.ControlsScreen;
 import net.minecraft.client.gui.option.ScreenChatOptions;
 import net.minecraft.client.gui.recipebook.RecipeList;
 import net.minecraft.client.gui.toasts.GuiToast;
@@ -171,7 +171,7 @@ public class Minecraft implements IThreadListener {
 	
 	// Public instance fields
 	public CreativeSettings creativeSettings;
-	public GuiScreen currentScreen;
+	public Screen currentScreen;
 	public String debug = "";
 	public DebugRenderer debugRenderer;
 	public ParticleManager effectRenderer;
@@ -340,7 +340,7 @@ public class Minecraft implements IThreadListener {
 							runGameLoop();
 						} catch (OutOfMemoryError var10) {
 							freeMemory();
-							displayScreen(new GuiMemoryErrorScreen());
+							displayScreen(new MemoryErrorScreen());
 							System.gc();
 						}
 					} else showCrashReport(crashReport);
@@ -450,7 +450,7 @@ public class Minecraft implements IThreadListener {
 		checkGLError("Post startup");
 		ingameGUI = new GuiIngame(this);
 
-		displayScreen(new GuiMainMenu());
+		displayScreen(new MainMenuScreen());
 		
 		renderEngine.deleteTexture(mojangLogo);
 		mojangLogo = null;
@@ -757,18 +757,18 @@ public class Minecraft implements IThreadListener {
 	 * minecraft.addScheduledTask(() -> minecraft.displayGuiScreen(gui));
 	 * </pre>
 	 *
-	 * @param screen The {@link GuiScreen} to display. If it is {@code null}, any open GUI will be closed.
+	 * @param screen The {@link Screen} to display. If it is {@code null}, any open GUI will be closed.
 	 */
-	public void displayScreen(GuiScreen screen) {
-		if (currentScreen != null) currentScreen.onGuiClosed();
+	public void displayScreen(Screen screen) {
+		if (currentScreen != null) currentScreen.close();
 		
 		if (screen == null && world == null) {
-			screen = new GuiMainMenu();
+			screen = new MainMenuScreen();
 		} else if (screen == null && player.getHealth() <= 0F) {
-			screen = new GuiGameOver(null);
+			screen = new GameOverScreen(null);
 		}
 		
-		if (screen instanceof GuiMainMenu || screen instanceof GuiMultiplayer) {
+		if (screen instanceof MainMenuScreen || screen instanceof MultiplayerScreen) {
 			gameSettings.showDebugInfo = false;
 			ingameGUI.getChatGUI().clearChatMessages(true);
 		}
@@ -904,7 +904,7 @@ public class Minecraft implements IThreadListener {
 		Thread.yield();
 		checkGLError("Post render");
 		fpsCounter++;
-		boolean flag = isSingleplayer() && currentScreen != null && currentScreen.doesGuiPauseGame() && !integratedServer.getPublic();
+		boolean flag = isSingleplayer() && currentScreen != null && currentScreen.pauseGame() && !integratedServer.getPublic();
 		
 		if (paused != flag) {
 			if (paused) {
@@ -1143,7 +1143,7 @@ public class Minecraft implements IThreadListener {
 	 */
 	public void displayInGameMenu() {
 		if (currentScreen == null) {
-			displayScreen(new GuiIngameMenu());
+			displayScreen(new InGameMenuScreen());
 			
 			if (isSingleplayer() && !integratedServer.getPublic()) soundHandler.pauseSounds();
 		}
@@ -1324,12 +1324,12 @@ public class Minecraft implements IThreadListener {
 		if (world != null) renderEngine.tick();
 		
 		if (currentScreen == null && player != null) {
-			if (player.getHealth() <= 0F && !(currentScreen instanceof GuiGameOver)) {
+			if (player.getHealth() <= 0F && !(currentScreen instanceof GameOverScreen)) {
 				displayScreen(null);
 			} else if (player.isPlayerSleeping() && world != null) {
-				displayScreen(new GuiSleepMP());
+				displayScreen(new SleepMPScreen());
 			}
-		} else if (currentScreen != null && currentScreen instanceof GuiSleepMP && !player.isPlayerSleeping()) {
+		} else if (currentScreen != null && currentScreen instanceof SleepMPScreen && !player.isPlayerSleeping()) {
 			displayScreen(null);
 		}
 		
@@ -1347,7 +1347,7 @@ public class Minecraft implements IThreadListener {
 			
 			if (currentScreen != null) {
 				try {
-					currentScreen.updateScreen();
+					currentScreen.update();
 				} catch (Throwable throwable) {
 					CrashReport crashreport1 = CrashReport.makeCrashReport(throwable, "Ticking screen");
 					CrashReportCategory crashreportcategory1 = crashreport1.makeCategory("Affected screen");
@@ -1464,7 +1464,7 @@ public class Minecraft implements IThreadListener {
 			
 			dispatchKeypresses();
 			
-			if (currentScreen != null) currentScreen.handleKeyboardInput();
+			if (currentScreen != null) currentScreen.handleKeyboard();
 			
 			boolean flag = Keyboard.getEventKeyState();
 			
@@ -1504,8 +1504,8 @@ public class Minecraft implements IThreadListener {
 						actionKeyF3 = false;
 					} else {
 						gameSettings.showDebugInfo = !gameSettings.showDebugInfo;
-						gameSettings.showDebugProfilerChart = gameSettings.showDebugInfo && GuiScreen.isShiftKeyDown();
-						gameSettings.showLagometer = gameSettings.showDebugInfo && GuiScreen.isAltKeyDown();
+						gameSettings.showDebugProfilerChart = gameSettings.showDebugInfo && Screen.isShiftDown();
+						gameSettings.showLagometer = gameSettings.showDebugInfo && Screen.isAltDown();
 					}
 				}
 			}
@@ -1532,7 +1532,7 @@ public class Minecraft implements IThreadListener {
 				yield true;
 			}
 			case GLFW_KEY_F -> {
-				gameSettings.setOptionValue(GameSettings.Options.RENDER_DISTANCE, GuiScreen.isShiftKeyDown() ? -1 : 1);
+				gameSettings.setOptionValue(GameSettings.Options.RENDER_DISTANCE, Screen.isShiftDown() ? -1 : 1);
 				debugFeedbackTranslated("debug.cycle_renderdistance.message", gameSettings.renderDistanceChunks);
 				yield true;
 			}
@@ -1615,7 +1615,7 @@ public class Minecraft implements IThreadListener {
 				} else if (!player.isCreative() || currentScreen != null || (!loadToolbar && !saveToolbar)) {
 					player.inventory.currentItem = i;
 				} else {
-					GuiContainerCreative.handleHotbarSnapshots(this, i, loadToolbar, saveToolbar);
+					CreativeContainerScreen.handleHotbarSnapshots(this, i, loadToolbar, saveToolbar);
 				}
 			}
 		}
@@ -1624,12 +1624,12 @@ public class Minecraft implements IThreadListener {
 			if (playerController.isRidingHorse()) {
 				player.sendHorseInventory();
 			} else {
-				displayScreen(new GuiInventory(player));
+				displayScreen(new InventoryScreen(player));
 			}
 		}
 		
 		while (gameSettings.keyAdvancements.isPressed()) {
-			displayScreen(new GuiScreenAdvancements(player.connection.getAdvancementManager()));
+			displayScreen(new AdvancementsScreen(player.connection.getAdvancementManager()));
 		}
 		
 		while (gameSettings.keySwapHands.isPressed()) {
@@ -1640,7 +1640,7 @@ public class Minecraft implements IThreadListener {
 		
 		while (gameSettings.keyDrop.isPressed()) {
 			if (!player.isSpectator()) {
-				player.dropItem(GuiScreen.isCtrlKeyDown());
+				player.dropItem(Screen.isCtrlDown());
 			}
 		}
 		
@@ -1648,11 +1648,11 @@ public class Minecraft implements IThreadListener {
 		
 		if (chatEnabled) {
 			while (gameSettings.keyChat.isPressed()) {
-				displayScreen(new GuiChat());
+				displayScreen(new ChatScreen());
 			}
 			
 			if (currentScreen == null && gameSettings.keyCommand.isPressed()) {
-				displayScreen(new GuiChat("/"));
+				displayScreen(new ChatScreen("/"));
 			}
 		}
 		
@@ -1714,7 +1714,7 @@ public class Minecraft implements IThreadListener {
 						setIngameFocus();
 					}
 				} else if (currentScreen != null) {
-					currentScreen.handleMouseInput();
+					currentScreen.handleMouse();
 				}
 			}
 		}
@@ -1776,7 +1776,7 @@ public class Minecraft implements IThreadListener {
 			else loadingScreen.loadingMessage("");
 		}
 		
-		displayScreen(new GuiScreenWorking());
+		displayScreen(new WorkingScreen());
 		SocketAddress socketaddress = integratedServer.getNetworkSystem().addLocalEndpoint();
 		NetworkManager networkmanager = NetworkManager.provideLocalClient(socketaddress);
 		networkmanager.setNetHandler(new NetHandlerLoginClient(networkmanager, this, null));
@@ -1893,7 +1893,7 @@ public class Minecraft implements IThreadListener {
 		playerController.setPlayerCapabilities(player);
 		player.setReducedDebug(player.hasReducedDebug());
 		
-		if (currentScreen instanceof GuiGameOver) displayScreen(null);
+		if (currentScreen instanceof GameOverScreen) displayScreen(null);
 	}
 	
 	public NetHandlerPlayClient getConnection() {
@@ -1920,7 +1920,7 @@ public class Minecraft implements IThreadListener {
 				
 				if (item.isEmpty()) return;
 				
-				if (creative && GuiScreen.isCtrlKeyDown() && block.hasTileEntity())
+				if (creative && Screen.isCtrlDown() && block.hasTileEntity())
 					tileEntity = world.getTileEntity(pos);
 			} else {
 				if (objectMouseOver.typeOfHit != RayTraceResult.Type.ENTITY || objectMouseOver.entityHit == null || !creative)
@@ -2144,7 +2144,7 @@ public class Minecraft implements IThreadListener {
 	}
 	
 	public MusicTicker.MusicType getAmbientMusicType() {
-		if (currentScreen instanceof GuiWinGame) return MusicTicker.MusicType.CREDITS;
+		if (currentScreen instanceof WinGameScreen) return MusicTicker.MusicType.CREDITS;
 		else if (player != null) {
 			switch (player.world.provider) {
 				case WorldProviderHell ignored -> {
@@ -2171,14 +2171,14 @@ public class Minecraft implements IThreadListener {
 		int i = Keyboard.getEventKey();
 		
 		if (i != 0 && !Keyboard.isRepeatEvent()) {
-			if (!(currentScreen instanceof GuiControls) || ((GuiControls) currentScreen).time <= getSystemTime() - 20L) {
+			if (!(currentScreen instanceof ControlsScreen) || ((ControlsScreen) currentScreen).time <= getSystemTime() - 20L) {
 				if (Keyboard.getEventKeyState()) {
 					if (i == gameSettings.keyFullscreen.getKeyCode()) {
 						toggleFullscreen();
 					} else if (i == gameSettings.keyScreenshot.getKeyCode()) {
 						ingameGUI.getChatGUI()
 						         .printChatMessage(ScreenShotHelper.saveScreenshot(dataDir, window.getWidth(), window.getHeight(), framebuffer));
-					} else if (i == 66 && GuiScreen.isCtrlKeyDown() && (currentScreen == null || currentScreen != null && !currentScreen.isFocused())) {
+					} else if (i == 66 && Screen.isCtrlDown() && (currentScreen == null || currentScreen != null && !currentScreen.isFocused())) {
 						gameSettings.setOptionValue(GameSettings.Options.NARRATOR, 1);
 						
 						if (currentScreen instanceof ScreenChatOptions chatOptions) chatOptions.updateNarratorButton();

@@ -6,8 +6,8 @@ import com.mojang.authlib.exceptions.AuthenticationUnavailableException;
 import com.mojang.authlib.exceptions.InvalidCredentialsException;
 import com.mojang.authlib.minecraft.MinecraftSessionService;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.game.GuiDisconnected;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.game.DisconnectedScreen;
+import net.minecraft.client.gui.Screen;
 import net.minecraft.network.ConnectionState;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.login.INetHandlerLoginClient;
@@ -32,14 +32,14 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
 	private final Minecraft mc;
 
 	
-	private final GuiScreen previousGuiScreen;
+	private final Screen lastScreen;
 	private final NetworkManager networkManager;
 	
-	public NetHandlerLoginClient(NetworkManager networkManagerIn, Minecraft mcIn, GuiScreen previousScreenIn) {
+	public NetHandlerLoginClient(NetworkManager networkManagerIn, Minecraft mcIn, Screen previousScreenIn) {
 
 		networkManager = networkManagerIn;
 		mc = mcIn;
-		previousGuiScreen = previousScreenIn;
+		lastScreen = previousScreenIn;
 	}
 
 	public void handleEncryptionRequest(SPacketEncryptionRequest packetIn) {
@@ -82,14 +82,14 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
 		
 		GameProfile gameProfile = packetIn.getProfile();
 		networkManager.setConnectionState(ConnectionState.PLAY);
-		networkManager.setNetHandler(new NetHandlerPlayClient(mc, previousGuiScreen, networkManager, gameProfile));
+		networkManager.setNetHandler(new NetHandlerPlayClient(mc, lastScreen, networkManager, gameProfile));
 	}
 
 	/**
 	 * Invoked when disconnecting, the parameter is a ChatComponent describing the reason for termination
 	 */
 	public void onDisconnect(ITextComponent reason) {
-		if (previousGuiScreen == null) mc.displayScreen(new GuiDisconnected(null, "connect.failed", reason));
+		if (lastScreen == null) mc.displayScreen(new DisconnectedScreen(null, "connect.failed", reason));
 	}
 
 	public void handleDisconnect(SPacketDisconnect packetIn) {

@@ -1,24 +1,24 @@
 package net.minecraft.client.gui.option;
 
-import net.minecraft.client.gui.component.GuiButton;
-import net.minecraft.client.gui.component.GuiOptionButton;
-import net.minecraft.client.gui.component.GuiOptionSlider;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.component.Button;
+import net.minecraft.client.gui.component.OptionButton;
+import net.minecraft.client.gui.component.OptionSlider;
+import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.chat.NarratorChatListener;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 
 import java.io.IOException;
 
-public class ScreenChatOptions extends GuiScreen {
+public class ScreenChatOptions extends Screen {
 
 	private static final GameSettings.Options[] CHAT_OPTIONS = new GameSettings.Options[]{GameSettings.Options.CHAT_VISIBILITY, GameSettings.Options.CHAT_COLOR, GameSettings.Options.CHAT_LINKS, GameSettings.Options.CHAT_OPACITY, GameSettings.Options.CHAT_LINKS_PROMPT, GameSettings.Options.CHAT_SCALE, GameSettings.Options.CHAT_HEIGHT_FOCUSED, GameSettings.Options.CHAT_HEIGHT_UNFOCUSED, GameSettings.Options.CHAT_WIDTH, GameSettings.Options.REDUCED_DEBUG_INFO, GameSettings.Options.NARRATOR};
-	private final GuiScreen parentScreen;
+	private final Screen parentScreen;
 	private final GameSettings game_settings;
 	private String chatTitle;
-	private GuiOptionButton narratorButton;
+	private OptionButton narratorButton;
 
-	public ScreenChatOptions(GuiScreen parentScreenIn, GameSettings gameSettingsIn) {
+	public ScreenChatOptions(Screen parentScreenIn, GameSettings gameSettingsIn) {
 
 		parentScreen = parentScreenIn;
 		game_settings = gameSettingsIn;
@@ -28,17 +28,17 @@ public class ScreenChatOptions extends GuiScreen {
 	 * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
-	public void initGui() {
+	public void init() {
 
 		chatTitle = I18n.format("options.chat.title");
 		int i = 0;
 
 		for (GameSettings.Options gamesettings$options : CHAT_OPTIONS) {
 			if (gamesettings$options.isFloat()) {
-				buttonList.add(new GuiOptionSlider(gamesettings$options.ordinal(), width / 2 - 155 + i % 2 * 160, height / 6 + 24 * (i >> 1), gamesettings$options));
+				buttons.add(new OptionSlider(gamesettings$options.ordinal(), width / 2 - 155 + i % 2 * 160, height / 6 + 24 * (i >> 1), gamesettings$options));
 			} else {
-				GuiOptionButton guioptionbutton = new GuiOptionButton(gamesettings$options.ordinal(), width / 2 - 155 + i % 2 * 160, height / 6 + 24 * (i >> 1), gamesettings$options, game_settings.getKeyBinding(gamesettings$options));
-				buttonList.add(guioptionbutton);
+				OptionButton guioptionbutton = new OptionButton(gamesettings$options.ordinal(), width / 2 - 155 + i % 2 * 160, height / 6 + 24 * (i >> 1), gamesettings$options, game_settings.getKeyBinding(gamesettings$options));
+				buttons.add(guioptionbutton);
 
 				if (gamesettings$options == GameSettings.Options.NARRATOR) {
 					narratorButton = guioptionbutton;
@@ -49,7 +49,7 @@ public class ScreenChatOptions extends GuiScreen {
 			++i;
 		}
 
-		buttonList.add(new GuiButton(200, width / 2 - 100, height / 6 + 144, I18n.format("gui.done")));
+		buttons.add(new Button(200, width / 2 - 100, height / 6 + 144, I18n.format("gui.done")));
 	}
 
 	/**
@@ -68,11 +68,11 @@ public class ScreenChatOptions extends GuiScreen {
 	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
-	protected void actionPerformed(GuiButton button) {
+	protected void action(Button button) {
 
 		if (button.enabled) {
-			if (button.id < 100 && button instanceof GuiOptionButton) {
-				game_settings.setOptionValue(((GuiOptionButton) button).getOption(), 1);
+			if (button.id < 100 && button instanceof OptionButton) {
+				game_settings.setOptionValue(((OptionButton) button).getOption(), 1);
 				button.displayString = game_settings.getKeyBinding(GameSettings.Options.byOrdinal(button.id));
 			}
 
@@ -86,11 +86,11 @@ public class ScreenChatOptions extends GuiScreen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+	public void draw(int mouseX, int mouseY, float partialTicks) {
 
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, chatTitle, width / 2, 20, 16777215);
-		super.drawScreen(mouseX, mouseY, partialTicks);
+		super.draw(mouseX, mouseY, partialTicks);
 	}
 
 	public void updateNarratorButton() {

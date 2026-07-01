@@ -17,11 +17,11 @@ import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.game.*;
-import net.minecraft.client.gui.inventory.GuiContainerCreative;
-import net.minecraft.client.gui.loading.GuiDownloadTerrain;
-import net.minecraft.client.gui.menu.GuiMainMenu;
-import net.minecraft.client.gui.menu.GuiMultiplayer;
-import net.minecraft.client.gui.menu.GuiYesNo;
+import net.minecraft.client.gui.inventory.CreativeContainerScreen;
+import net.minecraft.client.gui.loading.DownloadTerrainScreen;
+import net.minecraft.client.gui.menu.MainMenuScreen;
+import net.minecraft.client.gui.menu.MultiplayerScreen;
+import net.minecraft.client.gui.menu.YesNoScreen;
 import net.minecraft.client.gui.recipebook.GuiRecipeBook;
 import net.minecraft.client.gui.recipebook.IRecipeShownListener;
 import net.minecraft.client.gui.toasts.RecipeToast;
@@ -115,7 +115,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 	 * Seems to be either null (integrated server) or an instance of either GuiMultiplayer (when connecting to a server)
 	 * or GuiScreenReamlsTOS (when connecting to MCO server)
 	 */
-	private final GuiScreen guiScreenServer;
+	private final Screen serverScreen;
 	private final Map<UUID, NetworkPlayerInfo> playerInfoMap = Maps.newHashMap();
 	private final ClientAdvancementManager advancementManager;
 	/**
@@ -138,10 +138,10 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 	 */
 	private boolean doneLoadingTerrain;
 	
-	public NetHandlerPlayClient(Minecraft mcIn, GuiScreen p_i46300_2_, NetworkManager networkManagerIn, GameProfile profileIn) {
+	public NetHandlerPlayClient(Minecraft mcIn, Screen p_i46300_2_, NetworkManager networkManagerIn, GameProfile profileIn) {
 
 		gameController = mcIn;
-		guiScreenServer = p_i46300_2_;
+		serverScreen = p_i46300_2_;
 		netManager = networkManagerIn;
 		profile = profileIn;
 		advancementManager = new ClientAdvancementManager(mcIn);
@@ -167,7 +167,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		gameController.gameSettings.difficulty = packetIn.getDifficulty();
 		gameController.loadWorld(clientWorldController);
 		gameController.player.dimension = packetIn.getDimension();
-		gameController.displayScreen(new GuiDownloadTerrain());
+		gameController.displayScreen(new DownloadTerrainScreen());
 		gameController.player.setEntityId(packetIn.getPlayerId());
 		currentServerMaxPlayers = packetIn.getMaxPlayers();
 		gameController.player.setReducedDebug(packetIn.isReducedDebugInfo());
@@ -617,7 +617,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 	public void onDisconnect(ITextComponent reason) {
 
 		gameController.loadWorld(null);
-		if (guiScreenServer == null) gameController.displayScreen(new GuiDisconnected(new GuiMultiplayer(new GuiMainMenu()), "disconnect.lost", reason));
+		if (serverScreen == null) gameController.displayScreen(new DisconnectedScreen(new MultiplayerScreen(new MainMenuScreen()), "disconnect.lost", reason));
 	}
 
 	public void sendPacket(Packet<?> packetIn) {
@@ -851,7 +851,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 			clientWorldController.setWorldScoreboard(scoreboard);
 			gameController.loadWorld(clientWorldController);
 			gameController.player.dimension = packetIn.getDimensionID();
-			gameController.displayScreen(new GuiDownloadTerrain());
+			gameController.displayScreen(new DownloadTerrainScreen());
 		}
 
 		gameController.setDimensionAndSpawnPlayer(packetIn.getDimensionID());
@@ -920,7 +920,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		} else {
 			boolean flag = false;
 
-			if (gameController.currentScreen instanceof GuiContainerCreative guicontainercreative) {
+			if (gameController.currentScreen instanceof CreativeContainerScreen guicontainercreative) {
 				flag = guicontainercreative.getSelectedTabIndex() != CreativeTabs.INVENTORY.getTabIndex();
 			}
 
@@ -1010,8 +1010,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 				tileentity.readFromNBT(packetIn.getNbtCompound());
 			}
 
-			if (flag && gameController.currentScreen instanceof GuiCommandBlock) {
-				((GuiCommandBlock) gameController.currentScreen).updateGui();
+			if (flag && gameController.currentScreen instanceof CommandBlockScreen) {
+				((CommandBlockScreen) gameController.currentScreen).updateGui();
 			}
 		}
 	}
@@ -1091,9 +1091,9 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		} else if (i == 4) {
 			if (j == 0) {
 				gameController.player.connection.sendPacket(new CPacketClientStatus(CPacketClientStatus.State.PERFORM_RESPAWN));
-				gameController.displayScreen(new GuiDownloadTerrain());
+				gameController.displayScreen(new DownloadTerrainScreen());
 			} else if (j == 1) {
-				gameController.displayScreen(new GuiWinGame(true, () ->
+				gameController.displayScreen(new WinGameScreen(true, () ->
 						gameController.player.connection.sendPacket(new CPacketClientStatus(CPacketClientStatus.State.PERFORM_RESPAWN))));
 			}
 		} else if (i == 6) {
@@ -1254,7 +1254,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 			Entity entity = clientWorldController.getEntityByID(packetIn.playerId);
 
 			if (entity == gameController.player) {
-				gameController.displayScreen(new GuiGameOver(packetIn.deathMessage));
+				gameController.displayScreen(new GameOverScreen(packetIn.deathMessage));
 			}
 		}
 	}
@@ -1438,7 +1438,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 				} else if (serverdata != null && serverdata.getResourceMode() != ServerData.ServerResourceMode.PROMPT) {
 					netManager.sendPacket(new CPacketResourcePackStatus(CPacketResourcePackStatus.Action.DECLINED));
 				} else {
-					gameController.addScheduledTask(() -> gameController.displayScreen(new GuiYesNo((result, id) -> {
+					gameController.addScheduledTask(() -> gameController.displayScreen(new YesNoScreen((result, id) -> {
 
 						gameController = Minecraft.getMinecraft();
 						ServerData serverdata1 = gameController.getCurrentServerData();
@@ -1544,10 +1544,10 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 
 			try {
 				int k = packetbuffer.readInt();
-				GuiScreen guiscreen = gameController.currentScreen;
+				Screen guiscreen = gameController.currentScreen;
 
-				if (guiscreen instanceof GuiMerchant && k == gameController.player.openContainer.windowId) {
-					IMerchant imerchant = ((GuiMerchant) guiscreen).getMerchant();
+				if (guiscreen instanceof MerchantScreen && k == gameController.player.openContainer.windowId) {
+					IMerchant imerchant = ((MerchantScreen) guiscreen).getMerchant();
 					MerchantRecipeList merchantrecipelist = MerchantRecipeList.readFromBuf(packetbuffer);
 					imerchant.setRecipes(merchantrecipelist);
 				}
@@ -1563,7 +1563,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 			ItemStack itemstack = enumhand == Hand.OFF_HAND ? gameController.player.getHeldItemOffhand() : gameController.player.getHeldItemMainhand();
 
 			if (itemstack.getItem() == Items.WRITTEN_BOOK) {
-				gameController.displayScreen(new GuiScreenBook(gameController.player, itemstack, false));
+				gameController.displayScreen(new BookScreen(gameController.player, itemstack, false));
 			}
 		} else if ("MC|DebugPath".equals(packetIn.getChannelName())) {
 			PacketBuffer packetbuffer1 = packetIn.getBufferData();

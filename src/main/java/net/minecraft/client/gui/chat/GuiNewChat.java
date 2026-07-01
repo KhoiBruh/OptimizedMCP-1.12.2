@@ -277,7 +277,7 @@ public class GuiNewChat extends Gui {
 	 */
 	public boolean getChatOpen() {
 
-		return mc.currentScreen instanceof GuiChat;
+		return mc.currentScreen instanceof ChatScreen;
 	}
 
 	/**

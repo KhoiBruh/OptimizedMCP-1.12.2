@@ -8,7 +8,7 @@ import io.netty.handler.codec.base64.Base64;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.component.GuiListExtended;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.Screen;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -33,7 +33,7 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
 	private static final ThreadPoolExecutor EXECUTOR = new ScheduledThreadPoolExecutor(5, (new ThreadFactoryBuilder()).setNameFormat("Server Pinger #%d").setDaemon(true).build());
 	private static final ResourceLocation UNKNOWN_SERVER = new ResourceLocation("textures/misc/unknown_server.png");
 	private static final ResourceLocation SERVER_SELECTION_BUTTONS = new ResourceLocation("textures/gui/server_selection.png");
-	private final GuiMultiplayer owner;
+	private final MultiplayerScreen owner;
 	private final Minecraft mc;
 	private final ServerData server;
 	private final ResourceLocation serverIcon;
@@ -41,7 +41,7 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
 	private DynamicTexture icon;
 	private long lastClickTime;
 
-	protected ServerListEntryNormal(GuiMultiplayer ownerIn, ServerData serverIn) {
+	protected ServerListEntryNormal(MultiplayerScreen ownerIn, ServerData serverIn) {
 
 		owner = ownerIn;
 		server = serverIn;
@@ -251,12 +251,12 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
 			}
 
 			if (relativeX < 16 && relativeY < 16 && owner.canMoveUp(this, slotIndex)) {
-				owner.moveServerUp(this, slotIndex, GuiScreen.isShiftKeyDown());
+				owner.moveServerUp(this, slotIndex, Screen.isShiftDown());
 				return true;
 			}
 
 			if (relativeX < 16 && relativeY > 16 && owner.canMoveDown(this, slotIndex)) {
-				owner.moveServerDown(this, slotIndex, GuiScreen.isShiftKeyDown());
+				owner.moveServerDown(this, slotIndex, Screen.isShiftDown());
 				return true;
 			}
 		}

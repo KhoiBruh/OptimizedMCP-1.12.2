@@ -2,7 +2,7 @@ package net.minecraft.client.gui.recipebook;
 
 import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.component.GuiButtonToggle;
+import net.minecraft.client.gui.component.ToggleButton;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.stats.RecipeBook;
@@ -10,14 +10,14 @@ import java.util.List;
 
 public class RecipeBookPage {
 
-	private final List<GuiButtonRecipe> buttons = Lists.newArrayListWithCapacity(20);
+	private final List<RecipeButton> buttons = Lists.newArrayListWithCapacity(20);
 	private final GuiRecipeOverlay overlay = new GuiRecipeOverlay();
 	private final List<IRecipeUpdateListener> listeners = Lists.newArrayList();
-	private GuiButtonRecipe hoveredButton;
+	private RecipeButton hoveredButton;
 	private Minecraft minecraft;
 	private List<RecipeList> recipeLists;
-	private GuiButtonToggle forwardButton;
-	private GuiButtonToggle backButton;
+	private ToggleButton forwardButton;
+	private ToggleButton backButton;
 	private int totalPages;
 	private int currentPage;
 	private RecipeBook recipeBook;
@@ -27,7 +27,7 @@ public class RecipeBookPage {
 	public RecipeBookPage() {
 
 		for (int i = 0; i < 20; ++i) {
-			buttons.add(new GuiButtonRecipe());
+			buttons.add(new RecipeButton());
 		}
 	}
 
@@ -40,9 +40,9 @@ public class RecipeBookPage {
 			buttons.get(i).setPosition(p_194194_2_ + 11 + 25 * (i % 5), p_194194_3_ + 31 + 25 * (i / 5));
 		}
 
-		forwardButton = new GuiButtonToggle(0, p_194194_2_ + 93, p_194194_3_ + 137, 12, 17, false);
+		forwardButton = new ToggleButton(0, p_194194_2_ + 93, p_194194_3_ + 137, 12, 17, false);
 		forwardButton.initTextureValues(1, 208, 13, 18, GuiRecipeBook.RECIPE_BOOK);
-		backButton = new GuiButtonToggle(0, p_194194_2_ + 38, p_194194_3_ + 137, 12, 17, true);
+		backButton = new ToggleButton(0, p_194194_2_ + 38, p_194194_3_ + 137, 12, 17, true);
 		backButton.initTextureValues(1, 208, 13, 18, GuiRecipeBook.RECIPE_BOOK);
 	}
 
@@ -69,7 +69,7 @@ public class RecipeBookPage {
 		int i = 20 * currentPage;
 
 		for (int j = 0; j < buttons.size(); ++j) {
-			GuiButtonRecipe guibuttonrecipe = buttons.get(j);
+			RecipeButton guibuttonrecipe = buttons.get(j);
 
 			if (i + j < recipeLists.size()) {
 				RecipeList recipelist = recipeLists.get(i + j);
@@ -100,7 +100,7 @@ public class RecipeBookPage {
 		RenderHelper.disableStandardItemLighting();
 		hoveredButton = null;
 
-		for (GuiButtonRecipe guibuttonrecipe : buttons) {
+		for (RecipeButton guibuttonrecipe : buttons) {
 			guibuttonrecipe.drawButton(minecraft, p_194191_3_, p_194191_4_, p_194191_5_);
 
 			if (guibuttonrecipe.visible && guibuttonrecipe.isMouseOver()) {
@@ -162,7 +162,7 @@ public class RecipeBookPage {
 			updateButtonsForPage();
 			return true;
 		} else {
-			for (GuiButtonRecipe guibuttonrecipe : buttons) {
+			for (RecipeButton guibuttonrecipe : buttons) {
 				if (guibuttonrecipe.mousePressed(minecraft, p_194196_1_, p_194196_2_)) {
 					guibuttonrecipe.playPressSound(minecraft.getSoundHandler());
 

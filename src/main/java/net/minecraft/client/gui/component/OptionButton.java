@@ -1,0 +1,25 @@
+package net.minecraft.client.gui.component;
+
+import net.minecraft.client.settings.GameSettings;
+
+public class OptionButton extends Button {
+
+	private final GameSettings.Options enumOptions;
+
+	public OptionButton(int p_i45011_1_, int p_i45011_2_, int p_i45011_3_, String p_i45011_4_) {
+
+		this(p_i45011_1_, p_i45011_2_, p_i45011_3_, null, p_i45011_4_);
+	}
+
+	public OptionButton(int p_i45013_1_, int p_i45013_2_, int p_i45013_3_, GameSettings.Options p_i45013_4_, String p_i45013_5_) {
+
+		super(p_i45013_1_, p_i45013_2_, p_i45013_3_, 150, 20, p_i45013_5_);
+		enumOptions = p_i45013_4_;
+	}
+
+	public GameSettings.Options getOption() {
+
+		return enumOptions;
+	}
+
+}

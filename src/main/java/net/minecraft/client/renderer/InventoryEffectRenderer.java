@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer;
 
 import com.google.common.collect.Ordering;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.inventory.ContainerScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.Container;
 import net.minecraft.potion.Potion;
@@ -9,7 +9,7 @@ import net.minecraft.potion.PotionEffect;
 
 import java.util.Collection;
 
-public abstract class InventoryEffectRenderer extends GuiContainer {
+public abstract class InventoryEffectRenderer extends ContainerScreen {
 
 	/**
 	 * True if there is some potion effect to display
@@ -25,9 +25,9 @@ public abstract class InventoryEffectRenderer extends GuiContainer {
 	 * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
-	public void initGui() {
+	public void init() {
 
-		super.initGui();
+		super.init();
 		updateActivePotionEffects();
 	}
 
@@ -45,9 +45,9 @@ public abstract class InventoryEffectRenderer extends GuiContainer {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+	public void draw(int mouseX, int mouseY, float partialTicks) {
 
-		super.drawScreen(mouseX, mouseY, partialTicks);
+		super.draw(mouseX, mouseY, partialTicks);
 
 		if (hasActivePotionEffects) {
 			drawActivePotionEffects();
