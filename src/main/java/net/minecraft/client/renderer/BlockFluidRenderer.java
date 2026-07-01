@@ -54,10 +54,6 @@ public class BlockFluidRenderer {
 			return false;
 		} else {
 			boolean flag3 = false;
-			float f3 = 0.5F;
-			float f4 = 1F;
-			float f5 = 0.8F;
-			float f6 = 0.6F;
 			Material material = blockStateIn.getMaterial();
 			float f7 = getFluidHeight(blockAccess, blockPosIn, material);
 			float f8 = getFluidHeight(blockAccess, blockPosIn.south(), material);
@@ -66,7 +62,6 @@ public class BlockFluidRenderer {
 			double d0 = blockPosIn.getX();
 			double d1 = blockPosIn.getY();
 			double d2 = blockPosIn.getZ();
-			float f11 = 0.001F;
 
 			if (flag1) {
 				flag3 = true;
@@ -97,7 +92,6 @@ public class BlockFluidRenderer {
 				} else {
 					float f21 = MathHelper.sin(f12) * 0.25F;
 					float f22 = MathHelper.cos(f12) * 0.25F;
-					float f23 = 8F;
 					f13 = textureatlassprite.getInterpolatedU(8F + (-f22 - f21) * 16F);
 					f17 = textureatlassprite.getInterpolatedV(8F + (-f22 + f21) * 16F);
 					f14 = textureatlassprite.getInterpolatedU(8F + (-f22 + f21) * 16F);

@@ -1,6 +1,5 @@
 package net.minecraft.client.renderer.block.model.multipart;
 
-import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
@@ -16,15 +15,9 @@ public class ConditionAnd implements ICondition {
 		conditions = conditionsIn;
 	}
 
-	public Predicate<IBlockState> getPredicate(final BlockStateContainer blockState) {
+	public Predicate<IBlockState> getPredicate(BlockStateContainer blockState) {
 
-		return Predicates.and(Iterables.transform(conditions, new Function<ICondition, Predicate<IBlockState>>() {
-			
-			public Predicate<IBlockState> apply(ICondition p_apply_1_) {
-
-				return p_apply_1_ == null ? null : p_apply_1_.getPredicate(blockState);
-			}
-		}));
+		return Predicates.and(Iterables.transform(conditions, condition -> condition == null ? null : condition.getPredicate(blockState)));
 	}
 
 }

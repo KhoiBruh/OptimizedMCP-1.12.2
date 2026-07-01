@@ -61,15 +61,6 @@ public class BlockObserver extends BlockDirectional {
 		updateNeighborsInFront(worldIn, pos, state);
 	}
 
-	/**
-	 * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor
-	 * change. Cases may include when redstone power is updated, cactus blocks popping off due to a neighboring solid
-	 * block, etc.
-	 */
-	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
-	}
-
 	public void observedNeighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
 
 		if (!worldIn.isRemote && pos.offset(state.getValue(FACING)).equals(fromPos)) {

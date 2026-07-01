@@ -8,7 +8,7 @@ public interface DataSerializer<T> {
 
 	void write(PacketBuffer buf, T value);
 
-	T read(PacketBuffer buf) throws IOException;
+	T read(PacketBuffer buf);
 
 	DataParameter<T> createKey(int id);
 

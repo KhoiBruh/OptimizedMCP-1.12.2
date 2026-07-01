@@ -277,10 +277,8 @@ public class TextureUtil {
 
 	private static void copyToBufferPos(int[] p_110994_0_, int p_110994_1_, int p_110994_2_) {
 
-		int[] aint = p_110994_0_;
-
 		DATA_BUFFER.clear();
-		DATA_BUFFER.put(aint, p_110994_1_, p_110994_2_);
+		DATA_BUFFER.put(p_110994_0_, p_110994_1_, p_110994_2_);
 		DATA_BUFFER.position(0).limit(p_110994_2_);
 	}
 

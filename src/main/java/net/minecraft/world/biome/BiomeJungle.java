@@ -74,7 +74,6 @@ public class BiomeJungle extends Biome {
 
 		for (int j1 = 0; j1 < 50; ++j1) {
 			k = rand.nextInt(16) + 8;
-			int l = 128;
 			int i1 = rand.nextInt(16) + 8;
 			worldgenvines.generate(worldIn, rand, pos.add(k, 128, i1));
 		}

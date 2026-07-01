@@ -20,7 +20,7 @@ public class MerchantRecipeList extends ArrayList<MerchantRecipe> {
 		readRecipiesFromTags(compound);
 	}
 
-	public static MerchantRecipeList readFromBuf(PacketBuffer buffer) throws IOException {
+	public static MerchantRecipeList readFromBuf(PacketBuffer buffer) {
 
 		MerchantRecipeList merchantrecipelist = new MerchantRecipeList();
 		int i = buffer.readByte() & 255;

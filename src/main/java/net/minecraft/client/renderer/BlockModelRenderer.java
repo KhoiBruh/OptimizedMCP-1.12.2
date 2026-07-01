@@ -175,9 +175,6 @@ public class BlockModelRenderer {
 			quadBounds[Facing.SOUTH.getIndex() + j] = 1F - f5;
 		}
 
-		float f9 = 1.0E-4F;
-		float f10 = 0.9999F;
-
 		switch (face) {
 			case DOWN:
 				boundsFlags.set(1, f >= 1.0E-4F || f2 >= 1.0E-4F || f3 <= 0.9999F || f5 <= 0.9999F);
@@ -264,7 +261,7 @@ public class BlockModelRenderer {
 
 	public void renderModelBrightness(IBakedModel model, IBlockState state, float brightness, boolean p_178266_4_) {
 
-		Block block = state.getBlock();
+		state.getBlock();
 		GLS.rotate(90F, 0F, 1F, 0F);
 		int i = blockColors.colorMultiplier(state, null, null, 0);
 

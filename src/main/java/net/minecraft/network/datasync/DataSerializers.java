@@ -128,7 +128,7 @@ public class DataSerializers {
 			buf.writeItemStack(value);
 		}
 
-		public ItemStack read(PacketBuffer buf) throws IOException {
+		public ItemStack read(PacketBuffer buf) {
 
 			return buf.readItemStack();
 		}

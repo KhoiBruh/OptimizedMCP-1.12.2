@@ -74,7 +74,6 @@ public class BlockSnow extends Block {
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 
 		int i = blockState.getValue(LAYERS) - 1;
-		float f = 0.125F;
 		AxisAlignedBB axisalignedbb = blockState.getBoundingBox(worldIn, pos);
 		return new AxisAlignedBB(axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.minZ, axisalignedbb.maxX, (float) i * 0.125F, axisalignedbb.maxZ);
 	}

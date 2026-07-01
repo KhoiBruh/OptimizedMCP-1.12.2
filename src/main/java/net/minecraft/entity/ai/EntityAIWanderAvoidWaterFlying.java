@@ -49,7 +49,7 @@ public class EntityAIWanderAvoidWaterFlying extends EntityAIWanderAvoidWater {
 				return null;
 			}
 
-			blockpos1 = (BlockPos) iterator.next();
+			blockpos1 = iterator.next();
 
 			if (!blockpos.equals(blockpos1)) {
 				Block block = entity.world.getBlockState(blockpos$mutableblockpos1.setPos(blockpos1).move(Facing.DOWN)).getBlock();

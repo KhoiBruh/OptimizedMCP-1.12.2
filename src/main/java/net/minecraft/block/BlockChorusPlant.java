@@ -55,7 +55,6 @@ public class BlockChorusPlant extends Block {
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
 		state = state.getActualState(source, pos);
-		float f = 0.1875F;
 		float f1 = state.getValue(WEST) ? 0F : 0.1875F;
 		float f2 = state.getValue(DOWN) ? 0F : 0.1875F;
 		float f3 = state.getValue(NORTH) ? 0F : 0.1875F;
@@ -71,8 +70,6 @@ public class BlockChorusPlant extends Block {
 			state = state.getActualState(worldIn, pos);
 		}
 
-		float f = 0.1875F;
-		float f1 = 0.8125F;
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, new AxisAlignedBB(0.1875D, 0.1875D, 0.1875D, 0.8125D, 0.8125D, 0.8125D));
 
 		if (state.getValue(WEST)) {

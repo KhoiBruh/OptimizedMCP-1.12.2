@@ -56,11 +56,6 @@ public class BlockHopper extends BlockContainer {
 		return (meta & 8) != 8;
 	}
 
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
-		return FULL_BLOCK_AABB;
-	}
-
 	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean isActualState) {
 
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, BASE_AABB);

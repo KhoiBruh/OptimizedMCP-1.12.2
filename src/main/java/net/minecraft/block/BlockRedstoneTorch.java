@@ -183,7 +183,6 @@ public class BlockRedstoneTorch extends BlockTorch {
 
 			if (enumfacing.getAxis().isHorizontal()) {
 				Facing enumfacing1 = enumfacing.getOpposite();
-				double d3 = 0.27D;
 				d0 += 0.27D * (double) enumfacing1.getFrontOffsetX();
 				d1 += 0.22D;
 				d2 += 0.27D * (double) enumfacing1.getFrontOffsetZ();

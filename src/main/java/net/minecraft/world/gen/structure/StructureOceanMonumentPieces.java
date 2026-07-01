@@ -667,7 +667,7 @@ public class StructureOceanMonumentPieces {
 							continue label47;
 						}
 
-						structureoceanmonumentpieces$monumentroomfithelper = (StructureOceanMonumentPieces.MonumentRoomFitHelper) lvt_10_1_.next();
+						structureoceanmonumentpieces$monumentroomfithelper = lvt_10_1_.next();
 
 						if (structureoceanmonumentpieces$monumentroomfithelper.fits(structureoceanmonumentpieces$roomdefinition)) {
 							break;

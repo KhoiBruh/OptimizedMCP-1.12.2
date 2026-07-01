@@ -62,7 +62,6 @@ public class AnvilSaveConverter extends SaveFormatOld {
 							s1 = s;
 						}
 
-						long i = 0L;
 						list.add(new WorldSummary(worldinfo, s, s1, 0L, flag));
 					}
 				}

@@ -12,7 +12,7 @@ public class FlatLayerInfo {
 	/**
 	 * Amount of layers for this set of layers.
 	 */
-	private int layerCount;
+	private final int layerCount;
 	private int layerMinimumY;
 
 	public FlatLayerInfo(int p_i45467_1_, Block layerMaterialIn) {

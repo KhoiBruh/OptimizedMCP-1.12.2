@@ -445,7 +445,6 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 		chunk.setLightPopulated(compound.getBoolean("LightPopulated"));
 		chunk.setInhabitedTime(compound.getLong("InhabitedTime"));
 		NBTTagList nbttaglist = compound.getTagList("Sections", 10);
-		int k = 16;
 		ExtendedBlockStorage[] aextendedblockstorage = new ExtendedBlockStorage[16];
 		boolean flag = worldIn.provider.hasSkyLight();
 

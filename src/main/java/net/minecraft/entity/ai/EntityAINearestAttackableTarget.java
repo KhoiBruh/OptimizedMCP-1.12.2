@@ -77,25 +77,22 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
 				return true;
 			}
 		} else {
-			targetEntity = (T) taskOwner.world.getNearestAttackablePlayer(taskOwner.posX, taskOwner.posY + (double) taskOwner.getEyeHeight(), taskOwner.posZ, getTargetDistance(), getTargetDistance(), new Function<>() {
-				
-				public Double apply(EntityPlayer p_apply_1_) {
+			targetEntity = (T) taskOwner.world.getNearestAttackablePlayer(taskOwner.posX, taskOwner.posY + (double) taskOwner.getEyeHeight(), taskOwner.posZ, getTargetDistance(), getTargetDistance(), player -> {
 
-					ItemStack itemstack = p_apply_1_.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
+				ItemStack itemstack = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
 
-					if (itemstack.getItem() == Items.SKULL) {
-						int i = itemstack.getItemDamage();
-						boolean flag = taskOwner instanceof EntitySkeleton && i == 0;
-						boolean flag1 = taskOwner instanceof EntityZombie && i == 2;
-						boolean flag2 = taskOwner instanceof EntityCreeper && i == 4;
+				if (itemstack.getItem() == Items.SKULL) {
+					int i = itemstack.getItemDamage();
+					boolean flag = taskOwner instanceof EntitySkeleton && i == 0;
+					boolean flag1 = taskOwner instanceof EntityZombie && i == 2;
+					boolean flag2 = taskOwner instanceof EntityCreeper && i == 4;
 
-						if (flag || flag1 || flag2) {
-							return 0.5D;
-						}
+					if (flag || flag1 || flag2) {
+						return 0.5D;
 					}
-
-					return 1D;
 				}
+
+				return 1D;
 			}, (Predicate<EntityPlayer>) targetEntitySelector);
 			return targetEntity != null;
 		}

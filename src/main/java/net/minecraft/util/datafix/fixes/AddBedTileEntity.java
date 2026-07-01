@@ -17,8 +17,6 @@ public class AddBedTileEntity implements IFixableData {
 
 	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
 
-		int i = 416;
-
 		try {
 			NBTTagCompound nbttagcompound = compound.getCompoundTag("Level");
 			int j = nbttagcompound.getInteger("xPos");

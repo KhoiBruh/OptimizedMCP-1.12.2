@@ -44,13 +44,7 @@ public class ConditionPropertyValue implements ICondition {
 				if (list.size() == 1) {
 					predicate = makePredicate(iproperty, s);
 				} else {
-					predicate = Predicates.or(Iterables.transform(list, new Function<String, Predicate<IBlockState>>() {
-						
-						public Predicate<IBlockState> apply(String p_apply_1_) {
-
-							return makePredicate(iproperty, p_apply_1_);
-						}
-					}));
+					predicate = Predicates.or(Iterables.transform(list, string -> makePredicate(iproperty, string)));
 				}
 
 				return flag ? Predicates.not(predicate) : predicate;

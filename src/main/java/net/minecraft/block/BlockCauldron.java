@@ -55,11 +55,6 @@ public class BlockCauldron extends Block {
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_WALL_SOUTH);
 	}
 
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
-		return FULL_BLOCK_AABB;
-	}
-
 	/**
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */

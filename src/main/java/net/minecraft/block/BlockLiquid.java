@@ -82,12 +82,6 @@ public abstract class BlockLiquid extends Block {
 		return (float) pos.getY() + getBlockLiquidHeight(state, worldIn, pos);
 	}
 
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
-		return FULL_BLOCK_AABB;
-	}
-
-	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 
 		return NULL_AABB;

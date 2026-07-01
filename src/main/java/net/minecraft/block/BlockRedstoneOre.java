@@ -134,27 +134,27 @@ public class BlockRedstoneOre extends Block {
 			double d3 = (float) pos.getZ() + random.nextFloat();
 
 			if (i == 0 && !worldIn.getBlockState(pos.up()).isOpaqueCube()) {
-				d2 = (double) pos.getY() + 0.0625D + 1D;
+				d2 = (double) pos.getY() + d0 + 1D;
 			}
 
 			if (i == 1 && !worldIn.getBlockState(pos.down()).isOpaqueCube()) {
-				d2 = (double) pos.getY() - 0.0625D;
+				d2 = (double) pos.getY() - d0;
 			}
 
 			if (i == 2 && !worldIn.getBlockState(pos.south()).isOpaqueCube()) {
-				d3 = (double) pos.getZ() + 0.0625D + 1D;
+				d3 = (double) pos.getZ() + d0 + 1D;
 			}
 
 			if (i == 3 && !worldIn.getBlockState(pos.north()).isOpaqueCube()) {
-				d3 = (double) pos.getZ() - 0.0625D;
+				d3 = (double) pos.getZ() - d0;
 			}
 
 			if (i == 4 && !worldIn.getBlockState(pos.east()).isOpaqueCube()) {
-				d1 = (double) pos.getX() + 0.0625D + 1D;
+				d1 = (double) pos.getX() + d0 + 1D;
 			}
 
 			if (i == 5 && !worldIn.getBlockState(pos.west()).isOpaqueCube()) {
-				d1 = (double) pos.getX() - 0.0625D;
+				d1 = (double) pos.getX() - d0;
 			}
 
 			if (d1 < (double) pos.getX() || d1 > (double) (pos.getX() + 1) || d2 < 0D || d2 > (double) (pos.getY() + 1) || d3 < (double) pos.getZ() || d3 > (double) (pos.getZ() + 1)) {

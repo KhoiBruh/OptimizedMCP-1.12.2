@@ -25,13 +25,7 @@ import java.util.regex.Pattern;
 public class BlockStateContainer {
 
 	private static final Pattern NAME_PATTERN = Pattern.compile("^[a-z0-9_]+$");
-	private static final Function<IProperty<?>, String> GET_NAME_FUNC = new Function<>() {
-		
-		public String apply(IProperty<?> p_apply_1_) {
-
-			return p_apply_1_ == null ? "<NULL>" : p_apply_1_.getName();
-		}
-	};
+	private static final Function<IProperty<?>, String> GET_NAME_FUNC = property -> property == null ? "<NULL>" : property.getName();
 	private final Block block;
 	private final ImmutableSortedMap<String, IProperty<?>> properties;
 	private final ImmutableList<IBlockState> validStates;

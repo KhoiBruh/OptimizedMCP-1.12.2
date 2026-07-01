@@ -65,7 +65,7 @@ public class CPacketClickWindow implements Packet<INetHandlerPlayServer> {
 	/**
 	 * Reads the raw packet data from the data stream.
 	 */
-	public void readPacketData(PacketBuffer buf) throws IOException {
+	public void readPacketData(PacketBuffer buf) {
 
 		windowId = buf.readByte();
 		slotId = buf.readShort();

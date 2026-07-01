@@ -38,8 +38,6 @@ public abstract class BlockLeaves extends Block {
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
 
-		int i = 1;
-		int j = 2;
 		int k = pos.getX();
 		int l = pos.getY();
 		int i1 = pos.getZ();
@@ -64,14 +62,9 @@ public abstract class BlockLeaves extends Block {
 
 		if (!worldIn.isRemote) {
 			if (state.getValue(CHECK_DECAY) && state.getValue(DECAYABLE)) {
-				int i = 4;
-				int j = 5;
 				int k = pos.getX();
 				int l = pos.getY();
 				int i1 = pos.getZ();
-				int j1 = 32;
-				int k1 = 1024;
-				int l1 = 16;
 
 				if (surroundings == null) {
 					surroundings = new int[32768];

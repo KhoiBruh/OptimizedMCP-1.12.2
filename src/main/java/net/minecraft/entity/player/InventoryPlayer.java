@@ -783,7 +783,7 @@ public class InventoryPlayer implements IInventory {
 					continue label23;
 				}
 
-				ItemStack itemstack = (ItemStack) iterator.next();
+				ItemStack itemstack = iterator.next();
 
 				if (!itemstack.isEmpty() && itemstack.isItemEqual(itemStackIn)) {
 					break;

@@ -41,7 +41,6 @@ public class Barrier extends Particle {
 		float f1 = particleTexture.getMaxU();
 		float f2 = particleTexture.getMinV();
 		float f3 = particleTexture.getMaxV();
-		float f4 = 0.5F;
 		float f5 = (float) (prevPosX + (posX - prevPosX) * (double) partialTicks - interpPosX);
 		float f6 = (float) (prevPosY + (posY - prevPosY) * (double) partialTicks - interpPosY);
 		float f7 = (float) (prevPosZ + (posZ - prevPosZ) * (double) partialTicks - interpPosZ);

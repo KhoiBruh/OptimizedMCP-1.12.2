@@ -64,19 +64,7 @@ public class Selector {
 
 	public static class Deserializer implements JsonDeserializer<Selector> {
 
-		private static final Function<Entry<String, JsonElement>, ICondition> FUNCTION_PROPERTY_VALUE = new Function<>() {
-			
-			public ICondition apply(Entry<String, JsonElement> p_apply_1_) {
-
-				return p_apply_1_ == null ? null : Selector.Deserializer.makePropertyValue(p_apply_1_);
-			}
-		};		private static final Function<JsonElement, ICondition> FUNCTION_OR_AND = new Function<>() {
-			
-			public ICondition apply(JsonElement p_apply_1_) {
-
-				return p_apply_1_ == null ? null : Selector.Deserializer.getOrAndCondition(p_apply_1_.getAsJsonObject());
-			}
-		};
+		private static final Function<Entry<String, JsonElement>, ICondition> FUNCTION_PROPERTY_VALUE = entry -> entry == null ? null : makePropertyValue(entry);
 
 		@VisibleForTesting
 		static ICondition getOrAndCondition(JsonObject json) {
@@ -89,12 +77,15 @@ public class Selector {
 				if (json.has("OR")) {
 					return new ConditionOr(Iterables.transform(JsonUtils.getJsonArray(json, "OR"), FUNCTION_OR_AND));
 				} else {
-					return json.has("AND") ? new ConditionAnd(Iterables.transform(JsonUtils.getJsonArray(json, "AND"), FUNCTION_OR_AND)) : makePropertyValue(set.iterator().next());
+					return json.has("AND") ? new ConditionAnd(Iterables.transform(JsonUtils.getJsonArray(json, "AND"), FUNCTION_OR_AND)) : makePropertyValue(set.iterator()
+					                                                                                                                                            .next());
 				}
 			} else {
 				return new ConditionAnd(Iterables.transform(set, FUNCTION_PROPERTY_VALUE));
 			}
 		}
+
+		private static final Function<JsonElement, ICondition> FUNCTION_OR_AND = element -> element == null ? null : getOrAndCondition(element.getAsJsonObject());
 
 		private static ConditionPropertyValue makePropertyValue(Entry<String, JsonElement> entry) {
 

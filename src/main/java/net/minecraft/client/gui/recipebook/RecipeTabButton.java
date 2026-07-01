@@ -39,7 +39,7 @@ public class RecipeTabButton extends ToggleButton {
 					continue label21;
 				}
 
-				IRecipe irecipe = (IRecipe) iterator.next();
+				IRecipe irecipe = iterator.next();
 
 				if (recipebook.isNew(irecipe)) {
 					break;

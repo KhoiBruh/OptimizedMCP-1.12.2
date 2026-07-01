@@ -22,7 +22,6 @@ import org.apache.logging.log4j.Logger;
 
 public class BeaconScreen extends ContainerScreen {
 
-	private static final Logger LOGGER = LogManager.getLogger();
 	private static final ResourceLocation BEACON_GUI_TEXTURES = new ResourceLocation("textures/gui/container/beacon.png");
 	private final IInventory tileBeacon;
 	private BeaconScreen.ConfirmButton beaconConfirmButton;
@@ -81,7 +80,6 @@ public class BeaconScreen extends ContainerScreen {
 				}
 			}
 
-			int k1 = 3;
 			int l1 = TileEntityBeacon.EFFECTS_LIST[3].length + 1;
 			int i2 = l1 * 22 + (l1 - 1) * 2;
 
@@ -121,7 +119,6 @@ public class BeaconScreen extends ContainerScreen {
 			mc.player.connection.sendPacket(new CPacketCloseWindow(mc.player.openContainer.windowId));
 			mc.displayScreen(null);
 		} else if (button.id == -1) {
-			String s = "MC|Beacon";
 			PacketBuffer packetbuffer = new PacketBuffer(Unpooled.buffer());
 			packetbuffer.writeInt(tileBeacon.getField(1));
 			packetbuffer.writeInt(tileBeacon.getField(2));
@@ -216,7 +213,6 @@ public class BeaconScreen extends ContainerScreen {
 				mc.getTextureManager().bindTexture(BeaconScreen.BEACON_GUI_TEXTURES);
 				GLS.color(1F, 1F, 1F, 1F);
 				hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
-				int i = 219;
 				int j = 0;
 
 				if (!enabled) {

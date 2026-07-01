@@ -152,7 +152,7 @@ public abstract class MapGenStructure extends MapGenBase {
 		label31:
 
 		while (objectiterator.hasNext()) {
-			StructureStart structurestart = (StructureStart) objectiterator.next();
+			StructureStart structurestart = objectiterator.next();
 
 			if (structurestart.isSizeableStructure() && structurestart.getBoundingBox().isVecInside(pos)) {
 				Iterator<StructureComponent> iterator = structurestart.getComponents().iterator();

@@ -61,7 +61,6 @@ public class BlockFalling extends Block {
 	private void checkFallable(World worldIn, BlockPos pos) {
 
 		if (canFallThrough(worldIn.getBlockState(pos.down())) && pos.getY() >= 0) {
-			int i = 32;
 
 			if (!fallInstantly && worldIn.isAreaLoaded(pos.add(-32, -32, -32), pos.add(32, 32, 32))) {
 				if (!worldIn.isRemote) {

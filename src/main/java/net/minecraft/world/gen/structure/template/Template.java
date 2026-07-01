@@ -593,13 +593,6 @@ public class Template {
 
 	public record BlockInfo(BlockPos pos, IBlockState blockState, NBTTagCompound tileentityData) {
 
-		public BlockInfo(BlockPos pos, IBlockState blockState, NBTTagCompound tileentityData) {
-
-			this.pos = pos;
-			this.blockState = blockState;
-			this.tileentityData = tileentityData;
-		}
-
 	}
 
 	public record EntityInfo(Vec3d pos, BlockPos blockPos, NBTTagCompound entityData) {

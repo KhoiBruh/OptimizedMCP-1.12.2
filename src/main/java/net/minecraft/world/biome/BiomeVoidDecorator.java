@@ -11,7 +11,6 @@ public class BiomeVoidDecorator extends BiomeDecorator {
 	public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
 
 		BlockPos blockpos = worldIn.getSpawnPoint();
-		int i = 16;
 		double d0 = blockpos.distanceSq(pos.add(8, blockpos.getY(), 8));
 
 		if (d0 <= 1024D) {

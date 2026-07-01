@@ -56,7 +56,6 @@ public class BlockDragonEgg extends Block {
 	private void checkFall(World worldIn, BlockPos pos) {
 
 		if (BlockFalling.canFallThrough(worldIn.getBlockState(pos.down())) && pos.getY() >= 0) {
-			int i = 32;
 
 			if (!BlockFalling.fallInstantly && worldIn.isAreaLoaded(pos.add(-32, -32, -32), pos.add(32, 32, 32))) {
 				worldIn.spawnEntity(new EntityFallingBlock(worldIn, (float) pos.getX() + 0.5F, pos.getY(), (float) pos.getZ() + 0.5F, getDefaultState()));

@@ -342,7 +342,6 @@ public class BlockLever extends Block {
 				case SOUTH -> SOUTH;
 				case WEST -> WEST;
 				case EAST -> EAST;
-				default -> throw new IllegalArgumentException("Invalid facing: " + clickedSide);
 			};
 		}
 

@@ -66,7 +66,7 @@ public class DisplayInfo {
 		}
 	}
 
-	public static DisplayInfo read(PacketBuffer buf) throws IOException {
+	public static DisplayInfo read(PacketBuffer buf) {
 
 		ITextComponent itextcomponent = buf.readTextComponent();
 		ITextComponent itextcomponent1 = buf.readTextComponent();

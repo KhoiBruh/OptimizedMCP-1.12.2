@@ -28,7 +28,7 @@ public class SPacketEntityEquipment implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Reads the raw packet data from the data stream.
 	 */
-	public void readPacketData(PacketBuffer buf) throws IOException {
+	public void readPacketData(PacketBuffer buf) {
 
 		entityID = buf.readVarInt();
 		equipmentSlot = buf.readEnumValue(EntityEquipmentSlot.class);

@@ -1202,7 +1202,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 						break label21;
 					}
 
-					IRecipe irecipe = (IRecipe) iterator.next();
+					IRecipe irecipe = iterator.next();
 					recipebook.lock(irecipe);
 				}
 
@@ -1549,8 +1549,6 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 					MerchantRecipeList merchantrecipelist = MerchantRecipeList.readFromBuf(packetbuffer);
 					imerchant.setRecipes(merchantrecipelist);
 				}
-			} catch (IOException ioexception) {
-				LOGGER.error("Couldn't load trade info", ioexception);
 			} finally {
 				packetbuffer.release();
 			}

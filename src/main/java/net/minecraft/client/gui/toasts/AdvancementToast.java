@@ -37,9 +37,6 @@ public class AdvancementToast implements IToast {
 				toastGui.getMinecraft().fontRenderer.drawString(I18n.format("advancements.toast." + displayinfo.getFrame().getName()), 30, 7, i | -16777216);
 				toastGui.getMinecraft().fontRenderer.drawString(displayinfo.getTitle().getFormattedText(), 30, 18, -1);
 			} else {
-				int j = 1500;
-				float f = 300F;
-
 				if (delta < 1500L) {
 					int k = MathHelper.floor(MathHelper.clamp((float) (1500L - delta) / 300F, 0F, 1F) * 255F) << 24 | 67108864;
 					toastGui.getMinecraft().fontRenderer.drawString(I18n.format("advancements.toast." + displayinfo.getFrame().getName()), 30, 11, i | k);

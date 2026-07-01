@@ -537,7 +537,7 @@ public abstract class CommandBase implements ICommand {
 					return map;
 				}
 
-				String s = (String) iterator.next();
+				String s = iterator.next();
 				Iterator<String> iterator1 = EQUAL_SPLITTER.split(s).iterator();
 
 				if (!iterator1.hasNext()) {

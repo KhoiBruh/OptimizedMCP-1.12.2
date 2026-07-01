@@ -59,7 +59,6 @@ public abstract class Biome {
 	 * The swamp tree generator.
 	 */
 	protected static final WorldGenSwamp SWAMP_FEATURE = new WorldGenSwamp();
-	private static final Logger LOGGER = LogManager.getLogger();
 	private final String biomeName;
 
 	/**

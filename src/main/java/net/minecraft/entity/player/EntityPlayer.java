@@ -2175,7 +2175,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 			return true;
 		} else {
 			ItemStack itemstack = getHeldItemMainhand();
-			return !itemstack.isEmpty() && itemstack.hasDisplayName() && itemstack.getDisplayName().equals(code.getLock());
+			return !itemstack.isEmpty() && itemstack.hasDisplayName() && itemstack.getDisplayName().equals(code.lock());
 		}
 	}
 

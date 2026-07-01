@@ -41,7 +41,7 @@ public class SPacketEntityMetadata implements Packet<INetHandlerPlayClient> {
 	/**
 	 * Writes the raw packet data to the data stream.
 	 */
-	public void writePacketData(PacketBuffer buf) throws IOException {
+	public void writePacketData(PacketBuffer buf) {
 
 		buf.writeVarInt(entityId);
 		EntityDataManager.writeEntries(dataManagerEntries, buf);
