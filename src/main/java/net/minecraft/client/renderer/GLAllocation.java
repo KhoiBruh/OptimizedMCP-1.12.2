@@ -1,6 +1,6 @@
 package net.minecraft.client.renderer;
 
-import org.lwjgl.util.glu.GLU;
+import net.minecraft.client.util.Projection;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -21,7 +21,7 @@ public class GLAllocation {
 			String s = "No error code reported";
 
 			if (j != 0) {
-				s = GLU.gluErrorString(j);
+				s = Projection.getErrorString(j);
 			}
 
 			throw new IllegalStateException("glGenLists returned an ID of 0 for a count of " + range + ", GL error (" + j + "): " + s);

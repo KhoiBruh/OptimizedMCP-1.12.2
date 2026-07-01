@@ -18,7 +18,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IWorldNameable;
 import net.minecraft.world.World;
-import org.lwjgl.util.glu.Project;
+import net.minecraft.client.util.Projection;
 
 import java.io.IOException;
 import java.util.List;
@@ -122,7 +122,7 @@ public class GuiEnchantment extends GuiContainer {
 		GlStateManager.loadIdentity();
 		GlStateManager.viewport((mc.getWindow().getScaledWidth() - 320) / 2 * mc.getWindow().getGuiScale(), (mc.getWindow().getScaledHeight() - 240) / 2 * mc.getWindow().getGuiScale(), 320 * mc.getWindow().getGuiScale(), 240 * mc.getWindow().getGuiScale());
 		GlStateManager.translate(-0.34F, 0.23F, 0F);
-		Project.gluPerspective(90F, 1.3333334F, 9F, 80F);
+		Projection.perspective(90F, 1.3333334F, 9F, 80F);
 		float f = 1F;
 		GlStateManager.matrixMode(5888);
 		GlStateManager.loadIdentity();

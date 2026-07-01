@@ -4,3 +4,4 @@ workspace
 README.md
 /out/
 /.idea/
+/run/

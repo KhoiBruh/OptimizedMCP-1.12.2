@@ -26,7 +26,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import net.minecraft.client.util.Mouse;
 import org.lwjgl.opengl.GL;
-import org.lwjgl.util.glu.Project;
+import net.minecraft.client.util.Projection;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -276,7 +276,7 @@ public class GuiMainMenu extends GuiScreen {
 		GlStateManager.matrixMode(5889);
 		GlStateManager.pushMatrix();
 		GlStateManager.loadIdentity();
-		Project.gluPerspective(120F, 1F, 0.05F, 10F);
+		Projection.perspective(120F, 1F, 0.05F, 10F);
 		GlStateManager.matrixMode(5888);
 		GlStateManager.pushMatrix();
 		GlStateManager.loadIdentity();

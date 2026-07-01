@@ -8,7 +8,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import org.lwjgl.util.glu.GLU;
+import net.minecraft.client.util.Projection;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -71,7 +71,7 @@ public class ActiveRenderInfo {
 		GlStateManager.glGetInteger(2978, VIEWPORT);
 		float f = (float) ((VIEWPORT.get(0) + VIEWPORT.get(2)) / 2);
 		float f1 = (float) ((VIEWPORT.get(1) + VIEWPORT.get(3)) / 2);
-		GLU.gluUnProject(f, f1, 0F, MODELVIEW, PROJECTION, VIEWPORT, OBJECTCOORDS);
+		Projection.unProject(f, f1, 0F, MODELVIEW, PROJECTION, VIEWPORT, OBJECTCOORDS);
 		position = new Vec3d(OBJECTCOORDS.get(0), OBJECTCOORDS.get(1), OBJECTCOORDS.get(2));
 		int i = p_74583_1_ ? 1 : 0;
 		float f2 = entityplayerIn.rotationPitch;

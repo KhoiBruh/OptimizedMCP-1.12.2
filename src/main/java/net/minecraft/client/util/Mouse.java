@@ -24,8 +24,6 @@ public final class Mouse {
 	private static double lastEventX = 0;
 	private static double lastEventY = 0;
 	
-	private static double scrollAccum = 0.0;
-	
 	@Getter
 	private static boolean grabbed = false;
 	
@@ -59,21 +57,20 @@ public final class Mouse {
 			lastEventY = cy;
 			Mouse.x = cx;
 			Mouse.y = cy;
-			eventQueue.addLast(new MouseEvent(-1, false, 0.0, cx, cy, dx, dy));
+			eventQueue.addLast(new MouseEvent(-1, false, 0, cx, cy, dx, dy));
 		});
 		
 		buttonCb = GLFWMouseButtonCallback.create((win, btn, action, mods) -> {
 			if (btn >= 0 && btn < buttonState.length) {
 				boolean pressed = (action != GLFW_RELEASE);
 				buttonState[btn] = pressed;
-				eventQueue.addLast(new MouseEvent(btn, pressed, 0.0, x, y, 0.0, 0.0));
+				eventQueue.addLast(new MouseEvent(btn, pressed, 0, x, y, 0, 0));
 			}
 		});
 		
-		scrollCb = GLFWScrollCallback.create((win, xOff, yOff) -> {
-			scrollAccum += yOff;
-			eventQueue.addLast(new MouseEvent(-1, false, yOff, x, y, 0.0, 0.0));
-		});
+		scrollCb = GLFWScrollCallback.create((win, xOff, yOff) -> eventQueue.addLast(
+				new MouseEvent(-1, false, yOff, x, y, 0, 0)
+		));
 		
 		glfwSetCursorPosCallback(handle, posCb);
 		glfwSetMouseButtonCallback(handle, buttonCb);
@@ -81,7 +78,7 @@ public final class Mouse {
 	}
 	
 	public static void removeCallbacks() {
-		long handle = window != null ? window.getHandle() : 0L;
+		long handle = window.getHandle();
 		glfwSetCursorPosCallback(handle, null);
 		glfwSetMouseButtonCallback(handle, null);
 		glfwSetScrollCallback(handle, null);
@@ -105,12 +102,7 @@ public final class Mouse {
 	public static void poll() {
 		lastX = x;
 		lastY = y;
-		scrollAccum = 0.0;
 		currentEvent = null;
-	}
-	
-	public static void destroy() {
-		created = false;
 	}
 	
 	public static int getDX() {
@@ -129,10 +121,6 @@ public final class Mouse {
 		return (window != null ? window.getHeight() : 0) - (int) y;
 	}
 	
-	public static int getDWheel() {
-		return (int) (scrollAccum * 120.0);
-	}
-	
 	public static boolean isButtonDown(int button) {
 		if (button < 0 || button >= buttonState.length) return false;
 		return buttonState[button];
@@ -145,18 +133,18 @@ public final class Mouse {
 		glfwSetInputMode(handle, GLFW_CURSOR, grab ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
 	}
 
-	public static void grabMouseCursor() {
+	public static void grabCursor() {
 		setGrabbed(true);
 		lastX = x;
 		lastY = y;
 	}
 
-	public static void ungrabMouseCursor() {
-		if (window != null) setCursorPosition(window.getWidth() / 2, window.getHeight() / 2);
+	public static void ungrabCursor() {
+		if (window != null) setCursorPos(window.getWidth() / 2, window.getHeight() / 2);
 		setGrabbed(false);
 	}
 	
-	public static void setCursorPosition(int x, int y) {
+	public static void setCursorPos(int x, int y) {
 		if (window == null) return;
 		long handle = window.getHandle();
 		glfwSetCursorPos(handle, x, y);
@@ -198,7 +186,7 @@ public final class Mouse {
 	
 	public static int getEventDWheel() {
 		if (currentEvent == null) return 0;
-		return (int) (currentEvent.dWheel * 120.0);
+		return (int) (currentEvent.dWheel * 120);
 	}
 	
 	private record MouseEvent(int button, boolean buttonState, double dWheel, double x, double y, double dx, double dy) {

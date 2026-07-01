@@ -530,9 +530,9 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	 * Handles mouse input.
 	 */
 	public void handleMouseInput() throws IOException {
-		int i = Mouse.getEventX() * width / mc.getWindow().getWidth();
+		int i = Mouse.getX() * width / mc.getWindow().getWidth();
 
-		int j = height - Mouse.getEventY() * height / mc.getWindow().getHeight() - 1;
+		int j = height - Mouse.getY() * height / mc.getWindow().getHeight() - 1;
 		int k = Mouse.getEventButton();
 
 		if (Mouse.getEventButtonState()) {

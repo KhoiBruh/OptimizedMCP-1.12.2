@@ -109,9 +109,8 @@ import net.minecraft.world.storage.WorldInfo;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.Sys;
 import org.lwjgl.Version;
-import org.lwjgl.util.glu.GLU;
+import net.minecraft.client.util.Projection;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -135,10 +134,14 @@ import static org.lwjgl.glfw.GLFW.*;
 public class Minecraft implements IThreadListener {
 	
 	// Public static fields
+	public static final long START_TIME = System.nanoTime();
+	public static final long TIMER_RESOLUTION = 1_000_000_000L;
+	
 	public static final boolean IS_RUNNING_ON_MAC = Util.getOSType() == Util.OS.OSX;
 	private static final ResourceLocation LOCATION_MOJANG_PNG = new ResourceLocation("textures/gui/title/mojang.png");
 	private static final Logger LOGGER = LogManager.getLogger();
 	public static byte[] memoryReserve = new byte[10485760];
+	
 	// Private static fields
 	private static int debugFPS;
 	private static Minecraft instance;
@@ -165,6 +168,7 @@ public class Minecraft implements IThreadListener {
 	private final Timer timer = new Timer(20F);
 	private final GuiToast toastGui;
 	private final String versionType;
+	
 	// Public instance fields
 	public CreativeSettings creativeSettings;
 	public GuiScreen currentScreen;
@@ -183,15 +187,18 @@ public class Minecraft implements IThreadListener {
 	public Entity pointedEntity;
 	public boolean renderChunksMany = true;
 	public RenderGlobal renderGlobal;
+	
 	// Removed: scaledResolution field (merged into Window)
 	public boolean skipRenderWorld;
 	public FontRenderer standardGalacticFontRenderer;
 	public WorldClient world;
+	
 	// Package-private fields
 	long prevFrameTime = -1L;
 	volatile boolean running = true;
 	long startNanoTime = System.nanoTime();
 	long systemTime = getSystemTime();
+	
 	// Private instance fields
 	private boolean actionKeyF3;
 	private BlockColors blockColors;
@@ -293,9 +300,7 @@ public class Minecraft implements IThreadListener {
 			GlStateManager.glTexImage2D(32868, 0, 6408, i, i, 0, 6408, 5121, null);
 			int j = GlStateManager.glGetTexLevelParameteri(32868, 0, 4096);
 			
-			if (j != 0) {
-				return i;
-			}
+			if (j != 0) return i;
 		}
 		
 		return -1;
@@ -303,11 +308,9 @@ public class Minecraft implements IThreadListener {
 	
 	public static void stopIntegratedServer() {
 		if (instance != null) {
-			IntegratedServer integratedserver = instance.getIntegratedServer();
+			IntegratedServer server = instance.getIntegratedServer();
 			
-			if (integratedserver != null) {
-				integratedserver.stopServer();
-			}
+			if (server != null) server.stopServer();
 		}
 	}
 	
@@ -315,7 +318,7 @@ public class Minecraft implements IThreadListener {
 	 * Gets the system time in milliseconds.
 	 */
 	public static long getSystemTime() {
-		return Sys.getTime() * 1000L / Sys.getTimerResolution();
+		return (System.nanoTime() - START_TIME) * 1000L / TIMER_RESOLUTION;
 	}
 	
 	public static int getDebugFPS() {
@@ -330,7 +333,7 @@ public class Minecraft implements IThreadListener {
 		} catch (Throwable throwable) {
 			CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Initializing game");
 			crashreport.makeCategory("Initialization");
-			displayCrashReport(addGraphicsAndWorldToCrashReport(crashreport));
+			showCrashReport(addGraphicsAndWorldToCrashReport(crashreport));
 			return;
 		}
 		
@@ -345,9 +348,7 @@ public class Minecraft implements IThreadListener {
 							displayScreen(new GuiMemoryErrorScreen());
 							System.gc();
 						}
-					} else {
-						displayCrashReport(crashReporter);
-					}
+					} else showCrashReport(crashReporter);
 				}
 			} catch (MinecraftError var12) {
 				break;
@@ -355,13 +356,13 @@ public class Minecraft implements IThreadListener {
 				addGraphicsAndWorldToCrashReport(reportedexception.getCrashReport());
 				freeMemory();
 				LOGGER.fatal("Reported exception thrown!", reportedexception);
-				displayCrashReport(reportedexception.getCrashReport());
+				showCrashReport(reportedexception.getCrashReport());
 				break;
 			} catch (Throwable throwable1) {
 				CrashReport crashreport1 = addGraphicsAndWorldToCrashReport(new CrashReport("Unexpected error", throwable1));
 				freeMemory();
 				LOGGER.fatal("Unreported exception thrown!", throwable1);
-				displayCrashReport(crashreport1);
+				showCrashReport(crashreport1);
 				break;
 			} finally {
 				shutdownMinecraftApplet();
@@ -608,16 +609,16 @@ public class Minecraft implements IThreadListener {
 	/**
 	 * Wrapper around displayCrashReportInternal
 	 */
-	public void displayCrashReport(CrashReport crashReportIn) {
-		File file1 = new File(getMinecraft().mcDataDir, "crash-reports");
-		File file2 = new File(file1, "crash-" + (new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss")).format(new Date()) + "-client.txt");
-		Bootstrap.printToSYSOUT(crashReportIn.getCompleteReport());
+	public void showCrashReport(CrashReport crash) {
+		File report = new File(getMinecraft().mcDataDir, "crash-reports");
+		File client = new File(report, "crash-" + (new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss")).format(new Date()) + "-client.txt");
+		Bootstrap.printToSYSOUT(crash.getCompleteReport());
 		
-		if (crashReportIn.getFile() != null) {
-			Bootstrap.printToSYSOUT("#@!@# Game crashed! Crash report saved to: #@!@# " + crashReportIn.getFile());
+		if (crash.getFile() != null) {
+			Bootstrap.printToSYSOUT("#@!@# Game crashed! Crash report saved to: #@!@# " + crash.getFile());
 			System.exit(-1);
-		} else if (crashReportIn.saveToFile(file2)) {
-			Bootstrap.printToSYSOUT("#@!@# Game crashed! Crash report saved to: #@!@# " + file2.getAbsolutePath());
+		} else if (crash.saveToFile(client)) {
+			Bootstrap.printToSYSOUT("#@!@# Game crashed! Crash report saved to: #@!@# " + client.getAbsolutePath());
 			System.exit(-1);
 		} else {
 			Bootstrap.printToSYSOUT("#@?@# Game crashed! Crash report could not be saved. #@?@#");
@@ -634,8 +635,8 @@ public class Minecraft implements IThreadListener {
 		
 		if (integratedServer != null) integratedServer.reload();
 		
-		for (ResourcePackRepository.Entry resourcepackrepository$entry : mcResourcePackRepository.getRepositoryEntries()) {
-			list.add(resourcepackrepository$entry.getResourcePack());
+		for (ResourcePackRepository.Entry entry : mcResourcePackRepository.getRepositoryEntries()) {
+			list.add(entry.getResourcePack());
 		}
 		
 		if (mcResourcePackRepository.getServerResourcePack() != null) {
@@ -807,7 +808,7 @@ public class Minecraft implements IThreadListener {
 		int i = GlStateManager.glGetError();
 		
 		if (i != 0) {
-			String s = GLU.gluErrorString(i);
+			String s = Projection.getErrorString(i);
 			LOGGER.error("########## GL ERROR ##########");
 			LOGGER.error("@ {}", message);
 			LOGGER.error("{}: {}", i, s);
@@ -1130,7 +1131,7 @@ public class Minecraft implements IThreadListener {
 			if (!IS_RUNNING_ON_MAC) KeyBinding.updateKeyBindState();
 			
 			inGameHasFocus = true;
-			Mouse.grabMouseCursor();
+			Mouse.grabCursor();
 			displayScreen(null);
 			leftClickCounter = 10000;
 		}
@@ -1142,7 +1143,7 @@ public class Minecraft implements IThreadListener {
 	public void setIngameNotInFocus() {
 		if (inGameHasFocus) {
 			inGameHasFocus = false;
-			Mouse.ungrabMouseCursor();
+			Mouse.ungrabCursor();
 		}
 	}
 	
@@ -1153,9 +1154,7 @@ public class Minecraft implements IThreadListener {
 		if (currentScreen == null) {
 			displayScreen(new GuiIngameMenu());
 			
-			if (isSingleplayer() && !integratedServer.getPublic()) {
-				mcSoundHandler.pauseSounds();
-			}
+			if (isSingleplayer() && !integratedServer.getPublic()) mcSoundHandler.pauseSounds();
 		}
 	}
 	
@@ -1182,29 +1181,19 @@ public class Minecraft implements IThreadListener {
 			if (objectMouseOver == null) {
 				LOGGER.error("Null returned as 'hitResult', this shouldn't happen!");
 				
-				if (playerController.isNotCreative()) {
-					leftClickCounter = 10;
-				}
+				if (playerController.isNotCreative()) leftClickCounter = 10;
 			} else if (!player.isRowingBoat()) {
 				switch (objectMouseOver.typeOfHit) {
-					case ENTITY:
-						playerController.attackEntity(player, objectMouseOver.entityHit);
-						break;
-					
-					case BLOCK:
+					case ENTITY -> playerController.attackEntity(player, objectMouseOver.entityHit);
+					case BLOCK -> {
 						BlockPos blockpos = objectMouseOver.getBlockPos();
-						
-						if (world.getBlockState(blockpos).getMaterial() != Material.AIR) {
+						if (world.getBlockState(blockpos).getMaterial() != Material.AIR)
 							playerController.clickBlock(blockpos, objectMouseOver.sideHit);
-							break;
-						}
-					
-					case MISS:
-						if (playerController.isNotCreative()) {
-							leftClickCounter = 10;
-						}
-						
+					}
+					case MISS -> {
+						if (playerController.isNotCreative()) leftClickCounter = 10;
 						player.resetCooldown();
+					}
 				}
 				
 				player.swingArm(Hand.MAIN_HAND);
@@ -1222,44 +1211,40 @@ public class Minecraft implements IThreadListener {
 			if (!player.isRowingBoat()) {
 				if (objectMouseOver == null) LOGGER.warn("Null returned as 'hitResult', this shouldn't happen!");
 				
-				for (Hand enumhand : Hand.values()) {
-					ItemStack itemstack = player.getHeldItem(enumhand);
+				for (Hand hand : Hand.values()) {
+					ItemStack item = player.getHeldItem(hand);
 					
-					if (objectMouseOver != null) {
-						switch (objectMouseOver.typeOfHit) {
-							case ENTITY:
-								if (playerController.interactWithEntity(player, objectMouseOver.entityHit, objectMouseOver, enumhand) == ActionResult.SUCCESS) {
-									return;
-								}
-								
-								if (playerController.interactWithEntity(player, objectMouseOver.entityHit, enumhand) == ActionResult.SUCCESS) {
-									return;
-								}
-								
-								break;
+					if (objectMouseOver != null) switch (objectMouseOver.typeOfHit) {
+						case ENTITY -> {
+							if (playerController.interactWithEntity(player, objectMouseOver.entityHit, objectMouseOver, hand) == ActionResult.SUCCESS) {
+								return;
+							}
 							
-							case BLOCK:
-								BlockPos blockpos = objectMouseOver.getBlockPos();
+							if (playerController.interactWithEntity(player, objectMouseOver.entityHit, hand) == ActionResult.SUCCESS) {
+								return;
+							}
+						}
+						case BLOCK -> {
+							BlockPos block = objectMouseOver.getBlockPos();
+							
+							if (world.getBlockState(block).getMaterial() != Material.AIR) {
+								int i = item.getCount();
+								ActionResult result = playerController.processRightClickBlock(player, world, block, objectMouseOver.sideHit, objectMouseOver.hitVec, hand);
 								
-								if (world.getBlockState(blockpos).getMaterial() != Material.AIR) {
-									int i = itemstack.getCount();
-									ActionResult enumactionresult = playerController.processRightClickBlock(player, world, blockpos, objectMouseOver.sideHit, objectMouseOver.hitVec, enumhand);
+								if (result == ActionResult.SUCCESS) {
+									player.swingArm(hand);
 									
-									if (enumactionresult == ActionResult.SUCCESS) {
-										player.swingArm(enumhand);
-										
-										if (!itemstack.isEmpty() && (itemstack.getCount() != i || playerController.isInCreativeMode())) {
-											entityRenderer.itemRenderer.resetEquippedProgress(enumhand);
-										}
-										
-										return;
-									}
+									if (!item.isEmpty() && (item.getCount() != i || playerController.isInCreativeMode()))
+										entityRenderer.itemRenderer.resetEquippedProgress(hand);
+									
+									return;
 								}
+							}
 						}
 					}
 					
-					if (!itemstack.isEmpty() && playerController.processRightClick(player, world, enumhand) == ActionResult.SUCCESS) {
-						entityRenderer.itemRenderer.resetEquippedProgress(enumhand);
+					if (!item.isEmpty() && playerController.processRightClick(player, world, hand) == ActionResult.SUCCESS) {
+						entityRenderer.itemRenderer.resetEquippedProgress(hand);
 						return;
 					}
 				}
@@ -1939,47 +1924,41 @@ public class Minecraft implements IThreadListener {
 	 */
 	private void midClick() {
 		if (objectMouseOver != null && objectMouseOver.typeOfHit != RayTraceResult.Type.MISS) {
-			boolean flag = player.capabilities.isCreativeMode;
-			TileEntity tileentity = null;
-			ItemStack itemstack;
+			boolean creative = player.capabilities.isCreativeMode;
+			TileEntity tileEntity = null;
+			ItemStack item;
 			
 			if (objectMouseOver.typeOfHit == RayTraceResult.Type.BLOCK) {
-				BlockPos blockpos = objectMouseOver.getBlockPos();
-				IBlockState iblockstate = world.getBlockState(blockpos);
-				Block block = iblockstate.getBlock();
+				BlockPos pos = objectMouseOver.getBlockPos();
+				IBlockState state = world.getBlockState(pos);
+				Block block = state.getBlock();
 				
-				if (iblockstate.getMaterial() == Material.AIR) {
-					return;
-				}
+				if (state.getMaterial() == Material.AIR) return;
 				
-				itemstack = block.getItem(world, blockpos, iblockstate);
+				item = block.getItem(world, pos, state);
 				
-				if (itemstack.isEmpty()) {
-					return;
-				}
+				if (item.isEmpty()) return;
 				
-				if (flag && GuiScreen.isCtrlKeyDown() && block.hasTileEntity()) {
-					tileentity = world.getTileEntity(blockpos);
-				}
+				if (creative && GuiScreen.isCtrlKeyDown() && block.hasTileEntity())
+					tileEntity = world.getTileEntity(pos);
 			} else {
-				if (objectMouseOver.typeOfHit != RayTraceResult.Type.ENTITY || objectMouseOver.entityHit == null || !flag) {
+				if (objectMouseOver.typeOfHit != RayTraceResult.Type.ENTITY || objectMouseOver.entityHit == null || !creative)
 					return;
-				}
 				
 				switch (objectMouseOver.entityHit) {
-					case EntityPainting ignored -> itemstack = new ItemStack(Items.PAINTING);
-					case EntityLeashKnot ignored -> itemstack = new ItemStack(Items.LEAD);
-					case EntityItemFrame entityitemframe -> {
-						ItemStack itemstack1 = entityitemframe.getDisplayedItem();
+					case EntityPainting ignored -> item = new ItemStack(Items.PAINTING);
+					case EntityLeashKnot ignored -> item = new ItemStack(Items.LEAD);
+					case EntityItemFrame frame -> {
+						ItemStack frameItem = frame.getDisplayedItem();
 						
-						if (itemstack1.isEmpty()) {
-							itemstack = new ItemStack(Items.ITEM_FRAME);
+						if (frameItem.isEmpty()) {
+							item = new ItemStack(Items.ITEM_FRAME);
 						} else {
-							itemstack = itemstack1.copy();
+							item = frameItem.copy();
 						}
 					}
-					case EntityMinecart entityminecart -> {
-						Item item1 = switch (entityminecart.getType()) {
+					case EntityMinecart minecart -> {
+						Item minecartItem = switch (minecart.getType()) {
 							case FURNACE -> Items.FURNACE_MINECART;
 							case CHEST -> Items.CHEST_MINECART;
 							case TNT -> Items.TNT_MINECART;
@@ -1988,71 +1967,62 @@ public class Minecraft implements IThreadListener {
 							default -> Items.MINECART;
 						};
 						
-						itemstack = new ItemStack(item1);
+						item = new ItemStack(minecartItem);
 					}
-					case EntityBoat entityBoat -> itemstack = new ItemStack(entityBoat.getItemBoat());
-					case EntityArmorStand ignored -> itemstack = new ItemStack(Items.ARMOR_STAND);
-					case EntityEnderCrystal ignored -> itemstack = new ItemStack(Items.END_CRYSTAL);
+					case EntityBoat entityBoat -> item = new ItemStack(entityBoat.getItemBoat());
+					case EntityArmorStand ignored -> item = new ItemStack(Items.ARMOR_STAND);
+					case EntityEnderCrystal ignored -> item = new ItemStack(Items.END_CRYSTAL);
 					default -> {
-						ResourceLocation resourcelocation = EntityList.getKey(objectMouseOver.entityHit);
+						ResourceLocation location = EntityList.getKey(objectMouseOver.entityHit);
+						if (location == null || !EntityList.ENTITY_EGGS.containsKey(location)) return;
 						
-						if (resourcelocation == null || !EntityList.ENTITY_EGGS.containsKey(resourcelocation)) {
-							return;
-						}
-						
-						itemstack = new ItemStack(Items.SPAWN_EGG);
-						ItemMonsterPlacer.applyEntityIdToItemStack(itemstack, resourcelocation);
+						item = new ItemStack(Items.SPAWN_EGG);
+						ItemMonsterPlacer.applyEntityIdToItemStack(item, location);
 					}
 				}
 			}
 			
-			if (itemstack.isEmpty()) {
-				String s = "";
-				
-				if (objectMouseOver.typeOfHit == RayTraceResult.Type.BLOCK) {
-					s = Block.REGISTRY.getNameForObject(world.getBlockState(objectMouseOver.getBlockPos()).getBlock())
-					                  .toString();
-				} else if (objectMouseOver.typeOfHit == RayTraceResult.Type.ENTITY) {
-					s = EntityList.getKey(objectMouseOver.entityHit).toString();
-				}
+			if (item.isEmpty()) {
+				String s = switch (objectMouseOver.typeOfHit) {
+					case BLOCK -> Block.REGISTRY.getNameForObject(world.getBlockState(objectMouseOver.getBlockPos()).getBlock()).toString();
+					case ENTITY -> EntityList.getKey(objectMouseOver.entityHit).toString();
+					default -> "";
+				};
 				
 				LOGGER.warn("Picking on: [{}] {} gave null item", objectMouseOver.typeOfHit, s);
 			} else {
-				InventoryPlayer inventoryplayer = player.inventory;
+				InventoryPlayer inventory = player.inventory;
 				
-				if (tileentity != null) storeTEInStack(itemstack, tileentity);
+				if (tileEntity != null) storeTEInStack(item, tileEntity);
 				
-				int i = inventoryplayer.getSlotFor(itemstack);
+				int i = inventory.getSlotFor(item);
 				
-				if (flag) {
-					inventoryplayer.setPickedItemStack(itemstack);
-					playerController.sendSlotPacket(player.getHeldItem(Hand.MAIN_HAND), 36 + inventoryplayer.currentItem);
+				if (creative) {
+					inventory.setPickedItemStack(item);
+					playerController.sendSlotPacket(player.getHeldItem(Hand.MAIN_HAND), 36 + inventory.currentItem);
 				} else if (i != -1) {
-					if (InventoryPlayer.isHotbar(i)) {
-						inventoryplayer.currentItem = i;
-					} else {
-						playerController.pickItem(i);
-					}
+					if (InventoryPlayer.isHotbar(i)) inventory.currentItem = i;
+					else playerController.pickItem(i);
 				}
 			}
 		}
 	}
 	
 	private void storeTEInStack(ItemStack stack, TileEntity te) {
-		NBTTagCompound nbttagcompound = te.writeToNBT(new NBTTagCompound());
+		NBTTagCompound nbt = te.writeToNBT(new NBTTagCompound());
 		
-		if (stack.getItem() == Items.SKULL && nbttagcompound.hasKey("Owner")) {
-			NBTTagCompound nbttagcompound2 = nbttagcompound.getCompoundTag("Owner");
-			NBTTagCompound nbttagcompound3 = new NBTTagCompound();
-			nbttagcompound3.setTag("SkullOwner", nbttagcompound2);
-			stack.setTagCompound(nbttagcompound3);
+		if (stack.getItem() == Items.SKULL && nbt.hasKey("Owner")) {
+			NBTTagCompound owner = nbt.getCompoundTag("Owner");
+			NBTTagCompound tag = new NBTTagCompound();
+			tag.setTag("SkullOwner", owner);
+			stack.setTagCompound(tag);
 		} else {
-			stack.setTagInfo("BlockEntityTag", nbttagcompound);
-			NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-			NBTTagList nbttaglist = new NBTTagList();
-			nbttaglist.appendTag(new NBTTagString("(+NBT)"));
-			nbttagcompound1.setTag("Lore", nbttaglist);
-			stack.setTagInfo("display", nbttagcompound1);
+			stack.setTagInfo("BlockEntityTag", nbt);
+			NBTTagCompound tag = new NBTTagCompound();
+			NBTTagList nbts = new NBTTagList();
+			nbts.appendTag(new NBTTagString("(+NBT)"));
+			tag.setTag("Lore", nbts);
+			stack.setTagInfo("display", tag);
 		}
 	}
 	
@@ -2080,21 +2050,19 @@ public class Minecraft implements IThreadListener {
 		});
 		report.getCategory().addDetail("Type", () -> "Client (map_client.txt)");
 		report.getCategory().addDetail("Resource Packs", () -> {
-			StringBuilder stringbuilder = new StringBuilder();
+			StringBuilder builder = new StringBuilder();
 			
 			for (String s : gameSettings.resourcePacks) {
-				if (!stringbuilder.isEmpty()) {
-					stringbuilder.append(", ");
-				}
+				if (!builder.isEmpty()) builder.append(", ");
 				
-				stringbuilder.append(s);
+				builder.append(s);
 				
 				if (gameSettings.incompatibleResourcePacks.contains(s)) {
-					stringbuilder.append(" (incompatible)");
+					builder.append(" (incompatible)");
 				}
 			}
 			
-			return stringbuilder.toString();
+			return builder.toString();
 		});
 		report.getCategory().addDetail("Current Language", () -> mcLanguageManager.getCurrentLanguage().toString());
 		report.getCategory()
@@ -2195,20 +2163,27 @@ public class Minecraft implements IThreadListener {
 	}
 	
 	public MusicTicker.MusicType getAmbientMusicType() {
-		if (currentScreen instanceof GuiWinGame) {
-			return MusicTicker.MusicType.CREDITS;
-		} else if (player != null) {
-			if (player.world.provider instanceof WorldProviderHell) {
-				return MusicTicker.MusicType.NETHER;
-			} else if (player.world.provider instanceof WorldProviderEnd) {
-				return ingameGUI.getBossOverlay()
-				                .shouldPlayEndBossMusic() ? MusicTicker.MusicType.END_BOSS : MusicTicker.MusicType.END;
-			} else {
-				return player.capabilities.isCreativeMode && player.capabilities.allowFlying ? MusicTicker.MusicType.CREATIVE : MusicTicker.MusicType.GAME;
+		if (currentScreen instanceof GuiWinGame) return MusicTicker.MusicType.CREDITS;
+		else if (player != null) {
+			switch (player.world.provider) {
+				case WorldProviderHell ignored -> {
+					return MusicTicker.MusicType.NETHER;
+				}
+				case WorldProviderEnd ignored -> {
+					return ingameGUI
+							.getBossOverlay()
+							.shouldPlayEndBossMusic() ? MusicTicker.MusicType.END_BOSS : MusicTicker.MusicType.END;
+				}
+				default -> {
+					return player.capabilities.isCreativeMode &&
+							player.capabilities.allowFlying ?
+							MusicTicker.MusicType.CREATIVE :
+							MusicTicker.MusicType.GAME;
+				}
 			}
-		} else {
-			return MusicTicker.MusicType.MENU;
 		}
+		
+		return MusicTicker.MusicType.MENU;
 	}
 	
 	public void dispatchKeypresses() {

@@ -157,10 +157,6 @@ public final class Keyboard {
 		keyNames.put(key, name);
 	}
 	
-	public static void destroy() {
-		created = false;
-	}
-	
 	public static void init(Window window) {
 		Keyboard.window = window;
 		long handle = window.getHandle();
@@ -184,9 +180,7 @@ public final class Keyboard {
 			if (!isRepeat || repeat) {
 				flushPending();
 				pendingKeyEvent = new KeyEvent(key, '\0', pressed, isRepeat);
-				if (!pressed) {
-					flushPending();
-				}
+				if (!pressed) flushPending();
 			}
 		});
 		
