@@ -128,9 +128,9 @@ public class GameSettings {
 	public KeyBinding keyInventory = new KeyBinding("key.inventory", GLFW_KEY_E, "key.categories.inventory");
 	public KeyBinding keySwapHands = new KeyBinding("key.swapHands", GLFW_KEY_F, "key.categories.inventory");
 	public KeyBinding keyDrop = new KeyBinding("key.drop", GLFW_KEY_Q, "key.categories.inventory");
-	public KeyBinding keyUseItem = new KeyBinding("key.use", GLFW_MOUSE_BUTTON_2, "key.categories.gameplay");
-	public KeyBinding keyAttack = new KeyBinding("key.attack", GLFW_MOUSE_BUTTON_1, "key.categories.gameplay");
-	public KeyBinding keyPickBlock = new KeyBinding("key.pickItem", GLFW_MOUSE_BUTTON_3, "key.categories.gameplay");
+	public KeyBinding keyUseItem = new KeyBinding("key.use", -99, "key.categories.gameplay");
+	public KeyBinding keyAttack = new KeyBinding("key.attack", -100, "key.categories.gameplay");
+	public KeyBinding keyPickBlock = new KeyBinding("key.pickItem", -98, "key.categories.gameplay");
 	public KeyBinding keyChat = new KeyBinding("key.chat", GLFW_KEY_T, "key.categories.multiplayer");
 	public KeyBinding keyPlayerList = new KeyBinding("key.playerlist", GLFW_KEY_TAB, "key.categories.multiplayer");
 	public KeyBinding keyCommand = new KeyBinding("key.command", GLFW_KEY_SLASH, "key.categories.multiplayer");

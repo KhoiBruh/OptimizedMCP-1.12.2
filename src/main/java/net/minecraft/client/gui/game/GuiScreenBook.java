@@ -19,6 +19,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.client.CPacketCustomPayload;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.ResourceLocation;
+import static org.lwjgl.glfw.GLFW.*;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
@@ -262,6 +263,7 @@ public class GuiScreenBook extends GuiScreen {
 		} else {
 			switch (keyCode) {
 				case 14:
+				case GLFW_KEY_BACKSPACE:
 					String s = pageGetCurrent();
 
 					if (!s.isEmpty()) {
@@ -272,6 +274,8 @@ public class GuiScreenBook extends GuiScreen {
 
 				case 28:
 				case 156:
+				case GLFW_KEY_ENTER:
+				case GLFW_KEY_KP_ENTER:
 					pageInsertIntoCurrent("\n");
 					return;
 
@@ -290,6 +294,7 @@ public class GuiScreenBook extends GuiScreen {
 
 		switch (keyCode) {
 			case 14:
+			case GLFW_KEY_BACKSPACE:
 				if (!bookTitle.isEmpty()) {
 					bookTitle = bookTitle.substring(0, bookTitle.length() - 1);
 					updateButtons();
@@ -299,6 +304,8 @@ public class GuiScreenBook extends GuiScreen {
 
 			case 28:
 			case 156:
+			case GLFW_KEY_ENTER:
+			case GLFW_KEY_KP_ENTER:
 				if (!bookTitle.isEmpty()) {
 					sendBookToServer(true);
 					mc.displayScreen(null);

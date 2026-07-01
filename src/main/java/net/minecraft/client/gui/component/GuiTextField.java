@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.math.MathHelper;
+import static org.lwjgl.glfw.GLFW.*;
 
 public class GuiTextField extends Gui {
 
@@ -340,6 +341,7 @@ public class GuiTextField extends Gui {
 		} else {
 			switch (keyCode) {
 				case 14:
+				case GLFW_KEY_BACKSPACE:
 					if (GuiScreen.isCtrlKeyDown()) {
 						if (isEnabled) {
 							deleteWords(-1);
@@ -351,6 +353,7 @@ public class GuiTextField extends Gui {
 					return true;
 
 				case 199:
+				case GLFW_KEY_HOME:
 					if (GuiScreen.isShiftKeyDown()) {
 						setSelectionPos(0);
 					} else {
@@ -360,6 +363,7 @@ public class GuiTextField extends Gui {
 					return true;
 
 				case 203:
+				case GLFW_KEY_LEFT:
 					if (GuiScreen.isShiftKeyDown()) {
 						if (GuiScreen.isCtrlKeyDown()) {
 							setSelectionPos(getNthWordFromPos(-1, getSelectionEnd()));
@@ -375,6 +379,7 @@ public class GuiTextField extends Gui {
 					return true;
 
 				case 205:
+				case GLFW_KEY_RIGHT:
 					if (GuiScreen.isShiftKeyDown()) {
 						if (GuiScreen.isCtrlKeyDown()) {
 							setSelectionPos(getNthWordFromPos(1, getSelectionEnd()));
@@ -390,6 +395,7 @@ public class GuiTextField extends Gui {
 					return true;
 
 				case 207:
+				case GLFW_KEY_END:
 					if (GuiScreen.isShiftKeyDown()) {
 						setSelectionPos(text.length());
 					} else {
@@ -399,6 +405,7 @@ public class GuiTextField extends Gui {
 					return true;
 
 				case 211:
+				case GLFW_KEY_DELETE:
 					if (GuiScreen.isCtrlKeyDown()) {
 						if (isEnabled) {
 							deleteWords(1);
