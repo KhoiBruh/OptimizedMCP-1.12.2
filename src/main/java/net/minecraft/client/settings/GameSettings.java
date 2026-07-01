@@ -6,7 +6,6 @@ import com.google.gson.Gson;
 import lombok.Getter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.chat.GuiNewChat;
-import net.minecraft.client.gui.chat.NarratorChatListener;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.Keyboard;
@@ -38,7 +37,6 @@ import static org.lwjgl.glfw.GLFW.*;
 public class GameSettings {
 	
 	public static final Splitter COLON_SPLITTER = Splitter.on(':');
-	public static final String[] NARRATOR_MODES = new String[]{"options.narrator.off", "options.narrator.all", "options.narrator.chat", "options.narrator.system"};
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final Gson GSON = new Gson();
 	private static final Type TYPE_LIST_STRING = new ParameterizedType() {
@@ -186,7 +184,6 @@ public class GameSettings {
 	 * Determines amount of particles. 0 = All, 1 = Decreased, 2 = Minimal
 	 */
 	public int particleSetting;
-	public int narrator;
 	/**
 	 * Game settings language
 	 */
@@ -367,13 +364,7 @@ public class GameSettings {
 			case ATTACK_INDICATOR -> attackIndicator = (attackIndicator + value) % 3;
 			case SHOW_SUBTITLES -> showSubtitles = !showSubtitles;
 			case AUTO_JUMP -> autoJump = !autoJump;
-			case NARRATOR -> {
-				if (NarratorChatListener.INSTANCE.isActive()) narrator = (narrator + value) % NARRATOR_MODES.length;
-				else narrator = 0;
-				NarratorChatListener.INSTANCE.announceMode(narrator);
-			}
-			default -> {
-			}
+			default -> {}
 		}
 		
 		saveOptions();
@@ -468,11 +459,8 @@ public class GameSettings {
 				case PARTICLES -> s + getTranslation(PARTICLES, particleSetting);
 				case AMBIENT_OCCLUSION -> s + getTranslation(AMBIENT_OCCLUSIONS, ambientOcclusion);
 				case RENDER_CLOUDS -> s + getTranslation(CLOUDS_TYPES, clouds);
-				case GRAPHICS ->
-						fancyGraphics ? s + I18n.format("options.graphics.fancy") : s + I18n.format("options.graphics.fast");
+				case GRAPHICS -> fancyGraphics ? s + I18n.format("options.graphics.fancy") : s + I18n.format("options.graphics.fast");
 				case ATTACK_INDICATOR -> s + getTranslation(ATTACK_INDICATORS, attackIndicator);
-				case NARRATOR ->
-						NarratorChatListener.INSTANCE.isActive() ? s + getTranslation(NARRATOR_MODES, narrator) : s + I18n.format("options.narrator.notavailable");
 				default -> s;
 			};
 		}
@@ -568,7 +556,6 @@ public class GameSettings {
 						case "showSubtitles" -> showSubtitles = "true".equals(s2);
 						case "enableWeakAttacks" -> enableWeakAttacks = "true".equals(s2);
 						case "autoJump" -> autoJump = "true".equals(s2);
-						case "narrator" -> narrator = Integer.parseInt(s2);
 						default -> {
 						}
 					}
@@ -683,7 +670,6 @@ public class GameSettings {
 			writer.println("showSubtitles:" + showSubtitles);
 			writer.println("enableWeakAttacks:" + enableWeakAttacks);
 			writer.println("autoJump:" + autoJump);
-			writer.println("narrator:" + narrator);
 			
 			for (KeyBinding key : keyBindings) {
 				writer.println("key_" + key.getDescription() + ":" + key.getKeyCode());
@@ -802,8 +788,7 @@ public class GameSettings {
 		ATTACK_INDICATOR("options.attackIndicator", false, false),
 		ENABLE_WEAK_ATTACKS("options.enableWeakAttacks", false, true),
 		SHOW_SUBTITLES("options.showSubtitles", false, true),
-		AUTO_JUMP("options.autoJump", false, true),
-		NARRATOR("options.narrator", false, false);
+		AUTO_JUMP("options.autoJump", false, true);
 		
 		private final boolean isFloat;
 		private final boolean isBoolean;

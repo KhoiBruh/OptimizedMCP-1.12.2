@@ -141,11 +141,8 @@ public class GuiIngame extends Gui {
 			chatListeners.put(chattype, Lists.newArrayList());
 		}
 
-		IChatListener ichatlistener = NarratorChatListener.INSTANCE;
 		(chatListeners.get(ChatType.CHAT)).add(new NormalChatListener(mcIn));
-		(chatListeners.get(ChatType.CHAT)).add(ichatlistener);
 		(chatListeners.get(ChatType.SYSTEM)).add(new NormalChatListener(mcIn));
-		(chatListeners.get(ChatType.SYSTEM)).add(ichatlistener);
 		(chatListeners.get(ChatType.GAME_INFO)).add(new OverlayChatListener(mcIn));
 		setDefaultTitlesTimes();
 	}

@@ -21,7 +21,6 @@ import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.advancements.AdvancementsScreen;
 import net.minecraft.client.gui.chat.ChatScreen;
 import net.minecraft.client.gui.chat.GuiNewChat;
-import net.minecraft.client.gui.chat.NarratorChatListener;
 import net.minecraft.client.gui.error.MemoryErrorScreen;
 import net.minecraft.client.gui.game.*;
 import net.minecraft.client.gui.inventory.CreativeContainerScreen;
@@ -1806,7 +1805,6 @@ public class Minecraft implements IThreadListener {
 			integratedServer = null;
 			entityRenderer.resetData();
 			playerController = null;
-			NarratorChatListener.INSTANCE.clear();
 		}
 		
 		renderViewEntity = null;
@@ -2176,12 +2174,7 @@ public class Minecraft implements IThreadListener {
 					if (i == gameSettings.keyFullscreen.getKeyCode()) {
 						toggleFullscreen();
 					} else if (i == gameSettings.keyScreenshot.getKeyCode()) {
-						ingameGUI.getChatGUI()
-						         .printChatMessage(ScreenShotHelper.saveScreenshot(dataDir, window.getWidth(), window.getHeight(), framebuffer));
-					} else if (i == 66 && Screen.isCtrlDown() && (currentScreen == null || currentScreen != null && !currentScreen.isFocused())) {
-						gameSettings.setOptionValue(GameSettings.Options.NARRATOR, 1);
-						
-						if (currentScreen instanceof ScreenChatOptions chatOptions) chatOptions.updateNarratorButton();
+						ingameGUI.getChatGUI().printChatMessage(ScreenShotHelper.saveScreenshot(dataDir, window.getWidth(), window.getHeight(), framebuffer));
 					}
 				}
 			}
