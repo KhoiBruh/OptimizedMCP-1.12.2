@@ -13,7 +13,7 @@ public class GuiScreenWorking extends GuiScreen implements IProgressUpdate {
 	/**
 	 * Shows the 'Saving level' string.
 	 */
-	public void displaySavingString(String message) {
+	public void savingMessage(String message) {
 
 		resetProgressAndMessage(message);
 	}
@@ -25,13 +25,13 @@ public class GuiScreenWorking extends GuiScreen implements IProgressUpdate {
 	public void resetProgressAndMessage(String message) {
 
 		title = message;
-		displayLoadingString("Working...");
+		loadingMessage("Working...");
 	}
 
 	/**
 	 * Displays a string on the loading screen supposed to indicate what is being done currently.
 	 */
-	public void displayLoadingString(String message) {
+	public void loadingMessage(String message) {
 
 		stage = message;
 		setLoadingProgress(0);

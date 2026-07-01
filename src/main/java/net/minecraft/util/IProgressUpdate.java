@@ -5,7 +5,7 @@ public interface IProgressUpdate {
 	/**
 	 * Shows the 'Saving level' string.
 	 */
-	void displaySavingString(String message);
+	void savingMessage(String message);
 
 	/**
 	 * this string, followed by "working..." and then the "% complete" are the 3 lines shown. This resets progress to 0,
@@ -16,7 +16,7 @@ public interface IProgressUpdate {
 	/**
 	 * Displays a string on the loading screen supposed to indicate what is being done currently.
 	 */
-	void displayLoadingString(String message);
+	void loadingMessage(String message);
 
 	/**
 	 * Updates the progress bar on the loading screen to the specified amount.

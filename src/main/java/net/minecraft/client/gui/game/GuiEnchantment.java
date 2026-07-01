@@ -187,7 +187,7 @@ public class GuiEnchantment extends GuiContainer {
 				String s = "" + k1;
 				int l1 = 86 - fontRenderer.getStringWidth(s);
 				String s1 = EnchantmentNameParts.getInstance().generateNewRandomName(fontRenderer, l1);
-				FontRenderer fontrenderer = mc.standardGalacticFontRenderer;
+				FontRenderer fontrenderer = mc.sgaFontRenderer;
 				int i2 = 6839882;
 
 				if ((k < l + 1 || mc.player.experienceLevel < k1) && !mc.player.capabilities.isCreativeMode) {

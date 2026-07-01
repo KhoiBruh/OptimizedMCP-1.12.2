@@ -204,7 +204,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 			getActiveAnvilConverter().convertMapFormat(worldNameIn, new IProgressUpdate() {
 				private long startTime = System.currentTimeMillis();
 
-				public void displaySavingString(String message) {
+				public void savingMessage(String message) {
 
 				}
 
@@ -224,7 +224,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 
 				}
 
-				public void displayLoadingString(String message) {
+				public void loadingMessage(String message) {
 
 				}
 			});

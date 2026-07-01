@@ -274,7 +274,7 @@ public abstract class GuiContainer extends GuiScreen {
 			String s1 = slotIn.getSlotTexture();
 
 			if (s1 != null) {
-				TextureAtlasSprite textureatlassprite = mc.getTextureMapBlocks().getAtlasSprite(s1);
+				TextureAtlasSprite textureatlassprite = mc.getBlockTextures().getAtlasSprite(s1);
 				GlStateManager.disableLighting();
 				mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 				drawTexturedModalRect(i, j, textureatlassprite, 16, 16);

@@ -269,7 +269,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 
 	private void updateDestroyBlockIcons() {
 
-		TextureMap texturemap = mc.getTextureMapBlocks();
+		TextureMap texturemap = mc.getBlockTextures();
 
 		for (int i = 0; i < destroyBlockIcons.length; ++i) {
 			destroyBlockIcons[i] = texturemap.getAtlasSprite("minecraft:blocks/destroy_stage_" + i);

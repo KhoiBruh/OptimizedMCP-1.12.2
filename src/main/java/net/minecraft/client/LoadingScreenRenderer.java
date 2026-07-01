@@ -52,7 +52,7 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 	/**
 	 * Shows the 'Saving level' string.
 	 */
-	public void displaySavingString(String message) {
+	public void savingMessage(String message) {
 
 		loadingSuccess = true;
 		displayString(message);
@@ -87,7 +87,7 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 	/**
 	 * Displays a string on the loading screen supposed to indicate what is being done currently.
 	 */
-	public void displayLoadingString(String message) {
+	public void loadingMessage(String message) {
 
 		if (!mc.running) {
 			if (!loadingSuccess) {

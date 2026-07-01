@@ -1,13 +1,12 @@
 package net.minecraft.client.settings;
 
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.IntHashMap;
-import net.minecraft.client.util.Keyboard;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
@@ -16,10 +15,10 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_UNKNOWN;
 
 public class KeyBinding implements Comparable<KeyBinding> {
 
-	private static final Map<String, KeyBinding> KEYBIND_ARRAY = Maps.newHashMap();
+	private static final Map<String, KeyBinding> KEYBIND_ARRAY = new HashMap<>();
 	private static final IntHashMap<KeyBinding> HASH = new IntHashMap<>();
-	private static final Set<String> KEYBIND_SET = Sets.newHashSet();
-	private static final Map<String, Integer> CATEGORY_ORDER = Maps.newHashMap();
+	private static final Set<String> KEYBIND_SET = new HashSet<>();
+	private static final Map<String, Integer> CATEGORY_ORDER = new HashMap<>();
 
 	static {
 		CATEGORY_ORDER.put("key.categories.movement", 1);

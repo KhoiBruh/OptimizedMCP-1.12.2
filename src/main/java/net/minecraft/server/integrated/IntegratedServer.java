@@ -24,7 +24,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
 
 public class IntegratedServer extends MinecraftServer {
 
@@ -41,7 +40,7 @@ public class IntegratedServer extends MinecraftServer {
 
 	public IntegratedServer(Minecraft clientIn, String folderNameIn, String worldNameIn, WorldSettings worldSettingsIn, YggdrasilAuthenticationService authServiceIn, MinecraftSessionService sessionServiceIn, GameProfileRepository profileRepoIn, PlayerProfileCache profileCacheIn) {
 
-		super(new File(clientIn.mcDataDir, "saves"), clientIn.getProxy(), clientIn.getDataFixer(), authServiceIn, sessionServiceIn, profileRepoIn, profileCacheIn);
+		super(new File(clientIn.dataDir, "saves"), clientIn.getProxy(), clientIn.getDataFixer(), authServiceIn, sessionServiceIn, profileRepoIn, profileCacheIn);
 		setServerOwner(clientIn.getSession().getUsername());
 		setFolderName(folderNameIn);
 		setWorldName(worldNameIn);
@@ -126,7 +125,7 @@ public class IntegratedServer extends MinecraftServer {
 	public void tick() {
 
 		boolean flag = isGamePaused;
-		isGamePaused = Minecraft.getMinecraft().getConnection() != null && Minecraft.getMinecraft().isGamePaused();
+		isGamePaused = Minecraft.getMinecraft().getConnection() != null && Minecraft.getMinecraft().isPaused();
 
 		if (!flag && isGamePaused) {
 			LOGGER.info("Saving and pausing game...");
@@ -229,7 +228,7 @@ public class IntegratedServer extends MinecraftServer {
 
 	public File getDataDirectory() {
 
-		return mc.mcDataDir;
+		return mc.dataDir;
 	}
 
 	public boolean isDedicatedServer() {

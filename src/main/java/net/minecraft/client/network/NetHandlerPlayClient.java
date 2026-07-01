@@ -1419,7 +1419,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		if (validateResourcePackUrl(s)) {
 			if (s.startsWith("level://")) {
 				String s2 = URLDecoder.decode(s.substring("level://".length()), StandardCharsets.UTF_8);
-				File file1 = new File(gameController.mcDataDir, "saves");
+				File file1 = new File(gameController.dataDir, "saves");
 				File file2 = new File(file1, s2);
 
 				if (file2.isFile()) {

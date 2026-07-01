@@ -871,13 +871,13 @@ public class WorldServer extends World implements IThreadListener {
 
 		if (chunkproviderserver.canSave()) {
 			if (progressCallback != null) {
-				progressCallback.displaySavingString("Saving level");
+				progressCallback.savingMessage("Saving level");
 			}
 
 			saveLevel();
 
 			if (progressCallback != null) {
-				progressCallback.displayLoadingString("Saving chunks");
+				progressCallback.loadingMessage("Saving chunks");
 			}
 
 			chunkproviderserver.saveChunks(all);

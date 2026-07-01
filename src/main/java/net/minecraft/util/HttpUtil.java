@@ -113,7 +113,7 @@ public class HttpUtil {
 
 			if (p_180192_4_ != null) {
 				p_180192_4_.resetProgressAndMessage(I18n.translateToLocal("resourcepack.downloading"));
-				p_180192_4_.displayLoadingString(I18n.translateToLocal("resourcepack.requesting"));
+				p_180192_4_.loadingMessage(I18n.translateToLocal("resourcepack.requesting"));
 			}
 
 			try {
@@ -138,7 +138,7 @@ public class HttpUtil {
 					int i = httpurlconnection.getContentLength();
 
 					if (p_180192_4_ != null) {
-						p_180192_4_.displayLoadingString(I18n.translateToLocalFormatted("resourcepack.progress", String.format("%.2f", f1 / 1000F / 1000F)));
+						p_180192_4_.loadingMessage(I18n.translateToLocalFormatted("resourcepack.progress", String.format("%.2f", f1 / 1000F / 1000F)));
 					}
 
 					if (saveFile.exists()) {

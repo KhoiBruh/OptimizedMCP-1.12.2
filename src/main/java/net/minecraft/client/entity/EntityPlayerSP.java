@@ -49,7 +49,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	public final NetHandlerPlayClient connection;
 	private final StatisticsManager statWriter;
 	private final RecipeBook recipeBook;
-	public MovementInput movementInput;
+	public Input input;
 	/**
 	 * Ticks left before sprinting is disabled.
 	 */
@@ -195,7 +195,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
 			if (isRiding()) {
 				connection.sendPacket(new CPacketPlayer.Rotation(rotationYaw, rotationPitch, onGround));
-				connection.sendPacket(new CPacketInput(moveStrafing, moveForward, movementInput.jump, movementInput.sneak));
+				connection.sendPacket(new CPacketInput(moveStrafing, moveForward, input.jump, input.sneak));
 				Entity entity = getLowestRidingEntity();
 
 				if (entity != this && entity.canPassengerSteer()) {
@@ -751,7 +751,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 */
 	public boolean isSneaking() {
 
-		boolean flag = movementInput != null && movementInput.sneak;
+		boolean flag = input != null && input.sneak;
 		return flag && !sleeping;
 	}
 
@@ -760,9 +760,9 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		super.updateEntityActionState();
 
 		if (isCurrentViewEntity()) {
-			moveStrafing = movementInput.moveStrafe;
-			moveForward = movementInput.moveForward;
-			isJumping = movementInput.jump;
+			moveStrafing = input.strafe;
+			moveForward = input.forward;
+			isJumping = input.jump;
 			prevRenderArmYaw = renderArmYaw;
 			prevRenderArmPitch = renderArmPitch;
 			renderArmPitch = (float) ((double) renderArmPitch + (double) (rotationPitch - renderArmPitch) * 0.5D);
@@ -829,15 +829,15 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 			--timeUntilPortal;
 		}
 
-		boolean flag = movementInput.jump;
-		boolean flag1 = movementInput.sneak;
+		boolean flag = input.jump;
+		boolean flag1 = input.sneak;
 		float f = 0.8F;
-		boolean flag2 = movementInput.moveForward >= 0.8F;
-		movementInput.updatePlayerMoveState();
+		boolean flag2 = input.forward >= 0.8F;
+		input.updatePlayerMoveState();
 
 		if (isHandActive() && !isRiding()) {
-			movementInput.moveStrafe *= 0.2F;
-			movementInput.moveForward *= 0.2F;
+			input.strafe *= 0.2F;
+			input.forward *= 0.2F;
 			sprintToggleTimer = 0;
 		}
 
@@ -846,7 +846,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		if (autoJumpTime > 0) {
 			--autoJumpTime;
 			flag3 = true;
-			movementInput.jump = true;
+			input.jump = true;
 		}
 
 		AxisAlignedBB axisalignedbb = getEntityBoundingBox();
@@ -856,7 +856,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		pushOutOfBlocks(posX + (double) width * 0.35D, axisalignedbb.minY + 0.5D, posZ + (double) width * 0.35D);
 		boolean flag4 = (float) getFoodStats().getFoodLevel() > 6F || capabilities.allowFlying;
 
-		if (onGround && !flag1 && !flag2 && movementInput.moveForward >= 0.8F && !isSprinting() && flag4 && !isHandActive() && !isPotionActive(MobEffects.BLINDNESS)) {
+		if (onGround && !flag1 && !flag2 && input.forward >= 0.8F && !isSprinting() && flag4 && !isHandActive() && !isPotionActive(MobEffects.BLINDNESS)) {
 			if (sprintToggleTimer <= 0 && !mc.gameSettings.keySprint.isKeyDown()) {
 				sprintToggleTimer = 7;
 			} else {
@@ -864,11 +864,11 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 			}
 		}
 
-		if (!isSprinting() && movementInput.moveForward >= 0.8F && flag4 && !isHandActive() && !isPotionActive(MobEffects.BLINDNESS) && mc.gameSettings.keySprint.isKeyDown()) {
+		if (!isSprinting() && input.forward >= 0.8F && flag4 && !isHandActive() && !isPotionActive(MobEffects.BLINDNESS) && mc.gameSettings.keySprint.isKeyDown()) {
 			setSprinting(true);
 		}
 
-		if (isSprinting() && (movementInput.moveForward < 0.8F || collidedHorizontally || !flag4)) {
+		if (isSprinting() && (input.forward < 0.8F || collidedHorizontally || !flag4)) {
 			setSprinting(false);
 		}
 
@@ -878,7 +878,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 					capabilities.isFlying = true;
 					sendPlayerAbilities();
 				}
-			} else if (!flag && movementInput.jump && !flag3) {
+			} else if (!flag && input.jump && !flag3) {
 				if (flyToggleTimer == 0) {
 					flyToggleTimer = 7;
 				} else {
@@ -889,7 +889,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 			}
 		}
 
-		if (movementInput.jump && !flag && !onGround && motionY < 0D && !isElytraFlying() && !capabilities.isFlying) {
+		if (input.jump && !flag && !onGround && motionY < 0D && !isElytraFlying() && !capabilities.isFlying) {
 			ItemStack itemstack = getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
 			if (itemstack.getItem() == Items.ELYTRA && ItemElytra.isUsable(itemstack)) {
@@ -900,13 +900,13 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		wasFallFlying = isElytraFlying();
 
 		if (capabilities.isFlying && isCurrentViewEntity()) {
-			if (movementInput.sneak) {
-				movementInput.moveStrafe = (float) ((double) movementInput.moveStrafe / 0.3D);
-				movementInput.moveForward = (float) ((double) movementInput.moveForward / 0.3D);
+			if (input.sneak) {
+				input.strafe = (float) ((double) input.strafe / 0.3D);
+				input.forward = (float) ((double) input.forward / 0.3D);
 				motionY -= capabilities.getFlySpeed() * 3F;
 			}
 
-			if (movementInput.jump) {
+			if (input.jump) {
 				motionY += capabilities.getFlySpeed() * 3F;
 			}
 		}
@@ -922,11 +922,11 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 				}
 			}
 
-			if (flag && !movementInput.jump) {
+			if (flag && !input.jump) {
 				horseJumpPowerCounter = -10;
 				ijumpingmount.setJumpPower(MathHelper.floor(getHorseJumpPower() * 100F));
 				sendHorseJump();
-			} else if (!flag && movementInput.jump) {
+			} else if (!flag && input.jump) {
 				horseJumpPowerCounter = 0;
 				horseJumpPower = 0F;
 			} else if (flag) {
@@ -959,8 +959,8 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		rowingBoat = false;
 
 		if (getRidingEntity() instanceof EntityBoat entityboat) {
-			entityboat.updateInputs(movementInput.leftKeyDown, movementInput.rightKeyDown, movementInput.forwardKeyDown, movementInput.backKeyDown);
-			rowingBoat |= movementInput.leftKeyDown || movementInput.rightKeyDown || movementInput.forwardKeyDown || movementInput.backKeyDown;
+			entityboat.updateInputs(input.leftKey, input.rightKey, input.forwardKey, input.backKey);
+			rowingBoat |= input.leftKey || input.rightKey || input.forwardKey || input.backKey;
 		}
 	}
 
@@ -1005,7 +1005,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
 		if (isAutoJumpEnabled()) {
 			if (autoJumpTime <= 0 && onGround && !isSneaking() && !isRiding()) {
-				Vec2f vec2f = movementInput.getMoveVector();
+				Vec2f vec2f = input.getMoveVector();
 
 				if (vec2f.x() != 0F || vec2f.y() != 0F) {
 					Vec3d vec3d = new Vec3d(posX, getEntityBoundingBox().minY, posZ);

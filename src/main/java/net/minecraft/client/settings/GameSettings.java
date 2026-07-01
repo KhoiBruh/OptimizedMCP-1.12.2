@@ -300,9 +300,9 @@ public class GameSettings {
 				int i = mipmapLevels;
 				mipmapLevels = (int) value;
 				if ((float) i != value) {
-					mc.getTextureMapBlocks().setMipmapLevels(mipmapLevels);
+					mc.getBlockTextures().setMipmapLevels(mipmapLevels);
 					mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-					mc.getTextureMapBlocks().setBlurMipmapDirect(false, mipmapLevels > 0);
+					mc.getBlockTextures().setBlurMipmapDirect(false, mipmapLevels > 0);
 					mc.scheduleResourcesRefresh();
 				}
 			}
