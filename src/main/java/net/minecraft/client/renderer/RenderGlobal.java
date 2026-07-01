@@ -1171,14 +1171,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			float f1 = (float) vec3d.y();
 			float f2 = (float) vec3d.z();
 
-			if (pass != 2) {
-				float f3 = (f * 30F + f1 * 59F + f2 * 11F) / 100F;
-				float f4 = (f * 30F + f1 * 70F) / 100F;
-				float f5 = (f * 30F + f2 * 70F) / 100F;
-				f = f3;
-				f1 = f4;
-				f2 = f5;
-			}
+
 
 			GlStateManager.color(f, f1, f2);
 			Tessellator tessellator = Tessellator.getInstance();
@@ -1216,14 +1209,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 				float f7 = afloat[1];
 				float f8 = afloat[2];
 
-				if (pass != 2) {
-					float f9 = (f6 * 30F + f7 * 59F + f8 * 11F) / 100F;
-					float f10 = (f6 * 30F + f7 * 70F) / 100F;
-					float f11 = (f6 * 30F + f8 * 70F) / 100F;
-					f6 = f9;
-					f7 = f10;
-					f8 = f11;
-				}
+
 
 				bufferbuilder.begin(6, DefaultVertexFormats.POSITION_COLOR);
 				bufferbuilder.pos(0D, 100D, 0D).color(f6, f7, f8, afloat[3]).endVertex();
@@ -1375,14 +1361,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 				float f1 = (float) vec3d.y();
 				float f2 = (float) vec3d.z();
 
-				if (pass != 2) {
-					float f3 = (f * 30F + f1 * 59F + f2 * 11F) / 100F;
-					float f4 = (f * 30F + f1 * 70F) / 100F;
-					float f5 = (f * 30F + f2 * 70F) / 100F;
-					f = f3;
-					f1 = f4;
-					f2 = f5;
-				}
+
 
 				float f9 = 4.8828125E-4F;
 				double d5 = (float) cloudTickCounter + partialTicks;
@@ -1444,14 +1423,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		float f4 = (float) vec3d.y();
 		float f5 = (float) vec3d.z();
 
-		if (pass != 2) {
-			float f6 = (f3 * 30F + f4 * 59F + f5 * 11F) / 100F;
-			float f7 = (f3 * 30F + f4 * 70F) / 100F;
-			float f8 = (f3 * 30F + f5 * 70F) / 100F;
-			f3 = f6;
-			f4 = f7;
-			f5 = f8;
-		}
+
 
 		float f25 = f3 * 0.9F;
 		float f26 = f4 * 0.9F;
@@ -1476,18 +1448,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			if (k2 == 0) {
 				GlStateManager.colorMask(false, false, false, false);
 			} else {
-				switch (pass) {
-					case 0:
-						GlStateManager.colorMask(false, true, true, true);
-						break;
-
-					case 1:
-						GlStateManager.colorMask(true, false, false, true);
-						break;
-
-					case 2:
-						GlStateManager.colorMask(true, true, true, true);
-				}
+				GlStateManager.colorMask(true, true, true, true);
 			}
 
 			for (int l2 = -3; l2 <= 4; ++l2) {

@@ -69,11 +69,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	private static final ResourceLocation SNOW_TEXTURES = new ResourceLocation("textures/environment/snow.png");
 	private static final ResourceLocation[] SHADERS_TEXTURES = new ResourceLocation[]{new ResourceLocation("shaders/post/notch.json"), new ResourceLocation("shaders/post/fxaa.json"), new ResourceLocation("shaders/post/art.json"), new ResourceLocation("shaders/post/bumpy.json"), new ResourceLocation("shaders/post/blobs2.json"), new ResourceLocation("shaders/post/pencil.json"), new ResourceLocation("shaders/post/color_convolve.json"), new ResourceLocation("shaders/post/deconverge.json"), new ResourceLocation("shaders/post/flip.json"), new ResourceLocation("shaders/post/invert.json"), new ResourceLocation("shaders/post/ntsc.json"), new ResourceLocation("shaders/post/outline.json"), new ResourceLocation("shaders/post/phosphor.json"), new ResourceLocation("shaders/post/scan_pincushion.json"), new ResourceLocation("shaders/post/sobel.json"), new ResourceLocation("shaders/post/bits.json"), new ResourceLocation("shaders/post/desaturate.json"), new ResourceLocation("shaders/post/green.json"), new ResourceLocation("shaders/post/blur.json"), new ResourceLocation("shaders/post/wobble.json"), new ResourceLocation("shaders/post/blobs.json"), new ResourceLocation("shaders/post/antialias.json"), new ResourceLocation("shaders/post/creeper.json"), new ResourceLocation("shaders/post/spider.json")};
 	public static final int SHADER_COUNT = SHADERS_TEXTURES.length;
-	public static boolean anaglyphEnable;
-	/**
-	 * Anaglyph field (0=R, 1=GB)
-	 */
-	public static int anaglyphField;
 	public final ItemRenderer itemRenderer;
 	/**
 	 * A reference to the Minecraft object.
@@ -691,10 +686,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		GlStateManager.loadIdentity();
 		float f = 0.07F;
 
-		if (mc.gameSettings.anaglyph) {
-			GlStateManager.translate((float) (-(pass * 2 - 1)) * 0.07F, 0F, 0F);
-		}
-
 		if (cameraZoom != 1D) {
 			GlStateManager.translate((float) cameraYaw, (float) (-cameraPitch), 0F);
 			GlStateManager.scale(cameraZoom, cameraZoom, 1D);
@@ -703,10 +694,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		Project.gluPerspective(getFOVModifier(partialTicks, true), (float) mc.getWindow().getWidth() / (float) mc.getWindow().getHeight(), 0.05F, farPlaneDistance * MathHelper.SQRT_2);
 		GlStateManager.matrixMode(5888);
 		GlStateManager.loadIdentity();
-
-		if (mc.gameSettings.anaglyph) {
-			GlStateManager.translate((float) (pass * 2 - 1) * 0.1F, 0F, 0F);
-		}
 
 		hurtCameraEffect(partialTicks);
 
@@ -766,17 +753,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			GlStateManager.loadIdentity();
 			float f = 0.07F;
 
-			if (mc.gameSettings.anaglyph) {
-				GlStateManager.translate((float) (-(pass * 2 - 1)) * 0.07F, 0F, 0F);
-			}
-
 			Project.gluPerspective(getFOVModifier(partialTicks, false), (float) mc.getWindow().getWidth() / (float) mc.getWindow().getHeight(), 0.05F, farPlaneDistance * 2F);
 			GlStateManager.matrixMode(5888);
 			GlStateManager.loadIdentity();
-
-			if (mc.gameSettings.anaglyph) {
-				GlStateManager.translate((float) (pass * 2 - 1) * 0.1F, 0F, 0F);
-			}
 
 			GlStateManager.pushMatrix();
 			hurtCameraEffect(partialTicks);
@@ -1021,7 +1000,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		mc.profiler.endSection();
 
 		if (!mc.skipRenderWorld) {
-			anaglyphEnable = mc.gameSettings.anaglyph;
 			int i1 = mc.getWindow().getScaledWidth();
 			int j1 = mc.getWindow().getScaledHeight();
 			final int k1 = Mouse.getX() * i1 / mc.getWindow().getWidth();
@@ -1170,17 +1148,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		GlStateManager.alphaFunc(516, 0.5F);
 		mc.profiler.startSection("center");
 
-		if (mc.gameSettings.anaglyph) {
-			anaglyphField = 0;
-			GlStateManager.colorMask(false, true, true, false);
-			renderWorldPass(0, partialTicks, finishTimeNano);
-			anaglyphField = 1;
-			GlStateManager.colorMask(true, false, false, false);
-			renderWorldPass(1, partialTicks, finishTimeNano);
-			GlStateManager.colorMask(true, true, true, false);
-		} else {
-			renderWorldPass(2, partialTicks, finishTimeNano);
-		}
+		renderWorldPass(2, partialTicks, finishTimeNano);
 
 		mc.profiler.endSection();
 	}
@@ -1707,14 +1675,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			fogColorBlue = fogColorBlue * (1F - f15) + fogColorBlue * f6 * f15;
 		}
 
-		if (mc.gameSettings.anaglyph) {
-			float f16 = (fogColorRed * 30F + fogColorGreen * 59F + fogColorBlue * 11F) / 100F;
-			float f17 = (fogColorRed * 30F + fogColorGreen * 70F) / 100F;
-			float f7 = (fogColorRed * 30F + fogColorBlue * 70F) / 100F;
-			fogColorRed = f16;
-			fogColorGreen = f17;
-			fogColorBlue = f7;
-		}
+
 
 		GlStateManager.clearColor(fogColorRed, fogColorGreen, fogColorBlue, 0F);
 	}

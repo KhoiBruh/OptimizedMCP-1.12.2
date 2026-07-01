@@ -393,7 +393,6 @@ options.ao=Smooth Lighting
 options.ao.off=OFF
 options.ao.min=Minimum
 options.ao.max=Maximum
-options.anaglyph=3D Anaglyph
 options.chunks=%s chunks
 options.framerate=%s fps
 options.framerateLimit=Max Framerate

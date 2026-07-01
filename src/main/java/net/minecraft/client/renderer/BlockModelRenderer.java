@@ -119,9 +119,7 @@ public class BlockModelRenderer {
 			if (bakedquad.hasTintIndex()) {
 				int k = blockColors.colorMultiplier(stateIn, blockAccessIn, posIn, bakedquad.getTintIndex());
 
-				if (EntityRenderer.anaglyphEnable) {
-					k = TextureUtil.anaglyphColor(k);
-				}
+
 
 				float f = (float) (k >> 16 & 255) / 255F;
 				float f1 = (float) (k >> 8 & 255) / 255F;
@@ -236,9 +234,7 @@ public class BlockModelRenderer {
 			if (bakedquad.hasTintIndex()) {
 				int k = blockColors.colorMultiplier(stateIn, blockAccessIn, posIn, bakedquad.getTintIndex());
 
-				if (EntityRenderer.anaglyphEnable) {
-					k = TextureUtil.anaglyphColor(k);
-				}
+
 
 				float f = (float) (k >> 16 & 255) / 255F;
 				float f1 = (float) (k >> 8 & 255) / 255F;
@@ -273,9 +269,7 @@ public class BlockModelRenderer {
 		GlStateManager.rotate(90F, 0F, 1F, 0F);
 		int i = blockColors.colorMultiplier(state, null, null, 0);
 
-		if (EntityRenderer.anaglyphEnable) {
-			i = TextureUtil.anaglyphColor(i);
-		}
+
 
 		float f = (float) (i >> 16 & 255) / 255F;
 		float f1 = (float) (i >> 8 & 255) / 255F;

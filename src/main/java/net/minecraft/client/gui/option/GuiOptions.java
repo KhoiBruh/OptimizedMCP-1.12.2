@@ -29,10 +29,10 @@ public class GuiOptions extends GuiScreen {
 	private GuiButton difficultyButton;
 	private GuiLockIconButton lockButton;
 
-	public GuiOptions(GuiScreen p_i1046_1_, GameSettings p_i1046_2_) {
+	public GuiOptions(GuiScreen screen, GameSettings settings) {
 
-		lastScreen = p_i1046_1_;
-		settings = p_i1046_2_;
+		lastScreen = screen;
+		this.settings = settings;
 	}
 
 	/**
@@ -44,12 +44,12 @@ public class GuiOptions extends GuiScreen {
 		title = I18n.format("options.title");
 		int i = 0;
 
-		for (GameSettings.Options gamesettings$options : SCREEN_OPTIONS) {
-			if (gamesettings$options.isFloat()) {
-				buttonList.add(new GuiOptionSlider(gamesettings$options.ordinal(), width / 2 - 155 + i % 2 * 160, height / 6 - 12 + 24 * (i >> 1), gamesettings$options));
+		for (GameSettings.Options options : SCREEN_OPTIONS) {
+			if (options.isFloat()) {
+				buttonList.add(new GuiOptionSlider(options.ordinal(), width / 2 - 155 + i % 2 * 160, height / 6 - 12 + 24 * (i >> 1), options));
 			} else {
-				GuiOptionButton guioptionbutton = new GuiOptionButton(gamesettings$options.ordinal(), width / 2 - 155 + i % 2 * 160, height / 6 - 12 + 24 * (i >> 1), gamesettings$options, settings.getKeyBinding(gamesettings$options));
-				buttonList.add(guioptionbutton);
+				GuiOptionButton button = new GuiOptionButton(options.ordinal(), width / 2 - 155 + i % 2 * 160, height / 6 - 12 + 24 * (i >> 1), options, settings.getKeyBinding(options));
+				buttonList.add(button);
 			}
 
 			++i;

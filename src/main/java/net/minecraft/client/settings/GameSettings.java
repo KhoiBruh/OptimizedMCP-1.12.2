@@ -70,7 +70,6 @@ public class GameSettings {
 	public boolean invertMouse;
 	public int renderDistanceChunks = 8;
 	public boolean viewBobbing = true;
-	public boolean anaglyph;
 	public boolean fboEnable = true;
 	public int limitFramerate = 120;
 	/**
@@ -335,10 +334,6 @@ public class GameSettings {
 				mc.fontRenderer.setUnicodeFlag(mc.getLanguageManager().isCurrentLocaleUnicode() || forceUnicodeFont);
 			}
 			case FBO_ENABLE -> fboEnable = !fboEnable;
-			case ANAGLYPH -> {
-				anaglyph = !anaglyph;
-				mc.refreshResources();
-			}
 			case GRAPHICS -> {
 				fancyGraphics = !fancyGraphics;
 				mc.renderGlobal.loadRenderers();
@@ -404,7 +399,6 @@ public class GameSettings {
 		return switch (options) {
 			case INVERT_MOUSE -> invertMouse;
 			case VIEW_BOBBING -> viewBobbing;
-			case ANAGLYPH -> anaglyph;
 			case FBO_ENABLE -> fboEnable;
 			case CHAT_COLOR -> chatColours;
 			case CHAT_LINKS -> chatLinks;
@@ -518,7 +512,6 @@ public class GameSettings {
 						case "guiScale" -> guiScale = Integer.parseInt(s2);
 						case "particles" -> particleSetting = Integer.parseInt(s2);
 						case "bobView" -> viewBobbing = "true".equals(s2);
-						case "anaglyph3d" -> anaglyph = "true".equals(s2);
 						case "maxFps" -> limitFramerate = Integer.parseInt(s2);
 						case "fboEnable" -> fboEnable = "true".equals(s2);
 						case "difficulty" -> difficulty = Difficulty.getDifficultyEnum(Integer.parseInt(s2));
@@ -643,7 +636,6 @@ public class GameSettings {
 			writer.println("guiScale:" + guiScale);
 			writer.println("particles:" + particleSetting);
 			writer.println("bobView:" + viewBobbing);
-			writer.println("anaglyph3d:" + anaglyph);
 			writer.println("maxFps:" + limitFramerate);
 			writer.println("fboEnable:" + fboEnable);
 			writer.println("difficulty:" + difficulty.getDifficultyId());
@@ -780,7 +772,6 @@ public class GameSettings {
 		SATURATION("options.saturation", true, false),
 		RENDER_DISTANCE("options.renderDistance", true, false, 2F, 32F, 1F),
 		VIEW_BOBBING("options.viewBobbing", false, true),
-		ANAGLYPH("options.anaglyph", false, true),
 		FRAMERATE_LIMIT("options.framerateLimit", true, false, 10F, 260F, 10F),
 		FBO_ENABLE("options.fboEnable", false, true),
 		RENDER_CLOUDS("options.renderClouds", false, false),
