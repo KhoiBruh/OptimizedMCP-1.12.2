@@ -3,6 +3,7 @@ package net.minecraft.client.gui.component;
 import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.resources.I18n;
@@ -61,14 +62,15 @@ public class GuiLabel extends Gui {
 			GLS.enableBlend();
 			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 			drawLabelBackground(mc, mouseX, mouseY);
+			DrawContext context = mc.getDrawContext();
 			int i = y + height / 2 + border / 2;
 			int j = i - labels.size() * 10 / 2;
 
 			for (int k = 0; k < labels.size(); ++k) {
 				if (centered) {
-					drawCenteredString(fontRenderer, labels.get(k), x + width / 2, j + k * 10, textColor);
+					context.centeredText(fontRenderer, labels.get(k), x + width / 2, j + k * 10, textColor);
 				} else {
-					drawString(fontRenderer, labels.get(k), x, j + k * 10, textColor);
+					context.text(fontRenderer, labels.get(k), x, j + k * 10, textColor);
 				}
 			}
 		}

@@ -288,14 +288,24 @@ public class DrawContext implements AutoCloseable {
 	// String / Text Drawing Methods
 	// ==========================================
 
+	public float text(FontRenderer font, String text, int x, int y, int color) {
+//		flush();
+		TextSink sink = new TextSink();
+		float w1 = font.emitGlyphs(text, x + 1, y + 1, color, true, sink);
+		float w2 = font.emitGlyphs(text, x, y, color, false, sink);
+		return Math.max(w1, w2);
+	}
+
+	public float centeredText(FontRenderer font, String text, int x, int y, int color) {
+		return text(font, text, x - font.getWidth(text) / 2, y, color);
+	}
+
 	public void drawString(FontRenderer fontRendererIn, String text, int x, int y, int color) {
-		flush();
-		fontRendererIn.drawShadowText(text, (float) x, (float) y, color);
+		text(fontRendererIn, text, x, y, color);
 	}
 
 	public void drawCenteredString(FontRenderer fontRendererIn, String text, int x, int y, int color) {
-		flush();
-		fontRendererIn.drawShadowText(text, (float) (x - fontRendererIn.getWidth(text) / 2), (float) y, color);
+		centeredText(fontRendererIn, text, x, y, color);
 	}
 
 	// ==========================================
@@ -339,6 +349,29 @@ public class DrawContext implements AutoCloseable {
 		if (vbo != 0) {
 			GLS.deleteBuffers(vbo);
 			vbo = 0;
+		}
+	}
+
+	private class TextSink implements GlyphSink {
+		@Override
+		public void glyph(int textureId, float left, float top, float right, float bottom,
+		                  float u1, float v1, float u2, float v2,
+		                  float r, float g, float b, float a, float italicOffset) {
+			ensureMode(BatchMode.TEXTURE, textureId);
+			vertex(left - italicOffset, bottom, zLevel, u1, v2, r, g, b, a);
+			vertex(right - italicOffset, bottom, zLevel, u2, v2, r, g, b, a);
+			vertex(right + italicOffset, top, zLevel, u2, v1, r, g, b, a);
+			vertex(left + italicOffset, top, zLevel, u1, v1, r, g, b, a);
+		}
+
+		@Override
+		public void rect(float x1, float y1, float x2, float y2,
+		                 float r, float g, float b, float a) {
+			ensureMode(BatchMode.COLOR, -1);
+			vertex(x1, y2, zLevel, 0, 0, r, g, b, a);
+			vertex(x2, y2, zLevel, 0, 0, r, g, b, a);
+			vertex(x2, y1, zLevel, 0, 0, r, g, b, a);
+			vertex(x1, y1, zLevel, 0, 0, r, g, b, a);
 		}
 	}
 }

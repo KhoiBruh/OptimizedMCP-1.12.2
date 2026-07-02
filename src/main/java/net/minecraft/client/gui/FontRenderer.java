@@ -17,6 +17,7 @@ import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -41,9 +42,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	public int FONT_HEIGHT = 9;
 	public Random fontRandom = new Random();
 
-	private float x;
-	private float y;
-
 	@Setter
 	@Getter
 	private boolean unicode;
@@ -51,22 +49,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	@Setter
 	@Getter
 	private boolean bidi;
-
-	private float red;
-	private float blue;
-	private float green;
-	private float alpha;
-	private int textColor;
-
-	private boolean bold;
-	private boolean italic;
-	private boolean random;
-	private boolean underline;
-	private boolean strikethrough;
-
-	private boolean batching;
-	private ResourceLocation boundTexture;
-	private BufferBuilder buf;
 
 	public FontRenderer(ResourceLocation location, TextureManager textureManager, boolean unicode) {
 		fontTexture = location;
@@ -118,35 +100,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 		}
 
 		return s.toString();
-	}
-
-	private void bindTextureBatch(ResourceLocation location) {
-		if (boundTexture != location) {
-			if (batching) {
-				Tessellator.getInstance().draw();
-				buf.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-			}
-			boundTexture = location;
-			textureManager.bindTexture(location);
-		}
-	}
-
-	private void startBatch() {
-		if (!batching) {
-			batching = true;
-			buf = Tessellator.getInstance().getBuffer();
-			buf.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-			boundTexture = null;
-		}
-	}
-
-	private void endBatch() {
-		if (batching) {
-			Tessellator.getInstance().draw();
-			batching = false;
-			boundTexture = null;
-			buf = null;
-		}
 	}
 
 	public void reload(IResourceManager resourceManager) {
@@ -212,32 +165,23 @@ public class FontRenderer implements IResourceManagerReloadListener {
 		}
 	}
 
-	private float renderChar(char ch, boolean italic) {
-		if (ch == ' ') return 4;
+	private float emitDefault(int ch, boolean italic, float x, float y, float r, float g, float b, float a, GlyphSink sink) {
+		textureManager.bindTexture(fontTexture);
+		int texId = GLS.getInteger(GL11.GL_TEXTURE_BINDING_2D);
 
-		int idx = CHARS.indexOf(ch);
-		return idx != -1 && !unicode ? renderDefault(idx, italic) : renderUnicode(ch, italic);
-	}
+		int col = ch % 16 * 8;
+		int row = ch / 16 * 8;
+		float k = italic ? 1 : 0;
+		int glyphW = charWidth[ch];
+		float f = glyphW - 0.01F;
 
-	private float renderDefault(int ch, boolean italic) {
-		int i = ch % 16 * 8;
-		int j = ch / 16 * 8;
-		int k = italic ? 1 : 0;
-		bindTextureBatch(fontTexture);
-		int l = charWidth[ch];
-		float f = l - 0.01F;
+		float u1 = col / 128F;
+		float v1 = row / 128F;
+		float u2 = (col + f - 1F) / 128F;
+		float v2 = (row + 7.99F) / 128F;
 
-		float u1 = i / 128F;
-		float v1 = j / 128F;
-		float u2 = (i + f - 1F) / 128;
-		float v2 = (j + 7.99F) / 128;
-
-		buf.pos(x + k, y, 0F).tex(u1, v1).color(red, green, blue, alpha).endVertex();
-		buf.pos(x - k, y + 7.99F, 0F).tex(u1, v2).color(red, green, blue, alpha).endVertex();
-		buf.pos(x + f - 1F - k, y + 7.99F, 0F).tex(u2, v2).color(red, green, blue, alpha).endVertex();
-		buf.pos(x + f - 1F + k, y, 0F).tex(u2, v1).color(red, green, blue, alpha).endVertex();
-
-		return l;
+		sink.glyph(texId, x, y, x + f - 1F, y + 7.99F, u1, v1, u2, v2, r, g, b, a, k);
+		return glyphW;
 	}
 
 	private ResourceLocation getUnicodePage(int page) {
@@ -247,12 +191,13 @@ public class FontRenderer implements IResourceManagerReloadListener {
 		return UNICODE_PAGES[page];
 	}
 
-	private float renderUnicode(char ch, boolean italic) {
+	private float emitUnicode(char ch, boolean italic, float x, float y, float r, float g, float b, float a, GlyphSink sink) {
 		int glyph = glyphWidth[ch] & 255;
 		if (glyph == 0) return 0;
 
 		int page = ch / 256;
-		bindTextureBatch(getUnicodePage(page));
+		textureManager.bindTexture(getUnicodePage(page));
+		int texId = GLS.getInteger(GL11.GL_TEXTURE_BINDING_2D);
 
 		int left = glyph >>> 4;
 		int right = glyph & 15;
@@ -261,62 +206,97 @@ public class FontRenderer implements IResourceManagerReloadListener {
 		float uBase = (ch % 16 * 16) + fLeft;
 		float vBase = (float) (ch & 255) / 16 * 16;
 		float width = fRight - fLeft - 0.02F;
-		float italicOffset = italic ? 1 : 0;
+		float k = italic ? 1 : 0;
 
 		float u1 = uBase / 256;
 		float v1 = vBase / 256;
 		float u2 = (uBase + width) / 256;
 		float v2 = (vBase + 15.98F) / 256;
 
-		buf.pos(x + italicOffset, y, 0).tex(u1, v1).color(red, green, blue, alpha).endVertex();
-		buf.pos(x - italicOffset, y + 7.99, 0).tex(u1, v2).color(red, green, blue, alpha).endVertex();
-		buf.pos(x + width / 2 - italicOffset, y + 7.99, 0).tex(u2, v2).color(red, green, blue, alpha).endVertex();
-		buf.pos(x + width / 2 + italicOffset, y, 0).tex(u2, v1).color(red, green, blue, alpha).endVertex();
-
+		sink.glyph(texId, x, y, x + width / 2F, y + 7.99F, u1, v1, u2, v2, r, g, b, a, k);
 		return (fRight - fLeft) / 2 + 1;
 	}
 
-	public int drawShadowText(String text, float x, float y, int color) {
-		return drawText(text, x, y, color, true);
+	private float emitChar(char ch, boolean italic, float x, float y, float r, float g, float b, float a, GlyphSink sink) {
+		if (ch == ' ') return 4;
+		int idx = CHARS.indexOf(ch);
+		return idx != -1 && !unicode ? emitDefault(idx, italic, x, y, r, g, b, a, sink) : emitUnicode(ch, italic, x, y, r, g, b, a, sink);
 	}
 
+	/**
+	 * @deprecated Use {@link DrawContext#text(FontRenderer, String, int, int, int)} instead.
+	 */
+	@Deprecated
+	public int drawShadowText(String text, float x, float y, int color) {
+		GLS.enableAlpha();
+		TessellatorSink sink = new TessellatorSink();
+		int i = (int) emitGlyphs(text, x + 1, y + 1, color, true, sink);
+		i = Math.max(i, (int) emitGlyphs(text, x, y, color, false, sink));
+		sink.finish();
+		return i;
+	}
+
+	/**
+	 * @deprecated Use {@link DrawContext#text(FontRenderer, String, int, int, int)} instead.
+	 */
+	@Deprecated
 	public int drawText(String text, int x, int y, int color) {
 		return drawText(text, (float) x, (float) y, color, false);
 	}
 
+	/**
+	 * @deprecated Use DrawContext text methods instead.
+	 */
+	@Deprecated
+	public void drawSplit(String str, int x, int y, int wrapWidth, int textColor) {
+		str = trimNewline(str);
+		TessellatorSink sink = new TessellatorSink();
+		for (String line : formatToWidth(str, wrapWidth)) {
+			emitGlyphs(line, x, y, textColor, false, sink);
+			y += FONT_HEIGHT;
+		}
+		sink.finish();
+	}
+
+	/**
+	 * @deprecated Use {@link DrawContext#text(FontRenderer, String, int, int, int)} instead.
+	 */
+	@Deprecated
 	public int drawText(String text, float x, float y, int color, boolean shadow) {
 		GLS.enableAlpha();
-		resetStyles();
+		TessellatorSink sink = new TessellatorSink();
 		int i;
-
 		if (shadow) {
-			i = render(text, x + 1, y + 1, color, true);
-			i = Math.max(i, render(text, x, y, color, false));
+			i = (int) emitGlyphs(text, x + 1, y + 1, color, true, sink);
+			i = Math.max(i, (int) emitGlyphs(text, x, y, color, false, sink));
+		} else {
+			i = (int) emitGlyphs(text, x, y, color, false, sink);
 		}
-		else i = render(text, x, y, color, false);
-
+		sink.finish();
 		return i;
 	}
 
-	private String bidiReorder(String text) {
-		try {
-			Bidi bidi = new Bidi((new ArabicShaping(8)).shape(text), 127);
-			bidi.setReorderingMode(0);
-			return bidi.writeReordered(2);
-		} catch (ArabicShapingException e) {
-			return text;
-		}
-	}
+	public float emitGlyphs(String text, float x, float y, int color, boolean shadow, GlyphSink sink) {
+		if (text == null) return 0;
 
-	private void resetStyles() {
-		random = false;
-		bold = false;
-		italic = false;
-		underline = false;
-		strikethrough = false;
-	}
+		if (bidi) text = bidiReorder(text);
+		if ((color & -67108864) == 0) color |= -16777216;
+		if (shadow) color = (color & 16579836) >> 2 | color & -16777216;
 
-	private void render(String text, boolean shadow) {
+		float red = (float) (color >> 16 & 255) / 255F;
+		float green = (float) (color >> 8 & 255) / 255F;
+		float blue = (float) (color & 255) / 255F;
+		float alpha = (float) (color >> 24 & 255) / 255F;
+
+		boolean random = false;
+		boolean bold = false;
+		boolean italic = false;
+		boolean underline = false;
+		boolean strikethrough = false;
+
+		float curX = x;
+		float curY = y;
+
 		for (int i = 0; i < text.length(); ++i) {
 			char c0 = text.charAt(i);
 
@@ -335,11 +315,10 @@ public class FontRenderer implements IResourceManagerReloadListener {
 
 					if (shadow) idx += 16;
 
-					int color = colorCode[idx];
-					textColor = color;
-					red = (color >> 16 & 255) / 255F;
-					green = (color >> 8 & 255) / 255F;
-					blue = (color & 255) / 255F;
+					int textColor = colorCode[idx];
+					red = (textColor >> 16 & 255) / 255F;
+					green = (textColor >> 8 & 255) / 255F;
+					blue = (textColor & 255) / 255F;
 				} else if (idx == 16) {
 					random = true;
 				} else if (idx == 17) {
@@ -375,93 +354,58 @@ public class FontRenderer implements IResourceManagerReloadListener {
 				boolean needsShift = (c0 == 0 || charIdx == -1 || unicode) && shadow;
 
 				if (needsShift) {
-					x -= offset;
-					y -= offset;
+					curX -= offset;
+					curY -= offset;
 				}
 
-				float f = renderChar(c0, italic);
+				float f = emitChar(c0, italic, curX, curY, red, green, blue, alpha, sink);
 
 				if (needsShift) {
-					x += offset;
-					y += offset;
+					curX += offset;
+					curY += offset;
 				}
 
 				if (bold) {
-					x += offset;
+					curX += offset;
 					if (needsShift) {
-						x -= offset;
-						y -= offset;
+						curX -= offset;
+						curY -= offset;
 					}
 
-					renderChar(c0, italic);
+					emitChar(c0, italic, curX, curY, red, green, blue, alpha, sink);
 
-					x -= offset;
+					curX -= offset;
 					if (needsShift) {
-						x += offset;
-						y += offset;
+						curX += offset;
+						curY += offset;
 					}
 
 					++f;
 				}
 
 				if (strikethrough) {
-					endBatch();
-					GLS.disableTexture2D();
-					buf.begin(7, DefaultVertexFormats.POSITION);
-					buf.pos(x, y + FONT_HEIGHT / 2D, 0D).endVertex();
-					buf.pos(x + f, y + FONT_HEIGHT / 2D, 0D).endVertex();
-					buf.pos(x + f, y + FONT_HEIGHT / 2D - 1, 0D).endVertex();
-					buf.pos(x, y + FONT_HEIGHT / 2D - 1, 0D).endVertex();
-					GLS.enableTexture2D();
-					startBatch();
+					sink.rect(curX, curY + FONT_HEIGHT / 2F - 1, curX + f, curY + FONT_HEIGHT / 2F, red, green, blue, alpha);
 				}
 
 				if (underline) {
-					endBatch();
-					GLS.disableTexture2D();
-					buf.begin(7, DefaultVertexFormats.POSITION);
-					buf.pos(x - 1, y + FONT_HEIGHT, 0D).endVertex();
-					buf.pos(x + f, y + FONT_HEIGHT, 0D).endVertex();
-					buf.pos(x + f, y + FONT_HEIGHT - 1D, 0D).endVertex();
-					buf.pos(x - 1, y + FONT_HEIGHT - 1D, 0D).endVertex();
-					GLS.enableTexture2D();
-					startBatch();
+					sink.rect(curX - 1, curY + FONT_HEIGHT - 1, curX + f, curY + FONT_HEIGHT, red, green, blue, alpha);
 				}
 
-				x += (int) f;
+				curX += (int) f;
 			}
 		}
+
+		return curX;
 	}
 
-	private void renderAligned(String text, int x, int y, int width, int color, boolean shadow) {
-		if (bidi) {
-			int stringWidth = getWidth(bidiReorder(text));
-			x = x + width - stringWidth;
+	private String bidiReorder(String text) {
+		try {
+			Bidi bidi = new Bidi((new ArabicShaping(8)).shape(text), 127);
+			bidi.setReorderingMode(0);
+			return bidi.writeReordered(2);
+		} catch (ArabicShapingException e) {
+			return text;
 		}
-
-		render(text, x, y, color, shadow);
-	}
-
-	private int render(String text, float x, float y, int color, boolean shadow) {
-		if (text == null) return 0;
-
-		if (bidi) text = bidiReorder(text);
-		if ((color & -67108864) == 0) color |= -16777216;
-		if (shadow) color = (color & 16579836) >> 2 | color & -16777216;
-
-		red = (float) (color >> 16 & 255) / 255F;
-		green = (float) (color >> 8 & 255) / 255F;
-		blue = (float) (color & 255) / 255F;
-		alpha = (float) (color >> 24 & 255) / 255F;
-
-		this.x = x;
-		this.y = y;
-
-		startBatch();
-		render(text, shadow);
-		endBatch();
-
-		return (int) this.x;
 	}
 
 	public int getWidth(String text) {
@@ -556,28 +500,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 		return sb.toString();
 	}
 
-	private String trimNewline(String text) {
-		while (text != null && text.endsWith("\n")) {
-			text = text.substring(0, text.length() - 1);
-		}
-
-		return text;
-	}
-
-	public void drawSplit(String str, int x, int y, int wrapWidth, int textColor) {
-		resetStyles();
-		this.textColor = textColor;
-		str = trimNewline(str);
-		renderSplit(str, x, y, wrapWidth, false);
-	}
-
-	private void renderSplit(String str, int x, int y, int wrapWidth, boolean shadow) {
-		for (String line : formatToWidth(str, wrapWidth)) {
-			renderAligned(line, x, y, wrapWidth, textColor, shadow);
-			y += FONT_HEIGHT;
-		}
-	}
-
 	public int getWrappedHeight(String str, int maxLength) {
 		return FONT_HEIGHT * formatToWidth(str, maxLength).size();
 	}
@@ -649,8 +571,63 @@ public class FontRenderer implements IResourceManagerReloadListener {
 		return pos != length && lastSpace != -1 && lastSpace < pos ? lastSpace : pos;
 	}
 
+	private String trimNewline(String text) {
+		while (text != null && text.endsWith("\n")) {
+			text = text.substring(0, text.length() - 1);
+		}
+		return text;
+	}
+
 	public int getColorCode(char character) {
 		int i = "0123456789abcdef".indexOf(character);
 		return i >= 0 && i < colorCode.length ? colorCode[i] : -1;
+	}
+
+	private class TessellatorSink implements GlyphSink {
+		private BufferBuilder buf;
+		private boolean started;
+
+		private void ensureStarted() {
+			if (!started) {
+				buf = Tessellator.getInstance().getBuffer();
+				buf.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+				started = true;
+			}
+		}
+
+		@Override
+		public void glyph(int textureId, float left, float top, float right, float bottom,
+		                  float u1, float v1, float u2, float v2,
+		                  float r, float g, float b, float a, float italicOffset) {
+			ensureStarted();
+			buf.pos(left + italicOffset, top, 0F).tex(u1, v1).color(r, g, b, a).endVertex();
+			buf.pos(left - italicOffset, bottom, 0F).tex(u1, v2).color(r, g, b, a).endVertex();
+			buf.pos(right - italicOffset, bottom, 0F).tex(u2, v2).color(r, g, b, a).endVertex();
+			buf.pos(right + italicOffset, top, 0F).tex(u2, v1).color(r, g, b, a).endVertex();
+		}
+
+		@Override
+		public void rect(float x1, float y1, float x2, float y2,
+		                 float r, float g, float b, float a) {
+			finish();
+			GLS.disableTexture2D();
+			buf = Tessellator.getInstance().getBuffer();
+			buf.begin(7, DefaultVertexFormats.POSITION);
+			buf.pos(x1, y2, 0D).endVertex();
+			buf.pos(x2, y2, 0D).endVertex();
+			buf.pos(x2, y1, 0D).endVertex();
+			buf.pos(x1, y1, 0D).endVertex();
+			Tessellator.getInstance().draw();
+			GLS.enableTexture2D();
+			started = false;
+		}
+
+		void finish() {
+			if (started) {
+				Tessellator.getInstance().draw();
+				started = false;
+				buf = null;
+			}
+		}
 	}
 }

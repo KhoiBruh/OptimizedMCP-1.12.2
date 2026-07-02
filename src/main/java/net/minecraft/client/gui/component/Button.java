@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.init.SoundEvents;
@@ -100,7 +101,7 @@ public class Button extends Gui {
 				j = 16777120;
 			}
 
-			drawCenteredString(fontrenderer, displayString, x + width / 2, y + (height - 8) / 2, j);
+			context.centeredText(fontrenderer, displayString, x + width / 2, y + (height - 8) / 2, j);
 		}
 	}
 

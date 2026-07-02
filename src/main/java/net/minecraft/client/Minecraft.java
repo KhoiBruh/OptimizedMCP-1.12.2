@@ -204,6 +204,8 @@ public class Minecraft implements IThreadListener {
 	private SkinManager skinManager;
 	private ModelManager modelManager;
 	private RenderManager renderManager;
+	private NetworkManager networkManager;
+	private TextureManager textureManager;
 	private LanguageManager languageManager;
 	private IReloadableResourceManager resourceManager;
 
@@ -230,8 +232,6 @@ public class Minecraft implements IThreadListener {
 	private ResourcePackRepository resourcePackRepo;
 	private SoundHandler soundHandler;
 	private ResourceLocation mojangLogo;
-	private NetworkManager networkManager;
-	private TextureManager renderEngine;
 	private RenderItem renderItem;
 	private float partialTicksPaused;
 	private Entity renderViewEntity;
@@ -391,10 +391,10 @@ public class Minecraft implements IThreadListener {
 		resourceManager.registerReloadListener(languageManager);
 		window.setGuiScale(gameSettings.guiScale, isUnicode());
 		refreshResources();
-		renderEngine = new TextureManager(resourceManager);
-		resourceManager.registerReloadListener(renderEngine);
-		drawSplashScreen(renderEngine);
-		skinManager = new SkinManager(renderEngine, new File(assets, "skins"), sessionService);
+		textureManager = new TextureManager(resourceManager);
+		resourceManager.registerReloadListener(textureManager);
+		drawSplashScreen(textureManager);
+		skinManager = new SkinManager(textureManager, new File(assets, "skins"), sessionService);
 		saveLoader = new AnvilSaveConverter(new File(dataDir, "saves"), dataFixer);
 		soundHandler = new SoundHandler(resourceManager, gameSettings);
 		resourceManager.registerReloadListener(soundHandler);
@@ -402,14 +402,14 @@ public class Minecraft implements IThreadListener {
 
 		drawContext = new DrawContext();
 
-		fontRenderer = new FontRenderer(new ResourceLocation("textures/font/ascii.png"), renderEngine, false);
+		fontRenderer = new FontRenderer(new ResourceLocation("textures/font/ascii.png"), textureManager, false);
 
 		if (gameSettings.language != null) {
 			fontRenderer.setUnicode(isUnicode());
 			fontRenderer.setBidi(languageManager.isCurrentLanguageBidirectional());
 		}
 
-		sgaFontRenderer = new FontRenderer(new ResourceLocation("textures/font/ascii_sga.png"), renderEngine, false);
+		sgaFontRenderer = new FontRenderer(new ResourceLocation("textures/font/ascii_sga.png"), textureManager, false);
 		resourceManager.registerReloadListener(fontRenderer);
 		resourceManager.registerReloadListener(sgaFontRenderer);
 		resourceManager.registerReloadListener(new GrassColorReloadListener());
@@ -429,15 +429,15 @@ public class Minecraft implements IThreadListener {
 		checkGLError("Startup");
 		blockTextures = new TextureMap("textures");
 		blockTextures.setMipmapLevels(gameSettings.mipmapLevels);
-		renderEngine.loadTickableTexture(TextureMap.LOCATION_BLOCKS_TEXTURE, blockTextures);
-		renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		textureManager.loadTickableTexture(TextureMap.LOCATION_BLOCKS_TEXTURE, blockTextures);
+		textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		blockTextures.setBlurMipmapDirect(false, gameSettings.mipmapLevels > 0);
 		modelManager = new ModelManager(blockTextures);
 		resourceManager.registerReloadListener(modelManager);
 		blockColors = BlockColors.init();
 		itemColors = ItemColors.init(blockColors);
-		renderItem = new RenderItem(renderEngine, modelManager, itemColors);
-		renderManager = new RenderManager(renderEngine, renderItem);
+		renderItem = new RenderItem(textureManager, modelManager, itemColors);
+		renderManager = new RenderManager(textureManager, renderItem);
 		itemRenderer = new ItemRenderer(this);
 		resourceManager.registerReloadListener(renderItem);
 		entityRenderer = new EntityRenderer(this, resourceManager);
@@ -449,13 +449,13 @@ public class Minecraft implements IThreadListener {
 		populateSearchTreeManager();
 		resourceManager.registerReloadListener(searchTreeManager);
 		GLS.viewport(0, 0, window.getWidth(), window.getHeight());
-		effectRenderer = new ParticleManager(world, renderEngine);
+		effectRenderer = new ParticleManager(world, textureManager);
 		checkGLError("Post startup");
 		ingameGUI = new GuiIngame(this);
 
 		displayScreen(new MainMenuScreen());
 
-		renderEngine.deleteTexture(mojangLogo);
+		textureManager.deleteTexture(mojangLogo);
 		mojangLogo = null;
 		loadingScreen = new LoadingScreenRenderer(this);
 		debugRenderer = new DebugRenderer(this);
@@ -1308,7 +1308,7 @@ public class Minecraft implements IThreadListener {
 
 		profiler.endStartSection("textures");
 
-		if (world != null) renderEngine.tick();
+		if (world != null) textureManager.tick();
 
 		if (currentScreen == null && player != null) {
 			if (player.getHealth() <= 0F && !(currentScreen instanceof GameOverScreen)) {
@@ -2095,7 +2095,7 @@ public class Minecraft implements IThreadListener {
 	}
 
 	public TextureManager getTextureManager() {
-		return renderEngine;
+		return textureManager;
 	}
 
 	public IResourceManager getResourceManager() {
