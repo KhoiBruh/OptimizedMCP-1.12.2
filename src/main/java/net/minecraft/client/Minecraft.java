@@ -256,7 +256,7 @@ public class Minecraft implements IThreadListener {
 		tempDisplayHeight = h;
 		integratedServer = null;
 
-				Locale.setDefault(Locale.ROOT);
+		Locale.setDefault(Locale.ROOT);
 		Bootstrap.register();
 		TextComponentKeybind.displaySupplierFunction = KeyBinding::getDisplayString;
 		dataFixer = DataFixesManager.createFixer();
@@ -394,6 +394,9 @@ public class Minecraft implements IThreadListener {
 		soundHandler = new SoundHandler(resourceManager, gameSettings);
 		resourceManager.registerReloadListener(soundHandler);
 		musicTicker = new MusicTicker(this);
+
+
+
 		fontRenderer = new FontRenderer(new ResourceLocation("textures/font/ascii.png"), renderEngine, false);
 
 		if (gameSettings.language != null) {
@@ -1993,10 +1996,11 @@ public class Minecraft implements IThreadListener {
 	public CrashReport addGraphicsAndWorldToCrashReport(CrashReport report) {
 		report.getCategory().addDetail("Launched Version", () -> version);
 		report.getCategory().addDetail("LWJGL", Version::getVersion);
-		report.getCategory().addDetail("OpenGL",
-		                               () -> GLS.getString(7937) +
-			                               " GL version " + GLS.getString(7938) +
-			                               ", " + GLS.getString(7936)
+		report.getCategory().addDetail(
+			"OpenGL",
+			() -> GLS.getString(7937) +
+				" GL version " + GLS.getString(7938) +
+				", " + GLS.getString(7936)
 		);
 		report.getCategory().addDetail("Type", () -> "Client (map_client.txt)");
 		report.getCategory().addDetail("Resource Packs", () -> {

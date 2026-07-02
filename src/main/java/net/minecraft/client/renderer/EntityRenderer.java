@@ -1026,18 +1026,25 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 				GLS.clear(256);
 
 				try {
+
 					mc.currentScreen.draw(k1, l1, mc.getTickLength());
 				} catch (Throwable throwable) {
 					CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Rendering screen");
 					CrashReportCategory crashreportcategory = crashreport.makeCategory("Screen render details");
 					crashreportcategory.addDetail("Screen name", () -> mc.currentScreen.getClass().getCanonicalName());
 					crashreportcategory.addDetail("Mouse location", () -> String.format("Scaled: (%d, %d). Absolute: (%d, %d)", k1, l1, Mouse.getX(), Mouse.getY()));
-					crashreportcategory.addDetail("Screen size", () -> String.format("Scaled: (%d, %d). Absolute: (%d, %d). Scale factor of %d", mc.getWindow()
-					                                                                                                                               .getScaledWidth(), mc.getWindow()
-					                                                                                                                                                    .getScaledHeight(), mc.getWindow()
-					                                                                                                                                                                          .getWidth(), mc.getWindow()
-					                                                                                                                                                                                         .getHeight(), mc.getWindow()
-					                                                                                                                                                                                                         .getGuiScale()));
+					crashreportcategory.addDetail(
+						"Screen size",
+						() -> String.format(
+							"Scaled: (%d, %d). Absolute: (%d, %d). Scale factor of %d",
+							mc.getWindow().getScaledWidth(),
+							mc.getWindow().getScaledHeight(),
+							mc.getWindow().getWidth(),
+							mc.getWindow().getHeight(),
+							mc.getWindow().getGuiScale()
+						)
+					);
+
 					throw new ReportedException(crashreport);
 				}
 			}
