@@ -57,8 +57,8 @@ public class ChestScreen extends ContainerScreen {
 		mc.getTextureManager().bindTexture(CHEST_GUI_TEXTURE);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
-		drawTexturedModalRect(i, j, 0, 0, xSize, inventoryRows * 18 + 17);
-		drawTexturedModalRect(i, j + inventoryRows * 18 + 17, 0, 126, xSize, 96);
+		mc.getDrawContext().blit(i, j, 0, 0, xSize, inventoryRows * 18 + 17);
+		mc.getDrawContext().blit(i, j + inventoryRows * 18 + 17, 0, 126, xSize, 96);
 	}
 
 }

@@ -897,17 +897,17 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		list.drawScreen(mouseX, mouseY, partialTicks);
-		drawCenteredString(fontRenderer, title, width / 2, 2, 16777215);
-		drawCenteredString(fontRenderer, subtitle, width / 2, 12, 16777215);
-		drawCenteredString(fontRenderer, pageTitle, width / 2, 22, 16777215);
+		context.drawCenteredString(fontRenderer, title, width / 2, 2, 16777215);
+		context.drawCenteredString(fontRenderer, subtitle, width / 2, 12, 16777215);
+		context.drawCenteredString(fontRenderer, pageTitle, width / 2, 22, 16777215);
 		super.draw(context, mouseX, mouseY, partialTicks);
 
 		if (confirmMode != 0) {
-			drawRect(0, 0, width, height, Integer.MIN_VALUE);
-			drawHorizontalLine(width / 2 - 91, width / 2 + 90, 99, -2039584);
-			drawHorizontalLine(width / 2 - 91, width / 2 + 90, 185, -6250336);
-			drawVerticalLine(width / 2 - 91, 99, 185, -2039584);
-			drawVerticalLine(width / 2 + 90, 99, 185, -6250336);
+			context.fill(0, 0, width, height, Integer.MIN_VALUE);
+			context.hLine(width / 2 - 91, width / 2 + 90, 99, -2039584);
+			context.hLine(width / 2 - 91, width / 2 + 90, 185, -6250336);
+			context.vLine(width / 2 - 91, 99, 185, -2039584);
+			context.vLine(width / 2 + 90, 99, 185, -6250336);
 			float f = 85F;
 			float f1 = 180F;
 			GLS.disableLighting();
@@ -923,9 +923,9 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 			bufferbuilder.pos(width / 2 + 90, 100D, 0D).tex(5.625D, 0D).color(64, 64, 64, 64).endVertex();
 			bufferbuilder.pos(width / 2 - 90, 100D, 0D).tex(0D, 0D).color(64, 64, 64, 64).endVertex();
 			tessellator.draw();
-			drawCenteredString(fontRenderer, I18n.format("createWorld.customize.custom.confirmTitle"), width / 2, 105, 16777215);
-			drawCenteredString(fontRenderer, I18n.format("createWorld.customize.custom.confirm1"), width / 2, 125, 16777215);
-			drawCenteredString(fontRenderer, I18n.format("createWorld.customize.custom.confirm2"), width / 2, 135, 16777215);
+			context.drawCenteredString(fontRenderer, I18n.format("createWorld.customize.custom.confirmTitle"), width / 2, 105, 16777215);
+			context.drawCenteredString(fontRenderer, I18n.format("createWorld.customize.custom.confirm1"), width / 2, 125, 16777215);
+			context.drawCenteredString(fontRenderer, I18n.format("createWorld.customize.custom.confirm2"), width / 2, 135, 16777215);
 			confirm.drawButton(mc, mouseX, mouseY, partialTicks);
 			cancel.drawButton(mc, mouseX, mouseY, partialTicks);
 		}

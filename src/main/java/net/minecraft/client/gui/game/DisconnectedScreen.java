@@ -54,12 +54,12 @@ public class DisconnectedScreen extends Screen {
 	 */
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
-		drawCenteredString(fontRenderer, reason, width / 2, height / 2 - textHeight / 2 - fontRenderer.FONT_HEIGHT * 2, 11184810);
+		context.drawCenteredString(fontRenderer, reason, width / 2, height / 2 - textHeight / 2 - fontRenderer.FONT_HEIGHT * 2, 11184810);
 		int i = height / 2 - textHeight / 2;
 
 		if (multilineMessage != null) {
 			for (String s : multilineMessage) {
-				drawCenteredString(fontRenderer, s, width / 2, i, 16777215);
+				context.drawCenteredString(fontRenderer, s, width / 2, i, 16777215);
 				i += fontRenderer.FONT_HEIGHT;
 			}
 		}

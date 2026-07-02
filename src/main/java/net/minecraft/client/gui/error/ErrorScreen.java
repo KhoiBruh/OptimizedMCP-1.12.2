@@ -28,9 +28,9 @@ public class ErrorScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
-		drawGradientRect(0, 0, width, height, -12574688, -11530224);
-		drawCenteredString(fontRenderer, title, width / 2, 90, 16777215);
-		drawCenteredString(fontRenderer, message, width / 2, 110, 16777215);
+		context.fillGradient(0, 0, width, height, -12574688, -11530224);
+		context.drawCenteredString(fontRenderer, title, width / 2, 90, 16777215);
+		context.drawCenteredString(fontRenderer, message, width / 2, 110, 16777215);
 		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 

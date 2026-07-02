@@ -110,7 +110,7 @@ public class EnchantScreen extends ContainerScreen {
 		mc.getTextureManager().bindTexture(ENCHANTMENT_TABLE_GUI_TEXTURE);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
-		drawTexturedModalRect(i, j, 0, 0, xSize, ySize);
+		mc.getDrawContext().blit(i, j, 0, 0, xSize, ySize);
 		GLS.pushMatrix();
 		GLS.matrixMode(5889);
 		GLS.pushMatrix();
@@ -181,7 +181,7 @@ public class EnchantScreen extends ContainerScreen {
 			GLS.color(1F, 1F, 1F, 1F);
 
 			if (k1 == 0) {
-				drawTexturedModalRect(i1, j + 14 + 19 * l, 0, 185, 108, 19);
+				mc.getDrawContext().blit(i1, j + 14 + 19 * l, 0, 185, 108, 19);
 			} else {
 				String s = "" + k1;
 				int l1 = 86 - fontRenderer.getWidth(s);
@@ -190,8 +190,8 @@ public class EnchantScreen extends ContainerScreen {
 				int i2 = 6839882;
 
 				if ((k < l + 1 || mc.player.experienceLevel < k1) && !mc.player.capabilities.isCreativeMode) {
-					drawTexturedModalRect(i1, j + 14 + 19 * l, 0, 185, 108, 19);
-					drawTexturedModalRect(i1 + 1, j + 15 + 19 * l, 16 * l, 239, 16, 16);
+					mc.getDrawContext().blit(i1, j + 14 + 19 * l, 0, 185, 108, 19);
+					mc.getDrawContext().blit(i1 + 1, j + 15 + 19 * l, 16 * l, 239, 16, 16);
 					fontrenderer.drawSplit(s1, j1, j + 16 + 19 * l, l1, (i2 & 16711422) >> 1);
 					i2 = 4226832;
 				} else {
@@ -199,13 +199,13 @@ public class EnchantScreen extends ContainerScreen {
 					int k2 = mouseY - (j + 14 + 19 * l);
 
 					if (j2 >= 0 && k2 >= 0 && j2 < 108 && k2 < 19) {
-						drawTexturedModalRect(i1, j + 14 + 19 * l, 0, 204, 108, 19);
+						mc.getDrawContext().blit(i1, j + 14 + 19 * l, 0, 204, 108, 19);
 						i2 = 16777088;
 					} else {
-						drawTexturedModalRect(i1, j + 14 + 19 * l, 0, 166, 108, 19);
+						mc.getDrawContext().blit(i1, j + 14 + 19 * l, 0, 166, 108, 19);
 					}
 
-					drawTexturedModalRect(i1 + 1, j + 15 + 19 * l, 16 * l, 223, 16, 16);
+					mc.getDrawContext().blit(i1 + 1, j + 15 + 19 * l, 16 * l, 223, 16, 16);
 					fontrenderer.drawSplit(s1, j1, j + 16 + 19 * l, l1, i2);
 					i2 = 8453920;
 				}

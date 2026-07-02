@@ -116,9 +116,6 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 		for (Button button : buttons) {
 			button.drawButton(mc, mouseX, mouseY, partialTicks);
 		}
-
-		// tested, it worked perfectly!!
-		context.fill(50, 50, 400, 200, new Color(0, 0, 0, 100).getRGB());
 	}
 
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
@@ -190,15 +187,16 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 
 			zLevel = 300F;
 			itemRender.zLevel = 300F;
-			drawGradientRect(l1 - 3, i2 - 4, l1 + i + 3, i2 - 3, -267386864, -267386864);
-			drawGradientRect(l1 - 3, i2 + k + 3, l1 + i + 3, i2 + k + 4, -267386864, -267386864);
-			drawGradientRect(l1 - 3, i2 - 3, l1 + i + 3, i2 + k + 3, -267386864, -267386864);
-			drawGradientRect(l1 - 4, i2 - 3, l1 - 3, i2 + k + 3, -267386864, -267386864);
-			drawGradientRect(l1 + i + 3, i2 - 3, l1 + i + 4, i2 + k + 3, -267386864, -267386864);
-			drawGradientRect(l1 - 3, i2 - 3 + 1, l1 - 3 + 1, i2 + k + 3 - 1, 1347420415, 1344798847);
-			drawGradientRect(l1 + i + 2, i2 - 3 + 1, l1 + i + 3, i2 + k + 3 - 1, 1347420415, 1344798847);
-			drawGradientRect(l1 - 3, i2 - 3, l1 + i + 3, i2 - 3 + 1, 1347420415, 1347420415);
-			drawGradientRect(l1 - 3, i2 + k + 2, l1 + i + 3, i2 + k + 3, 1344798847, 1344798847);
+			DrawContext drawCtx = mc.getDrawContext();
+			drawCtx.fillGradient(l1 - 3, i2 - 4, l1 + i + 3, i2 - 3, -267386864, -267386864);
+			drawCtx.fillGradient(l1 - 3, i2 + k + 3, l1 + i + 3, i2 + k + 4, -267386864, -267386864);
+			drawCtx.fillGradient(l1 - 3, i2 - 3, l1 + i + 3, i2 + k + 3, -267386864, -267386864);
+			drawCtx.fillGradient(l1 - 4, i2 - 3, l1 - 3, i2 + k + 3, -267386864, -267386864);
+			drawCtx.fillGradient(l1 + i + 3, i2 - 3, l1 + i + 4, i2 + k + 3, -267386864, -267386864);
+			drawCtx.fillGradient(l1 - 3, i2 - 3 + 1, l1 - 3 + 1, i2 + k + 3 - 1, 1347420415, 1344798847);
+			drawCtx.fillGradient(l1 + i + 2, i2 - 3 + 1, l1 + i + 3, i2 + k + 3 - 1, 1347420415, 1344798847);
+			drawCtx.fillGradient(l1 - 3, i2 - 3, l1 + i + 3, i2 - 3 + 1, 1347420415, 1347420415);
+			drawCtx.fillGradient(l1 - 3, i2 + k + 2, l1 + i + 3, i2 + k + 3, 1344798847, 1344798847);
 
 			for (int k1 = 0; k1 < textLines.size(); ++k1) {
 				String s1 = textLines.get(k1);
@@ -408,14 +406,14 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 			GLS.disableAlpha();
 			GuiPanoramaBackground.render(mc, width, height);
 			GLS.enableAlpha();
-			drawGradientRect(0, 0, width, height, -2130706433, 16777215);
-			drawGradientRect(0, 0, width, height, 0, Integer.MIN_VALUE);
+			mc.getDrawContext().fillGradient(0, 0, width, height, -2130706433, 16777215);
+			mc.getDrawContext().fillGradient(0, 0, width, height, 0, Integer.MIN_VALUE);
 		} else drawWorldBackground(0);
 	}
 
 	public void drawWorldBackground(int tint) {
 		if (mc.world != null) {
-			drawGradientRect(0, 0, width, height, -1072689136, -804253680);
+			mc.getDrawContext().fillGradient(0, 0, width, height, -1072689136, -804253680);
 		} else {
 			drawBackground(tint);
 		}
@@ -424,22 +422,14 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 	public void drawBackground(int tint) {
 		GLS.disableLighting();
 		GLS.disableFog();
-		Tessellator tessellator = Tessellator.getInstance();
-		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		mc.getTextureManager().bindTexture(OPTIONS_BACKGROUND);
-		GLS.color(1F, 1F, 1F, 1F);
-		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-		bufferbuilder.pos(0D, height, 0D)
-		             .tex(0D, (float) height / 32F + (float) tint)
-		             .color(64, 64, 64, 255)
-		             .endVertex();
-		bufferbuilder.pos(width, height, 0D)
-		             .tex((float) width / 32F, (float) height / 32F + (float) tint)
-		             .color(64, 64, 64, 255)
-		             .endVertex();
-		bufferbuilder.pos(width, 0D, 0D).tex((float) width / 32F, tint).color(64, 64, 64, 255).endVertex();
-		bufferbuilder.pos(0D, 0D, 0D).tex(0D, tint).color(64, 64, 64, 255).endVertex();
-		tessellator.draw();
+		int color = 0xFF404040; // 64, 64, 64, 255 -> alpha 255, red 64, green 64, blue 64
+		float u0 = 0.0F;
+		float v0 = (float) tint;
+		float u1 = (float) width / 32.0F;
+		float v1 = (float) height / 32.0F + (float) tint;
+		mc.getDrawContext().blit(0, 0, width, height, u0, v0, u1, v1, color);
+		mc.getDrawContext().flush();
 	}
 
 	public boolean pauseGame() {

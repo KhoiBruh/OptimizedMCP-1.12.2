@@ -96,7 +96,7 @@ public class InGameMenuScreen extends Screen {
 	 */
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
-		drawCenteredString(fontRenderer, I18n.format("menu.game"), width / 2, 40, 16777215);
+		context.drawCenteredString(fontRenderer, I18n.format("menu.game"), width / 2, 40, 16777215);
 		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 

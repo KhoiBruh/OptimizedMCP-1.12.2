@@ -135,7 +135,7 @@ public class MerchantScreen extends ContainerScreen {
 		mc.getTextureManager().bindTexture(MERCHANT_GUI_TEXTURE);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
-		drawTexturedModalRect(i, j, 0, 0, xSize, ySize);
+		mc.getDrawContext().blit(i, j, 0, 0, xSize, ySize);
 		MerchantRecipeList merchantrecipelist = merchant.getRecipes(mc.player);
 
 		if (merchantrecipelist != null && !merchantrecipelist.isEmpty()) {
@@ -151,8 +151,8 @@ public class MerchantScreen extends ContainerScreen {
 				mc.getTextureManager().bindTexture(MERCHANT_GUI_TEXTURE);
 				GLS.color(1F, 1F, 1F, 1F);
 				GLS.disableLighting();
-				drawTexturedModalRect(guiLeft + 83, guiTop + 21, 212, 0, 28, 21);
-				drawTexturedModalRect(guiLeft + 83, guiTop + 51, 212, 0, 28, 21);
+				mc.getDrawContext().blit(guiLeft + 83, guiTop + 21, 212, 0, 28, 21);
+				mc.getDrawContext().blit(guiLeft + 83, guiTop + 51, 212, 0, 28, 21);
 			}
 		}
 	}
@@ -243,7 +243,7 @@ public class MerchantScreen extends ContainerScreen {
 					i += height;
 				}
 
-				drawTexturedModalRect(x, y, j, i, width, height);
+				mc.getDrawContext().blit(x, y, j, i, width, height);
 			}
 		}
 

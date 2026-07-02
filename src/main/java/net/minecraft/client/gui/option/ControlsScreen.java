@@ -136,7 +136,7 @@ public class ControlsScreen extends Screen {
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		keyBindingList.drawScreen(mouseX, mouseY, partialTicks);
-		drawCenteredString(fontRenderer, screenTitle, width / 2, 8, 16777215);
+		context.drawCenteredString(fontRenderer, screenTitle, width / 2, 8, 16777215);
 		boolean flag = false;
 
 		for (KeyBinding keybinding : options.keyBindings) {

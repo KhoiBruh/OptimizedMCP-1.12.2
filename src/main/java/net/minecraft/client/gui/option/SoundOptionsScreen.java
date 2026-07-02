@@ -89,7 +89,7 @@ public class SoundOptionsScreen extends Screen {
 	 */
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
-		drawCenteredString(fontRenderer, title, width / 2, 15, 16777215);
+		context.drawCenteredString(fontRenderer, title, width / 2, 15, 16777215);
 		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 
@@ -128,8 +128,8 @@ public class SoundOptionsScreen extends Screen {
 				}
 
 				GLS.color(1F, 1F, 1F, 1F);
-				drawTexturedModalRect(x + (int) (volume * (float) (width - 8)), y, 0, 66, 4, 20);
-				drawTexturedModalRect(x + (int) (volume * (float) (width - 8)) + 4, y, 196, 66, 4, 20);
+				mc.getDrawContext().blit(x + (int) (volume * (float) (width - 8)), y, 0, 66, 4, 20);
+				mc.getDrawContext().blit(x + (int) (volume * (float) (width - 8)) + 4, y, 196, 66, 4, 20);
 			}
 		}
 

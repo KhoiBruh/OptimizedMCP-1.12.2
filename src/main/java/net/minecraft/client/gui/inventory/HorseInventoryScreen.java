@@ -63,23 +63,23 @@ public class HorseInventoryScreen extends ContainerScreen {
 		mc.getTextureManager().bindTexture(HORSE_GUI_TEXTURES);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
-		drawTexturedModalRect(i, j, 0, 0, xSize, ySize);
+		mc.getDrawContext().blit(i, j, 0, 0, xSize, ySize);
 
 		if (horseEntity instanceof AbstractChestHorse abstractchesthorse) {
 			if (abstractchesthorse.hasChest()) {
-				drawTexturedModalRect(i + 79, j + 17, 0, ySize, abstractchesthorse.getInventoryColumns() * 18, 54);
+				mc.getDrawContext().blit(i + 79, j + 17, 0, ySize, abstractchesthorse.getInventoryColumns() * 18, 54);
 			}
 		}
 
 		if (horseEntity.canBeSaddled()) {
-			drawTexturedModalRect(i + 7, j + 35 - 18, 18, ySize + 54, 18, 18);
+			mc.getDrawContext().blit(i + 7, j + 35 - 18, 18, ySize + 54, 18, 18);
 		}
 
 		if (horseEntity.wearsArmor()) {
 			if (horseEntity instanceof EntityLlama) {
-				drawTexturedModalRect(i + 7, j + 35, 36, ySize + 54, 18, 18);
+				mc.getDrawContext().blit(i + 7, j + 35, 36, ySize + 54, 18, 18);
 			} else {
-				drawTexturedModalRect(i + 7, j + 35, 0, ySize + 54, 18, 18);
+				mc.getDrawContext().blit(i + 7, j + 35, 0, ySize + 54, 18, 18);
 			}
 		}
 

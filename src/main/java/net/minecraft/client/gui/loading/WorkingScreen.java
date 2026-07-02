@@ -54,8 +54,8 @@ public class WorkingScreen extends Screen implements IProgressUpdate {
 			mc.displayScreen(null);
 		} else {
 			drawDefaultBackground();
-			drawCenteredString(fontRenderer, title, width / 2, 70, 16777215);
-			drawCenteredString(fontRenderer, stage + " " + progress + "%", width / 2, 90, 16777215);
+			context.drawCenteredString(fontRenderer, title, width / 2, 70, 16777215);
+			context.drawCenteredString(fontRenderer, stage + " " + progress + "%", width / 2, 90, 16777215);
 			super.draw(context, mouseX, mouseY, partialTicks);
 		}
 	}

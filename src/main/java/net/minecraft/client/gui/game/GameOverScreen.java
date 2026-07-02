@@ -95,17 +95,17 @@ public class GameOverScreen extends Screen {
 	 */
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		boolean flag = mc.world.getWorldInfo().isHardcoreModeEnabled();
-		drawGradientRect(0, 0, width, height, 1615855616, -1602211792);
+		context.fillGradient(0, 0, width, height, 1615855616, -1602211792);
 		GLS.pushMatrix();
 		GLS.scale(2F, 2F, 2F);
-		drawCenteredString(fontRenderer, I18n.format(flag ? "deathScreen.title.hardcore" : "deathScreen.title"), width / 2 / 2, 30, 16777215);
+		context.drawCenteredString(fontRenderer, I18n.format(flag ? "deathScreen.title.hardcore" : "deathScreen.title"), width / 2 / 2, 30, 16777215);
 		GLS.popMatrix();
 
 		if (causeOfDeath != null) {
-			drawCenteredString(fontRenderer, causeOfDeath.getFormattedText(), width / 2, 85, 16777215);
+			context.drawCenteredString(fontRenderer, causeOfDeath.getFormattedText(), width / 2, 85, 16777215);
 		}
 
-		drawCenteredString(fontRenderer, I18n.format("deathScreen.score") + ": " + TextFormat.YELLOW + mc.player.getScore(), width / 2, 100, 16777215);
+		context.drawCenteredString(fontRenderer, I18n.format("deathScreen.score") + ": " + TextFormat.YELLOW + mc.player.getScore(), width / 2, 100, 16777215);
 
 		if (causeOfDeath != null && mouseY > 85 && mouseY < 85 + fontRenderer.FONT_HEIGHT) {
 			ITextComponent itextcomponent = getClickedComponentAt(mouseX);

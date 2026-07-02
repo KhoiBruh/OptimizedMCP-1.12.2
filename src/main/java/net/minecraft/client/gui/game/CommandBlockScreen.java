@@ -190,20 +190,20 @@ public class CommandBlockScreen extends Screen implements ITabCompleter {
 	 */
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
-		drawCenteredString(fontRenderer, I18n.format("advMode.setCommand"), width / 2, 20, 16777215);
-		drawString(fontRenderer, I18n.format("advMode.command"), width / 2 - 150, 40, 10526880);
+		context.drawCenteredString(fontRenderer, I18n.format("advMode.setCommand"), width / 2, 20, 16777215);
+		context.drawString(fontRenderer, I18n.format("advMode.command"), width / 2 - 150, 40, 10526880);
 		commandTextField.drawTextBox();
 		int i = 75;
 		int j = 0;
-		drawString(fontRenderer, I18n.format("advMode.nearestPlayer"), width / 2 - 140, i + j++ * fontRenderer.FONT_HEIGHT, 10526880);
-		drawString(fontRenderer, I18n.format("advMode.randomPlayer"), width / 2 - 140, i + j++ * fontRenderer.FONT_HEIGHT, 10526880);
-		drawString(fontRenderer, I18n.format("advMode.allPlayers"), width / 2 - 140, i + j++ * fontRenderer.FONT_HEIGHT, 10526880);
-		drawString(fontRenderer, I18n.format("advMode.allEntities"), width / 2 - 140, i + j++ * fontRenderer.FONT_HEIGHT, 10526880);
-		drawString(fontRenderer, I18n.format("advMode.self"), width / 2 - 140, i + j++ * fontRenderer.FONT_HEIGHT, 10526880);
+		context.drawString(fontRenderer, I18n.format("advMode.nearestPlayer"), width / 2 - 140, i + j++ * fontRenderer.FONT_HEIGHT, 10526880);
+		context.drawString(fontRenderer, I18n.format("advMode.randomPlayer"), width / 2 - 140, i + j++ * fontRenderer.FONT_HEIGHT, 10526880);
+		context.drawString(fontRenderer, I18n.format("advMode.allPlayers"), width / 2 - 140, i + j++ * fontRenderer.FONT_HEIGHT, 10526880);
+		context.drawString(fontRenderer, I18n.format("advMode.allEntities"), width / 2 - 140, i + j++ * fontRenderer.FONT_HEIGHT, 10526880);
+		context.drawString(fontRenderer, I18n.format("advMode.self"), width / 2 - 140, i + j++ * fontRenderer.FONT_HEIGHT, 10526880);
 
 		if (!previousOutputTextField.getText().isEmpty()) {
 			i = i + j * fontRenderer.FONT_HEIGHT + 1;
-			drawString(fontRenderer, I18n.format("advMode.previousOutput"), width / 2 - 150, i + 4, 10526880);
+			context.drawString(fontRenderer, I18n.format("advMode.previousOutput"), width / 2 - 150, i + 4, 10526880);
 			previousOutputTextField.drawTextBox();
 		}
 

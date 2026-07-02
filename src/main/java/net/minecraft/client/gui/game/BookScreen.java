@@ -352,7 +352,7 @@ public class BookScreen extends Screen {
 		mc.getTextureManager().bindTexture(BOOK_GUI_TEXTURES);
 		int i = (width - 192) / 2;
 		int j = 2;
-		drawTexturedModalRect(i, 2, 0, 0, 192, 192);
+		context.blit(i, 2, 0, 0, 192, 192);
 
 		if (bookGettingSigned) {
 			String s = bookTitle;
@@ -543,7 +543,7 @@ public class BookScreen extends Screen {
 					j += 13;
 				}
 
-				drawTexturedModalRect(x, y, i, j, 23, 13);
+				mc.getDrawContext().blit(x, y, i, j, 23, 13);
 			}
 		}
 

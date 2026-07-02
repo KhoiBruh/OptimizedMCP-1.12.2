@@ -92,8 +92,8 @@ public class ServerListScreen extends Screen {
 	 */
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
-		drawCenteredString(fontRenderer, I18n.format("selectServer.direct"), width / 2, 20, 16777215);
-		drawString(fontRenderer, I18n.format("addServer.enterIp"), width / 2 - 100, 100, 10526880);
+		context.drawCenteredString(fontRenderer, I18n.format("selectServer.direct"), width / 2, 20, 16777215);
+		context.drawString(fontRenderer, I18n.format("addServer.enterIp"), width / 2 - 100, 100, 10526880);
 		ipEdit.drawTextBox();
 		super.draw(context, mouseX, mouseY, partialTicks);
 	}

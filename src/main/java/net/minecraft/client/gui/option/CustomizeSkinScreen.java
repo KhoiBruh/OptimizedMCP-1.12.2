@@ -86,7 +86,7 @@ public class CustomizeSkinScreen extends Screen {
 	 */
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
-		drawCenteredString(fontRenderer, title, width / 2, 20, 16777215);
+		context.drawCenteredString(fontRenderer, title, width / 2, 20, 16777215);
 		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 

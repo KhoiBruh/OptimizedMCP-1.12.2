@@ -141,9 +141,9 @@ public class AddServerScreen extends Screen {
 	 */
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
-		drawCenteredString(fontRenderer, I18n.format("addServer.title"), width / 2, 17, 16777215);
-		drawString(fontRenderer, I18n.format("addServer.enterName"), width / 2 - 100, 53, 10526880);
-		drawString(fontRenderer, I18n.format("addServer.enterIp"), width / 2 - 100, 94, 10526880);
+		context.drawCenteredString(fontRenderer, I18n.format("addServer.title"), width / 2, 17, 16777215);
+		context.drawString(fontRenderer, I18n.format("addServer.enterName"), width / 2 - 100, 53, 10526880);
+		context.drawString(fontRenderer, I18n.format("addServer.enterIp"), width / 2 - 100, 94, 10526880);
 		serverNameField.drawTextBox();
 		serverIPField.drawTextBox();
 		super.draw(context, mouseX, mouseY, partialTicks);

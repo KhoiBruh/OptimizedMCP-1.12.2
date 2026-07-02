@@ -50,15 +50,15 @@ public class FurnaceScreen extends ContainerScreen {
 		mc.getTextureManager().bindTexture(FURNACE_GUI_TEXTURES);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
-		drawTexturedModalRect(i, j, 0, 0, xSize, ySize);
+		mc.getDrawContext().blit(i, j, 0, 0, xSize, ySize);
 
 		if (TileEntityFurnace.isBurning(tileFurnace)) {
 			int k = getBurnLeftScaled(13);
-			drawTexturedModalRect(i + 56, j + 36 + 12 - k, 176, 12 - k, 14, k + 1);
+			mc.getDrawContext().blit(i + 56, j + 36 + 12 - k, 176, 12 - k, 14, k + 1);
 		}
 
 		int l = getCookProgressScaled(24);
-		drawTexturedModalRect(i + 79, j + 34, 176, 14, l + 1, 16);
+		mc.getDrawContext().blit(i + 79, j + 34, 176, 14, l + 1, 16);
 	}
 
 	private int getCookProgressScaled(int pixels) {

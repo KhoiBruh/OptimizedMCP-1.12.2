@@ -165,8 +165,8 @@ public class ResourcePacksScreen extends Screen {
 		drawDefaultBackground();
 		availableResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
 		selectedResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
-		drawCenteredString(fontRenderer, I18n.format("resourcePack.title"), width / 2, 16, 16777215);
-		drawCenteredString(fontRenderer, I18n.format("resourcePack.folder"), width / 2 - 77, height - 26, 8421504);
+		context.drawCenteredString(fontRenderer, I18n.format("resourcePack.title"), width / 2, 16, 16777215);
+		context.drawCenteredString(fontRenderer, I18n.format("resourcePack.folder"), width / 2 - 77, height - 26, 8421504);
 		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 

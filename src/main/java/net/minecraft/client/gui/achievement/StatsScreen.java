@@ -130,11 +130,11 @@ public class StatsScreen extends Screen implements IProgressMeter {
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		if (doesGuiPauseGame) {
 			drawDefaultBackground();
-			drawCenteredString(fontRenderer, I18n.format("multiplayer.downloadingStats"), width / 2, height / 2, 16777215);
-			drawCenteredString(fontRenderer, LOADING_STRINGS[(int) (Minecraft.getSystemTime() / 150L % (long) LOADING_STRINGS.length)], width / 2, height / 2 + fontRenderer.FONT_HEIGHT * 2, 16777215);
+			context.drawCenteredString(fontRenderer, I18n.format("multiplayer.downloadingStats"), width / 2, height / 2, 16777215);
+			context.drawCenteredString(fontRenderer, LOADING_STRINGS[(int) (Minecraft.getSystemTime() / 150L % (long) LOADING_STRINGS.length)], width / 2, height / 2 + fontRenderer.FONT_HEIGHT * 2, 16777215);
 		} else {
 			displaySlot.drawScreen(mouseX, mouseY, partialTicks);
-			drawCenteredString(fontRenderer, screenTitle, width / 2, 20, 16777215);
+			context.drawCenteredString(fontRenderer, screenTitle, width / 2, 20, 16777215);
 			super.draw(context, mouseX, mouseY, partialTicks);
 		}
 	}
@@ -317,10 +317,10 @@ public class StatsScreen extends Screen implements IProgressMeter {
 		protected void renderStat(StatBase p_148209_1_, int p_148209_2_, int p_148209_3_, boolean p_148209_4_) {
 			if (p_148209_1_ != null) {
 				String s = p_148209_1_.format(stats.readStat(p_148209_1_));
-				drawString(fontRenderer, s, p_148209_2_ - fontRenderer.getWidth(s), p_148209_3_ + 5, p_148209_4_ ? 16777215 : 9474192);
+				mc.getDrawContext().drawString(fontRenderer, s, p_148209_2_ - fontRenderer.getWidth(s), p_148209_3_ + 5, p_148209_4_ ? 16777215 : 9474192);
 			} else {
 				String s1 = "-";
-				drawString(fontRenderer, "-", p_148209_2_ - fontRenderer.getWidth("-"), p_148209_3_ + 5, p_148209_4_ ? 16777215 : 9474192);
+				mc.getDrawContext().drawString(fontRenderer, "-", p_148209_2_ - fontRenderer.getWidth("-"), p_148209_3_ + 5, p_148209_4_ ? 16777215 : 9474192);
 			}
 		}
 
@@ -361,7 +361,7 @@ public class StatsScreen extends Screen implements IProgressMeter {
 						int k = mouseXIn + 12;
 						int l = mouseYIn - 12;
 						int i1 = fontRenderer.getWidth(s);
-						drawGradientRect(k - 3, l - 3, k + i1 + 3, l + 8 + 3, -1073741824, -1073741824);
+						mc.getDrawContext().fillGradient(k - 3, l - 3, k + i1 + 3, l + 8 + 3, -1073741824, -1073741824);
 						fontRenderer.drawShadowText(s, (float) k, (float) l, -1);
 					}
 				}
@@ -379,7 +379,7 @@ public class StatsScreen extends Screen implements IProgressMeter {
 					int i = p_148213_2_ + 12;
 					int j = p_148213_3_ - 12;
 					int k = fontRenderer.getWidth(s1);
-					drawGradientRect(i - 3, j - 3, i + k + 3, j + 8 + 3, -1073741824, -1073741824);
+					mc.getDrawContext().fillGradient(i - 3, j - 3, i + k + 3, j + 8 + 3, -1073741824, -1073741824);
 					fontRenderer.drawShadowText(s1, (float) i, (float) j, -1);
 				}
 			}
@@ -560,10 +560,10 @@ public class StatsScreen extends Screen implements IProgressMeter {
 
 		protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks) {
 			StatBase statbase = StatList.BASIC_STATS.get(slotIndex);
-			drawString(fontRenderer, statbase.getStatName()
+			mc.getDrawContext().drawString(fontRenderer, statbase.getStatName()
 			                                 .getUnformattedText(), xPos + 2, yPos + 1, slotIndex % 2 == 0 ? 16777215 : 9474192);
 			String s = statbase.format(stats.readStat(statbase));
-			drawString(fontRenderer, s, xPos + 2 + 213 - fontRenderer.getWidth(s), yPos + 1, slotIndex % 2 == 0 ? 16777215 : 9474192);
+			mc.getDrawContext().drawString(fontRenderer, s, xPos + 2 + 213 - fontRenderer.getWidth(s), yPos + 1, slotIndex % 2 == 0 ? 16777215 : 9474192);
 		}
 
 	}
@@ -751,9 +751,9 @@ public class StatsScreen extends Screen implements IProgressMeter {
 				s2 = I18n.format("stat.entityKilledBy.none", s);
 			}
 
-			drawString(fontRenderer, s, xPos + 2 - 10, yPos + 1, 16777215);
-			drawString(fontRenderer, s1, xPos + 2, yPos + 1 + fontRenderer.FONT_HEIGHT, i == 0 ? 6316128 : 9474192);
-			drawString(fontRenderer, s2, xPos + 2, yPos + 1 + fontRenderer.FONT_HEIGHT * 2, j == 0 ? 6316128 : 9474192);
+			mc.getDrawContext().drawString(fontRenderer, s, xPos + 2 - 10, yPos + 1, 16777215);
+			mc.getDrawContext().drawString(fontRenderer, s1, xPos + 2, yPos + 1 + fontRenderer.FONT_HEIGHT, i == 0 ? 6316128 : 9474192);
+			mc.getDrawContext().drawString(fontRenderer, s2, xPos + 2, yPos + 1 + fontRenderer.FONT_HEIGHT * 2, j == 0 ? 6316128 : 9474192);
 		}
 
 	}

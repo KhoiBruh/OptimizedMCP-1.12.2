@@ -156,10 +156,10 @@ public class CreateFlatWorldScreen extends Screen {
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		createFlatWorldListSlotGui.drawScreen(mouseX, mouseY, partialTicks);
-		drawCenteredString(fontRenderer, flatWorldTitle, width / 2, 8, 16777215);
+		context.drawCenteredString(fontRenderer, flatWorldTitle, width / 2, 8, 16777215);
 		int i = width / 2 - 92 - 16;
-		drawString(fontRenderer, materialText, i, 32, 16777215);
-		drawString(fontRenderer, heightText, i + 2 + 213 - fontRenderer.getWidth(heightText), 32, 16777215);
+		context.drawString(fontRenderer, materialText, i, 32, 16777215);
+		context.drawString(fontRenderer, heightText, i + 2 + 213 - fontRenderer.getWidth(heightText), 32, 16777215);
 		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 

@@ -19,7 +19,7 @@ public class DownloadTerrainScreen extends Screen {
 	 */
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
-		drawCenteredString(fontRenderer, I18n.format("multiplayer.downloadingTerrain"), width / 2, height / 2 - 50, 16777215);
+		context.drawCenteredString(fontRenderer, I18n.format("multiplayer.downloadingTerrain"), width / 2, height / 2 - 50, 16777215);
 		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 

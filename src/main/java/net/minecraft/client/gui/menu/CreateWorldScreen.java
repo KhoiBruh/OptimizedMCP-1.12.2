@@ -407,18 +407,18 @@ public class CreateWorldScreen extends Screen {
 	 */
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
-		drawCenteredString(fontRenderer, I18n.format("selectWorld.create"), width / 2, 20, -1);
+		context.drawCenteredString(fontRenderer, I18n.format("selectWorld.create"), width / 2, 20, -1);
 
 		if (inMoreWorldOptionsDisplay) {
-			drawString(fontRenderer, I18n.format("selectWorld.enterSeed"), width / 2 - 100, 47, -6250336);
-			drawString(fontRenderer, I18n.format("selectWorld.seedInfo"), width / 2 - 100, 85, -6250336);
+			context.drawString(fontRenderer, I18n.format("selectWorld.enterSeed"), width / 2 - 100, 47, -6250336);
+			context.drawString(fontRenderer, I18n.format("selectWorld.seedInfo"), width / 2 - 100, 85, -6250336);
 
 			if (btnMapFeatures.visible) {
-				drawString(fontRenderer, I18n.format("selectWorld.mapFeatures.info"), width / 2 - 150, 122, -6250336);
+				context.drawString(fontRenderer, I18n.format("selectWorld.mapFeatures.info"), width / 2 - 150, 122, -6250336);
 			}
 
 			if (btnAllowCommands.visible) {
-				drawString(fontRenderer, I18n.format("selectWorld.allowCommands.info"), width / 2 - 150, 172, -6250336);
+				context.drawString(fontRenderer, I18n.format("selectWorld.allowCommands.info"), width / 2 - 150, 172, -6250336);
 			}
 
 			worldSeedField.drawTextBox();
@@ -427,11 +427,11 @@ public class CreateWorldScreen extends Screen {
 				fontRenderer.drawSplit(I18n.format(WorldType.WORLD_TYPES[selectedIndex].getInfoTranslationKey()), btnMapType.x + 2, btnMapType.y + 22, btnMapType.getButtonWidth(), 10526880);
 			}
 		} else {
-			drawString(fontRenderer, I18n.format("selectWorld.enterName"), width / 2 - 100, 47, -6250336);
-			drawString(fontRenderer, I18n.format("selectWorld.resultFolder") + " " + saveDirName, width / 2 - 100, 85, -6250336);
+			context.drawString(fontRenderer, I18n.format("selectWorld.enterName"), width / 2 - 100, 47, -6250336);
+			context.drawString(fontRenderer, I18n.format("selectWorld.resultFolder") + " " + saveDirName, width / 2 - 100, 85, -6250336);
 			worldNameField.drawTextBox();
-			drawString(fontRenderer, gameModeDesc1, width / 2 - 100, 137, -6250336);
-			drawString(fontRenderer, gameModeDesc2, width / 2 - 100, 149, -6250336);
+			context.drawString(fontRenderer, gameModeDesc1, width / 2 - 100, 137, -6250336);
+			context.drawString(fontRenderer, gameModeDesc2, width / 2 - 100, 149, -6250336);
 		}
 
 		super.draw(context, mouseX, mouseY, partialTicks);

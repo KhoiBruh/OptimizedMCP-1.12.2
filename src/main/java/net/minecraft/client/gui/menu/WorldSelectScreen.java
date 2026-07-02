@@ -102,7 +102,7 @@ public class WorldSelectScreen extends Screen {
 		drawDefaultBackground();
 		worldVersTooltip = null;
 		selectionList.drawScreen(mouseX, mouseY, partialTicks);
-		drawCenteredString(fontRenderer, title, width / 2, 20, 16777215);
+		context.drawCenteredString(fontRenderer, title, width / 2, 20, 16777215);
 		super.draw(context, mouseX, mouseY, partialTicks);
 
 		if (worldVersTooltip != null)

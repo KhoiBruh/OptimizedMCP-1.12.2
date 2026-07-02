@@ -120,7 +120,7 @@ public class EditSignScreen extends Screen {
 	 */
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
-		drawCenteredString(fontRenderer, I18n.format("sign.edit"), width / 2, 40, 16777215);
+		context.drawCenteredString(fontRenderer, I18n.format("sign.edit"), width / 2, 40, 16777215);
 		GLS.color(1F, 1F, 1F, 1F);
 		GLS.pushMatrix();
 		GLS.translate((float) (width / 2), 0F, 50F);

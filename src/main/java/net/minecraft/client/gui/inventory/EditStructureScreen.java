@@ -604,52 +604,52 @@ public class EditStructureScreen extends Screen {
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		TileEntityStructure.Mode tileentitystructure$mode = tileStructure.getMode();
-		drawCenteredString(fontRenderer, I18n.format("tile.structureBlock.name"), width / 2, 10, 16777215);
+		context.drawCenteredString(fontRenderer, I18n.format("tile.structureBlock.name"), width / 2, 10, 16777215);
 
 		if (tileentitystructure$mode != TileEntityStructure.Mode.DATA) {
-			drawString(fontRenderer, I18n.format("structure_block.structure_name"), width / 2 - 153, 30, 10526880);
+			context.drawString(fontRenderer, I18n.format("structure_block.structure_name"), width / 2 - 153, 30, 10526880);
 			nameEdit.drawTextBox();
 		}
 
 		if (tileentitystructure$mode == TileEntityStructure.Mode.LOAD || tileentitystructure$mode == TileEntityStructure.Mode.SAVE) {
-			drawString(fontRenderer, I18n.format("structure_block.position"), width / 2 - 153, 70, 10526880);
+			context.drawString(fontRenderer, I18n.format("structure_block.position"), width / 2 - 153, 70, 10526880);
 			posXEdit.drawTextBox();
 			posYEdit.drawTextBox();
 			posZEdit.drawTextBox();
 			String s = I18n.format("structure_block.include_entities");
 			int i = fontRenderer.getWidth(s);
-			drawString(fontRenderer, s, width / 2 + 154 - i, 150, 10526880);
+			context.drawString(fontRenderer, s, width / 2 + 154 - i, 150, 10526880);
 		}
 
 		if (tileentitystructure$mode == TileEntityStructure.Mode.SAVE) {
-			drawString(fontRenderer, I18n.format("structure_block.size"), width / 2 - 153, 110, 10526880);
+			context.drawString(fontRenderer, I18n.format("structure_block.size"), width / 2 - 153, 110, 10526880);
 			sizeXEdit.drawTextBox();
 			sizeYEdit.drawTextBox();
 			sizeZEdit.drawTextBox();
 			String s2 = I18n.format("structure_block.detect_size");
 			int k = fontRenderer.getWidth(s2);
-			drawString(fontRenderer, s2, width / 2 + 154 - k, 110, 10526880);
+			context.drawString(fontRenderer, s2, width / 2 + 154 - k, 110, 10526880);
 			String s1 = I18n.format("structure_block.show_air");
 			int j = fontRenderer.getWidth(s1);
-			drawString(fontRenderer, s1, width / 2 + 154 - j, 70, 10526880);
+			context.drawString(fontRenderer, s1, width / 2 + 154 - j, 70, 10526880);
 		}
 
 		if (tileentitystructure$mode == TileEntityStructure.Mode.LOAD) {
-			drawString(fontRenderer, I18n.format("structure_block.integrity"), width / 2 - 153, 110, 10526880);
+			context.drawString(fontRenderer, I18n.format("structure_block.integrity"), width / 2 - 153, 110, 10526880);
 			integrityEdit.drawTextBox();
 			seedEdit.drawTextBox();
 			String s3 = I18n.format("structure_block.show_boundingbox");
 			int l = fontRenderer.getWidth(s3);
-			drawString(fontRenderer, s3, width / 2 + 154 - l, 70, 10526880);
+			context.drawString(fontRenderer, s3, width / 2 + 154 - l, 70, 10526880);
 		}
 
 		if (tileentitystructure$mode == TileEntityStructure.Mode.DATA) {
-			drawString(fontRenderer, I18n.format("structure_block.custom_data"), width / 2 - 153, 110, 10526880);
+			context.drawString(fontRenderer, I18n.format("structure_block.custom_data"), width / 2 - 153, 110, 10526880);
 			dataEdit.drawTextBox();
 		}
 
 		String s4 = "structure_block.mode_info." + tileentitystructure$mode.getName();
-		drawString(fontRenderer, I18n.format(s4), width / 2 - 153, 174, 10526880);
+		context.drawString(fontRenderer, I18n.format(s4), width / 2 - 153, 174, 10526880);
 		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 

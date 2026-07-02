@@ -461,7 +461,7 @@ public class MultiplayerScreen extends Screen {
 		drawDefaultBackground();
 		hoveringText = null;
 		serverListSelector.drawScreen(mouseX, mouseY, partialTicks);
-		drawCenteredString(fontRenderer, I18n.format("multiplayer.title"), width / 2, 20, 16777215);
+		context.drawCenteredString(fontRenderer, I18n.format("multiplayer.title"), width / 2, 20, 16777215);
 		super.draw(context, mouseX, mouseY, partialTicks);
 
 		if (hoveringText != null) {

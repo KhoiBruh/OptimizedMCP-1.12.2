@@ -89,7 +89,7 @@ public class CraftingScreen extends ContainerScreen implements IRecipeShownListe
 		mc.getTextureManager().bindTexture(CRAFTING_TABLE_GUI_TEXTURES);
 		int i = guiLeft;
 		int j = (height - ySize) / 2;
-		drawTexturedModalRect(i, j, 0, 0, xSize, ySize);
+		mc.getDrawContext().blit(i, j, 0, 0, xSize, ySize);
 	}
 
 	/**

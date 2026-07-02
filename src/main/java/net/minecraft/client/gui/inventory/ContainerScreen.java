@@ -140,7 +140,7 @@ public abstract class ContainerScreen extends Screen {
 				int j1 = slot.xPos;
 				int k1 = slot.yPos;
 				GLS.colorMask(true, true, true, false);
-				drawGradientRect(j1, k1, j1 + 16, k1 + 16, -2130706433, -2130706433);
+				context.fillGradient(j1, k1, j1 + 16, k1 + 16, -2130706433, -2130706433);
 				GLS.colorMask(true, true, true, true);
 				GLS.enableLighting();
 				GLS.enableDepth();
@@ -274,7 +274,7 @@ public abstract class ContainerScreen extends Screen {
 				TextureAtlasSprite textureatlassprite = mc.getBlockTextures().getAtlasSprite(s1);
 				GLS.disableLighting();
 				mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-				drawTexturedModalRect(i, j, textureatlassprite, 16, 16);
+				mc.getDrawContext().blit(i, j, textureatlassprite, 16, 16);
 				GLS.enableLighting();
 				flag1 = true;
 			}
@@ -282,7 +282,7 @@ public abstract class ContainerScreen extends Screen {
 
 		if (!flag1) {
 			if (flag) {
-				drawRect(i, j, i + 16, j + 16, -2130706433);
+				mc.getDrawContext().fill(i, j, i + 16, j + 16, -2130706433);
 			}
 
 			GLS.enableDepth();

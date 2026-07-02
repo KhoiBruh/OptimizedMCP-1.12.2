@@ -72,11 +72,11 @@ public class YesNoScreen extends Screen {
 	 */
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
-		drawCenteredString(fontRenderer, messageLine1, width / 2, 70, 16777215);
+		context.drawCenteredString(fontRenderer, messageLine1, width / 2, 70, 16777215);
 		int i = 90;
 
 		for (String s : listLines) {
-			drawCenteredString(fontRenderer, s, width / 2, i, 16777215);
+			context.drawCenteredString(fontRenderer, s, width / 2, i, 16777215);
 			i += fontRenderer.FONT_HEIGHT;
 		}
 

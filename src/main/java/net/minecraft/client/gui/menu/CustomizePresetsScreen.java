@@ -131,9 +131,9 @@ public class CustomizePresetsScreen extends Screen {
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		list.drawScreen(mouseX, mouseY, partialTicks);
-		drawCenteredString(fontRenderer, title, width / 2, 8, 16777215);
-		drawString(fontRenderer, shareText, 50, 30, 10526880);
-		drawString(fontRenderer, listText, 50, 70, 10526880);
+		context.drawCenteredString(fontRenderer, title, width / 2, 8, 16777215);
+		context.drawString(fontRenderer, shareText, 50, 30, 10526880);
+		context.drawString(fontRenderer, listText, 50, 70, 10526880);
 		export.drawTextBox();
 		super.draw(context, mouseX, mouseY, partialTicks);
 	}
@@ -195,10 +195,10 @@ public class CustomizePresetsScreen extends Screen {
 
 		private void blitIcon(int p_178051_1_, int p_178051_2_, ResourceLocation texture) {
 			int i = p_178051_1_ + 5;
-			drawHorizontalLine(i - 1, i + 32, p_178051_2_ - 1, -2039584);
-			drawHorizontalLine(i - 1, i + 32, p_178051_2_ + 32, -6250336);
-			drawVerticalLine(i - 1, p_178051_2_ - 1, p_178051_2_ + 32, -2039584);
-			drawVerticalLine(i + 32, p_178051_2_ - 1, p_178051_2_ + 32, -6250336);
+			mc.getDrawContext().hLine(i - 1, i + 32, p_178051_2_ - 1, -2039584);
+			mc.getDrawContext().hLine(i - 1, i + 32, p_178051_2_ + 32, -6250336);
+			mc.getDrawContext().vLine(i - 1, p_178051_2_ - 1, p_178051_2_ + 32, -2039584);
+			mc.getDrawContext().vLine(i + 32, p_178051_2_ - 1, p_178051_2_ + 32, -6250336);
 			GLS.color(1F, 1F, 1F, 1F);
 			mc.getTextureManager().bindTexture(texture);
 			int j = 32;

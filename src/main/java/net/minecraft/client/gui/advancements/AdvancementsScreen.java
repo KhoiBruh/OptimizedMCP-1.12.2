@@ -122,7 +122,7 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 		GuiAdvancementTab guiadvancementtab = selectedTab;
 
 		if (guiadvancementtab == null) {
-			drawRect(p_191936_3_ + 9, p_191936_4_ + 18, p_191936_3_ + 9 + 234, p_191936_4_ + 18 + 113, -16777216);
+			mc.getDrawContext().fill(p_191936_3_ + 9, p_191936_4_ + 18, p_191936_3_ + 9 + 234, p_191936_4_ + 18 + 113, -16777216);
 			String s = I18n.format("advancements.empty");
 			int i = fontRenderer.getWidth(s);
 			fontRenderer.drawText(s, p_191936_3_ + 9 + 117 - i / 2, p_191936_4_ + 18 + 56 - fontRenderer.FONT_HEIGHT / 2, -1);
@@ -143,7 +143,7 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 		GLS.enableBlend();
 		RenderHelper.disableStandardItemLighting();
 		mc.getTextureManager().bindTexture(WINDOW);
-		drawTexturedModalRect(p_191934_1_, p_191934_2_, 0, 0, 252, 140);
+		mc.getDrawContext().blit(p_191934_1_, p_191934_2_, 0, 0, 252, 140);
 
 		if (tabs.size() > 1) {
 			mc.getTextureManager().bindTexture(TABS);

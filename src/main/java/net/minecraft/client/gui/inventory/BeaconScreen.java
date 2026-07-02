@@ -154,8 +154,8 @@ public class BeaconScreen extends ContainerScreen {
 	 */
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		RenderHelper.disableStandardItemLighting();
-		drawCenteredString(fontRenderer, I18n.format("tile.beacon.primary"), 62, 10, 14737632);
-		drawCenteredString(fontRenderer, I18n.format("tile.beacon.secondary"), 169, 10, 14737632);
+		mc.getDrawContext().drawCenteredString(fontRenderer, I18n.format("tile.beacon.primary"), 62, 10, 14737632);
+		mc.getDrawContext().drawCenteredString(fontRenderer, I18n.format("tile.beacon.secondary"), 169, 10, 14737632);
 
 		for (net.minecraft.client.gui.component.Button guibutton : buttons) {
 			if (guibutton.isMouseOver()) {
@@ -175,7 +175,7 @@ public class BeaconScreen extends ContainerScreen {
 		mc.getTextureManager().bindTexture(BEACON_GUI_TEXTURES);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
-		drawTexturedModalRect(i, j, 0, 0, xSize, ySize);
+		mc.getDrawContext().blit(i, j, 0, 0, xSize, ySize);
 		itemRender.zLevel = 100F;
 		itemRender.renderItemAndEffectIntoGUI(new ItemStack(Items.EMERALD), i + 42, j + 109);
 		itemRender.renderItemAndEffectIntoGUI(new ItemStack(Items.DIAMOND), i + 42 + 22, j + 109);
@@ -213,13 +213,13 @@ public class BeaconScreen extends ContainerScreen {
 					j += width * 3;
 				}
 
-				drawTexturedModalRect(x, y, j, 219, width, height);
+				mc.getDrawContext().blit(x, y, j, 219, width, height);
 
 				if (!BeaconScreen.BEACON_GUI_TEXTURES.equals(iconTexture)) {
 					mc.getTextureManager().bindTexture(iconTexture);
 				}
 
-				drawTexturedModalRect(x + 2, y + 2, iconX, iconY, 18, 18);
+				mc.getDrawContext().blit(x + 2, y + 2, iconX, iconY, 18, 18);
 			}
 		}
 

@@ -46,7 +46,7 @@ public class ShulkerBoxScreen extends ContainerScreen {
 		mc.getTextureManager().bindTexture(GUI_TEXTURE);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
-		drawTexturedModalRect(i, j, 0, 0, xSize, ySize);
+		mc.getDrawContext().blit(i, j, 0, 0, xSize, ySize);
 	}
 
 }

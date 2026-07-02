@@ -185,10 +185,10 @@ public class WinGameScreen extends Screen {
 		mc.getTextureManager().bindTexture(MINECRAFT_LOGO);
 		GLS.color(1F, 1F, 1F, 1F);
 		GLS.enableAlpha();
-		drawTexturedModalRect(j, k, 0, 0, 155, 44);
-		drawTexturedModalRect(j + 155, k, 0, 45, 155, 44);
+		context.blit(j, k, 0, 0, 155, 44);
+		context.blit(j + 155, k, 0, 45, 155, 44);
 		mc.getTextureManager().bindTexture(field_194401_g);
-		drawModalRectWithCustomSizedTexture(j + 88, k + 37, 0F, 0F, 98, 14, 128F, 16F);
+		context.blit(j + 88, k + 37, 0F, 0F, 98, 14, 128F, 16F);
 		GLS.disableAlpha();
 		int l = k + 100;
 

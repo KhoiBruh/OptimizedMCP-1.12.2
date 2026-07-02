@@ -246,6 +246,20 @@ public class DrawContext implements AutoCloseable {
 		vertex(x, y, zLevel, u0, v0, 1F, 1F, 1F, 1F);
 	}
 
+	public void blit(int x, int y, int width, int height, float u0, float v0, float u1, float v1, int color) {
+		float a = (float) (color >> 24 & 255) / 255F;
+		float r = (float) (color >> 16 & 255) / 255F;
+		float g = (float) (color >> 8 & 255) / 255F;
+		float b = (float) (color & 255) / 255F;
+		int textureId = GLS.getInteger(GL11.GL_TEXTURE_BINDING_2D);
+		ensureMode(BatchMode.TEXTURE, textureId);
+
+		vertex(x, y + height, zLevel, u0, v1, r, g, b, a);
+		vertex(x + width, y + height, zLevel, u1, v1, r, g, b, a);
+		vertex(x + width, y, zLevel, u1, v0, r, g, b, a);
+		vertex(x, y, zLevel, u0, v0, r, g, b, a);
+	}
+
 	public void blitScaled(int x, int y, float u, float v, int uWidth, int vHeight, int width, int height, float tileWidth, float tileHeight) {
 		float f = 1F / tileWidth;
 		float f1 = 1F / tileHeight;

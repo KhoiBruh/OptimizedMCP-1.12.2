@@ -78,7 +78,7 @@ public class ScreenChatOptions extends Screen {
 	 */
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
-		drawCenteredString(fontRenderer, chatTitle, width / 2, 20, 16777215);
+		context.drawCenteredString(fontRenderer, chatTitle, width / 2, 20, 16777215);
 		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 

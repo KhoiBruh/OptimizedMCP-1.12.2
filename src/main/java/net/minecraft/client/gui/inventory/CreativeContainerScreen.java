@@ -624,7 +624,7 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 
 		mc.getTextureManager()
 		  .bindTexture(new ResourceLocation("textures/gui/container/creative_inventory/tab_" + creativetabs.getBackgroundImageName()));
-		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
+		mc.getDrawContext().blit(guiLeft, guiTop, 0, 0, xSize, ySize);
 		searchField.drawTextBox();
 		GLS.color(1F, 1F, 1F, 1F);
 		int i = guiLeft + 175;
@@ -633,7 +633,7 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 		mc.getTextureManager().bindTexture(CREATIVE_INVENTORY_TABS);
 
 		if (creativetabs.shouldHidePlayerInventory()) {
-			drawTexturedModalRect(i, j + (int) ((float) (k - j - 17) * currentScroll), 232 + (needsScrollBars() ? 0 : 12), 0, 12, 15);
+			mc.getDrawContext().blit(i, j + (int) ((float) (k - j - 17) * currentScroll), 232 + (needsScrollBars() ? 0 : 12), 0, 12, 15);
 		}
 
 		drawTab(creativetabs);
@@ -727,7 +727,7 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 		}
 
 		GLS.disableLighting();
-		drawTexturedModalRect(l, i1, j, k, 28, 32);
+		mc.getDrawContext().blit(l, i1, j, k, 28, 32);
 		zLevel = 100F;
 		itemRender.zLevel = 100F;
 		l = l + 6;

@@ -152,9 +152,9 @@ public class FlatPresetsScreen extends Screen {
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		list.drawScreen(mouseX, mouseY, partialTicks);
-		drawCenteredString(fontRenderer, presetsTitle, width / 2, 8, 16777215);
-		drawString(fontRenderer, presetsShare, 50, 30, 10526880);
-		drawString(fontRenderer, listText, 50, 70, 10526880);
+		context.drawCenteredString(fontRenderer, presetsTitle, width / 2, 8, 16777215);
+		context.drawString(fontRenderer, presetsShare, 50, 30, 10526880);
+		context.drawString(fontRenderer, listText, 50, 70, 10526880);
 		export.drawTextBox();
 		super.draw(context, mouseX, mouseY, partialTicks);
 	}

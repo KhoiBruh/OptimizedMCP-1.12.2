@@ -150,7 +150,7 @@ public class InventoryScreen extends InventoryEffectRenderer implements IRecipeS
 		mc.getTextureManager().bindTexture(INVENTORY_BACKGROUND);
 		int i = guiLeft;
 		int j = guiTop;
-		drawTexturedModalRect(i, j, 0, 0, xSize, ySize);
+		mc.getDrawContext().blit(i, j, 0, 0, xSize, ySize);
 		drawEntityOnScreen(i + 51, j + 75, 30, (float) (i + 51) - oldMouseX, (float) (j + 75 - 50) - oldMouseY, mc.player);
 	}
 

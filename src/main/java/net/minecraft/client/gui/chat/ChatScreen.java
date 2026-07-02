@@ -192,7 +192,7 @@ public class ChatScreen extends Screen implements ITabCompleter {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
-		drawRect(2, height - 14, width - 2, height - 2, Integer.MIN_VALUE);
+		context.fill(2, height - 14, width - 2, height - 2, Integer.MIN_VALUE);
 		inputField.drawTextBox();
 		ITextComponent itextcomponent = mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());
 

@@ -83,8 +83,8 @@ public class ShareToLanScreen extends Screen {
 	 */
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
-		drawCenteredString(fontRenderer, I18n.format("lanServer.title"), width / 2, 50, 16777215);
-		drawCenteredString(fontRenderer, I18n.format("lanServer.otherPlayers"), width / 2, 82, 16777215);
+		context.drawCenteredString(fontRenderer, I18n.format("lanServer.title"), width / 2, 50, 16777215);
+		context.drawCenteredString(fontRenderer, I18n.format("lanServer.otherPlayers"), width / 2, 82, 16777215);
 		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 

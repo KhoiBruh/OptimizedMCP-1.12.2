@@ -182,7 +182,7 @@ public class OptionsScreen extends Screen {
 	 */
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
-		drawCenteredString(fontRenderer, title, width / 2, 15, 16777215);
+		context.drawCenteredString(fontRenderer, title, width / 2, 15, 16777215);
 		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 

@@ -51,12 +51,12 @@ public class BrewingStandScreen extends ContainerScreen {
 		mc.getTextureManager().bindTexture(BREWING_STAND_GUI_TEXTURES);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
-		drawTexturedModalRect(i, j, 0, 0, xSize, ySize);
+		mc.getDrawContext().blit(i, j, 0, 0, xSize, ySize);
 		int k = tileBrewingStand.getField(1);
 		int l = Maths.clamp((18 * k + 20 - 1) / 20, 0, 18);
 
 		if (l > 0) {
-			drawTexturedModalRect(i + 60, j + 44, 176, 29, l, 4);
+			mc.getDrawContext().blit(i + 60, j + 44, 176, 29, l, 4);
 		}
 
 		int i1 = tileBrewingStand.getField(0);
@@ -65,13 +65,13 @@ public class BrewingStandScreen extends ContainerScreen {
 			int j1 = (int) (28F * (1F - (float) i1 / 400F));
 
 			if (j1 > 0) {
-				drawTexturedModalRect(i + 97, j + 16, 176, 0, 9, j1);
+				mc.getDrawContext().blit(i + 97, j + 16, 176, 0, 9, j1);
 			}
 
 			j1 = BUBBLELENGTHS[i1 / 2 % 7];
 
 			if (j1 > 0) {
-				drawTexturedModalRect(i + 63, j + 14 + 29 - j1, 185, 29 - j1, 12, j1);
+				mc.getDrawContext().blit(i + 63, j + 14 + 29 - j1, 185, 29 - j1, 12, j1);
 			}
 		}
 	}

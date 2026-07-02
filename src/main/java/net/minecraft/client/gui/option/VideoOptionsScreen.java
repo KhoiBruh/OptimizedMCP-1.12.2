@@ -115,7 +115,7 @@ public class VideoOptionsScreen extends Screen {
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		optionsRowList.drawScreen(mouseX, mouseY, partialTicks);
-		drawCenteredString(fontRenderer, screenTitle, width / 2, 5, 16777215);
+		context.drawCenteredString(fontRenderer, screenTitle, width / 2, 5, 16777215);
 		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 

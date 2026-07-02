@@ -87,8 +87,8 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 				int l = 67;
 
 				if (fontRenderer.isUnicode()) {
-					drawRect(k - 3, 65, xSize - 7, 77, -16777216);
-					drawRect(k - 2, 66, xSize - 8, 76, -12895429);
+					mc.getDrawContext().fill(k - 3, 65, xSize - 7, 77, -16777216);
+					mc.getDrawContext().fill(k - 2, 66, xSize - 8, 76, -12895429);
 				} else {
 					fontRenderer.drawText(s, k, 68, j);
 					fontRenderer.drawText(s, k + 1, 67, j);
@@ -155,11 +155,11 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 		mc.getTextureManager().bindTexture(ANVIL_RESOURCE);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
-		drawTexturedModalRect(i, j, 0, 0, xSize, ySize);
-		drawTexturedModalRect(i + 59, j + 20, 0, ySize + (anvil.getSlot(0).getHasStack() ? 0 : 16), 110, 16);
+		mc.getDrawContext().blit(i, j, 0, 0, xSize, ySize);
+		mc.getDrawContext().blit(i + 59, j + 20, 0, ySize + (anvil.getSlot(0).getHasStack() ? 0 : 16), 110, 16);
 
 		if ((anvil.getSlot(0).getHasStack() || anvil.getSlot(1).getHasStack()) && !anvil.getSlot(2).getHasStack()) {
-			drawTexturedModalRect(i + 99, j + 45, xSize, 0, 28, 21);
+			mc.getDrawContext().blit(i + 99, j + 45, xSize, 0, 28, 21);
 		}
 	}
 

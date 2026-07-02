@@ -104,8 +104,8 @@ public class LanguageScreen extends Screen {
 	 */
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		list.drawScreen(mouseX, mouseY, partialTicks);
-		drawCenteredString(fontRenderer, I18n.format("options.language"), width / 2, 16, 16777215);
-		drawCenteredString(fontRenderer, "(" + I18n.format("options.languageWarning") + ")", width / 2, height - 56, 8421504);
+		context.drawCenteredString(fontRenderer, I18n.format("options.language"), width / 2, 16, 16777215);
+		context.drawCenteredString(fontRenderer, "(" + I18n.format("options.languageWarning") + ")", width / 2, height - 56, 8421504);
 		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 
@@ -153,7 +153,7 @@ public class LanguageScreen extends Screen {
 
 		protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks) {
 			fontRenderer.setBidi(true);
-			drawCenteredString(fontRenderer, languageMap.get(langCodeList.get(slotIndex))
+			mc.getDrawContext().drawCenteredString(fontRenderer, languageMap.get(langCodeList.get(slotIndex))
 			                                            .toString(), width / 2, yPos + 1, 16777215);
 			fontRenderer.setBidi(languageManager.getCurrentLanguage().isBidirectional());
 		}

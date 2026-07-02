@@ -106,8 +106,8 @@ public class WorldEditScreen extends Screen {
 	 */
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
-		drawCenteredString(fontRenderer, I18n.format("selectWorld.edit.title"), width / 2, 20, 16777215);
-		drawString(fontRenderer, I18n.format("selectWorld.enterName"), width / 2 - 100, 47, 10526880);
+		context.drawCenteredString(fontRenderer, I18n.format("selectWorld.edit.title"), width / 2, 20, 16777215);
+		context.drawString(fontRenderer, I18n.format("selectWorld.enterName"), width / 2 - 100, 47, 10526880);
 		nameEdit.drawTextBox();
 		super.draw(context, mouseX, mouseY, partialTicks);
 	}

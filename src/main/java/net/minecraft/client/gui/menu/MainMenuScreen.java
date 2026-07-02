@@ -164,35 +164,35 @@ public class MainMenuScreen extends Screen {
 		GLS.color(1F, 1F, 1F, 1F);
 
 		if ((double) minceraftRoll < 1.0E-4D) {
-			drawTexturedModalRect(j, 30, 0, 0, 99, 44);
-			drawTexturedModalRect(j + 99, 30, 129, 0, 27, 44);
-			drawTexturedModalRect(j + 99 + 26, 30, 126, 0, 3, 44);
-			drawTexturedModalRect(j + 99 + 26 + 3, 30, 99, 0, 26, 44);
-			drawTexturedModalRect(j + 155, 30, 0, 45, 155, 44);
+			context.blit(j, 30, 0, 0, 99, 44);
+			context.blit(j + 99, 30, 129, 0, 27, 44);
+			context.blit(j + 99 + 26, 30, 126, 0, 3, 44);
+			context.blit(j + 99 + 26 + 3, 30, 99, 0, 26, 44);
+			context.blit(j + 155, 30, 0, 45, 155, 44);
 		} else {
-			drawTexturedModalRect(j, 30, 0, 0, 155, 44);
-			drawTexturedModalRect(j + 155, 30, 0, 45, 155, 44);
+			context.blit(j, 30, 0, 0, 155, 44);
+			context.blit(j + 155, 30, 0, 45, 155, 44);
 		}
 
 		mc.getTextureManager().bindTexture(field_194400_H);
-		drawModalRectWithCustomSizedTexture(j + 88, 67, 0F, 0F, 98, 14, 128F, 16F);
+		context.blit(j + 88, 67, 0F, 0F, 98, 14, 128F, 16F);
 		GLS.pushMatrix();
 		GLS.translate((float) (width / 2 + 90), 70F, 0F);
 		GLS.rotate(-20F, 0F, 0F, 1F);
 		float f = 1.8F - Maths.abs(Maths.sin((float) (Minecraft.getSystemTime() % 1000L) / 1000F * ((float) Math.PI * 2F)) * 0.1F);
 		f = f * 100F / (float) (fontRenderer.getWidth(splashText) + 32);
 		GLS.scale(f, f, f);
-		drawCenteredString(fontRenderer, splashText, 0, -8, -256);
+		context.drawCenteredString(fontRenderer, splashText, 0, -8, -256);
 		GLS.popMatrix();
 		String s = "Minecraft 1.12.2";
 
 		s = s + ("release".equalsIgnoreCase(mc.getVersionType()) ? "" : "/" + mc.getVersionType());
 
-		drawString(fontRenderer, s, 2, height - 10, -1);
-		drawString(fontRenderer, "Copyright Mojang AB. Do not distribute!", widthCopyrightRest, height - 10, -1);
+		context.drawString(fontRenderer, s, 2, height - 10, -1);
+		context.drawString(fontRenderer, "Copyright Mojang AB. Do not distribute!", widthCopyrightRest, height - 10, -1);
 
 		if (mouseX > widthCopyrightRest && mouseX < widthCopyrightRest + widthCopyright && mouseY > height - 10 && mouseY < height && Mouse.isInsideWindow()) {
-			drawRect(widthCopyrightRest, height - 1, widthCopyrightRest + widthCopyright, height, -1);
+			context.fill(widthCopyrightRest, height - 1, widthCopyrightRest + widthCopyright, height, -1);
 		}
 
 		super.draw(context, mouseX, mouseY, partialTicks);
