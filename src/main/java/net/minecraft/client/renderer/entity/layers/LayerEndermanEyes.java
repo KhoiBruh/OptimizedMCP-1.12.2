@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderEnderman;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL13;
 
 public class LayerEndermanEyes implements LayerRenderer<EntityEnderman> {
 
@@ -26,7 +27,7 @@ public class LayerEndermanEyes implements LayerRenderer<EntityEnderman> {
 		int i = 61680;
 		int j = 61680;
 		int k = 0;
-		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 61680F, 0F);
+		GL13.glMultiTexCoord2f(OpenGlHelper.lightmapTexUnit, 61680F, 0F);
 		GLS.enableLighting();
 		GLS.color(1F, 1F, 1F, 1F);
 		Minecraft.getMinecraft().entityRenderer.setupFogColor(true);

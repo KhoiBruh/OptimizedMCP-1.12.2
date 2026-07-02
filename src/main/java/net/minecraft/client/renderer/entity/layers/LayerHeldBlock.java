@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderEnderman;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.monster.EntityEnderman;
+import org.lwjgl.opengl.GL13;
 
 public class LayerHeldBlock implements LayerRenderer<EntityEnderman> {
 
@@ -33,7 +34,7 @@ public class LayerHeldBlock implements LayerRenderer<EntityEnderman> {
 			int i = entitylivingbaseIn.getBrightnessForRender();
 			int j = i % 65536;
 			int k = i / 65536;
-			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
+			GL13.glMultiTexCoord2f(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
 			GLS.color(1F, 1F, 1F, 1F);
 			endermanRenderer.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			blockrendererdispatcher.renderBlockBrightness(iblockstate, 1F);

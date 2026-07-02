@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+import org.lwjgl.opengl.GL13;
 
 public class RenderXPOrb extends Render<EntityXPOrb> {
 
@@ -36,7 +37,7 @@ public class RenderXPOrb extends Render<EntityXPOrb> {
 			int j = entity.getBrightnessForRender();
 			int k = j % 65536;
 			int l = j / 65536;
-			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) k, (float) l);
+			GL13.glMultiTexCoord2f(OpenGlHelper.lightmapTexUnit, (float) k, (float) l);
 			GLS.color(1F, 1F, 1F, 1F);
 			float f8 = 255F;
 			float f9 = ((float) entity.xpColor + partialTicks) / 2F;

@@ -1,8 +1,6 @@
 package net.minecraft.util;
 
 import net.minecraft.client.renderer.GLS;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.shader.Framebuffer;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
@@ -10,7 +8,6 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.event.ClickEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.BufferUtils;
 
 import net.minecraft.client.renderer.NativeImage;
 import java.io.File;
@@ -51,7 +48,7 @@ public class ScreenShotHelper {
 		try {
 			File file1 = new File(gameDirectory, "screenshots");
 			file1.mkdir();
-			NativeImage bufferedimage = createScreenshot(width, height, buffer);
+			NativeImage bufferedimage = createScreenshot(buffer);
 			File file2;
 
 			if (screenshotName == null) {
@@ -73,23 +70,17 @@ public class ScreenShotHelper {
 		}
 	}
 
-	public static NativeImage createScreenshot(int width, int height, Framebuffer framebufferIn) {
-		if (OpenGlHelper.isFramebufferEnabled()) {
-			width = framebufferIn.framebufferTextureWidth;
-			height = framebufferIn.framebufferTextureHeight;
-		}
+	public static NativeImage createScreenshot(Framebuffer framebuffer) {
+		int width = framebuffer.textureWidth;
+		int height = framebuffer.textureHeight;
 
 		NativeImage nativeImage = new NativeImage(width, height, false);
 
 		GLS.pixelStorei(3333, 1);
 		GLS.pixelStorei(3317, 1);
 
-		if (OpenGlHelper.isFramebufferEnabled()) {
-			GLS.bindTexture(framebufferIn.framebufferTexture);
-			GL11.glGetTexImage(3553, 0, 6408, 5121, nativeImage.getBuffer());
-		} else {
-			GL11.glReadPixels(0, 0, width, height, 6408, 5121, nativeImage.getBuffer());
-		}
+		GLS.bindTexture(framebuffer.texture);
+		GL11.glGetTexImage(3553, 0, 6408, 5121, nativeImage.getBuffer());
 
 		nativeImage.flipVertically();
 		return nativeImage;

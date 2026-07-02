@@ -10,6 +10,7 @@ import net.minecraft.util.Facing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import org.lwjgl.opengl.GL13;
 
 public class RenderPainting extends Render<EntityPainting> {
 
@@ -141,7 +142,7 @@ public class RenderPainting extends Render<EntityPainting> {
 		int l = renderManager.world.getCombinedLight(new BlockPos(i, j, k), 0);
 		int i1 = l % 65536;
 		int j1 = l / 65536;
-		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) i1, (float) j1);
+		GL13.glMultiTexCoord2f(OpenGlHelper.lightmapTexUnit, (float) i1, (float) j1);
 		GLS.color(1F, 1F, 1F);
 	}
 

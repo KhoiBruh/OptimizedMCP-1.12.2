@@ -51,6 +51,7 @@ import net.minecraft.world.chunk.Chunk;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joml.Vector3f;
+import org.lwjgl.opengl.GL13;
 
 import java.io.IOException;
 import java.util.*;
@@ -246,23 +247,16 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 	 * Creates the entity outline shader to be stored in RenderGlobal.entityOutlineShader
 	 */
 	public void makeEntityOutlineShader() {
-		if (OpenGlHelper.shadersSupported) {
-			if (ShaderLinkHelper.getStaticShaderLinkHelper() == null) {
-				ShaderLinkHelper.setNewStaticShaderLinkHelper();
-			}
+		if (ShaderLinkHelper.getStaticShaderLinkHelper() == null) ShaderLinkHelper.setNewStaticShaderLinkHelper();
 
-			ResourceLocation resourcelocation = new ResourceLocation("shaders/post/entity_outline.json");
+		ResourceLocation resourcelocation = new ResourceLocation("shaders/post/entity_outline.json");
 
-			try {
-				entityOutlineShader = new ShaderGroup(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), resourcelocation);
-				entityOutlineShader.createBindFramebuffers(mc.getWindow().getWidth(), mc.getWindow().getHeight());
-				entityOutlineFramebuffer = entityOutlineShader.getFramebufferRaw("final");
-			} catch (IOException | JsonSyntaxException ioexception) {
-				LOGGER.warn("Failed to load shader: {}", resourcelocation, ioexception);
-				entityOutlineShader = null;
-				entityOutlineFramebuffer = null;
-			}
-		} else {
+		try {
+			entityOutlineShader = new ShaderGroup(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), resourcelocation);
+			entityOutlineShader.createBindFramebuffers(mc.getWindow().getWidth(), mc.getWindow().getHeight());
+			entityOutlineFramebuffer = entityOutlineShader.getFramebufferRaw("final");
+		} catch (IOException | JsonSyntaxException ioexception) {
+			LOGGER.warn("Failed to load shader: {}", resourcelocation, ioexception);
 			entityOutlineShader = null;
 			entityOutlineFramebuffer = null;
 		}
@@ -272,7 +266,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		if (isRenderEntityOutlines()) {
 			GLS.enableBlend();
 			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ZERO, GLS.DestFactor.ONE);
-			entityOutlineFramebuffer.framebufferRenderExt(mc.getWindow().getWidth(), mc.getWindow().getHeight(), false);
+			entityOutlineFramebuffer.render(mc.getWindow().getWidth(), mc.getWindow().getHeight(), false);
 			GLS.disableBlend();
 		}
 	}
@@ -476,11 +470,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 	}
 
 	public void createBindEntityOutlineFbs(int width, int height) {
-		if (OpenGlHelper.shadersSupported) {
-			if (entityOutlineShader != null) {
-				entityOutlineShader.createBindFramebuffers(width, height);
-			}
-		}
+		if (entityOutlineShader != null) entityOutlineShader.createBindFramebuffers(width, height);
 	}
 
 	public void renderEntities(Entity renderViewEntity, ICamera camera, float partialTicks) {
@@ -562,13 +552,13 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 
 			if (isRenderEntityOutlines() && (!list1.isEmpty() || entityOutlinesRendered)) {
 				world.profiler.endStartSection("entityOutlines");
-				entityOutlineFramebuffer.framebufferClear();
+				entityOutlineFramebuffer.clear();
 				entityOutlinesRendered = !list1.isEmpty();
 
 				if (!list1.isEmpty()) {
 					GLS.depthFunc(519);
 					GLS.disableFog();
-					entityOutlineFramebuffer.bindFramebuffer(false);
+					entityOutlineFramebuffer.bind(false);
 					RenderHelper.disableStandardItemLighting();
 					renderManager.setRenderOutlines(true);
 
@@ -590,7 +580,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 					GLS.enableAlpha();
 				}
 
-				mc.getFramebuffer().bindFramebuffer(false);
+				mc.getFramebuffer().bind(false);
 			}
 
 			world.profiler.endStartSection("blockentities");
@@ -925,11 +915,11 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		mc.entityRenderer.enableLightmap();
 
 		GLS.enableClientState(32884);
-		OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
+		GL13.glClientActiveTexture(OpenGlHelper.defaultTexUnit);
 		GLS.enableClientState(32888);
-		OpenGlHelper.setClientActiveTexture(OpenGlHelper.lightmapTexUnit);
+		GL13.glClientActiveTexture(OpenGlHelper.lightmapTexUnit);
 		GLS.enableClientState(32888);
-		OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
+		GL13.glClientActiveTexture(OpenGlHelper.defaultTexUnit);
 		GLS.enableClientState(32886);
 
 		renderContainer.renderChunkLayer(blockLayerIn);
@@ -944,9 +934,9 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 					break;
 
 				case UV:
-					OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit + k1);
+					GL13.glClientActiveTexture(OpenGlHelper.defaultTexUnit + k1);
 					GLS.disableClientState(32888);
-					OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
+					GL13.glClientActiveTexture(OpenGlHelper.defaultTexUnit);
 					break;
 
 				case COLOR:

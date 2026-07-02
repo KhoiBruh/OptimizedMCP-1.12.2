@@ -31,7 +31,7 @@ public final class GuiPanoramaBackground {
 		ensureBackgroundTexture(mc);
 		GLS.disableLighting();
 		GLS.disableFog();
-		mc.getFramebuffer().unbindFramebuffer();
+		mc.getFramebuffer().unbind();
 		GLS.viewport(0, 0, 256, 256);
 		drawPanorama(mc);
 		rotateAndBlurSkybox(mc, width, height);
@@ -41,7 +41,7 @@ public final class GuiPanoramaBackground {
 		rotateAndBlurSkybox(mc, width, height);
 		rotateAndBlurSkybox(mc, width, height);
 		rotateAndBlurSkybox(mc, width, height);
-		mc.getFramebuffer().bindFramebuffer(true);
+		mc.getFramebuffer().bind(true);
 		GLS.viewport(0, 0, mc.getWindow().getWidth(), mc.getWindow().getHeight());
 		float f = 120F / (float) Math.max(width, height);
 		float f1 = (float) height * f / 256F;

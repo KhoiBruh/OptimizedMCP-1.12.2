@@ -54,49 +54,10 @@ public class MainMenuScreen extends Screen {
 	private final Object threadLock = new Object();
 	private String splashText;
 
-	private DynamicTexture viewportTexture;
-	/**
-	 * Width of openGLWarning2
-	 */
-	private int openGLWarning2Width;
-	/**
-	 * Width of openGLWarning1
-	 */
-	private int openGLWarning1Width;
-	/**
-	 * Left x coordinate of the OpenGL warning
-	 */
-	private int openGLWarningX1;
-	/**
-	 * Top y coordinate of the OpenGL warning
-	 */
-	private int openGLWarningY1;
-	/**
-	 * Right x coordinate of the OpenGL warning
-	 */
-	private int openGLWarningX2;
-	/**
-	 * Bottom y coordinate of the OpenGL warning
-	 */
-	private int openGLWarningY2;
-	/**
-	 * OpenGL graphics card warning.
-	 */
-	private String openGLWarning1;
-	/**
-	 * OpenGL graphics card warning.
-	 */
-	private String openGLWarning2;
-	/**
-	 * Link to the Mojang Support about minimum requirements
-	 */
-	private String openGLWarningLink;
-
 	private int widthCopyright;
 	private int widthCopyrightRest;
 
 	public MainMenuScreen() {
-		openGLWarning2 = MORE_INFO_TEXT;
 		splashText = "missingno";
 
 		try (IResource iresource = Minecraft.getMinecraft().getResourceManager().getResource(SPLASH_TEXTS)) {
@@ -122,13 +83,6 @@ public class MainMenuScreen extends Screen {
 		}
 
 		minceraftRoll = RANDOM.nextFloat();
-		openGLWarning1 = "";
-
-		if (!GL.getCapabilities().OpenGL20 && !OpenGlHelper.areShadersSupported()) {
-			openGLWarning1 = I18n.format("title.oldgl1");
-			openGLWarning2 = I18n.format("title.oldgl2");
-			openGLWarningLink = "https://help.mojang.com/customer/portal/articles/325948?ref=game";
-		}
 	}
 
 	/**
@@ -150,7 +104,6 @@ public class MainMenuScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-		viewportTexture = new DynamicTexture(256, 256);
 		widthCopyright = fontRenderer.getWidth("Copyright Mojang AB. Do not distribute!");
 		widthCopyrightRest = width - widthCopyright - 2;
 		Calendar calendar = Calendar.getInstance();
@@ -171,16 +124,6 @@ public class MainMenuScreen extends Screen {
 		buttons.add(new Button(0, width / 2 - 100, j + 72 + 12, 98, 20, I18n.format("menu.options")));
 		buttons.add(new Button(4, width / 2 + 2, j + 72 + 12, 98, 20, I18n.format("menu.quit")));
 		buttons.add(new LanguageButton(5, width / 2 - 124, j + 72 + 12));
-
-		synchronized (threadLock) {
-			openGLWarning1Width = fontRenderer.getWidth(openGLWarning1);
-			openGLWarning2Width = fontRenderer.getWidth(openGLWarning2);
-			int k = Math.max(openGLWarning1Width, openGLWarning2Width);
-			openGLWarningX1 = (width - k) / 2;
-			openGLWarningY1 = (buttons.getFirst()).y - 24;
-			openGLWarningX2 = openGLWarningX1 + k;
-			openGLWarningY2 = openGLWarningY1 + 24;
-		}
 	}
 
 	/**
@@ -213,22 +156,6 @@ public class MainMenuScreen extends Screen {
 
 		if (button.id == 4) {
 			mc.shutdown();
-		}
-	}
-
-	public void confirmClicked(boolean result, int id) {
-		if (id == 12) {
-			mc.displayScreen(this);
-		} else if (id == 13) {
-			if (result) {
-				try {
-					Desktop.getDesktop().browse(new URI(openGLWarningLink));
-				} catch (Throwable throwable) {
-					LOGGER.error("Couldn't open link", throwable);
-				}
-			}
-
-			mc.displayScreen(this);
 		}
 	}
 
@@ -273,12 +200,6 @@ public class MainMenuScreen extends Screen {
 			drawRect(widthCopyrightRest, height - 1, widthCopyrightRest + widthCopyright, height, -1);
 		}
 
-		if (openGLWarning1 != null && !openGLWarning1.isEmpty()) {
-			drawRect(openGLWarningX1 - 2, openGLWarningY1 - 2, openGLWarningX2 + 2, openGLWarningY2 - 1, 1428160512);
-			drawString(fontRenderer, openGLWarning1, openGLWarningX1, openGLWarningY1, -1);
-			drawString(fontRenderer, openGLWarning2, (width - openGLWarning2Width) / 2, (buttons.getFirst()).y - 12, -1);
-		}
-
 		super.draw(mouseX, mouseY, partialTicks);
 	}
 
@@ -287,14 +208,6 @@ public class MainMenuScreen extends Screen {
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
 		super.mouseClicked(mouseX, mouseY, mouse);
-
-		synchronized (threadLock) {
-			if (!openGLWarning1.isEmpty() && !StringUtils.isNullOrEmpty(openGLWarningLink) && mouseX >= openGLWarningX1 && mouseX <= openGLWarningX2 && mouseY >= openGLWarningY1 && mouseY <= openGLWarningY2) {
-				ConfirmOpenLinkScreen guiconfirmopenlink = new ConfirmOpenLinkScreen(this, openGLWarningLink, 13, true);
-				guiconfirmopenlink.disableSecurityWarning();
-				mc.displayScreen(guiconfirmopenlink);
-			}
-		}
 
 		if (mouseX > widthCopyrightRest && mouseX < widthCopyrightRest + widthCopyright && mouseY > height - 10 && mouseY < height) {
 			mc.displayScreen(new WinGameScreen(false, Runnables.doNothing()));

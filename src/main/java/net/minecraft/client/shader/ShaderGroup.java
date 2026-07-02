@@ -39,8 +39,8 @@ public class ShaderGroup {
 		mainFramebuffer = mainFramebufferIn;
 		time = 0F;
 		lastStamp = 0F;
-		mainFramebufferWidth = mainFramebufferIn.framebufferWidth;
-		mainFramebufferHeight = mainFramebufferIn.framebufferHeight;
+		mainFramebufferWidth = mainFramebufferIn.width;
+		mainFramebufferHeight = mainFramebufferIn.height;
 		shaderGroupName = p_i1050_4_.toString();
 		resetProjectionMatrix();
 		parseGroup(p_i1050_1_, p_i1050_4_);
@@ -158,7 +158,7 @@ public class ShaderGroup {
 
 							shader.addAuxFramebuffer(s4, lvt_20_2_.getGlTextureId(), lvt_21_1_, lvt_22_1_);
 						} else {
-							shader.addAuxFramebuffer(s4, framebuffer2, framebuffer2.framebufferTextureWidth, framebuffer2.framebufferTextureHeight);
+							shader.addAuxFramebuffer(s4, framebuffer2, framebuffer2.textureWidth, framebuffer2.textureHeight);
 						}
 					} catch (Exception exception1) {
 						JsonException jsonexception = JsonException.forException(exception1);
@@ -242,7 +242,7 @@ public class ShaderGroup {
 
 	public void addFramebuffer(String name, int width, int height) {
 		Framebuffer framebuffer = new Framebuffer(width, height, true);
-		framebuffer.setFramebufferColor(0F, 0F, 0F, 0F);
+		framebuffer.setColor(0F, 0F, 0F, 0F);
 		mapFramebuffers.put(name, framebuffer);
 
 		if (width == mainFramebufferWidth && height == mainFramebufferHeight) {
@@ -252,7 +252,7 @@ public class ShaderGroup {
 
 	public void deleteShaderGroup() {
 		for (Framebuffer framebuffer : mapFramebuffers.values()) {
-			framebuffer.deleteFramebuffer();
+			framebuffer.delete();
 		}
 
 		for (Shader shader : listShaders) {
@@ -270,8 +270,8 @@ public class ShaderGroup {
 
 	private void resetProjectionMatrix() {
 		projectionMatrix = new Matrix4f().zero();
-		projectionMatrix.m00(2F / (float) mainFramebuffer.framebufferTextureWidth);
-		projectionMatrix.m11(2F / (float) (-mainFramebuffer.framebufferTextureHeight));
+		projectionMatrix.m00(2F / (float) mainFramebuffer.textureWidth);
+		projectionMatrix.m11(2F / (float) (-mainFramebuffer.textureHeight));
 		projectionMatrix.m22(-0.0020001999F);
 		projectionMatrix.m33(1F);
 		projectionMatrix.m03(-1F);
@@ -280,8 +280,8 @@ public class ShaderGroup {
 	}
 
 	public void createBindFramebuffers(int width, int height) {
-		mainFramebufferWidth = mainFramebuffer.framebufferTextureWidth;
-		mainFramebufferHeight = mainFramebuffer.framebufferTextureHeight;
+		mainFramebufferWidth = mainFramebuffer.textureWidth;
+		mainFramebufferHeight = mainFramebuffer.textureHeight;
 		resetProjectionMatrix();
 
 		for (Shader shader : listShaders) {
@@ -289,7 +289,7 @@ public class ShaderGroup {
 		}
 
 		for (Framebuffer framebuffer : listFramebuffers) {
-			framebuffer.createBindFramebuffer(width, height);
+			framebuffer.create(width, height);
 		}
 	}
 

@@ -12,6 +12,7 @@ import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
+import org.lwjgl.opengl.GL13;
 
 public class RenderGuardian extends RenderLiving<EntityGuardian> {
 
@@ -67,7 +68,7 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
 			GLS.disableBlend();
 			GLS.depthMask(true);
 			float f1 = 240F;
-			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240F, 240F);
+			GL13.glMultiTexCoord2f(OpenGlHelper.lightmapTexUnit, 240F, 240F);
 			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 			float f2 = (float) entity.world.getTotalWorldTime() + partialTicks;
 			float f3 = f2 * 0.5F % 1F;

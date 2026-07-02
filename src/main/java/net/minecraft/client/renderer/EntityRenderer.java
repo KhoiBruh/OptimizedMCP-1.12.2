@@ -247,7 +247,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	public boolean isShaderActive() {
-		return OpenGlHelper.shadersSupported && shaderGroup != null;
+		return shaderGroup != null;
 	}
 
 	public void stopUseShader() {
@@ -267,20 +267,18 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	 * What shader to use when spectating this entity
 	 */
 	public void loadEntityShader(Entity entityIn) {
-		if (OpenGlHelper.shadersSupported) {
-			if (shaderGroup != null) {
-				shaderGroup.deleteShaderGroup();
-			}
+		if (shaderGroup != null) {
+			shaderGroup.deleteShaderGroup();
+		}
 
-			shaderGroup = null;
+		shaderGroup = null;
 
-			if (entityIn instanceof EntityCreeper) {
-				loadShader(new ResourceLocation("shaders/post/creeper.json"));
-			} else if (entityIn instanceof EntitySpider) {
-				loadShader(new ResourceLocation("shaders/post/spider.json"));
-			} else if (entityIn instanceof EntityEnderman) {
-				loadShader(new ResourceLocation("shaders/post/invert.json"));
-			}
+		if (entityIn instanceof EntityCreeper) {
+			loadShader(new ResourceLocation("shaders/post/creeper.json"));
+		} else if (entityIn instanceof EntitySpider) {
+			loadShader(new ResourceLocation("shaders/post/spider.json"));
+		} else if (entityIn instanceof EntityEnderman) {
+			loadShader(new ResourceLocation("shaders/post/invert.json"));
 		}
 	}
 
@@ -314,7 +312,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	 * Updates the entity renderer
 	 */
 	public void updateRenderer() {
-		if (OpenGlHelper.shadersSupported && ShaderLinkHelper.getStaticShaderLinkHelper() == null) {
+		if (ShaderLinkHelper.getStaticShaderLinkHelper() == null) {
 			ShaderLinkHelper.setNewStaticShaderLinkHelper();
 		}
 
@@ -375,13 +373,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	public void updateShaderGroupSize(int width, int height) {
-		if (OpenGlHelper.shadersSupported) {
-			if (shaderGroup != null) {
-				shaderGroup.createBindFramebuffers(width, height);
-			}
+		if (shaderGroup != null) shaderGroup.createBindFramebuffers(width, height);
 
-			mc.renderGlobal.createBindEntityOutlineFbs(width, height);
-		}
+		mc.renderGlobal.createBindEntityOutlineFbs(width, height);
 	}
 
 	/**
@@ -995,19 +989,17 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 					}
 				}
 
-				if (OpenGlHelper.shadersSupported) {
-					mc.renderGlobal.renderEntityOutlineFramebuffer();
+				mc.renderGlobal.renderEntityOutlineFramebuffer();
 
-					if (shaderGroup != null && useShader) {
-						GLS.matrixMode(5890);
-						GLS.pushMatrix();
-						GLS.loadIdentity();
-						shaderGroup.render(partialTicks);
-						GLS.popMatrix();
-					}
-
-					mc.getFramebuffer().bindFramebuffer(true);
+				if (shaderGroup != null && useShader) {
+					GLS.matrixMode(5890);
+					GLS.pushMatrix();
+					GLS.loadIdentity();
+					shaderGroup.render(partialTicks);
+					GLS.popMatrix();
 				}
+
+				mc.getFramebuffer().bind(true);
 
 				renderEndNanoTime = System.nanoTime();
 				mc.profiler.endStartSection("gui");
@@ -1055,8 +1047,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	private void createWorldIcon() {
 		if (mc.renderGlobal.getRenderedChunks() > 10 && mc.renderGlobal.hasNoChunkUpdates() && !mc.getIntegratedServer()
 		                                                                                          .isWorldIconSet()) {
-			NativeImage bufferedimage = ScreenShotHelper.createScreenshot(mc.getWindow().getWidth(), mc.getWindow()
-			                                                                                           .getHeight(), mc.getFramebuffer());
+			NativeImage bufferedimage = ScreenShotHelper.createScreenshot(mc.getFramebuffer());
 			int i = bufferedimage.getWidth();
 			int j = bufferedimage.getHeight();
 			int k = 0;

@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.entity.RenderIronGolem;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.init.Blocks;
+import org.lwjgl.opengl.GL13;
 
 public class LayerIronGolemFlower implements LayerRenderer<EntityIronGolem> {
 
@@ -31,7 +32,7 @@ public class LayerIronGolemFlower implements LayerRenderer<EntityIronGolem> {
 			int i = entitylivingbaseIn.getBrightnessForRender();
 			int j = i % 65536;
 			int k = i / 65536;
-			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
+			GL13.glMultiTexCoord2f(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
 			GLS.color(1F, 1F, 1F, 1F);
 			ironGolemRenderer.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			blockrendererdispatcher.renderBlockBrightness(Blocks.RED_FLOWER.getDefaultState(), 1F);

@@ -58,9 +58,9 @@ public class Shader {
 
 	public void render(float partialTicks) {
 		preRender();
-		framebufferIn.unbindFramebuffer();
-		float f = (float) framebufferOut.framebufferTextureWidth;
-		float f1 = (float) framebufferOut.framebufferTextureHeight;
+		framebufferIn.unbind();
+		float f = (float) framebufferOut.textureWidth;
+		float f1 = (float) framebufferOut.textureHeight;
 		GLS.viewport(0, 0, (int) f, (int) f1);
 		manager.addSamplerTexture("DiffuseSampler", framebufferIn);
 
@@ -72,15 +72,15 @@ public class Shader {
 
 		manager.getShaderUniformOrDefault("ProjMat").set(projectionMatrix);
 		manager.getShaderUniformOrDefault("InSize")
-		       .set((float) framebufferIn.framebufferTextureWidth, (float) framebufferIn.framebufferTextureHeight);
+		       .set((float) framebufferIn.textureWidth, (float) framebufferIn.textureHeight);
 		manager.getShaderUniformOrDefault("OutSize").set(f, f1);
 		manager.getShaderUniformOrDefault("Time").set(partialTicks);
 		Minecraft minecraft = Minecraft.getMinecraft();
 		manager.getShaderUniformOrDefault("ScreenSize")
 		       .set((float) minecraft.getWindow().getWidth(), (float) minecraft.getWindow().getHeight());
 		manager.useShader();
-		framebufferOut.framebufferClear();
-		framebufferOut.bindFramebuffer(false);
+		framebufferOut.clear();
+		framebufferOut.bind(false);
 		GLS.depthMask(false);
 		GLS.colorMask(true, true, true, true);
 		Tessellator tessellator = Tessellator.getInstance();
@@ -94,12 +94,12 @@ public class Shader {
 		GLS.depthMask(true);
 		GLS.colorMask(true, true, true, true);
 		manager.endShader();
-		framebufferOut.unbindFramebuffer();
-		framebufferIn.unbindFramebufferTexture();
+		framebufferOut.unbind();
+		framebufferIn.unbindTexture();
 
 		for (Object object : listAuxFramebuffers) {
 			if (object instanceof Framebuffer) {
-				((Framebuffer) object).unbindFramebufferTexture();
+				((Framebuffer) object).unbindTexture();
 			}
 		}
 	}

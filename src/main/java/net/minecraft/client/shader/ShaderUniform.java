@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL20;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -209,19 +210,19 @@ public class ShaderUniform {
 	private void uploadInt() {
 		switch (uniformType) {
 			case 0:
-				OpenGlHelper.glUniform1(uniformLocation, uniformIntBuffer);
+				GL20.glUniform1iv(uniformLocation, uniformIntBuffer);
 				break;
 
 			case 1:
-				OpenGlHelper.glUniform2(uniformLocation, uniformIntBuffer);
+				GL20.glUniform2iv(uniformLocation, uniformIntBuffer);
 				break;
 
 			case 2:
-				OpenGlHelper.glUniform3(uniformLocation, uniformIntBuffer);
+				GL20.glUniform3iv(uniformLocation, uniformIntBuffer);
 				break;
 
 			case 3:
-				OpenGlHelper.glUniform4(uniformLocation, uniformIntBuffer);
+				GL20.glUniform4iv(uniformLocation, uniformIntBuffer);
 				break;
 
 			default:
@@ -232,19 +233,19 @@ public class ShaderUniform {
 	private void uploadFloat() {
 		switch (uniformType) {
 			case 4:
-				OpenGlHelper.glUniform1(uniformLocation, uniformFloatBuffer);
+				GL20.glUniform1fv(uniformLocation, uniformFloatBuffer);
 				break;
 
 			case 5:
-				OpenGlHelper.glUniform2(uniformLocation, uniformFloatBuffer);
+				GL20.glUniform2fv(uniformLocation, uniformFloatBuffer);
 				break;
 
 			case 6:
-				OpenGlHelper.glUniform3(uniformLocation, uniformFloatBuffer);
+				GL20.glUniform3fv(uniformLocation, uniformFloatBuffer);
 				break;
 
 			case 7:
-				OpenGlHelper.glUniform4(uniformLocation, uniformFloatBuffer);
+				GL20.glUniform4fv(uniformLocation, uniformFloatBuffer);
 				break;
 
 			default:
@@ -255,15 +256,15 @@ public class ShaderUniform {
 	private void uploadFloatMatrix() {
 		switch (uniformType) {
 			case 8:
-				OpenGlHelper.glUniformMatrix2(uniformLocation, true, uniformFloatBuffer);
+				GL20.glUniformMatrix2fv(uniformLocation, true, uniformFloatBuffer);
 				break;
 
 			case 9:
-				OpenGlHelper.glUniformMatrix3(uniformLocation, true, uniformFloatBuffer);
+				GL20.glUniformMatrix3fv(uniformLocation, true, uniformFloatBuffer);
 				break;
 
 			case 10:
-				OpenGlHelper.glUniformMatrix4(uniformLocation, true, uniformFloatBuffer);
+				GL20.glUniformMatrix4fv(uniformLocation, true, uniformFloatBuffer);
 		}
 	}
 

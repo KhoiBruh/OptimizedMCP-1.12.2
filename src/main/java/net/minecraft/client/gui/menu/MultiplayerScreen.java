@@ -357,7 +357,7 @@ public class MultiplayerScreen extends Screen {
 	 * Renders the animated skybox background.
 	 */
 	private void renderSkybox(int mouseX, int mouseY, float partialTicks) {
-		mc.getFramebuffer().unbindFramebuffer();
+		mc.getFramebuffer().unbind();
 		GLS.viewport(0, 0, 256, 256);
 		drawPanorama(mouseX, mouseY, partialTicks);
 		rotateAndBlurSkybox();
@@ -367,7 +367,7 @@ public class MultiplayerScreen extends Screen {
 		rotateAndBlurSkybox();
 		rotateAndBlurSkybox();
 		rotateAndBlurSkybox();
-		mc.getFramebuffer().bindFramebuffer(true);
+		mc.getFramebuffer().bind(true);
 		GLS.viewport(0, 0, mc.getWindow().getWidth(), mc.getWindow().getHeight());
 		float f = 120F / (float) (Math.max(width, height));
 		float f1 = (float) height * f / 256F;

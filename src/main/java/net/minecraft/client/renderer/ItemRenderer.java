@@ -23,6 +23,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.storage.MapData;
+import org.lwjgl.opengl.GL13;
 
 import java.util.Objects;
 
@@ -91,7 +92,7 @@ public class ItemRenderer {
 		int i = mc.world.getCombinedLight(new BlockPos(abstractclientplayer.posX, abstractclientplayer.posY + (double) abstractclientplayer.getEyeHeight(), abstractclientplayer.posZ), 0);
 		float f = (float) (i & 65535);
 		float f1 = (float) (i >> 16);
-		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, f, f1);
+		GL13.glMultiTexCoord2f(OpenGlHelper.lightmapTexUnit, f, f1);
 	}
 
 	private void rotateArm(float p_187458_1_) {

@@ -34,7 +34,7 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 	public LoadingScreenRenderer(Minecraft mcIn) {
 		mc = mcIn;
 		framebuffer = new Framebuffer(mcIn.getWindow().getWidth(), mcIn.getWindow().getHeight(), false);
-		framebuffer.setFramebufferFilter(9728);
+		framebuffer.setFilter(9728);
 	}
 
 	/**
@@ -66,13 +66,8 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 			GLS.matrixMode(5889);
 			GLS.loadIdentity();
 
-			if (OpenGlHelper.isFramebufferEnabled()) {
-				int factor = mc.getWindow().getGuiScale();
-				GLS.ortho(0D, mc.getWindow().getScaledWidth() * factor, mc.getWindow()
-				                                                          .getScaledHeight() * factor, 0D, 100D, 300D);
-			} else {
-				GLS.ortho(0D, mc.getWindow().getScaledWidth(), mc.getWindow().getScaledHeight(), 0, 100, 300);
-			}
+			int factor = mc.getWindow().getGuiScale();
+			GLS.ortho(0D, mc.getWindow().getScaledWidth() * factor, mc.getWindow().getScaledHeight() * factor, 0D, 100D, 300D);
 
 			GLS.matrixMode(5888);
 			GLS.loadIdentity();
@@ -113,23 +108,15 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 				int k = mc.getWindow().getScaledWidth();
 				int l = mc.getWindow().getScaledHeight();
 
-				if (OpenGlHelper.isFramebufferEnabled()) {
-					framebuffer.framebufferClear();
-				} else {
-					GLS.clear(256);
-				}
+				framebuffer.clear();
+				framebuffer.bind(false);
 
-				framebuffer.bindFramebuffer(false);
 				GLS.matrixMode(5889);
 				GLS.loadIdentity();
 				GLS.ortho(0D, mc.getWindow().getScaledWidth(), mc.getWindow().getScaledHeight(), 0D, 100D, 300D);
 				GLS.matrixMode(5888);
 				GLS.loadIdentity();
 				GLS.translate(0F, 0F, -200F);
-
-				if (!OpenGlHelper.isFramebufferEnabled()) {
-					GLS.clear(16640);
-				}
 
 				Tessellator tessellator = Tessellator.getInstance();
 				BufferBuilder bufferbuilder = tessellator.getBuffer();
@@ -165,11 +152,9 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 				GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 				mc.fontRenderer.drawShadowText(currentlyDisplayedText, (float) ((k - mc.fontRenderer.getWidth(currentlyDisplayedText)) / 2), (float) (l / 2 - 4 - 16), 16777215);
 				mc.fontRenderer.drawShadowText(message, (float) ((k - mc.fontRenderer.getWidth(message)) / 2), (float) (l / 2 - 4 + 8), 16777215);
-				framebuffer.unbindFramebuffer();
 
-				if (OpenGlHelper.isFramebufferEnabled()) {
-					framebuffer.framebufferRender(k * j, l * j);
-				}
+				framebuffer.unbind();
+				framebuffer.render(k * j, l * j);
 
 				mc.updateDisplay();
 

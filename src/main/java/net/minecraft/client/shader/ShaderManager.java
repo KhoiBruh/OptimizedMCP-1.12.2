@@ -18,6 +18,7 @@ import net.minecraft.util.ResourceLocation;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.opengl.GL20;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -123,7 +124,7 @@ public class ShaderManager {
 
 			if (attributes != null) {
 				for (String s2 : attributes) {
-					int l = OpenGlHelper.glGetAttribLocation(program, s2);
+					int l = GL20.glGetAttribLocation(program, s2);
 					attribLocations.add(l);
 				}
 			}
@@ -141,7 +142,7 @@ public class ShaderManager {
 	}
 
 	public void endShader() {
-		OpenGlHelper.glUseProgram(0);
+		GL20.glUseProgram(0);
 		currentProgram = -1;
 		staticShaderManager = null;
 
@@ -159,7 +160,7 @@ public class ShaderManager {
 		blendingMode.apply();
 
 		if (program != currentProgram) {
-			OpenGlHelper.glUseProgram(program);
+			GL20.glUseProgram(program);
 			currentProgram = program;
 		}
 
@@ -177,7 +178,7 @@ public class ShaderManager {
 				int j = -1;
 
 				if (object instanceof Framebuffer) {
-					j = ((Framebuffer) object).framebufferTexture;
+					j = ((Framebuffer) object).texture;
 				} else if (object instanceof ITextureObject) {
 					j = ((ITextureObject) object).getGlTextureId();
 				} else if (object instanceof Integer) {
@@ -186,7 +187,7 @@ public class ShaderManager {
 
 				if (j != -1) {
 					GLS.bindTexture(j);
-					OpenGlHelper.glUniform1i(OpenGlHelper.glGetUniformLocation(program, samplerNames.get(i)), i);
+					GL20.glUniform1i(GL20.glGetUniformLocation(program, samplerNames.get(i)), i);
 				}
 			}
 		}
@@ -223,7 +224,7 @@ public class ShaderManager {
 
 		for (int j = 0; i < samplerNames.size(); ++j) {
 			String s = samplerNames.get(i);
-			int k = OpenGlHelper.glGetUniformLocation(program, s);
+			int k = GL20.glGetUniformLocation(program, s);
 
 			if (k == -1) {
 				LOGGER.warn("Shader {}could not find sampler named {} in the specified shader program.", programFilename, s);
@@ -239,7 +240,7 @@ public class ShaderManager {
 
 		for (ShaderUniform shaderuniform : shaderUniforms) {
 			String s1 = shaderuniform.getShaderName();
-			int l = OpenGlHelper.glGetUniformLocation(program, s1);
+			int l = GL20.glGetUniformLocation(program, s1);
 
 			if (l == -1) {
 				LOGGER.warn("Could not find uniform named {} in the specified shader program.", s1);

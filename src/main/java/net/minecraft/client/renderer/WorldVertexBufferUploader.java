@@ -2,6 +2,7 @@ package net.minecraft.client.renderer;
 
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
+import org.lwjgl.opengl.GL13;
 
 import java.nio.ByteBuffer;
 import java.util.List;
@@ -29,10 +30,10 @@ public class WorldVertexBufferUploader {
 						break;
 
 					case UV:
-						OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit + l);
+						GL13.glClientActiveTexture(OpenGlHelper.defaultTexUnit + l);
 						GLS.texCoordPointer(vertexformatelement.getElementCount(), k, i, bytebuffer);
 						GLS.enableClientState(32888);
-						OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
+						GL13.glClientActiveTexture(OpenGlHelper.defaultTexUnit);
 						break;
 
 					case COLOR:
@@ -60,9 +61,9 @@ public class WorldVertexBufferUploader {
 						break;
 
 					case UV:
-						OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit + k1);
+						GL13.glClientActiveTexture(OpenGlHelper.defaultTexUnit + k1);
 						GLS.disableClientState(32888);
-						OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
+						GL13.glClientActiveTexture(OpenGlHelper.defaultTexUnit);
 						break;
 
 					case COLOR:

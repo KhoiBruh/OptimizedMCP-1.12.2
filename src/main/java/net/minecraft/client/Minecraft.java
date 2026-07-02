@@ -376,9 +376,9 @@ public class Minecraft implements IThreadListener {
 		setWindowIcon();
 		setInitialDisplayMode();
 		createDisplay();
-		OpenGlHelper.initializeTextures();
+		OpenGlHelper.ini();
 		framebuffer = new Framebuffer(window.getWidth(), window.getHeight(), true);
-		framebuffer.setFramebufferColor(0F, 0F, 0F, 0F);
+		framebuffer.setColor(0F, 0F, 0F, 0F);
 		registerMetadataSerializers();
 		resourcePackRepo = new ResourcePackRepository(resourcepacks, new File(dataDir, "server-resource-packs"), defaultResourcePack, metadataSerializer, gameSettings);
 		resourceManager = new SimpleReloadableResourceManager(metadataSerializer);
@@ -656,7 +656,7 @@ public class Minecraft implements IThreadListener {
 	private void drawSplashScreen(TextureManager textureManagerInstance) {
 		int i = window.getGuiScale();
 		Framebuffer framebuffer = new Framebuffer(window.getScaledWidth() * i, window.getScaledHeight() * i, true);
-		framebuffer.bindFramebuffer(false);
+		framebuffer.bind(false);
 		GLS.matrixMode(5889);
 		GLS.loadIdentity();
 		GLS.ortho(0D, window.getScaledWidth(), window.getScaledHeight(), 0D, 1000D, 3000D);
@@ -686,8 +686,8 @@ public class Minecraft implements IThreadListener {
 		draw((window.getScaledWidth() - 256) / 2, (window.getScaledHeight() - 256) / 2, 0, 0, 256, 256, 255, 255, 255, 255);
 		GLS.disableLighting();
 		GLS.disableFog();
-		framebuffer.unbindFramebuffer();
-		framebuffer.framebufferRender(window.getScaledWidth() * i, window.getScaledHeight() * i);
+		framebuffer.unbind();
+		framebuffer.render(window.getScaledWidth() * i, window.getScaledHeight() * i);
 		GLS.enableAlpha();
 		GLS.alphaFunc(516, 0.1F);
 		updateDisplay();
@@ -843,7 +843,7 @@ public class Minecraft implements IThreadListener {
 		profiler.startSection("render");
 		GLS.pushMatrix();
 		GLS.clear(16640);
-		framebuffer.bindFramebuffer(true);
+		framebuffer.bind(true);
 		profiler.startSection("display");
 		GLS.enableTexture2D();
 		profiler.endSection();
@@ -870,10 +870,10 @@ public class Minecraft implements IThreadListener {
 			prevFrameTime = System.nanoTime();
 		}
 
-		framebuffer.unbindFramebuffer();
+		framebuffer.unbind();
 		GLS.popMatrix();
 		GLS.pushMatrix();
-		framebuffer.framebufferRender(window.getWidth(), window.getHeight());
+		framebuffer.render(window.getWidth(), window.getHeight());
 		GLS.popMatrix();
 		GLS.pushMatrix();
 		entityRenderer.renderStreamIndicator(timer.renderPartialTicks);
@@ -1269,7 +1269,7 @@ public class Minecraft implements IThreadListener {
 	}
 
 	private void updateFramebufferSize() {
-		framebuffer.createBindFramebuffer(window.getWidth(), window.getHeight());
+		framebuffer.create(window.getWidth(), window.getHeight());
 
 		if (entityRenderer != null) entityRenderer.updateShaderGroupSize(window.getWidth(), window.getHeight());
 	}
