@@ -922,6 +922,14 @@ public class GLS {
 		GL15.glBufferData(target, data, usage);
 	}
 
+	public static void bufferData(int target, long data, int usage) {
+		GL15.glBufferData(target, data, usage);
+	}
+
+	public static void bufferSubData(int target, long offset, ByteBuffer data) {
+		GL15.glBufferSubData(target, offset, data);
+	}
+
 	public static void deleteBuffers(int buffer) {
 		GL15.glDeleteBuffers(buffer);
 	}
