@@ -465,7 +465,7 @@ public class MultiplayerScreen extends Screen {
 		super.draw(context, mouseX, mouseY, partialTicks);
 
 		if (hoveringText != null) {
-			drawHoveringText(Lists.newArrayList(Splitter.on("\n").split(hoveringText)), mouseX, mouseY);
+			drawHoveringText(context, Lists.newArrayList(Splitter.on("\n").split(hoveringText)), mouseX, mouseY);
 		}
 	}
 

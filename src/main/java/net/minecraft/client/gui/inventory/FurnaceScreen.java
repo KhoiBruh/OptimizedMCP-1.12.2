@@ -30,13 +30,13 @@ public class FurnaceScreen extends ContainerScreen {
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		super.draw(context, mouseX, mouseY, partialTicks);
-		renderHoveredToolTip(mouseX, mouseY);
+		renderHoveredToolTip(context, mouseX, mouseY);
 	}
 
 	/**
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+	protected void drawGuiContainerForegroundLayer(DrawContext context, int mouseX, int mouseY) {
 		String s = tileFurnace.displayName().getUnformattedText();
 		fontRenderer.drawText(s, xSize / 2 - fontRenderer.getWidth(s) / 2, 6, 4210752);
 		fontRenderer.drawText(playerInventory.displayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
@@ -45,20 +45,20 @@ public class FurnaceScreen extends ContainerScreen {
 	/**
 	 * Draws the background layer of this container (behind the items).
 	 */
-	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+	protected void drawGuiContainerBackgroundLayer(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(FURNACE_GUI_TEXTURES);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
-		mc.getDrawContext().blit(i, j, 0, 0, xSize, ySize);
+		context.blit(i, j, 0, 0, xSize, ySize);
 
 		if (TileEntityFurnace.isBurning(tileFurnace)) {
 			int k = getBurnLeftScaled(13);
-			mc.getDrawContext().blit(i + 56, j + 36 + 12 - k, 176, 12 - k, 14, k + 1);
+			context.blit(i + 56, j + 36 + 12 - k, 176, 12 - k, 14, k + 1);
 		}
 
 		int l = getCookProgressScaled(24);
-		mc.getDrawContext().blit(i + 79, j + 34, 176, 14, l + 1, 16);
+		context.blit(i + 79, j + 34, 176, 14, l + 1, 16);
 	}
 
 	private int getCookProgressScaled(int pixels) {

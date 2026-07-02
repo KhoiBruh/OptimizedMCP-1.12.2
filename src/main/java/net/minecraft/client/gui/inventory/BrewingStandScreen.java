@@ -31,13 +31,13 @@ public class BrewingStandScreen extends ContainerScreen {
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		super.draw(context, mouseX, mouseY, partialTicks);
-		renderHoveredToolTip(mouseX, mouseY);
+		renderHoveredToolTip(context, mouseX, mouseY);
 	}
 
 	/**
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+	protected void drawGuiContainerForegroundLayer(DrawContext context, int mouseX, int mouseY) {
 		String s = tileBrewingStand.displayName().getUnformattedText();
 		fontRenderer.drawText(s, xSize / 2 - fontRenderer.getWidth(s) / 2, 6, 4210752);
 		fontRenderer.drawText(playerInventory.displayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
@@ -46,17 +46,17 @@ public class BrewingStandScreen extends ContainerScreen {
 	/**
 	 * Draws the background layer of this container (behind the items).
 	 */
-	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+	protected void drawGuiContainerBackgroundLayer(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(BREWING_STAND_GUI_TEXTURES);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
-		mc.getDrawContext().blit(i, j, 0, 0, xSize, ySize);
+		context.blit(i, j, 0, 0, xSize, ySize);
 		int k = tileBrewingStand.getField(1);
 		int l = Maths.clamp((18 * k + 20 - 1) / 20, 0, 18);
 
 		if (l > 0) {
-			mc.getDrawContext().blit(i + 60, j + 44, 176, 29, l, 4);
+			context.blit(i + 60, j + 44, 176, 29, l, 4);
 		}
 
 		int i1 = tileBrewingStand.getField(0);
@@ -65,13 +65,13 @@ public class BrewingStandScreen extends ContainerScreen {
 			int j1 = (int) (28F * (1F - (float) i1 / 400F));
 
 			if (j1 > 0) {
-				mc.getDrawContext().blit(i + 97, j + 16, 176, 0, 9, j1);
+				context.blit(i + 97, j + 16, 176, 0, 9, j1);
 			}
 
 			j1 = BUBBLELENGTHS[i1 / 2 % 7];
 
 			if (j1 > 0) {
-				mc.getDrawContext().blit(i + 63, j + 14 + 29 - j1, 185, 29 - j1, 12, j1);
+				context.blit(i + 63, j + 14 + 29 - j1, 185, 29 - j1, 12, j1);
 			}
 		}
 	}

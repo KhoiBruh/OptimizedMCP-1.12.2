@@ -423,7 +423,7 @@ public class BookScreen extends Screen {
 				ITextComponent itextcomponent1 = getClickedComponentAt(mouseX, mouseY);
 
 				if (itextcomponent1 != null) {
-					handleComponentHover(itextcomponent1, mouseX, mouseY);
+					handleComponentHover(context, itextcomponent1, mouseX, mouseY);
 				}
 			}
 		}

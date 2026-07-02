@@ -6,7 +6,6 @@ import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.menu.ConfirmOpenLinkScreen;
 import net.minecraft.client.gui.menu.GuiPanoramaBackground;
 import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.client.util.Keyboard;
 import net.minecraft.client.util.Mouse;
@@ -131,8 +130,8 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 		return buttonIn;
 	}
 
-	protected void renderToolTip(ItemStack stack, int x, int y) {
-		drawHoveringText(getItemToolTip(stack), x, y);
+	protected void renderToolTip(DrawContext context, ItemStack stack, int x, int y) {
+		drawHoveringText(context, getItemToolTip(stack), x, y);
 	}
 
 	public List<String> getItemToolTip(ItemStack item) {
@@ -149,8 +148,8 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 		return tooltip;
 	}
 
-	public void drawHoveringText(String text, int x, int y) {
-		drawHoveringText(Collections.singletonList(text), x, y);
+	public void drawHoveringText(DrawContext context, String text, int x, int y) {
+		drawHoveringText(context, Collections.singletonList(text), x, y);
 	}
 
 	public boolean isFocused() {
@@ -161,7 +160,7 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 		focused = hasFocusedControlIn;
 	}
 
-	public void drawHoveringText(List<String> textLines, int x, int y) {
+	public void drawHoveringText(DrawContext context, List<String> textLines, int x, int y) {
 		if (!textLines.isEmpty()) {
 			GLS.disableRescaleNormal();
 			RenderHelper.disableStandardItemLighting();
@@ -187,16 +186,15 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 
 			zLevel = 300F;
 			itemRender.zLevel = 300F;
-			DrawContext drawCtx = mc.getDrawContext();
-			drawCtx.fillGradient(l1 - 3, i2 - 4, l1 + i + 3, i2 - 3, -267386864, -267386864);
-			drawCtx.fillGradient(l1 - 3, i2 + k + 3, l1 + i + 3, i2 + k + 4, -267386864, -267386864);
-			drawCtx.fillGradient(l1 - 3, i2 - 3, l1 + i + 3, i2 + k + 3, -267386864, -267386864);
-			drawCtx.fillGradient(l1 - 4, i2 - 3, l1 - 3, i2 + k + 3, -267386864, -267386864);
-			drawCtx.fillGradient(l1 + i + 3, i2 - 3, l1 + i + 4, i2 + k + 3, -267386864, -267386864);
-			drawCtx.fillGradient(l1 - 3, i2 - 3 + 1, l1 - 3 + 1, i2 + k + 3 - 1, 1347420415, 1344798847);
-			drawCtx.fillGradient(l1 + i + 2, i2 - 3 + 1, l1 + i + 3, i2 + k + 3 - 1, 1347420415, 1344798847);
-			drawCtx.fillGradient(l1 - 3, i2 - 3, l1 + i + 3, i2 - 3 + 1, 1347420415, 1347420415);
-			drawCtx.fillGradient(l1 - 3, i2 + k + 2, l1 + i + 3, i2 + k + 3, 1344798847, 1344798847);
+			context.fillGradient(l1 - 3, i2 - 4, l1 + i + 3, i2 - 3, -267386864, -267386864);
+			context.fillGradient(l1 - 3, i2 + k + 3, l1 + i + 3, i2 + k + 4, -267386864, -267386864);
+			context.fillGradient(l1 - 3, i2 - 3, l1 + i + 3, i2 + k + 3, -267386864, -267386864);
+			context.fillGradient(l1 - 4, i2 - 3, l1 - 3, i2 + k + 3, -267386864, -267386864);
+			context.fillGradient(l1 + i + 3, i2 - 3, l1 + i + 4, i2 + k + 3, -267386864, -267386864);
+			context.fillGradient(l1 - 3, i2 - 3 + 1, l1 - 3 + 1, i2 + k + 3 - 1, 1347420415, 1344798847);
+			context.fillGradient(l1 + i + 2, i2 - 3 + 1, l1 + i + 3, i2 + k + 3 - 1, 1347420415, 1344798847);
+			context.fillGradient(l1 - 3, i2 - 3, l1 + i + 3, i2 - 3 + 1, 1347420415, 1347420415);
+			context.fillGradient(l1 - 3, i2 + k + 2, l1 + i + 3, i2 + k + 3, 1344798847, 1344798847);
 
 			for (int k1 = 0; k1 < textLines.size(); ++k1) {
 				String s1 = textLines.get(k1);
@@ -216,13 +214,13 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 		}
 	}
 
-	protected void handleComponentHover(ITextComponent component, int x, int y) {
+	protected void handleComponentHover(DrawContext context, ITextComponent component, int x, int y) {
 		if (component != null && component.getStyle().getHoverEvent() != null) {
 			HoverEvent event = component.getStyle().getHoverEvent();
 
 			switch (event.action()) {
-				case SHOW_TEXT -> drawHoveringText(mc.fontRenderer.formatToWidth(event.value()
-				                                                                      .getFormattedText(), Math.max(width / 2, 200)), x, y);
+				case SHOW_TEXT -> drawHoveringText(context, mc.fontRenderer.formatToWidth(event.value()
+				                                                                        .getFormattedText(), Math.max(width / 2, 200)), x, y);
 				case SHOW_ITEM -> {
 					ItemStack item = ItemStack.EMPTY;
 
@@ -233,8 +231,8 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 					} catch (NBTException ignored) {
 					}
 
-					if (item.isEmpty()) drawHoveringText(TextFormat.RED + "Invalid Item!", x, y);
-					else renderToolTip(item, x, y);
+					if (item.isEmpty()) drawHoveringText(context, TextFormat.RED + "Invalid Item!", x, y);
+					else renderToolTip(context, item, x, y);
 				}
 				case SHOW_ENTITY -> {
 					if (mc.gameSettings.advancedItemTooltips) {
@@ -249,9 +247,9 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 							}
 
 							tags.add(tag.getString("id"));
-							drawHoveringText(tags, x, y);
+							drawHoveringText(context, tags, x, y);
 						} catch (NBTException var8) {
-							drawHoveringText(TextFormat.RED + "Invalid Entity!", x, y);
+							drawHoveringText(context, TextFormat.RED + "Invalid Entity!", x, y);
 						}
 					}
 				}
@@ -402,35 +400,38 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 	}
 
 	public void drawDefaultBackground() {
+		var context = mc.getDrawContext();
+
 		if (mc.world == null) {
 			GLS.disableAlpha();
 			GuiPanoramaBackground.render(mc, width, height);
 			GLS.enableAlpha();
-			mc.getDrawContext().fillGradient(0, 0, width, height, -2130706433, 16777215);
-			mc.getDrawContext().fillGradient(0, 0, width, height, 0, Integer.MIN_VALUE);
-		} else drawWorldBackground(0);
-	}
-
-	public void drawWorldBackground(int tint) {
-		if (mc.world != null) {
-			mc.getDrawContext().fillGradient(0, 0, width, height, -1072689136, -804253680);
-		} else {
-			drawBackground(tint);
+//			context.fillGradient(0, 0, width, height, -2130706433, 16777215);
+			context.fillGradient(0, 0, width, height, 0, Integer.MIN_VALUE);
 		}
+		else context.fillGradient(0, 0, width, height, -1072689136, -804253680);;
 	}
 
-	public void drawBackground(int tint) {
-		GLS.disableLighting();
-		GLS.disableFog();
-		mc.getTextureManager().bindTexture(OPTIONS_BACKGROUND);
-		int color = 0xFF404040; // 64, 64, 64, 255 -> alpha 255, red 64, green 64, blue 64
-		float u0 = 0.0F;
-		float v0 = (float) tint;
-		float u1 = (float) width / 32.0F;
-		float v1 = (float) height / 32.0F + (float) tint;
-		mc.getDrawContext().blit(0, 0, width, height, u0, v0, u1, v1, color);
-		mc.getDrawContext().flush();
-	}
+//	public void drawWorldBackground(int tint) {
+//		if (mc.world != null) {
+//			context.fillGradient(0, 0, width, height, -1072689136, -804253680);
+//		} else {
+//			drawBackground(tint);
+//		}
+//	}
+//
+//	public void drawBackground(int tint) {
+//		GLS.disableLighting();
+//		GLS.disableFog();
+//		mc.getTextureManager().bindTexture(OPTIONS_BACKGROUND);
+//		int color = 0xFF404040; // 64, 64, 64, 255 -> alpha 255, red 64, green 64, blue 64
+//		float u0 = 0.0F;
+//		float v0 = (float) tint;
+//		float u1 = (float) width / 32.0F;
+//		float v1 = (float) height / 32.0F + (float) tint;
+//		context.blit(0, 0, width, height, u0, v0, u1, v1, color);
+//		context.flush();
+//	}
 
 	public boolean pauseGame() {
 		return true;

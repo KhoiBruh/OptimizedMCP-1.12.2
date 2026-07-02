@@ -62,7 +62,7 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 	/**
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+	protected void drawGuiContainerForegroundLayer(DrawContext context, int mouseX, int mouseY) {
 		GLS.disableLighting();
 		GLS.disableBlend();
 		fontRenderer.drawText(I18n.format("container.repair"), 60, 6, 4210752);
@@ -87,8 +87,8 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 				int l = 67;
 
 				if (fontRenderer.isUnicode()) {
-					mc.getDrawContext().fill(k - 3, 65, xSize - 7, 77, -16777216);
-					mc.getDrawContext().fill(k - 2, 66, xSize - 8, 76, -12895429);
+					context.fill(k - 3, 65, xSize - 7, 77, -16777216);
+					context.fill(k - 2, 66, xSize - 8, 76, -12895429);
 				} else {
 					fontRenderer.drawText(s, k, 68, j);
 					fontRenderer.drawText(s, k + 1, 67, j);
@@ -141,7 +141,7 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		super.draw(context, mouseX, mouseY, partialTicks);
-		renderHoveredToolTip(mouseX, mouseY);
+		renderHoveredToolTip(context, mouseX, mouseY);
 		GLS.disableLighting();
 		GLS.disableBlend();
 		nameField.drawTextBox();
@@ -150,16 +150,16 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 	/**
 	 * Draws the background layer of this container (behind the items).
 	 */
-	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+	protected void drawGuiContainerBackgroundLayer(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(ANVIL_RESOURCE);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
-		mc.getDrawContext().blit(i, j, 0, 0, xSize, ySize);
-		mc.getDrawContext().blit(i + 59, j + 20, 0, ySize + (anvil.getSlot(0).getHasStack() ? 0 : 16), 110, 16);
+		context.blit(i, j, 0, 0, xSize, ySize);
+		context.blit(i + 59, j + 20, 0, ySize + (anvil.getSlot(0).getHasStack() ? 0 : 16), 110, 16);
 
 		if ((anvil.getSlot(0).getHasStack() || anvil.getSlot(1).getHasStack()) && !anvil.getSlot(2).getHasStack()) {
-			mc.getDrawContext().blit(i + 99, j + 45, xSize, 0, 28, 21);
+			context.blit(i + 99, j + 45, xSize, 0, 28, 21);
 		}
 	}
 

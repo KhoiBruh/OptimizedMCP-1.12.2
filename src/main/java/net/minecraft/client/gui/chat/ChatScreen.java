@@ -197,7 +197,7 @@ public class ChatScreen extends Screen implements ITabCompleter {
 		ITextComponent itextcomponent = mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());
 
 		if (itextcomponent != null && itextcomponent.getStyle().getHoverEvent() != null) {
-			handleComponentHover(itextcomponent, mouseX, mouseY);
+			handleComponentHover(context, itextcomponent, mouseX, mouseY);
 		}
 
 		super.draw(context, mouseX, mouseY, partialTicks);

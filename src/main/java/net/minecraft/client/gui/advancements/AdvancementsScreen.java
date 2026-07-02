@@ -115,7 +115,7 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 		drawDefaultBackground();
 		renderInside(mouseX, mouseY, i, j);
 		renderWindow(context, i, j);
-		renderToolTips(mouseX, mouseY, i, j);
+		renderToolTips(context, mouseX, mouseY, i, j);
 	}
 
 	private void renderInside(int p_191936_1_, int p_191936_2_, int p_191936_3_, int p_191936_4_) {
@@ -166,7 +166,7 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 		fontRenderer.drawText(I18n.format("gui.advancements"), p_191934_1_ + 8, p_191934_2_ + 6, 4210752);
 	}
 
-	private void renderToolTips(int p_191937_1_, int p_191937_2_, int p_191937_3_, int p_191937_4_) {
+	private void renderToolTips(DrawContext context, int p_191937_1_, int p_191937_2_, int p_191937_3_, int p_191937_4_) {
 		GLS.color(1F, 1F, 1F, 1F);
 
 		if (selectedTab != null) {
@@ -181,7 +181,7 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 		if (tabs.size() > 1) {
 			for (GuiAdvancementTab guiadvancementtab : tabs.values()) {
 				if (guiadvancementtab.isMouseOver(p_191937_3_, p_191937_4_, p_191937_1_, p_191937_2_)) {
-					drawHoveringText(guiadvancementtab.getTitle(), p_191937_1_, p_191937_2_);
+					drawHoveringText(context, guiadvancementtab.getTitle(), p_191937_1_, p_191937_2_);
 				}
 			}
 		}

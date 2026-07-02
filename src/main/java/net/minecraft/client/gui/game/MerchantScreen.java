@@ -75,7 +75,7 @@ public class MerchantScreen extends ContainerScreen {
 	/**
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+	protected void drawGuiContainerForegroundLayer(DrawContext context, int mouseX, int mouseY) {
 		String s = chatComponent.getUnformattedText();
 		fontRenderer.drawText(s, xSize / 2 - fontRenderer.getWidth(s) / 2, 6, 4210752);
 		fontRenderer.drawText(I18n.format("container.inventory"), 8, ySize - 96 + 2, 4210752);
@@ -130,12 +130,12 @@ public class MerchantScreen extends ContainerScreen {
 	/**
 	 * Draws the background layer of this container (behind the items).
 	 */
-	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+	protected void drawGuiContainerBackgroundLayer(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(MERCHANT_GUI_TEXTURE);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
-		mc.getDrawContext().blit(i, j, 0, 0, xSize, ySize);
+		context.blit(i, j, 0, 0, xSize, ySize);
 		MerchantRecipeList merchantrecipelist = merchant.getRecipes(mc.player);
 
 		if (merchantrecipelist != null && !merchantrecipelist.isEmpty()) {
@@ -151,8 +151,8 @@ public class MerchantScreen extends ContainerScreen {
 				mc.getTextureManager().bindTexture(MERCHANT_GUI_TEXTURE);
 				GLS.color(1F, 1F, 1F, 1F);
 				GLS.disableLighting();
-				mc.getDrawContext().blit(guiLeft + 83, guiTop + 21, 212, 0, 28, 21);
-				mc.getDrawContext().blit(guiLeft + 83, guiTop + 51, 212, 0, 28, 21);
+				context.blit(guiLeft + 83, guiTop + 21, 212, 0, 28, 21);
+				context.blit(guiLeft + 83, guiTop + 51, 212, 0, 28, 21);
 			}
 		}
 	}
@@ -180,27 +180,27 @@ public class MerchantScreen extends ContainerScreen {
 			GLS.enableColorMaterial();
 			GLS.enableLighting();
 			itemRender.zLevel = 100F;
-			itemRender.renderItemAndEffectIntoGUI(mc.getDrawContext(), itemstack, i + 36, j + 24);
-			itemRender.renderItemOverlays(mc.getDrawContext(), fontRenderer, itemstack, i + 36, j + 24);
+			itemRender.renderItemAndEffectIntoGUI(context, itemstack, i + 36, j + 24);
+			itemRender.renderItemOverlays(context, fontRenderer, itemstack, i + 36, j + 24);
 
 			if (!itemstack1.isEmpty()) {
-				itemRender.renderItemAndEffectIntoGUI(mc.getDrawContext(), itemstack1, i + 62, j + 24);
-				itemRender.renderItemOverlays(mc.getDrawContext(), fontRenderer, itemstack1, i + 62, j + 24);
+				itemRender.renderItemAndEffectIntoGUI(context, itemstack1, i + 62, j + 24);
+				itemRender.renderItemOverlays(context, fontRenderer, itemstack1, i + 62, j + 24);
 			}
 
-			itemRender.renderItemAndEffectIntoGUI(mc.getDrawContext(), itemstack2, i + 120, j + 24);
-			itemRender.renderItemOverlays(mc.getDrawContext(), fontRenderer, itemstack2, i + 120, j + 24);
+			itemRender.renderItemAndEffectIntoGUI(context, itemstack2, i + 120, j + 24);
+			itemRender.renderItemOverlays(context, fontRenderer, itemstack2, i + 120, j + 24);
 			itemRender.zLevel = 0F;
 			GLS.disableLighting();
 
 			if (isPointInRegion(36, 24, 16, 16, mouseX, mouseY) && !itemstack.isEmpty()) {
-				renderToolTip(itemstack, mouseX, mouseY);
+				renderToolTip(context, itemstack, mouseX, mouseY);
 			} else if (!itemstack1.isEmpty() && isPointInRegion(62, 24, 16, 16, mouseX, mouseY) && !itemstack1.isEmpty()) {
-				renderToolTip(itemstack1, mouseX, mouseY);
+				renderToolTip(context, itemstack1, mouseX, mouseY);
 			} else if (!itemstack2.isEmpty() && isPointInRegion(120, 24, 16, 16, mouseX, mouseY) && !itemstack2.isEmpty()) {
-				renderToolTip(itemstack2, mouseX, mouseY);
+				renderToolTip(context, itemstack2, mouseX, mouseY);
 			} else if (merchantrecipe.isRecipeDisabled() && (isPointInRegion(83, 21, 28, 21, mouseX, mouseY) || isPointInRegion(83, 51, 28, 21, mouseX, mouseY))) {
-				drawHoveringText(I18n.format("merchant.deprecated"), mouseX, mouseY);
+				drawHoveringText(context, I18n.format("merchant.deprecated"), mouseX, mouseY);
 			}
 
 			GLS.popMatrix();
@@ -209,7 +209,7 @@ public class MerchantScreen extends ContainerScreen {
 			RenderHelper.enableStandardItemLighting();
 		}
 
-		renderHoveredToolTip(mouseX, mouseY);
+		renderHoveredToolTip(context, mouseX, mouseY);
 	}
 
 	public IMerchant getMerchant() {

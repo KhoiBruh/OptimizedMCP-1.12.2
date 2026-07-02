@@ -111,7 +111,7 @@ public class GameOverScreen extends Screen {
 			ITextComponent itextcomponent = getClickedComponentAt(mouseX);
 
 			if (itextcomponent != null && itextcomponent.getStyle().getHoverEvent() != null) {
-				handleComponentHover(itextcomponent, mouseX, mouseY);
+				handleComponentHover(context, itextcomponent, mouseX, mouseY);
 			}
 		}
 

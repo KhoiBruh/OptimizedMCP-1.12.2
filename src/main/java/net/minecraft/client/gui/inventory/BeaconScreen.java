@@ -146,16 +146,16 @@ public class BeaconScreen extends ContainerScreen {
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		super.draw(context, mouseX, mouseY, partialTicks);
-		renderHoveredToolTip(mouseX, mouseY);
+		renderHoveredToolTip(context, mouseX, mouseY);
 	}
 
 	/**
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+	protected void drawGuiContainerForegroundLayer(DrawContext context, int mouseX, int mouseY) {
 		RenderHelper.disableStandardItemLighting();
-		mc.getDrawContext().drawCenteredString(fontRenderer, I18n.format("tile.beacon.primary"), 62, 10, 14737632);
-		mc.getDrawContext().drawCenteredString(fontRenderer, I18n.format("tile.beacon.secondary"), 169, 10, 14737632);
+		context.drawCenteredString(fontRenderer, I18n.format("tile.beacon.primary"), 62, 10, 14737632);
+		context.drawCenteredString(fontRenderer, I18n.format("tile.beacon.secondary"), 169, 10, 14737632);
 
 		for (net.minecraft.client.gui.component.Button guibutton : buttons) {
 			if (guibutton.isMouseOver()) {
@@ -170,7 +170,7 @@ public class BeaconScreen extends ContainerScreen {
 	/**
 	 * Draws the background layer of this container (behind the items).
 	 */
-	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+	protected void drawGuiContainerBackgroundLayer(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(BEACON_GUI_TEXTURES);
 		int i = (width - xSize) / 2;
@@ -239,8 +239,8 @@ public class BeaconScreen extends ContainerScreen {
 			super(buttonId, x, y, BeaconScreen.BEACON_GUI_TEXTURES, 112, 220);
 		}
 
-		public void drawButtonForegroundLayer(int mouseX, int mouseY) {
-			drawHoveringText(I18n.format("gui.cancel"), mouseX, mouseY);
+		public void drawButtonForegroundLayer(DrawContext context, int mouseX, int mouseY) {
+			drawHoveringText(context, I18n.format("gui.cancel"), mouseX, mouseY);
 		}
 
 	}
@@ -251,8 +251,8 @@ public class BeaconScreen extends ContainerScreen {
 			super(buttonId, x, y, BeaconScreen.BEACON_GUI_TEXTURES, 90, 220);
 		}
 
-		public void drawButtonForegroundLayer(int mouseX, int mouseY) {
-			drawHoveringText(I18n.format("gui.done"), mouseX, mouseY);
+		public void drawButtonForegroundLayer(DrawContext context, int mouseX, int mouseY) {
+			drawHoveringText(context, I18n.format("gui.done"), mouseX, mouseY);
 		}
 
 	}
@@ -268,14 +268,14 @@ public class BeaconScreen extends ContainerScreen {
 			tier = tierIn;
 		}
 
-		public void drawButtonForegroundLayer(int mouseX, int mouseY) {
+		public void drawButtonForegroundLayer(DrawContext context, int mouseX, int mouseY) {
 			String s = I18n.format(effect.getName());
 
 			if (tier >= 3 && effect != MobEffects.REGENERATION) {
 				s = s + " II";
 			}
 
-			drawHoveringText(s, mouseX, mouseY);
+			drawHoveringText(context, s, mouseX, mouseY);
 		}
 
 	}

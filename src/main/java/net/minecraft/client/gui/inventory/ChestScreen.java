@@ -38,13 +38,13 @@ public class ChestScreen extends ContainerScreen {
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		super.draw(context, mouseX, mouseY, partialTicks);
-		renderHoveredToolTip(mouseX, mouseY);
+		renderHoveredToolTip(context, mouseX, mouseY);
 	}
 
 	/**
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+	protected void drawGuiContainerForegroundLayer(DrawContext context, int mouseX, int mouseY) {
 		fontRenderer.drawText(lowerChestInventory.displayName().getUnformattedText(), 8, 6, 4210752);
 		fontRenderer.drawText(upperChestInventory.displayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
 	}
@@ -52,13 +52,14 @@ public class ChestScreen extends ContainerScreen {
 	/**
 	 * Draws the background layer of this container (behind the items).
 	 */
-	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+	protected void drawGuiContainerBackgroundLayer(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		GLS.color(1F, 1F, 1F, 1F);
-		mc.getTextureManager().bindTexture(CHEST_GUI_TEXTURE);
+
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
-		mc.getDrawContext().blit(i, j, 0, 0, xSize, inventoryRows * 18 + 17);
-		mc.getDrawContext().blit(i, j + inventoryRows * 18 + 17, 0, 126, xSize, 96);
+		mc.getTextureManager().bindTexture(CHEST_GUI_TEXTURE);
+		context.blit(i, j, 0, 0, xSize, inventoryRows * 18 + 17);
+		context.blit(i, j + inventoryRows * 18 + 17, 0, 126, xSize, 96);
 	}
 
 }

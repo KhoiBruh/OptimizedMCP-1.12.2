@@ -2,6 +2,7 @@ package net.minecraft.client.gui.recipebook;
 
 import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.component.ToggleButton;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.crafting.IRecipe;
@@ -107,9 +108,9 @@ public class RecipeBookPage {
 		overlay.render(p_194191_3_, p_194191_4_, p_194191_5_);
 	}
 
-	public void renderTooltip(int p_193721_1_, int p_193721_2_) {
+	public void renderTooltip(DrawContext context, int p_193721_1_, int p_193721_2_) {
 		if (minecraft.currentScreen != null && hoveredButton != null && !overlay.isVisible()) {
-			minecraft.currentScreen.drawHoveringText(hoveredButton.getToolTipText(minecraft.currentScreen), p_193721_1_, p_193721_2_);
+			minecraft.currentScreen.drawHoveringText(context, hoveredButton.getToolTipText(minecraft.currentScreen), p_193721_1_, p_193721_2_);
 		}
 	}
 

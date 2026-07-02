@@ -82,15 +82,15 @@ public class Button extends Gui {
 	public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
 		if (visible) {
 			FontRenderer fontrenderer = mc.fontRenderer;
-			mc.getTextureManager().bindTexture(BUTTON_TEXTURES);
-			GLS.color(1F, 1F, 1F, 1F);
+
 			hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 			int i = getHoverState(hovered);
-			GLS.enableBlend();
-			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
-			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA);
-			drawTexturedModalRect(x, y, 0, 46 + i * 20, width / 2, height);
-			drawTexturedModalRect(x + width / 2, y, 200 - width / 2, 46 + i * 20, width / 2, height);
+
+			var context = mc.getDrawContext();
+			mc.getTextureManager().bindTexture(BUTTON_TEXTURES);
+			context.blit(x, y, 0, 46 + i * 20, width / 2, height);
+			context.blit(x + width / 2, y, 200 - width / 2, 46 + i * 20, width / 2, height);
+
 			mouseDragged(mc, mouseX, mouseY);
 			int j = 14737632;
 

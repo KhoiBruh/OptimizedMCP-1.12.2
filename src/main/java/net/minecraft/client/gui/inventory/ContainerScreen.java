@@ -109,7 +109,7 @@ public abstract class ContainerScreen extends Screen {
 	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		int i = guiLeft;
 		int j = guiTop;
-		drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
+		drawGuiContainerBackgroundLayer(context, mouseX, mouseY, partialTicks);
 		GLS.disableRescaleNormal();
 		RenderHelper.disableStandardItemLighting();
 		GLS.disableLighting();
@@ -148,7 +148,7 @@ public abstract class ContainerScreen extends Screen {
 		}
 
 		RenderHelper.disableStandardItemLighting();
-		drawGuiContainerForegroundLayer(mouseX, mouseY);
+		drawGuiContainerForegroundLayer(context, mouseX, mouseY);
 		RenderHelper.enableGUIStandardItemLighting();
 		InventoryPlayer inventoryplayer = mc.player.inventory;
 		ItemStack itemstack = draggedStack.isEmpty() ? inventoryplayer.getItemStack() : draggedStack;
@@ -194,9 +194,9 @@ public abstract class ContainerScreen extends Screen {
 		RenderHelper.enableStandardItemLighting();
 	}
 
-	protected void renderHoveredToolTip(int p_191948_1_, int p_191948_2_) {
+	protected void renderHoveredToolTip(DrawContext context, int p_191948_1_, int p_191948_2_) {
 		if (mc.player.inventory.getItemStack().isEmpty() && hoveredSlot != null && hoveredSlot.getHasStack()) {
-			renderToolTip(hoveredSlot.getStack(), p_191948_1_, p_191948_2_);
+			renderToolTip(context, hoveredSlot.getStack(), p_191948_1_, p_191948_2_);
 		}
 	}
 
@@ -218,13 +218,13 @@ public abstract class ContainerScreen extends Screen {
 	/**
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+	protected void drawGuiContainerForegroundLayer(DrawContext context, int mouseX, int mouseY) {
 	}
 
 	/**
 	 * Draws the background layer of this container (behind the items).
 	 */
-	protected abstract void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY);
+	protected abstract void drawGuiContainerBackgroundLayer(DrawContext context, int mouseX, int mouseY, float partialTicks);
 
 	/**
 	 * Draws the given slot: any item in it, the slot's background, the hovered highlight, etc.

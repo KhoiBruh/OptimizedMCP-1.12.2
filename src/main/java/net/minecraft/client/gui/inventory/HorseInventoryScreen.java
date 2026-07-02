@@ -50,7 +50,7 @@ public class HorseInventoryScreen extends ContainerScreen {
 	/**
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+	protected void drawGuiContainerForegroundLayer(DrawContext context, int mouseX, int mouseY) {
 		fontRenderer.drawText(horseInventory.displayName().getUnformattedText(), 8, 6, 4210752);
 		fontRenderer.drawText(playerInventory.displayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
 	}
@@ -58,7 +58,7 @@ public class HorseInventoryScreen extends ContainerScreen {
 	/**
 	 * Draws the background layer of this container (behind the items).
 	 */
-	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+	protected void drawGuiContainerBackgroundLayer(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(HORSE_GUI_TEXTURES);
 		int i = (width - xSize) / 2;
@@ -94,7 +94,7 @@ public class HorseInventoryScreen extends ContainerScreen {
 		mousePosx = (float) mouseX;
 		mousePosY = (float) mouseY;
 		super.draw(context, mouseX, mouseY, partialTicks);
-		renderHoveredToolTip(mouseX, mouseY);
+		renderHoveredToolTip(context, mouseX, mouseY);
 	}
 
 }

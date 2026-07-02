@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import it.unimi.dsi.fastutil.objects.ObjectSet;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.GuiTextField;
@@ -221,23 +222,23 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 		}
 	}
 
-	public void renderTooltip(int p_191876_1_, int p_191876_2_, int p_191876_3_, int p_191876_4_) {
+	public void renderTooltip(DrawContext context, int p_191876_1_, int p_191876_2_, int p_191876_3_, int p_191876_4_) {
 		if (isVisible()) {
-			recipeBookPage.renderTooltip(p_191876_3_, p_191876_4_);
+			recipeBookPage.renderTooltip(context, p_191876_3_, p_191876_4_);
 
 			if (toggleRecipesBtn.isMouseOver()) {
 				String s1 = I18n.format(toggleRecipesBtn.isStateTriggered() ? "gui.recipebook.toggleRecipes.craftable" : "gui.recipebook.toggleRecipes.all");
 
 				if (mc.currentScreen != null) {
-					mc.currentScreen.drawHoveringText(s1, p_191876_3_, p_191876_4_);
+					mc.currentScreen.drawHoveringText(context, s1, p_191876_3_, p_191876_4_);
 				}
 			}
 
-			renderGhostRecipeTooltip(p_191876_1_, p_191876_2_, p_191876_3_, p_191876_4_);
+			renderGhostRecipeTooltip(context, p_191876_1_, p_191876_2_, p_191876_3_, p_191876_4_);
 		}
 	}
 
-	private void renderGhostRecipeTooltip(int p_193015_1_, int p_193015_2_, int p_193015_3_, int p_193015_4_) {
+	private void renderGhostRecipeTooltip(DrawContext context, int p_193015_1_, int p_193015_2_, int p_193015_3_, int p_193015_4_) {
 		ItemStack itemstack = null;
 
 		for (int i = 0; i < ghostRecipe.size(); ++i) {
@@ -251,7 +252,7 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 		}
 
 		if (itemstack != null && mc.currentScreen != null) {
-			mc.currentScreen.drawHoveringText(mc.currentScreen.getItemToolTip(itemstack), p_193015_3_, p_193015_4_);
+			mc.currentScreen.drawHoveringText(context, mc.currentScreen.getItemToolTip(itemstack), p_193015_3_, p_193015_4_);
 		}
 	}
 

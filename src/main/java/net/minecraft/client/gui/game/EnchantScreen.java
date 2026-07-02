@@ -71,7 +71,7 @@ public class EnchantScreen extends ContainerScreen {
 	/**
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+	protected void drawGuiContainerForegroundLayer(DrawContext context, int mouseX, int mouseY) {
 		fontRenderer.drawText(nameable.displayName().getUnformattedText(), 12, 5, 4210752);
 		fontRenderer.drawText(playerInventory.displayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
 	}
@@ -105,12 +105,12 @@ public class EnchantScreen extends ContainerScreen {
 	/**
 	 * Draws the background layer of this container (behind the items).
 	 */
-	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+	protected void drawGuiContainerBackgroundLayer(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(ENCHANTMENT_TABLE_GUI_TEXTURE);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
-		mc.getDrawContext().blit(i, j, 0, 0, xSize, ySize);
+		context.blit(i, j, 0, 0, xSize, ySize);
 		GLS.pushMatrix();
 		GLS.matrixMode(5889);
 		GLS.pushMatrix();
@@ -181,7 +181,7 @@ public class EnchantScreen extends ContainerScreen {
 			GLS.color(1F, 1F, 1F, 1F);
 
 			if (k1 == 0) {
-				mc.getDrawContext().blit(i1, j + 14 + 19 * l, 0, 185, 108, 19);
+				context.blit(i1, j + 14 + 19 * l, 0, 185, 108, 19);
 			} else {
 				String s = "" + k1;
 				int l1 = 86 - fontRenderer.getWidth(s);
@@ -190,8 +190,8 @@ public class EnchantScreen extends ContainerScreen {
 				int i2 = 6839882;
 
 				if ((k < l + 1 || mc.player.experienceLevel < k1) && !mc.player.capabilities.isCreativeMode) {
-					mc.getDrawContext().blit(i1, j + 14 + 19 * l, 0, 185, 108, 19);
-					mc.getDrawContext().blit(i1 + 1, j + 15 + 19 * l, 16 * l, 239, 16, 16);
+					context.blit(i1, j + 14 + 19 * l, 0, 185, 108, 19);
+					context.blit(i1 + 1, j + 15 + 19 * l, 16 * l, 239, 16, 16);
 					fontrenderer.drawSplit(s1, j1, j + 16 + 19 * l, l1, (i2 & 16711422) >> 1);
 					i2 = 4226832;
 				} else {
@@ -199,13 +199,13 @@ public class EnchantScreen extends ContainerScreen {
 					int k2 = mouseY - (j + 14 + 19 * l);
 
 					if (j2 >= 0 && k2 >= 0 && j2 < 108 && k2 < 19) {
-						mc.getDrawContext().blit(i1, j + 14 + 19 * l, 0, 204, 108, 19);
+						context.blit(i1, j + 14 + 19 * l, 0, 204, 108, 19);
 						i2 = 16777088;
 					} else {
-						mc.getDrawContext().blit(i1, j + 14 + 19 * l, 0, 166, 108, 19);
+						context.blit(i1, j + 14 + 19 * l, 0, 166, 108, 19);
 					}
 
-					mc.getDrawContext().blit(i1 + 1, j + 15 + 19 * l, 16 * l, 223, 16, 16);
+					context.blit(i1 + 1, j + 15 + 19 * l, 16 * l, 223, 16, 16);
 					fontrenderer.drawSplit(s1, j1, j + 16 + 19 * l, l1, i2);
 					i2 = 8453920;
 				}
@@ -223,7 +223,7 @@ public class EnchantScreen extends ContainerScreen {
 		partialTicks = mc.getTickLength();
 		drawDefaultBackground();
 		super.draw(context, mouseX, mouseY, partialTicks);
-		renderHoveredToolTip(mouseX, mouseY);
+		renderHoveredToolTip(context, mouseX, mouseY);
 		boolean flag = mc.player.capabilities.isCreativeMode;
 		int i = container.getLapisAmount();
 
@@ -264,7 +264,7 @@ public class EnchantScreen extends ContainerScreen {
 					}
 				}
 
-				drawHoveringText(list, mouseX, mouseY);
+				drawHoveringText(context, list, mouseX, mouseY);
 				break;
 			}
 		}

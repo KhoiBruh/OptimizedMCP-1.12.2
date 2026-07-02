@@ -116,7 +116,7 @@ public class InventoryScreen extends InventoryEffectRenderer implements IRecipeS
 	/**
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+	protected void drawGuiContainerForegroundLayer(DrawContext context, int mouseX, int mouseY) {
 		fontRenderer.drawText(I18n.format("container.crafting"), 97, 8, 4210752);
 	}
 
@@ -128,7 +128,7 @@ public class InventoryScreen extends InventoryEffectRenderer implements IRecipeS
 		hasActivePotionEffects = !recipeBookGui.isVisible();
 
 		if (recipeBookGui.isVisible() && widthTooNarrow) {
-			drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
+			drawGuiContainerBackgroundLayer(context, mouseX, mouseY, partialTicks);
 			recipeBookGui.render(mouseX, mouseY, partialTicks);
 		} else {
 			recipeBookGui.render(mouseX, mouseY, partialTicks);
@@ -136,8 +136,8 @@ public class InventoryScreen extends InventoryEffectRenderer implements IRecipeS
 			recipeBookGui.renderGhostRecipe(guiLeft, guiTop, false, partialTicks);
 		}
 
-		renderHoveredToolTip(mouseX, mouseY);
-		recipeBookGui.renderTooltip(guiLeft, guiTop, mouseX, mouseY);
+		renderHoveredToolTip(context, mouseX, mouseY);
+		recipeBookGui.renderTooltip(context, guiLeft, guiTop, mouseX, mouseY);
 		oldMouseX = (float) mouseX;
 		oldMouseY = (float) mouseY;
 	}
@@ -145,7 +145,7 @@ public class InventoryScreen extends InventoryEffectRenderer implements IRecipeS
 	/**
 	 * Draws the background layer of this container (behind the items).
 	 */
-	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+	protected void drawGuiContainerBackgroundLayer(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(INVENTORY_BACKGROUND);
 		int i = guiLeft;

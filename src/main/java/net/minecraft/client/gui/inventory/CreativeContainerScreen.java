@@ -346,7 +346,7 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	/**
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+	protected void drawGuiContainerForegroundLayer(DrawContext context, int mouseX, int mouseY) {
 		CreativeTabs creativetabs = CreativeTabs.CREATIVE_TAB_ARRAY[selectedTabIndex];
 
 		if (creativetabs.drawInForegroundOfTab()) {
@@ -554,21 +554,21 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 		super.draw(context, mouseX, mouseY, partialTicks);
 
 		for (CreativeTabs creativetabs : CreativeTabs.CREATIVE_TAB_ARRAY) {
-			if (renderCreativeInventoryHoveringText(creativetabs, mouseX, mouseY)) {
+			if (renderCreativeInventoryHoveringText(context, creativetabs, mouseX, mouseY)) {
 				break;
 			}
 		}
 
 		if (destroyItemSlot != null && selectedTabIndex == CreativeTabs.INVENTORY.getTabIndex() && isPointInRegion(destroyItemSlot.xPos, destroyItemSlot.yPos, 16, 16, mouseX, mouseY)) {
-			drawHoveringText(I18n.format("inventory.binSlot"), mouseX, mouseY);
+			drawHoveringText(context, I18n.format("inventory.binSlot"), mouseX, mouseY);
 		}
 
 		GLS.color(1F, 1F, 1F, 1F);
 		GLS.disableLighting();
-		renderHoveredToolTip(mouseX, mouseY);
+		renderHoveredToolTip(context, mouseX, mouseY);
 	}
 
-	protected void renderToolTip(ItemStack stack, int x, int y) {
+	protected void renderToolTip(DrawContext context, ItemStack stack, int x, int y) {
 		if (selectedTabIndex == CreativeTabs.SEARCH.getTabIndex()) {
 			List<String> list = stack.getTooltip(mc.player, mc.gameSettings.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL);
 			CreativeTabs creativetabs = stack.getItem().getCreativeTab();
@@ -600,16 +600,16 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 				}
 			}
 
-			drawHoveringText(list, x, y);
+			drawHoveringText(context, list, x, y);
 		} else {
-			super.renderToolTip(stack, x, y);
+			super.renderToolTip(context, stack, x, y);
 		}
 	}
 
 	/**
 	 * Draws the background layer of this container (behind the items).
 	 */
-	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+	protected void drawGuiContainerBackgroundLayer(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		GLS.color(1F, 1F, 1F, 1F);
 		RenderHelper.enableGUIStandardItemLighting();
 		CreativeTabs creativetabs = CreativeTabs.CREATIVE_TAB_ARRAY[selectedTabIndex];
@@ -618,13 +618,13 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 			mc.getTextureManager().bindTexture(CREATIVE_INVENTORY_TABS);
 
 			if (creativetabs1.getTabIndex() != selectedTabIndex) {
-				drawTab(creativetabs1);
+				drawTab(context, creativetabs1);
 			}
 		}
 
 		mc.getTextureManager()
 		  .bindTexture(new ResourceLocation("textures/gui/container/creative_inventory/tab_" + creativetabs.getBackgroundImageName()));
-		mc.getDrawContext().blit(guiLeft, guiTop, 0, 0, xSize, ySize);
+		context.blit(guiLeft, guiTop, 0, 0, xSize, ySize);
 		searchField.drawTextBox();
 		GLS.color(1F, 1F, 1F, 1F);
 		int i = guiLeft + 175;
@@ -633,10 +633,10 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 		mc.getTextureManager().bindTexture(CREATIVE_INVENTORY_TABS);
 
 		if (creativetabs.shouldHidePlayerInventory()) {
-			mc.getDrawContext().blit(i, j + (int) ((float) (k - j - 17) * currentScroll), 232 + (needsScrollBars() ? 0 : 12), 0, 12, 15);
+			context.blit(i, j + (int) ((float) (k - j - 17) * currentScroll), 232 + (needsScrollBars() ? 0 : 12), 0, 12, 15);
 		}
 
-		drawTab(creativetabs);
+		drawTab(context, creativetabs);
 
 		if (creativetabs == CreativeTabs.INVENTORY) {
 			InventoryScreen.drawEntityOnScreen(guiLeft + 88, guiTop + 45, 20, (float) (guiLeft + 88 - mouseX), (float) (guiTop + 45 - 30 - mouseY), mc.player);
@@ -670,7 +670,7 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	 * Renders the creative inventory hovering text if mouse is over it. Returns true if did render or false otherwise.
 	 * Params: current creative tab to be checked, current mouse x position, current mouse y position.
 	 */
-	protected boolean renderCreativeInventoryHoveringText(CreativeTabs tab, int mouseX, int mouseY) {
+	protected boolean renderCreativeInventoryHoveringText(DrawContext context, CreativeTabs tab, int mouseX, int mouseY) {
 		int i = tab.getTabColumn();
 		int j = 28 * i;
 		int k = 0;
@@ -688,7 +688,7 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 		}
 
 		if (isPointInRegion(j + 3, k + 3, 23, 27, mouseX, mouseY)) {
-			drawHoveringText(I18n.format(tab.getTranslatedTabLabel()), mouseX, mouseY);
+			drawHoveringText(context, I18n.format(tab.getTranslatedTabLabel()), mouseX, mouseY);
 			return true;
 		} else {
 			return false;
@@ -699,7 +699,7 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	 * Draws the given tab and its background, deciding whether to highlight the tab or not based off of the selected
 	 * index.
 	 */
-	protected void drawTab(CreativeTabs tab) {
+	protected void drawTab(DrawContext context, CreativeTabs tab) {
 		boolean flag = tab.getTabIndex() == selectedTabIndex;
 		boolean flag1 = tab.isTabInFirstRow();
 		int i = tab.getTabColumn();
@@ -727,7 +727,7 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 		}
 
 		GLS.disableLighting();
-		mc.getDrawContext().blit(l, i1, j, k, 28, 32);
+		context.blit(l, i1, j, k, 28, 32);
 		zLevel = 100F;
 		itemRender.zLevel = 100F;
 		l = l + 6;
@@ -735,8 +735,8 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 		GLS.enableLighting();
 		GLS.enableRescaleNormal();
 		ItemStack itemstack = tab.getIconItemStack();
-		itemRender.renderItemAndEffectIntoGUI(mc.getDrawContext(), itemstack, l, i1);
-		itemRender.renderItemOverlays(mc.getDrawContext(), fontRenderer, itemstack, l, i1);
+		itemRender.renderItemAndEffectIntoGUI(context, itemstack, l, i1);
+		itemRender.renderItemOverlays(context, fontRenderer, itemstack, l, i1);
 		GLS.disableLighting();
 		itemRender.zLevel = 0F;
 		zLevel = 0F;

@@ -106,7 +106,7 @@ public class WorldSelectScreen extends Screen {
 		super.draw(context, mouseX, mouseY, partialTicks);
 
 		if (worldVersTooltip != null)
-			drawHoveringText(Lists.newArrayList(Splitter.on("\n").split(worldVersTooltip)), mouseX, mouseY);
+			drawHoveringText(context, Lists.newArrayList(Splitter.on("\n").split(worldVersTooltip)), mouseX, mouseY);
 	}
 
 	/**
