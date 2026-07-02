@@ -22,12 +22,10 @@ public class BlockDeadBush extends BlockBush {
 	protected static final AxisAlignedBB DEAD_BUSH_AABB = new AxisAlignedBB(0.09999999403953552D, 0D, 0.09999999403953552D, 0.8999999761581421D, 0.800000011920929D, 0.8999999761581421D);
 
 	protected BlockDeadBush() {
-
 		super(Material.VINE);
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return DEAD_BUSH_AABB;
 	}
 
@@ -35,7 +33,6 @@ public class BlockDeadBush extends BlockBush {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return MapColor.WOOD;
 	}
 
@@ -43,7 +40,6 @@ public class BlockDeadBush extends BlockBush {
 	 * Return true if the block can sustain a Bush
 	 */
 	protected boolean canSustainBush(IBlockState state) {
-
 		return state.getBlock() == Blocks.SAND || state.getBlock() == Blocks.HARDENED_CLAY || state.getBlock() == Blocks.STAINED_HARDENED_CLAY || state.getBlock() == Blocks.DIRT;
 	}
 
@@ -51,7 +47,6 @@ public class BlockDeadBush extends BlockBush {
 	 * Whether this Block can be replaced directly by other blocks (true for e.g. tall grass)
 	 */
 	public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
-
 		return true;
 	}
 
@@ -59,7 +54,6 @@ public class BlockDeadBush extends BlockBush {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return random.nextInt(3);
 	}
 
@@ -67,7 +61,6 @@ public class BlockDeadBush extends BlockBush {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Items.STICK;
 	}
 
@@ -76,7 +69,6 @@ public class BlockDeadBush extends BlockBush {
 	 * Block.removedByPlayer
 	 */
 	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
-
 		if (!worldIn.isRemote && stack.getItem() == Items.SHEARS) {
 			player.addStat(StatList.getBlockStats(this));
 			spawnAsEntity(worldIn, pos, new ItemStack(Blocks.DEADBUSH, 1, 0));

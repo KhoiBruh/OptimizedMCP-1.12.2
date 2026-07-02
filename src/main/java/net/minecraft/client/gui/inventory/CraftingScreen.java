@@ -24,12 +24,10 @@ public class CraftingScreen extends ContainerScreen implements IRecipeShownListe
 	private boolean widthTooNarrow;
 
 	public CraftingScreen(InventoryPlayer playerInv, World worldIn) {
-
 		this(playerInv, worldIn, BlockPos.ORIGIN);
 	}
 
 	public CraftingScreen(InventoryPlayer playerInv, World worldIn, BlockPos blockPosition) {
-
 		super(new ContainerWorkbench(playerInv, worldIn, blockPosition));
 		recipeBookGui = new GuiRecipeBook();
 	}
@@ -39,7 +37,6 @@ public class CraftingScreen extends ContainerScreen implements IRecipeShownListe
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		super.init();
 		widthTooNarrow = width < 379;
 		recipeBookGui.func_194303_a(width, height, mc, widthTooNarrow, ((ContainerWorkbench) inventorySlots).craftMatrix);
@@ -52,7 +49,6 @@ public class CraftingScreen extends ContainerScreen implements IRecipeShownListe
 	 * Called from the main game loop to update the screen.
 	 */
 	public void update() {
-
 		super.update();
 		recipeBookGui.tick();
 	}
@@ -61,7 +57,6 @@ public class CraftingScreen extends ContainerScreen implements IRecipeShownListe
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 
 		if (recipeBookGui.isVisible() && widthTooNarrow) {
@@ -81,7 +76,6 @@ public class CraftingScreen extends ContainerScreen implements IRecipeShownListe
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-
 		fontRenderer.drawString(I18n.format("container.crafting"), 28, 6, 4210752);
 		fontRenderer.drawString(I18n.format("container.inventory"), 8, ySize - 96 + 2, 4210752);
 	}
@@ -90,7 +84,6 @@ public class CraftingScreen extends ContainerScreen implements IRecipeShownListe
 	 * Draws the background layer of this container (behind the items).
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-
 		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(CRAFTING_TABLE_GUI_TEXTURES);
 		int i = guiLeft;
@@ -103,7 +96,6 @@ public class CraftingScreen extends ContainerScreen implements IRecipeShownListe
 	 * pointY
 	 */
 	protected boolean isPointInRegion(int rectX, int rectY, int rectWidth, int rectHeight, int pointX, int pointY) {
-
 		return (!widthTooNarrow || !recipeBookGui.isVisible()) && super.isPointInRegion(rectX, rectY, rectWidth, rectHeight, pointX, pointY);
 	}
 
@@ -111,7 +103,6 @@ public class CraftingScreen extends ContainerScreen implements IRecipeShownListe
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
-
 		if (!recipeBookGui.mouseClicked(mouseX, mouseY, mouse)) {
 			if (!widthTooNarrow || !recipeBookGui.isVisible()) {
 				super.mouseClicked(mouseX, mouseY, mouse);
@@ -120,7 +111,6 @@ public class CraftingScreen extends ContainerScreen implements IRecipeShownListe
 	}
 
 	protected boolean hasClickedOutside(int p_193983_1_, int p_193983_2_, int p_193983_3_, int p_193983_4_) {
-
 		boolean flag = p_193983_1_ < p_193983_3_ || p_193983_2_ < p_193983_4_ || p_193983_1_ >= p_193983_3_ + xSize || p_193983_2_ >= p_193983_4_ + ySize;
 		return recipeBookGui.hasClickedOutside(p_193983_1_, p_193983_2_, guiLeft, guiTop, xSize, ySize) && flag;
 	}
@@ -129,7 +119,6 @@ public class CraftingScreen extends ContainerScreen implements IRecipeShownListe
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.id == 10) {
 			recipeBookGui.initVisuals(widthTooNarrow, ((ContainerWorkbench) inventorySlots).craftMatrix);
 			recipeBookGui.toggleVisibility();
@@ -143,7 +132,6 @@ public class CraftingScreen extends ContainerScreen implements IRecipeShownListe
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-
 		if (!recipeBookGui.keyPressed(typedChar, keyCode)) {
 			super.keyTyped(typedChar, keyCode);
 		}
@@ -153,13 +141,11 @@ public class CraftingScreen extends ContainerScreen implements IRecipeShownListe
 	 * Called when the mouse is clicked over a slot or outside the gui.
 	 */
 	protected void handleMouseClick(Slot slotIn, int slotId, int mouseButton, ClickType type) {
-
 		super.handleMouseClick(slotIn, slotId, mouseButton, type);
 		recipeBookGui.slotClicked(slotIn);
 	}
 
 	public void recipesUpdated() {
-
 		recipeBookGui.recipesUpdated();
 	}
 
@@ -167,13 +153,11 @@ public class CraftingScreen extends ContainerScreen implements IRecipeShownListe
 	 * Called when the screen is unloaded. Used to disable keyboard repeat events
 	 */
 	public void close() {
-
 		recipeBookGui.removed();
 		super.close();
 	}
 
 	public GuiRecipeBook func_194310_f() {
-
 		return recipeBookGui;
 	}
 

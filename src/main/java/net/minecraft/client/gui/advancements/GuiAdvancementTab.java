@@ -37,7 +37,6 @@ public class GuiAdvancementTab extends Gui {
 	private boolean centered;
 
 	public GuiAdvancementTab(Minecraft p_i47589_1_, AdvancementsScreen p_i47589_2_, AdvancementTabType p_i47589_3_, int p_i47589_4_, Advancement p_i47589_5_, DisplayInfo p_i47589_6_) {
-
 		minecraft = p_i47589_1_;
 		screen = p_i47589_2_;
 		type = p_i47589_3_;
@@ -52,7 +51,6 @@ public class GuiAdvancementTab extends Gui {
 
 	
 	public static GuiAdvancementTab create(Minecraft p_193936_0_, AdvancementsScreen p_193936_1_, int p_193936_2_, Advancement p_193936_3_) {
-
 		if (p_193936_3_.getDisplay() == null) {
 			return null;
 		} else {
@@ -69,27 +67,22 @@ public class GuiAdvancementTab extends Gui {
 	}
 
 	public Advancement getAdvancement() {
-
 		return advancement;
 	}
 
 	public String getTitle() {
-
 		return title;
 	}
 
 	public void drawTab(int p_191798_1_, int p_191798_2_, boolean p_191798_3_) {
-
 		type.draw(this, p_191798_1_, p_191798_2_, p_191798_3_, index);
 	}
 
 	public void drawIcon(int p_191796_1_, int p_191796_2_, RenderItem p_191796_3_) {
-
 		type.drawIcon(p_191796_1_, p_191796_2_, index, p_191796_3_, icon);
 	}
 
 	public void drawContents() {
-
 		if (!centered) {
 			scrollX = 117 - (maxX + minX) / 2;
 			scrollY = 56 - (maxY + minY) / 2;
@@ -119,7 +112,6 @@ public class GuiAdvancementTab extends Gui {
 	}
 
 	public void drawToolTips(int p_192991_1_, int p_192991_2_, int p_192991_3_, int p_192991_4_) {
-
 		GLS.pushMatrix();
 		GLS.translate(0F, 0F, 200F);
 		drawRect(0, 0, 234, 113, MathHelper.floor(fade * 255F) << 24);
@@ -145,12 +137,10 @@ public class GuiAdvancementTab extends Gui {
 	}
 
 	public boolean isMouseOver(int p_191793_1_, int p_191793_2_, int p_191793_3_, int p_191793_4_) {
-
 		return type.isMouseOver(p_191793_1_, p_191793_2_, index, p_191793_3_, p_191793_4_);
 	}
 
 	public void scroll(int p_191797_1_, int p_191797_2_) {
-
 		if (maxX - minX > 234) {
 			scrollX = MathHelper.clamp(scrollX + p_191797_1_, -(maxX - 234), 0);
 		}
@@ -161,7 +151,6 @@ public class GuiAdvancementTab extends Gui {
 	}
 
 	public void addAdvancement(Advancement p_191800_1_) {
-
 		if (p_191800_1_.getDisplay() != null) {
 			GuiAdvancement guiadvancement = new GuiAdvancement(this, minecraft, p_191800_1_, p_191800_1_.getDisplay());
 			addGuiAdvancement(guiadvancement, p_191800_1_);
@@ -169,7 +158,6 @@ public class GuiAdvancementTab extends Gui {
 	}
 
 	private void addGuiAdvancement(GuiAdvancement p_193937_1_, Advancement p_193937_2_) {
-
 		guis.put(p_193937_2_, p_193937_1_);
 		int i = p_193937_1_.getX();
 		int j = i + 28;
@@ -187,12 +175,10 @@ public class GuiAdvancementTab extends Gui {
 
 	
 	public GuiAdvancement getAdvancementGui(Advancement p_191794_1_) {
-
 		return guis.get(p_191794_1_);
 	}
 
 	public AdvancementsScreen getScreen() {
-
 		return screen;
 	}
 

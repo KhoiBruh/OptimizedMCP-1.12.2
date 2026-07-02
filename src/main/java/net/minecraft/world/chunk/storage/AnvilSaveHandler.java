@@ -14,7 +14,6 @@ import java.io.File;
 public class AnvilSaveHandler extends SaveHandler {
 
 	public AnvilSaveHandler(File p_i46650_1_, String saveDirectoryName, boolean p_i46650_3_, DataFixer dataFixerIn) {
-
 		super(p_i46650_1_, saveDirectoryName, p_i46650_3_, dataFixerIn);
 	}
 
@@ -22,7 +21,6 @@ public class AnvilSaveHandler extends SaveHandler {
 	 * initializes and returns the chunk loader for the specified world provider
 	 */
 	public IChunkLoader getChunkLoader(WorldProvider provider) {
-
 		File file1 = getWorldDirectory();
 
 		if (provider instanceof WorldProviderHell) {
@@ -42,7 +40,6 @@ public class AnvilSaveHandler extends SaveHandler {
 	 * Saves the given World Info with the given NBTTagCompound as the Player.
 	 */
 	public void saveWorldInfoWithPlayer(WorldInfo worldInformation, NBTTagCompound tagCompound) {
-
 		worldInformation.setSaveVersion(19133);
 		super.saveWorldInfoWithPlayer(worldInformation, tagCompound);
 	}
@@ -51,7 +48,6 @@ public class AnvilSaveHandler extends SaveHandler {
 	 * Called to flush all changes to disk, waiting for them to complete.
 	 */
 	public void flush() {
-
 		try {
 			ThreadedFileIOBase.getThreadedIOInstance().waitForFinish();
 		} catch (InterruptedException interruptedexception) {

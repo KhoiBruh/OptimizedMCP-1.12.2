@@ -10,7 +10,6 @@ import net.minecraft.world.World;
 public class ItemChorusFruit extends ItemFood {
 
 	public ItemChorusFruit(int amount, float saturation) {
-
 		super(amount, saturation, false);
 	}
 
@@ -19,7 +18,6 @@ public class ItemChorusFruit extends ItemFood {
 	 * the Item before the action is complete.
 	 */
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
-
 		ItemStack itemstack = super.onItemUseFinish(stack, worldIn, entityLiving);
 
 		if (!worldIn.isRemote) {

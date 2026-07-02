@@ -7,7 +7,6 @@ import net.minecraft.world.World;
 public class ParticleSuspend extends Particle {
 
 	protected ParticleSuspend(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
-
 		super(worldIn, xCoordIn, yCoordIn - 0.125D, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 		particleRed = 0.4F;
 		particleGreen = 0.4F;
@@ -22,7 +21,6 @@ public class ParticleSuspend extends Particle {
 	}
 
 	public void onUpdate() {
-
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
@@ -40,7 +38,6 @@ public class ParticleSuspend extends Particle {
 	public static class Factory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			return new ParticleSuspend(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 		}
 

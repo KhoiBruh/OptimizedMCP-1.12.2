@@ -21,7 +21,6 @@ public class ChestScreen extends ContainerScreen {
 	private final int inventoryRows;
 
 	public ChestScreen(IInventory upperInv, IInventory lowerInv) {
-
 		super(new ContainerChest(upperInv, lowerInv, Minecraft.getMinecraft().player));
 		upperChestInventory = upperInv;
 		lowerChestInventory = lowerInv;
@@ -36,7 +35,6 @@ public class ChestScreen extends ContainerScreen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		super.draw(mouseX, mouseY, partialTicks);
 		renderHoveredToolTip(mouseX, mouseY);
@@ -46,7 +44,6 @@ public class ChestScreen extends ContainerScreen {
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-
 		fontRenderer.drawString(lowerChestInventory.displayName().getUnformattedText(), 8, 6, 4210752);
 		fontRenderer.drawString(upperChestInventory.displayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
 	}
@@ -55,7 +52,6 @@ public class ChestScreen extends ContainerScreen {
 	 * Draws the background layer of this container (behind the items).
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-
 		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(CHEST_GUI_TEXTURE);
 		int i = (width - xSize) / 2;

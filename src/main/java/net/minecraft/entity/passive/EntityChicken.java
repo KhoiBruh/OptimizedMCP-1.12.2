@@ -38,7 +38,6 @@ public class EntityChicken extends EntityAnimal {
 	public boolean chickenJockey;
 
 	public EntityChicken(World worldIn) {
-
 		super(worldIn);
 		setSize(0.4F, 0.7F);
 		timeUntilNextEgg = rand.nextInt(6000) + 6000;
@@ -46,12 +45,10 @@ public class EntityChicken extends EntityAnimal {
 	}
 
 	public static void registerFixesChicken(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntityChicken.class);
 	}
 
 	protected void initEntityAI() {
-
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAIPanic(this, 1.4D));
 		tasks.addTask(2, new EntityAIMate(this, 1D));
@@ -63,12 +60,10 @@ public class EntityChicken extends EntityAnimal {
 	}
 
 	public float getEyeHeight() {
-
 		return height;
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
@@ -79,7 +74,6 @@ public class EntityChicken extends EntityAnimal {
 	 * use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
 		super.onLivingUpdate();
 		oFlap = wingRotation;
 		oFlapSpeed = destPos;
@@ -106,37 +100,30 @@ public class EntityChicken extends EntityAnimal {
 	}
 
 	public void fall(float distance, float damageMultiplier) {
-
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		return SoundEvents.ENTITY_CHICKEN_AMBIENT;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_CHICKEN_HURT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_CHICKEN_DEATH;
 	}
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
-
 		playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.15F, 1F);
 	}
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_CHICKEN;
 	}
 
 	public EntityChicken createChild(EntityAgeable ageable) {
-
 		return new EntityChicken(world);
 	}
 
@@ -145,7 +132,6 @@ public class EntityChicken extends EntityAnimal {
 	 * the animal type)
 	 */
 	public boolean isBreedingItem(ItemStack stack) {
-
 		return TEMPTATION_ITEMS.contains(stack.getItem());
 	}
 
@@ -153,7 +139,6 @@ public class EntityChicken extends EntityAnimal {
 	 * Get the experience points the entity currently has.
 	 */
 	protected int getExperiencePoints(EntityPlayer player) {
-
 		return isChickenJockey() ? 10 : super.getExperiencePoints(player);
 	}
 
@@ -161,7 +146,6 @@ public class EntityChicken extends EntityAnimal {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		chickenJockey = compound.getBoolean("IsChickenJockey");
 
@@ -174,7 +158,6 @@ public class EntityChicken extends EntityAnimal {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setBoolean("IsChickenJockey", chickenJockey);
 		compound.setInteger("EggLayTime", timeUntilNextEgg);
@@ -184,12 +167,10 @@ public class EntityChicken extends EntityAnimal {
 	 * Determines if an entity can be despawned, used on idle far away entities
 	 */
 	protected boolean canDespawn() {
-
 		return isChickenJockey() && !isBeingRidden();
 	}
 
 	public void updatePassenger(Entity passenger) {
-
 		super.updatePassenger(passenger);
 		float f = MathHelper.sin(renderYawOffset * 0.017453292F);
 		float f1 = MathHelper.cos(renderYawOffset * 0.017453292F);
@@ -206,7 +187,6 @@ public class EntityChicken extends EntityAnimal {
 	 * Determines if this chicken is a jokey with a zombie riding it.
 	 */
 	public boolean isChickenJockey() {
-
 		return chickenJockey;
 	}
 
@@ -214,7 +194,6 @@ public class EntityChicken extends EntityAnimal {
 	 * Sets whether this chicken is a jockey or not.
 	 */
 	public void setChickenJockey(boolean jockey) {
-
 		chickenJockey = jockey;
 	}
 

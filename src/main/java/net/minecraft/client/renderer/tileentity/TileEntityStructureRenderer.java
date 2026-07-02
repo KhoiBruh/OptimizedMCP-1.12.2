@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 public class TileEntityStructureRenderer extends TileEntitySpecialRenderer<TileEntityStructure> {
 
 	public void render(TileEntityStructure te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-
 		if (Minecraft.getMinecraft().player.canUseCommandBlock() || Minecraft.getMinecraft().player.isSpectator()) {
 			super.render(te, x, y, z, partialTicks, destroyStage, alpha);
 			BlockPos blockpos = te.getPosition();
@@ -112,7 +111,6 @@ public class TileEntityStructureRenderer extends TileEntitySpecialRenderer<TileE
 	}
 
 	private void renderInvisibleBlocks(TileEntityStructure p_190054_1_, double p_190054_2_, double p_190054_4_, double p_190054_6_, BlockPos p_190054_8_, Tessellator p_190054_9_, BufferBuilder p_190054_10_, boolean p_190054_11_) {
-
 		GLS.lineWidth(p_190054_11_ ? 3F : 1F);
 		p_190054_10_.begin(3, DefaultVertexFormats.POSITION_COLOR);
 		World world = p_190054_1_.getWorld();
@@ -147,7 +145,6 @@ public class TileEntityStructureRenderer extends TileEntitySpecialRenderer<TileE
 	}
 
 	private void renderBox(Tessellator p_190055_1_, BufferBuilder p_190055_2_, double p_190055_3_, double p_190055_5_, double p_190055_7_, double p_190055_9_, double p_190055_11_, double p_190055_13_, int p_190055_15_, int p_190055_16_, int p_190055_17_) {
-
 		GLS.lineWidth(2F);
 		p_190055_2_.begin(3, DefaultVertexFormats.POSITION_COLOR);
 		p_190055_2_.pos(p_190055_3_, p_190055_5_, p_190055_7_).color((float) p_190055_16_, (float) p_190055_16_, (float) p_190055_16_, 0F).endVertex();
@@ -173,7 +170,6 @@ public class TileEntityStructureRenderer extends TileEntitySpecialRenderer<TileE
 	}
 
 	public boolean isGlobalRenderer(TileEntityStructure te) {
-
 		return true;
 	}
 

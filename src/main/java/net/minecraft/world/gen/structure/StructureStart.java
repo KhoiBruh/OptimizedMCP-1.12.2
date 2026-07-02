@@ -17,22 +17,18 @@ public abstract class StructureStart {
 	private int chunkPosZ;
 
 	public StructureStart() {
-
 	}
 
 	public StructureStart(int chunkX, int chunkZ) {
-
 		chunkPosX = chunkX;
 		chunkPosZ = chunkZ;
 	}
 
 	public StructureBoundingBox getBoundingBox() {
-
 		return boundingBox;
 	}
 
 	public List<StructureComponent> getComponents() {
-
 		return components;
 	}
 
@@ -40,7 +36,6 @@ public abstract class StructureStart {
 	 * Keeps iterating Structure Pieces and spawning them until the checks tell it to stop
 	 */
 	public void generateStructure(World worldIn, Random rand, StructureBoundingBox structurebb) {
-
 		components.removeIf(structurecomponent -> structurecomponent.getBoundingBox().intersectsWith(structurebb) && !structurecomponent.addComponentParts(worldIn, rand, structurebb));
 	}
 
@@ -48,7 +43,6 @@ public abstract class StructureStart {
 	 * Calculates total bounding box based on components' bounding boxes and saves it to boundingBox
 	 */
 	protected void updateBoundingBox() {
-
 		boundingBox = StructureBoundingBox.getNewBoundingBox();
 
 		for (StructureComponent structurecomponent : components) {
@@ -57,7 +51,6 @@ public abstract class StructureStart {
 	}
 
 	public NBTTagCompound writeStructureComponentsToNBT(int chunkX, int chunkZ) {
-
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 		nbttagcompound.setString("id", MapGenStructureIO.getStructureStartName(this));
 		nbttagcompound.setInteger("ChunkX", chunkX);
@@ -75,11 +68,9 @@ public abstract class StructureStart {
 	}
 
 	public void writeToNBT(NBTTagCompound tagCompound) {
-
 	}
 
 	public void readStructureComponentsFromNBT(World worldIn, NBTTagCompound tagCompound) {
-
 		chunkPosX = tagCompound.getInteger("ChunkX");
 		chunkPosZ = tagCompound.getInteger("ChunkZ");
 
@@ -97,14 +88,12 @@ public abstract class StructureStart {
 	}
 
 	public void readFromNBT(NBTTagCompound tagCompound) {
-
 	}
 
 	/**
 	 * offsets the structure Bounding Boxes up to a certain height, typically 63 - 10
 	 */
 	protected void markAvailableHeight(World worldIn, Random rand, int p_75067_3_) {
-
 		int i = worldIn.getSeaLevel() - p_75067_3_;
 		int j = boundingBox.getYSize() + 1;
 
@@ -121,7 +110,6 @@ public abstract class StructureStart {
 	}
 
 	protected void setRandomHeight(World worldIn, Random rand, int p_75070_3_, int p_75070_4_) {
-
 		int i = p_75070_4_ - p_75070_3_ + 1 - boundingBox.getYSize();
 		int j;
 
@@ -143,26 +131,21 @@ public abstract class StructureStart {
 	 * currently only defined for Villages, returns true if Village has more than 2 non-road components
 	 */
 	public boolean isSizeableStructure() {
-
 		return true;
 	}
 
 	public boolean isValidForPostProcess(ChunkPos pair) {
-
 		return true;
 	}
 
 	public void notifyPostProcessAt(ChunkPos pair) {
-
 	}
 
 	public int getChunkPosX() {
-
 		return chunkPosX;
 	}
 
 	public int getChunkPosZ() {
-
 		return chunkPosZ;
 	}
 

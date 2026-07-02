@@ -50,7 +50,6 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 	private ChunkGeneratorSettings.Factory settings;
 
 	public CustomizeWorldScreen(Screen parentIn, String p_i45521_2_) {
-
 		parent = (CreateWorldScreen) parentIn;
 		loadValues(p_i45521_2_);
 	}
@@ -60,7 +59,6 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		int i = 0;
 		int j = 0;
 
@@ -103,13 +101,11 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 	 * Handles mouse input.
 	 */
 	public void handleMouse() throws IOException {
-
 		super.handleMouse();
 		list.handleMouseInput();
 	}
 
 	private void createPagedList() {
-
 		GuiPageButtonList.GuiListEntry[] aguipagebuttonlist$guilistentry = new GuiPageButtonList.GuiListEntry[]{new GuiPageButtonList.GuiSlideEntry(160, I18n.format("createWorld.customize.custom.seaLevel"), true, this, 1F, 255F, (float) settings.seaLevel), new GuiPageButtonList.GuiButtonEntry(148, I18n.format("createWorld.customize.custom.useCaves"), true, settings.useCaves), new GuiPageButtonList.GuiButtonEntry(150, I18n.format("createWorld.customize.custom.useStrongholds"), true, settings.useStrongholds), new GuiPageButtonList.GuiButtonEntry(151, I18n.format("createWorld.customize.custom.useVillages"), true, settings.useVillages), new GuiPageButtonList.GuiButtonEntry(152, I18n.format("createWorld.customize.custom.useMineShafts"), true, settings.useMineShafts), new GuiPageButtonList.GuiButtonEntry(153, I18n.format("createWorld.customize.custom.useTemples"), true, settings.useTemples), new GuiPageButtonList.GuiButtonEntry(210, I18n.format("createWorld.customize.custom.useMonuments"), true, settings.useMonuments), new GuiPageButtonList.GuiButtonEntry(211, I18n.format("createWorld.customize.custom.useMansions"), true, settings.useMansions), new GuiPageButtonList.GuiButtonEntry(154, I18n.format("createWorld.customize.custom.useRavines"), true, settings.useRavines), new GuiPageButtonList.GuiButtonEntry(149, I18n.format("createWorld.customize.custom.useDungeons"), true, settings.useDungeons), new GuiPageButtonList.GuiSlideEntry(157, I18n.format("createWorld.customize.custom.dungeonChance"), true, this, 1F, 100F, (float) settings.dungeonChance), new GuiPageButtonList.GuiButtonEntry(155, I18n.format("createWorld.customize.custom.useWaterLakes"), true, settings.useWaterLakes), new GuiPageButtonList.GuiSlideEntry(158, I18n.format("createWorld.customize.custom.waterLakeChance"), true, this, 1F, 100F, (float) settings.waterLakeChance), new GuiPageButtonList.GuiButtonEntry(156, I18n.format("createWorld.customize.custom.useLavaLakes"), true, settings.useLavaLakes), new GuiPageButtonList.GuiSlideEntry(159, I18n.format("createWorld.customize.custom.lavaLakeChance"), true, this, 10F, 100F, (float) settings.lavaLakeChance), new GuiPageButtonList.GuiButtonEntry(161, I18n.format("createWorld.customize.custom.useLavaOceans"), true, settings.useLavaOceans), new GuiPageButtonList.GuiSlideEntry(162, I18n.format("createWorld.customize.custom.fixedBiome"), true, this, -1F, 37F, (float) settings.fixedBiome), new GuiPageButtonList.GuiSlideEntry(163, I18n.format("createWorld.customize.custom.biomeSize"), true, this, 1F, 8F, (float) settings.biomeSize), new GuiPageButtonList.GuiSlideEntry(164, I18n.format("createWorld.customize.custom.riverSize"), true, this, 1F, 5F, (float) settings.riverSize)};
 		GuiPageButtonList.GuiListEntry[] aguipagebuttonlist$guilistentry1 = new GuiPageButtonList.GuiListEntry[]{new GuiPageButtonList.GuiLabelEntry(416, I18n.format("tile.dirt.name"), false), null, new GuiPageButtonList.GuiSlideEntry(165, I18n.format("createWorld.customize.custom.size"), false, this, 1F, 50F, (float) settings.dirtSize), new GuiPageButtonList.GuiSlideEntry(166, I18n.format("createWorld.customize.custom.count"), false, this, 0F, 40F, (float) settings.dirtCount), new GuiPageButtonList.GuiSlideEntry(167, I18n.format("createWorld.customize.custom.minHeight"), false, this, 0F, 255F, (float) settings.dirtMinHeight), new GuiPageButtonList.GuiSlideEntry(168, I18n.format("createWorld.customize.custom.maxHeight"), false, this, 0F, 255F, (float) settings.dirtMaxHeight), new GuiPageButtonList.GuiLabelEntry(417, I18n.format("tile.gravel.name"), false), null, new GuiPageButtonList.GuiSlideEntry(169, I18n.format("createWorld.customize.custom.size"), false, this, 1F, 50F, (float) settings.gravelSize), new GuiPageButtonList.GuiSlideEntry(170, I18n.format("createWorld.customize.custom.count"), false, this, 0F, 40F, (float) settings.gravelCount), new GuiPageButtonList.GuiSlideEntry(171, I18n.format("createWorld.customize.custom.minHeight"), false, this, 0F, 255F, (float) settings.gravelMinHeight), new GuiPageButtonList.GuiSlideEntry(172, I18n.format("createWorld.customize.custom.maxHeight"), false, this, 0F, 255F, (float) settings.gravelMaxHeight), new GuiPageButtonList.GuiLabelEntry(418, I18n.format("tile.stone.granite.name"), false), null, new GuiPageButtonList.GuiSlideEntry(173, I18n.format("createWorld.customize.custom.size"), false, this, 1F, 50F, (float) settings.graniteSize), new GuiPageButtonList.GuiSlideEntry(174, I18n.format("createWorld.customize.custom.count"), false, this, 0F, 40F, (float) settings.graniteCount), new GuiPageButtonList.GuiSlideEntry(175, I18n.format("createWorld.customize.custom.minHeight"), false, this, 0F, 255F, (float) settings.graniteMinHeight), new GuiPageButtonList.GuiSlideEntry(176, I18n.format("createWorld.customize.custom.maxHeight"), false, this, 0F, 255F, (float) settings.graniteMaxHeight), new GuiPageButtonList.GuiLabelEntry(419, I18n.format("tile.stone.diorite.name"), false), null, new GuiPageButtonList.GuiSlideEntry(177, I18n.format("createWorld.customize.custom.size"), false, this, 1F, 50F, (float) settings.dioriteSize), new GuiPageButtonList.GuiSlideEntry(178, I18n.format("createWorld.customize.custom.count"), false, this, 0F, 40F, (float) settings.dioriteCount), new GuiPageButtonList.GuiSlideEntry(179, I18n.format("createWorld.customize.custom.minHeight"), false, this, 0F, 255F, (float) settings.dioriteMinHeight), new GuiPageButtonList.GuiSlideEntry(180, I18n.format("createWorld.customize.custom.maxHeight"), false, this, 0F, 255F, (float) settings.dioriteMaxHeight), new GuiPageButtonList.GuiLabelEntry(420, I18n.format("tile.stone.andesite.name"), false), null, new GuiPageButtonList.GuiSlideEntry(181, I18n.format("createWorld.customize.custom.size"), false, this, 1F, 50F, (float) settings.andesiteSize), new GuiPageButtonList.GuiSlideEntry(182, I18n.format("createWorld.customize.custom.count"), false, this, 0F, 40F, (float) settings.andesiteCount), new GuiPageButtonList.GuiSlideEntry(183, I18n.format("createWorld.customize.custom.minHeight"), false, this, 0F, 255F, (float) settings.andesiteMinHeight), new GuiPageButtonList.GuiSlideEntry(184, I18n.format("createWorld.customize.custom.maxHeight"), false, this, 0F, 255F, (float) settings.andesiteMaxHeight), new GuiPageButtonList.GuiLabelEntry(421, I18n.format("tile.oreCoal.name"), false), null, new GuiPageButtonList.GuiSlideEntry(185, I18n.format("createWorld.customize.custom.size"), false, this, 1F, 50F, (float) settings.coalSize), new GuiPageButtonList.GuiSlideEntry(186, I18n.format("createWorld.customize.custom.count"), false, this, 0F, 40F, (float) settings.coalCount), new GuiPageButtonList.GuiSlideEntry(187, I18n.format("createWorld.customize.custom.minHeight"), false, this, 0F, 255F, (float) settings.coalMinHeight), new GuiPageButtonList.GuiSlideEntry(189, I18n.format("createWorld.customize.custom.maxHeight"), false, this, 0F, 255F, (float) settings.coalMaxHeight), new GuiPageButtonList.GuiLabelEntry(422, I18n.format("tile.oreIron.name"), false), null, new GuiPageButtonList.GuiSlideEntry(190, I18n.format("createWorld.customize.custom.size"), false, this, 1F, 50F, (float) settings.ironSize), new GuiPageButtonList.GuiSlideEntry(191, I18n.format("createWorld.customize.custom.count"), false, this, 0F, 40F, (float) settings.ironCount), new GuiPageButtonList.GuiSlideEntry(192, I18n.format("createWorld.customize.custom.minHeight"), false, this, 0F, 255F, (float) settings.ironMinHeight), new GuiPageButtonList.GuiSlideEntry(193, I18n.format("createWorld.customize.custom.maxHeight"), false, this, 0F, 255F, (float) settings.ironMaxHeight), new GuiPageButtonList.GuiLabelEntry(423, I18n.format("tile.oreGold.name"), false), null, new GuiPageButtonList.GuiSlideEntry(194, I18n.format("createWorld.customize.custom.size"), false, this, 1F, 50F, (float) settings.goldSize), new GuiPageButtonList.GuiSlideEntry(195, I18n.format("createWorld.customize.custom.count"), false, this, 0F, 40F, (float) settings.goldCount), new GuiPageButtonList.GuiSlideEntry(196, I18n.format("createWorld.customize.custom.minHeight"), false, this, 0F, 255F, (float) settings.goldMinHeight), new GuiPageButtonList.GuiSlideEntry(197, I18n.format("createWorld.customize.custom.maxHeight"), false, this, 0F, 255F, (float) settings.goldMaxHeight), new GuiPageButtonList.GuiLabelEntry(424, I18n.format("tile.oreRedstone.name"), false), null, new GuiPageButtonList.GuiSlideEntry(198, I18n.format("createWorld.customize.custom.size"), false, this, 1F, 50F, (float) settings.redstoneSize), new GuiPageButtonList.GuiSlideEntry(199, I18n.format("createWorld.customize.custom.count"), false, this, 0F, 40F, (float) settings.redstoneCount), new GuiPageButtonList.GuiSlideEntry(200, I18n.format("createWorld.customize.custom.minHeight"), false, this, 0F, 255F, (float) settings.redstoneMinHeight), new GuiPageButtonList.GuiSlideEntry(201, I18n.format("createWorld.customize.custom.maxHeight"), false, this, 0F, 255F, (float) settings.redstoneMaxHeight), new GuiPageButtonList.GuiLabelEntry(425, I18n.format("tile.oreDiamond.name"), false), null, new GuiPageButtonList.GuiSlideEntry(202, I18n.format("createWorld.customize.custom.size"), false, this, 1F, 50F, (float) settings.diamondSize), new GuiPageButtonList.GuiSlideEntry(203, I18n.format("createWorld.customize.custom.count"), false, this, 0F, 40F, (float) settings.diamondCount), new GuiPageButtonList.GuiSlideEntry(204, I18n.format("createWorld.customize.custom.minHeight"), false, this, 0F, 255F, (float) settings.diamondMinHeight), new GuiPageButtonList.GuiSlideEntry(205, I18n.format("createWorld.customize.custom.maxHeight"), false, this, 0F, 255F, (float) settings.diamondMaxHeight), new GuiPageButtonList.GuiLabelEntry(426, I18n.format("tile.oreLapis.name"), false), null, new GuiPageButtonList.GuiSlideEntry(206, I18n.format("createWorld.customize.custom.size"), false, this, 1F, 50F, (float) settings.lapisSize), new GuiPageButtonList.GuiSlideEntry(207, I18n.format("createWorld.customize.custom.count"), false, this, 0F, 40F, (float) settings.lapisCount), new GuiPageButtonList.GuiSlideEntry(208, I18n.format("createWorld.customize.custom.center"), false, this, 0F, 255F, (float) settings.lapisCenterHeight), new GuiPageButtonList.GuiSlideEntry(209, I18n.format("createWorld.customize.custom.spread"), false, this, 0F, 255F, (float) settings.lapisSpread)};
 		GuiPageButtonList.GuiListEntry[] aguipagebuttonlist$guilistentry2 = new GuiPageButtonList.GuiListEntry[]{new GuiPageButtonList.GuiSlideEntry(100, I18n.format("createWorld.customize.custom.mainNoiseScaleX"), false, this, 1F, 5000F, settings.mainNoiseScaleX), new GuiPageButtonList.GuiSlideEntry(101, I18n.format("createWorld.customize.custom.mainNoiseScaleY"), false, this, 1F, 5000F, settings.mainNoiseScaleY), new GuiPageButtonList.GuiSlideEntry(102, I18n.format("createWorld.customize.custom.mainNoiseScaleZ"), false, this, 1F, 5000F, settings.mainNoiseScaleZ), new GuiPageButtonList.GuiSlideEntry(103, I18n.format("createWorld.customize.custom.depthNoiseScaleX"), false, this, 1F, 2000F, settings.depthNoiseScaleX), new GuiPageButtonList.GuiSlideEntry(104, I18n.format("createWorld.customize.custom.depthNoiseScaleZ"), false, this, 1F, 2000F, settings.depthNoiseScaleZ), new GuiPageButtonList.GuiSlideEntry(105, I18n.format("createWorld.customize.custom.depthNoiseScaleExponent"), false, this, 0.01F, 20F, settings.depthNoiseScaleExponent), new GuiPageButtonList.GuiSlideEntry(106, I18n.format("createWorld.customize.custom.baseSize"), false, this, 1F, 25F, settings.baseSize), new GuiPageButtonList.GuiSlideEntry(107, I18n.format("createWorld.customize.custom.coordinateScale"), false, this, 1F, 6000F, settings.coordinateScale), new GuiPageButtonList.GuiSlideEntry(108, I18n.format("createWorld.customize.custom.heightScale"), false, this, 1F, 6000F, settings.heightScale), new GuiPageButtonList.GuiSlideEntry(109, I18n.format("createWorld.customize.custom.stretchY"), false, this, 0.01F, 50F, settings.stretchY), new GuiPageButtonList.GuiSlideEntry(110, I18n.format("createWorld.customize.custom.upperLimitScale"), false, this, 1F, 5000F, settings.upperLimitScale), new GuiPageButtonList.GuiSlideEntry(111, I18n.format("createWorld.customize.custom.lowerLimitScale"), false, this, 1F, 5000F, settings.lowerLimitScale), new GuiPageButtonList.GuiSlideEntry(112, I18n.format("createWorld.customize.custom.biomeDepthWeight"), false, this, 1F, 20F, settings.biomeDepthWeight), new GuiPageButtonList.GuiSlideEntry(113, I18n.format("createWorld.customize.custom.biomeDepthOffset"), false, this, 0F, 20F, settings.biomeDepthOffset), new GuiPageButtonList.GuiSlideEntry(114, I18n.format("createWorld.customize.custom.biomeScaleWeight"), false, this, 1F, 20F, settings.biomeScaleWeight), new GuiPageButtonList.GuiSlideEntry(115, I18n.format("createWorld.customize.custom.biomeScaleOffset"), false, this, 0F, 20F, settings.biomeScaleOffset)};
@@ -124,12 +120,10 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 	}
 
 	public String saveValues() {
-
 		return settings.toString().replace("\n", "");
 	}
 
 	public void loadValues(String p_175324_1_) {
-
 		if (p_175324_1_ != null && !p_175324_1_.isEmpty()) {
 			settings = ChunkGeneratorSettings.Factory.jsonToFactory(p_175324_1_);
 		} else {
@@ -138,7 +132,6 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 	}
 
 	public void setEntryValue(int id, String value) {
-
 		float f = 0F;
 
 		try {
@@ -226,18 +219,15 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 	}
 
 	private void setSettingsModified(boolean modified) {
-
 		settingsModified = modified;
 		defaults.enabled = modified;
 	}
 
 	public String getText(int id, String name, float value) {
-
 		return name + ": " + getFormattedValue(id, value);
 	}
 
 	private String getFormattedValue(int p_175330_1_, float p_175330_2_) {
-
 		switch (p_175330_1_) {
 			case 100:
 			case 101:
@@ -322,7 +312,6 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 	}
 
 	public void setEntryValue(int id, boolean value) {
-
 		switch (id) {
 			case 148:
 				settings.useCaves = value;
@@ -378,7 +367,6 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 	}
 
 	public void setEntryValue(int id, float value) {
-
 		switch (id) {
 			case 100:
 				settings.mainNoiseScaleX = value;
@@ -710,7 +698,6 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) throws IOException {
-
 		if (button.enabled) {
 			switch (button.id) {
 				case 300:
@@ -724,7 +711,6 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 						Gui gui = guipagebuttonlist$guientry.getComponent1();
 
 						if (gui instanceof Button guibutton) {
-
 							if (guibutton instanceof Slider) {
 								float f = ((Slider) guibutton).getSliderPosition() * (0.75F + random.nextFloat() * 0.5F) + (random.nextFloat() * 0.1F - 0.05F);
 								((Slider) guibutton).setSliderPosition(MathHelper.clamp(f, 0F, 1F));
@@ -736,7 +722,6 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 						Gui gui1 = guipagebuttonlist$guientry.getComponent2();
 
 						if (gui1 instanceof Button guibutton1) {
-
 							if (guibutton1 instanceof Slider) {
 								float f1 = ((Slider) guibutton1).getSliderPosition() * (0.75F + random.nextFloat() * 0.5F) + (random.nextFloat() * 0.1F - 0.05F);
 								((Slider) guibutton1).setSliderPosition(MathHelper.clamp(f1, 0F, 1F));
@@ -781,20 +766,17 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 	}
 
 	private void restoreDefaults() {
-
 		settings.setDefaults();
 		createPagedList();
 		setSettingsModified(false);
 	}
 
 	private void enterConfirmation(int confirmModeIn) {
-
 		confirmMode = confirmModeIn;
 		setConfirmationControls(true);
 	}
 
 	private void exitConfirmation() throws IOException {
-
 		switch (confirmMode) {
 			case 300:
 				action((ButtonList) list.getComponent(300));
@@ -810,7 +792,6 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 	}
 
 	private void setConfirmationControls(boolean visible) {
-
 		confirm.visible = visible;
 		cancel.visible = visible;
 		randomize.enabled = !visible;
@@ -823,7 +804,6 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 	}
 
 	private void updatePageControls() {
-
 		previousPage.enabled = list.getPage() != 0;
 		nextPage.enabled = list.getPage() != list.getPageCount() - 1;
 		subtitle = I18n.format("book.pageIndicator", list.getPage() + 1, list.getPageCount());
@@ -836,7 +816,6 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-
 		super.keyTyped(typedChar, keyCode);
 
 		if (confirmMode == 0) {
@@ -856,7 +835,6 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 	}
 
 	private void modifyFocusValue(float p_175327_1_) {
-
 		Gui gui = list.getFocusedControl();
 
 		if (gui instanceof GuiTextField guitextfield) {
@@ -892,7 +870,6 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
-
 		super.mouseClicked(mouseX, mouseY, mouse);
 
 		if (confirmMode == 0 && !confirmDismissed) {
@@ -904,7 +881,6 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 	 * Called when a mouse button is released.
 	 */
 	protected void mouseReleased(int mouseX, int mouseY, int state) {
-
 		super.mouseReleased(mouseX, mouseY, state);
 
 		if (confirmDismissed) {
@@ -918,7 +894,6 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		list.drawScreen(mouseX, mouseY, partialTicks);
 		drawCenteredString(fontRenderer, title, width / 2, 2, 16777215);

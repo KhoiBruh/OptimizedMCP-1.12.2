@@ -28,14 +28,12 @@ public class LayeredColorMaskTexture extends AbstractTexture {
 	private final List<DyeColor> listDyeColors;
 
 	public LayeredColorMaskTexture(ResourceLocation textureLocationIn, List<String> p_i46101_2_, List<DyeColor> p_i46101_3_) {
-
 		textureLocation = textureLocationIn;
 		listTextures = p_i46101_2_;
 		listDyeColors = p_i46101_3_;
 	}
 
 	public void loadTexture(IResourceManager resourceManager) {
-
 		deleteGlTexture();
 		BufferedImage bufferedimage;
 		label255:

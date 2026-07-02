@@ -19,7 +19,6 @@ public class ParticleFootStep extends Particle {
 	private int footstepAge;
 
 	protected ParticleFootStep(TextureManager currentFootStepsIn, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn) {
-
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0D, 0D, 0D);
 		currentFootSteps = currentFootStepsIn;
 		motionX = 0D;
@@ -32,7 +31,6 @@ public class ParticleFootStep extends Particle {
 	 * Renders the particle
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-
 		float f = ((float) footstepAge + partialTicks) / (float) footstepMaxAge;
 		f = f * f;
 		float f1 = 2F - f * 2F;
@@ -62,7 +60,6 @@ public class ParticleFootStep extends Particle {
 	}
 
 	public void onUpdate() {
-
 		++footstepAge;
 
 		if (footstepAge == footstepMaxAge) {
@@ -75,14 +72,12 @@ public class ParticleFootStep extends Particle {
 	 * 1 for the main Texture atlas, and 3 for a custom texture
 	 */
 	public int getFXLayer() {
-
 		return 3;
 	}
 
 	public static class Factory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			return new ParticleFootStep(Minecraft.getMinecraft().getTextureManager(), worldIn, xCoordIn, yCoordIn, zCoordIn);
 		}
 

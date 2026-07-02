@@ -16,7 +16,6 @@ public class ModelPlayer extends ModelBiped {
 	public ModelRenderer bipedBodyWear;
 
 	public ModelPlayer(float modelSize, boolean smallArmsIn) {
-
 		super(modelSize, 0F, 64, 64);
 		smallArms = smallArmsIn;
 		bipedDeadmau5Head = new ModelRenderer(this, 24, 0);
@@ -68,7 +67,6 @@ public class ModelPlayer extends ModelBiped {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		GLS.pushMatrix();
 
@@ -97,7 +95,6 @@ public class ModelPlayer extends ModelBiped {
 	}
 
 	public void renderDeadmau5Head(float scale) {
-
 		copyModelAngles(bipedHead, bipedDeadmau5Head);
 		bipedDeadmau5Head.rotationPointX = 0F;
 		bipedDeadmau5Head.rotationPointY = 0F;
@@ -105,7 +102,6 @@ public class ModelPlayer extends ModelBiped {
 	}
 
 	public void renderCape(float scale) {
-
 		bipedCape.render(scale);
 	}
 
@@ -115,7 +111,6 @@ public class ModelPlayer extends ModelBiped {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 		copyModelAngles(bipedLeftLeg, bipedLeftLegwear);
 		copyModelAngles(bipedRightLeg, bipedRightLegwear);
@@ -131,7 +126,6 @@ public class ModelPlayer extends ModelBiped {
 	}
 
 	public void setVisible(boolean visible) {
-
 		super.setVisible(visible);
 		bipedLeftArmwear.showModel = visible;
 		bipedRightArmwear.showModel = visible;
@@ -143,7 +137,6 @@ public class ModelPlayer extends ModelBiped {
 	}
 
 	public void postRenderArm(float scale, HandSide side) {
-
 		ModelRenderer modelrenderer = getArmForSide(side);
 
 		if (smallArms) {

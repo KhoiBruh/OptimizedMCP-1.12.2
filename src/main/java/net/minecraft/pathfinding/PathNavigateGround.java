@@ -15,12 +15,10 @@ public class PathNavigateGround extends PathNavigate {
 	private boolean shouldAvoidSun;
 
 	public PathNavigateGround(EntityLiving entitylivingIn, World worldIn) {
-
 		super(entitylivingIn, worldIn);
 	}
 
 	protected PathFinder getPathFinder() {
-
 		nodeProcessor = new WalkNodeProcessor();
 		nodeProcessor.setCanEnterDoors(true);
 		return new PathFinder(nodeProcessor);
@@ -30,12 +28,10 @@ public class PathNavigateGround extends PathNavigate {
 	 * If on ground or swimming and can swim
 	 */
 	protected boolean canNavigate() {
-
 		return entity.onGround || getCanSwim() && isInLiquid() || entity.isRiding();
 	}
 
 	protected Vec3d getEntityPosition() {
-
 		return new Vec3d(entity.posX, getPathablePosY(), entity.posZ);
 	}
 
@@ -43,7 +39,6 @@ public class PathNavigateGround extends PathNavigate {
 	 * Returns path to given BlockPos
 	 */
 	public Path getPathToPos(BlockPos pos) {
-
 		if (world.getBlockState(pos).getMaterial() == Material.AIR) {
 			BlockPos blockpos;
 
@@ -77,7 +72,6 @@ public class PathNavigateGround extends PathNavigate {
 	 * Returns the path to the given EntityLiving. Args : entity
 	 */
 	public Path getPathToEntityLiving(Entity entityIn) {
-
 		return getPathToPos(new BlockPos(entityIn));
 	}
 
@@ -85,7 +79,6 @@ public class PathNavigateGround extends PathNavigate {
 	 * Gets the safe pathing Y position for the entity depending on if it can path swim or not
 	 */
 	private int getPathablePosY() {
-
 		if (entity.isInWater() && getCanSwim()) {
 			int i = (int) entity.getEntityBoundingBox().minY;
 			Block block = world.getBlockState(new BlockPos(MathHelper.floor(entity.posX), i, MathHelper.floor(entity.posZ))).getBlock();
@@ -111,7 +104,6 @@ public class PathNavigateGround extends PathNavigate {
 	 * Trims path data from the end to the first sun covered block
 	 */
 	protected void removeSunnyPath() {
-
 		super.removeSunnyPath();
 
 		if (shouldAvoidSun) {
@@ -134,7 +126,6 @@ public class PathNavigateGround extends PathNavigate {
 	 * Checks if the specified entity can safely walk to the specified location.
 	 */
 	protected boolean isDirectPathBetweenPoints(Vec3d posVec31, Vec3d posVec32, int sizeX, int sizeY, int sizeZ) {
-
 		int i = MathHelper.floor(posVec31.x());
 		int j = MathHelper.floor(posVec31.z());
 		double d0 = posVec32.x() - posVec31.x();
@@ -202,7 +193,6 @@ public class PathNavigateGround extends PathNavigate {
 	 * Returns true when an entity could stand at a position, including solid blocks under the entire entity.
 	 */
 	private boolean isSafeToStandAt(int x, int y, int z, int sizeX, int sizeY, int sizeZ, Vec3d vec31, double p_179683_8_, double p_179683_10_) {
-
 		int i = x - sizeX / 2;
 		int j = z - sizeZ / 2;
 
@@ -251,7 +241,6 @@ public class PathNavigateGround extends PathNavigate {
 	 * Returns true if an entity does not collide with any solid blocks at the position.
 	 */
 	private boolean isPositionClear(int x, int y, int z, int sizeX, int sizeY, int sizeZ, Vec3d p_179692_7_, double p_179692_8_, double p_179692_10_) {
-
 		for (BlockPos blockpos : BlockPos.getAllInBox(new BlockPos(x, y, z), new BlockPos(x + sizeX - 1, y + sizeY - 1, z + sizeZ - 1))) {
 			double d0 = (double) blockpos.getX() + 0.5D - p_179692_7_.x();
 			double d1 = (double) blockpos.getZ() + 0.5D - p_179692_7_.z();
@@ -269,32 +258,26 @@ public class PathNavigateGround extends PathNavigate {
 	}
 
 	public void setBreakDoors(boolean canBreakDoors) {
-
 		nodeProcessor.setCanOpenDoors(canBreakDoors);
 	}
 
 	public boolean getEnterDoors() {
-
 		return nodeProcessor.getCanEnterDoors();
 	}
 
 	public void setEnterDoors(boolean enterDoors) {
-
 		nodeProcessor.setCanEnterDoors(enterDoors);
 	}
 
 	public boolean getCanSwim() {
-
 		return nodeProcessor.getCanSwim();
 	}
 
 	public void setCanSwim(boolean canSwim) {
-
 		nodeProcessor.setCanSwim(canSwim);
 	}
 
 	public void setAvoidSun(boolean avoidSun) {
-
 		shouldAvoidSun = avoidSun;
 	}
 

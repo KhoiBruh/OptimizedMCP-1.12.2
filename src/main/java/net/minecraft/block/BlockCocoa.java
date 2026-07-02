@@ -30,14 +30,12 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable {
 	protected static final AxisAlignedBB[] COCOA_SOUTH_AABB = new AxisAlignedBB[]{new AxisAlignedBB(0.375D, 0.4375D, 0.6875D, 0.625D, 0.75D, 0.9375D), new AxisAlignedBB(0.3125D, 0.3125D, 0.5625D, 0.6875D, 0.75D, 0.9375D), new AxisAlignedBB(0.25D, 0.1875D, 0.4375D, 0.75D, 0.75D, 0.9375D)};
 
 	public BlockCocoa() {
-
 		super(Material.PLANTS);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(AGE, 0));
 		setTickRandomly(true);
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if (!canBlockStay(worldIn, pos, state)) {
 			dropBlock(worldIn, pos, state);
 		} else if (worldIn.rand.nextInt(5) == 0) {
@@ -50,14 +48,12 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable {
 	}
 
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {
-
 		pos = pos.offset(state.getValue(FACING));
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		return iblockstate.getBlock() == Blocks.LOG && iblockstate.getValue(BlockOldLog.VARIANT) == BlockPlanks.Type.JUNGLE;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -65,12 +61,10 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		int i = state.getValue(AGE);
 
 		return switch (state.getValue(FACING)) {
@@ -86,7 +80,6 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
@@ -95,7 +88,6 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
 	}
 
@@ -103,7 +95,6 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable {
 	 * Called by ItemBlocks after a block is set in the world, to allow post-place logic
 	 */
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-
 		Facing enumfacing = Facing.fromAngle(placer.rotationYaw);
 		worldIn.setBlockState(pos, state.withProperty(FACING, enumfacing), 2);
 	}
@@ -113,7 +104,6 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		if (!facing.getAxis().isHorizontal()) {
 			facing = Facing.NORTH;
 		}
@@ -127,14 +117,12 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (!canBlockStay(worldIn, pos, state)) {
 			dropBlock(worldIn, pos, state);
 		}
 	}
 
 	private void dropBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
 		dropBlockAsItem(worldIn, pos, state, 0);
 	}
@@ -143,7 +131,6 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable {
 	 * Spawns this Block's drops into the World as EntityItems.
 	 */
 	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
-
 		int i = state.getValue(AGE);
 		int j = 1;
 
@@ -157,7 +144,6 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable {
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return new ItemStack(Items.DYE, 1, DyeColor.BROWN.getDyeDamage());
 	}
 
@@ -165,17 +151,14 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable {
 	 * Whether this IGrowable can grow
 	 */
 	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
-
 		return state.getValue(AGE) < 2;
 	}
 
 	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-
 		return true;
 	}
 
 	public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-
 		worldIn.setBlockState(pos, state.withProperty(AGE, state.getValue(AGE) + 1), 2);
 	}
 
@@ -184,7 +167,6 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.CUTOUT;
 	}
 
@@ -192,7 +174,6 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(FACING, Facing.getHorizontal(meta)).withProperty(AGE, (meta & 15) >> 2);
 	}
 
@@ -200,7 +181,6 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 		i = i | state.getValue(FACING).getHorizontalIndex();
 		i = i | state.getValue(AGE) << 2;
@@ -208,7 +188,6 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, FACING, AGE);
 	}
 
@@ -222,7 +201,6 @@ public class BlockCocoa extends BlockHorizontal implements IGrowable {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

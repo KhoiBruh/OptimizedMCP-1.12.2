@@ -12,16 +12,13 @@ public class CPacketEntityAction implements Packet<INetHandlerPlayServer> {
 	private int auxData;
 
 	public CPacketEntityAction() {
-
 	}
 
 	public CPacketEntityAction(Entity entityIn, CPacketEntityAction.Action actionIn) {
-
 		this(entityIn, actionIn, 0);
 	}
 
 	public CPacketEntityAction(Entity entityIn, CPacketEntityAction.Action actionIn, int auxDataIn) {
-
 		entityID = entityIn.getEntityId();
 		action = actionIn;
 		auxData = auxDataIn;
@@ -31,7 +28,6 @@ public class CPacketEntityAction implements Packet<INetHandlerPlayServer> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		entityID = buf.readVarInt();
 		action = buf.readEnumValue(Action.class);
 		auxData = buf.readVarInt();
@@ -41,7 +37,6 @@ public class CPacketEntityAction implements Packet<INetHandlerPlayServer> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeVarInt(entityID);
 		buf.writeEnumValue(action);
 		buf.writeVarInt(auxData);
@@ -51,7 +46,6 @@ public class CPacketEntityAction implements Packet<INetHandlerPlayServer> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayServer handler) {
-
 		handler.processEntityAction(this);
 	}
 
@@ -61,7 +55,6 @@ public class CPacketEntityAction implements Packet<INetHandlerPlayServer> {
 	}
 
 	public int getAuxData() {
-
 		return auxData;
 	}
 

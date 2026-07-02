@@ -27,7 +27,6 @@ public class TeleportToTeam implements ISpectatorMenuView, ISpectatorMenuObject 
 	private final List<ISpectatorMenuObject> items = Lists.newArrayList();
 
 	public TeleportToTeam() {
-
 		Minecraft minecraft = Minecraft.getMinecraft();
 
 		for (ScorePlayerTeam scoreplayerteam : minecraft.world.getScoreboard().getTeams()) {
@@ -36,33 +35,27 @@ public class TeleportToTeam implements ISpectatorMenuView, ISpectatorMenuObject 
 	}
 
 	public List<ISpectatorMenuObject> getItems() {
-
 		return items;
 	}
 
 	public ITextComponent getPrompt() {
-
 		return new TextComponentTranslation("spectatorMenu.team_teleport.prompt");
 	}
 
 	public void selectItem(SpectatorMenu menu) {
-
 		menu.selectCategory(this);
 	}
 
 	public ITextComponent getSpectatorName() {
-
 		return new TextComponentTranslation("spectatorMenu.team_teleport");
 	}
 
 	public void renderIcon(float brightness, int alpha) {
-
 		Minecraft.getMinecraft().getTextureManager().bindTexture(GuiSpectator.SPECTATOR_WIDGETS);
 		Gui.drawModalRectWithCustomSizedTexture(0, 0, 16F, 0F, 16, 16, 256F, 256F);
 	}
 
 	public boolean isEnabled() {
-
 		for (ISpectatorMenuObject ispectatormenuobject : items) {
 			if (ispectatormenuobject.isEnabled()) {
 				return true;
@@ -79,7 +72,6 @@ public class TeleportToTeam implements ISpectatorMenuView, ISpectatorMenuObject 
 		private final List<NetworkPlayerInfo> players;
 
 		public TeamSelectionObject(ScorePlayerTeam teamIn) {
-
 			team = teamIn;
 			players = Lists.newArrayList();
 
@@ -101,17 +93,14 @@ public class TeleportToTeam implements ISpectatorMenuView, ISpectatorMenuObject 
 		}
 
 		public void selectItem(SpectatorMenu menu) {
-
 			menu.selectCategory(new TeleportToPlayer(players));
 		}
 
 		public ITextComponent getSpectatorName() {
-
 			return new TextComponentString(team.getDisplayName());
 		}
 
 		public void renderIcon(float brightness, int alpha) {
-
 			int i = -1;
 			String s = FontRenderer.getFormatFromString(team.getPrefix());
 
@@ -133,7 +122,6 @@ public class TeleportToTeam implements ISpectatorMenuView, ISpectatorMenuObject 
 		}
 
 		public boolean isEnabled() {
-
 			return !players.isEmpty();
 		}
 

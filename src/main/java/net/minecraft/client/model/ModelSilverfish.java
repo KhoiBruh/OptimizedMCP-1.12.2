@@ -23,7 +23,6 @@ public class ModelSilverfish extends ModelBase {
 	private final ModelRenderer[] silverfishWings;
 	
 	public ModelSilverfish() {
-
 		float f = -3.5F;
 		
 		float[] zPlacement = new float[7];
@@ -54,7 +53,6 @@ public class ModelSilverfish extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
 		for (ModelRenderer modelrenderer : silverfishBodyParts) {
@@ -72,7 +70,6 @@ public class ModelSilverfish extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		for (int i = 0; i < silverfishBodyParts.length; ++i) {
 			silverfishBodyParts[i].rotateAngleY = MathHelper.cos(ageInTicks * 0.9F + (float) i * 0.15F * (float) Math.PI) * (float) Math.PI * 0.05F * (float) (1 + Math.abs(i - 2));
 			silverfishBodyParts[i].rotationPointX = MathHelper.sin(ageInTicks * 0.9F + (float) i * 0.15F * (float) Math.PI) * (float) Math.PI * 0.2F * (float) Math.abs(i - 2);

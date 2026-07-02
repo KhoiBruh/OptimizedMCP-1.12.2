@@ -22,7 +22,6 @@ public class AdvancementList {
 	private AdvancementList.Listener listener;
 
 	private void remove(Advancement advancementIn) {
-
 		for (Advancement advancement : advancementIn.getChildren()) {
 			remove(advancement);
 		}
@@ -46,7 +45,6 @@ public class AdvancementList {
 	}
 
 	public void removeAll(Set<ResourceLocation> ids) {
-
 		for (ResourceLocation resourcelocation : ids) {
 			Advancement advancement = advancements.get(resourcelocation);
 
@@ -59,7 +57,6 @@ public class AdvancementList {
 	}
 
 	public void loadAdvancements(Map<ResourceLocation, Advancement.Builder> advancementsIn) {
-
 		Function<ResourceLocation, Advancement> function = Functions.forMap(advancements, null);
 		label42:
 
@@ -112,7 +109,6 @@ public class AdvancementList {
 	}
 
 	public void clear() {
-
 		advancements.clear();
 		roots.clear();
 		nonRoots.clear();
@@ -123,23 +119,19 @@ public class AdvancementList {
 	}
 
 	public Iterable<Advancement> getRoots() {
-
 		return roots;
 	}
 
 	public Iterable<Advancement> getAdvancements() {
-
 		return advancements.values();
 	}
 
 	
 	public Advancement getAdvancement(ResourceLocation id) {
-
 		return advancements.get(id);
 	}
 
 	public void setListener(AdvancementList.Listener listenerIn) {
-
 		listener = listenerIn;
 
 		if (listenerIn != null) {

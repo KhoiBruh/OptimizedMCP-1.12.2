@@ -18,7 +18,6 @@ public enum Mirror {
 	private final String name;
 
 	Mirror(String nameIn) {
-
 		name = nameIn;
 	}
 
@@ -27,7 +26,6 @@ public enum Mirror {
 	 * front, rotationCount/2 is back.
 	 */
 	public int mirrorRotation(int rotationIn, int rotationCount) {
-
 		int i = rotationCount / 2;
 		int j = rotationIn > i ? rotationIn - rotationCount : rotationIn;
 
@@ -42,7 +40,6 @@ public enum Mirror {
 	 * Determines the rotation that is equivalent to this mirror if the rotating object faces in the given direction
 	 */
 	public Rotation toRotation(Facing facing) {
-
 		Facing.Axis enumfacing$axis = facing.getAxis();
 		return (this != LEFT_RIGHT || enumfacing$axis != Facing.Axis.Z) && (this != FRONT_BACK || enumfacing$axis != Facing.Axis.X) ? Rotation.NONE : Rotation.CLOCKWISE_180;
 	}
@@ -51,7 +48,6 @@ public enum Mirror {
 	 * Mirror the given facing according to this mirror
 	 */
 	public Facing mirror(Facing facing) {
-
 		switch (this) {
 			case FRONT_BACK:
 				if (facing == Facing.WEST) {

@@ -11,12 +11,10 @@ public class ConditionOr implements ICondition {
 	final Iterable<ICondition> conditions;
 
 	public ConditionOr(Iterable<ICondition> conditionsIn) {
-
 		conditions = conditionsIn;
 	}
 
 	public Predicate<IBlockState> getPredicate(BlockStateContainer blockState) {
-
 		return Predicates.or(Iterables.transform(conditions, condition -> condition == null ? null : condition.getPredicate(blockState)));
 	}
 

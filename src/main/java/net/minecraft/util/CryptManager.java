@@ -20,7 +20,6 @@ public class CryptManager {
 	 * Generate a new shared secret AES key from a secure random source
 	 */
 	public static SecretKey createNewSharedKey() {
-
 		try {
 			KeyGenerator keygenerator = KeyGenerator.getInstance("AES");
 			keygenerator.init(128);
@@ -34,7 +33,6 @@ public class CryptManager {
 	 * Generates RSA KeyPair
 	 */
 	public static KeyPair generateKeyPair() {
-
 		try {
 			KeyPairGenerator keypairgenerator = KeyPairGenerator.getInstance("RSA");
 			keypairgenerator.initialize(1024);
@@ -50,7 +48,6 @@ public class CryptManager {
 	 * Compute a serverId hash for use by sendSessionRequest()
 	 */
 	public static byte[] getServerIdHash(String serverId, PublicKey publicKey, SecretKey secretKey) {
-
 		try {
 			return digestOperation("SHA-1", serverId.getBytes("ISO_8859_1"), secretKey.getEncoded(), publicKey.getEncoded());
 		} catch (UnsupportedEncodingException unsupportedencodingexception) {
@@ -63,7 +60,6 @@ public class CryptManager {
 	 * Compute a message digest on arbitrary byte[] data
 	 */
 	private static byte[] digestOperation(String algorithm, byte[]... data) {
-
 		try {
 			MessageDigest messagedigest = MessageDigest.getInstance(algorithm);
 
@@ -82,7 +78,6 @@ public class CryptManager {
 	 * Create a new PublicKey from encoded X.509 data
 	 */
 	public static PublicKey decodePublicKey(byte[] encodedKey) {
-
 		try {
 			EncodedKeySpec encodedkeyspec = new X509EncodedKeySpec(encodedKey);
 			KeyFactory keyfactory = KeyFactory.getInstance("RSA");
@@ -98,7 +93,6 @@ public class CryptManager {
 	 * Decrypt shared secret AES key using RSA private key
 	 */
 	public static SecretKey decryptSharedKey(PrivateKey key, byte[] secretKeyEncrypted) {
-
 		return new SecretKeySpec(decryptData(key, secretKeyEncrypted), "AES");
 	}
 
@@ -106,7 +100,6 @@ public class CryptManager {
 	 * Encrypt byte[] data with RSA public key
 	 */
 	public static byte[] encryptData(Key key, byte[] data) {
-
 		return cipherOperation(1, key, data);
 	}
 
@@ -114,7 +107,6 @@ public class CryptManager {
 	 * Decrypt byte[] data with RSA private key
 	 */
 	public static byte[] decryptData(Key key, byte[] data) {
-
 		return cipherOperation(2, key, data);
 	}
 
@@ -122,7 +114,6 @@ public class CryptManager {
 	 * Encrypt or decrypt byte[] data using the specified key
 	 */
 	private static byte[] cipherOperation(int opMode, Key key, byte[] data) {
-
 		try {
 			return createTheCipherInstance(opMode, key.getAlgorithm(), key).doFinal(data);
 		} catch (IllegalBlockSizeException | BadPaddingException illegalblocksizeexception) {
@@ -137,7 +128,6 @@ public class CryptManager {
 	 * Creates the Cipher Instance.
 	 */
 	private static Cipher createTheCipherInstance(int opMode, String transformation, Key key) {
-
 		try {
 			Cipher cipher = Cipher.getInstance(transformation);
 			cipher.init(opMode, key);
@@ -154,7 +144,6 @@ public class CryptManager {
 	 * Creates an Cipher instance using the AES/CFB8/NoPadding algorithm. Used for protocol encryption.
 	 */
 	public static Cipher createNetCipherInstance(int opMode, Key key) {
-
 		try {
 			Cipher cipher = Cipher.getInstance("AES/CFB8/NoPadding");
 			cipher.init(opMode, key, new IvParameterSpec(key.getEncoded()));

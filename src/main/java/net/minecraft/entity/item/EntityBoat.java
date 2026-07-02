@@ -75,7 +75,6 @@ public class EntityBoat extends Entity {
 	private double lastYd;
 
 	public EntityBoat(World worldIn) {
-
 		super(worldIn);
 		paddlePositions = new float[2];
 		preventEntitySpawning = true;
@@ -83,7 +82,6 @@ public class EntityBoat extends Entity {
 	}
 
 	public EntityBoat(World worldIn, double x, double y, double z) {
-
 		this(worldIn);
 		setPosition(x, y, z);
 		motionX = 0D;
@@ -99,12 +97,10 @@ public class EntityBoat extends Entity {
 	 * prevent them from trampling crops
 	 */
 	protected boolean canTriggerWalking() {
-
 		return false;
 	}
 
 	protected void entityInit() {
-
 		dataManager.register(TIME_SINCE_HIT, 0);
 		dataManager.register(FORWARD_DIRECTION, 1);
 		dataManager.register(DAMAGE_TAKEN, 0F);
@@ -122,7 +118,6 @@ public class EntityBoat extends Entity {
 	 * pushable on contact, like boats or minecarts.
 	 */
 	public AxisAlignedBB getCollisionBox(Entity entityIn) {
-
 		return entityIn.canBePushed() ? entityIn.getEntityBoundingBox() : null;
 	}
 
@@ -137,7 +132,6 @@ public class EntityBoat extends Entity {
 	 * @see getEntityBoundingBox
 	 */
 	public AxisAlignedBB getCollisionBoundingBox() {
-
 		return getEntityBoundingBox();
 	}
 
@@ -145,7 +139,6 @@ public class EntityBoat extends Entity {
 	 * Returns true if this entity should push and be pushed by other entities when colliding.
 	 */
 	public boolean canBePushed() {
-
 		return true;
 	}
 
@@ -153,7 +146,6 @@ public class EntityBoat extends Entity {
 	 * Returns the Y offset from the entity's position for any entity riding this one.
 	 */
 	public double getMountedYOffset() {
-
 		return -0.1D;
 	}
 
@@ -161,7 +153,6 @@ public class EntityBoat extends Entity {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		if (isEntityInvulnerable(source)) {
 			return false;
 		} else if (!world.isRemote && !isDead) {
@@ -193,7 +184,6 @@ public class EntityBoat extends Entity {
 	 * Applies a velocity to the entities, to push them away from eachother.
 	 */
 	public void applyEntityCollision(Entity entityIn) {
-
 		if (entityIn instanceof EntityBoat) {
 			if (entityIn.getEntityBoundingBox().minY < getEntityBoundingBox().maxY) {
 				super.applyEntityCollision(entityIn);
@@ -204,7 +194,6 @@ public class EntityBoat extends Entity {
 	}
 
 	public Item getItemBoat() {
-
 		return switch (getBoatType()) {
 			case SPRUCE -> Items.SPRUCE_BOAT;
 			case BIRCH -> Items.BIRCH_BOAT;
@@ -219,7 +208,6 @@ public class EntityBoat extends Entity {
 	 * Setups the entity to do the hurt animation. Only used by packets in multiplayer.
 	 */
 	public void performHurtAnimation() {
-
 		setForwardDirection(-getForwardDirection());
 		setTimeSinceHit(10);
 		setDamageTaken(getDamageTaken() * 11F);
@@ -229,7 +217,6 @@ public class EntityBoat extends Entity {
 	 * Returns true if other Entities should be prevented from moving through this Entity.
 	 */
 	public boolean canBeCollidedWith() {
-
 		return !isDead;
 	}
 
@@ -237,7 +224,6 @@ public class EntityBoat extends Entity {
 	 * Set the position and rotation values directly without any clamping.
 	 */
 	public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean teleport) {
-
 		lerpX = x;
 		lerpY = y;
 		lerpZ = z;
@@ -251,7 +237,6 @@ public class EntityBoat extends Entity {
 	 * account.
 	 */
 	public Facing getAdjustedHorizontalFacing() {
-
 		return getHorizontalFacing().rotateY();
 	}
 
@@ -259,7 +244,6 @@ public class EntityBoat extends Entity {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		previousStatus = status;
 		status = getBoatStatus();
 
@@ -345,7 +329,6 @@ public class EntityBoat extends Entity {
 
 	
 	protected SoundEvent getPaddleSound() {
-
 		return switch (getBoatStatus()) {
 			case IN_WATER, UNDER_WATER, UNDER_FLOWING_WATER -> SoundEvents.ENTITY_BOAT_PADDLE_WATER;
 			case ON_LAND -> SoundEvents.ENTITY_BOAT_PADDLE_LAND;
@@ -354,7 +337,6 @@ public class EntityBoat extends Entity {
 	}
 
 	private void tickLerp() {
-
 		if (lerpSteps > 0 && !canPassengerSteer()) {
 			double d0 = posX + (lerpX - posX) / (double) lerpSteps;
 			double d1 = posY + (lerpY - posY) / (double) lerpSteps;
@@ -369,13 +351,11 @@ public class EntityBoat extends Entity {
 	}
 
 	public void setPaddleState(boolean left, boolean right) {
-
 		dataManager.set(DATA_ID_PADDLE[0], left);
 		dataManager.set(DATA_ID_PADDLE[1], right);
 	}
 
 	public float getRowingTime(int side, float limbSwing) {
-
 		return getPaddleState(side) ? (float) MathHelper.clampedLerp((double) paddlePositions[side] - 0.39269909262657166D, paddlePositions[side], limbSwing) : 0F;
 	}
 
@@ -404,7 +384,6 @@ public class EntityBoat extends Entity {
 	}
 
 	public float getWaterLevelAbove() {
-
 		AxisAlignedBB axisalignedbb = getEntityBoundingBox();
 		int i = MathHelper.floor(axisalignedbb.minX);
 		int j = MathHelper.ceil(axisalignedbb.maxX);
@@ -457,7 +436,6 @@ public class EntityBoat extends Entity {
 	 * Decides how much the boat should be gliding on the land (based on any slippery blocks)
 	 */
 	public float getBoatGlide() {
-
 		AxisAlignedBB axisalignedbb = getEntityBoundingBox();
 		AxisAlignedBB axisalignedbb1 = new AxisAlignedBB(axisalignedbb.minX, axisalignedbb.minY - 0.001D, axisalignedbb.minZ, axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.maxZ);
 		int i = MathHelper.floor(axisalignedbb1.minX) - 1;
@@ -502,7 +480,6 @@ public class EntityBoat extends Entity {
 	}
 
 	private boolean checkInWater() {
-
 		AxisAlignedBB axisalignedbb = getEntityBoundingBox();
 		int i = MathHelper.floor(axisalignedbb.minX);
 		int j = MathHelper.ceil(axisalignedbb.maxX);
@@ -582,7 +559,6 @@ public class EntityBoat extends Entity {
 	 * Update the boat's speed, based on momentum.
 	 */
 	private void updateMotion() {
-
 		double d0 = -0.03999999910593033D;
 		double d1 = hasNoGravity() ? 0D : -0.03999999910593033D;
 		double d2 = 0D;
@@ -629,7 +605,6 @@ public class EntityBoat extends Entity {
 	}
 
 	private void controlBoat() {
-
 		if (isBeingRidden()) {
 			float f = 0F;
 
@@ -662,7 +637,6 @@ public class EntityBoat extends Entity {
 	}
 
 	public void updatePassenger(Entity passenger) {
-
 		if (isPassenger(passenger)) {
 			float f = 0F;
 			float f1 = (float) ((isDead ? 0.009999999776482582D : getMountedYOffset()) + passenger.getYOffset());
@@ -699,7 +673,6 @@ public class EntityBoat extends Entity {
 	 * Applies this boat's yaw to the given entity. Used to update the orientation of its passenger.
 	 */
 	protected void applyYawToEntity(Entity entityToUpdate) {
-
 		entityToUpdate.setRenderYawOffset(rotationYaw);
 		float f = MathHelper.wrapDegrees(entityToUpdate.rotationYaw - rotationYaw);
 		float f1 = MathHelper.clamp(f, -105F, 105F);
@@ -712,7 +685,6 @@ public class EntityBoat extends Entity {
 	 * Applies this entity's orientation (pitch/yaw) to another entity. Used to update passenger orientation.
 	 */
 	public void applyOrientationToEntity(Entity entityToUpdate) {
-
 		applyYawToEntity(entityToUpdate);
 	}
 
@@ -720,7 +692,6 @@ public class EntityBoat extends Entity {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	protected void writeEntityToNBT(NBTTagCompound compound) {
-
 		compound.setString("Type", getBoatType().getName());
 	}
 
@@ -728,14 +699,12 @@ public class EntityBoat extends Entity {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	protected void readEntityFromNBT(NBTTagCompound compound) {
-
 		if (compound.hasKey("Type", 8)) {
 			setBoatType(EntityBoat.Type.getTypeFromString(compound.getString("Type")));
 		}
 	}
 
 	public boolean processInitialInteract(EntityPlayer player, Hand hand) {
-
 		if (player.isSneaking()) {
 			return false;
 		} else {
@@ -748,7 +717,6 @@ public class EntityBoat extends Entity {
 	}
 
 	protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos) {
-
 		lastYd = motionY;
 
 		if (!isRiding()) {
@@ -784,7 +752,6 @@ public class EntityBoat extends Entity {
 	}
 
 	public boolean getPaddleState(int side) {
-
 		return dataManager.get(DATA_ID_PADDLE[side]) && getControllingPassenger() != null;
 	}
 
@@ -792,7 +759,6 @@ public class EntityBoat extends Entity {
 	 * Gets the damage taken from the last hit.
 	 */
 	public float getDamageTaken() {
-
 		return dataManager.get(DAMAGE_TAKEN);
 	}
 
@@ -800,7 +766,6 @@ public class EntityBoat extends Entity {
 	 * Sets the damage taken from the last hit.
 	 */
 	public void setDamageTaken(float damageTaken) {
-
 		dataManager.set(DAMAGE_TAKEN, damageTaken);
 	}
 
@@ -808,7 +773,6 @@ public class EntityBoat extends Entity {
 	 * Gets the time since the last hit.
 	 */
 	public int getTimeSinceHit() {
-
 		return dataManager.get(TIME_SINCE_HIT);
 	}
 
@@ -816,7 +780,6 @@ public class EntityBoat extends Entity {
 	 * Sets the time to count down from since the last time entity was hit.
 	 */
 	public void setTimeSinceHit(int timeSinceHit) {
-
 		dataManager.set(TIME_SINCE_HIT, timeSinceHit);
 	}
 
@@ -824,7 +787,6 @@ public class EntityBoat extends Entity {
 	 * Gets the forward direction of the entity.
 	 */
 	public int getForwardDirection() {
-
 		return dataManager.get(FORWARD_DIRECTION);
 	}
 
@@ -832,7 +794,6 @@ public class EntityBoat extends Entity {
 	 * Sets the forward direction of the entity.
 	 */
 	public void setForwardDirection(int forwardDirection) {
-
 		dataManager.set(FORWARD_DIRECTION, forwardDirection);
 	}
 
@@ -842,12 +803,10 @@ public class EntityBoat extends Entity {
 	}
 
 	public void setBoatType(EntityBoat.Type boatType) {
-
 		dataManager.set(BOAT_TYPE, boatType.ordinal());
 	}
 
 	protected boolean canFitPassenger(Entity passenger) {
-
 		return getPassengers().size() < 2;
 	}
 
@@ -858,13 +817,11 @@ public class EntityBoat extends Entity {
 	 * Pigs, Horses, and Boats are generally "steered" by the controlling passenger.
 	 */
 	public Entity getControllingPassenger() {
-
 		List<Entity> list = getPassengers();
 		return list.isEmpty() ? null : list.getFirst();
 	}
 
 	public void updateInputs(boolean p_184442_1_, boolean p_184442_2_, boolean p_184442_3_, boolean p_184442_4_) {
-
 		leftInputDown = p_184442_1_;
 		rightInputDown = p_184442_2_;
 		forwardInputDown = p_184442_3_;
@@ -891,7 +848,6 @@ public class EntityBoat extends Entity {
 		private final int metadata;
 
 		Type(int metadataIn, String nameIn) {
-
 			name = nameIn;
 			metadata = metadataIn;
 		}
@@ -917,17 +873,14 @@ public class EntityBoat extends Entity {
 		}
 
 		public String getName() {
-
 			return name;
 		}
 
 		public int getMetadata() {
-
 			return metadata;
 		}
 
 		public String toString() {
-
 			return name;
 		}
 	}

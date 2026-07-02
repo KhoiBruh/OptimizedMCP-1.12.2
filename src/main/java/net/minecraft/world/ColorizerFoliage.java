@@ -8,7 +8,6 @@ public class ColorizerFoliage {
 	private static int[] foliageBuffer = new int[65536];
 
 	public static void setFoliageBiomeColorizer(int[] foliageBufferIn) {
-
 		foliageBuffer = foliageBufferIn;
 	}
 
@@ -16,7 +15,6 @@ public class ColorizerFoliage {
 	 * Gets the color modifier to use for foliage.
 	 */
 	public static int getFoliageColor(double temperature, double humidity) {
-
 		humidity = humidity * temperature;
 		int i = (int) ((1D - temperature) * 255D);
 		int j = (int) ((1D - humidity) * 255D);
@@ -27,7 +25,6 @@ public class ColorizerFoliage {
 	 * Gets the foliage color for pine type (metadata 1) trees
 	 */
 	public static int getFoliageColorPine() {
-
 		return 6396257;
 	}
 
@@ -35,12 +32,10 @@ public class ColorizerFoliage {
 	 * Gets the foliage color for birch type (metadata 2) trees
 	 */
 	public static int getFoliageColorBirch() {
-
 		return 8431445;
 	}
 
 	public static int getFoliageColorBasic() {
-
 		return 4764952;
 	}
 

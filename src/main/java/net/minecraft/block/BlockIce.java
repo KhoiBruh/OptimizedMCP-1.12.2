@@ -21,7 +21,6 @@ import java.util.Random;
 public class BlockIce extends BlockBreakable {
 
 	public BlockIce() {
-
 		super(Material.ICE, false);
 		slipperiness = 0.98F;
 		setTickRandomly(true);
@@ -33,7 +32,6 @@ public class BlockIce extends BlockBreakable {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.TRANSLUCENT;
 	}
 
@@ -42,7 +40,6 @@ public class BlockIce extends BlockBreakable {
 	 * Block.removedByPlayer
 	 */
 	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
-
 		player.addStat(StatList.getBlockStats(this));
 		player.addExhaustion(0.005F);
 
@@ -68,19 +65,16 @@ public class BlockIce extends BlockBreakable {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return 0;
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if (worldIn.getLightFor(SkyBlock.BLOCK, pos) > 11 - getDefaultState().getLightOpacity()) {
 			turnIntoWater(worldIn, pos);
 		}
 	}
 
 	protected void turnIntoWater(World worldIn, BlockPos pos) {
-
 		if (worldIn.provider.doesWaterVaporize()) {
 			worldIn.setBlockToAir(pos);
 		} else {
@@ -91,7 +85,6 @@ public class BlockIce extends BlockBreakable {
 	}
 
 	public PushReaction getMobilityFlag(IBlockState state) {
-
 		return PushReaction.NORMAL;
 	}
 

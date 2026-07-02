@@ -21,14 +21,12 @@ public class LootingEnchantBonus extends LootFunction {
 	private final int limit;
 
 	public LootingEnchantBonus(LootCondition[] conditions, RandomValueRange countIn, int limitIn) {
-
 		super(conditions);
 		count = countIn;
 		limit = limitIn;
 	}
 
 	public ItemStack apply(ItemStack stack, Random rand, LootContext context) {
-
 		Entity entity = context.getKiller();
 
 		if (entity instanceof EntityLivingBase) {
@@ -52,12 +50,10 @@ public class LootingEnchantBonus extends LootFunction {
 	public static class Serializer extends LootFunction.Serializer<LootingEnchantBonus> {
 
 		protected Serializer() {
-
 			super(new ResourceLocation("looting_enchant"), LootingEnchantBonus.class);
 		}
 
 		public void serialize(JsonObject object, LootingEnchantBonus functionClazz, JsonSerializationContext serializationContext) {
-
 			object.add("count", serializationContext.serialize(functionClazz.count));
 
 			if (functionClazz.limit > 0) {
@@ -66,7 +62,6 @@ public class LootingEnchantBonus extends LootFunction {
 		}
 
 		public LootingEnchantBonus deserialize(JsonObject object, JsonDeserializationContext deserializationContext, LootCondition[] conditionsIn) {
-
 			int i = JsonUtils.getInt(object, "limit", 0);
 			return new LootingEnchantBonus(conditionsIn, JsonUtils.deserializeClass(object, "count", deserializationContext, RandomValueRange.class), i);
 		}

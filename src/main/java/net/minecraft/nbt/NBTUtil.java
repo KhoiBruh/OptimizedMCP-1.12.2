@@ -26,7 +26,6 @@ public final class NBTUtil {
 	 * Reads and returns a GameProfile that has been saved to the passed in NBTTagCompound
 	 */
 	public static GameProfile readGameProfileFromNBT(NBTTagCompound compound) {
-		
 		String s = null;
 		String s1 = null;
 		
@@ -79,7 +78,6 @@ public final class NBTUtil {
 	 * Writes a GameProfile to an NBTTagCompound.
 	 */
 	public static NBTTagCompound writeGameProfile(NBTTagCompound tagCompound, GameProfile profile) {
-		
 		if (!StringUtils.isNullOrEmpty(profile.getName())) {
 			tagCompound.setString("Name", profile.getName());
 		}
@@ -116,7 +114,6 @@ public final class NBTUtil {
 	
 	@VisibleForTesting
 	public static boolean areNBTEquals(NBTBase nbt1, NBTBase nbt2, boolean compareTagList) {
-		
 		if (nbt1 == nbt2) {
 			return true;
 		} else if (nbt1 == null) {
@@ -170,7 +167,6 @@ public final class NBTUtil {
 	 * Creates a new NBTTagCompound which stores a UUID.
 	 */
 	public static NBTTagCompound createUUIDTag(UUID uuid) {
-		
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 		nbttagcompound.setLong("M", uuid.getMostSignificantBits());
 		nbttagcompound.setLong("L", uuid.getLeastSignificantBits());
@@ -181,7 +177,6 @@ public final class NBTUtil {
 	 * Reads a UUID from the passed NBTTagCompound.
 	 */
 	public static UUID getUUIDFromTag(NBTTagCompound tag) {
-		
 		return new UUID(tag.getLong("M"), tag.getLong("L"));
 	}
 	
@@ -189,7 +184,6 @@ public final class NBTUtil {
 	 * Creates a BlockPos object from the data stored in the passed NBTTagCompound.
 	 */
 	public static BlockPos getPosFromTag(NBTTagCompound tag) {
-		
 		return new BlockPos(tag.getInteger("X"), tag.getInteger("Y"), tag.getInteger("Z"));
 	}
 	
@@ -197,7 +191,6 @@ public final class NBTUtil {
 	 * Creates a new NBTTagCompound from a BlockPos.
 	 */
 	public static NBTTagCompound createPosTag(BlockPos pos) {
-		
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 		nbttagcompound.setInteger("X", pos.getX());
 		nbttagcompound.setInteger("Y", pos.getY());
@@ -209,7 +202,6 @@ public final class NBTUtil {
 	 * Reads a blockstate from the given tag.
 	 */
 	public static IBlockState readBlockState(NBTTagCompound tag) {
-		
 		if (!tag.hasKey("Name", 8)) {
 			return Blocks.AIR.getDefaultState();
 		} else {
@@ -249,7 +241,6 @@ public final class NBTUtil {
 	 * Writes the given blockstate to the given tag.
 	 */
 	public static NBTTagCompound writeBlockState(NBTTagCompound tag, IBlockState state) {
-		
 		tag.setString("Name", Block.REGISTRY.getNameForObject(state.getBlock()).toString());
 		
 		if (!state.getProperties().isEmpty()) {

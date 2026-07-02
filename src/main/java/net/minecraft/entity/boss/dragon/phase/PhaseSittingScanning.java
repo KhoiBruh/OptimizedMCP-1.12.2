@@ -10,7 +10,6 @@ public class PhaseSittingScanning extends PhaseSittingBase {
 	private int scanningTime;
 
 	public PhaseSittingScanning(EntityDragon dragonIn) {
-
 		super(dragonIn);
 	}
 
@@ -19,7 +18,6 @@ public class PhaseSittingScanning extends PhaseSittingBase {
 	 * Called by dragon's onLivingUpdate. Only used when !worldObj.isRemote.
 	 */
 	public void doLocalUpdate() {
-
 		++scanningTime;
 		EntityLivingBase entitylivingbase = dragon.world.getNearestAttackablePlayer(dragon, 20D, 10D);
 
@@ -63,12 +61,10 @@ public class PhaseSittingScanning extends PhaseSittingBase {
 	 * Called when this phase is set to active
 	 */
 	public void initPhase() {
-
 		scanningTime = 0;
 	}
 
 	public PhaseList<PhaseSittingScanning> getType() {
-
 		return PhaseList.SITTING_SCANNING;
 	}
 

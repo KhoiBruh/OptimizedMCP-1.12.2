@@ -25,7 +25,6 @@ public class BlockFarmland extends Block {
 	protected static final AxisAlignedBB field_194405_c = new AxisAlignedBB(0D, 0.9375D, 0D, 1D, 1D, 1D);
 
 	protected BlockFarmland() {
-
 		super(Material.GROUND);
 		setDefaultState(blockState.getBaseState().withProperty(MOISTURE, 0));
 		setTickRandomly(true);
@@ -33,7 +32,6 @@ public class BlockFarmland extends Block {
 	}
 
 	protected static void turnToDirt(World p_190970_0_, BlockPos worldIn) {
-
 		p_190970_0_.setBlockState(worldIn, Blocks.DIRT.getDefaultState());
 		AxisAlignedBB axisalignedbb = field_194405_c.offset(worldIn);
 
@@ -44,7 +42,6 @@ public class BlockFarmland extends Block {
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return FARMLAND_AABB;
 	}
 
@@ -52,17 +49,14 @@ public class BlockFarmland extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		int i = state.getValue(MOISTURE);
 
 		if (!hasWater(worldIn, pos) && !worldIn.isRainingAt(pos.up())) {
@@ -80,7 +74,6 @@ public class BlockFarmland extends Block {
 	 * Block's chance to react to a living entity falling on it.
 	 */
 	public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
-
 		if (!worldIn.isRemote && worldIn.rand.nextFloat() < fallDistance - 0.5F && entityIn instanceof EntityLivingBase && (entityIn instanceof EntityPlayer || worldIn.getGameRules().getBoolean("mobGriefing")) && entityIn.width * entityIn.width * entityIn.height > 0.512F) {
 			turnToDirt(worldIn, pos);
 		}
@@ -89,13 +82,11 @@ public class BlockFarmland extends Block {
 	}
 
 	private boolean hasCrops(World worldIn, BlockPos pos) {
-
 		Block block = worldIn.getBlockState(pos.up()).getBlock();
 		return block instanceof BlockCrops || block instanceof BlockStem;
 	}
 
 	private boolean hasWater(World worldIn, BlockPos pos) {
-
 		for (BlockPos.MutableBlockPos blockpos$mutableblockpos : BlockPos.getAllInBoxMutable(pos.add(-4, 0, -4), pos.add(4, 1, 4))) {
 			if (worldIn.getBlockState(blockpos$mutableblockpos).getMaterial() == Material.WATER) {
 				return true;
@@ -111,7 +102,6 @@ public class BlockFarmland extends Block {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
 
 		if (worldIn.getBlockState(pos.up()).getMaterial().isSolid()) {
@@ -123,7 +113,6 @@ public class BlockFarmland extends Block {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		super.onBlockAdded(worldIn, pos, state);
 
 		if (worldIn.getBlockState(pos.up()).getMaterial().isSolid()) {
@@ -132,7 +121,6 @@ public class BlockFarmland extends Block {
 	}
 
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		switch (side) {
 			case UP:
 				return true;
@@ -154,7 +142,6 @@ public class BlockFarmland extends Block {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Blocks.DIRT.getItemDropped(Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT), rand, fortune);
 	}
 
@@ -162,7 +149,6 @@ public class BlockFarmland extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(MOISTURE, meta & 7);
 	}
 
@@ -170,12 +156,10 @@ public class BlockFarmland extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(MOISTURE);
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, MOISTURE);
 	}
 
@@ -189,7 +173,6 @@ public class BlockFarmland extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return face == Facing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 

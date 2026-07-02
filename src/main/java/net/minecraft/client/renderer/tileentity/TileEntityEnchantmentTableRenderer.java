@@ -15,7 +15,6 @@ public class TileEntityEnchantmentTableRenderer extends TileEntitySpecialRendere
 	private final ModelBook modelBook = new ModelBook();
 
 	public void render(TileEntityEnchantmentTable te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-
 		GLS.pushMatrix();
 		GLS.translate((float) x + 0.5F, (float) y + 0.75F, (float) z + 0.5F);
 		float f = (float) te.tickCount + partialTicks;

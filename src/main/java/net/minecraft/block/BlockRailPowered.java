@@ -16,14 +16,12 @@ public class BlockRailPowered extends BlockRailBase {
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
 
 	protected BlockRailPowered() {
-
 		super(true);
 		setDefaultState(blockState.getBaseState().withProperty(SHAPE, BlockRailBase.RailDirection.NORTH_SOUTH).withProperty(POWERED, false));
 	}
 
 	@SuppressWarnings("incomplete-switch")
 	protected boolean findPoweredRailSignal(World worldIn, BlockPos pos, IBlockState state, boolean p_176566_4_, int p_176566_5_) {
-
 		if (p_176566_5_ >= 8) {
 			return false;
 		} else {
@@ -109,7 +107,6 @@ public class BlockRailPowered extends BlockRailBase {
 	}
 
 	protected boolean isSameRailWithPower(World worldIn, BlockPos pos, boolean p_176567_3_, int distance, BlockRailBase.RailDirection p_176567_5_) {
-
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 
 		if (iblockstate.getBlock() != this) {
@@ -134,7 +131,6 @@ public class BlockRailPowered extends BlockRailBase {
 	}
 
 	protected void updateState(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
-
 		boolean flag = state.getValue(POWERED);
 		boolean flag1 = worldIn.isBlockPowered(pos) || findPoweredRailSignal(worldIn, pos, state, true, 0) || findPoweredRailSignal(worldIn, pos, state, false, 0);
 
@@ -157,7 +153,6 @@ public class BlockRailPowered extends BlockRailBase {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(SHAPE, BlockRailBase.RailDirection.byMetadata(meta & 7)).withProperty(POWERED, (meta & 8) > 0);
 	}
 
@@ -165,7 +160,6 @@ public class BlockRailPowered extends BlockRailBase {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 		i = i | state.getValue(SHAPE).getMetadata();
 
@@ -183,7 +177,6 @@ public class BlockRailPowered extends BlockRailBase {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		switch (rot) {
 			case CLOCKWISE_180:
 				switch (state.getValue(SHAPE)) {
@@ -252,7 +245,6 @@ public class BlockRailPowered extends BlockRailBase {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		BlockRailBase.RailDirection blockrailbase$enumraildirection = state.getValue(SHAPE);
 
 		switch (mirrorIn) {
@@ -298,7 +290,6 @@ public class BlockRailPowered extends BlockRailBase {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, SHAPE, POWERED);
 	}
 

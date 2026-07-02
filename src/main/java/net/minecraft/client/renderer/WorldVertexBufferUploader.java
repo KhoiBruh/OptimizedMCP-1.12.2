@@ -9,7 +9,6 @@ import java.util.List;
 public class WorldVertexBufferUploader {
 
 	public void draw(BufferBuilder bufferBuilderIn) {
-
 		if (bufferBuilderIn.getVertexCount() > 0) {
 			VertexFormat vertexformat = bufferBuilderIn.getVertexFormat();
 			int i = vertexformat.getNextOffset();

@@ -57,17 +57,14 @@ public class FlatPresetsScreen extends Screen {
 	private GuiTextField export;
 
 	public FlatPresetsScreen(CreateFlatWorldScreen p_i46318_1_) {
-
 		parentScreen = p_i46318_1_;
 	}
 
 	private static void registerPreset(String name, Item icon, Biome biome, List<String> features, FlatLayerInfo... layers) {
-
 		registerPreset(name, icon, 0, biome, features, layers);
 	}
 
 	private static void registerPreset(String name, Item icon, int iconMetadata, Biome biome, List<String> features, FlatLayerInfo... layers) {
-
 		FlatGeneratorInfo flatgeneratorinfo = new FlatGeneratorInfo();
 
 		for (int i = layers.length - 1; i >= 0; --i) {
@@ -89,7 +86,6 @@ public class FlatPresetsScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		buttons.clear();
 		Keyboard.setRepeat(true);
 		presetsTitle = I18n.format("createWorld.customize.presets.title");
@@ -108,7 +104,6 @@ public class FlatPresetsScreen extends Screen {
 	 * Handles mouse input.
 	 */
 	public void handleMouse() throws IOException {
-
 		super.handleMouse();
 		list.handleMouseInput();
 	}
@@ -117,7 +112,6 @@ public class FlatPresetsScreen extends Screen {
 	 * Called when the screen is unloaded. Used to disable keyboard repeat events
 	 */
 	public void close() {
-
 		Keyboard.setRepeat(false);
 	}
 
@@ -125,7 +119,6 @@ public class FlatPresetsScreen extends Screen {
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
-
 		export.mouseClicked(mouseX, mouseY, mouse);
 		super.mouseClicked(mouseX, mouseY, mouse);
 	}
@@ -135,7 +128,6 @@ public class FlatPresetsScreen extends Screen {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-
 		if (!export.textboxKeyTyped(typedChar, keyCode)) {
 			super.keyTyped(typedChar, keyCode);
 		}
@@ -145,7 +137,6 @@ public class FlatPresetsScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.id == 0 && hasValidSelection()) {
 			parentScreen.setPreset(export.getText());
 			mc.displayScreen(parentScreen);
@@ -158,7 +149,6 @@ public class FlatPresetsScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		list.drawScreen(mouseX, mouseY, partialTicks);
 		drawCenteredString(fontRenderer, presetsTitle, width / 2, 8, 16777215);
@@ -172,18 +162,15 @@ public class FlatPresetsScreen extends Screen {
 	 * Called from the main game loop to update the screen.
 	 */
 	public void update() {
-
 		export.updateCursorCounter();
 		super.update();
 	}
 
 	public void updateButtonValidity() {
-
 		btnSelect.enabled = hasValidSelection();
 	}
 
 	private boolean hasValidSelection() {
-
 		return list.selected > -1 && list.selected < FLAT_WORLD_PRESETS.size() || export.getText().length() > 1;
 	}
 
@@ -195,7 +182,6 @@ public class FlatPresetsScreen extends Screen {
 		public String generatorInfo;
 
 		public LayerItem(Item iconIn, int iconMetadataIn, String nameIn, String generatorInfoIn) {
-
 			icon = iconIn;
 			iconMetadata = iconMetadataIn;
 			name = nameIn;
@@ -209,12 +195,10 @@ public class FlatPresetsScreen extends Screen {
 		public int selected = -1;
 
 		public ListSlot() {
-
 			super(FlatPresetsScreen.this.mc, FlatPresetsScreen.this.width, FlatPresetsScreen.this.height, 80, FlatPresetsScreen.this.height - 37, 24);
 		}
 
 		private void renderIcon(int p_178054_1_, int p_178054_2_, Item icon, int iconMetadata) {
-
 			blitSlotBg(p_178054_1_ + 1, p_178054_2_ + 1);
 			GLS.enableRescaleNormal();
 			RenderHelper.enableGUIStandardItemLighting();
@@ -224,12 +208,10 @@ public class FlatPresetsScreen extends Screen {
 		}
 
 		private void blitSlotBg(int p_148173_1_, int p_148173_2_) {
-
 			blitSlotIcon(p_148173_1_, p_148173_2_, 0, 0);
 		}
 
 		private void blitSlotIcon(int p_148171_1_, int p_148171_2_, int p_148171_3_, int p_148171_4_) {
-
 			GLS.color(1F, 1F, 1F, 1F);
 			mc.getTextureManager().bindTexture(Gui.STAT_ICONS);
 			float f = 0.0078125F;
@@ -247,28 +229,23 @@ public class FlatPresetsScreen extends Screen {
 		}
 
 		protected int getSize() {
-
 			return FlatPresetsScreen.FLAT_WORLD_PRESETS.size();
 		}
 
 		protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
-
 			selected = slotIndex;
 			updateButtonValidity();
 			export.setText((FlatPresetsScreen.FLAT_WORLD_PRESETS.get(list.selected)).generatorInfo);
 		}
 
 		protected boolean isSelected(int slotIndex) {
-
 			return slotIndex == selected;
 		}
 
 		protected void drawBackground() {
-
 		}
 
 		protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks) {
-
 			FlatPresetsScreen.LayerItem guiflatpresets$layeritem = FlatPresetsScreen.FLAT_WORLD_PRESETS.get(slotIndex);
 			renderIcon(xPos, yPos, guiflatpresets$layeritem.icon, guiflatpresets$layeritem.iconMetadata);
 			fontRenderer.drawString(guiflatpresets$layeritem.name, xPos + 18 + 5, yPos + 6, 16777215);

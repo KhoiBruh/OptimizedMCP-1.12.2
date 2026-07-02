@@ -20,7 +20,6 @@ public class BlockColors {
 	private final ObjectIntIdentityMap<IBlockColor> mapBlockColors = new ObjectIntIdentityMap<>(32);
 
 	public static BlockColors init() {
-
 		final BlockColors blockcolors = new BlockColors();
 		blockcolors.registerBlockColorHandler((state, worldIn, pos, tintIndex) -> {
 
@@ -82,7 +81,6 @@ public class BlockColors {
 	}
 
 	public int getColor(IBlockState state, World p_189991_2_, BlockPos p_189991_3_) {
-
 		IBlockColor iblockcolor = mapBlockColors.getByValue(Block.getIdFromBlock(state.getBlock()));
 
 		if (iblockcolor != null) {
@@ -94,13 +92,11 @@ public class BlockColors {
 	}
 
 	public int colorMultiplier(IBlockState state, IBlockAccess blockAccess, BlockPos pos, int renderPass) {
-
 		IBlockColor iblockcolor = mapBlockColors.getByValue(Block.getIdFromBlock(state.getBlock()));
 		return iblockcolor == null ? -1 : iblockcolor.colorMultiplier(state, blockAccess, pos, renderPass);
 	}
 
 	public void registerBlockColorHandler(IBlockColor blockColor, Block... blocksIn) {
-
 		for (Block block : blocksIn) {
 			mapBlockColors.put(blockColor, Block.getIdFromBlock(block));
 		}

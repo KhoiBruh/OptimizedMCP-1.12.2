@@ -1112,7 +1112,6 @@ public class SoundEvents {
 	}
 
 	private static SoundEvent getRegisteredSoundEvent(String id) {
-
 		SoundEvent soundevent = SoundEvent.REGISTRY.getObject(new ResourceLocation(id));
 
 		if (soundevent == null) {

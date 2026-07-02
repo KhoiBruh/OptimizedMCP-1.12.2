@@ -14,11 +14,9 @@ public class SPacketBlockChange implements Packet<INetHandlerPlayClient> {
 	private IBlockState blockState;
 
 	public SPacketBlockChange() {
-
 	}
 
 	public SPacketBlockChange(World worldIn, BlockPos posIn) {
-
 		blockPosition = posIn;
 		blockState = worldIn.getBlockState(posIn);
 	}
@@ -27,7 +25,6 @@ public class SPacketBlockChange implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		blockPosition = buf.readBlockPos();
 		blockState = Block.BLOCK_STATE_IDS.getByValue(buf.readVarInt());
 	}
@@ -36,7 +33,6 @@ public class SPacketBlockChange implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeBlockPos(blockPosition);
 		buf.writeVarInt(Block.BLOCK_STATE_IDS.get(blockState));
 	}
@@ -45,17 +41,14 @@ public class SPacketBlockChange implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleBlockChange(this);
 	}
 
 	public IBlockState getBlockState() {
-
 		return blockState;
 	}
 
 	public BlockPos getBlockPosition() {
-
 		return blockPosition;
 	}
 

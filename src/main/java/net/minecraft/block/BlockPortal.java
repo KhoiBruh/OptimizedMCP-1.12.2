@@ -31,14 +31,12 @@ public class BlockPortal extends BlockBreakable {
 	protected static final AxisAlignedBB Y_AABB = new AxisAlignedBB(0.375D, 0D, 0.375D, 0.625D, 1D, 0.625D);
 
 	public BlockPortal() {
-
 		super(Material.PORTAL, false);
 		setDefaultState(blockState.getBaseState().withProperty(AXIS, Facing.Axis.X));
 		setTickRandomly(true);
 	}
 
 	public static int getMetaForAxis(Facing.Axis axis) {
-
 		if (axis == Facing.Axis.X) {
 			return 1;
 		} else {
@@ -47,7 +45,6 @@ public class BlockPortal extends BlockBreakable {
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return switch (state.getValue(AXIS)) {
 			case X -> X_AABB;
 			case Z -> Z_AABB;
@@ -56,7 +53,6 @@ public class BlockPortal extends BlockBreakable {
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		super.updateTick(worldIn, pos, state, rand);
 
 		if (worldIn.provider.isSurfaceWorld() && worldIn.getGameRules().getBoolean("doMobSpawning") && rand.nextInt(2000) < worldIn.getDifficulty().getDifficultyId()) {
@@ -78,17 +74,14 @@ public class BlockPortal extends BlockBreakable {
 
 	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-
 		return NULL_AABB;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean trySpawnPortal(World worldIn, BlockPos pos) {
-
 		BlockPortal.Size blockportal$size = new BlockPortal.Size(worldIn, pos, Facing.Axis.X);
 
 		if (blockportal$size.isValid() && blockportal$size.portalBlockCount == 0) {
@@ -112,7 +105,6 @@ public class BlockPortal extends BlockBreakable {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		Facing.Axis enumfacing$axis = state.getValue(AXIS);
 
 		if (enumfacing$axis == Facing.Axis.X) {
@@ -131,7 +123,6 @@ public class BlockPortal extends BlockBreakable {
 	}
 
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		pos = pos.offset(side);
 		Facing.Axis enumfacing$axis = null;
 
@@ -173,7 +164,6 @@ public class BlockPortal extends BlockBreakable {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return 0;
 	}
 
@@ -182,7 +172,6 @@ public class BlockPortal extends BlockBreakable {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.TRANSLUCENT;
 	}
 
@@ -190,14 +179,12 @@ public class BlockPortal extends BlockBreakable {
 	 * Called When an Entity Collided with the Block
 	 */
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-
 		if (!entityIn.isRiding() && !entityIn.isBeingRidden() && entityIn.isNonBoss()) {
 			entityIn.setPortal(pos);
 		}
 	}
 
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-
 		if (rand.nextInt(100) == 0) {
 			worldIn.playSound((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, SoundEvents.BLOCK_PORTAL_AMBIENT, SoundCategory.BLOCKS, 0.5F, rand.nextFloat() * 0.4F + 0.8F, false);
 		}
@@ -224,7 +211,6 @@ public class BlockPortal extends BlockBreakable {
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return ItemStack.EMPTY;
 	}
 
@@ -232,7 +218,6 @@ public class BlockPortal extends BlockBreakable {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(AXIS, (meta & 3) == 2 ? Facing.Axis.Z : Facing.Axis.X);
 	}
 
@@ -240,7 +225,6 @@ public class BlockPortal extends BlockBreakable {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return getMetaForAxis(state.getValue(AXIS));
 	}
 
@@ -249,7 +233,6 @@ public class BlockPortal extends BlockBreakable {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return switch (rot) {
 			case COUNTERCLOCKWISE_90, CLOCKWISE_90 -> switch (state.getValue(AXIS)) {
 				case X -> state.withProperty(AXIS, Facing.Axis.Z);
@@ -261,7 +244,6 @@ public class BlockPortal extends BlockBreakable {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, AXIS);
 	}
 
@@ -319,7 +301,6 @@ public class BlockPortal extends BlockBreakable {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 
@@ -335,7 +316,6 @@ public class BlockPortal extends BlockBreakable {
 		private int width;
 
 		public Size(World worldIn, BlockPos p_i45694_2_, Facing.Axis p_i45694_3_) {
-
 			world = worldIn;
 			axis = p_i45694_3_;
 
@@ -368,7 +348,6 @@ public class BlockPortal extends BlockBreakable {
 		}
 
 		protected int getDistanceUntilEdge(BlockPos p_180120_1_, Facing p_180120_2_) {
-
 			int i;
 
 			for (i = 0; i < 22; ++i) {
@@ -384,17 +363,14 @@ public class BlockPortal extends BlockBreakable {
 		}
 
 		public int getHeight() {
-
 			return height;
 		}
 
 		public int getWidth() {
-
 			return width;
 		}
 
 		protected int calculatePortalHeight() {
-
 			label56:
 
 			for (height = 0; height < 21; ++height) {
@@ -444,17 +420,14 @@ public class BlockPortal extends BlockBreakable {
 		}
 
 		protected boolean isEmptyBlock(Block blockIn) {
-
 			return blockIn.blockMaterial == Material.AIR || blockIn == Blocks.FIRE || blockIn == Blocks.PORTAL;
 		}
 
 		public boolean isValid() {
-
 			return bottomLeft != null && width >= 2 && width <= 21 && height >= 3 && height <= 21;
 		}
 
 		public void placePortalBlocks() {
-
 			for (int i = 0; i < width; ++i) {
 				BlockPos blockpos = bottomLeft.offset(rightDir, i);
 

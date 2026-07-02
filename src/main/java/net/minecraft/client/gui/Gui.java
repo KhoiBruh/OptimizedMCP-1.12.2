@@ -18,7 +18,6 @@ public class Gui {
 	 * Draws a solid color rectangle with the specified coordinates and color.
 	 */
 	public static void drawRect(int left, int top, int right, int bottom, int color) {
-
 		if (left < right) {
 			int i = left;
 			left = right;
@@ -55,7 +54,6 @@ public class Gui {
 	 * Draws a textured rectangle at z = 0. Args: x, y, u, v, width, height, textureWidth, textureHeight
 	 */
 	public static void drawModalRectWithCustomSizedTexture(int x, int y, float u, float v, int width, int height, float textureWidth, float textureHeight) {
-
 		float f = 1F / textureWidth;
 		float f1 = 1F / textureHeight;
 		Tessellator tessellator = Tessellator.getInstance();
@@ -72,7 +70,6 @@ public class Gui {
 	 * Draws a scaled, textured, tiled modal rect at z = 0. This method isn't used anywhere in vanilla code.
 	 */
 	public static void drawScaledCustomSizeModalRect(int x, int y, float u, float v, int uWidth, int vHeight, int width, int height, float tileWidth, float tileHeight) {
-
 		float f = 1F / tileWidth;
 		float f1 = 1F / tileHeight;
 		Tessellator tessellator = Tessellator.getInstance();
@@ -89,7 +86,6 @@ public class Gui {
 	 * Draws a thin horizontal line between two points.
 	 */
 	protected void drawHorizontalLine(int startX, int endX, int y, int color) {
-
 		if (endX < startX) {
 			int i = startX;
 			startX = endX;
@@ -103,7 +99,6 @@ public class Gui {
 	 * Draw a 1 pixel wide vertical line. Args : x, y1, y2, color
 	 */
 	protected void drawVerticalLine(int x, int startY, int endY, int color) {
-
 		if (endY < startY) {
 			int i = startY;
 			startY = endY;
@@ -118,7 +113,6 @@ public class Gui {
 	 * topColor, bottomColor
 	 */
 	protected void drawGradientRect(int left, int top, int right, int bottom, int startColor, int endColor) {
-
 		float f = (float) (startColor >> 24 & 255) / 255F;
 		float f1 = (float) (startColor >> 16 & 255) / 255F;
 		float f2 = (float) (startColor >> 8 & 255) / 255F;
@@ -150,7 +144,6 @@ public class Gui {
 	 * Renders the specified text to the screen, center-aligned. Args : renderer, string, x, y, color
 	 */
 	public void drawCenteredString(FontRenderer fontRendererIn, String text, int x, int y, int color) {
-
 		fontRendererIn.drawStringWithShadow(text, (float) (x - fontRendererIn.getStringWidth(text) / 2), (float) y, color);
 	}
 
@@ -158,7 +151,6 @@ public class Gui {
 	 * Renders the specified text to the screen. Args : renderer, string, x, y, color
 	 */
 	public void drawString(FontRenderer fontRendererIn, String text, int x, int y, int color) {
-
 		fontRendererIn.drawStringWithShadow(text, (float) x, (float) y, color);
 	}
 
@@ -166,7 +158,6 @@ public class Gui {
 	 * Draws a textured rectangle at the current z-value.
 	 */
 	public void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height) {
-
 		float f = 0.00390625F;
 		float f1 = 0.00390625F;
 		Tessellator tessellator = Tessellator.getInstance();
@@ -183,7 +174,6 @@ public class Gui {
 	 * Draws a textured rectangle using the texture currently bound to the TextureManager
 	 */
 	public void drawTexturedModalRect(float xCoord, float yCoord, int minU, int minV, int maxU, int maxV) {
-
 		float f = 0.00390625F;
 		float f1 = 0.00390625F;
 		Tessellator tessellator = Tessellator.getInstance();
@@ -200,7 +190,6 @@ public class Gui {
 	 * Draws a texture rectangle using the texture currently bound to the TextureManager
 	 */
 	public void drawTexturedModalRect(int xCoord, int yCoord, TextureAtlasSprite textureSprite, int widthIn, int heightIn) {
-
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);

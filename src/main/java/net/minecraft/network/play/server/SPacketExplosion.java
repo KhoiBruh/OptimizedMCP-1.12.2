@@ -21,11 +21,9 @@ public class SPacketExplosion implements Packet<INetHandlerPlayClient> {
 	private float motionZ;
 
 	public SPacketExplosion() {
-
 	}
 
 	public SPacketExplosion(double xIn, double yIn, double zIn, float strengthIn, List<BlockPos> affectedBlockPositionsIn, Vec3d motion) {
-
 		posX = xIn;
 		posY = yIn;
 		posZ = zIn;
@@ -43,7 +41,6 @@ public class SPacketExplosion implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		posX = buf.readFloat();
 		posY = buf.readFloat();
 		posZ = buf.readFloat();
@@ -70,7 +67,6 @@ public class SPacketExplosion implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeFloat((float) posX);
 		buf.writeFloat((float) posY);
 		buf.writeFloat((float) posZ);
@@ -98,47 +94,38 @@ public class SPacketExplosion implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleExplosion(this);
 	}
 
 	public float getMotionX() {
-
 		return motionX;
 	}
 
 	public float getMotionY() {
-
 		return motionY;
 	}
 
 	public float getMotionZ() {
-
 		return motionZ;
 	}
 
 	public double getX() {
-
 		return posX;
 	}
 
 	public double getY() {
-
 		return posY;
 	}
 
 	public double getZ() {
-
 		return posZ;
 	}
 
 	public float getStrength() {
-
 		return strength;
 	}
 
 	public List<BlockPos> getAffectedBlockPositions() {
-
 		return affectedBlockPositions;
 	}
 

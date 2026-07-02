@@ -16,7 +16,6 @@ public class ButtonList extends Button {
 	private boolean value;
 
 	public ButtonList(GuiPageButtonList.GuiResponder responder, int buttonId, int x, int y, String localizationStrIn, boolean valueIn) {
-
 		super(buttonId, x, y, 150, 20, "");
 		localizationStr = localizationStrIn;
 		value = valueIn;
@@ -28,12 +27,10 @@ public class ButtonList extends Button {
 	 * Builds the localized display string for this GuiListButton
 	 */
 	private String buildDisplayString() {
-
 		return I18n.format(localizationStr) + ": " + I18n.format(value ? "gui.yes" : "gui.no");
 	}
 
 	public void setValue(boolean valueIn) {
-
 		value = valueIn;
 		displayString = buildDisplayString();
 		guiResponder.setEntryValue(id, valueIn);
@@ -44,7 +41,6 @@ public class ButtonList extends Button {
 	 * e).
 	 */
 	public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
-
 		if (super.mousePressed(mc, mouseX, mouseY)) {
 			value = !value;
 			displayString = buildDisplayString();

@@ -10,11 +10,9 @@ public class SPacketTimeUpdate implements Packet<INetHandlerPlayClient> {
 	private long worldTime;
 
 	public SPacketTimeUpdate() {
-
 	}
 
 	public SPacketTimeUpdate(long totalWorldTimeIn, long worldTimeIn, boolean doDaylightCycle) {
-
 		totalWorldTime = totalWorldTimeIn;
 		worldTime = worldTimeIn;
 
@@ -31,7 +29,6 @@ public class SPacketTimeUpdate implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		totalWorldTime = buf.readLong();
 		worldTime = buf.readLong();
 	}
@@ -40,7 +37,6 @@ public class SPacketTimeUpdate implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeLong(totalWorldTime);
 		buf.writeLong(worldTime);
 	}
@@ -49,17 +45,14 @@ public class SPacketTimeUpdate implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleTimeUpdate(this);
 	}
 
 	public long getTotalWorldTime() {
-
 		return totalWorldTime;
 	}
 
 	public long getWorldTime() {
-
 		return worldTime;
 	}
 

@@ -35,7 +35,6 @@ public abstract class Enchantment {
 	protected String name;
 
 	protected Enchantment(Enchantment.Rarity rarityIn, EnchantmentType typeIn, EntityEquipmentSlot[] slots) {
-
 		rarity = rarityIn;
 		type = typeIn;
 		applicableEquipmentTypes = slots;
@@ -47,7 +46,6 @@ public abstract class Enchantment {
 	 * Gets an Enchantment from the registry, based on a numeric ID.
 	 */
 	public static Enchantment getEnchantmentByID(int id) {
-
 		return REGISTRY.getObjectById(id);
 	}
 
@@ -55,7 +53,6 @@ public abstract class Enchantment {
 	 * Gets the numeric ID for the passed enchantment.
 	 */
 	public static int getEnchantmentID(Enchantment enchantmentIn) {
-
 		return REGISTRY.getIDForObject(enchantmentIn);
 	}
 
@@ -65,7 +62,6 @@ public abstract class Enchantment {
 	 * Retrieves an enchantment by using its location name.
 	 */
 	public static Enchantment getEnchantmentByLocation(String location) {
-
 		return REGISTRY.getObject(new ResourceLocation(location));
 	}
 
@@ -73,7 +69,6 @@ public abstract class Enchantment {
 	 * Registers all of the vanilla enchantments.
 	 */
 	public static void registerEnchantments() {
-
 		EntityEquipmentSlot[] aentityequipmentslot = new EntityEquipmentSlot[]{EntityEquipmentSlot.HEAD, EntityEquipmentSlot.CHEST, EntityEquipmentSlot.LEGS, EntityEquipmentSlot.FEET};
 		REGISTRY.register(0, new ResourceLocation("protection"), new EnchantmentProtection(Enchantment.Rarity.COMMON, EnchantmentProtection.Type.ALL, aentityequipmentslot));
 		REGISTRY.register(1, new ResourceLocation("fire_protection"), new EnchantmentProtection(Enchantment.Rarity.UNCOMMON, EnchantmentProtection.Type.FIRE, aentityequipmentslot));
@@ -108,7 +103,6 @@ public abstract class Enchantment {
 	}
 
 	public List<ItemStack> getEntityEquipment(EntityLivingBase entityIn) {
-
 		List<ItemStack> list = Lists.newArrayList();
 
 		for (EntityEquipmentSlot entityequipmentslot : applicableEquipmentTypes) {
@@ -135,7 +129,6 @@ public abstract class Enchantment {
 	 * Returns the minimum level that the enchantment can have.
 	 */
 	public int getMinLevel() {
-
 		return 1;
 	}
 
@@ -143,7 +136,6 @@ public abstract class Enchantment {
 	 * Returns the maximum level that the enchantment can have.
 	 */
 	public int getMaxLevel() {
-
 		return 1;
 	}
 
@@ -151,7 +143,6 @@ public abstract class Enchantment {
 	 * Returns the minimal value of enchantability needed on the enchantment level passed.
 	 */
 	public int getMinEnchantability(int enchantmentLevel) {
-
 		return 1 + enchantmentLevel * 10;
 	}
 
@@ -159,7 +150,6 @@ public abstract class Enchantment {
 	 * Returns the maximum value of enchantability nedded on the enchantment level passed.
 	 */
 	public int getMaxEnchantability(int enchantmentLevel) {
-
 		return getMinEnchantability(enchantmentLevel) + 5;
 	}
 
@@ -167,7 +157,6 @@ public abstract class Enchantment {
 	 * Calculates the damage protection of the enchantment based on level and damage source passed.
 	 */
 	public int calcModifierDamage(int level, DamageSource source) {
-
 		return 0;
 	}
 
@@ -176,12 +165,10 @@ public abstract class Enchantment {
 	 * calcModifierDamage is sensitive to the targets CreatureAttribute.
 	 */
 	public float calcDamageByCreature(int level, CreatureAttribute creatureType) {
-
 		return 0F;
 	}
 
 	public final boolean isCompatibleWith(Enchantment p_191560_1_) {
-
 		return canApplyTogether(p_191560_1_) && p_191560_1_.canApplyTogether(this);
 	}
 
@@ -189,7 +176,6 @@ public abstract class Enchantment {
 	 * Determines if the enchantment passed can be applyied together with this enchantment.
 	 */
 	protected boolean canApplyTogether(Enchantment ench) {
-
 		return this != ench;
 	}
 
@@ -197,7 +183,6 @@ public abstract class Enchantment {
 	 * Return the name of key in translation table of this enchantment.
 	 */
 	public String getName() {
-
 		return "enchantment." + name;
 	}
 
@@ -205,7 +190,6 @@ public abstract class Enchantment {
 	 * Sets the enchantment name
 	 */
 	public Enchantment setName(String enchName) {
-
 		name = enchName;
 		return this;
 	}
@@ -214,7 +198,6 @@ public abstract class Enchantment {
 	 * Returns the correct traslated name of the enchantment and the level in roman numbers.
 	 */
 	public String getTranslatedName(int level) {
-
 		String s = I18n.translateToLocal(getName());
 
 		if (isCurse()) {
@@ -228,7 +211,6 @@ public abstract class Enchantment {
 	 * Determines if this enchantment can be applied to a specific ItemStack.
 	 */
 	public boolean canApply(ItemStack stack) {
-
 		return type.canEnchantItem(stack.getItem());
 	}
 
@@ -236,7 +218,6 @@ public abstract class Enchantment {
 	 * Called whenever a mob is damaged with an item that has this enchantment on it.
 	 */
 	public void onEntityDamaged(EntityLivingBase user, Entity target, int level) {
-
 	}
 
 	/**
@@ -244,16 +225,13 @@ public abstract class Enchantment {
 	 * called.
 	 */
 	public void onUserHurt(EntityLivingBase user, Entity attacker, int level) {
-
 	}
 
 	public boolean isTreasureEnchantment() {
-
 		return false;
 	}
 
 	public boolean isCurse() {
-
 		return false;
 	}
 
@@ -266,12 +244,10 @@ public abstract class Enchantment {
 		private final int weight;
 
 		Rarity(int rarityWeight) {
-
 			weight = rarityWeight;
 		}
 
 		public int getWeight() {
-
 			return weight;
 		}
 	}

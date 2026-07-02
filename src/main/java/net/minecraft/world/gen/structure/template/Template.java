@@ -45,12 +45,10 @@ public class Template {
 	private String author = "?";
 
 	public static BlockPos transformedBlockPos(PlacementSettings placementIn, BlockPos pos) {
-
 		return transformedBlockPos(pos, placementIn.getMirror(), placementIn.getRotation());
 	}
 
 	private static BlockPos transformedBlockPos(BlockPos pos, Mirror mirrorIn, Rotation rotationIn) {
-
 		int i = pos.getX();
 		int j = pos.getY();
 		int k = pos.getZ();
@@ -78,7 +76,6 @@ public class Template {
 	}
 
 	private static Vec3d transformedVec3d(Vec3d vec, Mirror mirrorIn, Rotation rotationIn) {
-
 		double d0 = vec.x();
 		double d1 = vec.y();
 		double d2 = vec.z();
@@ -106,7 +103,6 @@ public class Template {
 	}
 
 	public static BlockPos getZeroPositionWithTransform(BlockPos p_191157_0_, Mirror p_191157_1_, Rotation p_191157_2_, int p_191157_3_, int p_191157_4_) {
-
 		--p_191157_3_;
 		--p_191157_4_;
 		int i = p_191157_1_ == Mirror.FRONT_BACK ? p_191157_3_ : 0;
@@ -121,7 +117,6 @@ public class Template {
 	}
 
 	public static void registerFixes(DataFixer fixer) {
-
 		fixer.registerWalker(FixTypes.STRUCTURE, (fixer1, compound, versionIn) -> {
 
 			if (compound.hasKey("entities", 9)) {
@@ -153,17 +148,14 @@ public class Template {
 	}
 
 	public BlockPos getSize() {
-
 		return size;
 	}
 
 	public String getAuthor() {
-
 		return author;
 	}
 
 	public void setAuthor(String authorIn) {
-
 		author = authorIn;
 	}
 
@@ -171,7 +163,6 @@ public class Template {
 	 * takes blocks from the world and puts the data them into this template
 	 */
 	public void takeBlocksFromWorld(World worldIn, BlockPos startPos, BlockPos endPos, boolean takeEntities, Block toIgnore) {
-
 		if (endPos.getX() >= 1 && endPos.getY() >= 1 && endPos.getZ() >= 1) {
 			BlockPos blockpos = startPos.add(endPos).add(-1, -1, -1);
 			List<Template.BlockInfo> list = Lists.newArrayList();
@@ -219,7 +210,6 @@ public class Template {
 	 * takes blocks from the world and puts the data them into this template
 	 */
 	private void takeEntitiesFromWorld(World worldIn, BlockPos startPos, BlockPos endPos) {
-
 		List<Entity> list = worldIn.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(startPos, endPos), p_apply_1_ -> !(p_apply_1_ instanceof EntityPlayer));
 		entities.clear();
 
@@ -264,7 +254,6 @@ public class Template {
 	}
 
 	public BlockPos calculateConnectedPos(PlacementSettings placementIn, BlockPos p_186262_2_, PlacementSettings p_186262_3_, BlockPos p_186262_4_) {
-
 		BlockPos blockpos = transformedBlockPos(placementIn, p_186262_2_);
 		BlockPos blockpos1 = transformedBlockPos(p_186262_3_, p_186262_4_);
 		return blockpos.subtract(blockpos1);
@@ -279,7 +268,6 @@ public class Template {
 	 * @see PlacementSettings#setBoundingBoxFromChunk
 	 */
 	public void addBlocksToWorldChunk(World worldIn, BlockPos pos, PlacementSettings placementIn) {
-
 		placementIn.setBoundingBoxFromChunk();
 		addBlocksToWorld(worldIn, pos, placementIn);
 	}
@@ -292,7 +280,6 @@ public class Template {
 	 * @param placementIn Placement settings to use
 	 */
 	public void addBlocksToWorld(World worldIn, BlockPos pos, PlacementSettings placementIn) {
-
 		addBlocksToWorld(worldIn, pos, new BlockRotationProcessor(pos, placementIn), placementIn, 2);
 	}
 
@@ -305,7 +292,6 @@ public class Template {
 	 * @param flags       Flags to pass to {@link World#setBlockState(BlockPos, IBlockState, int)}
 	 */
 	public void addBlocksToWorld(World worldIn, BlockPos pos, PlacementSettings placementIn, int flags) {
-
 		addBlocksToWorld(worldIn, pos, new BlockRotationProcessor(pos, placementIn), placementIn, flags);
 	}
 
@@ -319,7 +305,6 @@ public class Template {
 	 * @param flags             Flags to pass to {@link World#setBlockState(BlockPos, IBlockState, int)}
 	 */
 	public void addBlocksToWorld(World worldIn, BlockPos pos, ITemplateProcessor templateProcessor, PlacementSettings placementIn, int flags) {
-
 		if ((!blocks.isEmpty() || !placementIn.getIgnoreEntities() && !entities.isEmpty()) && size.getX() >= 1 && size.getY() >= 1 && size.getZ() >= 1) {
 			Block block = placementIn.getReplacedBlock();
 			StructureBoundingBox structureboundingbox = placementIn.getBoundingBox();
@@ -388,7 +373,6 @@ public class Template {
 	}
 
 	private void addEntitiesToWorld(World worldIn, BlockPos pos, Mirror mirrorIn, Rotation rotationIn, StructureBoundingBox aabb) {
-
 		for (Template.EntityInfo template$entityinfo : entities) {
 			BlockPos blockpos = transformedBlockPos(template$entityinfo.blockPos, mirrorIn, rotationIn).add(pos);
 
@@ -421,7 +405,6 @@ public class Template {
 	}
 
 	public BlockPos transformedSize(Rotation rotationIn) {
-
 		return switch (rotationIn) {
 			case COUNTERCLOCKWISE_90, CLOCKWISE_90 -> new BlockPos(size.getZ(), size.getY(), size.getX());
 			default -> size;
@@ -429,12 +412,10 @@ public class Template {
 	}
 
 	public BlockPos getZeroPositionWithTransform(BlockPos p_189961_1_, Mirror p_189961_2_, Rotation p_189961_3_) {
-
 		return getZeroPositionWithTransform(p_189961_1_, p_189961_2_, p_189961_3_, getSize().getX(), getSize().getZ());
 	}
 
 	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
-
 		Template.BasicPalette template$basicpalette = new Template.BasicPalette();
 		NBTTagList nbttaglist = new NBTTagList();
 
@@ -480,7 +461,6 @@ public class Template {
 	}
 
 	public void read(NBTTagCompound compound) {
-
 		blocks.clear();
 		entities.clear();
 		NBTTagList nbttaglist = compound.getTagList("size", 3);
@@ -528,7 +508,6 @@ public class Template {
 	}
 
 	private NBTTagList writeInts(int... values) {
-
 		NBTTagList nbttaglist = new NBTTagList();
 
 		for (int i : values) {
@@ -539,7 +518,6 @@ public class Template {
 	}
 
 	private NBTTagList writeDoubles(double... values) {
-
 		NBTTagList nbttaglist = new NBTTagList();
 
 		for (double d0 : values) {
@@ -556,12 +534,10 @@ public class Template {
 		private int lastId;
 
 		private BasicPalette() {
-
 			ids = new ObjectIntIdentityMap<>(16);
 		}
 
 		public int idFor(IBlockState state) {
-
 			int i = ids.get(state);
 
 			if (i == -1) {
@@ -574,29 +550,24 @@ public class Template {
 
 		
 		public IBlockState stateFor(int id) {
-
 			IBlockState iblockstate = ids.getByValue(id);
 			return iblockstate == null ? DEFAULT_BLOCK_STATE : iblockstate;
 		}
 
 		public Iterator<IBlockState> iterator() {
-
 			return ids.iterator();
 		}
 
 		public void addMapping(IBlockState p_189956_1_, int p_189956_2_) {
-
 			ids.put(p_189956_1_, p_189956_2_);
 		}
 
 	}
 
 	public record BlockInfo(BlockPos pos, IBlockState blockState, NBTTagCompound tileentityData) {
-
 	}
 
 	public record EntityInfo(Vec3d pos, BlockPos blockPos, NBTTagCompound entityData) {
-
 	}
 
 }

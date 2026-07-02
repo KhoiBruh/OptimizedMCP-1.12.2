@@ -25,11 +25,9 @@ public class ResourceIndex {
 	private final Map<String, File> resourceMap = Maps.newHashMap();
 
 	protected ResourceIndex() {
-
 	}
 
 	public ResourceIndex(File assetsFolder, String indexName) {
-
 		File file1 = new File(assetsFolder, "objects");
 		File file2 = new File(assetsFolder, "indexes/" + indexName + ".json");
 		try (BufferedReader bufferedreader = Files.newReader(file2, StandardCharsets.UTF_8)) {
@@ -57,19 +55,16 @@ public class ResourceIndex {
 
 	
 	public File getFile(ResourceLocation location) {
-
 		String s = location.toString();
 		return resourceMap.get(s);
 	}
 
 	public boolean isFileExisting(ResourceLocation location) {
-
 		File file1 = getFile(location);
 		return file1 != null && file1.isFile();
 	}
 
 	public File getPackMcmeta() {
-
 		return resourceMap.get("pack.mcmeta");
 	}
 

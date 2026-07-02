@@ -26,7 +26,6 @@ public class Teleporter {
 	private final Long2ObjectMap<Teleporter.PortalPosition> destinationCoordinateCache = new Long2ObjectOpenHashMap<>(4096);
 
 	public Teleporter(WorldServer worldIn) {
-
 		world = worldIn;
 		random = new Random(worldIn.getSeed());
 	}
@@ -35,7 +34,6 @@ public class Teleporter {
 	 * Finds a portal near the entity's current coordinates and places the entity there, creating it if necessary.
 	 */
 	public void placeInPortal(Entity entityIn, float rotationYaw) {
-
 		if (world.provider.getDimensionType().getId() != 1) {
 			if (!placeInExistingPortal(entityIn, rotationYaw)) {
 				makePortal(entityIn);
@@ -68,7 +66,6 @@ public class Teleporter {
 	}
 
 	public boolean placeInExistingPortal(Entity entityIn, float rotationYaw) {
-
 		int i = 128;
 		double d0 = -1D;
 		int j = MathHelper.floor(entityIn.posX);
@@ -170,7 +167,6 @@ public class Teleporter {
 	}
 
 	public boolean makePortal(Entity entityIn) {
-
 		int i = 16;
 		double d0 = -1D;
 		int j = MathHelper.floor(entityIn.posX);
@@ -344,7 +340,6 @@ public class Teleporter {
 	 * WorldServer.getTotalWorldTime() value.
 	 */
 	public void removeStalePortalLocations(long worldTime) {
-
 		if (worldTime % 100L == 0L) {
 			long i = worldTime - 300L;
 
@@ -357,7 +352,6 @@ public class Teleporter {
 		public long lastUpdateTime;
 
 		public PortalPosition(BlockPos pos, long lastUpdate) {
-
 			super(pos.getX(), pos.getY(), pos.getZ());
 			lastUpdateTime = lastUpdate;
 		}

@@ -25,25 +25,21 @@ public abstract class AbstractChestHorse extends AbstractHorse {
 	private static final DataParameter<Boolean> DATA_ID_CHEST = EntityDataManager.createKey(AbstractChestHorse.class, DataSerializers.BOOLEAN);
 
 	public AbstractChestHorse(World worldIn) {
-
 		super(worldIn);
 		canGallop = false;
 	}
 
 	public static void registerFixesAbstractChestHorse(DataFixer fixer, Class<?> entityClass) {
-
 		AbstractHorse.registerFixesAbstractHorse(fixer, entityClass);
 		fixer.registerWalker(FixTypes.ENTITY, new ItemStackDataLists(entityClass, "Items"));
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(DATA_ID_CHEST, false);
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(getModifiedMaxHealth());
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.17499999701976776D);
@@ -51,17 +47,14 @@ public abstract class AbstractChestHorse extends AbstractHorse {
 	}
 
 	public boolean hasChest() {
-
 		return dataManager.get(DATA_ID_CHEST);
 	}
 
 	public void setChested(boolean chested) {
-
 		dataManager.set(DATA_ID_CHEST, chested);
 	}
 
 	protected int getInventorySize() {
-
 		return hasChest() ? 17 : super.getInventorySize();
 	}
 
@@ -69,12 +62,10 @@ public abstract class AbstractChestHorse extends AbstractHorse {
 	 * Returns the Y offset from the entity's position for any entity riding this one.
 	 */
 	public double getMountedYOffset() {
-
 		return super.getMountedYOffset() - 0.25D;
 	}
 
 	protected SoundEvent getAngrySound() {
-
 		super.getAngrySound();
 		return SoundEvents.ENTITY_DONKEY_ANGRY;
 	}
@@ -83,7 +74,6 @@ public abstract class AbstractChestHorse extends AbstractHorse {
 	 * Called when the mob's health reaches 0.
 	 */
 	public void onDeath(DamageSource cause) {
-
 		super.onDeath(cause);
 
 		if (hasChest()) {
@@ -99,7 +89,6 @@ public abstract class AbstractChestHorse extends AbstractHorse {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setBoolean("ChestedHorse", hasChest());
 
@@ -125,7 +114,6 @@ public abstract class AbstractChestHorse extends AbstractHorse {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		setChested(compound.getBoolean("ChestedHorse"));
 
@@ -147,7 +135,6 @@ public abstract class AbstractChestHorse extends AbstractHorse {
 	}
 
 	public boolean replaceItemInInventory(int inventorySlot, ItemStack itemStackIn) {
-
 		if (inventorySlot == 499) {
 			if (hasChest() && itemStackIn.isEmpty()) {
 				setChested(false);
@@ -166,7 +153,6 @@ public abstract class AbstractChestHorse extends AbstractHorse {
 	}
 
 	public boolean processInteract(EntityPlayer player, Hand hand) {
-
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (itemstack.getItem() == Items.SPAWN_EGG) {
@@ -228,12 +214,10 @@ public abstract class AbstractChestHorse extends AbstractHorse {
 	}
 
 	protected void playChestEquipSound() {
-
 		playSound(SoundEvents.ENTITY_DONKEY_CHEST, 1F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F);
 	}
 
 	public int getInventoryColumns() {
-
 		return 5;
 	}
 

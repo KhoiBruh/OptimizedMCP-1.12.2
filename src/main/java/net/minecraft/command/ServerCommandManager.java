@@ -14,7 +14,6 @@ public class ServerCommandManager extends CommandHandler implements ICommandList
 	private final MinecraftServer server;
 
 	public ServerCommandManager(MinecraftServer serverIn) {
-
 		server = serverIn;
 		registerCommand(new CommandTime());
 		registerCommand(new CommandGameMode());
@@ -93,7 +92,6 @@ public class ServerCommandManager extends CommandHandler implements ICommandList
 	 * Send an informative message to the server operators
 	 */
 	public void notifyListener(ICommandSender sender, ICommand command, int flags, String translationKey, Object... translationArgs) {
-
 		boolean flag = true;
 		MinecraftServer minecraftserver = server;
 
@@ -134,7 +132,6 @@ public class ServerCommandManager extends CommandHandler implements ICommandList
 	}
 
 	protected MinecraftServer getServer() {
-
 		return server;
 	}
 

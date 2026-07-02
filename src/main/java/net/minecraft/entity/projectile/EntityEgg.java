@@ -13,22 +13,18 @@ import net.minecraft.world.World;
 public class EntityEgg extends EntityThrowable {
 
 	public EntityEgg(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public EntityEgg(World worldIn, EntityLivingBase throwerIn) {
-
 		super(worldIn, throwerIn);
 	}
 
 	public EntityEgg(World worldIn, double x, double y, double z) {
-
 		super(worldIn, x, y, z);
 	}
 
 	public static void registerFixesEgg(DataFixer fixer) {
-
 		EntityThrowable.registerFixesThrowable(fixer, "ThrownEgg");
 	}
 
@@ -36,7 +32,6 @@ public class EntityEgg extends EntityThrowable {
 	 * Handler for {@link World#setEntityState}
 	 */
 	public void handleStatusUpdate(byte id) {
-
 		if (id == 3) {
 			double d0 = 0.08D;
 
@@ -50,7 +45,6 @@ public class EntityEgg extends EntityThrowable {
 	 * Called when this EntityThrowable hits a block or entity.
 	 */
 	protected void onImpact(RayTraceResult result) {
-
 		if (result.entityHit != null) {
 			result.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, getThrower()), 0F);
 		}

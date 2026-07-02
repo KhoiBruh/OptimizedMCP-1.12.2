@@ -40,7 +40,6 @@ public class Material {
 	public static final Material CAKE = (new Material(MapColor.AIR)).setNoPushMobility();
 	public static final Material WEB = (new Material(MapColor.CLOTH) {
 		public boolean blocksMovement() {
-
 			return false;
 		}
 	}).setRequiresTool().setNoPushMobility();
@@ -81,7 +80,6 @@ public class Material {
 	private boolean isAdventureModeExempt;
 
 	public Material(MapColor color) {
-
 		materialMapColor = color;
 	}
 
@@ -89,7 +87,6 @@ public class Material {
 	 * Returns if blocks of these materials are liquids.
 	 */
 	public boolean isLiquid() {
-
 		return false;
 	}
 
@@ -97,7 +94,6 @@ public class Material {
 	 * Returns true if the block is a considered solid. This is true by default.
 	 */
 	public boolean isSolid() {
-
 		return true;
 	}
 
@@ -105,7 +101,6 @@ public class Material {
 	 * Will prevent grass from growing on dirt underneath and kill any grass below it if it returns true
 	 */
 	public boolean blocksLight() {
-
 		return true;
 	}
 
@@ -113,7 +108,6 @@ public class Material {
 	 * Returns if this material is considered solid or not
 	 */
 	public boolean blocksMovement() {
-
 		return true;
 	}
 
@@ -121,7 +115,6 @@ public class Material {
 	 * Marks the material as translucent
 	 */
 	private Material setTranslucent() {
-
 		isTranslucent = true;
 		return this;
 	}
@@ -130,7 +123,6 @@ public class Material {
 	 * Makes blocks with this material require the correct tool to be harvested.
 	 */
 	protected Material setRequiresTool() {
-
 		requiresNoTool = false;
 		return this;
 	}
@@ -139,7 +131,6 @@ public class Material {
 	 * Set the canBurn bool to True and return the current object.
 	 */
 	protected Material setBurning() {
-
 		canBurn = true;
 		return this;
 	}
@@ -148,7 +139,6 @@ public class Material {
 	 * Returns if the block can burn or not.
 	 */
 	public boolean getCanBurn() {
-
 		return canBurn;
 	}
 
@@ -156,7 +146,6 @@ public class Material {
 	 * Sets {@link #replaceable} to true.
 	 */
 	public Material setReplaceable() {
-
 		replaceable = true;
 		return this;
 	}
@@ -165,7 +154,6 @@ public class Material {
 	 * Returns whether the material can be replaced by other blocks when placed - eg snow, vines and tall grass.
 	 */
 	public boolean isReplaceable() {
-
 		return replaceable;
 	}
 
@@ -173,7 +161,6 @@ public class Material {
 	 * Indicate if the material is opaque
 	 */
 	public boolean isOpaque() {
-
 		return !isTranslucent && blocksMovement();
 	}
 
@@ -181,12 +168,10 @@ public class Material {
 	 * Returns true if the material can be harvested without a tool (or with the wrong tool)
 	 */
 	public boolean isToolNotRequired() {
-
 		return requiresNoTool;
 	}
 
 	public PushReaction getMobilityFlag() {
-
 		return mobilityFlag;
 	}
 
@@ -194,7 +179,6 @@ public class Material {
 	 * This type of material can't be pushed, but pistons can move over it.
 	 */
 	protected Material setNoPushMobility() {
-
 		mobilityFlag = PushReaction.DESTROY;
 		return this;
 	}
@@ -203,7 +187,6 @@ public class Material {
 	 * This type of material can't be pushed, and pistons are blocked to move.
 	 */
 	protected Material setImmovableMobility() {
-
 		mobilityFlag = PushReaction.BLOCK;
 		return this;
 	}
@@ -212,7 +195,6 @@ public class Material {
 	 * @see #isAdventureModeExempt()
 	 */
 	protected Material setAdventureModeExempt() {
-
 		isAdventureModeExempt = true;
 		return this;
 	}
@@ -221,7 +203,6 @@ public class Material {
 	 * Retrieves the color index of the block. This is is the same color used by vanilla maps to represent this block.
 	 */
 	public MapColor getMaterialMapColor() {
-
 		return materialMapColor;
 	}
 

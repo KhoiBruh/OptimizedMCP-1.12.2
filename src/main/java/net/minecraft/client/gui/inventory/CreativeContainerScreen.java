@@ -71,7 +71,6 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	private CreativeCrafting listener;
 
 	public CreativeContainerScreen(EntityPlayer player) {
-
 		super(new CreativeContainerScreen.ContainerCreative(player));
 		player.openContainer = inventorySlots;
 		allowInput = true;
@@ -80,7 +79,6 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	}
 
 	public static void handleHotbarSnapshots(Minecraft p_192044_0_, int p_192044_1_, boolean p_192044_2_, boolean p_192044_3_) {
-
 		EntityPlayerSP entityplayersp = p_192044_0_.player;
 		CreativeSettings creativesettings = p_192044_0_.creativeSettings;
 		HotbarSnapshot hotbarsnapshot = creativesettings.getHotbarSnapshot(p_192044_1_);
@@ -109,7 +107,6 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	 * Called from the main game loop to update the screen.
 	 */
 	public void update() {
-
 		if (!mc.playerController.isInCreativeMode()) {
 			mc.displayScreen(new InventoryScreen(mc.player));
 		}
@@ -119,7 +116,6 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	 * Called when the mouse is clicked over a slot or outside the gui.
 	 */
 	protected void handleMouseClick(Slot slotIn, int slotId, int mouseButton, ClickType type) {
-
 		clearSearch = true;
 		boolean flag = type == ClickType.QUICK_MOVE;
 		type = slotId == -999 && type == ClickType.PICKUP ? ClickType.THROW : type;
@@ -254,7 +250,6 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	}
 
 	protected void updateActivePotionEffects() {
-
 		int i = guiLeft;
 		super.updateActivePotionEffects();
 
@@ -268,7 +263,6 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		if (mc.playerController.isInCreativeMode()) {
 			super.init();
 			buttons.clear();
@@ -292,7 +286,6 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	 * Called when the screen is unloaded. Used to disable keyboard repeat events
 	 */
 	public void close() {
-
 		super.close();
 
 		if (mc.player != null && mc.player.inventory != null) {
@@ -307,7 +300,6 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-
 		if (selectedTabIndex != CreativeTabs.SEARCH.getTabIndex()) {
 			if (GameSettings.isKeyDown(mc.gameSettings.keyChat)) {
 				setCurrentCreativeTab(CreativeTabs.SEARCH);
@@ -331,7 +323,6 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	}
 
 	private void updateCreativeSearch() {
-
 		CreativeContainerScreen.ContainerCreative guicontainercreative$containercreative = (CreativeContainerScreen.ContainerCreative) inventorySlots;
 		guicontainercreative$containercreative.itemList.clear();
 
@@ -351,7 +342,6 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-
 		CreativeTabs creativetabs = CreativeTabs.CREATIVE_TAB_ARRAY[selectedTabIndex];
 
 		if (creativetabs.drawInForegroundOfTab()) {
@@ -364,7 +354,6 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
-
 		if (mouse == 0) {
 			int i = mouseX - guiLeft;
 			int j = mouseY - guiTop;
@@ -383,7 +372,6 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	 * Called when a mouse button is released.
 	 */
 	protected void mouseReleased(int mouseX, int mouseY, int state) {
-
 		if (state == 0) {
 			int i = mouseX - guiLeft;
 			int j = mouseY - guiTop;
@@ -403,7 +391,6 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	 * returns (if you are not on the inventoryTab) and (the flag isn't set) and (you have more than 1 page of items)
 	 */
 	private boolean needsScrollBars() {
-
 		return selectedTabIndex != CreativeTabs.INVENTORY.getTabIndex() && CreativeTabs.CREATIVE_TAB_ARRAY[selectedTabIndex].shouldHidePlayerInventory() && ((CreativeContainerScreen.ContainerCreative) inventorySlots).canScroll();
 	}
 
@@ -411,7 +398,6 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	 * Sets the current creative tab, restructuring the GUI as needed.
 	 */
 	private void setCurrentCreativeTab(CreativeTabs tab) {
-
 		int i = selectedTabIndex;
 		selectedTabIndex = tab.getTabIndex();
 		CreativeContainerScreen.ContainerCreative guicontainercreative$containercreative = (CreativeContainerScreen.ContainerCreative) inventorySlots;
@@ -511,7 +497,6 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	 * Handles mouse input.
 	 */
 	public void handleMouse() throws IOException {
-
 		super.handleMouse();
 		int i = Mouse.getEventDWheel();
 
@@ -536,7 +521,6 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		boolean flag = Mouse.isButtonDown(0);
 		int i = guiLeft;
@@ -580,7 +564,6 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	}
 
 	protected void renderToolTip(ItemStack stack, int x, int y) {
-
 		if (selectedTabIndex == CreativeTabs.SEARCH.getTabIndex()) {
 			List<String> list = stack.getTooltip(mc.player, mc.gameSettings.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL);
 			CreativeTabs creativetabs = stack.getItem().getCreativeTab();
@@ -622,7 +605,6 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	 * Draws the background layer of this container (behind the items).
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-
 		GLS.color(1F, 1F, 1F, 1F);
 		RenderHelper.enableGUIStandardItemLighting();
 		CreativeTabs creativetabs = CreativeTabs.CREATIVE_TAB_ARRAY[selectedTabIndex];
@@ -659,7 +641,6 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	 * Checks if the mouse is over the given tab. Returns true if so.
 	 */
 	protected boolean isMouseOverTab(CreativeTabs tab, int mouseX, int mouseY) {
-
 		int i = tab.getTabColumn();
 		int j = 28 * i;
 		int k = 0;
@@ -684,7 +665,6 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	 * Params: current creative tab to be checked, current mouse x position, current mouse y position.
 	 */
 	protected boolean renderCreativeInventoryHoveringText(CreativeTabs tab, int mouseX, int mouseY) {
-
 		int i = tab.getTabColumn();
 		int j = 28 * i;
 		int k = 0;
@@ -714,7 +694,6 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	 * index.
 	 */
 	protected void drawTab(CreativeTabs tab) {
-
 		boolean flag = tab.getTabIndex() == selectedTabIndex;
 		boolean flag1 = tab.isTabInFirstRow();
 		int i = tab.getTabColumn();
@@ -761,7 +740,6 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.id == 1) {
 			mc.displayScreen(new StatsScreen(this, mc.player.getStatFileWriter()));
 		}
@@ -771,7 +749,6 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	 * Returns the index of the currently selected tab.
 	 */
 	public int getSelectedTabIndex() {
-
 		return selectedTabIndex;
 	}
 
@@ -780,7 +757,6 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 		public NonNullList<ItemStack> itemList = NonNullList.create();
 
 		public ContainerCreative(EntityPlayer player) {
-
 			InventoryPlayer inventoryplayer = player.inventory;
 
 			for (int i = 0; i < 5; ++i) {
@@ -797,12 +773,10 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 		}
 
 		public boolean canInteractWith(EntityPlayer playerIn) {
-
 			return true;
 		}
 
 		public void scrollTo(float pos) {
-
 			int i = (itemList.size() + 9 - 1) / 9 - 5;
 			int j = (int) ((double) (pos * (float) i) + 0.5D);
 
@@ -824,12 +798,10 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 		}
 
 		public boolean canScroll() {
-
 			return itemList.size() > 45;
 		}
 
 		public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-
 			if (index >= inventorySlots.size() - 9 && index < inventorySlots.size()) {
 				Slot slot = inventorySlots.get(index);
 
@@ -842,12 +814,10 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 		}
 
 		public boolean canMergeSlot(ItemStack stack, Slot slotIn) {
-
 			return slotIn.yPos > 90;
 		}
 
 		public boolean canDragIntoSlot(Slot slotIn) {
-
 			return slotIn.inventory instanceof InventoryPlayer || slotIn.yPos > 90 && slotIn.xPos <= 162;
 		}
 
@@ -856,12 +826,10 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	static class LockedSlot extends Slot {
 
 		public LockedSlot(IInventory p_i47453_1_, int p_i47453_2_, int p_i47453_3_, int p_i47453_4_) {
-
 			super(p_i47453_1_, p_i47453_2_, p_i47453_3_, p_i47453_4_);
 		}
 
 		public boolean canTakeStack(EntityPlayer playerIn) {
-
 			if (super.canTakeStack(playerIn) && getHasStack()) {
 				return getStack().getSubCompound("CustomCreativeLock") == null;
 			} else {
@@ -876,75 +844,61 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 		private final Slot slot;
 
 		public CreativeSlot(Slot p_i46313_2_, int index) {
-
 			super(p_i46313_2_.inventory, index, 0, 0);
 			slot = p_i46313_2_;
 		}
 
 		public ItemStack onTake(EntityPlayer thePlayer, ItemStack stack) {
-
 			slot.onTake(thePlayer, stack);
 			return stack;
 		}
 
 		public boolean isItemValid(ItemStack stack) {
-
 			return slot.isItemValid(stack);
 		}
 
 		public ItemStack getStack() {
-
 			return slot.getStack();
 		}
 
 		public boolean getHasStack() {
-
 			return slot.getHasStack();
 		}
 
 		public void putStack(ItemStack stack) {
-
 			slot.putStack(stack);
 		}
 
 		public void onSlotChanged() {
-
 			slot.onSlotChanged();
 		}
 
 		public int getSlotStackLimit() {
-
 			return slot.getSlotStackLimit();
 		}
 
 		public int getItemStackLimit(ItemStack stack) {
-
 			return slot.getItemStackLimit(stack);
 		}
 
 		
 		public String getSlotTexture() {
-
 			return slot.getSlotTexture();
 		}
 
 		public ItemStack decrStackSize(int amount) {
-
 			return slot.decrStackSize(amount);
 		}
 
 		public boolean isHere(IInventory inv, int slotIn) {
-
 			return slot.isHere(inv, slotIn);
 		}
 
 		public boolean isEnabled() {
-
 			return slot.isEnabled();
 		}
 
 		public boolean canTakeStack(EntityPlayer playerIn) {
-
 			return slot.canTakeStack(playerIn);
 		}
 

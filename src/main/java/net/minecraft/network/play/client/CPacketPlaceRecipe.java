@@ -13,11 +13,9 @@ public class CPacketPlaceRecipe implements Packet<INetHandlerPlayServer> {
 	private boolean field_194322_c;
 
 	public CPacketPlaceRecipe() {
-
 	}
 
 	public CPacketPlaceRecipe(int p_i47614_1_, IRecipe p_i47614_2_, boolean p_i47614_3_) {
-
 		field_194320_a = p_i47614_1_;
 		field_194321_b = p_i47614_2_;
 		field_194322_c = p_i47614_3_;
@@ -27,7 +25,6 @@ public class CPacketPlaceRecipe implements Packet<INetHandlerPlayServer> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		field_194320_a = buf.readByte();
 		field_194321_b = CraftingManager.getRecipeById(buf.readVarInt());
 		field_194322_c = buf.readBoolean();
@@ -37,7 +34,6 @@ public class CPacketPlaceRecipe implements Packet<INetHandlerPlayServer> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeByte(field_194320_a);
 		buf.writeVarInt(CraftingManager.getIDForRecipe(field_194321_b));
 		buf.writeBoolean(field_194322_c);
@@ -47,22 +43,18 @@ public class CPacketPlaceRecipe implements Packet<INetHandlerPlayServer> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayServer handler) {
-
 		handler.func_194308_a(this);
 	}
 
 	public int func_194318_a() {
-
 		return field_194320_a;
 	}
 
 	public IRecipe func_194317_b() {
-
 		return field_194321_b;
 	}
 
 	public boolean func_194319_c() {
-
 		return field_194322_c;
 	}
 

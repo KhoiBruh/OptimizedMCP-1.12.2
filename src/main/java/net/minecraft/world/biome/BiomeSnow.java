@@ -21,7 +21,6 @@ public class BiomeSnow extends Biome {
 	private final WorldGenIcePath icePatch = new WorldGenIcePath(4);
 
 	public BiomeSnow(boolean superIcyIn, Biome.BiomeProperties properties) {
-
 		super(properties);
 		superIcy = superIcyIn;
 
@@ -43,12 +42,10 @@ public class BiomeSnow extends Biome {
 	 * returns the chance a creature has to spawn.
 	 */
 	public float getSpawningChance() {
-
 		return 0.07F;
 	}
 
 	public void decorate(World worldIn, Random rand, BlockPos pos) {
-
 		if (superIcy) {
 			for (int i = 0; i < 3; ++i) {
 				int j = rand.nextInt(16) + 8;
@@ -67,7 +64,6 @@ public class BiomeSnow extends Biome {
 	}
 
 	public WorldGenAbstractTree getRandomTreeFeature(Random rand) {
-
 		return new WorldGenTaiga2(false);
 	}
 

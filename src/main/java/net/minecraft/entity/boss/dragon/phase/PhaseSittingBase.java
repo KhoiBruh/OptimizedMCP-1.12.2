@@ -8,12 +8,10 @@ import net.minecraft.util.DamageSource;
 public abstract class PhaseSittingBase extends PhaseBase {
 
 	public PhaseSittingBase(EntityDragon p_i46794_1_) {
-
 		super(p_i46794_1_);
 	}
 
 	public boolean getIsStationary() {
-
 		return true;
 	}
 
@@ -22,7 +20,6 @@ public abstract class PhaseSittingBase extends PhaseBase {
 	 * returned.
 	 */
 	public float getAdjustedDamage(MultiPartEntityPart pt, DamageSource src, float damage) {
-
 		if (src.getImmediateSource() instanceof EntityArrow) {
 			src.getImmediateSource().setFire(1);
 			return 0F;

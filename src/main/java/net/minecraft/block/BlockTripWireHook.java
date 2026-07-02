@@ -31,7 +31,6 @@ public class BlockTripWireHook extends Block {
 	protected static final AxisAlignedBB HOOK_EAST_AABB = new AxisAlignedBB(0D, 0D, 0.3125D, 0.375D, 0.625D, 0.6875D);
 
 	public BlockTripWireHook() {
-
 		super(Material.CIRCUITS);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(POWERED, false).withProperty(ATTACHED, false));
 		setCreativeTab(CreativeTabs.REDSTONE);
@@ -39,7 +38,6 @@ public class BlockTripWireHook extends Block {
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return switch (state.getValue(FACING)) {
 			case WEST -> HOOK_WEST_AABB;
 			case SOUTH -> HOOK_SOUTH_AABB;
@@ -50,7 +48,6 @@ public class BlockTripWireHook extends Block {
 
 	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-
 		return NULL_AABB;
 	}
 
@@ -58,12 +55,10 @@ public class BlockTripWireHook extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -71,7 +66,6 @@ public class BlockTripWireHook extends Block {
 	 * Check whether this Block can be placed at pos, while aiming at the specified side of an adjacent block
 	 */
 	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Facing side) {
-
 		Facing enumfacing = side.getOpposite();
 		BlockPos blockpos = pos.offset(enumfacing);
 		IBlockState iblockstate = worldIn.getBlockState(blockpos);
@@ -83,7 +77,6 @@ public class BlockTripWireHook extends Block {
 	 * Checks if this block can be placed exactly at the given position.
 	 */
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-
 		for (Facing enumfacing : Facing.Plane.HORIZONTAL) {
 			if (canPlaceBlockOnSide(worldIn, pos, enumfacing)) {
 				return true;
@@ -98,7 +91,6 @@ public class BlockTripWireHook extends Block {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		IBlockState iblockstate = getDefaultState().withProperty(POWERED, false).withProperty(ATTACHED, false);
 
 		if (facing.getAxis().isHorizontal()) {
@@ -112,7 +104,6 @@ public class BlockTripWireHook extends Block {
 	 * Called by ItemBlocks after a block is set in the world, to allow post-place logic
 	 */
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-
 		calculateState(worldIn, pos, state, false, false, -1, null);
 	}
 
@@ -122,7 +113,6 @@ public class BlockTripWireHook extends Block {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (blockIn != this) {
 			if (checkForDrop(worldIn, pos, state)) {
 				Facing enumfacing = state.getValue(FACING);
@@ -136,7 +126,6 @@ public class BlockTripWireHook extends Block {
 	}
 
 	public void calculateState(World worldIn, BlockPos pos, IBlockState hookState, boolean p_176260_4_, boolean p_176260_5_, int p_176260_6_, IBlockState p_176260_7_) {
-
 		Facing enumfacing = hookState.getValue(FACING);
 		boolean flag = hookState.getValue(ATTACHED);
 		boolean flag1 = hookState.getValue(POWERED);
@@ -215,16 +204,13 @@ public class BlockTripWireHook extends Block {
 	 * Called randomly when setTickRandomly is set to true (used by e.g. crops to grow, etc.)
 	 */
 	public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
-
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		calculateState(worldIn, pos, state, false, true, -1, null);
 	}
 
 	private void playSound(World worldIn, BlockPos pos, boolean p_180694_3_, boolean p_180694_4_, boolean p_180694_5_, boolean p_180694_6_) {
-
 		if (p_180694_4_ && !p_180694_6_) {
 			worldIn.playSound(null, pos, SoundEvents.BLOCK_TRIPWIRE_CLICK_ON, SoundCategory.BLOCKS, 0.4F, 0.6F);
 		} else if (!p_180694_4_ && p_180694_6_) {
@@ -237,13 +223,11 @@ public class BlockTripWireHook extends Block {
 	}
 
 	private void notifyNeighbors(World worldIn, BlockPos pos, Facing side) {
-
 		worldIn.notifyNeighborsOfStateChange(pos, this, false);
 		worldIn.notifyNeighborsOfStateChange(pos.offset(side.getOpposite()), this, false);
 	}
 
 	private boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (!canPlaceBlockAt(worldIn, pos)) {
 			dropBlockAsItem(worldIn, pos, state, 0);
 			worldIn.setBlockToAir(pos);
@@ -257,7 +241,6 @@ public class BlockTripWireHook extends Block {
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		boolean flag = state.getValue(ATTACHED);
 		boolean flag1 = state.getValue(POWERED);
 
@@ -274,12 +257,10 @@ public class BlockTripWireHook extends Block {
 	}
 
 	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		return blockState.getValue(POWERED) ? 15 : 0;
 	}
 
 	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		if (!blockState.getValue(POWERED)) {
 			return 0;
 		} else {
@@ -291,7 +272,6 @@ public class BlockTripWireHook extends Block {
 	 * Can this block provide power. Only wire currently seems to have this change based on its state.
 	 */
 	public boolean canProvidePower(IBlockState state) {
-
 		return true;
 	}
 
@@ -300,7 +280,6 @@ public class BlockTripWireHook extends Block {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.CUTOUT_MIPPED;
 	}
 
@@ -308,7 +287,6 @@ public class BlockTripWireHook extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(FACING, Facing.getHorizontal(meta & 3)).withProperty(POWERED, (meta & 8) > 0).withProperty(ATTACHED, (meta & 4) > 0);
 	}
 
@@ -316,7 +294,6 @@ public class BlockTripWireHook extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 		i = i | state.getValue(FACING).getHorizontalIndex();
 
@@ -336,7 +313,6 @@ public class BlockTripWireHook extends Block {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
@@ -345,12 +321,10 @@ public class BlockTripWireHook extends Block {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, FACING, POWERED, ATTACHED);
 	}
 
@@ -364,7 +338,6 @@ public class BlockTripWireHook extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

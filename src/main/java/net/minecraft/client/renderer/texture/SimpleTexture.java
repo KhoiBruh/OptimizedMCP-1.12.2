@@ -16,12 +16,10 @@ public class SimpleTexture extends AbstractTexture {
 	protected final ResourceLocation textureLocation;
 
 	public SimpleTexture(ResourceLocation textureResourceLocation) {
-
 		textureLocation = textureResourceLocation;
 	}
 
 	public void loadTexture(IResourceManager resourceManager) throws IOException {
-
 		deleteGlTexture();
 		try (IResource iresource = resourceManager.getResource(textureLocation)) {
 			BufferedImage bufferedimage = TextureUtil.readBufferedImage(iresource.getInputStream());

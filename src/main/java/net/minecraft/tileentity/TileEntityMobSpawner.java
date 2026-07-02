@@ -17,22 +17,18 @@ public class TileEntityMobSpawner extends TileEntity implements ITickable {
 
 	private final MobSpawnerBaseLogic spawnerLogic = new MobSpawnerBaseLogic() {
 		public void broadcastEvent(int id) {
-
 			world.addBlockEvent(pos, Blocks.MOB_SPAWNER, id, 0);
 		}
 
 		public World getSpawnerWorld() {
-
 			return world;
 		}
 
 		public BlockPos getSpawnerPosition() {
-
 			return pos;
 		}
 
 		public void setNextSpawnData(WeightedSpawnerEntity p_184993_1_) {
-
 			super.setNextSpawnData(p_184993_1_);
 
 			if (getSpawnerWorld() != null) {
@@ -43,7 +39,6 @@ public class TileEntityMobSpawner extends TileEntity implements ITickable {
 	};
 
 	public static void registerFixesMobSpawner(DataFixer fixer) {
-
 		fixer.registerWalker(FixTypes.BLOCK_ENTITY, (fixer1, compound, versionIn) -> {
 
 			if (TileEntity.getKey(TileEntityMobSpawner.class).equals(new ResourceLocation(compound.getString("id")))) {
@@ -64,13 +59,11 @@ public class TileEntityMobSpawner extends TileEntity implements ITickable {
 	}
 
 	public void readFromNBT(NBTTagCompound compound) {
-
 		super.readFromNBT(compound);
 		spawnerLogic.readFromNBT(compound);
 	}
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
 		super.writeToNBT(compound);
 		spawnerLogic.writeToNBT(compound);
 		return compound;
@@ -80,35 +73,29 @@ public class TileEntityMobSpawner extends TileEntity implements ITickable {
 	 * Like the old updateEntity(), except more generic.
 	 */
 	public void update() {
-
 		spawnerLogic.updateSpawner();
 	}
 
 	
 	public SPacketUpdateTileEntity getUpdatePacket() {
-
 		return new SPacketUpdateTileEntity(pos, 1, getUpdateTag());
 	}
 
 	public NBTTagCompound getUpdateTag() {
-
 		NBTTagCompound nbttagcompound = writeToNBT(new NBTTagCompound());
 		nbttagcompound.removeTag("SpawnPotentials");
 		return nbttagcompound;
 	}
 
 	public boolean receiveClientEvent(int id, int type) {
-
 		return spawnerLogic.setDelayToMin(id) || super.receiveClientEvent(id, type);
 	}
 
 	public boolean onlyOpsCanSetNbt() {
-
 		return true;
 	}
 
 	public MobSpawnerBaseLogic getSpawnerBaseLogic() {
-
 		return spawnerLogic;
 	}
 

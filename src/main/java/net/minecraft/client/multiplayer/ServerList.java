@@ -22,13 +22,11 @@ public class ServerList {
 	private final List<ServerData> servers = Lists.newArrayList();
 
 	public ServerList(Minecraft mcIn) {
-
 		mc = mcIn;
 		loadServerList();
 	}
 
 	public static void saveSingleServer(ServerData server) {
-
 		ServerList serverlist = new ServerList(Minecraft.getMinecraft());
 		serverlist.loadServerList();
 
@@ -49,7 +47,6 @@ public class ServerList {
 	 * found in the "servers" tag list.
 	 */
 	public void loadServerList() {
-
 		try {
 			servers.clear();
 			NBTTagCompound nbttagcompound = CompressedStreamTools.read(new File(mc.dataDir, "servers.dat"));
@@ -73,7 +70,6 @@ public class ServerList {
 	 * servers.dat.
 	 */
 	public void saveServerList() {
-
 		try {
 			NBTTagList nbttaglist = new NBTTagList();
 
@@ -93,7 +89,6 @@ public class ServerList {
 	 * Gets the ServerData instance stored for the given index in the list.
 	 */
 	public ServerData getServerData(int index) {
-
 		return servers.get(index);
 	}
 
@@ -101,7 +96,6 @@ public class ServerList {
 	 * Removes the ServerData instance stored for the given index in the list.
 	 */
 	public void removeServerData(int index) {
-
 		servers.remove(index);
 	}
 
@@ -109,7 +103,6 @@ public class ServerList {
 	 * Adds the given ServerData instance to the list.
 	 */
 	public void addServerData(ServerData server) {
-
 		servers.add(server);
 	}
 
@@ -117,7 +110,6 @@ public class ServerList {
 	 * Counts the number of ServerData instances in the list.
 	 */
 	public int countServers() {
-
 		return servers.size();
 	}
 
@@ -125,7 +117,6 @@ public class ServerList {
 	 * Takes two list indexes, and swaps their order around.
 	 */
 	public void swapServers(int pos1, int pos2) {
-
 		ServerData serverdata = getServerData(pos1);
 		servers.set(pos1, getServerData(pos2));
 		servers.set(pos2, serverdata);
@@ -133,7 +124,6 @@ public class ServerList {
 	}
 
 	public void set(int index, ServerData server) {
-
 		servers.set(index, server);
 	}
 

@@ -18,19 +18,16 @@ public class WorldGenBigMushroom extends WorldGenerator {
 	private final Block mushroomType;
 
 	public WorldGenBigMushroom(Block p_i46449_1_) {
-
 		super(true);
 		mushroomType = p_i46449_1_;
 	}
 
 	public WorldGenBigMushroom() {
-
 		super(false);
 		mushroomType = null;
 	}
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		Block block = mushroomType;
 
 		if (block == null) {

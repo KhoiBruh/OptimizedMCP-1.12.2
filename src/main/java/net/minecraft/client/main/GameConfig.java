@@ -14,13 +14,10 @@ public record GameConfig(
 	Folder folder,
 	Game game
 ) {
-
 	public record Display(int width, int height, boolean fullscreen) {
-
 	}
 
 	public record Folder(File dataDir, File resourcePacksDir, File assetsDir, String assetIndex) {
-
 		public ResourceIndex getAssetsIndex() {
 			return assetIndex == null ? new ResourceIndexFolder(assetsDir) : new ResourceIndex(assetsDir, assetIndex);
 		}
@@ -28,11 +25,9 @@ public record GameConfig(
 	}
 
 	public record Game(String version, String type) {
-
 	}
 
 	public record User(Session session, PropertyMap userProperties, PropertyMap profileProperties, Proxy proxy) {
-
 	}
 
 }

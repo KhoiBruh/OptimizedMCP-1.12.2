@@ -11,7 +11,6 @@ public abstract class AbstractTexture implements ITextureObject {
 	protected boolean mipmapLast;
 
 	public void setBlurMipmapDirect(boolean blurIn, boolean mipmapIn) {
-
 		blur = blurIn;
 		mipmap = mipmapIn;
 		int i;
@@ -30,19 +29,16 @@ public abstract class AbstractTexture implements ITextureObject {
 	}
 
 	public void setBlurMipmap(boolean blurIn, boolean mipmapIn) {
-
 		blurLast = blur;
 		mipmapLast = mipmap;
 		setBlurMipmapDirect(blurIn, mipmapIn);
 	}
 
 	public void restoreLastBlurMipmap() {
-
 		setBlurMipmapDirect(blurLast, mipmapLast);
 	}
 
 	public int getGlTextureId() {
-
 		if (glTextureId == -1) {
 			glTextureId = TextureUtil.glGenTextures();
 		}
@@ -51,7 +47,6 @@ public abstract class AbstractTexture implements ITextureObject {
 	}
 
 	public void deleteGlTexture() {
-
 		if (glTextureId != -1) {
 			TextureUtil.deleteTexture(glTextureId);
 			glTextureId = -1;

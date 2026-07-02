@@ -6,7 +6,6 @@ import java.io.DataOutput;
 public class NBTTagEnd extends NBTBase {
 	
 	void read(DataInput input, int depth, NBTSizeTracker sizeTracker) {
-		
 		sizeTracker.read(64L);
 	}
 	
@@ -14,19 +13,16 @@ public class NBTTagEnd extends NBTBase {
 	 * Write the actual data contents of the tag, implemented in NBT extension classes
 	 */
 	void write(DataOutput output) {
-	
 	}
 	
 	/**
 	 * Gets the type byte for the tag.
 	 */
 	public byte getId() {
-		
 		return 0;
 	}
 	
 	public String toString() {
-		
 		return "END";
 	}
 	
@@ -34,7 +30,6 @@ public class NBTTagEnd extends NBTBase {
 	 * Creates a clone of the tag.
 	 */
 	public NBTTagEnd copy() {
-		
 		return new NBTTagEnd();
 	}
 	

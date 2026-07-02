@@ -14,29 +14,24 @@ public class RandomChance implements LootCondition {
 	private final float chance;
 
 	public RandomChance(float chanceIn) {
-
 		chance = chanceIn;
 	}
 
 	public boolean testCondition(Random rand, LootContext context) {
-
 		return rand.nextFloat() < chance;
 	}
 
 	public static class Serializer extends LootCondition.Serializer<RandomChance> {
 
 		protected Serializer() {
-
 			super(new ResourceLocation("random_chance"), RandomChance.class);
 		}
 
 		public void serialize(JsonObject json, RandomChance value, JsonSerializationContext context) {
-
 			json.addProperty("chance", value.chance);
 		}
 
 		public RandomChance deserialize(JsonObject json, JsonDeserializationContext context) {
-
 			return new RandomChance(JsonUtils.getFloat(json, "chance"));
 		}
 

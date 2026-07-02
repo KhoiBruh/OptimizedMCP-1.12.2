@@ -23,12 +23,10 @@ import java.util.List;
 public class ItemGlassBottle extends Item {
 
 	public ItemGlassBottle() {
-
 		setCreativeTab(CreativeTabs.BREWING);
 	}
 
 	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
-
 		List<EntityAreaEffectCloud> list = worldIn.getEntitiesWithinAABB(EntityAreaEffectCloud.class, playerIn.getEntityBoundingBox().grow(2D), p_apply_1_ -> p_apply_1_ != null && p_apply_1_.isEntityAlive() && p_apply_1_.getOwner() instanceof EntityDragon);
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
@@ -62,7 +60,6 @@ public class ItemGlassBottle extends Item {
 	}
 
 	protected ItemStack turnBottleIntoItem(ItemStack p_185061_1_, EntityPlayer player, ItemStack stack) {
-
 		p_185061_1_.shrink(1);
 		player.addStat(StatList.getObjectUseStats(this));
 

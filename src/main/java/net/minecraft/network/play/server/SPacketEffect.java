@@ -21,11 +21,9 @@ public class SPacketEffect implements Packet<INetHandlerPlayClient> {
 	private boolean serverWide;
 
 	public SPacketEffect() {
-
 	}
 
 	public SPacketEffect(int soundTypeIn, BlockPos soundPosIn, int soundDataIn, boolean serverWideIn) {
-
 		soundType = soundTypeIn;
 		soundPos = soundPosIn;
 		soundData = soundDataIn;
@@ -36,7 +34,6 @@ public class SPacketEffect implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		soundType = buf.readInt();
 		soundPos = buf.readBlockPos();
 		soundData = buf.readInt();
@@ -47,7 +44,6 @@ public class SPacketEffect implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeInt(soundType);
 		buf.writeBlockPos(soundPos);
 		buf.writeInt(soundData);
@@ -58,27 +54,22 @@ public class SPacketEffect implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleEffect(this);
 	}
 
 	public boolean isSoundServerwide() {
-
 		return serverWide;
 	}
 
 	public int getSoundType() {
-
 		return soundType;
 	}
 
 	public int getSoundData() {
-
 		return soundData;
 	}
 
 	public BlockPos getSoundPos() {
-
 		return soundPos;
 	}
 

@@ -9,7 +9,6 @@ public class EntityAIRestrictSun extends EntityAIBase {
 	private final EntityCreature entity;
 
 	public EntityAIRestrictSun(EntityCreature creature) {
-
 		entity = creature;
 	}
 
@@ -17,7 +16,6 @@ public class EntityAIRestrictSun extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		return entity.world.isDaytime() && entity.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
 	}
 
@@ -25,7 +23,6 @@ public class EntityAIRestrictSun extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		((PathNavigateGround) entity.getNavigator()).setAvoidSun(true);
 	}
 
@@ -33,7 +30,6 @@ public class EntityAIRestrictSun extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		((PathNavigateGround) entity.getNavigator()).setAvoidSun(false);
 	}
 

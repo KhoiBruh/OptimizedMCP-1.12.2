@@ -22,7 +22,6 @@ public class ChunkProviderClient implements IChunkProvider {
 	private final Chunk blankChunk;
 	private final Long2ObjectMap<Chunk> chunkMapping = new Long2ObjectOpenHashMap<>(8192) {
 		protected void rehash(int p_rehash_1_) {
-
 			if (p_rehash_1_ > key.length) {
 				super.rehash(p_rehash_1_);
 			}
@@ -35,7 +34,6 @@ public class ChunkProviderClient implements IChunkProvider {
 	private final World world;
 
 	public ChunkProviderClient(World worldIn) {
-
 		blankChunk = new EmptyChunk(worldIn, 0, 0);
 		world = worldIn;
 	}
@@ -45,7 +43,6 @@ public class ChunkProviderClient implements IChunkProvider {
 	 * to false
 	 */
 	public void unloadChunk(int x, int z) {
-
 		Chunk chunk = provideChunk(x, z);
 
 		if (!chunk.isEmpty()) {
@@ -57,7 +54,6 @@ public class ChunkProviderClient implements IChunkProvider {
 
 	
 	public Chunk getLoadedChunk(int x, int z) {
-
 		return chunkMapping.get(ChunkPos.asLong(x, z));
 	}
 
@@ -65,7 +61,6 @@ public class ChunkProviderClient implements IChunkProvider {
 	 * loads or generates the chunk at the chunk location specified
 	 */
 	public Chunk loadChunk(int chunkX, int chunkZ) {
-
 		Chunk chunk = new Chunk(world, chunkX, chunkZ);
 		chunkMapping.put(ChunkPos.asLong(chunkX, chunkZ), chunk);
 		chunk.markLoaded(true);
@@ -73,7 +68,6 @@ public class ChunkProviderClient implements IChunkProvider {
 	}
 
 	public Chunk provideChunk(int x, int z) {
-
 		return MoreObjects.firstNonNull(getLoadedChunk(x, z), blankChunk);
 	}
 
@@ -81,7 +75,6 @@ public class ChunkProviderClient implements IChunkProvider {
 	 * Unloads chunks that are marked to be unloaded. This is not guaranteed to unload every such chunk.
 	 */
 	public boolean tick() {
-
 		long i = System.currentTimeMillis();
 
 		for (Chunk chunk : chunkMapping.values()) {
@@ -99,12 +92,10 @@ public class ChunkProviderClient implements IChunkProvider {
 	 * Converts the instance data to a readable string.
 	 */
 	public String makeString() {
-
 		return "MultiplayerChunkCache: " + chunkMapping.size() + ", " + chunkMapping.size();
 	}
 
 	public boolean isChunkGeneratedAt(int x, int z) {
-
 		return chunkMapping.containsKey(ChunkPos.asLong(x, z));
 	}
 

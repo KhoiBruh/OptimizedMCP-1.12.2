@@ -76,13 +76,11 @@ public class PlayerControllerMP {
 	private int currentPlayerItem;
 
 	public PlayerControllerMP(Minecraft mcIn, NetHandlerPlayClient netHandler) {
-
 		mc = mcIn;
 		connection = netHandler;
 	}
 
 	public static void clickBlockCreative(Minecraft mcIn, PlayerControllerMP playerController, BlockPos pos, Facing facing) {
-
 		if (!mcIn.world.extinguishFire(mcIn.player, pos, facing)) {
 			playerController.onPlayerDestroyBlock(pos);
 		}
@@ -92,7 +90,6 @@ public class PlayerControllerMP {
 	 * Sets player capabilities depending on current gametype. params: player
 	 */
 	public void setPlayerCapabilities(EntityPlayer player) {
-
 		currentGameType.configurePlayerCapabilities(player.capabilities);
 	}
 
@@ -100,7 +97,6 @@ public class PlayerControllerMP {
 	 * None
 	 */
 	public boolean isSpectator() {
-
 		return currentGameType == GameType.SPECTATOR;
 	}
 
@@ -108,7 +104,6 @@ public class PlayerControllerMP {
 	 * Sets the game type for the player.
 	 */
 	public void setGameType(GameType type) {
-
 		currentGameType = type;
 		currentGameType.configurePlayerCapabilities(mc.player.capabilities);
 	}
@@ -117,17 +112,14 @@ public class PlayerControllerMP {
 	 * Flips the player around.
 	 */
 	public void flipPlayer(EntityPlayer playerIn) {
-
 		playerIn.rotationYaw = -180F;
 	}
 
 	public boolean shouldDrawHUD() {
-
 		return currentGameType.isSurvivalOrAdventure();
 	}
 
 	public boolean onPlayerDestroyBlock(BlockPos pos) {
-
 		if (currentGameType.hasLimitedInteractions()) {
 			if (currentGameType == GameType.SPECTATOR) {
 				return false;
@@ -189,7 +181,6 @@ public class PlayerControllerMP {
 	 * Called when the player is hitting a block with an item.
 	 */
 	public boolean clickBlock(BlockPos loc, Facing face) {
-
 		if (currentGameType.hasLimitedInteractions()) {
 			if (currentGameType == GameType.SPECTATOR) {
 				return false;
@@ -248,7 +239,6 @@ public class PlayerControllerMP {
 	 * Resets current block damage
 	 */
 	public void resetBlockRemoving() {
-
 		if (isHittingBlock) {
 			connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.ABORT_DESTROY_BLOCK, currentBlock, Facing.DOWN));
 			isHittingBlock = false;
@@ -259,7 +249,6 @@ public class PlayerControllerMP {
 	}
 
 	public boolean onPlayerDamageBlock(BlockPos posBlock, Facing directionFacing) {
-
 		syncCurrentPlayItem();
 
 		if (blockHitDelay > 0) {
@@ -308,12 +297,10 @@ public class PlayerControllerMP {
 	 * player reach distance = 4F
 	 */
 	public float getBlockReachDistance() {
-
 		return currentGameType.isCreative() ? 5F : 4.5F;
 	}
 
 	public void updateController() {
-
 		syncCurrentPlayItem();
 
 		if (connection.getNetworkManager().isChannelOpen()) {
@@ -324,7 +311,6 @@ public class PlayerControllerMP {
 	}
 
 	private boolean isHittingPosition(BlockPos pos) {
-
 		ItemStack itemstack = mc.player.getHeldItemMainhand();
 		boolean flag = currentItemHittingBlock.isEmpty() && itemstack.isEmpty();
 
@@ -339,7 +325,6 @@ public class PlayerControllerMP {
 	 * Syncs the current player item with the server
 	 */
 	private void syncCurrentPlayItem() {
-
 		int i = mc.player.inventory.currentItem;
 
 		if (i != currentPlayerItem) {
@@ -349,7 +334,6 @@ public class PlayerControllerMP {
 	}
 
 	public ActionResult processRightClickBlock(EntityPlayerSP player, WorldClient worldIn, BlockPos pos, Facing direction, Vec3d vec, Hand hand) {
-
 		syncCurrentPlayItem();
 		ItemStack itemstack = player.getHeldItem(hand);
 		float f = (float) (vec.x() - (double) pos.getX());
@@ -409,7 +393,6 @@ public class PlayerControllerMP {
 	}
 
 	public ActionResult processRightClick(EntityPlayer player, World worldIn, Hand hand) {
-
 		if (currentGameType == GameType.SPECTATOR) {
 			return ActionResult.PASS;
 		} else {
@@ -434,7 +417,6 @@ public class PlayerControllerMP {
 	}
 
 	public EntityPlayerSP createPlayer(World p_192830_1_, StatisticsManager p_192830_2_, RecipeBook p_192830_3_) {
-
 		return new EntityPlayerSP(mc, p_192830_1_, connection, p_192830_2_, p_192830_3_);
 	}
 
@@ -442,7 +424,6 @@ public class PlayerControllerMP {
 	 * Attacks an entity
 	 */
 	public void attackEntity(EntityPlayer playerIn, Entity targetEntity) {
-
 		syncCurrentPlayItem();
 		connection.sendPacket(new CPacketUseEntity(targetEntity));
 
@@ -456,7 +437,6 @@ public class PlayerControllerMP {
 	 * Handles right clicking an entity, sends a packet to the server.
 	 */
 	public ActionResult interactWithEntity(EntityPlayer player, Entity target, Hand hand) {
-
 		syncCurrentPlayItem();
 		connection.sendPacket(new CPacketUseEntity(target, hand));
 		return currentGameType == GameType.SPECTATOR ? ActionResult.PASS : player.interactOn(target, hand);
@@ -466,7 +446,6 @@ public class PlayerControllerMP {
 	 * Handles right clicking an entity from the entities side, sends a packet to the server.
 	 */
 	public ActionResult interactWithEntity(EntityPlayer player, Entity target, RayTraceResult ray, Hand hand) {
-
 		syncCurrentPlayItem();
 		Vec3d vec3d = new Vec3d(ray.hitVec.x() - target.posX, ray.hitVec.y() - target.posY, ray.hitVec.z() - target.posZ);
 		connection.sendPacket(new CPacketUseEntity(target, hand, vec3d));
@@ -477,7 +456,6 @@ public class PlayerControllerMP {
 	 * Handles slot clicks, sends a packet to the server.
 	 */
 	public ItemStack windowClick(int windowId, int slotId, int mouseButton, ClickType type, EntityPlayer player) {
-
 		short short1 = player.openContainer.getNextTransactionID(player.inventory);
 		ItemStack itemstack = player.openContainer.slotClick(slotId, mouseButton, type, player);
 		connection.sendPacket(new CPacketClickWindow(windowId, slotId, mouseButton, type, itemstack, short1));
@@ -485,7 +463,6 @@ public class PlayerControllerMP {
 	}
 
 	public void func_194338_a(int p_194338_1_, IRecipe p_194338_2_, boolean p_194338_3_, EntityPlayer p_194338_4_) {
-
 		connection.sendPacket(new CPacketPlaceRecipe(p_194338_1_, p_194338_2_, p_194338_3_));
 	}
 
@@ -494,7 +471,6 @@ public class PlayerControllerMP {
 	 * enchantment action the player has taken.
 	 */
 	public void sendEnchantPacket(int windowID, int button) {
-
 		connection.sendPacket(new CPacketEnchantItem(windowID, button));
 	}
 
@@ -502,7 +478,6 @@ public class PlayerControllerMP {
 	 * Used in PlayerControllerMP to update the server with an ItemStack in a slot.
 	 */
 	public void sendSlotPacket(ItemStack itemStackIn, int slotId) {
-
 		if (currentGameType.isCreative()) {
 			connection.sendPacket(new CPacketCreativeInventoryAction(slotId, itemStackIn));
 		}
@@ -512,21 +487,18 @@ public class PlayerControllerMP {
 	 * Sends a Packet107 to the server to drop the item on the ground
 	 */
 	public void sendPacketDropItem(ItemStack itemStackIn) {
-
 		if (currentGameType.isCreative() && !itemStackIn.isEmpty()) {
 			connection.sendPacket(new CPacketCreativeInventoryAction(-1, itemStackIn));
 		}
 	}
 
 	public void onStoppedUsingItem(EntityPlayer playerIn) {
-
 		syncCurrentPlayItem();
 		connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, Facing.DOWN));
 		playerIn.stopActiveHand();
 	}
 
 	public boolean gameIsSurvivalOrAdventure() {
-
 		return currentGameType.isSurvivalOrAdventure();
 	}
 
@@ -534,7 +506,6 @@ public class PlayerControllerMP {
 	 * Checks if the player is not creative, used for checking if it should break a block instantly
 	 */
 	public boolean isNotCreative() {
-
 		return !currentGameType.isCreative();
 	}
 
@@ -542,7 +513,6 @@ public class PlayerControllerMP {
 	 * returns true if player is in creative mode
 	 */
 	public boolean isInCreativeMode() {
-
 		return currentGameType.isCreative();
 	}
 
@@ -550,7 +520,6 @@ public class PlayerControllerMP {
 	 * true for hitting entities far away.
 	 */
 	public boolean extendedReach() {
-
 		return currentGameType.isCreative();
 	}
 
@@ -558,17 +527,14 @@ public class PlayerControllerMP {
 	 * Checks if the player is riding a horse, used to chose the GUI to open
 	 */
 	public boolean isRidingHorse() {
-
 		return mc.player.isRiding() && mc.player.getRidingEntity() instanceof AbstractHorse;
 	}
 
 	public boolean isSpectatorMode() {
-
 		return currentGameType == GameType.SPECTATOR;
 	}
 
 	public GameType getCurrentGameType() {
-
 		return currentGameType;
 	}
 
@@ -576,12 +542,10 @@ public class PlayerControllerMP {
 	 * Return isHittingBlock
 	 */
 	public boolean getIsHittingBlock() {
-
 		return isHittingBlock;
 	}
 
 	public void pickItem(int index) {
-
 		connection.sendPacket(new CPacketCustomPayload("MC|PickItem", (new PacketBuffer(Unpooled.buffer())).writeVarInt(index)));
 	}
 

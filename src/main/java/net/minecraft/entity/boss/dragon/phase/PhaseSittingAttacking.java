@@ -8,7 +8,6 @@ public class PhaseSittingAttacking extends PhaseSittingBase {
 	private int attackingTicks;
 
 	public PhaseSittingAttacking(EntityDragon dragonIn) {
-
 		super(dragonIn);
 	}
 
@@ -17,7 +16,6 @@ public class PhaseSittingAttacking extends PhaseSittingBase {
 	 * Called by dragon's onLivingUpdate. Only used when worldObj.isRemote.
 	 */
 	public void doClientRenderEffects() {
-
 		dragon.world.playSound(dragon.posX, dragon.posY, dragon.posZ, SoundEvents.ENTITY_ENDERDRAGON_GROWL, dragon.getSoundCategory(), 2.5F, 0.8F + dragon.getRNG().nextFloat() * 0.3F, false);
 	}
 
@@ -26,7 +24,6 @@ public class PhaseSittingAttacking extends PhaseSittingBase {
 	 * Called by dragon's onLivingUpdate. Only used when !worldObj.isRemote.
 	 */
 	public void doLocalUpdate() {
-
 		if (attackingTicks++ >= 40) {
 			dragon.getPhaseManager().setPhase(PhaseList.SITTING_FLAMING);
 		}
@@ -36,12 +33,10 @@ public class PhaseSittingAttacking extends PhaseSittingBase {
 	 * Called when this phase is set to active
 	 */
 	public void initPhase() {
-
 		attackingTicks = 0;
 	}
 
 	public PhaseList<PhaseSittingAttacking> getType() {
-
 		return PhaseList.SITTING_ATTACKING;
 	}
 

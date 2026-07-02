@@ -21,7 +21,6 @@ public abstract class TabCompleter {
 	protected List<String> completions = Lists.newArrayList();
 
 	public TabCompleter(GuiTextField textFieldIn, boolean hasTargetBlockIn) {
-
 		textField = textFieldIn;
 		hasTargetBlock = hasTargetBlockIn;
 	}
@@ -31,7 +30,6 @@ public abstract class TabCompleter {
 	 * completions. When the server responds, this method gets called again (via setCompletions).
 	 */
 	public void complete() {
-
 		if (didComplete) {
 			textField.deleteFromCursor(0);
 			textField.deleteFromCursor(textField.getNthWordFromPosWS(-1, textField.getCursorPosition(), false) - textField.getCursorPosition());
@@ -58,7 +56,6 @@ public abstract class TabCompleter {
 	}
 
 	private void requestCompletions(String prefix) {
-
 		if (!prefix.isEmpty()) {
 			Minecraft.getMinecraft().player.connection.sendPacket(new CPacketTabComplete(prefix, getTargetBlockPos(), hasTargetBlock));
 			requestedCompletions = true;
@@ -72,7 +69,6 @@ public abstract class TabCompleter {
 	 * Only actually sets completions if they were requested (via requestCompletions)
 	 */
 	public void setCompletions(String... newCompl) {
-
 		if (requestedCompletions) {
 			didComplete = false;
 			completions.clear();
@@ -101,12 +97,10 @@ public abstract class TabCompleter {
 	 * Called when new text is entered, or backspace pressed
 	 */
 	public void resetDidComplete() {
-
 		didComplete = false;
 	}
 
 	public void resetRequested() {
-
 		requestedCompletions = false;
 	}
 

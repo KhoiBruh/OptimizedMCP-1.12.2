@@ -43,16 +43,13 @@ public class ContainerEnchantment extends Container {
 	public int[] worldClue;
 
 	public ContainerEnchantment(InventoryPlayer playerInv, World worldIn) {
-
 		this(playerInv, worldIn, BlockPos.ORIGIN);
 	}
 
 	public ContainerEnchantment(InventoryPlayer playerInv, World worldIn, BlockPos pos) {
-
 		tableInventory = new InventoryBasic("Enchant", true, 2) {
 
 			public void markDirty() {
-
 				super.markDirty();
 				onCraftMatrixChanged(this);
 			}
@@ -65,15 +62,12 @@ public class ContainerEnchantment extends Container {
 		position = pos;
 		xpSeed = playerInv.player.getXPSeed();
 		addSlotToContainer(new Slot(tableInventory, 0, 15, 47) {
-
 			public int getSlotStackLimit() {
-
 				return 1;
 			}
 		});
 		addSlotToContainer(new Slot(tableInventory, 1, 35, 47) {
 			public boolean isItemValid(ItemStack stack) {
-
 				return stack.getItem() == Items.DYE && DyeColor.byDyeDamage(stack.getMetadata()) == DyeColor.BLUE;
 			}
 		});
@@ -90,7 +84,6 @@ public class ContainerEnchantment extends Container {
 	}
 
 	protected void broadcastData(IContainerListener crafting) {
-
 		crafting.sendWindowProperty(this, 0, enchantLevels[0]);
 		crafting.sendWindowProperty(this, 1, enchantLevels[1]);
 		crafting.sendWindowProperty(this, 2, enchantLevels[2]);
@@ -104,7 +97,6 @@ public class ContainerEnchantment extends Container {
 	}
 
 	public void addListener(IContainerListener listener) {
-
 		super.addListener(listener);
 		broadcastData(listener);
 	}
@@ -113,7 +105,6 @@ public class ContainerEnchantment extends Container {
 	 * Looks for changes made in the container, sends them to every listener.
 	 */
 	public void detectAndSendChanges() {
-
 		super.detectAndSendChanges();
 
 		for (IContainerListener icontainerlistener : listeners) {
@@ -122,7 +113,6 @@ public class ContainerEnchantment extends Container {
 	}
 
 	public void updateProgressBar(int id, int data) {
-
 		if (id >= 0 && id <= 2) {
 			enchantLevels[id] = data;
 		} else if (id == 3) {
@@ -140,7 +130,6 @@ public class ContainerEnchantment extends Container {
 	 * Callback for when the crafting matrix is changed.
 	 */
 	public void onCraftMatrixChanged(IInventory inventoryIn) {
-
 		if (inventoryIn == tableInventory) {
 			ItemStack itemstack = inventoryIn.getStackInSlot(0);
 
@@ -220,7 +209,6 @@ public class ContainerEnchantment extends Container {
 	 * Handles the given Button-click on the server, currently only used by enchanting. Name is for legacy.
 	 */
 	public boolean enchantItem(EntityPlayer playerIn, int id) {
-
 		ItemStack itemstack = tableInventory.getStackInSlot(0);
 		ItemStack itemstack1 = tableInventory.getStackInSlot(1);
 		int i = id + 1;
@@ -276,7 +264,6 @@ public class ContainerEnchantment extends Container {
 	}
 
 	private List<EnchantmentData> getEnchantmentList(ItemStack stack, int enchantSlot, int level) {
-
 		rand.setSeed(xpSeed + enchantSlot);
 		List<EnchantmentData> list = EnchantmentHelper.buildEnchantmentList(rand, stack, level, false);
 
@@ -288,7 +275,6 @@ public class ContainerEnchantment extends Container {
 	}
 
 	public int getLapisAmount() {
-
 		ItemStack itemstack = tableInventory.getStackInSlot(1);
 		return itemstack.isEmpty() ? 0 : itemstack.getCount();
 	}
@@ -297,7 +283,6 @@ public class ContainerEnchantment extends Container {
 	 * Called when the container is closed.
 	 */
 	public void onContainerClosed(EntityPlayer playerIn) {
-
 		super.onContainerClosed(playerIn);
 
 		if (!worldPointer.isRemote) {
@@ -309,7 +294,6 @@ public class ContainerEnchantment extends Container {
 	 * Determines whether supplied player can use this container
 	 */
 	public boolean canInteractWith(EntityPlayer playerIn) {
-
 		if (worldPointer.getBlockState(position).getBlock() != Blocks.ENCHANTING_TABLE) {
 			return false;
 		} else {
@@ -322,7 +306,6 @@ public class ContainerEnchantment extends Container {
 	 * inventory and the other inventory(s).
 	 */
 	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = inventorySlots.get(index);
 

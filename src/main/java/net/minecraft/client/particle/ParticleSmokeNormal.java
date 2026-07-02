@@ -10,12 +10,10 @@ public class ParticleSmokeNormal extends Particle {
 	float smokeParticleScale;
 
 	private ParticleSmokeNormal(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i46347_8_, double p_i46347_10_, double p_i46347_12_) {
-
 		this(worldIn, xCoordIn, yCoordIn, zCoordIn, p_i46347_8_, p_i46347_10_, p_i46347_12_, 1F);
 	}
 
 	protected ParticleSmokeNormal(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i46348_8_, double p_i46348_10_, double p_i46348_12_, float p_i46348_14_) {
-
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0D, 0D, 0D);
 		motionX *= 0.10000000149011612D;
 		motionY *= 0.10000000149011612D;
@@ -38,7 +36,6 @@ public class ParticleSmokeNormal extends Particle {
 	 * Renders the particle
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-
 		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32F;
 		f = MathHelper.clamp(f, 0F, 1F);
 		particleScale = smokeParticleScale * f;
@@ -46,7 +43,6 @@ public class ParticleSmokeNormal extends Particle {
 	}
 
 	public void onUpdate() {
-
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
@@ -77,7 +73,6 @@ public class ParticleSmokeNormal extends Particle {
 	public static class Factory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			return new ParticleSmokeNormal(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 		}
 

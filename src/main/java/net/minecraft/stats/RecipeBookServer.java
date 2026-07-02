@@ -21,7 +21,6 @@ public class RecipeBookServer extends RecipeBook {
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	public void add(List<IRecipe> recipesIn, EntityPlayerMP player) {
-
 		List<IRecipe> list = Lists.newArrayList();
 
 		for (IRecipe irecipe : recipesIn) {
@@ -37,7 +36,6 @@ public class RecipeBookServer extends RecipeBook {
 	}
 
 	public void remove(List<IRecipe> recipesIn, EntityPlayerMP player) {
-
 		List<IRecipe> list = Lists.newArrayList();
 
 		for (IRecipe irecipe : recipesIn) {
@@ -51,12 +49,10 @@ public class RecipeBookServer extends RecipeBook {
 	}
 
 	private void sendPacket(SPacketRecipeBook.State state, EntityPlayerMP player, List<IRecipe> recipesIn) {
-
 		player.connection.sendPacket(new SPacketRecipeBook(state, recipesIn, Collections.emptyList(), isGuiOpen, isFilteringCraftable));
 	}
 
 	public NBTTagCompound write() {
-
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 		nbttagcompound.setBoolean("isGuiOpen", isGuiOpen);
 		nbttagcompound.setBoolean("isFilteringCraftable", isFilteringCraftable);
@@ -78,7 +74,6 @@ public class RecipeBookServer extends RecipeBook {
 	}
 
 	public void read(NBTTagCompound tag) {
-
 		isGuiOpen = tag.getBoolean("isGuiOpen");
 		isFilteringCraftable = tag.getBoolean("isFilteringCraftable");
 		NBTTagList nbttaglist = tag.getTagList("recipes", 8);
@@ -109,7 +104,6 @@ public class RecipeBookServer extends RecipeBook {
 	}
 
 	private List<IRecipe> getRecipes() {
-
 		List<IRecipe> list = Lists.newArrayList();
 
 		for (int i = recipes.nextSetBit(0); i >= 0; i = recipes.nextSetBit(i + 1)) {
@@ -120,7 +114,6 @@ public class RecipeBookServer extends RecipeBook {
 	}
 
 	private List<IRecipe> getDisplayedRecipes() {
-
 		List<IRecipe> list = Lists.newArrayList();
 
 		for (int i = newRecipes.nextSetBit(0); i >= 0; i = newRecipes.nextSetBit(i + 1)) {
@@ -131,7 +124,6 @@ public class RecipeBookServer extends RecipeBook {
 	}
 
 	public void init(EntityPlayerMP player) {
-
 		player.connection.sendPacket(new SPacketRecipeBook(SPacketRecipeBook.State.INIT, getRecipes(), getDisplayedRecipes(), isGuiOpen, isFilteringCraftable));
 	}
 

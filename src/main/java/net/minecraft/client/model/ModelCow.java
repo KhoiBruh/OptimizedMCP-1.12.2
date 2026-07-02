@@ -3,7 +3,6 @@ package net.minecraft.client.model;
 public class ModelCow extends ModelQuadruped {
 
 	public ModelCow() {
-
 		super(12, 0F);
 		head = new ModelRenderer(this, 0, 0);
 		head.addBox(-4F, -4F, -6F, 8, 8, 6, 0F);

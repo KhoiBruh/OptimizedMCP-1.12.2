@@ -3,7 +3,6 @@ package net.minecraft.world.gen.layer;
 public class GenLayerZoom extends GenLayer {
 
 	public GenLayerZoom(long p_i2134_1_, GenLayer p_i2134_3_) {
-
 		super(p_i2134_1_);
 		super.parent = p_i2134_3_;
 	}
@@ -12,7 +11,6 @@ public class GenLayerZoom extends GenLayer {
 	 * Magnify a layer. Parms are seed adjustment, layer, number of times to magnify
 	 */
 	public static GenLayer magnify(long p_75915_0_, GenLayer p_75915_2_, int p_75915_3_) {
-
 		GenLayer genlayer = p_75915_2_;
 
 		for (int i = 0; i < p_75915_3_; ++i) {
@@ -27,7 +25,6 @@ public class GenLayerZoom extends GenLayer {
 	 * amounts, or Biome ID's based on the particular GenLayer subclass.
 	 */
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
-
 		int i = areaX >> 1;
 		int j = areaY >> 1;
 		int k = (areaWidth >> 1) + 2;

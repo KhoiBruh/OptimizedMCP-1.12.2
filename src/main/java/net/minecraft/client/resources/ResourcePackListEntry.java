@@ -22,13 +22,11 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
 	protected final ResourcePacksScreen resourcePacksGUI;
 
 	public ResourcePackListEntry(ResourcePacksScreen resourcePacksGUIIn) {
-
 		resourcePacksGUI = resourcePacksGUIIn;
 		mc = Minecraft.getMinecraft();
 	}
 
 	public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected, float partialTicks) {
-
 		int i = getResourcePackFormat();
 
 		if (i != 3) {
@@ -113,29 +111,24 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
 	protected abstract void bindResourcePackIcon();
 
 	protected boolean showHoverOverlay() {
-
 		return true;
 	}
 
 	protected boolean canMoveRight() {
-
 		return !resourcePacksGUI.hasResourcePackEntry(this);
 	}
 
 	protected boolean canMoveLeft() {
-
 		return resourcePacksGUI.hasResourcePackEntry(this);
 	}
 
 	protected boolean canMoveUp() {
-
 		List<ResourcePackListEntry> list = resourcePacksGUI.getListContaining(this);
 		int i = list.indexOf(this);
 		return i > 0 && list.get(i - 1).showHoverOverlay();
 	}
 
 	protected boolean canMoveDown() {
-
 		List<ResourcePackListEntry> list = resourcePacksGUI.getListContaining(this);
 		int i = list.indexOf(this);
 		return i >= 0 && i < list.size() - 1 && list.get(i + 1).showHoverOverlay();
@@ -146,7 +139,6 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
 	 * clicked and the list should not be dragged.
 	 */
 	public boolean mousePressed(int slotIndex, int mouseX, int mouseY, int mouseEvent, int relativeX, int relativeY) {
-
 		if (showHoverOverlay() && relativeX <= 32) {
 			if (canMoveRight()) {
 				resourcePacksGUI.markChanged();
@@ -204,18 +196,15 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
 	}
 
 	public void updatePosition(int slotIndex, int x, int y, float partialTicks) {
-
 	}
 
 	/**
 	 * Fired when the mouse button is released. Arguments: index, x, y, mouseEvent, relativeX, relativeY
 	 */
 	public void mouseReleased(int slotIndex, int x, int y, int mouseEvent, int relativeX, int relativeY) {
-
 	}
 
 	public boolean isServerPack() {
-
 		return false;
 	}
 

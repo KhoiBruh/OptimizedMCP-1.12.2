@@ -30,7 +30,6 @@ public class EntityLightningBolt extends EntityWeatherEffect {
 	private int boltLivingTime;
 
 	public EntityLightningBolt(World worldIn, double x, double y, double z, boolean effectOnlyIn) {
-
 		super(worldIn);
 		setLocationAndAngles(x, y, z, 0F, 0F);
 		lightningState = 2;
@@ -55,7 +54,6 @@ public class EntityLightningBolt extends EntityWeatherEffect {
 	}
 
 	public SoundCategory getSoundCategory() {
-
 		return SoundCategory.WEATHER;
 	}
 
@@ -63,7 +61,6 @@ public class EntityLightningBolt extends EntityWeatherEffect {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		super.onUpdate();
 
 		if (lightningState == 2) {
@@ -106,21 +103,18 @@ public class EntityLightningBolt extends EntityWeatherEffect {
 	}
 
 	protected void entityInit() {
-
 	}
 
 	/**
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	protected void readEntityFromNBT(NBTTagCompound compound) {
-
 	}
 
 	/**
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	protected void writeEntityToNBT(NBTTagCompound compound) {
-
 	}
 
 }

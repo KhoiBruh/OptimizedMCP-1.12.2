@@ -12,12 +12,10 @@ public class RenderShulkerBullet extends Render<EntityShulkerBullet> {
 	private final ModelShulkerBullet model = new ModelShulkerBullet();
 
 	public RenderShulkerBullet(RenderManager manager) {
-
 		super(manager);
 	}
 
 	private float rotLerp(float p_188347_1_, float p_188347_2_, float p_188347_3_) {
-
 		float f;
 
 		for (f = p_188347_2_ - p_188347_1_; f < -180F; f += 360F) {
@@ -34,7 +32,6 @@ public class RenderShulkerBullet extends Render<EntityShulkerBullet> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(EntityShulkerBullet entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		GLS.pushMatrix();
 		float f = rotLerp(entity.prevRotationYaw, entity.rotationYaw, partialTicks);
 		float f1 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
@@ -61,7 +58,6 @@ public class RenderShulkerBullet extends Render<EntityShulkerBullet> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityShulkerBullet entity) {
-
 		return SHULKER_SPARK_TEXTURE;
 	}
 

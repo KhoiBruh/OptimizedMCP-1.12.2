@@ -23,7 +23,6 @@ public class EntityTNTPrimed extends Entity {
 	private int fuse;
 
 	public EntityTNTPrimed(World worldIn) {
-
 		super(worldIn);
 		fuse = 80;
 		preventEntitySpawning = true;
@@ -32,7 +31,6 @@ public class EntityTNTPrimed extends Entity {
 	}
 
 	public EntityTNTPrimed(World worldIn, double x, double y, double z, EntityLivingBase igniter) {
-
 		this(worldIn);
 		setPosition(x, y, z);
 		float f = (float) (Math.random() * (Math.PI * 2D));
@@ -47,7 +45,6 @@ public class EntityTNTPrimed extends Entity {
 	}
 
 	protected void entityInit() {
-
 		dataManager.register(FUSE, 80);
 	}
 
@@ -56,7 +53,6 @@ public class EntityTNTPrimed extends Entity {
 	 * prevent them from trampling crops
 	 */
 	protected boolean canTriggerWalking() {
-
 		return false;
 	}
 
@@ -64,7 +60,6 @@ public class EntityTNTPrimed extends Entity {
 	 * Returns true if other Entities should be prevented from moving through this Entity.
 	 */
 	public boolean canBeCollidedWith() {
-
 		return !isDead;
 	}
 
@@ -72,7 +67,6 @@ public class EntityTNTPrimed extends Entity {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
@@ -107,7 +101,6 @@ public class EntityTNTPrimed extends Entity {
 	}
 
 	private void explode() {
-
 		float f = 4F;
 		world.createExplosion(this, posX, posY + (double) (height / 16F), posZ, 4F, true);
 	}
@@ -116,7 +109,6 @@ public class EntityTNTPrimed extends Entity {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	protected void writeEntityToNBT(NBTTagCompound compound) {
-
 		compound.setShort("Fuse", (short) getFuse());
 	}
 
@@ -124,7 +116,6 @@ public class EntityTNTPrimed extends Entity {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	protected void readEntityFromNBT(NBTTagCompound compound) {
-
 		setFuse(compound.getShort("Fuse"));
 	}
 
@@ -134,17 +125,14 @@ public class EntityTNTPrimed extends Entity {
 	 * returns null or the entityliving it was placed or ignited by
 	 */
 	public EntityLivingBase getTntPlacedBy() {
-
 		return tntPlacedBy;
 	}
 
 	public float getEyeHeight() {
-
 		return 0F;
 	}
 
 	public void notifyDataManagerChange(DataParameter<?> key) {
-
 		if (FUSE.equals(key)) {
 			fuse = getFuseDataManager();
 		}
@@ -154,17 +142,14 @@ public class EntityTNTPrimed extends Entity {
 	 * Gets the fuse from the data manager
 	 */
 	public int getFuseDataManager() {
-
 		return dataManager.get(FUSE);
 	}
 
 	public int getFuse() {
-
 		return fuse;
 	}
 
 	public void setFuse(int fuseIn) {
-
 		dataManager.set(FUSE, fuseIn);
 		fuse = fuseIn;
 	}

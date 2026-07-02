@@ -23,14 +23,12 @@ public class LanguageManager implements IResourceManagerReloadListener {
 	private String currentLanguage;
 
 	public LanguageManager(MetadataSerializer theMetadataSerializerIn, String currentLanguageIn) {
-
 		metadataSerializer = theMetadataSerializerIn;
 		currentLanguage = currentLanguageIn;
 		I18n.setLocale(CURRENT_LOCALE);
 	}
 
 	public void parseLanguageMetadata(List<IResourcePack> resourcesPacks) {
-
 		languageMap.clear();
 
 		for (IResourcePack iresourcepack : resourcesPacks) {
@@ -51,7 +49,6 @@ public class LanguageManager implements IResourceManagerReloadListener {
 	}
 
 	public void onResourceManagerReload(IResourceManager resourceManager) {
-
 		List<String> list = Lists.newArrayList("en_us");
 
 		if (!"en_us".equals(currentLanguage)) {
@@ -63,33 +60,27 @@ public class LanguageManager implements IResourceManagerReloadListener {
 	}
 
 	public boolean isCurrentLocaleUnicode() {
-
 		return CURRENT_LOCALE.isUnicode();
 	}
 
 	public boolean isCurrentLanguageBidirectional() {
-
 		return getCurrentLanguage() != null && getCurrentLanguage().isBidirectional();
 	}
 
 	public Language getCurrentLanguage() {
-
 		String s = languageMap.containsKey(currentLanguage) ? currentLanguage : "en_us";
 		return languageMap.get(s);
 	}
 
 	public void setCurrentLanguage(Language currentLanguageIn) {
-
 		currentLanguage = currentLanguageIn.getLanguageCode();
 	}
 
 	public SortedSet<Language> getLanguages() {
-
 		return Sets.newTreeSet(languageMap.values());
 	}
 
 	public Language getLanguage(String p_191960_1_) {
-
 		return languageMap.get(p_191960_1_);
 	}
 

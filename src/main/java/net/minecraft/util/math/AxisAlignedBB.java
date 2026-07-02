@@ -36,7 +36,6 @@ public class AxisAlignedBB {
 	public final double maxZ;
 
 	public AxisAlignedBB(double x1, double y1, double z1, double x2, double y2, double z2) {
-
 		minX = Math.min(x1, x2);
 		minY = Math.min(y1, y2);
 		minZ = Math.min(z1, z2);
@@ -46,17 +45,14 @@ public class AxisAlignedBB {
 	}
 
 	public AxisAlignedBB(BlockPos pos) {
-
 		this(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
 	}
 
 	public AxisAlignedBB(BlockPos pos1, BlockPos pos2) {
-
 		this(pos1.getX(), pos1.getY(), pos1.getZ(), pos2.getX(), pos2.getY(), pos2.getZ());
 	}
 
 	public AxisAlignedBB(Vec3d min, Vec3d max) {
-
 		this(min.x(), min.y(), min.z(), max.x(), max.y(), max.z());
 	}
 
@@ -65,12 +61,10 @@ public class AxisAlignedBB {
 	 * values taken from this bounding box.
 	 */
 	public AxisAlignedBB setMaxY(double y2) {
-
 		return new AxisAlignedBB(minX, minY, minZ, maxX, y2, maxZ);
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else if (!(p_equals_1_ instanceof AxisAlignedBB axisalignedbb)) {
@@ -94,7 +88,6 @@ public class AxisAlignedBB {
 	}
 
 	public int hashCode() {
-
 		int j = Double.hashCode(minX);
 		j = 31 * j + Double.hashCode(minY);
 		j = 31 * j + Double.hashCode(minZ);
@@ -134,7 +127,6 @@ public class AxisAlignedBB {
 	 * @return A new modified bounding box.
 	 */
 	public AxisAlignedBB contract(double x, double y, double z) {
-
 		double d0 = minX;
 		double d1 = minY;
 		double d2 = minZ;
@@ -188,7 +180,6 @@ public class AxisAlignedBB {
 	 * @return A modified bounding box that will always be equal or greater in volume to this bounding box.
 	 */
 	public AxisAlignedBB expand(double x, double y, double z) {
-
 		double d0 = minX;
 		double d1 = minY;
 		double d2 = minZ;
@@ -250,7 +241,6 @@ public class AxisAlignedBB {
 	 * @return A modified bounding box.
 	 */
 	public AxisAlignedBB grow(double x, double y, double z) {
-
 		double d0 = minX - x;
 		double d1 = minY - y;
 		double d2 = minZ - z;
@@ -272,12 +262,10 @@ public class AxisAlignedBB {
 	 * @return A modified AABB.
 	 */
 	public AxisAlignedBB grow(double value) {
-
 		return grow(value, value, value);
 	}
 
 	public AxisAlignedBB intersect(AxisAlignedBB other) {
-
 		double d0 = Math.max(minX, other.minX);
 		double d1 = Math.max(minY, other.minY);
 		double d2 = Math.max(minZ, other.minZ);
@@ -288,7 +276,6 @@ public class AxisAlignedBB {
 	}
 
 	public AxisAlignedBB union(AxisAlignedBB other) {
-
 		double d0 = Math.min(minX, other.minX);
 		double d1 = Math.min(minY, other.minY);
 		double d2 = Math.min(minZ, other.minZ);
@@ -302,17 +289,14 @@ public class AxisAlignedBB {
 	 * Offsets the current bounding box by the specified amount.
 	 */
 	public AxisAlignedBB offset(double x, double y, double z) {
-
 		return new AxisAlignedBB(minX + x, minY + y, minZ + z, maxX + x, maxY + y, maxZ + z);
 	}
 
 	public AxisAlignedBB offset(BlockPos pos) {
-
 		return new AxisAlignedBB(minX + (double) pos.getX(), minY + (double) pos.getY(), minZ + (double) pos.getZ(), maxX + (double) pos.getX(), maxY + (double) pos.getY(), maxZ + (double) pos.getZ());
 	}
 
 	public AxisAlignedBB offset(Vec3d vec) {
-
 		return offset(vec.x(), vec.y(), vec.z());
 	}
 
@@ -322,7 +306,6 @@ public class AxisAlignedBB {
 	 * calculated offset.  Otherwise return the calculated offset.
 	 */
 	public double calculateXOffset(AxisAlignedBB other, double offsetX) {
-
 		if (other.maxY > minY && other.minY < maxY && other.maxZ > minZ && other.minZ < maxZ) {
 			if (offsetX > 0D && other.maxX <= minX) {
 				double d1 = minX - other.maxX;
@@ -350,7 +333,6 @@ public class AxisAlignedBB {
 	 * calculated offset.  Otherwise return the calculated offset.
 	 */
 	public double calculateYOffset(AxisAlignedBB other, double offsetY) {
-
 		if (other.maxX > minX && other.minX < maxX && other.maxZ > minZ && other.minZ < maxZ) {
 			if (offsetY > 0D && other.maxY <= minY) {
 				double d1 = minY - other.maxY;
@@ -378,7 +360,6 @@ public class AxisAlignedBB {
 	 * calculated offset.  Otherwise return the calculated offset.
 	 */
 	public double calculateZOffset(AxisAlignedBB other, double offsetZ) {
-
 		if (other.maxX > minX && other.minX < maxX && other.maxY > minY && other.minY < maxY) {
 			if (offsetZ > 0D && other.maxZ <= minZ) {
 				double d1 = minZ - other.maxZ;
@@ -404,17 +385,14 @@ public class AxisAlignedBB {
 	 * Checks if the bounding box intersects with another.
 	 */
 	public boolean intersects(AxisAlignedBB other) {
-
 		return intersects(other.minX, other.minY, other.minZ, other.maxX, other.maxY, other.maxZ);
 	}
 
 	public boolean intersects(double x1, double y1, double z1, double x2, double y2, double z2) {
-
 		return minX < x2 && maxX > x1 && minY < y2 && maxY > y1 && minZ < z2 && maxZ > z1;
 	}
 
 	public boolean intersects(Vec3d min, Vec3d max) {
-
 		return intersects(Math.min(min.x(), max.x()), Math.min(min.y(), max.y()), Math.min(min.z(), max.z()), Math.max(min.x(), max.x()), Math.max(min.y(), max.y()), Math.max(min.z(), max.z()));
 	}
 
@@ -422,7 +400,6 @@ public class AxisAlignedBB {
 	 * Returns if the supplied Vec3D is completely inside the bounding box
 	 */
 	public boolean contains(Vec3d vec) {
-
 		if (vec.x() > minX && vec.x() < maxX) {
 			if (vec.y() > minY && vec.y() < maxY) {
 				return vec.z() > minZ && vec.z() < maxZ;
@@ -438,7 +415,6 @@ public class AxisAlignedBB {
 	 * Returns the average length of the edges of the bounding box.
 	 */
 	public double getAverageEdgeLength() {
-
 		double d0 = maxX - minX;
 		double d1 = maxY - minY;
 		double d2 = maxZ - minZ;
@@ -458,13 +434,11 @@ public class AxisAlignedBB {
 	 * @return A modified AABB.
 	 */
 	public AxisAlignedBB shrink(double value) {
-
 		return grow(-value);
 	}
 
 	
 	public RayTraceResult calculateIntercept(Vec3d vecA, Vec3d vecB) {
-
 		Vec3d vec3d = collideWithXPlane(minX, vecA, vecB);
 		Facing enumfacing = Facing.WEST;
 		Vec3d vec3d1 = collideWithXPlane(maxX, vecA, vecB);
@@ -507,14 +481,12 @@ public class AxisAlignedBB {
 
 	@VisibleForTesting
 	boolean isClosest(Vec3d p_186661_1_, Vec3d p_186661_2_, Vec3d p_186661_3_) {
-
 		return p_186661_2_ == null || p_186661_1_.squareDistanceTo(p_186661_3_) < p_186661_1_.squareDistanceTo(p_186661_2_);
 	}
 
 	
 	@VisibleForTesting
 	Vec3d collideWithXPlane(double p_186671_1_, Vec3d p_186671_3_, Vec3d p_186671_4_) {
-
 		Vec3d vec3d = p_186671_3_.getIntermediateWithXValue(p_186671_4_, p_186671_1_);
 		return vec3d != null && intersectsWithYZ(vec3d) ? vec3d : null;
 	}
@@ -522,7 +494,6 @@ public class AxisAlignedBB {
 	
 	@VisibleForTesting
 	Vec3d collideWithYPlane(double p_186663_1_, Vec3d p_186663_3_, Vec3d p_186663_4_) {
-
 		Vec3d vec3d = p_186663_3_.getIntermediateWithYValue(p_186663_4_, p_186663_1_);
 		return vec3d != null && intersectsWithXZ(vec3d) ? vec3d : null;
 	}
@@ -530,41 +501,34 @@ public class AxisAlignedBB {
 	
 	@VisibleForTesting
 	Vec3d collideWithZPlane(double p_186665_1_, Vec3d p_186665_3_, Vec3d p_186665_4_) {
-
 		Vec3d vec3d = p_186665_3_.getIntermediateWithZValue(p_186665_4_, p_186665_1_);
 		return vec3d != null && intersectsWithXY(vec3d) ? vec3d : null;
 	}
 
 	@VisibleForTesting
 	public boolean intersectsWithYZ(Vec3d vec) {
-
 		return vec.y() >= minY && vec.y() <= maxY && vec.z() >= minZ && vec.z() <= maxZ;
 	}
 
 	@VisibleForTesting
 	public boolean intersectsWithXZ(Vec3d vec) {
-
 		return vec.x() >= minX && vec.x() <= maxX && vec.z() >= minZ && vec.z() <= maxZ;
 	}
 
 	@VisibleForTesting
 	public boolean intersectsWithXY(Vec3d vec) {
-
 		return vec.x() >= minX && vec.x() <= maxX && vec.y() >= minY && vec.y() <= maxY;
 	}
 
 	public String toString() {
-
 		return "box[" + minX + ", " + minY + ", " + minZ + " -> " + maxX + ", " + maxY + ", " + maxZ + "]";
 	}
 
 	public boolean hasNaN() {
-
 		return Double.isNaN(minX) || Double.isNaN(minY) || Double.isNaN(minZ) || Double.isNaN(maxX) || Double.isNaN(maxY) || Double.isNaN(maxZ);
 	}
 
 	public Vec3d getCenter() {
-
 		return new Vec3d(minX + (maxX - minX) * 0.5D, minY + (maxY - minY) * 0.5D, minZ + (maxZ - minZ) * 0.5D);
 	}
 

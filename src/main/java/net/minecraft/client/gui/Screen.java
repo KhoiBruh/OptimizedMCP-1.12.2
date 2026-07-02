@@ -154,12 +154,10 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 	}
 
 	public boolean isFocused() {
-
 		return focused;
 	}
 
 	public void setFocused(boolean hasFocusedControlIn) {
-
 		focused = hasFocusedControlIn;
 	}
 
@@ -262,7 +260,6 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 	}
 
 	protected void setText(String newChatText, boolean shouldOverwrite) {
-
 	}
 
 	public boolean handleComponentClick(ITextComponent component) {
@@ -342,11 +339,9 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 	}
 
 	protected void mouseClickMove(int mouseX, int mouseY, int button, long timeSinceLastClick) {
-
 	}
 
 	protected void action(Button button) throws IOException {
-
 	}
 
 	public void setResolution(Minecraft mc, int width, int height) {
@@ -360,7 +355,6 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 	}
 
 	public void init() {
-
 	}
 
 	public void handleInput() throws IOException {
@@ -400,11 +394,9 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 	}
 
 	public void update() {
-
 	}
 
 	public void close() {
-
 	}
 
 	public void drawDefaultBackground() {

@@ -11,7 +11,6 @@ public class BossInfoClient extends BossInfo {
 	protected long percentSetTime;
 
 	public BossInfoClient(SPacketUpdateBossInfo packetIn) {
-
 		super(packetIn.getUniqueId(), packetIn.getName(), packetIn.getColor(), packetIn.getOverlay());
 		rawPercent = packetIn.getPercent();
 		percent = packetIn.getPercent();
@@ -22,21 +21,18 @@ public class BossInfoClient extends BossInfo {
 	}
 
 	public float getPercent() {
-
 		long i = Minecraft.getSystemTime() - percentSetTime;
 		float f = MathHelper.clamp((float) i / 100F, 0F, 1F);
 		return percent + (rawPercent - percent) * f;
 	}
 
 	public void setPercent(float percentIn) {
-
 		percent = getPercent();
 		rawPercent = percentIn;
 		percentSetTime = Minecraft.getSystemTime();
 	}
 
 	public void updateFromPacket(SPacketUpdateBossInfo packetIn) {
-
 		switch (packetIn.getOperation()) {
 			case UPDATE_NAME:
 				setName(packetIn.getName());

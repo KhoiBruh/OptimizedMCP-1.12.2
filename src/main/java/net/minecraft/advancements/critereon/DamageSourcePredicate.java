@@ -20,7 +20,6 @@ public class DamageSourcePredicate {
 	private final EntityPredicate sourceEntity;
 
 	public DamageSourcePredicate() {
-
 		isProjectile = null;
 		isExplosion = null;
 		bypassesArmor = null;
@@ -33,7 +32,6 @@ public class DamageSourcePredicate {
 	}
 
 	public DamageSourcePredicate(Boolean isProjectile, Boolean isExplosion, Boolean bypassesArmor, Boolean bypassesInvulnerability, Boolean bypassesMagic, Boolean isFire, Boolean isMagic, EntityPredicate directEntity, EntityPredicate sourceEntity) {
-
 		this.isProjectile = isProjectile;
 		this.isExplosion = isExplosion;
 		this.bypassesArmor = bypassesArmor;
@@ -46,7 +44,6 @@ public class DamageSourcePredicate {
 	}
 
 	public static DamageSourcePredicate deserialize(JsonElement element) {
-
 		if (element != null && !element.isJsonNull()) {
 			JsonObject jsonobject = JsonUtils.getJsonObject(element, "damage type");
 			Boolean obool = optionalBoolean(jsonobject, "is_projectile");
@@ -66,12 +63,10 @@ public class DamageSourcePredicate {
 
 	
 	private static Boolean optionalBoolean(JsonObject object, String memberName) {
-
 		return object.has(memberName) ? JsonUtils.getBoolean(object, memberName) : null;
 	}
 
 	public boolean test(EntityPlayerMP player, DamageSource source) {
-
 		if (this == ANY) {
 			return true;
 		} else if (isProjectile != null && isProjectile != source.isProjectile()) {

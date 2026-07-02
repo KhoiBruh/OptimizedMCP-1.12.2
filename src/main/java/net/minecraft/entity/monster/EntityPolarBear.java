@@ -27,13 +27,11 @@ public class EntityPolarBear extends EntityAnimal {
 	private int warningSoundTicks;
 
 	public EntityPolarBear(World worldIn) {
-
 		super(worldIn);
 		setSize(1.3F, 1.4F);
 	}
 
 	public EntityAgeable createChild(EntityAgeable ageable) {
-
 		return new EntityPolarBear(world);
 	}
 
@@ -42,12 +40,10 @@ public class EntityPolarBear extends EntityAnimal {
 	 * the animal type)
 	 */
 	public boolean isBreedingItem(ItemStack stack) {
-
 		return false;
 	}
 
 	protected void initEntityAI() {
-
 		super.initEntityAI();
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityPolarBear.AIMeleeAttack());
@@ -61,7 +57,6 @@ public class EntityPolarBear extends EntityAnimal {
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30D);
 		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(20D);
@@ -71,27 +66,22 @@ public class EntityPolarBear extends EntityAnimal {
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		return isChild() ? SoundEvents.ENTITY_POLAR_BEAR_BABY_AMBIENT : SoundEvents.ENTITY_POLAR_BEAR_AMBIENT;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_POLAR_BEAR_HURT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_POLAR_BEAR_DEATH;
 	}
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
-
 		playSound(SoundEvents.ENTITY_POLAR_BEAR_STEP, 0.15F, 1F);
 	}
 
 	protected void playWarningSound() {
-
 		if (warningSoundTicks <= 0) {
 			playSound(SoundEvents.ENTITY_POLAR_BEAR_WARNING, 1F, 1F);
 			warningSoundTicks = 40;
@@ -100,12 +90,10 @@ public class EntityPolarBear extends EntityAnimal {
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_POLAR_BEAR;
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(IS_STANDING, false);
 	}
@@ -114,7 +102,6 @@ public class EntityPolarBear extends EntityAnimal {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		super.onUpdate();
 
 		if (world.isRemote) {
@@ -133,7 +120,6 @@ public class EntityPolarBear extends EntityAnimal {
 	}
 
 	public boolean attackEntityAsMob(Entity entityIn) {
-
 		boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float) ((int) getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue()));
 
 		if (flag) {
@@ -144,22 +130,18 @@ public class EntityPolarBear extends EntityAnimal {
 	}
 
 	public boolean isStanding() {
-
 		return dataManager.get(IS_STANDING);
 	}
 
 	public void setStanding(boolean standing) {
-
 		dataManager.set(IS_STANDING, standing);
 	}
 
 	public float getStandingAnimationScale(float p_189795_1_) {
-
 		return (clientSideStandAnimation0 + (clientSideStandAnimation - clientSideStandAnimation0) * p_189795_1_) / 6F;
 	}
 
 	protected float getWaterSlowDown() {
-
 		return 0.98F;
 	}
 
@@ -177,7 +159,6 @@ public class EntityPolarBear extends EntityAnimal {
 	 * pack
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-
 		if (livingdata instanceof EntityPolarBear.GroupData) {
 			if (((EntityPolarBear.GroupData) livingdata).madeParent) {
 				setGrowingAge(-24000);
@@ -196,7 +177,6 @@ public class EntityPolarBear extends EntityAnimal {
 		public boolean madeParent;
 
 		private GroupData() {
-
 		}
 
 	}
@@ -204,12 +184,10 @@ public class EntityPolarBear extends EntityAnimal {
 	class AIAttackPlayer extends EntityAINearestAttackableTarget<EntityPlayer> {
 
 		public AIAttackPlayer() {
-
 			super(EntityPolarBear.this, EntityPlayer.class, 20, true, true, null);
 		}
 
 		public boolean shouldExecute() {
-
 			if (isChild()) {
 				return false;
 			} else {
@@ -227,7 +205,6 @@ public class EntityPolarBear extends EntityAnimal {
 		}
 
 		protected double getTargetDistance() {
-
 			return super.getTargetDistance() * 0.5D;
 		}
 
@@ -236,12 +213,10 @@ public class EntityPolarBear extends EntityAnimal {
 	class AIHurtByTarget extends EntityAIHurtByTarget {
 
 		public AIHurtByTarget() {
-
 			super(EntityPolarBear.this, false);
 		}
 
 		public void startExecuting() {
-
 			super.startExecuting();
 
 			if (isChild()) {
@@ -251,7 +226,6 @@ public class EntityPolarBear extends EntityAnimal {
 		}
 
 		protected void setEntityAttackTarget(EntityCreature creatureIn, EntityLivingBase entityLivingBaseIn) {
-
 			if (creatureIn instanceof EntityPolarBear && !creatureIn.isChild()) {
 				super.setEntityAttackTarget(creatureIn, entityLivingBaseIn);
 			}
@@ -262,12 +236,10 @@ public class EntityPolarBear extends EntityAnimal {
 	class AIMeleeAttack extends EntityAIAttackMelee {
 
 		public AIMeleeAttack() {
-
 			super(EntityPolarBear.this, 1.25D, true);
 		}
 
 		protected void checkAndPerformAttack(EntityLivingBase enemy, double distToEnemySqr) {
-
 			double d0 = getAttackReachSqr(enemy);
 
 			if (distToEnemySqr <= d0 && attackTick <= 0) {
@@ -291,13 +263,11 @@ public class EntityPolarBear extends EntityAnimal {
 		}
 
 		public void resetTask() {
-
 			setStanding(false);
 			super.resetTask();
 		}
 
 		protected double getAttackReachSqr(EntityLivingBase attackTarget) {
-
 			return 4F + attackTarget.width;
 		}
 
@@ -306,12 +276,10 @@ public class EntityPolarBear extends EntityAnimal {
 	class AIPanic extends EntityAIPanic {
 
 		public AIPanic() {
-
 			super(EntityPolarBear.this, 2D);
 		}
 
 		public boolean shouldExecute() {
-
 			return (isChild() || isBurning()) && super.shouldExecute();
 		}
 

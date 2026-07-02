@@ -21,14 +21,12 @@ public class GhostRecipe {
 	private float time;
 
 	public void clear() {
-
 		recipe = null;
 		ingredients.clear();
 		time = 0F;
 	}
 
 	public void addIngredient(Ingredient p_194187_1_, int p_194187_2_, int p_194187_3_) {
-
 		ingredients.add(new GhostRecipe.GhostIngredient(p_194187_1_, p_194187_2_, p_194187_3_));
 	}
 
@@ -38,23 +36,19 @@ public class GhostRecipe {
 	}
 
 	public int size() {
-
 		return ingredients.size();
 	}
 
 	
 	public IRecipe getRecipe() {
-
 		return recipe;
 	}
 
 	public void setRecipe(IRecipe p_192685_1_) {
-
 		recipe = p_192685_1_;
 	}
 
 	public void render(Minecraft p_194188_1_, int p_194188_2_, int p_194188_3_, boolean p_194188_4_, float p_194188_5_) {
-
 		if (!Screen.isCtrlDown()) {
 			time += p_194188_5_;
 		}
@@ -98,24 +92,20 @@ public class GhostRecipe {
 		private final int y;
 
 		public GhostIngredient(Ingredient p_i47604_2_, int p_i47604_3_, int p_i47604_4_) {
-
 			ingredient = p_i47604_2_;
 			x = p_i47604_3_;
 			y = p_i47604_4_;
 		}
 
 		public int getX() {
-
 			return x;
 		}
 
 		public int getY() {
-
 			return y;
 		}
 
 		public ItemStack getItem() {
-
 			ItemStack[] aitemstack = ingredient.getMatchingStacks();
 			return aitemstack[MathHelper.floor(time / 30F) % aitemstack.length];
 		}

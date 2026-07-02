@@ -12,7 +12,6 @@ public class EntityTag implements IDataWalker {
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
-
 		NBTTagCompound nbttagcompound = compound.getCompoundTag("tag");
 
 		if (nbttagcompound.hasKey("EntityTag", 10)) {

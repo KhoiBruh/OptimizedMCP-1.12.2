@@ -21,7 +21,6 @@ import java.util.List;
 public class EntityElderGuardian extends EntityGuardian {
 
 	public EntityElderGuardian(World worldIn) {
-
 		super(worldIn);
 		setSize(width * 2.35F, height * 2.35F);
 		enablePersistence();
@@ -32,12 +31,10 @@ public class EntityElderGuardian extends EntityGuardian {
 	}
 
 	public static void registerFixesElderGuardian(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntityElderGuardian.class);
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
 		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(8D);
@@ -46,43 +43,35 @@ public class EntityElderGuardian extends EntityGuardian {
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_ELDER_GUARDIAN;
 	}
 
 	public int getAttackDuration() {
-
 		return 60;
 	}
 
 	public void setGhost() {
-
 		clientSideSpikesAnimation = 1F;
 		clientSideSpikesAnimationO = clientSideSpikesAnimation;
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		return isInWater() ? SoundEvents.ENTITY_ELDER_GUARDIAN_AMBIENT : SoundEvents.ENTITY_ELDERGUARDIAN_AMBIENTLAND;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return isInWater() ? SoundEvents.ENTITY_ELDER_GUARDIAN_HURT : SoundEvents.ENTITY_ELDER_GUARDIAN_HURT_LAND;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return isInWater() ? SoundEvents.ENTITY_ELDER_GUARDIAN_DEATH : SoundEvents.ENTITY_ELDER_GUARDIAN_DEATH_LAND;
 	}
 
 	protected SoundEvent getFlopSound() {
-
 		return SoundEvents.ENTITY_ELDER_GUARDIAN_FLOP;
 	}
 
 	protected void updateAITasks() {
-
 		super.updateAITasks();
 		int i = 1200;
 

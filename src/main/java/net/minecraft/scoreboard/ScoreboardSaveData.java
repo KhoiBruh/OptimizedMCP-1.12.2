@@ -15,17 +15,14 @@ public class ScoreboardSaveData extends WorldSavedData {
 	private NBTTagCompound delayedInitNbt;
 
 	public ScoreboardSaveData() {
-
 		this("scoreboard");
 	}
 
 	public ScoreboardSaveData(String name) {
-
 		super(name);
 	}
 
 	public void setScoreboard(Scoreboard scoreboardIn) {
-
 		scoreboard = scoreboardIn;
 
 		if (delayedInitNbt != null) {
@@ -37,7 +34,6 @@ public class ScoreboardSaveData extends WorldSavedData {
 	 * reads in data from the NBTTagCompound into this MapDataBase
 	 */
 	public void readFromNBT(NBTTagCompound nbt) {
-
 		if (scoreboard == null) {
 			delayedInitNbt = nbt;
 		} else {
@@ -55,7 +51,6 @@ public class ScoreboardSaveData extends WorldSavedData {
 	}
 
 	protected void readTeams(NBTTagList tagList) {
-
 		for (int i = 0; i < tagList.tagCount(); ++i) {
 			NBTTagCompound nbttagcompound = tagList.getCompoundTagAt(i);
 			String s = nbttagcompound.getString("Name");
@@ -117,14 +112,12 @@ public class ScoreboardSaveData extends WorldSavedData {
 	}
 
 	protected void loadTeamPlayers(ScorePlayerTeam playerTeam, NBTTagList tagList) {
-
 		for (int i = 0; i < tagList.tagCount(); ++i) {
 			scoreboard.addPlayerToTeam(tagList.getStringTagAt(i), playerTeam.getName());
 		}
 	}
 
 	protected void readDisplayConfig(NBTTagCompound compound) {
-
 		for (int i = 0; i < 19; ++i) {
 			if (compound.hasKey("slot_" + i, 8)) {
 				String s = compound.getString("slot_" + i);
@@ -135,7 +128,6 @@ public class ScoreboardSaveData extends WorldSavedData {
 	}
 
 	protected void readObjectives(NBTTagList nbt) {
-
 		for (int i = 0; i < nbt.tagCount(); ++i) {
 			NBTTagCompound nbttagcompound = nbt.getCompoundTagAt(i);
 			IScoreCriteria iscorecriteria = IScoreCriteria.INSTANCES.get(nbttagcompound.getString("CriteriaName"));
@@ -155,7 +147,6 @@ public class ScoreboardSaveData extends WorldSavedData {
 	}
 
 	protected void readScores(NBTTagList nbt) {
-
 		for (int i = 0; i < nbt.tagCount(); ++i) {
 			NBTTagCompound nbttagcompound = nbt.getCompoundTagAt(i);
 			ScoreObjective scoreobjective = scoreboard.getObjective(nbttagcompound.getString("Objective"));
@@ -175,7 +166,6 @@ public class ScoreboardSaveData extends WorldSavedData {
 	}
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
 		if (scoreboard == null) {
 			LOGGER.warn("Tried to save scoreboard without having a scoreboard...");
 			return compound;
@@ -189,7 +179,6 @@ public class ScoreboardSaveData extends WorldSavedData {
 	}
 
 	protected NBTTagList teamsToNbt() {
-
 		NBTTagList nbttaglist = new NBTTagList();
 
 		for (ScorePlayerTeam scoreplayerteam : scoreboard.getTeams()) {
@@ -222,7 +211,6 @@ public class ScoreboardSaveData extends WorldSavedData {
 	}
 
 	protected void fillInDisplaySlots(NBTTagCompound compound) {
-
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 		boolean flag = false;
 
@@ -241,7 +229,6 @@ public class ScoreboardSaveData extends WorldSavedData {
 	}
 
 	protected NBTTagList objectivesToNbt() {
-
 		NBTTagList nbttaglist = new NBTTagList();
 
 		for (ScoreObjective scoreobjective : scoreboard.getScoreObjectives()) {
@@ -259,7 +246,6 @@ public class ScoreboardSaveData extends WorldSavedData {
 	}
 
 	protected NBTTagList scoresToNbt() {
-
 		NBTTagList nbttaglist = new NBTTagList();
 
 		for (Score score : scoreboard.getScores()) {

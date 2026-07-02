@@ -21,12 +21,10 @@ public class EnchantedItemTrigger implements ICriterionTrigger<EnchantedItemTrig
 	private final Map<PlayerAdvancements, EnchantedItemTrigger.Listeners> listeners = Maps.newHashMap();
 
 	public ResourceLocation getId() {
-
 		return ID;
 	}
 
 	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EnchantedItemTrigger.Instance> listener) {
-
 		EnchantedItemTrigger.Listeners enchanteditemtrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (enchanteditemtrigger$listeners == null) {
@@ -38,7 +36,6 @@ public class EnchantedItemTrigger implements ICriterionTrigger<EnchantedItemTrig
 	}
 
 	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EnchantedItemTrigger.Instance> listener) {
-
 		EnchantedItemTrigger.Listeners enchanteditemtrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (enchanteditemtrigger$listeners != null) {
@@ -51,7 +48,6 @@ public class EnchantedItemTrigger implements ICriterionTrigger<EnchantedItemTrig
 	}
 
 	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
-
 		listeners.remove(playerAdvancementsIn);
 	}
 
@@ -66,7 +62,6 @@ public class EnchantedItemTrigger implements ICriterionTrigger<EnchantedItemTrig
 	}
 
 	public void trigger(EntityPlayerMP player, ItemStack item, int levelsSpent) {
-
 		EnchantedItemTrigger.Listeners enchanteditemtrigger$listeners = listeners.get(player.getAdvancements());
 
 		if (enchanteditemtrigger$listeners != null) {
@@ -80,14 +75,12 @@ public class EnchantedItemTrigger implements ICriterionTrigger<EnchantedItemTrig
 		private final MinMaxBounds levels;
 
 		public Instance(ItemPredicate item, MinMaxBounds levels) {
-
 			super(EnchantedItemTrigger.ID);
 			this.item = item;
 			this.levels = levels;
 		}
 
 		public boolean test(ItemStack item, int levelsIn) {
-
 			if (!this.item.test(item)) {
 				return false;
 			} else {
@@ -103,27 +96,22 @@ public class EnchantedItemTrigger implements ICriterionTrigger<EnchantedItemTrig
 		private final Set<ICriterionTrigger.Listener<EnchantedItemTrigger.Instance>> listeners = Sets.newHashSet();
 
 		public Listeners(PlayerAdvancements playerAdvancementsIn) {
-
 			playerAdvancements = playerAdvancementsIn;
 		}
 
 		public boolean isEmpty() {
-
 			return listeners.isEmpty();
 		}
 
 		public void add(ICriterionTrigger.Listener<EnchantedItemTrigger.Instance> listener) {
-
 			listeners.add(listener);
 		}
 
 		public void remove(ICriterionTrigger.Listener<EnchantedItemTrigger.Instance> listener) {
-
 			listeners.remove(listener);
 		}
 
 		public void trigger(ItemStack item, int levelsIn) {
-
 			List<ICriterionTrigger.Listener<EnchantedItemTrigger.Instance>> list = null;
 
 			for (ICriterionTrigger.Listener<EnchantedItemTrigger.Instance> listener : listeners) {

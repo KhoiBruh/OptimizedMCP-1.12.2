@@ -8,17 +8,14 @@ public class AbstractCriterionInstance implements ICriterionInstance {
 	private final ResourceLocation criterion;
 
 	public AbstractCriterionInstance(ResourceLocation criterionIn) {
-
 		criterion = criterionIn;
 	}
 
 	public ResourceLocation getId() {
-
 		return criterion;
 	}
 
 	public String toString() {
-
 		return "AbstractCriterionInstance{criterion=" + criterion + '}';
 	}
 

@@ -8,7 +8,6 @@ import org.joml.Vector3f;
 import java.lang.reflect.Type;
 
 public record ItemTransformVec3f(Vector3f rotation, Vector3f translation, Vector3f scale) {
-
 	public static final ItemTransformVec3f DEFAULT = new ItemTransformVec3f(new Vector3f(), new Vector3f(), new Vector3f(1F, 1F, 1F));
 
 	public ItemTransformVec3f(Vector3f rotation, Vector3f translation, Vector3f scale) {
@@ -18,7 +17,6 @@ public record ItemTransformVec3f(Vector3f rotation, Vector3f translation, Vector
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else if (getClass() != p_equals_1_.getClass()) {
@@ -36,7 +34,6 @@ public record ItemTransformVec3f(Vector3f rotation, Vector3f translation, Vector
 		private static final Vector3f SCALE_DEFAULT = new Vector3f(1F, 1F, 1F);
 
 		public ItemTransformVec3f deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-
 			JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
 			Vector3f vector3f = parseVector3f(jsonobject, "rotation", ROTATION_DEFAULT);
 			Vector3f vector3f1 = parseVector3f(jsonobject, "translation", TRANSLATION_DEFAULT);
@@ -52,7 +49,6 @@ public record ItemTransformVec3f(Vector3f rotation, Vector3f translation, Vector
 		}
 
 		private Vector3f parseVector3f(JsonObject jsonObject, String key, Vector3f defaultValue) {
-
 			if (!jsonObject.has(key)) {
 				return defaultValue;
 			} else {

@@ -16,7 +16,6 @@ public class JsonUtils {
 	 * Does the given JsonObject contain a string field with the given name?
 	 */
 	public static boolean isString(JsonObject json, String memberName) {
-		
 		return isJsonPrimitive(json, memberName) && json.getAsJsonPrimitive(memberName).isString();
 	}
 	
@@ -24,17 +23,14 @@ public class JsonUtils {
 	 * Is the given JsonElement a string?
 	 */
 	public static boolean isString(JsonElement json) {
-		
 		return json.isJsonPrimitive() && json.getAsJsonPrimitive().isString();
 	}
 	
 	public static boolean isNumber(JsonElement json) {
-		
 		return json.isJsonPrimitive() && json.getAsJsonPrimitive().isNumber();
 	}
 	
 	public static boolean isBoolean(JsonObject json, String memberName) {
-		
 		return isJsonPrimitive(json, memberName) && json.getAsJsonPrimitive(memberName).isBoolean();
 	}
 	
@@ -42,7 +38,6 @@ public class JsonUtils {
 	 * Does the given JsonObject contain an array field with the given name?
 	 */
 	public static boolean isJsonArray(JsonObject json, String memberName) {
-		
 		return hasField(json, memberName) && json.get(memberName).isJsonArray();
 	}
 	
@@ -51,7 +46,6 @@ public class JsonUtils {
 	 * Java primitive wrapper)?
 	 */
 	public static boolean isJsonPrimitive(JsonObject json, String memberName) {
-		
 		return hasField(json, memberName) && json.get(memberName).isJsonPrimitive();
 	}
 	
@@ -59,7 +53,6 @@ public class JsonUtils {
 	 * Does the given JsonObject contain a field with the given name?
 	 */
 	public static boolean hasField(JsonObject json, String memberName) {
-		
 		if (json == null) {
 			return false;
 		} else {
@@ -72,7 +65,6 @@ public class JsonUtils {
 	 * field if an error message needs to be thrown.
 	 */
 	public static String getString(JsonElement json, String memberName) {
-		
 		if (json.isJsonPrimitive()) {
 			return json.getAsString();
 		} else {
@@ -84,7 +76,6 @@ public class JsonUtils {
 	 * Gets the string value of the field on the JsonObject with the given name.
 	 */
 	public static String getString(JsonObject json, String memberName) {
-		
 		if (json.has(memberName)) {
 			return getString(json.get(memberName), memberName);
 		} else {
@@ -97,12 +88,10 @@ public class JsonUtils {
 	 * is missing.
 	 */
 	public static String getString(JsonObject json, String memberName, String fallback) {
-		
 		return json.has(memberName) ? getString(json.get(memberName), memberName) : fallback;
 	}
 	
 	public static Item getItem(JsonElement json, String memberName) {
-		
 		if (json.isJsonPrimitive()) {
 			String s = json.getAsString();
 			Item item = Item.getByNameOrId(s);
@@ -118,7 +107,6 @@ public class JsonUtils {
 	}
 	
 	public static Item getItem(JsonObject json, String memberName) {
-		
 		if (json.has(memberName)) {
 			return getItem(json.get(memberName), memberName);
 		} else {
@@ -131,7 +119,6 @@ public class JsonUtils {
 	 * field if an error message needs to be thrown.
 	 */
 	public static boolean getBoolean(JsonElement json, String memberName) {
-		
 		if (json.isJsonPrimitive()) {
 			return json.getAsBoolean();
 		} else {
@@ -143,7 +130,6 @@ public class JsonUtils {
 	 * Gets the boolean value of the field on the JsonObject with the given name.
 	 */
 	public static boolean getBoolean(JsonObject json, String memberName) {
-		
 		if (json.has(memberName)) {
 			return getBoolean(json.get(memberName), memberName);
 		} else {
@@ -156,7 +142,6 @@ public class JsonUtils {
 	 * field is missing.
 	 */
 	public static boolean getBoolean(JsonObject json, String memberName, boolean fallback) {
-		
 		return json.has(memberName) ? getBoolean(json.get(memberName), memberName) : fallback;
 	}
 	
@@ -165,7 +150,6 @@ public class JsonUtils {
 	 * field if an error message needs to be thrown.
 	 */
 	public static float getFloat(JsonElement json, String memberName) {
-		
 		if (json.isJsonPrimitive() && json.getAsJsonPrimitive().isNumber()) {
 			return json.getAsFloat();
 		} else {
@@ -177,7 +161,6 @@ public class JsonUtils {
 	 * Gets the float value of the field on the JsonObject with the given name.
 	 */
 	public static float getFloat(JsonObject json, String memberName) {
-		
 		if (json.has(memberName)) {
 			return getFloat(json.get(memberName), memberName);
 		} else {
@@ -190,7 +173,6 @@ public class JsonUtils {
 	 * is missing.
 	 */
 	public static float getFloat(JsonObject json, String memberName, float fallback) {
-		
 		return json.has(memberName) ? getFloat(json.get(memberName), memberName) : fallback;
 	}
 	
@@ -199,7 +181,6 @@ public class JsonUtils {
 	 * field if an error message needs to be thrown.
 	 */
 	public static int getInt(JsonElement json, String memberName) {
-		
 		if (json.isJsonPrimitive() && json.getAsJsonPrimitive().isNumber()) {
 			return json.getAsInt();
 		} else {
@@ -211,7 +192,6 @@ public class JsonUtils {
 	 * Gets the integer value of the field on the JsonObject with the given name.
 	 */
 	public static int getInt(JsonObject json, String memberName) {
-		
 		if (json.has(memberName)) {
 			return getInt(json.get(memberName), memberName);
 		} else {
@@ -224,7 +204,6 @@ public class JsonUtils {
 	 * field is missing.
 	 */
 	public static int getInt(JsonObject json, String memberName, int fallback) {
-		
 		return json.has(memberName) ? getInt(json.get(memberName), memberName) : fallback;
 	}
 	
@@ -233,7 +212,6 @@ public class JsonUtils {
 	 * if an error message needs to be thrown.
 	 */
 	public static JsonObject getJsonObject(JsonElement json, String memberName) {
-		
 		if (json.isJsonObject()) {
 			return json.getAsJsonObject();
 		} else {
@@ -242,7 +220,6 @@ public class JsonUtils {
 	}
 	
 	public static JsonObject getJsonObject(JsonObject json, String memberName) {
-		
 		if (json.has(memberName)) {
 			return getJsonObject(json.get(memberName), memberName);
 		} else {
@@ -255,7 +232,6 @@ public class JsonUtils {
 	 * missing.
 	 */
 	public static JsonObject getJsonObject(JsonObject json, String memberName, JsonObject fallback) {
-		
 		return json.has(memberName) ? getJsonObject(json.get(memberName), memberName) : fallback;
 	}
 	
@@ -264,7 +240,6 @@ public class JsonUtils {
 	 * an error message needs to be thrown.
 	 */
 	public static JsonArray getJsonArray(JsonElement json, String memberName) {
-		
 		if (json.isJsonArray()) {
 			return json.getAsJsonArray();
 		} else {
@@ -276,7 +251,6 @@ public class JsonUtils {
 	 * Gets the JsonArray field on the JsonObject with the given name.
 	 */
 	public static JsonArray getJsonArray(JsonObject json, String memberName) {
-		
 		if (json.has(memberName)) {
 			return getJsonArray(json.get(memberName), memberName);
 		} else {
@@ -289,7 +263,6 @@ public class JsonUtils {
 	 * missing.
 	 */
 	public static JsonArray getJsonArray(JsonObject json, String memberName, JsonArray fallback) {
-		
 		return json.has(memberName) ? getJsonArray(json.get(memberName), memberName) : fallback;
 	}
 	
@@ -320,7 +293,6 @@ public class JsonUtils {
 	 * Gets a human-readable description of the given JsonElement's type.  For example: "a number (4)"
 	 */
 	public static String toString(JsonElement json) {
-		
 		String s = abbreviateMiddle(String.valueOf(json), "...", 10);
 		
 		if (json == null) {

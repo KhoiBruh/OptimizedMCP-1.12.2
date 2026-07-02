@@ -21,7 +21,6 @@ public class BlockCrops extends BlockBush implements IGrowable {
 	private static final AxisAlignedBB[] CROPS_AABB = new AxisAlignedBB[]{new AxisAlignedBB(0D, 0D, 0D, 1D, 0.125D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.25D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.375D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.5D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.625D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.75D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.875D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 1D, 1D)};
 
 	protected BlockCrops() {
-
 		setDefaultState(blockState.getBaseState().withProperty(getAgeProperty(), 0));
 		setTickRandomly(true);
 		setCreativeTab(null);
@@ -31,7 +30,6 @@ public class BlockCrops extends BlockBush implements IGrowable {
 	}
 
 	protected static float getGrowthChance(Block blockIn, World worldIn, BlockPos pos) {
-
 		float f = 1F;
 		BlockPos blockpos = pos.down();
 
@@ -77,7 +75,6 @@ public class BlockCrops extends BlockBush implements IGrowable {
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return CROPS_AABB[state.getValue(getAgeProperty())];
 	}
 
@@ -85,37 +82,30 @@ public class BlockCrops extends BlockBush implements IGrowable {
 	 * Return true if the block can sustain a Bush
 	 */
 	protected boolean canSustainBush(IBlockState state) {
-
 		return state.getBlock() == Blocks.FARMLAND;
 	}
 
 	protected PropertyInteger getAgeProperty() {
-
 		return AGE;
 	}
 
 	public int getMaxAge() {
-
 		return 7;
 	}
 
 	protected int getAge(IBlockState state) {
-
 		return state.getValue(getAgeProperty());
 	}
 
 	public IBlockState withAge(int age) {
-
 		return getDefaultState().withProperty(getAgeProperty(), age);
 	}
 
 	public boolean isMaxAge(IBlockState state) {
-
 		return state.getValue(getAgeProperty()) >= getMaxAge();
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		super.updateTick(worldIn, pos, state, rand);
 
 		if (worldIn.getLightFromNeighbors(pos.up()) >= 9) {
@@ -132,7 +122,6 @@ public class BlockCrops extends BlockBush implements IGrowable {
 	}
 
 	public void grow(World worldIn, BlockPos pos, IBlockState state) {
-
 		int i = getAge(state) + getBonemealAgeIncrease(worldIn);
 		int j = getMaxAge();
 
@@ -144,22 +133,18 @@ public class BlockCrops extends BlockBush implements IGrowable {
 	}
 
 	protected int getBonemealAgeIncrease(World worldIn) {
-
 		return MathHelper.getInt(worldIn.rand, 2, 5);
 	}
 
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {
-
 		return (worldIn.getLight(pos) >= 8 || worldIn.canSeeSky(pos)) && canSustainBush(worldIn.getBlockState(pos.down()));
 	}
 
 	protected Item getSeed() {
-
 		return Items.WHEAT_SEEDS;
 	}
 
 	protected Item getCrop() {
-
 		return Items.WHEAT;
 	}
 
@@ -167,7 +152,6 @@ public class BlockCrops extends BlockBush implements IGrowable {
 	 * Spawns this Block's drops into the World as EntityItems.
 	 */
 	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
-
 		super.dropBlockAsItemWithChance(worldIn, pos, state, chance, 0);
 
 		if (!worldIn.isRemote) {
@@ -189,12 +173,10 @@ public class BlockCrops extends BlockBush implements IGrowable {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return isMaxAge(state) ? getCrop() : getSeed();
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return new ItemStack(getSeed());
 	}
 
@@ -202,17 +184,14 @@ public class BlockCrops extends BlockBush implements IGrowable {
 	 * Whether this IGrowable can grow
 	 */
 	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
-
 		return !isMaxAge(state);
 	}
 
 	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-
 		return true;
 	}
 
 	public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-
 		grow(worldIn, pos, state);
 	}
 
@@ -220,7 +199,6 @@ public class BlockCrops extends BlockBush implements IGrowable {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return withAge(meta);
 	}
 
@@ -228,12 +206,10 @@ public class BlockCrops extends BlockBush implements IGrowable {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return getAge(state);
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, AGE);
 	}
 

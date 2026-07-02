@@ -14,12 +14,10 @@ public class LayerHeldBlock implements LayerRenderer<EntityEnderman> {
 	private final RenderEnderman endermanRenderer;
 
 	public LayerHeldBlock(RenderEnderman endermanRendererIn) {
-
 		endermanRenderer = endermanRendererIn;
 	}
 
 	public void doRenderLayer(EntityEnderman entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		IBlockState iblockstate = entitylivingbaseIn.getHeldBlockState();
 
 		if (iblockstate != null) {
@@ -45,7 +43,6 @@ public class LayerHeldBlock implements LayerRenderer<EntityEnderman> {
 	}
 
 	public boolean shouldCombineTextures() {
-
 		return false;
 	}
 

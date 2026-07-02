@@ -9,7 +9,6 @@ public class GuardianSound extends MovingSound {
 	private final EntityGuardian guardian;
 
 	public GuardianSound(EntityGuardian guardian) {
-
 		super(SoundEvents.ENTITY_GUARDIAN_ATTACK, SoundCategory.HOSTILE);
 		this.guardian = guardian;
 		attenuationType = ISound.AttenuationType.NONE;
@@ -21,7 +20,6 @@ public class GuardianSound extends MovingSound {
 	 * Like the old updateEntity(), except more generic.
 	 */
 	public void update() {
-
 		if (!guardian.isDead && guardian.hasTargetedEntity()) {
 			x = (float) guardian.posX;
 			y = (float) guardian.posY;

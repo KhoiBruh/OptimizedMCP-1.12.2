@@ -43,12 +43,10 @@ public class EntityFallingBlock extends Entity {
 	private float fallHurtAmount = 2F;
 
 	public EntityFallingBlock(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public EntityFallingBlock(World worldIn, double x, double y, double z, IBlockState fallingBlockState) {
-
 		super(worldIn);
 		fallTile = fallingBlockState;
 		preventEntitySpawning = true;
@@ -64,24 +62,20 @@ public class EntityFallingBlock extends Entity {
 	}
 
 	public static void registerFixesFallingBlock(DataFixer fixer) {
-
 	}
 
 	/**
 	 * Returns true if it's possible to attack this entity with an item.
 	 */
 	public boolean canBeAttackedWithItem() {
-
 		return false;
 	}
 
 	public BlockPos getOrigin() {
-
 		return dataManager.get(ORIGIN);
 	}
 
 	public void setOrigin(BlockPos p_184530_1_) {
-
 		dataManager.set(ORIGIN, p_184530_1_);
 	}
 
@@ -90,12 +84,10 @@ public class EntityFallingBlock extends Entity {
 	 * prevent them from trampling crops
 	 */
 	protected boolean canTriggerWalking() {
-
 		return false;
 	}
 
 	protected void entityInit() {
-
 		dataManager.register(ORIGIN, BlockPos.ORIGIN);
 	}
 
@@ -103,7 +95,6 @@ public class EntityFallingBlock extends Entity {
 	 * Returns true if other Entities should be prevented from moving through this Entity.
 	 */
 	public boolean canBeCollidedWith() {
-
 		return !isDead;
 	}
 
@@ -111,7 +102,6 @@ public class EntityFallingBlock extends Entity {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		Block block = fallTile.getBlock();
 
 		if (fallTile.getMaterial() == Material.AIR) {
@@ -217,7 +207,6 @@ public class EntityFallingBlock extends Entity {
 	}
 
 	public void fall(float distance, float damageMultiplier) {
-
 		Block block = fallTile.getBlock();
 
 		if (hurtEntities) {
@@ -250,7 +239,6 @@ public class EntityFallingBlock extends Entity {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	protected void writeEntityToNBT(NBTTagCompound compound) {
-
 		Block block = fallTile != null ? fallTile.getBlock() : Blocks.AIR;
 		ResourceLocation resourcelocation = Block.REGISTRY.getNameForObject(block);
 		compound.setString("Block", resourcelocation == null ? "" : resourcelocation.toString());
@@ -270,7 +258,6 @@ public class EntityFallingBlock extends Entity {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	protected void readEntityFromNBT(NBTTagCompound compound) {
-
 		int i = compound.getByte("Data") & 255;
 
 		if (compound.hasKey("Block", 8)) {
@@ -306,12 +293,10 @@ public class EntityFallingBlock extends Entity {
 	}
 
 	public World getWorldObj() {
-
 		return world;
 	}
 
 	public void setHurtEntities(boolean p_145806_1_) {
-
 		hurtEntities = p_145806_1_;
 	}
 
@@ -319,12 +304,10 @@ public class EntityFallingBlock extends Entity {
 	 * Return whether this entity should be rendered as on fire.
 	 */
 	public boolean canRenderOnFire() {
-
 		return false;
 	}
 
 	public void addEntityCrashInfo(CrashReportCategory category) {
-
 		super.addEntityCrashInfo(category);
 
 		if (fallTile != null) {
@@ -336,12 +319,10 @@ public class EntityFallingBlock extends Entity {
 
 	
 	public IBlockState getBlock() {
-
 		return fallTile;
 	}
 
 	public boolean ignoreItemEntityData() {
-
 		return true;
 	}
 

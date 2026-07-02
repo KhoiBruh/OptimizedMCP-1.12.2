@@ -29,7 +29,6 @@ public class Profiler {
 	 * Clear profiling.
 	 */
 	public void clearProfiling() {
-
 		profilingMap.clear();
 		profilingSection = "";
 		sectionList.clear();
@@ -39,7 +38,6 @@ public class Profiler {
 	 * Start section
 	 */
 	public void startSection(String name) {
-
 		if (profilingEnabled) {
 			if (!profilingSection.isEmpty()) {
 				profilingSection = profilingSection + ".";
@@ -52,7 +50,6 @@ public class Profiler {
 	}
 
 	public void func_194340_a(Supplier<String> p_194340_1_) {
-
 		if (profilingEnabled) {
 			startSection(p_194340_1_.get());
 		}
@@ -62,7 +59,6 @@ public class Profiler {
 	 * End section
 	 */
 	public void endSection() {
-
 		if (profilingEnabled) {
 			long i = System.nanoTime();
 			long j = timestampList.removeLast();
@@ -140,19 +136,16 @@ public class Profiler {
 	 * End current section and start a new section
 	 */
 	public void endStartSection(String name) {
-
 		endSection();
 		startSection(name);
 	}
 
 	public void func_194339_b(Supplier<String> p_194339_1_) {
-
 		endSection();
 		func_194340_a(p_194339_1_);
 	}
 
 	public String getNameOfLastSection() {
-
 		return sectionList.isEmpty() ? "[UNKNOWN]" : sectionList.getLast();
 	}
 
@@ -163,14 +156,12 @@ public class Profiler {
 		public String profilerName;
 
 		public Result(String profilerName, double usePercentage, double totalUsePercentage) {
-
 			this.profilerName = profilerName;
 			this.usePercentage = usePercentage;
 			this.totalUsePercentage = totalUsePercentage;
 		}
 
 		public int compareTo(Profiler.Result p_compareTo_1_) {
-
 			if (p_compareTo_1_.usePercentage < usePercentage) {
 				return -1;
 			} else {
@@ -179,7 +170,6 @@ public class Profiler {
 		}
 
 		public int getColor() {
-
 			return (profilerName.hashCode() & 11184810) + 4473924;
 		}
 

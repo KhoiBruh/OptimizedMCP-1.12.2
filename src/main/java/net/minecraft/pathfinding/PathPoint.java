@@ -60,7 +60,6 @@ public class PathPoint {
 	public PathNodeType nodeType = PathNodeType.BLOCKED;
 
 	public PathPoint(int x, int y, int z) {
-
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -68,12 +67,10 @@ public class PathPoint {
 	}
 
 	public static int makeHash(int x, int y, int z) {
-
 		return y & 255 | (x & 32767) << 8 | (z & 32767) << 24 | (x < 0 ? Integer.MIN_VALUE : 0) | (z < 0 ? 32768 : 0);
 	}
 
 	public static PathPoint createFromBuffer(PacketBuffer buf) {
-
 		PathPoint pathpoint = new PathPoint(buf.readInt(), buf.readInt(), buf.readInt());
 		pathpoint.distanceFromOrigin = buf.readFloat();
 		pathpoint.cost = buf.readFloat();
@@ -85,7 +82,6 @@ public class PathPoint {
 	}
 
 	public PathPoint cloneMove(int x, int y, int z) {
-
 		PathPoint pathpoint = new PathPoint(x, y, z);
 		pathpoint.index = index;
 		pathpoint.totalPathDistance = totalPathDistance;
@@ -104,7 +100,6 @@ public class PathPoint {
 	 * Returns the linear distance to another path point
 	 */
 	public float distanceTo(PathPoint pathpointIn) {
-
 		float f = (float) (pathpointIn.x - x);
 		float f1 = (float) (pathpointIn.y - y);
 		float f2 = (float) (pathpointIn.z - z);
@@ -115,7 +110,6 @@ public class PathPoint {
 	 * Returns the squared distance to another path point
 	 */
 	public float distanceToSquared(PathPoint pathpointIn) {
-
 		float f = (float) (pathpointIn.x - x);
 		float f1 = (float) (pathpointIn.y - y);
 		float f2 = (float) (pathpointIn.z - z);
@@ -123,7 +117,6 @@ public class PathPoint {
 	}
 
 	public float distanceManhattan(PathPoint p_186281_1_) {
-
 		float f = (float) Math.abs(p_186281_1_.x - x);
 		float f1 = (float) Math.abs(p_186281_1_.y - y);
 		float f2 = (float) Math.abs(p_186281_1_.z - z);
@@ -131,7 +124,6 @@ public class PathPoint {
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (!(p_equals_1_ instanceof PathPoint pathpoint)) {
 			return false;
 		} else {
@@ -140,7 +132,6 @@ public class PathPoint {
 	}
 
 	public int hashCode() {
-
 		return hash;
 	}
 
@@ -148,12 +139,10 @@ public class PathPoint {
 	 * Returns true if this point has already been assigned to a path
 	 */
 	public boolean isAssigned() {
-
 		return index >= 0;
 	}
 
 	public String toString() {
-
 		return x + ", " + y + ", " + z;
 	}
 

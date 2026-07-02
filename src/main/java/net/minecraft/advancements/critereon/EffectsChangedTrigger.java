@@ -20,12 +20,10 @@ public class EffectsChangedTrigger implements ICriterionTrigger<EffectsChangedTr
 	private final Map<PlayerAdvancements, EffectsChangedTrigger.Listeners> listeners = Maps.newHashMap();
 
 	public ResourceLocation getId() {
-
 		return ID;
 	}
 
 	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EffectsChangedTrigger.Instance> listener) {
-
 		EffectsChangedTrigger.Listeners effectschangedtrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (effectschangedtrigger$listeners == null) {
@@ -37,7 +35,6 @@ public class EffectsChangedTrigger implements ICriterionTrigger<EffectsChangedTr
 	}
 
 	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EffectsChangedTrigger.Instance> listener) {
-
 		EffectsChangedTrigger.Listeners effectschangedtrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (effectschangedtrigger$listeners != null) {
@@ -50,7 +47,6 @@ public class EffectsChangedTrigger implements ICriterionTrigger<EffectsChangedTr
 	}
 
 	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
-
 		listeners.remove(playerAdvancementsIn);
 	}
 
@@ -64,7 +60,6 @@ public class EffectsChangedTrigger implements ICriterionTrigger<EffectsChangedTr
 	}
 
 	public void trigger(EntityPlayerMP player) {
-
 		EffectsChangedTrigger.Listeners effectschangedtrigger$listeners = listeners.get(player.getAdvancements());
 
 		if (effectschangedtrigger$listeners != null) {
@@ -77,13 +72,11 @@ public class EffectsChangedTrigger implements ICriterionTrigger<EffectsChangedTr
 		private final MobEffectsPredicate effects;
 
 		public Instance(MobEffectsPredicate effects) {
-
 			super(EffectsChangedTrigger.ID);
 			this.effects = effects;
 		}
 
 		public boolean test(EntityPlayerMP player) {
-
 			return effects.test(player);
 		}
 
@@ -95,27 +88,22 @@ public class EffectsChangedTrigger implements ICriterionTrigger<EffectsChangedTr
 		private final Set<ICriterionTrigger.Listener<EffectsChangedTrigger.Instance>> listeners = Sets.newHashSet();
 
 		public Listeners(PlayerAdvancements playerAdvancementsIn) {
-
 			playerAdvancements = playerAdvancementsIn;
 		}
 
 		public boolean isEmpty() {
-
 			return listeners.isEmpty();
 		}
 
 		public void add(ICriterionTrigger.Listener<EffectsChangedTrigger.Instance> listener) {
-
 			listeners.add(listener);
 		}
 
 		public void remove(ICriterionTrigger.Listener<EffectsChangedTrigger.Instance> listener) {
-
 			listeners.remove(listener);
 		}
 
 		public void trigger(EntityPlayerMP player) {
-
 			List<ICriterionTrigger.Listener<EffectsChangedTrigger.Instance>> list = null;
 
 			for (ICriterionTrigger.Listener<EffectsChangedTrigger.Instance> listener : listeners) {

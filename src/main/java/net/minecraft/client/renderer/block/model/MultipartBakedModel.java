@@ -21,7 +21,6 @@ public class MultipartBakedModel implements IBakedModel {
 	private final Map<Predicate<IBlockState>, IBakedModel> selectors;
 
 	public MultipartBakedModel(Map<Predicate<IBlockState>, IBakedModel> selectorsIn) {
-
 		selectors = selectorsIn;
 		IBakedModel ibakedmodel = selectorsIn.values().iterator().next();
 		ambientOcclusion = ibakedmodel.isAmbientOcclusion();
@@ -32,7 +31,6 @@ public class MultipartBakedModel implements IBakedModel {
 	}
 
 	public List<BakedQuad> getQuads(IBlockState state, Facing side, long rand) {
-
 		List<BakedQuad> list = Lists.newArrayList();
 
 		if (state != null) {
@@ -47,32 +45,26 @@ public class MultipartBakedModel implements IBakedModel {
 	}
 
 	public boolean isAmbientOcclusion() {
-
 		return ambientOcclusion;
 	}
 
 	public boolean isGui3d() {
-
 		return gui3D;
 	}
 
 	public boolean isBuiltInRenderer() {
-
 		return false;
 	}
 
 	public TextureAtlasSprite getParticleTexture() {
-
 		return particleTexture;
 	}
 
 	public ItemCameraTransforms getItemCameraTransforms() {
-
 		return cameraTransforms;
 	}
 
 	public ItemOverrideList getOverrides() {
-
 		return overrides;
 	}
 
@@ -81,12 +73,10 @@ public class MultipartBakedModel implements IBakedModel {
 		private final Map<Predicate<IBlockState>, IBakedModel> builderSelectors = Maps.newLinkedHashMap();
 
 		public void putModel(Predicate<IBlockState> predicate, IBakedModel model) {
-
 			builderSelectors.put(predicate, model);
 		}
 
 		public IBakedModel makeMultipartModel() {
-
 			return new MultipartBakedModel(builderSelectors);
 		}
 

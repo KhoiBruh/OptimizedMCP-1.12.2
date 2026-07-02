@@ -61,7 +61,6 @@ public class EnchantScreen extends ContainerScreen {
 	private ItemStack last = ItemStack.EMPTY;
 
 	public EnchantScreen(InventoryPlayer inventory, World worldIn, IWorldNameable nameable) {
-
 		super(new ContainerEnchantment(inventory, worldIn));
 		playerInventory = inventory;
 		container = (ContainerEnchantment) inventorySlots;
@@ -72,7 +71,6 @@ public class EnchantScreen extends ContainerScreen {
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-
 		fontRenderer.drawString(nameable.displayName().getUnformattedText(), 12, 5, 4210752);
 		fontRenderer.drawString(playerInventory.displayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
 	}
@@ -81,7 +79,6 @@ public class EnchantScreen extends ContainerScreen {
 	 * Called from the main game loop to update the screen.
 	 */
 	public void update() {
-
 		super.update();
 		tickBook();
 	}
@@ -90,7 +87,6 @@ public class EnchantScreen extends ContainerScreen {
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
-
 		super.mouseClicked(mouseX, mouseY, mouse);
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
@@ -109,7 +105,6 @@ public class EnchantScreen extends ContainerScreen {
 	 * Draws the background layer of this container (behind the items).
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-
 		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(ENCHANTMENT_TABLE_GUI_TEXTURE);
 		int i = (width - xSize) / 2;
@@ -220,7 +215,6 @@ public class EnchantScreen extends ContainerScreen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		partialTicks = mc.getTickLength();
 		drawDefaultBackground();
 		super.draw(mouseX, mouseY, partialTicks);
@@ -272,7 +266,6 @@ public class EnchantScreen extends ContainerScreen {
 	}
 
 	public void tickBook() {
-
 		ItemStack itemstack = inventorySlots.getSlot(0).getStack();
 
 		if (!ItemStack.areItemStacksEqual(itemstack, last)) {

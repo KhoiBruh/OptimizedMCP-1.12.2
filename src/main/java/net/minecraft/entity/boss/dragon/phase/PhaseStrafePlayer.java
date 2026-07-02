@@ -21,7 +21,6 @@ public class PhaseStrafePlayer extends PhaseBase {
 	private boolean holdingPatternClockwise;
 
 	public PhaseStrafePlayer(EntityDragon dragonIn) {
-
 		super(dragonIn);
 	}
 
@@ -30,7 +29,6 @@ public class PhaseStrafePlayer extends PhaseBase {
 	 * Called by dragon's onLivingUpdate. Only used when !worldObj.isRemote.
 	 */
 	public void doLocalUpdate() {
-
 		if (attackTarget == null) {
 			LOGGER.warn("Skipping player strafe phase because no player was found");
 			dragon.getPhaseManager().setPhase(PhaseList.HOLDING_PATTERN);
@@ -95,7 +93,6 @@ public class PhaseStrafePlayer extends PhaseBase {
 	}
 
 	private void findNewTarget() {
-
 		if (currentPath == null || currentPath.isFinished()) {
 			int i = dragon.initPathPoints();
 			int j = i;
@@ -134,7 +131,6 @@ public class PhaseStrafePlayer extends PhaseBase {
 	}
 
 	private void navigateToNextPathNode() {
-
 		if (currentPath != null && !currentPath.isFinished()) {
 			Vec3d vec3d = currentPath.getCurrentPos();
 			currentPath.incrementPathIndex();
@@ -158,7 +154,6 @@ public class PhaseStrafePlayer extends PhaseBase {
 	 * Called when this phase is set to active
 	 */
 	public void initPhase() {
-
 		fireballCharge = 0;
 		targetLocation = null;
 		currentPath = null;
@@ -166,7 +161,6 @@ public class PhaseStrafePlayer extends PhaseBase {
 	}
 
 	public void setTarget(EntityLivingBase p_188686_1_) {
-
 		attackTarget = p_188686_1_;
 		int i = dragon.initPathPoints();
 		int j = dragon.getNearestPpIdx(attackTarget.posX, attackTarget.posY, attackTarget.posZ);
@@ -192,12 +186,10 @@ public class PhaseStrafePlayer extends PhaseBase {
 	 * Returns the location the dragon is flying toward
 	 */
 	public Vec3d getTargetLocation() {
-
 		return targetLocation;
 	}
 
 	public PhaseList<PhaseStrafePlayer> getType() {
-
 		return PhaseList.STRAFE_PLAYER;
 	}
 

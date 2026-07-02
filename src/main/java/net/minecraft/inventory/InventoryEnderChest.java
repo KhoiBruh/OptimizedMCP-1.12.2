@@ -11,17 +11,14 @@ public class InventoryEnderChest extends InventoryBasic {
 	private TileEntityEnderChest associatedChest;
 
 	public InventoryEnderChest() {
-
 		super("container.enderchest", false, 27);
 	}
 
 	public void setChestTileEntity(TileEntityEnderChest chestTileEntity) {
-
 		associatedChest = chestTileEntity;
 	}
 
 	public void loadInventoryFromNBT(NBTTagList p_70486_1_) {
-
 		for (int i = 0; i < getSizeInventory(); ++i) {
 			setInventorySlotContents(i, ItemStack.EMPTY);
 		}
@@ -37,7 +34,6 @@ public class InventoryEnderChest extends InventoryBasic {
 	}
 
 	public NBTTagList saveInventoryToNBT() {
-
 		NBTTagList nbttaglist = new NBTTagList();
 
 		for (int i = 0; i < getSizeInventory(); ++i) {
@@ -58,12 +54,10 @@ public class InventoryEnderChest extends InventoryBasic {
 	 * Don't rename this method to canInteractWith due to conflicts with Container
 	 */
 	public boolean isUsableByPlayer(EntityPlayer player) {
-
 		return (associatedChest == null || associatedChest.canBeUsed(player)) && super.isUsableByPlayer(player);
 	}
 
 	public void openInventory(EntityPlayer player) {
-
 		if (associatedChest != null) {
 			associatedChest.openChest();
 		}
@@ -72,7 +66,6 @@ public class InventoryEnderChest extends InventoryBasic {
 	}
 
 	public void closeInventory(EntityPlayer player) {
-
 		if (associatedChest != null) {
 			associatedChest.closeChest();
 		}

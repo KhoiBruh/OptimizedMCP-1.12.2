@@ -52,7 +52,6 @@ public class ResourcePackRepository {
 	private List<ResourcePackRepository.Entry> repositoryEntriesAll = Lists.newArrayList();
 
 	public ResourcePackRepository(File dirResourcepacksIn, File dirServerResourcepacksIn, IResourcePack rprDefaultResourcePackIn, MetadataSerializer rprMetadataSerializerIn, GameSettings settings) {
-
 		dirResourcepacks = dirResourcepacksIn;
 		dirServerResourcepacks = dirServerResourcepacksIn;
 		rprDefaultResourcePack = rprDefaultResourcePackIn;
@@ -88,7 +87,6 @@ public class ResourcePackRepository {
 	}
 
 	private void fixDirResourcepacks() {
-
 		if (dirResourcepacks.exists()) {
 			if (!dirResourcepacks.isDirectory() && (!dirResourcepacks.delete() || !dirResourcepacks.mkdirs())) {
 				LOGGER.warn("Unable to recreate resourcepack folder, it exists but is not a directory: {}", dirResourcepacks);
@@ -99,12 +97,10 @@ public class ResourcePackRepository {
 	}
 
 	private List<File> getResourcePackFiles() {
-
 		return dirResourcepacks.isDirectory() ? Arrays.asList(dirResourcepacks.listFiles(RESOURCE_PACK_FILTER)) : Collections.emptyList();
 	}
 
 	private IResourcePack getResourcePack(File p_191399_1_) {
-
 		IResourcePack iresourcepack;
 
 		if (p_191399_1_.isDirectory()) {
@@ -126,7 +122,6 @@ public class ResourcePackRepository {
 	}
 
 	public void updateRepositoryEntriesAll() {
-
 		List<ResourcePackRepository.Entry> list = Lists.newArrayList();
 
 		for (File file1 : getResourcePackFiles()) {
@@ -184,18 +179,15 @@ public class ResourcePackRepository {
 	}
 
 	public void setRepositories(List<ResourcePackRepository.Entry> repositories) {
-
 		repositoryEntries.clear();
 		repositoryEntries.addAll(repositories);
 	}
 
 	public File getDirResourcepacks() {
-
 		return dirResourcepacks;
 	}
 
 	public ListenableFuture<Object> downloadResourcePack(String url, String hash) {
-
 		String s = sha1Hex(url);
 		final String s1 = SHA1.matcher(hash).matches() ? hash : "";
 		final File file1 = new File(dirServerResourcepacks, s);
@@ -222,7 +214,6 @@ public class ResourcePackRepository {
 			downloadingPacks = HttpUtil.downloadResourcePack(file1, url, map, 52428800, guiscreenworking, minecraft.getProxy());
 			Futures.addCallback(downloadingPacks, new FutureCallback<>() {
 				public void onSuccess(Object p_onSuccess_1_) {
-
 					if (checkHash(s1, file1)) {
 						setServerResourcePack(file1);
 						settablefuture.set(null);
@@ -233,7 +224,6 @@ public class ResourcePackRepository {
 				}
 
 				public void onFailure(Throwable p_onFailure_1_) {
-
 					FileUtils.deleteQuietly(file1);
 					settablefuture.setException(p_onFailure_1_);
 				}
@@ -245,7 +235,6 @@ public class ResourcePackRepository {
 	}
 
 	private boolean checkHash(String p_190113_1_, File p_190113_2_) {
-
 		String s = sha1Hex(p_190113_2_);
 
 		if (p_190113_1_.isEmpty()) {
@@ -264,7 +253,6 @@ public class ResourcePackRepository {
 	}
 
 	private boolean validatePack(File p_190112_1_) {
-
 		ResourcePackRepository.Entry resourcepackrepository$entry = new ResourcePackRepository.Entry(p_190112_1_);
 
 		try {
@@ -280,7 +268,6 @@ public class ResourcePackRepository {
 	 * Keep only the 10 most recent resources packs, delete the others
 	 */
 	private void deleteOldServerResourcesPacks() {
-
 		try {
 			List<File> list = Lists.newArrayList(FileUtils.listFiles(dirServerResourcepacks, TrueFileFilter.TRUE, null));
 			list.sort(LastModifiedFileComparator.LASTMODIFIED_REVERSE);
@@ -298,7 +285,6 @@ public class ResourcePackRepository {
 	}
 
 	public ListenableFuture<Object> setServerResourcePack(File resourceFile) {
-
 		if (!validatePack(resourceFile)) {
 			return Futures.immediateFailedFuture(new RuntimeException("Invalid resourcepack"));
 		} else {
@@ -313,12 +299,10 @@ public class ResourcePackRepository {
 	 * Getter for the IResourcePack instance associated with this ResourcePackRepository
 	 */
 	public IResourcePack getServerResourcePack() {
-
 		return serverResourcePack;
 	}
 
 	public void clearResourcePack() {
-
 		lock.lock();
 
 		try {
@@ -367,23 +351,19 @@ public class ResourcePackRepository {
 		private ResourceLocation locationTexturePackIcon;
 
 		private Entry(File resourcePackFileIn) {
-
 			this(ResourcePackRepository.this.getResourcePack(resourcePackFileIn));
 		}
 
 		private Entry(IResourcePack reResourcePackIn) {
-
 			reResourcePack = reResourcePackIn;
 		}
 
 		public void updateResourcePack() throws IOException {
-
 			rePackMetadataSection = reResourcePack.getPackMetadata(rprMetadataSerializer, "pack");
 			closeResourcePack();
 		}
 
 		public void bindTexturePackIcon(TextureManager textureManagerIn) {
-
 			BufferedImage bufferedimage = null;
 
 			try {
@@ -407,7 +387,6 @@ public class ResourcePackRepository {
 		}
 
 		public void closeResourcePack() {
-
 			if (reResourcePack instanceof Closeable closeable) {
 				try (closeable) {
 				} catch (IOException ignored) {
@@ -416,27 +395,22 @@ public class ResourcePackRepository {
 		}
 
 		public IResourcePack getResourcePack() {
-
 			return reResourcePack;
 		}
 
 		public String getResourcePackName() {
-
 			return reResourcePack.getPackName();
 		}
 
 		public String getTexturePackDescription() {
-
 			return rePackMetadataSection == null ? TextFormat.RED + "Invalid pack.mcmeta (or missing 'pack' section)" : rePackMetadataSection.packDescription().getFormattedText();
 		}
 
 		public int getPackFormat() {
-
 			return rePackMetadataSection == null ? 0 : rePackMetadataSection.packFormat();
 		}
 
 		public boolean equals(Object p_equals_1_) {
-
 			if (this == p_equals_1_) {
 				return true;
 			} else {
@@ -445,12 +419,10 @@ public class ResourcePackRepository {
 		}
 
 		public int hashCode() {
-
 			return toString().hashCode();
 		}
 
 		public String toString() {
-
 			return String.format("%s:%s", reResourcePack.getPackName(), reResourcePack instanceof FolderResourcePack ? "folder" : "zip");
 		}
 

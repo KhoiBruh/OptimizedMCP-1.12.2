@@ -13,7 +13,6 @@ import net.minecraft.world.World;
 public class BlockAir extends Block {
 
 	protected BlockAir() {
-
 		super(Material.AIR);
 	}
 
@@ -22,13 +21,11 @@ public class BlockAir extends Block {
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
 	public BlockRenderType getRenderType(IBlockState state) {
-
 		return BlockRenderType.INVISIBLE;
 	}
 
 	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-
 		return NULL_AABB;
 	}
 
@@ -36,12 +33,10 @@ public class BlockAir extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean canCollideCheck(IBlockState state, boolean hitIfLiquid) {
-
 		return false;
 	}
 
@@ -49,19 +44,16 @@ public class BlockAir extends Block {
 	 * Spawns this Block's drops into the World as EntityItems.
 	 */
 	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
-
 	}
 
 	/**
 	 * Whether this Block can be replaced directly by other blocks (true for e.g. tall grass)
 	 */
 	public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
-
 		return true;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -75,7 +67,6 @@ public class BlockAir extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

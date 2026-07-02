@@ -18,7 +18,6 @@ public class RegionFile {
 	private List<Boolean> sectorFree;
 	
 	public RegionFile(File fileNameIn) {
-		
 		try {
 
 			dataFile = new RandomAccessFile(fileNameIn, "rw");
@@ -71,7 +70,6 @@ public class RegionFile {
 	 * Returns an uncompressed chunk stream from the region file.
 	 */
 	public synchronized DataInputStream getChunkDataInputStream(int x, int z) {
-
 		if (outOfBounds(x, z)) {
 			return null;
 		} else {
@@ -123,7 +121,6 @@ public class RegionFile {
 	 * Returns an output stream used to write chunk data. Data is on disk when the returned stream is closed.
 	 */
 	public DataOutputStream getChunkDataOutputStream(int x, int z) {
-
 		return outOfBounds(x, z) ? null : new DataOutputStream(new BufferedOutputStream(new DeflaterOutputStream(new RegionFile.ChunkBuffer(x, z))));
 	}
 
@@ -131,7 +128,6 @@ public class RegionFile {
 	 * Writes the specified chunk to disk.
 	 */
 	protected synchronized void write(int x, int z, byte[] data, int length) {
-
 		try {
 			int i = getOffset(x, z);
 			int j = i >> 8;
@@ -204,7 +200,6 @@ public class RegionFile {
 	 * Writes the chunk data to this RegionFile.
 	 */
 	private void write(int sectorNumber, byte[] data, int length) throws IOException {
-
 		dataFile.seek((long) (sectorNumber * 4096L));
 		dataFile.writeInt(length + 1);
 		dataFile.writeByte(2);
@@ -215,7 +210,6 @@ public class RegionFile {
 	 * Checks if region is out of bounds.
 	 */
 	private boolean outOfBounds(int x, int z) {
-
 		return x < 0 || x >= 32 || z < 0 || z >= 32;
 	}
 
@@ -223,7 +217,6 @@ public class RegionFile {
 	 * Gets a chunk's offset in region file.
 	 */
 	private int getOffset(int x, int z) {
-
 		return offsets[x + z * 32];
 	}
 
@@ -231,7 +224,6 @@ public class RegionFile {
 	 * Checks if a chunk has been saved.
 	 */
 	public boolean isChunkSaved(int x, int z) {
-
 		return getOffset(x, z) != 0;
 	}
 
@@ -239,7 +231,6 @@ public class RegionFile {
 	 * Sets the chunk's offset in the region file.
 	 */
 	private void setOffset(int x, int z, int offset) throws IOException {
-
 		offsets[x + z * 32] = offset;
 		dataFile.seek((long) ((x + z * 32L) * 4));
 		dataFile.writeInt(offset);
@@ -249,7 +240,6 @@ public class RegionFile {
 	 * Updates the specified chunk's write timestamp.
 	 */
 	private void setChunkTimestamp(int x, int z, int timestamp) throws IOException {
-
 		chunkTimestamps[x + z * 32] = timestamp;
 		dataFile.seek((long) (4096 + (x + z * 32L) * 4));
 		dataFile.writeInt(timestamp);
@@ -259,7 +249,6 @@ public class RegionFile {
 	 * close this RegionFile and prevent further writes
 	 */
 	public void close() throws IOException {
-
 		if (dataFile != null) {
 			dataFile.close();
 		}
@@ -271,14 +260,12 @@ public class RegionFile {
 		private final int chunkZ;
 
 		public ChunkBuffer(int x, int z) {
-
 			super(8096);
 			chunkX = x;
 			chunkZ = z;
 		}
 
 		public void close() {
-
 			RegionFile.this.write(chunkX, chunkZ, buf, count);
 		}
 

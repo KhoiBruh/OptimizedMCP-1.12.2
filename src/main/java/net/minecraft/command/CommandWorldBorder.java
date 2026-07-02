@@ -15,7 +15,6 @@ public class CommandWorldBorder extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "worldborder";
 	}
 
@@ -23,7 +22,6 @@ public class CommandWorldBorder extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 2;
 	}
 
@@ -31,7 +29,6 @@ public class CommandWorldBorder extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.worldborder.usage";
 	}
 
@@ -39,7 +36,6 @@ public class CommandWorldBorder extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		if (args.length < 1) {
 			throw new WrongUsageException("commands.worldborder.usage");
 		} else {
@@ -165,12 +161,10 @@ public class CommandWorldBorder extends CommandBase {
 	}
 
 	protected WorldBorder getWorldBorder(MinecraftServer server) {
-
 		return server.worlds[0].getWorldBorder();
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		if (args.length == 1) {
 			return getListOfStringsMatchingLastWord(args, "set", "center", "damage", "warning", "add", "get");
 		} else if (args.length == 2 && "damage".equals(args[0])) {

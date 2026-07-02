@@ -22,13 +22,11 @@ public class Frustum implements ICamera {
 	private double z;
 
 	public static Frustum getInstance() {
-
 		instance.init();
 		return instance;
 	}
 
 	public void init() {
-
 		projectionMatrixBuffer.clear();
 		modelviewMatrixBuffer.clear();
 		GLS.getFloat(2983, projectionMatrixBuffer);
@@ -41,7 +39,6 @@ public class Frustum implements ICamera {
 	}
 
 	public void setPosition(double xIn, double yIn, double zIn) {
-
 		x = xIn;
 		y = yIn;
 		z = zIn;
@@ -51,7 +48,6 @@ public class Frustum implements ICamera {
 	 * Calls the clipping helper. Returns true if the box is inside all 6 clipping planes, otherwise returns false.
 	 */
 	public boolean isBoxInFrustum(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
-
 		return frustum.testAab((float) (minX - x), (float) (minY - y), (float) (minZ - z), (float) (maxX - x), (float) (maxY - y), (float) (maxZ - z));
 	}
 
@@ -59,12 +55,10 @@ public class Frustum implements ICamera {
 	 * Returns true if the bounding box is inside all 6 clipping planes, otherwise returns false.
 	 */
 	public boolean isBoundingBoxInFrustum(AxisAlignedBB bb) {
-
 		return isBoxInFrustum(bb.minX, bb.minY, bb.minZ, bb.maxX, bb.maxY, bb.maxZ);
 	}
 
 	void setClipMatrix(Matrix4f matrix) {
-
 		clipMatrix.set(matrix);
 		frustum.set(clipMatrix);
 	}

@@ -16,18 +16,15 @@ public class BlockFalling extends Block {
 	public static boolean fallInstantly;
 
 	public BlockFalling() {
-
 		super(Material.SAND);
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 	}
 
 	public BlockFalling(Material materialIn) {
-
 		super(materialIn);
 	}
 
 	public static boolean canFallThrough(IBlockState state) {
-
 		Block block = state.getBlock();
 		Material material = state.getMaterial();
 		return block == Blocks.FIRE || material == Material.AIR || material == Material.WATER || material == Material.LAVA;
@@ -37,7 +34,6 @@ public class BlockFalling extends Block {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
 	}
 
@@ -47,19 +43,16 @@ public class BlockFalling extends Block {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if (!worldIn.isRemote) {
 			checkFallable(worldIn, pos);
 		}
 	}
 
 	private void checkFallable(World worldIn, BlockPos pos) {
-
 		if (canFallThrough(worldIn.getBlockState(pos.down())) && pos.getY() >= 0) {
 
 			if (!fallInstantly && worldIn.isAreaLoaded(pos.add(-32, -32, -32), pos.add(32, 32, 32))) {
@@ -83,27 +76,22 @@ public class BlockFalling extends Block {
 	}
 
 	protected void onStartFalling(EntityFallingBlock fallingEntity) {
-
 	}
 
 	/**
 	 * How many world ticks before ticking
 	 */
 	public int tickRate(World worldIn) {
-
 		return 2;
 	}
 
 	public void onEndFalling(World worldIn, BlockPos pos, IBlockState p_176502_3_, IBlockState p_176502_4_) {
-
 	}
 
 	public void onBroken(World worldIn, BlockPos pos) {
-
 	}
 
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-
 		if (rand.nextInt(16) == 0) {
 			BlockPos blockpos = pos.down();
 
@@ -117,7 +105,6 @@ public class BlockFalling extends Block {
 	}
 
 	public int getDustColor(IBlockState state) {
-
 		return -16777216;
 	}
 

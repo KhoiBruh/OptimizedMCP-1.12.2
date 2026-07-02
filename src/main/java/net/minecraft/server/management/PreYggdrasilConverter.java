@@ -25,7 +25,6 @@ public class PreYggdrasilConverter {
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	private static void lookupNames(MinecraftServer server, Collection<String> names, ProfileLookupCallback callback) {
-
 		String[] astring = Iterators.toArray(Iterators.filter(names.iterator(), p_apply_1_ -> !StringUtils.isNullOrEmpty(p_apply_1_)), String.class);
 
 		if (server.isServerInOnlineMode()) {
@@ -40,7 +39,6 @@ public class PreYggdrasilConverter {
 	}
 
 	public static String convertMobOwnerIfNeeded(final MinecraftServer server, String username) {
-
 		if (!StringUtils.isNullOrEmpty(username) && username.length() <= 16) {
 			GameProfile gameprofile = server.getPlayerProfileCache().getGameProfileForUsername(username);
 
@@ -50,13 +48,11 @@ public class PreYggdrasilConverter {
 				final List<GameProfile> list = Lists.newArrayList();
 				ProfileLookupCallback profilelookupcallback = new ProfileLookupCallback() {
 					public void onProfileLookupSucceeded(GameProfile p_onProfileLookupSucceeded_1_) {
-
 						server.getPlayerProfileCache().addEntry(p_onProfileLookupSucceeded_1_);
 						list.add(p_onProfileLookupSucceeded_1_);
 					}
 
 					public void onProfileLookupFailed(GameProfile p_onProfileLookupFailed_1_, Exception p_onProfileLookupFailed_2_) {
-
 						PreYggdrasilConverter.LOGGER.warn("Could not lookup user whitelist entry for {}", p_onProfileLookupFailed_1_.getName(), p_onProfileLookupFailed_2_);
 					}
 				};

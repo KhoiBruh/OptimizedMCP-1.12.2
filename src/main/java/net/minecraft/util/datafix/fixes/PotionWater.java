@@ -6,12 +6,10 @@ import net.minecraft.util.datafix.IFixableData;
 public class PotionWater implements IFixableData {
 
 	public int getFixVersion() {
-
 		return 806;
 	}
 
 	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
-
 		String s = compound.getString("id");
 
 		if ("minecraft:potion".equals(s) || "minecraft:splash_potion".equals(s) || "minecraft:lingering_potion".equals(s) || "minecraft:tipped_arrow".equals(s)) {

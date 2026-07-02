@@ -25,14 +25,12 @@ public class BlockLadder extends Block {
 	protected static final AxisAlignedBB LADDER_NORTH_AABB = new AxisAlignedBB(0D, 0D, 0.8125D, 1D, 1D, 1D);
 
 	protected BlockLadder() {
-
 		super(Material.CIRCUITS);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH));
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return switch (state.getValue(FACING)) {
 			case NORTH -> LADDER_NORTH_AABB;
 			case SOUTH -> LADDER_SOUTH_AABB;
@@ -45,12 +43,10 @@ public class BlockLadder extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -58,7 +54,6 @@ public class BlockLadder extends Block {
 	 * Check whether this Block can be placed at pos, while aiming at the specified side of an adjacent block
 	 */
 	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Facing side) {
-
 		if (canAttachTo(worldIn, pos.west(), side)) {
 			return true;
 		} else if (canAttachTo(worldIn, pos.east(), side)) {
@@ -71,7 +66,6 @@ public class BlockLadder extends Block {
 	}
 
 	private boolean canAttachTo(World p_193392_1_, BlockPos p_193392_2_, Facing p_193392_3_) {
-
 		IBlockState iblockstate = p_193392_1_.getBlockState(p_193392_2_);
 		boolean flag = isExceptBlockForAttachWithPiston(iblockstate.getBlock());
 		return !flag && iblockstate.getBlockFaceShape(p_193392_1_, p_193392_2_, p_193392_3_) == BlockFaceShape.SOLID && !iblockstate.canProvidePower();
@@ -82,7 +76,6 @@ public class BlockLadder extends Block {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		if (facing.getAxis().isHorizontal() && canAttachTo(worldIn, pos.offset(facing.getOpposite()), facing)) {
 			return getDefaultState().withProperty(FACING, facing);
 		} else {
@@ -102,7 +95,6 @@ public class BlockLadder extends Block {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		Facing enumfacing = state.getValue(FACING);
 
 		if (!canAttachTo(worldIn, pos.offset(enumfacing.getOpposite()), enumfacing)) {
@@ -118,7 +110,6 @@ public class BlockLadder extends Block {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.CUTOUT;
 	}
 
@@ -126,7 +117,6 @@ public class BlockLadder extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		Facing enumfacing = Facing.getFront(meta);
 
 		if (enumfacing.getAxis() == Facing.Axis.Y) {
@@ -140,7 +130,6 @@ public class BlockLadder extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(FACING).getIndex();
 	}
 
@@ -149,7 +138,6 @@ public class BlockLadder extends Block {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
@@ -158,12 +146,10 @@ public class BlockLadder extends Block {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, FACING);
 	}
 
@@ -177,7 +163,6 @@ public class BlockLadder extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

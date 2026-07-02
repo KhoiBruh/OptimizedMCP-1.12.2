@@ -40,7 +40,6 @@ public class BlockVine extends Block {
 	protected static final AxisAlignedBB SOUTH_AABB = new AxisAlignedBB(0D, 0D, 0.9375D, 1D, 1D, 1D);
 
 	public BlockVine() {
-
 		super(Material.VINE);
 		setDefaultState(blockState.getBaseState().withProperty(UP, false).withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false));
 		setTickRandomly(true);
@@ -48,12 +47,10 @@ public class BlockVine extends Block {
 	}
 
 	protected static boolean isExceptBlockForAttaching(Block p_193397_0_) {
-
 		return p_193397_0_ instanceof BlockShulkerBox || p_193397_0_ == Blocks.BEACON || p_193397_0_ == Blocks.CAULDRON || p_193397_0_ == Blocks.GLASS || p_193397_0_ == Blocks.STAINED_GLASS || p_193397_0_ == Blocks.PISTON || p_193397_0_ == Blocks.STICKY_PISTON || p_193397_0_ == Blocks.PISTON_HEAD || p_193397_0_ == Blocks.TRAPDOOR;
 	}
 
 	public static PropertyBool getPropertyFor(Facing side) {
-
 		return switch (side) {
 			case UP -> UP;
 			case NORTH -> NORTH;
@@ -65,7 +62,6 @@ public class BlockVine extends Block {
 	}
 
 	public static int getNumGrownFaces(IBlockState state) {
-
 		int i = 0;
 
 		for (PropertyBool propertybool : ALL_FACES) {
@@ -79,12 +75,10 @@ public class BlockVine extends Block {
 
 	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-
 		return NULL_AABB;
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		state = state.getActualState(source, pos);
 		int i = 0;
 		AxisAlignedBB axisalignedbb = FULL_BLOCK_AABB;
@@ -122,7 +116,6 @@ public class BlockVine extends Block {
 	 * metadata, such as fence connections.
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		BlockPos blockpos = pos.up();
 		return state.withProperty(UP, worldIn.getBlockState(blockpos).getBlockFaceShape(worldIn, blockpos, Facing.DOWN) == BlockFaceShape.SOLID);
 	}
@@ -131,12 +124,10 @@ public class BlockVine extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -144,7 +135,6 @@ public class BlockVine extends Block {
 	 * Whether this Block can be replaced directly by other blocks (true for e.g. tall grass)
 	 */
 	public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
-
 		return true;
 	}
 
@@ -152,24 +142,20 @@ public class BlockVine extends Block {
 	 * Check whether this Block can be placed at pos, while aiming at the specified side of an adjacent block
 	 */
 	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Facing side) {
-
 		return side != Facing.DOWN && side != Facing.UP && canAttachTo(worldIn, pos, side);
 	}
 
 	public boolean canAttachTo(World p_193395_1_, BlockPos p_193395_2_, Facing p_193395_3_) {
-
 		Block block = p_193395_1_.getBlockState(p_193395_2_.up()).getBlock();
 		return isAcceptableNeighbor(p_193395_1_, p_193395_2_.offset(p_193395_3_.getOpposite()), p_193395_3_) && (block == Blocks.AIR || block == Blocks.VINE || isAcceptableNeighbor(p_193395_1_, p_193395_2_.up(), Facing.UP));
 	}
 
 	private boolean isAcceptableNeighbor(World p_193396_1_, BlockPos p_193396_2_, Facing p_193396_3_) {
-
 		IBlockState iblockstate = p_193396_1_.getBlockState(p_193396_2_);
 		return iblockstate.getBlockFaceShape(p_193396_1_, p_193396_2_, p_193396_3_) == BlockFaceShape.SOLID && !isExceptBlockForAttaching(iblockstate.getBlock());
 	}
 
 	private boolean recheckGrownSides(World worldIn, BlockPos pos, IBlockState state) {
-
 		IBlockState iblockstate = state;
 
 		for (Facing enumfacing : Facing.Plane.HORIZONTAL) {
@@ -201,7 +187,6 @@ public class BlockVine extends Block {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (!worldIn.isRemote && !recheckGrownSides(worldIn, pos, state)) {
 			dropBlockAsItem(worldIn, pos, state, 0);
 			worldIn.setBlockToAir(pos);
@@ -209,7 +194,6 @@ public class BlockVine extends Block {
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if (!worldIn.isRemote) {
 			if (worldIn.rand.nextInt(4) == 0) {
 				int i = 4;
@@ -320,7 +304,6 @@ public class BlockVine extends Block {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		IBlockState iblockstate = getDefaultState().withProperty(UP, false).withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false);
 		return facing.getAxis().isHorizontal() ? iblockstate.withProperty(getPropertyFor(facing.getOpposite()), true) : iblockstate;
 	}
@@ -329,7 +312,6 @@ public class BlockVine extends Block {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Items.AIR;
 	}
 
@@ -337,7 +319,6 @@ public class BlockVine extends Block {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return 0;
 	}
 
@@ -346,7 +327,6 @@ public class BlockVine extends Block {
 	 * Block.removedByPlayer
 	 */
 	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
-
 		if (!worldIn.isRemote && stack.getItem() == Items.SHEARS) {
 			player.addStat(StatList.getBlockStats(this));
 			spawnAsEntity(worldIn, pos, new ItemStack(Blocks.VINE, 1, 0));
@@ -360,7 +340,6 @@ public class BlockVine extends Block {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.CUTOUT;
 	}
 
@@ -368,7 +347,6 @@ public class BlockVine extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(SOUTH, (meta & 1) > 0).withProperty(WEST, (meta & 2) > 0).withProperty(NORTH, (meta & 4) > 0).withProperty(EAST, (meta & 8) > 0);
 	}
 
@@ -376,7 +354,6 @@ public class BlockVine extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 
 		if (state.getValue(SOUTH)) {
@@ -399,7 +376,6 @@ public class BlockVine extends Block {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, UP, NORTH, EAST, SOUTH, WEST);
 	}
 
@@ -408,7 +384,6 @@ public class BlockVine extends Block {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return switch (rot) {
 			case CLOCKWISE_180 ->
 					state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(EAST, state.getValue(WEST)).withProperty(SOUTH, state.getValue(NORTH)).withProperty(WEST, state.getValue(EAST));
@@ -425,7 +400,6 @@ public class BlockVine extends Block {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return switch (mirrorIn) {
 			case LEFT_RIGHT ->
 					state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(NORTH));
@@ -444,7 +418,6 @@ public class BlockVine extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

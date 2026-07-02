@@ -30,7 +30,6 @@ public class ItemTool extends Item {
 	protected Item.ToolMaterial toolMaterial;
 
 	protected ItemTool(float attackDamageIn, float attackSpeedIn, Item.ToolMaterial materialIn, Set<Block> effectiveBlocksIn) {
-
 		efficiency = 4F;
 		toolMaterial = materialIn;
 		effectiveBlocks = effectiveBlocksIn;
@@ -43,12 +42,10 @@ public class ItemTool extends Item {
 	}
 
 	protected ItemTool(Item.ToolMaterial materialIn, Set<Block> effectiveBlocksIn) {
-
 		this(0F, 0F, materialIn, effectiveBlocksIn);
 	}
 
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
-
 		return effectiveBlocks.contains(state.getBlock()) ? efficiency : 1F;
 	}
 
@@ -57,7 +54,6 @@ public class ItemTool extends Item {
 	 * the damage on the stack.
 	 */
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-
 		stack.damageItem(2, attacker);
 		return true;
 	}
@@ -66,7 +62,6 @@ public class ItemTool extends Item {
 	 * Called when a Block is destroyed using this Item. Return true to trigger the "Use Item" statistic.
 	 */
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-
 		if (!worldIn.isRemote && (double) state.getBlockHardness(worldIn, pos) != 0D) {
 			stack.damageItem(1, entityLiving);
 		}
@@ -78,7 +73,6 @@ public class ItemTool extends Item {
 	 * Returns True is the item is renderer in full 3D when hold.
 	 */
 	public boolean isFull3D() {
-
 		return true;
 	}
 
@@ -86,7 +80,6 @@ public class ItemTool extends Item {
 	 * Return the enchantability factor of the item, most of the time is based on material.
 	 */
 	public int getItemEnchantability() {
-
 		return toolMaterial.getEnchantability();
 	}
 
@@ -94,7 +87,6 @@ public class ItemTool extends Item {
 	 * Return the name for this tool's material.
 	 */
 	public String getToolMaterialName() {
-
 		return toolMaterial.toString();
 	}
 
@@ -105,7 +97,6 @@ public class ItemTool extends Item {
 	 * @param repair   the {@code ItemStack} being used to perform the repair
 	 */
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-
 		return toolMaterial.getRepairItem() == repair.getItem() || super.getIsRepairable(toRepair, repair);
 	}
 

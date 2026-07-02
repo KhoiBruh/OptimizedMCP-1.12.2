@@ -18,7 +18,6 @@ public class CommandClearInventory extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "clear";
 	}
 
@@ -26,7 +25,6 @@ public class CommandClearInventory extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.clear.usage";
 	}
 
@@ -34,7 +32,6 @@ public class CommandClearInventory extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 2;
 	}
 
@@ -42,7 +39,6 @@ public class CommandClearInventory extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		EntityPlayerMP entityplayermp = args.length == 0 ? getCommandSenderAsPlayer(sender) : getPlayer(server, sender, args[0]);
 		Item item = args.length >= 2 ? getItemByText(sender, args[1]) : null;
 		int i = args.length >= 3 ? parseInt(args[2], -1) : -1;
@@ -82,7 +78,6 @@ public class CommandClearInventory extends CommandBase {
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		if (args.length == 1) {
 			return getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames());
 		} else {
@@ -94,7 +89,6 @@ public class CommandClearInventory extends CommandBase {
 	 * Return whether the specified command parameter index is a username parameter.
 	 */
 	public boolean isUsernameIndex(String[] args, int index) {
-
 		return index == 0;
 	}
 

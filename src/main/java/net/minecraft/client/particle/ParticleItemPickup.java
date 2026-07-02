@@ -18,7 +18,6 @@ public class ParticleItemPickup extends Particle {
 	private int age;
 
 	public ParticleItemPickup(World worldIn, Entity p_i1233_2_, Entity p_i1233_3_, float p_i1233_4_) {
-
 		super(worldIn, p_i1233_2_.posX, p_i1233_2_.posY, p_i1233_2_.posZ, p_i1233_2_.motionX, p_i1233_2_.motionY, p_i1233_2_.motionZ);
 		item = p_i1233_2_;
 		target = p_i1233_3_;
@@ -30,7 +29,6 @@ public class ParticleItemPickup extends Particle {
 	 * Renders the particle
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-
 		float f = ((float) age + partialTicks) / (float) maxAge;
 		f = f * f;
 		double d0 = item.posX;
@@ -55,7 +53,6 @@ public class ParticleItemPickup extends Particle {
 	}
 
 	public void onUpdate() {
-
 		++age;
 
 		if (age == maxAge) {
@@ -68,7 +65,6 @@ public class ParticleItemPickup extends Particle {
 	 * 1 for the main Texture atlas, and 3 for a custom texture
 	 */
 	public int getFXLayer() {
-
 		return 3;
 	}
 

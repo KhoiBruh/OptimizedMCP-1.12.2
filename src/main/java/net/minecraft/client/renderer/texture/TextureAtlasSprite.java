@@ -32,17 +32,14 @@ public class TextureAtlasSprite {
 	private float maxV;
 
 	protected TextureAtlasSprite(String spriteName) {
-
 		iconName = spriteName;
 	}
 
 	protected static TextureAtlasSprite makeAtlasSprite(ResourceLocation spriteResourceLocation) {
-
 		return new TextureAtlasSprite(spriteResourceLocation.toString());
 	}
 
 	private static int[][] getFrameTextureData(int[][] data, int rows, int columns, int p_147962_3_) {
-
 		int[][] aint = new int[data.length][];
 
 		for (int i = 0; i < data.length; ++i) {
@@ -58,7 +55,6 @@ public class TextureAtlasSprite {
 	}
 
 	public void initSprite(int inX, int inY, int originInX, int originInY, boolean rotatedIn) {
-
 		originX = originInX;
 		originY = originInY;
 		rotated = rotatedIn;
@@ -71,7 +67,6 @@ public class TextureAtlasSprite {
 	}
 
 	public void copyFrom(TextureAtlasSprite atlasSpirit) {
-
 		originX = atlasSpirit.originX;
 		originY = atlasSpirit.originY;
 		width = atlasSpirit.width;
@@ -87,7 +82,6 @@ public class TextureAtlasSprite {
 	 * Returns the X position of this icon on its texture sheet, in pixels.
 	 */
 	public int getOriginX() {
-
 		return originX;
 	}
 
@@ -95,7 +89,6 @@ public class TextureAtlasSprite {
 	 * Returns the Y position of this icon on its texture sheet, in pixels.
 	 */
 	public int getOriginY() {
-
 		return originY;
 	}
 
@@ -103,12 +96,10 @@ public class TextureAtlasSprite {
 	 * Returns the width of the icon, in pixels.
 	 */
 	public int getIconWidth() {
-
 		return width;
 	}
 
 	public void setIconWidth(int newWidth) {
-
 		width = newWidth;
 	}
 
@@ -116,12 +107,10 @@ public class TextureAtlasSprite {
 	 * Returns the height of the icon, in pixels.
 	 */
 	public int getIconHeight() {
-
 		return height;
 	}
 
 	public void setIconHeight(int newHeight) {
-
 		height = newHeight;
 	}
 
@@ -129,7 +118,6 @@ public class TextureAtlasSprite {
 	 * Returns the minimum U coordinate to use when rendering with this icon.
 	 */
 	public float getMinU() {
-
 		return minU;
 	}
 
@@ -137,7 +125,6 @@ public class TextureAtlasSprite {
 	 * Returns the maximum U coordinate to use when rendering with this icon.
 	 */
 	public float getMaxU() {
-
 		return maxU;
 	}
 
@@ -145,7 +132,6 @@ public class TextureAtlasSprite {
 	 * Gets a U coordinate on the icon. 0 returns uMin and 16 returns uMax. Other arguments return in-between values.
 	 */
 	public float getInterpolatedU(double u) {
-
 		float f = maxU - minU;
 		return minU + f * (float) u / 16F;
 	}
@@ -154,7 +140,6 @@ public class TextureAtlasSprite {
 	 * The opposite of getInterpolatedU. Takes the return value of that method and returns the input to it.
 	 */
 	public float getUnInterpolatedU(float u) {
-
 		float f = maxU - minU;
 		return (u - minU) / f * 16F;
 	}
@@ -163,7 +148,6 @@ public class TextureAtlasSprite {
 	 * Returns the minimum V coordinate to use when rendering with this icon.
 	 */
 	public float getMinV() {
-
 		return minV;
 	}
 
@@ -171,7 +155,6 @@ public class TextureAtlasSprite {
 	 * Returns the maximum V coordinate to use when rendering with this icon.
 	 */
 	public float getMaxV() {
-
 		return maxV;
 	}
 
@@ -179,7 +162,6 @@ public class TextureAtlasSprite {
 	 * Gets a V coordinate on the icon. 0 returns vMin and 16 returns vMax. Other arguments return in-between values.
 	 */
 	public float getInterpolatedV(double v) {
-
 		float f = maxV - minV;
 		return minV + f * (float) v / 16F;
 	}
@@ -188,18 +170,15 @@ public class TextureAtlasSprite {
 	 * The opposite of getInterpolatedV. Takes the return value of that method and returns the input to it.
 	 */
 	public float getUnInterpolatedV(float p_188536_1_) {
-
 		float f = maxV - minV;
 		return (p_188536_1_ - minV) / f * 16F;
 	}
 
 	public String getIconName() {
-
 		return iconName;
 	}
 
 	public void updateAnimation() {
-
 		++tickCounter;
 
 		if (tickCounter >= animationMetadata.getFrameTimeSingle(frameCounter)) {
@@ -218,7 +197,6 @@ public class TextureAtlasSprite {
 	}
 
 	private void updateAnimationInterpolated() {
-
 		double d0 = 1D - (double) tickCounter / (double) animationMetadata.getFrameTimeSingle(frameCounter);
 		int i = animationMetadata.getFrameIndex(frameCounter);
 		int j = animationMetadata.getFrameCount() == 0 ? framesTextureData.size() : animationMetadata.getFrameCount();
@@ -254,22 +232,18 @@ public class TextureAtlasSprite {
 	}
 
 	private int interpolateColor(double p_188535_1_, int p_188535_3_, int p_188535_4_) {
-
 		return (int) (p_188535_1_ * (double) p_188535_3_ + (1D - p_188535_1_) * (double) p_188535_4_);
 	}
 
 	public int[][] getFrameTextureData(int index) {
-
 		return framesTextureData.get(index);
 	}
 
 	public int getFrameCount() {
-
 		return framesTextureData.size();
 	}
 
 	public void loadSprite(PngSizeInfo sizeInfo, boolean p_188538_2_) {
-
 		resetSprite();
 		width = sizeInfo.pngWidth;
 		height = sizeInfo.pngHeight;
@@ -282,7 +256,6 @@ public class TextureAtlasSprite {
 	}
 
 	public void loadSpriteFrames(IResource resource, int mipmaplevels) throws IOException {
-
 		BufferedImage bufferedimage = TextureUtil.readBufferedImage(resource.getInputStream());
 		AnimationMetadataSection animationmetadatasection = resource.getMetadata("animation");
 		int[][] aint = new int[mipmaplevels][];
@@ -322,7 +295,6 @@ public class TextureAtlasSprite {
 	}
 
 	public void generateMipmaps(int level) {
-
 		List<int[][]> list = Lists.newArrayList();
 
 		for (int i = 0; i < framesTextureData.size(); ++i) {
@@ -358,7 +330,6 @@ public class TextureAtlasSprite {
 	}
 
 	private void allocateFrameTextureData(int index) {
-
 		if (framesTextureData.size() <= index) {
 			for (int i = framesTextureData.size(); i <= index; ++i) {
 				framesTextureData.add(null);
@@ -367,22 +338,18 @@ public class TextureAtlasSprite {
 	}
 
 	public void clearFramesTextureData() {
-
 		framesTextureData.clear();
 	}
 
 	public boolean hasAnimationMetadata() {
-
 		return animationMetadata != null;
 	}
 
 	public void setFramesTextureData(List<int[][]> newFramesTextureData) {
-
 		framesTextureData = newFramesTextureData;
 	}
 
 	private void resetSprite() {
-
 		animationMetadata = null;
 		setFramesTextureData(Lists.newArrayList());
 		frameCounter = 0;
@@ -390,7 +357,6 @@ public class TextureAtlasSprite {
 	}
 
 	public String toString() {
-
 		return "TextureAtlasSprite{name='" + iconName + '\'' + ", frameCount=" + framesTextureData.size() + ", rotated=" + rotated + ", x=" + originX + ", y=" + originY + ", height=" + height + ", width=" + width + ", u0=" + minU + ", u1=" + maxU + ", v0=" + minV + ", v1=" + maxV + '}';
 	}
 

@@ -15,7 +15,6 @@ public abstract class UserListEntryBan<T> extends UserListEntry<T> {
 	protected final String reason;
 
 	public UserListEntryBan(T valueIn, Date startDate, String banner, Date endDate, String banReason) {
-
 		super(valueIn);
 		banStartDate = startDate == null ? new Date() : startDate;
 		bannedBy = banner == null ? "(Unknown)" : banner;
@@ -24,7 +23,6 @@ public abstract class UserListEntryBan<T> extends UserListEntry<T> {
 	}
 
 	protected UserListEntryBan(T valueIn, JsonObject json) {
-
 		super(valueIn, json);
 		Date date;
 
@@ -49,22 +47,18 @@ public abstract class UserListEntryBan<T> extends UserListEntry<T> {
 	}
 
 	public Date getBanEndDate() {
-
 		return banEndDate;
 	}
 
 	public String getBanReason() {
-
 		return reason;
 	}
 
 	boolean hasBanExpired() {
-
 		return banEndDate != null && banEndDate.before(new Date());
 	}
 
 	protected void onSerialization(JsonObject data) {
-
 		data.addProperty("created", DATE_FORMAT.format(banStartDate));
 		data.addProperty("source", bannedBy);
 		data.addProperty("expires", banEndDate == null ? "forever" : DATE_FORMAT.format(banEndDate));

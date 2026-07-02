@@ -13,7 +13,6 @@ public class RecipeBookCloning implements IRecipe {
 	 * Used to check if a recipe matches current crafting inventory
 	 */
 	public boolean matches(InventoryCrafting inv, World worldIn) {
-
 		int i = 0;
 		ItemStack itemstack = ItemStack.EMPTY;
 
@@ -44,7 +43,6 @@ public class RecipeBookCloning implements IRecipe {
 	 * Returns an Item that is the result of this recipe
 	 */
 	public ItemStack getCraftingResult(InventoryCrafting inv) {
-
 		int i = 0;
 		ItemStack itemstack = ItemStack.EMPTY;
 
@@ -84,12 +82,10 @@ public class RecipeBookCloning implements IRecipe {
 	}
 
 	public ItemStack getRecipeOutput() {
-
 		return ItemStack.EMPTY;
 	}
 
 	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
-
 		NonNullList<ItemStack> nonnulllist = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
 
 		for (int i = 0; i < nonnulllist.size(); ++i) {
@@ -107,7 +103,6 @@ public class RecipeBookCloning implements IRecipe {
 	}
 
 	public boolean isDynamic() {
-
 		return true;
 	}
 
@@ -115,7 +110,6 @@ public class RecipeBookCloning implements IRecipe {
 	 * Used to determine if this recipe can fit in a grid of the given width/height
 	 */
 	public boolean canFit(int width, int height) {
-
 		return width >= 3 && height >= 3;
 	}
 

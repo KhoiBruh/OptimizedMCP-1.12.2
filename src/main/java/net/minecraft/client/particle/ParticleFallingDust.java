@@ -18,7 +18,6 @@ public class ParticleFallingDust extends Particle {
 	float oSize;
 
 	protected ParticleFallingDust(World p_i47135_1_, double p_i47135_2_, double p_i47135_4_, double p_i47135_6_, float p_i47135_8_, float p_i47135_9_, float p_i47135_10_) {
-
 		super(p_i47135_1_, p_i47135_2_, p_i47135_4_, p_i47135_6_, 0D, 0D, 0D);
 		motionX = 0D;
 		motionY = 0D;
@@ -40,7 +39,6 @@ public class ParticleFallingDust extends Particle {
 	 * Renders the particle
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-
 		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32F;
 		f = MathHelper.clamp(f, 0F, 1F);
 		particleScale = oSize * f;
@@ -48,7 +46,6 @@ public class ParticleFallingDust extends Particle {
 	}
 
 	public void onUpdate() {
-
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
@@ -74,7 +71,6 @@ public class ParticleFallingDust extends Particle {
 
 		
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			IBlockState iblockstate = Block.getStateById(p_178902_15_[0]);
 
 			if (iblockstate.getBlock() != Blocks.AIR && iblockstate.getRenderType() == BlockRenderType.INVISIBLE) {

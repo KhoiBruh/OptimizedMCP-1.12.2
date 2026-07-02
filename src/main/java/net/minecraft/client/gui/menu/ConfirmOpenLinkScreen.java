@@ -19,7 +19,6 @@ public class ConfirmOpenLinkScreen extends YesNoScreen {
 	private boolean showSecurityWarning = true;
 
 	public ConfirmOpenLinkScreen(GuiYesNoCallback parentScreenIn, String linkTextIn, int parentButtonClickedIdIn, boolean trusted) {
-
 		super(parentScreenIn, I18n.format(trusted ? "chat.link.confirmTrusted" : "chat.link.confirm"), linkTextIn, parentButtonClickedIdIn);
 		confirmButtonText = I18n.format(trusted ? "chat.link.open" : "gui.yes");
 		cancelButtonText = I18n.format(trusted ? "gui.cancel" : "gui.no");
@@ -33,7 +32,6 @@ public class ConfirmOpenLinkScreen extends YesNoScreen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		super.init();
 		buttons.clear();
 		buttons.add(new Button(0, width / 2 - 50 - 105, height / 6 + 96, 100, 20, confirmButtonText));
@@ -45,7 +43,6 @@ public class ConfirmOpenLinkScreen extends YesNoScreen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.id == 2) {
 			copyLinkToClipboard();
 		}
@@ -57,7 +54,6 @@ public class ConfirmOpenLinkScreen extends YesNoScreen {
 	 * Copies the link to the system clipboard.
 	 */
 	public void copyLinkToClipboard() {
-
 		setClipboard(linkText);
 	}
 
@@ -65,7 +61,6 @@ public class ConfirmOpenLinkScreen extends YesNoScreen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		super.draw(mouseX, mouseY, partialTicks);
 
 		if (showSecurityWarning) {
@@ -74,7 +69,6 @@ public class ConfirmOpenLinkScreen extends YesNoScreen {
 	}
 
 	public void disableSecurityWarning() {
-
 		showSecurityWarning = false;
 	}
 

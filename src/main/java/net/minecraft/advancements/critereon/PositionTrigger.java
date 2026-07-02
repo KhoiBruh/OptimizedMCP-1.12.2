@@ -21,17 +21,14 @@ public class PositionTrigger implements ICriterionTrigger<PositionTrigger.Instan
 	private final Map<PlayerAdvancements, PositionTrigger.Listeners> listeners = Maps.newHashMap();
 
 	public PositionTrigger(ResourceLocation id) {
-
 		this.id = id;
 	}
 
 	public ResourceLocation getId() {
-
 		return id;
 	}
 
 	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<PositionTrigger.Instance> listener) {
-
 		PositionTrigger.Listeners positiontrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (positiontrigger$listeners == null) {
@@ -43,7 +40,6 @@ public class PositionTrigger implements ICriterionTrigger<PositionTrigger.Instan
 	}
 
 	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<PositionTrigger.Instance> listener) {
-
 		PositionTrigger.Listeners positiontrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (positiontrigger$listeners != null) {
@@ -56,7 +52,6 @@ public class PositionTrigger implements ICriterionTrigger<PositionTrigger.Instan
 	}
 
 	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
-
 		listeners.remove(playerAdvancementsIn);
 	}
 
@@ -70,7 +65,6 @@ public class PositionTrigger implements ICriterionTrigger<PositionTrigger.Instan
 	}
 
 	public void trigger(EntityPlayerMP player) {
-
 		PositionTrigger.Listeners positiontrigger$listeners = listeners.get(player.getAdvancements());
 
 		if (positiontrigger$listeners != null) {
@@ -83,13 +77,11 @@ public class PositionTrigger implements ICriterionTrigger<PositionTrigger.Instan
 		private final LocationPredicate location;
 
 		public Instance(ResourceLocation criterionIn, LocationPredicate location) {
-
 			super(criterionIn);
 			this.location = location;
 		}
 
 		public boolean test(WorldServer world, double x, double y, double z) {
-
 			return location.test(world, x, y, z);
 		}
 
@@ -101,27 +93,22 @@ public class PositionTrigger implements ICriterionTrigger<PositionTrigger.Instan
 		private final Set<ICriterionTrigger.Listener<PositionTrigger.Instance>> listeners = Sets.newHashSet();
 
 		public Listeners(PlayerAdvancements playerAdvancementsIn) {
-
 			playerAdvancements = playerAdvancementsIn;
 		}
 
 		public boolean isEmpty() {
-
 			return listeners.isEmpty();
 		}
 
 		public void add(ICriterionTrigger.Listener<PositionTrigger.Instance> listener) {
-
 			listeners.add(listener);
 		}
 
 		public void remove(ICriterionTrigger.Listener<PositionTrigger.Instance> listener) {
-
 			listeners.remove(listener);
 		}
 
 		public void trigger(WorldServer world, double x, double y, double z) {
-
 			List<ICriterionTrigger.Listener<PositionTrigger.Instance>> list = null;
 
 			for (ICriterionTrigger.Listener<PositionTrigger.Instance> listener : listeners) {

@@ -8,17 +8,14 @@ import java.io.File;
 public class UserListOps extends UserList<GameProfile, UserListOpsEntry> {
 
 	public UserListOps(File saveFile) {
-
 		super(saveFile);
 	}
 
 	protected UserListEntry<GameProfile> createEntry(JsonObject entryData) {
-
 		return new UserListOpsEntry(entryData);
 	}
 
 	public String[] getKeys() {
-
 		String[] astring = new String[getValues().size()];
 		int i = 0;
 
@@ -33,13 +30,11 @@ public class UserListOps extends UserList<GameProfile, UserListOpsEntry> {
 	 * Get the OP permission level this player has
 	 */
 	public int getPermissionLevel(GameProfile profile) {
-
 		UserListOpsEntry userlistopsentry = getEntry(profile);
 		return userlistopsentry != null ? userlistopsentry.getPermissionLevel() : 0;
 	}
 
 	public boolean bypassesPlayerLimit(GameProfile profile) {
-
 		UserListOpsEntry userlistopsentry = getEntry(profile);
 		return userlistopsentry != null && userlistopsentry.bypassesPlayerLimit();
 	}
@@ -48,7 +43,6 @@ public class UserListOps extends UserList<GameProfile, UserListOpsEntry> {
 	 * Gets the key value for the given object
 	 */
 	protected String getObjectKey(GameProfile obj) {
-
 		return obj.getId().toString();
 	}
 
@@ -56,7 +50,6 @@ public class UserListOps extends UserList<GameProfile, UserListOpsEntry> {
 	 * Gets the GameProfile of based on the provided username.
 	 */
 	public GameProfile getGameProfileFromName(String username) {
-
 		for (UserListOpsEntry userlistopsentry : getValues().values()) {
 			if (username.equalsIgnoreCase(userlistopsentry.getValue().getName())) {
 				return userlistopsentry.getValue();

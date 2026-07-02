@@ -28,20 +28,17 @@ public class BlockLever extends Block {
 	protected static final AxisAlignedBB LEVER_DOWN_AABB = new AxisAlignedBB(0.25D, 0.4000000059604645D, 0.25D, 0.75D, 1D, 0.75D);
 
 	protected BlockLever() {
-
 		super(Material.CIRCUITS);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, BlockLever.Orientation.NORTH).withProperty(POWERED, false));
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
 	protected static boolean canAttachTo(World worldIn, BlockPos p_181090_1_, Facing p_181090_2_) {
-
 		return BlockButton.canPlaceBlock(worldIn, p_181090_1_, p_181090_2_);
 	}
 
 	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-
 		return NULL_AABB;
 	}
 
@@ -49,12 +46,10 @@ public class BlockLever extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -62,7 +57,6 @@ public class BlockLever extends Block {
 	 * Check whether this Block can be placed at pos, while aiming at the specified side of an adjacent block
 	 */
 	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Facing side) {
-
 		return canAttachTo(worldIn, pos, side);
 	}
 
@@ -70,7 +64,6 @@ public class BlockLever extends Block {
 	 * Checks if this block can be placed exactly at the given position.
 	 */
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-
 		for (Facing enumfacing : Facing.values()) {
 			if (canAttachTo(worldIn, pos, enumfacing)) {
 				return true;
@@ -85,7 +78,6 @@ public class BlockLever extends Block {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		IBlockState iblockstate = getDefaultState().withProperty(POWERED, false);
 
 		if (canAttachTo(worldIn, pos, facing)) {
@@ -111,7 +103,6 @@ public class BlockLever extends Block {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (checkCanSurvive(worldIn, pos, state) && !canAttachTo(worldIn, pos, state.getValue(FACING).getFacing())) {
 			dropBlockAsItem(worldIn, pos, state, 0);
 			worldIn.setBlockToAir(pos);
@@ -119,7 +110,6 @@ public class BlockLever extends Block {
 	}
 
 	private boolean checkCanSurvive(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (canPlaceBlockAt(worldIn, pos)) {
 			return true;
 		} else {
@@ -130,7 +120,6 @@ public class BlockLever extends Block {
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return switch (state.getValue(FACING)) {
 			case WEST -> LEVER_WEST_AABB;
 			case SOUTH -> LEVER_SOUTH_AABB;
@@ -145,7 +134,6 @@ public class BlockLever extends Block {
 	 * Called when the block is right clicked by a player.
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		if (worldIn.isRemote) {
 			return true;
 		} else {
@@ -164,7 +152,6 @@ public class BlockLever extends Block {
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (state.getValue(POWERED)) {
 			worldIn.notifyNeighborsOfStateChange(pos, this, false);
 			Facing enumfacing = state.getValue(FACING).getFacing();
@@ -175,12 +162,10 @@ public class BlockLever extends Block {
 	}
 
 	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		return blockState.getValue(POWERED) ? 15 : 0;
 	}
 
 	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		if (!blockState.getValue(POWERED)) {
 			return 0;
 		} else {
@@ -192,7 +177,6 @@ public class BlockLever extends Block {
 	 * Can this block provide power. Only wire currently seems to have this change based on its state.
 	 */
 	public boolean canProvidePower(IBlockState state) {
-
 		return true;
 	}
 
@@ -200,7 +184,6 @@ public class BlockLever extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(FACING, BlockLever.Orientation.byMetadata(meta & 7)).withProperty(POWERED, (meta & 8) > 0);
 	}
 
@@ -208,7 +191,6 @@ public class BlockLever extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 		i = i | state.getValue(FACING).getMetadata();
 
@@ -224,7 +206,6 @@ public class BlockLever extends Block {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return switch (rot) {
 			case CLOCKWISE_180 -> switch (state.getValue(FACING)) {
 				case EAST -> state.withProperty(FACING, Orientation.WEST);
@@ -262,12 +243,10 @@ public class BlockLever extends Block {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING).getFacing()));
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, FACING, POWERED);
 	}
 
@@ -281,7 +260,6 @@ public class BlockLever extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 
@@ -308,7 +286,6 @@ public class BlockLever extends Block {
 		private final Facing facing;
 
 		Orientation(int meta, String name, Facing facing) {
-
 			this.meta = meta;
 			this.name = name;
 			this.facing = facing;
@@ -346,22 +323,18 @@ public class BlockLever extends Block {
 		}
 
 		public int getMetadata() {
-
 			return meta;
 		}
 
 		public Facing getFacing() {
-
 			return facing;
 		}
 
 		public String toString() {
-
 			return name;
 		}
 
 		public String getName() {
-
 			return name;
 		}
 	}

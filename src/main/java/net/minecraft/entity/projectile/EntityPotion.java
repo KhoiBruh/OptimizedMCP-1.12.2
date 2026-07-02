@@ -38,18 +38,15 @@ public class EntityPotion extends EntityThrowable {
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	public EntityPotion(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public EntityPotion(World worldIn, EntityLivingBase throwerIn, ItemStack potionDamageIn) {
-
 		super(worldIn, throwerIn);
 		setItem(potionDamageIn);
 	}
 
 	public EntityPotion(World worldIn, double x, double y, double z, ItemStack potionDamageIn) {
-
 		super(worldIn, x, y, z);
 
 		if (!potionDamageIn.isEmpty()) {
@@ -58,23 +55,19 @@ public class EntityPotion extends EntityThrowable {
 	}
 
 	public static void registerFixesPotion(DataFixer fixer) {
-
 		EntityThrowable.registerFixesThrowable(fixer, "ThrownPotion");
 		fixer.registerWalker(FixTypes.ENTITY, new ItemStackData(EntityPotion.class, "Potion"));
 	}
 
 	private static boolean isWaterSensitiveEntity(EntityLivingBase p_190544_0_) {
-
 		return p_190544_0_ instanceof EntityEnderman || p_190544_0_ instanceof EntityBlaze;
 	}
 
 	protected void entityInit() {
-
 		getDataManager().register(ITEM, ItemStack.EMPTY);
 	}
 
 	public ItemStack getPotion() {
-
 		ItemStack itemstack = getDataManager().get(ITEM);
 
 		if (itemstack.getItem() != Items.SPLASH_POTION && itemstack.getItem() != Items.LINGERING_POTION) {
@@ -89,7 +82,6 @@ public class EntityPotion extends EntityThrowable {
 	}
 
 	public void setItem(ItemStack stack) {
-
 		getDataManager().set(ITEM, stack);
 		getDataManager().setDirty(ITEM);
 	}
@@ -98,7 +90,6 @@ public class EntityPotion extends EntityThrowable {
 	 * Gets the amount of gravity to apply to the thrown entity with each tick.
 	 */
 	protected float getGravityVelocity() {
-
 		return 0.05F;
 	}
 
@@ -106,7 +97,6 @@ public class EntityPotion extends EntityThrowable {
 	 * Called when this EntityThrowable hits a block or entity.
 	 */
 	protected void onImpact(RayTraceResult result) {
-
 		if (!world.isRemote) {
 			ItemStack itemstack = getPotion();
 			PotionType potiontype = PotionUtils.getPotionFromItem(itemstack);
@@ -139,7 +129,6 @@ public class EntityPotion extends EntityThrowable {
 	}
 
 	private void applyWater() {
-
 		AxisAlignedBB axisalignedbb = getEntityBoundingBox().grow(4D, 2D, 4D);
 		List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb, WATER_SENSITIVE);
 
@@ -155,7 +144,6 @@ public class EntityPotion extends EntityThrowable {
 	}
 
 	private void applySplash(RayTraceResult p_190543_1_, List<PotionEffect> p_190543_2_) {
-
 		AxisAlignedBB axisalignedbb = getEntityBoundingBox().grow(4D, 2D, 4D);
 		List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
 
@@ -191,7 +179,6 @@ public class EntityPotion extends EntityThrowable {
 	}
 
 	private void makeAreaOfEffectCloud(ItemStack p_190542_1_, PotionType p_190542_2_) {
-
 		EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(world, posX, posY, posZ);
 		entityareaeffectcloud.setOwner(getThrower());
 		entityareaeffectcloud.setRadius(3F);
@@ -214,12 +201,10 @@ public class EntityPotion extends EntityThrowable {
 	}
 
 	private boolean isLingering() {
-
 		return getPotion().getItem() == Items.LINGERING_POTION;
 	}
 
 	private void extinguishFires(BlockPos pos, Facing p_184542_2_) {
-
 		if (world.getBlockState(pos).getBlock() == Blocks.FIRE) {
 			world.extinguishFire(null, pos.offset(p_184542_2_), p_184542_2_.getOpposite());
 		}
@@ -229,7 +214,6 @@ public class EntityPotion extends EntityThrowable {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		ItemStack itemstack = new ItemStack(compound.getCompoundTag("Potion"));
 
@@ -244,7 +228,6 @@ public class EntityPotion extends EntityThrowable {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		ItemStack itemstack = getPotion();
 

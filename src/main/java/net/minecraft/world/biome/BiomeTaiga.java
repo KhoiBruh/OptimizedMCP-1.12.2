@@ -23,7 +23,6 @@ public class BiomeTaiga extends Biome {
 	private final BiomeTaiga.Type type;
 
 	public BiomeTaiga(BiomeTaiga.Type typeIn, Biome.BiomeProperties properties) {
-
 		super(properties);
 		type = typeIn;
 		spawnableCreatureList.add(new Biome.SpawnListEntry(EntityWolf.class, 8, 4, 4));
@@ -41,7 +40,6 @@ public class BiomeTaiga extends Biome {
 	}
 
 	public WorldGenAbstractTree getRandomTreeFeature(Random rand) {
-
 		if ((type == BiomeTaiga.Type.MEGA || type == BiomeTaiga.Type.MEGA_SPRUCE) && rand.nextInt(3) == 0) {
 			return type != BiomeTaiga.Type.MEGA_SPRUCE && rand.nextInt(13) != 0 ? MEGA_PINE_GENERATOR : MEGA_SPRUCE_GENERATOR;
 		} else {
@@ -53,12 +51,10 @@ public class BiomeTaiga extends Biome {
 	 * Gets a WorldGen appropriate for this biome.
 	 */
 	public WorldGenerator getRandomWorldGenForGrass(Random rand) {
-
 		return rand.nextInt(5) > 0 ? new WorldGenTallGrass(BlockTallGrass.Type.FERN) : new WorldGenTallGrass(BlockTallGrass.Type.GRASS);
 	}
 
 	public void decorate(World worldIn, Random rand, BlockPos pos) {
-
 		if (type == BiomeTaiga.Type.MEGA || type == BiomeTaiga.Type.MEGA_SPRUCE) {
 			int i = rand.nextInt(3);
 
@@ -83,7 +79,6 @@ public class BiomeTaiga extends Biome {
 	}
 
 	public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
-
 		if (type == BiomeTaiga.Type.MEGA || type == BiomeTaiga.Type.MEGA_SPRUCE) {
 			topBlock = Blocks.GRASS.getDefaultState();
 			fillerBlock = Blocks.DIRT.getDefaultState();

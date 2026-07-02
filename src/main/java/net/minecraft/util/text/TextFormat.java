@@ -67,17 +67,14 @@ public enum TextFormat {
 	private final int colorIndex;
 
 	TextFormat(String formattingName, char formattingCodeIn, int colorIndex) {
-
 		this(formattingName, formattingCodeIn, false, colorIndex);
 	}
 
 	TextFormat(String formattingName, char formattingCodeIn, boolean fancyStylingIn) {
-
 		this(formattingName, formattingCodeIn, fancyStylingIn, -1);
 	}
 
 	TextFormat(String formattingName, char formattingCodeIn, boolean fancyStylingIn, int colorIndex) {
-
 		name = formattingName;
 		formattingCode = formattingCodeIn;
 		fancyStyling = fancyStylingIn;
@@ -86,7 +83,6 @@ public enum TextFormat {
 	}
 
 	private static String lowercaseAlpha(String p_175745_0_) {
-
 		return p_175745_0_.toLowerCase(Locale.ROOT).replaceAll("[^a-z]", "");
 	}
 
@@ -96,7 +92,6 @@ public enum TextFormat {
 	 * Returns a copy of the given string, with formatting codes stripped away.
 	 */
 	public static String getTextWithoutFormattingCodes(String text) {
-
 		return text == null ? null : FORMATTING_CODE_PATTERN.matcher(text).replaceAll("");
 	}
 
@@ -106,7 +101,6 @@ public enum TextFormat {
 	 * Gets a value by its friendly name; null if the given name does not map to a defined value.
 	 */
 	public static TextFormat getValueByName(String friendlyName) {
-
 		return friendlyName == null ? null : NAME_MAPPING.get(lowercaseAlpha(friendlyName));
 	}
 
@@ -116,7 +110,6 @@ public enum TextFormat {
 	 * Get a TextFormatting from it's color index
 	 */
 	public static TextFormat fromColorIndex(int index) {
-
 		if (index < 0) {
 			return RESET;
 		} else {
@@ -131,7 +124,6 @@ public enum TextFormat {
 	}
 
 	public static Collection<String> getValidValues(boolean p_96296_0_, boolean p_96296_1_) {
-
 		List<String> list = Lists.newArrayList();
 
 		for (TextFormat textformatting : values()) {
@@ -147,7 +139,6 @@ public enum TextFormat {
 	 * Returns the numerical color index that represents this formatting
 	 */
 	public int getColorIndex() {
-
 		return colorIndex;
 	}
 
@@ -155,7 +146,6 @@ public enum TextFormat {
 	 * False if this is just changing the color or resetting; true otherwise.
 	 */
 	public boolean isFancyStyling() {
-
 		return fancyStyling;
 	}
 
@@ -163,7 +153,6 @@ public enum TextFormat {
 	 * Checks if this is a color code.
 	 */
 	public boolean isColor() {
-
 		return !fancyStyling && this != RESET;
 	}
 
@@ -171,12 +160,10 @@ public enum TextFormat {
 	 * Gets the friendly name of this value.
 	 */
 	public String getFriendlyName() {
-
 		return name().toLowerCase(Locale.ROOT);
 	}
 
 	public String toString() {
-
 		return controlString;
 	}
 }

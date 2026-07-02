@@ -11,7 +11,6 @@ public class BlockRotationProcessor implements ITemplateProcessor {
 	private final Random random;
 
 	public BlockRotationProcessor(BlockPos pos, PlacementSettings settings) {
-
 		chance = settings.getIntegrity();
 		random = settings.getRandom(pos);
 	}

@@ -29,12 +29,10 @@ public class EnterBlockTrigger implements ICriterionTrigger<EnterBlockTrigger.In
 	private final Map<PlayerAdvancements, EnterBlockTrigger.Listeners> listeners = Maps.newHashMap();
 
 	public ResourceLocation getId() {
-
 		return ID;
 	}
 
 	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EnterBlockTrigger.Instance> listener) {
-
 		EnterBlockTrigger.Listeners enterblocktrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (enterblocktrigger$listeners == null) {
@@ -46,7 +44,6 @@ public class EnterBlockTrigger implements ICriterionTrigger<EnterBlockTrigger.In
 	}
 
 	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EnterBlockTrigger.Instance> listener) {
-
 		EnterBlockTrigger.Listeners enterblocktrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (enterblocktrigger$listeners != null) {
@@ -59,7 +56,6 @@ public class EnterBlockTrigger implements ICriterionTrigger<EnterBlockTrigger.In
 	}
 
 	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
-
 		listeners.remove(playerAdvancementsIn);
 	}
 
@@ -115,7 +111,6 @@ public class EnterBlockTrigger implements ICriterionTrigger<EnterBlockTrigger.In
 	}
 
 	public void trigger(EntityPlayerMP player, IBlockState state) {
-
 		EnterBlockTrigger.Listeners enterblocktrigger$listeners = listeners.get(player.getAdvancements());
 
 		if (enterblocktrigger$listeners != null) {
@@ -129,14 +124,12 @@ public class EnterBlockTrigger implements ICriterionTrigger<EnterBlockTrigger.In
 		private final Map<IProperty<?>, Object> properties;
 
 		public Instance(Block blockIn, Map<IProperty<?>, Object> propertiesIn) {
-
 			super(EnterBlockTrigger.ID);
 			block = blockIn;
 			properties = propertiesIn;
 		}
 
 		public boolean test(IBlockState state) {
-
 			if (block != null && state.getBlock() != block) {
 				return false;
 			} else {
@@ -160,27 +153,22 @@ public class EnterBlockTrigger implements ICriterionTrigger<EnterBlockTrigger.In
 		private final Set<ICriterionTrigger.Listener<EnterBlockTrigger.Instance>> listeners = Sets.newHashSet();
 
 		public Listeners(PlayerAdvancements playerAdvancementsIn) {
-
 			playerAdvancements = playerAdvancementsIn;
 		}
 
 		public boolean isEmpty() {
-
 			return listeners.isEmpty();
 		}
 
 		public void add(ICriterionTrigger.Listener<EnterBlockTrigger.Instance> listener) {
-
 			listeners.add(listener);
 		}
 
 		public void remove(ICriterionTrigger.Listener<EnterBlockTrigger.Instance> listener) {
-
 			listeners.remove(listener);
 		}
 
 		public void trigger(IBlockState state) {
-
 			List<ICriterionTrigger.Listener<EnterBlockTrigger.Instance>> list = null;
 
 			for (ICriterionTrigger.Listener<EnterBlockTrigger.Instance> listener : listeners) {

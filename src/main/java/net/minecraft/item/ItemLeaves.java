@@ -7,7 +7,6 @@ public class ItemLeaves extends ItemBlock {
 	private final BlockLeaves leaves;
 
 	public ItemLeaves(BlockLeaves block) {
-
 		super(block);
 		leaves = block;
 		setMaxDamage(0);
@@ -19,7 +18,6 @@ public class ItemLeaves extends ItemBlock {
 	 * placed as a Block (mostly used with ItemBlocks).
 	 */
 	public int getMetadata(int damage) {
-
 		return damage | 4;
 	}
 
@@ -28,7 +26,6 @@ public class ItemLeaves extends ItemBlock {
 	 * different names based on their damage or NBT.
 	 */
 	public String getUnlocalizedName(ItemStack stack) {
-
 		return super.getUnlocalizedName() + "." + leaves.getWoodType(stack.getMetadata()).getUnlocalizedName();
 	}
 

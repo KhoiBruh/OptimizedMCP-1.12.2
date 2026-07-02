@@ -21,7 +21,6 @@ public class BlockDirt extends Block {
 	public static final PropertyBool SNOWY = PropertyBool.create("snowy");
 
 	protected BlockDirt() {
-
 		super(Material.GROUND);
 		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockDirt.DirtType.DIRT).withProperty(SNOWY, false));
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
@@ -31,7 +30,6 @@ public class BlockDirt extends Block {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return state.getValue(VARIANT).getColor();
 	}
 
@@ -40,7 +38,6 @@ public class BlockDirt extends Block {
 	 * metadata, such as fence connections.
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		if (state.getValue(VARIANT) == BlockDirt.DirtType.PODZOL) {
 			Block block = worldIn.getBlockState(pos.up()).getBlock();
 			state = state.withProperty(SNOWY, block == Blocks.SNOW || block == Blocks.SNOW_LAYER);
@@ -53,14 +50,12 @@ public class BlockDirt extends Block {
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-
 		items.add(new ItemStack(this, 1, BlockDirt.DirtType.DIRT.getMetadata()));
 		items.add(new ItemStack(this, 1, BlockDirt.DirtType.COARSE_DIRT.getMetadata()));
 		items.add(new ItemStack(this, 1, BlockDirt.DirtType.PODZOL.getMetadata()));
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return new ItemStack(this, 1, state.getValue(VARIANT).getMetadata());
 	}
 
@@ -68,7 +63,6 @@ public class BlockDirt extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(VARIANT, BlockDirt.DirtType.byMetadata(meta));
 	}
 
@@ -76,12 +70,10 @@ public class BlockDirt extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(VARIANT).getMetadata();
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, VARIANT, SNOWY);
 	}
 
@@ -90,7 +82,6 @@ public class BlockDirt extends Block {
 	 * returns the metadata of the dropped item based on the old metadata of the block.
 	 */
 	public int damageDropped(IBlockState state) {
-
 		BlockDirt.DirtType blockdirt$dirttype = state.getValue(VARIANT);
 
 		if (blockdirt$dirttype == BlockDirt.DirtType.PODZOL) {
@@ -119,12 +110,10 @@ public class BlockDirt extends Block {
 		private final MapColor color;
 
 		DirtType(int metadataIn, String nameIn, MapColor color) {
-
 			this(metadataIn, nameIn, nameIn, color);
 		}
 
 		DirtType(int metadataIn, String nameIn, String unlocalizedNameIn, MapColor color) {
-
 			metadata = metadataIn;
 			name = nameIn;
 			unlocalizedName = unlocalizedNameIn;
@@ -141,27 +130,22 @@ public class BlockDirt extends Block {
 		}
 
 		public int getMetadata() {
-
 			return metadata;
 		}
 
 		public String getUnlocalizedName() {
-
 			return unlocalizedName;
 		}
 
 		public MapColor getColor() {
-
 			return color;
 		}
 
 		public String toString() {
-
 			return name;
 		}
 
 		public String getName() {
-
 			return name;
 		}
 	}

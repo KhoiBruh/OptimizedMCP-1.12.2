@@ -17,46 +17,38 @@ public class TileEntityCommandBlock extends TileEntity {
 
 	private final CommandBlockBaseLogic commandBlockLogic = new CommandBlockBaseLogic() {
 		public BlockPos getPosition() {
-
 			return pos;
 		}
 
 		public Vec3d getPositionVector() {
-
 			return new Vec3d((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D);
 		}
 
 		public World getEntityWorld() {
-
 			return getWorld();
 		}
 
 		public void setCommand(String command) {
-
 			super.setCommand(command);
 			markDirty();
 		}
 
 		public void updateCommand() {
-
 			IBlockState iblockstate = world.getBlockState(pos);
 			getWorld().notifyBlockUpdate(pos, iblockstate, iblockstate, 3);
 		}
 
 		public int getCommandBlockType() {
-
 			return 0;
 		}
 
 		public void fillInInfo(ByteBuf buf) {
-
 			buf.writeInt(pos.getX());
 			buf.writeInt(pos.getY());
 			buf.writeInt(pos.getZ());
 		}
 
 		public MinecraftServer getServer() {
-
 			return world.getMinecraftServer();
 		}
 	};
@@ -66,7 +58,6 @@ public class TileEntityCommandBlock extends TileEntity {
 	private boolean sendToClient;
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
 		super.writeToNBT(compound);
 		commandBlockLogic.writeToNBT(compound);
 		compound.setBoolean("powered", isPowered());
@@ -76,7 +67,6 @@ public class TileEntityCommandBlock extends TileEntity {
 	}
 
 	public void readFromNBT(NBTTagCompound compound) {
-
 		super.readFromNBT(compound);
 		commandBlockLogic.readDataFromNBT(compound);
 		powered = compound.getBoolean("powered");
@@ -86,7 +76,6 @@ public class TileEntityCommandBlock extends TileEntity {
 
 	
 	public SPacketUpdateTileEntity getUpdatePacket() {
-
 		if (isSendToClient()) {
 			setSendToClient(false);
 			NBTTagCompound nbttagcompound = writeToNBT(new NBTTagCompound());
@@ -97,37 +86,30 @@ public class TileEntityCommandBlock extends TileEntity {
 	}
 
 	public boolean onlyOpsCanSetNbt() {
-
 		return true;
 	}
 
 	public CommandBlockBaseLogic getCommandBlockLogic() {
-
 		return commandBlockLogic;
 	}
 
 	public CommandResultStats getCommandResultStats() {
-
 		return commandBlockLogic.getCommandResultStats();
 	}
 
 	public boolean isPowered() {
-
 		return powered;
 	}
 
 	public void setPowered(boolean poweredIn) {
-
 		powered = poweredIn;
 	}
 
 	public boolean isAuto() {
-
 		return auto;
 	}
 
 	public void setAuto(boolean autoIn) {
-
 		boolean flag = auto;
 		auto = autoIn;
 
@@ -142,12 +124,10 @@ public class TileEntityCommandBlock extends TileEntity {
 	}
 
 	public boolean isConditionMet() {
-
 		return conditionMet;
 	}
 
 	public boolean setConditionMet() {
-
 		conditionMet = true;
 
 		if (isConditional()) {
@@ -165,12 +145,10 @@ public class TileEntityCommandBlock extends TileEntity {
 	}
 
 	public boolean isSendToClient() {
-
 		return sendToClient;
 	}
 
 	public void setSendToClient(boolean p_184252_1_) {
-
 		sendToClient = p_184252_1_;
 	}
 
@@ -188,7 +166,6 @@ public class TileEntityCommandBlock extends TileEntity {
 	}
 
 	public boolean isConditional() {
-
 		IBlockState iblockstate = world.getBlockState(getPos());
 		return iblockstate.getBlock() instanceof BlockCommandBlock && iblockstate.getValue(BlockCommandBlock.CONDITIONAL);
 	}
@@ -197,7 +174,6 @@ public class TileEntityCommandBlock extends TileEntity {
 	 * validates a tile entity
 	 */
 	public void validate() {
-
 		blockType = null;
 		super.validate();
 	}

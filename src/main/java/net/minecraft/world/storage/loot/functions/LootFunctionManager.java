@@ -66,7 +66,6 @@ public class LootFunctionManager {
 	public static class Serializer implements JsonDeserializer<LootFunction>, JsonSerializer<LootFunction> {
 
 		public LootFunction deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-
 			JsonObject jsonobject = JsonUtils.getJsonObject(p_deserialize_1_, "function");
 			ResourceLocation resourcelocation = new ResourceLocation(JsonUtils.getString(jsonobject, "function"));
 			LootFunction.Serializer<?> serializer;
@@ -81,7 +80,6 @@ public class LootFunctionManager {
 		}
 
 		public JsonElement serialize(LootFunction p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
-
 			LootFunction.Serializer<LootFunction> serializer = LootFunctionManager.getSerializerFor(p_serialize_1_);
 			JsonObject jsonobject = new JsonObject();
 			serializer.serialize(jsonobject, p_serialize_1_, p_serialize_3_);

@@ -21,12 +21,10 @@ public class ItemDurabilityTrigger implements ICriterionTrigger<ItemDurabilityTr
 	private final Map<PlayerAdvancements, ItemDurabilityTrigger.Listeners> listeners = Maps.newHashMap();
 
 	public ResourceLocation getId() {
-
 		return ID;
 	}
 
 	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance> listener) {
-
 		ItemDurabilityTrigger.Listeners itemdurabilitytrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (itemdurabilitytrigger$listeners == null) {
@@ -38,7 +36,6 @@ public class ItemDurabilityTrigger implements ICriterionTrigger<ItemDurabilityTr
 	}
 
 	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance> listener) {
-
 		ItemDurabilityTrigger.Listeners itemdurabilitytrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (itemdurabilitytrigger$listeners != null) {
@@ -51,7 +48,6 @@ public class ItemDurabilityTrigger implements ICriterionTrigger<ItemDurabilityTr
 	}
 
 	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
-
 		listeners.remove(playerAdvancementsIn);
 	}
 
@@ -67,7 +63,6 @@ public class ItemDurabilityTrigger implements ICriterionTrigger<ItemDurabilityTr
 	}
 
 	public void trigger(EntityPlayerMP player, ItemStack itemIn, int newDurability) {
-
 		ItemDurabilityTrigger.Listeners itemdurabilitytrigger$listeners = listeners.get(player.getAdvancements());
 
 		if (itemdurabilitytrigger$listeners != null) {
@@ -82,7 +77,6 @@ public class ItemDurabilityTrigger implements ICriterionTrigger<ItemDurabilityTr
 		private final MinMaxBounds delta;
 
 		public Instance(ItemPredicate item, MinMaxBounds durability, MinMaxBounds delta) {
-
 			super(ItemDurabilityTrigger.ID);
 			this.item = item;
 			this.durability = durability;
@@ -90,7 +84,6 @@ public class ItemDurabilityTrigger implements ICriterionTrigger<ItemDurabilityTr
 		}
 
 		public boolean test(ItemStack item, int p_193197_2_) {
-
 			if (!this.item.test(item)) {
 				return false;
 			} else if (!durability.test((float) (item.getMaxDamage() - p_193197_2_))) {
@@ -108,27 +101,22 @@ public class ItemDurabilityTrigger implements ICriterionTrigger<ItemDurabilityTr
 		private final Set<ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance>> listeners = Sets.newHashSet();
 
 		public Listeners(PlayerAdvancements playerAdvancementsIn) {
-
 			playerAdvancements = playerAdvancementsIn;
 		}
 
 		public boolean isEmpty() {
-
 			return listeners.isEmpty();
 		}
 
 		public void add(ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance> listener) {
-
 			listeners.add(listener);
 		}
 
 		public void remove(ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance> listener) {
-
 			listeners.remove(listener);
 		}
 
 		public void trigger(ItemStack item, int newDurability) {
-
 			List<ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance>> list = null;
 
 			for (ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance> listener : listeners) {

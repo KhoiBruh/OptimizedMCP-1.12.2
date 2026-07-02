@@ -16,7 +16,6 @@ public class RenderFireball extends Render<EntityFireball> {
 	private final float scale;
 
 	public RenderFireball(RenderManager renderManagerIn, float scaleIn) {
-
 		super(renderManagerIn);
 		scale = scaleIn;
 	}
@@ -25,7 +24,6 @@ public class RenderFireball extends Render<EntityFireball> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(EntityFireball entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		GLS.pushMatrix();
 		bindEntityTexture(entity);
 		GLS.translate((float) x, (float) y, (float) z);
@@ -70,7 +68,6 @@ public class RenderFireball extends Render<EntityFireball> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityFireball entity) {
-
 		return TextureMap.LOCATION_BLOCKS_TEXTURE;
 	}
 

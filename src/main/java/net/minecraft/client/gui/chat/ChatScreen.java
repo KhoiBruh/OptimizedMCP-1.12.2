@@ -37,11 +37,9 @@ public class ChatScreen extends Screen implements ITabCompleter {
 	private String defaultInputFieldText = "";
 
 	public ChatScreen() {
-
 	}
 
 	public ChatScreen(String defaultText) {
-
 		defaultInputFieldText = defaultText;
 	}
 
@@ -50,7 +48,6 @@ public class ChatScreen extends Screen implements ITabCompleter {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		Keyboard.setRepeat(true);
 		sentHistoryCursor = mc.ingameGUI.getChatGUI().getSentMessages().size();
 		inputField = new GuiTextField(0, fontRenderer, 4, height - 12, width - 4, 12);
@@ -66,7 +63,6 @@ public class ChatScreen extends Screen implements ITabCompleter {
 	 * Called when the screen is unloaded. Used to disable keyboard repeat events
 	 */
 	public void close() {
-
 		Keyboard.setRepeat(false);
 		mc.ingameGUI.getChatGUI().resetScroll();
 	}
@@ -75,7 +71,6 @@ public class ChatScreen extends Screen implements ITabCompleter {
 	 * Called from the main game loop to update the screen.
 	 */
 	public void update() {
-
 		inputField.updateCursorCounter();
 	}
 
@@ -84,7 +79,6 @@ public class ChatScreen extends Screen implements ITabCompleter {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-
 		tabCompleter.resetRequested();
 
 		if (keyCode == 258) {
@@ -122,7 +116,6 @@ public class ChatScreen extends Screen implements ITabCompleter {
 	 * Handles mouse input.
 	 */
 	public void handleMouse() throws IOException {
-
 		super.handleMouse();
 		int i = Mouse.getEventDWheel();
 
@@ -147,7 +140,6 @@ public class ChatScreen extends Screen implements ITabCompleter {
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
-
 		if (mouse == 0) {
 			ITextComponent itextcomponent = mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());
 
@@ -164,7 +156,6 @@ public class ChatScreen extends Screen implements ITabCompleter {
 	 * Sets the text of the chat
 	 */
 	protected void setText(String newChatText, boolean shouldOverwrite) {
-
 		if (shouldOverwrite) {
 			inputField.setText(newChatText);
 		} else {
@@ -177,7 +168,6 @@ public class ChatScreen extends Screen implements ITabCompleter {
 	 * message from the current cursor position
 	 */
 	public void getSentHistory(int msgPos) {
-
 		int i = sentHistoryCursor + msgPos;
 		int j = mc.ingameGUI.getChatGUI().getSentMessages().size();
 		i = MathHelper.clamp(i, 0, j);
@@ -201,7 +191,6 @@ public class ChatScreen extends Screen implements ITabCompleter {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawRect(2, height - 14, width - 2, height - 2, Integer.MIN_VALUE);
 		inputField.drawTextBox();
 		ITextComponent itextcomponent = mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());
@@ -217,7 +206,6 @@ public class ChatScreen extends Screen implements ITabCompleter {
 	 * Returns true if this GUI should pause the game when it is displayed in single-player
 	 */
 	public boolean pauseGame() {
-
 		return false;
 	}
 
@@ -225,7 +213,6 @@ public class ChatScreen extends Screen implements ITabCompleter {
 	 * Sets the list of tab completions, as long as they were previously requested.
 	 */
 	public void setCompletions(String... newCompletions) {
-
 		tabCompleter.setCompletions(newCompletions);
 	}
 
@@ -234,12 +221,10 @@ public class ChatScreen extends Screen implements ITabCompleter {
 		private final Minecraft client = Minecraft.getMinecraft();
 
 		public ChatTabCompleter(GuiTextField p_i46749_1_) {
-
 			super(p_i46749_1_, false);
 		}
 
 		public void complete() {
-
 			super.complete();
 
 			if (completions.size() > 1) {
@@ -259,7 +244,6 @@ public class ChatScreen extends Screen implements ITabCompleter {
 
 		
 		public BlockPos getTargetBlockPos() {
-
 			BlockPos blockpos = null;
 
 			if (client.objectMouseOver != null && client.objectMouseOver.typeOfHit == RayTraceResult.Type.BLOCK) {

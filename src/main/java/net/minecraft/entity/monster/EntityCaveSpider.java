@@ -13,24 +13,20 @@ import net.minecraft.world.storage.loot.LootTableList;
 public class EntityCaveSpider extends EntitySpider {
 
 	public EntityCaveSpider(World worldIn) {
-
 		super(worldIn);
 		setSize(0.7F, 0.5F);
 	}
 
 	public static void registerFixesCaveSpider(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntityCaveSpider.class);
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(12D);
 	}
 
 	public boolean attackEntityAsMob(Entity entityIn) {
-
 		if (super.attackEntityAsMob(entityIn)) {
 			if (entityIn instanceof EntityLivingBase) {
 				int i = 0;
@@ -69,18 +65,15 @@ public class EntityCaveSpider extends EntitySpider {
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-
 		return livingdata;
 	}
 
 	public float getEyeHeight() {
-
 		return 0.45F;
 	}
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_CAVE_SPIDER;
 	}
 

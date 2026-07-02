@@ -21,12 +21,10 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 	private SpectatorMenu menu;
 
 	public GuiSpectator(Minecraft mcIn) {
-
 		mc = mcIn;
 	}
 
 	public void onHotbarSelected(int p_175260_1_) {
-
 		lastSelectionTime = Minecraft.getSystemTime();
 
 		if (menu != null) {
@@ -37,13 +35,11 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 	}
 
 	private float getHotbarAlpha() {
-
 		long i = lastSelectionTime - Minecraft.getSystemTime() + 5000L;
 		return MathHelper.clamp((float) i / 2000F, 0F, 1F);
 	}
 
 	public void renderTooltip(float p_175264_2_) {
-
 		if (menu != null) {
 			float f = getHotbarAlpha();
 
@@ -62,7 +58,6 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 	}
 
 	protected void renderPage(float p_175258_2_, int p_175258_3_, float p_175258_4_, SpectatorDetails p_175258_5_) {
-
 		GLS.enableRescaleNormal();
 		GLS.enableBlend();
 		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
@@ -86,7 +81,6 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 	}
 
 	private void renderSlot(int p_175266_1_, int p_175266_2_, float p_175266_3_, float p_175266_4_, ISpectatorMenuObject p_175266_5_) {
-
 		mc.getTextureManager().bindTexture(SPECTATOR_WIDGETS);
 
 		if (p_175266_5_ != SpectatorMenu.EMPTY_SLOT) {
@@ -106,7 +100,6 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 	}
 
 	public void renderSelectedItem() {
-
 		int i = (int) (getHotbarAlpha() * 255F);
 
 		if (i > 3 && menu != null) {
@@ -127,18 +120,15 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 	}
 
 	public void onSpectatorMenuClosed(SpectatorMenu menu) {
-
 		this.menu = null;
 		lastSelectionTime = 0L;
 	}
 
 	public boolean isMenuActive() {
-
 		return menu != null;
 	}
 
 	public void onMouseScroll(int p_175259_1_) {
-
 		int i;
 
 		for (i = menu.getSelectedSlot() + p_175259_1_; i >= 0 && i <= 8 && (menu.getItem(i) == SpectatorMenu.EMPTY_SLOT || !menu.getItem(i).isEnabled()); i += p_175259_1_) {
@@ -151,7 +141,6 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 	}
 
 	public void onMiddleClick() {
-
 		lastSelectionTime = Minecraft.getSystemTime();
 
 		if (isMenuActive()) {

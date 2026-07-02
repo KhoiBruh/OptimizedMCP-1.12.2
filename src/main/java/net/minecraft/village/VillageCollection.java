@@ -25,24 +25,20 @@ public class VillageCollection extends WorldSavedData {
 	private int tickCounter;
 
 	public VillageCollection(String name) {
-
 		super(name);
 	}
 
 	public VillageCollection(World worldIn) {
-
 		super(fileNameForProvider(worldIn.provider));
 		world = worldIn;
 		markDirty();
 	}
 
 	public static String fileNameForProvider(WorldProvider provider) {
-
 		return "villages" + provider.getDimensionType().getSuffix();
 	}
 
 	public void setWorldsForAll(World worldIn) {
-
 		world = worldIn;
 
 		for (Village village : villageList) {
@@ -51,7 +47,6 @@ public class VillageCollection extends WorldSavedData {
 	}
 
 	public void addToVillagerPositionList(BlockPos pos) {
-
 		if (villagerPositionsList.size() <= 64) {
 			if (!positionInList(pos)) {
 				villagerPositionsList.add(pos);
@@ -63,7 +58,6 @@ public class VillageCollection extends WorldSavedData {
 	 * Runs a single tick for the village collection
 	 */
 	public void tick() {
-
 		++tickCounter;
 
 		for (Village village : villageList) {
@@ -80,7 +74,6 @@ public class VillageCollection extends WorldSavedData {
 	}
 
 	private void removeAnnihilatedVillages() {
-
 		Iterator<Village> iterator = villageList.iterator();
 
 		while (iterator.hasNext()) {
@@ -94,12 +87,10 @@ public class VillageCollection extends WorldSavedData {
 	}
 
 	public List<Village> getVillageList() {
-
 		return villageList;
 	}
 
 	public Village getNearestVillage(BlockPos doorBlock, int radius) {
-
 		Village village = null;
 		double d0 = 3.4028234663852886E38D;
 
@@ -120,14 +111,12 @@ public class VillageCollection extends WorldSavedData {
 	}
 
 	private void dropOldestVillagerPosition() {
-
 		if (!villagerPositionsList.isEmpty()) {
 			addDoorsAround(villagerPositionsList.removeFirst());
 		}
 	}
 
 	private void addNewDoorsToVillageOrCreateVillage() {
-
 		for (VillageDoorInfo villagedoorinfo : newDoors) {
 			Village village = getNearestVillage(villagedoorinfo.getDoorBlockPos(), 32);
 
@@ -144,7 +133,6 @@ public class VillageCollection extends WorldSavedData {
 	}
 
 	private void addDoorsAround(BlockPos central) {
-
 		int i = 16;
 		int j = 4;
 		int k = 16;
@@ -174,7 +162,6 @@ public class VillageCollection extends WorldSavedData {
 	 * returns the VillageDoorInfo if it exists in any village or in the newDoor list, otherwise returns null
 	 */
 	private VillageDoorInfo checkDoorExistence(BlockPos doorBlock) {
-
 		for (VillageDoorInfo villagedoorinfo : newDoors) {
 			if (villagedoorinfo.getDoorBlockPos().getX() == doorBlock.getX() && villagedoorinfo.getDoorBlockPos().getZ() == doorBlock.getZ() && Math.abs(villagedoorinfo.getDoorBlockPos().getY() - doorBlock.getY()) <= 1) {
 				return villagedoorinfo;
@@ -193,7 +180,6 @@ public class VillageCollection extends WorldSavedData {
 	}
 
 	private void addToNewDoorsList(BlockPos doorBlock) {
-
 		Facing enumfacing = BlockDoor.getFacing(world, doorBlock);
 		Facing enumfacing1 = enumfacing.getOpposite();
 		int i = countBlocksCanSeeSky(doorBlock, enumfacing, 5);
@@ -208,7 +194,6 @@ public class VillageCollection extends WorldSavedData {
 	 * Check five blocks in the direction. The centerPos will not be checked.
 	 */
 	private int countBlocksCanSeeSky(BlockPos centerPos, Facing direction, int limitation) {
-
 		int i = 0;
 
 		for (int j = 1; j <= 5; ++j) {
@@ -225,7 +210,6 @@ public class VillageCollection extends WorldSavedData {
 	}
 
 	private boolean positionInList(BlockPos pos) {
-
 		for (BlockPos blockpos : villagerPositionsList) {
 			if (blockpos.equals(pos)) {
 				return true;
@@ -236,7 +220,6 @@ public class VillageCollection extends WorldSavedData {
 	}
 
 	private boolean isWoodDoor(BlockPos doorPos) {
-
 		IBlockState iblockstate = world.getBlockState(doorPos);
 		Block block = iblockstate.getBlock();
 
@@ -251,7 +234,6 @@ public class VillageCollection extends WorldSavedData {
 	 * reads in data from the NBTTagCompound into this MapDataBase
 	 */
 	public void readFromNBT(NBTTagCompound nbt) {
-
 		tickCounter = nbt.getInteger("Tick");
 		NBTTagList nbttaglist = nbt.getTagList("Villages", 10);
 
@@ -264,7 +246,6 @@ public class VillageCollection extends WorldSavedData {
 	}
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
 		compound.setInteger("Tick", tickCounter);
 		NBTTagList nbttaglist = new NBTTagList();
 

@@ -24,7 +24,6 @@ public class ThreadLanServerPing extends Thread {
 	private boolean isStopping = true;
 
 	public ThreadLanServerPing(String p_i1321_1_, String p_i1321_2_) throws IOException {
-
 		super("LanServerPinger #" + UNIQUE_THREAD_ID.incrementAndGet());
 		motd = p_i1321_1_;
 		address = p_i1321_2_;
@@ -33,12 +32,10 @@ public class ThreadLanServerPing extends Thread {
 	}
 
 	public static String getPingResponse(String p_77525_0_, String p_77525_1_) {
-
 		return "[MOTD]" + p_77525_0_ + "[/MOTD][AD]" + p_77525_1_ + "[/AD]";
 	}
 
 	public static String getMotdFromPingResponse(String p_77524_0_) {
-
 		int i = p_77524_0_.indexOf("[MOTD]");
 
 		if (i < 0) {
@@ -50,7 +47,6 @@ public class ThreadLanServerPing extends Thread {
 	}
 
 	public static String getAdFromPingResponse(String p_77523_0_) {
-
 		int i = p_77523_0_.indexOf("[/MOTD]");
 
 		if (i < 0) {
@@ -74,7 +70,6 @@ public class ThreadLanServerPing extends Thread {
 	}
 
 	public void run() {
-
 		String s = getPingResponse(motd, address);
 		byte[] abyte = s.getBytes(StandardCharsets.UTF_8);
 
@@ -96,7 +91,6 @@ public class ThreadLanServerPing extends Thread {
 	}
 
 	public void interrupt() {
-
 		super.interrupt();
 		isStopping = false;
 	}

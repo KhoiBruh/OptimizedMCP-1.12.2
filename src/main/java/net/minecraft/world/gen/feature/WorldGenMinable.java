@@ -21,19 +21,16 @@ public class WorldGenMinable extends WorldGenerator {
 	private final Predicate<IBlockState> predicate;
 
 	public WorldGenMinable(IBlockState state, int blockCount) {
-
 		this(state, blockCount, new WorldGenMinable.StonePredicate());
 	}
 
 	public WorldGenMinable(IBlockState state, int blockCount, Predicate<IBlockState> p_i45631_3_) {
-
 		oreBlock = state;
 		numberOfBlocks = blockCount;
 		predicate = p_i45631_3_;
 	}
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		float f = rand.nextFloat() * (float) Math.PI;
 		double d0 = (float) (position.getX() + 8) + MathHelper.sin(f) * (float) numberOfBlocks / 8F;
 		double d1 = (float) (position.getX() + 8) - MathHelper.sin(f) * (float) numberOfBlocks / 8F;
@@ -88,11 +85,9 @@ public class WorldGenMinable extends WorldGenerator {
 	static class StonePredicate implements Predicate<IBlockState> {
 
 		private StonePredicate() {
-
 		}
 
 		public boolean apply(IBlockState p_apply_1_) {
-
 			if (p_apply_1_ != null && p_apply_1_.getBlock() == Blocks.STONE) {
 				BlockStone.Type blockstone$enumtype = p_apply_1_.getValue(BlockStone.VARIANT);
 				return blockstone$enumtype.isNatural();

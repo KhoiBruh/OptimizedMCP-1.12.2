@@ -12,22 +12,18 @@ public class CPacketSeenAdvancements implements Packet<INetHandlerPlayServer> {
 	private ResourceLocation tab;
 
 	public CPacketSeenAdvancements() {
-
 	}
 
 	public CPacketSeenAdvancements(CPacketSeenAdvancements.Action p_i47595_1_, ResourceLocation p_i47595_2_) {
-
 		action = p_i47595_1_;
 		tab = p_i47595_2_;
 	}
 
 	public static CPacketSeenAdvancements openedTab(Advancement p_194163_0_) {
-
 		return new CPacketSeenAdvancements(CPacketSeenAdvancements.Action.OPENED_TAB, p_194163_0_.getId());
 	}
 
 	public static CPacketSeenAdvancements closedScreen() {
-
 		return new CPacketSeenAdvancements(CPacketSeenAdvancements.Action.CLOSED_SCREEN, null);
 	}
 
@@ -35,7 +31,6 @@ public class CPacketSeenAdvancements implements Packet<INetHandlerPlayServer> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		action = buf.readEnumValue(Action.class);
 
 		if (action == CPacketSeenAdvancements.Action.OPENED_TAB) {
@@ -47,7 +42,6 @@ public class CPacketSeenAdvancements implements Packet<INetHandlerPlayServer> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeEnumValue(action);
 
 		if (action == CPacketSeenAdvancements.Action.OPENED_TAB) {
@@ -59,7 +53,6 @@ public class CPacketSeenAdvancements implements Packet<INetHandlerPlayServer> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayServer handler) {
-
 		handler.handleSeenAdvancements(this);
 	}
 
@@ -69,7 +62,6 @@ public class CPacketSeenAdvancements implements Packet<INetHandlerPlayServer> {
 	}
 
 	public ResourceLocation getTab() {
-
 		return tab;
 	}
 

@@ -17,12 +17,10 @@ public class RegistryNamespacedDefaultedByKey<K, V> extends RegistryNamespaced<K
 	private V defaultValue;
 
 	public RegistryNamespacedDefaultedByKey(K defaultValueKeyIn) {
-
 		defaultValueKey = defaultValueKeyIn;
 	}
 
 	public void register(int id, K key, V value) {
-
 		if (defaultValueKey.equals(key)) {
 			defaultValue = value;
 		}
@@ -34,7 +32,6 @@ public class RegistryNamespacedDefaultedByKey<K, V> extends RegistryNamespaced<K
 	 * validates that this registry's key is non-null
 	 */
 	public void validateKey() {
-
 		Validate.notNull(defaultValue, "Missing default of DefaultedMappedRegistry: " + defaultValueKey);
 	}
 
@@ -42,7 +39,6 @@ public class RegistryNamespacedDefaultedByKey<K, V> extends RegistryNamespaced<K
 	 * Gets the integer ID we use to identify the given object.
 	 */
 	public int getIDForObject(V value) {
-
 		int i = super.getIDForObject(value);
 		return i == -1 ? super.getIDForObject(defaultValue) : i;
 	}
@@ -51,13 +47,11 @@ public class RegistryNamespacedDefaultedByKey<K, V> extends RegistryNamespaced<K
 	 * Gets the name we use to identify the given object.
 	 */
 	public K getNameForObject(V value) {
-
 		K k = super.getNameForObject(value);
 		return k == null ? defaultValueKey : k;
 	}
 
 	public V getObject(K name) {
-
 		V v = super.getObject(name);
 		return v == null ? defaultValue : v;
 	}
@@ -66,13 +60,11 @@ public class RegistryNamespacedDefaultedByKey<K, V> extends RegistryNamespaced<K
 	 * Gets the object identified by the given ID.
 	 */
 	public V getObjectById(int id) {
-
 		V v = super.getObjectById(id);
 		return v == null ? defaultValue : v;
 	}
 
 	public V getRandomObject(Random random) {
-
 		V v = super.getRandomObject(random);
 		return v == null ? defaultValue : v;
 	}

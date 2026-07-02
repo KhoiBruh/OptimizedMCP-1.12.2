@@ -46,7 +46,6 @@ public class EntityShulker extends EntityGolem implements IMob {
 	private int clientSideTeleportInterpolation;
 
 	public EntityShulker(World worldIn) {
-
 		super(worldIn);
 		setSize(1F, 1F);
 		prevRenderYawOffset = 180F;
@@ -57,7 +56,6 @@ public class EntityShulker extends EntityGolem implements IMob {
 	}
 
 	public static void registerFixesShulker(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntityShulker.class);
 	}
 
@@ -78,7 +76,6 @@ public class EntityShulker extends EntityGolem implements IMob {
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-
 		renderYawOffset = 180F;
 		prevRenderYawOffset = 180F;
 		rotationYaw = 180F;
@@ -89,7 +86,6 @@ public class EntityShulker extends EntityGolem implements IMob {
 	}
 
 	protected void initEntityAI() {
-
 		tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 8F));
 		tasks.addTask(4, new EntityShulker.AIAttack());
 		tasks.addTask(7, new EntityShulker.AIPeek());
@@ -104,17 +100,14 @@ public class EntityShulker extends EntityGolem implements IMob {
 	 * prevent them from trampling crops
 	 */
 	protected boolean canTriggerWalking() {
-
 		return false;
 	}
 
 	public SoundCategory getSoundCategory() {
-
 		return SoundCategory.HOSTILE;
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		return SoundEvents.ENTITY_SHULKER_AMBIENT;
 	}
 
@@ -122,24 +115,20 @@ public class EntityShulker extends EntityGolem implements IMob {
 	 * Plays living's sound at its position
 	 */
 	public void playLivingSound() {
-
 		if (!isClosed()) {
 			super.playLivingSound();
 		}
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_SHULKER_DEATH;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return isClosed() ? SoundEvents.ENTITY_SHULKER_HURT_CLOSED : SoundEvents.ENTITY_SHULKER_HURT;
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(ATTACHED_FACE, Facing.DOWN);
 		dataManager.register(ATTACHED_BLOCK_POS, Optional.absent());
@@ -148,13 +137,11 @@ public class EntityShulker extends EntityGolem implements IMob {
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30D);
 	}
 
 	protected EntityBodyHelper createBodyHelper() {
-
 		return new EntityShulker.BodyHelper(this);
 	}
 
@@ -162,7 +149,6 @@ public class EntityShulker extends EntityGolem implements IMob {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		dataManager.set(ATTACHED_FACE, Facing.getFront(compound.getByte("AttachFace")));
 		dataManager.set(PEEK_TICK, compound.getByte("Peek"));
@@ -182,7 +168,6 @@ public class EntityShulker extends EntityGolem implements IMob {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setByte("AttachFace", (byte) dataManager.get(ATTACHED_FACE).getIndex());
 		compound.setByte("Peek", dataManager.get(PEEK_TICK));
@@ -200,7 +185,6 @@ public class EntityShulker extends EntityGolem implements IMob {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		super.onUpdate();
 		BlockPos blockpos = dataManager.get(ATTACHED_BLOCK_POS).orNull();
 
@@ -354,7 +338,6 @@ public class EntityShulker extends EntityGolem implements IMob {
 	 * Tries to move the entity towards the specified location.
 	 */
 	public void move(MoverType type, double x, double y, double z) {
-
 		if (type == MoverType.SHULKER_BOX) {
 			tryTeleportToNewPosition();
 		} else {
@@ -366,7 +349,6 @@ public class EntityShulker extends EntityGolem implements IMob {
 	 * Sets the x,y,z of the entity from the given parameters. Also seems to set up a bounding box.
 	 */
 	public void setPosition(double x, double y, double z) {
-
 		super.setPosition(x, y, z);
 
 		if (dataManager != null && ticksExisted != 0) {
@@ -382,7 +364,6 @@ public class EntityShulker extends EntityGolem implements IMob {
 	}
 
 	protected boolean tryTeleportToNewPosition() {
-
 		if (!isAIDisabled() && isEntityAlive()) {
 			BlockPos blockpos = new BlockPos(this);
 
@@ -421,7 +402,6 @@ public class EntityShulker extends EntityGolem implements IMob {
 	 * use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
 		super.onLivingUpdate();
 		motionX = 0D;
 		motionY = 0D;
@@ -432,7 +412,6 @@ public class EntityShulker extends EntityGolem implements IMob {
 	}
 
 	public void notifyDataManagerChange(DataParameter<?> key) {
-
 		if (ATTACHED_BLOCK_POS.equals(key) && world.isRemote && !isRiding()) {
 			BlockPos blockpos = getAttachmentPos();
 
@@ -462,7 +441,6 @@ public class EntityShulker extends EntityGolem implements IMob {
 	 * Set the position and rotation values directly without any clamping.
 	 */
 	public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean teleport) {
-
 		newPosRotationIncrements = 0;
 	}
 
@@ -470,7 +448,6 @@ public class EntityShulker extends EntityGolem implements IMob {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		if (isClosed()) {
 			Entity entity = source.getImmediateSource();
 
@@ -491,7 +468,6 @@ public class EntityShulker extends EntityGolem implements IMob {
 	}
 
 	private boolean isClosed() {
-
 		return getPeekTick() == 0;
 	}
 
@@ -506,28 +482,23 @@ public class EntityShulker extends EntityGolem implements IMob {
 	 * @see getEntityBoundingBox
 	 */
 	public AxisAlignedBB getCollisionBoundingBox() {
-
 		return isEntityAlive() ? getEntityBoundingBox() : null;
 	}
 
 	public Facing getAttachmentFacing() {
-
 		return dataManager.get(ATTACHED_FACE);
 	}
 
 	
 	public BlockPos getAttachmentPos() {
-
 		return dataManager.get(ATTACHED_BLOCK_POS).orNull();
 	}
 
 	public void setAttachmentPos(BlockPos pos) {
-
 		dataManager.set(ATTACHED_BLOCK_POS, Optional.fromNullable(pos));
 	}
 
 	public int getPeekTick() {
-
 		return dataManager.get(PEEK_TICK);
 	}
 
@@ -535,7 +506,6 @@ public class EntityShulker extends EntityGolem implements IMob {
 	 * Applies or removes armor modifier
 	 */
 	public void updateArmorModifier(int p_184691_1_) {
-
 		if (!world.isRemote) {
 			getEntityAttribute(SharedMonsterAttributes.ARMOR).removeModifier(COVERED_ARMOR_BONUS_MODIFIER);
 
@@ -551,22 +521,18 @@ public class EntityShulker extends EntityGolem implements IMob {
 	}
 
 	public float getClientPeekAmount(float p_184688_1_) {
-
 		return prevPeekAmount + (peekAmount - prevPeekAmount) * p_184688_1_;
 	}
 
 	public int getClientTeleportInterp() {
-
 		return clientSideTeleportInterpolation;
 	}
 
 	public BlockPos getOldAttachPos() {
-
 		return currentAttachmentPosition;
 	}
 
 	public float getEyeHeight() {
-
 		return 0.5F;
 	}
 
@@ -575,12 +541,10 @@ public class EntityShulker extends EntityGolem implements IMob {
 	 * use in wolves.
 	 */
 	public int getVerticalFaceSpeed() {
-
 		return 180;
 	}
 
 	public int getHorizontalFaceSpeed() {
-
 		return 180;
 	}
 
@@ -588,39 +552,32 @@ public class EntityShulker extends EntityGolem implements IMob {
 	 * Applies a velocity to the entities, to push them away from eachother.
 	 */
 	public void applyEntityCollision(Entity entityIn) {
-
 	}
 
 	public boolean isAttachedToBlock() {
-
 		return currentAttachmentPosition != null && getAttachmentPos() != null;
 	}
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_SHULKER;
 	}
 
 	public DyeColor getColor() {
-
 		return DyeColor.byMetadata(dataManager.get(COLOR));
 	}
 
 	static class AIDefenseAttack extends EntityAINearestAttackableTarget<EntityLivingBase> {
 
 		public AIDefenseAttack(EntityShulker shulker) {
-
 			super(shulker, EntityLivingBase.class, 10, true, false, p_apply_1_ -> p_apply_1_ instanceof IMob);
 		}
 
 		public boolean shouldExecute() {
-
 			return taskOwner.getTeam() != null && super.shouldExecute();
 		}
 
 		protected AxisAlignedBB getTargetableArea(double targetDistance) {
-
 			Facing enumfacing = ((EntityShulker) taskOwner).getAttachmentFacing();
 
 			if (enumfacing.getAxis() == Facing.Axis.X) {
@@ -637,12 +594,10 @@ public class EntityShulker extends EntityGolem implements IMob {
 		private int attackTime;
 
 		public AIAttack() {
-
 			setMutexBits(3);
 		}
 
 		public boolean shouldExecute() {
-
 			EntityLivingBase entitylivingbase = getAttackTarget();
 
 			if (entitylivingbase != null && entitylivingbase.isEntityAlive()) {
@@ -653,18 +608,15 @@ public class EntityShulker extends EntityGolem implements IMob {
 		}
 
 		public void startExecuting() {
-
 			attackTime = 20;
 			updateArmorModifier(100);
 		}
 
 		public void resetTask() {
-
 			updateArmorModifier(0);
 		}
 
 		public void updateTask() {
-
 			if (world.getDifficulty() != Difficulty.PEACEFUL) {
 				--attackTime;
 				EntityLivingBase entitylivingbase = getAttackTarget();
@@ -691,17 +643,14 @@ public class EntityShulker extends EntityGolem implements IMob {
 	class AIAttackNearest extends EntityAINearestAttackableTarget<EntityPlayer> {
 
 		public AIAttackNearest(EntityShulker shulker) {
-
 			super(shulker, EntityPlayer.class, true);
 		}
 
 		public boolean shouldExecute() {
-
 			return world.getDifficulty() != Difficulty.PEACEFUL && super.shouldExecute();
 		}
 
 		protected AxisAlignedBB getTargetableArea(double targetDistance) {
-
 			Facing enumfacing = ((EntityShulker) taskOwner).getAttachmentFacing();
 
 			if (enumfacing.getAxis() == Facing.Axis.X) {
@@ -718,34 +667,28 @@ public class EntityShulker extends EntityGolem implements IMob {
 		private int peekTime;
 
 		private AIPeek() {
-
 		}
 
 		public boolean shouldExecute() {
-
 			return getAttackTarget() == null && rand.nextInt(40) == 0;
 		}
 
 		public boolean shouldContinueExecuting() {
-
 			return getAttackTarget() == null && peekTime > 0;
 		}
 
 		public void startExecuting() {
-
 			peekTime = 20 * (1 + rand.nextInt(3));
 			updateArmorModifier(30);
 		}
 
 		public void resetTask() {
-
 			if (getAttackTarget() == null) {
 				updateArmorModifier(0);
 			}
 		}
 
 		public void updateTask() {
-
 			--peekTime;
 		}
 
@@ -754,12 +697,10 @@ public class EntityShulker extends EntityGolem implements IMob {
 	class BodyHelper extends EntityBodyHelper {
 
 		public BodyHelper(EntityLivingBase theEntity) {
-
 			super(theEntity);
 		}
 
 		public void updateRenderAngles() {
-
 		}
 
 	}

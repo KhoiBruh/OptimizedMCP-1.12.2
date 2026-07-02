@@ -10,17 +10,14 @@ public enum HandSide {
 	private final ITextComponent handName;
 
 	HandSide(ITextComponent nameIn) {
-
 		handName = nameIn;
 	}
 
 	public HandSide opposite() {
-
 		return this == LEFT ? RIGHT : LEFT;
 	}
 
 	public String toString() {
-
 		return handName.getUnformattedText();
 	}
 }

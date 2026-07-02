@@ -26,14 +26,12 @@ public class GuiListWorldSelection extends GuiListExtended {
 	private int selectedIdx = -1;
 
 	public GuiListWorldSelection(WorldSelectScreen p_i46590_1_, Minecraft clientIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn) {
-
 		super(clientIn, widthIn, heightIn, topIn, bottomIn, slotHeightIn);
 		worldSelection = p_i46590_1_;
 		refreshList();
 	}
 
 	public void refreshList() {
-
 		ISaveFormat isaveformat = mc.getSaveLoader();
 		List<WorldSummary> list;
 
@@ -56,17 +54,14 @@ public class GuiListWorldSelection extends GuiListExtended {
 	 * Gets the IGuiListEntry object for the given index
 	 */
 	public GuiListWorldSelectionEntry getListEntry(int index) {
-
 		return entries.get(index);
 	}
 
 	protected int getSize() {
-
 		return entries.size();
 	}
 
 	protected int getScrollBarX() {
-
 		return super.getScrollBarX() + 20;
 	}
 
@@ -74,12 +69,10 @@ public class GuiListWorldSelection extends GuiListExtended {
 	 * Gets the width of the list
 	 */
 	public int getListWidth() {
-
 		return super.getListWidth() + 50;
 	}
 
 	public void selectWorld(int idx) {
-
 		selectedIdx = idx;
 		worldSelection.selectWorld(getSelectedWorld());
 	}
@@ -88,18 +81,15 @@ public class GuiListWorldSelection extends GuiListExtended {
 	 * Returns true if the element passed in is currently selected
 	 */
 	protected boolean isSelected(int slotIndex) {
-
 		return slotIndex == selectedIdx;
 	}
 
 	
 	public GuiListWorldSelectionEntry getSelectedWorld() {
-
 		return selectedIdx >= 0 && selectedIdx < getSize() ? getListEntry(selectedIdx) : null;
 	}
 
 	public WorldSelectScreen getGuiWorldSelection() {
-
 		return worldSelection;
 	}
 

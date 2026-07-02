@@ -42,7 +42,6 @@ public class TileEntityStructure extends TileEntity {
 	private long seed;
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
 		super.writeToNBT(compound);
 		compound.setString("name", name);
 		compound.setString("author", author);
@@ -66,7 +65,6 @@ public class TileEntityStructure extends TileEntity {
 	}
 
 	public void readFromNBT(NBTTagCompound compound) {
-
 		super.readFromNBT(compound);
 		setName(compound.getString("name"));
 		author = compound.getString("author");
@@ -114,7 +112,6 @@ public class TileEntityStructure extends TileEntity {
 	}
 
 	private void updateBlockState() {
-
 		if (world != null) {
 			BlockPos blockpos = getPos();
 			IBlockState iblockstate = world.getBlockState(blockpos);
@@ -127,17 +124,14 @@ public class TileEntityStructure extends TileEntity {
 
 	
 	public SPacketUpdateTileEntity getUpdatePacket() {
-
 		return new SPacketUpdateTileEntity(pos, 7, getUpdateTag());
 	}
 
 	public NBTTagCompound getUpdateTag() {
-
 		return writeToNBT(new NBTTagCompound());
 	}
 
 	public boolean usedBy(EntityPlayer player) {
-
 		if (!player.canUseCommandBlock()) {
 			return false;
 		} else {
@@ -150,12 +144,10 @@ public class TileEntityStructure extends TileEntity {
 	}
 
 	public String getName() {
-
 		return name;
 	}
 
 	public void setName(String nameIn) {
-
 		String s = nameIn;
 
 		for (char c0 : ChatAllowedCharacters.ILLEGAL_STRUCTURE_CHARACTERS) {
@@ -166,59 +158,48 @@ public class TileEntityStructure extends TileEntity {
 	}
 
 	public void createdBy(EntityLivingBase p_189720_1_) {
-
 		if (!StringUtils.isNullOrEmpty(p_189720_1_.getName())) {
 			author = p_189720_1_.getName();
 		}
 	}
 
 	public BlockPos getPosition() {
-
 		return position;
 	}
 
 	public void setPosition(BlockPos posIn) {
-
 		position = posIn;
 	}
 
 	public BlockPos getStructureSize() {
-
 		return size;
 	}
 
 	public void setSize(BlockPos sizeIn) {
-
 		size = sizeIn;
 	}
 
 	public Mirror getMirror() {
-
 		return mirror;
 	}
 
 	public void setMirror(Mirror mirrorIn) {
-
 		mirror = mirrorIn;
 	}
 
 	public Rotation getRotation() {
-
 		return rotation;
 	}
 
 	public void setRotation(Rotation rotationIn) {
-
 		rotation = rotationIn;
 	}
 
 	public String getMetadata() {
-
 		return metadata;
 	}
 
 	public void setMetadata(String metadataIn) {
-
 		metadata = metadataIn;
 	}
 
@@ -228,7 +209,6 @@ public class TileEntityStructure extends TileEntity {
 	}
 
 	public void setMode(TileEntityStructure.Mode modeIn) {
-
 		mode = modeIn;
 		IBlockState iblockstate = world.getBlockState(getPos());
 
@@ -238,7 +218,6 @@ public class TileEntityStructure extends TileEntity {
 	}
 
 	public void nextMode() {
-
 		switch (getMode()) {
 			case SAVE:
 				setMode(TileEntityStructure.Mode.LOAD);
@@ -258,37 +237,30 @@ public class TileEntityStructure extends TileEntity {
 	}
 
 	public boolean ignoresEntities() {
-
 		return ignoreEntities;
 	}
 
 	public void setIgnoresEntities(boolean ignoreEntitiesIn) {
-
 		ignoreEntities = ignoreEntitiesIn;
 	}
 
 	public float getIntegrity() {
-
 		return integrity;
 	}
 
 	public void setIntegrity(float integrityIn) {
-
 		integrity = integrityIn;
 	}
 
 	public long getSeed() {
-
 		return seed;
 	}
 
 	public void setSeed(long seedIn) {
-
 		seed = seedIn;
 	}
 
 	public boolean detectSize() {
-
 		if (mode != TileEntityStructure.Mode.SAVE) {
 			return false;
 		} else {
@@ -319,13 +291,11 @@ public class TileEntityStructure extends TileEntity {
 	}
 
 	private List<TileEntityStructure> filterRelatedCornerBlocks(List<TileEntityStructure> p_184415_1_) {
-
 		Iterable<TileEntityStructure> iterable = Iterables.filter(p_184415_1_, p_apply_1_ -> p_apply_1_.mode == Mode.CORNER && name.equals(p_apply_1_.name));
 		return Lists.newArrayList(iterable);
 	}
 
 	private List<TileEntityStructure> getNearbyCornerBlocks(BlockPos p_184418_1_, BlockPos p_184418_2_) {
-
 		List<TileEntityStructure> list = Lists.newArrayList();
 
 		for (BlockPos.MutableBlockPos blockpos$mutableblockpos : BlockPos.getAllInBoxMutable(p_184418_1_, p_184418_2_)) {
@@ -344,7 +314,6 @@ public class TileEntityStructure extends TileEntity {
 	}
 
 	private StructureBoundingBox calculateEnclosingBoundingBox(BlockPos p_184416_1_, List<TileEntityStructure> p_184416_2_) {
-
 		StructureBoundingBox structureboundingbox;
 
 		if (p_184416_2_.size() > 1) {
@@ -380,7 +349,6 @@ public class TileEntityStructure extends TileEntity {
 	}
 
 	public void writeCoordinates(ByteBuf buf) {
-
 		buf.writeInt(pos.getX());
 		buf.writeInt(pos.getY());
 		buf.writeInt(pos.getZ());
@@ -392,7 +360,6 @@ public class TileEntityStructure extends TileEntity {
 	 * @return true if the template was successfully saved.
 	 */
 	public boolean save() {
-
 		return save(true);
 	}
 
@@ -405,7 +372,6 @@ public class TileEntityStructure extends TileEntity {
 	 * @return true if the template was successfully saved.
 	 */
 	public boolean save(boolean writeToDisk) {
-
 		if (mode == TileEntityStructure.Mode.SAVE && !world.isRemote && !StringUtils.isNullOrEmpty(name)) {
 			BlockPos blockpos = getPos().add(position);
 			WorldServer worldserver = (WorldServer) world;
@@ -427,7 +393,6 @@ public class TileEntityStructure extends TileEntity {
 	 * @return true if the template was successfully added to the world.
 	 */
 	public boolean load() {
-
 		return load(true);
 	}
 
@@ -440,7 +405,6 @@ public class TileEntityStructure extends TileEntity {
 	 * @return true if the template was successfully added to the world.
 	 */
 	public boolean load(boolean requireMatchingSize) {
-
 		if (mode == TileEntityStructure.Mode.LOAD && !world.isRemote && !StringUtils.isNullOrEmpty(name)) {
 			BlockPos blockpos = getPos();
 			BlockPos blockpos1 = blockpos.add(position);
@@ -485,14 +449,12 @@ public class TileEntityStructure extends TileEntity {
 	}
 
 	public void unloadStructure() {
-
 		WorldServer worldserver = (WorldServer) world;
 		TemplateManager templatemanager = worldserver.getStructureTemplateManager();
 		templatemanager.remove(new ResourceLocation(name));
 	}
 
 	public boolean isStructureLoadable() {
-
 		if (mode == TileEntityStructure.Mode.LOAD && !world.isRemote) {
 			WorldServer worldserver = (WorldServer) world;
 			MinecraftServer minecraftserver = world.getMinecraftServer();
@@ -504,32 +466,26 @@ public class TileEntityStructure extends TileEntity {
 	}
 
 	public boolean isPowered() {
-
 		return powered;
 	}
 
 	public void setPowered(boolean poweredIn) {
-
 		powered = poweredIn;
 	}
 
 	public boolean showsAir() {
-
 		return showAir;
 	}
 
 	public void setShowAir(boolean showAirIn) {
-
 		showAir = showAirIn;
 	}
 
 	public boolean showsBoundingBox() {
-
 		return showBoundingBox;
 	}
 
 	public void setShowBoundingBox(boolean showBoundingBoxIn) {
-
 		showBoundingBox = showBoundingBoxIn;
 	}
 
@@ -539,7 +495,6 @@ public class TileEntityStructure extends TileEntity {
 	 * Get the formatted ChatComponent that will be used for the sender's username in chat
 	 */
 	public ITextComponent getDisplayName() {
-
 		return new TextComponentTranslation("structure_block.hover." + mode.modeName, mode == Mode.DATA ? metadata : name);
 	}
 
@@ -561,7 +516,6 @@ public class TileEntityStructure extends TileEntity {
 		private final int modeId;
 
 		Mode(String modeNameIn, int modeIdIn) {
-
 			modeName = modeNameIn;
 			modeId = modeIdIn;
 		}
@@ -572,12 +526,10 @@ public class TileEntityStructure extends TileEntity {
 		}
 
 		public String getName() {
-
 			return modeName;
 		}
 
 		public int getModeId() {
-
 			return modeId;
 		}
 	}

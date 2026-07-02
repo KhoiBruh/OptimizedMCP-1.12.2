@@ -21,7 +21,6 @@ public class BiomeCache {
 	private long lastCleanupTime;
 
 	public BiomeCache(BiomeProvider provider) {
-
 		this.provider = provider;
 	}
 
@@ -46,7 +45,6 @@ public class BiomeCache {
 	}
 
 	public Biome getBiome(int x, int z, Biome defaultValue) {
-
 		Biome biome = getEntry(x, z).getBiome(x, z);
 		return biome == null ? defaultValue : biome;
 	}
@@ -55,7 +53,6 @@ public class BiomeCache {
 	 * Removes BiomeCacheBlocks from this cache that haven't been accessed in at least 30 seconds.
 	 */
 	public void cleanupCache() {
-
 		long i = MinecraftServer.getCurrentTimeMillis();
 		long j = i - lastCleanupTime;
 
@@ -79,7 +76,6 @@ public class BiomeCache {
 	 * Returns the array of cached biome types in the BiomeCacheBlock at the given location.
 	 */
 	public Biome[] getCachedBiomes(int x, int z) {
-
 		return getEntry(x, z).biomes;
 	}
 
@@ -91,14 +87,12 @@ public class BiomeCache {
 		public long lastAccessTime;
 
 		public Block(int x, int z) {
-
 			this.x = x;
 			this.z = z;
 			provider.getBiomes(biomes, x << 4, z << 4, 16, 16, false);
 		}
 
 		public Biome getBiome(int x, int z) {
-
 			return biomes[x & 15 | (z & 15) << 4];
 		}
 

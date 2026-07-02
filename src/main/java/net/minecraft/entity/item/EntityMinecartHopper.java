@@ -28,17 +28,14 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 	private int transferTicker = -1;
 
 	public EntityMinecartHopper(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public EntityMinecartHopper(World worldIn, double x, double y, double z) {
-
 		super(worldIn, x, y, z);
 	}
 
 	public static void registerFixesMinecartHopper(DataFixer fixer) {
-
 		EntityMinecartContainer.addDataFixers(fixer, EntityMinecartHopper.class);
 	}
 
@@ -48,12 +45,10 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 	}
 
 	public IBlockState getDefaultDisplayTile() {
-
 		return Blocks.HOPPER.getDefaultState();
 	}
 
 	public int getDefaultDisplayTileOffset() {
-
 		return 1;
 	}
 
@@ -61,7 +56,6 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 	 * Returns the number of slots in the inventory.
 	 */
 	public int getSizeInventory() {
-
 		return 5;
 	}
 
@@ -69,7 +63,6 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 	 * Called every tick the minecart is on an activator rail.
 	 */
 	public void onActivatorRailPass(int x, int y, int z, boolean receivingPower) {
-
 		boolean flag = !receivingPower;
 
 		if (flag != getBlocked()) {
@@ -81,7 +74,6 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 	 * Get whether this hopper minecart is being blocked by an activator rail.
 	 */
 	public boolean getBlocked() {
-
 		return isBlocked;
 	}
 
@@ -89,7 +81,6 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 	 * Set whether this hopper minecart is being blocked by an activator rail.
 	 */
 	public void setBlocked(boolean p_96110_1_) {
-
 		isBlocked = p_96110_1_;
 	}
 
@@ -97,7 +88,6 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 	 * Returns the worldObj for this tileEntity.
 	 */
 	public World getWorld() {
-
 		return world;
 	}
 
@@ -105,7 +95,6 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 	 * Gets the world X position for this hopper entity.
 	 */
 	public double getXPos() {
-
 		return posX;
 	}
 
@@ -113,7 +102,6 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 	 * Gets the world Y position for this hopper entity.
 	 */
 	public double getYPos() {
-
 		return posY + 0.5D;
 	}
 
@@ -121,7 +109,6 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 	 * Gets the world Z position for this hopper entity.
 	 */
 	public double getZPos() {
-
 		return posZ;
 	}
 
@@ -129,7 +116,6 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		super.onUpdate();
 
 		if (!world.isRemote && isEntityAlive() && getBlocked()) {
@@ -153,7 +139,6 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 	}
 
 	public boolean captureDroppedItems() {
-
 		if (TileEntityHopper.pullItems(this)) {
 			return true;
 		} else {
@@ -168,7 +153,6 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 	}
 
 	public void killMinecart(DamageSource source) {
-
 		super.killMinecart(source);
 
 		if (world.getGameRules().getBoolean("doEntityDrops")) {
@@ -180,7 +164,6 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	protected void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setInteger("TransferCooldown", transferTicker);
 		compound.setBoolean("Enabled", isBlocked);
@@ -190,7 +173,6 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	protected void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		transferTicker = compound.getInteger("TransferCooldown");
 		isBlocked = !compound.hasKey("Enabled") || compound.getBoolean("Enabled");
@@ -200,7 +182,6 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 	 * Sets the transfer ticker, used to determine the delay between transfers.
 	 */
 	public void setTransferTicker(int p_98042_1_) {
-
 		transferTicker = p_98042_1_;
 	}
 
@@ -208,17 +189,14 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 	 * Returns whether the hopper cart can currently transfer an item.
 	 */
 	public boolean canTransfer() {
-
 		return transferTicker > 0;
 	}
 
 	public String guiID() {
-
 		return "minecraft:hopper";
 	}
 
 	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-
 		return new ContainerHopper(playerInventory, this, playerIn);
 	}
 

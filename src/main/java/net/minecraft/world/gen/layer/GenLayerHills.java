@@ -11,7 +11,6 @@ public class GenLayerHills extends GenLayer {
 	private final GenLayer riverLayer;
 
 	public GenLayerHills(long p_i45479_1_, GenLayer p_i45479_3_, GenLayer p_i45479_4_) {
-
 		super(p_i45479_1_);
 		parent = p_i45479_3_;
 		riverLayer = p_i45479_4_;
@@ -22,7 +21,6 @@ public class GenLayerHills extends GenLayer {
 	 * amounts, or Biome ID's based on the particular GenLayer subclass.
 	 */
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
-
 		int[] aint = parent.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
 		int[] aint1 = riverLayer.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
 		int[] aint2 = IntCache.getIntCache(areaWidth * areaHeight);

@@ -15,7 +15,6 @@ public class SlotFurnaceOutput extends Slot {
 	private int removeCount;
 
 	public SlotFurnaceOutput(EntityPlayer player, IInventory inventoryIn, int slotIndex, int xPosition, int yPosition) {
-
 		super(inventoryIn, slotIndex, xPosition, yPosition);
 		this.player = player;
 	}
@@ -24,7 +23,6 @@ public class SlotFurnaceOutput extends Slot {
 	 * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
 	 */
 	public boolean isItemValid(ItemStack stack) {
-
 		return false;
 	}
 
@@ -33,7 +31,6 @@ public class SlotFurnaceOutput extends Slot {
 	 * stack.
 	 */
 	public ItemStack decrStackSize(int amount) {
-
 		if (getHasStack()) {
 			removeCount += Math.min(amount, getStack().getCount());
 		}
@@ -42,7 +39,6 @@ public class SlotFurnaceOutput extends Slot {
 	}
 
 	public ItemStack onTake(EntityPlayer thePlayer, ItemStack stack) {
-
 		onCrafting(stack);
 		super.onTake(thePlayer, stack);
 		return stack;
@@ -53,7 +49,6 @@ public class SlotFurnaceOutput extends Slot {
 	 * internal count then calls onCrafting(item).
 	 */
 	protected void onCrafting(ItemStack stack, int amount) {
-
 		removeCount += amount;
 		onCrafting(stack);
 	}
@@ -62,7 +57,6 @@ public class SlotFurnaceOutput extends Slot {
 	 * the itemStack passed in is the output - ie, iron ingots, and pickaxes, not ore and wood.
 	 */
 	protected void onCrafting(ItemStack stack) {
-
 		stack.onCrafting(player.world, player, removeCount);
 
 		if (!player.world.isRemote) {

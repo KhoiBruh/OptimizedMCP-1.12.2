@@ -42,7 +42,6 @@ public class ServerData {
 	private boolean lanServer;
 
 	public ServerData(String name, String ip, boolean isLan) {
-
 		serverName = name;
 		serverIP = ip;
 		lanServer = isLan;
@@ -52,7 +51,6 @@ public class ServerData {
 	 * Takes an NBTTagCompound with 'name' and 'ip' keys, returns a ServerData instance.
 	 */
 	public static ServerData getServerDataFromNBTCompound(NBTTagCompound nbtCompound) {
-
 		ServerData serverdata = new ServerData(nbtCompound.getString("name"), nbtCompound.getString("ip"), false);
 
 		if (nbtCompound.hasKey("icon", 8)) {
@@ -76,7 +74,6 @@ public class ServerData {
 	 * Returns an NBTTagCompound with the server's name, IP and maybe acceptTextures.
 	 */
 	public NBTTagCompound getNBTCompound() {
-
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 		nbttagcompound.setString("name", serverName);
 		nbttagcompound.setString("ip", serverIP);
@@ -100,7 +97,6 @@ public class ServerData {
 	}
 
 	public void setResourceMode(ServerData.ServerResourceMode mode) {
-
 		resourceMode = mode;
 	}
 
@@ -108,12 +104,10 @@ public class ServerData {
 	 * Returns the base-64 encoded representation of the server's icon, or null if not available
 	 */
 	public String getBase64EncodedIconData() {
-
 		return serverIcon;
 	}
 
 	public void setBase64EncodedIconData(String icon) {
-
 		serverIcon = icon;
 	}
 
@@ -121,12 +115,10 @@ public class ServerData {
 	 * Return true if the server is a LAN server
 	 */
 	public boolean isOnLAN() {
-
 		return lanServer;
 	}
 
 	public void copyFrom(ServerData serverDataIn) {
-
 		serverIP = serverDataIn.serverIP;
 		serverName = serverDataIn.serverName;
 		setResourceMode(serverDataIn.getResourceMode());
@@ -142,12 +134,10 @@ public class ServerData {
 		private final ITextComponent motd;
 
 		ServerResourceMode(String name) {
-
 			motd = new TextComponentTranslation("addServer.resourcePack." + name);
 		}
 
 		public ITextComponent getMotd() {
-
 			return motd;
 		}
 	}

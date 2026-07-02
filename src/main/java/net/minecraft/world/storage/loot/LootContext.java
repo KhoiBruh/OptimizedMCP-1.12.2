@@ -22,7 +22,6 @@ public class LootContext {
 	private final Set<LootTable> lootTables = Sets.newLinkedHashSet();
 
 	public LootContext(float luckIn, LootTableManager lootTableManagerIn, Entity lootedEntityIn, EntityPlayer playerIn, DamageSource damageSourceIn) {
-
 		luck = luckIn;
 		lootTableManager = lootTableManagerIn;
 		lootedEntity = lootedEntityIn;
@@ -32,45 +31,37 @@ public class LootContext {
 
 	
 	public Entity getLootedEntity() {
-
 		return lootedEntity;
 	}
 
 	
 	public Entity getKillerPlayer() {
-
 		return player;
 	}
 
 	
 	public Entity getKiller() {
-
 		return damageSource == null ? null : damageSource.getTrueSource();
 	}
 
 	public boolean addLootTable(LootTable lootTableIn) {
-
 		return lootTables.add(lootTableIn);
 	}
 
 	public void removeLootTable(LootTable lootTableIn) {
-
 		lootTables.remove(lootTableIn);
 	}
 
 	public LootTableManager getLootTableManager() {
-
 		return lootTableManager;
 	}
 
 	public float getLuck() {
-
 		return luck;
 	}
 
 	
 	public Entity getEntity(LootContext.EntityTarget target) {
-
 		return switch (target) {
 			case THIS -> getLootedEntity();
 			case KILLER -> getKiller();
@@ -86,7 +77,6 @@ public class LootContext {
 		private final String targetType;
 
 		EntityTarget(String type) {
-
 			targetType = type;
 		}
 
@@ -104,7 +94,6 @@ public class LootContext {
 		public static class Serializer extends TypeAdapter<LootContext.EntityTarget> {
 
 			public void write(JsonWriter p_write_1_, LootContext.EntityTarget p_write_2_) throws IOException {
-
 				p_write_1_.value(p_write_2_.targetType);
 			}
 
@@ -125,7 +114,6 @@ public class LootContext {
 		private DamageSource damageSource;
 
 		public Builder(WorldServer worldIn) {
-
 			world = worldIn;
 		}
 
@@ -154,7 +142,6 @@ public class LootContext {
 		}
 
 		public LootContext build() {
-
 			return new LootContext(luck, world.getLootTableManager(), lootedEntity, player, damageSource);
 		}
 

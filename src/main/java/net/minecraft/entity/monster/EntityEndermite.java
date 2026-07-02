@@ -23,19 +23,16 @@ public class EntityEndermite extends EntityMob {
 	private boolean playerSpawned;
 
 	public EntityEndermite(World worldIn) {
-
 		super(worldIn);
 		experienceValue = 3;
 		setSize(0.4F, 0.3F);
 	}
 
 	public static void registerFixesEndermite(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntityEndermite.class);
 	}
 
 	protected void initEntityAI() {
-
 		tasks.addTask(1, new EntityAISwimming(this));
 		tasks.addTask(2, new EntityAIAttackMelee(this, 1D, false));
 		tasks.addTask(3, new EntityAIWanderAvoidWater(this, 1D));
@@ -46,12 +43,10 @@ public class EntityEndermite extends EntityMob {
 	}
 
 	public float getEyeHeight() {
-
 		return 0.1F;
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
@@ -63,33 +58,27 @@ public class EntityEndermite extends EntityMob {
 	 * prevent them from trampling crops
 	 */
 	protected boolean canTriggerWalking() {
-
 		return false;
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		return SoundEvents.ENTITY_ENDERMITE_AMBIENT;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_ENDERMITE_HURT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_ENDERMITE_DEATH;
 	}
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
-
 		playSound(SoundEvents.ENTITY_ENDERMITE_STEP, 0.15F, 1F);
 	}
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_ENDERMITE;
 	}
 
@@ -97,7 +86,6 @@ public class EntityEndermite extends EntityMob {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		lifetime = compound.getInteger("Lifetime");
 		playerSpawned = compound.getBoolean("PlayerSpawned");
@@ -107,7 +95,6 @@ public class EntityEndermite extends EntityMob {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setInteger("Lifetime", lifetime);
 		compound.setBoolean("PlayerSpawned", playerSpawned);
@@ -117,7 +104,6 @@ public class EntityEndermite extends EntityMob {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		renderYawOffset = rotationYaw;
 		super.onUpdate();
 	}
@@ -126,7 +112,6 @@ public class EntityEndermite extends EntityMob {
 	 * Set the render yaw offset
 	 */
 	public void setRenderYawOffset(float offset) {
-
 		rotationYaw = offset;
 		super.setRenderYawOffset(offset);
 	}
@@ -135,12 +120,10 @@ public class EntityEndermite extends EntityMob {
 	 * Returns the Y Offset of this entity.
 	 */
 	public double getYOffset() {
-
 		return 0.1D;
 	}
 
 	public boolean isSpawnedByPlayer() {
-
 		return playerSpawned;
 	}
 
@@ -148,7 +131,6 @@ public class EntityEndermite extends EntityMob {
 	 * Sets if this mob was spawned by a player or not.
 	 */
 	public void setSpawnedByPlayer(boolean spawnedByPlayer) {
-
 		playerSpawned = spawnedByPlayer;
 	}
 
@@ -157,7 +139,6 @@ public class EntityEndermite extends EntityMob {
 	 * use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
 		super.onLivingUpdate();
 
 		if (world.isRemote) {
@@ -179,7 +160,6 @@ public class EntityEndermite extends EntityMob {
 	 * Checks to make sure the light is not too bright where the mob is spawning
 	 */
 	protected boolean isValidLightLevel() {
-
 		return true;
 	}
 
@@ -187,7 +167,6 @@ public class EntityEndermite extends EntityMob {
 	 * Checks if the entity's current position is a valid location to spawn this entity.
 	 */
 	public boolean getCanSpawnHere() {
-
 		if (super.getCanSpawnHere()) {
 			EntityPlayer entityplayer = world.getClosestPlayerToEntity(this, 5D);
 			return entityplayer == null;
@@ -200,7 +179,6 @@ public class EntityEndermite extends EntityMob {
 	 * Get this Entity's CreatureAttribute
 	 */
 	public CreatureAttribute getCreatureAttribute() {
-
 		return CreatureAttribute.ARTHROPOD;
 	}
 

@@ -38,7 +38,6 @@ public class BlockAnvil extends BlockFalling {
 	protected static final Logger LOGGER = LogManager.getLogger();
 
 	protected BlockAnvil() {
-
 		super(Material.ANVIL);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(DAMAGE, 0));
 		setLightOpacity(0);
@@ -46,7 +45,6 @@ public class BlockAnvil extends BlockFalling {
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -60,7 +58,6 @@ public class BlockAnvil extends BlockFalling {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 
@@ -68,7 +65,6 @@ public class BlockAnvil extends BlockFalling {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -77,7 +73,6 @@ public class BlockAnvil extends BlockFalling {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		Facing enumfacing = placer.getHorizontalFacing().rotateY();
 
 		try {
@@ -99,7 +94,6 @@ public class BlockAnvil extends BlockFalling {
 	 * Called when the block is right clicked by a player.
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		if (!worldIn.isRemote) {
 			playerIn.displayGui(new BlockAnvil.Anvil(worldIn, pos));
 		}
@@ -112,12 +106,10 @@ public class BlockAnvil extends BlockFalling {
 	 * returns the metadata of the dropped item based on the old metadata of the block.
 	 */
 	public int damageDropped(IBlockState state) {
-
 		return state.getValue(DAMAGE);
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		Facing enumfacing = state.getValue(FACING);
 		return enumfacing.getAxis() == Facing.Axis.X ? X_AXIS_AABB : Z_AXIS_AABB;
 	}
@@ -126,29 +118,24 @@ public class BlockAnvil extends BlockFalling {
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-
 		items.add(new ItemStack(this));
 		items.add(new ItemStack(this, 1, 1));
 		items.add(new ItemStack(this, 1, 2));
 	}
 
 	protected void onStartFalling(EntityFallingBlock fallingEntity) {
-
 		fallingEntity.setHurtEntities(true);
 	}
 
 	public void onEndFalling(World worldIn, BlockPos pos, IBlockState p_176502_3_, IBlockState p_176502_4_) {
-
 		worldIn.playEvent(1031, pos, 0);
 	}
 
 	public void onBroken(World worldIn, BlockPos pos) {
-
 		worldIn.playEvent(1029, pos, 0);
 	}
 
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		return true;
 	}
 
@@ -156,7 +143,6 @@ public class BlockAnvil extends BlockFalling {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(FACING, Facing.getHorizontal(meta & 3)).withProperty(DAMAGE, (meta & 15) >> 2);
 	}
 
@@ -164,7 +150,6 @@ public class BlockAnvil extends BlockFalling {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 		i = i | state.getValue(FACING).getHorizontalIndex();
 		i = i | state.getValue(DAMAGE) << 2;
@@ -176,12 +161,10 @@ public class BlockAnvil extends BlockFalling {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return state.getBlock() != this ? state : state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, FACING, DAMAGE);
 	}
 
@@ -191,33 +174,27 @@ public class BlockAnvil extends BlockFalling {
 		private final BlockPos position;
 
 		public Anvil(World worldIn, BlockPos pos) {
-
 			world = worldIn;
 			position = pos;
 		}
 
 		public String getName() {
-
 			return "anvil";
 		}
 
 		public boolean hasCustomName() {
-
 			return false;
 		}
 
 		public ITextComponent displayName() {
-
 			return new TextComponentTranslation(Blocks.ANVIL.getUnlocalizedName() + ".name");
 		}
 
 		public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-
 			return new ContainerRepair(playerInventory, world, position, playerIn);
 		}
 
 		public String guiID() {
-
 			return "minecraft:anvil";
 		}
 

@@ -29,7 +29,6 @@ import java.util.List;
 public class ItemBanner extends ItemBlock {
 
 	public ItemBanner() {
-
 		super(Blocks.STANDING_BANNER);
 		maxStackSize = 16;
 		setCreativeTab(CreativeTabs.DECORATIONS);
@@ -38,7 +37,6 @@ public class ItemBanner extends ItemBlock {
 	}
 
 	public static void appendHoverTextFromTileEntityTag(ItemStack stack, List<String> p_185054_1_) {
-
 		NBTTagCompound nbttagcompound = stack.getSubCompound("BlockEntityTag");
 
 		if (nbttagcompound != null && nbttagcompound.hasKey("Patterns")) {
@@ -57,7 +55,6 @@ public class ItemBanner extends ItemBlock {
 	}
 
 	public static ItemStack makeBanner(DyeColor color, NBTTagList patterns) {
-
 		ItemStack itemstack = new ItemStack(Items.BANNER, 1, color.getDyeDamage());
 
 		if (patterns != null && !patterns.hasNoTags()) {
@@ -68,7 +65,6 @@ public class ItemBanner extends ItemBlock {
 	}
 
 	public static DyeColor getBaseColor(ItemStack stack) {
-
 		return DyeColor.byDyeDamage(stack.getMetadata() & 15);
 	}
 
@@ -76,7 +72,6 @@ public class ItemBanner extends ItemBlock {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		boolean flag = iblockstate.getBlock().isReplaceable(worldIn, pos);
 
@@ -119,7 +114,6 @@ public class ItemBanner extends ItemBlock {
 	}
 
 	public String getItemStackDisplayName(ItemStack stack) {
-
 		String s = "item.banner.";
 		DyeColor enumdyecolor = getBaseColor(stack);
 		s = s + enumdyecolor.getUnlocalizedName() + ".name";
@@ -130,7 +124,6 @@ public class ItemBanner extends ItemBlock {
 	 * allows items to add custom lines of information to the mouseover description
 	 */
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-
 		appendHoverTextFromTileEntityTag(stack, tooltip);
 	}
 
@@ -138,7 +131,6 @@ public class ItemBanner extends ItemBlock {
 	 * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
 	 */
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-
 		if (isInCreativeTab(tab)) {
 			for (DyeColor enumdyecolor : DyeColor.values()) {
 				items.add(makeBanner(enumdyecolor, null));
@@ -150,7 +142,6 @@ public class ItemBanner extends ItemBlock {
 	 * gets the CreativeTab this item is displayed on
 	 */
 	public CreativeTabs getCreativeTab() {
-
 		return CreativeTabs.DECORATIONS;
 	}
 

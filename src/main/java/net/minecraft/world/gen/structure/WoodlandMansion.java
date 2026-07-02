@@ -23,17 +23,14 @@ public class WoodlandMansion extends MapGenStructure {
 	private final ChunkGeneratorOverworld provider;
 
 	public WoodlandMansion(ChunkGeneratorOverworld providerIn) {
-
 		provider = providerIn;
 	}
 
 	public String getStructureName() {
-
 		return "Mansion";
 	}
 
 	protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
-
 		int i = chunkX;
 		int j = chunkZ;
 
@@ -54,7 +51,6 @@ public class WoodlandMansion extends MapGenStructure {
 		l = l + (random.nextInt(60) + random.nextInt(60)) / 2;
 
 		if (chunkX == k && chunkZ == l) {
-
 			return world.getBiomeProvider().areBiomesViable(chunkX * 16 + 8, chunkZ * 16 + 8, 32, ALLOWED_BIOMES);
 		}
 
@@ -62,14 +58,12 @@ public class WoodlandMansion extends MapGenStructure {
 	}
 
 	public BlockPos getNearestStructurePos(World worldIn, BlockPos pos, boolean findUnexplored) {
-
 		world = worldIn;
 		BiomeProvider biomeprovider = worldIn.getBiomeProvider();
 		return biomeprovider.isFixedBiome() && biomeprovider.getFixedBiome() != Biomes.ROOFED_FOREST ? null : findNearestStructurePosBySpacing(worldIn, this, pos, 80, 20, 10387319, true, 100, findUnexplored);
 	}
 
 	protected StructureStart getStructureStart(int chunkX, int chunkZ) {
-
 		return new WoodlandMansion.Start(world, provider, rand, chunkX, chunkZ);
 	}
 
@@ -78,17 +72,14 @@ public class WoodlandMansion extends MapGenStructure {
 		private boolean isValid;
 
 		public Start() {
-
 		}
 
 		public Start(World p_i47235_1_, ChunkGeneratorOverworld p_i47235_2_, Random p_i47235_3_, int p_i47235_4_, int p_i47235_5_) {
-
 			super(p_i47235_4_, p_i47235_5_);
 			create(p_i47235_1_, p_i47235_2_, p_i47235_3_, p_i47235_4_, p_i47235_5_);
 		}
 
 		private void create(World p_191092_1_, ChunkGeneratorOverworld p_191092_2_, Random p_191092_3_, int p_191092_4_, int p_191092_5_) {
-
 			Rotation rotation = Rotation.values()[p_191092_3_.nextInt(Rotation.values().length)];
 			ChunkPrimer chunkprimer = new ChunkPrimer();
 			p_191092_2_.setBlocksInChunk(p_191092_4_, p_191092_5_, chunkprimer);
@@ -123,7 +114,6 @@ public class WoodlandMansion extends MapGenStructure {
 		}
 
 		public void generateStructure(World worldIn, Random rand, StructureBoundingBox structurebb) {
-
 			super.generateStructure(worldIn, rand, structurebb);
 			int i = boundingBox.minY;
 
@@ -158,7 +148,6 @@ public class WoodlandMansion extends MapGenStructure {
 		}
 
 		public boolean isSizeableStructure() {
-
 			return isValid;
 		}
 

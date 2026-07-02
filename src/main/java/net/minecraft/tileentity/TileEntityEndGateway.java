@@ -32,7 +32,6 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 	private boolean exactTeleport;
 
 	private static BlockPos findHighestBlock(World p_184308_0_, BlockPos p_184308_1_, int p_184308_2_, boolean p_184308_3_) {
-
 		BlockPos blockpos = null;
 
 		for (int i = -p_184308_2_; i <= p_184308_2_; ++i) {
@@ -55,13 +54,11 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 	}
 
 	private static Chunk getChunk(World worldIn, Vec3d vec3) {
-
 		return worldIn.getChunkFromChunkCoords(MathHelper.floor(vec3.x() / 16D), MathHelper.floor(vec3.z() / 16D));
 	}
 
 	
 	private static BlockPos findSpawnpointInChunk(Chunk chunkIn) {
-
 		BlockPos blockpos = new BlockPos(chunkIn.x * 16, 30, chunkIn.z * 16);
 		int i = chunkIn.getTopFilledSegment() + 16 - 1;
 		BlockPos blockpos1 = new BlockPos(chunkIn.x * 16 + 16 - 1, i, chunkIn.z * 16 + 16 - 1);
@@ -85,7 +82,6 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 	}
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
 		super.writeToNBT(compound);
 		compound.setLong("Age", age);
 
@@ -101,7 +97,6 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 	}
 
 	public void readFromNBT(NBTTagCompound compound) {
-
 		super.readFromNBT(compound);
 		age = compound.getLong("Age");
 
@@ -113,7 +108,6 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 	}
 
 	public double getMaxRenderDistanceSquared() {
-
 		return 65536D;
 	}
 
@@ -121,7 +115,6 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 	 * Like the old updateEntity(), except more generic.
 	 */
 	public void update() {
-
 		boolean flag = isSpawning();
 		boolean flag1 = isCoolingDown();
 		++age;
@@ -146,38 +139,31 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 	}
 
 	public boolean isSpawning() {
-
 		return age < 200L;
 	}
 
 	public boolean isCoolingDown() {
-
 		return teleportCooldown > 0;
 	}
 
 	public float getSpawnPercent(float p_184302_1_) {
-
 		return MathHelper.clamp(((float) age + p_184302_1_) / 200F, 0F, 1F);
 	}
 
 	public float getCooldownPercent(float p_184305_1_) {
-
 		return 1F - MathHelper.clamp(((float) teleportCooldown - p_184305_1_) / 40F, 0F, 1F);
 	}
 
 	
 	public SPacketUpdateTileEntity getUpdatePacket() {
-
 		return new SPacketUpdateTileEntity(pos, 8, getUpdateTag());
 	}
 
 	public NBTTagCompound getUpdateTag() {
-
 		return writeToNBT(new NBTTagCompound());
 	}
 
 	public void triggerCooldown() {
-
 		if (!world.isRemote) {
 			teleportCooldown = 40;
 			world.addBlockEvent(getPos(), getBlockType(), 1, 0);
@@ -186,7 +172,6 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 	}
 
 	public boolean receiveClientEvent(int id, int type) {
-
 		if (id == 1) {
 			teleportCooldown = 40;
 			return true;
@@ -196,7 +181,6 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 	}
 
 	public void teleportEntity(Entity entityIn) {
-
 		if (!world.isRemote && !isCoolingDown()) {
 			teleportCooldown = 100;
 
@@ -214,14 +198,12 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 	}
 
 	private BlockPos findExitPosition() {
-
 		BlockPos blockpos = findHighestBlock(world, exitPortal, 5, false);
 		LOGGER.debug("Best exit position for portal at {} is {}", exitPortal, blockpos);
 		return blockpos.up();
 	}
 
 	private void findExitPortal() {
-
 		Vec3d vec3d = (new Vec3d(getPos().getX(), 0D, getPos().getZ())).normalize();
 		Vec3d vec3d1 = vec3d.scale(1024D);
 
@@ -253,7 +235,6 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 	}
 
 	private void createExitPortal(BlockPos posIn) {
-
 		(new WorldGenEndGateway()).generate(world, new Random(), posIn);
 		TileEntity tileentity = world.getTileEntity(posIn);
 
@@ -266,12 +247,10 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 	}
 
 	public boolean shouldRenderFace(Facing p_184313_1_) {
-
 		return getBlockType().getDefaultState().shouldSideBeRendered(world, getPos(), p_184313_1_);
 	}
 
 	public int getParticleAmount() {
-
 		int i = 0;
 
 		for (Facing enumfacing : Facing.values()) {
@@ -282,7 +261,6 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 	}
 
 	public void setExactPosition(BlockPos p_190603_1_) {
-
 		exactTeleport = true;
 		exitPortal = p_190603_1_;
 	}

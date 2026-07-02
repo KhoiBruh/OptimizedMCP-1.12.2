@@ -96,7 +96,6 @@ public class MainMenuScreen extends Screen {
 	private int widthCopyrightRest;
 
 	public MainMenuScreen() {
-
 		openGLWarning2 = MORE_INFO_TEXT;
 		splashText = "missingno";
 
@@ -136,7 +135,6 @@ public class MainMenuScreen extends Screen {
 	 * Returns true if this GUI should pause the game when it is displayed in single-player
 	 */
 	public boolean pauseGame() {
-
 		return false;
 	}
 
@@ -145,7 +143,6 @@ public class MainMenuScreen extends Screen {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) {
-
 	}
 
 	/**
@@ -153,7 +150,6 @@ public class MainMenuScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		viewportTexture = new DynamicTexture(256, 256);
 		widthCopyright = fontRenderer.getStringWidth("Copyright Mojang AB. Do not distribute!");
 		widthCopyrightRest = width - widthCopyright - 2;
@@ -191,7 +187,6 @@ public class MainMenuScreen extends Screen {
 	 * Adds Singleplayer and Multiplayer buttons on net.minecraft.client.main.Main Menu for players who have bought the game.
 	 */
 	private void addSingleplayerMultiplayerButtons(int p_73969_1_, int p_73969_2_) {
-
 		buttons.add(new Button(1, width / 2 - 100, p_73969_1_, I18n.format("menu.singleplayer")));
 		buttons.add(new Button(2, width / 2 - 100, p_73969_1_ + p_73969_2_, I18n.format("menu.multiplayer")));
 	}
@@ -200,7 +195,6 @@ public class MainMenuScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.id == 0) {
 			mc.displayScreen(new OptionsScreen(this, mc.gameSettings));
 		}
@@ -223,7 +217,6 @@ public class MainMenuScreen extends Screen {
 	}
 
 	public void confirmClicked(boolean result, int id) {
-
 		if (id == 12) {
 			mc.displayScreen(this);
 		} else if (id == 13) {
@@ -293,7 +286,6 @@ public class MainMenuScreen extends Screen {
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
-
 		super.mouseClicked(mouseX, mouseY, mouse);
 
 		synchronized (threadLock) {

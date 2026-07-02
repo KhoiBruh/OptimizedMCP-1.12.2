@@ -32,12 +32,10 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 	private int mipmapLevels;
 
 	public TextureMap(String basePathIn) {
-
 		this(basePathIn, null);
 	}
 
 	public TextureMap(String basePathIn, ITextureMapPopulator iconCreatorIn) {
-
 		listAnimatedSprites = Lists.newArrayList();
 		mapRegisteredSprites = Maps.newHashMap();
 		mapUploadedSprites = Maps.newHashMap();
@@ -47,7 +45,6 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 	}
 
 	private void initMissingImage() {
-
 		int[] aint = TextureUtil.MISSING_TEXTURE_DATA;
 		missingImage.setIconWidth(16);
 		missingImage.setIconHeight(16);
@@ -57,14 +54,12 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 	}
 
 	public void loadTexture(IResourceManager resourceManager) {
-
 		if (iconCreator != null) {
 			loadSprites(resourceManager, iconCreator);
 		}
 	}
 
 	public void loadSprites(IResourceManager resourceManager, ITextureMapPopulator iconCreatorIn) {
-
 		mapRegisteredSprites.clear();
 		iconCreatorIn.registerSprites(this);
 		initMissingImage();
@@ -73,7 +68,6 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 	}
 
 	public void loadTextureAtlas(IResourceManager resourceManager) {
-
 		int i = Minecraft.getGLMaximumTextureSize();
 		Stitcher stitcher = new Stitcher(i, i, 0, mipmapLevels);
 		mapUploadedSprites.clear();
@@ -152,7 +146,6 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 	}
 
 	private boolean generateMipmaps(IResourceManager resourceManager, final TextureAtlasSprite texture) {
-
 		ResourceLocation resourcelocation = getResourceLocation(texture);
 		label62:
 		{
@@ -188,13 +181,11 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 	}
 
 	private ResourceLocation getResourceLocation(TextureAtlasSprite p_184396_1_) {
-
 		ResourceLocation resourcelocation = new ResourceLocation(p_184396_1_.getIconName());
 		return new ResourceLocation(resourcelocation.getResourceDomain(), String.format("%s/%s%s", basePath, resourcelocation.getResourcePath(), ".png"));
 	}
 
 	public TextureAtlasSprite getAtlasSprite(String iconName) {
-
 		TextureAtlasSprite textureatlassprite = mapUploadedSprites.get(iconName);
 
 		if (textureatlassprite == null) {
@@ -205,7 +196,6 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 	}
 
 	public void updateAnimations() {
-
 		TextureUtil.bindTexture(getGlTextureId());
 
 		for (TextureAtlasSprite textureatlassprite : listAnimatedSprites) {
@@ -214,7 +204,6 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 	}
 
 	public TextureAtlasSprite registerSprite(ResourceLocation location) {
-
 		if (location == null) {
 			throw new IllegalArgumentException("Location cannot be null!");
 		} else {
@@ -230,17 +219,14 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 	}
 
 	public void tick() {
-
 		updateAnimations();
 	}
 
 	public void setMipmapLevels(int mipmapLevelsIn) {
-
 		mipmapLevels = mipmapLevelsIn;
 	}
 
 	public TextureAtlasSprite getMissingSprite() {
-
 		return missingImage;
 	}
 

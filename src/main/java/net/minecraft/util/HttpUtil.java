@@ -34,7 +34,6 @@ public class HttpUtil {
 	 * Builds an encoded HTTP POST content string from a string map
 	 */
 	public static String buildPostString(Map<String, Object> data) {
-
 		StringBuilder stringbuilder = new StringBuilder();
 
 		for (Entry<String, Object> entry : data.entrySet()) {
@@ -58,7 +57,6 @@ public class HttpUtil {
 	 * Sends a POST to the given URL using the map as the POST args
 	 */
 	public static String postMap(URL url, Map<String, Object> data, boolean skipLoggingErrors, Proxy proxyIn) {
-
 		return post(url, buildPostString(data), skipLoggingErrors, proxyIn);
 	}
 
@@ -66,7 +64,6 @@ public class HttpUtil {
 	 * Sends a POST to the given URL
 	 */
 	private static String post(URL url, String content, boolean skipLoggingErrors, Proxy p_151225_3_) {
-
 		try {
 			if (p_151225_3_ == null) {
 				p_151225_3_ = Proxy.NO_PROXY;
@@ -105,7 +102,6 @@ public class HttpUtil {
 	}
 
 	public static ListenableFuture<Object> downloadResourcePack(final File saveFile, final String packUrl, final Map<String, String> p_180192_2_, final int maxSize, final IProgressUpdate p_180192_4_, final Proxy p_180192_5_) {
-
 		ListenableFuture<?> listenablefuture = DOWNLOADER_EXECUTOR.submit(() -> {
 
 			HttpURLConnection httpurlconnection = null;
@@ -222,7 +218,6 @@ public class HttpUtil {
 	}
 
 	public static int getSuitableLanPort() throws IOException {
-
 		ServerSocket serversocket = null;
 		int i;
 

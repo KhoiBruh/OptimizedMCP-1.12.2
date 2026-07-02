@@ -7,7 +7,6 @@ public class ModelHumanoidHead extends ModelSkeletonHead {
 	private final ModelRenderer head = new ModelRenderer(this, 32, 0);
 
 	public ModelHumanoidHead() {
-
 		super(0, 0, 64, 64);
 		head.addBox(-4F, -8F, -4F, 8, 8, 8, 0.25F);
 		head.setRotationPoint(0F, 0F, 0F);
@@ -17,7 +16,6 @@ public class ModelHumanoidHead extends ModelSkeletonHead {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		head.render(scale);
 	}
@@ -28,7 +26,6 @@ public class ModelHumanoidHead extends ModelSkeletonHead {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 		head.rotateAngleY = skeletonHead.rotateAngleY;
 		head.rotateAngleX = skeletonHead.rotateAngleX;

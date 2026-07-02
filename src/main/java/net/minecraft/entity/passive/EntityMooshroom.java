@@ -18,19 +18,16 @@ import net.minecraft.world.storage.loot.LootTableList;
 public class EntityMooshroom extends EntityCow {
 
 	public EntityMooshroom(World worldIn) {
-
 		super(worldIn);
 		setSize(0.9F, 1.4F);
 		spawnableBlock = Blocks.MYCELIUM;
 	}
 
 	public static void registerFixesMooshroom(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntityMooshroom.class);
 	}
 
 	public boolean processInteract(EntityPlayer player, Hand hand) {
-
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (itemstack.getItem() == Items.BOWL && getGrowingAge() >= 0 && !player.capabilities.isCreativeMode) {
@@ -74,13 +71,11 @@ public class EntityMooshroom extends EntityCow {
 	}
 
 	public EntityMooshroom createChild(EntityAgeable ageable) {
-
 		return new EntityMooshroom(world);
 	}
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_MUSHROOM_COW;
 	}
 

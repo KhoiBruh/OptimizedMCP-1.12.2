@@ -18,11 +18,9 @@ public class SPacketSpawnPainting implements Packet<INetHandlerPlayClient> {
 	private String title;
 
 	public SPacketSpawnPainting() {
-
 	}
 
 	public SPacketSpawnPainting(EntityPainting painting) {
-
 		entityID = painting.getEntityId();
 		uniqueId = painting.getUniqueID();
 		position = painting.getHangingPosition();
@@ -34,7 +32,6 @@ public class SPacketSpawnPainting implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		entityID = buf.readVarInt();
 		uniqueId = buf.readUniqueId();
 		title = buf.readString(EntityPainting.Art.MAX_NAME_LENGTH);
@@ -46,7 +43,6 @@ public class SPacketSpawnPainting implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeVarInt(entityID);
 		buf.writeUniqueId(uniqueId);
 		buf.writeString(title);
@@ -58,32 +54,26 @@ public class SPacketSpawnPainting implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleSpawnPainting(this);
 	}
 
 	public int getEntityID() {
-
 		return entityID;
 	}
 
 	public UUID getUniqueId() {
-
 		return uniqueId;
 	}
 
 	public BlockPos getPosition() {
-
 		return position;
 	}
 
 	public Facing getFacing() {
-
 		return facing;
 	}
 
 	public String getTitle() {
-
 		return title;
 	}
 

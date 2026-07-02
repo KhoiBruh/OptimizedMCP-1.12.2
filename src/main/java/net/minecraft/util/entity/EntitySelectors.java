@@ -56,7 +56,6 @@ public final class EntitySelectors {
 	}
 
 	public static Predicate<Entity> notRiding(final Entity p_191324_0_) {
-
 		return p_apply_1_ -> {
 
 			while (true) {
@@ -80,12 +79,10 @@ public final class EntitySelectors {
 		private final ItemStack armor;
 
 		public ArmoredMob(ItemStack armor) {
-
 			this.armor = armor;
 		}
 
 		public boolean apply(Entity p_apply_1_) {
-
 			if (!p_apply_1_.isEntityAlive()) {
 				return false;
 			} else if (!(p_apply_1_ instanceof EntityLivingBase entitylivingbase)) {

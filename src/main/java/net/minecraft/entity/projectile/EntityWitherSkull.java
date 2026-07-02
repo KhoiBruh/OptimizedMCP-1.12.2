@@ -22,25 +22,21 @@ public class EntityWitherSkull extends EntityFireball {
 	private static final DataParameter<Boolean> INVULNERABLE = EntityDataManager.createKey(EntityWitherSkull.class, DataSerializers.BOOLEAN);
 
 	public EntityWitherSkull(World worldIn) {
-
 		super(worldIn);
 		setSize(0.3125F, 0.3125F);
 	}
 
 	public EntityWitherSkull(World worldIn, EntityLivingBase shooter, double accelX, double accelY, double accelZ) {
-
 		super(worldIn, shooter, accelX, accelY, accelZ);
 		setSize(0.3125F, 0.3125F);
 	}
 
 	public EntityWitherSkull(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
-
 		super(worldIn, x, y, z, accelX, accelY, accelZ);
 		setSize(0.3125F, 0.3125F);
 	}
 
 	public static void registerFixesWitherSkull(DataFixer fixer) {
-
 		EntityFireball.registerFixesFireball(fixer, "WitherSkull");
 	}
 
@@ -48,7 +44,6 @@ public class EntityWitherSkull extends EntityFireball {
 	 * Return the motion factor for this projectile. The factor is multiplied by the original motion.
 	 */
 	protected float getMotionFactor() {
-
 		return isInvulnerable() ? 0.73F : super.getMotionFactor();
 	}
 
@@ -56,7 +51,6 @@ public class EntityWitherSkull extends EntityFireball {
 	 * Returns true if the entity is on fire. Used by render to add the fire effect on rendering.
 	 */
 	public boolean isBurning() {
-
 		return false;
 	}
 
@@ -64,7 +58,6 @@ public class EntityWitherSkull extends EntityFireball {
 	 * Explosion resistance of a block relative to this entity
 	 */
 	public float getExplosionResistance(Explosion explosionIn, World worldIn, BlockPos pos, IBlockState blockStateIn) {
-
 		float f = super.getExplosionResistance(explosionIn, worldIn, pos, blockStateIn);
 		Block block = blockStateIn.getBlock();
 
@@ -79,7 +72,6 @@ public class EntityWitherSkull extends EntityFireball {
 	 * Called when this EntityFireball hits a block or entity.
 	 */
 	protected void onImpact(RayTraceResult result) {
-
 		if (!world.isRemote) {
 			if (result.entityHit != null) {
 				if (shootingEntity != null) {
@@ -118,7 +110,6 @@ public class EntityWitherSkull extends EntityFireball {
 	 * Returns true if other Entities should be prevented from moving through this Entity.
 	 */
 	public boolean canBeCollidedWith() {
-
 		return false;
 	}
 
@@ -126,12 +117,10 @@ public class EntityWitherSkull extends EntityFireball {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		return false;
 	}
 
 	protected void entityInit() {
-
 		dataManager.register(INVULNERABLE, false);
 	}
 
@@ -139,7 +128,6 @@ public class EntityWitherSkull extends EntityFireball {
 	 * Return whether this skull comes from an invulnerable (aura) wither boss.
 	 */
 	public boolean isInvulnerable() {
-
 		return dataManager.get(INVULNERABLE);
 	}
 
@@ -147,12 +135,10 @@ public class EntityWitherSkull extends EntityFireball {
 	 * Set whether this skull comes from an invulnerable (aura) wither boss.
 	 */
 	public void setInvulnerable(boolean invulnerable) {
-
 		dataManager.set(INVULNERABLE, invulnerable);
 	}
 
 	protected boolean isFireballFiery() {
-
 		return false;
 	}
 

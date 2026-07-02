@@ -25,12 +25,10 @@ import java.util.List;
 public class ItemWrittenBook extends Item {
 
 	public ItemWrittenBook() {
-
 		setMaxStackSize(1);
 	}
 
 	public static boolean validBookTagContents(NBTTagCompound nbt) {
-
 		if (!ItemWritableBook.isNBTValid(nbt)) {
 			return false;
 		} else if (!nbt.hasKey("title", 8)) {
@@ -45,12 +43,10 @@ public class ItemWrittenBook extends Item {
 	 * Gets the generation of the book (how many times it has been cloned)
 	 */
 	public static int getGeneration(ItemStack book) {
-
 		return book.getTagCompound().getInteger("generation");
 	}
 
 	public String getItemStackDisplayName(ItemStack stack) {
-
 		if (stack.hasTagCompound()) {
 			NBTTagCompound nbttagcompound = stack.getTagCompound();
 			String s = nbttagcompound.getString("title");
@@ -67,7 +63,6 @@ public class ItemWrittenBook extends Item {
 	 * allows items to add custom lines of information to the mouseover description
 	 */
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-
 		if (stack.hasTagCompound()) {
 			NBTTagCompound nbttagcompound = stack.getTagCompound();
 			String s = nbttagcompound.getString("author");
@@ -81,7 +76,6 @@ public class ItemWrittenBook extends Item {
 	}
 
 	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
-
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
 		if (!worldIn.isRemote) {
@@ -94,7 +88,6 @@ public class ItemWrittenBook extends Item {
 	}
 
 	private void resolveContents(ItemStack stack, EntityPlayer player) {
-
 		if (stack.getTagCompound() != null) {
 			NBTTagCompound nbttagcompound = stack.getTagCompound();
 
@@ -138,7 +131,6 @@ public class ItemWrittenBook extends Item {
 	 * the glint for enchanted items. Of course, that is unnecessary if the overwritten version always returns true.
 	 */
 	public boolean hasEffect(ItemStack stack) {
-
 		return true;
 	}
 

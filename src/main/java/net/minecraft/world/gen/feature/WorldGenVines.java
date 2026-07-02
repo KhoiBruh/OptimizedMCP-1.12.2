@@ -12,7 +12,6 @@ import java.util.Random;
 public class WorldGenVines extends WorldGenerator {
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		for (; position.getY() < 128; position = position.up()) {
 			if (worldIn.isAirBlock(position)) {
 				for (Facing enumfacing : Facing.Plane.HORIZONTAL.facings()) {

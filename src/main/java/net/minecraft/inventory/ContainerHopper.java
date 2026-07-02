@@ -9,7 +9,6 @@ public class ContainerHopper extends Container {
 	private final IInventory hopperInventory;
 
 	public ContainerHopper(InventoryPlayer playerInventory, IInventory hopperInventoryIn, EntityPlayer player) {
-
 		hopperInventory = hopperInventoryIn;
 		hopperInventoryIn.openInventory(player);
 		int i = 51;
@@ -33,7 +32,6 @@ public class ContainerHopper extends Container {
 	 * Determines whether supplied player can use this container
 	 */
 	public boolean canInteractWith(EntityPlayer playerIn) {
-
 		return hopperInventory.isUsableByPlayer(playerIn);
 	}
 
@@ -42,7 +40,6 @@ public class ContainerHopper extends Container {
 	 * inventory and the other inventory(s).
 	 */
 	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = inventorySlots.get(index);
 
@@ -72,7 +69,6 @@ public class ContainerHopper extends Container {
 	 * Called when the container is closed.
 	 */
 	public void onContainerClosed(EntityPlayer playerIn) {
-
 		super.onContainerClosed(playerIn);
 		hopperInventory.closeInventory(playerIn);
 	}

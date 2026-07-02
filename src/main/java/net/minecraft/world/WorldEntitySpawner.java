@@ -29,7 +29,6 @@ public final class WorldEntitySpawner {
 	private final Set<ChunkPos> eligibleChunksForSpawning = Sets.newHashSet();
 
 	private static BlockPos getRandomChunkPosition(World worldIn, int x, int z) {
-
 		Chunk chunk = worldIn.getChunkFromChunkCoords(x, z);
 		int i = x * 16 + worldIn.rand.nextInt(16);
 		int j = z * 16 + worldIn.rand.nextInt(16);
@@ -39,7 +38,6 @@ public final class WorldEntitySpawner {
 	}
 
 	public static boolean isValidEmptySpawnBlock(IBlockState state) {
-
 		if (state.isBlockNormalCube()) {
 			return false;
 		} else if (state.canProvidePower()) {
@@ -52,7 +50,6 @@ public final class WorldEntitySpawner {
 	}
 
 	public static boolean canCreatureTypeSpawnAtLocation(EntityLiving.SpawnPlacementType spawnPlacementTypeIn, World worldIn, BlockPos pos) {
-
 		if (!worldIn.getWorldBorder().contains(pos)) {
 			return false;
 		} else {
@@ -83,7 +80,6 @@ public final class WorldEntitySpawner {
 	 * @param diameterZ The Z diameter of the rectangle to spawn mobs in
 	 */
 	public static void performWorldGenSpawning(World worldIn, Biome biomeIn, int centerX, int centerZ, int diameterX, int diameterZ, Random randomIn) {
-
 		List<Biome.SpawnListEntry> list = biomeIn.getSpawnableList(CreatureType.CREATURE);
 
 		if (!list.isEmpty()) {
@@ -134,7 +130,6 @@ public final class WorldEntitySpawner {
 	 * hostileCreatures, passiveCreatures. returns number of eligible chunks.
 	 */
 	public int findChunksForSpawning(WorldServer worldServerIn, boolean spawnHostileMobs, boolean spawnPeacefulMobs, boolean spawnOnSetTickRate) {
-
 		if (!spawnHostileMobs && !spawnPeacefulMobs) {
 			return 0;
 		} else {

@@ -24,7 +24,6 @@ public class Stitcher {
 	private int currentHeight;
 
 	public Stitcher(int maxWidthIn, int maxHeightIn, int maxTileDimensionIn, int mipmapLevelStitcherIn) {
-
 		mipmapLevelStitcher = mipmapLevelStitcherIn;
 		maxWidth = maxWidthIn;
 		maxHeight = maxHeightIn;
@@ -32,22 +31,18 @@ public class Stitcher {
 	}
 
 	private static int getMipmapDimension(int p_147969_0_, int p_147969_1_) {
-
 		return (p_147969_0_ >> p_147969_1_) + ((p_147969_0_ & (1 << p_147969_1_) - 1) == 0 ? 0 : 1) << p_147969_1_;
 	}
 
 	public int getCurrentWidth() {
-
 		return currentWidth;
 	}
 
 	public int getCurrentHeight() {
-
 		return currentHeight;
 	}
 
 	public void addSprite(TextureAtlasSprite textureAtlas) {
-
 		Stitcher.Holder stitcher$holder = new Stitcher.Holder(textureAtlas, mipmapLevelStitcher);
 
 		if (maxTileDimension > 0) {
@@ -58,7 +53,6 @@ public class Stitcher {
 	}
 
 	public void doStitch() {
-
 		Stitcher.Holder[] astitcher$holder = setStitchHolders.toArray(new Holder[0]);
 		Arrays.sort(astitcher$holder);
 
@@ -74,7 +68,6 @@ public class Stitcher {
 	}
 
 	public List<TextureAtlasSprite> getStichSlots() {
-
 		List<Stitcher.Slot> list = Lists.newArrayList();
 
 		for (Stitcher.Slot stitcher$slot : stitchSlots) {
@@ -97,7 +90,6 @@ public class Stitcher {
 	 * Attempts to find space for specified tile
 	 */
 	private boolean allocateSlot(Stitcher.Holder p_94310_1_) {
-
 		TextureAtlasSprite textureatlassprite = p_94310_1_.getAtlasSprite();
 		boolean flag = textureatlassprite.getIconWidth() != textureatlassprite.getIconHeight();
 
@@ -124,7 +116,6 @@ public class Stitcher {
 	 * Expand stitched texture in order to make space for specified tile
 	 */
 	private boolean expandAndAllocateSlot(Stitcher.Holder p_94311_1_) {
-
 		int i = Math.min(p_94311_1_.getWidth(), p_94311_1_.getHeight());
 		int j = Math.max(p_94311_1_.getWidth(), p_94311_1_.getHeight());
 		int k = MathHelper.smallestEncompassingPowerOfTwo(currentWidth);
@@ -181,7 +172,6 @@ public class Stitcher {
 		private float scaleFactor = 1F;
 
 		public Holder(TextureAtlasSprite theTextureIn, int mipmapLevelHolderIn) {
-
 			sprite = theTextureIn;
 			width = theTextureIn.getIconWidth();
 			height = theTextureIn.getIconHeight();
@@ -190,46 +180,38 @@ public class Stitcher {
 		}
 
 		public TextureAtlasSprite getAtlasSprite() {
-
 			return sprite;
 		}
 
 		public int getWidth() {
-
 			int i = rotated ? height : width;
 			return Stitcher.getMipmapDimension((int) ((float) i * scaleFactor), mipmapLevelHolder);
 		}
 
 		public int getHeight() {
-
 			int i = rotated ? width : height;
 			return Stitcher.getMipmapDimension((int) ((float) i * scaleFactor), mipmapLevelHolder);
 		}
 
 		public void rotate() {
-
 			rotated = !rotated;
 		}
 
 		public boolean isRotated() {
-
 			return rotated;
 		}
 
 		public void setNewDimension(int p_94196_1_) {
-
 			if (width > p_94196_1_ && height > p_94196_1_) {
 				scaleFactor = (float) p_94196_1_ / (float) Math.min(width, height);
 			}
 		}
 
 		public String toString() {
-
 			return "Holder{width=" + width + ", height=" + height + '}';
 		}
 
 		public int compareTo(Stitcher.Holder p_compareTo_1_) {
-
 			int i;
 
 			if (getHeight() == p_compareTo_1_.getHeight()) {
@@ -261,7 +243,6 @@ public class Stitcher {
 		private Stitcher.Holder holder;
 
 		public Slot(int originXIn, int originYIn, int widthIn, int heightIn) {
-
 			originX = originXIn;
 			originY = originYIn;
 			width = widthIn;
@@ -274,17 +255,14 @@ public class Stitcher {
 		}
 
 		public int getOriginX() {
-
 			return originX;
 		}
 
 		public int getOriginY() {
-
 			return originY;
 		}
 
 		public boolean addSlot(Stitcher.Holder holderIn) {
-
 			if (holder != null) {
 				return false;
 			} else {
@@ -335,7 +313,6 @@ public class Stitcher {
 		}
 
 		public void getAllStitchSlots(List<Stitcher.Slot> p_94184_1_) {
-
 			if (holder != null) {
 				p_94184_1_.add(this);
 			} else if (subSlots != null) {
@@ -346,7 +323,6 @@ public class Stitcher {
 		}
 
 		public String toString() {
-
 			return "Slot{originX=" + originX + ", originY=" + originY + ", width=" + width + ", height=" + height + ", texture=" + holder + ", subSlots=" + subSlots + '}';
 		}
 

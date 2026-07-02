@@ -7,7 +7,6 @@ import net.minecraft.util.BlockRenderLayer;
 public class RenderList extends ChunkRenderContainer {
 
 	public void renderChunkLayer(BlockRenderLayer layer) {
-
 		if (initialized) {
 			for (RenderChunk renderchunk : renderChunks) {
 				ListedRenderChunk listedrenderchunk = (ListedRenderChunk) renderchunk;

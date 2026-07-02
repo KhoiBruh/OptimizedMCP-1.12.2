@@ -24,12 +24,10 @@ public class MobEffectsPredicate {
 	private final Map<Potion, MobEffectsPredicate.InstancePredicate> effects;
 
 	public MobEffectsPredicate(Map<Potion, MobEffectsPredicate.InstancePredicate> effects) {
-
 		this.effects = effects;
 	}
 
 	public static MobEffectsPredicate deserialize(JsonElement element) {
-
 		if (element != null && !element.isJsonNull()) {
 			JsonObject jsonobject = JsonUtils.getJsonObject(element, "effects");
 			Map<Potion, MobEffectsPredicate.InstancePredicate> map = Maps.newHashMap();
@@ -53,7 +51,6 @@ public class MobEffectsPredicate {
 	}
 
 	public boolean test(Entity entityIn) {
-
 		if (this == ANY) {
 			return true;
 		} else {
@@ -62,12 +59,10 @@ public class MobEffectsPredicate {
 	}
 
 	public boolean test(EntityLivingBase entityIn) {
-
 		return this == ANY || test(entityIn.getActivePotionMap());
 	}
 
 	public boolean test(Map<Potion, PotionEffect> potions) {
-
 		if (this == ANY) {
 			return true;
 		} else {
@@ -95,7 +90,6 @@ public class MobEffectsPredicate {
 		private final Boolean visible;
 
 		public InstancePredicate(MinMaxBounds amplifier, MinMaxBounds duration, Boolean ambient, Boolean visible) {
-
 			this.amplifier = amplifier;
 			this.duration = duration;
 			this.ambient = ambient;
@@ -112,7 +106,6 @@ public class MobEffectsPredicate {
 		}
 
 		public boolean test(PotionEffect effect) {
-
 			if (effect == null) {
 				return false;
 			} else if (!amplifier.test((float) effect.getAmplifier())) {

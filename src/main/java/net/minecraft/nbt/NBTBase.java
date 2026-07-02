@@ -12,7 +12,6 @@ public abstract class NBTBase {
 	 * Creates a new NBTBase object that corresponds with the passed in id.
 	 */
 	protected static NBTBase createNewByType(byte id) {
-		
 		return switch (id) {
 			case 0 -> new NBTTagEnd();
 			case 1 -> new NBTTagByte();
@@ -32,7 +31,6 @@ public abstract class NBTBase {
 	}
 	
 	public static String getTagTypeName(int p_193581_0_) {
-		
 		return switch (p_193581_0_) {
 			case 0 -> "TAG_End";
 			case 1 -> "TAG_Byte";
@@ -75,22 +73,18 @@ public abstract class NBTBase {
 	 * Return whether this compound has no tags.
 	 */
 	public boolean hasNoTags() {
-		
 		return false;
 	}
 	
 	public boolean equals(Object p_equals_1_) {
-		
 		return p_equals_1_ instanceof NBTBase && getId() == ((NBTBase) p_equals_1_).getId();
 	}
 	
 	public int hashCode() {
-		
 		return getId();
 	}
 	
 	protected String getString() {
-		
 		return toString();
 	}
 	

@@ -10,7 +10,6 @@ import net.minecraft.world.World;
 public class Barrier extends Particle {
 
 	protected Barrier(World worldIn, double p_i46286_2_, double p_i46286_4_, double p_i46286_6_, Item p_i46286_8_) {
-
 		super(worldIn, p_i46286_2_, p_i46286_4_, p_i46286_6_, 0D, 0D, 0D);
 		setParticleTexture(Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getParticleIcon(p_i46286_8_));
 		particleRed = 1F;
@@ -28,7 +27,6 @@ public class Barrier extends Particle {
 	 * 1 for the main Texture atlas, and 3 for a custom texture
 	 */
 	public int getFXLayer() {
-
 		return 1;
 	}
 
@@ -36,7 +34,6 @@ public class Barrier extends Particle {
 	 * Renders the particle
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-
 		float f = particleTexture.getMinU();
 		float f1 = particleTexture.getMaxU();
 		float f2 = particleTexture.getMinV();
@@ -56,7 +53,6 @@ public class Barrier extends Particle {
 	public static class Factory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			return new Barrier(worldIn, xCoordIn, yCoordIn, zCoordIn, Item.getItemFromBlock(Blocks.BARRIER));
 		}
 

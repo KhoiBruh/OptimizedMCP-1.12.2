@@ -14,7 +14,6 @@ public class GenLayerBiome extends GenLayer {
 	private Biome[] warmBiomes = new Biome[]{Biomes.DESERT, Biomes.DESERT, Biomes.DESERT, Biomes.SAVANNA, Biomes.SAVANNA, Biomes.PLAINS};
 
 	public GenLayerBiome(long p_i45560_1_, GenLayer p_i45560_3_, WorldType p_i45560_4_, ChunkGeneratorSettings p_i45560_5_) {
-
 		super(p_i45560_1_);
 		parent = p_i45560_3_;
 
@@ -31,7 +30,6 @@ public class GenLayerBiome extends GenLayer {
 	 * amounts, or Biome ID's based on the particular GenLayer subclass.
 	 */
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
-
 		int[] aint = parent.getInts(areaX, areaY, areaWidth, areaHeight);
 		int[] aint1 = IntCache.getIntCache(areaWidth * areaHeight);
 

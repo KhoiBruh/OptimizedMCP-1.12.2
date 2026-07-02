@@ -25,7 +25,6 @@ public class EntityAILookIdle extends EntityAIBase {
 	private int idleTime;
 
 	public EntityAILookIdle(EntityLiving entitylivingIn) {
-
 		idleEntity = entitylivingIn;
 		setMutexBits(3);
 	}
@@ -34,7 +33,6 @@ public class EntityAILookIdle extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		return idleEntity.getRNG().nextFloat() < 0.02F;
 	}
 
@@ -42,7 +40,6 @@ public class EntityAILookIdle extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		return idleTime >= 0;
 	}
 
@@ -50,7 +47,6 @@ public class EntityAILookIdle extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		double d0 = (Math.PI * 2D) * idleEntity.getRNG().nextDouble();
 		lookX = Math.cos(d0);
 		lookZ = Math.sin(d0);
@@ -61,7 +57,6 @@ public class EntityAILookIdle extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		--idleTime;
 		idleEntity.getLookHelper().setLookPosition(idleEntity.posX + lookX, idleEntity.posY + (double) idleEntity.getEyeHeight(), idleEntity.posZ + lookZ, (float) idleEntity.getHorizontalFaceSpeed(), (float) idleEntity.getVerticalFaceSpeed());
 	}

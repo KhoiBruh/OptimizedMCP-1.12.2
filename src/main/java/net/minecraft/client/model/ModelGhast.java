@@ -12,7 +12,6 @@ public class ModelGhast extends ModelBase {
 	ModelRenderer[] tentacles = new ModelRenderer[9];
 
 	public ModelGhast() {
-
 		int i = -16;
 		body = new ModelRenderer(this, 0, 0);
 		body.addBox(-8F, -8F, -8F, 16, 16, 16);
@@ -37,7 +36,6 @@ public class ModelGhast extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		for (int i = 0; i < tentacles.length; ++i) {
 			tentacles[i].rotateAngleX = 0.2F * MathHelper.sin(ageInTicks * 0.3F + (float) i) + 0.4F;
 		}
@@ -47,7 +45,6 @@ public class ModelGhast extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		GLS.pushMatrix();
 		GLS.translate(0F, 0.6F, 0F);

@@ -20,7 +20,6 @@ public class BlockMycelium extends Block {
 	public static final PropertyBool SNOWY = PropertyBool.create("snowy");
 
 	protected BlockMycelium() {
-
 		super(Material.GRASS, MapColor.PURPLE);
 		setDefaultState(blockState.getBaseState().withProperty(SNOWY, false));
 		setTickRandomly(true);
@@ -32,13 +31,11 @@ public class BlockMycelium extends Block {
 	 * metadata, such as fence connections.
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		Block block = worldIn.getBlockState(pos.up()).getBlock();
 		return state.withProperty(SNOWY, block == Blocks.SNOW || block == Blocks.SNOW_LAYER);
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if (!worldIn.isRemote) {
 			if (worldIn.getLightFromNeighbors(pos.up()) < 4 && worldIn.getBlockState(pos.up()).getLightOpacity() > 2) {
 				worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
@@ -59,7 +56,6 @@ public class BlockMycelium extends Block {
 	}
 
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-
 		super.randomDisplayTick(stateIn, worldIn, pos, rand);
 
 		if (rand.nextInt(10) == 0) {
@@ -71,7 +67,6 @@ public class BlockMycelium extends Block {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Blocks.DIRT.getItemDropped(Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT), rand, fortune);
 	}
 
@@ -79,12 +74,10 @@ public class BlockMycelium extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return 0;
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, SNOWY);
 	}
 

@@ -25,14 +25,12 @@ public class ItemBucket extends Item {
 	private final Block containedBlock;
 
 	public ItemBucket(Block containedBlockIn) {
-
 		maxStackSize = 1;
 		containedBlock = containedBlockIn;
 		setCreativeTab(CreativeTabs.MISC);
 	}
 
 	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
-
 		boolean flag = containedBlock == Blocks.AIR;
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, flag);
@@ -88,7 +86,6 @@ public class ItemBucket extends Item {
 	}
 
 	private ItemStack fillBucket(ItemStack emptyBuckets, EntityPlayer player, Item fullBucket) {
-
 		if (player.capabilities.isCreativeMode) {
 			return emptyBuckets;
 		} else {
@@ -107,7 +104,6 @@ public class ItemBucket extends Item {
 	}
 
 	public boolean tryPlaceContainedLiquid(EntityPlayer player, World worldIn, BlockPos posIn) {
-
 		if (containedBlock == Blocks.AIR) {
 			return false;
 		} else {

@@ -61,7 +61,6 @@ public class DragonFightManager {
 	private List<EntityEnderCrystal> crystals;
 
 	public DragonFightManager(WorldServer worldIn, NBTTagCompound compound) {
-
 		world = worldIn;
 
 		if (compound.hasKey("DragonKilled", 99)) {
@@ -99,7 +98,6 @@ public class DragonFightManager {
 	}
 
 	public NBTTagCompound getCompound() {
-
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 
 		if (dragonUniqueId != null) {
@@ -125,7 +123,6 @@ public class DragonFightManager {
 	}
 
 	public void tick() {
-
 		bossInfo.setVisible(!dragonKilled);
 
 		if (++ticksSinceLastPlayerScan >= 20) {
@@ -205,7 +202,6 @@ public class DragonFightManager {
 	}
 
 	protected void setRespawnState(DragonSpawnManager state) {
-
 		if (respawnState == null) {
 			throw new IllegalStateException("Dragon respawn isn't in progress, can't skip ahead in the animation.");
 		} else {
@@ -226,7 +222,6 @@ public class DragonFightManager {
 	}
 
 	private boolean hasDragonBeenKilled() {
-
 		for (int i = -8; i <= 8; ++i) {
 			for (int j = -8; j <= 8; ++j) {
 				Chunk chunk = world.getChunkFromChunkCoords(i, j);
@@ -285,7 +280,6 @@ public class DragonFightManager {
 	}
 
 	private void loadChunks() {
-
 		for (int i = -8; i <= 8; ++i) {
 			for (int j = -8; j <= 8; ++j) {
 				world.getChunkFromChunkCoords(i, j);
@@ -294,7 +288,6 @@ public class DragonFightManager {
 	}
 
 	private void updateplayers() {
-
 		Set<EntityPlayerMP> set = Sets.newHashSet();
 
 		for (EntityPlayerMP entityplayermp : world.getPlayers(EntityPlayerMP.class, VALID_PLAYER)) {
@@ -311,7 +304,6 @@ public class DragonFightManager {
 	}
 
 	private void findAliveCrystals() {
-
 		ticksSinceCrystalsScanned = 0;
 		aliveCrystals = 0;
 
@@ -323,7 +315,6 @@ public class DragonFightManager {
 	}
 
 	public void processDragonDeath(EntityDragon dragon) {
-
 		if (dragon.getUniqueID().equals(dragonUniqueId)) {
 			bossInfo.setPercent(0F);
 			bossInfo.setVisible(false);
@@ -340,7 +331,6 @@ public class DragonFightManager {
 	}
 
 	private void spawnNewGateway() {
-
 		if (!gateways.isEmpty()) {
 			int i = gateways.removeLast();
 			int j = (int) (96D * Math.cos(2D * (-Math.PI + 0.15707963267948966D * (double) i)));
@@ -350,13 +340,11 @@ public class DragonFightManager {
 	}
 
 	private void generateGateway(BlockPos pos) {
-
 		world.playEvent(3000, pos, 0);
 		(new WorldGenEndGateway()).generate(world, new Random(), pos);
 	}
 
 	private void generatePortal(boolean active) {
-
 		WorldGenEndPodium worldgenendpodium = new WorldGenEndPodium(active);
 
 		if (exitPortalLocation == null) {
@@ -368,7 +356,6 @@ public class DragonFightManager {
 	}
 
 	private EntityDragon createNewDragon() {
-
 		world.getChunkFromBlockCoords(new BlockPos(0, 128, 0));
 		EntityDragon entitydragon = new EntityDragon(world);
 		entitydragon.getPhaseManager().setPhase(PhaseList.HOLDING_PATTERN);
@@ -379,7 +366,6 @@ public class DragonFightManager {
 	}
 
 	public void dragonUpdate(EntityDragon dragonIn) {
-
 		if (dragonIn.getUniqueID().equals(dragonUniqueId)) {
 			bossInfo.setPercent(dragonIn.getHealth() / dragonIn.getMaxHealth());
 			ticksSinceDragonSeen = 0;
@@ -391,12 +377,10 @@ public class DragonFightManager {
 	}
 
 	public int getNumAliveCrystals() {
-
 		return aliveCrystals;
 	}
 
 	public void onCrystalDestroyed(EntityEnderCrystal crystal, DamageSource dmgSrc) {
-
 		if (respawnState != null && crystals.contains(crystal)) {
 			LOGGER.debug("Aborting respawn sequence");
 			respawnState = null;
@@ -414,12 +398,10 @@ public class DragonFightManager {
 	}
 
 	public boolean hasPreviouslyKilledDragon() {
-
 		return previouslyKilled;
 	}
 
 	public void respawnDragon() {
-
 		if (dragonKilled && respawnState == null) {
 			BlockPos blockpos = exitPortalLocation;
 
@@ -456,7 +438,6 @@ public class DragonFightManager {
 	}
 
 	private void respawnDragon(List<EntityEnderCrystal> crystalsIn) {
-
 		if (dragonKilled && respawnState == null) {
 			for (BlockPattern.PatternHelper blockpattern$patternhelper = findExitPortal(); blockpattern$patternhelper != null; blockpattern$patternhelper = findExitPortal()) {
 				for (int i = 0; i < portalPattern.getPalmLength(); ++i) {
@@ -480,7 +461,6 @@ public class DragonFightManager {
 	}
 
 	public void resetSpikeCrystals() {
-
 		for (WorldGenSpikes.EndSpike worldgenspikes$endspike : BiomeEndDecorator.getSpikesForWorld(world)) {
 			for (EntityEnderCrystal entityendercrystal : world.getEntitiesWithinAABB(EntityEnderCrystal.class, worldgenspikes$endspike.getTopBoundingBox())) {
 				entityendercrystal.setEntityInvulnerable(false);

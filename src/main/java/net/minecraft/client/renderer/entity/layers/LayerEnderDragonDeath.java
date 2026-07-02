@@ -12,7 +12,6 @@ import java.util.Random;
 public class LayerEnderDragonDeath implements LayerRenderer<EntityDragon> {
 
 	public void doRenderLayer(EntityDragon entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		if (entitylivingbaseIn.deathTicks > 0) {
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferbuilder = tessellator.getBuffer();
@@ -66,7 +65,6 @@ public class LayerEnderDragonDeath implements LayerRenderer<EntityDragon> {
 	}
 
 	public boolean shouldCombineTextures() {
-
 		return false;
 	}
 

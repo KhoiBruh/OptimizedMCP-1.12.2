@@ -25,13 +25,11 @@ public class EntityHasScore implements LootCondition {
 	private final LootContext.EntityTarget target;
 
 	public EntityHasScore(Map<String, RandomValueRange> scoreIn, LootContext.EntityTarget targetIn) {
-
 		scores = scoreIn;
 		target = targetIn;
 	}
 
 	public boolean testCondition(Random rand, LootContext context) {
-
 		Entity entity = context.getEntity(target);
 
 		if (entity == null) {
@@ -50,7 +48,6 @@ public class EntityHasScore implements LootCondition {
 	}
 
 	protected boolean entityScoreMatch(Entity entityIn, Scoreboard scoreboardIn, String objectiveStr, RandomValueRange rand) {
-
 		ScoreObjective scoreobjective = scoreboardIn.getObjective(objectiveStr);
 
 		if (scoreobjective == null) {
@@ -64,12 +61,10 @@ public class EntityHasScore implements LootCondition {
 	public static class Serializer extends LootCondition.Serializer<EntityHasScore> {
 
 		protected Serializer() {
-
 			super(new ResourceLocation("entity_scores"), EntityHasScore.class);
 		}
 
 		public void serialize(JsonObject json, EntityHasScore value, JsonSerializationContext context) {
-
 			JsonObject jsonobject = new JsonObject();
 
 			for (Entry<String, RandomValueRange> entry : value.scores.entrySet()) {
@@ -81,7 +76,6 @@ public class EntityHasScore implements LootCondition {
 		}
 
 		public EntityHasScore deserialize(JsonObject json, JsonDeserializationContext context) {
-
 			Set<Entry<String, JsonElement>> set = JsonUtils.getJsonObject(json, "scores").entrySet();
 			Map<String, RandomValueRange> map = Maps.newLinkedHashMap();
 

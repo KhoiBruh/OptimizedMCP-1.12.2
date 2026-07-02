@@ -34,7 +34,6 @@ public class ModelBat extends ModelBase {
 	private final ModelRenderer batOuterLeftWing;
 
 	public ModelBat() {
-
 		textureWidth = 64;
 		textureHeight = 64;
 		batHead = new ModelRenderer(this, 0, 0);
@@ -71,7 +70,6 @@ public class ModelBat extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		batHead.render(scale);
 		batBody.render(scale);
@@ -83,7 +81,6 @@ public class ModelBat extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		if (((EntityBat) entityIn).getIsBatHanging()) {
 			batHead.rotateAngleX = headPitch * 0.017453292F;
 			batHead.rotateAngleY = (float) Math.PI - netHeadYaw * 0.017453292F;

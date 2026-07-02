@@ -57,17 +57,14 @@ public class PlayerInteractionManager {
 	private int durabilityRemainingOnBlock = -1;
 
 	public PlayerInteractionManager(World worldIn) {
-
 		world = worldIn;
 	}
 
 	public GameType getGameType() {
-
 		return gameType;
 	}
 
 	public void setGameType(GameType type) {
-
 		gameType = type;
 		type.configurePlayerCapabilities(player.capabilities);
 		player.sendPlayerAbilities();
@@ -76,7 +73,6 @@ public class PlayerInteractionManager {
 	}
 
 	public boolean survivalOrAdventure() {
-
 		return gameType.isSurvivalOrAdventure();
 	}
 
@@ -84,7 +80,6 @@ public class PlayerInteractionManager {
 	 * Get if we are in creative game mode.
 	 */
 	public boolean isCreative() {
-
 		return gameType.isCreative();
 	}
 
@@ -92,7 +87,6 @@ public class PlayerInteractionManager {
 	 * if the gameType is currently NOT_SET then change it to par1
 	 */
 	public void initializeGameType(GameType type) {
-
 		if (gameType == GameType.NOT_SET) {
 			gameType = type;
 		}
@@ -101,7 +95,6 @@ public class PlayerInteractionManager {
 	}
 
 	public void updateBlockRemoving() {
-
 		++curblockDamage;
 
 		if (receivedFinishDiggingPacket) {
@@ -149,7 +142,6 @@ public class PlayerInteractionManager {
 	 * result of this call.
 	 */
 	public void onBlockClicked(BlockPos pos, Facing side) {
-
 		if (isCreative()) {
 			if (!world.extinguishFire(null, pos, side)) {
 				tryHarvestBlock(pos);
@@ -198,7 +190,6 @@ public class PlayerInteractionManager {
 	}
 
 	public void blockRemoving(BlockPos pos) {
-
 		if (pos.equals(destroyPos)) {
 			int i = curblockDamage - initialDamage;
 			IBlockState iblockstate = world.getBlockState(pos);
@@ -224,7 +215,6 @@ public class PlayerInteractionManager {
 	 * Stops the block breaking process
 	 */
 	public void cancelDestroyingBlock() {
-
 		isDestroyingBlock = false;
 		world.sendBlockBreakProgress(player.getEntityId(), destroyPos, -1);
 	}
@@ -233,7 +223,6 @@ public class PlayerInteractionManager {
 	 * Removes a block and triggers the appropriate events
 	 */
 	private boolean removeBlock(BlockPos pos) {
-
 		IBlockState iblockstate = world.getBlockState(pos);
 		iblockstate.getBlock().onBlockHarvested(world, pos, iblockstate, player);
 		boolean flag = world.setBlockToAir(pos);
@@ -249,7 +238,6 @@ public class PlayerInteractionManager {
 	 * Attempts to harvest a block
 	 */
 	public boolean tryHarvestBlock(BlockPos pos) {
-
 		if (gameType.isCreative() && !player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() instanceof ItemSword) {
 			return false;
 		} else {
@@ -304,7 +292,6 @@ public class PlayerInteractionManager {
 	}
 
 	public ActionResult processRightClick(EntityPlayer player, World worldIn, ItemStack stack, Hand hand) {
-
 		if (gameType == GameType.SPECTATOR) {
 			return ActionResult.PASS;
 		} else if (player.getCooldownTracker().hasCooldown(stack.getItem())) {
@@ -344,7 +331,6 @@ public class PlayerInteractionManager {
 	}
 
 	public ActionResult processRightClickBlock(EntityPlayer player, World worldIn, ItemStack stack, Hand hand, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ) {
-
 		if (gameType == GameType.SPECTATOR) {
 			TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -405,7 +391,6 @@ public class PlayerInteractionManager {
 	 * Sets the world instance.
 	 */
 	public void setWorld(WorldServer serverWorld) {
-
 		world = serverWorld;
 	}
 

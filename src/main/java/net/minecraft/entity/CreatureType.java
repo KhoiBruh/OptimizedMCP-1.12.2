@@ -26,7 +26,6 @@ public enum CreatureType {
 	private final boolean isAnimal;
 
 	CreatureType(Class<? extends IAnimals> creatureClassIn, int maxNumberOfCreatureIn, boolean isPeacefulCreatureIn, boolean isAnimalIn) {
-
 		creatureClass = creatureClassIn;
 		maxNumberOfCreature = maxNumberOfCreatureIn;
 		isPeacefulCreature = isPeacefulCreatureIn;
@@ -39,7 +38,6 @@ public enum CreatureType {
 	}
 
 	public int getMaxNumberOfCreature() {
-
 		return maxNumberOfCreature;
 	}
 
@@ -47,7 +45,6 @@ public enum CreatureType {
 	 * Gets whether or not this creature type is peaceful.
 	 */
 	public boolean getPeacefulCreature() {
-
 		return isPeacefulCreature;
 	}
 
@@ -55,7 +52,6 @@ public enum CreatureType {
 	 * Return whether this creature type is an animal.
 	 */
 	public boolean getAnimal() {
-
 		return isAnimal;
 	}
 }

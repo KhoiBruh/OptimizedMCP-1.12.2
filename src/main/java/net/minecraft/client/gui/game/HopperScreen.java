@@ -26,7 +26,6 @@ public class HopperScreen extends ContainerScreen {
 	private final IInventory hopperInventory;
 
 	public HopperScreen(InventoryPlayer playerInv, IInventory hopperInv) {
-
 		super(new ContainerHopper(playerInv, hopperInv, Minecraft.getMinecraft().player));
 		playerInventory = playerInv;
 		hopperInventory = hopperInv;
@@ -38,7 +37,6 @@ public class HopperScreen extends ContainerScreen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		super.draw(mouseX, mouseY, partialTicks);
 		renderHoveredToolTip(mouseX, mouseY);
@@ -48,7 +46,6 @@ public class HopperScreen extends ContainerScreen {
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-
 		fontRenderer.drawString(hopperInventory.displayName().getUnformattedText(), 8, 6, 4210752);
 		fontRenderer.drawString(playerInventory.displayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
 	}
@@ -57,7 +54,6 @@ public class HopperScreen extends ContainerScreen {
 	 * Draws the background layer of this container (behind the items).
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-
 		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(HOPPER_GUI_TEXTURE);
 		int i = (width - xSize) / 2;

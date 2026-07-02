@@ -41,12 +41,10 @@ public class NetworkPlayerInfo {
 	private long renderVisibilityId;
 
 	public NetworkPlayerInfo(GameProfile profile) {
-
 		gameProfile = profile;
 	}
 
 	public NetworkPlayerInfo(SPacketPlayerListItem.AddPlayerData entry) {
-
 		gameProfile = entry.getProfile();
 		gameType = entry.getGameMode();
 		responseTime = entry.getPing();
@@ -57,49 +55,40 @@ public class NetworkPlayerInfo {
 	 * Returns the GameProfile for the player represented by this NetworkPlayerInfo instance
 	 */
 	public GameProfile getGameProfile() {
-
 		return gameProfile;
 	}
 
 	public GameType getGameType() {
-
 		return gameType;
 	}
 
 	protected void setGameType(GameType gameMode) {
-
 		gameType = gameMode;
 	}
 
 	public int getResponseTime() {
-
 		return responseTime;
 	}
 
 	protected void setResponseTime(int latency) {
-
 		responseTime = latency;
 	}
 
 	public boolean hasLocationSkin() {
-
 		return getLocationSkin() != null;
 	}
 
 	public String getSkinType() {
-
 		return skinType == null ? DefaultPlayerSkin.getSkinType(gameProfile.getId()) : skinType;
 	}
 
 	public ResourceLocation getLocationSkin() {
-
 		loadPlayerTextures();
 		return MoreObjects.firstNonNull(playerTextures.get(Type.SKIN), DefaultPlayerSkin.getDefaultSkin(gameProfile.getId()));
 	}
 
 	
 	public ResourceLocation getLocationCape() {
-
 		loadPlayerTextures();
 		return playerTextures.get(Type.CAPE);
 	}
@@ -110,19 +99,16 @@ public class NetworkPlayerInfo {
 	 * Gets the special Elytra texture for the player.
 	 */
 	public ResourceLocation getLocationElytra() {
-
 		loadPlayerTextures();
 		return playerTextures.get(Type.ELYTRA);
 	}
 
 	
 	public ScorePlayerTeam getPlayerTeam() {
-
 		return Minecraft.getMinecraft().world.getScoreboard().getPlayersTeam(getGameProfile().getName());
 	}
 
 	protected void loadPlayerTextures() {
-
 		synchronized (this) {
 			if (!playerTexturesLoaded) {
 				playerTexturesLoaded = true;
@@ -153,62 +139,50 @@ public class NetworkPlayerInfo {
 
 	
 	public ITextComponent getDisplayName() {
-
 		return displayName;
 	}
 
 	public void setDisplayName(ITextComponent displayNameIn) {
-
 		displayName = displayNameIn;
 	}
 
 	public int getLastHealth() {
-
 		return lastHealth;
 	}
 
 	public void setLastHealth(int p_178836_1_) {
-
 		lastHealth = p_178836_1_;
 	}
 
 	public int getDisplayHealth() {
-
 		return displayHealth;
 	}
 
 	public void setDisplayHealth(int p_178857_1_) {
-
 		displayHealth = p_178857_1_;
 	}
 
 	public long getLastHealthTime() {
-
 		return lastHealthTime;
 	}
 
 	public void setLastHealthTime(long p_178846_1_) {
-
 		lastHealthTime = p_178846_1_;
 	}
 
 	public long getHealthBlinkTime() {
-
 		return healthBlinkTime;
 	}
 
 	public void setHealthBlinkTime(long p_178844_1_) {
-
 		healthBlinkTime = p_178844_1_;
 	}
 
 	public long getRenderVisibilityId() {
-
 		return renderVisibilityId;
 	}
 
 	public void setRenderVisibilityId(long p_178843_1_) {
-
 		renderVisibilityId = p_178843_1_;
 	}
 

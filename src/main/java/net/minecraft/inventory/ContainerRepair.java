@@ -47,16 +47,13 @@ public class ContainerRepair extends Container {
 	private String repairedItemName;
 
 	public ContainerRepair(InventoryPlayer playerInventory, World worldIn, EntityPlayer player) {
-
 		this(playerInventory, worldIn, BlockPos.ORIGIN, player);
 	}
 
 	public ContainerRepair(InventoryPlayer playerInventory, final World worldIn, final BlockPos blockPosIn, EntityPlayer player) {
-
 		outputSlot = new InventoryCraftResult();
 		inputSlots = new InventoryBasic("Repair", true, 2) {
 			public void markDirty() {
-
 				super.markDirty();
 				onCraftMatrixChanged(this);
 			}
@@ -68,17 +65,14 @@ public class ContainerRepair extends Container {
 		addSlotToContainer(new Slot(inputSlots, 1, 76, 47));
 		addSlotToContainer(new Slot(outputSlot, 2, 134, 47) {
 			public boolean isItemValid(ItemStack stack) {
-
 				return false;
 			}
 
 			public boolean canTakeStack(EntityPlayer playerIn) {
-
 				return (playerIn.capabilities.isCreativeMode || playerIn.experienceLevel >= maximumCost) && maximumCost > 0 && getHasStack();
 			}
 
 			public ItemStack onTake(EntityPlayer thePlayer, ItemStack stack) {
-
 				if (!thePlayer.capabilities.isCreativeMode) {
 					thePlayer.addExperienceLevel(-maximumCost);
 				}
@@ -135,7 +129,6 @@ public class ContainerRepair extends Container {
 	 * Callback for when the crafting matrix is changed.
 	 */
 	public void onCraftMatrixChanged(IInventory inventoryIn) {
-
 		super.onCraftMatrixChanged(inventoryIn);
 
 		if (inventoryIn == inputSlots) {
@@ -147,7 +140,6 @@ public class ContainerRepair extends Container {
 	 * called when the Anvil Input Slot changes, calculates the new result and puts it in the output slot
 	 */
 	public void updateRepairOutput() {
-
 		ItemStack itemstack = inputSlots.getStackInSlot(0);
 		maximumCost = 1;
 		int i = 0;
@@ -317,13 +309,11 @@ public class ContainerRepair extends Container {
 	}
 
 	public void addListener(IContainerListener listener) {
-
 		super.addListener(listener);
 		listener.sendWindowProperty(this, 0, maximumCost);
 	}
 
 	public void updateProgressBar(int id, int data) {
-
 		if (id == 0) {
 			maximumCost = data;
 		}
@@ -333,7 +323,6 @@ public class ContainerRepair extends Container {
 	 * Called when the container is closed.
 	 */
 	public void onContainerClosed(EntityPlayer playerIn) {
-
 		super.onContainerClosed(playerIn);
 
 		if (!world.isRemote) {
@@ -345,7 +334,6 @@ public class ContainerRepair extends Container {
 	 * Determines whether supplied player can use this container
 	 */
 	public boolean canInteractWith(EntityPlayer playerIn) {
-
 		if (world.getBlockState(selfPosition).getBlock() != Blocks.ANVIL) {
 			return false;
 		} else {
@@ -358,7 +346,6 @@ public class ContainerRepair extends Container {
 	 * inventory and the other inventory(s).
 	 */
 	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = inventorySlots.get(index);
 
@@ -400,7 +387,6 @@ public class ContainerRepair extends Container {
 	 * used by the Anvil GUI to update the Item Name being typed by the player
 	 */
 	public void updateItemName(String newName) {
-
 		repairedItemName = newName;
 
 		if (getSlot(2).getHasStack()) {

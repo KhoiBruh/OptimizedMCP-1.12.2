@@ -9,11 +9,9 @@ public class CPacketClientStatus implements Packet<INetHandlerPlayServer> {
 	private CPacketClientStatus.State status;
 
 	public CPacketClientStatus() {
-
 	}
 
 	public CPacketClientStatus(CPacketClientStatus.State p_i46886_1_) {
-
 		status = p_i46886_1_;
 	}
 
@@ -21,7 +19,6 @@ public class CPacketClientStatus implements Packet<INetHandlerPlayServer> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		status = buf.readEnumValue(State.class);
 	}
 
@@ -29,7 +26,6 @@ public class CPacketClientStatus implements Packet<INetHandlerPlayServer> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeEnumValue(status);
 	}
 
@@ -37,7 +33,6 @@ public class CPacketClientStatus implements Packet<INetHandlerPlayServer> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayServer handler) {
-
 		handler.processClientStatus(this);
 	}
 

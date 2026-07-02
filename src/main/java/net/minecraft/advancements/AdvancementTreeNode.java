@@ -20,7 +20,6 @@ public class AdvancementTreeNode {
 	private float shift;
 
 	public AdvancementTreeNode(Advancement advancementIn, AdvancementTreeNode parentIn, AdvancementTreeNode siblingIn, int indexIn, int xIn) {
-
 		if (advancementIn.getDisplay() == null) {
 			throw new IllegalArgumentException("Can't position an invisible advancement!");
 		} else {
@@ -40,7 +39,6 @@ public class AdvancementTreeNode {
 	}
 
 	public static void layout(Advancement root) {
-
 		if (root.getDisplay() == null) {
 			throw new IllegalArgumentException("Can't position children of an invisible root!");
 		} else {
@@ -58,7 +56,6 @@ public class AdvancementTreeNode {
 
 	
 	private AdvancementTreeNode buildSubTree(Advancement advancementIn, AdvancementTreeNode previous) {
-
 		if (advancementIn.getDisplay() != null) {
 			previous = new AdvancementTreeNode(advancementIn, this, previous, children.size() + 1, x + 1);
 			children.add(previous);
@@ -72,7 +69,6 @@ public class AdvancementTreeNode {
 	}
 
 	private void firstWalk() {
-
 		if (children.isEmpty()) {
 			if (sibling != null) {
 				y = sibling.y + 1F;
@@ -100,7 +96,6 @@ public class AdvancementTreeNode {
 	}
 
 	private float secondWalk(float p_192319_1_, int p_192319_2_, float p_192319_3_) {
-
 		y += p_192319_1_;
 		x = p_192319_2_;
 
@@ -116,7 +111,6 @@ public class AdvancementTreeNode {
 	}
 
 	private void thirdWalk(float yIn) {
-
 		y += yIn;
 
 		for (AdvancementTreeNode advancementtreenode : children) {
@@ -125,7 +119,6 @@ public class AdvancementTreeNode {
 	}
 
 	private void executeShifts() {
-
 		float f = 0F;
 		float f1 = 0F;
 
@@ -140,7 +133,6 @@ public class AdvancementTreeNode {
 
 	
 	private AdvancementTreeNode getFirstChild() {
-
 		if (thread != null) {
 			return thread;
 		} else {
@@ -150,7 +142,6 @@ public class AdvancementTreeNode {
 
 	
 	private AdvancementTreeNode getLastChild() {
-
 		if (thread != null) {
 			return thread;
 		} else {
@@ -159,7 +150,6 @@ public class AdvancementTreeNode {
 	}
 
 	private AdvancementTreeNode apportion(AdvancementTreeNode nodeIn) {
-
 		if (sibling == null) {
 			return nodeIn;
 		} else {
@@ -208,7 +198,6 @@ public class AdvancementTreeNode {
 	}
 
 	private void moveSubtree(AdvancementTreeNode nodeIn, float p_192316_2_) {
-
 		float f = (float) (nodeIn.index - index);
 
 		if (f != 0F) {
@@ -222,12 +211,10 @@ public class AdvancementTreeNode {
 	}
 
 	private AdvancementTreeNode getAncestor(AdvancementTreeNode p_192326_1_, AdvancementTreeNode p_192326_2_) {
-
 		return ancestor != null && p_192326_1_.parent.children.contains(ancestor) ? ancestor : p_192326_2_;
 	}
 
 	private void updatePosition() {
-
 		if (advancement.getDisplay() != null) {
 			advancement.getDisplay().setPosition((float) x, y);
 		}

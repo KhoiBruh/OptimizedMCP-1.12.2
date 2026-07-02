@@ -15,11 +15,9 @@ public class SPacketPlayerAbilities implements Packet<INetHandlerPlayClient> {
 	private float walkSpeed;
 
 	public SPacketPlayerAbilities() {
-
 	}
 
 	public SPacketPlayerAbilities(PlayerCapabilities capabilities) {
-
 		setInvulnerable(capabilities.disableDamage);
 		setFlying(capabilities.isFlying);
 		setAllowFlying(capabilities.allowFlying);
@@ -32,7 +30,6 @@ public class SPacketPlayerAbilities implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		byte b0 = buf.readByte();
 		setInvulnerable((b0 & 1) > 0);
 		setFlying((b0 & 2) > 0);
@@ -46,7 +43,6 @@ public class SPacketPlayerAbilities implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		byte b0 = 0;
 
 		if (isInvulnerable()) {
@@ -74,67 +70,54 @@ public class SPacketPlayerAbilities implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handlePlayerAbilities(this);
 	}
 
 	public boolean isInvulnerable() {
-
 		return invulnerable;
 	}
 
 	public void setInvulnerable(boolean isInvulnerable) {
-
 		invulnerable = isInvulnerable;
 	}
 
 	public boolean isFlying() {
-
 		return flying;
 	}
 
 	public void setFlying(boolean isFlying) {
-
 		flying = isFlying;
 	}
 
 	public boolean isAllowFlying() {
-
 		return allowFlying;
 	}
 
 	public void setAllowFlying(boolean isAllowFlying) {
-
 		allowFlying = isAllowFlying;
 	}
 
 	public boolean isCreativeMode() {
-
 		return creativeMode;
 	}
 
 	public void setCreativeMode(boolean isCreativeMode) {
-
 		creativeMode = isCreativeMode;
 	}
 
 	public float getFlySpeed() {
-
 		return flySpeed;
 	}
 
 	public void setFlySpeed(float flySpeedIn) {
-
 		flySpeed = flySpeedIn;
 	}
 
 	public float getWalkSpeed() {
-
 		return walkSpeed;
 	}
 
 	public void setWalkSpeed(float walkSpeedIn) {
-
 		walkSpeed = walkSpeedIn;
 	}
 

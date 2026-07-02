@@ -25,13 +25,11 @@ public class Path {
 	private int pathLength;
 
 	public Path(PathPoint[] pathpoints) {
-
 		points = pathpoints;
 		pathLength = pathpoints.length;
 	}
 
 	public static Path read(PacketBuffer buf) {
-
 		int i = buf.readInt();
 		PathPoint pathpoint = PathPoint.createFromBuffer(buf);
 		PathPoint[] apathpoint = new PathPoint[buf.readInt()];
@@ -64,7 +62,6 @@ public class Path {
 	 * Directs this path to the next point in its array
 	 */
 	public void incrementPathIndex() {
-
 		++currentPathIndex;
 	}
 
@@ -72,7 +69,6 @@ public class Path {
 	 * Returns true if this path has reached the end
 	 */
 	public boolean isFinished() {
-
 		return currentPathIndex >= pathLength;
 	}
 
@@ -82,7 +78,6 @@ public class Path {
 	 * returns the last PathPoint of the Array
 	 */
 	public PathPoint getFinalPathPoint() {
-
 		return pathLength > 0 ? points[pathLength - 1] : null;
 	}
 
@@ -90,32 +85,26 @@ public class Path {
 	 * return the PathPoint located at the specified PathIndex, usually the current one
 	 */
 	public PathPoint getPathPointFromIndex(int index) {
-
 		return points[index];
 	}
 
 	public void setPoint(int index, PathPoint point) {
-
 		points[index] = point;
 	}
 
 	public int getCurrentPathLength() {
-
 		return pathLength;
 	}
 
 	public void setCurrentPathLength(int length) {
-
 		pathLength = length;
 	}
 
 	public int getCurrentPathIndex() {
-
 		return currentPathIndex;
 	}
 
 	public void setCurrentPathIndex(int currentPathIndexIn) {
-
 		currentPathIndex = currentPathIndexIn;
 	}
 
@@ -123,7 +112,6 @@ public class Path {
 	 * Gets the vector of the PathPoint associated with the given index.
 	 */
 	public Vec3d getVectorFromIndex(Entity entityIn, int index) {
-
 		double d0 = (double) points[index].x + (double) ((int) (entityIn.width + 1F)) * 0.5D;
 		double d1 = points[index].y;
 		double d2 = (double) points[index].z + (double) ((int) (entityIn.width + 1F)) * 0.5D;
@@ -134,12 +122,10 @@ public class Path {
 	 * returns the current PathEntity target node as Vec3D
 	 */
 	public Vec3d getPosition(Entity entityIn) {
-
 		return getVectorFromIndex(entityIn, currentPathIndex);
 	}
 
 	public Vec3d getCurrentPos() {
-
 		PathPoint pathpoint = points[currentPathIndex];
 		return new Vec3d(pathpoint.x, pathpoint.y, pathpoint.z);
 	}
@@ -148,7 +134,6 @@ public class Path {
 	 * Returns true if the EntityPath are the same. Non instance related equals.
 	 */
 	public boolean isSamePath(Path pathentityIn) {
-
 		if (pathentityIn == null) {
 			return false;
 		} else if (pathentityIn.points.length != points.length) {
@@ -165,17 +150,14 @@ public class Path {
 	}
 
 	public PathPoint[] getOpenSet() {
-
 		return openSet;
 	}
 
 	public PathPoint[] getClosedSet() {
-
 		return closedSet;
 	}
 
 	public PathPoint getTarget() {
-
 		return target;
 	}
 

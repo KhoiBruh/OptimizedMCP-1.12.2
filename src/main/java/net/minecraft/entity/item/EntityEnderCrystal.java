@@ -26,7 +26,6 @@ public class EntityEnderCrystal extends Entity {
 	public int innerRotation;
 
 	public EntityEnderCrystal(World worldIn) {
-
 		super(worldIn);
 		preventEntitySpawning = true;
 		setSize(2F, 2F);
@@ -34,7 +33,6 @@ public class EntityEnderCrystal extends Entity {
 	}
 
 	public EntityEnderCrystal(World worldIn, double x, double y, double z) {
-
 		this(worldIn);
 		setPosition(x, y, z);
 	}
@@ -44,12 +42,10 @@ public class EntityEnderCrystal extends Entity {
 	 * prevent them from trampling crops
 	 */
 	protected boolean canTriggerWalking() {
-
 		return false;
 	}
 
 	protected void entityInit() {
-
 		getDataManager().register(BEAM_TARGET, Optional.absent());
 		getDataManager().register(SHOW_BOTTOM, true);
 	}
@@ -58,7 +54,6 @@ public class EntityEnderCrystal extends Entity {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
@@ -77,7 +72,6 @@ public class EntityEnderCrystal extends Entity {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	protected void writeEntityToNBT(NBTTagCompound compound) {
-
 		if (getBeamTarget() != null) {
 			compound.setTag("BeamTarget", NBTUtil.createPosTag(getBeamTarget()));
 		}
@@ -89,7 +83,6 @@ public class EntityEnderCrystal extends Entity {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	protected void readEntityFromNBT(NBTTagCompound compound) {
-
 		if (compound.hasKey("BeamTarget", 10)) {
 			setBeamTarget(NBTUtil.getPosFromTag(compound.getCompoundTag("BeamTarget")));
 		}
@@ -103,7 +96,6 @@ public class EntityEnderCrystal extends Entity {
 	 * Returns true if other Entities should be prevented from moving through this Entity.
 	 */
 	public boolean canBeCollidedWith() {
-
 		return true;
 	}
 
@@ -111,7 +103,6 @@ public class EntityEnderCrystal extends Entity {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		if (isEntityInvulnerable(source)) {
 			return false;
 		} else if (source.getTrueSource() instanceof EntityDragon) {
@@ -137,13 +128,11 @@ public class EntityEnderCrystal extends Entity {
 	 * Called by the /kill command.
 	 */
 	public void onKillCommand() {
-
 		onCrystalDestroyed(DamageSource.GENERIC);
 		super.onKillCommand();
 	}
 
 	private void onCrystalDestroyed(DamageSource source) {
-
 		if (world.provider instanceof WorldProviderEnd worldproviderend) {
 			DragonFightManager dragonfightmanager = worldproviderend.getDragonFightManager();
 
@@ -155,22 +144,18 @@ public class EntityEnderCrystal extends Entity {
 
 	
 	public BlockPos getBeamTarget() {
-
 		return getDataManager().get(BEAM_TARGET).orNull();
 	}
 
 	public void setBeamTarget(BlockPos beamTarget) {
-
 		getDataManager().set(BEAM_TARGET, Optional.fromNullable(beamTarget));
 	}
 
 	public void setShowBottom(boolean showBottom) {
-
 		getDataManager().set(SHOW_BOTTOM, showBottom);
 	}
 
 	public boolean shouldShowBottom() {
-
 		return getDataManager().get(SHOW_BOTTOM);
 	}
 
@@ -178,7 +163,6 @@ public class EntityEnderCrystal extends Entity {
 	 * Checks if the entity is in range to render.
 	 */
 	public boolean isInRangeToRenderDist(double distance) {
-
 		return super.isInRangeToRenderDist(distance) || getBeamTarget() != null;
 	}
 

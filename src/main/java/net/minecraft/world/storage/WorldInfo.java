@@ -108,11 +108,9 @@ public class WorldInfo {
 	private GameRules gameRules = new GameRules();
 
 	protected WorldInfo() {
-
 	}
 
 	public WorldInfo(NBTTagCompound nbt) {
-
 		if (nbt.hasKey("Version", 10)) {
 			NBTTagCompound nbttagcompound = nbt.getCompoundTag("Version");
 			versionName = nbttagcompound.getString("Name");
@@ -248,7 +246,6 @@ public class WorldInfo {
 	}
 
 	public WorldInfo(WorldSettings settings, String name) {
-
 		populateFromWorldSettings(settings);
 		levelName = name;
 		difficulty = DEFAULT_DIFFICULTY;
@@ -256,7 +253,6 @@ public class WorldInfo {
 	}
 
 	public WorldInfo(WorldInfo worldInformation) {
-
 		randomSeed = worldInformation.randomSeed;
 		terrainType = worldInformation.terrainType;
 		generatorOptions = worldInformation.generatorOptions;
@@ -295,7 +291,6 @@ public class WorldInfo {
 	}
 
 	public static void registerFixes(DataFixer fixer) {
-
 		fixer.registerWalker(FixTypes.LEVEL, (fixer1, compound, versionIn) -> {
 
 			if (compound.hasKey("Player", 10)) {
@@ -307,7 +302,6 @@ public class WorldInfo {
 	}
 
 	public void populateFromWorldSettings(WorldSettings settings) {
-
 		randomSeed = settings.getSeed();
 		gameType = settings.getGameType();
 		mapFeaturesEnabled = settings.isMapFeaturesEnabled();
@@ -321,7 +315,6 @@ public class WorldInfo {
 	 * Creates a new NBTTagCompound for the world, with the given NBTTag as the "Player"
 	 */
 	public NBTTagCompound cloneNBTCompound(NBTTagCompound nbt) {
-
 		if (nbt == null) {
 			nbt = playerTag;
 		}
@@ -332,7 +325,6 @@ public class WorldInfo {
 	}
 
 	private void updateTagCompound(NBTTagCompound nbt, NBTTagCompound playerNbt) {
-
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 		nbttagcompound.setString("Name", "1.12.2");
 		nbttagcompound.setInteger("Id", 1343);
@@ -395,7 +387,6 @@ public class WorldInfo {
 	 * Returns the seed of current world.
 	 */
 	public long getSeed() {
-
 		return randomSeed;
 	}
 
@@ -403,7 +394,6 @@ public class WorldInfo {
 	 * Returns the x spawn position
 	 */
 	public int getSpawnX() {
-
 		return spawnX;
 	}
 
@@ -411,7 +401,6 @@ public class WorldInfo {
 	 * Set the x spawn position to the passed in value
 	 */
 	public void setSpawnX(int x) {
-
 		spawnX = x;
 	}
 
@@ -419,7 +408,6 @@ public class WorldInfo {
 	 * Return the Y axis spawning point of the player.
 	 */
 	public int getSpawnY() {
-
 		return spawnY;
 	}
 
@@ -427,7 +415,6 @@ public class WorldInfo {
 	 * Sets the y spawn position
 	 */
 	public void setSpawnY(int y) {
-
 		spawnY = y;
 	}
 
@@ -435,7 +422,6 @@ public class WorldInfo {
 	 * Returns the z spawn position
 	 */
 	public int getSpawnZ() {
-
 		return spawnZ;
 	}
 
@@ -443,17 +429,14 @@ public class WorldInfo {
 	 * Set the z spawn position to the passed in value
 	 */
 	public void setSpawnZ(int z) {
-
 		spawnZ = z;
 	}
 
 	public long getWorldTotalTime() {
-
 		return totalTime;
 	}
 
 	public void setWorldTotalTime(long time) {
-
 		totalTime = time;
 	}
 
@@ -461,7 +444,6 @@ public class WorldInfo {
 	 * Get current world time
 	 */
 	public long getWorldTime() {
-
 		return worldTime;
 	}
 
@@ -469,12 +451,10 @@ public class WorldInfo {
 	 * Set current world time
 	 */
 	public void setWorldTime(long time) {
-
 		worldTime = time;
 	}
 
 	public long getSizeOnDisk() {
-
 		return sizeOnDisk;
 	}
 
@@ -482,12 +462,10 @@ public class WorldInfo {
 	 * Returns the player's NBTTagCompound to be loaded
 	 */
 	public NBTTagCompound getPlayerNBTTagCompound() {
-
 		return playerTag;
 	}
 
 	public void setSpawn(BlockPos spawnPoint) {
-
 		spawnX = spawnPoint.getX();
 		spawnY = spawnPoint.getY();
 		spawnZ = spawnPoint.getZ();
@@ -497,12 +475,10 @@ public class WorldInfo {
 	 * Get current world name
 	 */
 	public String getWorldName() {
-
 		return levelName;
 	}
 
 	public void setWorldName(String worldName) {
-
 		levelName = worldName;
 	}
 
@@ -510,7 +486,6 @@ public class WorldInfo {
 	 * Returns the save version of this world
 	 */
 	public int getSaveVersion() {
-
 		return saveVersion;
 	}
 
@@ -518,7 +493,6 @@ public class WorldInfo {
 	 * Sets the save version of the world
 	 */
 	public void setSaveVersion(int version) {
-
 		saveVersion = version;
 	}
 
@@ -526,17 +500,14 @@ public class WorldInfo {
 	 * Return the last time the player was in this world.
 	 */
 	public long getLastTimePlayed() {
-
 		return lastTimePlayed;
 	}
 
 	public int getCleanWeatherTime() {
-
 		return cleanWeatherTime;
 	}
 
 	public void setCleanWeatherTime(int cleanWeatherTimeIn) {
-
 		cleanWeatherTime = cleanWeatherTimeIn;
 	}
 
@@ -544,7 +515,6 @@ public class WorldInfo {
 	 * Returns true if it is thundering, false otherwise.
 	 */
 	public boolean isThundering() {
-
 		return thundering;
 	}
 
@@ -552,7 +522,6 @@ public class WorldInfo {
 	 * Sets whether it is thundering or not.
 	 */
 	public void setThundering(boolean thunderingIn) {
-
 		thundering = thunderingIn;
 	}
 
@@ -560,7 +529,6 @@ public class WorldInfo {
 	 * Returns the number of ticks until next thunderbolt.
 	 */
 	public int getThunderTime() {
-
 		return thunderTime;
 	}
 
@@ -568,7 +536,6 @@ public class WorldInfo {
 	 * Defines the number of ticks until next thunderbolt.
 	 */
 	public void setThunderTime(int time) {
-
 		thunderTime = time;
 	}
 
@@ -576,7 +543,6 @@ public class WorldInfo {
 	 * Returns true if it is raining, false otherwise.
 	 */
 	public boolean isRaining() {
-
 		return raining;
 	}
 
@@ -584,7 +550,6 @@ public class WorldInfo {
 	 * Sets whether it is raining or not.
 	 */
 	public void setRaining(boolean isRaining) {
-
 		raining = isRaining;
 	}
 
@@ -592,7 +557,6 @@ public class WorldInfo {
 	 * Return the number of ticks until rain.
 	 */
 	public int getRainTime() {
-
 		return rainTime;
 	}
 
@@ -600,7 +564,6 @@ public class WorldInfo {
 	 * Sets the number of ticks until rain.
 	 */
 	public void setRainTime(int time) {
-
 		rainTime = time;
 	}
 
@@ -608,7 +571,6 @@ public class WorldInfo {
 	 * Gets the GameType.
 	 */
 	public GameType getGameType() {
-
 		return gameType;
 	}
 
@@ -616,7 +578,6 @@ public class WorldInfo {
 	 * Sets the GameType.
 	 */
 	public void setGameType(GameType type) {
-
 		gameType = type;
 	}
 
@@ -624,12 +585,10 @@ public class WorldInfo {
 	 * Get whether the map features (e.g. strongholds) generation is enabled or disabled.
 	 */
 	public boolean isMapFeaturesEnabled() {
-
 		return mapFeaturesEnabled;
 	}
 
 	public void setMapFeaturesEnabled(boolean enabled) {
-
 		mapFeaturesEnabled = enabled;
 	}
 
@@ -637,27 +596,22 @@ public class WorldInfo {
 	 * Returns true if hardcore mode is enabled, otherwise false
 	 */
 	public boolean isHardcoreModeEnabled() {
-
 		return hardcore;
 	}
 
 	public void setHardcore(boolean hardcoreIn) {
-
 		hardcore = hardcoreIn;
 	}
 
 	public WorldType getTerrainType() {
-
 		return terrainType;
 	}
 
 	public void setTerrainType(WorldType type) {
-
 		terrainType = type;
 	}
 
 	public String getGeneratorOptions() {
-
 		return generatorOptions == null ? "" : generatorOptions;
 	}
 
@@ -665,12 +619,10 @@ public class WorldInfo {
 	 * Returns true if commands are allowed on this World.
 	 */
 	public boolean areCommandsAllowed() {
-
 		return allowCommands;
 	}
 
 	public void setAllowCommands(boolean allow) {
-
 		allowCommands = allow;
 	}
 
@@ -678,7 +630,6 @@ public class WorldInfo {
 	 * Returns true if the World is initialized.
 	 */
 	public boolean isInitialized() {
-
 		return initialized;
 	}
 
@@ -686,7 +637,6 @@ public class WorldInfo {
 	 * Sets the initialization status of the World.
 	 */
 	public void setServerInitialized(boolean initializedIn) {
-
 		initialized = initializedIn;
 	}
 
@@ -694,7 +644,6 @@ public class WorldInfo {
 	 * Gets the GameRules class Instance.
 	 */
 	public GameRules getGameRulesInstance() {
-
 		return gameRules;
 	}
 
@@ -702,7 +651,6 @@ public class WorldInfo {
 	 * Returns the border center X position
 	 */
 	public double getBorderCenterX() {
-
 		return borderCenterX;
 	}
 
@@ -710,12 +658,10 @@ public class WorldInfo {
 	 * Returns the border center Z position
 	 */
 	public double getBorderCenterZ() {
-
 		return borderCenterZ;
 	}
 
 	public double getBorderSize() {
-
 		return borderSize;
 	}
 
@@ -723,7 +669,6 @@ public class WorldInfo {
 	 * Sets the border size
 	 */
 	public void setBorderSize(double size) {
-
 		borderSize = size;
 	}
 
@@ -731,7 +676,6 @@ public class WorldInfo {
 	 * Returns the border lerp time
 	 */
 	public long getBorderLerpTime() {
-
 		return borderSizeLerpTime;
 	}
 
@@ -739,7 +683,6 @@ public class WorldInfo {
 	 * Sets the border lerp time
 	 */
 	public void setBorderLerpTime(long time) {
-
 		borderSizeLerpTime = time;
 	}
 
@@ -747,7 +690,6 @@ public class WorldInfo {
 	 * Returns the border lerp target
 	 */
 	public double getBorderLerpTarget() {
-
 		return borderSizeLerpTarget;
 	}
 
@@ -755,7 +697,6 @@ public class WorldInfo {
 	 * Sets the border lerp target
 	 */
 	public void setBorderLerpTarget(double lerpSize) {
-
 		borderSizeLerpTarget = lerpSize;
 	}
 
@@ -763,7 +704,6 @@ public class WorldInfo {
 	 * Sets the border center Z position
 	 */
 	public void getBorderCenterZ(double posZ) {
-
 		borderCenterZ = posZ;
 	}
 
@@ -771,7 +711,6 @@ public class WorldInfo {
 	 * Sets the border center X position
 	 */
 	public void getBorderCenterX(double posX) {
-
 		borderCenterX = posX;
 	}
 
@@ -779,7 +718,6 @@ public class WorldInfo {
 	 * Returns the border safe zone
 	 */
 	public double getBorderSafeZone() {
-
 		return borderSafeZone;
 	}
 
@@ -787,7 +725,6 @@ public class WorldInfo {
 	 * Sets the border safe zone
 	 */
 	public void setBorderSafeZone(double amount) {
-
 		borderSafeZone = amount;
 	}
 
@@ -795,7 +732,6 @@ public class WorldInfo {
 	 * Returns the border damage per block
 	 */
 	public double getBorderDamagePerBlock() {
-
 		return borderDamagePerBlock;
 	}
 
@@ -803,7 +739,6 @@ public class WorldInfo {
 	 * Sets the border damage per block
 	 */
 	public void setBorderDamagePerBlock(double damage) {
-
 		borderDamagePerBlock = damage;
 	}
 
@@ -811,7 +746,6 @@ public class WorldInfo {
 	 * Returns the border warning distance
 	 */
 	public int getBorderWarningDistance() {
-
 		return borderWarningDistance;
 	}
 
@@ -819,7 +753,6 @@ public class WorldInfo {
 	 * Sets the border warning distance
 	 */
 	public void setBorderWarningDistance(int amountOfBlocks) {
-
 		borderWarningDistance = amountOfBlocks;
 	}
 
@@ -827,7 +760,6 @@ public class WorldInfo {
 	 * Returns the border warning time
 	 */
 	public int getBorderWarningTime() {
-
 		return borderWarningTime;
 	}
 
@@ -835,27 +767,22 @@ public class WorldInfo {
 	 * Sets the border warning time
 	 */
 	public void setBorderWarningTime(int ticks) {
-
 		borderWarningTime = ticks;
 	}
 
 	public Difficulty getDifficulty() {
-
 		return difficulty;
 	}
 
 	public void setDifficulty(Difficulty newDifficulty) {
-
 		difficulty = newDifficulty;
 	}
 
 	public boolean isDifficultyLocked() {
-
 		return difficultyLocked;
 	}
 
 	public void setDifficultyLocked(boolean locked) {
-
 		difficultyLocked = locked;
 	}
 
@@ -863,7 +790,6 @@ public class WorldInfo {
 	 * Adds this WorldInfo instance to the crash report.
 	 */
 	public void addToCrashReport(CrashReportCategory category) {
-
 		category.addDetail("Level seed", () -> String.valueOf(getSeed()));
 		category.addDetail("Level generator", () -> String.format("ID %02d - %s, ver %d. Features enabled: %b", terrainType.getId(), terrainType.getName(), terrainType.getVersion(), mapFeaturesEnabled));
 		category.addDetail("Level generator options", () -> generatorOptions);
@@ -890,28 +816,23 @@ public class WorldInfo {
 	}
 
 	public NBTTagCompound getDimensionData(DimensionType dimensionIn) {
-
 		NBTTagCompound nbttagcompound = dimensionData.get(dimensionIn);
 		return nbttagcompound == null ? new NBTTagCompound() : nbttagcompound;
 	}
 
 	public void setDimensionData(DimensionType dimensionIn, NBTTagCompound compound) {
-
 		dimensionData.put(dimensionIn, compound);
 	}
 
 	public int getVersionId() {
-
 		return versionId;
 	}
 
 	public boolean isVersionSnapshot() {
-
 		return versionSnapshot;
 	}
 
 	public String getVersionName() {
-
 		return versionName;
 	}
 

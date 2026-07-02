@@ -10,11 +10,9 @@ public class SPacketSpawnPosition implements Packet<INetHandlerPlayClient> {
 	private BlockPos spawnBlockPos;
 
 	public SPacketSpawnPosition() {
-
 	}
 
 	public SPacketSpawnPosition(BlockPos posIn) {
-
 		spawnBlockPos = posIn;
 	}
 
@@ -22,7 +20,6 @@ public class SPacketSpawnPosition implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		spawnBlockPos = buf.readBlockPos();
 	}
 
@@ -30,7 +27,6 @@ public class SPacketSpawnPosition implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeBlockPos(spawnBlockPos);
 	}
 
@@ -38,12 +34,10 @@ public class SPacketSpawnPosition implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleSpawnPosition(this);
 	}
 
 	public BlockPos getSpawnPos() {
-
 		return spawnBlockPos;
 	}
 

@@ -19,12 +19,10 @@ public class NBTPredicate {
 	private final NBTTagCompound tag;
 
 	public NBTPredicate(NBTTagCompound tag) {
-
 		this.tag = tag;
 	}
 
 	public static NBTPredicate deserialize(JsonElement json) {
-
 		if (json != null && !json.isJsonNull()) {
 			NBTTagCompound nbttagcompound;
 
@@ -41,17 +39,14 @@ public class NBTPredicate {
 	}
 
 	public boolean test(ItemStack item) {
-
 		return this == ANY || test(item.getTagCompound());
 	}
 
 	public boolean test(Entity entityIn) {
-
 		return this == ANY || test(CommandBase.entityToNBT(entityIn));
 	}
 
 	public boolean test(NBTBase nbt) {
-
 		if (nbt == null) {
 			return this == ANY;
 		} else {

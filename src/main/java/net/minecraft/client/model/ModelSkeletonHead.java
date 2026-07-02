@@ -7,12 +7,10 @@ public class ModelSkeletonHead extends ModelBase {
 	public ModelRenderer skeletonHead;
 
 	public ModelSkeletonHead() {
-
 		this(0, 35, 64, 64);
 	}
 
 	public ModelSkeletonHead(int p_i1155_1_, int p_i1155_2_, int p_i1155_3_, int p_i1155_4_) {
-
 		textureWidth = p_i1155_3_;
 		textureHeight = p_i1155_4_;
 		skeletonHead = new ModelRenderer(this, p_i1155_1_, p_i1155_2_);
@@ -24,7 +22,6 @@ public class ModelSkeletonHead extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		skeletonHead.render(scale);
 	}
@@ -35,7 +32,6 @@ public class ModelSkeletonHead extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 		skeletonHead.rotateAngleY = netHeadYaw * 0.017453292F;
 		skeletonHead.rotateAngleX = headPitch * 0.017453292F;

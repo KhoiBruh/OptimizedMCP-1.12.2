@@ -11,12 +11,10 @@ import net.minecraft.world.World;
 public class ParticleBreaking extends Particle {
 
 	protected ParticleBreaking(World worldIn, double posXIn, double posYIn, double posZIn, Item itemIn) {
-
 		this(worldIn, posXIn, posYIn, posZIn, itemIn, 0);
 	}
 
 	protected ParticleBreaking(World worldIn, double posXIn, double posYIn, double posZIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, Item itemIn, int meta) {
-
 		this(worldIn, posXIn, posYIn, posZIn, itemIn, meta);
 		motionX *= 0.10000000149011612D;
 		motionY *= 0.10000000149011612D;
@@ -27,7 +25,6 @@ public class ParticleBreaking extends Particle {
 	}
 
 	protected ParticleBreaking(World worldIn, double posXIn, double posYIn, double posZIn, Item itemIn, int meta) {
-
 		super(worldIn, posXIn, posYIn, posZIn, 0D, 0D, 0D);
 		setParticleTexture(Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getParticleIcon(itemIn, meta));
 		particleRed = 1F;
@@ -42,7 +39,6 @@ public class ParticleBreaking extends Particle {
 	 * 1 for the main Texture atlas, and 3 for a custom texture
 	 */
 	public int getFXLayer() {
-
 		return 1;
 	}
 
@@ -50,7 +46,6 @@ public class ParticleBreaking extends Particle {
 	 * Renders the particle
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-
 		float f = ((float) particleTextureIndexX + particleTextureJitterX / 4F) / 16F;
 		float f1 = f + 0.015609375F;
 		float f2 = ((float) particleTextureIndexY + particleTextureJitterY / 4F) / 16F;
@@ -79,7 +74,6 @@ public class ParticleBreaking extends Particle {
 	public static class Factory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			int i = p_178902_15_.length > 1 ? p_178902_15_[1] : 0;
 			return new ParticleBreaking(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn, Item.getItemById(p_178902_15_[0]), i);
 		}
@@ -89,7 +83,6 @@ public class ParticleBreaking extends Particle {
 	public static class SlimeFactory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			return new ParticleBreaking(worldIn, xCoordIn, yCoordIn, zCoordIn, Items.SLIME_BALL);
 		}
 
@@ -98,7 +91,6 @@ public class ParticleBreaking extends Particle {
 	public static class SnowballFactory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			return new ParticleBreaking(worldIn, xCoordIn, yCoordIn, zCoordIn, Items.SNOWBALL);
 		}
 

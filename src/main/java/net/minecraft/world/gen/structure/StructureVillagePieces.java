@@ -24,7 +24,6 @@ import java.util.Random;
 public class StructureVillagePieces {
 
 	public static void registerVillagePieces() {
-
 		MapGenStructureIO.registerStructureComponent(StructureVillagePieces.House1.class, "ViBH");
 		MapGenStructureIO.registerStructureComponent(StructureVillagePieces.Field1.class, "ViDF");
 		MapGenStructureIO.registerStructureComponent(StructureVillagePieces.Field2.class, "ViF");
@@ -59,7 +58,6 @@ public class StructureVillagePieces {
 	}
 
 	private static int updatePieceWeight(List<StructureVillagePieces.PieceWeight> p_75079_0_) {
-
 		boolean flag = false;
 		int i = 0;
 
@@ -150,7 +148,6 @@ public class StructureVillagePieces {
 	}
 
 	private static StructureComponent generateAndAddComponent(StructureVillagePieces.Start start, List<StructureComponent> structureComponents, Random rand, int structureMinX, int structureMinY, int structureMinZ, Facing facing, int componentType) {
-
 		if (componentType > 50) {
 			return null;
 		} else if (Math.abs(structureMinX - start.getBoundingBox().minX) <= 112 && Math.abs(structureMinZ - start.getBoundingBox().minZ) <= 112) {
@@ -169,7 +166,6 @@ public class StructureVillagePieces {
 	}
 
 	private static StructureComponent generateAndAddRoadPiece(StructureVillagePieces.Start start, List<StructureComponent> p_176069_1_, Random rand, int p_176069_3_, int p_176069_4_, int p_176069_5_, Facing facing, int p_176069_7_) {
-
 		if (p_176069_7_ > 3 + start.terrainType) {
 			return null;
 		} else if (Math.abs(p_176069_3_ - start.getBoundingBox().minX) <= 112 && Math.abs(p_176069_5_ - start.getBoundingBox().minZ) <= 112) {
@@ -191,11 +187,9 @@ public class StructureVillagePieces {
 	public static class Church extends StructureVillagePieces.Village {
 
 		public Church() {
-
 		}
 
 		public Church(StructureVillagePieces.Start start, int type, Random rand, StructureBoundingBox p_i45564_4_, Facing facing) {
-
 			super(start, type);
 			setCoordBaseMode(facing);
 			boundingBox = p_i45564_4_;
@@ -208,7 +202,6 @@ public class StructureVillagePieces {
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			if (averageGroundLvl < 0) {
 				averageGroundLvl = getAverageGroundLevel(worldIn, structureBoundingBoxIn);
 
@@ -299,7 +292,6 @@ public class StructureVillagePieces {
 		}
 
 		protected int chooseProfession(int villagersSpawnedIn, int currentVillagerProfession) {
-
 			return 2;
 		}
 
@@ -313,11 +305,9 @@ public class StructureVillagePieces {
 		private Block cropTypeD;
 
 		public Field1() {
-
 		}
 
 		public Field1(StructureVillagePieces.Start start, int type, Random rand, StructureBoundingBox p_i45570_4_, Facing facing) {
-
 			super(start, type);
 			setCoordBaseMode(facing);
 			boundingBox = p_i45570_4_;
@@ -334,7 +324,6 @@ public class StructureVillagePieces {
 		}
 
 		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
 			super.writeStructureToNBT(tagCompound);
 			tagCompound.setInteger("CA", Block.REGISTRY.getIDForObject(cropTypeA));
 			tagCompound.setInteger("CB", Block.REGISTRY.getIDForObject(cropTypeB));
@@ -343,7 +332,6 @@ public class StructureVillagePieces {
 		}
 
 		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
 			super.readStructureFromNBT(tagCompound, p_143011_2_);
 			cropTypeA = Block.getBlockById(tagCompound.getInteger("CA"));
 			cropTypeB = Block.getBlockById(tagCompound.getInteger("CB"));
@@ -368,7 +356,6 @@ public class StructureVillagePieces {
 		}
 
 		private Block getRandomCropType(Random rand) {
-
 			return switch (rand.nextInt(10)) {
 				case 0, 1 -> Blocks.CARROTS;
 				case 2, 3 -> Blocks.POTATOES;
@@ -378,7 +365,6 @@ public class StructureVillagePieces {
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			if (averageGroundLvl < 0) {
 				averageGroundLvl = getAverageGroundLevel(worldIn, structureBoundingBoxIn);
 
@@ -440,11 +426,9 @@ public class StructureVillagePieces {
 		private Block cropTypeB;
 
 		public Field2() {
-
 		}
 
 		public Field2(StructureVillagePieces.Start start, int p_i45569_2_, Random rand, StructureBoundingBox p_i45569_4_, Facing facing) {
-
 			super(start, p_i45569_2_);
 			setCoordBaseMode(facing);
 			boundingBox = p_i45569_4_;
@@ -459,21 +443,18 @@ public class StructureVillagePieces {
 		}
 
 		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
 			super.writeStructureToNBT(tagCompound);
 			tagCompound.setInteger("CA", Block.REGISTRY.getIDForObject(cropTypeA));
 			tagCompound.setInteger("CB", Block.REGISTRY.getIDForObject(cropTypeB));
 		}
 
 		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
 			super.readStructureFromNBT(tagCompound, p_143011_2_);
 			cropTypeA = Block.getBlockById(tagCompound.getInteger("CA"));
 			cropTypeB = Block.getBlockById(tagCompound.getInteger("CB"));
 		}
 
 		private Block getRandomCropType(Random rand) {
-
 			return switch (rand.nextInt(10)) {
 				case 0, 1 -> Blocks.CARROTS;
 				case 2, 3 -> Blocks.POTATOES;
@@ -483,7 +464,6 @@ public class StructureVillagePieces {
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			if (averageGroundLvl < 0) {
 				averageGroundLvl = getAverageGroundLevel(worldIn, structureBoundingBoxIn);
 
@@ -530,11 +510,9 @@ public class StructureVillagePieces {
 	public static class Hall extends StructureVillagePieces.Village {
 
 		public Hall() {
-
 		}
 
 		public Hall(StructureVillagePieces.Start start, int type, Random rand, StructureBoundingBox p_i45567_4_, Facing facing) {
-
 			super(start, type);
 			setCoordBaseMode(facing);
 			boundingBox = p_i45567_4_;
@@ -547,7 +525,6 @@ public class StructureVillagePieces {
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			if (averageGroundLvl < 0) {
 				averageGroundLvl = getAverageGroundLevel(worldIn, structureBoundingBoxIn);
 
@@ -644,7 +621,6 @@ public class StructureVillagePieces {
 		}
 
 		protected int chooseProfession(int villagersSpawnedIn, int currentVillagerProfession) {
-
 			return villagersSpawnedIn == 0 ? 4 : super.chooseProfession(villagersSpawnedIn, currentVillagerProfession);
 		}
 
@@ -653,11 +629,9 @@ public class StructureVillagePieces {
 	public static class House1 extends StructureVillagePieces.Village {
 
 		public House1() {
-
 		}
 
 		public House1(StructureVillagePieces.Start start, int type, Random rand, StructureBoundingBox p_i45571_4_, Facing facing) {
-
 			super(start, type);
 			setCoordBaseMode(facing);
 			boundingBox = p_i45571_4_;
@@ -670,7 +644,6 @@ public class StructureVillagePieces {
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			if (averageGroundLvl < 0) {
 				averageGroundLvl = getAverageGroundLevel(worldIn, structureBoundingBoxIn);
 
@@ -769,7 +742,6 @@ public class StructureVillagePieces {
 		}
 
 		protected int chooseProfession(int villagersSpawnedIn, int currentVillagerProfession) {
-
 			return 1;
 		}
 
@@ -780,11 +752,9 @@ public class StructureVillagePieces {
 		private boolean hasMadeChest;
 
 		public House2() {
-
 		}
 
 		public House2(StructureVillagePieces.Start start, int type, Random rand, StructureBoundingBox p_i45563_4_, Facing facing) {
-
 			super(start, type);
 			setCoordBaseMode(facing);
 			boundingBox = p_i45563_4_;
@@ -797,19 +767,16 @@ public class StructureVillagePieces {
 		}
 
 		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
 			super.writeStructureToNBT(tagCompound);
 			tagCompound.setBoolean("Chest", hasMadeChest);
 		}
 
 		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
 			super.readStructureFromNBT(tagCompound, p_143011_2_);
 			hasMadeChest = tagCompound.getBoolean("Chest");
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			if (averageGroundLvl < 0) {
 				averageGroundLvl = getAverageGroundLevel(worldIn, structureBoundingBoxIn);
 
@@ -890,7 +857,6 @@ public class StructureVillagePieces {
 		}
 
 		protected int chooseProfession(int villagersSpawnedIn, int currentVillagerProfession) {
-
 			return 3;
 		}
 
@@ -899,11 +865,9 @@ public class StructureVillagePieces {
 	public static class House3 extends StructureVillagePieces.Village {
 
 		public House3() {
-
 		}
 
 		public House3(StructureVillagePieces.Start start, int type, Random rand, StructureBoundingBox p_i45561_4_, Facing facing) {
-
 			super(start, type);
 			setCoordBaseMode(facing);
 			boundingBox = p_i45561_4_;
@@ -916,7 +880,6 @@ public class StructureVillagePieces {
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			if (averageGroundLvl < 0) {
 				averageGroundLvl = getAverageGroundLevel(worldIn, structureBoundingBoxIn);
 
@@ -1052,11 +1015,9 @@ public class StructureVillagePieces {
 		private boolean isRoofAccessible;
 
 		public House4Garden() {
-
 		}
 
 		public House4Garden(StructureVillagePieces.Start start, int p_i45566_2_, Random rand, StructureBoundingBox p_i45566_4_, Facing facing) {
-
 			super(start, p_i45566_2_);
 			setCoordBaseMode(facing);
 			boundingBox = p_i45566_4_;
@@ -1070,19 +1031,16 @@ public class StructureVillagePieces {
 		}
 
 		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
 			super.writeStructureToNBT(tagCompound);
 			tagCompound.setBoolean("Terrace", isRoofAccessible);
 		}
 
 		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
 			super.readStructureFromNBT(tagCompound, p_143011_2_);
 			isRoofAccessible = tagCompound.getBoolean("Terrace");
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			if (averageGroundLvl < 0) {
 				averageGroundLvl = getAverageGroundLevel(worldIn, structureBoundingBoxIn);
 
@@ -1184,11 +1142,9 @@ public class StructureVillagePieces {
 		private int length;
 
 		public Path() {
-
 		}
 
 		public Path(StructureVillagePieces.Start start, int p_i45562_2_, Random rand, StructureBoundingBox p_i45562_4_, Facing facing) {
-
 			super(start, p_i45562_2_);
 			setCoordBaseMode(facing);
 			boundingBox = p_i45562_4_;
@@ -1196,7 +1152,6 @@ public class StructureVillagePieces {
 		}
 
 		public static StructureBoundingBox findPieceBox(StructureVillagePieces.Start start, List<StructureComponent> p_175848_1_, Random rand, int p_175848_3_, int p_175848_4_, int p_175848_5_, Facing facing) {
-
 			for (int i = 7 * MathHelper.getInt(rand, 3, 5); i >= 7; i -= 7) {
 				StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175848_3_, p_175848_4_, p_175848_5_, 0, 0, 0, 3, 3, i, facing);
 
@@ -1209,19 +1164,16 @@ public class StructureVillagePieces {
 		}
 
 		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
 			super.writeStructureToNBT(tagCompound);
 			tagCompound.setInteger("Length", length);
 		}
 
 		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
 			super.readStructureFromNBT(tagCompound, p_143011_2_);
 			length = tagCompound.getInteger("Length");
 		}
 
 		public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
-
 			boolean flag = false;
 
 			for (int i = rand.nextInt(5); i < length - 8; i += 2 + rand.nextInt(5)) {
@@ -1286,7 +1238,6 @@ public class StructureVillagePieces {
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			IBlockState iblockstate = getBiomeSpecificBlockState(Blocks.GRASS_PATH.getDefaultState());
 			IBlockState iblockstate1 = getBiomeSpecificBlockState(Blocks.PLANKS.getDefaultState());
 			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.GRAVEL.getDefaultState());
@@ -1341,19 +1292,16 @@ public class StructureVillagePieces {
 		public int villagePiecesLimit;
 
 		public PieceWeight(Class<? extends StructureVillagePieces.Village> p_i2098_1_, int p_i2098_2_, int p_i2098_3_) {
-
 			villagePieceClass = p_i2098_1_;
 			villagePieceWeight = p_i2098_2_;
 			villagePiecesLimit = p_i2098_3_;
 		}
 
 		public boolean canSpawnMoreVillagePiecesOfType(int componentType) {
-
 			return villagePiecesLimit == 0 || villagePiecesSpawned < villagePiecesLimit;
 		}
 
 		public boolean canSpawnMoreVillagePieces() {
-
 			return villagePiecesLimit == 0 || villagePiecesSpawned < villagePiecesLimit;
 		}
 
@@ -1362,11 +1310,9 @@ public class StructureVillagePieces {
 	public abstract static class Road extends StructureVillagePieces.Village {
 
 		public Road() {
-
 		}
 
 		protected Road(StructureVillagePieces.Start start, int type) {
-
 			super(start, type);
 		}
 
@@ -1382,11 +1328,9 @@ public class StructureVillagePieces {
 		public List<StructureComponent> pendingRoads = Lists.newArrayList();
 
 		public Start() {
-
 		}
 
 		public Start(BiomeProvider biomeProviderIn, int p_i2104_2_, Random rand, int p_i2104_4_, int p_i2104_5_, List<StructureVillagePieces.PieceWeight> p_i2104_6_, int p_i2104_7_) {
-
 			super(null, 0, rand, p_i2104_4_, p_i2104_5_);
 			biomeProvider = biomeProviderIn;
 			structureVillageWeightedPieceList = p_i2104_6_;
@@ -1410,24 +1354,20 @@ public class StructureVillagePieces {
 	public static class Torch extends StructureVillagePieces.Village {
 
 		public Torch() {
-
 		}
 
 		public Torch(StructureVillagePieces.Start start, int p_i45568_2_, Random rand, StructureBoundingBox p_i45568_4_, Facing facing) {
-
 			super(start, p_i45568_2_);
 			setCoordBaseMode(facing);
 			boundingBox = p_i45568_4_;
 		}
 
 		public static StructureBoundingBox findPieceBox(StructureVillagePieces.Start start, List<StructureComponent> p_175856_1_, Random rand, int p_175856_3_, int p_175856_4_, int p_175856_5_, Facing facing) {
-
 			StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175856_3_, p_175856_4_, p_175856_5_, 0, 0, 0, 3, 4, 2, facing);
 			return StructureComponent.findIntersecting(p_175856_1_, structureboundingbox) != null ? null : structureboundingbox;
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			if (averageGroundLvl < 0) {
 				averageGroundLvl = getAverageGroundLevel(worldIn, structureBoundingBoxIn);
 
@@ -1461,11 +1401,9 @@ public class StructureVillagePieces {
 		private int villagersSpawned;
 
 		public Village() {
-
 		}
 
 		protected Village(StructureVillagePieces.Start start, int type) {
-
 			super(type);
 
 			if (start != null) {
@@ -1475,12 +1413,10 @@ public class StructureVillagePieces {
 		}
 
 		protected static boolean canVillageGoDeeper(StructureBoundingBox structurebb) {
-
 			return structurebb != null && structurebb.minY > 10;
 		}
 
 		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
 			tagCompound.setInteger("HPos", averageGroundLvl);
 			tagCompound.setInteger("VCount", villagersSpawned);
 			tagCompound.setByte("Type", (byte) structureType);
@@ -1488,7 +1424,6 @@ public class StructureVillagePieces {
 		}
 
 		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
 			averageGroundLvl = tagCompound.getInteger("HPos");
 			villagersSpawned = tagCompound.getInteger("VCount");
 			structureType = tagCompound.getByte("Type");
@@ -1502,7 +1437,6 @@ public class StructureVillagePieces {
 
 		
 		protected StructureComponent getNextComponentNN(StructureVillagePieces.Start start, List<StructureComponent> structureComponents, Random rand, int p_74891_4_, int p_74891_5_) {
-
 			Facing enumfacing = getCoordBaseMode();
 
 			if (enumfacing != null) {
@@ -1519,7 +1453,6 @@ public class StructureVillagePieces {
 
 		
 		protected StructureComponent getNextComponentPP(StructureVillagePieces.Start start, List<StructureComponent> structureComponents, Random rand, int p_74894_4_, int p_74894_5_) {
-
 			Facing enumfacing = getCoordBaseMode();
 
 			if (enumfacing != null) {
@@ -1535,7 +1468,6 @@ public class StructureVillagePieces {
 		}
 
 		protected int getAverageGroundLevel(World worldIn, StructureBoundingBox structurebb) {
-
 			int i = 0;
 			int j = 0;
 			BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
@@ -1559,7 +1491,6 @@ public class StructureVillagePieces {
 		}
 
 		protected void spawnVillagers(World worldIn, StructureBoundingBox structurebb, int x, int y, int z, int count) {
-
 			if (villagersSpawned < count) {
 				for (int i = villagersSpawned; i < count; ++i) {
 					int j = getXWithOffset(x + i, z);
@@ -1591,12 +1522,10 @@ public class StructureVillagePieces {
 		}
 
 		protected int chooseProfession(int villagersSpawnedIn, int currentVillagerProfession) {
-
 			return currentVillagerProfession;
 		}
 
 		protected IBlockState getBiomeSpecificBlockState(IBlockState blockstateIn) {
-
 			if (structureType == 1) {
 				if (blockstateIn.getBlock() == Blocks.LOG || blockstateIn.getBlock() == Blocks.LOG2) {
 					return Blocks.SANDSTONE.getDefaultState();
@@ -1663,7 +1592,6 @@ public class StructureVillagePieces {
 		}
 
 		protected BlockDoor biomeDoor() {
-
 			return switch (structureType) {
 				case 2 -> Blocks.ACACIA_DOOR;
 				case 3 -> Blocks.SPRUCE_DOOR;
@@ -1672,27 +1600,23 @@ public class StructureVillagePieces {
 		}
 
 		protected void createVillageDoor(World p_189927_1_, StructureBoundingBox p_189927_2_, Random p_189927_3_, int p_189927_4_, int p_189927_5_, int p_189927_6_, Facing p_189927_7_) {
-
 			if (!isZombieInfested) {
 				generateDoor(p_189927_1_, p_189927_2_, p_189927_3_, p_189927_4_, p_189927_5_, p_189927_6_, Facing.NORTH, biomeDoor());
 			}
 		}
 
 		protected void placeTorch(World p_189926_1_, Facing p_189926_2_, int p_189926_3_, int p_189926_4_, int p_189926_5_, StructureBoundingBox p_189926_6_) {
-
 			if (!isZombieInfested) {
 				setBlockState(p_189926_1_, Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, p_189926_2_), p_189926_3_, p_189926_4_, p_189926_5_, p_189926_6_);
 			}
 		}
 
 		protected void replaceAirAndLiquidDownwards(World worldIn, IBlockState blockstateIn, int x, int y, int z, StructureBoundingBox boundingboxIn) {
-
 			IBlockState iblockstate = getBiomeSpecificBlockState(blockstateIn);
 			super.replaceAirAndLiquidDownwards(worldIn, iblockstate, x, y, z, boundingboxIn);
 		}
 
 		protected void setStructureType(int p_189924_1_) {
-
 			structureType = p_189924_1_;
 		}
 
@@ -1701,11 +1625,9 @@ public class StructureVillagePieces {
 	public static class Well extends StructureVillagePieces.Village {
 
 		public Well() {
-
 		}
 
 		public Well(StructureVillagePieces.Start start, int type, Random rand, int x, int z) {
-
 			super(start, type);
 			setCoordBaseMode(Facing.Plane.HORIZONTAL.random(rand));
 
@@ -1717,7 +1639,6 @@ public class StructureVillagePieces {
 		}
 
 		public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
-
 			StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.minX - 1, boundingBox.maxY - 4, boundingBox.minZ + 1, Facing.WEST, getComponentType());
 			StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.maxX + 1, boundingBox.maxY - 4, boundingBox.minZ + 1, Facing.EAST, getComponentType());
 			StructureVillagePieces.generateAndAddRoadPiece((StructureVillagePieces.Start) componentIn, listIn, rand, boundingBox.minX + 1, boundingBox.maxY - 4, boundingBox.minZ - 1, Facing.NORTH, getComponentType());
@@ -1725,7 +1646,6 @@ public class StructureVillagePieces {
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			if (averageGroundLvl < 0) {
 				averageGroundLvl = getAverageGroundLevel(worldIn, structureBoundingBoxIn);
 
@@ -1773,11 +1693,9 @@ public class StructureVillagePieces {
 		private int tablePosition;
 
 		public WoodHut() {
-
 		}
 
 		public WoodHut(StructureVillagePieces.Start start, int type, Random rand, StructureBoundingBox structurebb, Facing facing) {
-
 			super(start, type);
 			setCoordBaseMode(facing);
 			boundingBox = structurebb;
@@ -1792,21 +1710,18 @@ public class StructureVillagePieces {
 		}
 
 		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
 			super.writeStructureToNBT(tagCompound);
 			tagCompound.setInteger("T", tablePosition);
 			tagCompound.setBoolean("C", isTallHouse);
 		}
 
 		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
 			super.readStructureFromNBT(tagCompound, p_143011_2_);
 			tablePosition = tagCompound.getInteger("T");
 			isTallHouse = tagCompound.getBoolean("C");
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			if (averageGroundLvl < 0) {
 				averageGroundLvl = getAverageGroundLevel(worldIn, structureBoundingBoxIn);
 

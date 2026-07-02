@@ -19,12 +19,10 @@ public enum Rotation {
 	private final String name;
 
 	Rotation(String nameIn) {
-
 		name = nameIn;
 	}
 
 	public Rotation add(Rotation rotation) {
-
 		return switch (rotation) {
 			case CLOCKWISE_180 -> switch (this) {
 				case NONE -> CLOCKWISE_180;
@@ -49,7 +47,6 @@ public enum Rotation {
 	}
 
 	public Facing rotate(Facing facing) {
-
 		if (facing.getAxis() == Facing.Axis.Y) {
 			return facing;
 		} else {
@@ -63,7 +60,6 @@ public enum Rotation {
 	}
 
 	public int rotate(int p_185833_1_, int p_185833_2_) {
-
 		return switch (this) {
 			case CLOCKWISE_90 -> (p_185833_1_ + p_185833_2_ / 4) % p_185833_2_;
 			case CLOCKWISE_180 -> (p_185833_1_ + p_185833_2_ / 2) % p_185833_2_;

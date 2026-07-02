@@ -33,14 +33,12 @@ public class BlockPistonMoving extends BlockContainer {
 	public static final PropertyEnum<BlockPistonExtension.PistonType> TYPE = BlockPistonExtension.TYPE;
 
 	public BlockPistonMoving() {
-
 		super(Material.PISTON);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(TYPE, BlockPistonExtension.PistonType.DEFAULT));
 		setHardness(-1F);
 	}
 
 	public static TileEntity createTilePiston(IBlockState blockStateIn, Facing facingIn, boolean extendingIn, boolean shouldHeadBeRenderedIn) {
-
 		return new TileEntityPiston(blockStateIn, facingIn, extendingIn, shouldHeadBeRenderedIn);
 	}
 
@@ -50,7 +48,6 @@ public class BlockPistonMoving extends BlockContainer {
 	 * Returns a new instance of a block's tile entity class. Called on placing the block.
 	 */
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-
 		return null;
 	}
 
@@ -58,7 +55,6 @@ public class BlockPistonMoving extends BlockContainer {
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 
 		if (tileentity instanceof TileEntityPiston) {
@@ -72,7 +68,6 @@ public class BlockPistonMoving extends BlockContainer {
 	 * Checks if this block can be placed exactly at the given position.
 	 */
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-
 		return false;
 	}
 
@@ -80,7 +75,6 @@ public class BlockPistonMoving extends BlockContainer {
 	 * Check whether this Block can be placed at pos, while aiming at the specified side of an adjacent block
 	 */
 	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Facing side) {
-
 		return false;
 	}
 
@@ -88,7 +82,6 @@ public class BlockPistonMoving extends BlockContainer {
 	 * Called after a player destroys this Block - the posiiton pos may no longer hold the state indicated.
 	 */
 	public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
-
 		BlockPos blockpos = pos.offset(state.getValue(FACING).getOpposite());
 		IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
@@ -101,12 +94,10 @@ public class BlockPistonMoving extends BlockContainer {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -114,7 +105,6 @@ public class BlockPistonMoving extends BlockContainer {
 	 * Called when the block is right clicked by a player.
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		if (!worldIn.isRemote && worldIn.getTileEntity(pos) == null) {
 			worldIn.setBlockToAir(pos);
 			return true;
@@ -127,7 +117,6 @@ public class BlockPistonMoving extends BlockContainer {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Items.AIR;
 	}
 
@@ -135,7 +124,6 @@ public class BlockPistonMoving extends BlockContainer {
 	 * Spawns this Block's drops into the World as EntityItems.
 	 */
 	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
-
 		if (!worldIn.isRemote) {
 			TileEntityPiston tileentitypiston = getTilePistonAt(worldIn, pos);
 
@@ -152,7 +140,6 @@ public class BlockPistonMoving extends BlockContainer {
 	 * Ray traces through the blocks collision from start vector to end vector returning a ray trace hit.
 	 */
 	public RayTraceResult collisionRayTrace(IBlockState blockState, World worldIn, BlockPos pos, Vec3d start, Vec3d end) {
-
 		return null;
 	}
 
@@ -162,7 +149,6 @@ public class BlockPistonMoving extends BlockContainer {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (!worldIn.isRemote) {
 			worldIn.getTileEntity(pos);
 		}
@@ -170,13 +156,11 @@ public class BlockPistonMoving extends BlockContainer {
 
 	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-
 		TileEntityPiston tileentitypiston = getTilePistonAt(worldIn, pos);
 		return tileentitypiston == null ? null : tileentitypiston.getAABB(worldIn, pos);
 	}
 
 	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean isActualState) {
-
 		TileEntityPiston tileentitypiston = getTilePistonAt(worldIn, pos);
 
 		if (tileentitypiston != null) {
@@ -185,7 +169,6 @@ public class BlockPistonMoving extends BlockContainer {
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		TileEntityPiston tileentitypiston = getTilePistonAt(source, pos);
 		return tileentitypiston != null ? tileentitypiston.getAABB(source, pos) : FULL_BLOCK_AABB;
 	}
@@ -196,13 +179,11 @@ public class BlockPistonMoving extends BlockContainer {
 	 * Gets a TileEntityPiston at the given position. Returns null if the tile is not an instance of TileEntityPiston.
 	 */
 	private TileEntityPiston getTilePistonAt(IBlockAccess iBlockAccessIn, BlockPos blockPosIn) {
-
 		TileEntity tileentity = iBlockAccessIn.getTileEntity(blockPosIn);
 		return tileentity instanceof TileEntityPiston ? (TileEntityPiston) tileentity : null;
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return ItemStack.EMPTY;
 	}
 
@@ -210,7 +191,6 @@ public class BlockPistonMoving extends BlockContainer {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(FACING, BlockPistonExtension.getFacing(meta)).withProperty(TYPE, (meta & 8) > 0 ? BlockPistonExtension.PistonType.STICKY : BlockPistonExtension.PistonType.DEFAULT);
 	}
 
@@ -219,7 +199,6 @@ public class BlockPistonMoving extends BlockContainer {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
@@ -228,7 +207,6 @@ public class BlockPistonMoving extends BlockContainer {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
 	}
 
@@ -236,7 +214,6 @@ public class BlockPistonMoving extends BlockContainer {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 		i = i | state.getValue(FACING).getIndex();
 
@@ -248,7 +225,6 @@ public class BlockPistonMoving extends BlockContainer {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, FACING, TYPE);
 	}
 
@@ -262,7 +238,6 @@ public class BlockPistonMoving extends BlockContainer {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

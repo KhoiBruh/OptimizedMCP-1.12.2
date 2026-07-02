@@ -34,7 +34,6 @@ public class WinGameScreen extends Screen {
 	private float scrollSpeed = 0.5F;
 
 	public WinGameScreen(boolean poemIn, Runnable onFinishedIn) {
-
 		poem = poemIn;
 		onFinished = onFinishedIn;
 
@@ -47,7 +46,6 @@ public class WinGameScreen extends Screen {
 	 * Called from the main game loop to update the screen.
 	 */
 	public void update() {
-
 		mc.getMusicTicker().update();
 		mc.getSoundHandler().update();
 		float f = (float) (totalScrollLength + height + height + 24) / scrollSpeed;
@@ -62,14 +60,12 @@ public class WinGameScreen extends Screen {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) {
-
 		if (keyCode == 256) {
 			sendRespawnPacket();
 		}
 	}
 
 	private void sendRespawnPacket() {
-
 		onFinished.run();
 		mc.displayScreen(null);
 	}
@@ -79,7 +75,6 @@ public class WinGameScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		if (lines == null) {
 			lines = Lists.newArrayList();
 
@@ -136,7 +131,6 @@ public class WinGameScreen extends Screen {
 	}
 
 	private void drawWinGameScreen(int p_146575_1_, int p_146575_2_, float p_146575_3_) {
-
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		mc.getTextureManager().bindTexture(Gui.OPTIONS_BACKGROUND);
@@ -170,7 +164,6 @@ public class WinGameScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawWinGameScreen(mouseX, mouseY, partialTicks);
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();

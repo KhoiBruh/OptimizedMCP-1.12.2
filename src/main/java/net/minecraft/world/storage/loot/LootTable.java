@@ -22,12 +22,10 @@ public class LootTable {
 	private final LootPool[] pools;
 
 	public LootTable(LootPool[] poolsIn) {
-
 		pools = poolsIn;
 	}
 
 	public List<ItemStack> generateLootForPools(Random rand, LootContext context) {
-
 		List<ItemStack> list = Lists.newArrayList();
 
 		if (context.addLootTable(this)) {
@@ -44,7 +42,6 @@ public class LootTable {
 	}
 
 	public void fillInventory(IInventory inventory, Random rand, LootContext context) {
-
 		List<ItemStack> list = generateLootForPools(rand, context);
 		List<Integer> list1 = getEmptySlotsRandomized(inventory, rand);
 		shuffleItems(list, list1.size(), rand);
@@ -67,7 +64,6 @@ public class LootTable {
 	 * shuffles items by changing their order and splitting stacks
 	 */
 	private void shuffleItems(List<ItemStack> stacks, int p_186463_2_, Random rand) {
-
 		List<ItemStack> list = Lists.newArrayList();
 		Iterator<ItemStack> iterator = stacks.iterator();
 
@@ -107,7 +103,6 @@ public class LootTable {
 	}
 
 	private List<Integer> getEmptySlotsRandomized(IInventory inventory, Random rand) {
-
 		List<Integer> list = Lists.newArrayList();
 
 		for (int i = 0; i < inventory.getSizeInventory(); ++i) {
@@ -123,14 +118,12 @@ public class LootTable {
 	public static class Serializer implements JsonDeserializer<LootTable>, JsonSerializer<LootTable> {
 
 		public LootTable deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-
 			JsonObject jsonobject = JsonUtils.getJsonObject(p_deserialize_1_, "loot table");
 			LootPool[] alootpool = JsonUtils.deserializeClass(jsonobject, "pools", new LootPool[0], p_deserialize_3_, LootPool[].class);
 			return new LootTable(alootpool);
 		}
 
 		public JsonElement serialize(LootTable p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
-
 			JsonObject jsonobject = new JsonObject();
 			jsonobject.add("pools", p_serialize_3_.serialize(p_serialize_1_.pools));
 			return jsonobject;

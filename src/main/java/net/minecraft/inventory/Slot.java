@@ -29,7 +29,6 @@ public class Slot {
 	public int yPos;
 
 	public Slot(IInventory inventoryIn, int index, int xPosition, int yPosition) {
-
 		inventory = inventoryIn;
 		slotIndex = index;
 		xPos = xPosition;
@@ -40,7 +39,6 @@ public class Slot {
 	 * if par2 has more items than par1, onCrafting(item,countIncrease) is called
 	 */
 	public void onSlotChange(ItemStack p_75220_1_, ItemStack p_75220_2_) {
-
 		int i = p_75220_2_.getCount() - p_75220_1_.getCount();
 
 		if (i > 0) {
@@ -53,22 +51,18 @@ public class Slot {
 	 * internal count then calls onCrafting(item).
 	 */
 	protected void onCrafting(ItemStack stack, int amount) {
-
 	}
 
 	protected void onSwapCraft(int p_190900_1_) {
-
 	}
 
 	/**
 	 * the itemStack passed in is the output - ie, iron ingots, and pickaxes, not ore and wood.
 	 */
 	protected void onCrafting(ItemStack stack) {
-
 	}
 
 	public ItemStack onTake(EntityPlayer thePlayer, ItemStack stack) {
-
 		onSlotChanged();
 		return stack;
 	}
@@ -77,7 +71,6 @@ public class Slot {
 	 * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
 	 */
 	public boolean isItemValid(ItemStack stack) {
-
 		return true;
 	}
 
@@ -85,7 +78,6 @@ public class Slot {
 	 * Helper fnct to get the stack in the slot.
 	 */
 	public ItemStack getStack() {
-
 		return inventory.getStackInSlot(slotIndex);
 	}
 
@@ -93,7 +85,6 @@ public class Slot {
 	 * Returns if this slot contains a stack.
 	 */
 	public boolean getHasStack() {
-
 		return !getStack().isEmpty();
 	}
 
@@ -101,7 +92,6 @@ public class Slot {
 	 * Helper method to put a stack in the slot.
 	 */
 	public void putStack(ItemStack stack) {
-
 		inventory.setInventorySlotContents(slotIndex, stack);
 		onSlotChanged();
 	}
@@ -110,7 +100,6 @@ public class Slot {
 	 * Called when the stack in a Slot changes
 	 */
 	public void onSlotChanged() {
-
 		inventory.markDirty();
 	}
 
@@ -119,18 +108,15 @@ public class Slot {
 	 * of armor slots)
 	 */
 	public int getSlotStackLimit() {
-
 		return inventory.getInventoryStackLimit();
 	}
 
 	public int getItemStackLimit(ItemStack stack) {
-
 		return getSlotStackLimit();
 	}
 
 	
 	public String getSlotTexture() {
-
 		return null;
 	}
 
@@ -139,7 +125,6 @@ public class Slot {
 	 * stack.
 	 */
 	public ItemStack decrStackSize(int amount) {
-
 		return inventory.decrStackSize(slotIndex, amount);
 	}
 
@@ -147,7 +132,6 @@ public class Slot {
 	 * returns true if the slot exists in the given inventory and location
 	 */
 	public boolean isHere(IInventory inv, int slotIn) {
-
 		return inv == inventory && slotIn == slotIndex;
 	}
 
@@ -155,7 +139,6 @@ public class Slot {
 	 * Return whether this slot's stack can be taken from this slot.
 	 */
 	public boolean canTakeStack(EntityPlayer playerIn) {
-
 		return true;
 	}
 
@@ -164,7 +147,6 @@ public class Slot {
 	 * the armor slot of the Donkey/Mule (we can't interact with the Undead and Skeleton horses)
 	 */
 	public boolean isEnabled() {
-
 		return true;
 	}
 

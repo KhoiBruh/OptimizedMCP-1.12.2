@@ -12,17 +12,14 @@ public class CompiledChunk {
 
 	public static final CompiledChunk DUMMY = new CompiledChunk() {
 		protected void setLayerUsed(BlockRenderLayer layer) {
-
 			throw new UnsupportedOperationException();
 		}
 
 		public void setLayerStarted(BlockRenderLayer layer) {
-
 			throw new UnsupportedOperationException();
 		}
 
 		public boolean isVisible(Facing facing, Facing facing2) {
-
 			return false;
 		}
 	};
@@ -34,48 +31,39 @@ public class CompiledChunk {
 	private BufferBuilder.State state;
 
 	public boolean isEmpty() {
-
 		return empty;
 	}
 
 	protected void setLayerUsed(BlockRenderLayer layer) {
-
 		empty = false;
 		layersUsed[layer.ordinal()] = true;
 	}
 
 	public boolean isLayerEmpty(BlockRenderLayer layer) {
-
 		return !layersUsed[layer.ordinal()];
 	}
 
 	public void setLayerStarted(BlockRenderLayer layer) {
-
 		layersStarted[layer.ordinal()] = true;
 	}
 
 	public boolean isLayerStarted(BlockRenderLayer layer) {
-
 		return layersStarted[layer.ordinal()];
 	}
 
 	public List<TileEntity> getTileEntities() {
-
 		return tileEntities;
 	}
 
 	public void addTileEntity(TileEntity tileEntityIn) {
-
 		tileEntities.add(tileEntityIn);
 	}
 
 	public boolean isVisible(Facing facing, Facing facing2) {
-
 		return setVisibility.isVisible(facing, facing2);
 	}
 
 	public void setVisibility(SetVisibility visibility) {
-
 		setVisibility = visibility;
 	}
 
@@ -85,7 +73,6 @@ public class CompiledChunk {
 	}
 
 	public void setState(BufferBuilder.State stateIn) {
-
 		state = stateIn;
 	}
 

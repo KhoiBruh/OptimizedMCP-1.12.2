@@ -12,7 +12,6 @@ public class ModelBlaze extends ModelBase {
 	private final ModelRenderer blazeHead;
 
 	public ModelBlaze() {
-
 		for (int i = 0; i < blazeSticks.length; ++i) {
 			blazeSticks[i] = new ModelRenderer(this, 0, 16);
 			blazeSticks[i].addBox(0F, 0F, 0F, 2, 8, 2);
@@ -26,7 +25,6 @@ public class ModelBlaze extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		blazeHead.render(scale);
 
@@ -41,7 +39,6 @@ public class ModelBlaze extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		float f = ageInTicks * (float) Math.PI * -0.1F;
 
 		for (int i = 0; i < 4; ++i) {

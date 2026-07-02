@@ -9,7 +9,6 @@ import net.minecraft.world.IInteractionObject;
 public record LocalBlockIntercommunication(String guiID, ITextComponent displayName) implements IInteractionObject {
 
 	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-
 		throw new UnsupportedOperationException();
 	}
 
@@ -17,7 +16,6 @@ public record LocalBlockIntercommunication(String guiID, ITextComponent displayN
 	 * Get the name of this object. For players this returns their username
 	 */
 	public String getName() {
-
 		return displayName.getUnformattedText();
 	}
 
@@ -25,7 +23,6 @@ public record LocalBlockIntercommunication(String guiID, ITextComponent displayN
 	 * Returns true if this thing is named
 	 */
 	public boolean hasCustomName() {
-
 		return true;
 	}
 
@@ -34,7 +31,6 @@ public record LocalBlockIntercommunication(String guiID, ITextComponent displayN
 	 */
 	@Override
 	public ITextComponent displayName() {
-
 		return displayName;
 	}
 

@@ -22,7 +22,6 @@ public class CustomizeSkinScreen extends Screen {
 	private String title;
 
 	public CustomizeSkinScreen(Screen parentScreenIn) {
-
 		parentScreen = parentScreenIn;
 	}
 
@@ -31,7 +30,6 @@ public class CustomizeSkinScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		int i = 0;
 		title = I18n.format("options.skinCustomisation.title");
 
@@ -55,7 +53,6 @@ public class CustomizeSkinScreen extends Screen {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-
 		if (keyCode == 256) {
 			mc.gameSettings.saveOptions();
 		}
@@ -67,7 +64,6 @@ public class CustomizeSkinScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.enabled) {
 			if (button.id == 200) {
 				mc.gameSettings.saveOptions();
@@ -88,14 +84,12 @@ public class CustomizeSkinScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, title, width / 2, 20, 16777215);
 		super.draw(mouseX, mouseY, partialTicks);
 	}
 
 	private String getMessage(PlayerModelParts playerModelParts) {
-
 		String s;
 
 		if (mc.gameSettings.getModelParts().contains(playerModelParts)) {
@@ -112,7 +106,6 @@ public class CustomizeSkinScreen extends Screen {
 		private final PlayerModelParts playerModelParts;
 
 		private ButtonPart(int p_i45514_2_, int p_i45514_3_, int p_i45514_4_, int p_i45514_5_, int p_i45514_6_, PlayerModelParts playerModelParts) {
-
 			super(p_i45514_2_, p_i45514_3_, p_i45514_4_, p_i45514_5_, p_i45514_6_, getMessage(playerModelParts));
 			this.playerModelParts = playerModelParts;
 		}

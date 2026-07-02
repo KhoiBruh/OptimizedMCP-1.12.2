@@ -35,12 +35,10 @@ public class ModelBox {
 	public String boxName;
 
 	public ModelBox(ModelRenderer renderer, int texU, int texV, float x, float y, float z, int dx, int dy, int dz, float delta) {
-
 		this(renderer, texU, texV, x, y, z, dx, dy, dz, delta, renderer.mirror);
 	}
 
 	public ModelBox(ModelRenderer renderer, int texU, int texV, float x, float y, float z, int dx, int dy, int dz, float delta, boolean mirror) {
-
 		posX1 = x;
 		posY1 = y;
 		posZ1 = z;
@@ -87,14 +85,12 @@ public class ModelBox {
 	}
 
 	public void render(BufferBuilder renderer, float scale) {
-
 		for (TexturedQuad texturedquad : quadList) {
 			texturedquad.draw(renderer, scale);
 		}
 	}
 
 	public ModelBox setBoxName(String name) {
-
 		boxName = name;
 		return this;
 	}

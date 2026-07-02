@@ -44,7 +44,6 @@ public class ServerPinger {
 	private final List<NetworkManager> pingDestinations = Collections.synchronizedList(Lists.newArrayList());
 
 	public void ping(final ServerData server) throws UnknownHostException {
-
 		ServerAddress serveraddress = ServerAddress.fromString(server.serverIP);
 		final NetworkManager networkmanager = NetworkManager.createNetworkManagerAndConnect(InetAddress.getByName(serveraddress.getIP()), serveraddress.getPort(), false);
 		pingDestinations.add(networkmanager);
@@ -57,7 +56,6 @@ public class ServerPinger {
 			private long pingSentAt;
 
 			public void handleServerInfo(SPacketServerInfo packetIn) {
-
 				if (receivedStatus) {
 					networkmanager.closeChannel(new TextComponentTranslation("multiplayer.status.unrequested"));
 				} else {
@@ -125,7 +123,6 @@ public class ServerPinger {
 			}
 
 			public void handlePong(SPacketPong packetIn) {
-
 				long i = pingSentAt;
 				long j = Minecraft.getSystemTime();
 				server.pingToServer = j - i;
@@ -133,7 +130,6 @@ public class ServerPinger {
 			}
 
 			public void onDisconnect(ITextComponent reason) {
-
 				if (!successful) {
 					ServerPinger.LOGGER.error("Can't ping {}: {}", server.serverIP, reason.getUnformattedText());
 					server.serverMOTD = TextFormat.DARK_RED + I18n.format("multiplayer.status.cannot_connect");
@@ -152,11 +148,9 @@ public class ServerPinger {
 	}
 
 	private void tryCompatibilityPing(final ServerData server) {
-
 		final ServerAddress serveraddress = ServerAddress.fromString(server.serverIP);
 		(new Bootstrap()).group(NetworkManager.CLIENT_NIO_EVENT_LOOP.getValue()).handler(new ChannelInitializer<>() {
 			protected void initChannel(Channel p_initChannel_1_) {
-
 				try {
 					p_initChannel_1_.config().setOption(ChannelOption.TCP_NODELAY, true);
 				} catch (ChannelException ignored) {
@@ -164,7 +158,6 @@ public class ServerPinger {
 
 				p_initChannel_1_.pipeline().addLast(new SimpleChannelInboundHandler<ByteBuf>() {
 					public void channelActive(ChannelHandlerContext p_channelActive_1_) throws Exception {
-
 						super.channelActive(p_channelActive_1_);
 						ByteBuf bytebuf = Unpooled.buffer();
 
@@ -196,7 +189,6 @@ public class ServerPinger {
 					}
 
 					protected void channelRead0(ChannelHandlerContext p_channelRead0_1_, ByteBuf p_channelRead0_2_) {
-
 						short short1 = p_channelRead0_2_.readUnsignedByte();
 
 						if (short1 == 255) {
@@ -220,7 +212,6 @@ public class ServerPinger {
 					}
 
 					public void exceptionCaught(ChannelHandlerContext p_exceptionCaught_1_, Throwable p_exceptionCaught_2_) {
-
 						p_exceptionCaught_1_.close();
 					}
 				});
@@ -229,7 +220,6 @@ public class ServerPinger {
 	}
 
 	public void pingPendingNetworks() {
-
 		synchronized (pingDestinations) {
 			Iterator<NetworkManager> iterator = pingDestinations.iterator();
 
@@ -247,7 +237,6 @@ public class ServerPinger {
 	}
 
 	public void clearPendingNetworks() {
-
 		synchronized (pingDestinations) {
 			Iterator<NetworkManager> iterator = pingDestinations.iterator();
 

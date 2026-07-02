@@ -19,7 +19,6 @@ public class TileEntityPistonRenderer extends TileEntitySpecialRenderer<TileEnti
 	private final BlockRendererDispatcher blockRenderer = Minecraft.getMinecraft().getBlockRendererDispatcher();
 
 	public void render(TileEntityPiston te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-
 		BlockPos blockpos = te.getPos();
 		IBlockState iblockstate = te.getPistonState();
 		Block block = iblockstate.getBlock();
@@ -65,7 +64,6 @@ public class TileEntityPistonRenderer extends TileEntitySpecialRenderer<TileEnti
 	}
 
 	private boolean renderStateModel(BlockPos pos, IBlockState state, BufferBuilder buffer, World p_188186_4_, boolean checkSides) {
-
 		return blockRenderer.getBlockModelRenderer().renderModel(p_188186_4_, blockRenderer.getModelForState(state), state, pos, buffer, checkSides);
 	}
 

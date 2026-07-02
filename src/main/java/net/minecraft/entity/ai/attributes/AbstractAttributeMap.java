@@ -16,13 +16,11 @@ public abstract class AbstractAttributeMap {
 	protected final Multimap<IAttribute, IAttribute> descendantsByParent = HashMultimap.create();
 
 	public IAttributeInstance getAttributeInstance(IAttribute attribute) {
-
 		return attributes.get(attribute);
 	}
 
 	
 	public IAttributeInstance getAttributeInstanceByName(String attributeName) {
-
 		return attributesByName.get(attributeName);
 	}
 
@@ -30,7 +28,6 @@ public abstract class AbstractAttributeMap {
 	 * Registers an attribute with this AttributeMap, returns a modifiable AttributeInstance associated with this map
 	 */
 	public IAttributeInstance registerAttribute(IAttribute attribute) {
-
 		if (attributesByName.containsKey(attribute.getName())) {
 			throw new IllegalArgumentException("Attribute is already registered!");
 		} else {
@@ -49,16 +46,13 @@ public abstract class AbstractAttributeMap {
 	protected abstract IAttributeInstance createInstance(IAttribute attribute);
 
 	public Collection<IAttributeInstance> getAllAttributes() {
-
 		return attributesByName.values();
 	}
 
 	public void onAttributeModified(IAttributeInstance instance) {
-
 	}
 
 	public void removeAttributeModifiers(Multimap<String, AttributeModifier> modifiers) {
-
 		for (Entry<String, AttributeModifier> entry : modifiers.entries()) {
 			IAttributeInstance iattributeinstance = getAttributeInstanceByName(entry.getKey());
 
@@ -69,7 +63,6 @@ public abstract class AbstractAttributeMap {
 	}
 
 	public void applyAttributeModifiers(Multimap<String, AttributeModifier> modifiers) {
-
 		for (Entry<String, AttributeModifier> entry : modifiers.entries()) {
 			IAttributeInstance iattributeinstance = getAttributeInstanceByName(entry.getKey());
 

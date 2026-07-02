@@ -18,7 +18,6 @@ public class BlockStoneBrick extends Block {
 	public static final int CHISELED_META = BlockStoneBrick.Type.CHISELED.getMetadata();
 
 	public BlockStoneBrick() {
-
 		super(Material.ROCK);
 		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockStoneBrick.Type.DEFAULT));
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
@@ -29,7 +28,6 @@ public class BlockStoneBrick extends Block {
 	 * returns the metadata of the dropped item based on the old metadata of the block.
 	 */
 	public int damageDropped(IBlockState state) {
-
 		return state.getValue(VARIANT).getMetadata();
 	}
 
@@ -37,7 +35,6 @@ public class BlockStoneBrick extends Block {
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-
 		for (BlockStoneBrick.Type blockstonebrick$enumtype : BlockStoneBrick.Type.values()) {
 			items.add(new ItemStack(this, 1, blockstonebrick$enumtype.getMetadata()));
 		}
@@ -47,7 +44,6 @@ public class BlockStoneBrick extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(VARIANT, BlockStoneBrick.Type.byMetadata(meta));
 	}
 
@@ -55,12 +51,10 @@ public class BlockStoneBrick extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(VARIANT).getMetadata();
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, VARIANT);
 	}
 
@@ -83,7 +77,6 @@ public class BlockStoneBrick extends Block {
 		private final String unlocalizedName;
 
 		Type(int meta, String name, String unlocalizedName) {
-
 			this.meta = meta;
 			this.name = name;
 			this.unlocalizedName = unlocalizedName;
@@ -99,22 +92,18 @@ public class BlockStoneBrick extends Block {
 		}
 
 		public int getMetadata() {
-
 			return meta;
 		}
 
 		public String toString() {
-
 			return name;
 		}
 
 		public String getName() {
-
 			return name;
 		}
 
 		public String getUnlocalizedName() {
-
 			return unlocalizedName;
 		}
 	}

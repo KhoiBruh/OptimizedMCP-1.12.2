@@ -52,7 +52,6 @@ public abstract class PathNavigate {
 	private BlockPos targetPos;
 
 	public PathNavigate(EntityLiving entityIn, World worldIn) {
-
 		entity = entityIn;
 		world = worldIn;
 		pathSearchRange = entityIn.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
@@ -65,7 +64,6 @@ public abstract class PathNavigate {
 	 * Sets the speed
 	 */
 	public void setSpeed(double speedIn) {
-
 		speed = speedIn;
 	}
 
@@ -73,7 +71,6 @@ public abstract class PathNavigate {
 	 * Gets the maximum distance that the path finding will search in.
 	 */
 	public float getPathSearchRange() {
-
 		return (float) pathSearchRange.getAttributeValue();
 	}
 
@@ -82,12 +79,10 @@ public abstract class PathNavigate {
 	 * onUpdateNavigation()}
 	 */
 	public boolean canUpdatePathOnTimeout() {
-
 		return tryUpdatePath;
 	}
 
 	public void updatePath() {
-
 		if (world.getTotalWorldTime() - lastTimeUpdated > 20L) {
 			if (targetPos != null) {
 				currentPath = null;
@@ -106,7 +101,6 @@ public abstract class PathNavigate {
 	 * Returns the path to the given coordinates. Args : x, y, z
 	 */
 	public final Path getPathToXYZ(double x, double y, double z) {
-
 		return getPathToPos(new BlockPos(x, y, z));
 	}
 
@@ -116,7 +110,6 @@ public abstract class PathNavigate {
 	 * Returns path to given BlockPos
 	 */
 	public Path getPathToPos(BlockPos pos) {
-
 		if (!canNavigate()) {
 			return null;
 		} else if (currentPath != null && !currentPath.isFinished() && pos.equals(targetPos)) {
@@ -140,7 +133,6 @@ public abstract class PathNavigate {
 	 * Returns the path to the given EntityLiving. Args : entity
 	 */
 	public Path getPathToEntityLiving(Entity entityIn) {
-
 		if (!canNavigate()) {
 			return null;
 		} else {
@@ -166,7 +158,6 @@ public abstract class PathNavigate {
 	 * Try to find and set a path to XYZ. Returns true if successful. Args : x, y, z, speed
 	 */
 	public boolean tryMoveToXYZ(double x, double y, double z, double speedIn) {
-
 		return setPath(getPathToXYZ(x, y, z), speedIn);
 	}
 
@@ -174,7 +165,6 @@ public abstract class PathNavigate {
 	 * Try to find and set a path to EntityLiving. Returns true if successful. Args : entity, speed
 	 */
 	public boolean tryMoveToEntityLiving(Entity entityIn, double speedIn) {
-
 		Path path = getPathToEntityLiving(entityIn);
 		return path != null && setPath(path, speedIn);
 	}
@@ -184,7 +174,6 @@ public abstract class PathNavigate {
 	 * coords. Args : path, speed
 	 */
 	public boolean setPath(Path pathentityIn, double speedIn) {
-
 		if (pathentityIn == null) {
 			currentPath = null;
 			return false;
@@ -213,12 +202,10 @@ public abstract class PathNavigate {
 	 * gets the actively used PathEntity
 	 */
 	public Path getPath() {
-
 		return currentPath;
 	}
 
 	public void onUpdateNavigation() {
-
 		++totalTicks;
 
 		if (tryUpdatePath) {
@@ -250,11 +237,9 @@ public abstract class PathNavigate {
 	}
 
 	protected void debugPathFinding() {
-
 	}
 
 	protected void pathFollow() {
-
 		Vec3d vec3d = getEntityPosition();
 		int i = currentPath.getCurrentPathLength();
 
@@ -290,7 +275,6 @@ public abstract class PathNavigate {
 	 * net.minecraft.pathfinding.PathEntity}
 	 */
 	protected void checkForStuck(Vec3d positionVec3) {
-
 		if (totalTicks - ticksAtLastPos > 100) {
 			if (positionVec3.squareDistanceTo(lastPosCheck) < 2.25D) {
 				clearPath();
@@ -326,7 +310,6 @@ public abstract class PathNavigate {
 	 * If null path or reached the end
 	 */
 	public boolean noPath() {
-
 		return currentPath == null || currentPath.isFinished();
 	}
 
@@ -334,7 +317,6 @@ public abstract class PathNavigate {
 	 * sets active PathEntity to null
 	 */
 	public void clearPath() {
-
 		currentPath = null;
 	}
 
@@ -349,7 +331,6 @@ public abstract class PathNavigate {
 	 * Returns true if the entity is in water or lava, false otherwise
 	 */
 	protected boolean isInLiquid() {
-
 		return entity.isInWater() || entity.isInLava();
 	}
 
@@ -357,7 +338,6 @@ public abstract class PathNavigate {
 	 * Trims path data from the end to the first sun covered block
 	 */
 	protected void removeSunnyPath() {
-
 		if (currentPath != null) {
 			for (int i = 0; i < currentPath.getCurrentPathLength(); ++i) {
 				PathPoint pathpoint = currentPath.getPathPointFromIndex(i);
@@ -382,12 +362,10 @@ public abstract class PathNavigate {
 	protected abstract boolean isDirectPathBetweenPoints(Vec3d posVec31, Vec3d posVec32, int sizeX, int sizeY, int sizeZ);
 
 	public boolean canEntityStandOnPos(BlockPos pos) {
-
 		return world.getBlockState(pos.down()).isFullBlock();
 	}
 
 	public NodeProcessor getNodeProcessor() {
-
 		return nodeProcessor;
 	}
 

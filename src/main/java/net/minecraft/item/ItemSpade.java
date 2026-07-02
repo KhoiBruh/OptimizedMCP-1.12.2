@@ -21,7 +21,6 @@ public class ItemSpade extends ItemTool {
 	private static final Set<Block> EFFECTIVE_ON = Sets.newHashSet(Blocks.CLAY, Blocks.DIRT, Blocks.FARMLAND, Blocks.GRASS, Blocks.GRAVEL, Blocks.MYCELIUM, Blocks.SAND, Blocks.SNOW, Blocks.SNOW_LAYER, Blocks.SOUL_SAND, Blocks.GRASS_PATH, Blocks.CONCRETE_POWDER);
 
 	public ItemSpade(Item.ToolMaterial material) {
-
 		super(1.5F, -3F, material, EFFECTIVE_ON);
 	}
 
@@ -29,7 +28,6 @@ public class ItemSpade extends ItemTool {
 	 * Check whether this Item can harvest the given Block
 	 */
 	public boolean canHarvestBlock(IBlockState blockIn) {
-
 		Block block = blockIn.getBlock();
 
 		if (block == Blocks.SNOW_LAYER) {
@@ -43,7 +41,6 @@ public class ItemSpade extends ItemTool {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (!player.canPlayerEdit(pos.offset(facing), facing, itemstack)) {

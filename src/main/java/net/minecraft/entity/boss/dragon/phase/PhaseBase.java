@@ -14,12 +14,10 @@ public abstract class PhaseBase implements IPhase {
 	protected final EntityDragon dragon;
 
 	public PhaseBase(EntityDragon dragonIn) {
-
 		dragon = dragonIn;
 	}
 
 	public boolean getIsStationary() {
-
 		return false;
 	}
 
@@ -28,7 +26,6 @@ public abstract class PhaseBase implements IPhase {
 	 * Called by dragon's onLivingUpdate. Only used when worldObj.isRemote.
 	 */
 	public void doClientRenderEffects() {
-
 	}
 
 	/**
@@ -36,29 +33,24 @@ public abstract class PhaseBase implements IPhase {
 	 * Called by dragon's onLivingUpdate. Only used when !worldObj.isRemote.
 	 */
 	public void doLocalUpdate() {
-
 	}
 
 	public void onCrystalDestroyed(EntityEnderCrystal crystal, BlockPos pos, DamageSource dmgSrc, EntityPlayer plyr) {
-
 	}
 
 	/**
 	 * Called when this phase is set to active
 	 */
 	public void initPhase() {
-
 	}
 
 	public void removeAreaEffect() {
-
 	}
 
 	/**
 	 * Returns the maximum amount dragon may rise or fall during this phase
 	 */
 	public float getMaxRiseOrFall() {
-
 		return 0.6F;
 	}
 
@@ -68,7 +60,6 @@ public abstract class PhaseBase implements IPhase {
 	 * Returns the location the dragon is flying toward
 	 */
 	public Vec3d getTargetLocation() {
-
 		return null;
 	}
 
@@ -77,12 +68,10 @@ public abstract class PhaseBase implements IPhase {
 	 * returned.
 	 */
 	public float getAdjustedDamage(MultiPartEntityPart pt, DamageSource src, float damage) {
-
 		return damage;
 	}
 
 	public float getYawFactor() {
-
 		float f = MathHelper.sqrt(dragon.motionX * dragon.motionX + dragon.motionZ * dragon.motionZ) + 1F;
 		float f1 = Math.min(f, 40F);
 		return 0.7F / f1 / f;

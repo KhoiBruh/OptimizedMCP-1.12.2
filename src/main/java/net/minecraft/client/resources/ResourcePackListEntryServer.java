@@ -19,7 +19,6 @@ public class ResourcePackListEntryServer extends ResourcePackListEntry {
 	private final ResourceLocation resourcePackIcon;
 
 	public ResourcePackListEntryServer(ResourcePacksScreen resourcePacksGUIIn, IResourcePack resourcePackIn) {
-
 		super(resourcePacksGUIIn);
 		resourcePack = resourcePackIn;
 		DynamicTexture dynamictexture;
@@ -34,12 +33,10 @@ public class ResourcePackListEntryServer extends ResourcePackListEntry {
 	}
 
 	protected int getResourcePackFormat() {
-
 		return 3;
 	}
 
 	protected String getResourcePackDescription() {
-
 		try {
 			PackMetadataSection packmetadatasection = resourcePack.getPackMetadata(mc.getResourcePackRepository().rprMetadataSerializer, "pack");
 
@@ -54,42 +51,34 @@ public class ResourcePackListEntryServer extends ResourcePackListEntry {
 	}
 
 	protected boolean canMoveRight() {
-
 		return false;
 	}
 
 	protected boolean canMoveLeft() {
-
 		return false;
 	}
 
 	protected boolean canMoveUp() {
-
 		return false;
 	}
 
 	protected boolean canMoveDown() {
-
 		return false;
 	}
 
 	protected String getResourcePackName() {
-
 		return "Server";
 	}
 
 	protected void bindResourcePackIcon() {
-
 		mc.getTextureManager().bindTexture(resourcePackIcon);
 	}
 
 	protected boolean showHoverOverlay() {
-
 		return false;
 	}
 
 	public boolean isServerPack() {
-
 		return true;
 	}
 

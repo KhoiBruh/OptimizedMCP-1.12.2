@@ -11,7 +11,6 @@ public class ItemAir extends Item {
 	private final Block block;
 
 	public ItemAir(Block blockIn) {
-
 		block = blockIn;
 	}
 
@@ -20,7 +19,6 @@ public class ItemAir extends Item {
 	 * different names based on their damage or NBT.
 	 */
 	public String getUnlocalizedName(ItemStack stack) {
-
 		return block.getUnlocalizedName();
 	}
 
@@ -28,7 +26,6 @@ public class ItemAir extends Item {
 	 * Returns the unlocalized name of this item.
 	 */
 	public String getUnlocalizedName() {
-
 		return block.getUnlocalizedName();
 	}
 
@@ -36,7 +33,6 @@ public class ItemAir extends Item {
 	 * allows items to add custom lines of information to the mouseover description
 	 */
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 		block.addInformation(stack, worldIn, tooltip, flagIn);
 	}

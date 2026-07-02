@@ -21,18 +21,15 @@ import net.minecraft.world.storage.loot.LootTableList;
 public class EntityCow extends EntityAnimal {
 
 	public EntityCow(World worldIn) {
-
 		super(worldIn);
 		setSize(0.9F, 1.4F);
 	}
 
 	public static void registerFixesCow(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntityCow.class);
 	}
 
 	protected void initEntityAI() {
-
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAIPanic(this, 2D));
 		tasks.addTask(2, new EntityAIMate(this, 1D));
@@ -44,29 +41,24 @@ public class EntityCow extends EntityAnimal {
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		return SoundEvents.ENTITY_COW_AMBIENT;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_COW_HURT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_COW_DEATH;
 	}
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
-
 		playSound(SoundEvents.ENTITY_COW_STEP, 0.15F, 1F);
 	}
 
@@ -74,18 +66,15 @@ public class EntityCow extends EntityAnimal {
 	 * Returns the volume for the sounds this mob makes.
 	 */
 	protected float getSoundVolume() {
-
 		return 0.4F;
 	}
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_COW;
 	}
 
 	public boolean processInteract(EntityPlayer player, Hand hand) {
-
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (itemstack.getItem() == Items.BUCKET && !player.capabilities.isCreativeMode && !isChild()) {
@@ -105,12 +94,10 @@ public class EntityCow extends EntityAnimal {
 	}
 
 	public EntityCow createChild(EntityAgeable ageable) {
-
 		return new EntityCow(world);
 	}
 
 	public float getEyeHeight() {
-
 		return isChild() ? height : 1.3F;
 	}
 

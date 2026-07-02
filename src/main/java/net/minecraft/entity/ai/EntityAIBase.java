@@ -17,7 +17,6 @@ public abstract class EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		return shouldExecute();
 	}
 
@@ -26,7 +25,6 @@ public abstract class EntityAIBase {
 	 * this value set to true.
 	 */
 	public boolean isInterruptible() {
-
 		return true;
 	}
 
@@ -34,21 +32,18 @@ public abstract class EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 	}
 
 	/**
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 	}
 
 	/**
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 	}
 
 	/**
@@ -57,7 +52,6 @@ public abstract class EntityAIBase {
 	 * See setMutextBits.
 	 */
 	public int getMutexBits() {
-
 		return mutexBits;
 	}
 
@@ -66,7 +60,6 @@ public abstract class EntityAIBase {
 	 * swimming/misc. Flags can be OR'ed.
 	 */
 	public void setMutexBits(int mutexBitsIn) {
-
 		mutexBits = mutexBitsIn;
 	}
 

@@ -14,12 +14,10 @@ public class LayerHeldItem implements LayerRenderer<EntityLivingBase> {
 	protected final RenderLivingBase<?> livingEntityRenderer;
 
 	public LayerHeldItem(RenderLivingBase<?> livingEntityRendererIn) {
-
 		livingEntityRenderer = livingEntityRendererIn;
 	}
 
 	public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		boolean flag = entitylivingbaseIn.getPrimaryHand() == HandSide.RIGHT;
 		ItemStack itemstack = flag ? entitylivingbaseIn.getHeldItemOffhand() : entitylivingbaseIn.getHeldItemMainhand();
 		ItemStack itemstack1 = flag ? entitylivingbaseIn.getHeldItemMainhand() : entitylivingbaseIn.getHeldItemOffhand();
@@ -40,7 +38,6 @@ public class LayerHeldItem implements LayerRenderer<EntityLivingBase> {
 	}
 
 	private void renderHeldItem(EntityLivingBase p_188358_1_, ItemStack p_188358_2_, ItemCameraTransforms.TransformType p_188358_3_, HandSide handSide) {
-
 		if (!p_188358_2_.isEmpty()) {
 			GLS.pushMatrix();
 			translateToHand(handSide);
@@ -59,12 +56,10 @@ public class LayerHeldItem implements LayerRenderer<EntityLivingBase> {
 	}
 
 	protected void translateToHand(HandSide p_191361_1_) {
-
 		((ModelBiped) livingEntityRenderer.getMainModel()).postRenderArm(0.0625F, p_191361_1_);
 	}
 
 	public boolean shouldCombineTextures() {
-
 		return false;
 	}
 

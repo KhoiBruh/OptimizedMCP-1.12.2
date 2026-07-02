@@ -46,7 +46,6 @@ public class RecipeBookClient extends RecipeBook {
 	}
 
 	private static RecipeList newRecipeList(CreativeTabs p_194082_0_) {
-
 		RecipeList recipelist = new RecipeList();
 		ALL_RECIPES.add(recipelist);
 		(RECIPES_BY_TAB.computeIfAbsent(p_194082_0_, (p_194085_0_) ->
@@ -57,7 +56,6 @@ public class RecipeBookClient extends RecipeBook {
 	}
 
 	private static CreativeTabs getItemStackTab(ItemStack p_194084_0_) {
-
 		CreativeTabs creativetabs = p_194084_0_.getItem().getCreativeTab();
 
 		if (creativetabs != CreativeTabs.BUILDING_BLOCKS && creativetabs != CreativeTabs.TOOLS && creativetabs != CreativeTabs.REDSTONE) {

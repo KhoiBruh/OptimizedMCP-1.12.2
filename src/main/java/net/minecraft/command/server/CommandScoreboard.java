@@ -24,7 +24,6 @@ public class CommandScoreboard extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "scoreboard";
 	}
 
@@ -32,7 +31,6 @@ public class CommandScoreboard extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 2;
 	}
 
@@ -40,7 +38,6 @@ public class CommandScoreboard extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.scoreboard.usage";
 	}
 
@@ -48,7 +45,6 @@ public class CommandScoreboard extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		if (!handleUserWildcards(server, sender, args)) {
 			if (args.length < 1) {
 				throw new WrongUsageException("commands.scoreboard.usage");
@@ -209,7 +205,6 @@ public class CommandScoreboard extends CommandBase {
 	}
 
 	private boolean handleUserWildcards(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		int i = -1;
 
 		for (int j = 0; j < args.length; ++j) {
@@ -254,12 +249,10 @@ public class CommandScoreboard extends CommandBase {
 	}
 
 	protected Scoreboard getScoreboard(MinecraftServer server) {
-
 		return server.getWorld(0).getScoreboard();
 	}
 
 	protected ScoreObjective convertToObjective(String name, boolean forWrite, MinecraftServer server) throws CommandException {
-
 		Scoreboard scoreboard = getScoreboard(server);
 		ScoreObjective scoreobjective = scoreboard.getObjective(name);
 
@@ -273,7 +266,6 @@ public class CommandScoreboard extends CommandBase {
 	}
 
 	protected ScorePlayerTeam convertToTeam(String name, MinecraftServer server) throws CommandException {
-
 		Scoreboard scoreboard = getScoreboard(server);
 		ScorePlayerTeam scoreplayerteam = scoreboard.getTeam(name);
 
@@ -285,7 +277,6 @@ public class CommandScoreboard extends CommandBase {
 	}
 
 	protected void addObjective(ICommandSender sender, String[] commandArgs, int argStartIndex, MinecraftServer server) throws CommandException {
-
 		String s = commandArgs[argStartIndex++];
 		String s1 = commandArgs[argStartIndex++];
 		Scoreboard scoreboard = getScoreboard(server);
@@ -321,7 +312,6 @@ public class CommandScoreboard extends CommandBase {
 	}
 
 	protected void addTeam(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException {
-
 		String s = args[startIndex++];
 		Scoreboard scoreboard = getScoreboard(server);
 
@@ -353,7 +343,6 @@ public class CommandScoreboard extends CommandBase {
 	}
 
 	protected void setTeamOption(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException {
-
 		ScorePlayerTeam scoreplayerteam = convertToTeam(args[startIndex++], server);
 
 		if (scoreplayerteam != null) {
@@ -434,7 +423,6 @@ public class CommandScoreboard extends CommandBase {
 	}
 
 	protected void removeTeam(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException {
-
 		Scoreboard scoreboard = getScoreboard(server);
 		ScorePlayerTeam scoreplayerteam = convertToTeam(args[startIndex], server);
 
@@ -445,7 +433,6 @@ public class CommandScoreboard extends CommandBase {
 	}
 
 	protected void listTeams(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException {
-
 		Scoreboard scoreboard = getScoreboard(server);
 
 		if (args.length > startIndex) {
@@ -485,7 +472,6 @@ public class CommandScoreboard extends CommandBase {
 	}
 
 	protected void joinTeam(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException {
-
 		Scoreboard scoreboard = getScoreboard(server);
 		String s = args[startIndex++];
 		Set<String> set = Sets.newHashSet();
@@ -536,7 +522,6 @@ public class CommandScoreboard extends CommandBase {
 	}
 
 	protected void leaveTeam(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException {
-
 		Scoreboard scoreboard = getScoreboard(server);
 		Set<String> set = Sets.newHashSet();
 		Set<String> set1 = Sets.newHashSet();
@@ -586,7 +571,6 @@ public class CommandScoreboard extends CommandBase {
 	}
 
 	protected void emptyTeam(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException {
-
 		Scoreboard scoreboard = getScoreboard(server);
 		ScorePlayerTeam scoreplayerteam = convertToTeam(args[startIndex], server);
 
@@ -607,7 +591,6 @@ public class CommandScoreboard extends CommandBase {
 	}
 
 	protected void removeObjective(ICommandSender sender, String name, MinecraftServer server) throws CommandException {
-
 		Scoreboard scoreboard = getScoreboard(server);
 		ScoreObjective scoreobjective = convertToObjective(name, false, server);
 		scoreboard.removeObjective(scoreobjective);
@@ -615,7 +598,6 @@ public class CommandScoreboard extends CommandBase {
 	}
 
 	protected void listObjectives(ICommandSender sender, MinecraftServer server) throws CommandException {
-
 		Scoreboard scoreboard = getScoreboard(server);
 		Collection<ScoreObjective> collection = scoreboard.getScoreObjectives();
 
@@ -633,7 +615,6 @@ public class CommandScoreboard extends CommandBase {
 	}
 
 	protected void setDisplayObjective(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException {
-
 		Scoreboard scoreboard = getScoreboard(server);
 		String s = args[startIndex++];
 		int i = Scoreboard.getObjectiveDisplaySlotNumber(s);
@@ -657,7 +638,6 @@ public class CommandScoreboard extends CommandBase {
 	}
 
 	protected void listPlayers(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException {
-
 		Scoreboard scoreboard = getScoreboard(server);
 
 		if (args.length > startIndex) {
@@ -692,7 +672,6 @@ public class CommandScoreboard extends CommandBase {
 	}
 
 	protected void addPlayerScore(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException {
-
 		String s = args[startIndex - 1];
 		int i = startIndex;
 		String s1 = getEntityName(server, sender, args[startIndex++]);
@@ -734,7 +713,6 @@ public class CommandScoreboard extends CommandBase {
 	}
 
 	protected void resetPlayerScore(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException {
-
 		Scoreboard scoreboard = getScoreboard(server);
 		String s = getEntityName(server, sender, args[startIndex++]);
 
@@ -749,7 +727,6 @@ public class CommandScoreboard extends CommandBase {
 	}
 
 	protected void enablePlayerTrigger(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException {
-
 		Scoreboard scoreboard = getScoreboard(server);
 		String s = getPlayerName(server, sender, args[startIndex++]);
 
@@ -769,7 +746,6 @@ public class CommandScoreboard extends CommandBase {
 	}
 
 	protected void testPlayerScore(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException {
-
 		Scoreboard scoreboard = getScoreboard(server);
 		String s = getEntityName(server, sender, args[startIndex++]);
 
@@ -796,7 +772,6 @@ public class CommandScoreboard extends CommandBase {
 	}
 
 	protected void applyPlayerOperation(ICommandSender sender, String[] args, int startIndex, MinecraftServer server) throws CommandException {
-
 		Scoreboard scoreboard = getScoreboard(server);
 		String s = getEntityName(server, sender, args[startIndex++]);
 		ScoreObjective scoreobjective = convertToObjective(args[startIndex++], true, server);
@@ -850,7 +825,6 @@ public class CommandScoreboard extends CommandBase {
 	}
 
 	protected void applyPlayerTag(MinecraftServer server, ICommandSender sender, String[] args, int startIndex) throws CommandException {
-
 		String s = getEntityName(server, sender, args[startIndex]);
 		Entity entity = getEntity(server, sender, args[startIndex++]);
 		String s1 = args[startIndex++];
@@ -904,7 +878,6 @@ public class CommandScoreboard extends CommandBase {
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		if (args.length == 1) {
 			return getListOfStringsMatchingLastWord(args, "objectives", "players", "teams");
 		} else {
@@ -1050,7 +1023,6 @@ public class CommandScoreboard extends CommandBase {
 	}
 
 	protected List<String> getObjectiveNames(boolean writableOnly, MinecraftServer server) {
-
 		Collection<ScoreObjective> collection = getScoreboard(server).getScoreObjectives();
 		List<String> list = Lists.newArrayList();
 
@@ -1064,7 +1036,6 @@ public class CommandScoreboard extends CommandBase {
 	}
 
 	protected List<String> getTriggerNames(MinecraftServer server) {
-
 		Collection<ScoreObjective> collection = getScoreboard(server).getScoreObjectives();
 		List<String> list = Lists.newArrayList();
 
@@ -1081,7 +1052,6 @@ public class CommandScoreboard extends CommandBase {
 	 * Return whether the specified command parameter index is a username parameter.
 	 */
 	public boolean isUsernameIndex(String[] args, int index) {
-
 		if (!"players".equalsIgnoreCase(args[0])) {
 			if ("teams".equalsIgnoreCase(args[0])) {
 				return index == 2;

@@ -13,7 +13,6 @@ import java.util.List;
 public class CommandGameRule extends CommandBase {
 
 	public static void notifyGameRuleChange(GameRules rules, String p_184898_1_, MinecraftServer server) {
-
 		if ("reducedDebugInfo".equals(p_184898_1_)) {
 			byte b0 = (byte) (rules.getBoolean(p_184898_1_) ? 22 : 23);
 
@@ -27,7 +26,6 @@ public class CommandGameRule extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "gamerule";
 	}
 
@@ -35,7 +33,6 @@ public class CommandGameRule extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 2;
 	}
 
@@ -43,7 +40,6 @@ public class CommandGameRule extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.gamerule.usage";
 	}
 
@@ -51,7 +47,6 @@ public class CommandGameRule extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		GameRules gamerules = getOverWorldGameRules(server);
 		String s = args.length > 0 ? args[0] : "";
 		String s1 = args.length > 1 ? buildString(args, 1) : "";
@@ -83,7 +78,6 @@ public class CommandGameRule extends CommandBase {
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		if (args.length == 1) {
 			return getListOfStringsMatchingLastWord(args, getOverWorldGameRules(server).getRules());
 		} else {
@@ -107,7 +101,6 @@ public class CommandGameRule extends CommandBase {
 	 * Get the game rules for the overworld
 	 */
 	private GameRules getOverWorldGameRules(MinecraftServer server) {
-
 		return server.getWorld(0).getGameRules();
 	}
 

@@ -35,7 +35,6 @@ public class LanguageMap {
 	private long lastUpdateTimeInMilliseconds;
 
 	public LanguageMap() {
-
 		try {
 			InputStream inputstream = LanguageMap.class.getResourceAsStream("/assets/minecraft/lang/en_us.lang");
 
@@ -60,7 +59,6 @@ public class LanguageMap {
 	 * Return the StringTranslate singleton instance
 	 */
 	static LanguageMap getInstance() {
-
 		return instance;
 	}
 
@@ -68,7 +66,6 @@ public class LanguageMap {
 	 * Replaces all the current instance's translations with the ones that are passed in.
 	 */
 	public static synchronized void replaceWith(Map<String, String> p_135063_0_) {
-
 		instance.languageList.clear();
 		instance.languageList.putAll(p_135063_0_);
 		instance.lastUpdateTimeInMilliseconds = System.currentTimeMillis();
@@ -78,7 +75,6 @@ public class LanguageMap {
 	 * Translate a key to current language.
 	 */
 	public synchronized String translateKey(String key) {
-
 		return tryTranslateKey(key);
 	}
 
@@ -86,7 +82,6 @@ public class LanguageMap {
 	 * Translate a key to current language applying String.format()
 	 */
 	public synchronized String translateKeyFormat(String key, Object... format) {
-
 		String s = tryTranslateKey(key);
 
 		try {
@@ -100,7 +95,6 @@ public class LanguageMap {
 	 * Tries to look up a translation for the given key; spits back the key if no result was found.
 	 */
 	private String tryTranslateKey(String key) {
-
 		String s = languageList.get(key);
 		return s == null ? key : s;
 	}
@@ -109,7 +103,6 @@ public class LanguageMap {
 	 * Returns true if the passed key is in the translation table.
 	 */
 	public synchronized boolean isKeyTranslated(String key) {
-
 		return languageList.containsKey(key);
 	}
 
@@ -117,7 +110,6 @@ public class LanguageMap {
 	 * Gets the time, in milliseconds since epoch, that this instance was last updated
 	 */
 	public long getLastUpdateTimeInMilliseconds() {
-
 		return lastUpdateTimeInMilliseconds;
 	}
 

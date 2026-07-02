@@ -13,7 +13,6 @@ public class EntityAISit extends EntityAIBase {
 	private boolean isSitting;
 
 	public EntityAISit(EntityTameable entityIn) {
-
 		tameable = entityIn;
 		setMutexBits(5);
 	}
@@ -22,7 +21,6 @@ public class EntityAISit extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		if (!tameable.isTamed()) {
 			return false;
 		} else if (tameable.isInWater()) {
@@ -44,7 +42,6 @@ public class EntityAISit extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		tameable.getNavigator().clearPath();
 		tameable.setSitting(true);
 	}
@@ -53,7 +50,6 @@ public class EntityAISit extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		tameable.setSitting(false);
 	}
 
@@ -61,7 +57,6 @@ public class EntityAISit extends EntityAIBase {
 	 * Sets the sitting flag.
 	 */
 	public void setSitting(boolean sitting) {
-
 		isSitting = sitting;
 	}
 

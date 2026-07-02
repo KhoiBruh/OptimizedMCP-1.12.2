@@ -14,11 +14,9 @@ public class SPacketEntityMetadata implements Packet<INetHandlerPlayClient> {
 	private List<EntityDataManager.DataEntry<?>> dataManagerEntries;
 
 	public SPacketEntityMetadata() {
-
 	}
 
 	public SPacketEntityMetadata(int entityIdIn, EntityDataManager dataManagerIn, boolean sendAll) {
-
 		entityId = entityIdIn;
 
 		if (sendAll) {
@@ -33,7 +31,6 @@ public class SPacketEntityMetadata implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) throws IOException {
-
 		entityId = buf.readVarInt();
 		dataManagerEntries = EntityDataManager.readEntries(buf);
 	}
@@ -42,7 +39,6 @@ public class SPacketEntityMetadata implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeVarInt(entityId);
 		EntityDataManager.writeEntries(dataManagerEntries, buf);
 	}
@@ -51,7 +47,6 @@ public class SPacketEntityMetadata implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleEntityMetadata(this);
 	}
 
@@ -61,7 +56,6 @@ public class SPacketEntityMetadata implements Packet<INetHandlerPlayClient> {
 	}
 
 	public int getEntityId() {
-
 		return entityId;
 	}
 

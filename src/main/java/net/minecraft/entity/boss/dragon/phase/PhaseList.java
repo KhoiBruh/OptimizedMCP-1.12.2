@@ -24,7 +24,6 @@ public class PhaseList<T extends IPhase> {
 	private final String name;
 
 	private PhaseList(int idIn, Class<? extends IPhase> clazzIn, String nameIn) {
-
 		id = idIn;
 		clazz = clazzIn;
 		name = nameIn;
@@ -36,7 +35,6 @@ public class PhaseList<T extends IPhase> {
 	}
 
 	public static int getTotalPhases() {
-
 		return phases.length;
 	}
 
@@ -49,7 +47,6 @@ public class PhaseList<T extends IPhase> {
 	}
 
 	public IPhase createPhase(EntityDragon dragon) {
-
 		try {
 			Constructor<? extends IPhase> constructor = getConstructor();
 			return constructor.newInstance(dragon);
@@ -64,12 +61,10 @@ public class PhaseList<T extends IPhase> {
 	}
 
 	public int getId() {
-
 		return id;
 	}
 
 	public String toString() {
-
 		return name + " (#" + id + ")";
 	}
 

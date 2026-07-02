@@ -14,11 +14,9 @@ public class SPacketEncryptionRequest implements Packet<INetHandlerLoginClient> 
 	private byte[] verifyToken;
 
 	public SPacketEncryptionRequest() {
-
 	}
 
 	public SPacketEncryptionRequest(String serverIdIn, PublicKey publicKeyIn, byte[] verifyTokenIn) {
-
 		hashedServerId = serverIdIn;
 		publicKey = publicKeyIn;
 		verifyToken = verifyTokenIn;
@@ -28,7 +26,6 @@ public class SPacketEncryptionRequest implements Packet<INetHandlerLoginClient> 
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		hashedServerId = buf.readString(20);
 		publicKey = CryptManager.decodePublicKey(buf.readByteArray());
 		verifyToken = buf.readByteArray();
@@ -38,7 +35,6 @@ public class SPacketEncryptionRequest implements Packet<INetHandlerLoginClient> 
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeString(hashedServerId);
 		buf.writeByteArray(publicKey.getEncoded());
 		buf.writeByteArray(verifyToken);
@@ -48,22 +44,18 @@ public class SPacketEncryptionRequest implements Packet<INetHandlerLoginClient> 
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerLoginClient handler) {
-
 		handler.handleEncryptionRequest(this);
 	}
 
 	public String getServerId() {
-
 		return hashedServerId;
 	}
 
 	public PublicKey getPublicKey() {
-
 		return publicKey;
 	}
 
 	public byte[] getVerifyToken() {
-
 		return verifyToken;
 	}
 

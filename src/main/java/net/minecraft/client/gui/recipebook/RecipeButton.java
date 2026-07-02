@@ -24,12 +24,10 @@ public class RecipeButton extends Button {
 	private int currentIndex;
 
 	public RecipeButton() {
-
 		super(0, 0, 0, 25, 25, "");
 	}
 
 	public void init(RecipeList p_193928_1_, RecipeBookPage p_193928_2_, RecipeBook p_193928_3_) {
-
 		list = p_193928_1_;
 		book = p_193928_3_;
 		List<IRecipe> list = p_193928_1_.getRecipes(p_193928_3_.isFilteringCraftable());
@@ -44,12 +42,10 @@ public class RecipeButton extends Button {
 	}
 
 	public RecipeList getList() {
-
 		return list;
 	}
 
 	public void setPosition(int p_191770_1_, int p_191770_2_) {
-
 		x = p_191770_1_;
 		y = p_191770_2_;
 	}
@@ -58,7 +54,6 @@ public class RecipeButton extends Button {
 	 * Draws this button to the screen.
 	 */
 	public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
-
 		if (visible) {
 			if (!Screen.isCtrlDown()) {
 				time += partialTicks;
@@ -114,7 +109,6 @@ public class RecipeButton extends Button {
 	}
 
 	private List<IRecipe> getOrderedRecipes() {
-
 		List<IRecipe> list = this.list.getDisplayRecipes(true);
 
 		if (!book.isFilteringCraftable()) {
@@ -125,18 +119,15 @@ public class RecipeButton extends Button {
 	}
 
 	public boolean isOnlyOption() {
-
 		return getOrderedRecipes().size() == 1;
 	}
 
 	public IRecipe getRecipe() {
-
 		List<IRecipe> list = getOrderedRecipes();
 		return list.get(currentIndex);
 	}
 
 	public List<String> getToolTipText(Screen p_191772_1_) {
-
 		ItemStack itemstack = getOrderedRecipes().get(currentIndex).getRecipeOutput();
 		List<String> list = p_191772_1_.getItemToolTip(itemstack);
 
@@ -148,7 +139,6 @@ public class RecipeButton extends Button {
 	}
 
 	public int getButtonWidth() {
-
 		return 25;
 	}
 

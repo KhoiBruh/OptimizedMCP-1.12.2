@@ -20,18 +20,15 @@ public class JsonToNBT {
 	
 	@VisibleForTesting
 	JsonToNBT(String stringIn) {
-		
 		string = stringIn;
 	}
 	
 	public static NBTTagCompound getTagFromJson(String jsonString) throws NBTException {
-		
 		return (new JsonToNBT(jsonString)).readSingleStruct();
 	}
 	
 	@VisibleForTesting
 	NBTTagCompound readSingleStruct() throws NBTException {
-		
 		NBTTagCompound nbttagcompound = readStruct();
 		skipWhitespace();
 		
@@ -44,7 +41,6 @@ public class JsonToNBT {
 	}
 	
 	protected String readKey() throws NBTException {
-		
 		skipWhitespace();
 		
 		if (!canRead()) {
@@ -55,12 +51,10 @@ public class JsonToNBT {
 	}
 	
 	private NBTException exception(String message) {
-		
 		return new NBTException(message, string, cursor);
 	}
 	
 	protected NBTBase readTypedValue() throws NBTException {
-		
 		skipWhitespace();
 		
 		if (peek() == '"') {
@@ -77,7 +71,6 @@ public class JsonToNBT {
 	}
 	
 	private NBTBase type(String stringIn) {
-		
 		try {
 			if (FLOAT_PATTERN.matcher(stringIn).matches()) {
 				return new NBTTagFloat(Float.parseFloat(stringIn.substring(0, stringIn.length() - 1)));
@@ -121,7 +114,6 @@ public class JsonToNBT {
 	}
 	
 	private String readQuotedString() throws NBTException {
-		
 		int i = ++cursor;
 		StringBuilder stringbuilder = null;
 		boolean flag = false;
@@ -160,7 +152,6 @@ public class JsonToNBT {
 	}
 	
 	private String readString() {
-		
 		int i;
 		
 		for (i = cursor; canRead() && isAllowedInKey(peek()); ++cursor) {
@@ -170,7 +161,6 @@ public class JsonToNBT {
 	}
 	
 	protected NBTBase readValue() throws NBTException {
-		
 		skipWhitespace();
 		
 		if (!canRead()) {
@@ -187,12 +177,10 @@ public class JsonToNBT {
 	}
 	
 	protected NBTBase readList() throws NBTException {
-		
 		return canRead(2) && peek(1) != '"' && peek(2) == ';' ? readArrayTag() : readListTag();
 	}
 	
 	protected NBTTagCompound readStruct() throws NBTException {
-		
 		expect('{');
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 		skipWhitespace();
@@ -221,7 +209,6 @@ public class JsonToNBT {
 	}
 	
 	private NBTBase readListTag() throws NBTException {
-		
 		expect('[');
 		skipWhitespace();
 		
@@ -258,7 +245,6 @@ public class JsonToNBT {
 	}
 	
 	private NBTBase readArrayTag() throws NBTException {
-		
 		expect('[');
 		char c0 = pop();
 		pop();
@@ -313,14 +299,12 @@ public class JsonToNBT {
 	}
 	
 	private void skipWhitespace() {
-		
 		while (canRead() && Character.isWhitespace(peek())) {
 			++cursor;
 		}
 	}
 	
 	private boolean hasElementSeparator() {
-		
 		skipWhitespace();
 		
 		if (canRead() && peek() == ',') {
@@ -333,7 +317,6 @@ public class JsonToNBT {
 	}
 	
 	private void expect(char expected) throws NBTException {
-		
 		skipWhitespace();
 		boolean flag = canRead();
 		
@@ -345,32 +328,26 @@ public class JsonToNBT {
 	}
 	
 	protected boolean isAllowedInKey(char charIn) {
-		
 		return charIn >= '0' && charIn <= '9' || charIn >= 'A' && charIn <= 'Z' || charIn >= 'a' && charIn <= 'z' || charIn == '_' || charIn == '-' || charIn == '.' || charIn == '+';
 	}
 	
 	private boolean canRead(int p_193608_1_) {
-		
 		return cursor + p_193608_1_ < string.length();
 	}
 	
 	boolean canRead() {
-		
 		return canRead(0);
 	}
 	
 	private char peek(int p_193597_1_) {
-		
 		return string.charAt(cursor + p_193597_1_);
 	}
 	
 	private char peek() {
-		
 		return peek(0);
 	}
 	
 	private char pop() {
-		
 		return string.charAt(cursor++);
 	}
 	

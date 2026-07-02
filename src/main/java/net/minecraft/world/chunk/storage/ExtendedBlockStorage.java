@@ -36,7 +36,6 @@ public class ExtendedBlockStorage {
 	private NibbleArray skyLight;
 
 	public ExtendedBlockStorage(int y, boolean storeSkylight) {
-
 		yBase = y;
 		data = new BlockStateContainer();
 		blockLight = new NibbleArray();
@@ -47,12 +46,10 @@ public class ExtendedBlockStorage {
 	}
 
 	public IBlockState get(int x, int y, int z) {
-
 		return data.get(x, y, z);
 	}
 
 	public void set(int x, int y, int z, IBlockState state) {
-
 		IBlockState iblockstate = get(x, y, z);
 		Block block = iblockstate.getBlock();
 		Block block1 = state.getBlock();
@@ -80,7 +77,6 @@ public class ExtendedBlockStorage {
 	 * Returns whether or not this block storage's Chunk is fully empty, based on its internal reference count.
 	 */
 	public boolean isEmpty() {
-
 		return blockRefCount == 0;
 	}
 
@@ -89,7 +85,6 @@ public class ExtendedBlockStorage {
 	 * random block ticks when there are no blocks that would randomly tick.
 	 */
 	public boolean needsRandomTick() {
-
 		return tickRefCount > 0;
 	}
 
@@ -97,7 +92,6 @@ public class ExtendedBlockStorage {
 	 * Returns the Y location of this ExtendedBlockStorage.
 	 */
 	public int getYLocation() {
-
 		return yBase;
 	}
 
@@ -105,7 +99,6 @@ public class ExtendedBlockStorage {
 	 * Sets the saved Sky-light value in the extended block storage structure.
 	 */
 	public void setSkyLight(int x, int y, int z, int value) {
-
 		skyLight.set(x, y, z, value);
 	}
 
@@ -113,7 +106,6 @@ public class ExtendedBlockStorage {
 	 * Gets the saved Sky-light value in the extended block storage structure.
 	 */
 	public int getSkyLight(int x, int y, int z) {
-
 		return skyLight.get(x, y, z);
 	}
 
@@ -121,7 +113,6 @@ public class ExtendedBlockStorage {
 	 * Sets the saved Block-light value in the extended block storage structure.
 	 */
 	public void setBlockLight(int x, int y, int z, int value) {
-
 		blockLight.set(x, y, z, value);
 	}
 
@@ -129,12 +120,10 @@ public class ExtendedBlockStorage {
 	 * Gets the saved Block-light value in the extended block storage structure.
 	 */
 	public int getBlockLight(int x, int y, int z) {
-
 		return blockLight.get(x, y, z);
 	}
 
 	public void recalculateRefCounts() {
-
 		blockRefCount = 0;
 		tickRefCount = 0;
 
@@ -156,7 +145,6 @@ public class ExtendedBlockStorage {
 	}
 
 	public BlockStateContainer getData() {
-
 		return data;
 	}
 
@@ -164,7 +152,6 @@ public class ExtendedBlockStorage {
 	 * Returns the NibbleArray instance containing Block-light data.
 	 */
 	public NibbleArray getBlockLight() {
-
 		return blockLight;
 	}
 
@@ -172,7 +159,6 @@ public class ExtendedBlockStorage {
 	 * Sets the NibbleArray instance used for Block-light values in this particular storage block.
 	 */
 	public void setBlockLight(NibbleArray newBlocklightArray) {
-
 		blockLight = newBlocklightArray;
 	}
 
@@ -180,7 +166,6 @@ public class ExtendedBlockStorage {
 	 * Returns the NibbleArray instance containing Sky-light data.
 	 */
 	public NibbleArray getSkyLight() {
-
 		return skyLight;
 	}
 
@@ -188,7 +173,6 @@ public class ExtendedBlockStorage {
 	 * Sets the NibbleArray instance used for Sky-light values in this particular storage block.
 	 */
 	public void setSkyLight(NibbleArray newSkylightArray) {
-
 		skyLight = newSkylightArray;
 	}
 

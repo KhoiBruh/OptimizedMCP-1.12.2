@@ -23,7 +23,6 @@ public class BlockStructure extends BlockContainer {
 	public static final PropertyEnum<TileEntityStructure.Mode> MODE = PropertyEnum.create("mode", TileEntityStructure.Mode.class);
 
 	public BlockStructure() {
-
 		super(Material.IRON, MapColor.SILVER);
 		setDefaultState(blockState.getBaseState());
 	}
@@ -32,7 +31,6 @@ public class BlockStructure extends BlockContainer {
 	 * Returns a new instance of a block's tile entity class. Called on placing the block.
 	 */
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-
 		return new TileEntityStructure();
 	}
 
@@ -40,7 +38,6 @@ public class BlockStructure extends BlockContainer {
 	 * Called when the block is right clicked by a player.
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 		return tileentity instanceof TileEntityStructure && ((TileEntityStructure) tileentity).usedBy(playerIn);
 	}
@@ -49,7 +46,6 @@ public class BlockStructure extends BlockContainer {
 	 * Called by ItemBlocks after a block is set in the world, to allow post-place logic
 	 */
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-
 		if (!worldIn.isRemote) {
 			TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -63,7 +59,6 @@ public class BlockStructure extends BlockContainer {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return 0;
 	}
 
@@ -72,7 +67,6 @@ public class BlockStructure extends BlockContainer {
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
 	public BlockRenderType getRenderType(IBlockState state) {
-
 		return BlockRenderType.MODEL;
 	}
 
@@ -81,7 +75,6 @@ public class BlockStructure extends BlockContainer {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		return getDefaultState().withProperty(MODE, TileEntityStructure.Mode.DATA);
 	}
 
@@ -89,7 +82,6 @@ public class BlockStructure extends BlockContainer {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(MODE, TileEntityStructure.Mode.getById(meta));
 	}
 
@@ -97,12 +89,10 @@ public class BlockStructure extends BlockContainer {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(MODE).getModeId();
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, MODE);
 	}
 
@@ -112,7 +102,6 @@ public class BlockStructure extends BlockContainer {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (!worldIn.isRemote) {
 			TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -131,7 +120,6 @@ public class BlockStructure extends BlockContainer {
 	}
 
 	private void trigger(TileEntityStructure p_189874_1_) {
-
 		switch (p_189874_1_.getMode()) {
 			case SAVE:
 				p_189874_1_.save(false);

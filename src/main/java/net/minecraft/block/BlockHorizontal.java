@@ -10,12 +10,10 @@ public abstract class BlockHorizontal extends Block {
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", Facing.Plane.HORIZONTAL);
 
 	protected BlockHorizontal(Material materialIn) {
-
 		super(materialIn);
 	}
 
 	protected BlockHorizontal(Material materialIn, MapColor colorIn) {
-
 		super(materialIn, colorIn);
 	}
 

@@ -11,7 +11,6 @@ public class GuiOptionsRowList extends GuiListExtended {
 	private final List<GuiOptionsRowList.Row> options = Lists.newArrayList();
 
 	public GuiOptionsRowList(Minecraft mcIn, int p_i45015_2_, int p_i45015_3_, int p_i45015_4_, int p_i45015_5_, int p_i45015_6_, GameSettings.Options... p_i45015_7_) {
-
 		super(mcIn, p_i45015_2_, p_i45015_3_, p_i45015_4_, p_i45015_5_, p_i45015_6_);
 		centerListVertically = false;
 
@@ -25,7 +24,6 @@ public class GuiOptionsRowList extends GuiListExtended {
 	}
 
 	private Button createButton(Minecraft mcIn, int p_148182_2_, int p_148182_3_, GameSettings.Options options) {
-
 		if (options == null) {
 			return null;
 		} else {
@@ -43,7 +41,6 @@ public class GuiOptionsRowList extends GuiListExtended {
 	}
 
 	protected int getSize() {
-
 		return options.size();
 	}
 
@@ -51,12 +48,10 @@ public class GuiOptionsRowList extends GuiListExtended {
 	 * Gets the width of the list
 	 */
 	public int getListWidth() {
-
 		return 400;
 	}
 
 	protected int getScrollBarX() {
-
 		return super.getScrollBarX() + 32;
 	}
 
@@ -67,13 +62,11 @@ public class GuiOptionsRowList extends GuiListExtended {
 		private final Button buttonB;
 
 		public Row(Button buttonAIn, Button buttonBIn) {
-
 			buttonA = buttonAIn;
 			buttonB = buttonBIn;
 		}
 
 		public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected, float partialTicks) {
-
 			if (buttonA != null) {
 				buttonA.y = y;
 				buttonA.drawButton(client, mouseX, mouseY, partialTicks);
@@ -86,7 +79,6 @@ public class GuiOptionsRowList extends GuiListExtended {
 		}
 
 		public boolean mousePressed(int slotIndex, int mouseX, int mouseY, int mouseEvent, int relativeX, int relativeY) {
-
 			if (buttonA.mousePressed(client, mouseX, mouseY)) {
 				if (buttonA instanceof OptionButton) {
 					client.gameSettings.setOptionValue(((OptionButton) buttonA).getOption(), 1);
@@ -107,7 +99,6 @@ public class GuiOptionsRowList extends GuiListExtended {
 		}
 
 		public void mouseReleased(int slotIndex, int x, int y, int mouseEvent, int relativeX, int relativeY) {
-
 			if (buttonA != null) {
 				buttonA.mouseReleased(x, y);
 			}
@@ -118,7 +109,6 @@ public class GuiOptionsRowList extends GuiListExtended {
 		}
 
 		public void updatePosition(int slotIndex, int x, int y, float partialTicks) {
-
 		}
 
 	}

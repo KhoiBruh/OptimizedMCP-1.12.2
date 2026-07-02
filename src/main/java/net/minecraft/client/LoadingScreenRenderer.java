@@ -32,7 +32,6 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 	private boolean loadingSuccess;
 
 	public LoadingScreenRenderer(Minecraft mcIn) {
-
 		mc = mcIn;
 		framebuffer = new Framebuffer(mcIn.getWindow().getWidth(), mcIn.getWindow().getHeight(), false);
 		framebuffer.setFramebufferFilter(9728);
@@ -43,7 +42,6 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 	 * and the WorkingString to "working...".
 	 */
 	public void resetProgressAndMessage(String message) {
-
 		loadingSuccess = false;
 		displayString(message);
 	}
@@ -52,13 +50,11 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 	 * Shows the 'Saving level' string.
 	 */
 	public void savingMessage(String message) {
-
 		loadingSuccess = true;
 		displayString(message);
 	}
 
 	private void displayString(String message) {
-
 		currentlyDisplayedText = message;
 
 		if (!mc.running) {
@@ -87,7 +83,6 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 	 * Displays a string on the loading screen supposed to indicate what is being done currently.
 	 */
 	public void loadingMessage(String message) {
-
 		if (!mc.running) {
 			if (!loadingSuccess) {
 				throw new MinecraftError();
@@ -104,7 +99,6 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 	 * Updates the progress bar on the loading screen to the specified amount.
 	 */
 	public void setLoadingProgress(int progress) {
-
 		if (!mc.running) {
 			if (!loadingSuccess) {
 				throw new MinecraftError();
@@ -187,7 +181,6 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 	}
 
 	public void setDoneWorking() {
-
 	}
 
 }

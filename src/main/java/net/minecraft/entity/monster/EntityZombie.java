@@ -61,18 +61,15 @@ public class EntityZombie extends EntityMob {
 	private float zombieHeight;
 
 	public EntityZombie(World worldIn) {
-
 		super(worldIn);
 		setSize(0.6F, 1.95F);
 	}
 
 	public static void registerFixesZombie(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntityZombie.class);
 	}
 
 	protected void initEntityAI() {
-
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(2, new EntityAIZombieAttack(this, 1D, false));
 		tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1D));
@@ -83,7 +80,6 @@ public class EntityZombie extends EntityMob {
 	}
 
 	protected void applyEntityAI() {
-
 		tasks.addTask(6, new EntityAIMoveThroughVillage(this, 1D, false));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityPigZombie.class));
 		targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
@@ -92,7 +88,6 @@ public class EntityZombie extends EntityMob {
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(35D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.23000000417232513D);
@@ -102,7 +97,6 @@ public class EntityZombie extends EntityMob {
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		getDataManager().register(IS_CHILD, false);
 		getDataManager().register(VILLAGER_TYPE, 0);
@@ -110,17 +104,14 @@ public class EntityZombie extends EntityMob {
 	}
 
 	public boolean isArmsRaised() {
-
 		return getDataManager().get(ARMS_RAISED);
 	}
 
 	public void setArmsRaised(boolean armsRaised) {
-
 		getDataManager().set(ARMS_RAISED, armsRaised);
 	}
 
 	public boolean isBreakDoorsTaskSet() {
-
 		return isBreakDoorsTaskSet;
 	}
 
@@ -128,7 +119,6 @@ public class EntityZombie extends EntityMob {
 	 * Sets or removes EntityAIBreakDoor task
 	 */
 	public void setBreakDoorsAItask(boolean enabled) {
-
 		if (isBreakDoorsTaskSet != enabled) {
 			isBreakDoorsTaskSet = enabled;
 			((PathNavigateGround) getNavigator()).setBreakDoors(enabled);
@@ -145,7 +135,6 @@ public class EntityZombie extends EntityMob {
 	 * If Animal, checks if the age timer is negative
 	 */
 	public boolean isChild() {
-
 		return getDataManager().get(IS_CHILD);
 	}
 
@@ -153,7 +142,6 @@ public class EntityZombie extends EntityMob {
 	 * Set whether this zombie is a child.
 	 */
 	public void setChild(boolean childZombie) {
-
 		getDataManager().set(IS_CHILD, childZombie);
 
 		if (world != null && !world.isRemote) {
@@ -172,7 +160,6 @@ public class EntityZombie extends EntityMob {
 	 * Get the experience points the entity currently has.
 	 */
 	protected int getExperiencePoints(EntityPlayer player) {
-
 		if (isChild()) {
 			experienceValue = (int) ((float) experienceValue * 2.5F);
 		}
@@ -181,7 +168,6 @@ public class EntityZombie extends EntityMob {
 	}
 
 	public void notifyDataManagerChange(DataParameter<?> key) {
-
 		if (IS_CHILD.equals(key)) {
 			setChildSize(isChild());
 		}
@@ -194,7 +180,6 @@ public class EntityZombie extends EntityMob {
 	 * use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
 		if (world.isDaytime() && !world.isRemote && !isChild() && shouldBurnInDay()) {
 			float f = getBrightness();
 
@@ -225,7 +210,6 @@ public class EntityZombie extends EntityMob {
 	}
 
 	protected boolean shouldBurnInDay() {
-
 		return true;
 	}
 
@@ -233,7 +217,6 @@ public class EntityZombie extends EntityMob {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		if (super.attackEntityFrom(source, amount)) {
 			EntityLivingBase entitylivingbase = getAttackTarget();
 
@@ -274,7 +257,6 @@ public class EntityZombie extends EntityMob {
 	}
 
 	public boolean attackEntityAsMob(Entity entityIn) {
-
 		boolean flag = super.attackEntityAsMob(entityIn);
 
 		if (flag) {
@@ -289,27 +271,22 @@ public class EntityZombie extends EntityMob {
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		return SoundEvents.ENTITY_ZOMBIE_AMBIENT;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_ZOMBIE_HURT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_ZOMBIE_DEATH;
 	}
 
 	protected SoundEvent getStepSound() {
-
 		return SoundEvents.ENTITY_ZOMBIE_STEP;
 	}
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
-
 		playSound(getStepSound(), 0.15F, 1F);
 	}
 
@@ -317,13 +294,11 @@ public class EntityZombie extends EntityMob {
 	 * Get this Entity's CreatureAttribute
 	 */
 	public CreatureAttribute getCreatureAttribute() {
-
 		return CreatureAttribute.UNDEAD;
 	}
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_ZOMBIE;
 	}
 
@@ -331,7 +306,6 @@ public class EntityZombie extends EntityMob {
 	 * Gives armor or weapon for entity based on given DifficultyInstance
 	 */
 	protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
-
 		super.setEquipmentBasedOnDifficulty(difficulty);
 
 		if (rand.nextFloat() < (world.getDifficulty() == Difficulty.HARD ? 0.05F : 0.01F)) {
@@ -349,7 +323,6 @@ public class EntityZombie extends EntityMob {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 
 		if (isChild()) {
@@ -363,7 +336,6 @@ public class EntityZombie extends EntityMob {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 
 		if (compound.getBoolean("IsBaby")) {
@@ -377,7 +349,6 @@ public class EntityZombie extends EntityMob {
 	 * This method gets called when the entity kills another one.
 	 */
 	public void onKillEntity(EntityLivingBase entityLivingIn) {
-
 		super.onKillEntity(entityLivingIn);
 
 		if ((world.getDifficulty() == Difficulty.NORMAL || world.getDifficulty() == Difficulty.HARD) && entityLivingIn instanceof EntityVillager entityvillager) {
@@ -404,7 +375,6 @@ public class EntityZombie extends EntityMob {
 	}
 
 	public float getEyeHeight() {
-
 		float f = 1.74F;
 
 		if (isChild()) {
@@ -415,7 +385,6 @@ public class EntityZombie extends EntityMob {
 	}
 
 	protected boolean canEquipItem(ItemStack stack) {
-
 		return (stack.getItem() != Items.EGG || !isChild() || !isRiding()) && super.canEquipItem(stack);
 	}
 
@@ -436,7 +405,6 @@ public class EntityZombie extends EntityMob {
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 		float f = difficulty.getClampedAdditionalDifficulty();
 		setCanPickUpLoot(rand.nextFloat() < 0.55F * f);
@@ -446,7 +414,6 @@ public class EntityZombie extends EntityMob {
 		}
 
 		if (livingdata instanceof GroupData entityzombie$groupdata) {
-
 			if (entityzombie$groupdata.isChild) {
 				setChild(true);
 
@@ -502,7 +469,6 @@ public class EntityZombie extends EntityMob {
 	 * sets the size of the entity to be half of its current size if true.
 	 */
 	public void setChildSize(boolean isChild) {
-
 		multiplySize(isChild ? 0.5F : 1F);
 	}
 
@@ -510,7 +476,6 @@ public class EntityZombie extends EntityMob {
 	 * Sets the width and height of the entity.
 	 */
 	protected final void setSize(float width, float height) {
-
 		boolean flag = zombieWidth > 0F && zombieHeight > 0F;
 		zombieWidth = width;
 		zombieHeight = height;
@@ -524,7 +489,6 @@ public class EntityZombie extends EntityMob {
 	 * Multiplies the height and width by the provided float.
 	 */
 	protected final void multiplySize(float size) {
-
 		super.setSize(zombieWidth * size, zombieHeight * size);
 	}
 
@@ -532,7 +496,6 @@ public class EntityZombie extends EntityMob {
 	 * Returns the Y Offset of this entity.
 	 */
 	public double getYOffset() {
-
 		return isChild() ? 0D : -0.45D;
 	}
 
@@ -540,7 +503,6 @@ public class EntityZombie extends EntityMob {
 	 * Called when the mob's health reaches 0.
 	 */
 	public void onDeath(DamageSource cause) {
-
 		super.onDeath(cause);
 
 		if (cause.getTrueSource() instanceof EntityCreeper entitycreeper) {
@@ -557,7 +519,6 @@ public class EntityZombie extends EntityMob {
 	}
 
 	protected ItemStack getSkullDrop() {
-
 		return new ItemStack(Items.SKULL, 1, 2);
 	}
 
@@ -566,7 +527,6 @@ public class EntityZombie extends EntityMob {
 		public boolean isChild;
 
 		private GroupData(boolean p_i47328_2_) {
-
 			isChild = p_i47328_2_;
 		}
 

@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 public class ItemBow extends Item {
 
 	public ItemBow() {
-
 		maxStackSize = 1;
 		setMaxDamage(384);
 		setCreativeTab(CreativeTabs.COMBAT);
@@ -34,7 +33,6 @@ public class ItemBow extends Item {
 	 * Gets the velocity of the arrow entity from the bow's charge
 	 */
 	public static float getArrowVelocity(int charge) {
-
 		float f = (float) charge / 20F;
 		f = (f * f + f * 2F) / 3F;
 
@@ -46,7 +44,6 @@ public class ItemBow extends Item {
 	}
 
 	private ItemStack findAmmo(EntityPlayer player) {
-
 		if (isArrow(player.getHeldItem(Hand.OFF_HAND))) {
 			return player.getHeldItem(Hand.OFF_HAND);
 		} else if (isArrow(player.getHeldItem(Hand.MAIN_HAND))) {
@@ -65,7 +62,6 @@ public class ItemBow extends Item {
 	}
 
 	protected boolean isArrow(ItemStack stack) {
-
 		return stack.getItem() instanceof ItemArrow;
 	}
 
@@ -73,7 +69,6 @@ public class ItemBow extends Item {
 	 * Called when the player stops using an Item (stops holding the right mouse button).
 	 */
 	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
-
 		if (entityLiving instanceof EntityPlayer entityplayer) {
 			boolean flag = entityplayer.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) > 0;
 			ItemStack itemstack = findAmmo(entityplayer);
@@ -143,7 +138,6 @@ public class ItemBow extends Item {
 	 * How long it takes to use or consume an item
 	 */
 	public int getMaxItemUseDuration(ItemStack stack) {
-
 		return 72000;
 	}
 
@@ -151,12 +145,10 @@ public class ItemBow extends Item {
 	 * returns the action that specifies what animation to play when the items is being used
 	 */
 	public Action getItemUseAction(ItemStack stack) {
-
 		return Action.BOW;
 	}
 
 	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
-
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		boolean flag = !findAmmo(playerIn).isEmpty();
 
@@ -172,7 +164,6 @@ public class ItemBow extends Item {
 	 * Return the enchantability factor of the item, most of the time is based on material.
 	 */
 	public int getItemEnchantability() {
-
 		return 1;
 	}
 

@@ -19,7 +19,6 @@ import net.minecraft.world.World;
 public class ItemBed extends Item {
 
 	public ItemBed() {
-
 		setCreativeTab(CreativeTabs.DECORATIONS);
 		setMaxDamage(0);
 		setHasSubtypes(true);
@@ -29,7 +28,6 @@ public class ItemBed extends Item {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		if (worldIn.isRemote) {
 			return ActionResult.SUCCESS;
 		} else if (facing != Facing.UP) {
@@ -95,7 +93,6 @@ public class ItemBed extends Item {
 	 * different names based on their damage or NBT.
 	 */
 	public String getUnlocalizedName(ItemStack stack) {
-
 		return super.getUnlocalizedName() + "." + DyeColor.byMetadata(stack.getMetadata()).getUnlocalizedName();
 	}
 
@@ -103,7 +100,6 @@ public class ItemBed extends Item {
 	 * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
 	 */
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-
 		if (isInCreativeTab(tab)) {
 			for (int i = 0; i < 16; ++i) {
 				items.add(new ItemStack(this, 1, i));

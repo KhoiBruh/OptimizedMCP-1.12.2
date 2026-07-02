@@ -28,33 +28,27 @@ public class EntityTippedArrow extends EntityArrow {
 	private boolean fixedColor;
 
 	public EntityTippedArrow(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public EntityTippedArrow(World worldIn, double x, double y, double z) {
-
 		super(worldIn, x, y, z);
 	}
 
 	public EntityTippedArrow(World worldIn, EntityLivingBase shooter) {
-
 		super(worldIn, shooter);
 	}
 
 	public static int getCustomColor(ItemStack p_191508_0_) {
-
 		NBTTagCompound nbttagcompound = p_191508_0_.getTagCompound();
 		return nbttagcompound != null && nbttagcompound.hasKey("CustomPotionColor", 99) ? nbttagcompound.getInteger("CustomPotionColor") : -1;
 	}
 
 	public static void registerFixesTippedArrow(DataFixer fixer) {
-
 		EntityArrow.registerFixesArrow(fixer, "TippedArrow");
 	}
 
 	public void setPotionEffect(ItemStack stack) {
-
 		if (stack.getItem() == Items.TIPPED_ARROW) {
 			potion = PotionUtils.getPotionFromItem(stack);
 			Collection<PotionEffect> collection = PotionUtils.getFullEffectsFromItem(stack);
@@ -80,19 +74,16 @@ public class EntityTippedArrow extends EntityArrow {
 	}
 
 	private void refreshColor() {
-
 		fixedColor = false;
 		dataManager.set(COLOR, PotionUtils.getPotionColorFromEffectList(PotionUtils.mergeEffects(potion, customPotionEffects)));
 	}
 
 	public void addEffect(PotionEffect effect) {
-
 		customPotionEffects.add(effect);
 		getDataManager().set(COLOR, PotionUtils.getPotionColorFromEffectList(PotionUtils.mergeEffects(potion, customPotionEffects)));
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(COLOR, -1);
 	}
@@ -101,7 +92,6 @@ public class EntityTippedArrow extends EntityArrow {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		super.onUpdate();
 
 		if (world.isRemote) {
@@ -121,7 +111,6 @@ public class EntityTippedArrow extends EntityArrow {
 	}
 
 	private void spawnPotionParticles(int particleCount) {
-
 		int i = getColor();
 
 		if (i != -1 && particleCount > 0) {
@@ -136,12 +125,10 @@ public class EntityTippedArrow extends EntityArrow {
 	}
 
 	public int getColor() {
-
 		return dataManager.get(COLOR);
 	}
 
 	private void setFixedColor(int p_191507_1_) {
-
 		fixedColor = true;
 		dataManager.set(COLOR, p_191507_1_);
 	}
@@ -150,7 +137,6 @@ public class EntityTippedArrow extends EntityArrow {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 
 		if (potion != PotionTypes.EMPTY && potion != null) {
@@ -176,7 +162,6 @@ public class EntityTippedArrow extends EntityArrow {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 
 		if (compound.hasKey("Potion", 8)) {
@@ -195,7 +180,6 @@ public class EntityTippedArrow extends EntityArrow {
 	}
 
 	protected void arrowHit(EntityLivingBase living) {
-
 		super.arrowHit(living);
 
 		for (PotionEffect potioneffect : potion.getEffects()) {
@@ -210,7 +194,6 @@ public class EntityTippedArrow extends EntityArrow {
 	}
 
 	protected ItemStack getArrowStack() {
-
 		if (customPotionEffects.isEmpty() && potion == PotionTypes.EMPTY) {
 			return new ItemStack(Items.ARROW);
 		} else {
@@ -237,7 +220,6 @@ public class EntityTippedArrow extends EntityArrow {
 	 * Handler for {@link World#setEntityState}
 	 */
 	public void handleStatusUpdate(byte id) {
-
 		if (id == 0) {
 			int i = getColor();
 

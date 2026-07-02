@@ -17,7 +17,6 @@ public class ScreenChatOptions extends Screen {
 	private String chatTitle;
 
 	public ScreenChatOptions(Screen parentScreenIn, GameSettings gameSettingsIn) {
-
 		parentScreen = parentScreenIn;
 		game_settings = gameSettingsIn;
 	}
@@ -27,7 +26,6 @@ public class ScreenChatOptions extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		chatTitle = I18n.format("options.chat.title");
 		int i = 0;
 
@@ -50,7 +48,6 @@ public class ScreenChatOptions extends Screen {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-
 		if (keyCode == 256) {
 			mc.gameSettings.saveOptions();
 		}
@@ -62,7 +59,6 @@ public class ScreenChatOptions extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.enabled) {
 			if (button.id < 100 && button instanceof OptionButton) {
 				game_settings.setOptionValue(((OptionButton) button).getOption(), 1);
@@ -80,7 +76,6 @@ public class ScreenChatOptions extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, chatTitle, width / 2, 20, 16777215);
 		super.draw(mouseX, mouseY, partialTicks);

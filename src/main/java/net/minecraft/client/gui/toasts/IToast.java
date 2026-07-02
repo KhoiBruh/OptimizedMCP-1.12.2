@@ -25,12 +25,10 @@ public interface IToast {
 		private final SoundEvent sound;
 
 		Visibility(SoundEvent soundIn) {
-
 			sound = soundIn;
 		}
 
 		public void playSound(SoundHandler handler) {
-
 			handler.playSound(PositionedSoundRecord.getRecord(sound, 1F, 1F));
 		}
 	}

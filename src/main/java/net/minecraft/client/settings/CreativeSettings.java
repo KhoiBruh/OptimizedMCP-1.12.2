@@ -16,7 +16,6 @@ public class CreativeSettings {
 	protected Minecraft minecraft;
 
 	public CreativeSettings(Minecraft minecraftIn, File dataDir) {
-
 		minecraft = minecraftIn;
 		dataFile = new File(dataDir, "hotbar.nbt");
 
@@ -28,7 +27,6 @@ public class CreativeSettings {
 	}
 
 	public void read() {
-
 		try {
 			NBTTagCompound nbttagcompound = CompressedStreamTools.read(dataFile);
 
@@ -45,7 +43,6 @@ public class CreativeSettings {
 	}
 
 	public void write() {
-
 		try {
 			NBTTagCompound nbttagcompound = new NBTTagCompound();
 
@@ -60,7 +57,6 @@ public class CreativeSettings {
 	}
 
 	public HotbarSnapshot getHotbarSnapshot(int p_192563_1_) {
-
 		return hotbarSnapshots[p_192563_1_];
 	}
 

@@ -39,7 +39,6 @@ public class LootConditionManager {
 	}
 
 	public static boolean testAllConditions(LootCondition[] conditions, Random rand, LootContext context) {
-
 		if (conditions == null) {
 			return true;
 		} else {
@@ -78,7 +77,6 @@ public class LootConditionManager {
 	public static class Serializer implements JsonDeserializer<LootCondition>, JsonSerializer<LootCondition> {
 
 		public LootCondition deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-
 			JsonObject jsonobject = JsonUtils.getJsonObject(p_deserialize_1_, "condition");
 			ResourceLocation resourcelocation = new ResourceLocation(JsonUtils.getString(jsonobject, "condition"));
 			LootCondition.Serializer<?> serializer;
@@ -93,7 +91,6 @@ public class LootConditionManager {
 		}
 
 		public JsonElement serialize(LootCondition p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
-
 			LootCondition.Serializer<LootCondition> serializer = LootConditionManager.getSerializerFor(p_serialize_1_);
 			JsonObject jsonobject = new JsonObject();
 			serializer.serialize(jsonobject, p_serialize_1_, p_serialize_3_);

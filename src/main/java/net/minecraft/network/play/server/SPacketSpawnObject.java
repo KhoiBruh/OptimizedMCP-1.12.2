@@ -25,16 +25,13 @@ public class SPacketSpawnObject implements Packet<INetHandlerPlayClient> {
 	private int data;
 
 	public SPacketSpawnObject() {
-
 	}
 
 	public SPacketSpawnObject(Entity entityIn, int typeIn) {
-
 		this(entityIn, typeIn, 0);
 	}
 
 	public SPacketSpawnObject(Entity entityIn, int typeIn, int dataIn) {
-
 		entityId = entityIn.getEntityId();
 		uniqueId = entityIn.getUniqueID();
 		x = entityIn.posX;
@@ -51,7 +48,6 @@ public class SPacketSpawnObject implements Packet<INetHandlerPlayClient> {
 	}
 
 	public SPacketSpawnObject(Entity entityIn, int typeIn, int dataIn, BlockPos pos) {
-
 		this(entityIn, typeIn, dataIn);
 		x = pos.getX();
 		y = pos.getY();
@@ -62,7 +58,6 @@ public class SPacketSpawnObject implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		entityId = buf.readVarInt();
 		uniqueId = buf.readUniqueId();
 		type = buf.readByte();
@@ -81,7 +76,6 @@ public class SPacketSpawnObject implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeVarInt(entityId);
 		buf.writeUniqueId(uniqueId);
 		buf.writeByte(type);
@@ -100,87 +94,70 @@ public class SPacketSpawnObject implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleSpawnObject(this);
 	}
 
 	public int getEntityID() {
-
 		return entityId;
 	}
 
 	public UUID getUniqueId() {
-
 		return uniqueId;
 	}
 
 	public double getX() {
-
 		return x;
 	}
 
 	public double getY() {
-
 		return y;
 	}
 
 	public double getZ() {
-
 		return z;
 	}
 
 	public int getSpeedX() {
-
 		return speedX;
 	}
 
 	public void setSpeedX(int newSpeedX) {
-
 		speedX = newSpeedX;
 	}
 
 	public int getSpeedY() {
-
 		return speedY;
 	}
 
 	public void setSpeedY(int newSpeedY) {
-
 		speedY = newSpeedY;
 	}
 
 	public int getSpeedZ() {
-
 		return speedZ;
 	}
 
 	public void setSpeedZ(int newSpeedZ) {
-
 		speedZ = newSpeedZ;
 	}
 
 	public int getPitch() {
-
 		return pitch;
 	}
 
 	public int getYaw() {
-
 		return yaw;
 	}
 
 	public int getType() {
-
 		return type;
 	}
 
 	public int getData() {
-
 		return data;
 	}
 
 	public void setData(int dataIn) {
-
 		data = dataIn;
 	}
 

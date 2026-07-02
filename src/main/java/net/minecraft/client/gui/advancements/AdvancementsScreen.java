@@ -28,7 +28,6 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 	private boolean isScrolling;
 
 	public AdvancementsScreen(ClientAdvancementManager p_i47383_1_) {
-
 		clientAdvancementManager = p_i47383_1_;
 	}
 
@@ -37,7 +36,6 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		tabs.clear();
 		selectedTab = null;
 		clientAdvancementManager.setListener(this);
@@ -53,7 +51,6 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 	 * Called when the screen is unloaded. Used to disable keyboard repeat events
 	 */
 	public void close() {
-
 		clientAdvancementManager.setListener(null);
 		NetHandlerPlayClient nethandlerplayclient = mc.getConnection();
 
@@ -66,7 +63,6 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
-
 		if (mouse == 0) {
 			int i = (width - 252) / 2;
 			int j = (height - 140) / 2;
@@ -87,7 +83,6 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-
 		if (keyCode == mc.gameSettings.keyAdvancements.getKeyCode()) {
 			mc.displayScreen(null);
 			mc.setIngameFocus();
@@ -100,7 +95,6 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		int i = (width - 252) / 2;
 		int j = (height - 140) / 2;
 
@@ -124,7 +118,6 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 	}
 
 	private void renderInside(int p_191936_1_, int p_191936_2_, int p_191936_3_, int p_191936_4_) {
-
 		GuiAdvancementTab guiadvancementtab = selectedTab;
 
 		if (guiadvancementtab == null) {
@@ -145,7 +138,6 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 	}
 
 	public void renderWindow(int p_191934_1_, int p_191934_2_) {
-
 		GLS.color(1F, 1F, 1F, 1F);
 		GLS.enableBlend();
 		RenderHelper.disableStandardItemLighting();
@@ -174,7 +166,6 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 	}
 
 	private void renderToolTips(int p_191937_1_, int p_191937_2_, int p_191937_3_, int p_191937_4_) {
-
 		GLS.color(1F, 1F, 1F, 1F);
 
 		if (selectedTab != null) {
@@ -196,7 +187,6 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 	}
 
 	public void rootAdvancementAdded(Advancement advancementIn) {
-
 		GuiAdvancementTab guiadvancementtab = GuiAdvancementTab.create(mc, this, tabs.size(), advancementIn);
 
 		if (guiadvancementtab != null) {
@@ -205,11 +195,9 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 	}
 
 	public void rootAdvancementRemoved(Advancement advancementIn) {
-
 	}
 
 	public void nonRootAdvancementAdded(Advancement advancementIn) {
-
 		GuiAdvancementTab guiadvancementtab = getTab(advancementIn);
 
 		if (guiadvancementtab != null) {
@@ -218,11 +206,9 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 	}
 
 	public void nonRootAdvancementRemoved(Advancement advancementIn) {
-
 	}
 
 	public void onUpdateAdvancementProgress(Advancement p_191933_1_, AdvancementProgress p_191933_2_) {
-
 		GuiAdvancement guiadvancement = getAdvancementGui(p_191933_1_);
 
 		if (guiadvancement != null) {
@@ -231,26 +217,22 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 	}
 
 	public void setSelectedTab(Advancement p_193982_1_) {
-
 		selectedTab = tabs.get(p_193982_1_);
 	}
 
 	public void advancementsCleared() {
-
 		tabs.clear();
 		selectedTab = null;
 	}
 
 	
 	public GuiAdvancement getAdvancementGui(Advancement p_191938_1_) {
-
 		GuiAdvancementTab guiadvancementtab = getTab(p_191938_1_);
 		return guiadvancementtab == null ? null : guiadvancementtab.getAdvancementGui(p_191938_1_);
 	}
 
 	
 	private GuiAdvancementTab getTab(Advancement p_191935_1_) {
-
 		while (p_191935_1_.getParent() != null) {
 			p_191935_1_ = p_191935_1_.getParent();
 		}

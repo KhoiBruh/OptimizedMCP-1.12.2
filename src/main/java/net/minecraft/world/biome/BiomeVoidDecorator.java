@@ -9,7 +9,6 @@ import java.util.Random;
 public class BiomeVoidDecorator extends BiomeDecorator {
 
 	public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
-
 		BlockPos blockpos = worldIn.getSpawnPoint();
 		double d0 = blockpos.distanceSq(pos.add(8, blockpos.getY(), 8));
 

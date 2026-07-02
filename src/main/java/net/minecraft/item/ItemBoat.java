@@ -23,7 +23,6 @@ public class ItemBoat extends Item {
 	private final EntityBoat.Type type;
 
 	public ItemBoat(EntityBoat.Type typeIn) {
-
 		type = typeIn;
 		maxStackSize = 1;
 		setCreativeTab(CreativeTabs.TRANSPORTATION);
@@ -31,7 +30,6 @@ public class ItemBoat extends Item {
 	}
 
 	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
-
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		float f = 1F;
 		float f1 = playerIn.prevRotationPitch + (playerIn.rotationPitch - playerIn.prevRotationPitch);

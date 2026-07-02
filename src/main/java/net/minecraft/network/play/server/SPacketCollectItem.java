@@ -11,11 +11,9 @@ public class SPacketCollectItem implements Packet<INetHandlerPlayClient> {
 	private int collectedQuantity;
 
 	public SPacketCollectItem() {
-
 	}
 
 	public SPacketCollectItem(int p_i47316_1_, int p_i47316_2_, int p_i47316_3_) {
-
 		collectedItemEntityId = p_i47316_1_;
 		entityId = p_i47316_2_;
 		collectedQuantity = p_i47316_3_;
@@ -25,7 +23,6 @@ public class SPacketCollectItem implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		collectedItemEntityId = buf.readVarInt();
 		entityId = buf.readVarInt();
 		collectedQuantity = buf.readVarInt();
@@ -35,7 +32,6 @@ public class SPacketCollectItem implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeVarInt(collectedItemEntityId);
 		buf.writeVarInt(entityId);
 		buf.writeVarInt(collectedQuantity);
@@ -45,22 +41,18 @@ public class SPacketCollectItem implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleCollectItem(this);
 	}
 
 	public int getCollectedItemEntityID() {
-
 		return collectedItemEntityId;
 	}
 
 	public int getEntityID() {
-
 		return entityId;
 	}
 
 	public int getAmount() {
-
 		return collectedQuantity;
 	}
 

@@ -16,7 +16,6 @@ public class BlockStructureVoid extends Block {
 	private static final AxisAlignedBB STRUCTURE_VOID_AABB = new AxisAlignedBB(0.3D, 0.3D, 0.3D, 0.7D, 0.7D, 0.7D);
 
 	protected BlockStructureVoid() {
-
 		super(Material.STRUCTURE_VOID);
 	}
 
@@ -25,18 +24,15 @@ public class BlockStructureVoid extends Block {
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
 	public BlockRenderType getRenderType(IBlockState state) {
-
 		return BlockRenderType.INVISIBLE;
 	}
 
 	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-
 		return NULL_AABB;
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return STRUCTURE_VOID_AABB;
 	}
 
@@ -44,17 +40,14 @@ public class BlockStructureVoid extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
 	public float getAmbientOcclusionLightValue(IBlockState state) {
-
 		return 1F;
 	}
 
@@ -62,11 +55,9 @@ public class BlockStructureVoid extends Block {
 	 * Spawns this Block's drops into the World as EntityItems.
 	 */
 	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
-
 	}
 
 	public PushReaction getMobilityFlag(IBlockState state) {
-
 		return PushReaction.DESTROY;
 	}
 
@@ -80,7 +71,6 @@ public class BlockStructureVoid extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

@@ -30,13 +30,11 @@ public class BlockCommandBlock extends BlockContainer {
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	public BlockCommandBlock(MapColor color) {
-
 		super(Material.IRON, color);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(CONDITIONAL, false));
 	}
 
 	private static void executeChain(World p_193386_0_, BlockPos p_193386_1_, Facing p_193386_2_) {
-
 		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(p_193386_1_);
 		GameRules gamerules = p_193386_0_.getGameRules();
 		int i;
@@ -86,7 +84,6 @@ public class BlockCommandBlock extends BlockContainer {
 	 * Returns a new instance of a block's tile entity class. Called on placing the block.
 	 */
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-
 		TileEntityCommandBlock tileentitycommandblock = new TileEntityCommandBlock();
 		tileentitycommandblock.setAuto(this == Blocks.CHAIN_COMMAND_BLOCK);
 		return tileentitycommandblock;
@@ -98,7 +95,6 @@ public class BlockCommandBlock extends BlockContainer {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (!worldIn.isRemote) {
 			TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -118,7 +114,6 @@ public class BlockCommandBlock extends BlockContainer {
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if (!worldIn.isRemote) {
 			TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -154,7 +149,6 @@ public class BlockCommandBlock extends BlockContainer {
 	}
 
 	private void execute(IBlockState p_193387_1_, World p_193387_2_, BlockPos p_193387_3_, CommandBlockBaseLogic p_193387_4_, boolean p_193387_5_) {
-
 		if (p_193387_5_) {
 			p_193387_4_.trigger(p_193387_2_);
 		} else {
@@ -168,7 +162,6 @@ public class BlockCommandBlock extends BlockContainer {
 	 * How many world ticks before ticking
 	 */
 	public int tickRate(World worldIn) {
-
 		return 1;
 	}
 
@@ -176,7 +169,6 @@ public class BlockCommandBlock extends BlockContainer {
 	 * Called when the block is right clicked by a player.
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 
 		if (tileentity instanceof TileEntityCommandBlock && playerIn.canUseCommandBlock()) {
@@ -188,12 +180,10 @@ public class BlockCommandBlock extends BlockContainer {
 	}
 
 	public boolean hasComparatorInputOverride(IBlockState state) {
-
 		return true;
 	}
 
 	public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
-
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 		return tileentity instanceof TileEntityCommandBlock ? ((TileEntityCommandBlock) tileentity).getCommandBlockLogic().getSuccessCount() : 0;
 	}
@@ -202,7 +192,6 @@ public class BlockCommandBlock extends BlockContainer {
 	 * Called by ItemBlocks after a block is set in the world, to allow post-place logic
 	 */
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 
 		if (tileentity instanceof TileEntityCommandBlock tileentitycommandblock) {
@@ -232,7 +221,6 @@ public class BlockCommandBlock extends BlockContainer {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return 0;
 	}
 
@@ -241,7 +229,6 @@ public class BlockCommandBlock extends BlockContainer {
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
 	public BlockRenderType getRenderType(IBlockState state) {
-
 		return BlockRenderType.MODEL;
 	}
 
@@ -249,7 +236,6 @@ public class BlockCommandBlock extends BlockContainer {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(FACING, Facing.getFront(meta & 7)).withProperty(CONDITIONAL, (meta & 8) != 0);
 	}
 
@@ -257,7 +243,6 @@ public class BlockCommandBlock extends BlockContainer {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(FACING).getIndex() | (state.getValue(CONDITIONAL) ? 8 : 0);
 	}
 
@@ -266,7 +251,6 @@ public class BlockCommandBlock extends BlockContainer {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
@@ -275,12 +259,10 @@ public class BlockCommandBlock extends BlockContainer {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, FACING, CONDITIONAL);
 	}
 
@@ -289,7 +271,6 @@ public class BlockCommandBlock extends BlockContainer {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		return getDefaultState().withProperty(FACING, Facing.getDirectionFromEntityLiving(pos, placer)).withProperty(CONDITIONAL, false);
 	}
 

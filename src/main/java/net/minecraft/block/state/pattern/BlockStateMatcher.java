@@ -17,17 +17,14 @@ public class BlockStateMatcher implements Predicate<IBlockState> {
 	private final Map<IProperty<?>, Predicate<?>> propertyPredicates = Maps.newHashMap();
 
 	private BlockStateMatcher(BlockStateContainer blockStateIn) {
-
 		blockstate = blockStateIn;
 	}
 
 	public static BlockStateMatcher forBlock(Block blockIn) {
-
 		return new BlockStateMatcher(blockIn.getBlockState());
 	}
 
 	public boolean apply(IBlockState p_apply_1_) {
-
 		if (p_apply_1_ != null && p_apply_1_.getBlock().equals(blockstate.getBlock())) {
 			if (propertyPredicates.isEmpty()) {
 				return true;

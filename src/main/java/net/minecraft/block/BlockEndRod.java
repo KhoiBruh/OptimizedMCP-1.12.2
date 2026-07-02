@@ -23,7 +23,6 @@ public class BlockEndRod extends BlockDirectional {
 	protected static final AxisAlignedBB END_ROD_EW_AABB = new AxisAlignedBB(0D, 0.375D, 0.375D, 1D, 0.625D, 0.625D);
 
 	protected BlockEndRod() {
-
 		super(Material.CIRCUITS);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.UP));
 		setCreativeTab(CreativeTabs.DECORATIONS);
@@ -34,7 +33,6 @@ public class BlockEndRod extends BlockDirectional {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
@@ -43,12 +41,10 @@ public class BlockEndRod extends BlockDirectional {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return state.withProperty(FACING, mirrorIn.mirror(state.getValue(FACING)));
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return switch (state.getValue(FACING).getAxis()) {
 			case Z -> END_ROD_NS_AABB;
 			case Y -> END_ROD_VERTICAL_AABB;
@@ -60,12 +56,10 @@ public class BlockEndRod extends BlockDirectional {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -73,7 +67,6 @@ public class BlockEndRod extends BlockDirectional {
 	 * Checks if this block can be placed exactly at the given position.
 	 */
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-
 		return true;
 	}
 
@@ -82,7 +75,6 @@ public class BlockEndRod extends BlockDirectional {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		IBlockState iblockstate = worldIn.getBlockState(pos.offset(facing.getOpposite()));
 
 		if (iblockstate.getBlock() == Blocks.END_ROD) {
@@ -97,7 +89,6 @@ public class BlockEndRod extends BlockDirectional {
 	}
 
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-
 		Facing enumfacing = stateIn.getValue(FACING);
 		double d0 = (double) pos.getX() + 0.55D - (double) (rand.nextFloat() * 0.1F);
 		double d1 = (double) pos.getY() + 0.55D - (double) (rand.nextFloat() * 0.1F);
@@ -114,7 +105,6 @@ public class BlockEndRod extends BlockDirectional {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.CUTOUT;
 	}
 
@@ -122,7 +112,6 @@ public class BlockEndRod extends BlockDirectional {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		IBlockState iblockstate = getDefaultState();
 		iblockstate = iblockstate.withProperty(FACING, Facing.getFront(meta));
 		return iblockstate;
@@ -132,17 +121,14 @@ public class BlockEndRod extends BlockDirectional {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(FACING).getIndex();
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, FACING);
 	}
 
 	public PushReaction getMobilityFlag(IBlockState state) {
-
 		return PushReaction.NORMAL;
 	}
 
@@ -156,7 +142,6 @@ public class BlockEndRod extends BlockDirectional {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

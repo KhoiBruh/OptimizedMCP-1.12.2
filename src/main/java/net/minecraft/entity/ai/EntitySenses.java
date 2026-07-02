@@ -13,7 +13,6 @@ public class EntitySenses {
 	List<Entity> unseenEntities = Lists.newArrayList();
 
 	public EntitySenses(EntityLiving entityIn) {
-
 		entity = entityIn;
 	}
 
@@ -21,7 +20,6 @@ public class EntitySenses {
 	 * Clears canSeeCachePositive and canSeeCacheNegative.
 	 */
 	public void clearSensingCache() {
-
 		seenEntities.clear();
 		unseenEntities.clear();
 	}
@@ -30,7 +28,6 @@ public class EntitySenses {
 	 * Checks, whether 'our' entity can see the entity given as argument (true) or not (false), caching the result.
 	 */
 	public boolean canSee(Entity entityIn) {
-
 		if (seenEntities.contains(entityIn)) {
 			return true;
 		} else if (unseenEntities.contains(entityIn)) {

@@ -26,26 +26,22 @@ public abstract class EntityHanging extends Entity {
 	private int tickCounter1;
 
 	public EntityHanging(World worldIn) {
-
 		super(worldIn);
 		setSize(0.5F, 0.5F);
 	}
 
 	public EntityHanging(World worldIn, BlockPos hangingPositionIn) {
-
 		this(worldIn);
 		hangingPosition = hangingPositionIn;
 	}
 
 	protected void entityInit() {
-
 	}
 
 	/**
 	 * Updates facing and bounding box based on it
 	 */
 	protected void updateFacingWithBoundingBox(Facing facingDirectionIn) {
-
 		Validate.notNull(facingDirectionIn);
 		Validate.isTrue(facingDirectionIn.getAxis().isHorizontal());
 		facingDirection = facingDirectionIn;
@@ -58,7 +54,6 @@ public abstract class EntityHanging extends Entity {
 	 * Updates the entity bounding box based on current facing
 	 */
 	protected void updateBoundingBox() {
-
 		if (facingDirection != null) {
 			double d0 = (double) hangingPosition.getX() + 0.5D;
 			double d1 = (double) hangingPosition.getY() + 0.5D;
@@ -93,7 +88,6 @@ public abstract class EntityHanging extends Entity {
 	}
 
 	private double offs(int p_190202_1_) {
-
 		return p_190202_1_ % 32 == 0 ? 0.5D : 0D;
 	}
 
@@ -101,7 +95,6 @@ public abstract class EntityHanging extends Entity {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
@@ -120,7 +113,6 @@ public abstract class EntityHanging extends Entity {
 	 * checks to make sure painting can be placed there
 	 */
 	public boolean onValidSurface() {
-
 		if (!world.getCollisionBoxes(this, getEntityBoundingBox()).isEmpty()) {
 			return false;
 		} else {
@@ -151,7 +143,6 @@ public abstract class EntityHanging extends Entity {
 	 * Returns true if other Entities should be prevented from moving through this Entity.
 	 */
 	public boolean canBeCollidedWith() {
-
 		return true;
 	}
 
@@ -159,7 +150,6 @@ public abstract class EntityHanging extends Entity {
 	 * Called when a player attacks an entity. If this returns true the attack will not happen.
 	 */
 	public boolean hitByEntity(Entity entityIn) {
-
 		return entityIn instanceof EntityPlayer && attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) entityIn), 0F);
 	}
 
@@ -167,7 +157,6 @@ public abstract class EntityHanging extends Entity {
 	 * Gets the horizontal facing direction of this Entity.
 	 */
 	public Facing getHorizontalFacing() {
-
 		return facingDirection;
 	}
 
@@ -175,7 +164,6 @@ public abstract class EntityHanging extends Entity {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		if (isEntityInvulnerable(source)) {
 			return false;
 		} else {
@@ -193,7 +181,6 @@ public abstract class EntityHanging extends Entity {
 	 * Tries to move the entity towards the specified location.
 	 */
 	public void move(MoverType type, double x, double y, double z) {
-
 		if (!world.isRemote && !isDead && x * x + y * y + z * z > 0D) {
 			setDead();
 			onBroken(null);
@@ -204,7 +191,6 @@ public abstract class EntityHanging extends Entity {
 	 * Adds to the current velocity of the entity, and sets {@link #isAirBorne} to true.
 	 */
 	public void addVelocity(double x, double y, double z) {
-
 		if (!world.isRemote && !isDead && x * x + y * y + z * z > 0D) {
 			setDead();
 			onBroken(null);
@@ -215,7 +201,6 @@ public abstract class EntityHanging extends Entity {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		compound.setByte("Facing", (byte) facingDirection.getHorizontalIndex());
 		BlockPos blockpos = getHangingPosition();
 		compound.setInteger("TileX", blockpos.getX());
@@ -227,7 +212,6 @@ public abstract class EntityHanging extends Entity {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		hangingPosition = new BlockPos(compound.getInteger("TileX"), compound.getInteger("TileY"), compound.getInteger("TileZ"));
 		updateFacingWithBoundingBox(Facing.getHorizontal(compound.getByte("Facing")));
 	}
@@ -247,7 +231,6 @@ public abstract class EntityHanging extends Entity {
 	 * Drops an item at the position of the entity.
 	 */
 	public EntityItem entityDropItem(ItemStack stack, float offsetY) {
-
 		EntityItem entityitem = new EntityItem(world, posX + (double) ((float) facingDirection.getFrontOffsetX() * 0.15F), posY + (double) offsetY, posZ + (double) ((float) facingDirection.getFrontOffsetZ() * 0.15F), stack);
 		entityitem.setDefaultPickupDelay();
 		world.spawnEntity(entityitem);
@@ -255,7 +238,6 @@ public abstract class EntityHanging extends Entity {
 	}
 
 	protected boolean shouldSetPosAfterLoading() {
-
 		return false;
 	}
 
@@ -263,14 +245,12 @@ public abstract class EntityHanging extends Entity {
 	 * Sets the x,y,z of the entity from the given parameters. Also seems to set up a bounding box.
 	 */
 	public void setPosition(double x, double y, double z) {
-
 		hangingPosition = new BlockPos(x, y, z);
 		updateBoundingBox();
 		isAirBorne = true;
 	}
 
 	public BlockPos getHangingPosition() {
-
 		return hangingPosition;
 	}
 
@@ -280,7 +260,6 @@ public abstract class EntityHanging extends Entity {
 	 * Transforms the entity's current yaw with the given Rotation and returns it. This does not have a side-effect.
 	 */
 	public float getRotatedYaw(Rotation transformRotation) {
-
 		if (facingDirection != null && facingDirection.getAxis() != Facing.Axis.Y) {
 			switch (transformRotation) {
 				case CLOCKWISE_180:
@@ -310,7 +289,6 @@ public abstract class EntityHanging extends Entity {
 	 * Transforms the entity's current yaw with the given Mirror and returns it. This does not have a side-effect.
 	 */
 	public float getMirroredYaw(Mirror transformMirror) {
-
 		return getRotatedYaw(transformMirror.toRotation(facingDirection));
 	}
 
@@ -318,7 +296,6 @@ public abstract class EntityHanging extends Entity {
 	 * Called when a lightning bolt hits the entity.
 	 */
 	public void onStruckByLightning(EntityLightningBolt lightningBolt) {
-
 	}
 
 }

@@ -9,12 +9,10 @@ public enum BlockRenderLayer {
 	private final String layerName;
 
 	BlockRenderLayer(String layerNameIn) {
-
 		layerName = layerNameIn;
 	}
 
 	public String toString() {
-
 		return layerName;
 	}
 }

@@ -14,7 +14,6 @@ public class RenderHorse extends RenderLiving<EntityHorse> {
 	private static final Map<String, ResourceLocation> LAYERED_LOCATION_CACHE = Maps.newHashMap();
 
 	public RenderHorse(RenderManager p_i47205_1_) {
-
 		super(p_i47205_1_, new ModelHorse(), 0.75F);
 	}
 
@@ -22,7 +21,6 @@ public class RenderHorse extends RenderLiving<EntityHorse> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityHorse entity) {
-
 		String s = entity.getHorseTexture();
 		ResourceLocation resourcelocation = LAYERED_LOCATION_CACHE.get(s);
 

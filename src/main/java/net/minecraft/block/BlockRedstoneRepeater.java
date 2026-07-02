@@ -23,7 +23,6 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 	public static final PropertyInteger DELAY = PropertyInteger.create("delay", 1, 4);
 
 	protected BlockRedstoneRepeater(boolean powered) {
-
 		super(powered);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(DELAY, 1).withProperty(LOCKED, false));
 	}
@@ -32,7 +31,6 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 	 * Gets the localized name of this block. Used for the statistics page.
 	 */
 	public String getLocalizedName() {
-
 		return I18n.translateToLocal("item.diode.name");
 	}
 
@@ -41,7 +39,6 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 	 * metadata, such as fence connections.
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return state.withProperty(LOCKED, isLocked(worldIn, pos, state));
 	}
 
@@ -50,7 +47,6 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
@@ -59,7 +55,6 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
 	}
 
@@ -67,7 +62,6 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 	 * Called when the block is right clicked by a player.
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		if (!playerIn.capabilities.allowEdit) {
 			return false;
 		} else {
@@ -77,12 +71,10 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 	}
 
 	protected int getDelay(IBlockState state) {
-
 		return state.getValue(DELAY) * 2;
 	}
 
 	protected IBlockState getPoweredState(IBlockState unpoweredState) {
-
 		Integer integer = unpoweredState.getValue(DELAY);
 		Boolean obool = unpoweredState.getValue(LOCKED);
 		Facing enumfacing = unpoweredState.getValue(FACING);
@@ -90,7 +82,6 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 	}
 
 	protected IBlockState getUnpoweredState(IBlockState poweredState) {
-
 		Integer integer = poweredState.getValue(DELAY);
 		Boolean obool = poweredState.getValue(LOCKED);
 		Facing enumfacing = poweredState.getValue(FACING);
@@ -101,27 +92,22 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Items.REPEATER;
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return new ItemStack(Items.REPEATER);
 	}
 
 	public boolean isLocked(IBlockAccess worldIn, BlockPos pos, IBlockState state) {
-
 		return getPowerOnSides(worldIn, pos, state) > 0;
 	}
 
 	protected boolean isAlternateInput(IBlockState state) {
-
 		return isDiode(state);
 	}
 
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-
 		if (isRepeaterPowered) {
 			Facing enumfacing = stateIn.getValue(FACING);
 			double d0 = (double) ((float) pos.getX() + 0.5F) + (double) (rand.nextFloat() - 0.5F) * 0.2D;
@@ -144,7 +130,6 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		super.breakBlock(worldIn, pos, state);
 		notifyNeighbors(worldIn, pos, state);
 	}
@@ -153,7 +138,6 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(FACING, Facing.getHorizontal(meta)).withProperty(LOCKED, false).withProperty(DELAY, 1 + (meta >> 2));
 	}
 
@@ -161,7 +145,6 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 		i = i | state.getValue(FACING).getHorizontalIndex();
 		i = i | state.getValue(DELAY) - 1 << 2;
@@ -169,7 +152,6 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, FACING, DELAY, LOCKED);
 	}
 

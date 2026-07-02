@@ -12,19 +12,16 @@ public class ResourceLocation implements Comparable<ResourceLocation> {
 	protected final String resourcePath;
 
 	protected ResourceLocation(int unused, String... resourceName) {
-
 		resourceDomain = (resourceName[0] == null || resourceName[0].isEmpty()) ? "minecraft" : resourceName[0].toLowerCase(Locale.ROOT);
 		resourcePath = resourceName[1].toLowerCase(Locale.ROOT);
 		Objects.requireNonNull(resourcePath);
 	}
 
 	public ResourceLocation(String resourceName) {
-
 		this(0, splitObjectName(resourceName));
 	}
 
 	public ResourceLocation(String resourceDomainIn, String resourcePathIn) {
-
 		this(0, resourceDomainIn, resourcePathIn);
 	}
 
@@ -33,7 +30,6 @@ public class ResourceLocation implements Comparable<ResourceLocation> {
 	 * length 2. If no colon is present in the passed value the returned array will contain {null, toSplit}.
 	 */
 	protected static String[] splitObjectName(String toSplit) {
-
 		String[] astring = new String[]{"minecraft", toSplit};
 		int i = toSplit.indexOf(58);
 
@@ -49,22 +45,18 @@ public class ResourceLocation implements Comparable<ResourceLocation> {
 	}
 
 	public String getResourcePath() {
-
 		return resourcePath;
 	}
 
 	public String getResourceDomain() {
-
 		return resourceDomain;
 	}
 
 	public String toString() {
-
 		return resourceDomain + ':' + resourcePath;
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else if (!(p_equals_1_ instanceof ResourceLocation resourcelocation)) {
@@ -75,12 +67,10 @@ public class ResourceLocation implements Comparable<ResourceLocation> {
 	}
 
 	public int hashCode() {
-
 		return 31 * resourceDomain.hashCode() + resourcePath.hashCode();
 	}
 
 	public int compareTo(ResourceLocation p_compareTo_1_) {
-
 		int i = resourceDomain.compareTo(p_compareTo_1_.resourceDomain);
 
 		if (i == 0) {
@@ -93,12 +83,10 @@ public class ResourceLocation implements Comparable<ResourceLocation> {
 	public static class Serializer implements JsonDeserializer<ResourceLocation>, JsonSerializer<ResourceLocation> {
 
 		public ResourceLocation deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-
 			return new ResourceLocation(JsonUtils.getString(p_deserialize_1_, "location"));
 		}
 
 		public JsonElement serialize(ResourceLocation p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
-
 			return new JsonPrimitive(p_serialize_1_.toString());
 		}
 

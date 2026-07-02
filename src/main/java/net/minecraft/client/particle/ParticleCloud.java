@@ -12,7 +12,6 @@ public class ParticleCloud extends Particle {
 	float oSize;
 
 	protected ParticleCloud(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i1221_8_, double p_i1221_10_, double p_i1221_12_) {
-
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0D, 0D, 0D);
 		float f = 2.5F;
 		motionX *= 0.10000000149011612D;
@@ -36,7 +35,6 @@ public class ParticleCloud extends Particle {
 	 * Renders the particle
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-
 		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32F;
 		f = MathHelper.clamp(f, 0F, 1F);
 		particleScale = oSize * f;
@@ -44,7 +42,6 @@ public class ParticleCloud extends Particle {
 	}
 
 	public void onUpdate() {
-
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
@@ -79,7 +76,6 @@ public class ParticleCloud extends Particle {
 	public static class Factory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			return new ParticleCloud(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 		}
 

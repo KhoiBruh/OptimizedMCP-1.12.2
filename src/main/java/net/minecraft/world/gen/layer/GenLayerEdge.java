@@ -5,7 +5,6 @@ public class GenLayerEdge extends GenLayer {
 	private final GenLayerEdge.Mode mode;
 
 	public GenLayerEdge(long p_i45474_1_, GenLayer p_i45474_3_, GenLayerEdge.Mode p_i45474_4_) {
-
 		super(p_i45474_1_);
 		parent = p_i45474_3_;
 		mode = p_i45474_4_;
@@ -16,7 +15,6 @@ public class GenLayerEdge extends GenLayer {
 	 * amounts, or Biome ID's based on the particular GenLayer subclass.
 	 */
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
-
 		return switch (mode) {
 			case HEAT_ICE -> getIntsHeatIce(areaX, areaY, areaWidth, areaHeight);
 			case SPECIAL -> getIntsSpecial(areaX, areaY, areaWidth, areaHeight);
@@ -25,7 +23,6 @@ public class GenLayerEdge extends GenLayer {
 	}
 
 	private int[] getIntsCoolWarm(int p_151626_1_, int p_151626_2_, int p_151626_3_, int p_151626_4_) {
-
 		int i = p_151626_1_ - 1;
 		int j = p_151626_2_ - 1;
 		int k = 1 + p_151626_3_ + 1;
@@ -59,7 +56,6 @@ public class GenLayerEdge extends GenLayer {
 	}
 
 	private int[] getIntsHeatIce(int p_151624_1_, int p_151624_2_, int p_151624_3_, int p_151624_4_) {
-
 		int i = p_151624_1_ - 1;
 		int j = p_151624_2_ - 1;
 		int k = 1 + p_151624_3_ + 1;
@@ -92,7 +88,6 @@ public class GenLayerEdge extends GenLayer {
 	}
 
 	private int[] getIntsSpecial(int p_151625_1_, int p_151625_2_, int p_151625_3_, int p_151625_4_) {
-
 		int[] aint = parent.getInts(p_151625_1_, p_151625_2_, p_151625_3_, p_151625_4_);
 		int[] aint1 = IntCache.getIntCache(p_151625_3_ * p_151625_4_);
 

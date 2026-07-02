@@ -8,7 +8,6 @@ import net.minecraft.world.biome.BiomeMesa;
 public class GenLayerShore extends GenLayer {
 
 	public GenLayerShore(long p_i2130_1_, GenLayer p_i2130_3_) {
-
 		super(p_i2130_1_);
 		parent = p_i2130_3_;
 	}
@@ -18,7 +17,6 @@ public class GenLayerShore extends GenLayer {
 	 * amounts, or Biome ID's based on the particular GenLayer subclass.
 	 */
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
-
 		int[] aint = parent.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
 		int[] aint1 = IntCache.getIntCache(areaWidth * areaHeight);
 
@@ -98,7 +96,6 @@ public class GenLayerShore extends GenLayer {
 	}
 
 	private void replaceIfNeighborOcean(int[] p_151632_1_, int[] p_151632_2_, int p_151632_3_, int p_151632_4_, int p_151632_5_, int p_151632_6_, int p_151632_7_) {
-
 		if (isBiomeOceanic(p_151632_6_)) {
 			p_151632_2_[p_151632_3_ + p_151632_4_ * p_151632_5_] = p_151632_6_;
 		} else {
@@ -116,7 +113,6 @@ public class GenLayerShore extends GenLayer {
 	}
 
 	private boolean isJungleCompatible(int p_151631_1_) {
-
 		if (Biome.getBiome(p_151631_1_) != null && Biome.getBiome(p_151631_1_).getBiomeClass() == BiomeJungle.class) {
 			return true;
 		} else {
@@ -125,7 +121,6 @@ public class GenLayerShore extends GenLayer {
 	}
 
 	private boolean isMesa(int p_151633_1_) {
-
 		return Biome.getBiome(p_151633_1_) instanceof BiomeMesa;
 	}
 

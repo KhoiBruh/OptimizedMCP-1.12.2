@@ -14,11 +14,9 @@ public class CPacketVehicleMove implements Packet<INetHandlerPlayServer> {
 	private float pitch;
 
 	public CPacketVehicleMove() {
-
 	}
 
 	public CPacketVehicleMove(Entity entityIn) {
-
 		x = entityIn.posX;
 		y = entityIn.posY;
 		z = entityIn.posZ;
@@ -30,7 +28,6 @@ public class CPacketVehicleMove implements Packet<INetHandlerPlayServer> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		x = buf.readDouble();
 		y = buf.readDouble();
 		z = buf.readDouble();
@@ -42,7 +39,6 @@ public class CPacketVehicleMove implements Packet<INetHandlerPlayServer> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeDouble(x);
 		buf.writeDouble(y);
 		buf.writeDouble(z);
@@ -54,32 +50,26 @@ public class CPacketVehicleMove implements Packet<INetHandlerPlayServer> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayServer handler) {
-
 		handler.processVehicleMove(this);
 	}
 
 	public double getX() {
-
 		return x;
 	}
 
 	public double getY() {
-
 		return y;
 	}
 
 	public double getZ() {
-
 		return z;
 	}
 
 	public float getYaw() {
-
 		return yaw;
 	}
 
 	public float getPitch() {
-
 		return pitch;
 	}
 

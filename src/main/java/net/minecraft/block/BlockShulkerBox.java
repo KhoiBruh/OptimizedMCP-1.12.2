@@ -39,7 +39,6 @@ public class BlockShulkerBox extends BlockContainer {
 	private final DyeColor color;
 
 	public BlockShulkerBox(DyeColor colorIn) {
-
 		super(Material.ROCK, MapColor.AIR);
 		color = colorIn;
 		setCreativeTab(CreativeTabs.DECORATIONS);
@@ -47,17 +46,14 @@ public class BlockShulkerBox extends BlockContainer {
 	}
 
 	public static DyeColor getColorFromItem(Item itemIn) {
-
 		return getColorFromBlock(Block.getBlockFromItem(itemIn));
 	}
 
 	public static DyeColor getColorFromBlock(Block blockIn) {
-
 		return blockIn instanceof BlockShulkerBox ? ((BlockShulkerBox) blockIn).getColor() : DyeColor.PURPLE;
 	}
 
 	public static Block getBlockByColor(DyeColor colorIn) {
-
 		return switch (colorIn) {
 			case WHITE -> Blocks.WHITE_SHULKER_BOX;
 			case ORANGE -> Blocks.ORANGE_SHULKER_BOX;
@@ -79,7 +75,6 @@ public class BlockShulkerBox extends BlockContainer {
 	}
 
 	public static ItemStack getColoredItemStack(DyeColor colorIn) {
-
 		return new ItemStack(getBlockByColor(colorIn));
 	}
 
@@ -87,7 +82,6 @@ public class BlockShulkerBox extends BlockContainer {
 	 * Returns a new instance of a block's tile entity class. Called on placing the block.
 	 */
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-
 		return new TileEntityShulkerBox(color);
 	}
 
@@ -95,22 +89,18 @@ public class BlockShulkerBox extends BlockContainer {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean causesSuffocation(IBlockState state) {
-
 		return true;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean hasCustomBreakingProgress(IBlockState state) {
-
 		return true;
 	}
 
@@ -119,7 +109,6 @@ public class BlockShulkerBox extends BlockContainer {
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
 	public BlockRenderType getRenderType(IBlockState state) {
-
 		return BlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
@@ -127,7 +116,6 @@ public class BlockShulkerBox extends BlockContainer {
 	 * Called when the block is right clicked by a player.
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		if (worldIn.isRemote) {
 			return true;
 		} else if (playerIn.isSpectator()) {
@@ -163,12 +151,10 @@ public class BlockShulkerBox extends BlockContainer {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		return getDefaultState().withProperty(FACING, facing);
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, FACING);
 	}
 
@@ -176,7 +162,6 @@ public class BlockShulkerBox extends BlockContainer {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(FACING).getIndex();
 	}
 
@@ -184,7 +169,6 @@ public class BlockShulkerBox extends BlockContainer {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		Facing enumfacing = Facing.getFront(meta);
 		return getDefaultState().withProperty(FACING, enumfacing);
 	}
@@ -194,7 +178,6 @@ public class BlockShulkerBox extends BlockContainer {
 	 * collect this block
 	 */
 	public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
-
 		if (worldIn.getTileEntity(pos) instanceof TileEntityShulkerBox tileentityshulkerbox) {
 			tileentityshulkerbox.setDestroyedByCreativePlayer(player.capabilities.isCreativeMode);
 			tileentityshulkerbox.fillWithLoot(player);
@@ -205,14 +188,12 @@ public class BlockShulkerBox extends BlockContainer {
 	 * Spawns this Block's drops into the World as EntityItems.
 	 */
 	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
-
 	}
 
 	/**
 	 * Called by ItemBlocks after a block is set in the world, to allow post-place logic
 	 */
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-
 		if (stack.hasDisplayName()) {
 			TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -226,11 +207,9 @@ public class BlockShulkerBox extends BlockContainer {
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 
 		if (tileentity instanceof TileEntityShulkerBox tileentityshulkerbox) {
-
 			if (!tileentityshulkerbox.isCleared() && tileentityshulkerbox.shouldDrop()) {
 				ItemStack itemstack = new ItemStack(Item.getItemFromBlock(this));
 				NBTTagCompound nbttagcompound = new NBTTagCompound();
@@ -253,7 +232,6 @@ public class BlockShulkerBox extends BlockContainer {
 	}
 
 	public void addInformation(ItemStack stack, World player, List<String> tooltip, ITooltipFlag advanced) {
-
 		super.addInformation(stack, player, tooltip, advanced);
 		NBTTagCompound nbttagcompound = stack.getTagCompound();
 
@@ -289,28 +267,23 @@ public class BlockShulkerBox extends BlockContainer {
 	}
 
 	public PushReaction getMobilityFlag(IBlockState state) {
-
 		return PushReaction.DESTROY;
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		TileEntity tileentity = source.getTileEntity(pos);
 		return tileentity instanceof TileEntityShulkerBox ? ((TileEntityShulkerBox) tileentity).getBoundingBox(state) : FULL_BLOCK_AABB;
 	}
 
 	public boolean hasComparatorInputOverride(IBlockState state) {
-
 		return true;
 	}
 
 	public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
-
 		return Container.calcRedstoneFromInventory((IInventory) worldIn.getTileEntity(pos));
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		ItemStack itemstack = super.getItem(worldIn, pos, state);
 		TileEntityShulkerBox tileentityshulkerbox = (TileEntityShulkerBox) worldIn.getTileEntity(pos);
 		NBTTagCompound nbttagcompound = tileentityshulkerbox.saveToNbt(new NBTTagCompound());
@@ -323,7 +296,6 @@ public class BlockShulkerBox extends BlockContainer {
 	}
 
 	public DyeColor getColor() {
-
 		return color;
 	}
 
@@ -332,7 +304,6 @@ public class BlockShulkerBox extends BlockContainer {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
@@ -341,7 +312,6 @@ public class BlockShulkerBox extends BlockContainer {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
 	}
 
@@ -355,7 +325,6 @@ public class BlockShulkerBox extends BlockContainer {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		state = getActualState(state, worldIn, pos);
 		Facing enumfacing = state.getValue(FACING);
 		TileEntityShulkerBox.AnimationStatus tileentityshulkerbox$animationstatus = ((TileEntityShulkerBox) worldIn.getTileEntity(pos)).getAnimationStatus();

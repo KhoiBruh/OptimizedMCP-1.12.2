@@ -18,7 +18,6 @@ public class DistancePredicate {
 	private final MinMaxBounds absolute;
 
 	public DistancePredicate(MinMaxBounds x, MinMaxBounds y, MinMaxBounds z, MinMaxBounds horizontal, MinMaxBounds absolute) {
-
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -27,7 +26,6 @@ public class DistancePredicate {
 	}
 
 	public static DistancePredicate deserialize(JsonElement element) {
-
 		if (element != null && !element.isJsonNull()) {
 			JsonObject jsonobject = JsonUtils.getJsonObject(element, "distance");
 			MinMaxBounds minmaxbounds = MinMaxBounds.deserialize(jsonobject.get("x"));
@@ -42,7 +40,6 @@ public class DistancePredicate {
 	}
 
 	public boolean test(double x1, double y1, double z1, double x2, double y2, double z2) {
-
 		float f = (float) (x1 - x2);
 		float f1 = (float) (y1 - y2);
 		float f2 = (float) (z1 - z2);

@@ -13,11 +13,9 @@ public class C00Handshake implements Packet<INetHandlerHandshakeServer> {
 	private ConnectionState requestedState;
 
 	public C00Handshake() {
-
 	}
 
 	public C00Handshake(String p_i47613_1_, int p_i47613_2_, ConnectionState p_i47613_3_) {
-
 		protocolVersion = 340;
 		ip = p_i47613_1_;
 		port = p_i47613_2_;
@@ -28,7 +26,6 @@ public class C00Handshake implements Packet<INetHandlerHandshakeServer> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		protocolVersion = buf.readVarInt();
 		ip = buf.readString(255);
 		port = buf.readUnsignedShort();
@@ -39,7 +36,6 @@ public class C00Handshake implements Packet<INetHandlerHandshakeServer> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeVarInt(protocolVersion);
 		buf.writeString(ip);
 		buf.writeShort(port);
@@ -50,17 +46,14 @@ public class C00Handshake implements Packet<INetHandlerHandshakeServer> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerHandshakeServer handler) {
-
 		handler.processHandshake(this);
 	}
 
 	public ConnectionState getRequestedState() {
-
 		return requestedState;
 	}
 
 	public int getProtocolVersion() {
-
 		return protocolVersion;
 	}
 

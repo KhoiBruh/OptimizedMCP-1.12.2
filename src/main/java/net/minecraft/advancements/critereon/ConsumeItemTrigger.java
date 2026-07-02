@@ -21,12 +21,10 @@ public class ConsumeItemTrigger implements ICriterionTrigger<ConsumeItemTrigger.
 	private final Map<PlayerAdvancements, ConsumeItemTrigger.Listeners> listeners = Maps.newHashMap();
 
 	public ResourceLocation getId() {
-
 		return ID;
 	}
 
 	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ConsumeItemTrigger.Instance> listener) {
-
 		ConsumeItemTrigger.Listeners consumeitemtrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (consumeitemtrigger$listeners == null) {
@@ -38,7 +36,6 @@ public class ConsumeItemTrigger implements ICriterionTrigger<ConsumeItemTrigger.
 	}
 
 	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ConsumeItemTrigger.Instance> listener) {
-
 		ConsumeItemTrigger.Listeners consumeitemtrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (consumeitemtrigger$listeners != null) {
@@ -51,7 +48,6 @@ public class ConsumeItemTrigger implements ICriterionTrigger<ConsumeItemTrigger.
 	}
 
 	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
-
 		listeners.remove(playerAdvancementsIn);
 	}
 
@@ -65,7 +61,6 @@ public class ConsumeItemTrigger implements ICriterionTrigger<ConsumeItemTrigger.
 	}
 
 	public void trigger(EntityPlayerMP player, ItemStack item) {
-
 		ConsumeItemTrigger.Listeners consumeitemtrigger$listeners = listeners.get(player.getAdvancements());
 
 		if (consumeitemtrigger$listeners != null) {
@@ -78,13 +73,11 @@ public class ConsumeItemTrigger implements ICriterionTrigger<ConsumeItemTrigger.
 		private final ItemPredicate item;
 
 		public Instance(ItemPredicate item) {
-
 			super(ConsumeItemTrigger.ID);
 			this.item = item;
 		}
 
 		public boolean test(ItemStack item) {
-
 			return this.item.test(item);
 		}
 
@@ -96,27 +89,22 @@ public class ConsumeItemTrigger implements ICriterionTrigger<ConsumeItemTrigger.
 		private final Set<ICriterionTrigger.Listener<ConsumeItemTrigger.Instance>> listeners = Sets.newHashSet();
 
 		public Listeners(PlayerAdvancements playerAdvancementsIn) {
-
 			playerAdvancements = playerAdvancementsIn;
 		}
 
 		public boolean isEmpty() {
-
 			return listeners.isEmpty();
 		}
 
 		public void add(ICriterionTrigger.Listener<ConsumeItemTrigger.Instance> listener) {
-
 			listeners.add(listener);
 		}
 
 		public void remove(ICriterionTrigger.Listener<ConsumeItemTrigger.Instance> listener) {
-
 			listeners.remove(listener);
 		}
 
 		public void trigger(ItemStack item) {
-
 			List<ICriterionTrigger.Listener<ConsumeItemTrigger.Instance>> list = null;
 
 			for (ICriterionTrigger.Listener<ConsumeItemTrigger.Instance> listener : listeners) {

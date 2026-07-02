@@ -17,7 +17,6 @@ public class CommandPardonPlayer extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "pardon";
 	}
 
@@ -25,7 +24,6 @@ public class CommandPardonPlayer extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 3;
 	}
 
@@ -33,7 +31,6 @@ public class CommandPardonPlayer extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.unban.usage";
 	}
 
@@ -41,7 +38,6 @@ public class CommandPardonPlayer extends CommandBase {
 	 * Check if the given ICommandSender has permission to execute this command
 	 */
 	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-
 		return server.getPlayerList().getBannedPlayers().isLanServer() && super.checkPermission(server, sender);
 	}
 
@@ -49,7 +45,6 @@ public class CommandPardonPlayer extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		if (args.length == 1 && !args[0].isEmpty()) {
 			GameProfile gameprofile = server.getPlayerList().getBannedPlayers().getBannedProfile(args[0]);
 
@@ -65,7 +60,6 @@ public class CommandPardonPlayer extends CommandBase {
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		return args.length == 1 ? getListOfStringsMatchingLastWord(args, server.getPlayerList().getBannedPlayers().getKeys()) : Collections.emptyList();
 	}
 

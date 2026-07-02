@@ -45,7 +45,6 @@ public class EntityItem extends Entity {
 	private String owner;
 
 	public EntityItem(World worldIn, double x, double y, double z) {
-
 		super(worldIn);
 		health = 5;
 		hoverStart = (float) (Math.random() * Math.PI * 2D);
@@ -58,13 +57,11 @@ public class EntityItem extends Entity {
 	}
 
 	public EntityItem(World worldIn, double x, double y, double z, ItemStack stack) {
-
 		this(worldIn, x, y, z);
 		setItem(stack);
 	}
 
 	public EntityItem(World worldIn) {
-
 		super(worldIn);
 		health = 5;
 		hoverStart = (float) (Math.random() * Math.PI * 2D);
@@ -73,7 +70,6 @@ public class EntityItem extends Entity {
 	}
 
 	public static void registerFixesItem(DataFixer fixer) {
-
 		fixer.registerWalker(FixTypes.ENTITY, new ItemStackData(EntityItem.class, "Item"));
 	}
 
@@ -82,12 +78,10 @@ public class EntityItem extends Entity {
 	 * prevent them from trampling crops
 	 */
 	protected boolean canTriggerWalking() {
-
 		return false;
 	}
 
 	protected void entityInit() {
-
 		getDataManager().register(ITEM, ItemStack.EMPTY);
 	}
 
@@ -95,7 +89,6 @@ public class EntityItem extends Entity {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		if (getItem().isEmpty()) {
 			setDead();
 		} else {
@@ -179,7 +172,6 @@ public class EntityItem extends Entity {
 	 * Looks for other itemstacks nearby and tries to stack them together
 	 */
 	private void searchForOtherItemsNearby() {
-
 		for (EntityItem entityitem : world.getEntitiesWithinAABB(EntityItem.class, getEntityBoundingBox().grow(0.5D, 0D, 0.5D))) {
 			combineItems(entityitem);
 		}
@@ -190,7 +182,6 @@ public class EntityItem extends Entity {
 	 * the other item will  be removed from the world.
 	 */
 	private boolean combineItems(EntityItem other) {
-
 		if (other == this) {
 			return false;
 		} else if (other.isEntityAlive() && isEntityAlive()) {
@@ -237,7 +228,6 @@ public class EntityItem extends Entity {
 	 * items are dropped from players in creative mode
 	 */
 	public void setAgeToCreativeDespawnTime() {
-
 		age = 4800;
 	}
 
@@ -245,7 +235,6 @@ public class EntityItem extends Entity {
 	 * Returns if this entity is in water and will end up adding the waters velocity to the entity
 	 */
 	public boolean handleWaterMovement() {
-
 		if (world.handleMaterialAcceleration(getEntityBoundingBox(), Material.WATER, this)) {
 			if (!inWater && !firstUpdate) {
 				doWaterSplashEffect();
@@ -263,7 +252,6 @@ public class EntityItem extends Entity {
 	 * Will deal the specified amount of fire damage to the entity if the entity isn't immune to fire damage.
 	 */
 	protected void dealFireDamage(int amount) {
-
 		attackEntityFrom(DamageSource.IN_FIRE, (float) amount);
 	}
 
@@ -271,7 +259,6 @@ public class EntityItem extends Entity {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		if (isEntityInvulnerable(source)) {
 			return false;
 		} else if (!getItem().isEmpty() && getItem().getItem() == Items.NETHER_STAR && source.isExplosion()) {
@@ -292,7 +279,6 @@ public class EntityItem extends Entity {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		compound.setShort("Health", (short) health);
 		compound.setShort("Age", (short) age);
 		compound.setShort("PickupDelay", (short) pickupDelay);
@@ -314,7 +300,6 @@ public class EntityItem extends Entity {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		health = compound.getShort("Health");
 		age = compound.getShort("Age");
 
@@ -342,7 +327,6 @@ public class EntityItem extends Entity {
 	 * Called by a player entity when they collide with an entity
 	 */
 	public void onCollideWithPlayer(EntityPlayer entityIn) {
-
 		if (!world.isRemote) {
 			ItemStack itemstack = getItem();
 			Item item = itemstack.getItem();
@@ -365,7 +349,6 @@ public class EntityItem extends Entity {
 	 * Get the name of this object. For players this returns their username
 	 */
 	public String getName() {
-
 		return hasCustomName() ? getCustomNameTag() : I18n.translateToLocal("item." + getItem().getUnlocalizedName());
 	}
 
@@ -373,13 +356,11 @@ public class EntityItem extends Entity {
 	 * Returns true if it's possible to attack this entity with an item.
 	 */
 	public boolean canBeAttackedWithItem() {
-
 		return false;
 	}
 
 	
 	public Entity changeDimension(int dimensionIn) {
-
 		Entity entity = super.changeDimension(dimensionIn);
 
 		if (!world.isRemote && entity instanceof EntityItem) {
@@ -393,7 +374,6 @@ public class EntityItem extends Entity {
 	 * Gets the item that this entity represents.
 	 */
 	public ItemStack getItem() {
-
 		return getDataManager().get(ITEM);
 	}
 
@@ -401,68 +381,55 @@ public class EntityItem extends Entity {
 	 * Sets the item that this entity represents.
 	 */
 	public void setItem(ItemStack stack) {
-
 		getDataManager().set(ITEM, stack);
 		getDataManager().setDirty(ITEM);
 	}
 
 	public String getOwner() {
-
 		return owner;
 	}
 
 	public void setOwner(String owner) {
-
 		this.owner = owner;
 	}
 
 	public String getThrower() {
-
 		return thrower;
 	}
 
 	public void setThrower(String thrower) {
-
 		this.thrower = thrower;
 	}
 
 	public int getAge() {
-
 		return age;
 	}
 
 	public void setDefaultPickupDelay() {
-
 		pickupDelay = 10;
 	}
 
 	public void setNoPickupDelay() {
-
 		pickupDelay = 0;
 	}
 
 	public void setInfinitePickupDelay() {
-
 		pickupDelay = 32767;
 	}
 
 	public void setPickupDelay(int ticks) {
-
 		pickupDelay = ticks;
 	}
 
 	public boolean cannotPickup() {
-
 		return pickupDelay > 0;
 	}
 
 	public void setNoDespawn() {
-
 		age = -6000;
 	}
 
 	public void makeFakeItem() {
-
 		setInfinitePickupDelay();
 		age = 5999;
 	}

@@ -22,7 +22,6 @@ public class BlockNetherWart extends BlockBush {
 	private static final AxisAlignedBB[] NETHER_WART_AABB = new AxisAlignedBB[]{new AxisAlignedBB(0D, 0D, 0D, 1D, 0.3125D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.5D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.6875D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.875D, 1D)};
 
 	protected BlockNetherWart() {
-
 		super(Material.PLANTS, MapColor.RED);
 		setDefaultState(blockState.getBaseState().withProperty(AGE, 0));
 		setTickRandomly(true);
@@ -30,7 +29,6 @@ public class BlockNetherWart extends BlockBush {
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return NETHER_WART_AABB[state.getValue(AGE)];
 	}
 
@@ -38,17 +36,14 @@ public class BlockNetherWart extends BlockBush {
 	 * Return true if the block can sustain a Bush
 	 */
 	protected boolean canSustainBush(IBlockState state) {
-
 		return state.getBlock() == Blocks.SOUL_SAND;
 	}
 
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {
-
 		return canSustainBush(worldIn.getBlockState(pos.down()));
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		int i = state.getValue(AGE);
 
 		if (i < 3 && rand.nextInt(10) == 0) {
@@ -63,7 +58,6 @@ public class BlockNetherWart extends BlockBush {
 	 * Spawns this Block's drops into the World as EntityItems.
 	 */
 	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
-
 		if (!worldIn.isRemote) {
 			int i = 1;
 
@@ -85,7 +79,6 @@ public class BlockNetherWart extends BlockBush {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Items.AIR;
 	}
 
@@ -93,12 +86,10 @@ public class BlockNetherWart extends BlockBush {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return 0;
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return new ItemStack(Items.NETHER_WART);
 	}
 
@@ -106,7 +97,6 @@ public class BlockNetherWart extends BlockBush {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(AGE, meta);
 	}
 
@@ -114,12 +104,10 @@ public class BlockNetherWart extends BlockBush {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(AGE);
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, AGE);
 	}
 

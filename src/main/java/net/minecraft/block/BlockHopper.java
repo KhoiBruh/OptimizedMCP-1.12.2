@@ -36,14 +36,12 @@ public class BlockHopper extends BlockContainer {
 	protected static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(0D, 0D, 0D, 0.125D, 1D, 1D);
 
 	public BlockHopper() {
-
 		super(Material.IRON, MapColor.STONE);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.DOWN).withProperty(ENABLED, true));
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
 	public static Facing getFacing(int meta) {
-
 		return Facing.getFront(meta & 7);
 	}
 
@@ -52,12 +50,10 @@ public class BlockHopper extends BlockContainer {
 	 * is powered, so this returns true when that bit is 0.
 	 */
 	public static boolean isEnabled(int meta) {
-
 		return (meta & 8) != 8;
 	}
 
 	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean isActualState) {
-
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, BASE_AABB);
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, EAST_AABB);
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, WEST_AABB);
@@ -70,7 +66,6 @@ public class BlockHopper extends BlockContainer {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		Facing enumfacing = facing.getOpposite();
 
 		if (enumfacing == Facing.UP) {
@@ -84,7 +79,6 @@ public class BlockHopper extends BlockContainer {
 	 * Returns a new instance of a block's tile entity class. Called on placing the block.
 	 */
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-
 		return new TileEntityHopper();
 	}
 
@@ -92,7 +86,6 @@ public class BlockHopper extends BlockContainer {
 	 * Called by ItemBlocks after a block is set in the world, to allow post-place logic
 	 */
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-
 		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
 
 		if (stack.hasDisplayName()) {
@@ -108,7 +101,6 @@ public class BlockHopper extends BlockContainer {
 	 * Determines if the block is solid enough on the top side to support other blocks, like redstone components.
 	 */
 	public boolean isTopSolid(IBlockState state) {
-
 		return true;
 	}
 
@@ -116,7 +108,6 @@ public class BlockHopper extends BlockContainer {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		updateState(worldIn, pos, state);
 	}
 
@@ -124,7 +115,6 @@ public class BlockHopper extends BlockContainer {
 	 * Called when the block is right clicked by a player.
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		if (worldIn.isRemote) {
 			return true;
 		} else {
@@ -145,12 +135,10 @@ public class BlockHopper extends BlockContainer {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		updateState(worldIn, pos, state);
 	}
 
 	private void updateState(World worldIn, BlockPos pos, IBlockState state) {
-
 		boolean flag = !worldIn.isBlockPowered(pos);
 
 		if (flag != state.getValue(ENABLED)) {
@@ -162,7 +150,6 @@ public class BlockHopper extends BlockContainer {
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 
 		if (tileentity instanceof TileEntityHopper) {
@@ -178,12 +165,10 @@ public class BlockHopper extends BlockContainer {
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
 	public BlockRenderType getRenderType(IBlockState state) {
-
 		return BlockRenderType.MODEL;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -191,22 +176,18 @@ public class BlockHopper extends BlockContainer {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		return true;
 	}
 
 	public boolean hasComparatorInputOverride(IBlockState state) {
-
 		return true;
 	}
 
 	public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
-
 		return Container.calcRedstone(worldIn.getTileEntity(pos));
 	}
 
@@ -215,7 +196,6 @@ public class BlockHopper extends BlockContainer {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.CUTOUT_MIPPED;
 	}
 
@@ -223,7 +203,6 @@ public class BlockHopper extends BlockContainer {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(ENABLED, isEnabled(meta));
 	}
 
@@ -231,7 +210,6 @@ public class BlockHopper extends BlockContainer {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 		i = i | state.getValue(FACING).getIndex();
 
@@ -247,7 +225,6 @@ public class BlockHopper extends BlockContainer {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
@@ -256,12 +233,10 @@ public class BlockHopper extends BlockContainer {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, FACING, ENABLED);
 	}
 
@@ -275,7 +250,6 @@ public class BlockHopper extends BlockContainer {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return face == Facing.UP ? BlockFaceShape.BOWL : BlockFaceShape.UNDEFINED;
 	}
 

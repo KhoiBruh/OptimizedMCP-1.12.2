@@ -91,7 +91,6 @@ public class MapColor {
 	public final int colorIndex;
 
 	private MapColor(int index, int color) {
-
 		if (index >= 0 && index <= 63) {
 			colorIndex = index;
 			colorValue = color;
@@ -102,12 +101,10 @@ public class MapColor {
 	}
 
 	public static MapColor getBlockColor(DyeColor dyeColorIn) {
-
 		return BLOCK_COLORS[dyeColorIn.getMetadata()];
 	}
 
 	public int getMapColor(int index) {
-
 		int i = 220;
 
 		if (index == 3) {

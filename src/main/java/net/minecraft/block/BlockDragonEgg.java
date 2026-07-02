@@ -21,12 +21,10 @@ public class BlockDragonEgg extends Block {
 	protected static final AxisAlignedBB DRAGON_EGG_AABB = new AxisAlignedBB(0.0625D, 0D, 0.0625D, 0.9375D, 1D, 0.9375D);
 
 	public BlockDragonEgg() {
-
 		super(Material.DRAGON_EGG, MapColor.BLACK);
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return DRAGON_EGG_AABB;
 	}
 
@@ -34,7 +32,6 @@ public class BlockDragonEgg extends Block {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
 	}
 
@@ -44,17 +41,14 @@ public class BlockDragonEgg extends Block {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		checkFall(worldIn, pos);
 	}
 
 	private void checkFall(World worldIn, BlockPos pos) {
-
 		if (BlockFalling.canFallThrough(worldIn.getBlockState(pos.down())) && pos.getY() >= 0) {
 
 			if (!BlockFalling.fallInstantly && worldIn.isAreaLoaded(pos.add(-32, -32, -32), pos.add(32, 32, 32))) {
@@ -77,18 +71,15 @@ public class BlockDragonEgg extends Block {
 	 * Called when the block is right clicked by a player.
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		teleport(worldIn, pos);
 		return true;
 	}
 
 	public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn) {
-
 		teleport(worldIn, pos);
 	}
 
 	private void teleport(World worldIn, BlockPos pos) {
-
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 
 		if (iblockstate.getBlock() == this) {
@@ -122,7 +113,6 @@ public class BlockDragonEgg extends Block {
 	 * How many world ticks before ticking
 	 */
 	public int tickRate(World worldIn) {
-
 		return 5;
 	}
 
@@ -130,17 +120,14 @@ public class BlockDragonEgg extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		return true;
 	}
 
@@ -154,7 +141,6 @@ public class BlockDragonEgg extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

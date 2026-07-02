@@ -28,19 +28,16 @@ public class ChunkRenderWorker implements Runnable {
 	private boolean shouldRun;
 
 	public ChunkRenderWorker(ChunkRenderDispatcher chunkRenderDispatcherIn) {
-
 		this(chunkRenderDispatcherIn, null);
 	}
 
 	public ChunkRenderWorker(ChunkRenderDispatcher chunkRenderDispatcherIn, RegionRenderCacheBuilder regionRenderCacheBuilderIn) {
-
 		shouldRun = true;
 		chunkRenderDispatcher = chunkRenderDispatcherIn;
 		regionRenderCacheBuilder = regionRenderCacheBuilderIn;
 	}
 
 	public void run() {
-
 		while (shouldRun) {
 			try {
 				processTask(chunkRenderDispatcher.getNextChunkUpdate());
@@ -56,7 +53,6 @@ public class ChunkRenderWorker implements Runnable {
 	}
 
 	protected void processTask(final ChunkCompileTaskGenerator generator) throws InterruptedException {
-
 		generator.getLock().lock();
 
 		try {
@@ -139,7 +135,6 @@ public class ChunkRenderWorker implements Runnable {
 			generator.addFinishRunnable(() -> listenablefuture.cancel(false));
 			Futures.addCallback(listenablefuture, new FutureCallback<>() {
 				public void onSuccess(List<Object> p_onSuccess_1_) {
-
 					freeRenderBuilder(generator);
 					generator.getLock().lock();
 					label49:
@@ -163,7 +158,6 @@ public class ChunkRenderWorker implements Runnable {
 				}
 
 				public void onFailure(Throwable p_onFailure_1_) {
-
 					freeRenderBuilder(generator);
 
 					if (!(p_onFailure_1_ instanceof CancellationException) && !(p_onFailure_1_ instanceof InterruptedException)) {
@@ -175,24 +169,20 @@ public class ChunkRenderWorker implements Runnable {
 	}
 
 	private boolean isChunkExisting(BlockPos pos, World worldIn) {
-
 		return !worldIn.getChunkFromChunkCoords(pos.getX() >> 4, pos.getZ() >> 4).isEmpty();
 	}
 
 	private RegionRenderCacheBuilder getRegionRenderCacheBuilder() throws InterruptedException {
-
 		return regionRenderCacheBuilder != null ? regionRenderCacheBuilder : chunkRenderDispatcher.allocateRenderBuilder();
 	}
 
 	private void freeRenderBuilder(ChunkCompileTaskGenerator taskGenerator) {
-
 		if (regionRenderCacheBuilder == null) {
 			chunkRenderDispatcher.freeRenderBuilder(taskGenerator.getRegionRenderCacheBuilder());
 		}
 	}
 
 	public void notifyToStop() {
-
 		shouldRun = false;
 	}
 

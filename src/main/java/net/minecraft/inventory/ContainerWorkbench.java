@@ -22,7 +22,6 @@ public class ContainerWorkbench extends Container {
 	public InventoryCraftResult craftResult = new InventoryCraftResult();
 
 	public ContainerWorkbench(InventoryPlayer playerInventory, World worldIn, BlockPos posIn) {
-
 		world = worldIn;
 		pos = posIn;
 		player = playerInventory.player;
@@ -49,7 +48,6 @@ public class ContainerWorkbench extends Container {
 	 * Callback for when the crafting matrix is changed.
 	 */
 	public void onCraftMatrixChanged(IInventory inventoryIn) {
-
 		slotChangedCraftingGrid(world, player, craftMatrix, craftResult);
 	}
 
@@ -57,7 +55,6 @@ public class ContainerWorkbench extends Container {
 	 * Called when the container is closed.
 	 */
 	public void onContainerClosed(EntityPlayer playerIn) {
-
 		super.onContainerClosed(playerIn);
 
 		if (!world.isRemote) {
@@ -69,7 +66,6 @@ public class ContainerWorkbench extends Container {
 	 * Determines whether supplied player can use this container
 	 */
 	public boolean canInteractWith(EntityPlayer playerIn) {
-
 		if (world.getBlockState(pos).getBlock() != Blocks.CRAFTING_TABLE) {
 			return false;
 		} else {
@@ -82,7 +78,6 @@ public class ContainerWorkbench extends Container {
 	 * inventory and the other inventory(s).
 	 */
 	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = inventorySlots.get(index);
 
@@ -135,7 +130,6 @@ public class ContainerWorkbench extends Container {
 	 * is null for the initial slot that was double-clicked.
 	 */
 	public boolean canMergeSlot(ItemStack stack, Slot slotIn) {
-
 		return slotIn.inventory != craftResult && super.canMergeSlot(stack, slotIn);
 	}
 

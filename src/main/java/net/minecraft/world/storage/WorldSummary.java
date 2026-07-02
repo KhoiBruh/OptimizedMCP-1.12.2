@@ -30,7 +30,6 @@ public class WorldSummary implements Comparable<WorldSummary> {
 	private final boolean versionSnapshot;
 
 	public WorldSummary(WorldInfo info, String fileNameIn, String displayNameIn, long sizeOnDiskIn, boolean requiresConversionIn) {
-
 		fileName = fileNameIn;
 		displayName = displayNameIn;
 		lastTimePlayed = info.getLastTimePlayed();
@@ -48,7 +47,6 @@ public class WorldSummary implements Comparable<WorldSummary> {
 	 * return the file name
 	 */
 	public String getFileName() {
-
 		return fileName;
 	}
 
@@ -56,27 +54,22 @@ public class WorldSummary implements Comparable<WorldSummary> {
 	 * return the display name of the save
 	 */
 	public String getDisplayName() {
-
 		return displayName;
 	}
 
 	public long getSizeOnDisk() {
-
 		return sizeOnDisk;
 	}
 
 	public boolean requiresConversion() {
-
 		return requiresConversion;
 	}
 
 	public long getLastTimePlayed() {
-
 		return lastTimePlayed;
 	}
 
 	public int compareTo(WorldSummary p_compareTo_1_) {
-
 		if (lastTimePlayed < p_compareTo_1_.lastTimePlayed) {
 			return 1;
 		} else {
@@ -88,12 +81,10 @@ public class WorldSummary implements Comparable<WorldSummary> {
 	 * Gets the EnumGameType.
 	 */
 	public GameType getEnumGameType() {
-
 		return gameType;
 	}
 
 	public boolean isHardcoreModeEnabled() {
-
 		return hardcore;
 	}
 
@@ -101,22 +92,18 @@ public class WorldSummary implements Comparable<WorldSummary> {
 	 * @return {@code true} if cheats are enabled for this world
 	 */
 	public boolean getCheatsEnabled() {
-
 		return cheatsEnabled;
 	}
 
 	public String getVersionName() {
-
 		return StringUtils.isNullOrEmpty(versionName) ? I18n.translateToLocal("selectWorld.versionUnknown") : versionName;
 	}
 
 	public boolean markVersionInList() {
-
 		return askToOpenWorld();
 	}
 
 	public boolean askToOpenWorld() {
-
 		return versionId > 1343;
 	}
 

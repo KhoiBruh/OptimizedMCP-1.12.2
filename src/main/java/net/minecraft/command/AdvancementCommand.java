@@ -16,7 +16,6 @@ import java.util.List;
 public class AdvancementCommand extends CommandBase {
 
 	public static Advancement findAdvancement(MinecraftServer server, String id) throws CommandException {
-
 		Advancement advancement = server.getAdvancementManager().getAdvancement(new ResourceLocation(id));
 
 		if (advancement == null) {
@@ -30,7 +29,6 @@ public class AdvancementCommand extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "advancement";
 	}
 
@@ -38,7 +36,6 @@ public class AdvancementCommand extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 2;
 	}
 
@@ -46,7 +43,6 @@ public class AdvancementCommand extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.advancement.usage";
 	}
 
@@ -54,7 +50,6 @@ public class AdvancementCommand extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		if (args.length < 1) {
 			throw new WrongUsageException("commands.advancement.usage");
 		} else {
@@ -92,7 +87,6 @@ public class AdvancementCommand extends CommandBase {
 	}
 
 	private void perform(MinecraftServer server, ICommandSender sender, String[] args, EntityPlayerMP player, AdvancementCommand.ActionType p_193516_5_, AdvancementCommand.Mode p_193516_6_) throws CommandException {
-
 		if (p_193516_6_ == AdvancementCommand.Mode.EVERYTHING) {
 			if (args.length == 3) {
 				int j = p_193516_5_.perform(player, server.getAdvancementManager().getAdvancements());
@@ -140,7 +134,6 @@ public class AdvancementCommand extends CommandBase {
 	}
 
 	private void addChildren(Advancement p_193515_1_, List<Advancement> p_193515_2_) {
-
 		for (Advancement advancement : p_193515_1_.getChildren()) {
 			p_193515_2_.add(advancement);
 			addChildren(advancement, p_193515_2_);
@@ -148,7 +141,6 @@ public class AdvancementCommand extends CommandBase {
 	}
 
 	private List<Advancement> getAdvancements(Advancement p_193514_1_, AdvancementCommand.Mode p_193514_2_) {
-
 		List<Advancement> list = Lists.newArrayList();
 
 		if (p_193514_2_.parents) {
@@ -167,7 +159,6 @@ public class AdvancementCommand extends CommandBase {
 	}
 
 	private void testCriterion(ICommandSender p_192554_1_, EntityPlayerMP p_192554_2_, Advancement p_192554_3_, String p_192554_4_) throws CommandException {
-
 		PlayerAdvancements playeradvancements = p_192554_2_.getAdvancements();
 		CriterionProgress criterionprogress = playeradvancements.getProgress(p_192554_3_).getCriterionProgress(p_192554_4_);
 
@@ -181,7 +172,6 @@ public class AdvancementCommand extends CommandBase {
 	}
 
 	private void testAdvancement(ICommandSender p_192552_1_, EntityPlayerMP p_192552_2_, Advancement p_192552_3_) throws CommandException {
-
 		AdvancementProgress advancementprogress = p_192552_2_.getAdvancements().getProgress(p_192552_3_);
 
 		if (!advancementprogress.isDone()) {
@@ -192,7 +182,6 @@ public class AdvancementCommand extends CommandBase {
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		if (args.length == 1) {
 			return getListOfStringsMatchingLastWord(args, "grant", "revoke", "test");
 		} else {
@@ -247,7 +236,6 @@ public class AdvancementCommand extends CommandBase {
 	}
 
 	private List<ResourceLocation> getAdvancementNames(MinecraftServer server) {
-
 		List<ResourceLocation> list = Lists.newArrayList();
 
 		for (Advancement advancement : server.getAdvancementManager().getAdvancements()) {
@@ -261,14 +249,12 @@ public class AdvancementCommand extends CommandBase {
 	 * Return whether the specified command parameter index is a username parameter.
 	 */
 	public boolean isUsernameIndex(String[] args, int index) {
-
 		return args.length > 1 && ("grant".equals(args[0]) || "revoke".equals(args[0]) || "test".equals(args[0])) && index == 1;
 	}
 
 	enum ActionType {
 		GRANT("grant") {
 			protected boolean perform(EntityPlayerMP p_193537_1_, Advancement p_193537_2_) {
-
 				AdvancementProgress advancementprogress = p_193537_1_.getAdvancements().getProgress(p_193537_2_);
 
 				if (advancementprogress.isDone()) {
@@ -283,13 +269,11 @@ public class AdvancementCommand extends CommandBase {
 			}
 
 			protected boolean performCriterion(EntityPlayerMP p_193535_1_, Advancement p_193535_2_, String p_193535_3_) {
-
 				return p_193535_1_.getAdvancements().grantCriterion(p_193535_2_, p_193535_3_);
 			}
 		},
 		REVOKE("revoke") {
 			protected boolean perform(EntityPlayerMP p_193537_1_, Advancement p_193537_2_) {
-
 				AdvancementProgress advancementprogress = p_193537_1_.getAdvancements().getProgress(p_193537_2_);
 
 				if (!advancementprogress.hasProgress()) {
@@ -304,7 +288,6 @@ public class AdvancementCommand extends CommandBase {
 			}
 
 			protected boolean performCriterion(EntityPlayerMP p_193535_1_, Advancement p_193535_2_, String p_193535_3_) {
-
 				return p_193535_1_.getAdvancements().revokeCriterion(p_193535_2_, p_193535_3_);
 			}
 		};
@@ -313,7 +296,6 @@ public class AdvancementCommand extends CommandBase {
 		final String baseTranslationKey;
 
 		ActionType(String nameIn) {
-
 			name = nameIn;
 			baseTranslationKey = "commands.advancement." + nameIn;
 		}
@@ -331,12 +313,10 @@ public class AdvancementCommand extends CommandBase {
 		}
 
 		CommandException wrongUsage() {
-
 			return new CommandException(baseTranslationKey + ".usage");
 		}
 
 		public int perform(EntityPlayerMP p_193532_1_, Iterable<Advancement> p_193532_2_) {
-
 			int i = 0;
 
 			for (Advancement advancement : p_193532_2_) {
@@ -373,7 +353,6 @@ public class AdvancementCommand extends CommandBase {
 		final boolean children;
 
 		Mode(String p_i47556_3_, boolean p_i47556_4_, boolean p_i47556_5_) {
-
 			name = p_i47556_3_;
 			parents = p_i47556_4_;
 			children = p_i47556_5_;
@@ -392,17 +371,14 @@ public class AdvancementCommand extends CommandBase {
 		}
 
 		CommandException fail(AdvancementCommand.ActionType p_193543_1_, Object... p_193543_2_) {
-
 			return new CommandException(p_193543_1_.baseTranslationKey + "." + name + ".failed", p_193543_2_);
 		}
 
 		CommandException usage(AdvancementCommand.ActionType p_193544_1_) {
-
 			return new CommandException(p_193544_1_.baseTranslationKey + "." + name + ".usage");
 		}
 
 		void success(ICommandSender sender, AdvancementCommand p_193546_2_, AdvancementCommand.ActionType type, Object... args) {
-
 			CommandBase.notifyCommandListener(sender, p_193546_2_, type.baseTranslationKey + "." + name + ".success", args);
 		}
 	}

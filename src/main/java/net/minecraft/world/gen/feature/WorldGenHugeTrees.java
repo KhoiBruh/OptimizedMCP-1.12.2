@@ -28,7 +28,6 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree {
 	protected int extraRandomHeight;
 
 	public WorldGenHugeTrees(boolean notify, int baseHeightIn, int extraRandomHeightIn, IBlockState woodMetadataIn, IBlockState leavesMetadataIn) {
-
 		super(notify);
 		baseHeight = baseHeightIn;
 		extraRandomHeight = extraRandomHeightIn;
@@ -40,7 +39,6 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree {
 	 * calculates the height based on this trees base height and its extra random height
 	 */
 	protected int getHeight(Random rand) {
-
 		int i = rand.nextInt(3) + baseHeight;
 
 		if (extraRandomHeight > 1) {
@@ -54,7 +52,6 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree {
 	 * returns whether or not there is space for a tree to grow at a certain position
 	 */
 	private boolean isSpaceAt(World worldIn, BlockPos leavesPos, int height) {
-
 		boolean flag = true;
 
 		if (leavesPos.getY() >= 1 && leavesPos.getY() + height + 1 <= 256) {
@@ -87,7 +84,6 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree {
 	 * It also generates dirt around the block in a 2x2 square if there is dirt underneath the blockpos.
 	 */
 	private boolean ensureDirtsUnderneath(BlockPos pos, World worldIn) {
-
 		BlockPos blockpos = pos.down();
 		Block block = worldIn.getBlockState(blockpos).getBlock();
 
@@ -107,7 +103,6 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree {
 	 * If it can, it generates surrounding dirt underneath.
 	 */
 	protected boolean ensureGrowable(World worldIn, Random rand, BlockPos treePos, int height) {
-
 		return isSpaceAt(worldIn, treePos, height) && ensureDirtsUnderneath(treePos, worldIn);
 	}
 
@@ -115,7 +110,6 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree {
 	 * grow leaves in a circle with the outsides being within the circle
 	 */
 	protected void growLeavesLayerStrict(World worldIn, BlockPos layerCenter, int width) {
-
 		int i = width * width;
 
 		for (int j = -width; j <= width + 1; ++j) {
@@ -139,7 +133,6 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree {
 	 * grow leaves in a circle
 	 */
 	protected void growLeavesLayer(World worldIn, BlockPos layerCenter, int width) {
-
 		int i = width * width;
 
 		for (int j = -width; j <= width; ++j) {

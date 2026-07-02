@@ -20,7 +20,6 @@ public class DefaultPlayerSkin {
 	 * Returns the default skind for versions prior to 1.8, which is always the Steve texture.
 	 */
 	public static ResourceLocation getDefaultSkinLegacy() {
-
 		return TEXTURE_STEVE;
 	}
 
@@ -28,7 +27,6 @@ public class DefaultPlayerSkin {
 	 * Retrieves the default skin for this player. Depending on the model used this will be Alex or Steve.
 	 */
 	public static ResourceLocation getDefaultSkin(UUID playerUUID) {
-
 		return isSlimSkin(playerUUID) ? TEXTURE_ALEX : TEXTURE_STEVE;
 	}
 
@@ -36,7 +34,6 @@ public class DefaultPlayerSkin {
 	 * Retrieves the type of skin that a player is using. The Alex model is slim while the Steve model is default.
 	 */
 	public static String getSkinType(UUID playerUUID) {
-
 		return isSlimSkin(playerUUID) ? "slim" : "default";
 	}
 
@@ -44,7 +41,6 @@ public class DefaultPlayerSkin {
 	 * Checks if a players skin model is slim or the default. The Alex model is slime while the Steve model is default.
 	 */
 	private static boolean isSlimSkin(UUID playerUUID) {
-
 		return (playerUUID.hashCode() & 1) == 1;
 	}
 

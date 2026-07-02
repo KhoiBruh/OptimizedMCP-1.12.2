@@ -10,12 +10,10 @@ public class ParticleRedstone extends Particle {
 	float reddustParticleScale;
 
 	protected ParticleRedstone(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, float p_i46349_8_, float p_i46349_9_, float p_i46349_10_) {
-
 		this(worldIn, xCoordIn, yCoordIn, zCoordIn, 1F, p_i46349_8_, p_i46349_9_, p_i46349_10_);
 	}
 
 	protected ParticleRedstone(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, float scale, float red, float green, float blue) {
-
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0D, 0D, 0D);
 		motionX *= 0.10000000149011612D;
 		motionY *= 0.10000000149011612D;
@@ -40,7 +38,6 @@ public class ParticleRedstone extends Particle {
 	 * Renders the particle
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-
 		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32F;
 		f = MathHelper.clamp(f, 0F, 1F);
 		particleScale = reddustParticleScale * f;
@@ -48,7 +45,6 @@ public class ParticleRedstone extends Particle {
 	}
 
 	public void onUpdate() {
-
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
@@ -78,7 +74,6 @@ public class ParticleRedstone extends Particle {
 	public static class Factory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			return new ParticleRedstone(worldIn, xCoordIn, yCoordIn, zCoordIn, (float) xSpeedIn, (float) ySpeedIn, (float) zSpeedIn);
 		}
 

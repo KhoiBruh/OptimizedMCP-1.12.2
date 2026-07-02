@@ -14,7 +14,6 @@ public class PathNavigateClimber extends PathNavigateGround {
 	private BlockPos targetPosition;
 
 	public PathNavigateClimber(EntityLiving entityLivingIn, World worldIn) {
-
 		super(entityLivingIn, worldIn);
 	}
 
@@ -22,7 +21,6 @@ public class PathNavigateClimber extends PathNavigateGround {
 	 * Returns path to given BlockPos
 	 */
 	public Path getPathToPos(BlockPos pos) {
-
 		targetPosition = pos;
 		return super.getPathToPos(pos);
 	}
@@ -31,7 +29,6 @@ public class PathNavigateClimber extends PathNavigateGround {
 	 * Returns the path to the given EntityLiving. Args : entity
 	 */
 	public Path getPathToEntityLiving(Entity entityIn) {
-
 		targetPosition = new BlockPos(entityIn);
 		return super.getPathToEntityLiving(entityIn);
 	}
@@ -40,7 +37,6 @@ public class PathNavigateClimber extends PathNavigateGround {
 	 * Try to find and set a path to EntityLiving. Returns true if successful. Args : entity, speed
 	 */
 	public boolean tryMoveToEntityLiving(Entity entityIn, double speedIn) {
-
 		Path path = getPathToEntityLiving(entityIn);
 
 		if (path != null) {
@@ -53,7 +49,6 @@ public class PathNavigateClimber extends PathNavigateGround {
 	}
 
 	public void onUpdateNavigation() {
-
 		if (!noPath()) {
 			super.onUpdateNavigation();
 		} else {

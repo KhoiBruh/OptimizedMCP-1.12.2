@@ -10,7 +10,6 @@ public class EntityAILookAtVillager extends EntityAIBase {
 	private int lookTime;
 
 	public EntityAILookAtVillager(EntityIronGolem ironGolemIn) {
-
 		ironGolem = ironGolemIn;
 		setMutexBits(3);
 	}
@@ -19,7 +18,6 @@ public class EntityAILookAtVillager extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		if (!ironGolem.world.isDaytime()) {
 			return false;
 		} else if (ironGolem.getRNG().nextInt(8000) != 0) {
@@ -34,7 +32,6 @@ public class EntityAILookAtVillager extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		return lookTime > 0;
 	}
 
@@ -42,7 +39,6 @@ public class EntityAILookAtVillager extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		lookTime = 400;
 		ironGolem.setHoldingRose(true);
 	}
@@ -51,7 +47,6 @@ public class EntityAILookAtVillager extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		ironGolem.setHoldingRose(false);
 		villager = null;
 	}
@@ -60,7 +55,6 @@ public class EntityAILookAtVillager extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		ironGolem.getLookHelper().setLookPositionWithEntity(villager, 30F, 30F);
 		--lookTime;
 	}

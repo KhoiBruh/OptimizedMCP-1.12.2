@@ -53,13 +53,11 @@ public abstract class MobSpawnerBaseLogic {
 
 	
 	private ResourceLocation getEntityId() {
-
 		String s = spawnData.getNbt().getString("id");
 		return StringUtils.isNullOrEmpty(s) ? null : new ResourceLocation(s);
 	}
 
 	public void setEntityId(ResourceLocation id) {
-
 		if (id != null) {
 			spawnData.getNbt().setString("id", id.toString());
 		}
@@ -69,13 +67,11 @@ public abstract class MobSpawnerBaseLogic {
 	 * Returns true if there's a player close enough to this mob spawner to activate it.
 	 */
 	private boolean isActivated() {
-
 		BlockPos blockpos = getSpawnerPosition();
 		return getSpawnerWorld().isAnyPlayerWithinRangeAt((double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.5D, (double) blockpos.getZ() + 0.5D, activatingRangeFromPlayer);
 	}
 
 	public void updateSpawner() {
-
 		if (!isActivated()) {
 			prevMobRotation = mobRotation;
 		} else {
@@ -154,7 +150,6 @@ public abstract class MobSpawnerBaseLogic {
 	}
 
 	private void resetTimer() {
-
 		if (maxSpawnDelay <= minSpawnDelay) {
 			spawnDelay = minSpawnDelay;
 		} else {
@@ -170,7 +165,6 @@ public abstract class MobSpawnerBaseLogic {
 	}
 
 	public void readFromNBT(NBTTagCompound nbt) {
-
 		spawnDelay = nbt.getShort("Delay");
 		potentialSpawns.clear();
 
@@ -209,7 +203,6 @@ public abstract class MobSpawnerBaseLogic {
 	}
 
 	public NBTTagCompound writeToNBT(NBTTagCompound p_189530_1_) {
-
 		ResourceLocation resourcelocation = getEntityId();
 
 		if (resourcelocation == null) {
@@ -239,7 +232,6 @@ public abstract class MobSpawnerBaseLogic {
 	}
 
 	public Entity getCachedEntity() {
-
 		if (cachedEntity == null) {
 			cachedEntity = AnvilChunkLoader.readWorldEntity(spawnData.getNbt(), getSpawnerWorld(), false);
 
@@ -255,7 +247,6 @@ public abstract class MobSpawnerBaseLogic {
 	 * Sets the delay to minDelay if parameter given is 1, else return false.
 	 */
 	public boolean setDelayToMin(int delay) {
-
 		if (delay == 1 && getSpawnerWorld().isRemote) {
 			spawnDelay = minSpawnDelay;
 			return true;
@@ -265,7 +256,6 @@ public abstract class MobSpawnerBaseLogic {
 	}
 
 	public void setNextSpawnData(WeightedSpawnerEntity p_184993_1_) {
-
 		spawnData = p_184993_1_;
 	}
 
@@ -276,12 +266,10 @@ public abstract class MobSpawnerBaseLogic {
 	public abstract BlockPos getSpawnerPosition();
 
 	public double getMobRotation() {
-
 		return mobRotation;
 	}
 
 	public double getPrevMobRotation() {
-
 		return prevMobRotation;
 	}
 

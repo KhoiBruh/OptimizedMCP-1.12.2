@@ -44,7 +44,6 @@ public class PlayerChunkMap {
 	private boolean sortSendToPlayers = true;
 
 	public PlayerChunkMap(WorldServer serverWorld) {
-
 		world = serverWorld;
 		setPlayerViewRadius(serverWorld.getMinecraftServer().getPlayerList().getViewDistance());
 	}
@@ -53,12 +52,10 @@ public class PlayerChunkMap {
 	 * Get the furthest viewable block given player's view distance
 	 */
 	public static int getFurthestViewableBlock(int distance) {
-
 		return distance * 16 - 16;
 	}
 
 	private static long getIndex(int p_187307_0_, int p_187307_1_) {
-
 		return (long) p_187307_0_ + 2147483647L | (long) p_187307_1_ + 2147483647L << 32;
 	}
 
@@ -66,16 +63,13 @@ public class PlayerChunkMap {
 	 * Returns the WorldServer associated with this PlayerManager
 	 */
 	public WorldServer getWorldServer() {
-
 		return world;
 	}
 
 	public Iterator<Chunk> getChunkIterator() {
-
 		final Iterator<PlayerChunkMapEntry> iterator = entries.iterator();
 		return new AbstractIterator<>() {
 			protected Chunk computeNext() {
-
 				while (true) {
 					if (iterator.hasNext()) {
 						PlayerChunkMapEntry playerchunkmapentry = iterator.next();
@@ -110,7 +104,6 @@ public class PlayerChunkMap {
 	 * updates all the player instances that need to be updated
 	 */
 	public void tick() {
-
 		long i = world.getTotalWorldTime();
 
 		if (i - previousTotalWorldTime > 8000L) {
@@ -196,19 +189,16 @@ public class PlayerChunkMap {
 	}
 
 	public boolean contains(int chunkX, int chunkZ) {
-
 		long i = getIndex(chunkX, chunkZ);
 		return entryMap.get(i) != null;
 	}
 
 	
 	public PlayerChunkMapEntry getEntry(int x, int z) {
-
 		return entryMap.get(getIndex(x, z));
 	}
 
 	private PlayerChunkMapEntry getOrCreateEntry(int chunkX, int chunkZ) {
-
 		long i = getIndex(chunkX, chunkZ);
 		PlayerChunkMapEntry playerchunkmapentry = entryMap.get(i);
 
@@ -230,7 +220,6 @@ public class PlayerChunkMap {
 	}
 
 	public void markBlockForUpdate(BlockPos pos) {
-
 		int i = pos.getX() >> 4;
 		int j = pos.getZ() >> 4;
 		PlayerChunkMapEntry playerchunkmapentry = getEntry(i, j);
@@ -244,7 +233,6 @@ public class PlayerChunkMap {
 	 * Adds an EntityPlayerMP to the PlayerManager and to all player instances within player visibility
 	 */
 	public void addPlayer(EntityPlayerMP player) {
-
 		int i = (int) player.posX >> 4;
 		int j = (int) player.posZ >> 4;
 		player.managedPosX = player.posX;
@@ -264,7 +252,6 @@ public class PlayerChunkMap {
 	 * Removes an EntityPlayerMP from the PlayerManager.
 	 */
 	public void removePlayer(EntityPlayerMP player) {
-
 		int i = (int) player.managedPosX >> 4;
 		int j = (int) player.managedPosZ >> 4;
 
@@ -287,7 +274,6 @@ public class PlayerChunkMap {
 	 * z2, radius.
 	 */
 	private boolean overlaps(int x1, int z1, int x2, int z2, int radius) {
-
 		int i = x1 - x2;
 		int j = z1 - z2;
 
@@ -302,7 +288,6 @@ public class PlayerChunkMap {
 	 * Update chunks around a player that moved
 	 */
 	public void updateMovingPlayer(EntityPlayerMP player) {
-
 		int i = (int) player.posX >> 4;
 		int j = (int) player.posZ >> 4;
 		double d0 = player.managedPosX - player.posX;
@@ -341,13 +326,11 @@ public class PlayerChunkMap {
 	}
 
 	public boolean isPlayerWatchingChunk(EntityPlayerMP player, int chunkX, int chunkZ) {
-
 		PlayerChunkMapEntry playerchunkmapentry = getEntry(chunkX, chunkZ);
 		return playerchunkmapentry != null && playerchunkmapentry.containsPlayer(player) && playerchunkmapentry.isSentToPlayers();
 	}
 
 	public void setPlayerViewRadius(int radius) {
-
 		radius = MathHelper.clamp(radius, 3, 32);
 
 		if (radius != playerViewRadius) {
@@ -384,7 +367,6 @@ public class PlayerChunkMap {
 	}
 
 	private void markSortPending() {
-
 		sortMissingChunks = true;
 		sortSendToPlayers = true;
 	}
@@ -393,12 +375,10 @@ public class PlayerChunkMap {
 	 * Marks an entry as dirty
 	 */
 	public void entryChanged(PlayerChunkMapEntry entry) {
-
 		dirtyEntries.add(entry);
 	}
 
 	public void removeEntry(PlayerChunkMapEntry entry) {
-
 		ChunkPos chunkpos = entry.getPos();
 		long i = getIndex(chunkpos.x, chunkpos.z);
 		entry.updateChunkInhabitedTime();

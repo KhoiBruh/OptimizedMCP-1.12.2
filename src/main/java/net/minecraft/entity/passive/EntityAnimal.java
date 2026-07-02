@@ -24,12 +24,10 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 	private UUID playerInLove;
 
 	public EntityAnimal(World worldIn) {
-
 		super(worldIn);
 	}
 
 	protected void updateAITasks() {
-
 		if (getGrowingAge() != 0) {
 			inLove = 0;
 		}
@@ -42,7 +40,6 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 	 * use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
 		super.onLivingUpdate();
 
 		if (getGrowingAge() != 0) {
@@ -65,7 +62,6 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		if (isEntityInvulnerable(source)) {
 			return false;
 		} else {
@@ -75,7 +71,6 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 	}
 
 	public float getBlockPathWeight(BlockPos pos) {
-
 		return world.getBlockState(pos.down()).getBlock() == spawnableBlock ? 10F : world.getLightBrightness(pos) - 0.5F;
 	}
 
@@ -83,7 +78,6 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setInteger("InLove", inLove);
 
@@ -96,7 +90,6 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 	 * Returns the Y Offset of this entity.
 	 */
 	public double getYOffset() {
-
 		return 0.14D;
 	}
 
@@ -104,7 +97,6 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		inLove = compound.getInteger("InLove");
 		playerInLove = compound.hasUniqueId("LoveCause") ? compound.getUniqueId("LoveCause") : null;
@@ -114,7 +106,6 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 	 * Checks if the entity's current position is a valid location to spawn this entity.
 	 */
 	public boolean getCanSpawnHere() {
-
 		int i = MathHelper.floor(posX);
 		int j = MathHelper.floor(getEntityBoundingBox().minY);
 		int k = MathHelper.floor(posZ);
@@ -126,7 +117,6 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 	 * Get number of ticks, at least during which the living entity will be silent.
 	 */
 	public int getTalkInterval() {
-
 		return 120;
 	}
 
@@ -134,7 +124,6 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 	 * Determines if an entity can be despawned, used on idle far away entities
 	 */
 	protected boolean canDespawn() {
-
 		return false;
 	}
 
@@ -142,7 +131,6 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 	 * Get the experience points the entity currently has.
 	 */
 	protected int getExperiencePoints(EntityPlayer player) {
-
 		return 1 + world.rand.nextInt(3);
 	}
 
@@ -151,12 +139,10 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 	 * the animal type)
 	 */
 	public boolean isBreedingItem(ItemStack stack) {
-
 		return stack.getItem() == Items.WHEAT;
 	}
 
 	public boolean processInteract(EntityPlayer player, Hand hand) {
-
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (!itemstack.isEmpty()) {
@@ -180,7 +166,6 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 	 * Decreases ItemStack size by one
 	 */
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack) {
-
 		if (!player.capabilities.isCreativeMode) {
 			stack.shrink(1);
 		}
@@ -188,7 +173,6 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 
 	
 	public EntityPlayerMP getLoveCause() {
-
 		if (playerInLove == null) {
 			return null;
 		} else {
@@ -201,12 +185,10 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 	 * Returns if the entity is currently in 'love mode'.
 	 */
 	public boolean isInLove() {
-
 		return inLove > 0;
 	}
 
 	public void setInLove(EntityPlayer player) {
-
 		inLove = 600;
 
 		if (player != null) {
@@ -217,7 +199,6 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 	}
 
 	public void resetInLove() {
-
 		inLove = 0;
 	}
 
@@ -225,7 +206,6 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 	 * Returns true if the mob is currently able to mate with the specified mob.
 	 */
 	public boolean canMateWith(EntityAnimal otherAnimal) {
-
 		if (otherAnimal == this) {
 			return false;
 		} else if (otherAnimal.getClass() != getClass()) {
@@ -239,7 +219,6 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 	 * Handler for {@link World#setEntityState}
 	 */
 	public void handleStatusUpdate(byte id) {
-
 		if (id == 18) {
 			for (int i = 0; i < 7; ++i) {
 				double d0 = rand.nextGaussian() * 0.02D;

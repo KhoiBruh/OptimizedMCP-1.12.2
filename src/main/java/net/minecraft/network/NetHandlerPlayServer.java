@@ -104,7 +104,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	private int lastMovePacketCounter;
 
 	public NetHandlerPlayServer(MinecraftServer server, NetworkManager networkManagerIn, EntityPlayerMP playerIn) {
-
 		serverController = server;
 		netManager = networkManagerIn;
 		networkManagerIn.setNetHandler(this);
@@ -113,7 +112,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	}
 
 	private static boolean isMovePlayerPacketInvalid(CPacketPlayer packetIn) {
-
 		if (Doubles.isFinite(packetIn.getX(0D)) && Doubles.isFinite(packetIn.getY(0D)) && Doubles.isFinite(packetIn.getZ(0D)) && Floats.isFinite(packetIn.getPitch(0F)) && Floats.isFinite(packetIn.getYaw(0F))) {
 			return Math.abs(packetIn.getX(0D)) > 3.0E7D || Math.abs(packetIn.getY(0D)) > 3.0E7D || Math.abs(packetIn.getZ(0D)) > 3.0E7D;
 		} else {
@@ -122,7 +120,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	}
 
 	private static boolean isMoveVehiclePacketInvalid(CPacketVehicleMove packetIn) {
-
 		return !Doubles.isFinite(packetIn.getX()) || !Doubles.isFinite(packetIn.getY()) || !Doubles.isFinite(packetIn.getZ()) || !Floats.isFinite(packetIn.getPitch()) || !Floats.isFinite(packetIn.getYaw());
 	}
 
@@ -130,7 +127,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 * Like the old updateEntity(), except more generic.
 	 */
 	public void update() {
-
 		captureCurrentPosition();
 		player.onUpdateEntity();
 		player.setPositionAndRotation(firstGoodX, firstGoodY, firstGoodZ, player.rotationYaw, player.rotationPitch);
@@ -204,7 +200,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	}
 
 	private void captureCurrentPosition() {
-
 		firstGoodX = player.posX;
 		firstGoodY = player.posY;
 		firstGoodZ = player.posZ;
@@ -214,7 +209,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	}
 
 	public NetworkManager getNetworkManager() {
-
 		return netManager;
 	}
 
@@ -222,7 +216,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 * Disconnect the player with a specified reason
 	 */
 	public void disconnect(final ITextComponent textComponent) {
-
 		netManager.sendPacket(new SPacketDisconnect(textComponent), p_operationComplete_1_ -> netManager.closeChannel(textComponent));
 		netManager.disableAutoRead();
 		Futures.getUnchecked(serverController.addScheduledTask(netManager::checkDisconnected));
@@ -233,13 +226,11 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 * flying/sprinting
 	 */
 	public void processInput(CPacketInput packetIn) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 		player.setEntityActionState(packetIn.getStrafeSpeed(), packetIn.getForwardSpeed(), packetIn.isJumping(), packetIn.isSneaking());
 	}
 
 	public void processVehicleMove(CPacketVehicleMove packetIn) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 
 		if (isMoveVehiclePacketInvalid(packetIn)) {
@@ -311,7 +302,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	}
 
 	public void processConfirmTeleport(CPacketConfirmTeleport packetIn) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 
 		if (packetIn.getTeleportId() == teleportId) {
@@ -329,7 +319,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	}
 
 	public void handleRecipeBookUpdate(CPacketRecipeInfo p_191984_1_) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(p_191984_1_, this, player.getServerWorld());
 
 		if (p_191984_1_.getPurpose() == CPacketRecipeInfo.Purpose.SHOWN) {
@@ -341,7 +330,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	}
 
 	public void handleSeenAdvancements(CPacketSeenAdvancements p_194027_1_) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(p_194027_1_, this, player.getServerWorld());
 
 		if (p_194027_1_.getAction() == CPacketSeenAdvancements.Action.OPENED_TAB) {
@@ -358,7 +346,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 * Processes clients perspective on player positioning and/or orientation
 	 */
 	public void processPlayer(CPacketPlayer packetIn) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 
 		if (isMovePlayerPacketInvalid(packetIn)) {
@@ -478,7 +465,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	}
 
 	public void setPlayerLocation(double x, double y, double z, float yaw, float pitch) {
-
 		setPlayerLocation(x, y, z, yaw, pitch, Collections.emptySet());
 	}
 
@@ -486,7 +472,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 * Teleports the player position to the (relative) values specified, and syncs to the client
 	 */
 	public void setPlayerLocation(double x, double y, double z, float yaw, float pitch, Set<SPacketPlayerPosLook.Flags> relativeSet) {
-
 		double d0 = relativeSet.contains(SPacketPlayerPosLook.Flags.X) ? player.posX : 0D;
 		double d1 = relativeSet.contains(SPacketPlayerPosLook.Flags.Y) ? player.posY : 0D;
 		double d2 = relativeSet.contains(SPacketPlayerPosLook.Flags.Z) ? player.posZ : 0D;
@@ -515,7 +500,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 * Processes the player initiating/stopping digging on a particular spot, as well as a player dropping items
 	 */
 	public void processPlayerDigging(CPacketPlayerDigging packetIn) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 		WorldServer worldserver = serverController.getWorld(player.dimension);
 		BlockPos blockpos = packetIn.getPosition();
@@ -589,7 +573,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	}
 
 	public void processTryUseItemOnBlock(CPacketPlayerTryUseItemOnBlock packetIn) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 		WorldServer worldserver = serverController.getWorld(player.dimension);
 		Hand enumhand = packetIn.getHand();
@@ -616,7 +599,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 * Called when a client is using an item while not pointing at a block, but simply using an item
 	 */
 	public void processTryUseItem(CPacketPlayerTryUseItem packetIn) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 		WorldServer worldserver = serverController.getWorld(player.dimension);
 		Hand enumhand = packetIn.getHand();
@@ -629,7 +611,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	}
 
 	public void handleSpectate(CPacketSpectate packetIn) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 
 		if (player.isSpectator()) {
@@ -679,11 +660,9 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	}
 
 	public void handleResourcePackStatus(CPacketResourcePackStatus packetIn) {
-
 	}
 
 	public void processSteerBoat(CPacketSteerBoat packetIn) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 		Entity entity = player.getRidingEntity();
 
@@ -696,7 +675,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 * Invoked when disconnecting, the parameter is a ChatComponent describing the reason for termination
 	 */
 	public void onDisconnect(ITextComponent reason) {
-
 		LOGGER.info("{} lost connection: {}", player.getName(), reason.getUnformattedText());
 		serverController.refreshStatusNextTick();
 		TextComponentTranslation textcomponenttranslation = new TextComponentTranslation("multiplayer.player.left", player.getDisplayName());
@@ -712,7 +690,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	}
 
 	public void sendPacket(final Packet<?> packetIn) {
-
 		if (packetIn instanceof SPacketChat spacketchat) {
 			EntityPlayer.ChatVisibility entityplayer$enumchatvisibility = player.getChatVisibility();
 
@@ -739,7 +716,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 * Updates which quickbar slot is selected
 	 */
 	public void processHeldItemChange(CPacketHeldItemChange packetIn) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 
 		if (packetIn.getSlotId() >= 0 && packetIn.getSlotId() < InventoryPlayer.getHotbarSize()) {
@@ -754,7 +730,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 * Process chat messages (broadcast back to clients) and commands (executes)
 	 */
 	public void processChatMessage(CPacketChatMessage packetIn) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 
 		if (player.getChatVisibility() == EntityPlayer.ChatVisibility.HIDDEN) {
@@ -792,12 +767,10 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 * Handle commands that start with a /
 	 */
 	private void handleSlashCommand(String command) {
-
 		serverController.getCommandManager().executeCommand(player, command);
 	}
 
 	public void handleAnimation(CPacketAnimation packetIn) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 		player.markPlayerActive();
 		player.swingArm(packetIn.getHand());
@@ -808,7 +781,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 * height of the horse the player is riding
 	 */
 	public void processEntityAction(CPacketEntityAction packetIn) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 		player.markPlayerActive();
 
@@ -884,7 +856,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 * Processes left and right clicks on entities
 	 */
 	public void processUseEntity(CPacketUseEntity packetIn) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 		WorldServer worldserver = serverController.getWorld(player.dimension);
 		Entity entity = packetIn.getEntityFromWorld(worldserver);
@@ -923,7 +894,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 * acquiring 'open inventory' achievement
 	 */
 	public void processClientStatus(CPacketClientStatus packetIn) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 		player.markPlayerActive();
 		CPacketClientStatus.State cpacketclientstatus$state = packetIn.getStatus();
@@ -958,7 +928,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 * Processes the client closing windows (container)
 	 */
 	public void processCloseWindow(CPacketCloseWindow packetIn) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 		player.closeContainer();
 	}
@@ -969,7 +938,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 * the same open container/inventory
 	 */
 	public void processClickWindow(CPacketClickWindow packetIn) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 		player.markPlayerActive();
 
@@ -1010,7 +978,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	}
 
 	public void func_194308_a(CPacketPlaceRecipe p_194308_1_) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(p_194308_1_, this, player.getServerWorld());
 		player.markPlayerActive();
 
@@ -1024,7 +991,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 * should/shouldn't be in use?)
 	 */
 	public void processEnchantItem(CPacketEnchantItem packetIn) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 		player.markPlayerActive();
 
@@ -1038,7 +1004,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 * Update the server with an ItemStack in a slot.
 	 */
 	public void processCreativeInventoryAction(CPacketCreativeInventoryAction packetIn) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 
 		if (player.interactionManager.isCreative()) {
@@ -1090,7 +1055,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 * contents
 	 */
 	public void processConfirmTransaction(CPacketConfirmTransaction packetIn) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 		Short oshort = pendingTransactions.lookup(player.openContainer.windowId);
 
@@ -1100,7 +1064,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	}
 
 	public void processUpdateSign(CPacketUpdateSign packetIn) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 		player.markPlayerActive();
 		WorldServer worldserver = serverController.getWorld(player.dimension);
@@ -1134,7 +1097,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 * Updates a players' ping statistics
 	 */
 	public void processKeepAlive(CPacketKeepAlive packetIn) {
-
 		if (field_194403_g && packetIn.getKey() == field_194404_h) {
 			int i = (int) (currentTimeMillis() - field_194402_f);
 			player.ping = (player.ping * 3 + i) / 4;
@@ -1145,7 +1107,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	}
 
 	private long currentTimeMillis() {
-
 		return System.nanoTime() / 1000000L;
 	}
 
@@ -1153,7 +1114,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 * Processes a player starting/stopping flying
 	 */
 	public void processPlayerAbilities(CPacketPlayerAbilities packetIn) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 		player.capabilities.isFlying = packetIn.isFlying() && player.capabilities.allowFlying;
 	}
@@ -1162,7 +1122,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 * Retrieves possible tab completions for the requested command string and sends them to the client
 	 */
 	public void processTabComplete(CPacketTabComplete packetIn) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 		List<String> list = Lists.newArrayList();
 
@@ -1176,7 +1135,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 * and whether to show the cape
 	 */
 	public void processClientSettings(CPacketClientSettings packetIn) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 		player.handleClientSettings(packetIn);
 	}
@@ -1185,7 +1143,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	 * Synchronizes serverside and clientside book contents and signing
 	 */
 	public void processCustomPayload(CPacketCustomPayload packetIn) {
-
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, player.getServerWorld());
 		String s = packetIn.getChannelName();
 
@@ -1402,7 +1359,6 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 			}
 		} else if ("MC|ItemName".equals(s)) {
 			if (player.openContainer instanceof ContainerRepair containerrepair) {
-
 				if (packetIn.getBufferData() != null && packetIn.getBufferData().readableBytes() >= 1) {
 					String s5 = ChatAllowedCharacters.filterAllowedCharacters(packetIn.getBufferData().readString(32767));
 

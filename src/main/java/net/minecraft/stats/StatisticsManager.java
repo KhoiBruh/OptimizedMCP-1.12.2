@@ -11,7 +11,6 @@ public class StatisticsManager {
 	protected final Map<StatBase, TupleIntJsonSerializable> statsData = Maps.newConcurrentMap();
 
 	public void increaseStat(EntityPlayer player, StatBase stat, int amount) {
-
 		unlockAchievement(player, stat, readStat(stat) + amount);
 	}
 
@@ -19,7 +18,6 @@ public class StatisticsManager {
 	 * Triggers the logging of an achievement and attempts to announce to server
 	 */
 	public void unlockAchievement(EntityPlayer playerIn, StatBase statIn, int p_150873_3_) {
-
 		TupleIntJsonSerializable tupleintjsonserializable = statsData.computeIfAbsent(statIn, k -> new TupleIntJsonSerializable());
 
 		tupleintjsonserializable.setIntegerValue(p_150873_3_);
@@ -29,7 +27,6 @@ public class StatisticsManager {
 	 * Reads the given stat and returns its value as an int.
 	 */
 	public int readStat(StatBase stat) {
-
 		TupleIntJsonSerializable tupleintjsonserializable = statsData.get(stat);
 		return tupleintjsonserializable == null ? 0 : tupleintjsonserializable.getIntegerValue();
 	}

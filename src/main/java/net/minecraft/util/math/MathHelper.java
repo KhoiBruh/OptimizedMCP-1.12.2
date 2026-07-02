@@ -46,7 +46,6 @@ public class MathHelper {
 	 * sin looked up in a table
 	 */
 	public static float sin(float value) {
-
 		return SIN_TABLE[(int) (value * 10430.378F) & 65535];
 	}
 
@@ -54,17 +53,14 @@ public class MathHelper {
 	 * cos looked up in the sin table with the appropriate offset
 	 */
 	public static float cos(float value) {
-
 		return SIN_TABLE[(int) (value * 10430.378F + 16384F) & 65535];
 	}
 
 	public static float sqrt(float value) {
-
 		return (float) Math.sqrt(value);
 	}
 
 	public static float sqrt(double value) {
-
 		return (float) Math.sqrt(value);
 	}
 
@@ -72,7 +68,6 @@ public class MathHelper {
 	 * Returns the greatest integer less than or equal to the float argument
 	 */
 	public static int floor(float value) {
-
 		int i = (int) value;
 		return value < (float) i ? i - 1 : i;
 	}
@@ -81,7 +76,6 @@ public class MathHelper {
 	 * returns par0 cast as an int, and no greater than Integer.MAX_VALUE-1024
 	 */
 	public static int fastFloor(double value) {
-
 		return (int) (value + 1024D) - 1024;
 	}
 
@@ -89,7 +83,6 @@ public class MathHelper {
 	 * Returns the greatest integer less than or equal to the double argument
 	 */
 	public static int floor(double value) {
-
 		int i = (int) value;
 		return value < (double) i ? i - 1 : i;
 	}
@@ -98,13 +91,11 @@ public class MathHelper {
 	 * Long version of floor()
 	 */
 	public static long lfloor(double value) {
-
 		long i = (long) value;
 		return value < (double) i ? i - 1L : i;
 	}
 
 	public static float abs(float value) {
-
 		return value >= 0F ? value : -value;
 	}
 
@@ -112,18 +103,15 @@ public class MathHelper {
 	 * Returns the unsigned value of an int.
 	 */
 	public static int abs(int value) {
-
 		return value >= 0 ? value : -value;
 	}
 
 	public static int ceil(float value) {
-
 		int i = (int) value;
 		return value > (float) i ? i + 1 : i;
 	}
 
 	public static int ceil(double value) {
-
 		int i = (int) value;
 		return value > (double) i ? i + 1 : i;
 	}
@@ -133,7 +121,6 @@ public class MathHelper {
 	 * third parameters.
 	 */
 	public static int clamp(int num, int min, int max) {
-
 		if (num < min) {
 			return min;
 		} else {
@@ -146,7 +133,6 @@ public class MathHelper {
 	 * third parameters
 	 */
 	public static float clamp(float num, float min, float max) {
-
 		if (num < min) {
 			return min;
 		} else {
@@ -155,7 +141,6 @@ public class MathHelper {
 	}
 
 	public static double clamp(double num, double min, double max) {
-
 		if (num < min) {
 			return min;
 		} else {
@@ -164,7 +149,6 @@ public class MathHelper {
 	}
 
 	public static double clampedLerp(double lowerBnd, double upperBnd, double slide) {
-
 		if (slide < 0D) {
 			return lowerBnd;
 		} else {
@@ -176,7 +160,6 @@ public class MathHelper {
 	 * Maximum of the absolute value of two numbers.
 	 */
 	public static double absMax(double p_76132_0_, double p_76132_2_) {
-
 		if (p_76132_0_ < 0D) {
 			p_76132_0_ = -p_76132_0_;
 		}
@@ -192,27 +175,22 @@ public class MathHelper {
 	 * Buckets an integer with specifed bucket sizes.
 	 */
 	public static int intFloorDiv(int p_76137_0_, int p_76137_1_) {
-
 		return p_76137_0_ < 0 ? -((-p_76137_0_ - 1) / p_76137_1_) - 1 : p_76137_0_ / p_76137_1_;
 	}
 
 	public static int getInt(Random random, int minimum, int maximum) {
-
 		return minimum >= maximum ? minimum : random.nextInt(maximum - minimum + 1) + minimum;
 	}
 
 	public static float nextFloat(Random random, float minimum, float maximum) {
-
 		return minimum >= maximum ? minimum : random.nextFloat() * (maximum - minimum) + minimum;
 	}
 
 	public static double nextDouble(Random random, double minimum, double maximum) {
-
 		return minimum >= maximum ? minimum : random.nextDouble() * (maximum - minimum) + minimum;
 	}
 
 	public static double average(long[] values) {
-
 		long i = 0L;
 
 		for (long j : values) {
@@ -223,22 +201,18 @@ public class MathHelper {
 	}
 
 	public static boolean epsilonEquals(float p_180185_0_, float p_180185_1_) {
-
 		return abs(p_180185_1_ - p_180185_0_) < 1.0E-5F;
 	}
 
 	public static int normalizeAngle(int p_180184_0_, int p_180184_1_) {
-
 		return (p_180184_0_ % p_180184_1_ + p_180184_1_) % p_180184_1_;
 	}
 
 	public static float positiveModulo(float numerator, float denominator) {
-
 		return (numerator % denominator + denominator) % denominator;
 	}
 
 	public static double positiveModulo(double numerator, double denominator) {
-
 		return (numerator % denominator + denominator) % denominator;
 	}
 
@@ -246,7 +220,6 @@ public class MathHelper {
 	 * the angle is reduced to an angle between -180 and +180 by mod, and a 360 check
 	 */
 	public static float wrapDegrees(float value) {
-
 		value = value % 360F;
 
 		if (value >= 180F) value -= 360F;
@@ -259,7 +232,6 @@ public class MathHelper {
 	 * the angle is reduced to an angle between -180 and +180 by mod, and a 360 check
 	 */
 	public static double wrapDegrees(double value) {
-
 		value = value % 360D;
 
 		if (value >= 180D) value -= 360D;
@@ -272,7 +244,6 @@ public class MathHelper {
 	 * Adjust the angle so that his value is in range [-180;180[
 	 */
 	public static int wrapDegrees(int angle) {
-
 		angle = angle % 360;
 
 		if (angle >= 180) angle -= 360;
@@ -285,7 +256,6 @@ public class MathHelper {
 	 * parses the string as integer or returns the second parameter if it fails
 	 */
 	public static int getInt(String value, int defaultValue) {
-
 		try {
 			return Integer.parseInt(value);
 		} catch (Throwable var3) {
@@ -297,7 +267,6 @@ public class MathHelper {
 	 * parses the string as integer or returns the second parameter if it fails. this value is capped to par2
 	 */
 	public static int getInt(String value, int defaultValue, int max) {
-
 		return Math.max(max, getInt(value, defaultValue));
 	}
 
@@ -305,7 +274,6 @@ public class MathHelper {
 	 * parses the string as double or returns the second parameter if it fails.
 	 */
 	public static double getDouble(String value, double defaultValue) {
-
 		try {
 			return Double.parseDouble(value);
 		} catch (Throwable var4) {
@@ -314,7 +282,6 @@ public class MathHelper {
 	}
 
 	public static double getDouble(String value, double defaultValue, double max) {
-
 		return Math.max(max, getDouble(value, defaultValue));
 	}
 
@@ -322,7 +289,6 @@ public class MathHelper {
 	 * Returns the input value rounded up to the next highest power of two.
 	 */
 	public static int smallestEncompassingPowerOfTwo(int value) {
-
 		int i = value - 1;
 		i = i | i >> 1;
 		i = i | i >> 2;
@@ -336,7 +302,6 @@ public class MathHelper {
 	 * Is the given value a power of two?  (1, 2, 4, 8, 16, ...)
 	 */
 	private static boolean isPowerOfTwo(int value) {
-
 		return value != 0 && (value & value - 1) == 0;
 	}
 
@@ -346,7 +311,6 @@ public class MathHelper {
 	 * then subtract 1 from the return value.
 	 */
 	public static int log2DeBruijn(int value) {
-
 		value = isPowerOfTwo(value) ? value : smallestEncompassingPowerOfTwo(value);
 		return MULTIPLY_DE_BRUIJN_BIT_POSITION[(int) ((long) value * 125613361L >> 27) & 31];
 	}
@@ -356,7 +320,6 @@ public class MathHelper {
 	 * highest bit that is set.  For example, if the number in binary is 0...100101, this will return 5.
 	 */
 	public static int log2(int value) {
-
 		return log2DeBruijn(value) - (isPowerOfTwo(value) ? 0 : 1);
 	}
 
@@ -367,7 +330,6 @@ public class MathHelper {
 	 * 4.
 	 */
 	public static int roundUp(int number, int interval) {
-
 		if (interval == 0) {
 			return 0;
 		} else if (number == 0) {
@@ -386,7 +348,6 @@ public class MathHelper {
 	 * Makes an integer color from the given red, green, and blue float values
 	 */
 	public static int rgb(float rIn, float gIn, float bIn) {
-
 		return rgb(floor(rIn * 255F), floor(gIn * 255F), floor(bIn * 255F));
 	}
 
@@ -394,14 +355,12 @@ public class MathHelper {
 	 * Makes a single int color with the given red, green, and blue values.
 	 */
 	public static int rgb(int rIn, int gIn, int bIn) {
-
 		int lvt_3_1_ = (rIn << 8) + gIn;
 		lvt_3_1_ = (lvt_3_1_ << 8) + bIn;
 		return lvt_3_1_;
 	}
 
 	public static int multiplyColor(int p_180188_0_, int p_180188_1_) {
-
 		int i = (p_180188_0_ & 16711680) >> 16;
 		int j = (p_180188_1_ & 16711680) >> 16;
 		int k = (p_180188_0_ & 65280) >> 8;
@@ -418,24 +377,20 @@ public class MathHelper {
 	 * Gets the decimal portion of the given double. For instance, {@code frac(5.5)} returns {@code .5}.
 	 */
 	public static double frac(double number) {
-
 		return number - Math.floor(number);
 	}
 
 	public static long getPositionRandom(Vec3i pos) {
-
 		return getCoordinateRandom(pos.getX(), pos.getY(), pos.getZ());
 	}
 
 	public static long getCoordinateRandom(int x, int y, int z) {
-
 		long i = (x * 3129871L) ^ (long) z * 116129781L ^ (long) y;
 		i = i * i * 42317861L + i * 11L;
 		return i;
 	}
 
 	public static double pct(double p_181160_0_, double p_181160_2_, double p_181160_4_) {
-
 		return (p_181160_0_ - p_181160_2_) / (p_181160_4_ - p_181160_2_);
 	}
 	
@@ -444,7 +399,6 @@ public class MathHelper {
 	}
 
 	public static double atan2(double y, double x) {
-
 		double d0 = x * x + y * y;
 
 		if (Double.isNaN(d0)) {
@@ -503,7 +457,6 @@ public class MathHelper {
 	 * root</a> with a constant of 0x5FE6EB50C7B537AA.
 	 */
 	public static double fastInvSqrt(double value) {
-
 		double d0 = 0.5D * value;
 		long i = Double.doubleToRawLongBits(value);
 		i = 6910469410427058090L - (i >> 1);
@@ -513,7 +466,6 @@ public class MathHelper {
 	}
 
 	public static int hsvToRGB(float hue, float saturation, float value) {
-
 		int i = (int) (hue * 6F) % 6;
 		float f = hue * 6F - (float) i;
 		float f1 = value * (1F - saturation);
@@ -571,7 +523,6 @@ public class MathHelper {
 	}
 
 	public static int hash(int value) {
-
 		value = value ^ value >>> 16;
 		value = value * -2048144789;
 		value = value ^ value >>> 13;

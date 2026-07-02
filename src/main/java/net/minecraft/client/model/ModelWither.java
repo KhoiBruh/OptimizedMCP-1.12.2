@@ -11,7 +11,6 @@ public class ModelWither extends ModelBase {
 	private final ModelRenderer[] heads;
 
 	public ModelWither(float p_i46302_1_) {
-
 		textureWidth = 64;
 		textureHeight = 64;
 		upperBodyParts = new ModelRenderer[3];
@@ -42,7 +41,6 @@ public class ModelWither extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
 		for (ModelRenderer modelrenderer : heads) {
@@ -60,7 +58,6 @@ public class ModelWither extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		float f = MathHelper.cos(ageInTicks * 0.1F);
 		upperBodyParts[1].rotateAngleX = (0.065F + 0.05F * f) * (float) Math.PI;
 		upperBodyParts[2].setRotationPoint(-2F, 6.9F + MathHelper.cos(upperBodyParts[1].rotateAngleX) * 10F, -0.5F + MathHelper.sin(upperBodyParts[1].rotateAngleX) * 10F);
@@ -74,7 +71,6 @@ public class ModelWither extends ModelBase {
 	 * and third as in the setRotationAngles method.
 	 */
 	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTickTime) {
-
 		EntityWither entitywither = (EntityWither) entitylivingbaseIn;
 
 		for (int i = 1; i < 3; ++i) {

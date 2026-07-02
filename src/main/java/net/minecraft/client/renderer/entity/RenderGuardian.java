@@ -19,12 +19,10 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
 	private static final ResourceLocation GUARDIAN_BEAM_TEXTURE = new ResourceLocation("textures/entity/guardian_beam.png");
 
 	public RenderGuardian(RenderManager renderManagerIn) {
-
 		super(renderManagerIn, new ModelGuardian(), 0.5F);
 	}
 
 	public boolean shouldRender(EntityGuardian livingEntity, ICamera camera, double camX, double camY, double camZ) {
-
 		if (super.shouldRender(livingEntity, camera, camX, camY, camZ)) {
 			return true;
 		} else {
@@ -44,7 +42,6 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
 	}
 
 	private Vec3d getPosition(EntityLivingBase entityLivingBaseIn, double p_177110_2_, float p_177110_4_) {
-
 		double d0 = entityLivingBaseIn.lastTickPosX + (entityLivingBaseIn.posX - entityLivingBaseIn.lastTickPosX) * (double) p_177110_4_;
 		double d1 = p_177110_2_ + entityLivingBaseIn.lastTickPosY + (entityLivingBaseIn.posY - entityLivingBaseIn.lastTickPosY) * (double) p_177110_4_;
 		double d2 = entityLivingBaseIn.lastTickPosZ + (entityLivingBaseIn.posZ - entityLivingBaseIn.lastTickPosZ) * (double) p_177110_4_;
@@ -55,7 +52,6 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(EntityGuardian entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);
 		EntityLivingBase entitylivingbase = entity.getTargetedEntity();
 
@@ -143,7 +139,6 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityGuardian entity) {
-
 		return GUARDIAN_TEXTURE;
 	}
 

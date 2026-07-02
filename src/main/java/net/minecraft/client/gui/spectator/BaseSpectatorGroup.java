@@ -13,18 +13,15 @@ public class BaseSpectatorGroup implements ISpectatorMenuView {
 	private final List<ISpectatorMenuObject> items = Lists.newArrayList();
 
 	public BaseSpectatorGroup() {
-
 		items.add(new TeleportToPlayer());
 		items.add(new TeleportToTeam());
 	}
 
 	public List<ISpectatorMenuObject> getItems() {
-
 		return items;
 	}
 
 	public ITextComponent getPrompt() {
-
 		return new TextComponentTranslation("spectatorMenu.root.prompt");
 	}
 

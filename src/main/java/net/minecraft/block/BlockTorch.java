@@ -26,7 +26,6 @@ public class BlockTorch extends Block {
 	protected static final AxisAlignedBB TORCH_EAST_AABB = new AxisAlignedBB(0D, 0.20000000298023224D, 0.3499999940395355D, 0.30000001192092896D, 0.800000011920929D, 0.6499999761581421D);
 
 	protected BlockTorch() {
-
 		super(Material.CIRCUITS);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.UP));
 		setTickRandomly(true);
@@ -34,7 +33,6 @@ public class BlockTorch extends Block {
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return switch (state.getValue(FACING)) {
 			case EAST -> TORCH_EAST_AABB;
 			case WEST -> TORCH_WEST_AABB;
@@ -46,7 +44,6 @@ public class BlockTorch extends Block {
 
 	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-
 		return NULL_AABB;
 	}
 
@@ -54,17 +51,14 @@ public class BlockTorch extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
 	private boolean canPlaceOn(World worldIn, BlockPos pos) {
-
 		Block block = worldIn.getBlockState(pos).getBlock();
 		boolean flag = block == Blocks.END_GATEWAY || block == Blocks.LIT_PUMPKIN;
 
@@ -80,7 +74,6 @@ public class BlockTorch extends Block {
 	 * Checks if this block can be placed exactly at the given position.
 	 */
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-
 		for (Facing enumfacing : FACING.getAllowedValues()) {
 			if (canPlaceAt(worldIn, pos, enumfacing)) {
 				return true;
@@ -91,7 +84,6 @@ public class BlockTorch extends Block {
 	}
 
 	private boolean canPlaceAt(World worldIn, BlockPos pos, Facing facing) {
-
 		BlockPos blockpos = pos.offset(facing.getOpposite());
 		IBlockState iblockstate = worldIn.getBlockState(blockpos);
 		Block block = iblockstate.getBlock();
@@ -111,7 +103,6 @@ public class BlockTorch extends Block {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		if (canPlaceAt(worldIn, pos, facing)) {
 			return getDefaultState().withProperty(FACING, facing);
 		} else {
@@ -129,7 +120,6 @@ public class BlockTorch extends Block {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		checkForDrop(worldIn, pos, state);
 	}
 
@@ -139,12 +129,10 @@ public class BlockTorch extends Block {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		onNeighborChangeInternal(worldIn, pos, state);
 	}
 
 	protected boolean onNeighborChangeInternal(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (!checkForDrop(worldIn, pos, state)) {
 			return true;
 		} else {
@@ -171,7 +159,6 @@ public class BlockTorch extends Block {
 	}
 
 	protected boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (state.getBlock() == this && canPlaceAt(worldIn, pos, state.getValue(FACING))) {
 			return true;
 		} else {
@@ -185,7 +172,6 @@ public class BlockTorch extends Block {
 	}
 
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-
 		Facing enumfacing = stateIn.getValue(FACING);
 		double d0 = (double) pos.getX() + 0.5D;
 		double d1 = (double) pos.getY() + 0.7D;
@@ -208,7 +194,6 @@ public class BlockTorch extends Block {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.CUTOUT;
 	}
 
@@ -216,7 +201,6 @@ public class BlockTorch extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		IBlockState iblockstate = getDefaultState();
 
 		iblockstate = switch (meta) {
@@ -234,7 +218,6 @@ public class BlockTorch extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 
 		i = switch (state.getValue(FACING)) {
@@ -253,7 +236,6 @@ public class BlockTorch extends Block {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
@@ -262,12 +244,10 @@ public class BlockTorch extends Block {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, FACING);
 	}
 
@@ -281,7 +261,6 @@ public class BlockTorch extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

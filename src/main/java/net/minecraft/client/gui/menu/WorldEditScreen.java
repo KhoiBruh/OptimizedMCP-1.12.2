@@ -19,7 +19,6 @@ public class WorldEditScreen extends Screen {
 	private GuiTextField nameEdit;
 
 	public WorldEditScreen(Screen p_i46593_1_, String p_i46593_2_) {
-
 		lastScreen = p_i46593_1_;
 		worldId = p_i46593_2_;
 	}
@@ -28,7 +27,6 @@ public class WorldEditScreen extends Screen {
 	 * Called from the main game loop to update the screen.
 	 */
 	public void update() {
-
 		nameEdit.updateCursorCounter();
 	}
 
@@ -37,7 +35,6 @@ public class WorldEditScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		Keyboard.setRepeat(true);
 		buttons.clear();
 		Button guibutton = addButton(new Button(3, width / 2 - 100, height / 4 + 24 + 12, I18n.format("selectWorld.edit.resetIcon")));
@@ -57,7 +54,6 @@ public class WorldEditScreen extends Screen {
 	 * Called when the screen is unloaded. Used to disable keyboard repeat events
 	 */
 	public void close() {
-
 		Keyboard.setRepeat(false);
 	}
 
@@ -65,7 +61,6 @@ public class WorldEditScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.enabled) {
 			if (button.id == 1) {
 				mc.displayScreen(lastScreen);
@@ -89,7 +84,6 @@ public class WorldEditScreen extends Screen {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) {
-
 		nameEdit.textboxKeyTyped(typedChar, keyCode);
 		(buttons.get(2)).enabled = !nameEdit.getText().trim().isEmpty();
 
@@ -102,7 +96,6 @@ public class WorldEditScreen extends Screen {
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
-
 		super.mouseClicked(mouseX, mouseY, mouse);
 		nameEdit.mouseClicked(mouseX, mouseY, mouse);
 	}
@@ -111,7 +104,6 @@ public class WorldEditScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, I18n.format("selectWorld.edit.title"), width / 2, 20, 16777215);
 		drawString(fontRenderer, I18n.format("selectWorld.enterName"), width / 2 - 100, 47, 10526880);

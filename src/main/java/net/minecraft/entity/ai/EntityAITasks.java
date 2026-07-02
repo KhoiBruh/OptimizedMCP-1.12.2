@@ -22,7 +22,6 @@ public class EntityAITasks {
 	private int disabledControlFlags;
 
 	public EntityAITasks(Profiler profilerIn) {
-
 		profiler = profilerIn;
 	}
 
@@ -30,7 +29,6 @@ public class EntityAITasks {
 	 * Add a now AITask. Args : priority, task
 	 */
 	public void addTask(int priority, EntityAIBase task) {
-
 		taskEntries.add(new EntityAITasks.EntityAITaskEntry(priority, task));
 	}
 
@@ -38,7 +36,6 @@ public class EntityAITasks {
 	 * removes the indicated task from the entity's AI tasks.
 	 */
 	public void removeTask(EntityAIBase task) {
-
 		Iterator<EntityAITasks.EntityAITaskEntry> iterator = taskEntries.iterator();
 
 		while (iterator.hasNext()) {
@@ -59,7 +56,6 @@ public class EntityAITasks {
 	}
 
 	public void onUpdateTasks() {
-
 		profiler.startSection("goalSetup");
 		
 		int tickRate = 3;
@@ -108,7 +104,6 @@ public class EntityAITasks {
 	 * Determine if a specific AI Task should continue being executed.
 	 */
 	private boolean canContinue(EntityAITasks.EntityAITaskEntry taskEntry) {
-
 		return taskEntry.action.shouldContinueExecuting();
 	}
 
@@ -117,7 +112,6 @@ public class EntityAITasks {
 	 * tasks are compatible with it or all lower priority tasks can be interrupted.
 	 */
 	private boolean canUse(EntityAITasks.EntityAITaskEntry taskEntry) {
-
 		if (executingTaskEntries.isEmpty()) {
 			return true;
 		} else if (isControlFlagDisabled(taskEntry.action.getMutexBits())) {
@@ -143,27 +137,22 @@ public class EntityAITasks {
 	 * Returns whether two EntityAITaskEntries can be executed concurrently
 	 */
 	private boolean areTasksCompatible(EntityAITasks.EntityAITaskEntry taskEntry1, EntityAITasks.EntityAITaskEntry taskEntry2) {
-
 		return (taskEntry1.action.getMutexBits() & taskEntry2.action.getMutexBits()) == 0;
 	}
 
 	public boolean isControlFlagDisabled(int p_188528_1_) {
-
 		return (disabledControlFlags & p_188528_1_) > 0;
 	}
 
 	public void disableControlFlag(int p_188526_1_) {
-
 		disabledControlFlags |= p_188526_1_;
 	}
 
 	public void enableControlFlag(int p_188525_1_) {
-
 		disabledControlFlags &= ~p_188525_1_;
 	}
 
 	public void setControlFlag(int p_188527_1_, boolean p_188527_2_) {
-
 		if (p_188527_2_) {
 			enableControlFlag(p_188527_1_);
 		} else {
@@ -178,13 +167,11 @@ public class EntityAITasks {
 		public boolean using;
 
 		public EntityAITaskEntry(int priorityIn, EntityAIBase task) {
-
 			priority = priorityIn;
 			action = task;
 		}
 
 		public boolean equals(Object p_equals_1_) {
-
 			if (this == p_equals_1_) {
 				return true;
 			} else {
@@ -193,7 +180,6 @@ public class EntityAITasks {
 		}
 
 		public int hashCode() {
-
 			return action.hashCode();
 		}
 

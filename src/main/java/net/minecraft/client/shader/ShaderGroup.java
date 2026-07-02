@@ -35,7 +35,6 @@ public class ShaderGroup {
 	private float lastStamp;
 
 	public ShaderGroup(TextureManager p_i1050_1_, IResourceManager resourceManagerIn, Framebuffer mainFramebufferIn, ResourceLocation p_i1050_4_) throws IOException, JsonSyntaxException {
-
 		resourceManager = resourceManagerIn;
 		mainFramebuffer = mainFramebufferIn;
 		time = 0F;
@@ -92,7 +91,6 @@ public class ShaderGroup {
 	}
 
 	private void initTarget(JsonElement p_148027_1_) throws JsonException {
-
 		if (JsonUtils.isString(p_148027_1_)) {
 			addFramebuffer(p_148027_1_.getAsString(), mainFramebufferWidth, mainFramebufferHeight);
 		} else {
@@ -110,7 +108,6 @@ public class ShaderGroup {
 	}
 
 	private void parsePass(TextureManager p_152764_1_, JsonElement json) throws IOException {
-
 		JsonObject jsonobject = JsonUtils.getJsonObject(json, "pass");
 		String s = JsonUtils.getString(jsonobject, "name");
 		String s1 = JsonUtils.getString(jsonobject, "intarget");
@@ -193,7 +190,6 @@ public class ShaderGroup {
 	}
 
 	private void initUniform(JsonElement json) throws JsonException {
-
 		JsonObject jsonobject = JsonUtils.getJsonObject(json, "uniform");
 		String s = JsonUtils.getString(jsonobject, "name");
 		ShaderUniform shaderuniform = listShaders.getLast().getShaderManager().getShaderUniform(s);
@@ -240,12 +236,10 @@ public class ShaderGroup {
 	}
 
 	public Framebuffer getFramebufferRaw(String attributeName) {
-
 		return mapFramebuffers.get(attributeName);
 	}
 
 	public void addFramebuffer(String name, int width, int height) {
-
 		Framebuffer framebuffer = new Framebuffer(width, height, true);
 		framebuffer.setFramebufferColor(0F, 0F, 0F, 0F);
 		mapFramebuffers.put(name, framebuffer);
@@ -256,7 +250,6 @@ public class ShaderGroup {
 	}
 
 	public void deleteShaderGroup() {
-
 		for (Framebuffer framebuffer : mapFramebuffers.values()) {
 			framebuffer.deleteFramebuffer();
 		}
@@ -269,14 +262,12 @@ public class ShaderGroup {
 	}
 
 	public Shader addShader(String programName, Framebuffer framebufferIn, Framebuffer framebufferOut) throws IOException {
-
 		Shader shader = new Shader(resourceManager, programName, framebufferIn, framebufferOut);
 		listShaders.add(listShaders.size(), shader);
 		return shader;
 	}
 
 	private void resetProjectionMatrix() {
-
 		projectionMatrix = new Matrix4f().zero();
 		projectionMatrix.m00(2F / (float) mainFramebuffer.framebufferTextureWidth);
 		projectionMatrix.m11(2F / (float) (-mainFramebuffer.framebufferTextureHeight));
@@ -288,7 +279,6 @@ public class ShaderGroup {
 	}
 
 	public void createBindFramebuffers(int width, int height) {
-
 		mainFramebufferWidth = mainFramebuffer.framebufferTextureWidth;
 		mainFramebufferHeight = mainFramebuffer.framebufferTextureHeight;
 		resetProjectionMatrix();
@@ -303,7 +293,6 @@ public class ShaderGroup {
 	}
 
 	public void render(float partialTicks) {
-
 		if (partialTicks < lastStamp) {
 			time += 1F - lastStamp;
 			time += partialTicks;
@@ -320,12 +309,10 @@ public class ShaderGroup {
 	}
 
 	public final String getShaderGroupName() {
-
 		return shaderGroupName;
 	}
 
 	private Framebuffer getFramebuffer(String p_148017_1_) {
-
 		if (p_148017_1_ == null) {
 			return null;
 		} else {

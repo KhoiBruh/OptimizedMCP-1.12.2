@@ -31,7 +31,6 @@ public class ContainerBrewingStand extends Container {
 	private int prevFuel;
 
 	public ContainerBrewingStand(InventoryPlayer playerInventory, IInventory tileBrewingStandIn) {
-
 		tileBrewingStand = tileBrewingStandIn;
 		addSlotToContainer(new ContainerBrewingStand.Potion(tileBrewingStandIn, 0, 56, 51));
 		addSlotToContainer(new ContainerBrewingStand.Potion(tileBrewingStandIn, 1, 79, 58));
@@ -51,7 +50,6 @@ public class ContainerBrewingStand extends Container {
 	}
 
 	public void addListener(IContainerListener listener) {
-
 		super.addListener(listener);
 		listener.sendAllWindowProperties(this, tileBrewingStand);
 	}
@@ -60,7 +58,6 @@ public class ContainerBrewingStand extends Container {
 	 * Looks for changes made in the container, sends them to every listener.
 	 */
 	public void detectAndSendChanges() {
-
 		super.detectAndSendChanges();
 
 		for (IContainerListener icontainerlistener : listeners) {
@@ -78,7 +75,6 @@ public class ContainerBrewingStand extends Container {
 	}
 
 	public void updateProgressBar(int id, int data) {
-
 		tileBrewingStand.setField(id, data);
 	}
 
@@ -86,7 +82,6 @@ public class ContainerBrewingStand extends Container {
 	 * Determines whether supplied player can use this container
 	 */
 	public boolean canInteractWith(EntityPlayer playerIn) {
-
 		return tileBrewingStand.isUsableByPlayer(playerIn);
 	}
 
@@ -95,7 +90,6 @@ public class ContainerBrewingStand extends Container {
 	 * inventory and the other inventory(s).
 	 */
 	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = inventorySlots.get(index);
 
@@ -154,22 +148,18 @@ public class ContainerBrewingStand extends Container {
 	static class Fuel extends Slot {
 
 		public Fuel(IInventory iInventoryIn, int index, int xPosition, int yPosition) {
-
 			super(iInventoryIn, index, xPosition, yPosition);
 		}
 
 		public static boolean isValidBrewingFuel(ItemStack itemStackIn) {
-
 			return itemStackIn.getItem() == Items.BLAZE_POWDER;
 		}
 
 		public boolean isItemValid(ItemStack stack) {
-
 			return isValidBrewingFuel(stack);
 		}
 
 		public int getSlotStackLimit() {
-
 			return 64;
 		}
 
@@ -178,17 +168,14 @@ public class ContainerBrewingStand extends Container {
 	static class Ingredient extends Slot {
 
 		public Ingredient(IInventory iInventoryIn, int index, int xPosition, int yPosition) {
-
 			super(iInventoryIn, index, xPosition, yPosition);
 		}
 
 		public boolean isItemValid(ItemStack stack) {
-
 			return PotionHelper.isReagent(stack);
 		}
 
 		public int getSlotStackLimit() {
-
 			return 64;
 		}
 
@@ -197,28 +184,23 @@ public class ContainerBrewingStand extends Container {
 	static class Potion extends Slot {
 
 		public Potion(IInventory p_i47598_1_, int p_i47598_2_, int p_i47598_3_, int p_i47598_4_) {
-
 			super(p_i47598_1_, p_i47598_2_, p_i47598_3_, p_i47598_4_);
 		}
 
 		public static boolean canHoldPotion(ItemStack stack) {
-
 			Item item = stack.getItem();
 			return item == Items.POTIONITEM || item == Items.SPLASH_POTION || item == Items.LINGERING_POTION || item == Items.GLASS_BOTTLE;
 		}
 
 		public boolean isItemValid(ItemStack stack) {
-
 			return canHoldPotion(stack);
 		}
 
 		public int getSlotStackLimit() {
-
 			return 1;
 		}
 
 		public ItemStack onTake(EntityPlayer thePlayer, ItemStack stack) {
-
 			PotionType potiontype = PotionUtils.getPotionFromItem(stack);
 
 			if (thePlayer instanceof EntityPlayerMP) {

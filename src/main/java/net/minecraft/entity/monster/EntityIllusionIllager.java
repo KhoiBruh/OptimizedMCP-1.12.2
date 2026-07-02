@@ -31,7 +31,6 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
 	private int ghostTime;
 
 	public EntityIllusionIllager(World worldIn) {
-
 		super(worldIn);
 		setSize(0.6F, 1.95F);
 		experienceValue = 5;
@@ -44,7 +43,6 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
 	}
 
 	protected void initEntityAI() {
-
 		super.initEntityAI();
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntitySpellcasterIllager.AICastingApell());
@@ -61,7 +59,6 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5D);
 		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(18D);
@@ -82,18 +79,15 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
 	 * pack
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 		return super.onInitialSpawn(difficulty, livingdata);
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 	}
 
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.EMPTY;
 	}
 
@@ -102,7 +96,6 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
 	 * by a minecart, such as a command block).
 	 */
 	public AxisAlignedBB getRenderBoundingBox() {
-
 		return getEntityBoundingBox().grow(3D, 0D, 3D);
 	}
 
@@ -111,7 +104,6 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
 	 * use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
 		super.onLivingUpdate();
 
 		if (world.isRemote && isInvisible()) {
@@ -150,7 +142,6 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
 	}
 
 	public Vec3d[] getRenderLocations(float p_193098_1_) {
-
 		if (ghostTime <= 0) {
 			return renderLocations[1];
 		} else {
@@ -170,7 +161,6 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
 	 * Returns whether this Entity is on the same team as the given Entity.
 	 */
 	public boolean isOnSameTeam(Entity entityIn) {
-
 		if (super.isOnSameTeam(entityIn)) {
 			return true;
 		} else if (entityIn instanceof EntityLivingBase && ((EntityLivingBase) entityIn).getCreatureAttribute() == CreatureAttribute.ILLAGER) {
@@ -181,22 +171,18 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		return SoundEvents.ENTITY_ILLUSION_ILLAGER_AMBIENT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_ILLAGER_DEATH;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_ILLUSION_ILLAGER_HURT;
 	}
 
 	protected SoundEvent getSpellSound() {
-
 		return SoundEvents.ENTITY_ILLAGER_CAST_SPELL;
 	}
 
@@ -204,7 +190,6 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
 	 * Attack the specified entity using a ranged attack.
 	 */
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
-
 		EntityArrow entityarrow = createArrowEntity(distanceFactor);
 		double d0 = target.posX - posX;
 		double d1 = target.getEntityBoundingBox().minY + (double) (target.height / 3F) - entityarrow.posY;
@@ -216,19 +201,16 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
 	}
 
 	protected EntityArrow createArrowEntity(float p_193097_1_) {
-
 		EntityTippedArrow entitytippedarrow = new EntityTippedArrow(world, this);
 		entitytippedarrow.setEnchantmentEffectsFromEntity(this, p_193097_1_);
 		return entitytippedarrow;
 	}
 
 	public boolean isAggressive() {
-
 		return isAggressive(1);
 	}
 
 	public void setSwingingArms(boolean swingingArms) {
-
 		setAggressive(1, swingingArms);
 	}
 
@@ -246,11 +228,9 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
 		private int lastTargetId;
 
 		private AIBlindnessSpell() {
-
 		}
 
 		public boolean shouldExecute() {
-
 			if (!super.shouldExecute()) {
 				return false;
 			} else if (getAttackTarget() == null) {
@@ -263,28 +243,23 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
 		}
 
 		public void startExecuting() {
-
 			super.startExecuting();
 			lastTargetId = getAttackTarget().getEntityId();
 		}
 
 		protected int getCastingTime() {
-
 			return 20;
 		}
 
 		protected int getCastingInterval() {
-
 			return 180;
 		}
 
 		protected void castSpell() {
-
 			getAttackTarget().addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 400));
 		}
 
 		protected SoundEvent getSpellPrepareSound() {
-
 			return SoundEvents.ENTITY_ILLAGER_PREPARE_BLINDNESS;
 		}
 
@@ -298,11 +273,9 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
 	class AIMirriorSpell extends EntitySpellcasterIllager.AIUseSpell {
 
 		private AIMirriorSpell() {
-
 		}
 
 		public boolean shouldExecute() {
-
 			if (!super.shouldExecute()) {
 				return false;
 			} else {
@@ -311,23 +284,19 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
 		}
 
 		protected int getCastingTime() {
-
 			return 20;
 		}
 
 		protected int getCastingInterval() {
-
 			return 340;
 		}
 
 		protected void castSpell() {
-
 			addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 1200));
 		}
 
 		
 		protected SoundEvent getSpellPrepareSound() {
-
 			return SoundEvents.ENTITY_ILLAGER_PREPARE_MIRROR;
 		}
 

@@ -37,12 +37,10 @@ public class WorldGenTrees extends WorldGenAbstractTree {
 	private final IBlockState metaLeaves;
 
 	public WorldGenTrees(boolean p_i2027_1_) {
-
 		this(p_i2027_1_, 4, DEFAULT_TRUNK, DEFAULT_LEAF, false);
 	}
 
 	public WorldGenTrees(boolean notify, int minTreeHeightIn, IBlockState woodMeta, IBlockState p_i46446_4_, boolean growVines) {
-
 		super(notify);
 		minTreeHeight = minTreeHeightIn;
 		metaWood = woodMeta;
@@ -51,7 +49,6 @@ public class WorldGenTrees extends WorldGenAbstractTree {
 	}
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		int i = rand.nextInt(3) + minTreeHeight;
 		boolean flag = true;
 
@@ -199,17 +196,14 @@ public class WorldGenTrees extends WorldGenAbstractTree {
 	}
 
 	private void placeCocoa(World worldIn, int p_181652_2_, BlockPos pos, Facing side) {
-
 		setBlockAndNotifyAdequately(worldIn, pos, Blocks.COCOA.getDefaultState().withProperty(BlockCocoa.AGE, p_181652_2_).withProperty(BlockCocoa.FACING, side));
 	}
 
 	private void addVine(World worldIn, BlockPos pos, PropertyBool prop) {
-
 		setBlockAndNotifyAdequately(worldIn, pos, Blocks.VINE.getDefaultState().withProperty(prop, true));
 	}
 
 	private void addHangingVine(World worldIn, BlockPos pos, PropertyBool prop) {
-
 		addVine(worldIn, pos, prop);
 		int i = 4;
 

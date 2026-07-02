@@ -30,7 +30,6 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
 	private String customName;
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
 		super.writeToNBT(compound);
 
 		if (hasCustomName()) {
@@ -41,7 +40,6 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
 	}
 
 	public void readFromNBT(NBTTagCompound compound) {
-
 		super.readFromNBT(compound);
 
 		if (compound.hasKey("CustomName", 8)) {
@@ -53,7 +51,6 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
 	 * Like the old updateEntity(), except more generic.
 	 */
 	public void update() {
-
 		bookSpreadPrev = bookSpread;
 		bookRotationPrev = bookRotation;
 		EntityPlayer entityplayer = world.getClosestPlayer((float) pos.getX() + 0.5F, (float) pos.getY() + 0.5F, (float) pos.getZ() + 0.5F, 3D, false);
@@ -120,7 +117,6 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
 	 * Get the name of this object. For players this returns their username
 	 */
 	public String getName() {
-
 		return hasCustomName() ? customName : "container.enchant";
 	}
 
@@ -128,12 +124,10 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
 	 * Returns true if this thing is named
 	 */
 	public boolean hasCustomName() {
-
 		return customName != null && !customName.isEmpty();
 	}
 
 	public void setCustomName(String customNameIn) {
-
 		customName = customNameIn;
 	}
 
@@ -141,17 +135,14 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
 	 * Get the formatted ChatComponent that will be used for the sender's username in chat
 	 */
 	public ITextComponent displayName() {
-
 		return hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName());
 	}
 
 	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-
 		return new ContainerEnchantment(playerInventory, world, pos);
 	}
 
 	public String guiID() {
-
 		return "minecraft:enchanting_table";
 	}
 

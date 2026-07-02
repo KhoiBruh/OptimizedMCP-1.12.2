@@ -22,7 +22,6 @@ public class ParticleSweepAttack extends Particle {
 	private int life;
 
 	protected ParticleSweepAttack(TextureManager textureManagerIn, World worldIn, double x, double y, double z, double p_i46582_9_, double p_i46582_11_, double p_i46582_13_) {
-
 		super(worldIn, x, y, z, 0D, 0D, 0D);
 		textureManager = textureManagerIn;
 		lifeTime = 4;
@@ -37,7 +36,6 @@ public class ParticleSweepAttack extends Particle {
 	 * Renders the particle
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-
 		int i = (int) (((float) life + partialTicks) * 3F / (float) lifeTime);
 
 		if (i <= 7) {
@@ -64,12 +62,10 @@ public class ParticleSweepAttack extends Particle {
 	}
 
 	public int getBrightnessForRender(float p_189214_1_) {
-
 		return 61680;
 	}
 
 	public void onUpdate() {
-
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
@@ -85,14 +81,12 @@ public class ParticleSweepAttack extends Particle {
 	 * 1 for the main Texture atlas, and 3 for a custom texture
 	 */
 	public int getFXLayer() {
-
 		return 3;
 	}
 
 	public static class Factory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			return new ParticleSweepAttack(Minecraft.getMinecraft().getTextureManager(), worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 		}
 

@@ -10,12 +10,10 @@ public class ParticleHeart extends Particle {
 	float particleScaleOverTime;
 
 	protected ParticleHeart(World worldIn, double p_i1211_2_, double p_i1211_4_, double p_i1211_6_, double p_i1211_8_, double p_i1211_10_, double p_i1211_12_) {
-
 		this(worldIn, p_i1211_2_, p_i1211_4_, p_i1211_6_, p_i1211_8_, p_i1211_10_, p_i1211_12_, 2F);
 	}
 
 	protected ParticleHeart(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i46354_8_, double p_i46354_10_, double p_i46354_12_, float scale) {
-
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0D, 0D, 0D);
 		motionX *= 0.009999999776482582D;
 		motionY *= 0.009999999776482582D;
@@ -32,7 +30,6 @@ public class ParticleHeart extends Particle {
 	 * Renders the particle
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-
 		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32F;
 		f = MathHelper.clamp(f, 0F, 1F);
 		particleScale = particleScaleOverTime * f;
@@ -40,7 +37,6 @@ public class ParticleHeart extends Particle {
 	}
 
 	public void onUpdate() {
-
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
@@ -69,7 +65,6 @@ public class ParticleHeart extends Particle {
 	public static class AngryVillagerFactory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			Particle particle = new ParticleHeart(worldIn, xCoordIn, yCoordIn + 0.5D, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 			particle.setParticleTextureIndex(81);
 			particle.setRBGColorF(1F, 1F, 1F);
@@ -81,7 +76,6 @@ public class ParticleHeart extends Particle {
 	public static class Factory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			return new ParticleHeart(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 		}
 

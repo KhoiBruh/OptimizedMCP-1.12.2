@@ -12,7 +12,6 @@ public class EntityAIOcelotAttack extends EntityAIBase {
 	int attackCountdown;
 
 	public EntityAIOcelotAttack(EntityLiving theEntityIn) {
-
 		entity = theEntityIn;
 		world = theEntityIn.world;
 		setMutexBits(3);
@@ -22,7 +21,6 @@ public class EntityAIOcelotAttack extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		EntityLivingBase entitylivingbase = entity.getAttackTarget();
 
 		if (entitylivingbase == null) {
@@ -37,7 +35,6 @@ public class EntityAIOcelotAttack extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		if (!target.isEntityAlive()) {
 			return false;
 		} else if (entity.getDistanceSq(target) > 225D) {
@@ -51,7 +48,6 @@ public class EntityAIOcelotAttack extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		target = null;
 		entity.getNavigator().clearPath();
 	}
@@ -60,7 +56,6 @@ public class EntityAIOcelotAttack extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		entity.getLookHelper().setLookPositionWithEntity(target, 30F, 30F);
 		double d0 = entity.width * 2F * entity.width * 2F;
 		double d1 = entity.getDistanceSq(target.posX, target.getEntityBoundingBox().minY, target.posZ);

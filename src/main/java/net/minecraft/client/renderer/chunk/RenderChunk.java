@@ -46,7 +46,6 @@ public class RenderChunk {
 	private ChunkCache worldView;
 
 	public RenderChunk(World worldIn, RenderGlobal renderGlobalIn) {
-
 		for (int i = 0; i < mapEnumFacing.length; ++i) {
 			mapEnumFacing[i] = new BlockPos.MutableBlockPos();
 		}
@@ -62,7 +61,6 @@ public class RenderChunk {
 	}
 
 	public boolean setFrameIndex(int frameIndexIn) {
-
 		if (frameIndex == frameIndexIn) {
 			return false;
 		} else {
@@ -72,7 +70,6 @@ public class RenderChunk {
 	}
 
 	public VertexBuffer getVertexBufferByLayer(int layer) {
-
 		return vertexBuffers[layer];
 	}
 
@@ -80,7 +77,6 @@ public class RenderChunk {
 	 * Sets the RenderChunk base position
 	 */
 	public void setPosition(int x, int y, int z) {
-
 		if (x != position.getX() || y != position.getY() || z != position.getZ()) {
 			stopCompileTask();
 			position.setPos(x, y, z);
@@ -95,7 +91,6 @@ public class RenderChunk {
 	}
 
 	public void resortTransparency(float x, float y, float z, ChunkCompileTaskGenerator generator) {
-
 		CompiledChunk compiledchunk = generator.getCompiledChunk();
 
 		if (compiledchunk.getState() != null && !compiledchunk.isLayerEmpty(BlockRenderLayer.TRANSLUCENT)) {
@@ -106,7 +101,6 @@ public class RenderChunk {
 	}
 
 	public void rebuildChunk(float x, float y, float z, ChunkCompileTaskGenerator generator) {
-
 		CompiledChunk compiledchunk = new CompiledChunk();
 		int i = 1;
 		BlockPos blockpos = position;
@@ -198,7 +192,6 @@ public class RenderChunk {
 	}
 
 	protected void finishCompileTask() {
-
 		lockCompileTask.lock();
 
 		try {
@@ -212,12 +205,10 @@ public class RenderChunk {
 	}
 
 	public ReentrantLock getLockCompileTask() {
-
 		return lockCompileTask;
 	}
 
 	public ChunkCompileTaskGenerator makeCompileTaskChunk() {
-
 		lockCompileTask.lock();
 		ChunkCompileTaskGenerator chunkcompiletaskgenerator;
 
@@ -234,14 +225,12 @@ public class RenderChunk {
 	}
 
 	private void rebuildWorldView() {
-
 		int i = 1;
 		worldView = new ChunkCache(world, position.add(-1, -1, -1), position.add(16, 16, 16), 1);
 	}
 
 	
 	public ChunkCompileTaskGenerator makeCompileTaskTransparency() {
-
 		lockCompileTask.lock();
 		ChunkCompileTaskGenerator chunkcompiletaskgenerator;
 
@@ -267,7 +256,6 @@ public class RenderChunk {
 	}
 
 	protected double getDistanceSq() {
-
 		EntityPlayerSP entityplayersp = Minecraft.getMinecraft().player;
 		double d0 = boundingBox.minX + 8D - entityplayersp.posX;
 		double d1 = boundingBox.minY + 8D - entityplayersp.posY;
@@ -276,13 +264,11 @@ public class RenderChunk {
 	}
 
 	private void preRenderBlocks(BufferBuilder bufferBuilderIn, BlockPos pos) {
-
 		bufferBuilderIn.begin(7, DefaultVertexFormats.BLOCK);
 		bufferBuilderIn.setTranslation(-pos.getX(), -pos.getY(), -pos.getZ());
 	}
 
 	private void postRenderBlocks(BlockRenderLayer layer, float x, float y, float z, BufferBuilder bufferBuilderIn, CompiledChunk compiledChunkIn) {
-
 		if (layer == BlockRenderLayer.TRANSLUCENT && !compiledChunkIn.isLayerEmpty(layer)) {
 			bufferBuilderIn.sortVertexData(x, y, z);
 			compiledChunkIn.setState(bufferBuilderIn.getVertexState());
@@ -292,7 +278,6 @@ public class RenderChunk {
 	}
 
 	private void initModelviewMatrix() {
-
 		GLS.pushMatrix();
 		GLS.loadIdentity();
 		float f = 1.000001F;
@@ -304,17 +289,14 @@ public class RenderChunk {
 	}
 
 	public void multModelviewMatrix() {
-
 		GLS.multMatrix(modelviewMatrix);
 	}
 
 	public CompiledChunk getCompiledChunk() {
-
 		return compiledChunk;
 	}
 
 	public void setCompiledChunk(CompiledChunk compiledChunkIn) {
-
 		lockCompiledChunk.lock();
 
 		try {
@@ -325,13 +307,11 @@ public class RenderChunk {
 	}
 
 	public void stopCompileTask() {
-
 		finishCompileTask();
 		compiledChunk = CompiledChunk.DUMMY;
 	}
 
 	public void deleteGlResources() {
-
 		stopCompileTask();
 		world = null;
 
@@ -343,12 +323,10 @@ public class RenderChunk {
 	}
 
 	public BlockPos getPosition() {
-
 		return position;
 	}
 
 	public void setNeedsUpdate(boolean immediate) {
-
 		if (needsUpdate) {
 			immediate |= needsImmediateUpdate;
 		}
@@ -358,28 +336,23 @@ public class RenderChunk {
 	}
 
 	public void clearNeedsUpdate() {
-
 		needsUpdate = false;
 		needsImmediateUpdate = false;
 	}
 
 	public boolean needsUpdate() {
-
 		return needsUpdate;
 	}
 
 	public boolean needsImmediateUpdate() {
-
 		return needsUpdate && needsImmediateUpdate;
 	}
 
 	public BlockPos getBlockPosOffset16(Facing facing) {
-
 		return mapEnumFacing[facing.ordinal()];
 	}
 
 	public World getWorld() {
-
 		return world;
 	}
 

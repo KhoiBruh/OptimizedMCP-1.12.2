@@ -18,12 +18,10 @@ public class LegacyPingHandler extends ChannelInboundHandlerAdapter {
 	private final NetworkSystem networkSystem;
 
 	public LegacyPingHandler(NetworkSystem networkSystemIn) {
-
 		networkSystem = networkSystemIn;
 	}
 
 	public void channelRead(ChannelHandlerContext p_channelRead_1_, Object p_channelRead_2_) {
-
 		ByteBuf bytebuf = (ByteBuf) p_channelRead_2_;
 		bytebuf.markReaderIndex();
 		boolean flag = true;
@@ -90,12 +88,10 @@ public class LegacyPingHandler extends ChannelInboundHandlerAdapter {
 	}
 
 	private void writeAndFlush(ChannelHandlerContext ctx, ByteBuf data) {
-
 		ctx.pipeline().firstContext().writeAndFlush(data).addListener(ChannelFutureListener.CLOSE);
 	}
 
 	private ByteBuf getStringBuffer(String string) {
-
 		ByteBuf bytebuf = Unpooled.buffer();
 		bytebuf.writeByte(255);
 		char[] achar = string.toCharArray();

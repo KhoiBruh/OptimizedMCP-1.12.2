@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 public class ItemBucketMilk extends Item {
 
 	public ItemBucketMilk() {
-
 		setMaxStackSize(1);
 		setCreativeTab(CreativeTabs.MISC);
 	}
@@ -25,7 +24,6 @@ public class ItemBucketMilk extends Item {
 	 * the Item before the action is complete.
 	 */
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
-
 		if (entityLiving instanceof EntityPlayerMP entityplayermp) {
 			CriteriaTriggers.CONSUME_ITEM.trigger(entityplayermp, stack);
 			entityplayermp.addStat(StatList.getObjectUseStats(this));
@@ -46,7 +44,6 @@ public class ItemBucketMilk extends Item {
 	 * How long it takes to use or consume an item
 	 */
 	public int getMaxItemUseDuration(ItemStack stack) {
-
 		return 32;
 	}
 
@@ -54,12 +51,10 @@ public class ItemBucketMilk extends Item {
 	 * returns the action that specifies what animation to play when the items is being used
 	 */
 	public Action getItemUseAction(ItemStack stack) {
-
 		return Action.DRINK;
 	}
 
 	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
-
 		playerIn.setActiveHand(handIn);
 		return new TypedActionResult<>(ActionResult.SUCCESS, playerIn.getHeldItem(handIn));
 	}

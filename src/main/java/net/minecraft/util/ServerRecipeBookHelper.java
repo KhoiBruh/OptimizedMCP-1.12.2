@@ -28,7 +28,6 @@ public class ServerRecipeBookHelper {
 	private List<Slot> field_194337_h;
 
 	public void func_194327_a(EntityPlayerMP p_194327_1_, IRecipe p_194327_2_, boolean p_194327_3_) {
-
 		if (p_194327_2_ != null && p_194327_1_.getRecipeBook().isUnlocked(p_194327_2_)) {
 			field_194332_c = p_194327_1_;
 			field_194333_d = p_194327_2_;
@@ -66,7 +65,6 @@ public class ServerRecipeBookHelper {
 	}
 
 	private void func_194326_a() {
-
 		InventoryPlayer inventoryplayer = field_194332_c.inventory;
 
 		for (int i = 0; i < field_194336_g.getSizeInventory(); ++i) {
@@ -93,7 +91,6 @@ public class ServerRecipeBookHelper {
 	}
 
 	private void func_194329_b() {
-
 		boolean flag = field_194333_d.matches(field_194336_g, field_194332_c.world);
 		int i = field_194331_b.getBiggestCraftableStack(field_194333_d, null);
 
@@ -136,7 +133,6 @@ public class ServerRecipeBookHelper {
 	}
 
 	private int func_194324_a(int p_194324_1_, boolean p_194324_2_) {
-
 		int i = 1;
 
 		if (field_194334_e) {
@@ -161,7 +157,6 @@ public class ServerRecipeBookHelper {
 	}
 
 	private void func_194323_a(int p_194323_1_, IntList p_194323_2_) {
-
 		int i = field_194336_g.getWidth();
 		int j = field_194336_g.getHeight();
 
@@ -201,7 +196,6 @@ public class ServerRecipeBookHelper {
 	}
 
 	private void func_194325_a(Slot p_194325_1_, ItemStack p_194325_2_) {
-
 		InventoryPlayer inventoryplayer = field_194332_c.inventory;
 		int i = inventoryplayer.findSlotMatchingUnusedItem(p_194325_2_);
 
@@ -227,7 +221,6 @@ public class ServerRecipeBookHelper {
 	}
 
 	private boolean func_194328_c() {
-
 		InventoryPlayer inventoryplayer = field_194332_c.inventory;
 
 		for (int i = 0; i < field_194336_g.getSizeInventory(); ++i) {

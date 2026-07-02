@@ -12,7 +12,6 @@ import net.minecraft.world.World;
 public class ItemFishingRod extends Item {
 
 	public ItemFishingRod() {
-
 		setMaxDamage(64);
 		setMaxStackSize(1);
 		setCreativeTab(CreativeTabs.TOOLS);
@@ -37,7 +36,6 @@ public class ItemFishingRod extends Item {
 	 * Returns True is the item is renderer in full 3D when hold.
 	 */
 	public boolean isFull3D() {
-
 		return true;
 	}
 
@@ -46,12 +44,10 @@ public class ItemFishingRod extends Item {
 	 * hands.
 	 */
 	public boolean shouldRotateAroundWhenRendering() {
-
 		return true;
 	}
 
 	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
-
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
 		if (playerIn.fishEntity != null) {
@@ -90,7 +86,6 @@ public class ItemFishingRod extends Item {
 	 * Return the enchantability factor of the item, most of the time is based on material.
 	 */
 	public int getItemEnchantability() {
-
 		return 1;
 	}
 

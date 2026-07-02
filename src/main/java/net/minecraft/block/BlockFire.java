@@ -35,14 +35,12 @@ public class BlockFire extends Block {
 	private final Map<Block, Integer> flammabilities = Maps.newIdentityHashMap();
 
 	protected BlockFire() {
-
 		super(Material.FIRE);
 		setDefaultState(blockState.getBaseState().withProperty(AGE, 0).withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false).withProperty(UPPER, false));
 		setTickRandomly(true);
 	}
 
 	public static void init() {
-
 		Blocks.FIRE.setFireInfo(Blocks.PLANKS, 5, 20);
 		Blocks.FIRE.setFireInfo(Blocks.DOUBLE_WOODEN_SLAB, 5, 20);
 		Blocks.FIRE.setFireInfo(Blocks.WOODEN_SLAB, 5, 20);
@@ -87,19 +85,16 @@ public class BlockFire extends Block {
 	 * metadata, such as fence connections.
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return !worldIn.getBlockState(pos.down()).isTopSolid() && !Blocks.FIRE.canCatchFire(worldIn, pos.down()) ? state.withProperty(NORTH, canCatchFire(worldIn, pos.north())).withProperty(EAST, canCatchFire(worldIn, pos.east())).withProperty(SOUTH, canCatchFire(worldIn, pos.south())).withProperty(WEST, canCatchFire(worldIn, pos.west())).withProperty(UPPER, canCatchFire(worldIn, pos.up())) : getDefaultState();
 	}
 
 	public void setFireInfo(Block blockIn, int encouragement, int flammability) {
-
 		encouragements.put(blockIn, encouragement);
 		flammabilities.put(blockIn, flammability);
 	}
 
 	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-
 		return NULL_AABB;
 	}
 
@@ -107,12 +102,10 @@ public class BlockFire extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -120,7 +113,6 @@ public class BlockFire extends Block {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return 0;
 	}
 
@@ -128,12 +120,10 @@ public class BlockFire extends Block {
 	 * How many world ticks before ticking
 	 */
 	public int tickRate(World worldIn) {
-
 		return 30;
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if (worldIn.getGameRules().getBoolean("doFireTick")) {
 			if (!canPlaceBlockAt(worldIn, pos)) {
 				worldIn.setBlockToAir(pos);
@@ -226,29 +216,24 @@ public class BlockFire extends Block {
 	}
 
 	protected boolean canDie(World worldIn, BlockPos pos) {
-
 		return worldIn.isRainingAt(pos) || worldIn.isRainingAt(pos.west()) || worldIn.isRainingAt(pos.east()) || worldIn.isRainingAt(pos.north()) || worldIn.isRainingAt(pos.south());
 	}
 
 	public boolean requiresUpdates() {
-
 		return false;
 	}
 
 	private int getFlammability(Block blockIn) {
-
 		Integer integer = flammabilities.get(blockIn);
 		return integer == null ? 0 : integer;
 	}
 
 	private int getEncouragement(Block blockIn) {
-
 		Integer integer = encouragements.get(blockIn);
 		return integer == null ? 0 : integer;
 	}
 
 	private void catchOnFire(World worldIn, BlockPos pos, int chance, Random random, int age) {
-
 		int i = getFlammability(worldIn.getBlockState(pos).getBlock());
 
 		if (random.nextInt(chance) < i) {
@@ -273,7 +258,6 @@ public class BlockFire extends Block {
 	}
 
 	private boolean canNeighborCatchFire(World worldIn, BlockPos pos) {
-
 		for (Facing enumfacing : Facing.values()) {
 			if (canCatchFire(worldIn, pos.offset(enumfacing))) {
 				return true;
@@ -284,7 +268,6 @@ public class BlockFire extends Block {
 	}
 
 	private int getNeighborEncouragement(World worldIn, BlockPos pos) {
-
 		if (!worldIn.isAirBlock(pos)) {
 			return 0;
 		} else {
@@ -303,7 +286,6 @@ public class BlockFire extends Block {
 	 * is made of (though nobody's going to make fire stairs, right?)
 	 */
 	public boolean isCollidable() {
-
 		return false;
 	}
 
@@ -311,7 +293,6 @@ public class BlockFire extends Block {
 	 * Checks if the block can be caught on fire
 	 */
 	public boolean canCatchFire(IBlockAccess worldIn, BlockPos pos) {
-
 		return getEncouragement(worldIn.getBlockState(pos).getBlock()) > 0;
 	}
 
@@ -319,7 +300,6 @@ public class BlockFire extends Block {
 	 * Checks if this block can be placed exactly at the given position.
 	 */
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-
 		return worldIn.getBlockState(pos.down()).isTopSolid() || canNeighborCatchFire(worldIn, pos);
 	}
 
@@ -329,7 +309,6 @@ public class BlockFire extends Block {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (!worldIn.getBlockState(pos.down()).isTopSolid() && !canNeighborCatchFire(worldIn, pos)) {
 			worldIn.setBlockToAir(pos);
 		}
@@ -339,7 +318,6 @@ public class BlockFire extends Block {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (worldIn.provider.getDimensionType().getId() > 0 || !Blocks.PORTAL.trySpawnPortal(worldIn, pos)) {
 			if (!worldIn.getBlockState(pos.down()).isTopSolid() && !canNeighborCatchFire(worldIn, pos)) {
 				worldIn.setBlockToAir(pos);
@@ -350,7 +328,6 @@ public class BlockFire extends Block {
 	}
 
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-
 		if (rand.nextInt(24) == 0) {
 			worldIn.playSound((float) pos.getX() + 0.5F, (float) pos.getY() + 0.5F, (float) pos.getZ() + 0.5F, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.BLOCKS, 1F + rand.nextFloat(), rand.nextFloat() * 0.7F + 0.3F, false);
 		}
@@ -414,7 +391,6 @@ public class BlockFire extends Block {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return MapColor.TNT;
 	}
 
@@ -423,7 +399,6 @@ public class BlockFire extends Block {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.CUTOUT;
 	}
 
@@ -431,7 +406,6 @@ public class BlockFire extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(AGE, meta);
 	}
 
@@ -439,12 +413,10 @@ public class BlockFire extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(AGE);
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, AGE, NORTH, EAST, SOUTH, WEST, UPPER);
 	}
 
@@ -458,7 +430,6 @@ public class BlockFire extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

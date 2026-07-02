@@ -15,23 +15,19 @@ public abstract class WorldGenerator {
 	private final boolean doBlockNotify;
 
 	public WorldGenerator() {
-
 		this(false);
 	}
 
 	public WorldGenerator(boolean notify) {
-
 		doBlockNotify = notify;
 	}
 
 	public abstract boolean generate(World worldIn, Random rand, BlockPos position);
 
 	public void setDecorationDefaults() {
-
 	}
 
 	protected void setBlockAndNotifyAdequately(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (doBlockNotify) {
 			worldIn.setBlockState(pos, state, 3);
 		} else {

@@ -44,12 +44,10 @@ public class Button extends Gui {
 	protected boolean hovered;
 
 	public Button(int buttonId, int x, int y, String buttonText) {
-
 		this(buttonId, x, y, 200, 20, buttonText);
 	}
 
 	public Button(int buttonId, int x, int y, int widthIn, int heightIn, String buttonText) {
-
 		width = 200;
 		height = 20;
 		enabled = true;
@@ -67,7 +65,6 @@ public class Button extends Gui {
 	 * this button.
 	 */
 	protected int getHoverState(boolean mouseOver) {
-
 		int i = 1;
 
 		if (!enabled) {
@@ -83,7 +80,6 @@ public class Button extends Gui {
 	 * Draws this button to the screen.
 	 */
 	public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
-
 		if (visible) {
 			FontRenderer fontrenderer = mc.fontRenderer;
 			mc.getTextureManager().bindTexture(BUTTON_TEXTURES);
@@ -112,14 +108,12 @@ public class Button extends Gui {
 	 * Fired when the mouse button is dragged. Equivalent of MouseListener.mouseDragged(MouseEvent e).
 	 */
 	protected void mouseDragged(Minecraft mc, int mouseX, int mouseY) {
-
 	}
 
 	/**
 	 * Fired when the mouse button is released. Equivalent of MouseListener.mouseReleased(MouseEvent e).
 	 */
 	public void mouseReleased(int mouseX, int mouseY) {
-
 	}
 
 	/**
@@ -127,7 +121,6 @@ public class Button extends Gui {
 	 * e).
 	 */
 	public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
-
 		return enabled && visible && mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 	}
 
@@ -135,26 +128,21 @@ public class Button extends Gui {
 	 * Whether the mouse cursor is currently over the button.
 	 */
 	public boolean isMouseOver() {
-
 		return hovered;
 	}
 
 	public void drawButtonForegroundLayer(int mouseX, int mouseY) {
-
 	}
 
 	public void playPressSound(SoundHandler soundHandlerIn) {
-
 		soundHandlerIn.playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1F));
 	}
 
 	public int getButtonWidth() {
-
 		return width;
 	}
 
 	public void setWidth(int width) {
-
 		this.width = width;
 	}
 

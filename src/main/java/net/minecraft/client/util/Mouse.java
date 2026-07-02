@@ -179,7 +179,6 @@ public final class Mouse {
 	}
 	
 	private record MouseEvent(int button, boolean buttonState, double dWheel, double x, double y, double dx, double dy) {
-	
 	}
 	
 }

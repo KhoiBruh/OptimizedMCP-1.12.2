@@ -9,7 +9,6 @@ import net.minecraft.util.Hand;
 public class ItemNameTag extends Item {
 
 	public ItemNameTag() {
-
 		setCreativeTab(CreativeTabs.TOOLS);
 	}
 
@@ -17,7 +16,6 @@ public class ItemNameTag extends Item {
 	 * Returns true if the item can be used on the given entity, e.g. shears on sheep.
 	 */
 	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target, Hand hand) {
-
 		if (stack.hasDisplayName() && !(target instanceof EntityPlayer)) {
 			target.setCustomNameTag(stack.getDisplayName());
 

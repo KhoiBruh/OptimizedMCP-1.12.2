@@ -25,17 +25,14 @@ public class BlockModelRenderer {
 	private final BlockColors blockColors;
 
 	public BlockModelRenderer(BlockColors blockColorsIn) {
-
 		blockColors = blockColorsIn;
 	}
 
 	public boolean renderModel(IBlockAccess blockAccessIn, IBakedModel modelIn, IBlockState blockStateIn, BlockPos blockPosIn, BufferBuilder buffer, boolean checkSides) {
-
 		return renderModel(blockAccessIn, modelIn, blockStateIn, blockPosIn, buffer, checkSides, MathHelper.getPositionRandom(blockPosIn));
 	}
 
 	public boolean renderModel(IBlockAccess worldIn, IBakedModel modelIn, IBlockState stateIn, BlockPos posIn, BufferBuilder buffer, boolean checkSides, long rand) {
-
 		boolean flag = Minecraft.isAmbientOcclusionEnabled() && stateIn.getLightValue() == 0 && modelIn.isAmbientOcclusion();
 
 		try {
@@ -50,7 +47,6 @@ public class BlockModelRenderer {
 	}
 
 	public boolean renderModelSmooth(IBlockAccess worldIn, IBakedModel modelIn, IBlockState stateIn, BlockPos posIn, BufferBuilder buffer, boolean checkSides, long rand) {
-
 		boolean flag = false;
 		float[] afloat = new float[Facing.values().length * 2];
 		BitSet bitset = new BitSet(3);
@@ -76,7 +72,6 @@ public class BlockModelRenderer {
 	}
 
 	public boolean renderModelFlat(IBlockAccess worldIn, IBakedModel modelIn, IBlockState stateIn, BlockPos posIn, BufferBuilder buffer, boolean checkSides, long rand) {
-
 		boolean flag = false;
 		BitSet bitset = new BitSet(3);
 
@@ -101,7 +96,6 @@ public class BlockModelRenderer {
 	}
 
 	private void renderQuadsSmooth(IBlockAccess blockAccessIn, IBlockState stateIn, BlockPos posIn, BufferBuilder buffer, List<BakedQuad> list, float[] quadBounds, BitSet bitSet, BlockModelRenderer.AmbientOcclusionFace aoFace) {
-
 		Vec3d vec3d = stateIn.getOffset(blockAccessIn, posIn);
 		double d0 = (double) posIn.getX() + vec3d.x();
 		double d1 = (double) posIn.getY() + vec3d.y();
@@ -139,7 +133,6 @@ public class BlockModelRenderer {
 	}
 
 	private void fillQuadBounds(IBlockState stateIn, int[] vertexData, Facing face, float[] quadBounds, BitSet boundsFlags) {
-
 		float f = 32F;
 		float f1 = 32F;
 		float f2 = 32F;
@@ -208,7 +201,6 @@ public class BlockModelRenderer {
 	}
 
 	private void renderQuadsFlat(IBlockAccess blockAccessIn, IBlockState stateIn, BlockPos posIn, int brightnessIn, boolean ownBrightness, BufferBuilder buffer, List<BakedQuad> list, BitSet bitSet) {
-
 		Vec3d vec3d = stateIn.getOffset(blockAccessIn, posIn);
 		double d0 = (double) posIn.getX() + vec3d.x();
 		double d1 = (double) posIn.getY() + vec3d.y();
@@ -246,12 +238,10 @@ public class BlockModelRenderer {
 	}
 
 	public void renderModelBrightnessColor(IBakedModel bakedModel, float p_178262_2_, float red, float green, float blue) {
-
 		renderModelBrightnessColor(null, bakedModel, p_178262_2_, red, green, blue);
 	}
 
 	public void renderModelBrightnessColor(IBlockState state, IBakedModel p_187495_2_, float p_187495_3_, float p_187495_4_, float p_187495_5_, float p_187495_6_) {
-
 		for (Facing enumfacing : Facing.values()) {
 			renderModelBrightnessColorQuads(p_187495_3_, p_187495_4_, p_187495_5_, p_187495_6_, p_187495_2_.getQuads(state, enumfacing, 0L));
 		}
@@ -260,7 +250,6 @@ public class BlockModelRenderer {
 	}
 
 	public void renderModelBrightness(IBakedModel model, IBlockState state, float brightness, boolean p_178266_4_) {
-
 		state.getBlock();
 		GLS.rotate(90F, 0F, 1F, 0F);
 		int i = blockColors.colorMultiplier(state, null, null, 0);
@@ -279,7 +268,6 @@ public class BlockModelRenderer {
 	}
 
 	private void renderModelBrightnessColorQuads(float brightness, float red, float green, float blue, List<BakedQuad> listQuads) {
-
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		int i = 0;
@@ -328,7 +316,6 @@ public class BlockModelRenderer {
 		private final BlockModelRenderer.Orientation[] vert3Weights;
 
 		NeighborInfo(Facing[] facings, boolean p_i46236_5_, BlockModelRenderer.Orientation[] p_i46236_6_, BlockModelRenderer.Orientation[] p_i46236_7_, BlockModelRenderer.Orientation[] p_i46236_8_, BlockModelRenderer.Orientation[] p_i46236_9_) {
-
 			corners = facings;
 			doNonCubicWeight = p_i46236_5_;
 			vert0Weights = p_i46236_6_;
@@ -360,7 +347,6 @@ public class BlockModelRenderer {
 		private final int shape;
 
 		Orientation(Facing p_i46233_3_, boolean p_i46233_4_) {
-
 			shape = p_i46233_3_.getIndex() + (p_i46233_4_ ? Facing.values().length : 0);
 		}
 	}
@@ -390,7 +376,6 @@ public class BlockModelRenderer {
 		private final int vert3;
 
 		VertexTranslations(int p_i46234_3_, int p_i46234_4_, int p_i46234_5_, int p_i46234_6_) {
-
 			vert0 = p_i46234_3_;
 			vert1 = p_i46234_4_;
 			vert2 = p_i46234_5_;
@@ -409,7 +394,6 @@ public class BlockModelRenderer {
 		private final int[] vertexBrightness = new int[4];
 
 		public void updateVertexBrightness(IBlockAccess worldIn, IBlockState state, BlockPos centerPos, Facing direction, float[] faceShape, BitSet shapeState) {
-
 			BlockPos blockpos = shapeState.get(0) ? centerPos.offset(direction) : centerPos;
 			BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
 			BlockModelRenderer.NeighborInfo blockmodelrenderer$enumneighborinfo = BlockModelRenderer.NeighborInfo.getNeighbourInfo(direction);
@@ -541,7 +525,6 @@ public class BlockModelRenderer {
 		}
 
 		private int getAoBrightness(int br1, int br2, int br3, int br4) {
-
 			if (br1 == 0) {
 				br1 = br4;
 			}
@@ -558,7 +541,6 @@ public class BlockModelRenderer {
 		}
 
 		private int getVertexBrightness(int p_178203_1_, int p_178203_2_, int p_178203_3_, int p_178203_4_, float p_178203_5_, float p_178203_6_, float p_178203_7_, float p_178203_8_) {
-
 			int i = (int) ((float) (p_178203_1_ >> 16 & 255) * p_178203_5_ + (float) (p_178203_2_ >> 16 & 255) * p_178203_6_ + (float) (p_178203_3_ >> 16 & 255) * p_178203_7_ + (float) (p_178203_4_ >> 16 & 255) * p_178203_8_) & 255;
 			int j = (int) ((float) (p_178203_1_ & 255) * p_178203_5_ + (float) (p_178203_2_ & 255) * p_178203_6_ + (float) (p_178203_3_ & 255) * p_178203_7_ + (float) (p_178203_4_ & 255) * p_178203_8_) & 255;
 			return i << 16 | j;

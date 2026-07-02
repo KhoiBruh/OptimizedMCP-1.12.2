@@ -16,12 +16,10 @@ public class ServerStatusResponse {
 	private String favicon;
 
 	public ITextComponent getServerDescription() {
-
 		return description;
 	}
 
 	public void setServerDescription(ITextComponent descriptionIn) {
-
 		description = descriptionIn;
 	}
 
@@ -31,7 +29,6 @@ public class ServerStatusResponse {
 	}
 
 	public void setPlayers(ServerStatusResponse.Players playersIn) {
-
 		players = playersIn;
 	}
 
@@ -41,17 +38,14 @@ public class ServerStatusResponse {
 	}
 
 	public void setVersion(ServerStatusResponse.Version versionIn) {
-
 		version = versionIn;
 	}
 
 	public String getFavicon() {
-
 		return favicon;
 	}
 
 	public void setFavicon(String faviconBlob) {
-
 		favicon = faviconBlob;
 	}
 
@@ -62,28 +56,23 @@ public class ServerStatusResponse {
 		private GameProfile[] players;
 
 		public Players(int maxOnlinePlayers, int onlinePlayers) {
-
 			maxPlayers = maxOnlinePlayers;
 			onlinePlayerCount = onlinePlayers;
 		}
 
 		public int getMaxPlayers() {
-
 			return maxPlayers;
 		}
 
 		public int getOnlinePlayerCount() {
-
 			return onlinePlayerCount;
 		}
 
 		public GameProfile[] getPlayers() {
-
 			return players;
 		}
 
 		public void setPlayers(GameProfile[] playersIn) {
-
 			players = playersIn;
 		}
 
@@ -114,7 +103,6 @@ public class ServerStatusResponse {
 			}
 
 			public JsonElement serialize(ServerStatusResponse.Players p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
-
 				JsonObject jsonobject = new JsonObject();
 				jsonobject.addProperty("max", p_serialize_1_.getMaxPlayers());
 				jsonobject.addProperty("online", p_serialize_1_.getOnlinePlayerCount());
@@ -143,7 +131,6 @@ public class ServerStatusResponse {
 	public static class Serializer implements JsonDeserializer<ServerStatusResponse>, JsonSerializer<ServerStatusResponse> {
 
 		public ServerStatusResponse deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-
 			JsonObject jsonobject = JsonUtils.getJsonObject(p_deserialize_1_, "status");
 			ServerStatusResponse serverstatusresponse = new ServerStatusResponse();
 
@@ -167,7 +154,6 @@ public class ServerStatusResponse {
 		}
 
 		public JsonElement serialize(ServerStatusResponse p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
-
 			JsonObject jsonobject = new JsonObject();
 
 			if (p_serialize_1_.getServerDescription() != null) {
@@ -192,17 +178,14 @@ public class ServerStatusResponse {
 	}
 
 	public record Version(String name, int protocol) {
-
 		public static class Serializer implements JsonDeserializer<Version>, JsonSerializer<Version> {
 
 			public Version deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-
 				JsonObject jsonobject = JsonUtils.getJsonObject(p_deserialize_1_, "version");
 				return new Version(JsonUtils.getString(jsonobject, "name"), JsonUtils.getInt(jsonobject, "protocol"));
 			}
 
 			public JsonElement serialize(Version p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
-
 				JsonObject jsonobject = new JsonObject();
 				jsonobject.addProperty("name", p_serialize_1_.name());
 				jsonobject.addProperty("protocol", p_serialize_1_.protocol());

@@ -12,7 +12,6 @@ public class VertexFormatElement {
 	private final int elementCount;
 
 	public VertexFormatElement(int indexIn, VertexFormatElement.Type typeIn, VertexFormatElement.Usage usageIn, int count) {
-
 		if (isFirstOrUV(indexIn, usageIn)) {
 			usage = usageIn;
 		} else {
@@ -26,7 +25,6 @@ public class VertexFormatElement {
 	}
 
 	private boolean isFirstOrUV(int p_177372_1_, VertexFormatElement.Usage p_177372_2_) {
-
 		return p_177372_1_ == 0 || p_177372_2_ == VertexFormatElement.Usage.UV;
 	}
 
@@ -41,32 +39,26 @@ public class VertexFormatElement {
 	}
 
 	public final int getElementCount() {
-
 		return elementCount;
 	}
 
 	public final int getIndex() {
-
 		return index;
 	}
 
 	public String toString() {
-
 		return elementCount + "," + usage.getDisplayName() + "," + type.getDisplayName();
 	}
 
 	public final int getSize() {
-
 		return type.getSize() * elementCount;
 	}
 
 	public final boolean isPositionElement() {
-
 		return usage == VertexFormatElement.Usage.POSITION;
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else if (p_equals_1_ != null && getClass() == p_equals_1_.getClass()) {
@@ -87,7 +79,6 @@ public class VertexFormatElement {
 	}
 
 	public int hashCode() {
-
 		int i = type.hashCode();
 		i = 31 * i + usage.hashCode();
 		i = 31 * i + index;
@@ -109,24 +100,20 @@ public class VertexFormatElement {
 		private final int glConstant;
 
 		Type(int sizeIn, String displayNameIn, int glConstantIn) {
-
 			size = sizeIn;
 			displayName = displayNameIn;
 			glConstant = glConstantIn;
 		}
 
 		public int getSize() {
-
 			return size;
 		}
 
 		public String getDisplayName() {
-
 			return displayName;
 		}
 
 		public int getGlConstant() {
-
 			return glConstant;
 		}
 	}
@@ -143,12 +130,10 @@ public class VertexFormatElement {
 		private final String displayName;
 
 		Usage(String displayNameIn) {
-
 			displayName = displayNameIn;
 		}
 
 		public String getDisplayName() {
-
 			return displayName;
 		}
 	}

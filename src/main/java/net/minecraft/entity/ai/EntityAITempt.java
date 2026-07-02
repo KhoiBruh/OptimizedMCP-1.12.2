@@ -56,12 +56,10 @@ public class EntityAITempt extends EntityAIBase {
 	private boolean isRunning;
 
 	public EntityAITempt(EntityCreature temptedEntityIn, double speedIn, Item temptItemIn, boolean scaredByPlayerMovementIn) {
-
 		this(temptedEntityIn, speedIn, scaredByPlayerMovementIn, Sets.newHashSet(temptItemIn));
 	}
 
 	public EntityAITempt(EntityCreature temptedEntityIn, double speedIn, boolean scaredByPlayerMovementIn, Set<Item> temptItemIn) {
-
 		temptedEntity = temptedEntityIn;
 		speed = speedIn;
 		temptItem = temptItemIn;
@@ -77,7 +75,6 @@ public class EntityAITempt extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		if (delayTemptCounter > 0) {
 			--delayTemptCounter;
 			return false;
@@ -93,7 +90,6 @@ public class EntityAITempt extends EntityAIBase {
 	}
 
 	protected boolean isTempting(ItemStack stack) {
-
 		return temptItem.contains(stack.getItem());
 	}
 
@@ -101,7 +97,6 @@ public class EntityAITempt extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		if (scaredByPlayerMovement) {
 			if (temptedEntity.getDistanceSq(temptingPlayer) < 36D) {
 				if (temptingPlayer.getDistanceSq(targetX, targetY, targetZ) > 0.010000000000000002D) {
@@ -128,7 +123,6 @@ public class EntityAITempt extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		targetX = temptingPlayer.posX;
 		targetY = temptingPlayer.posY;
 		targetZ = temptingPlayer.posZ;
@@ -139,7 +133,6 @@ public class EntityAITempt extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		temptingPlayer = null;
 		temptedEntity.getNavigator().clearPath();
 		delayTemptCounter = 100;
@@ -150,7 +143,6 @@ public class EntityAITempt extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		temptedEntity.getLookHelper().setLookPositionWithEntity(temptingPlayer, (float) (temptedEntity.getHorizontalFaceSpeed() + 20), (float) temptedEntity.getVerticalFaceSpeed());
 
 		if (temptedEntity.getDistanceSq(temptingPlayer) < 6.25D) {
@@ -164,7 +156,6 @@ public class EntityAITempt extends EntityAIBase {
 	 * @see #isRunning
 	 */
 	public boolean isRunning() {
-
 		return isRunning;
 	}
 

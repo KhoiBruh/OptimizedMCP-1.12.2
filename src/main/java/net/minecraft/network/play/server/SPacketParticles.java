@@ -24,11 +24,9 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient> {
 	private int[] particleArguments;
 
 	public SPacketParticles() {
-
 	}
 
 	public SPacketParticles(ParticleTypes particleIn, boolean longDistanceIn, float xIn, float yIn, float zIn, float xOffsetIn, float yOffsetIn, float zOffsetIn, float speedIn, int countIn, int... argumentsIn) {
-
 		particleType = particleIn;
 		longDistance = longDistanceIn;
 		xCoord = xIn;
@@ -46,7 +44,6 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		particleType = ParticleTypes.getParticleFromId(buf.readInt());
 
 		if (particleType == null) {
@@ -74,7 +71,6 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeInt(particleType.getParticleID());
 		buf.writeBoolean(longDistance);
 		buf.writeFloat(xCoord);
@@ -93,12 +89,10 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient> {
 	}
 
 	public ParticleTypes getParticleType() {
-
 		return particleType;
 	}
 
 	public boolean isLongDistance() {
-
 		return longDistance;
 	}
 
@@ -106,7 +100,6 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient> {
 	 * Gets the x coordinate to spawn the particle.
 	 */
 	public double getXCoordinate() {
-
 		return xCoord;
 	}
 
@@ -114,7 +107,6 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient> {
 	 * Gets the y coordinate to spawn the particle.
 	 */
 	public double getYCoordinate() {
-
 		return yCoord;
 	}
 
@@ -122,7 +114,6 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient> {
 	 * Gets the z coordinate to spawn the particle.
 	 */
 	public double getZCoordinate() {
-
 		return zCoord;
 	}
 
@@ -130,7 +121,6 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient> {
 	 * Gets the x coordinate offset for the particle. The particle may use the offset for particle spread.
 	 */
 	public float getXOffset() {
-
 		return xOffset;
 	}
 
@@ -138,7 +128,6 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient> {
 	 * Gets the y coordinate offset for the particle. The particle may use the offset for particle spread.
 	 */
 	public float getYOffset() {
-
 		return yOffset;
 	}
 
@@ -146,7 +135,6 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient> {
 	 * Gets the z coordinate offset for the particle. The particle may use the offset for particle spread.
 	 */
 	public float getZOffset() {
-
 		return zOffset;
 	}
 
@@ -154,7 +142,6 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient> {
 	 * Gets the speed of the particle animation (used in client side rendering).
 	 */
 	public float getParticleSpeed() {
-
 		return particleSpeed;
 	}
 
@@ -162,7 +149,6 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient> {
 	 * Gets the amount of particles to spawn
 	 */
 	public int getParticleCount() {
-
 		return particleCount;
 	}
 
@@ -171,7 +157,6 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient> {
 	 * texture the particle.
 	 */
 	public int[] getParticleArgs() {
-
 		return particleArguments;
 	}
 
@@ -179,7 +164,6 @@ public class SPacketParticles implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleParticles(this);
 	}
 

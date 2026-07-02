@@ -15,22 +15,18 @@ public class EntitySpectralArrow extends EntityArrow {
 	private int duration = 200;
 
 	public EntitySpectralArrow(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public EntitySpectralArrow(World worldIn, EntityLivingBase shooter) {
-
 		super(worldIn, shooter);
 	}
 
 	public EntitySpectralArrow(World worldIn, double x, double y, double z) {
-
 		super(worldIn, x, y, z);
 	}
 
 	public static void registerFixesSpectralArrow(DataFixer fixer) {
-
 		EntityArrow.registerFixesArrow(fixer, "SpectralArrow");
 	}
 
@@ -38,7 +34,6 @@ public class EntitySpectralArrow extends EntityArrow {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		super.onUpdate();
 
 		if (world.isRemote && !inGround) {
@@ -47,12 +42,10 @@ public class EntitySpectralArrow extends EntityArrow {
 	}
 
 	protected ItemStack getArrowStack() {
-
 		return new ItemStack(Items.SPECTRAL_ARROW);
 	}
 
 	protected void arrowHit(EntityLivingBase living) {
-
 		super.arrowHit(living);
 		PotionEffect potioneffect = new PotionEffect(MobEffects.GLOWING, duration, 0);
 		living.addPotionEffect(potioneffect);
@@ -62,7 +55,6 @@ public class EntitySpectralArrow extends EntityArrow {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 
 		if (compound.hasKey("Duration")) {
@@ -74,7 +66,6 @@ public class EntitySpectralArrow extends EntityArrow {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setInteger("Duration", duration);
 	}

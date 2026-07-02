@@ -21,13 +21,11 @@ public class SetAttributes extends LootFunction {
 	private final SetAttributes.Modifier[] modifiers;
 
 	public SetAttributes(LootCondition[] conditionsIn, SetAttributes.Modifier[] modifiersIn) {
-
 		super(conditionsIn);
 		modifiers = modifiersIn;
 	}
 
 	public ItemStack apply(ItemStack stack, Random rand, LootContext context) {
-
 		for (SetAttributes.Modifier setattributes$modifier : modifiers) {
 			UUID uuid = setattributes$modifier.uuid;
 
@@ -54,7 +52,6 @@ public class SetAttributes extends LootFunction {
 		private final EntityEquipmentSlot[] slots;
 
 		private Modifier(String modifName, String attrName, int operationIn, RandomValueRange randomAmount, EntityEquipmentSlot[] slotsIn, UUID uuidIn) {
-
 			modifierName = modifName;
 			attributeName = attrName;
 			operation = operationIn;
@@ -106,7 +103,6 @@ public class SetAttributes extends LootFunction {
 		}
 
 		private static String getOperationFromStr(int operationIn) {
-
 			return switch (operationIn) {
 				case 0 -> "addition";
 				case 1 -> "multiply_base";
@@ -116,7 +112,6 @@ public class SetAttributes extends LootFunction {
 		}
 
 		private static int getOperationFromInt(String operationIn) {
-
 			return switch (operationIn) {
 				case "addition" -> 0;
 				case "multiply_base" -> 1;
@@ -127,7 +122,6 @@ public class SetAttributes extends LootFunction {
 		}
 
 		public JsonObject serialize(JsonSerializationContext context) {
-
 			JsonObject jsonobject = new JsonObject();
 			jsonobject.addProperty("name", modifierName);
 			jsonobject.addProperty("attribute", attributeName);
@@ -158,12 +152,10 @@ public class SetAttributes extends LootFunction {
 	public static class Serializer extends LootFunction.Serializer<SetAttributes> {
 
 		public Serializer() {
-
 			super(new ResourceLocation("set_attributes"), SetAttributes.class);
 		}
 
 		public void serialize(JsonObject object, SetAttributes functionClazz, JsonSerializationContext serializationContext) {
-
 			JsonArray jsonarray = new JsonArray();
 
 			for (SetAttributes.Modifier setattributes$modifier : functionClazz.modifiers) {
@@ -174,7 +166,6 @@ public class SetAttributes extends LootFunction {
 		}
 
 		public SetAttributes deserialize(JsonObject object, JsonDeserializationContext deserializationContext, LootCondition[] conditionsIn) {
-
 			JsonArray jsonarray = JsonUtils.getJsonArray(object, "modifiers");
 			SetAttributes.Modifier[] asetattributes$modifier = new SetAttributes.Modifier[jsonarray.size()];
 			int i = 0;

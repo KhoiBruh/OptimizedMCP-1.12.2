@@ -14,17 +14,14 @@ import net.minecraft.entity.EntityLiving;
 public abstract class RenderLiving<T extends EntityLiving> extends RenderLivingBase<T> {
 
 	public RenderLiving(RenderManager rendermanagerIn, ModelBase modelbaseIn, float shadowsizeIn) {
-
 		super(rendermanagerIn, modelbaseIn, shadowsizeIn);
 	}
 
 	protected boolean canRenderName(T entity) {
-
 		return super.canRenderName(entity) && (entity.getAlwaysRenderNameTagForRender() || entity.hasCustomName() && entity == renderManager.pointedEntity);
 	}
 
 	public boolean shouldRender(T livingEntity, ICamera camera, double camX, double camY, double camZ) {
-
 		if (super.shouldRender(livingEntity, camera, camX, camY, camZ)) {
 			return true;
 		} else if (livingEntity.getLeashed() && livingEntity.getLeashHolder() != null) {
@@ -39,7 +36,6 @@ public abstract class RenderLiving<T extends EntityLiving> extends RenderLivingB
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);
 
 		if (!renderOutlines) {
@@ -48,7 +44,6 @@ public abstract class RenderLiving<T extends EntityLiving> extends RenderLivingB
 	}
 
 	public void setLightmap(T entityLivingIn) {
-
 		int i = entityLivingIn.getBrightnessForRender();
 		int j = i % 65536;
 		int k = i / 65536;
@@ -59,12 +54,10 @@ public abstract class RenderLiving<T extends EntityLiving> extends RenderLivingB
 	 * Gets the value between start and end according to pct
 	 */
 	private double interpolateValue(double start, double end, double pct) {
-
 		return start + (end - start) * pct;
 	}
 
 	protected void renderLeash(T entityLivingIn, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		Entity entity = entityLivingIn.getLeashHolder();
 
 		if (entity != null) {

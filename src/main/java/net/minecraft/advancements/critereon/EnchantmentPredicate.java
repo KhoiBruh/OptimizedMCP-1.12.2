@@ -20,19 +20,16 @@ public class EnchantmentPredicate {
 	private final MinMaxBounds levels;
 
 	public EnchantmentPredicate() {
-
 		enchantment = null;
 		levels = MinMaxBounds.UNBOUNDED;
 	}
 
 	public EnchantmentPredicate(Enchantment enchantment, MinMaxBounds levels) {
-
 		this.enchantment = enchantment;
 		this.levels = levels;
 	}
 
 	public static EnchantmentPredicate deserialize(JsonElement element) {
-
 		if (element != null && !element.isJsonNull()) {
 			JsonObject jsonobject = JsonUtils.getJsonObject(element, "enchantment");
 			Enchantment enchantment = null;
@@ -54,7 +51,6 @@ public class EnchantmentPredicate {
 	}
 
 	public static EnchantmentPredicate[] deserializeArray(JsonElement element) {
-
 		if (element != null && !element.isJsonNull()) {
 			JsonArray jsonarray = JsonUtils.getJsonArray(element, "enchantments");
 			EnchantmentPredicate[] aenchantmentpredicate = new EnchantmentPredicate[jsonarray.size()];
@@ -70,7 +66,6 @@ public class EnchantmentPredicate {
 	}
 
 	public boolean test(Map<Enchantment, Integer> enchantmentsIn) {
-
 		if (enchantment != null) {
 			if (!enchantmentsIn.containsKey(enchantment)) {
 				return false;

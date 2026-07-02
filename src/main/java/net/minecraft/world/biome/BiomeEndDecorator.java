@@ -31,7 +31,6 @@ public class BiomeEndDecorator extends BiomeDecorator {
 	}
 
 	protected void genDecorations(Biome biomeIn, World worldIn, Random random) {
-
 		generateOres(worldIn, random);
 		WorldGenSpikes.EndSpike[] aworldgenspikes$endspike = getSpikesForWorld(worldIn);
 
@@ -46,7 +45,6 @@ public class BiomeEndDecorator extends BiomeDecorator {
 	static class SpikeCacheLoader extends CacheLoader<Long, WorldGenSpikes.EndSpike[]> {
 
 		private SpikeCacheLoader() {
-
 		}
 
 		public WorldGenSpikes.EndSpike[] load(Long p_load_1_) {

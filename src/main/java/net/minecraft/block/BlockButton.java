@@ -41,7 +41,6 @@ public abstract class BlockButton extends BlockDirectional {
 	private final boolean wooden;
 
 	protected BlockButton(boolean wooden) {
-
 		super(Material.CIRCUITS);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(POWERED, false));
 		setTickRandomly(true);
@@ -53,7 +52,6 @@ public abstract class BlockButton extends BlockDirectional {
 	 * Check whether this block can be placed on the block in the given direction.
 	 */
 	protected static boolean canPlaceBlock(World worldIn, BlockPos pos, Facing direction) {
-
 		BlockPos blockpos = pos.offset(direction.getOpposite());
 		IBlockState iblockstate = worldIn.getBlockState(blockpos);
 		boolean flag = iblockstate.getBlockFaceShape(worldIn, blockpos, direction) == BlockFaceShape.SOLID;
@@ -68,7 +66,6 @@ public abstract class BlockButton extends BlockDirectional {
 
 	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-
 		return NULL_AABB;
 	}
 
@@ -76,7 +73,6 @@ public abstract class BlockButton extends BlockDirectional {
 	 * How many world ticks before ticking
 	 */
 	public int tickRate(World worldIn) {
-
 		return wooden ? 30 : 20;
 	}
 
@@ -84,12 +80,10 @@ public abstract class BlockButton extends BlockDirectional {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -97,7 +91,6 @@ public abstract class BlockButton extends BlockDirectional {
 	 * Check whether this Block can be placed at pos, while aiming at the specified side of an adjacent block
 	 */
 	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Facing side) {
-
 		return canPlaceBlock(worldIn, pos, side);
 	}
 
@@ -105,7 +98,6 @@ public abstract class BlockButton extends BlockDirectional {
 	 * Checks if this block can be placed exactly at the given position.
 	 */
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-
 		for (Facing enumfacing : Facing.values()) {
 			if (canPlaceBlock(worldIn, pos, enumfacing)) {
 				return true;
@@ -120,7 +112,6 @@ public abstract class BlockButton extends BlockDirectional {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		return canPlaceBlock(worldIn, pos, facing) ? getDefaultState().withProperty(FACING, facing).withProperty(POWERED, false) : getDefaultState().withProperty(FACING, Facing.DOWN).withProperty(POWERED, false);
 	}
 
@@ -130,7 +121,6 @@ public abstract class BlockButton extends BlockDirectional {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (checkForDrop(worldIn, pos, state) && !canPlaceBlock(worldIn, pos, state.getValue(FACING))) {
 			dropBlockAsItem(worldIn, pos, state, 0);
 			worldIn.setBlockToAir(pos);
@@ -138,7 +128,6 @@ public abstract class BlockButton extends BlockDirectional {
 	}
 
 	private boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (canPlaceBlockAt(worldIn, pos)) {
 			return true;
 		} else {
@@ -149,7 +138,6 @@ public abstract class BlockButton extends BlockDirectional {
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		Facing enumfacing = state.getValue(FACING);
 		boolean flag = state.getValue(POWERED);
 
@@ -167,7 +155,6 @@ public abstract class BlockButton extends BlockDirectional {
 	 * Called when the block is right clicked by a player.
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		if (state.getValue(POWERED)) {
 			return true;
 		} else {
@@ -188,7 +175,6 @@ public abstract class BlockButton extends BlockDirectional {
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (state.getValue(POWERED)) {
 			notifyNeighbors(worldIn, pos, state.getValue(FACING));
 		}
@@ -197,12 +183,10 @@ public abstract class BlockButton extends BlockDirectional {
 	}
 
 	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		return blockState.getValue(POWERED) ? 15 : 0;
 	}
 
 	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		if (!blockState.getValue(POWERED)) {
 			return 0;
 		} else {
@@ -214,7 +198,6 @@ public abstract class BlockButton extends BlockDirectional {
 	 * Can this block provide power. Only wire currently seems to have this change based on its state.
 	 */
 	public boolean canProvidePower(IBlockState state) {
-
 		return true;
 	}
 
@@ -222,11 +205,9 @@ public abstract class BlockButton extends BlockDirectional {
 	 * Called randomly when setTickRandomly is set to true (used by e.g. crops to grow, etc.)
 	 */
 	public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
-
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if (!worldIn.isRemote) {
 			if (state.getValue(POWERED)) {
 				if (wooden) {
@@ -245,7 +226,6 @@ public abstract class BlockButton extends BlockDirectional {
 	 * Called When an Entity Collided with the Block
 	 */
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-
 		if (!worldIn.isRemote) {
 			if (wooden) {
 				if (!state.getValue(POWERED)) {
@@ -256,7 +236,6 @@ public abstract class BlockButton extends BlockDirectional {
 	}
 
 	private void checkPressed(IBlockState state, World worldIn, BlockPos pos) {
-
 		List<? extends Entity> list = worldIn.<Entity>getEntitiesWithinAABB(EntityArrow.class, state.getBoundingBox(worldIn, pos).offset(pos));
 		boolean flag = !list.isEmpty();
 		boolean flag1 = state.getValue(POWERED);
@@ -281,7 +260,6 @@ public abstract class BlockButton extends BlockDirectional {
 	}
 
 	private void notifyNeighbors(World worldIn, BlockPos pos, Facing facing) {
-
 		worldIn.notifyNeighborsOfStateChange(pos, this, false);
 		worldIn.notifyNeighborsOfStateChange(pos.offset(facing.getOpposite()), this, false);
 	}
@@ -290,7 +268,6 @@ public abstract class BlockButton extends BlockDirectional {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		Facing enumfacing = switch (meta & 7) {
 			case 0 -> Facing.DOWN;
 			case 1 -> Facing.EAST;
@@ -307,7 +284,6 @@ public abstract class BlockButton extends BlockDirectional {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = switch (state.getValue(FACING)) {
 			case EAST -> 1;
 			case WEST -> 2;
@@ -329,7 +305,6 @@ public abstract class BlockButton extends BlockDirectional {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
@@ -338,12 +313,10 @@ public abstract class BlockButton extends BlockDirectional {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, FACING, POWERED);
 	}
 
@@ -357,7 +330,6 @@ public abstract class BlockButton extends BlockDirectional {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

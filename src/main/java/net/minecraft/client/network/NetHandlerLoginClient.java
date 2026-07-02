@@ -36,14 +36,12 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
 	private final NetworkManager networkManager;
 	
 	public NetHandlerLoginClient(NetworkManager networkManagerIn, Minecraft mcIn, Screen previousScreenIn) {
-
 		networkManager = networkManagerIn;
 		mc = mcIn;
 		lastScreen = previousScreenIn;
 	}
 
 	public void handleEncryptionRequest(SPacketEncryptionRequest packetIn) {
-
 		final SecretKey secretkey = CryptManager.createNewSharedKey();
 		String s = packetIn.getServerId();
 		PublicKey publickey = packetIn.getPublicKey();
@@ -74,12 +72,10 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
 	}
 
 	private MinecraftSessionService getSessionService() {
-
 		return mc.getSessionService();
 	}
 
 	public void handleLoginSuccess(SPacketLoginSuccess packetIn) {
-		
 		GameProfile gameProfile = packetIn.getProfile();
 		networkManager.setConnectionState(ConnectionState.PLAY);
 		networkManager.setNetHandler(new NetHandlerPlayClient(mc, lastScreen, networkManager, gameProfile));
@@ -93,12 +89,10 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
 	}
 
 	public void handleDisconnect(SPacketDisconnect packetIn) {
-
 		networkManager.closeChannel(packetIn.getReason());
 	}
 
 	public void handleEnableCompression(SPacketEnableCompression packetIn) {
-
 		if (!networkManager.isLocalChannel()) {
 			networkManager.setCompressionThreshold(packetIn.getCompressionThreshold());
 		}

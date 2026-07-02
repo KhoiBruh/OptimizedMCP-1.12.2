@@ -14,7 +14,6 @@ public class NoiseGeneratorOctaves extends NoiseGenerator {
 	private final int octaves;
 
 	public NoiseGeneratorOctaves(Random seed, int octavesIn) {
-
 		octaves = octavesIn;
 		generatorCollection = new NoiseGeneratorImproved[octavesIn];
 
@@ -28,7 +27,6 @@ public class NoiseGeneratorOctaves extends NoiseGenerator {
 	 * x,y,z noiseScale)
 	 */
 	public double[] generateNoiseOctaves(double[] noiseArray, int xOffset, int yOffset, int zOffset, int xSize, int ySize, int zSize, double xScale, double yScale, double zScale) {
-
 		if (noiseArray == null) {
 			noiseArray = new double[xSize * ySize * zSize];
 		} else {
@@ -60,7 +58,6 @@ public class NoiseGeneratorOctaves extends NoiseGenerator {
 	 * Bouncer function to the main one with some default arguments.
 	 */
 	public double[] generateNoiseOctaves(double[] noiseArray, int xOffset, int zOffset, int xSize, int zSize, double xScale, double zScale, double p_76305_10_) {
-
 		return generateNoiseOctaves(noiseArray, xOffset, 10, zOffset, xSize, 1, zSize, xScale, 1D, zScale);
 	}
 

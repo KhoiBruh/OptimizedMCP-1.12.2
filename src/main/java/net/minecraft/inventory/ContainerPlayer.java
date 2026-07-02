@@ -22,7 +22,6 @@ public class ContainerPlayer extends Container {
 	public boolean isLocalWorld;
 
 	public ContainerPlayer(InventoryPlayer playerInventory, boolean localWorld, EntityPlayer playerIn) {
-
 		isLocalWorld = localWorld;
 		player = playerIn;
 		addSlotToContainer(new SlotCrafting(playerInventory.player, craftMatrix, craftResult, 0, 154, 28));
@@ -37,24 +36,20 @@ public class ContainerPlayer extends Container {
 			final EntityEquipmentSlot entityequipmentslot = VALID_EQUIPMENT_SLOTS[k];
 			addSlotToContainer(new Slot(playerInventory, 36 + (3 - k), 8, 8 + k * 18) {
 				public int getSlotStackLimit() {
-
 					return 1;
 				}
 
 				public boolean isItemValid(ItemStack stack) {
-
 					return entityequipmentslot == EntityLiving.getSlotForItemStack(stack);
 				}
 
 				public boolean canTakeStack(EntityPlayer playerIn) {
-
 					ItemStack itemstack = getStack();
 					return (itemstack.isEmpty() || playerIn.isCreative() || !EnchantmentHelper.hasBindingCurse(itemstack)) && super.canTakeStack(playerIn);
 				}
 
 				
 				public String getSlotTexture() {
-
 					return ItemArmor.EMPTY_SLOT_NAMES[entityequipmentslot.getIndex()];
 				}
 			});
@@ -71,9 +66,7 @@ public class ContainerPlayer extends Container {
 		}
 
 		addSlotToContainer(new Slot(playerInventory, 40, 77, 62) {
-			
 			public String getSlotTexture() {
-
 				return "minecraft:items/empty_armor_slot_shield";
 			}
 		});
@@ -83,7 +76,6 @@ public class ContainerPlayer extends Container {
 	 * Callback for when the crafting matrix is changed.
 	 */
 	public void onCraftMatrixChanged(IInventory inventoryIn) {
-
 		slotChangedCraftingGrid(player.world, player, craftMatrix, craftResult);
 	}
 
@@ -91,7 +83,6 @@ public class ContainerPlayer extends Container {
 	 * Called when the container is closed.
 	 */
 	public void onContainerClosed(EntityPlayer playerIn) {
-
 		super.onContainerClosed(playerIn);
 		craftResult.clear();
 
@@ -104,7 +95,6 @@ public class ContainerPlayer extends Container {
 	 * Determines whether supplied player can use this container
 	 */
 	public boolean canInteractWith(EntityPlayer playerIn) {
-
 		return true;
 	}
 
@@ -113,7 +103,6 @@ public class ContainerPlayer extends Container {
 	 * inventory and the other inventory(s).
 	 */
 	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = inventorySlots.get(index);
 
@@ -183,7 +172,6 @@ public class ContainerPlayer extends Container {
 	 * is null for the initial slot that was double-clicked.
 	 */
 	public boolean canMergeSlot(ItemStack stack, Slot slotIn) {
-
 		return slotIn.inventory != craftResult && super.canMergeSlot(stack, slotIn);
 	}
 

@@ -25,7 +25,6 @@ public class WorldGenDungeons extends WorldGenerator {
 	private static final ResourceLocation[] SPAWNERTYPES = new ResourceLocation[]{EntityList.getKey(EntitySkeleton.class), EntityList.getKey(EntityZombie.class), EntityList.getKey(EntityZombie.class), EntityList.getKey(EntitySpider.class)};
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		int i = 3;
 		int j = rand.nextInt(2) + 2;
 		int k = -j - 1;
@@ -131,7 +130,6 @@ public class WorldGenDungeons extends WorldGenerator {
 	 * Randomly decides which spawner to use in a dungeon
 	 */
 	private ResourceLocation pickMobSpawner(Random rand) {
-
 		return SPAWNERTYPES[rand.nextInt(SPAWNERTYPES.length)];
 	}
 

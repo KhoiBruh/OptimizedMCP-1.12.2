@@ -13,7 +13,6 @@ public class ParticleFlame extends Particle {
 	private final float flameScale;
 
 	protected ParticleFlame(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
-
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 		motionX = motionX * 0.009999999776482582D + xSpeedIn;
 		motionY = motionY * 0.009999999776482582D + ySpeedIn;
@@ -30,7 +29,6 @@ public class ParticleFlame extends Particle {
 	}
 
 	public void move(double x, double y, double z) {
-
 		setBoundingBox(getBoundingBox().offset(x, y, z));
 		resetPositionToBB();
 	}
@@ -39,14 +37,12 @@ public class ParticleFlame extends Particle {
 	 * Renders the particle
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-
 		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge;
 		particleScale = flameScale * (1F - f * f * 0.5F);
 		super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
 	}
 
 	public int getBrightnessForRender(float p_189214_1_) {
-
 		float f = ((float) particleAge + p_189214_1_) / (float) particleMaxAge;
 		f = MathHelper.clamp(f, 0F, 1F);
 		int i = super.getBrightnessForRender(p_189214_1_);
@@ -62,7 +58,6 @@ public class ParticleFlame extends Particle {
 	}
 
 	public void onUpdate() {
-
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
@@ -85,7 +80,6 @@ public class ParticleFlame extends Particle {
 	public static class Factory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			return new ParticleFlame(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 		}
 

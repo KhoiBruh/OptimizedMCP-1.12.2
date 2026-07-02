@@ -12,12 +12,10 @@ public class LayerSlimeGel implements LayerRenderer<EntitySlime> {
 	private final ModelBase slimeModel = new ModelSlime(0);
 
 	public LayerSlimeGel(RenderSlime slimeRendererIn) {
-
 		slimeRenderer = slimeRendererIn;
 	}
 
 	public void doRenderLayer(EntitySlime entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		if (!entitylivingbaseIn.isInvisible()) {
 			GLS.color(1F, 1F, 1F, 1F);
 			GLS.enableNormalize();
@@ -31,7 +29,6 @@ public class LayerSlimeGel implements LayerRenderer<EntitySlime> {
 	}
 
 	public boolean shouldCombineTextures() {
-
 		return true;
 	}
 

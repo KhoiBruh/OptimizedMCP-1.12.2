@@ -7,12 +7,10 @@ import net.minecraft.util.datafix.IFixableData;
 public class PaintingDirection implements IFixableData {
 
 	public int getFixVersion() {
-
 		return 111;
 	}
 
 	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
-
 		String s = compound.getString("id");
 		boolean flag = "Painting".equals(s);
 		boolean flag1 = "ItemFrame".equals(s);

@@ -48,7 +48,6 @@ public class ItemFood extends Item {
 	private float potionEffectProbability;
 
 	public ItemFood(int amount, float saturation, boolean isWolfFood) {
-
 		itemUseDuration = 32;
 		healAmount = amount;
 		isWolfsFavoriteMeat = isWolfFood;
@@ -57,7 +56,6 @@ public class ItemFood extends Item {
 	}
 
 	public ItemFood(int amount, boolean isWolfFood) {
-
 		this(amount, 0.6F, isWolfFood);
 	}
 
@@ -66,7 +64,6 @@ public class ItemFood extends Item {
 	 * the Item before the action is complete.
 	 */
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
-
 		if (entityLiving instanceof EntityPlayer entityplayer) {
 			entityplayer.getFoodStats().addStats(this, stack);
 			worldIn.playSound(null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
@@ -83,7 +80,6 @@ public class ItemFood extends Item {
 	}
 
 	protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
-
 		if (!worldIn.isRemote && potionId != null && worldIn.rand.nextFloat() < potionEffectProbability) {
 			player.addPotionEffect(new PotionEffect(potionId));
 		}
@@ -93,7 +89,6 @@ public class ItemFood extends Item {
 	 * How long it takes to use or consume an item
 	 */
 	public int getMaxItemUseDuration(ItemStack stack) {
-
 		return 32;
 	}
 
@@ -101,12 +96,10 @@ public class ItemFood extends Item {
 	 * returns the action that specifies what animation to play when the items is being used
 	 */
 	public Action getItemUseAction(ItemStack stack) {
-
 		return Action.EAT;
 	}
 
 	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
-
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
 		if (playerIn.canEat(alwaysEdible)) {
@@ -118,12 +111,10 @@ public class ItemFood extends Item {
 	}
 
 	public int getHealAmount(ItemStack stack) {
-
 		return healAmount;
 	}
 
 	public float getSaturationModifier(ItemStack stack) {
-
 		return saturationModifier;
 	}
 
@@ -131,12 +122,10 @@ public class ItemFood extends Item {
 	 * Whether wolves like this food (true for raw and cooked porkchop).
 	 */
 	public boolean isWolfsFavoriteMeat() {
-
 		return isWolfsFavoriteMeat;
 	}
 
 	public ItemFood setPotionEffect(PotionEffect effect, float probability) {
-
 		potionId = effect;
 		potionEffectProbability = probability;
 		return this;
@@ -146,7 +135,6 @@ public class ItemFood extends Item {
 	 * Set the field 'alwaysEdible' to true, and make the food edible even if the player don't need to eat.
 	 */
 	public ItemFood setAlwaysEdible() {
-
 		alwaysEdible = true;
 		return this;
 	}

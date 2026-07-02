@@ -12,7 +12,6 @@ public class ShieldRecipes {
 	public static class Decoration implements IRecipe {
 
 		public boolean matches(InventoryCrafting inv, World worldIn) {
-
 			ItemStack itemstack = ItemStack.EMPTY;
 			ItemStack itemstack1 = ItemStack.EMPTY;
 
@@ -48,7 +47,6 @@ public class ShieldRecipes {
 		}
 
 		public ItemStack getCraftingResult(InventoryCrafting inv) {
-
 			ItemStack itemstack = ItemStack.EMPTY;
 			ItemStack itemstack1 = ItemStack.EMPTY;
 
@@ -76,12 +74,10 @@ public class ShieldRecipes {
 		}
 
 		public ItemStack getRecipeOutput() {
-
 			return ItemStack.EMPTY;
 		}
 
 		public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
-
 			NonNullList<ItemStack> nonnulllist = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
 
 			for (int i = 0; i < nonnulllist.size(); ++i) {
@@ -96,12 +92,10 @@ public class ShieldRecipes {
 		}
 
 		public boolean isDynamic() {
-
 			return true;
 		}
 
 		public boolean canFit(int width, int height) {
-
 			return width * height >= 2;
 		}
 

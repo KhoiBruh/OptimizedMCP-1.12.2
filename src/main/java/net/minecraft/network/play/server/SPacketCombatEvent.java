@@ -17,17 +17,14 @@ public class SPacketCombatEvent implements Packet<INetHandlerPlayClient> {
 	public ITextComponent deathMessage;
 
 	public SPacketCombatEvent() {
-
 	}
 
 	public SPacketCombatEvent(CombatTracker tracker, SPacketCombatEvent.Event eventIn) {
-
 		this(tracker, eventIn, true);
 	}
 
 	@SuppressWarnings("incomplete-switch")
 	public SPacketCombatEvent(CombatTracker tracker, SPacketCombatEvent.Event eventIn, boolean showDeathMessage) {
-
 		eventType = eventIn;
 		EntityLivingBase entitylivingbase = tracker.getBestAttacker();
 
@@ -53,7 +50,6 @@ public class SPacketCombatEvent implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		eventType = buf.readEnumValue(Event.class);
 
 		if (eventType == SPacketCombatEvent.Event.END_COMBAT) {
@@ -70,7 +66,6 @@ public class SPacketCombatEvent implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeEnumValue(eventType);
 
 		if (eventType == SPacketCombatEvent.Event.END_COMBAT) {
@@ -87,7 +82,6 @@ public class SPacketCombatEvent implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleCombatEvent(this);
 	}
 

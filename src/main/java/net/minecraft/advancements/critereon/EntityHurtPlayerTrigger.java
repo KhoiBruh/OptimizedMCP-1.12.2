@@ -21,12 +21,10 @@ public class EntityHurtPlayerTrigger implements ICriterionTrigger<EntityHurtPlay
 	private final Map<PlayerAdvancements, EntityHurtPlayerTrigger.Listeners> listeners = Maps.newHashMap();
 
 	public ResourceLocation getId() {
-
 		return ID;
 	}
 
 	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance> listener) {
-
 		EntityHurtPlayerTrigger.Listeners entityhurtplayertrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (entityhurtplayertrigger$listeners == null) {
@@ -38,7 +36,6 @@ public class EntityHurtPlayerTrigger implements ICriterionTrigger<EntityHurtPlay
 	}
 
 	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance> listener) {
-
 		EntityHurtPlayerTrigger.Listeners entityhurtplayertrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (entityhurtplayertrigger$listeners != null) {
@@ -51,7 +48,6 @@ public class EntityHurtPlayerTrigger implements ICriterionTrigger<EntityHurtPlay
 	}
 
 	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
-
 		listeners.remove(playerAdvancementsIn);
 	}
 
@@ -65,7 +61,6 @@ public class EntityHurtPlayerTrigger implements ICriterionTrigger<EntityHurtPlay
 	}
 
 	public void trigger(EntityPlayerMP player, DamageSource source, float amountDealt, float amountTaken, boolean wasBlocked) {
-
 		EntityHurtPlayerTrigger.Listeners entityhurtplayertrigger$listeners = listeners.get(player.getAdvancements());
 
 		if (entityhurtplayertrigger$listeners != null) {
@@ -78,13 +73,11 @@ public class EntityHurtPlayerTrigger implements ICriterionTrigger<EntityHurtPlay
 		private final DamagePredicate damage;
 
 		public Instance(DamagePredicate damage) {
-
 			super(EntityHurtPlayerTrigger.ID);
 			this.damage = damage;
 		}
 
 		public boolean test(EntityPlayerMP player, DamageSource source, float amountDealt, float amountTaken, boolean wasBlocked) {
-
 			return damage.test(player, source, amountDealt, amountTaken, wasBlocked);
 		}
 
@@ -96,27 +89,22 @@ public class EntityHurtPlayerTrigger implements ICriterionTrigger<EntityHurtPlay
 		private final Set<ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance>> listeners = Sets.newHashSet();
 
 		public Listeners(PlayerAdvancements p_i47439_1_) {
-
 			playerAdvancements = p_i47439_1_;
 		}
 
 		public boolean isEmpty() {
-
 			return listeners.isEmpty();
 		}
 
 		public void add(ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance> listener) {
-
 			listeners.add(listener);
 		}
 
 		public void remove(ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance> listener) {
-
 			listeners.remove(listener);
 		}
 
 		public void trigger(EntityPlayerMP player, DamageSource source, float amountDealt, float amountTaken, boolean wasBlocked) {
-
 			List<ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance>> list = null;
 
 			for (ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance> listener : listeners) {

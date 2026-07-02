@@ -47,19 +47,16 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 	private boolean destroyedByCreativePlayer;
 
 	public TileEntityShulkerBox() {
-
 		this(null);
 	}
 
 	public TileEntityShulkerBox(DyeColor colorIn) {
-
 		items = NonNullList.withSize(27, ItemStack.EMPTY);
 		animationStatus = TileEntityShulkerBox.AnimationStatus.CLOSED;
 		color = colorIn;
 	}
 
 	public static void registerFixesShulkerBox(DataFixer fixer) {
-
 		fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityShulkerBox.class, "Items"));
 	}
 
@@ -67,7 +64,6 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 	 * Like the old updateEntity(), except more generic.
 	 */
 	public void update() {
-
 		updateAnimation();
 
 		if (animationStatus == TileEntityShulkerBox.AnimationStatus.OPENING || animationStatus == TileEntityShulkerBox.AnimationStatus.CLOSING) {
@@ -76,7 +72,6 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 	}
 
 	protected void updateAnimation() {
-
 		progressOld = progress;
 
 		switch (animationStatus) {
@@ -116,23 +111,19 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState p_190584_1_) {
-
 		return getBoundingBox(p_190584_1_.getValue(BlockShulkerBox.FACING));
 	}
 
 	public AxisAlignedBB getBoundingBox(Facing p_190587_1_) {
-
 		return Block.FULL_BLOCK_AABB.expand(0.5F * getProgress(1F) * (float) p_190587_1_.getFrontOffsetX(), 0.5F * getProgress(1F) * (float) p_190587_1_.getFrontOffsetY(), 0.5F * getProgress(1F) * (float) p_190587_1_.getFrontOffsetZ());
 	}
 
 	private AxisAlignedBB getTopBoundingBox(Facing p_190588_1_) {
-
 		Facing enumfacing = p_190588_1_.getOpposite();
 		return getBoundingBox(p_190588_1_).contract(enumfacing.getFrontOffsetX(), enumfacing.getFrontOffsetY(), enumfacing.getFrontOffsetZ());
 	}
 
 	private void moveCollidedEntities() {
-
 		IBlockState iblockstate = world.getBlockState(getPos());
 
 		if (iblockstate.getBlock() instanceof BlockShulkerBox) {
@@ -190,7 +181,6 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 	 * Returns the number of slots in the inventory.
 	 */
 	public int getSizeInventory() {
-
 		return items.size();
 	}
 
@@ -198,12 +188,10 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 	 * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended.
 	 */
 	public int getInventoryStackLimit() {
-
 		return 64;
 	}
 
 	public boolean receiveClientEvent(int id, int type) {
-
 		if (id == 1) {
 			openCount = type;
 
@@ -222,7 +210,6 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 	}
 
 	public void openInventory(EntityPlayer player) {
-
 		if (!player.isSpectator()) {
 			if (openCount < 0) {
 				openCount = 0;
@@ -238,7 +225,6 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 	}
 
 	public void closeInventory(EntityPlayer player) {
-
 		if (!player.isSpectator()) {
 			--openCount;
 			world.addBlockEvent(pos, getBlockType(), 1, openCount);
@@ -250,12 +236,10 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 	}
 
 	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-
 		return new ContainerShulkerBox(playerInventory, this, playerIn);
 	}
 
 	public String guiID() {
-
 		return "minecraft:shulker_box";
 	}
 
@@ -263,24 +247,20 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 	 * Get the name of this object. For players this returns their username
 	 */
 	public String getName() {
-
 		return hasCustomName() ? customName : "container.shulkerBox";
 	}
 
 	public void readFromNBT(NBTTagCompound compound) {
-
 		super.readFromNBT(compound);
 		loadFromNbt(compound);
 	}
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
 		super.writeToNBT(compound);
 		return saveToNbt(compound);
 	}
 
 	public void loadFromNbt(NBTTagCompound compound) {
-
 		items = NonNullList.withSize(getSizeInventory(), ItemStack.EMPTY);
 
 		if (!checkLootAndRead(compound) && compound.hasKey("Items", 9)) {
@@ -293,7 +273,6 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 	}
 
 	public NBTTagCompound saveToNbt(NBTTagCompound compound) {
-
 		if (!checkLootAndWrite(compound)) {
 			ItemStackHelper.saveAllItems(compound, items, false);
 		}
@@ -310,12 +289,10 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 	}
 
 	protected NonNullList<ItemStack> getItems() {
-
 		return items;
 	}
 
 	public boolean isEmpty() {
-
 		for (ItemStack itemstack : items) {
 			if (!itemstack.isEmpty()) {
 				return false;
@@ -326,7 +303,6 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 	}
 
 	public int[] getSlotsForFace(Facing side) {
-
 		return SLOTS;
 	}
 
@@ -334,7 +310,6 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 	 * Returns true if automation can insert the given item in the given slot from the given side.
 	 */
 	public boolean canInsertItem(int index, ItemStack itemStackIn, Facing direction) {
-
 		return !(Block.getBlockFromItem(itemStackIn.getItem()) instanceof BlockShulkerBox);
 	}
 
@@ -342,28 +317,23 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 	 * Returns true if automation can extract the given item in the given slot from the given side.
 	 */
 	public boolean canExtractItem(int index, ItemStack stack, Facing direction) {
-
 		return true;
 	}
 
 	public void clear() {
-
 		hasBeenCleared = true;
 		super.clear();
 	}
 
 	public boolean isCleared() {
-
 		return hasBeenCleared;
 	}
 
 	public float getProgress(float p_190585_1_) {
-
 		return progressOld + (progress - progressOld) * p_190585_1_;
 	}
 
 	public DyeColor getColor() {
-
 		if (color == null) {
 			color = BlockShulkerBox.getColorFromBlock(getBlockType());
 		}
@@ -373,22 +343,18 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 
 	
 	public SPacketUpdateTileEntity getUpdatePacket() {
-
 		return new SPacketUpdateTileEntity(pos, 10, getUpdateTag());
 	}
 
 	public boolean isDestroyedByCreativePlayer() {
-
 		return destroyedByCreativePlayer;
 	}
 
 	public void setDestroyedByCreativePlayer(boolean p_190579_1_) {
-
 		destroyedByCreativePlayer = p_190579_1_;
 	}
 
 	public boolean shouldDrop() {
-
 		return !isDestroyedByCreativePlayer() || !isEmpty() || hasCustomName() || lootTable != null;
 	}
 

@@ -16,24 +16,20 @@ public class PlayerMenuObject implements ISpectatorMenuObject {
 	private final ResourceLocation resourceLocation;
 
 	public PlayerMenuObject(GameProfile profileIn) {
-
 		profile = profileIn;
 		resourceLocation = AbstractClientPlayer.getLocationSkin(profileIn.getName());
 		AbstractClientPlayer.getDownloadImageSkin(resourceLocation, profileIn.getName());
 	}
 
 	public void selectItem(SpectatorMenu menu) {
-
 		Minecraft.getMinecraft().getConnection().sendPacket(new CPacketSpectate(profile.getId()));
 	}
 
 	public ITextComponent getSpectatorName() {
-
 		return new TextComponentString(profile.getName());
 	}
 
 	public void renderIcon(float brightness, int alpha) {
-
 		Minecraft.getMinecraft().getTextureManager().bindTexture(resourceLocation);
 		GLS.color(1F, 1F, 1F, (float) alpha / 255F);
 		Gui.drawScaledCustomSizeModalRect(2, 2, 8F, 8F, 8, 8, 12, 12, 64F, 64F);
@@ -41,7 +37,6 @@ public class PlayerMenuObject implements ISpectatorMenuObject {
 	}
 
 	public boolean isEnabled() {
-
 		return true;
 	}
 

@@ -78,23 +78,19 @@ public class Item {
 	private String unlocalizedName;
 
 	public Item() {
-
 		addPropertyOverride(new ResourceLocation("lefthanded"), LEFTHANDED_GETTER);
 		addPropertyOverride(new ResourceLocation("cooldown"), COOLDOWN_GETTER);
 	}
 
 	public static int getIdFromItem(Item itemIn) {
-
 		return itemIn == null ? 0 : REGISTRY.getIDForObject(itemIn);
 	}
 
 	public static Item getItemById(int id) {
-
 		return REGISTRY.getObjectById(id);
 	}
 
 	public static Item getItemFromBlock(Block blockIn) {
-
 		Item item = BLOCK_TO_ITEM.get(blockIn);
 		return item == null ? Items.AIR : item;
 	}
@@ -106,7 +102,6 @@ public class Item {
 	 * fail, null is returned.
 	 */
 	public static Item getByNameOrId(String id) {
-
 		Item item = REGISTRY.getObject(new ResourceLocation(id));
 
 		if (item == null) {
@@ -120,7 +115,6 @@ public class Item {
 	}
 
 	public static void registerItems() {
-
 		registerItemBlock(Blocks.AIR, new ItemAir(Blocks.AIR));
 		registerItemBlock(Blocks.STONE, (new ItemMultiTexture(Blocks.STONE, Blocks.STONE, p_apply_1_ -> BlockStone.Type.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName())).setUnlocalizedName("stone"));
 		registerItemBlock(Blocks.GRASS, new ItemColored(Blocks.GRASS, false));
@@ -540,7 +534,6 @@ public class Item {
 	 * Register a default ItemBlock for the given Block.
 	 */
 	private static void registerItemBlock(Block blockIn) {
-
 		registerItemBlock(blockIn, new ItemBlock(blockIn));
 	}
 
@@ -548,18 +541,15 @@ public class Item {
 	 * Register the given Item as the ItemBlock for the given Block.
 	 */
 	protected static void registerItemBlock(Block blockIn, Item itemIn) {
-
 		registerItem(Block.getIdFromBlock(blockIn), Block.REGISTRY.getNameForObject(blockIn), itemIn);
 		BLOCK_TO_ITEM.put(blockIn, itemIn);
 	}
 
 	private static void registerItem(int id, String textualID, Item itemIn) {
-
 		registerItem(id, new ResourceLocation(textualID), itemIn);
 	}
 
 	private static void registerItem(int id, ResourceLocation textualID, Item itemIn) {
-
 		REGISTRY.register(id, textualID, itemIn);
 	}
 
@@ -567,18 +557,15 @@ public class Item {
 	 * Creates a new override param for item models. See usage in clock, compass, elytra, etc.
 	 */
 	public final void addPropertyOverride(ResourceLocation key, IItemPropertyGetter getter) {
-
 		properties.putObject(key, getter);
 	}
 
 	
 	public IItemPropertyGetter getPropertyGetter(ResourceLocation key) {
-
 		return properties.getObject(key);
 	}
 
 	public boolean hasCustomProperties() {
-
 		return !properties.getKeys().isEmpty();
 	}
 
@@ -586,12 +573,10 @@ public class Item {
 	 * Called when an ItemStack with NBT data is read to potentially that ItemStack's NBT data
 	 */
 	public boolean updateItemStackNBT(NBTTagCompound nbt) {
-
 		return false;
 	}
 
 	public Item setMaxStackSize(int maxStackSize) {
-
 		this.maxStackSize = maxStackSize;
 		return this;
 	}
@@ -600,17 +585,14 @@ public class Item {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		return ActionResult.PASS;
 	}
 
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
-
 		return 1F;
 	}
 
 	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
-
 		return new TypedActionResult<>(ActionResult.PASS, playerIn.getHeldItem(handIn));
 	}
 
@@ -619,7 +601,6 @@ public class Item {
 	 * the Item before the action is complete.
 	 */
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
-
 		return stack;
 	}
 
@@ -627,7 +608,6 @@ public class Item {
 	 * Returns the maximum size of the stack for a specific item. *Isn't this more a Set than a Get?*
 	 */
 	public int getItemStackLimit() {
-
 		return maxStackSize;
 	}
 
@@ -636,17 +616,14 @@ public class Item {
 	 * placed as a Block (mostly used with ItemBlocks).
 	 */
 	public int getMetadata(int damage) {
-
 		return 0;
 	}
 
 	public boolean getHasSubtypes() {
-
 		return hasSubtypes;
 	}
 
 	protected Item setHasSubtypes(boolean hasSubtypes) {
-
 		this.hasSubtypes = hasSubtypes;
 		return this;
 	}
@@ -655,7 +632,6 @@ public class Item {
 	 * Returns the maximum damage an item can take.
 	 */
 	public int getMaxDamage() {
-
 		return maxDamage;
 	}
 
@@ -663,7 +639,6 @@ public class Item {
 	 * set max damage of an Item
 	 */
 	protected Item setMaxDamage(int maxDamageIn) {
-
 		maxDamage = maxDamageIn;
 
 		if (maxDamageIn > 0) {
@@ -675,7 +650,6 @@ public class Item {
 	}
 
 	public boolean isDamageable() {
-
 		return maxDamage > 0 && (!hasSubtypes || maxStackSize == 1);
 	}
 
@@ -684,7 +658,6 @@ public class Item {
 	 * the damage on the stack.
 	 */
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-
 		return false;
 	}
 
@@ -692,7 +665,6 @@ public class Item {
 	 * Called when a Block is destroyed using this Item. Return true to trigger the "Use Item" statistic.
 	 */
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-
 		return false;
 	}
 
@@ -700,7 +672,6 @@ public class Item {
 	 * Check whether this Item can harvest the given Block
 	 */
 	public boolean canHarvestBlock(IBlockState blockIn) {
-
 		return false;
 	}
 
@@ -708,7 +679,6 @@ public class Item {
 	 * Returns true if the item can be used on the given entity, e.g. shears on sheep.
 	 */
 	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target, Hand hand) {
-
 		return false;
 	}
 
@@ -716,7 +686,6 @@ public class Item {
 	 * Sets bFull3D to True and return the object.
 	 */
 	public Item setFull3D() {
-
 		bFull3D = true;
 		return this;
 	}
@@ -725,7 +694,6 @@ public class Item {
 	 * Returns True is the item is renderer in full 3D when hold.
 	 */
 	public boolean isFull3D() {
-
 		return bFull3D;
 	}
 
@@ -734,7 +702,6 @@ public class Item {
 	 * hands.
 	 */
 	public boolean shouldRotateAroundWhenRendering() {
-
 		return false;
 	}
 
@@ -743,7 +710,6 @@ public class Item {
 	 * unlocalized name itself is returned.
 	 */
 	public String getUnlocalizedNameInefficiently(ItemStack stack) {
-
 		return I18n.translateToLocal(getUnlocalizedName(stack));
 	}
 
@@ -751,7 +717,6 @@ public class Item {
 	 * Returns the unlocalized name of this item.
 	 */
 	public String getUnlocalizedName() {
-
 		return "item." + unlocalizedName;
 	}
 
@@ -759,7 +724,6 @@ public class Item {
 	 * Sets the unlocalized name of this item to the string passed as the parameter, prefixed by "item."
 	 */
 	public Item setUnlocalizedName(String unlocalizedName) {
-
 		this.unlocalizedName = unlocalizedName;
 		return this;
 	}
@@ -769,7 +733,6 @@ public class Item {
 	 * different names based on their damage or NBT.
 	 */
 	public String getUnlocalizedName(ItemStack stack) {
-
 		return "item." + unlocalizedName;
 	}
 
@@ -777,18 +740,15 @@ public class Item {
 	 * If this function returns true (or the item is damageable), the ItemStack's NBT tag will be sent to the client.
 	 */
 	public boolean getShareTag() {
-
 		return true;
 	}
 
 	
 	public Item getContainerItem() {
-
 		return containerItem;
 	}
 
 	public Item setContainerItem(Item containerItem) {
-
 		this.containerItem = containerItem;
 		return this;
 	}
@@ -797,7 +757,6 @@ public class Item {
 	 * True if this Item has a container item (a.k.a. crafting result)
 	 */
 	public boolean hasContainerItem() {
-
 		return containerItem != null;
 	}
 
@@ -806,21 +765,18 @@ public class Item {
 	 * update it's contents.
 	 */
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-
 	}
 
 	/**
 	 * Called when item is crafted/smelted. Used only by maps so far.
 	 */
 	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
-
 	}
 
 	/**
 	 * false for all Items except sub-classes of ItemMapBase
 	 */
 	public boolean isMap() {
-
 		return false;
 	}
 
@@ -828,7 +784,6 @@ public class Item {
 	 * returns the action that specifies what animation to play when the items is being used
 	 */
 	public Action getItemUseAction(ItemStack stack) {
-
 		return Action.NONE;
 	}
 
@@ -836,7 +791,6 @@ public class Item {
 	 * How long it takes to use or consume an item
 	 */
 	public int getMaxItemUseDuration(ItemStack stack) {
-
 		return 0;
 	}
 
@@ -844,18 +798,15 @@ public class Item {
 	 * Called when the player stops using an Item (stops holding the right mouse button).
 	 */
 	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
-
 	}
 
 	/**
 	 * allows items to add custom lines of information to the mouseover description
 	 */
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-
 	}
 
 	public String getItemStackDisplayName(ItemStack stack) {
-
 		return I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + ".name").trim();
 	}
 
@@ -868,7 +819,6 @@ public class Item {
 	 * the glint for enchanted items. Of course, that is unnecessary if the overwritten version always returns true.
 	 */
 	public boolean hasEffect(ItemStack stack) {
-
 		return stack.isItemEnchanted();
 	}
 
@@ -876,7 +826,6 @@ public class Item {
 	 * Return an item rarity from Rarity
 	 */
 	public Rarity getRarity(ItemStack stack) {
-
 		return stack.isItemEnchanted() ? Rarity.RARE : Rarity.COMMON;
 	}
 
@@ -884,12 +833,10 @@ public class Item {
 	 * Checks isDamagable and if it cannot be stacked
 	 */
 	public boolean isEnchantable(ItemStack stack) {
-
 		return getItemStackLimit() == 1 && isDamageable();
 	}
 
 	protected RayTraceResult rayTrace(World worldIn, EntityPlayer playerIn, boolean useLiquids) {
-
 		float f = playerIn.rotationPitch;
 		float f1 = playerIn.rotationYaw;
 		double d0 = playerIn.posX;
@@ -911,7 +858,6 @@ public class Item {
 	 * Return the enchantability factor of the item, most of the time is based on material.
 	 */
 	public int getItemEnchantability() {
-
 		return 0;
 	}
 
@@ -919,14 +865,12 @@ public class Item {
 	 * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
 	 */
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-
 		if (isInCreativeTab(tab)) {
 			items.add(new ItemStack(this));
 		}
 	}
 
 	protected boolean isInCreativeTab(CreativeTabs targetTab) {
-
 		CreativeTabs creativetabs = getCreativeTab();
 		return creativetabs != null && (targetTab == CreativeTabs.SEARCH || targetTab == creativetabs);
 	}
@@ -937,7 +881,6 @@ public class Item {
 	 * gets the CreativeTab this item is displayed on
 	 */
 	public CreativeTabs getCreativeTab() {
-
 		return tabToDisplayOn;
 	}
 
@@ -945,7 +888,6 @@ public class Item {
 	 * returns this;
 	 */
 	public Item setCreativeTab(CreativeTabs tab) {
-
 		tabToDisplayOn = tab;
 		return this;
 	}
@@ -958,7 +900,6 @@ public class Item {
 	 * @see ItemStack#canEditBlocks
 	 */
 	public boolean canItemEditBlocks() {
-
 		return false;
 	}
 
@@ -969,7 +910,6 @@ public class Item {
 	 * @param repair   the {@code ItemStack} being used to perform the repair
 	 */
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-
 		return false;
 	}
 
@@ -979,7 +919,6 @@ public class Item {
 	}
 
 	public ItemStack getDefaultInstance() {
-
 		return new ItemStack(this);
 	}
 
@@ -997,7 +936,6 @@ public class Item {
 		private final int enchantability;
 
 		ToolMaterial(int harvestLevel, int maxUses, float efficiency, float damageVsEntity, int enchantability) {
-
 			this.harvestLevel = harvestLevel;
 			this.maxUses = maxUses;
 			this.efficiency = efficiency;
@@ -1006,32 +944,26 @@ public class Item {
 		}
 
 		public int getMaxUses() {
-
 			return maxUses;
 		}
 
 		public float getEfficiency() {
-
 			return efficiency;
 		}
 
 		public float getAttackDamage() {
-
 			return attackDamage;
 		}
 
 		public int getHarvestLevel() {
-
 			return harvestLevel;
 		}
 
 		public int getEnchantability() {
-
 			return enchantability;
 		}
 
 		public Item getRepairItem() {
-
 			if (this == WOOD) {
 				return Item.getItemFromBlock(Blocks.PLANKS);
 			} else if (this == STONE) {

@@ -17,7 +17,6 @@ public class RecipeCommand extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "recipe";
 	}
 
@@ -25,7 +24,6 @@ public class RecipeCommand extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 2;
 	}
 
@@ -33,7 +31,6 @@ public class RecipeCommand extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.recipe.usage";
 	}
 
@@ -41,7 +38,6 @@ public class RecipeCommand extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		if (args.length < 2) {
 			throw new WrongUsageException("commands.recipe.usage");
 		} else {
@@ -92,12 +88,10 @@ public class RecipeCommand extends CommandBase {
 	}
 
 	private List<IRecipe> getRecipes() {
-
 		return Lists.newArrayList(CraftingManager.REGISTRY);
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		if (args.length == 1) {
 			return getListOfStringsMatchingLastWord(args, "give", "take");
 		} else if (args.length == 2) {

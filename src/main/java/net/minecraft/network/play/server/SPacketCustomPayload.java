@@ -12,11 +12,9 @@ public class SPacketCustomPayload implements Packet<INetHandlerPlayClient> {
 	private PacketBuffer data;
 
 	public SPacketCustomPayload() {
-
 	}
 
 	public SPacketCustomPayload(String channelIn, PacketBuffer bufIn) {
-
 		channel = channelIn;
 		data = bufIn;
 
@@ -29,7 +27,6 @@ public class SPacketCustomPayload implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) throws IOException {
-
 		channel = buf.readString(20);
 		int i = buf.readableBytes();
 
@@ -44,7 +41,6 @@ public class SPacketCustomPayload implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeString(channel);
 		buf.writeBytes(data);
 	}
@@ -53,17 +49,14 @@ public class SPacketCustomPayload implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleCustomPayload(this);
 	}
 
 	public String getChannelName() {
-
 		return channel;
 	}
 
 	public PacketBuffer getBufferData() {
-
 		return data;
 	}
 

@@ -11,7 +11,6 @@ public class TileEntityEnderChestRenderer extends TileEntitySpecialRenderer<Tile
 	private final ModelChest modelChest = new ModelChest();
 
 	public void render(TileEntityEnderChest te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-
 		int i = 0;
 
 		if (te.hasWorld()) {

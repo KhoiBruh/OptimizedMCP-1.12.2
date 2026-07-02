@@ -20,7 +20,6 @@ public class WalkNodeProcessor extends NodeProcessor {
 	protected float avoidsWater;
 
 	public void init(IBlockAccess sourceIn, EntityLiving mob) {
-
 		super.init(sourceIn, mob);
 		avoidsWater = mob.getPathPriority(PathNodeType.WATER);
 	}
@@ -31,13 +30,11 @@ public class WalkNodeProcessor extends NodeProcessor {
 	 * net.minecraft.world.pathfinder.WalkNodeProcessor#avoidsWater avoidsWater}
 	 */
 	public void postProcess() {
-
 		entity.setPathPriority(PathNodeType.WATER, avoidsWater);
 		super.postProcess();
 	}
 
 	public PathPoint getStart() {
-
 		int i;
 
 		if (getCanSwim() && entity.isInWater()) {
@@ -85,12 +82,10 @@ public class WalkNodeProcessor extends NodeProcessor {
 	 * Returns PathPoint for given coordinates
 	 */
 	public PathPoint getPathPointToCoords(double x, double y, double z) {
-
 		return openPoint(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z));
 	}
 
 	public int findPathOptions(PathPoint[] pathOptions, PathPoint currentPoint, PathPoint targetPoint, float maxDistance) {
-
 		int i = 0;
 		int j = 0;
 		PathNodeType pathnodetype = getPathNodeType(entity, currentPoint.x, currentPoint.y + 1, currentPoint.z);
@@ -168,7 +163,6 @@ public class WalkNodeProcessor extends NodeProcessor {
 	 * Returns a point that the entity can safely move to
 	 */
 	private PathPoint getSafePoint(int x, int y, int z, int p_186332_4_, double p_186332_5_, Facing facing) {
-
 		PathPoint pathpoint = null;
 		BlockPos blockpos = new BlockPos(x, y, z);
 		BlockPos blockpos1 = blockpos.down();
@@ -255,7 +249,6 @@ public class WalkNodeProcessor extends NodeProcessor {
 	}
 
 	public PathNodeType getPathNodeType(IBlockAccess blockaccessIn, int x, int y, int z, EntityLiving entitylivingIn, int xSize, int ySize, int zSize, boolean canBreakDoorsIn, boolean canEnterDoorsIn) {
-
 		EnumSet<PathNodeType> enumset = EnumSet.noneOf(PathNodeType.class);
 		PathNodeType pathnodetype = PathNodeType.BLOCKED;
 		double d0 = (double) entitylivingIn.width / 2D;
@@ -286,7 +279,6 @@ public class WalkNodeProcessor extends NodeProcessor {
 	}
 
 	public PathNodeType getPathNodeType(IBlockAccess p_193577_1_, int x, int y, int z, int xSize, int ySize, int zSize, boolean canOpenDoorsIn, boolean canEnterDoorsIn, EnumSet<PathNodeType> p_193577_10_, PathNodeType p_193577_11_, BlockPos p_193577_12_) {
-
 		for (int i = 0; i < xSize; ++i) {
 			for (int j = 0; j < ySize; ++j) {
 				for (int k = 0; k < zSize; ++k) {
@@ -320,17 +312,14 @@ public class WalkNodeProcessor extends NodeProcessor {
 	}
 
 	private PathNodeType getPathNodeType(EntityLiving entitylivingIn, BlockPos pos) {
-
 		return getPathNodeType(entitylivingIn, pos.getX(), pos.getY(), pos.getZ());
 	}
 
 	private PathNodeType getPathNodeType(EntityLiving entitylivingIn, int x, int y, int z) {
-
 		return getPathNodeType(blockaccess, x, y, z, entitylivingIn, entitySizeX, entitySizeY, entitySizeZ, getCanOpenDoors(), getCanEnterDoors());
 	}
 
 	public PathNodeType getPathNodeType(IBlockAccess blockaccessIn, int x, int y, int z) {
-
 		PathNodeType pathnodetype = getPathNodeTypeRaw(blockaccessIn, x, y, z);
 
 		if (pathnodetype == PathNodeType.OPEN && y >= 1) {
@@ -352,7 +341,6 @@ public class WalkNodeProcessor extends NodeProcessor {
 	}
 
 	public PathNodeType checkNeighborBlocks(IBlockAccess p_193578_1_, int p_193578_2_, int p_193578_3_, int p_193578_4_, PathNodeType p_193578_5_) {
-
 		BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
 
 		if (p_193578_5_ == PathNodeType.WALKABLE) {
@@ -376,7 +364,6 @@ public class WalkNodeProcessor extends NodeProcessor {
 	}
 
 	protected PathNodeType getPathNodeTypeRaw(IBlockAccess p_189553_1_, int p_189553_2_, int p_189553_3_, int p_189553_4_) {
-
 		BlockPos blockpos = new BlockPos(p_189553_2_, p_189553_3_, p_189553_4_);
 		IBlockState iblockstate = p_189553_1_.getBlockState(blockpos);
 		Block block = iblockstate.getBlock();

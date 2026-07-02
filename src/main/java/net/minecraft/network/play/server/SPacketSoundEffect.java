@@ -18,11 +18,9 @@ public class SPacketSoundEffect implements Packet<INetHandlerPlayClient> {
 	private float soundPitch;
 
 	public SPacketSoundEffect() {
-
 	}
 
 	public SPacketSoundEffect(SoundEvent soundIn, SoundCategory categoryIn, double xIn, double yIn, double zIn, float volumeIn, float pitchIn) {
-
 		Validate.notNull(soundIn, "sound");
 		sound = soundIn;
 		category = categoryIn;
@@ -37,7 +35,6 @@ public class SPacketSoundEffect implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		sound = SoundEvent.REGISTRY.getObjectById(buf.readVarInt());
 		category = buf.readEnumValue(SoundCategory.class);
 		posX = buf.readInt();
@@ -51,7 +48,6 @@ public class SPacketSoundEffect implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeVarInt(SoundEvent.REGISTRY.getIDForObject(sound));
 		buf.writeEnumValue(category);
 		buf.writeInt(posX);
@@ -62,37 +58,30 @@ public class SPacketSoundEffect implements Packet<INetHandlerPlayClient> {
 	}
 
 	public SoundEvent getSound() {
-
 		return sound;
 	}
 
 	public SoundCategory getCategory() {
-
 		return category;
 	}
 
 	public double getX() {
-
 		return (float) posX / 8F;
 	}
 
 	public double getY() {
-
 		return (float) posY / 8F;
 	}
 
 	public double getZ() {
-
 		return (float) posZ / 8F;
 	}
 
 	public float getVolume() {
-
 		return soundVolume;
 	}
 
 	public float getPitch() {
-
 		return soundPitch;
 	}
 
@@ -100,7 +89,6 @@ public class SPacketSoundEffect implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleSoundEffect(this);
 	}
 

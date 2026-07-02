@@ -20,7 +20,6 @@ import java.util.Random;
 public class BlockEndGateway extends BlockContainer {
 
 	protected BlockEndGateway(Material p_i46687_1_) {
-
 		super(p_i46687_1_);
 		setLightLevel(1F);
 	}
@@ -29,12 +28,10 @@ public class BlockEndGateway extends BlockContainer {
 	 * Returns a new instance of a block's tile entity class. Called on placing the block.
 	 */
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-
 		return new TileEntityEndGateway();
 	}
 
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
 		Block block = iblockstate.getBlock();
 		return !iblockstate.isOpaqueCube() && block != Blocks.END_GATEWAY;
@@ -42,7 +39,6 @@ public class BlockEndGateway extends BlockContainer {
 
 	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-
 		return NULL_AABB;
 	}
 
@@ -50,12 +46,10 @@ public class BlockEndGateway extends BlockContainer {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -63,12 +57,10 @@ public class BlockEndGateway extends BlockContainer {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return 0;
 	}
 
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 
 		if (tileentity instanceof TileEntityEndGateway) {
@@ -97,7 +89,6 @@ public class BlockEndGateway extends BlockContainer {
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return ItemStack.EMPTY;
 	}
 
@@ -105,7 +96,6 @@ public class BlockEndGateway extends BlockContainer {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return MapColor.BLACK;
 	}
 
@@ -119,7 +109,6 @@ public class BlockEndGateway extends BlockContainer {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

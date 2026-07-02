@@ -12,12 +12,10 @@ public class RenderSkeleton extends RenderBiped<AbstractSkeleton> {
 	private static final ResourceLocation SKELETON_TEXTURES = new ResourceLocation("textures/entity/skeleton/skeleton.png");
 
 	public RenderSkeleton(RenderManager renderManagerIn) {
-
 		super(renderManagerIn, new ModelSkeleton(), 0.5F);
 		addLayer(new LayerHeldItem(this));
 		addLayer(new LayerBipedArmor(this) {
 			protected void initArmor() {
-
 				modelLeggings = new ModelSkeleton(0.5F, true);
 				modelArmor = new ModelSkeleton(1F, true);
 			}
@@ -25,7 +23,6 @@ public class RenderSkeleton extends RenderBiped<AbstractSkeleton> {
 	}
 
 	public void transformHeldFull3DItemLayer() {
-
 		GLS.translate(0.09375F, 0.1875F, 0F);
 	}
 
@@ -33,7 +30,6 @@ public class RenderSkeleton extends RenderBiped<AbstractSkeleton> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(AbstractSkeleton entity) {
-
 		return SKELETON_TEXTURES;
 	}
 

@@ -30,12 +30,10 @@ public class LayerEntityOnShoulder implements LayerRenderer<EntityPlayer> {
 	private Class<?> rightEntityClass;
 
 	public LayerEntityOnShoulder(RenderManager p_i47370_1_) {
-
 		renderManager = p_i47370_1_;
 	}
 
 	public void doRenderLayer(EntityPlayer entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		if (entitylivingbaseIn.getLeftShoulderEntity() != null || entitylivingbaseIn.getRightShoulderEntity() != null) {
 			GLS.enableRescaleNormal();
 			GLS.color(1F, 1F, 1F, 1F);
@@ -96,7 +94,6 @@ public class LayerEntityOnShoulder implements LayerRenderer<EntityPlayer> {
 	}
 
 	public boolean shouldCombineTextures() {
-
 		return false;
 	}
 
@@ -109,7 +106,6 @@ public class LayerEntityOnShoulder implements LayerRenderer<EntityPlayer> {
 		public Class<?> clazz;
 
 		public DataHolder(UUID p_i47463_2_, RenderLivingBase<? extends EntityLivingBase> p_i47463_3_, ModelBase p_i47463_4_, ResourceLocation p_i47463_5_, Class<?> p_i47463_6_) {
-
 			entityId = p_i47463_2_;
 			renderer = p_i47463_3_;
 			model = p_i47463_4_;

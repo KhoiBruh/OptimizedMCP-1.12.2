@@ -26,7 +26,6 @@ public class SoundOptionsScreen extends Screen {
 	private String offDisplayString;
 
 	public SoundOptionsScreen(Screen parentIn, GameSettings settingsIn) {
-
 		parent = parentIn;
 		game_settings_4 = settingsIn;
 	}
@@ -36,7 +35,6 @@ public class SoundOptionsScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		title = I18n.format("options.sounds.title");
 		offDisplayString = I18n.format("options.off");
 		int i = 0;
@@ -62,7 +60,6 @@ public class SoundOptionsScreen extends Screen {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-
 		if (keyCode == 256) {
 			mc.gameSettings.saveOptions();
 		}
@@ -74,7 +71,6 @@ public class SoundOptionsScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(net.minecraft.client.gui.component.Button button) {
-
 		if (button.enabled) {
 			if (button.id == 200) {
 				mc.gameSettings.saveOptions();
@@ -91,14 +87,12 @@ public class SoundOptionsScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, title, width / 2, 15, 16777215);
 		super.draw(mouseX, mouseY, partialTicks);
 	}
 
 	protected String getDisplayString(SoundCategory category) {
-
 		float f = game_settings_4.getSoundLevel(category);
 		return f == 0F ? offDisplayString : (int) (f * 100F) + "%";
 	}
@@ -111,7 +105,6 @@ public class SoundOptionsScreen extends Screen {
 		public boolean pressed;
 
 		public Button(int buttonId, int x, int y, SoundCategory categoryIn, boolean master) {
-
 			super(buttonId, x, y, master ? 310 : 150, 20, "");
 			category = categoryIn;
 			categoryName = I18n.format("soundCategory." + categoryIn.getName());
@@ -120,12 +113,10 @@ public class SoundOptionsScreen extends Screen {
 		}
 
 		protected int getHoverState(boolean mouseOver) {
-
 			return 0;
 		}
 
 		protected void mouseDragged(Minecraft mc, int mouseX, int mouseY) {
-
 			if (visible) {
 				if (pressed) {
 					volume = (float) (mouseX - (x + 4)) / (float) (width - 8);
@@ -142,7 +133,6 @@ public class SoundOptionsScreen extends Screen {
 		}
 
 		public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
-
 			if (super.mousePressed(mc, mouseX, mouseY)) {
 				volume = (float) (mouseX - (x + 4)) / (float) (width - 8);
 				volume = MathHelper.clamp(volume, 0F, 1F);
@@ -157,11 +147,9 @@ public class SoundOptionsScreen extends Screen {
 		}
 
 		public void playPressSound(SoundHandler soundHandlerIn) {
-
 		}
 
 		public void mouseReleased(int mouseX, int mouseY) {
-
 			if (pressed) {
 				mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1F));
 			}

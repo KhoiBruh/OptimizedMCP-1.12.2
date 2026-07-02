@@ -21,7 +21,6 @@ public class Framebuffer {
 	public int framebufferFilter;
 
 	public Framebuffer(int width, int height, boolean useDepthIn) {
-
 		useDepth = useDepthIn;
 		framebufferObject = -1;
 		framebufferTexture = -1;
@@ -35,7 +34,6 @@ public class Framebuffer {
 	}
 
 	public void createBindFramebuffer(int width, int height) {
-
 		if (!OpenGlHelper.isFramebufferEnabled()) {
 			framebufferWidth = width;
 			framebufferHeight = height;
@@ -53,7 +51,6 @@ public class Framebuffer {
 	}
 
 	public void deleteFramebuffer() {
-
 		if (OpenGlHelper.isFramebufferEnabled()) {
 			unbindFramebufferTexture();
 			unbindFramebuffer();
@@ -77,7 +74,6 @@ public class Framebuffer {
 	}
 
 	public void createFramebuffer(int width, int height) {
-
 		framebufferWidth = width;
 		framebufferHeight = height;
 		framebufferTextureWidth = width;
@@ -111,7 +107,6 @@ public class Framebuffer {
 	}
 
 	public void setFramebufferFilter(int framebufferFilterIn) {
-
 		if (OpenGlHelper.isFramebufferEnabled()) {
 			framebufferFilter = framebufferFilterIn;
 			GLS.bindTexture(framebufferTexture);
@@ -124,7 +119,6 @@ public class Framebuffer {
 	}
 
 	public void checkFramebufferComplete() {
-
 		int i = OpenGlHelper.glCheckFramebufferStatus(OpenGlHelper.GL_FRAMEBUFFER);
 
 		if (i != OpenGlHelper.GL_FRAMEBUFFER_COMPLETE) {
@@ -143,21 +137,18 @@ public class Framebuffer {
 	}
 
 	public void bindFramebufferTexture() {
-
 		if (OpenGlHelper.isFramebufferEnabled()) {
 			GLS.bindTexture(framebufferTexture);
 		}
 	}
 
 	public void unbindFramebufferTexture() {
-
 		if (OpenGlHelper.isFramebufferEnabled()) {
 			GLS.bindTexture(0);
 		}
 	}
 
 	public void bindFramebuffer(boolean p_147610_1_) {
-
 		if (OpenGlHelper.isFramebufferEnabled()) {
 			OpenGlHelper.glBindFramebuffer(OpenGlHelper.GL_FRAMEBUFFER, framebufferObject);
 
@@ -168,14 +159,12 @@ public class Framebuffer {
 	}
 
 	public void unbindFramebuffer() {
-
 		if (OpenGlHelper.isFramebufferEnabled()) {
 			OpenGlHelper.glBindFramebuffer(OpenGlHelper.GL_FRAMEBUFFER, 0);
 		}
 	}
 
 	public void setFramebufferColor(float red, float green, float blue, float alpha) {
-
 		framebufferColor[0] = red;
 		framebufferColor[1] = green;
 		framebufferColor[2] = blue;
@@ -183,12 +172,10 @@ public class Framebuffer {
 	}
 
 	public void framebufferRender(int width, int height) {
-
 		framebufferRenderExt(width, height, true);
 	}
 
 	public void framebufferRenderExt(int width, int height, boolean p_178038_3_) {
-
 		if (OpenGlHelper.isFramebufferEnabled()) {
 			GLS.colorMask(true, true, true, false);
 			GLS.disableDepth();
@@ -230,7 +217,6 @@ public class Framebuffer {
 	}
 
 	public void framebufferClear() {
-
 		bindFramebuffer(true);
 		GLS.clearColor(framebufferColor[0], framebufferColor[1], framebufferColor[2], framebufferColor[3]);
 		int i = 16384;

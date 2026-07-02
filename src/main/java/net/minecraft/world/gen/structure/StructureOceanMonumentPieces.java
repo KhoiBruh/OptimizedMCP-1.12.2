@@ -20,7 +20,6 @@ import java.util.Random;
 public class StructureOceanMonumentPieces {
 
 	public static void registerOceanMonumentPieces() {
-
 		MapGenStructureIO.registerStructureComponent(StructureOceanMonumentPieces.MonumentBuilding.class, "OMB");
 		MapGenStructureIO.registerStructureComponent(StructureOceanMonumentPieces.MonumentCoreRoom.class, "OMCR");
 		MapGenStructureIO.registerStructureComponent(StructureOceanMonumentPieces.DoubleXRoom.class, "OMDXR");
@@ -45,16 +44,13 @@ public class StructureOceanMonumentPieces {
 	public static class DoubleXRoom extends StructureOceanMonumentPieces.Piece {
 
 		public DoubleXRoom() {
-
 		}
 
 		public DoubleXRoom(Facing p_i45597_1_, StructureOceanMonumentPieces.RoomDefinition p_i45597_2_, Random p_i45597_3_) {
-
 			super(1, p_i45597_1_, p_i45597_2_, 2, 1, 1);
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition = roomDefinition.connections[Facing.EAST.getIndex()];
 			StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition1 = roomDefinition;
 
@@ -121,16 +117,13 @@ public class StructureOceanMonumentPieces {
 	public static class DoubleXYRoom extends StructureOceanMonumentPieces.Piece {
 
 		public DoubleXYRoom() {
-
 		}
 
 		public DoubleXYRoom(Facing p_i45596_1_, StructureOceanMonumentPieces.RoomDefinition p_i45596_2_, Random p_i45596_3_) {
-
 			super(1, p_i45596_1_, p_i45596_2_, 2, 2, 1);
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition = roomDefinition.connections[Facing.EAST.getIndex()];
 			StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition1 = roomDefinition;
 			StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition2 = structureoceanmonumentpieces$roomdefinition1.connections[Facing.UP.getIndex()];
@@ -242,16 +235,13 @@ public class StructureOceanMonumentPieces {
 	public static class DoubleYRoom extends StructureOceanMonumentPieces.Piece {
 
 		public DoubleYRoom() {
-
 		}
 
 		public DoubleYRoom(Facing p_i45595_1_, StructureOceanMonumentPieces.RoomDefinition p_i45595_2_, Random p_i45595_3_) {
-
 			super(1, p_i45595_1_, p_i45595_2_, 1, 2, 1);
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			if (roomDefinition.index / 25 > 0) {
 				generateDefaultFloor(worldIn, structureBoundingBoxIn, 0, 0, roomDefinition.hasOpening[Facing.DOWN.getIndex()]);
 			}
@@ -332,16 +322,13 @@ public class StructureOceanMonumentPieces {
 	public static class DoubleYZRoom extends StructureOceanMonumentPieces.Piece {
 
 		public DoubleYZRoom() {
-
 		}
 
 		public DoubleYZRoom(Facing p_i45594_1_, StructureOceanMonumentPieces.RoomDefinition p_i45594_2_, Random p_i45594_3_) {
-
 			super(1, p_i45594_1_, p_i45594_2_, 1, 2, 2);
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition = roomDefinition.connections[Facing.NORTH.getIndex()];
 			StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition1 = roomDefinition;
 			StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition2 = structureoceanmonumentpieces$roomdefinition.connections[Facing.UP.getIndex()];
@@ -451,16 +438,13 @@ public class StructureOceanMonumentPieces {
 	public static class DoubleZRoom extends StructureOceanMonumentPieces.Piece {
 
 		public DoubleZRoom() {
-
 		}
 
 		public DoubleZRoom(Facing p_i45593_1_, StructureOceanMonumentPieces.RoomDefinition p_i45593_2_, Random p_i45593_3_) {
-
 			super(1, p_i45593_1_, p_i45593_2_, 1, 1, 2);
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition = roomDefinition.connections[Facing.NORTH.getIndex()];
 			StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition1 = roomDefinition;
 
@@ -546,16 +530,13 @@ public class StructureOceanMonumentPieces {
 	public static class EntryRoom extends StructureOceanMonumentPieces.Piece {
 
 		public EntryRoom() {
-
 		}
 
 		public EntryRoom(Facing p_i45592_1_, StructureOceanMonumentPieces.RoomDefinition p_i45592_2_) {
-
 			super(1, p_i45592_1_, p_i45592_2_, 1, 1, 1);
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 3, 0, 2, 3, 7, BRICKS_PRISMARINE, BRICKS_PRISMARINE, false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 5, 3, 0, 7, 3, 7, BRICKS_PRISMARINE, BRICKS_PRISMARINE, false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 2, 0, 1, 2, 7, BRICKS_PRISMARINE, BRICKS_PRISMARINE, false);
@@ -586,11 +567,9 @@ public class StructureOceanMonumentPieces {
 	static class FitSimpleRoomHelper implements StructureOceanMonumentPieces.MonumentRoomFitHelper {
 
 		private FitSimpleRoomHelper() {
-
 		}
 
 		public boolean fits(StructureOceanMonumentPieces.RoomDefinition definition) {
-
 			return true;
 		}
 
@@ -605,11 +584,9 @@ public class StructureOceanMonumentPieces {
 	static class FitSimpleRoomTopHelper implements StructureOceanMonumentPieces.MonumentRoomFitHelper {
 
 		private FitSimpleRoomTopHelper() {
-
 		}
 
 		public boolean fits(StructureOceanMonumentPieces.RoomDefinition definition) {
-
 			return !definition.hasOpening[Facing.WEST.getIndex()] && !definition.hasOpening[Facing.EAST.getIndex()] && !definition.hasOpening[Facing.NORTH.getIndex()] && !definition.hasOpening[Facing.SOUTH.getIndex()] && !definition.hasOpening[Facing.UP.getIndex()];
 		}
 
@@ -628,11 +605,9 @@ public class StructureOceanMonumentPieces {
 		private StructureOceanMonumentPieces.RoomDefinition coreRoom;
 
 		public MonumentBuilding() {
-
 		}
 
 		public MonumentBuilding(Random p_i45599_1_, int p_i45599_2_, int p_i45599_3_, Facing p_i45599_4_) {
-
 			super(0);
 			setCoordBaseMode(p_i45599_4_);
 			Facing enumfacing = getCoordBaseMode();
@@ -815,7 +790,6 @@ public class StructureOceanMonumentPieces {
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			int i = Math.max(worldIn.getSeaLevel(), 64) - boundingBox.minY;
 			generateWaterBox(worldIn, structureBoundingBoxIn, 0, 0, 0, 58, i, 58, false);
 			generateWing(false, 0, worldIn, randomIn, structureBoundingBoxIn);
@@ -870,7 +844,6 @@ public class StructureOceanMonumentPieces {
 		}
 
 		private void generateWing(boolean p_175840_1_, int p_175840_2_, World worldIn, Random p_175840_4_, StructureBoundingBox p_175840_5_) {
-
 			int i = 24;
 
 			if (doesChunkIntersect(p_175840_5_, p_175840_2_, 0, p_175840_2_ + 23, 20)) {
@@ -916,7 +889,6 @@ public class StructureOceanMonumentPieces {
 		}
 
 		private void generateEntranceArchs(World worldIn, Random p_175839_2_, StructureBoundingBox p_175839_3_) {
-
 			if (doesChunkIntersect(p_175839_3_, 22, 5, 35, 17)) {
 				generateWaterBox(worldIn, p_175839_3_, 25, 0, 0, 32, 8, 20, false);
 
@@ -937,7 +909,6 @@ public class StructureOceanMonumentPieces {
 		}
 
 		private void generateEntranceWall(World worldIn, Random p_175837_2_, StructureBoundingBox p_175837_3_) {
-
 			if (doesChunkIntersect(p_175837_3_, 15, 20, 42, 21)) {
 				fillWithBlocks(worldIn, p_175837_3_, 15, 0, 21, 42, 0, 21, ROUGH_PRISMARINE, ROUGH_PRISMARINE, false);
 				generateWaterBox(worldIn, p_175837_3_, 26, 1, 21, 31, 3, 21, false);
@@ -997,7 +968,6 @@ public class StructureOceanMonumentPieces {
 		}
 
 		private void generateRoofPiece(World worldIn, Random p_175841_2_, StructureBoundingBox p_175841_3_) {
-
 			if (doesChunkIntersect(p_175841_3_, 21, 21, 36, 36)) {
 				fillWithBlocks(worldIn, p_175841_3_, 21, 0, 22, 36, 0, 36, ROUGH_PRISMARINE, ROUGH_PRISMARINE, false);
 				generateWaterBox(worldIn, p_175841_3_, 21, 1, 22, 36, 23, 36, false);
@@ -1034,7 +1004,6 @@ public class StructureOceanMonumentPieces {
 		}
 
 		private void generateLowerWall(World worldIn, Random p_175835_2_, StructureBoundingBox p_175835_3_) {
-
 			if (doesChunkIntersect(p_175835_3_, 0, 21, 6, 58)) {
 				fillWithBlocks(worldIn, p_175835_3_, 0, 0, 21, 6, 0, 57, ROUGH_PRISMARINE, ROUGH_PRISMARINE, false);
 				generateWaterBox(worldIn, p_175835_3_, 0, 1, 21, 6, 7, 57, false);
@@ -1087,7 +1056,6 @@ public class StructureOceanMonumentPieces {
 		}
 
 		private void generateMiddleWall(World worldIn, Random p_175842_2_, StructureBoundingBox p_175842_3_) {
-
 			if (doesChunkIntersect(p_175842_3_, 7, 21, 13, 50)) {
 				fillWithBlocks(worldIn, p_175842_3_, 7, 0, 21, 13, 0, 50, ROUGH_PRISMARINE, ROUGH_PRISMARINE, false);
 				generateWaterBox(worldIn, p_175842_3_, 7, 1, 21, 13, 10, 50, false);
@@ -1148,7 +1116,6 @@ public class StructureOceanMonumentPieces {
 		}
 
 		private void generateUpperWall(World worldIn, Random p_175838_2_, StructureBoundingBox p_175838_3_) {
-
 			if (doesChunkIntersect(p_175838_3_, 14, 21, 20, 43)) {
 				fillWithBlocks(worldIn, p_175838_3_, 14, 0, 21, 20, 0, 43, ROUGH_PRISMARINE, ROUGH_PRISMARINE, false);
 				generateWaterBox(worldIn, p_175838_3_, 14, 1, 22, 20, 14, 43, false);
@@ -1199,16 +1166,13 @@ public class StructureOceanMonumentPieces {
 	public static class MonumentCoreRoom extends StructureOceanMonumentPieces.Piece {
 
 		public MonumentCoreRoom() {
-
 		}
 
 		public MonumentCoreRoom(Facing p_i45598_1_, StructureOceanMonumentPieces.RoomDefinition p_i45598_2_, Random p_i45598_3_) {
-
 			super(1, p_i45598_1_, p_i45598_2_, 2, 2, 2);
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			generateBoxOnFillOnly(worldIn, structureBoundingBoxIn, 1, 8, 0, 14, 8, 14, ROUGH_PRISMARINE);
 			int i = 7;
 			IBlockState iblockstate = BRICKS_PRISMARINE;
@@ -1282,16 +1246,13 @@ public class StructureOceanMonumentPieces {
 	public static class Penthouse extends StructureOceanMonumentPieces.Piece {
 
 		public Penthouse() {
-
 		}
 
 		public Penthouse(Facing p_i45591_1_, StructureBoundingBox p_i45591_2_) {
-
 			super(p_i45591_1_, p_i45591_2_);
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 2, -1, 2, 11, -1, 11, BRICKS_PRISMARINE, BRICKS_PRISMARINE, false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, -1, 0, 1, -1, 11, ROUGH_PRISMARINE, ROUGH_PRISMARINE, false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 12, -1, 0, 13, -1, 11, ROUGH_PRISMARINE, ROUGH_PRISMARINE, false);
@@ -1353,24 +1314,20 @@ public class StructureOceanMonumentPieces {
 		protected StructureOceanMonumentPieces.RoomDefinition roomDefinition;
 
 		public Piece() {
-
 			super(0);
 		}
 
 		public Piece(int p_i45588_1_) {
-
 			super(p_i45588_1_);
 		}
 
 		public Piece(Facing p_i45589_1_, StructureBoundingBox p_i45589_2_) {
-
 			super(1);
 			setCoordBaseMode(p_i45589_1_);
 			boundingBox = p_i45589_2_;
 		}
 
 		protected Piece(int p_i45590_1_, Facing p_i45590_2_, StructureOceanMonumentPieces.RoomDefinition p_i45590_3_, int p_i45590_4_, int p_i45590_5_, int p_i45590_6_) {
-
 			super(p_i45590_1_);
 			setCoordBaseMode(p_i45590_2_);
 			roomDefinition = p_i45590_3_;
@@ -1404,20 +1361,16 @@ public class StructureOceanMonumentPieces {
 		}
 
 		protected static int getRoomIndex(int p_175820_0_, int p_175820_1_, int p_175820_2_) {
-
 			return p_175820_1_ * 25 + p_175820_2_ * 5 + p_175820_0_;
 		}
 
 		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
 		}
 
 		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
 		}
 
 		protected void generateWaterBox(World p_181655_1_, StructureBoundingBox p_181655_2_, int p_181655_3_, int p_181655_4_, int p_181655_5_, int p_181655_6_, int p_181655_7_, int p_181655_8_, boolean p_181655_9_) {
-
 			for (int i = p_181655_4_; i <= p_181655_7_; ++i) {
 				for (int j = p_181655_3_; j <= p_181655_6_; ++j) {
 					for (int k = p_181655_5_; k <= p_181655_8_; ++k) {
@@ -1434,7 +1387,6 @@ public class StructureOceanMonumentPieces {
 		}
 
 		protected void generateDefaultFloor(World worldIn, StructureBoundingBox p_175821_2_, int p_175821_3_, int p_175821_4_, boolean p_175821_5_) {
-
 			if (p_175821_5_) {
 				fillWithBlocks(worldIn, p_175821_2_, p_175821_3_, 0, p_175821_4_, p_175821_3_ + 2, 0, p_175821_4_ + 8 - 1, ROUGH_PRISMARINE, ROUGH_PRISMARINE, false);
 				fillWithBlocks(worldIn, p_175821_2_, p_175821_3_ + 5, 0, p_175821_4_, p_175821_3_ + 8 - 1, 0, p_175821_4_ + 8 - 1, ROUGH_PRISMARINE, ROUGH_PRISMARINE, false);
@@ -1450,7 +1402,6 @@ public class StructureOceanMonumentPieces {
 		}
 
 		protected void generateBoxOnFillOnly(World worldIn, StructureBoundingBox p_175819_2_, int p_175819_3_, int p_175819_4_, int p_175819_5_, int p_175819_6_, int p_175819_7_, int p_175819_8_, IBlockState p_175819_9_) {
-
 			for (int i = p_175819_4_; i <= p_175819_7_; ++i) {
 				for (int j = p_175819_3_; j <= p_175819_6_; ++j) {
 					for (int k = p_175819_5_; k <= p_175819_8_; ++k) {
@@ -1463,7 +1414,6 @@ public class StructureOceanMonumentPieces {
 		}
 
 		protected boolean doesChunkIntersect(StructureBoundingBox p_175818_1_, int p_175818_2_, int p_175818_3_, int p_175818_4_, int p_175818_5_) {
-
 			int i = getXWithOffset(p_175818_2_, p_175818_3_);
 			int j = getZWithOffset(p_175818_2_, p_175818_3_);
 			int k = getXWithOffset(p_175818_4_, p_175818_5_);
@@ -1472,7 +1422,6 @@ public class StructureOceanMonumentPieces {
 		}
 
 		protected boolean spawnElder(World worldIn, StructureBoundingBox p_175817_2_, int p_175817_3_, int p_175817_4_, int p_175817_5_) {
-
 			int i = getXWithOffset(p_175817_3_, p_175817_5_);
 			int j = getYWithOffset(p_175817_4_);
 			int k = getZWithOffset(p_175817_3_, p_175817_5_);
@@ -1501,25 +1450,21 @@ public class StructureOceanMonumentPieces {
 		int scanIndex;
 
 		public RoomDefinition(int p_i45584_1_) {
-
 			index = p_i45584_1_;
 		}
 
 		public void setConnection(Facing p_175957_1_, StructureOceanMonumentPieces.RoomDefinition p_175957_2_) {
-
 			connections[p_175957_1_.getIndex()] = p_175957_2_;
 			p_175957_2_.connections[p_175957_1_.getOpposite().getIndex()] = this;
 		}
 
 		public void updateOpenings() {
-
 			for (int i = 0; i < 6; ++i) {
 				hasOpening[i] = connections[i] != null;
 			}
 		}
 
 		public boolean findSource(int p_175959_1_) {
-
 			if (isSource) {
 				return true;
 			} else {
@@ -1536,12 +1481,10 @@ public class StructureOceanMonumentPieces {
 		}
 
 		public boolean isSpecial() {
-
 			return index >= 75;
 		}
 
 		public int countOpenings() {
-
 			int i = 0;
 
 			for (int j = 0; j < 6; ++j) {
@@ -1560,17 +1503,14 @@ public class StructureOceanMonumentPieces {
 		private int mainDesign;
 
 		public SimpleRoom() {
-
 		}
 
 		public SimpleRoom(Facing p_i45587_1_, StructureOceanMonumentPieces.RoomDefinition p_i45587_2_, Random p_i45587_3_) {
-
 			super(1, p_i45587_1_, p_i45587_2_, 1, 1, 1);
 			mainDesign = p_i45587_3_.nextInt(3);
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			if (roomDefinition.index / 25 > 0) {
 				generateDefaultFloor(worldIn, structureBoundingBoxIn, 0, 0, roomDefinition.hasOpening[Facing.DOWN.getIndex()]);
 			}
@@ -1732,16 +1672,13 @@ public class StructureOceanMonumentPieces {
 	public static class SimpleTopRoom extends StructureOceanMonumentPieces.Piece {
 
 		public SimpleTopRoom() {
-
 		}
 
 		public SimpleTopRoom(Facing p_i45586_1_, StructureOceanMonumentPieces.RoomDefinition p_i45586_2_, Random p_i45586_3_) {
-
 			super(1, p_i45586_1_, p_i45586_2_, 1, 1, 1);
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			if (roomDefinition.index / 25 > 0) {
 				generateDefaultFloor(worldIn, structureBoundingBoxIn, 0, 0, roomDefinition.hasOpening[Facing.DOWN.getIndex()]);
 			}
@@ -1790,17 +1727,14 @@ public class StructureOceanMonumentPieces {
 		private int mainDesign;
 
 		public WingRoom() {
-
 		}
 
 		public WingRoom(Facing p_i45585_1_, StructureBoundingBox p_i45585_2_, int p_i45585_3_) {
-
 			super(p_i45585_1_, p_i45585_2_);
 			mainDesign = p_i45585_3_ & 1;
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			if (mainDesign == 0) {
 				for (int i = 0; i < 4; ++i) {
 					fillWithBlocks(worldIn, structureBoundingBoxIn, 10 - i, 3 - i, 20 - i, 12 + i, 3 - i, 20, BRICKS_PRISMARINE, BRICKS_PRISMARINE, false);
@@ -1897,11 +1831,9 @@ public class StructureOceanMonumentPieces {
 	static class XDoubleRoomFitHelper implements StructureOceanMonumentPieces.MonumentRoomFitHelper {
 
 		private XDoubleRoomFitHelper() {
-
 		}
 
 		public boolean fits(StructureOceanMonumentPieces.RoomDefinition definition) {
-
 			return definition.hasOpening[Facing.EAST.getIndex()] && !definition.connections[Facing.EAST.getIndex()].claimed;
 		}
 
@@ -1917,11 +1849,9 @@ public class StructureOceanMonumentPieces {
 	static class XYDoubleRoomFitHelper implements StructureOceanMonumentPieces.MonumentRoomFitHelper {
 
 		private XYDoubleRoomFitHelper() {
-
 		}
 
 		public boolean fits(StructureOceanMonumentPieces.RoomDefinition definition) {
-
 			if (definition.hasOpening[Facing.EAST.getIndex()] && !definition.connections[Facing.EAST.getIndex()].claimed && definition.hasOpening[Facing.UP.getIndex()] && !definition.connections[Facing.UP.getIndex()].claimed) {
 				StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition = definition.connections[Facing.EAST.getIndex()];
 				return structureoceanmonumentpieces$roomdefinition.hasOpening[Facing.UP.getIndex()] && !structureoceanmonumentpieces$roomdefinition.connections[Facing.UP.getIndex()].claimed;
@@ -1944,11 +1874,9 @@ public class StructureOceanMonumentPieces {
 	static class YDoubleRoomFitHelper implements StructureOceanMonumentPieces.MonumentRoomFitHelper {
 
 		private YDoubleRoomFitHelper() {
-
 		}
 
 		public boolean fits(StructureOceanMonumentPieces.RoomDefinition definition) {
-
 			return definition.hasOpening[Facing.UP.getIndex()] && !definition.connections[Facing.UP.getIndex()].claimed;
 		}
 
@@ -1964,11 +1892,9 @@ public class StructureOceanMonumentPieces {
 	static class YZDoubleRoomFitHelper implements StructureOceanMonumentPieces.MonumentRoomFitHelper {
 
 		private YZDoubleRoomFitHelper() {
-
 		}
 
 		public boolean fits(StructureOceanMonumentPieces.RoomDefinition definition) {
-
 			if (definition.hasOpening[Facing.NORTH.getIndex()] && !definition.connections[Facing.NORTH.getIndex()].claimed && definition.hasOpening[Facing.UP.getIndex()] && !definition.connections[Facing.UP.getIndex()].claimed) {
 				StructureOceanMonumentPieces.RoomDefinition structureoceanmonumentpieces$roomdefinition = definition.connections[Facing.NORTH.getIndex()];
 				return structureoceanmonumentpieces$roomdefinition.hasOpening[Facing.UP.getIndex()] && !structureoceanmonumentpieces$roomdefinition.connections[Facing.UP.getIndex()].claimed;
@@ -1991,11 +1917,9 @@ public class StructureOceanMonumentPieces {
 	static class ZDoubleRoomFitHelper implements StructureOceanMonumentPieces.MonumentRoomFitHelper {
 
 		private ZDoubleRoomFitHelper() {
-
 		}
 
 		public boolean fits(StructureOceanMonumentPieces.RoomDefinition definition) {
-
 			return definition.hasOpening[Facing.NORTH.getIndex()] && !definition.connections[Facing.NORTH.getIndex()].claimed;
 		}
 

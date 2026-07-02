@@ -19,11 +19,9 @@ public class SPacketJoinGame implements Packet<INetHandlerPlayClient> {
 	private boolean reducedDebugInfo;
 
 	public SPacketJoinGame() {
-
 	}
 
 	public SPacketJoinGame(int playerIdIn, GameType gameTypeIn, boolean hardcoreModeIn, int dimensionIn, Difficulty difficultyIn, int maxPlayersIn, WorldType worldTypeIn, boolean reducedDebugInfoIn) {
-
 		playerId = playerIdIn;
 		dimension = dimensionIn;
 		difficulty = difficultyIn;
@@ -38,7 +36,6 @@ public class SPacketJoinGame implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		playerId = buf.readInt();
 		int i = buf.readUnsignedByte();
 		hardcoreMode = (i & 8) == 8;
@@ -60,7 +57,6 @@ public class SPacketJoinGame implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeInt(playerId);
 		int i = gameType.getID();
 
@@ -80,47 +76,38 @@ public class SPacketJoinGame implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleJoinGame(this);
 	}
 
 	public int getPlayerId() {
-
 		return playerId;
 	}
 
 	public boolean isHardcoreMode() {
-
 		return hardcoreMode;
 	}
 
 	public GameType getGameType() {
-
 		return gameType;
 	}
 
 	public int getDimension() {
-
 		return dimension;
 	}
 
 	public Difficulty getDifficulty() {
-
 		return difficulty;
 	}
 
 	public int getMaxPlayers() {
-
 		return maxPlayers;
 	}
 
 	public WorldType getWorldType() {
-
 		return worldType;
 	}
 
 	public boolean isReducedDebugInfo() {
-
 		return reducedDebugInfo;
 	}
 

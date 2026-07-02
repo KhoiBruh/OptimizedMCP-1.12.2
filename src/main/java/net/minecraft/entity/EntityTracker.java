@@ -35,25 +35,21 @@ public class EntityTracker {
 	private int maxTrackingDistanceThreshold;
 
 	public EntityTracker(WorldServer theWorldIn) {
-
 		world = theWorldIn;
 		maxTrackingDistanceThreshold = theWorldIn.getMinecraftServer().getPlayerList().getEntityViewDistance();
 	}
 
 	public static long getPositionLong(double value) {
-
 		return MathHelper.lfloor(value * 4096D);
 	}
 
 	public static void updateServerPosition(Entity entityIn, double x, double y, double z) {
-
 		entityIn.serverPosX = getPositionLong(x);
 		entityIn.serverPosY = getPositionLong(y);
 		entityIn.serverPosZ = getPositionLong(z);
 	}
 
 	public void track(Entity entityIn) {
-
 		if (entityIn instanceof EntityPlayerMP entityplayermp) {
 			track(entityIn, 512, 2);
 
@@ -124,7 +120,6 @@ public class EntityTracker {
 	}
 
 	public void track(Entity entityIn, int trackingRange, int updateFrequency) {
-
 		track(entityIn, trackingRange, updateFrequency, false);
 	}
 
@@ -132,7 +127,6 @@ public class EntityTracker {
 	 * Args : Entity, trackingRange, updateFrequency, sendVelocityUpdates
 	 */
 	public void track(Entity entityIn, int trackingRange, final int updateFrequency, boolean sendVelocityUpdates) {
-
 		try {
 			if (trackedEntityHashTable.containsItem(entityIn.getEntityId())) {
 				throw new IllegalStateException("Entity is already tracked!");
@@ -168,9 +162,7 @@ public class EntityTracker {
 	}
 
 	public void untrack(Entity entityIn) {
-
 		if (entityIn instanceof EntityPlayerMP entityplayermp) {
-
 			for (EntityTrackerEntry entitytrackerentry : entries) {
 				entitytrackerentry.removeFromTrackedPlayers(entityplayermp);
 			}
@@ -185,7 +177,6 @@ public class EntityTracker {
 	}
 
 	public void tick() {
-
 		List<EntityPlayerMP> list = Lists.newArrayList();
 
 		for (EntityTrackerEntry entitytrackerentry : entries) {
@@ -210,7 +201,6 @@ public class EntityTracker {
 	}
 
 	public void updateVisibility(EntityPlayerMP player) {
-
 		for (EntityTrackerEntry entitytrackerentry : entries) {
 			if (entitytrackerentry.getTrackedEntity() == player) {
 				entitytrackerentry.updatePlayerEntities(world.playerEntities);
@@ -221,7 +211,6 @@ public class EntityTracker {
 	}
 
 	public void sendToTracking(Entity entityIn, Packet<?> packetIn) {
-
 		EntityTrackerEntry entitytrackerentry = trackedEntityHashTable.lookup(entityIn.getEntityId());
 
 		if (entitytrackerentry != null) {
@@ -230,7 +219,6 @@ public class EntityTracker {
 	}
 
 	public void sendToTrackingAndSelf(Entity entityIn, Packet<?> packetIn) {
-
 		EntityTrackerEntry entitytrackerentry = trackedEntityHashTable.lookup(entityIn.getEntityId());
 
 		if (entitytrackerentry != null) {
@@ -239,7 +227,6 @@ public class EntityTracker {
 	}
 
 	public void removePlayerFromTrackers(EntityPlayerMP player) {
-
 		for (EntityTrackerEntry entitytrackerentry : entries) {
 			entitytrackerentry.removeTrackedPlayerSymmetric(player);
 		}
@@ -250,7 +237,6 @@ public class EntityTracker {
 	 * has passengers
 	 */
 	public void sendLeashedEntitiesInChunk(EntityPlayerMP player, Chunk chunkIn) {
-
 		List<Entity> list = Lists.newArrayList();
 		List<Entity> list1 = Lists.newArrayList();
 
@@ -284,7 +270,6 @@ public class EntityTracker {
 	}
 
 	public void setViewDistance(int p_187252_1_) {
-
 		maxTrackingDistanceThreshold = (p_187252_1_ - 1) * 16;
 
 		for (EntityTrackerEntry entitytrackerentry : entries) {

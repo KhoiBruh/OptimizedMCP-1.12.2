@@ -17,7 +17,6 @@ public class EntityAIVillagerInteract extends EntityAIWatchClosest2 {
 	private int interactionDelay;
 
 	public EntityAIVillagerInteract(EntityVillager villagerIn) {
-
 		super(villagerIn, EntityVillager.class, 3F, 0.02F);
 		villager = villagerIn;
 	}
@@ -26,7 +25,6 @@ public class EntityAIVillagerInteract extends EntityAIWatchClosest2 {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		super.startExecuting();
 
 		if (villager.canAbondonItems() && closestEntity instanceof EntityVillager && ((EntityVillager) closestEntity).wantsMoreFood()) {
@@ -40,7 +38,6 @@ public class EntityAIVillagerInteract extends EntityAIWatchClosest2 {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		super.updateTask();
 
 		if (interactionDelay > 0) {

@@ -14,11 +14,9 @@ public class MapGenMineshaft extends MapGenStructure {
 	private double chance = 0.004D;
 
 	public MapGenMineshaft() {
-
 	}
 
 	public MapGenMineshaft(Map<String, String> p_i2034_1_) {
-
 		for (Entry<String, String> entry : p_i2034_1_.entrySet()) {
 			if (entry.getKey().equals("chance")) {
 				chance = MathHelper.getDouble(entry.getValue(), chance);
@@ -27,17 +25,14 @@ public class MapGenMineshaft extends MapGenStructure {
 	}
 
 	public String getStructureName() {
-
 		return "Mineshaft";
 	}
 
 	protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
-
 		return rand.nextDouble() < chance && rand.nextInt(80) < Math.max(Math.abs(chunkX), Math.abs(chunkZ));
 	}
 
 	public BlockPos getNearestStructurePos(World worldIn, BlockPos pos, boolean findUnexplored) {
-
 		int i = 1000;
 		int j = pos.getX() >> 4;
 		int k = pos.getZ() >> 4;
@@ -67,7 +62,6 @@ public class MapGenMineshaft extends MapGenStructure {
 	}
 
 	protected StructureStart getStructureStart(int chunkX, int chunkZ) {
-
 		Biome biome = world.getBiome(new BlockPos((chunkX << 4) + 8, 64, (chunkZ << 4) + 8));
 		MapGenMineshaft.Type mapgenmineshaft$type = biome instanceof BiomeMesa ? MapGenMineshaft.Type.MESA : MapGenMineshaft.Type.NORMAL;
 		return new StructureMineshaftStart(world, rand, chunkX, chunkZ, mapgenmineshaft$type);

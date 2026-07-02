@@ -15,11 +15,9 @@ public class SPacketWindowItems implements Packet<INetHandlerPlayClient> {
 	private List<ItemStack> itemStacks;
 
 	public SPacketWindowItems() {
-
 	}
 
 	public SPacketWindowItems(int p_i47317_1_, NonNullList<ItemStack> p_i47317_2_) {
-
 		windowId = p_i47317_1_;
 		itemStacks = NonNullList.withSize(p_i47317_2_.size(), ItemStack.EMPTY);
 
@@ -33,7 +31,6 @@ public class SPacketWindowItems implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		windowId = buf.readUnsignedByte();
 		int i = buf.readShort();
 		itemStacks = NonNullList.withSize(i, ItemStack.EMPTY);
@@ -47,7 +44,6 @@ public class SPacketWindowItems implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeByte(windowId);
 		buf.writeShort(itemStacks.size());
 
@@ -60,17 +56,14 @@ public class SPacketWindowItems implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleWindowItems(this);
 	}
 
 	public int getWindowId() {
-
 		return windowId;
 	}
 
 	public List<ItemStack> getItemStacks() {
-
 		return itemStacks;
 	}
 

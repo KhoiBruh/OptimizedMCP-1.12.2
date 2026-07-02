@@ -20,7 +20,6 @@ import net.minecraft.world.WorldServer;
 public class ItemEnderEye extends Item {
 
 	public ItemEnderEye() {
-
 		setCreativeTab(CreativeTabs.MISC);
 	}
 
@@ -28,7 +27,6 @@ public class ItemEnderEye extends Item {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		ItemStack itemstack = player.getHeldItem(hand);
 
@@ -73,7 +71,6 @@ public class ItemEnderEye extends Item {
 	}
 
 	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
-
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, false);
 

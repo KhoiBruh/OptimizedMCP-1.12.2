@@ -9,7 +9,6 @@ public class ContainerShulkerBox extends Container {
 	private final IInventory inventory;
 
 	public ContainerShulkerBox(InventoryPlayer p_i47266_1_, IInventory p_i47266_2_, EntityPlayer p_i47266_3_) {
-
 		inventory = p_i47266_2_;
 		p_i47266_2_.openInventory(p_i47266_3_);
 		int i = 3;
@@ -36,7 +35,6 @@ public class ContainerShulkerBox extends Container {
 	 * Determines whether supplied player can use this container
 	 */
 	public boolean canInteractWith(EntityPlayer playerIn) {
-
 		return inventory.isUsableByPlayer(playerIn);
 	}
 
@@ -45,7 +43,6 @@ public class ContainerShulkerBox extends Container {
 	 * inventory and the other inventory(s).
 	 */
 	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = inventorySlots.get(index);
 
@@ -75,7 +72,6 @@ public class ContainerShulkerBox extends Container {
 	 * Called when the container is closed.
 	 */
 	public void onContainerClosed(EntityPlayer playerIn) {
-
 		super.onContainerClosed(playerIn);
 		inventory.closeInventory(playerIn);
 	}

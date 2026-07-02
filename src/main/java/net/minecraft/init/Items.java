@@ -434,7 +434,6 @@ public class Items {
 	}
 	
 	private static Item getRegisteredItem(String name) {
-		
 		Item item = Item.REGISTRY.getObject(new ResourceLocation(name));
 		
 		if (item == null) {

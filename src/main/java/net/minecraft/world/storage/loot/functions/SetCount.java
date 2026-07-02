@@ -17,13 +17,11 @@ public class SetCount extends LootFunction {
 	private final RandomValueRange countRange;
 
 	public SetCount(LootCondition[] conditionsIn, RandomValueRange countRangeIn) {
-
 		super(conditionsIn);
 		countRange = countRangeIn;
 	}
 
 	public ItemStack apply(ItemStack stack, Random rand, LootContext context) {
-
 		stack.setCount(countRange.generateInt(rand));
 		return stack;
 	}
@@ -31,17 +29,14 @@ public class SetCount extends LootFunction {
 	public static class Serializer extends LootFunction.Serializer<SetCount> {
 
 		protected Serializer() {
-
 			super(new ResourceLocation("set_count"), SetCount.class);
 		}
 
 		public void serialize(JsonObject object, SetCount functionClazz, JsonSerializationContext serializationContext) {
-
 			object.add("count", serializationContext.serialize(functionClazz.countRange));
 		}
 
 		public SetCount deserialize(JsonObject object, JsonDeserializationContext deserializationContext, LootCondition[] conditionsIn) {
-
 			return new SetCount(conditionsIn, JsonUtils.deserializeClass(object, "count", deserializationContext, RandomValueRange.class));
 		}
 

@@ -13,7 +13,6 @@ public class MemoryErrorScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		buttons.clear();
 		buttons.add(new OptionButton(0, width / 2 - 155, height / 4 + 120 + 12, I18n.format("gui.toTitle")));
 		buttons.add(new OptionButton(1, width / 2 - 155 + 160, height / 4 + 120 + 12, I18n.format("menu.quit")));
@@ -23,7 +22,6 @@ public class MemoryErrorScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.id == 0) {
 			mc.displayScreen(new MainMenuScreen());
 		} else if (button.id == 1) {
@@ -36,14 +34,12 @@ public class MemoryErrorScreen extends Screen {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) {
-
 	}
 
 	/**
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, "Out of memory!", width / 2, height / 4 - 60 + 20, 16777215);
 		drawString(fontRenderer, "Minecraft has run out of memory.", width / 2 - 140, height / 4 - 60 + 60, 10526880);

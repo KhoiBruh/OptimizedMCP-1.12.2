@@ -40,18 +40,15 @@ public class EntitySlime extends EntityLiving implements IMob {
 	private boolean wasOnGround;
 
 	public EntitySlime(World worldIn) {
-
 		super(worldIn);
 		moveHelper = new EntitySlime.SlimeMoveHelper(this);
 	}
 
 	public static void registerFixesSlime(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntitySlime.class);
 	}
 
 	protected void initEntityAI() {
-
 		tasks.addTask(1, new EntitySlime.AISlimeFloat(this));
 		tasks.addTask(2, new EntitySlime.AISlimeAttack(this));
 		tasks.addTask(3, new EntitySlime.AISlimeFaceRandom(this));
@@ -61,13 +58,11 @@ public class EntitySlime extends EntityLiving implements IMob {
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(SLIME_SIZE, 1);
 	}
 
 	protected void setSlimeSize(int size, boolean resetHealth) {
-
 		dataManager.set(SLIME_SIZE, size);
 		setSize(0.51000005F * (float) size, 0.51000005F * (float) size);
 		setPosition(posX, posY, posZ);
@@ -85,7 +80,6 @@ public class EntitySlime extends EntityLiving implements IMob {
 	 * Returns the size of the slime.
 	 */
 	public int getSlimeSize() {
-
 		return dataManager.get(SLIME_SIZE);
 	}
 
@@ -93,7 +87,6 @@ public class EntitySlime extends EntityLiving implements IMob {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setInteger("Size", getSlimeSize() - 1);
 		compound.setBoolean("wasOnGround", wasOnGround);
@@ -103,7 +96,6 @@ public class EntitySlime extends EntityLiving implements IMob {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		int i = compound.getInteger("Size");
 
@@ -116,12 +108,10 @@ public class EntitySlime extends EntityLiving implements IMob {
 	}
 
 	public boolean isSmallSlime() {
-
 		return getSlimeSize() <= 1;
 	}
 
 	protected ParticleTypes getParticleType() {
-
 		return ParticleTypes.SLIME;
 	}
 
@@ -129,7 +119,6 @@ public class EntitySlime extends EntityLiving implements IMob {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		if (!world.isRemote && world.getDifficulty() == Difficulty.PEACEFUL && getSlimeSize() > 0) {
 			isDead = true;
 		}
@@ -164,7 +153,6 @@ public class EntitySlime extends EntityLiving implements IMob {
 	}
 
 	protected void alterSquishAmount() {
-
 		squishAmount *= 0.6F;
 	}
 
@@ -172,17 +160,14 @@ public class EntitySlime extends EntityLiving implements IMob {
 	 * Gets the amount of time the slime needs to wait between jumps.
 	 */
 	protected int getJumpDelay() {
-
 		return rand.nextInt(20) + 10;
 	}
 
 	protected EntitySlime createInstance() {
-
 		return new EntitySlime(world);
 	}
 
 	public void notifyDataManagerChange(DataParameter<?> key) {
-
 		if (SLIME_SIZE.equals(key)) {
 			int i = getSlimeSize();
 			setSize(0.51000005F * (float) i, 0.51000005F * (float) i);
@@ -201,7 +186,6 @@ public class EntitySlime extends EntityLiving implements IMob {
 	 * Will get destroyed next tick.
 	 */
 	public void setDead() {
-
 		int i = getSlimeSize();
 
 		if (!world.isRemote && i > 1 && getHealth() <= 0F) {
@@ -233,7 +217,6 @@ public class EntitySlime extends EntityLiving implements IMob {
 	 * Applies a velocity to the entities, to push them away from eachother.
 	 */
 	public void applyEntityCollision(Entity entityIn) {
-
 		super.applyEntityCollision(entityIn);
 
 		if (entityIn instanceof EntityIronGolem && canDamagePlayer()) {
@@ -245,14 +228,12 @@ public class EntitySlime extends EntityLiving implements IMob {
 	 * Called by a player entity when they collide with an entity
 	 */
 	public void onCollideWithPlayer(EntityPlayer entityIn) {
-
 		if (canDamagePlayer()) {
 			dealDamage(entityIn);
 		}
 	}
 
 	protected void dealDamage(EntityLivingBase entityIn) {
-
 		int i = getSlimeSize();
 
 		if (canEntityBeSeen(entityIn) && getDistanceSq(entityIn) < 0.6D * (double) i * 0.6D * (double) i && entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float) getAttackStrength())) {
@@ -262,7 +243,6 @@ public class EntitySlime extends EntityLiving implements IMob {
 	}
 
 	public float getEyeHeight() {
-
 		return 0.625F * height;
 	}
 
@@ -270,7 +250,6 @@ public class EntitySlime extends EntityLiving implements IMob {
 	 * Indicates weather the slime is able to damage the player (based upon the slime's size)
 	 */
 	protected boolean canDamagePlayer() {
-
 		return !isSmallSlime();
 	}
 
@@ -278,33 +257,27 @@ public class EntitySlime extends EntityLiving implements IMob {
 	 * Gets the amount of damage dealt to the player when "attacked" by the slime.
 	 */
 	protected int getAttackStrength() {
-
 		return getSlimeSize();
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return isSmallSlime() ? SoundEvents.ENTITY_SMALL_SLIME_HURT : SoundEvents.ENTITY_SLIME_HURT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return isSmallSlime() ? SoundEvents.ENTITY_SMALL_SLIME_DEATH : SoundEvents.ENTITY_SLIME_DEATH;
 	}
 
 	protected SoundEvent getSquishSound() {
-
 		return isSmallSlime() ? SoundEvents.ENTITY_SMALL_SLIME_SQUISH : SoundEvents.ENTITY_SLIME_SQUISH;
 	}
 
 	protected Item getDropItem() {
-
 		return getSlimeSize() == 1 ? Items.SLIME_BALL : null;
 	}
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return getSlimeSize() == 1 ? LootTableList.ENTITIES_SLIME : LootTableList.EMPTY;
 	}
 
@@ -312,7 +285,6 @@ public class EntitySlime extends EntityLiving implements IMob {
 	 * Checks if the entity's current position is a valid location to spawn this entity.
 	 */
 	public boolean getCanSpawnHere() {
-
 		BlockPos blockpos = new BlockPos(MathHelper.floor(posX), 0, MathHelper.floor(posZ));
 		Chunk chunk = world.getChunkFromBlockCoords(blockpos);
 
@@ -339,7 +311,6 @@ public class EntitySlime extends EntityLiving implements IMob {
 	 * Returns the volume for the sounds this mob makes.
 	 */
 	protected float getSoundVolume() {
-
 		return 0.4F * (float) getSlimeSize();
 	}
 
@@ -348,7 +319,6 @@ public class EntitySlime extends EntityLiving implements IMob {
 	 * use in wolves.
 	 */
 	public int getVerticalFaceSpeed() {
-
 		return 0;
 	}
 
@@ -356,7 +326,6 @@ public class EntitySlime extends EntityLiving implements IMob {
 	 * Returns true if the slime makes a sound when it jumps (based upon the slime's size)
 	 */
 	protected boolean makesSoundOnJump() {
-
 		return getSlimeSize() > 0;
 	}
 
@@ -364,7 +333,6 @@ public class EntitySlime extends EntityLiving implements IMob {
 	 * Causes this entity to do an upwards motion (jumping).
 	 */
 	protected void jump() {
-
 		motionY = 0.41999998688697815D;
 		isAirBorne = true;
 	}
@@ -386,7 +354,6 @@ public class EntitySlime extends EntityLiving implements IMob {
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-
 		int i = rand.nextInt(3);
 
 		if (i < 2 && rand.nextFloat() < 0.5F * difficulty.getClampedAdditionalDifficulty()) {
@@ -399,7 +366,6 @@ public class EntitySlime extends EntityLiving implements IMob {
 	}
 
 	protected SoundEvent getJumpSound() {
-
 		return isSmallSlime() ? SoundEvents.ENTITY_SMALL_SLIME_JUMP : SoundEvents.ENTITY_SLIME_JUMP;
 	}
 
@@ -409,13 +375,11 @@ public class EntitySlime extends EntityLiving implements IMob {
 		private int growTieredTimer;
 
 		public AISlimeAttack(EntitySlime slimeIn) {
-
 			slime = slimeIn;
 			setMutexBits(2);
 		}
 
 		public boolean shouldExecute() {
-
 			EntityLivingBase entitylivingbase = slime.getAttackTarget();
 
 			if (entitylivingbase == null) {
@@ -428,13 +392,11 @@ public class EntitySlime extends EntityLiving implements IMob {
 		}
 
 		public void startExecuting() {
-
 			growTieredTimer = 300;
 			super.startExecuting();
 		}
 
 		public boolean shouldContinueExecuting() {
-
 			EntityLivingBase entitylivingbase = slime.getAttackTarget();
 
 			if (entitylivingbase == null) {
@@ -449,7 +411,6 @@ public class EntitySlime extends EntityLiving implements IMob {
 		}
 
 		public void updateTask() {
-
 			slime.faceEntity(slime.getAttackTarget(), 10F, 10F);
 			((EntitySlime.SlimeMoveHelper) slime.getMoveHelper()).setDirection(slime.rotationYaw, slime.canDamagePlayer());
 		}
@@ -463,18 +424,15 @@ public class EntitySlime extends EntityLiving implements IMob {
 		private int nextRandomizeTime;
 
 		public AISlimeFaceRandom(EntitySlime slimeIn) {
-
 			slime = slimeIn;
 			setMutexBits(2);
 		}
 
 		public boolean shouldExecute() {
-
 			return slime.getAttackTarget() == null && (slime.onGround || slime.isInWater() || slime.isInLava() || slime.isPotionActive(MobEffects.LEVITATION));
 		}
 
 		public void updateTask() {
-
 			if (--nextRandomizeTime <= 0) {
 				nextRandomizeTime = 40 + slime.getRNG().nextInt(60);
 				chosenDegrees = (float) slime.getRNG().nextInt(360);
@@ -490,19 +448,16 @@ public class EntitySlime extends EntityLiving implements IMob {
 		private final EntitySlime slime;
 
 		public AISlimeFloat(EntitySlime slimeIn) {
-
 			slime = slimeIn;
 			setMutexBits(5);
 			((PathNavigateGround) slimeIn.getNavigator()).setCanSwim(true);
 		}
 
 		public boolean shouldExecute() {
-
 			return slime.isInWater() || slime.isInLava();
 		}
 
 		public void updateTask() {
-
 			if (slime.getRNG().nextFloat() < 0.8F) {
 				slime.getJumpHelper().setJumping();
 			}
@@ -517,18 +472,15 @@ public class EntitySlime extends EntityLiving implements IMob {
 		private final EntitySlime slime;
 
 		public AISlimeHop(EntitySlime slimeIn) {
-
 			slime = slimeIn;
 			setMutexBits(5);
 		}
 
 		public boolean shouldExecute() {
-
 			return true;
 		}
 
 		public void updateTask() {
-
 			((EntitySlime.SlimeMoveHelper) slime.getMoveHelper()).setSpeed(1D);
 		}
 
@@ -542,26 +494,22 @@ public class EntitySlime extends EntityLiving implements IMob {
 		private boolean isAggressive;
 
 		public SlimeMoveHelper(EntitySlime slimeIn) {
-
 			super(slimeIn);
 			slime = slimeIn;
 			yRot = 180F * slimeIn.rotationYaw / (float) Math.PI;
 		}
 
 		public void setDirection(float p_179920_1_, boolean p_179920_2_) {
-
 			yRot = p_179920_1_;
 			isAggressive = p_179920_2_;
 		}
 
 		public void setSpeed(double speedIn) {
-
 			speed = speedIn;
 			action = EntityMoveHelper.Action.MOVE_TO;
 		}
 
 		public void onUpdateMoveHelper() {
-
 			entity.rotationYaw = limitAngle(entity.rotationYaw, yRot, 90F);
 			entity.rotationYawHead = entity.rotationYaw;
 			entity.renderYawOffset = entity.rotationYaw;

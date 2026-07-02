@@ -22,7 +22,6 @@ public abstract class BlockWoodSlab extends BlockSlab {
 	public static final PropertyEnum<BlockPlanks.Type> VARIANT = PropertyEnum.create("variant", BlockPlanks.Type.class);
 
 	public BlockWoodSlab() {
-
 		super(Material.WOOD);
 		IBlockState iblockstate = blockState.getBaseState();
 
@@ -38,7 +37,6 @@ public abstract class BlockWoodSlab extends BlockSlab {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return state.getValue(VARIANT).getMapColor();
 	}
 
@@ -46,12 +44,10 @@ public abstract class BlockWoodSlab extends BlockSlab {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Item.getItemFromBlock(Blocks.WOODEN_SLAB);
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return new ItemStack(Blocks.WOODEN_SLAB, 1, state.getValue(VARIANT).getMetadata());
 	}
 
@@ -59,7 +55,6 @@ public abstract class BlockWoodSlab extends BlockSlab {
 	 * Returns the slab block name with the type associated with it
 	 */
 	public String getUnlocalizedName(int meta) {
-
 		return super.getUnlocalizedName() + "." + BlockPlanks.Type.byMetadata(meta).getUnlocalizedName();
 	}
 
@@ -77,7 +72,6 @@ public abstract class BlockWoodSlab extends BlockSlab {
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-
 		for (BlockPlanks.Type blockplanks$enumtype : BlockPlanks.Type.values()) {
 			items.add(new ItemStack(this, 1, blockplanks$enumtype.getMetadata()));
 		}
@@ -87,7 +81,6 @@ public abstract class BlockWoodSlab extends BlockSlab {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		IBlockState iblockstate = getDefaultState().withProperty(VARIANT, BlockPlanks.Type.byMetadata(meta & 7));
 
 		if (!isDouble()) {
@@ -101,7 +94,6 @@ public abstract class BlockWoodSlab extends BlockSlab {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 		i = i | state.getValue(VARIANT).getMetadata();
 
@@ -113,7 +105,6 @@ public abstract class BlockWoodSlab extends BlockSlab {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return isDouble() ? new BlockStateContainer(this, VARIANT) : new BlockStateContainer(this, HALF, VARIANT);
 	}
 
@@ -122,7 +113,6 @@ public abstract class BlockWoodSlab extends BlockSlab {
 	 * returns the metadata of the dropped item based on the old metadata of the block.
 	 */
 	public int damageDropped(IBlockState state) {
-
 		return state.getValue(VARIANT).getMetadata();
 	}
 

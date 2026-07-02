@@ -31,7 +31,6 @@ public class BlockChorusPlant extends Block {
 	public static final PropertyBool DOWN = PropertyBool.create("down");
 
 	protected BlockChorusPlant() {
-
 		super(Material.PLANTS, MapColor.PURPLE);
 		setCreativeTab(CreativeTabs.DECORATIONS);
 		setDefaultState(blockState.getBaseState().withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false).withProperty(UP, false).withProperty(DOWN, false));
@@ -42,7 +41,6 @@ public class BlockChorusPlant extends Block {
 	 * metadata, such as fence connections.
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		Block block = worldIn.getBlockState(pos.down()).getBlock();
 		Block block1 = worldIn.getBlockState(pos.up()).getBlock();
 		Block block2 = worldIn.getBlockState(pos.north()).getBlock();
@@ -53,7 +51,6 @@ public class BlockChorusPlant extends Block {
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		state = state.getActualState(source, pos);
 		float f1 = state.getValue(WEST) ? 0F : 0.1875F;
 		float f2 = state.getValue(DOWN) ? 0F : 0.1875F;
@@ -65,7 +62,6 @@ public class BlockChorusPlant extends Block {
 	}
 
 	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean isActualState) {
-
 		if (!isActualState) {
 			state = state.getActualState(worldIn, pos);
 		}
@@ -101,12 +97,10 @@ public class BlockChorusPlant extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return 0;
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if (!canSurviveAt(worldIn, pos)) {
 			worldIn.destroyBlock(pos, true);
 		}
@@ -116,7 +110,6 @@ public class BlockChorusPlant extends Block {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Items.CHORUS_FRUIT;
 	}
 
@@ -124,12 +117,10 @@ public class BlockChorusPlant extends Block {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return random.nextInt(2);
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -137,7 +128,6 @@ public class BlockChorusPlant extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -145,7 +135,6 @@ public class BlockChorusPlant extends Block {
 	 * Checks if this block can be placed exactly at the given position.
 	 */
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-
 		return super.canPlaceBlockAt(worldIn, pos) && canSurviveAt(worldIn, pos);
 	}
 
@@ -155,14 +144,12 @@ public class BlockChorusPlant extends Block {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (!canSurviveAt(worldIn, pos)) {
 			worldIn.scheduleUpdate(pos, this, 1);
 		}
 	}
 
 	public boolean canSurviveAt(World wordIn, BlockPos pos) {
-
 		boolean flag = wordIn.isAirBlock(pos.up());
 		boolean flag1 = wordIn.isAirBlock(pos.down());
 
@@ -192,18 +179,15 @@ public class BlockChorusPlant extends Block {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.CUTOUT;
 	}
 
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		Block block = blockAccess.getBlockState(pos.offset(side)).getBlock();
 		return block != this && block != Blocks.CHORUS_FLOWER && (side != Facing.DOWN || block != Blocks.END_STONE);
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, NORTH, EAST, SOUTH, WEST, UP, DOWN);
 	}
 
@@ -211,7 +195,6 @@ public class BlockChorusPlant extends Block {
 	 * Determines if an entity can path through this block
 	 */
 	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-
 		return false;
 	}
 
@@ -225,7 +208,6 @@ public class BlockChorusPlant extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

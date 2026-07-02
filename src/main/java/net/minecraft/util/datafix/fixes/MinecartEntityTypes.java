@@ -11,12 +11,10 @@ public class MinecartEntityTypes implements IFixableData {
 	private static final List<String> MINECART_TYPE_LIST = Lists.newArrayList("MinecartRideable", "MinecartChest", "MinecartFurnace", "MinecartTNT", "MinecartSpawner", "MinecartHopper", "MinecartCommandBlock");
 
 	public int getFixVersion() {
-
 		return 106;
 	}
 
 	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
-
 		if ("Minecart".equals(compound.getString("id"))) {
 			String s = "MinecartRideable";
 			int i = compound.getInteger("Type");

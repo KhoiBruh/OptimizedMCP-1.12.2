@@ -20,7 +20,6 @@ public class ItemBlockSpecial extends Item {
 	private final Block block;
 
 	public ItemBlockSpecial(Block block) {
-
 		this.block = block;
 	}
 
@@ -28,7 +27,6 @@ public class ItemBlockSpecial extends Item {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		Block block = iblockstate.getBlock();
 

@@ -16,18 +16,15 @@ public class RenderIllusionIllager extends RenderLiving<EntityMob> {
 	private static final ResourceLocation ILLUSIONIST = new ResourceLocation("textures/entity/illager/illusionist.png");
 
 	public RenderIllusionIllager(RenderManager p_i47477_1_) {
-
 		super(p_i47477_1_, new ModelIllager(0F, 0F, 64, 64), 0.5F);
 		addLayer(new LayerHeldItem(this) {
 			public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 				if (((EntityIllusionIllager) entitylivingbaseIn).isSpellcasting() || ((EntityIllusionIllager) entitylivingbaseIn).isAggressive()) {
 					super.doRenderLayer(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
 				}
 			}
 
 			protected void translateToHand(HandSide p_191361_1_) {
-
 				((ModelIllager) livingEntityRenderer.getMainModel()).getArm(p_191361_1_).postRender(0.0625F);
 			}
 		});
@@ -38,7 +35,6 @@ public class RenderIllusionIllager extends RenderLiving<EntityMob> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityMob entity) {
-
 		return ILLUSIONIST;
 	}
 
@@ -46,7 +42,6 @@ public class RenderIllusionIllager extends RenderLiving<EntityMob> {
 	 * Allows the render to do state modifications necessary before the model is rendered.
 	 */
 	protected void preRenderCallback(EntityMob entitylivingbaseIn, float partialTickTime) {
-
 		float f = 0.9375F;
 		GLS.scale(0.9375F, 0.9375F, 0.9375F);
 	}
@@ -55,7 +50,6 @@ public class RenderIllusionIllager extends RenderLiving<EntityMob> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(EntityMob entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		if (entity.isInvisible()) {
 			Vec3d[] avec3d = ((EntityIllusionIllager) entity).getRenderLocations(partialTicks);
 			float f = handleRotationFloat(entity, partialTicks);
@@ -69,12 +63,10 @@ public class RenderIllusionIllager extends RenderLiving<EntityMob> {
 	}
 
 	public void renderName(EntityMob entity, double x, double y, double z) {
-
 		super.renderName(entity, x, y, z);
 	}
 
 	protected boolean isVisible(EntityMob p_193115_1_) {
-
 		return true;
 	}
 

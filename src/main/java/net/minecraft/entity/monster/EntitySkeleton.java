@@ -18,38 +18,31 @@ import net.minecraft.world.storage.loot.LootTableList;
 public class EntitySkeleton extends AbstractSkeleton {
 
 	public EntitySkeleton(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public static void registerFixesSkeleton(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntitySkeleton.class);
 	}
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_SKELETON;
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		return SoundEvents.ENTITY_SKELETON_AMBIENT;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_SKELETON_HURT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_SKELETON_DEATH;
 	}
 
 	SoundEvent getStepSound() {
-
 		return SoundEvents.ENTITY_SKELETON_STEP;
 	}
 
@@ -57,7 +50,6 @@ public class EntitySkeleton extends AbstractSkeleton {
 	 * Called when the mob's health reaches 0.
 	 */
 	public void onDeath(DamageSource cause) {
-
 		super.onDeath(cause);
 
 		if (cause.getTrueSource() instanceof EntityCreeper entitycreeper) {
@@ -70,7 +62,6 @@ public class EntitySkeleton extends AbstractSkeleton {
 	}
 
 	protected EntityArrow getArrow(float p_190726_1_) {
-
 		ItemStack itemstack = getItemStackFromSlot(EntityEquipmentSlot.OFFHAND);
 
 		if (itemstack.getItem() == Items.SPECTRAL_ARROW) {

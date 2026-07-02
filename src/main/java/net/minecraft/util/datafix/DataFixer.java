@@ -18,18 +18,15 @@ public class DataFixer implements IDataFixer {
 	private final int version;
 
 	public DataFixer(int versionIn) {
-
 		version = versionIn;
 	}
 
 	public NBTTagCompound process(IFixType type, NBTTagCompound compound) {
-
 		int i = compound.hasKey("DataVersion", 99) ? compound.getInteger("DataVersion") : -1;
 		return i >= 1343 ? compound : process(type, compound, i);
 	}
 
 	public NBTTagCompound process(IFixType type, NBTTagCompound compound, int versionIn) {
-
 		if (versionIn < version) {
 			compound = processFixes(type, compound, versionIn);
 			compound = processWalkers(type, compound, versionIn);
@@ -39,7 +36,6 @@ public class DataFixer implements IDataFixer {
 	}
 
 	private NBTTagCompound processFixes(IFixType type, NBTTagCompound compound, int versionIn) {
-
 		List<IFixableData> list = fixMap.get(type);
 
 		if (list != null) {
@@ -54,7 +50,6 @@ public class DataFixer implements IDataFixer {
 	}
 
 	private NBTTagCompound processWalkers(IFixType type, NBTTagCompound compound, int versionIn) {
-
 		List<IDataWalker> list = walkerMap.get(type);
 
 		if (list != null) {
@@ -67,7 +62,6 @@ public class DataFixer implements IDataFixer {
 	}
 
 	public void registerWalker(FixTypes type, IDataWalker walker) {
-
 		registerVanillaWalker(type, walker);
 	}
 
@@ -75,12 +69,10 @@ public class DataFixer implements IDataFixer {
 	 * Do not invoke this method, use registerWalker instead. It is expected to be removed in future versions.
 	 */
 	public void registerVanillaWalker(IFixType type, IDataWalker walker) {
-
 		getTypeList(walkerMap, type).add(walker);
 	}
 
 	public void registerFix(IFixType type, IFixableData fixable) {
-
 		List<IFixableData> list = getTypeList(fixMap, type);
 		int i = fixable.getFixVersion();
 

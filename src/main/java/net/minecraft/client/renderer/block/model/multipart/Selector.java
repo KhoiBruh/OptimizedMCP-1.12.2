@@ -20,7 +20,6 @@ public class Selector {
 	private final VariantList variantList;
 
 	public Selector(ICondition conditionIn, VariantList variantListIn) {
-
 		if (conditionIn == null) {
 			throw new IllegalArgumentException("Missing condition for selector");
 		} else if (variantListIn == null) {
@@ -32,22 +31,18 @@ public class Selector {
 	}
 
 	public VariantList getVariantList() {
-
 		return variantList;
 	}
 
 	public Predicate<IBlockState> getPredicate(BlockStateContainer state) {
-
 		return condition.getPredicate(state);
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else {
 			if (p_equals_1_ instanceof Selector selector) {
-
 				if (condition.equals(selector.condition)) {
 					return variantList.equals(selector.variantList);
 				}
@@ -58,7 +53,6 @@ public class Selector {
 	}
 
 	public int hashCode() {
-
 		return 31 * condition.hashCode() + variantList.hashCode();
 	}
 
@@ -68,7 +62,6 @@ public class Selector {
 
 		@VisibleForTesting
 		static ICondition getOrAndCondition(JsonObject json) {
-
 			Set<Entry<String, JsonElement>> set = json.entrySet();
 
 			if (set.isEmpty()) {
@@ -88,18 +81,15 @@ public class Selector {
 		private static final Function<JsonElement, ICondition> FUNCTION_OR_AND = element -> element == null ? null : getOrAndCondition(element.getAsJsonObject());
 
 		private static ConditionPropertyValue makePropertyValue(Entry<String, JsonElement> entry) {
-
 			return new ConditionPropertyValue(entry.getKey(), entry.getValue().getAsString());
 		}
 
 		public Selector deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-
 			JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
 			return new Selector(getWhenCondition(jsonobject), p_deserialize_3_.deserialize(jsonobject.get("apply"), VariantList.class));
 		}
 
 		private ICondition getWhenCondition(JsonObject json) {
-
 			return json.has("when") ? getOrAndCondition(JsonUtils.getJsonObject(json, "when")) : ICondition.TRUE;
 		}
 

@@ -16,7 +16,6 @@ public class ItemHangingEntity extends Item {
 	private final Class<? extends EntityHanging> hangingEntityClass;
 
 	public ItemHangingEntity(Class<? extends EntityHanging> entityClass) {
-
 		hangingEntityClass = entityClass;
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
@@ -25,7 +24,6 @@ public class ItemHangingEntity extends Item {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		ItemStack itemstack = player.getHeldItem(hand);
 		BlockPos blockpos = pos.offset(facing);
 
@@ -49,7 +47,6 @@ public class ItemHangingEntity extends Item {
 
 	
 	private EntityHanging createEntity(World worldIn, BlockPos pos, Facing clickedSide) {
-
 		if (hangingEntityClass == EntityPainting.class) {
 			return new EntityPainting(worldIn, pos, clickedSide);
 		} else {

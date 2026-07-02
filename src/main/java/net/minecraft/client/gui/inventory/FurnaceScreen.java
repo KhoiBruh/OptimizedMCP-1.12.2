@@ -18,7 +18,6 @@ public class FurnaceScreen extends ContainerScreen {
 	private final IInventory tileFurnace;
 
 	public FurnaceScreen(InventoryPlayer playerInv, IInventory furnaceInv) {
-
 		super(new ContainerFurnace(playerInv, furnaceInv));
 		playerInventory = playerInv;
 		tileFurnace = furnaceInv;
@@ -28,7 +27,6 @@ public class FurnaceScreen extends ContainerScreen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		super.draw(mouseX, mouseY, partialTicks);
 		renderHoveredToolTip(mouseX, mouseY);
@@ -38,7 +36,6 @@ public class FurnaceScreen extends ContainerScreen {
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-
 		String s = tileFurnace.displayName().getUnformattedText();
 		fontRenderer.drawString(s, xSize / 2 - fontRenderer.getStringWidth(s) / 2, 6, 4210752);
 		fontRenderer.drawString(playerInventory.displayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
@@ -48,7 +45,6 @@ public class FurnaceScreen extends ContainerScreen {
 	 * Draws the background layer of this container (behind the items).
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-
 		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(FURNACE_GUI_TEXTURES);
 		int i = (width - xSize) / 2;
@@ -65,14 +61,12 @@ public class FurnaceScreen extends ContainerScreen {
 	}
 
 	private int getCookProgressScaled(int pixels) {
-
 		int i = tileFurnace.getField(2);
 		int j = tileFurnace.getField(3);
 		return j != 0 && i != 0 ? i * pixels / j : 0;
 	}
 
 	private int getBurnLeftScaled(int pixels) {
-
 		int i = tileFurnace.getField(1);
 
 		if (i == 0) {

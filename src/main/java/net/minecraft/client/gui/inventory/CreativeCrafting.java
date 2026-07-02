@@ -12,7 +12,6 @@ public class CreativeCrafting implements IContainerListener {
 	private final Minecraft mc;
 
 	public CreativeCrafting(Minecraft mc) {
-
 		this.mc = mc;
 	}
 
@@ -20,7 +19,6 @@ public class CreativeCrafting implements IContainerListener {
 	 * update the crafting window inventory with the items in the list
 	 */
 	public void sendAllContents(Container containerToSend, NonNullList<ItemStack> itemsList) {
-
 	}
 
 	/**
@@ -28,7 +26,6 @@ public class CreativeCrafting implements IContainerListener {
 	 * contents of that slot.
 	 */
 	public void sendSlotContents(Container containerToSend, int slotInd, ItemStack stack) {
-
 		mc.playerController.sendSlotPacket(stack, slotInd);
 	}
 
@@ -38,11 +35,9 @@ public class CreativeCrafting implements IContainerListener {
 	 * value. Both are truncated to shorts in non-local SMP.
 	 */
 	public void sendWindowProperty(Container containerIn, int varToUpdate, int newValue) {
-
 	}
 
 	public void sendAllWindowProperties(Container containerIn, IInventory inventory) {
-
 	}
 
 }

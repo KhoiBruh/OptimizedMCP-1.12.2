@@ -25,7 +25,6 @@ public class BlockCactus extends Block {
 	protected static final AxisAlignedBB CACTUS_AABB = new AxisAlignedBB(0.0625D, 0D, 0.0625D, 0.9375D, 1D, 0.9375D);
 
 	protected BlockCactus() {
-
 		super(Material.CACTUS);
 		setDefaultState(blockState.getBaseState().withProperty(AGE, 0));
 		setTickRandomly(true);
@@ -33,7 +32,6 @@ public class BlockCactus extends Block {
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		BlockPos blockpos = pos.up();
 
 		if (worldIn.isAirBlock(blockpos)) {
@@ -58,7 +56,6 @@ public class BlockCactus extends Block {
 	}
 
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-
 		return CACTUS_COLLISION_AABB;
 	}
 
@@ -66,12 +63,10 @@ public class BlockCactus extends Block {
 	 * Return an AABB (in world coords!) that should be highlighted when the player is targeting this Block
 	 */
 	public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos) {
-
 		return CACTUS_AABB.offset(pos);
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -79,7 +74,6 @@ public class BlockCactus extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -87,7 +81,6 @@ public class BlockCactus extends Block {
 	 * Checks if this block can be placed exactly at the given position.
 	 */
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-
 		return super.canPlaceBlockAt(worldIn, pos) && canBlockStay(worldIn, pos);
 	}
 
@@ -97,14 +90,12 @@ public class BlockCactus extends Block {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (!canBlockStay(worldIn, pos)) {
 			worldIn.destroyBlock(pos, true);
 		}
 	}
 
 	public boolean canBlockStay(World worldIn, BlockPos pos) {
-
 		for (Facing enumfacing : Facing.Plane.HORIZONTAL) {
 			Material material = worldIn.getBlockState(pos.offset(enumfacing)).getMaterial();
 
@@ -121,7 +112,6 @@ public class BlockCactus extends Block {
 	 * Called When an Entity Collided with the Block
 	 */
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-
 		entityIn.attackEntityFrom(DamageSource.CACTUS, 1F);
 	}
 
@@ -130,7 +120,6 @@ public class BlockCactus extends Block {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.CUTOUT;
 	}
 
@@ -138,7 +127,6 @@ public class BlockCactus extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(AGE, meta);
 	}
 
@@ -146,12 +134,10 @@ public class BlockCactus extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(AGE);
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, AGE);
 	}
 
@@ -165,7 +151,6 @@ public class BlockCactus extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

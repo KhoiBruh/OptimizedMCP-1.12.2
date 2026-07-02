@@ -5,7 +5,6 @@ import net.minecraft.block.Block;
 public class ItemPiston extends ItemBlock {
 
 	public ItemPiston(Block block) {
-
 		super(block);
 	}
 
@@ -14,7 +13,6 @@ public class ItemPiston extends ItemBlock {
 	 * placed as a Block (mostly used with ItemBlocks).
 	 */
 	public int getMetadata(int damage) {
-
 		return 7;
 	}
 

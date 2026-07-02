@@ -9,11 +9,9 @@ public class SPacketTabComplete implements Packet<INetHandlerPlayClient> {
 	private String[] matches;
 
 	public SPacketTabComplete() {
-
 	}
 
 	public SPacketTabComplete(String[] matchesIn) {
-
 		matches = matchesIn;
 	}
 
@@ -21,7 +19,6 @@ public class SPacketTabComplete implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		matches = new String[buf.readVarInt()];
 
 		for (int i = 0; i < matches.length; ++i) {
@@ -33,7 +30,6 @@ public class SPacketTabComplete implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeVarInt(matches.length);
 
 		for (String s : matches) {
@@ -45,12 +41,10 @@ public class SPacketTabComplete implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleTabComplete(this);
 	}
 
 	public String[] getMatches() {
-
 		return matches;
 	}
 

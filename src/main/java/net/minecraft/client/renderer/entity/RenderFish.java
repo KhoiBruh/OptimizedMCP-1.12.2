@@ -19,7 +19,6 @@ public class RenderFish extends Render<EntityFishHook> {
 	private static final ResourceLocation FISH_PARTICLES = new ResourceLocation("textures/particle/particles.png");
 
 	public RenderFish(RenderManager renderManagerIn) {
-
 		super(renderManagerIn);
 	}
 
@@ -27,7 +26,6 @@ public class RenderFish extends Render<EntityFishHook> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(EntityFishHook entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		EntityPlayer entityplayer = entity.getAngler();
 
 		if (entityplayer != null && !renderOutlines) {
@@ -134,7 +132,6 @@ public class RenderFish extends Render<EntityFishHook> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityFishHook entity) {
-
 		return FISH_PARTICLES;
 	}
 

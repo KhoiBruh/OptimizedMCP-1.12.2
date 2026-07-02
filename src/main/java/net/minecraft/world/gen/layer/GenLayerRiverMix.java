@@ -9,7 +9,6 @@ public class GenLayerRiverMix extends GenLayer {
 	private final GenLayer riverPatternGeneratorChain;
 
 	public GenLayerRiverMix(long p_i2129_1_, GenLayer p_i2129_3_, GenLayer p_i2129_4_) {
-
 		super(p_i2129_1_);
 		biomePatternGeneratorChain = p_i2129_3_;
 		riverPatternGeneratorChain = p_i2129_4_;
@@ -20,7 +19,6 @@ public class GenLayerRiverMix extends GenLayer {
 	 * argument).
 	 */
 	public void initWorldGenSeed(long seed) {
-
 		biomePatternGeneratorChain.initWorldGenSeed(seed);
 		riverPatternGeneratorChain.initWorldGenSeed(seed);
 		super.initWorldGenSeed(seed);
@@ -31,7 +29,6 @@ public class GenLayerRiverMix extends GenLayer {
 	 * amounts, or Biome ID's based on the particular GenLayer subclass.
 	 */
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
-
 		int[] aint = biomePatternGeneratorChain.getInts(areaX, areaY, areaWidth, areaHeight);
 		int[] aint1 = riverPatternGeneratorChain.getInts(areaX, areaY, areaWidth, areaHeight);
 		int[] aint2 = IntCache.getIntCache(areaWidth * areaHeight);

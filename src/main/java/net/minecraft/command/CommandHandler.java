@@ -27,7 +27,6 @@ public abstract class CommandHandler implements ICommandManager {
 	 * creates a new array and sets elements 0..n-2 to be 0..n-1 of the input (n elements)
 	 */
 	private static String[] dropFirstString(String[] input) {
-
 		String[] astring = new String[input.length - 1];
 		System.arraycopy(input, 1, astring, 0, input.length - 1);
 		return astring;
@@ -39,7 +38,6 @@ public abstract class CommandHandler implements ICommandManager {
 	 * be returned if a player selector is used.
 	 */
 	public int executeCommand(ICommandSender sender, String rawCommand) {
-
 		rawCommand = rawCommand.trim();
 
 		if (rawCommand.startsWith("/")) {
@@ -101,7 +99,6 @@ public abstract class CommandHandler implements ICommandManager {
 	}
 
 	protected boolean tryExecute(ICommandSender sender, String[] args, ICommand command, String input) {
-
 		try {
 			command.execute(getServer(), sender, args);
 			return true;
@@ -129,7 +126,6 @@ public abstract class CommandHandler implements ICommandManager {
 	 * adds the command and any aliases it has to the internal map of available commands
 	 */
 	public ICommand registerCommand(ICommand command) {
-
 		commandMap.put(command.getName(), command);
 		commandSet.add(command);
 
@@ -145,7 +141,6 @@ public abstract class CommandHandler implements ICommandManager {
 	}
 
 	public List<String> getTabCompletions(ICommandSender sender, String input, BlockPos pos) {
-
 		String[] astring = input.split(" ", -1);
 		String s = astring[0];
 
@@ -173,7 +168,6 @@ public abstract class CommandHandler implements ICommandManager {
 	}
 
 	public List<ICommand> getPossibleCommands(ICommandSender sender) {
-
 		List<ICommand> list = Lists.newArrayList();
 
 		for (ICommand icommand : commandSet) {
@@ -194,7 +188,6 @@ public abstract class CommandHandler implements ICommandManager {
 	 * Return a command's first parameter index containing a valid username.
 	 */
 	private int getUsernameIndex(ICommand command, String[] args) throws CommandException {
-
 		if (command == null) {
 			return -1;
 		} else {

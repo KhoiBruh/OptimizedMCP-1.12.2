@@ -15,12 +15,10 @@ public class LayerIronGolemFlower implements LayerRenderer<EntityIronGolem> {
 	private final RenderIronGolem ironGolemRenderer;
 
 	public LayerIronGolemFlower(RenderIronGolem ironGolemRendererIn) {
-
 		ironGolemRenderer = ironGolemRendererIn;
 	}
 
 	public void doRenderLayer(EntityIronGolem entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		if (entitylivingbaseIn.getHoldRoseTick() != 0) {
 			BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
 			GLS.enableRescaleNormal();
@@ -43,7 +41,6 @@ public class LayerIronGolemFlower implements LayerRenderer<EntityIronGolem> {
 	}
 
 	public boolean shouldCombineTextures() {
-
 		return false;
 	}
 

@@ -36,18 +36,15 @@ public class EntityOcelot extends EntityTameable {
 	private EntityAITempt aiTempt;
 
 	public EntityOcelot(World worldIn) {
-
 		super(worldIn);
 		setSize(0.6F, 0.7F);
 	}
 
 	public static void registerFixesOcelot(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntityOcelot.class);
 	}
 
 	protected void initEntityAI() {
-
 		aiSit = new EntityAISit(this);
 		aiTempt = new EntityAITempt(this, 0.6D, Items.FISH, true);
 		tasks.addTask(1, new EntityAISwimming(this));
@@ -64,13 +61,11 @@ public class EntityOcelot extends EntityTameable {
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(OCELOT_VARIANT, 0);
 	}
 
 	public void updateAITasks() {
-
 		if (getMoveHelper().isUpdating()) {
 			double d0 = getMoveHelper().getSpeed();
 
@@ -94,26 +89,22 @@ public class EntityOcelot extends EntityTameable {
 	 * Determines if an entity can be despawned, used on idle far away entities
 	 */
 	protected boolean canDespawn() {
-
 		return !isTamed() && ticksExisted > 2400;
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
 	}
 
 	public void fall(float distance, float damageMultiplier) {
-
 	}
 
 	/**
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setInteger("CatType", getTameSkin());
 	}
@@ -122,14 +113,12 @@ public class EntityOcelot extends EntityTameable {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		setTameSkin(compound.getInteger("CatType"));
 	}
 
 	
 	protected SoundEvent getAmbientSound() {
-
 		if (isTamed()) {
 			if (isInLove()) {
 				return SoundEvents.ENTITY_CAT_PURR;
@@ -142,12 +131,10 @@ public class EntityOcelot extends EntityTameable {
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_CAT_HURT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_CAT_DEATH;
 	}
 
@@ -155,12 +142,10 @@ public class EntityOcelot extends EntityTameable {
 	 * Returns the volume for the sounds this mob makes.
 	 */
 	protected float getSoundVolume() {
-
 		return 0.4F;
 	}
 
 	public boolean attackEntityAsMob(Entity entityIn) {
-
 		return entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 3F);
 	}
 
@@ -168,7 +153,6 @@ public class EntityOcelot extends EntityTameable {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		if (isEntityInvulnerable(source)) {
 			return false;
 		} else {
@@ -182,12 +166,10 @@ public class EntityOcelot extends EntityTameable {
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_OCELOT;
 	}
 
 	public boolean processInteract(EntityPlayer player, Hand hand) {
-
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (isTamed()) {
@@ -219,7 +201,6 @@ public class EntityOcelot extends EntityTameable {
 	}
 
 	public EntityOcelot createChild(EntityAgeable ageable) {
-
 		EntityOcelot entityocelot = new EntityOcelot(world);
 
 		if (isTamed()) {
@@ -236,7 +217,6 @@ public class EntityOcelot extends EntityTameable {
 	 * the animal type)
 	 */
 	public boolean isBreedingItem(ItemStack stack) {
-
 		return stack.getItem() == Items.FISH;
 	}
 
@@ -244,7 +224,6 @@ public class EntityOcelot extends EntityTameable {
 	 * Returns true if the mob is currently able to mate with the specified mob.
 	 */
 	public boolean canMateWith(EntityAnimal otherAnimal) {
-
 		if (otherAnimal == this) {
 			return false;
 		} else if (!isTamed()) {
@@ -262,12 +241,10 @@ public class EntityOcelot extends EntityTameable {
 	}
 
 	public int getTameSkin() {
-
 		return dataManager.get(OCELOT_VARIANT);
 	}
 
 	public void setTameSkin(int skinId) {
-
 		dataManager.set(OCELOT_VARIANT, skinId);
 	}
 
@@ -275,7 +252,6 @@ public class EntityOcelot extends EntityTameable {
 	 * Checks if the entity's current position is a valid location to spawn this entity.
 	 */
 	public boolean getCanSpawnHere() {
-
 		return world.rand.nextInt(3) != 0;
 	}
 
@@ -283,7 +259,6 @@ public class EntityOcelot extends EntityTameable {
 	 * Checks that the entity is not colliding with any blocks / liquids
 	 */
 	public boolean isNotColliding() {
-
 		if (world.checkNoEntityCollision(getEntityBoundingBox(), this) && world.getCollisionBoxes(this, getEntityBoundingBox()).isEmpty() && !world.containsAnyLiquid(getEntityBoundingBox())) {
 			BlockPos blockpos = new BlockPos(posX, getEntityBoundingBox().minY, posZ);
 
@@ -304,7 +279,6 @@ public class EntityOcelot extends EntityTameable {
 	 * Get the name of this object. For players this returns their username
 	 */
 	public String getName() {
-
 		if (hasCustomName()) {
 			return getCustomNameTag();
 		} else {
@@ -313,7 +287,6 @@ public class EntityOcelot extends EntityTameable {
 	}
 
 	protected void setupTamedAI() {
-
 		if (avoidEntity == null) {
 			avoidEntity = new EntityAIAvoidEntity<>(this, EntityPlayer.class, 16F, 0.8D, 1.33D);
 		}
@@ -342,7 +315,6 @@ public class EntityOcelot extends EntityTameable {
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 
 		if (getTameSkin() == 0 && world.rand.nextInt(7) == 0) {

@@ -27,7 +27,6 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock {
 	private int currentTask;
 
 	public EntityAIHarvestFarmland(EntityVillager villagerIn, double speedIn) {
-
 		super(villagerIn, speedIn, 16);
 		villager = villagerIn;
 	}
@@ -36,7 +35,6 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		if (runDelay <= 0) {
 			if (!villager.world.getGameRules().getBoolean("mobGriefing")) {
 				return false;
@@ -54,7 +52,6 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		return currentTask >= 0 && super.shouldContinueExecuting();
 	}
 
@@ -62,7 +59,6 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		super.updateTask();
 		villager.getLookHelper().setLookPosition((double) destinationBlock.getX() + 0.5D, destinationBlock.getY() + 1, (double) destinationBlock.getZ() + 0.5D, 10F, (float) villager.getVerticalFaceSpeed());
 
@@ -118,7 +114,6 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock {
 	 * Return true to set given position as destination
 	 */
 	protected boolean shouldMoveTo(World worldIn, BlockPos pos) {
-
 		Block block = worldIn.getBlockState(pos).getBlock();
 
 		if (block == Blocks.FARMLAND) {

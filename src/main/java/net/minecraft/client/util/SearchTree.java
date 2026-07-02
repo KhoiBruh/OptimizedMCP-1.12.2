@@ -21,7 +21,6 @@ public class SearchTree<T> implements ISearchTree<T> {
 	protected SuffixArray<T> byName = new SuffixArray<>();
 
 	public SearchTree(Function<T, Iterable<String>> nameFuncIn, Function<T, Iterable<ResourceLocation>> idFuncIn) {
-
 		nameFunc = nameFuncIn;
 		idFunc = idFuncIn;
 	}
@@ -31,7 +30,6 @@ public class SearchTree<T> implements ISearchTree<T> {
 	 * whenever resources are reloaded (e.g. language changes).
 	 */
 	public void recalculate() {
-
 		byId = new SuffixArray<>();
 		byName = new SuffixArray<>();
 
@@ -49,7 +47,6 @@ public class SearchTree<T> implements ISearchTree<T> {
 	 * @param element The element to add
 	 */
 	public void add(T element) {
-
 		numericContents.put(element, contents.size());
 		contents.add(element);
 		index(element);
@@ -62,7 +59,6 @@ public class SearchTree<T> implements ISearchTree<T> {
 	 * @param element The element to add
 	 */
 	private void index(T element) {
-
 		(idFunc.apply(element)).forEach((p_194039_2_) ->
 				byName.add(element, p_194039_2_.toString().toLowerCase(Locale.ROOT)));
 		(nameFunc.apply(element)).forEach((p_194041_2_) ->
@@ -70,7 +66,6 @@ public class SearchTree<T> implements ISearchTree<T> {
 	}
 
 	public List<T> search(String searchText) {
-
 		List<T> list = byId.search(searchText);
 
 		if (searchText.indexOf(58) < 0) {
@@ -90,7 +85,6 @@ public class SearchTree<T> implements ISearchTree<T> {
 		private T right;
 
 		public MergingIterator(Iterator<T> leftIn, Iterator<T> rightIn, Object2IntMap<T> numbersIn) {
-
 			leftItr = leftIn;
 			rightItr = rightIn;
 			numbers = numbersIn;
@@ -99,7 +93,6 @@ public class SearchTree<T> implements ISearchTree<T> {
 		}
 
 		protected T computeNext() {
-
 			if (left == null && right == null) {
 				return endOfData();
 			} else {

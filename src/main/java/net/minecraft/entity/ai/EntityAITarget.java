@@ -40,12 +40,10 @@ public abstract class EntityAITarget extends EntityAIBase {
 	private int targetUnseenTicks;
 
 	public EntityAITarget(EntityCreature creature, boolean checkSight) {
-
 		this(creature, checkSight, false);
 	}
 
 	public EntityAITarget(EntityCreature creature, boolean checkSight, boolean onlyNearby) {
-
 		unseenMemoryTicks = 60;
 		taskOwner = creature;
 		shouldCheckSight = checkSight;
@@ -56,7 +54,6 @@ public abstract class EntityAITarget extends EntityAIBase {
 	 * A static method used to see if an entity is a suitable target through a number of checks.
 	 */
 	public static boolean isSuitableTarget(EntityLiving attacker, EntityLivingBase target, boolean includeInvincibles, boolean checkSight) {
-
 		if (target == null) {
 			return false;
 		} else if (target == attacker) {
@@ -88,7 +85,6 @@ public abstract class EntityAITarget extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		EntityLivingBase entitylivingbase = taskOwner.getAttackTarget();
 
 		if (entitylivingbase == null) {
@@ -131,7 +127,6 @@ public abstract class EntityAITarget extends EntityAIBase {
 	}
 
 	protected double getTargetDistance() {
-
 		IAttributeInstance iattributeinstance = taskOwner.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
 		return iattributeinstance == null ? 16D : iattributeinstance.getAttributeValue();
 	}
@@ -140,7 +135,6 @@ public abstract class EntityAITarget extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		targetSearchStatus = 0;
 		targetSearchDelay = 0;
 		targetUnseenTicks = 0;
@@ -150,7 +144,6 @@ public abstract class EntityAITarget extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		taskOwner.setAttackTarget(null);
 		target = null;
 	}
@@ -160,7 +153,6 @@ public abstract class EntityAITarget extends EntityAIBase {
 	 * canTargetInvinciblePlayer
 	 */
 	protected boolean isSuitableTarget(EntityLivingBase target, boolean includeInvincibles) {
-
 		if (!isSuitableTarget(taskOwner, target, includeInvincibles, shouldCheckSight)) {
 			return false;
 		} else if (!taskOwner.isWithinHomeDistanceFromPosition(new BlockPos(target))) {
@@ -186,7 +178,6 @@ public abstract class EntityAITarget extends EntityAIBase {
 	 * Checks to see if this entity can find a short path to the given target.
 	 */
 	private boolean canEasilyReach(EntityLivingBase target) {
-
 		targetSearchDelay = 10 + taskOwner.getRNG().nextInt(5);
 		Path path = taskOwner.getNavigator().getPathToEntityLiving(target);
 
@@ -206,7 +197,6 @@ public abstract class EntityAITarget extends EntityAIBase {
 	}
 
 	public EntityAITarget setUnseenMemoryTicks(int p_190882_1_) {
-
 		unseenMemoryTicks = p_190882_1_;
 		return this;
 	}

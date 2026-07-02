@@ -40,7 +40,6 @@ public class AddServerScreen extends Screen {
 	private Button serverResourcePacks;
 
 	public AddServerScreen(Screen parentScreenIn, ServerData serverDataIn) {
-
 		parentScreen = parentScreenIn;
 		serverData = serverDataIn;
 	}
@@ -49,7 +48,6 @@ public class AddServerScreen extends Screen {
 	 * Called from the main game loop to update the screen.
 	 */
 	public void update() {
-
 		serverNameField.updateCursorCounter();
 		serverIPField.updateCursorCounter();
 	}
@@ -59,7 +57,6 @@ public class AddServerScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		Keyboard.setRepeat(true);
 		buttons.clear();
 		buttons.add(new Button(0, width / 2 - 100, height / 4 + 96 + 18, I18n.format("addServer.add")));
@@ -79,7 +76,6 @@ public class AddServerScreen extends Screen {
 	 * Called when the screen is unloaded. Used to disable keyboard repeat events
 	 */
 	public void close() {
-
 		Keyboard.setRepeat(false);
 	}
 
@@ -87,7 +83,6 @@ public class AddServerScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.enabled) {
 			if (button.id == 2) {
 				serverData.setResourceMode(ServerData.ServerResourceMode.values()[(serverData.getResourceMode().ordinal() + 1) % ServerData.ServerResourceMode.values().length]);
@@ -107,7 +102,6 @@ public class AddServerScreen extends Screen {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) {
-
 		serverNameField.textboxKeyTyped(typedChar, keyCode);
 		serverIPField.textboxKeyTyped(typedChar, keyCode);
 
@@ -127,7 +121,6 @@ public class AddServerScreen extends Screen {
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
-
 		super.mouseClicked(mouseX, mouseY, mouse);
 		serverIPField.mouseClicked(mouseX, mouseY, mouse);
 		serverNameField.mouseClicked(mouseX, mouseY, mouse);
@@ -137,7 +130,6 @@ public class AddServerScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, I18n.format("addServer.title"), width / 2, 17, 16777215);
 		drawString(fontRenderer, I18n.format("addServer.enterName"), width / 2 - 100, 53, 10526880);

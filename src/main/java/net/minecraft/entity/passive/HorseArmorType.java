@@ -15,31 +15,26 @@ public enum HorseArmorType {
 	private final int protection;
 
 	HorseArmorType(int armorStrengthIn) {
-
 		protection = armorStrengthIn;
 		textureName = null;
 		hash = "";
 	}
 
 	HorseArmorType(int armorStrengthIn, String p_i46800_4_, String p_i46800_5_) {
-
 		protection = armorStrengthIn;
 		textureName = "textures/entity/horse/armor/horse_armor_" + p_i46800_4_ + ".png";
 		hash = p_i46800_5_;
 	}
 
 	public static HorseArmorType getByOrdinal(int ordinal) {
-
 		return values()[ordinal];
 	}
 
 	public static HorseArmorType getByItemStack(ItemStack stack) {
-
 		return stack.isEmpty() ? NONE : getByItem(stack.getItem());
 	}
 
 	public static HorseArmorType getByItem(Item itemIn) {
-
 		if (itemIn == Items.IRON_HORSE_ARMOR) {
 			return IRON;
 		} else if (itemIn == Items.GOLDEN_HORSE_ARMOR) {
@@ -50,28 +45,23 @@ public enum HorseArmorType {
 	}
 
 	public static boolean isHorseArmor(Item itemIn) {
-
 		return getByItem(itemIn) != NONE;
 	}
 
 	public int getOrdinal() {
-
 		return ordinal();
 	}
 
 	public String getHash() {
-
 		return hash;
 	}
 
 	public int getProtection() {
-
 		return protection;
 	}
 
 	
 	public String getTextureName() {
-
 		return textureName;
 	}
 }

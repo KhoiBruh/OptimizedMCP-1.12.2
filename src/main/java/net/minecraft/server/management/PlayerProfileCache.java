@@ -28,17 +28,14 @@ public class PlayerProfileCache {
 	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
 	private static final ParameterizedType TYPE = new ParameterizedType() {
 		public Type[] getActualTypeArguments() {
-
 			return new Type[]{PlayerProfileCache.ProfileEntry.class};
 		}
 
 		public Type getRawType() {
-
 			return List.class;
 		}
 
 		public Type getOwnerType() {
-
 			return null;
 		}
 	};
@@ -51,7 +48,6 @@ public class PlayerProfileCache {
 	private final File usercacheFile;
 
 	public PlayerProfileCache(GameProfileRepository profileRepoIn, File usercacheFileIn) {
-
 		profileRepo = profileRepoIn;
 		usercacheFile = usercacheFileIn;
 		GsonBuilder gsonbuilder = new GsonBuilder();
@@ -61,16 +57,13 @@ public class PlayerProfileCache {
 	}
 
 	private static GameProfile lookupProfile(GameProfileRepository profileRepoIn, String name) {
-
 		final GameProfile[] agameprofile = new GameProfile[1];
 		ProfileLookupCallback profilelookupcallback = new ProfileLookupCallback() {
 			public void onProfileLookupSucceeded(GameProfile p_onProfileLookupSucceeded_1_) {
-
 				agameprofile[0] = p_onProfileLookupSucceeded_1_;
 			}
 
 			public void onProfileLookupFailed(GameProfile p_onProfileLookupFailed_1_, Exception p_onProfileLookupFailed_2_) {
-
 				agameprofile[0] = null;
 			}
 		};
@@ -86,12 +79,10 @@ public class PlayerProfileCache {
 	}
 
 	private static boolean isOnlineMode() {
-
 		return onlineMode;
 	}
 
 	public static void setOnlineMode(boolean onlineModeIn) {
-
 		onlineMode = onlineModeIn;
 	}
 
@@ -99,7 +90,6 @@ public class PlayerProfileCache {
 	 * Add an entry to this cache
 	 */
 	public void addEntry(GameProfile gameProfile) {
-
 		addEntry(gameProfile, null);
 	}
 
@@ -107,7 +97,6 @@ public class PlayerProfileCache {
 	 * Add an entry to this cache
 	 */
 	private void addEntry(GameProfile gameProfile, Date expirationDate) {
-
 		UUID uuid = gameProfile.getId();
 
 		if (expirationDate == null) {
@@ -139,7 +128,6 @@ public class PlayerProfileCache {
 	 * locally.
 	 */
 	public GameProfile getGameProfileForUsername(String username) {
-
 		String s = username.toLowerCase(Locale.ROOT);
 		PlayerProfileCache.ProfileEntry playerprofilecache$profileentry = usernameToProfileEntryMap.get(s);
 
@@ -171,7 +159,6 @@ public class PlayerProfileCache {
 	 * Get an array of the usernames that are cached in this cache
 	 */
 	public String[] getUsernames() {
-
 		List<String> list = Lists.newArrayList(usernameToProfileEntryMap.keySet());
 		return list.toArray(new String[0]);
 	}
@@ -182,7 +169,6 @@ public class PlayerProfileCache {
 	 * Get a player's {@link GameProfile} given their UUID
 	 */
 	public GameProfile getProfileByUUID(UUID uuid) {
-
 		PlayerProfileCache.ProfileEntry playerprofilecache$profileentry = uuidToProfileEntryMap.get(uuid);
 		return playerprofilecache$profileentry == null ? null : playerprofilecache$profileentry.getGameProfile();
 	}
@@ -207,7 +193,6 @@ public class PlayerProfileCache {
 	 * Load the cached profiles from disk
 	 */
 	public void load() {
-
 		try (BufferedReader bufferedreader = Files.newReader(usercacheFile, StandardCharsets.UTF_8)) {
 			List<PlayerProfileCache.ProfileEntry> list = JsonUtils.fromJson(gson, bufferedreader, TYPE);
 			usernameToProfileEntryMap.clear();
@@ -229,7 +214,6 @@ public class PlayerProfileCache {
 	 * Save the cached profiles to disk
 	 */
 	public void save() {
-
 		String s = gson.toJson(getEntriesWithLimit(1000));
 		try (BufferedWriter bufferedwriter = Files.newWriter(usercacheFile, StandardCharsets.UTF_8)) {
 			bufferedwriter.write(s);
@@ -258,18 +242,15 @@ public class PlayerProfileCache {
 		private final Date expirationDate;
 
 		private ProfileEntry(GameProfile gameProfileIn, Date expirationDateIn) {
-
 			gameProfile = gameProfileIn;
 			expirationDate = expirationDateIn;
 		}
 
 		public GameProfile getGameProfile() {
-
 			return gameProfile;
 		}
 
 		public Date getExpirationDate() {
-
 			return expirationDate;
 		}
 
@@ -278,11 +259,9 @@ public class PlayerProfileCache {
 	class Serializer implements JsonDeserializer<PlayerProfileCache.ProfileEntry>, JsonSerializer<PlayerProfileCache.ProfileEntry> {
 
 		private Serializer() {
-
 		}
 
 		public JsonElement serialize(PlayerProfileCache.ProfileEntry p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
-
 			JsonObject jsonobject = new JsonObject();
 			jsonobject.addProperty("name", p_serialize_1_.getGameProfile().getName());
 			UUID uuid = p_serialize_1_.getGameProfile().getId();

@@ -8,23 +8,19 @@ public class DifficultyInstance {
 	private final float additionalDifficulty;
 
 	public DifficultyInstance(Difficulty worldDifficulty, long worldTime, long chunkInhabitedTime, float moonPhaseFactor) {
-
 		this.worldDifficulty = worldDifficulty;
 		additionalDifficulty = calculateAdditionalDifficulty(worldDifficulty, worldTime, chunkInhabitedTime, moonPhaseFactor);
 	}
 
 	public float getAdditionalDifficulty() {
-
 		return additionalDifficulty;
 	}
 
 	public boolean isHarderThan(float p_193845_1_) {
-
 		return additionalDifficulty > p_193845_1_;
 	}
 
 	public float getClampedAdditionalDifficulty() {
-
 		if (additionalDifficulty < 2F) {
 			return 0F;
 		} else {
@@ -33,7 +29,6 @@ public class DifficultyInstance {
 	}
 
 	private float calculateAdditionalDifficulty(Difficulty difficulty, long worldTime, long chunkInhabitedTime, float moonPhaseFactor) {
-
 		if (difficulty == Difficulty.PEACEFUL) {
 			return 0F;
 		} else {

@@ -15,7 +15,6 @@ public class EntityAIHurtByTarget extends EntityAITarget {
 	private int revengeTimerOld;
 
 	public EntityAIHurtByTarget(EntityCreature creatureIn, boolean entityCallsForHelpIn, Class<?>... excludedReinforcementTypes) {
-
 		super(creatureIn, true);
 		entityCallsForHelp = entityCallsForHelpIn;
 		this.excludedReinforcementTypes = excludedReinforcementTypes;
@@ -26,7 +25,6 @@ public class EntityAIHurtByTarget extends EntityAITarget {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		int i = taskOwner.getRevengeTimer();
 		EntityLivingBase entitylivingbase = taskOwner.getRevengeTarget();
 		return i != revengeTimerOld && entitylivingbase != null && isSuitableTarget(entitylivingbase, false);
@@ -36,7 +34,6 @@ public class EntityAIHurtByTarget extends EntityAITarget {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		taskOwner.setAttackTarget(taskOwner.getRevengeTarget());
 		target = taskOwner.getAttackTarget();
 		revengeTimerOld = taskOwner.getRevengeTimer();
@@ -50,7 +47,6 @@ public class EntityAIHurtByTarget extends EntityAITarget {
 	}
 
 	protected void alertOthers() {
-
 		double d0 = getTargetDistance();
 
 		for (EntityCreature entitycreature : taskOwner.world.getEntitiesWithinAABB(taskOwner.getClass(), (new AxisAlignedBB(taskOwner.posX, taskOwner.posY, taskOwner.posZ, taskOwner.posX + 1D, taskOwner.posY + 1D, taskOwner.posZ + 1D)).grow(d0, 10D, d0))) {
@@ -72,7 +68,6 @@ public class EntityAIHurtByTarget extends EntityAITarget {
 	}
 
 	protected void setEntityAttackTarget(EntityCreature creatureIn, EntityLivingBase entityLivingBaseIn) {
-
 		creatureIn.setAttackTarget(entityLivingBaseIn);
 	}
 

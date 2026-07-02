@@ -12,11 +12,9 @@ public class NBTTagByte extends NBTPrimitive {
 	private byte data;
 	
 	NBTTagByte() {
-	
 	}
 	
 	public NBTTagByte(byte data) {
-		
 		this.data = data;
 	}
 	
@@ -24,12 +22,10 @@ public class NBTTagByte extends NBTPrimitive {
 	 * Write the actual data contents of the tag, implemented in NBT extension classes
 	 */
 	void write(DataOutput output) throws IOException {
-		
 		output.writeByte(data);
 	}
 	
 	void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException {
-		
 		sizeTracker.read(72L);
 		data = input.readByte();
 	}
@@ -38,12 +34,10 @@ public class NBTTagByte extends NBTPrimitive {
 	 * Gets the type byte for the tag.
 	 */
 	public byte getId() {
-		
 		return 1;
 	}
 	
 	public String toString() {
-		
 		return data + "b";
 	}
 	
@@ -51,47 +45,38 @@ public class NBTTagByte extends NBTPrimitive {
 	 * Creates a clone of the tag.
 	 */
 	public NBTTagByte copy() {
-		
 		return new NBTTagByte(data);
 	}
 	
 	public boolean equals(Object p_equals_1_) {
-		
 		return super.equals(p_equals_1_) && data == ((NBTTagByte) p_equals_1_).data;
 	}
 	
 	public int hashCode() {
-		
 		return super.hashCode() ^ data;
 	}
 	
 	public long getLong() {
-		
 		return data;
 	}
 	
 	public int getInt() {
-		
 		return data;
 	}
 	
 	public short getShort() {
-		
 		return data;
 	}
 	
 	public byte getByte() {
-		
 		return data;
 	}
 	
 	public double getDouble() {
-		
 		return data;
 	}
 	
 	public float getFloat() {
-		
 		return data;
 	}
 	

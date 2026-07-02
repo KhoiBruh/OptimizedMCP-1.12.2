@@ -8,29 +8,24 @@ import java.net.SocketAddress;
 public class UserListIPBans extends UserList<String, UserListIPBansEntry> {
 
 	public UserListIPBans(File bansFile) {
-
 		super(bansFile);
 	}
 
 	protected UserListEntry<String> createEntry(JsonObject entryData) {
-
 		return new UserListIPBansEntry(entryData);
 	}
 
 	public boolean isBanned(SocketAddress address) {
-
 		String s = addressToString(address);
 		return hasEntry(s);
 	}
 
 	public UserListIPBansEntry getBanEntry(SocketAddress address) {
-
 		String s = addressToString(address);
 		return getEntry(s);
 	}
 
 	private String addressToString(SocketAddress address) {
-
 		String s = address.toString();
 
 		if (s.contains("/")) {

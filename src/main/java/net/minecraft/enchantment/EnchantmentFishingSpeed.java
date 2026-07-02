@@ -5,7 +5,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 public class EnchantmentFishingSpeed extends Enchantment {
 
 	protected EnchantmentFishingSpeed(Enchantment.Rarity rarityIn, EnchantmentType typeIn, EntityEquipmentSlot... slots) {
-
 		super(rarityIn, typeIn, slots);
 		setName("fishingSpeed");
 	}
@@ -14,7 +13,6 @@ public class EnchantmentFishingSpeed extends Enchantment {
 	 * Returns the minimal value of enchantability needed on the enchantment level passed.
 	 */
 	public int getMinEnchantability(int enchantmentLevel) {
-
 		return 15 + (enchantmentLevel - 1) * 9;
 	}
 
@@ -22,7 +20,6 @@ public class EnchantmentFishingSpeed extends Enchantment {
 	 * Returns the maximum value of enchantability nedded on the enchantment level passed.
 	 */
 	public int getMaxEnchantability(int enchantmentLevel) {
-
 		return super.getMinEnchantability(enchantmentLevel) + 50;
 	}
 
@@ -30,7 +27,6 @@ public class EnchantmentFishingSpeed extends Enchantment {
 	 * Returns the maximum level that the enchantment can have.
 	 */
 	public int getMaxLevel() {
-
 		return 3;
 	}
 

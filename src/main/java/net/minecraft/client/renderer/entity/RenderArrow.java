@@ -10,7 +10,6 @@ import net.minecraft.util.math.MathHelper;
 public abstract class RenderArrow<T extends EntityArrow> extends Render<T> {
 
 	public RenderArrow(RenderManager renderManagerIn) {
-
 		super(renderManagerIn);
 	}
 
@@ -18,7 +17,6 @@ public abstract class RenderArrow<T extends EntityArrow> extends Render<T> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		bindEntityTexture(entity);
 		GLS.color(1F, 1F, 1F, 1F);
 		GLS.pushMatrix();

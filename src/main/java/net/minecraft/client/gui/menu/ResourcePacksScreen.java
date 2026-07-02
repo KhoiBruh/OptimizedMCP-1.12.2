@@ -32,7 +32,6 @@ public class ResourcePacksScreen extends Screen {
 	private boolean changed;
 
 	public ResourcePacksScreen(Screen parentScreenIn) {
-
 		parentScreen = parentScreenIn;
 	}
 
@@ -41,7 +40,6 @@ public class ResourcePacksScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		buttons.add(new OptionButton(2, width / 2 - 154, height - 48, I18n.format("resourcePack.openFolder")));
 		buttons.add(new OptionButton(1, width / 2 + 4, height - 48, I18n.format("gui.done")));
 
@@ -82,29 +80,24 @@ public class ResourcePacksScreen extends Screen {
 	 * Handles mouse input.
 	 */
 	public void handleMouse() throws IOException {
-
 		super.handleMouse();
 		selectedResourcePacksList.handleMouseInput();
 		availableResourcePacksList.handleMouseInput();
 	}
 
 	public boolean hasResourcePackEntry(ResourcePackListEntry resourcePackEntry) {
-
 		return selectedResourcePacks.contains(resourcePackEntry);
 	}
 
 	public List<ResourcePackListEntry> getListContaining(ResourcePackListEntry resourcePackEntry) {
-
 		return hasResourcePackEntry(resourcePackEntry) ? selectedResourcePacks : availableResourcePacks;
 	}
 
 	public List<ResourcePackListEntry> getAvailableResourcePacks() {
-
 		return availableResourcePacks;
 	}
 
 	public List<ResourcePackListEntry> getSelectedResourcePacks() {
-
 		return selectedResourcePacks;
 	}
 
@@ -112,7 +105,6 @@ public class ResourcePacksScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.enabled) {
 			if (button.id == 2) {
 				File file1 = mc.getResourcePackRepository().getDirResourcepacks();
@@ -153,7 +145,6 @@ public class ResourcePacksScreen extends Screen {
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
-
 		super.mouseClicked(mouseX, mouseY, mouse);
 		availableResourcePacksList.mouseClicked(mouseX, mouseY, mouse);
 		selectedResourcePacksList.mouseClicked(mouseX, mouseY, mouse);
@@ -163,7 +154,6 @@ public class ResourcePacksScreen extends Screen {
 	 * Called when a mouse button is released.
 	 */
 	protected void mouseReleased(int mouseX, int mouseY, int state) {
-
 		super.mouseReleased(mouseX, mouseY, state);
 	}
 
@@ -171,7 +161,6 @@ public class ResourcePacksScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		availableResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
 		selectedResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
@@ -184,7 +173,6 @@ public class ResourcePacksScreen extends Screen {
 	 * Marks the selected resource packs list as changed to trigger a resource reload when the screen is closed
 	 */
 	public void markChanged() {
-
 		changed = true;
 	}
 

@@ -62,13 +62,11 @@ public class EditStructureScreen extends Screen {
 	private Button showBoundingBoxButton;
 
 	public EditStructureScreen(TileEntityStructure p_i47142_1_) {
-
 		tileStructure = p_i47142_1_;
 		decimalFormat.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.US));
 	}
 
 	private static boolean isValidCharacterForName(char p_190301_0_, int p_190301_1_) {
-
 		boolean flag = true;
 
 		for (int i : LEGAL_KEY_CODES) {
@@ -91,7 +89,6 @@ public class EditStructureScreen extends Screen {
 	 * Called from the main game loop to update the screen.
 	 */
 	public void update() {
-
 		nameEdit.updateCursorCounter();
 		posXEdit.updateCursorCounter();
 		posYEdit.updateCursorCounter();
@@ -109,7 +106,6 @@ public class EditStructureScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		Keyboard.setRepeat(true);
 		buttons.clear();
 		doneButton = addButton(new Button(0, width / 2 - 4 - 150, 210, 150, 20, I18n.format("gui.done")));
@@ -186,7 +182,6 @@ public class EditStructureScreen extends Screen {
 	 * Called when the screen is unloaded. Used to disable keyboard repeat events
 	 */
 	public void close() {
-
 		Keyboard.setRepeat(false);
 	}
 
@@ -194,7 +189,6 @@ public class EditStructureScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.enabled) {
 			if (button.id == 1) {
 				tileStructure.setMirror(mirror);
@@ -267,7 +261,6 @@ public class EditStructureScreen extends Screen {
 	}
 
 	private void updateEntitiesButton() {
-
 		boolean flag = !tileStructure.ignoresEntities();
 
 		if (flag) {
@@ -278,7 +271,6 @@ public class EditStructureScreen extends Screen {
 	}
 
 	private void updateToggleAirButton() {
-
 		boolean flag = tileStructure.showsAir();
 
 		if (flag) {
@@ -289,7 +281,6 @@ public class EditStructureScreen extends Screen {
 	}
 
 	private void updateToggleBoundingBox() {
-
 		boolean flag = tileStructure.showsBoundingBox();
 
 		if (flag) {
@@ -300,7 +291,6 @@ public class EditStructureScreen extends Screen {
 	}
 
 	private void updateMirrorButton() {
-
 		Mirror mirror = tileStructure.getMirror();
 
 		switch (mirror) {
@@ -318,7 +308,6 @@ public class EditStructureScreen extends Screen {
 	}
 
 	private void updateDirectionButtons() {
-
 		rotateZeroDegreesButton.enabled = true;
 		rotateNinetyDegreesButton.enabled = true;
 		rotate180DegreesButton.enabled = true;
@@ -343,7 +332,6 @@ public class EditStructureScreen extends Screen {
 	}
 
 	private void updateMode() {
-
 		nameEdit.setFocused(false);
 		posXEdit.setFocused(false);
 		posYEdit.setFocused(false);
@@ -426,7 +414,6 @@ public class EditStructureScreen extends Screen {
 	}
 
 	private boolean sendToServer(int p_189820_1_) {
-
 		try {
 			PacketBuffer packetbuffer = new PacketBuffer(Unpooled.buffer());
 			tileStructure.writeCoordinates(packetbuffer);
@@ -456,7 +443,6 @@ public class EditStructureScreen extends Screen {
 	}
 
 	private long parseSeed(String p_189821_1_) {
-
 		try {
 			return Long.parseLong(p_189821_1_);
 		} catch (NumberFormatException var3) {
@@ -465,7 +451,6 @@ public class EditStructureScreen extends Screen {
 	}
 
 	private float parseIntegrity(String p_189819_1_) {
-
 		try {
 			return Float.parseFloat(p_189819_1_);
 		} catch (NumberFormatException var3) {
@@ -474,7 +459,6 @@ public class EditStructureScreen extends Screen {
 	}
 
 	private int parseCoordinate(String p_189817_1_) {
-
 		try {
 			return Integer.parseInt(p_189817_1_);
 		} catch (NumberFormatException var3) {
@@ -487,7 +471,6 @@ public class EditStructureScreen extends Screen {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) {
-
 		if (nameEdit.getVisible() && isValidCharacterForName(typedChar, keyCode)) {
 			nameEdit.textboxKeyTyped(typedChar, keyCode);
 		}
@@ -571,7 +554,6 @@ public class EditStructureScreen extends Screen {
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
-
 		super.mouseClicked(mouseX, mouseY, mouse);
 
 		if (nameEdit.getVisible()) {
@@ -619,7 +601,6 @@ public class EditStructureScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		TileEntityStructure.Mode tileentitystructure$mode = tileStructure.getMode();
 		drawCenteredString(fontRenderer, I18n.format("tile.structureBlock.name"), width / 2, 10, 16777215);
@@ -675,7 +656,6 @@ public class EditStructureScreen extends Screen {
 	 * Returns true if this GUI should pause the game when it is displayed in single-player
 	 */
 	public boolean pauseGame() {
-
 		return false;
 	}
 

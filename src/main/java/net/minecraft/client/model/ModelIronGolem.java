@@ -37,17 +37,14 @@ public class ModelIronGolem extends ModelBase {
 	public ModelRenderer ironGolemRightLeg;
 
 	public ModelIronGolem() {
-
 		this(0F);
 	}
 
 	public ModelIronGolem(float p_i1161_1_) {
-
 		this(p_i1161_1_, -7F);
 	}
 
 	public ModelIronGolem(float p_i46362_1_, float p_i46362_2_) {
-
 		int i = 128;
 		int j = 128;
 		ironGolemHead = (new ModelRenderer(this)).setTextureSize(128, 128);
@@ -77,7 +74,6 @@ public class ModelIronGolem extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		ironGolemHead.render(scale);
 		ironGolemBody.render(scale);
@@ -93,7 +89,6 @@ public class ModelIronGolem extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		ironGolemHead.rotateAngleY = netHeadYaw * 0.017453292F;
 		ironGolemHead.rotateAngleX = headPitch * 0.017453292F;
 		ironGolemLeftLeg.rotateAngleX = -1.5F * triangleWave(limbSwing, 13F) * limbSwingAmount;
@@ -107,7 +102,6 @@ public class ModelIronGolem extends ModelBase {
 	 * and third as in the setRotationAngles method.
 	 */
 	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTickTime) {
-
 		EntityIronGolem entityirongolem = (EntityIronGolem) entitylivingbaseIn;
 		int i = entityirongolem.getAttackTimer();
 
@@ -128,7 +122,6 @@ public class ModelIronGolem extends ModelBase {
 	}
 
 	private float triangleWave(float p_78172_1_, float p_78172_2_) {
-
 		return (Math.abs(p_78172_1_ % p_78172_2_ - p_78172_2_ * 0.5F) - p_78172_2_ * 0.25F) / (p_78172_2_ * 0.25F);
 	}
 

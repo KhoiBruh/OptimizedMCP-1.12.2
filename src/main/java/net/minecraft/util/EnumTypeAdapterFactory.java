@@ -31,7 +31,6 @@ public class EnumTypeAdapterFactory implements TypeAdapterFactory {
 
 			return new TypeAdapter<>() {
 				public void write(JsonWriter p_write_1_, T p_write_2_) throws IOException {
-
 					if (p_write_2_ == null) {
 						p_write_1_.nullValue();
 					} else {
@@ -41,7 +40,6 @@ public class EnumTypeAdapterFactory implements TypeAdapterFactory {
 
 				
 				public T read(JsonReader p_read_1_) throws IOException {
-
 					if (p_read_1_.peek() == JsonToken.NULL) {
 						p_read_1_.nextNull();
 						return null;
@@ -54,7 +52,6 @@ public class EnumTypeAdapterFactory implements TypeAdapterFactory {
 	}
 
 	private String getName(Object objectIn) {
-
 		return objectIn instanceof Enum ? ((Enum<?>) objectIn).name().toLowerCase(Locale.ROOT) : objectIn.toString().toLowerCase(Locale.ROOT);
 	}
 

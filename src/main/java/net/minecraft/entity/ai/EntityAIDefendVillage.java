@@ -15,7 +15,6 @@ public class EntityAIDefendVillage extends EntityAITarget {
 	EntityLivingBase villageAgressorTarget;
 
 	public EntityAIDefendVillage(EntityIronGolem ironGolemIn) {
-
 		super(ironGolemIn, false, true);
 		irongolem = ironGolemIn;
 		setMutexBits(1);
@@ -25,7 +24,6 @@ public class EntityAIDefendVillage extends EntityAITarget {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		Village village = irongolem.getVillage();
 
 		if (village == null) {
@@ -50,7 +48,6 @@ public class EntityAIDefendVillage extends EntityAITarget {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		irongolem.setAttackTarget(villageAgressorTarget);
 		super.startExecuting();
 	}

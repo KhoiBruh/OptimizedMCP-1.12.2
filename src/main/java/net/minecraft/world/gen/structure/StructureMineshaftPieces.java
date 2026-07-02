@@ -28,7 +28,6 @@ import java.util.Random;
 public class StructureMineshaftPieces {
 
 	public static void registerStructurePieces() {
-
 		MapGenStructureIO.registerStructureComponent(StructureMineshaftPieces.Corridor.class, "MSCorridor");
 		MapGenStructureIO.registerStructureComponent(StructureMineshaftPieces.Cross.class, "MSCrossing");
 		MapGenStructureIO.registerStructureComponent(StructureMineshaftPieces.Room.class, "MSRoom");
@@ -89,11 +88,9 @@ public class StructureMineshaftPieces {
 		private int sectionCount;
 
 		public Corridor() {
-
 		}
 
 		public Corridor(int p_i47140_1_, Random p_i47140_2_, StructureBoundingBox p_i47140_3_, Facing p_i47140_4_, MapGenMineshaft.Type p_i47140_5_) {
-
 			super(p_i47140_1_, p_i47140_5_);
 			setCoordBaseMode(p_i47140_4_);
 			boundingBox = p_i47140_3_;
@@ -108,7 +105,6 @@ public class StructureMineshaftPieces {
 		}
 
 		public static StructureBoundingBox findCorridorSize(List<StructureComponent> p_175814_0_, Random rand, int x, int y, int z, Facing facing) {
-
 			StructureBoundingBox structureboundingbox = new StructureBoundingBox(x, y, z, x, y + 2, z);
 			int i;
 
@@ -146,7 +142,6 @@ public class StructureMineshaftPieces {
 		}
 
 		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
 			super.writeStructureToNBT(tagCompound);
 			tagCompound.setBoolean("hr", hasRails);
 			tagCompound.setBoolean("sc", hasSpiders);
@@ -155,7 +150,6 @@ public class StructureMineshaftPieces {
 		}
 
 		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
 			super.readStructureFromNBT(tagCompound, p_143011_2_);
 			hasRails = tagCompound.getBoolean("hr");
 			hasSpiders = tagCompound.getBoolean("sc");
@@ -164,7 +158,6 @@ public class StructureMineshaftPieces {
 		}
 
 		public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
-
 			int i = getComponentType();
 			int j = rand.nextInt(4);
 			Facing enumfacing = getCoordBaseMode();
@@ -242,7 +235,6 @@ public class StructureMineshaftPieces {
 		}
 
 		protected boolean generateChest(World worldIn, StructureBoundingBox structurebb, Random randomIn, int x, int y, int z, ResourceLocation loot) {
-
 			BlockPos blockpos = new BlockPos(getXWithOffset(x, z), getYWithOffset(y), getZWithOffset(x, z));
 
 			if (structurebb.isVecInside(blockpos) && worldIn.getBlockState(blockpos).getMaterial() == Material.AIR && worldIn.getBlockState(blockpos.down()).getMaterial() != Material.AIR) {
@@ -258,7 +250,6 @@ public class StructureMineshaftPieces {
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			if (isLiquidInStructureBoundingBox(worldIn, structureBoundingBoxIn)) {
 				return false;
 			} else {
@@ -344,7 +335,6 @@ public class StructureMineshaftPieces {
 		}
 
 		private void placeSupport(World p_189921_1_, StructureBoundingBox p_189921_2_, int p_189921_3_, int p_189921_4_, int p_189921_5_, int p_189921_6_, int p_189921_7_, Random p_189921_8_) {
-
 			if (isSupportingBox(p_189921_1_, p_189921_2_, p_189921_3_, p_189921_7_, p_189921_6_, p_189921_5_)) {
 				IBlockState iblockstate = getPlanksBlock();
 				IBlockState iblockstate1 = getFenceBlock();
@@ -364,7 +354,6 @@ public class StructureMineshaftPieces {
 		}
 
 		private void placeCobWeb(World p_189922_1_, StructureBoundingBox p_189922_2_, Random p_189922_3_, float p_189922_4_, int p_189922_5_, int p_189922_6_, int p_189922_7_) {
-
 			if (getSkyBrightness(p_189922_1_, p_189922_5_, p_189922_6_, p_189922_7_, p_189922_2_) < 8) {
 				randomlyPlaceBlock(p_189922_1_, p_189922_2_, p_189922_3_, p_189922_4_, p_189922_5_, p_189922_6_, p_189922_7_, Blocks.WEB.getDefaultState());
 			}
@@ -378,11 +367,9 @@ public class StructureMineshaftPieces {
 		private boolean isMultipleFloors;
 
 		public Cross() {
-
 		}
 
 		public Cross(int p_i47139_1_, Random p_i47139_2_, StructureBoundingBox p_i47139_3_, Facing p_i47139_4_, MapGenMineshaft.Type p_i47139_5_) {
-
 			super(p_i47139_1_, p_i47139_5_);
 			corridorDirection = p_i47139_4_;
 			boundingBox = p_i47139_3_;
@@ -390,7 +377,6 @@ public class StructureMineshaftPieces {
 		}
 
 		public static StructureBoundingBox findCrossing(List<StructureComponent> listIn, Random rand, int x, int y, int z, Facing facing) {
-
 			StructureBoundingBox structureboundingbox = new StructureBoundingBox(x, y, z, x, y + 2, z);
 
 			if (rand.nextInt(4) == 0) {
@@ -427,21 +413,18 @@ public class StructureMineshaftPieces {
 		}
 
 		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
 			super.writeStructureToNBT(tagCompound);
 			tagCompound.setBoolean("tf", isMultipleFloors);
 			tagCompound.setInteger("D", corridorDirection.getHorizontalIndex());
 		}
 
 		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
 			super.readStructureFromNBT(tagCompound, p_143011_2_);
 			isMultipleFloors = tagCompound.getBoolean("tf");
 			corridorDirection = Facing.getHorizontal(tagCompound.getInteger("D"));
 		}
 
 		public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
-
 			int i = getComponentType();
 
 			switch (corridorDirection) {
@@ -490,7 +473,6 @@ public class StructureMineshaftPieces {
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			if (isLiquidInStructureBoundingBox(worldIn, structureBoundingBoxIn)) {
 				return false;
 			} else {
@@ -525,7 +507,6 @@ public class StructureMineshaftPieces {
 		}
 
 		private void placeSupportPillar(World p_189923_1_, StructureBoundingBox p_189923_2_, int p_189923_3_, int p_189923_4_, int p_189923_5_, int p_189923_6_) {
-
 			if (getBlockStateFromPos(p_189923_1_, p_189923_3_, p_189923_6_ + 1, p_189923_5_, p_189923_2_).getMaterial() != Material.AIR) {
 				fillWithBlocks(p_189923_1_, p_189923_2_, p_189923_3_, p_189923_4_, p_189923_5_, p_189923_3_, p_189923_6_, p_189923_5_, getPlanksBlock(), Blocks.AIR.getDefaultState(), false);
 			}
@@ -538,27 +519,22 @@ public class StructureMineshaftPieces {
 		protected MapGenMineshaft.Type mineShaftType;
 
 		public Peice() {
-
 		}
 
 		public Peice(int p_i47138_1_, MapGenMineshaft.Type p_i47138_2_) {
-
 			super(p_i47138_1_);
 			mineShaftType = p_i47138_2_;
 		}
 
 		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
 			tagCompound.setInteger("MST", mineShaftType.ordinal());
 		}
 
 		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
 			mineShaftType = MapGenMineshaft.Type.byId(tagCompound.getInteger("MST"));
 		}
 
 		protected IBlockState getPlanksBlock() {
-
 			return switch (mineShaftType) {
 				case MESA ->
 						Blocks.PLANKS.getDefaultState().withProperty(BlockPlanks.VARIANT, BlockPlanks.Type.DARK_OAK);
@@ -567,7 +543,6 @@ public class StructureMineshaftPieces {
 		}
 
 		protected IBlockState getFenceBlock() {
-
 			return switch (mineShaftType) {
 				case MESA -> Blocks.DARK_OAK_FENCE.getDefaultState();
 				default -> Blocks.OAK_FENCE.getDefaultState();
@@ -575,7 +550,6 @@ public class StructureMineshaftPieces {
 		}
 
 		protected boolean isSupportingBox(World p_189918_1_, StructureBoundingBox p_189918_2_, int p_189918_3_, int p_189918_4_, int p_189918_5_, int p_189918_6_) {
-
 			for (int i = p_189918_3_; i <= p_189918_4_; ++i) {
 				if (getBlockStateFromPos(p_189918_1_, i, p_189918_5_ + 1, p_189918_6_, p_189918_2_).getMaterial() == Material.AIR) {
 					return false;
@@ -592,18 +566,15 @@ public class StructureMineshaftPieces {
 		private final List<StructureBoundingBox> connectedRooms = Lists.newLinkedList();
 
 		public Room() {
-
 		}
 
 		public Room(int p_i47137_1_, Random p_i47137_2_, int p_i47137_3_, int p_i47137_4_, MapGenMineshaft.Type p_i47137_5_) {
-
 			super(p_i47137_1_, p_i47137_5_);
 			mineShaftType = p_i47137_5_;
 			boundingBox = new StructureBoundingBox(p_i47137_3_, 50, p_i47137_4_, p_i47137_3_ + 7 + p_i47137_2_.nextInt(6), 54 + p_i47137_2_.nextInt(6), p_i47137_4_ + 7 + p_i47137_2_.nextInt(6));
 		}
 
 		public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
-
 			int i = getComponentType();
 			int j = boundingBox.getYSize() - 3 - 1;
 
@@ -675,7 +646,6 @@ public class StructureMineshaftPieces {
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			if (isLiquidInStructureBoundingBox(worldIn, structureBoundingBoxIn)) {
 				return false;
 			} else {
@@ -692,7 +662,6 @@ public class StructureMineshaftPieces {
 		}
 
 		public void offset(int x, int y, int z) {
-
 			super.offset(x, y, z);
 
 			for (StructureBoundingBox structureboundingbox : connectedRooms) {
@@ -701,7 +670,6 @@ public class StructureMineshaftPieces {
 		}
 
 		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
 			super.writeStructureToNBT(tagCompound);
 			NBTTagList nbttaglist = new NBTTagList();
 
@@ -713,7 +681,6 @@ public class StructureMineshaftPieces {
 		}
 
 		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
 			super.readStructureFromNBT(tagCompound, p_143011_2_);
 			NBTTagList nbttaglist = tagCompound.getTagList("Entrances", 11);
 
@@ -727,18 +694,15 @@ public class StructureMineshaftPieces {
 	public static class Stairs extends StructureMineshaftPieces.Peice {
 
 		public Stairs() {
-
 		}
 
 		public Stairs(int p_i47136_1_, Random p_i47136_2_, StructureBoundingBox p_i47136_3_, Facing p_i47136_4_, MapGenMineshaft.Type p_i47136_5_) {
-
 			super(p_i47136_1_, p_i47136_5_);
 			setCoordBaseMode(p_i47136_4_);
 			boundingBox = p_i47136_3_;
 		}
 
 		public static StructureBoundingBox findStairs(List<StructureComponent> listIn, Random rand, int x, int y, int z, Facing facing) {
-
 			StructureBoundingBox structureboundingbox = new StructureBoundingBox(x, y - 5, z, x, y + 2, z);
 
 			switch (facing) {
@@ -767,7 +731,6 @@ public class StructureMineshaftPieces {
 		}
 
 		public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
-
 			int i = getComponentType();
 			Facing enumfacing = getCoordBaseMode();
 
@@ -793,7 +756,6 @@ public class StructureMineshaftPieces {
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			if (isLiquidInStructureBoundingBox(worldIn, structureBoundingBoxIn)) {
 				return false;
 			} else {

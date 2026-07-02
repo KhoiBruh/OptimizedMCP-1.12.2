@@ -27,13 +27,11 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
 	protected EntityAISit aiSit;
 
 	public EntityTameable(World worldIn) {
-
 		super(worldIn);
 		setupTamedAI();
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(TAMED, (byte) 0);
 		dataManager.register(OWNER_UNIQUE_ID, Optional.absent());
@@ -43,7 +41,6 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 
 		if (getOwnerId() == null) {
@@ -59,7 +56,6 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		String s;
 
@@ -87,7 +83,6 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
 	}
 
 	public boolean canBeLeashedTo(EntityPlayer player) {
-
 		return !getLeashed();
 	}
 
@@ -95,7 +90,6 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
 	 * Play the taming effect, will either be hearts or smoke depending on status
 	 */
 	protected void playTameEffect(boolean play) {
-
 		ParticleTypes enumparticletypes = ParticleTypes.HEART;
 
 		if (!play) {
@@ -114,7 +108,6 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
 	 * Handler for {@link World#setEntityState}
 	 */
 	public void handleStatusUpdate(byte id) {
-
 		if (id == 7) {
 			playTameEffect(true);
 		} else if (id == 6) {
@@ -125,12 +118,10 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
 	}
 
 	public boolean isTamed() {
-
 		return (dataManager.get(TAMED) & 4) != 0;
 	}
 
 	public void setTamed(boolean tamed) {
-
 		byte b0 = dataManager.get(TAMED);
 
 		if (tamed) {
@@ -143,16 +134,13 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
 	}
 
 	protected void setupTamedAI() {
-
 	}
 
 	public boolean isSitting() {
-
 		return (dataManager.get(TAMED) & 1) != 0;
 	}
 
 	public void setSitting(boolean sitting) {
-
 		byte b0 = dataManager.get(TAMED);
 
 		if (sitting) {
@@ -164,17 +152,14 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
 
 	
 	public UUID getOwnerId() {
-
 		return dataManager.get(OWNER_UNIQUE_ID).orNull();
 	}
 
 	public void setOwnerId(UUID p_184754_1_) {
-
 		dataManager.set(OWNER_UNIQUE_ID, Optional.fromNullable(p_184754_1_));
 	}
 
 	public void setTamedBy(EntityPlayer player) {
-
 		setTamed(true);
 		setOwnerId(player.getUniqueID());
 
@@ -185,7 +170,6 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
 
 	
 	public EntityLivingBase getOwner() {
-
 		try {
 			UUID uuid = getOwnerId();
 			return uuid == null ? null : world.getPlayerEntityByUUID(uuid);
@@ -195,7 +179,6 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
 	}
 
 	public boolean isOwner(EntityLivingBase entityIn) {
-
 		return entityIn == getOwner();
 	}
 
@@ -203,17 +186,14 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
 	 * Returns the AITask responsible of the sit logic
 	 */
 	public EntityAISit getAISit() {
-
 		return aiSit;
 	}
 
 	public boolean shouldAttackEntity(EntityLivingBase target, EntityLivingBase owner) {
-
 		return true;
 	}
 
 	public Team getTeam() {
-
 		if (isTamed()) {
 			EntityLivingBase entitylivingbase = getOwner();
 
@@ -229,7 +209,6 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
 	 * Returns whether this Entity is on the same team as the given Entity.
 	 */
 	public boolean isOnSameTeam(Entity entityIn) {
-
 		if (isTamed()) {
 			EntityLivingBase entitylivingbase = getOwner();
 
@@ -249,7 +228,6 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
 	 * Called when the mob's health reaches 0.
 	 */
 	public void onDeath(DamageSource cause) {
-
 		if (!world.isRemote && world.getGameRules().getBoolean("showDeathMessages") && getOwner() instanceof EntityPlayerMP) {
 			getOwner().sendMessage(getCombatTracker().getDeathMessage());
 		}

@@ -9,11 +9,9 @@ public class CPacketResourcePackStatus implements Packet<INetHandlerPlayServer> 
 	private CPacketResourcePackStatus.Action action;
 
 	public CPacketResourcePackStatus() {
-
 	}
 
 	public CPacketResourcePackStatus(CPacketResourcePackStatus.Action p_i47156_1_) {
-
 		action = p_i47156_1_;
 	}
 
@@ -21,7 +19,6 @@ public class CPacketResourcePackStatus implements Packet<INetHandlerPlayServer> 
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		action = buf.readEnumValue(Action.class);
 	}
 
@@ -29,7 +26,6 @@ public class CPacketResourcePackStatus implements Packet<INetHandlerPlayServer> 
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeEnumValue(action);
 	}
 
@@ -37,7 +33,6 @@ public class CPacketResourcePackStatus implements Packet<INetHandlerPlayServer> 
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayServer handler) {
-
 		handler.handleResourcePackStatus(this);
 	}
 

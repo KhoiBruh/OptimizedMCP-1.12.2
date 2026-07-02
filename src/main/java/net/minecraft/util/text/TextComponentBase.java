@@ -12,7 +12,6 @@ public abstract class TextComponentBase implements ITextComponent {
 	private Style style;
 
 	public static Iterator<ITextComponent> createDeepCopyIterator(Iterable<ITextComponent> components) {
-
 		Iterator<ITextComponent> iterator = Iterators.concat(Iterators.transform(components.iterator(), p_apply_1_ -> p_apply_1_.iterator()));
 		iterator = Iterators.transform(iterator, p_apply_1_ -> {
 
@@ -30,14 +29,12 @@ public abstract class TextComponentBase implements ITextComponent {
 	 * @return This component, for chaining (and not the newly added component)
 	 */
 	public ITextComponent appendSibling(ITextComponent component) {
-
 		component.getStyle().setParentStyle(getStyle());
 		siblings.add(component);
 		return this;
 	}
 
 	public List<ITextComponent> getSiblings() {
-
 		return siblings;
 	}
 
@@ -48,7 +45,6 @@ public abstract class TextComponentBase implements ITextComponent {
 	 * @return This component, for chaining (and not the newly added component)
 	 */
 	public ITextComponent appendText(String text) {
-
 		return appendSibling(new TextComponentString(text));
 	}
 
@@ -56,7 +52,6 @@ public abstract class TextComponentBase implements ITextComponent {
 	 * Sets the style of this component and updates the parent style of all of the sibling components.
 	 */
 	public ITextComponent setStyle(Style style) {
-
 		this.style = style;
 
 		for (ITextComponent itextcomponent : siblings) {
@@ -77,7 +72,6 @@ public abstract class TextComponentBase implements ITextComponent {
 	 * This method never returns <code>null</code>.
 	 */
 	public Style getStyle() {
-
 		if (style == null) {
 			style = new Style();
 
@@ -90,7 +84,6 @@ public abstract class TextComponentBase implements ITextComponent {
 	}
 
 	public Iterator<ITextComponent> iterator() {
-
 		return Iterators.concat(Iterators.forArray(this), createDeepCopyIterator(siblings));
 	}
 
@@ -98,7 +91,6 @@ public abstract class TextComponentBase implements ITextComponent {
 	 * Gets the text of this component <em>and all sibling components</em>, without any formatting codes.
 	 */
 	public final String getUnformattedText() {
-
 		StringBuilder stringbuilder = new StringBuilder();
 
 		for (ITextComponent itextcomponent : this) {
@@ -112,7 +104,6 @@ public abstract class TextComponentBase implements ITextComponent {
 	 * Gets the text of this component <em>and all sibling components</em>, with formatting codes added for rendering.
 	 */
 	public final String getFormattedText() {
-
 		StringBuilder stringbuilder = new StringBuilder();
 
 		for (ITextComponent itextcomponent : this) {
@@ -129,7 +120,6 @@ public abstract class TextComponentBase implements ITextComponent {
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else if (!(p_equals_1_ instanceof TextComponentBase textcomponentbase)) {
@@ -140,12 +130,10 @@ public abstract class TextComponentBase implements ITextComponent {
 	}
 
 	public int hashCode() {
-
 		return 31 * style.hashCode() + siblings.hashCode();
 	}
 
 	public String toString() {
-
 		return "BaseComponent{style=" + style + ", siblings=" + siblings + '}';
 	}
 

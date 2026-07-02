@@ -37,7 +37,6 @@ public class ThreadDownloadImageData extends SimpleTexture {
 	private boolean textureUploaded;
 
 	public ThreadDownloadImageData(File cacheFileIn, String imageUrlIn, ResourceLocation textureResourceLocation, IImageBuffer imageBufferIn) {
-
 		super(textureResourceLocation);
 		cacheFile = cacheFileIn;
 		imageUrl = imageUrlIn;
@@ -45,7 +44,6 @@ public class ThreadDownloadImageData extends SimpleTexture {
 	}
 
 	private void checkTextureUploaded() {
-
 		if (!textureUploaded) {
 			if (bufferedImage != null) {
 				if (textureLocation != null) {
@@ -59,13 +57,11 @@ public class ThreadDownloadImageData extends SimpleTexture {
 	}
 
 	public int getGlTextureId() {
-
 		checkTextureUploaded();
 		return super.getGlTextureId();
 	}
 
 	public void setBufferedImage(BufferedImage bufferedImageIn) {
-
 		bufferedImage = bufferedImageIn;
 
 		if (imageBuffer != null) {
@@ -74,7 +70,6 @@ public class ThreadDownloadImageData extends SimpleTexture {
 	}
 
 	public void loadTexture(IResourceManager resourceManager) throws IOException {
-
 		if (bufferedImage == null && textureLocation != null) {
 			super.loadTexture(resourceManager);
 		}
@@ -100,10 +95,8 @@ public class ThreadDownloadImageData extends SimpleTexture {
 	}
 
 	protected void loadTextureFromServer() {
-
 		imageThread = new Thread("Texture Downloader #" + TEXTURE_DOWNLOADER_THREAD_ID.incrementAndGet()) {
 			public void run() {
-
 				HttpURLConnection httpurlconnection = null;
 				ThreadDownloadImageData.LOGGER.debug("Downloading http texture from {} to {}", imageUrl, cacheFile);
 

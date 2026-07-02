@@ -23,7 +23,6 @@ public class MapGenBase {
 	protected World world;
 
 	public static void setupChunkSeed(long p_191068_0_, Random p_191068_2_, int p_191068_3_, int p_191068_4_) {
-
 		p_191068_2_.setSeed(p_191068_0_);
 		long i = p_191068_2_.nextLong();
 		long j = p_191068_2_.nextLong();
@@ -33,7 +32,6 @@ public class MapGenBase {
 	}
 
 	public void generate(World worldIn, int x, int z, ChunkPrimer primer) {
-
 		int i = range;
 		world = worldIn;
 		rand.setSeed(worldIn.getSeed());
@@ -54,7 +52,6 @@ public class MapGenBase {
 	 * Recursively called by generate()
 	 */
 	protected void recursiveGenerate(World worldIn, int chunkX, int chunkZ, int originalX, int originalZ, ChunkPrimer chunkPrimerIn) {
-
 	}
 
 }

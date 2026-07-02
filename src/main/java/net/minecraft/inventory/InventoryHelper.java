@@ -13,17 +13,14 @@ public class InventoryHelper {
 	private static final Random RANDOM = new Random();
 
 	public static void dropInventoryItems(World worldIn, BlockPos pos, IInventory inventory) {
-
 		dropInventoryItems(worldIn, pos.getX(), pos.getY(), pos.getZ(), inventory);
 	}
 
 	public static void dropInventoryItems(World worldIn, Entity entityAt, IInventory inventory) {
-
 		dropInventoryItems(worldIn, entityAt.posX, entityAt.posY, entityAt.posZ, inventory);
 	}
 
 	private static void dropInventoryItems(World worldIn, double x, double y, double z, IInventory inventory) {
-
 		for (int i = 0; i < inventory.getSizeInventory(); ++i) {
 			ItemStack itemstack = inventory.getStackInSlot(i);
 
@@ -34,7 +31,6 @@ public class InventoryHelper {
 	}
 
 	public static void spawnItemStack(World worldIn, double x, double y, double z, ItemStack stack) {
-
 		float f = RANDOM.nextFloat() * 0.8F + 0.1F;
 		float f1 = RANDOM.nextFloat() * 0.8F + 0.1F;
 		float f2 = RANDOM.nextFloat() * 0.8F + 0.1F;

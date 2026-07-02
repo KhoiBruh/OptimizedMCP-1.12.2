@@ -27,18 +27,15 @@ public class EntitySilverfish extends EntityMob {
 	private EntitySilverfish.AISummonSilverfish summonSilverfish;
 
 	public EntitySilverfish(World worldIn) {
-
 		super(worldIn);
 		setSize(0.4F, 0.3F);
 	}
 
 	public static void registerFixesSilverfish(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntitySilverfish.class);
 	}
 
 	protected void initEntityAI() {
-
 		summonSilverfish = new EntitySilverfish.AISummonSilverfish(this);
 		tasks.addTask(1, new EntityAISwimming(this));
 		tasks.addTask(3, summonSilverfish);
@@ -52,17 +49,14 @@ public class EntitySilverfish extends EntityMob {
 	 * Returns the Y Offset of this entity.
 	 */
 	public double getYOffset() {
-
 		return 0.1D;
 	}
 
 	public float getEyeHeight() {
-
 		return 0.1F;
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
@@ -74,27 +68,22 @@ public class EntitySilverfish extends EntityMob {
 	 * prevent them from trampling crops
 	 */
 	protected boolean canTriggerWalking() {
-
 		return false;
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		return SoundEvents.ENTITY_SILVERFISH_AMBIENT;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_SILVERFISH_HURT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_SILVERFISH_DEATH;
 	}
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
-
 		playSound(SoundEvents.ENTITY_SILVERFISH_STEP, 0.15F, 1F);
 	}
 
@@ -102,7 +91,6 @@ public class EntitySilverfish extends EntityMob {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		if (isEntityInvulnerable(source)) {
 			return false;
 		} else {
@@ -116,7 +104,6 @@ public class EntitySilverfish extends EntityMob {
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_SILVERFISH;
 	}
 
@@ -124,7 +111,6 @@ public class EntitySilverfish extends EntityMob {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		renderYawOffset = rotationYaw;
 		super.onUpdate();
 	}
@@ -133,13 +119,11 @@ public class EntitySilverfish extends EntityMob {
 	 * Set the render yaw offset
 	 */
 	public void setRenderYawOffset(float offset) {
-
 		rotationYaw = offset;
 		super.setRenderYawOffset(offset);
 	}
 
 	public float getBlockPathWeight(BlockPos pos) {
-
 		return world.getBlockState(pos.down()).getBlock() == Blocks.STONE ? 10F : super.getBlockPathWeight(pos);
 	}
 
@@ -147,7 +131,6 @@ public class EntitySilverfish extends EntityMob {
 	 * Checks to make sure the light is not too bright where the mob is spawning
 	 */
 	protected boolean isValidLightLevel() {
-
 		return true;
 	}
 
@@ -155,7 +138,6 @@ public class EntitySilverfish extends EntityMob {
 	 * Checks if the entity's current position is a valid location to spawn this entity.
 	 */
 	public boolean getCanSpawnHere() {
-
 		if (super.getCanSpawnHere()) {
 			EntityPlayer entityplayer = world.getNearestPlayerNotCreative(this, 5D);
 			return entityplayer == null;
@@ -168,7 +150,6 @@ public class EntitySilverfish extends EntityMob {
 	 * Get this Entity's CreatureAttribute
 	 */
 	public CreatureAttribute getCreatureAttribute() {
-
 		return CreatureAttribute.ARTHROPOD;
 	}
 
@@ -178,13 +159,11 @@ public class EntitySilverfish extends EntityMob {
 		private boolean doMerge;
 
 		public AIHideInStone(EntitySilverfish silverfishIn) {
-
 			super(silverfishIn, 1D, 10);
 			setMutexBits(1);
 		}
 
 		public boolean shouldExecute() {
-
 			if (entity.getAttackTarget() != null) {
 				return false;
 			} else if (!entity.getNavigator().noPath()) {
@@ -209,12 +188,10 @@ public class EntitySilverfish extends EntityMob {
 		}
 
 		public boolean shouldContinueExecuting() {
-
 			return !doMerge && super.shouldContinueExecuting();
 		}
 
 		public void startExecuting() {
-
 			if (!doMerge) {
 				super.startExecuting();
 			} else {
@@ -238,24 +215,20 @@ public class EntitySilverfish extends EntityMob {
 		private int lookForFriends;
 
 		public AISummonSilverfish(EntitySilverfish silverfishIn) {
-
 			silverfish = silverfishIn;
 		}
 
 		public void notifyHurt() {
-
 			if (lookForFriends == 0) {
 				lookForFriends = 20;
 			}
 		}
 
 		public boolean shouldExecute() {
-
 			return lookForFriends > 0;
 		}
 
 		public void updateTask() {
-
 			--lookForFriends;
 
 			if (lookForFriends <= 0) {

@@ -11,11 +11,9 @@ public class CPacketConfirmTransaction implements Packet<INetHandlerPlayServer> 
 	private boolean accepted;
 
 	public CPacketConfirmTransaction() {
-
 	}
 
 	public CPacketConfirmTransaction(int windowIdIn, short uidIn, boolean acceptedIn) {
-
 		windowId = windowIdIn;
 		uid = uidIn;
 		accepted = acceptedIn;
@@ -25,7 +23,6 @@ public class CPacketConfirmTransaction implements Packet<INetHandlerPlayServer> 
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayServer handler) {
-
 		handler.processConfirmTransaction(this);
 	}
 
@@ -33,7 +30,6 @@ public class CPacketConfirmTransaction implements Packet<INetHandlerPlayServer> 
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		windowId = buf.readByte();
 		uid = buf.readShort();
 		accepted = buf.readByte() != 0;
@@ -43,19 +39,16 @@ public class CPacketConfirmTransaction implements Packet<INetHandlerPlayServer> 
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeByte(windowId);
 		buf.writeShort(uid);
 		buf.writeByte(accepted ? 1 : 0);
 	}
 
 	public int getWindowId() {
-
 		return windowId;
 	}
 
 	public short getUid() {
-
 		return uid;
 	}
 

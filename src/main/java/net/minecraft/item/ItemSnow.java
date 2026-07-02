@@ -18,7 +18,6 @@ import net.minecraft.world.World;
 public class ItemSnow extends ItemBlock {
 
 	public ItemSnow(Block block) {
-
 		super(block);
 		setMaxDamage(0);
 	}
@@ -27,7 +26,6 @@ public class ItemSnow extends ItemBlock {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (!itemstack.isEmpty() && player.canPlayerEdit(pos, facing, itemstack)) {
@@ -73,7 +71,6 @@ public class ItemSnow extends ItemBlock {
 	 * placed as a Block (mostly used with ItemBlocks).
 	 */
 	public int getMetadata(int damage) {
-
 		return damage;
 	}
 

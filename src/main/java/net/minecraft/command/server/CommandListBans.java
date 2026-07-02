@@ -16,7 +16,6 @@ public class CommandListBans extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "banlist";
 	}
 
@@ -24,7 +23,6 @@ public class CommandListBans extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 3;
 	}
 
@@ -32,7 +30,6 @@ public class CommandListBans extends CommandBase {
 	 * Check if the given ICommandSender has permission to execute this command
 	 */
 	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-
 		return (server.getPlayerList().getBannedIPs().isLanServer() || server.getPlayerList().getBannedPlayers().isLanServer()) && super.checkPermission(server, sender);
 	}
 
@@ -40,7 +37,6 @@ public class CommandListBans extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.banlist.usage";
 	}
 
@@ -48,7 +44,6 @@ public class CommandListBans extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
-
 		if (args.length >= 1 && "ips".equalsIgnoreCase(args[0])) {
 			sender.sendMessage(new TextComponentTranslation("commands.banlist.ips", server.getPlayerList().getBannedIPs().getKeys().length));
 			sender.sendMessage(new TextComponentString(joinNiceString(server.getPlayerList().getBannedIPs().getKeys())));
@@ -59,7 +54,6 @@ public class CommandListBans extends CommandBase {
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		return args.length == 1 ? getListOfStringsMatchingLastWord(args, "players", "ips") : Collections.emptyList();
 	}
 

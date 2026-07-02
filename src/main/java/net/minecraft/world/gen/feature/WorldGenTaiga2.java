@@ -15,12 +15,10 @@ public class WorldGenTaiga2 extends WorldGenAbstractTree {
 	private static final IBlockState LEAF = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.Type.SPRUCE).withProperty(BlockLeaves.CHECK_DECAY, false);
 
 	public WorldGenTaiga2(boolean p_i2025_1_) {
-
 		super(p_i2025_1_);
 	}
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		int i = rand.nextInt(4) + 6;
 		int j = 1 + rand.nextInt(2);
 		int k = i - j;

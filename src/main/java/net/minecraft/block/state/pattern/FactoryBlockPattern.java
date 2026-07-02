@@ -21,12 +21,10 @@ public class FactoryBlockPattern {
 	private int rowWidth;
 
 	private FactoryBlockPattern() {
-
 		symbolMap.put(' ', Predicates.alwaysTrue());
 	}
 
 	public static FactoryBlockPattern start() {
-
 		return new FactoryBlockPattern();
 	}
 
@@ -35,7 +33,6 @@ public class FactoryBlockPattern {
 	 * 1)
 	 */
 	public FactoryBlockPattern aisle(String... aisle) {
-
 		if (aisle != null && aisle.length > 0 && !aisle[0].isEmpty()) {
 			if (depth.isEmpty()) {
 				aisleHeight = aisle.length;
@@ -66,18 +63,15 @@ public class FactoryBlockPattern {
 	}
 
 	public FactoryBlockPattern where(char symbol, Predicate<BlockWorldState> blockMatcher) {
-
 		symbolMap.put(symbol, blockMatcher);
 		return this;
 	}
 
 	public BlockPattern build() {
-
 		return new BlockPattern(makePredicateArray());
 	}
 
 	private Predicate<BlockWorldState>[][][] makePredicateArray() {
-
 		checkMissingPredicates();
 		Predicate<BlockWorldState>[][][] predicate = (Predicate[][][]) Array.newInstance(Predicate.class, depth.size(), aisleHeight, rowWidth);
 
@@ -93,7 +87,6 @@ public class FactoryBlockPattern {
 	}
 
 	private void checkMissingPredicates() {
-
 		List<Character> list = Lists.newArrayList();
 
 		for (Entry<Character, Predicate<BlockWorldState>> entry : symbolMap.entrySet()) {

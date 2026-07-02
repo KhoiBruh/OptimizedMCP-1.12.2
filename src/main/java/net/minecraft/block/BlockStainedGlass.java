@@ -21,7 +21,6 @@ public class BlockStainedGlass extends BlockBreakable {
 	public static final PropertyEnum<DyeColor> COLOR = PropertyEnum.create("color", DyeColor.class);
 
 	public BlockStainedGlass(Material materialIn) {
-
 		super(materialIn, false);
 		setDefaultState(blockState.getBaseState().withProperty(COLOR, DyeColor.WHITE));
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
@@ -32,7 +31,6 @@ public class BlockStainedGlass extends BlockBreakable {
 	 * returns the metadata of the dropped item based on the old metadata of the block.
 	 */
 	public int damageDropped(IBlockState state) {
-
 		return state.getValue(COLOR).getMetadata();
 	}
 
@@ -40,7 +38,6 @@ public class BlockStainedGlass extends BlockBreakable {
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-
 		for (DyeColor enumdyecolor : DyeColor.values()) {
 			items.add(new ItemStack(this, 1, enumdyecolor.getMetadata()));
 		}
@@ -50,7 +47,6 @@ public class BlockStainedGlass extends BlockBreakable {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return MapColor.getBlockColor(state.getValue(COLOR));
 	}
 
@@ -59,7 +55,6 @@ public class BlockStainedGlass extends BlockBreakable {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.TRANSLUCENT;
 	}
 
@@ -67,17 +62,14 @@ public class BlockStainedGlass extends BlockBreakable {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return 0;
 	}
 
 	protected boolean canSilkHarvest() {
-
 		return true;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -85,7 +77,6 @@ public class BlockStainedGlass extends BlockBreakable {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(COLOR, DyeColor.byMetadata(meta));
 	}
 
@@ -93,7 +84,6 @@ public class BlockStainedGlass extends BlockBreakable {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (!worldIn.isRemote) {
 			BlockBeacon.updateColorAsync(worldIn, pos);
 		}
@@ -103,7 +93,6 @@ public class BlockStainedGlass extends BlockBreakable {
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (!worldIn.isRemote) {
 			BlockBeacon.updateColorAsync(worldIn, pos);
 		}
@@ -113,12 +102,10 @@ public class BlockStainedGlass extends BlockBreakable {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(COLOR).getMetadata();
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, COLOR);
 	}
 

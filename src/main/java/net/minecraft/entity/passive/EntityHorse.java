@@ -40,18 +40,15 @@ public class EntityHorse extends AbstractHorse {
 	private String texturePrefix;
 
 	public EntityHorse(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public static void registerFixesHorse(DataFixer fixer) {
-
 		AbstractHorse.registerFixesAbstractHorse(fixer, EntityHorse.class);
 		fixer.registerWalker(FixTypes.ENTITY, new ItemStackData(EntityHorse.class, "ArmorItem"));
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(HORSE_VARIANT, 0);
 		dataManager.register(HORSE_ARMOR, HorseArmorType.NONE.getOrdinal());
@@ -61,7 +58,6 @@ public class EntityHorse extends AbstractHorse {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setInteger("Variant", getHorseVariant());
 
@@ -74,7 +70,6 @@ public class EntityHorse extends AbstractHorse {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		setHorseVariant(compound.getInteger("Variant"));
 
@@ -90,23 +85,19 @@ public class EntityHorse extends AbstractHorse {
 	}
 
 	public int getHorseVariant() {
-
 		return dataManager.get(HORSE_VARIANT);
 	}
 
 	public void setHorseVariant(int variant) {
-
 		dataManager.set(HORSE_VARIANT, variant);
 		resetTexturePrefix();
 	}
 
 	private void resetTexturePrefix() {
-
 		texturePrefix = null;
 	}
 
 	private void setHorseTexturePaths() {
-
 		int i = getHorseVariant();
 		int j = (i & 255) % 7;
 		int k = ((i & 65280) >> 8) % 5;
@@ -118,7 +109,6 @@ public class EntityHorse extends AbstractHorse {
 	}
 
 	public String getHorseTexture() {
-
 		if (texturePrefix == null) {
 			setHorseTexturePaths();
 		}
@@ -127,7 +117,6 @@ public class EntityHorse extends AbstractHorse {
 	}
 
 	public String[] getVariantTexturePaths() {
-
 		if (texturePrefix == null) {
 			setHorseTexturePaths();
 		}
@@ -139,7 +128,6 @@ public class EntityHorse extends AbstractHorse {
 	 * Updates the items in the saddle and armor slots of the horse's inventory.
 	 */
 	protected void updateHorseSlots() {
-
 		super.updateHorseSlots();
 		setHorseArmorStack(horseChest.getStackInSlot(1));
 	}
@@ -148,7 +136,6 @@ public class EntityHorse extends AbstractHorse {
 	 * Set horse armor stack (for example: new ItemStack(Items.iron_horse_armor))
 	 */
 	public void setHorseArmorStack(ItemStack itemStackIn) {
-
 		HorseArmorType horsearmortype = HorseArmorType.getByItemStack(itemStackIn);
 		dataManager.set(HORSE_ARMOR, horsearmortype.getOrdinal());
 		resetTexturePrefix();
@@ -164,7 +151,6 @@ public class EntityHorse extends AbstractHorse {
 	}
 
 	public HorseArmorType getHorseArmorType() {
-
 		return HorseArmorType.getByOrdinal(dataManager.get(HORSE_ARMOR));
 	}
 
@@ -172,7 +158,6 @@ public class EntityHorse extends AbstractHorse {
 	 * Called by InventoryBasic.onInventoryChanged() on a array that is never filled.
 	 */
 	public void onInventoryChanged(IInventory invBasic) {
-
 		HorseArmorType horsearmortype = getHorseArmorType();
 		super.onInventoryChanged(invBasic);
 		HorseArmorType horsearmortype1 = getHorseArmorType();
@@ -183,7 +168,6 @@ public class EntityHorse extends AbstractHorse {
 	}
 
 	protected void playGallopSound(SoundType p_190680_1_) {
-
 		super.playGallopSound(p_190680_1_);
 
 		if (rand.nextInt(10) == 0) {
@@ -192,7 +176,6 @@ public class EntityHorse extends AbstractHorse {
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(getModifiedMaxHealth());
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(getModifiedMovementSpeed());
@@ -203,7 +186,6 @@ public class EntityHorse extends AbstractHorse {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		super.onUpdate();
 
 		if (world.isRemote && dataManager.isDirty()) {
@@ -213,36 +195,30 @@ public class EntityHorse extends AbstractHorse {
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		super.getAmbientSound();
 		return SoundEvents.ENTITY_HORSE_AMBIENT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		super.getDeathSound();
 		return SoundEvents.ENTITY_HORSE_DEATH;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		super.getHurtSound(damageSourceIn);
 		return SoundEvents.ENTITY_HORSE_HURT;
 	}
 
 	protected SoundEvent getAngrySound() {
-
 		super.getAngrySound();
 		return SoundEvents.ENTITY_HORSE_ANGRY;
 	}
 
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_HORSE;
 	}
 
 	public boolean processInteract(EntityPlayer player, Hand hand) {
-
 		ItemStack itemstack = player.getHeldItem(hand);
 		boolean flag = !itemstack.isEmpty();
 
@@ -300,7 +276,6 @@ public class EntityHorse extends AbstractHorse {
 	 * Returns true if the mob is currently able to mate with the specified mob.
 	 */
 	public boolean canMateWith(EntityAnimal otherAnimal) {
-
 		if (otherAnimal == this) {
 			return false;
 		} else if (!(otherAnimal instanceof EntityDonkey) && !(otherAnimal instanceof EntityHorse)) {
@@ -311,7 +286,6 @@ public class EntityHorse extends AbstractHorse {
 	}
 
 	public EntityAgeable createChild(EntityAgeable ageable) {
-
 		AbstractHorse abstracthorse;
 
 		if (ageable instanceof EntityDonkey) {
@@ -348,12 +322,10 @@ public class EntityHorse extends AbstractHorse {
 	}
 
 	public boolean wearsArmor() {
-
 		return true;
 	}
 
 	public boolean isArmor(ItemStack stack) {
-
 		return HorseArmorType.isHorseArmor(stack.getItem());
 	}
 
@@ -374,7 +346,6 @@ public class EntityHorse extends AbstractHorse {
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 		int i;
 
@@ -394,7 +365,6 @@ public class EntityHorse extends AbstractHorse {
 		public int variant;
 
 		public GroupData(int variantIn) {
-
 			variant = variantIn;
 		}
 

@@ -13,12 +13,10 @@ public class LayerSpiderEyes<T extends EntitySpider> implements LayerRenderer<T>
 	private final RenderSpider<T> spiderRenderer;
 
 	public LayerSpiderEyes(RenderSpider<T> spiderRendererIn) {
-
 		spiderRenderer = spiderRendererIn;
 	}
 
 	public void doRenderLayer(T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		spiderRenderer.bindTexture(SPIDER_EYES);
 		GLS.enableBlend();
 		GLS.disableAlpha();
@@ -44,7 +42,6 @@ public class LayerSpiderEyes<T extends EntitySpider> implements LayerRenderer<T>
 	}
 
 	public boolean shouldCombineTextures() {
-
 		return false;
 	}
 

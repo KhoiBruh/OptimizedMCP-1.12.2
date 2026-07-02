@@ -13,12 +13,10 @@ public class NettyEncryptionTranslator {
 	private byte[] outputBuffer = new byte[0];
 
 	protected NettyEncryptionTranslator(Cipher cipherIn) {
-
 		cipher = cipherIn;
 	}
 
 	private byte[] bufToBytes(ByteBuf buf) {
-
 		int i = buf.readableBytes();
 
 		if (inputBuffer.length < i) {
@@ -30,7 +28,6 @@ public class NettyEncryptionTranslator {
 	}
 
 	protected ByteBuf decipher(ChannelHandlerContext ctx, ByteBuf buffer) throws ShortBufferException {
-
 		int i = buffer.readableBytes();
 		byte[] abyte = bufToBytes(buffer);
 		ByteBuf bytebuf = ctx.alloc().heapBuffer(cipher.getOutputSize(i));
@@ -39,7 +36,6 @@ public class NettyEncryptionTranslator {
 	}
 
 	protected void cipher(ByteBuf in, ByteBuf out) throws ShortBufferException {
-
 		int i = in.readableBytes();
 		byte[] abyte = bufToBytes(in);
 		int j = cipher.getOutputSize(i);

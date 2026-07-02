@@ -25,13 +25,11 @@ public class EnchantRandomly extends LootFunction {
 	private final List<Enchantment> enchantments;
 
 	public EnchantRandomly(LootCondition[] conditionsIn, List<Enchantment> enchantmentsIn) {
-
 		super(conditionsIn);
 		enchantments = enchantmentsIn == null ? Collections.emptyList() : enchantmentsIn;
 	}
 
 	public ItemStack apply(ItemStack stack, Random rand, LootContext context) {
-
 		Enchantment enchantment;
 
 		if (enchantments.isEmpty()) {
@@ -68,12 +66,10 @@ public class EnchantRandomly extends LootFunction {
 	public static class Serializer extends LootFunction.Serializer<EnchantRandomly> {
 
 		public Serializer() {
-
 			super(new ResourceLocation("enchant_randomly"), EnchantRandomly.class);
 		}
 
 		public void serialize(JsonObject object, EnchantRandomly functionClazz, JsonSerializationContext serializationContext) {
-
 			if (!functionClazz.enchantments.isEmpty()) {
 				JsonArray jsonarray = new JsonArray();
 
@@ -92,7 +88,6 @@ public class EnchantRandomly extends LootFunction {
 		}
 
 		public EnchantRandomly deserialize(JsonObject object, JsonDeserializationContext deserializationContext, LootCondition[] conditionsIn) {
-
 			List<Enchantment> list = Lists.newArrayList();
 
 			if (object.has("enchantments")) {

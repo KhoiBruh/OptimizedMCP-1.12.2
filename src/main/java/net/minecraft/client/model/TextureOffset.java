@@ -5,5 +5,4 @@ package net.minecraft.client.model;
  * @param textureOffsetY The y coordinate offset of the texture
  */
 public record TextureOffset(int textureOffsetX, int textureOffsetY) {
-
 }

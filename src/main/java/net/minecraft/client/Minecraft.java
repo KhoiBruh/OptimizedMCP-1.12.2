@@ -1290,7 +1290,6 @@ public class Minecraft implements IThreadListener {
 	 * Runs the current tick.
 	 */
 	public void tick() throws IOException {
-		
 		if (rightClicks > 0) rightClicks--;
 		
 		profiler.startSection("gui");
@@ -1658,7 +1657,6 @@ public class Minecraft implements IThreadListener {
 	}
 	
 	private void tickMouse() throws IOException {
-		
 		while (Mouse.next()) {
 			int i = Mouse.getEventButton();
 			if (i != -1) {

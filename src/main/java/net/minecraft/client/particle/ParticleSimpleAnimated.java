@@ -42,7 +42,6 @@ public class ParticleSimpleAnimated extends Particle {
 	private boolean fadingColor;
 
 	public ParticleSimpleAnimated(World worldIn, double x, double y, double z, int textureIdxIn, int numFrames, float yAccelIn) {
-
 		super(worldIn, x, y, z);
 		textureIdx = textureIdxIn;
 		numAgingFrames = numFrames;
@@ -50,7 +49,6 @@ public class ParticleSimpleAnimated extends Particle {
 	}
 
 	public void setColor(int p_187146_1_) {
-
 		float f = (float) ((p_187146_1_ & 16711680) >> 16) / 255F;
 		float f1 = (float) ((p_187146_1_ & 65280) >> 8) / 255F;
 		float f2 = (float) ((p_187146_1_ & 255)) / 255F;
@@ -62,7 +60,6 @@ public class ParticleSimpleAnimated extends Particle {
 	 * sets a color for the particle to drift toward (20% closer each tick, never actually getting very close)
 	 */
 	public void setColorFade(int rgb) {
-
 		fadeTargetRed = (float) ((rgb & 16711680) >> 16) / 255F;
 		fadeTargetGreen = (float) ((rgb & 65280) >> 8) / 255F;
 		fadeTargetBlue = (float) ((rgb & 255)) / 255F;
@@ -70,12 +67,10 @@ public class ParticleSimpleAnimated extends Particle {
 	}
 
 	public boolean shouldDisableDepth() {
-
 		return true;
 	}
 
 	public void onUpdate() {
-
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
@@ -108,12 +103,10 @@ public class ParticleSimpleAnimated extends Particle {
 	}
 
 	public int getBrightnessForRender(float p_189214_1_) {
-
 		return 15728880;
 	}
 
 	protected void setBaseAirFriction(float p_191238_1_) {
-
 		baseAirFriction = p_191238_1_;
 	}
 

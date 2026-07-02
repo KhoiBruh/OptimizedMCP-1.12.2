@@ -42,7 +42,6 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 	protected boolean renderMarker;
 
 	public RenderLivingBase(RenderManager renderManagerIn, ModelBase modelBaseIn, float shadowSizeIn) {
-
 		super(renderManagerIn);
 		mainModel = modelBaseIn;
 		shadowSize = shadowSizeIn;
@@ -54,7 +53,6 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 	}
 
 	public ModelBase getMainModel() {
-
 		return mainModel;
 	}
 
@@ -64,7 +62,6 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 	 * Example: par1 = 30, par2 = 50, par3 = 0.5, then return = 40
 	 */
 	protected float interpolateRotation(float prevYawOffset, float yawOffset, float partialTicks) {
-
 		float f;
 
 		for (f = yawOffset - prevYawOffset; f < -180F; f += 360F) {
@@ -78,14 +75,12 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 	}
 
 	public void transformHeldFull3DItemLayer() {
-
 	}
 
 	/**
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		GLS.pushMatrix();
 		GLS.disableCull();
 		mainModel.swingProgress = getSwingProgress(entity, partialTicks);
@@ -192,7 +187,6 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 	}
 
 	public float prepareScale(T entitylivingbaseIn, float partialTicks) {
-
 		GLS.enableRescaleNormal();
 		GLS.scale(-1F, -1F, 1F);
 		preRenderCallback(entitylivingbaseIn, partialTicks);
@@ -202,7 +196,6 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 	}
 
 	protected boolean setScoreTeamColor(T entityLivingBaseIn) {
-
 		GLS.disableLighting();
 		GLS.setActiveTexture(OpenGlHelper.lightmapTexUnit);
 		GLS.disableTexture2D();
@@ -211,7 +204,6 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 	}
 
 	protected void unsetScoreTeamColor() {
-
 		GLS.enableLighting();
 		GLS.setActiveTexture(OpenGlHelper.lightmapTexUnit);
 		GLS.enableTexture2D();
@@ -222,7 +214,6 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 	 * Renders the model in RenderLiving
 	 */
 	protected void renderModel(T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
-
 		boolean flag = isVisible(entitylivingbaseIn);
 		boolean flag1 = !flag && !entitylivingbaseIn.isInvisibleToPlayer(Minecraft.getMinecraft().player);
 
@@ -244,17 +235,14 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 	}
 
 	protected boolean isVisible(T p_193115_1_) {
-
 		return !p_193115_1_.isInvisible() || renderOutlines;
 	}
 
 	protected boolean setDoRenderBrightness(T entityLivingBaseIn, float partialTicks) {
-
 		return setBrightness(entityLivingBaseIn, partialTicks, true);
 	}
 
 	protected boolean setBrightness(T entitylivingbaseIn, float partialTicks, boolean combineTextures) {
-
 		float f = entitylivingbaseIn.getBrightness();
 		int i = getColorMultiplier(entitylivingbaseIn, f, partialTicks);
 		boolean flag = (i >> 24 & 255) > 0;
@@ -327,7 +315,6 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 	}
 
 	protected void unsetBrightness() {
-
 		GLS.setActiveTexture(OpenGlHelper.defaultTexUnit);
 		GLS.enableTexture2D();
 		GLS.texEnv(8960, 8704, OpenGlHelper.GL_COMBINE);
@@ -371,12 +358,10 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 	 * Sets a simple glTranslate on a LivingEntity.
 	 */
 	protected void renderLivingAt(T entityLivingBaseIn, double x, double y, double z) {
-
 		GLS.translate((float) x, (float) y, (float) z);
 	}
 
 	protected void applyRotations(T entityLiving, float p_77043_2_, float rotationYaw, float partialTicks) {
-
 		GLS.rotate(180F - rotationYaw, 0F, 1F, 0F);
 
 		if (entityLiving.deathTime > 0) {
@@ -402,7 +387,6 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 	 * Returns where in the swing animation the living entity is (from 0 to 1).  Args : entity, partialTickTime
 	 */
 	protected float getSwingProgress(T livingBase, float partialTickTime) {
-
 		return livingBase.getSwingProgress(partialTickTime);
 	}
 
@@ -410,12 +394,10 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 	 * Defines what float the third param in setRotationAngles of ModelBase is
 	 */
 	protected float handleRotationFloat(T livingBase, float partialTicks) {
-
 		return (float) livingBase.ticksExisted + partialTicks;
 	}
 
 	protected void renderLayers(T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scaleIn) {
-
 		for (LayerRenderer<T> layerrenderer : layerRenderers) {
 			boolean flag = setBrightness(entitylivingbaseIn, partialTicks, layerrenderer.shouldCombineTextures());
 			layerrenderer.doRenderLayer(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scaleIn);
@@ -427,7 +409,6 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 	}
 
 	protected float getDeathMaxRotation(T entityLivingBaseIn) {
-
 		return 90F;
 	}
 
@@ -435,7 +416,6 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 	 * Gets an RGBA int color multiplier to apply.
 	 */
 	protected int getColorMultiplier(T entitylivingbaseIn, float lightBrightness, float partialTickTime) {
-
 		return 0;
 	}
 
@@ -443,11 +423,9 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 	 * Allows the render to do state modifications necessary before the model is rendered.
 	 */
 	protected void preRenderCallback(T entitylivingbaseIn, float partialTickTime) {
-
 	}
 
 	public void renderName(T entity, double x, double y, double z) {
-
 		if (canRenderName(entity)) {
 			double d0 = entity.getDistanceSq(renderManager.renderViewEntity);
 			float f = entity.isSneaking() ? 32F : 64F;
@@ -461,7 +439,6 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 	}
 
 	protected boolean canRenderName(T entity) {
-
 		EntityPlayerSP entityplayersp = Minecraft.getMinecraft().player;
 		boolean flag = !entity.isInvisibleToPlayer(entityplayersp);
 

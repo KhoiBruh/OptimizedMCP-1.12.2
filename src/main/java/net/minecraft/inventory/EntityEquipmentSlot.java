@@ -14,7 +14,6 @@ public enum EntityEquipmentSlot {
 	private final String name;
 
 	EntityEquipmentSlot(EntityEquipmentSlot.Type slotTypeIn, int indexIn, int slotIndexIn, String nameIn) {
-
 		slotType = slotTypeIn;
 		index = indexIn;
 		slotIndex = slotIndexIn;
@@ -22,7 +21,6 @@ public enum EntityEquipmentSlot {
 	}
 
 	public static EntityEquipmentSlot fromString(String targetName) {
-
 		for (EntityEquipmentSlot entityequipmentslot : values()) {
 			if (entityequipmentslot.getName().equals(targetName)) {
 				return entityequipmentslot;
@@ -38,7 +36,6 @@ public enum EntityEquipmentSlot {
 	}
 
 	public int getIndex() {
-
 		return index;
 	}
 
@@ -46,12 +43,10 @@ public enum EntityEquipmentSlot {
 	 * Gets the actual slot index.
 	 */
 	public int getSlotIndex() {
-
 		return slotIndex;
 	}
 
 	public String getName() {
-
 		return name;
 	}
 

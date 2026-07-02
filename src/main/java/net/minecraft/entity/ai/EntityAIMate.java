@@ -28,12 +28,10 @@ public class EntityAIMate extends EntityAIBase {
 	private EntityAnimal targetMate;
 
 	public EntityAIMate(EntityAnimal animal, double speedIn) {
-
 		this(animal, speedIn, animal.getClass());
 	}
 
 	public EntityAIMate(EntityAnimal p_i47306_1_, double p_i47306_2_, Class<? extends EntityAnimal> p_i47306_4_) {
-
 		animal = p_i47306_1_;
 		world = p_i47306_1_.world;
 		mateClass = p_i47306_4_;
@@ -45,7 +43,6 @@ public class EntityAIMate extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		if (!animal.isInLove()) {
 			return false;
 		} else {
@@ -58,7 +55,6 @@ public class EntityAIMate extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		return targetMate.isEntityAlive() && targetMate.isInLove() && spawnBabyDelay < 60;
 	}
 
@@ -66,7 +62,6 @@ public class EntityAIMate extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		targetMate = null;
 		spawnBabyDelay = 0;
 	}
@@ -75,7 +70,6 @@ public class EntityAIMate extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		animal.getLookHelper().setLookPositionWithEntity(targetMate, 10F, (float) animal.getVerticalFaceSpeed());
 		animal.getNavigator().tryMoveToEntityLiving(targetMate, moveSpeed);
 		++spawnBabyDelay;
@@ -90,7 +84,6 @@ public class EntityAIMate extends EntityAIBase {
 	 * valid mate found.
 	 */
 	private EntityAnimal getNearbyMate() {
-
 		List<EntityAnimal> list = world.getEntitiesWithinAABB(mateClass, animal.getEntityBoundingBox().grow(8D));
 		double d0 = Double.MAX_VALUE;
 		EntityAnimal entityanimal = null;
@@ -109,7 +102,6 @@ public class EntityAIMate extends EntityAIBase {
 	 * Spawns a baby animal of the same type.
 	 */
 	private void spawnBaby() {
-
 		EntityAgeable entityageable = animal.createChild(targetMate);
 
 		if (entityageable != null) {

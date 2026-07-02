@@ -17,7 +17,6 @@ public class ShareToLanScreen extends Screen {
 	private boolean allowCheats;
 
 	public ShareToLanScreen(Screen lastScreenIn) {
-
 		lastScreen = lastScreenIn;
 	}
 
@@ -26,7 +25,6 @@ public class ShareToLanScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		buttons.clear();
 		buttons.add(new Button(101, width / 2 - 155, height - 28, 150, 20, I18n.format("lanServer.start")));
 		buttons.add(new Button(102, width / 2 + 5, height - 28, 150, 20, I18n.format("gui.cancel")));
@@ -36,7 +34,6 @@ public class ShareToLanScreen extends Screen {
 	}
 
 	private void updateDisplayNames() {
-
 		gameModeButton.displayString = I18n.format("selectWorld.gameMode") + ": " + I18n.format("selectWorld.gameMode." + gameMode);
 		allowCheatsButton.displayString = I18n.format("selectWorld.allowCommands") + " ";
 
@@ -51,7 +48,6 @@ public class ShareToLanScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.id == 102) {
 			mc.displayScreen(lastScreen);
 		} else if (button.id == 104) {
@@ -85,7 +81,6 @@ public class ShareToLanScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, I18n.format("lanServer.title"), width / 2, 50, 16777215);
 		drawCenteredString(fontRenderer, I18n.format("lanServer.otherPlayers"), width / 2, 82, 16777215);

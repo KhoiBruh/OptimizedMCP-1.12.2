@@ -48,7 +48,6 @@ public class EntityXPOrb extends Entity {
 	private int xpTargetColor;
 
 	public EntityXPOrb(World worldIn, double x, double y, double z, int expValue) {
-
 		super(worldIn);
 		setSize(0.5F, 0.5F);
 		setPosition(x, y, z);
@@ -60,7 +59,6 @@ public class EntityXPOrb extends Entity {
 	}
 
 	public EntityXPOrb(World worldIn) {
-
 		super(worldIn);
 		setSize(0.25F, 0.25F);
 	}
@@ -69,7 +67,6 @@ public class EntityXPOrb extends Entity {
 	 * Get a fragment of the maximum experience points value for the supplied value of experience points value.
 	 */
 	public static int getXPSplit(int expValue) {
-
 		if (expValue >= 2477) {
 			return 2477;
 		} else if (expValue >= 1237) {
@@ -98,16 +95,13 @@ public class EntityXPOrb extends Entity {
 	 * prevent them from trampling crops
 	 */
 	protected boolean canTriggerWalking() {
-
 		return false;
 	}
 
 	protected void entityInit() {
-
 	}
 
 	public int getBrightnessForRender() {
-
 		float f = 0.5F;
 		f = MathHelper.clamp(f, 0F, 1F);
 		int i = super.getBrightnessForRender();
@@ -126,7 +120,6 @@ public class EntityXPOrb extends Entity {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		super.onUpdate();
 
 		if (delayBeforeCanPickup > 0) {
@@ -205,7 +198,6 @@ public class EntityXPOrb extends Entity {
 	 * Returns if this entity is in water and will end up adding the waters velocity to the entity
 	 */
 	public boolean handleWaterMovement() {
-
 		return world.handleMaterialAcceleration(getEntityBoundingBox(), Material.WATER, this);
 	}
 
@@ -213,7 +205,6 @@ public class EntityXPOrb extends Entity {
 	 * Will deal the specified amount of fire damage to the entity if the entity isn't immune to fire damage.
 	 */
 	protected void dealFireDamage(int amount) {
-
 		attackEntityFrom(DamageSource.IN_FIRE, (float) amount);
 	}
 
@@ -221,7 +212,6 @@ public class EntityXPOrb extends Entity {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		if (isEntityInvulnerable(source)) {
 			return false;
 		} else {
@@ -240,7 +230,6 @@ public class EntityXPOrb extends Entity {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		compound.setShort("Health", (short) xpOrbHealth);
 		compound.setShort("Age", (short) xpOrbAge);
 		compound.setShort("Value", (short) xpValue);
@@ -250,7 +239,6 @@ public class EntityXPOrb extends Entity {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		xpOrbHealth = compound.getShort("Health");
 		xpOrbAge = compound.getShort("Age");
 		xpValue = compound.getShort("Value");
@@ -260,7 +248,6 @@ public class EntityXPOrb extends Entity {
 	 * Called by a player entity when they collide with an entity
 	 */
 	public void onCollideWithPlayer(EntityPlayer entityIn) {
-
 		if (!world.isRemote) {
 			if (delayBeforeCanPickup == 0 && entityIn.xpCooldown == 0) {
 				entityIn.xpCooldown = 2;
@@ -283,12 +270,10 @@ public class EntityXPOrb extends Entity {
 	}
 
 	private int durabilityToXp(int durability) {
-
 		return durability / 2;
 	}
 
 	private int xpToDurability(int xp) {
-
 		return xp * 2;
 	}
 
@@ -296,7 +281,6 @@ public class EntityXPOrb extends Entity {
 	 * Returns the XP value of this XP orb.
 	 */
 	public int getXpValue() {
-
 		return xpValue;
 	}
 
@@ -305,7 +289,6 @@ public class EntityXPOrb extends Entity {
 	 * what texture to use.
 	 */
 	public int getTextureByXP() {
-
 		if (xpValue >= 2477) {
 			return 10;
 		} else if (xpValue >= 1237) {
@@ -333,7 +316,6 @@ public class EntityXPOrb extends Entity {
 	 * Returns true if it's possible to attack this entity with an item.
 	 */
 	public boolean canBeAttackedWithItem() {
-
 		return false;
 	}
 

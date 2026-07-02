@@ -14,12 +14,10 @@ public class CooldownTracker {
 	private int ticks;
 
 	public boolean hasCooldown(Item itemIn) {
-
 		return getCooldown(itemIn, 0F) > 0F;
 	}
 
 	public float getCooldown(Item itemIn, float partialTicks) {
-
 		CooldownTracker.Cooldown cooldowntracker$cooldown = cooldowns.get(itemIn);
 
 		if (cooldowntracker$cooldown != null) {
@@ -32,7 +30,6 @@ public class CooldownTracker {
 	}
 
 	public void tick() {
-
 		++ticks;
 
 		if (!cooldowns.isEmpty()) {
@@ -50,23 +47,19 @@ public class CooldownTracker {
 	}
 
 	public void setCooldown(Item itemIn, int ticksIn) {
-
 		cooldowns.put(itemIn, new CooldownTracker.Cooldown(ticks, ticks + ticksIn));
 		notifyOnSet(itemIn, ticksIn);
 	}
 
 	public void removeCooldown(Item itemIn) {
-
 		cooldowns.remove(itemIn);
 		notifyOnRemove(itemIn);
 	}
 
 	protected void notifyOnSet(Item itemIn, int ticksIn) {
-
 	}
 
 	protected void notifyOnRemove(Item itemIn) {
-
 	}
 
 	class Cooldown {
@@ -75,7 +68,6 @@ public class CooldownTracker {
 		final int expireTicks;
 
 		private Cooldown(int createTicksIn, int expireTicksIn) {
-
 			createTicks = createTicksIn;
 			expireTicks = expireTicksIn;
 		}

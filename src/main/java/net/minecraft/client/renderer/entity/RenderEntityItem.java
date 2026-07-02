@@ -20,7 +20,6 @@ public class RenderEntityItem extends Render<EntityItem> {
 	private final Random random = new Random();
 
 	public RenderEntityItem(RenderManager renderManagerIn, RenderItem p_i46167_2_) {
-
 		super(renderManagerIn);
 		itemRenderer = p_i46167_2_;
 		shadowSize = 0.15F;
@@ -28,7 +27,6 @@ public class RenderEntityItem extends Render<EntityItem> {
 	}
 
 	private int transformModelCount(EntityItem itemIn, double p_177077_2_, double p_177077_4_, double p_177077_6_, float p_177077_8_, IBakedModel p_177077_9_) {
-
 		ItemStack itemstack = itemIn.getItem();
 		Item item = itemstack.getItem();
 
@@ -53,7 +51,6 @@ public class RenderEntityItem extends Render<EntityItem> {
 	}
 
 	private int getModelCount(ItemStack stack) {
-
 		int i = 1;
 
 		if (stack.getCount() > 48) {
@@ -73,7 +70,6 @@ public class RenderEntityItem extends Render<EntityItem> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(EntityItem entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		ItemStack itemstack = entity.getItem();
 		int i = itemstack.isEmpty() ? 187 : Item.getIdFromItem(itemstack.getItem()) + itemstack.getMetadata();
 		random.setSeed(i);
@@ -160,7 +156,6 @@ public class RenderEntityItem extends Render<EntityItem> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityItem entity) {
-
 		return TextureMap.LOCATION_BLOCKS_TEXTURE;
 	}
 

@@ -20,23 +20,19 @@ import net.minecraft.world.World;
 public abstract class BlockContainer extends Block implements ITileEntityProvider {
 
 	protected BlockContainer(Material materialIn) {
-
 		this(materialIn, materialIn.getMaterialMapColor());
 	}
 
 	protected BlockContainer(Material materialIn, MapColor color) {
-
 		super(materialIn, color);
 		hasTileEntity = true;
 	}
 
 	protected boolean isInvalidNeighbor(World worldIn, BlockPos pos, Facing facing) {
-
 		return worldIn.getBlockState(pos.offset(facing)).getMaterial() == Material.CACTUS;
 	}
 
 	protected boolean hasInvalidNeighbor(World worldIn, BlockPos pos) {
-
 		return isInvalidNeighbor(worldIn, pos, Facing.NORTH) || isInvalidNeighbor(worldIn, pos, Facing.SOUTH) || isInvalidNeighbor(worldIn, pos, Facing.WEST) || isInvalidNeighbor(worldIn, pos, Facing.EAST);
 	}
 
@@ -45,7 +41,6 @@ public abstract class BlockContainer extends Block implements ITileEntityProvide
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
 	public BlockRenderType getRenderType(IBlockState state) {
-
 		return BlockRenderType.INVISIBLE;
 	}
 
@@ -53,7 +48,6 @@ public abstract class BlockContainer extends Block implements ITileEntityProvide
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		super.breakBlock(worldIn, pos, state);
 		worldIn.removeTileEntity(pos);
 	}
@@ -63,7 +57,6 @@ public abstract class BlockContainer extends Block implements ITileEntityProvide
 	 * Block.removedByPlayer
 	 */
 	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
-
 		if (te instanceof IWorldNameable && ((IWorldNameable) te).hasCustomName()) {
 			player.addStat(StatList.getBlockStats(this));
 			player.addExhaustion(0.005F);
@@ -93,7 +86,6 @@ public abstract class BlockContainer extends Block implements ITileEntityProvide
 	 * base. On the client, the update may involve replacing tile entities or effects such as sounds or particles
 	 */
 	public boolean eventReceived(IBlockState state, World worldIn, BlockPos pos, int id, int param) {
-
 		super.eventReceived(state, worldIn, pos, id, param);
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 		return tileentity != null && tileentity.receiveClientEvent(id, param);

@@ -11,14 +11,12 @@ import net.minecraft.world.World;
 public class ItemCompass extends Item {
 
 	public ItemCompass() {
-
 		addPropertyOverride(new ResourceLocation("angle"), new IItemPropertyGetter() {
 			double rotation;
 			double rota;
 			long lastUpdateTick;
 
 			public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn) {
-
 				if (entityIn == null && !stack.isOnItemFrame()) {
 					return 0F;
 				} else {
@@ -49,7 +47,6 @@ public class ItemCompass extends Item {
 			}
 
 			private double wobble(World worldIn, double p_185093_2_) {
-
 				if (worldIn.getTotalWorldTime() != lastUpdateTick) {
 					lastUpdateTick = worldIn.getTotalWorldTime();
 					double d0 = p_185093_2_ - rotation;
@@ -63,12 +60,10 @@ public class ItemCompass extends Item {
 			}
 
 			private double getFrameRotation(EntityItemFrame p_185094_1_) {
-
 				return MathHelper.wrapDegrees(180 + p_185094_1_.facingDirection.getHorizontalIndex() * 90);
 			}
 
 			private double getSpawnToAngle(World p_185092_1_, Entity p_185092_2_) {
-
 				BlockPos blockpos = p_185092_1_.getSpawnPoint();
 				return Math.atan2((double) blockpos.getZ() - p_185092_2_.posZ, (double) blockpos.getX() - p_185092_2_.posX);
 			}

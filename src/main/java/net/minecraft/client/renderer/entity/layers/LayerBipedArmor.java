@@ -7,19 +7,16 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 public class LayerBipedArmor extends LayerArmorBase<ModelBiped> {
 
 	public LayerBipedArmor(RenderLivingBase<?> rendererIn) {
-
 		super(rendererIn);
 	}
 
 	protected void initArmor() {
-
 		modelLeggings = new ModelBiped(0.5F);
 		modelArmor = new ModelBiped(1F);
 	}
 
 	@SuppressWarnings("incomplete-switch")
 	protected void setModelSlotVisible(ModelBiped p_188359_1_, EntityEquipmentSlot slotIn) {
-
 		setModelVisible(p_188359_1_);
 
 		switch (slotIn) {
@@ -47,7 +44,6 @@ public class LayerBipedArmor extends LayerArmorBase<ModelBiped> {
 	}
 
 	protected void setModelVisible(ModelBiped model) {
-
 		model.setVisible(false);
 	}
 

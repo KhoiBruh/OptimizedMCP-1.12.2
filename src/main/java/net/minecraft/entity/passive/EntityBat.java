@@ -30,19 +30,16 @@ public class EntityBat extends EntityAmbientCreature {
 	private BlockPos spawnPosition;
 
 	public EntityBat(World worldIn) {
-
 		super(worldIn);
 		setSize(0.5F, 0.9F);
 		setIsBatHanging(true);
 	}
 
 	public static void registerFixesBat(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntityBat.class);
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(HANGING, (byte) 0);
 	}
@@ -51,7 +48,6 @@ public class EntityBat extends EntityAmbientCreature {
 	 * Returns the volume for the sounds this mob makes.
 	 */
 	protected float getSoundVolume() {
-
 		return 0.1F;
 	}
 
@@ -59,23 +55,19 @@ public class EntityBat extends EntityAmbientCreature {
 	 * Gets the pitch of living sounds in living entities.
 	 */
 	protected float getSoundPitch() {
-
 		return super.getSoundPitch() * 0.95F;
 	}
 
 	
 	public SoundEvent getAmbientSound() {
-
 		return getIsBatHanging() && rand.nextInt(4) != 0 ? null : SoundEvents.ENTITY_BAT_AMBIENT;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_BAT_HURT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_BAT_DEATH;
 	}
 
@@ -83,31 +75,25 @@ public class EntityBat extends EntityAmbientCreature {
 	 * Returns true if this entity should push and be pushed by other entities when colliding.
 	 */
 	public boolean canBePushed() {
-
 		return false;
 	}
 
 	protected void collideWithEntity(Entity entityIn) {
-
 	}
 
 	protected void collideWithNearbyEntities() {
-
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(6D);
 	}
 
 	public boolean getIsBatHanging() {
-
 		return (dataManager.get(HANGING) & 1) != 0;
 	}
 
 	public void setIsBatHanging(boolean isHanging) {
-
 		byte b0 = dataManager.get(HANGING);
 
 		if (isHanging) {
@@ -121,7 +107,6 @@ public class EntityBat extends EntityAmbientCreature {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		super.onUpdate();
 
 		if (getIsBatHanging()) {
@@ -135,7 +120,6 @@ public class EntityBat extends EntityAmbientCreature {
 	}
 
 	protected void updateAITasks() {
-
 		super.updateAITasks();
 		BlockPos blockpos = new BlockPos(this);
 		BlockPos blockpos1 = blockpos.up();
@@ -185,23 +169,19 @@ public class EntityBat extends EntityAmbientCreature {
 	 * prevent them from trampling crops
 	 */
 	protected boolean canTriggerWalking() {
-
 		return false;
 	}
 
 	public void fall(float distance, float damageMultiplier) {
-
 	}
 
 	protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos) {
-
 	}
 
 	/**
 	 * Return whether this entity should NOT trigger a pressure plate or a tripwire.
 	 */
 	public boolean doesEntityNotTriggerPressurePlate() {
-
 		return true;
 	}
 
@@ -209,7 +189,6 @@ public class EntityBat extends EntityAmbientCreature {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		if (isEntityInvulnerable(source)) {
 			return false;
 		} else {
@@ -225,7 +204,6 @@ public class EntityBat extends EntityAmbientCreature {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		dataManager.set(HANGING, compound.getByte("BatFlags"));
 	}
@@ -234,7 +212,6 @@ public class EntityBat extends EntityAmbientCreature {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setByte("BatFlags", dataManager.get(HANGING));
 	}
@@ -243,7 +220,6 @@ public class EntityBat extends EntityAmbientCreature {
 	 * Checks if the entity's current position is a valid location to spawn this entity.
 	 */
 	public boolean getCanSpawnHere() {
-
 		BlockPos blockpos = new BlockPos(posX, getEntityBoundingBox().minY, posZ);
 
 		if (blockpos.getY() >= world.getSeaLevel()) {
@@ -263,18 +239,15 @@ public class EntityBat extends EntityAmbientCreature {
 	}
 
 	private boolean isDateAroundHalloween(Calendar p_175569_1_) {
-
 		return p_175569_1_.get(Calendar.MONTH) + 1 == 10 && p_175569_1_.get(Calendar.DATE) >= 20 || p_175569_1_.get(Calendar.MONTH) + 1 == 11 && p_175569_1_.get(Calendar.DATE) <= 3;
 	}
 
 	public float getEyeHeight() {
-
 		return height / 2F;
 	}
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_BAT;
 	}
 

@@ -48,18 +48,15 @@ public class Explosion {
 	private final Map<EntityPlayer, Vec3d> playerKnockbackMap;
 
 	public Explosion(World worldIn, Entity entityIn, double x, double y, double z, float size, List<BlockPos> affectedPositions) {
-
 		this(worldIn, entityIn, x, y, z, size, false, true, affectedPositions);
 	}
 
 	public Explosion(World worldIn, Entity entityIn, double x, double y, double z, float size, boolean causesFire, boolean damagesTerrain, List<BlockPos> affectedPositions) {
-
 		this(worldIn, entityIn, x, y, z, size, causesFire, damagesTerrain);
 		affectedBlockPositions.addAll(affectedPositions);
 	}
 
 	public Explosion(World worldIn, Entity entityIn, double x, double y, double z, float size, boolean flaming, boolean damagesTerrain) {
-
 		random = new Random();
 		affectedBlockPositions = Lists.newArrayList();
 		playerKnockbackMap = Maps.newHashMap();
@@ -77,7 +74,6 @@ public class Explosion {
 	 * Does the first part of the explosion (destroy blocks)
 	 */
 	public void doExplosionA() {
-
 		Set<BlockPos> set = Sets.newHashSet();
 		int i = 16;
 
@@ -158,7 +154,6 @@ public class Explosion {
 						entity.motionZ += d9 * d11;
 
 						if (entity instanceof EntityPlayer entityplayer) {
-
 							if (!entityplayer.isSpectator() && (!entityplayer.isCreative() || !entityplayer.capabilities.isFlying)) {
 								playerKnockbackMap.put(entityplayer, new Vec3d(d5 * d10, d7 * d10, d9 * d10));
 							}
@@ -173,7 +168,6 @@ public class Explosion {
 	 * Does the second part of the explosion (sound, particles, drop spawn)
 	 */
 	public void doExplosionB(boolean spawnParticles) {
-
 		world.playSound(null, x, y, z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
 
 		if (size >= 2F && damagesTerrain) {
@@ -238,7 +232,6 @@ public class Explosion {
 	 * Returns either the entity that placed the explosive block, the entity that caused the explosion or null.
 	 */
 	public EntityLivingBase getExplosivePlacedBy() {
-
 		if (exploder == null) {
 			return null;
 		} else if (exploder instanceof EntityTNTPrimed) {
@@ -249,12 +242,10 @@ public class Explosion {
 	}
 
 	public void clearAffectedBlockPositions() {
-
 		affectedBlockPositions.clear();
 	}
 
 	public List<BlockPos> getAffectedBlockPositions() {
-
 		return affectedBlockPositions;
 	}
 

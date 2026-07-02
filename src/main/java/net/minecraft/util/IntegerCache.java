@@ -16,7 +16,6 @@ public class IntegerCache {
 	 * Get an Integer from the cache if it exists, otherwise return {@code Integer.valueOf()}
 	 */
 	public static Integer getInteger(int value) {
-
 		return value > 0 && value < CACHE.length ? CACHE[value] : value;
 	}
 }

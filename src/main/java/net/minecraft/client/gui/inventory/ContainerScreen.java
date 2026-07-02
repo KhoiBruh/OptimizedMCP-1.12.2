@@ -86,7 +86,6 @@ public abstract class ContainerScreen extends Screen {
 	private ItemStack shiftClickedSlot = ItemStack.EMPTY;
 
 	public ContainerScreen(Container inventorySlotsIn) {
-
 		inventorySlots = inventorySlotsIn;
 		ignoreMouseUp = true;
 	}
@@ -96,7 +95,6 @@ public abstract class ContainerScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		super.init();
 		mc.player.openContainer = inventorySlots;
 		guiLeft = (width - xSize) / 2;
@@ -107,7 +105,6 @@ public abstract class ContainerScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		int i = guiLeft;
 		int j = guiTop;
 		drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
@@ -196,7 +193,6 @@ public abstract class ContainerScreen extends Screen {
 	}
 
 	protected void renderHoveredToolTip(int p_191948_1_, int p_191948_2_) {
-
 		if (mc.player.inventory.getItemStack().isEmpty() && hoveredSlot != null && hoveredSlot.getHasStack()) {
 			renderToolTip(hoveredSlot.getStack(), p_191948_1_, p_191948_2_);
 		}
@@ -208,7 +204,6 @@ public abstract class ContainerScreen extends Screen {
 	 * The z index is increased by 32 (and not decreased afterwards), and the item is then rendered at z=200.
 	 */
 	private void drawItemStack(ItemStack stack, int x, int y, String altText) {
-
 		GLS.translate(0F, 0F, 32F);
 		zLevel = 200F;
 		itemRender.zLevel = 200F;
@@ -222,7 +217,6 @@ public abstract class ContainerScreen extends Screen {
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-
 	}
 
 	/**
@@ -234,7 +228,6 @@ public abstract class ContainerScreen extends Screen {
 	 * Draws the given slot: any item in it, the slot's background, the hovered highlight, etc.
 	 */
 	private void drawSlot(Slot slotIn) {
-
 		int i = slotIn.xPos;
 		int j = slotIn.yPos;
 		ItemStack itemstack = slotIn.getStack();
@@ -298,7 +291,6 @@ public abstract class ContainerScreen extends Screen {
 	}
 
 	private void updateDragSplitting() {
-
 		ItemStack itemstack = mc.player.inventory.getItemStack();
 
 		if (!itemstack.isEmpty() && dragSplitting) {
@@ -328,7 +320,6 @@ public abstract class ContainerScreen extends Screen {
 	 * Returns the slot at the given coordinates or null if there is none.
 	 */
 	private Slot getSlotAtPosition(int x, int y) {
-
 		for (int i = 0; i < inventorySlots.inventorySlots.size(); ++i) {
 			Slot slot = inventorySlots.inventorySlots.get(i);
 
@@ -344,7 +335,6 @@ public abstract class ContainerScreen extends Screen {
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
-
 		super.mouseClicked(mouseX, mouseY, mouse);
 		boolean flag = mouse == mc.gameSettings.keyPickBlock.getKeyCode() + 100;
 		Slot slot = getSlotAtPosition(mouseX, mouseY);
@@ -422,7 +412,6 @@ public abstract class ContainerScreen extends Screen {
 	}
 
 	protected boolean hasClickedOutside(int p_193983_1_, int p_193983_2_, int p_193983_3_, int p_193983_4_) {
-
 		return p_193983_1_ < p_193983_3_ || p_193983_2_ < p_193983_4_ || p_193983_1_ >= p_193983_3_ + xSize || p_193983_2_ >= p_193983_4_ + ySize;
 	}
 
@@ -431,7 +420,6 @@ public abstract class ContainerScreen extends Screen {
 	 * lastButtonClicked & timeSinceMouseClick.
 	 */
 	protected void mouseClickMove(int mouseX, int mouseY, int button, long timeSinceLastClick) {
-
 		Slot slot = getSlotAtPosition(mouseX, mouseY);
 		ItemStack itemstack = mc.player.inventory.getItemStack();
 
@@ -468,7 +456,6 @@ public abstract class ContainerScreen extends Screen {
 	 * Called when a mouse button is released.
 	 */
 	protected void mouseReleased(int mouseX, int mouseY, int state) {
-
 		Slot slot = getSlotAtPosition(mouseX, mouseY);
 		int i = guiLeft;
 		int j = guiTop;
@@ -578,7 +565,6 @@ public abstract class ContainerScreen extends Screen {
 	 * Returns whether the mouse is over the given slot.
 	 */
 	private boolean isMouseOverSlot(Slot slotIn, int mouseX, int mouseY) {
-
 		return isPointInRegion(slotIn.xPos, slotIn.yPos, 16, 16, mouseX, mouseY);
 	}
 
@@ -587,7 +573,6 @@ public abstract class ContainerScreen extends Screen {
 	 * pointY
 	 */
 	protected boolean isPointInRegion(int rectX, int rectY, int rectWidth, int rectHeight, int pointX, int pointY) {
-
 		int i = guiLeft;
 		int j = guiTop;
 		pointX = pointX - i;
@@ -599,7 +584,6 @@ public abstract class ContainerScreen extends Screen {
 	 * Called when the mouse is clicked over a slot or outside the gui.
 	 */
 	protected void handleMouseClick(Slot slotIn, int slotId, int mouseButton, ClickType type) {
-
 		if (slotIn != null) {
 			slotId = slotIn.slotNumber;
 		}
@@ -612,7 +596,6 @@ public abstract class ContainerScreen extends Screen {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-
 		if (keyCode == 256 || keyCode == mc.gameSettings.keyInventory.getKeyCode()) {
 			mc.player.closeScreen();
 		}
@@ -634,7 +617,6 @@ public abstract class ContainerScreen extends Screen {
 	 * Returns true if a hotbar key was pressed.
 	 */
 	protected boolean checkHotbarKeys(int keyCode) {
-
 		if (mc.player.inventory.getItemStack().isEmpty() && hoveredSlot != null) {
 			for (int i = 0; i < 9; ++i) {
 				if (keyCode == mc.gameSettings.keyHotbar[i].getKeyCode()) {
@@ -651,7 +633,6 @@ public abstract class ContainerScreen extends Screen {
 	 * Called when the screen is unloaded. Used to disable keyboard repeat events
 	 */
 	public void close() {
-
 		if (mc.player != null) {
 			inventorySlots.onContainerClosed(mc.player);
 		}
@@ -661,7 +642,6 @@ public abstract class ContainerScreen extends Screen {
 	 * Returns true if this GUI should pause the game when it is displayed in single-player
 	 */
 	public boolean pauseGame() {
-
 		return false;
 	}
 
@@ -669,7 +649,6 @@ public abstract class ContainerScreen extends Screen {
 	 * Called from the main game loop to update the screen.
 	 */
 	public void update() {
-
 		super.update();
 
 		if (!mc.player.isEntityAlive() || mc.player.isDead) {

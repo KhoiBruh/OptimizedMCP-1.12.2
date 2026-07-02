@@ -8,12 +8,10 @@ public enum ChatType {
 	private final byte id;
 
 	ChatType(byte id) {
-
 		this.id = id;
 	}
 
 	public static ChatType byId(byte idIn) {
-
 		for (ChatType chattype : values()) {
 			if (idIn == chattype.id) {
 				return chattype;
@@ -24,7 +22,6 @@ public enum ChatType {
 	}
 
 	public byte getId() {
-
 		return id;
 	}
 }

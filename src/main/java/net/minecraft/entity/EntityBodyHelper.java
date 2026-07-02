@@ -16,7 +16,6 @@ public class EntityBodyHelper {
 	private float prevRenderYawHead;
 
 	public EntityBodyHelper(EntityLivingBase livingIn) {
-
 		living = livingIn;
 	}
 
@@ -24,7 +23,6 @@ public class EntityBodyHelper {
 	 * Update the Head and Body rendenring angles
 	 */
 	public void updateRenderAngles() {
-
 		double d0 = living.posX - living.prevPosX;
 		double d1 = living.posZ - living.prevPosZ;
 
@@ -59,7 +57,6 @@ public class EntityBodyHelper {
 	 * angle2, angleMax
 	 */
 	private float computeAngleWithBound(float p_75665_1_, float p_75665_2_, float p_75665_3_) {
-
 		float f = MathHelper.wrapDegrees(p_75665_1_ - p_75665_2_);
 
 		if (f < -p_75665_3_) {

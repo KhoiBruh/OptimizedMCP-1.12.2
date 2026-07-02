@@ -7,12 +7,10 @@ import net.minecraft.util.datafix.IFixableData;
 public class SpawnerEntityTypes implements IFixableData {
 
 	public int getFixVersion() {
-
 		return 107;
 	}
 
 	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
-
 		if (!"MobSpawner".equals(compound.getString("id"))) {
 			return compound;
 		} else {

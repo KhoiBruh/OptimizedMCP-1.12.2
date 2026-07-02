@@ -11,23 +11,19 @@ import net.minecraft.world.storage.loot.LootTableList;
 public class EntityGiantZombie extends EntityMob {
 
 	public EntityGiantZombie(World worldIn) {
-
 		super(worldIn);
 		setSize(width * 6F, height * 6F);
 	}
 
 	public static void registerFixesGiantZombie(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntityGiantZombie.class);
 	}
 
 	public float getEyeHeight() {
-
 		return 10.440001F;
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5D);
@@ -35,13 +31,11 @@ public class EntityGiantZombie extends EntityMob {
 	}
 
 	public float getBlockPathWeight(BlockPos pos) {
-
 		return world.getLightBrightness(pos) - 0.5F;
 	}
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_GIANT;
 	}
 

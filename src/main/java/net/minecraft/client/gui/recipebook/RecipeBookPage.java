@@ -26,14 +26,12 @@ public class RecipeBookPage {
 	private RecipeList lastClickedRecipeList;
 
 	public RecipeBookPage() {
-
 		for (int i = 0; i < 20; ++i) {
 			buttons.add(new RecipeButton());
 		}
 	}
 
 	public void init(Minecraft p_194194_1_, int p_194194_2_, int p_194194_3_) {
-
 		minecraft = p_194194_1_;
 		recipeBook = p_194194_1_.player.getRecipeBook();
 
@@ -48,13 +46,11 @@ public class RecipeBookPage {
 	}
 
 	public void addListener(GuiRecipeBook p_193732_1_) {
-
 		listeners.remove(p_193732_1_);
 		listeners.add(p_193732_1_);
 	}
 
 	public void updateLists(List<RecipeList> p_194192_1_, boolean p_194192_2_) {
-
 		recipeLists = p_194192_1_;
 		totalPages = (int) Math.ceil((double) p_194192_1_.size() / 20D);
 
@@ -66,7 +62,6 @@ public class RecipeBookPage {
 	}
 
 	private void updateButtonsForPage() {
-
 		int i = 20 * currentPage;
 
 		for (int j = 0; j < buttons.size(); ++j) {
@@ -85,13 +80,11 @@ public class RecipeBookPage {
 	}
 
 	private void updateArrowButtons() {
-
 		forwardButton.visible = totalPages > 1 && currentPage < totalPages - 1;
 		backButton.visible = totalPages > 1 && currentPage > 0;
 	}
 
 	public void render(int p_194191_1_, int p_194191_2_, int p_194191_3_, int p_194191_4_, float p_194191_5_) {
-
 		if (totalPages > 1) {
 			String s = currentPage + 1 + "/" + totalPages;
 			int i = minecraft.fontRenderer.getStringWidth(s);
@@ -115,7 +108,6 @@ public class RecipeBookPage {
 	}
 
 	public void renderTooltip(int p_193721_1_, int p_193721_2_) {
-
 		if (minecraft.currentScreen != null && hoveredButton != null && !overlay.isVisible()) {
 			minecraft.currentScreen.drawHoveringText(hoveredButton.getToolTipText(minecraft.currentScreen), p_193721_1_, p_193721_2_);
 		}
@@ -123,23 +115,19 @@ public class RecipeBookPage {
 
 	
 	public IRecipe getLastClickedRecipe() {
-
 		return lastClickedRecipe;
 	}
 
 	
 	public RecipeList getLastClickedRecipeList() {
-
 		return lastClickedRecipeList;
 	}
 
 	public void setInvisible() {
-
 		overlay.setVisible(false);
 	}
 
 	public boolean mouseClicked(int p_194196_1_, int p_194196_2_, int p_194196_3_, int p_194196_4_, int p_194196_5_, int p_194196_6_, int p_194196_7_) {
-
 		lastClickedRecipe = null;
 		lastClickedRecipeList = null;
 
@@ -183,7 +171,6 @@ public class RecipeBookPage {
 	}
 
 	public void recipesShown(List<IRecipe> p_194195_1_) {
-
 		for (IRecipeUpdateListener irecipeupdatelistener : listeners) {
 			irecipeupdatelistener.recipesShown(p_194195_1_);
 		}

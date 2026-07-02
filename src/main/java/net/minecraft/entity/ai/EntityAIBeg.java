@@ -16,7 +16,6 @@ public class EntityAIBeg extends EntityAIBase {
 	private int timeoutCounter;
 
 	public EntityAIBeg(EntityWolf wolf, float minDistance) {
-
 		this.wolf = wolf;
 		world = wolf.world;
 		minPlayerDistance = minDistance;
@@ -27,7 +26,6 @@ public class EntityAIBeg extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		player = world.getClosestPlayerToEntity(wolf, minPlayerDistance);
 		return player != null && hasTemptationItemInHand(player);
 	}
@@ -36,7 +34,6 @@ public class EntityAIBeg extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		if (!player.isEntityAlive()) {
 			return false;
 		} else if (wolf.getDistanceSq(player) > (double) (minPlayerDistance * minPlayerDistance)) {
@@ -50,7 +47,6 @@ public class EntityAIBeg extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		wolf.setBegging(true);
 		timeoutCounter = 40 + wolf.getRNG().nextInt(40);
 	}
@@ -59,7 +55,6 @@ public class EntityAIBeg extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		wolf.setBegging(false);
 		player = null;
 	}
@@ -68,7 +63,6 @@ public class EntityAIBeg extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		wolf.getLookHelper().setLookPosition(player.posX, player.posY + (double) player.getEyeHeight(), player.posZ, 10F, (float) wolf.getVerticalFaceSpeed());
 		--timeoutCounter;
 	}
@@ -77,7 +71,6 @@ public class EntityAIBeg extends EntityAIBase {
 	 * Gets if the Player has the Bone in the hand.
 	 */
 	private boolean hasTemptationItemInHand(EntityPlayer player) {
-
 		for (Hand enumhand : Hand.values()) {
 			ItemStack itemstack = player.getHeldItem(enumhand);
 

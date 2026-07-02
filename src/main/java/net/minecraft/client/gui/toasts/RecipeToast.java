@@ -16,12 +16,10 @@ public class RecipeToast implements IToast {
 	private boolean hasNewOutputs;
 
 	public RecipeToast(ItemStack p_i47489_1_) {
-
 		recipesOutputs.add(p_i47489_1_);
 	}
 
 	public static void addOrUpdate(GuiToast p_193665_0_, IRecipe p_193665_1_) {
-
 		RecipeToast recipetoast = p_193665_0_.getToast(RecipeToast.class, NO_TOKEN);
 
 		if (recipetoast == null) {
@@ -53,7 +51,6 @@ public class RecipeToast implements IToast {
 	}
 
 	public void addRecipeOutput(ItemStack output) {
-
 		if (recipesOutputs.add(output)) {
 			hasNewOutputs = true;
 		}

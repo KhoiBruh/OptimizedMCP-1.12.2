@@ -14,12 +14,10 @@ public class DebugRendererCollisionBox implements DebugRenderer.IDebugRenderer {
 	private final Minecraft minecraft;
 	
 	public DebugRendererCollisionBox(Minecraft minecraftIn) {
-
 		minecraft = minecraftIn;
 	}
 
 	public void render(float partialTicks, long finishTimeNano) {
-		
 		EntityPlayer player = minecraft.player;
 		double renderPosX = player.lastTickPosX + (player.posX - player.lastTickPosX) * (double) partialTicks;
 		double renderPosY = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double) partialTicks;

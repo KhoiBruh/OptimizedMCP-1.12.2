@@ -15,7 +15,6 @@ public class EntityDamageSourceIndirect extends EntityDamageSource {
 	private final Entity indirectEntity;
 
 	public EntityDamageSourceIndirect(String damageTypeIn, Entity source, Entity indirectEntityIn) {
-
 		super(damageTypeIn, source);
 		indirectEntity = indirectEntityIn;
 	}
@@ -26,7 +25,6 @@ public class EntityDamageSourceIndirect extends EntityDamageSource {
 	 * Retrieves the immediate causer of the damage, e.g. the arrow entity, not its shooter
 	 */
 	public Entity getImmediateSource() {
-
 		return damageSourceEntity;
 	}
 
@@ -37,7 +35,6 @@ public class EntityDamageSourceIndirect extends EntityDamageSource {
 	 * etc.
 	 */
 	public Entity getTrueSource() {
-
 		return indirectEntity;
 	}
 
@@ -45,7 +42,6 @@ public class EntityDamageSourceIndirect extends EntityDamageSource {
 	 * Gets the death message that is displayed when the player dies
 	 */
 	public ITextComponent getDeathMessage(EntityLivingBase entityLivingBaseIn) {
-
 		ITextComponent itextcomponent = indirectEntity == null ? damageSourceEntity.getDisplayName() : indirectEntity.getDisplayName();
 		ItemStack itemstack = indirectEntity instanceof EntityLivingBase ? ((EntityLivingBase) indirectEntity).getHeldItemMainhand() : ItemStack.EMPTY;
 		String s = "death.attack." + damageType;

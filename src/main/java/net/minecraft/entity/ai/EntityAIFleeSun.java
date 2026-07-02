@@ -18,7 +18,6 @@ public class EntityAIFleeSun extends EntityAIBase {
 	private double shelterZ;
 
 	public EntityAIFleeSun(EntityCreature theCreatureIn, double movementSpeedIn) {
-
 		creature = theCreatureIn;
 		movementSpeed = movementSpeedIn;
 		world = theCreatureIn.world;
@@ -29,7 +28,6 @@ public class EntityAIFleeSun extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		if (!world.isDaytime()) {
 			return false;
 		} else if (!creature.isBurning()) {
@@ -56,7 +54,6 @@ public class EntityAIFleeSun extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		return !creature.getNavigator().noPath();
 	}
 
@@ -64,13 +61,11 @@ public class EntityAIFleeSun extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		creature.getNavigator().tryMoveToXYZ(shelterX, shelterY, shelterZ, movementSpeed);
 	}
 
 	
 	private Vec3d findPossibleShelter() {
-
 		Random random = creature.getRNG();
 		BlockPos blockpos = new BlockPos(creature.posX, creature.getEntityBoundingBox().minY, creature.posZ);
 

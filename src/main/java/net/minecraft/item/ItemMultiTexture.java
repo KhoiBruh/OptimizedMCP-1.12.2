@@ -8,7 +8,6 @@ public class ItemMultiTexture extends ItemBlock {
 	protected final ItemMultiTexture.Mapper nameFunction;
 
 	public ItemMultiTexture(Block p_i47262_1_, Block p_i47262_2_, ItemMultiTexture.Mapper p_i47262_3_) {
-
 		super(p_i47262_1_);
 		unused = p_i47262_2_;
 		nameFunction = p_i47262_3_;
@@ -17,7 +16,6 @@ public class ItemMultiTexture extends ItemBlock {
 	}
 
 	public ItemMultiTexture(Block block, Block block2, final String[] namesByMeta) {
-
 		this(block, block2, p_apply_1_ -> {
 
 			int i = p_apply_1_.getMetadata();
@@ -35,7 +33,6 @@ public class ItemMultiTexture extends ItemBlock {
 	 * placed as a Block (mostly used with ItemBlocks).
 	 */
 	public int getMetadata(int damage) {
-
 		return damage;
 	}
 
@@ -44,7 +41,6 @@ public class ItemMultiTexture extends ItemBlock {
 	 * different names based on their damage or NBT.
 	 */
 	public String getUnlocalizedName(ItemStack stack) {
-
 		return super.getUnlocalizedName() + "." + nameFunction.apply(stack);
 	}
 

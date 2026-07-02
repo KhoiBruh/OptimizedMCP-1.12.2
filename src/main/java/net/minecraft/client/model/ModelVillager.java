@@ -32,12 +32,10 @@ public class ModelVillager extends ModelBase {
 	public ModelRenderer villagerNose;
 
 	public ModelVillager(float scale) {
-
 		this(scale, 0F, 64, 64);
 	}
 
 	public ModelVillager(float scale, float p_i1164_2_, int width, int height) {
-
 		villagerHead = (new ModelRenderer(this)).setTextureSize(width, height);
 		villagerHead.setRotationPoint(0F, 0F + p_i1164_2_, 0F);
 		villagerHead.setTextureOffset(0, 0).addBox(-4F, -10F, -4F, 8, 10, 8, scale);
@@ -67,7 +65,6 @@ public class ModelVillager extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		villagerHead.render(scale);
 		villagerBody.render(scale);
@@ -82,7 +79,6 @@ public class ModelVillager extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		villagerHead.rotateAngleY = netHeadYaw * 0.017453292F;
 		villagerHead.rotateAngleX = headPitch * 0.017453292F;
 		villagerArms.rotationPointY = 3F;

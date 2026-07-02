@@ -13,43 +13,35 @@ public class BuiltInModel implements IBakedModel {
 	private final ItemOverrideList overrideList;
 
 	public BuiltInModel(ItemCameraTransforms p_i46537_1_, ItemOverrideList p_i46537_2_) {
-
 		cameraTransforms = p_i46537_1_;
 		overrideList = p_i46537_2_;
 	}
 
 	public List<BakedQuad> getQuads(IBlockState state, Facing side, long rand) {
-
 		return Collections.emptyList();
 	}
 
 	public boolean isAmbientOcclusion() {
-
 		return false;
 	}
 
 	public boolean isGui3d() {
-
 		return true;
 	}
 
 	public boolean isBuiltInRenderer() {
-
 		return true;
 	}
 
 	public TextureAtlasSprite getParticleTexture() {
-
 		return null;
 	}
 
 	public ItemCameraTransforms getItemCameraTransforms() {
-
 		return cameraTransforms;
 	}
 
 	public ItemOverrideList getOverrides() {
-
 		return overrideList;
 	}
 

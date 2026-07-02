@@ -18,12 +18,10 @@ public class BlockStateMapper {
 	private final Set<Block> setBuiltInBlocks = Sets.newIdentityHashSet();
 
 	public void registerBlockStateMapper(Block blockIn, IStateMapper stateMapper) {
-
 		blockStateMap.put(blockIn, stateMapper);
 	}
 
 	public void registerBuiltInBlocks(Block... blockIn) {
-
 		Collections.addAll(setBuiltInBlocks, blockIn);
 	}
 
@@ -39,7 +37,6 @@ public class BlockStateMapper {
 	}
 
 	public Set<ResourceLocation> getBlockstateLocations(Block blockIn) {
-
 		if (setBuiltInBlocks.contains(blockIn)) {
 			return Collections.emptySet();
 		} else {

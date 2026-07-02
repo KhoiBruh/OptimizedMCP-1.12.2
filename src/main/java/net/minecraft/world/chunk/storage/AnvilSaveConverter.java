@@ -31,7 +31,6 @@ public class AnvilSaveConverter extends SaveFormatOld {
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	public AnvilSaveConverter(File dir, DataFixer dataFixerIn) {
-
 		super(dir, dataFixerIn);
 	}
 
@@ -39,12 +38,10 @@ public class AnvilSaveConverter extends SaveFormatOld {
 	 * Returns the name of the save format.
 	 */
 	public String getName() {
-
 		return "Anvil";
 	}
 
 	public List<WorldSummary> getSaveList() throws AnvilConverterException {
-
 		if (savesDirectory != null && savesDirectory.exists() && savesDirectory.isDirectory()) {
 			List<WorldSummary> list = Lists.newArrayList();
 			File[] afile = savesDirectory.listFiles();
@@ -74,12 +71,10 @@ public class AnvilSaveConverter extends SaveFormatOld {
 	}
 
 	protected int getSaveVersion() {
-
 		return 19133;
 	}
 
 	public void flushCache() {
-
 		RegionFileCache.clearRegionFileReferences();
 	}
 
@@ -87,12 +82,10 @@ public class AnvilSaveConverter extends SaveFormatOld {
 	 * Returns back a loader for the specified save directory
 	 */
 	public ISaveHandler getSaveLoader(String saveName, boolean storePlayerdata) {
-
 		return new AnvilSaveHandler(savesDirectory, saveName, storePlayerdata, dataFixer);
 	}
 
 	public boolean isConvertible(String saveName) {
-
 		WorldInfo worldinfo = getWorldInfo(saveName);
 		return worldinfo != null && worldinfo.getSaveVersion() == 19132;
 	}
@@ -101,7 +94,6 @@ public class AnvilSaveConverter extends SaveFormatOld {
 	 * gets if the map is old chunk saving (true) or McRegion (false)
 	 */
 	public boolean isOldMapFormat(String saveName) {
-
 		WorldInfo worldinfo = getWorldInfo(saveName);
 		return worldinfo != null && worldinfo.getSaveVersion() != getSaveVersion();
 	}
@@ -110,7 +102,6 @@ public class AnvilSaveConverter extends SaveFormatOld {
 	 * converts the map to mcRegion
 	 */
 	public boolean convertMapFormat(String filename, IProgressUpdate progressCallback) {
-
 		progressCallback.setLoadingProgress(0);
 		List<File> list = Lists.newArrayList();
 		List<File> list1 = Lists.newArrayList();
@@ -159,7 +150,6 @@ public class AnvilSaveConverter extends SaveFormatOld {
 	 * par: filename for the level.dat_mcr backup
 	 */
 	private void createFile(String filename) {
-
 		File file1 = new File(savesDirectory, filename);
 
 		if (!file1.exists()) {
@@ -180,7 +170,6 @@ public class AnvilSaveConverter extends SaveFormatOld {
 	}
 
 	private void convertFile(File baseFolder, Iterable<File> regionFiles, BiomeProvider p_75813_3_, int p_75813_4_, int p_75813_5_, IProgressUpdate progress) {
-
 		for (File file1 : regionFiles) {
 			convertChunks(baseFolder, file1, p_75813_3_, p_75813_4_, p_75813_5_, progress);
 			++p_75813_4_;
@@ -193,7 +182,6 @@ public class AnvilSaveConverter extends SaveFormatOld {
 	 * copies a 32x32 chunk set from par2File to par1File, via AnvilConverterData
 	 */
 	private void convertChunks(File baseFolder, File p_75811_2_, BiomeProvider biomeSource, int p_75811_4_, int p_75811_5_, IProgressUpdate progressCallback) {
-
 		try {
 			String s = p_75811_2_.getName();
 			RegionFile regionfile = new RegionFile(p_75811_2_);
@@ -241,7 +229,6 @@ public class AnvilSaveConverter extends SaveFormatOld {
 	 * filters the files in the par1 directory, and adds them to the par2 collections
 	 */
 	private void addRegionFilesToCollection(File worldDir, Collection<File> collection) {
-
 		File file1 = new File(worldDir, "region");
 		File[] afile = file1.listFiles((p_accept_1_, p_accept_2_) -> p_accept_2_.endsWith(".mcr"));
 

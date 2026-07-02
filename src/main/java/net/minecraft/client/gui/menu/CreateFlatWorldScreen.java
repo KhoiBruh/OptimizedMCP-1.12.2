@@ -58,7 +58,6 @@ public class CreateFlatWorldScreen extends Screen {
 	private Button removeLayerButton;
 
 	public CreateFlatWorldScreen(CreateWorldScreen createWorldGuiIn, String preset) {
-
 		createWorldGui = createWorldGuiIn;
 		setPreset(preset);
 	}
@@ -67,7 +66,6 @@ public class CreateFlatWorldScreen extends Screen {
 	 * Gets the superflat preset in the text format described on the Superflat article on the Minecraft Wiki
 	 */
 	public String getPreset() {
-
 		return generatorInfo.toString();
 	}
 
@@ -75,7 +73,6 @@ public class CreateFlatWorldScreen extends Screen {
 	 * Sets the superflat preset. Invalid or null values will result in the default superflat preset being used.
 	 */
 	public void setPreset(String preset) {
-
 		generatorInfo = FlatGeneratorInfo.createFlatGeneratorFromString(preset);
 	}
 
@@ -84,7 +81,6 @@ public class CreateFlatWorldScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		buttons.clear();
 		flatWorldTitle = I18n.format("createWorld.customize.flat.title");
 		materialText = I18n.format("createWorld.customize.flat.tile");
@@ -106,7 +102,6 @@ public class CreateFlatWorldScreen extends Screen {
 	 * Handles mouse input.
 	 */
 	public void handleMouse() throws IOException {
-
 		super.handleMouse();
 		createFlatWorldListSlotGui.handleMouseInput();
 	}
@@ -115,7 +110,6 @@ public class CreateFlatWorldScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		int i = generatorInfo.getFlatLayers().size() - createFlatWorldListSlotGui.selectedLayer - 1;
 
 		if (button.id == 1) {
@@ -139,7 +133,6 @@ public class CreateFlatWorldScreen extends Screen {
 	 * disables the buttons (which are invisible anyways)
 	 */
 	public void onLayersChanged() {
-
 		boolean flag = hasSelectedLayer();
 		removeLayerButton.enabled = flag;
 		editLayerButton.enabled = flag;
@@ -151,7 +144,6 @@ public class CreateFlatWorldScreen extends Screen {
 	 * Returns whether there is a valid layer selection
 	 */
 	private boolean hasSelectedLayer() {
-
 		return createFlatWorldListSlotGui.selectedLayer > -1 && createFlatWorldListSlotGui.selectedLayer < generatorInfo.getFlatLayers().size();
 	}
 
@@ -159,7 +151,6 @@ public class CreateFlatWorldScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		createFlatWorldListSlotGui.drawScreen(mouseX, mouseY, partialTicks);
 		drawCenteredString(fontRenderer, flatWorldTitle, width / 2, 8, 16777215);
@@ -174,12 +165,10 @@ public class CreateFlatWorldScreen extends Screen {
 		public int selectedLayer = -1;
 
 		public Details() {
-
 			super(CreateFlatWorldScreen.this.mc, CreateFlatWorldScreen.this.width, CreateFlatWorldScreen.this.height, 43, CreateFlatWorldScreen.this.height - 60, 24);
 		}
 
 		private void drawItem(int x, int z, ItemStack itemToDraw) {
-
 			drawItemBackground(x + 1, z + 1);
 			GLS.enableRescaleNormal();
 
@@ -193,12 +182,10 @@ public class CreateFlatWorldScreen extends Screen {
 		}
 
 		private void drawItemBackground(int x, int y) {
-
 			drawItemBackground(x, y, 0, 0);
 		}
 
 		private void drawItemBackground(int x, int z, int textureX, int textureY) {
-
 			GLS.color(1F, 1F, 1F, 1F);
 			mc.getTextureManager().bindTexture(Gui.STAT_ICONS);
 			float f = 0.0078125F;
@@ -216,27 +203,22 @@ public class CreateFlatWorldScreen extends Screen {
 		}
 
 		protected int getSize() {
-
 			return generatorInfo.getFlatLayers().size();
 		}
 
 		protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
-
 			selectedLayer = slotIndex;
 			onLayersChanged();
 		}
 
 		protected boolean isSelected(int slotIndex) {
-
 			return slotIndex == selectedLayer;
 		}
 
 		protected void drawBackground() {
-
 		}
 
 		protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks) {
-
 			FlatLayerInfo flatlayerinfo = generatorInfo.getFlatLayers().get(generatorInfo.getFlatLayers().size() - slotIndex - 1);
 			IBlockState iblockstate = flatlayerinfo.getLayerMaterial();
 			Block block = iblockstate.getBlock();
@@ -270,7 +252,6 @@ public class CreateFlatWorldScreen extends Screen {
 		}
 
 		protected int getScrollBarX() {
-
 			return width - 70;
 		}
 

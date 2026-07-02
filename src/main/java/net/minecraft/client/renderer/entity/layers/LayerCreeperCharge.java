@@ -14,12 +14,10 @@ public class LayerCreeperCharge implements LayerRenderer<EntityCreeper> {
 	private final ModelCreeper creeperModel = new ModelCreeper(2F);
 
 	public LayerCreeperCharge(RenderCreeper creeperRendererIn) {
-
 		creeperRenderer = creeperRendererIn;
 	}
 
 	public void doRenderLayer(EntityCreeper entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		if (entitylivingbaseIn.getPowered()) {
 			boolean flag = entitylivingbaseIn.isInvisible();
 			GLS.depthMask(!flag);
@@ -48,7 +46,6 @@ public class LayerCreeperCharge implements LayerRenderer<EntityCreeper> {
 	}
 
 	public boolean shouldCombineTextures() {
-
 		return false;
 	}
 

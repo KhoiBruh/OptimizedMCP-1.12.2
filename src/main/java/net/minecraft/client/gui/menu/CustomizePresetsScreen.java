@@ -54,7 +54,6 @@ public class CustomizePresetsScreen extends Screen {
 	private String listText;
 
 	public CustomizePresetsScreen(CustomizeWorldScreen parentIn) {
-
 		parent = parentIn;
 	}
 
@@ -63,7 +62,6 @@ public class CustomizePresetsScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		buttons.clear();
 		Keyboard.setRepeat(true);
 		title = I18n.format("createWorld.customize.custom.presets.title");
@@ -82,7 +80,6 @@ public class CustomizePresetsScreen extends Screen {
 	 * Handles mouse input.
 	 */
 	public void handleMouse() throws IOException {
-
 		super.handleMouse();
 		list.handleMouseInput();
 	}
@@ -91,7 +88,6 @@ public class CustomizePresetsScreen extends Screen {
 	 * Called when the screen is unloaded. Used to disable keyboard repeat events
 	 */
 	public void close() {
-
 		Keyboard.setRepeat(false);
 	}
 
@@ -99,7 +95,6 @@ public class CustomizePresetsScreen extends Screen {
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
-
 		export.mouseClicked(mouseX, mouseY, mouse);
 		super.mouseClicked(mouseX, mouseY, mouse);
 	}
@@ -109,7 +104,6 @@ public class CustomizePresetsScreen extends Screen {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-
 		if (!export.textboxKeyTyped(typedChar, keyCode)) {
 			super.keyTyped(typedChar, keyCode);
 		}
@@ -119,7 +113,6 @@ public class CustomizePresetsScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		switch (button.id) {
 			case 0:
 				parent.loadValues(export.getText());
@@ -135,7 +128,6 @@ public class CustomizePresetsScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		list.drawScreen(mouseX, mouseY, partialTicks);
 		drawCenteredString(fontRenderer, title, width / 2, 8, 16777215);
@@ -149,18 +141,15 @@ public class CustomizePresetsScreen extends Screen {
 	 * Called from the main game loop to update the screen.
 	 */
 	public void update() {
-
 		export.updateCursorCounter();
 		super.update();
 	}
 
 	public void updateButtonValidity() {
-
 		select.enabled = hasValidSelection();
 	}
 
 	private boolean hasValidSelection() {
-
 		return list.selected > -1 && list.selected < PRESETS.size() || export.getText().length() > 1;
 	}
 
@@ -171,7 +160,6 @@ public class CustomizePresetsScreen extends Screen {
 		public ChunkGeneratorSettings.Factory settings;
 
 		public Info(String nameIn, ResourceLocation textureIn, ChunkGeneratorSettings.Factory settingsIn) {
-
 			name = nameIn;
 			texture = textureIn;
 			settings = settingsIn;
@@ -184,33 +172,27 @@ public class CustomizePresetsScreen extends Screen {
 		public int selected = -1;
 
 		public ListPreset() {
-
 			super(CustomizePresetsScreen.this.mc, CustomizePresetsScreen.this.width, CustomizePresetsScreen.this.height, 80, CustomizePresetsScreen.this.height - 32, 38);
 		}
 
 		protected int getSize() {
-
 			return CustomizePresetsScreen.PRESETS.size();
 		}
 
 		protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
-
 			selected = slotIndex;
 			updateButtonValidity();
 			export.setText((CustomizePresetsScreen.PRESETS.get(list.selected)).settings.toString());
 		}
 
 		protected boolean isSelected(int slotIndex) {
-
 			return slotIndex == selected;
 		}
 
 		protected void drawBackground() {
-
 		}
 
 		private void blitIcon(int p_178051_1_, int p_178051_2_, ResourceLocation texture) {
-
 			int i = p_178051_1_ + 5;
 			drawHorizontalLine(i - 1, i + 32, p_178051_2_ - 1, -2039584);
 			drawHorizontalLine(i - 1, i + 32, p_178051_2_ + 32, -6250336);
@@ -231,7 +213,6 @@ public class CustomizePresetsScreen extends Screen {
 		}
 
 		protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks) {
-
 			CustomizePresetsScreen.Info guiscreencustomizepresets$info = CustomizePresetsScreen.PRESETS.get(slotIndex);
 			blitIcon(xPos, yPos, guiscreencustomizepresets$info.texture);
 			fontRenderer.drawString(guiscreencustomizepresets$info.name, xPos + 32 + 10, yPos + 14, 16777215);

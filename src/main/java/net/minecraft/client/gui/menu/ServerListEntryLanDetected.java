@@ -13,14 +13,12 @@ public class ServerListEntryLanDetected implements GuiListExtended.IGuiListEntry
 	private long lastClickTime;
 
 	protected ServerListEntryLanDetected(MultiplayerScreen p_i47141_1_, LanServerInfo p_i47141_2_) {
-
 		screen = p_i47141_1_;
 		serverData = p_i47141_2_;
 		mc = Minecraft.getMinecraft();
 	}
 
 	public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected, float partialTicks) {
-
 		mc.fontRenderer.drawString(I18n.format("lanServer.title"), x + 32 + 3, y + 1, 16777215);
 		mc.fontRenderer.drawString(serverData.getServerMotd(), x + 32 + 3, y + 12, 8421504);
 
@@ -36,7 +34,6 @@ public class ServerListEntryLanDetected implements GuiListExtended.IGuiListEntry
 	 * clicked and the list should not be dragged.
 	 */
 	public boolean mousePressed(int slotIndex, int mouseX, int mouseY, int mouseEvent, int relativeX, int relativeY) {
-
 		screen.selectServer(slotIndex);
 
 		if (Minecraft.getSystemTime() - lastClickTime < 250L) {
@@ -48,18 +45,15 @@ public class ServerListEntryLanDetected implements GuiListExtended.IGuiListEntry
 	}
 
 	public void updatePosition(int slotIndex, int x, int y, float partialTicks) {
-
 	}
 
 	/**
 	 * Fired when the mouse button is released. Arguments: index, x, y, mouseEvent, relativeX, relativeY
 	 */
 	public void mouseReleased(int slotIndex, int x, int y, int mouseEvent, int relativeX, int relativeY) {
-
 	}
 
 	public LanServerInfo getServerData() {
-
 		return serverData;
 	}
 

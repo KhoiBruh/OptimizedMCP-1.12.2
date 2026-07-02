@@ -30,7 +30,6 @@ public class CommandResultStats {
 	private String[] objectives;
 
 	public CommandResultStats() {
-
 		entitiesID = STRING_RESULT_TYPES;
 		objectives = STRING_RESULT_TYPES;
 	}
@@ -39,7 +38,6 @@ public class CommandResultStats {
 	 * Set a stat in the scoreboard
 	 */
 	public static void setScoreBoardStat(CommandResultStats stats, CommandResultStats.Type resultType, String entityID, String objectiveName) {
-
 		if (entityID != null && !entityID.isEmpty() && objectiveName != null && !objectiveName.isEmpty()) {
 			if (stats.entitiesID == STRING_RESULT_TYPES || stats.objectives == STRING_RESULT_TYPES) {
 				stats.entitiesID = new String[NUM_RESULT_TYPES];
@@ -57,7 +55,6 @@ public class CommandResultStats {
 	 * Remove a stat from the scoreboard
 	 */
 	private static void removeScoreBoardStat(CommandResultStats resultStatsIn, CommandResultStats.Type resultTypeIn) {
-
 		if (resultStatsIn.entitiesID != STRING_RESULT_TYPES && resultStatsIn.objectives != STRING_RESULT_TYPES) {
 			resultStatsIn.entitiesID[resultTypeIn.getTypeID()] = null;
 			resultStatsIn.objectives[resultTypeIn.getTypeID()] = null;
@@ -78,63 +75,51 @@ public class CommandResultStats {
 	}
 
 	public void setCommandStatForSender(MinecraftServer server, final ICommandSender sender, CommandResultStats.Type typeIn, int p_184932_4_) {
-
 		String s = entitiesID[typeIn.getTypeID()];
 
 		if (s != null) {
 			ICommandSender icommandsender = new ICommandSender() {
 				public String getName() {
-
 					return sender.getName();
 				}
 
 				public ITextComponent getDisplayName() {
-
 					return sender.getDisplayName();
 				}
 
 				public void sendMessage(ITextComponent component) {
-
 					sender.sendMessage(component);
 				}
 
 				public boolean canUseCommand(int permLevel, String commandName) {
-
 					return true;
 				}
 
 				public BlockPos getPosition() {
-
 					return sender.getPosition();
 				}
 
 				public Vec3d getPositionVector() {
-
 					return sender.getPositionVector();
 				}
 
 				public World getEntityWorld() {
-
 					return sender.getEntityWorld();
 				}
 
 				public Entity getCommandSenderEntity() {
-
 					return sender.getCommandSenderEntity();
 				}
 
 				public boolean sendCommandFeedback() {
-
 					return sender.sendCommandFeedback();
 				}
 
 				public void setCommandStat(CommandResultStats.Type type, int amount) {
-
 					sender.setCommandStat(type, amount);
 				}
 
 				public MinecraftServer getServer() {
-
 					return sender.getServer();
 				}
 			};
@@ -163,7 +148,6 @@ public class CommandResultStats {
 	}
 
 	public void readStatsFromNBT(NBTTagCompound tagcompound) {
-
 		if (tagcompound.hasKey("CommandStats", 10)) {
 			NBTTagCompound nbttagcompound = tagcompound.getCompoundTag("CommandStats");
 
@@ -181,7 +165,6 @@ public class CommandResultStats {
 	}
 
 	public void writeStatsToNBT(NBTTagCompound tagcompound) {
-
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 
 		for (CommandResultStats.Type commandresultstats$type : CommandResultStats.Type.values()) {
@@ -203,7 +186,6 @@ public class CommandResultStats {
 	 * Add all stats in the CommandResultStats
 	 */
 	public void addAllStats(CommandResultStats resultStatsIn) {
-
 		for (CommandResultStats.Type commandresultstats$type : CommandResultStats.Type.values()) {
 			setScoreBoardStat(this, commandresultstats$type, resultStatsIn.entitiesID[commandresultstats$type.getTypeID()], resultStatsIn.objectives[commandresultstats$type.getTypeID()]);
 		}
@@ -220,13 +202,11 @@ public class CommandResultStats {
 		final String typeName;
 
 		Type(int id, String name) {
-
 			typeID = id;
 			typeName = name;
 		}
 
 		public static String[] getTypeNames() {
-
 			String[] astring = new String[values().length];
 			int i = 0;
 
@@ -250,12 +230,10 @@ public class CommandResultStats {
 		}
 
 		public int getTypeID() {
-
 			return typeID;
 		}
 
 		public String getTypeName() {
-
 			return typeName;
 		}
 	}

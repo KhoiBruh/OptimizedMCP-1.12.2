@@ -78,7 +78,6 @@ public class ModelHorse extends ModelBase {
 	private final ModelRenderer horseRightRein;
 
 	public ModelHorse() {
-
 		textureWidth = 128;
 		textureHeight = 128;
 		body = new ModelRenderer(this, 0, 34);
@@ -225,7 +224,6 @@ public class ModelHorse extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		AbstractHorse abstracthorse = (AbstractHorse) entityIn;
 		float f = abstracthorse.getGrassEatingAmount(0F);
 		boolean flag = abstracthorse.isChild();
@@ -323,7 +321,6 @@ public class ModelHorse extends ModelBase {
 	 * Fixes and offsets a rotation in the ModelHorse class.
 	 */
 	private float updateHorseRotation(float p_110683_1_, float p_110683_2_, float p_110683_3_) {
-
 		float f;
 
 		for (f = p_110683_2_ - p_110683_1_; f < -180F; f += 360F) {
@@ -341,7 +338,6 @@ public class ModelHorse extends ModelBase {
 	 * and third as in the setRotationAngles method.
 	 */
 	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTickTime) {
-
 		super.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTickTime);
 		float f = updateHorseRotation(entitylivingbaseIn.prevRenderYawOffset, entitylivingbaseIn.renderYawOffset, partialTickTime);
 		float f1 = updateHorseRotation(entitylivingbaseIn.prevRotationYawHead, entitylivingbaseIn.rotationYawHead, partialTickTime);

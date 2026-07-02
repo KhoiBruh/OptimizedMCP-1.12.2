@@ -10,7 +10,6 @@ public class ItemMapBase extends Item {
 	 * false for all Items except sub-classes of ItemMapBase
 	 */
 	public boolean isMap() {
-
 		return true;
 	}
 

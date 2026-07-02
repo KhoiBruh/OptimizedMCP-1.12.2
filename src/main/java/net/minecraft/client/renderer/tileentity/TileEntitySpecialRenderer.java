@@ -17,7 +17,6 @@ public abstract class TileEntitySpecialRenderer<T extends TileEntity> {
 	protected TileEntityRendererDispatcher rendererDispatcher;
 
 	public void render(T te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-
 		ITextComponent itextcomponent = te.getDisplayName();
 
 		if (itextcomponent != null && rendererDispatcher.cameraHitResult != null && te.getPos().equals(rendererDispatcher.cameraHitResult.getBlockPos())) {
@@ -32,7 +31,6 @@ public abstract class TileEntitySpecialRenderer<T extends TileEntity> {
 	 * useful for floating text, e.g.
 	 */
 	protected void setLightmapDisabled(boolean disabled) {
-
 		GLS.setActiveTexture(OpenGlHelper.lightmapTexUnit);
 
 		if (disabled) {
@@ -45,7 +43,6 @@ public abstract class TileEntitySpecialRenderer<T extends TileEntity> {
 	}
 
 	protected void bindTexture(ResourceLocation location) {
-
 		TextureManager texturemanager = rendererDispatcher.renderEngine;
 
 		if (texturemanager != null) {
@@ -54,27 +51,22 @@ public abstract class TileEntitySpecialRenderer<T extends TileEntity> {
 	}
 
 	protected World getWorld() {
-
 		return rendererDispatcher.world;
 	}
 
 	public void setRendererDispatcher(TileEntityRendererDispatcher rendererDispatcherIn) {
-
 		rendererDispatcher = rendererDispatcherIn;
 	}
 
 	public FontRenderer getFontRenderer() {
-
 		return rendererDispatcher.getFontRenderer();
 	}
 
 	public boolean isGlobalRenderer(T te) {
-
 		return false;
 	}
 
 	protected void drawNameplate(T te, String str, double x, double y, double z, int maxDistance) {
-
 		Entity entity = rendererDispatcher.entity;
 		double d0 = te.getDistanceSq(entity.posX, entity.posY, entity.posZ);
 

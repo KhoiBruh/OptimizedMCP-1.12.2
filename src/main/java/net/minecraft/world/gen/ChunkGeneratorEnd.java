@@ -63,7 +63,6 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 	private Biome[] biomesForGeneration;
 
 	public ChunkGeneratorEnd(World p_i47241_1_, boolean p_i47241_2_, long p_i47241_3_, BlockPos p_i47241_5_) {
-
 		world = p_i47241_1_;
 		mapFeaturesEnabled = p_i47241_2_;
 		spawnPoint = p_i47241_5_;
@@ -80,7 +79,6 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 	 * Generates a bare-bones chunk of nothing but stone or ocean blocks, formed, but featureless.
 	 */
 	public void setBlocksInChunk(int x, int z, ChunkPrimer primer) {
-
 		int i = 2;
 		int j = 3;
 		int k = 33;
@@ -141,7 +139,6 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 	}
 
 	public void buildSurfaces(ChunkPrimer primer) {
-
 		for (int i = 0; i < 16; ++i) {
 			for (int j = 0; j < 16; ++j) {
 				int k = 1;
@@ -176,7 +173,6 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 	 * Generates the chunk at the specified position, from scratch
 	 */
 	public Chunk generateChunk(int x, int z) {
-
 		rand.setSeed((long) x * 341873128712L + (long) z * 132897987541L);
 		ChunkPrimer chunkprimer = new ChunkPrimer();
 		biomesForGeneration = world.getBiomeProvider().getBiomes(biomesForGeneration, x * 16, z * 16, 16, 16);
@@ -199,7 +195,6 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 	}
 
 	private float getIslandHeightValue(int p_185960_1_, int p_185960_2_, int p_185960_3_, int p_185960_4_) {
-
 		float f = (float) (p_185960_1_ * 2 + p_185960_3_);
 		float f1 = (float) (p_185960_2_ * 2 + p_185960_4_);
 		float f2 = 100F - MathHelper.sqrt(f * f + f1 * f1) * 8F;
@@ -242,12 +237,10 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 	}
 
 	public boolean isIslandChunk(int p_185961_1_, int p_185961_2_) {
-
 		return (long) p_185961_1_ * (long) p_185961_1_ + (long) p_185961_2_ * (long) p_185961_2_ > 4096L && getIslandHeightValue(p_185961_1_, p_185961_2_, 1, 1) >= 0F;
 	}
 
 	private double[] getHeights(double[] p_185963_1_, int p_185963_2_, int p_185963_3_, int p_185963_4_, int p_185963_5_, int p_185963_6_, int p_185963_7_) {
-
 		if (p_185963_1_ == null) {
 			p_185963_1_ = new double[p_185963_5_ * p_185963_6_ * p_185963_7_];
 		}
@@ -313,7 +306,6 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 	 * @param z Chunk z coordinate
 	 */
 	public void populate(int x, int z) {
-
 		BlockFalling.fallInstantly = true;
 		BlockPos blockpos = new BlockPos(x * 16, 0, z * 16);
 
@@ -378,7 +370,6 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 	 * Called to generate additional structures after initial worldgen, used by ocean monuments
 	 */
 	public boolean generateStructures(Chunk chunkIn, int x, int z) {
-
 		return false;
 	}
 
@@ -389,12 +380,10 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 
 	
 	public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
-
 		return "EndCity".equals(structureName) && endCityGen != null ? endCityGen.getNearestStructurePos(worldIn, position, findUnexplored) : null;
 	}
 
 	public boolean isInsideStructure(World worldIn, String structureName, BlockPos pos) {
-
 		return "EndCity".equals(structureName) && endCityGen != null && endCityGen.isInsideStructure(pos);
 	}
 
@@ -404,7 +393,6 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 	 * state needed by getPossibleCreatures.
 	 */
 	public void recreateStructures(Chunk chunkIn, int x, int z) {
-
 	}
 
 }

@@ -17,7 +17,6 @@ public class ThreadedFileIOBase implements Runnable {
 	private volatile boolean isThreadWaiting;
 
 	private ThreadedFileIOBase() {
-
 		Thread thread = new Thread(this, "File IO Thread");
 		thread.setPriority(1);
 		thread.start();
@@ -27,12 +26,10 @@ public class ThreadedFileIOBase implements Runnable {
 	 * Retrieves an instance of the threadedFileIOBase.
 	 */
 	public static ThreadedFileIOBase getThreadedIOInstance() {
-
 		return INSTANCE;
 	}
 
 	public void run() {
-
 		while (true) {
 			processQueue();
 		}
@@ -42,7 +39,6 @@ public class ThreadedFileIOBase implements Runnable {
 	 * Process the items that are in the queue
 	 */
 	private void processQueue() {
-
 		for (int i = 0; i < threadedIOQueue.size(); ++i) {
 			IThreadedFileIO ithreadedfileio = threadedIOQueue.get(i);
 			boolean flag = ithreadedfileio.writeNextIO();
@@ -72,7 +68,6 @@ public class ThreadedFileIOBase implements Runnable {
 	 * Queues an IO task. If the given task has already been queued, nothing happens.
 	 */
 	public void queueIO(IThreadedFileIO fileIo) {
-
 		if (!threadedIOQueue.contains(fileIo)) {
 			++writeQueuedCounter;
 			threadedIOQueue.add(fileIo);
@@ -84,7 +79,6 @@ public class ThreadedFileIOBase implements Runnable {
 	 * between IO tasks until that time.
 	 */
 	public void waitForFinish() throws InterruptedException {
-
 		isThreadWaiting = true;
 
 		while (writeQueuedCounter != savedIOCounter) {

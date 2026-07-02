@@ -46,7 +46,6 @@ public class StatsScreen extends Screen implements IProgressMeter {
 	private boolean doesGuiPauseGame = true;
 
 	public StatsScreen(Screen parent, StatisticsManager manager) {
-
 		parentScreen = parent;
 		stats = manager;
 	}
@@ -56,7 +55,6 @@ public class StatsScreen extends Screen implements IProgressMeter {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		screenTitle = I18n.format("gui.stats");
 		doesGuiPauseGame = true;
 		mc.getConnection().sendPacket(new CPacketClientStatus(CPacketClientStatus.State.REQUEST_STATS));
@@ -66,7 +64,6 @@ public class StatsScreen extends Screen implements IProgressMeter {
 	 * Handles mouse input.
 	 */
 	public void handleMouse() throws IOException {
-
 		super.handleMouse();
 
 		if (displaySlot != null) {
@@ -75,7 +72,6 @@ public class StatsScreen extends Screen implements IProgressMeter {
 	}
 
 	public void initLists() {
-
 		generalStats = new StatsScreen.StatsGeneral(mc);
 		generalStats.registerScrollButtons(1, 1);
 		itemStats = new StatsScreen.StatsItem(mc);
@@ -87,7 +83,6 @@ public class StatsScreen extends Screen implements IProgressMeter {
 	}
 
 	public void initButtons() {
-
 		buttons.add(new Button(0, width / 2 + 4, height - 28, 150, 20, I18n.format("gui.done")));
 		buttons.add(new Button(1, width / 2 - 160, height - 52, 80, 20, I18n.format("stat.generalButton")));
 		Button guibutton = addButton(new Button(2, width / 2 - 80, height - 52, 80, 20, I18n.format("stat.blocksButton")));
@@ -111,7 +106,6 @@ public class StatsScreen extends Screen implements IProgressMeter {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.enabled) {
 			if (button.id == 0) {
 				mc.displayScreen(parentScreen);
@@ -133,7 +127,6 @@ public class StatsScreen extends Screen implements IProgressMeter {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		if (doesGuiPauseGame) {
 			drawDefaultBackground();
 			drawCenteredString(fontRenderer, I18n.format("multiplayer.downloadingStats"), width / 2, height / 2, 16777215);
@@ -146,7 +139,6 @@ public class StatsScreen extends Screen implements IProgressMeter {
 	}
 
 	public void onStatsUpdated() {
-
 		if (doesGuiPauseGame) {
 			initLists();
 			initButtons();
@@ -159,12 +151,10 @@ public class StatsScreen extends Screen implements IProgressMeter {
 	 * Returns true if this GUI should pause the game when it is displayed in single-player
 	 */
 	public boolean pauseGame() {
-
 		return !doesGuiPauseGame;
 	}
 
 	private void drawStatsScreen(int x, int y, Item itemIn) {
-
 		drawButtonBackground(x + 1, y + 1);
 		GLS.enableRescaleNormal();
 		RenderHelper.enableGUIStandardItemLighting();
@@ -177,7 +167,6 @@ public class StatsScreen extends Screen implements IProgressMeter {
 	 * Draws a gray box that serves as a button background.
 	 */
 	private void drawButtonBackground(int x, int y) {
-
 		drawSprite(x, y, 0, 0);
 	}
 
@@ -185,7 +174,6 @@ public class StatsScreen extends Screen implements IProgressMeter {
 	 * Draws a sprite from assets/textures/gui/container/stats_icons.png
 	 */
 	private void drawSprite(int x, int y, int u, int v) {
-
 		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(STAT_ICONS);
 		float f = 0.0078125F;
@@ -211,38 +199,31 @@ public class StatsScreen extends Screen implements IProgressMeter {
 		protected int sortOrder;
 
 		protected Stats(Minecraft p_i47550_2_) {
-
 			super(p_i47550_2_, StatsScreen.this.width, StatsScreen.this.height, 32, StatsScreen.this.height - 64, 20);
 			setShowSelectionBox(false);
 			setHasListHeader(true, 20);
 		}
 
 		protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
-
 		}
 
 		protected boolean isSelected(int slotIndex) {
-
 			return false;
 		}
 
 		public int getListWidth() {
-
 			return 375;
 		}
 
 		protected int getScrollBarX() {
-
 			return width / 2 + 140;
 		}
 
 		protected void drawBackground() {
-
 			drawDefaultBackground();
 		}
 
 		protected void drawListHeader(int insideLeft, int insideTop, Tessellator tessellatorIn) {
-
 			if (!Mouse.isButtonDown(0)) {
 				headerPressed = -1;
 			}
@@ -300,7 +281,6 @@ public class StatsScreen extends Screen implements IProgressMeter {
 		}
 
 		protected void clickedHeader(int p_148132_1_, int p_148132_2_) {
-
 			headerPressed = -1;
 
 			if (p_148132_1_ >= 79 && p_148132_1_ < 115) {
@@ -322,19 +302,16 @@ public class StatsScreen extends Screen implements IProgressMeter {
 		}
 
 		protected final int getSize() {
-
 			return statsHolder.size();
 		}
 
 		protected final StatCrafting getSlotStat(int p_148211_1_) {
-
 			return statsHolder.get(p_148211_1_);
 		}
 
 		protected abstract String getHeaderDescriptionId(int p_148210_1_);
 
 		protected void renderStat(StatBase p_148209_1_, int p_148209_2_, int p_148209_3_, boolean p_148209_4_) {
-
 			if (p_148209_1_ != null) {
 				String s = p_148209_1_.format(stats.readStat(p_148209_1_));
 				drawString(fontRenderer, s, p_148209_2_ - fontRenderer.getStringWidth(s), p_148209_3_ + 5, p_148209_4_ ? 16777215 : 9474192);
@@ -345,7 +322,6 @@ public class StatsScreen extends Screen implements IProgressMeter {
 		}
 
 		protected void renderDecorations(int mouseXIn, int mouseYIn) {
-
 			if (mouseYIn >= top && mouseYIn <= bottom) {
 				int i = getSlotIndexFromScreenCoords(mouseXIn, mouseYIn);
 				int j = (width - getListWidth()) / 2;
@@ -390,7 +366,6 @@ public class StatsScreen extends Screen implements IProgressMeter {
 		}
 
 		protected void renderMouseHoverToolTip(StatCrafting p_148213_1_, int p_148213_2_, int p_148213_3_) {
-
 			if (p_148213_1_ != null) {
 				Item item = p_148213_1_.getItem();
 				ItemStack itemstack = new ItemStack(item);
@@ -408,7 +383,6 @@ public class StatsScreen extends Screen implements IProgressMeter {
 		}
 
 		protected void sortByColumn(int p_148212_1_) {
-
 			if (p_148212_1_ != sortColumn) {
 				sortColumn = p_148212_1_;
 				sortOrder = -1;
@@ -427,7 +401,6 @@ public class StatsScreen extends Screen implements IProgressMeter {
 	class StatsBlock extends StatsScreen.Stats {
 
 		public StatsBlock(Minecraft p_i47554_2_) {
-
 			super(p_i47554_2_);
 			statsHolder = Lists.newArrayList();
 
@@ -498,7 +471,6 @@ public class StatsScreen extends Screen implements IProgressMeter {
 		}
 
 		protected void drawListHeader(int insideLeft, int insideTop, Tessellator tessellatorIn) {
-
 			super.drawListHeader(insideLeft, insideTop, tessellatorIn);
 
 			if (headerPressed == 0) {
@@ -533,7 +505,6 @@ public class StatsScreen extends Screen implements IProgressMeter {
 		}
 
 		protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks) {
-
 			StatCrafting statcrafting = getSlotStat(slotIndex);
 			Item item = statcrafting.getItem();
 			drawStatsScreen(xPos + 40, yPos, item);
@@ -545,7 +516,6 @@ public class StatsScreen extends Screen implements IProgressMeter {
 		}
 
 		protected String getHeaderDescriptionId(int p_148210_1_) {
-
 			if (p_148210_1_ == 0) {
 				return "stat.crafted";
 			} else if (p_148210_1_ == 1) {
@@ -562,37 +532,30 @@ public class StatsScreen extends Screen implements IProgressMeter {
 	class StatsGeneral extends GuiSlot {
 
 		public StatsGeneral(Minecraft mcIn) {
-
 			super(mcIn, StatsScreen.this.width, StatsScreen.this.height, 32, StatsScreen.this.height - 64, 10);
 			setShowSelectionBox(false);
 		}
 
 		protected int getSize() {
-
 			return StatList.BASIC_STATS.size();
 		}
 
 		protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
-
 		}
 
 		protected boolean isSelected(int slotIndex) {
-
 			return false;
 		}
 
 		protected int getContentHeight() {
-
 			return getSize() * 10;
 		}
 
 		protected void drawBackground() {
-
 			drawDefaultBackground();
 		}
 
 		protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks) {
-
 			StatBase statbase = StatList.BASIC_STATS.get(slotIndex);
 			drawString(fontRenderer, statbase.getStatName().getUnformattedText(), xPos + 2, yPos + 1, slotIndex % 2 == 0 ? 16777215 : 9474192);
 			String s = statbase.format(stats.readStat(statbase));
@@ -604,7 +567,6 @@ public class StatsScreen extends Screen implements IProgressMeter {
 	class StatsItem extends StatsScreen.Stats {
 
 		public StatsItem(Minecraft mcIn) {
-
 			super(mcIn);
 			statsHolder = Lists.newArrayList();
 
@@ -677,7 +639,6 @@ public class StatsScreen extends Screen implements IProgressMeter {
 		}
 
 		protected void drawListHeader(int insideLeft, int insideTop, Tessellator tessellatorIn) {
-
 			super.drawListHeader(insideLeft, insideTop, tessellatorIn);
 
 			if (headerPressed == 0) {
@@ -712,7 +673,6 @@ public class StatsScreen extends Screen implements IProgressMeter {
 		}
 
 		protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks) {
-
 			StatCrafting statcrafting = getSlotStat(slotIndex);
 			Item item = statcrafting.getItem();
 			drawStatsScreen(xPos + 40, yPos, item);
@@ -724,7 +684,6 @@ public class StatsScreen extends Screen implements IProgressMeter {
 		}
 
 		protected String getHeaderDescriptionId(int p_148210_1_) {
-
 			if (p_148210_1_ == 1) {
 				return "stat.crafted";
 			} else if (p_148210_1_ == 2) {
@@ -743,7 +702,6 @@ public class StatsScreen extends Screen implements IProgressMeter {
 		private final List<EntityList.EntityEggInfo> mobs = Lists.newArrayList();
 
 		public StatsMobsList(Minecraft mcIn) {
-
 			super(mcIn, StatsScreen.this.width, StatsScreen.this.height, 32, StatsScreen.this.height - 64, fontRenderer.FONT_HEIGHT * 4);
 			setShowSelectionBox(false);
 
@@ -755,31 +713,25 @@ public class StatsScreen extends Screen implements IProgressMeter {
 		}
 
 		protected int getSize() {
-
 			return mobs.size();
 		}
 
 		protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
-
 		}
 
 		protected boolean isSelected(int slotIndex) {
-
 			return false;
 		}
 
 		protected int getContentHeight() {
-
 			return getSize() * fontRenderer.FONT_HEIGHT * 4;
 		}
 
 		protected void drawBackground() {
-
 			drawDefaultBackground();
 		}
 
 		protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks) {
-
 			EntityList.EntityEggInfo entitylist$entityegginfo = mobs.get(slotIndex);
 			String s = I18n.format("entity." + EntityList.getTranslationName(entitylist$entityegginfo.spawnedID) + ".name");
 			int i = stats.readStat(entitylist$entityegginfo.killEntityStat);

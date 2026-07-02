@@ -17,7 +17,6 @@ public class RenderHelper {
 	 * Disables the OpenGL lighting properties enabled by enableStandardItemLighting
 	 */
 	public static void disableStandardItemLighting() {
-
 		GLS.disableLighting();
 		GLS.disableLight(0);
 		GLS.disableLight(1);
@@ -28,7 +27,6 @@ public class RenderHelper {
 	 * Sets the OpenGL lighting properties to the values used when rendering blocks as items
 	 */
 	public static void enableStandardItemLighting() {
-
 		GLS.enableLighting();
 		GLS.enableLight(0);
 		GLS.enableLight(1);
@@ -52,7 +50,6 @@ public class RenderHelper {
 	 * Update and return colorBuffer with the RGBA values passed as arguments
 	 */
 	private static FloatBuffer setColorBuffer(double p_74517_0_, double p_74517_2_, double p_74517_4_, double p_74517_6_) {
-
 		return setColorBuffer((float) p_74517_0_, (float) p_74517_2_, (float) p_74517_4_, (float) p_74517_6_);
 	}
 
@@ -60,7 +57,6 @@ public class RenderHelper {
 	 * Update and return colorBuffer with the RGBA values passed as arguments
 	 */
 	public static FloatBuffer setColorBuffer(float p_74521_0_, float p_74521_1_, float p_74521_2_, float p_74521_3_) {
-
 		COLOR_BUFFER.clear();
 		COLOR_BUFFER.put(p_74521_0_).put(p_74521_1_).put(p_74521_2_).put(p_74521_3_);
 		COLOR_BUFFER.flip();
@@ -71,7 +67,6 @@ public class RenderHelper {
 	 * Sets OpenGL lighting for rendering blocks as items inside GUI screens (such as containers).
 	 */
 	public static void enableGUIStandardItemLighting() {
-
 		GLS.pushMatrix();
 		GLS.rotate(-30F, 0F, 1F, 0F);
 		GLS.rotate(165F, 1F, 0F, 0F);

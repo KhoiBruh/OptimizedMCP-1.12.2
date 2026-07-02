@@ -25,7 +25,6 @@ public abstract class BlockLiquid extends Block {
 	public static final PropertyInteger LEVEL = PropertyInteger.create("level", 0, 15);
 
 	protected BlockLiquid(Material materialIn) {
-
 		super(materialIn);
 		setDefaultState(blockState.getBaseState().withProperty(LEVEL, 0));
 		setTickRandomly(true);
@@ -35,7 +34,6 @@ public abstract class BlockLiquid extends Block {
 	 * Returns the percentage of the liquid block that is air, based on the given flow decay of the liquid
 	 */
 	public static float getLiquidHeightPercent(int meta) {
-
 		if (meta >= 8) {
 			meta = 0;
 		}
@@ -44,13 +42,11 @@ public abstract class BlockLiquid extends Block {
 	}
 
 	public static float getSlopeAngle(IBlockAccess worldIn, BlockPos pos, Material materialIn, IBlockState state) {
-
 		Vec3d vec3d = getFlowingBlock(materialIn).getFlow(worldIn, pos, state);
 		return vec3d.x() == 0D && vec3d.z() == 0D ? -1000F : (float) MathHelper.atan2(vec3d.z(), vec3d.x()) - ((float) Math.PI / 2F);
 	}
 
 	public static BlockDynamicLiquid getFlowingBlock(Material materialIn) {
-
 		if (materialIn == Material.WATER) {
 			return Blocks.FLOWING_WATER;
 		} else if (materialIn == Material.LAVA) {
@@ -61,7 +57,6 @@ public abstract class BlockLiquid extends Block {
 	}
 
 	public static BlockStaticLiquid getStaticBlock(Material materialIn) {
-
 		if (materialIn == Material.WATER) {
 			return Blocks.WATER;
 		} else if (materialIn == Material.LAVA) {
@@ -72,18 +67,15 @@ public abstract class BlockLiquid extends Block {
 	}
 
 	public static float getBlockLiquidHeight(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		int i = state.getValue(LEVEL);
 		return (i & 7) == 0 && worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER ? 1F : 1F - getLiquidHeightPercent(i);
 	}
 
 	public static float getLiquidHeight(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return (float) pos.getY() + getBlockLiquidHeight(state, worldIn, pos);
 	}
 
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-
 		return NULL_AABB;
 	}
 
@@ -91,23 +83,19 @@ public abstract class BlockLiquid extends Block {
 	 * Determines if an entity can path through this block
 	 */
 	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-
 		return blockMaterial != Material.LAVA;
 	}
 
 	protected int getDepth(IBlockState state) {
-
 		return state.getMaterial() == blockMaterial ? state.getValue(LEVEL) : -1;
 	}
 
 	protected int getRenderedDepth(IBlockState state) {
-
 		int i = getDepth(state);
 		return i >= 8 ? 0 : i;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -115,12 +103,10 @@ public abstract class BlockLiquid extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean canCollideCheck(IBlockState state, boolean hitIfLiquid) {
-
 		return hitIfLiquid && state.getValue(LEVEL) == 0;
 	}
 
@@ -129,7 +115,6 @@ public abstract class BlockLiquid extends Block {
 	 * net.minecraft.block.BlockLiquid#getFlow()}
 	 */
 	private boolean causesDownwardCurrent(IBlockAccess worldIn, BlockPos pos, Facing side) {
-
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		Block block = iblockstate.getBlock();
 		Material material = iblockstate.getMaterial();
@@ -147,7 +132,6 @@ public abstract class BlockLiquid extends Block {
 	}
 
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		if (blockAccess.getBlockState(pos.offset(side)).getMaterial() == blockMaterial) {
 			return false;
 		} else {
@@ -156,7 +140,6 @@ public abstract class BlockLiquid extends Block {
 	}
 
 	public boolean shouldRenderSides(IBlockAccess blockAccess, BlockPos pos) {
-
 		for (int i = -1; i <= 1; ++i) {
 			for (int j = -1; j <= 1; ++j) {
 				IBlockState iblockstate = blockAccess.getBlockState(pos.add(i, 0, j));
@@ -175,7 +158,6 @@ public abstract class BlockLiquid extends Block {
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
 	public BlockRenderType getRenderType(IBlockState state) {
-
 		return BlockRenderType.LIQUID;
 	}
 
@@ -183,7 +165,6 @@ public abstract class BlockLiquid extends Block {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Items.AIR;
 	}
 
@@ -191,12 +172,10 @@ public abstract class BlockLiquid extends Block {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return 0;
 	}
 
 	protected Vec3d getFlow(IBlockAccess worldIn, BlockPos pos, IBlockState state) {
-
 		double d0 = 0D;
 		double d1 = 0D;
 		double d2 = 0D;
@@ -244,7 +223,6 @@ public abstract class BlockLiquid extends Block {
 	}
 
 	public Vec3d modifyAcceleration(World worldIn, BlockPos pos, Entity entityIn, Vec3d motion) {
-
 		return motion.add(getFlow(worldIn, pos, worldIn.getBlockState(pos)));
 	}
 
@@ -252,7 +230,6 @@ public abstract class BlockLiquid extends Block {
 	 * How many world ticks before ticking
 	 */
 	public int tickRate(World worldIn) {
-
 		if (blockMaterial == Material.WATER) {
 			return 5;
 		} else if (blockMaterial == Material.LAVA) {
@@ -263,7 +240,6 @@ public abstract class BlockLiquid extends Block {
 	}
 
 	public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		int i = source.getCombinedLight(pos, 0);
 		int j = source.getCombinedLight(pos.up(), 0);
 		int k = i & 255;
@@ -278,12 +254,10 @@ public abstract class BlockLiquid extends Block {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return blockMaterial == Material.WATER ? BlockRenderLayer.TRANSLUCENT : BlockRenderLayer.SOLID;
 	}
 
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-
 		double d0 = pos.getX();
 		double d1 = pos.getY();
 		double d2 = pos.getZ();
@@ -335,7 +309,6 @@ public abstract class BlockLiquid extends Block {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		checkForMixing(worldIn, pos, state);
 	}
 
@@ -345,12 +318,10 @@ public abstract class BlockLiquid extends Block {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		checkForMixing(worldIn, pos, state);
 	}
 
 	public boolean checkForMixing(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (blockMaterial == Material.LAVA) {
 			boolean flag = false;
 
@@ -382,7 +353,6 @@ public abstract class BlockLiquid extends Block {
 	}
 
 	protected void triggerMixEffects(World worldIn, BlockPos pos) {
-
 		double d0 = pos.getX();
 		double d1 = pos.getY();
 		double d2 = pos.getZ();
@@ -397,7 +367,6 @@ public abstract class BlockLiquid extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(LEVEL, meta);
 	}
 
@@ -405,12 +374,10 @@ public abstract class BlockLiquid extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(LEVEL);
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, LEVEL);
 	}
 
@@ -424,7 +391,6 @@ public abstract class BlockLiquid extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

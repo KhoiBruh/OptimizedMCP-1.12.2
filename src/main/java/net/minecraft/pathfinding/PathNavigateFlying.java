@@ -10,12 +10,10 @@ import net.minecraft.world.World;
 public class PathNavigateFlying extends PathNavigate {
 
 	public PathNavigateFlying(EntityLiving p_i47412_1_, World p_i47412_2_) {
-
 		super(p_i47412_1_, p_i47412_2_);
 	}
 
 	protected PathFinder getPathFinder() {
-
 		nodeProcessor = new FlyingNodeProcessor();
 		nodeProcessor.setCanEnterDoors(true);
 		return new PathFinder(nodeProcessor);
@@ -25,12 +23,10 @@ public class PathNavigateFlying extends PathNavigate {
 	 * If on ground or swimming and can swim
 	 */
 	protected boolean canNavigate() {
-
 		return canFloat() && isInLiquid() || !entity.isRiding();
 	}
 
 	protected Vec3d getEntityPosition() {
-
 		return new Vec3d(entity.posX, entity.posY, entity.posZ);
 	}
 
@@ -38,12 +34,10 @@ public class PathNavigateFlying extends PathNavigate {
 	 * Returns the path to the given EntityLiving. Args : entity
 	 */
 	public Path getPathToEntityLiving(Entity entityIn) {
-
 		return getPathToPos(new BlockPos(entityIn));
 	}
 
 	public void onUpdateNavigation() {
-
 		++totalTicks;
 
 		if (tryUpdatePath) {
@@ -74,7 +68,6 @@ public class PathNavigateFlying extends PathNavigate {
 	 * Checks if the specified entity can safely walk to the specified location.
 	 */
 	protected boolean isDirectPathBetweenPoints(Vec3d posVec31, Vec3d posVec32, int sizeX, int sizeY, int sizeZ) {
-
 		int i = MathHelper.floor(posVec31.x());
 		int j = MathHelper.floor(posVec31.y());
 		int k = MathHelper.floor(posVec31.z());
@@ -143,27 +136,22 @@ public class PathNavigateFlying extends PathNavigate {
 	}
 
 	public void setCanOpenDoors(boolean p_192879_1_) {
-
 		nodeProcessor.setCanOpenDoors(p_192879_1_);
 	}
 
 	public void setCanEnterDoors(boolean p_192878_1_) {
-
 		nodeProcessor.setCanEnterDoors(p_192878_1_);
 	}
 
 	public void setCanFloat(boolean p_192877_1_) {
-
 		nodeProcessor.setCanSwim(p_192877_1_);
 	}
 
 	public boolean canFloat() {
-
 		return nodeProcessor.getCanSwim();
 	}
 
 	public boolean canEntityStandOnPos(BlockPos pos) {
-
 		return world.getBlockState(pos).isTopSolid();
 	}
 

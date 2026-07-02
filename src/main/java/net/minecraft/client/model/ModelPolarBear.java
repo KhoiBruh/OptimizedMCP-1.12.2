@@ -7,7 +7,6 @@ import net.minecraft.entity.monster.EntityPolarBear;
 public class ModelPolarBear extends ModelQuadruped {
 
 	public ModelPolarBear() {
-
 		super(12, 0F);
 		textureWidth = 128;
 		textureHeight = 64;
@@ -51,7 +50,6 @@ public class ModelPolarBear extends ModelQuadruped {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
 		if (isChild) {
@@ -88,7 +86,6 @@ public class ModelPolarBear extends ModelQuadruped {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 		float f = ageInTicks - (float) entityIn.ticksExisted;
 		float f1 = ((EntityPolarBear) entityIn).getStandingAnimationScale(f);

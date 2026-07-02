@@ -20,24 +20,20 @@ public class PotionType {
 	private final ImmutableList<PotionEffect> effects;
 
 	public PotionType(PotionEffect... p_i46739_1_) {
-
 		this(null, p_i46739_1_);
 	}
 
 	public PotionType(String p_i46740_1_, PotionEffect... p_i46740_2_) {
-
 		baseName = p_i46740_1_;
 		effects = ImmutableList.copyOf(p_i46740_2_);
 	}
 
 	
 	public static PotionType getPotionTypeForName(String p_185168_0_) {
-
 		return REGISTRY.getObject(new ResourceLocation(p_185168_0_));
 	}
 
 	public static void registerPotionTypes() {
-
 		registerPotionType("empty", new PotionType());
 		registerPotionType("water", new PotionType());
 		registerPotionType("mundane", new PotionType());
@@ -79,7 +75,6 @@ public class PotionType {
 	}
 
 	protected static void registerPotionType(String p_185173_0_, PotionType p_185173_1_) {
-
 		REGISTRY.register(nextPotionTypeId++, new ResourceLocation(p_185173_0_), p_185173_1_);
 	}
 
@@ -87,17 +82,14 @@ public class PotionType {
 	 * Gets the name of this PotionType with a prefix (such as "Splash" or "Lingering") prepended
 	 */
 	public String getNamePrefixed(String p_185174_1_) {
-
 		return baseName == null ? p_185174_1_ + REGISTRY.getNameForObject(this).getResourcePath() : p_185174_1_ + baseName;
 	}
 
 	public List<PotionEffect> getEffects() {
-
 		return effects;
 	}
 
 	public boolean hasInstantEffect() {
-
 		if (!effects.isEmpty()) {
 
 			for (PotionEffect potioneffect : effects) {

@@ -12,7 +12,6 @@ public class PhaseDying extends PhaseBase {
 	private int time;
 
 	public PhaseDying(EntityDragon dragonIn) {
-
 		super(dragonIn);
 	}
 
@@ -21,7 +20,6 @@ public class PhaseDying extends PhaseBase {
 	 * Called by dragon's onLivingUpdate. Only used when worldObj.isRemote.
 	 */
 	public void doClientRenderEffects() {
-
 		if (time++ % 10 == 0) {
 			float f = (dragon.getRNG().nextFloat() - 0.5F) * 8F;
 			float f1 = (dragon.getRNG().nextFloat() - 0.5F) * 4F;
@@ -35,7 +33,6 @@ public class PhaseDying extends PhaseBase {
 	 * Called by dragon's onLivingUpdate. Only used when !worldObj.isRemote.
 	 */
 	public void doLocalUpdate() {
-
 		++time;
 
 		if (targetLocation == null) {
@@ -56,7 +53,6 @@ public class PhaseDying extends PhaseBase {
 	 * Called when this phase is set to active
 	 */
 	public void initPhase() {
-
 		targetLocation = null;
 		time = 0;
 	}
@@ -65,7 +61,6 @@ public class PhaseDying extends PhaseBase {
 	 * Returns the maximum amount dragon may rise or fall during this phase
 	 */
 	public float getMaxRiseOrFall() {
-
 		return 3F;
 	}
 
@@ -75,12 +70,10 @@ public class PhaseDying extends PhaseBase {
 	 * Returns the location the dragon is flying toward
 	 */
 	public Vec3d getTargetLocation() {
-
 		return targetLocation;
 	}
 
 	public PhaseList<PhaseDying> getType() {
-
 		return PhaseList.DYING;
 	}
 

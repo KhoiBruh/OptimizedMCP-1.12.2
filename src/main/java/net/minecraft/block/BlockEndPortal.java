@@ -23,7 +23,6 @@ public class BlockEndPortal extends BlockContainer {
 	protected static final AxisAlignedBB END_PORTAL_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.75D, 1D);
 
 	protected BlockEndPortal(Material materialIn) {
-
 		super(materialIn);
 		setLightLevel(1F);
 	}
@@ -32,34 +31,28 @@ public class BlockEndPortal extends BlockContainer {
 	 * Returns a new instance of a block's tile entity class. Called on placing the block.
 	 */
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-
 		return new TileEntityEndPortal();
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return END_PORTAL_AABB;
 	}
 
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		return side == Facing.DOWN && super.shouldSideBeRendered(blockState, blockAccess, pos, side);
 	}
 
 	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean isActualState) {
-
 	}
 
 	/**
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -67,7 +60,6 @@ public class BlockEndPortal extends BlockContainer {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return 0;
 	}
 
@@ -75,14 +67,12 @@ public class BlockEndPortal extends BlockContainer {
 	 * Called When an Entity Collided with the Block
 	 */
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-
 		if (!worldIn.isRemote && !entityIn.isRiding() && !entityIn.isBeingRidden() && entityIn.isNonBoss() && entityIn.getEntityBoundingBox().intersects(state.getBoundingBox(worldIn, pos).offset(pos))) {
 			entityIn.changeDimension(1);
 		}
 	}
 
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-
 		double d0 = (float) pos.getX() + rand.nextFloat();
 		double d1 = (float) pos.getY() + 0.8F;
 		double d2 = (float) pos.getZ() + rand.nextFloat();
@@ -90,7 +80,6 @@ public class BlockEndPortal extends BlockContainer {
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return ItemStack.EMPTY;
 	}
 
@@ -98,7 +87,6 @@ public class BlockEndPortal extends BlockContainer {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return MapColor.BLACK;
 	}
 
@@ -112,7 +100,6 @@ public class BlockEndPortal extends BlockContainer {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

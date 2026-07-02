@@ -6,7 +6,6 @@ import net.minecraft.util.ResourceLocation;
 public class RenderAreaEffectCloud extends Render<EntityAreaEffectCloud> {
 
 	public RenderAreaEffectCloud(RenderManager manager) {
-
 		super(manager);
 	}
 
@@ -16,7 +15,6 @@ public class RenderAreaEffectCloud extends Render<EntityAreaEffectCloud> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityAreaEffectCloud entity) {
-
 		return null;
 	}
 

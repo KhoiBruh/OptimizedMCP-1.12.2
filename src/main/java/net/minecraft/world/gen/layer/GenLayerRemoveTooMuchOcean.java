@@ -3,7 +3,6 @@ package net.minecraft.world.gen.layer;
 public class GenLayerRemoveTooMuchOcean extends GenLayer {
 
 	public GenLayerRemoveTooMuchOcean(long p_i45480_1_, GenLayer p_i45480_3_) {
-
 		super(p_i45480_1_);
 		parent = p_i45480_3_;
 	}
@@ -13,7 +12,6 @@ public class GenLayerRemoveTooMuchOcean extends GenLayer {
 	 * amounts, or Biome ID's based on the particular GenLayer subclass.
 	 */
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
-
 		int i = areaX - 1;
 		int j = areaY - 1;
 		int k = areaWidth + 2;

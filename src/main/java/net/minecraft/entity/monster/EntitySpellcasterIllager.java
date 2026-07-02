@@ -17,12 +17,10 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 	private EntitySpellcasterIllager.SpellType activeSpell = EntitySpellcasterIllager.SpellType.NONE;
 
 	public EntitySpellcasterIllager(World p_i47506_1_) {
-
 		super(p_i47506_1_);
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(SPELL, (byte) 0);
 	}
@@ -31,7 +29,6 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		spellTicks = compound.getInteger("SpellTicks");
 	}
@@ -40,7 +37,6 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setInteger("SpellTicks", spellTicks);
 	}
@@ -51,7 +47,6 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 	}
 
 	public boolean isSpellcasting() {
-
 		if (world.isRemote) {
 			return dataManager.get(SPELL) > 0;
 		} else {
@@ -65,13 +60,11 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 	}
 
 	public void setSpellType(EntitySpellcasterIllager.SpellType spellType) {
-
 		activeSpell = spellType;
 		dataManager.set(SPELL, (byte) spellType.id);
 	}
 
 	protected void updateAITasks() {
-
 		super.updateAITasks();
 
 		if (spellTicks > 0) {
@@ -83,7 +76,6 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		super.onUpdate();
 
 		if (world.isRemote && isSpellcasting()) {
@@ -100,7 +92,6 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 	}
 
 	protected int getSpellTicks() {
-
 		return spellTicks;
 	}
 
@@ -118,7 +109,6 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 		private final double[] particleSpeed;
 
 		SpellType(int idIn, double xParticleSpeed, double yParticleSpeed, double zParticleSpeed) {
-
 			id = idIn;
 			particleSpeed = new double[]{xParticleSpeed, yParticleSpeed, zParticleSpeed};
 		}
@@ -138,29 +128,24 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 	public class AICastingApell extends EntityAIBase {
 
 		public AICastingApell() {
-
 			setMutexBits(3);
 		}
 
 		public boolean shouldExecute() {
-
 			return getSpellTicks() > 0;
 		}
 
 		public void startExecuting() {
-
 			super.startExecuting();
 			navigator.clearPath();
 		}
 
 		public void resetTask() {
-
 			super.resetTask();
 			setSpellType(EntitySpellcasterIllager.SpellType.NONE);
 		}
 
 		public void updateTask() {
-
 			if (getAttackTarget() != null) {
 				getLookHelper().setLookPositionWithEntity(getAttackTarget(), (float) getHorizontalFaceSpeed(), (float) getVerticalFaceSpeed());
 			}
@@ -174,7 +159,6 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 		protected int spellCooldown;
 
 		public boolean shouldExecute() {
-
 			if (getAttackTarget() == null) {
 				return false;
 			} else if (isSpellcasting()) {
@@ -185,12 +169,10 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 		}
 
 		public boolean shouldContinueExecuting() {
-
 			return getAttackTarget() != null && spellWarmup > 0;
 		}
 
 		public void startExecuting() {
-
 			spellWarmup = getCastWarmupTime();
 			spellTicks = getCastingTime();
 			spellCooldown = ticksExisted + getCastingInterval();
@@ -204,7 +186,6 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 		}
 
 		public void updateTask() {
-
 			--spellWarmup;
 
 			if (spellWarmup == 0) {
@@ -216,7 +197,6 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 		protected abstract void castSpell();
 
 		protected int getCastWarmupTime() {
-
 			return 20;
 		}
 

@@ -23,7 +23,6 @@ public class BiomeJungle extends Biome {
 	private final boolean isEdge;
 
 	public BiomeJungle(boolean isEdgeIn, Biome.BiomeProperties properties) {
-
 		super(properties);
 		isEdge = isEdgeIn;
 
@@ -45,7 +44,6 @@ public class BiomeJungle extends Biome {
 	}
 
 	public WorldGenAbstractTree getRandomTreeFeature(Random rand) {
-
 		if (rand.nextInt(10) == 0) {
 			return BIG_TREE_FEATURE;
 		} else if (rand.nextInt(2) == 0) {
@@ -59,12 +57,10 @@ public class BiomeJungle extends Biome {
 	 * Gets a WorldGen appropriate for this biome.
 	 */
 	public WorldGenerator getRandomWorldGenForGrass(Random rand) {
-
 		return rand.nextInt(4) == 0 ? new WorldGenTallGrass(BlockTallGrass.Type.FERN) : new WorldGenTallGrass(BlockTallGrass.Type.GRASS);
 	}
 
 	public void decorate(World worldIn, Random rand, BlockPos pos) {
-
 		super.decorate(worldIn, rand, pos);
 		int i = rand.nextInt(16) + 8;
 		int j = rand.nextInt(16) + 8;

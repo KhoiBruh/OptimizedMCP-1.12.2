@@ -8,7 +8,6 @@ public abstract class BaseAttribute implements IAttribute {
 	private boolean shouldWatch;
 
 	protected BaseAttribute(IAttribute parentIn, String unlocalizedNameIn, double defaultValueIn) {
-
 		parent = parentIn;
 		unlocalizedName = unlocalizedNameIn;
 		defaultValue = defaultValueIn;
@@ -19,39 +18,32 @@ public abstract class BaseAttribute implements IAttribute {
 	}
 
 	public String getName() {
-
 		return unlocalizedName;
 	}
 
 	public double getDefaultValue() {
-
 		return defaultValue;
 	}
 
 	public boolean getShouldWatch() {
-
 		return shouldWatch;
 	}
 
 	public BaseAttribute setShouldWatch(boolean shouldWatchIn) {
-
 		shouldWatch = shouldWatchIn;
 		return this;
 	}
 
 	
 	public IAttribute getParent() {
-
 		return parent;
 	}
 
 	public int hashCode() {
-
 		return unlocalizedName.hashCode();
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		return p_equals_1_ instanceof IAttribute && unlocalizedName.equals(((IAttribute) p_equals_1_).getName());
 	}
 

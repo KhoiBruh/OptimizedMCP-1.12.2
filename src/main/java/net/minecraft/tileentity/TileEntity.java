@@ -63,19 +63,16 @@ public abstract class TileEntity {
 	private int blockMetadata = -1;
 
 	private static void register(String id, Class<? extends TileEntity> clazz) {
-
 		REGISTRY.putObject(new ResourceLocation(id), clazz);
 	}
 
 	
 	public static ResourceLocation getKey(Class<? extends TileEntity> clazz) {
-
 		return REGISTRY.getNameForObject(clazz);
 	}
 
 	
 	public static TileEntity create(World worldIn, NBTTagCompound compound) {
-
 		TileEntity tileentity = null;
 		String s = compound.getString("id");
 
@@ -108,7 +105,6 @@ public abstract class TileEntity {
 	 * Returns the worldObj for this tileEntity.
 	 */
 	public World getWorld() {
-
 		return world;
 	}
 
@@ -116,7 +112,6 @@ public abstract class TileEntity {
 	 * Sets the worldObj for this tileEntity.
 	 */
 	public void setWorld(World worldIn) {
-
 		world = worldIn;
 	}
 
@@ -124,22 +119,18 @@ public abstract class TileEntity {
 	 * Returns true if the worldObj isn't null.
 	 */
 	public boolean hasWorld() {
-
 		return world != null;
 	}
 
 	public void readFromNBT(NBTTagCompound compound) {
-
 		pos = new BlockPos(compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
 	}
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
 		return writeInternal(compound);
 	}
 
 	private NBTTagCompound writeInternal(NBTTagCompound compound) {
-
 		ResourceLocation resourcelocation = REGISTRY.getNameForObject(getClass());
 
 		if (resourcelocation == null) {
@@ -154,11 +145,9 @@ public abstract class TileEntity {
 	}
 
 	protected void setWorldCreate(World worldIn) {
-
 	}
 
 	public int getBlockMetadata() {
-
 		if (blockMetadata == -1) {
 			IBlockState iblockstate = world.getBlockState(pos);
 			blockMetadata = iblockstate.getBlock().getMetaFromState(iblockstate);
@@ -172,7 +161,6 @@ public abstract class TileEntity {
 	 * hasn't changed and skip it.
 	 */
 	public void markDirty() {
-
 		if (world != null) {
 			IBlockState iblockstate = world.getBlockState(pos);
 			blockMetadata = iblockstate.getBlock().getMetaFromState(iblockstate);
@@ -188,7 +176,6 @@ public abstract class TileEntity {
 	 * Returns the square of the distance between this entity and the passed in coordinates.
 	 */
 	public double getDistanceSq(double x, double y, double z) {
-
 		double d0 = (double) pos.getX() + 0.5D - x;
 		double d1 = (double) pos.getY() + 0.5D - y;
 		double d2 = (double) pos.getZ() + 0.5D - z;
@@ -196,17 +183,14 @@ public abstract class TileEntity {
 	}
 
 	public double getMaxRenderDistanceSquared() {
-
 		return 4096D;
 	}
 
 	public BlockPos getPos() {
-
 		return pos;
 	}
 
 	public void setPos(BlockPos posIn) {
-
 		pos = posIn.toImmutable();
 	}
 
@@ -214,7 +198,6 @@ public abstract class TileEntity {
 	 * Gets the block type at the location of this entity (client-only).
 	 */
 	public Block getBlockType() {
-
 		if (blockType == null && world != null) {
 			blockType = world.getBlockState(pos).getBlock();
 		}
@@ -224,17 +207,14 @@ public abstract class TileEntity {
 
 	
 	public SPacketUpdateTileEntity getUpdatePacket() {
-
 		return null;
 	}
 
 	public NBTTagCompound getUpdateTag() {
-
 		return writeInternal(new NBTTagCompound());
 	}
 
 	public boolean isInvalid() {
-
 		return tileEntityInvalid;
 	}
 
@@ -242,7 +222,6 @@ public abstract class TileEntity {
 	 * invalidates a tile entity
 	 */
 	public void invalidate() {
-
 		tileEntityInvalid = true;
 	}
 
@@ -250,23 +229,19 @@ public abstract class TileEntity {
 	 * validates a tile entity
 	 */
 	public void validate() {
-
 		tileEntityInvalid = false;
 	}
 
 	public boolean receiveClientEvent(int id, int type) {
-
 		return false;
 	}
 
 	public void updateContainingBlockInfo() {
-
 		blockType = null;
 		blockMetadata = -1;
 	}
 
 	public void addInfoToCrashReport(CrashReportCategory reportCategory) {
-
 		reportCategory.addDetail("Name", () -> TileEntity.REGISTRY.getNameForObject(getClass()) + " // " + getClass().getCanonicalName());
 
 		if (world != null) {
@@ -297,7 +272,6 @@ public abstract class TileEntity {
 	}
 
 	public boolean onlyOpsCanSetNbt() {
-
 		return false;
 	}
 
@@ -307,15 +281,12 @@ public abstract class TileEntity {
 	 * Get the formatted ChatComponent that will be used for the sender's username in chat
 	 */
 	public ITextComponent getDisplayName() {
-
 		return null;
 	}
 
 	public void rotate(Rotation rotationIn) {
-
 	}
 
 	public void mirror(Mirror mirrorIn) {
-
 	}
 }

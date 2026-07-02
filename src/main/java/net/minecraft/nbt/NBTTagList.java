@@ -24,7 +24,6 @@ public class NBTTagList extends NBTBase {
 	 * Write the actual data contents of the tag, implemented in NBT extension classes
 	 */
 	void write(DataOutput output) throws IOException {
-		
 		if (tagList.isEmpty()) {
 			tagType = 0;
 		} else {
@@ -40,7 +39,6 @@ public class NBTTagList extends NBTBase {
 	}
 	
 	void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException {
-		
 		sizeTracker.read(296L);
 		
 		if (depth > 512) {
@@ -68,12 +66,10 @@ public class NBTTagList extends NBTBase {
 	 * Gets the type byte for the tag.
 	 */
 	public byte getId() {
-		
 		return 9;
 	}
 	
 	public String toString() {
-		
 		StringBuilder stringbuilder = new StringBuilder("[");
 		
 		for (int i = 0; i < tagList.size(); ++i) {
@@ -92,7 +88,6 @@ public class NBTTagList extends NBTBase {
 	 * previous tag.
 	 */
 	public void appendTag(NBTBase nbt) {
-		
 		if (nbt.getId() == 0) {
 			LOGGER.warn("Invalid TagEnd added to ListTag");
 		} else {
@@ -111,7 +106,6 @@ public class NBTTagList extends NBTBase {
 	 * Set the given index to the given tag
 	 */
 	public void set(int idx, NBTBase nbt) {
-		
 		if (nbt.getId() == 0) {
 			LOGGER.warn("Invalid TagEnd added to ListTag");
 		} else if (idx >= 0 && idx < tagList.size()) {
@@ -132,7 +126,6 @@ public class NBTTagList extends NBTBase {
 	 * Removes a tag at the given index.
 	 */
 	public NBTBase removeTag(int i) {
-		
 		return tagList.remove(i);
 	}
 	
@@ -140,7 +133,6 @@ public class NBTTagList extends NBTBase {
 	 * Return whether this compound has no tags.
 	 */
 	public boolean hasNoTags() {
-		
 		return tagList.isEmpty();
 	}
 	
@@ -148,7 +140,6 @@ public class NBTTagList extends NBTBase {
 	 * Retrieves the NBTTagCompound at the specified index in the list
 	 */
 	public NBTTagCompound getCompoundTagAt(int i) {
-		
 		if (i >= 0 && i < tagList.size()) {
 			NBTBase nbtbase = tagList.get(i);
 			
@@ -161,7 +152,6 @@ public class NBTTagList extends NBTBase {
 	}
 	
 	public int getIntAt(int p_186858_1_) {
-		
 		if (p_186858_1_ >= 0 && p_186858_1_ < tagList.size()) {
 			NBTBase nbtbase = tagList.get(p_186858_1_);
 			
@@ -174,7 +164,6 @@ public class NBTTagList extends NBTBase {
 	}
 	
 	public int[] getIntArrayAt(int i) {
-		
 		if (i >= 0 && i < tagList.size()) {
 			NBTBase nbtbase = tagList.get(i);
 			
@@ -187,7 +176,6 @@ public class NBTTagList extends NBTBase {
 	}
 	
 	public double getDoubleAt(int i) {
-		
 		if (i >= 0 && i < tagList.size()) {
 			NBTBase nbtbase = tagList.get(i);
 			
@@ -200,7 +188,6 @@ public class NBTTagList extends NBTBase {
 	}
 	
 	public float getFloatAt(int i) {
-		
 		if (i >= 0 && i < tagList.size()) {
 			NBTBase nbtbase = tagList.get(i);
 			
@@ -216,7 +203,6 @@ public class NBTTagList extends NBTBase {
 	 * Retrieves the tag String value at the specified index in the list
 	 */
 	public String getStringTagAt(int i) {
-		
 		if (i >= 0 && i < tagList.size()) {
 			NBTBase nbtbase = tagList.get(i);
 			return nbtbase.getId() == 8 ? nbtbase.getString() : nbtbase.toString();
@@ -229,7 +215,6 @@ public class NBTTagList extends NBTBase {
 	 * Get the tag at the given position
 	 */
 	public NBTBase get(int idx) {
-		
 		return idx >= 0 && idx < tagList.size() ? tagList.get(idx) : new NBTTagEnd();
 	}
 	
@@ -237,7 +222,6 @@ public class NBTTagList extends NBTBase {
 	 * Returns the number of tags in the list.
 	 */
 	public int tagCount() {
-		
 		return tagList.size();
 	}
 	
@@ -245,7 +229,6 @@ public class NBTTagList extends NBTBase {
 	 * Creates a clone of the tag.
 	 */
 	public NBTTagList copy() {
-		
 		NBTTagList nbttaglist = new NBTTagList();
 		nbttaglist.tagType = tagType;
 		
@@ -258,7 +241,6 @@ public class NBTTagList extends NBTBase {
 	}
 	
 	public boolean equals(Object p_equals_1_) {
-		
 		if (!super.equals(p_equals_1_)) {
 			return false;
 		} else {
@@ -268,12 +250,10 @@ public class NBTTagList extends NBTBase {
 	}
 	
 	public int hashCode() {
-		
 		return super.hashCode() ^ tagList.hashCode();
 	}
 	
 	public int getTagType() {
-		
 		return tagType;
 	}
 	

@@ -9,7 +9,6 @@ public class ParticleEnchantmentTable extends Particle {
 	private final double coordZ;
 
 	protected ParticleEnchantmentTable(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
-
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 		motionX = xSpeedIn;
 		motionY = ySpeedIn;
@@ -33,13 +32,11 @@ public class ParticleEnchantmentTable extends Particle {
 	}
 
 	public void move(double x, double y, double z) {
-
 		setBoundingBox(getBoundingBox().offset(x, y, z));
 		resetPositionToBB();
 	}
 
 	public int getBrightnessForRender(float p_189214_1_) {
-
 		int i = super.getBrightnessForRender(p_189214_1_);
 		float f = (float) particleAge / (float) particleMaxAge;
 		f = f * f;
@@ -56,7 +53,6 @@ public class ParticleEnchantmentTable extends Particle {
 	}
 
 	public void onUpdate() {
-
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
@@ -77,7 +73,6 @@ public class ParticleEnchantmentTable extends Particle {
 	public static class EnchantmentTable implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			return new ParticleEnchantmentTable(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 		}
 

@@ -19,7 +19,6 @@ public class CommandWhitelist extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "whitelist";
 	}
 
@@ -27,7 +26,6 @@ public class CommandWhitelist extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 3;
 	}
 
@@ -35,7 +33,6 @@ public class CommandWhitelist extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.whitelist.usage";
 	}
 
@@ -43,7 +40,6 @@ public class CommandWhitelist extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		if (args.length < 1) {
 			throw new WrongUsageException("commands.whitelist.usage");
 		} else {
@@ -91,7 +87,6 @@ public class CommandWhitelist extends CommandBase {
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		if (args.length == 1) {
 			return getListOfStringsMatchingLastWord(args, "on", "off", "list", "add", "remove", "reload");
 		} else {

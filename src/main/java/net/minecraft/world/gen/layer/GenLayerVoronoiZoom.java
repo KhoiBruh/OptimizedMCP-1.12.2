@@ -3,7 +3,6 @@ package net.minecraft.world.gen.layer;
 public class GenLayerVoronoiZoom extends GenLayer {
 
 	public GenLayerVoronoiZoom(long p_i2133_1_, GenLayer p_i2133_3_) {
-
 		super(p_i2133_1_);
 		super.parent = p_i2133_3_;
 	}
@@ -13,7 +12,6 @@ public class GenLayerVoronoiZoom extends GenLayer {
 	 * amounts, or Biome ID's based on the particular GenLayer subclass.
 	 */
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
-
 		areaX = areaX - 2;
 		areaY = areaY - 2;
 		int i = areaX >> 2;

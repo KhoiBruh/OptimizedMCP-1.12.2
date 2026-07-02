@@ -15,13 +15,11 @@ public class NettyCompressionDecoder extends ByteToMessageDecoder {
 	private int threshold;
 
 	public NettyCompressionDecoder(int thresholdIn) {
-
 		threshold = thresholdIn;
 		inflater = new Inflater();
 	}
 
 	protected void decode(ChannelHandlerContext p_decode_1_, ByteBuf p_decode_2_, List<Object> p_decode_3_) throws Exception {
-
 		if (p_decode_2_.readableBytes() != 0) {
 			PacketBuffer packetbuffer = new PacketBuffer(p_decode_2_);
 			int i = packetbuffer.readVarInt();
@@ -49,7 +47,6 @@ public class NettyCompressionDecoder extends ByteToMessageDecoder {
 	}
 
 	public void setCompressionThreshold(int thresholdIn) {
-
 		threshold = thresholdIn;
 	}
 

@@ -9,23 +9,19 @@ import net.minecraft.world.World;
 public abstract class EntityGolem extends EntityCreature implements IAnimals {
 
 	public EntityGolem(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public void fall(float distance, float damageMultiplier) {
-
 	}
 
 	
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return null;
 	}
 
 	
 	protected SoundEvent getDeathSound() {
-
 		return null;
 	}
 
@@ -33,7 +29,6 @@ public abstract class EntityGolem extends EntityCreature implements IAnimals {
 	 * Get number of ticks, at least during which the living entity will be silent.
 	 */
 	public int getTalkInterval() {
-
 		return 120;
 	}
 
@@ -41,7 +36,6 @@ public abstract class EntityGolem extends EntityCreature implements IAnimals {
 	 * Determines if an entity can be despawned, used on idle far away entities
 	 */
 	protected boolean canDespawn() {
-
 		return false;
 	}
 

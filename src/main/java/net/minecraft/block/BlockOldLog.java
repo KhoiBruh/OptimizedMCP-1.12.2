@@ -16,7 +16,6 @@ public class BlockOldLog extends BlockLog {
 	public static final PropertyEnum<BlockPlanks.Type> VARIANT = PropertyEnum.create("variant", BlockPlanks.Type.class, p_apply_1_ -> p_apply_1_.getMetadata() < 4);
 
 	public BlockOldLog() {
-
 		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockPlanks.Type.OAK).withProperty(LOG_AXIS, BlockLog.Axis.Y));
 	}
 
@@ -24,7 +23,6 @@ public class BlockOldLog extends BlockLog {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		BlockPlanks.Type blockplanks$enumtype = state.getValue(VARIANT);
 
 		return switch (state.getValue(LOG_AXIS)) {
@@ -41,7 +39,6 @@ public class BlockOldLog extends BlockLog {
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-
 		items.add(new ItemStack(this, 1, BlockPlanks.Type.OAK.getMetadata()));
 		items.add(new ItemStack(this, 1, BlockPlanks.Type.SPRUCE.getMetadata()));
 		items.add(new ItemStack(this, 1, BlockPlanks.Type.BIRCH.getMetadata()));
@@ -52,7 +49,6 @@ public class BlockOldLog extends BlockLog {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		IBlockState iblockstate = getDefaultState().withProperty(VARIANT, BlockPlanks.Type.byMetadata((meta & 3) % 4));
 
 		iblockstate = switch (meta & 12) {
@@ -71,7 +67,6 @@ public class BlockOldLog extends BlockLog {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 		i = i | state.getValue(VARIANT).getMetadata();
 
@@ -92,12 +87,10 @@ public class BlockOldLog extends BlockLog {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, VARIANT, LOG_AXIS);
 	}
 
 	protected ItemStack getSilkTouchDrop(IBlockState state) {
-
 		return new ItemStack(Item.getItemFromBlock(this), 1, state.getValue(VARIANT).getMetadata());
 	}
 
@@ -106,7 +99,6 @@ public class BlockOldLog extends BlockLog {
 	 * returns the metadata of the dropped item based on the old metadata of the block.
 	 */
 	public int damageDropped(IBlockState state) {
-
 		return state.getValue(VARIANT).getMetadata();
 	}
 

@@ -21,14 +21,12 @@ public class EntityEvokerFangs extends Entity {
 	private UUID casterUuid;
 
 	public EntityEvokerFangs(World worldIn) {
-
 		super(worldIn);
 		lifeTicks = 22;
 		setSize(0.5F, 0.8F);
 	}
 
 	public EntityEvokerFangs(World worldIn, double x, double y, double z, float p_i47276_8_, int p_i47276_9_, EntityLivingBase casterIn) {
-
 		this(worldIn);
 		warmupDelayTicks = p_i47276_9_;
 		setCaster(casterIn);
@@ -37,12 +35,10 @@ public class EntityEvokerFangs extends Entity {
 	}
 
 	protected void entityInit() {
-
 	}
 
 	
 	public EntityLivingBase getCaster() {
-
 		if (caster == null && casterUuid != null && world instanceof WorldServer) {
 			Entity entity = ((WorldServer) world).getEntityFromUuid(casterUuid);
 
@@ -55,7 +51,6 @@ public class EntityEvokerFangs extends Entity {
 	}
 
 	public void setCaster(EntityLivingBase p_190549_1_) {
-
 		caster = p_190549_1_;
 		casterUuid = p_190549_1_ == null ? null : p_190549_1_.getUniqueID();
 	}
@@ -64,7 +59,6 @@ public class EntityEvokerFangs extends Entity {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	protected void readEntityFromNBT(NBTTagCompound compound) {
-
 		warmupDelayTicks = compound.getInteger("Warmup");
 		casterUuid = compound.getUniqueId("OwnerUUID");
 	}
@@ -73,7 +67,6 @@ public class EntityEvokerFangs extends Entity {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	protected void writeEntityToNBT(NBTTagCompound compound) {
-
 		compound.setInteger("Warmup", warmupDelayTicks);
 
 		if (casterUuid != null) {
@@ -85,7 +78,6 @@ public class EntityEvokerFangs extends Entity {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		super.onUpdate();
 
 		if (world.isRemote) {
@@ -123,7 +115,6 @@ public class EntityEvokerFangs extends Entity {
 	}
 
 	private void damage(EntityLivingBase p_190551_1_) {
-
 		EntityLivingBase entitylivingbase = getCaster();
 
 		if (p_190551_1_.isEntityAlive() && !p_190551_1_.getIsInvulnerable() && p_190551_1_ != entitylivingbase) {
@@ -143,7 +134,6 @@ public class EntityEvokerFangs extends Entity {
 	 * Handler for {@link World#setEntityState}
 	 */
 	public void handleStatusUpdate(byte id) {
-
 		super.handleStatusUpdate(id);
 
 		if (id == 4) {
@@ -156,7 +146,6 @@ public class EntityEvokerFangs extends Entity {
 	}
 
 	public float getAnimationProgress(float partialTicks) {
-
 		if (!clientSideAttackStarted) {
 			return 0F;
 		} else {

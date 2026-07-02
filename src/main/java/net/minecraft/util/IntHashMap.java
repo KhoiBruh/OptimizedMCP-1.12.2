@@ -22,7 +22,6 @@ public class IntHashMap<V> {
 	 * Makes the passed in integer suitable for hashing by a number of shifts
 	 */
 	private static int computeHash(int integer) {
-
 		integer = integer ^ integer >>> 20 ^ integer >>> 12;
 		return integer ^ integer >>> 7 ^ integer >>> 4;
 	}
@@ -31,7 +30,6 @@ public class IntHashMap<V> {
 	 * Computes the index of the slot for the hash and slot count passed in.
 	 */
 	private static int getSlotIndex(int hash, int slotCount) {
-
 		return hash & slotCount - 1;
 	}
 
@@ -41,7 +39,6 @@ public class IntHashMap<V> {
 	 * Returns the object associated to a key
 	 */
 	public V lookup(int hashEntry) {
-
 		int i = computeHash(hashEntry);
 
 		for (IntHashMap.Entry<V> entry = slots[getSlotIndex(i, slots.length)]; entry != null; entry = entry.nextEntry) {
@@ -57,7 +54,6 @@ public class IntHashMap<V> {
 	 * Returns true if this hash table contains the specified item.
 	 */
 	public boolean containsItem(int hashEntry) {
-
 		return lookupEntry(hashEntry) != null;
 	}
 
@@ -79,7 +75,6 @@ public class IntHashMap<V> {
 	 * Adds a key and associated value to this map
 	 */
 	public void addKey(int hashEntry, V valueEntry) {
-
 		int i = computeHash(hashEntry);
 		int j = getSlotIndex(i, slots.length);
 
@@ -97,7 +92,6 @@ public class IntHashMap<V> {
 	 * Increases the number of hash slots
 	 */
 	private void grow(int p_76047_1_) {
-
 		IntHashMap.Entry<V>[] entry = slots;
 		int i = entry.length;
 
@@ -115,7 +109,6 @@ public class IntHashMap<V> {
 	 * Copies the hash slots to a new array
 	 */
 	private void copyTo(IntHashMap.Entry<V>[] p_76048_1_) {
-
 		IntHashMap.Entry<V>[] entry = slots;
 		int i = p_76048_1_.length;
 
@@ -146,7 +139,6 @@ public class IntHashMap<V> {
 	 * Removes the specified object from the map and returns it
 	 */
 	public V removeObject(int o) {
-
 		IntHashMap.Entry<V> entry = removeEntry(o);
 		return entry == null ? null : entry.valueEntry;
 	}
@@ -185,7 +177,6 @@ public class IntHashMap<V> {
 	 * Removes all entries from the map
 	 */
 	public void clearMap() {
-
 		IntHashMap.Entry<V>[] entry = slots;
 
 		Arrays.fill(entry, null);
@@ -197,7 +188,6 @@ public class IntHashMap<V> {
 	 * Adds an object to a slot
 	 */
 	private void insert(int p_76040_1_, int p_76040_2_, V p_76040_3_, int p_76040_4_) {
-
 		IntHashMap.Entry<V> entry = slots[p_76040_4_];
 		slots[p_76040_4_] = new IntHashMap.Entry<>(p_76040_1_, p_76040_2_, p_76040_3_, entry);
 
@@ -214,7 +204,6 @@ public class IntHashMap<V> {
 		IntHashMap.Entry<V> nextEntry;
 
 		Entry(int p_i1552_1_, int p_i1552_2_, V p_i1552_3_, IntHashMap.Entry<V> p_i1552_4_) {
-
 			valueEntry = p_i1552_3_;
 			nextEntry = p_i1552_4_;
 			hashEntry = p_i1552_2_;
@@ -222,17 +211,14 @@ public class IntHashMap<V> {
 		}
 
 		public final int getHash() {
-
 			return hashEntry;
 		}
 
 		public final V getValue() {
-
 			return valueEntry;
 		}
 
 		public final boolean equals(Object p_equals_1_) {
-
 			if (!(p_equals_1_ instanceof IntHashMap.Entry)) {
 				return false;
 			} else {
@@ -250,12 +236,10 @@ public class IntHashMap<V> {
 		}
 
 		public final int hashCode() {
-
 			return IntHashMap.computeHash(hashEntry);
 		}
 
 		public final String toString() {
-
 			return getHash() + "=" + getValue();
 		}
 

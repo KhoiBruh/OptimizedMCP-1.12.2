@@ -19,12 +19,10 @@ import net.minecraft.util.math.Vec3d;
 public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 	
 	public RenderPlayer(RenderManager renderManager) {
-
 		this(renderManager, false);
 	}
 
 	public RenderPlayer(RenderManager renderManager, boolean useSmallArms) {
-
 		super(renderManager, new ModelPlayer(0F, useSmallArms), 0.5F);
 		addLayer(new LayerBipedArmor(this));
 		addLayer(new LayerHeldItem(this));
@@ -37,7 +35,6 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 	}
 
 	public ModelPlayer getMainModel() {
-
 		return (ModelPlayer) super.getMainModel();
 	}
 
@@ -45,7 +42,6 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(AbstractClientPlayer entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		if (!entity.isUser() || renderManager.renderViewEntity == entity) {
 			double d0 = y;
 
@@ -61,7 +57,6 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 	}
 
 	private void setModelVisibilities(AbstractClientPlayer clientPlayer) {
-
 		ModelPlayer modelplayer = getMainModel();
 
 		if (clientPlayer.isSpectator()) {
@@ -122,12 +117,10 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	public ResourceLocation getEntityTexture(AbstractClientPlayer entity) {
-
 		return entity.getLocationSkin();
 	}
 
 	public void transformHeldFull3DItemLayer() {
-
 		GLS.translate(0F, 0.1875F, 0F);
 	}
 
@@ -135,13 +128,11 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 	 * Allows the render to do state modifications necessary before the model is rendered.
 	 */
 	protected void preRenderCallback(AbstractClientPlayer entitylivingbaseIn, float partialTickTime) {
-
 		float f = 0.9375F;
 		GLS.scale(0.9375F, 0.9375F, 0.9375F);
 	}
 
 	protected void renderEntityName(AbstractClientPlayer entityIn, double x, double y, double z, String name, double distanceSq) {
-
 		if (distanceSq < 100D) {
 			Scoreboard scoreboard = entityIn.getWorldScoreboard();
 			ScoreObjective scoreobjective = scoreboard.getObjectiveInDisplaySlot(2);
@@ -157,7 +148,6 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 	}
 
 	public void renderRightArm(AbstractClientPlayer clientPlayer) {
-
 		float f = 1F;
 		GLS.color(1F, 1F, 1F);
 		float f1 = 0.0625F;
@@ -175,7 +165,6 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 	}
 
 	public void renderLeftArm(AbstractClientPlayer clientPlayer) {
-
 		float f = 1F;
 		GLS.color(1F, 1F, 1F);
 		float f1 = 0.0625F;
@@ -196,7 +185,6 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 	 * Sets a simple glTranslate on a LivingEntity.
 	 */
 	protected void renderLivingAt(AbstractClientPlayer entityLivingBaseIn, double x, double y, double z) {
-
 		if (entityLivingBaseIn.isEntityAlive() && entityLivingBaseIn.isPlayerSleeping()) {
 			super.renderLivingAt(entityLivingBaseIn, x + (double) entityLivingBaseIn.renderOffsetX, y + (double) entityLivingBaseIn.renderOffsetY, z + (double) entityLivingBaseIn.renderOffsetZ);
 		} else {
@@ -205,7 +193,6 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 	}
 
 	protected void applyRotations(AbstractClientPlayer entityLiving, float p_77043_2_, float rotationYaw, float partialTicks) {
-
 		if (entityLiving.isEntityAlive() && entityLiving.isPlayerSleeping()) {
 			GLS.rotate(entityLiving.getBedOrientationInDegrees(), 0F, 1F, 0F);
 			GLS.rotate(getDeathMaxRotation(entityLiving), 0F, 0F, 1F);

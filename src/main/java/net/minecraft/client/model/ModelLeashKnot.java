@@ -7,12 +7,10 @@ public class ModelLeashKnot extends ModelBase {
 	public ModelRenderer knotRenderer;
 
 	public ModelLeashKnot() {
-
 		this(0, 0, 32, 32);
 	}
 
 	public ModelLeashKnot(int p_i46365_1_, int p_i46365_2_, int p_i46365_3_, int p_i46365_4_) {
-
 		textureWidth = p_i46365_3_;
 		textureHeight = p_i46365_4_;
 		knotRenderer = new ModelRenderer(this, p_i46365_1_, p_i46365_2_);
@@ -24,7 +22,6 @@ public class ModelLeashKnot extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		knotRenderer.render(scale);
 	}
@@ -35,7 +32,6 @@ public class ModelLeashKnot extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 		knotRenderer.rotateAngleY = netHeadYaw * 0.017453292F;
 		knotRenderer.rotateAngleX = headPitch * 0.017453292F;

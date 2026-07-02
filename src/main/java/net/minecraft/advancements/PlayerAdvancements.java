@@ -46,7 +46,6 @@ public class PlayerAdvancements {
 	private boolean isFirstPacket = true;
 
 	public PlayerAdvancements(MinecraftServer server, File p_i47422_2_, EntityPlayerMP player) {
-
 		this.server = server;
 		progressFile = p_i47422_2_;
 		this.player = player;
@@ -54,19 +53,16 @@ public class PlayerAdvancements {
 	}
 
 	public void setPlayer(EntityPlayerMP player) {
-
 		this.player = player;
 	}
 
 	public void dispose() {
-
 		for (ICriterionTrigger<?> icriteriontrigger : CriteriaTriggers.getAll()) {
 			icriteriontrigger.removeAllListeners(this);
 		}
 	}
 
 	public void reload() {
-
 		dispose();
 		progress.clear();
 		visible.clear();
@@ -78,14 +74,12 @@ public class PlayerAdvancements {
 	}
 
 	private void registerListeners() {
-
 		for (Advancement advancement : server.getAdvancementManager().getAdvancements()) {
 			registerListeners(advancement);
 		}
 	}
 
 	private void ensureAllVisible() {
-
 		List<Advancement> list = Lists.newArrayList();
 
 		for (Entry<Advancement, AdvancementProgress> entry : progress.entrySet()) {
@@ -101,7 +95,6 @@ public class PlayerAdvancements {
 	}
 
 	private void checkForAutomaticTriggers() {
-
 		for (Advancement advancement : server.getAdvancementManager().getAdvancements()) {
 			if (advancement.getCriteria().isEmpty()) {
 				grantCriterion(advancement, "");
@@ -111,7 +104,6 @@ public class PlayerAdvancements {
 	}
 
 	private void load() {
-
 		if (progressFile.isFile()) {
 			try {
 				String s = Files.asCharSource(progressFile, StandardCharsets.UTF_8).read();
@@ -145,7 +137,6 @@ public class PlayerAdvancements {
 	}
 
 	public void save() {
-
 		Map<ResourceLocation, AdvancementProgress> map = Maps.newHashMap();
 
 		for (Entry<Advancement, AdvancementProgress> entry : progress.entrySet()) {
@@ -168,7 +159,6 @@ public class PlayerAdvancements {
 	}
 
 	public boolean grantCriterion(Advancement p_192750_1_, String p_192750_2_) {
-
 		boolean flag = false;
 		AdvancementProgress advancementprogress = getProgress(p_192750_1_);
 		boolean flag1 = advancementprogress.isDone();
@@ -195,7 +185,6 @@ public class PlayerAdvancements {
 	}
 
 	public boolean revokeCriterion(Advancement p_192744_1_, String p_192744_2_) {
-
 		boolean flag = false;
 		AdvancementProgress advancementprogress = getProgress(p_192744_1_);
 
@@ -213,7 +202,6 @@ public class PlayerAdvancements {
 	}
 
 	private void registerListeners(Advancement p_193764_1_) {
-
 		AdvancementProgress advancementprogress = getProgress(p_193764_1_);
 
 		if (!advancementprogress.isDone()) {
@@ -236,7 +224,6 @@ public class PlayerAdvancements {
 	}
 
 	private void unregisterListeners(Advancement p_193765_1_) {
-
 		AdvancementProgress advancementprogress = getProgress(p_193765_1_);
 
 		for (Entry<String, Criterion> entry : p_193765_1_.getCriteria().entrySet()) {
@@ -257,7 +244,6 @@ public class PlayerAdvancements {
 	}
 
 	public void flushDirty(EntityPlayerMP p_192741_1_) {
-
 		if (!visibilityChanged.isEmpty() || !progressChanged.isEmpty()) {
 			Map<ResourceLocation, AdvancementProgress> map = Maps.newHashMap();
 			Set<Advancement> set = Sets.newLinkedHashSet();
@@ -288,7 +274,6 @@ public class PlayerAdvancements {
 	}
 
 	public void setSelectedTab(Advancement p_194220_1_) {
-
 		Advancement advancement = lastSelectedTab;
 
 		if (p_194220_1_ != null && p_194220_1_.getParent() == null && p_194220_1_.getDisplay() != null) {
@@ -303,7 +288,6 @@ public class PlayerAdvancements {
 	}
 
 	public AdvancementProgress getProgress(Advancement advancementIn) {
-
 		AdvancementProgress advancementprogress = progress.get(advancementIn);
 
 		if (advancementprogress == null) {
@@ -315,13 +299,11 @@ public class PlayerAdvancements {
 	}
 
 	private void startProgress(Advancement p_192743_1_, AdvancementProgress p_192743_2_) {
-
 		p_192743_2_.update(p_192743_1_.getCriteria(), p_192743_1_.getRequirements());
 		progress.put(p_192743_1_, p_192743_2_);
 	}
 
 	private void ensureVisibility(Advancement p_192742_1_) {
-
 		boolean flag = shouldBeVisible(p_192742_1_);
 		boolean flag1 = visible.contains(p_192742_1_);
 
@@ -347,7 +329,6 @@ public class PlayerAdvancements {
 	}
 
 	private boolean shouldBeVisible(Advancement p_192738_1_) {
-
 		for (int i = 0; p_192738_1_ != null && i <= 2; ++i) {
 			if (i == 0 && hasCompletedChildrenOrSelf(p_192738_1_)) {
 				return true;
@@ -374,7 +355,6 @@ public class PlayerAdvancements {
 	}
 
 	private boolean hasCompletedChildrenOrSelf(Advancement p_192746_1_) {
-
 		AdvancementProgress advancementprogress = getProgress(p_192746_1_);
 
 		if (advancementprogress.isDone()) {

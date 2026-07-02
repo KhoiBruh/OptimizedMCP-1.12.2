@@ -12,7 +12,6 @@ public class TileEntityMobSpawnerRenderer extends TileEntitySpecialRenderer<Tile
 	 * Render the mob inside the mob spawner.
 	 */
 	public static void renderMob(MobSpawnerBaseLogic mobSpawnerLogic, double posX, double posY, double posZ, float partialTicks) {
-
 		Entity entity = mobSpawnerLogic.getCachedEntity();
 
 		if (entity != null) {
@@ -34,7 +33,6 @@ public class TileEntityMobSpawnerRenderer extends TileEntitySpecialRenderer<Tile
 	}
 
 	public void render(TileEntityMobSpawner te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-
 		GLS.pushMatrix();
 		GLS.translate((float) x + 0.5F, (float) y, (float) z + 0.5F);
 		renderMob(te.getSpawnerBaseLogic(), x, y, z, partialTicks);

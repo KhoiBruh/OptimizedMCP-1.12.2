@@ -23,13 +23,11 @@ public abstract class EntityFireball extends Entity {
 	private int ticksInAir;
 
 	public EntityFireball(World worldIn) {
-
 		super(worldIn);
 		setSize(1F, 1F);
 	}
 
 	public EntityFireball(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
-
 		super(worldIn);
 		setSize(1F, 1F);
 		setLocationAndAngles(x, y, z, rotationYaw, rotationPitch);
@@ -41,7 +39,6 @@ public abstract class EntityFireball extends Entity {
 	}
 
 	public EntityFireball(World worldIn, EntityLivingBase shooter, double accelX, double accelY, double accelZ) {
-
 		super(worldIn);
 		shootingEntity = shooter;
 		setSize(1F, 1F);
@@ -60,18 +57,15 @@ public abstract class EntityFireball extends Entity {
 	}
 
 	public static void registerFixesFireball(DataFixer fixer, String name) {
-
 	}
 
 	protected void entityInit() {
-
 	}
 
 	/**
 	 * Checks if the entity is in range to render.
 	 */
 	public boolean isInRangeToRenderDist(double distance) {
-
 		double d0 = getEntityBoundingBox().getAverageEdgeLength() * 4D;
 
 		if (Double.isNaN(d0)) {
@@ -86,7 +80,6 @@ public abstract class EntityFireball extends Entity {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		if (world.isRemote || (shootingEntity == null || !shootingEntity.isDead) && world.isBlockLoaded(new BlockPos(this))) {
 			super.onUpdate();
 
@@ -130,12 +123,10 @@ public abstract class EntityFireball extends Entity {
 	}
 
 	protected boolean isFireballFiery() {
-
 		return true;
 	}
 
 	protected ParticleTypes getParticleType() {
-
 		return ParticleTypes.SMOKE_NORMAL;
 	}
 
@@ -143,7 +134,6 @@ public abstract class EntityFireball extends Entity {
 	 * Return the motion factor for this projectile. The factor is multiplied by the original motion.
 	 */
 	protected float getMotionFactor() {
-
 		return 0.95F;
 	}
 
@@ -156,7 +146,6 @@ public abstract class EntityFireball extends Entity {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		compound.setTag("direction", newDoubleNBTList(motionX, motionY, motionZ));
 		compound.setTag("power", newDoubleNBTList(accelerationX, accelerationY, accelerationZ));
 		compound.setInteger("life", ticksAlive);
@@ -166,7 +155,6 @@ public abstract class EntityFireball extends Entity {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		if (compound.hasKey("power", 9)) {
 			NBTTagList nbttaglist = compound.getTagList("power", 6);
 
@@ -193,12 +181,10 @@ public abstract class EntityFireball extends Entity {
 	 * Returns true if other Entities should be prevented from moving through this Entity.
 	 */
 	public boolean canBeCollidedWith() {
-
 		return true;
 	}
 
 	public float getCollisionBorderSize() {
-
 		return 1F;
 	}
 
@@ -206,7 +192,6 @@ public abstract class EntityFireball extends Entity {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		if (isEntityInvulnerable(source)) {
 			return false;
 		} else {
@@ -239,12 +224,10 @@ public abstract class EntityFireball extends Entity {
 	 * Gets how bright this entity is.
 	 */
 	public float getBrightness() {
-
 		return 1F;
 	}
 
 	public int getBrightnessForRender() {
-
 		return 15728880;
 	}
 

@@ -11,7 +11,6 @@ import java.util.Random;
 public class WorldGenDeadBush extends WorldGenerator {
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		for (IBlockState iblockstate = worldIn.getBlockState(position); (iblockstate.getMaterial() == Material.AIR || iblockstate.getMaterial() == Material.LEAVES) && position.getY() > 0; iblockstate = worldIn.getBlockState(position)) {
 			position = position.down();
 		}

@@ -7,12 +7,10 @@ import net.minecraft.util.math.MathHelper;
 public class ModelZombieVillager extends ModelBiped {
 
 	public ModelZombieVillager() {
-
 		this(0F, 0F, false);
 	}
 
 	public ModelZombieVillager(float p_i1165_1_, float p_i1165_2_, boolean p_i1165_3_) {
-
 		super(p_i1165_1_, 0F, 64, p_i1165_3_ ? 32 : 64);
 
 		if (p_i1165_3_) {
@@ -61,7 +59,6 @@ public class ModelZombieVillager extends ModelBiped {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 		EntityZombie entityzombie = (EntityZombie) entityIn;
 		float f = MathHelper.sin(swingProgress * (float) Math.PI);

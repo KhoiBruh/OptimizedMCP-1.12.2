@@ -22,12 +22,10 @@ public class ItemKnowledgeBook extends Item {
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	public ItemKnowledgeBook() {
-
 		setMaxStackSize(1);
 	}
 
 	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
-
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		NBTTagCompound nbttagcompound = itemstack.getTagCompound();
 

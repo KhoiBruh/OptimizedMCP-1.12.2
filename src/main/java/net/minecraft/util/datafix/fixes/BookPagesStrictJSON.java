@@ -13,12 +13,10 @@ import net.minecraft.util.text.TextComponentString;
 public class BookPagesStrictJSON implements IFixableData {
 
 	public int getFixVersion() {
-
 		return 165;
 	}
 
 	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
-
 		if ("minecraft:written_book".equals(compound.getString("id"))) {
 			NBTTagCompound nbttagcompound = compound.getCompoundTag("tag");
 

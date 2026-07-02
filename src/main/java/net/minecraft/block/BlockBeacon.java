@@ -20,14 +20,12 @@ import net.minecraft.world.chunk.Chunk;
 public class BlockBeacon extends BlockContainer {
 
 	public BlockBeacon() {
-
 		super(Material.GLASS, MapColor.DIAMOND);
 		setHardness(3F);
 		setCreativeTab(CreativeTabs.MISC);
 	}
 
 	public static void updateColorAsync(final World worldIn, final BlockPos glassPos) {
-
 		HttpUtil.DOWNLOADER_EXECUTOR.submit(() -> {
 
 			Chunk chunk = worldIn.getChunkFromBlockCoords(glassPos);
@@ -60,7 +58,6 @@ public class BlockBeacon extends BlockContainer {
 	 * Returns a new instance of a block's tile entity class. Called on placing the block.
 	 */
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-
 		return new TileEntityBeacon();
 	}
 
@@ -68,7 +65,6 @@ public class BlockBeacon extends BlockContainer {
 	 * Called when the block is right clicked by a player.
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		if (worldIn.isRemote) {
 			return true;
 		} else {
@@ -87,12 +83,10 @@ public class BlockBeacon extends BlockContainer {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -101,7 +95,6 @@ public class BlockBeacon extends BlockContainer {
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
 	public BlockRenderType getRenderType(IBlockState state) {
-
 		return BlockRenderType.MODEL;
 	}
 
@@ -109,7 +102,6 @@ public class BlockBeacon extends BlockContainer {
 	 * Called by ItemBlocks after a block is set in the world, to allow post-place logic
 	 */
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-
 		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
 
 		if (stack.hasDisplayName()) {
@@ -127,7 +119,6 @@ public class BlockBeacon extends BlockContainer {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 
 		if (tileentity instanceof TileEntityBeacon) {
@@ -141,7 +132,6 @@ public class BlockBeacon extends BlockContainer {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.CUTOUT;
 	}
 

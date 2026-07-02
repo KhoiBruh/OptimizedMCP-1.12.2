@@ -15,14 +15,12 @@ public abstract class LootFunction {
 	private final LootCondition[] conditions;
 
 	protected LootFunction(LootCondition[] conditionsIn) {
-
 		conditions = conditionsIn;
 	}
 
 	public abstract ItemStack apply(ItemStack stack, Random rand, LootContext context);
 
 	public LootCondition[] getConditions() {
-
 		return conditions;
 	}
 
@@ -32,18 +30,15 @@ public abstract class LootFunction {
 		private final Class<T> functionClass;
 
 		protected Serializer(ResourceLocation location, Class<T> clazz) {
-
 			lootTableLocation = location;
 			functionClass = clazz;
 		}
 
 		public ResourceLocation getFunctionName() {
-
 			return lootTableLocation;
 		}
 
 		public Class<T> getFunctionClass() {
-
 			return functionClass;
 		}
 

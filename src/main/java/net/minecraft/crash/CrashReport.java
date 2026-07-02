@@ -47,7 +47,6 @@ public class CrashReport {
 	private StackTraceElement[] stacktrace = new StackTraceElement[0];
 
 	public CrashReport(String descriptionIn, Throwable causeThrowable) {
-
 		description = descriptionIn;
 		cause = causeThrowable;
 		populateEnvironment();
@@ -57,7 +56,6 @@ public class CrashReport {
 	 * Gets a random witty comment for inclusion in this CrashReport
 	 */
 	private static String getWittyComment() {
-
 		String[] astring = new String[]{"Who set us up the TNT?", "Everything's going to plan. No, really, that was supposed to happen.", "Uh... Did I do that?", "Oops.", "Why did you do that?", "I feel sad now :(", "My bad.", "I'm sorry, Dave.", "I let you down. Sorry :(", "On the bright side, I bought you a teddy bear!", "Daisy, daisy...", "Oh - I know what I did wrong!", "Hey, that tickles! Hehehe!", "I blame Dinnerbone.", "You should try our sister game, Minceraft!", "Don't be sad. I'll do better next time, I promise!", "Don't be sad, have a hug! <3", "I just don't know what went wrong :(", "Shall we play a game?", "Quite honestly, I wouldn't worry myself about that.", "I bet Cylons wouldn't have this problem.", "Sorry :(", "Surprise! Haha. Well, this is awkward.", "Would you like a cupcake?", "Hi. I'm Minecraft, and I'm a crashaholic.", "Ooh. Shiny.", "This doesn't make any sense!", "Why is it breaking :(", "Don't do that.", "Ouch. That hurt :(", "You're mean.", "This is a token for 1 free hug. Redeem at your nearest Mojangsta: [~~HUG~~]", "There are four lights!", "But it works on my machine."};
 
 		try {
@@ -71,7 +69,6 @@ public class CrashReport {
 	 * Creates a crash report for the exception
 	 */
 	public static CrashReport makeCrashReport(Throwable causeIn, String descriptionIn) {
-
 		CrashReport crashreport;
 
 		if (causeIn instanceof ReportedException) {
@@ -88,7 +85,6 @@ public class CrashReport {
 	 * environment
 	 */
 	private void populateEnvironment() {
-
 		systemDetailsCategory.addDetail("Minecraft Version", () -> "1.12.2");
 		systemDetailsCategory.addDetail("Operating System", () -> System.getProperty("os.name") + " (" + System.getProperty("os.arch") + ") version " + System.getProperty("os.version"));
 		systemDetailsCategory.addDetail("Java Version", () -> System.getProperty("java.version") + ", " + System.getProperty("java.vendor"));
@@ -130,7 +126,6 @@ public class CrashReport {
 	 * Returns the description of the Crash Report.
 	 */
 	public String getDescription() {
-
 		return description;
 	}
 
@@ -138,7 +133,6 @@ public class CrashReport {
 	 * Returns the Throwable object that is the cause for the crash and Crash Report.
 	 */
 	public Throwable getCrashCause() {
-
 		return cause;
 	}
 
@@ -146,7 +140,6 @@ public class CrashReport {
 	 * Gets the various sections of the crash report into the given StringBuilder
 	 */
 	public void getSectionsInStringBuilder(StringBuilder builder) {
-
 		if ((stacktrace == null || stacktrace.length == 0) && !crashReportSections.isEmpty()) {
 			stacktrace = Arrays.copyOfRange(crashReportSections.getFirst().getStackTrace(), 0, 1);
 		}
@@ -176,7 +169,6 @@ public class CrashReport {
 	 * Gets the stack trace of the Throwable that caused this crash report, or if that fails, the cause .toString().
 	 */
 	public String getCauseStackTraceOrString() {
-
 		Throwable throwable = cause;
 
 		if (throwable.getMessage() == null) {
@@ -208,7 +200,6 @@ public class CrashReport {
 	 * Gets the complete report with headers, stack trace, and different sections as a string.
 	 */
 	public String getCompleteReport() {
-
 		StringBuilder stringbuilder = new StringBuilder();
 		stringbuilder.append("---- Minecraft Crash Report ----\n");
 		stringbuilder.append("// ");
@@ -234,7 +225,6 @@ public class CrashReport {
 	 * Gets the file this crash report is saved into.
 	 */
 	public File getFile() {
-
 		return crashReportFile;
 	}
 
@@ -242,7 +232,6 @@ public class CrashReport {
 	 * Saves this CrashReport to the given file and returns a value indicating whether we were successful at doing so.
 	 */
 	public boolean saveToFile(File toFile) {
-
 		if (crashReportFile != null) {
 			return false;
 		} else {
@@ -263,7 +252,6 @@ public class CrashReport {
 	}
 
 	public CrashReportCategory getCategory() {
-
 		return systemDetailsCategory;
 	}
 
@@ -271,7 +259,6 @@ public class CrashReport {
 	 * Creates a CrashReportCategory
 	 */
 	public CrashReportCategory makeCategory(String name) {
-
 		return makeCategoryDepth(name, 1);
 	}
 
@@ -279,7 +266,6 @@ public class CrashReport {
 	 * Creates a CrashReportCategory for the given stack trace depth
 	 */
 	public CrashReportCategory makeCategoryDepth(String categoryName, int stacktraceLength) {
-
 		CrashReportCategory crashreportcategory = new CrashReportCategory(this, categoryName);
 
 		if (firstCategoryInCrashReport) {

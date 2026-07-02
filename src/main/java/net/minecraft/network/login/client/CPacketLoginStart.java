@@ -10,11 +10,9 @@ public class CPacketLoginStart implements Packet<INetHandlerLoginServer> {
 	private GameProfile profile;
 
 	public CPacketLoginStart() {
-
 	}
 
 	public CPacketLoginStart(GameProfile profileIn) {
-
 		profile = profileIn;
 	}
 
@@ -22,7 +20,6 @@ public class CPacketLoginStart implements Packet<INetHandlerLoginServer> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		profile = new GameProfile(null, buf.readString(16));
 	}
 
@@ -30,7 +27,6 @@ public class CPacketLoginStart implements Packet<INetHandlerLoginServer> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeString(profile.getName());
 	}
 
@@ -38,12 +34,10 @@ public class CPacketLoginStart implements Packet<INetHandlerLoginServer> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerLoginServer handler) {
-
 		handler.processLoginStart(this);
 	}
 
 	public GameProfile getProfile() {
-
 		return profile;
 	}
 

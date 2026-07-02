@@ -20,7 +20,6 @@ public abstract class TileEntityLockableLoot extends TileEntityLockable implemen
 	protected String customName;
 
 	protected boolean checkLootAndRead(NBTTagCompound compound) {
-
 		if (compound.hasKey("LootTable", 8)) {
 			lootTable = new ResourceLocation(compound.getString("LootTable"));
 			lootTableSeed = compound.getLong("LootTableSeed");
@@ -31,7 +30,6 @@ public abstract class TileEntityLockableLoot extends TileEntityLockable implemen
 	}
 
 	protected boolean checkLootAndWrite(NBTTagCompound compound) {
-
 		if (lootTable != null) {
 			compound.setString("LootTable", lootTable.toString());
 
@@ -46,7 +44,6 @@ public abstract class TileEntityLockableLoot extends TileEntityLockable implemen
 	}
 
 	public void fillWithLoot(EntityPlayer player) {
-
 		if (lootTable != null) {
 			LootTable loottable = world.getLootTableManager().getLootTableFromLocation(lootTable);
 			lootTable = null;
@@ -69,12 +66,10 @@ public abstract class TileEntityLockableLoot extends TileEntityLockable implemen
 	}
 
 	public ResourceLocation getLootTable() {
-
 		return lootTable;
 	}
 
 	public void setLootTable(ResourceLocation p_189404_1_, long p_189404_2_) {
-
 		lootTable = p_189404_1_;
 		lootTableSeed = p_189404_2_;
 	}
@@ -83,12 +78,10 @@ public abstract class TileEntityLockableLoot extends TileEntityLockable implemen
 	 * Returns true if this thing is named
 	 */
 	public boolean hasCustomName() {
-
 		return customName != null && !customName.isEmpty();
 	}
 
 	public void setCustomName(String p_190575_1_) {
-
 		customName = p_190575_1_;
 	}
 
@@ -96,7 +89,6 @@ public abstract class TileEntityLockableLoot extends TileEntityLockable implemen
 	 * Returns the stack in the given slot.
 	 */
 	public ItemStack getStackInSlot(int index) {
-
 		fillWithLoot(null);
 		return getItems().get(index);
 	}
@@ -105,7 +97,6 @@ public abstract class TileEntityLockableLoot extends TileEntityLockable implemen
 	 * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
 	 */
 	public ItemStack decrStackSize(int index, int count) {
-
 		fillWithLoot(null);
 		ItemStack itemstack = ItemStackHelper.getAndSplit(getItems(), index, count);
 
@@ -120,7 +111,6 @@ public abstract class TileEntityLockableLoot extends TileEntityLockable implemen
 	 * Removes a stack from the given slot and returns it.
 	 */
 	public ItemStack removeStackFromSlot(int index) {
-
 		fillWithLoot(null);
 		return ItemStackHelper.getAndRemove(getItems(), index);
 	}
@@ -129,7 +119,6 @@ public abstract class TileEntityLockableLoot extends TileEntityLockable implemen
 	 * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
 	 */
 	public void setInventorySlotContents(int index, ItemStack stack) {
-
 		fillWithLoot(null);
 		getItems().set(index, stack);
 
@@ -144,7 +133,6 @@ public abstract class TileEntityLockableLoot extends TileEntityLockable implemen
 	 * Don't rename this method to canInteractWith due to conflicts with Container
 	 */
 	public boolean isUsableByPlayer(EntityPlayer player) {
-
 		if (world.getTileEntity(pos) != this) {
 			return false;
 		} else {
@@ -153,11 +141,9 @@ public abstract class TileEntityLockableLoot extends TileEntityLockable implemen
 	}
 
 	public void openInventory(EntityPlayer player) {
-
 	}
 
 	public void closeInventory(EntityPlayer player) {
-
 	}
 
 	/**
@@ -165,26 +151,21 @@ public abstract class TileEntityLockableLoot extends TileEntityLockable implemen
 	 * guis use Slot.isItemValid
 	 */
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
-
 		return true;
 	}
 
 	public int getField(int id) {
-
 		return 0;
 	}
 
 	public void setField(int id, int value) {
-
 	}
 
 	public int getFieldCount() {
-
 		return 0;
 	}
 
 	public void clear() {
-
 		fillWithLoot(null);
 		getItems().clear();
 	}

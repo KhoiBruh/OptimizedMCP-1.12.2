@@ -12,7 +12,6 @@ public class EntityAILlamaFollowCaravan extends EntityAIBase {
 	private int distCheckCounter;
 
 	public EntityAILlamaFollowCaravan(EntityLlama llamaIn, double speedModifierIn) {
-
 		llama = llamaIn;
 		speedModifier = speedModifierIn;
 		setMutexBits(1);
@@ -22,7 +21,6 @@ public class EntityAILlamaFollowCaravan extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		if (!llama.getLeashed() && !llama.inCaravan()) {
 			List<EntityLlama> list = llama.world.getEntitiesWithinAABB(llama.getClass(), llama.getEntityBoundingBox().grow(9D, 4D, 9D));
 			EntityLlama entityllama = null;
@@ -71,7 +69,6 @@ public class EntityAILlamaFollowCaravan extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		if (llama.inCaravan() && llama.getCaravanHead().isEntityAlive() && firstIsLeashed(llama, 0)) {
 			double d0 = llama.getDistanceSq(llama.getCaravanHead());
 
@@ -101,7 +98,6 @@ public class EntityAILlamaFollowCaravan extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		llama.leaveCaravan();
 		speedModifier = 2.1D;
 	}
@@ -110,7 +106,6 @@ public class EntityAILlamaFollowCaravan extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		if (llama.inCaravan()) {
 			EntityLlama entityllama = llama.getCaravanHead();
 			double d0 = llama.getDistance(entityllama);
@@ -121,7 +116,6 @@ public class EntityAILlamaFollowCaravan extends EntityAIBase {
 	}
 
 	private boolean firstIsLeashed(EntityLlama p_190858_1_, int p_190858_2_) {
-
 		if (p_190858_2_ > 8) {
 			return false;
 		} else if (p_190858_1_.inCaravan()) {

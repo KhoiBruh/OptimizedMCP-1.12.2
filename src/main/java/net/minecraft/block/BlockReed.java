@@ -24,19 +24,16 @@ public class BlockReed extends Block {
 	protected static final AxisAlignedBB REED_AABB = new AxisAlignedBB(0.125D, 0D, 0.125D, 0.875D, 1D, 0.875D);
 
 	protected BlockReed() {
-
 		super(Material.PLANTS);
 		setDefaultState(blockState.getBaseState().withProperty(AGE, 0));
 		setTickRandomly(true);
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return REED_AABB;
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if (worldIn.getBlockState(pos.down()).getBlock() == Blocks.REEDS || checkForDrop(worldIn, pos, state)) {
 			if (worldIn.isAirBlock(pos.up())) {
 				int i;
@@ -62,7 +59,6 @@ public class BlockReed extends Block {
 	 * Checks if this block can be placed exactly at the given position.
 	 */
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-
 		Block block = worldIn.getBlockState(pos.down()).getBlock();
 
 		if (block == this) {
@@ -90,12 +86,10 @@ public class BlockReed extends Block {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		checkForDrop(worldIn, pos, state);
 	}
 
 	protected final boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (canBlockStay(worldIn, pos)) {
 			return true;
 		} else {
@@ -106,13 +100,11 @@ public class BlockReed extends Block {
 	}
 
 	public boolean canBlockStay(World worldIn, BlockPos pos) {
-
 		return canPlaceBlockAt(worldIn, pos);
 	}
 
 	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-
 		return NULL_AABB;
 	}
 
@@ -120,7 +112,6 @@ public class BlockReed extends Block {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Items.REEDS;
 	}
 
@@ -128,17 +119,14 @@ public class BlockReed extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return new ItemStack(Items.REEDS);
 	}
 
@@ -147,7 +135,6 @@ public class BlockReed extends Block {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.CUTOUT;
 	}
 
@@ -155,7 +142,6 @@ public class BlockReed extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(AGE, meta);
 	}
 
@@ -163,12 +149,10 @@ public class BlockReed extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(AGE);
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, AGE);
 	}
 
@@ -182,7 +166,6 @@ public class BlockReed extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

@@ -125,7 +125,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	private boolean wasFallFlying;
 
 	public EntityPlayerSP(Minecraft p_i47378_1_, World p_i47378_2_, NetHandlerPlayClient p_i47378_3_, StatisticsManager p_i47378_4_, RecipeBook p_i47378_5_) {
-
 		super(p_i47378_2_, p_i47378_3_.getGameProfile());
 		connection = p_i47378_3_;
 		statWriter = p_i47378_4_;
@@ -138,7 +137,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		return false;
 	}
 
@@ -146,11 +144,9 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * Heal living entity (param: amount of half-hearts)
 	 */
 	public void heal(float healAmount) {
-
 	}
 
 	public boolean startRiding(Entity entityIn, boolean force) {
-
 		if (!super.startRiding(entityIn, force)) {
 			return false;
 		} else {
@@ -172,7 +168,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * Dismounts this entity from the entity it is riding.
 	 */
 	public void dismountRidingEntity() {
-
 		super.dismountRidingEntity();
 		rowingBoat = false;
 	}
@@ -181,7 +176,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * interpolated look vector
 	 */
 	public Vec3d getLook(float partialTicks) {
-
 		return getVectorForRotation(rotationPitch, rotationYaw);
 	}
 
@@ -189,7 +183,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		if (world.isBlockLoaded(new BlockPos(posX, 0D, posZ))) {
 			super.onUpdate();
 
@@ -211,7 +204,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * called every tick when the player is on foot. Performs all the things that normally happen during movement.
 	 */
 	private void onUpdateWalkingPlayer() {
-
 		boolean flag = isSprinting();
 
 		if (flag != serverSprintState) {
@@ -284,14 +276,12 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * entire stack is dropped.
 	 */
 	public EntityItem dropItem(boolean dropAll) {
-
 		CPacketPlayerDigging.Action cpacketplayerdigging$action = dropAll ? CPacketPlayerDigging.Action.DROP_ALL_ITEMS : CPacketPlayerDigging.Action.DROP_ITEM;
 		connection.sendPacket(new CPacketPlayerDigging(cpacketplayerdigging$action, BlockPos.ORIGIN, Facing.DOWN));
 		return null;
 	}
 
 	protected ItemStack dropItemAndGetStack(EntityItem p_184816_1_) {
-
 		return ItemStack.EMPTY;
 	}
 
@@ -299,18 +289,15 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * Sends a chat message from the player.
 	 */
 	public void sendChatMessage(String message) {
-
 		connection.sendPacket(new CPacketChatMessage(message));
 	}
 
 	public void swingArm(Hand hand) {
-
 		super.swingArm(hand);
 		connection.sendPacket(new CPacketAnimation(hand));
 	}
 
 	public void respawnPlayer() {
-
 		connection.sendPacket(new CPacketClientStatus(CPacketClientStatus.State.PERFORM_RESPAWN));
 	}
 
@@ -319,7 +306,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * bar.
 	 */
 	protected void damageEntity(DamageSource damageSrc, float damageAmount) {
-
 		if (!isEntityInvulnerable(damageSrc)) {
 			setHealth(getHealth() - damageAmount);
 		}
@@ -329,13 +315,11 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * set current crafting inventory back to the 2x2 square
 	 */
 	public void closeScreen() {
-
 		connection.sendPacket(new CPacketCloseWindow(openContainer.windowId));
 		closeScreenAndDropStack();
 	}
 
 	public void closeScreenAndDropStack() {
-
 		inventory.setItemStack(ItemStack.EMPTY);
 		super.closeScreen();
 		mc.displayScreen(null);
@@ -345,7 +329,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * Updates health locally.
 	 */
 	public void setPlayerSPHealth(float health) {
-
 		if (hasValidHealth) {
 			float f = getHealth() - health;
 
@@ -373,7 +356,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * Adds a value to a statistic field.
 	 */
 	public void addStat(StatBase stat, int amount) {
-
 		if (stat != null) {
 			if (stat.isIndependent) {
 				super.addStat(stat, amount);
@@ -385,7 +367,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * Sends the player's abilities to the server (if there is one).
 	 */
 	public void sendPlayerAbilities() {
-
 		connection.sendPacket(new CPacketPlayerAbilities(capabilities));
 	}
 
@@ -393,17 +374,14 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * returns true if this is an EntityPlayerSP, or the logged in player.
 	 */
 	public boolean isUser() {
-
 		return true;
 	}
 
 	protected void sendHorseJump() {
-
 		connection.sendPacket(new CPacketEntityAction(this, CPacketEntityAction.Action.START_RIDING_JUMP, MathHelper.floor(getHorseJumpPower() * 100F)));
 	}
 
 	public void sendHorseInventory() {
-
 		connection.sendPacket(new CPacketEntityAction(this, CPacketEntityAction.Action.OPEN_INVENTORY));
 	}
 
@@ -413,7 +391,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * in crash reports.
 	 */
 	public String getServerBrand() {
-
 		return serverBrand;
 	}
 
@@ -422,22 +399,18 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * plugin channel, and is used to identify modded servers in crash reports.
 	 */
 	public void setServerBrand(String brand) {
-
 		serverBrand = brand;
 	}
 
 	public StatisticsManager getStatFileWriter() {
-
 		return statWriter;
 	}
 
 	public RecipeBook getRecipeBook() {
-
 		return recipeBook;
 	}
 
 	public void removeRecipeHighlight(IRecipe p_193103_1_) {
-
 		if (recipeBook.isNew(p_193103_1_)) {
 			recipeBook.markSeen(p_193103_1_);
 			connection.sendPacket(new CPacketRecipeInfo(p_193103_1_));
@@ -445,17 +418,14 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	}
 
 	public int getPermissionLevel() {
-
 		return permissionLevel;
 	}
 
 	public void setPermissionLevel(int p_184839_1_) {
-
 		permissionLevel = p_184839_1_;
 	}
 
 	public void sendStatusMessage(ITextComponent chatComponent, boolean actionBar) {
-
 		if (actionBar) {
 			mc.ingameGUI.setOverlayMessage(chatComponent, false);
 		} else {
@@ -464,7 +434,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	}
 
 	protected boolean pushOutOfBlocks(double x, double y, double z) {
-
 		if (noClip) {
 			return false;
 		} else {
@@ -522,7 +491,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * Returns true if the block at the given BlockPos and the block above it are NOT full cubes.
 	 */
 	private boolean isOpenBlockSpace(BlockPos pos) {
-
 		return !world.getBlockState(pos).isNormalCube() && !world.getBlockState(pos.up()).isNormalCube();
 	}
 
@@ -530,7 +498,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * Set sprinting switch for Entity.
 	 */
 	public void setSprinting(boolean sprinting) {
-
 		super.setSprinting(sprinting);
 		sprintingTicksLeft = 0;
 	}
@@ -539,7 +506,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * Sets the current XP, total XP, and level number.
 	 */
 	public void setXPStats(float currentXP, int maxXP, int level) {
-
 		experience = currentXP;
 		experienceTotal = maxXP;
 		experienceLevel = level;
@@ -549,7 +515,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * Send a chat message to the CommandSender
 	 */
 	public void sendMessage(ITextComponent component) {
-
 		mc.ingameGUI.getChatGUI().printChatMessage(component);
 	}
 
@@ -557,7 +522,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * Returns {@code true} if the CommandSender is allowed to execute the command, {@code false} if not
 	 */
 	public boolean canUseCommand(int permLevel, String commandName) {
-
 		return permLevel <= getPermissionLevel();
 	}
 
@@ -565,7 +529,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * Handler for {@link World#setEntityState}
 	 */
 	public void handleStatusUpdate(byte id) {
-
 		if (id >= 24 && id <= 28) {
 			setPermissionLevel(id - 24);
 		} else {
@@ -578,12 +541,10 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * the coordinates 0, 0, 0
 	 */
 	public BlockPos getPosition() {
-
 		return new BlockPos(posX + 0.5D, posY + 0.5D, posZ + 0.5D);
 	}
 
 	public void playSound(SoundEvent soundIn, float volume, float pitch) {
-
 		world.playSound(posX, posY, posZ, soundIn, getSoundCategory(), volume, pitch, false);
 	}
 
@@ -591,28 +552,23 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * Returns whether the entity is in a server world
 	 */
 	public boolean isServerWorld() {
-
 		return true;
 	}
 
 	public boolean isHandActive() {
-
 		return handActive;
 	}
 
 	public void resetActiveHand() {
-
 		super.resetActiveHand();
 		handActive = false;
 	}
 
 	public Hand getActiveHand() {
-
 		return activeHand;
 	}
 
 	public void setActiveHand(Hand hand) {
-
 		ItemStack itemstack = getHeldItem(hand);
 
 		if (!itemstack.isEmpty() && !isHandActive()) {
@@ -623,7 +579,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	}
 
 	public void notifyDataManagerChange(DataParameter<?> key) {
-
 		super.notifyDataManagerChange(key);
 
 		if (HAND_STATES.equals(key)) {
@@ -643,38 +598,31 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	}
 
 	public boolean isRidingHorse() {
-
 		Entity entity = getRidingEntity();
 		return isRiding() && entity instanceof IJumpingMount && ((IJumpingMount) entity).canJump();
 	}
 
 	public float getHorseJumpPower() {
-
 		return horseJumpPower;
 	}
 
 	public void openEditSign(TileEntitySign signTile) {
-
 		mc.displayScreen(new EditSignScreen(signTile));
 	}
 
 	public void displayGuiEditCommandCart(CommandBlockBaseLogic commandBlock) {
-
 		mc.displayScreen(new EditCommandBlockMinecartScreen(commandBlock));
 	}
 
 	public void displayGuiCommandBlock(TileEntityCommandBlock commandBlock) {
-
 		mc.displayScreen(new CommandBlockScreen(commandBlock));
 	}
 
 	public void openEditStructure(TileEntityStructure structure) {
-
 		mc.displayScreen(new EditStructureScreen(structure));
 	}
 
 	public void openBook(ItemStack stack, Hand hand) {
-
 		Item item = stack.getItem();
 
 		if (item == Items.WRITABLE_BOOK) {
@@ -686,7 +634,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * Displays the GUI for interacting with a chest inventory.
 	 */
 	public void displayGUIChest(IInventory chestInventory) {
-
 		String s = chestInventory instanceof IInteractionObject ? ((IInteractionObject) chestInventory).guiID() : "minecraft:container";
 
 		if ("minecraft:chest".equals(s)) {
@@ -711,12 +658,10 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	}
 
 	public void openGuiHorseInventory(AbstractHorse horse, IInventory inventoryIn) {
-
 		mc.displayScreen(new HorseInventoryScreen(inventory, inventoryIn, horse));
 	}
 
 	public void displayGui(IInteractionObject guiOwner) {
-
 		String s = guiOwner.guiID();
 
 		if ("minecraft:crafting_table".equals(s)) {
@@ -729,7 +674,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	}
 
 	public void displayVillagerTradeGui(IMerchant villager) {
-
 		mc.displayScreen(new MerchantScreen(inventory, villager, world));
 	}
 
@@ -737,12 +681,10 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * Called when the entity is dealt a critical hit.
 	 */
 	public void onCriticalHit(Entity entityHit) {
-
 		mc.effectRenderer.emitParticleAtEntity(entityHit, ParticleTypes.CRIT);
 	}
 
 	public void onEnchantmentCritical(Entity entityHit) {
-
 		mc.effectRenderer.emitParticleAtEntity(entityHit, ParticleTypes.CRIT_MAGIC);
 	}
 
@@ -750,13 +692,11 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * Returns if this entity is sneaking.
 	 */
 	public boolean isSneaking() {
-
 		boolean flag = input != null && input.sneak;
 		return flag && !sleeping;
 	}
 
 	public void updateEntityActionState() {
-
 		super.updateEntityActionState();
 
 		if (isCurrentViewEntity()) {
@@ -771,7 +711,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	}
 
 	protected boolean isCurrentViewEntity() {
-
 		return mc.getRenderViewEntity() == this;
 	}
 
@@ -780,7 +719,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
 		++sprintingTicksLeft;
 
 		if (sprintToggleTimer > 0) {
@@ -954,7 +892,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * Handles updating while riding another entity
 	 */
 	public void updateRidden() {
-
 		super.updateRidden();
 		rowingBoat = false;
 
@@ -965,7 +902,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	}
 
 	public boolean isRowingBoat() {
-
 		return rowingBoat;
 	}
 
@@ -976,7 +912,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * the end of the potion effect.
 	 */
 	public PotionEffect removeActivePotionEffect(Potion potioneffectin) {
-
 		if (potioneffectin == MobEffects.NAUSEA) {
 			prevTimeInPortal = 0F;
 			timeInPortal = 0F;
@@ -989,7 +924,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * Tries to move the entity towards the specified location.
 	 */
 	public void move(MoverType type, double x, double y, double z) {
-
 		double d0 = posX;
 		double d1 = posZ;
 		super.move(type, x, y, z);
@@ -997,12 +931,10 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	}
 
 	public boolean isAutoJumpEnabled() {
-
 		return autoJumpEnabled;
 	}
 
 	protected void updateAutoJump(float p_189810_1_, float p_189810_2_) {
-
 		if (isAutoJumpEnabled()) {
 			if (autoJumpTime <= 0 && onGround && !isSneaking() && !isRiding()) {
 				Vec2f vec2f = input.getMoveVector();

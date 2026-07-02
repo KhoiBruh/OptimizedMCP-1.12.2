@@ -41,18 +41,15 @@ public class EntityPig extends EntityAnimal {
 	private int totalBoostTime;
 
 	public EntityPig(World worldIn) {
-
 		super(worldIn);
 		setSize(0.9F, 0.9F);
 	}
 
 	public static void registerFixesPig(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntityPig.class);
 	}
 
 	protected void initEntityAI() {
-
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAIPanic(this, 1.25D));
 		tasks.addTask(3, new EntityAIMate(this, 1D));
@@ -65,7 +62,6 @@ public class EntityPig extends EntityAnimal {
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
@@ -78,7 +74,6 @@ public class EntityPig extends EntityAnimal {
 	 * Pigs, Horses, and Boats are generally "steered" by the controlling passenger.
 	 */
 	public Entity getControllingPassenger() {
-
 		return getPassengers().isEmpty() ? null : getPassengers().getFirst();
 	}
 
@@ -87,7 +82,6 @@ public class EntityPig extends EntityAnimal {
 	 * by a player and the player is holding a carrot-on-a-stick
 	 */
 	public boolean canBeSteered() {
-
 		Entity entity = getControllingPassenger();
 
 		if (!(entity instanceof EntityPlayer entityplayer)) {
@@ -98,7 +92,6 @@ public class EntityPig extends EntityAnimal {
 	}
 
 	public void notifyDataManagerChange(DataParameter<?> key) {
-
 		if (BOOST_TIME.equals(key) && world.isRemote) {
 			boosting = true;
 			boostTime = 0;
@@ -109,7 +102,6 @@ public class EntityPig extends EntityAnimal {
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(SADDLED, false);
 		dataManager.register(BOOST_TIME, 0);
@@ -119,7 +111,6 @@ public class EntityPig extends EntityAnimal {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setBoolean("Saddle", getSaddled());
 	}
@@ -128,33 +119,27 @@ public class EntityPig extends EntityAnimal {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		setSaddled(compound.getBoolean("Saddle"));
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		return SoundEvents.ENTITY_PIG_AMBIENT;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_PIG_HURT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_PIG_DEATH;
 	}
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
-
 		playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1F);
 	}
 
 	public boolean processInteract(EntityPlayer player, Hand hand) {
-
 		if (!super.processInteract(player, hand)) {
 			ItemStack itemstack = player.getHeldItem(hand);
 
@@ -182,7 +167,6 @@ public class EntityPig extends EntityAnimal {
 	 * Called when the mob's health reaches 0.
 	 */
 	public void onDeath(DamageSource cause) {
-
 		super.onDeath(cause);
 
 		if (!world.isRemote) {
@@ -194,7 +178,6 @@ public class EntityPig extends EntityAnimal {
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_PIG;
 	}
 
@@ -202,7 +185,6 @@ public class EntityPig extends EntityAnimal {
 	 * Returns true if the pig is saddled.
 	 */
 	public boolean getSaddled() {
-
 		return dataManager.get(SADDLED);
 	}
 
@@ -210,7 +192,6 @@ public class EntityPig extends EntityAnimal {
 	 * Set or remove the saddle of the pig.
 	 */
 	public void setSaddled(boolean saddled) {
-
 		if (saddled) {
 			dataManager.set(SADDLED, true);
 		} else {
@@ -222,7 +203,6 @@ public class EntityPig extends EntityAnimal {
 	 * Called when a lightning bolt hits the entity.
 	 */
 	public void onStruckByLightning(EntityLightningBolt lightningBolt) {
-
 		if (!world.isRemote && !isDead) {
 			EntityPigZombie entitypigzombie = new EntityPigZombie(world);
 			entitypigzombie.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
@@ -240,7 +220,6 @@ public class EntityPig extends EntityAnimal {
 	}
 
 	public void travel(float strafe, float vertical, float forward) {
-
 		Entity entity = getPassengers().isEmpty() ? null : getPassengers().getFirst();
 
 		if (isBeingRidden() && canBeSteered()) {
@@ -291,7 +270,6 @@ public class EntityPig extends EntityAnimal {
 	}
 
 	public boolean boost() {
-
 		if (boosting) {
 			return false;
 		} else {
@@ -304,7 +282,6 @@ public class EntityPig extends EntityAnimal {
 	}
 
 	public EntityPig createChild(EntityAgeable ageable) {
-
 		return new EntityPig(world);
 	}
 
@@ -313,7 +290,6 @@ public class EntityPig extends EntityAnimal {
 	 * the animal type)
 	 */
 	public boolean isBreedingItem(ItemStack stack) {
-
 		return TEMPTATION_ITEMS.contains(stack.getItem());
 	}
 

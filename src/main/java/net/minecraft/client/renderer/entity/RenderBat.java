@@ -11,7 +11,6 @@ public class RenderBat extends RenderLiving<EntityBat> {
 	private static final ResourceLocation BAT_TEXTURES = new ResourceLocation("textures/entity/bat.png");
 
 	public RenderBat(RenderManager renderManagerIn) {
-
 		super(renderManagerIn, new ModelBat(), 0.25F);
 	}
 
@@ -19,7 +18,6 @@ public class RenderBat extends RenderLiving<EntityBat> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityBat entity) {
-
 		return BAT_TEXTURES;
 	}
 
@@ -27,12 +25,10 @@ public class RenderBat extends RenderLiving<EntityBat> {
 	 * Allows the render to do state modifications necessary before the model is rendered.
 	 */
 	protected void preRenderCallback(EntityBat entitylivingbaseIn, float partialTickTime) {
-
 		GLS.scale(0.35F, 0.35F, 0.35F);
 	}
 
 	protected void applyRotations(EntityBat entityLiving, float p_77043_2_, float rotationYaw, float partialTicks) {
-
 		if (entityLiving.getIsBatHanging()) {
 			GLS.translate(0F, -0.1F, 0F);
 		} else {

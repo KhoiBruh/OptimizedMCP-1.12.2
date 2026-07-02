@@ -11,12 +11,10 @@ import net.minecraft.world.World;
 public class ItemEmptyMap extends ItemMapBase {
 
 	protected ItemEmptyMap() {
-
 		setCreativeTab(CreativeTabs.MISC);
 	}
 
 	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
-
 		ItemStack itemstack = ItemMap.setupNewMap(worldIn, playerIn.posX, playerIn.posZ, (byte) 0, true, false);
 		ItemStack itemstack1 = playerIn.getHeldItem(handIn);
 		itemstack1.shrink(1);

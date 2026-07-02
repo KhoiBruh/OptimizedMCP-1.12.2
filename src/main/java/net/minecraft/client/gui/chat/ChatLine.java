@@ -16,24 +16,20 @@ public class ChatLine {
 	private final int chatLineID;
 
 	public ChatLine(int updateCounterCreatedIn, ITextComponent lineStringIn, int chatLineIDIn) {
-
 		lineString = lineStringIn;
 		updateCounterCreated = updateCounterCreatedIn;
 		chatLineID = chatLineIDIn;
 	}
 
 	public ITextComponent getChatComponent() {
-
 		return lineString;
 	}
 
 	public int getUpdatedCounter() {
-
 		return updateCounterCreated;
 	}
 
 	public int getChatLineID() {
-
 		return chatLineID;
 	}
 

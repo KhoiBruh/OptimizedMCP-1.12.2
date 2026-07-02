@@ -8,17 +8,14 @@ import java.util.UUID;
 public class UserListWhitelistEntry extends UserListEntry<GameProfile> {
 
 	public UserListWhitelistEntry(GameProfile profile) {
-
 		super(profile);
 	}
 
 	public UserListWhitelistEntry(JsonObject json) {
-
 		super(gameProfileFromJsonObject(json), json);
 	}
 
 	private static GameProfile gameProfileFromJsonObject(JsonObject json) {
-
 		if (json.has("uuid") && json.has("name")) {
 			String s = json.get("uuid").getAsString();
 			UUID uuid;
@@ -36,7 +33,6 @@ public class UserListWhitelistEntry extends UserListEntry<GameProfile> {
 	}
 
 	protected void onSerialization(JsonObject data) {
-
 		if (getValue() != null) {
 			data.addProperty("uuid", getValue().getId() == null ? "" : getValue().getId().toString());
 			data.addProperty("name", getValue().getName());

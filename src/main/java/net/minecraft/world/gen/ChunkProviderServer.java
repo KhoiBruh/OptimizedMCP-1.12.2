@@ -35,14 +35,12 @@ public class ChunkProviderServer implements IChunkProvider {
 	private final WorldServer world;
 
 	public ChunkProviderServer(WorldServer worldObjIn, IChunkLoader chunkLoaderIn, IChunkGenerator chunkGeneratorIn) {
-
 		world = worldObjIn;
 		chunkLoader = chunkLoaderIn;
 		chunkGenerator = chunkGeneratorIn;
 	}
 
 	public Collection<Chunk> getLoadedChunks() {
-
 		return id2ChunkMap.values();
 	}
 
@@ -53,7 +51,6 @@ public class ChunkProviderServer implements IChunkProvider {
 	 * unqueue the chunk.
 	 */
 	public void queueUnload(Chunk chunkIn) {
-
 		if (world.provider.canDropChunk(chunkIn.x, chunkIn.z)) {
 			droppedChunksSet.add(ChunkPos.asLong(chunkIn.x, chunkIn.z));
 			chunkIn.unloadQueued = true;
@@ -66,7 +63,6 @@ public class ChunkProviderServer implements IChunkProvider {
 	 * @see #queueUnload(Chunk)
 	 */
 	public void queueUnloadAll() {
-
 		for (Chunk chunk : id2ChunkMap.values()) {
 			queueUnload(chunk);
 		}
@@ -74,7 +70,6 @@ public class ChunkProviderServer implements IChunkProvider {
 
 	
 	public Chunk getLoadedChunk(int x, int z) {
-
 		long i = ChunkPos.asLong(x, z);
 		Chunk chunk = id2ChunkMap.get(i);
 
@@ -87,7 +82,6 @@ public class ChunkProviderServer implements IChunkProvider {
 
 	
 	public Chunk loadChunk(int x, int z) {
-
 		Chunk chunk = getLoadedChunk(x, z);
 
 		if (chunk == null) {
@@ -104,7 +98,6 @@ public class ChunkProviderServer implements IChunkProvider {
 	}
 
 	public Chunk provideChunk(int x, int z) {
-
 		Chunk chunk = loadChunk(x, z);
 
 		if (chunk == null) {
@@ -131,7 +124,6 @@ public class ChunkProviderServer implements IChunkProvider {
 
 	
 	private Chunk loadChunkFromFile(int x, int z) {
-
 		try {
 			Chunk chunk = chunkLoader.loadChunk(world, x, z);
 
@@ -148,7 +140,6 @@ public class ChunkProviderServer implements IChunkProvider {
 	}
 
 	private void saveChunkExtraData(Chunk chunkIn) {
-
 		try {
 			chunkLoader.saveExtraChunkData(world, chunkIn);
 		} catch (Exception exception) {
@@ -157,7 +148,6 @@ public class ChunkProviderServer implements IChunkProvider {
 	}
 
 	private void saveChunkData(Chunk chunkIn) {
-
 		try {
 			chunkIn.setLastSaveTime(world.getTotalWorldTime());
 			chunkLoader.saveChunk(world, chunkIn);
@@ -167,7 +157,6 @@ public class ChunkProviderServer implements IChunkProvider {
 	}
 
 	public boolean saveChunks(boolean all) {
-
 		int i = 0;
 		List<Chunk> list = Lists.newArrayList(id2ChunkMap.values());
 
@@ -194,7 +183,6 @@ public class ChunkProviderServer implements IChunkProvider {
 	 * Flushes all pending chunks fully back to disk
 	 */
 	public void flushToDisk() {
-
 		chunkLoader.flush();
 	}
 
@@ -202,7 +190,6 @@ public class ChunkProviderServer implements IChunkProvider {
 	 * Unloads chunks that are marked to be unloaded. This is not guaranteed to unload every such chunk.
 	 */
 	public boolean tick() {
-
 		if (!world.disableLevelSaving) {
 			if (!droppedChunksSet.isEmpty()) {
 				Iterator<Long> iterator = droppedChunksSet.iterator();
@@ -231,7 +218,6 @@ public class ChunkProviderServer implements IChunkProvider {
 	 * Returns if the IChunkProvider supports saving.
 	 */
 	public boolean canSave() {
-
 		return !world.disableLevelSaving;
 	}
 
@@ -239,7 +225,6 @@ public class ChunkProviderServer implements IChunkProvider {
 	 * Converts the instance data to a readable string.
 	 */
 	public String makeString() {
-
 		return "ServerChunkCache: " + id2ChunkMap.size() + " Drop: " + droppedChunksSet.size();
 	}
 
@@ -250,17 +235,14 @@ public class ChunkProviderServer implements IChunkProvider {
 
 	
 	public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
-
 		return chunkGenerator.getNearestStructurePos(worldIn, structureName, position, findUnexplored);
 	}
 
 	public boolean isInsideStructure(World worldIn, String structureName, BlockPos pos) {
-
 		return chunkGenerator.isInsideStructure(worldIn, structureName, pos);
 	}
 
 	public int getLoadedChunkCount() {
-
 		return id2ChunkMap.size();
 	}
 
@@ -268,12 +250,10 @@ public class ChunkProviderServer implements IChunkProvider {
 	 * Checks to see if a chunk exists at x, z
 	 */
 	public boolean chunkExists(int x, int z) {
-
 		return id2ChunkMap.containsKey(ChunkPos.asLong(x, z));
 	}
 
 	public boolean isChunkGeneratedAt(int x, int z) {
-
 		return id2ChunkMap.containsKey(ChunkPos.asLong(x, z)) || chunkLoader.isChunkGeneratedAt(x, z);
 	}
 

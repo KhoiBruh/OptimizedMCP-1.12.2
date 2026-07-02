@@ -16,17 +16,14 @@ public class BlockStateContainer implements IBlockStatePaletteResizer {
 	private int bits;
 
 	public BlockStateContainer() {
-
 		setBits(4);
 	}
 
 	private static int getIndex(int x, int y, int z) {
-
 		return y << 8 | z << 4 | x;
 	}
 
 	private void setBits(int bitsIn) {
-
 		if (bitsIn != bits) {
 			bits = bitsIn;
 
@@ -46,7 +43,6 @@ public class BlockStateContainer implements IBlockStatePaletteResizer {
 	}
 
 	public int onResize(int bits, IBlockState state) {
-
 		BitArray bitarray = storage;
 		IBlockStatePalette iblockstatepalette = palette;
 		setBits(bits);
@@ -63,29 +59,24 @@ public class BlockStateContainer implements IBlockStatePaletteResizer {
 	}
 
 	public void set(int x, int y, int z, IBlockState state) {
-
 		set(getIndex(x, y, z), state);
 	}
 
 	protected void set(int index, IBlockState state) {
-
 		int i = palette.idFor(state);
 		storage.setAt(index, i);
 	}
 
 	public IBlockState get(int x, int y, int z) {
-
 		return get(getIndex(x, y, z));
 	}
 
 	protected IBlockState get(int index) {
-
 		IBlockState iblockstate = palette.getBlockState(storage.getAt(index));
 		return iblockstate == null ? AIR_BLOCK_STATE : iblockstate;
 	}
 
 	public void read(PacketBuffer buf) {
-
 		int i = buf.readByte();
 
 		if (bits != i) {
@@ -97,7 +88,6 @@ public class BlockStateContainer implements IBlockStatePaletteResizer {
 	}
 
 	public void write(PacketBuffer buf) {
-
 		buf.writeByte(bits);
 		palette.write(buf);
 		buf.writeLongArray(storage.getBackingLongArray());
@@ -105,7 +95,6 @@ public class BlockStateContainer implements IBlockStatePaletteResizer {
 
 	
 	public NibbleArray getDataForNBT(byte[] blockIds, NibbleArray data) {
-
 		NibbleArray nibblearray = null;
 
 		for (int i = 0; i < 4096; ++i) {
@@ -130,7 +119,6 @@ public class BlockStateContainer implements IBlockStatePaletteResizer {
 	}
 
 	public void setDataFromNBT(byte[] blockIds, NibbleArray data, NibbleArray blockIdExtension) {
-
 		for (int i = 0; i < 4096; ++i) {
 			int j = i & 15;
 			int k = i >> 8 & 15;
@@ -142,7 +130,6 @@ public class BlockStateContainer implements IBlockStatePaletteResizer {
 	}
 
 	public int getSerializedSize() {
-
 		return 1 + palette.getSerializedSize() + PacketBuffer.getVarIntSize(storage.size()) + storage.getBackingLongArray().length * 8;
 	}
 

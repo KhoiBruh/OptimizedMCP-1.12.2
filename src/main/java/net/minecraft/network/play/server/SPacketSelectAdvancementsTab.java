@@ -11,11 +11,9 @@ public class SPacketSelectAdvancementsTab implements Packet<INetHandlerPlayClien
 	private ResourceLocation tab;
 
 	public SPacketSelectAdvancementsTab() {
-
 	}
 
 	public SPacketSelectAdvancementsTab(ResourceLocation p_i47596_1_) {
-
 		tab = p_i47596_1_;
 	}
 
@@ -23,7 +21,6 @@ public class SPacketSelectAdvancementsTab implements Packet<INetHandlerPlayClien
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleSelectAdvancementsTab(this);
 	}
 
@@ -31,7 +28,6 @@ public class SPacketSelectAdvancementsTab implements Packet<INetHandlerPlayClien
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		if (buf.readBoolean()) {
 			tab = buf.readResourceLocation();
 		}
@@ -41,7 +37,6 @@ public class SPacketSelectAdvancementsTab implements Packet<INetHandlerPlayClien
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeBoolean(tab != null);
 
 		if (tab != null) {
@@ -51,7 +46,6 @@ public class SPacketSelectAdvancementsTab implements Packet<INetHandlerPlayClien
 
 	
 	public ResourceLocation getTab() {
-
 		return tab;
 	}
 

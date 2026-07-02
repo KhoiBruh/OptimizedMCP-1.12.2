@@ -6,12 +6,10 @@ import net.minecraft.util.datafix.IFixableData;
 public class ZombieSplit implements IFixableData {
 
 	public int getFixVersion() {
-
 		return 702;
 	}
 
 	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
-
 		if ("Zombie".equals(compound.getString("id"))) {
 			int i = compound.getInteger("ZombieType");
 

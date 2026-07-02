@@ -32,12 +32,10 @@ public class PlacedBlockTrigger implements ICriterionTrigger<PlacedBlockTrigger.
 	private final Map<PlayerAdvancements, PlacedBlockTrigger.Listeners> listeners = Maps.newHashMap();
 
 	public ResourceLocation getId() {
-
 		return ID;
 	}
 
 	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<PlacedBlockTrigger.Instance> listener) {
-
 		PlacedBlockTrigger.Listeners placedblocktrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (placedblocktrigger$listeners == null) {
@@ -49,7 +47,6 @@ public class PlacedBlockTrigger implements ICriterionTrigger<PlacedBlockTrigger.
 	}
 
 	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<PlacedBlockTrigger.Instance> listener) {
-
 		PlacedBlockTrigger.Listeners placedblocktrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (placedblocktrigger$listeners != null) {
@@ -62,7 +59,6 @@ public class PlacedBlockTrigger implements ICriterionTrigger<PlacedBlockTrigger.
 	}
 
 	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
-
 		listeners.remove(playerAdvancementsIn);
 	}
 
@@ -120,7 +116,6 @@ public class PlacedBlockTrigger implements ICriterionTrigger<PlacedBlockTrigger.
 	}
 
 	public void trigger(EntityPlayerMP player, BlockPos pos, ItemStack item) {
-
 		IBlockState iblockstate = player.world.getBlockState(pos);
 		PlacedBlockTrigger.Listeners placedblocktrigger$listeners = listeners.get(player.getAdvancements());
 
@@ -137,7 +132,6 @@ public class PlacedBlockTrigger implements ICriterionTrigger<PlacedBlockTrigger.
 		private final ItemPredicate item;
 
 		public Instance(Block block, Map<IProperty<?>, Object> propertiesIn, LocationPredicate locationIn, ItemPredicate itemIn) {
-
 			super(PlacedBlockTrigger.ID);
 			this.block = block;
 			properties = propertiesIn;
@@ -146,7 +140,6 @@ public class PlacedBlockTrigger implements ICriterionTrigger<PlacedBlockTrigger.
 		}
 
 		public boolean test(IBlockState state, BlockPos pos, WorldServer world, ItemStack item) {
-
 			if (block != null && state.getBlock() != block) {
 				return false;
 			} else {
@@ -174,27 +167,22 @@ public class PlacedBlockTrigger implements ICriterionTrigger<PlacedBlockTrigger.
 		private final Set<ICriterionTrigger.Listener<PlacedBlockTrigger.Instance>> listeners = Sets.newHashSet();
 
 		public Listeners(PlayerAdvancements playerAdvancementsIn) {
-
 			playerAdvancements = playerAdvancementsIn;
 		}
 
 		public boolean isEmpty() {
-
 			return listeners.isEmpty();
 		}
 
 		public void add(ICriterionTrigger.Listener<PlacedBlockTrigger.Instance> listener) {
-
 			listeners.add(listener);
 		}
 
 		public void remove(ICriterionTrigger.Listener<PlacedBlockTrigger.Instance> listener) {
-
 			listeners.remove(listener);
 		}
 
 		public void trigger(IBlockState state, BlockPos pos, WorldServer world, ItemStack item) {
-
 			List<ICriterionTrigger.Listener<PlacedBlockTrigger.Instance>> list = null;
 
 			for (ICriterionTrigger.Listener<PlacedBlockTrigger.Instance> listener : listeners) {

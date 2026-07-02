@@ -15,13 +15,11 @@ public class WorldGenHellLava extends WorldGenerator {
 	private final boolean insideRock;
 
 	public WorldGenHellLava(Block blockIn, boolean insideRockIn) {
-
 		block = blockIn;
 		insideRock = insideRockIn;
 	}
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		if (worldIn.getBlockState(position.up()).getBlock() != Blocks.NETHERRACK) {
 			return false;
 		} else if (worldIn.getBlockState(position).getMaterial() != Material.AIR && worldIn.getBlockState(position).getBlock() != Blocks.NETHERRACK) {

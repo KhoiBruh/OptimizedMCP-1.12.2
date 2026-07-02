@@ -7,7 +7,6 @@ public enum SkyBlock {
 	public final int defaultLightValue;
 
 	SkyBlock(int defaultLightValueIn) {
-
 		defaultLightValue = defaultLightValueIn;
 	}
 }

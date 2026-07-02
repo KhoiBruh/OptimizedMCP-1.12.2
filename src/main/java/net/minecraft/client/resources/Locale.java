@@ -28,7 +28,6 @@ public class Locale {
 	 * For each domain $D and language $L, attempts to load the resource $D:lang/$L.lang
 	 */
 	public synchronized void loadLocaleDataFiles(IResourceManager resourceManager, List<String> languageList) {
-
 		properties.clear();
 
 		for (String s : languageList) {
@@ -46,12 +45,10 @@ public class Locale {
 	}
 
 	public boolean isUnicode() {
-
 		return unicode;
 	}
 
 	private void checkUnicode() {
-
 		int i = 0;
 		int j = 0;
 
@@ -84,7 +81,6 @@ public class Locale {
 	}
 
 	private void loadLocaleData(InputStream stream) {
-
 		for (String s : IOUtils.readLines(stream, StandardCharsets.UTF_8)) {
 			if (!s.isEmpty() && s.charAt(0) != '#') {
 				String[] astring = Iterables.toArray(SPLITTER.split(s), String.class);
@@ -102,7 +98,6 @@ public class Locale {
 	 * Returns the translation, or the key itself if the key could not be translated.
 	 */
 	private String translateKeyPrivate(String translateKey) {
-
 		String s = properties.get(translateKey);
 		return s == null ? translateKey : s;
 	}
@@ -111,7 +106,6 @@ public class Locale {
 	 * Calls String.format(translateKey(key), params)
 	 */
 	public String formatMessage(String translateKey, Object[] parameters) {
-
 		String s = translateKeyPrivate(translateKey);
 
 		try {
@@ -122,7 +116,6 @@ public class Locale {
 	}
 
 	public boolean hasKey(String key) {
-
 		return properties.containsKey(key);
 	}
 

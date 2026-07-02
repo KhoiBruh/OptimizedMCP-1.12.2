@@ -11,11 +11,9 @@ public class SPacketEntityAttach implements Packet<INetHandlerPlayClient> {
 	private int vehicleEntityId;
 
 	public SPacketEntityAttach() {
-
 	}
 
 	public SPacketEntityAttach(Entity entityIn, Entity vehicleIn) {
-
 		entityId = entityIn.getEntityId();
 		vehicleEntityId = vehicleIn != null ? vehicleIn.getEntityId() : -1;
 	}
@@ -24,7 +22,6 @@ public class SPacketEntityAttach implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		entityId = buf.readInt();
 		vehicleEntityId = buf.readInt();
 	}
@@ -33,7 +30,6 @@ public class SPacketEntityAttach implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeInt(entityId);
 		buf.writeInt(vehicleEntityId);
 	}
@@ -42,17 +38,14 @@ public class SPacketEntityAttach implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleEntityAttach(this);
 	}
 
 	public int getEntityId() {
-
 		return entityId;
 	}
 
 	public int getVehicleEntityId() {
-
 		return vehicleEntityId;
 	}
 

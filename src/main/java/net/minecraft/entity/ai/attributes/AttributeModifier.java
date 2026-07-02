@@ -17,12 +17,10 @@ public class AttributeModifier {
 	private boolean isSaved;
 
 	public AttributeModifier(String nameIn, double amountIn, int operationIn) {
-
 		this(UUID.randomUUID(), nameIn, amountIn, operationIn);
 	}
 
 	public AttributeModifier(UUID idIn, String nameIn, double amountIn, int operationIn) {
-
 		isSaved = true;
 		id = idIn;
 		name = nameIn;
@@ -33,22 +31,18 @@ public class AttributeModifier {
 	}
 
 	public UUID getID() {
-
 		return id;
 	}
 
 	public String getName() {
-
 		return name;
 	}
 
 	public int getOperation() {
-
 		return operation;
 	}
 
 	public double getAmount() {
-
 		return amount;
 	}
 
@@ -56,7 +50,6 @@ public class AttributeModifier {
 	 * @see #isSaved
 	 */
 	public boolean isSaved() {
-
 		return isSaved;
 	}
 
@@ -64,13 +57,11 @@ public class AttributeModifier {
 	 * @see #isSaved
 	 */
 	public AttributeModifier setSaved(boolean saved) {
-
 		isSaved = saved;
 		return this;
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else if (p_equals_1_ != null && getClass() == p_equals_1_.getClass()) {
@@ -85,7 +76,6 @@ public class AttributeModifier {
 	}
 
 	public int hashCode() {
-
 		return id != null ? id.hashCode() : 0;
 	}
 

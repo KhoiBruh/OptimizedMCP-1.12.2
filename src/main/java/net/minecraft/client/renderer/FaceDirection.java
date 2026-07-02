@@ -24,12 +24,10 @@ public enum FaceDirection {
 	private final FaceDirection.VertexInformation[] vertexInfos;
 
 	FaceDirection(FaceDirection.VertexInformation[] vertexInfosIn) {
-
 		vertexInfos = vertexInfosIn;
 	}
 
 	public static FaceDirection getFacing(Facing facing) {
-
 		return FACINGS[facing.getIndex()];
 	}
 
@@ -56,7 +54,6 @@ public enum FaceDirection {
 		public final int zIndex;
 
 		private VertexInformation(int xIndexIn, int yIndexIn, int zIndexIn) {
-
 			xIndex = xIndexIn;
 			yIndex = yIndexIn;
 			zIndex = zIndexIn;

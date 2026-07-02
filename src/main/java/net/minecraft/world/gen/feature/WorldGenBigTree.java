@@ -34,7 +34,6 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 	private BlockPos basePos = BlockPos.ORIGIN;
 
 	public WorldGenBigTree(boolean notify) {
-
 		super(notify);
 	}
 
@@ -42,7 +41,6 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 	 * Generates a list of leaf nodes for the tree, to be populated by generateLeaves.
 	 */
 	void generateLeafNodeList() {
-
 		height = (int) ((double) heightLimit * heightAttenuation);
 
 		if (height >= heightLimit) {
@@ -89,7 +87,6 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 	}
 
 	void crosSection(BlockPos pos, float p_181631_2_, IBlockState p_181631_3_) {
-
 		int i = (int) ((double) p_181631_2_ + 0.618D);
 
 		for (int j = -i; j <= i; ++j) {
@@ -110,7 +107,6 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 	 * Gets the rough size of a layer of the tree.
 	 */
 	float layerSize(int y) {
-
 		if ((float) y < (float) heightLimit * 0.3F) {
 			return -1F;
 		} else {
@@ -129,7 +125,6 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 	}
 
 	float leafSize(int y) {
-
 		if (y >= 0 && y < leafDistanceLimit) {
 			return y != 0 && y != leafDistanceLimit - 1 ? 3F : 2F;
 		} else {
@@ -141,14 +136,12 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 	 * Generates the leaves surrounding an individual entry in the leafNodes list.
 	 */
 	void generateLeafNode(BlockPos pos) {
-
 		for (int i = 0; i < leafDistanceLimit; ++i) {
 			crosSection(pos.up(i), leafSize(i), Blocks.LEAVES.getDefaultState().withProperty(BlockLeaves.CHECK_DECAY, false));
 		}
 	}
 
 	void limb(BlockPos p_175937_1_, BlockPos p_175937_2_, Block p_175937_3_) {
-
 		BlockPos blockpos = p_175937_2_.add(-p_175937_1_.getX(), -p_175937_1_.getY(), -p_175937_1_.getZ());
 		int i = getGreatestDistance(blockpos);
 		float f = (float) blockpos.getX() / (float) i;
@@ -166,7 +159,6 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 	 * Returns the absolute greatest distance in the BlockPos object.
 	 */
 	private int getGreatestDistance(BlockPos posIn) {
-
 		int i = MathHelper.abs(posIn.getX());
 		int j = MathHelper.abs(posIn.getY());
 		int k = MathHelper.abs(posIn.getZ());
@@ -200,7 +192,6 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 	 * Generates the leaf portion of the tree as specified by the leafNodes list.
 	 */
 	void generateLeaves() {
-
 		for (WorldGenBigTree.FoliageCoordinates worldgenbigtree$foliagecoordinates : foliageCoords) {
 			generateLeafNode(worldgenbigtree$foliagecoordinates);
 		}
@@ -210,7 +201,6 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 	 * Indicates whether or not a leaf node requires additional wood to be added to preserve integrity.
 	 */
 	boolean leafNodeNeedsBase(int p_76493_1_) {
-
 		return (double) p_76493_1_ >= (double) heightLimit * 0.2D;
 	}
 
@@ -219,7 +209,6 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 	 * field that is always 1 to 2.
 	 */
 	void generateTrunk() {
-
 		BlockPos blockpos = basePos;
 		BlockPos blockpos1 = basePos.up(height);
 		Block block = Blocks.LOG;
@@ -236,7 +225,6 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 	 * Generates additional wood blocks to fill out the bases of different leaf nodes that would otherwise degrade.
 	 */
 	void generateLeafNodeBases() {
-
 		for (WorldGenBigTree.FoliageCoordinates worldgenbigtree$foliagecoordinates : foliageCoords) {
 			int i = worldgenbigtree$foliagecoordinates.getBranchBase();
 			BlockPos blockpos = new BlockPos(basePos.getX(), i, basePos.getZ());
@@ -252,7 +240,6 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 	 * (in blocks) before a non-air, non-leaf block is encountered and/or the end is encountered.
 	 */
 	int checkBlockLine(BlockPos posOne, BlockPos posTwo) {
-
 		BlockPos blockpos = posTwo.add(-posOne.getX(), -posOne.getY(), -posOne.getZ());
 		int i = getGreatestDistance(blockpos);
 		float f = (float) blockpos.getX() / (float) i;
@@ -275,12 +262,10 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 	}
 
 	public void setDecorationDefaults() {
-
 		leafDistanceLimit = 5;
 	}
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		world = worldIn;
 		basePos = position;
 		this.rand = new Random(rand.nextLong());
@@ -305,7 +290,6 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 	 * limit, is valid.
 	 */
 	private boolean validTreeLocation() {
-
 		Block block = world.getBlockState(basePos.down()).getBlock();
 
 		if (block != Blocks.DIRT && block != Blocks.GRASS && block != Blocks.FARMLAND) {
@@ -329,13 +313,11 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 		private final int branchBase;
 
 		public FoliageCoordinates(BlockPos pos, int p_i45635_2_) {
-
 			super(pos.getX(), pos.getY(), pos.getZ());
 			branchBase = p_i45635_2_;
 		}
 
 		public int getBranchBase() {
-
 			return branchBase;
 		}
 

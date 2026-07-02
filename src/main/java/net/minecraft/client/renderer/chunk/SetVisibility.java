@@ -11,12 +11,10 @@ public class SetVisibility {
 	private final BitSet bitSet;
 
 	public SetVisibility() {
-
 		bitSet = new BitSet(COUNT_FACES * COUNT_FACES);
 	}
 
 	public void setManyVisible(Set<Facing> facing) {
-
 		for (Facing enumfacing : facing) {
 			for (Facing enumfacing1 : facing) {
 				setVisible(enumfacing, enumfacing1, true);
@@ -25,23 +23,19 @@ public class SetVisibility {
 	}
 
 	public void setVisible(Facing facing, Facing facing2, boolean p_178619_3_) {
-
 		bitSet.set(facing.ordinal() + facing2.ordinal() * COUNT_FACES, p_178619_3_);
 		bitSet.set(facing2.ordinal() + facing.ordinal() * COUNT_FACES, p_178619_3_);
 	}
 
 	public void setAllVisible(boolean visible) {
-
 		bitSet.set(0, bitSet.size(), visible);
 	}
 
 	public boolean isVisible(Facing facing, Facing facing2) {
-
 		return bitSet.get(facing.ordinal() + facing2.ordinal() * COUNT_FACES);
 	}
 
 	public String toString() {
-
 		StringBuilder stringbuilder = new StringBuilder();
 		stringbuilder.append(' ');
 

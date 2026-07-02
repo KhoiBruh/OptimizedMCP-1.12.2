@@ -3,12 +3,10 @@ package net.minecraft.util;
 import net.minecraft.util.registry.RegistryNamespaced;
 
 public record SoundEvent(ResourceLocation soundName) {
-
 	public static final RegistryNamespaced<ResourceLocation, SoundEvent> REGISTRY = new RegistryNamespaced<>();
 	private static int soundEventId;
 
 	public static void registerSounds() {
-
 		registerSound("ambient.cave");
 		registerSound("block.anvil.break");
 		registerSound("block.anvil.destroy");
@@ -561,7 +559,6 @@ public record SoundEvent(ResourceLocation soundName) {
 	}
 
 	private static void registerSound(String soundNameIn) {
-
 		ResourceLocation resourcelocation = new ResourceLocation(soundNameIn);
 		REGISTRY.register(soundEventId++, resourcelocation, new SoundEvent(resourcelocation));
 	}

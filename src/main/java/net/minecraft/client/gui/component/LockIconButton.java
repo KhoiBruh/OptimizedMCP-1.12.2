@@ -8,17 +8,14 @@ public class LockIconButton extends Button {
 	private boolean locked;
 
 	public LockIconButton(int buttonId, int x, int y) {
-
 		super(buttonId, x, y, 20, 20, "");
 	}
 
 	public boolean isLocked() {
-
 		return locked;
 	}
 
 	public void setLocked(boolean lockedIn) {
-
 		locked = lockedIn;
 	}
 
@@ -26,7 +23,6 @@ public class LockIconButton extends Button {
 	 * Draws this button to the screen.
 	 */
 	public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
-
 		if (visible) {
 			mc.getTextureManager().bindTexture(Button.BUTTON_TEXTURES);
 			GLS.color(1F, 1F, 1F, 1F);
@@ -65,18 +61,15 @@ public class LockIconButton extends Button {
 		private final int y;
 
 		Icon(int xIn, int yIn) {
-
 			x = xIn;
 			y = yIn;
 		}
 
 		public int getX() {
-
 			return x;
 		}
 
 		public int getY() {
-
 			return y;
 		}
 	}

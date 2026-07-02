@@ -21,12 +21,10 @@ public class ConstructBeaconTrigger implements ICriterionTrigger<ConstructBeacon
 	private final Map<PlayerAdvancements, ConstructBeaconTrigger.Listeners> listeners = Maps.newHashMap();
 
 	public ResourceLocation getId() {
-
 		return ID;
 	}
 
 	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance> listener) {
-
 		ConstructBeaconTrigger.Listeners constructbeacontrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (constructbeacontrigger$listeners == null) {
@@ -38,7 +36,6 @@ public class ConstructBeaconTrigger implements ICriterionTrigger<ConstructBeacon
 	}
 
 	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance> listener) {
-
 		ConstructBeaconTrigger.Listeners constructbeacontrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (constructbeacontrigger$listeners != null) {
@@ -51,7 +48,6 @@ public class ConstructBeaconTrigger implements ICriterionTrigger<ConstructBeacon
 	}
 
 	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
-
 		listeners.remove(playerAdvancementsIn);
 	}
 
@@ -65,7 +61,6 @@ public class ConstructBeaconTrigger implements ICriterionTrigger<ConstructBeacon
 	}
 
 	public void trigger(EntityPlayerMP player, TileEntityBeacon beacon) {
-
 		ConstructBeaconTrigger.Listeners constructbeacontrigger$listeners = listeners.get(player.getAdvancements());
 
 		if (constructbeacontrigger$listeners != null) {
@@ -78,13 +73,11 @@ public class ConstructBeaconTrigger implements ICriterionTrigger<ConstructBeacon
 		private final MinMaxBounds level;
 
 		public Instance(MinMaxBounds level) {
-
 			super(ConstructBeaconTrigger.ID);
 			this.level = level;
 		}
 
 		public boolean test(TileEntityBeacon beacon) {
-
 			return level.test((float) beacon.getLevels());
 		}
 
@@ -96,27 +89,22 @@ public class ConstructBeaconTrigger implements ICriterionTrigger<ConstructBeacon
 		private final Set<ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance>> listeners = Sets.newHashSet();
 
 		public Listeners(PlayerAdvancements playerAdvancementsIn) {
-
 			playerAdvancements = playerAdvancementsIn;
 		}
 
 		public boolean isEmpty() {
-
 			return listeners.isEmpty();
 		}
 
 		public void add(ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance> listener) {
-
 			listeners.add(listener);
 		}
 
 		public void remove(ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance> listener) {
-
 			listeners.remove(listener);
 		}
 
 		public void trigger(TileEntityBeacon beacon) {
-
 			List<ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance>> list = null;
 
 			for (ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance> listener : listeners) {

@@ -39,7 +39,6 @@ public class HorseInventoryScreen extends ContainerScreen {
 	private float mousePosY;
 
 	public HorseInventoryScreen(IInventory playerInv, IInventory horseInv, AbstractHorse horse) {
-
 		super(new ContainerHorseInventory(playerInv, horseInv, horse, Minecraft.getMinecraft().player));
 		playerInventory = playerInv;
 		horseInventory = horseInv;
@@ -51,7 +50,6 @@ public class HorseInventoryScreen extends ContainerScreen {
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-
 		fontRenderer.drawString(horseInventory.displayName().getUnformattedText(), 8, 6, 4210752);
 		fontRenderer.drawString(playerInventory.displayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
 	}
@@ -60,7 +58,6 @@ public class HorseInventoryScreen extends ContainerScreen {
 	 * Draws the background layer of this container (behind the items).
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-
 		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(HORSE_GUI_TEXTURES);
 		int i = (width - xSize) / 2;
@@ -68,7 +65,6 @@ public class HorseInventoryScreen extends ContainerScreen {
 		drawTexturedModalRect(i, j, 0, 0, xSize, ySize);
 
 		if (horseEntity instanceof AbstractChestHorse abstractchesthorse) {
-
 			if (abstractchesthorse.hasChest()) {
 				drawTexturedModalRect(i + 79, j + 17, 0, ySize, abstractchesthorse.getInventoryColumns() * 18, 54);
 			}
@@ -93,7 +89,6 @@ public class HorseInventoryScreen extends ContainerScreen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		mousePosx = (float) mouseX;
 		mousePosY = (float) mouseY;

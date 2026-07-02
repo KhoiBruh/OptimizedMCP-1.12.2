@@ -22,13 +22,11 @@ public class TemplateManager {
 	private final DataFixer fixer;
 
 	public TemplateManager(String p_i47239_1_, DataFixer p_i47239_2_) {
-
 		baseFolder = p_i47239_1_;
 		fixer = p_i47239_2_;
 	}
 
 	public Template getTemplate(MinecraftServer server, ResourceLocation id) {
-
 		Template template = get(server, id);
 
 		if (template == null) {
@@ -41,7 +39,6 @@ public class TemplateManager {
 
 	
 	public Template get(MinecraftServer server, ResourceLocation templatePath) {
-
 		String s = templatePath.getResourcePath();
 
 		if (templates.containsKey(s)) {
@@ -63,7 +60,6 @@ public class TemplateManager {
 	 * If it isn't there then it attempts to take it from the minecraft jar.
 	 */
 	public void readTemplate(ResourceLocation server) {
-
 		String path = server.getResourcePath();
 		File file = new File(baseFolder, path + ".nbt");
 
@@ -81,7 +77,6 @@ public class TemplateManager {
 	 * reads a template from the minecraft jar
 	 */
 	private boolean readTemplateFromJar(ResourceLocation id) {
-
 		String s = id.getResourceDomain();
 		String s1 = id.getResourcePath();
 		boolean flag;
@@ -100,7 +95,6 @@ public class TemplateManager {
 	 * reads a template from an inputstream
 	 */
 	private void readTemplateFromStream(String id, InputStream stream) throws IOException {
-
 		NBTTagCompound nbttagcompound = CompressedStreamTools.readCompressed(stream);
 
 		if (!nbttagcompound.hasKey("DataVersion", 99)) {
@@ -116,7 +110,6 @@ public class TemplateManager {
 	 * writes the template to an external folder
 	 */
 	public boolean writeTemplate(MinecraftServer server, ResourceLocation id) {
-
 		String s = id.getResourcePath();
 
 		if (server != null && templates.containsKey(s)) {
@@ -149,7 +142,6 @@ public class TemplateManager {
 	}
 
 	public void remove(ResourceLocation templatePath) {
-
 		templates.remove(templatePath.getResourcePath());
 	}
 

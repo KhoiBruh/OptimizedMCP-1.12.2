@@ -29,12 +29,10 @@ public class CombatTracker {
 	private String fallSuffix;
 
 	public CombatTracker(EntityLivingBase fighterIn) {
-
 		fighter = fighterIn;
 	}
 
 	public void calculateFallSuffix() {
-
 		resetFallSuffix();
 
 		if (fighter.isOnLadder()) {
@@ -54,7 +52,6 @@ public class CombatTracker {
 	 * Adds an entry for the combat tracker
 	 */
 	public void trackDamage(DamageSource damageSrc, float damageAmount) {
-
 		reset();
 		calculateFallSuffix();
 		CombatEntry combatentry = new CombatEntry(damageSrc, damageAmount, fallSuffix, fighter.fallDistance);
@@ -71,7 +68,6 @@ public class CombatTracker {
 	}
 
 	public ITextComponent getDeathMessage() {
-
 		if (combatEntries.isEmpty()) {
 			return new TextComponentTranslation("death.attack.generic", fighter.getDisplayName());
 		} else {
@@ -118,7 +114,6 @@ public class CombatTracker {
 
 	
 	public EntityLivingBase getBestAttacker() {
-
 		EntityLivingBase entitylivingbase = null;
 		EntityPlayer entityplayer = null;
 		float f = 0F;
@@ -145,7 +140,6 @@ public class CombatTracker {
 
 	
 	private CombatEntry getBestCombatEntry() {
-
 		CombatEntry combatentry = null;
 		CombatEntry combatentry1 = null;
 		float f = 0F;
@@ -181,17 +175,14 @@ public class CombatTracker {
 	}
 
 	private String getFallSuffix(CombatEntry entry) {
-
 		return entry.getFallSuffix() == null ? "generic" : entry.getFallSuffix();
 	}
 
 	public int getCombatDuration() {
-
 		return inCombat ? fighter.ticksExisted - combatStartTime : combatEndTime - combatStartTime;
 	}
 
 	private void resetFallSuffix() {
-
 		fallSuffix = null;
 	}
 
@@ -199,7 +190,6 @@ public class CombatTracker {
 	 * Resets this trackers list of combat entries
 	 */
 	public void reset() {
-
 		int i = inCombat ? 300 : 100;
 
 		if (takingDamage && (!fighter.isEntityAlive() || fighter.ticksExisted - lastDamageTime > i)) {
@@ -220,7 +210,6 @@ public class CombatTracker {
 	 * Returns EntityLivingBase assigned for this CombatTracker
 	 */
 	public EntityLivingBase getFighter() {
-
 		return fighter;
 	}
 

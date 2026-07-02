@@ -15,13 +15,11 @@ public class ConditionPropertyValue implements ICondition {
 	private final String value;
 
 	public ConditionPropertyValue(String keyIn, String valueIn) {
-
 		key = keyIn;
 		value = valueIn;
 	}
 
 	public Predicate<IBlockState> getPredicate(BlockStateContainer blockState) {
-
 		final IProperty<?> iproperty = blockState.getProperty(key);
 
 		if (iproperty == null) {
@@ -53,7 +51,6 @@ public class ConditionPropertyValue implements ICondition {
 	}
 
 	private Predicate<IBlockState> makePredicate(final IProperty<?> property, String valueIn) {
-
 		final Optional<?> optional = property.parseValue(valueIn);
 
 		if (!optional.isPresent()) {
@@ -64,7 +61,6 @@ public class ConditionPropertyValue implements ICondition {
 	}
 
 	public String toString() {
-
 		return MoreObjects.toStringHelper(this).add("key", key).add("value", value).toString();
 	}
 

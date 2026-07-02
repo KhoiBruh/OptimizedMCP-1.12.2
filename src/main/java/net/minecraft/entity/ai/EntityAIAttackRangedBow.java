@@ -20,7 +20,6 @@ public class EntityAIAttackRangedBow<T extends EntityMob & IRangedAttackMob> ext
 	private int strafingTime = -1;
 
 	public EntityAIAttackRangedBow(T mob, double moveSpeedAmpIn, int attackCooldownIn, float maxAttackDistanceIn) {
-
 		entity = mob;
 		moveSpeedAmp = moveSpeedAmpIn;
 		attackCooldown = attackCooldownIn;
@@ -29,7 +28,6 @@ public class EntityAIAttackRangedBow<T extends EntityMob & IRangedAttackMob> ext
 	}
 
 	public void setAttackCooldown(int p_189428_1_) {
-
 		attackCooldown = p_189428_1_;
 	}
 
@@ -37,12 +35,10 @@ public class EntityAIAttackRangedBow<T extends EntityMob & IRangedAttackMob> ext
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		return entity.getAttackTarget() != null && isBowInMainhand();
 	}
 
 	protected boolean isBowInMainhand() {
-
 		return !entity.getHeldItemMainhand().isEmpty() && entity.getHeldItemMainhand().getItem() == Items.BOW;
 	}
 
@@ -50,7 +46,6 @@ public class EntityAIAttackRangedBow<T extends EntityMob & IRangedAttackMob> ext
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		return (shouldExecute() || !entity.getNavigator().noPath()) && isBowInMainhand();
 	}
 
@@ -58,7 +53,6 @@ public class EntityAIAttackRangedBow<T extends EntityMob & IRangedAttackMob> ext
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		super.startExecuting();
 		entity.setSwingingArms(true);
 	}
@@ -67,7 +61,6 @@ public class EntityAIAttackRangedBow<T extends EntityMob & IRangedAttackMob> ext
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		super.resetTask();
 		entity.setSwingingArms(false);
 		seeTime = 0;
@@ -79,7 +72,6 @@ public class EntityAIAttackRangedBow<T extends EntityMob & IRangedAttackMob> ext
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		EntityLivingBase entitylivingbase = entity.getAttackTarget();
 
 		if (entitylivingbase != null) {

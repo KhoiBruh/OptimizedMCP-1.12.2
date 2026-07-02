@@ -15,11 +15,9 @@ public class SPacketEntityEffect implements Packet<INetHandlerPlayClient> {
 	private byte flags;
 
 	public SPacketEntityEffect() {
-
 	}
 
 	public SPacketEntityEffect(int entityIdIn, PotionEffect effect) {
-
 		entityId = entityIdIn;
 		effectId = (byte) (Potion.getIdFromPotion(effect.getPotion()) & 255);
 		amplifier = (byte) (effect.getAmplifier() & 255);
@@ -41,7 +39,6 @@ public class SPacketEntityEffect implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		entityId = buf.readVarInt();
 		effectId = buf.readByte();
 		amplifier = buf.readByte();
@@ -53,7 +50,6 @@ public class SPacketEntityEffect implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeVarInt(entityId);
 		buf.writeByte(effectId);
 		buf.writeByte(amplifier);
@@ -62,7 +58,6 @@ public class SPacketEntityEffect implements Packet<INetHandlerPlayClient> {
 	}
 
 	public boolean isMaxDuration() {
-
 		return duration == 32767;
 	}
 
@@ -70,37 +65,30 @@ public class SPacketEntityEffect implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleEntityEffect(this);
 	}
 
 	public int getEntityId() {
-
 		return entityId;
 	}
 
 	public byte getEffectId() {
-
 		return effectId;
 	}
 
 	public byte getAmplifier() {
-
 		return amplifier;
 	}
 
 	public int getDuration() {
-
 		return duration;
 	}
 
 	public boolean doesShowParticles() {
-
 		return (flags & 2) == 2;
 	}
 
 	public boolean getIsAmbient() {
-
 		return (flags & 1) == 1;
 	}
 

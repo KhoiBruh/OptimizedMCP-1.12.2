@@ -14,11 +14,9 @@ public class SPacketUpdateScore implements Packet<INetHandlerPlayClient> {
 	private SPacketUpdateScore.Action action;
 
 	public SPacketUpdateScore() {
-
 	}
 
 	public SPacketUpdateScore(Score scoreIn) {
-
 		name = scoreIn.getPlayerName();
 		objective = scoreIn.getObjective().getName();
 		value = scoreIn.getScorePoints();
@@ -26,7 +24,6 @@ public class SPacketUpdateScore implements Packet<INetHandlerPlayClient> {
 	}
 
 	public SPacketUpdateScore(String nameIn) {
-
 		name = nameIn;
 		objective = "";
 		value = 0;
@@ -34,7 +31,6 @@ public class SPacketUpdateScore implements Packet<INetHandlerPlayClient> {
 	}
 
 	public SPacketUpdateScore(String nameIn, ScoreObjective objectiveIn) {
-
 		name = nameIn;
 		objective = objectiveIn.getName();
 		value = 0;
@@ -45,7 +41,6 @@ public class SPacketUpdateScore implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		name = buf.readString(40);
 		action = buf.readEnumValue(Action.class);
 		objective = buf.readString(16);
@@ -59,7 +54,6 @@ public class SPacketUpdateScore implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeString(name);
 		buf.writeEnumValue(action);
 		buf.writeString(objective);
@@ -73,22 +67,18 @@ public class SPacketUpdateScore implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleUpdateScore(this);
 	}
 
 	public String getPlayerName() {
-
 		return name;
 	}
 
 	public String getObjectiveName() {
-
 		return objective;
 	}
 
 	public int getScoreValue() {
-
 		return value;
 	}
 

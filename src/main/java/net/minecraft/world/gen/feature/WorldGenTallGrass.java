@@ -14,12 +14,10 @@ public class WorldGenTallGrass extends WorldGenerator {
 	private final IBlockState tallGrassState;
 
 	public WorldGenTallGrass(BlockTallGrass.Type p_i45629_1_) {
-
 		tallGrassState = Blocks.TALLGRASS.getDefaultState().withProperty(BlockTallGrass.TYPE, p_i45629_1_);
 	}
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		for (IBlockState iblockstate = worldIn.getBlockState(position); (iblockstate.getMaterial() == Material.AIR || iblockstate.getMaterial() == Material.LEAVES) && position.getY() > 0; iblockstate = worldIn.getBlockState(position)) {
 			position = position.down();
 		}

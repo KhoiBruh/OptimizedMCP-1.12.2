@@ -9,11 +9,9 @@ public class CPacketPing implements Packet<INetHandlerStatusServer> {
 	private long clientTime;
 
 	public CPacketPing() {
-
 	}
 
 	public CPacketPing(long clientTimeIn) {
-
 		clientTime = clientTimeIn;
 	}
 
@@ -21,7 +19,6 @@ public class CPacketPing implements Packet<INetHandlerStatusServer> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		clientTime = buf.readLong();
 	}
 
@@ -29,7 +26,6 @@ public class CPacketPing implements Packet<INetHandlerStatusServer> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeLong(clientTime);
 	}
 
@@ -37,12 +33,10 @@ public class CPacketPing implements Packet<INetHandlerStatusServer> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerStatusServer handler) {
-
 		handler.processPing(this);
 	}
 
 	public long getClientTime() {
-
 		return clientTime;
 	}
 

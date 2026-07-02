@@ -17,7 +17,6 @@ public class BlockPlanks extends Block {
 	public static final PropertyEnum<BlockPlanks.Type> VARIANT = PropertyEnum.create("variant", BlockPlanks.Type.class);
 
 	public BlockPlanks() {
-
 		super(Material.WOOD);
 		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockPlanks.Type.OAK));
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
@@ -28,7 +27,6 @@ public class BlockPlanks extends Block {
 	 * returns the metadata of the dropped item based on the old metadata of the block.
 	 */
 	public int damageDropped(IBlockState state) {
-
 		return state.getValue(VARIANT).getMetadata();
 	}
 
@@ -36,7 +34,6 @@ public class BlockPlanks extends Block {
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-
 		for (BlockPlanks.Type blockplanks$enumtype : BlockPlanks.Type.values()) {
 			items.add(new ItemStack(this, 1, blockplanks$enumtype.getMetadata()));
 		}
@@ -46,7 +43,6 @@ public class BlockPlanks extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(VARIANT, BlockPlanks.Type.byMetadata(meta));
 	}
 
@@ -54,7 +50,6 @@ public class BlockPlanks extends Block {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return state.getValue(VARIANT).getMapColor();
 	}
 
@@ -62,12 +57,10 @@ public class BlockPlanks extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(VARIANT).getMetadata();
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, VARIANT);
 	}
 
@@ -93,12 +86,10 @@ public class BlockPlanks extends Block {
 		private final MapColor mapColor;
 
 		Type(int metaIn, String nameIn, MapColor mapColorIn) {
-
 			this(metaIn, nameIn, nameIn, mapColorIn);
 		}
 
 		Type(int metaIn, String nameIn, String unlocalizedNameIn, MapColor mapColorIn) {
-
 			meta = metaIn;
 			name = nameIn;
 			unlocalizedName = unlocalizedNameIn;
@@ -115,27 +106,22 @@ public class BlockPlanks extends Block {
 		}
 
 		public int getMetadata() {
-
 			return meta;
 		}
 
 		public MapColor getMapColor() {
-
 			return mapColor;
 		}
 
 		public String toString() {
-
 			return name;
 		}
 
 		public String getName() {
-
 			return name;
 		}
 
 		public String getUnlocalizedName() {
-
 			return unlocalizedName;
 		}
 	}

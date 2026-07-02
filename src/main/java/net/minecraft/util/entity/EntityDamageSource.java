@@ -21,7 +21,6 @@ public class EntityDamageSource extends DamageSource {
 	private boolean isThornsDamage;
 
 	public EntityDamageSource(String damageTypeIn, Entity damageSourceEntityIn) {
-
 		super(damageTypeIn);
 		damageSourceEntity = damageSourceEntityIn;
 	}
@@ -30,13 +29,11 @@ public class EntityDamageSource extends DamageSource {
 	 * Sets this EntityDamageSource as originating from Thorns armor
 	 */
 	public EntityDamageSource setIsThornsDamage() {
-
 		isThornsDamage = true;
 		return this;
 	}
 
 	public boolean getIsThornsDamage() {
-
 		return isThornsDamage;
 	}
 
@@ -47,7 +44,6 @@ public class EntityDamageSource extends DamageSource {
 	 * etc.
 	 */
 	public Entity getTrueSource() {
-
 		return damageSourceEntity;
 	}
 
@@ -55,7 +51,6 @@ public class EntityDamageSource extends DamageSource {
 	 * Gets the death message that is displayed when the player dies
 	 */
 	public ITextComponent getDeathMessage(EntityLivingBase entityLivingBaseIn) {
-
 		ItemStack itemstack = damageSourceEntity instanceof EntityLivingBase ? ((EntityLivingBase) damageSourceEntity).getHeldItemMainhand() : ItemStack.EMPTY;
 		String s = "death.attack." + damageType;
 		String s1 = s + ".item";
@@ -66,7 +61,6 @@ public class EntityDamageSource extends DamageSource {
 	 * Return whether this damage source will have its damage amount scaled based on the current difficulty.
 	 */
 	public boolean isDifficultyScaled() {
-
 		return damageSourceEntity != null && damageSourceEntity instanceof EntityLivingBase && !(damageSourceEntity instanceof EntityPlayer);
 	}
 
@@ -76,7 +70,6 @@ public class EntityDamageSource extends DamageSource {
 	 * Gets the location from which the damage originates.
 	 */
 	public Vec3d getDamageLocation() {
-
 		return new Vec3d(damageSourceEntity.posX, damageSourceEntity.posY, damageSourceEntity.posZ);
 	}
 

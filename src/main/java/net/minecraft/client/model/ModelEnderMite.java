@@ -11,7 +11,6 @@ public class ModelEnderMite extends ModelBase {
 	private final ModelRenderer[] bodyParts;
 
 	public ModelEnderMite() {
-
 		bodyParts = new ModelRenderer[BODY_COUNT];
 		float f = -3.5F;
 
@@ -30,7 +29,6 @@ public class ModelEnderMite extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
 		for (ModelRenderer modelrenderer : bodyParts) {
@@ -44,7 +42,6 @@ public class ModelEnderMite extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		for (int i = 0; i < bodyParts.length; ++i) {
 			bodyParts[i].rotateAngleY = MathHelper.cos(ageInTicks * 0.9F + (float) i * 0.15F * (float) Math.PI) * (float) Math.PI * 0.01F * (float) (1 + Math.abs(i - 2));
 			bodyParts[i].rotationPointX = MathHelper.sin(ageInTicks * 0.9F + (float) i * 0.15F * (float) Math.PI) * (float) Math.PI * 0.1F * (float) Math.abs(i - 2);

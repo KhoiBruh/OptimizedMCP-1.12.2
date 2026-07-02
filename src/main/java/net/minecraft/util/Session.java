@@ -15,7 +15,6 @@ public class Session {
 	private final String token;
 	
 	public Session(String usernameIn, String playerIDIn, String tokenIn, String sessionTypeIn) {
-
 		username = usernameIn;
 		playerID = playerIDIn;
 		token = tokenIn;
@@ -23,27 +22,22 @@ public class Session {
 	}
 
 	public String getSessionID() {
-
 		return "token:" + token + ":" + playerID;
 	}
 
 	public String getPlayerID() {
-
 		return playerID;
 	}
 
 	public String getUsername() {
-
 		return username;
 	}
 
 	public String getToken() {
-
 		return token;
 	}
 
 	public GameProfile getProfile() {
-
 		try {
 			UUID uuid = UUIDTypeAdapter.fromString(getPlayerID());
 			return new GameProfile(uuid, getUsername());
@@ -67,7 +61,6 @@ public class Session {
 		private final String sessionType;
 
 		Type(String sessionTypeIn) {
-
 			sessionType = sessionTypeIn;
 		}
 

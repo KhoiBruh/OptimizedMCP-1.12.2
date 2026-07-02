@@ -18,7 +18,6 @@ public class BiomeSwamp extends Biome {
 	protected static final IBlockState WATER_LILY = Blocks.WATERLILY.getDefaultState();
 
 	protected BiomeSwamp(Biome.BiomeProperties properties) {
-
 		super(properties);
 		decorator.treesPerChunk = 2;
 		decorator.flowersPerChunk = 1;
@@ -34,18 +33,15 @@ public class BiomeSwamp extends Biome {
 	}
 
 	public WorldGenAbstractTree getRandomTreeFeature(Random rand) {
-
 		return SWAMP_FEATURE;
 	}
 
 	public int getGrassColorAtPos(BlockPos pos) {
-
 		double d0 = GRASS_COLOR_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
 		return d0 < -0.1D ? 5011004 : 6975545;
 	}
 
 	public int getFoliageColorAtPos(BlockPos pos) {
-
 		return 6975545;
 	}
 
@@ -55,7 +51,6 @@ public class BiomeSwamp extends Biome {
 	}
 
 	public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
-
 		double d0 = GRASS_COLOR_NOISE.getValue((double) x * 0.25D, (double) z * 0.25D);
 
 		if (d0 > 0D) {
@@ -81,7 +76,6 @@ public class BiomeSwamp extends Biome {
 	}
 
 	public void decorate(World worldIn, Random rand, BlockPos pos) {
-
 		super.decorate(worldIn, rand, pos);
 
 		if (rand.nextInt(64) == 0) {

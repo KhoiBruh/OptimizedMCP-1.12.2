@@ -27,7 +27,6 @@ public class Timer {
 	private long lastSyncSysClock;
 
 	public Timer(float tps) {
-
 		tickLength = 1000 / tps;
 		lastSyncSysClock = Minecraft.getSystemTime();
 	}
@@ -36,7 +35,6 @@ public class Timer {
 	 * Updates all fields of the Timer using the current time
 	 */
 	public void updateTimer() {
-
 		long i = Minecraft.getSystemTime();
 		elapsedPartialTicks = (float) (i - lastSyncSysClock) / tickLength;
 		lastSyncSysClock = i;

@@ -25,26 +25,22 @@ public abstract class BlockRailBase extends Block {
 	protected final boolean isPowered;
 
 	protected BlockRailBase(boolean isPowered) {
-
 		super(Material.CIRCUITS);
 		this.isPowered = isPowered;
 		setCreativeTab(CreativeTabs.TRANSPORTATION);
 	}
 
 	public static boolean isRailBlock(World worldIn, BlockPos pos) {
-
 		return isRailBlock(worldIn.getBlockState(pos));
 	}
 
 	public static boolean isRailBlock(IBlockState state) {
-
 		Block block = state.getBlock();
 		return block == Blocks.RAIL || block == Blocks.GOLDEN_RAIL || block == Blocks.DETECTOR_RAIL || block == Blocks.ACTIVATOR_RAIL;
 	}
 
 	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-
 		return NULL_AABB;
 	}
 
@@ -52,12 +48,10 @@ public abstract class BlockRailBase extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		BlockRailBase.RailDirection blockrailbase$enumraildirection = state.getBlock() == this ? state.getValue(getShapeProperty()) : null;
 		return blockrailbase$enumraildirection != null && blockrailbase$enumraildirection.isAscending() ? ASCENDING_AABB : FLAT_AABB;
 	}
@@ -72,12 +66,10 @@ public abstract class BlockRailBase extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -85,7 +77,6 @@ public abstract class BlockRailBase extends Block {
 	 * Checks if this block can be placed exactly at the given position.
 	 */
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-
 		return worldIn.getBlockState(pos.down()).isTopSolid();
 	}
 
@@ -93,7 +84,6 @@ public abstract class BlockRailBase extends Block {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (!worldIn.isRemote) {
 			state = updateDir(worldIn, pos, state, true);
 
@@ -109,7 +99,6 @@ public abstract class BlockRailBase extends Block {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (!worldIn.isRemote) {
 			BlockRailBase.RailDirection blockrailbase$enumraildirection = state.getValue(getShapeProperty());
 			boolean flag = !worldIn.getBlockState(pos.down()).isTopSolid();
@@ -134,16 +123,13 @@ public abstract class BlockRailBase extends Block {
 	}
 
 	protected void updateState(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
-
 	}
 
 	protected IBlockState updateDir(World worldIn, BlockPos pos, IBlockState state, boolean initialPlacement) {
-
 		return worldIn.isRemote ? state : (new BlockRailBase.Rail(worldIn, pos, state)).place(worldIn.isBlockPowered(pos), initialPlacement).getBlockState();
 	}
 
 	public PushReaction getMobilityFlag(IBlockState state) {
-
 		return PushReaction.NORMAL;
 	}
 
@@ -152,7 +138,6 @@ public abstract class BlockRailBase extends Block {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.CUTOUT;
 	}
 
@@ -160,7 +145,6 @@ public abstract class BlockRailBase extends Block {
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		super.breakBlock(worldIn, pos, state);
 
 		if (state.getValue(getShapeProperty()).isAscending()) {
@@ -199,7 +183,6 @@ public abstract class BlockRailBase extends Block {
 		private final String name;
 
 		RailDirection(int meta, String name) {
-
 			this.meta = meta;
 			this.name = name;
 		}
@@ -214,22 +197,18 @@ public abstract class BlockRailBase extends Block {
 		}
 
 		public int getMetadata() {
-
 			return meta;
 		}
 
 		public String toString() {
-
 			return name;
 		}
 
 		public boolean isAscending() {
-
 			return this == ASCENDING_NORTH || this == ASCENDING_EAST || this == ASCENDING_SOUTH || this == ASCENDING_WEST;
 		}
 
 		public String getName() {
-
 			return name;
 		}
 	}
@@ -244,7 +223,6 @@ public abstract class BlockRailBase extends Block {
 		private IBlockState state;
 
 		public Rail(World worldIn, BlockPos pos, IBlockState state) {
-
 			world = worldIn;
 			this.pos = pos;
 			this.state = state;
@@ -255,12 +233,10 @@ public abstract class BlockRailBase extends Block {
 		}
 
 		public List<BlockPos> getConnectedRails() {
-
 			return connectedRails;
 		}
 
 		private void updateConnectedRails(BlockRailBase.RailDirection railDirection) {
-
 			connectedRails.clear();
 
 			switch (railDirection) {
@@ -316,7 +292,6 @@ public abstract class BlockRailBase extends Block {
 		}
 
 		private void removeSoftConnections() {
-
 			for (int i = 0; i < connectedRails.size(); ++i) {
 				BlockRailBase.Rail blockrailbase$rail = findRailAt(connectedRails.get(i));
 
@@ -329,7 +304,6 @@ public abstract class BlockRailBase extends Block {
 		}
 
 		private boolean hasRailAt(BlockPos pos) {
-
 			return BlockRailBase.isRailBlock(world, pos) || BlockRailBase.isRailBlock(world, pos.up()) || BlockRailBase.isRailBlock(world, pos.down());
 		}
 
@@ -355,12 +329,10 @@ public abstract class BlockRailBase extends Block {
 		}
 
 		private boolean isConnectedToRail(BlockRailBase.Rail rail) {
-
 			return isConnectedTo(rail.pos);
 		}
 
 		private boolean isConnectedTo(BlockPos posIn) {
-
 			for (BlockPos blockpos : connectedRails) {
 				if (blockpos.getX() == posIn.getX() && blockpos.getZ() == posIn.getZ()) {
 					return true;
@@ -371,7 +343,6 @@ public abstract class BlockRailBase extends Block {
 		}
 
 		protected int countAdjacentRails() {
-
 			int i = 0;
 
 			for (Facing enumfacing : Facing.Plane.HORIZONTAL) {
@@ -384,12 +355,10 @@ public abstract class BlockRailBase extends Block {
 		}
 
 		private boolean canConnectTo(BlockRailBase.Rail rail) {
-
 			return isConnectedToRail(rail) || connectedRails.size() != 2;
 		}
 
 		private void connectTo(BlockRailBase.Rail rail) {
-
 			connectedRails.add(rail.pos);
 			BlockPos blockpos = pos.north();
 			BlockPos blockpos1 = pos.south();
@@ -456,7 +425,6 @@ public abstract class BlockRailBase extends Block {
 		}
 
 		private boolean hasNeighborRail(BlockPos posIn) {
-
 			BlockRailBase.Rail blockrailbase$rail = findRailAt(posIn);
 
 			if (blockrailbase$rail == null) {
@@ -598,7 +566,6 @@ public abstract class BlockRailBase extends Block {
 		}
 
 		public IBlockState getBlockState() {
-
 			return state;
 		}
 

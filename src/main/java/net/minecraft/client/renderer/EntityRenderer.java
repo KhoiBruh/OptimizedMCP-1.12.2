@@ -187,7 +187,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	private int frameCount;
 
 	public EntityRenderer(Minecraft mcIn, IResourceManager resourceManagerIn) {
-
 		shaderIndex = SHADER_COUNT;
 		mc = mcIn;
 		resourceManager = resourceManagerIn;
@@ -210,7 +209,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	public static void drawNameplate(FontRenderer fontRendererIn, String str, float x, float y, float z, int verticalShift, float viewerYaw, float viewerPitch, boolean isThirdPersonFrontal, boolean isSneaking) {
-
 		GLS.pushMatrix();
 		GLS.translate(x, y, z);
 		GLS.normal3f(0F, 1F, 0F);
@@ -252,12 +250,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	public boolean isShaderActive() {
-
 		return OpenGlHelper.shadersSupported && shaderGroup != null;
 	}
 
 	public void stopUseShader() {
-
 		if (shaderGroup != null) {
 			shaderGroup.deleteShaderGroup();
 		}
@@ -267,7 +263,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	public void switchUseShader() {
-
 		useShader = !useShader;
 	}
 
@@ -275,7 +270,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	 * What shader to use when spectating this entity
 	 */
 	public void loadEntityShader(Entity entityIn) {
-
 		if (OpenGlHelper.shadersSupported) {
 			if (shaderGroup != null) {
 				shaderGroup.deleteShaderGroup();
@@ -294,7 +288,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	private void loadShader(ResourceLocation resourceLocationIn) {
-
 		try {
 			shaderGroup = new ShaderGroup(mc.getTextureManager(), resourceManager, mc.getFramebuffer(), resourceLocationIn);
 			shaderGroup.createBindFramebuffers(mc.getWindow().getWidth(), mc.getWindow().getHeight());
@@ -307,7 +300,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	public void onResourceManagerReload(IResourceManager resourceManager) {
-
 		if (shaderGroup != null) {
 			shaderGroup.deleteShaderGroup();
 		}
@@ -325,7 +317,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	 * Updates the entity renderer
 	 */
 	public void updateRenderer() {
-
 		if (OpenGlHelper.shadersSupported && ShaderLinkHelper.getStaticShaderLinkHelper() == null) {
 			ShaderLinkHelper.setNewStaticShaderLinkHelper();
 		}
@@ -383,12 +374,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	public ShaderGroup getShaderGroup() {
-
 		return shaderGroup;
 	}
 
 	public void updateShaderGroupSize(int width, int height) {
-
 		if (OpenGlHelper.shadersSupported) {
 			if (shaderGroup != null) {
 				shaderGroup.createBindFramebuffers(width, height);
@@ -402,7 +391,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	 * Gets the block or object that is being moused over.
 	 */
 	public void getMouseOver(float partialTicks) {
-
 		Entity entity = mc.getRenderViewEntity();
 
 		if (entity != null) {
@@ -487,7 +475,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	 * Update FOV modifier hand
 	 */
 	private void updateFovModifierHand() {
-
 		float f = 1F;
 
 		if (mc.getRenderViewEntity() instanceof AbstractClientPlayer abstractclientplayer) {
@@ -510,7 +497,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	 * Changes the field of view of the player depending on if they are underwater or not
 	 */
 	private float getFOVModifier(float partialTicks, boolean useFOVSetting) {
-
 		if (debugView) {
 			return 90F;
 		} else {
@@ -538,7 +524,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	private void hurtCameraEffect(float partialTicks) {
-
 		if (mc.getRenderViewEntity() instanceof EntityLivingBase entitylivingbase) {
 			float f = (float) entitylivingbase.hurtTime - partialTicks;
 
@@ -564,7 +549,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	 * Updates the bobbing render effect of the player.
 	 */
 	private void applyBobbing(float partialTicks) {
-
 		if (mc.getRenderViewEntity() instanceof EntityPlayer entityplayer) {
 			float f = entityplayer.distanceWalkedModified - entityplayer.prevDistanceWalkedModified;
 			float f1 = -(entityplayer.distanceWalkedModified + f * partialTicks);
@@ -581,7 +565,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	 * sets up player's eye (or camera in third person mode)
 	 */
 	private void orientCamera(float partialTicks) {
-
 		Entity entity = mc.getRenderViewEntity();
 		float f = entity.getEyeHeight();
 		double d0 = entity.prevPosX + (entity.posX - entity.prevPosX) * (double) partialTicks;
@@ -675,7 +658,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	 * sets up projection, view effects, camera position/rotation
 	 */
 	private void setupCameraTransform(float partialTicks, int pass) {
-
 		farPlaneDistance = (float) (mc.gameSettings.renderDistanceChunks * 16);
 		GLS.matrixMode(5889);
 		GLS.loadIdentity();
@@ -742,7 +724,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	 * Render player hand
 	 */
 	private void renderHand(float partialTicks, int pass) {
-
 		if (!debugView) {
 			GLS.matrixMode(5889);
 			GLS.loadIdentity();
@@ -781,14 +762,12 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	public void disableLightmap() {
-
 		GLS.setActiveTexture(OpenGlHelper.lightmapTexUnit);
 		GLS.disableTexture2D();
 		GLS.setActiveTexture(OpenGlHelper.defaultTexUnit);
 	}
 
 	public void enableLightmap() {
-
 		GLS.setActiveTexture(OpenGlHelper.lightmapTexUnit);
 		GLS.matrixMode(5890);
 		GLS.loadIdentity();
@@ -810,7 +789,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	 * Recompute a random value that is applied to block color in updateLightmap()
 	 */
 	private void updateTorchFlicker() {
-
 		torchFlickerDX = (float) ((double) torchFlickerDX + (Math.random() - Math.random()) * Math.random() * Math.random());
 		torchFlickerDX = (float) ((double) torchFlickerDX * 0.9D);
 		torchFlickerX += torchFlickerDX - torchFlickerX;
@@ -818,7 +796,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	private void updateLightmap(float partialTicks) {
-
 		if (lightmapUpdateNeeded) {
 			mc.profiler.startSection("lightTex");
 			World world = mc.world;
@@ -941,13 +918,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	private float getNightVisionBrightness(EntityLivingBase entitylivingbaseIn, float partialTicks) {
-
 		int i = entitylivingbaseIn.getActivePotionEffect(MobEffects.NIGHT_VISION).getDuration();
 		return i > 200 ? 1F : 0.7F + MathHelper.sin(((float) i - partialTicks) * (float) Math.PI * 0.2F) * 0.3F;
 	}
 
 	public void updateCameraAndRender(float partialTicks, long nanoTime) {
-
 		boolean flag = mc.getWindow().isActive();
 
 		if (!flag && mc.gameSettings.pauseOnLostFocus && (!mc.gameSettings.touchscreen || !Mouse.isButtonDown(1))) {
@@ -1070,7 +1045,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	private void createWorldIcon() {
-
 		if (mc.renderGlobal.getRenderedChunks() > 10 && mc.renderGlobal.hasNoChunkUpdates() && !mc.getIntegratedServer().isWorldIconSet()) {
 			BufferedImage bufferedimage = ScreenShotHelper.createScreenshot(mc.getWindow().getWidth(), mc.getWindow().getHeight(), mc.getFramebuffer());
 			int i = bufferedimage.getWidth();
@@ -1098,12 +1072,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	public void renderStreamIndicator(float partialTicks) {
-
 		setupOverlayRendering();
 	}
 
 	private boolean isDrawBlockOutline() {
-
 		if (!drawBlockOutline) {
 			return false;
 		} else {
@@ -1130,7 +1102,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	public void renderWorld(float partialTicks, long finishTimeNano) {
-
 		updateLightmap(partialTicks);
 
 		if (mc.getRenderViewEntity() == null) {
@@ -1149,7 +1120,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	private void renderWorldPass(int pass, float partialTicks, long finishTimeNano) {
-
 		RenderGlobal renderglobal = mc.renderGlobal;
 		ParticleManager particlemanager = mc.effectRenderer;
 		boolean flag = isDrawBlockOutline();
@@ -1298,7 +1268,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	private void renderCloudsCheck(RenderGlobal renderGlobalIn, float partialTicks, int pass, double x, double y, double z) {
-
 		if (mc.gameSettings.shouldRenderClouds() != 0) {
 			mc.profiler.endStartSection("clouds");
 			GLS.matrixMode(5889);
@@ -1318,7 +1287,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	private void addRainParticles() {
-
 		float f = mc.world.getRainStrength(1F);
 
 		if (!mc.gameSettings.fancyGraphics) {
@@ -1388,7 +1356,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	 * Render rain and snow
 	 */
 	protected void renderRainSnow(float partialTicks) {
-
 		float f = mc.world.getRainStrength(partialTicks);
 
 		if (f > 0F) {
@@ -1521,7 +1488,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	 * Setup orthogonal projection for rendering GUI screen overlays
 	 */
 	public void setupOverlayRendering() {
-
 		GLS.clear(256);
 		GLS.matrixMode(5889);
 		GLS.loadIdentity();
@@ -1535,7 +1501,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	 * calculates fog and calls glClearColor
 	 */
 	private void updateFogColor(float partialTicks) {
-
 		World world = mc.world;
 		Entity entity = mc.getRenderViewEntity();
 		float f = 0.25F + 0.75F * (float) mc.gameSettings.renderDistanceChunks / 32F;
@@ -1680,7 +1645,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	 * distance and is used for sky rendering.
 	 */
 	private void setupFog(int startCoords, float partialTicks) {
-
 		Entity entity = mc.getRenderViewEntity();
 		setupFogColor(false);
 		GLS.normal3f(0F, -1F, 0F);
@@ -1754,7 +1718,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	public void setupFogColor(boolean black) {
-
 		if (black) {
 			GLS.fog(2918, setFogColorBuffer(0F, 0F, 0F, 1F));
 		} else {
@@ -1766,7 +1729,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	 * Update and return fogColorBuffer with the RGBA values passed as arguments
 	 */
 	private FloatBuffer setFogColorBuffer(float red, float green, float blue, float alpha) {
-
 		fogColorBuffer.clear();
 		fogColorBuffer.put(red).put(green).put(blue).put(alpha);
 		fogColorBuffer.flip();
@@ -1774,18 +1736,15 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	public void resetData() {
-
 		itemActivationItem = null;
 		mapItemRenderer.clearLoadedMaps();
 	}
 
 	public MapItemRenderer getMapItemRenderer() {
-
 		return mapItemRenderer;
 	}
 
 	public void displayItemActivation(ItemStack stack) {
-
 		itemActivationItem = stack;
 		itemActivationTicks = 40;
 		itemActivationOffX = random.nextFloat() * 2F - 1F;
@@ -1793,7 +1752,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	private void renderItemActivation(int p_190563_1_, int p_190563_2_, float p_190563_3_) {
-
 		if (itemActivationItem != null && itemActivationTicks > 0) {
 			int i = 40 - itemActivationTicks;
 			float f = ((float) i + p_190563_3_) / 40F;

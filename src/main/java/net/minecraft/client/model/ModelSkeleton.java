@@ -12,12 +12,10 @@ import net.minecraft.util.math.MathHelper;
 public class ModelSkeleton extends ModelBiped {
 
 	public ModelSkeleton() {
-
 		this(0F, false);
 	}
 
 	public ModelSkeleton(float modelSize, boolean p_i46303_2_) {
-
 		super(modelSize, 0F, 64, 32);
 
 		if (!p_i46303_2_) {
@@ -43,7 +41,6 @@ public class ModelSkeleton extends ModelBiped {
 	 * and third as in the setRotationAngles method.
 	 */
 	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTickTime) {
-
 		rightArmPose = ModelBiped.ArmPose.EMPTY;
 		leftArmPose = ModelBiped.ArmPose.EMPTY;
 		ItemStack itemstack = entitylivingbaseIn.getHeldItem(Hand.MAIN_HAND);
@@ -65,7 +62,6 @@ public class ModelSkeleton extends ModelBiped {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 		ItemStack itemstack = ((EntityLivingBase) entityIn).getHeldItemMainhand();
 		AbstractSkeleton abstractskeleton = (AbstractSkeleton) entityIn;
@@ -89,7 +85,6 @@ public class ModelSkeleton extends ModelBiped {
 	}
 
 	public void postRenderArm(float scale, HandSide side) {
-
 		float f = side == HandSide.RIGHT ? 1F : -1F;
 		ModelRenderer modelrenderer = getArmForSide(side);
 		modelrenderer.rotationPointX += f;

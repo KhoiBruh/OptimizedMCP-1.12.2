@@ -13,12 +13,10 @@ import java.util.Random;
 public class WorldGenMegaJungle extends WorldGenHugeTrees {
 
 	public WorldGenMegaJungle(boolean notify, int baseHeightIn, int extraRandomHeightIn, IBlockState woodMetadataIn, IBlockState p_i46448_5_) {
-
 		super(notify, baseHeightIn, extraRandomHeightIn, woodMetadataIn, p_i46448_5_);
 	}
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		int i = getHeight(rand);
 
 		if (!ensureGrowable(worldIn, rand, position, i)) {
@@ -98,14 +96,12 @@ public class WorldGenMegaJungle extends WorldGenHugeTrees {
 	}
 
 	private void placeVine(World p_181632_1_, Random p_181632_2_, BlockPos p_181632_3_, PropertyBool p_181632_4_) {
-
 		if (p_181632_2_.nextInt(3) > 0 && p_181632_1_.isAirBlock(p_181632_3_)) {
 			setBlockAndNotifyAdequately(p_181632_1_, p_181632_3_, Blocks.VINE.getDefaultState().withProperty(p_181632_4_, true));
 		}
 	}
 
 	private void createCrown(World worldIn, BlockPos p_175930_2_, int p_175930_3_) {
-
 		int i = 2;
 
 		for (int j = -2; j <= 0; ++j) {

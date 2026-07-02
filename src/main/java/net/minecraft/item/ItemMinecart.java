@@ -22,7 +22,6 @@ public class ItemMinecart extends Item {
 		private final BehaviorDefaultDispenseItem behaviourDefaultDispenseItem = new BehaviorDefaultDispenseItem();
 
 		public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-
 			Facing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
 			World world = source.getWorld();
 			double d0 = source.x() + (double) enumfacing.getFrontOffsetX() * 1.125D;
@@ -69,7 +68,6 @@ public class ItemMinecart extends Item {
 	private final EntityMinecart.Type minecartType;
 
 	public ItemMinecart(EntityMinecart.Type typeIn) {
-
 		maxStackSize = 1;
 		minecartType = typeIn;
 		setCreativeTab(CreativeTabs.TRANSPORTATION);
@@ -80,7 +78,6 @@ public class ItemMinecart extends Item {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 
 		if (!BlockRailBase.isRailBlock(iblockstate)) {

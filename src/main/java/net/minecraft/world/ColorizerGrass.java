@@ -8,7 +8,6 @@ public class ColorizerGrass {
 	private static int[] grassBuffer = new int[65536];
 
 	public static void setGrassBiomeColorizer(int[] grassBufferIn) {
-
 		grassBuffer = grassBufferIn;
 	}
 
@@ -16,7 +15,6 @@ public class ColorizerGrass {
 	 * Gets the color modifier to use for grass.
 	 */
 	public static int getGrassColor(double temperature, double humidity) {
-
 		humidity = humidity * temperature;
 		int i = (int) ((1D - temperature) * 255D);
 		int j = (int) ((1D - humidity) * 255D);

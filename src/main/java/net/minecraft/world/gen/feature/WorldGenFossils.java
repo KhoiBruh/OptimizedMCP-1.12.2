@@ -36,7 +36,6 @@ public class WorldGenFossils extends WorldGenerator {
 	private static final ResourceLocation[] FOSSILS_COAL = new ResourceLocation[]{STRUCTURE_SPINE_01_COAL, STRUCTURE_SPINE_02_COAL, STRUCTURE_SPINE_03_COAL, STRUCTURE_SPINE_04_COAL, STRUCTURE_SKULL_01_COAL, STRUCTURE_SKULL_02_COAL, STRUCTURE_SKULL_03_COAL, STRUCTURE_SKULL_04_COAL};
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		Random random = worldIn.getChunkFromBlockCoords(position).getRandomWithSeed(987234911L);
 		MinecraftServer minecraftserver = worldIn.getMinecraftServer();
 		Rotation[] arotation = Rotation.values();

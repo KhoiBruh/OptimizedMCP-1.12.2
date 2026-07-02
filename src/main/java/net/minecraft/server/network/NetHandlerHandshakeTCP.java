@@ -15,7 +15,6 @@ public class NetHandlerHandshakeTCP implements INetHandlerHandshakeServer {
 	private final NetworkManager networkManager;
 
 	public NetHandlerHandshakeTCP(MinecraftServer serverIn, NetworkManager netManager) {
-
 		server = serverIn;
 		networkManager = netManager;
 	}
@@ -26,7 +25,6 @@ public class NetHandlerHandshakeTCP implements INetHandlerHandshakeServer {
 	 * must pass a versioncheck or receive a disconnect otherwise
 	 */
 	public void processHandshake(C00Handshake packetIn) {
-
 		switch (packetIn.getRequestedState()) {
 			case LOGIN:
 				networkManager.setConnectionState(ConnectionState.LOGIN);
@@ -59,7 +57,6 @@ public class NetHandlerHandshakeTCP implements INetHandlerHandshakeServer {
 	 * Invoked when disconnecting, the parameter is a ChatComponent describing the reason for termination
 	 */
 	public void onDisconnect(ITextComponent reason) {
-
 	}
 
 }

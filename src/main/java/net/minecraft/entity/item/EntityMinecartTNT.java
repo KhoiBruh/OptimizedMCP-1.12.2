@@ -21,17 +21,14 @@ public class EntityMinecartTNT extends EntityMinecart {
 	private int minecartTNTFuse = -1;
 
 	public EntityMinecartTNT(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public EntityMinecartTNT(World worldIn, double x, double y, double z) {
-
 		super(worldIn, x, y, z);
 	}
 
 	public static void registerFixesMinecartTNT(DataFixer fixer) {
-
 		EntityMinecart.registerFixesMinecart(fixer, EntityMinecartTNT.class);
 	}
 
@@ -41,7 +38,6 @@ public class EntityMinecartTNT extends EntityMinecart {
 	}
 
 	public IBlockState getDefaultDisplayTile() {
-
 		return Blocks.TNT.getDefaultState();
 	}
 
@@ -49,7 +45,6 @@ public class EntityMinecartTNT extends EntityMinecart {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		super.onUpdate();
 
 		if (minecartTNTFuse > 0) {
@@ -72,11 +67,9 @@ public class EntityMinecartTNT extends EntityMinecart {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		Entity entity = source.getImmediateSource();
 
 		if (entity instanceof EntityArrow entityarrow) {
-
 			if (entityarrow.isBurning()) {
 				explodeCart(entityarrow.motionX * entityarrow.motionX + entityarrow.motionY * entityarrow.motionY + entityarrow.motionZ * entityarrow.motionZ);
 			}
@@ -86,7 +79,6 @@ public class EntityMinecartTNT extends EntityMinecart {
 	}
 
 	public void killMinecart(DamageSource source) {
-
 		double d0 = motionX * motionX + motionZ * motionZ;
 
 		if (!source.isFireDamage() && !source.isExplosion() && d0 < 0.009999999776482582D) {
@@ -107,7 +99,6 @@ public class EntityMinecartTNT extends EntityMinecart {
 	 * Makes the minecart explode.
 	 */
 	protected void explodeCart(double p_94103_1_) {
-
 		if (!world.isRemote) {
 			double d0 = Math.sqrt(p_94103_1_);
 
@@ -121,7 +112,6 @@ public class EntityMinecartTNT extends EntityMinecart {
 	}
 
 	public void fall(float distance, float damageMultiplier) {
-
 		if (distance >= 3F) {
 			float f = distance / 10F;
 			explodeCart(f * f);
@@ -134,7 +124,6 @@ public class EntityMinecartTNT extends EntityMinecart {
 	 * Called every tick the minecart is on an activator rail.
 	 */
 	public void onActivatorRailPass(int x, int y, int z, boolean receivingPower) {
-
 		if (receivingPower && minecartTNTFuse < 0) {
 			ignite();
 		}
@@ -144,7 +133,6 @@ public class EntityMinecartTNT extends EntityMinecart {
 	 * Handler for {@link World#setEntityState}
 	 */
 	public void handleStatusUpdate(byte id) {
-
 		if (id == 10) {
 			ignite();
 		} else {
@@ -156,7 +144,6 @@ public class EntityMinecartTNT extends EntityMinecart {
 	 * Ignites this TNT cart.
 	 */
 	public void ignite() {
-
 		minecartTNTFuse = 80;
 
 		if (!world.isRemote) {
@@ -172,7 +159,6 @@ public class EntityMinecartTNT extends EntityMinecart {
 	 * Gets the remaining fuse time in ticks.
 	 */
 	public int getFuseTicks() {
-
 		return minecartTNTFuse;
 	}
 
@@ -180,7 +166,6 @@ public class EntityMinecartTNT extends EntityMinecart {
 	 * Returns true if the TNT minecart is ignited.
 	 */
 	public boolean isIgnited() {
-
 		return minecartTNTFuse > -1;
 	}
 
@@ -188,12 +173,10 @@ public class EntityMinecartTNT extends EntityMinecart {
 	 * Explosion resistance of a block relative to this entity
 	 */
 	public float getExplosionResistance(Explosion explosionIn, World worldIn, BlockPos pos, IBlockState blockStateIn) {
-
 		return !isIgnited() || !BlockRailBase.isRailBlock(blockStateIn) && !BlockRailBase.isRailBlock(worldIn, pos.up()) ? super.getExplosionResistance(explosionIn, worldIn, pos, blockStateIn) : 0F;
 	}
 
 	public boolean canExplosionDestroyBlock(Explosion explosionIn, World worldIn, BlockPos pos, IBlockState blockStateIn, float p_174816_5_) {
-
 		return (!isIgnited() || !BlockRailBase.isRailBlock(blockStateIn) && !BlockRailBase.isRailBlock(worldIn, pos.up())) && super.canExplosionDestroyBlock(explosionIn, worldIn, pos, blockStateIn, p_174816_5_);
 	}
 
@@ -201,7 +184,6 @@ public class EntityMinecartTNT extends EntityMinecart {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	protected void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 
 		if (compound.hasKey("TNTFuse", 99)) {
@@ -213,7 +195,6 @@ public class EntityMinecartTNT extends EntityMinecart {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	protected void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setInteger("TNTFuse", minecartTNTFuse);
 	}

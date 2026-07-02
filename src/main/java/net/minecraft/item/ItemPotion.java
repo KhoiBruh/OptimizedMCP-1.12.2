@@ -24,13 +24,11 @@ import java.util.List;
 public class ItemPotion extends Item {
 
 	public ItemPotion() {
-
 		setMaxStackSize(1);
 		setCreativeTab(CreativeTabs.BREWING);
 	}
 
 	public ItemStack getDefaultInstance() {
-
 		return PotionUtils.addPotionToItemStack(super.getDefaultInstance(), PotionTypes.WATER);
 	}
 
@@ -39,7 +37,6 @@ public class ItemPotion extends Item {
 	 * the Item before the action is complete.
 	 */
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
-
 		EntityPlayer entityplayer = entityLiving instanceof EntityPlayer ? (EntityPlayer) entityLiving : null;
 
 		if (entityplayer == null || !entityplayer.capabilities.isCreativeMode) {
@@ -81,7 +78,6 @@ public class ItemPotion extends Item {
 	 * How long it takes to use or consume an item
 	 */
 	public int getMaxItemUseDuration(ItemStack stack) {
-
 		return 32;
 	}
 
@@ -89,18 +85,15 @@ public class ItemPotion extends Item {
 	 * returns the action that specifies what animation to play when the items is being used
 	 */
 	public Action getItemUseAction(ItemStack stack) {
-
 		return Action.DRINK;
 	}
 
 	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
-
 		playerIn.setActiveHand(handIn);
 		return new TypedActionResult<>(ActionResult.SUCCESS, playerIn.getHeldItem(handIn));
 	}
 
 	public String getItemStackDisplayName(ItemStack stack) {
-
 		return I18n.translateToLocal(PotionUtils.getPotionFromItem(stack).getNamePrefixed("potion.effect."));
 	}
 
@@ -108,7 +101,6 @@ public class ItemPotion extends Item {
 	 * allows items to add custom lines of information to the mouseover description
 	 */
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-
 		PotionUtils.addPotionTooltip(stack, tooltip, 1F);
 	}
 
@@ -121,7 +113,6 @@ public class ItemPotion extends Item {
 	 * the glint for enchanted items. Of course, that is unnecessary if the overwritten version always returns true.
 	 */
 	public boolean hasEffect(ItemStack stack) {
-
 		return super.hasEffect(stack) || !PotionUtils.getEffectsFromStack(stack).isEmpty();
 	}
 
@@ -129,7 +120,6 @@ public class ItemPotion extends Item {
 	 * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
 	 */
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-
 		if (isInCreativeTab(tab)) {
 			for (PotionType potiontype : PotionType.REGISTRY) {
 				if (potiontype != PotionTypes.EMPTY) {

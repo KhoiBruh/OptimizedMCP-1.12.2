@@ -90,7 +90,6 @@ public class WorldServer extends World implements IThreadListener {
 	private int blockEventCacheIndex;
 
 	public WorldServer(MinecraftServer server, ISaveHandler saveHandlerIn, WorldInfo info, int dimensionId, Profiler profilerIn) {
-
 		super(saveHandlerIn, info, DimensionType.getById(dimensionId).createDimension(), profilerIn, false);
 		mcServer = server;
 		entityTracker = new EntityTracker(this);
@@ -104,7 +103,6 @@ public class WorldServer extends World implements IThreadListener {
 	}
 
 	public World init() {
-
 		mapStorage = new MapStorage(saveHandler);
 		String s = VillageCollection.fileNameForProvider(provider);
 		VillageCollection villagecollection = (VillageCollection) mapStorage.getOrLoadData(VillageCollection.class, s);
@@ -149,7 +147,6 @@ public class WorldServer extends World implements IThreadListener {
 	 * Runs a single tick for the world
 	 */
 	public void tick() {
-
 		super.tick();
 
 		if (getWorldInfo().isHardcoreModeEnabled() && getDifficulty() != Difficulty.HARD) {
@@ -210,7 +207,6 @@ public class WorldServer extends World implements IThreadListener {
 	}
 
 	public boolean canCreatureTypeSpawnHere(CreatureType creatureType, Biome.SpawnListEntry spawnListEntry, BlockPos pos) {
-
 		List<Biome.SpawnListEntry> list = getChunkProvider().getPossibleCreatures(creatureType, pos);
 		return list != null && !list.isEmpty() && list.contains(spawnListEntry);
 	}
@@ -219,7 +215,6 @@ public class WorldServer extends World implements IThreadListener {
 	 * Updates the flag that indicates whether or not all players in the world are sleeping.
 	 */
 	public void updateAllPlayersSleepingFlag() {
-
 		allPlayersSleeping = false;
 
 		if (!playerEntities.isEmpty()) {
@@ -239,7 +234,6 @@ public class WorldServer extends World implements IThreadListener {
 	}
 
 	protected void wakeAllPlayers() {
-
 		allPlayersSleeping = false;
 
 		for (EntityPlayer entityplayer : playerEntities.stream().filter(EntityPlayer::isPlayerSleeping).toList()) {
@@ -255,7 +249,6 @@ public class WorldServer extends World implements IThreadListener {
 	 * Clears the current rain and thunder weather states.
 	 */
 	private void resetRainAndThunder() {
-
 		worldInfo.setRainTime(0);
 		worldInfo.setRaining(false);
 		worldInfo.setThunderTime(0);
@@ -266,7 +259,6 @@ public class WorldServer extends World implements IThreadListener {
 	 * Checks if all players in this world are sleeping.
 	 */
 	public boolean areAllPlayersAsleep() {
-
 		if (allPlayersSleeping && !isRemote) {
 			for (EntityPlayer entityplayer : playerEntities) {
 				if (!entityplayer.isSpectator() && !entityplayer.isPlayerFullyAsleep()) {
@@ -284,7 +276,6 @@ public class WorldServer extends World implements IThreadListener {
 	 * Sets a new spawn location by finding an uncovered block at a random (x,z) location in the chunk.
 	 */
 	public void setInitialSpawnLocation() {
-
 		if (worldInfo.getSpawnY() <= 0) {
 			worldInfo.setSpawnY(getSeaLevel() + 1);
 		}
@@ -308,12 +299,10 @@ public class WorldServer extends World implements IThreadListener {
 	}
 
 	protected boolean isChunkLoaded(int x, int z, boolean allowEmpty) {
-
 		return getChunkProvider().chunkExists(x, z);
 	}
 
 	protected void playerCheckLight() {
-
 		profiler.startSection("playerCheckLight");
 
 		if (!playerEntities.isEmpty()) {
@@ -329,7 +318,6 @@ public class WorldServer extends World implements IThreadListener {
 	}
 
 	protected void updateBlocks() {
-
 		playerCheckLight();
 
 		if (worldInfo.getTerrainType() == WorldType.DEBUG_ALL_BLOCK_STATES) {
@@ -428,7 +416,6 @@ public class WorldServer extends World implements IThreadListener {
 	}
 
 	protected BlockPos adjustPosToNearbyEntity(BlockPos pos) {
-
 		BlockPos blockpos = getPrecipitationHeight(pos);
 		AxisAlignedBB axisalignedbb = (new AxisAlignedBB(blockpos, new BlockPos(blockpos.getX(), getHeight(), blockpos.getZ()))).grow(3D);
 		List<EntityLivingBase> list = getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb, p_apply_1_ -> p_apply_1_ != null && p_apply_1_.isEntityAlive() && canSeeSky(p_apply_1_.getPosition()));
@@ -445,7 +432,6 @@ public class WorldServer extends World implements IThreadListener {
 	}
 
 	public boolean isBlockTickPending(BlockPos pos, Block blockType) {
-
 		NextTickListEntry nextticklistentry = new NextTickListEntry(pos, blockType);
 		return pendingTickListEntriesThisTick.contains(nextticklistentry);
 	}
@@ -454,18 +440,15 @@ public class WorldServer extends World implements IThreadListener {
 	 * Returns true if the identified block is scheduled to be updated.
 	 */
 	public boolean isUpdateScheduled(BlockPos pos, Block blk) {
-
 		NextTickListEntry nextticklistentry = new NextTickListEntry(pos, blk);
 		return pendingTickListEntriesHashSet.contains(nextticklistentry);
 	}
 
 	public void scheduleUpdate(BlockPos pos, Block blockIn, int delay) {
-
 		updateBlockTick(pos, blockIn, delay, 0);
 	}
 
 	public void updateBlockTick(BlockPos pos, Block blockIn, int delay, int priority) {
-
 		Material material = blockIn.getDefaultState().getMaterial();
 
 		if (scheduledUpdatesAreImmediate && material != Material.AIR) {
@@ -503,7 +486,6 @@ public class WorldServer extends World implements IThreadListener {
 	 * Called by CommandClone and AnvilChunkLoader to force a block update.
 	 */
 	public void scheduleBlockUpdate(BlockPos pos, Block blockIn, int delay, int priority) {
-
 		NextTickListEntry nextticklistentry = new NextTickListEntry(pos, blockIn);
 		nextticklistentry.setPriority(priority);
 		Material material = blockIn.getDefaultState().getMaterial();
@@ -522,7 +504,6 @@ public class WorldServer extends World implements IThreadListener {
 	 * Updates (and cleans up) entities and tile entities
 	 */
 	public void updateEntities() {
-
 		if (playerEntities.isEmpty()) {
 			if (updateEntityTick++ >= 300) {
 				return;
@@ -536,7 +517,6 @@ public class WorldServer extends World implements IThreadListener {
 	}
 
 	protected void tickPlayers() {
-
 		super.tickPlayers();
 		profiler.endStartSection("players");
 
@@ -587,7 +567,6 @@ public class WorldServer extends World implements IThreadListener {
 	 * Resets the updateEntityTick field to 0
 	 */
 	public void resetUpdateEntityTick() {
-
 		updateEntityTick = 0;
 	}
 
@@ -595,7 +574,6 @@ public class WorldServer extends World implements IThreadListener {
 	 * Runs through the list of updates to run and ticks them
 	 */
 	public boolean tickUpdates(boolean runAllPending) {
-
 		if (worldInfo.getTerrainType() == WorldType.DEBUG_ALL_BLOCK_STATES) {
 			return false;
 		} else {
@@ -658,7 +636,6 @@ public class WorldServer extends World implements IThreadListener {
 
 	
 	public List<NextTickListEntry> getPendingBlockUpdates(Chunk chunkIn, boolean remove) {
-
 		ChunkPos chunkpos = chunkIn.getPos();
 		int i = (chunkpos.x << 4) - 2;
 		int j = i + 16 + 2;
@@ -669,7 +646,6 @@ public class WorldServer extends World implements IThreadListener {
 
 	
 	public List<NextTickListEntry> getPendingBlockUpdates(StructureBoundingBox structureBB, boolean remove) {
-
 		List<NextTickListEntry> list = null;
 
 		for (int i = 0; i < 2; ++i) {
@@ -710,7 +686,6 @@ public class WorldServer extends World implements IThreadListener {
 	 * Updates the entity in the world if the chunk the entity is in is currently loaded or its forced to update.
 	 */
 	public void updateEntityWithOptionalForce(Entity entityIn, boolean forceUpdate) {
-
 		if (!canSpawnAnimals() && (entityIn instanceof EntityAnimal || entityIn instanceof EntityWaterMob)) {
 			entityIn.setDead();
 		}
@@ -723,12 +698,10 @@ public class WorldServer extends World implements IThreadListener {
 	}
 
 	private boolean canSpawnNPCs() {
-
 		return mcServer.getCanSpawnNPCs();
 	}
 
 	private boolean canSpawnAnimals() {
-
 		return mcServer.getCanSpawnAnimals();
 	}
 
@@ -736,18 +709,15 @@ public class WorldServer extends World implements IThreadListener {
 	 * Creates the chunk provider for this world. Called in the constructor. Retrieves provider from worldProvider?
 	 */
 	protected IChunkProvider createChunkProvider() {
-
 		IChunkLoader ichunkloader = saveHandler.getChunkLoader(provider);
 		return new ChunkProviderServer(this, ichunkloader, provider.createChunkGenerator());
 	}
 
 	public boolean isBlockModifiable(EntityPlayer player, BlockPos pos) {
-
 		return !mcServer.isBlockProtected(this, pos, player) && getWorldBorder().contains(pos);
 	}
 
 	public void initialize(WorldSettings settings) {
-
 		if (!worldInfo.isInitialized()) {
 			try {
 				createSpawnPosition(settings);
@@ -773,7 +743,6 @@ public class WorldServer extends World implements IThreadListener {
 	}
 
 	private void setDebugWorldSettings() {
-
 		worldInfo.setMapFeaturesEnabled(false);
 		worldInfo.setAllowCommands(true);
 		worldInfo.setRaining(false);
@@ -791,7 +760,6 @@ public class WorldServer extends World implements IThreadListener {
 	 * creates a spawn position at random within 256 blocks of 0,0
 	 */
 	private void createSpawnPosition(WorldSettings settings) {
-
 		if (!provider.canRespawnHere()) {
 			worldInfo.setSpawn(BlockPos.ORIGIN.up(provider.getAverageGroundLevel()));
 		} else if (worldInfo.getTerrainType() == WorldType.DEBUG_ALL_BLOCK_STATES) {
@@ -838,7 +806,6 @@ public class WorldServer extends World implements IThreadListener {
 	 * Creates the bonus chest in the world.
 	 */
 	protected void createBonusChest() {
-
 		WorldGeneratorBonusChest worldgeneratorbonuschest = new WorldGeneratorBonusChest();
 
 		for (int i = 0; i < 10; ++i) {
@@ -858,7 +825,6 @@ public class WorldServer extends World implements IThreadListener {
 	 * Returns null for anything other than the End
 	 */
 	public BlockPos getSpawnCoordinate() {
-
 		return provider.getSpawnCoordinate();
 	}
 
@@ -866,7 +832,6 @@ public class WorldServer extends World implements IThreadListener {
 	 * Saves all chunks to disk while updating progress bar.
 	 */
 	public void saveAllChunks(boolean all, IProgressUpdate progressCallback) throws MinecraftException {
-
 		ChunkProviderServer chunkproviderserver = getChunkProvider();
 
 		if (chunkproviderserver.canSave()) {
@@ -894,7 +859,6 @@ public class WorldServer extends World implements IThreadListener {
 	 * Flushes all pending chunks fully back to disk
 	 */
 	public void flushToDisk() {
-
 		ChunkProviderServer chunkproviderserver = getChunkProvider();
 
 		if (chunkproviderserver.canSave()) {
@@ -906,7 +870,6 @@ public class WorldServer extends World implements IThreadListener {
 	 * Saves the chunks to disk.
 	 */
 	protected void saveLevel() throws MinecraftException {
-
 		checkSessionLock();
 
 		for (WorldServer worldserver : mcServer.worlds) {
@@ -932,12 +895,10 @@ public class WorldServer extends World implements IThreadListener {
 	 * Called when an entity is spawned in the world. This includes players.
 	 */
 	public boolean spawnEntity(Entity entityIn) {
-
 		return canAddEntity(entityIn) && super.spawnEntity(entityIn);
 	}
 
 	public void loadEntities(Collection<Entity> entityCollection) {
-
 		for (Entity entity : Lists.newArrayList(entityCollection)) {
 			if (canAddEntity(entity)) {
 				loadedEntityList.add(entity);
@@ -947,7 +908,6 @@ public class WorldServer extends World implements IThreadListener {
 	}
 
 	private boolean canAddEntity(Entity entityIn) {
-
 		if (entityIn.isDead) {
 			LOGGER.warn("Tried to add entity {} but it was marked as removed already", EntityList.getKey(entityIn));
 			return false;
@@ -976,7 +936,6 @@ public class WorldServer extends World implements IThreadListener {
 	}
 
 	protected void onEntityAdded(Entity entityIn) {
-
 		super.onEntityAdded(entityIn);
 		entitiesById.addKey(entityIn.getEntityId(), entityIn);
 		entitiesByUuid.put(entityIn.getUniqueID(), entityIn);
@@ -990,7 +949,6 @@ public class WorldServer extends World implements IThreadListener {
 	}
 
 	protected void onEntityRemoved(Entity entityIn) {
-
 		super.onEntityRemoved(entityIn);
 		entitiesById.removeObject(entityIn.getEntityId());
 		entitiesByUuid.remove(entityIn.getUniqueID());
@@ -1007,7 +965,6 @@ public class WorldServer extends World implements IThreadListener {
 	 * adds a lightning bolt to the list of lightning bolts in this world.
 	 */
 	public boolean addWeatherEffect(Entity entityIn) {
-
 		if (super.addWeatherEffect(entityIn)) {
 			mcServer.getPlayerList().sendToAllNearExcept(null, entityIn.posX, entityIn.posY, entityIn.posZ, 512D, provider.getDimensionType().getId(), new SPacketSpawnGlobalEntity(entityIn));
 			return true;
@@ -1020,7 +977,6 @@ public class WorldServer extends World implements IThreadListener {
 	 * sends a Packet 38 (Entity Status) to all tracked players of that entity
 	 */
 	public void setEntityState(Entity entityIn, byte state) {
-
 		getEntityTracker().sendToTrackingAndSelf(entityIn, new SPacketEntityStatus(entityIn, state));
 	}
 
@@ -1028,7 +984,6 @@ public class WorldServer extends World implements IThreadListener {
 	 * gets the world's chunk provider
 	 */
 	public ChunkProviderServer getChunkProvider() {
-
 		return (ChunkProviderServer) super.getChunkProvider();
 	}
 
@@ -1036,7 +991,6 @@ public class WorldServer extends World implements IThreadListener {
 	 * returns a new explosion. Does initiation (at time of writing Explosion is not finished)
 	 */
 	public Explosion newExplosion(Entity entityIn, double x, double y, double z, float strength, boolean isFlaming, boolean isSmoking) {
-
 		Explosion explosion = new Explosion(this, entityIn, x, y, z, strength, isFlaming, isSmoking);
 		explosion.doExplosionA();
 		explosion.doExplosionB(false);
@@ -1055,7 +1009,6 @@ public class WorldServer extends World implements IThreadListener {
 	}
 
 	public void addBlockEvent(BlockPos pos, Block blockIn, int eventID, int eventParam) {
-
 		BlockEventData blockeventdata = new BlockEventData(pos, blockIn, eventID, eventParam);
 
 		for (BlockEventData blockeventdata1 : blockEventQueue[blockEventCacheIndex]) {
@@ -1068,7 +1021,6 @@ public class WorldServer extends World implements IThreadListener {
 	}
 
 	private void sendQueuedBlockEvents() {
-
 		while (!blockEventQueue[blockEventCacheIndex].isEmpty()) {
 			int i = blockEventCacheIndex;
 			blockEventCacheIndex ^= 1;
@@ -1084,7 +1036,6 @@ public class WorldServer extends World implements IThreadListener {
 	}
 
 	private boolean fireBlockEvent(BlockEventData event) {
-
 		IBlockState iblockstate = getBlockState(event.getPosition());
 		return iblockstate.getBlock() == event.getBlock() && iblockstate.onBlockEventReceived(this, event.getPosition(), event.getEventID(), event.getEventParameter());
 	}
@@ -1093,7 +1044,6 @@ public class WorldServer extends World implements IThreadListener {
 	 * Syncs all changes to disk and wait for completion.
 	 */
 	public void flush() {
-
 		saveHandler.flush();
 	}
 
@@ -1101,7 +1051,6 @@ public class WorldServer extends World implements IThreadListener {
 	 * Updates all weather states.
 	 */
 	protected void updateWeather() {
-
 		boolean flag = isRaining();
 		super.updateWeather();
 
@@ -1127,7 +1076,6 @@ public class WorldServer extends World implements IThreadListener {
 
 	
 	public MinecraftServer getMinecraftServer() {
-
 		return mcServer;
 	}
 
@@ -1135,7 +1083,6 @@ public class WorldServer extends World implements IThreadListener {
 	 * Gets the entity tracker for this server world.
 	 */
 	public EntityTracker getEntityTracker() {
-
 		return entityTracker;
 	}
 
@@ -1143,17 +1090,14 @@ public class WorldServer extends World implements IThreadListener {
 	 * Gets the player chunk map for this server world.
 	 */
 	public PlayerChunkMap getPlayerChunkMap() {
-
 		return playerChunkMap;
 	}
 
 	public Teleporter getDefaultTeleporter() {
-
 		return worldTeleporter;
 	}
 
 	public TemplateManager getStructureTemplateManager() {
-
 		return saveHandler.getStructureTemplateManager();
 	}
 
@@ -1161,7 +1105,6 @@ public class WorldServer extends World implements IThreadListener {
 	 * Spawns the desired particle and sends the necessary packets to the relevant connected players.
 	 */
 	public void spawnParticle(ParticleTypes particleType, double xCoord, double yCoord, double zCoord, int numberOfParticles, double xOffset, double yOffset, double zOffset, double particleSpeed, int... particleArguments) {
-
 		spawnParticle(particleType, false, xCoord, yCoord, zCoord, numberOfParticles, xOffset, yOffset, zOffset, particleSpeed, particleArguments);
 	}
 
@@ -1169,7 +1112,6 @@ public class WorldServer extends World implements IThreadListener {
 	 * Spawns the desired particle and sends the necessary packets to the relevant connected players.
 	 */
 	public void spawnParticle(ParticleTypes particleType, boolean longDistance, double xCoord, double yCoord, double zCoord, int numberOfParticles, double xOffset, double yOffset, double zOffset, double particleSpeed, int... particleArguments) {
-
 		SPacketParticles spacketparticles = new SPacketParticles(particleType, longDistance, (float) xCoord, (float) yCoord, (float) zCoord, (float) xOffset, (float) yOffset, (float) zOffset, (float) particleSpeed, numberOfParticles, particleArguments);
 
 		for (EntityPlayer playerEntity : playerEntities) {
@@ -1179,13 +1121,11 @@ public class WorldServer extends World implements IThreadListener {
 	}
 
 	public void spawnParticle(EntityPlayerMP player, ParticleTypes particle, boolean longDistance, double x, double y, double z, int count, double xOffset, double yOffset, double zOffset, double speed, int... arguments) {
-
 		Packet<?> packet = new SPacketParticles(particle, longDistance, (float) x, (float) y, (float) z, (float) xOffset, (float) yOffset, (float) zOffset, (float) speed, count, arguments);
 		sendPacketWithinDistance(player, longDistance, x, y, z, packet);
 	}
 
 	private void sendPacketWithinDistance(EntityPlayerMP player, boolean longDistance, double x, double y, double z, Packet<?> packetIn) {
-
 		BlockPos blockpos = player.getPosition();
 		double d0 = blockpos.distanceSq(x, y, z);
 
@@ -1196,40 +1136,33 @@ public class WorldServer extends World implements IThreadListener {
 
 	
 	public Entity getEntityFromUuid(UUID uuid) {
-
 		return entitiesByUuid.get(uuid);
 	}
 
 	public ListenableFuture<Object> addScheduledTask(Runnable runnableToSchedule) {
-
 		return mcServer.addScheduledTask(runnableToSchedule);
 	}
 
 	public boolean isCallingFromMinecraftThread() {
-
 		return mcServer.isCallingFromMinecraftThread();
 	}
 
 	
 	public BlockPos findNearestStructure(String p_190528_1_, BlockPos p_190528_2_, boolean p_190528_3_) {
-
 		return getChunkProvider().getNearestStructurePos(this, p_190528_1_, p_190528_2_, p_190528_3_);
 	}
 
 	public AdvancementManager getAdvancementManager() {
-
 		return advancementManager;
 	}
 
 	public FunctionManager getFunctionManager() {
-
 		return functionManager;
 	}
 
 	static class ServerBlockEventList extends ArrayList<BlockEventData> {
 
 		private ServerBlockEventList() {
-
 		}
 
 	}

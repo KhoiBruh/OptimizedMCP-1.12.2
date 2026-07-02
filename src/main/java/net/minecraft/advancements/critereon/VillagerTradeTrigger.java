@@ -22,12 +22,10 @@ public class VillagerTradeTrigger implements ICriterionTrigger<VillagerTradeTrig
 	private final Map<PlayerAdvancements, VillagerTradeTrigger.Listeners> listeners = Maps.newHashMap();
 
 	public ResourceLocation getId() {
-
 		return ID;
 	}
 
 	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<VillagerTradeTrigger.Instance> listener) {
-
 		VillagerTradeTrigger.Listeners villagertradetrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (villagertradetrigger$listeners == null) {
@@ -39,7 +37,6 @@ public class VillagerTradeTrigger implements ICriterionTrigger<VillagerTradeTrig
 	}
 
 	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<VillagerTradeTrigger.Instance> listener) {
-
 		VillagerTradeTrigger.Listeners villagertradetrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (villagertradetrigger$listeners != null) {
@@ -52,7 +49,6 @@ public class VillagerTradeTrigger implements ICriterionTrigger<VillagerTradeTrig
 	}
 
 	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
-
 		listeners.remove(playerAdvancementsIn);
 	}
 
@@ -67,7 +63,6 @@ public class VillagerTradeTrigger implements ICriterionTrigger<VillagerTradeTrig
 	}
 
 	public void trigger(EntityPlayerMP player, EntityVillager villager, ItemStack item) {
-
 		VillagerTradeTrigger.Listeners villagertradetrigger$listeners = listeners.get(player.getAdvancements());
 
 		if (villagertradetrigger$listeners != null) {
@@ -81,14 +76,12 @@ public class VillagerTradeTrigger implements ICriterionTrigger<VillagerTradeTrig
 		private final ItemPredicate item;
 
 		public Instance(EntityPredicate villager, ItemPredicate item) {
-
 			super(VillagerTradeTrigger.ID);
 			this.villager = villager;
 			this.item = item;
 		}
 
 		public boolean test(EntityPlayerMP player, EntityVillager villager, ItemStack item) {
-
 			if (!this.villager.test(player, villager)) {
 				return false;
 			} else {
@@ -104,27 +97,22 @@ public class VillagerTradeTrigger implements ICriterionTrigger<VillagerTradeTrig
 		private final Set<ICriterionTrigger.Listener<VillagerTradeTrigger.Instance>> listeners = Sets.newHashSet();
 
 		public Listeners(PlayerAdvancements playerAdvancementsIn) {
-
 			playerAdvancements = playerAdvancementsIn;
 		}
 
 		public boolean isEmpty() {
-
 			return listeners.isEmpty();
 		}
 
 		public void add(ICriterionTrigger.Listener<VillagerTradeTrigger.Instance> listener) {
-
 			listeners.add(listener);
 		}
 
 		public void remove(ICriterionTrigger.Listener<VillagerTradeTrigger.Instance> listener) {
-
 			listeners.remove(listener);
 		}
 
 		public void trigger(EntityPlayerMP player, EntityVillager villager, ItemStack item) {
-
 			List<ICriterionTrigger.Listener<VillagerTradeTrigger.Instance>> list = null;
 
 			for (ICriterionTrigger.Listener<VillagerTradeTrigger.Instance> listener : listeners) {

@@ -7,7 +7,6 @@ import net.minecraft.creativetab.CreativeTabs;
 public class BlockBone extends BlockRotatedPillar {
 
 	public BlockBone() {
-
 		super(Material.ROCK, MapColor.SAND);
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 		setHardness(2F);

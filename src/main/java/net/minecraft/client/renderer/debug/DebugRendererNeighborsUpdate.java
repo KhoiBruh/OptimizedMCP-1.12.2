@@ -22,12 +22,10 @@ public class DebugRendererNeighborsUpdate implements DebugRenderer.IDebugRendere
 	private final Map<Long, Map<BlockPos, Integer>> lastUpdate = Maps.newTreeMap(Ordering.natural().reverse());
 
 	DebugRendererNeighborsUpdate(Minecraft minecraftIn) {
-
 		minecraft = minecraftIn;
 	}
 
 	public void addUpdate(long worldTime, BlockPos pos) {
-
 		Map<BlockPos, Integer> map = lastUpdate.computeIfAbsent(worldTime, k -> Maps.newHashMap());
 
 		Integer integer = map.get(pos);
@@ -40,7 +38,6 @@ public class DebugRendererNeighborsUpdate implements DebugRenderer.IDebugRendere
 	}
 
 	public void render(float partialTicks, long finishTimeNano) {
-
 		long i = minecraft.world.getTotalWorldTime();
 		EntityPlayer entityplayer = minecraft.player;
 		double d0 = entityplayer.lastTickPosX + (entityplayer.posX - entityplayer.lastTickPosX) * (double) partialTicks;

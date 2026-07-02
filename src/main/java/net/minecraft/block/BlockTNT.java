@@ -26,7 +26,6 @@ public class BlockTNT extends Block {
 	public static final PropertyBool EXPLODE = PropertyBool.create("explode");
 
 	public BlockTNT() {
-
 		super(Material.TNT);
 		setDefaultState(blockState.getBaseState().withProperty(EXPLODE, false));
 		setCreativeTab(CreativeTabs.REDSTONE);
@@ -36,7 +35,6 @@ public class BlockTNT extends Block {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		super.onBlockAdded(worldIn, pos, state);
 
 		if (worldIn.isBlockPowered(pos)) {
@@ -51,7 +49,6 @@ public class BlockTNT extends Block {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (worldIn.isBlockPowered(pos)) {
 			onBlockDestroyedByPlayer(worldIn, pos, state.withProperty(EXPLODE, true));
 			worldIn.setBlockToAir(pos);
@@ -62,7 +59,6 @@ public class BlockTNT extends Block {
 	 * Called when this Block is destroyed by an Explosion
 	 */
 	public void onBlockDestroyedByExplosion(World worldIn, BlockPos pos, Explosion explosionIn) {
-
 		if (!worldIn.isRemote) {
 			EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(worldIn, (float) pos.getX() + 0.5F, pos.getY(), (float) pos.getZ() + 0.5F, explosionIn.getExplosivePlacedBy());
 			entitytntprimed.setFuse((short) (worldIn.rand.nextInt(entitytntprimed.getFuse() / 4) + entitytntprimed.getFuse() / 8));
@@ -74,12 +70,10 @@ public class BlockTNT extends Block {
 	 * Called after a player destroys this Block - the posiiton pos may no longer hold the state indicated.
 	 */
 	public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
-
 		explode(worldIn, pos, state, null);
 	}
 
 	public void explode(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase igniter) {
-
 		if (!worldIn.isRemote) {
 			if (state.getValue(EXPLODE)) {
 				EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(worldIn, (float) pos.getX() + 0.5F, pos.getY(), (float) pos.getZ() + 0.5F, igniter);
@@ -93,7 +87,6 @@ public class BlockTNT extends Block {
 	 * Called when the block is right clicked by a player.
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		ItemStack itemstack = playerIn.getHeldItem(hand);
 
 		if (!itemstack.isEmpty() && (itemstack.getItem() == Items.FLINT_AND_STEEL || itemstack.getItem() == Items.FIRE_CHARGE)) {
@@ -116,9 +109,7 @@ public class BlockTNT extends Block {
 	 * Called When an Entity Collided with the Block
 	 */
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-
 		if (!worldIn.isRemote && entityIn instanceof EntityArrow entityarrow) {
-
 			if (entityarrow.isBurning()) {
 				explode(worldIn, pos, worldIn.getBlockState(pos).withProperty(EXPLODE, true), entityarrow.shootingEntity instanceof EntityLivingBase ? (EntityLivingBase) entityarrow.shootingEntity : null);
 				worldIn.setBlockToAir(pos);
@@ -130,7 +121,6 @@ public class BlockTNT extends Block {
 	 * Return whether this block can drop from an explosion.
 	 */
 	public boolean canDropFromExplosion(Explosion explosionIn) {
-
 		return false;
 	}
 
@@ -138,7 +128,6 @@ public class BlockTNT extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(EXPLODE, (meta & 1) > 0);
 	}
 
@@ -146,12 +135,10 @@ public class BlockTNT extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(EXPLODE) ? 1 : 0;
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, EXPLODE);
 	}
 

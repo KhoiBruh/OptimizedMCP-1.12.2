@@ -13,18 +13,15 @@ public class NBTTagString extends NBTBase {
 	private String data;
 	
 	public NBTTagString() {
-		
 		this("");
 	}
 	
 	public NBTTagString(String data) {
-		
 		Objects.requireNonNull(data, "Null string not allowed");
 		this.data = data;
 	}
 	
 	public static String quoteAndEscape(String p_193588_0_) {
-		
 		StringBuilder stringbuilder = new StringBuilder("\"");
 		
 		for (int i = 0; i < p_193588_0_.length(); ++i) {
@@ -44,12 +41,10 @@ public class NBTTagString extends NBTBase {
 	 * Write the actual data contents of the tag, implemented in NBT extension classes
 	 */
 	void write(DataOutput output) throws IOException {
-		
 		output.writeUTF(data);
 	}
 	
 	void read(DataInput input, int depth, NBTSizeTracker sizeTracker) throws IOException {
-		
 		sizeTracker.read(288L);
 		data = input.readUTF();
 		sizeTracker.read(16L * data.length());
@@ -59,12 +54,10 @@ public class NBTTagString extends NBTBase {
 	 * Gets the type byte for the tag.
 	 */
 	public byte getId() {
-		
 		return 8;
 	}
 	
 	public String toString() {
-		
 		return quoteAndEscape(data);
 	}
 	
@@ -72,7 +65,6 @@ public class NBTTagString extends NBTBase {
 	 * Creates a clone of the tag.
 	 */
 	public NBTTagString copy() {
-		
 		return new NBTTagString(data);
 	}
 	
@@ -80,12 +72,10 @@ public class NBTTagString extends NBTBase {
 	 * Return whether this compound has no tags.
 	 */
 	public boolean hasNoTags() {
-		
 		return data.isEmpty();
 	}
 	
 	public boolean equals(Object p_equals_1_) {
-		
 		if (!super.equals(p_equals_1_)) {
 			return false;
 		} else {
@@ -95,12 +85,10 @@ public class NBTTagString extends NBTBase {
 	}
 	
 	public int hashCode() {
-		
 		return super.hashCode() ^ data.hashCode();
 	}
 	
 	public String getString() {
-		
 		return data;
 	}
 	

@@ -12,7 +12,6 @@ public class EntityAIRestrictOpenDoor extends EntityAIBase {
 	private VillageDoorInfo frontDoor;
 
 	public EntityAIRestrictOpenDoor(EntityCreature creatureIn) {
-
 		entity = creatureIn;
 
 		if (!(creatureIn.getNavigator() instanceof PathNavigateGround)) {
@@ -24,7 +23,6 @@ public class EntityAIRestrictOpenDoor extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		if (entity.world.isDaytime()) {
 			return false;
 		} else {
@@ -49,7 +47,6 @@ public class EntityAIRestrictOpenDoor extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		if (entity.world.isDaytime()) {
 			return false;
 		} else {
@@ -61,7 +58,6 @@ public class EntityAIRestrictOpenDoor extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		((PathNavigateGround) entity.getNavigator()).setBreakDoors(false);
 		((PathNavigateGround) entity.getNavigator()).setEnterDoors(false);
 	}
@@ -70,7 +66,6 @@ public class EntityAIRestrictOpenDoor extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		((PathNavigateGround) entity.getNavigator()).setBreakDoors(true);
 		((PathNavigateGround) entity.getNavigator()).setEnterDoors(true);
 		frontDoor = null;
@@ -80,7 +75,6 @@ public class EntityAIRestrictOpenDoor extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		frontDoor.incrementDoorOpeningRestrictionCounter();
 	}
 

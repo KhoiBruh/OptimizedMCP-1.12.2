@@ -18,23 +18,19 @@ public enum Difficulty {
 	private final String difficultyResourceKey;
 
 	Difficulty(int difficultyIdIn, String difficultyResourceKeyIn) {
-
 		difficultyId = difficultyIdIn;
 		difficultyResourceKey = difficultyResourceKeyIn;
 	}
 
 	public static Difficulty getDifficultyEnum(int id) {
-
 		return ID_MAPPING[id % ID_MAPPING.length];
 	}
 
 	public int getDifficultyId() {
-
 		return difficultyId;
 	}
 
 	public String getDifficultyResourceKey() {
-
 		return difficultyResourceKey;
 	}
 }

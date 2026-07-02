@@ -27,7 +27,6 @@ public class ItemPredicate {
 	private final NBTPredicate nbt;
 
 	public ItemPredicate() {
-
 		item = null;
 		data = null;
 		potion = null;
@@ -38,7 +37,6 @@ public class ItemPredicate {
 	}
 
 	public ItemPredicate(Item item, Integer data, MinMaxBounds count, MinMaxBounds durability, EnchantmentPredicate[] enchantments, PotionType potion, NBTPredicate nbt) {
-
 		this.item = item;
 		this.data = data;
 		this.count = count;
@@ -49,7 +47,6 @@ public class ItemPredicate {
 	}
 
 	public static ItemPredicate deserialize(JsonElement element) {
-
 		if (element != null && !element.isJsonNull()) {
 			JsonObject jsonobject = JsonUtils.getJsonObject(element, "item");
 			MinMaxBounds minmaxbounds = MinMaxBounds.deserialize(jsonobject.get("count"));
@@ -87,7 +84,6 @@ public class ItemPredicate {
 	}
 
 	public static ItemPredicate[] deserializeArray(JsonElement element) {
-
 		if (element != null && !element.isJsonNull()) {
 			JsonArray jsonarray = JsonUtils.getJsonArray(element, "items");
 			ItemPredicate[] aitempredicate = new ItemPredicate[jsonarray.size()];
@@ -103,7 +99,6 @@ public class ItemPredicate {
 	}
 
 	public boolean test(ItemStack item) {
-
 		if (this.item != null && item.getItem() != this.item) {
 			return false;
 		} else if (data != null && item.getMetadata() != data) {

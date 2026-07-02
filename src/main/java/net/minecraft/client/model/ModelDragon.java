@@ -69,7 +69,6 @@ public class ModelDragon extends ModelBase {
 	private float partialTicks;
 
 	public ModelDragon(float p_i46360_1_) {
-
 		textureWidth = 256;
 		textureHeight = 256;
 		setTextureOffset("body.body", 0, 0);
@@ -152,7 +151,6 @@ public class ModelDragon extends ModelBase {
 	 * and third as in the setRotationAngles method.
 	 */
 	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTickTime) {
-
 		partialTicks = partialTickTime;
 	}
 
@@ -160,7 +158,6 @@ public class ModelDragon extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		GLS.pushMatrix();
 		EntityDragon entitydragon = (EntityDragon) entityIn;
 		float f = entitydragon.prevAnimTime + (entitydragon.animTime - entitydragon.prevAnimTime) * partialTicks;
@@ -266,7 +263,6 @@ public class ModelDragon extends ModelBase {
 	 * -180 to 180
 	 */
 	private float updateRotations(double p_78214_1_) {
-
 		while (p_78214_1_ >= 180D) {
 			p_78214_1_ -= 360D;
 		}

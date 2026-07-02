@@ -32,7 +32,6 @@ public class BlockDaylightDetector extends BlockContainer {
 	private final boolean inverted;
 
 	public BlockDaylightDetector(boolean inverted) {
-
 		super(Material.WOOD);
 		this.inverted = inverted;
 		setDefaultState(blockState.getBaseState().withProperty(POWER, 0));
@@ -43,17 +42,14 @@ public class BlockDaylightDetector extends BlockContainer {
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return DAYLIGHT_DETECTOR_AABB;
 	}
 
 	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		return blockState.getValue(POWER);
 	}
 
 	public void updatePower(World worldIn, BlockPos pos) {
-
 		if (worldIn.provider.hasSkyLight()) {
 			IBlockState iblockstate = worldIn.getBlockState(pos);
 			int i = worldIn.getLightFor(SkyBlock.SKY, pos) - worldIn.getSkylightSubtracted();
@@ -81,7 +77,6 @@ public class BlockDaylightDetector extends BlockContainer {
 	 * Called when the block is right clicked by a player.
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		if (playerIn.isAllowEdit()) {
 			if (worldIn.isRemote) {
 				return true;
@@ -105,17 +100,14 @@ public class BlockDaylightDetector extends BlockContainer {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Item.getItemFromBlock(Blocks.DAYLIGHT_DETECTOR);
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return new ItemStack(Blocks.DAYLIGHT_DETECTOR);
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -123,7 +115,6 @@ public class BlockDaylightDetector extends BlockContainer {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -132,7 +123,6 @@ public class BlockDaylightDetector extends BlockContainer {
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
 	public BlockRenderType getRenderType(IBlockState state) {
-
 		return BlockRenderType.MODEL;
 	}
 
@@ -140,7 +130,6 @@ public class BlockDaylightDetector extends BlockContainer {
 	 * Can this block provide power. Only wire currently seems to have this change based on its state.
 	 */
 	public boolean canProvidePower(IBlockState state) {
-
 		return true;
 	}
 
@@ -148,7 +137,6 @@ public class BlockDaylightDetector extends BlockContainer {
 	 * Returns a new instance of a block's tile entity class. Called on placing the block.
 	 */
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-
 		return new TileEntityDaylightDetector();
 	}
 
@@ -156,7 +144,6 @@ public class BlockDaylightDetector extends BlockContainer {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(POWER, meta);
 	}
 
@@ -164,12 +151,10 @@ public class BlockDaylightDetector extends BlockContainer {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(POWER);
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, POWER);
 	}
 
@@ -177,7 +162,6 @@ public class BlockDaylightDetector extends BlockContainer {
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-
 		if (!inverted) {
 			super.getSubBlocks(itemIn, items);
 		}
@@ -193,7 +177,6 @@ public class BlockDaylightDetector extends BlockContainer {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return face == Facing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 

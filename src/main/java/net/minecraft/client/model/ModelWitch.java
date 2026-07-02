@@ -8,7 +8,6 @@ public class ModelWitch extends ModelVillager {
 	public boolean holdingItem;
 
 	public ModelWitch(float scale) {
-
 		super(scale, 0F, 64, 128);
 		ModelRenderer mole = new ModelRenderer(this).setTextureSize(64, 128);
 		mole.setRotationPoint(0F, -2F, 0F);
@@ -44,7 +43,6 @@ public class ModelWitch extends ModelVillager {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 		villagerNose.offsetX = 0F;
 		villagerNose.offsetY = 0F;

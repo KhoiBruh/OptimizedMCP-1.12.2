@@ -22,7 +22,6 @@ public class EntityAIFindEntityNearest extends EntityAIBase {
 	private EntityLivingBase target;
 
 	public EntityAIFindEntityNearest(EntityLiving mobIn, Class<? extends EntityLivingBase> p_i45884_2_) {
-
 		mob = mobIn;
 		classToCheck = p_i45884_2_;
 
@@ -51,7 +50,6 @@ public class EntityAIFindEntityNearest extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		double d0 = getFollowRange();
 		List<EntityLivingBase> list = mob.world.getEntitiesWithinAABB(classToCheck, mob.getEntityBoundingBox().grow(d0, 4D, d0), predicate);
 		list.sort(sorter);
@@ -68,7 +66,6 @@ public class EntityAIFindEntityNearest extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		EntityLivingBase entitylivingbase = mob.getAttackTarget();
 
 		if (entitylivingbase == null) {
@@ -90,7 +87,6 @@ public class EntityAIFindEntityNearest extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		mob.setAttackTarget(target);
 		super.startExecuting();
 	}
@@ -99,13 +95,11 @@ public class EntityAIFindEntityNearest extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		mob.setAttackTarget(null);
 		super.startExecuting();
 	}
 
 	protected double getFollowRange() {
-
 		IAttributeInstance iattributeinstance = mob.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
 		return iattributeinstance == null ? 16D : iattributeinstance.getAttributeValue();
 	}

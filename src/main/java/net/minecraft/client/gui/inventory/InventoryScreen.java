@@ -35,7 +35,6 @@ public class InventoryScreen extends InventoryEffectRenderer implements IRecipeS
 	private boolean buttonClicked;
 
 	public InventoryScreen(EntityPlayer player) {
-
 		super(player.inventoryContainer);
 		allowInput = true;
 	}
@@ -44,7 +43,6 @@ public class InventoryScreen extends InventoryEffectRenderer implements IRecipeS
 	 * Draws an entity on the screen looking toward the cursor.
 	 */
 	public static void drawEntityOnScreen(int posX, int posY, int scale, float mouseX, float mouseY, EntityLivingBase ent) {
-
 		GLS.enableColorMaterial();
 		GLS.pushMatrix();
 		GLS.translate((float) posX, (float) posY, 50F);
@@ -87,7 +85,6 @@ public class InventoryScreen extends InventoryEffectRenderer implements IRecipeS
 	 * Called from the main game loop to update the screen.
 	 */
 	public void update() {
-
 		if (mc.playerController.isInCreativeMode()) {
 			mc.displayScreen(new CreativeContainerScreen(mc.player));
 		}
@@ -100,7 +97,6 @@ public class InventoryScreen extends InventoryEffectRenderer implements IRecipeS
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		buttons.clear();
 
 		if (mc.playerController.isInCreativeMode()) {
@@ -120,7 +116,6 @@ public class InventoryScreen extends InventoryEffectRenderer implements IRecipeS
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-
 		fontRenderer.drawString(I18n.format("container.crafting"), 97, 8, 4210752);
 	}
 
@@ -128,7 +123,6 @@ public class InventoryScreen extends InventoryEffectRenderer implements IRecipeS
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		hasActivePotionEffects = !recipeBookGui.isVisible();
 
@@ -151,7 +145,6 @@ public class InventoryScreen extends InventoryEffectRenderer implements IRecipeS
 	 * Draws the background layer of this container (behind the items).
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-
 		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(INVENTORY_BACKGROUND);
 		int i = guiLeft;
@@ -165,7 +158,6 @@ public class InventoryScreen extends InventoryEffectRenderer implements IRecipeS
 	 * pointY
 	 */
 	protected boolean isPointInRegion(int rectX, int rectY, int rectWidth, int rectHeight, int pointX, int pointY) {
-
 		return (!widthTooNarrow || !recipeBookGui.isVisible()) && super.isPointInRegion(rectX, rectY, rectWidth, rectHeight, pointX, pointY);
 	}
 
@@ -173,7 +165,6 @@ public class InventoryScreen extends InventoryEffectRenderer implements IRecipeS
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
-
 		if (!recipeBookGui.mouseClicked(mouseX, mouseY, mouse)) {
 			if (!widthTooNarrow || !recipeBookGui.isVisible()) {
 				super.mouseClicked(mouseX, mouseY, mouse);
@@ -185,7 +176,6 @@ public class InventoryScreen extends InventoryEffectRenderer implements IRecipeS
 	 * Called when a mouse button is released.
 	 */
 	protected void mouseReleased(int mouseX, int mouseY, int state) {
-
 		if (buttonClicked) {
 			buttonClicked = false;
 		} else {
@@ -194,7 +184,6 @@ public class InventoryScreen extends InventoryEffectRenderer implements IRecipeS
 	}
 
 	protected boolean hasClickedOutside(int p_193983_1_, int p_193983_2_, int p_193983_3_, int p_193983_4_) {
-
 		boolean flag = p_193983_1_ < p_193983_3_ || p_193983_2_ < p_193983_4_ || p_193983_1_ >= p_193983_3_ + xSize || p_193983_2_ >= p_193983_4_ + ySize;
 		return recipeBookGui.hasClickedOutside(p_193983_1_, p_193983_2_, guiLeft, guiTop, xSize, ySize) && flag;
 	}
@@ -203,7 +192,6 @@ public class InventoryScreen extends InventoryEffectRenderer implements IRecipeS
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.id == 10) {
 			recipeBookGui.initVisuals(widthTooNarrow, ((ContainerPlayer) inventorySlots).craftMatrix);
 			recipeBookGui.toggleVisibility();
@@ -218,7 +206,6 @@ public class InventoryScreen extends InventoryEffectRenderer implements IRecipeS
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-
 		if (!recipeBookGui.keyPressed(typedChar, keyCode)) {
 			super.keyTyped(typedChar, keyCode);
 		}
@@ -228,13 +215,11 @@ public class InventoryScreen extends InventoryEffectRenderer implements IRecipeS
 	 * Called when the mouse is clicked over a slot or outside the gui.
 	 */
 	protected void handleMouseClick(Slot slotIn, int slotId, int mouseButton, ClickType type) {
-
 		super.handleMouseClick(slotIn, slotId, mouseButton, type);
 		recipeBookGui.slotClicked(slotIn);
 	}
 
 	public void recipesUpdated() {
-
 		recipeBookGui.recipesUpdated();
 	}
 
@@ -242,13 +227,11 @@ public class InventoryScreen extends InventoryEffectRenderer implements IRecipeS
 	 * Called when the screen is unloaded. Used to disable keyboard repeat events
 	 */
 	public void close() {
-
 		recipeBookGui.removed();
 		super.close();
 	}
 
 	public GuiRecipeBook func_194310_f() {
-
 		return recipeBookGui;
 	}
 

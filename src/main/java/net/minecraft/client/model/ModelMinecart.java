@@ -7,7 +7,6 @@ public class ModelMinecart extends ModelBase {
 	public ModelRenderer[] sideModels = new ModelRenderer[7];
 
 	public ModelMinecart() {
-
 		sideModels[0] = new ModelRenderer(this, 0, 10);
 		sideModels[1] = new ModelRenderer(this, 0, 0);
 		sideModels[2] = new ModelRenderer(this, 0, 0);
@@ -41,7 +40,6 @@ public class ModelMinecart extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		sideModels[5].rotationPointY = 4F - ageInTicks;
 
 		for (int i = 0; i < 6; ++i) {

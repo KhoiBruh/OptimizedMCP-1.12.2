@@ -31,7 +31,6 @@ public class VideoOptionsScreen extends Screen {
 	private GuiListExtended optionsRowList;
 
 	public VideoOptionsScreen(Screen parentScreenIn, GameSettings gameSettingsIn) {
-
 		parentScreen = parentScreenIn;
 		guiGameSettings = gameSettingsIn;
 	}
@@ -41,7 +40,6 @@ public class VideoOptionsScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		screenTitle = I18n.format("options.videoTitle");
 		buttons.clear();
 		buttons.add(new Button(200, width / 2 - 100, height - 27, I18n.format("gui.done")));
@@ -69,7 +67,6 @@ public class VideoOptionsScreen extends Screen {
 	 * Handles mouse input.
 	 */
 	public void handleMouse() throws IOException {
-
 		super.handleMouse();
 		optionsRowList.handleMouseInput();
 	}
@@ -79,7 +76,6 @@ public class VideoOptionsScreen extends Screen {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-
 		if (keyCode == 256) {
 			mc.gameSettings.saveOptions();
 		}
@@ -91,7 +87,6 @@ public class VideoOptionsScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.enabled) {
 			if (button.id == 200) {
 				mc.gameSettings.saveOptions();
@@ -104,7 +99,6 @@ public class VideoOptionsScreen extends Screen {
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
-
 		int i = guiGameSettings.guiScale;
 		super.mouseClicked(mouseX, mouseY, mouse);
 		optionsRowList.mouseClicked(mouseX, mouseY, mouse);
@@ -120,7 +114,6 @@ public class VideoOptionsScreen extends Screen {
 	 * Called when a mouse button is released.
 	 */
 	protected void mouseReleased(int mouseX, int mouseY, int state) {
-
 		int i = guiGameSettings.guiScale;
 		super.mouseReleased(mouseX, mouseY, state);
 		optionsRowList.mouseReleased(mouseX, mouseY, state);
@@ -136,7 +129,6 @@ public class VideoOptionsScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		optionsRowList.drawScreen(mouseX, mouseY, partialTicks);
 		drawCenteredString(fontRenderer, screenTitle, width / 2, 5, 16777215);

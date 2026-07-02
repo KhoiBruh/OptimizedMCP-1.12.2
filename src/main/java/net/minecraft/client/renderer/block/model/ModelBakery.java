@@ -61,7 +61,6 @@ public class ModelBakery {
 	private final Map<Item, List<String>> variantNames = Maps.newIdentityHashMap();
 
 	public ModelBakery(IResourceManager resourceManagerIn, TextureMap textureMapIn, BlockModelShapes blockModelShapesIn) {
-
 		resourceManager = resourceManagerIn;
 		textureMap = textureMapIn;
 		blockModelShapes = blockModelShapesIn;
@@ -80,7 +79,6 @@ public class ModelBakery {
 	}
 
 	private void loadBlocks() {
-
 		BlockStateMapper blockstatemapper = blockModelShapes.getBlockStateMapper();
 
 		for (Block block : Block.REGISTRY) {
@@ -118,7 +116,6 @@ public class ModelBakery {
 	}
 
 	private void loadVariantItemModels() {
-
 		variants.put(MODEL_MISSING, new VariantList(Lists.newArrayList(new Variant(new ResourceLocation(MODEL_MISSING.getResourcePath()), ModelRotation.X0_Y0, false, 1))));
 		loadStaticModels();
 		loadVariantModels();
@@ -127,7 +124,6 @@ public class ModelBakery {
 	}
 
 	private void loadStaticModels() {
-
 		ResourceLocation resourcelocation = new ResourceLocation("item_frame");
 		ModelBlockDefinition modelblockdefinition = getModelBlockDefinition(resourcelocation);
 		registerVariant(modelblockdefinition, new ModelResourceLocation(resourcelocation, "normal"));
@@ -135,7 +131,6 @@ public class ModelBakery {
 	}
 
 	private void registerVariant(ModelBlockDefinition blockstateDefinition, ModelResourceLocation location) {
-
 		try {
 			variants.put(location, blockstateDefinition.getVariant(location.getVariant()));
 		} catch (RuntimeException var4) {
@@ -146,7 +141,6 @@ public class ModelBakery {
 	}
 
 	private ModelBlockDefinition getModelBlockDefinition(ResourceLocation location) {
-
 		ResourceLocation resourcelocation = getBlockstateLocation(location);
 		ModelBlockDefinition modelblockdefinition = blockDefinitions.get(resourcelocation);
 
@@ -159,7 +153,6 @@ public class ModelBakery {
 	}
 
 	private ModelBlockDefinition loadMultipartMBD(ResourceLocation location, ResourceLocation fileIn) {
-
 		List<ModelBlockDefinition> list = Lists.newArrayList();
 
 		try {
@@ -174,7 +167,6 @@ public class ModelBakery {
 	}
 
 	private ModelBlockDefinition loadModelBlockDefinition(ResourceLocation location, IResource resource) {
-
 		try (InputStream inputstream = resource.getInputStream()) {
 			return ModelBlockDefinition.parseFromReader(new InputStreamReader(inputstream, StandardCharsets.UTF_8));
 		} catch (Exception exception) {
@@ -183,19 +175,16 @@ public class ModelBakery {
 	}
 
 	private ResourceLocation getBlockstateLocation(ResourceLocation location) {
-
 		return new ResourceLocation(location.getResourceDomain(), "blockstates/" + location.getResourcePath() + ".json");
 	}
 
 	private void loadVariantModels() {
-
 		for (Entry<ModelResourceLocation, VariantList> entry : variants.entrySet()) {
 			loadVariantList(entry.getKey(), entry.getValue());
 		}
 	}
 
 	private void loadMultipartVariantModels() {
-
 		for (Entry<ModelBlockDefinition, Collection<ModelResourceLocation>> entry : multipartVariantMap.entrySet()) {
 			ModelResourceLocation modelresourcelocation = (entry.getValue()).iterator().next();
 
@@ -206,7 +195,6 @@ public class ModelBakery {
 	}
 
 	private void loadVariantList(ModelResourceLocation p_188638_1_, VariantList p_188638_2_) {
-
 		for (Variant variant : p_188638_2_.variantList()) {
 			ResourceLocation resourcelocation = variant.modelLocation();
 
@@ -221,7 +209,6 @@ public class ModelBakery {
 	}
 
 	private ModelBlock loadModel(ResourceLocation location) throws IOException {
-
 		String s = location.getResourcePath();
 
 		if (!"builtin/generated".equals(s)) {
@@ -256,12 +243,10 @@ public class ModelBakery {
 	}
 
 	private ResourceLocation getModelLocation(ResourceLocation location) {
-
 		return new ResourceLocation(location.getResourceDomain(), "models/" + location.getResourcePath() + ".json");
 	}
 
 	private void loadItemModels() {
-
 		registerVariantNames();
 
 		for (Item item : Item.REGISTRY) {
@@ -284,7 +269,6 @@ public class ModelBakery {
 	}
 
 	private void loadItemModel(String variantName, ResourceLocation location, ResourceLocation itemName) {
-
 		itemLocations.put(variantName, location);
 
 		if (models.get(location) == null) {
@@ -298,7 +282,6 @@ public class ModelBakery {
 	}
 
 	private void registerVariantNames() {
-
 		variantNames.put(Item.getItemFromBlock(Blocks.STONE), Lists.newArrayList("stone", "granite", "granite_smooth", "diorite", "diorite_smooth", "andesite", "andesite_smooth"));
 		variantNames.put(Item.getItemFromBlock(Blocks.DIRT), Lists.newArrayList("dirt", "coarse_dirt", "podzol"));
 		variantNames.put(Item.getItemFromBlock(Blocks.PLANKS), Lists.newArrayList("oak_planks", "spruce_planks", "birch_planks", "jungle_planks", "acacia_planks", "dark_oak_planks"));
@@ -349,7 +332,6 @@ public class ModelBakery {
 	}
 
 	private List<String> getVariantNames(Item stack) {
-
 		List<String> list = variantNames.get(stack);
 
 		if (list == null) {
@@ -360,13 +342,11 @@ public class ModelBakery {
 	}
 
 	private ResourceLocation getItemLocation(String location) {
-
 		ResourceLocation resourcelocation = new ResourceLocation(location);
 		return new ResourceLocation(resourcelocation.getResourceDomain(), "item/" + resourcelocation.getResourcePath());
 	}
 
 	private void bakeBlockModels() {
-
 		for (ModelResourceLocation modelresourcelocation : variants.keySet()) {
 			IBakedModel ibakedmodel = createRandomModelForVariantList(variants.get(modelresourcelocation), modelresourcelocation.toString());
 
@@ -401,7 +381,6 @@ public class ModelBakery {
 
 	
 	private IBakedModel createRandomModelForVariantList(VariantList variantsIn, String modelLocation) {
-
 		if (variantsIn.variantList().isEmpty()) {
 			return null;
 		} else {
@@ -442,7 +421,6 @@ public class ModelBakery {
 	}
 
 	private void bakeItemModels() {
-
 		for (Entry<String, ResourceLocation> entry : itemLocations.entrySet()) {
 			ResourceLocation resourcelocation = entry.getValue();
 			ModelResourceLocation modelresourcelocation = new ModelResourceLocation(entry.getKey(), "inventory");
@@ -467,7 +445,6 @@ public class ModelBakery {
 	}
 
 	private Set<ResourceLocation> getVariantsTextureLocations() {
-
 		Set<ResourceLocation> set = Sets.newHashSet();
 		List<ModelResourceLocation> list = Lists.newArrayList(variants.keySet());
 		list.sort(Comparator.comparing(ModelResourceLocation::toString));
@@ -506,7 +483,6 @@ public class ModelBakery {
 
 	
 	private IBakedModel bakeModel(ModelBlock modelBlockIn, ModelRotation modelRotationIn, boolean uvLocked) {
-
 		TextureAtlasSprite textureatlassprite = sprites.get(new ResourceLocation(modelBlockIn.resolveTextureName("particle")));
 		SimpleBakedModel.Builder simplebakedmodel$builder = (new SimpleBakedModel.Builder(modelBlockIn, modelBlockIn.createOverrides())).setTexture(textureatlassprite);
 
@@ -531,12 +507,10 @@ public class ModelBakery {
 	}
 
 	private BakedQuad makeBakedQuad(BlockPart p_177589_1_, BlockPartFace p_177589_2_, TextureAtlasSprite p_177589_3_, Facing p_177589_4_, ModelRotation p_177589_5_, boolean p_177589_6_) {
-
 		return faceBakery.makeBakedQuad(p_177589_1_.positionFrom(), p_177589_1_.positionTo(), p_177589_2_, p_177589_3_, p_177589_4_, p_177589_5_, p_177589_1_.partRotation(), p_177589_6_, p_177589_1_.shade());
 	}
 
 	private void loadModelsCheck() {
-
 		loadModels();
 
 		for (ModelBlock modelblock : models.values()) {
@@ -547,7 +521,6 @@ public class ModelBakery {
 	}
 
 	private void loadModels() {
-
 		Deque<ResourceLocation> deque = Queues.newArrayDeque();
 		Set<ResourceLocation> set = Sets.newHashSet();
 
@@ -576,7 +549,6 @@ public class ModelBakery {
 	}
 
 	private void addModelParentLocation(Deque<ResourceLocation> p_188633_1_, Set<ResourceLocation> p_188633_2_, ModelBlock p_188633_3_) {
-
 		ResourceLocation resourcelocation = p_188633_3_.getParentLocation();
 
 		if (resourcelocation != null && !p_188633_2_.contains(resourcelocation)) {
@@ -585,7 +557,6 @@ public class ModelBakery {
 	}
 
 	private List<ResourceLocation> getParentPath(ResourceLocation p_177573_1_) {
-
 		List<ResourceLocation> list = Lists.newArrayList(p_177573_1_);
 		ResourceLocation resourcelocation = p_177573_1_;
 
@@ -598,7 +569,6 @@ public class ModelBakery {
 
 	
 	private ResourceLocation getParentLocation(ResourceLocation p_177576_1_) {
-
 		for (Entry<ResourceLocation, ModelBlock> entry : models.entrySet()) {
 			ModelBlock modelblock = entry.getValue();
 
@@ -611,7 +581,6 @@ public class ModelBakery {
 	}
 
 	private Set<ResourceLocation> getTextureLocations(ModelBlock p_177585_1_) {
-
 		Set<ResourceLocation> set = Sets.newHashSet();
 
 		for (BlockPart blockpart : p_177585_1_.getElements()) {
@@ -626,7 +595,6 @@ public class ModelBakery {
 	}
 
 	private void loadSprites() {
-
 		final Set<ResourceLocation> set = getVariantsTextureLocations();
 		set.addAll(getItemsTextureLocations());
 		set.remove(TextureMap.LOCATION_MISSING_TEXTURE);
@@ -642,7 +610,6 @@ public class ModelBakery {
 	}
 
 	private Set<ResourceLocation> getItemsTextureLocations() {
-
 		Set<ResourceLocation> set = Sets.newHashSet();
 
 		for (ResourceLocation resourcelocation : itemLocations.values()) {
@@ -670,7 +637,6 @@ public class ModelBakery {
 	}
 
 	private boolean hasItemModel(ModelBlock p_177581_1_) {
-
 		if (p_177581_1_ == null) {
 			return false;
 		} else {
@@ -679,7 +645,6 @@ public class ModelBakery {
 	}
 
 	private boolean isCustomRenderer(ModelBlock p_177587_1_) {
-
 		if (p_177587_1_ == null) {
 			return false;
 		} else {
@@ -689,7 +654,6 @@ public class ModelBakery {
 	}
 
 	private void makeItemModels() {
-
 		for (ResourceLocation resourcelocation : itemLocations.values()) {
 			ModelBlock modelblock = models.get(resourcelocation);
 
@@ -714,7 +678,6 @@ public class ModelBakery {
 	}
 
 	private ModelBlock makeItemModel(ModelBlock p_177582_1_) {
-
 		return itemModelGenerator.makeItemModel(textureMap, p_177582_1_);
 	}
 }

@@ -9,14 +9,12 @@ import net.minecraft.world.World;
 public class ItemClock extends Item {
 
 	public ItemClock() {
-
 		addPropertyOverride(new ResourceLocation("time"), new IItemPropertyGetter() {
 			double rotation;
 			double rota;
 			long lastUpdateTick;
 
 			public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn) {
-
 				boolean flag = entityIn != null;
 				Entity entity = flag ? entityIn : stack.getItemFrame();
 
@@ -41,7 +39,6 @@ public class ItemClock extends Item {
 			}
 
 			private double wobble(World p_185087_1_, double p_185087_2_) {
-
 				if (p_185087_1_.getTotalWorldTime() != lastUpdateTick) {
 					lastUpdateTick = p_185087_1_.getTotalWorldTime();
 					double d0 = p_185087_2_ - rotation;

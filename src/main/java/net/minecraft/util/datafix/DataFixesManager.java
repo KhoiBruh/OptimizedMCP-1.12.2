@@ -22,7 +22,6 @@ import net.minecraft.world.storage.WorldInfo;
 public class DataFixesManager {
 
 	private static void registerFixes(DataFixer fixer) {
-
 		fixer.registerFix(FixTypes.ENTITY, new EntityArmorAndHeld());
 		fixer.registerFix(FixTypes.BLOCK_ENTITY, new SignStrictJSON());
 		fixer.registerFix(FixTypes.ITEM_INSTANCE, new ItemIntIDToString());
@@ -59,7 +58,6 @@ public class DataFixesManager {
 	}
 
 	public static DataFixer createFixer() {
-
 		DataFixer datafixer = new DataFixer(1343);
 		WorldInfo.registerFixes(datafixer);
 		EntityPlayerMP.registerFixesPlayerMP(datafixer);
@@ -153,7 +151,6 @@ public class DataFixesManager {
 	}
 
 	public static NBTTagCompound processItemStack(IDataFixer fixer, NBTTagCompound compound, int version, String key) {
-
 		if (compound.hasKey(key, 10)) {
 			compound.setTag(key, fixer.process(FixTypes.ITEM_INSTANCE, compound.getCompoundTag(key), version));
 		}
@@ -162,7 +159,6 @@ public class DataFixesManager {
 	}
 
 	public static NBTTagCompound processInventory(IDataFixer fixer, NBTTagCompound compound, int version, String key) {
-
 		if (compound.hasKey(key, 9)) {
 			NBTTagList nbttaglist = compound.getTagList(key, 10);
 

@@ -35,7 +35,6 @@ public class ChunkLoader {
 	}
 
 	public static void convertToAnvilFormat(ChunkLoader.AnvilConverterData converterData, NBTTagCompound compound, BiomeProvider provider) {
-
 		compound.setInteger("xPos", converterData.x);
 		compound.setInteger("zPos", converterData.z);
 		compound.setLong("LastUpdate", converterData.lastUpdated);
@@ -131,7 +130,6 @@ public class ChunkLoader {
 		public NBTTagList tileTicks;
 
 		public AnvilConverterData(int xIn, int zIn) {
-
 			x = xIn;
 			z = zIn;
 		}

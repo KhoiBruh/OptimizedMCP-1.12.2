@@ -37,23 +37,19 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 	private long lootTableSeed;
 
 	public EntityMinecartContainer(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public EntityMinecartContainer(World worldIn, double x, double y, double z) {
-
 		super(worldIn, x, y, z);
 	}
 
 	public static void addDataFixers(DataFixer p_190574_0_, Class<?> p_190574_1_) {
-
 		EntityMinecart.registerFixesMinecart(p_190574_0_, p_190574_1_);
 		p_190574_0_.registerWalker(FixTypes.ENTITY, new ItemStackDataLists(p_190574_1_, "Items"));
 	}
 
 	public void killMinecart(DamageSource source) {
-
 		super.killMinecart(source);
 
 		if (world.getGameRules().getBoolean("doEntityDrops")) {
@@ -62,7 +58,6 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 	}
 
 	public boolean isEmpty() {
-
 		for (ItemStack itemstack : minecartContainerItems) {
 			if (!itemstack.isEmpty()) {
 				return false;
@@ -76,7 +71,6 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 	 * Returns the stack in the given slot.
 	 */
 	public ItemStack getStackInSlot(int index) {
-
 		addLoot(null);
 		return minecartContainerItems.get(index);
 	}
@@ -85,7 +79,6 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 	 * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
 	 */
 	public ItemStack decrStackSize(int index, int count) {
-
 		addLoot(null);
 		return ItemStackHelper.getAndSplit(minecartContainerItems, index, count);
 	}
@@ -94,7 +87,6 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 	 * Removes a stack from the given slot and returns it.
 	 */
 	public ItemStack removeStackFromSlot(int index) {
-
 		addLoot(null);
 		ItemStack itemstack = minecartContainerItems.get(index);
 
@@ -110,7 +102,6 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 	 * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
 	 */
 	public void setInventorySlotContents(int index, ItemStack stack) {
-
 		addLoot(null);
 		minecartContainerItems.set(index, stack);
 
@@ -124,14 +115,12 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 	 * hasn't changed and skip it.
 	 */
 	public void markDirty() {
-
 	}
 
 	/**
 	 * Don't rename this method to canInteractWith due to conflicts with Container
 	 */
 	public boolean isUsableByPlayer(EntityPlayer player) {
-
 		if (isDead) {
 			return false;
 		} else {
@@ -140,11 +129,9 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 	}
 
 	public void openInventory(EntityPlayer player) {
-
 	}
 
 	public void closeInventory(EntityPlayer player) {
-
 	}
 
 	/**
@@ -152,7 +139,6 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 	 * guis use Slot.isItemValid
 	 */
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
-
 		return true;
 	}
 
@@ -160,13 +146,11 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 	 * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended.
 	 */
 	public int getInventoryStackLimit() {
-
 		return 64;
 	}
 
 	
 	public Entity changeDimension(int dimensionIn) {
-
 		dropContentsWhenDead = false;
 		return super.changeDimension(dimensionIn);
 	}
@@ -175,7 +159,6 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 	 * Will get destroyed next tick.
 	 */
 	public void setDead() {
-
 		if (dropContentsWhenDead) {
 			InventoryHelper.dropInventoryItems(world, this, this);
 		}
@@ -187,7 +170,6 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 	 * Sets whether this entity should drop its items when setDead() is called. This applies to container minecarts.
 	 */
 	public void setDropItemsWhenDead(boolean dropWhenDead) {
-
 		dropContentsWhenDead = dropWhenDead;
 	}
 
@@ -195,7 +177,6 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	protected void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 
 		if (lootTable != null) {
@@ -213,7 +194,6 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	protected void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		minecartContainerItems = NonNullList.withSize(getSizeInventory(), ItemStack.EMPTY);
 
@@ -226,7 +206,6 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 	}
 
 	public boolean processInitialInteract(EntityPlayer player, Hand hand) {
-
 		if (!world.isRemote) {
 			player.displayGUIChest(this);
 		}
@@ -235,7 +214,6 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 	}
 
 	protected void applyDrag() {
-
 		float f = 0.98F;
 
 		if (lootTable == null) {
@@ -249,38 +227,31 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 	}
 
 	public int getField(int id) {
-
 		return 0;
 	}
 
 	public void setField(int id, int value) {
-
 	}
 
 	public int getFieldCount() {
-
 		return 0;
 	}
 
 	public boolean isLocked() {
-
 		return false;
 	}
 
 	public LockCode getLockCode() {
-
 		return LockCode.EMPTY_CODE;
 	}
 
 	public void setLockCode(LockCode code) {
-
 	}
 
 	/**
 	 * Adds loot to the minecart's contents.
 	 */
 	public void addLoot(EntityPlayer player) {
-
 		if (lootTable != null) {
 			LootTable loottable = world.getLootTableManager().getLootTableFromLocation(lootTable);
 			lootTable = null;
@@ -303,19 +274,16 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 	}
 
 	public void clear() {
-
 		addLoot(null);
 		minecartContainerItems.clear();
 	}
 
 	public void setLootTable(ResourceLocation lootTableIn, long lootTableSeedIn) {
-
 		lootTable = lootTableIn;
 		lootTableSeed = lootTableSeedIn;
 	}
 
 	public ResourceLocation getLootTable() {
-
 		return lootTable;
 	}
 

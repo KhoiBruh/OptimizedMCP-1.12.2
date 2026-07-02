@@ -22,7 +22,6 @@ public class ShaderUniform {
 	private boolean dirty;
 
 	public ShaderUniform(String name, int type, int count, ShaderManager manager) {
-
 		shaderName = name;
 		uniformCount = count;
 		uniformType = type;
@@ -41,7 +40,6 @@ public class ShaderUniform {
 	}
 
 	public static int parseType(String typeName) {
-
 		int i = -1;
 
 		if ("int".equals(typeName)) {
@@ -62,7 +60,6 @@ public class ShaderUniform {
 	}
 
 	private void markDirty() {
-
 		dirty = true;
 
 		if (shaderManager != null) {
@@ -71,24 +68,20 @@ public class ShaderUniform {
 	}
 
 	public void setUniformLocation(int uniformLocationIn) {
-
 		uniformLocation = uniformLocationIn;
 	}
 
 	public String getShaderName() {
-
 		return shaderName;
 	}
 
 	public void set(float p_148090_1_) {
-
 		uniformFloatBuffer.position(0);
 		uniformFloatBuffer.put(0, p_148090_1_);
 		markDirty();
 	}
 
 	public void set(float p_148087_1_, float p_148087_2_) {
-
 		uniformFloatBuffer.position(0);
 		uniformFloatBuffer.put(0, p_148087_1_);
 		uniformFloatBuffer.put(1, p_148087_2_);
@@ -96,7 +89,6 @@ public class ShaderUniform {
 	}
 
 	public void set(float p_148095_1_, float p_148095_2_, float p_148095_3_) {
-
 		uniformFloatBuffer.position(0);
 		uniformFloatBuffer.put(0, p_148095_1_);
 		uniformFloatBuffer.put(1, p_148095_2_);
@@ -105,7 +97,6 @@ public class ShaderUniform {
 	}
 
 	public void set(float p_148081_1_, float p_148081_2_, float p_148081_3_, float p_148081_4_) {
-
 		uniformFloatBuffer.position(0);
 		uniformFloatBuffer.put(p_148081_1_);
 		uniformFloatBuffer.put(p_148081_2_);
@@ -116,7 +107,6 @@ public class ShaderUniform {
 	}
 
 	public void setSafe(float p_148092_1_, float p_148092_2_, float p_148092_3_, float p_148092_4_) {
-
 		uniformFloatBuffer.position(0);
 
 		if (uniformType >= 4) {
@@ -139,7 +129,6 @@ public class ShaderUniform {
 	}
 
 	public void set(int p_148083_1_, int p_148083_2_, int p_148083_3_, int p_148083_4_) {
-
 		uniformIntBuffer.position(0);
 
 		if (uniformType >= 0) {
@@ -162,7 +151,6 @@ public class ShaderUniform {
 	}
 
 	public void set(float[] p_148097_1_) {
-
 		if (p_148097_1_.length < uniformCount) {
 			LOGGER.warn("Uniform.set called with a too-small value array (expected {}, got {}). Ignoring.", uniformCount, p_148097_1_.length);
 		} else {
@@ -174,7 +162,6 @@ public class ShaderUniform {
 	}
 
 	public void set(float m00, float m01, float m02, float m03, float m10, float m11, float m12, float m13, float m20, float m21, float m22, float m23, float m30, float m31, float m32, float m33) {
-
 		uniformFloatBuffer.position(0);
 		uniformFloatBuffer.put(0, m00);
 		uniformFloatBuffer.put(1, m01);
@@ -196,12 +183,10 @@ public class ShaderUniform {
 	}
 
 	public void set(Matrix4f matrix) {
-
 		set(matrix.m00(), matrix.m01(), matrix.m02(), matrix.m03(), matrix.m10(), matrix.m11(), matrix.m12(), matrix.m13(), matrix.m20(), matrix.m21(), matrix.m22(), matrix.m23(), matrix.m30(), matrix.m31(), matrix.m32(), matrix.m33());
 	}
 
 	public void upload() {
-
 		if (!dirty) {
 		}
 
@@ -222,7 +207,6 @@ public class ShaderUniform {
 	}
 
 	private void uploadInt() {
-
 		switch (uniformType) {
 			case 0:
 				OpenGlHelper.glUniform1(uniformLocation, uniformIntBuffer);
@@ -246,7 +230,6 @@ public class ShaderUniform {
 	}
 
 	private void uploadFloat() {
-
 		switch (uniformType) {
 			case 4:
 				OpenGlHelper.glUniform1(uniformLocation, uniformFloatBuffer);
@@ -270,7 +253,6 @@ public class ShaderUniform {
 	}
 
 	private void uploadFloatMatrix() {
-
 		switch (uniformType) {
 			case 8:
 				OpenGlHelper.glUniformMatrix2(uniformLocation, true, uniformFloatBuffer);

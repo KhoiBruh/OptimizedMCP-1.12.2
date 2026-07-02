@@ -10,7 +10,6 @@ public class ModelEvokerFangs extends ModelBase {
 	private final ModelRenderer lowerJaw;
 
 	public ModelEvokerFangs() {
-
 		base.setRotationPoint(-5F, 22F, -5F);
 		base.addBox(0F, 0F, 0F, 10, 12, 10);
 		upperJaw = new ModelRenderer(this, 40, 0);
@@ -25,7 +24,6 @@ public class ModelEvokerFangs extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		float f = limbSwing * 2F;
 
 		if (f > 1F) {

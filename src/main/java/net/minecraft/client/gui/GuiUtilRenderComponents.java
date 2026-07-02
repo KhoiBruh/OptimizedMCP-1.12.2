@@ -11,12 +11,10 @@ import java.util.List;
 public class GuiUtilRenderComponents {
 
 	public static String removeTextColorsIfConfigured(String text, boolean forceColor) {
-
 		return !forceColor && !Minecraft.getMinecraft().gameSettings.chatColours ? TextFormat.getTextWithoutFormattingCodes(text) : text;
 	}
 
 	public static List<ITextComponent> splitText(ITextComponent textComponent, int maxTextLenght, FontRenderer fontRendererIn, boolean p_178908_3_, boolean forceTextColor) {
-
 		int i = 0;
 		ITextComponent itextcomponent = new TextComponentString("");
 		List<ITextComponent> list = Lists.newArrayList();

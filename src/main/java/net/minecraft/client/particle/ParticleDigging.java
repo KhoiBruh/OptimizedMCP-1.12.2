@@ -15,7 +15,6 @@ public class ParticleDigging extends Particle {
 	private BlockPos sourcePos;
 
 	protected ParticleDigging(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, IBlockState state) {
-
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 		sourceState = state;
 		setParticleTexture(Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getTexture(state));
@@ -30,7 +29,6 @@ public class ParticleDigging extends Particle {
 	 * Sets the position of the block that this particle came from. Used for calculating texture and color multiplier.
 	 */
 	public ParticleDigging setBlockPos(BlockPos pos) {
-
 		sourcePos = pos;
 
 		if (sourceState.getBlock() == Blocks.GRASS) {
@@ -42,7 +40,6 @@ public class ParticleDigging extends Particle {
 	}
 
 	public ParticleDigging init() {
-
 		sourcePos = new BlockPos(posX, posY, posZ);
 		Block block = sourceState.getBlock();
 
@@ -55,7 +52,6 @@ public class ParticleDigging extends Particle {
 	}
 
 	protected void multiplyColor(BlockPos p_187154_1_) {
-
 		int i = Minecraft.getMinecraft().getBlockColors().colorMultiplier(sourceState, world, p_187154_1_, 0);
 		particleRed *= (float) (i >> 16 & 255) / 255F;
 		particleGreen *= (float) (i >> 8 & 255) / 255F;
@@ -67,7 +63,6 @@ public class ParticleDigging extends Particle {
 	 * 1 for the main Texture atlas, and 3 for a custom texture
 	 */
 	public int getFXLayer() {
-
 		return 1;
 	}
 
@@ -75,7 +70,6 @@ public class ParticleDigging extends Particle {
 	 * Renders the particle
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-
 		float f = ((float) particleTextureIndexX + particleTextureJitterX / 4F) / 16F;
 		float f1 = f + 0.015609375F;
 		float f2 = ((float) particleTextureIndexY + particleTextureJitterY / 4F) / 16F;
@@ -102,7 +96,6 @@ public class ParticleDigging extends Particle {
 	}
 
 	public int getBrightnessForRender(float p_189214_1_) {
-
 		int i = super.getBrightnessForRender(p_189214_1_);
 		int j = 0;
 
@@ -116,7 +109,6 @@ public class ParticleDigging extends Particle {
 	public static class Factory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			return (new ParticleDigging(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn, Block.getStateById(p_178902_15_[0]))).init();
 		}
 

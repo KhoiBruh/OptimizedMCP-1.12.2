@@ -65,7 +65,6 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 	private int knockbackStrength;
 
 	public EntityArrow(World worldIn) {
-
 		super(worldIn);
 		xTile = -1;
 		yTile = -1;
@@ -76,13 +75,11 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 	}
 
 	public EntityArrow(World worldIn, double x, double y, double z) {
-
 		this(worldIn);
 		setPosition(x, y, z);
 	}
 
 	public EntityArrow(World worldIn, EntityLivingBase shooter) {
-
 		this(worldIn, shooter.posX, shooter.posY + (double) shooter.getEyeHeight() - 0.10000000149011612D, shooter.posZ);
 		shootingEntity = shooter;
 
@@ -92,11 +89,9 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 	}
 
 	public static void registerFixesArrow(DataFixer fixer, String name) {
-
 	}
 
 	public static void registerFixesArrow(DataFixer fixer) {
-
 		registerFixesArrow(fixer, "Arrow");
 	}
 
@@ -104,7 +99,6 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 	 * Checks if the entity is in range to render.
 	 */
 	public boolean isInRangeToRenderDist(double distance) {
-
 		double d0 = getEntityBoundingBox().getAverageEdgeLength() * 10D;
 
 		if (Double.isNaN(d0)) {
@@ -116,12 +110,10 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 	}
 
 	protected void entityInit() {
-
 		dataManager.register(CRITICAL, (byte) 0);
 	}
 
 	public void shoot(Entity shooter, float pitch, float yaw, float p_184547_4_, float velocity, float inaccuracy) {
-
 		float f = -MathHelper.sin(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F);
 		float f1 = -MathHelper.sin(pitch * 0.017453292F);
 		float f2 = MathHelper.cos(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F);
@@ -138,7 +130,6 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 	 * Similar to setArrowHeading, it's point the throwable entity to a x, y, z direction.
 	 */
 	public void shoot(double x, double y, double z, float velocity, float inaccuracy) {
-
 		float f = MathHelper.sqrt(x * x + y * y + z * z);
 		x = x / (double) f;
 		y = y / (double) f;
@@ -164,7 +155,6 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 	 * Updates the entity motion clientside, called by packets from the server
 	 */
 	public void setVelocity(double x, double y, double z) {
-
 		motionX = x;
 		motionY = y;
 		motionZ = z;
@@ -184,7 +174,6 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		super.onUpdate();
 
 		if (prevRotationPitch == 0F && prevRotationYaw == 0F) {
@@ -250,7 +239,6 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 			}
 
 			if (raytraceresult != null && raytraceresult.entityHit instanceof EntityPlayer entityplayer) {
-
 				if (shootingEntity instanceof EntityPlayer && !((EntityPlayer) shootingEntity).canAttackPlayer(entityplayer)) {
 					raytraceresult = null;
 				}
@@ -322,7 +310,6 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 	 * Called when the arrow hits a block or an entity
 	 */
 	protected void onHit(RayTraceResult raytraceResultIn) {
-
 		Entity entity = raytraceResultIn.entityHit;
 
 		if (entity != null) {
@@ -343,7 +330,6 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 
 			if (entity.attackEntityFrom(damagesource, (float) i)) {
 				if (entity instanceof EntityLivingBase entitylivingbase) {
-
 					if (!world.isRemote) {
 						entitylivingbase.setArrowCountInEntity(entitylivingbase.getArrowCountInEntity() + 1);
 					}
@@ -419,7 +405,6 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 	 * Tries to move the entity towards the specified location.
 	 */
 	public void move(MoverType type, double x, double y, double z) {
-
 		super.move(type, x, y, z);
 
 		if (inGround) {
@@ -430,12 +415,10 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 	}
 
 	protected void arrowHit(EntityLivingBase living) {
-
 	}
 
 	
 	protected Entity findEntityOnPath(Vec3d start, Vec3d end) {
-
 		Entity entity = null;
 		List<Entity> list = world.getEntitiesInAABBexcluding(this, getEntityBoundingBox().expand(motionX, motionY, motionZ).grow(1D), ARROW_TARGETS);
 		double d0 = 0D;
@@ -463,7 +446,6 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		compound.setInteger("xTile", xTile);
 		compound.setInteger("yTile", yTile);
 		compound.setInteger("zTile", zTile);
@@ -482,7 +464,6 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		xTile = compound.getInteger("xTile");
 		yTile = compound.getInteger("yTile");
 		zTile = compound.getInteger("zTile");
@@ -515,7 +496,6 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 	 * Called by a player entity when they collide with an entity
 	 */
 	public void onCollideWithPlayer(EntityPlayer entityIn) {
-
 		if (!world.isRemote && inGround && arrowShake <= 0) {
 			boolean flag = pickupStatus == EntityArrow.PickupStatus.ALLOWED || pickupStatus == EntityArrow.PickupStatus.CREATIVE_ONLY && entityIn.capabilities.isCreativeMode;
 
@@ -537,17 +517,14 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 	 * prevent them from trampling crops
 	 */
 	protected boolean canTriggerWalking() {
-
 		return false;
 	}
 
 	public double getDamage() {
-
 		return damage;
 	}
 
 	public void setDamage(double damageIn) {
-
 		damage = damageIn;
 	}
 
@@ -555,7 +532,6 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 	 * Sets the amount of knockback the arrow applies when it hits a mob.
 	 */
 	public void setKnockbackStrength(int knockbackStrengthIn) {
-
 		knockbackStrength = knockbackStrengthIn;
 	}
 
@@ -563,12 +539,10 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 	 * Returns true if it's possible to attack this entity with an item.
 	 */
 	public boolean canBeAttackedWithItem() {
-
 		return false;
 	}
 
 	public float getEyeHeight() {
-
 		return 0F;
 	}
 
@@ -576,7 +550,6 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 	 * Whether the arrow has a stream of critical hit particles flying behind it.
 	 */
 	public boolean getIsCritical() {
-
 		byte b0 = dataManager.get(CRITICAL);
 		return (b0 & 1) != 0;
 	}
@@ -585,7 +558,6 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 	 * Whether the arrow has a stream of critical hit particles flying behind it.
 	 */
 	public void setIsCritical(boolean critical) {
-
 		byte b0 = dataManager.get(CRITICAL);
 
 		if (critical) {
@@ -596,7 +568,6 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 	}
 
 	public void setEnchantmentEffectsFromEntity(EntityLivingBase p_190547_1_, float p_190547_2_) {
-
 		int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.POWER, p_190547_1_);
 		int j = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.PUNCH, p_190547_1_);
 		setDamage((double) (p_190547_2_ * 2F) + rand.nextGaussian() * 0.25D + (double) ((float) world.getDifficulty().getDifficultyId() * 0.11F));

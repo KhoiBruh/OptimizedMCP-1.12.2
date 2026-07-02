@@ -15,7 +15,6 @@ public class ModelEnderman extends ModelBiped {
 	public boolean isAttacking;
 
 	public ModelEnderman(float scale) {
-
 		super(0F, -14F, 64, 32);
 		float f = -14F;
 		bipedHeadwear = new ModelRenderer(this, 0, 16);
@@ -46,7 +45,6 @@ public class ModelEnderman extends ModelBiped {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 		bipedHead.showModel = true;
 		float f = -14F;

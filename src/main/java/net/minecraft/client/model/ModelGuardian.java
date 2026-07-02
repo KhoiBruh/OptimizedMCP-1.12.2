@@ -14,7 +14,6 @@ public class ModelGuardian extends ModelBase {
 	private final ModelRenderer[] guardianTail;
 
 	public ModelGuardian() {
-
 		textureWidth = 64;
 		textureHeight = 64;
 		guardianSpines = new ModelRenderer[12];
@@ -51,7 +50,6 @@ public class ModelGuardian extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		guardianBody.render(scale);
 	}
@@ -62,7 +60,6 @@ public class ModelGuardian extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		EntityGuardian entityguardian = (EntityGuardian) entityIn;
 		float f = ageInTicks - (float) entityguardian.ticksExisted;
 		guardianBody.rotateAngleY = netHeadYaw * 0.017453292F;

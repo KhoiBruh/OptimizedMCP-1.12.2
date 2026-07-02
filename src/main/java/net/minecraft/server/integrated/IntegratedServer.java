@@ -39,7 +39,6 @@ public class IntegratedServer extends MinecraftServer {
 	private ThreadLanServerPing lanServerPing;
 
 	public IntegratedServer(Minecraft clientIn, String folderNameIn, String worldNameIn, WorldSettings worldSettingsIn, YggdrasilAuthenticationService authServiceIn, MinecraftSessionService sessionServiceIn, GameProfileRepository profileRepoIn, PlayerProfileCache profileCacheIn) {
-
 		super(new File(clientIn.dataDir, "saves"), clientIn.getProxy(), clientIn.getDataFixer(), authServiceIn, sessionServiceIn, profileRepoIn, profileCacheIn);
 		setServerOwner(clientIn.getSession().getUsername());
 		setFolderName(folderNameIn);
@@ -52,12 +51,10 @@ public class IntegratedServer extends MinecraftServer {
 	}
 
 	public ServerCommandManager createCommandManager() {
-
 		return new IntegratedServerCommandManager(this);
 	}
 
 	public void loadAllWorlds(String saveName, String worldNameIn, long seed, WorldType type, String generatorOptions) {
-
 		convertMapIfNeeded(saveName);
 		worlds = new WorldServer[3];
 		timeOfLastDimensionTick = new long[worlds.length][100];
@@ -105,7 +102,6 @@ public class IntegratedServer extends MinecraftServer {
 	 * Initialises the server and starts it.
 	 */
 	public boolean init() {
-
 		LOGGER.info("Starting integrated minecraft server version 1.12.2");
 		setOnlineMode(true);
 		setCanSpawnAnimals(true);
@@ -123,7 +119,6 @@ public class IntegratedServer extends MinecraftServer {
 	 * net.minecraft.client.main.Main function called by run() every loop.
 	 */
 	public void tick() {
-
 		boolean flag = isGamePaused;
 		isGamePaused = Minecraft.getMinecraft().getConnection() != null && Minecraft.getMinecraft().isPaused();
 
@@ -168,12 +163,10 @@ public class IntegratedServer extends MinecraftServer {
 	}
 
 	public boolean canStructuresSpawn() {
-
 		return false;
 	}
 
 	public GameType getGameType() {
-
 		return worldSettings.getGameType();
 	}
 
@@ -181,7 +174,6 @@ public class IntegratedServer extends MinecraftServer {
 	 * Sets the game type for all worlds.
 	 */
 	public void setGameType(GameType gameMode) {
-
 		super.setGameType(gameMode);
 		getPlayerList().setGameType(gameMode);
 	}
@@ -190,7 +182,6 @@ public class IntegratedServer extends MinecraftServer {
 	 * Get the server's difficulty
 	 */
 	public Difficulty getDifficulty() {
-
 		return mc.world.getWorldInfo().getDifficulty();
 	}
 
@@ -198,7 +189,6 @@ public class IntegratedServer extends MinecraftServer {
 	 * Defaults to false.
 	 */
 	public boolean isHardcore() {
-
 		return worldSettings.getHardcoreEnabled();
 	}
 
@@ -206,7 +196,6 @@ public class IntegratedServer extends MinecraftServer {
 	 * Get if RCON command events should be broadcast to ops
 	 */
 	public boolean shouldBroadcastRconToOps() {
-
 		return true;
 	}
 
@@ -214,7 +203,6 @@ public class IntegratedServer extends MinecraftServer {
 	 * Get if console command events should be broadcast to ops
 	 */
 	public boolean shouldBroadcastConsoleToOps() {
-
 		return true;
 	}
 
@@ -222,17 +210,14 @@ public class IntegratedServer extends MinecraftServer {
 	 * par1 indicates if a log message should be output.
 	 */
 	public void saveAllWorlds(boolean isSilent) {
-
 		super.saveAllWorlds(isSilent);
 	}
 
 	public File getDataDirectory() {
-
 		return mc.dataDir;
 	}
 
 	public boolean isDedicatedServer() {
-
 		return false;
 	}
 
@@ -241,7 +226,6 @@ public class IntegratedServer extends MinecraftServer {
 	 * optimized packet sending/receiving on linux
 	 */
 	public boolean shouldUseNativeTransport() {
-
 		return false;
 	}
 
@@ -249,7 +233,6 @@ public class IntegratedServer extends MinecraftServer {
 	 * Called on exit from the main run() loop.
 	 */
 	public void finalTick(CrashReport report) {
-
 		mc.crashed(report);
 	}
 
@@ -257,7 +240,6 @@ public class IntegratedServer extends MinecraftServer {
 	 * Adds the server info, including from theWorldServer, to the crash report.
 	 */
 	public CrashReport addServerInfoToCrashReport(CrashReport report) {
-
 		report = super.addServerInfoToCrashReport(report);
 		report.getCategory().addDetail("Type", () -> "Integrated Server (map_client.txt)");
 		report.getCategory().addDetail("Is Modded", () -> {
@@ -280,7 +262,6 @@ public class IntegratedServer extends MinecraftServer {
 	}
 
 	public void setDifficultyForAllWorlds(Difficulty difficulty) {
-
 		super.setDifficultyForAllWorlds(difficulty);
 
 		if (mc.world != null) {
@@ -292,7 +273,6 @@ public class IntegratedServer extends MinecraftServer {
 	 * On dedicated does nothing. On integrated, sets commandsAllowedForAll, gameType and allows external connections.
 	 */
 	public String shareToLAN(GameType type, boolean allowCheats) {
-
 		try {
 			int i = -1;
 
@@ -323,7 +303,6 @@ public class IntegratedServer extends MinecraftServer {
 	 * Saves all necessary data as preparation for stopping the server.
 	 */
 	public void stopServer() {
-
 		super.stopServer();
 
 		if (lanServerPing != null) {
@@ -336,7 +315,6 @@ public class IntegratedServer extends MinecraftServer {
 	 * Sets the serverRunning variable to false, in order to get the server to shut down.
 	 */
 	public void initiateShutdown() {
-
 		Futures.getUnchecked(addScheduledTask(() -> {
 
 			for (EntityPlayerMP entityplayermp : Lists.newArrayList(getPlayerList().getPlayers())) {
@@ -357,7 +335,6 @@ public class IntegratedServer extends MinecraftServer {
 	 * Returns true if this integrated server is open to LAN
 	 */
 	public boolean getPublic() {
-
 		return isPublic;
 	}
 
@@ -365,12 +342,10 @@ public class IntegratedServer extends MinecraftServer {
 	 * Return whether command blocks are enabled.
 	 */
 	public boolean isCommandBlockEnabled() {
-
 		return true;
 	}
 
 	public int getOpPermissionLevel() {
-
 		return 4;
 	}
 

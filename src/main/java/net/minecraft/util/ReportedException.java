@@ -10,7 +10,6 @@ public class ReportedException extends RuntimeException {
 	private final CrashReport crashReport;
 
 	public ReportedException(CrashReport report) {
-
 		crashReport = report;
 	}
 
@@ -18,17 +17,14 @@ public class ReportedException extends RuntimeException {
 	 * Gets the CrashReport wrapped by this exception.
 	 */
 	public CrashReport getCrashReport() {
-
 		return crashReport;
 	}
 
 	public Throwable getCause() {
-
 		return crashReport.getCrashCause();
 	}
 
 	public String getMessage() {
-
 		return crashReport.getDescription();
 	}
 

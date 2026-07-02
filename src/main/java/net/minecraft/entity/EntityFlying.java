@@ -8,20 +8,16 @@ import net.minecraft.world.World;
 public abstract class EntityFlying extends EntityLiving {
 
 	public EntityFlying(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public void fall(float distance, float damageMultiplier) {
-
 	}
 
 	protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos) {
-
 	}
 
 	public void travel(float strafe, float vertical, float forward) {
-
 		if (isInWater()) {
 			moveRelative(strafe, vertical, forward, 0.02F);
 			move(MoverType.SELF, motionX, motionY, motionZ);
@@ -73,7 +69,6 @@ public abstract class EntityFlying extends EntityLiving {
 	 * for AI reasons)
 	 */
 	public boolean isOnLadder() {
-
 		return false;
 	}
 

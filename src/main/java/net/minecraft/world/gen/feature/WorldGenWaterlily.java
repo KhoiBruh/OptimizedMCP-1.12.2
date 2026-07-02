@@ -9,7 +9,6 @@ import java.util.Random;
 public class WorldGenWaterlily extends WorldGenerator {
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		for (int i = 0; i < 10; ++i) {
 			int j = position.getX() + rand.nextInt(8) - rand.nextInt(8);
 			int k = position.getY() + rand.nextInt(4) - rand.nextInt(4);

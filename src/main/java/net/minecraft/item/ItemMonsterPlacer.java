@@ -30,7 +30,6 @@ import java.util.UUID;
 public class ItemMonsterPlacer extends Item {
 
 	public ItemMonsterPlacer() {
-
 		setCreativeTab(CreativeTabs.MISC);
 	}
 
@@ -38,7 +37,6 @@ public class ItemMonsterPlacer extends Item {
 	 * Applies the data in the EntityTag tag of the given ItemStack to the given Entity.
 	 */
 	public static void applyItemEntityDataToEntity(World entityWorld, EntityPlayer player, ItemStack stack, Entity targetEntity) {
-
 		MinecraftServer minecraftserver = entityWorld.getMinecraftServer();
 
 		if (minecraftserver != null && targetEntity != null) {
@@ -65,7 +63,6 @@ public class ItemMonsterPlacer extends Item {
 	 * Parameters: world, entityID, x, y, z.
 	 */
 	public static Entity spawnCreature(World worldIn, ResourceLocation entityID, double x, double y, double z) {
-
 		if (entityID != null && EntityList.ENTITY_EGGS.containsKey(entityID)) {
 			Entity entity = null;
 
@@ -92,7 +89,6 @@ public class ItemMonsterPlacer extends Item {
 	 * APplies the given entity ID to the given ItemStack's NBT data.
 	 */
 	public static void applyEntityIdToItemStack(ItemStack stack, ResourceLocation entityId) {
-
 		NBTTagCompound nbttagcompound = stack.hasTagCompound() ? stack.getTagCompound() : new NBTTagCompound();
 		NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 		nbttagcompound1.setString("id", entityId.toString());
@@ -108,7 +104,6 @@ public class ItemMonsterPlacer extends Item {
 	 * @return The type ID, or {@code null} if there is no valid tag on the item.
 	 */
 	public static ResourceLocation getNamedIdFrom(ItemStack stack) {
-
 		NBTTagCompound nbttagcompound = stack.getTagCompound();
 
 		if (nbttagcompound == null) {
@@ -134,7 +129,6 @@ public class ItemMonsterPlacer extends Item {
 	}
 
 	public String getItemStackDisplayName(ItemStack stack) {
-
 		String s = (I18n.translateToLocal(getUnlocalizedName() + ".name")).trim();
 		String s1 = EntityList.getTranslationName(getNamedIdFrom(stack));
 
@@ -149,7 +143,6 @@ public class ItemMonsterPlacer extends Item {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (worldIn.isRemote) {
@@ -198,7 +191,6 @@ public class ItemMonsterPlacer extends Item {
 	}
 
 	protected double getYOffset(World p_190909_1_, BlockPos p_190909_2_) {
-
 		AxisAlignedBB axisalignedbb = (new AxisAlignedBB(p_190909_2_)).expand(0D, -1D, 0D);
 		List<AxisAlignedBB> list = p_190909_1_.getCollisionBoxes(null, axisalignedbb);
 
@@ -216,7 +208,6 @@ public class ItemMonsterPlacer extends Item {
 	}
 
 	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
-
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
 		if (worldIn.isRemote) {
@@ -261,7 +252,6 @@ public class ItemMonsterPlacer extends Item {
 	 * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
 	 */
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-
 		if (isInCreativeTab(tab)) {
 			for (EntityList.EntityEggInfo entitylist$entityegginfo : EntityList.ENTITY_EGGS.values()) {
 				ItemStack itemstack = new ItemStack(this, 1);

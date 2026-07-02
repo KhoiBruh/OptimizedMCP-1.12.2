@@ -8,12 +8,10 @@ import java.util.UUID;
 public class StringToUUID implements IFixableData {
 
 	public int getFixVersion() {
-
 		return 108;
 	}
 
 	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
-
 		if (compound.hasKey("UUID", 8)) {
 			compound.setUniqueId("UUID", UUID.fromString(compound.getString("UUID")));
 		}

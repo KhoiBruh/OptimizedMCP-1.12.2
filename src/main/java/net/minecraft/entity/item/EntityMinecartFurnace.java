@@ -27,17 +27,14 @@ public class EntityMinecartFurnace extends EntityMinecart {
 	private int fuel;
 
 	public EntityMinecartFurnace(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public EntityMinecartFurnace(World worldIn, double x, double y, double z) {
-
 		super(worldIn, x, y, z);
 	}
 
 	public static void registerFixesMinecartFurnace(DataFixer fixer) {
-
 		EntityMinecart.registerFixesMinecart(fixer, EntityMinecartFurnace.class);
 	}
 
@@ -47,7 +44,6 @@ public class EntityMinecartFurnace extends EntityMinecart {
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(POWERED, false);
 	}
@@ -56,7 +52,6 @@ public class EntityMinecartFurnace extends EntityMinecart {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		super.onUpdate();
 
 		if (fuel > 0) {
@@ -79,12 +74,10 @@ public class EntityMinecartFurnace extends EntityMinecart {
 	 * Get's the maximum speed for a minecart
 	 */
 	protected double getMaximumSpeed() {
-
 		return 0.2D;
 	}
 
 	public void killMinecart(DamageSource source) {
-
 		super.killMinecart(source);
 
 		if (!source.isExplosion() && world.getGameRules().getBoolean("doEntityDrops")) {
@@ -93,7 +86,6 @@ public class EntityMinecartFurnace extends EntityMinecart {
 	}
 
 	protected void moveAlongTrack(BlockPos pos, IBlockState state) {
-
 		super.moveAlongTrack(pos, state);
 		double d0 = pushX * pushX + pushZ * pushZ;
 
@@ -114,7 +106,6 @@ public class EntityMinecartFurnace extends EntityMinecart {
 	}
 
 	protected void applyDrag() {
-
 		double d0 = pushX * pushX + pushZ * pushZ;
 
 		if (d0 > 1.0E-4D) {
@@ -137,7 +128,6 @@ public class EntityMinecartFurnace extends EntityMinecart {
 	}
 
 	public boolean processInitialInteract(EntityPlayer player, Hand hand) {
-
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (itemstack.getItem() == Items.COAL && fuel + 3600 <= 32000) {
@@ -157,7 +147,6 @@ public class EntityMinecartFurnace extends EntityMinecart {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	protected void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setDouble("PushX", pushX);
 		compound.setDouble("PushZ", pushZ);
@@ -168,7 +157,6 @@ public class EntityMinecartFurnace extends EntityMinecart {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	protected void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		pushX = compound.getDouble("PushX");
 		pushZ = compound.getDouble("PushZ");
@@ -176,17 +164,14 @@ public class EntityMinecartFurnace extends EntityMinecart {
 	}
 
 	protected boolean isMinecartPowered() {
-
 		return dataManager.get(POWERED);
 	}
 
 	protected void setMinecartPowered(boolean p_94107_1_) {
-
 		dataManager.set(POWERED, p_94107_1_);
 	}
 
 	public IBlockState getDefaultDisplayTile() {
-
 		return (isMinecartPowered() ? Blocks.LIT_FURNACE : Blocks.FURNACE).getDefaultState().withProperty(BlockFurnace.FACING, Facing.NORTH);
 	}
 

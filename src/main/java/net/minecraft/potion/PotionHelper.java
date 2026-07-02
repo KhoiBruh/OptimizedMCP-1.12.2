@@ -29,12 +29,10 @@ public class PotionHelper {
 	};
 
 	public static boolean isReagent(ItemStack stack) {
-
 		return isItemConversionReagent(stack) || isTypeConversionReagent(stack);
 	}
 
 	protected static boolean isItemConversionReagent(ItemStack stack) {
-
 		int i = 0;
 
 		for (int j = POTION_ITEM_CONVERSIONS.size(); i < j; ++i) {
@@ -47,7 +45,6 @@ public class PotionHelper {
 	}
 
 	protected static boolean isTypeConversionReagent(ItemStack stack) {
-
 		int i = 0;
 
 		for (int j = POTION_TYPE_CONVERSIONS.size(); i < j; ++i) {
@@ -60,7 +57,6 @@ public class PotionHelper {
 	}
 
 	public static boolean hasConversions(ItemStack input, ItemStack reagent) {
-
 		if (!IS_POTION_ITEM.apply(input)) {
 			return false;
 		} else {
@@ -69,7 +65,6 @@ public class PotionHelper {
 	}
 
 	protected static boolean hasItemConversions(ItemStack input, ItemStack reagent) {
-
 		Item item = input.getItem();
 		int i = 0;
 
@@ -85,7 +80,6 @@ public class PotionHelper {
 	}
 
 	protected static boolean hasTypeConversions(ItemStack input, ItemStack reagent) {
-
 		PotionType potiontype = PotionUtils.getPotionFromItem(input);
 		int i = 0;
 
@@ -101,7 +95,6 @@ public class PotionHelper {
 	}
 
 	public static ItemStack doReaction(ItemStack reagent, ItemStack potionIn) {
-
 		if (!potionIn.isEmpty()) {
 			PotionType potiontype = PotionUtils.getPotionFromItem(potionIn);
 			Item item = potionIn.getItem();
@@ -130,7 +123,6 @@ public class PotionHelper {
 	}
 
 	public static void init() {
-
 		addContainer(Items.POTIONITEM);
 		addContainer(Items.SPLASH_POTION);
 		addContainer(Items.LINGERING_POTION);
@@ -188,22 +180,18 @@ public class PotionHelper {
 	}
 
 	private static void addContainerRecipe(ItemPotion p_193355_0_, Item p_193355_1_, ItemPotion p_193355_2_) {
-
 		POTION_ITEM_CONVERSIONS.add(new PotionHelper.MixPredicate<>(p_193355_0_, Ingredient.fromItems(p_193355_1_), p_193355_2_));
 	}
 
 	private static void addContainer(ItemPotion p_193354_0_) {
-
 		POTION_ITEMS.add(Ingredient.fromItems(p_193354_0_));
 	}
 
 	private static void addMix(PotionType p_193357_0_, Item p_193357_1_, PotionType p_193357_2_) {
-
 		addMix(p_193357_0_, Ingredient.fromItems(p_193357_1_), p_193357_2_);
 	}
 
 	private static void addMix(PotionType p_193356_0_, Ingredient p_193356_1_, PotionType p_193356_2_) {
-
 		POTION_TYPE_CONVERSIONS.add(new PotionHelper.MixPredicate<>(p_193356_0_, p_193356_1_, p_193356_2_));
 	}
 

@@ -6,13 +6,11 @@ import net.minecraft.util.text.ITextComponent;
 import java.util.Map;
 
 public record HoverEvent(Action action, ITextComponent value) {
-
 	/**
 	 * Gets the action to perform when this event is raised.
 	 */
 	@Override
 	public Action action() {
-
 		return action;
 	}
 
@@ -22,12 +20,10 @@ public record HoverEvent(Action action, ITextComponent value) {
 	 */
 	@Override
 	public ITextComponent value() {
-
 		return value;
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else if (p_equals_1_ != null && getClass() == p_equals_1_.getClass()) {
@@ -46,7 +42,6 @@ public record HoverEvent(Action action, ITextComponent value) {
 	}
 
 	public String toString() {
-
 		return "HoverEvent{action=" + action + ", value='" + value + '\'' + '}';
 	}
 
@@ -67,23 +62,19 @@ public record HoverEvent(Action action, ITextComponent value) {
 		private final String canonicalName;
 
 		Action(String canonicalNameIn, boolean allowedInChatIn) {
-
 			canonicalName = canonicalNameIn;
 			allowedInChat = allowedInChatIn;
 		}
 
 		public static Action getValueByCanonicalName(String canonicalNameIn) {
-
 			return NAME_MAPPING.get(canonicalNameIn);
 		}
 
 		public boolean shouldAllowInChat() {
-
 			return allowedInChat;
 		}
 
 		public String getCanonicalName() {
-
 			return canonicalName;
 		}
 	}

@@ -13,12 +13,10 @@ public class TileEntityShulkerBoxRenderer extends TileEntitySpecialRenderer<Tile
 	private final ModelShulker model;
 
 	public TileEntityShulkerBoxRenderer(ModelShulker modelIn) {
-
 		model = modelIn;
 	}
 
 	public void render(TileEntityShulkerBox te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-
 		Facing enumfacing = Facing.UP;
 
 		if (te.hasWorld()) {

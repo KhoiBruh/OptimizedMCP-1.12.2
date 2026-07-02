@@ -18,7 +18,6 @@ public class PropertyEnum<T extends Enum<T> & IStringSerializable> extends Prope
 	private final Map<String, T> nameToValue = Maps.newHashMap();
 
 	protected PropertyEnum(String name, Class<T> valueClass, Collection<T> allowedValues) {
-
 		super(name, valueClass);
 		this.allowedValues = ImmutableSet.copyOf(allowedValues);
 
@@ -55,12 +54,10 @@ public class PropertyEnum<T extends Enum<T> & IStringSerializable> extends Prope
 	}
 
 	public Collection<T> getAllowedValues() {
-
 		return allowedValues;
 	}
 
 	public Optional<T> parseValue(String value) {
-
 		return Optional.fromNullable(nameToValue.get(value));
 	}
 
@@ -68,12 +65,10 @@ public class PropertyEnum<T extends Enum<T> & IStringSerializable> extends Prope
 	 * Get the name for the given value.
 	 */
 	public String getName(T value) {
-
 		return value.getName();
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else if (p_equals_1_ instanceof PropertyEnum && super.equals(p_equals_1_)) {
@@ -85,7 +80,6 @@ public class PropertyEnum<T extends Enum<T> & IStringSerializable> extends Prope
 	}
 
 	public int hashCode() {
-
 		int i = super.hashCode();
 		i = 31 * i + allowedValues.hashCode();
 		i = 31 * i + nameToValue.hashCode();

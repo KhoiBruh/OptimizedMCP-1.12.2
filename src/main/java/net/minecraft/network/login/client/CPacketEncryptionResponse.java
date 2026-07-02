@@ -15,11 +15,9 @@ public class CPacketEncryptionResponse implements Packet<INetHandlerLoginServer>
 	private byte[] verifyTokenEncrypted = new byte[0];
 
 	public CPacketEncryptionResponse() {
-
 	}
 
 	public CPacketEncryptionResponse(SecretKey secret, PublicKey key, byte[] verifyToken) {
-
 		secretKeyEncrypted = CryptManager.encryptData(key, secret.getEncoded());
 		verifyTokenEncrypted = CryptManager.encryptData(key, verifyToken);
 	}
@@ -28,7 +26,6 @@ public class CPacketEncryptionResponse implements Packet<INetHandlerLoginServer>
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		secretKeyEncrypted = buf.readByteArray();
 		verifyTokenEncrypted = buf.readByteArray();
 	}
@@ -37,7 +34,6 @@ public class CPacketEncryptionResponse implements Packet<INetHandlerLoginServer>
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeByteArray(secretKeyEncrypted);
 		buf.writeByteArray(verifyTokenEncrypted);
 	}
@@ -46,17 +42,14 @@ public class CPacketEncryptionResponse implements Packet<INetHandlerLoginServer>
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerLoginServer handler) {
-
 		handler.processEncryptionResponse(this);
 	}
 
 	public SecretKey getSecretKey(PrivateKey key) {
-
 		return CryptManager.decryptSharedKey(key, secretKeyEncrypted);
 	}
 
 	public byte[] getVerifyToken(PrivateKey key) {
-
 		return key == null ? verifyTokenEncrypted : CryptManager.decryptData(key, verifyTokenEncrypted);
 	}
 

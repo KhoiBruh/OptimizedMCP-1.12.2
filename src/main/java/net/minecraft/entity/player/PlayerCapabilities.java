@@ -32,7 +32,6 @@ public class PlayerCapabilities {
 	private float walkSpeed = 0.1F;
 
 	public void writeCapabilitiesToNBT(NBTTagCompound tagCompound) {
-
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 		nbttagcompound.setBoolean("invulnerable", disableDamage);
 		nbttagcompound.setBoolean("flying", isFlying);
@@ -45,7 +44,6 @@ public class PlayerCapabilities {
 	}
 
 	public void readCapabilitiesFromNBT(NBTTagCompound tagCompound) {
-
 		if (tagCompound.hasKey("abilities", 10)) {
 			NBTTagCompound nbttagcompound = tagCompound.getCompoundTag("abilities");
 			disableDamage = nbttagcompound.getBoolean("invulnerable");
@@ -65,22 +63,18 @@ public class PlayerCapabilities {
 	}
 
 	public float getFlySpeed() {
-
 		return flySpeed;
 	}
 
 	public void setFlySpeed(float speed) {
-
 		flySpeed = speed;
 	}
 
 	public float getWalkSpeed() {
-
 		return walkSpeed;
 	}
 
 	public void setPlayerWalkSpeed(float speed) {
-
 		walkSpeed = speed;
 	}
 

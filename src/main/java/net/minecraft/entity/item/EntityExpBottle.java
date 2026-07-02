@@ -12,22 +12,18 @@ import net.minecraft.world.World;
 public class EntityExpBottle extends EntityThrowable {
 
 	public EntityExpBottle(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public EntityExpBottle(World worldIn, EntityLivingBase throwerIn) {
-
 		super(worldIn, throwerIn);
 	}
 
 	public EntityExpBottle(World worldIn, double x, double y, double z) {
-
 		super(worldIn, x, y, z);
 	}
 
 	public static void registerFixesExpBottle(DataFixer fixer) {
-
 		EntityThrowable.registerFixesThrowable(fixer, "ThrowableExpBottle");
 	}
 
@@ -35,7 +31,6 @@ public class EntityExpBottle extends EntityThrowable {
 	 * Gets the amount of gravity to apply to the thrown entity with each tick.
 	 */
 	protected float getGravityVelocity() {
-
 		return 0.07F;
 	}
 
@@ -43,7 +38,6 @@ public class EntityExpBottle extends EntityThrowable {
 	 * Called when this EntityThrowable hits a block or entity.
 	 */
 	protected void onImpact(RayTraceResult result) {
-
 		if (!world.isRemote) {
 			world.playEvent(2002, new BlockPos(this), PotionUtils.getPotionColor(PotionTypes.WATER));
 			int i = 3 + world.rand.nextInt(5) + world.rand.nextInt(5);

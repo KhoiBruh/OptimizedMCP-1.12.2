@@ -45,7 +45,6 @@ public class ShaderManager {
 	private boolean isDirty;
 
 	public ShaderManager(IResourceManager resourceManager, String programName) throws IOException {
-
 		ResourceLocation resourcelocation = new ResourceLocation("shaders/program/" + programName + ".json");
 		programFilename = programName;
 		try (IResource iresource = resourceManager.getResource(resourcelocation)) {
@@ -137,12 +136,10 @@ public class ShaderManager {
 	}
 
 	public void deleteShader() {
-
 		ShaderLinkHelper.getStaticShaderLinkHelper().deleteShader(this);
 	}
 
 	public void endShader() {
-
 		OpenGlHelper.glUseProgram(0);
 		currentProgram = -1;
 		staticShaderManager = null;
@@ -156,7 +153,6 @@ public class ShaderManager {
 	}
 
 	public void useShader() {
-
 		isDirty = false;
 		staticShaderManager = this;
 		blendingMode.apply();
@@ -200,7 +196,6 @@ public class ShaderManager {
 	}
 
 	public void markDirty() {
-
 		isDirty = true;
 	}
 
@@ -210,7 +205,6 @@ public class ShaderManager {
 	 * gets a shader uniform for the name given. null if not found.
 	 */
 	public ShaderUniform getShaderUniform(String name) {
-
 		return mappedShaderUniforms.get(name);
 	}
 
@@ -218,7 +212,6 @@ public class ShaderManager {
 	 * gets a shader uniform for the name given. if not found, returns a default not-null value
 	 */
 	public ShaderUniform getShaderUniformOrDefault(String name) {
-
 		ShaderUniform shaderuniform = getShaderUniform(name);
 		return shaderuniform == null ? DEFAULT_SHADER_UNIFORM : shaderuniform;
 	}
@@ -227,7 +220,6 @@ public class ShaderManager {
 	 * goes through the parsed uniforms and samplers and connects them to their GL counterparts.
 	 */
 	private void setupUniforms() {
-
 		int i = 0;
 
 		for (int j = 0; i < samplerNames.size(); ++j) {
@@ -261,7 +253,6 @@ public class ShaderManager {
 	}
 
 	private void parseSampler(JsonElement element) {
-
 		JsonObject jsonobject = JsonUtils.getJsonObject(element, "sampler");
 		String s = JsonUtils.getString(jsonobject, "name");
 
@@ -277,7 +268,6 @@ public class ShaderManager {
 	 * adds a shader sampler texture. if it already exists, replaces it.
 	 */
 	public void addSamplerTexture(String name, Object samplerTexture) {
-
 		shaderSamplers.remove(name);
 
 		shaderSamplers.put(name, samplerTexture);
@@ -285,7 +275,6 @@ public class ShaderManager {
 	}
 
 	private void parseUniform(JsonElement element) throws JsonException {
-
 		JsonObject jsonobject = JsonUtils.getJsonObject(element, "uniform");
 		String s = JsonUtils.getString(jsonobject, "name");
 		int i = ShaderUniform.parseType(JsonUtils.getString(jsonobject, "type"));
@@ -333,17 +322,14 @@ public class ShaderManager {
 	}
 
 	public ShaderLoader getVertexShaderLoader() {
-
 		return vertexShaderLoader;
 	}
 
 	public ShaderLoader getFragmentShaderLoader() {
-
 		return fragmentShaderLoader;
 	}
 
 	public int getProgram() {
-
 		return program;
 	}
 

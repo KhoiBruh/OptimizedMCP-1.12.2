@@ -19,22 +19,18 @@ public class ItemModelMesher {
 	private final ModelManager modelManager;
 
 	public ItemModelMesher(ModelManager modelManager) {
-
 		this.modelManager = modelManager;
 	}
 
 	public TextureAtlasSprite getParticleIcon(Item item) {
-
 		return getParticleIcon(item, 0);
 	}
 
 	public TextureAtlasSprite getParticleIcon(Item item, int meta) {
-
 		return getItemModel(new ItemStack(item, 1, meta)).getParticleTexture();
 	}
 
 	public IBakedModel getItemModel(ItemStack stack) {
-
 		Item item = stack.getItem();
 		IBakedModel ibakedmodel = getItemModel(item, getMetadata(stack));
 
@@ -54,39 +50,32 @@ public class ItemModelMesher {
 	}
 
 	protected int getMetadata(ItemStack stack) {
-
 		return stack.getMaxDamage() > 0 ? 0 : stack.getMetadata();
 	}
 
 	
 	protected IBakedModel getItemModel(Item item, int meta) {
-
 		return simpleShapesCache.get(getIndex(item, meta));
 	}
 
 	private int getIndex(Item item, int meta) {
-
 		return Item.getIdFromItem(item) << 16 | meta;
 	}
 
 	public void register(Item item, int meta, ModelResourceLocation location) {
-
 		simpleShapes.put(getIndex(item, meta), location);
 		simpleShapesCache.put(getIndex(item, meta), modelManager.getModel(location));
 	}
 
 	public void register(Item item, ItemMeshDefinition definition) {
-
 		shapers.put(item, definition);
 	}
 
 	public ModelManager getModelManager() {
-
 		return modelManager;
 	}
 
 	public void rebuildCache() {
-
 		simpleShapesCache.clear();
 
 		for (Entry<Integer, ModelResourceLocation> entry : simpleShapes.entrySet()) {

@@ -84,7 +84,6 @@ public class EntityTrackerEntry {
 	private boolean onGround;
 
 	public EntityTrackerEntry(Entity entityIn, int rangeIn, int maxRangeIn, int updateFrequencyIn, boolean sendVelocityUpdatesIn) {
-
 		trackedEntity = entityIn;
 		range = rangeIn;
 		maxRange = maxRangeIn;
@@ -100,7 +99,6 @@ public class EntityTrackerEntry {
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (p_equals_1_ instanceof EntityTrackerEntry) {
 			return ((EntityTrackerEntry) p_equals_1_).trackedEntity.getEntityId() == trackedEntity.getEntityId();
 		} else {
@@ -109,12 +107,10 @@ public class EntityTrackerEntry {
 	}
 
 	public int hashCode() {
-
 		return trackedEntity.getEntityId();
 	}
 
 	public void updatePlayerList(List<EntityPlayer> players) {
-
 		playerEntitiesUpdated = false;
 
 		if (!updatedPlayerVisibility || trackedEntity.getDistanceSq(lastTrackedEntityPosX, lastTrackedEntityPosY, lastTrackedEntityPosZ) > 16D) {
@@ -267,7 +263,6 @@ public class EntityTrackerEntry {
 	 * itself if a player.
 	 */
 	private void sendMetadata() {
-
 		EntityDataManager entitydatamanager = trackedEntity.getDataManager();
 
 		if (entitydatamanager.isDirty()) {
@@ -290,14 +285,12 @@ public class EntityTrackerEntry {
 	 * Send the given packet to all players tracking this entity.
 	 */
 	public void sendPacketToTrackedPlayers(Packet<?> packetIn) {
-
 		for (EntityPlayerMP entityplayermp : trackingPlayers) {
 			entityplayermp.connection.sendPacket(packetIn);
 		}
 	}
 
 	public void sendToTrackingAndSelf(Packet<?> packetIn) {
-
 		sendPacketToTrackedPlayers(packetIn);
 
 		if (trackedEntity instanceof EntityPlayerMP) {
@@ -306,7 +299,6 @@ public class EntityTrackerEntry {
 	}
 
 	public void sendDestroyEntityPacketToTrackedPlayers() {
-
 		for (EntityPlayerMP entityplayermp : trackingPlayers) {
 			trackedEntity.removeTrackingPlayer(entityplayermp);
 			entityplayermp.removeEntity(trackedEntity);
@@ -314,7 +306,6 @@ public class EntityTrackerEntry {
 	}
 
 	public void removeFromTrackedPlayers(EntityPlayerMP playerMP) {
-
 		if (trackingPlayers.contains(playerMP)) {
 			trackedEntity.removeTrackingPlayer(playerMP);
 			playerMP.removeEntity(trackedEntity);
@@ -323,7 +314,6 @@ public class EntityTrackerEntry {
 	}
 
 	public void updatePlayerEntity(EntityPlayerMP playerMP) {
-
 		if (playerMP != trackedEntity) {
 			if (isVisibleTo(playerMP)) {
 				if (!trackingPlayers.contains(playerMP) && (isPlayerWatchingThisChunk(playerMP) || trackedEntity.forceSpawn)) {
@@ -369,14 +359,12 @@ public class EntityTrackerEntry {
 					}
 
 					if (trackedEntity instanceof EntityPlayer entityplayer) {
-
 						if (entityplayer.isPlayerSleeping()) {
 							playerMP.connection.sendPacket(new SPacketUseBed(entityplayer, new BlockPos(trackedEntity)));
 						}
 					}
 
 					if (trackedEntity instanceof EntityLivingBase entitylivingbase) {
-
 						for (PotionEffect potioneffect : entitylivingbase.getActivePotionEffects()) {
 							playerMP.connection.sendPacket(new SPacketEntityEffect(trackedEntity.getEntityId(), potioneffect));
 						}
@@ -402,7 +390,6 @@ public class EntityTrackerEntry {
 	}
 
 	public boolean isVisibleTo(EntityPlayerMP playerMP) {
-
 		double d0 = playerMP.posX - (double) encodedPosX / 4096D;
 		double d1 = playerMP.posZ - (double) encodedPosZ / 4096D;
 		int i = Math.min(range, maxRange);
@@ -410,12 +397,10 @@ public class EntityTrackerEntry {
 	}
 
 	private boolean isPlayerWatchingThisChunk(EntityPlayerMP playerMP) {
-
 		return playerMP.getServerWorld().getPlayerChunkMap().isPlayerWatchingChunk(playerMP, trackedEntity.chunkCoordX, trackedEntity.chunkCoordZ);
 	}
 
 	public void updatePlayerEntities(List<EntityPlayer> players) {
-
 		for (EntityPlayer player : players) {
 			updatePlayerEntity((EntityPlayerMP) player);
 		}
@@ -548,7 +533,6 @@ public class EntityTrackerEntry {
 	 * Remove a tracked player from our list and tell the tracked player to destroy us from their world.
 	 */
 	public void removeTrackedPlayerSymmetric(EntityPlayerMP playerMP) {
-
 		if (trackingPlayers.contains(playerMP)) {
 			trackingPlayers.remove(playerMP);
 			trackedEntity.removeTrackingPlayer(playerMP);
@@ -557,17 +541,14 @@ public class EntityTrackerEntry {
 	}
 
 	public Entity getTrackedEntity() {
-
 		return trackedEntity;
 	}
 
 	public void setMaxRange(int maxRangeIn) {
-
 		maxRange = maxRangeIn;
 	}
 
 	public void resetPlayerVisibility() {
-
 		updatedPlayerVisibility = false;
 	}
 

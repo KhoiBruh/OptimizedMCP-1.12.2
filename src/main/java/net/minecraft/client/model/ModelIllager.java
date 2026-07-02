@@ -19,7 +19,6 @@ public class ModelIllager extends ModelBase {
 	public ModelRenderer leftArm;
 
 	public ModelIllager(float scaleFactor, float p_i47227_2_, int textureWidthIn, int textureHeightIn) {
-
 		head = (new ModelRenderer(this)).setTextureSize(textureWidthIn, textureHeightIn);
 		head.setRotationPoint(0F, 0F + p_i47227_2_, 0F);
 		head.setTextureOffset(0, 0).addBox(-4F, -10F, -4F, 8, 10, 8, scaleFactor);
@@ -63,7 +62,6 @@ public class ModelIllager extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		head.render(scale);
 		body.render(scale);
@@ -85,7 +83,6 @@ public class ModelIllager extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		head.rotateAngleY = netHeadYaw * 0.017453292F;
 		head.rotateAngleX = headPitch * 0.017453292F;
 		arms.rotationPointY = 3F;
@@ -142,7 +139,6 @@ public class ModelIllager extends ModelBase {
 	}
 
 	public ModelRenderer getArm(HandSide p_191216_1_) {
-
 		return p_191216_1_ == HandSide.LEFT ? leftArm : rightArm;
 	}
 

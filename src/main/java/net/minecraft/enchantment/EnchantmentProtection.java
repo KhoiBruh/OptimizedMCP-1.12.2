@@ -15,7 +15,6 @@ public class EnchantmentProtection extends Enchantment {
 	public final EnchantmentProtection.Type protectionType;
 
 	public EnchantmentProtection(Enchantment.Rarity rarityIn, EnchantmentProtection.Type protectionTypeIn, EntityEquipmentSlot... slots) {
-
 		super(rarityIn, EnchantmentType.ARMOR, slots);
 		protectionType = protectionTypeIn;
 
@@ -28,7 +27,6 @@ public class EnchantmentProtection extends Enchantment {
 	 * Gets the amount of ticks an entity should be set fire, adjusted for fire protection.
 	 */
 	public static int getFireTimeForEntity(EntityLivingBase p_92093_0_, int p_92093_1_) {
-
 		int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.FIRE_PROTECTION, p_92093_0_);
 
 		if (i > 0) {
@@ -39,7 +37,6 @@ public class EnchantmentProtection extends Enchantment {
 	}
 
 	public static double getBlastDamageReduction(EntityLivingBase entityLivingBaseIn, double damage) {
-
 		int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.BLAST_PROTECTION, entityLivingBaseIn);
 
 		if (i > 0) {
@@ -53,7 +50,6 @@ public class EnchantmentProtection extends Enchantment {
 	 * Returns the minimal value of enchantability needed on the enchantment level passed.
 	 */
 	public int getMinEnchantability(int enchantmentLevel) {
-
 		return protectionType.getMinimalEnchantability() + (enchantmentLevel - 1) * protectionType.getEnchantIncreasePerLevel();
 	}
 
@@ -61,7 +57,6 @@ public class EnchantmentProtection extends Enchantment {
 	 * Returns the maximum value of enchantability nedded on the enchantment level passed.
 	 */
 	public int getMaxEnchantability(int enchantmentLevel) {
-
 		return getMinEnchantability(enchantmentLevel) + protectionType.getEnchantIncreasePerLevel();
 	}
 
@@ -69,7 +64,6 @@ public class EnchantmentProtection extends Enchantment {
 	 * Returns the maximum level that the enchantment can have.
 	 */
 	public int getMaxLevel() {
-
 		return 4;
 	}
 
@@ -77,7 +71,6 @@ public class EnchantmentProtection extends Enchantment {
 	 * Calculates the damage protection of the enchantment based on level and damage source passed.
 	 */
 	public int calcModifierDamage(int level, DamageSource source) {
-
 		if (source.canHarmInCreative()) {
 			return 0;
 		} else if (protectionType == EnchantmentProtection.Type.ALL) {
@@ -97,7 +90,6 @@ public class EnchantmentProtection extends Enchantment {
 	 * Return the name of key in translation table of this enchantment.
 	 */
 	public String getName() {
-
 		return "enchantment.protect." + protectionType.getTypeName();
 	}
 
@@ -105,9 +97,7 @@ public class EnchantmentProtection extends Enchantment {
 	 * Determines if the enchantment passed can be applyied together with this enchantment.
 	 */
 	public boolean canApplyTogether(Enchantment ench) {
-
 		if (ench instanceof EnchantmentProtection enchantmentprotection) {
-
 			if (protectionType == enchantmentprotection.protectionType) {
 				return false;
 			} else {
@@ -131,7 +121,6 @@ public class EnchantmentProtection extends Enchantment {
 		private final int levelCostSpan;
 
 		Type(String name, int minimal, int perLevelEnchantability, int p_i47051_6_) {
-
 			typeName = name;
 			minEnchantability = minimal;
 			levelCost = perLevelEnchantability;
@@ -139,17 +128,14 @@ public class EnchantmentProtection extends Enchantment {
 		}
 
 		public String getTypeName() {
-
 			return typeName;
 		}
 
 		public int getMinimalEnchantability() {
-
 			return minEnchantability;
 		}
 
 		public int getEnchantIncreasePerLevel() {
-
 			return levelCost;
 		}
 	}

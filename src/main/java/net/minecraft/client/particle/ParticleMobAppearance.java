@@ -16,7 +16,6 @@ public class ParticleMobAppearance extends Particle {
 	private EntityLivingBase entity;
 
 	protected ParticleMobAppearance(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn) {
-
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0D, 0D, 0D);
 		particleRed = 1F;
 		particleGreen = 1F;
@@ -33,12 +32,10 @@ public class ParticleMobAppearance extends Particle {
 	 * 1 for the main Texture atlas, and 3 for a custom texture
 	 */
 	public int getFXLayer() {
-
 		return 3;
 	}
 
 	public void onUpdate() {
-
 		super.onUpdate();
 
 		if (entity == null) {
@@ -52,7 +49,6 @@ public class ParticleMobAppearance extends Particle {
 	 * Renders the particle
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-
 		if (entity != null) {
 			RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
 			rendermanager.setRenderPosition(Particle.interpPosX, Particle.interpPosY, Particle.interpPosZ);
@@ -85,7 +81,6 @@ public class ParticleMobAppearance extends Particle {
 	public static class Factory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			return new ParticleMobAppearance(worldIn, xCoordIn, yCoordIn, zCoordIn);
 		}
 

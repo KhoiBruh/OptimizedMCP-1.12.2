@@ -40,7 +40,6 @@ public class BlockChest extends BlockContainer {
 	public final BlockChest.Type chestType;
 
 	protected BlockChest(BlockChest.Type chestTypeIn) {
-
 		super(Material.WOOD);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH));
 		chestType = chestTypeIn;
@@ -51,17 +50,14 @@ public class BlockChest extends BlockContainer {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean hasCustomBreakingProgress(IBlockState state) {
-
 		return true;
 	}
 
@@ -70,12 +66,10 @@ public class BlockChest extends BlockContainer {
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
 	public BlockRenderType getRenderType(IBlockState state) {
-
 		return BlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		if (source.getBlockState(pos.north()).getBlock() == this) {
 			return NORTH_CHEST_AABB;
 		} else if (source.getBlockState(pos.south()).getBlock() == this) {
@@ -91,7 +85,6 @@ public class BlockChest extends BlockContainer {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		checkForSurroundingChests(worldIn, pos, state);
 
 		for (Facing enumfacing : Facing.Plane.HORIZONTAL) {
@@ -109,7 +102,6 @@ public class BlockChest extends BlockContainer {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
 	}
 
@@ -117,7 +109,6 @@ public class BlockChest extends BlockContainer {
 	 * Called by ItemBlocks after a block is set in the world, to allow post-place logic
 	 */
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-
 		Facing enumfacing = Facing.getHorizontal(MathHelper.floor((double) (placer.rotationYaw * 4F / 360F) + 0.5D) & 3).getOpposite();
 		state = state.withProperty(FACING, enumfacing);
 		BlockPos blockpos = pos.north();
@@ -161,7 +152,6 @@ public class BlockChest extends BlockContainer {
 	}
 
 	public IBlockState checkForSurroundingChests(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (worldIn.isRemote) {
 			return state;
 		} else {
@@ -233,7 +223,6 @@ public class BlockChest extends BlockContainer {
 	}
 
 	public IBlockState correctFacing(World worldIn, BlockPos pos, IBlockState state) {
-
 		Facing enumfacing = null;
 
 		for (Facing enumfacing1 : Facing.Plane.HORIZONTAL) {
@@ -278,7 +267,6 @@ public class BlockChest extends BlockContainer {
 	 * Checks if this block can be placed exactly at the given position.
 	 */
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-
 		int i = 0;
 		BlockPos blockpos = pos.west();
 		BlockPos blockpos1 = pos.east();
@@ -321,7 +309,6 @@ public class BlockChest extends BlockContainer {
 	}
 
 	private boolean isDoubleChest(World worldIn, BlockPos pos) {
-
 		if (worldIn.getBlockState(pos).getBlock() != this) {
 			return false;
 		} else {
@@ -341,7 +328,6 @@ public class BlockChest extends BlockContainer {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -354,7 +340,6 @@ public class BlockChest extends BlockContainer {
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 
 		if (tileentity instanceof IInventory) {
@@ -369,7 +354,6 @@ public class BlockChest extends BlockContainer {
 	 * Called when the block is right clicked by a player.
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		if (worldIn.isRemote) {
 			return true;
 		} else {
@@ -391,13 +375,11 @@ public class BlockChest extends BlockContainer {
 
 	
 	public ILockableContainer getLockableContainer(World worldIn, BlockPos pos) {
-
 		return getContainer(worldIn, pos, false);
 	}
 
 	
 	public ILockableContainer getContainer(World worldIn, BlockPos pos, boolean allowBlocking) {
-
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 
 		if (!(tileentity instanceof TileEntityChest)) {
@@ -438,7 +420,6 @@ public class BlockChest extends BlockContainer {
 	 * Returns a new instance of a block's tile entity class. Called on placing the block.
 	 */
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-
 		return new TileEntityChest();
 	}
 
@@ -446,12 +427,10 @@ public class BlockChest extends BlockContainer {
 	 * Can this block provide power. Only wire currently seems to have this change based on its state.
 	 */
 	public boolean canProvidePower(IBlockState state) {
-
 		return chestType == BlockChest.Type.TRAP;
 	}
 
 	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		if (!blockState.canProvidePower()) {
 			return 0;
 		} else {
@@ -467,22 +446,18 @@ public class BlockChest extends BlockContainer {
 	}
 
 	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		return side == Facing.UP ? blockState.getWeakPower(blockAccess, pos, side) : 0;
 	}
 
 	private boolean isBlocked(World worldIn, BlockPos pos) {
-
 		return isBelowSolidBlock(worldIn, pos) || isOcelotSittingOnChest(worldIn, pos);
 	}
 
 	private boolean isBelowSolidBlock(World worldIn, BlockPos pos) {
-
 		return worldIn.getBlockState(pos.up()).isNormalCube();
 	}
 
 	private boolean isOcelotSittingOnChest(World worldIn, BlockPos pos) {
-
 		for (EntityOcelot entity : worldIn.getEntitiesWithinAABB(EntityOcelot.class, new AxisAlignedBB(pos.getX(), pos.getY() + 1, pos.getZ(), pos.getX() + 1, pos.getY() + 2, pos.getZ() + 1))) {
 
 			if (entity.isSitting()) {
@@ -494,12 +469,10 @@ public class BlockChest extends BlockContainer {
 	}
 
 	public boolean hasComparatorInputOverride(IBlockState state) {
-
 		return true;
 	}
 
 	public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
-
 		return Container.calcRedstoneFromInventory(getLockableContainer(worldIn, pos));
 	}
 
@@ -507,7 +480,6 @@ public class BlockChest extends BlockContainer {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		Facing enumfacing = Facing.getFront(meta);
 
 		if (enumfacing.getAxis() == Facing.Axis.Y) {
@@ -521,7 +493,6 @@ public class BlockChest extends BlockContainer {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(FACING).getIndex();
 	}
 
@@ -530,7 +501,6 @@ public class BlockChest extends BlockContainer {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
@@ -539,12 +509,10 @@ public class BlockChest extends BlockContainer {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, FACING);
 	}
 
@@ -558,7 +526,6 @@ public class BlockChest extends BlockContainer {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

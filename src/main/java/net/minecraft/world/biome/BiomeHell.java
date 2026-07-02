@@ -8,7 +8,6 @@ import net.minecraft.entity.monster.EntityPigZombie;
 public class BiomeHell extends Biome {
 
 	public BiomeHell(Biome.BiomeProperties properties) {
-
 		super(properties);
 		spawnableMonsterList.clear();
 		spawnableCreatureList.clear();

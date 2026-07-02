@@ -9,7 +9,6 @@ import net.minecraft.world.World;
 public class BlockBarrier extends Block {
 
 	protected BlockBarrier() {
-
 		super(Material.BARRIER);
 		setBlockUnbreakable();
 		setResistance(6000001F);
@@ -22,7 +21,6 @@ public class BlockBarrier extends Block {
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
 	public BlockRenderType getRenderType(IBlockState state) {
-
 		return BlockRenderType.INVISIBLE;
 	}
 
@@ -30,12 +28,10 @@ public class BlockBarrier extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public float getAmbientOcclusionLightValue(IBlockState state) {
-
 		return 1F;
 	}
 
@@ -43,7 +39,6 @@ public class BlockBarrier extends Block {
 	 * Spawns this Block's drops into the World as EntityItems.
 	 */
 	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
-
 	}
 
 }

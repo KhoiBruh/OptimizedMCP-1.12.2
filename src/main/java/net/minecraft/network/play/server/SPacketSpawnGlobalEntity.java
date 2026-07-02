@@ -15,11 +15,9 @@ public class SPacketSpawnGlobalEntity implements Packet<INetHandlerPlayClient> {
 	private int type;
 
 	public SPacketSpawnGlobalEntity() {
-
 	}
 
 	public SPacketSpawnGlobalEntity(Entity entityIn) {
-
 		entityId = entityIn.getEntityId();
 		x = entityIn.posX;
 		y = entityIn.posY;
@@ -34,7 +32,6 @@ public class SPacketSpawnGlobalEntity implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		entityId = buf.readVarInt();
 		type = buf.readByte();
 		x = buf.readDouble();
@@ -46,7 +43,6 @@ public class SPacketSpawnGlobalEntity implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeVarInt(entityId);
 		buf.writeByte(type);
 		buf.writeDouble(x);
@@ -58,32 +54,26 @@ public class SPacketSpawnGlobalEntity implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleSpawnGlobalEntity(this);
 	}
 
 	public int getEntityId() {
-
 		return entityId;
 	}
 
 	public double getX() {
-
 		return x;
 	}
 
 	public double getY() {
-
 		return y;
 	}
 
 	public double getZ() {
-
 		return z;
 	}
 
 	public int getType() {
-
 		return type;
 	}
 

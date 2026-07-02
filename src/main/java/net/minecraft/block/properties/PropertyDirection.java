@@ -11,7 +11,6 @@ import java.util.Collection;
 public class PropertyDirection extends PropertyEnum<Facing> {
 
 	protected PropertyDirection(String name, Collection<Facing> values) {
-
 		super(name, Facing.class, values);
 	}
 
@@ -19,7 +18,6 @@ public class PropertyDirection extends PropertyEnum<Facing> {
 	 * Create a new PropertyDirection with the given name
 	 */
 	public static PropertyDirection create(String name) {
-
 		return create(name, Predicates.alwaysTrue());
 	}
 
@@ -27,7 +25,6 @@ public class PropertyDirection extends PropertyEnum<Facing> {
 	 * Create a new PropertyDirection with all directions that match the given Predicate
 	 */
 	public static PropertyDirection create(String name, Predicate<Facing> filter) {
-
 		return create(name, Collections2.filter(Lists.newArrayList(Facing.values()), filter));
 	}
 
@@ -35,7 +32,6 @@ public class PropertyDirection extends PropertyEnum<Facing> {
 	 * Create a new PropertyDirection for the given direction values
 	 */
 	public static PropertyDirection create(String name, Collection<Facing> values) {
-
 		return new PropertyDirection(name, values);
 	}
 

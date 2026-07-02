@@ -28,7 +28,6 @@ public class BeaconScreen extends ContainerScreen {
 	private boolean buttonsNotDrawn;
 
 	public BeaconScreen(InventoryPlayer playerInventory, IInventory tileBeaconIn) {
-
 		super(new ContainerBeacon(playerInventory, tileBeaconIn));
 		tileBeacon = tileBeaconIn;
 		xSize = 230;
@@ -40,7 +39,6 @@ public class BeaconScreen extends ContainerScreen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		super.init();
 		beaconConfirmButton = new BeaconScreen.ConfirmButton(-1, guiLeft + 164, guiTop + 107);
 		buttons.add(beaconConfirmButton);
@@ -53,7 +51,6 @@ public class BeaconScreen extends ContainerScreen {
 	 * Called from the main game loop to update the screen.
 	 */
 	public void update() {
-
 		super.update();
 		int i = tileBeacon.getField(0);
 		Potion potion = Potion.getPotionById(tileBeacon.getField(1));
@@ -114,7 +111,6 @@ public class BeaconScreen extends ContainerScreen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(net.minecraft.client.gui.component.Button button) {
-
 		if (button.id == -2) {
 			mc.player.connection.sendPacket(new CPacketCloseWindow(mc.player.openContainer.windowId));
 			mc.displayScreen(null);
@@ -149,7 +145,6 @@ public class BeaconScreen extends ContainerScreen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		super.draw(mouseX, mouseY, partialTicks);
 		renderHoveredToolTip(mouseX, mouseY);
@@ -159,7 +154,6 @@ public class BeaconScreen extends ContainerScreen {
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-
 		RenderHelper.disableStandardItemLighting();
 		drawCenteredString(fontRenderer, I18n.format("tile.beacon.primary"), 62, 10, 14737632);
 		drawCenteredString(fontRenderer, I18n.format("tile.beacon.secondary"), 169, 10, 14737632);
@@ -178,7 +172,6 @@ public class BeaconScreen extends ContainerScreen {
 	 * Draws the background layer of this container (behind the items).
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-
 		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(BEACON_GUI_TEXTURES);
 		int i = (width - xSize) / 2;
@@ -200,7 +193,6 @@ public class BeaconScreen extends ContainerScreen {
 		private boolean selected;
 
 		protected Button(int buttonId, int x, int y, ResourceLocation iconTextureIn, int iconXIn, int iconYIn) {
-
 			super(buttonId, x, y, 22, 22, "");
 			iconTexture = iconTextureIn;
 			iconX = iconXIn;
@@ -208,7 +200,6 @@ public class BeaconScreen extends ContainerScreen {
 		}
 
 		public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
-
 			if (visible) {
 				mc.getTextureManager().bindTexture(BeaconScreen.BEACON_GUI_TEXTURES);
 				GLS.color(1F, 1F, 1F, 1F);
@@ -234,12 +225,10 @@ public class BeaconScreen extends ContainerScreen {
 		}
 
 		public boolean isSelected() {
-
 			return selected;
 		}
 
 		public void setSelected(boolean selectedIn) {
-
 			selected = selectedIn;
 		}
 
@@ -248,12 +237,10 @@ public class BeaconScreen extends ContainerScreen {
 	class CancelButton extends BeaconScreen.Button {
 
 		public CancelButton(int buttonId, int x, int y) {
-
 			super(buttonId, x, y, BeaconScreen.BEACON_GUI_TEXTURES, 112, 220);
 		}
 
 		public void drawButtonForegroundLayer(int mouseX, int mouseY) {
-
 			drawHoveringText(I18n.format("gui.cancel"), mouseX, mouseY);
 		}
 
@@ -262,12 +249,10 @@ public class BeaconScreen extends ContainerScreen {
 	class ConfirmButton extends BeaconScreen.Button {
 
 		public ConfirmButton(int buttonId, int x, int y) {
-
 			super(buttonId, x, y, BeaconScreen.BEACON_GUI_TEXTURES, 90, 220);
 		}
 
 		public void drawButtonForegroundLayer(int mouseX, int mouseY) {
-
 			drawHoveringText(I18n.format("gui.done"), mouseX, mouseY);
 		}
 
@@ -279,14 +264,12 @@ public class BeaconScreen extends ContainerScreen {
 		private final int tier;
 
 		public PowerButton(int buttonId, int x, int y, Potion effectIn, int tierIn) {
-
 			super(buttonId, x, y, ContainerScreen.INVENTORY_BACKGROUND, effectIn.getStatusIconIndex() % 8 * 18, 198 + effectIn.getStatusIconIndex() / 8 * 18);
 			effect = effectIn;
 			tier = tierIn;
 		}
 
 		public void drawButtonForegroundLayer(int mouseX, int mouseY) {
-
 			String s = I18n.format(effect.getName());
 
 			if (tier >= 3 && effect != MobEffects.REGENERATION) {

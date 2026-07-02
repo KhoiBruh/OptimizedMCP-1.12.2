@@ -6,7 +6,6 @@ import net.minecraft.world.biome.Biome;
 public class GenLayerBiomeEdge extends GenLayer {
 
 	public GenLayerBiomeEdge(long p_i45475_1_, GenLayer p_i45475_3_) {
-
 		super(p_i45475_1_);
 		parent = p_i45475_3_;
 	}
@@ -16,7 +15,6 @@ public class GenLayerBiomeEdge extends GenLayer {
 	 * amounts, or Biome ID's based on the particular GenLayer subclass.
 	 */
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
-
 		int[] aint = parent.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
 		int[] aint1 = IntCache.getIntCache(areaWidth * areaHeight);
 
@@ -66,7 +64,6 @@ public class GenLayerBiomeEdge extends GenLayer {
 	 * Creates a border around a biome if necessary, e.g. A transition from hot to cold climates would otherwise occur.
 	 */
 	private boolean replaceBiomeEdgeIfNecessary(int[] p_151636_1_, int[] p_151636_2_, int p_151636_3_, int p_151636_4_, int p_151636_5_, int p_151636_6_, int p_151636_7_, int p_151636_8_) {
-
 		if (!biomesEqualOrMesaPlateau(p_151636_6_, p_151636_7_)) {
 			return false;
 		} else {
@@ -89,7 +86,6 @@ public class GenLayerBiomeEdge extends GenLayer {
 	 * Creates a border around a biome.
 	 */
 	private boolean replaceBiomeEdge(int[] p_151635_1_, int[] p_151635_2_, int p_151635_3_, int p_151635_4_, int p_151635_5_, int p_151635_6_, int p_151635_7_, int p_151635_8_) {
-
 		if (p_151635_6_ != p_151635_7_) {
 			return false;
 		} else {
@@ -113,7 +109,6 @@ public class GenLayerBiomeEdge extends GenLayer {
 	 * false.
 	 */
 	private boolean canBiomesBeNeighbors(int p_151634_1_, int p_151634_2_) {
-
 		if (biomesEqualOrMesaPlateau(p_151634_1_, p_151634_2_)) {
 			return true;
 		} else {

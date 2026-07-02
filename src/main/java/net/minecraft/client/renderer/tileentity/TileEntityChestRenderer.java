@@ -23,7 +23,6 @@ public class TileEntityChestRenderer extends TileEntitySpecialRenderer<TileEntit
 	private boolean isChristmas;
 
 	public TileEntityChestRenderer() {
-
 		Calendar calendar = Calendar.getInstance();
 
 		if (calendar.get(Calendar.MONTH) + 1 == 12 && calendar.get(Calendar.DATE) >= 24 && calendar.get(Calendar.DATE) <= 26) {
@@ -32,7 +31,6 @@ public class TileEntityChestRenderer extends TileEntitySpecialRenderer<TileEntit
 	}
 
 	public void render(TileEntityChest te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-
 		GLS.enableDepth();
 		GLS.depthFunc(515);
 		GLS.depthMask(true);

@@ -18,7 +18,6 @@ public class NetHandlerStatusServer implements INetHandlerStatusServer {
 	private boolean handled;
 
 	public NetHandlerStatusServer(MinecraftServer serverIn, NetworkManager netManager) {
-
 		server = serverIn;
 		networkManager = netManager;
 	}
@@ -27,11 +26,9 @@ public class NetHandlerStatusServer implements INetHandlerStatusServer {
 	 * Invoked when disconnecting, the parameter is a ChatComponent describing the reason for termination
 	 */
 	public void onDisconnect(ITextComponent reason) {
-
 	}
 
 	public void processServerQuery(CPacketServerQuery packetIn) {
-
 		if (handled) {
 			networkManager.closeChannel(EXIT_MESSAGE);
 		} else {
@@ -41,7 +38,6 @@ public class NetHandlerStatusServer implements INetHandlerStatusServer {
 	}
 
 	public void processPing(CPacketPing packetIn) {
-
 		networkManager.sendPacket(new SPacketPong(packetIn.getClientTime()));
 		networkManager.closeChannel(EXIT_MESSAGE);
 	}

@@ -17,12 +17,10 @@ public class NettyPacketEncoder extends MessageToByteEncoder<Packet<?>> {
 	private final PacketDirection direction;
 
 	public NettyPacketEncoder(PacketDirection direction) {
-
 		this.direction = direction;
 	}
 
 	protected void encode(ChannelHandlerContext p_encode_1_, Packet<?> p_encode_2_, ByteBuf p_encode_3_) throws Exception {
-
 		ConnectionState enumconnectionstate = p_encode_1_.channel().attr(NetworkManager.PROTOCOL_ATTRIBUTE_KEY).get();
 
 		if (enumconnectionstate == null) {

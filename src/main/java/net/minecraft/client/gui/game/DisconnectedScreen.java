@@ -16,7 +16,6 @@ public class DisconnectedScreen extends Screen {
 	private int textHeight;
 
 	public DisconnectedScreen(Screen screen, String reasonLocalizationKey, ITextComponent chatComp) {
-
 		parentScreen = screen;
 		reason = I18n.format(reasonLocalizationKey);
 		message = chatComp;
@@ -27,7 +26,6 @@ public class DisconnectedScreen extends Screen {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) {
-
 	}
 
 	/**
@@ -35,7 +33,6 @@ public class DisconnectedScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		buttons.clear();
 		multilineMessage = fontRenderer.formatToWidth(message.getFormattedText(), width - 50);
 		textHeight = multilineMessage.size() * fontRenderer.FONT_HEIGHT;
@@ -46,7 +43,6 @@ public class DisconnectedScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.id == 0) {
 			mc.displayScreen(parentScreen);
 		}
@@ -56,7 +52,6 @@ public class DisconnectedScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, reason, width / 2, height / 2 - textHeight / 2 - fontRenderer.FONT_HEIGHT * 2, 11184810);
 		int i = height / 2 - textHeight / 2;

@@ -12,7 +12,6 @@ public class ContainerHorseInventory extends Container {
 	private final AbstractHorse horse;
 
 	public ContainerHorseInventory(IInventory playerInventory, IInventory horseInventoryIn, final AbstractHorse horse, EntityPlayer player) {
-
 		horseInventory = horseInventoryIn;
 		this.horse = horse;
 		int i = 3;
@@ -20,28 +19,23 @@ public class ContainerHorseInventory extends Container {
 		int j = -18;
 		addSlotToContainer(new Slot(horseInventoryIn, 0, 8, 18) {
 			public boolean isItemValid(ItemStack stack) {
-
 				return stack.getItem() == Items.SADDLE && !getHasStack() && horse.canBeSaddled();
 			}
 
 			public boolean isEnabled() {
-
 				return horse.canBeSaddled();
 			}
 		});
 		addSlotToContainer(new Slot(horseInventoryIn, 1, 8, 36) {
 			public boolean isItemValid(ItemStack stack) {
-
 				return horse.isArmor(stack);
 			}
 
 			public boolean isEnabled() {
-
 				return horse.wearsArmor();
 			}
 
 			public int getSlotStackLimit() {
-
 				return 1;
 			}
 		});
@@ -69,7 +63,6 @@ public class ContainerHorseInventory extends Container {
 	 * Determines whether supplied player can use this container
 	 */
 	public boolean canInteractWith(EntityPlayer playerIn) {
-
 		return horseInventory.isUsableByPlayer(playerIn) && horse.isEntityAlive() && horse.getDistance(playerIn) < 8F;
 	}
 
@@ -78,7 +71,6 @@ public class ContainerHorseInventory extends Container {
 	 * inventory and the other inventory(s).
 	 */
 	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = inventorySlots.get(index);
 
@@ -116,7 +108,6 @@ public class ContainerHorseInventory extends Container {
 	 * Called when the container is closed.
 	 */
 	public void onContainerClosed(EntityPlayer playerIn) {
-
 		super.onContainerClosed(playerIn);
 		horseInventory.closeInventory(playerIn);
 	}

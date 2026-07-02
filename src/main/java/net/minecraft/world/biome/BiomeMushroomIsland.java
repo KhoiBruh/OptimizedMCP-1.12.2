@@ -6,7 +6,6 @@ import net.minecraft.init.Blocks;
 public class BiomeMushroomIsland extends Biome {
 
 	public BiomeMushroomIsland(Biome.BiomeProperties properties) {
-
 		super(properties);
 		decorator.treesPerChunk = -100;
 		decorator.flowersPerChunk = -100;

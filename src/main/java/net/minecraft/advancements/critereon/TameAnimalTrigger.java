@@ -21,12 +21,10 @@ public class TameAnimalTrigger implements ICriterionTrigger<TameAnimalTrigger.In
 	private final Map<PlayerAdvancements, TameAnimalTrigger.Listeners> listeners = Maps.newHashMap();
 
 	public ResourceLocation getId() {
-
 		return ID;
 	}
 
 	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<TameAnimalTrigger.Instance> listener) {
-
 		TameAnimalTrigger.Listeners tameanimaltrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (tameanimaltrigger$listeners == null) {
@@ -38,7 +36,6 @@ public class TameAnimalTrigger implements ICriterionTrigger<TameAnimalTrigger.In
 	}
 
 	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<TameAnimalTrigger.Instance> listener) {
-
 		TameAnimalTrigger.Listeners tameanimaltrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (tameanimaltrigger$listeners != null) {
@@ -51,7 +48,6 @@ public class TameAnimalTrigger implements ICriterionTrigger<TameAnimalTrigger.In
 	}
 
 	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
-
 		listeners.remove(playerAdvancementsIn);
 	}
 
@@ -65,7 +61,6 @@ public class TameAnimalTrigger implements ICriterionTrigger<TameAnimalTrigger.In
 	}
 
 	public void trigger(EntityPlayerMP player, EntityAnimal entity) {
-
 		TameAnimalTrigger.Listeners tameanimaltrigger$listeners = listeners.get(player.getAdvancements());
 
 		if (tameanimaltrigger$listeners != null) {
@@ -78,13 +73,11 @@ public class TameAnimalTrigger implements ICriterionTrigger<TameAnimalTrigger.In
 		private final EntityPredicate entity;
 
 		public Instance(EntityPredicate entity) {
-
 			super(TameAnimalTrigger.ID);
 			this.entity = entity;
 		}
 
 		public boolean test(EntityPlayerMP player, EntityAnimal entity) {
-
 			return this.entity.test(player, entity);
 		}
 
@@ -96,27 +89,22 @@ public class TameAnimalTrigger implements ICriterionTrigger<TameAnimalTrigger.In
 		private final Set<ICriterionTrigger.Listener<TameAnimalTrigger.Instance>> listeners = Sets.newHashSet();
 
 		public Listeners(PlayerAdvancements playerAdvancementsIn) {
-
 			playerAdvancements = playerAdvancementsIn;
 		}
 
 		public boolean isEmpty() {
-
 			return listeners.isEmpty();
 		}
 
 		public void add(ICriterionTrigger.Listener<TameAnimalTrigger.Instance> listener) {
-
 			listeners.add(listener);
 		}
 
 		public void remove(ICriterionTrigger.Listener<TameAnimalTrigger.Instance> listener) {
-
 			listeners.remove(listener);
 		}
 
 		public void trigger(EntityPlayerMP player, EntityAnimal entity) {
-
 			List<ICriterionTrigger.Listener<TameAnimalTrigger.Instance>> list = null;
 
 			for (ICriterionTrigger.Listener<TameAnimalTrigger.Instance> listener : listeners) {

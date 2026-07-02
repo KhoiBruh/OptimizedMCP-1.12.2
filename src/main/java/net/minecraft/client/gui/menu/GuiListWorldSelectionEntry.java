@@ -43,7 +43,6 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 	private long lastClickTime;
 
 	public GuiListWorldSelectionEntry(GuiListWorldSelection listWorldSelIn, WorldSummary worldSummaryIn, ISaveFormat saveFormat) {
-
 		containingListSel = listWorldSelIn;
 		worldSelScreen = listWorldSelIn.getGuiWorldSelection();
 		worldSummary = worldSummaryIn;
@@ -59,7 +58,6 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 	}
 
 	public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected, float partialTicks) {
-
 		String s = worldSummary.getDisplayName();
 		String s1 = worldSummary.getFileName() + " (" + DATE_FORMAT.format(new Date(worldSummary.getLastTimePlayed())) + ")";
 		String s2 = "";
@@ -137,7 +135,6 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 	 * clicked and the list should not be dragged.
 	 */
 	public boolean mousePressed(int slotIndex, int mouseX, int mouseY, int mouseEvent, int relativeX, int relativeY) {
-
 		containingListSel.selectWorld(slotIndex);
 
 		if (relativeX < 32) {
@@ -153,7 +150,6 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 	}
 
 	public void joinWorld() {
-
 		if (worldSummary.askToOpenWorld()) {
 			client.displayScreen(new YesNoScreen((result, id) -> {
 
@@ -169,7 +165,6 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 	}
 
 	public void deleteWorld() {
-
 		client.displayScreen(new YesNoScreen((result, id) -> {
 
 			if (result) {
@@ -185,12 +180,10 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 	}
 
 	public void editWorld() {
-
 		client.displayScreen(new WorldEditScreen(worldSelScreen, worldSummary.getFileName()));
 	}
 
 	public void recreateWorld() {
-
 		client.displayScreen(new WorkingScreen());
 		CreateWorldScreen guicreateworld = new CreateWorldScreen(worldSelScreen);
 		ISaveHandler isavehandler = client.getSaveLoader().getSaveLoader(worldSummary.getFileName(), false);
@@ -204,7 +197,6 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 	}
 
 	private void loadWorld() {
-
 		client.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1F));
 
 		if (client.getSaveLoader().canLoadWorld(worldSummary.getFileName())) {
@@ -213,7 +205,6 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 	}
 
 	private void loadServerIcon() {
-
 		boolean flag = iconFile != null && iconFile.isFile();
 
 		if (flag) {
@@ -246,11 +237,9 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 	 * Fired when the mouse button is released. Arguments: index, x, y, mouseEvent, relativeX, relativeY
 	 */
 	public void mouseReleased(int slotIndex, int x, int y, int mouseEvent, int relativeX, int relativeY) {
-
 	}
 
 	public void updatePosition(int slotIndex, int x, int y, float partialTicks) {
-
 	}
 
 }

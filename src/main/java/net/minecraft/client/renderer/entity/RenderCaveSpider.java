@@ -9,7 +9,6 @@ public class RenderCaveSpider extends RenderSpider<EntityCaveSpider> {
 	private static final ResourceLocation CAVE_SPIDER_TEXTURES = new ResourceLocation("textures/entity/spider/cave_spider.png");
 
 	public RenderCaveSpider(RenderManager renderManagerIn) {
-
 		super(renderManagerIn);
 		shadowSize *= 0.7F;
 	}
@@ -18,7 +17,6 @@ public class RenderCaveSpider extends RenderSpider<EntityCaveSpider> {
 	 * Allows the render to do state modifications necessary before the model is rendered.
 	 */
 	protected void preRenderCallback(EntityCaveSpider entitylivingbaseIn, float partialTickTime) {
-
 		GLS.scale(0.7F, 0.7F, 0.7F);
 	}
 
@@ -26,7 +24,6 @@ public class RenderCaveSpider extends RenderSpider<EntityCaveSpider> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityCaveSpider entity) {
-
 		return CAVE_SPIDER_TEXTURES;
 	}
 

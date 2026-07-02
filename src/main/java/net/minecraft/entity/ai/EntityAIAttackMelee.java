@@ -36,7 +36,6 @@ public class EntityAIAttackMelee extends EntityAIBase {
 	private double targetZ;
 
 	public EntityAIAttackMelee(EntityCreature creature, double speedIn, boolean useLongMemory) {
-
 		attacker = creature;
 		world = creature.world;
 		speedTowardsTarget = speedIn;
@@ -48,7 +47,6 @@ public class EntityAIAttackMelee extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		EntityLivingBase entitylivingbase = attacker.getAttackTarget();
 
 		if (entitylivingbase == null) {
@@ -70,7 +68,6 @@ public class EntityAIAttackMelee extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		EntityLivingBase entitylivingbase = attacker.getAttackTarget();
 
 		if (entitylivingbase == null) {
@@ -90,7 +87,6 @@ public class EntityAIAttackMelee extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		attacker.getNavigator().setPath(path, speedTowardsTarget);
 		delayCounter = 0;
 	}
@@ -99,7 +95,6 @@ public class EntityAIAttackMelee extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		EntityLivingBase entitylivingbase = attacker.getAttackTarget();
 
 		if (entitylivingbase instanceof EntityPlayer && (((EntityPlayer) entitylivingbase).isSpectator() || ((EntityPlayer) entitylivingbase).isCreative())) {
@@ -113,7 +108,6 @@ public class EntityAIAttackMelee extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		EntityLivingBase entitylivingbase = attacker.getAttackTarget();
 		attacker.getLookHelper().setLookPositionWithEntity(entitylivingbase, 30F, 30F);
 		double d0 = attacker.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ);
@@ -141,7 +135,6 @@ public class EntityAIAttackMelee extends EntityAIBase {
 	}
 
 	protected void checkAndPerformAttack(EntityLivingBase enemy, double distToEnemySqr) {
-
 		double d0 = getAttackReachSqr(enemy);
 
 		if (distToEnemySqr <= d0 && attackTick <= 0) {
@@ -152,7 +145,6 @@ public class EntityAIAttackMelee extends EntityAIBase {
 	}
 
 	protected double getAttackReachSqr(EntityLivingBase attackTarget) {
-
 		return attacker.width * 2F * attacker.width * 2F + attackTarget.width;
 	}
 

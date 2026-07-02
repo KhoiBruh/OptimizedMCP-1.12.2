@@ -26,7 +26,6 @@ public class SaveFormatOld implements ISaveFormat {
 	protected final DataFixer dataFixer;
 
 	public SaveFormatOld(File savesDirectoryIn, DataFixer dataFixerIn) {
-
 		dataFixer = dataFixerIn;
 
 		if (!savesDirectoryIn.exists()) {
@@ -38,7 +37,6 @@ public class SaveFormatOld implements ISaveFormat {
 
 	
 	public static WorldInfo getWorldData(File p_186353_0_, DataFixer dataFixerIn) {
-
 		try {
 			NBTTagCompound nbttagcompound = CompressedStreamTools.readCompressed(new FileInputStream(p_186353_0_));
 			NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("Data");
@@ -53,7 +51,6 @@ public class SaveFormatOld implements ISaveFormat {
 	 * Deletes a list of files and directories.
 	 */
 	protected static boolean deleteFiles(File[] files) {
-
 		for (File file1 : files) {
 			LOGGER.debug("Deleting {}", file1);
 
@@ -75,12 +72,10 @@ public class SaveFormatOld implements ISaveFormat {
 	 * Returns the name of the save format.
 	 */
 	public String getName() {
-
 		return "Old Format";
 	}
 
 	public List<WorldSummary> getSaveList() throws AnvilConverterException {
-
 		List<WorldSummary> list = Lists.newArrayList();
 
 		for (int i = 0; i < 5; ++i) {
@@ -96,7 +91,6 @@ public class SaveFormatOld implements ISaveFormat {
 	}
 
 	public void flushCache() {
-
 	}
 
 	
@@ -105,7 +99,6 @@ public class SaveFormatOld implements ISaveFormat {
 	 * Returns the world's WorldInfo object
 	 */
 	public WorldInfo getWorldInfo(String saveName) {
-
 		File file1 = new File(savesDirectory, saveName);
 
 		if (!file1.exists()) {
@@ -131,7 +124,6 @@ public class SaveFormatOld implements ISaveFormat {
 	 * data.
 	 */
 	public void renameWorld(String dirName, String newName) {
-
 		File file1 = new File(savesDirectory, dirName);
 
 		if (file1.exists()) {
@@ -151,7 +143,6 @@ public class SaveFormatOld implements ISaveFormat {
 	}
 
 	public boolean isNewLevelIdAcceptable(String saveName) {
-
 		File file1 = new File(savesDirectory, saveName);
 
 		if (file1.exists()) {
@@ -172,7 +163,6 @@ public class SaveFormatOld implements ISaveFormat {
 	 * Deletes a world directory.
 	 */
 	public boolean deleteWorldDirectory(String saveName) {
-
 		File file1 = new File(savesDirectory, saveName);
 
 		if (!file1.exists()) {
@@ -205,12 +195,10 @@ public class SaveFormatOld implements ISaveFormat {
 	 * Returns back a loader for the specified save directory
 	 */
 	public ISaveHandler getSaveLoader(String saveName, boolean storePlayerdata) {
-
 		return new SaveHandler(savesDirectory, saveName, storePlayerdata, dataFixer);
 	}
 
 	public boolean isConvertible(String saveName) {
-
 		return false;
 	}
 
@@ -218,7 +206,6 @@ public class SaveFormatOld implements ISaveFormat {
 	 * gets if the map is old chunk saving (true) or McRegion (false)
 	 */
 	public boolean isOldMapFormat(String saveName) {
-
 		return false;
 	}
 
@@ -226,7 +213,6 @@ public class SaveFormatOld implements ISaveFormat {
 	 * converts the map to mcRegion
 	 */
 	public boolean convertMapFormat(String filename, IProgressUpdate progressCallback) {
-
 		return false;
 	}
 
@@ -234,13 +220,11 @@ public class SaveFormatOld implements ISaveFormat {
 	 * Return whether the given world can be loaded.
 	 */
 	public boolean canLoadWorld(String saveName) {
-
 		File file1 = new File(savesDirectory, saveName);
 		return file1.isDirectory();
 	}
 
 	public File getFile(String p_186352_1_, String p_186352_2_) {
-
 		return new File(new File(savesDirectory, p_186352_1_), p_186352_2_);
 	}
 

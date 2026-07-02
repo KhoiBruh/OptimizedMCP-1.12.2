@@ -23,13 +23,11 @@ public class RandomPositionGenerator {
 	 * finds a random target within par1(x,z) and par2 (y) blocks
 	 */
 	public static Vec3d findRandomTarget(EntityCreature entitycreatureIn, int xz, int y) {
-
 		return findRandomTargetBlock(entitycreatureIn, xz, y, null);
 	}
 
 	
 	public static Vec3d getLandPos(EntityCreature p_191377_0_, int p_191377_1_, int p_191377_2_) {
-
 		return generateRandomPos(p_191377_0_, p_191377_1_, p_191377_2_, null, false);
 	}
 
@@ -39,7 +37,6 @@ public class RandomPositionGenerator {
 	 * finds a random target within par1(x,z) and par2 (y) blocks in the direction of the point par3
 	 */
 	public static Vec3d findRandomTargetBlockTowards(EntityCreature entitycreatureIn, int xz, int y, Vec3d targetVec3) {
-
 		staticVector = targetVec3.subtract(entitycreatureIn.posX, entitycreatureIn.posY, entitycreatureIn.posZ);
 		return findRandomTargetBlock(entitycreatureIn, xz, y, staticVector);
 	}
@@ -50,7 +47,6 @@ public class RandomPositionGenerator {
 	 * finds a random target within par1(x,z) and par2 (y) blocks in the reverse direction of the point par3
 	 */
 	public static Vec3d findRandomTargetBlockAwayFrom(EntityCreature entitycreatureIn, int xz, int y, Vec3d targetVec3) {
-
 		staticVector = (new Vec3d(entitycreatureIn.posX, entitycreatureIn.posY, entitycreatureIn.posZ)).subtract(targetVec3);
 		return findRandomTargetBlock(entitycreatureIn, xz, y, staticVector);
 	}
@@ -62,13 +58,11 @@ public class RandomPositionGenerator {
 	 * par3Vec3, then points to the tile for which creature.getBlockPathWeight returns the highest number
 	 */
 	private static Vec3d findRandomTargetBlock(EntityCreature entitycreatureIn, int xz, int y, Vec3d targetVec3) {
-
 		return generateRandomPos(entitycreatureIn, xz, y, targetVec3, true);
 	}
 
 	
 	private static Vec3d generateRandomPos(EntityCreature p_191379_0_, int p_191379_1_, int p_191379_2_, Vec3d p_191379_3_, boolean p_191379_4_) {
-
 		PathNavigate pathnavigate = p_191379_0_.getNavigator();
 		Random random = p_191379_0_.getRNG();
 		boolean flag;
@@ -141,7 +135,6 @@ public class RandomPositionGenerator {
 	}
 
 	private static BlockPos moveAboveSolid(BlockPos p_191378_0_, EntityCreature p_191378_1_) {
-
 		if (!p_191378_1_.world.getBlockState(p_191378_0_).getMaterial().isSolid()) {
 			return p_191378_0_;
 		} else {
@@ -155,7 +148,6 @@ public class RandomPositionGenerator {
 	}
 
 	private static boolean isWaterDestination(BlockPos p_191380_0_, EntityCreature p_191380_1_) {
-
 		return p_191380_1_.world.getBlockState(p_191380_0_).getMaterial() == Material.WATER;
 	}
 

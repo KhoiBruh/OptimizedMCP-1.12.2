@@ -21,23 +21,19 @@ public class EntityEnderPearl extends EntityThrowable {
 	private EntityLivingBase perlThrower;
 
 	public EntityEnderPearl(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public EntityEnderPearl(World worldIn, EntityLivingBase throwerIn) {
-
 		super(worldIn, throwerIn);
 		perlThrower = throwerIn;
 	}
 
 	public EntityEnderPearl(World worldIn, double x, double y, double z) {
-
 		super(worldIn, x, y, z);
 	}
 
 	public static void registerFixesEnderPearl(DataFixer fixer) {
-
 		EntityThrowable.registerFixesThrowable(fixer, "ThrownEnderpearl");
 	}
 
@@ -45,7 +41,6 @@ public class EntityEnderPearl extends EntityThrowable {
 	 * Called when this EntityThrowable hits a block or entity.
 	 */
 	protected void onImpact(RayTraceResult result) {
-
 		EntityLivingBase entitylivingbase = getThrower();
 
 		if (result.entityHit != null) {
@@ -61,7 +56,6 @@ public class EntityEnderPearl extends EntityThrowable {
 			TileEntity tileentity = world.getTileEntity(blockpos);
 
 			if (tileentity instanceof TileEntityEndGateway tileentityendgateway) {
-
 				if (entitylivingbase != null) {
 					if (entitylivingbase instanceof EntityPlayerMP) {
 						CriteriaTriggers.ENTER_BLOCK.trigger((EntityPlayerMP) entitylivingbase, world.getBlockState(blockpos));
@@ -83,7 +77,6 @@ public class EntityEnderPearl extends EntityThrowable {
 
 		if (!world.isRemote) {
 			if (entitylivingbase instanceof EntityPlayerMP entityplayermp) {
-
 				if (entityplayermp.connection.getNetworkManager().isChannelOpen() && entityplayermp.world == world && !entityplayermp.isPlayerSleeping()) {
 					if (rand.nextFloat() < 0.05F && world.getGameRules().getBoolean("doMobSpawning")) {
 						EntityEndermite entityendermite = new EntityEndermite(world);
@@ -113,7 +106,6 @@ public class EntityEnderPearl extends EntityThrowable {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		EntityLivingBase entitylivingbase = getThrower();
 
 		if (entitylivingbase instanceof EntityPlayer && !entitylivingbase.isEntityAlive()) {
@@ -125,7 +117,6 @@ public class EntityEnderPearl extends EntityThrowable {
 
 	
 	public Entity changeDimension(int dimensionIn) {
-
 		if (thrower.dimension != dimensionIn) {
 			thrower = null;
 		}

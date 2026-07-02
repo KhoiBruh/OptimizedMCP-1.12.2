@@ -17,11 +17,9 @@ public class CPacketPlayerDigging implements Packet<INetHandlerPlayServer> {
 	private CPacketPlayerDigging.Action action;
 
 	public CPacketPlayerDigging() {
-
 	}
 
 	public CPacketPlayerDigging(CPacketPlayerDigging.Action actionIn, BlockPos posIn, Facing facingIn) {
-
 		action = actionIn;
 		position = posIn;
 		facing = facingIn;
@@ -31,7 +29,6 @@ public class CPacketPlayerDigging implements Packet<INetHandlerPlayServer> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		action = buf.readEnumValue(Action.class);
 		position = buf.readBlockPos();
 		facing = Facing.getFront(buf.readUnsignedByte());
@@ -41,7 +38,6 @@ public class CPacketPlayerDigging implements Packet<INetHandlerPlayServer> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeEnumValue(action);
 		buf.writeBlockPos(position);
 		buf.writeByte(facing.getIndex());
@@ -51,17 +47,14 @@ public class CPacketPlayerDigging implements Packet<INetHandlerPlayServer> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayServer handler) {
-
 		handler.processPlayerDigging(this);
 	}
 
 	public BlockPos getPosition() {
-
 		return position;
 	}
 
 	public Facing getFacing() {
-
 		return facing;
 	}
 

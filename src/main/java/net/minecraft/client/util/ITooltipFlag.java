@@ -11,12 +11,10 @@ public interface ITooltipFlag {
 		final boolean isAdvanced;
 
 		TooltipFlags(boolean advanced) {
-
 			isAdvanced = advanced;
 		}
 
 		public boolean isAdvanced() {
-
 			return isAdvanced;
 		}
 	}

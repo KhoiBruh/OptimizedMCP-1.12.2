@@ -43,24 +43,20 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	private EntityLlama caravanTail;
 
 	public EntityLlama(World worldIn) {
-
 		super(worldIn);
 		setSize(0.9F, 1.87F);
 	}
 
 	private void setRandomStrength() {
-
 		int i = rand.nextFloat() < 0.04F ? 5 : 3;
 		setStrength(1 + rand.nextInt(i));
 	}
 
 	public int getStrength() {
-
 		return dataManager.get(DATA_STRENGTH_ID);
 	}
 
 	private void setStrength(int strengthIn) {
-
 		dataManager.set(DATA_STRENGTH_ID, Math.max(1, Math.min(5, strengthIn)));
 	}
 
@@ -68,7 +64,6 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setInteger("Variant", getVariant());
 		compound.setInteger("Strength", getStrength());
@@ -82,7 +77,6 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		setStrength(compound.getInteger("Strength"));
 		super.readEntityFromNBT(compound);
 		setVariant(compound.getInteger("Variant"));
@@ -95,7 +89,6 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	}
 
 	protected void initEntityAI() {
-
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAIRunAroundLikeCrazy(this, 1.2D));
 		tasks.addTask(2, new EntityAILlamaFollowCaravan(this, 2.0999999046325684D));
@@ -111,13 +104,11 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(40D);
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(DATA_STRENGTH_ID, 0);
 		dataManager.register(DATA_COLOR_ID, -1);
@@ -125,22 +116,18 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	}
 
 	public int getVariant() {
-
 		return MathHelper.clamp(dataManager.get(DATA_VARIANT_ID), 0, 3);
 	}
 
 	public void setVariant(int variantIn) {
-
 		dataManager.set(DATA_VARIANT_ID, variantIn);
 	}
 
 	protected int getInventorySize() {
-
 		return hasChest() ? 2 + 3 * getInventoryColumns() : super.getInventorySize();
 	}
 
 	public void updatePassenger(Entity passenger) {
-
 		if (isPassenger(passenger)) {
 			float f = MathHelper.cos(renderYawOffset * 0.017453292F);
 			float f1 = MathHelper.sin(renderYawOffset * 0.017453292F);
@@ -153,7 +140,6 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	 * Returns the Y offset from the entity's position for any entity riding this one.
 	 */
 	public double getMountedYOffset() {
-
 		return (double) height * 0.67D;
 	}
 
@@ -162,12 +148,10 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	 * by a player and the player is holding a carrot-on-a-stick
 	 */
 	public boolean canBeSteered() {
-
 		return false;
 	}
 
 	protected boolean handleEating(EntityPlayer player, ItemStack stack) {
-
 		int i = 0;
 		int j = 0;
 		float f = 0F;
@@ -223,7 +207,6 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	 * Dead and sleeping entities cannot move
 	 */
 	protected boolean isMovementBlocked() {
-
 		return getHealth() <= 0F || isEatingHaystack();
 	}
 
@@ -244,7 +227,6 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 		setRandomStrength();
 		int i;
@@ -261,42 +243,34 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	}
 
 	public boolean hasColor() {
-
 		return getColor() != null;
 	}
 
 	protected SoundEvent getAngrySound() {
-
 		return SoundEvents.ENTITY_LLAMA_ANGRY;
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		return SoundEvents.ENTITY_LLAMA_AMBIENT;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_LLAMA_HURT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_LLAMA_DEATH;
 	}
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
-
 		playSound(SoundEvents.ENTITY_LLAMA_STEP, 0.15F, 1F);
 	}
 
 	protected void playChestEquipSound() {
-
 		playSound(SoundEvents.ENTITY_LLAMA_CHEST, 1F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F);
 	}
 
 	public void makeMad() {
-
 		SoundEvent soundevent = getAngrySound();
 
 		if (soundevent != null) {
@@ -306,27 +280,22 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_LLAMA;
 	}
 
 	public int getInventoryColumns() {
-
 		return getStrength();
 	}
 
 	public boolean wearsArmor() {
-
 		return true;
 	}
 
 	public boolean isArmor(ItemStack stack) {
-
 		return stack.getItem() == Item.getItemFromBlock(Blocks.CARPET);
 	}
 
 	public boolean canBeSaddled() {
-
 		return false;
 	}
 
@@ -334,7 +303,6 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	 * Called by InventoryBasic.onInventoryChanged() on a array that is never filled.
 	 */
 	public void onInventoryChanged(IInventory invBasic) {
-
 		DyeColor enumdyecolor = getColor();
 		super.onInventoryChanged(invBasic);
 		DyeColor enumdyecolor1 = getColor();
@@ -348,7 +316,6 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	 * Updates the items in the saddle and armor slots of the horse's inventory.
 	 */
 	protected void updateHorseSlots() {
-
 		if (!world.isRemote) {
 			super.updateHorseSlots();
 			setColorByItem(horseChest.getStackInSlot(1));
@@ -356,7 +323,6 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	}
 
 	private void setColorByItem(ItemStack stack) {
-
 		if (isArmor(stack)) {
 			setColor(DyeColor.byMetadata(stack.getMetadata()));
 		} else {
@@ -366,18 +332,15 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 
 	
 	public DyeColor getColor() {
-
 		int i = dataManager.get(DATA_COLOR_ID);
 		return i == -1 ? null : DyeColor.byMetadata(i);
 	}
 
 	private void setColor(DyeColor color) {
-
 		dataManager.set(DATA_COLOR_ID, color == null ? -1 : color.getMetadata());
 	}
 
 	public int getMaxTemper() {
-
 		return 30;
 	}
 
@@ -385,12 +348,10 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	 * Returns true if the mob is currently able to mate with the specified mob.
 	 */
 	public boolean canMateWith(EntityAnimal otherAnimal) {
-
 		return otherAnimal != this && otherAnimal instanceof EntityLlama && canMate() && ((EntityLlama) otherAnimal).canMate();
 	}
 
 	public EntityLlama createChild(EntityAgeable ageable) {
-
 		EntityLlama entityllama = new EntityLlama(world);
 		setOffspringAttributes(ageable, entityllama);
 		EntityLlama entityllama1 = (EntityLlama) ageable;
@@ -406,7 +367,6 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	}
 
 	private void spit(EntityLivingBase target) {
-
 		EntityLlamaSpit entityllamaspit = new EntityLlamaSpit(world, this);
 		double d0 = target.posX - posX;
 		double d1 = target.getEntityBoundingBox().minY + (double) (target.height / 3F) - entityllamaspit.posY;
@@ -419,12 +379,10 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	}
 
 	private void setDidSpit(boolean didSpitIn) {
-
 		didSpit = didSpitIn;
 	}
 
 	public void fall(float distance, float damageMultiplier) {
-
 		int i = MathHelper.ceil((distance * 0.5F - 3F) * damageMultiplier);
 
 		if (i > 0) {
@@ -449,7 +407,6 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	}
 
 	public void leaveCaravan() {
-
 		if (caravanHead != null) {
 			caravanHead.caravanTail = null;
 		}
@@ -458,41 +415,34 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	}
 
 	public void joinCaravan(EntityLlama caravanHeadIn) {
-
 		caravanHead = caravanHeadIn;
 		caravanHead.caravanTail = this;
 	}
 
 	public boolean hasCaravanTrail() {
-
 		return caravanTail != null;
 	}
 
 	public boolean inCaravan() {
-
 		return caravanHead != null;
 	}
 
 	
 	public EntityLlama getCaravanHead() {
-
 		return caravanHead;
 	}
 
 	protected double followLeashSpeed() {
-
 		return 2D;
 	}
 
 	protected void followMother() {
-
 		if (!inCaravan() && isChild()) {
 			super.followMother();
 		}
 	}
 
 	public boolean canEatGrass() {
-
 		return false;
 	}
 
@@ -500,23 +450,19 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	 * Attack the specified entity using a ranged attack.
 	 */
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
-
 		spit(target);
 	}
 
 	public void setSwingingArms(boolean swingingArms) {
-
 	}
 
 	static class AIDefendTarget extends EntityAINearestAttackableTarget<EntityWolf> {
 
 		public AIDefendTarget(EntityLlama llama) {
-
 			super(llama, EntityWolf.class, 16, false, true, null);
 		}
 
 		public boolean shouldExecute() {
-
 			if (super.shouldExecute() && targetEntity != null && !targetEntity.isTamed()) {
 				return true;
 			} else {
@@ -526,7 +472,6 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 		}
 
 		protected double getTargetDistance() {
-
 			return super.getTargetDistance() * 0.25D;
 		}
 
@@ -535,14 +480,11 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	static class AIHurtByTarget extends EntityAIHurtByTarget {
 
 		public AIHurtByTarget(EntityLlama llama) {
-
 			super(llama, false);
 		}
 
 		public boolean shouldContinueExecuting() {
-
 			if (taskOwner instanceof EntityLlama entityllama) {
-
 				if (entityllama.didSpit) {
 					entityllama.setDidSpit(false);
 					return false;
@@ -559,7 +501,6 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 		public int variant;
 
 		private GroupData(int variantIn) {
-
 			variant = variantIn;
 		}
 

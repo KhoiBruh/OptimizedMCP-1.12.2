@@ -3,7 +3,6 @@ package net.minecraft.client.model;
 public class ModelLargeChest extends ModelChest {
 
 	public ModelLargeChest() {
-
 		chestLid = (new ModelRenderer(this, 0, 0)).setTextureSize(128, 64);
 		chestLid.addBox(0F, -5F, -14F, 30, 5, 14, 0F);
 		chestLid.rotationPointX = 1F;

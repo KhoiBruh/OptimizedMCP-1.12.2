@@ -5,7 +5,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 public class EnchantmentArrowInfinite extends Enchantment {
 
 	public EnchantmentArrowInfinite(Enchantment.Rarity rarityIn, EntityEquipmentSlot... slots) {
-
 		super(rarityIn, EnchantmentType.BOW, slots);
 		setName("arrowInfinite");
 	}
@@ -14,7 +13,6 @@ public class EnchantmentArrowInfinite extends Enchantment {
 	 * Returns the minimal value of enchantability needed on the enchantment level passed.
 	 */
 	public int getMinEnchantability(int enchantmentLevel) {
-
 		return 20;
 	}
 
@@ -22,7 +20,6 @@ public class EnchantmentArrowInfinite extends Enchantment {
 	 * Returns the maximum value of enchantability nedded on the enchantment level passed.
 	 */
 	public int getMaxEnchantability(int enchantmentLevel) {
-
 		return 50;
 	}
 
@@ -30,7 +27,6 @@ public class EnchantmentArrowInfinite extends Enchantment {
 	 * Determines if the enchantment passed can be applyied together with this enchantment.
 	 */
 	public boolean canApplyTogether(Enchantment ench) {
-
 		return !(ench instanceof EnchantmentMending) && super.canApplyTogether(ench);
 	}
 

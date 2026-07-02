@@ -14,7 +14,6 @@ import java.util.Set;
 public class FlyingNodeProcessor extends WalkNodeProcessor {
 
 	public void init(IBlockAccess sourceIn, EntityLiving mob) {
-
 		super.init(sourceIn, mob);
 		avoidsWater = mob.getPathPriority(PathNodeType.WATER);
 	}
@@ -25,13 +24,11 @@ public class FlyingNodeProcessor extends WalkNodeProcessor {
 	 * net.minecraft.world.pathfinder.WalkNodeProcessor#avoidsWater avoidsWater}
 	 */
 	public void postProcess() {
-
 		entity.setPathPriority(PathNodeType.WATER, avoidsWater);
 		super.postProcess();
 	}
 
 	public PathPoint getStart() {
-
 		int i;
 
 		if (getCanSwim() && entity.isInWater()) {
@@ -69,7 +66,6 @@ public class FlyingNodeProcessor extends WalkNodeProcessor {
 	}
 
 	public int findPathOptions(PathPoint[] pathOptions, PathPoint currentPoint, PathPoint targetPoint, float maxDistance) {
-
 		int i = 0;
 		PathPoint pathpoint = openPoint(currentPoint.x, currentPoint.y, currentPoint.z + 1);
 		PathPoint pathpoint1 = openPoint(currentPoint.x - 1, currentPoint.y, currentPoint.z);
@@ -214,7 +210,6 @@ public class FlyingNodeProcessor extends WalkNodeProcessor {
 	 * Returns a mapped point or creates and adds one
 	 */
 	protected PathPoint openPoint(int x, int y, int z) {
-
 		PathPoint pathpoint = null;
 		PathNodeType pathnodetype = getPathNodeType(entity, x, y, z);
 		float f = entity.getPathPriority(pathnodetype);
@@ -233,7 +228,6 @@ public class FlyingNodeProcessor extends WalkNodeProcessor {
 	}
 
 	public PathNodeType getPathNodeType(IBlockAccess blockaccessIn, int x, int y, int z, EntityLiving entitylivingIn, int xSize, int ySize, int zSize, boolean canBreakDoorsIn, boolean canEnterDoorsIn) {
-
 		EnumSet<PathNodeType> enumset = EnumSet.noneOf(PathNodeType.class);
 		PathNodeType pathnodetype = PathNodeType.BLOCKED;
 		BlockPos blockpos = new BlockPos(entitylivingIn);
@@ -263,7 +257,6 @@ public class FlyingNodeProcessor extends WalkNodeProcessor {
 	}
 
 	public PathNodeType getPathNodeType(IBlockAccess blockaccessIn, int x, int y, int z) {
-
 		PathNodeType pathnodetype = getPathNodeTypeRaw(blockaccessIn, x, y, z);
 
 		if (pathnodetype == PathNodeType.OPEN && y >= 1) {
@@ -286,12 +279,10 @@ public class FlyingNodeProcessor extends WalkNodeProcessor {
 	}
 
 	private PathNodeType getPathNodeType(EntityLiving p_192559_1_, BlockPos p_192559_2_) {
-
 		return getPathNodeType(p_192559_1_, p_192559_2_.getX(), p_192559_2_.getY(), p_192559_2_.getZ());
 	}
 
 	private PathNodeType getPathNodeType(EntityLiving p_192558_1_, int p_192558_2_, int p_192558_3_, int p_192558_4_) {
-
 		return getPathNodeType(blockaccess, p_192558_2_, p_192558_3_, p_192558_4_, p_192558_1_, entitySizeX, entitySizeY, entitySizeZ, getCanOpenDoors(), getCanEnterDoors());
 	}
 

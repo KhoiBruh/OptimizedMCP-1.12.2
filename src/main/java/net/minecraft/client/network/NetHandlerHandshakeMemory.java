@@ -13,7 +13,6 @@ public class NetHandlerHandshakeMemory implements INetHandlerHandshakeServer {
 	private final NetworkManager networkManager;
 
 	public NetHandlerHandshakeMemory(MinecraftServer mcServerIn, NetworkManager networkManagerIn) {
-
 		mcServer = mcServerIn;
 		networkManager = networkManagerIn;
 	}
@@ -24,7 +23,6 @@ public class NetHandlerHandshakeMemory implements INetHandlerHandshakeServer {
 	 * must pass a versioncheck or receive a disconnect otherwise
 	 */
 	public void processHandshake(C00Handshake packetIn) {
-
 		networkManager.setConnectionState(packetIn.getRequestedState());
 		networkManager.setNetHandler(new NetHandlerLoginServer(mcServer, networkManager));
 	}
@@ -33,7 +31,6 @@ public class NetHandlerHandshakeMemory implements INetHandlerHandshakeServer {
 	 * Invoked when disconnecting, the parameter is a ChatComponent describing the reason for termination
 	 */
 	public void onDisconnect(ITextComponent reason) {
-
 	}
 
 }

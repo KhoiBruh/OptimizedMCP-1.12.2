@@ -30,7 +30,6 @@ public class GuiRecipeOverlay extends Gui {
 	private float time;
 
 	public void init(Minecraft mcIn, RecipeList recipeListIn, int p_191845_3_, int p_191845_4_, int p_191845_5_, int p_191845_6_, float p_191845_7_, RecipeBook p_191845_8_) {
-
 		mc = mcIn;
 		recipeList = recipeListIn;
 		boolean flag = p_191845_8_.isFilteringCraftable();
@@ -76,17 +75,14 @@ public class GuiRecipeOverlay extends Gui {
 	}
 
 	public RecipeList getRecipeList() {
-
 		return recipeList;
 	}
 
 	public IRecipe getLastRecipeClicked() {
-
 		return lastRecipeClicked;
 	}
 
 	public boolean buttonClicked(int p_193968_1_, int p_193968_2_, int p_193968_3_) {
-
 		if (p_193968_3_ != 0) {
 			return false;
 		} else {
@@ -102,7 +98,6 @@ public class GuiRecipeOverlay extends Gui {
 	}
 
 	public void render(int p_191842_1_, int p_191842_2_, float p_191842_3_) {
-
 		if (visible) {
 			time += p_191842_3_;
 			RenderHelper.enableGUIStandardItemLighting();
@@ -131,7 +126,6 @@ public class GuiRecipeOverlay extends Gui {
 	}
 
 	private void nineInchSprite(int p_191846_1_, int p_191846_2_, int p_191846_3_, int p_191846_4_, int p_191846_5_, int p_191846_6_) {
-
 		drawTexturedModalRect(x, y, p_191846_5_, p_191846_6_, p_191846_4_, p_191846_4_);
 		drawTexturedModalRect(x + p_191846_4_ * 2 + p_191846_1_ * p_191846_3_, y, p_191846_5_ + p_191846_3_ + p_191846_4_, p_191846_6_, p_191846_4_, p_191846_4_);
 		drawTexturedModalRect(x, y + p_191846_4_ * 2 + p_191846_2_ * p_191846_3_, p_191846_5_, p_191846_6_ + p_191846_3_ + p_191846_4_, p_191846_4_, p_191846_4_);
@@ -164,12 +158,10 @@ public class GuiRecipeOverlay extends Gui {
 	}
 
 	public boolean isVisible() {
-
 		return visible;
 	}
 
 	public void setVisible(boolean p_192999_1_) {
-
 		visible = p_192999_1_;
 	}
 
@@ -179,7 +171,6 @@ public class GuiRecipeOverlay extends Gui {
 		private final boolean isCraftable;
 
 		public Button(int p_i47594_2_, int p_i47594_3_, IRecipe p_i47594_4_, boolean p_i47594_5_) {
-
 			super(0, p_i47594_2_, p_i47594_3_, "");
 			width = 24;
 			height = 24;
@@ -188,7 +179,6 @@ public class GuiRecipeOverlay extends Gui {
 		}
 
 		public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
-
 			RenderHelper.enableGUIStandardItemLighting();
 			GLS.enableAlpha();
 			mc.getTextureManager().bindTexture(GuiRecipeOverlay.RECIPE_BOOK_TEXTURE);

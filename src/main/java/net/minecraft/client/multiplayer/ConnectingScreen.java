@@ -28,7 +28,6 @@ public class ConnectingScreen extends Screen {
 	private boolean cancel;
 
 	public ConnectingScreen(Screen parent, Minecraft mcIn, ServerData serverDataIn) {
-
 		mc = mcIn;
 		lastScreen = parent;
 		ServerAddress serveraddress = ServerAddress.fromString(serverDataIn.serverIP);
@@ -38,7 +37,6 @@ public class ConnectingScreen extends Screen {
 	}
 
 	public ConnectingScreen(Screen parent, Minecraft mcIn, String hostName, int port) {
-
 		mc = mcIn;
 		lastScreen = parent;
 		mcIn.loadWorld(null);
@@ -46,11 +44,9 @@ public class ConnectingScreen extends Screen {
 	}
 
 	private void connect(final String ip, final int port) {
-
 		LOGGER.info("Connecting to {}, {}", ip, port);
 		(new Thread("Server Connector #" + CONNECTION_ID.incrementAndGet()) {
 			public void run() {
-
 				InetAddress inetaddress = null;
 
 				try {
@@ -93,7 +89,6 @@ public class ConnectingScreen extends Screen {
 	 * Called from the main game loop to update the screen.
 	 */
 	public void update() {
-
 		if (networkManager != null) {
 			if (networkManager.isChannelOpen()) {
 				networkManager.processReceivedPackets();
@@ -108,7 +103,6 @@ public class ConnectingScreen extends Screen {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) {
-
 	}
 
 	/**
@@ -116,7 +110,6 @@ public class ConnectingScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		buttons.clear();
 		buttons.add(new Button(0, width / 2 - 100, height / 4 + 120 + 12, I18n.format("gui.cancel")));
 	}
@@ -125,7 +118,6 @@ public class ConnectingScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.id == 0) {
 			cancel = true;
 
@@ -141,7 +133,6 @@ public class ConnectingScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 
 		if (networkManager == null) {

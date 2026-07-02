@@ -12,7 +12,6 @@ public class ParticlePortal extends Particle {
 	private final double portalPosZ;
 
 	protected ParticlePortal(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
-
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 		motionX = xSpeedIn;
 		motionY = ySpeedIn;
@@ -34,7 +33,6 @@ public class ParticlePortal extends Particle {
 	}
 
 	public void move(double x, double y, double z) {
-
 		setBoundingBox(getBoundingBox().offset(x, y, z));
 		resetPositionToBB();
 	}
@@ -43,7 +41,6 @@ public class ParticlePortal extends Particle {
 	 * Renders the particle
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-
 		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge;
 		f = 1F - f;
 		f = f * f;
@@ -53,7 +50,6 @@ public class ParticlePortal extends Particle {
 	}
 
 	public int getBrightnessForRender(float p_189214_1_) {
-
 		int i = super.getBrightnessForRender(p_189214_1_);
 		float f = (float) particleAge / (float) particleMaxAge;
 		f = f * f;
@@ -70,7 +66,6 @@ public class ParticlePortal extends Particle {
 	}
 
 	public void onUpdate() {
-
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
@@ -89,7 +84,6 @@ public class ParticlePortal extends Particle {
 	public static class Factory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			return new ParticlePortal(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 		}
 

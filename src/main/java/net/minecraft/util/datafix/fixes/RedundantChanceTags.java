@@ -7,12 +7,10 @@ import net.minecraft.util.datafix.IFixableData;
 public class RedundantChanceTags implements IFixableData {
 
 	public int getFixVersion() {
-
 		return 113;
 	}
 
 	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
-
 		if (compound.hasKey("HandDropChances", 9)) {
 			NBTTagList nbttaglist = compound.getTagList("HandDropChances", 5);
 

@@ -24,7 +24,6 @@ public class WorldBorder {
 	private int warningDistance;
 
 	public WorldBorder() {
-
 		endDiameter = startDiameter;
 		worldSize = 29999984;
 		damageAmount = 0.2D;
@@ -34,27 +33,22 @@ public class WorldBorder {
 	}
 
 	public boolean contains(BlockPos pos) {
-
 		return (double) (pos.getX() + 1) > minX() && (double) pos.getX() < maxX() && (double) (pos.getZ() + 1) > minZ() && (double) pos.getZ() < maxZ();
 	}
 
 	public boolean contains(ChunkPos range) {
-
 		return (double) range.getXEnd() > minX() && (double) range.getXStart() < maxX() && (double) range.getZEnd() > minZ() && (double) range.getZStart() < maxZ();
 	}
 
 	public boolean contains(AxisAlignedBB bb) {
-
 		return bb.maxX > minX() && bb.minX < maxX() && bb.maxZ > minZ() && bb.minZ < maxZ();
 	}
 
 	public double getClosestDistance(Entity entityIn) {
-
 		return getClosestDistance(entityIn.posX, entityIn.posZ);
 	}
 
 	public double getClosestDistance(double x, double z) {
-
 		double d0 = z - minZ();
 		double d1 = maxZ() - z;
 		double d2 = x - minX();
@@ -65,7 +59,6 @@ public class WorldBorder {
 	}
 
 	public BorderStatus getStatus() {
-
 		if (endDiameter < startDiameter) {
 			return BorderStatus.SHRINKING;
 		} else {
@@ -74,7 +67,6 @@ public class WorldBorder {
 	}
 
 	public double minX() {
-
 		double d0 = getCenterX() - getDiameter() / 2D;
 
 		if (d0 < (double) (-worldSize)) {
@@ -85,7 +77,6 @@ public class WorldBorder {
 	}
 
 	public double minZ() {
-
 		double d0 = getCenterZ() - getDiameter() / 2D;
 
 		if (d0 < (double) (-worldSize)) {
@@ -96,7 +87,6 @@ public class WorldBorder {
 	}
 
 	public double maxX() {
-
 		double d0 = getCenterX() + getDiameter() / 2D;
 
 		if (d0 > (double) worldSize) {
@@ -107,7 +97,6 @@ public class WorldBorder {
 	}
 
 	public double maxZ() {
-
 		double d0 = getCenterZ() + getDiameter() / 2D;
 
 		if (d0 > (double) worldSize) {
@@ -118,17 +107,14 @@ public class WorldBorder {
 	}
 
 	public double getCenterX() {
-
 		return centerX;
 	}
 
 	public double getCenterZ() {
-
 		return centerZ;
 	}
 
 	public void setCenter(double x, double z) {
-
 		centerX = x;
 		centerZ = z;
 
@@ -138,7 +124,6 @@ public class WorldBorder {
 	}
 
 	public double getDiameter() {
-
 		if (getStatus() != BorderStatus.STATIONARY) {
 			double d0 = (float) (System.currentTimeMillis() - startTime) / (float) (endTime - startTime);
 
@@ -153,17 +138,14 @@ public class WorldBorder {
 	}
 
 	public long getTimeUntilTarget() {
-
 		return getStatus() == BorderStatus.STATIONARY ? 0L : endTime - System.currentTimeMillis();
 	}
 
 	public double getTargetSize() {
-
 		return endDiameter;
 	}
 
 	public void setTransition(double newSize) {
-
 		startDiameter = newSize;
 		endDiameter = newSize;
 		endTime = System.currentTimeMillis();
@@ -175,7 +157,6 @@ public class WorldBorder {
 	}
 
 	public void setTransition(double oldSize, double newSize, long time) {
-
 		startDiameter = oldSize;
 		endDiameter = newSize;
 		startTime = System.currentTimeMillis();
@@ -187,32 +168,26 @@ public class WorldBorder {
 	}
 
 	protected List<IBorderListener> getListeners() {
-
 		return Lists.newArrayList(listeners);
 	}
 
 	public void addListener(IBorderListener listener) {
-
 		listeners.add(listener);
 	}
 
 	public int getSize() {
-
 		return worldSize;
 	}
 
 	public void setSize(int size) {
-
 		worldSize = size;
 	}
 
 	public double getDamageBuffer() {
-
 		return damageBuffer;
 	}
 
 	public void setDamageBuffer(double bufferSize) {
-
 		damageBuffer = bufferSize;
 
 		for (IBorderListener iborderlistener : getListeners()) {
@@ -221,12 +196,10 @@ public class WorldBorder {
 	}
 
 	public double getDamageAmount() {
-
 		return damageAmount;
 	}
 
 	public void setDamageAmount(double newAmount) {
-
 		damageAmount = newAmount;
 
 		for (IBorderListener iborderlistener : getListeners()) {
@@ -235,17 +208,14 @@ public class WorldBorder {
 	}
 
 	public double getResizeSpeed() {
-
 		return endTime == startTime ? 0D : Math.abs(startDiameter - endDiameter) / (double) (endTime - startTime);
 	}
 
 	public int getWarningTime() {
-
 		return warningTime;
 	}
 
 	public void setWarningTime(int warningTime) {
-
 		this.warningTime = warningTime;
 
 		for (IBorderListener iborderlistener : getListeners()) {
@@ -254,12 +224,10 @@ public class WorldBorder {
 	}
 
 	public int getWarningDistance() {
-
 		return warningDistance;
 	}
 
 	public void setWarningDistance(int warningDistance) {
-
 		this.warningDistance = warningDistance;
 
 		for (IBorderListener iborderlistener : getListeners()) {

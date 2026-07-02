@@ -20,12 +20,10 @@ public class BlockWallSign extends BlockSign {
 	protected static final AxisAlignedBB SIGN_NORTH_AABB = new AxisAlignedBB(0D, 0.28125D, 0.875D, 1D, 0.78125D, 1D);
 
 	public BlockWallSign() {
-
 		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH));
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return switch (state.getValue(FACING)) {
 			case SOUTH -> SIGN_SOUTH_AABB;
 			case WEST -> SIGN_WEST_AABB;
@@ -40,7 +38,6 @@ public class BlockWallSign extends BlockSign {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		Facing enumfacing = state.getValue(FACING);
 
 		if (!worldIn.getBlockState(pos.offset(enumfacing.getOpposite())).getMaterial().isSolid()) {
@@ -55,7 +52,6 @@ public class BlockWallSign extends BlockSign {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		Facing enumfacing = Facing.getFront(meta);
 
 		if (enumfacing.getAxis() == Facing.Axis.Y) {
@@ -69,7 +65,6 @@ public class BlockWallSign extends BlockSign {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(FACING).getIndex();
 	}
 
@@ -78,7 +73,6 @@ public class BlockWallSign extends BlockSign {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
@@ -87,12 +81,10 @@ public class BlockWallSign extends BlockSign {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, FACING);
 	}
 

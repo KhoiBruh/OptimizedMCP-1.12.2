@@ -9,7 +9,6 @@ public class EntityAITargetNonTamed<T extends EntityLivingBase> extends EntityAI
 	private final EntityTameable tameable;
 
 	public EntityAITargetNonTamed(EntityTameable entityIn, Class<T> classTarget, boolean checkSight, Predicate<? super T> targetSelector) {
-
 		super(entityIn, classTarget, 10, checkSight, false, targetSelector);
 		tameable = entityIn;
 	}
@@ -18,7 +17,6 @@ public class EntityAITargetNonTamed<T extends EntityLivingBase> extends EntityAI
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		return !tameable.isTamed() && super.shouldExecute();
 	}
 

@@ -14,13 +14,11 @@ import net.minecraft.world.World;
 public class ItemEnderPearl extends Item {
 
 	public ItemEnderPearl() {
-
 		maxStackSize = 16;
 		setCreativeTab(CreativeTabs.MISC);
 	}
 
 	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
-
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
 		if (!playerIn.capabilities.isCreativeMode) {

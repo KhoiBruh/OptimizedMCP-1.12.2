@@ -26,7 +26,6 @@ public class BitArray {
 	private final int arraySize;
 
 	public BitArray(int bitsPerEntryIn, int arraySizeIn) {
-
 		Validate.inclusiveBetween(1L, 32L, bitsPerEntryIn);
 		arraySize = arraySizeIn;
 		bitsPerEntry = bitsPerEntryIn;
@@ -38,7 +37,6 @@ public class BitArray {
 	 * Sets the entry at the given location to the given value
 	 */
 	public void setAt(int index, int value) {
-
 		Validate.inclusiveBetween(0L, arraySize - 1, index);
 		Validate.inclusiveBetween(0L, maxEntryValue, value);
 		int i = index * bitsPerEntry;
@@ -58,7 +56,6 @@ public class BitArray {
 	 * Gets the entry at the given index
 	 */
 	public int getAt(int index) {
-
 		Validate.inclusiveBetween(0L, arraySize - 1, index);
 		int i = index * bitsPerEntry;
 		int j = i / 64;
@@ -77,12 +74,10 @@ public class BitArray {
 	 * Gets the long array that is used to store the data in this BitArray. This is useful for sending packet data.
 	 */
 	public long[] getBackingLongArray() {
-
 		return longArray;
 	}
 
 	public int size() {
-
 		return arraySize;
 	}
 

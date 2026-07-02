@@ -11,7 +11,6 @@ public class TextComponentKeybind extends TextComponentBase {
 	private Supplier<String> displaySupplier;
 
 	public TextComponentKeybind(String keybind) {
-
 		this.keybind = keybind;
 	}
 
@@ -21,7 +20,6 @@ public class TextComponentKeybind extends TextComponentBase {
 	 * TextComponentTranslation} and it's the score value for a {@link TextComponentScore}.
 	 */
 	public String getUnformattedComponentText() {
-
 		if (displaySupplier == null) {
 			displaySupplier = displaySupplierFunction.apply(keybind);
 		}
@@ -33,7 +31,6 @@ public class TextComponentKeybind extends TextComponentBase {
 	 * Creates a copy of this component.  Almost a deep copy, except the style is shallow-copied.
 	 */
 	public TextComponentKeybind createCopy() {
-
 		TextComponentKeybind textcomponentkeybind = new TextComponentKeybind(keybind);
 		textcomponentkeybind.setStyle(getStyle().createShallowCopy());
 
@@ -45,7 +42,6 @@ public class TextComponentKeybind extends TextComponentBase {
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else if (!(p_equals_1_ instanceof TextComponentKeybind textcomponentkeybind)) {
@@ -56,12 +52,10 @@ public class TextComponentKeybind extends TextComponentBase {
 	}
 
 	public String toString() {
-
 		return "KeybindComponent{keybind='" + keybind + '\'' + ", siblings=" + siblings + ", style=" + getStyle() + '}';
 	}
 
 	public String getKeybind() {
-
 		return keybind;
 	}
 

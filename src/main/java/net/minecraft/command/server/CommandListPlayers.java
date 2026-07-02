@@ -13,7 +13,6 @@ public class CommandListPlayers extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "list";
 	}
 
@@ -21,7 +20,6 @@ public class CommandListPlayers extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 0;
 	}
 
@@ -29,7 +27,6 @@ public class CommandListPlayers extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.players.usage";
 	}
 
@@ -37,7 +34,6 @@ public class CommandListPlayers extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
-
 		int i = server.getCurrentPlayerCount();
 		sender.sendMessage(new TextComponentTranslation("commands.players.list", i, server.getMaxPlayers()));
 		sender.sendMessage(new TextComponentString(server.getPlayerList().getFormattedListOfPlayers(args.length > 0 && "uuids".equalsIgnoreCase(args[0]))));

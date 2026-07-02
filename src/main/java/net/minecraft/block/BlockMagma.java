@@ -22,7 +22,6 @@ import java.util.Random;
 public class BlockMagma extends Block {
 
 	public BlockMagma() {
-
 		super(Material.ROCK);
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 		setLightLevel(0.2F);
@@ -33,7 +32,6 @@ public class BlockMagma extends Block {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return MapColor.NETHERRACK;
 	}
 
@@ -41,7 +39,6 @@ public class BlockMagma extends Block {
 	 * Called when the given entity walks on this Block
 	 */
 	public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
-
 		if (!entityIn.isImmuneToFire() && entityIn instanceof EntityLivingBase && !EnchantmentHelper.hasFrostWalkerEnchantment((EntityLivingBase) entityIn)) {
 			entityIn.attackEntityFrom(DamageSource.HOT_FLOOR, 1F);
 		}
@@ -50,12 +47,10 @@ public class BlockMagma extends Block {
 	}
 
 	public int getPackedLightmapCoords(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return 15728880;
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		BlockPos blockpos = pos.up();
 		IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
@@ -70,7 +65,6 @@ public class BlockMagma extends Block {
 	}
 
 	public boolean canEntitySpawn(IBlockState state, Entity entityIn) {
-
 		return entityIn.isImmuneToFire();
 	}
 

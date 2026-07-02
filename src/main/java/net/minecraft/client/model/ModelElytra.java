@@ -12,7 +12,6 @@ public class ModelElytra extends ModelBase {
 	private final ModelRenderer leftWing = new ModelRenderer(this, 22, 0);
 
 	public ModelElytra() {
-
 		leftWing.addBox(-10F, 0F, 0F, 10, 20, 2, 1F);
 		rightWing = new ModelRenderer(this, 22, 0);
 		rightWing.mirror = true;
@@ -23,7 +22,6 @@ public class ModelElytra extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		GLS.disableRescaleNormal();
 		GLS.disableCull();
 
@@ -46,7 +44,6 @@ public class ModelElytra extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 		float f = 0.2617994F;
 		float f1 = -0.2617994F;

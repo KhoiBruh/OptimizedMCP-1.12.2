@@ -11,22 +11,18 @@ import net.minecraft.world.World;
 public class EntitySnowball extends EntityThrowable {
 
 	public EntitySnowball(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public EntitySnowball(World worldIn, EntityLivingBase throwerIn) {
-
 		super(worldIn, throwerIn);
 	}
 
 	public EntitySnowball(World worldIn, double x, double y, double z) {
-
 		super(worldIn, x, y, z);
 	}
 
 	public static void registerFixesSnowball(DataFixer fixer) {
-
 		EntityThrowable.registerFixesThrowable(fixer, "Snowball");
 	}
 
@@ -34,7 +30,6 @@ public class EntitySnowball extends EntityThrowable {
 	 * Handler for {@link World#setEntityState}
 	 */
 	public void handleStatusUpdate(byte id) {
-
 		if (id == 3) {
 			for (int i = 0; i < 8; ++i) {
 				world.spawnParticle(ParticleTypes.SNOWBALL, posX, posY, posZ, 0D, 0D, 0D);
@@ -46,7 +41,6 @@ public class EntitySnowball extends EntityThrowable {
 	 * Called when this EntityThrowable hits a block or entity.
 	 */
 	protected void onImpact(RayTraceResult result) {
-
 		if (result.entityHit != null) {
 			int i = 0;
 

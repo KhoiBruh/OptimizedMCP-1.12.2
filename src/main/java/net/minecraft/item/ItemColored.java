@@ -7,7 +7,6 @@ public class ItemColored extends ItemBlock {
 	private String[] subtypeNames;
 
 	public ItemColored(Block block, boolean hasSubtypes) {
-
 		super(block);
 
 		if (hasSubtypes) {
@@ -21,12 +20,10 @@ public class ItemColored extends ItemBlock {
 	 * placed as a Block (mostly used with ItemBlocks).
 	 */
 	public int getMetadata(int damage) {
-
 		return damage;
 	}
 
 	public ItemColored setSubtypeNames(String[] names) {
-
 		subtypeNames = names;
 		return this;
 	}
@@ -36,7 +33,6 @@ public class ItemColored extends ItemBlock {
 	 * different names based on their damage or NBT.
 	 */
 	public String getUnlocalizedName(ItemStack stack) {
-
 		if (subtypeNames == null) {
 			return super.getUnlocalizedName(stack);
 		} else {

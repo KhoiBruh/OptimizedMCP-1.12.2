@@ -23,25 +23,21 @@ public class PathFinder {
 	private final NodeProcessor nodeProcessor;
 
 	public PathFinder(NodeProcessor processor) {
-
 		nodeProcessor = processor;
 	}
 
 	
 	public Path findPath(IBlockAccess worldIn, EntityLiving entitylivingIn, Entity targetEntity, float maxDistance) {
-
 		return findPath(worldIn, entitylivingIn, targetEntity.posX, targetEntity.getEntityBoundingBox().minY, targetEntity.posZ, maxDistance);
 	}
 
 	
 	public Path findPath(IBlockAccess worldIn, EntityLiving entitylivingIn, BlockPos targetPos, float maxDistance) {
-
 		return findPath(worldIn, entitylivingIn, (float) targetPos.getX() + 0.5F, (float) targetPos.getY() + 0.5F, (float) targetPos.getZ() + 0.5F, maxDistance);
 	}
 
 	
 	private Path findPath(IBlockAccess worldIn, EntityLiving entitylivingIn, double x, double y, double z, float maxDistance) {
-
 		path.clearPath();
 		nodeProcessor.init(worldIn, entitylivingIn);
 		PathPoint pathpoint = nodeProcessor.getStart();
@@ -53,7 +49,6 @@ public class PathFinder {
 
 	
 	private Path findPath(PathPoint pathFrom, PathPoint pathTo, float maxDistance) {
-
 		pathFrom.totalPathDistance = 0F;
 		pathFrom.distanceToNext = pathFrom.distanceManhattan(pathTo);
 		pathFrom.distanceToTarget = pathFrom.distanceToNext;
@@ -117,7 +112,6 @@ public class PathFinder {
 	 * Returns a new PathEntity for a given start and end point
 	 */
 	private Path createPath(PathPoint start, PathPoint end) {
-
 		int i = 1;
 
 		for (PathPoint pathpoint = end; pathpoint.previous != null; pathpoint = pathpoint.previous) {

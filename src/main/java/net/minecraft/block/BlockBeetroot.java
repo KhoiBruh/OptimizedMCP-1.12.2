@@ -18,27 +18,22 @@ public class BlockBeetroot extends BlockCrops {
 	private static final AxisAlignedBB[] BEETROOT_AABB = new AxisAlignedBB[]{new AxisAlignedBB(0D, 0D, 0D, 1D, 0.125D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.25D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.375D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.5D, 1D)};
 
 	protected PropertyInteger getAgeProperty() {
-
 		return BEETROOT_AGE;
 	}
 
 	public int getMaxAge() {
-
 		return 3;
 	}
 
 	protected Item getSeed() {
-
 		return Items.BEETROOT_SEEDS;
 	}
 
 	protected Item getCrop() {
-
 		return Items.BEETROOT;
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if (rand.nextInt(3) == 0) {
 			checkAndDropBlock(worldIn, pos, state);
 		} else {
@@ -47,17 +42,14 @@ public class BlockBeetroot extends BlockCrops {
 	}
 
 	protected int getBonemealAgeIncrease(World worldIn) {
-
 		return super.getBonemealAgeIncrease(worldIn) / 3;
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, BEETROOT_AGE);
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return BEETROOT_AABB[state.getValue(getAgeProperty())];
 	}
 

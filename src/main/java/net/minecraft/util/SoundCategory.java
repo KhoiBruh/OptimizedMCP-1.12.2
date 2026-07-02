@@ -32,22 +32,18 @@ public enum SoundCategory {
 	private final String name;
 
 	SoundCategory(String nameIn) {
-
 		name = nameIn;
 	}
 
 	public static SoundCategory getByName(String categoryName) {
-
 		return SOUND_CATEGORIES.get(categoryName);
 	}
 
 	public static Set<String> getSoundCategoryNames() {
-
 		return SOUND_CATEGORIES.keySet();
 	}
 
 	public String getName() {
-
 		return name;
 	}
 }

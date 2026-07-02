@@ -6,7 +6,6 @@ import net.minecraft.world.biome.Biome;
 public class GenLayerRareBiome extends GenLayer {
 
 	public GenLayerRareBiome(long p_i45478_1_, GenLayer p_i45478_3_) {
-
 		super(p_i45478_1_);
 		parent = p_i45478_3_;
 	}
@@ -16,7 +15,6 @@ public class GenLayerRareBiome extends GenLayer {
 	 * amounts, or Biome ID's based on the particular GenLayer subclass.
 	 */
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
-
 		int[] aint = parent.getInts(areaX - 1, areaY - 1, areaWidth + 2, areaHeight + 2);
 		int[] aint1 = IntCache.getIntCache(areaWidth * areaHeight);
 

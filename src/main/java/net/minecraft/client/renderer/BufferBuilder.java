@@ -34,7 +34,6 @@ public class BufferBuilder {
 	private boolean isDrawing;
 
 	public BufferBuilder(int bufferSizeIn) {
-
 		byteBuffer = GLAllocation.createDirectByteBuffer(bufferSizeIn * 4);
 		rawIntBuffer = byteBuffer.asIntBuffer();
 		rawShortBuffer = byteBuffer.asShortBuffer();
@@ -42,7 +41,6 @@ public class BufferBuilder {
 	}
 
 	private static float getDistanceSq(FloatBuffer p_181665_0_, float p_181665_1_, float p_181665_2_, float p_181665_3_, int p_181665_4_, int p_181665_5_) {
-
 		float f = p_181665_0_.get(p_181665_5_);
 		float f1 = p_181665_0_.get(p_181665_5_ + 1);
 		float f2 = p_181665_0_.get(p_181665_5_ + 2);
@@ -62,7 +60,6 @@ public class BufferBuilder {
 	}
 
 	private void growBuffer(int p_181670_1_) {
-
 		if (MathHelper.roundUp(p_181670_1_, 4) / 4 > rawIntBuffer.remaining() || vertexCount * vertexFormat.getNextOffset() + p_181670_1_ > byteBuffer.capacity()) {
 			int i = byteBuffer.capacity();
 			int j = i + MathHelper.roundUp(p_181670_1_, 2097152);
@@ -82,7 +79,6 @@ public class BufferBuilder {
 	}
 
 	public void sortVertexData(float p_181674_1_, float p_181674_2_, float p_181674_3_) {
-
 		int i = vertexCount / 4;
 		final float[] afloat = new float[i];
 
@@ -143,7 +139,6 @@ public class BufferBuilder {
 	}
 
 	public void setVertexState(BufferBuilder.State state) {
-
 		rawIntBuffer.clear();
 		growBuffer(state.getRawBuffer().length * 4);
 		rawIntBuffer.put(state.getRawBuffer());
@@ -152,19 +147,16 @@ public class BufferBuilder {
 	}
 
 	private int getBufferSize() {
-
 		return vertexCount * vertexFormat.getIntegerSize();
 	}
 
 	public void reset() {
-
 		vertexCount = 0;
 		vertexFormatElement = null;
 		vertexFormatIndex = 0;
 	}
 
 	public void begin(int glMode, VertexFormat format) {
-
 		if (isDrawing) {
 			throw new IllegalStateException("Already building!");
 		} else {
@@ -179,7 +171,6 @@ public class BufferBuilder {
 	}
 
 	public BufferBuilder tex(double u, double v) {
-
 		int i = vertexCount * vertexFormat.getNextOffset() + vertexFormat.getOffset(vertexFormatIndex);
 
 		switch (vertexFormatElement.getType()) {
@@ -211,7 +202,6 @@ public class BufferBuilder {
 	}
 
 	public BufferBuilder lightmap(int p_187314_1_, int p_187314_2_) {
-
 		int i = vertexCount * vertexFormat.getNextOffset() + vertexFormat.getOffset(vertexFormatIndex);
 
 		switch (vertexFormatElement.getType()) {
@@ -243,7 +233,6 @@ public class BufferBuilder {
 	}
 
 	public void putBrightness4(int p_178962_1_, int p_178962_2_, int p_178962_3_, int p_178962_4_) {
-
 		int i = (vertexCount - 4) * vertexFormat.getIntegerSize() + vertexFormat.getUvOffsetById(1) / 4;
 		int j = vertexFormat.getNextOffset() >> 2;
 		rawIntBuffer.put(i, p_178962_1_);
@@ -253,7 +242,6 @@ public class BufferBuilder {
 	}
 
 	public void putPosition(double x, double y, double z) {
-
 		int i = vertexFormat.getIntegerSize();
 		int j = (vertexCount - 4) * i;
 
@@ -272,7 +260,6 @@ public class BufferBuilder {
 	 * int}s.
 	 */
 	private int getColorIndex(int vertexIndex) {
-
 		return ((vertexCount - vertexIndex) * vertexFormat.getNextOffset() + vertexFormat.getColorOffset()) / 4;
 	}
 
@@ -280,7 +267,6 @@ public class BufferBuilder {
 	 * Modify the color data of the given vertex with the given multipliers.
 	 */
 	public void putColorMultiplier(float red, float green, float blue, int vertexIndex) {
-
 		int i = getColorIndex(vertexIndex);
 		int j = -1;
 
@@ -306,7 +292,6 @@ public class BufferBuilder {
 	}
 
 	private void putColor(int argb, int vertexIndex) {
-
 		int i = getColorIndex(vertexIndex);
 		int j = argb >> 16 & 255;
 		int k = argb >> 8 & 255;
@@ -315,7 +300,6 @@ public class BufferBuilder {
 	}
 
 	public void putColorRGB_F(float red, float green, float blue, int vertexIndex) {
-
 		int i = getColorIndex(vertexIndex);
 		int j = MathHelper.clamp((int) (red * 255F), 0, 255);
 		int k = MathHelper.clamp((int) (green * 255F), 0, 255);
@@ -328,7 +312,6 @@ public class BufferBuilder {
 	 * endianness.
 	 */
 	private void putColorRGBA(int index, int red, int green, int blue) {
-
 		if (ByteOrder.nativeOrder() == ByteOrder.LITTLE_ENDIAN) {
 			rawIntBuffer.put(index, -16777216 | blue << 16 | green << 8 | red);
 		} else {
@@ -340,17 +323,14 @@ public class BufferBuilder {
 	 * Disables color processing.
 	 */
 	public void noColor() {
-
 		noColor = true;
 	}
 
 	public BufferBuilder color(float red, float green, float blue, float alpha) {
-
 		return color((int) (red * 255F), (int) (green * 255F), (int) (blue * 255F), (int) (alpha * 255F));
 	}
 
 	public BufferBuilder color(int red, int green, int blue, int alpha) {
-
 		if (noColor) {
 			return this;
 		} else {
@@ -401,7 +381,6 @@ public class BufferBuilder {
 	}
 
 	public void addVertexData(int[] vertexData) {
-
 		growBuffer(vertexData.length * 4);
 		rawIntBuffer.position(getBufferSize());
 		rawIntBuffer.put(vertexData);
@@ -409,13 +388,11 @@ public class BufferBuilder {
 	}
 
 	public void endVertex() {
-
 		++vertexCount;
 		growBuffer(vertexFormat.getNextOffset());
 	}
 
 	public BufferBuilder pos(double x, double y, double z) {
-
 		int i = vertexCount * vertexFormat.getNextOffset() + vertexFormat.getOffset(vertexFormatIndex);
 
 		switch (vertexFormatElement.getType()) {
@@ -451,7 +428,6 @@ public class BufferBuilder {
 	}
 
 	public void putNormal(float x, float y, float z) {
-
 		int i = (byte) ((int) (x * 127F)) & 255;
 		int j = (byte) ((int) (y * 127F)) & 255;
 		int k = (byte) ((int) (z * 127F)) & 255;
@@ -465,7 +441,6 @@ public class BufferBuilder {
 	}
 
 	private void nextVertexFormatIndex() {
-
 		++vertexFormatIndex;
 		vertexFormatIndex %= vertexFormat.getElementCount();
 		vertexFormatElement = vertexFormat.getElement(vertexFormatIndex);
@@ -476,7 +451,6 @@ public class BufferBuilder {
 	}
 
 	public BufferBuilder normal(float x, float y, float z) {
-
 		int i = vertexCount * vertexFormat.getNextOffset() + vertexFormat.getOffset(vertexFormatIndex);
 
 		switch (vertexFormatElement.getType()) {
@@ -512,14 +486,12 @@ public class BufferBuilder {
 	}
 
 	public void setTranslation(double x, double y, double z) {
-
 		xOffset = x;
 		yOffset = y;
 		zOffset = z;
 	}
 
 	public void finishDrawing() {
-
 		if (!isDrawing) {
 			throw new IllegalStateException("Not building!");
 		} else {
@@ -530,34 +502,28 @@ public class BufferBuilder {
 	}
 
 	public ByteBuffer getByteBuffer() {
-
 		return byteBuffer;
 	}
 
 	public VertexFormat getVertexFormat() {
-
 		return vertexFormat;
 	}
 
 	public int getVertexCount() {
-
 		return vertexCount;
 	}
 
 	public int getDrawMode() {
-
 		return drawMode;
 	}
 
 	public void putColor4(int argb) {
-
 		for (int i = 0; i < 4; ++i) {
 			putColor(argb, i + 1);
 		}
 	}
 
 	public void putColorRGB_F4(float red, float green, float blue) {
-
 		for (int i = 0; i < 4; ++i) {
 			putColorRGB_F(red, green, blue, i + 1);
 		}
@@ -569,23 +535,19 @@ public class BufferBuilder {
 		private final VertexFormat stateVertexFormat;
 
 		public State(int[] buffer, VertexFormat format) {
-
 			stateRawBuffer = buffer;
 			stateVertexFormat = format;
 		}
 
 		public int[] getRawBuffer() {
-
 			return stateRawBuffer;
 		}
 
 		public int getVertexCount() {
-
 			return stateRawBuffer.length / stateVertexFormat.getIntegerSize();
 		}
 
 		public VertexFormat getVertexFormat() {
-
 			return stateVertexFormat;
 		}
 

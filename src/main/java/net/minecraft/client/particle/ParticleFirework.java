@@ -17,7 +17,6 @@ public class ParticleFirework {
 	public static class Factory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			ParticleFirework.Spark particlefirework$spark = new ParticleFirework.Spark(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn, Minecraft.getMinecraft().effectRenderer);
 			particlefirework$spark.setAlphaF(0.99F);
 			return particlefirework$spark;
@@ -28,13 +27,11 @@ public class ParticleFirework {
 	public static class Overlay extends Particle {
 
 		protected Overlay(World p_i46466_1_, double p_i46466_2_, double p_i46466_4_, double p_i46466_6_) {
-
 			super(p_i46466_1_, p_i46466_2_, p_i46466_4_, p_i46466_6_);
 			particleMaxAge = 4;
 		}
 
 		public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-
 			float f = 0.25F;
 			float f1 = 0.5F;
 			float f2 = 0.125F;
@@ -66,7 +63,6 @@ public class ParticleFirework {
 		private boolean hasFadeColour;
 
 		public Spark(World p_i46465_1_, double p_i46465_2_, double p_i46465_4_, double p_i46465_6_, double p_i46465_8_, double p_i46465_10_, double p_i46465_12_, ParticleManager p_i46465_14_) {
-
 			super(p_i46465_1_, p_i46465_2_, p_i46465_4_, p_i46465_6_, 160, 8, -0.004F);
 			motionX = p_i46465_8_;
 			motionY = p_i46465_10_;
@@ -77,24 +73,20 @@ public class ParticleFirework {
 		}
 
 		public void setTrail(boolean trailIn) {
-
 			trail = trailIn;
 		}
 
 		public void setTwinkle(boolean twinkleIn) {
-
 			twinkle = twinkleIn;
 		}
 
 		public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-
 			if (!twinkle || particleAge < particleMaxAge / 3 || (particleAge + particleMaxAge) / 3 % 2 == 0) {
 				super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
 			}
 		}
 
 		public void onUpdate() {
-
 			super.onUpdate();
 
 			if (trail && particleAge < particleMaxAge / 2 && (particleAge + particleMaxAge) % 2 == 0) {
@@ -125,7 +117,6 @@ public class ParticleFirework {
 		private NBTTagList fireworkExplosions;
 
 		public Starter(World p_i46464_1_, double p_i46464_2_, double p_i46464_4_, double p_i46464_6_, double p_i46464_8_, double p_i46464_10_, double p_i46464_12_, ParticleManager p_i46464_14_, NBTTagCompound p_i46464_15_) {
-
 			super(p_i46464_1_, p_i46464_2_, p_i46464_4_, p_i46464_6_, 0D, 0D, 0D);
 			motionX = p_i46464_8_;
 			motionY = p_i46464_10_;
@@ -155,11 +146,9 @@ public class ParticleFirework {
 		}
 
 		public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-
 		}
 
 		public void onUpdate() {
-
 			if (fireworkAge == 0 && fireworkExplosions != null) {
 				boolean flag = isFarFromCamera();
 				boolean flag1 = false;
@@ -236,13 +225,11 @@ public class ParticleFirework {
 		}
 
 		private boolean isFarFromCamera() {
-
 			Minecraft minecraft = Minecraft.getMinecraft();
 			return minecraft == null || minecraft.getRenderViewEntity() == null || minecraft.getRenderViewEntity().getDistanceSq(posX, posY, posZ) >= 256D;
 		}
 
 		private void createParticle(double p_92034_1_, double p_92034_3_, double p_92034_5_, double p_92034_7_, double p_92034_9_, double p_92034_11_, int[] p_92034_13_, int[] p_92034_14_, boolean p_92034_15_, boolean p_92034_16_) {
-
 			ParticleFirework.Spark particlefirework$spark = new ParticleFirework.Spark(world, p_92034_1_, p_92034_3_, p_92034_5_, p_92034_7_, p_92034_9_, p_92034_11_, manager);
 			particlefirework$spark.setAlphaF(0.99F);
 			particlefirework$spark.setTrail(p_92034_15_);
@@ -258,7 +245,6 @@ public class ParticleFirework {
 		}
 
 		private void createBall(double speed, int size, int[] colours, int[] fadeColours, boolean trail, boolean twinkleIn) {
-
 			double d0 = posX;
 			double d1 = posY;
 			double d2 = posZ;
@@ -281,7 +267,6 @@ public class ParticleFirework {
 		}
 
 		private void createShaped(double speed, double[][] shape, int[] colours, int[] fadeColours, boolean trail, boolean twinkleIn, boolean p_92038_8_) {
-
 			double d0 = shape[0][0];
 			double d1 = shape[0][1];
 			createParticle(posX, posY, posZ, d0 * speed, d1 * speed, 0D, colours, fadeColours, trail, twinkleIn);
@@ -315,7 +300,6 @@ public class ParticleFirework {
 		}
 
 		private void createBurst(int[] colours, int[] fadeColours, boolean trail, boolean twinkleIn) {
-
 			double d0 = rand.nextGaussian() * 0.05D;
 			double d1 = rand.nextGaussian() * 0.05D;
 

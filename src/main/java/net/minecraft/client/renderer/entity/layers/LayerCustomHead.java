@@ -25,12 +25,10 @@ public class LayerCustomHead implements LayerRenderer<EntityLivingBase> {
 	private final ModelRenderer modelRenderer;
 
 	public LayerCustomHead(ModelRenderer p_i46120_1_) {
-
 		modelRenderer = p_i46120_1_;
 	}
 
 	public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		ItemStack itemstack = entitylivingbaseIn.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
 
 		if (!itemstack.isEmpty()) {
@@ -99,7 +97,6 @@ public class LayerCustomHead implements LayerRenderer<EntityLivingBase> {
 	}
 
 	public boolean shouldCombineTextures() {
-
 		return false;
 	}
 

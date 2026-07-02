@@ -13,7 +13,6 @@ public class ScoreObjective {
 	private String displayName;
 
 	public ScoreObjective(Scoreboard scoreboard, String nameIn, IScoreCriteria objectiveCriteriaIn) {
-
 		this.scoreboard = scoreboard;
 		name = nameIn;
 		objectiveCriteria = objectiveCriteriaIn;
@@ -22,27 +21,22 @@ public class ScoreObjective {
 	}
 
 	public Scoreboard getScoreboard() {
-
 		return scoreboard;
 	}
 
 	public String getName() {
-
 		return name;
 	}
 
 	public IScoreCriteria getCriteria() {
-
 		return objectiveCriteria;
 	}
 
 	public String getDisplayName() {
-
 		return displayName;
 	}
 
 	public void setDisplayName(String nameIn) {
-
 		displayName = nameIn;
 		scoreboard.onObjectiveDisplayNameChanged(this);
 	}
@@ -53,7 +47,6 @@ public class ScoreObjective {
 	}
 
 	public void setRenderType(IScoreCriteria.RenderType type) {
-
 		renderType = type;
 		scoreboard.onObjectiveDisplayNameChanged(this);
 	}

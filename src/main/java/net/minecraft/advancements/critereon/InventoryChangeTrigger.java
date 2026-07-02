@@ -23,12 +23,10 @@ public class InventoryChangeTrigger implements ICriterionTrigger<InventoryChange
 	private final Map<PlayerAdvancements, InventoryChangeTrigger.Listeners> listeners = Maps.newHashMap();
 
 	public ResourceLocation getId() {
-
 		return ID;
 	}
 
 	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<InventoryChangeTrigger.Instance> listener) {
-
 		InventoryChangeTrigger.Listeners inventorychangetrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (inventorychangetrigger$listeners == null) {
@@ -40,7 +38,6 @@ public class InventoryChangeTrigger implements ICriterionTrigger<InventoryChange
 	}
 
 	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<InventoryChangeTrigger.Instance> listener) {
-
 		InventoryChangeTrigger.Listeners inventorychangetrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (inventorychangetrigger$listeners != null) {
@@ -53,7 +50,6 @@ public class InventoryChangeTrigger implements ICriterionTrigger<InventoryChange
 	}
 
 	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
-
 		listeners.remove(playerAdvancementsIn);
 	}
 
@@ -71,7 +67,6 @@ public class InventoryChangeTrigger implements ICriterionTrigger<InventoryChange
 	}
 
 	public void trigger(EntityPlayerMP player, InventoryPlayer inventory) {
-
 		InventoryChangeTrigger.Listeners inventorychangetrigger$listeners = listeners.get(player.getAdvancements());
 
 		if (inventorychangetrigger$listeners != null) {
@@ -87,7 +82,6 @@ public class InventoryChangeTrigger implements ICriterionTrigger<InventoryChange
 		private final ItemPredicate[] items;
 
 		public Instance(MinMaxBounds occupied, MinMaxBounds full, MinMaxBounds empty, ItemPredicate[] items) {
-
 			super(InventoryChangeTrigger.ID);
 			this.occupied = occupied;
 			this.full = full;
@@ -96,7 +90,6 @@ public class InventoryChangeTrigger implements ICriterionTrigger<InventoryChange
 		}
 
 		public boolean test(InventoryPlayer inventory) {
-
 			int i = 0;
 			int j = 0;
 			int k = 0;
@@ -135,27 +128,22 @@ public class InventoryChangeTrigger implements ICriterionTrigger<InventoryChange
 		private final Set<ICriterionTrigger.Listener<InventoryChangeTrigger.Instance>> listeners = Sets.newHashSet();
 
 		public Listeners(PlayerAdvancements playerAdvancementsIn) {
-
 			playerAdvancements = playerAdvancementsIn;
 		}
 
 		public boolean isEmpty() {
-
 			return listeners.isEmpty();
 		}
 
 		public void add(ICriterionTrigger.Listener<InventoryChangeTrigger.Instance> listener) {
-
 			listeners.add(listener);
 		}
 
 		public void remove(ICriterionTrigger.Listener<InventoryChangeTrigger.Instance> listener) {
-
 			listeners.remove(listener);
 		}
 
 		public void trigger(InventoryPlayer inventory) {
-
 			List<ICriterionTrigger.Listener<InventoryChangeTrigger.Instance>> list = null;
 
 			for (ICriterionTrigger.Listener<InventoryChangeTrigger.Instance> listener : listeners) {

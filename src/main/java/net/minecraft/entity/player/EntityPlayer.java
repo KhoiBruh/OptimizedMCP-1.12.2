@@ -185,7 +185,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	private ItemStack itemStackMainHand = ItemStack.EMPTY;
 
 	public EntityPlayer(World worldIn, GameProfile gameProfileIn) {
-
 		super(worldIn);
 		setUniqueId(getUUID(gameProfileIn));
 		gameProfile = gameProfileIn;
@@ -197,7 +196,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	public static void registerFixesPlayer(DataFixer fixer) {
-
 		fixer.registerWalker(FixTypes.PLAYER, (fixer1, compound, versionIn) -> {
 
 			DataFixesManager.processInventory(fixer1, compound, versionIn, "Inventory");
@@ -221,7 +219,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Return null if bed is invalid
 	 */
 	public static BlockPos getBedSpawnLocation(World worldIn, BlockPos bedLocation, boolean forceSpawn) {
-
 		Block block = worldIn.getBlockState(bedLocation).getBlock();
 
 		if (block != Blocks.BED) {
@@ -241,7 +238,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Gets a players UUID given their GameProfie
 	 */
 	public static UUID getUUID(GameProfile profile) {
-
 		UUID uuid = profile.getId();
 
 		if (uuid == null) {
@@ -252,17 +248,14 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	public static UUID getOfflineUUID(String username) {
-
 		return UUID.nameUUIDFromBytes(("OfflinePlayer:" + username).getBytes(StandardCharsets.UTF_8));
 	}
 
 	protected CooldownTracker createCooldownTracker() {
-
 		return new CooldownTracker();
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.10000000149011612D);
@@ -271,7 +264,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(ABSORPTION, 0F);
 		dataManager.register(PLAYER_SCORE, 0);
@@ -285,7 +277,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		noClip = isSpectator();
 
 		if (isSpectator()) {
@@ -368,7 +359,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	private void updateCape() {
-
 		prevChasingPosX = chasingPosX;
 		prevChasingPosY = chasingPosY;
 		prevChasingPosZ = chasingPosZ;
@@ -413,7 +403,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	protected void updateSize() {
-
 		float f;
 		float f1;
 
@@ -445,17 +434,14 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Return the amount of time this entity should stay in a portal before being transported.
 	 */
 	public int getMaxInPortalTime() {
-
 		return capabilities.disableDamage ? 1 : 80;
 	}
 
 	protected SoundEvent getSwimSound() {
-
 		return SoundEvents.ENTITY_PLAYER_SWIM;
 	}
 
 	protected SoundEvent getSplashSound() {
-
 		return SoundEvents.ENTITY_PLAYER_SPLASH;
 	}
 
@@ -463,22 +449,18 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Return the amount of cooldown before this entity can use a portal again.
 	 */
 	public int getPortalCooldown() {
-
 		return 10;
 	}
 
 	public void playSound(SoundEvent soundIn, float volume, float pitch) {
-
 		world.playSound(this, posX, posY, posZ, soundIn, getSoundCategory(), volume, pitch);
 	}
 
 	public SoundCategory getSoundCategory() {
-
 		return SoundCategory.PLAYERS;
 	}
 
 	protected int getFireImmuneTicks() {
-
 		return 20;
 	}
 
@@ -486,7 +468,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Handler for {@link World#setEntityState}
 	 */
 	public void handleStatusUpdate(byte id) {
-
 		if (id == 9) {
 			onItemUseFinish();
 		} else if (id == 23) {
@@ -502,7 +483,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Dead and sleeping entities cannot move
 	 */
 	protected boolean isMovementBlocked() {
-
 		return getHealth() <= 0F || isPlayerSleeping();
 	}
 
@@ -510,7 +490,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * set current crafting inventory back to the 2x2 square
 	 */
 	protected void closeScreen() {
-
 		openContainer = inventoryContainer;
 	}
 
@@ -518,7 +497,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Handles updating while riding another entity
 	 */
 	public void updateRidden() {
-
 		if (!world.isRemote && isSneaking() && isRiding()) {
 			dismountRidingEntity();
 			setSneaking(false);
@@ -546,7 +524,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * (only actually used on players though its also on Entity)
 	 */
 	public void preparePlayerToSpawn() {
-
 		setSize(0.6F, 1.8F);
 		super.preparePlayerToSpawn();
 		setHealth(getMaxHealth());
@@ -554,7 +531,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	protected void updateEntityActionState() {
-
 		super.updateEntityActionState();
 		updateArmSwingProgress();
 		rotationYawHead = rotationYaw;
@@ -565,7 +541,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
 		if (flyToggleTimer > 0) {
 			--flyToggleTimer;
 		}
@@ -641,7 +616,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	private void playShoulderEntityAmbientSound(NBTTagCompound p_192028_1_) {
-
 		if (p_192028_1_ != null && !p_192028_1_.hasKey("Silent") || !p_192028_1_.getBoolean("Silent")) {
 			String s = p_192028_1_.getString("id");
 
@@ -652,12 +626,10 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	private void collideWithPlayer(Entity entityIn) {
-
 		entityIn.onCollideWithPlayer(this);
 	}
 
 	public int getScore() {
-
 		return dataManager.get(PLAYER_SCORE);
 	}
 
@@ -665,7 +637,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Set player's score
 	 */
 	public void setScore(int scoreIn) {
-
 		dataManager.set(PLAYER_SCORE, scoreIn);
 	}
 
@@ -673,7 +644,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Add to player's score
 	 */
 	public void addScore(int scoreIn) {
-
 		int i = getScore();
 		dataManager.set(PLAYER_SCORE, i + scoreIn);
 	}
@@ -682,7 +652,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Called when the mob's health reaches 0.
 	 */
 	public void onDeath(DamageSource cause) {
-
 		super.onDeath(cause);
 		setSize(0.2F, 0.2F);
 		setPosition(posX, posY, posZ);
@@ -712,7 +681,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	protected void destroyVanishingCursedItems() {
-
 		for (int i = 0; i < inventory.getSizeInventory(); ++i) {
 			ItemStack itemstack = inventory.getStackInSlot(i);
 
@@ -723,7 +691,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		if (damageSourceIn == DamageSource.ON_FIRE) {
 			return SoundEvents.ENTITY_PLAYER_HURT_ON_FIRE;
 		} else {
@@ -732,7 +699,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_PLAYER_DEATH;
 	}
 
@@ -743,7 +709,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * entire stack is dropped.
 	 */
 	public EntityItem dropItem(boolean dropAll) {
-
 		return dropItem(inventory.decrStackSize(inventory.currentItem, dropAll && !inventory.getCurrentItem().isEmpty() ? inventory.getCurrentItem().getCount() : 1), false, true);
 	}
 
@@ -753,13 +718,11 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Drops an item into the world.
 	 */
 	public EntityItem dropItem(ItemStack itemStackIn, boolean unused) {
-
 		return dropItem(itemStackIn, false, unused);
 	}
 
 	
 	public EntityItem dropItem(ItemStack droppedItem, boolean dropAround, boolean traceItem) {
-
 		if (droppedItem.isEmpty()) {
 			return null;
 		} else {
@@ -804,13 +767,11 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	protected ItemStack dropItemAndGetStack(EntityItem p_184816_1_) {
-
 		world.spawnEntity(p_184816_1_);
 		return p_184816_1_.getItem();
 	}
 
 	public float getDigSpeed(IBlockState state) {
-
 		float f = inventory.getDestroySpeed(state);
 
 		if (f > 1F) {
@@ -849,7 +810,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	public boolean canHarvestBlock(IBlockState state) {
-
 		return inventory.canHarvestBlock(state);
 	}
 
@@ -857,7 +817,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		setUniqueId(getUUID(gameProfile));
 		NBTTagList nbttaglist = compound.getTagList("Inventory", 10);
@@ -907,7 +866,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setInteger("DataVersion", 1343);
 		compound.setTag("Inventory", inventory.writeToNBT(new NBTTagList()));
@@ -944,7 +902,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		if (isEntityInvulnerable(source)) {
 			return false;
 		} else if (capabilities.disableDamage && !source.canHarmInCreative()) {
@@ -981,7 +938,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	protected void blockUsingShield(EntityLivingBase p_190629_1_) {
-
 		super.blockUsingShield(p_190629_1_);
 
 		if (p_190629_1_.getHeldItemMainhand().getItem() instanceof ItemAxe) {
@@ -990,7 +946,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	public boolean canAttackPlayer(EntityPlayer other) {
-
 		Team team = getTeam();
 		Team team1 = other.getTeam();
 
@@ -1002,12 +957,10 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	protected void damageArmor(float damage) {
-
 		inventory.damageArmor(damage);
 	}
 
 	protected void damageShield(float damage) {
-
 		if (damage >= 3F && activeItemStack.getItem() == Items.SHIELD) {
 			int i = 1 + MathHelper.floor(damage);
 			activeItemStack.damageItem(i, this);
@@ -1032,7 +985,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * them anyway.
 	 */
 	public float getArmorVisibility() {
-
 		int i = 0;
 
 		for (ItemStack itemstack : inventory.armorInventory) {
@@ -1049,7 +1001,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * bar.
 	 */
 	protected void damageEntity(DamageSource damageSrc, float damageAmount) {
-
 		if (!isEntityInvulnerable(damageSrc)) {
 			damageAmount = applyArmorCalculations(damageSrc, damageAmount);
 			damageAmount = applyPotionDamageCalculations(damageSrc, damageAmount);
@@ -1070,46 +1021,36 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	public void openEditSign(TileEntitySign signTile) {
-
 	}
 
 	public void displayGuiEditCommandCart(CommandBlockBaseLogic commandBlock) {
-
 	}
 
 	public void displayGuiCommandBlock(TileEntityCommandBlock commandBlock) {
-
 	}
 
 	public void openEditStructure(TileEntityStructure structure) {
-
 	}
 
 	public void displayVillagerTradeGui(IMerchant villager) {
-
 	}
 
 	/**
 	 * Displays the GUI for interacting with a chest inventory.
 	 */
 	public void displayGUIChest(IInventory chestInventory) {
-
 	}
 
 	public void openGuiHorseInventory(AbstractHorse horse, IInventory inventoryIn) {
-
 	}
 
 	public void displayGui(IInteractionObject guiOwner) {
-
 	}
 
 	public void openBook(ItemStack stack, Hand hand) {
-
 	}
 
 	public ActionResult interactOn(Entity p_190775_1_, Hand p_190775_2_) {
-
 		if (isSpectator()) {
 			if (p_190775_1_ instanceof IInventory) {
 				displayGUIChest((IInventory) p_190775_1_);
@@ -1150,7 +1091,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Returns the Y Offset of this entity.
 	 */
 	public double getYOffset() {
-
 		return -0.35D;
 	}
 
@@ -1158,7 +1098,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Dismounts this entity from the entity it is riding.
 	 */
 	public void dismountRidingEntity() {
-
 		super.dismountRidingEntity();
 		rideCooldown = 0;
 	}
@@ -1168,7 +1107,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * called on it. Args: targetEntity
 	 */
 	public void attackTargetEntityWithCurrentItem(Entity targetEntity) {
-
 		if (targetEntity.canBeAttackedWithItem()) {
 			if (!targetEntity.hitByEntity(this)) {
 				float f = (float) getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
@@ -1340,7 +1278,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	public void disableShield(boolean p_190777_1_) {
-
 		float f = 0.25F + (float) EnchantmentHelper.getEfficiencyModifier(this) * 0.05F;
 
 		if (p_190777_1_) {
@@ -1358,15 +1295,12 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Called when the entity is dealt a critical hit.
 	 */
 	public void onCriticalHit(Entity entityHit) {
-
 	}
 
 	public void onEnchantmentCritical(Entity entityHit) {
-
 	}
 
 	public void spawnSweepParticles() {
-
 		double d0 = -MathHelper.sin(rotationYaw * 0.017453292F);
 		double d1 = MathHelper.cos(rotationYaw * 0.017453292F);
 
@@ -1376,14 +1310,12 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	public void respawnPlayer() {
-
 	}
 
 	/**
 	 * Will get destroyed next tick.
 	 */
 	public void setDead() {
-
 		super.setDead();
 		inventoryContainer.onContainerClosed(this);
 
@@ -1396,7 +1328,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Checks if this entity is inside of an opaque block
 	 */
 	public boolean isEntityInsideOpaqueBlock() {
-
 		return !sleeping && super.isEntityInsideOpaqueBlock();
 	}
 
@@ -1404,7 +1335,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * returns true if this is an EntityPlayerSP, or the logged in player.
 	 */
 	public boolean isUser() {
-
 		return false;
 	}
 
@@ -1412,7 +1342,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Returns the GameProfile for this player
 	 */
 	public GameProfile getGameProfile() {
-
 		return gameProfile;
 	}
 
@@ -1477,7 +1406,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	private boolean bedInRange(BlockPos p_190774_1_, Facing p_190774_2_) {
-
 		if (Math.abs(posX - (double) p_190774_1_.getX()) <= 3D && Math.abs(posY - (double) p_190774_1_.getY()) <= 2D && Math.abs(posZ - (double) p_190774_1_.getZ()) <= 3D) {
 			return true;
 		} else {
@@ -1487,7 +1415,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	private void setRenderOffsetForSleep(Facing bedDirection) {
-
 		renderOffsetX = -1.8F * (float) bedDirection.getFrontOffsetX();
 		renderOffsetZ = -1.8F * (float) bedDirection.getFrontOffsetZ();
 	}
@@ -1496,7 +1423,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Wake up the player if they're sleeping.
 	 */
 	public void wakeUpPlayer(boolean immediately, boolean updateWorldFlag, boolean setSpawn) {
-
 		setSize(0.6F, 1.8F);
 		IBlockState iblockstate = world.getBlockState(bedLocation);
 
@@ -1525,7 +1451,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	private boolean isInBed() {
-
 		return world.getBlockState(bedLocation).getBlock() == Blocks.BED;
 	}
 
@@ -1533,7 +1458,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Returns the orientation of the bed in degrees.
 	 */
 	public float getBedOrientationInDegrees() {
-
 		if (bedLocation != null) {
 			Facing enumfacing = world.getBlockState(bedLocation).getValue(BlockHorizontal.FACING);
 
@@ -1559,7 +1483,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Returns whether player is sleeping or not
 	 */
 	public boolean isPlayerSleeping() {
-
 		return sleeping;
 	}
 
@@ -1567,31 +1490,25 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Returns whether or not the player is asleep and the screen has fully faded.
 	 */
 	public boolean isPlayerFullyAsleep() {
-
 		return sleeping && sleepTimer >= 100;
 	}
 
 	public int getSleepTimer() {
-
 		return sleepTimer;
 	}
 
 	public void sendStatusMessage(ITextComponent chatComponent, boolean actionBar) {
-
 	}
 
 	public BlockPos getBedLocation() {
-
 		return spawnPos;
 	}
 
 	public boolean isSpawnForced() {
-
 		return spawnForced;
 	}
 
 	public void setSpawnPoint(BlockPos pos, boolean forced) {
-
 		if (pos != null) {
 			spawnPos = pos;
 			spawnForced = forced;
@@ -1605,7 +1522,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Add a stat once
 	 */
 	public void addStat(StatBase stat) {
-
 		addStat(stat, 1);
 	}
 
@@ -1613,30 +1529,24 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Adds a value to a statistic field.
 	 */
 	public void addStat(StatBase stat, int amount) {
-
 	}
 
 	public void takeStat(StatBase stat) {
-
 	}
 
 	public void unlockRecipes(List<IRecipe> p_192021_1_) {
-
 	}
 
 	public void unlockRecipes(ResourceLocation[] p_193102_1_) {
-
 	}
 
 	public void resetRecipes(List<IRecipe> p_192022_1_) {
-
 	}
 
 	/**
 	 * Causes this entity to do an upwards motion (jumping).
 	 */
 	public void jump() {
-
 		super.jump();
 		addStat(StatList.JUMP);
 
@@ -1648,7 +1558,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	public void travel(float strafe, float vertical, float forward) {
-
 		double d0 = posX;
 		double d1 = posY;
 		double d2 = posZ;
@@ -1673,7 +1582,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * the movespeed used for the new AI system
 	 */
 	public float getAIMoveSpeed() {
-
 		return (float) getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue();
 	}
 
@@ -1681,7 +1589,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Adds a value to a movement statistic field - like run, walk, swin or climb.
 	 */
 	public void addMovementStat(double p_71000_1_, double p_71000_3_, double p_71000_5_) {
-
 		if (!isRiding()) {
 			if (isInsideOfMaterial(Material.WATER)) {
 				int i = Math.round(MathHelper.sqrt(p_71000_1_ * p_71000_1_ + p_71000_3_ * p_71000_3_ + p_71000_5_ * p_71000_5_) * 100F);
@@ -1733,7 +1640,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Adds a value to a mounted movement statistic field - by minecart, boat, or pig.
 	 */
 	private void addMountedMovementStat(double p_71015_1_, double p_71015_3_, double p_71015_5_) {
-
 		if (isRiding()) {
 			int i = Math.round(MathHelper.sqrt(p_71015_1_ * p_71015_1_ + p_71015_3_ * p_71015_3_ + p_71015_5_ * p_71015_5_) * 100F);
 
@@ -1752,7 +1658,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	public void fall(float distance, float damageMultiplier) {
-
 		if (!capabilities.allowFlying) {
 			if (distance >= 2F) {
 				addStat(StatList.FALL_ONE_CM, (int) Math.round((double) distance * 100D));
@@ -1767,14 +1672,12 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * ParticleType#WATER_SPLASH} particles.
 	 */
 	protected void doWaterSplashEffect() {
-
 		if (!isSpectator()) {
 			super.doWaterSplashEffect();
 		}
 	}
 
 	protected SoundEvent getFallSound(int heightIn) {
-
 		return heightIn > 4 ? SoundEvents.ENTITY_PLAYER_BIG_FALL : SoundEvents.ENTITY_PLAYER_SMALL_FALL;
 	}
 
@@ -1782,7 +1685,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * This method gets called when the entity kills another one.
 	 */
 	public void onKillEntity(EntityLivingBase entityLivingIn) {
-
 		EntityList.EntityEggInfo entitylist$entityegginfo = EntityList.ENTITY_EGGS.get(EntityList.getKey(entityLivingIn));
 
 		if (entitylist$entityegginfo != null) {
@@ -1794,7 +1696,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Sets the Entity inside a web block.
 	 */
 	public void setInWeb() {
-
 		if (!capabilities.isFlying) {
 			super.setInWeb();
 		}
@@ -1804,7 +1705,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Add experience points to player.
 	 */
 	public void addExperience(int amount) {
-
 		addScore(amount);
 		int i = Integer.MAX_VALUE - experienceTotal;
 
@@ -1821,12 +1721,10 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	public int getXPSeed() {
-
 		return xpSeed;
 	}
 
 	public void onEnchant(ItemStack enchantedItem, int cost) {
-
 		experienceLevel -= cost;
 
 		if (experienceLevel < 0) {
@@ -1842,7 +1740,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Add experience levels to this player.
 	 */
 	public void addExperienceLevel(int levels) {
-
 		experienceLevel += levels;
 
 		if (experienceLevel < 0) {
@@ -1863,7 +1760,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * experience cap on the player's experience bar is raised by 10.
 	 */
 	public int xpBarCap() {
-
 		if (experienceLevel >= 30) {
 			return 112 + (experienceLevel - 30) * 9;
 		} else {
@@ -1875,7 +1771,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * increases exhaustion level by supplied amount
 	 */
 	public void addExhaustion(float exhaustion) {
-
 		if (!capabilities.disableDamage) {
 			if (!world.isRemote) {
 				foodStats.addExhaustion(exhaustion);
@@ -1887,12 +1782,10 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Returns the player's FoodStats object.
 	 */
 	public FoodStats getFoodStats() {
-
 		return foodStats;
 	}
 
 	public boolean canEat(boolean ignoreHunger) {
-
 		return (ignoreHunger || foodStats.needFood()) && !capabilities.disableDamage;
 	}
 
@@ -1900,12 +1793,10 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Checks if the player's health is not full and not zero.
 	 */
 	public boolean shouldHeal() {
-
 		return getHealth() > 0F && getHealth() < getMaxHealth();
 	}
 
 	public boolean isAllowEdit() {
-
 		return capabilities.allowEdit;
 	}
 
@@ -1924,7 +1815,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * @see PlayerCapabilities#allowEdit
 	 */
 	public boolean canPlayerEdit(BlockPos pos, Facing facing, ItemStack stack) {
-
 		if (capabilities.allowEdit) {
 			return true;
 		} else if (stack.isEmpty()) {
@@ -1940,7 +1830,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Get the experience points the entity currently has.
 	 */
 	protected int getExperiencePoints(EntityPlayer player) {
-
 		if (!world.getGameRules().getBoolean("keepInventory") && !isSpectator()) {
 			int i = experienceLevel * 7;
 			return Math.min(i, 100);
@@ -1953,12 +1842,10 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Only use is to identify if class is an instance of player for experience dropping
 	 */
 	protected boolean isPlayer() {
-
 		return true;
 	}
 
 	public boolean getAlwaysRenderNameTagForRender() {
-
 		return true;
 	}
 
@@ -1967,7 +1854,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * prevent them from trampling crops
 	 */
 	protected boolean canTriggerWalking() {
-
 		return !capabilities.isFlying;
 	}
 
@@ -1975,21 +1861,18 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Sends the player's abilities to the server (if there is one).
 	 */
 	public void sendPlayerAbilities() {
-
 	}
 
 	/**
 	 * Sets the player's game mode and sends it to them.
 	 */
 	public void setGameType(GameType gameType) {
-
 	}
 
 	/**
 	 * Get the name of this object. For players this returns their username
 	 */
 	public String getName() {
-
 		return gameProfile.getName();
 	}
 
@@ -1997,12 +1880,10 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Returns the InventoryEnderChest of this player.
 	 */
 	public InventoryEnderChest getInventoryEnderChest() {
-
 		return enderChest;
 	}
 
 	public ItemStack getItemStackFromSlot(EntityEquipmentSlot slotIn) {
-
 		if (slotIn == EntityEquipmentSlot.MAINHAND) {
 			return inventory.getCurrentItem();
 		} else if (slotIn == EntityEquipmentSlot.OFFHAND) {
@@ -2013,7 +1894,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	public void setItemStackToSlot(EntityEquipmentSlot slotIn, ItemStack stack) {
-
 		if (slotIn == EntityEquipmentSlot.MAINHAND) {
 			playEquipSound(stack);
 			inventory.mainInventory.set(inventory.currentItem, stack);
@@ -2027,23 +1907,19 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	public boolean addItemStackToInventory(ItemStack p_191521_1_) {
-
 		playEquipSound(p_191521_1_);
 		return inventory.addItemStackToInventory(p_191521_1_);
 	}
 
 	public Iterable<ItemStack> getHeldEquipment() {
-
 		return Lists.newArrayList(getHeldItemMainhand(), getHeldItemOffhand());
 	}
 
 	public Iterable<ItemStack> getArmorInventoryList() {
-
 		return inventory.armorInventory;
 	}
 
 	public boolean addShoulderEntity(NBTTagCompound p_192027_1_) {
-
 		if (!isRiding() && onGround && !isInWater()) {
 			if (getLeftShoulderEntity().hasNoTags()) {
 				setLeftShoulderEntity(p_192027_1_);
@@ -2060,7 +1936,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	protected void spawnShoulderEntities() {
-
 		spawnShoulderEntity(getLeftShoulderEntity());
 		setLeftShoulderEntity(new NBTTagCompound());
 		spawnShoulderEntity(getRightShoulderEntity());
@@ -2068,7 +1943,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	private void spawnShoulderEntity(NBTTagCompound p_192026_1_) {
-
 		if (!world.isRemote && !p_192026_1_.hasNoTags()) {
 			Entity entity = EntityList.createEntityFromNBT(p_192026_1_, world);
 
@@ -2087,7 +1961,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * For EntityLivingBase subclasses, returning false when invisible will render the entity semitransparent.
 	 */
 	public boolean isInvisibleToPlayer(EntityPlayer player) {
-
 		if (!isInvisible()) {
 			return false;
 		} else if (player.isSpectator()) {
@@ -2106,17 +1979,14 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	public abstract boolean isCreative();
 
 	public boolean isPushedByWater() {
-
 		return !capabilities.isFlying;
 	}
 
 	public Scoreboard getWorldScoreboard() {
-
 		return world.getScoreboard();
 	}
 
 	public Team getTeam() {
-
 		return getWorldScoreboard().getPlayersTeam(getName());
 	}
 
@@ -2124,7 +1994,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Get the formatted ChatComponent that will be used for the sender's username in chat
 	 */
 	public ITextComponent getDisplayName() {
-
 		ITextComponent itextcomponent = new TextComponentString(ScorePlayerTeam.formatPlayerName(getTeam(), getName()));
 		itextcomponent.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/msg " + getName() + " "));
 		itextcomponent.getStyle().setHoverEvent(getHoverEvent());
@@ -2133,7 +2002,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	public float getEyeHeight() {
-
 		float f = 1.62F;
 
 		if (isPlayerSleeping()) {
@@ -2153,12 +2021,10 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Returns the amount of health added by the Absorption effect.
 	 */
 	public float getAbsorptionAmount() {
-
 		return getDataManager().get(ABSORPTION);
 	}
 
 	public void setAbsorptionAmount(float amount) {
-
 		if (amount < 0F) {
 			amount = 0F;
 		}
@@ -2170,7 +2036,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Check whether this player can open an inventory locked with the given LockCode.
 	 */
 	public boolean canOpen(LockCode code) {
-
 		if (code.isEmpty()) {
 			return true;
 		} else {
@@ -2180,7 +2045,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	public boolean isWearing(PlayerModelParts part) {
-
 		return (getDataManager().get(PLAYER_MODEL_FLAG) & part.getPartMask()) == part.getPartMask();
 	}
 
@@ -2188,12 +2052,10 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Returns true if the command sender should be sent feedback about executed commands
 	 */
 	public boolean sendCommandFeedback() {
-
 		return getServer().worlds[0].getGameRules().getBoolean("sendCommandFeedback");
 	}
 
 	public boolean replaceItemInInventory(int inventorySlot, ItemStack itemStackIn) {
-
 		if (inventorySlot >= 0 && inventorySlot < inventory.mainInventory.size()) {
 			inventory.setInventorySlotContents(inventorySlot, itemStackIn);
 			return true;
@@ -2248,47 +2110,38 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Whether the "reducedDebugInfo" option is active for this player.
 	 */
 	public boolean hasReducedDebug() {
-
 		return hasReducedDebug;
 	}
 
 	public void setReducedDebug(boolean reducedDebug) {
-
 		hasReducedDebug = reducedDebug;
 	}
 
 	public HandSide getPrimaryHand() {
-
 		return dataManager.get(MAIN_HAND) == 0 ? HandSide.LEFT : HandSide.RIGHT;
 	}
 
 	public void setPrimaryHand(HandSide hand) {
-
 		dataManager.set(MAIN_HAND, (byte) (hand == HandSide.LEFT ? 0 : 1));
 	}
 
 	public NBTTagCompound getLeftShoulderEntity() {
-
 		return dataManager.get(LEFT_SHOULDER_ENTITY);
 	}
 
 	protected void setLeftShoulderEntity(NBTTagCompound tag) {
-
 		dataManager.set(LEFT_SHOULDER_ENTITY, tag);
 	}
 
 	public NBTTagCompound getRightShoulderEntity() {
-
 		return dataManager.get(RIGHT_SHOULDER_ENTITY);
 	}
 
 	protected void setRightShoulderEntity(NBTTagCompound tag) {
-
 		dataManager.set(RIGHT_SHOULDER_ENTITY, tag);
 	}
 
 	public float getCooldownPeriod() {
-
 		return (float) (1D / getEntityAttribute(SharedMonsterAttributes.ATTACK_SPEED).getAttributeValue() * 20D);
 	}
 
@@ -2296,17 +2149,14 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Returns the percentage of attack power available based on the cooldown (zero to one).
 	 */
 	public float getCooledAttackStrength(float adjustTicks) {
-
 		return MathHelper.clamp(((float) ticksSinceLastSwing + adjustTicks) / getCooldownPeriod(), 0F, 1F);
 	}
 
 	public void resetCooldown() {
-
 		ticksSinceLastSwing = 0;
 	}
 
 	public CooldownTracker getCooldownTracker() {
-
 		return cooldownTracker;
 	}
 
@@ -2314,14 +2164,12 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Applies a velocity to the entities, to push them away from eachother.
 	 */
 	public void applyEntityCollision(Entity entityIn) {
-
 		if (!isPlayerSleeping()) {
 			super.applyEntityCollision(entityIn);
 		}
 	}
 
 	public float getLuck() {
-
 		return (float) getEntityAttribute(SharedMonsterAttributes.LUCK).getAttributeValue();
 	}
 
@@ -2329,7 +2177,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Can the player use command blocks. It checks if the player is on Creative mode and has permissions (is he OP)
 	 */
 	public boolean canUseCommandBlock() {
-
 		return capabilities.isCreativeMode && canUseCommand(2, "");
 	}
 
@@ -2350,7 +2197,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 		private final String resourceKey;
 
 		ChatVisibility(int id, String resourceKey) {
-
 			chatVisibility = id;
 			this.resourceKey = resourceKey;
 		}
@@ -2361,12 +2207,10 @@ public abstract class EntityPlayer extends EntityLivingBase {
 		}
 
 		public int getChatVisibility() {
-
 			return chatVisibility;
 		}
 
 		public String getResourceKey() {
-
 			return resourceKey;
 		}
 	}
@@ -2385,12 +2229,10 @@ public abstract class EntityPlayer extends EntityLivingBase {
 		private final EntityPlayer player;
 
 		private SleepEnemyPredicate(EntityPlayer playerIn) {
-
 			player = playerIn;
 		}
 
 		public boolean apply(EntityMob p_apply_1_) {
-
 			return p_apply_1_.isPreventingPlayerRest(player);
 		}
 

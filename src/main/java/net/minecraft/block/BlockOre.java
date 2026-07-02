@@ -18,12 +18,10 @@ import java.util.Random;
 public class BlockOre extends Block {
 
 	public BlockOre() {
-
 		this(Material.ROCK.getMaterialMapColor());
 	}
 
 	public BlockOre(MapColor color) {
-
 		super(Material.ROCK, color);
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 	}
@@ -32,7 +30,6 @@ public class BlockOre extends Block {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		if (this == Blocks.COAL_ORE) {
 			return Items.COAL;
 		} else if (this == Blocks.DIAMOND_ORE) {
@@ -50,7 +47,6 @@ public class BlockOre extends Block {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return this == Blocks.LAPIS_ORE ? 4 + random.nextInt(5) : 1;
 	}
 
@@ -58,7 +54,6 @@ public class BlockOre extends Block {
 	 * Get the quantity dropped based on the given fortune level
 	 */
 	public int quantityDroppedWithBonus(int fortune, Random random) {
-
 		if (fortune > 0 && Item.getItemFromBlock(this) != getItemDropped(getBlockState().getValidStates().getFirst(), random, fortune)) {
 			int i = random.nextInt(fortune + 2) - 1;
 
@@ -76,7 +71,6 @@ public class BlockOre extends Block {
 	 * Spawns this Block's drops into the World as EntityItems.
 	 */
 	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
-
 		super.dropBlockAsItemWithChance(worldIn, pos, state, chance, fortune);
 
 		if (getItemDropped(state, worldIn.rand, fortune) != Item.getItemFromBlock(this)) {
@@ -99,7 +93,6 @@ public class BlockOre extends Block {
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return new ItemStack(this);
 	}
 
@@ -108,7 +101,6 @@ public class BlockOre extends Block {
 	 * returns the metadata of the dropped item based on the old metadata of the block.
 	 */
 	public int damageDropped(IBlockState state) {
-
 		return this == Blocks.LAPIS_ORE ? DyeColor.BLUE.getDyeDamage() : 0;
 	}
 

@@ -18,12 +18,10 @@ public class BlockRotatedPillar extends Block {
 	public static final PropertyEnum<Facing.Axis> AXIS = PropertyEnum.create("axis", Facing.Axis.class);
 
 	protected BlockRotatedPillar(Material materialIn) {
-
 		super(materialIn, materialIn.getMaterialMapColor());
 	}
 
 	protected BlockRotatedPillar(Material materialIn, MapColor color) {
-
 		super(materialIn, color);
 	}
 
@@ -32,7 +30,6 @@ public class BlockRotatedPillar extends Block {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return switch (rot) {
 			case COUNTERCLOCKWISE_90, CLOCKWISE_90 -> switch (state.getValue(AXIS)) {
 				case X -> state.withProperty(AXIS, Facing.Axis.Z);
@@ -47,7 +44,6 @@ public class BlockRotatedPillar extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		Facing.Axis enumfacing$axis = Facing.Axis.Y;
 		int i = meta & 12;
 
@@ -64,7 +60,6 @@ public class BlockRotatedPillar extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 		Facing.Axis enumfacing$axis = state.getValue(AXIS);
 
@@ -78,12 +73,10 @@ public class BlockRotatedPillar extends Block {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, AXIS);
 	}
 
 	protected ItemStack getSilkTouchDrop(IBlockState state) {
-
 		return new ItemStack(Item.getItemFromBlock(this));
 	}
 
@@ -92,7 +85,6 @@ public class BlockRotatedPillar extends Block {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		return super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(AXIS, facing.getAxis());
 	}
 

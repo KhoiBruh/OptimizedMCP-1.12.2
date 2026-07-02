@@ -3,7 +3,6 @@ package net.minecraft.world.gen.layer;
 public class GenLayerRiverInit extends GenLayer {
 
 	public GenLayerRiverInit(long p_i2127_1_, GenLayer p_i2127_3_) {
-
 		super(p_i2127_1_);
 		parent = p_i2127_3_;
 	}
@@ -13,7 +12,6 @@ public class GenLayerRiverInit extends GenLayer {
 	 * amounts, or Biome ID's based on the particular GenLayer subclass.
 	 */
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
-
 		int[] aint = parent.getInts(areaX, areaY, areaWidth, areaHeight);
 		int[] aint1 = IntCache.getIntCache(areaWidth * areaHeight);
 

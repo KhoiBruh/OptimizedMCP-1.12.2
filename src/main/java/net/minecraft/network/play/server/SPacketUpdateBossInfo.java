@@ -21,11 +21,9 @@ public class SPacketUpdateBossInfo implements Packet<INetHandlerPlayClient> {
 	private boolean createFog;
 
 	public SPacketUpdateBossInfo() {
-
 	}
 
 	public SPacketUpdateBossInfo(SPacketUpdateBossInfo.Operation operationIn, BossInfo data) {
-
 		operation = operationIn;
 		uniqueId = data.getUniqueId();
 		name = data.getName();
@@ -41,7 +39,6 @@ public class SPacketUpdateBossInfo implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		uniqueId = buf.readUniqueId();
 		operation = buf.readEnumValue(Operation.class);
 
@@ -79,7 +76,6 @@ public class SPacketUpdateBossInfo implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeUniqueId(uniqueId);
 		buf.writeEnumValue(operation);
 
@@ -114,7 +110,6 @@ public class SPacketUpdateBossInfo implements Packet<INetHandlerPlayClient> {
 	}
 
 	private int getFlags() {
-
 		int i = 0;
 
 		if (darkenSky) {
@@ -133,7 +128,6 @@ public class SPacketUpdateBossInfo implements Packet<INetHandlerPlayClient> {
 	}
 
 	private void setFlags(int flags) {
-
 		darkenSky = (flags & 1) > 0;
 		playEndBossMusic = (flags & 2) > 0;
 		createFog = (flags & 2) > 0;
@@ -143,12 +137,10 @@ public class SPacketUpdateBossInfo implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleUpdateBossInfo(this);
 	}
 
 	public UUID getUniqueId() {
-
 		return uniqueId;
 	}
 
@@ -158,12 +150,10 @@ public class SPacketUpdateBossInfo implements Packet<INetHandlerPlayClient> {
 	}
 
 	public ITextComponent getName() {
-
 		return name;
 	}
 
 	public float getPercent() {
-
 		return percent;
 	}
 
@@ -178,17 +168,14 @@ public class SPacketUpdateBossInfo implements Packet<INetHandlerPlayClient> {
 	}
 
 	public boolean shouldDarkenSky() {
-
 		return darkenSky;
 	}
 
 	public boolean shouldPlayEndBossMusic() {
-
 		return playEndBossMusic;
 	}
 
 	public boolean shouldCreateFog() {
-
 		return createFog;
 	}
 

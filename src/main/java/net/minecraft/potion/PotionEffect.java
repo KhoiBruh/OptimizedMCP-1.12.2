@@ -38,22 +38,18 @@ public class PotionEffect implements Comparable<PotionEffect> {
 	private boolean showParticles;
 
 	public PotionEffect(Potion potionIn) {
-
 		this(potionIn, 0, 0);
 	}
 
 	public PotionEffect(Potion potionIn, int durationIn) {
-
 		this(potionIn, durationIn, 0);
 	}
 
 	public PotionEffect(Potion potionIn, int durationIn, int amplifierIn) {
-
 		this(potionIn, durationIn, amplifierIn, false, true);
 	}
 
 	public PotionEffect(Potion potionIn, int durationIn, int amplifierIn, boolean ambientIn, boolean showParticlesIn) {
-
 		potion = potionIn;
 		duration = durationIn;
 		amplifier = amplifierIn;
@@ -62,7 +58,6 @@ public class PotionEffect implements Comparable<PotionEffect> {
 	}
 
 	public PotionEffect(PotionEffect other) {
-
 		potion = other.potion;
 		duration = other.duration;
 		amplifier = other.amplifier;
@@ -74,7 +69,6 @@ public class PotionEffect implements Comparable<PotionEffect> {
 	 * Read a custom potion effect from a potion item's NBT data.
 	 */
 	public static PotionEffect readCustomPotionEffectFromNBT(NBTTagCompound nbt) {
-
 		int i = nbt.getByte("Id");
 		Potion potion = Potion.getPotionById(i);
 
@@ -99,7 +93,6 @@ public class PotionEffect implements Comparable<PotionEffect> {
 	 * potion effect is assumed to be greater.
 	 */
 	public void combine(PotionEffect other) {
-
 		if (potion != other.potion) {
 			LOGGER.warn("This method should only be called for matching effects!");
 		}
@@ -117,17 +110,14 @@ public class PotionEffect implements Comparable<PotionEffect> {
 	}
 
 	public Potion getPotion() {
-
 		return potion;
 	}
 
 	public int getDuration() {
-
 		return duration;
 	}
 
 	public int getAmplifier() {
-
 		return amplifier;
 	}
 
@@ -135,7 +125,6 @@ public class PotionEffect implements Comparable<PotionEffect> {
 	 * Gets whether this potion effect originated from a beacon
 	 */
 	public boolean getIsAmbient() {
-
 		return isAmbient;
 	}
 
@@ -143,12 +132,10 @@ public class PotionEffect implements Comparable<PotionEffect> {
 	 * Gets whether this potion effect will show ambient particles or not.
 	 */
 	public boolean doesShowParticles() {
-
 		return showParticles;
 	}
 
 	public boolean onUpdate(EntityLivingBase entityIn) {
-
 		if (duration > 0) {
 			if (potion.isReady(duration, amplifier)) {
 				performEffect(entityIn);
@@ -161,24 +148,20 @@ public class PotionEffect implements Comparable<PotionEffect> {
 	}
 
 	private int deincrementDuration() {
-
 		return --duration;
 	}
 
 	public void performEffect(EntityLivingBase entityIn) {
-
 		if (duration > 0) {
 			potion.performEffect(entityIn, amplifier);
 		}
 	}
 
 	public String getEffectName() {
-
 		return potion.getName();
 	}
 
 	public String toString() {
-
 		String s;
 
 		if (amplifier > 0) {
@@ -199,7 +182,6 @@ public class PotionEffect implements Comparable<PotionEffect> {
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else if (!(p_equals_1_ instanceof PotionEffect potioneffect)) {
@@ -210,7 +192,6 @@ public class PotionEffect implements Comparable<PotionEffect> {
 	}
 
 	public int hashCode() {
-
 		int i = potion.hashCode();
 		i = 31 * i + duration;
 		i = 31 * i + amplifier;
@@ -223,7 +204,6 @@ public class PotionEffect implements Comparable<PotionEffect> {
 	 * Write a custom potion effect to a potion item's NBT data.
 	 */
 	public NBTTagCompound writeCustomPotionEffectToNBT(NBTTagCompound nbt) {
-
 		nbt.setByte("Id", (byte) Potion.getIdFromPotion(getPotion()));
 		nbt.setByte("Amplifier", (byte) getAmplifier());
 		nbt.setInteger("Duration", getDuration());
@@ -236,7 +216,6 @@ public class PotionEffect implements Comparable<PotionEffect> {
 	 * Toggle the isPotionDurationMax field.
 	 */
 	public void setPotionDurationMax(boolean maxDuration) {
-
 		isPotionDurationMax = maxDuration;
 	}
 
@@ -244,12 +223,10 @@ public class PotionEffect implements Comparable<PotionEffect> {
 	 * Get the value of the isPotionDurationMax field.
 	 */
 	public boolean getIsPotionDurationMax() {
-
 		return isPotionDurationMax;
 	}
 
 	public int compareTo(PotionEffect p_compareTo_1_) {
-
 		int i = 32147;
 		return (getDuration() <= 32147 || p_compareTo_1_.getDuration() <= 32147) && (!getIsAmbient() || !p_compareTo_1_.getIsAmbient()) ? ComparisonChain.start().compare(getIsAmbient(), p_compareTo_1_.getIsAmbient()).compare(getDuration(), p_compareTo_1_.getDuration()).compare(getPotion().getLiquidColor(), p_compareTo_1_.getPotion().getLiquidColor()).result() : ComparisonChain.start().compare(getIsAmbient(), p_compareTo_1_.getIsAmbient()).compare(getPotion().getLiquidColor(), p_compareTo_1_.getPotion().getLiquidColor()).result();
 	}

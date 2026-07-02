@@ -8,7 +8,6 @@ public class PhaseHover extends PhaseBase {
 	private Vec3d targetLocation;
 
 	public PhaseHover(EntityDragon dragonIn) {
-
 		super(dragonIn);
 	}
 
@@ -17,14 +16,12 @@ public class PhaseHover extends PhaseBase {
 	 * Called by dragon's onLivingUpdate. Only used when !worldObj.isRemote.
 	 */
 	public void doLocalUpdate() {
-
 		if (targetLocation == null) {
 			targetLocation = new Vec3d(dragon.posX, dragon.posY, dragon.posZ);
 		}
 	}
 
 	public boolean getIsStationary() {
-
 		return true;
 	}
 
@@ -32,7 +29,6 @@ public class PhaseHover extends PhaseBase {
 	 * Called when this phase is set to active
 	 */
 	public void initPhase() {
-
 		targetLocation = null;
 	}
 
@@ -40,7 +36,6 @@ public class PhaseHover extends PhaseBase {
 	 * Returns the maximum amount dragon may rise or fall during this phase
 	 */
 	public float getMaxRiseOrFall() {
-
 		return 1F;
 	}
 
@@ -50,12 +45,10 @@ public class PhaseHover extends PhaseBase {
 	 * Returns the location the dragon is flying toward
 	 */
 	public Vec3d getTargetLocation() {
-
 		return targetLocation;
 	}
 
 	public PhaseList<PhaseHover> getType() {
-
 		return PhaseList.HOVER;
 	}
 

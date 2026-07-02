@@ -17,7 +17,6 @@ import net.minecraft.world.World;
 public class ItemFlintAndSteel extends Item {
 
 	public ItemFlintAndSteel() {
-
 		maxStackSize = 1;
 		setMaxDamage(64);
 		setCreativeTab(CreativeTabs.TOOLS);
@@ -27,7 +26,6 @@ public class ItemFlintAndSteel extends Item {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		pos = pos.offset(facing);
 		ItemStack itemstack = player.getHeldItem(hand);
 

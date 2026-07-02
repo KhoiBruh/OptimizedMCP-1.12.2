@@ -37,7 +37,6 @@ public class EnchantmentDamage extends Enchantment {
 	public final int damageType;
 
 	public EnchantmentDamage(Enchantment.Rarity rarityIn, int damageTypeIn, EntityEquipmentSlot... slots) {
-
 		super(rarityIn, EnchantmentType.WEAPON, slots);
 		damageType = damageTypeIn;
 	}
@@ -46,7 +45,6 @@ public class EnchantmentDamage extends Enchantment {
 	 * Returns the minimal value of enchantability needed on the enchantment level passed.
 	 */
 	public int getMinEnchantability(int enchantmentLevel) {
-
 		return MIN_COST[damageType] + (enchantmentLevel - 1) * LEVEL_COST[damageType];
 	}
 
@@ -54,7 +52,6 @@ public class EnchantmentDamage extends Enchantment {
 	 * Returns the maximum value of enchantability nedded on the enchantment level passed.
 	 */
 	public int getMaxEnchantability(int enchantmentLevel) {
-
 		return getMinEnchantability(enchantmentLevel) + LEVEL_COST_SPAN[damageType];
 	}
 
@@ -62,7 +59,6 @@ public class EnchantmentDamage extends Enchantment {
 	 * Returns the maximum level that the enchantment can have.
 	 */
 	public int getMaxLevel() {
-
 		return 5;
 	}
 
@@ -71,7 +67,6 @@ public class EnchantmentDamage extends Enchantment {
 	 * calcModifierDamage is sensitive to the targets CreatureAttribute.
 	 */
 	public float calcDamageByCreature(int level, CreatureAttribute creatureType) {
-
 		if (damageType == 0) {
 			return 1F + (float) Math.max(0, level - 1) * 0.5F;
 		} else if (damageType == 1 && creatureType == CreatureAttribute.UNDEAD) {
@@ -85,7 +80,6 @@ public class EnchantmentDamage extends Enchantment {
 	 * Return the name of key in translation table of this enchantment.
 	 */
 	public String getName() {
-
 		return "enchantment.damage." + DAMAGE_NAMES[damageType];
 	}
 
@@ -93,7 +87,6 @@ public class EnchantmentDamage extends Enchantment {
 	 * Determines if the enchantment passed can be applyied together with this enchantment.
 	 */
 	public boolean canApplyTogether(Enchantment ench) {
-
 		return !(ench instanceof EnchantmentDamage);
 	}
 
@@ -101,7 +94,6 @@ public class EnchantmentDamage extends Enchantment {
 	 * Determines if this enchantment can be applied to a specific ItemStack.
 	 */
 	public boolean canApply(ItemStack stack) {
-
 		return stack.getItem() instanceof ItemAxe || super.canApply(stack);
 	}
 
@@ -109,9 +101,7 @@ public class EnchantmentDamage extends Enchantment {
 	 * Called whenever a mob is damaged with an item that has this enchantment on it.
 	 */
 	public void onEntityDamaged(EntityLivingBase user, Entity target, int level) {
-
 		if (target instanceof EntityLivingBase entitylivingbase) {
-
 			if (damageType == 2 && entitylivingbase.getCreatureAttribute() == CreatureAttribute.ARTHROPOD) {
 				int i = 20 + user.getRNG().nextInt(10 * level);
 				entitylivingbase.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, i, 3));

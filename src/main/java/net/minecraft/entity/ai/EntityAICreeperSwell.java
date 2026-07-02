@@ -16,7 +16,6 @@ public class EntityAICreeperSwell extends EntityAIBase {
 	EntityLivingBase creeperAttackTarget;
 
 	public EntityAICreeperSwell(EntityCreeper entitycreeperIn) {
-
 		swellingCreeper = entitycreeperIn;
 		setMutexBits(1);
 	}
@@ -25,7 +24,6 @@ public class EntityAICreeperSwell extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		EntityLivingBase entitylivingbase = swellingCreeper.getAttackTarget();
 		return swellingCreeper.getCreeperState() > 0 || entitylivingbase != null && swellingCreeper.getDistanceSq(entitylivingbase) < 9D;
 	}
@@ -34,7 +32,6 @@ public class EntityAICreeperSwell extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		swellingCreeper.getNavigator().clearPath();
 		creeperAttackTarget = swellingCreeper.getAttackTarget();
 	}
@@ -43,7 +40,6 @@ public class EntityAICreeperSwell extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		creeperAttackTarget = null;
 	}
 
@@ -51,7 +47,6 @@ public class EntityAICreeperSwell extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		if (creeperAttackTarget == null) {
 			swellingCreeper.setCreeperState(-1);
 		} else if (swellingCreeper.getDistanceSq(creeperAttackTarget) > 49D) {

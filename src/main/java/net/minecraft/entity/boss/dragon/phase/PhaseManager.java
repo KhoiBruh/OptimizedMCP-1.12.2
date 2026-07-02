@@ -12,13 +12,11 @@ public class PhaseManager {
 	private IPhase phase;
 
 	public PhaseManager(EntityDragon dragonIn) {
-
 		dragon = dragonIn;
 		setPhase(PhaseList.HOVER);
 	}
 
 	public void setPhase(PhaseList<?> phaseIn) {
-
 		if (phase == null || phaseIn != phase.getType()) {
 			if (phase != null) {
 				phase.removeAreaEffect();
@@ -36,7 +34,6 @@ public class PhaseManager {
 	}
 
 	public IPhase getCurrentPhase() {
-
 		return phase;
 	}
 

@@ -41,13 +41,11 @@ public class BlockCauldron extends Block {
 	protected static final AxisAlignedBB AABB_WALL_WEST = new AxisAlignedBB(0D, 0D, 0D, 0.125D, 1D, 1D);
 
 	public BlockCauldron() {
-
 		super(Material.IRON, MapColor.STONE);
 		setDefaultState(blockState.getBaseState().withProperty(LEVEL, 0));
 	}
 
 	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean isActualState) {
-
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_LEGS);
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_WALL_WEST);
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_WALL_NORTH);
@@ -59,12 +57,10 @@ public class BlockCauldron extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -72,7 +68,6 @@ public class BlockCauldron extends Block {
 	 * Called When an Entity Collided with the Block
 	 */
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-
 		int i = state.getValue(LEVEL);
 		float f = (float) pos.getY() + (6F + (float) (3 * i)) / 16F;
 
@@ -86,7 +81,6 @@ public class BlockCauldron extends Block {
 	 * Called when the block is right clicked by a player.
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		ItemStack itemstack = playerIn.getHeldItem(hand);
 
 		if (itemstack.isEmpty()) {
@@ -165,7 +159,6 @@ public class BlockCauldron extends Block {
 				return true;
 			} else {
 				if (i > 0 && item instanceof ItemArmor itemarmor) {
-
 					if (itemarmor.getArmorMaterial() == ItemArmor.ArmorMaterial.LEATHER && itemarmor.hasColor(itemstack) && !worldIn.isRemote) {
 						itemarmor.removeColor(itemstack);
 						setWaterLevel(worldIn, pos, state, i - 1);
@@ -204,7 +197,6 @@ public class BlockCauldron extends Block {
 	}
 
 	public void setWaterLevel(World worldIn, BlockPos pos, IBlockState state, int level) {
-
 		worldIn.setBlockState(pos, state.withProperty(LEVEL, MathHelper.clamp(level, 0, 3)), 2);
 		worldIn.updateComparatorOutputLevel(pos, this);
 	}
@@ -213,7 +205,6 @@ public class BlockCauldron extends Block {
 	 * Called similar to random ticks, but only when it is raining.
 	 */
 	public void fillWithRain(World worldIn, BlockPos pos) {
-
 		if (worldIn.rand.nextInt(20) == 1) {
 			float f = worldIn.getBiome(pos).getTemperature(pos);
 
@@ -231,22 +222,18 @@ public class BlockCauldron extends Block {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Items.CAULDRON;
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return new ItemStack(Items.CAULDRON);
 	}
 
 	public boolean hasComparatorInputOverride(IBlockState state) {
-
 		return true;
 	}
 
 	public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
-
 		return blockState.getValue(LEVEL);
 	}
 
@@ -254,7 +241,6 @@ public class BlockCauldron extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(LEVEL, meta);
 	}
 
@@ -262,12 +248,10 @@ public class BlockCauldron extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(LEVEL);
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, LEVEL);
 	}
 
@@ -275,7 +259,6 @@ public class BlockCauldron extends Block {
 	 * Determines if an entity can path through this block
 	 */
 	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-
 		return true;
 	}
 
@@ -289,7 +272,6 @@ public class BlockCauldron extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		if (face == Facing.UP) {
 			return BlockFaceShape.BOWL;
 		} else {

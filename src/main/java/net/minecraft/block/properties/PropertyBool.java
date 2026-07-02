@@ -10,22 +10,18 @@ public class PropertyBool extends PropertyHelper<Boolean> {
 	private final ImmutableSet<Boolean> allowedValues = ImmutableSet.of(true, false);
 
 	protected PropertyBool(String name) {
-
 		super(name, Boolean.class);
 	}
 
 	public static PropertyBool create(String name) {
-
 		return new PropertyBool(name);
 	}
 
 	public Collection<Boolean> getAllowedValues() {
-
 		return allowedValues;
 	}
 
 	public Optional<Boolean> parseValue(String value) {
-
 		return !"true".equals(value) && !"false".equals(value) ? Optional.absent() : Optional.of(Boolean.valueOf(value));
 	}
 
@@ -33,12 +29,10 @@ public class PropertyBool extends PropertyHelper<Boolean> {
 	 * Get the name for the given value.
 	 */
 	public String getName(Boolean value) {
-
 		return value.toString();
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else if (p_equals_1_ instanceof PropertyBool propertybool && super.equals(p_equals_1_)) {
@@ -49,7 +43,6 @@ public class PropertyBool extends PropertyHelper<Boolean> {
 	}
 
 	public int hashCode() {
-
 		return 31 * super.hashCode() + allowedValues.hashCode();
 	}
 

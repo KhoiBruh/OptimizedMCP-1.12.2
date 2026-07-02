@@ -18,18 +18,15 @@ public interface LootCondition {
 		private final Class<T> conditionClass;
 
 		protected Serializer(ResourceLocation location, Class<T> clazz) {
-
 			lootTableLocation = location;
 			conditionClass = clazz;
 		}
 
 		public ResourceLocation getLootTableLocation() {
-
 			return lootTableLocation;
 		}
 
 		public Class<T> getConditionClass() {
-
 			return conditionClass;
 		}
 

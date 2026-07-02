@@ -20,24 +20,20 @@ public class BlockPressurePlate extends BlockBasePressurePlate {
 	private final BlockPressurePlate.Sensitivity sensitivity;
 
 	protected BlockPressurePlate(Material materialIn, BlockPressurePlate.Sensitivity sensitivityIn) {
-
 		super(materialIn);
 		setDefaultState(blockState.getBaseState().withProperty(POWERED, false));
 		sensitivity = sensitivityIn;
 	}
 
 	protected int getRedstoneStrength(IBlockState state) {
-
 		return state.getValue(POWERED) ? 15 : 0;
 	}
 
 	protected IBlockState setRedstoneStrength(IBlockState state, int strength) {
-
 		return state.withProperty(POWERED, strength > 0);
 	}
 
 	protected void playClickOnSound(World worldIn, BlockPos color) {
-
 		if (blockMaterial == Material.WOOD) {
 			worldIn.playSound(null, color, SoundEvents.BLOCK_WOOD_PRESSPLATE_CLICK_ON, SoundCategory.BLOCKS, 0.3F, 0.8F);
 		} else {
@@ -46,7 +42,6 @@ public class BlockPressurePlate extends BlockBasePressurePlate {
 	}
 
 	protected void playClickOffSound(World worldIn, BlockPos pos) {
-
 		if (blockMaterial == Material.WOOD) {
 			worldIn.playSound(null, pos, SoundEvents.BLOCK_WOOD_PRESSPLATE_CLICK_OFF, SoundCategory.BLOCKS, 0.3F, 0.7F);
 		} else {
@@ -55,7 +50,6 @@ public class BlockPressurePlate extends BlockBasePressurePlate {
 	}
 
 	protected int computeRedstoneStrength(World worldIn, BlockPos pos) {
-
 		AxisAlignedBB axisalignedbb = PRESSURE_AABB.offset(pos);
 		List<? extends Entity> list;
 
@@ -87,7 +81,6 @@ public class BlockPressurePlate extends BlockBasePressurePlate {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(POWERED, meta == 1);
 	}
 
@@ -95,12 +88,10 @@ public class BlockPressurePlate extends BlockBasePressurePlate {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(POWERED) ? 1 : 0;
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, POWERED);
 	}
 

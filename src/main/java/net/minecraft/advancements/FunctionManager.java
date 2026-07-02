@@ -29,22 +29,18 @@ public class FunctionManager implements ITickable {
 	private String currentGameLoopFunctionId = "-";
 	private final ICommandSender gameLoopFunctionSender = new ICommandSender() {
 		public String getName() {
-
 			return currentGameLoopFunctionId;
 		}
 
 		public boolean canUseCommand(int permLevel, String commandName) {
-
 			return permLevel <= 2;
 		}
 
 		public World getEntityWorld() {
-
 			return server.worlds[0];
 		}
 
 		public MinecraftServer getServer() {
-
 			return server;
 		}
 	};
@@ -52,7 +48,6 @@ public class FunctionManager implements ITickable {
 	private boolean isExecuting = false;
 
 	public FunctionManager(File functionDirIn, MinecraftServer serverIn) {
-
 		functionDir = functionDirIn;
 		server = serverIn;
 		reload();
@@ -60,17 +55,14 @@ public class FunctionManager implements ITickable {
 
 	
 	public FunctionObject getFunction(ResourceLocation id) {
-
 		return functions.get(id);
 	}
 
 	public ICommandManager getCommandManager() {
-
 		return server.getCommandManager();
 	}
 
 	public int getMaxCommandChainLength() {
-
 		return server.worlds[0].getGameRules().getInt("maxCommandChainLength");
 	}
 
@@ -83,7 +75,6 @@ public class FunctionManager implements ITickable {
 	 * Like the old updateEntity(), except more generic.
 	 */
 	public void update() {
-
 		String s = server.worlds[0].getGameRules().getString("gameLoopFunction");
 
 		if (!s.equals(currentGameLoopFunctionId)) {
@@ -97,7 +88,6 @@ public class FunctionManager implements ITickable {
 	}
 
 	public int execute(FunctionObject function, ICommandSender sender) {
-
 		int i = getMaxCommandChainLength();
 
 		if (isExecuting) {
@@ -143,7 +133,6 @@ public class FunctionManager implements ITickable {
 	}
 
 	public void reload() {
-
 		functions.clear();
 		gameLoopFunction = null;
 		currentGameLoopFunctionId = "-";
@@ -151,7 +140,6 @@ public class FunctionManager implements ITickable {
 	}
 
 	private void loadFunctions() {
-
 		if (functionDir != null) {
 			functionDir.mkdirs();
 
@@ -183,19 +171,16 @@ public class FunctionManager implements ITickable {
 		private final FunctionObject.Entry entry;
 
 		public QueuedCommand(FunctionManager functionManagerIn, ICommandSender senderIn, FunctionObject.Entry entryIn) {
-
 			functionManager = functionManagerIn;
 			sender = senderIn;
 			entry = entryIn;
 		}
 
 		public void execute(ArrayDeque<FunctionManager.QueuedCommand> commandQueue, int maxCommandChainLength) {
-
 			entry.execute(functionManager, sender, commandQueue, maxCommandChainLength);
 		}
 
 		public String toString() {
-
 			return entry.toString();
 		}
 

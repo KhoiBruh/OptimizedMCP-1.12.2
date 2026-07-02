@@ -47,18 +47,15 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
 	private int potionUseTimer;
 
 	public EntityWitch(World worldIn) {
-
 		super(worldIn);
 		setSize(0.6F, 1.95F);
 	}
 
 	public static void registerFixesWitch(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntityWitch.class);
 	}
 
 	protected void initEntityAI() {
-
 		tasks.addTask(1, new EntityAISwimming(this));
 		tasks.addTask(2, new EntityAIAttackRanged(this, 1D, 60, 10F));
 		tasks.addTask(2, new EntityAIWanderAvoidWater(this, 1D));
@@ -69,28 +66,23 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		getDataManager().register(IS_DRINKING, false);
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		return SoundEvents.ENTITY_WITCH_AMBIENT;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_WITCH_HURT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_WITCH_DEATH;
 	}
 
 	public boolean isDrinkingPotion() {
-
 		return getDataManager().get(IS_DRINKING);
 	}
 
@@ -98,12 +90,10 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
 	 * Set whether this witch is aggressive at an entity.
 	 */
 	public void setDrinkingPotion(boolean drinkingPotion) {
-
 		getDataManager().set(IS_DRINKING, drinkingPotion);
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(26D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
@@ -114,7 +104,6 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
 	 * use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
 		if (!world.isRemote) {
 			if (isDrinkingPotion()) {
 				if (potionUseTimer-- <= 0) {
@@ -170,7 +159,6 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
 	 * Handler for {@link World#setEntityState}
 	 */
 	public void handleStatusUpdate(byte id) {
-
 		if (id == 15) {
 			for (int i = 0; i < rand.nextInt(35) + 10; ++i) {
 				world.spawnParticle(ParticleTypes.SPELL_WITCH, posX + rand.nextGaussian() * 0.12999999523162842D, getEntityBoundingBox().maxY + 0.5D + rand.nextGaussian() * 0.12999999523162842D, posZ + rand.nextGaussian() * 0.12999999523162842D, 0D, 0D, 0D);
@@ -184,7 +172,6 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
 	 * Reduces damage, depending on potions
 	 */
 	protected float applyPotionDamageCalculations(DamageSource source, float damage) {
-
 		damage = super.applyPotionDamageCalculations(source, damage);
 
 		if (source.getTrueSource() == this) {
@@ -200,7 +187,6 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_WITCH;
 	}
 
@@ -208,7 +194,6 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
 	 * Attack the specified entity using a ranged attack.
 	 */
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
-
 		if (!isDrinkingPotion()) {
 			double d0 = target.posY + (double) target.getEyeHeight() - 1.100000023841858D;
 			double d1 = target.posX + target.motionX - posX;
@@ -234,12 +219,10 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
 	}
 
 	public float getEyeHeight() {
-
 		return 1.62F;
 	}
 
 	public void setSwingingArms(boolean swingingArms) {
-
 	}
 
 }

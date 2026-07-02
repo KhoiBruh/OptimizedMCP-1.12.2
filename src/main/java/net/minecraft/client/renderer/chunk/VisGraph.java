@@ -37,23 +37,19 @@ public class VisGraph {
 	private int empty = 4096;
 
 	private static int getIndex(BlockPos pos) {
-
 		return getIndex(pos.getX() & 15, pos.getY() & 15, pos.getZ() & 15);
 	}
 
 	private static int getIndex(int x, int y, int z) {
-
 		return x | y << 8 | z << 4;
 	}
 
 	public void setOpaqueCube(BlockPos pos) {
-
 		bitSet.set(getIndex(pos), true);
 		--empty;
 	}
 
 	public SetVisibility computeVisibility() {
-
 		SetVisibility setvisibility = new SetVisibility();
 
 		if (4096 - empty < 256) {
@@ -72,12 +68,10 @@ public class VisGraph {
 	}
 
 	public Set<Facing> getVisibleFacings(BlockPos pos) {
-
 		return floodFill(getIndex(pos));
 	}
 
 	private Set<Facing> floodFill(int pos) {
-
 		Set<Facing> set = EnumSet.noneOf(Facing.class);
 		Queue<Integer> queue = Queues.newArrayDeque();
 		queue.add(IntegerCache.getInteger(pos));
@@ -101,7 +95,6 @@ public class VisGraph {
 	}
 
 	private void addEdges(int pos, Set<Facing> p_178610_2_) {
-
 		int i = pos & 15;
 
 		if (i == 0) {
@@ -128,7 +121,6 @@ public class VisGraph {
 	}
 
 	private int getNeighborIndexAtFace(int pos, Facing facing) {
-
 		return switch (facing) {
 			case DOWN -> {
 				if ((pos >> 8 & 15) == 0) {

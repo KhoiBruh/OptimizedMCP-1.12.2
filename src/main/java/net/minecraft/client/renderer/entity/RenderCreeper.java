@@ -12,7 +12,6 @@ public class RenderCreeper extends RenderLiving<EntityCreeper> {
 	private static final ResourceLocation CREEPER_TEXTURES = new ResourceLocation("textures/entity/creeper/creeper.png");
 
 	public RenderCreeper(RenderManager renderManagerIn) {
-
 		super(renderManagerIn, new ModelCreeper(), 0.5F);
 		addLayer(new LayerCreeperCharge(this));
 	}
@@ -21,7 +20,6 @@ public class RenderCreeper extends RenderLiving<EntityCreeper> {
 	 * Allows the render to do state modifications necessary before the model is rendered.
 	 */
 	protected void preRenderCallback(EntityCreeper entitylivingbaseIn, float partialTickTime) {
-
 		float f = entitylivingbaseIn.getCreeperFlashIntensity(partialTickTime);
 		float f1 = 1F + MathHelper.sin(f * 100F) * f * 0.01F;
 		f = MathHelper.clamp(f, 0F, 1F);
@@ -36,7 +34,6 @@ public class RenderCreeper extends RenderLiving<EntityCreeper> {
 	 * Gets an RGBA int color multiplier to apply.
 	 */
 	protected int getColorMultiplier(EntityCreeper entitylivingbaseIn, float lightBrightness, float partialTickTime) {
-
 		float f = entitylivingbaseIn.getCreeperFlashIntensity(partialTickTime);
 
 		if ((int) (f * 10F) % 2 == 0) {
@@ -52,7 +49,6 @@ public class RenderCreeper extends RenderLiving<EntityCreeper> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityCreeper entity) {
-
 		return CREEPER_TEXTURES;
 	}
 

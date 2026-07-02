@@ -3,7 +3,6 @@ package net.minecraft.block.material;
 public class MaterialLogic extends Material {
 
 	public MaterialLogic(MapColor color) {
-
 		super(color);
 		setAdventureModeExempt();
 	}
@@ -12,7 +11,6 @@ public class MaterialLogic extends Material {
 	 * Returns true if the block is a considered solid. This is true by default.
 	 */
 	public boolean isSolid() {
-
 		return false;
 	}
 
@@ -20,7 +18,6 @@ public class MaterialLogic extends Material {
 	 * Will prevent grass from growing on dirt underneath and kill any grass below it if it returns true
 	 */
 	public boolean blocksLight() {
-
 		return false;
 	}
 
@@ -28,7 +25,6 @@ public class MaterialLogic extends Material {
 	 * Returns if this material is considered solid or not
 	 */
 	public boolean blocksMovement() {
-
 		return false;
 	}
 

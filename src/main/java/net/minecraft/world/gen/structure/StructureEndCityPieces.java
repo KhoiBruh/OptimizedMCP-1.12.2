@@ -29,11 +29,9 @@ public class StructureEndCityPieces {
 	private static final PlacementSettings INSERT = (new PlacementSettings()).setIgnoreEntities(true).setReplacedBlock(Blocks.AIR);
 	private static final List<Tuple<Rotation, BlockPos>> TOWER_BRIDGES = Lists.newArrayList(new Tuple<>(Rotation.NONE, new BlockPos(1, -1, 0)), new Tuple<>(Rotation.CLOCKWISE_90, new BlockPos(6, -1, 1)), new Tuple<>(Rotation.COUNTERCLOCKWISE_90, new BlockPos(0, -1, 5)), new Tuple<>(Rotation.CLOCKWISE_180, new BlockPos(5, -1, 6)));	private static final StructureEndCityPieces.IGenerator HOUSE_TOWER_GENERATOR = new StructureEndCityPieces.IGenerator() {
 		public void init() {
-
 		}
 
 		public boolean generate(TemplateManager p_191086_1_, int p_191086_2_, StructureEndCityPieces.CityTemplate p_191086_3_, BlockPos p_191086_4_, List<StructureComponent> p_191086_5_, Random p_191086_6_) {
-
 			if (p_191086_2_ > 8) {
 				return false;
 			} else {
@@ -61,15 +59,12 @@ public class StructureEndCityPieces {
 	private static final List<Tuple<Rotation, BlockPos>> FAT_TOWER_BRIDGES = Lists.newArrayList(new Tuple<>(Rotation.NONE, new BlockPos(4, -1, 0)), new Tuple<>(Rotation.CLOCKWISE_90, new BlockPos(12, -1, 4)), new Tuple<>(Rotation.COUNTERCLOCKWISE_90, new BlockPos(0, -1, 8)), new Tuple<>(Rotation.CLOCKWISE_180, new BlockPos(8, -1, 12)));
 
 	public static void registerPieces() {
-
 		MapGenStructureIO.registerStructureComponent(StructureEndCityPieces.CityTemplate.class, "ECP");
 	}	private static final StructureEndCityPieces.IGenerator TOWER_GENERATOR = new StructureEndCityPieces.IGenerator() {
 		public void init() {
-
 		}
 
 		public boolean generate(TemplateManager p_191086_1_, int p_191086_2_, StructureEndCityPieces.CityTemplate p_191086_3_, BlockPos p_191086_4_, List<StructureComponent> p_191086_5_, Random p_191086_6_) {
-
 			Rotation rotation = p_191086_3_.placeSettings.getRotation();
 			StructureEndCityPieces.CityTemplate lvt_8_1_ = StructureEndCityPieces.addHelper(p_191086_5_, StructureEndCityPieces.addPiece(p_191086_1_, p_191086_3_, new BlockPos(3 + p_191086_6_.nextInt(2), -3, 3 + p_191086_6_.nextInt(2)), "tower_base", rotation, true));
 			lvt_8_1_ = StructureEndCityPieces.addHelper(p_191086_5_, StructureEndCityPieces.addPiece(p_191086_1_, lvt_8_1_, new BlockPos(0, 7, 0), "tower_piece", rotation, true));
@@ -115,12 +110,10 @@ public class StructureEndCityPieces {
 		public boolean shipCreated;
 
 		public void init() {
-
 			shipCreated = false;
 		}
 
 		public boolean generate(TemplateManager p_191086_1_, int p_191086_2_, StructureEndCityPieces.CityTemplate p_191086_3_, BlockPos p_191086_4_, List<StructureComponent> p_191086_5_, Random p_191086_6_) {
-
 			Rotation rotation = p_191086_3_.placeSettings.getRotation();
 			int i = p_191086_6_.nextInt(4) + 1;
 			StructureEndCityPieces.CityTemplate structureendcitypieces$citytemplate = StructureEndCityPieces.addHelper(p_191086_5_, StructureEndCityPieces.addPiece(p_191086_1_, p_191086_3_, new BlockPos(0, 0, -4), "bridge_piece", rotation, true));
@@ -156,7 +149,6 @@ public class StructureEndCityPieces {
 	};
 
 	public static void startHouseTower(TemplateManager p_191087_0_, BlockPos p_191087_1_, Rotation p_191087_2_, List<StructureComponent> p_191087_3_, Random p_191087_4_) {
-
 		FAT_TOWER_GENERATOR.init();
 		HOUSE_TOWER_GENERATOR.init();
 		TOWER_BRIDGE_GENERATOR.init();
@@ -174,11 +166,9 @@ public class StructureEndCityPieces {
 		return p_189935_1_;
 	}	private static final StructureEndCityPieces.IGenerator FAT_TOWER_GENERATOR = new StructureEndCityPieces.IGenerator() {
 		public void init() {
-
 		}
 
 		public boolean generate(TemplateManager p_191086_1_, int p_191086_2_, StructureEndCityPieces.CityTemplate p_191086_3_, BlockPos p_191086_4_, List<StructureComponent> p_191086_5_, Random p_191086_6_) {
-
 			Rotation rotation = p_191086_3_.placeSettings.getRotation();
 			StructureEndCityPieces.CityTemplate structureendcitypieces$citytemplate = StructureEndCityPieces.addHelper(p_191086_5_, StructureEndCityPieces.addPiece(p_191086_1_, p_191086_3_, new BlockPos(-3, 4, -3), "fat_tower_base", rotation, true));
 			structureendcitypieces$citytemplate = StructureEndCityPieces.addHelper(p_191086_5_, StructureEndCityPieces.addPiece(p_191086_1_, structureendcitypieces$citytemplate, new BlockPos(0, 4, 0), "fat_tower_middle", rotation, true));
@@ -200,7 +190,6 @@ public class StructureEndCityPieces {
 	};
 
 	private static boolean recursiveChildren(TemplateManager p_191088_0_, StructureEndCityPieces.IGenerator p_191088_1_, int p_191088_2_, StructureEndCityPieces.CityTemplate p_191088_3_, BlockPos p_191088_4_, List<StructureComponent> p_191088_5_, Random p_191088_6_) {
-
 		if (p_191088_2_ > 8) {
 			return false;
 		} else {
@@ -245,11 +234,9 @@ public class StructureEndCityPieces {
 		private boolean overwrite;
 
 		public CityTemplate() {
-
 		}
 
 		public CityTemplate(TemplateManager p_i47214_1_, String p_i47214_2_, BlockPos p_i47214_3_, Rotation p_i47214_4_, boolean overwriteIn) {
-
 			super(0);
 			pieceName = p_i47214_2_;
 			templatePosition = p_i47214_3_;
@@ -259,14 +246,12 @@ public class StructureEndCityPieces {
 		}
 
 		private void loadTemplate(TemplateManager p_191085_1_) {
-
 			Template template = p_191085_1_.getTemplate(null, new ResourceLocation("endcity/" + pieceName));
 			PlacementSettings placementsettings = (overwrite ? StructureEndCityPieces.OVERWRITE : StructureEndCityPieces.INSERT).copy().setRotation(rotation);
 			setup(template, templatePosition, placementsettings);
 		}
 
 		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
 			super.writeStructureToNBT(tagCompound);
 			tagCompound.setString("Template", pieceName);
 			tagCompound.setString("Rot", rotation.name());
@@ -274,7 +259,6 @@ public class StructureEndCityPieces {
 		}
 
 		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
 			super.readStructureFromNBT(tagCompound, p_143011_2_);
 			pieceName = tagCompound.getString("Template");
 			rotation = Rotation.valueOf(tagCompound.getString("Rot"));
@@ -283,7 +267,6 @@ public class StructureEndCityPieces {
 		}
 
 		protected void handleDataMarker(String function, BlockPos pos, World worldIn, Random rand, StructureBoundingBox sbb) {
-
 			if (function.startsWith("Chest")) {
 				BlockPos blockpos = pos.down();
 

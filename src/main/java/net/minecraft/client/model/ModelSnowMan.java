@@ -12,7 +12,6 @@ public class ModelSnowMan extends ModelBase {
 	public ModelRenderer leftHand;
 
 	public ModelSnowMan() {
-
 		float f = 4F;
 		float f1 = 0F;
 		head = (new ModelRenderer(this, 0, 0)).setTextureSize(64, 64);
@@ -38,7 +37,6 @@ public class ModelSnowMan extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 		head.rotateAngleY = netHeadYaw * 0.017453292F;
 		head.rotateAngleX = headPitch * 0.017453292F;
@@ -59,7 +57,6 @@ public class ModelSnowMan extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		body.render(scale);
 		bottomBody.render(scale);

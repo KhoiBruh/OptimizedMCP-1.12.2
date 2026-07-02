@@ -20,7 +20,6 @@ public class BlockStainedGlassPane extends BlockPane {
 	public static final PropertyEnum<DyeColor> COLOR = PropertyEnum.create("color", DyeColor.class);
 
 	public BlockStainedGlassPane() {
-
 		super(Material.GLASS, false);
 		setDefaultState(blockState.getBaseState().withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false).withProperty(COLOR, DyeColor.WHITE));
 		setCreativeTab(CreativeTabs.DECORATIONS);
@@ -31,7 +30,6 @@ public class BlockStainedGlassPane extends BlockPane {
 	 * returns the metadata of the dropped item based on the old metadata of the block.
 	 */
 	public int damageDropped(IBlockState state) {
-
 		return state.getValue(COLOR).getMetadata();
 	}
 
@@ -39,7 +37,6 @@ public class BlockStainedGlassPane extends BlockPane {
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-
 		for (int i = 0; i < DyeColor.values().length; ++i) {
 			items.add(new ItemStack(this, 1, i));
 		}
@@ -49,7 +46,6 @@ public class BlockStainedGlassPane extends BlockPane {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return MapColor.getBlockColor(state.getValue(COLOR));
 	}
 
@@ -58,7 +54,6 @@ public class BlockStainedGlassPane extends BlockPane {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.TRANSLUCENT;
 	}
 
@@ -66,7 +61,6 @@ public class BlockStainedGlassPane extends BlockPane {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(COLOR, DyeColor.byMetadata(meta));
 	}
 
@@ -74,7 +68,6 @@ public class BlockStainedGlassPane extends BlockPane {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(COLOR).getMetadata();
 	}
 
@@ -83,7 +76,6 @@ public class BlockStainedGlassPane extends BlockPane {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return switch (mirrorIn) {
 			case LEFT_RIGHT ->
 					state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(NORTH));
@@ -93,7 +85,6 @@ public class BlockStainedGlassPane extends BlockPane {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, NORTH, EAST, WEST, SOUTH, COLOR);
 	}
 
@@ -101,7 +92,6 @@ public class BlockStainedGlassPane extends BlockPane {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (!worldIn.isRemote) {
 			BlockBeacon.updateColorAsync(worldIn, pos);
 		}
@@ -111,7 +101,6 @@ public class BlockStainedGlassPane extends BlockPane {
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (!worldIn.isRemote) {
 			BlockBeacon.updateColorAsync(worldIn, pos);
 		}

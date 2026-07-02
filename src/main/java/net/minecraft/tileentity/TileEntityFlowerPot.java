@@ -13,21 +13,17 @@ public class TileEntityFlowerPot extends TileEntity {
 	private int flowerPotData;
 
 	public TileEntityFlowerPot() {
-
 	}
 
 	public TileEntityFlowerPot(Item potItem, int potData) {
-
 		flowerPotItem = potItem;
 		flowerPotData = potData;
 	}
 
 	public static void registerFixesFlowerPot(DataFixer fixer) {
-
 	}
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
 		super.writeToNBT(compound);
 		ResourceLocation resourcelocation = Item.REGISTRY.getNameForObject(flowerPotItem);
 		compound.setString("Item", resourcelocation == null ? "" : resourcelocation.toString());
@@ -36,7 +32,6 @@ public class TileEntityFlowerPot extends TileEntity {
 	}
 
 	public void readFromNBT(NBTTagCompound compound) {
-
 		super.readFromNBT(compound);
 
 		if (compound.hasKey("Item", 8)) {
@@ -50,34 +45,28 @@ public class TileEntityFlowerPot extends TileEntity {
 
 	
 	public SPacketUpdateTileEntity getUpdatePacket() {
-
 		return new SPacketUpdateTileEntity(pos, 5, getUpdateTag());
 	}
 
 	public NBTTagCompound getUpdateTag() {
-
 		return writeToNBT(new NBTTagCompound());
 	}
 
 	public void setItemStack(ItemStack stack) {
-
 		flowerPotItem = stack.getItem();
 		flowerPotData = stack.getMetadata();
 	}
 
 	public ItemStack getFlowerItemStack() {
-
 		return flowerPotItem == null ? ItemStack.EMPTY : new ItemStack(flowerPotItem, 1, flowerPotData);
 	}
 
 	
 	public Item getFlowerPotItem() {
-
 		return flowerPotItem;
 	}
 
 	public int getFlowerPotData() {
-
 		return flowerPotData;
 	}
 

@@ -14,7 +14,6 @@ public class EntityAIPlay extends EntityAIBase {
 	private int playTime;
 
 	public EntityAIPlay(EntityVillager villagerIn, double speedIn) {
-
 		villager = villagerIn;
 		speed = speedIn;
 		setMutexBits(1);
@@ -24,7 +23,6 @@ public class EntityAIPlay extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		if (villager.getGrowingAge() >= 0) {
 			return false;
 		} else if (villager.getRNG().nextInt(400) != 0) {
@@ -58,7 +56,6 @@ public class EntityAIPlay extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		return playTime > 0;
 	}
 
@@ -66,7 +63,6 @@ public class EntityAIPlay extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		if (targetVillager != null) {
 			villager.setPlaying(true);
 		}
@@ -78,7 +74,6 @@ public class EntityAIPlay extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		villager.setPlaying(false);
 		targetVillager = null;
 	}
@@ -87,7 +82,6 @@ public class EntityAIPlay extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		--playTime;
 
 		if (targetVillager != null) {

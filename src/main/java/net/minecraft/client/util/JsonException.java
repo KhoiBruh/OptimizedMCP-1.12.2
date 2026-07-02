@@ -12,20 +12,17 @@ public class JsonException extends IOException {
 	private final String message;
 
 	public JsonException(String messageIn) {
-
 		entries.add(new JsonException.Entry());
 		message = messageIn;
 	}
 
 	public JsonException(String messageIn, Throwable cause) {
-
 		super(cause);
 		entries.add(new JsonException.Entry());
 		message = messageIn;
 	}
 
 	public static JsonException forException(Exception exception) {
-
 		if (exception instanceof JsonException) {
 			return (JsonException) exception;
 		} else {
@@ -40,18 +37,15 @@ public class JsonException extends IOException {
 	}
 
 	public void prependJsonKey(String key) {
-
 		entries.getFirst().addJsonKey(key);
 	}
 
 	public void setFilenameAndFlush(String filenameIn) {
-
 		(entries.getFirst()).filename = filenameIn;
 		entries.addFirst(new JsonException.Entry());
 	}
 
 	public String getMessage() {
-
 		return "Invalid " + entries.getLast() + ": " + message;
 	}
 
@@ -61,22 +55,18 @@ public class JsonException extends IOException {
 		private String filename;
 
 		private Entry() {
-
 			jsonKeys = Lists.newArrayList();
 		}
 
 		private void addJsonKey(String key) {
-
 			jsonKeys.addFirst(key);
 		}
 
 		public String getJsonKeys() {
-
 			return String.join("->", jsonKeys);
 		}
 
 		public String toString() {
-
 			if (filename != null) {
 				return jsonKeys.isEmpty() ? filename : filename + " " + getJsonKeys();
 			} else {

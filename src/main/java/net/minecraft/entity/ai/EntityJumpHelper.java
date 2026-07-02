@@ -8,12 +8,10 @@ public class EntityJumpHelper {
 	protected boolean isJumping;
 
 	public EntityJumpHelper(EntityLiving entityIn) {
-
 		entity = entityIn;
 	}
 
 	public void setJumping() {
-
 		isJumping = true;
 	}
 
@@ -21,7 +19,6 @@ public class EntityJumpHelper {
 	 * Called to actually make the entity jump if isJumping is true.
 	 */
 	public void doJump() {
-
 		entity.setJumping(isJumping);
 		isJumping = false;
 	}

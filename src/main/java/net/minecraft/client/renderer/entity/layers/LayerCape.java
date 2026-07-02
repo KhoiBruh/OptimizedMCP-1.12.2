@@ -14,12 +14,10 @@ public class LayerCape implements LayerRenderer<AbstractClientPlayer> {
 	private final RenderPlayer playerRenderer;
 
 	public LayerCape(RenderPlayer playerRendererIn) {
-
 		playerRenderer = playerRendererIn;
 	}
 
 	public void doRenderLayer(AbstractClientPlayer entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		if (entitylivingbaseIn.hasPlayerInfo() && !entitylivingbaseIn.isInvisible() && entitylivingbaseIn.isWearing(PlayerModelParts.CAPE) && entitylivingbaseIn.getLocationCape() != null) {
 			ItemStack itemstack = entitylivingbaseIn.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
@@ -61,7 +59,6 @@ public class LayerCape implements LayerRenderer<AbstractClientPlayer> {
 	}
 
 	public boolean shouldCombineTextures() {
-
 		return false;
 	}
 

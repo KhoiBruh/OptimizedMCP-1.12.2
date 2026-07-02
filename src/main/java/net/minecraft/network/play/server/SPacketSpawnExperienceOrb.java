@@ -14,11 +14,9 @@ public class SPacketSpawnExperienceOrb implements Packet<INetHandlerPlayClient> 
 	private int xpValue;
 
 	public SPacketSpawnExperienceOrb() {
-
 	}
 
 	public SPacketSpawnExperienceOrb(EntityXPOrb orb) {
-
 		entityID = orb.getEntityId();
 		posX = orb.posX;
 		posY = orb.posY;
@@ -30,7 +28,6 @@ public class SPacketSpawnExperienceOrb implements Packet<INetHandlerPlayClient> 
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		entityID = buf.readVarInt();
 		posX = buf.readDouble();
 		posY = buf.readDouble();
@@ -42,7 +39,6 @@ public class SPacketSpawnExperienceOrb implements Packet<INetHandlerPlayClient> 
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeVarInt(entityID);
 		buf.writeDouble(posX);
 		buf.writeDouble(posY);
@@ -54,32 +50,26 @@ public class SPacketSpawnExperienceOrb implements Packet<INetHandlerPlayClient> 
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleSpawnExperienceOrb(this);
 	}
 
 	public int getEntityID() {
-
 		return entityID;
 	}
 
 	public double getX() {
-
 		return posX;
 	}
 
 	public double getY() {
-
 		return posY;
 	}
 
 	public double getZ() {
-
 		return posZ;
 	}
 
 	public int getXPValue() {
-
 		return xpValue;
 	}
 

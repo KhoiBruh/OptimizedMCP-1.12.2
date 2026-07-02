@@ -33,23 +33,19 @@ public class EntityItemFrame extends EntityHanging {
 	private float itemDropChance = 1F;
 
 	public EntityItemFrame(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public EntityItemFrame(World worldIn, BlockPos p_i45852_2_, Facing p_i45852_3_) {
-
 		super(worldIn, p_i45852_2_);
 		updateFacingWithBoundingBox(p_i45852_3_);
 	}
 
 	public static void registerFixesItemFrame(DataFixer fixer) {
-
 		fixer.registerWalker(FixTypes.ENTITY, new ItemStackData(EntityItemFrame.class, "Item"));
 	}
 
 	protected void entityInit() {
-
 		getDataManager().register(ITEM, ItemStack.EMPTY);
 		getDataManager().register(ROTATION, 0);
 	}
@@ -58,7 +54,6 @@ public class EntityItemFrame extends EntityHanging {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		if (isEntityInvulnerable(source)) {
 			return false;
 		} else if (!source.isExplosion() && !getDisplayedItem().isEmpty()) {
@@ -75,12 +70,10 @@ public class EntityItemFrame extends EntityHanging {
 	}
 
 	public int getWidthPixels() {
-
 		return 12;
 	}
 
 	public int getHeightPixels() {
-
 		return 12;
 	}
 
@@ -88,7 +81,6 @@ public class EntityItemFrame extends EntityHanging {
 	 * Checks if the entity is in range to render.
 	 */
 	public boolean isInRangeToRenderDist(double distance) {
-
 		double d0 = 16D;
 		d0 = d0 * 64D * getRenderDistanceWeight();
 		return distance < d0 * d0;
@@ -98,23 +90,19 @@ public class EntityItemFrame extends EntityHanging {
 	 * Called when this entity is broken. Entity parameter may be null.
 	 */
 	public void onBroken(Entity brokenEntity) {
-
 		playSound(SoundEvents.ENTITY_ITEMFRAME_BREAK, 1F, 1F);
 		dropItemOrSelf(brokenEntity, true);
 	}
 
 	public void playPlaceSound() {
-
 		playSound(SoundEvents.ENTITY_ITEMFRAME_PLACE, 1F, 1F);
 	}
 
 	public void dropItemOrSelf(Entity entityIn, boolean p_146065_2_) {
-
 		if (world.getGameRules().getBoolean("doEntityDrops")) {
 			ItemStack itemstack = getDisplayedItem();
 
 			if (entityIn instanceof EntityPlayer entityplayer) {
-
 				if (entityplayer.capabilities.isCreativeMode) {
 					removeFrameFromMap(itemstack);
 					return;
@@ -137,7 +125,6 @@ public class EntityItemFrame extends EntityHanging {
 	 * Removes the dot representing this frame's position from the map when the item frame is broken.
 	 */
 	private void removeFrameFromMap(ItemStack stack) {
-
 		if (!stack.isEmpty()) {
 			if (stack.getItem() == Items.FILLED_MAP) {
 				MapData mapdata = ((ItemMap) stack.getItem()).getMapData(stack, world);
@@ -149,17 +136,14 @@ public class EntityItemFrame extends EntityHanging {
 	}
 
 	public ItemStack getDisplayedItem() {
-
 		return getDataManager().get(ITEM);
 	}
 
 	public void setDisplayedItem(ItemStack stack) {
-
 		setDisplayedItemWithUpdate(stack, true);
 	}
 
 	private void setDisplayedItemWithUpdate(ItemStack stack, boolean p_174864_2_) {
-
 		if (!stack.isEmpty()) {
 			stack = stack.copy();
 			stack.setCount(1);
@@ -179,7 +163,6 @@ public class EntityItemFrame extends EntityHanging {
 	}
 
 	public void notifyDataManagerChange(DataParameter<?> key) {
-
 		if (key.equals(ITEM)) {
 			ItemStack itemstack = getDisplayedItem();
 
@@ -193,17 +176,14 @@ public class EntityItemFrame extends EntityHanging {
 	 * Return the rotation of the item currently on this frame.
 	 */
 	public int getRotation() {
-
 		return getDataManager().get(ROTATION);
 	}
 
 	public void setItemRotation(int rotationIn) {
-
 		setRotation(rotationIn, true);
 	}
 
 	private void setRotation(int rotationIn, boolean p_174865_2_) {
-
 		getDataManager().set(ROTATION, rotationIn % 8);
 
 		if (p_174865_2_ && hangingPosition != null) {
@@ -215,7 +195,6 @@ public class EntityItemFrame extends EntityHanging {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		if (!getDisplayedItem().isEmpty()) {
 			compound.setTag("Item", getDisplayedItem().writeToNBT(new NBTTagCompound()));
 			compound.setByte("ItemRotation", (byte) getRotation());
@@ -229,7 +208,6 @@ public class EntityItemFrame extends EntityHanging {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		NBTTagCompound nbttagcompound = compound.getCompoundTag("Item");
 
 		if (nbttagcompound != null && !nbttagcompound.hasNoTags()) {
@@ -245,7 +223,6 @@ public class EntityItemFrame extends EntityHanging {
 	}
 
 	public boolean processInitialInteract(EntityPlayer player, Hand hand) {
-
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (!world.isRemote) {
@@ -267,7 +244,6 @@ public class EntityItemFrame extends EntityHanging {
 	}
 
 	public int getAnalogOutput() {
-
 		return getDisplayedItem().isEmpty() ? 0 : getRotation() % 8 + 1;
 	}
 

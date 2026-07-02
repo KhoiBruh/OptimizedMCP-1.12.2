@@ -14,7 +14,6 @@ public class EntityAIMoveIndoors extends EntityAIBase {
 	private int insidePosZ = -1;
 
 	public EntityAIMoveIndoors(EntityCreature entityIn) {
-
 		entity = entityIn;
 		setMutexBits(1);
 	}
@@ -23,7 +22,6 @@ public class EntityAIMoveIndoors extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		BlockPos blockpos = new BlockPos(entity);
 
 		if ((!entity.world.isDaytime() || entity.world.isRaining() && !entity.world.getBiome(blockpos).canRain()) && entity.world.provider.hasSkyLight()) {
@@ -50,7 +48,6 @@ public class EntityAIMoveIndoors extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		return !entity.getNavigator().noPath();
 	}
 
@@ -58,7 +55,6 @@ public class EntityAIMoveIndoors extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		insidePosX = -1;
 		BlockPos blockpos = doorInfo.getInsideBlockPos();
 		int i = blockpos.getX();
@@ -80,7 +76,6 @@ public class EntityAIMoveIndoors extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		insidePosX = doorInfo.getInsideBlockPos().getX();
 		insidePosZ = doorInfo.getInsideBlockPos().getZ();
 		doorInfo = null;

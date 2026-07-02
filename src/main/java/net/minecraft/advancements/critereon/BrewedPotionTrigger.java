@@ -23,12 +23,10 @@ public class BrewedPotionTrigger implements ICriterionTrigger<BrewedPotionTrigge
 	private final Map<PlayerAdvancements, BrewedPotionTrigger.Listeners> listeners = Maps.newHashMap();
 
 	public ResourceLocation getId() {
-
 		return ID;
 	}
 
 	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<BrewedPotionTrigger.Instance> listener) {
-
 		BrewedPotionTrigger.Listeners brewedpotiontrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (brewedpotiontrigger$listeners == null) {
@@ -40,7 +38,6 @@ public class BrewedPotionTrigger implements ICriterionTrigger<BrewedPotionTrigge
 	}
 
 	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<BrewedPotionTrigger.Instance> listener) {
-
 		BrewedPotionTrigger.Listeners brewedpotiontrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (brewedpotiontrigger$listeners != null) {
@@ -53,7 +50,6 @@ public class BrewedPotionTrigger implements ICriterionTrigger<BrewedPotionTrigge
 	}
 
 	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
-
 		listeners.remove(playerAdvancementsIn);
 	}
 
@@ -78,7 +74,6 @@ public class BrewedPotionTrigger implements ICriterionTrigger<BrewedPotionTrigge
 	}
 
 	public void trigger(EntityPlayerMP player, PotionType potionIn) {
-
 		BrewedPotionTrigger.Listeners brewedpotiontrigger$listeners = listeners.get(player.getAdvancements());
 
 		if (brewedpotiontrigger$listeners != null) {
@@ -91,13 +86,11 @@ public class BrewedPotionTrigger implements ICriterionTrigger<BrewedPotionTrigge
 		private final PotionType potion;
 
 		public Instance(PotionType potion) {
-
 			super(BrewedPotionTrigger.ID);
 			this.potion = potion;
 		}
 
 		public boolean test(PotionType potion) {
-
 			return this.potion == null || this.potion == potion;
 		}
 
@@ -109,27 +102,22 @@ public class BrewedPotionTrigger implements ICriterionTrigger<BrewedPotionTrigge
 		private final Set<ICriterionTrigger.Listener<BrewedPotionTrigger.Instance>> listeners = Sets.newHashSet();
 
 		public Listeners(PlayerAdvancements playerAdvancementsIn) {
-
 			playerAdvancements = playerAdvancementsIn;
 		}
 
 		public boolean isEmpty() {
-
 			return listeners.isEmpty();
 		}
 
 		public void addListener(ICriterionTrigger.Listener<BrewedPotionTrigger.Instance> listener) {
-
 			listeners.add(listener);
 		}
 
 		public void removeListener(ICriterionTrigger.Listener<BrewedPotionTrigger.Instance> listener) {
-
 			listeners.remove(listener);
 		}
 
 		public void trigger(PotionType potion) {
-
 			List<ICriterionTrigger.Listener<BrewedPotionTrigger.Instance>> list = null;
 
 			for (ICriterionTrigger.Listener<BrewedPotionTrigger.Instance> listener : listeners) {

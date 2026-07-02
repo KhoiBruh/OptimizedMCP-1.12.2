@@ -20,7 +20,6 @@ import net.minecraft.world.World;
 public class BlockWorkbench extends Block {
 
 	protected BlockWorkbench() {
-
 		super(Material.WOOD);
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
@@ -29,7 +28,6 @@ public class BlockWorkbench extends Block {
 	 * Called when the block is right clicked by a player.
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		if (worldIn.isRemote) {
 			return true;
 		} else {
@@ -45,33 +43,27 @@ public class BlockWorkbench extends Block {
 		private final BlockPos position;
 
 		public InterfaceCraftingTable(World worldIn, BlockPos pos) {
-
 			world = worldIn;
 			position = pos;
 		}
 
 		public String getName() {
-
 			return "crafting_table";
 		}
 
 		public boolean hasCustomName() {
-
 			return false;
 		}
 
 		public ITextComponent displayName() {
-
 			return new TextComponentTranslation(Blocks.CRAFTING_TABLE.getUnlocalizedName() + ".name");
 		}
 
 		public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-
 			return new ContainerWorkbench(playerInventory, world, position);
 		}
 
 		public String guiID() {
-
 			return "minecraft:crafting_table";
 		}
 

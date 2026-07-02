@@ -32,27 +32,23 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 	private final EntityAIAttackRangedBow<AbstractSkeleton> aiArrowAttack = new EntityAIAttackRangedBow<>(this, 1D, 20, 15F);
 	private final EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, 1.2D, false) {
 		public void resetTask() {
-
 			super.resetTask();
 			setSwingingArms(false);
 		}
 
 		public void startExecuting() {
-
 			super.startExecuting();
 			setSwingingArms(true);
 		}
 	};
 
 	public AbstractSkeleton(World worldIn) {
-
 		super(worldIn);
 		setSize(0.6F, 1.99F);
 		setCombatTask();
 	}
 
 	protected void initEntityAI() {
-
 		tasks.addTask(1, new EntityAISwimming(this));
 		tasks.addTask(2, new EntityAIRestrictSun(this));
 		tasks.addTask(3, new EntityAIFleeSun(this, 1D));
@@ -66,19 +62,16 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(SWINGING_ARMS, false);
 	}
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
-
 		playSound(getStepSound(), 0.15F, 1F);
 	}
 
@@ -88,7 +81,6 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 	 * Get this Entity's CreatureAttribute
 	 */
 	public CreatureAttribute getCreatureAttribute() {
-
 		return CreatureAttribute.UNDEAD;
 	}
 
@@ -97,7 +89,6 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 	 * use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
 		if (world.isDaytime() && !world.isRemote) {
 			float f = getBrightness();
 			BlockPos blockpos = getRidingEntity() instanceof EntityBoat ? (new BlockPos(posX, (double) Math.round(posY), posZ)).up() : new BlockPos(posX, (double) Math.round(posY), posZ);
@@ -132,7 +123,6 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 	 * Handles updating while riding another entity
 	 */
 	public void updateRidden() {
-
 		super.updateRidden();
 
 		if (getRidingEntity() instanceof EntityCreature entitycreature) {
@@ -144,7 +134,6 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 	 * Gives armor or weapon for entity based on given DifficultyInstance
 	 */
 	protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
-
 		super.setEquipmentBasedOnDifficulty(difficulty);
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 	}
@@ -166,7 +155,6 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 		setEquipmentBasedOnDifficulty(difficulty);
 		setEnchantmentBasedOnDifficulty(difficulty);
@@ -189,7 +177,6 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 	 * sets this entity's combat AI.
 	 */
 	public void setCombatTask() {
-
 		if (world != null && !world.isRemote) {
 			tasks.removeTask(aiAttackOnCollide);
 			tasks.removeTask(aiArrowAttack);
@@ -214,7 +201,6 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 	 * Attack the specified entity using a ranged attack.
 	 */
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
-
 		EntityArrow entityarrow = getArrow(distanceFactor);
 		double d0 = target.posX - posX;
 		double d1 = target.getEntityBoundingBox().minY + (double) (target.height / 3F) - entityarrow.posY;
@@ -226,7 +212,6 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 	}
 
 	protected EntityArrow getArrow(float p_190726_1_) {
-
 		EntityTippedArrow entitytippedarrow = new EntityTippedArrow(world, this);
 		entitytippedarrow.setEnchantmentEffectsFromEntity(this, p_190726_1_);
 		return entitytippedarrow;
@@ -236,13 +221,11 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		setCombatTask();
 	}
 
 	public void setItemStackToSlot(EntityEquipmentSlot slotIn, ItemStack stack) {
-
 		super.setItemStackToSlot(slotIn, stack);
 
 		if (!world.isRemote && slotIn == EntityEquipmentSlot.MAINHAND) {
@@ -251,7 +234,6 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 	}
 
 	public float getEyeHeight() {
-
 		return 1.74F;
 	}
 
@@ -259,17 +241,14 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 	 * Returns the Y Offset of this entity.
 	 */
 	public double getYOffset() {
-
 		return -0.6D;
 	}
 
 	public boolean isSwingingArms() {
-
 		return dataManager.get(SWINGING_ARMS);
 	}
 
 	public void setSwingingArms(boolean swingingArms) {
-
 		dataManager.set(SWINGING_ARMS, swingingArms);
 	}
 

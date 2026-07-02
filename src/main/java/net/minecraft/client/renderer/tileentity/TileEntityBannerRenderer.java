@@ -14,7 +14,6 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEnti
 	private final ModelBanner bannerModel = new ModelBanner();
 
 	public void render(TileEntityBanner te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-
 		boolean flag = te.getWorld() != null;
 		boolean flag1 = !flag || te.getBlockType() == Blocks.STANDING_BANNER;
 		int i = flag ? te.getBlockMetadata() : 0;
@@ -68,7 +67,6 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEnti
 
 	
 	private ResourceLocation getBannerResourceLocation(TileEntityBanner bannerObj) {
-
 		return BannerTextures.BANNER_DESIGNS.getResourceLocation(bannerObj.getPatternResourceLocation(), bannerObj.getPatternList(), bannerObj.getColorList());
 	}
 

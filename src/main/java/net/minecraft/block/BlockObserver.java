@@ -20,14 +20,12 @@ public class BlockObserver extends BlockDirectional {
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
 
 	public BlockObserver() {
-
 		super(Material.ROCK);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.SOUTH).withProperty(POWERED, false));
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, FACING, POWERED);
 	}
 
@@ -36,7 +34,6 @@ public class BlockObserver extends BlockDirectional {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
@@ -45,12 +42,10 @@ public class BlockObserver extends BlockDirectional {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if (state.getValue(POWERED)) {
 			worldIn.setBlockState(pos, state.withProperty(POWERED, false), 2);
 		} else {
@@ -62,14 +57,12 @@ public class BlockObserver extends BlockDirectional {
 	}
 
 	public void observedNeighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (!worldIn.isRemote && pos.offset(state.getValue(FACING)).equals(fromPos)) {
 			startSignal(state, worldIn, pos);
 		}
 	}
 
 	private void startSignal(IBlockState p_190960_1_, World p_190960_2_, BlockPos pos) {
-
 		if (!p_190960_1_.getValue(POWERED)) {
 			if (!p_190960_2_.isUpdateScheduled(pos, this)) {
 				p_190960_2_.scheduleUpdate(pos, this, 2);
@@ -78,7 +71,6 @@ public class BlockObserver extends BlockDirectional {
 	}
 
 	protected void updateNeighborsInFront(World worldIn, BlockPos pos, IBlockState state) {
-
 		Facing enumfacing = state.getValue(FACING);
 		BlockPos blockpos = pos.offset(enumfacing.getOpposite());
 		worldIn.neighborChanged(blockpos, this, pos);
@@ -89,17 +81,14 @@ public class BlockObserver extends BlockDirectional {
 	 * Can this block provide power. Only wire currently seems to have this change based on its state.
 	 */
 	public boolean canProvidePower(IBlockState state) {
-
 		return true;
 	}
 
 	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		return blockState.getWeakPower(blockAccess, pos, side);
 	}
 
 	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		return blockState.getValue(POWERED) && blockState.getValue(FACING) == side ? 15 : 0;
 	}
 
@@ -107,7 +96,6 @@ public class BlockObserver extends BlockDirectional {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (!worldIn.isRemote) {
 			if (state.getValue(POWERED)) {
 				updateTick(worldIn, pos, state, worldIn.rand);
@@ -121,7 +109,6 @@ public class BlockObserver extends BlockDirectional {
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (state.getValue(POWERED) && worldIn.isUpdateScheduled(pos, this)) {
 			updateNeighborsInFront(worldIn, pos, state.withProperty(POWERED, false));
 		}
@@ -132,7 +119,6 @@ public class BlockObserver extends BlockDirectional {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		return getDefaultState().withProperty(FACING, Facing.getDirectionFromEntityLiving(pos, placer).getOpposite());
 	}
 
@@ -140,7 +126,6 @@ public class BlockObserver extends BlockDirectional {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 		i = i | state.getValue(FACING).getIndex();
 
@@ -155,7 +140,6 @@ public class BlockObserver extends BlockDirectional {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(FACING, Facing.getFront(meta & 7));
 	}
 

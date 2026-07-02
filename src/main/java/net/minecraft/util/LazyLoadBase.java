@@ -6,7 +6,6 @@ public abstract class LazyLoadBase<T> {
 	private boolean isLoaded = false;
 
 	public T getValue() {
-
 		if (!isLoaded) {
 			isLoaded = true;
 			value = load();

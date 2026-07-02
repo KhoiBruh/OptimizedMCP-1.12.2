@@ -20,7 +20,6 @@ public class ChunkCompileTaskGenerator implements Comparable<ChunkCompileTaskGen
 	private boolean finished;
 
 	public ChunkCompileTaskGenerator(RenderChunk renderChunkIn, ChunkCompileTaskGenerator.Type typeIn, double distanceSqIn) {
-
 		renderChunk = renderChunkIn;
 		type = typeIn;
 		distanceSq = distanceSqIn;
@@ -32,7 +31,6 @@ public class ChunkCompileTaskGenerator implements Comparable<ChunkCompileTaskGen
 	}
 
 	public void setStatus(ChunkCompileTaskGenerator.Status statusIn) {
-
 		lock.lock();
 
 		try {
@@ -43,32 +41,26 @@ public class ChunkCompileTaskGenerator implements Comparable<ChunkCompileTaskGen
 	}
 
 	public RenderChunk getRenderChunk() {
-
 		return renderChunk;
 	}
 
 	public CompiledChunk getCompiledChunk() {
-
 		return compiledChunk;
 	}
 
 	public void setCompiledChunk(CompiledChunk compiledChunkIn) {
-
 		compiledChunk = compiledChunkIn;
 	}
 
 	public RegionRenderCacheBuilder getRegionRenderCacheBuilder() {
-
 		return regionRenderCacheBuilder;
 	}
 
 	public void setRegionRenderCacheBuilder(RegionRenderCacheBuilder regionRenderCacheBuilderIn) {
-
 		regionRenderCacheBuilder = regionRenderCacheBuilderIn;
 	}
 
 	public void finish() {
-
 		lock.lock();
 
 		try {
@@ -88,7 +80,6 @@ public class ChunkCompileTaskGenerator implements Comparable<ChunkCompileTaskGen
 	}
 
 	public void addFinishRunnable(Runnable runnable) {
-
 		lock.lock();
 
 		try {
@@ -103,7 +94,6 @@ public class ChunkCompileTaskGenerator implements Comparable<ChunkCompileTaskGen
 	}
 
 	public ReentrantLock getLock() {
-
 		return lock;
 	}
 
@@ -113,17 +103,14 @@ public class ChunkCompileTaskGenerator implements Comparable<ChunkCompileTaskGen
 	}
 
 	public boolean isFinished() {
-
 		return finished;
 	}
 
 	public int compareTo(ChunkCompileTaskGenerator p_compareTo_1_) {
-
 		return Doubles.compare(distanceSq, p_compareTo_1_.distanceSq);
 	}
 
 	public double getDistanceSq() {
-
 		return distanceSq;
 	}
 

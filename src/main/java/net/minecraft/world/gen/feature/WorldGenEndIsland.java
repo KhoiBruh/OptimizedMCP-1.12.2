@@ -10,7 +10,6 @@ import java.util.Random;
 public class WorldGenEndIsland extends WorldGenerator {
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		float f = (float) (rand.nextInt(3) + 4);
 
 		for (int i = 0; f > 0.5F; --i) {

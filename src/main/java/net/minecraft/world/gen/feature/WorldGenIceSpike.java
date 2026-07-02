@@ -13,7 +13,6 @@ import java.util.Random;
 public class WorldGenIceSpike extends WorldGenerator {
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		while (worldIn.isAirBlock(position) && position.getY() > 2) {
 			position = position.down();
 		}

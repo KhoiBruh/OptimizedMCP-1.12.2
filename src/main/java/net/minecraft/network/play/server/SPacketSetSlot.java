@@ -14,11 +14,9 @@ public class SPacketSetSlot implements Packet<INetHandlerPlayClient> {
 	private ItemStack item = ItemStack.EMPTY;
 
 	public SPacketSetSlot() {
-
 	}
 
 	public SPacketSetSlot(int windowIdIn, int slotIn, ItemStack itemIn) {
-
 		windowId = windowIdIn;
 		slot = slotIn;
 		item = itemIn.copy();
@@ -28,7 +26,6 @@ public class SPacketSetSlot implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleSetSlot(this);
 	}
 
@@ -36,7 +33,6 @@ public class SPacketSetSlot implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		windowId = buf.readByte();
 		slot = buf.readShort();
 		item = buf.readItemStack();
@@ -46,24 +42,20 @@ public class SPacketSetSlot implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeByte(windowId);
 		buf.writeShort(slot);
 		buf.writeItemStack(item);
 	}
 
 	public int getWindowId() {
-
 		return windowId;
 	}
 
 	public int getSlot() {
-
 		return slot;
 	}
 
 	public ItemStack getStack() {
-
 		return item;
 	}
 

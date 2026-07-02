@@ -131,7 +131,6 @@ public class GuiIngame extends Gui {
 	private long healthUpdateCounter;
 
 	public GuiIngame(Minecraft mcIn) {
-
 		mc = mcIn;
 		itemRenderer = mcIn.getRenderItem();
 		overlayDebug = new GuiOverlayDebug(mcIn);
@@ -155,14 +154,12 @@ public class GuiIngame extends Gui {
 	 * Set the differents times for the titles to their default values
 	 */
 	public void setDefaultTitlesTimes() {
-
 		titleFadeIn = 10;
 		titleDisplayTime = 70;
 		titleFadeOut = 20;
 	}
 
 	public void renderGameOverlay(float partialTicks) {
-
 		int i = mc.getWindow().getScaledWidth();
 		int j = mc.getWindow().getScaledHeight();
 		FontRenderer fontrenderer = getFontRenderer();
@@ -361,7 +358,6 @@ public class GuiIngame extends Gui {
 	}
 
 	private void renderAttackIndicator(float p_184045_1_) {
-
 		GameSettings gamesettings = mc.gameSettings;
 
 		if (gamesettings.thirdPersonView == 0) {
@@ -421,7 +417,6 @@ public class GuiIngame extends Gui {
 	}
 
 	protected void renderPotionEffects() {
-
 		Collection<PotionEffect> collection = mc.player.getActivePotionEffects();
 
 		if (!collection.isEmpty()) {
@@ -470,7 +465,6 @@ public class GuiIngame extends Gui {
 	}
 
 	protected void renderHotbar(float partialTicks) {
-
 		if (mc.getRenderViewEntity() instanceof EntityPlayer entityplayer) {
 			GLS.color(1F, 1F, 1F, 1F);
 			mc.getTextureManager().bindTexture(WIDGETS_TEX_PATH);
@@ -540,7 +534,6 @@ public class GuiIngame extends Gui {
 	}
 
 	public void renderHorseJumpBar(int x) {
-
 		mc.profiler.startSection("jumpBar");
 		mc.getTextureManager().bindTexture(Gui.ICONS);
 		float f = mc.player.getHorseJumpPower();
@@ -557,7 +550,6 @@ public class GuiIngame extends Gui {
 	}
 
 	public void renderExpBar(int x) {
-
 		mc.profiler.startSection("expBar");
 		mc.getTextureManager().bindTexture(Gui.ICONS);
 		int i = mc.player.xpBarCap();
@@ -590,7 +582,6 @@ public class GuiIngame extends Gui {
 	}
 
 	public void renderSelectedItem() {
-
 		mc.profiler.startSection("selectedItemName");
 
 		if (remainingHighlightTicks > 0 && !highlightingItemStack.isEmpty()) {
@@ -627,7 +618,6 @@ public class GuiIngame extends Gui {
 	}
 
 	private void renderScoreboard(ScoreObjective objective) {
-
 		Scoreboard scoreboard = objective.getScoreboard();
 		Collection<Score> collection = scoreboard.getSortedScores(objective);
 		List<Score> list = Lists.newArrayList(Iterables.filter(collection, p_apply_1_ -> p_apply_1_.getPlayerName() != null && !p_apply_1_.getPlayerName().startsWith("#")));
@@ -673,7 +663,6 @@ public class GuiIngame extends Gui {
 	}
 
 	private void renderPlayerStats() {
-
 		if (mc.getRenderViewEntity() instanceof EntityPlayer entityplayer) {
 			int i = MathHelper.ceil(entityplayer.getHealth());
 			boolean flag = healthUpdateCounter > (long) updateCounter && (healthUpdateCounter - (long) updateCounter) / 3L % 2L == 1L;
@@ -854,7 +843,6 @@ public class GuiIngame extends Gui {
 	}
 
 	private void renderMountHealth() {
-
 		if (mc.getRenderViewEntity() instanceof EntityPlayer entityplayer) {
 			Entity entity = entityplayer.getRidingEntity();
 
@@ -899,7 +887,6 @@ public class GuiIngame extends Gui {
 	}
 
 	private void renderPumpkinOverlay() {
-
 		GLS.disableDepth();
 		GLS.depthMask(false);
 		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
@@ -924,7 +911,6 @@ public class GuiIngame extends Gui {
 	 * Renders a Vignette arount the entire screen that changes with light level.
 	 */
 	private void renderVignette(float lightLevel) {
-
 		lightLevel = 1F - lightLevel;
 		lightLevel = MathHelper.clamp(lightLevel, 0F, 1F);
 		WorldBorder worldborder = mc.world.getWorldBorder();
@@ -965,7 +951,6 @@ public class GuiIngame extends Gui {
 	}
 
 	private void renderPortal(float timeInPortal) {
-
 		if (timeInPortal < 1F) {
 			timeInPortal = timeInPortal * timeInPortal;
 			timeInPortal = timeInPortal * timeInPortal;
@@ -998,7 +983,6 @@ public class GuiIngame extends Gui {
 	}
 
 	private void renderHotbarItem(int p_184044_1_, int p_184044_2_, float p_184044_3_, EntityPlayer player, ItemStack stack) {
-
 		if (!stack.isEmpty()) {
 			float f = (float) stack.getAnimationsToGo() - p_184044_3_;
 
@@ -1024,7 +1008,6 @@ public class GuiIngame extends Gui {
 	 * The update tick for the ingame UI
 	 */
 	public void updateTick() {
-
 		if (overlayMessageTime > 0) {
 			--overlayMessageTime;
 		}
@@ -1058,19 +1041,16 @@ public class GuiIngame extends Gui {
 	}
 
 	public void setRecordPlayingMessage(String recordName) {
-
 		setOverlayMessage(I18n.format("record.nowPlaying", recordName), true);
 	}
 
 	public void setOverlayMessage(String message, boolean animateColor) {
-
 		overlayMessage = message;
 		overlayMessageTime = 60;
 		animateOverlayMessageColor = animateColor;
 	}
 
 	public void displayTitle(String title, String subTitle, int timeFadeIn, int displayTime, int timeFadeOut) {
-
 		if (title == null && subTitle == null && timeFadeIn < 0 && displayTime < 0 && timeFadeOut < 0) {
 			displayedTitle = "";
 			displayedSubTitle = "";
@@ -1100,7 +1080,6 @@ public class GuiIngame extends Gui {
 	}
 
 	public void setOverlayMessage(ITextComponent component, boolean animateColor) {
-
 		setOverlayMessage(component.getUnformattedText(), animateColor);
 	}
 
@@ -1108,7 +1087,6 @@ public class GuiIngame extends Gui {
 	 * Forwards the given chat message to all listeners.
 	 */
 	public void addChatMessage(ChatType chatTypeIn, ITextComponent message) {
-
 		for (IChatListener ichatlistener : chatListeners.get(chatTypeIn)) {
 			ichatlistener.say(chatTypeIn, message);
 		}
@@ -1118,27 +1096,22 @@ public class GuiIngame extends Gui {
 	 * returns a pointer to the persistant Chat GUI, containing all previous chat messages and such
 	 */
 	public GuiNewChat getChatGUI() {
-
 		return persistantChatGUI;
 	}
 
 	public int getUpdateCounter() {
-
 		return updateCounter;
 	}
 
 	public FontRenderer getFontRenderer() {
-
 		return mc.fontRenderer;
 	}
 
 	public GuiSpectator getSpectatorGui() {
-
 		return spectatorGui;
 	}
 
 	public GuiPlayerTabOverlay getTabList() {
-
 		return overlayPlayerList;
 	}
 
@@ -1146,7 +1119,6 @@ public class GuiIngame extends Gui {
 	 * Reset the GuiPlayerTabOverlay's message header and footer
 	 */
 	public void resetPlayersOverlayFooterHeader() {
-
 		overlayPlayerList.resetFooterHeader();
 		overlayBoss.clearBossInfos();
 		mc.getToastGui().clear();
@@ -1156,7 +1128,6 @@ public class GuiIngame extends Gui {
 	 * Accessor for the GuiBossOverlay
 	 */
 	public GuiBossOverlay getBossOverlay() {
-
 		return overlayBoss;
 	}
 

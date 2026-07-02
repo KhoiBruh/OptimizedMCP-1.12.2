@@ -18,7 +18,6 @@ public abstract class NodeProcessor {
 	protected boolean canSwim;
 
 	public void init(IBlockAccess sourceIn, EntityLiving mob) {
-
 		blockaccess = sourceIn;
 		entity = mob;
 		pointMap.clearMap();
@@ -33,7 +32,6 @@ public abstract class NodeProcessor {
 	 * net.minecraft.world.pathfinder.WalkNodeProcessor#avoidsWater avoidsWater}
 	 */
 	public void postProcess() {
-
 		blockaccess = null;
 		entity = null;
 	}
@@ -42,7 +40,6 @@ public abstract class NodeProcessor {
 	 * Returns a mapped point or creates and adds one
 	 */
 	protected PathPoint openPoint(int x, int y, int z) {
-
 		int i = PathPoint.makeHash(x, y, z);
 		PathPoint pathpoint = pointMap.lookup(i);
 
@@ -68,32 +65,26 @@ public abstract class NodeProcessor {
 	public abstract PathNodeType getPathNodeType(IBlockAccess blockaccessIn, int x, int y, int z);
 
 	public boolean getCanEnterDoors() {
-
 		return canEnterDoors;
 	}
 
 	public void setCanEnterDoors(boolean canEnterDoorsIn) {
-
 		canEnterDoors = canEnterDoorsIn;
 	}
 
 	public boolean getCanOpenDoors() {
-
 		return canOpenDoors;
 	}
 
 	public void setCanOpenDoors(boolean canOpenDoorsIn) {
-
 		canOpenDoors = canOpenDoorsIn;
 	}
 
 	public boolean getCanSwim() {
-
 		return canSwim;
 	}
 
 	public void setCanSwim(boolean canSwimIn) {
-
 		canSwim = canSwimIn;
 	}
 

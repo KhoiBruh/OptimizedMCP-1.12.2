@@ -20,7 +20,6 @@ public class BiomeHills extends Biome {
 	private final BiomeHills.Type type;
 
 	protected BiomeHills(BiomeHills.Type p_i46710_1_, Biome.BiomeProperties properties) {
-
 		super(properties);
 
 		if (p_i46710_1_ == BiomeHills.Type.EXTRA_TREES) {
@@ -32,12 +31,10 @@ public class BiomeHills extends Biome {
 	}
 
 	public WorldGenAbstractTree getRandomTreeFeature(Random rand) {
-
 		return rand.nextInt(3) > 0 ? spruceGenerator : super.getRandomTreeFeature(rand);
 	}
 
 	public void decorate(World worldIn, Random rand, BlockPos pos) {
-
 		super.decorate(worldIn, rand, pos);
 		int i = 3 + rand.nextInt(6);
 
@@ -61,7 +58,6 @@ public class BiomeHills extends Biome {
 	}
 
 	public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
-
 		topBlock = Blocks.GRASS.getDefaultState();
 		fillerBlock = Blocks.DIRT.getDefaultState();
 

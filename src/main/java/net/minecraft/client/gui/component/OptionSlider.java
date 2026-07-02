@@ -14,12 +14,10 @@ public class OptionSlider extends Button {
 	private float sliderValue;
 
 	public OptionSlider(int buttonId, int x, int y, GameSettings.Options optionIn) {
-
 		this(buttonId, x, y, optionIn, 0F, 1F);
 	}
 
 	public OptionSlider(int buttonId, int x, int y, GameSettings.Options optionIn, float minValueIn, float maxValue) {
-
 		super(buttonId, x, y, 150, 20, "");
 		sliderValue = 1F;
 		options = optionIn;
@@ -35,7 +33,6 @@ public class OptionSlider extends Button {
 	 * this button.
 	 */
 	protected int getHoverState(boolean mouseOver) {
-
 		return 0;
 	}
 
@@ -43,7 +40,6 @@ public class OptionSlider extends Button {
 	 * Fired when the mouse button is dragged. Equivalent of MouseListener.mouseDragged(MouseEvent e).
 	 */
 	protected void mouseDragged(Minecraft mc, int mouseX, int mouseY) {
-
 		if (visible) {
 			if (dragging) {
 				sliderValue = (float) (mouseX - (x + 4)) / (float) (width - 8);
@@ -66,7 +62,6 @@ public class OptionSlider extends Button {
 	 * e).
 	 */
 	public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
-
 		if (super.mousePressed(mc, mouseX, mouseY)) {
 			sliderValue = (float) (mouseX - (x + 4)) / (float) (width - 8);
 			sliderValue = MathHelper.clamp(sliderValue, 0F, 1F);
@@ -83,7 +78,6 @@ public class OptionSlider extends Button {
 	 * Fired when the mouse button is released. Equivalent of MouseListener.mouseReleased(MouseEvent e).
 	 */
 	public void mouseReleased(int mouseX, int mouseY) {
-
 		dragging = false;
 	}
 

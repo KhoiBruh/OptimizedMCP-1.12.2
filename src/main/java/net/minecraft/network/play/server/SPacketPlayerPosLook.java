@@ -18,11 +18,9 @@ public class SPacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
 	private int teleportId;
 
 	public SPacketPlayerPosLook() {
-
 	}
 
 	public SPacketPlayerPosLook(double xIn, double yIn, double zIn, float yawIn, float pitchIn, Set<SPacketPlayerPosLook.Flags> flagsIn, int teleportIdIn) {
-
 		x = xIn;
 		y = yIn;
 		z = zIn;
@@ -36,7 +34,6 @@ public class SPacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		x = buf.readDouble();
 		y = buf.readDouble();
 		z = buf.readDouble();
@@ -50,7 +47,6 @@ public class SPacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeDouble(x);
 		buf.writeDouble(y);
 		buf.writeDouble(z);
@@ -64,37 +60,30 @@ public class SPacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handlePlayerPosLook(this);
 	}
 
 	public double getX() {
-
 		return x;
 	}
 
 	public double getY() {
-
 		return y;
 	}
 
 	public double getZ() {
-
 		return z;
 	}
 
 	public float getYaw() {
-
 		return yaw;
 	}
 
 	public float getPitch() {
-
 		return pitch;
 	}
 
 	public int getTeleportId() {
-
 		return teleportId;
 	}
 
@@ -113,7 +102,6 @@ public class SPacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
 		private final int bit;
 
 		Flags(int bitIn) {
-
 			bit = bitIn;
 		}
 
@@ -131,7 +119,6 @@ public class SPacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
 		}
 
 		public static int pack(Set<SPacketPlayerPosLook.Flags> flags) {
-
 			int i = 0;
 
 			for (SPacketPlayerPosLook.Flags spacketplayerposlook$enumflags : flags) {
@@ -142,12 +129,10 @@ public class SPacketPlayerPosLook implements Packet<INetHandlerPlayClient> {
 		}
 
 		private int getMask() {
-
 			return 1 << bit;
 		}
 
 		private boolean isSet(int flags) {
-
 			return (flags & getMask()) == getMask();
 		}
 	}

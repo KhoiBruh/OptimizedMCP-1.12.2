@@ -29,7 +29,6 @@ enum AdvancementTabType {
 	private final int max;
 
 	AdvancementTabType(int p_i47386_3_, int p_i47386_4_, int widthIn, int heightIn, int p_i47386_7_) {
-
 		textureX = p_i47386_3_;
 		textureY = p_i47386_4_;
 		width = widthIn;
@@ -38,12 +37,10 @@ enum AdvancementTabType {
 	}
 
 	public int getMax() {
-
 		return max;
 	}
 
 	public void draw(Gui guiIn, int x, int y, boolean p_192651_4_, int p_192651_5_) {
-
 		int i = textureX;
 
 		if (p_192651_5_ > 0) {
@@ -59,7 +56,6 @@ enum AdvancementTabType {
 	}
 
 	public void drawIcon(int p_192652_1_, int p_192652_2_, int p_192652_3_, RenderItem renderItemIn, ItemStack stack) {
-
 		int i = p_192652_1_ + getX(p_192652_3_);
 		int j = p_192652_2_ + getY(p_192652_3_);
 
@@ -88,7 +84,6 @@ enum AdvancementTabType {
 	}
 
 	public int getX(int p_192648_1_) {
-
 		return switch (this) {
 			case ABOVE, BELOW -> (width + 4) * p_192648_1_;
 			case LEFT -> -width + 4;
@@ -97,7 +92,6 @@ enum AdvancementTabType {
 	}
 
 	public int getY(int p_192653_1_) {
-
 		return switch (this) {
 			case ABOVE -> -height + 4;
 			case BELOW -> 136;
@@ -106,7 +100,6 @@ enum AdvancementTabType {
 	}
 
 	public boolean isMouseOver(int p_192654_1_, int p_192654_2_, int p_192654_3_, int p_192654_4_, int p_192654_5_) {
-
 		int i = p_192654_1_ + getX(p_192654_3_);
 		int j = p_192654_2_ + getY(p_192654_3_);
 		return p_192654_4_ > i && p_192654_4_ < i + width && p_192654_5_ > j && p_192654_5_ < j + height;

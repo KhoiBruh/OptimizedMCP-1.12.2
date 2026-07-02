@@ -25,7 +25,6 @@ public abstract class BlockStoneSlab extends BlockSlab {
 	public static final PropertyEnum<BlockStoneSlab.Type> VARIANT = PropertyEnum.create("variant", BlockStoneSlab.Type.class);
 
 	public BlockStoneSlab() {
-
 		super(Material.ROCK);
 		IBlockState iblockstate = blockState.getBaseState();
 
@@ -43,12 +42,10 @@ public abstract class BlockStoneSlab extends BlockSlab {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Item.getItemFromBlock(Blocks.STONE_SLAB);
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return new ItemStack(Blocks.STONE_SLAB, 1, state.getValue(VARIANT).getMetadata());
 	}
 
@@ -56,7 +53,6 @@ public abstract class BlockStoneSlab extends BlockSlab {
 	 * Returns the slab block name with the type associated with it
 	 */
 	public String getUnlocalizedName(int meta) {
-
 		return super.getUnlocalizedName() + "." + BlockStoneSlab.Type.byMetadata(meta).getUnlocalizedName();
 	}
 
@@ -74,7 +70,6 @@ public abstract class BlockStoneSlab extends BlockSlab {
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-
 		for (BlockStoneSlab.Type blockstoneslab$enumtype : BlockStoneSlab.Type.values()) {
 			if (blockstoneslab$enumtype != BlockStoneSlab.Type.WOOD) {
 				items.add(new ItemStack(this, 1, blockstoneslab$enumtype.getMetadata()));
@@ -86,7 +81,6 @@ public abstract class BlockStoneSlab extends BlockSlab {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		IBlockState iblockstate = getDefaultState().withProperty(VARIANT, BlockStoneSlab.Type.byMetadata(meta & 7));
 
 		if (isDouble()) {
@@ -102,7 +96,6 @@ public abstract class BlockStoneSlab extends BlockSlab {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 		i = i | state.getValue(VARIANT).getMetadata();
 
@@ -118,7 +111,6 @@ public abstract class BlockStoneSlab extends BlockSlab {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return isDouble() ? new BlockStateContainer(this, SEAMLESS, VARIANT) : new BlockStateContainer(this, HALF, VARIANT);
 	}
 
@@ -127,7 +119,6 @@ public abstract class BlockStoneSlab extends BlockSlab {
 	 * returns the metadata of the dropped item based on the old metadata of the block.
 	 */
 	public int damageDropped(IBlockState state) {
-
 		return state.getValue(VARIANT).getMetadata();
 	}
 
@@ -135,7 +126,6 @@ public abstract class BlockStoneSlab extends BlockSlab {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return state.getValue(VARIANT).getMapColor();
 	}
 
@@ -163,12 +153,10 @@ public abstract class BlockStoneSlab extends BlockSlab {
 		private final String unlocalizedName;
 
 		Type(int p_i46381_3_, MapColor p_i46381_4_, String p_i46381_5_) {
-
 			this(p_i46381_3_, p_i46381_4_, p_i46381_5_, p_i46381_5_);
 		}
 
 		Type(int p_i46382_3_, MapColor p_i46382_4_, String p_i46382_5_, String p_i46382_6_) {
-
 			meta = p_i46382_3_;
 			mapColor = p_i46382_4_;
 			name = p_i46382_5_;
@@ -185,27 +173,22 @@ public abstract class BlockStoneSlab extends BlockSlab {
 		}
 
 		public int getMetadata() {
-
 			return meta;
 		}
 
 		public MapColor getMapColor() {
-
 			return mapColor;
 		}
 
 		public String toString() {
-
 			return name;
 		}
 
 		public String getName() {
-
 			return name;
 		}
 
 		public String getUnlocalizedName() {
-
 			return unlocalizedName;
 		}
 	}

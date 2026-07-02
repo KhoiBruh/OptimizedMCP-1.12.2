@@ -15,7 +15,6 @@ public class ModelSquid extends ModelBase {
 	ModelRenderer[] squidTentacles = new ModelRenderer[8];
 
 	public ModelSquid() {
-
 		int i = -16;
 		squidBody = new ModelRenderer(this, 0, 0);
 		squidBody.addBox(-6F, -8F, -6F, 12, 16, 12);
@@ -41,7 +40,6 @@ public class ModelSquid extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		for (ModelRenderer modelrenderer : squidTentacles) {
 			modelrenderer.rotateAngleX = ageInTicks;
 		}
@@ -51,7 +49,6 @@ public class ModelSquid extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		squidBody.render(scale);
 

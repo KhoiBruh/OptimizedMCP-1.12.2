@@ -8,17 +8,14 @@ import java.io.File;
 public class UserListWhitelist extends UserList<GameProfile, UserListWhitelistEntry> {
 
 	public UserListWhitelist(File p_i1132_1_) {
-
 		super(p_i1132_1_);
 	}
 
 	protected UserListEntry<GameProfile> createEntry(JsonObject entryData) {
-
 		return new UserListWhitelistEntry(entryData);
 	}
 
 	public String[] getKeys() {
-
 		String[] astring = new String[getValues().size()];
 		int i = 0;
 
@@ -33,7 +30,6 @@ public class UserListWhitelist extends UserList<GameProfile, UserListWhitelistEn
 	 * Gets the key value for the given object
 	 */
 	protected String getObjectKey(GameProfile obj) {
-
 		return obj.getId().toString();
 	}
 
@@ -41,7 +37,6 @@ public class UserListWhitelist extends UserList<GameProfile, UserListWhitelistEn
 	 * Get a GameProfile entry by its name
 	 */
 	public GameProfile getByName(String profileName) {
-
 		for (UserListWhitelistEntry userlistwhitelistentry : getValues().values()) {
 			if (profileName.equalsIgnoreCase(userlistwhitelistentry.getValue().getName())) {
 				return userlistwhitelistentry.getValue();

@@ -73,7 +73,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	private float prevMouthOpenness;
 
 	public AbstractHorse(World worldIn) {
-
 		super(worldIn);
 		setSize(1.3964844F, 1.6F);
 		stepHeight = 1F;
@@ -81,13 +80,11 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	}
 
 	public static void registerFixesAbstractHorse(DataFixer fixer, Class<?> entityClass) {
-
 		EntityLiving.registerFixesMob(fixer, entityClass);
 		fixer.registerWalker(FixTypes.ENTITY, new ItemStackData(entityClass, "SaddleItem"));
 	}
 
 	protected void initEntityAI() {
-
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAIPanic(this, 1.2D));
 		tasks.addTask(1, new EntityAIRunAroundLikeCrazy(this, 1.2D));
@@ -99,19 +96,16 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(STATUS, (byte) 0);
 		dataManager.register(OWNER_UNIQUE_ID, Optional.absent());
 	}
 
 	protected boolean getHorseWatchableBoolean(int p_110233_1_) {
-
 		return (dataManager.get(STATUS) & p_110233_1_) != 0;
 	}
 
 	protected void setHorseWatchableBoolean(int p_110208_1_, boolean p_110208_2_) {
-
 		byte b0 = dataManager.get(STATUS);
 
 		if (p_110208_2_) {
@@ -122,23 +116,19 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	}
 
 	public boolean isTame() {
-
 		return getHorseWatchableBoolean(2);
 	}
 
 	
 	public UUID getOwnerUniqueId() {
-
 		return dataManager.get(OWNER_UNIQUE_ID).orNull();
 	}
 
 	public void setOwnerUniqueId(UUID uniqueId) {
-
 		dataManager.set(OWNER_UNIQUE_ID, Optional.fromNullable(uniqueId));
 	}
 
 	public float getHorseSize() {
-
 		return 0.5F;
 	}
 
@@ -146,54 +136,44 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * "Sets the scale for an ageable entity according to the boolean parameter, which says if it's a child."
 	 */
 	public void setScaleForAge(boolean child) {
-
 		setScale(child ? getHorseSize() : 1F);
 	}
 
 	public boolean isHorseJumping() {
-
 		return horseJumping;
 	}
 
 	public void setHorseJumping(boolean jumping) {
-
 		horseJumping = jumping;
 	}
 
 	public void setHorseTamed(boolean tamed) {
-
 		setHorseWatchableBoolean(2, tamed);
 	}
 
 	public boolean canBeLeashedTo(EntityPlayer player) {
-
 		return super.canBeLeashedTo(player) && getCreatureAttribute() != CreatureAttribute.UNDEAD;
 	}
 
 	protected void onLeashDistance(float p_142017_1_) {
-
 		if (p_142017_1_ > 6F && isEatingHaystack()) {
 			setEatingHaystack(false);
 		}
 	}
 
 	public boolean isEatingHaystack() {
-
 		return getHorseWatchableBoolean(16);
 	}
 
 	public void setEatingHaystack(boolean p_110227_1_) {
-
 		setHorseWatchableBoolean(16, p_110227_1_);
 	}
 
 	public boolean isRearing() {
-
 		return getHorseWatchableBoolean(32);
 	}
 
 	public void setRearing(boolean rearing) {
-
 		if (rearing) {
 			setEatingHaystack(false);
 		}
@@ -202,27 +182,22 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	}
 
 	public boolean isBreeding() {
-
 		return getHorseWatchableBoolean(8);
 	}
 
 	public void setBreeding(boolean breeding) {
-
 		setHorseWatchableBoolean(8, breeding);
 	}
 
 	public int getTemper() {
-
 		return temper;
 	}
 
 	public void setTemper(int temperIn) {
-
 		temper = temperIn;
 	}
 
 	public int increaseTemper(int p_110198_1_) {
-
 		int i = MathHelper.clamp(getTemper() + p_110198_1_, 0, getMaxTemper());
 		setTemper(i);
 		return i;
@@ -232,7 +207,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		Entity entity = source.getTrueSource();
 		return (!isBeingRidden() || entity == null || !isRidingOrBeingRiddenBy(entity)) && super.attackEntityFrom(source, amount);
 	}
@@ -241,12 +215,10 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * Returns true if this entity should push and be pushed by other entities when colliding.
 	 */
 	public boolean canBePushed() {
-
 		return !isBeingRidden();
 	}
 
 	private void eatingHorse() {
-
 		openHorseMouth();
 
 		if (!isSilent()) {
@@ -255,7 +227,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	}
 
 	public void fall(float distance, float damageMultiplier) {
-
 		if (distance > 1F) {
 			playSound(SoundEvents.ENTITY_HORSE_LAND, 0.4F, 1F);
 		}
@@ -282,12 +253,10 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	}
 
 	protected int getInventorySize() {
-
 		return 2;
 	}
 
 	protected void initHorseChest() {
-
 		ContainerHorseChest containerhorsechest = horseChest;
 		horseChest = new ContainerHorseChest("HorseChest", getInventorySize());
 		horseChest.setCustomName(getName());
@@ -313,7 +282,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * Updates the items in the saddle and armor slots of the horse's inventory.
 	 */
 	protected void updateHorseSlots() {
-
 		if (!world.isRemote) {
 			setHorseSaddled(!horseChest.getStackInSlot(0).isEmpty() && canBeSaddled());
 		}
@@ -323,7 +291,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * Called by InventoryBasic.onInventoryChanged() on a array that is never filled.
 	 */
 	public void onInventoryChanged(IInventory invBasic) {
-
 		boolean flag = isHorseSaddled();
 		updateHorseSlots();
 
@@ -334,7 +301,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 
 	
 	protected AbstractHorse getClosestHorse(Entity entityIn, double distance) {
-
 		double d0 = Double.MAX_VALUE;
 		Entity entity = null;
 
@@ -351,20 +317,17 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	}
 
 	public double getHorseJumpStrength() {
-
 		return getEntityAttribute(JUMP_STRENGTH).getAttributeValue();
 	}
 
 	
 	protected SoundEvent getDeathSound() {
-
 		openHorseMouth();
 		return null;
 	}
 
 	
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		openHorseMouth();
 
 		if (rand.nextInt(3) == 0) {
@@ -376,7 +339,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 
 	
 	protected SoundEvent getAmbientSound() {
-
 		openHorseMouth();
 
 		if (rand.nextInt(10) == 0 && !isMovementBlocked()) {
@@ -387,30 +349,25 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	}
 
 	public boolean canBeSaddled() {
-
 		return true;
 	}
 
 	public boolean isHorseSaddled() {
-
 		return getHorseWatchableBoolean(4);
 	}
 
 	public void setHorseSaddled(boolean saddled) {
-
 		setHorseWatchableBoolean(4, saddled);
 	}
 
 	
 	protected SoundEvent getAngrySound() {
-
 		openHorseMouth();
 		makeHorseRear();
 		return null;
 	}
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
-
 		if (!blockIn.getDefaultState().getMaterial().isLiquid()) {
 			SoundType soundtype = blockIn.getSoundType();
 
@@ -435,12 +392,10 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	}
 
 	protected void playGallopSound(SoundType p_190680_1_) {
-
 		playSound(SoundEvents.ENTITY_HORSE_GALLOP, p_190680_1_.volume() * 0.15F, p_190680_1_.pitch());
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getAttributeMap().registerAttribute(JUMP_STRENGTH);
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(53D);
@@ -451,12 +406,10 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * Will return how many at most can spawn in a chunk at once.
 	 */
 	public int getMaxSpawnedInChunk() {
-
 		return 6;
 	}
 
 	public int getMaxTemper() {
-
 		return 100;
 	}
 
@@ -464,7 +417,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * Returns the volume for the sounds this mob makes.
 	 */
 	protected float getSoundVolume() {
-
 		return 0.8F;
 	}
 
@@ -472,12 +424,10 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * Get number of ticks, at least during which the living entity will be silent.
 	 */
 	public int getTalkInterval() {
-
 		return 400;
 	}
 
 	public void openGUI(EntityPlayer playerEntity) {
-
 		if (!world.isRemote && (!isBeingRidden() || isPassenger(playerEntity)) && isTame()) {
 			horseChest.setCustomName(getName());
 			playerEntity.openGuiHorseInventory(this, horseChest);
@@ -485,7 +435,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	}
 
 	protected boolean handleEating(EntityPlayer player, ItemStack stack) {
-
 		boolean flag = false;
 		float f = 0F;
 		int i = 0;
@@ -558,7 +507,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	}
 
 	protected void mountTo(EntityPlayer player) {
-
 		player.rotationYaw = rotationYaw;
 		player.rotationPitch = rotationPitch;
 		setEatingHaystack(false);
@@ -573,7 +521,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * Dead and sleeping entities cannot move
 	 */
 	protected boolean isMovementBlocked() {
-
 		return super.isMovementBlocked() && isBeingRidden() && isHorseSaddled() || isEatingHaystack() || isRearing();
 	}
 
@@ -582,12 +529,10 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * the animal type)
 	 */
 	public boolean isBreedingItem(ItemStack stack) {
-
 		return false;
 	}
 
 	private void moveTail() {
-
 		tailCounter = 1;
 	}
 
@@ -595,7 +540,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * Called when the mob's health reaches 0.
 	 */
 	public void onDeath(DamageSource cause) {
-
 		super.onDeath(cause);
 
 		if (!world.isRemote && horseChest != null) {
@@ -614,7 +558,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
 		if (rand.nextInt(200) == 0) {
 			moveTail();
 		}
@@ -642,7 +585,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	}
 
 	protected void followMother() {
-
 		if (isBreeding() && isChild() && !isEatingHaystack()) {
 			AbstractHorse abstracthorse = getClosestHorse(this, 16D);
 
@@ -653,7 +595,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	}
 
 	public boolean canEatGrass() {
-
 		return true;
 	}
 
@@ -661,7 +602,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		super.onUpdate();
 
 		if (openMouthCounter > 0 && ++openMouthCounter > 30) {
@@ -739,7 +679,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	}
 
 	private void openHorseMouth() {
-
 		if (!world.isRemote) {
 			openMouthCounter = 1;
 			setHorseWatchableBoolean(64, true);
@@ -747,7 +686,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	}
 
 	private void makeHorseRear() {
-
 		if (canPassengerSteer()) {
 			jumpRearingCounter = 1;
 			setRearing(true);
@@ -755,7 +693,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	}
 
 	public void makeMad() {
-
 		makeHorseRear();
 		SoundEvent soundevent = getAngrySound();
 
@@ -765,7 +702,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	}
 
 	public boolean setTamedBy(EntityPlayer player) {
-
 		setOwnerUniqueId(player.getUniqueID());
 		setHorseTamed(true);
 
@@ -778,7 +714,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	}
 
 	public void travel(float strafe, float vertical, float forward) {
-
 		if (isBeingRidden() && canBeSteered() && isHorseSaddled()) {
 			EntityLivingBase entitylivingbase = (EntityLivingBase) getControllingPassenger();
 			rotationYaw = entitylivingbase.rotationYaw;
@@ -858,7 +793,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setBoolean("EatingHaystack", isEatingHaystack());
 		compound.setBoolean("Bred", isBreeding());
@@ -878,7 +812,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		setEatingHaystack(compound.getBoolean("EatingHaystack"));
 		setBreeding(compound.getBoolean("Bred"));
@@ -918,7 +851,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * Returns true if the mob is currently able to mate with the specified mob.
 	 */
 	public boolean canMateWith(EntityAnimal otherAnimal) {
-
 		return false;
 	}
 
@@ -926,18 +858,15 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * Return true if the horse entity ready to mate. (no rider, not riding, tame, adult, not steril...)
 	 */
 	protected boolean canMate() {
-
 		return !isBeingRidden() && !isRiding() && isTame() && !isChild() && getHealth() >= getMaxHealth() && isInLove();
 	}
 
 	
 	public EntityAgeable createChild(EntityAgeable ageable) {
-
 		return null;
 	}
 
 	protected void setOffspringAttributes(EntityAgeable p_190681_1_, AbstractHorse p_190681_2_) {
-
 		double d0 = getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() + p_190681_1_.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() + (double) getModifiedMaxHealth();
 		p_190681_2_.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(d0 / 3D);
 		double d1 = getEntityAttribute(JUMP_STRENGTH).getBaseValue() + p_190681_1_.getEntityAttribute(JUMP_STRENGTH).getBaseValue() + getModifiedJumpStrength();
@@ -951,27 +880,22 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * by a player and the player is holding a carrot-on-a-stick
 	 */
 	public boolean canBeSteered() {
-
 		return getControllingPassenger() instanceof EntityLivingBase;
 	}
 
 	public float getGrassEatingAmount(float p_110258_1_) {
-
 		return prevHeadLean + (headLean - prevHeadLean) * p_110258_1_;
 	}
 
 	public float getRearingAmount(float p_110223_1_) {
-
 		return prevRearingAmount + (rearingAmount - prevRearingAmount) * p_110223_1_;
 	}
 
 	public float getMouthOpennessAngle(float p_110201_1_) {
-
 		return prevMouthOpenness + (mouthOpenness - prevMouthOpenness) * p_110201_1_;
 	}
 
 	public void setJumpPower(int jumpPowerIn) {
-
 		if (isHorseSaddled()) {
 			if (jumpPowerIn < 0) {
 				jumpPowerIn = 0;
@@ -989,25 +913,21 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	}
 
 	public boolean canJump() {
-
 		return isHorseSaddled();
 	}
 
 	public void handleStartJump(int p_184775_1_) {
-
 		allowStandSliding = true;
 		makeHorseRear();
 	}
 
 	public void handleStopJump() {
-
 	}
 
 	/**
 	 * "Spawns particles for the horse entity. par1 tells whether to spawn hearts. If it is false, it spawns smoke."
 	 */
 	protected void spawnHorseParticles(boolean p_110216_1_) {
-
 		ParticleTypes enumparticletypes = p_110216_1_ ? ParticleTypes.HEART : ParticleTypes.SMOKE_NORMAL;
 
 		for (int i = 0; i < 7; ++i) {
@@ -1022,7 +942,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * Handler for {@link World#setEntityState}
 	 */
 	public void handleStatusUpdate(byte id) {
-
 		if (id == 7) {
 			spawnHorseParticles(true);
 		} else if (id == 6) {
@@ -1033,7 +952,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	}
 
 	public void updatePassenger(Entity passenger) {
-
 		super.updatePassenger(passenger);
 
 		if (passenger instanceof EntityLiving entityliving) {
@@ -1057,7 +975,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * Returns randomized max health
 	 */
 	protected float getModifiedMaxHealth() {
-
 		return 15F + (float) rand.nextInt(8) + (float) rand.nextInt(9);
 	}
 
@@ -1065,7 +982,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * Returns randomized jump strength
 	 */
 	protected double getModifiedJumpStrength() {
-
 		return 0.4000000059604645D + rand.nextDouble() * 0.2D + rand.nextDouble() * 0.2D + rand.nextDouble() * 0.2D;
 	}
 
@@ -1073,7 +989,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * Returns randomized movement speed
 	 */
 	protected double getModifiedMovementSpeed() {
-
 		return (0.44999998807907104D + rand.nextDouble() * 0.3D + rand.nextDouble() * 0.3D + rand.nextDouble() * 0.3D) * 0.25D;
 	}
 
@@ -1082,27 +997,22 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * for AI reasons)
 	 */
 	public boolean isOnLadder() {
-
 		return false;
 	}
 
 	public float getEyeHeight() {
-
 		return height;
 	}
 
 	public boolean wearsArmor() {
-
 		return false;
 	}
 
 	public boolean isArmor(ItemStack stack) {
-
 		return false;
 	}
 
 	public boolean replaceItemInInventory(int inventorySlot, ItemStack itemStackIn) {
-
 		int i = inventorySlot - 400;
 
 		if (i >= 0 && i < 2 && i < horseChest.getSizeInventory()) {
@@ -1134,7 +1044,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * Pigs, Horses, and Boats are generally "steered" by the controlling passenger.
 	 */
 	public Entity getControllingPassenger() {
-
 		return getPassengers().isEmpty() ? null : getPassengers().getFirst();
 	}
 
@@ -1155,7 +1064,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 
 		if (rand.nextInt(5) == 0) {

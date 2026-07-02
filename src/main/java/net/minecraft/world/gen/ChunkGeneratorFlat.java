@@ -32,7 +32,6 @@ public class ChunkGeneratorFlat implements IChunkGenerator {
 	private WorldGenLakes lavaLakeGenerator;
 
 	public ChunkGeneratorFlat(World worldIn, long seed, boolean generateStructures, String flatGeneratorSettings) {
-
 		world = worldIn;
 		random = new Random(seed);
 		flatWorldGenInfo = FlatGeneratorInfo.createFlatGeneratorFromString(flatGeneratorSettings);
@@ -106,7 +105,6 @@ public class ChunkGeneratorFlat implements IChunkGenerator {
 	 * Generates the chunk at the specified position, from scratch
 	 */
 	public Chunk generateChunk(int x, int z) {
-
 		ChunkPrimer chunkprimer = new ChunkPrimer();
 
 		for (int i = 0; i < cachedBlockIDs.length; ++i) {
@@ -144,7 +142,6 @@ public class ChunkGeneratorFlat implements IChunkGenerator {
 	 * @param z Chunk z coordinate
 	 */
 	public void populate(int x, int z) {
-
 		int i = x * 16;
 		int j = z * 16;
 		BlockPos blockpos = new BlockPos(i, 0, j);
@@ -191,7 +188,6 @@ public class ChunkGeneratorFlat implements IChunkGenerator {
 	 * Called to generate additional structures after initial worldgen, used by ocean monuments
 	 */
 	public boolean generateStructures(Chunk chunkIn, int x, int z) {
-
 		return false;
 	}
 
@@ -203,13 +199,11 @@ public class ChunkGeneratorFlat implements IChunkGenerator {
 
 	
 	public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
-
 		MapGenStructure mapgenstructure = structureGenerators.get(structureName);
 		return mapgenstructure != null ? mapgenstructure.getNearestStructurePos(worldIn, position, findUnexplored) : null;
 	}
 
 	public boolean isInsideStructure(World worldIn, String structureName, BlockPos pos) {
-
 		MapGenStructure mapgenstructure = structureGenerators.get(structureName);
 		return mapgenstructure != null && mapgenstructure.isInsideStructure(pos);
 	}
@@ -220,7 +214,6 @@ public class ChunkGeneratorFlat implements IChunkGenerator {
 	 * state needed by getPossibleCreatures.
 	 */
 	public void recreateStructures(Chunk chunkIn, int x, int z) {
-
 		for (MapGenStructure mapgenstructure : structureGenerators.values()) {
 			mapgenstructure.generate(world, x, z, null);
 		}

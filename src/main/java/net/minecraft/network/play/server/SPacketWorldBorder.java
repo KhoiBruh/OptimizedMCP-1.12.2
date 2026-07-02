@@ -18,11 +18,9 @@ public class SPacketWorldBorder implements Packet<INetHandlerPlayClient> {
 	private int warningDistance;
 
 	public SPacketWorldBorder() {
-
 	}
 
 	public SPacketWorldBorder(WorldBorder border, SPacketWorldBorder.Action actionIn) {
-
 		action = actionIn;
 		centerX = border.getCenterX();
 		centerZ = border.getCenterZ();
@@ -38,7 +36,6 @@ public class SPacketWorldBorder implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		action = buf.readEnumValue(Action.class);
 
 		switch (action) {
@@ -81,7 +78,6 @@ public class SPacketWorldBorder implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeEnumValue(action);
 
 		switch (action) {
@@ -124,12 +120,10 @@ public class SPacketWorldBorder implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleWorldBorder(this);
 	}
 
 	public void apply(WorldBorder border) {
-
 		switch (action) {
 			case SET_SIZE:
 				border.setTransition(targetSize);

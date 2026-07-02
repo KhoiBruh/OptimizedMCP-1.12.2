@@ -20,13 +20,11 @@ public class SetMetadata extends LootFunction {
 	private final RandomValueRange metaRange;
 
 	public SetMetadata(LootCondition[] conditionsIn, RandomValueRange metaRangeIn) {
-
 		super(conditionsIn);
 		metaRange = metaRangeIn;
 	}
 
 	public ItemStack apply(ItemStack stack, Random rand, LootContext context) {
-
 		if (stack.isItemStackDamageable()) {
 			LOGGER.warn("Couldn't set data of loot item {}", stack);
 		} else {
@@ -39,17 +37,14 @@ public class SetMetadata extends LootFunction {
 	public static class Serializer extends LootFunction.Serializer<SetMetadata> {
 
 		protected Serializer() {
-
 			super(new ResourceLocation("set_data"), SetMetadata.class);
 		}
 
 		public void serialize(JsonObject object, SetMetadata functionClazz, JsonSerializationContext serializationContext) {
-
 			object.add("data", serializationContext.serialize(functionClazz.metaRange));
 		}
 
 		public SetMetadata deserialize(JsonObject object, JsonDeserializationContext deserializationContext, LootCondition[] conditionsIn) {
-
 			return new SetMetadata(conditionsIn, JsonUtils.deserializeClass(object, "data", deserializationContext, RandomValueRange.class));
 		}
 

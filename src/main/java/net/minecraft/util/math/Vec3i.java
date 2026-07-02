@@ -25,19 +25,16 @@ public class Vec3i implements Comparable<Vec3i> {
 	private final int z;
 
 	public Vec3i(int xIn, int yIn, int zIn) {
-
 		x = xIn;
 		y = yIn;
 		z = zIn;
 	}
 
 	public Vec3i(double xIn, double yIn, double zIn) {
-
 		this(MathHelper.floor(xIn), MathHelper.floor(yIn), MathHelper.floor(zIn));
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else if (!(p_equals_1_ instanceof Vec3i vec3i)) {
@@ -55,12 +52,10 @@ public class Vec3i implements Comparable<Vec3i> {
 	}
 
 	public int hashCode() {
-
 		return (getY() + getZ() * 31) * 31 + getX();
 	}
 
 	public int compareTo(Vec3i p_compareTo_1_) {
-
 		if (getY() == p_compareTo_1_.getY()) {
 			return getZ() == p_compareTo_1_.getZ() ? getX() - p_compareTo_1_.getX() : getZ() - p_compareTo_1_.getZ();
 		} else {
@@ -72,7 +67,6 @@ public class Vec3i implements Comparable<Vec3i> {
 	 * Gets the X coordinate.
 	 */
 	public int getX() {
-
 		return x;
 	}
 
@@ -80,7 +74,6 @@ public class Vec3i implements Comparable<Vec3i> {
 	 * Gets the Y coordinate.
 	 */
 	public int getY() {
-
 		return y;
 	}
 
@@ -88,7 +81,6 @@ public class Vec3i implements Comparable<Vec3i> {
 	 * Gets the Z coordinate.
 	 */
 	public int getZ() {
-
 		return z;
 	}
 
@@ -96,12 +88,10 @@ public class Vec3i implements Comparable<Vec3i> {
 	 * Calculate the cross product of this and the given Vector
 	 */
 	public Vec3i crossProduct(Vec3i vec) {
-
 		return new Vec3i(getY() * vec.getZ() - getZ() * vec.getY(), getZ() * vec.getX() - getX() * vec.getZ(), getX() * vec.getY() - getY() * vec.getX());
 	}
 
 	public double getDistance(int xIn, int yIn, int zIn) {
-
 		double d0 = getX() - xIn;
 		double d1 = getY() - yIn;
 		double d2 = getZ() - zIn;
@@ -112,7 +102,6 @@ public class Vec3i implements Comparable<Vec3i> {
 	 * Calculate squared distance to the given coordinates
 	 */
 	public double distanceSq(double toX, double toY, double toZ) {
-
 		double d0 = (double) getX() - toX;
 		double d1 = (double) getY() - toY;
 		double d2 = (double) getZ() - toZ;
@@ -123,7 +112,6 @@ public class Vec3i implements Comparable<Vec3i> {
 	 * Compute square of distance from point x, y, z to center of this Block
 	 */
 	public double distanceSqToCenter(double xIn, double yIn, double zIn) {
-
 		double d0 = (double) getX() + 0.5D - xIn;
 		double d1 = (double) getY() + 0.5D - yIn;
 		double d2 = (double) getZ() + 0.5D - zIn;
@@ -134,12 +122,10 @@ public class Vec3i implements Comparable<Vec3i> {
 	 * Calculate squared distance to the given Vector
 	 */
 	public double distanceSq(Vec3i to) {
-
 		return distanceSq(to.getX(), to.getY(), to.getZ());
 	}
 
 	public String toString() {
-
 		return MoreObjects.toStringHelper(this).add("x", getX()).add("y", getY()).add("z", getZ()).toString();
 	}
 

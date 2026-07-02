@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 public class ItemFireball extends Item {
 
 	public ItemFireball() {
-
 		setCreativeTab(CreativeTabs.MISC);
 	}
 
@@ -23,7 +22,6 @@ public class ItemFireball extends Item {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		if (worldIn.isRemote) {
 			return ActionResult.SUCCESS;
 		} else {

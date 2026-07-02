@@ -9,7 +9,6 @@ import java.util.Random;
 public class WorldGenEndGateway extends WorldGenerator {
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		for (BlockPos.MutableBlockPos blockpos$mutableblockpos : BlockPos.getAllInBoxMutable(position.add(-1, -2, -1), position.add(1, 2, 1))) {
 			boolean flag = blockpos$mutableblockpos.getX() == position.getX();
 			boolean flag1 = blockpos$mutableblockpos.getY() == position.getY();

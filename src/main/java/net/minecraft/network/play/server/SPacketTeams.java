@@ -23,7 +23,6 @@ public class SPacketTeams implements Packet<INetHandlerPlayClient> {
 	private int friendlyFlags;
 
 	public SPacketTeams() {
-
 		nameTagVisibility = Team.Visible.ALWAYS.internalName;
 		collisionRule = Team.CollisionRule.ALWAYS.name;
 		color = -1;
@@ -31,7 +30,6 @@ public class SPacketTeams implements Packet<INetHandlerPlayClient> {
 	}
 
 	public SPacketTeams(ScorePlayerTeam teamIn, int actionIn) {
-
 		nameTagVisibility = Team.Visible.ALWAYS.internalName;
 		collisionRule = Team.CollisionRule.ALWAYS.name;
 		color = -1;
@@ -55,7 +53,6 @@ public class SPacketTeams implements Packet<INetHandlerPlayClient> {
 	}
 
 	public SPacketTeams(ScorePlayerTeam teamIn, Collection<String> playersIn, int actionIn) {
-
 		nameTagVisibility = Team.Visible.ALWAYS.internalName;
 		collisionRule = Team.CollisionRule.ALWAYS.name;
 		color = -1;
@@ -76,7 +73,6 @@ public class SPacketTeams implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		name = buf.readString(16);
 		action = buf.readByte();
 
@@ -103,7 +99,6 @@ public class SPacketTeams implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeString(name);
 		buf.writeByte(action);
 
@@ -130,57 +125,46 @@ public class SPacketTeams implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleTeams(this);
 	}
 
 	public String getName() {
-
 		return name;
 	}
 
 	public String getDisplayName() {
-
 		return displayName;
 	}
 
 	public String getPrefix() {
-
 		return prefix;
 	}
 
 	public String getSuffix() {
-
 		return suffix;
 	}
 
 	public Collection<String> getPlayers() {
-
 		return players;
 	}
 
 	public int getAction() {
-
 		return action;
 	}
 
 	public int getFriendlyFlags() {
-
 		return friendlyFlags;
 	}
 
 	public int getColor() {
-
 		return color;
 	}
 
 	public String getNameTagVisibility() {
-
 		return nameTagVisibility;
 	}
 
 	public String getCollisionRule() {
-
 		return collisionRule;
 	}
 

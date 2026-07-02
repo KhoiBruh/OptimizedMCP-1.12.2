@@ -13,12 +13,10 @@ public class LayerStrayClothing implements LayerRenderer<EntityStray> {
 	private final ModelSkeleton layerModel = new ModelSkeleton(0.25F, true);
 
 	public LayerStrayClothing(RenderLivingBase<?> p_i47183_1_) {
-
 		renderer = p_i47183_1_;
 	}
 
 	public void doRenderLayer(EntityStray entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		layerModel.setModelAttributes(renderer.getMainModel());
 		layerModel.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks);
 		GLS.color(1F, 1F, 1F, 1F);
@@ -27,7 +25,6 @@ public class LayerStrayClothing implements LayerRenderer<EntityStray> {
 	}
 
 	public boolean shouldCombineTextures() {
-
 		return true;
 	}
 

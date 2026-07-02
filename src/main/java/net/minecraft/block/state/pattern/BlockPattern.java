@@ -18,7 +18,6 @@ public class BlockPattern {
 	private final int palmLength;
 
 	public BlockPattern(Predicate<BlockWorldState>[][][] predicatesIn) {
-
 		blockMatches = predicatesIn;
 		fingerLength = predicatesIn.length;
 
@@ -46,7 +45,6 @@ public class BlockPattern {
 	 * rule for cross products (finger, thumb, palm) @return A new BlockPos offset in the facing directions
 	 */
 	protected static BlockPos translateOffset(BlockPos pos, Facing finger, Facing thumb, int palmOffset, int thumbOffset, int fingerOffset) {
-
 		if (finger != thumb && finger != thumb.getOpposite()) {
 			Vec3i vec3i = new Vec3i(finger.getFrontOffsetX(), finger.getFrontOffsetY(), finger.getFrontOffsetZ());
 			Vec3i vec3i1 = new Vec3i(thumb.getFrontOffsetX(), thumb.getFrontOffsetY(), thumb.getFrontOffsetZ());
@@ -58,17 +56,14 @@ public class BlockPattern {
 	}
 
 	public int getFingerLength() {
-
 		return fingerLength;
 	}
 
 	public int getThumbLength() {
-
 		return thumbLength;
 	}
 
 	public int getPalmLength() {
-
 		return palmLength;
 	}
 
@@ -126,13 +121,11 @@ public class BlockPattern {
 		private final boolean forceLoad;
 
 		public CacheLoader(World worldIn, boolean forceLoadIn) {
-
 			world = worldIn;
 			forceLoad = forceLoadIn;
 		}
 
 		public BlockWorldState load(BlockPos p_load_1_) {
-
 			return new BlockWorldState(world, p_load_1_, forceLoad);
 		}
 
@@ -148,7 +141,6 @@ public class BlockPattern {
 		private final int height;
 		
 		public PatternHelper(BlockPos posIn, Facing fingerIn, Facing thumbIn, LoadingCache<BlockPos, BlockWorldState> lcacheIn, int widthIn, int heightIn) {
-
 			frontTopLeft = posIn;
 			forwards = fingerIn;
 			up = thumbIn;
@@ -158,37 +150,30 @@ public class BlockPattern {
 		}
 
 		public BlockPos getFrontTopLeft() {
-
 			return frontTopLeft;
 		}
 
 		public Facing getForwards() {
-
 			return forwards;
 		}
 
 		public Facing getUp() {
-
 			return up;
 		}
 
 		public int getWidth() {
-
 			return width;
 		}
 
 		public int getHeight() {
-
 			return height;
 		}
 
 		public BlockWorldState translateOffset(int palmOffset, int thumbOffset, int fingerOffset) {
-
 			return lcache.getUnchecked(BlockPattern.translateOffset(frontTopLeft, getForwards(), getUp(), palmOffset, thumbOffset, fingerOffset));
 		}
 
 		public String toString() {
-
 			return MoreObjects.toStringHelper(this).add("up", up).add("forwards", forwards).add("frontTopLeft", frontTopLeft).toString();
 		}
 

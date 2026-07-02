@@ -15,23 +15,19 @@ public class CrashReportCategory {
 	private StackTraceElement[] stackTrace = new StackTraceElement[0];
 
 	public CrashReportCategory(CrashReport report, String name) {
-
 		crashReport = report;
 		this.name = name;
 	}
 
 	public static String getCoordinateInfo(double x, double y, double z) {
-
 		return String.format("%.2f,%.2f,%.2f - %s", x, y, z, getCoordinateInfo(new BlockPos(x, y, z)));
 	}
 
 	public static String getCoordinateInfo(BlockPos pos) {
-
 		return getCoordinateInfo(pos.getX(), pos.getY(), pos.getZ());
 	}
 
 	public static String getCoordinateInfo(int x, int y, int z) {
-
 		StringBuilder stringbuilder = new StringBuilder();
 
 		try {
@@ -79,7 +75,6 @@ public class CrashReportCategory {
 	}
 
 	public static void addBlockInfo(CrashReportCategory category, final BlockPos pos, final Block blockIn, final int blockData) {
-
 		final int i = Block.getIdFromBlock(blockIn);
 		category.addDetail("Block type", () -> {
 
@@ -102,7 +97,6 @@ public class CrashReportCategory {
 	}
 
 	public static void addBlockInfo(CrashReportCategory category, final BlockPos pos, final IBlockState state) {
-
 		category.addDetail("Block", state::toString);
 		category.addDetail("Block location", () -> CrashReportCategory.getCoordinateInfo(pos));
 	}
@@ -113,7 +107,6 @@ public class CrashReportCategory {
 	 * If the given callable throws an exception, a detail containing that exception will be created instead.
 	 */
 	public void addDetail(String nameIn, ICrashReportDetail<String> detail) {
-
 		try {
 			addCrashSection(nameIn, detail.call());
 		} catch (Throwable throwable) {
@@ -125,7 +118,6 @@ public class CrashReportCategory {
 	 * Adds a Crashreport section with the given name with the given value (convered .toString())
 	 */
 	public void addCrashSection(String sectionName, Object value) {
-
 		children.add(new CrashReportCategory.Entry(sectionName, value));
 	}
 
@@ -133,7 +125,6 @@ public class CrashReportCategory {
 	 * Adds a Crashreport section with the given name with the given Throwable
 	 */
 	public void addCrashSectionThrowable(String sectionName, Throwable throwable) {
-
 		addCrashSection(sectionName, throwable);
 	}
 
@@ -142,7 +133,6 @@ public class CrashReportCategory {
 	 * how many additional deepest entries to prune.  Returns the number of entries in the resulting pruned stack trace.
 	 */
 	public int getPrunedStackTrace(int size) {
-
 		StackTraceElement[] astacktraceelement = Thread.currentThread().getStackTrace();
 
 		if (astacktraceelement.length == 0) {
@@ -158,7 +148,6 @@ public class CrashReportCategory {
 	 * Do the deepest two elements of our saved stack trace match the given elements, in order from the deepest?
 	 */
 	public boolean firstTwoElementsOfStackTraceMatch(StackTraceElement s1, StackTraceElement s2) {
-
 		if (stackTrace.length != 0 && s1 != null) {
 			StackTraceElement stacktraceelement = stackTrace[0];
 
@@ -183,14 +172,12 @@ public class CrashReportCategory {
 	 * Removes the given number entries from the bottom of the stack trace.
 	 */
 	public void trimStackTraceEntriesFromBottom(int amount) {
-
 		StackTraceElement[] astacktraceelement = new StackTraceElement[stackTrace.length - amount];
 		System.arraycopy(stackTrace, 0, astacktraceelement, 0, astacktraceelement.length);
 		stackTrace = astacktraceelement;
 	}
 
 	public void appendToStringBuilder(StringBuilder builder) {
-
 		builder.append("-- ").append(name).append(" --\n");
 		builder.append("Details:");
 
@@ -212,14 +199,11 @@ public class CrashReportCategory {
 	}
 
 	public StackTraceElement[] getStackTrace() {
-
 		return stackTrace;
 	}
 
 	record Entry(String key, Object value) {
-
 		Entry(String key, Object value) {
-
 			this.key = key;
 
 			if (value == null) {

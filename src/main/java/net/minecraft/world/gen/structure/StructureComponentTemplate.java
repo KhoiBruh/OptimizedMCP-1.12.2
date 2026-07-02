@@ -23,18 +23,15 @@ public abstract class StructureComponentTemplate extends StructureComponent {
 	protected BlockPos templatePosition;
 
 	public StructureComponentTemplate() {
-
 		placeSettings = DEFAULT_PLACE_SETTINGS.setIgnoreEntities(true).setReplacedBlock(Blocks.AIR);
 	}
 
 	public StructureComponentTemplate(int type) {
-
 		super(type);
 		placeSettings = DEFAULT_PLACE_SETTINGS.setIgnoreEntities(true).setReplacedBlock(Blocks.AIR);
 	}
 
 	protected void setup(Template templateIn, BlockPos pos, PlacementSettings settings) {
-
 		template = templateIn;
 		setCoordBaseMode(Facing.NORTH);
 		templatePosition = pos;
@@ -46,7 +43,6 @@ public abstract class StructureComponentTemplate extends StructureComponent {
 	 * (abstract) Helper method to write subclass data to NBT
 	 */
 	protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
 		tagCompound.setInteger("TPX", templatePosition.getX());
 		tagCompound.setInteger("TPY", templatePosition.getY());
 		tagCompound.setInteger("TPZ", templatePosition.getZ());
@@ -56,7 +52,6 @@ public abstract class StructureComponentTemplate extends StructureComponent {
 	 * (abstract) Helper method to read subclass data from NBT
 	 */
 	protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
 		templatePosition = new BlockPos(tagCompound.getInteger("TPX"), tagCompound.getInteger("TPY"), tagCompound.getInteger("TPZ"));
 	}
 
@@ -65,7 +60,6 @@ public abstract class StructureComponentTemplate extends StructureComponent {
 	 * the end, it adds Fences...
 	 */
 	public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 		placeSettings.setBoundingBox(structureBoundingBoxIn);
 		template.addBlocksToWorld(worldIn, templatePosition, placeSettings, 18);
 		Map<BlockPos, String> map = template.getDataBlocks(templatePosition, placeSettings);
@@ -81,7 +75,6 @@ public abstract class StructureComponentTemplate extends StructureComponent {
 	protected abstract void handleDataMarker(String function, BlockPos pos, World worldIn, Random rand, StructureBoundingBox sbb);
 
 	private void setBoundingBoxFromTemplate() {
-
 		Rotation rotation = placeSettings.getRotation();
 		BlockPos blockpos = template.transformedSize(rotation);
 		Mirror mirror = placeSettings.getMirror();
@@ -145,7 +138,6 @@ public abstract class StructureComponentTemplate extends StructureComponent {
 	}
 
 	public void offset(int x, int y, int z) {
-
 		super.offset(x, y, z);
 		templatePosition = templatePosition.add(x, y, z);
 	}

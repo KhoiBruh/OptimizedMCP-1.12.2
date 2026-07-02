@@ -34,7 +34,6 @@ public class SuffixArray<T> {
 	private int maxStringLength;
 
 	public void add(T p_194057_1_, String p_194057_2_) {
-
 		maxStringLength = Math.max(maxStringLength, p_194057_2_.length());
 		int i = list.size();
 		list.add(p_194057_1_);
@@ -52,7 +51,6 @@ public class SuffixArray<T> {
 	}
 
 	public void generate() {
-
 		int i = chars.size();
 		int[] aint = new int[i];
 		final int[] aint1 = new int[i];
@@ -116,7 +114,6 @@ public class SuffixArray<T> {
 	 * Prints the entire array to the logger, on debug level
 	 */
 	private void printArray() {
-
 		for (int i2 = 0; i2 < suffixToT.size(); ++i2) {
 			LOGGER.debug("{} {}", i2, getString(i2));
 		}
@@ -125,7 +122,6 @@ public class SuffixArray<T> {
 	}
 
 	private String getString(int p_194059_1_) {
-
 		int i2 = offsets.getInt(p_194059_1_);
 		int j2 = wordStarts.getInt(suffixToT.getInt(p_194059_1_));
 		StringBuilder stringbuilder = new StringBuilder();
@@ -148,7 +144,6 @@ public class SuffixArray<T> {
 	}
 
 	private int compare(String p_194056_1_, int p_194056_2_) {
-
 		int i2 = wordStarts.getInt(suffixToT.getInt(p_194056_2_));
 		int j2 = offsets.getInt(p_194056_2_);
 
@@ -175,7 +170,6 @@ public class SuffixArray<T> {
 	}
 
 	public List<T> search(String p_194055_1_) {
-
 		int i2 = suffixToT.size();
 		int j2 = 0;
 		int k2 = i2;

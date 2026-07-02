@@ -42,13 +42,11 @@ public class AdvancementManager {
 	private boolean hasErrored;
 
 	public AdvancementManager(File advancementsDirIn) {
-
 		advancementsDir = advancementsDirIn;
 		reload();
 	}
 
 	public void reload() {
-
 		hasErrored = false;
 		ADVANCEMENT_LIST.clear();
 		Map<ResourceLocation, Advancement.Builder> map = loadCustomAdvancements();
@@ -63,7 +61,6 @@ public class AdvancementManager {
 	}
 
 	public boolean hasErrored() {
-
 		return hasErrored;
 	}
 
@@ -104,7 +101,6 @@ public class AdvancementManager {
 	}
 
 	private void loadBuiltInAdvancements(Map<ResourceLocation, Advancement.Builder> map) {
-
 		try {
 			URL url = AdvancementManager.class.getResource("/assets/.mcassetsroot");
 
@@ -139,7 +135,6 @@ public class AdvancementManager {
 	}
 
 	private void loadAdvancementsFromPath(Map<ResourceLocation, Advancement.Builder> map, Path path) throws IOException {
-
 		Iterator<Path> iterator = Files.walk(path).iterator();
 
 		while (iterator.hasNext()) {
@@ -168,12 +163,10 @@ public class AdvancementManager {
 
 	
 	public Advancement getAdvancement(ResourceLocation id) {
-
 		return ADVANCEMENT_LIST.getAdvancement(id);
 	}
 
 	public Iterable<Advancement> getAdvancements() {
-
 		return ADVANCEMENT_LIST.getAdvancements();
 	}
 

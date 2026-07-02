@@ -29,7 +29,6 @@ public class BlockRailDetector extends BlockRailBase {
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
 
 	public BlockRailDetector() {
-
 		super(true);
 		setDefaultState(blockState.getBaseState().withProperty(POWERED, false).withProperty(SHAPE, BlockRailBase.RailDirection.NORTH_SOUTH));
 		setTickRandomly(true);
@@ -39,7 +38,6 @@ public class BlockRailDetector extends BlockRailBase {
 	 * How many world ticks before ticking
 	 */
 	public int tickRate(World worldIn) {
-
 		return 20;
 	}
 
@@ -47,7 +45,6 @@ public class BlockRailDetector extends BlockRailBase {
 	 * Can this block provide power. Only wire currently seems to have this change based on its state.
 	 */
 	public boolean canProvidePower(IBlockState state) {
-
 		return true;
 	}
 
@@ -55,7 +52,6 @@ public class BlockRailDetector extends BlockRailBase {
 	 * Called When an Entity Collided with the Block
 	 */
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-
 		if (!worldIn.isRemote) {
 			if (!state.getValue(POWERED)) {
 				updatePoweredState(worldIn, pos, state);
@@ -67,23 +63,19 @@ public class BlockRailDetector extends BlockRailBase {
 	 * Called randomly when setTickRandomly is set to true (used by e.g. crops to grow, etc.)
 	 */
 	public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
-
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if (!worldIn.isRemote && state.getValue(POWERED)) {
 			updatePoweredState(worldIn, pos, state);
 		}
 	}
 
 	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		return blockState.getValue(POWERED) ? 15 : 0;
 	}
 
 	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		if (!blockState.getValue(POWERED)) {
 			return 0;
 		} else {
@@ -92,7 +84,6 @@ public class BlockRailDetector extends BlockRailBase {
 	}
 
 	private void updatePoweredState(World worldIn, BlockPos pos, IBlockState state) {
-
 		boolean flag = state.getValue(POWERED);
 		boolean flag1 = false;
 		List<EntityMinecart> list = findMinecarts(worldIn, pos, EntityMinecart.class);
@@ -125,7 +116,6 @@ public class BlockRailDetector extends BlockRailBase {
 	}
 
 	protected void updateConnectedRails(World worldIn, BlockPos pos, IBlockState state, boolean powered) {
-
 		BlockRailBase.Rail blockrailbase$rail = new BlockRailBase.Rail(worldIn, pos, state);
 
 		for (BlockPos blockpos : blockrailbase$rail.getConnectedRails()) {
@@ -141,7 +131,6 @@ public class BlockRailDetector extends BlockRailBase {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		super.onBlockAdded(worldIn, pos, state);
 		updatePoweredState(worldIn, pos, state);
 	}
@@ -152,12 +141,10 @@ public class BlockRailDetector extends BlockRailBase {
 	}
 
 	public boolean hasComparatorInputOverride(IBlockState state) {
-
 		return true;
 	}
 
 	public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
-
 		if (blockState.getValue(POWERED)) {
 			List<EntityMinecartCommandBlock> list = findMinecarts(worldIn, pos, EntityMinecartCommandBlock.class);
 
@@ -183,7 +170,6 @@ public class BlockRailDetector extends BlockRailBase {
 	}
 
 	private AxisAlignedBB getDectectionBox(BlockPos pos) {
-
 		return new AxisAlignedBB((float) pos.getX() + 0.2F, pos.getY(), (float) pos.getZ() + 0.2F, (float) (pos.getX() + 1) - 0.2F, (float) (pos.getY() + 1) - 0.2F, (float) (pos.getZ() + 1) - 0.2F);
 	}
 
@@ -191,7 +177,6 @@ public class BlockRailDetector extends BlockRailBase {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(SHAPE, BlockRailBase.RailDirection.byMetadata(meta & 7)).withProperty(POWERED, (meta & 8) > 0);
 	}
 
@@ -199,7 +184,6 @@ public class BlockRailDetector extends BlockRailBase {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 		i = i | state.getValue(SHAPE).getMetadata();
 
@@ -217,7 +201,6 @@ public class BlockRailDetector extends BlockRailBase {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		switch (rot) {
 			case CLOCKWISE_180:
 				switch (state.getValue(SHAPE)) {
@@ -286,7 +269,6 @@ public class BlockRailDetector extends BlockRailBase {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		BlockRailBase.RailDirection blockrailbase$enumraildirection = state.getValue(SHAPE);
 
 		switch (mirrorIn) {
@@ -332,7 +314,6 @@ public class BlockRailDetector extends BlockRailBase {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, SHAPE, POWERED);
 	}
 

@@ -68,7 +68,6 @@ public class ChunkGeneratorHell implements IChunkGenerator {
 	private double[] buffer;
 
 	public ChunkGeneratorHell(World worldIn, boolean p_i45637_2_, long seed) {
-
 		world = worldIn;
 		generateStructures = p_i45637_2_;
 		rand = new Random(seed);
@@ -83,7 +82,6 @@ public class ChunkGeneratorHell implements IChunkGenerator {
 	}
 
 	public void prepareHeights(int p_185936_1_, int p_185936_2_, ChunkPrimer primer) {
-
 		int i = 4;
 		int j = world.getSeaLevel() / 2 + 1;
 		int k = 5;
@@ -149,7 +147,6 @@ public class ChunkGeneratorHell implements IChunkGenerator {
 	}
 
 	public void buildSurfaces(int p_185937_1_, int p_185937_2_, ChunkPrimer primer) {
-
 		int i = world.getSeaLevel() + 1;
 		double d0 = 0.03125D;
 		slowsandNoise = slowsandGravelNoiseGen.generateNoiseOctaves(slowsandNoise, p_185937_1_ * 16, p_185937_2_ * 16, 0, 16, 16, 1, 0.03125D, 0.03125D, 1D);
@@ -221,7 +218,6 @@ public class ChunkGeneratorHell implements IChunkGenerator {
 	 * Generates the chunk at the specified position, from scratch
 	 */
 	public Chunk generateChunk(int x, int z) {
-
 		rand.setSeed((long) x * 341873128712L + (long) z * 132897987541L);
 		ChunkPrimer chunkprimer = new ChunkPrimer();
 		prepareHeights(x, z, chunkprimer);
@@ -245,7 +241,6 @@ public class ChunkGeneratorHell implements IChunkGenerator {
 	}
 
 	private double[] getHeights(double[] p_185938_1_, int p_185938_2_, int p_185938_3_, int p_185938_4_, int p_185938_5_, int p_185938_6_, int p_185938_7_) {
-
 		if (p_185938_1_ == null) {
 			p_185938_1_ = new double[p_185938_5_ * p_185938_6_ * p_185938_7_];
 		}
@@ -322,7 +317,6 @@ public class ChunkGeneratorHell implements IChunkGenerator {
 	 * @param z Chunk z coordinate
 	 */
 	public void populate(int x, int z) {
-
 		BlockFalling.fallInstantly = true;
 		int i = x * 16;
 		int j = z * 16;
@@ -377,7 +371,6 @@ public class ChunkGeneratorHell implements IChunkGenerator {
 	 * Called to generate additional structures after initial worldgen, used by ocean monuments
 	 */
 	public boolean generateStructures(Chunk chunkIn, int x, int z) {
-
 		return false;
 	}
 
@@ -399,12 +392,10 @@ public class ChunkGeneratorHell implements IChunkGenerator {
 
 	
 	public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
-
 		return "Fortress".equals(structureName) && genNetherBridge != null ? genNetherBridge.getNearestStructurePos(worldIn, position, findUnexplored) : null;
 	}
 
 	public boolean isInsideStructure(World worldIn, String structureName, BlockPos pos) {
-
 		return "Fortress".equals(structureName) && genNetherBridge != null && genNetherBridge.isInsideStructure(pos);
 	}
 
@@ -414,7 +405,6 @@ public class ChunkGeneratorHell implements IChunkGenerator {
 	 * state needed by getPossibleCreatures.
 	 */
 	public void recreateStructures(Chunk chunkIn, int x, int z) {
-
 		genNetherBridge.generate(world, x, z, null);
 	}
 

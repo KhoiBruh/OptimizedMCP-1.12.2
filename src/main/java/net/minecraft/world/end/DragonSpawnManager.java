@@ -12,7 +12,6 @@ import java.util.Random;
 public enum DragonSpawnManager {
 	START {
 		public void process(WorldServer worldIn, DragonFightManager manager, List<EntityEnderCrystal> crystals, int ticks, BlockPos pos) {
-
 			BlockPos blockpos = new BlockPos(0, 128, 0);
 
 			for (EntityEnderCrystal entityendercrystal : crystals) {
@@ -24,7 +23,6 @@ public enum DragonSpawnManager {
 	},
 	PREPARING_TO_SUMMON_PILLARS {
 		public void process(WorldServer worldIn, DragonFightManager manager, List<EntityEnderCrystal> crystals, int ticks, BlockPos pos) {
-
 			if (ticks < 100) {
 				if (ticks == 0 || ticks == 50 || ticks == 51 || ticks == 52 || ticks >= 95) {
 					worldIn.playEvent(3001, new BlockPos(0, 128, 0), 0);
@@ -36,7 +34,6 @@ public enum DragonSpawnManager {
 	},
 	SUMMONING_PILLARS {
 		public void process(WorldServer worldIn, DragonFightManager manager, List<EntityEnderCrystal> crystals, int ticks, BlockPos pos) {
-
 			int i = 40;
 			boolean flag = ticks % 40 == 0;
 			boolean flag1 = ticks % 40 == 39;
@@ -74,7 +71,6 @@ public enum DragonSpawnManager {
 	},
 	SUMMONING_DRAGON {
 		public void process(WorldServer worldIn, DragonFightManager manager, List<EntityEnderCrystal> crystals, int ticks, BlockPos pos) {
-
 			if (ticks >= 100) {
 				manager.setRespawnState(END);
 				manager.resetSpikeCrystals();
@@ -97,12 +93,10 @@ public enum DragonSpawnManager {
 	},
 	END {
 		public void process(WorldServer worldIn, DragonFightManager manager, List<EntityEnderCrystal> crystals, int ticks, BlockPos pos) {
-
 		}
 	};
 
 	DragonSpawnManager() {
-
 	}
 
 	public abstract void process(WorldServer worldIn, DragonFightManager manager, List<EntityEnderCrystal> crystals, int ticks, BlockPos pos);

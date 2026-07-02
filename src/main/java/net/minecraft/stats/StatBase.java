@@ -59,7 +59,6 @@ public class StatBase {
 	private Class<? extends IJsonSerializable> serializableClazz;
 
 	public StatBase(String statIdIn, ITextComponent statNameIn, IStatType formatterIn) {
-
 		statId = statIdIn;
 		statName = statNameIn;
 		formatter = formatterIn;
@@ -68,7 +67,6 @@ public class StatBase {
 	}
 
 	public StatBase(String statIdIn, ITextComponent statNameIn) {
-
 		this(statIdIn, statNameIn, simpleStatType);
 	}
 
@@ -77,7 +75,6 @@ public class StatBase {
 	 * current instance.
 	 */
 	public StatBase initIndependentStat() {
-
 		isIndependent = true;
 		return this;
 	}
@@ -86,7 +83,6 @@ public class StatBase {
 	 * Register the stat into StatList.
 	 */
 	public StatBase registerStat() {
-
 		if (StatList.ID_TO_STAT_MAP.containsKey(statId)) {
 			throw new RuntimeException("Duplicate stat id: \"" + (StatList.ID_TO_STAT_MAP.get(statId)).statName + "\" and \"" + statName + "\" at id " + statId);
 		} else {
@@ -97,19 +93,16 @@ public class StatBase {
 	}
 
 	public String format(int number) {
-
 		return formatter.format(number);
 	}
 
 	public ITextComponent getStatName() {
-
 		ITextComponent itextcomponent = statName.createCopy();
 		itextcomponent.getStyle().setColor(TextFormat.GRAY);
 		return itextcomponent;
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else if (p_equals_1_ != null && getClass() == p_equals_1_.getClass()) {
@@ -121,12 +114,10 @@ public class StatBase {
 	}
 
 	public int hashCode() {
-
 		return statId.hashCode();
 	}
 
 	public String toString() {
-
 		return "Stat{id=" + statId + ", nameId=" + statName + ", awardLocallyOnly=" + isIndependent + ", formatter=" + formatter + ", objectiveCriteria=" + objectiveCriteria + '}';
 	}
 
@@ -134,7 +125,6 @@ public class StatBase {
 	 * 1.8.9
 	 */
 	public IScoreCriteria getCriteria() {
-
 		return objectiveCriteria;
 	}
 

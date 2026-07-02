@@ -17,7 +17,6 @@ public abstract class LootEntry {
 	protected final LootCondition[] conditions;
 
 	protected LootEntry(int weightIn, int qualityIn, LootCondition[] conditionsIn) {
-
 		weight = weightIn;
 		quality = qualityIn;
 		conditions = conditionsIn;
@@ -27,7 +26,6 @@ public abstract class LootEntry {
 	 * Gets the effective weight based on the loot entry's weight and quality multiplied by looter's luck.
 	 */
 	public int getEffectiveWeight(float luck) {
-
 		return Math.max(MathHelper.floor((float) weight + (float) quality * luck), 0);
 	}
 
@@ -38,7 +36,6 @@ public abstract class LootEntry {
 	public static class Serializer implements JsonDeserializer<LootEntry>, JsonSerializer<LootEntry> {
 
 		public LootEntry deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-
 			JsonObject jsonobject = JsonUtils.getJsonObject(p_deserialize_1_, "loot item");
 			String s = JsonUtils.getString(jsonobject, "type");
 			int i = JsonUtils.getInt(jsonobject, "weight", 1);
@@ -60,7 +57,6 @@ public abstract class LootEntry {
 		}
 
 		public JsonElement serialize(LootEntry p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
-
 			JsonObject jsonobject = new JsonObject();
 			jsonobject.addProperty("weight", p_serialize_1_.weight);
 			jsonobject.addProperty("quality", p_serialize_1_.quality);

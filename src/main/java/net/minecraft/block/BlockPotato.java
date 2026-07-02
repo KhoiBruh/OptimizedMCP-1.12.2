@@ -14,12 +14,10 @@ public class BlockPotato extends BlockCrops {
 	private static final AxisAlignedBB[] POTATO_AABB = new AxisAlignedBB[]{new AxisAlignedBB(0D, 0D, 0D, 1D, 0.125D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.1875D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.25D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.3125D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.375D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.4375D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.5D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.5625D, 1D)};
 
 	protected Item getSeed() {
-
 		return Items.POTATO;
 	}
 
 	protected Item getCrop() {
-
 		return Items.POTATO;
 	}
 
@@ -27,7 +25,6 @@ public class BlockPotato extends BlockCrops {
 	 * Spawns this Block's drops into the World as EntityItems.
 	 */
 	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
-
 		super.dropBlockAsItemWithChance(worldIn, pos, state, chance, fortune);
 
 		if (!worldIn.isRemote) {
@@ -38,7 +35,6 @@ public class BlockPotato extends BlockCrops {
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return POTATO_AABB[state.getValue(getAgeProperty())];
 	}
 

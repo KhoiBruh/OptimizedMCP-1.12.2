@@ -15,14 +15,12 @@ public class WorldGenShrub extends WorldGenTrees {
 	private final IBlockState woodMetadata;
 
 	public WorldGenShrub(IBlockState p_i46450_1_, IBlockState p_i46450_2_) {
-
 		super(false);
 		woodMetadata = p_i46450_1_;
 		leavesMetadata = p_i46450_2_;
 	}
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		for (IBlockState iblockstate = worldIn.getBlockState(position); (iblockstate.getMaterial() == Material.AIR || iblockstate.getMaterial() == Material.LEAVES) && position.getY() > 0; iblockstate = worldIn.getBlockState(position)) {
 			position = position.down();
 		}

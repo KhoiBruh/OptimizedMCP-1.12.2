@@ -43,7 +43,6 @@ public interface IScoreCriteria {
 		private final String renderType;
 
 		RenderType(String renderTypeIn) {
-
 			renderType = renderTypeIn;
 		}
 
@@ -54,7 +53,6 @@ public interface IScoreCriteria {
 		}
 
 		public String getRenderType() {
-
 			return renderType;
 		}
 	}

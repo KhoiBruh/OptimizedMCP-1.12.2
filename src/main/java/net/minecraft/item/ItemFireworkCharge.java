@@ -11,7 +11,6 @@ import java.util.List;
 public class ItemFireworkCharge extends Item {
 
 	public static NBTBase getExplosionTag(ItemStack stack, String key) {
-
 		if (stack.hasTagCompound()) {
 			NBTTagCompound nbttagcompound = stack.getTagCompound().getCompoundTag("Explosion");
 
@@ -24,7 +23,6 @@ public class ItemFireworkCharge extends Item {
 	}
 
 	public static void addExplosionInfo(NBTTagCompound nbt, List<String> tooltip) {
-
 		byte b0 = nbt.getByte("Type");
 
 		if (b0 >= 0 && b0 <= 4) {
@@ -110,7 +108,6 @@ public class ItemFireworkCharge extends Item {
 	 * allows items to add custom lines of information to the mouseover description
 	 */
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-
 		if (stack.hasTagCompound()) {
 			NBTTagCompound nbttagcompound = stack.getTagCompound().getCompoundTag("Explosion");
 

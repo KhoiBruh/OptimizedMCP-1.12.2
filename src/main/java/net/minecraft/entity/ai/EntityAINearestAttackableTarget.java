@@ -31,17 +31,14 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
 	protected T targetEntity;
 
 	public EntityAINearestAttackableTarget(EntityCreature creature, Class<T> classTarget, boolean checkSight) {
-
 		this(creature, classTarget, checkSight, false);
 	}
 
 	public EntityAINearestAttackableTarget(EntityCreature creature, Class<T> classTarget, boolean checkSight, boolean onlyNearby) {
-
 		this(creature, classTarget, 10, checkSight, onlyNearby, null);
 	}
 
 	public EntityAINearestAttackableTarget(EntityCreature creature, Class<T> classTarget, int chance, boolean checkSight, boolean onlyNearby, final Predicate<? super T> targetSelector) {
-
 		super(creature, checkSight, onlyNearby);
 		targetClass = classTarget;
 		targetChance = chance;
@@ -63,7 +60,6 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		if (targetChance > 0 && taskOwner.getRNG().nextInt(targetChance) != 0) {
 			return false;
 		} else if (targetClass != EntityPlayer.class && targetClass != EntityPlayerMP.class) {
@@ -99,7 +95,6 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
 	}
 
 	protected AxisAlignedBB getTargetableArea(double targetDistance) {
-
 		return taskOwner.getEntityBoundingBox().grow(targetDistance, 4D, targetDistance);
 	}
 
@@ -107,7 +102,6 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		taskOwner.setAttackTarget(targetEntity);
 		super.startExecuting();
 	}
@@ -117,12 +111,10 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
 		private final Entity entity;
 
 		public Sorter(Entity entityIn) {
-
 			entity = entityIn;
 		}
 
 		public int compare(Entity p_compare_1_, Entity p_compare_2_) {
-
 			double d0 = entity.getDistanceSq(p_compare_1_);
 			double d1 = entity.getDistanceSq(p_compare_2_);
 

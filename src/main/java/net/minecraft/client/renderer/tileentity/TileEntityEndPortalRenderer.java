@@ -23,7 +23,6 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
 	private final FloatBuffer buffer = GLAllocation.createDirectFloatBuffer(16);
 
 	public void render(TileEntityEndPortal te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-
 		GLS.disableLighting();
 		RANDOM.setSeed(31100L);
 		GLS.getFloat(2982, MODELVIEW);
@@ -143,7 +142,6 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
 	}
 
 	protected int getPasses(double p_191286_1_) {
-
 		int i;
 
 		if (p_191286_1_ > 36864D) {
@@ -170,12 +168,10 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
 	}
 
 	protected float getOffset() {
-
 		return 0.75F;
 	}
 
 	private FloatBuffer getBuffer(float p_147525_1_, float p_147525_2_, float p_147525_3_, float p_147525_4_) {
-
 		buffer.clear();
 		buffer.put(p_147525_1_).put(p_147525_2_).put(p_147525_3_).put(p_147525_4_);
 		buffer.flip();

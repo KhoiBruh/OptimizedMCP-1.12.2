@@ -5,7 +5,6 @@ import net.minecraft.client.Minecraft;
 public abstract class GuiListExtended extends GuiSlot {
 
 	public GuiListExtended(Minecraft mcIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn) {
-
 		super(mcIn, widthIn, heightIn, topIn, bottomIn, slotHeightIn);
 	}
 
@@ -13,33 +12,27 @@ public abstract class GuiListExtended extends GuiSlot {
 	 * The element in the slot that was clicked, boolean for whether it was double clicked or not
 	 */
 	protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
-
 	}
 
 	/**
 	 * Returns true if the element passed in is currently selected
 	 */
 	protected boolean isSelected(int slotIndex) {
-
 		return false;
 	}
 
 	protected void drawBackground() {
-
 	}
 
 	protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks) {
-
 		getListEntry(slotIndex).drawEntry(slotIndex, xPos, yPos, getListWidth(), heightIn, mouseXIn, mouseYIn, isMouseYWithinSlotBounds(mouseYIn) && getSlotIndexFromScreenCoords(mouseXIn, mouseYIn) == slotIndex, partialTicks);
 	}
 
 	protected void updateItemPos(int entryID, int insideLeft, int yPos, float partialTicks) {
-
 		getListEntry(entryID).updatePosition(entryID, insideLeft, yPos, partialTicks);
 	}
 
 	public boolean mouseClicked(int mouseX, int mouseY, int mouseEvent) {
-
 		if (isMouseYWithinSlotBounds(mouseY)) {
 			int i = getSlotIndexFromScreenCoords(mouseX, mouseY);
 
@@ -60,7 +53,6 @@ public abstract class GuiListExtended extends GuiSlot {
 	}
 
 	public boolean mouseReleased(int x, int y, int mouseEvent) {
-
 		for (int i = 0; i < getSize(); ++i) {
 			int j = left + width / 2 - getListWidth() / 2 + 2;
 			int k = top + 4 - getAmountScrolled() + i * slotHeight + headerPadding;

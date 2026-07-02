@@ -139,12 +139,10 @@ public class PotionItems implements IFixableData {
 	}
 
 	public int getFixVersion() {
-
 		return 102;
 	}
 
 	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
-
 		if ("minecraft:potion".equals(compound.getString("id"))) {
 			NBTTagCompound nbttagcompound = compound.getCompoundTag("tag");
 			short short1 = compound.getShort("Damage");

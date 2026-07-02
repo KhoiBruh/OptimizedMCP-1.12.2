@@ -12,7 +12,6 @@ import net.minecraft.world.World;
 public class ItemWritableBook extends Item {
 
 	public ItemWritableBook() {
-
 		setMaxStackSize(1);
 	}
 
@@ -20,7 +19,6 @@ public class ItemWritableBook extends Item {
 	 * this method returns true if the book's NBT Tag List "pages" is valid
 	 */
 	public static boolean isNBTValid(NBTTagCompound nbt) {
-
 		if (nbt == null) {
 			return false;
 		} else if (!nbt.hasKey("pages", 9)) {
@@ -41,7 +39,6 @@ public class ItemWritableBook extends Item {
 	}
 
 	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
-
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		playerIn.openBook(itemstack, handIn);
 		playerIn.addStat(StatList.getObjectUseStats(this));

@@ -7,14 +7,12 @@ public class NibbleArrayReader {
 	private final int depthBitsPlusFour;
 
 	public NibbleArrayReader(byte[] dataIn, int depthBitsIn) {
-
 		data = dataIn;
 		depthBits = depthBitsIn;
 		depthBitsPlusFour = depthBitsIn + 4;
 	}
 
 	public int get(int x, int y, int z) {
-
 		int i = x << depthBitsPlusFour | z << depthBits | y;
 		int j = i >> 1;
 		int k = i & 1;

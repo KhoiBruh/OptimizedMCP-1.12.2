@@ -17,7 +17,6 @@ public class CommandParticle extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "particle";
 	}
 
@@ -25,7 +24,6 @@ public class CommandParticle extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 2;
 	}
 
@@ -33,7 +31,6 @@ public class CommandParticle extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.particle.usage";
 	}
 
@@ -41,7 +38,6 @@ public class CommandParticle extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		if (args.length < 8) {
 			throw new WrongUsageException("commands.particle.usage");
 		} else {
@@ -91,7 +87,6 @@ public class CommandParticle extends CommandBase {
 				World world = sender.getEntityWorld();
 
 				if (world instanceof WorldServer worldserver) {
-
 					if (entityplayermp == null) {
 						worldserver.spawnParticle(enumparticletypes, flag1, d0, d1, d2, i, d3, d4, d5, d6, aint);
 					} else {
@@ -105,7 +100,6 @@ public class CommandParticle extends CommandBase {
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		if (args.length == 1) {
 			return getListOfStringsMatchingLastWord(args, ParticleTypes.getParticleNames());
 		} else if (args.length > 1 && args.length <= 4) {
@@ -121,7 +115,6 @@ public class CommandParticle extends CommandBase {
 	 * Return whether the specified command parameter index is a username parameter.
 	 */
 	public boolean isUsernameIndex(String[] args, int index) {
-
 		return index == 10;
 	}
 

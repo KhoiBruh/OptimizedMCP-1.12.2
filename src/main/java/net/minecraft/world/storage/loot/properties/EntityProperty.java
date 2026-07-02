@@ -18,18 +18,15 @@ public interface EntityProperty {
 		private final Class<T> propertyClass;
 
 		protected Serializer(ResourceLocation nameIn, Class<T> propertyClassIn) {
-
 			name = nameIn;
 			propertyClass = propertyClassIn;
 		}
 
 		public ResourceLocation getName() {
-
 			return name;
 		}
 
 		public Class<T> getPropertyClass() {
-
 			return propertyClass;
 		}
 

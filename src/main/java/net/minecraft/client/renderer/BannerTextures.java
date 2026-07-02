@@ -34,7 +34,6 @@ public class BannerTextures {
 		private final String cacheId;
 
 		public Cache(String id, ResourceLocation baseResource, String resourcePath) {
-
 			cacheId = id;
 			cacheResourceLocation = baseResource;
 			cacheResourceBase = resourcePath;
@@ -42,7 +41,6 @@ public class BannerTextures {
 
 		
 		public ResourceLocation getResourceLocation(String id, List<BannerPattern> patternList, List<DyeColor> colorList) {
-
 			if (id.isEmpty()) {
 				return null;
 			} else {
@@ -72,7 +70,6 @@ public class BannerTextures {
 		}
 
 		private boolean freeCacheSlot() {
-
 			long i = System.currentTimeMillis();
 			Iterator<String> iterator = cacheMap.keySet().iterator();
 
@@ -98,7 +95,6 @@ public class BannerTextures {
 		public ResourceLocation textureLocation;
 
 		private CacheEntry() {
-
 		}
 
 	}

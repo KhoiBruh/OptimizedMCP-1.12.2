@@ -40,7 +40,6 @@ public class ScreenShotHelper {
 	 * Returns an ITextComponent indicating the success/failure of the saving.
 	 */
 	public static ITextComponent saveScreenshot(File gameDirectory, int width, int height, Framebuffer buffer) {
-
 		return saveScreenshot(gameDirectory, null, width, height, buffer);
 	}
 
@@ -49,7 +48,6 @@ public class ScreenShotHelper {
 	 * Returns an ITextComponent indicating the success/failure of the saving.
 	 */
 	public static ITextComponent saveScreenshot(File gameDirectory, String screenshotName, int width, int height, Framebuffer buffer) {
-
 		try {
 			File file1 = new File(gameDirectory, "screenshots");
 			file1.mkdir();
@@ -74,7 +72,6 @@ public class ScreenShotHelper {
 	}
 
 	public static BufferedImage createScreenshot(int width, int height, Framebuffer framebufferIn) {
-
 		if (OpenGlHelper.isFramebufferEnabled()) {
 			width = framebufferIn.framebufferTextureWidth;
 			height = framebufferIn.framebufferTextureHeight;
@@ -112,7 +109,6 @@ public class ScreenShotHelper {
 	 * path immediately after this method returned.
 	 */
 	private static File getTimestampedPNGFileForDirectory(File gameDirectory) {
-
 		String s = DATE_FORMAT.format(new Date());
 		int i = 1;
 

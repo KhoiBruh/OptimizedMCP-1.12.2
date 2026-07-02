@@ -13,7 +13,6 @@ import net.minecraft.world.World;
 public class ItemCarrotOnAStick extends Item {
 
 	public ItemCarrotOnAStick() {
-
 		setCreativeTab(CreativeTabs.TRANSPORTATION);
 		setMaxStackSize(1);
 		setMaxDamage(25);
@@ -23,7 +22,6 @@ public class ItemCarrotOnAStick extends Item {
 	 * Returns True is the item is renderer in full 3D when hold.
 	 */
 	public boolean isFull3D() {
-
 		return true;
 	}
 
@@ -32,12 +30,10 @@ public class ItemCarrotOnAStick extends Item {
 	 * hands.
 	 */
 	public boolean shouldRotateAroundWhenRendering() {
-
 		return true;
 	}
 
 	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
-
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
 		if (worldIn.isRemote) {

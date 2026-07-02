@@ -17,49 +17,40 @@ public class WeightedBakedModel implements IBakedModel {
 	private final IBakedModel baseModel;
 
 	public WeightedBakedModel(List<WeightedBakedModel.WeightedModel> modelsIn) {
-
 		models = modelsIn;
 		totalWeight = WeightedRandom.getTotalWeight(modelsIn);
 		baseModel = (modelsIn.getFirst()).model;
 	}
 
 	private IBakedModel getRandomModel(long p_188627_1_) {
-
 		return WeightedRandom.getRandomItem(models, Math.abs((int) p_188627_1_ >> 16) % totalWeight).model;
 	}
 
 	public List<BakedQuad> getQuads(IBlockState state, Facing side, long rand) {
-
 		return getRandomModel(rand).getQuads(state, side, rand);
 	}
 
 	public boolean isAmbientOcclusion() {
-
 		return baseModel.isAmbientOcclusion();
 	}
 
 	public boolean isGui3d() {
-
 		return baseModel.isGui3d();
 	}
 
 	public boolean isBuiltInRenderer() {
-
 		return baseModel.isBuiltInRenderer();
 	}
 
 	public TextureAtlasSprite getParticleTexture() {
-
 		return baseModel.getParticleTexture();
 	}
 
 	public ItemCameraTransforms getItemCameraTransforms() {
-
 		return baseModel.getItemCameraTransforms();
 	}
 
 	public ItemOverrideList getOverrides() {
-
 		return baseModel.getOverrides();
 	}
 
@@ -74,13 +65,11 @@ public class WeightedBakedModel implements IBakedModel {
 		}
 
 		public WeightedBakedModel build() {
-
 			Collections.sort(listItems);
 			return new WeightedBakedModel(listItems);
 		}
 
 		public IBakedModel first() {
-
 			return (listItems.getFirst()).model;
 		}
 
@@ -91,18 +80,15 @@ public class WeightedBakedModel implements IBakedModel {
 		protected final IBakedModel model;
 
 		public WeightedModel(IBakedModel modelIn, int itemWeightIn) {
-
 			super(itemWeightIn);
 			model = modelIn;
 		}
 
 		public int compareTo(WeightedBakedModel.WeightedModel p_compareTo_1_) {
-
 			return ComparisonChain.start().compare(p_compareTo_1_.itemWeight, itemWeight).result();
 		}
 
 		public String toString() {
-
 			return "MyWeighedRandomItem{weight=" + itemWeight + ", model=" + model + '}';
 		}
 

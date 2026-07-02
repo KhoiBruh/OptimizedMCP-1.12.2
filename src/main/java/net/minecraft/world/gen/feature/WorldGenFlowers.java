@@ -13,18 +13,15 @@ public class WorldGenFlowers extends WorldGenerator {
 	private IBlockState state;
 
 	public WorldGenFlowers(BlockFlower flowerIn, BlockFlower.FlowerType type) {
-
 		setGeneratedBlock(flowerIn, type);
 	}
 
 	public void setGeneratedBlock(BlockFlower flowerIn, BlockFlower.FlowerType typeIn) {
-
 		flower = flowerIn;
 		state = flowerIn.getDefaultState().withProperty(flowerIn.getTypeProperty(), typeIn);
 	}
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		for (int i = 0; i < 64; ++i) {
 			BlockPos blockpos = position.add(rand.nextInt(8) - rand.nextInt(8), rand.nextInt(4) - rand.nextInt(4), rand.nextInt(8) - rand.nextInt(8));
 

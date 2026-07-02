@@ -24,7 +24,6 @@ public abstract class BlockLeaves extends Block {
 	int[] surroundings;
 
 	public BlockLeaves() {
-
 		super(Material.LEAVES);
 		setTickRandomly(true);
 		setCreativeTab(CreativeTabs.DECORATIONS);
@@ -37,7 +36,6 @@ public abstract class BlockLeaves extends Block {
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		int k = pos.getX();
 		int l = pos.getY();
 		int i1 = pos.getZ();
@@ -59,7 +57,6 @@ public abstract class BlockLeaves extends Block {
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if (!worldIn.isRemote) {
 			if (state.getValue(CHECK_DECAY) && state.getValue(DECAYABLE)) {
 				int k = pos.getX();
@@ -139,7 +136,6 @@ public abstract class BlockLeaves extends Block {
 	}
 
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-
 		if (worldIn.isRainingAt(pos.up()) && !worldIn.getBlockState(pos.down()).isTopSolid() && rand.nextInt(15) == 1) {
 			double d0 = (float) pos.getX() + rand.nextFloat();
 			double d1 = (double) pos.getY() - 0.05D;
@@ -149,7 +145,6 @@ public abstract class BlockLeaves extends Block {
 	}
 
 	private void destroy(World worldIn, BlockPos pos) {
-
 		dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);
 		worldIn.setBlockToAir(pos);
 	}
@@ -158,7 +153,6 @@ public abstract class BlockLeaves extends Block {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return random.nextInt(20) == 0 ? 1 : 0;
 	}
 
@@ -166,7 +160,6 @@ public abstract class BlockLeaves extends Block {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Item.getItemFromBlock(Blocks.SAPLING);
 	}
 
@@ -174,7 +167,6 @@ public abstract class BlockLeaves extends Block {
 	 * Spawns this Block's drops into the World as EntityItems.
 	 */
 	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
-
 		if (!worldIn.isRemote) {
 			int i = getSaplingDropChance(state);
 
@@ -206,11 +198,9 @@ public abstract class BlockLeaves extends Block {
 	}
 
 	protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance) {
-
 	}
 
 	protected int getSaplingDropChance(IBlockState state) {
-
 		return 20;
 	}
 
@@ -218,7 +208,6 @@ public abstract class BlockLeaves extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return !leavesFancy;
 	}
 
@@ -226,7 +215,6 @@ public abstract class BlockLeaves extends Block {
 	 * Pass true to draw this block using fancy graphics, or false for fast graphics.
 	 */
 	public void setGraphicsLevel(boolean fancy) {
-
 		leavesFancy = fancy;
 	}
 
@@ -235,19 +223,16 @@ public abstract class BlockLeaves extends Block {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return leavesFancy ? BlockRenderLayer.CUTOUT_MIPPED : BlockRenderLayer.SOLID;
 	}
 
 	public boolean causesSuffocation(IBlockState state) {
-
 		return false;
 	}
 
 	public abstract BlockPlanks.Type getWoodType(int meta);
 
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		return (leavesFancy || blockAccess.getBlockState(pos.offset(side)).getBlock() != this) && super.shouldSideBeRendered(blockState, blockAccess, pos, side);
 	}
 

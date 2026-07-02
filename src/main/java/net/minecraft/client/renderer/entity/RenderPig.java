@@ -10,7 +10,6 @@ public class RenderPig extends RenderLiving<EntityPig> {
 	private static final ResourceLocation PIG_TEXTURES = new ResourceLocation("textures/entity/pig/pig.png");
 
 	public RenderPig(RenderManager p_i47198_1_) {
-
 		super(p_i47198_1_, new ModelPig(), 0.7F);
 		addLayer(new LayerSaddle(this));
 	}
@@ -19,7 +18,6 @@ public class RenderPig extends RenderLiving<EntityPig> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityPig entity) {
-
 		return PIG_TEXTURES;
 	}
 

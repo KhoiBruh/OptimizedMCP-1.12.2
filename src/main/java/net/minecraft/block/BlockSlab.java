@@ -25,30 +25,25 @@ public abstract class BlockSlab extends Block {
 	protected static final AxisAlignedBB AABB_TOP_HALF = new AxisAlignedBB(0D, 0.5D, 0D, 1D, 1D, 1D);
 
 	public BlockSlab(Material materialIn) {
-
 		this(materialIn, materialIn.getMaterialMapColor());
 	}
 
 	public BlockSlab(Material p_i47249_1_, MapColor p_i47249_2_) {
-
 		super(p_i47249_1_, p_i47249_2_);
 		fullBlock = isDouble();
 		setLightOpacity(255);
 	}
 
 	protected static boolean isHalfSlab(IBlockState state) {
-
 		Block block = state.getBlock();
 		return block == Blocks.STONE_SLAB || block == Blocks.WOODEN_SLAB || block == Blocks.STONE_SLAB2 || block == Blocks.PURPUR_SLAB;
 	}
 
 	protected boolean canSilkHarvest() {
-
 		return false;
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		if (isDouble()) {
 			return FULL_BLOCK_AABB;
 		} else {
@@ -60,7 +55,6 @@ public abstract class BlockSlab extends Block {
 	 * Determines if the block is solid enough on the top side to support other blocks, like redstone components.
 	 */
 	public boolean isTopSolid(IBlockState state) {
-
 		return ((BlockSlab) state.getBlock()).isDouble() || state.getValue(HALF) == BlockSlab.BlockHalf.TOP;
 	}
 
@@ -74,7 +68,6 @@ public abstract class BlockSlab extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		if (((BlockSlab) state.getBlock()).isDouble()) {
 			return BlockFaceShape.SOLID;
 		} else if (face == Facing.UP && state.getValue(HALF) == BlockSlab.BlockHalf.TOP) {
@@ -88,7 +81,6 @@ public abstract class BlockSlab extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return isDouble();
 	}
 
@@ -97,7 +89,6 @@ public abstract class BlockSlab extends Block {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		IBlockState iblockstate = super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(HALF, BlockSlab.BlockHalf.BOTTOM);
 
 		if (isDouble()) {
@@ -111,17 +102,14 @@ public abstract class BlockSlab extends Block {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return isDouble() ? 2 : 1;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return isDouble();
 	}
 
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		if (isDouble()) {
 			return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
 		} else if (side != Facing.UP && side != Facing.DOWN && !super.shouldSideBeRendered(blockState, blockAccess, pos, side)) {
@@ -167,17 +155,14 @@ public abstract class BlockSlab extends Block {
 		private final String name;
 
 		BlockHalf(String name) {
-
 			this.name = name;
 		}
 
 		public String toString() {
-
 			return name;
 		}
 
 		public String getName() {
-
 			return name;
 		}
 	}

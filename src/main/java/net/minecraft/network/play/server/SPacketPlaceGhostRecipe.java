@@ -12,22 +12,18 @@ public class SPacketPlaceGhostRecipe implements Packet<INetHandlerPlayClient> {
 	private IRecipe field_194315_b;
 
 	public SPacketPlaceGhostRecipe() {
-
 	}
 
 	public SPacketPlaceGhostRecipe(int p_i47615_1_, IRecipe p_i47615_2_) {
-
 		field_194314_a = p_i47615_1_;
 		field_194315_b = p_i47615_2_;
 	}
 
 	public IRecipe func_194311_a() {
-
 		return field_194315_b;
 	}
 
 	public int func_194313_b() {
-
 		return field_194314_a;
 	}
 
@@ -35,7 +31,6 @@ public class SPacketPlaceGhostRecipe implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		field_194314_a = buf.readByte();
 		field_194315_b = CraftingManager.getRecipeById(buf.readVarInt());
 	}
@@ -44,7 +39,6 @@ public class SPacketPlaceGhostRecipe implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeByte(field_194314_a);
 		buf.writeVarInt(CraftingManager.getIDForRecipe(field_194315_b));
 	}
@@ -53,7 +47,6 @@ public class SPacketPlaceGhostRecipe implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.func_194307_a(this);
 	}
 

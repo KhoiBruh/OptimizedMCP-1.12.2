@@ -16,20 +16,16 @@ public class SpectatorMenu {
 
 	public static final ISpectatorMenuObject EMPTY_SLOT = new ISpectatorMenuObject() {
 		public void selectItem(SpectatorMenu menu) {
-
 		}
 
 		public ITextComponent getSpectatorName() {
-
 			return new TextComponentString("");
 		}
 
 		public void renderIcon(float brightness, int alpha) {
-
 		}
 
 		public boolean isEnabled() {
-
 			return false;
 		}
 	};
@@ -44,12 +40,10 @@ public class SpectatorMenu {
 	private int page;
 
 	public SpectatorMenu(ISpectatorMenuRecipient menu) {
-
 		listener = menu;
 	}
 
 	public ISpectatorMenuObject getItem(int index) {
-
 		int i = index + page * 6;
 
 		if (page > 0 && index == 0) {
@@ -64,7 +58,6 @@ public class SpectatorMenu {
 	}
 
 	public List<ISpectatorMenuObject> getItems() {
-
 		List<ISpectatorMenuObject> list = Lists.newArrayList();
 
 		for (int i = 0; i <= 8; ++i) {
@@ -75,17 +68,14 @@ public class SpectatorMenu {
 	}
 
 	public ISpectatorMenuObject getSelectedItem() {
-
 		return getItem(selectedSlot);
 	}
 
 	public ISpectatorMenuView getSelectedCategory() {
-
 		return category;
 	}
 
 	public void selectSlot(int slotIn) {
-
 		ISpectatorMenuObject ispectatormenuobject = getItem(slotIn);
 
 		if (ispectatormenuobject != EMPTY_SLOT) {
@@ -98,17 +88,14 @@ public class SpectatorMenu {
 	}
 
 	public void exit() {
-
 		listener.onSpectatorMenuClosed(this);
 	}
 
 	public int getSelectedSlot() {
-
 		return selectedSlot;
 	}
 
 	public void selectCategory(ISpectatorMenuView menuView) {
-
 		previousCategories.add(getCurrentPage());
 		category = menuView;
 		selectedSlot = -1;
@@ -116,34 +103,28 @@ public class SpectatorMenu {
 	}
 
 	public SpectatorDetails getCurrentPage() {
-
 		return new SpectatorDetails(getItems(), selectedSlot);
 	}
 
 	static class EndSpectatorObject implements ISpectatorMenuObject {
 
 		private EndSpectatorObject() {
-
 		}
 
 		public void selectItem(SpectatorMenu menu) {
-
 			menu.exit();
 		}
 
 		public ITextComponent getSpectatorName() {
-
 			return new TextComponentTranslation("spectatorMenu.close");
 		}
 
 		public void renderIcon(float brightness, int alpha) {
-
 			Minecraft.getMinecraft().getTextureManager().bindTexture(GuiSpectator.SPECTATOR_WIDGETS);
 			Gui.drawModalRectWithCustomSizedTexture(0, 0, 128F, 0F, 16, 16, 256F, 256F);
 		}
 
 		public boolean isEnabled() {
-
 			return true;
 		}
 
@@ -155,23 +136,19 @@ public class SpectatorMenu {
 		private final boolean enabled;
 
 		public MoveMenuObject(int p_i45495_1_, boolean p_i45495_2_) {
-
 			direction = p_i45495_1_;
 			enabled = p_i45495_2_;
 		}
 
 		public void selectItem(SpectatorMenu menu) {
-
 			menu.page = menu.page + direction;
 		}
 
 		public ITextComponent getSpectatorName() {
-
 			return direction < 0 ? new TextComponentTranslation("spectatorMenu.previous_page") : new TextComponentTranslation("spectatorMenu.next_page");
 		}
 
 		public void renderIcon(float brightness, int alpha) {
-
 			Minecraft.getMinecraft().getTextureManager().bindTexture(GuiSpectator.SPECTATOR_WIDGETS);
 
 			if (direction < 0) {
@@ -182,7 +159,6 @@ public class SpectatorMenu {
 		}
 
 		public boolean isEnabled() {
-
 			return enabled;
 		}
 

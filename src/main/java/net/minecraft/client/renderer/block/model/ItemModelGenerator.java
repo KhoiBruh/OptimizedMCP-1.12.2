@@ -16,7 +16,6 @@ public class ItemModelGenerator {
 	public static final List<String> LAYERS = Lists.newArrayList("layer0", "layer1", "layer2", "layer3", "layer4");
 	
 	public ModelBlock makeItemModel(TextureMap textureMapIn, ModelBlock blockModel) {
-
 		Map<String, String> map = Maps.newHashMap();
 		List<BlockPart> list = Lists.newArrayList();
 
@@ -40,7 +39,6 @@ public class ItemModelGenerator {
 	}
 
 	private List<BlockPart> getBlockParts(int tintIndex, String name, TextureAtlasSprite atlasSprite) {
-
 		Map<Facing, BlockPartFace> map = Maps.newHashMap();
 		map.put(Facing.SOUTH, new BlockPartFace(null, tintIndex, name, new BlockFaceUV(new float[]{0F, 0F, 16F, 16F}, 0)));
 		map.put(Facing.NORTH, new BlockPartFace(null, tintIndex, name, new BlockFaceUV(new float[]{16F, 0F, 0F, 16F}, 0)));
@@ -52,7 +50,6 @@ public class ItemModelGenerator {
 	}
 
 	private List<BlockPart> getBlockParts(TextureAtlasSprite sprite, String key, int layer) {
-
 		List<BlockPart> elements = Lists.newArrayList(); // todo: maybe hoistable?
 		int width = sprite.getIconWidth();
 		int height = sprite.getIconHeight();
@@ -108,7 +105,6 @@ public class ItemModelGenerator {
 	}
 
 	private BlockPart verticalElement(int x, int y, int size, int height, float xRatio, float yRatio, String key, int layer) {
-
 		Map<Facing, BlockPartFace> map = Maps.newHashMap(); // todo: maybe hoistable?
 		map.put(Facing.UP, new BlockPartFace(null, layer, key, new BlockFaceUV(new float[]{x / xRatio, (y - size) / yRatio, (x + 1) / xRatio, (y - size + 1) / yRatio}, 0)));
 		map.put(Facing.DOWN, new BlockPartFace(null, layer, key, new BlockFaceUV(new float[]{x / xRatio, (y - 1) / yRatio, (x + 1) / xRatio, y / yRatio}, 0)));
@@ -121,7 +117,6 @@ public class ItemModelGenerator {
 	}
 
 	private BlockPart horizontalElement(int x, int y, int size, int height, float xRatio, float yRatio, String key, int layer) {
-
 		Map<Facing, BlockPartFace> map = Maps.newHashMap(); // todo: maybe hoistable?
 		map.put(Facing.NORTH, new BlockPartFace(null, layer, key, new BlockFaceUV(new float[]{x / xRatio, y / yRatio, (x - size) / xRatio, (y + 1) / yRatio}, 0)));
 		map.put(Facing.SOUTH, new BlockPartFace(null, layer, key, new BlockFaceUV(new float[]{(x - size) / xRatio, y / yRatio, x / xRatio, (y + 1) / yRatio}, 0)));
@@ -136,7 +131,6 @@ public class ItemModelGenerator {
 	}
 
 	private boolean isTransparent(int[] textureData, int x, int y, int width, int height) {
-
 		if (x >= 0 && y >= 0 && x < width && y < height) {
 			return (textureData[y * width + x] >> 24 & 255) == 0;
 		} else {

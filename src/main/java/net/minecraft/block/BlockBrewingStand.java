@@ -33,7 +33,6 @@ public class BlockBrewingStand extends BlockContainer {
 	protected static final AxisAlignedBB STICK_AABB = new AxisAlignedBB(0.4375D, 0D, 0.4375D, 0.5625D, 0.875D, 0.5625D);
 
 	public BlockBrewingStand() {
-
 		super(Material.IRON);
 		setDefaultState(blockState.getBaseState().withProperty(HAS_BOTTLE[0], false).withProperty(HAS_BOTTLE[1], false).withProperty(HAS_BOTTLE[2], false));
 	}
@@ -42,7 +41,6 @@ public class BlockBrewingStand extends BlockContainer {
 	 * Gets the localized name of this block. Used for the statistics page.
 	 */
 	public String getLocalizedName() {
-
 		return I18n.translateToLocal("item.brewingStand.name");
 	}
 
@@ -50,7 +48,6 @@ public class BlockBrewingStand extends BlockContainer {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -59,7 +56,6 @@ public class BlockBrewingStand extends BlockContainer {
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
 	public BlockRenderType getRenderType(IBlockState state) {
-
 		return BlockRenderType.MODEL;
 	}
 
@@ -67,23 +63,19 @@ public class BlockBrewingStand extends BlockContainer {
 	 * Returns a new instance of a block's tile entity class. Called on placing the block.
 	 */
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-
 		return new TileEntityBrewingStand();
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
 	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean isActualState) {
-
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, STICK_AABB);
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, BASE_AABB);
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return BASE_AABB;
 	}
 
@@ -91,7 +83,6 @@ public class BlockBrewingStand extends BlockContainer {
 	 * Called when the block is right clicked by a player.
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		if (worldIn.isRemote) {
 			return true;
 		} else {
@@ -110,7 +101,6 @@ public class BlockBrewingStand extends BlockContainer {
 	 * Called by ItemBlocks after a block is set in the world, to allow post-place logic
 	 */
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-
 		if (stack.hasDisplayName()) {
 			TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -121,7 +111,6 @@ public class BlockBrewingStand extends BlockContainer {
 	}
 
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-
 		double d0 = (float) pos.getX() + 0.4F + rand.nextFloat() * 0.2F;
 		double d1 = (float) pos.getY() + 0.7F + rand.nextFloat() * 0.3F;
 		double d2 = (float) pos.getZ() + 0.4F + rand.nextFloat() * 0.2F;
@@ -132,7 +121,6 @@ public class BlockBrewingStand extends BlockContainer {
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 
 		if (tileentity instanceof TileEntityBrewingStand) {
@@ -146,22 +134,18 @@ public class BlockBrewingStand extends BlockContainer {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Items.BREWING_STAND;
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return new ItemStack(Items.BREWING_STAND);
 	}
 
 	public boolean hasComparatorInputOverride(IBlockState state) {
-
 		return true;
 	}
 
 	public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
-
 		return Container.calcRedstone(worldIn.getTileEntity(pos));
 	}
 
@@ -170,7 +154,6 @@ public class BlockBrewingStand extends BlockContainer {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.CUTOUT;
 	}
 
@@ -178,7 +161,6 @@ public class BlockBrewingStand extends BlockContainer {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		IBlockState iblockstate = getDefaultState();
 
 		for (int i = 0; i < 3; ++i) {
@@ -192,7 +174,6 @@ public class BlockBrewingStand extends BlockContainer {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 
 		for (int j = 0; j < 3; ++j) {
@@ -205,7 +186,6 @@ public class BlockBrewingStand extends BlockContainer {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, HAS_BOTTLE[0], HAS_BOTTLE[1], HAS_BOTTLE[2]);
 	}
 
@@ -219,7 +199,6 @@ public class BlockBrewingStand extends BlockContainer {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

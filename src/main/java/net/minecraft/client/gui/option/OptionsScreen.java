@@ -30,7 +30,6 @@ public class OptionsScreen extends Screen {
 	private LockIconButton lockButton;
 
 	public OptionsScreen(Screen screen, GameSettings settings) {
-
 		lastScreen = screen;
 		this.settings = settings;
 	}
@@ -40,7 +39,6 @@ public class OptionsScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		title = I18n.format("options.title");
 		int i = 0;
 
@@ -83,7 +81,6 @@ public class OptionsScreen extends Screen {
 	}
 
 	public String getDifficultyText(Difficulty p_175355_1_) {
-
 		ITextComponent itextcomponent = new TextComponentString("");
 		itextcomponent.appendSibling(new TextComponentTranslation("options.difficulty"));
 		itextcomponent.appendText(": ");
@@ -92,7 +89,6 @@ public class OptionsScreen extends Screen {
 	}
 
 	public void confirmClicked(boolean result, int id) {
-
 		mc.displayScreen(this);
 
 		if (id == 109 && result && mc.world != null) {
@@ -108,7 +104,6 @@ public class OptionsScreen extends Screen {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-
 		if (keyCode == 256) {
 			mc.gameSettings.saveOptions();
 		}
@@ -120,7 +115,6 @@ public class OptionsScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.enabled) {
 			if (button.id < 100 && button instanceof OptionButton) {
 				GameSettings.Options gamesettings$options = ((OptionButton) button).getOption();
@@ -183,7 +177,6 @@ public class OptionsScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, title, width / 2, 15, 16777215);
 		super.draw(mouseX, mouseY, partialTicks);

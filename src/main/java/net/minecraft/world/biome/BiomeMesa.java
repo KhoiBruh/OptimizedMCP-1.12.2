@@ -33,7 +33,6 @@ public class BiomeMesa extends Biome {
 	private NoiseGeneratorPerlin clayBandsOffsetNoise;
 
 	public BiomeMesa(boolean p_i46704_1_, boolean p_i46704_2_, Biome.BiomeProperties properties) {
-
 		super(properties);
 		brycePillars = p_i46704_1_;
 		hasForest = p_i46704_2_;
@@ -55,27 +54,22 @@ public class BiomeMesa extends Biome {
 	 * Allocate a new BiomeDecorator for this BiomeGenBase
 	 */
 	protected BiomeDecorator createBiomeDecorator() {
-
 		return new BiomeMesa.Decorator();
 	}
 
 	public WorldGenAbstractTree getRandomTreeFeature(Random rand) {
-
 		return TREE_FEATURE;
 	}
 
 	public int getFoliageColorAtPos(BlockPos pos) {
-
 		return 10387789;
 	}
 
 	public int getGrassColorAtPos(BlockPos pos) {
-
 		return 9470285;
 	}
 
 	public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
-
 		if (clayBands == null || worldSeed != worldIn.getSeed()) {
 			generateBands(worldIn.getSeed());
 		}
@@ -198,7 +192,6 @@ public class BiomeMesa extends Biome {
 	}
 
 	private void generateBands(long p_150619_1_) {
-
 		clayBands = new IBlockState[64];
 		Arrays.fill(clayBands, HARDENED_CLAY);
 		Random random = new Random(p_150619_1_);
@@ -266,7 +259,6 @@ public class BiomeMesa extends Biome {
 	}
 
 	private IBlockState getBand(int p_180629_1_, int p_180629_2_, int p_180629_3_) {
-
 		int i = (int) Math.round(clayBandsOffsetNoise.getValue((double) p_180629_1_ / 512D, (double) p_180629_1_ / 512D) * 2D);
 		return clayBands[(p_180629_2_ + i + 64) % 64];
 	}
@@ -274,11 +266,9 @@ public class BiomeMesa extends Biome {
 	class Decorator extends BiomeDecorator {
 
 		private Decorator() {
-
 		}
 
 		protected void generateOres(World worldIn, Random random) {
-
 			super.generateOres(worldIn, random);
 			genStandardOre1(worldIn, random, 20, goldGen, 32, 80);
 		}

@@ -28,7 +28,6 @@ public class CraftingManager {
 	private static int nextAvailableId;
 
 	public static boolean init() {
-
 		try {
 			register("armordye", new RecipesArmorDyes());
 			register("bookcloning", new RecipeBookCloning());
@@ -48,7 +47,6 @@ public class CraftingManager {
 	}
 
 	private static boolean parseJsonRecipes() {
-
 		Gson gson = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
 
 		try {
@@ -84,7 +82,6 @@ public class CraftingManager {
 	}
 
 	private static boolean loadRecipesFromPath(Gson gson, Path path) throws IOException {
-
 		Iterator<Path> iterator = Files.walk(path).iterator();
 
 		while (iterator.hasNext()) {
@@ -111,7 +108,6 @@ public class CraftingManager {
 	}
 
 	private static IRecipe parseRecipeJson(JsonObject p_193376_0_) {
-
 		String s = JsonUtils.getString(p_193376_0_, "type");
 
 		if ("crafting_shaped".equals(s)) {
@@ -124,12 +120,10 @@ public class CraftingManager {
 	}
 
 	public static void register(String name, IRecipe recipe) {
-
 		register(new ResourceLocation(name), recipe);
 	}
 
 	public static void register(ResourceLocation name, IRecipe recipe) {
-
 		if (REGISTRY.containsKey(name)) {
 			throw new IllegalStateException("Duplicate recipe ignored with ID " + name);
 		} else {
@@ -141,7 +135,6 @@ public class CraftingManager {
 	 * Retrieves an ItemStack that has multiple recipes for it.
 	 */
 	public static ItemStack findMatchingResult(InventoryCrafting craftMatrix, World worldIn) {
-
 		for (IRecipe irecipe : REGISTRY) {
 			if (irecipe.matches(craftMatrix, worldIn)) {
 				return irecipe.getCraftingResult(craftMatrix);
@@ -153,7 +146,6 @@ public class CraftingManager {
 
 	
 	public static IRecipe findMatchingRecipe(InventoryCrafting craftMatrix, World worldIn) {
-
 		for (IRecipe irecipe : REGISTRY) {
 			if (irecipe.matches(craftMatrix, worldIn)) {
 				return irecipe;
@@ -164,7 +156,6 @@ public class CraftingManager {
 	}
 
 	public static NonNullList<ItemStack> getRemainingItems(InventoryCrafting craftMatrix, World worldIn) {
-
 		for (IRecipe irecipe : REGISTRY) {
 			if (irecipe.matches(craftMatrix, worldIn)) {
 				return irecipe.getRemainingItems(craftMatrix);
@@ -182,18 +173,15 @@ public class CraftingManager {
 
 	
 	public static IRecipe getRecipe(ResourceLocation name) {
-
 		return REGISTRY.getObject(name);
 	}
 
 	public static int getIDForRecipe(IRecipe recipe) {
-
 		return REGISTRY.getIDForObject(recipe);
 	}
 
 	
 	public static IRecipe getRecipeById(int id) {
-
 		return REGISTRY.getObjectById(id);
 	}
 

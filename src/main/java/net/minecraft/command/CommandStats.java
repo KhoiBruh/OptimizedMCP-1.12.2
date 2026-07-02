@@ -20,7 +20,6 @@ public class CommandStats extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "stats";
 	}
 
@@ -28,7 +27,6 @@ public class CommandStats extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 2;
 	}
 
@@ -36,7 +34,6 @@ public class CommandStats extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.stats.usage";
 	}
 
@@ -44,7 +41,6 @@ public class CommandStats extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		if (args.length < 1) {
 			throw new WrongUsageException("commands.stats.usage");
 		} else {
@@ -155,7 +151,6 @@ public class CommandStats extends CommandBase {
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		if (args.length == 1) {
 			return getListOfStringsMatchingLastWord(args, "entity", "block");
 		} else if (args.length == 2 && "entity".equals(args[0])) {
@@ -174,7 +169,6 @@ public class CommandStats extends CommandBase {
 	}
 
 	protected List<String> getObjectiveNames(MinecraftServer server) {
-
 		Collection<ScoreObjective> collection = server.getWorld(0).getScoreboard().getScoreObjectives();
 		List<String> list = Lists.newArrayList();
 
@@ -191,7 +185,6 @@ public class CommandStats extends CommandBase {
 	 * Return whether the specified command parameter index is a username parameter.
 	 */
 	public boolean isUsernameIndex(String[] args, int index) {
-
 		return args.length > 0 && "entity".equals(args[0]) && index == 1;
 	}
 

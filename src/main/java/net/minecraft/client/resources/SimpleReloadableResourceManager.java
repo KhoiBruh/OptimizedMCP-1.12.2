@@ -26,12 +26,10 @@ public class SimpleReloadableResourceManager implements IReloadableResourceManag
 	private final MetadataSerializer rmMetadataSerializer;
 
 	public SimpleReloadableResourceManager(MetadataSerializer rmMetadataSerializerIn) {
-
 		rmMetadataSerializer = rmMetadataSerializerIn;
 	}
 
 	public void reloadResourcePack(IResourcePack resourcePack) {
-
 		for (String s : resourcePack.getResourceDomains()) {
 			setResourceDomains.add(s);
 			FallbackResourceManager fallbackresourcemanager = domainResourceManagers.get(s);
@@ -46,12 +44,10 @@ public class SimpleReloadableResourceManager implements IReloadableResourceManag
 	}
 
 	public Set<String> getResourceDomains() {
-
 		return setResourceDomains;
 	}
 
 	public IResource getResource(ResourceLocation location) throws IOException {
-
 		IResourceManager iresourcemanager = domainResourceManagers.get(location.getResourceDomain());
 
 		if (iresourcemanager != null) {
@@ -62,7 +58,6 @@ public class SimpleReloadableResourceManager implements IReloadableResourceManag
 	}
 
 	public List<IResource> getAllResources(ResourceLocation location) throws IOException {
-
 		IResourceManager iresourcemanager = domainResourceManagers.get(location.getResourceDomain());
 
 		if (iresourcemanager != null) {
@@ -73,13 +68,11 @@ public class SimpleReloadableResourceManager implements IReloadableResourceManag
 	}
 
 	private void clearResources() {
-
 		domainResourceManagers.clear();
 		setResourceDomains.clear();
 	}
 
 	public void reloadResources(List<IResourcePack> resourcesPacksList) {
-
 		clearResources();
 		LOGGER.info("Reloading ResourceManager: {}", JOINER_RESOURCE_PACKS.join(Iterables.transform(resourcesPacksList, p_apply_1_ -> p_apply_1_ == null ? "<NULL>" : p_apply_1_.getPackName())));
 
@@ -91,13 +84,11 @@ public class SimpleReloadableResourceManager implements IReloadableResourceManag
 	}
 
 	public void registerReloadListener(IResourceManagerReloadListener reloadListener) {
-
 		reloadListeners.add(reloadListener);
 		reloadListener.onResourceManagerReload(this);
 	}
 
 	private void notifyReloadListeners() {
-
 		for (IResourceManagerReloadListener iresourcemanagerreloadlistener : reloadListeners) {
 			iresourcemanagerreloadlistener.onResourceManagerReload(this);
 		}

@@ -16,12 +16,10 @@ import net.minecraft.world.World;
 public class ItemLead extends Item {
 
 	public ItemLead() {
-
 		setCreativeTab(CreativeTabs.TOOLS);
 	}
 
 	public static boolean attachToFence(EntityPlayer player, World worldIn, BlockPos fence) {
-
 		EntityLeashKnot entityleashknot = EntityLeashKnot.getKnotForPosition(worldIn, fence);
 		boolean flag = false;
 		double d0 = 7D;
@@ -47,7 +45,6 @@ public class ItemLead extends Item {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		Block block = worldIn.getBlockState(pos).getBlock();
 
 		if (!(block instanceof BlockFence)) {

@@ -37,11 +37,9 @@ public abstract class StructureComponent {
 	private Rotation rotation;
 
 	public StructureComponent() {
-
 	}
 
 	protected StructureComponent(int type) {
-
 		componentType = type;
 	}
 
@@ -49,7 +47,6 @@ public abstract class StructureComponent {
 	 * Discover if bounding box can fit within the current bounding box object.
 	 */
 	public static StructureComponent findIntersecting(List<StructureComponent> listIn, StructureBoundingBox boundingboxIn) {
-
 		for (StructureComponent structurecomponent : listIn) {
 			if (structurecomponent.getBoundingBox() != null && structurecomponent.getBoundingBox().intersectsWith(boundingboxIn)) {
 				return structurecomponent;
@@ -66,7 +63,6 @@ public abstract class StructureComponent {
 	 * returns it.
 	 */
 	public final NBTTagCompound createStructureBaseNBT() {
-
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 		nbttagcompound.setString("id", MapGenStructureIO.getStructureComponentName(this));
 		nbttagcompound.setTag("BB", boundingBox.toNBTTagIntArray());
@@ -88,7 +84,6 @@ public abstract class StructureComponent {
 	 * net.minecraft.world.gen.structure.StructureComponent#componentType componentType})
 	 */
 	public void readStructureBaseNBT(World worldIn, NBTTagCompound tagCompound) {
-
 		if (tagCompound.hasKey("BB")) {
 			boundingBox = new StructureBoundingBox(tagCompound.getIntArray("BB"));
 		}
@@ -108,7 +103,6 @@ public abstract class StructureComponent {
 	 * Initiates construction of the Structure Component picked, at the current Location of StructGen
 	 */
 	public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
-
 	}
 
 	/**
@@ -118,7 +112,6 @@ public abstract class StructureComponent {
 	public abstract boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn);
 
 	public StructureBoundingBox getBoundingBox() {
-
 		return boundingBox;
 	}
 
@@ -126,7 +119,6 @@ public abstract class StructureComponent {
 	 * Returns the component type ID of this component.
 	 */
 	public int getComponentType() {
-
 		return componentType;
 	}
 
@@ -134,7 +126,6 @@ public abstract class StructureComponent {
 	 * checks the entire StructureBoundingBox for Liquids
 	 */
 	protected boolean isLiquidInStructureBoundingBox(World worldIn, StructureBoundingBox boundingboxIn) {
-
 		int i = Math.max(boundingBox.minX - 1, boundingboxIn.minX);
 		int j = Math.max(boundingBox.minY - 1, boundingboxIn.minY);
 		int k = Math.max(boundingBox.minZ - 1, boundingboxIn.minZ);
@@ -183,7 +174,6 @@ public abstract class StructureComponent {
 	}
 
 	protected int getXWithOffset(int x, int z) {
-
 		Facing enumfacing = getCoordBaseMode();
 
 		if (enumfacing == null) {
@@ -199,12 +189,10 @@ public abstract class StructureComponent {
 	}
 
 	protected int getYWithOffset(int y) {
-
 		return getCoordBaseMode() == null ? y : y + boundingBox.minY;
 	}
 
 	protected int getZWithOffset(int x, int z) {
-
 		Facing enumfacing = getCoordBaseMode();
 
 		if (enumfacing == null) {
@@ -220,7 +208,6 @@ public abstract class StructureComponent {
 	}
 
 	protected void setBlockState(World worldIn, IBlockState blockstateIn, int x, int y, int z, StructureBoundingBox boundingboxIn) {
-
 		BlockPos blockpos = new BlockPos(getXWithOffset(x, z), getYWithOffset(y), getZWithOffset(x, z));
 
 		if (boundingboxIn.isVecInside(blockpos)) {
@@ -237,7 +224,6 @@ public abstract class StructureComponent {
 	}
 
 	protected IBlockState getBlockStateFromPos(World worldIn, int x, int y, int z, StructureBoundingBox boundingboxIn) {
-
 		int i = getXWithOffset(x, z);
 		int j = getYWithOffset(y);
 		int k = getZWithOffset(x, z);
@@ -246,7 +232,6 @@ public abstract class StructureComponent {
 	}
 
 	protected int getSkyBrightness(World worldIn, int x, int y, int z, StructureBoundingBox boundingboxIn) {
-
 		int i = getXWithOffset(x, z);
 		int j = getYWithOffset(y + 1);
 		int k = getZWithOffset(x, z);
@@ -259,7 +244,6 @@ public abstract class StructureComponent {
 	 * maxZ)
 	 */
 	protected void fillWithAir(World worldIn, StructureBoundingBox structurebb, int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
-
 		for (int i = minY; i <= maxY; ++i) {
 			for (int j = minX; j <= maxX; ++j) {
 				for (int k = minZ; k <= maxZ; ++k) {
@@ -273,7 +257,6 @@ public abstract class StructureComponent {
 	 * Fill the given area with the selected blocks
 	 */
 	protected void fillWithBlocks(World worldIn, StructureBoundingBox boundingboxIn, int xMin, int yMin, int zMin, int xMax, int yMax, int zMax, IBlockState boundaryBlockState, IBlockState insideBlockState, boolean existingOnly) {
-
 		for (int i = yMin; i <= yMax; ++i) {
 			for (int j = xMin; j <= xMax; ++j) {
 				for (int k = zMin; k <= zMax; ++k) {
@@ -294,7 +277,6 @@ public abstract class StructureComponent {
 	 * maxZ, boolean alwaysreplace, Random rand, StructurePieceBlockSelector blockselector
 	 */
 	protected void fillWithRandomizedBlocks(World worldIn, StructureBoundingBox boundingboxIn, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, boolean alwaysReplace, Random rand, StructureComponent.BlockSelector blockselector) {
-
 		for (int i = minY; i <= maxY; ++i) {
 			for (int j = minX; j <= maxX; ++j) {
 				for (int k = minZ; k <= maxZ; ++k) {
@@ -308,7 +290,6 @@ public abstract class StructureComponent {
 	}
 
 	protected void generateMaybeBox(World worldIn, StructureBoundingBox sbb, Random rand, float chance, int x1, int y1, int z1, int x2, int y2, int z2, IBlockState edgeState, IBlockState state, boolean requireNonAir, int requiredSkylight) {
-
 		for (int i = y1; i <= y2; ++i) {
 			for (int j = x1; j <= x2; ++j) {
 				for (int k = z1; k <= z2; ++k) {
@@ -325,14 +306,12 @@ public abstract class StructureComponent {
 	}
 
 	protected void randomlyPlaceBlock(World worldIn, StructureBoundingBox boundingboxIn, Random rand, float chance, int x, int y, int z, IBlockState blockstateIn) {
-
 		if (rand.nextFloat() < chance) {
 			setBlockState(worldIn, blockstateIn, x, y, z, boundingboxIn);
 		}
 	}
 
 	protected void randomlyRareFillWithBlocks(World worldIn, StructureBoundingBox boundingboxIn, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, IBlockState blockstateIn, boolean excludeAir) {
-
 		float f = (float) (maxX - minX + 1);
 		float f1 = (float) (maxY - minY + 1);
 		float f2 = (float) (maxZ - minZ + 1);
@@ -364,7 +343,6 @@ public abstract class StructureComponent {
 	 * Deletes all continuous blocks from selected position upwards. Stops at hitting air.
 	 */
 	protected void clearCurrentPositionBlocksUpwards(World worldIn, int x, int y, int z, StructureBoundingBox structurebb) {
-
 		BlockPos blockpos = new BlockPos(getXWithOffset(x, z), getYWithOffset(y), getZWithOffset(x, z));
 
 		if (structurebb.isVecInside(blockpos)) {
@@ -379,7 +357,6 @@ public abstract class StructureComponent {
 	 * Replaces air and liquid from given position downwards. Stops when hitting anything else than air or liquid
 	 */
 	protected void replaceAirAndLiquidDownwards(World worldIn, IBlockState blockstateIn, int x, int y, int z, StructureBoundingBox boundingboxIn) {
-
 		int i = getXWithOffset(x, z);
 		int j = getYWithOffset(y);
 		int k = getZWithOffset(x, z);
@@ -396,13 +373,11 @@ public abstract class StructureComponent {
 	 * Adds chest to the structure and sets its contents
 	 */
 	protected boolean generateChest(World worldIn, StructureBoundingBox structurebb, Random randomIn, int x, int y, int z, ResourceLocation loot) {
-
 		BlockPos blockpos = new BlockPos(getXWithOffset(x, z), getYWithOffset(y), getZWithOffset(x, z));
 		return generateChest(worldIn, structurebb, randomIn, blockpos, loot, null);
 	}
 
 	protected boolean generateChest(World p_191080_1_, StructureBoundingBox p_191080_2_, Random p_191080_3_, BlockPos p_191080_4_, ResourceLocation p_191080_5_, IBlockState p_191080_6_) {
-
 		if (p_191080_2_.isVecInside(p_191080_4_) && p_191080_1_.getBlockState(p_191080_4_).getBlock() != Blocks.CHEST) {
 			if (p_191080_6_ == null) {
 				p_191080_6_ = Blocks.CHEST.correctFacing(p_191080_1_, p_191080_4_, Blocks.CHEST.getDefaultState());
@@ -422,7 +397,6 @@ public abstract class StructureComponent {
 	}
 
 	protected boolean createDispenser(World worldIn, StructureBoundingBox sbb, Random rand, int x, int y, int z, Facing facing, ResourceLocation lootTableIn) {
-
 		BlockPos blockpos = new BlockPos(getXWithOffset(x, z), getYWithOffset(y), getZWithOffset(x, z));
 
 		if (sbb.isVecInside(blockpos) && worldIn.getBlockState(blockpos).getBlock() != Blocks.DISPENSER) {
@@ -440,24 +414,20 @@ public abstract class StructureComponent {
 	}
 
 	protected void generateDoor(World worldIn, StructureBoundingBox sbb, Random rand, int x, int y, int z, Facing facing, BlockDoor door) {
-
 		setBlockState(worldIn, door.getDefaultState().withProperty(BlockDoor.FACING, facing), x, y, z, sbb);
 		setBlockState(worldIn, door.getDefaultState().withProperty(BlockDoor.FACING, facing).withProperty(BlockDoor.HALF, BlockDoor.DoorHalf.UPPER), x, y + 1, z, sbb);
 	}
 
 	public void offset(int x, int y, int z) {
-
 		boundingBox.offset(x, y, z);
 	}
 
 	
 	public Facing getCoordBaseMode() {
-
 		return coordBaseMode;
 	}
 
 	public void setCoordBaseMode(Facing facing) {
-
 		coordBaseMode = facing;
 
 		if (facing == null) {
@@ -494,7 +464,6 @@ public abstract class StructureComponent {
 		public abstract void selectBlocks(Random rand, int x, int y, int z, boolean wall);
 
 		public IBlockState getBlockState() {
-
 			return blockstate;
 		}
 

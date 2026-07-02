@@ -7,7 +7,6 @@ import net.minecraft.world.World;
 public class ItemSoup extends ItemFood {
 
 	public ItemSoup(int healAmount) {
-
 		super(healAmount, false);
 		setMaxStackSize(1);
 	}
@@ -17,7 +16,6 @@ public class ItemSoup extends ItemFood {
 	 * the Item before the action is complete.
 	 */
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
-
 		super.onItemUseFinish(stack, worldIn, entityLiving);
 		return new ItemStack(Items.BOWL);
 	}

@@ -5,7 +5,6 @@ import net.minecraft.block.Block;
 public class ItemCloth extends ItemBlock {
 
 	public ItemCloth(Block block) {
-
 		super(block);
 		setMaxDamage(0);
 		setHasSubtypes(true);
@@ -16,7 +15,6 @@ public class ItemCloth extends ItemBlock {
 	 * placed as a Block (mostly used with ItemBlocks).
 	 */
 	public int getMetadata(int damage) {
-
 		return damage;
 	}
 
@@ -25,7 +23,6 @@ public class ItemCloth extends ItemBlock {
 	 * different names based on their damage or NBT.
 	 */
 	public String getUnlocalizedName(ItemStack stack) {
-
 		return super.getUnlocalizedName() + "." + DyeColor.byMetadata(stack.getMetadata()).getUnlocalizedName();
 	}
 

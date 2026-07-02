@@ -8,12 +8,10 @@ import java.util.ArrayDeque;
 import java.util.List;
 
 public record FunctionObject(Entry[] entries) {
-
 	/**
 	 * Create a Function from the given function definition.
 	 */
 	public static FunctionObject create(FunctionManager functionManagerIn, List<String> commands) {
-
 		List<Entry> list = Lists.newArrayListWithCapacity(commands.size());
 
 		for (String s : commands) {
@@ -58,19 +56,16 @@ public record FunctionObject(Entry[] entries) {
 		private FunctionObject function;
 
 		public CacheableFunction(ResourceLocation idIn) {
-
 			id = idIn;
 		}
 
 		public CacheableFunction(FunctionObject functionIn) {
-
 			id = null;
 			function = functionIn;
 		}
 
 		
 		public FunctionObject get(FunctionManager functionManagerIn) {
-
 			if (!isValid) {
 				if (id != null) {
 					function = functionManagerIn.getFunction(id);
@@ -83,7 +78,6 @@ public record FunctionObject(Entry[] entries) {
 		}
 
 		public String toString() {
-
 			return String.valueOf(id);
 		}
 
@@ -94,17 +88,14 @@ public record FunctionObject(Entry[] entries) {
 		private final String command;
 
 		public CommandEntry(String p_i47534_1_) {
-
 			command = p_i47534_1_;
 		}
 
 		public void execute(FunctionManager functionManagerIn, ICommandSender sender, ArrayDeque<FunctionManager.QueuedCommand> commandQueue, int maxCommandChainLength) {
-
 			functionManagerIn.getCommandManager().executeCommand(sender, command);
 		}
 
 		public String toString() {
-
 			return "/" + command;
 		}
 
@@ -115,12 +106,10 @@ public record FunctionObject(Entry[] entries) {
 		private final CacheableFunction function;
 
 		public FunctionEntry(FunctionObject functionIn) {
-
 			function = new CacheableFunction(functionIn);
 		}
 
 		public void execute(FunctionManager functionManagerIn, ICommandSender sender, ArrayDeque<FunctionManager.QueuedCommand> commandQueue, int maxCommandChainLength) {
-
 			FunctionObject functionobject = function.get(functionManagerIn);
 
 			if (functionobject != null) {
@@ -135,7 +124,6 @@ public record FunctionObject(Entry[] entries) {
 		}
 
 		public String toString() {
-
 			return "/function " + function;
 		}
 

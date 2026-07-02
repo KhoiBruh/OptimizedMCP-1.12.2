@@ -26,7 +26,6 @@ public class SimpleResource implements IResource {
 	private JsonObject mcmetaJson;
 
 	public SimpleResource(String resourcePackNameIn, ResourceLocation srResourceLocationIn, InputStream resourceInputStreamIn, InputStream mcmetaInputStreamIn, MetadataSerializer srMetadataSerializerIn) {
-
 		resourcePackName = resourcePackNameIn;
 		srResourceLocation = srResourceLocationIn;
 		resourceInputStream = resourceInputStreamIn;
@@ -35,17 +34,14 @@ public class SimpleResource implements IResource {
 	}
 
 	public ResourceLocation getResourceLocation() {
-
 		return srResourceLocation;
 	}
 
 	public InputStream getInputStream() {
-
 		return resourceInputStream;
 	}
 
 	public boolean hasMetadata() {
-
 		return mcmetaInputStream != null;
 	}
 
@@ -74,12 +70,10 @@ public class SimpleResource implements IResource {
 	}
 
 	public String getResourcePackName() {
-
 		return resourcePackName;
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else if (!(p_equals_1_ instanceof SimpleResource simpleresource)) {
@@ -101,14 +95,12 @@ public class SimpleResource implements IResource {
 	}
 
 	public int hashCode() {
-
 		int i = resourcePackName != null ? resourcePackName.hashCode() : 0;
 		i = 31 * i + (srResourceLocation != null ? srResourceLocation.hashCode() : 0);
 		return i;
 	}
 
 	public void close() throws IOException {
-
 		resourceInputStream.close();
 
 		if (mcmetaInputStream != null) {

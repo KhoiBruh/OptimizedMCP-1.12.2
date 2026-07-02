@@ -32,7 +32,6 @@ public class BlockPane extends Block {
 	private final boolean canDrop;
 
 	protected BlockPane(Material materialIn, boolean canDrop) {
-
 		super(materialIn);
 		setDefaultState(blockState.getBaseState().withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false));
 		this.canDrop = canDrop;
@@ -40,12 +39,10 @@ public class BlockPane extends Block {
 	}
 
 	private static int getBoundingBoxIndex(Facing p_185729_0_) {
-
 		return 1 << p_185729_0_.getHorizontalIndex();
 	}
 
 	private static int getBoundingBoxIndex(IBlockState state) {
-
 		int i = 0;
 
 		if (state.getValue(NORTH)) {
@@ -68,12 +65,10 @@ public class BlockPane extends Block {
 	}
 
 	protected static boolean isExcepBlockForAttachWithPiston(Block p_193394_0_) {
-
 		return p_193394_0_ instanceof BlockShulkerBox || p_193394_0_ instanceof BlockLeaves || p_193394_0_ == Blocks.BEACON || p_193394_0_ == Blocks.CAULDRON || p_193394_0_ == Blocks.GLOWSTONE || p_193394_0_ == Blocks.ICE || p_193394_0_ == Blocks.SEA_LANTERN || p_193394_0_ == Blocks.PISTON || p_193394_0_ == Blocks.STICKY_PISTON || p_193394_0_ == Blocks.PISTON_HEAD || p_193394_0_ == Blocks.MELON_BLOCK || p_193394_0_ == Blocks.PUMPKIN || p_193394_0_ == Blocks.LIT_PUMPKIN || p_193394_0_ == Blocks.BARRIER;
 	}
 
 	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean isActualState) {
-
 		if (!isActualState) {
 			state = getActualState(state, worldIn, pos);
 		}
@@ -98,7 +93,6 @@ public class BlockPane extends Block {
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		state = getActualState(state, source, pos);
 		return AABB_BY_INDEX[getBoundingBoxIndex(state)];
 	}
@@ -108,7 +102,6 @@ public class BlockPane extends Block {
 	 * metadata, such as fence connections.
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return state.withProperty(NORTH, attachesTo(worldIn, worldIn.getBlockState(pos.north()), pos.north(), Facing.SOUTH)).withProperty(SOUTH, attachesTo(worldIn, worldIn.getBlockState(pos.south()), pos.south(), Facing.NORTH)).withProperty(WEST, attachesTo(worldIn, worldIn.getBlockState(pos.west()), pos.west(), Facing.EAST)).withProperty(EAST, attachesTo(worldIn, worldIn.getBlockState(pos.east()), pos.east(), Facing.WEST));
 	}
 
@@ -116,7 +109,6 @@ public class BlockPane extends Block {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return !canDrop ? Items.AIR : super.getItemDropped(state, rand, fortune);
 	}
 
@@ -124,29 +116,24 @@ public class BlockPane extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		return blockAccess.getBlockState(pos.offset(side)).getBlock() != this && super.shouldSideBeRendered(blockState, blockAccess, pos, side);
 	}
 
 	public final boolean attachesTo(IBlockAccess p_193393_1_, IBlockState state, BlockPos pos, Facing facing) {
-
 		Block block = state.getBlock();
 		BlockFaceShape blockfaceshape = state.getBlockFaceShape(p_193393_1_, pos, facing);
 		return !isExcepBlockForAttachWithPiston(block) && blockfaceshape == BlockFaceShape.SOLID || blockfaceshape == BlockFaceShape.MIDDLE_POLE_THIN;
 	}
 
 	protected boolean canSilkHarvest() {
-
 		return true;
 	}
 
@@ -155,7 +142,6 @@ public class BlockPane extends Block {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.CUTOUT_MIPPED;
 	}
 
@@ -163,7 +149,6 @@ public class BlockPane extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return 0;
 	}
 
@@ -172,7 +157,6 @@ public class BlockPane extends Block {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return switch (rot) {
 			case CLOCKWISE_180 ->
 					state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(EAST, state.getValue(WEST)).withProperty(SOUTH, state.getValue(NORTH)).withProperty(WEST, state.getValue(EAST));
@@ -189,7 +173,6 @@ public class BlockPane extends Block {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return switch (mirrorIn) {
 			case LEFT_RIGHT ->
 					state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(NORTH));
@@ -199,7 +182,6 @@ public class BlockPane extends Block {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, NORTH, EAST, WEST, SOUTH);
 	}
 
@@ -213,7 +195,6 @@ public class BlockPane extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return face != Facing.UP && face != Facing.DOWN ? BlockFaceShape.MIDDLE_POLE_THIN : BlockFaceShape.CENTER_SMALL;
 	}
 

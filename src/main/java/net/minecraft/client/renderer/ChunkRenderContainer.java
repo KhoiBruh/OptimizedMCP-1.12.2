@@ -16,7 +16,6 @@ public abstract class ChunkRenderContainer {
 	private double viewEntityZ;
 
 	public void initialize(double viewEntityXIn, double viewEntityYIn, double viewEntityZIn) {
-
 		initialized = true;
 		renderChunks.clear();
 		viewEntityX = viewEntityXIn;
@@ -25,13 +24,11 @@ public abstract class ChunkRenderContainer {
 	}
 
 	public void preRenderChunk(RenderChunk renderChunkIn) {
-
 		BlockPos blockpos = renderChunkIn.getPosition();
 		GLS.translate((float) ((double) blockpos.getX() - viewEntityX), (float) ((double) blockpos.getY() - viewEntityY), (float) ((double) blockpos.getZ() - viewEntityZ));
 	}
 
 	public void addRenderChunk(RenderChunk renderChunkIn, BlockRenderLayer layer) {
-
 		renderChunks.add(renderChunkIn);
 	}
 

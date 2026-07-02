@@ -26,7 +26,6 @@ public class DisplayInfo {
 	private float y;
 
 	public DisplayInfo(ItemStack icon, ITextComponent title, ITextComponent description, ResourceLocation background, FrameType frame, boolean showToast, boolean announceToChat, boolean hidden) {
-
 		this.title = title;
 		this.description = description;
 		this.icon = icon;
@@ -38,7 +37,6 @@ public class DisplayInfo {
 	}
 
 	public static DisplayInfo deserialize(JsonObject object, JsonDeserializationContext context) {
-
 		ITextComponent itextcomponent = JsonUtils.deserializeClass(object, "title", context, ITextComponent.class);
 		ITextComponent itextcomponent1 = JsonUtils.deserializeClass(object, "description", context, ITextComponent.class);
 
@@ -56,7 +54,6 @@ public class DisplayInfo {
 	}
 
 	private static ItemStack deserializeIcon(JsonObject object) {
-
 		if (!object.has("item")) {
 			throw new JsonSyntaxException("Unsupported icon type, currently only items are supported (add 'item' key)");
 		} else {
@@ -67,7 +64,6 @@ public class DisplayInfo {
 	}
 
 	public static DisplayInfo read(PacketBuffer buf) {
-
 		ITextComponent itextcomponent = buf.readTextComponent();
 		ITextComponent itextcomponent1 = buf.readTextComponent();
 		ItemStack itemstack = buf.readItemStack();
@@ -82,64 +78,52 @@ public class DisplayInfo {
 	}
 
 	public void setPosition(float x, float y) {
-
 		this.x = x;
 		this.y = y;
 	}
 
 	public ITextComponent getTitle() {
-
 		return title;
 	}
 
 	public ITextComponent getDescription() {
-
 		return description;
 	}
 
 	public ItemStack getIcon() {
-
 		return icon;
 	}
 
 	
 	public ResourceLocation getBackground() {
-
 		return background;
 	}
 
 	public FrameType getFrame() {
-
 		return frame;
 	}
 
 	public float getX() {
-
 		return x;
 	}
 
 	public float getY() {
-
 		return y;
 	}
 
 	public boolean shouldShowToast() {
-
 		return showToast;
 	}
 
 	public boolean shouldAnnounceToChat() {
-
 		return announceToChat;
 	}
 
 	public boolean isHidden() {
-
 		return hidden;
 	}
 
 	public void write(PacketBuffer buf) {
-
 		buf.writeTextComponent(title);
 		buf.writeTextComponent(description);
 		buf.writeItemStack(icon);

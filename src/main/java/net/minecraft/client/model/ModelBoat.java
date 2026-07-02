@@ -20,7 +20,6 @@ public class ModelBoat extends ModelBase implements IMultipassModel {
 	public ModelRenderer noWater;
 
 	public ModelBoat() {
-
 		boatSides[0] = (new ModelRenderer(this, 0, 0)).setTextureSize(128, 64);
 		boatSides[1] = (new ModelRenderer(this, 0, 19)).setTextureSize(128, 64);
 		boatSides[2] = (new ModelRenderer(this, 0, 27)).setTextureSize(128, 64);
@@ -62,7 +61,6 @@ public class ModelBoat extends ModelBase implements IMultipassModel {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		GLS.rotate(90F, 0F, 1F, 0F);
 		EntityBoat entityboat = (EntityBoat) entityIn;
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
@@ -76,7 +74,6 @@ public class ModelBoat extends ModelBase implements IMultipassModel {
 	}
 
 	public void renderMultipass(Entity p_187054_1_, float p_187054_2_, float p_187054_3_, float p_187054_4_, float p_187054_5_, float p_187054_6_, float scale) {
-
 		GLS.rotate(90F, 0F, 1F, 0F);
 		GLS.colorMask(false, false, false, false);
 		noWater.render(scale);
@@ -84,7 +81,6 @@ public class ModelBoat extends ModelBase implements IMultipassModel {
 	}
 
 	protected ModelRenderer makePaddle(boolean p_187056_1_) {
-
 		ModelRenderer modelrenderer = (new ModelRenderer(this, 62, p_187056_1_ ? 0 : 20)).setTextureSize(128, 64);
 		int i = 20;
 		int j = 7;
@@ -96,7 +92,6 @@ public class ModelBoat extends ModelBase implements IMultipassModel {
 	}
 
 	protected void renderPaddle(EntityBoat boat, int paddle, float scale, float limbSwing) {
-
 		float f = boat.getRowingTime(paddle, limbSwing);
 		ModelRenderer modelrenderer = paddles[paddle];
 		modelrenderer.rotateAngleX = (float) MathHelper.clampedLerp(-1.0471975803375244D, -0.2617993950843811D, (MathHelper.sin(-f) + 1F) / 2F);

@@ -14,7 +14,6 @@ import net.minecraft.world.World;
 public class ItemRedstone extends Item {
 
 	public ItemRedstone() {
-
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
@@ -22,7 +21,6 @@ public class ItemRedstone extends Item {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		boolean flag = worldIn.getBlockState(pos).getBlock().isReplaceable(worldIn, pos);
 		BlockPos blockpos = flag ? pos : pos.offset(facing);
 		ItemStack itemstack = player.getHeldItem(hand);

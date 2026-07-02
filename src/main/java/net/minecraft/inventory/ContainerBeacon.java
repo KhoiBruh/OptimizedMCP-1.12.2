@@ -15,7 +15,6 @@ public class ContainerBeacon extends Container {
 	private final ContainerBeacon.BeaconSlot beaconSlot;
 
 	public ContainerBeacon(IInventory playerInventory, IInventory tileBeaconIn) {
-
 		tileBeacon = tileBeaconIn;
 		beaconSlot = new ContainerBeacon.BeaconSlot(tileBeaconIn, 0, 136, 110);
 		addSlotToContainer(beaconSlot);
@@ -34,18 +33,15 @@ public class ContainerBeacon extends Container {
 	}
 
 	public void addListener(IContainerListener listener) {
-
 		super.addListener(listener);
 		listener.sendAllWindowProperties(this, tileBeacon);
 	}
 
 	public void updateProgressBar(int id, int data) {
-
 		tileBeacon.setField(id, data);
 	}
 
 	public IInventory getTileEntity() {
-
 		return tileBeacon;
 	}
 
@@ -53,7 +49,6 @@ public class ContainerBeacon extends Container {
 	 * Called when the container is closed.
 	 */
 	public void onContainerClosed(EntityPlayer playerIn) {
-
 		super.onContainerClosed(playerIn);
 
 		if (!playerIn.world.isRemote) {
@@ -69,7 +64,6 @@ public class ContainerBeacon extends Container {
 	 * Determines whether supplied player can use this container
 	 */
 	public boolean canInteractWith(EntityPlayer playerIn) {
-
 		return tileBeacon.isUsableByPlayer(playerIn);
 	}
 
@@ -78,7 +72,6 @@ public class ContainerBeacon extends Container {
 	 * inventory and the other inventory(s).
 	 */
 	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = inventorySlots.get(index);
 
@@ -127,18 +120,15 @@ public class ContainerBeacon extends Container {
 	class BeaconSlot extends Slot {
 
 		public BeaconSlot(IInventory inventoryIn, int index, int xIn, int yIn) {
-
 			super(inventoryIn, index, xIn, yIn);
 		}
 
 		public boolean isItemValid(ItemStack stack) {
-
 			Item item = stack.getItem();
 			return item == Items.EMERALD || item == Items.DIAMOND || item == Items.GOLD_INGOT || item == Items.IRON_INGOT;
 		}
 
 		public int getSlotStackLimit() {
-
 			return 1;
 		}
 

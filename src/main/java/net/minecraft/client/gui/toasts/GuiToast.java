@@ -17,12 +17,10 @@ public class GuiToast extends Gui {
 	private final Deque<IToast> toastsQueue = Queues.newArrayDeque();
 
 	public GuiToast(Minecraft mcIn) {
-
 		mc = mcIn;
 	}
 
 	public void drawToast() {
-
 		if (!mc.gameSettings.hideGUI) {
 			RenderHelper.disableStandardItemLighting();
 
@@ -59,18 +57,15 @@ public class GuiToast extends Gui {
 	}
 
 	public void clear() {
-
 		Arrays.fill(visible, null);
 		toastsQueue.clear();
 	}
 
 	public void add(IToast toastIn) {
-
 		toastsQueue.add(toastIn);
 	}
 
 	public Minecraft getMinecraft() {
-
 		return mc;
 	}
 
@@ -82,7 +77,6 @@ public class GuiToast extends Gui {
 		private IToast.Visibility visibility;
 
 		private ToastInstance(T toastIn) {
-
 			animationTime = -1L;
 			visibleTime = -1L;
 			visibility = IToast.Visibility.SHOW;
@@ -90,19 +84,16 @@ public class GuiToast extends Gui {
 		}
 
 		public T getToast() {
-
 			return toast;
 		}
 
 		private float getVisibility(long p_193686_1_) {
-
 			float f = MathHelper.clamp((float) (p_193686_1_ - animationTime) / 600F, 0F, 1F);
 			f = f * f;
 			return visibility == IToast.Visibility.HIDE ? 1F - f : f;
 		}
 
 		public boolean render(int p_193684_1_, int p_193684_2_) {
-
 			long i = Minecraft.getSystemTime();
 
 			if (animationTime == -1L) {

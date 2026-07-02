@@ -10,12 +10,10 @@ public class ZombieProfToType implements IFixableData {
 	private static final Random RANDOM = new Random();
 
 	public int getFixVersion() {
-
 		return 502;
 	}
 
 	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
-
 		if ("Zombie".equals(compound.getString("id")) && compound.getBoolean("IsVillager")) {
 			if (!compound.hasKey("ZombieType", 99)) {
 				int i = -1;
@@ -41,7 +39,6 @@ public class ZombieProfToType implements IFixableData {
 	}
 
 	private int getVillagerProfession(int p_191277_1_) {
-
 		return p_191277_1_ >= 0 && p_191277_1_ < 6 ? p_191277_1_ : -1;
 	}
 

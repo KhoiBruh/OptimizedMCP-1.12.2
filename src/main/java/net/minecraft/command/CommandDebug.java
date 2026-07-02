@@ -34,7 +34,6 @@ public class CommandDebug extends CommandBase {
 	 * Get a random witty comment
 	 */
 	private static String getWittyComment() {
-
 		String[] astring = new String[]{"Shiny numbers!", "Am I not running fast enough? :(", "I'm working as hard as I can!", "Will I ever be good enough for you? :(", "Speedy. Zoooooom!", "Hello world", "40% better than a crash report.", "Now with extra numbers", "Now with less numbers", "Now with the same numbers", "You should add flames to things, it makes them go faster!", "Do you feel the need for... optimization?", "*cracks redstone whip*", "Maybe if you treated it better then it'll have more motivation to work faster! Poor server."};
 
 		try {
@@ -48,7 +47,6 @@ public class CommandDebug extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "debug";
 	}
 
@@ -56,7 +54,6 @@ public class CommandDebug extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 3;
 	}
 
@@ -64,7 +61,6 @@ public class CommandDebug extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.debug.usage";
 	}
 
@@ -72,7 +68,6 @@ public class CommandDebug extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		if (args.length < 1) {
 			throw new WrongUsageException("commands.debug.usage");
 		} else {
@@ -110,7 +105,6 @@ public class CommandDebug extends CommandBase {
 	}
 
 	private void saveProfilerResults(long timeSpan, int tickSpan, MinecraftServer server) {
-
 		File file1 = new File(server.getFile("debug"), "profile-results-" + (new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss")).format(new Date()) + ".txt");
 		file1.getParentFile().mkdirs();
 		try (Writer writer = new OutputStreamWriter(new FileOutputStream(file1), StandardCharsets.UTF_8)) {
@@ -121,7 +115,6 @@ public class CommandDebug extends CommandBase {
 	}
 
 	private String getProfilerResults(long timeSpan, int tickSpan, MinecraftServer server) {
-
 		StringBuilder stringbuilder = new StringBuilder();
 		stringbuilder.append("---- Minecraft Profiler Results ----\n");
 		stringbuilder.append("// ");
@@ -137,7 +130,6 @@ public class CommandDebug extends CommandBase {
 	}
 
 	private void appendProfilerResults(int depth, String sectionName, StringBuilder builder, MinecraftServer server) {
-
 		List<Profiler.Result> list = server.profiler.getProfilingData(sectionName);
 
 		if (list != null && list.size() >= 3) {
@@ -161,7 +153,6 @@ public class CommandDebug extends CommandBase {
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		return args.length == 1 ? getListOfStringsMatchingLastWord(args, "start", "stop") : Collections.emptyList();
 	}
 

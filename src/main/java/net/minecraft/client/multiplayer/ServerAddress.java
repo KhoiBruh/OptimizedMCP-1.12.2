@@ -12,13 +12,11 @@ public class ServerAddress {
 	private final int serverPort;
 
 	private ServerAddress(String address, int port) {
-
 		ipAddress = address;
 		serverPort = port;
 	}
 
 	public static ServerAddress fromString(String addrString) {
-
 		if (addrString == null) {
 			return null;
 		} else {
@@ -61,7 +59,6 @@ public class ServerAddress {
 	 * Returns a server's address and port for the specified hostname, looking up the SRV record if possible
 	 */
 	private static String[] getServerAddress(String p_78863_0_) {
-
 		try {
 			String s = "com.sun.jndi.dns.DnsContextFactory";
 			Class.forName("com.sun.jndi.dns.DnsContextFactory");
@@ -79,7 +76,6 @@ public class ServerAddress {
 	}
 
 	private static int getInt(String value, int defaultValue) {
-
 		try {
 			return Integer.parseInt(value.trim());
 		} catch (Exception var3) {
@@ -88,7 +84,6 @@ public class ServerAddress {
 	}
 
 	public String getIP() {
-
 		try {
 			return IDN.toASCII(ipAddress);
 		} catch (IllegalArgumentException var2) {
@@ -97,7 +92,6 @@ public class ServerAddress {
 	}
 
 	public int getPort() {
-
 		return serverPort;
 	}
 

@@ -13,11 +13,9 @@ public class SPacketRemoveEntityEffect implements Packet<INetHandlerPlayClient> 
 	private Potion effectId;
 
 	public SPacketRemoveEntityEffect() {
-
 	}
 
 	public SPacketRemoveEntityEffect(int entityIdIn, Potion potionIn) {
-
 		entityId = entityIdIn;
 		effectId = potionIn;
 	}
@@ -26,7 +24,6 @@ public class SPacketRemoveEntityEffect implements Packet<INetHandlerPlayClient> 
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		entityId = buf.readVarInt();
 		effectId = Potion.getPotionById(buf.readUnsignedByte());
 	}
@@ -35,7 +32,6 @@ public class SPacketRemoveEntityEffect implements Packet<INetHandlerPlayClient> 
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeVarInt(entityId);
 		buf.writeByte(Potion.getIdFromPotion(effectId));
 	}
@@ -44,19 +40,16 @@ public class SPacketRemoveEntityEffect implements Packet<INetHandlerPlayClient> 
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleRemoveEntityEffect(this);
 	}
 
 	
 	public Entity getEntity(World worldIn) {
-
 		return worldIn.getEntityByID(entityId);
 	}
 
 	
 	public Potion getPotion() {
-
 		return effectId;
 	}
 

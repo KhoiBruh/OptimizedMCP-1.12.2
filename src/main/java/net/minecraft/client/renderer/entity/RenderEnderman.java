@@ -15,14 +15,12 @@ public class RenderEnderman extends RenderLiving<EntityEnderman> {
 	private final Random rnd = new Random();
 
 	public RenderEnderman(RenderManager renderManagerIn) {
-
 		super(renderManagerIn, new ModelEnderman(0F), 0.5F);
 		addLayer(new LayerEndermanEyes(this));
 		addLayer(new LayerHeldBlock(this));
 	}
 
 	public ModelEnderman getMainModel() {
-
 		return (ModelEnderman) super.getMainModel();
 	}
 
@@ -30,7 +28,6 @@ public class RenderEnderman extends RenderLiving<EntityEnderman> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(EntityEnderman entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		IBlockState iblockstate = entity.getHeldBlockState();
 		ModelEnderman modelenderman = getMainModel();
 		modelenderman.isCarrying = iblockstate != null;
@@ -49,7 +46,6 @@ public class RenderEnderman extends RenderLiving<EntityEnderman> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityEnderman entity) {
-
 		return ENDERMAN_TEXTURES;
 	}
 

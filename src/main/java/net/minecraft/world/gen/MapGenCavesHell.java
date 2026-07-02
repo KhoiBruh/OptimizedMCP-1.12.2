@@ -13,12 +13,10 @@ public class MapGenCavesHell extends MapGenBase {
 	protected static final IBlockState AIR = Blocks.AIR.getDefaultState();
 
 	protected void addRoom(long p_180705_1_, int p_180705_3_, int p_180705_4_, ChunkPrimer p_180705_5_, double p_180705_6_, double p_180705_8_, double p_180705_10_) {
-
 		addTunnel(p_180705_1_, p_180705_3_, p_180705_4_, p_180705_5_, p_180705_6_, p_180705_8_, p_180705_10_, 1F + rand.nextFloat() * 6F, 0F, 0F, -1, -1, 0.5D);
 	}
 
 	protected void addTunnel(long p_180704_1_, int p_180704_3_, int p_180704_4_, ChunkPrimer p_180704_5_, double p_180704_6_, double p_180704_8_, double p_180704_10_, float p_180704_12_, float p_180704_13_, float p_180704_14_, int p_180704_15_, int p_180704_16_, double p_180704_17_) {
-
 		double d0 = p_180704_3_ * 16 + 8;
 		double d1 = p_180704_4_ * 16 + 8;
 		float f = 0F;
@@ -163,7 +161,6 @@ public class MapGenCavesHell extends MapGenBase {
 	 * Recursively called by generate()
 	 */
 	protected void recursiveGenerate(World worldIn, int chunkX, int chunkZ, int originalX, int originalZ, ChunkPrimer chunkPrimerIn) {
-
 		int i = rand.nextInt(rand.nextInt(rand.nextInt(10) + 1) + 1);
 
 		if (rand.nextInt(5) != 0) {

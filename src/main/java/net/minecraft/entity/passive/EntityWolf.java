@@ -56,19 +56,16 @@ public class EntityWolf extends EntityTameable {
 	private float prevTimeWolfIsShaking;
 
 	public EntityWolf(World worldIn) {
-
 		super(worldIn);
 		setSize(0.6F, 0.85F);
 		setTamed(false);
 	}
 
 	public static void registerFixesWolf(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntityWolf.class);
 	}
 
 	protected void initEntityAI() {
-
 		aiSit = new EntityAISit(this);
 		tasks.addTask(1, new EntityAISwimming(this));
 		tasks.addTask(2, aiSit);
@@ -89,7 +86,6 @@ public class EntityWolf extends EntityTameable {
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
 
@@ -106,7 +102,6 @@ public class EntityWolf extends EntityTameable {
 	 * Sets the active target the Task system uses for tracking
 	 */
 	public void setAttackTarget(EntityLivingBase entitylivingbaseIn) {
-
 		super.setAttackTarget(entitylivingbaseIn);
 
 		if (entitylivingbaseIn == null) {
@@ -117,12 +112,10 @@ public class EntityWolf extends EntityTameable {
 	}
 
 	protected void updateAITasks() {
-
 		dataManager.set(DATA_HEALTH_ID, getHealth());
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(DATA_HEALTH_ID, getHealth());
 		dataManager.register(BEGGING, false);
@@ -130,7 +123,6 @@ public class EntityWolf extends EntityTameable {
 	}
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
-
 		playSound(SoundEvents.ENTITY_WOLF_STEP, 0.15F, 1F);
 	}
 
@@ -138,7 +130,6 @@ public class EntityWolf extends EntityTameable {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setBoolean("Angry", isAngry());
 		compound.setByte("CollarColor", (byte) getCollarColor().getDyeDamage());
@@ -148,7 +139,6 @@ public class EntityWolf extends EntityTameable {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		setAngry(compound.getBoolean("Angry"));
 
@@ -158,7 +148,6 @@ public class EntityWolf extends EntityTameable {
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		if (isAngry()) {
 			return SoundEvents.ENTITY_WOLF_GROWL;
 		} else if (rand.nextInt(3) == 0) {
@@ -169,12 +158,10 @@ public class EntityWolf extends EntityTameable {
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_WOLF_HURT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_WOLF_DEATH;
 	}
 
@@ -182,13 +169,11 @@ public class EntityWolf extends EntityTameable {
 	 * Returns the volume for the sounds this mob makes.
 	 */
 	protected float getSoundVolume() {
-
 		return 0.4F;
 	}
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_WOLF;
 	}
 
@@ -197,7 +182,6 @@ public class EntityWolf extends EntityTameable {
 	 * use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
 		super.onLivingUpdate();
 
 		if (!world.isRemote && isWet && !isShaking && !hasPath() && onGround) {
@@ -216,7 +200,6 @@ public class EntityWolf extends EntityTameable {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		super.onUpdate();
 		headRotationCourseOld = headRotationCourse;
 
@@ -263,7 +246,6 @@ public class EntityWolf extends EntityTameable {
 	 * True if the wolf is wet
 	 */
 	public boolean isWolfWet() {
-
 		return isWet;
 	}
 
@@ -271,12 +253,10 @@ public class EntityWolf extends EntityTameable {
 	 * Used when calculating the amount of shading to apply while the wolf is wet.
 	 */
 	public float getShadingWhileWet(float p_70915_1_) {
-
 		return 0.75F + (prevTimeWolfIsShaking + (timeWolfIsShaking - prevTimeWolfIsShaking) * p_70915_1_) / 2F * 0.25F;
 	}
 
 	public float getShakeAngle(float p_70923_1_, float p_70923_2_) {
-
 		float f = (prevTimeWolfIsShaking + (timeWolfIsShaking - prevTimeWolfIsShaking) * p_70923_1_ + p_70923_2_) / 1.8F;
 
 		if (f < 0F) {
@@ -289,12 +269,10 @@ public class EntityWolf extends EntityTameable {
 	}
 
 	public float getInterestedAngle(float p_70917_1_) {
-
 		return (headRotationCourseOld + (headRotationCourse - headRotationCourseOld) * p_70917_1_) * 0.15F * (float) Math.PI;
 	}
 
 	public float getEyeHeight() {
-
 		return height * 0.8F;
 	}
 
@@ -303,7 +281,6 @@ public class EntityWolf extends EntityTameable {
 	 * use in wolves.
 	 */
 	public int getVerticalFaceSpeed() {
-
 		return isSitting() ? 20 : super.getVerticalFaceSpeed();
 	}
 
@@ -311,7 +288,6 @@ public class EntityWolf extends EntityTameable {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		if (isEntityInvulnerable(source)) {
 			return false;
 		} else {
@@ -330,7 +306,6 @@ public class EntityWolf extends EntityTameable {
 	}
 
 	public boolean attackEntityAsMob(Entity entityIn) {
-
 		boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float) ((int) getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue()));
 
 		if (flag) {
@@ -341,7 +316,6 @@ public class EntityWolf extends EntityTameable {
 	}
 
 	public void setTamed(boolean tamed) {
-
 		super.setTamed(tamed);
 
 		if (tamed) {
@@ -354,7 +328,6 @@ public class EntityWolf extends EntityTameable {
 	}
 
 	public boolean processInteract(EntityPlayer player, Hand hand) {
-
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (isTamed()) {
@@ -420,7 +393,6 @@ public class EntityWolf extends EntityTameable {
 	 * Handler for {@link World#setEntityState}
 	 */
 	public void handleStatusUpdate(byte id) {
-
 		if (id == 8) {
 			isShaking = true;
 			timeWolfIsShaking = 0F;
@@ -431,7 +403,6 @@ public class EntityWolf extends EntityTameable {
 	}
 
 	public float getTailRotation() {
-
 		if (isAngry()) {
 			return 1.5393804F;
 		} else {
@@ -444,7 +415,6 @@ public class EntityWolf extends EntityTameable {
 	 * the animal type)
 	 */
 	public boolean isBreedingItem(ItemStack stack) {
-
 		return stack.getItem() instanceof ItemFood && ((ItemFood) stack.getItem()).isWolfsFavoriteMeat();
 	}
 
@@ -452,7 +422,6 @@ public class EntityWolf extends EntityTameable {
 	 * Will return how many at most can spawn in a chunk at once.
 	 */
 	public int getMaxSpawnedInChunk() {
-
 		return 8;
 	}
 
@@ -460,7 +429,6 @@ public class EntityWolf extends EntityTameable {
 	 * Determines whether this wolf is angry or not.
 	 */
 	public boolean isAngry() {
-
 		return (dataManager.get(TAMED) & 2) != 0;
 	}
 
@@ -468,7 +436,6 @@ public class EntityWolf extends EntityTameable {
 	 * Sets whether this wolf is angry or not.
 	 */
 	public void setAngry(boolean angry) {
-
 		byte b0 = dataManager.get(TAMED);
 
 		if (angry) {
@@ -479,17 +446,14 @@ public class EntityWolf extends EntityTameable {
 	}
 
 	public DyeColor getCollarColor() {
-
 		return DyeColor.byDyeDamage(dataManager.get(COLLAR_COLOR) & 15);
 	}
 
 	public void setCollarColor(DyeColor collarcolor) {
-
 		dataManager.set(COLLAR_COLOR, collarcolor.getDyeDamage());
 	}
 
 	public EntityWolf createChild(EntityAgeable ageable) {
-
 		EntityWolf entitywolf = new EntityWolf(world);
 		UUID uuid = getOwnerId();
 
@@ -505,7 +469,6 @@ public class EntityWolf extends EntityTameable {
 	 * Returns true if the mob is currently able to mate with the specified mob.
 	 */
 	public boolean canMateWith(EntityAnimal otherAnimal) {
-
 		if (otherAnimal == this) {
 			return false;
 		} else if (!isTamed()) {
@@ -525,20 +488,16 @@ public class EntityWolf extends EntityTameable {
 	}
 
 	public boolean isBegging() {
-
 		return dataManager.get(BEGGING);
 	}
 
 	public void setBegging(boolean beg) {
-
 		dataManager.set(BEGGING, beg);
 	}
 
 	public boolean shouldAttackEntity(EntityLivingBase target, EntityLivingBase owner) {
-
 		if (!(target instanceof EntityCreeper) && !(target instanceof EntityGhast)) {
 			if (target instanceof EntityWolf entitywolf) {
-
 				if (entitywolf.isTamed() && entitywolf.getOwner() == owner) {
 					return false;
 				}
@@ -555,7 +514,6 @@ public class EntityWolf extends EntityTameable {
 	}
 
 	public boolean canBeLeashedTo(EntityPlayer player) {
-
 		return !isAngry() && super.canBeLeashedTo(player);
 	}
 
@@ -564,13 +522,11 @@ public class EntityWolf extends EntityTameable {
 		private final EntityWolf wolf;
 
 		public AIAvoidEntity(EntityWolf wolfIn, Class<T> p_i47251_3_, float p_i47251_4_, double p_i47251_5_, double p_i47251_7_) {
-
 			super(wolfIn, p_i47251_3_, p_i47251_4_, p_i47251_5_, p_i47251_7_);
 			wolf = wolfIn;
 		}
 
 		public boolean shouldExecute() {
-
 			if (super.shouldExecute() && closestLivingEntity instanceof EntityLlama) {
 				return !wolf.isTamed() && avoidLlama((EntityLlama) closestLivingEntity);
 			} else {
@@ -579,18 +535,15 @@ public class EntityWolf extends EntityTameable {
 		}
 
 		private boolean avoidLlama(EntityLlama p_190854_1_) {
-
 			return p_190854_1_.getStrength() >= rand.nextInt(5);
 		}
 
 		public void startExecuting() {
-
 			setAttackTarget(null);
 			super.startExecuting();
 		}
 
 		public void updateTask() {
-
 			setAttackTarget(null);
 			super.updateTask();
 		}

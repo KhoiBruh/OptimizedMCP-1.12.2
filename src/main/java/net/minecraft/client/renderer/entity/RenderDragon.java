@@ -19,14 +19,12 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
 	private static final ResourceLocation DRAGON_TEXTURES = new ResourceLocation("textures/entity/enderdragon/dragon.png");
 
 	public RenderDragon(RenderManager renderManagerIn) {
-
 		super(renderManagerIn, new ModelDragon(0F), 0.5F);
 		addLayer(new LayerEnderDragonEyes(this));
 		addLayer(new LayerEnderDragonDeath());
 	}
 
 	public static void renderCrystalBeams(double p_188325_0_, double p_188325_2_, double p_188325_4_, float p_188325_6_, double p_188325_7_, double p_188325_9_, double p_188325_11_, int p_188325_13_, double p_188325_14_, double p_188325_16_, double p_188325_18_) {
-
 		float f = (float) (p_188325_14_ - p_188325_7_);
 		float f1 = (float) (p_188325_16_ - 1D - p_188325_9_);
 		float f2 = (float) (p_188325_18_ - p_188325_11_);
@@ -62,7 +60,6 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
 	}
 
 	protected void applyRotations(EntityDragon entityLiving, float p_77043_2_, float rotationYaw, float partialTicks) {
-
 		float f = (float) entityLiving.getMovementOffsets(7, partialTicks)[0];
 		float f1 = (float) (entityLiving.getMovementOffsets(5, partialTicks)[1] - entityLiving.getMovementOffsets(10, partialTicks)[1]);
 		GLS.rotate(-f, 0F, 1F, 0F);
@@ -85,7 +82,6 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
 	 * Renders the model in RenderLiving
 	 */
 	protected void renderModel(EntityDragon entitylivingbaseIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
-
 		if (entitylivingbaseIn.deathTicks > 0) {
 			float f = (float) entitylivingbaseIn.deathTicks / 200F;
 			GLS.depthFunc(515);
@@ -117,7 +113,6 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(EntityDragon entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);
 
 		if (entity.healingEnderCrystal != null) {
@@ -132,7 +127,6 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityDragon entity) {
-
 		return DRAGON_TEXTURES;
 	}
 

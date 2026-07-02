@@ -13,7 +13,6 @@ public class SaveHandlerMP implements ISaveHandler {
 	 * Loads and returns the world info
 	 */
 	public WorldInfo loadWorldInfo() {
-
 		return null;
 	}
 
@@ -21,14 +20,12 @@ public class SaveHandlerMP implements ISaveHandler {
 	 * Checks the session lock to prevent save collisions
 	 */
 	public void checkSessionLock() {
-
 	}
 
 	/**
 	 * initializes and returns the chunk loader for the specified world provider
 	 */
 	public IChunkLoader getChunkLoader(WorldProvider provider) {
-
 		return null;
 	}
 
@@ -36,18 +33,15 @@ public class SaveHandlerMP implements ISaveHandler {
 	 * Saves the given World Info with the given NBTTagCompound as the Player.
 	 */
 	public void saveWorldInfoWithPlayer(WorldInfo worldInformation, NBTTagCompound tagCompound) {
-
 	}
 
 	/**
 	 * used to update level.dat from old format to MCRegion format
 	 */
 	public void saveWorldInfo(WorldInfo worldInformation) {
-
 	}
 
 	public IPlayerFileData getPlayerNBTManager() {
-
 		return null;
 	}
 
@@ -55,14 +49,12 @@ public class SaveHandlerMP implements ISaveHandler {
 	 * Called to flush all changes to disk, waiting for them to complete.
 	 */
 	public void flush() {
-
 	}
 
 	/**
 	 * Gets the file location of the given map
 	 */
 	public File getMapFileFromName(String mapName) {
-
 		return null;
 	}
 
@@ -70,12 +62,10 @@ public class SaveHandlerMP implements ISaveHandler {
 	 * Gets the File object corresponding to the base directory of this world.
 	 */
 	public File getWorldDirectory() {
-
 		return null;
 	}
 
 	public TemplateManager getStructureTemplateManager() {
-
 		return null;
 	}
 

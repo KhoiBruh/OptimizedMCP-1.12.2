@@ -30,18 +30,15 @@ public class EntitySpider extends EntityMob {
 	private static final DataParameter<Byte> CLIMBING = EntityDataManager.createKey(EntitySpider.class, DataSerializers.BYTE);
 
 	public EntitySpider(World worldIn) {
-
 		super(worldIn);
 		setSize(1.4F, 0.9F);
 	}
 
 	public static void registerFixesSpider(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntitySpider.class);
 	}
 
 	protected void initEntityAI() {
-
 		tasks.addTask(1, new EntityAISwimming(this));
 		tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
 		tasks.addTask(4, new EntitySpider.AISpiderAttack(this));
@@ -57,7 +54,6 @@ public class EntitySpider extends EntityMob {
 	 * Returns the Y offset from the entity's position for any entity riding this one.
 	 */
 	public double getMountedYOffset() {
-
 		return height * 0.5F;
 	}
 
@@ -65,12 +61,10 @@ public class EntitySpider extends EntityMob {
 	 * Returns new PathNavigateGround instance
 	 */
 	protected PathNavigate createNavigator(World worldIn) {
-
 		return new PathNavigateClimber(this, worldIn);
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(CLIMBING, (byte) 0);
 	}
@@ -79,7 +73,6 @@ public class EntitySpider extends EntityMob {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		super.onUpdate();
 
 		if (!world.isRemote) {
@@ -88,35 +81,29 @@ public class EntitySpider extends EntityMob {
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(16D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		return SoundEvents.ENTITY_SPIDER_AMBIENT;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_SPIDER_HURT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_SPIDER_DEATH;
 	}
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
-
 		playSound(SoundEvents.ENTITY_SPIDER_STEP, 0.15F, 1F);
 	}
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_SPIDER;
 	}
 
@@ -125,7 +112,6 @@ public class EntitySpider extends EntityMob {
 	 * for AI reasons)
 	 */
 	public boolean isOnLadder() {
-
 		return isBesideClimbableBlock();
 	}
 
@@ -133,19 +119,16 @@ public class EntitySpider extends EntityMob {
 	 * Sets the Entity inside a web block.
 	 */
 	public void setInWeb() {
-
 	}
 
 	/**
 	 * Get this Entity's CreatureAttribute
 	 */
 	public CreatureAttribute getCreatureAttribute() {
-
 		return CreatureAttribute.ARTHROPOD;
 	}
 
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-
 		return potioneffectIn.getPotion() != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
 	}
 
@@ -154,7 +137,6 @@ public class EntitySpider extends EntityMob {
 	 * setBesideClimableBlock.
 	 */
 	public boolean isBesideClimbableBlock() {
-
 		return (dataManager.get(CLIMBING) & 1) != 0;
 	}
 
@@ -163,7 +145,6 @@ public class EntitySpider extends EntityMob {
 	 * false.
 	 */
 	public void setBesideClimbableBlock(boolean climbing) {
-
 		byte b0 = dataManager.get(CLIMBING);
 
 		if (climbing) {
@@ -192,7 +173,6 @@ public class EntitySpider extends EntityMob {
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 
 		if (world.rand.nextInt(100) == 0) {
@@ -223,19 +203,16 @@ public class EntitySpider extends EntityMob {
 	}
 
 	public float getEyeHeight() {
-
 		return 0.65F;
 	}
 
 	static class AISpiderAttack extends EntityAIAttackMelee {
 
 		public AISpiderAttack(EntitySpider spider) {
-
 			super(spider, 1D, true);
 		}
 
 		public boolean shouldContinueExecuting() {
-
 			float f = attacker.getBrightness();
 
 			if (f >= 0.5F && attacker.getRNG().nextInt(100) == 0) {
@@ -247,7 +224,6 @@ public class EntitySpider extends EntityMob {
 		}
 
 		protected double getAttackReachSqr(EntityLivingBase attackTarget) {
-
 			return 4F + attackTarget.width;
 		}
 
@@ -256,12 +232,10 @@ public class EntitySpider extends EntityMob {
 	static class AISpiderTarget<T extends EntityLivingBase> extends EntityAINearestAttackableTarget<T> {
 
 		public AISpiderTarget(EntitySpider spider, Class<T> classTarget) {
-
 			super(spider, classTarget, true);
 		}
 
 		public boolean shouldExecute() {
-
 			float f = taskOwner.getBrightness();
 			return !(f >= 0.5F) && super.shouldExecute();
 		}
@@ -273,7 +247,6 @@ public class EntitySpider extends EntityMob {
 		public Potion effect;
 
 		public void setRandomEffect(Random rand) {
-
 			int i = rand.nextInt(5);
 
 			if (i <= 1) {

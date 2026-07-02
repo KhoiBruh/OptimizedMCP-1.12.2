@@ -22,12 +22,10 @@ public class ChangeDimensionTrigger implements ICriterionTrigger<ChangeDimension
 	private final Map<PlayerAdvancements, ChangeDimensionTrigger.Listeners> listeners = Maps.newHashMap();
 
 	public ResourceLocation getId() {
-
 		return ID;
 	}
 
 	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance> listener) {
-
 		ChangeDimensionTrigger.Listeners changedimensiontrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (changedimensiontrigger$listeners == null) {
@@ -39,7 +37,6 @@ public class ChangeDimensionTrigger implements ICriterionTrigger<ChangeDimension
 	}
 
 	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance> listener) {
-
 		ChangeDimensionTrigger.Listeners changedimensiontrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (changedimensiontrigger$listeners != null) {
@@ -52,7 +49,6 @@ public class ChangeDimensionTrigger implements ICriterionTrigger<ChangeDimension
 	}
 
 	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
-
 		listeners.remove(playerAdvancementsIn);
 	}
 
@@ -67,7 +63,6 @@ public class ChangeDimensionTrigger implements ICriterionTrigger<ChangeDimension
 	}
 
 	public void trigger(EntityPlayerMP player, DimensionType from, DimensionType to) {
-
 		ChangeDimensionTrigger.Listeners changedimensiontrigger$listeners = listeners.get(player.getAdvancements());
 
 		if (changedimensiontrigger$listeners != null) {
@@ -84,14 +79,12 @@ public class ChangeDimensionTrigger implements ICriterionTrigger<ChangeDimension
 		private final DimensionType to;
 
 		public Instance(DimensionType from, DimensionType to) {
-
 			super(ChangeDimensionTrigger.ID);
 			this.from = from;
 			this.to = to;
 		}
 
 		public boolean test(DimensionType from, DimensionType to) {
-
 			if (this.from != null && this.from != from) {
 				return false;
 			} else {
@@ -107,27 +100,22 @@ public class ChangeDimensionTrigger implements ICriterionTrigger<ChangeDimension
 		private final Set<ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance>> listeners = Sets.newHashSet();
 
 		public Listeners(PlayerAdvancements playerAdvancementsIn) {
-
 			playerAdvancements = playerAdvancementsIn;
 		}
 
 		public boolean isEmpty() {
-
 			return listeners.isEmpty();
 		}
 
 		public void add(ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance> listener) {
-
 			listeners.add(listener);
 		}
 
 		public void remove(ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance> listener) {
-
 			listeners.remove(listener);
 		}
 
 		public void trigger(DimensionType from, DimensionType to) {
-
 			List<ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance>> list = null;
 
 			for (ICriterionTrigger.Listener<ChangeDimensionTrigger.Instance> listener : listeners) {

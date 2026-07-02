@@ -24,7 +24,6 @@ public class InventoryCrafting implements IInventory {
 	private final Container eventHandler;
 
 	public InventoryCrafting(Container eventHandlerIn, int width, int height) {
-
 		stackList = NonNullList.withSize(width * height, ItemStack.EMPTY);
 		eventHandler = eventHandlerIn;
 		inventoryWidth = width;
@@ -35,12 +34,10 @@ public class InventoryCrafting implements IInventory {
 	 * Returns the number of slots in the inventory.
 	 */
 	public int getSizeInventory() {
-
 		return stackList.size();
 	}
 
 	public boolean isEmpty() {
-
 		for (ItemStack itemstack : stackList) {
 			if (!itemstack.isEmpty()) {
 				return false;
@@ -54,7 +51,6 @@ public class InventoryCrafting implements IInventory {
 	 * Returns the stack in the given slot.
 	 */
 	public ItemStack getStackInSlot(int index) {
-
 		return index >= getSizeInventory() ? ItemStack.EMPTY : stackList.get(index);
 	}
 
@@ -62,7 +58,6 @@ public class InventoryCrafting implements IInventory {
 	 * Gets the ItemStack in the slot specified.
 	 */
 	public ItemStack getStackInRowAndColumn(int row, int column) {
-
 		return row >= 0 && row < inventoryWidth && column >= 0 && column <= inventoryHeight ? getStackInSlot(row + column * inventoryWidth) : ItemStack.EMPTY;
 	}
 
@@ -70,7 +65,6 @@ public class InventoryCrafting implements IInventory {
 	 * Get the name of this object. For players this returns their username
 	 */
 	public String getName() {
-
 		return "container.crafting";
 	}
 
@@ -78,7 +72,6 @@ public class InventoryCrafting implements IInventory {
 	 * Returns true if this thing is named
 	 */
 	public boolean hasCustomName() {
-
 		return false;
 	}
 
@@ -86,7 +79,6 @@ public class InventoryCrafting implements IInventory {
 	 * Get the formatted ChatComponent that will be used for the sender's username in chat
 	 */
 	public ITextComponent displayName() {
-
 		return hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName());
 	}
 
@@ -94,7 +86,6 @@ public class InventoryCrafting implements IInventory {
 	 * Removes a stack from the given slot and returns it.
 	 */
 	public ItemStack removeStackFromSlot(int index) {
-
 		return ItemStackHelper.getAndRemove(stackList, index);
 	}
 
@@ -102,7 +93,6 @@ public class InventoryCrafting implements IInventory {
 	 * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
 	 */
 	public ItemStack decrStackSize(int index, int count) {
-
 		ItemStack itemstack = ItemStackHelper.getAndSplit(stackList, index, count);
 
 		if (!itemstack.isEmpty()) {
@@ -116,7 +106,6 @@ public class InventoryCrafting implements IInventory {
 	 * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
 	 */
 	public void setInventorySlotContents(int index, ItemStack stack) {
-
 		stackList.set(index, stack);
 		eventHandler.onCraftMatrixChanged(this);
 	}
@@ -125,7 +114,6 @@ public class InventoryCrafting implements IInventory {
 	 * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended.
 	 */
 	public int getInventoryStackLimit() {
-
 		return 64;
 	}
 
@@ -134,23 +122,19 @@ public class InventoryCrafting implements IInventory {
 	 * hasn't changed and skip it.
 	 */
 	public void markDirty() {
-
 	}
 
 	/**
 	 * Don't rename this method to canInteractWith due to conflicts with Container
 	 */
 	public boolean isUsableByPlayer(EntityPlayer player) {
-
 		return true;
 	}
 
 	public void openInventory(EntityPlayer player) {
-
 	}
 
 	public void closeInventory(EntityPlayer player) {
-
 	}
 
 	/**
@@ -158,41 +142,33 @@ public class InventoryCrafting implements IInventory {
 	 * guis use Slot.isItemValid
 	 */
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
-
 		return true;
 	}
 
 	public int getField(int id) {
-
 		return 0;
 	}
 
 	public void setField(int id, int value) {
-
 	}
 
 	public int getFieldCount() {
-
 		return 0;
 	}
 
 	public void clear() {
-
 		stackList.clear();
 	}
 
 	public int getHeight() {
-
 		return inventoryHeight;
 	}
 
 	public int getWidth() {
-
 		return inventoryWidth;
 	}
 
 	public void fillStackedContents(RecipeItemHelper helper) {
-
 		for (ItemStack itemstack : stackList) {
 			helper.accountStack(itemstack);
 		}

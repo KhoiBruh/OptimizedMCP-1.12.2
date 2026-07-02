@@ -16,7 +16,6 @@ public class RenderPainting extends Render<EntityPainting> {
 	private static final ResourceLocation KRISTOFFER_PAINTING_TEXTURE = new ResourceLocation("textures/painting/paintings_kristoffer_zetterstrand.png");
 
 	public RenderPainting(RenderManager renderManagerIn) {
-
 		super(renderManagerIn);
 	}
 
@@ -24,7 +23,6 @@ public class RenderPainting extends Render<EntityPainting> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(EntityPainting entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		GLS.pushMatrix();
 		GLS.translate(x, y, z);
 		GLS.rotate(180F - entityYaw, 0F, 1F, 0F);
@@ -55,12 +53,10 @@ public class RenderPainting extends Render<EntityPainting> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityPainting entity) {
-
 		return KRISTOFFER_PAINTING_TEXTURE;
 	}
 
 	private void renderPainting(EntityPainting painting, int width, int height, int textureU, int textureV) {
-
 		float f = (float) (-width) / 2F;
 		float f1 = (float) (-height) / 2F;
 		float f2 = 0.5F;
@@ -121,7 +117,6 @@ public class RenderPainting extends Render<EntityPainting> {
 	}
 
 	private void setLightmap(EntityPainting painting, float p_77008_2_, float p_77008_3_) {
-
 		int i = MathHelper.floor(painting.posX);
 		int j = MathHelper.floor(painting.posY + (double) (p_77008_3_ / 16F));
 		int k = MathHelper.floor(painting.posZ);

@@ -22,12 +22,10 @@ public class PlayerHurtEntityTrigger implements ICriterionTrigger<PlayerHurtEnti
 	private final Map<PlayerAdvancements, PlayerHurtEntityTrigger.Listeners> listeners = Maps.newHashMap();
 
 	public ResourceLocation getId() {
-
 		return ID;
 	}
 
 	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<PlayerHurtEntityTrigger.Instance> listener) {
-
 		PlayerHurtEntityTrigger.Listeners playerhurtentitytrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (playerhurtentitytrigger$listeners == null) {
@@ -39,7 +37,6 @@ public class PlayerHurtEntityTrigger implements ICriterionTrigger<PlayerHurtEnti
 	}
 
 	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<PlayerHurtEntityTrigger.Instance> listener) {
-
 		PlayerHurtEntityTrigger.Listeners playerhurtentitytrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (playerhurtentitytrigger$listeners != null) {
@@ -52,7 +49,6 @@ public class PlayerHurtEntityTrigger implements ICriterionTrigger<PlayerHurtEnti
 	}
 
 	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
-
 		listeners.remove(playerAdvancementsIn);
 	}
 
@@ -67,7 +63,6 @@ public class PlayerHurtEntityTrigger implements ICriterionTrigger<PlayerHurtEnti
 	}
 
 	public void trigger(EntityPlayerMP player, Entity entityIn, DamageSource source, float amountDealt, float amountTaken, boolean blocked) {
-
 		PlayerHurtEntityTrigger.Listeners playerhurtentitytrigger$listeners = listeners.get(player.getAdvancements());
 
 		if (playerhurtentitytrigger$listeners != null) {
@@ -81,14 +76,12 @@ public class PlayerHurtEntityTrigger implements ICriterionTrigger<PlayerHurtEnti
 		private final EntityPredicate entity;
 
 		public Instance(DamagePredicate damage, EntityPredicate entity) {
-
 			super(PlayerHurtEntityTrigger.ID);
 			this.damage = damage;
 			this.entity = entity;
 		}
 
 		public boolean test(EntityPlayerMP player, Entity entity, DamageSource source, float dealt, float taken, boolean blocked) {
-
 			if (!damage.test(player, source, dealt, taken, blocked)) {
 				return false;
 			} else {
@@ -104,27 +97,22 @@ public class PlayerHurtEntityTrigger implements ICriterionTrigger<PlayerHurtEnti
 		private final Set<ICriterionTrigger.Listener<PlayerHurtEntityTrigger.Instance>> listeners = Sets.newHashSet();
 
 		public Listeners(PlayerAdvancements playerAdvancementsIn) {
-
 			playerAdvancements = playerAdvancementsIn;
 		}
 
 		public boolean isEmpty() {
-
 			return listeners.isEmpty();
 		}
 
 		public void add(ICriterionTrigger.Listener<PlayerHurtEntityTrigger.Instance> listener) {
-
 			listeners.add(listener);
 		}
 
 		public void remove(ICriterionTrigger.Listener<PlayerHurtEntityTrigger.Instance> listener) {
-
 			listeners.remove(listener);
 		}
 
 		public void trigger(EntityPlayerMP player, Entity entity, DamageSource source, float dealt, float taken, boolean blocked) {
-
 			List<ICriterionTrigger.Listener<PlayerHurtEntityTrigger.Instance>> list = null;
 
 			for (ICriterionTrigger.Listener<PlayerHurtEntityTrigger.Instance> listener : listeners) {

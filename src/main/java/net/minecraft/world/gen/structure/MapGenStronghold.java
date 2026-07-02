@@ -25,7 +25,6 @@ public class MapGenStronghold extends MapGenStructure {
 	private int spread;
 
 	public MapGenStronghold() {
-
 		structureCoords = new ChunkPos[128];
 		distance = 32D;
 		spread = 3;
@@ -39,7 +38,6 @@ public class MapGenStronghold extends MapGenStructure {
 	}
 
 	public MapGenStronghold(Map<String, String> p_i2068_1_) {
-
 		this();
 
 		for (Entry<String, String> entry : p_i2068_1_.entrySet()) {
@@ -53,12 +51,10 @@ public class MapGenStronghold extends MapGenStructure {
 	}
 
 	public String getStructureName() {
-
 		return "Stronghold";
 	}
 
 	public BlockPos getNearestStructurePos(World worldIn, BlockPos pos, boolean findUnexplored) {
-
 		if (!ranBiomeCheck) {
 			generatePositions();
 			ranBiomeCheck = true;
@@ -85,7 +81,6 @@ public class MapGenStronghold extends MapGenStructure {
 	}
 
 	protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
-
 		if (!ranBiomeCheck) {
 			generatePositions();
 			ranBiomeCheck = true;
@@ -101,7 +96,6 @@ public class MapGenStronghold extends MapGenStructure {
 	}
 
 	private void generatePositions() {
-
 		initializeStructureData(world);
 		int i = 0;
 
@@ -149,7 +143,6 @@ public class MapGenStronghold extends MapGenStructure {
 	}
 
 	protected StructureStart getStructureStart(int chunkX, int chunkZ) {
-
 		MapGenStronghold.Start mapgenstronghold$start;
 
 		for (mapgenstronghold$start = new MapGenStronghold.Start(world, rand, chunkX, chunkZ); mapgenstronghold$start.getComponents().isEmpty() || ((StructureStrongholdPieces.Stairs2) mapgenstronghold$start.getComponents().getFirst()).strongholdPortalRoom == null; mapgenstronghold$start = new MapGenStronghold.Start(world, rand, chunkX, chunkZ)) {
@@ -161,11 +154,9 @@ public class MapGenStronghold extends MapGenStructure {
 	public static class Start extends StructureStart {
 
 		public Start() {
-
 		}
 
 		public Start(World worldIn, Random random, int chunkX, int chunkZ) {
-
 			super(chunkX, chunkZ);
 			StructureStrongholdPieces.prepareStructurePieces();
 			StructureStrongholdPieces.Stairs2 structurestrongholdpieces$stairs2 = new StructureStrongholdPieces.Stairs2(0, random, (chunkX << 4) + 2, (chunkZ << 4) + 2);

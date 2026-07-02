@@ -6,7 +6,6 @@ public class Tuple<A, B> {
 	private final B b;
 
 	public Tuple(A aIn, B bIn) {
-
 		a = aIn;
 		b = bIn;
 	}
@@ -15,7 +14,6 @@ public class Tuple<A, B> {
 	 * Get the first Object in the Tuple
 	 */
 	public A getFirst() {
-
 		return a;
 	}
 
@@ -23,7 +21,6 @@ public class Tuple<A, B> {
 	 * Get the second Object in the Tuple
 	 */
 	public B getSecond() {
-
 		return b;
 	}
 

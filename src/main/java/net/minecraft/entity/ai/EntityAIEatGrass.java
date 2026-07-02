@@ -31,7 +31,6 @@ public class EntityAIEatGrass extends EntityAIBase {
 	int eatingGrassTimer;
 
 	public EntityAIEatGrass(EntityLiving grassEaterEntityIn) {
-
 		grassEaterEntity = grassEaterEntityIn;
 		entityWorld = grassEaterEntityIn.world;
 		setMutexBits(7);
@@ -41,7 +40,6 @@ public class EntityAIEatGrass extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		if (grassEaterEntity.getRNG().nextInt(grassEaterEntity.isChild() ? 50 : 1000) != 0) {
 			return false;
 		} else {
@@ -59,7 +57,6 @@ public class EntityAIEatGrass extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		eatingGrassTimer = 40;
 		entityWorld.setEntityState(grassEaterEntity, (byte) 10);
 		grassEaterEntity.getNavigator().clearPath();
@@ -69,7 +66,6 @@ public class EntityAIEatGrass extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		eatingGrassTimer = 0;
 	}
 
@@ -77,7 +73,6 @@ public class EntityAIEatGrass extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		return eatingGrassTimer > 0;
 	}
 
@@ -85,7 +80,6 @@ public class EntityAIEatGrass extends EntityAIBase {
 	 * Number of ticks since the entity started to eat grass
 	 */
 	public int getEatingGrassTimer() {
-
 		return eatingGrassTimer;
 	}
 
@@ -93,7 +87,6 @@ public class EntityAIEatGrass extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		eatingGrassTimer = Math.max(0, eatingGrassTimer - 1);
 
 		if (eatingGrassTimer == 4) {

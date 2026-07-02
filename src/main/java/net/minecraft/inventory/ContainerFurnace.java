@@ -15,7 +15,6 @@ public class ContainerFurnace extends Container {
 	private int currentItemBurnTime;
 
 	public ContainerFurnace(InventoryPlayer playerInventory, IInventory furnaceInventory) {
-
 		tileFurnace = furnaceInventory;
 		addSlotToContainer(new Slot(furnaceInventory, 0, 56, 17));
 		addSlotToContainer(new SlotFurnaceFuel(furnaceInventory, 1, 56, 53));
@@ -33,7 +32,6 @@ public class ContainerFurnace extends Container {
 	}
 
 	public void addListener(IContainerListener listener) {
-
 		super.addListener(listener);
 		listener.sendAllWindowProperties(this, tileFurnace);
 	}
@@ -42,7 +40,6 @@ public class ContainerFurnace extends Container {
 	 * Looks for changes made in the container, sends them to every listener.
 	 */
 	public void detectAndSendChanges() {
-
 		super.detectAndSendChanges();
 
 		for (IContainerListener icontainerlistener : listeners) {
@@ -70,7 +67,6 @@ public class ContainerFurnace extends Container {
 	}
 
 	public void updateProgressBar(int id, int data) {
-
 		tileFurnace.setField(id, data);
 	}
 
@@ -78,7 +74,6 @@ public class ContainerFurnace extends Container {
 	 * Determines whether supplied player can use this container
 	 */
 	public boolean canInteractWith(EntityPlayer playerIn) {
-
 		return tileFurnace.isUsableByPlayer(playerIn);
 	}
 
@@ -87,7 +82,6 @@ public class ContainerFurnace extends Container {
 	 * inventory and the other inventory(s).
 	 */
 	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = inventorySlots.get(index);
 

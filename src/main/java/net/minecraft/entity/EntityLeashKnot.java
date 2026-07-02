@@ -16,12 +16,10 @@ import java.util.List;
 public class EntityLeashKnot extends EntityHanging {
 
 	public EntityLeashKnot(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public EntityLeashKnot(World worldIn, BlockPos hangingPositionIn) {
-
 		super(worldIn, hangingPositionIn);
 		setPosition((double) hangingPositionIn.getX() + 0.5D, (double) hangingPositionIn.getY() + 0.5D, (double) hangingPositionIn.getZ() + 0.5D);
 		float f = 0.125F;
@@ -32,7 +30,6 @@ public class EntityLeashKnot extends EntityHanging {
 	}
 
 	public static EntityLeashKnot createKnot(World worldIn, BlockPos fence) {
-
 		EntityLeashKnot entityleashknot = new EntityLeashKnot(worldIn, fence);
 		worldIn.spawnEntity(entityleashknot);
 		entityleashknot.playPlaceSound();
@@ -41,7 +38,6 @@ public class EntityLeashKnot extends EntityHanging {
 
 	
 	public static EntityLeashKnot getKnotForPosition(World worldIn, BlockPos pos) {
-
 		int i = pos.getX();
 		int j = pos.getY();
 		int k = pos.getZ();
@@ -59,7 +55,6 @@ public class EntityLeashKnot extends EntityHanging {
 	 * Sets the x,y,z of the entity from the given parameters. Also seems to set up a bounding box.
 	 */
 	public void setPosition(double x, double y, double z) {
-
 		super.setPosition((double) MathHelper.floor(x) + 0.5D, (double) MathHelper.floor(y) + 0.5D, (double) MathHelper.floor(z) + 0.5D);
 	}
 
@@ -67,7 +62,6 @@ public class EntityLeashKnot extends EntityHanging {
 	 * Updates the entity bounding box based on current facing
 	 */
 	protected void updateBoundingBox() {
-
 		posX = (double) hangingPosition.getX() + 0.5D;
 		posY = (double) hangingPosition.getY() + 0.5D;
 		posZ = (double) hangingPosition.getZ() + 0.5D;
@@ -77,21 +71,17 @@ public class EntityLeashKnot extends EntityHanging {
 	 * Updates facing and bounding box based on it
 	 */
 	public void updateFacingWithBoundingBox(Facing facingDirectionIn) {
-
 	}
 
 	public int getWidthPixels() {
-
 		return 9;
 	}
 
 	public int getHeightPixels() {
-
 		return 9;
 	}
 
 	public float getEyeHeight() {
-
 		return -0.0625F;
 	}
 
@@ -99,7 +89,6 @@ public class EntityLeashKnot extends EntityHanging {
 	 * Checks if the entity is in range to render.
 	 */
 	public boolean isInRangeToRenderDist(double distance) {
-
 		return distance < 1024D;
 	}
 
@@ -107,7 +96,6 @@ public class EntityLeashKnot extends EntityHanging {
 	 * Called when this entity is broken. Entity parameter may be null.
 	 */
 	public void onBroken(Entity brokenEntity) {
-
 		playSound(SoundEvents.ENTITY_LEASHKNOT_BREAK, 1F, 1F);
 	}
 
@@ -117,7 +105,6 @@ public class EntityLeashKnot extends EntityHanging {
 	 * mount.
 	 */
 	public boolean writeToNBTOptional(NBTTagCompound compound) {
-
 		return false;
 	}
 
@@ -125,18 +112,15 @@ public class EntityLeashKnot extends EntityHanging {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 	}
 
 	/**
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 	}
 
 	public boolean processInitialInteract(EntityPlayer player, Hand hand) {
-
 		if (world.isRemote) {
 			return true;
 		} else {
@@ -171,12 +155,10 @@ public class EntityLeashKnot extends EntityHanging {
 	 * checks to make sure painting can be placed there
 	 */
 	public boolean onValidSurface() {
-
 		return world.getBlockState(hangingPosition).getBlock() instanceof BlockFence;
 	}
 
 	public void playPlaceSound() {
-
 		playSound(SoundEvents.ENTITY_LEASHKNOT_PLACE, 1F, 1F);
 	}
 

@@ -14,12 +14,10 @@ public class NoiseGeneratorSimplex {
 	public double zo;
 
 	public NoiseGeneratorSimplex() {
-
 		this(new Random());
 	}
 
 	public NoiseGeneratorSimplex(Random seed) {
-
 		p = new int[512];
 		xo = seed.nextDouble() * 256D;
 		yo = seed.nextDouble() * 256D;
@@ -38,17 +36,14 @@ public class NoiseGeneratorSimplex {
 	}
 
 	private static int fastFloor(double value) {
-
 		return value > 0D ? (int) value : (int) value - 1;
 	}
 
 	private static double dot(int[] p_151604_0_, double p_151604_1_, double p_151604_3_) {
-
 		return (double) p_151604_0_[0] * p_151604_1_ + (double) p_151604_0_[1] * p_151604_3_;
 	}
 
 	public double getValue(double p_151605_1_, double p_151605_3_) {
-
 		double d3 = 0.5D * (SQRT_3 - 1D);
 		double d4 = (p_151605_1_ + p_151605_3_) * d3;
 		int i = fastFloor(p_151605_1_ + d4);
@@ -113,7 +108,6 @@ public class NoiseGeneratorSimplex {
 	}
 
 	public void add(double[] p_151606_1_, double p_151606_2_, double p_151606_4_, int p_151606_6_, int p_151606_7_, double p_151606_8_, double p_151606_10_, double p_151606_12_) {
-
 		int i = 0;
 
 		for (int j = 0; j < p_151606_7_; ++j) {

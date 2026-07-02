@@ -25,23 +25,19 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 	protected final boolean isRepeaterPowered;
 
 	protected BlockRedstoneDiode(boolean powered) {
-
 		super(Material.CIRCUITS);
 		isRepeaterPowered = powered;
 	}
 
 	public static boolean isDiode(IBlockState state) {
-
 		return Blocks.UNPOWERED_REPEATER.isSameDiode(state) || Blocks.UNPOWERED_COMPARATOR.isSameDiode(state);
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return REDSTONE_DIODE_AABB;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -49,12 +45,10 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 	 * Checks if this block can be placed exactly at the given position.
 	 */
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-
 		return worldIn.getBlockState(pos.down()).isTopSolid() && super.canPlaceBlockAt(worldIn, pos);
 	}
 
 	public boolean canBlockStay(World worldIn, BlockPos pos) {
-
 		return worldIn.getBlockState(pos.down()).isTopSolid();
 	}
 
@@ -62,11 +56,9 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 	 * Called randomly when setTickRandomly is set to true (used by e.g. crops to grow, etc.)
 	 */
 	public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
-
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if (!isLocked(worldIn, pos, state)) {
 			boolean flag = shouldBePowered(worldIn, pos, state);
 
@@ -83,22 +75,18 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 	}
 
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		return side.getAxis() != Facing.Axis.Y;
 	}
 
 	protected boolean isPowered(IBlockState state) {
-
 		return isRepeaterPowered;
 	}
 
 	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		return blockState.getWeakPower(blockAccess, pos, side);
 	}
 
 	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		if (!isPowered(blockState)) {
 			return 0;
 		} else {
@@ -112,7 +100,6 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (canBlockStay(worldIn, pos)) {
 			updateState(worldIn, pos, state);
 		} else {
@@ -126,7 +113,6 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 	}
 
 	protected void updateState(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (!isLocked(worldIn, pos, state)) {
 			boolean flag = shouldBePowered(worldIn, pos, state);
 
@@ -145,17 +131,14 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 	}
 
 	public boolean isLocked(IBlockAccess worldIn, BlockPos pos, IBlockState state) {
-
 		return false;
 	}
 
 	protected boolean shouldBePowered(World worldIn, BlockPos pos, IBlockState state) {
-
 		return calculateInputStrength(worldIn, pos, state) > 0;
 	}
 
 	protected int calculateInputStrength(World worldIn, BlockPos pos, IBlockState state) {
-
 		Facing enumfacing = state.getValue(FACING);
 		BlockPos blockpos = pos.offset(enumfacing);
 		int i = worldIn.getRedstonePower(blockpos, enumfacing);
@@ -169,7 +152,6 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 	}
 
 	protected int getPowerOnSides(IBlockAccess worldIn, BlockPos pos, IBlockState state) {
-
 		Facing enumfacing = state.getValue(FACING);
 		Facing enumfacing1 = enumfacing.rotateY();
 		Facing enumfacing2 = enumfacing.rotateYCCW();
@@ -177,7 +159,6 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 	}
 
 	protected int getPowerOnSide(IBlockAccess worldIn, BlockPos pos, Facing side) {
-
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		Block block = iblockstate.getBlock();
 
@@ -196,7 +177,6 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 	 * Can this block provide power. Only wire currently seems to have this change based on its state.
 	 */
 	public boolean canProvidePower(IBlockState state) {
-
 		return true;
 	}
 
@@ -205,7 +185,6 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
 	}
 
@@ -213,7 +192,6 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 	 * Called by ItemBlocks after a block is set in the world, to allow post-place logic
 	 */
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-
 		if (shouldBePowered(worldIn, pos, state)) {
 			worldIn.scheduleUpdate(pos, this, 1);
 		}
@@ -223,12 +201,10 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		notifyNeighbors(worldIn, pos, state);
 	}
 
 	protected void notifyNeighbors(World worldIn, BlockPos pos, IBlockState state) {
-
 		Facing enumfacing = state.getValue(FACING);
 		BlockPos blockpos = pos.offset(enumfacing.getOpposite());
 		worldIn.neighborChanged(blockpos, this, pos);
@@ -239,7 +215,6 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 	 * Called after a player destroys this Block - the posiiton pos may no longer hold the state indicated.
 	 */
 	public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (isRepeaterPowered) {
 			for (Facing enumfacing : Facing.values()) {
 				worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this, false);
@@ -253,28 +228,23 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	protected boolean isAlternateInput(IBlockState state) {
-
 		return state.canProvidePower();
 	}
 
 	protected int getActiveSignal(IBlockAccess worldIn, BlockPos pos, IBlockState state) {
-
 		return 15;
 	}
 
 	public boolean isSameDiode(IBlockState state) {
-
 		Block block = state.getBlock();
 		return block == getPoweredState(getDefaultState()).getBlock() || block == getUnpoweredState(getDefaultState()).getBlock();
 	}
 
 	public boolean isFacingTowardsRepeater(World worldIn, BlockPos pos, IBlockState state) {
-
 		Facing enumfacing = state.getValue(FACING).getOpposite();
 		BlockPos blockpos = pos.offset(enumfacing);
 
@@ -286,7 +256,6 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 	}
 
 	protected int getTickDelay(IBlockState state) {
-
 		return getDelay(state);
 	}
 
@@ -297,7 +266,6 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 	protected abstract IBlockState getUnpoweredState(IBlockState poweredState);
 
 	public boolean isAssociatedBlock(Block other) {
-
 		return isSameDiode(other.getDefaultState());
 	}
 
@@ -306,7 +274,6 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.CUTOUT;
 	}
 
@@ -320,7 +287,6 @@ public abstract class BlockRedstoneDiode extends BlockHorizontal {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return face == Facing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 

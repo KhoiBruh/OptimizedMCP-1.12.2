@@ -18,13 +18,11 @@ public class ItemDoor extends Item {
 	private final Block block;
 
 	public ItemDoor(Block block) {
-
 		this.block = block;
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
 	public static void placeDoor(World worldIn, BlockPos pos, Facing facing, Block door, boolean isRightHinge) {
-
 		BlockPos blockpos = pos.offset(facing.rotateY());
 		BlockPos blockpos1 = pos.offset(facing.rotateYCCW());
 		int i = (worldIn.getBlockState(blockpos1).isNormalCube() ? 1 : 0) + (worldIn.getBlockState(blockpos1.up()).isNormalCube() ? 1 : 0);
@@ -53,7 +51,6 @@ public class ItemDoor extends Item {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		if (facing != Facing.UP) {
 			return ActionResult.FAIL;
 		} else {

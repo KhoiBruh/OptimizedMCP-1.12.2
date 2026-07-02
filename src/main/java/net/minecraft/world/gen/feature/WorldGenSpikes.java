@@ -16,17 +16,14 @@ public class WorldGenSpikes extends WorldGenerator {
 	private BlockPos beamTarget;
 
 	public void setSpike(WorldGenSpikes.EndSpike p_186143_1_) {
-
 		spike = p_186143_1_;
 	}
 
 	public void setCrystalInvulnerable(boolean p_186144_1_) {
-
 		crystalInvulnerable = p_186144_1_;
 	}
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		if (spike == null) {
 			throw new IllegalStateException("Decoration requires priming with a spike");
 		} else {
@@ -69,7 +66,6 @@ public class WorldGenSpikes extends WorldGenerator {
 	 * At the moment, WorldGenSpikes.setBeamTarget is only ever called with a value of (0, 128, 0)
 	 */
 	public void setBeamTarget(BlockPos pos) {
-
 		beamTarget = pos;
 	}
 
@@ -83,7 +79,6 @@ public class WorldGenSpikes extends WorldGenerator {
 		private final AxisAlignedBB topBoundingBox;
 
 		public EndSpike(int p_i47020_1_, int p_i47020_2_, int p_i47020_3_, int p_i47020_4_, boolean p_i47020_5_) {
-
 			centerX = p_i47020_1_;
 			centerZ = p_i47020_2_;
 			radius = p_i47020_3_;
@@ -93,39 +88,32 @@ public class WorldGenSpikes extends WorldGenerator {
 		}
 
 		public boolean doesStartInChunk(BlockPos p_186154_1_) {
-
 			int i = centerX - radius;
 			int j = centerZ - radius;
 			return p_186154_1_.getX() == (i & -16) && p_186154_1_.getZ() == (j & -16);
 		}
 
 		public int getCenterX() {
-
 			return centerX;
 		}
 
 		public int getCenterZ() {
-
 			return centerZ;
 		}
 
 		public int getRadius() {
-
 			return radius;
 		}
 
 		public int getHeight() {
-
 			return height;
 		}
 
 		public boolean isGuarded() {
-
 			return guarded;
 		}
 
 		public AxisAlignedBB getTopBoundingBox() {
-
 			return topBoundingBox;
 		}
 

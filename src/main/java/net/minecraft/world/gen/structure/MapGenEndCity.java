@@ -15,12 +15,10 @@ public class MapGenEndCity extends MapGenStructure {
 	private final ChunkGeneratorEnd endProvider;
 
 	public MapGenEndCity(ChunkGeneratorEnd p_i46665_1_) {
-
 		endProvider = p_i46665_1_;
 	}
 
 	private static int getYPosForStructure(int p_191070_0_, int p_191070_1_, ChunkGeneratorEnd p_191070_2_) {
-
 		Random random = new Random(p_191070_0_ + p_191070_1_ * 10387313L);
 		Rotation rotation = Rotation.values()[random.nextInt(Rotation.values().length)];
 		ChunkPrimer chunkprimer = new ChunkPrimer();
@@ -45,12 +43,10 @@ public class MapGenEndCity extends MapGenStructure {
 	}
 
 	public String getStructureName() {
-
 		return "EndCity";
 	}
 
 	protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
-
 		int i = chunkX;
 		int j = chunkZ;
 
@@ -79,12 +75,10 @@ public class MapGenEndCity extends MapGenStructure {
 	}
 
 	protected StructureStart getStructureStart(int chunkX, int chunkZ) {
-
 		return new MapGenEndCity.Start(world, endProvider, rand, chunkX, chunkZ);
 	}
 
 	public BlockPos getNearestStructurePos(World worldIn, BlockPos pos, boolean findUnexplored) {
-
 		world = worldIn;
 		return findNearestStructurePosBySpacing(worldIn, this, pos, 20, 11, 10387313, true, 100, findUnexplored);
 	}
@@ -94,17 +88,14 @@ public class MapGenEndCity extends MapGenStructure {
 		private boolean isSizeable;
 
 		public Start() {
-
 		}
 
 		public Start(World worldIn, ChunkGeneratorEnd chunkProvider, Random random, int chunkX, int chunkZ) {
-
 			super(chunkX, chunkZ);
 			create(worldIn, chunkProvider, random, chunkX, chunkZ);
 		}
 
 		private void create(World worldIn, ChunkGeneratorEnd chunkProvider, Random rnd, int chunkX, int chunkZ) {
-
 			Random random = new Random(chunkX + chunkZ * 10387313L);
 			Rotation rotation = Rotation.values()[random.nextInt(Rotation.values().length)];
 			int i = MapGenEndCity.getYPosForStructure(chunkX, chunkZ, chunkProvider);
@@ -120,7 +111,6 @@ public class MapGenEndCity extends MapGenStructure {
 		}
 
 		public boolean isSizeableStructure() {
-
 			return isSizeable;
 		}
 

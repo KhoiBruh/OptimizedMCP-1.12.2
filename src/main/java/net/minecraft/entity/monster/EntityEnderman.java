@@ -70,7 +70,6 @@ public class EntityEnderman extends EntityMob {
 	private int targetChangeTime;
 
 	public EntityEnderman(World worldIn) {
-
 		super(worldIn);
 		setSize(0.6F, 2.9F);
 		stepHeight = 1F;
@@ -78,12 +77,10 @@ public class EntityEnderman extends EntityMob {
 	}
 
 	public static void registerFixesEnderman(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntityEnderman.class);
 	}
 
 	protected void initEntityAI() {
-
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(2, new EntityAIAttackMelee(this, 1D, false));
 		tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1D, 0F));
@@ -97,7 +94,6 @@ public class EntityEnderman extends EntityMob {
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
@@ -109,7 +105,6 @@ public class EntityEnderman extends EntityMob {
 	 * Sets the active target the Task system uses for tracking
 	 */
 	public void setAttackTarget(EntityLivingBase entitylivingbaseIn) {
-
 		super.setAttackTarget(entitylivingbaseIn);
 		IAttributeInstance iattributeinstance = getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
 
@@ -128,14 +123,12 @@ public class EntityEnderman extends EntityMob {
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(CARRIED_BLOCK, Optional.absent());
 		dataManager.register(SCREAMING, false);
 	}
 
 	public void playEndermanSound() {
-
 		if (ticksExisted >= lastCreepySound + 400) {
 			lastCreepySound = ticksExisted;
 
@@ -146,7 +139,6 @@ public class EntityEnderman extends EntityMob {
 	}
 
 	public void notifyDataManagerChange(DataParameter<?> key) {
-
 		if (SCREAMING.equals(key) && isScreaming() && world.isRemote) {
 			playEndermanSound();
 		}
@@ -158,7 +150,6 @@ public class EntityEnderman extends EntityMob {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		IBlockState iblockstate = getHeldBlockState();
 
@@ -172,7 +163,6 @@ public class EntityEnderman extends EntityMob {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		IBlockState iblockstate;
 
@@ -193,7 +183,6 @@ public class EntityEnderman extends EntityMob {
 	 * Checks to see if this enderman should be attacking this player
 	 */
 	private boolean shouldAttackPlayer(EntityPlayer player) {
-
 		ItemStack itemstack = player.inventory.armorInventory.get(3);
 
 		if (itemstack.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN)) {
@@ -209,7 +198,6 @@ public class EntityEnderman extends EntityMob {
 	}
 
 	public float getEyeHeight() {
-
 		return 2.55F;
 	}
 
@@ -218,7 +206,6 @@ public class EntityEnderman extends EntityMob {
 	 * use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
 		if (world.isRemote) {
 			for (int i = 0; i < 2; ++i) {
 				world.spawnParticle(ParticleTypes.PORTAL, posX + (rand.nextDouble() - 0.5D) * (double) width, posY + rand.nextDouble() * (double) height - 0.25D, posZ + (rand.nextDouble() - 0.5D) * (double) width, (rand.nextDouble() - 0.5D) * 2D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2D);
@@ -230,7 +217,6 @@ public class EntityEnderman extends EntityMob {
 	}
 
 	protected void updateAITasks() {
-
 		if (isWet()) {
 			attackEntityFrom(DamageSource.DROWN, 1F);
 		}
@@ -251,7 +237,6 @@ public class EntityEnderman extends EntityMob {
 	 * Teleport the enderman to a random nearby position
 	 */
 	protected boolean teleportRandomly() {
-
 		double d0 = posX + (rand.nextDouble() - 0.5D) * 64D;
 		double d1 = posY + (double) (rand.nextInt(64) - 32);
 		double d2 = posZ + (rand.nextDouble() - 0.5D) * 64D;
@@ -262,7 +247,6 @@ public class EntityEnderman extends EntityMob {
 	 * Teleport the enderman to another entity
 	 */
 	protected boolean teleportToEntity(Entity p_70816_1_) {
-
 		Vec3d vec3d = new Vec3d(posX - p_70816_1_.posX, getEntityBoundingBox().minY + (double) (height / 2F) - p_70816_1_.posY + (double) p_70816_1_.getEyeHeight(), posZ - p_70816_1_.posZ);
 		vec3d = vec3d.normalize();
 		double d0 = 16D;
@@ -276,7 +260,6 @@ public class EntityEnderman extends EntityMob {
 	 * Teleport the enderman
 	 */
 	private boolean teleportTo(double x, double y, double z) {
-
 		boolean flag = attemptTeleport(x, y, z);
 
 		if (flag) {
@@ -288,17 +271,14 @@ public class EntityEnderman extends EntityMob {
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		return isScreaming() ? SoundEvents.ENTITY_ENDERMEN_SCREAM : SoundEvents.ENTITY_ENDERMEN_AMBIENT;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_ENDERMEN_HURT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_ENDERMEN_DEATH;
 	}
 
@@ -306,7 +286,6 @@ public class EntityEnderman extends EntityMob {
 	 * Drop the equipment for this entity.
 	 */
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-
 		super.dropEquipment(wasRecentlyHit, lootingModifier);
 		IBlockState iblockstate = getHeldBlockState();
 
@@ -319,7 +298,6 @@ public class EntityEnderman extends EntityMob {
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_ENDERMAN;
 	}
 
@@ -329,7 +307,6 @@ public class EntityEnderman extends EntityMob {
 	 * Gets this enderman's held block state
 	 */
 	public IBlockState getHeldBlockState() {
-
 		return dataManager.get(CARRIED_BLOCK).orNull();
 	}
 
@@ -337,7 +314,6 @@ public class EntityEnderman extends EntityMob {
 	 * Sets this enderman's held block state
 	 */
 	public void setHeldBlockState(IBlockState state) {
-
 		dataManager.set(CARRIED_BLOCK, Optional.fromNullable(state));
 	}
 
@@ -345,7 +321,6 @@ public class EntityEnderman extends EntityMob {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		if (isEntityInvulnerable(source)) {
 			return false;
 		} else if (source instanceof EntityDamageSourceIndirect) {
@@ -368,7 +343,6 @@ public class EntityEnderman extends EntityMob {
 	}
 
 	public boolean isScreaming() {
-
 		return dataManager.get(SCREAMING);
 	}
 
@@ -380,32 +354,27 @@ public class EntityEnderman extends EntityMob {
 		private int teleportTime;
 
 		public AIFindPlayer(EntityEnderman p_i45842_1_) {
-
 			super(p_i45842_1_, EntityPlayer.class, false);
 			enderman = p_i45842_1_;
 		}
 
 		public boolean shouldExecute() {
-
 			double d0 = getTargetDistance();
 			player = enderman.world.getNearestAttackablePlayer(enderman.posX, enderman.posY, enderman.posZ, d0, d0, null, p_apply_1_ -> p_apply_1_ != null && enderman.shouldAttackPlayer(p_apply_1_));
 			return player != null;
 		}
 
 		public void startExecuting() {
-
 			aggroTime = 5;
 			teleportTime = 0;
 		}
 
 		public void resetTask() {
-
 			player = null;
 			super.resetTask();
 		}
 
 		public boolean shouldContinueExecuting() {
-
 			if (player != null) {
 				if (!enderman.shouldAttackPlayer(player)) {
 					return false;
@@ -419,7 +388,6 @@ public class EntityEnderman extends EntityMob {
 		}
 
 		public void updateTask() {
-
 			if (player != null) {
 				if (--aggroTime <= 0) {
 					targetEntity = player;
@@ -450,12 +418,10 @@ public class EntityEnderman extends EntityMob {
 		private final EntityEnderman enderman;
 
 		public AIPlaceBlock(EntityEnderman p_i45843_1_) {
-
 			enderman = p_i45843_1_;
 		}
 
 		public boolean shouldExecute() {
-
 			if (enderman.getHeldBlockState() == null) {
 				return false;
 			} else if (!enderman.world.getGameRules().getBoolean("mobGriefing")) {
@@ -466,7 +432,6 @@ public class EntityEnderman extends EntityMob {
 		}
 
 		public void updateTask() {
-
 			Random random = enderman.getRNG();
 			World world = enderman.world;
 			int i = MathHelper.floor(enderman.posX - 1D + random.nextDouble() * 2D);
@@ -484,7 +449,6 @@ public class EntityEnderman extends EntityMob {
 		}
 
 		private boolean canPlaceBlock(World p_188518_1_, BlockPos p_188518_2_, Block p_188518_3_, IBlockState p_188518_4_, IBlockState p_188518_5_) {
-
 			if (!p_188518_3_.canPlaceBlockAt(p_188518_1_, p_188518_2_)) {
 				return false;
 			} else if (p_188518_4_.getMaterial() != Material.AIR) {
@@ -503,12 +467,10 @@ public class EntityEnderman extends EntityMob {
 		private final EntityEnderman enderman;
 
 		public AITakeBlock(EntityEnderman p_i45841_1_) {
-
 			enderman = p_i45841_1_;
 		}
 
 		public boolean shouldExecute() {
-
 			if (enderman.getHeldBlockState() != null) {
 				return false;
 			} else if (!enderman.world.getGameRules().getBoolean("mobGriefing")) {
@@ -519,7 +481,6 @@ public class EntityEnderman extends EntityMob {
 		}
 
 		public void updateTask() {
-
 			Random random = enderman.getRNG();
 			World world = enderman.world;
 			int i = MathHelper.floor(enderman.posX - 2D + random.nextDouble() * 4D);

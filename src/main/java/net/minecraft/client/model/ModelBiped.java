@@ -41,17 +41,14 @@ public class ModelBiped extends ModelBase {
 	public boolean isSneak;
 
 	public ModelBiped() {
-
 		this(0F);
 	}
 
 	public ModelBiped(float modelSize) {
-
 		this(modelSize, 0F, 64, 32);
 	}
 
 	public ModelBiped(float modelSize, float p_i1149_2_, int textureWidthIn, int textureHeightIn) {
-
 		leftArmPose = ModelBiped.ArmPose.EMPTY;
 		rightArmPose = ModelBiped.ArmPose.EMPTY;
 		textureWidth = textureWidthIn;
@@ -85,7 +82,6 @@ public class ModelBiped extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		GLS.pushMatrix();
 
@@ -129,7 +125,6 @@ public class ModelBiped extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		boolean flag = entityIn instanceof EntityLivingBase && ((EntityLivingBase) entityIn).getTicksElytraFlying() > 4;
 		bipedHead.rotateAngleY = netHeadYaw * 0.017453292F;
 
@@ -278,7 +273,6 @@ public class ModelBiped extends ModelBase {
 	}
 
 	public void setModelAttributes(ModelBase model) {
-
 		super.setModelAttributes(model);
 
 		if (model instanceof ModelBiped modelbiped) {
@@ -289,7 +283,6 @@ public class ModelBiped extends ModelBase {
 	}
 
 	public void setVisible(boolean visible) {
-
 		bipedHead.showModel = visible;
 		bipedHeadwear.showModel = visible;
 		bipedBody.showModel = visible;
@@ -300,17 +293,14 @@ public class ModelBiped extends ModelBase {
 	}
 
 	public void postRenderArm(float scale, HandSide side) {
-
 		getArmForSide(side).postRender(scale);
 	}
 
 	protected ModelRenderer getArmForSide(HandSide side) {
-
 		return side == HandSide.LEFT ? bipedLeftArm : bipedRightArm;
 	}
 
 	protected HandSide getMainHand(Entity entityIn) {
-
 		if (entityIn instanceof EntityLivingBase entitylivingbase) {
 			HandSide enumhandside = entitylivingbase.getPrimaryHand();
 			return entitylivingbase.swingingHand == Hand.MAIN_HAND ? enumhandside : enumhandside.opposite();

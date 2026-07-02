@@ -14,17 +14,14 @@ public class CPacketRecipeInfo implements Packet<INetHandlerPlayServer> {
 	private boolean filteringCraftable;
 
 	public CPacketRecipeInfo() {
-
 	}
 
 	public CPacketRecipeInfo(IRecipe p_i47518_1_) {
-
 		purpose = CPacketRecipeInfo.Purpose.SHOWN;
 		recipe = p_i47518_1_;
 	}
 
 	public CPacketRecipeInfo(boolean p_i47424_1_, boolean p_i47424_2_) {
-
 		purpose = CPacketRecipeInfo.Purpose.SETTINGS;
 		isGuiOpen = p_i47424_1_;
 		filteringCraftable = p_i47424_2_;
@@ -34,7 +31,6 @@ public class CPacketRecipeInfo implements Packet<INetHandlerPlayServer> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		purpose = buf.readEnumValue(Purpose.class);
 
 		if (purpose == CPacketRecipeInfo.Purpose.SHOWN) {
@@ -49,7 +45,6 @@ public class CPacketRecipeInfo implements Packet<INetHandlerPlayServer> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeEnumValue(purpose);
 
 		if (purpose == CPacketRecipeInfo.Purpose.SHOWN) {
@@ -64,7 +59,6 @@ public class CPacketRecipeInfo implements Packet<INetHandlerPlayServer> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayServer handler) {
-
 		handler.handleRecipeBookUpdate(this);
 	}
 
@@ -74,17 +68,14 @@ public class CPacketRecipeInfo implements Packet<INetHandlerPlayServer> {
 	}
 
 	public IRecipe getRecipe() {
-
 		return recipe;
 	}
 
 	public boolean isGuiOpen() {
-
 		return isGuiOpen;
 	}
 
 	public boolean isFilteringCraftable() {
-
 		return filteringCraftable;
 	}
 

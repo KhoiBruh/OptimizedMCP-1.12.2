@@ -12,7 +12,6 @@ public class PropertyInteger extends PropertyHelper<Integer> {
 	private final ImmutableSet<Integer> allowedValues;
 
 	protected PropertyInteger(String name, int min, int max) {
-
 		super(name, Integer.class);
 
 		if (min < 0) {
@@ -31,17 +30,14 @@ public class PropertyInteger extends PropertyHelper<Integer> {
 	}
 
 	public static PropertyInteger create(String name, int min, int max) {
-
 		return new PropertyInteger(name, min, max);
 	}
 
 	public Collection<Integer> getAllowedValues() {
-
 		return allowedValues;
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else if (p_equals_1_ instanceof PropertyInteger propertyinteger && super.equals(p_equals_1_)) {
@@ -52,12 +48,10 @@ public class PropertyInteger extends PropertyHelper<Integer> {
 	}
 
 	public int hashCode() {
-
 		return 31 * super.hashCode() + allowedValues.hashCode();
 	}
 
 	public Optional<Integer> parseValue(String value) {
-
 		try {
 			Integer integer = Integer.valueOf(value);
 			return allowedValues.contains(integer) ? Optional.of(integer) : Optional.absent();
@@ -70,7 +64,6 @@ public class PropertyInteger extends PropertyHelper<Integer> {
 	 * Get the name for the given value.
 	 */
 	public String getName(Integer value) {
-
 		return value.toString();
 	}
 

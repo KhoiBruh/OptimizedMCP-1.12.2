@@ -8,7 +8,6 @@ public class Language implements Comparable<Language> {
 	private final boolean bidirectional;
 
 	public Language(String languageCodeIn, String regionIn, String nameIn, boolean bidirectionalIn) {
-
 		languageCode = languageCodeIn;
 		region = regionIn;
 		name = nameIn;
@@ -16,22 +15,18 @@ public class Language implements Comparable<Language> {
 	}
 
 	public String getLanguageCode() {
-
 		return languageCode;
 	}
 
 	public boolean isBidirectional() {
-
 		return bidirectional;
 	}
 
 	public String toString() {
-
 		return String.format("%s (%s)", name, region);
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else {
@@ -40,12 +35,10 @@ public class Language implements Comparable<Language> {
 	}
 
 	public int hashCode() {
-
 		return languageCode.hashCode();
 	}
 
 	public int compareTo(Language p_compareTo_1_) {
-
 		return languageCode.compareTo(p_compareTo_1_.languageCode);
 	}
 

@@ -18,12 +18,10 @@ import net.minecraft.world.storage.loot.LootTableList;
 public class EntityHusk extends EntityZombie {
 
 	public EntityHusk(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public static void registerFixesHusk(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntityHusk.class);
 	}
 
@@ -31,43 +29,35 @@ public class EntityHusk extends EntityZombie {
 	 * Checks if the entity's current position is a valid location to spawn this entity.
 	 */
 	public boolean getCanSpawnHere() {
-
 		return super.getCanSpawnHere() && world.canSeeSky(new BlockPos(this));
 	}
 
 	protected boolean shouldBurnInDay() {
-
 		return false;
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		return SoundEvents.ENTITY_HUSK_AMBIENT;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_HUSK_HURT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_HUSK_DEATH;
 	}
 
 	protected SoundEvent getStepSound() {
-
 		return SoundEvents.ENTITY_HUSK_STEP;
 	}
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_HUSK;
 	}
 
 	public boolean attackEntityAsMob(Entity entityIn) {
-
 		boolean flag = super.attackEntityAsMob(entityIn);
 
 		if (flag && getHeldItemMainhand().isEmpty() && entityIn instanceof EntityLivingBase) {
@@ -79,7 +69,6 @@ public class EntityHusk extends EntityZombie {
 	}
 
 	protected ItemStack getSkullDrop() {
-
 		return ItemStack.EMPTY;
 	}
 

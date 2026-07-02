@@ -19,40 +19,33 @@ import net.minecraft.world.storage.loot.LootTableList;
 public class EntityWitherSkeleton extends AbstractSkeleton {
 
 	public EntityWitherSkeleton(World worldIn) {
-
 		super(worldIn);
 		setSize(0.7F, 2.4F);
 		isImmuneToFire = true;
 	}
 
 	public static void registerFixesWitherSkeleton(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntityWitherSkeleton.class);
 	}
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_WITHER_SKELETON;
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		return SoundEvents.ENTITY_WITHER_SKELETON_AMBIENT;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_WITHER_SKELETON_HURT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_WITHER_SKELETON_DEATH;
 	}
 
 	SoundEvent getStepSound() {
-
 		return SoundEvents.ENTITY_WITHER_SKELETON_STEP;
 	}
 
@@ -60,7 +53,6 @@ public class EntityWitherSkeleton extends AbstractSkeleton {
 	 * Called when the mob's health reaches 0.
 	 */
 	public void onDeath(DamageSource cause) {
-
 		super.onDeath(cause);
 
 		if (cause.getTrueSource() instanceof EntityCreeper entitycreeper) {
@@ -76,7 +68,6 @@ public class EntityWitherSkeleton extends AbstractSkeleton {
 	 * Gives armor or weapon for entity based on given DifficultyInstance
 	 */
 	protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
-
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SWORD));
 	}
 
@@ -84,7 +75,6 @@ public class EntityWitherSkeleton extends AbstractSkeleton {
 	 * Enchants Entity's current equipments based on given DifficultyInstance
 	 */
 	protected void setEnchantmentBasedOnDifficulty(DifficultyInstance difficulty) {
-
 	}
 
 	
@@ -104,7 +94,6 @@ public class EntityWitherSkeleton extends AbstractSkeleton {
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-
 		IEntityLivingData ientitylivingdata = super.onInitialSpawn(difficulty, livingdata);
 		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4D);
 		setCombatTask();
@@ -112,12 +101,10 @@ public class EntityWitherSkeleton extends AbstractSkeleton {
 	}
 
 	public float getEyeHeight() {
-
 		return 2.1F;
 	}
 
 	public boolean attackEntityAsMob(Entity entityIn) {
-
 		if (!super.attackEntityAsMob(entityIn)) {
 			return false;
 		} else {
@@ -130,7 +117,6 @@ public class EntityWitherSkeleton extends AbstractSkeleton {
 	}
 
 	protected EntityArrow getArrow(float p_190726_1_) {
-
 		EntityArrow entityarrow = super.getArrow(p_190726_1_);
 		entityarrow.setFire(100);
 		return entityarrow;

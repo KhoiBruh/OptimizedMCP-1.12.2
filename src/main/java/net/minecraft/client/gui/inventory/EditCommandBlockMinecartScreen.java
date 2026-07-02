@@ -27,7 +27,6 @@ public class EditCommandBlockMinecartScreen extends Screen implements ITabComple
 	private TabCompleter tabCompleter;
 
 	public EditCommandBlockMinecartScreen(CommandBlockBaseLogic p_i46595_1_) {
-
 		commandBlockLogic = p_i46595_1_;
 	}
 
@@ -35,7 +34,6 @@ public class EditCommandBlockMinecartScreen extends Screen implements ITabComple
 	 * Called from the main game loop to update the screen.
 	 */
 	public void update() {
-
 		commandField.updateCursorCounter();
 	}
 
@@ -44,7 +42,6 @@ public class EditCommandBlockMinecartScreen extends Screen implements ITabComple
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		Keyboard.setRepeat(true);
 		buttons.clear();
 		doneButton = addButton(new Button(0, width / 2 - 4 - 150, height / 4 + 120 + 12, 150, 20, I18n.format("gui.done")));
@@ -64,7 +61,6 @@ public class EditCommandBlockMinecartScreen extends Screen implements ITabComple
 		tabCompleter = new TabCompleter(commandField, true) {
 			
 			public BlockPos getTargetBlockPos() {
-
 				return commandBlockLogic.getPosition();
 			}
 		};
@@ -74,7 +70,6 @@ public class EditCommandBlockMinecartScreen extends Screen implements ITabComple
 	 * Called when the screen is unloaded. Used to disable keyboard repeat events
 	 */
 	public void close() {
-
 		Keyboard.setRepeat(false);
 	}
 
@@ -82,7 +77,6 @@ public class EditCommandBlockMinecartScreen extends Screen implements ITabComple
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.enabled) {
 			if (button.id == 1) {
 				commandBlockLogic.setTrackOutput(trackOutput);
@@ -112,7 +106,6 @@ public class EditCommandBlockMinecartScreen extends Screen implements ITabComple
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) {
-
 		tabCompleter.resetRequested();
 
 		if (keyCode == 258) {
@@ -138,7 +131,6 @@ public class EditCommandBlockMinecartScreen extends Screen implements ITabComple
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
-
 		super.mouseClicked(mouseX, mouseY, mouse);
 		commandField.mouseClicked(mouseX, mouseY, mouse);
 		previousEdit.mouseClicked(mouseX, mouseY, mouse);
@@ -148,7 +140,6 @@ public class EditCommandBlockMinecartScreen extends Screen implements ITabComple
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, I18n.format("advMode.setCommand"), width / 2, 20, 16777215);
 		drawString(fontRenderer, I18n.format("advMode.command"), width / 2 - 150, 40, 10526880);
@@ -171,7 +162,6 @@ public class EditCommandBlockMinecartScreen extends Screen implements ITabComple
 	}
 
 	private void updateCommandOutput() {
-
 		if (commandBlockLogic.shouldTrackOutput()) {
 			outputButton.displayString = "O";
 
@@ -188,7 +178,6 @@ public class EditCommandBlockMinecartScreen extends Screen implements ITabComple
 	 * Sets the list of tab completions, as long as they were previously requested.
 	 */
 	public void setCompletions(String... newCompletions) {
-
 		tabCompleter.setCompletions(newCompletions);
 	}
 

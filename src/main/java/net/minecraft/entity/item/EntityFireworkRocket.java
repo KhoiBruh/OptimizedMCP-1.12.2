@@ -38,13 +38,11 @@ public class EntityFireworkRocket extends Entity {
 	private EntityLivingBase boostedEntity;
 
 	public EntityFireworkRocket(World worldIn) {
-
 		super(worldIn);
 		setSize(0.25F, 0.25F);
 	}
 
 	public EntityFireworkRocket(World worldIn, double x, double y, double z, ItemStack givenItem) {
-
 		super(worldIn);
 		fireworkAge = 0;
 		setSize(0.25F, 0.25F);
@@ -65,19 +63,16 @@ public class EntityFireworkRocket extends Entity {
 	}
 
 	public EntityFireworkRocket(World p_i47367_1_, ItemStack p_i47367_2_, EntityLivingBase p_i47367_3_) {
-
 		this(p_i47367_1_, p_i47367_3_.posX, p_i47367_3_.posY, p_i47367_3_.posZ, p_i47367_2_);
 		dataManager.set(BOOSTED_ENTITY_ID, p_i47367_3_.getEntityId());
 		boostedEntity = p_i47367_3_;
 	}
 
 	public static void registerFixesFireworkRocket(DataFixer fixer) {
-
 		fixer.registerWalker(FixTypes.ENTITY, new ItemStackData(EntityFireworkRocket.class, "FireworksItem"));
 	}
 
 	protected void entityInit() {
-
 		dataManager.register(FIREWORK_ITEM, ItemStack.EMPTY);
 		dataManager.register(BOOSTED_ENTITY_ID, 0);
 	}
@@ -86,12 +81,10 @@ public class EntityFireworkRocket extends Entity {
 	 * Checks if the entity is in range to render.
 	 */
 	public boolean isInRangeToRenderDist(double distance) {
-
 		return distance < 4096D && !isAttachedToEntity();
 	}
 
 	public boolean isInRangeToRender3d(double x, double y, double z) {
-
 		return super.isInRangeToRender3d(x, y, z) && !isAttachedToEntity();
 	}
 
@@ -99,7 +92,6 @@ public class EntityFireworkRocket extends Entity {
 	 * Updates the entity motion clientside, called by packets from the server
 	 */
 	public void setVelocity(double x, double y, double z) {
-
 		motionX = x;
 		motionY = y;
 		motionZ = z;
@@ -117,7 +109,6 @@ public class EntityFireworkRocket extends Entity {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		lastTickPosX = posX;
 		lastTickPosY = posY;
 		lastTickPosZ = posZ;
@@ -193,7 +184,6 @@ public class EntityFireworkRocket extends Entity {
 	}
 
 	private void dealExplosionDamage() {
-
 		float f = 0F;
 		ItemStack itemstack = dataManager.get(FIREWORK_ITEM);
 		NBTTagCompound nbttagcompound = itemstack.isEmpty() ? null : itemstack.getSubCompound("Fireworks");
@@ -234,7 +224,6 @@ public class EntityFireworkRocket extends Entity {
 	}
 
 	public boolean isAttachedToEntity() {
-
 		return dataManager.get(BOOSTED_ENTITY_ID) > 0;
 	}
 
@@ -242,7 +231,6 @@ public class EntityFireworkRocket extends Entity {
 	 * Handler for {@link World#setEntityState}
 	 */
 	public void handleStatusUpdate(byte id) {
-
 		if (id == 17 && world.isRemote) {
 			ItemStack itemstack = dataManager.get(FIREWORK_ITEM);
 			NBTTagCompound nbttagcompound = itemstack.isEmpty() ? null : itemstack.getSubCompound("Fireworks");
@@ -256,7 +244,6 @@ public class EntityFireworkRocket extends Entity {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		compound.setInteger("Life", fireworkAge);
 		compound.setInteger("LifeTime", lifetime);
 		ItemStack itemstack = dataManager.get(FIREWORK_ITEM);
@@ -270,7 +257,6 @@ public class EntityFireworkRocket extends Entity {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		fireworkAge = compound.getInteger("Life");
 		lifetime = compound.getInteger("LifeTime");
 		NBTTagCompound nbttagcompound = compound.getCompoundTag("FireworksItem");
@@ -288,7 +274,6 @@ public class EntityFireworkRocket extends Entity {
 	 * Returns true if it's possible to attack this entity with an item.
 	 */
 	public boolean canBeAttackedWithItem() {
-
 		return false;
 	}
 

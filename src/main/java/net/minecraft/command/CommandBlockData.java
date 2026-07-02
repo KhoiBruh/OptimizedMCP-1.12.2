@@ -18,7 +18,6 @@ public class CommandBlockData extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "blockdata";
 	}
 
@@ -26,7 +25,6 @@ public class CommandBlockData extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 2;
 	}
 
@@ -34,7 +32,6 @@ public class CommandBlockData extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.blockdata.usage";
 	}
 
@@ -42,7 +39,6 @@ public class CommandBlockData extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		if (args.length < 4) {
 			throw new WrongUsageException("commands.blockdata.usage");
 		} else {
@@ -89,7 +85,6 @@ public class CommandBlockData extends CommandBase {
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		return args.length > 0 && args.length <= 3 ? getTabCompletionCoordinate(args, 0, targetPos) : Collections.emptyList();
 	}
 

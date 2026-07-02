@@ -11,7 +11,6 @@ public class ElytraSound extends MovingSound {
 	private int time;
 
 	public ElytraSound(EntityPlayerSP p_i47113_1_) {
-
 		super(SoundEvents.ITEM_ELYTRA_FLYING, SoundCategory.PLAYERS);
 		player = p_i47113_1_;
 		repeat = true;
@@ -23,7 +22,6 @@ public class ElytraSound extends MovingSound {
 	 * Like the old updateEntity(), except more generic.
 	 */
 	public void update() {
-
 		++time;
 
 		if (!player.isDead && (time <= 20 || player.isElytraFlying())) {

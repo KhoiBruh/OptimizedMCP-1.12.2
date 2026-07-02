@@ -22,7 +22,6 @@ public class EntityAIWatchClosest extends EntityAIBase {
 	private int lookTime;
 
 	public EntityAIWatchClosest(EntityLiving entityIn, Class<? extends Entity> watchTargetClass, float maxDistance) {
-
 		entity = entityIn;
 		watchedClass = watchTargetClass;
 		maxDistanceForPlayer = maxDistance;
@@ -31,7 +30,6 @@ public class EntityAIWatchClosest extends EntityAIBase {
 	}
 
 	public EntityAIWatchClosest(EntityLiving entityIn, Class<? extends Entity> watchTargetClass, float maxDistance, float chanceIn) {
-
 		entity = entityIn;
 		watchedClass = watchTargetClass;
 		maxDistanceForPlayer = maxDistance;
@@ -43,7 +41,6 @@ public class EntityAIWatchClosest extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		if (entity.getRNG().nextFloat() >= chance) {
 			return false;
 		} else {
@@ -65,7 +62,6 @@ public class EntityAIWatchClosest extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		if (!closestEntity.isEntityAlive()) {
 			return false;
 		} else if (entity.getDistanceSq(closestEntity) > (double) (maxDistanceForPlayer * maxDistanceForPlayer)) {
@@ -79,7 +75,6 @@ public class EntityAIWatchClosest extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		lookTime = 40 + entity.getRNG().nextInt(40);
 	}
 
@@ -87,7 +82,6 @@ public class EntityAIWatchClosest extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		closestEntity = null;
 	}
 
@@ -95,7 +89,6 @@ public class EntityAIWatchClosest extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		entity.getLookHelper().setLookPosition(closestEntity.posX, closestEntity.posY + (double) closestEntity.getEyeHeight(), closestEntity.posZ, (float) entity.getHorizontalFaceSpeed(), (float) entity.getVerticalFaceSpeed());
 		--lookTime;
 	}

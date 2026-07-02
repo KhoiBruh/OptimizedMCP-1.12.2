@@ -14,7 +14,6 @@ public class AnimationMetadataSection implements IMetadataSection {
 	private final boolean interpolate;
 
 	public AnimationMetadataSection(List<AnimationFrame> animationFramesIn, int frameWidthIn, int frameHeightIn, int frameTimeIn, boolean interpolateIn) {
-
 		animationFrames = animationFramesIn;
 		frameWidth = frameWidthIn;
 		frameHeight = frameHeightIn;
@@ -23,53 +22,43 @@ public class AnimationMetadataSection implements IMetadataSection {
 	}
 
 	public int getFrameHeight() {
-
 		return frameHeight;
 	}
 
 	public int getFrameWidth() {
-
 		return frameWidth;
 	}
 
 	public int getFrameCount() {
-
 		return animationFrames.size();
 	}
 
 	public int getFrameTime() {
-
 		return frameTime;
 	}
 
 	public boolean isInterpolate() {
-
 		return interpolate;
 	}
 
 	private AnimationFrame getAnimationFrame(int frame) {
-
 		return animationFrames.get(frame);
 	}
 
 	public int getFrameTimeSingle(int frame) {
-
 		AnimationFrame animationframe = getAnimationFrame(frame);
 		return animationframe.hasNoTime() ? frameTime : animationframe.frameTime();
 	}
 
 	public boolean frameHasTime(int frame) {
-
 		return !animationFrames.get(frame).hasNoTime();
 	}
 
 	public int getFrameIndex(int frame) {
-
 		return animationFrames.get(frame).frameIndex();
 	}
 
 	public Set<Integer> getFrameIndexSet() {
-
 		Set<Integer> set = Sets.newHashSet();
 
 		for (AnimationFrame animationframe : animationFrames) {

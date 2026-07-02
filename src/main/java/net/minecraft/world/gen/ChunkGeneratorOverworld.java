@@ -55,7 +55,6 @@ public class ChunkGeneratorOverworld implements IChunkGenerator {
 	private Biome[] biomesForGeneration;
 
 	public ChunkGeneratorOverworld(World worldIn, long seed, boolean mapFeaturesEnabledIn, String generatorOptions) {
-
 		world = worldIn;
 		mapFeaturesEnabled = mapFeaturesEnabledIn;
 		terrainType = worldIn.getWorldInfo().getTerrainType();
@@ -85,7 +84,6 @@ public class ChunkGeneratorOverworld implements IChunkGenerator {
 	}
 
 	public void setBlocksInChunk(int x, int z, ChunkPrimer primer) {
-
 		biomesForGeneration = world.getBiomeProvider().getBiomesForGeneration(biomesForGeneration, x * 4 - 2, z * 4 - 2, 10, 10);
 		generateHeightmap(x * 4, 0, z * 4);
 
@@ -145,7 +143,6 @@ public class ChunkGeneratorOverworld implements IChunkGenerator {
 	}
 
 	public void replaceBiomeBlocks(int x, int z, ChunkPrimer primer, Biome[] biomesIn) {
-
 		double d0 = 0.03125D;
 		depthBuffer = surfaceNoise.getRegion(depthBuffer, x * 16, z * 16, 16, 16, 0.0625D, 0.0625D, 1D);
 
@@ -161,7 +158,6 @@ public class ChunkGeneratorOverworld implements IChunkGenerator {
 	 * Generates the chunk at the specified position, from scratch
 	 */
 	public Chunk generateChunk(int x, int z) {
-
 		rand.setSeed((long) x * 341873128712L + (long) z * 132897987541L);
 		ChunkPrimer chunkprimer = new ChunkPrimer();
 		setBlocksInChunk(x, z, chunkprimer);
@@ -214,7 +210,6 @@ public class ChunkGeneratorOverworld implements IChunkGenerator {
 	}
 
 	private void generateHeightmap(int p_185978_1_, int p_185978_2_, int p_185978_3_) {
-
 		depthRegion = depthNoise.generateNoiseOctaves(depthRegion, p_185978_1_, p_185978_3_, 5, 5, settings.depthNoiseScaleX, settings.depthNoiseScaleZ, settings.depthNoiseScaleExponent);
 		float f = settings.coordinateScale;
 		float f1 = settings.heightScale;
@@ -322,7 +317,6 @@ public class ChunkGeneratorOverworld implements IChunkGenerator {
 	 * @param z Chunk z coordinate
 	 */
 	public void populate(int x, int z) {
-
 		BlockFalling.fallInstantly = true;
 		int i = x * 16;
 		int j = z * 16;
@@ -413,7 +407,6 @@ public class ChunkGeneratorOverworld implements IChunkGenerator {
 	 * Called to generate additional structures after initial worldgen, used by ocean monuments
 	 */
 	public boolean generateStructures(Chunk chunkIn, int x, int z) {
-
 		boolean flag = false;
 
 		if (settings.useMonuments && mapFeaturesEnabled && chunkIn.getInhabitedTime() < 3600L) {
@@ -441,7 +434,6 @@ public class ChunkGeneratorOverworld implements IChunkGenerator {
 	}
 
 	public boolean isInsideStructure(World worldIn, String structureName, BlockPos pos) {
-
 		if (!mapFeaturesEnabled) {
 			return false;
 		} else if ("Stronghold".equals(structureName) && strongholdGenerator != null) {
@@ -461,7 +453,6 @@ public class ChunkGeneratorOverworld implements IChunkGenerator {
 
 	
 	public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
-
 		if (!mapFeaturesEnabled) {
 			return null;
 		} else if ("Stronghold".equals(structureName) && strongholdGenerator != null) {
@@ -485,7 +476,6 @@ public class ChunkGeneratorOverworld implements IChunkGenerator {
 	 * state needed by getPossibleCreatures.
 	 */
 	public void recreateStructures(Chunk chunkIn, int x, int z) {
-
 		if (mapFeaturesEnabled) {
 			if (settings.useMineShafts) {
 				mineshaftGenerator.generate(world, x, z, null);

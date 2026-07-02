@@ -36,13 +36,11 @@ public class BlockRedstoneWire extends Block {
 	private boolean canProvidePower = true;
 
 	public BlockRedstoneWire() {
-
 		super(Material.CIRCUITS);
 		setDefaultState(blockState.getBaseState().withProperty(NORTH, BlockRedstoneWire.AttachPosition.NONE).withProperty(EAST, BlockRedstoneWire.AttachPosition.NONE).withProperty(SOUTH, BlockRedstoneWire.AttachPosition.NONE).withProperty(WEST, BlockRedstoneWire.AttachPosition.NONE).withProperty(POWER, 0));
 	}
 
 	private static int getAABBIndex(IBlockState state) {
-
 		int i = 0;
 		boolean flag = state.getValue(NORTH) != BlockRedstoneWire.AttachPosition.NONE;
 		boolean flag1 = state.getValue(EAST) != BlockRedstoneWire.AttachPosition.NONE;
@@ -69,17 +67,14 @@ public class BlockRedstoneWire extends Block {
 	}
 
 	protected static boolean canConnectUpwardsTo(IBlockAccess worldIn, BlockPos pos) {
-
 		return canConnectUpwardsTo(worldIn.getBlockState(pos));
 	}
 
 	protected static boolean canConnectUpwardsTo(IBlockState state) {
-
 		return canConnectTo(state, null);
 	}
 
 	protected static boolean canConnectTo(IBlockState blockState, Facing side) {
-
 		Block block = blockState.getBlock();
 
 		if (block == Blocks.REDSTONE_WIRE) {
@@ -95,7 +90,6 @@ public class BlockRedstoneWire extends Block {
 	}
 
 	public static int colorMultiplier(int p_176337_0_) {
-
 		float f = (float) p_176337_0_ / 15F;
 		float f1 = f * 0.6F + 0.4F;
 
@@ -121,7 +115,6 @@ public class BlockRedstoneWire extends Block {
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return REDSTONE_WIRE_AABB[getAABBIndex(state.getActualState(source, pos))];
 	}
 
@@ -130,7 +123,6 @@ public class BlockRedstoneWire extends Block {
 	 * metadata, such as fence connections.
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		state = state.withProperty(WEST, getAttachPosition(worldIn, pos, Facing.WEST));
 		state = state.withProperty(EAST, getAttachPosition(worldIn, pos, Facing.EAST));
 		state = state.withProperty(NORTH, getAttachPosition(worldIn, pos, Facing.NORTH));
@@ -166,7 +158,6 @@ public class BlockRedstoneWire extends Block {
 
 	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-
 		return NULL_AABB;
 	}
 
@@ -174,12 +165,10 @@ public class BlockRedstoneWire extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -187,12 +176,10 @@ public class BlockRedstoneWire extends Block {
 	 * Checks if this block can be placed exactly at the given position.
 	 */
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-
 		return worldIn.getBlockState(pos.down()).isTopSolid() || worldIn.getBlockState(pos.down()).getBlock() == Blocks.GLOWSTONE;
 	}
 
 	private IBlockState updateSurroundingRedstone(World worldIn, BlockPos pos, IBlockState state) {
-
 		state = calculateCurrentChanges(worldIn, pos, pos, state);
 		List<BlockPos> list = Lists.newArrayList(blocksNeedingUpdate);
 		blocksNeedingUpdate.clear();
@@ -205,7 +192,6 @@ public class BlockRedstoneWire extends Block {
 	}
 
 	private IBlockState calculateCurrentChanges(World worldIn, BlockPos pos1, BlockPos pos2, IBlockState state) {
-
 		IBlockState iblockstate = state;
 		int i = state.getValue(POWER);
 		int j = 0;
@@ -271,7 +257,6 @@ public class BlockRedstoneWire extends Block {
 	 * wire.
 	 */
 	private void notifyWireNeighborsOfStateChange(World worldIn, BlockPos pos) {
-
 		if (worldIn.getBlockState(pos).getBlock() == this) {
 			worldIn.notifyNeighborsOfStateChange(pos, this, false);
 
@@ -285,7 +270,6 @@ public class BlockRedstoneWire extends Block {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (!worldIn.isRemote) {
 			updateSurroundingRedstone(worldIn, pos, state);
 
@@ -313,7 +297,6 @@ public class BlockRedstoneWire extends Block {
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		super.breakBlock(worldIn, pos, state);
 
 		if (!worldIn.isRemote) {
@@ -340,7 +323,6 @@ public class BlockRedstoneWire extends Block {
 	}
 
 	private int getMaxCurrentStrength(World worldIn, BlockPos pos, int strength) {
-
 		if (worldIn.getBlockState(pos).getBlock() != this) {
 			return strength;
 		} else {
@@ -355,7 +337,6 @@ public class BlockRedstoneWire extends Block {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (!worldIn.isRemote) {
 			if (canPlaceBlockAt(worldIn, pos)) {
 				updateSurroundingRedstone(worldIn, pos, state);
@@ -370,17 +351,14 @@ public class BlockRedstoneWire extends Block {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Items.REDSTONE;
 	}
 
 	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		return !canProvidePower ? 0 : blockState.getWeakPower(blockAccess, pos, side);
 	}
 
 	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		if (!canProvidePower) {
 			return 0;
 		} else {
@@ -411,7 +389,6 @@ public class BlockRedstoneWire extends Block {
 	}
 
 	private boolean isPowerSourceAt(IBlockAccess worldIn, BlockPos pos, Facing side) {
-
 		BlockPos blockpos = pos.offset(side);
 		IBlockState iblockstate = worldIn.getBlockState(blockpos);
 		boolean flag = iblockstate.isNormalCube();
@@ -432,12 +409,10 @@ public class BlockRedstoneWire extends Block {
 	 * Can this block provide power. Only wire currently seems to have this change based on its state.
 	 */
 	public boolean canProvidePower(IBlockState state) {
-
 		return canProvidePower;
 	}
 
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-
 		int i = stateIn.getValue(POWER);
 
 		if (i != 0) {
@@ -453,7 +428,6 @@ public class BlockRedstoneWire extends Block {
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return new ItemStack(Items.REDSTONE);
 	}
 
@@ -462,7 +436,6 @@ public class BlockRedstoneWire extends Block {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.CUTOUT;
 	}
 
@@ -470,7 +443,6 @@ public class BlockRedstoneWire extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(POWER, meta);
 	}
 
@@ -478,7 +450,6 @@ public class BlockRedstoneWire extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(POWER);
 	}
 
@@ -487,7 +458,6 @@ public class BlockRedstoneWire extends Block {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return switch (rot) {
 			case CLOCKWISE_180 ->
 					state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(EAST, state.getValue(WEST)).withProperty(SOUTH, state.getValue(NORTH)).withProperty(WEST, state.getValue(EAST));
@@ -504,7 +474,6 @@ public class BlockRedstoneWire extends Block {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return switch (mirrorIn) {
 			case LEFT_RIGHT ->
 					state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(NORTH));
@@ -514,7 +483,6 @@ public class BlockRedstoneWire extends Block {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, NORTH, EAST, SOUTH, WEST, POWER);
 	}
 
@@ -528,7 +496,6 @@ public class BlockRedstoneWire extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 
@@ -540,17 +507,14 @@ public class BlockRedstoneWire extends Block {
 		private final String name;
 
 		AttachPosition(String name) {
-
 			this.name = name;
 		}
 
 		public String toString() {
-
 			return getName();
 		}
 
 		public String getName() {
-
 			return name;
 		}
 	}

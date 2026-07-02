@@ -52,7 +52,6 @@ public class ModelRenderer {
 	private int displayList;
 
 	public ModelRenderer(ModelBase model, String boxNameIn) {
-
 		textureWidth = 64F;
 		textureHeight = 32F;
 		showModel = true;
@@ -64,12 +63,10 @@ public class ModelRenderer {
 	}
 
 	public ModelRenderer(ModelBase model) {
-
 		this(model, null);
 	}
 
 	public ModelRenderer(ModelBase model, int texOffX, int texOffY) {
-
 		this(model);
 		setTextureOffset(texOffX, texOffY);
 	}
@@ -78,7 +75,6 @@ public class ModelRenderer {
 	 * Sets the current box's rotation points and rotation angles to another box.
 	 */
 	public void addChild(ModelRenderer renderer) {
-
 		if (childModels == null) {
 			childModels = Lists.newArrayList();
 		}
@@ -87,14 +83,12 @@ public class ModelRenderer {
 	}
 
 	public ModelRenderer setTextureOffset(int x, int y) {
-
 		textureOffsetX = x;
 		textureOffsetY = y;
 		return this;
 	}
 
 	public ModelRenderer addBox(String partName, float offX, float offY, float offZ, int width, int height, int depth) {
-
 		partName = boxName + "." + partName;
 		TextureOffset textureoffset = baseModel.getTextureOffset(partName);
 		setTextureOffset(textureoffset.textureOffsetX(), textureoffset.textureOffsetY());
@@ -103,13 +97,11 @@ public class ModelRenderer {
 	}
 
 	public ModelRenderer addBox(float offX, float offY, float offZ, int width, int height, int depth) {
-
 		cubeList.add(new ModelBox(this, textureOffsetX, textureOffsetY, offX, offY, offZ, width, height, depth, 0F));
 		return this;
 	}
 
 	public ModelRenderer addBox(float offX, float offY, float offZ, int width, int height, int depth, boolean mirrored) {
-
 		cubeList.add(new ModelBox(this, textureOffsetX, textureOffsetY, offX, offY, offZ, width, height, depth, 0F, mirrored));
 		return this;
 	}
@@ -118,19 +110,16 @@ public class ModelRenderer {
 	 * Creates a textured box.
 	 */
 	public void addBox(float offX, float offY, float offZ, int width, int height, int depth, float scaleFactor) {
-
 		cubeList.add(new ModelBox(this, textureOffsetX, textureOffsetY, offX, offY, offZ, width, height, depth, scaleFactor));
 	}
 
 	public void setRotationPoint(float rotationPointXIn, float rotationPointYIn, float rotationPointZIn) {
-
 		rotationPointX = rotationPointXIn;
 		rotationPointY = rotationPointYIn;
 		rotationPointZ = rotationPointZIn;
 	}
 
 	public void render(float scale) {
-
 		if (!isHidden) {
 			if (showModel) {
 				if (!compiled) {
@@ -193,7 +182,6 @@ public class ModelRenderer {
 	}
 
 	public void renderWithRotation(float scale) {
-
 		if (!isHidden) {
 			if (showModel) {
 				if (!compiled) {
@@ -225,7 +213,6 @@ public class ModelRenderer {
 	 * Allows the changing of Angles after a box has been rendered
 	 */
 	public void postRender(float scale) {
-
 		if (!isHidden) {
 			if (showModel) {
 				if (!compiled) {
@@ -259,7 +246,6 @@ public class ModelRenderer {
 	 * Compiles a GL display list for this model
 	 */
 	private void compileDisplayList(float scale) {
-
 		displayList = GLAllocation.generateDisplayLists(1);
 		GLS.newList(displayList, 4864);
 		BufferBuilder bufferbuilder = Tessellator.getInstance().getBuffer();
@@ -276,7 +262,6 @@ public class ModelRenderer {
 	 * Returns the model renderer with the new texture parameters.
 	 */
 	public ModelRenderer setTextureSize(int textureWidthIn, int textureHeightIn) {
-
 		textureWidth = (float) textureWidthIn;
 		textureHeight = (float) textureHeightIn;
 		return this;

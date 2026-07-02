@@ -20,11 +20,9 @@ public class SPacketEntity implements Packet<INetHandlerPlayClient> {
 	protected boolean rotating;
 
 	public SPacketEntity() {
-
 	}
 
 	public SPacketEntity(int entityIdIn) {
-
 		entityId = entityIdIn;
 	}
 
@@ -32,7 +30,6 @@ public class SPacketEntity implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) throws IOException {
-
 		entityId = buf.readVarInt();
 	}
 
@@ -40,7 +37,6 @@ public class SPacketEntity implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) throws IOException {
-
 		buf.writeVarInt(entityId);
 	}
 
@@ -48,63 +44,51 @@ public class SPacketEntity implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleEntityMovement(this);
 	}
 
 	public String toString() {
-
 		return "Entity_" + super.toString();
 	}
 
 	public Entity getEntity(World worldIn) {
-
 		return worldIn.getEntityByID(entityId);
 	}
 
 	public int getX() {
-
 		return posX;
 	}
 
 	public int getY() {
-
 		return posY;
 	}
 
 	public int getZ() {
-
 		return posZ;
 	}
 
 	public byte getYaw() {
-
 		return yaw;
 	}
 
 	public byte getPitch() {
-
 		return pitch;
 	}
 
 	public boolean isRotating() {
-
 		return rotating;
 	}
 
 	public boolean getOnGround() {
-
 		return onGround;
 	}
 
 	public static class S15PacketEntityRelMove extends SPacketEntity {
 
 		public S15PacketEntityRelMove() {
-
 		}
 
 		public S15PacketEntityRelMove(int entityIdIn, long xIn, long yIn, long zIn, boolean onGroundIn) {
-
 			super(entityIdIn);
 			posX = (int) xIn;
 			posY = (int) yIn;
@@ -113,7 +97,6 @@ public class SPacketEntity implements Packet<INetHandlerPlayClient> {
 		}
 
 		public void readPacketData(PacketBuffer buf) throws IOException {
-
 			super.readPacketData(buf);
 			posX = buf.readShort();
 			posY = buf.readShort();
@@ -122,7 +105,6 @@ public class SPacketEntity implements Packet<INetHandlerPlayClient> {
 		}
 
 		public void writePacketData(PacketBuffer buf) throws IOException {
-
 			super.writePacketData(buf);
 			buf.writeShort(posX);
 			buf.writeShort(posY);
@@ -135,12 +117,10 @@ public class SPacketEntity implements Packet<INetHandlerPlayClient> {
 	public static class S16PacketEntityLook extends SPacketEntity {
 
 		public S16PacketEntityLook() {
-
 			rotating = true;
 		}
 
 		public S16PacketEntityLook(int entityIdIn, byte yawIn, byte pitchIn, boolean onGroundIn) {
-
 			super(entityIdIn);
 			yaw = yawIn;
 			pitch = pitchIn;
@@ -149,7 +129,6 @@ public class SPacketEntity implements Packet<INetHandlerPlayClient> {
 		}
 
 		public void readPacketData(PacketBuffer buf) throws IOException {
-
 			super.readPacketData(buf);
 			yaw = buf.readByte();
 			pitch = buf.readByte();
@@ -157,7 +136,6 @@ public class SPacketEntity implements Packet<INetHandlerPlayClient> {
 		}
 
 		public void writePacketData(PacketBuffer buf) throws IOException {
-
 			super.writePacketData(buf);
 			buf.writeByte(yaw);
 			buf.writeByte(pitch);
@@ -169,12 +147,10 @@ public class SPacketEntity implements Packet<INetHandlerPlayClient> {
 	public static class S17PacketEntityLookMove extends SPacketEntity {
 
 		public S17PacketEntityLookMove() {
-
 			rotating = true;
 		}
 
 		public S17PacketEntityLookMove(int entityIdIn, long xIn, long yIn, long zIn, byte yawIn, byte pitchIn, boolean onGroundIn) {
-
 			super(entityIdIn);
 			posX = (int) xIn;
 			posY = (int) yIn;
@@ -186,7 +162,6 @@ public class SPacketEntity implements Packet<INetHandlerPlayClient> {
 		}
 
 		public void readPacketData(PacketBuffer buf) throws IOException {
-
 			super.readPacketData(buf);
 			posX = buf.readShort();
 			posY = buf.readShort();
@@ -197,7 +172,6 @@ public class SPacketEntity implements Packet<INetHandlerPlayClient> {
 		}
 
 		public void writePacketData(PacketBuffer buf) throws IOException {
-
 			super.writePacketData(buf);
 			buf.writeShort(posX);
 			buf.writeShort(posY);

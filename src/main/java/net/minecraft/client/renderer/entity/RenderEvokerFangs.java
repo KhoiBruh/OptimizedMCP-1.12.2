@@ -11,7 +11,6 @@ public class RenderEvokerFangs extends Render<EntityEvokerFangs> {
 	private final ModelEvokerFangs model = new ModelEvokerFangs();
 
 	public RenderEvokerFangs(RenderManager p_i47208_1_) {
-
 		super(p_i47208_1_);
 	}
 
@@ -19,7 +18,6 @@ public class RenderEvokerFangs extends Render<EntityEvokerFangs> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(EntityEvokerFangs entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		float f = entity.getAnimationProgress(partialTicks);
 
 		if (f != 0F) {
@@ -49,7 +47,6 @@ public class RenderEvokerFangs extends Render<EntityEvokerFangs> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityEvokerFangs entity) {
-
 		return EVOKER_ILLAGER_FANGS;
 	}
 

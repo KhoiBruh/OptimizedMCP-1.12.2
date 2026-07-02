@@ -47,12 +47,10 @@ public abstract class CommandBlockBaseLogic implements ICommandSender {
 	 * returns the successCount int.
 	 */
 	public int getSuccessCount() {
-
 		return successCount;
 	}
 
 	public void setSuccessCount(int successCountIn) {
-
 		successCount = successCountIn;
 	}
 
@@ -60,17 +58,14 @@ public abstract class CommandBlockBaseLogic implements ICommandSender {
 	 * Returns the lastOutput.
 	 */
 	public ITextComponent getLastOutput() {
-
 		return lastOutput == null ? new TextComponentString("") : lastOutput;
 	}
 
 	public void setLastOutput(ITextComponent lastOutputMessage) {
-
 		lastOutput = lastOutputMessage;
 	}
 
 	public NBTTagCompound writeToNBT(NBTTagCompound p_189510_1_) {
-
 		p_189510_1_.setString("Command", commandStored);
 		p_189510_1_.setInteger("SuccessCount", successCount);
 		p_189510_1_.setString("CustomName", customName);
@@ -94,7 +89,6 @@ public abstract class CommandBlockBaseLogic implements ICommandSender {
 	 * Reads NBT formatting and stored data into variables.
 	 */
 	public void readDataFromNBT(NBTTagCompound nbt) {
-
 		commandStored = nbt.getString("Command");
 		successCount = nbt.getInteger("SuccessCount");
 
@@ -133,7 +127,6 @@ public abstract class CommandBlockBaseLogic implements ICommandSender {
 	 * Returns {@code true} if the CommandSender is allowed to execute the command, {@code false} if not
 	 */
 	public boolean canUseCommand(int permLevel, String commandName) {
-
 		return permLevel <= 2;
 	}
 
@@ -141,7 +134,6 @@ public abstract class CommandBlockBaseLogic implements ICommandSender {
 	 * Returns the command of the command block.
 	 */
 	public String getCommand() {
-
 		return commandStored;
 	}
 
@@ -149,13 +141,11 @@ public abstract class CommandBlockBaseLogic implements ICommandSender {
 	 * Sets the command.
 	 */
 	public void setCommand(String command) {
-
 		commandStored = command;
 		successCount = 0;
 	}
 
 	public boolean trigger(World worldIn) {
-
 		if (!worldIn.isRemote && worldIn.getTotalWorldTime() != lastExecution) {
 			if ("Searge".equalsIgnoreCase(commandStored)) {
 				lastOutput = new TextComponentString("#itzlipofutzli");
@@ -196,12 +186,10 @@ public abstract class CommandBlockBaseLogic implements ICommandSender {
 	 * Get the name of this object. For players this returns their username
 	 */
 	public String getName() {
-
 		return customName;
 	}
 
 	public void setName(String name) {
-
 		customName = name;
 	}
 
@@ -209,7 +197,6 @@ public abstract class CommandBlockBaseLogic implements ICommandSender {
 	 * Send a chat message to the CommandSender
 	 */
 	public void sendMessage(ITextComponent component) {
-
 		if (trackOutput && getEntityWorld() != null && !getEntityWorld().isRemote) {
 			lastOutput = (new TextComponentString("[" + TIMESTAMP_FORMAT.format(new Date()) + "] ")).appendSibling(component);
 			updateCommand();
@@ -220,13 +207,11 @@ public abstract class CommandBlockBaseLogic implements ICommandSender {
 	 * Returns true if the command sender should be sent feedback about executed commands
 	 */
 	public boolean sendCommandFeedback() {
-
 		MinecraftServer minecraftserver = getServer();
 		return minecraftserver == null || !minecraftserver.isAnvilFileSet() || minecraftserver.worlds[0].getGameRules().getBoolean("commandBlockOutput");
 	}
 
 	public void setCommandStat(CommandResultStats.Type type, int amount) {
-
 		resultStats.setCommandStatForSender(getServer(), this, type, amount);
 	}
 
@@ -244,17 +229,14 @@ public abstract class CommandBlockBaseLogic implements ICommandSender {
 	public abstract void fillInInfo(ByteBuf buf);
 
 	public void setTrackOutput(boolean shouldTrackOutput) {
-
 		trackOutput = shouldTrackOutput;
 	}
 
 	public boolean shouldTrackOutput() {
-
 		return trackOutput;
 	}
 
 	public boolean tryOpenEditCommandBlock(EntityPlayer playerIn) {
-
 		if (!playerIn.canUseCommandBlock()) {
 			return false;
 		} else {
@@ -267,7 +249,6 @@ public abstract class CommandBlockBaseLogic implements ICommandSender {
 	}
 
 	public CommandResultStats getCommandResultStats() {
-
 		return resultStats;
 	}
 

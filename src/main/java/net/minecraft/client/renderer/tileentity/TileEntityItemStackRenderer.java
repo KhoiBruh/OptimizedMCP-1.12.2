@@ -41,12 +41,10 @@ public class TileEntityItemStackRenderer {
 	private final ModelShield modelShield = new ModelShield();
 
 	public void renderByItem(ItemStack itemStackIn) {
-
 		renderByItem(itemStackIn, 1F);
 	}
 
 	public void renderByItem(ItemStack p_192838_1_, float partialTicks) {
-
 		Item item = p_192838_1_.getItem();
 
 		if (item == Items.BANNER) {

@@ -531,7 +531,6 @@ public class Blocks {
 	 * Returns the Block in the blockRegistry with the specified name.
 	 */
 	private static Block getRegisteredBlock(String blockName) {
-		
 		Block block = Block.REGISTRY.getObject(new ResourceLocation(blockName));
 		
 		if (!CACHE.add(block)) {

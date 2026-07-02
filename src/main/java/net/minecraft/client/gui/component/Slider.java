@@ -15,7 +15,6 @@ public class Slider extends Button {
 	private float sliderPosition;
 
 	public Slider(GuiPageButtonList.GuiResponder guiResponder, int idIn, int x, int y, String nameIn, float minIn, float maxIn, float defaultValue, Slider.FormatHelper formatter) {
-
 		super(idIn, x, y, 150, 20, "");
 		name = nameIn;
 		min = minIn;
@@ -33,7 +32,6 @@ public class Slider extends Button {
 	 * values, unless it was manually set out of that range.
 	 */
 	public float getSliderValue() {
-
 		return min + (max - min) * sliderPosition;
 	}
 
@@ -42,7 +40,6 @@ public class Slider extends Button {
 	 * responder} of the change.
 	 */
 	public void setSliderValue(float value, boolean notifyResponder) {
-
 		sliderPosition = (value - min) / (max - min);
 		displayString = getDisplayString();
 
@@ -58,7 +55,6 @@ public class Slider extends Button {
 	 * manually set out of that range.
 	 */
 	public float getSliderPosition() {
-
 		return sliderPosition;
 	}
 
@@ -67,14 +63,12 @@ public class Slider extends Button {
 	 * of the change
 	 */
 	public void setSliderPosition(float position) {
-
 		sliderPosition = position;
 		displayString = getDisplayString();
 		responder.setEntryValue(id, getSliderValue());
 	}
 
 	private String getDisplayString() {
-
 		return formatHelper == null ? I18n.format(name) + ": " + getSliderValue() : formatHelper.getText(id, I18n.format(name), getSliderValue());
 	}
 
@@ -83,7 +77,6 @@ public class Slider extends Button {
 	 * this button.
 	 */
 	protected int getHoverState(boolean mouseOver) {
-
 		return 0;
 	}
 
@@ -91,7 +84,6 @@ public class Slider extends Button {
 	 * Fired when the mouse button is dragged. Equivalent of MouseListener.mouseDragged(MouseEvent e).
 	 */
 	protected void mouseDragged(Minecraft mc, int mouseX, int mouseY) {
-
 		if (visible) {
 			if (isMouseDown) {
 				sliderPosition = (float) (mouseX - (x + 4)) / (float) (width - 8);
@@ -119,7 +111,6 @@ public class Slider extends Button {
 	 * e).
 	 */
 	public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
-
 		if (super.mousePressed(mc, mouseX, mouseY)) {
 			sliderPosition = (float) (mouseX - (x + 4)) / (float) (width - 8);
 
@@ -144,7 +135,6 @@ public class Slider extends Button {
 	 * Fired when the mouse button is released. Equivalent of MouseListener.mouseReleased(MouseEvent e).
 	 */
 	public void mouseReleased(int mouseX, int mouseY) {
-
 		isMouseDown = false;
 	}
 

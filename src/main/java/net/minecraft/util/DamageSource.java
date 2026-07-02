@@ -65,17 +65,14 @@ public class DamageSource {
 	private boolean explosion;
 
 	protected DamageSource(String damageTypeIn) {
-
 		damageType = damageTypeIn;
 	}
 
 	public static DamageSource causeMobDamage(EntityLivingBase mob) {
-
 		return new EntityDamageSource("mob", mob);
 	}
 
 	public static DamageSource causeIndirectDamage(Entity source, EntityLivingBase indirectEntityIn) {
-
 		return new EntityDamageSourceIndirect("mob", source, indirectEntityIn);
 	}
 
@@ -83,7 +80,6 @@ public class DamageSource {
 	 * returns an EntityDamageSource of type player
 	 */
 	public static DamageSource causePlayerDamage(EntityPlayer player) {
-
 		return new EntityDamageSource("player", player);
 	}
 
@@ -91,7 +87,6 @@ public class DamageSource {
 	 * returns EntityDamageSourceIndirect of an arrow
 	 */
 	public static DamageSource causeArrowDamage(EntityArrow arrow, Entity indirectEntityIn) {
-
 		return (new EntityDamageSourceIndirect("arrow", arrow, indirectEntityIn)).setProjectile();
 	}
 
@@ -99,17 +94,14 @@ public class DamageSource {
 	 * returns EntityDamageSourceIndirect of a fireball
 	 */
 	public static DamageSource causeFireballDamage(EntityFireball fireball, Entity indirectEntityIn) {
-
 		return indirectEntityIn == null ? (new EntityDamageSourceIndirect("onFire", fireball, fireball)).setFireDamage().setProjectile() : (new EntityDamageSourceIndirect("fireball", fireball, indirectEntityIn)).setFireDamage().setProjectile();
 	}
 
 	public static DamageSource causeThrownDamage(Entity source, Entity indirectEntityIn) {
-
 		return (new EntityDamageSourceIndirect("thrown", source, indirectEntityIn)).setProjectile();
 	}
 
 	public static DamageSource causeIndirectMagicDamage(Entity source, Entity indirectEntityIn) {
-
 		return (new EntityDamageSourceIndirect("indirectMagic", source, indirectEntityIn)).setDamageBypassesArmor().setMagicDamage();
 	}
 
@@ -117,17 +109,14 @@ public class DamageSource {
 	 * Returns the EntityDamageSource of the Thorns enchantment
 	 */
 	public static DamageSource causeThornsDamage(Entity source) {
-
 		return (new EntityDamageSource("thorns", source)).setIsThornsDamage().setMagicDamage();
 	}
 
 	public static DamageSource causeExplosionDamage(Explosion explosionIn) {
-
 		return explosionIn != null && explosionIn.getExplosivePlacedBy() != null ? (new EntityDamageSource("explosion.player", explosionIn.getExplosivePlacedBy())).setDifficultyScaled().setExplosion() : (new DamageSource("explosion")).setDifficultyScaled().setExplosion();
 	}
 
 	public static DamageSource causeExplosionDamage(EntityLivingBase entityLivingBaseIn) {
-
 		return entityLivingBaseIn != null ? (new EntityDamageSource("explosion.player", entityLivingBaseIn)).setDifficultyScaled().setExplosion() : (new DamageSource("explosion")).setDifficultyScaled().setExplosion();
 	}
 
@@ -135,7 +124,6 @@ public class DamageSource {
 	 * Returns true if the damage is projectile based.
 	 */
 	public boolean isProjectile() {
-
 		return projectile;
 	}
 
@@ -143,24 +131,20 @@ public class DamageSource {
 	 * Define the damage type as projectile based.
 	 */
 	public DamageSource setProjectile() {
-
 		projectile = true;
 		return this;
 	}
 
 	public boolean isExplosion() {
-
 		return explosion;
 	}
 
 	public DamageSource setExplosion() {
-
 		explosion = true;
 		return this;
 	}
 
 	public boolean isUnblockable() {
-
 		return isUnblockable;
 	}
 
@@ -168,12 +152,10 @@ public class DamageSource {
 	 * How much satiate(food) is consumed by this DamageSource
 	 */
 	public float getHungerDamage() {
-
 		return hungerDamage;
 	}
 
 	public boolean canHarmInCreative() {
-
 		return isDamageAllowedInCreativeMode;
 	}
 
@@ -181,7 +163,6 @@ public class DamageSource {
 	 * Whether or not the damage ignores modification by potion effects or enchantments.
 	 */
 	public boolean isDamageAbsolute() {
-
 		return damageIsAbsolute;
 	}
 
@@ -191,7 +172,6 @@ public class DamageSource {
 	 * Retrieves the immediate causer of the damage, e.g. the arrow entity, not its shooter
 	 */
 	public Entity getImmediateSource() {
-
 		return getTrueSource();
 	}
 
@@ -202,19 +182,16 @@ public class DamageSource {
 	 * etc.
 	 */
 	public Entity getTrueSource() {
-
 		return null;
 	}
 
 	protected DamageSource setDamageBypassesArmor() {
-
 		isUnblockable = true;
 		hungerDamage = 0F;
 		return this;
 	}
 
 	protected DamageSource setDamageAllowedInCreativeMode() {
-
 		isDamageAllowedInCreativeMode = true;
 		return this;
 	}
@@ -224,7 +201,6 @@ public class DamageSource {
 	 * and also clears out hunger damage.
 	 */
 	protected DamageSource setDamageIsAbsolute() {
-
 		damageIsAbsolute = true;
 		hungerDamage = 0F;
 		return this;
@@ -234,7 +210,6 @@ public class DamageSource {
 	 * Define the damage type as fire based.
 	 */
 	protected DamageSource setFireDamage() {
-
 		fireDamage = true;
 		return this;
 	}
@@ -243,7 +218,6 @@ public class DamageSource {
 	 * Gets the death message that is displayed when the player dies
 	 */
 	public ITextComponent getDeathMessage(EntityLivingBase entityLivingBaseIn) {
-
 		EntityLivingBase entitylivingbase = entityLivingBaseIn.getAttackingEntity();
 		String s = "death.attack." + damageType;
 		String s1 = s + ".player";
@@ -254,7 +228,6 @@ public class DamageSource {
 	 * Returns true if the damage is fire based.
 	 */
 	public boolean isFireDamage() {
-
 		return fireDamage;
 	}
 
@@ -262,7 +235,6 @@ public class DamageSource {
 	 * Return the name of damage type.
 	 */
 	public String getDamageType() {
-
 		return damageType;
 	}
 
@@ -270,7 +242,6 @@ public class DamageSource {
 	 * Set whether this damage source will have its damage amount scaled based on the current difficulty.
 	 */
 	public DamageSource setDifficultyScaled() {
-
 		difficultyScaled = true;
 		return this;
 	}
@@ -279,7 +250,6 @@ public class DamageSource {
 	 * Return whether this damage source will have its damage amount scaled based on the current difficulty.
 	 */
 	public boolean isDifficultyScaled() {
-
 		return difficultyScaled;
 	}
 
@@ -287,7 +257,6 @@ public class DamageSource {
 	 * Returns true if the damage is magic based.
 	 */
 	public boolean isMagicDamage() {
-
 		return magicDamage;
 	}
 
@@ -295,13 +264,11 @@ public class DamageSource {
 	 * Define the damage type as magic based.
 	 */
 	public DamageSource setMagicDamage() {
-
 		magicDamage = true;
 		return this;
 	}
 
 	public boolean isCreativePlayer() {
-
 		Entity entity = getTrueSource();
 		return entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode;
 	}
@@ -312,7 +279,6 @@ public class DamageSource {
 	 * Gets the location from which the damage originates.
 	 */
 	public Vec3d getDamageLocation() {
-
 		return null;
 	}
 

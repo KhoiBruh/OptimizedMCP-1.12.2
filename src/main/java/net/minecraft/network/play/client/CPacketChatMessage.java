@@ -9,11 +9,9 @@ public class CPacketChatMessage implements Packet<INetHandlerPlayServer> {
 	private String message;
 
 	public CPacketChatMessage() {
-
 	}
 
 	public CPacketChatMessage(String messageIn) {
-
 		if (messageIn.length() > 256) {
 			messageIn = messageIn.substring(0, 256);
 		}
@@ -25,7 +23,6 @@ public class CPacketChatMessage implements Packet<INetHandlerPlayServer> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		message = buf.readString(256);
 	}
 
@@ -33,7 +30,6 @@ public class CPacketChatMessage implements Packet<INetHandlerPlayServer> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeString(message);
 	}
 
@@ -41,12 +37,10 @@ public class CPacketChatMessage implements Packet<INetHandlerPlayServer> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayServer handler) {
-
 		handler.processChatMessage(this);
 	}
 
 	public String getMessage() {
-
 		return message;
 	}
 

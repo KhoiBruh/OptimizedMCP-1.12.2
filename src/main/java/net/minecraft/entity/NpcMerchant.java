@@ -28,7 +28,6 @@ public class NpcMerchant implements IMerchant {
 	private MerchantRecipeList recipeList;
 
 	public NpcMerchant(EntityPlayer customerIn, ITextComponent nameIn) {
-
 		customer = customerIn;
 		name = nameIn;
 		merchantInventory = new InventoryMerchant(customerIn, this);
@@ -36,27 +35,22 @@ public class NpcMerchant implements IMerchant {
 
 	
 	public EntityPlayer getCustomer() {
-
 		return customer;
 	}
 
 	public void setCustomer(EntityPlayer player) {
-
 	}
 
 	
 	public MerchantRecipeList getRecipes(EntityPlayer player) {
-
 		return recipeList;
 	}
 
 	public void setRecipes(MerchantRecipeList recipeList) {
-
 		this.recipeList = recipeList;
 	}
 
 	public void useRecipe(MerchantRecipe recipe) {
-
 		recipe.incrementToolUses();
 	}
 
@@ -65,24 +59,20 @@ public class NpcMerchant implements IMerchant {
 	 * being played depending if the suggested itemstack is not null.
 	 */
 	public void verifySellingItem(ItemStack stack) {
-
 	}
 
 	/**
 	 * Get the formatted ChatComponent that will be used for the sender's username in chat
 	 */
 	public ITextComponent getDisplayName() {
-
 		return name != null ? name : new TextComponentTranslation("entity.Villager.name");
 	}
 
 	public World getWorld() {
-
 		return customer.world;
 	}
 
 	public BlockPos getPos() {
-
 		return new BlockPos(customer);
 	}
 

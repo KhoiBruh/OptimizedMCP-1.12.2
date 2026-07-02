@@ -11,12 +11,10 @@ public class ModelVex extends ModelBiped {
 	protected ModelRenderer rightWing;
 
 	public ModelVex() {
-
 		this(0F);
 	}
 
 	public ModelVex(float p_i47224_1_) {
-
 		super(p_i47224_1_, 0F, 64, 64);
 		bipedLeftLeg.showModel = false;
 		bipedHeadwear.showModel = false;
@@ -34,7 +32,6 @@ public class ModelVex extends ModelBiped {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		rightWing.render(scale);
 		leftWing.render(scale);
@@ -46,7 +43,6 @@ public class ModelVex extends ModelBiped {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 		EntityVex entityvex = (EntityVex) entityIn;
 
@@ -72,7 +68,6 @@ public class ModelVex extends ModelBiped {
 	}
 
 	public int getModelVersion() {
-
 		return 23;
 	}
 

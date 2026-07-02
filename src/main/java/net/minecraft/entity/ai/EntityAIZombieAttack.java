@@ -8,7 +8,6 @@ public class EntityAIZombieAttack extends EntityAIAttackMelee {
 	private int raiseArmTicks;
 
 	public EntityAIZombieAttack(EntityZombie zombieIn, double speedIn, boolean longMemoryIn) {
-
 		super(zombieIn, speedIn, longMemoryIn);
 		zombie = zombieIn;
 	}
@@ -17,7 +16,6 @@ public class EntityAIZombieAttack extends EntityAIAttackMelee {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		super.startExecuting();
 		raiseArmTicks = 0;
 	}
@@ -26,7 +24,6 @@ public class EntityAIZombieAttack extends EntityAIAttackMelee {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		super.resetTask();
 		zombie.setArmsRaised(false);
 	}
@@ -35,7 +32,6 @@ public class EntityAIZombieAttack extends EntityAIAttackMelee {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		super.updateTask();
 		++raiseArmTicks;
 

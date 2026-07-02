@@ -17,7 +17,6 @@ public class BlockColored extends Block {
 	public static final PropertyEnum<DyeColor> COLOR = PropertyEnum.create("color", DyeColor.class);
 
 	public BlockColored(Material materialIn) {
-
 		super(materialIn);
 		setDefaultState(blockState.getBaseState().withProperty(COLOR, DyeColor.WHITE));
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
@@ -28,7 +27,6 @@ public class BlockColored extends Block {
 	 * returns the metadata of the dropped item based on the old metadata of the block.
 	 */
 	public int damageDropped(IBlockState state) {
-
 		return state.getValue(COLOR).getMetadata();
 	}
 
@@ -36,7 +34,6 @@ public class BlockColored extends Block {
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-
 		for (DyeColor enumdyecolor : DyeColor.values()) {
 			items.add(new ItemStack(this, 1, enumdyecolor.getMetadata()));
 		}
@@ -46,7 +43,6 @@ public class BlockColored extends Block {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return MapColor.getBlockColor(state.getValue(COLOR));
 	}
 
@@ -54,7 +50,6 @@ public class BlockColored extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(COLOR, DyeColor.byMetadata(meta));
 	}
 
@@ -62,12 +57,10 @@ public class BlockColored extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(COLOR).getMetadata();
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, COLOR);
 	}
 

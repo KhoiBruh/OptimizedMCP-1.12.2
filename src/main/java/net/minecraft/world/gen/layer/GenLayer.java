@@ -26,7 +26,6 @@ public abstract class GenLayer {
 	private long chunkSeed;
 
 	public GenLayer(long p_i2125_1_) {
-
 		baseSeed = p_i2125_1_;
 		baseSeed *= baseSeed * 6364136223846793005L + 1442695040888963407L;
 		baseSeed += p_i2125_1_;
@@ -37,7 +36,6 @@ public abstract class GenLayer {
 	}
 
 	public static GenLayer[] initializeAllBiomeGenerators(long seed, WorldType p_180781_2_, ChunkGeneratorSettings p_180781_3_) {
-
 		GenLayer genlayer = new GenLayerIsland(1L);
 		genlayer = new GenLayerFuzzyZoom(2000L, genlayer);
 		GenLayer genlayeraddisland = new GenLayerAddIsland(1L, genlayer);
@@ -103,7 +101,6 @@ public abstract class GenLayer {
 	}
 
 	protected static boolean biomesEqualOrMesaPlateau(int biomeIDA, int biomeIDB) {
-
 		if (biomeIDA == biomeIDB) {
 			return true;
 		} else {
@@ -126,7 +123,6 @@ public abstract class GenLayer {
 	 * returns true if the biomeId is one of the various ocean biomes.
 	 */
 	protected static boolean isBiomeOceanic(int p_151618_0_) {
-
 		Biome biome = Biome.getBiome(p_151618_0_);
 		return biome == Biomes.OCEAN || biome == Biomes.DEEP_OCEAN || biome == Biomes.FROZEN_OCEAN;
 	}
@@ -136,7 +132,6 @@ public abstract class GenLayer {
 	 * argument).
 	 */
 	public void initWorldGenSeed(long seed) {
-
 		worldGenSeed = seed;
 
 		if (parent != null) {
@@ -155,7 +150,6 @@ public abstract class GenLayer {
 	 * Initialize layer's current chunkSeed based on the local worldGenSeed and the (x,z) chunk coordinates.
 	 */
 	public void initChunkSeed(long p_75903_1_, long p_75903_3_) {
-
 		chunkSeed = worldGenSeed;
 		chunkSeed *= chunkSeed * 6364136223846793005L + 1442695040888963407L;
 		chunkSeed += p_75903_1_;
@@ -171,7 +165,6 @@ public abstract class GenLayer {
 	 * Generates a pseudo random number between 0 and another integer.
 	 */
 	protected int nextInt(int p_75902_1_) {
-
 		int i = (int) ((chunkSeed >> 24) % (long) p_75902_1_);
 
 		if (i < 0) {
@@ -193,7 +186,6 @@ public abstract class GenLayer {
 	 * selects a random integer from a set of provided integers
 	 */
 	protected int selectRandom(int... p_151619_1_) {
-
 		return p_151619_1_[nextInt(p_151619_1_.length)];
 	}
 
@@ -201,7 +193,6 @@ public abstract class GenLayer {
 	 * returns the most frequently occurring number of the set, or a random number from those provided
 	 */
 	protected int selectModeOrRandom(int p_151617_1_, int p_151617_2_, int p_151617_3_, int p_151617_4_) {
-
 		if (p_151617_2_ == p_151617_3_ && p_151617_3_ == p_151617_4_) {
 			return p_151617_2_;
 		} else if (p_151617_1_ == p_151617_2_ && p_151617_1_ == p_151617_3_) {

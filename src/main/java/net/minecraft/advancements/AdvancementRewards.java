@@ -33,7 +33,6 @@ public class AdvancementRewards {
 	private final FunctionObject.CacheableFunction function;
 
 	public AdvancementRewards(int experience, ResourceLocation[] loot, ResourceLocation[] recipes, FunctionObject.CacheableFunction function) {
-
 		this.experience = experience;
 		this.loot = loot;
 		this.recipes = recipes;
@@ -41,7 +40,6 @@ public class AdvancementRewards {
 	}
 
 	public void apply(final EntityPlayerMP player) {
-
 		player.addExperience(experience);
 		LootContext lootcontext = (new LootContext.Builder(player.getServerWorld())).withLootedEntity(player).build();
 		boolean flag = false;
@@ -76,52 +74,42 @@ public class AdvancementRewards {
 		if (functionobject != null) {
 			ICommandSender icommandsender = new ICommandSender() {
 				public String getName() {
-
 					return player.getName();
 				}
 
 				public ITextComponent getDisplayName() {
-
 					return player.getDisplayName();
 				}
 
 				public boolean canUseCommand(int permLevel, String commandName) {
-
 					return permLevel <= 2;
 				}
 
 				public BlockPos getPosition() {
-
 					return player.getPosition();
 				}
 
 				public Vec3d getPositionVector() {
-
 					return player.getPositionVector();
 				}
 
 				public World getEntityWorld() {
-
 					return player.world;
 				}
 
 				public Entity getCommandSenderEntity() {
-
 					return player;
 				}
 
 				public boolean sendCommandFeedback() {
-
 					return minecraftserver.worlds[0].getGameRules().getBoolean("commandBlockOutput");
 				}
 
 				public void setCommandStat(CommandResultStats.Type type, int amount) {
-
 					player.setCommandStat(type, amount);
 				}
 
 				public MinecraftServer getServer() {
-
 					return player.getServer();
 				}
 			};
@@ -130,14 +118,12 @@ public class AdvancementRewards {
 	}
 
 	public String toString() {
-
 		return "AdvancementRewards{experience=" + experience + ", loot=" + Arrays.toString(loot) + ", recipes=" + Arrays.toString(recipes) + ", function=" + function + '}';
 	}
 
 	public static class Deserializer implements JsonDeserializer<AdvancementRewards> {
 
 		public AdvancementRewards deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-
 			JsonObject jsonobject = JsonUtils.getJsonObject(p_deserialize_1_, "rewards");
 			int i = JsonUtils.getInt(jsonobject, "experience", 0);
 			JsonArray jsonarray = JsonUtils.getJsonArray(jsonobject, "loot", new JsonArray());

@@ -8,7 +8,6 @@ public class ContainerDispenser extends Container {
 	private final IInventory dispenserInventory;
 
 	public ContainerDispenser(IInventory playerInventory, IInventory dispenserInventoryIn) {
-
 		dispenserInventory = dispenserInventoryIn;
 
 		for (int i = 0; i < 3; ++i) {
@@ -32,7 +31,6 @@ public class ContainerDispenser extends Container {
 	 * Determines whether supplied player can use this container
 	 */
 	public boolean canInteractWith(EntityPlayer playerIn) {
-
 		return dispenserInventory.isUsableByPlayer(playerIn);
 	}
 
@@ -41,7 +39,6 @@ public class ContainerDispenser extends Container {
 	 * inventory and the other inventory(s).
 	 */
 	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = inventorySlots.get(index);
 

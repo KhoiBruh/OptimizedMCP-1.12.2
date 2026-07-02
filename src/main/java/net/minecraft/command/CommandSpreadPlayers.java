@@ -21,7 +21,6 @@ public class CommandSpreadPlayers extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "spreadplayers";
 	}
 
@@ -29,7 +28,6 @@ public class CommandSpreadPlayers extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 2;
 	}
 
@@ -37,7 +35,6 @@ public class CommandSpreadPlayers extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.spreadplayers.usage";
 	}
 
@@ -45,7 +42,6 @@ public class CommandSpreadPlayers extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		if (args.length < 6) {
 			throw new WrongUsageException("commands.spreadplayers.usage");
 		} else {
@@ -92,7 +88,6 @@ public class CommandSpreadPlayers extends CommandBase {
 	}
 
 	private void spread(ICommandSender sender, List<Entity> p_110669_2_, CommandSpreadPlayers.Position pos, double spreadDistance, double maxRange, World worldIn, boolean respectTeams) throws CommandException {
-
 		Random random = new Random();
 		double d0 = pos.x - maxRange;
 		double d1 = pos.z - maxRange;
@@ -109,7 +104,6 @@ public class CommandSpreadPlayers extends CommandBase {
 	}
 
 	private int getNumberOfTeams(List<Entity> p_110667_1_) {
-
 		Set<Team> set = Sets.newHashSet();
 
 		for (Entity entity : p_110667_1_) {
@@ -124,7 +118,6 @@ public class CommandSpreadPlayers extends CommandBase {
 	}
 
 	private int spreadPositions(CommandSpreadPlayers.Position p_110668_1_, double p_110668_2_, World worldIn, Random random, double minX, double minZ, double maxX, double maxZ, CommandSpreadPlayers.Position[] p_110668_14_, boolean respectTeams) throws CommandException {
-
 		boolean flag = true;
 		double d0 = 3.4028234663852886E38D;
 		int i;
@@ -190,7 +183,6 @@ public class CommandSpreadPlayers extends CommandBase {
 	}
 
 	private double setPlayerPositions(List<Entity> p_110671_1_, World worldIn, CommandSpreadPlayers.Position[] p_110671_3_, boolean p_110671_4_) {
-
 		double d0 = 0D;
 		int i = 0;
 		Map<Team, CommandSpreadPlayers.Position> map = Maps.newHashMap();
@@ -241,7 +233,6 @@ public class CommandSpreadPlayers extends CommandBase {
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		return args.length >= 1 && args.length <= 2 ? getTabCompletionCoordinateXZ(args, 0, targetPos) : Collections.emptyList();
 	}
 
@@ -251,42 +242,35 @@ public class CommandSpreadPlayers extends CommandBase {
 		double z;
 
 		Position() {
-
 		}
 
 		Position(double xIn, double zIn) {
-
 			x = xIn;
 			z = zIn;
 		}
 
 		double dist(CommandSpreadPlayers.Position pos) {
-
 			double d0 = x - pos.x;
 			double d1 = z - pos.z;
 			return Math.sqrt(d0 * d0 + d1 * d1);
 		}
 
 		void normalize() {
-
 			double d0 = getLength();
 			x /= d0;
 			z /= d0;
 		}
 
 		float getLength() {
-
 			return MathHelper.sqrt(x * x + z * z);
 		}
 
 		public void moveAway(CommandSpreadPlayers.Position pos) {
-
 			x -= pos.x;
 			z -= pos.z;
 		}
 
 		public boolean clamp(double p_111093_1_, double p_111093_3_, double p_111093_5_, double p_111093_7_) {
-
 			boolean flag = false;
 
 			if (x < p_111093_1_) {
@@ -309,7 +293,6 @@ public class CommandSpreadPlayers extends CommandBase {
 		}
 
 		public int getSpawnY(World worldIn) {
-
 			BlockPos blockpos = new BlockPos(x, 256D, z);
 
 			while (blockpos.getY() > 0) {
@@ -324,7 +307,6 @@ public class CommandSpreadPlayers extends CommandBase {
 		}
 
 		public boolean isSafe(World worldIn) {
-
 			BlockPos blockpos = new BlockPos(x, 256D, z);
 
 			while (blockpos.getY() > 0) {
@@ -340,7 +322,6 @@ public class CommandSpreadPlayers extends CommandBase {
 		}
 
 		public void randomize(Random rand, double p_111097_2_, double p_111097_4_, double p_111097_6_, double p_111097_8_) {
-
 			x = MathHelper.nextDouble(rand, p_111097_2_, p_111097_6_);
 			z = MathHelper.nextDouble(rand, p_111097_4_, p_111097_8_);
 		}

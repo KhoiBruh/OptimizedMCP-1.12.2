@@ -326,12 +326,10 @@ public class ItemIntIDToString implements IFixableData {
 	}
 
 	public int getFixVersion() {
-
 		return 102;
 	}
 
 	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
-
 		if (compound.hasKey("id", 99)) {
 			short short1 = compound.getShort("id");
 

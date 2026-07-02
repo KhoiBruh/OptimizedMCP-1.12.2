@@ -48,7 +48,6 @@ public class RenderItem implements IResourceManagerReloadListener {
 	public float zLevel;
 
 	public RenderItem(TextureManager p_i46552_1_, ModelManager p_i46552_2_, ItemColors p_i46552_3_) {
-
 		textureManager = p_i46552_1_;
 		itemModelMesher = new ItemModelMesher(p_i46552_2_);
 		registerItems();
@@ -56,42 +55,34 @@ public class RenderItem implements IResourceManagerReloadListener {
 	}
 
 	public ItemModelMesher getItemModelMesher() {
-
 		return itemModelMesher;
 	}
 
 	protected void registerItem(Item itm, int subType, String identifier) {
-
 		itemModelMesher.register(itm, subType, new ModelResourceLocation(identifier, "inventory"));
 	}
 
 	protected void registerBlock(Block blk, int subType, String identifier) {
-
 		registerItem(Item.getItemFromBlock(blk), subType, identifier);
 	}
 
 	private void registerBlock(Block blk, String identifier) {
-
 		registerBlock(blk, 0, identifier);
 	}
 
 	private void registerItem(Item itm, String identifier) {
-
 		registerItem(itm, 0, identifier);
 	}
 
 	private void renderModel(IBakedModel model, ItemStack stack) {
-
 		renderModel(model, -1, stack);
 	}
 
 	private void renderModel(IBakedModel model, int color) {
-
 		renderModel(model, color, ItemStack.EMPTY);
 	}
 
 	private void renderModel(IBakedModel model, int color, ItemStack stack) {
-
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		bufferbuilder.begin(7, DefaultVertexFormats.ITEM);
@@ -105,7 +96,6 @@ public class RenderItem implements IResourceManagerReloadListener {
 	}
 
 	public void renderItem(ItemStack stack, IBakedModel model) {
-
 		if (!stack.isEmpty()) {
 			GLS.pushMatrix();
 			GLS.translate(-0.5F, -0.5F, -0.5F);
@@ -127,7 +117,6 @@ public class RenderItem implements IResourceManagerReloadListener {
 	}
 
 	private void renderEffect(IBakedModel model) {
-
 		GLS.depthMask(false);
 		GLS.depthFunc(514);
 		GLS.disableLighting();
@@ -157,20 +146,17 @@ public class RenderItem implements IResourceManagerReloadListener {
 	}
 
 	private void putQuadNormal(BufferBuilder renderer, BakedQuad quad) {
-
 		Vec3i vec3i = quad.getFace().getDirectionVec();
 		renderer.putNormal((float) vec3i.getX(), (float) vec3i.getY(), (float) vec3i.getZ());
 	}
 
 	private void renderQuad(BufferBuilder renderer, BakedQuad quad, int color) {
-
 		renderer.addVertexData(quad.getVertexData());
 		renderer.putColor4(color);
 		putQuadNormal(renderer, quad);
 	}
 
 	private void renderQuads(BufferBuilder renderer, List<BakedQuad> quads, int color, ItemStack stack) {
-
 		boolean flag = color == -1 && !stack.isEmpty();
 		int i = 0;
 
@@ -189,13 +175,11 @@ public class RenderItem implements IResourceManagerReloadListener {
 	}
 
 	public boolean shouldRenderItemIn3D(ItemStack stack) {
-
 		IBakedModel ibakedmodel = itemModelMesher.getItemModel(stack);
 		return ibakedmodel != null && ibakedmodel.isGui3d();
 	}
 
 	public void renderItem(ItemStack stack, ItemCameraTransforms.TransformType cameraTransformType) {
-
 		if (!stack.isEmpty()) {
 			IBakedModel ibakedmodel = getItemModelWithOverrides(stack, null, null);
 			renderItemModel(stack, ibakedmodel, cameraTransformType, false);
@@ -203,7 +187,6 @@ public class RenderItem implements IResourceManagerReloadListener {
 	}
 
 	public IBakedModel getItemModelWithOverrides(ItemStack stack, World worldIn, EntityLivingBase entitylivingbaseIn) {
-
 		IBakedModel ibakedmodel = itemModelMesher.getItemModel(stack);
 		Item item = stack.getItem();
 
@@ -216,7 +199,6 @@ public class RenderItem implements IResourceManagerReloadListener {
 	}
 
 	public void renderItem(ItemStack stack, EntityLivingBase entitylivingbaseIn, ItemCameraTransforms.TransformType transform, boolean leftHanded) {
-
 		if (!stack.isEmpty() && entitylivingbaseIn != null) {
 			IBakedModel ibakedmodel = getItemModelWithOverrides(stack, entitylivingbaseIn.world, entitylivingbaseIn);
 			renderItemModel(stack, ibakedmodel, transform, leftHanded);
@@ -224,7 +206,6 @@ public class RenderItem implements IResourceManagerReloadListener {
 	}
 
 	protected void renderItemModel(ItemStack stack, IBakedModel bakedmodel, ItemCameraTransforms.TransformType transform, boolean leftHanded) {
-
 		if (!stack.isEmpty()) {
 			textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			textureManager.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false);
@@ -255,17 +236,14 @@ public class RenderItem implements IResourceManagerReloadListener {
 	 * Return true if only one scale is negative
 	 */
 	private boolean isThereOneNegativeScale(ItemTransformVec3f itemTranformVec) {
-
 		return itemTranformVec.scale().x < 0F ^ itemTranformVec.scale().y < 0F ^ itemTranformVec.scale().z < 0F;
 	}
 
 	public void renderItemIntoGUI(ItemStack stack, int x, int y) {
-
 		renderItemModelIntoGUI(stack, x, y, getItemModelWithOverrides(stack, null, null));
 	}
 
 	protected void renderItemModelIntoGUI(ItemStack stack, int x, int y, IBakedModel bakedmodel) {
-
 		GLS.pushMatrix();
 		textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		textureManager.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false);
@@ -287,7 +265,6 @@ public class RenderItem implements IResourceManagerReloadListener {
 	}
 
 	private void setupGuiTransform(int xPosition, int yPosition, boolean isGui3d) {
-
 		GLS.translate((float) xPosition, (float) yPosition, 100F + zLevel);
 		GLS.translate(8F, 8F, 0F);
 		GLS.scale(1F, -1F, 1F);
@@ -301,12 +278,10 @@ public class RenderItem implements IResourceManagerReloadListener {
 	}
 
 	public void renderItemAndEffectIntoGUI(ItemStack stack, int xPosition, int yPosition) {
-
 		renderItemAndEffectIntoGUI(Minecraft.getMinecraft().player, stack, xPosition, yPosition);
 	}
 
 	public void renderItemAndEffectIntoGUI(EntityLivingBase p_184391_1_, final ItemStack p_184391_2_, int p_184391_3_, int p_184391_4_) {
-
 		if (!p_184391_2_.isEmpty()) {
 			zLevel += 50F;
 
@@ -327,7 +302,6 @@ public class RenderItem implements IResourceManagerReloadListener {
 	}
 
 	public void renderItemOverlays(FontRenderer fr, ItemStack stack, int xPosition, int yPosition) {
-
 		renderItemOverlayIntoGUI(fr, stack, xPosition, yPosition, null);
 	}
 
@@ -335,7 +309,6 @@ public class RenderItem implements IResourceManagerReloadListener {
 	 * Renders the stack size and/or damage bar for the given ItemStack.
 	 */
 	public void renderItemOverlayIntoGUI(FontRenderer fr, ItemStack stack, int xPosition, int yPosition, String text) {
-
 		if (!stack.isEmpty()) {
 			if (stack.getCount() != 1 || text != null) {
 				String s = text == null ? String.valueOf(stack.getCount()) : text;
@@ -390,7 +363,6 @@ public class RenderItem implements IResourceManagerReloadListener {
 	 * Draw with the WorldRenderer
 	 */
 	private void draw(BufferBuilder renderer, int x, int y, int width, int height, int red, int green, int blue, int alpha) {
-
 		renderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
 		renderer.pos(x, y, 0D).color(red, green, blue, alpha).endVertex();
 		renderer.pos(x, y + height, 0D).color(red, green, blue, alpha).endVertex();
@@ -400,7 +372,6 @@ public class RenderItem implements IResourceManagerReloadListener {
 	}
 
 	private void registerItems() {
-
 		registerBlock(Blocks.ANVIL, "anvil_intact");
 		registerBlock(Blocks.ANVIL, 1, "anvil_slightly_damaged");
 		registerBlock(Blocks.ANVIL, 2, "anvil_very_damaged");
@@ -998,7 +969,6 @@ public class RenderItem implements IResourceManagerReloadListener {
 	}
 
 	public void onResourceManagerReload(IResourceManager resourceManager) {
-
 		itemModelMesher.rebuildCache();
 	}
 

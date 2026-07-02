@@ -16,7 +16,6 @@ public class DamagePredicate {
 	private final DamageSourcePredicate type;
 
 	public DamagePredicate() {
-
 		dealt = MinMaxBounds.UNBOUNDED;
 		taken = MinMaxBounds.UNBOUNDED;
 		sourceEntity = EntityPredicate.ANY;
@@ -25,7 +24,6 @@ public class DamagePredicate {
 	}
 
 	public DamagePredicate(MinMaxBounds dealt, MinMaxBounds taken, EntityPredicate sourceEntity, Boolean blocked, DamageSourcePredicate type) {
-
 		this.dealt = dealt;
 		this.taken = taken;
 		this.sourceEntity = sourceEntity;
@@ -34,7 +32,6 @@ public class DamagePredicate {
 	}
 
 	public static DamagePredicate deserialize(JsonElement element) {
-
 		if (element != null && !element.isJsonNull()) {
 			JsonObject jsonobject = JsonUtils.getJsonObject(element, "damage");
 			MinMaxBounds minmaxbounds = MinMaxBounds.deserialize(jsonobject.get("dealt"));
@@ -49,7 +46,6 @@ public class DamagePredicate {
 	}
 
 	public boolean test(EntityPlayerMP player, DamageSource source, float dealt, float taken, boolean blocked) {
-
 		if (this == ANY) {
 			return true;
 		} else if (!this.dealt.test(dealt)) {

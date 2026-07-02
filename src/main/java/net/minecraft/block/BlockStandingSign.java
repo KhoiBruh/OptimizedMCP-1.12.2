@@ -13,7 +13,6 @@ public class BlockStandingSign extends BlockSign {
 	public static final PropertyInteger ROTATION = PropertyInteger.create("rotation", 0, 15);
 
 	public BlockStandingSign() {
-
 		setDefaultState(blockState.getBaseState().withProperty(ROTATION, 0));
 	}
 
@@ -23,7 +22,6 @@ public class BlockStandingSign extends BlockSign {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (!worldIn.getBlockState(pos.down()).getMaterial().isSolid()) {
 			dropBlockAsItem(worldIn, pos, state, 0);
 			worldIn.setBlockToAir(pos);
@@ -36,7 +34,6 @@ public class BlockStandingSign extends BlockSign {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(ROTATION, meta);
 	}
 
@@ -44,7 +41,6 @@ public class BlockStandingSign extends BlockSign {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(ROTATION);
 	}
 
@@ -53,7 +49,6 @@ public class BlockStandingSign extends BlockSign {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return state.withProperty(ROTATION, rot.rotate(state.getValue(ROTATION), 16));
 	}
 
@@ -62,12 +57,10 @@ public class BlockStandingSign extends BlockSign {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return state.withProperty(ROTATION, mirrorIn.mirrorRotation(state.getValue(ROTATION), 16));
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, ROTATION);
 	}
 

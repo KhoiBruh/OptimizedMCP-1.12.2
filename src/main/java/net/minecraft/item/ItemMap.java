@@ -28,12 +28,10 @@ import java.util.List;
 public class ItemMap extends ItemMapBase {
 
 	protected ItemMap() {
-
 		setHasSubtypes(true);
 	}
 
 	public static ItemStack setupNewMap(World worldIn, double worldX, double worldZ, byte scale, boolean trackingPosition, boolean unlimitedTracking) {
-
 		ItemStack itemstack = new ItemStack(Items.FILLED_MAP, 1, worldIn.getUniqueDataId("map"));
 		String s = "map_" + itemstack.getMetadata();
 		MapData mapdata = new MapData(s);
@@ -49,7 +47,6 @@ public class ItemMap extends ItemMapBase {
 
 	
 	public static MapData loadMapData(int mapId, World worldIn) {
-
 		String s = "map_" + mapId;
 		return (MapData) worldIn.loadData(MapData.class, s);
 	}
@@ -58,7 +55,6 @@ public class ItemMap extends ItemMapBase {
 	 * Draws ambiguous landmasses representing unexplored terrain onto a treasure map
 	 */
 	public static void renderBiomePreviewMap(World worldIn, ItemStack map) {
-
 		if (map.getItem() == Items.FILLED_MAP) {
 			MapData mapdata = Items.FILLED_MAP.getMapData(map, worldIn);
 
@@ -154,7 +150,6 @@ public class ItemMap extends ItemMapBase {
 	}
 
 	protected static void scaleMap(ItemStack p_185063_0_, World p_185063_1_, int p_185063_2_) {
-
 		MapData mapdata = Items.FILLED_MAP.getMapData(p_185063_0_, p_185063_1_);
 		p_185063_0_.setItemDamage(p_185063_1_.getUniqueDataId("map"));
 		MapData mapdata1 = new MapData("map_" + p_185063_0_.getMetadata());
@@ -170,7 +165,6 @@ public class ItemMap extends ItemMapBase {
 	}
 
 	protected static void enableMapTracking(ItemStack p_185064_0_, World p_185064_1_) {
-
 		MapData mapdata = Items.FILLED_MAP.getMapData(p_185064_0_, p_185064_1_);
 		p_185064_0_.setItemDamage(p_185064_1_.getUniqueDataId("map"));
 		MapData mapdata1 = new MapData("map_" + p_185064_0_.getMetadata());
@@ -187,7 +181,6 @@ public class ItemMap extends ItemMapBase {
 	}
 
 	public static int getColor(ItemStack p_190907_0_) {
-
 		NBTTagCompound nbttagcompound = p_190907_0_.getSubCompound("display");
 
 		if (nbttagcompound != null && nbttagcompound.hasKey("MapColor", 99)) {
@@ -200,7 +193,6 @@ public class ItemMap extends ItemMapBase {
 
 	
 	public MapData getMapData(ItemStack stack, World worldIn) {
-
 		String s = "map_" + stack.getMetadata();
 		MapData mapdata = (MapData) worldIn.loadData(MapData.class, s);
 
@@ -219,7 +211,6 @@ public class ItemMap extends ItemMapBase {
 	}
 
 	public void updateMapData(World worldIn, Entity viewer, MapData data) {
-
 		if (worldIn.provider.getDimensionType().getId() == data.dimension && viewer instanceof EntityPlayer) {
 			int i = 1 << data.scale;
 			int j = data.xCenter;
@@ -364,7 +355,6 @@ public class ItemMap extends ItemMapBase {
 	 * update it's contents.
 	 */
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-
 		if (!worldIn.isRemote) {
 			MapData mapdata = getMapData(stack, worldIn);
 
@@ -388,7 +378,6 @@ public class ItemMap extends ItemMapBase {
 	 * Called when item is crafted/smelted. Used only by maps so far.
 	 */
 	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
-
 		NBTTagCompound nbttagcompound = stack.getTagCompound();
 
 		if (nbttagcompound != null) {
@@ -406,7 +395,6 @@ public class ItemMap extends ItemMapBase {
 	 * allows items to add custom lines of information to the mouseover description
 	 */
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-
 		if (flagIn.isAdvanced()) {
 			MapData mapdata = worldIn == null ? null : getMapData(stack, worldIn);
 

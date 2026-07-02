@@ -12,7 +12,6 @@ public class PhaseChargingPlayer extends PhaseBase {
 	private int timeSinceCharge;
 
 	public PhaseChargingPlayer(EntityDragon dragonIn) {
-
 		super(dragonIn);
 	}
 
@@ -21,7 +20,6 @@ public class PhaseChargingPlayer extends PhaseBase {
 	 * Called by dragon's onLivingUpdate. Only used when !worldObj.isRemote.
 	 */
 	public void doLocalUpdate() {
-
 		if (targetLocation == null) {
 			LOGGER.warn("Aborting charge player as no target was set.");
 			dragon.getPhaseManager().setPhase(PhaseList.HOLDING_PATTERN);
@@ -40,13 +38,11 @@ public class PhaseChargingPlayer extends PhaseBase {
 	 * Called when this phase is set to active
 	 */
 	public void initPhase() {
-
 		targetLocation = null;
 		timeSinceCharge = 0;
 	}
 
 	public void setTarget(Vec3d p_188668_1_) {
-
 		targetLocation = p_188668_1_;
 	}
 
@@ -54,7 +50,6 @@ public class PhaseChargingPlayer extends PhaseBase {
 	 * Returns the maximum amount dragon may rise or fall during this phase
 	 */
 	public float getMaxRiseOrFall() {
-
 		return 3F;
 	}
 
@@ -64,12 +59,10 @@ public class PhaseChargingPlayer extends PhaseBase {
 	 * Returns the location the dragon is flying toward
 	 */
 	public Vec3d getTargetLocation() {
-
 		return targetLocation;
 	}
 
 	public PhaseList<PhaseChargingPlayer> getType() {
-
 		return PhaseList.CHARGING_PLAYER;
 	}
 

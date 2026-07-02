@@ -27,7 +27,6 @@ public class EntityAIFollowOwner extends EntityAIBase {
 	private float oldWaterCost;
 
 	public EntityAIFollowOwner(EntityTameable tameableIn, double followSpeedIn, float minDistIn, float maxDistIn) {
-
 		tameable = tameableIn;
 		world = tameableIn.world;
 		followSpeed = followSpeedIn;
@@ -45,7 +44,6 @@ public class EntityAIFollowOwner extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		EntityLivingBase entitylivingbase = tameable.getOwner();
 
 		if (entitylivingbase == null) {
@@ -66,7 +64,6 @@ public class EntityAIFollowOwner extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		return !petPathfinder.noPath() && tameable.getDistanceSq(owner) > (double) (maxDist * maxDist) && !tameable.isSitting();
 	}
 
@@ -74,7 +71,6 @@ public class EntityAIFollowOwner extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		timeToRecalcPath = 0;
 		oldWaterCost = tameable.getPathPriority(PathNodeType.WATER);
 		tameable.setPathPriority(PathNodeType.WATER, 0F);
@@ -84,7 +80,6 @@ public class EntityAIFollowOwner extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		owner = null;
 		petPathfinder.clearPath();
 		tameable.setPathPriority(PathNodeType.WATER, oldWaterCost);
@@ -94,7 +89,6 @@ public class EntityAIFollowOwner extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		tameable.getLookHelper().setLookPositionWithEntity(owner, 10F, (float) tameable.getVerticalFaceSpeed());
 
 		if (!tameable.isSitting()) {
@@ -125,7 +119,6 @@ public class EntityAIFollowOwner extends EntityAIBase {
 	}
 
 	protected boolean isTeleportFriendlyBlock(int x, int z, int y, int xOffset, int zOffset) {
-
 		BlockPos blockpos = new BlockPos(x + xOffset, y - 1, z + zOffset);
 		IBlockState iblockstate = world.getBlockState(blockpos);
 		return iblockstate.getBlockFaceShape(world, blockpos, Facing.DOWN) == BlockFaceShape.SOLID && iblockstate.canEntitySpawn(tameable) && world.isAirBlock(blockpos.up()) && world.isAirBlock(blockpos.up(2));

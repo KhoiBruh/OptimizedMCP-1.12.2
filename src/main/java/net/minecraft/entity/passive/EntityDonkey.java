@@ -12,35 +12,29 @@ import net.minecraft.world.storage.loot.LootTableList;
 public class EntityDonkey extends AbstractChestHorse {
 
 	public EntityDonkey(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public static void registerFixesDonkey(DataFixer fixer) {
-
 		AbstractChestHorse.registerFixesAbstractChestHorse(fixer, EntityDonkey.class);
 	}
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_DONKEY;
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		super.getAmbientSound();
 		return SoundEvents.ENTITY_DONKEY_AMBIENT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		super.getDeathSound();
 		return SoundEvents.ENTITY_DONKEY_DEATH;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		super.getHurtSound(damageSourceIn);
 		return SoundEvents.ENTITY_DONKEY_HURT;
 	}
@@ -49,7 +43,6 @@ public class EntityDonkey extends AbstractChestHorse {
 	 * Returns true if the mob is currently able to mate with the specified mob.
 	 */
 	public boolean canMateWith(EntityAnimal otherAnimal) {
-
 		if (otherAnimal == this) {
 			return false;
 		} else if (!(otherAnimal instanceof EntityDonkey) && !(otherAnimal instanceof EntityHorse)) {
@@ -60,7 +53,6 @@ public class EntityDonkey extends AbstractChestHorse {
 	}
 
 	public EntityAgeable createChild(EntityAgeable ageable) {
-
 		AbstractHorse abstracthorse = ageable instanceof EntityHorse ? new EntityMule(world) : new EntityDonkey(world);
 		setOffspringAttributes(ageable, abstracthorse);
 		return abstracthorse;

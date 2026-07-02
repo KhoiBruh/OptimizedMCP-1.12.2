@@ -24,7 +24,6 @@ public class CommandBanIp extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "ban-ip";
 	}
 
@@ -32,7 +31,6 @@ public class CommandBanIp extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 3;
 	}
 
@@ -40,7 +38,6 @@ public class CommandBanIp extends CommandBase {
 	 * Check if the given ICommandSender has permission to execute this command
 	 */
 	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-
 		return server.getPlayerList().getBannedIPs().isLanServer() && super.checkPermission(server, sender);
 	}
 
@@ -48,7 +45,6 @@ public class CommandBanIp extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.banip.usage";
 	}
 
@@ -56,7 +52,6 @@ public class CommandBanIp extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		if (args.length >= 1 && args[0].length() > 1) {
 			ITextComponent itextcomponent = args.length >= 2 ? getChatComponentFromNthArg(sender, args, 1) : null;
 			Matcher matcher = IP_PATTERN.matcher(args[0]);
@@ -78,12 +73,10 @@ public class CommandBanIp extends CommandBase {
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		return args.length == 1 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) : Collections.emptyList();
 	}
 
 	protected void banIp(MinecraftServer server, ICommandSender sender, String ipAddress, String banReason) {
-
 		UserListIPBansEntry userlistipbansentry = new UserListIPBansEntry(ipAddress, null, sender.getName(), null, banReason);
 		server.getPlayerList().getBannedIPs().addEntry(userlistipbansentry);
 		List<EntityPlayerMP> list = server.getPlayerList().getPlayersMatchingAddress(ipAddress);

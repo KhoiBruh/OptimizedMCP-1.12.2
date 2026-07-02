@@ -25,18 +25,15 @@ public class BlockModelShapes {
 	private final ModelManager modelManager;
 
 	public BlockModelShapes(ModelManager manager) {
-
 		modelManager = manager;
 		registerAllBlocks();
 	}
 
 	public BlockStateMapper getBlockStateMapper() {
-
 		return blockStateMapper;
 	}
 
 	public TextureAtlasSprite getTexture(IBlockState state) {
-
 		Block block = state.getBlock();
 		IBakedModel ibakedmodel = getModelForState(state);
 
@@ -142,7 +139,6 @@ public class BlockModelShapes {
 	}
 
 	public IBakedModel getModelForState(IBlockState state) {
-
 		IBakedModel ibakedmodel = bakedModelStore.get(state);
 
 		if (ibakedmodel == null) {
@@ -153,12 +149,10 @@ public class BlockModelShapes {
 	}
 
 	public ModelManager getModelManager() {
-
 		return modelManager;
 	}
 
 	public void reloadModels() {
-
 		bakedModelStore.clear();
 
 		for (Entry<IBlockState, ModelResourceLocation> entry : blockStateMapper.putAllStateModelLocations().entrySet()) {
@@ -167,17 +161,14 @@ public class BlockModelShapes {
 	}
 
 	public void registerBlockWithStateMapper(Block assoc, IStateMapper stateMapper) {
-
 		blockStateMapper.registerBlockStateMapper(assoc, stateMapper);
 	}
 
 	public void registerBuiltInBlocks(Block... builtIns) {
-
 		blockStateMapper.registerBuiltInBlocks(builtIns);
 	}
 
 	private void registerAllBlocks() {
-
 		registerBuiltInBlocks(Blocks.AIR, Blocks.FLOWING_WATER, Blocks.WATER, Blocks.FLOWING_LAVA, Blocks.LAVA, Blocks.PISTON_EXTENSION, Blocks.CHEST, Blocks.ENDER_CHEST, Blocks.TRAPPED_CHEST, Blocks.STANDING_SIGN, Blocks.SKULL, Blocks.END_PORTAL, Blocks.BARRIER, Blocks.WALL_SIGN, Blocks.WALL_BANNER, Blocks.STANDING_BANNER, Blocks.END_GATEWAY, Blocks.STRUCTURE_VOID, Blocks.WHITE_SHULKER_BOX, Blocks.ORANGE_SHULKER_BOX, Blocks.MAGENTA_SHULKER_BOX, Blocks.LIGHT_BLUE_SHULKER_BOX, Blocks.YELLOW_SHULKER_BOX, Blocks.LIME_SHULKER_BOX, Blocks.PINK_SHULKER_BOX, Blocks.GRAY_SHULKER_BOX, Blocks.SILVER_SHULKER_BOX, Blocks.CYAN_SHULKER_BOX, Blocks.PURPLE_SHULKER_BOX, Blocks.BLUE_SHULKER_BOX, Blocks.BROWN_SHULKER_BOX, Blocks.GREEN_SHULKER_BOX, Blocks.RED_SHULKER_BOX, Blocks.BLACK_SHULKER_BOX, Blocks.BED);
 		registerBlockWithStateMapper(Blocks.STONE, (new StateMap.Builder()).withName(BlockStone.VARIANT).build());
 		registerBlockWithStateMapper(Blocks.PRISMARINE, (new StateMap.Builder()).withName(BlockPrismarine.VARIANT).build());
@@ -234,7 +225,6 @@ public class BlockModelShapes {
 		registerBlockWithStateMapper(Blocks.CONCRETE_POWDER, (new StateMap.Builder()).withName(BlockColored.COLOR).withSuffix("_concrete_powder").build());
 		registerBlockWithStateMapper(Blocks.QUARTZ_BLOCK, new StateMapperBase() {
 			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-
 				BlockQuartz.Type blockquartz$enumtype = state.getValue(BlockQuartz.VARIANT);
 
 				return switch (blockquartz$enumtype) {
@@ -248,13 +238,11 @@ public class BlockModelShapes {
 		});
 		registerBlockWithStateMapper(Blocks.DEADBUSH, new StateMapperBase() {
 			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-
 				return new ModelResourceLocation("dead_bush", "normal");
 			}
 		});
 		registerBlockWithStateMapper(Blocks.PUMPKIN_STEM, new StateMapperBase() {
 			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-
 				Map<IProperty<?>, Comparable<?>> map = Maps.newLinkedHashMap(state.getProperties());
 
 				if (state.getValue(BlockStem.FACING) != Facing.UP) {
@@ -266,7 +254,6 @@ public class BlockModelShapes {
 		});
 		registerBlockWithStateMapper(Blocks.MELON_STEM, new StateMapperBase() {
 			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-
 				Map<IProperty<?>, Comparable<?>> map = Maps.newLinkedHashMap(state.getProperties());
 
 				if (state.getValue(BlockStem.FACING) != Facing.UP) {
@@ -278,7 +265,6 @@ public class BlockModelShapes {
 		});
 		registerBlockWithStateMapper(Blocks.DIRT, new StateMapperBase() {
 			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-
 				Map<IProperty<?>, Comparable<?>> map = Maps.newLinkedHashMap(state.getProperties());
 				String s = BlockDirt.VARIANT.getName((BlockDirt.DirtType) map.remove(BlockDirt.VARIANT));
 
@@ -291,7 +277,6 @@ public class BlockModelShapes {
 		});
 		registerBlockWithStateMapper(Blocks.DOUBLE_STONE_SLAB, new StateMapperBase() {
 			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-
 				Map<IProperty<?>, Comparable<?>> map = Maps.newLinkedHashMap(state.getProperties());
 				String s = BlockStoneSlab.VARIANT.getName((BlockStoneSlab.Type) map.remove(BlockStoneSlab.VARIANT));
 				map.remove(BlockStoneSlab.SEAMLESS);
@@ -301,7 +286,6 @@ public class BlockModelShapes {
 		});
 		registerBlockWithStateMapper(Blocks.DOUBLE_STONE_SLAB2, new StateMapperBase() {
 			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-
 				Map<IProperty<?>, Comparable<?>> map = Maps.newLinkedHashMap(state.getProperties());
 				String s = BlockStoneSlabNew.VARIANT.getName((BlockStoneSlabNew.Type) map.remove(BlockStoneSlabNew.VARIANT));
 				map.remove(BlockStoneSlab.SEAMLESS);

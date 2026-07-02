@@ -27,7 +27,6 @@ public class Scoreboard {
 	 * Returns 'list' for 0, 'sidebar' for 1, 'belowName for 2, otherwise null.
 	 */
 	public static String getObjectiveDisplaySlot(int id) {
-
 		return switch (id) {
 			case 0 -> "list";
 			case 1 -> "sidebar";
@@ -50,7 +49,6 @@ public class Scoreboard {
 	 * Returns 0 for (case-insensitive) 'list', 1 for 'sidebar', 2 for 'belowName', otherwise -1.
 	 */
 	public static int getObjectiveDisplaySlotNumber(String name) {
-
 		if ("list".equalsIgnoreCase(name)) {
 			return 0;
 		} else if ("sidebar".equalsIgnoreCase(name)) {
@@ -72,7 +70,6 @@ public class Scoreboard {
 	}
 
 	public static String[] getDisplaySlotStrings() {
-
 		if (displaySlots == null) {
 			displaySlots = new String[19];
 
@@ -90,7 +87,6 @@ public class Scoreboard {
 	 * Returns a ScoreObjective for the objective name
 	 */
 	public ScoreObjective getObjective(String name) {
-
 		return scoreObjectives.get(name);
 	}
 
@@ -98,7 +94,6 @@ public class Scoreboard {
 	 * Create and returns the score objective for the given name and ScoreCriteria
 	 */
 	public ScoreObjective addScoreObjective(String name, IScoreCriteria criteria) {
-
 		if (name.length() > 16) {
 			throw new IllegalArgumentException("The objective name '" + name + "' is too long!");
 		} else {
@@ -119,7 +114,6 @@ public class Scoreboard {
 	}
 
 	public Collection<ScoreObjective> getObjectivesFromCriteria(IScoreCriteria criteria) {
-
 		Collection<ScoreObjective> collection = scoreObjectiveCriterias.get(criteria);
 		return collection == null ? Lists.newArrayList() : Lists.newArrayList(collection);
 	}
@@ -128,7 +122,6 @@ public class Scoreboard {
 	 * Returns if the entity has the given ScoreObjective
 	 */
 	public boolean entityHasObjective(String name, ScoreObjective objective) {
-
 		Map<ScoreObjective, Score> map = entitiesScoreObjectives.get(name);
 
 		if (map == null) {
@@ -143,7 +136,6 @@ public class Scoreboard {
 	 * Get a player's score or create it if it does not exist
 	 */
 	public Score getOrCreateScore(String username, ScoreObjective objective) {
-
 		if (username.length() > 40) {
 			throw new IllegalArgumentException("The player name '" + username + "' is too long!");
 		} else {
@@ -154,7 +146,6 @@ public class Scoreboard {
 	}
 
 	public Collection<Score> getSortedScores(ScoreObjective objective) {
-
 		List<Score> list = Lists.newArrayList();
 
 		for (Map<ScoreObjective, Score> map : entitiesScoreObjectives.values()) {
@@ -170,12 +161,10 @@ public class Scoreboard {
 	}
 
 	public Collection<ScoreObjective> getScoreObjectives() {
-
 		return scoreObjectives.values();
 	}
 
 	public Collection<String> getObjectiveNames() {
-
 		return entitiesScoreObjectives.keySet();
 	}
 
@@ -183,7 +172,6 @@ public class Scoreboard {
 	 * Remove the given ScoreObjective for the given Entity name.
 	 */
 	public void removeObjectiveFromEntity(String name, ScoreObjective objective) {
-
 		if (objective == null) {
 			Map<ScoreObjective, Score> map = entitiesScoreObjectives.remove(name);
 
@@ -210,7 +198,6 @@ public class Scoreboard {
 	}
 
 	public Collection<Score> getScores() {
-
 		Collection<Map<ScoreObjective, Score>> collection = entitiesScoreObjectives.values();
 		List<Score> list = Lists.newArrayList();
 
@@ -233,7 +220,6 @@ public class Scoreboard {
 	}
 
 	public void removeObjective(ScoreObjective objective) {
-
 		scoreObjectives.remove(objective.getName());
 
 		for (int i = 0; i < 19; ++i) {
@@ -259,7 +245,6 @@ public class Scoreboard {
 	 * 0 is tab menu, 1 is sidebar, 2 is below name
 	 */
 	public void setObjectiveInDisplaySlot(int objectiveSlot, ScoreObjective objective) {
-
 		objectiveDisplaySlots[objectiveSlot] = objective;
 	}
 
@@ -269,7 +254,6 @@ public class Scoreboard {
 	 * 0 is tab menu, 1 is sidebar, 2 is below name
 	 */
 	public ScoreObjective getObjectiveInDisplaySlot(int slotIn) {
-
 		return objectiveDisplaySlots[slotIn];
 	}
 
@@ -277,12 +261,10 @@ public class Scoreboard {
 	 * Retrieve the ScorePlayerTeam instance identified by the passed team name
 	 */
 	public ScorePlayerTeam getTeam(String teamName) {
-
 		return teams.get(teamName);
 	}
 
 	public ScorePlayerTeam createTeam(String name) {
-
 		if (name.length() > 16) {
 			throw new IllegalArgumentException("The team name '" + name + "' is too long!");
 		} else {
@@ -303,7 +285,6 @@ public class Scoreboard {
 	 * Removes the team from the scoreboard, updates all player memberships and broadcasts the deletion to all players
 	 */
 	public void removeTeam(ScorePlayerTeam playerTeam) {
-
 		teams.remove(playerTeam.getName());
 
 		for (String s : playerTeam.getMembershipCollection()) {
@@ -317,7 +298,6 @@ public class Scoreboard {
 	 * Adds a player to the given team
 	 */
 	public boolean addPlayerToTeam(String player, String newTeam) {
-
 		if (player.length() > 40) {
 			throw new IllegalArgumentException("The player name '" + player + "' is too long!");
 		} else if (!teams.containsKey(newTeam)) {
@@ -336,7 +316,6 @@ public class Scoreboard {
 	}
 
 	public boolean removePlayerFromTeams(String playerName) {
-
 		ScorePlayerTeam scoreplayerteam = getPlayersTeam(playerName);
 
 		if (scoreplayerteam != null) {
@@ -352,7 +331,6 @@ public class Scoreboard {
 	 * IllegalStateException is thrown.
 	 */
 	public void removePlayerFromTeam(String username, ScorePlayerTeam playerTeam) {
-
 		if (getPlayersTeam(username) != playerTeam) {
 			throw new IllegalStateException("Player is either on another team or not on any team. Cannot remove from team '" + playerTeam.getName() + "'.");
 		} else {
@@ -362,12 +340,10 @@ public class Scoreboard {
 	}
 
 	public Collection<String> getTeamNames() {
-
 		return teams.keySet();
 	}
 
 	public Collection<ScorePlayerTeam> getTeams() {
-
 		return teams.values();
 	}
 
@@ -377,7 +353,6 @@ public class Scoreboard {
 	 * Gets the ScorePlayerTeam object for the given username.
 	 */
 	public ScorePlayerTeam getPlayersTeam(String username) {
-
 		return teamMemberships.get(username);
 	}
 
@@ -385,49 +360,39 @@ public class Scoreboard {
 	 * Called when a score objective is added
 	 */
 	public void onScoreObjectiveAdded(ScoreObjective scoreObjectiveIn) {
-
 	}
 
 	public void onObjectiveDisplayNameChanged(ScoreObjective objective) {
-
 	}
 
 	public void onScoreObjectiveRemoved(ScoreObjective objective) {
-
 	}
 
 	public void onScoreUpdated(Score scoreIn) {
-
 	}
 
 	public void broadcastScoreUpdate(String scoreName) {
-
 	}
 
 	public void broadcastScoreUpdate(String scoreName, ScoreObjective objective) {
-
 	}
 
 	/**
 	 * This packet will notify the players that this team is created, and that will register it on the client
 	 */
 	public void broadcastTeamCreated(ScorePlayerTeam playerTeam) {
-
 	}
 
 	/**
 	 * This packet will notify the players that this team is updated
 	 */
 	public void broadcastTeamInfoUpdate(ScorePlayerTeam playerTeam) {
-
 	}
 
 	public void broadcastTeamRemove(ScorePlayerTeam playerTeam) {
-
 	}
 
 	public void removeEntity(Entity entityIn) {
-
 		if (entityIn != null && !(entityIn instanceof EntityPlayer) && !entityIn.isEntityAlive()) {
 			String s = entityIn.getCachedUniqueIdString();
 			removeObjectiveFromEntity(s, null);

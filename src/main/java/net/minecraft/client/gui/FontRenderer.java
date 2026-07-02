@@ -121,7 +121,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	private boolean strikethroughStyle;
 
 	public FontRenderer(GameSettings gameSettingsIn, ResourceLocation location, TextureManager textureManagerIn, boolean unicode) {
-
 		locationFontTexture = location;
 		textureManager = textureManagerIn;
 		unicodeFlag = unicode;
@@ -153,7 +152,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Checks if the char code is a hexadecimal character, used to set colour.
 	 */
 	private static boolean isFormatColor(char colorChar) {
-
 		return colorChar >= '0' && colorChar <= '9' || colorChar >= 'a' && colorChar <= 'f' || colorChar >= 'A' && colorChar <= 'F';
 	}
 
@@ -161,7 +159,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Checks if the char code is O-K...lLrRk-o... used to set special formatting.
 	 */
 	private static boolean isFormatSpecial(char formatChar) {
-
 		return formatChar >= 'k' && formatChar <= 'o' || formatChar >= 'K' && formatChar <= 'O' || formatChar == 'r' || formatChar == 'R';
 	}
 
@@ -169,7 +166,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Digests a string for nonprinting formatting characters then returns a string containing only that formatting.
 	 */
 	public static String getFormatFromString(String text) {
-
 		StringBuilder s = new StringBuilder();
 		int i = -1;
 		int j = text.length();
@@ -190,13 +186,11 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	}
 
 	public void onResourceManagerReload(IResourceManager resourceManager) {
-
 		readFontTexture();
 		readGlyphSizes();
 	}
 
 	private void readFontTexture() {
-
 		BufferedImage bufferedimage;
 
 		try (IResource iresource = Minecraft.getMinecraft().getResourceManager().getResource(locationFontTexture)) {
@@ -248,7 +242,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	}
 
 	private void readGlyphSizes() {
-
 		try (IResource iresource = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("font/glyph_sizes.bin"))) {
 			iresource.getInputStream().read(glyphWidth);
 		} catch (IOException ioexception) {
@@ -260,7 +253,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Render the given char
 	 */
 	private float renderChar(char ch, boolean italic) {
-
 		if (ch == ' ') {
 			return 4F;
 		} else {
@@ -273,7 +265,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Render a single character with the default.png font at current (posX,posY) location...
 	 */
 	private float renderDefaultChar(int ch, boolean italic) {
-
 		int i = ch % 16 * 8;
 		int j = ch / 16 * 8;
 		int k = italic ? 1 : 0;
@@ -294,7 +285,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	}
 
 	private ResourceLocation getUnicodePageLocation(int page) {
-
 		if (UNICODE_PAGE_LOCATIONS[page] == null) {
 			UNICODE_PAGE_LOCATIONS[page] = new ResourceLocation(String.format("textures/font/unicode_page_%02x.png", page));
 		}
@@ -306,7 +296,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Load one of the /font/glyph_XX.png into a new GL texture and store the texture ID in glyphTextureName array.
 	 */
 	private void loadGlyphTexture(int page) {
-
 		textureManager.bindTexture(getUnicodePageLocation(page));
 	}
 
@@ -314,7 +303,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Render a single Unicode character at current (posX,posY) location using one of the /font/glyph_XX.png files...
 	 */
 	private float renderUnicodeChar(char ch, boolean italic) {
-
 		int i = glyphWidth[ch] & 255;
 
 		if (i == 0) {
@@ -348,7 +336,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Draws the specified string with a shadow.
 	 */
 	public int drawStringWithShadow(String text, float x, float y, int color) {
-
 		return drawString(text, x, y, color, true);
 	}
 
@@ -356,7 +343,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Draws the specified string.
 	 */
 	public int drawString(String text, int x, int y, int color) {
-
 		return drawString(text, (float) x, (float) y, color, false);
 	}
 
@@ -364,7 +350,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Draws the specified string.
 	 */
 	public int drawString(String text, float x, float y, int color, boolean dropShadow) {
-
 		GLS.enableAlpha();
 		resetStyles();
 		int i;
@@ -383,7 +368,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Apply Unicode Bidirectional Algorithm to string and return a new possibly reordered string for visual rendering.
 	 */
 	private String bidiReorder(String text) {
-
 		try {
 			Bidi bidi = new Bidi((new ArabicShaping(8)).shape(text), 127);
 			bidi.setReorderingMode(0);
@@ -397,7 +381,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Reset all style flag fields in the class to false; called at the start of string rendering
 	 */
 	private void resetStyles() {
-
 		randomStyle = false;
 		boldStyle = false;
 		italicStyle = false;
@@ -409,7 +392,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Render a single line string at the current (posX,posY) and update posX
 	 */
 	private void renderStringAtPos(String text, boolean shadow) {
-
 		for (int i = 0; i < text.length(); ++i) {
 			char c0 = text.charAt(i);
 
@@ -543,7 +525,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Render string either left or right aligned depending on bidiFlag
 	 */
 	private int renderStringAligned(String text, int x, int y, int width, int color, boolean dropShadow) {
-
 		if (bidiFlag) {
 			int i = getStringWidth(bidiReorder(text));
 			x = x + width - i;
@@ -556,7 +537,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Render single line string by setting GL color, current (posX,posY), and calling renderStringAtPos()
 	 */
 	private int renderString(String text, float x, float y, int color, boolean dropShadow) {
-
 		if (text == null) {
 			return 0;
 		} else {
@@ -588,7 +568,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Returns the width of this string. Equivalent of FontMetrics.stringWidth(String s).
 	 */
 	public int getStringWidth(String text) {
-
 		if (text == null) {
 			return 0;
 		} else {
@@ -629,7 +608,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Returns the width of this character as rendered.
 	 */
 	public int getCharWidth(char character) {
-
 		if (character == 167) {
 			return -1;
 		} else if (character == ' ') {
@@ -655,7 +633,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Trims a string to fit a specified Width.
 	 */
 	public String trimStringToWidth(String text, int width) {
-
 		return trimStringToWidth(text, width, false);
 	}
 
@@ -679,7 +656,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * </table>
 	 */
 	public String trimStringToWidth(String text, int width, boolean reverse) {
-
 		StringBuilder stringbuilder = new StringBuilder();
 		int i = 0;
 		int j = reverse ? text.length() - 1 : 0;
@@ -729,7 +705,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Remove all newline characters from the end of the string
 	 */
 	private String trimStringNewline(String text) {
-
 		while (text != null && text.endsWith("\n")) {
 			text = text.substring(0, text.length() - 1);
 		}
@@ -741,7 +716,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Splits and draws a String with wordwrap (maximum length is parameter k)
 	 */
 	public void drawSplitString(String str, int x, int y, int wrapWidth, int textColor) {
-
 		resetStyles();
 		this.textColor = textColor;
 		str = trimStringNewline(str);
@@ -753,7 +727,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * set
 	 */
 	private void renderSplitString(String str, int x, int y, int wrapWidth, boolean addShadow) {
-
 		for (String s : formatToWidth(str, wrapWidth)) {
 			renderStringAligned(s, x, y, wrapWidth, textColor, addShadow);
 			y += FONT_HEIGHT;
@@ -764,7 +737,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Returns the height (in pixels) of the given string if it is wordwrapped to the given max width.
 	 */
 	public int getWordWrappedHeight(String str, int maxLength) {
-
 		return FONT_HEIGHT * formatToWidth(str, maxLength).size();
 	}
 
@@ -773,7 +745,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * font.
 	 */
 	public boolean getUnicodeFlag() {
-
 		return unicodeFlag;
 	}
 
@@ -782,12 +753,10 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * font.
 	 */
 	public void setUnicodeFlag(boolean unicodeFlagIn) {
-
 		unicodeFlag = unicodeFlagIn;
 	}
 
 	public List<String> formatToWidth(String text, int wrapWidth) {
-
 		return Arrays.asList(wrapFormattedStringToWidth(text, wrapWidth).split("\n"));
 	}
 
@@ -795,7 +764,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Inserts newline and formatting into a string to wrap it within the specified width.
 	 */
 	String wrapFormattedStringToWidth(String str, int wrapWidth) {
-
 		int i = sizeStringToWidth(str, wrapWidth);
 
 		if (str.length() <= i) {
@@ -813,7 +781,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Determines how many characters from the string will fit into the specified width.
 	 */
 	private int sizeStringToWidth(String str, int wrapWidth) {
-
 		int i = str.length();
 		int j = 0;
 		int k = 0;
@@ -872,7 +839,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Get bidiFlag that controls if the Unicode Bidirectional Algorithm should be run before rendering any string
 	 */
 	public boolean getBidiFlag() {
-
 		return bidiFlag;
 	}
 
@@ -880,12 +846,10 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	 * Set bidiFlag to control if the Unicode Bidirectional Algorithm should be run before rendering any string.
 	 */
 	public void setBidiFlag(boolean bidiFlagIn) {
-
 		bidiFlag = bidiFlagIn;
 	}
 
 	public int getColorCode(char character) {
-
 		int i = "0123456789abcdef".indexOf(character);
 		return i >= 0 && i < colorCode.length ? colorCode[i] : -1;
 	}

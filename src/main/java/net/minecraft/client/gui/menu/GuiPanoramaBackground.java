@@ -25,11 +25,9 @@ public final class GuiPanoramaBackground {
 	private static ResourceLocation backgroundTexture;
 
 	private GuiPanoramaBackground() {
-
 	}
 
 	public static void render(Minecraft mc, int width, int height) {
-
 		ensureBackgroundTexture(mc);
 		GLS.disableLighting();
 		GLS.disableFog();
@@ -59,19 +57,16 @@ public final class GuiPanoramaBackground {
 	}
 
 	private static void ensureBackgroundTexture(Minecraft mc) {
-
 		if (backgroundTexture == null) {
 			backgroundTexture = mc.getTextureManager().getDynamicTextureLocation("shared_menu_panorama", VIEWPORT_TEXTURE);
 		}
 	}
 
 	private static float getPanoramaTimer() {
-
 		return (Minecraft.getSystemTime() - START_TIME) / 50F;
 	}
 
 	private static void drawPanorama(Minecraft mc) {
-
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		GLS.matrixMode(5889);
@@ -135,7 +130,6 @@ public final class GuiPanoramaBackground {
 	}
 
 	private static void rotateAndBlurSkybox(Minecraft mc, int width, int height) {
-
 		mc.getTextureManager().bindTexture(backgroundTexture);
 		GLS.texParameteri(3553, 10241, 9729);
 		GLS.texParameteri(3553, 10240, 9729);

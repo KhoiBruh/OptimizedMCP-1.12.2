@@ -14,7 +14,6 @@ public class MapGenNetherBridge extends MapGenStructure {
 	private final List<Biome.SpawnListEntry> spawnList = Lists.newArrayList();
 
 	public MapGenNetherBridge() {
-
 		spawnList.add(new Biome.SpawnListEntry(EntityBlaze.class, 10, 2, 3));
 		spawnList.add(new Biome.SpawnListEntry(EntityPigZombie.class, 5, 4, 4));
 		spawnList.add(new Biome.SpawnListEntry(EntityWitherSkeleton.class, 8, 5, 5));
@@ -23,7 +22,6 @@ public class MapGenNetherBridge extends MapGenStructure {
 	}
 
 	public String getStructureName() {
-
 		return "Fortress";
 	}
 
@@ -33,7 +31,6 @@ public class MapGenNetherBridge extends MapGenStructure {
 	}
 
 	protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
-
 		int i = chunkX >> 4;
 		int j = chunkZ >> 4;
 		rand.setSeed((long) (i ^ j << 4) ^ world.getSeed());
@@ -49,12 +46,10 @@ public class MapGenNetherBridge extends MapGenStructure {
 	}
 
 	protected StructureStart getStructureStart(int chunkX, int chunkZ) {
-
 		return new MapGenNetherBridge.Start(world, rand, chunkX, chunkZ);
 	}
 
 	public BlockPos getNearestStructurePos(World worldIn, BlockPos pos, boolean findUnexplored) {
-
 		int i = 1000;
 		int j = pos.getX() >> 4;
 		int k = pos.getZ() >> 4;
@@ -84,11 +79,9 @@ public class MapGenNetherBridge extends MapGenStructure {
 	public static class Start extends StructureStart {
 
 		public Start() {
-
 		}
 
 		public Start(World worldIn, Random random, int chunkX, int chunkZ) {
-
 			super(chunkX, chunkZ);
 			StructureNetherBridgePieces.Start structurenetherbridgepieces$start = new StructureNetherBridgePieces.Start(random, (chunkX << 4) + 2, (chunkZ << 4) + 2);
 			components.add(structurenetherbridgepieces$start);

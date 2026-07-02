@@ -14,7 +14,6 @@ public class SPacketPlayerListHeaderFooter implements Packet<INetHandlerPlayClie
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		header = buf.readTextComponent();
 		footer = buf.readTextComponent();
 	}
@@ -23,7 +22,6 @@ public class SPacketPlayerListHeaderFooter implements Packet<INetHandlerPlayClie
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeTextComponent(header);
 		buf.writeTextComponent(footer);
 	}
@@ -32,17 +30,14 @@ public class SPacketPlayerListHeaderFooter implements Packet<INetHandlerPlayClie
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handlePlayerListHeaderFooter(this);
 	}
 
 	public ITextComponent getHeader() {
-
 		return header;
 	}
 
 	public ITextComponent getFooter() {
-
 		return footer;
 	}
 

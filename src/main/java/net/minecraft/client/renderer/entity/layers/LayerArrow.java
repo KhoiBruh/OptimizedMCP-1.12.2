@@ -17,12 +17,10 @@ public class LayerArrow implements LayerRenderer<EntityLivingBase> {
 	private final RenderLivingBase<?> renderer;
 
 	public LayerArrow(RenderLivingBase<?> rendererIn) {
-
 		renderer = rendererIn;
 	}
 
 	public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		int i = entitylivingbaseIn.getArrowCountInEntity();
 
 		if (i > 0) {
@@ -65,7 +63,6 @@ public class LayerArrow implements LayerRenderer<EntityLivingBase> {
 	}
 
 	public boolean shouldCombineTextures() {
-
 		return false;
 	}
 

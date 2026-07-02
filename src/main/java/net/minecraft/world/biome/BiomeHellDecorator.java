@@ -8,7 +8,6 @@ import java.util.Random;
 public class BiomeHellDecorator extends BiomeDecorator {
 
 	public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
-
 	}
 
 }

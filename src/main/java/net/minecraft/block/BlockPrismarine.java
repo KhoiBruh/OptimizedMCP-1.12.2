@@ -21,7 +21,6 @@ public class BlockPrismarine extends Block {
 	public static final int DARK_META = BlockPrismarine.Type.DARK.getMetadata();
 
 	public BlockPrismarine() {
-
 		super(Material.ROCK);
 		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockPrismarine.Type.ROUGH));
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
@@ -31,7 +30,6 @@ public class BlockPrismarine extends Block {
 	 * Gets the localized name of this block. Used for the statistics page.
 	 */
 	public String getLocalizedName() {
-
 		return I18n.translateToLocal(getUnlocalizedName() + "." + BlockPrismarine.Type.ROUGH.getUnlocalizedName() + ".name");
 	}
 
@@ -39,7 +37,6 @@ public class BlockPrismarine extends Block {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return state.getValue(VARIANT) == BlockPrismarine.Type.ROUGH ? MapColor.CYAN : MapColor.DIAMOND;
 	}
 
@@ -48,7 +45,6 @@ public class BlockPrismarine extends Block {
 	 * returns the metadata of the dropped item based on the old metadata of the block.
 	 */
 	public int damageDropped(IBlockState state) {
-
 		return state.getValue(VARIANT).getMetadata();
 	}
 
@@ -56,12 +52,10 @@ public class BlockPrismarine extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(VARIANT).getMetadata();
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, VARIANT);
 	}
 
@@ -69,7 +63,6 @@ public class BlockPrismarine extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(VARIANT, BlockPrismarine.Type.byMetadata(meta));
 	}
 
@@ -77,7 +70,6 @@ public class BlockPrismarine extends Block {
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-
 		items.add(new ItemStack(this, 1, ROUGH_META));
 		items.add(new ItemStack(this, 1, BRICKS_META));
 		items.add(new ItemStack(this, 1, DARK_META));
@@ -101,7 +93,6 @@ public class BlockPrismarine extends Block {
 		private final String unlocalizedName;
 
 		Type(int meta, String name, String unlocalizedName) {
-
 			this.meta = meta;
 			this.name = name;
 			this.unlocalizedName = unlocalizedName;
@@ -117,22 +108,18 @@ public class BlockPrismarine extends Block {
 		}
 
 		public int getMetadata() {
-
 			return meta;
 		}
 
 		public String toString() {
-
 			return name;
 		}
 
 		public String getName() {
-
 			return name;
 		}
 
 		public String getUnlocalizedName() {
-
 			return unlocalizedName;
 		}
 	}

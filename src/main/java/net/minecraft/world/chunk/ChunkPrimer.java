@@ -10,18 +10,15 @@ public class ChunkPrimer {
 	private final char[] data = new char[65536];
 
 	private static int getBlockIndex(int x, int y, int z) {
-
 		return x << 12 | z << 8 | y;
 	}
 
 	public IBlockState getBlockState(int x, int y, int z) {
-
 		IBlockState iblockstate = Block.BLOCK_STATE_IDS.getByValue(data[getBlockIndex(x, y, z)]);
 		return iblockstate == null ? DEFAULT_STATE : iblockstate;
 	}
 
 	public void setBlockState(int x, int y, int z, IBlockState state) {
-
 		data[getBlockIndex(x, y, z)] = (char) Block.BLOCK_STATE_IDS.get(state);
 	}
 
@@ -30,7 +27,6 @@ public class ChunkPrimer {
 	 * (actually, looks like mostly checks x, z+1? And actually checks only the very top sky block of actual x, z)
 	 */
 	public int findGroundBlockIdx(int x, int z) {
-
 		int i = (x << 12 | z << 8) + 256 - 1;
 
 		for (int j = 255; j >= 0; --j) {

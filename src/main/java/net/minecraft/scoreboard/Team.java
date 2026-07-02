@@ -12,7 +12,6 @@ public abstract class Team {
 	 * Same as ==
 	 */
 	public boolean isSameTeam(Team other) {
-
 		if (other == null) {
 			return false;
 		} else {
@@ -81,13 +80,11 @@ public abstract class Team {
 		public final int id;
 
 		CollisionRule(String nameIn, int idIn) {
-
 			name = nameIn;
 			id = idIn;
 		}
 
 		public static String[] getNames() {
-
 			return nameMap.keySet().toArray(new String[0]);
 		}
 
@@ -116,13 +113,11 @@ public abstract class Team {
 		public final int id;
 
 		Visible(String nameIn, int idIn) {
-
 			internalName = nameIn;
 			id = idIn;
 		}
 
 		public static String[] getNames() {
-
 			return nameMap.keySet().toArray(new String[0]);
 		}
 

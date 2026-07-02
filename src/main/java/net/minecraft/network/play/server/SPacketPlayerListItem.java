@@ -19,11 +19,9 @@ public class SPacketPlayerListItem implements Packet<INetHandlerPlayClient> {
 	private SPacketPlayerListItem.Action action;
 
 	public SPacketPlayerListItem() {
-
 	}
 
 	public SPacketPlayerListItem(SPacketPlayerListItem.Action actionIn, EntityPlayerMP... playersIn) {
-
 		action = actionIn;
 
 		for (EntityPlayerMP entityplayermp : playersIn) {
@@ -32,7 +30,6 @@ public class SPacketPlayerListItem implements Packet<INetHandlerPlayClient> {
 	}
 
 	public SPacketPlayerListItem(SPacketPlayerListItem.Action actionIn, Iterable<EntityPlayerMP> playersIn) {
-
 		action = actionIn;
 
 		for (EntityPlayerMP entityplayermp : playersIn) {
@@ -44,7 +41,6 @@ public class SPacketPlayerListItem implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		action = buf.readEnumValue(Action.class);
 		int i = buf.readVarInt();
 
@@ -111,7 +107,6 @@ public class SPacketPlayerListItem implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeEnumValue(action);
 		buf.writeVarInt(players.size());
 
@@ -178,7 +173,6 @@ public class SPacketPlayerListItem implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handlePlayerListItem(this);
 	}
 
@@ -193,7 +187,6 @@ public class SPacketPlayerListItem implements Packet<INetHandlerPlayClient> {
 	}
 
 	public String toString() {
-
 		return MoreObjects.toStringHelper(this).add("action", action).add("entries", players).toString();
 	}
 
@@ -213,7 +206,6 @@ public class SPacketPlayerListItem implements Packet<INetHandlerPlayClient> {
 		private final ITextComponent displayName;
 
 		public AddPlayerData(GameProfile profileIn, int latencyIn, GameType gameModeIn, ITextComponent displayNameIn) {
-
 			profile = profileIn;
 			ping = latencyIn;
 			gamemode = gameModeIn;
@@ -221,28 +213,23 @@ public class SPacketPlayerListItem implements Packet<INetHandlerPlayClient> {
 		}
 
 		public GameProfile getProfile() {
-
 			return profile;
 		}
 
 		public int getPing() {
-
 			return ping;
 		}
 
 		public GameType getGameMode() {
-
 			return gamemode;
 		}
 
 		
 		public ITextComponent getDisplayName() {
-
 			return displayName;
 		}
 
 		public String toString() {
-
 			return MoreObjects.toStringHelper(this).add("latency", ping).add("gameMode", gamemode).add("profile", profile).add("displayName", displayName == null ? null : ITextComponent.Serializer.componentToJson(displayName)).toString();
 		}
 

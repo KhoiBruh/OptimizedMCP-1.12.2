@@ -20,14 +20,12 @@ public class ItemDye extends Item {
 	public static final int[] DYE_COLORS = new int[]{1973019, 11743532, 3887386, 5320730, 2437522, 8073150, 2651799, 11250603, 4408131, 14188952, 4312372, 14602026, 6719955, 12801229, 15435844, 15790320};
 
 	public ItemDye() {
-
 		setHasSubtypes(true);
 		setMaxDamage(0);
 		setCreativeTab(CreativeTabs.MATERIALS);
 	}
 
 	public static boolean applyBonemeal(ItemStack stack, World worldIn, BlockPos target) {
-
 		IBlockState iblockstate = worldIn.getBlockState(target);
 
 		if (iblockstate.getBlock() instanceof IGrowable igrowable) {
@@ -49,7 +47,6 @@ public class ItemDye extends Item {
 	}
 
 	public static void spawnBonemealParticles(World worldIn, BlockPos pos, int amount) {
-
 		if (amount == 0) {
 			amount = 15;
 		}
@@ -71,7 +68,6 @@ public class ItemDye extends Item {
 	 * different names based on their damage or NBT.
 	 */
 	public String getUnlocalizedName(ItemStack stack) {
-
 		int i = stack.getMetadata();
 		return super.getUnlocalizedName() + "." + DyeColor.byDyeDamage(i).getUnlocalizedName();
 	}
@@ -80,7 +76,6 @@ public class ItemDye extends Item {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (!player.canPlayerEdit(pos.offset(facing), facing, itemstack)) {
@@ -130,7 +125,6 @@ public class ItemDye extends Item {
 	 * Returns true if the item can be used on the given entity, e.g. shears on sheep.
 	 */
 	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target, Hand hand) {
-
 		if (target instanceof EntitySheep entitysheep) {
 			DyeColor enumdyecolor = DyeColor.byDyeDamage(stack.getMetadata());
 
@@ -149,7 +143,6 @@ public class ItemDye extends Item {
 	 * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
 	 */
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-
 		if (isInCreativeTab(tab)) {
 			for (int i = 0; i < 16; ++i) {
 				items.add(new ItemStack(this, 1, i));

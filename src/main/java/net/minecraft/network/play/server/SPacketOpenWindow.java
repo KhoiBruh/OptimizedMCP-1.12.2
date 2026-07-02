@@ -14,16 +14,13 @@ public class SPacketOpenWindow implements Packet<INetHandlerPlayClient> {
 	private int entityId;
 
 	public SPacketOpenWindow() {
-
 	}
 
 	public SPacketOpenWindow(int windowIdIn, String inventoryTypeIn, ITextComponent windowTitleIn) {
-
 		this(windowIdIn, inventoryTypeIn, windowTitleIn, 0);
 	}
 
 	public SPacketOpenWindow(int windowIdIn, String inventoryTypeIn, ITextComponent windowTitleIn, int slotCountIn) {
-
 		windowId = windowIdIn;
 		inventoryType = inventoryTypeIn;
 		windowTitle = windowTitleIn;
@@ -31,7 +28,6 @@ public class SPacketOpenWindow implements Packet<INetHandlerPlayClient> {
 	}
 
 	public SPacketOpenWindow(int windowIdIn, String inventoryTypeIn, ITextComponent windowTitleIn, int slotCountIn, int entityIdIn) {
-
 		this(windowIdIn, inventoryTypeIn, windowTitleIn, slotCountIn);
 		entityId = entityIdIn;
 	}
@@ -40,7 +36,6 @@ public class SPacketOpenWindow implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleOpenWindow(this);
 	}
 
@@ -48,7 +43,6 @@ public class SPacketOpenWindow implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		windowId = buf.readUnsignedByte();
 		inventoryType = buf.readString(32);
 		windowTitle = buf.readTextComponent();
@@ -63,7 +57,6 @@ public class SPacketOpenWindow implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeByte(windowId);
 		buf.writeString(inventoryType);
 		buf.writeTextComponent(windowTitle);
@@ -75,32 +68,26 @@ public class SPacketOpenWindow implements Packet<INetHandlerPlayClient> {
 	}
 
 	public int getWindowId() {
-
 		return windowId;
 	}
 
 	public String getGuiId() {
-
 		return inventoryType;
 	}
 
 	public ITextComponent getWindowTitle() {
-
 		return windowTitle;
 	}
 
 	public int getSlotCount() {
-
 		return slotCount;
 	}
 
 	public int getEntityId() {
-
 		return entityId;
 	}
 
 	public boolean hasSlots() {
-
 		return slotCount > 0;
 	}
 

@@ -14,115 +14,93 @@ public class Style {
 	private static final Style ROOT = new Style() {
 		
 		public TextFormat getColor() {
-
 			return null;
 		}
 
 		public boolean getBold() {
-
 			return false;
 		}
 
 		public boolean getItalic() {
-
 			return false;
 		}
 
 		public boolean getStrikethrough() {
-
 			return false;
 		}
 
 		public boolean getUnderlined() {
-
 			return false;
 		}
 
 		public boolean getObfuscated() {
-
 			return false;
 		}
 
 		
 		public ClickEvent getClickEvent() {
-
 			return null;
 		}
 
 		
 		public HoverEvent getHoverEvent() {
-
 			return null;
 		}
 
 		
 		public String getInsertion() {
-
 			return null;
 		}
 
 		public Style setColor(TextFormat color) {
-
 			throw new UnsupportedOperationException();
 		}
 
 		public Style setBold(Boolean boldIn) {
-
 			throw new UnsupportedOperationException();
 		}
 
 		public Style setItalic(Boolean italic) {
-
 			throw new UnsupportedOperationException();
 		}
 
 		public Style setStrikethrough(Boolean strikethrough) {
-
 			throw new UnsupportedOperationException();
 		}
 
 		public Style setUnderlined(Boolean underlined) {
-
 			throw new UnsupportedOperationException();
 		}
 
 		public Style setObfuscated(Boolean obfuscated) {
-
 			throw new UnsupportedOperationException();
 		}
 
 		public Style setClickEvent(ClickEvent event) {
-
 			throw new UnsupportedOperationException();
 		}
 
 		public Style setHoverEvent(HoverEvent event) {
-
 			throw new UnsupportedOperationException();
 		}
 
 		public Style setParentStyle(Style parent) {
-
 			throw new UnsupportedOperationException();
 		}
 
 		public String toString() {
-
 			return "Style.ROOT";
 		}
 
 		public Style createShallowCopy() {
-
 			return this;
 		}
 
 		public Style createDeepCopy() {
-
 			return this;
 		}
 
 		public String getFormattingCode() {
-
 			return "";
 		}
 	};
@@ -146,7 +124,6 @@ public class Style {
 	 * Gets the effective color of this ChatStyle.
 	 */
 	public TextFormat getColor() {
-
 		return color == null ? getParent().getColor() : color;
 	}
 
@@ -155,7 +132,6 @@ public class Style {
 	 * specific methods.
 	 */
 	public Style setColor(TextFormat color) {
-
 		this.color = color;
 		return this;
 	}
@@ -164,7 +140,6 @@ public class Style {
 	 * Whether or not text of this ChatStyle should be in bold.
 	 */
 	public boolean getBold() {
-
 		return bold == null ? getParent().getBold() : bold;
 	}
 
@@ -173,7 +148,6 @@ public class Style {
 	 * and you want text of this style to be unbolded.
 	 */
 	public Style setBold(Boolean boldIn) {
-
 		bold = boldIn;
 		return this;
 	}
@@ -182,7 +156,6 @@ public class Style {
 	 * Whether or not text of this ChatStyle should be italicized.
 	 */
 	public boolean getItalic() {
-
 		return italic == null ? getParent().getItalic() : italic;
 	}
 
@@ -191,7 +164,6 @@ public class Style {
 	 * italicized and you want to override that for this style.
 	 */
 	public Style setItalic(Boolean italic) {
-
 		this.italic = italic;
 		return this;
 	}
@@ -200,7 +172,6 @@ public class Style {
 	 * Whether or not to format text of this ChatStyle using strikethrough.
 	 */
 	public boolean getStrikethrough() {
-
 		return strikethrough == null ? getParent().getStrikethrough() : strikethrough;
 	}
 
@@ -209,7 +180,6 @@ public class Style {
 	 * style uses strikethrough and you want to override that for this style.
 	 */
 	public Style setStrikethrough(Boolean strikethrough) {
-
 		this.strikethrough = strikethrough;
 		return this;
 	}
@@ -218,7 +188,6 @@ public class Style {
 	 * Whether or not text of this ChatStyle should be underlined.
 	 */
 	public boolean getUnderlined() {
-
 		return underlined == null ? getParent().getUnderlined() : underlined;
 	}
 
@@ -227,7 +196,6 @@ public class Style {
 	 * underlined and you want to override that for this style.
 	 */
 	public Style setUnderlined(Boolean underlined) {
-
 		this.underlined = underlined;
 		return this;
 	}
@@ -236,7 +204,6 @@ public class Style {
 	 * Whether or not text of this ChatStyle should be obfuscated.
 	 */
 	public boolean getObfuscated() {
-
 		return obfuscated == null ? getParent().getObfuscated() : obfuscated;
 	}
 
@@ -245,7 +212,6 @@ public class Style {
 	 * obfuscated and you want to override that for this style.
 	 */
 	public Style setObfuscated(Boolean obfuscated) {
-
 		this.obfuscated = obfuscated;
 		return this;
 	}
@@ -254,7 +220,6 @@ public class Style {
 	 * Whether or not this style is empty (inherits everything from the parent).
 	 */
 	public boolean isEmpty() {
-
 		return bold == null && italic == null && strikethrough == null && underlined == null && obfuscated == null && color == null && clickEvent == null && hoverEvent == null && insertion == null;
 	}
 
@@ -264,7 +229,6 @@ public class Style {
 	 * The effective chat click event.
 	 */
 	public ClickEvent getClickEvent() {
-
 		return clickEvent == null ? getParent().getClickEvent() : clickEvent;
 	}
 
@@ -272,7 +236,6 @@ public class Style {
 	 * Sets the event that should be run when text of this ChatStyle is clicked on.
 	 */
 	public Style setClickEvent(ClickEvent event) {
-
 		clickEvent = event;
 		return this;
 	}
@@ -283,7 +246,6 @@ public class Style {
 	 * The effective chat hover event.
 	 */
 	public HoverEvent getHoverEvent() {
-
 		return hoverEvent == null ? getParent().getHoverEvent() : hoverEvent;
 	}
 
@@ -291,7 +253,6 @@ public class Style {
 	 * Sets the event that should be run when text of this ChatStyle is hovered over.
 	 */
 	public Style setHoverEvent(HoverEvent event) {
-
 		hoverEvent = event;
 		return this;
 	}
@@ -302,7 +263,6 @@ public class Style {
 	 * Get the text to be inserted into Chat when the component is shift-clicked
 	 */
 	public String getInsertion() {
-
 		return insertion == null ? getParent().getInsertion() : insertion;
 	}
 
@@ -310,7 +270,6 @@ public class Style {
 	 * Set a text to be inserted into Chat when the component is shift-clicked
 	 */
 	public Style setInsertion(String insertion) {
-
 		this.insertion = insertion;
 		return this;
 	}
@@ -320,7 +279,6 @@ public class Style {
 	 * defaults are used (bold: false, underlined: false, etc).
 	 */
 	public Style setParentStyle(Style parent) {
-
 		parentStyle = parent;
 		return this;
 	}
@@ -331,7 +289,6 @@ public class Style {
 	 * @return A formatted string that can be combined with text to produce this style.
 	 */
 	public String getFormattingCode() {
-
 		if (isEmpty()) {
 			return parentStyle != null ? parentStyle.getFormattingCode() : "";
 		} else {
@@ -369,17 +326,14 @@ public class Style {
 	 * Gets the immediate parent of this ChatStyle.
 	 */
 	private Style getParent() {
-
 		return parentStyle == null ? ROOT : parentStyle;
 	}
 
 	public String toString() {
-
 		return "Style{hasParent=" + (parentStyle != null) + ", color=" + color + ", bold=" + bold + ", italic=" + italic + ", underlined=" + underlined + ", obfuscated=" + obfuscated + ", clickEvent=" + getClickEvent() + ", hoverEvent=" + getHoverEvent() + ", insertion=" + getInsertion() + '}';
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else if (!(p_equals_1_ instanceof Style style)) {
@@ -427,7 +381,6 @@ public class Style {
 	}
 
 	public int hashCode() {
-
 		int i = color.hashCode();
 		i = 31 * i + bold.hashCode();
 		i = 31 * i + italic.hashCode();
@@ -446,7 +399,6 @@ public class Style {
 	 * not override a value.
 	 */
 	public Style createShallowCopy() {
-
 		Style style = new Style();
 		style.bold = bold;
 		style.italic = italic;
@@ -466,7 +418,6 @@ public class Style {
 	 * copy.
 	 */
 	public Style createDeepCopy() {
-
 		Style style = new Style();
 		style.setBold(getBold());
 		style.setItalic(getItalic());
@@ -484,7 +435,6 @@ public class Style {
 
 		
 		public Style deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-
 			if (p_deserialize_1_.isJsonObject()) {
 				Style style = new Style();
 				JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
@@ -558,7 +508,6 @@ public class Style {
 
 		
 		public JsonElement serialize(Style p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
-
 			if (p_serialize_1_.isEmpty()) {
 				return null;
 			} else {

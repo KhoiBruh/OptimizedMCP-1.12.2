@@ -11,20 +11,16 @@ public class ImpossibleTrigger implements ICriterionTrigger<ImpossibleTrigger.In
 	private static final ResourceLocation ID = new ResourceLocation("impossible");
 
 	public ResourceLocation getId() {
-
 		return ID;
 	}
 
 	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ImpossibleTrigger.Instance> listener) {
-
 	}
 
 	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ImpossibleTrigger.Instance> listener) {
-
 	}
 
 	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
-
 	}
 
 	/**
@@ -38,7 +34,6 @@ public class ImpossibleTrigger implements ICriterionTrigger<ImpossibleTrigger.In
 	public static class Instance extends AbstractCriterionInstance {
 
 		public Instance() {
-
 			super(ImpossibleTrigger.ID);
 		}
 

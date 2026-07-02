@@ -41,7 +41,6 @@ public class ModelBook extends ModelBase {
 	public ModelRenderer bookSpine = (new ModelRenderer(this)).setTextureOffset(12, 0).addBox(-1F, -5F, 0F, 2, 10, 0);
 
 	public ModelBook() {
-
 		coverRight.setRotationPoint(0F, 0F, -1F);
 		coverLeft.setRotationPoint(0F, 0F, 1F);
 		bookSpine.rotateAngleY = ((float) Math.PI / 2F);
@@ -51,7 +50,6 @@ public class ModelBook extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		coverRight.render(scale);
 		coverLeft.render(scale);
@@ -68,7 +66,6 @@ public class ModelBook extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		float f = (MathHelper.sin(limbSwing * 0.02F) * 0.1F + 1.25F) * netHeadYaw;
 		coverRight.rotateAngleY = (float) Math.PI + f;
 		coverLeft.rotateAngleY = -f;

@@ -20,7 +20,6 @@ import java.util.List;
 public class ItemEndCrystal extends Item {
 
 	public ItemEndCrystal() {
-
 		setUnlocalizedName("end_crystal");
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
@@ -29,7 +28,6 @@ public class ItemEndCrystal extends Item {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 
 		if (iblockstate.getBlock() != Blocks.OBSIDIAN && iblockstate.getBlock() != Blocks.BEDROCK) {
@@ -84,7 +82,6 @@ public class ItemEndCrystal extends Item {
 	 * the glint for enchanted items. Of course, that is unnecessary if the overwritten version always returns true.
 	 */
 	public boolean hasEffect(ItemStack stack) {
-
 		return true;
 	}
 

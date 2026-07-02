@@ -29,11 +29,9 @@ public class SPacketSpawnMob implements Packet<INetHandlerPlayClient> {
 	private List<EntityDataManager.DataEntry<?>> dataManagerEntries;
 
 	public SPacketSpawnMob() {
-
 	}
 
 	public SPacketSpawnMob(EntityLivingBase entityIn) {
-
 		entityId = entityIn.getEntityId();
 		uniqueId = entityIn.getUniqueID();
 		type = EntityList.REGISTRY.getIDForObject(entityIn.getClass());
@@ -82,7 +80,6 @@ public class SPacketSpawnMob implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) throws IOException {
-
 		entityId = buf.readVarInt();
 		uniqueId = buf.readUniqueId();
 		type = buf.readVarInt();
@@ -102,7 +99,6 @@ public class SPacketSpawnMob implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeVarInt(entityId);
 		buf.writeUniqueId(uniqueId);
 		buf.writeVarInt(type);
@@ -122,7 +118,6 @@ public class SPacketSpawnMob implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleSpawnMob(this);
 	}
 
@@ -133,62 +128,50 @@ public class SPacketSpawnMob implements Packet<INetHandlerPlayClient> {
 	}
 
 	public int getEntityID() {
-
 		return entityId;
 	}
 
 	public UUID getUniqueId() {
-
 		return uniqueId;
 	}
 
 	public int getEntityType() {
-
 		return type;
 	}
 
 	public double getX() {
-
 		return x;
 	}
 
 	public double getY() {
-
 		return y;
 	}
 
 	public double getZ() {
-
 		return z;
 	}
 
 	public int getVelocityX() {
-
 		return velocityX;
 	}
 
 	public int getVelocityY() {
-
 		return velocityY;
 	}
 
 	public int getVelocityZ() {
-
 		return velocityZ;
 	}
 
 	public byte getYaw() {
-
 		return yaw;
 	}
 
 	public byte getPitch() {
-
 		return pitch;
 	}
 
 	public byte getHeadPitch() {
-
 		return headPitch;
 	}
 

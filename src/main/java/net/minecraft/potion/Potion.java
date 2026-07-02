@@ -48,7 +48,6 @@ public class Potion {
 	private boolean beneficial;
 
 	protected Potion(boolean isBadEffectIn, int liquidColorIn) {
-
 		isBadEffect = isBadEffectIn;
 
 		if (isBadEffectIn) {
@@ -66,7 +65,6 @@ public class Potion {
 	 * Gets a Potion from the potion registry using a numeric Id.
 	 */
 	public static Potion getPotionById(int potionID) {
-
 		return REGISTRY.getObjectById(potionID);
 	}
 
@@ -74,18 +72,15 @@ public class Potion {
 	 * Gets the numeric Id associated with a potion.
 	 */
 	public static int getIdFromPotion(Potion potionIn) {
-
 		return REGISTRY.getIDForObject(potionIn);
 	}
 
 	
 	public static Potion getPotionFromResourceLocation(String location) {
-
 		return REGISTRY.getObject(new ResourceLocation(location));
 	}
 
 	public static String getPotionDurationString(PotionEffect effect, float durationFactor) {
-
 		if (effect.getIsPotionDurationMax()) {
 			return "**:**";
 		} else {
@@ -95,7 +90,6 @@ public class Potion {
 	}
 
 	public static void registerPotions() {
-
 		REGISTRY.register(1, new ResourceLocation("speed"), (new Potion(false, 8171462)).setPotionName("effect.moveSpeed").setIconIndex(0, 0).registerPotionAttributeModifier(SharedMonsterAttributes.MOVEMENT_SPEED, "91AEAA56-376B-4498-935B-2F7F68070635", 0.20000000298023224D, 2).setBeneficial());
 		REGISTRY.register(2, new ResourceLocation("slowness"), (new Potion(true, 5926017)).setPotionName("effect.moveSlowdown").setIconIndex(1, 0).registerPotionAttributeModifier(SharedMonsterAttributes.MOVEMENT_SPEED, "7107DE5E-7CE8-4030-940E-514C1F160890", -0.15000000596046448D, 2));
 		REGISTRY.register(3, new ResourceLocation("haste"), (new Potion(false, 14270531)).setPotionName("effect.digSpeed").setIconIndex(2, 0).setEffectiveness(1.5D).setBeneficial().registerPotionAttributeModifier(SharedMonsterAttributes.ATTACK_SPEED, "AF8B6E3F-3328-4C0A-AA36-5BA2BB9DBEF3", 0.10000000149011612D, 2));
@@ -129,13 +123,11 @@ public class Potion {
 	 * Sets the index for the icon displayed in the player's inventory when the status is active.
 	 */
 	protected Potion setIconIndex(int p_76399_1_, int p_76399_2_) {
-
 		statusIconIndex = p_76399_1_ + p_76399_2_ * 8;
 		return this;
 	}
 
 	public void performEffect(EntityLivingBase entityLivingBaseIn, int amplifier) {
-
 		if (this == MobEffects.REGENERATION) {
 			if (entityLivingBaseIn.getHealth() < entityLivingBaseIn.getMaxHealth()) {
 				entityLivingBaseIn.heal(1F);
@@ -162,7 +154,6 @@ public class Potion {
 	}
 
 	public void affectEntity(Entity source, Entity indirectSource, EntityLivingBase entityLivingBaseIn, int amplifier, double health) {
-
 		if ((this != MobEffects.INSTANT_HEALTH || entityLivingBaseIn.isEntityUndead()) && (this != MobEffects.INSTANT_DAMAGE || !entityLivingBaseIn.isEntityUndead())) {
 			if (this == MobEffects.INSTANT_DAMAGE && !entityLivingBaseIn.isEntityUndead() || this == MobEffects.INSTANT_HEALTH && entityLivingBaseIn.isEntityUndead()) {
 				int j = (int) (health * (double) (6 << amplifier) + 0.5D);
@@ -183,7 +174,6 @@ public class Potion {
 	 * checks if Potion effect is ready to be applied this tick.
 	 */
 	public boolean isReady(int duration, int amplifier) {
-
 		if (this == MobEffects.REGENERATION) {
 			int k = 50 >> amplifier;
 
@@ -217,7 +207,6 @@ public class Potion {
 	 * Returns true if the potion has an instant effect instead of a continuous one (eg Harming)
 	 */
 	public boolean isInstant() {
-
 		return false;
 	}
 
@@ -225,7 +214,6 @@ public class Potion {
 	 * Set the potion name.
 	 */
 	public Potion setPotionName(String nameIn) {
-
 		name = nameIn;
 		return this;
 	}
@@ -234,7 +222,6 @@ public class Potion {
 	 * returns the name of the potion
 	 */
 	public String getName() {
-
 		return name;
 	}
 
@@ -242,7 +229,6 @@ public class Potion {
 	 * Returns true if the potion has a associated status icon to display in then inventory when active.
 	 */
 	public boolean hasStatusIcon() {
-
 		return statusIconIndex >= 0;
 	}
 
@@ -250,7 +236,6 @@ public class Potion {
 	 * Returns the index for the icon to display when the potion is active.
 	 */
 	public int getStatusIconIndex() {
-
 		return statusIconIndex;
 	}
 
@@ -258,12 +243,10 @@ public class Potion {
 	 * This method returns true if the potion effect is bad - negative - for the entity.
 	 */
 	public boolean isBadEffect() {
-
 		return isBadEffect;
 	}
 
 	protected Potion setEffectiveness(double effectivenessIn) {
-
 		effectiveness = effectivenessIn;
 		return this;
 	}
@@ -272,7 +255,6 @@ public class Potion {
 	 * Returns the color of the potion liquid.
 	 */
 	public int getLiquidColor() {
-
 		return liquidColor;
 	}
 
@@ -280,7 +262,6 @@ public class Potion {
 	 * Used by potions to register the attribute they modify.
 	 */
 	public Potion registerPotionAttributeModifier(IAttribute attribute, String uniqueId, double ammount, int operation) {
-
 		AttributeModifier attributemodifier = new AttributeModifier(UUID.fromString(uniqueId), getName(), ammount, operation);
 		attributeModifierMap.put(attribute, attributemodifier);
 		return this;
@@ -292,7 +273,6 @@ public class Potion {
 	}
 
 	public void removeAttributesModifiersFromEntity(EntityLivingBase entityLivingBaseIn, AbstractAttributeMap attributeMapIn, int amplifier) {
-
 		for (Entry<IAttribute, AttributeModifier> entry : attributeModifierMap.entrySet()) {
 			IAttributeInstance iattributeinstance = attributeMapIn.getAttributeInstance(entry.getKey());
 
@@ -303,7 +283,6 @@ public class Potion {
 	}
 
 	public void applyAttributesModifiersToEntity(EntityLivingBase entityLivingBaseIn, AbstractAttributeMap attributeMapIn, int amplifier) {
-
 		for (Entry<IAttribute, AttributeModifier> entry : attributeModifierMap.entrySet()) {
 			IAttributeInstance iattributeinstance = attributeMapIn.getAttributeInstance(entry.getKey());
 
@@ -316,7 +295,6 @@ public class Potion {
 	}
 
 	public double getAttributeModifierAmount(int amplifier, AttributeModifier modifier) {
-
 		return modifier.getAmount() * (double) (amplifier + 1);
 	}
 
@@ -324,7 +302,6 @@ public class Potion {
 	 * Get if the potion is beneficial to the player. Beneficial potions are shown on the first row of the HUD
 	 */
 	public boolean isBeneficial() {
-
 		return beneficial;
 	}
 
@@ -332,7 +309,6 @@ public class Potion {
 	 * Set that the potion is beneficial to the player. Beneficial potions are shown on the first row of the HUD
 	 */
 	public Potion setBeneficial() {
-
 		beneficial = true;
 		return this;
 	}

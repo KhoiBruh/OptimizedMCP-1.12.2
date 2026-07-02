@@ -22,7 +22,6 @@ public class EntityAILeapAtTarget extends EntityAIBase {
 	float leapMotionY;
 
 	public EntityAILeapAtTarget(EntityLiving leapingEntity, float leapMotionYIn) {
-
 		leaper = leapingEntity;
 		leapMotionY = leapMotionYIn;
 		setMutexBits(5);
@@ -32,7 +31,6 @@ public class EntityAILeapAtTarget extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		leapTarget = leaper.getAttackTarget();
 
 		if (leapTarget == null) {
@@ -56,7 +54,6 @@ public class EntityAILeapAtTarget extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		return !leaper.onGround;
 	}
 
@@ -64,7 +61,6 @@ public class EntityAILeapAtTarget extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		double d0 = leapTarget.posX - leaper.posX;
 		double d1 = leapTarget.posZ - leaper.posZ;
 		float f = MathHelper.sqrt(d0 * d0 + d1 * d1);

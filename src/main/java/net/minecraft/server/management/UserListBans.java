@@ -8,22 +8,18 @@ import java.io.File;
 public class UserListBans extends UserList<GameProfile, UserListBansEntry> {
 
 	public UserListBans(File bansFile) {
-
 		super(bansFile);
 	}
 
 	protected UserListEntry<GameProfile> createEntry(JsonObject entryData) {
-
 		return new UserListBansEntry(entryData);
 	}
 
 	public boolean isBanned(GameProfile profile) {
-
 		return hasEntry(profile);
 	}
 
 	public String[] getKeys() {
-
 		String[] astring = new String[getValues().size()];
 		int i = 0;
 
@@ -38,7 +34,6 @@ public class UserListBans extends UserList<GameProfile, UserListBansEntry> {
 	 * Gets the key value for the given object
 	 */
 	protected String getObjectKey(GameProfile obj) {
-
 		return obj.getId().toString();
 	}
 
@@ -47,7 +42,6 @@ public class UserListBans extends UserList<GameProfile, UserListBansEntry> {
 	 * found.
 	 */
 	public GameProfile getBannedProfile(String username) {
-
 		for (UserListBansEntry userlistbansentry : getValues().values()) {
 			if (username.equalsIgnoreCase(userlistbansentry.getValue().getName())) {
 				return userlistbansentry.getValue();

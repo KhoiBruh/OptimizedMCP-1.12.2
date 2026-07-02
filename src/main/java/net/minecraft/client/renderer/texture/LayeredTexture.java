@@ -17,12 +17,10 @@ public class LayeredTexture extends AbstractTexture {
 	public final List<String> layeredTextureNames;
 
 	public LayeredTexture(String... textureNames) {
-
 		layeredTextureNames = Lists.newArrayList(textureNames);
 	}
 
 	public void loadTexture(IResourceManager resourceManager) {
-
 		deleteGlTexture();
 		BufferedImage bufferedimage = null;
 

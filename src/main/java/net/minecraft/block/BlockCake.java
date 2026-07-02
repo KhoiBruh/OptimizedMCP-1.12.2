@@ -26,19 +26,16 @@ public class BlockCake extends Block {
 	protected static final AxisAlignedBB[] CAKE_AABB = new AxisAlignedBB[]{new AxisAlignedBB(0.0625D, 0D, 0.0625D, 0.9375D, 0.5D, 0.9375D), new AxisAlignedBB(0.1875D, 0D, 0.0625D, 0.9375D, 0.5D, 0.9375D), new AxisAlignedBB(0.3125D, 0D, 0.0625D, 0.9375D, 0.5D, 0.9375D), new AxisAlignedBB(0.4375D, 0D, 0.0625D, 0.9375D, 0.5D, 0.9375D), new AxisAlignedBB(0.5625D, 0D, 0.0625D, 0.9375D, 0.5D, 0.9375D), new AxisAlignedBB(0.6875D, 0D, 0.0625D, 0.9375D, 0.5D, 0.9375D), new AxisAlignedBB(0.8125D, 0D, 0.0625D, 0.9375D, 0.5D, 0.9375D)};
 
 	protected BlockCake() {
-
 		super(Material.CAKE);
 		setDefaultState(blockState.getBaseState().withProperty(BITES, 0));
 		setTickRandomly(true);
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return CAKE_AABB[state.getValue(BITES)];
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -46,7 +43,6 @@ public class BlockCake extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -54,7 +50,6 @@ public class BlockCake extends Block {
 	 * Called when the block is right clicked by a player.
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		if (!worldIn.isRemote) {
 			return eatCake(worldIn, pos, state, playerIn);
 		} else {
@@ -64,7 +59,6 @@ public class BlockCake extends Block {
 	}
 
 	private boolean eatCake(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
-
 		if (!player.canEat(false)) {
 			return false;
 		} else {
@@ -86,7 +80,6 @@ public class BlockCake extends Block {
 	 * Checks if this block can be placed exactly at the given position.
 	 */
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-
 		return super.canPlaceBlockAt(worldIn, pos) && canBlockStay(worldIn, pos);
 	}
 
@@ -96,14 +89,12 @@ public class BlockCake extends Block {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (!canBlockStay(worldIn, pos)) {
 			worldIn.setBlockToAir(pos);
 		}
 	}
 
 	private boolean canBlockStay(World worldIn, BlockPos pos) {
-
 		return worldIn.getBlockState(pos.down()).getMaterial().isSolid();
 	}
 
@@ -111,7 +102,6 @@ public class BlockCake extends Block {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return 0;
 	}
 
@@ -119,12 +109,10 @@ public class BlockCake extends Block {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Items.AIR;
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return new ItemStack(Items.CAKE);
 	}
 
@@ -133,7 +121,6 @@ public class BlockCake extends Block {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.CUTOUT;
 	}
 
@@ -141,7 +128,6 @@ public class BlockCake extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(BITES, meta);
 	}
 
@@ -149,22 +135,18 @@ public class BlockCake extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(BITES);
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, BITES);
 	}
 
 	public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
-
 		return (7 - blockState.getValue(BITES)) * 2;
 	}
 
 	public boolean hasComparatorInputOverride(IBlockState state) {
-
 		return true;
 	}
 
@@ -178,7 +160,6 @@ public class BlockCake extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

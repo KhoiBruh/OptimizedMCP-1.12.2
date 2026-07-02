@@ -92,7 +92,6 @@ public class PotionTypes {
 	}
 
 	private static PotionType getRegisteredPotionType(String id) {
-
 		PotionType potiontype = PotionType.REGISTRY.getObject(new ResourceLocation(id));
 
 		if (!CACHE.add(potiontype)) {

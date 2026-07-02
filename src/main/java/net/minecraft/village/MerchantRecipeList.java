@@ -12,16 +12,13 @@ import java.util.ArrayList;
 public class MerchantRecipeList extends ArrayList<MerchantRecipe> {
 
 	public MerchantRecipeList() {
-
 	}
 
 	public MerchantRecipeList(NBTTagCompound compound) {
-
 		readRecipiesFromTags(compound);
 	}
 
 	public static MerchantRecipeList readFromBuf(PacketBuffer buffer) {
-
 		MerchantRecipeList merchantrecipelist = new MerchantRecipeList();
 		int i = buffer.readByte() & 255;
 
@@ -55,7 +52,6 @@ public class MerchantRecipeList extends ArrayList<MerchantRecipe> {
 	 * can par1,par2 be used to in crafting recipe par3
 	 */
 	public MerchantRecipe canRecipeBeUsed(ItemStack stack0, ItemStack stack1, int index) {
-
 		if (index > 0 && index < size()) {
 			MerchantRecipe merchantrecipe1 = get(index);
 			return !areItemStacksExactlyEqual(stack0, merchantrecipe1.getItemToBuy()) || (!stack1.isEmpty() || merchantrecipe1.hasSecondItemToBuy()) && (!merchantrecipe1.hasSecondItemToBuy() || !areItemStacksExactlyEqual(stack1, merchantrecipe1.getSecondItemToBuy())) || stack0.getCount() < merchantrecipe1.getItemToBuy().getCount() || merchantrecipe1.hasSecondItemToBuy() && stack1.getCount() < merchantrecipe1.getSecondItemToBuy().getCount() ? null : merchantrecipe1;
@@ -73,12 +69,10 @@ public class MerchantRecipeList extends ArrayList<MerchantRecipe> {
 	}
 
 	private boolean areItemStacksExactlyEqual(ItemStack stack1, ItemStack stack2) {
-
 		return ItemStack.areItemsEqual(stack1, stack2) && (!stack2.hasTagCompound() || stack1.hasTagCompound() && NBTUtil.areNBTEquals(stack2.getTagCompound(), stack1.getTagCompound(), false));
 	}
 
 	public void writeToBuf(PacketBuffer buffer) {
-
 		buffer.writeByte((byte) (size() & 255));
 
 		for (MerchantRecipe merchantrecipe : this) {
@@ -98,7 +92,6 @@ public class MerchantRecipeList extends ArrayList<MerchantRecipe> {
 	}
 
 	public void readRecipiesFromTags(NBTTagCompound compound) {
-
 		NBTTagList nbttaglist = compound.getTagList("Recipes", 10);
 
 		for (int i = 0; i < nbttaglist.tagCount(); ++i) {
@@ -108,7 +101,6 @@ public class MerchantRecipeList extends ArrayList<MerchantRecipe> {
 	}
 
 	public NBTTagCompound getRecipiesAsTags() {
-
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 		NBTTagList nbttaglist = new NBTTagList();
 

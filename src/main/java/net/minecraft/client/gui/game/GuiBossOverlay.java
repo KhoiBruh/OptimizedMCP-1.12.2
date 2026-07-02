@@ -18,12 +18,10 @@ public class GuiBossOverlay extends Gui {
 	private final Map<UUID, BossInfoClient> mapBossInfos = Maps.newLinkedHashMap();
 
 	public GuiBossOverlay(Minecraft clientIn) {
-
 		client = clientIn;
 	}
 
 	public void renderBossHealth() {
-
 		if (!mapBossInfos.isEmpty()) {
 			int i = client.getWindow().getScaledWidth();
 			int j = 12;
@@ -45,7 +43,6 @@ public class GuiBossOverlay extends Gui {
 	}
 
 	private void render(int x, int y, BossInfo info) {
-
 		drawTexturedModalRect(x, y, 0, info.getColor().ordinal() * 5 * 2, 182, 5);
 
 		if (info.getOverlay() != BossInfo.Overlay.PROGRESS) {
@@ -64,7 +61,6 @@ public class GuiBossOverlay extends Gui {
 	}
 
 	public void read(SPacketUpdateBossInfo packetIn) {
-
 		if (packetIn.getOperation() == SPacketUpdateBossInfo.Operation.ADD) {
 			mapBossInfos.put(packetIn.getUniqueId(), new BossInfoClient(packetIn));
 		} else if (packetIn.getOperation() == SPacketUpdateBossInfo.Operation.REMOVE) {
@@ -75,12 +71,10 @@ public class GuiBossOverlay extends Gui {
 	}
 
 	public void clearBossInfos() {
-
 		mapBossInfos.clear();
 	}
 
 	public boolean shouldPlayEndBossMusic() {
-
 		if (!mapBossInfos.isEmpty()) {
 			for (BossInfo bossinfo : mapBossInfos.values()) {
 				if (bossinfo.shouldPlayEndBossMusic()) {
@@ -93,7 +87,6 @@ public class GuiBossOverlay extends Gui {
 	}
 
 	public boolean shouldDarkenSky() {
-
 		if (!mapBossInfos.isEmpty()) {
 			for (BossInfo bossinfo : mapBossInfos.values()) {
 				if (bossinfo.shouldDarkenSky()) {
@@ -106,7 +99,6 @@ public class GuiBossOverlay extends Gui {
 	}
 
 	public boolean shouldCreateFog() {
-
 		if (!mapBossInfos.isEmpty()) {
 			for (BossInfo bossinfo : mapBossInfos.values()) {
 				if (bossinfo.shouldCreateFog()) {

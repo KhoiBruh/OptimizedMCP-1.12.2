@@ -6,12 +6,10 @@ import net.minecraft.client.renderer.entity.RenderLivingBase;
 public class LayerVillagerArmor extends LayerBipedArmor {
 
 	public LayerVillagerArmor(RenderLivingBase<?> rendererIn) {
-
 		super(rendererIn);
 	}
 
 	protected void initArmor() {
-
 		modelLeggings = new ModelZombieVillager(0.5F, 0F, true);
 		modelArmor = new ModelZombieVillager(1F, 0F, true);
 	}

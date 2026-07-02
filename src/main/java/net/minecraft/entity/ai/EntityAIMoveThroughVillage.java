@@ -25,7 +25,6 @@ public class EntityAIMoveThroughVillage extends EntityAIBase {
 	private VillageDoorInfo doorInfo;
 
 	public EntityAIMoveThroughVillage(EntityCreature entityIn, double movementSpeedIn, boolean isNocturnalIn) {
-
 		entity = entityIn;
 		movementSpeed = movementSpeedIn;
 		isNocturnal = isNocturnalIn;
@@ -40,7 +39,6 @@ public class EntityAIMoveThroughVillage extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		resizeDoorList();
 
 		if (isNocturnal && entity.world.isDaytime()) {
@@ -85,7 +83,6 @@ public class EntityAIMoveThroughVillage extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		if (entity.getNavigator().noPath()) {
 			return false;
 		} else {
@@ -98,7 +95,6 @@ public class EntityAIMoveThroughVillage extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		entity.getNavigator().setPath(path, movementSpeed);
 	}
 
@@ -106,14 +102,12 @@ public class EntityAIMoveThroughVillage extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		if (entity.getNavigator().noPath() || entity.getDistanceSq(doorInfo.getDoorBlockPos()) < 16D) {
 			doorList.add(doorInfo);
 		}
 	}
 
 	private VillageDoorInfo findNearestDoor(Village villageIn) {
-
 		VillageDoorInfo villagedoorinfo = null;
 		int i = Integer.MAX_VALUE;
 
@@ -130,7 +124,6 @@ public class EntityAIMoveThroughVillage extends EntityAIBase {
 	}
 
 	private boolean doesDoorListContain(VillageDoorInfo doorInfoIn) {
-
 		for (VillageDoorInfo villagedoorinfo : doorList) {
 			if (doorInfoIn.getDoorBlockPos().equals(villagedoorinfo.getDoorBlockPos())) {
 				return true;
@@ -141,7 +134,6 @@ public class EntityAIMoveThroughVillage extends EntityAIBase {
 	}
 
 	private void resizeDoorList() {
-
 		if (doorList.size() > 15) {
 			doorList.removeFirst();
 		}

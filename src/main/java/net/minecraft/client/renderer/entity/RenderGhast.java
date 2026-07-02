@@ -11,7 +11,6 @@ public class RenderGhast extends RenderLiving<EntityGhast> {
 	private static final ResourceLocation GHAST_SHOOTING_TEXTURES = new ResourceLocation("textures/entity/ghast/ghast_shooting.png");
 
 	public RenderGhast(RenderManager renderManagerIn) {
-
 		super(renderManagerIn, new ModelGhast(), 0.5F);
 	}
 
@@ -19,7 +18,6 @@ public class RenderGhast extends RenderLiving<EntityGhast> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityGhast entity) {
-
 		return entity.isAttacking() ? GHAST_SHOOTING_TEXTURES : GHAST_TEXTURES;
 	}
 
@@ -27,7 +25,6 @@ public class RenderGhast extends RenderLiving<EntityGhast> {
 	 * Allows the render to do state modifications necessary before the model is rendered.
 	 */
 	protected void preRenderCallback(EntityGhast entitylivingbaseIn, float partialTickTime) {
-
 		float f = 1F;
 		float f1 = 4.5F;
 		float f2 = 4.5F;

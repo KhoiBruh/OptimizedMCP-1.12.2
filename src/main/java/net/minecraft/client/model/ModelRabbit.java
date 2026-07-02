@@ -70,7 +70,6 @@ public class ModelRabbit extends ModelBase {
 	private float jumpRotation;
 
 	public ModelRabbit() {
-
 		setTextureOffset("head.main", 0, 0);
 		setTextureOffset("head.nose", 0, 24);
 		setTextureOffset("head.ear1", 0, 10);
@@ -138,7 +137,6 @@ public class ModelRabbit extends ModelBase {
 	}
 
 	private void setRotationOffset(ModelRenderer renderer, float x, float y, float z) {
-
 		renderer.rotateAngleX = x;
 		renderer.rotateAngleY = y;
 		renderer.rotateAngleZ = z;
@@ -148,7 +146,6 @@ public class ModelRabbit extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
 		if (isChild) {
@@ -199,7 +196,6 @@ public class ModelRabbit extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		float f = ageInTicks - (float) entityIn.ticksExisted;
 		EntityRabbit entityrabbit = (EntityRabbit) entityIn;
 		rabbitNose.rotateAngleX = headPitch * 0.017453292F;
@@ -224,7 +220,6 @@ public class ModelRabbit extends ModelBase {
 	 * and third as in the setRotationAngles method.
 	 */
 	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTickTime) {
-
 		super.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTickTime);
 		jumpRotation = MathHelper.sin(((EntityRabbit) entitylivingbaseIn).getJumpCompletion(partialTickTime) * (float) Math.PI);
 	}

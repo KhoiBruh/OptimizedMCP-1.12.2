@@ -11,7 +11,6 @@ import java.util.List;
 public class AnimationMetadataSectionSerializer extends BaseMetadataSectionSerializer<AnimationMetadataSection> implements JsonSerializer<AnimationMetadataSection> {
 
 	public AnimationMetadataSection deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-
 		List<AnimationFrame> list = Lists.newArrayList();
 		JsonObject jsonobject = JsonUtils.getJsonObject(p_deserialize_1_, "metadata section");
 		int i = JsonUtils.getInt(jsonobject, "frametime", 1);
@@ -53,7 +52,6 @@ public class AnimationMetadataSectionSerializer extends BaseMetadataSectionSeria
 	}
 
 	private AnimationFrame parseAnimationFrame(int frame, JsonElement element) {
-
 		if (element.isJsonPrimitive()) {
 			return new AnimationFrame(JsonUtils.getInt(element, "frames[" + frame + "]"));
 		} else if (element.isJsonObject()) {
@@ -73,7 +71,6 @@ public class AnimationMetadataSectionSerializer extends BaseMetadataSectionSeria
 	}
 
 	public JsonElement serialize(AnimationMetadataSection p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
-
 		JsonObject jsonobject = new JsonObject();
 		jsonobject.addProperty("frametime", p_serialize_1_.getFrameTime());
 
@@ -109,7 +106,6 @@ public class AnimationMetadataSectionSerializer extends BaseMetadataSectionSeria
 	 * The name of this section type as it appears in JSON.
 	 */
 	public String getSectionName() {
-
 		return "animation";
 	}
 

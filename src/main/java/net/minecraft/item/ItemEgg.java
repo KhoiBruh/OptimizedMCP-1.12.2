@@ -14,13 +14,11 @@ import net.minecraft.world.World;
 public class ItemEgg extends Item {
 
 	public ItemEgg() {
-
 		maxStackSize = 16;
 		setCreativeTab(CreativeTabs.MATERIALS);
 	}
 
 	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
-
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
 		if (!playerIn.capabilities.isCreativeMode) {

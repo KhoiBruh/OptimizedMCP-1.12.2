@@ -14,7 +14,6 @@ public enum DimensionType {
 	private final Class<? extends WorldProvider> clazz;
 
 	DimensionType(int idIn, String nameIn, String suffixIn, Class<? extends WorldProvider> clazzIn) {
-
 		id = idIn;
 		name = nameIn;
 		suffix = suffixIn;
@@ -22,7 +21,6 @@ public enum DimensionType {
 	}
 
 	public static DimensionType getById(int id) {
-
 		for (DimensionType dimensiontype : values()) {
 			if (dimensiontype.getId() == id) {
 				return dimensiontype;
@@ -33,7 +31,6 @@ public enum DimensionType {
 	}
 
 	public static DimensionType byName(String p_193417_0_) {
-
 		for (DimensionType dimensiontype : values()) {
 			if (dimensiontype.getName().equals(p_193417_0_)) {
 				return dimensiontype;
@@ -44,22 +41,18 @@ public enum DimensionType {
 	}
 
 	public int getId() {
-
 		return id;
 	}
 
 	public String getName() {
-
 		return name;
 	}
 
 	public String getSuffix() {
-
 		return suffix;
 	}
 
 	public WorldProvider createDimension() {
-
 		try {
 			Constructor<? extends WorldProvider> constructor = clazz.getConstructor();
 			return constructor.newInstance();

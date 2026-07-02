@@ -10,7 +10,6 @@ public class EntityAIOwnerHurtByTarget extends EntityAITarget {
 	private int timestamp;
 
 	public EntityAIOwnerHurtByTarget(EntityTameable theDefendingTameableIn) {
-
 		super(theDefendingTameableIn, false);
 		tameable = theDefendingTameableIn;
 		setMutexBits(1);
@@ -20,7 +19,6 @@ public class EntityAIOwnerHurtByTarget extends EntityAITarget {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		if (!tameable.isTamed()) {
 			return false;
 		} else {
@@ -40,7 +38,6 @@ public class EntityAIOwnerHurtByTarget extends EntityAITarget {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		taskOwner.setAttackTarget(attacker);
 		EntityLivingBase entitylivingbase = tameable.getOwner();
 

@@ -6,7 +6,6 @@ import net.minecraft.world.biome.Biome;
 public class GenLayerRiver extends GenLayer {
 
 	public GenLayerRiver(long p_i2128_1_, GenLayer p_i2128_3_) {
-
 		super(p_i2128_1_);
 		super.parent = p_i2128_3_;
 	}
@@ -16,7 +15,6 @@ public class GenLayerRiver extends GenLayer {
 	 * amounts, or Biome ID's based on the particular GenLayer subclass.
 	 */
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
-
 		int i = areaX - 1;
 		int j = areaY - 1;
 		int k = areaWidth + 2;
@@ -44,7 +42,6 @@ public class GenLayerRiver extends GenLayer {
 	}
 
 	private int riverFilter(int p_151630_1_) {
-
 		return p_151630_1_ >= 2 ? 2 + (p_151630_1_ & 1) : p_151630_1_;
 	}
 

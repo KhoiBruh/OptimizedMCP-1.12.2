@@ -12,7 +12,6 @@ import net.minecraft.world.World;
 public class ItemShears extends Item {
 
 	public ItemShears() {
-
 		setMaxStackSize(1);
 		setMaxDamage(238);
 		setCreativeTab(CreativeTabs.TOOLS);
@@ -22,7 +21,6 @@ public class ItemShears extends Item {
 	 * Called when a Block is destroyed using this Item. Return true to trigger the "Use Item" statistic.
 	 */
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-
 		if (!worldIn.isRemote) {
 			stack.damageItem(1, entityLiving);
 		}
@@ -35,13 +33,11 @@ public class ItemShears extends Item {
 	 * Check whether this Item can harvest the given Block
 	 */
 	public boolean canHarvestBlock(IBlockState blockIn) {
-
 		Block block = blockIn.getBlock();
 		return block == Blocks.WEB || block == Blocks.REDSTONE_WIRE || block == Blocks.TRIPWIRE;
 	}
 
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
-
 		Block block = state.getBlock();
 
 		if (block != Blocks.WEB && state.getMaterial() != Material.LEAVES) {

@@ -40,7 +40,6 @@ public class EntityList {
 	 * Gets the {@link ResourceLocation} that identifies the given entity's type.
 	 */
 	public static ResourceLocation getKey(Entity entityIn) {
-
 		return getKey(entityIn.getClass());
 	}
 
@@ -52,7 +51,6 @@ public class EntityList {
 	 * @return The resource location, or null if the {@link #REGISTRY} does not contain a mapping for that class.
 	 */
 	public static ResourceLocation getKey(Class<? extends Entity> entityIn) {
-
 		return REGISTRY.getNameForObject(entityIn);
 	}
 
@@ -65,7 +63,6 @@ public class EntityList {
 	 * @return The entity's original name, or null if the given entity's type is not known.
 	 */
 	public static String getEntityString(Entity entityIn) {
-
 		int i = REGISTRY.getIDForObject(entityIn.getClass());
 		return i == -1 ? null : OLD_NAMES.get(i);
 	}
@@ -83,7 +80,6 @@ public class EntityList {
 	 * @return The original entity name, or null if there is no known entity for that type.
 	 */
 	public static String getTranslationName(ResourceLocation entityType) {
-
 		int i = REGISTRY.getIDForObject(REGISTRY.getObject(entityType));
 		return i == -1 ? null : OLD_NAMES.get(i);
 	}
@@ -108,7 +104,6 @@ public class EntityList {
 	 * @return The newly created entity, or null if creation failed
 	 */
 	public static Entity newEntity(Class<? extends Entity> clazz, World worldIn) {
-
 		if (clazz == null) {
 			return null;
 		} else {
@@ -129,7 +124,6 @@ public class EntityList {
 	 * @return The newly created entity, or null if creation failed
 	 */
 	public static Entity createEntityByID(int entityID, World worldIn) {
-
 		return newEntity(getClassFromID(entityID), worldIn);
 	}
 
@@ -141,7 +135,6 @@ public class EntityList {
 	 * @return The newly created entity, or null if creation failed
 	 */
 	public static Entity createEntityByIDFromName(ResourceLocation name, World worldIn) {
-
 		return newEntity(REGISTRY.getObject(name), worldIn);
 	}
 
@@ -155,7 +148,6 @@ public class EntityList {
 	 * @return The newly created entity, or null
 	 */
 	public static Entity createEntityFromNBT(NBTTagCompound nbt, World worldIn) {
-
 		ResourceLocation resourcelocation = new ResourceLocation(nbt.getString("id"));
 		Entity entity = createEntityByIDFromName(resourcelocation, worldIn);
 
@@ -169,7 +161,6 @@ public class EntityList {
 	}
 
 	public static Set<ResourceLocation> getEntityNameList() {
-
 		return KNOWN_TYPES;
 	}
 
@@ -180,7 +171,6 @@ public class EntityList {
 	 * @return true if the type matches
 	 */
 	public static boolean isMatchingName(Entity entityIn, ResourceLocation entityName) {
-
 		ResourceLocation resourcelocation = getKey(entityIn.getClass());
 
 		if (resourcelocation != null) {
@@ -199,12 +189,10 @@ public class EntityList {
 	 * @return true if the type is an entity.
 	 */
 	public static boolean isRegistered(ResourceLocation entityName) {
-
 		return PLAYER.equals(entityName) || getEntityNameList().contains(entityName);
 	}
 
 	public static String getValidTypeNames() {
-
 		StringBuilder stringbuilder = new StringBuilder();
 
 		for (ResourceLocation resourcelocation : getEntityNameList()) {
@@ -216,7 +204,6 @@ public class EntityList {
 	}
 
 	public static void init() {
-
 		register(1, "item", EntityItem.class, "Item");
 		register(2, "xp_orb", EntityXPOrb.class, "XPOrb");
 		register(3, "area_effect_cloud", EntityAreaEffectCloud.class, "AreaEffectCloud");
@@ -347,7 +334,6 @@ public class EntityList {
 	}
 
 	private static void register(int id, String name, Class<? extends Entity> clazz, String oldName) {
-
 		try {
 			clazz.getConstructor(World.class);
 		} catch (NoSuchMethodException var5) {
@@ -384,7 +370,6 @@ public class EntityList {
 		public final StatBase entityKilledByStat;
 
 		public EntityEggInfo(ResourceLocation idIn, int primaryColorIn, int secondaryColorIn) {
-
 			spawnedID = idIn;
 			primaryColor = primaryColorIn;
 			secondaryColor = secondaryColorIn;

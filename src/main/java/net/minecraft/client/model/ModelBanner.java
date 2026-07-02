@@ -7,7 +7,6 @@ public class ModelBanner extends ModelBase {
 	public ModelRenderer bannerTop;
 
 	public ModelBanner() {
-
 		textureWidth = 64;
 		textureHeight = 64;
 		bannerSlate = new ModelRenderer(this, 0, 0);
@@ -22,7 +21,6 @@ public class ModelBanner extends ModelBase {
 	 * Renders the banner model in.
 	 */
 	public void renderBanner() {
-
 		bannerSlate.rotationPointY = -32F;
 		bannerSlate.render(0.0625F);
 		bannerStand.render(0.0625F);

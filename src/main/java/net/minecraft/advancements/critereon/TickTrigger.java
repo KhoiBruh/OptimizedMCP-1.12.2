@@ -19,12 +19,10 @@ public class TickTrigger implements ICriterionTrigger<TickTrigger.Instance> {
 	private final Map<PlayerAdvancements, TickTrigger.Listeners> listeners = Maps.newHashMap();
 
 	public ResourceLocation getId() {
-
 		return ID;
 	}
 
 	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<TickTrigger.Instance> listener) {
-
 		TickTrigger.Listeners ticktrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (ticktrigger$listeners == null) {
@@ -36,7 +34,6 @@ public class TickTrigger implements ICriterionTrigger<TickTrigger.Instance> {
 	}
 
 	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<TickTrigger.Instance> listener) {
-
 		TickTrigger.Listeners ticktrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (ticktrigger$listeners != null) {
@@ -49,7 +46,6 @@ public class TickTrigger implements ICriterionTrigger<TickTrigger.Instance> {
 	}
 
 	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
-
 		listeners.remove(playerAdvancementsIn);
 	}
 
@@ -62,7 +58,6 @@ public class TickTrigger implements ICriterionTrigger<TickTrigger.Instance> {
 	}
 
 	public void trigger(EntityPlayerMP player) {
-
 		TickTrigger.Listeners ticktrigger$listeners = listeners.get(player.getAdvancements());
 
 		if (ticktrigger$listeners != null) {
@@ -73,7 +68,6 @@ public class TickTrigger implements ICriterionTrigger<TickTrigger.Instance> {
 	public static class Instance extends AbstractCriterionInstance {
 
 		public Instance() {
-
 			super(TickTrigger.ID);
 		}
 
@@ -85,27 +79,22 @@ public class TickTrigger implements ICriterionTrigger<TickTrigger.Instance> {
 		private final Set<ICriterionTrigger.Listener<TickTrigger.Instance>> listeners = Sets.newHashSet();
 
 		public Listeners(PlayerAdvancements playerAdvancementsIn) {
-
 			playerAdvancements = playerAdvancementsIn;
 		}
 
 		public boolean isEmpty() {
-
 			return listeners.isEmpty();
 		}
 
 		public void add(ICriterionTrigger.Listener<TickTrigger.Instance> listener) {
-
 			listeners.add(listener);
 		}
 
 		public void remove(ICriterionTrigger.Listener<TickTrigger.Instance> listener) {
-
 			listeners.remove(listener);
 		}
 
 		public void trigger() {
-
 			for (ICriterionTrigger.Listener<TickTrigger.Instance> listener : Lists.newArrayList(listeners)) {
 				listener.grantCriterion(playerAdvancements);
 			}

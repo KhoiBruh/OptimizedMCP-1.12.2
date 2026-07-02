@@ -21,12 +21,10 @@ public class UsedTotemTrigger implements ICriterionTrigger<UsedTotemTrigger.Inst
 	private final Map<PlayerAdvancements, UsedTotemTrigger.Listeners> listeners = Maps.newHashMap();
 
 	public ResourceLocation getId() {
-
 		return ID;
 	}
 
 	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<UsedTotemTrigger.Instance> listener) {
-
 		UsedTotemTrigger.Listeners usedtotemtrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (usedtotemtrigger$listeners == null) {
@@ -38,7 +36,6 @@ public class UsedTotemTrigger implements ICriterionTrigger<UsedTotemTrigger.Inst
 	}
 
 	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<UsedTotemTrigger.Instance> listener) {
-
 		UsedTotemTrigger.Listeners usedtotemtrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (usedtotemtrigger$listeners != null) {
@@ -51,7 +48,6 @@ public class UsedTotemTrigger implements ICriterionTrigger<UsedTotemTrigger.Inst
 	}
 
 	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
-
 		listeners.remove(playerAdvancementsIn);
 	}
 
@@ -65,7 +61,6 @@ public class UsedTotemTrigger implements ICriterionTrigger<UsedTotemTrigger.Inst
 	}
 
 	public void trigger(EntityPlayerMP player, ItemStack item) {
-
 		UsedTotemTrigger.Listeners usedtotemtrigger$listeners = listeners.get(player.getAdvancements());
 
 		if (usedtotemtrigger$listeners != null) {
@@ -78,13 +73,11 @@ public class UsedTotemTrigger implements ICriterionTrigger<UsedTotemTrigger.Inst
 		private final ItemPredicate item;
 
 		public Instance(ItemPredicate item) {
-
 			super(UsedTotemTrigger.ID);
 			this.item = item;
 		}
 
 		public boolean test(ItemStack item) {
-
 			return this.item.test(item);
 		}
 
@@ -96,27 +89,22 @@ public class UsedTotemTrigger implements ICriterionTrigger<UsedTotemTrigger.Inst
 		private final Set<ICriterionTrigger.Listener<UsedTotemTrigger.Instance>> listeners = Sets.newHashSet();
 
 		public Listeners(PlayerAdvancements playerAdvancementsIn) {
-
 			playerAdvancements = playerAdvancementsIn;
 		}
 
 		public boolean isEmpty() {
-
 			return listeners.isEmpty();
 		}
 
 		public void add(ICriterionTrigger.Listener<UsedTotemTrigger.Instance> listener) {
-
 			listeners.add(listener);
 		}
 
 		public void remove(ICriterionTrigger.Listener<UsedTotemTrigger.Instance> listener) {
-
 			listeners.remove(listener);
 		}
 
 		public void trigger(ItemStack item) {
-
 			List<ICriterionTrigger.Listener<UsedTotemTrigger.Instance>> list = null;
 
 			for (ICriterionTrigger.Listener<UsedTotemTrigger.Instance> listener : listeners) {

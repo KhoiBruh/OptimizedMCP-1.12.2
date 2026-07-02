@@ -18,7 +18,6 @@ import java.util.List;
 public class ItemShield extends Item {
 
 	public ItemShield() {
-
 		maxStackSize = 1;
 		setCreativeTab(CreativeTabs.COMBAT);
 		setMaxDamage(336);
@@ -27,7 +26,6 @@ public class ItemShield extends Item {
 	}
 
 	public String getItemStackDisplayName(ItemStack stack) {
-
 		if (stack.getSubCompound("BlockEntityTag") != null) {
 			DyeColor enumdyecolor = TileEntityBanner.getColor(stack);
 			return I18n.translateToLocal("item.shield." + enumdyecolor.getUnlocalizedName() + ".name");
@@ -40,7 +38,6 @@ public class ItemShield extends Item {
 	 * allows items to add custom lines of information to the mouseover description
 	 */
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-
 		ItemBanner.appendHoverTextFromTileEntityTag(stack, tooltip);
 	}
 
@@ -48,7 +45,6 @@ public class ItemShield extends Item {
 	 * returns the action that specifies what animation to play when the items is being used
 	 */
 	public Action getItemUseAction(ItemStack stack) {
-
 		return Action.BLOCK;
 	}
 
@@ -56,12 +52,10 @@ public class ItemShield extends Item {
 	 * How long it takes to use or consume an item
 	 */
 	public int getMaxItemUseDuration(ItemStack stack) {
-
 		return 72000;
 	}
 
 	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
-
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		playerIn.setActiveHand(handIn);
 		return new TypedActionResult<>(ActionResult.SUCCESS, itemstack);
@@ -74,7 +68,6 @@ public class ItemShield extends Item {
 	 * @param repair   the {@code ItemStack} being used to perform the repair
 	 */
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-
 		return repair.getItem() == Item.getItemFromBlock(Blocks.PLANKS) || super.getIsRepairable(toRepair, repair);
 	}
 

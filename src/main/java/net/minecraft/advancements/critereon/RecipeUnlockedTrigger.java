@@ -24,12 +24,10 @@ public class RecipeUnlockedTrigger implements ICriterionTrigger<RecipeUnlockedTr
 	private final Map<PlayerAdvancements, RecipeUnlockedTrigger.Listeners> listeners = Maps.newHashMap();
 
 	public ResourceLocation getId() {
-
 		return ID;
 	}
 
 	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance> listener) {
-
 		RecipeUnlockedTrigger.Listeners recipeunlockedtrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (recipeunlockedtrigger$listeners == null) {
@@ -41,7 +39,6 @@ public class RecipeUnlockedTrigger implements ICriterionTrigger<RecipeUnlockedTr
 	}
 
 	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance> listener) {
-
 		RecipeUnlockedTrigger.Listeners recipeunlockedtrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (recipeunlockedtrigger$listeners != null) {
@@ -54,7 +51,6 @@ public class RecipeUnlockedTrigger implements ICriterionTrigger<RecipeUnlockedTr
 	}
 
 	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
-
 		listeners.remove(playerAdvancementsIn);
 	}
 
@@ -74,7 +70,6 @@ public class RecipeUnlockedTrigger implements ICriterionTrigger<RecipeUnlockedTr
 	}
 
 	public void trigger(EntityPlayerMP player, IRecipe recipe) {
-
 		RecipeUnlockedTrigger.Listeners recipeunlockedtrigger$listeners = listeners.get(player.getAdvancements());
 
 		if (recipeunlockedtrigger$listeners != null) {
@@ -87,13 +82,11 @@ public class RecipeUnlockedTrigger implements ICriterionTrigger<RecipeUnlockedTr
 		private final IRecipe recipe;
 
 		public Instance(IRecipe recipe) {
-
 			super(RecipeUnlockedTrigger.ID);
 			this.recipe = recipe;
 		}
 
 		public boolean test(IRecipe recipe) {
-
 			return this.recipe == recipe;
 		}
 
@@ -105,27 +98,22 @@ public class RecipeUnlockedTrigger implements ICriterionTrigger<RecipeUnlockedTr
 		private final Set<ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance>> listeners = Sets.newHashSet();
 
 		public Listeners(PlayerAdvancements playerAdvancementsIn) {
-
 			playerAdvancements = playerAdvancementsIn;
 		}
 
 		public boolean isEmpty() {
-
 			return listeners.isEmpty();
 		}
 
 		public void add(ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance> listener) {
-
 			listeners.add(listener);
 		}
 
 		public void remove(ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance> listener) {
-
 			listeners.remove(listener);
 		}
 
 		public void trigger(IRecipe recipe) {
-
 			List<ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance>> list = null;
 
 			for (ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance> listener : listeners) {

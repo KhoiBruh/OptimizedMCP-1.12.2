@@ -6,7 +6,6 @@ import net.minecraft.util.NonNullList;
 public class ItemCoal extends Item {
 
 	public ItemCoal() {
-
 		setHasSubtypes(true);
 		setMaxDamage(0);
 		setCreativeTab(CreativeTabs.MATERIALS);
@@ -17,7 +16,6 @@ public class ItemCoal extends Item {
 	 * different names based on their damage or NBT.
 	 */
 	public String getUnlocalizedName(ItemStack stack) {
-
 		return stack.getMetadata() == 1 ? "item.charcoal" : "item.coal";
 	}
 
@@ -25,7 +23,6 @@ public class ItemCoal extends Item {
 	 * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
 	 */
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-
 		if (isInCreativeTab(tab)) {
 			items.add(new ItemStack(this, 1, 0));
 			items.add(new ItemStack(this, 1, 1));

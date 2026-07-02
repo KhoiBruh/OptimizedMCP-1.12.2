@@ -10,11 +10,9 @@ public class RenderPigZombie extends RenderBiped<EntityPigZombie> {
 	private static final ResourceLocation ZOMBIE_PIGMAN_TEXTURE = new ResourceLocation("textures/entity/zombie_pigman.png");
 
 	public RenderPigZombie(RenderManager renderManagerIn) {
-
 		super(renderManagerIn, new ModelZombie(), 0.5F);
 		addLayer(new LayerBipedArmor(this) {
 			protected void initArmor() {
-
 				modelLeggings = new ModelZombie(0.5F, true);
 				modelArmor = new ModelZombie(1F, true);
 			}
@@ -25,7 +23,6 @@ public class RenderPigZombie extends RenderBiped<EntityPigZombie> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityPigZombie entity) {
-
 		return ZOMBIE_PIGMAN_TEXTURE;
 	}
 

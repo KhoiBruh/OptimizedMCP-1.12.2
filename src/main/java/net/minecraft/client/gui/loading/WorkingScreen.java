@@ -14,7 +14,6 @@ public class WorkingScreen extends Screen implements IProgressUpdate {
 	 * Shows the 'Saving level' string.
 	 */
 	public void savingMessage(String message) {
-
 		resetProgressAndMessage(message);
 	}
 
@@ -23,7 +22,6 @@ public class WorkingScreen extends Screen implements IProgressUpdate {
 	 * and the WorkingString to "working...".
 	 */
 	public void resetProgressAndMessage(String message) {
-
 		title = message;
 		loadingMessage("Working...");
 	}
@@ -32,7 +30,6 @@ public class WorkingScreen extends Screen implements IProgressUpdate {
 	 * Displays a string on the loading screen supposed to indicate what is being done currently.
 	 */
 	public void loadingMessage(String message) {
-
 		stage = message;
 		setLoadingProgress(0);
 	}
@@ -41,12 +38,10 @@ public class WorkingScreen extends Screen implements IProgressUpdate {
 	 * Updates the progress bar on the loading screen to the specified amount.
 	 */
 	public void setLoadingProgress(int progress) {
-
 		this.progress = progress;
 	}
 
 	public void setDoneWorking() {
-
 		doneWorking = true;
 	}
 
@@ -54,7 +49,6 @@ public class WorkingScreen extends Screen implements IProgressUpdate {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		if (doneWorking) {
 			mc.displayScreen(null);
 		} else {

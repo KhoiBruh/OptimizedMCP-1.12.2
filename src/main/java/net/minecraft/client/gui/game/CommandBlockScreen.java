@@ -40,7 +40,6 @@ public class CommandBlockScreen extends Screen implements ITabCompleter {
 	private boolean automatic;
 
 	public CommandBlockScreen(TileEntityCommandBlock commandBlockIn) {
-
 		commandBlock = commandBlockIn;
 	}
 
@@ -48,7 +47,6 @@ public class CommandBlockScreen extends Screen implements ITabCompleter {
 	 * Called from the main game loop to update the screen.
 	 */
 	public void update() {
-
 		commandTextField.updateCursorCounter();
 	}
 
@@ -57,7 +55,6 @@ public class CommandBlockScreen extends Screen implements ITabCompleter {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		final CommandBlockBaseLogic commandblockbaselogic = commandBlock.getCommandBlockLogic();
 		Keyboard.setRepeat(true);
 		buttons.clear();
@@ -82,14 +79,12 @@ public class CommandBlockScreen extends Screen implements ITabCompleter {
 		tabCompleter = new TabCompleter(commandTextField, true) {
 			
 			public BlockPos getTargetBlockPos() {
-
 				return commandblockbaselogic.getPosition();
 			}
 		};
 	}
 
 	public void updateGui() {
-
 		CommandBlockBaseLogic commandblockbaselogic = commandBlock.getCommandBlockLogic();
 		commandTextField.setText(commandblockbaselogic.getCommand());
 		trackOutput = commandblockbaselogic.shouldTrackOutput();
@@ -111,7 +106,6 @@ public class CommandBlockScreen extends Screen implements ITabCompleter {
 	 * Called when the screen is unloaded. Used to disable keyboard repeat events
 	 */
 	public void close() {
-
 		Keyboard.setRepeat(false);
 	}
 
@@ -119,7 +113,6 @@ public class CommandBlockScreen extends Screen implements ITabCompleter {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.enabled) {
 			CommandBlockBaseLogic commandblockbaselogic = commandBlock.getCommandBlockLogic();
 
@@ -162,7 +155,6 @@ public class CommandBlockScreen extends Screen implements ITabCompleter {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) {
-
 		tabCompleter.resetRequested();
 
 		if (keyCode == 258) {
@@ -187,7 +179,6 @@ public class CommandBlockScreen extends Screen implements ITabCompleter {
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
-
 		super.mouseClicked(mouseX, mouseY, mouse);
 		commandTextField.mouseClicked(mouseX, mouseY, mouse);
 		previousOutputTextField.mouseClicked(mouseX, mouseY, mouse);
@@ -197,7 +188,6 @@ public class CommandBlockScreen extends Screen implements ITabCompleter {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, I18n.format("advMode.setCommand"), width / 2, 20, 16777215);
 		drawString(fontRenderer, I18n.format("advMode.command"), width / 2 - 150, 40, 10526880);
@@ -220,7 +210,6 @@ public class CommandBlockScreen extends Screen implements ITabCompleter {
 	}
 
 	private void updateCmdOutput() {
-
 		CommandBlockBaseLogic commandblockbaselogic = commandBlock.getCommandBlockLogic();
 
 		if (commandblockbaselogic.shouldTrackOutput()) {
@@ -236,7 +225,6 @@ public class CommandBlockScreen extends Screen implements ITabCompleter {
 	}
 
 	private void updateMode() {
-
 		switch (commandBlockMode) {
 			case SEQUENCE:
 				modeBtn.displayString = I18n.format("advMode.mode.sequence");
@@ -252,7 +240,6 @@ public class CommandBlockScreen extends Screen implements ITabCompleter {
 	}
 
 	private void nextMode() {
-
 		switch (commandBlockMode) {
 			case SEQUENCE:
 				commandBlockMode = TileEntityCommandBlock.Mode.AUTO;
@@ -268,7 +255,6 @@ public class CommandBlockScreen extends Screen implements ITabCompleter {
 	}
 
 	private void updateConditional() {
-
 		if (conditional) {
 			conditionalBtn.displayString = I18n.format("advMode.mode.conditional");
 		} else {
@@ -277,7 +263,6 @@ public class CommandBlockScreen extends Screen implements ITabCompleter {
 	}
 
 	private void updateAutoExec() {
-
 		if (automatic) {
 			autoExecBtn.displayString = I18n.format("advMode.mode.autoexec.bat");
 		} else {
@@ -289,7 +274,6 @@ public class CommandBlockScreen extends Screen implements ITabCompleter {
 	 * Sets the list of tab completions, as long as they were previously requested.
 	 */
 	public void setCompletions(String... newCompletions) {
-
 		tabCompleter.setCompletions(newCompletions);
 	}
 

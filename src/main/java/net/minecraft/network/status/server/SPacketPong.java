@@ -9,11 +9,9 @@ public class SPacketPong implements Packet<INetHandlerStatusClient> {
 	private long clientTime;
 
 	public SPacketPong() {
-
 	}
 
 	public SPacketPong(long clientTimeIn) {
-
 		clientTime = clientTimeIn;
 	}
 
@@ -21,7 +19,6 @@ public class SPacketPong implements Packet<INetHandlerStatusClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		clientTime = buf.readLong();
 	}
 
@@ -29,7 +26,6 @@ public class SPacketPong implements Packet<INetHandlerStatusClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeLong(clientTime);
 	}
 
@@ -37,7 +33,6 @@ public class SPacketPong implements Packet<INetHandlerStatusClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerStatusClient handler) {
-
 		handler.handlePong(this);
 	}
 

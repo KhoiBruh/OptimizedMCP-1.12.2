@@ -15,7 +15,6 @@ import java.util.Random;
 public class BlockSeaLantern extends Block {
 
 	public BlockSeaLantern(Material materialIn) {
-
 		super(materialIn);
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 	}
@@ -24,7 +23,6 @@ public class BlockSeaLantern extends Block {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return 2 + random.nextInt(2);
 	}
 
@@ -32,7 +30,6 @@ public class BlockSeaLantern extends Block {
 	 * Get the quantity dropped based on the given fortune level
 	 */
 	public int quantityDroppedWithBonus(int fortune, Random random) {
-
 		return MathHelper.clamp(quantityDropped(random) + random.nextInt(fortune + 1), 1, 5);
 	}
 
@@ -40,7 +37,6 @@ public class BlockSeaLantern extends Block {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Items.PRISMARINE_CRYSTALS;
 	}
 
@@ -48,12 +44,10 @@ public class BlockSeaLantern extends Block {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return MapColor.QUARTZ;
 	}
 
 	protected boolean canSilkHarvest() {
-
 		return true;
 	}
 

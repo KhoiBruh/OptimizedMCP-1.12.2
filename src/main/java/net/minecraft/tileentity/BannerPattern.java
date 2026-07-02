@@ -52,7 +52,6 @@ public enum BannerPattern {
 	private ItemStack patternItem;
 
 	BannerPattern(String p_i47245_3_, String p_i47245_4_) {
-
 		patterns = new String[3];
 		patternItem = ItemStack.EMPTY;
 		fileName = p_i47245_3_;
@@ -60,13 +59,11 @@ public enum BannerPattern {
 	}
 
 	BannerPattern(String p_i47246_3_, String p_i47246_4_, ItemStack p_i47246_5_) {
-
 		this(p_i47246_3_, p_i47246_4_);
 		patternItem = p_i47246_5_;
 	}
 
 	BannerPattern(String p_i47247_3_, String p_i47247_4_, String p_i47247_5_, String p_i47247_6_, String p_i47247_7_) {
-
 		this(p_i47247_3_, p_i47247_4_);
 		patterns[0] = p_i47247_5_;
 		patterns[1] = p_i47247_6_;
@@ -75,7 +72,6 @@ public enum BannerPattern {
 
 	
 	public static BannerPattern byHash(String hash) {
-
 		for (BannerPattern bannerpattern : values()) {
 			if (bannerpattern.hashname.equals(hash)) {
 				return bannerpattern;
@@ -86,32 +82,26 @@ public enum BannerPattern {
 	}
 
 	public String getFileName() {
-
 		return fileName;
 	}
 
 	public String getHashname() {
-
 		return hashname;
 	}
 
 	public String[] getPatterns() {
-
 		return patterns;
 	}
 
 	public boolean hasPattern() {
-
 		return !patternItem.isEmpty() || patterns[0] != null;
 	}
 
 	public boolean hasPatternItem() {
-
 		return !patternItem.isEmpty();
 	}
 
 	public ItemStack getPatternItem() {
-
 		return patternItem;
 	}
 }

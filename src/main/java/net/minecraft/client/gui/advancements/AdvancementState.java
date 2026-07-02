@@ -7,12 +7,10 @@ public enum AdvancementState {
 	private final int id;
 
 	AdvancementState(int id) {
-
 		this.id = id;
 	}
 
 	public int getId() {
-
 		return id;
 	}
 }

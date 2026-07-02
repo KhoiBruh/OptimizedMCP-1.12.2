@@ -22,12 +22,10 @@ public class EntityLlamaSpit extends Entity implements IProjectile {
 	private NBTTagCompound ownerNbt;
 
 	public EntityLlamaSpit(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public EntityLlamaSpit(World worldIn, EntityLlama p_i47273_2_) {
-
 		super(worldIn);
 		owner = p_i47273_2_;
 		setPosition(p_i47273_2_.posX - (double) (p_i47273_2_.width + 1F) * 0.5D * (double) MathHelper.sin(p_i47273_2_.renderYawOffset * 0.017453292F), p_i47273_2_.posY + (double) p_i47273_2_.getEyeHeight() - 0.10000000149011612D, p_i47273_2_.posZ + (double) (p_i47273_2_.width + 1F) * 0.5D * (double) MathHelper.cos(p_i47273_2_.renderYawOffset * 0.017453292F));
@@ -35,7 +33,6 @@ public class EntityLlamaSpit extends Entity implements IProjectile {
 	}
 
 	public EntityLlamaSpit(World worldIn, double x, double y, double z, double p_i47274_8_, double p_i47274_10_, double p_i47274_12_) {
-
 		super(worldIn);
 		setPosition(x, y, z);
 
@@ -53,7 +50,6 @@ public class EntityLlamaSpit extends Entity implements IProjectile {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		super.onUpdate();
 
 		if (ownerNbt != null) {
@@ -127,7 +123,6 @@ public class EntityLlamaSpit extends Entity implements IProjectile {
 	 * Updates the entity motion clientside, called by packets from the server
 	 */
 	public void setVelocity(double x, double y, double z) {
-
 		motionX = x;
 		motionY = y;
 		motionZ = z;
@@ -144,7 +139,6 @@ public class EntityLlamaSpit extends Entity implements IProjectile {
 
 	
 	private Entity getHitEntity(Vec3d p_190538_1_, Vec3d p_190538_2_) {
-
 		Entity entity = null;
 		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(motionX, motionY, motionZ).grow(1D));
 		double d0 = 0D;
@@ -172,7 +166,6 @@ public class EntityLlamaSpit extends Entity implements IProjectile {
 	 * Similar to setArrowHeading, it's point the throwable entity to a x, y, z direction.
 	 */
 	public void shoot(double x, double y, double z, float velocity, float inaccuracy) {
-
 		float f = MathHelper.sqrt(x * x + y * y + z * z);
 		x = x / (double) f;
 		y = y / (double) f;
@@ -194,7 +187,6 @@ public class EntityLlamaSpit extends Entity implements IProjectile {
 	}
 
 	public void onHit(RayTraceResult p_190536_1_) {
-
 		if (p_190536_1_.entityHit != null && owner != null) {
 			p_190536_1_.entityHit.attackEntityFrom(DamageSource.causeIndirectDamage(this, owner).setProjectile(), 1F);
 		}
@@ -205,14 +197,12 @@ public class EntityLlamaSpit extends Entity implements IProjectile {
 	}
 
 	protected void entityInit() {
-
 	}
 
 	/**
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	protected void readEntityFromNBT(NBTTagCompound compound) {
-
 		if (compound.hasKey("Owner", 10)) {
 			ownerNbt = compound.getCompoundTag("Owner");
 		}
@@ -222,7 +212,6 @@ public class EntityLlamaSpit extends Entity implements IProjectile {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	protected void writeEntityToNBT(NBTTagCompound compound) {
-
 		if (owner != null) {
 			NBTTagCompound nbttagcompound = new NBTTagCompound();
 			UUID uuid = owner.getUniqueID();
@@ -232,7 +221,6 @@ public class EntityLlamaSpit extends Entity implements IProjectile {
 	}
 
 	private void restoreOwnerFromSave() {
-
 		if (ownerNbt != null && ownerNbt.hasUniqueId("OwnerUUID")) {
 			UUID uuid = ownerNbt.getUniqueId("OwnerUUID");
 

@@ -27,19 +27,16 @@ public class DebugRendererPathfinding implements DebugRenderer.IDebugRenderer {
 	private double zo;
 
 	public DebugRendererPathfinding(Minecraft minecraftIn) {
-
 		minecraft = minecraftIn;
 	}
 
 	public void addPath(int eid, Path pathIn, float distance) {
-
 		pathMap.put(eid, pathIn);
 		creationMap.put(eid, System.currentTimeMillis());
 		pathMaxDistance.put(eid, distance);
 	}
 
 	public void render(float partialTicks, long finishTimeNano) {
-
 		if (!pathMap.isEmpty()) {
 			long i = System.currentTimeMillis();
 			player = minecraft.player;
@@ -115,7 +112,6 @@ public class DebugRendererPathfinding implements DebugRenderer.IDebugRenderer {
 	}
 
 	public void renderPathLine(float finishTimeNano, Path pathIn) {
-
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		bufferbuilder.begin(3, DefaultVertexFormats.POSITION_COLOR);
@@ -137,7 +133,6 @@ public class DebugRendererPathfinding implements DebugRenderer.IDebugRenderer {
 	}
 
 	private float addDistanceToPlayer(PathPoint point) {
-
 		return (float) (Math.abs((double) point.x - player.posX) + Math.abs((double) point.y - player.posY) + Math.abs((double) point.z - player.posZ));
 	}
 

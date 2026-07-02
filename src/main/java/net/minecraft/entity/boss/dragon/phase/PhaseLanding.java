@@ -11,7 +11,6 @@ public class PhaseLanding extends PhaseBase {
 	private Vec3d targetLocation;
 
 	public PhaseLanding(EntityDragon dragonIn) {
-
 		super(dragonIn);
 	}
 
@@ -20,7 +19,6 @@ public class PhaseLanding extends PhaseBase {
 	 * Called by dragon's onLivingUpdate. Only used when worldObj.isRemote.
 	 */
 	public void doClientRenderEffects() {
-
 		Vec3d vec3d = dragon.getHeadLookVec(1F).normalize();
 		vec3d.rotateYaw(-((float) Math.PI / 4F));
 		double d0 = dragon.dragonPartHead.posX;
@@ -41,7 +39,6 @@ public class PhaseLanding extends PhaseBase {
 	 * Called by dragon's onLivingUpdate. Only used when !worldObj.isRemote.
 	 */
 	public void doLocalUpdate() {
-
 		if (targetLocation == null) {
 			targetLocation = new Vec3d(dragon.world.getTopSolidOrLiquidBlock(WorldGenEndPodium.END_PODIUM_LOCATION));
 		}
@@ -56,12 +53,10 @@ public class PhaseLanding extends PhaseBase {
 	 * Returns the maximum amount dragon may rise or fall during this phase
 	 */
 	public float getMaxRiseOrFall() {
-
 		return 1.5F;
 	}
 
 	public float getYawFactor() {
-
 		float f = MathHelper.sqrt(dragon.motionX * dragon.motionX + dragon.motionZ * dragon.motionZ) + 1F;
 		float f1 = Math.min(f, 40F);
 		return f1 / f;
@@ -71,7 +66,6 @@ public class PhaseLanding extends PhaseBase {
 	 * Called when this phase is set to active
 	 */
 	public void initPhase() {
-
 		targetLocation = null;
 	}
 
@@ -81,12 +75,10 @@ public class PhaseLanding extends PhaseBase {
 	 * Returns the location the dragon is flying toward
 	 */
 	public Vec3d getTargetLocation() {
-
 		return targetLocation;
 	}
 
 	public PhaseList<PhaseLanding> getType() {
-
 		return PhaseList.LANDING;
 	}
 

@@ -24,14 +24,12 @@ public class BlockRedstoneTorch extends BlockTorch {
 	private final boolean isOn;
 
 	protected BlockRedstoneTorch(boolean isOn) {
-
 		this.isOn = isOn;
 		setTickRandomly(true);
 		setCreativeTab(null);
 	}
 
 	private boolean isBurnedOut(World worldIn, BlockPos pos, boolean turnOff) {
-
 		if (!toggles.containsKey(worldIn)) {
 			toggles.put(worldIn, Lists.newArrayList());
 		}
@@ -61,7 +59,6 @@ public class BlockRedstoneTorch extends BlockTorch {
 	 * How many world ticks before ticking
 	 */
 	public int tickRate(World worldIn) {
-
 		return 2;
 	}
 
@@ -69,7 +66,6 @@ public class BlockRedstoneTorch extends BlockTorch {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (isOn) {
 			for (Facing enumfacing : Facing.values()) {
 				worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this, false);
@@ -81,7 +77,6 @@ public class BlockRedstoneTorch extends BlockTorch {
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (isOn) {
 			for (Facing enumfacing : Facing.values()) {
 				worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this, false);
@@ -90,12 +85,10 @@ public class BlockRedstoneTorch extends BlockTorch {
 	}
 
 	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		return isOn && blockState.getValue(FACING) != side ? 15 : 0;
 	}
 
 	private boolean shouldBeOff(World worldIn, BlockPos pos, IBlockState state) {
-
 		Facing enumfacing = state.getValue(FACING).getOpposite();
 		return worldIn.isSidePowered(pos.offset(enumfacing), enumfacing);
 	}
@@ -104,11 +97,9 @@ public class BlockRedstoneTorch extends BlockTorch {
 	 * Called randomly when setTickRandomly is set to true (used by e.g. crops to grow, etc.)
 	 */
 	public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
-
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		boolean flag = shouldBeOff(worldIn, pos, state);
 		List<BlockRedstoneTorch.Toggle> list = toggles.get(worldIn);
 
@@ -144,7 +135,6 @@ public class BlockRedstoneTorch extends BlockTorch {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (!onNeighborChangeInternal(worldIn, pos, state)) {
 			if (isOn == shouldBeOff(worldIn, pos, state)) {
 				worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
@@ -153,7 +143,6 @@ public class BlockRedstoneTorch extends BlockTorch {
 	}
 
 	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		return side == Facing.DOWN ? blockState.getWeakPower(blockAccess, pos, side) : 0;
 	}
 
@@ -161,7 +150,6 @@ public class BlockRedstoneTorch extends BlockTorch {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Item.getItemFromBlock(Blocks.REDSTONE_TORCH);
 	}
 
@@ -169,12 +157,10 @@ public class BlockRedstoneTorch extends BlockTorch {
 	 * Can this block provide power. Only wire currently seems to have this change based on its state.
 	 */
 	public boolean canProvidePower(IBlockState state) {
-
 		return true;
 	}
 
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-
 		if (isOn) {
 			double d0 = (double) pos.getX() + 0.5D + (rand.nextDouble() - 0.5D) * 0.2D;
 			double d1 = (double) pos.getY() + 0.7D + (rand.nextDouble() - 0.5D) * 0.2D;
@@ -193,12 +179,10 @@ public class BlockRedstoneTorch extends BlockTorch {
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return new ItemStack(Blocks.REDSTONE_TORCH);
 	}
 
 	public boolean isAssociatedBlock(Block other) {
-
 		return other == Blocks.UNLIT_REDSTONE_TORCH || other == Blocks.REDSTONE_TORCH;
 	}
 
@@ -208,7 +192,6 @@ public class BlockRedstoneTorch extends BlockTorch {
 		long time;
 
 		public Toggle(BlockPos pos, long time) {
-
 			this.pos = pos;
 			this.time = time;
 		}

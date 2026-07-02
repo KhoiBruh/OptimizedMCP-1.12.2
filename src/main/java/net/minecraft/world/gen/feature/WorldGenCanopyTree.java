@@ -16,12 +16,10 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree {
 	private static final IBlockState DARK_OAK_LEAVES = Blocks.LEAVES2.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.Type.DARK_OAK).withProperty(BlockLeaves.CHECK_DECAY, false);
 
 	public WorldGenCanopyTree(boolean notify) {
-
 		super(notify);
 	}
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		int i = rand.nextInt(3) + rand.nextInt(2) + 6;
 		int j = position.getX();
 		int k = position.getY();
@@ -133,7 +131,6 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree {
 	}
 
 	private boolean placeTreeOfHeight(World worldIn, BlockPos pos, int height) {
-
 		int i = pos.getX();
 		int j = pos.getY();
 		int k = pos.getZ();
@@ -163,14 +160,12 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree {
 	}
 
 	private void placeLogAt(World worldIn, BlockPos pos) {
-
 		if (canGrowInto(worldIn.getBlockState(pos).getBlock())) {
 			setBlockAndNotifyAdequately(worldIn, pos, DARK_OAK_LOG);
 		}
 	}
 
 	private void placeLeafAt(World worldIn, int x, int y, int z) {
-
 		BlockPos blockpos = new BlockPos(x, y, z);
 		Material material = worldIn.getBlockState(blockpos).getMaterial();
 

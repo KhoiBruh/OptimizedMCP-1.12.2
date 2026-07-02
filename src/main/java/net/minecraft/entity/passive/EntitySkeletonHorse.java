@@ -23,17 +23,14 @@ public class EntitySkeletonHorse extends AbstractHorse {
 	private int skeletonTrapTime;
 
 	public EntitySkeletonHorse(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public static void registerFixesSkeletonHorse(DataFixer fixer) {
-
 		AbstractHorse.registerFixesAbstractHorse(fixer, EntitySkeletonHorse.class);
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(15D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
@@ -41,19 +38,16 @@ public class EntitySkeletonHorse extends AbstractHorse {
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		super.getAmbientSound();
 		return SoundEvents.ENTITY_SKELETON_HORSE_AMBIENT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		super.getDeathSound();
 		return SoundEvents.ENTITY_SKELETON_HORSE_DEATH;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		super.getHurtSound(damageSourceIn);
 		return SoundEvents.ENTITY_SKELETON_HORSE_HURT;
 	}
@@ -62,7 +56,6 @@ public class EntitySkeletonHorse extends AbstractHorse {
 	 * Get this Entity's CreatureAttribute
 	 */
 	public CreatureAttribute getCreatureAttribute() {
-
 		return CreatureAttribute.UNDEAD;
 	}
 
@@ -70,13 +63,11 @@ public class EntitySkeletonHorse extends AbstractHorse {
 	 * Returns the Y offset from the entity's position for any entity riding this one.
 	 */
 	public double getMountedYOffset() {
-
 		return super.getMountedYOffset() - 0.1875D;
 	}
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_SKELETON_HORSE;
 	}
 
@@ -85,7 +76,6 @@ public class EntitySkeletonHorse extends AbstractHorse {
 	 * use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
 		super.onLivingUpdate();
 
 		if (isTrap() && skeletonTrapTime++ >= 18000) {
@@ -97,7 +87,6 @@ public class EntitySkeletonHorse extends AbstractHorse {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setBoolean("SkeletonTrap", isTrap());
 		compound.setInteger("SkeletonTrapTime", skeletonTrapTime);
@@ -107,19 +96,16 @@ public class EntitySkeletonHorse extends AbstractHorse {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		setTrap(compound.getBoolean("SkeletonTrap"));
 		skeletonTrapTime = compound.getInteger("SkeletonTrapTime");
 	}
 
 	public boolean isTrap() {
-
 		return skeletonTrap;
 	}
 
 	public void setTrap(boolean trap) {
-
 		if (trap != skeletonTrap) {
 			skeletonTrap = trap;
 
@@ -132,7 +118,6 @@ public class EntitySkeletonHorse extends AbstractHorse {
 	}
 
 	public boolean processInteract(EntityPlayer player, Hand hand) {
-
 		ItemStack itemstack = player.getHeldItem(hand);
 		boolean flag = !itemstack.isEmpty();
 

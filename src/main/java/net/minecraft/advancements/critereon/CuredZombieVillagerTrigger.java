@@ -22,12 +22,10 @@ public class CuredZombieVillagerTrigger implements ICriterionTrigger<CuredZombie
 	private final Map<PlayerAdvancements, CuredZombieVillagerTrigger.Listeners> listeners = Maps.newHashMap();
 
 	public ResourceLocation getId() {
-
 		return ID;
 	}
 
 	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance> listener) {
-
 		CuredZombieVillagerTrigger.Listeners curedzombievillagertrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (curedzombievillagertrigger$listeners == null) {
@@ -39,7 +37,6 @@ public class CuredZombieVillagerTrigger implements ICriterionTrigger<CuredZombie
 	}
 
 	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance> listener) {
-
 		CuredZombieVillagerTrigger.Listeners curedzombievillagertrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (curedzombievillagertrigger$listeners != null) {
@@ -52,7 +49,6 @@ public class CuredZombieVillagerTrigger implements ICriterionTrigger<CuredZombie
 	}
 
 	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
-
 		listeners.remove(playerAdvancementsIn);
 	}
 
@@ -67,7 +63,6 @@ public class CuredZombieVillagerTrigger implements ICriterionTrigger<CuredZombie
 	}
 
 	public void trigger(EntityPlayerMP player, EntityZombie zombie, EntityVillager villager) {
-
 		CuredZombieVillagerTrigger.Listeners curedzombievillagertrigger$listeners = listeners.get(player.getAdvancements());
 
 		if (curedzombievillagertrigger$listeners != null) {
@@ -81,14 +76,12 @@ public class CuredZombieVillagerTrigger implements ICriterionTrigger<CuredZombie
 		private final EntityPredicate villager;
 
 		public Instance(EntityPredicate zombie, EntityPredicate villager) {
-
 			super(CuredZombieVillagerTrigger.ID);
 			this.zombie = zombie;
 			this.villager = villager;
 		}
 
 		public boolean test(EntityPlayerMP player, EntityZombie zombie, EntityVillager villager) {
-
 			if (!this.zombie.test(player, zombie)) {
 				return false;
 			} else {
@@ -104,27 +97,22 @@ public class CuredZombieVillagerTrigger implements ICriterionTrigger<CuredZombie
 		private final Set<ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance>> listeners = Sets.newHashSet();
 
 		public Listeners(PlayerAdvancements playerAdvancementsIn) {
-
 			playerAdvancements = playerAdvancementsIn;
 		}
 
 		public boolean isEmpty() {
-
 			return listeners.isEmpty();
 		}
 
 		public void add(ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance> listener) {
-
 			listeners.add(listener);
 		}
 
 		public void remove(ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance> listener) {
-
 			listeners.remove(listener);
 		}
 
 		public void trigger(EntityPlayerMP player, EntityZombie zombie, EntityVillager villager) {
-
 			List<ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance>> list = null;
 
 			for (ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance> listener : listeners) {

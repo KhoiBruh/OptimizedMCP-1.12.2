@@ -21,7 +21,6 @@ public class ParticleDrip extends Particle {
 	private int bobTimer;
 
 	protected ParticleDrip(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, Material p_i1203_8_) {
-
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0D, 0D, 0D);
 		motionX = 0D;
 		motionY = 0D;
@@ -49,12 +48,10 @@ public class ParticleDrip extends Particle {
 	}
 
 	public int getBrightnessForRender(float p_189214_1_) {
-
 		return materialType == Material.WATER ? super.getBrightnessForRender(p_189214_1_) : 257;
 	}
 
 	public void onUpdate() {
-
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
@@ -123,7 +120,6 @@ public class ParticleDrip extends Particle {
 	public static class LavaFactory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			return new ParticleDrip(worldIn, xCoordIn, yCoordIn, zCoordIn, Material.LAVA);
 		}
 
@@ -132,7 +128,6 @@ public class ParticleDrip extends Particle {
 	public static class WaterFactory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			return new ParticleDrip(worldIn, xCoordIn, yCoordIn, zCoordIn, Material.WATER);
 		}
 

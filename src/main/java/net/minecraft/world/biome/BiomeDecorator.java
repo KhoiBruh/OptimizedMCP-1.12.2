@@ -130,7 +130,6 @@ public class BiomeDecorator {
 	protected int bigMushroomsPerChunk;
 
 	public void decorate(World worldIn, Random random, Biome biome, BlockPos pos) {
-
 		if (decorating) {
 			throw new RuntimeException("Already decorating");
 		} else {
@@ -153,7 +152,6 @@ public class BiomeDecorator {
 	}
 
 	protected void genDecorations(Biome biomeIn, World worldIn, Random random) {
-
 		generateOres(worldIn, random);
 
 		for (int i = 0; i < sandPatchesPerChunk; ++i) {
@@ -374,7 +372,6 @@ public class BiomeDecorator {
 	 * Generates ores in the current chunk
 	 */
 	protected void generateOres(World worldIn, Random random) {
-
 		genStandardOre1(worldIn, random, chunkProviderSettings.dirtCount, dirtGen, chunkProviderSettings.dirtMinHeight, chunkProviderSettings.dirtMaxHeight);
 		genStandardOre1(worldIn, random, chunkProviderSettings.gravelCount, gravelOreGen, chunkProviderSettings.gravelMinHeight, chunkProviderSettings.gravelMaxHeight);
 		genStandardOre1(worldIn, random, chunkProviderSettings.dioriteCount, dioriteGen, chunkProviderSettings.dioriteMinHeight, chunkProviderSettings.dioriteMaxHeight);
@@ -394,7 +391,6 @@ public class BiomeDecorator {
 	 * genStandardOre2 takes center and spread.
 	 */
 	protected void genStandardOre1(World worldIn, Random random, int blockCount, WorldGenerator generator, int minHeight, int maxHeight) {
-
 		if (maxHeight < minHeight) {
 			int i = minHeight;
 			minHeight = maxHeight;
@@ -419,7 +415,6 @@ public class BiomeDecorator {
 	 * genStandardOre1 takes min and max heights.
 	 */
 	protected void genStandardOre2(World worldIn, Random random, int blockCount, WorldGenerator generator, int centerHeight, int spread) {
-
 		for (int i = 0; i < blockCount; ++i) {
 			BlockPos blockpos = chunkPos.add(random.nextInt(16), random.nextInt(spread) + random.nextInt(spread) + centerHeight - spread, random.nextInt(16));
 			generator.generate(worldIn, random, blockpos);

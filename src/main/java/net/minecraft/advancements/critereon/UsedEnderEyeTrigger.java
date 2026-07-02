@@ -21,12 +21,10 @@ public class UsedEnderEyeTrigger implements ICriterionTrigger<UsedEnderEyeTrigge
 	private final Map<PlayerAdvancements, UsedEnderEyeTrigger.Listeners> listeners = Maps.newHashMap();
 
 	public ResourceLocation getId() {
-
 		return ID;
 	}
 
 	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<UsedEnderEyeTrigger.Instance> listener) {
-
 		UsedEnderEyeTrigger.Listeners usedendereyetrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (usedendereyetrigger$listeners == null) {
@@ -38,7 +36,6 @@ public class UsedEnderEyeTrigger implements ICriterionTrigger<UsedEnderEyeTrigge
 	}
 
 	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<UsedEnderEyeTrigger.Instance> listener) {
-
 		UsedEnderEyeTrigger.Listeners usedendereyetrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (usedendereyetrigger$listeners != null) {
@@ -51,7 +48,6 @@ public class UsedEnderEyeTrigger implements ICriterionTrigger<UsedEnderEyeTrigge
 	}
 
 	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
-
 		listeners.remove(playerAdvancementsIn);
 	}
 
@@ -65,7 +61,6 @@ public class UsedEnderEyeTrigger implements ICriterionTrigger<UsedEnderEyeTrigge
 	}
 
 	public void trigger(EntityPlayerMP player, BlockPos pos) {
-
 		UsedEnderEyeTrigger.Listeners usedendereyetrigger$listeners = listeners.get(player.getAdvancements());
 
 		if (usedendereyetrigger$listeners != null) {
@@ -80,13 +75,11 @@ public class UsedEnderEyeTrigger implements ICriterionTrigger<UsedEnderEyeTrigge
 		private final MinMaxBounds distance;
 
 		public Instance(MinMaxBounds distance) {
-
 			super(UsedEnderEyeTrigger.ID);
 			this.distance = distance;
 		}
 
 		public boolean test(double distanceSq) {
-
 			return distance.testSquare(distanceSq);
 		}
 
@@ -98,27 +91,22 @@ public class UsedEnderEyeTrigger implements ICriterionTrigger<UsedEnderEyeTrigge
 		private final Set<ICriterionTrigger.Listener<UsedEnderEyeTrigger.Instance>> listeners = Sets.newHashSet();
 
 		public Listeners(PlayerAdvancements playerAdvancementsIn) {
-
 			playerAdvancements = playerAdvancementsIn;
 		}
 
 		public boolean isEmpty() {
-
 			return listeners.isEmpty();
 		}
 
 		public void add(ICriterionTrigger.Listener<UsedEnderEyeTrigger.Instance> listener) {
-
 			listeners.add(listener);
 		}
 
 		public void remove(ICriterionTrigger.Listener<UsedEnderEyeTrigger.Instance> listener) {
-
 			listeners.remove(listener);
 		}
 
 		public void trigger(double distanceSq) {
-
 			List<ICriterionTrigger.Listener<UsedEnderEyeTrigger.Instance>> list = null;
 
 			for (ICriterionTrigger.Listener<UsedEnderEyeTrigger.Instance> listener : listeners) {

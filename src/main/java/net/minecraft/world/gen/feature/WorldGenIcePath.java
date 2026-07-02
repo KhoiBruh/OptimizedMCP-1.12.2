@@ -13,12 +13,10 @@ public class WorldGenIcePath extends WorldGenerator {
 	private final int basePathWidth;
 
 	public WorldGenIcePath(int basePathWidthIn) {
-
 		basePathWidth = basePathWidthIn;
 	}
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		while (worldIn.isAirBlock(position) && position.getY() > 2) {
 			position = position.down();
 		}

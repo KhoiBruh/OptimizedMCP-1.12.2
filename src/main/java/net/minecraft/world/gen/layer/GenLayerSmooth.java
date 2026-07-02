@@ -3,7 +3,6 @@ package net.minecraft.world.gen.layer;
 public class GenLayerSmooth extends GenLayer {
 
 	public GenLayerSmooth(long p_i2131_1_, GenLayer p_i2131_3_) {
-
 		super(p_i2131_1_);
 		super.parent = p_i2131_3_;
 	}
@@ -13,7 +12,6 @@ public class GenLayerSmooth extends GenLayer {
 	 * amounts, or Biome ID's based on the particular GenLayer subclass.
 	 */
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
-
 		int i = areaX - 1;
 		int j = areaY - 1;
 		int k = areaWidth + 2;

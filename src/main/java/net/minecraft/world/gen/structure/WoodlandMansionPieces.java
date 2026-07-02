@@ -22,12 +22,10 @@ import java.util.Random;
 public class WoodlandMansionPieces {
 
 	public static void registerWoodlandMansionPieces() {
-
 		MapGenStructureIO.registerStructureComponent(WoodlandMansionPieces.MansionTemplate.class, "WMP");
 	}
 
 	public static void generateMansion(TemplateManager p_191152_0_, BlockPos p_191152_1_, Rotation p_191152_2_, List<WoodlandMansionPieces.MansionTemplate> p_191152_3_, Random p_191152_4_) {
-
 		WoodlandMansionPieces.Grid woodlandmansionpieces$grid = new WoodlandMansionPieces.Grid(p_191152_4_);
 		WoodlandMansionPieces.Placer woodlandmansionpieces$placer = new WoodlandMansionPieces.Placer(p_191152_0_, p_191152_4_);
 		woodlandmansionpieces$placer.createMansion(p_191152_1_, p_191152_2_, p_191152_3_, woodlandmansionpieces$grid);
@@ -36,41 +34,33 @@ public class WoodlandMansionPieces {
 	static class FirstFloor extends WoodlandMansionPieces.RoomCollection {
 
 		private FirstFloor() {
-
 		}
 
 		public String get1x1(Random p_191104_1_) {
-
 			return "1x1_a" + (p_191104_1_.nextInt(5) + 1);
 		}
 
 		public String get1x1Secret(Random p_191099_1_) {
-
 			return "1x1_as" + (p_191099_1_.nextInt(4) + 1);
 		}
 
 		public String get1x2SideEntrance(Random p_191100_1_, boolean p_191100_2_) {
-
 			return "1x2_a" + (p_191100_1_.nextInt(9) + 1);
 		}
 
 		public String get1x2FrontEntrance(Random p_191098_1_, boolean p_191098_2_) {
-
 			return "1x2_b" + (p_191098_1_.nextInt(5) + 1);
 		}
 
 		public String get1x2Secret(Random p_191102_1_) {
-
 			return "1x2_s" + (p_191102_1_.nextInt(2) + 1);
 		}
 
 		public String get2x2(Random p_191101_1_) {
-
 			return "2x2_a" + (p_191101_1_.nextInt(4) + 1);
 		}
 
 		public String get2x2Secret(Random p_191103_1_) {
-
 			return "2x2_s1";
 		}
 
@@ -86,7 +76,6 @@ public class WoodlandMansionPieces {
 		private final int entranceY;
 
 		public Grid(Random randomIn) {
-
 			random = randomIn;
 			int i = 11;
 			entranceX = 7;
@@ -123,19 +112,16 @@ public class WoodlandMansionPieces {
 		}
 
 		public static boolean isHouse(WoodlandMansionPieces.SimpleGrid p_191109_0_, int p_191109_1_, int p_191109_2_) {
-
 			int i = p_191109_0_.get(p_191109_1_, p_191109_2_);
 			return i == 1 || i == 2 || i == 3 || i == 4;
 		}
 
 		public boolean isRoomId(WoodlandMansionPieces.SimpleGrid p_191114_1_, int p_191114_2_, int p_191114_3_, int p_191114_4_, int p_191114_5_) {
-
 			return (floorRooms[p_191114_4_].get(p_191114_2_, p_191114_3_) & 65535) == p_191114_5_;
 		}
 
 		
 		public Facing get1x2RoomDirection(WoodlandMansionPieces.SimpleGrid p_191113_1_, int p_191113_2_, int p_191113_3_, int p_191113_4_, int p_191113_5_) {
-
 			for (Facing enumfacing : Facing.Plane.HORIZONTAL.facings()) {
 				if (isRoomId(p_191113_1_, p_191113_2_ + enumfacing.getFrontOffsetX(), p_191113_3_ + enumfacing.getFrontOffsetZ(), p_191113_4_, p_191113_5_)) {
 					return enumfacing;
@@ -146,7 +132,6 @@ public class WoodlandMansionPieces {
 		}
 
 		private void recursiveCorridor(WoodlandMansionPieces.SimpleGrid p_191110_1_, int p_191110_2_, int p_191110_3_, Facing p_191110_4_, int p_191110_5_) {
-
 			if (p_191110_5_ > 0) {
 				p_191110_1_.set(p_191110_2_, p_191110_3_, 1);
 				p_191110_1_.setIf(p_191110_2_ + p_191110_4_.getFrontOffsetX(), p_191110_3_ + p_191110_4_.getFrontOffsetZ(), 0, 1);
@@ -178,7 +163,6 @@ public class WoodlandMansionPieces {
 		}
 
 		private boolean cleanEdges(WoodlandMansionPieces.SimpleGrid p_191111_1_) {
-
 			boolean flag = false;
 
 			for (int i = 0; i < p_191111_1_.height; ++i) {
@@ -213,7 +197,6 @@ public class WoodlandMansionPieces {
 		}
 
 		private void setupThirdFloor() {
-
 			List<Tuple<Integer, Integer>> list = Lists.newArrayList();
 			WoodlandMansionPieces.SimpleGrid woodlandmansionpieces$simplegrid = floorRooms[1];
 
@@ -273,7 +256,6 @@ public class WoodlandMansionPieces {
 		}
 
 		private void identifyRooms(WoodlandMansionPieces.SimpleGrid p_191116_1_, WoodlandMansionPieces.SimpleGrid p_191116_2_) {
-
 			List<Tuple<Integer, Integer>> list = Lists.newArrayList();
 
 			for (int i = 0; i < p_191116_1_.height; ++i) {
@@ -372,16 +354,13 @@ public class WoodlandMansionPieces {
 		private Mirror mirror;
 
 		public MansionTemplate() {
-
 		}
 
 		public MansionTemplate(TemplateManager p_i47355_1_, String p_i47355_2_, BlockPos p_i47355_3_, Rotation p_i47355_4_) {
-
 			this(p_i47355_1_, p_i47355_2_, p_i47355_3_, p_i47355_4_, Mirror.NONE);
 		}
 
 		public MansionTemplate(TemplateManager p_i47356_1_, String p_i47356_2_, BlockPos p_i47356_3_, Rotation p_i47356_4_, Mirror p_i47356_5_) {
-
 			super(0);
 			templateName = p_i47356_2_;
 			templatePosition = p_i47356_3_;
@@ -391,14 +370,12 @@ public class WoodlandMansionPieces {
 		}
 
 		private void loadTemplate(TemplateManager p_191081_1_) {
-
 			Template template = p_191081_1_.getTemplate(null, new ResourceLocation("mansion/" + templateName));
 			PlacementSettings placementsettings = (new PlacementSettings()).setIgnoreEntities(true).setRotation(rotation).setMirror(mirror);
 			setup(template, templatePosition, placementsettings);
 		}
 
 		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
 			super.writeStructureToNBT(tagCompound);
 			tagCompound.setString("Template", templateName);
 			tagCompound.setString("Rot", placeSettings.getRotation().name());
@@ -406,7 +383,6 @@ public class WoodlandMansionPieces {
 		}
 
 		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
 			super.readStructureFromNBT(tagCompound, p_143011_2_);
 			templateName = tagCompound.getString("Template");
 			rotation = Rotation.valueOf(tagCompound.getString("Rot"));
@@ -415,7 +391,6 @@ public class WoodlandMansionPieces {
 		}
 
 		protected void handleDataMarker(String function, BlockPos pos, World worldIn, Random rand, StructureBoundingBox sbb) {
-
 			if (function.startsWith("Chest")) {
 				Rotation rotation = placeSettings.getRotation();
 				IBlockState iblockstate = Blocks.CHEST.getDefaultState();
@@ -454,7 +429,6 @@ public class WoodlandMansionPieces {
 		public String wallType;
 
 		private PlacementData() {
-
 		}
 
 	}
@@ -467,13 +441,11 @@ public class WoodlandMansionPieces {
 		private int startY;
 
 		public Placer(TemplateManager p_i47361_1_, Random p_i47361_2_) {
-
 			templateManager = p_i47361_1_;
 			random = p_i47361_2_;
 		}
 
 		public void createMansion(BlockPos p_191125_1_, Rotation p_191125_2_, List<WoodlandMansionPieces.MansionTemplate> p_191125_3_, WoodlandMansionPieces.Grid p_191125_4_) {
-
 			WoodlandMansionPieces.PlacementData woodlandmansionpieces$placementdata = new WoodlandMansionPieces.PlacementData();
 			woodlandmansionpieces$placementdata.position = p_191125_1_;
 			woodlandmansionpieces$placementdata.rotation = p_191125_2_;
@@ -636,7 +608,6 @@ public class WoodlandMansionPieces {
 		}
 
 		private void traverseOuterWalls(List<WoodlandMansionPieces.MansionTemplate> p_191130_1_, WoodlandMansionPieces.PlacementData p_191130_2_, WoodlandMansionPieces.SimpleGrid p_191130_3_, Facing p_191130_4_, int p_191130_5_, int p_191130_6_, int p_191130_7_, int p_191130_8_) {
-
 			int i = p_191130_5_;
 			int j = p_191130_6_;
 			Facing enumfacing = p_191130_4_;
@@ -670,7 +641,6 @@ public class WoodlandMansionPieces {
 		}
 
 		private void createRoof(List<WoodlandMansionPieces.MansionTemplate> p_191123_1_, BlockPos p_191123_2_, Rotation p_191123_3_, WoodlandMansionPieces.SimpleGrid p_191123_4_, WoodlandMansionPieces.SimpleGrid p_191123_5_) {
-
 			for (int i = 0; i < p_191123_4_.height; ++i) {
 				for (int j = 0; j < p_191123_4_.width; ++j) {
 					BlockPos lvt_8_3_ = p_191123_2_.offset(p_191123_3_.rotate(Facing.SOUTH), 8 + (i - startY) * 8);
@@ -821,20 +791,17 @@ public class WoodlandMansionPieces {
 		}
 
 		private void entrance(List<WoodlandMansionPieces.MansionTemplate> p_191133_1_, WoodlandMansionPieces.PlacementData p_191133_2_) {
-
 			Facing enumfacing = p_191133_2_.rotation.rotate(Facing.WEST);
 			p_191133_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "entrance", p_191133_2_.position.offset(enumfacing, 9), p_191133_2_.rotation));
 			p_191133_2_.position = p_191133_2_.position.offset(p_191133_2_.rotation.rotate(Facing.SOUTH), 16);
 		}
 
 		private void traverseWallPiece(List<WoodlandMansionPieces.MansionTemplate> p_191131_1_, WoodlandMansionPieces.PlacementData p_191131_2_) {
-
 			p_191131_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, p_191131_2_.wallType, p_191131_2_.position.offset(p_191131_2_.rotation.rotate(Facing.EAST), 7), p_191131_2_.rotation));
 			p_191131_2_.position = p_191131_2_.position.offset(p_191131_2_.rotation.rotate(Facing.SOUTH), 8);
 		}
 
 		private void traverseTurn(List<WoodlandMansionPieces.MansionTemplate> p_191124_1_, WoodlandMansionPieces.PlacementData p_191124_2_) {
-
 			p_191124_2_.position = p_191124_2_.position.offset(p_191124_2_.rotation.rotate(Facing.SOUTH), -1);
 			p_191124_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "wall_corner", p_191124_2_.position, p_191124_2_.rotation));
 			p_191124_2_.position = p_191124_2_.position.offset(p_191124_2_.rotation.rotate(Facing.SOUTH), -7);
@@ -843,14 +810,12 @@ public class WoodlandMansionPieces {
 		}
 
 		private void traverseInnerTurn(List<WoodlandMansionPieces.MansionTemplate> p_191126_1_, WoodlandMansionPieces.PlacementData p_191126_2_) {
-
 			p_191126_2_.position = p_191126_2_.position.offset(p_191126_2_.rotation.rotate(Facing.SOUTH), 6);
 			p_191126_2_.position = p_191126_2_.position.offset(p_191126_2_.rotation.rotate(Facing.EAST), 8);
 			p_191126_2_.rotation = p_191126_2_.rotation.add(Rotation.COUNTERCLOCKWISE_90);
 		}
 
 		private void addRoom1x1(List<WoodlandMansionPieces.MansionTemplate> p_191129_1_, BlockPos p_191129_2_, Rotation p_191129_3_, Facing p_191129_4_, WoodlandMansionPieces.RoomCollection p_191129_5_) {
-
 			Rotation rotation = Rotation.NONE;
 			String s = p_191129_5_.get1x1(random);
 
@@ -874,7 +839,6 @@ public class WoodlandMansionPieces {
 		}
 
 		private void addRoom1x2(List<WoodlandMansionPieces.MansionTemplate> p_191132_1_, BlockPos p_191132_2_, Rotation p_191132_3_, Facing p_191132_4_, Facing p_191132_5_, WoodlandMansionPieces.RoomCollection p_191132_6_, boolean p_191132_7_) {
-
 			if (p_191132_5_ == Facing.EAST && p_191132_4_ == Facing.SOUTH) {
 				BlockPos blockpos13 = p_191132_2_.offset(p_191132_3_.rotate(Facing.EAST), 1);
 				p_191132_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, p_191132_6_.get1x2SideEntrance(random, p_191132_7_), blockpos13, p_191132_3_));
@@ -929,7 +893,6 @@ public class WoodlandMansionPieces {
 		}
 
 		private void addRoom2x2(List<WoodlandMansionPieces.MansionTemplate> p_191127_1_, BlockPos p_191127_2_, Rotation p_191127_3_, Facing p_191127_4_, Facing p_191127_5_, WoodlandMansionPieces.RoomCollection p_191127_6_) {
-
 			int i = 0;
 			int j = 0;
 			Rotation rotation = p_191127_3_;
@@ -974,7 +937,6 @@ public class WoodlandMansionPieces {
 		}
 
 		private void addRoom2x2Secret(List<WoodlandMansionPieces.MansionTemplate> p_191128_1_, BlockPos p_191128_2_, Rotation p_191128_3_, WoodlandMansionPieces.RoomCollection p_191128_4_) {
-
 			BlockPos blockpos = p_191128_2_.offset(p_191128_3_.rotate(Facing.EAST), 1);
 			p_191128_1_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, p_191128_4_.get2x2Secret(random), blockpos, p_191128_3_, Mirror.NONE));
 		}
@@ -984,7 +946,6 @@ public class WoodlandMansionPieces {
 	abstract static class RoomCollection {
 
 		private RoomCollection() {
-
 		}
 
 		public abstract String get1x1(Random p_191104_1_);
@@ -1006,41 +967,33 @@ public class WoodlandMansionPieces {
 	static class SecondFloor extends WoodlandMansionPieces.RoomCollection {
 
 		private SecondFloor() {
-
 		}
 
 		public String get1x1(Random p_191104_1_) {
-
 			return "1x1_b" + (p_191104_1_.nextInt(4) + 1);
 		}
 
 		public String get1x1Secret(Random p_191099_1_) {
-
 			return "1x1_as" + (p_191099_1_.nextInt(4) + 1);
 		}
 
 		public String get1x2SideEntrance(Random p_191100_1_, boolean p_191100_2_) {
-
 			return p_191100_2_ ? "1x2_c_stairs" : "1x2_c" + (p_191100_1_.nextInt(4) + 1);
 		}
 
 		public String get1x2FrontEntrance(Random p_191098_1_, boolean p_191098_2_) {
-
 			return p_191098_2_ ? "1x2_d_stairs" : "1x2_d" + (p_191098_1_.nextInt(5) + 1);
 		}
 
 		public String get1x2Secret(Random p_191102_1_) {
-
 			return "1x2_se" + (p_191102_1_.nextInt(1) + 1);
 		}
 
 		public String get2x2(Random p_191101_1_) {
-
 			return "2x2_b" + (p_191101_1_.nextInt(5) + 1);
 		}
 
 		public String get2x2Secret(Random p_191103_1_) {
-
 			return "2x2_s1";
 		}
 
@@ -1054,7 +1007,6 @@ public class WoodlandMansionPieces {
 		private final int valueIfOutside;
 
 		public SimpleGrid(int p_i47358_1_, int p_i47358_2_, int p_i47358_3_) {
-
 			width = p_i47358_1_;
 			height = p_i47358_2_;
 			valueIfOutside = p_i47358_3_;
@@ -1062,14 +1014,12 @@ public class WoodlandMansionPieces {
 		}
 
 		public void set(int p_191144_1_, int p_191144_2_, int p_191144_3_) {
-
 			if (p_191144_1_ >= 0 && p_191144_1_ < width && p_191144_2_ >= 0 && p_191144_2_ < height) {
 				grid[p_191144_1_][p_191144_2_] = p_191144_3_;
 			}
 		}
 
 		public void set(int p_191142_1_, int p_191142_2_, int p_191142_3_, int p_191142_4_, int p_191142_5_) {
-
 			for (int i = p_191142_2_; i <= p_191142_4_; ++i) {
 				for (int j = p_191142_1_; j <= p_191142_3_; ++j) {
 					set(j, i, p_191142_5_);
@@ -1078,19 +1028,16 @@ public class WoodlandMansionPieces {
 		}
 
 		public int get(int p_191145_1_, int p_191145_2_) {
-
 			return p_191145_1_ >= 0 && p_191145_1_ < width && p_191145_2_ >= 0 && p_191145_2_ < height ? grid[p_191145_1_][p_191145_2_] : valueIfOutside;
 		}
 
 		public void setIf(int p_191141_1_, int p_191141_2_, int p_191141_3_, int p_191141_4_) {
-
 			if (get(p_191141_1_, p_191141_2_) == p_191141_3_) {
 				set(p_191141_1_, p_191141_2_, p_191141_4_);
 			}
 		}
 
 		public boolean edgesTo(int p_191147_1_, int p_191147_2_, int p_191147_3_) {
-
 			return get(p_191147_1_ - 1, p_191147_2_) == p_191147_3_ || get(p_191147_1_ + 1, p_191147_2_) == p_191147_3_ || get(p_191147_1_, p_191147_2_ + 1) == p_191147_3_ || get(p_191147_1_, p_191147_2_ - 1) == p_191147_3_;
 		}
 
@@ -1099,7 +1046,6 @@ public class WoodlandMansionPieces {
 	static class ThirdFloor extends WoodlandMansionPieces.SecondFloor {
 
 		private ThirdFloor() {
-
 		}
 
 	}

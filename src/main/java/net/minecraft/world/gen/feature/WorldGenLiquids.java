@@ -14,12 +14,10 @@ public class WorldGenLiquids extends WorldGenerator {
 	private final Block block;
 
 	public WorldGenLiquids(Block blockIn) {
-
 		block = blockIn;
 	}
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		if (worldIn.getBlockState(position.up()).getBlock() != Blocks.STONE) {
 			return false;
 		} else if (worldIn.getBlockState(position.down()).getBlock() != Blocks.STONE) {

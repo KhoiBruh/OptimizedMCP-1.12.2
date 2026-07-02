@@ -14,7 +14,6 @@ public class BlockEventData {
 	private final int eventParameter;
 
 	public BlockEventData(BlockPos pos, Block blockType, int eventId, int p_i45756_4_) {
-
 		position = pos;
 		eventID = eventId;
 		eventParameter = p_i45756_4_;
@@ -22,7 +21,6 @@ public class BlockEventData {
 	}
 
 	public BlockPos getPosition() {
-
 		return position;
 	}
 
@@ -30,22 +28,18 @@ public class BlockEventData {
 	 * Get the Event ID (different for each BlockID)
 	 */
 	public int getEventID() {
-
 		return eventID;
 	}
 
 	public int getEventParameter() {
-
 		return eventParameter;
 	}
 
 	public Block getBlock() {
-
 		return blockType;
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (!(p_equals_1_ instanceof BlockEventData blockeventdata)) {
 			return false;
 		} else {
@@ -54,7 +48,6 @@ public class BlockEventData {
 	}
 
 	public String toString() {
-
 		return "TE(" + position + ")," + eventID + "," + eventParameter + "," + blockType;
 	}
 

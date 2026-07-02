@@ -13,7 +13,6 @@ public class CommandLocate extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "locate";
 	}
 
@@ -21,7 +20,6 @@ public class CommandLocate extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 2;
 	}
 
@@ -29,7 +27,6 @@ public class CommandLocate extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.locate.usage";
 	}
 
@@ -37,7 +34,6 @@ public class CommandLocate extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		if (args.length != 1) {
 			throw new WrongUsageException("commands.locate.usage");
 		} else {
@@ -53,7 +49,6 @@ public class CommandLocate extends CommandBase {
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		return args.length == 1 ? getListOfStringsMatchingLastWord(args, "Stronghold", "Monument", "Village", "Mansion", "EndCity", "Fortress", "Temple", "Mineshaft") : Collections.emptyList();
 	}
 

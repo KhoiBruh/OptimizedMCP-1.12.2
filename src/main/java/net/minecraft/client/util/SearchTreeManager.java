@@ -15,7 +15,6 @@ public class SearchTreeManager implements IResourceManagerReloadListener {
 	private final Map<SearchTreeManager.Key<?>, SearchTree<?>> trees = Maps.newHashMap();
 
 	public void onResourceManagerReload(IResourceManager resourceManager) {
-
 		for (SearchTree<?> searchtree : trees.values()) {
 			searchtree.recalculate();
 		}

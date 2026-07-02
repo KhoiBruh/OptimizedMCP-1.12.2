@@ -17,7 +17,6 @@ public class ServerSelectionList extends GuiListExtended {
 	private int selectedSlotIndex = -1;
 
 	public ServerSelectionList(MultiplayerScreen ownerIn, Minecraft mcIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn) {
-
 		super(mcIn, widthIn, heightIn, topIn, bottomIn, slotHeightIn);
 		owner = ownerIn;
 	}
@@ -42,12 +41,10 @@ public class ServerSelectionList extends GuiListExtended {
 	}
 
 	protected int getSize() {
-
 		return serverListInternet.size() + 1 + serverListLan.size();
 	}
 
 	public void setSelectedSlotIndex(int selectedSlotIndexIn) {
-
 		selectedSlotIndex = selectedSlotIndexIn;
 	}
 
@@ -55,17 +52,14 @@ public class ServerSelectionList extends GuiListExtended {
 	 * Returns true if the element passed in is currently selected
 	 */
 	protected boolean isSelected(int slotIndex) {
-
 		return slotIndex == selectedSlotIndex;
 	}
 
 	public int getSelected() {
-
 		return selectedSlotIndex;
 	}
 
 	public void updateOnlineServers(ServerList p_148195_1_) {
-
 		serverListInternet.clear();
 
 		for (int i = 0; i < p_148195_1_.countServers(); ++i) {
@@ -74,7 +68,6 @@ public class ServerSelectionList extends GuiListExtended {
 	}
 
 	public void updateNetworkServers(List<LanServerInfo> p_148194_1_) {
-
 		serverListLan.clear();
 
 		for (LanServerInfo lanserverinfo : p_148194_1_) {
@@ -83,7 +76,6 @@ public class ServerSelectionList extends GuiListExtended {
 	}
 
 	protected int getScrollBarX() {
-
 		return super.getScrollBarX() + 30;
 	}
 
@@ -91,7 +83,6 @@ public class ServerSelectionList extends GuiListExtended {
 	 * Gets the width of the list
 	 */
 	public int getListWidth() {
-
 		return super.getListWidth() + 85;
 	}
 

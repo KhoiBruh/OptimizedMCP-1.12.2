@@ -7,7 +7,6 @@ public class ModelShulkerBullet extends ModelBase {
 	public ModelRenderer renderer;
 
 	public ModelShulkerBullet() {
-
 		textureWidth = 64;
 		textureHeight = 32;
 		renderer = new ModelRenderer(this);
@@ -21,7 +20,6 @@ public class ModelShulkerBullet extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		renderer.render(scale);
 	}
@@ -32,7 +30,6 @@ public class ModelShulkerBullet extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 		renderer.rotateAngleY = netHeadYaw * 0.017453292F;
 		renderer.rotateAngleX = headPitch * 0.017453292F;

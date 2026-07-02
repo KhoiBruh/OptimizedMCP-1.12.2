@@ -9,17 +9,14 @@ public class BlockMatcher implements Predicate<IBlockState> {
 	private final Block block;
 
 	private BlockMatcher(Block blockType) {
-
 		block = blockType;
 	}
 
 	public static BlockMatcher forBlock(Block blockType) {
-
 		return new BlockMatcher(blockType);
 	}
 
 	public boolean apply(IBlockState p_apply_1_) {
-
 		return p_apply_1_ != null && p_apply_1_.getBlock() == block;
 	}
 

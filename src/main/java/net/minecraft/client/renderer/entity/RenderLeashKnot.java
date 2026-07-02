@@ -11,7 +11,6 @@ public class RenderLeashKnot extends Render<EntityLeashKnot> {
 	private final ModelLeashKnot leashKnotModel = new ModelLeashKnot();
 
 	public RenderLeashKnot(RenderManager renderManagerIn) {
-
 		super(renderManagerIn);
 	}
 
@@ -19,7 +18,6 @@ public class RenderLeashKnot extends Render<EntityLeashKnot> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(EntityLeashKnot entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		GLS.pushMatrix();
 		GLS.disableCull();
 		GLS.translate((float) x, (float) y, (float) z);
@@ -49,7 +47,6 @@ public class RenderLeashKnot extends Render<EntityLeashKnot> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityLeashKnot entity) {
-
 		return LEASH_KNOT_TEXTURES;
 	}
 

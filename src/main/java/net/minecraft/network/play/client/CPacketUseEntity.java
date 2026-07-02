@@ -16,24 +16,20 @@ public class CPacketUseEntity implements Packet<INetHandlerPlayServer> {
 	private Hand hand;
 
 	public CPacketUseEntity() {
-
 	}
 
 	public CPacketUseEntity(Entity entityIn) {
-
 		entityId = entityIn.getEntityId();
 		action = CPacketUseEntity.Action.ATTACK;
 	}
 
 	public CPacketUseEntity(Entity entityIn, Hand handIn) {
-
 		entityId = entityIn.getEntityId();
 		action = CPacketUseEntity.Action.INTERACT;
 		hand = handIn;
 	}
 
 	public CPacketUseEntity(Entity entityIn, Hand handIn, Vec3d hitVecIn) {
-
 		entityId = entityIn.getEntityId();
 		action = CPacketUseEntity.Action.INTERACT_AT;
 		hand = handIn;
@@ -44,7 +40,6 @@ public class CPacketUseEntity implements Packet<INetHandlerPlayServer> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		entityId = buf.readVarInt();
 		action = buf.readEnumValue(Action.class);
 
@@ -61,7 +56,6 @@ public class CPacketUseEntity implements Packet<INetHandlerPlayServer> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeVarInt(entityId);
 		buf.writeEnumValue(action);
 
@@ -80,13 +74,11 @@ public class CPacketUseEntity implements Packet<INetHandlerPlayServer> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayServer handler) {
-
 		handler.processUseEntity(this);
 	}
 
 	
 	public Entity getEntityFromWorld(World worldIn) {
-
 		return worldIn.getEntityByID(entityId);
 	}
 
@@ -96,12 +88,10 @@ public class CPacketUseEntity implements Packet<INetHandlerPlayServer> {
 	}
 
 	public Hand getHand() {
-
 		return hand;
 	}
 
 	public Vec3d getHitVec() {
-
 		return hitVec;
 	}
 

@@ -7,7 +7,6 @@ import java.util.Random;
 public class StructureMineshaftStart extends StructureStart {
 	
 	public StructureMineshaftStart(World p_i47149_1_, Random p_i47149_2_, int p_i47149_3_, int p_i47149_4_, MapGenMineshaft.Type p_i47149_5_) {
-
 		super(p_i47149_3_, p_i47149_4_);
 		StructureMineshaftPieces.Room structuremineshaftpieces$room = new StructureMineshaftPieces.Room(0, p_i47149_2_, (p_i47149_3_ << 4) + 2, (p_i47149_4_ << 4) + 2, p_i47149_5_);
 		components.add(structuremineshaftpieces$room);

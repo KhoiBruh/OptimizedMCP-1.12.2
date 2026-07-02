@@ -12,18 +12,15 @@ public class SpectatorDetails {
 	private final int selectedSlot;
 
 	public SpectatorDetails(List<ISpectatorMenuObject> itemsIn, int selectedIndex) {
-		
 		items = itemsIn;
 		selectedSlot = selectedIndex;
 	}
 
 	public ISpectatorMenuObject getObject(int index) {
-
 		return index >= 0 && index < items.size() ? MoreObjects.firstNonNull(items.get(index), SpectatorMenu.EMPTY_SLOT) : SpectatorMenu.EMPTY_SLOT;
 	}
 
 	public int getSelectedSlot() {
-
 		return selectedSlot;
 	}
 

@@ -25,11 +25,9 @@ public class SPacketChunkData implements Packet<INetHandlerPlayClient> {
 	private boolean fullChunk;
 
 	public SPacketChunkData() {
-
 	}
 
 	public SPacketChunkData(Chunk chunkIn, int changedSectionFilter) {
-
 		chunkX = chunkIn.x;
 		chunkZ = chunkIn.z;
 		fullChunk = changedSectionFilter == 65535;
@@ -54,7 +52,6 @@ public class SPacketChunkData implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		chunkX = buf.readInt();
 		chunkZ = buf.readInt();
 		fullChunk = buf.readBoolean();
@@ -79,7 +76,6 @@ public class SPacketChunkData implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeInt(chunkX);
 		buf.writeInt(chunkZ);
 		buf.writeBoolean(fullChunk);
@@ -97,24 +93,20 @@ public class SPacketChunkData implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleChunkData(this);
 	}
 
 	public PacketBuffer getReadBuffer() {
-
 		return new PacketBuffer(Unpooled.wrappedBuffer(buffer));
 	}
 
 	private ByteBuf getWriteBuffer() {
-
 		ByteBuf bytebuf = Unpooled.wrappedBuffer(buffer);
 		bytebuf.writerIndex(0);
 		return bytebuf;
 	}
 
 	public int extractChunkData(PacketBuffer buf, Chunk chunkIn, boolean writeSkylight, int changedSectionFilter) {
-
 		int i = 0;
 		ExtendedBlockStorage[] aextendedblockstorage = chunkIn.getBlockStorageArray();
 		int j = 0;
@@ -141,7 +133,6 @@ public class SPacketChunkData implements Packet<INetHandlerPlayClient> {
 	}
 
 	protected int calculateChunkSize(Chunk chunkIn, boolean p_189556_2_, int p_189556_3_) {
-
 		int i = 0;
 		ExtendedBlockStorage[] aextendedblockstorage = chunkIn.getBlockStorageArray();
 		int j = 0;
@@ -167,27 +158,22 @@ public class SPacketChunkData implements Packet<INetHandlerPlayClient> {
 	}
 
 	public int getChunkX() {
-
 		return chunkX;
 	}
 
 	public int getChunkZ() {
-
 		return chunkZ;
 	}
 
 	public int getExtractedSize() {
-
 		return availableSections;
 	}
 
 	public boolean isFullChunk() {
-
 		return fullChunk;
 	}
 
 	public List<NBTTagCompound> getTileEntityTags() {
-
 		return tileEntityTags;
 	}
 

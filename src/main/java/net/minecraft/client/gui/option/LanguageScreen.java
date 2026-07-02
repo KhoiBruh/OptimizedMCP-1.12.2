@@ -44,7 +44,6 @@ public class LanguageScreen extends Screen {
 	private OptionButton confirmSettingsBtn;
 
 	public LanguageScreen(Screen screen, GameSettings gameSettingsObj, LanguageManager manager) {
-
 		parentScreen = screen;
 		game_settings_3 = gameSettingsObj;
 		languageManager = manager;
@@ -55,7 +54,6 @@ public class LanguageScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		forceUnicodeFontBtn = addButton(new OptionButton(100, width / 2 - 155, height - 38, GameSettings.Options.FORCE_UNICODE_FONT, game_settings_3.getKeyBinding(GameSettings.Options.FORCE_UNICODE_FONT)));
 		confirmSettingsBtn = addButton(new OptionButton(6, width / 2 - 155 + 160, height - 38, I18n.format("gui.done")));
 		list = new LanguageScreen.List(mc);
@@ -66,7 +64,6 @@ public class LanguageScreen extends Screen {
 	 * Handles mouse input.
 	 */
 	public void handleMouse() throws IOException {
-
 		super.handleMouse();
 		list.handleMouseInput();
 	}
@@ -75,7 +72,6 @@ public class LanguageScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.enabled) {
 			switch (button.id) {
 				case 5:
@@ -106,7 +102,6 @@ public class LanguageScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		list.drawScreen(mouseX, mouseY, partialTicks);
 		drawCenteredString(fontRenderer, I18n.format("options.language"), width / 2, 16, 16777215);
 		drawCenteredString(fontRenderer, "(" + I18n.format("options.languageWarning") + ")", width / 2, height - 56, 8421504);
@@ -119,7 +114,6 @@ public class LanguageScreen extends Screen {
 		private final Map<String, Language> languageMap = Maps.newHashMap();
 
 		public List(Minecraft mcIn) {
-
 			super(mcIn, LanguageScreen.this.width, LanguageScreen.this.height, 32, LanguageScreen.this.height - 65 + 4, 18);
 
 			for (Language language : languageManager.getLanguages()) {
@@ -129,12 +123,10 @@ public class LanguageScreen extends Screen {
 		}
 
 		protected int getSize() {
-
 			return langCodeList.size();
 		}
 
 		protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
-
 			Language language = languageMap.get(langCodeList.get(slotIndex));
 			languageManager.setCurrentLanguage(language);
 			game_settings_3.language = language.getLanguageCode();
@@ -147,22 +139,18 @@ public class LanguageScreen extends Screen {
 		}
 
 		protected boolean isSelected(int slotIndex) {
-
 			return langCodeList.get(slotIndex).equals(languageManager.getCurrentLanguage().getLanguageCode());
 		}
 
 		protected int getContentHeight() {
-
 			return getSize() * 18;
 		}
 
 		protected void drawBackground() {
-
 			drawDefaultBackground();
 		}
 
 		protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks) {
-
 			fontRenderer.setBidiFlag(true);
 			drawCenteredString(fontRenderer, languageMap.get(langCodeList.get(slotIndex)).toString(), width / 2, yPos + 1, 16777215);
 			fontRenderer.setBidiFlag(languageManager.getCurrentLanguage().isBidirectional());

@@ -7,11 +7,9 @@ import net.minecraft.util.JsonUtils;
 import java.lang.reflect.Type;
 
 public record BlockPartFace(Facing cullFace, int tintIndex, String texture, BlockFaceUV blockFaceUV) {
-
 	static class Deserializer implements JsonDeserializer<BlockPartFace> {
 
 		public BlockPartFace deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-
 			JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
 			Facing enumfacing = parseCullFace(jsonobject);
 			int i = parseTintIndex(jsonobject);
@@ -21,18 +19,15 @@ public record BlockPartFace(Facing cullFace, int tintIndex, String texture, Bloc
 		}
 
 		protected int parseTintIndex(JsonObject object) {
-
 			return JsonUtils.getInt(object, "tintindex", -1);
 		}
 
 		private String parseTexture(JsonObject object) {
-
 			return JsonUtils.getString(object, "texture");
 		}
 
 		
 		private Facing parseCullFace(JsonObject object) {
-
 			String s = JsonUtils.getString(object, "cullface", "");
 			return Facing.byName(s);
 		}

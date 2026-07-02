@@ -11,12 +11,10 @@ public class AddBedTileEntity implements IFixableData {
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	public int getFixVersion() {
-
 		return 1125;
 	}
 
 	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
-
 		try {
 			NBTTagCompound nbttagcompound = compound.getCompoundTag("Level");
 			int j = nbttagcompound.getInteger("xPos");

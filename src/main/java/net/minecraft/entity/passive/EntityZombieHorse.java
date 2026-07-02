@@ -17,17 +17,14 @@ import net.minecraft.world.storage.loot.LootTableList;
 public class EntityZombieHorse extends AbstractHorse {
 
 	public EntityZombieHorse(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public static void registerFixesZombieHorse(DataFixer fixer) {
-
 		AbstractHorse.registerFixesAbstractHorse(fixer, EntityZombieHorse.class);
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(15D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
@@ -38,36 +35,30 @@ public class EntityZombieHorse extends AbstractHorse {
 	 * Get this Entity's CreatureAttribute
 	 */
 	public CreatureAttribute getCreatureAttribute() {
-
 		return CreatureAttribute.UNDEAD;
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		super.getAmbientSound();
 		return SoundEvents.ENTITY_ZOMBIE_HORSE_AMBIENT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		super.getDeathSound();
 		return SoundEvents.ENTITY_ZOMBIE_HORSE_DEATH;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		super.getHurtSound(damageSourceIn);
 		return SoundEvents.ENTITY_ZOMBIE_HORSE_HURT;
 	}
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_ZOMBIE_HORSE;
 	}
 
 	public boolean processInteract(EntityPlayer player, Hand hand) {
-
 		ItemStack itemstack = player.getHeldItem(hand);
 		boolean flag = !itemstack.isEmpty();
 

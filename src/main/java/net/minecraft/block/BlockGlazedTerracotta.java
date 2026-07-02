@@ -17,7 +17,6 @@ import net.minecraft.world.World;
 public class BlockGlazedTerracotta extends BlockHorizontal {
 
 	public BlockGlazedTerracotta(DyeColor color) {
-
 		super(Material.ROCK, MapColor.getBlockColor(color));
 		setHardness(1.4F);
 		setSoundType(SoundType.STONE);
@@ -32,7 +31,6 @@ public class BlockGlazedTerracotta extends BlockHorizontal {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, FACING);
 	}
 
@@ -41,7 +39,6 @@ public class BlockGlazedTerracotta extends BlockHorizontal {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
@@ -50,7 +47,6 @@ public class BlockGlazedTerracotta extends BlockHorizontal {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
 	}
 
@@ -59,7 +55,6 @@ public class BlockGlazedTerracotta extends BlockHorizontal {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
 	}
 
@@ -67,7 +62,6 @@ public class BlockGlazedTerracotta extends BlockHorizontal {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 		i = i | state.getValue(FACING).getHorizontalIndex();
 		return i;
@@ -77,12 +71,10 @@ public class BlockGlazedTerracotta extends BlockHorizontal {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(FACING, Facing.getHorizontal(meta));
 	}
 
 	public PushReaction getMobilityFlag(IBlockState state) {
-
 		return PushReaction.PUSH_ONLY;
 	}
 

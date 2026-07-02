@@ -12,7 +12,6 @@ public class TileEntityEndGatewayRenderer extends TileEntityEndPortalRenderer {
 	private static final ResourceLocation END_GATEWAY_BEAM_TEXTURE = new ResourceLocation("textures/entity/end_gateway_beam.png");
 
 	public void render(TileEntityEndPortal te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-
 		GLS.disableFog();
 		TileEntityEndGateway tileentityendgateway = (TileEntityEndGateway) te;
 
@@ -33,12 +32,10 @@ public class TileEntityEndGatewayRenderer extends TileEntityEndPortalRenderer {
 	}
 
 	protected int getPasses(double p_191286_1_) {
-
 		return super.getPasses(p_191286_1_) + 1;
 	}
 
 	protected float getOffset() {
-
 		return 1F;
 	}
 

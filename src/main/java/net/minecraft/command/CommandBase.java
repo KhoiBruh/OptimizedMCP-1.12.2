@@ -45,7 +45,6 @@ public abstract class CommandBase implements ICommand {
 	 * Convert a JsonParseException into a user-friendly exception
 	 */
 	protected static SyntaxErrorException toSyntaxException(JsonParseException e) {
-
 		Throwable throwable = getRootCause(e);
 		String s = "";
 
@@ -61,7 +60,6 @@ public abstract class CommandBase implements ICommand {
 	}
 
 	public static NBTTagCompound entityToNBT(Entity theEntity) {
-
 		NBTTagCompound nbttagcompound = theEntity.writeToNBT(new NBTTagCompound());
 
 		if (theEntity instanceof EntityPlayer) {
@@ -76,7 +74,6 @@ public abstract class CommandBase implements ICommand {
 	}
 
 	public static int parseInt(String input) throws NumberInvalidException {
-
 		try {
 			return Integer.parseInt(input);
 		} catch (NumberFormatException var2) {
@@ -85,12 +82,10 @@ public abstract class CommandBase implements ICommand {
 	}
 
 	public static int parseInt(String input, int min) throws NumberInvalidException {
-
 		return parseInt(input, min, Integer.MAX_VALUE);
 	}
 
 	public static int parseInt(String input, int min, int max) throws NumberInvalidException {
-
 		int i = parseInt(input);
 
 		if (i < min) {
@@ -103,7 +98,6 @@ public abstract class CommandBase implements ICommand {
 	}
 
 	public static long parseLong(String input) throws NumberInvalidException {
-
 		try {
 			return Long.parseLong(input);
 		} catch (NumberFormatException var2) {
@@ -112,7 +106,6 @@ public abstract class CommandBase implements ICommand {
 	}
 
 	public static long parseLong(String input, long min, long max) throws NumberInvalidException {
-
 		long i = parseLong(input);
 
 		if (i < min) {
@@ -125,13 +118,11 @@ public abstract class CommandBase implements ICommand {
 	}
 
 	public static BlockPos parseBlockPos(ICommandSender sender, String[] args, int startIndex, boolean centerBlock) throws NumberInvalidException {
-
 		BlockPos blockpos = sender.getPosition();
 		return new BlockPos(parseDouble(blockpos.getX(), args[startIndex], -30000000, 30000000, centerBlock), parseDouble(blockpos.getY(), args[startIndex + 1], 0, 256, false), parseDouble(blockpos.getZ(), args[startIndex + 2], -30000000, 30000000, centerBlock));
 	}
 
 	public static double parseDouble(String input) throws NumberInvalidException {
-
 		try {
 			double d0 = Double.parseDouble(input);
 
@@ -146,12 +137,10 @@ public abstract class CommandBase implements ICommand {
 	}
 
 	public static double parseDouble(String input, double min) throws NumberInvalidException {
-
 		return parseDouble(input, min, Double.MAX_VALUE);
 	}
 
 	public static double parseDouble(String input, double min, double max) throws NumberInvalidException {
-
 		double d0 = parseDouble(input);
 
 		if (d0 < min) {
@@ -164,7 +153,6 @@ public abstract class CommandBase implements ICommand {
 	}
 
 	public static boolean parseBoolean(String input) throws CommandException {
-
 		if (!"true".equals(input) && !"1".equals(input)) {
 			if (!"false".equals(input) && !"0".equals(input)) {
 				throw new CommandException("commands.generic.boolean.invalid", input);
@@ -180,7 +168,6 @@ public abstract class CommandBase implements ICommand {
 	 * Returns the given ICommandSender as a EntityPlayer or throw an exception.
 	 */
 	public static EntityPlayerMP getCommandSenderAsPlayer(ICommandSender sender) throws PlayerNotFoundException {
-
 		if (sender instanceof EntityPlayerMP) {
 			return (EntityPlayerMP) sender;
 		} else {
@@ -189,18 +176,15 @@ public abstract class CommandBase implements ICommand {
 	}
 
 	public static List<EntityPlayerMP> getPlayers(MinecraftServer p_193513_0_, ICommandSender p_193513_1_, String p_193513_2_) throws CommandException {
-
 		List<EntityPlayerMP> list = EntitySelector.getPlayers(p_193513_1_, p_193513_2_);
 		return list.isEmpty() ? Lists.newArrayList(getPlayer(p_193513_0_, null, p_193513_2_)) : list;
 	}
 
 	public static EntityPlayerMP getPlayer(MinecraftServer server, ICommandSender sender, String target) throws CommandException {
-
 		return getPlayer(server, EntitySelector.matchOnePlayer(sender, target), target);
 	}
 
 	private static EntityPlayerMP getPlayer(MinecraftServer p_193512_0_, EntityPlayerMP p_193512_1_, String p_193512_2_) throws CommandException {
-
 		if (p_193512_1_ == null) {
 			try {
 				p_193512_1_ = p_193512_0_.getPlayerList().getPlayerByUUID(UUID.fromString(p_193512_2_));
@@ -220,7 +204,6 @@ public abstract class CommandBase implements ICommand {
 	}
 
 	public static Entity getEntity(MinecraftServer server, ICommandSender sender, String target) throws CommandException {
-
 		return getEntity(server, sender, target, Entity.class);
 	}
 
@@ -255,12 +238,10 @@ public abstract class CommandBase implements ICommand {
 	}
 
 	public static List<Entity> getEntityList(MinecraftServer server, ICommandSender sender, String target) throws CommandException {
-
 		return EntitySelector.isSelector(target) ? EntitySelector.matchEntities(sender, target, Entity.class) : Lists.newArrayList(getEntity(server, sender, target));
 	}
 
 	public static String getPlayerName(MinecraftServer server, ICommandSender sender, String target) throws CommandException {
-
 		try {
 			return getPlayer(server, sender, target).getName();
 		} catch (CommandException commandexception) {
@@ -273,7 +254,6 @@ public abstract class CommandBase implements ICommand {
 	}
 
 	public static String getEntityName(MinecraftServer server, ICommandSender sender, String target) throws CommandException {
-
 		try {
 			return getPlayer(server, sender, target).getName();
 		} catch (PlayerNotFoundException var6) {
@@ -290,12 +270,10 @@ public abstract class CommandBase implements ICommand {
 	}
 
 	public static ITextComponent getChatComponentFromNthArg(ICommandSender sender, String[] args, int index) throws CommandException {
-
 		return getChatComponentFromNthArg(sender, args, index, false);
 	}
 
 	public static ITextComponent getChatComponentFromNthArg(ICommandSender sender, String[] args, int index, boolean p_147176_3_) throws CommandException {
-
 		ITextComponent itextcomponent = new TextComponentString("");
 
 		for (int i = index; i < args.length; ++i) {
@@ -327,7 +305,6 @@ public abstract class CommandBase implements ICommand {
 	 * Builds a string starting at startPos
 	 */
 	public static String buildString(String[] args, int startPos) {
-
 		StringBuilder stringbuilder = new StringBuilder();
 
 		for (int i = startPos; i < args.length; ++i) {
@@ -387,12 +364,10 @@ public abstract class CommandBase implements ICommand {
 	}
 
 	public static double parseDouble(double base, String input, boolean centerBlock) throws NumberInvalidException {
-
 		return parseDouble(base, input, -30000000, 30000000, centerBlock);
 	}
 
 	public static double parseDouble(double base, String input, int min, int max, boolean centerBlock) throws NumberInvalidException {
-
 		boolean flag = input.startsWith("~");
 
 		if (flag && Double.isNaN(base)) {
@@ -434,7 +409,6 @@ public abstract class CommandBase implements ICommand {
 	 * wasn't found.  Returns the item if it was found.
 	 */
 	public static Item getItemByText(ICommandSender sender, String id) throws NumberInvalidException {
-
 		ResourceLocation resourcelocation = new ResourceLocation(id);
 		Item item = Item.REGISTRY.getObject(resourcelocation);
 
@@ -451,7 +425,6 @@ public abstract class CommandBase implements ICommand {
 	 * wasn't found.  Returns the block if it was found.
 	 */
 	public static Block getBlockByText(ICommandSender sender, String id) throws NumberInvalidException {
-
 		ResourceLocation resourcelocation = new ResourceLocation(id);
 
 		if (!Block.REGISTRY.containsKey(resourcelocation)) {
@@ -462,7 +435,6 @@ public abstract class CommandBase implements ICommand {
 	}
 
 	public static IBlockState convertArgToBlockState(Block p_190794_0_, String p_190794_1_) throws NumberInvalidException, InvalidBlockStateException {
-
 		try {
 			int i = Integer.parseInt(p_190794_1_);
 
@@ -495,7 +467,6 @@ public abstract class CommandBase implements ICommand {
 	}
 
 	public static Predicate<IBlockState> convertArgToBlockStatePredicate(final Block p_190791_0_, String p_190791_1_) throws InvalidBlockStateException {
-
 		if (!"*".equals(p_190791_1_) && !"-1".equals(p_190791_1_)) {
 			try {
 				final int i = Integer.parseInt(p_190791_1_);
@@ -574,7 +545,6 @@ public abstract class CommandBase implements ICommand {
 	 * "Steve",  3) {"Steve", "Phil"} --> "Steve and Phil",  4) {"Steve", "Phil", "Mark"} --> "Steve, Phil and Mark"
 	 */
 	public static String joinNiceString(Object[] elements) {
-
 		StringBuilder stringbuilder = new StringBuilder();
 
 		for (int i = 0; i < elements.length; ++i) {
@@ -595,7 +565,6 @@ public abstract class CommandBase implements ICommand {
 	}
 
 	public static ITextComponent join(List<ITextComponent> components) {
-
 		ITextComponent itextcomponent = new TextComponentString("");
 
 		for (int i = 0; i < components.size(); ++i) {
@@ -619,12 +588,10 @@ public abstract class CommandBase implements ICommand {
 	 * and Mark"
 	 */
 	public static String joinNiceStringFromCollection(Collection<String> strings) {
-
 		return joinNiceString(strings.toArray(new String[0]));
 	}
 
 	public static List<String> getTabCompletionCoordinate(String[] inputArgs, int index, BlockPos pos) {
-
 		if (pos == null) {
 			return Lists.newArrayList("~");
 		} else {
@@ -648,7 +615,6 @@ public abstract class CommandBase implements ICommand {
 	}
 
 	public static List<String> getTabCompletionCoordinateXZ(String[] inputArgs, int index, BlockPos lookedPos) {
-
 		if (lookedPos == null) {
 			return Lists.newArrayList("~");
 		} else {
@@ -673,17 +639,14 @@ public abstract class CommandBase implements ICommand {
 	 * Returns true if the given substring is exactly equal to the start of the given string (case insensitive).
 	 */
 	public static boolean doesStringStartWith(String original, String region) {
-
 		return region.regionMatches(true, 0, original, 0, original.length());
 	}
 
 	public static List<String> getListOfStringsMatchingLastWord(String[] args, String... possibilities) {
-
 		return getListOfStringsMatchingLastWord(args, Arrays.asList(possibilities));
 	}
 
 	public static List<String> getListOfStringsMatchingLastWord(String[] inputArgs, Collection<?> possibleCompletions) {
-
 		String s = inputArgs[inputArgs.length - 1];
 		List<String> list = Lists.newArrayList();
 
@@ -707,12 +670,10 @@ public abstract class CommandBase implements ICommand {
 	}
 
 	public static void notifyCommandListener(ICommandSender sender, ICommand command, String translationKey, Object... translationArgs) {
-
 		notifyCommandListener(sender, command, 0, translationKey, translationArgs);
 	}
 
 	public static void notifyCommandListener(ICommandSender sender, ICommand command, int flags, String translationKey, Object... translationArgs) {
-
 		if (commandListener != null) {
 			commandListener.notifyListener(sender, command, flags, translationKey, translationArgs);
 		}
@@ -722,7 +683,6 @@ public abstract class CommandBase implements ICommand {
 	 * Sets the command listener responsable for notifying server operators when asked to by commands
 	 */
 	public static void setCommandListener(ICommandListener listener) {
-
 		commandListener = listener;
 	}
 
@@ -730,12 +690,10 @@ public abstract class CommandBase implements ICommand {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 4;
 	}
 
 	public List<String> getAliases() {
-
 		return Collections.emptyList();
 	}
 
@@ -743,12 +701,10 @@ public abstract class CommandBase implements ICommand {
 	 * Check if the given ICommandSender has permission to execute this command
 	 */
 	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-
 		return sender.canUseCommand(getRequiredPermissionLevel(), getName());
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		return Collections.emptyList();
 	}
 
@@ -756,12 +712,10 @@ public abstract class CommandBase implements ICommand {
 	 * Return whether the specified command parameter index is a username parameter.
 	 */
 	public boolean isUsernameIndex(String[] args, int index) {
-
 		return false;
 	}
 
 	public int compareTo(ICommand p_compareTo_1_) {
-
 		return getName().compareTo(p_compareTo_1_.getName());
 	}
 
@@ -772,24 +726,20 @@ public abstract class CommandBase implements ICommand {
 		private final boolean isRelative;
 
 		protected CoordinateArg(double resultIn, double amountIn, boolean relative) {
-
 			result = resultIn;
 			amount = amountIn;
 			isRelative = relative;
 		}
 
 		public double getResult() {
-
 			return result;
 		}
 
 		public double getAmount() {
-
 			return amount;
 		}
 
 		public boolean isRelative() {
-
 			return isRelative;
 		}
 

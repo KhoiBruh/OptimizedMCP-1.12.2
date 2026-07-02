@@ -34,12 +34,10 @@ public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase {
 	private Path path;
 
 	public EntityAIAvoidEntity(EntityCreature entityIn, Class<T> classToAvoidIn, float avoidDistanceIn, double farSpeedIn, double nearSpeedIn) {
-
 		this(entityIn, classToAvoidIn, Predicates.alwaysTrue(), avoidDistanceIn, farSpeedIn, nearSpeedIn);
 	}
 
 	public EntityAIAvoidEntity(EntityCreature entityIn, Class<T> classToAvoidIn, Predicate<? super T> avoidTargetSelectorIn, float avoidDistanceIn, double farSpeedIn, double nearSpeedIn) {
-
 		canBeSeenSelector = p_apply_1_ -> p_apply_1_.isEntityAlive() && entity.getEntitySenses().canSee(p_apply_1_) && !entity.isOnSameTeam(p_apply_1_);
 		entity = entityIn;
 		classToAvoid = classToAvoidIn;
@@ -55,7 +53,6 @@ public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		List<T> list = entity.world.getEntitiesWithinAABB(classToAvoid, entity.getEntityBoundingBox().grow(avoidDistance, 3D, avoidDistance), Predicates.and(EntitySelectors.CAN_AI_TARGET, canBeSeenSelector, avoidTargetSelector));
 
 		if (list.isEmpty()) {
@@ -79,7 +76,6 @@ public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		return !navigation.noPath();
 	}
 
@@ -87,7 +83,6 @@ public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		navigation.setPath(path, farSpeed);
 	}
 
@@ -95,7 +90,6 @@ public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		closestLivingEntity = null;
 	}
 
@@ -103,7 +97,6 @@ public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		if (entity.getDistanceSq(closestLivingEntity) < 49D) {
 			entity.getNavigator().setSpeed(nearSpeed);
 		} else {

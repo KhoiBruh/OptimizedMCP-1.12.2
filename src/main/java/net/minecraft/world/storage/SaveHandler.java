@@ -39,7 +39,6 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData {
 	private final TemplateManager structureTemplateManager;
 
 	public SaveHandler(File p_i46648_1_, String saveDirectoryNameIn, boolean p_i46648_3_, DataFixer dataFixerIn) {
-
 		dataFixer = dataFixerIn;
 		worldDirectory = new File(p_i46648_1_, saveDirectoryNameIn);
 		worldDirectory.mkdirs();
@@ -62,7 +61,6 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData {
 	 * Creates a session lock file for this process
 	 */
 	private void setSessionLock() {
-
 		try {
 			File file1 = new File(worldDirectory, "session.lock");
 
@@ -79,7 +77,6 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData {
 	 * Gets the File object corresponding to the base directory of this world.
 	 */
 	public File getWorldDirectory() {
-
 		return worldDirectory;
 	}
 
@@ -87,7 +84,6 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData {
 	 * Checks the session lock to prevent save collisions
 	 */
 	public void checkSessionLock() throws MinecraftException {
-
 		try {
 			File file1 = new File(worldDirectory, "session.lock");
 
@@ -105,7 +101,6 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData {
 	 * initializes and returns the chunk loader for the specified world provider
 	 */
 	public IChunkLoader getChunkLoader(WorldProvider provider) {
-
 		throw new RuntimeException("Old Chunk Storage is no longer supported.");
 	}
 
@@ -115,7 +110,6 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData {
 	 * Loads and returns the world info
 	 */
 	public WorldInfo loadWorldInfo() {
-
 		File file1 = new File(worldDirectory, "level.dat");
 
 		if (file1.exists()) {
@@ -134,7 +128,6 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData {
 	 * Saves the given World Info with the given NBTTagCompound as the Player.
 	 */
 	public void saveWorldInfoWithPlayer(WorldInfo worldInformation, NBTTagCompound tagCompound) {
-
 		NBTTagCompound nbttagcompound = worldInformation.cloneNBTCompound(tagCompound);
 		NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 		nbttagcompound1.setTag("Data", nbttagcompound);
@@ -169,7 +162,6 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData {
 	 * used to update level.dat from old format to MCRegion format
 	 */
 	public void saveWorldInfo(WorldInfo worldInformation) {
-
 		saveWorldInfoWithPlayer(worldInformation, null);
 	}
 
@@ -177,7 +169,6 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData {
 	 * Writes the player data to disk from the specified PlayerEntityMP.
 	 */
 	public void writePlayerData(EntityPlayer player) {
-
 		try {
 			NBTTagCompound nbttagcompound = player.writeToNBT(new NBTTagCompound());
 			File file1 = new File(playersDirectory, player.getCachedUniqueIdString() + ".dat.tmp");
@@ -200,7 +191,6 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData {
 	 * Reads the player data from disk into the specified PlayerEntityMP.
 	 */
 	public NBTTagCompound readPlayerData(EntityPlayer player) {
-
 		NBTTagCompound nbttagcompound = null;
 
 		try {
@@ -221,7 +211,6 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData {
 	}
 
 	public IPlayerFileData getPlayerNBTManager() {
-
 		return this;
 	}
 
@@ -229,7 +218,6 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData {
 	 * Returns an array of usernames for which player.dat exists for.
 	 */
 	public String[] getAvailablePlayerDat() {
-
 		String[] astring = playersDirectory.list();
 
 		if (astring == null) {
@@ -249,19 +237,16 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData {
 	 * Called to flush all changes to disk, waiting for them to complete.
 	 */
 	public void flush() {
-
 	}
 
 	/**
 	 * Gets the file location of the given map
 	 */
 	public File getMapFileFromName(String mapName) {
-
 		return new File(mapDataDir, mapName + ".dat");
 	}
 
 	public TemplateManager getStructureTemplateManager() {
-
 		return structureTemplateManager;
 	}
 

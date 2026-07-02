@@ -18,14 +18,12 @@ public class StateMap extends StateMapperBase {
 	private final List<IProperty<?>> ignored;
 
 	private StateMap(IProperty<?> name, String suffix, List<IProperty<?>> ignored) {
-
 		this.name = name;
 		this.suffix = suffix;
 		this.ignored = ignored;
 	}
 
 	protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-
 		Map<IProperty<?>, Comparable<?>> map = Maps.newLinkedHashMap(state.getProperties());
 		String s;
 
@@ -76,7 +74,6 @@ public class StateMap extends StateMapperBase {
 		}
 
 		public StateMap build() {
-
 			return new StateMap(name, suffix, ignored);
 		}
 

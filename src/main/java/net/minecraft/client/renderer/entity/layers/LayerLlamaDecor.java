@@ -12,12 +12,10 @@ public class LayerLlamaDecor implements LayerRenderer<EntityLlama> {
 	private final ModelLlama model = new ModelLlama(0.5F);
 
 	public LayerLlamaDecor(RenderLlama p_i47184_1_) {
-
 		renderer = p_i47184_1_;
 	}
 
 	public void doRenderLayer(EntityLlama entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		if (entitylivingbaseIn.hasColor()) {
 			renderer.bindTexture(LLAMA_DECOR_TEXTURES[entitylivingbaseIn.getColor().getMetadata()]);
 			model.setModelAttributes(renderer.getMainModel());
@@ -26,7 +24,6 @@ public class LayerLlamaDecor implements LayerRenderer<EntityLlama> {
 	}
 
 	public boolean shouldCombineTextures() {
-
 		return false;
 	}
 

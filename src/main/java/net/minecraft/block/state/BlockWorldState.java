@@ -15,14 +15,12 @@ public class BlockWorldState {
 	private boolean tileEntityInitialized;
 
 	public BlockWorldState(World worldIn, BlockPos posIn, boolean forceLoadIn) {
-
 		world = worldIn;
 		pos = posIn;
 		forceLoad = forceLoadIn;
 	}
 
 	public static Predicate<BlockWorldState> hasState(final Predicate<IBlockState> predicatesIn) {
-
 		return p_apply_1_ -> p_apply_1_ != null && predicatesIn.apply(p_apply_1_.getBlockState());
 	}
 
@@ -31,7 +29,6 @@ public class BlockWorldState {
 	 * This will only look up the state from the world if {@link #forceLoad} is true or the block position is loaded.
 	 */
 	public IBlockState getBlockState() {
-
 		if (state == null && (forceLoad || world.isBlockLoaded(pos))) {
 			state = world.getBlockState(pos);
 		}
@@ -45,7 +42,6 @@ public class BlockWorldState {
 	 * Gets the tile entity as currently held, or (if it has not gotten it from the world) loads it from the world.
 	 */
 	public TileEntity getTileEntity() {
-
 		if (tileEntity == null && !tileEntityInitialized) {
 			tileEntity = world.getTileEntity(pos);
 			tileEntityInitialized = true;
@@ -55,7 +51,6 @@ public class BlockWorldState {
 	}
 
 	public BlockPos getPos() {
-
 		return pos;
 	}
 

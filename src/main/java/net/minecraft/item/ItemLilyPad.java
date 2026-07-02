@@ -21,12 +21,10 @@ import net.minecraft.world.World;
 public class ItemLilyPad extends ItemColored {
 
 	public ItemLilyPad(Block block) {
-
 		super(block, false);
 	}
 
 	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
-
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, true);
 

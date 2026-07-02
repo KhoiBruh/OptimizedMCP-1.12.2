@@ -18,7 +18,6 @@ public enum PlayerModelParts {
 	private final ITextComponent name;
 
 	PlayerModelParts(int partIdIn, String partNameIn) {
-
 		partId = partIdIn;
 		partMask = 1 << partIdIn;
 		partName = partNameIn;
@@ -26,22 +25,18 @@ public enum PlayerModelParts {
 	}
 
 	public int getPartMask() {
-
 		return partMask;
 	}
 
 	public int getPartId() {
-
 		return partId;
 	}
 
 	public String getPartName() {
-
 		return partName;
 	}
 
 	public ITextComponent getName() {
-
 		return name;
 	}
 }

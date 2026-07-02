@@ -23,7 +23,6 @@ public abstract class MapGenStructure extends MapGenBase {
 	private MapGenStructureData structureData;
 
 	protected static BlockPos findNearestStructurePosBySpacing(World worldIn, MapGenStructure p_191069_1_, BlockPos p_191069_2_, int p_191069_3_, int p_191069_4_, int p_191069_5_, boolean p_191069_6_, int p_191069_7_, boolean findUnexplored) {
-
 		int i = p_191069_2_.getX() >> 4;
 		int j = p_191069_2_.getZ() >> 4;
 		int k = 0;
@@ -89,7 +88,6 @@ public abstract class MapGenStructure extends MapGenBase {
 	 * Recursively called by generate()
 	 */
 	protected final synchronized void recursiveGenerate(World worldIn, final int chunkX, final int chunkZ, int originalX, int originalZ, ChunkPrimer chunkPrimerIn) {
-
 		initializeStructureData(worldIn);
 
 		if (!structureMap.containsKey(ChunkPos.asLong(chunkX, chunkZ))) {
@@ -117,7 +115,6 @@ public abstract class MapGenStructure extends MapGenBase {
 	}
 
 	public synchronized boolean generateStructure(World worldIn, Random randomIn, ChunkPos chunkCoord) {
-
 		initializeStructureData(worldIn);
 		int i = (chunkCoord.x << 4) + 8;
 		int j = (chunkCoord.z << 4) + 8;
@@ -136,7 +133,6 @@ public abstract class MapGenStructure extends MapGenBase {
 	}
 
 	public boolean isInsideStructure(BlockPos pos) {
-
 		if (world == null) {
 			return false;
 		} else {
@@ -147,7 +143,6 @@ public abstract class MapGenStructure extends MapGenBase {
 
 	
 	protected StructureStart getStructureAt(BlockPos pos) {
-
 		ObjectIterator<StructureStart> objectiterator = structureMap.values().iterator();
 		label31:
 
@@ -177,7 +172,6 @@ public abstract class MapGenStructure extends MapGenBase {
 	}
 
 	public boolean isPositionInStructure(World worldIn, BlockPos pos) {
-
 		initializeStructureData(worldIn);
 
 		for (StructureStart structurestart : structureMap.values()) {
@@ -193,7 +187,6 @@ public abstract class MapGenStructure extends MapGenBase {
 	public abstract BlockPos getNearestStructurePos(World worldIn, BlockPos pos, boolean findUnexplored);
 
 	protected void initializeStructureData(World worldIn) {
-
 		if (structureData == null && worldIn != null) {
 			structureData = (MapGenStructureData) worldIn.loadData(MapGenStructureData.class, getStructureName());
 
@@ -225,7 +218,6 @@ public abstract class MapGenStructure extends MapGenBase {
 	}
 
 	private void setStructureStart(int chunkX, int chunkZ, StructureStart start) {
-
 		structureData.writeInstance(start.writeStructureComponentsToNBT(chunkX, chunkZ), chunkX, chunkZ);
 		structureData.markDirty();
 	}

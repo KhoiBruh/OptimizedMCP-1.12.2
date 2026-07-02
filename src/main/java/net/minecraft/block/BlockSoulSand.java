@@ -15,14 +15,12 @@ public class BlockSoulSand extends Block {
 	protected static final AxisAlignedBB SOUL_SAND_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.875D, 1D);
 
 	public BlockSoulSand() {
-
 		super(Material.SAND, MapColor.BROWN);
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 	}
 
 	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-
 		return SOUL_SAND_AABB;
 	}
 
@@ -30,7 +28,6 @@ public class BlockSoulSand extends Block {
 	 * Called When an Entity Collided with the Block
 	 */
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-
 		entityIn.motionX *= 0.4D;
 		entityIn.motionZ *= 0.4D;
 	}

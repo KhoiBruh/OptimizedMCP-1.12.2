@@ -21,7 +21,6 @@ public class ItemSeeds extends Item {
 	private final Block soilBlockID;
 
 	public ItemSeeds(Block crops, Block soil) {
-
 		this.crops = crops;
 		soilBlockID = soil;
 		setCreativeTab(CreativeTabs.MATERIALS);
@@ -31,7 +30,6 @@ public class ItemSeeds extends Item {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (facing == Facing.UP && player.canPlayerEdit(pos.offset(facing), facing, itemstack) && worldIn.getBlockState(pos).getBlock() == soilBlockID && worldIn.isAirBlock(pos.up())) {

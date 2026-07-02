@@ -8,7 +8,6 @@ public class EntityAITradePlayer extends EntityAIBase {
 	private final EntityVillager villager;
 
 	public EntityAITradePlayer(EntityVillager villagerIn) {
-
 		villager = villagerIn;
 		setMutexBits(5);
 	}
@@ -17,7 +16,6 @@ public class EntityAITradePlayer extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		if (!villager.isEntityAlive()) {
 			return false;
 		} else if (villager.isInWater()) {
@@ -43,7 +41,6 @@ public class EntityAITradePlayer extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		villager.getNavigator().clearPath();
 	}
 
@@ -51,7 +48,6 @@ public class EntityAITradePlayer extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		villager.setCustomer(null);
 	}
 

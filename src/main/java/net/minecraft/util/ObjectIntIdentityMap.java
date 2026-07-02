@@ -14,18 +14,15 @@ public class ObjectIntIdentityMap<T> implements IObjectIntIterable<T> {
 	private final List<T> objectList;
 
 	public ObjectIntIdentityMap() {
-
 		this(512);
 	}
 
 	public ObjectIntIdentityMap(int expectedSize) {
-
 		objectList = Lists.newArrayListWithExpectedSize(expectedSize);
 		identityMap = new IdentityHashMap<>(expectedSize);
 	}
 
 	public void put(T key, int value) {
-
 		identityMap.put(key, value);
 
 		while (objectList.size() <= value) {
@@ -36,24 +33,20 @@ public class ObjectIntIdentityMap<T> implements IObjectIntIterable<T> {
 	}
 
 	public int get(T key) {
-
 		Integer integer = identityMap.get(key);
 		return integer == null ? -1 : integer;
 	}
 
 	
 	public final T getByValue(int value) {
-
 		return value >= 0 && value < objectList.size() ? objectList.get(value) : null;
 	}
 
 	public Iterator<T> iterator() {
-
 		return Iterators.filter(objectList.iterator(), Predicates.notNull());
 	}
 
 	public int size() {
-
 		return identityMap.size();
 	}
 

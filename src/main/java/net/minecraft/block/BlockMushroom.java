@@ -16,17 +16,14 @@ public class BlockMushroom extends BlockBush implements IGrowable {
 	protected static final AxisAlignedBB MUSHROOM_AABB = new AxisAlignedBB(0.30000001192092896D, 0D, 0.30000001192092896D, 0.699999988079071D, 0.4000000059604645D, 0.699999988079071D);
 
 	protected BlockMushroom() {
-
 		setTickRandomly(true);
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return MUSHROOM_AABB;
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if (rand.nextInt(25) == 0) {
 			int i = 5;
 
@@ -60,7 +57,6 @@ public class BlockMushroom extends BlockBush implements IGrowable {
 	 * Checks if this block can be placed exactly at the given position.
 	 */
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-
 		return super.canPlaceBlockAt(worldIn, pos) && canBlockStay(worldIn, pos, getDefaultState());
 	}
 
@@ -68,12 +64,10 @@ public class BlockMushroom extends BlockBush implements IGrowable {
 	 * Return true if the block can sustain a Bush
 	 */
 	protected boolean canSustainBush(IBlockState state) {
-
 		return state.isFullBlock();
 	}
 
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (pos.getY() >= 0 && pos.getY() < 256) {
 			IBlockState iblockstate = worldIn.getBlockState(pos.down());
 
@@ -90,7 +84,6 @@ public class BlockMushroom extends BlockBush implements IGrowable {
 	}
 
 	public boolean generateBigMushroom(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		worldIn.setBlockToAir(pos);
 		WorldGenerator worldgenerator = null;
 
@@ -112,17 +105,14 @@ public class BlockMushroom extends BlockBush implements IGrowable {
 	 * Whether this IGrowable can grow
 	 */
 	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
-
 		return true;
 	}
 
 	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-
 		return (double) rand.nextFloat() < 0.4D;
 	}
 
 	public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-
 		generateBigMushroom(worldIn, pos, state, rand);
 	}
 

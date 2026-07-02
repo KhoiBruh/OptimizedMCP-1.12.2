@@ -26,22 +26,18 @@ public class LanServerDetector {
 		boolean wasUpdated;
 
 		public synchronized boolean getWasUpdated() {
-
 			return wasUpdated;
 		}
 
 		public synchronized void setWasNotUpdated() {
-
 			wasUpdated = false;
 		}
 
 		public synchronized List<LanServerInfo> getLanServers() {
-
 			return Collections.unmodifiableList(listOfLanServers);
 		}
 
 		public synchronized void addServer(String pingResponse, InetAddress ipAddress) {
-
 			String s = ThreadLanServerPing.getMotdFromPingResponse(pingResponse);
 			String s1 = ThreadLanServerPing.getAdFromPingResponse(pingResponse);
 
@@ -73,7 +69,6 @@ public class LanServerDetector {
 		private final MulticastSocket socket;
 
 		public ThreadLanServerFind(LanServerDetector.LanServerList list) throws IOException {
-
 			super("LanServerDetector #" + LanServerDetector.ATOMIC_COUNTER.incrementAndGet());
 			localServerList = list;
 			setDaemon(true);
@@ -84,7 +79,6 @@ public class LanServerDetector {
 		}
 
 		public void run() {
-
 			byte[] abyte = new byte[1024];
 
 			while (!isInterrupted()) {

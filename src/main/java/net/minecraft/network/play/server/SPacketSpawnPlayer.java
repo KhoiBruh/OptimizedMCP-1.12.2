@@ -23,11 +23,9 @@ public class SPacketSpawnPlayer implements Packet<INetHandlerPlayClient> {
 	private List<EntityDataManager.DataEntry<?>> dataManagerEntries;
 
 	public SPacketSpawnPlayer() {
-
 	}
 
 	public SPacketSpawnPlayer(EntityPlayer player) {
-
 		entityId = player.getEntityId();
 		uniqueId = player.getGameProfile().getId();
 		x = player.posX;
@@ -42,7 +40,6 @@ public class SPacketSpawnPlayer implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) throws IOException {
-
 		entityId = buf.readVarInt();
 		uniqueId = buf.readUniqueId();
 		x = buf.readDouble();
@@ -57,7 +54,6 @@ public class SPacketSpawnPlayer implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeVarInt(entityId);
 		buf.writeUniqueId(uniqueId);
 		buf.writeDouble(x);
@@ -72,7 +68,6 @@ public class SPacketSpawnPlayer implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleSpawnPlayer(this);
 	}
 
@@ -83,37 +78,30 @@ public class SPacketSpawnPlayer implements Packet<INetHandlerPlayClient> {
 	}
 
 	public int getEntityID() {
-
 		return entityId;
 	}
 
 	public UUID getUniqueId() {
-
 		return uniqueId;
 	}
 
 	public double getX() {
-
 		return x;
 	}
 
 	public double getY() {
-
 		return y;
 	}
 
 	public double getZ() {
-
 		return z;
 	}
 
 	public byte getYaw() {
-
 		return yaw;
 	}
 
 	public byte getPitch() {
-
 		return pitch;
 	}
 

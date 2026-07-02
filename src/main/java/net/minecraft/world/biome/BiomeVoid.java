@@ -3,7 +3,6 @@ package net.minecraft.world.biome;
 public class BiomeVoid extends Biome {
 
 	public BiomeVoid(Biome.BiomeProperties properties) {
-
 		super(properties);
 		spawnableMonsterList.clear();
 		spawnableCreatureList.clear();
@@ -13,7 +12,6 @@ public class BiomeVoid extends Biome {
 	}
 
 	public boolean ignorePlayerSpawnSuitability() {
-
 		return true;
 	}
 

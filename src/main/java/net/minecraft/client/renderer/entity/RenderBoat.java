@@ -18,7 +18,6 @@ public class RenderBoat extends Render<EntityBoat> {
 	protected ModelBase modelBoat = new ModelBoat();
 
 	public RenderBoat(RenderManager renderManagerIn) {
-
 		super(renderManagerIn);
 		shadowSize = 0.5F;
 	}
@@ -27,7 +26,6 @@ public class RenderBoat extends Render<EntityBoat> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(EntityBoat entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		GLS.pushMatrix();
 		setupTranslation(x, y, z);
 		setupRotation(entity, entityYaw, partialTicks);
@@ -50,7 +48,6 @@ public class RenderBoat extends Render<EntityBoat> {
 	}
 
 	public void setupRotation(EntityBoat p_188311_1_, float p_188311_2_, float p_188311_3_) {
-
 		GLS.rotate(180F - p_188311_2_, 0F, 1F, 0F);
 		float f = (float) p_188311_1_.getTimeSinceHit() - p_188311_3_;
 		float f1 = p_188311_1_.getDamageTaken() - p_188311_3_;
@@ -67,7 +64,6 @@ public class RenderBoat extends Render<EntityBoat> {
 	}
 
 	public void setupTranslation(double p_188309_1_, double p_188309_3_, double p_188309_5_) {
-
 		GLS.translate((float) p_188309_1_, (float) p_188309_3_ + 0.375F, (float) p_188309_5_);
 	}
 
@@ -75,17 +71,14 @@ public class RenderBoat extends Render<EntityBoat> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityBoat entity) {
-
 		return BOAT_TEXTURES[entity.getBoatType().ordinal()];
 	}
 
 	public boolean isMultipass() {
-
 		return true;
 	}
 
 	public void renderMultipass(EntityBoat p_188300_1_, double p_188300_2_, double p_188300_4_, double p_188300_6_, float p_188300_8_, float p_188300_9_) {
-
 		GLS.pushMatrix();
 		setupTranslation(p_188300_2_, p_188300_4_, p_188300_6_);
 		setupRotation(p_188300_1_, p_188300_8_, p_188300_9_);

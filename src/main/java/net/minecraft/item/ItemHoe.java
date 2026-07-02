@@ -26,7 +26,6 @@ public class ItemHoe extends Item {
 	protected Item.ToolMaterial toolMaterial;
 
 	public ItemHoe(Item.ToolMaterial material) {
-
 		toolMaterial = material;
 		maxStackSize = 1;
 		setMaxDamage(material.getMaxUses());
@@ -40,7 +39,6 @@ public class ItemHoe extends Item {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (!player.canPlayerEdit(pos.offset(facing), facing, itemstack)) {
@@ -77,13 +75,11 @@ public class ItemHoe extends Item {
 	 * the damage on the stack.
 	 */
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-
 		stack.damageItem(1, attacker);
 		return true;
 	}
 
 	protected void setBlock(ItemStack stack, EntityPlayer player, World worldIn, BlockPos pos, IBlockState state) {
-
 		worldIn.playSound(player, pos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1F, 1F);
 
 		if (!worldIn.isRemote) {
@@ -96,7 +92,6 @@ public class ItemHoe extends Item {
 	 * Returns True is the item is renderer in full 3D when hold.
 	 */
 	public boolean isFull3D() {
-
 		return true;
 	}
 
@@ -105,7 +100,6 @@ public class ItemHoe extends Item {
 	 * would return "EMERALD")
 	 */
 	public String getMaterialName() {
-
 		return toolMaterial.toString();
 	}
 

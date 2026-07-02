@@ -52,7 +52,6 @@ public class BlockSkull extends BlockContainer {
 	private BlockPattern witherPattern;
 
 	protected BlockSkull() {
-
 		super(Material.CIRCUITS);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(NODROP, false));
 	}
@@ -61,7 +60,6 @@ public class BlockSkull extends BlockContainer {
 	 * Gets the localized name of this block. Used for the statistics page.
 	 */
 	public String getLocalizedName() {
-
 		return I18n.translateToLocal("tile.skull.skeleton.name");
 	}
 
@@ -69,22 +67,18 @@ public class BlockSkull extends BlockContainer {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean hasCustomBreakingProgress(IBlockState state) {
-
 		return true;
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return switch (state.getValue(FACING)) {
 			case NORTH -> NORTH_AABB;
 			case SOUTH -> SOUTH_AABB;
@@ -99,7 +93,6 @@ public class BlockSkull extends BlockContainer {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing()).withProperty(NODROP, false);
 	}
 
@@ -107,12 +100,10 @@ public class BlockSkull extends BlockContainer {
 	 * Returns a new instance of a block's tile entity class. Called on placing the block.
 	 */
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-
 		return new TileEntitySkull();
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		int i = 0;
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -127,7 +118,6 @@ public class BlockSkull extends BlockContainer {
 	 * Spawns this Block's drops into the World as EntityItems.
 	 */
 	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
-
 	}
 
 	/**
@@ -135,7 +125,6 @@ public class BlockSkull extends BlockContainer {
 	 * collect this block
 	 */
 	public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
-
 		if (player.capabilities.isCreativeMode) {
 			state = state.withProperty(NODROP, true);
 			worldIn.setBlockState(pos, state, 4);
@@ -148,7 +137,6 @@ public class BlockSkull extends BlockContainer {
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (!worldIn.isRemote) {
 			if (!state.getValue(NODROP)) {
 				TileEntity tileentity = worldIn.getTileEntity(pos);
@@ -175,12 +163,10 @@ public class BlockSkull extends BlockContainer {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Items.SKULL;
 	}
 
 	public boolean canDispenserPlace(World worldIn, BlockPos pos, ItemStack stack) {
-
 		if (stack.getMetadata() == 1 && pos.getY() >= 2 && worldIn.getDifficulty() != Difficulty.PEACEFUL && !worldIn.isRemote) {
 			return getWitherBasePattern().match(worldIn, pos) != null;
 		} else {
@@ -189,7 +175,6 @@ public class BlockSkull extends BlockContainer {
 	}
 
 	public void checkWitherSpawn(World worldIn, BlockPos pos, TileEntitySkull te) {
-
 		if (te.getSkullType() == 1 && pos.getY() >= 2 && worldIn.getDifficulty() != Difficulty.PEACEFUL && !worldIn.isRemote) {
 			BlockPattern blockpattern = getWitherPattern();
 			BlockPattern.PatternHelper blockpattern$patternhelper = blockpattern.match(worldIn, pos);
@@ -238,7 +223,6 @@ public class BlockSkull extends BlockContainer {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(FACING, Facing.getFront(meta & 7)).withProperty(NODROP, (meta & 8) > 0);
 	}
 
@@ -246,7 +230,6 @@ public class BlockSkull extends BlockContainer {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 		i = i | state.getValue(FACING).getIndex();
 
@@ -262,7 +245,6 @@ public class BlockSkull extends BlockContainer {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
@@ -271,17 +253,14 @@ public class BlockSkull extends BlockContainer {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, FACING, NODROP);
 	}
 
 	protected BlockPattern getWitherBasePattern() {
-
 		if (witherBasePattern == null) {
 			witherBasePattern = FactoryBlockPattern.start().aisle("   ", "###", "~#~").where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.SOUL_SAND))).where('~', BlockWorldState.hasState(BlockMaterialMatcher.forMaterial(Material.AIR))).build();
 		}
@@ -290,7 +269,6 @@ public class BlockSkull extends BlockContainer {
 	}
 
 	protected BlockPattern getWitherPattern() {
-
 		if (witherPattern == null) {
 			witherPattern = FactoryBlockPattern.start().aisle("^^^", "###", "~#~").where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.SOUL_SAND))).where('^', IS_WITHER_SKELETON).where('~', BlockWorldState.hasState(BlockMaterialMatcher.forMaterial(Material.AIR))).build();
 		}
@@ -308,7 +286,6 @@ public class BlockSkull extends BlockContainer {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

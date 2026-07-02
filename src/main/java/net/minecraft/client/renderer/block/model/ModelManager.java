@@ -14,13 +14,11 @@ public class ModelManager implements IResourceManagerReloadListener {
 	private IBakedModel defaultModel;
 
 	public ModelManager(TextureMap textures) {
-
 		texMap = textures;
 		modelProvider = new BlockModelShapes(this);
 	}
 
 	public void onResourceManagerReload(IResourceManager resourceManager) {
-
 		ModelBakery modelbakery = new ModelBakery(resourceManager, texMap, modelProvider);
 		modelRegistry = modelbakery.setupModelRegistry();
 		defaultModel = modelRegistry.getObject(ModelBakery.MODEL_MISSING);
@@ -28,7 +26,6 @@ public class ModelManager implements IResourceManagerReloadListener {
 	}
 
 	public IBakedModel getModel(ModelResourceLocation modelLocation) {
-
 		if (modelLocation == null) {
 			return defaultModel;
 		} else {
@@ -38,17 +35,14 @@ public class ModelManager implements IResourceManagerReloadListener {
 	}
 
 	public IBakedModel getMissingModel() {
-
 		return defaultModel;
 	}
 
 	public TextureMap getTextureMap() {
-
 		return texMap;
 	}
 
 	public BlockModelShapes getBlockModelShapes() {
-
 		return modelProvider;
 	}
 

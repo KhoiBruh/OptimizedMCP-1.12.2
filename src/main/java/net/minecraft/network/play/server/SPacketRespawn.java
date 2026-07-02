@@ -15,11 +15,9 @@ public class SPacketRespawn implements Packet<INetHandlerPlayClient> {
 	private WorldType worldType;
 
 	public SPacketRespawn() {
-
 	}
 
 	public SPacketRespawn(int dimensionIdIn, Difficulty difficultyIn, WorldType worldTypeIn, GameType gameModeIn) {
-
 		dimensionID = dimensionIdIn;
 		difficulty = difficultyIn;
 		gameType = gameModeIn;
@@ -30,7 +28,6 @@ public class SPacketRespawn implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleRespawn(this);
 	}
 
@@ -38,7 +35,6 @@ public class SPacketRespawn implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		dimensionID = buf.readInt();
 		difficulty = Difficulty.getDifficultyEnum(buf.readUnsignedByte());
 		gameType = GameType.getByID(buf.readUnsignedByte());
@@ -53,7 +49,6 @@ public class SPacketRespawn implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeInt(dimensionID);
 		buf.writeByte(difficulty.getDifficultyId());
 		buf.writeByte(gameType.getID());
@@ -61,22 +56,18 @@ public class SPacketRespawn implements Packet<INetHandlerPlayClient> {
 	}
 
 	public int getDimensionID() {
-
 		return dimensionID;
 	}
 
 	public Difficulty getDifficulty() {
-
 		return difficulty;
 	}
 
 	public GameType getGameType() {
-
 		return gameType;
 	}
 
 	public WorldType getWorldType() {
-
 		return worldType;
 	}
 

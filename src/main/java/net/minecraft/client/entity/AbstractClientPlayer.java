@@ -25,12 +25,10 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 	private NetworkPlayerInfo playerInfo;
 
 	public AbstractClientPlayer(World worldIn, GameProfile playerProfile) {
-
 		super(worldIn, playerProfile);
 	}
 
 	public static ThreadDownloadImageData getDownloadImageSkin(ResourceLocation resourceLocationIn, String username) {
-
 		TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
 		ITextureObject itextureobject = texturemanager.getTexture(resourceLocationIn);
 
@@ -46,7 +44,6 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 	 * Returns true if the username has an associated skin.
 	 */
 	public static ResourceLocation getLocationSkin(String username) {
-
 		return new ResourceLocation("skins/" + StringUtils.stripControlCodes(username));
 	}
 
@@ -54,13 +51,11 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 	 * Returns true if the player is in spectator mode.
 	 */
 	public boolean isSpectator() {
-
 		NetworkPlayerInfo networkplayerinfo = Minecraft.getMinecraft().getConnection().getPlayerInfo(getGameProfile().getId());
 		return networkplayerinfo != null && networkplayerinfo.getGameType() == GameType.SPECTATOR;
 	}
 
 	public boolean isCreative() {
-
 		NetworkPlayerInfo networkplayerinfo = Minecraft.getMinecraft().getConnection().getPlayerInfo(getGameProfile().getId());
 		return networkplayerinfo != null && networkplayerinfo.getGameType() == GameType.CREATIVE;
 	}
@@ -69,13 +64,11 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 	 * Checks if this instance of AbstractClientPlayer has any associated player data.
 	 */
 	public boolean hasPlayerInfo() {
-
 		return getPlayerInfo() != null;
 	}
 
 	
 	protected NetworkPlayerInfo getPlayerInfo() {
-
 		if (playerInfo == null) {
 			playerInfo = Minecraft.getMinecraft().getConnection().getPlayerInfo(getUniqueID());
 		}
@@ -87,7 +80,6 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 	 * Returns true if the player has an associated skin.
 	 */
 	public boolean hasSkin() {
-
 		NetworkPlayerInfo networkplayerinfo = getPlayerInfo();
 		return networkplayerinfo != null && networkplayerinfo.hasLocationSkin();
 	}
@@ -96,20 +88,17 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 	 * Returns true if the player instance has an associated skin.
 	 */
 	public ResourceLocation getLocationSkin() {
-
 		NetworkPlayerInfo networkplayerinfo = getPlayerInfo();
 		return networkplayerinfo == null ? DefaultPlayerSkin.getDefaultSkin(getUniqueID()) : networkplayerinfo.getLocationSkin();
 	}
 
 	
 	public ResourceLocation getLocationCape() {
-
 		NetworkPlayerInfo networkplayerinfo = getPlayerInfo();
 		return networkplayerinfo == null ? null : networkplayerinfo.getLocationCape();
 	}
 
 	public boolean isPlayerInfoSet() {
-
 		return getPlayerInfo() != null;
 	}
 
@@ -119,19 +108,16 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 	 * Gets the special Elytra texture for the player.
 	 */
 	public ResourceLocation getLocationElytra() {
-
 		NetworkPlayerInfo networkplayerinfo = getPlayerInfo();
 		return networkplayerinfo == null ? null : networkplayerinfo.getLocationElytra();
 	}
 
 	public String getSkinType() {
-
 		NetworkPlayerInfo networkplayerinfo = getPlayerInfo();
 		return networkplayerinfo == null ? DefaultPlayerSkin.getSkinType(getUniqueID()) : networkplayerinfo.getSkinType();
 	}
 
 	public float getFovModifier() {
-
 		float f = 1F;
 
 		if (capabilities.isFlying) {

@@ -12,7 +12,6 @@ import net.minecraft.util.math.MathHelper;
 public class RenderTNTPrimed extends Render<EntityTNTPrimed> {
 
 	public RenderTNTPrimed(RenderManager renderManagerIn) {
-
 		super(renderManagerIn);
 		shadowSize = 0.5F;
 	}
@@ -21,7 +20,6 @@ public class RenderTNTPrimed extends Render<EntityTNTPrimed> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(EntityTNTPrimed entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
 		GLS.pushMatrix();
 		GLS.translate((float) x, (float) y + 0.5F, (float) z);
@@ -73,7 +71,6 @@ public class RenderTNTPrimed extends Render<EntityTNTPrimed> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityTNTPrimed entity) {
-
 		return TextureMap.LOCATION_BLOCKS_TEXTURE;
 	}
 

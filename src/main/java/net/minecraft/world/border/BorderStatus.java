@@ -8,7 +8,6 @@ public enum BorderStatus {
 	private final int color;
 
 	BorderStatus(int color) {
-
 		this.color = color;
 	}
 
@@ -16,7 +15,6 @@ public enum BorderStatus {
 	 * Retrieve the color that the border should be while in this state
 	 */
 	public int getColor() {
-
 		return color;
 	}
 }

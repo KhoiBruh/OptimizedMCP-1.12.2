@@ -22,7 +22,6 @@ public class RenderMinecart<T extends EntityMinecart> extends Render<T> {
 	protected ModelBase modelMinecart = new ModelMinecart();
 
 	public RenderMinecart(RenderManager renderManagerIn) {
-
 		super(renderManagerIn);
 		shadowSize = 0.5F;
 	}
@@ -31,7 +30,6 @@ public class RenderMinecart<T extends EntityMinecart> extends Render<T> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		GLS.pushMatrix();
 		bindEntityTexture(entity);
 		long i = (long) entity.getEntityId() * 493286711L;
@@ -122,12 +120,10 @@ public class RenderMinecart<T extends EntityMinecart> extends Render<T> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(T entity) {
-
 		return MINECART_TEXTURES;
 	}
 
 	protected void renderCartContents(T p_188319_1_, float partialTicks, IBlockState p_188319_3_) {
-
 		GLS.pushMatrix();
 		Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(p_188319_3_, p_188319_1_.getBrightness());
 		GLS.popMatrix();

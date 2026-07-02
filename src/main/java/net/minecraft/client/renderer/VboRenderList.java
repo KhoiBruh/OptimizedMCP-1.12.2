@@ -7,7 +7,6 @@ import net.minecraft.util.BlockRenderLayer;
 public class VboRenderList extends ChunkRenderContainer {
 
 	public void renderChunkLayer(BlockRenderLayer layer) {
-
 		if (initialized) {
 			for (RenderChunk renderchunk : renderChunks) {
 				VertexBuffer vertexbuffer = renderchunk.getVertexBufferByLayer(layer.ordinal());
@@ -27,7 +26,6 @@ public class VboRenderList extends ChunkRenderContainer {
 	}
 
 	private void setupArrayPointers() {
-
 		GLS.vertexPointer(3, 5126, 28, 0);
 		GLS.colorPointer(4, 5121, 28, 12);
 		GLS.texCoordPointer(2, 5126, 28, 16);

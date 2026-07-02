@@ -14,12 +14,10 @@ public class ModelCreeper extends ModelBase {
 	public ModelRenderer leg4;
 
 	public ModelCreeper() {
-
 		this(0F);
 	}
 
 	public ModelCreeper(float p_i46366_1_) {
-
 		int i = 6;
 		head = new ModelRenderer(this, 0, 0);
 		head.addBox(-4F, -8F, -4F, 8, 8, 8, p_i46366_1_);
@@ -48,7 +46,6 @@ public class ModelCreeper extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		head.render(scale);
 		body.render(scale);
@@ -64,7 +61,6 @@ public class ModelCreeper extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		head.rotateAngleY = netHeadYaw * 0.017453292F;
 		head.rotateAngleX = headPitch * 0.017453292F;
 		leg1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;

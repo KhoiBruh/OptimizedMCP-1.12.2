@@ -15,7 +15,6 @@ public class BlockGravel extends BlockFalling {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		if (fortune > 3) {
 			fortune = 3;
 		}
@@ -27,12 +26,10 @@ public class BlockGravel extends BlockFalling {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return MapColor.STONE;
 	}
 
 	public int getDustColor(IBlockState state) {
-
 		return -8356741;
 	}
 

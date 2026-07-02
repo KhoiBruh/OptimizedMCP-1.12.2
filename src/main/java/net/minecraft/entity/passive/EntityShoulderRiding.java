@@ -9,12 +9,10 @@ public abstract class EntityShoulderRiding extends EntityTameable {
 	private int rideCooldownCounter;
 
 	public EntityShoulderRiding(World p_i47410_1_) {
-
 		super(p_i47410_1_);
 	}
 
 	public boolean setEntityOnShoulder(EntityPlayer p_191994_1_) {
-
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 		nbttagcompound.setString("id", getEntityString());
 		writeToNBT(nbttagcompound);
@@ -31,13 +29,11 @@ public abstract class EntityShoulderRiding extends EntityTameable {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		++rideCooldownCounter;
 		super.onUpdate();
 	}
 
 	public boolean canSitOnShoulder() {
-
 		return rideCooldownCounter > 100;
 	}
 

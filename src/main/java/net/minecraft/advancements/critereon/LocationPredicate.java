@@ -27,7 +27,6 @@ public class LocationPredicate {
 	private final DimensionType dimension;
 
 	public LocationPredicate(MinMaxBounds x, MinMaxBounds y, MinMaxBounds z, Biome biome, String feature, DimensionType dimension) {
-
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -37,7 +36,6 @@ public class LocationPredicate {
 	}
 
 	public static LocationPredicate deserialize(JsonElement element) {
-
 		if (element != null && !element.isJsonNull()) {
 			JsonObject jsonobject = JsonUtils.getJsonObject(element, "location");
 			JsonObject jsonobject1 = JsonUtils.getJsonObject(jsonobject, "position", new JsonObject());
@@ -64,12 +62,10 @@ public class LocationPredicate {
 	}
 
 	public boolean test(WorldServer world, double x, double y, double z) {
-
 		return test(world, (float) x, (float) y, (float) z);
 	}
 
 	public boolean test(WorldServer world, float x, float y, float z) {
-
 		if (!this.x.test(x)) {
 			return false;
 		} else if (!this.y.test(y)) {

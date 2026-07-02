@@ -24,7 +24,6 @@ public abstract class ModelBase {
 	 * the hair over a players head.
 	 */
 	public static void copyModelAngles(ModelRenderer source, ModelRenderer dest) {
-
 		dest.rotateAngleX = source.rotateAngleX;
 		dest.rotateAngleY = source.rotateAngleY;
 		dest.rotateAngleZ = source.rotateAngleZ;
@@ -37,7 +36,6 @@ public abstract class ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 	}
 
 	/**
@@ -46,7 +44,6 @@ public abstract class ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 	}
 
 	/**
@@ -54,26 +51,21 @@ public abstract class ModelBase {
 	 * and third as in the setRotationAngles method.
 	 */
 	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTickTime) {
-
 	}
 
 	public ModelRenderer getRandomModelBox(Random rand) {
-
 		return boxList.get(rand.nextInt(boxList.size()));
 	}
 
 	protected void setTextureOffset(String partName, int x, int y) {
-
 		modelTextureMap.put(partName, new TextureOffset(x, y));
 	}
 
 	public TextureOffset getTextureOffset(String partName) {
-
 		return modelTextureMap.get(partName);
 	}
 
 	public void setModelAttributes(ModelBase model) {
-
 		swingProgress = model.swingProgress;
 		isRiding = model.isRiding;
 		isChild = model.isChild;

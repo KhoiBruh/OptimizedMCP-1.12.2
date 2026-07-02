@@ -14,13 +14,11 @@ public class BlockRail extends BlockRailBase {
 	public static final PropertyEnum<BlockRailBase.RailDirection> SHAPE = PropertyEnum.create("shape", BlockRailBase.RailDirection.class);
 
 	protected BlockRail() {
-
 		super(false);
 		setDefaultState(blockState.getBaseState().withProperty(SHAPE, BlockRailBase.RailDirection.NORTH_SOUTH));
 	}
 
 	protected void updateState(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
-
 		if (blockIn.getDefaultState().canProvidePower() && (new BlockRailBase.Rail(worldIn, pos, state)).countAdjacentRails() == 3) {
 			updateDir(worldIn, pos, state, false);
 		}
@@ -35,7 +33,6 @@ public class BlockRail extends BlockRailBase {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(SHAPE, BlockRailBase.RailDirection.byMetadata(meta));
 	}
 
@@ -43,7 +40,6 @@ public class BlockRail extends BlockRailBase {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(SHAPE).getMetadata();
 	}
 
@@ -54,7 +50,6 @@ public class BlockRail extends BlockRailBase {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		switch (rot) {
 			case CLOCKWISE_180:
 				switch (state.getValue(SHAPE)) {
@@ -123,7 +118,6 @@ public class BlockRail extends BlockRailBase {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		BlockRailBase.RailDirection blockrailbase$enumraildirection = state.getValue(SHAPE);
 
 		switch (mirrorIn) {
@@ -169,7 +163,6 @@ public class BlockRail extends BlockRailBase {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, SHAPE);
 	}
 

@@ -18,7 +18,6 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
 	private double otherPlayerMPPitch;
 
 	public EntityOtherPlayerMP(World worldIn, GameProfile gameProfileIn) {
-
 		super(worldIn, gameProfileIn);
 		stepHeight = 1F;
 		noClip = true;
@@ -29,7 +28,6 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
 	 * Checks if the entity is in range to render.
 	 */
 	public boolean isInRangeToRenderDist(double distance) {
-
 		double d0 = getEntityBoundingBox().getAverageEdgeLength() * 10D;
 
 		if (Double.isNaN(d0)) {
@@ -44,7 +42,6 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		return true;
 	}
 
@@ -52,7 +49,6 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
 	 * Set the position and rotation values directly without any clamping.
 	 */
 	public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean teleport) {
-
 		otherPlayerMPX = x;
 		otherPlayerMPY = y;
 		otherPlayerMPZ = z;
@@ -65,7 +61,6 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		renderOffsetY = 0F;
 		super.onUpdate();
 		prevLimbSwingAmount = limbSwingAmount;
@@ -86,7 +81,6 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
 	 * use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
 		if (otherPlayerMPPosRotationIncrements > 0) {
 			double d0 = posX + (otherPlayerMPX - posX) / (double) otherPlayerMPPosRotationIncrements;
 			double d1 = posY + (otherPlayerMPY - posY) / (double) otherPlayerMPPosRotationIncrements;
@@ -135,7 +129,6 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
 	 * Send a chat message to the CommandSender
 	 */
 	public void sendMessage(ITextComponent component) {
-
 		Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(component);
 	}
 
@@ -143,7 +136,6 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
 	 * Returns {@code true} if the CommandSender is allowed to execute the command, {@code false} if not
 	 */
 	public boolean canUseCommand(int permLevel, String commandName) {
-
 		return false;
 	}
 
@@ -152,7 +144,6 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
 	 * the coordinates 0, 0, 0
 	 */
 	public BlockPos getPosition() {
-
 		return new BlockPos(posX + 0.5D, posY + 0.5D, posZ + 0.5D);
 	}
 

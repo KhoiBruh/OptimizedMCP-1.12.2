@@ -16,12 +16,10 @@ public class DebugRendererWater implements DebugRenderer.IDebugRenderer {
 	private final Minecraft minecraft;
 	
 	public DebugRendererWater(Minecraft minecraftIn) {
-
 		minecraft = minecraftIn;
 	}
 
 	public void render(float partialTicks, long finishTimeNano) {
-		
 		EntityPlayer player = minecraft.player;
 		double xo = player.lastTickPosX + (player.posX - player.lastTickPosX) * (double) partialTicks;
 		double yo = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double) partialTicks;

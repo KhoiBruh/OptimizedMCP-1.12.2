@@ -24,7 +24,6 @@ public class DebugRenderer {
 	private boolean solidFaceEnabled;
 
 	public DebugRenderer(Minecraft clientIn) {
-
 		pathfinding = new DebugRendererPathfinding(clientIn);
 		water = new DebugRendererWater(clientIn);
 		chunkBorder = new DebugRendererChunkBorder(clientIn);
@@ -35,12 +34,10 @@ public class DebugRenderer {
 	}
 
 	public static void renderDebugText(String str, int x, int y, int z, float partialTicks, int color) {
-
 		renderDebugText(str, (double) x + 0.5D, (double) y + 0.5D, (double) z + 0.5D, partialTicks, color);
 	}
 
 	public static void renderDebugText(String str, double x, double y, double z, float partialTicks, int color) {
-
 		Minecraft minecraft = Minecraft.getMinecraft();
 
 		if (minecraft.player != null && minecraft.getRenderManager() != null && minecraft.getRenderManager().options != null) {
@@ -69,7 +66,6 @@ public class DebugRenderer {
 	}
 
 	public boolean shouldRender() {
-
 		return chunkBorderEnabled || pathfindingEnabled || waterEnabled || heightMapEnabled || collisionBoxEnabled || neighborsUpdateEnabled || solidFaceEnabled;
 	}
 
@@ -77,13 +73,11 @@ public class DebugRenderer {
 	 * Toggles the debug screen's visibility.
 	 */
 	public boolean toggleChunkBorders() {
-
 		chunkBorderEnabled = !chunkBorderEnabled;
 		return chunkBorderEnabled;
 	}
 
 	public void renderDebug(float partialTicks, long finishTimeNano) {
-
 		if (pathfindingEnabled) {
 			pathfinding.render(partialTicks, finishTimeNano);
 		}

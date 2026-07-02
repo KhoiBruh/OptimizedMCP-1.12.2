@@ -113,7 +113,6 @@ public class Chunk {
 	private int queuedLightChecks;
 
 	public Chunk(World worldIn, int x, int z) {
-
 		storageArrays = new ExtendedBlockStorage[16];
 		blockBiomeArray = new byte[256];
 		precipitationHeightMap = new int[256];
@@ -136,7 +135,6 @@ public class Chunk {
 	}
 
 	public Chunk(World worldIn, ChunkPrimer primer, int x, int z) {
-
 		this(worldIn, x, z);
 		int i = 256;
 		boolean flag = worldIn.provider.hasSkyLight();
@@ -164,12 +162,10 @@ public class Chunk {
 	 * Checks whether the chunk is at the X/Z location specified
 	 */
 	public boolean isAtLocation(int x, int z) {
-
 		return x == this.x && z == this.z;
 	}
 
 	public int getHeight(BlockPos pos) {
-
 		return getHeightValue(pos.getX() & 15, pos.getZ() & 15);
 	}
 
@@ -177,13 +173,11 @@ public class Chunk {
 	 * Returns the value in the height map at this x, z coordinate in the chunk
 	 */
 	public int getHeightValue(int x, int z) {
-
 		return heightMap[z << 4 | x];
 	}
 
 	
 	private ExtendedBlockStorage getLastExtendedBlockStorage() {
-
 		for (int i = storageArrays.length - 1; i >= 0; --i) {
 			if (storageArrays[i] != NULL_BLOCK_STORAGE) {
 				return storageArrays[i];
@@ -197,7 +191,6 @@ public class Chunk {
 	 * Returns the topmost ExtendedBlockStorage instance for this Chunk that actually contains a block.
 	 */
 	public int getTopFilledSegment() {
-
 		ExtendedBlockStorage extendedblockstorage = getLastExtendedBlockStorage();
 		return extendedblockstorage == null ? 0 : extendedblockstorage.getYLocation();
 	}
@@ -206,7 +199,6 @@ public class Chunk {
 	 * Returns the ExtendedBlockStorage array for this Chunk.
 	 */
 	public ExtendedBlockStorage[] getBlockStorageArray() {
-
 		return storageArrays;
 	}
 
@@ -214,7 +206,6 @@ public class Chunk {
 	 * Generates the height map for a chunk from scratch
 	 */
 	protected void generateHeightMap() {
-
 		int i = getTopFilledSegment();
 		heightMapMinimum = Integer.MAX_VALUE;
 
@@ -245,7 +236,6 @@ public class Chunk {
 	 * Generates the initial skylight map for the chunk upon generation or load.
 	 */
 	public void generateSkylightMap() {
-
 		int i = getTopFilledSegment();
 		heightMapMinimum = Integer.MAX_VALUE;
 
@@ -304,13 +294,11 @@ public class Chunk {
 	 * Propagates a given sky-visible block's light value downward and upward to neighboring blocks as necessary.
 	 */
 	private void propagateSkylightOcclusion(int x, int z) {
-
 		updateSkylightColumns[x + z * 16] = true;
 		isGapLightingUpdated = true;
 	}
 
 	private void recheckGaps(boolean onlyOne) {
-
 		world.profiler.startSection("recheckGaps");
 
 		if (world.isAreaLoaded(new BlockPos(x * 16 + 8, 0, z * 16 + 8), 16)) {
@@ -351,7 +339,6 @@ public class Chunk {
 	 * Checks the height of a block next to a sky-visible block and schedules a lighting update as necessary.
 	 */
 	private void checkSkylightNeighborHeight(int x, int z, int maxValue) {
-
 		int i = world.getHeight(new BlockPos(x, 0, z)).getY();
 
 		if (i > maxValue) {
@@ -362,7 +349,6 @@ public class Chunk {
 	}
 
 	private void updateSkylightNeighborHeight(int x, int z, int startY, int endY) {
-
 		if (endY > startY && world.isAreaLoaded(new BlockPos(x, 0, z), 16)) {
 			for (int i = startY; i < endY; ++i) {
 				world.checkLightFor(SkyBlock.SKY, new BlockPos(x, i, z));
@@ -376,7 +362,6 @@ public class Chunk {
 	 * Initiates the recalculation of both the block-light and sky-light for a given block inside a chunk.
 	 */
 	private void relightBlock(int x, int y, int z) {
-
 		int i = heightMap[z << 4 | x] & 255;
 
 		int j = Math.max(y, i);
@@ -462,22 +447,18 @@ public class Chunk {
 	}
 
 	public int getBlockLightOpacity(BlockPos pos) {
-
 		return getBlockState(pos).getLightOpacity();
 	}
 
 	private int getBlockLightOpacity(int x, int y, int z) {
-
 		return getBlockState(x, y, z).getLightOpacity();
 	}
 
 	public IBlockState getBlockState(BlockPos pos) {
-
 		return getBlockState(pos.getX(), pos.getY(), pos.getZ());
 	}
 
 	public IBlockState getBlockState(final int x, final int y, final int z) {
-
 		if (world.getWorldType() == WorldType.DEBUG_ALL_BLOCK_STATES) {
 			IBlockState iblockstate = null;
 
@@ -512,7 +493,6 @@ public class Chunk {
 
 	
 	public IBlockState setBlockState(BlockPos pos, IBlockState state) {
-
 		int i = pos.getX() & 15;
 		int j = pos.getY();
 		int k = pos.getZ() & 15;
@@ -607,7 +587,6 @@ public class Chunk {
 	}
 
 	public int getLightFor(SkyBlock type, BlockPos pos) {
-
 		int i = pos.getX() & 15;
 		int j = pos.getY();
 		int k = pos.getZ() & 15;
@@ -623,7 +602,6 @@ public class Chunk {
 	}
 
 	public void setLightFor(SkyBlock type, BlockPos pos, int value) {
-
 		int i = pos.getX() & 15;
 		int j = pos.getY();
 		int k = pos.getZ() & 15;
@@ -647,7 +625,6 @@ public class Chunk {
 	}
 
 	public int getLightSubtracted(BlockPos pos, int amount) {
-
 		int i = pos.getX() & 15;
 		int j = pos.getY();
 		int k = pos.getZ() & 15;
@@ -672,7 +649,6 @@ public class Chunk {
 	 * Adds an entity to the chunk.
 	 */
 	public void addEntity(Entity entityIn) {
-
 		hasEntities = true;
 		int i = MathHelper.floor(entityIn.posX / 16D);
 		int j = MathHelper.floor(entityIn.posZ / 16D);
@@ -703,7 +679,6 @@ public class Chunk {
 	 * removes entity using its y chunk coordinate as its index
 	 */
 	public void removeEntity(Entity entityIn) {
-
 		removeEntityAtIndex(entityIn, entityIn.chunkCoordY);
 	}
 
@@ -711,7 +686,6 @@ public class Chunk {
 	 * Removes entity at the specified index from the entity array.
 	 */
 	public void removeEntityAtIndex(Entity entityIn, int index) {
-
 		if (index < 0) {
 			index = 0;
 		}
@@ -724,7 +698,6 @@ public class Chunk {
 	}
 
 	public boolean canSeeSky(BlockPos pos) {
-
 		int i = pos.getX() & 15;
 		int j = pos.getY();
 		int k = pos.getZ() & 15;
@@ -733,7 +706,6 @@ public class Chunk {
 
 	
 	private TileEntity createNewTileEntity(BlockPos pos) {
-
 		IBlockState iblockstate = getBlockState(pos);
 		Block block = iblockstate.getBlock();
 		return !block.hasTileEntity() ? null : ((ITileEntityProvider) block).createNewTileEntity(world, iblockstate.getBlock().getMetaFromState(iblockstate));
@@ -741,7 +713,6 @@ public class Chunk {
 
 	
 	public TileEntity getTileEntity(BlockPos pos, Chunk.CreateEntityType creationMode) {
-
 		TileEntity tileentity = tileEntities.get(pos);
 
 		if (tileentity == null) {
@@ -760,7 +731,6 @@ public class Chunk {
 	}
 
 	public void addTileEntity(TileEntity tileEntityIn) {
-
 		addTileEntity(tileEntityIn.getPos(), tileEntityIn);
 
 		if (loaded) {
@@ -769,7 +739,6 @@ public class Chunk {
 	}
 
 	public void addTileEntity(BlockPos pos, TileEntity tileEntityIn) {
-
 		tileEntityIn.setWorld(world);
 		tileEntityIn.setPos(pos);
 
@@ -784,7 +753,6 @@ public class Chunk {
 	}
 
 	public void removeTileEntity(BlockPos pos) {
-
 		if (loaded) {
 			TileEntity tileentity = tileEntities.remove(pos);
 
@@ -798,7 +766,6 @@ public class Chunk {
 	 * Called when this Chunk is loaded by the ChunkProvider
 	 */
 	public void onLoad() {
-
 		loaded = true;
 		world.addTileEntities(tileEntities.values());
 
@@ -811,7 +778,6 @@ public class Chunk {
 	 * Called when this Chunk is unloaded by the ChunkProvider
 	 */
 	public void onUnload() {
-
 		loaded = false;
 
 		for (TileEntity tileentity : tileEntities.values()) {
@@ -827,7 +793,6 @@ public class Chunk {
 	 * Sets the isModified flag for this Chunk
 	 */
 	public void markDirty() {
-
 		dirty = true;
 	}
 
@@ -835,7 +800,6 @@ public class Chunk {
 	 * Fills the given list of all entities that intersect within the given bounding box that aren't the passed entity.
 	 */
 	public void getEntitiesWithinAABBForEntity(Entity entityIn, AxisAlignedBB aabb, List<Entity> listToFill, Predicate<? super Entity> filter) {
-
 		int i = MathHelper.floor((aabb.minY - 2D) / 16D);
 		int j = MathHelper.floor((aabb.maxY + 2D) / 16D);
 		i = MathHelper.clamp(i, 0, entityLists.length - 1);
@@ -884,7 +848,6 @@ public class Chunk {
 	 * Returns true if this Chunk needs to be saved
 	 */
 	public boolean needsSaving(boolean p_76601_1_) {
-
 		if (p_76601_1_) {
 			if (hasEntities && world.getTotalWorldTime() != lastSaveTime || dirty) {
 				return true;
@@ -897,17 +860,14 @@ public class Chunk {
 	}
 
 	public Random getRandomWithSeed(long seed) {
-
 		return new Random(world.getSeed() + ((long) x * x * 4987142) + (x * 5947611L) + (long) z * z * 4392871L + (z * 389711L) ^ seed);
 	}
 
 	public boolean isEmpty() {
-
 		return false;
 	}
 
 	public void populate(IChunkProvider chunkProvider, IChunkGenerator chunkGenrator) {
-
 		Chunk chunk = chunkProvider.getLoadedChunk(x, z - 1);
 		Chunk chunk1 = chunkProvider.getLoadedChunk(x + 1, z);
 		Chunk chunk2 = chunkProvider.getLoadedChunk(x, z + 1);
@@ -935,7 +895,6 @@ public class Chunk {
 	}
 
 	protected void populate(IChunkGenerator generator) {
-
 		if (isTerrainPopulated()) {
 			if (generator.generateStructures(this, x, z)) {
 				markDirty();
@@ -948,7 +907,6 @@ public class Chunk {
 	}
 
 	public BlockPos getPrecipitationHeight(BlockPos pos) {
-
 		int i = pos.getX() & 15;
 		int j = pos.getZ() & 15;
 		int k = i | j << 4;
@@ -977,7 +935,6 @@ public class Chunk {
 	}
 
 	public void onTick(boolean skipRecheckGaps) {
-
 		if (isGapLightingUpdated && world.provider.hasSkyLight() && !skipRecheckGaps) {
 			recheckGaps(world.isRemote);
 		}
@@ -1000,12 +957,10 @@ public class Chunk {
 	}
 
 	public boolean isPopulated() {
-
 		return ticked && isTerrainPopulated && isLightPopulated;
 	}
 
 	public boolean wasTicked() {
-
 		return ticked;
 	}
 
@@ -1013,7 +968,6 @@ public class Chunk {
 	 * Gets a {@link ChunkPos} representing the x and z coordinates of this chunk.
 	 */
 	public ChunkPos getPos() {
-
 		return new ChunkPos(x, z);
 	}
 
@@ -1022,7 +976,6 @@ public class Chunk {
 	 * (true) or not (false).
 	 */
 	public boolean isEmptyBetween(int startY, int endY) {
-
 		if (startY < 0) {
 			startY = 0;
 		}
@@ -1043,7 +996,6 @@ public class Chunk {
 	}
 
 	public void setStorageArrays(ExtendedBlockStorage[] newStorageArrays) {
-
 		if (storageArrays.length != newStorageArrays.length) {
 			LOGGER.warn("Could not set level chunk sections, array length is {} instead of {}", newStorageArrays.length, storageArrays.length);
 		} else {
@@ -1057,7 +1009,6 @@ public class Chunk {
 	 * @see net.minecraft.network.play.server.SPacketChunkData#getReadBuffer()
 	 */
 	public void read(PacketBuffer buf, int availableSections, boolean groundUpContinuous) {
-
 		boolean flag = world.provider.hasSkyLight();
 
 		for (int i = 0; i < storageArrays.length; ++i) {
@@ -1102,7 +1053,6 @@ public class Chunk {
 	}
 
 	public Biome getBiome(BlockPos pos, BiomeProvider provider) {
-
 		int i = pos.getX() & 15;
 		int j = pos.getZ() & 15;
 		int k = blockBiomeArray[j << 4 | i] & 255;
@@ -1121,7 +1071,6 @@ public class Chunk {
 	 * Returns an array containing a 16x16 mapping on the X/Z of block positions in this Chunk to biome IDs.
 	 */
 	public byte[] getBiomeArray() {
-
 		return blockBiomeArray;
 	}
 
@@ -1130,7 +1079,6 @@ public class Chunk {
 	 * biome IDs.
 	 */
 	public void setBiomeArray(byte[] biomeArray) {
-
 		if (blockBiomeArray.length != biomeArray.length) {
 			LOGGER.warn("Could not set level chunk biomes, array length is {} instead of {}", biomeArray.length, blockBiomeArray.length);
 		} else {
@@ -1142,7 +1090,6 @@ public class Chunk {
 	 * Resets the relight check index to 0 for this Chunk.
 	 */
 	public void resetRelightChecks() {
-
 		queuedLightChecks = 0;
 	}
 
@@ -1152,7 +1099,6 @@ public class Chunk {
 	 * blocks in a chunk, which may explain lagging light updates on initial world generation.
 	 */
 	public void enqueueRelightChecks() {
-
 		if (queuedLightChecks < 4096) {
 			BlockPos blockpos = new BlockPos(x << 4, 0, z << 4);
 
@@ -1187,7 +1133,6 @@ public class Chunk {
 	}
 
 	public void checkLight() {
-
 		isTerrainPopulated = true;
 		isLightPopulated = true;
 		BlockPos blockpos = new BlockPos(x << 4, 0, z << 4);
@@ -1220,14 +1165,12 @@ public class Chunk {
 	}
 
 	private void setSkylightUpdated() {
-
 		Arrays.fill(updateSkylightColumns, true);
 
 		recheckGaps(false);
 	}
 
 	private void checkLightSide(Facing facing) {
-
 		if (isTerrainPopulated) {
 			if (facing == Facing.EAST) {
 				for (int i = 0; i < 16; ++i) {
@@ -1250,7 +1193,6 @@ public class Chunk {
 	}
 
 	private boolean checkLight(int x, int z) {
-
 		int i = getTopFilledSegment();
 		boolean flag = false;
 		boolean flag1 = false;
@@ -1283,27 +1225,22 @@ public class Chunk {
 	}
 
 	public boolean isLoaded() {
-
 		return loaded;
 	}
 
 	public void markLoaded(boolean loaded) {
-
 		this.loaded = loaded;
 	}
 
 	public World getWorld() {
-
 		return world;
 	}
 
 	public int[] getHeightMap() {
-
 		return heightMap;
 	}
 
 	public void setHeightMap(int[] newHeightMap) {
-
 		if (heightMap.length != newHeightMap.length) {
 			LOGGER.warn("Could not set level chunk heightmap, array length is {} instead of {}", newHeightMap.length, heightMap.length);
 		} else {
@@ -1317,57 +1254,46 @@ public class Chunk {
 	}
 
 	public ClassInheritanceMultiMap<Entity>[] getEntityLists() {
-
 		return entityLists;
 	}
 
 	public boolean isTerrainPopulated() {
-
 		return isTerrainPopulated;
 	}
 
 	public void setTerrainPopulated(boolean terrainPopulated) {
-
 		isTerrainPopulated = terrainPopulated;
 	}
 
 	public boolean isLightPopulated() {
-
 		return isLightPopulated;
 	}
 
 	public void setLightPopulated(boolean lightPopulated) {
-
 		isLightPopulated = lightPopulated;
 	}
 
 	public void setModified(boolean modified) {
-
 		dirty = modified;
 	}
 
 	public void setHasEntities(boolean hasEntitiesIn) {
-
 		hasEntities = hasEntitiesIn;
 	}
 
 	public void setLastSaveTime(long saveTime) {
-
 		lastSaveTime = saveTime;
 	}
 
 	public int getLowestHeight() {
-
 		return heightMapMinimum;
 	}
 
 	public long getInhabitedTime() {
-
 		return inhabitedTime;
 	}
 
 	public void setInhabitedTime(long newInhabitedTime) {
-
 		inhabitedTime = newInhabitedTime;
 	}
 

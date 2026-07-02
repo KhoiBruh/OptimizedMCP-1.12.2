@@ -34,7 +34,6 @@ public class GuiAdvancement extends Gui {
 	private AdvancementProgress advancementProgress;
 
 	public GuiAdvancement(GuiAdvancementTab p_i47385_1_, Minecraft p_i47385_2_, Advancement p_i47385_3_, DisplayInfo p_i47385_4_) {
-
 		guiAdvancementTab = p_i47385_1_;
 		advancement = p_i47385_3_;
 		displayInfo = p_i47385_4_;
@@ -57,7 +56,6 @@ public class GuiAdvancement extends Gui {
 	}
 
 	private List<String> findOptimalLines(String p_192995_1_, int p_192995_2_) {
-
 		if (p_192995_1_.isEmpty()) {
 			return Collections.emptyList();
 		} else {
@@ -91,7 +89,6 @@ public class GuiAdvancement extends Gui {
 
 	
 	private GuiAdvancement getFirstVisibleParent(Advancement advancementIn) {
-
 		while (true) {
 			advancementIn = advancementIn.getParent();
 
@@ -108,7 +105,6 @@ public class GuiAdvancement extends Gui {
 	}
 
 	public void drawConnectivity(int p_191819_1_, int p_191819_2_, boolean p_191819_3_) {
-
 		if (parent != null) {
 			int i = p_191819_1_ + parent.x + 13;
 			int j = p_191819_1_ + parent.x + 26 + 4;
@@ -139,7 +135,6 @@ public class GuiAdvancement extends Gui {
 	}
 
 	public void draw(int p_191817_1_, int p_191817_2_) {
-
 		if (!displayInfo.isHidden() || advancementProgress != null && advancementProgress.isDone()) {
 			float f = advancementProgress == null ? 0F : advancementProgress.getPercent();
 			AdvancementState advancementstate;
@@ -164,17 +159,14 @@ public class GuiAdvancement extends Gui {
 	}
 
 	public void getAdvancementProgress(AdvancementProgress advancementProgressIn) {
-
 		advancementProgress = advancementProgressIn;
 	}
 
 	public void addGuiAdvancement(GuiAdvancement guiAdvancementIn) {
-
 		children.add(guiAdvancementIn);
 	}
 
 	public void drawHover(int p_191821_1_, int p_191821_2_, float p_191821_3_, int p_191821_4_, int p_191821_5_) {
-
 		boolean flag = p_191821_4_ + p_191821_1_ + x + width + 26 >= guiAdvancementTab.getScreen().width;
 		String s = advancementProgress == null ? null : advancementProgress.getProgressText();
 		int i = s == null ? 0 : minecraft.fontRenderer.getStringWidth(s);
@@ -262,7 +254,6 @@ public class GuiAdvancement extends Gui {
 	}
 
 	protected void render9Sprite(int p_192994_1_, int p_192994_2_, int p_192994_3_, int p_192994_4_, int p_192994_5_, int p_192994_6_, int p_192994_7_, int p_192994_8_, int p_192994_9_) {
-
 		drawTexturedModalRect(p_192994_1_, p_192994_2_, p_192994_8_, p_192994_9_, p_192994_5_, p_192994_5_);
 		renderRepeating(p_192994_1_ + p_192994_5_, p_192994_2_, p_192994_3_ - p_192994_5_ - p_192994_5_, p_192994_5_, p_192994_8_ + p_192994_5_, p_192994_9_, p_192994_6_ - p_192994_5_ - p_192994_5_, p_192994_7_);
 		drawTexturedModalRect(p_192994_1_ + p_192994_3_ - p_192994_5_, p_192994_2_, p_192994_8_ + p_192994_6_ - p_192994_5_, p_192994_9_, p_192994_5_, p_192994_5_);
@@ -275,7 +266,6 @@ public class GuiAdvancement extends Gui {
 	}
 
 	protected void renderRepeating(int p_192993_1_, int p_192993_2_, int p_192993_3_, int p_192993_4_, int p_192993_5_, int p_192993_6_, int p_192993_7_, int p_192993_8_) {
-
 		for (int i = 0; i < p_192993_3_; i += p_192993_7_) {
 			int j = p_192993_1_ + i;
 			int k = Math.min(p_192993_7_, p_192993_3_ - i);
@@ -289,7 +279,6 @@ public class GuiAdvancement extends Gui {
 	}
 
 	public boolean isMouseOver(int p_191816_1_, int p_191816_2_, int p_191816_3_, int p_191816_4_) {
-
 		if (!displayInfo.isHidden() || advancementProgress != null && advancementProgress.isDone()) {
 			int i = p_191816_1_ + x;
 			int j = i + 26;
@@ -302,7 +291,6 @@ public class GuiAdvancement extends Gui {
 	}
 
 	public void attachToParent() {
-
 		if (parent == null && advancement.getParent() != null) {
 			parent = getFirstVisibleParent(advancement);
 
@@ -313,12 +301,10 @@ public class GuiAdvancement extends Gui {
 	}
 
 	public int getY() {
-
 		return y;
 	}
 
 	public int getX() {
-
 		return x;
 	}
 

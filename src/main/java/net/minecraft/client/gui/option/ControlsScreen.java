@@ -33,7 +33,6 @@ public class ControlsScreen extends Screen {
 	private Button buttonReset;
 
 	public ControlsScreen(Screen screen, GameSettings settings) {
-
 		parentScreen = screen;
 		options = settings;
 	}
@@ -43,7 +42,6 @@ public class ControlsScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		keyBindingList = new GuiKeyBindingList(this, mc);
 		buttons.add(new Button(200, width / 2 - 155 + 160, height - 29, 150, 20, I18n.format("gui.done")));
 		buttonReset = addButton(new Button(201, width / 2 - 155, height - 29, 150, 20, I18n.format("controls.resetAll")));
@@ -65,7 +63,6 @@ public class ControlsScreen extends Screen {
 	 * Handles mouse input.
 	 */
 	public void handleMouse() throws IOException {
-
 		super.handleMouse();
 		keyBindingList.handleMouseInput();
 	}
@@ -74,7 +71,6 @@ public class ControlsScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.id == 200) {
 			mc.displayScreen(parentScreen);
 		} else if (button.id == 201) {
@@ -93,7 +89,6 @@ public class ControlsScreen extends Screen {
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
-
 		if (buttonId != null) {
 			options.setOptionKeyBinding(buttonId, -100 + mouse);
 			buttonId = null;
@@ -107,7 +102,6 @@ public class ControlsScreen extends Screen {
 	 * Called when a mouse button is released.
 	 */
 	protected void mouseReleased(int mouseX, int mouseY, int state) {
-
 		if (state != 0 || !keyBindingList.mouseReleased(mouseX, mouseY, state)) {
 			super.mouseReleased(mouseX, mouseY, state);
 		}
@@ -118,7 +112,6 @@ public class ControlsScreen extends Screen {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-
 		if (buttonId != null) {
 			if (keyCode == 256) {
 				options.setOptionKeyBinding(buttonId, 0);
@@ -140,7 +133,6 @@ public class ControlsScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		keyBindingList.drawScreen(mouseX, mouseY, partialTicks);
 		drawCenteredString(fontRenderer, screenTitle, width / 2, 8, 16777215);

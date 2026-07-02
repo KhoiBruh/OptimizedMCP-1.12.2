@@ -9,7 +9,6 @@ public class TupleIntJsonSerializable {
 	 * Gets the integer value stored in this tuple.
 	 */
 	public int getIntegerValue() {
-
 		return integerValue;
 	}
 
@@ -17,7 +16,6 @@ public class TupleIntJsonSerializable {
 	 * Sets this tuple's integer value to the given value.
 	 */
 	public void setIntegerValue(int integerValueIn) {
-
 		integerValue = integerValueIn;
 	}
 
@@ -30,7 +28,6 @@ public class TupleIntJsonSerializable {
 	 * Sets this tuple's JsonSerializable value to the given value.
 	 */
 	public void setJsonSerializableValue(IJsonSerializable jsonSerializableValueIn) {
-
 		jsonSerializableValue = jsonSerializableValueIn;
 	}
 

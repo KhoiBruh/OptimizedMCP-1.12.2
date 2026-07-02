@@ -14,12 +14,10 @@ public class FolderResourcePack extends AbstractResourcePack {
 	private static final CharMatcher BACKSLASH_MATCHER = CharMatcher.is('\\');
 
 	public FolderResourcePack(File resourcePackFileIn) {
-
 		super(resourcePackFileIn);
 	}
 
 	protected static boolean validatePath(File p_191384_0_, String p_191384_1_) throws IOException {
-
 		String s = p_191384_0_.getCanonicalPath();
 
 		if (ON_WINDOWS) {
@@ -30,7 +28,6 @@ public class FolderResourcePack extends AbstractResourcePack {
 	}
 
 	protected InputStream getInputStreamByName(String name) throws IOException {
-
 		File file1 = getFile(name);
 
 		if (file1 == null) {
@@ -41,13 +38,11 @@ public class FolderResourcePack extends AbstractResourcePack {
 	}
 
 	protected boolean hasResourceName(String name) {
-
 		return getFile(name) != null;
 	}
 
 	
 	private File getFile(String p_191385_1_) {
-
 		try {
 			File file1 = new File(resourcePackFile, p_191385_1_);
 
@@ -61,7 +56,6 @@ public class FolderResourcePack extends AbstractResourcePack {
 	}
 
 	public Set<String> getResourceDomains() {
-
 		Set<String> set = Sets.newHashSet();
 		File file1 = new File(resourcePackFile, "assets/");
 

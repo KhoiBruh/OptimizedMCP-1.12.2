@@ -30,13 +30,11 @@ public class BiomeProvider {
 	private GenLayer biomeIndexLayer;
 
 	protected BiomeProvider() {
-
 		biomeCache = new BiomeCache(this);
 		biomesToSpawnIn = Lists.newArrayList(Biomes.FOREST, Biomes.PLAINS, Biomes.TAIGA, Biomes.TAIGA_HILLS, Biomes.FOREST_HILLS, Biomes.JUNGLE, Biomes.JUNGLE_HILLS);
 	}
 
 	private BiomeProvider(long seed, WorldType worldTypeIn, String options) {
-
 		this();
 
 		if (worldTypeIn == WorldType.CUSTOMIZED && !options.isEmpty()) {
@@ -49,12 +47,10 @@ public class BiomeProvider {
 	}
 
 	public BiomeProvider(WorldInfo info) {
-
 		this(info.getSeed(), info.getTerrainType(), info.getGeneratorOptions());
 	}
 
 	public List<Biome> getBiomesToSpawnIn() {
-
 		return biomesToSpawnIn;
 	}
 
@@ -62,12 +58,10 @@ public class BiomeProvider {
 	 * Returns the biome generator
 	 */
 	public Biome getBiome(BlockPos pos) {
-
 		return getBiome(pos, null);
 	}
 
 	public Biome getBiome(BlockPos pos, Biome defaultBiome) {
-
 		return biomeCache.getBiome(pos.getX(), pos.getZ(), defaultBiome);
 	}
 
@@ -75,7 +69,6 @@ public class BiomeProvider {
 	 * Return an adjusted version of a given temperature based on the y height
 	 */
 	public float getTemperatureAtHeight(float p_76939_1_, int p_76939_2_) {
-
 		return p_76939_1_;
 	}
 
@@ -83,7 +76,6 @@ public class BiomeProvider {
 	 * Returns an array of biomes for the location input.
 	 */
 	public Biome[] getBiomesForGeneration(Biome[] biomes, int x, int z, int width, int height) {
-
 		IntCache.resetIntCache();
 
 		if (biomes == null || biomes.length < width * height) {
@@ -115,7 +107,6 @@ public class BiomeProvider {
 	 * WorldChunkManager.
 	 */
 	public Biome[] getBiomes(Biome[] oldBiomeList, int x, int z, int width, int depth) {
-
 		return getBiomes(oldBiomeList, x, z, width, depth, true);
 	}
 
@@ -123,7 +114,6 @@ public class BiomeProvider {
 	 * Gets a list of biomes for the specified blocks.
 	 */
 	public Biome[] getBiomes(Biome[] listToReuse, int x, int z, int width, int length, boolean cacheFlag) {
-
 		IntCache.resetIntCache();
 
 		if (listToReuse == null || listToReuse.length < width * length) {
@@ -149,7 +139,6 @@ public class BiomeProvider {
 	 * checks given Chunk's Biomes against List of allowed ones
 	 */
 	public boolean areBiomesViable(int x, int z, int radius, List<Biome> allowed) {
-
 		IntCache.resetIntCache();
 		int i = x - radius >> 2;
 		int j = z - radius >> 2;
@@ -183,7 +172,6 @@ public class BiomeProvider {
 
 	
 	public BlockPos findBiomePosition(int x, int z, int range, List<Biome> biomes, Random random) {
-
 		IntCache.resetIntCache();
 		int i = x - range >> 2;
 		int j = z - range >> 2;
@@ -213,17 +201,14 @@ public class BiomeProvider {
 	 * Calls the WorldChunkManager's biomeCache.cleanupCache()
 	 */
 	public void cleanupCache() {
-
 		biomeCache.cleanupCache();
 	}
 
 	public boolean isFixedBiome() {
-
 		return settings != null && settings.fixedBiome >= 0;
 	}
 
 	public Biome getFixedBiome() {
-
 		return settings != null && settings.fixedBiome >= 0 ? Biome.getBiomeForId(settings.fixedBiome) : null;
 	}
 

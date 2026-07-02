@@ -11,7 +11,6 @@ public class ModelShulker extends ModelBase {
 	public ModelRenderer head;
 
 	public ModelShulker() {
-
 		textureHeight = 64;
 		textureWidth = 64;
 		lid = new ModelRenderer(this);
@@ -31,7 +30,6 @@ public class ModelShulker extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		EntityShulker entityshulker = (EntityShulker) entityIn;
 		float f = ageInTicks - (float) entityshulker.ticksExisted;
 		float f1 = (0.5F + entityshulker.getClientPeekAmount(f)) * (float) Math.PI;
@@ -58,7 +56,6 @@ public class ModelShulker extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		base.render(scale);
 		lid.render(scale);
 	}

@@ -22,7 +22,6 @@ public class TileEntityNote extends TileEntity {
 	public boolean previousRedstoneState;
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
 		super.writeToNBT(compound);
 		compound.setByte("note", note);
 		compound.setBoolean("powered", previousRedstoneState);
@@ -30,7 +29,6 @@ public class TileEntityNote extends TileEntity {
 	}
 
 	public void readFromNBT(NBTTagCompound compound) {
-
 		super.readFromNBT(compound);
 		note = compound.getByte("note");
 		note = (byte) MathHelper.clamp(note, 0, 24);
@@ -41,13 +39,11 @@ public class TileEntityNote extends TileEntity {
 	 * change pitch by -> (currentPitch + 1) % 25
 	 */
 	public void changePitch() {
-
 		note = (byte) ((note + 1) % 25);
 		markDirty();
 	}
 
 	public void triggerNote(World worldIn, BlockPos posIn) {
-
 		if (worldIn.getBlockState(posIn.up()).getMaterial() == Material.AIR) {
 			IBlockState iblockstate = worldIn.getBlockState(posIn.down());
 			Material material = iblockstate.getMaterial();

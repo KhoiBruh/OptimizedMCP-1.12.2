@@ -17,11 +17,9 @@ public class SPacketUpdateTileEntity implements Packet<INetHandlerPlayClient> {
 	private NBTTagCompound nbt;
 
 	public SPacketUpdateTileEntity() {
-
 	}
 
 	public SPacketUpdateTileEntity(BlockPos blockPosIn, int tileEntityTypeIn, NBTTagCompound compoundIn) {
-
 		blockPos = blockPosIn;
 		tileEntityType = tileEntityTypeIn;
 		nbt = compoundIn;
@@ -31,7 +29,6 @@ public class SPacketUpdateTileEntity implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		blockPos = buf.readBlockPos();
 		tileEntityType = buf.readUnsignedByte();
 		nbt = buf.readCompoundTag();
@@ -41,7 +38,6 @@ public class SPacketUpdateTileEntity implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeBlockPos(blockPos);
 		buf.writeByte((byte) tileEntityType);
 		buf.writeCompoundTag(nbt);
@@ -51,22 +47,18 @@ public class SPacketUpdateTileEntity implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleUpdateTileEntity(this);
 	}
 
 	public BlockPos getPos() {
-
 		return blockPos;
 	}
 
 	public int getTileEntityType() {
-
 		return tileEntityType;
 	}
 
 	public NBTTagCompound getNbtCompound() {
-
 		return nbt;
 	}
 

@@ -6,7 +6,6 @@ import net.minecraft.world.biome.Biome;
 public class GenLayerDeepOcean extends GenLayer {
 
 	public GenLayerDeepOcean(long p_i45472_1_, GenLayer p_i45472_3_) {
-
 		super(p_i45472_1_);
 		parent = p_i45472_3_;
 	}
@@ -16,7 +15,6 @@ public class GenLayerDeepOcean extends GenLayer {
 	 * amounts, or Biome ID's based on the particular GenLayer subclass.
 	 */
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
-
 		int i = areaX - 1;
 		int j = areaY - 1;
 		int k = areaWidth + 2;

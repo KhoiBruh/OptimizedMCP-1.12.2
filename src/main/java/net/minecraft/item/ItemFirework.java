@@ -22,7 +22,6 @@ public class ItemFirework extends Item {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		if (!worldIn.isRemote) {
 			ItemStack itemstack = player.getHeldItem(hand);
 			EntityFireworkRocket entityfireworkrocket = new EntityFireworkRocket(worldIn, (float) pos.getX() + hitX, (float) pos.getY() + hitY, (float) pos.getZ() + hitZ, itemstack);
@@ -37,7 +36,6 @@ public class ItemFirework extends Item {
 	}
 
 	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
-
 		if (playerIn.isElytraFlying()) {
 			ItemStack itemstack = playerIn.getHeldItem(handIn);
 
@@ -60,7 +58,6 @@ public class ItemFirework extends Item {
 	 * allows items to add custom lines of information to the mouseover description
 	 */
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-
 		NBTTagCompound nbttagcompound = stack.getSubCompound("Fireworks");
 
 		if (nbttagcompound != null) {

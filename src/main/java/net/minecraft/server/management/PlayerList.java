@@ -105,7 +105,6 @@ public abstract class PlayerList {
 	private int playerPingIndex;
 
 	public PlayerList(MinecraftServer server) {
-
 		bannedPlayers = new UserListBans(FILE_PLAYERBANS);
 		bannedIPs = new UserListIPBans(FILE_IPBANS);
 		ops = new UserListOps(FILE_OPS);
@@ -119,7 +118,6 @@ public abstract class PlayerList {
 	}
 
 	public void initializeConnectionToPlayer(NetworkManager netManager, EntityPlayerMP playerIn) {
-
 		GameProfile gameprofile = playerIn.getGameProfile();
 		PlayerProfileCache playerprofilecache = mcServer.getPlayerProfileCache();
 		GameProfile gameprofile1 = playerprofilecache.getProfileByUUID(gameprofile.getId());
@@ -204,7 +202,6 @@ public abstract class PlayerList {
 	}
 
 	protected void sendScoreboard(ServerScoreboard scoreboardIn, EntityPlayerMP playerIn) {
-
 		Set<ScoreObjective> set = Sets.newHashSet();
 
 		for (ScorePlayerTeam scoreplayerteam : scoreboardIn.getTeams()) {
@@ -228,46 +225,37 @@ public abstract class PlayerList {
 	 * Sets the NBT manager to the one for the WorldServer given.
 	 */
 	public void setPlayerManager(WorldServer[] worldServers) {
-
 		playerDataManager = worldServers[0].getSaveHandler().getPlayerNBTManager();
 		worldServers[0].getWorldBorder().addListener(new IBorderListener() {
 			public void onSizeChanged(WorldBorder border, double newSize) {
-
 				sendPacketToAllPlayers(new SPacketWorldBorder(border, SPacketWorldBorder.Action.SET_SIZE));
 			}
 
 			public void onTransitionStarted(WorldBorder border, double oldSize, double newSize, long time) {
-
 				sendPacketToAllPlayers(new SPacketWorldBorder(border, SPacketWorldBorder.Action.LERP_SIZE));
 			}
 
 			public void onCenterChanged(WorldBorder border, double x, double z) {
-
 				sendPacketToAllPlayers(new SPacketWorldBorder(border, SPacketWorldBorder.Action.SET_CENTER));
 			}
 
 			public void onWarningTimeChanged(WorldBorder border, int newTime) {
-
 				sendPacketToAllPlayers(new SPacketWorldBorder(border, SPacketWorldBorder.Action.SET_WARNING_TIME));
 			}
 
 			public void onWarningDistanceChanged(WorldBorder border, int newDistance) {
-
 				sendPacketToAllPlayers(new SPacketWorldBorder(border, SPacketWorldBorder.Action.SET_WARNING_BLOCKS));
 			}
 
 			public void onDamageAmountChanged(WorldBorder border, double newAmount) {
-
 			}
 
 			public void onDamageBufferChanged(WorldBorder border, double newSize) {
-
 			}
 		});
 	}
 
 	public void preparePlayer(EntityPlayerMP playerIn, WorldServer worldIn) {
-
 		WorldServer worldserver = playerIn.getServerWorld();
 
 		if (worldIn != null) {
@@ -287,7 +275,6 @@ public abstract class PlayerList {
 	}
 
 	public int getEntityViewDistance() {
-
 		return PlayerChunkMap.getFurthestViewableBlock(getViewDistance());
 	}
 
@@ -297,7 +284,6 @@ public abstract class PlayerList {
 	 * called during player login. reads the player information from disk.
 	 */
 	public NBTTagCompound readPlayerDataFromFile(EntityPlayerMP playerIn) {
-
 		NBTTagCompound nbttagcompound = mcServer.worlds[0].getWorldInfo().getPlayerNBTTagCompound();
 		NBTTagCompound nbttagcompound1;
 
@@ -316,7 +302,6 @@ public abstract class PlayerList {
 	 * also stores the NBTTags if this is an intergratedPlayerList
 	 */
 	protected void writePlayerData(EntityPlayerMP playerIn) {
-
 		playerDataManager.writePlayerData(playerIn);
 		StatisticsManagerServer statisticsmanagerserver = playerStatFiles.get(playerIn.getUniqueID());
 
@@ -335,7 +320,6 @@ public abstract class PlayerList {
 	 * Called when a player successfully logs in. Reads player data from disk and inserts the player into the world.
 	 */
 	public void playerLoggedIn(EntityPlayerMP playerIn) {
-
 		playerEntityList.add(playerIn);
 		uuidToPlayerMap.put(playerIn.getUniqueID(), playerIn);
 		sendPacketToAllPlayers(new SPacketPlayerListItem(SPacketPlayerListItem.Action.ADD_PLAYER, playerIn));
@@ -353,7 +337,6 @@ public abstract class PlayerList {
 	 * Using player's dimension, update the chunks around them
 	 */
 	public void serverUpdateMovingPlayer(EntityPlayerMP playerIn) {
-
 		playerIn.getServerWorld().getPlayerChunkMap().updateMovingPlayer(playerIn);
 	}
 
@@ -361,7 +344,6 @@ public abstract class PlayerList {
 	 * Called when a player disconnects from the game. Writes player data to disk and removes them from the world.
 	 */
 	public void playerLoggedOut(EntityPlayerMP playerIn) {
-
 		WorldServer worldserver = playerIn.getServerWorld();
 		playerIn.addStat(StatList.LEAVE_GAME);
 		writePlayerData(playerIn);
@@ -402,7 +384,6 @@ public abstract class PlayerList {
 	 * checks ban-lists, then white-lists, then space for the server. Returns null on success, or an error message
 	 */
 	public String allowUserToConnect(SocketAddress address, GameProfile profile) {
-
 		if (bannedPlayers.isBanned(profile)) {
 			UserListBansEntry userlistbansentry = bannedPlayers.getEntry(profile);
 			String s1 = "You are banned from this server!\nReason: " + userlistbansentry.getBanReason();
@@ -432,7 +413,6 @@ public abstract class PlayerList {
 	 * also checks for multiple logins across servers
 	 */
 	public EntityPlayerMP createPlayerForUser(GameProfile profile) {
-
 		UUID uuid = EntityPlayer.getUUID(profile);
 		List<EntityPlayerMP> list = Lists.newArrayList();
 
@@ -462,7 +442,6 @@ public abstract class PlayerList {
 	 * or returning from the End
 	 */
 	public EntityPlayerMP recreatePlayerEntity(EntityPlayerMP playerIn, int dimension, boolean conqueredEnd) {
-
 		playerIn.getServerWorld().getEntityTracker().removePlayerFromTrackers(playerIn);
 		playerIn.getServerWorld().getEntityTracker().untrack(playerIn);
 		playerIn.getServerWorld().getPlayerChunkMap().removePlayer(playerIn);
@@ -521,7 +500,6 @@ public abstract class PlayerList {
 	}
 
 	public void updatePermissionLevel(EntityPlayerMP player) {
-
 		GameProfile gameprofile = player.getGameProfile();
 		int i = canSendCommands(gameprofile) ? ops.getPermissionLevel(gameprofile) : 0;
 		i = mcServer.isSinglePlayer() && mcServer.worlds[0].getWorldInfo().areCommandsAllowed() ? 4 : i;
@@ -530,7 +508,6 @@ public abstract class PlayerList {
 	}
 
 	public void changePlayerDimension(EntityPlayerMP player, int dimensionIn) {
-
 		int i = player.dimension;
 		WorldServer worldserver = mcServer.getWorld(player.dimension);
 		player.dimension = dimensionIn;
@@ -556,7 +533,6 @@ public abstract class PlayerList {
 	 * Transfers an entity from a world to another world.
 	 */
 	public void transferEntityToWorld(Entity entityIn, int lastDimension, WorldServer oldWorldIn, WorldServer toWorldIn) {
-
 		double d0 = entityIn.posX;
 		double d1 = entityIn.posZ;
 		double d2 = 8D;
@@ -622,7 +598,6 @@ public abstract class PlayerList {
 	 * self explanitory
 	 */
 	public void onTick() {
-
 		if (++playerPingIndex > 600) {
 			sendPacketToAllPlayers(new SPacketPlayerListItem(SPacketPlayerListItem.Action.UPDATE_LATENCY, playerEntityList));
 			playerPingIndex = 0;
@@ -630,14 +605,12 @@ public abstract class PlayerList {
 	}
 
 	public void sendPacketToAllPlayers(Packet<?> packetIn) {
-
 		for (EntityPlayerMP entityPlayerMP : playerEntityList) {
 			entityPlayerMP.connection.sendPacket(packetIn);
 		}
 	}
 
 	public void sendPacketToAllPlayersInDimension(Packet<?> packetIn, int dimension) {
-
 		for (EntityPlayerMP entityplayermp : playerEntityList) {
 			if (entityplayermp.dimension == dimension) {
 				entityplayermp.connection.sendPacket(packetIn);
@@ -646,7 +619,6 @@ public abstract class PlayerList {
 	}
 
 	public void sendMessageToAllTeamMembers(EntityPlayer player, ITextComponent message) {
-
 		Team team = player.getTeam();
 
 		if (team != null) {
@@ -661,7 +633,6 @@ public abstract class PlayerList {
 	}
 
 	public void sendMessageToTeamOrAllPlayers(EntityPlayer player, ITextComponent message) {
-
 		Team team = player.getTeam();
 
 		if (team == null) {
@@ -679,7 +650,6 @@ public abstract class PlayerList {
 	 * Get a comma separated list of online players.
 	 */
 	public String getFormattedListOfPlayers(boolean includeUUIDs) {
-
 		StringBuilder s = new StringBuilder();
 		List<EntityPlayerMP> list = Lists.newArrayList(playerEntityList);
 
@@ -702,7 +672,6 @@ public abstract class PlayerList {
 	 * Returns an array of the usernames of all the connected players.
 	 */
 	public String[] getOnlinePlayerNames() {
-
 		String[] astring = new String[playerEntityList.size()];
 
 		for (int i = 0; i < playerEntityList.size(); ++i) {
@@ -713,7 +682,6 @@ public abstract class PlayerList {
 	}
 
 	public GameProfile[] getOnlinePlayerProfiles() {
-
 		GameProfile[] agameprofile = new GameProfile[playerEntityList.size()];
 
 		for (int i = 0; i < playerEntityList.size(); ++i) {
@@ -724,30 +692,25 @@ public abstract class PlayerList {
 	}
 
 	public UserListBans getBannedPlayers() {
-
 		return bannedPlayers;
 	}
 
 	public UserListIPBans getBannedIPs() {
-
 		return bannedIPs;
 	}
 
 	public void addOp(GameProfile profile) {
-
 		int i = mcServer.getOpPermissionLevel();
 		ops.addEntry(new UserListOpsEntry(profile, mcServer.getOpPermissionLevel(), ops.bypassesPlayerLimit(profile)));
 		sendPlayerPermissionLevel(getPlayerByUUID(profile.getId()), i);
 	}
 
 	public void removeOp(GameProfile profile) {
-
 		ops.removeEntry(profile);
 		sendPlayerPermissionLevel(getPlayerByUUID(profile.getId()), 0);
 	}
 
 	private void sendPlayerPermissionLevel(EntityPlayerMP player, int permLevel) {
-
 		if (player != null && player.connection != null) {
 			byte b0;
 
@@ -764,18 +727,15 @@ public abstract class PlayerList {
 	}
 
 	public boolean canJoin(GameProfile profile) {
-
 		return !whiteListEnforced || ops.hasEntry(profile) || whiteListedPlayers.hasEntry(profile);
 	}
 
 	public boolean canSendCommands(GameProfile profile) {
-
 		return ops.hasEntry(profile) || mcServer.isSinglePlayer() && mcServer.worlds[0].getWorldInfo().areCommandsAllowed() && mcServer.getServerOwner().equalsIgnoreCase(profile.getName()) || commandsAllowedForAll;
 	}
 
 	
 	public EntityPlayerMP getPlayerByUsername(String username) {
-
 		for (EntityPlayerMP entityplayermp : playerEntityList) {
 			if (entityplayermp.getName().equalsIgnoreCase(username)) {
 				return entityplayermp;
@@ -790,7 +750,6 @@ public abstract class PlayerList {
 	 * search radius
 	 */
 	public void sendToAllNearExcept(EntityPlayer except, double x, double y, double z, double radius, int dimension, Packet<?> packetIn) {
-
 		for (EntityPlayerMP entityplayermp : playerEntityList) {
 			if (entityplayermp != except && entityplayermp.dimension == dimension) {
 				double d0 = x - entityplayermp.posX;
@@ -808,51 +767,42 @@ public abstract class PlayerList {
 	 * Saves all of the players' current states.
 	 */
 	public void saveAllPlayerData() {
-
 		for (EntityPlayerMP entityPlayerMP : playerEntityList) {
 			writePlayerData(entityPlayerMP);
 		}
 	}
 
 	public void addWhitelistedPlayer(GameProfile profile) {
-
 		whiteListedPlayers.addEntry(new UserListWhitelistEntry(profile));
 	}
 
 	public void removePlayerFromWhitelist(GameProfile profile) {
-
 		whiteListedPlayers.removeEntry(profile);
 	}
 
 	public UserListWhitelist getWhitelistedPlayers() {
-
 		return whiteListedPlayers;
 	}
 
 	public String[] getWhitelistedPlayerNames() {
-
 		return whiteListedPlayers.getKeys();
 	}
 
 	public UserListOps getOppedPlayers() {
-
 		return ops;
 	}
 
 	public String[] getOppedPlayerNames() {
-
 		return ops.getKeys();
 	}
 
 	public void reloadWhitelist() {
-
 	}
 
 	/**
 	 * Updates the time and weather for the given player to those of the given world
 	 */
 	public void updateTimeAndWeatherForPlayer(EntityPlayerMP playerIn, WorldServer worldIn) {
-
 		WorldBorder worldborder = mcServer.worlds[0].getWorldBorder();
 		playerIn.connection.sendPacket(new SPacketWorldBorder(worldborder, SPacketWorldBorder.Action.INITIALIZE));
 		playerIn.connection.sendPacket(new SPacketTimeUpdate(worldIn.getTotalWorldTime(), worldIn.getWorldTime(), worldIn.getGameRules().getBoolean("doDaylightCycle")));
@@ -870,7 +820,6 @@ public abstract class PlayerList {
 	 * sends the players inventory to himself
 	 */
 	public void syncPlayerInventory(EntityPlayerMP playerIn) {
-
 		playerIn.sendContainerToPlayer(playerIn.inventoryContainer);
 		playerIn.setPlayerHealthUpdated();
 		playerIn.connection.sendPacket(new SPacketHeldItemChange(playerIn.inventory.currentItem));
@@ -880,7 +829,6 @@ public abstract class PlayerList {
 	 * Returns the number of players currently on the server.
 	 */
 	public int getCurrentPlayerCount() {
-
 		return playerEntityList.size();
 	}
 
@@ -888,7 +836,6 @@ public abstract class PlayerList {
 	 * Returns the maximum number of players allowed on the server.
 	 */
 	public int getMaxPlayers() {
-
 		return maxPlayers;
 	}
 
@@ -896,17 +843,14 @@ public abstract class PlayerList {
 	 * Returns an array of usernames for which player.dat exists for.
 	 */
 	public String[] getAvailablePlayerDat() {
-
 		return mcServer.worlds[0].getSaveHandler().getPlayerNBTManager().getAvailablePlayerDat();
 	}
 
 	public void setWhiteListEnabled(boolean whitelistEnabled) {
-
 		whiteListEnforced = whitelistEnabled;
 	}
 
 	public List<EntityPlayerMP> getPlayersMatchingAddress(String address) {
-
 		List<EntityPlayerMP> list = Lists.newArrayList();
 
 		for (EntityPlayerMP entityplayermp : playerEntityList) {
@@ -922,12 +866,10 @@ public abstract class PlayerList {
 	 * Gets the View Distance.
 	 */
 	public int getViewDistance() {
-
 		return viewDistance;
 	}
 
 	public void setViewDistance(int distance) {
-
 		viewDistance = distance;
 
 		if (mcServer.worlds != null) {
@@ -941,7 +883,6 @@ public abstract class PlayerList {
 	}
 
 	public MinecraftServer getServerInstance() {
-
 		return mcServer;
 	}
 
@@ -949,17 +890,14 @@ public abstract class PlayerList {
 	 * On integrated servers, returns the host's player data to be written to level.dat.
 	 */
 	public NBTTagCompound getHostPlayerData() {
-
 		return null;
 	}
 
 	public void setGameType(GameType gameModeIn) {
-
 		gameType = gameModeIn;
 	}
 
 	private void setPlayerGameTypeBasedOnOther(EntityPlayerMP target, EntityPlayerMP source, World worldIn) {
-
 		if (source != null) {
 			target.interactionManager.setGameType(source.interactionManager.getGameType());
 		} else if (gameType != null) {
@@ -973,7 +911,6 @@ public abstract class PlayerList {
 	 * Sets whether all players are allowed to use commands (cheats) on the server.
 	 */
 	public void setCommandsAllowedForAll(boolean p_72387_1_) {
-
 		commandsAllowedForAll = p_72387_1_;
 	}
 
@@ -981,14 +918,12 @@ public abstract class PlayerList {
 	 * Kicks everyone with "Server closed" as reason.
 	 */
 	public void removeAllPlayers() {
-
 		for (EntityPlayerMP entityPlayerMP : Lists.newArrayList(playerEntityList)) {
 			entityPlayerMP.connection.disconnect(new TextComponentTranslation("multiplayer.disconnect.server_shutdown"));
 		}
 	}
 
 	public void sendMessage(ITextComponent component, boolean isSystem) {
-
 		mcServer.sendMessage(component);
 		ChatType chattype = isSystem ? ChatType.SYSTEM : ChatType.CHAT;
 		sendPacketToAllPlayers(new SPacketChat(component, chattype));
@@ -998,12 +933,10 @@ public abstract class PlayerList {
 	 * Sends the given string to every player as chat message.
 	 */
 	public void sendMessage(ITextComponent component) {
-
 		sendMessage(component, true);
 	}
 
 	public StatisticsManagerServer getPlayerStatsFile(EntityPlayer playerIn) {
-
 		UUID uuid = playerIn.getUniqueID();
 		StatisticsManagerServer statisticsmanagerserver = uuid == null ? null : playerStatFiles.get(uuid);
 
@@ -1028,7 +961,6 @@ public abstract class PlayerList {
 	}
 
 	public PlayerAdvancements getPlayerAdvancements(EntityPlayerMP p_192054_1_) {
-
 		UUID uuid = p_192054_1_.getUniqueID();
 		PlayerAdvancements playeradvancements = advancements.get(uuid);
 
@@ -1044,7 +976,6 @@ public abstract class PlayerList {
 	}
 
 	public List<EntityPlayerMP> getPlayers() {
-
 		return playerEntityList;
 	}
 
@@ -1052,17 +983,14 @@ public abstract class PlayerList {
 	 * Get's the EntityPlayerMP object representing the player with the UUID.
 	 */
 	public EntityPlayerMP getPlayerByUUID(UUID playerUUID) {
-
 		return uuidToPlayerMap.get(playerUUID);
 	}
 
 	public boolean bypassesPlayerLimit(GameProfile profile) {
-
 		return false;
 	}
 
 	public void reloadResources() {
-
 		for (PlayerAdvancements playeradvancements : advancements.values()) {
 			playeradvancements.reload();
 		}

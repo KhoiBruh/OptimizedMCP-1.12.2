@@ -9,11 +9,9 @@ public class SPacketHeldItemChange implements Packet<INetHandlerPlayClient> {
 	private int heldItemHotbarIndex;
 
 	public SPacketHeldItemChange() {
-
 	}
 
 	public SPacketHeldItemChange(int hotbarIndexIn) {
-
 		heldItemHotbarIndex = hotbarIndexIn;
 	}
 
@@ -21,7 +19,6 @@ public class SPacketHeldItemChange implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		heldItemHotbarIndex = buf.readByte();
 	}
 
@@ -29,7 +26,6 @@ public class SPacketHeldItemChange implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeByte(heldItemHotbarIndex);
 	}
 
@@ -37,12 +33,10 @@ public class SPacketHeldItemChange implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleHeldItemChange(this);
 	}
 
 	public int getHeldItemHotbarIndex() {
-
 		return heldItemHotbarIndex;
 	}
 

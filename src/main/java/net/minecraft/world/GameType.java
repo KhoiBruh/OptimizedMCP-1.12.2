@@ -14,7 +14,6 @@ public enum GameType {
 	final String shortName;
 
 	GameType(int idIn, String nameIn, String shortNameIn) {
-
 		id = idIn;
 		name = nameIn;
 		shortName = shortNameIn;
@@ -24,12 +23,10 @@ public enum GameType {
 	 * Gets the game type by it's ID. Will be survival if none was found.
 	 */
 	public static GameType getByID(int idIn) {
-
 		return parseGameTypeWithDefault(idIn, SURVIVAL);
 	}
 
 	public static GameType parseGameTypeWithDefault(int targetId, GameType fallback) {
-
 		for (GameType gametype : values()) {
 			if (gametype.id == targetId) {
 				return gametype;
@@ -43,12 +40,10 @@ public enum GameType {
 	 * Gets the game type registered with the specified name. If no matches were found, survival will be returned.
 	 */
 	public static GameType getByName(String gamemodeName) {
-
 		return parseGameTypeWithDefault(gamemodeName, SURVIVAL);
 	}
 
 	public static GameType parseGameTypeWithDefault(String targetName, GameType fallback) {
-
 		for (GameType gametype : values()) {
 			if (gametype.name.equals(targetName) || gametype.shortName.equals(targetName)) {
 				return gametype;
@@ -62,7 +57,6 @@ public enum GameType {
 	 * Returns the ID of this game type
 	 */
 	public int getID() {
-
 		return id;
 	}
 
@@ -70,7 +64,6 @@ public enum GameType {
 	 * Returns the name of this game type
 	 */
 	public String getName() {
-
 		return name;
 	}
 
@@ -78,7 +71,6 @@ public enum GameType {
 	 * Configures the player capabilities based on the game type
 	 */
 	public void configurePlayerCapabilities(PlayerCapabilities capabilities) {
-
 		if (this == CREATIVE) {
 			capabilities.allowFlying = true;
 			capabilities.isCreativeMode = true;
@@ -102,7 +94,6 @@ public enum GameType {
 	 * Returns true if this is the ADVENTURE game type
 	 */
 	public boolean hasLimitedInteractions() {
-
 		return this == ADVENTURE || this == SPECTATOR;
 	}
 
@@ -110,7 +101,6 @@ public enum GameType {
 	 * Returns true if this is the CREATIVE game type
 	 */
 	public boolean isCreative() {
-
 		return this == CREATIVE;
 	}
 
@@ -118,7 +108,6 @@ public enum GameType {
 	 * Returns true if this is the SURVIVAL or ADVENTURE game type
 	 */
 	public boolean isSurvivalOrAdventure() {
-
 		return this == SURVIVAL || this == ADVENTURE;
 	}
 }

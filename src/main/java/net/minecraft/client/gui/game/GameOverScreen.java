@@ -19,7 +19,6 @@ public class GameOverScreen extends Screen {
 	private int enableButtonsTimer;
 
 	public GameOverScreen(ITextComponent causeOfDeathIn) {
-
 		causeOfDeath = causeOfDeathIn;
 	}
 
@@ -28,7 +27,6 @@ public class GameOverScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		buttons.clear();
 		enableButtonsTimer = 0;
 
@@ -54,14 +52,12 @@ public class GameOverScreen extends Screen {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) {
-
 	}
 
 	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		switch (button.id) {
 			case 0:
 				mc.player.respawnPlayer();
@@ -80,7 +76,6 @@ public class GameOverScreen extends Screen {
 	}
 
 	public void confirmClicked(boolean result, int id) {
-
 		if (result) {
 			if (mc.world != null) {
 				mc.world.sendQuittingDisconnectingPacket();
@@ -98,7 +93,6 @@ public class GameOverScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		boolean flag = mc.world.getWorldInfo().isHardcoreModeEnabled();
 		drawGradientRect(0, 0, width, height, 1615855616, -1602211792);
 		GLS.pushMatrix();
@@ -125,7 +119,6 @@ public class GameOverScreen extends Screen {
 
 	
 	public ITextComponent getClickedComponentAt(int p_184870_1_) {
-
 		if (causeOfDeath == null) {
 			return null;
 		} else {
@@ -154,7 +147,6 @@ public class GameOverScreen extends Screen {
 	 * Returns true if this GUI should pause the game when it is displayed in single-player
 	 */
 	public boolean pauseGame() {
-
 		return false;
 	}
 
@@ -162,7 +154,6 @@ public class GameOverScreen extends Screen {
 	 * Called from the main game loop to update the screen.
 	 */
 	public void update() {
-
 		super.update();
 		++enableButtonsTimer;
 

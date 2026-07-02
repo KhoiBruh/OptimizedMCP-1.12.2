@@ -30,7 +30,6 @@ public class TileEntitySign extends TileEntity {
 	private EntityPlayer player;
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
 		super.writeToNBT(compound);
 
 		for (int i = 0; i < 4; ++i) {
@@ -43,42 +42,34 @@ public class TileEntitySign extends TileEntity {
 	}
 
 	protected void setWorldCreate(World worldIn) {
-
 		setWorld(worldIn);
 	}
 
 	public void readFromNBT(NBTTagCompound compound) {
-
 		isEditable = false;
 		super.readFromNBT(compound);
 		ICommandSender icommandsender = new ICommandSender() {
 			public String getName() {
-
 				return "Sign";
 			}
 
 			public boolean canUseCommand(int permLevel, String commandName) {
-
 				return true;
 			}
 
 			public BlockPos getPosition() {
-
 				return pos;
 			}
 
 			public Vec3d getPositionVector() {
-
 				return new Vec3d((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D);
 			}
 
 			public World getEntityWorld() {
-
 				return world;
 			}
 
 			public MinecraftServer getServer() {
-
 				return world.getMinecraftServer();
 			}
 		};
@@ -99,22 +90,18 @@ public class TileEntitySign extends TileEntity {
 
 	
 	public SPacketUpdateTileEntity getUpdatePacket() {
-
 		return new SPacketUpdateTileEntity(pos, 9, getUpdateTag());
 	}
 
 	public NBTTagCompound getUpdateTag() {
-
 		return writeToNBT(new NBTTagCompound());
 	}
 
 	public boolean onlyOpsCanSetNbt() {
-
 		return true;
 	}
 
 	public boolean getIsEditable() {
-
 		return isEditable;
 	}
 
@@ -122,7 +109,6 @@ public class TileEntitySign extends TileEntity {
 	 * Sets the sign's isEditable flag to the specified parameter.
 	 */
 	public void setEditable(boolean isEditableIn) {
-
 		isEditable = isEditableIn;
 
 		if (!isEditableIn) {
@@ -131,62 +117,50 @@ public class TileEntitySign extends TileEntity {
 	}
 
 	public EntityPlayer getPlayer() {
-
 		return player;
 	}
 
 	public void setPlayer(EntityPlayer playerIn) {
-
 		player = playerIn;
 	}
 
 	public boolean executeCommand(final EntityPlayer playerIn) {
-
 		ICommandSender icommandsender = new ICommandSender() {
 			public String getName() {
-
 				return playerIn.getName();
 			}
 
 			public ITextComponent getDisplayName() {
-
 				return playerIn.getDisplayName();
 			}
 
 			public boolean canUseCommand(int permLevel, String commandName) {
-
 				return permLevel <= 2;
 			}
 
 			public BlockPos getPosition() {
-
 				return pos;
 			}
 
 			public Vec3d getPositionVector() {
-
 				return new Vec3d((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D);
 			}
 
 			public World getEntityWorld() {
-
 				return playerIn.getEntityWorld();
 			}
 
 			public Entity getCommandSenderEntity() {
-
 				return playerIn;
 			}
 
 			public void setCommandStat(CommandResultStats.Type type, int amount) {
-
 				if (world != null && !world.isRemote) {
 					stats.setCommandStatForSender(world.getMinecraftServer(), this, type, amount);
 				}
 			}
 
 			public MinecraftServer getServer() {
-
 				return playerIn.getServer();
 			}
 		};
@@ -207,7 +181,6 @@ public class TileEntitySign extends TileEntity {
 	}
 
 	public CommandResultStats getStats() {
-
 		return stats;
 	}
 

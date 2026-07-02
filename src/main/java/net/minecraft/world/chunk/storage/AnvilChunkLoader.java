@@ -46,13 +46,11 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 	private boolean flushing;
 
 	public AnvilChunkLoader(File chunkSaveLocationIn, DataFixer dataFixerIn) {
-
 		chunkSaveLocation = chunkSaveLocationIn;
 		fixer = dataFixerIn;
 	}
 
 	public static void registerFixes(DataFixer fixer) {
-
 		fixer.registerWalker(FixTypes.CHUNK, (fixer1, compound, versionIn) -> {
 
 			if (compound.hasKey("Level", 10)) {
@@ -81,7 +79,6 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 
 	
 	public static Entity readChunkEntity(NBTTagCompound compound, World worldIn, Chunk chunkIn) {
-
 		Entity entity = createEntityFromNBT(compound, worldIn);
 
 		if (entity == null) {
@@ -107,7 +104,6 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 
 	
 	public static Entity readWorldEntityPos(NBTTagCompound compound, World worldIn, double x, double y, double z, boolean attemptSpawn) {
-
 		Entity entity = createEntityFromNBT(compound, worldIn);
 
 		if (entity == null) {
@@ -137,7 +133,6 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 
 	
 	protected static Entity createEntityFromNBT(NBTTagCompound compound, World worldIn) {
-
 		try {
 			return EntityList.createEntityFromNBT(compound, worldIn);
 		} catch (RuntimeException var3) {
@@ -146,7 +141,6 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 	}
 
 	public static void spawnEntity(Entity entityIn, World worldIn) {
-
 		if (worldIn.spawnEntity(entityIn) && entityIn.isBeingRidden()) {
 			for (Entity entity : entityIn.getPassengers()) {
 				spawnEntity(entity, worldIn);
@@ -156,7 +150,6 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 
 	
 	public static Entity readWorldEntity(NBTTagCompound compound, World worldIn, boolean p_186051_2_) {
-
 		Entity entity = createEntityFromNBT(compound, worldIn);
 
 		if (entity == null) {
@@ -186,7 +179,6 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 	 * Loads the specified(XZ) chunk into the specified world.
 	 */
 	public Chunk loadChunk(World worldIn, int x, int z) throws IOException {
-
 		ChunkPos chunkpos = new ChunkPos(x, z);
 		NBTTagCompound nbttagcompound = chunksToSave.get(chunkpos);
 
@@ -204,7 +196,6 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 	}
 
 	public boolean isChunkGeneratedAt(int x, int z) {
-
 		ChunkPos chunkpos = new ChunkPos(x, z);
 		NBTTagCompound nbttagcompound = chunksToSave.get(chunkpos);
 		return nbttagcompound != null || RegionFileCache.chunkExists(chunkSaveLocation, x, z);
@@ -216,7 +207,6 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 	 * Wraps readChunkFromNBT. Checks the coordinates and several NBT tags.
 	 */
 	protected Chunk checkedReadChunkFromNBT(World worldIn, int x, int z, NBTTagCompound compound) {
-
 		if (!compound.hasKey("Level", 10)) {
 			LOGGER.error("Chunk file at {},{} is missing level data, skipping", x, z);
 			return null;
@@ -242,7 +232,6 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 	}
 
 	public void saveChunk(World worldIn, Chunk chunkIn) throws MinecraftException {
-
 		worldIn.checkSessionLock();
 
 		try {
@@ -258,7 +247,6 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 	}
 
 	protected void addChunkToPending(ChunkPos pos, NBTTagCompound compound) {
-
 		if (!chunksBeingSaved.contains(pos)) {
 			chunksToSave.put(pos, compound);
 		}
@@ -273,7 +261,6 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 	 * IThreadedFileIO should be removed from the queued list)
 	 */
 	public boolean writeNextIO() {
-
 		if (chunksToSave.isEmpty()) {
 			if (flushing) {
 				LOGGER.info("ThreadedAnvilChunkStorage ({}): All chunks are saved", chunkSaveLocation.getName());
@@ -306,7 +293,6 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 	}
 
 	private void writeChunkData(ChunkPos pos, NBTTagCompound compound) throws IOException {
-
 		DataOutputStream dataoutputstream = RegionFileCache.getChunkOutputStream(chunkSaveLocation, pos.x, pos.z);
 		CompressedStreamTools.write(compound, dataoutputstream);
 		dataoutputstream.close();
@@ -317,21 +303,18 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 	 * Currently unused.
 	 */
 	public void saveExtraChunkData(World worldIn, Chunk chunkIn) {
-
 	}
 
 	/**
 	 * Called every World.tick()
 	 */
 	public void chunkTick() {
-
 	}
 
 	/**
 	 * Flushes all pending chunks fully back to disk
 	 */
 	public void flush() {
-
 		try {
 			flushing = true;
 
@@ -346,7 +329,6 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 	 * the Chunk's last update time.
 	 */
 	private void writeChunkToNBT(Chunk chunkIn, World worldIn, NBTTagCompound compound) {
-
 		compound.setInteger("xPos", chunkIn.x);
 		compound.setInteger("zPos", chunkIn.z);
 		compound.setLong("LastUpdate", worldIn.getTotalWorldTime());
@@ -436,7 +418,6 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 	 * Returns the created Chunk.
 	 */
 	private Chunk readChunkFromNBT(World worldIn, NBTTagCompound compound) {
-
 		int i = compound.getInteger("xPos");
 		int j = compound.getInteger("zPos");
 		Chunk chunk = new Chunk(worldIn, i, j);

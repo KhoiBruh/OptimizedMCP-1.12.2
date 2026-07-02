@@ -75,7 +75,6 @@ public class RenderManager {
 	private boolean debugBoundingBox;
 
 	public RenderManager(TextureManager renderEngineIn, RenderItem itemRendererIn) {
-
 		renderEngine = renderEngineIn;
 		entityRenderMap.put(EntityCaveSpider.class, new RenderCaveSpider(this));
 		entityRenderMap.put(EntitySpider.class, new RenderSpider<>(this));
@@ -165,7 +164,6 @@ public class RenderManager {
 	}
 
 	public void setRenderPosition(double renderPosXIn, double renderPosYIn, double renderPosZIn) {
-
 		renderPosX = renderPosXIn;
 		renderPosY = renderPosYIn;
 		renderPosZ = renderPosZIn;
@@ -196,7 +194,6 @@ public class RenderManager {
 	}
 
 	public void cacheActiveRenderInfo(World worldIn, FontRenderer textRendererIn, Entity livingPlayerIn, Entity pointedEntityIn, GameSettings optionsIn, float partialTicks) {
-
 		world = worldIn;
 		options = optionsIn;
 		renderViewEntity = livingPlayerIn;
@@ -227,43 +224,35 @@ public class RenderManager {
 	}
 
 	public void setPlayerViewY(float playerViewYIn) {
-
 		playerViewY = playerViewYIn;
 	}
 
 	public boolean isRenderShadow() {
-
 		return renderShadow;
 	}
 
 	public void setRenderShadow(boolean renderShadowIn) {
-
 		renderShadow = renderShadowIn;
 	}
 
 	public boolean isDebugBoundingBox() {
-
 		return debugBoundingBox;
 	}
 
 	public void setDebugBoundingBox(boolean debugBoundingBoxIn) {
-
 		debugBoundingBox = debugBoundingBoxIn;
 	}
 
 	public boolean isRenderMultipass(Entity p_188390_1_) {
-
 		return getEntityRenderObject(p_188390_1_).isMultipass();
 	}
 
 	public boolean shouldRender(Entity entityIn, ICamera camera, double camX, double camY, double camZ) {
-
 		Render<Entity> render = getEntityRenderObject(entityIn);
 		return render != null && render.shouldRender(entityIn, camera, camX, camY, camZ);
 	}
 
 	public void renderEntityStatic(Entity entityIn, float partialTicks, boolean p_188388_3_) {
-
 		if (entityIn.ticksExisted == 0) {
 			entityIn.lastTickPosX = entityIn.posX;
 			entityIn.lastTickPosY = entityIn.posY;
@@ -288,7 +277,6 @@ public class RenderManager {
 	}
 
 	public void renderEntity(Entity entityIn, double x, double y, double z, float yaw, float partialTicks, boolean p_188391_10_) {
-
 		Render<Entity> render = null;
 
 		try {
@@ -332,7 +320,6 @@ public class RenderManager {
 	}
 
 	public void renderMultipass(Entity p_188389_1_, float p_188389_2_) {
-
 		if (p_188389_1_.ticksExisted == 0) {
 			p_188389_1_.lastTickPosX = p_188389_1_.posX;
 			p_188389_1_.lastTickPosY = p_188389_1_.posY;
@@ -364,7 +351,6 @@ public class RenderManager {
 	 * Renders the bounding box around an entity when F3+B is pressed
 	 */
 	private void renderDebugBoundingBox(Entity entityIn, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		GLS.depthMask(false);
 		GLS.disableTexture2D();
 		GLS.disableLighting();
@@ -408,7 +394,6 @@ public class RenderManager {
 	 * World sets this RenderManager's worldObj to the world provided
 	 */
 	public void setWorld(World worldIn) {
-
 		world = worldIn;
 
 		if (worldIn == null) {
@@ -417,7 +402,6 @@ public class RenderManager {
 	}
 
 	public double getDistanceToCamera(double x, double y, double z) {
-
 		double d0 = x - viewerPosX;
 		double d1 = y - viewerPosY;
 		double d2 = z - viewerPosZ;
@@ -428,12 +412,10 @@ public class RenderManager {
 	 * Returns the font renderer
 	 */
 	public FontRenderer getFontRenderer() {
-
 		return textRenderer;
 	}
 
 	public void setRenderOutlines(boolean renderOutlinesIn) {
-
 		renderOutlines = renderOutlinesIn;
 	}
 

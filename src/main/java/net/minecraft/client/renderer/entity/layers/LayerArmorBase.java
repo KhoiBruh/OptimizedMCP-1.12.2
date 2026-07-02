@@ -27,13 +27,11 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
 	private boolean skipRenderGlint;
 
 	public LayerArmorBase(RenderLivingBase<?> rendererIn) {
-
 		renderer = rendererIn;
 		initArmor();
 	}
 
 	public static void renderEnchantedGlint(RenderLivingBase<?> p_188364_0_, EntityLivingBase p_188364_1_, ModelBase model, float p_188364_3_, float p_188364_4_, float p_188364_5_, float p_188364_6_, float p_188364_7_, float p_188364_8_, float p_188364_9_) {
-
 		float f = (float) p_188364_1_.ticksExisted + p_188364_5_;
 		p_188364_0_.bindTexture(ENCHANTED_ITEM_GLINT_RES);
 		Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
@@ -70,7 +68,6 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
 	}
 
 	public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		renderArmorLayer(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale, EntityEquipmentSlot.CHEST);
 		renderArmorLayer(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale, EntityEquipmentSlot.LEGS);
 		renderArmorLayer(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale, EntityEquipmentSlot.FEET);
@@ -78,12 +75,10 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
 	}
 
 	public boolean shouldCombineTextures() {
-
 		return false;
 	}
 
 	private void renderArmorLayer(EntityLivingBase entityLivingBaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale, EntityEquipmentSlot slotIn) {
-
 		ItemStack itemstack = entityLivingBaseIn.getItemStackFromSlot(slotIn);
 
 		if (itemstack.getItem() instanceof ItemArmor itemarmor) {
@@ -123,22 +118,18 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
 	}
 
 	public T getModelFromSlot(EntityEquipmentSlot slotIn) {
-
 		return isLegSlot(slotIn) ? modelLeggings : modelArmor;
 	}
 
 	private boolean isLegSlot(EntityEquipmentSlot slotIn) {
-
 		return slotIn == EntityEquipmentSlot.LEGS;
 	}
 
 	private ResourceLocation getArmorResource(ItemArmor armor, boolean p_177181_2_) {
-
 		return getArmorResource(armor, p_177181_2_, null);
 	}
 
 	private ResourceLocation getArmorResource(ItemArmor armor, boolean p_177178_2_, String p_177178_3_) {
-
 		String s = String.format("textures/models/armor/%s_layer_%d%s.png", armor.getArmorMaterial().getName(), p_177178_2_ ? 2 : 1, p_177178_3_ == null ? "" : String.format("_%s", p_177178_3_));
 		ResourceLocation resourcelocation = ARMOR_TEXTURE_RES_MAP.get(s);
 

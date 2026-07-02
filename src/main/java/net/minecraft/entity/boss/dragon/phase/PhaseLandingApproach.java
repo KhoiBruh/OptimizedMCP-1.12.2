@@ -14,12 +14,10 @@ public class PhaseLandingApproach extends PhaseBase {
 	private Vec3d targetLocation;
 
 	public PhaseLandingApproach(EntityDragon dragonIn) {
-
 		super(dragonIn);
 	}
 
 	public PhaseList<PhaseLandingApproach> getType() {
-
 		return PhaseList.LANDING_APPROACH;
 	}
 
@@ -27,7 +25,6 @@ public class PhaseLandingApproach extends PhaseBase {
 	 * Called when this phase is set to active
 	 */
 	public void initPhase() {
-
 		currentPath = null;
 		targetLocation = null;
 	}
@@ -37,7 +34,6 @@ public class PhaseLandingApproach extends PhaseBase {
 	 * Called by dragon's onLivingUpdate. Only used when !worldObj.isRemote.
 	 */
 	public void doLocalUpdate() {
-
 		double d0 = targetLocation == null ? 0D : targetLocation.squareDistanceTo(dragon.posX, dragon.posY, dragon.posZ);
 
 		if (d0 < 100D || d0 > 22500D || dragon.collidedHorizontally || dragon.collidedVertically) {
@@ -51,12 +47,10 @@ public class PhaseLandingApproach extends PhaseBase {
 	 * Returns the location the dragon is flying toward
 	 */
 	public Vec3d getTargetLocation() {
-
 		return targetLocation;
 	}
 
 	private void findNewTarget() {
-
 		if (currentPath == null || currentPath.isFinished()) {
 			int i = dragon.initPathPoints();
 			BlockPos blockpos = dragon.world.getTopSolidOrLiquidBlock(WorldGenEndPodium.END_PODIUM_LOCATION);
@@ -86,7 +80,6 @@ public class PhaseLandingApproach extends PhaseBase {
 	}
 
 	private void navigateToNextPathNode() {
-
 		if (currentPath != null && !currentPath.isFinished()) {
 			Vec3d vec3d = currentPath.getCurrentPos();
 			currentPath.incrementPathIndex();

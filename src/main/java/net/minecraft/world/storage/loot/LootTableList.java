@@ -94,12 +94,10 @@ public class LootTableList {
 	private static final Set<ResourceLocation> READ_ONLY_LOOT_TABLES = Collections.unmodifiableSet(LOOT_TABLES);
 
 	private static ResourceLocation register(String id) {
-
 		return register(new ResourceLocation("minecraft", id));
 	}
 
 	public static ResourceLocation register(ResourceLocation id) {
-
 		if (LOOT_TABLES.add(id)) {
 			return id;
 		} else {
@@ -108,12 +106,10 @@ public class LootTableList {
 	}
 
 	public static Set<ResourceLocation> getAll() {
-
 		return READ_ONLY_LOOT_TABLES;
 	}
 
 	public static boolean test() {
-
 		LootTableManager loottablemanager = new LootTableManager(null);
 
 		for (ResourceLocation resourcelocation : READ_ONLY_LOOT_TABLES) {

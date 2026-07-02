@@ -22,17 +22,14 @@ public class KilledTrigger implements ICriterionTrigger<KilledTrigger.Instance> 
 	private final ResourceLocation id;
 
 	public KilledTrigger(ResourceLocation id) {
-
 		this.id = id;
 	}
 
 	public ResourceLocation getId() {
-
 		return id;
 	}
 
 	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<KilledTrigger.Instance> listener) {
-
 		KilledTrigger.Listeners killedtrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (killedtrigger$listeners == null) {
@@ -44,7 +41,6 @@ public class KilledTrigger implements ICriterionTrigger<KilledTrigger.Instance> 
 	}
 
 	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<KilledTrigger.Instance> listener) {
-
 		KilledTrigger.Listeners killedtrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (killedtrigger$listeners != null) {
@@ -57,7 +53,6 @@ public class KilledTrigger implements ICriterionTrigger<KilledTrigger.Instance> 
 	}
 
 	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
-
 		listeners.remove(playerAdvancementsIn);
 	}
 
@@ -70,7 +65,6 @@ public class KilledTrigger implements ICriterionTrigger<KilledTrigger.Instance> 
 	}
 
 	public void trigger(EntityPlayerMP player, Entity entity, DamageSource source) {
-
 		KilledTrigger.Listeners killedtrigger$listeners = listeners.get(player.getAdvancements());
 
 		if (killedtrigger$listeners != null) {
@@ -84,14 +78,12 @@ public class KilledTrigger implements ICriterionTrigger<KilledTrigger.Instance> 
 		private final DamageSourcePredicate killingBlow;
 
 		public Instance(ResourceLocation criterionIn, EntityPredicate entity, DamageSourcePredicate killingBlow) {
-
 			super(criterionIn);
 			this.entity = entity;
 			this.killingBlow = killingBlow;
 		}
 
 		public boolean test(EntityPlayerMP player, Entity entity, DamageSource source) {
-
 			return killingBlow.test(player, source) && this.entity.test(player, entity);
 		}
 
@@ -103,27 +95,22 @@ public class KilledTrigger implements ICriterionTrigger<KilledTrigger.Instance> 
 		private final Set<ICriterionTrigger.Listener<KilledTrigger.Instance>> listeners = Sets.newHashSet();
 
 		public Listeners(PlayerAdvancements playerAdvancementsIn) {
-
 			playerAdvancements = playerAdvancementsIn;
 		}
 
 		public boolean isEmpty() {
-
 			return listeners.isEmpty();
 		}
 
 		public void add(ICriterionTrigger.Listener<KilledTrigger.Instance> listener) {
-
 			listeners.add(listener);
 		}
 
 		public void remove(ICriterionTrigger.Listener<KilledTrigger.Instance> listener) {
-
 			listeners.remove(listener);
 		}
 
 		public void trigger(EntityPlayerMP player, Entity entity, DamageSource source) {
-
 			List<ICriterionTrigger.Listener<KilledTrigger.Instance>> list = null;
 
 			for (ICriterionTrigger.Listener<KilledTrigger.Instance> listener : listeners) {

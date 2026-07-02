@@ -7,7 +7,6 @@ import net.minecraft.util.ResourceLocation;
 public class RenderEntity extends Render<Entity> {
 
 	public RenderEntity(RenderManager renderManagerIn) {
-
 		super(renderManagerIn);
 	}
 
@@ -15,7 +14,6 @@ public class RenderEntity extends Render<Entity> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(Entity entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		GLS.pushMatrix();
 		renderOffsetAABB(entity.getEntityBoundingBox(), x - entity.lastTickPosX, y - entity.lastTickPosY, z - entity.lastTickPosZ);
 		GLS.popMatrix();
@@ -28,7 +26,6 @@ public class RenderEntity extends Render<Entity> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(Entity entity) {
-
 		return null;
 	}
 

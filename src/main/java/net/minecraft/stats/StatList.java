@@ -121,42 +121,35 @@ public class StatList {
 
 	
 	public static StatBase getBlockStats(Block blockIn) {
-
 		return BLOCKS_STATS[Block.getIdFromBlock(blockIn)];
 	}
 
 	
 	public static StatBase getCraftStats(Item itemIn) {
-
 		return CRAFTS_STATS[Item.getIdFromItem(itemIn)];
 	}
 
 	
 	public static StatBase getObjectUseStats(Item itemIn) {
-
 		return OBJECT_USE_STATS[Item.getIdFromItem(itemIn)];
 	}
 
 	
 	public static StatBase getObjectBreakStats(Item itemIn) {
-
 		return OBJECT_BREAK_STATS[Item.getIdFromItem(itemIn)];
 	}
 
 	
 	public static StatBase getObjectsPickedUpStats(Item itemIn) {
-
 		return OBJECTS_PICKED_UP_STATS[Item.getIdFromItem(itemIn)];
 	}
 
 	
 	public static StatBase getDroppedObjectStats(Item itemIn) {
-
 		return OBJECTS_DROPPED_STATS[Item.getIdFromItem(itemIn)];
 	}
 
 	public static void init() {
-
 		initMiningStats();
 		initStats();
 		initItemDepleteStats();
@@ -169,7 +162,6 @@ public class StatList {
 	 * initialized.
 	 */
 	private static void initCraftableStats() {
-
 		Set<Item> set = Sets.newHashSet();
 
 		for (IRecipe irecipe : CraftingManager.REGISTRY) {
@@ -199,7 +191,6 @@ public class StatList {
 	}
 
 	private static void initMiningStats() {
-
 		for (Block block : Block.REGISTRY) {
 			Item item = Item.getItemFromBlock(block);
 
@@ -218,7 +209,6 @@ public class StatList {
 	}
 
 	private static void initStats() {
-
 		for (Item item : Item.REGISTRY) {
 			if (item != null) {
 				int i = Item.getIdFromItem(item);
@@ -238,7 +228,6 @@ public class StatList {
 	}
 
 	private static void initItemDepleteStats() {
-
 		for (Item item : Item.REGISTRY) {
 			if (item != null) {
 				int i = Item.getIdFromItem(item);
@@ -254,7 +243,6 @@ public class StatList {
 	}
 
 	private static void initPickedUpAndDroppedStats() {
-
 		for (Item item : Item.REGISTRY) {
 			if (item != null) {
 				int i = Item.getIdFromItem(item);
@@ -271,7 +259,6 @@ public class StatList {
 	}
 
 	private static String getItemName(Item itemIn) {
-
 		ResourceLocation resourcelocation = Item.REGISTRY.getNameForObject(itemIn);
 		return resourcelocation != null ? resourcelocation.toString().replace(':', '.') : null;
 	}
@@ -280,7 +267,6 @@ public class StatList {
 	 * Forces all dual blocks to count for each other on the stats list
 	 */
 	private static void replaceAllSimilarBlocks(StatBase[] stat) {
-
 		mergeStatBases(stat, Blocks.WATER, Blocks.FLOWING_WATER);
 		mergeStatBases(stat, Blocks.LAVA, Blocks.FLOWING_LAVA);
 		mergeStatBases(stat, Blocks.LIT_PUMPKIN, Blocks.PUMPKIN);
@@ -301,7 +287,6 @@ public class StatList {
 	 * Merge {@link StatBase} object references for similar blocks
 	 */
 	private static void mergeStatBases(StatBase[] statBaseIn, Block block1, Block block2) {
-
 		int i = Block.getIdFromBlock(block1);
 		int j = Block.getIdFromBlock(block2);
 
@@ -316,20 +301,17 @@ public class StatList {
 	}
 
 	public static StatBase getStatKillEntity(EntityList.EntityEggInfo eggInfo) {
-
 		String s = EntityList.getTranslationName(eggInfo.spawnedID);
 		return s == null ? null : (new StatBase("stat.killEntity." + s, new TextComponentTranslation("stat.entityKill", new TextComponentTranslation("entity." + s + ".name")))).registerStat();
 	}
 
 	public static StatBase getStatEntityKilledBy(EntityList.EntityEggInfo eggInfo) {
-
 		String s = EntityList.getTranslationName(eggInfo.spawnedID);
 		return s == null ? null : (new StatBase("stat.entityKilledBy." + s, new TextComponentTranslation("stat.entityKilledBy", new TextComponentTranslation("entity." + s + ".name")))).registerStat();
 	}
 
 	
 	public static StatBase getOneShotStat(String statName) {
-
 		return ID_TO_STAT_MAP.get(statName);
 	}
 

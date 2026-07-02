@@ -28,7 +28,6 @@ public class EntityLookHelper {
 	private double posZ;
 
 	public EntityLookHelper(EntityLiving entitylivingIn) {
-
 		entity = entitylivingIn;
 	}
 
@@ -36,7 +35,6 @@ public class EntityLookHelper {
 	 * Sets position to look at using entity
 	 */
 	public void setLookPositionWithEntity(Entity entityIn, float deltaYaw, float deltaPitch) {
-
 		posX = entityIn.posX;
 
 		if (entityIn instanceof EntityLivingBase) {
@@ -55,7 +53,6 @@ public class EntityLookHelper {
 	 * Sets position to look at
 	 */
 	public void setLookPosition(double x, double y, double z, float deltaYaw, float deltaPitch) {
-
 		posX = x;
 		posY = y;
 		posZ = z;
@@ -68,7 +65,6 @@ public class EntityLookHelper {
 	 * Updates look
 	 */
 	public void onUpdateLook() {
-
 		entity.rotationPitch = 0F;
 
 		if (isLooking) {
@@ -99,7 +95,6 @@ public class EntityLookHelper {
 	}
 
 	private float updateRotation(float p_75652_1_, float p_75652_2_, float p_75652_3_) {
-
 		float f = MathHelper.wrapDegrees(p_75652_2_ - p_75652_1_);
 
 		if (f > p_75652_3_) {
@@ -114,22 +109,18 @@ public class EntityLookHelper {
 	}
 
 	public boolean getIsLooking() {
-
 		return isLooking;
 	}
 
 	public double getLookPosX() {
-
 		return posX;
 	}
 
 	public double getLookPosY() {
-
 		return posY;
 	}
 
 	public double getLookPosZ() {
-
 		return posZ;
 	}
 

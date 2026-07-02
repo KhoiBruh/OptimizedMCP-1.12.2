@@ -11,7 +11,6 @@ public class EntityAIBreakDoor extends EntityAIDoorInteract {
 	private int previousBreakProgress = -1;
 
 	public EntityAIBreakDoor(EntityLiving entityIn) {
-
 		super(entityIn);
 	}
 
@@ -19,7 +18,6 @@ public class EntityAIBreakDoor extends EntityAIDoorInteract {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		if (!super.shouldExecute()) {
 			return false;
 		} else if (!entity.world.getGameRules().getBoolean("mobGriefing")) {
@@ -34,7 +32,6 @@ public class EntityAIBreakDoor extends EntityAIDoorInteract {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		super.startExecuting();
 		breakingTime = 0;
 	}
@@ -43,7 +40,6 @@ public class EntityAIBreakDoor extends EntityAIDoorInteract {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		double d0 = entity.getDistanceSq(doorPosition);
 		boolean flag;
 
@@ -64,7 +60,6 @@ public class EntityAIBreakDoor extends EntityAIDoorInteract {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		super.resetTask();
 		entity.world.sendBlockBreakProgress(entity.getEntityId(), doorPosition, -1);
 	}
@@ -73,7 +68,6 @@ public class EntityAIBreakDoor extends EntityAIDoorInteract {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		super.updateTask();
 
 		if (entity.getRNG().nextInt(20) == 0) {

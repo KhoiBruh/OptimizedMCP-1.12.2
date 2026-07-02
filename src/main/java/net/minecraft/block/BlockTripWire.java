@@ -36,14 +36,12 @@ public class BlockTripWire extends Block {
 	protected static final AxisAlignedBB TRIP_WRITE_ATTACHED_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.5D, 1D);
 
 	public BlockTripWire() {
-
 		super(Material.CIRCUITS);
 		setDefaultState(blockState.getBaseState().withProperty(POWERED, false).withProperty(ATTACHED, false).withProperty(DISARMED, false).withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false));
 		setTickRandomly(true);
 	}
 
 	public static boolean isConnectedTo(IBlockAccess worldIn, BlockPos pos, IBlockState state, Facing direction) {
-
 		BlockPos blockpos = pos.offset(direction);
 		IBlockState iblockstate = worldIn.getBlockState(blockpos);
 		Block block = iblockstate.getBlock();
@@ -57,7 +55,6 @@ public class BlockTripWire extends Block {
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return !state.getValue(ATTACHED) ? TRIP_WRITE_ATTACHED_AABB : AABB;
 	}
 
@@ -66,13 +63,11 @@ public class BlockTripWire extends Block {
 	 * metadata, such as fence connections.
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return state.withProperty(NORTH, isConnectedTo(worldIn, pos, state, Facing.NORTH)).withProperty(EAST, isConnectedTo(worldIn, pos, state, Facing.EAST)).withProperty(SOUTH, isConnectedTo(worldIn, pos, state, Facing.SOUTH)).withProperty(WEST, isConnectedTo(worldIn, pos, state, Facing.WEST));
 	}
 
 	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-
 		return NULL_AABB;
 	}
 
@@ -80,12 +75,10 @@ public class BlockTripWire extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -94,7 +87,6 @@ public class BlockTripWire extends Block {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.TRANSLUCENT;
 	}
 
@@ -102,12 +94,10 @@ public class BlockTripWire extends Block {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Items.STRING;
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return new ItemStack(Items.STRING);
 	}
 
@@ -115,7 +105,6 @@ public class BlockTripWire extends Block {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		worldIn.setBlockState(pos, state, 3);
 		notifyHook(worldIn, pos, state);
 	}
@@ -124,7 +113,6 @@ public class BlockTripWire extends Block {
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		notifyHook(worldIn, pos, state.withProperty(POWERED, true));
 	}
 
@@ -133,7 +121,6 @@ public class BlockTripWire extends Block {
 	 * collect this block
 	 */
 	public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
-
 		if (!worldIn.isRemote) {
 			if (!player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() == Items.SHEARS) {
 				worldIn.setBlockState(pos, state.withProperty(DISARMED, true), 4);
@@ -142,7 +129,6 @@ public class BlockTripWire extends Block {
 	}
 
 	private void notifyHook(World worldIn, BlockPos pos, IBlockState state) {
-
 		for (Facing enumfacing : new Facing[]{Facing.SOUTH, Facing.WEST}) {
 			for (int i = 1; i < 42; ++i) {
 				BlockPos blockpos = pos.offset(enumfacing, i);
@@ -167,7 +153,6 @@ public class BlockTripWire extends Block {
 	 * Called When an Entity Collided with the Block
 	 */
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-
 		if (!worldIn.isRemote) {
 			if (!state.getValue(POWERED)) {
 				updateState(worldIn, pos);
@@ -179,11 +164,9 @@ public class BlockTripWire extends Block {
 	 * Called randomly when setTickRandomly is set to true (used by e.g. crops to grow, etc.)
 	 */
 	public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
-
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if (!worldIn.isRemote) {
 			if (worldIn.getBlockState(pos).getValue(POWERED)) {
 				updateState(worldIn, pos);
@@ -192,7 +175,6 @@ public class BlockTripWire extends Block {
 	}
 
 	private void updateState(World worldIn, BlockPos pos) {
-
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		boolean flag = iblockstate.getValue(POWERED);
 		boolean flag1 = false;
@@ -222,7 +204,6 @@ public class BlockTripWire extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(POWERED, (meta & 1) > 0).withProperty(ATTACHED, (meta & 4) > 0).withProperty(DISARMED, (meta & 8) > 0);
 	}
 
@@ -230,7 +211,6 @@ public class BlockTripWire extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 
 		if (state.getValue(POWERED)) {
@@ -253,7 +233,6 @@ public class BlockTripWire extends Block {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return switch (rot) {
 			case CLOCKWISE_180 ->
 					state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(EAST, state.getValue(WEST)).withProperty(SOUTH, state.getValue(NORTH)).withProperty(WEST, state.getValue(EAST));
@@ -270,7 +249,6 @@ public class BlockTripWire extends Block {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return switch (mirrorIn) {
 			case LEFT_RIGHT ->
 					state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(NORTH));
@@ -280,7 +258,6 @@ public class BlockTripWire extends Block {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, POWERED, ATTACHED, DISARMED, NORTH, EAST, WEST, SOUTH);
 	}
 
@@ -294,7 +271,6 @@ public class BlockTripWire extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

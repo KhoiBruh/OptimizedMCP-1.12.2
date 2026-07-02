@@ -12,14 +12,12 @@ public class BlockStatePaletteHashMap implements IBlockStatePalette {
 	private final int bits;
 
 	public BlockStatePaletteHashMap(int bitsIn, IBlockStatePaletteResizer paletteResizerIn) {
-
 		bits = bitsIn;
 		paletteResizer = paletteResizerIn;
 		statePaletteMap = new IntIdentityHashBiMap<>(1 << bitsIn);
 	}
 
 	public int idFor(IBlockState state) {
-
 		int i = statePaletteMap.getId(state);
 
 		if (i == -1) {
@@ -39,12 +37,10 @@ public class BlockStatePaletteHashMap implements IBlockStatePalette {
 	 * Gets the block state by the palette id.
 	 */
 	public IBlockState getBlockState(int indexKey) {
-
 		return statePaletteMap.get(indexKey);
 	}
 
 	public void read(PacketBuffer buf) {
-
 		statePaletteMap.clear();
 		int i = buf.readVarInt();
 
@@ -54,7 +50,6 @@ public class BlockStatePaletteHashMap implements IBlockStatePalette {
 	}
 
 	public void write(PacketBuffer buf) {
-
 		int i = statePaletteMap.size();
 		buf.writeVarInt(i);
 
@@ -64,7 +59,6 @@ public class BlockStatePaletteHashMap implements IBlockStatePalette {
 	}
 
 	public int getSerializedSize() {
-
 		int i = PacketBuffer.getVarIntSize(statePaletteMap.size());
 
 		for (int j = 0; j < statePaletteMap.size(); ++j) {

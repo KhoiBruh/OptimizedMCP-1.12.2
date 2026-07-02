@@ -15,7 +15,6 @@ public class RenderZombieVillager extends RenderBiped<EntityZombieVillager> {
 	private static final ResourceLocation ZOMBIE_VILLAGER_BUTCHER_LOCATION = new ResourceLocation("textures/entity/zombie_villager/zombie_butcher.png");
 
 	public RenderZombieVillager(RenderManager p_i47186_1_) {
-
 		super(p_i47186_1_, new ModelZombieVillager(), 0.5F);
 		addLayer(new LayerVillagerArmor(this));
 	}
@@ -24,7 +23,6 @@ public class RenderZombieVillager extends RenderBiped<EntityZombieVillager> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityZombieVillager entity) {
-
 		return switch (entity.getProfession()) {
 			case 0 -> ZOMBIE_VILLAGER_FARMER_LOCATION;
 			case 1 -> ZOMBIE_VILLAGER_LIBRARIAN_LOC;
@@ -36,7 +34,6 @@ public class RenderZombieVillager extends RenderBiped<EntityZombieVillager> {
 	}
 
 	protected void applyRotations(EntityZombieVillager entityLiving, float p_77043_2_, float rotationYaw, float partialTicks) {
-
 		if (entityLiving.isConverting()) {
 			rotationYaw += (float) (Math.cos((double) entityLiving.ticksExisted * 3.25D) * Math.PI * 0.25D);
 		}

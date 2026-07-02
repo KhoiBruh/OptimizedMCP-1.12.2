@@ -24,12 +24,10 @@ public class TileEntityBedRenderer extends TileEntitySpecialRenderer<TileEntityB
 	private int version;
 
 	public TileEntityBedRenderer() {
-
 		version = model.getModelVersion();
 	}
 
 	public void render(TileEntityBed te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-
 		if (version != model.getModelVersion()) {
 			model = new ModelBed();
 			version = model.getModelVersion();
@@ -72,7 +70,6 @@ public class TileEntityBedRenderer extends TileEntitySpecialRenderer<TileEntityB
 	}
 
 	private void renderPiece(boolean p_193847_1_, double x, double y, double z, int p_193847_8_, float alpha) {
-
 		model.preparePiece(p_193847_1_);
 		GLS.pushMatrix();
 		float f = 0F;

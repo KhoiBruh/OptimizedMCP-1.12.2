@@ -9,7 +9,6 @@ import java.util.Random;
 public class EnchantmentDurability extends Enchantment {
 
 	protected EnchantmentDurability(Enchantment.Rarity rarityIn, EntityEquipmentSlot... slots) {
-
 		super(rarityIn, EnchantmentType.BREAKABLE, slots);
 		setName("durability");
 	}
@@ -20,7 +19,6 @@ public class EnchantmentDurability extends Enchantment {
 	 * matter the enchantment level, otherwise there is a 1-(par/1) chance for damage to be negated.
 	 */
 	public static boolean negateDamage(ItemStack stack, int level, Random rand) {
-
 		if (stack.getItem() instanceof ItemArmor && rand.nextFloat() < 0.6F) {
 			return false;
 		} else {
@@ -32,7 +30,6 @@ public class EnchantmentDurability extends Enchantment {
 	 * Returns the minimal value of enchantability needed on the enchantment level passed.
 	 */
 	public int getMinEnchantability(int enchantmentLevel) {
-
 		return 5 + (enchantmentLevel - 1) * 8;
 	}
 
@@ -40,7 +37,6 @@ public class EnchantmentDurability extends Enchantment {
 	 * Returns the maximum value of enchantability nedded on the enchantment level passed.
 	 */
 	public int getMaxEnchantability(int enchantmentLevel) {
-
 		return super.getMinEnchantability(enchantmentLevel) + 50;
 	}
 
@@ -48,7 +44,6 @@ public class EnchantmentDurability extends Enchantment {
 	 * Returns the maximum level that the enchantment can have.
 	 */
 	public int getMaxLevel() {
-
 		return 3;
 	}
 
@@ -56,7 +51,6 @@ public class EnchantmentDurability extends Enchantment {
 	 * Determines if this enchantment can be applied to a specific ItemStack.
 	 */
 	public boolean canApply(ItemStack stack) {
-
 		return stack.isItemStackDamageable() || super.canApply(stack);
 	}
 

@@ -29,14 +29,12 @@ public class BlockEnderChest extends BlockContainer {
 	protected static final AxisAlignedBB ENDER_CHEST_AABB = new AxisAlignedBB(0.0625D, 0D, 0.0625D, 0.9375D, 0.875D, 0.9375D);
 
 	protected BlockEnderChest() {
-
 		super(Material.ROCK);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH));
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return ENDER_CHEST_AABB;
 	}
 
@@ -44,17 +42,14 @@ public class BlockEnderChest extends BlockContainer {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean hasCustomBreakingProgress(IBlockState state) {
-
 		return true;
 	}
 
@@ -63,7 +58,6 @@ public class BlockEnderChest extends BlockContainer {
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
 	public BlockRenderType getRenderType(IBlockState state) {
-
 		return BlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
@@ -71,7 +65,6 @@ public class BlockEnderChest extends BlockContainer {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Item.getItemFromBlock(Blocks.OBSIDIAN);
 	}
 
@@ -79,12 +72,10 @@ public class BlockEnderChest extends BlockContainer {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return 8;
 	}
 
 	protected boolean canSilkHarvest() {
-
 		return true;
 	}
 
@@ -93,7 +84,6 @@ public class BlockEnderChest extends BlockContainer {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
 	}
 
@@ -101,7 +91,6 @@ public class BlockEnderChest extends BlockContainer {
 	 * Called by ItemBlocks after a block is set in the world, to allow post-place logic
 	 */
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-
 		worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
 	}
 
@@ -109,7 +98,6 @@ public class BlockEnderChest extends BlockContainer {
 	 * Called when the block is right clicked by a player.
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		InventoryEnderChest inventoryenderchest = playerIn.getInventoryEnderChest();
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -133,12 +121,10 @@ public class BlockEnderChest extends BlockContainer {
 	 * Returns a new instance of a block's tile entity class. Called on placing the block.
 	 */
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-
 		return new TileEntityEnderChest();
 	}
 
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-
 		for (int i = 0; i < 3; ++i) {
 			int j = rand.nextInt(2) * 2 - 1;
 			int k = rand.nextInt(2) * 2 - 1;
@@ -156,7 +142,6 @@ public class BlockEnderChest extends BlockContainer {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		Facing enumfacing = Facing.getFront(meta);
 
 		if (enumfacing.getAxis() == Facing.Axis.Y) {
@@ -170,7 +155,6 @@ public class BlockEnderChest extends BlockContainer {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(FACING).getIndex();
 	}
 
@@ -179,7 +163,6 @@ public class BlockEnderChest extends BlockContainer {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
@@ -188,12 +171,10 @@ public class BlockEnderChest extends BlockContainer {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, FACING);
 	}
 
@@ -207,7 +188,6 @@ public class BlockEnderChest extends BlockContainer {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

@@ -13,12 +13,10 @@ public class LayerEndermanEyes implements LayerRenderer<EntityEnderman> {
 	private final RenderEnderman endermanRenderer;
 
 	public LayerEndermanEyes(RenderEnderman endermanRendererIn) {
-
 		endermanRenderer = endermanRendererIn;
 	}
 
 	public void doRenderLayer(EntityEnderman entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		endermanRenderer.bindTexture(RES_ENDERMAN_EYES);
 		GLS.enableBlend();
 		GLS.disableAlpha();
@@ -41,7 +39,6 @@ public class LayerEndermanEyes implements LayerRenderer<EntityEnderman> {
 	}
 
 	public boolean shouldCombineTextures() {
-
 		return false;
 	}
 

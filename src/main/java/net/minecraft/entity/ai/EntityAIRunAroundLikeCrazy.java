@@ -14,7 +14,6 @@ public class EntityAIRunAroundLikeCrazy extends EntityAIBase {
 	private double targetZ;
 
 	public EntityAIRunAroundLikeCrazy(AbstractHorse horse, double speedIn) {
-
 		horseHost = horse;
 		speed = speedIn;
 		setMutexBits(1);
@@ -24,7 +23,6 @@ public class EntityAIRunAroundLikeCrazy extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		if (!horseHost.isTame() && horseHost.isBeingRidden()) {
 			Vec3d vec3d = RandomPositionGenerator.findRandomTarget(horseHost, 5, 4);
 
@@ -45,7 +43,6 @@ public class EntityAIRunAroundLikeCrazy extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		horseHost.getNavigator().tryMoveToXYZ(targetX, targetY, targetZ, speed);
 	}
 
@@ -53,7 +50,6 @@ public class EntityAIRunAroundLikeCrazy extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		return !horseHost.isTame() && !horseHost.getNavigator().noPath() && horseHost.isBeingRidden();
 	}
 
@@ -61,7 +57,6 @@ public class EntityAIRunAroundLikeCrazy extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		if (!horseHost.isTame() && horseHost.getRNG().nextInt(50) == 0) {
 			Entity entity = horseHost.getPassengers().getFirst();
 

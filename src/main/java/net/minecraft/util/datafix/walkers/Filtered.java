@@ -13,7 +13,6 @@ public abstract class Filtered implements IDataWalker {
 	private final ResourceLocation key;
 
 	public Filtered(Class<?> aClass) {
-
 		if (Entity.class.isAssignableFrom(aClass)) {
 			key = EntityList.getKey((Class<Entity>) aClass);
 		} else if (TileEntity.class.isAssignableFrom(aClass)) {
@@ -24,7 +23,6 @@ public abstract class Filtered implements IDataWalker {
 	}
 
 	public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
-
 		if ((new ResourceLocation(compound.getString("id"))).equals(key)) {
 			compound = filteredProcess(fixer, compound, versionIn);
 		}

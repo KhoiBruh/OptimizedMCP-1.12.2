@@ -15,7 +15,6 @@ public abstract class WorldSavedData {
 	private boolean dirty;
 
 	public WorldSavedData(String name) {
-
 		mapName = name;
 	}
 
@@ -30,7 +29,6 @@ public abstract class WorldSavedData {
 	 * Marks this MapDataBase dirty, to be saved to disk when the level next saves.
 	 */
 	public void markDirty() {
-
 		setDirty(true);
 	}
 
@@ -38,7 +36,6 @@ public abstract class WorldSavedData {
 	 * Whether this MapDataBase needs saving to disk.
 	 */
 	public boolean isDirty() {
-
 		return dirty;
 	}
 
@@ -46,7 +43,6 @@ public abstract class WorldSavedData {
 	 * Sets the dirty state of this MapDataBase, whether it needs saving to disk.
 	 */
 	public void setDirty(boolean isDirty) {
-
 		dirty = isDirty;
 	}
 

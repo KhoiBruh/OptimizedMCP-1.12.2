@@ -36,30 +36,25 @@ public class MapGenStructureIO {
 	}
 
 	private static void registerStructure(Class<? extends StructureStart> startClass, String structureName) {
-
 		startNameToClassMap.put(structureName, startClass);
 		startClassToNameMap.put(startClass, structureName);
 	}
 
 	static void registerStructureComponent(Class<? extends StructureComponent> componentClass, String componentName) {
-
 		componentNameToClassMap.put(componentName, componentClass);
 		componentClassToNameMap.put(componentClass, componentName);
 	}
 
 	public static String getStructureStartName(StructureStart start) {
-
 		return startClassToNameMap.get(start.getClass());
 	}
 
 	public static String getStructureComponentName(StructureComponent component) {
-
 		return componentClassToNameMap.get(component.getClass());
 	}
 
 	
 	public static StructureStart getStructureStart(NBTTagCompound tagCompound, World worldIn) {
-
 		StructureStart structurestart = null;
 
 		try {
@@ -83,7 +78,6 @@ public class MapGenStructureIO {
 	}
 
 	public static StructureComponent getStructureComponent(NBTTagCompound tagCompound, World worldIn) {
-
 		StructureComponent structurecomponent = null;
 
 		try {

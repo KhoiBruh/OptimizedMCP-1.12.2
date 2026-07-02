@@ -21,12 +21,10 @@ public abstract class EntityCreature extends EntityLiving {
 	private float maximumHomeDistance = -1F;
 
 	public EntityCreature(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public float getBlockPathWeight(BlockPos pos) {
-
 		return 0F;
 	}
 
@@ -34,7 +32,6 @@ public abstract class EntityCreature extends EntityLiving {
 	 * Checks if the entity's current position is a valid location to spawn this entity.
 	 */
 	public boolean getCanSpawnHere() {
-
 		return super.getCanSpawnHere() && getBlockPathWeight(new BlockPos(posX, getEntityBoundingBox().minY, posZ)) >= 0F;
 	}
 
@@ -42,17 +39,14 @@ public abstract class EntityCreature extends EntityLiving {
 	 * if the entity got a PathEntity it returns true, else false
 	 */
 	public boolean hasPath() {
-
 		return !navigator.noPath();
 	}
 
 	public boolean isWithinHomeDistanceCurrentPosition() {
-
 		return isWithinHomeDistanceFromPosition(new BlockPos(this));
 	}
 
 	public boolean isWithinHomeDistanceFromPosition(BlockPos pos) {
-
 		if (maximumHomeDistance == -1F) {
 			return true;
 		} else {
@@ -64,23 +58,19 @@ public abstract class EntityCreature extends EntityLiving {
 	 * Sets home position and max distance for it
 	 */
 	public void setHomePosAndDistance(BlockPos pos, int distance) {
-
 		homePosition = pos;
 		maximumHomeDistance = (float) distance;
 	}
 
 	public BlockPos getHomePosition() {
-
 		return homePosition;
 	}
 
 	public float getMaximumHomeDistance() {
-
 		return maximumHomeDistance;
 	}
 
 	public void detachHome() {
-
 		maximumHomeDistance = -1F;
 	}
 
@@ -88,7 +78,6 @@ public abstract class EntityCreature extends EntityLiving {
 	 * Returns whether a home area is defined for this entity.
 	 */
 	public boolean hasHome() {
-
 		return maximumHomeDistance != -1F;
 	}
 
@@ -96,7 +85,6 @@ public abstract class EntityCreature extends EntityLiving {
 	 * Applies logic related to leashes, for example dragging the entity or breaking the leash.
 	 */
 	protected void updateLeashedState() {
-
 		super.updateLeashedState();
 
 		if (getLeashed() && getLeashHolder() != null && getLeashHolder().world == world) {
@@ -134,12 +122,10 @@ public abstract class EntityCreature extends EntityLiving {
 	}
 
 	protected double followLeashSpeed() {
-
 		return 1D;
 	}
 
 	protected void onLeashDistance(float p_142017_1_) {
-
 	}
 
 }

@@ -49,7 +49,6 @@ public class ModelWolf extends ModelBase {
 	ModelRenderer wolfMane;
 
 	public ModelWolf() {
-
 		float f = 0F;
 		float f1 = 13.5F;
 		wolfHeadMain = new ModelRenderer(this, 0, 0);
@@ -85,7 +84,6 @@ public class ModelWolf extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
@@ -123,7 +121,6 @@ public class ModelWolf extends ModelBase {
 	 * and third as in the setRotationAngles method.
 	 */
 	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTickTime) {
-
 		EntityWolf entitywolf = (EntityWolf) entitylivingbaseIn;
 
 		if (entitywolf.isAngry()) {
@@ -175,7 +172,6 @@ public class ModelWolf extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 		wolfHeadMain.rotateAngleX = headPitch * 0.017453292F;
 		wolfHeadMain.rotateAngleY = netHeadYaw * 0.017453292F;

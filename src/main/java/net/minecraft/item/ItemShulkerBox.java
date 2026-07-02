@@ -5,7 +5,6 @@ import net.minecraft.block.Block;
 public class ItemShulkerBox extends ItemBlock {
 
 	public ItemShulkerBox(Block blockInstance) {
-
 		super(blockInstance);
 		setMaxStackSize(1);
 	}

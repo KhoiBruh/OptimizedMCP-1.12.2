@@ -36,7 +36,6 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 	private int ignoreTime;
 
 	public EntityThrowable(World worldIn) {
-
 		super(worldIn);
 		xTile = -1;
 		yTile = -1;
@@ -45,30 +44,25 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 	}
 
 	public EntityThrowable(World worldIn, double x, double y, double z) {
-
 		this(worldIn);
 		setPosition(x, y, z);
 	}
 
 	public EntityThrowable(World worldIn, EntityLivingBase throwerIn) {
-
 		this(worldIn, throwerIn.posX, throwerIn.posY + (double) throwerIn.getEyeHeight() - 0.10000000149011612D, throwerIn.posZ);
 		thrower = throwerIn;
 	}
 
 	public static void registerFixesThrowable(DataFixer fixer, String name) {
-
 	}
 
 	protected void entityInit() {
-
 	}
 
 	/**
 	 * Checks if the entity is in range to render.
 	 */
 	public boolean isInRangeToRenderDist(double distance) {
-
 		double d0 = getEntityBoundingBox().getAverageEdgeLength() * 4D;
 
 		if (Double.isNaN(d0)) {
@@ -83,7 +77,6 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 	 * Sets throwable heading based on an entity that's throwing it
 	 */
 	public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
-
 		float f = -MathHelper.sin(rotationYawIn * 0.017453292F) * MathHelper.cos(rotationPitchIn * 0.017453292F);
 		float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * 0.017453292F);
 		float f2 = MathHelper.cos(rotationYawIn * 0.017453292F) * MathHelper.cos(rotationPitchIn * 0.017453292F);
@@ -100,7 +93,6 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 	 * Similar to setArrowHeading, it's point the throwable entity to a x, y, z direction.
 	 */
 	public void shoot(double x, double y, double z, float velocity, float inaccuracy) {
-
 		float f = MathHelper.sqrt(x * x + y * y + z * z);
 		x = x / (double) f;
 		y = y / (double) f;
@@ -126,7 +118,6 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 	 * Updates the entity motion clientside, called by packets from the server
 	 */
 	public void setVelocity(double x, double y, double z) {
-
 		motionX = x;
 		motionY = y;
 		motionZ = z;
@@ -144,7 +135,6 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		lastTickPosX = posX;
 		lastTickPosY = posY;
 		lastTickPosZ = posZ;
@@ -284,7 +274,6 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 	 * Gets the amount of gravity to apply to the thrown entity with each tick.
 	 */
 	protected float getGravityVelocity() {
-
 		return 0.03F;
 	}
 
@@ -297,7 +286,6 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		compound.setInteger("xTile", xTile);
 		compound.setInteger("yTile", yTile);
 		compound.setInteger("zTile", zTile);
@@ -317,7 +305,6 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		xTile = compound.getInteger("xTile");
 		yTile = compound.getInteger("yTile");
 		zTile = compound.getInteger("zTile");
@@ -342,7 +329,6 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 
 	
 	public EntityLivingBase getThrower() {
-
 		if (thrower == null && throwerName != null && !throwerName.isEmpty()) {
 			thrower = world.getPlayerEntityByName(throwerName);
 

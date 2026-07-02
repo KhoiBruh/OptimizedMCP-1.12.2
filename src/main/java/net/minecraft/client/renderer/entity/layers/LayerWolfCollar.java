@@ -11,12 +11,10 @@ public class LayerWolfCollar implements LayerRenderer<EntityWolf> {
 	private final RenderWolf wolfRenderer;
 
 	public LayerWolfCollar(RenderWolf wolfRendererIn) {
-
 		wolfRenderer = wolfRendererIn;
 	}
 
 	public void doRenderLayer(EntityWolf entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		if (entitylivingbaseIn.isTamed() && !entitylivingbaseIn.isInvisible()) {
 			wolfRenderer.bindTexture(WOLF_COLLAR);
 			float[] afloat = entitylivingbaseIn.getCollarColor().getColorComponentValues();
@@ -26,7 +24,6 @@ public class LayerWolfCollar implements LayerRenderer<EntityWolf> {
 	}
 
 	public boolean shouldCombineTextures() {
-
 		return true;
 	}
 

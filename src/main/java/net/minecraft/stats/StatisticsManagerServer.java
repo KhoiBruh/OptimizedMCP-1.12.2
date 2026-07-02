@@ -33,13 +33,11 @@ public class StatisticsManagerServer extends StatisticsManager {
 	private int lastStatRequest = -300;
 
 	public StatisticsManagerServer(MinecraftServer serverIn, File statsFileIn) {
-
 		mcServer = serverIn;
 		statsFile = statsFileIn;
 	}
 
 	public static String dumpJson(Map<StatBase, TupleIntJsonSerializable> p_150880_0_) {
-
 		JsonObject jsonobject = new JsonObject();
 
 		for (Entry<StatBase, TupleIntJsonSerializable> entry : p_150880_0_.entrySet()) {
@@ -63,7 +61,6 @@ public class StatisticsManagerServer extends StatisticsManager {
 	}
 
 	public void readStatFile() {
-
 		if (statsFile.isFile()) {
 			try {
 				statsData.clear();
@@ -77,7 +74,6 @@ public class StatisticsManagerServer extends StatisticsManager {
 	}
 
 	public void saveStatFile() {
-
 		try {
 			FileUtils.writeStringToFile(statsFile, dumpJson(statsData), StandardCharsets.UTF_8);
 		} catch (IOException ioexception) {
@@ -89,13 +85,11 @@ public class StatisticsManagerServer extends StatisticsManager {
 	 * Triggers the logging of an achievement and attempts to announce to server
 	 */
 	public void unlockAchievement(EntityPlayer playerIn, StatBase statIn, int p_150873_3_) {
-
 		super.unlockAchievement(playerIn, statIn, p_150873_3_);
 		dirty.add(statIn);
 	}
 
 	private Set<StatBase> getDirty() {
-
 		Set<StatBase> set = Sets.newHashSet(dirty);
 		dirty.clear();
 		return set;
@@ -149,12 +143,10 @@ public class StatisticsManagerServer extends StatisticsManager {
 	}
 
 	public void markAllDirty() {
-
 		dirty.addAll(statsData.keySet());
 	}
 
 	public void sendStats(EntityPlayerMP player) {
-
 		int i = mcServer.getTickCounter();
 		Map<StatBase, Integer> map = Maps.newHashMap();
 

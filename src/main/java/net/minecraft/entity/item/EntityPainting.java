@@ -20,12 +20,10 @@ public class EntityPainting extends EntityHanging {
 	public EntityPainting.Art art;
 
 	public EntityPainting(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public EntityPainting(World worldIn, BlockPos pos, Facing facing) {
-
 		super(worldIn, pos);
 		List<EntityPainting.Art> list = Lists.newArrayList();
 		int i = 0;
@@ -62,7 +60,6 @@ public class EntityPainting extends EntityHanging {
 	}
 
 	public EntityPainting(World worldIn, BlockPos pos, Facing facing, String title) {
-
 		this(worldIn, pos, facing);
 
 		for (EntityPainting.Art entitypainting$enumart : EntityPainting.Art.values()) {
@@ -79,7 +76,6 @@ public class EntityPainting extends EntityHanging {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		compound.setString("Motive", art.title);
 		super.writeEntityToNBT(compound);
 	}
@@ -88,7 +84,6 @@ public class EntityPainting extends EntityHanging {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		String s = compound.getString("Motive");
 
 		for (EntityPainting.Art entitypainting$enumart : EntityPainting.Art.values()) {
@@ -105,12 +100,10 @@ public class EntityPainting extends EntityHanging {
 	}
 
 	public int getWidthPixels() {
-
 		return art.sizeX;
 	}
 
 	public int getHeightPixels() {
-
 		return art.sizeY;
 	}
 
@@ -118,12 +111,10 @@ public class EntityPainting extends EntityHanging {
 	 * Called when this entity is broken. Entity parameter may be null.
 	 */
 	public void onBroken(Entity brokenEntity) {
-
 		if (world.getGameRules().getBoolean("doEntityDrops")) {
 			playSound(SoundEvents.ENTITY_PAINTING_BREAK, 1F, 1F);
 
 			if (brokenEntity instanceof EntityPlayer entityplayer) {
-
 				if (entityplayer.capabilities.isCreativeMode) {
 					return;
 				}
@@ -134,7 +125,6 @@ public class EntityPainting extends EntityHanging {
 	}
 
 	public void playPlaceSound() {
-
 		playSound(SoundEvents.ENTITY_PAINTING_PLACE, 1F, 1F);
 	}
 
@@ -142,7 +132,6 @@ public class EntityPainting extends EntityHanging {
 	 * Sets the location and Yaw/Pitch of an entity in the world
 	 */
 	public void setLocationAndAngles(double x, double y, double z, float yaw, float pitch) {
-
 		setPosition(x, y, z);
 	}
 
@@ -150,7 +139,6 @@ public class EntityPainting extends EntityHanging {
 	 * Set the position and rotation values directly without any clamping.
 	 */
 	public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean teleport) {
-
 		BlockPos blockpos = hangingPosition.add(x - posX, y - posY, z - posZ);
 		setPosition(blockpos.getX(), blockpos.getY(), blockpos.getZ());
 	}
@@ -191,7 +179,6 @@ public class EntityPainting extends EntityHanging {
 		public final int offsetY;
 
 		Art(String titleIn, int width, int height, int textureU, int textureV) {
-
 			title = titleIn;
 			sizeX = width;
 			sizeY = height;

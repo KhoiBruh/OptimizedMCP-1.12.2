@@ -13,9 +13,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public record Criterion(ICriterionInstance criterionInstance) {
-
 	public Criterion() {
-
 		this(null);
 	}
 
@@ -31,7 +29,6 @@ public record Criterion(ICriterionInstance criterionInstance) {
 	 * @see ICriterionTrigger#deserializeInstance(JsonObject, JsonDeserializationContext)
 	 */
 	public static Criterion criterionFromJson(JsonObject json, JsonDeserializationContext context) {
-
 		ResourceLocation resourcelocation = new ResourceLocation(JsonUtils.getString(json, "trigger"));
 		ICriterionTrigger<?> icriteriontrigger = CriteriaTriggers.get(resourcelocation);
 
@@ -44,7 +41,6 @@ public record Criterion(ICriterionInstance criterionInstance) {
 	}
 
 	public static Criterion criterionFromNetwork(PacketBuffer p_192146_0_) {
-
 		return new Criterion();
 	}
 
@@ -80,7 +76,6 @@ public record Criterion(ICriterionInstance criterionInstance) {
 	 * @see #criteriaFromNetwork(PacketBuffer)
 	 */
 	public static void serializeToNetwork(Map<String, Criterion> criteria, PacketBuffer buf) {
-
 		buf.writeVarInt(criteria.size());
 
 		for (Entry<String, Criterion> entry : criteria.entrySet()) {
@@ -90,13 +85,11 @@ public record Criterion(ICriterionInstance criterionInstance) {
 	}
 
 	public void serializeToNetwork(PacketBuffer p_192140_1_) {
-
 	}
 
 	@Override
 	
 	public ICriterionInstance criterionInstance() {
-
 		return criterionInstance;
 	}
 

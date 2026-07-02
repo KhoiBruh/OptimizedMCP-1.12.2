@@ -19,11 +19,9 @@ public class RenderArmorStand extends RenderLivingBase<EntityArmorStand> {
 	public static final ResourceLocation TEXTURE_ARMOR_STAND = new ResourceLocation("textures/entity/armorstand/wood.png");
 
 	public RenderArmorStand(RenderManager manager) {
-
 		super(manager, new ModelArmorStand(), 0F);
 		LayerBipedArmor layerbipedarmor = new LayerBipedArmor(this) {
 			protected void initArmor() {
-
 				modelLeggings = new ModelArmorStandArmor(0.5F);
 				modelArmor = new ModelArmorStandArmor(1F);
 			}
@@ -38,17 +36,14 @@ public class RenderArmorStand extends RenderLivingBase<EntityArmorStand> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityArmorStand entity) {
-
 		return TEXTURE_ARMOR_STAND;
 	}
 
 	public ModelArmorStand getMainModel() {
-
 		return (ModelArmorStand) super.getMainModel();
 	}
 
 	protected void applyRotations(EntityArmorStand entityLiving, float p_77043_2_, float rotationYaw, float partialTicks) {
-
 		GLS.rotate(180F - rotationYaw, 0F, 1F, 0F);
 		float f = (float) (entityLiving.world.getTotalWorldTime() - entityLiving.punchCooldown) + partialTicks;
 
@@ -58,7 +53,6 @@ public class RenderArmorStand extends RenderLivingBase<EntityArmorStand> {
 	}
 
 	protected boolean canRenderName(EntityArmorStand entity) {
-
 		return entity.getAlwaysRenderNameTag();
 	}
 
@@ -66,7 +60,6 @@ public class RenderArmorStand extends RenderLivingBase<EntityArmorStand> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(EntityArmorStand entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		if (entity.hasMarker()) {
 			renderMarker = true;
 		}

@@ -32,7 +32,6 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
 	private EntityLivingBase entityTarget;
 
 	public EntityAIFindEntityNearestPlayer(EntityLiving entityLivingIn) {
-
 		entityLiving = entityLivingIn;
 
 		if (entityLivingIn instanceof EntityCreature) {
@@ -72,7 +71,6 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		double d0 = maxTargetRange();
 		List<EntityPlayer> list = entityLiving.world.getEntitiesWithinAABB(EntityPlayer.class, entityLiving.getEntityBoundingBox().grow(d0, 4D, d0), predicate);
 		list.sort(sorter);
@@ -89,7 +87,6 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		EntityLivingBase entitylivingbase = entityLiving.getAttackTarget();
 
 		if (entitylivingbase == null) {
@@ -120,7 +117,6 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		entityLiving.setAttackTarget(entityTarget);
 		super.startExecuting();
 	}
@@ -129,7 +125,6 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		entityLiving.setAttackTarget(null);
 		super.startExecuting();
 	}
@@ -138,7 +133,6 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
 	 * Return the max target range of the entiity (16 by default)
 	 */
 	protected double maxTargetRange() {
-
 		IAttributeInstance iattributeinstance = entityLiving.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
 		return iattributeinstance == null ? 16D : iattributeinstance.getAttributeValue();
 	}

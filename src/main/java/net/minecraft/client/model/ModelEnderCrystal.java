@@ -21,7 +21,6 @@ public class ModelEnderCrystal extends ModelBase {
 	private ModelRenderer base;
 
 	public ModelEnderCrystal(float p_i1170_1_, boolean renderBase) {
-
 		glass.setTextureOffset(0, 0).addBox(-4F, -4F, -4F, 8, 8, 8);
 		cube = new ModelRenderer(this, "cube");
 		cube.setTextureOffset(32, 0).addBox(-4F, -4F, -4F, 8, 8, 8);
@@ -36,7 +35,6 @@ public class ModelEnderCrystal extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		GLS.pushMatrix();
 		GLS.scale(2F, 2F, 2F);
 		GLS.translate(0F, -0.5F, 0F);

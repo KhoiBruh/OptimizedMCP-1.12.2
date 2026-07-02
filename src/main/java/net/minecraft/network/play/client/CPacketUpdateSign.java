@@ -12,11 +12,9 @@ public class CPacketUpdateSign implements Packet<INetHandlerPlayServer> {
 	private String[] lines;
 
 	public CPacketUpdateSign() {
-
 	}
 
 	public CPacketUpdateSign(BlockPos posIn, ITextComponent[] linesIn) {
-
 		pos = posIn;
 		lines = new String[]{linesIn[0].getUnformattedText(), linesIn[1].getUnformattedText(), linesIn[2].getUnformattedText(), linesIn[3].getUnformattedText()};
 	}
@@ -25,7 +23,6 @@ public class CPacketUpdateSign implements Packet<INetHandlerPlayServer> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		pos = buf.readBlockPos();
 		lines = new String[4];
 
@@ -38,7 +35,6 @@ public class CPacketUpdateSign implements Packet<INetHandlerPlayServer> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeBlockPos(pos);
 
 		for (int i = 0; i < 4; ++i) {
@@ -50,17 +46,14 @@ public class CPacketUpdateSign implements Packet<INetHandlerPlayServer> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayServer handler) {
-
 		handler.processUpdateSign(this);
 	}
 
 	public BlockPos getPosition() {
-
 		return pos;
 	}
 
 	public String[] getLines() {
-
 		return lines;
 	}
 

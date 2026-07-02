@@ -24,18 +24,15 @@ public class EntityVindicator extends AbstractIllager {
 	private boolean johnny;
 
 	public EntityVindicator(World worldIn) {
-
 		super(worldIn);
 		setSize(0.6F, 1.95F);
 	}
 
 	public static void registerFixesVindicator(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntityVindicator.class);
 	}
 
 	protected void initEntityAI() {
-
 		super.initEntityAI();
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(4, new EntityAIAttackMelee(this, 1D, false));
@@ -50,7 +47,6 @@ public class EntityVindicator extends AbstractIllager {
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3499999940395355D);
 		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(12D);
@@ -59,22 +55,18 @@ public class EntityVindicator extends AbstractIllager {
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 	}
 
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_VINDICATION_ILLAGER;
 	}
 
 	public boolean isAggressive() {
-
 		return isAggressive(1);
 	}
 
 	public void setAggressive(boolean p_190636_1_) {
-
 		setAggressive(1, p_190636_1_);
 	}
 
@@ -82,7 +74,6 @@ public class EntityVindicator extends AbstractIllager {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 
 		if (johnny) {
@@ -99,7 +90,6 @@ public class EntityVindicator extends AbstractIllager {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 
 		if (compound.hasKey("Johnny", 99)) {
@@ -124,7 +114,6 @@ public class EntityVindicator extends AbstractIllager {
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-
 		IEntityLivingData ientitylivingdata = super.onInitialSpawn(difficulty, livingdata);
 		setEquipmentBasedOnDifficulty(difficulty);
 		setEnchantmentBasedOnDifficulty(difficulty);
@@ -135,12 +124,10 @@ public class EntityVindicator extends AbstractIllager {
 	 * Gives armor or weapon for entity based on given DifficultyInstance
 	 */
 	protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
-
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_AXE));
 	}
 
 	protected void updateAITasks() {
-
 		super.updateAITasks();
 		setAggressive(getAttackTarget() != null);
 	}
@@ -149,7 +136,6 @@ public class EntityVindicator extends AbstractIllager {
 	 * Returns whether this Entity is on the same team as the given Entity.
 	 */
 	public boolean isOnSameTeam(Entity entityIn) {
-
 		if (super.isOnSameTeam(entityIn)) {
 			return true;
 		} else if (entityIn instanceof EntityLivingBase && ((EntityLivingBase) entityIn).getCreatureAttribute() == CreatureAttribute.ILLAGER) {
@@ -163,7 +149,6 @@ public class EntityVindicator extends AbstractIllager {
 	 * Sets the custom name tag for this entity
 	 */
 	public void setCustomNameTag(String name) {
-
 		super.setCustomNameTag(name);
 
 		if (!johnny && "Johnny".equals(name)) {
@@ -172,29 +157,24 @@ public class EntityVindicator extends AbstractIllager {
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		return SoundEvents.VINDICATION_ILLAGER_AMBIENT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.VINDICATION_ILLAGER_DEATH;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_VINDICATION_ILLAGER_HURT;
 	}
 
 	static class AIJohnnyAttack extends EntityAINearestAttackableTarget<EntityLivingBase> {
 
 		public AIJohnnyAttack(EntityVindicator vindicator) {
-
 			super(vindicator, EntityLivingBase.class, 0, true, true, EntityVindicator.JOHNNY_SELECTOR);
 		}
 
 		public boolean shouldExecute() {
-
 			return ((EntityVindicator) taskOwner).johnny && super.shouldExecute();
 		}
 

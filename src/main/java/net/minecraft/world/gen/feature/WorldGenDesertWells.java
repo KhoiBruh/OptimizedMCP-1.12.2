@@ -21,7 +21,6 @@ public class WorldGenDesertWells extends WorldGenerator {
 	private final IBlockState water = Blocks.FLOWING_WATER.getDefaultState();
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		while (worldIn.isAirBlock(position) && position.getY() > 2) {
 			position = position.down();
 		}

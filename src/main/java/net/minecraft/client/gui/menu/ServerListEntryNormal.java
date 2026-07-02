@@ -42,7 +42,6 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
 	private long lastClickTime;
 
 	protected ServerListEntryNormal(MultiplayerScreen ownerIn, ServerData serverIn) {
-
 		owner = ownerIn;
 		server = serverIn;
 		mc = Minecraft.getMinecraft();
@@ -51,7 +50,6 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
 	}
 
 	public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected, float partialTicks) {
-
 		if (!server.pinged) {
 			server.pinged = true;
 			server.pingToServer = -2L;
@@ -184,7 +182,6 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
 	}
 
 	protected void drawTextureAt(int p_178012_1_, int p_178012_2_, ResourceLocation p_178012_3_) {
-
 		mc.getTextureManager().bindTexture(p_178012_3_);
 		GLS.enableBlend();
 		Gui.drawModalRectWithCustomSizedTexture(p_178012_1_, p_178012_2_, 0F, 0F, 32, 32, 32F, 32F);
@@ -192,12 +189,10 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
 	}
 
 	private boolean canJoin() {
-
 		return true;
 	}
 
 	private void prepareServerIcon() {
-
 		if (server.getBase64EncodedIconData() == null) {
 			mc.getTextureManager().deleteTexture(serverIcon);
 			icon = null;
@@ -242,7 +237,6 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
 	 * clicked and the list should not be dragged.
 	 */
 	public boolean mousePressed(int slotIndex, int mouseX, int mouseY, int mouseEvent, int relativeX, int relativeY) {
-
 		if (relativeX <= 32) {
 			if (relativeX < 32 && relativeX > 16 && canJoin()) {
 				owner.selectServer(slotIndex);
@@ -272,18 +266,15 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
 	}
 
 	public void updatePosition(int slotIndex, int x, int y, float partialTicks) {
-
 	}
 
 	/**
 	 * Fired when the mouse button is released. Arguments: index, x, y, mouseEvent, relativeX, relativeY
 	 */
 	public void mouseReleased(int slotIndex, int x, int y, int mouseEvent, int relativeX, int relativeY) {
-
 	}
 
 	public ServerData getServerData() {
-
 		return server;
 	}
 

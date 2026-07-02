@@ -17,12 +17,10 @@ public class RecipeBook {
 	protected boolean isFilteringCraftable;
 
 	protected static int getRecipeId(IRecipe recipe) {
-
 		return CraftingManager.REGISTRY.getIDForObject(recipe);
 	}
 
 	public void copyFrom(RecipeBook that) {
-
 		recipes.clear();
 		newRecipes.clear();
 		recipes.or(that.recipes);
@@ -30,56 +28,46 @@ public class RecipeBook {
 	}
 
 	public void unlock(IRecipe recipe) {
-
 		if (!recipe.isDynamic()) {
 			recipes.set(getRecipeId(recipe));
 		}
 	}
 
 	public boolean isUnlocked(IRecipe recipe) {
-
 		return recipes.get(getRecipeId(recipe));
 	}
 
 	public void lock(IRecipe recipe) {
-
 		int i = getRecipeId(recipe);
 		recipes.clear(i);
 		newRecipes.clear(i);
 	}
 
 	public boolean isNew(IRecipe recipe) {
-
 		return newRecipes.get(getRecipeId(recipe));
 	}
 
 	public void markSeen(IRecipe recipe) {
-
 		newRecipes.clear(getRecipeId(recipe));
 	}
 
 	public void markNew(IRecipe recipe) {
-
 		newRecipes.set(getRecipeId(recipe));
 	}
 
 	public boolean isGuiOpen() {
-
 		return isGuiOpen;
 	}
 
 	public void setGuiOpen(boolean open) {
-
 		isGuiOpen = open;
 	}
 
 	public boolean isFilteringCraftable() {
-
 		return isFilteringCraftable;
 	}
 
 	public void setFilteringCraftable(boolean shouldFilter) {
-
 		isFilteringCraftable = shouldFilter;
 	}
 

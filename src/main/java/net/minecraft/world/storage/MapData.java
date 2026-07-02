@@ -34,12 +34,10 @@ public class MapData extends WorldSavedData {
 	public Map<String, MapDecoration> mapDecorations = Maps.newLinkedHashMap();
 
 	public MapData(String mapname) {
-
 		super(mapname);
 	}
 
 	public static void addTargetDecoration(ItemStack map, BlockPos target, String decorationName, MapDecoration.Type type) {
-
 		NBTTagList nbttaglist;
 
 		if (map.hasTagCompound() && map.getTagCompound().hasKey("Decorations", 9)) {
@@ -64,7 +62,6 @@ public class MapData extends WorldSavedData {
 	}
 
 	public void calculateMapCenter(double x, double z, int mapScale) {
-
 		int i = 128 * (1 << mapScale);
 		int j = MathHelper.floor((x + 64D) / (double) i);
 		int k = MathHelper.floor((z + 64D) / (double) i);
@@ -76,7 +73,6 @@ public class MapData extends WorldSavedData {
 	 * reads in data from the NBTTagCompound into this MapDataBase
 	 */
 	public void readFromNBT(NBTTagCompound nbt) {
-
 		dimension = nbt.getByte("dimension");
 		xCenter = nbt.getInteger("xCenter");
 		zCenter = nbt.getInteger("zCenter");
@@ -118,7 +114,6 @@ public class MapData extends WorldSavedData {
 	}
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
 		compound.setByte("dimension", dimension);
 		compound.setInteger("xCenter", xCenter);
 		compound.setInteger("zCenter", zCenter);
@@ -135,7 +130,6 @@ public class MapData extends WorldSavedData {
 	 * Adds the player passed to the list of visible players and checks to see which players are visible
 	 */
 	public void updateVisiblePlayers(EntityPlayer player, ItemStack mapStack) {
-
 		if (!playersHashMap.containsKey(player)) {
 			MapData.MapInfo mapdata$mapinfo = new MapData.MapInfo(player);
 			playersHashMap.put(player, mapdata$mapinfo);
@@ -179,7 +173,6 @@ public class MapData extends WorldSavedData {
 	}
 
 	private void updateDecorations(MapDecoration.Type type, World worldIn, String decorationName, double worldX, double worldZ, double rotationIn) {
-
 		int i = 1 << scale;
 		float f = (float) (worldX - (double) xCenter) / (float) i;
 		float f1 = (float) (worldZ - (double) zCenter) / (float) i;
@@ -245,7 +238,6 @@ public class MapData extends WorldSavedData {
 	}
 
 	public void updateMapData(int x, int y) {
-
 		super.markDirty();
 
 		for (MapData.MapInfo mapdata$mapinfo : playersArrayList) {
@@ -278,7 +270,6 @@ public class MapData extends WorldSavedData {
 		private int tick;
 
 		public MapInfo(EntityPlayer player) {
-
 			this.player = player;
 		}
 
@@ -294,7 +285,6 @@ public class MapData extends WorldSavedData {
 		}
 
 		public void update(int x, int y) {
-
 			if (isDirty) {
 				minX = Math.min(minX, x);
 				minY = Math.min(minY, y);

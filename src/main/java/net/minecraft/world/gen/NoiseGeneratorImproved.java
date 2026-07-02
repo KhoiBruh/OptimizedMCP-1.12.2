@@ -21,12 +21,10 @@ public class NoiseGeneratorImproved extends NoiseGenerator {
 	public double zCoord;
 
 	public NoiseGeneratorImproved() {
-
 		this(new Random());
 	}
 
 	public NoiseGeneratorImproved(Random p_i45469_1_) {
-
 		permutations = new int[512];
 		xCoord = p_i45469_1_.nextDouble() * 256D;
 		yCoord = p_i45469_1_.nextDouble() * 256D;
@@ -45,18 +43,15 @@ public class NoiseGeneratorImproved extends NoiseGenerator {
 	}
 
 	public final double lerp(double p_76311_1_, double p_76311_3_, double p_76311_5_) {
-
 		return p_76311_3_ + p_76311_1_ * (p_76311_5_ - p_76311_3_);
 	}
 
 	public final double grad2(int p_76309_1_, double p_76309_2_, double p_76309_4_) {
-
 		int i = p_76309_1_ & 15;
 		return GRAD_2X[i] * p_76309_2_ + GRAD_2Z[i] * p_76309_4_;
 	}
 
 	public final double grad(int p_76310_1_, double p_76310_2_, double p_76310_4_, double p_76310_6_) {
-
 		int i = p_76310_1_ & 15;
 		return GRAD_X[i] * p_76310_2_ + GRAD_Y[i] * p_76310_4_ + GRAD_Z[i] * p_76310_6_;
 	}
@@ -65,7 +60,6 @@ public class NoiseGeneratorImproved extends NoiseGenerator {
 	 * noiseArray should be xSize*ySize*zSize in size
 	 */
 	public void populateNoiseArray(double[] noiseArray, double xOffset, double yOffset, double zOffset, int xSize, int ySize, int zSize, double xScale, double yScale, double zScale, double noiseScale) {
-
 		if (ySize == 1) {
 			int i5;
 			int j5;

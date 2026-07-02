@@ -46,7 +46,6 @@ public class TileEntityRendererDispatcher {
 	private FontRenderer fontRenderer;
 
 	private TileEntityRendererDispatcher() {
-
 		renderers.put(TileEntitySign.class, new TileEntitySignRenderer());
 		renderers.put(TileEntityMobSpawner.class, new TileEntityMobSpawnerRenderer());
 		renderers.put(TileEntityPiston.class, new TileEntityPistonRenderer());
@@ -86,7 +85,6 @@ public class TileEntityRendererDispatcher {
 	}
 
 	public void prepare(World worldIn, TextureManager renderEngineIn, FontRenderer fontRendererIn, Entity entityIn, RayTraceResult cameraHitResultIn, float p_190056_6_) {
-
 		if (world != worldIn) {
 			setWorld(worldIn);
 		}
@@ -103,7 +101,6 @@ public class TileEntityRendererDispatcher {
 	}
 
 	public void render(TileEntity tileentityIn, float partialTicks, int destroyStage) {
-
 		if (tileentityIn.getDistanceSq(entityX, entityY, entityZ) < tileentityIn.getMaxRenderDistanceSquared()) {
 			RenderHelper.enableStandardItemLighting();
 			int i = world.getCombinedLight(tileentityIn.getPos(), 0);
@@ -120,17 +117,14 @@ public class TileEntityRendererDispatcher {
 	 * Render this TileEntity at a given set of coordinates
 	 */
 	public void render(TileEntity tileEntityIn, double x, double y, double z, float partialTicks) {
-
 		render(tileEntityIn, x, y, z, partialTicks, 1F);
 	}
 
 	public void render(TileEntity p_192855_1_, double p_192855_2_, double p_192855_4_, double p_192855_6_, float p_192855_8_, float p_192855_9_) {
-
 		render(p_192855_1_, p_192855_2_, p_192855_4_, p_192855_6_, p_192855_8_, -1, p_192855_9_);
 	}
 
 	public void render(TileEntity tileEntityIn, double x, double y, double z, float partialTicks, int destroyStage, float p_192854_10_) {
-
 		TileEntitySpecialRenderer<TileEntity> tileentityspecialrenderer = getRenderer(tileEntityIn);
 
 		if (tileentityspecialrenderer != null) {
@@ -146,7 +140,6 @@ public class TileEntityRendererDispatcher {
 	}
 
 	public void setWorld(World worldIn) {
-
 		world = worldIn;
 
 		if (worldIn == null) {
@@ -155,7 +148,6 @@ public class TileEntityRendererDispatcher {
 	}
 
 	public FontRenderer getFontRenderer() {
-
 		return fontRenderer;
 	}
 

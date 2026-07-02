@@ -16,7 +16,6 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
 	private final List<T> values = Lists.newArrayList();
 
 	public ClassInheritanceMultiMap(Class<T> baseClassIn) {
-
 		baseClass = baseClassIn;
 		knownKeys.add(baseClassIn);
 		map.put(baseClassIn, values);
@@ -27,7 +26,6 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
 	}
 
 	protected void createLookup(Class<?> clazz) {
-
 		ALL_KNOWN.add(clazz);
 
 		for (T t : values) {
@@ -53,7 +51,6 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
 	}
 
 	public boolean add(T p_add_1_) {
-
 		for (Class<?> oclass : knownKeys) {
 			if (oclass.isAssignableFrom(p_add_1_.getClass())) {
 				addForClass(p_add_1_, oclass);
@@ -64,7 +61,6 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
 	}
 
 	private void addForClass(T value, Class<?> parentClass) {
-
 		List<T> list = map.get(parentClass);
 
 		if (list == null) {
@@ -75,7 +71,6 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
 	}
 
 	public boolean remove(Object object) {
-
 		T t = (T) object;
 		boolean flag = false;
 
@@ -93,7 +88,6 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
 	}
 
 	public boolean contains(Object p_contains_1_) {
-
 		return Iterators.contains(getByClass(p_contains_1_.getClass()).iterator(), p_contains_1_);
 	}
 
@@ -113,12 +107,10 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
 	}
 
 	public Iterator<T> iterator() {
-
 		return values.isEmpty() ? Collections.emptyIterator() : Iterators.unmodifiableIterator(values.iterator());
 	}
 
 	public int size() {
-
 		return values.size();
 	}
 

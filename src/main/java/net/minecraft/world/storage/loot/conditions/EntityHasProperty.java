@@ -21,13 +21,11 @@ public class EntityHasProperty implements LootCondition {
 	private final LootContext.EntityTarget target;
 
 	public EntityHasProperty(EntityProperty[] propertiesIn, LootContext.EntityTarget targetIn) {
-
 		properties = propertiesIn;
 		target = targetIn;
 	}
 
 	public boolean testCondition(Random rand, LootContext context) {
-
 		Entity entity = context.getEntity(target);
 
 		if (entity == null) {
@@ -46,12 +44,10 @@ public class EntityHasProperty implements LootCondition {
 	public static class Serializer extends LootCondition.Serializer<EntityHasProperty> {
 
 		protected Serializer() {
-
 			super(new ResourceLocation("entity_properties"), EntityHasProperty.class);
 		}
 
 		public void serialize(JsonObject json, EntityHasProperty value, JsonSerializationContext context) {
-
 			JsonObject jsonobject = new JsonObject();
 
 			for (EntityProperty entityproperty : value.properties) {
@@ -64,7 +60,6 @@ public class EntityHasProperty implements LootCondition {
 		}
 
 		public EntityHasProperty deserialize(JsonObject json, JsonDeserializationContext context) {
-
 			Set<Entry<String, JsonElement>> set = JsonUtils.getJsonObject(json, "properties").entrySet();
 			EntityProperty[] aentityproperty = new EntityProperty[set.size()];
 			int i = 0;

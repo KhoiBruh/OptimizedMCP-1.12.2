@@ -14,7 +14,6 @@ import net.minecraft.world.World;
 public class ItemExpBottle extends Item {
 
 	public ItemExpBottle() {
-
 		setCreativeTab(CreativeTabs.MISC);
 	}
 
@@ -27,12 +26,10 @@ public class ItemExpBottle extends Item {
 	 * the glint for enchanted items. Of course, that is unnecessary if the overwritten version always returns true.
 	 */
 	public boolean hasEffect(ItemStack stack) {
-
 		return true;
 	}
 
 	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
-
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
 		if (!playerIn.capabilities.isCreativeMode) {

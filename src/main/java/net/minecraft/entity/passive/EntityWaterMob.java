@@ -8,12 +8,10 @@ import net.minecraft.world.World;
 public abstract class EntityWaterMob extends EntityLiving implements IAnimals {
 
 	public EntityWaterMob(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public boolean canBreatheUnderwater() {
-
 		return true;
 	}
 
@@ -21,7 +19,6 @@ public abstract class EntityWaterMob extends EntityLiving implements IAnimals {
 	 * Checks if the entity's current position is a valid location to spawn this entity.
 	 */
 	public boolean getCanSpawnHere() {
-
 		return true;
 	}
 
@@ -29,7 +26,6 @@ public abstract class EntityWaterMob extends EntityLiving implements IAnimals {
 	 * Checks that the entity is not colliding with any blocks / liquids
 	 */
 	public boolean isNotColliding() {
-
 		return world.checkNoEntityCollision(getEntityBoundingBox(), this);
 	}
 
@@ -37,7 +33,6 @@ public abstract class EntityWaterMob extends EntityLiving implements IAnimals {
 	 * Get number of ticks, at least during which the living entity will be silent.
 	 */
 	public int getTalkInterval() {
-
 		return 120;
 	}
 
@@ -45,7 +40,6 @@ public abstract class EntityWaterMob extends EntityLiving implements IAnimals {
 	 * Get the experience points the entity currently has.
 	 */
 	protected int getExperiencePoints(EntityPlayer player) {
-
 		return 1 + world.rand.nextInt(3);
 	}
 
@@ -53,7 +47,6 @@ public abstract class EntityWaterMob extends EntityLiving implements IAnimals {
 	 * Gets called every tick from main Entity class
 	 */
 	public void onEntityUpdate() {
-
 		int i = getAir();
 		super.onEntityUpdate();
 
@@ -71,7 +64,6 @@ public abstract class EntityWaterMob extends EntityLiving implements IAnimals {
 	}
 
 	public boolean isPushedByWater() {
-
 		return false;
 	}
 

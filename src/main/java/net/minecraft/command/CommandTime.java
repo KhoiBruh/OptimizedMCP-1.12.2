@@ -13,7 +13,6 @@ public class CommandTime extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "time";
 	}
 
@@ -21,7 +20,6 @@ public class CommandTime extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 2;
 	}
 
@@ -29,7 +27,6 @@ public class CommandTime extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.time.usage";
 	}
 
@@ -37,7 +34,6 @@ public class CommandTime extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		if (args.length > 1) {
 			if ("set".equals(args[0])) {
 				int i1;
@@ -90,7 +86,6 @@ public class CommandTime extends CommandBase {
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		if (args.length == 1) {
 			return getListOfStringsMatchingLastWord(args, "set", "add", "query");
 		} else if (args.length == 2 && "set".equals(args[0])) {
@@ -101,14 +96,12 @@ public class CommandTime extends CommandBase {
 	}
 
 	protected void setAllWorldTimes(MinecraftServer server, int time) {
-
 		for (int i = 0; i < server.worlds.length; ++i) {
 			server.worlds[i].setWorldTime(time);
 		}
 	}
 
 	protected void incrementAllWorldTimes(MinecraftServer server, int amount) {
-
 		for (int i = 0; i < server.worlds.length; ++i) {
 			WorldServer worldserver = server.worlds[i];
 			worldserver.setWorldTime(worldserver.getWorldTime() + (long) amount);

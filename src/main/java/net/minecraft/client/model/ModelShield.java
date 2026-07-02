@@ -6,7 +6,6 @@ public class ModelShield extends ModelBase {
 	public ModelRenderer handle;
 
 	public ModelShield() {
-
 		textureWidth = 64;
 		textureHeight = 64;
 		plate = new ModelRenderer(this, 0, 0);
@@ -16,7 +15,6 @@ public class ModelShield extends ModelBase {
 	}
 
 	public void render() {
-
 		plate.render(0.0625F);
 		handle.render(0.0625F);
 	}

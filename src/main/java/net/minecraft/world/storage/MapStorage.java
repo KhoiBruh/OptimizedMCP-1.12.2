@@ -19,7 +19,6 @@ public class MapStorage {
 	protected Map<String, WorldSavedData> loadedDataMap = Maps.newHashMap();
 
 	public MapStorage(ISaveHandler saveHandlerIn) {
-
 		saveHandler = saveHandlerIn;
 		loadIdCounts();
 	}
@@ -31,7 +30,6 @@ public class MapStorage {
 	 * null if none such file exists.
 	 */
 	public WorldSavedData getOrLoadData(Class<? extends WorldSavedData> clazz, String dataIdentifier) {
-
 		WorldSavedData worldsaveddata = loadedDataMap.get(dataIdentifier);
 
 		if (worldsaveddata != null) {
@@ -71,7 +69,6 @@ public class MapStorage {
 	 * Assigns the given String id to the given MapDataBase, removing any existing ones of the same id.
 	 */
 	public void setData(String dataIdentifier, WorldSavedData data) {
-
 		if (loadedDataMap.containsKey(dataIdentifier)) {
 			loadedDataList.remove(loadedDataMap.remove(dataIdentifier));
 		}
@@ -84,7 +81,6 @@ public class MapStorage {
 	 * Saves all dirty loaded MapDataBases to disk.
 	 */
 	public void saveAllData() {
-
 		for (WorldSavedData worldsaveddata : loadedDataList) {
 			if (worldsaveddata.isDirty()) {
 				saveData(worldsaveddata);
@@ -97,7 +93,6 @@ public class MapStorage {
 	 * Saves the given MapDataBase to disk.
 	 */
 	private void saveData(WorldSavedData data) {
-
 		if (saveHandler != null) {
 			try {
 				File file1 = saveHandler.getMapFileFromName(data.mapName);
@@ -119,7 +114,6 @@ public class MapStorage {
 	 * Loads the idCounts Map from the 'idcounts' file.
 	 */
 	private void loadIdCounts() {
-
 		try {
 			idCounts.clear();
 
@@ -152,7 +146,6 @@ public class MapStorage {
 	 * Returns an unique new data id for the given prefix and saves the idCounts map to the 'idcounts' file.
 	 */
 	public int getUniqueDataId(String key) {
-
 		Short oshort = idCounts.get(key);
 
 		if (oshort == null) {

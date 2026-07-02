@@ -36,7 +36,6 @@ public class ShapedRecipes implements IRecipe {
 	private final String group;
 
 	public ShapedRecipes(String group, int width, int height, NonNullList<Ingredient> ingredients, ItemStack result) {
-
 		this.group = group;
 		recipeWidth = width;
 		recipeHeight = height;
@@ -45,7 +44,6 @@ public class ShapedRecipes implements IRecipe {
 	}
 
 	public static ShapedRecipes deserialize(JsonObject p_193362_0_) {
-
 		String s = JsonUtils.getString(p_193362_0_, "group", "");
 		Map<String, Ingredient> map = deserializeKey(JsonUtils.getJsonObject(p_193362_0_, "key"));
 		String[] astring = shrink(patternFromJson(JsonUtils.getJsonArray(p_193362_0_, "pattern")));
@@ -57,7 +55,6 @@ public class ShapedRecipes implements IRecipe {
 	}
 
 	private static NonNullList<Ingredient> deserializeIngredients(String[] p_192402_0_, Map<String, Ingredient> p_192402_1_, int p_192402_2_, int p_192402_3_) {
-
 		NonNullList<Ingredient> nonnulllist = NonNullList.withSize(p_192402_2_ * p_192402_3_, Ingredient.EMPTY);
 		Set<String> set = Sets.newHashSet(p_192402_1_.keySet());
 		set.remove(" ");
@@ -85,7 +82,6 @@ public class ShapedRecipes implements IRecipe {
 
 	@VisibleForTesting
 	static String[] shrink(String... p_194134_0_) {
-
 		int i = Integer.MAX_VALUE;
 		int j = 0;
 		int k = 0;
@@ -122,7 +118,6 @@ public class ShapedRecipes implements IRecipe {
 	}
 
 	private static int firstNonSpace(String str) {
-
 		int i;
 
 		for (i = 0; i < str.length() && str.charAt(i) == ' '; ++i) {
@@ -132,7 +127,6 @@ public class ShapedRecipes implements IRecipe {
 	}
 
 	private static int lastNonSpace(String str) {
-
 		int i;
 
 		for (i = str.length() - 1; i >= 0 && str.charAt(i) == ' '; --i) {
@@ -142,7 +136,6 @@ public class ShapedRecipes implements IRecipe {
 	}
 
 	private static String[] patternFromJson(JsonArray p_192407_0_) {
-
 		String[] astring = new String[p_192407_0_.size()];
 
 		if (astring.length > 3) {
@@ -189,7 +182,6 @@ public class ShapedRecipes implements IRecipe {
 	}
 
 	public static Ingredient deserializeIngredient(JsonElement p_193361_0_) {
-
 		if (p_193361_0_ != null && !p_193361_0_.isJsonNull()) {
 			if (p_193361_0_.isJsonObject()) {
 				return Ingredient.fromStacks(deserializeItem(p_193361_0_.getAsJsonObject(), false));
@@ -216,7 +208,6 @@ public class ShapedRecipes implements IRecipe {
 	}
 
 	public static ItemStack deserializeItem(JsonObject p_192405_0_, boolean useCount) {
-
 		String s = JsonUtils.getString(p_192405_0_, "item");
 		Item item = Item.REGISTRY.getObject(new ResourceLocation(s));
 
@@ -232,17 +223,14 @@ public class ShapedRecipes implements IRecipe {
 	}
 
 	public String getGroup() {
-
 		return group;
 	}
 
 	public ItemStack getRecipeOutput() {
-
 		return recipeOutput;
 	}
 
 	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
-
 		NonNullList<ItemStack> nonnulllist = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
 
 		for (int i = 0; i < nonnulllist.size(); ++i) {
@@ -257,7 +245,6 @@ public class ShapedRecipes implements IRecipe {
 	}
 
 	public NonNullList<Ingredient> getIngredients() {
-
 		return recipeItems;
 	}
 
@@ -265,7 +252,6 @@ public class ShapedRecipes implements IRecipe {
 	 * Used to determine if this recipe can fit in a grid of the given width/height
 	 */
 	public boolean canFit(int width, int height) {
-
 		return width >= recipeWidth && height >= recipeHeight;
 	}
 
@@ -273,7 +259,6 @@ public class ShapedRecipes implements IRecipe {
 	 * Used to check if a recipe matches current crafting inventory
 	 */
 	public boolean matches(InventoryCrafting inv, World worldIn) {
-
 		for (int i = 0; i <= 3 - recipeWidth; ++i) {
 			for (int j = 0; j <= 3 - recipeHeight; ++j) {
 				if (checkMatch(inv, i, j, true)) {
@@ -293,7 +278,6 @@ public class ShapedRecipes implements IRecipe {
 	 * Checks if the region of a crafting inventory is match for the recipe.
 	 */
 	private boolean checkMatch(InventoryCrafting p_77573_1_, int p_77573_2_, int p_77573_3_, boolean p_77573_4_) {
-
 		for (int i = 0; i < 3; ++i) {
 			for (int j = 0; j < 3; ++j) {
 				int k = i - p_77573_2_;
@@ -321,17 +305,14 @@ public class ShapedRecipes implements IRecipe {
 	 * Returns an Item that is the result of this recipe
 	 */
 	public ItemStack getCraftingResult(InventoryCrafting inv) {
-
 		return getRecipeOutput().copy();
 	}
 
 	public int getWidth() {
-
 		return recipeWidth;
 	}
 
 	public int getHeight() {
-
 		return recipeHeight;
 	}
 

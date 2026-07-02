@@ -5,7 +5,6 @@ package net.minecraft.util.math;
  * @param y The y component of this vector.
  */
 public record Vec2f(float x, float y) {
-
 	/**
 	 * An immutable vector with {@code 0.0F} as the x and y components.
 	 */

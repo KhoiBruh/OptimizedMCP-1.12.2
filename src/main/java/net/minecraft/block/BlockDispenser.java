@@ -32,7 +32,6 @@ public class BlockDispenser extends BlockContainer {
 	protected Random rand = new Random();
 
 	protected BlockDispenser() {
-
 		super(Material.ROCK);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(TRIGGERED, false));
 		setCreativeTab(CreativeTabs.REDSTONE);
@@ -42,7 +41,6 @@ public class BlockDispenser extends BlockContainer {
 	 * Get the position where the dispenser at the given Coordinates should dispense to.
 	 */
 	public static IPosition getDispensePosition(IBlockSource coords) {
-
 		Facing enumfacing = coords.getBlockState().getValue(FACING);
 		double d0 = coords.x() + 0.7D * (double) enumfacing.getFrontOffsetX();
 		double d1 = coords.y() + 0.7D * (double) enumfacing.getFrontOffsetY();
@@ -54,7 +52,6 @@ public class BlockDispenser extends BlockContainer {
 	 * How many world ticks before ticking
 	 */
 	public int tickRate(World worldIn) {
-
 		return 4;
 	}
 
@@ -62,13 +59,11 @@ public class BlockDispenser extends BlockContainer {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		super.onBlockAdded(worldIn, pos, state);
 		setDefaultDirection(worldIn, pos, state);
 	}
 
 	private void setDefaultDirection(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (!worldIn.isRemote) {
 			Facing enumfacing = state.getValue(FACING);
 			boolean flag = worldIn.getBlockState(pos.north()).isFullBlock();
@@ -97,7 +92,6 @@ public class BlockDispenser extends BlockContainer {
 	 * Called when the block is right clicked by a player.
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		if (worldIn.isRemote) {
 			return true;
 		} else {
@@ -118,7 +112,6 @@ public class BlockDispenser extends BlockContainer {
 	}
 
 	protected void dispense(World worldIn, BlockPos pos) {
-
 		BlockSourceImpl blocksourceimpl = new BlockSourceImpl(worldIn, pos);
 		TileEntityDispenser tileentitydispenser = blocksourceimpl.getBlockTileEntity();
 
@@ -139,7 +132,6 @@ public class BlockDispenser extends BlockContainer {
 	}
 
 	protected IBehaviorDispenseItem getBehavior(ItemStack stack) {
-
 		return DISPENSE_BEHAVIOR_REGISTRY.getObject(stack.getItem());
 	}
 
@@ -149,7 +141,6 @@ public class BlockDispenser extends BlockContainer {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		boolean flag = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(pos.up());
 		boolean flag1 = state.getValue(TRIGGERED);
 
@@ -162,7 +153,6 @@ public class BlockDispenser extends BlockContainer {
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if (!worldIn.isRemote) {
 			dispense(worldIn, pos);
 		}
@@ -172,7 +162,6 @@ public class BlockDispenser extends BlockContainer {
 	 * Returns a new instance of a block's tile entity class. Called on placing the block.
 	 */
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-
 		return new TileEntityDispenser();
 	}
 
@@ -181,7 +170,6 @@ public class BlockDispenser extends BlockContainer {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		return getDefaultState().withProperty(FACING, Facing.getDirectionFromEntityLiving(pos, placer)).withProperty(TRIGGERED, false);
 	}
 
@@ -189,7 +177,6 @@ public class BlockDispenser extends BlockContainer {
 	 * Called by ItemBlocks after a block is set in the world, to allow post-place logic
 	 */
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-
 		worldIn.setBlockState(pos, state.withProperty(FACING, Facing.getDirectionFromEntityLiving(pos, placer)), 2);
 
 		if (stack.hasDisplayName()) {
@@ -205,7 +192,6 @@ public class BlockDispenser extends BlockContainer {
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 
 		if (tileentity instanceof TileEntityDispenser) {
@@ -217,12 +203,10 @@ public class BlockDispenser extends BlockContainer {
 	}
 
 	public boolean hasComparatorInputOverride(IBlockState state) {
-
 		return true;
 	}
 
 	public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
-
 		return Container.calcRedstone(worldIn.getTileEntity(pos));
 	}
 
@@ -231,7 +215,6 @@ public class BlockDispenser extends BlockContainer {
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
 	public BlockRenderType getRenderType(IBlockState state) {
-
 		return BlockRenderType.MODEL;
 	}
 
@@ -239,7 +222,6 @@ public class BlockDispenser extends BlockContainer {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(FACING, Facing.getFront(meta & 7)).withProperty(TRIGGERED, (meta & 8) > 0);
 	}
 
@@ -247,7 +229,6 @@ public class BlockDispenser extends BlockContainer {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 		i = i | state.getValue(FACING).getIndex();
 
@@ -263,7 +244,6 @@ public class BlockDispenser extends BlockContainer {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
@@ -272,12 +252,10 @@ public class BlockDispenser extends BlockContainer {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, FACING, TRIGGERED);
 	}
 

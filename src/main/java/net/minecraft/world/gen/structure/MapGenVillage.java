@@ -20,12 +20,10 @@ public class MapGenVillage extends MapGenStructure {
 	private int distance;
 
 	public MapGenVillage() {
-
 		distance = 32;
 	}
 
 	public MapGenVillage(Map<String, String> map) {
-
 		this();
 
 		for (Entry<String, String> entry : map.entrySet()) {
@@ -38,12 +36,10 @@ public class MapGenVillage extends MapGenStructure {
 	}
 
 	public String getStructureName() {
-
 		return "Village";
 	}
 
 	protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
-
 		int i = chunkX;
 		int j = chunkZ;
 
@@ -64,7 +60,6 @@ public class MapGenVillage extends MapGenStructure {
 		l = l + random.nextInt(distance - 8);
 
 		if (i == k && j == l) {
-
 			return world.getBiomeProvider().areBiomesViable(i * 16 + 8, j * 16 + 8, 0, VILLAGE_SPAWN_BIOMES);
 		}
 
@@ -72,13 +67,11 @@ public class MapGenVillage extends MapGenStructure {
 	}
 
 	public BlockPos getNearestStructurePos(World worldIn, BlockPos pos, boolean findUnexplored) {
-
 		world = worldIn;
 		return findNearestStructurePosBySpacing(worldIn, this, pos, distance, 8, 10387312, false, 100, findUnexplored);
 	}
 
 	protected StructureStart getStructureStart(int chunkX, int chunkZ) {
-
 		return new MapGenVillage.Start(world, rand, chunkX, chunkZ, size);
 	}
 
@@ -87,11 +80,9 @@ public class MapGenVillage extends MapGenStructure {
 		private boolean hasMoreThanTwoComponents;
 
 		public Start() {
-
 		}
 
 		public Start(World worldIn, Random rand, int x, int z, int size) {
-
 			super(x, z);
 			List<StructureVillagePieces.PieceWeight> list = StructureVillagePieces.getStructureVillageWeightedPieceList(rand, size);
 			StructureVillagePieces.Start structurevillagepieces$start = new StructureVillagePieces.Start(worldIn.getBiomeProvider(), 0, rand, (x << 4) + 2, (z << 4) + 2, list, size);
@@ -125,18 +116,15 @@ public class MapGenVillage extends MapGenStructure {
 		}
 
 		public boolean isSizeableStructure() {
-
 			return hasMoreThanTwoComponents;
 		}
 
 		public void writeToNBT(NBTTagCompound tagCompound) {
-
 			super.writeToNBT(tagCompound);
 			tagCompound.setBoolean("Valid", hasMoreThanTwoComponents);
 		}
 
 		public void readFromNBT(NBTTagCompound tagCompound) {
-
 			super.readFromNBT(tagCompound);
 			hasMoreThanTwoComponents = tagCompound.getBoolean("Valid");
 		}

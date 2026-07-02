@@ -26,7 +26,6 @@ public class FrameTimer {
 	 * Add a frame at the next index in the array frames
 	 */
 	public void addFrame(long runningTime) {
-
 		frames[index] = runningTime;
 		++index;
 
@@ -46,7 +45,6 @@ public class FrameTimer {
 	 * Return a value from time and multiplier to display the lagometer
 	 */
 	public int getLagometerValue(long time, int multiplier) {
-
 		double d0 = (double) time / 1.6666666E7D;
 		return (int) (d0 * (double) multiplier);
 	}
@@ -55,7 +53,6 @@ public class FrameTimer {
 	 * Return the last index used when 240 frames have been set
 	 */
 	public int getLastIndex() {
-
 		return lastIndex;
 	}
 
@@ -63,7 +60,6 @@ public class FrameTimer {
 	 * Return the index of the next frame in the array
 	 */
 	public int getIndex() {
-
 		return index;
 	}
 
@@ -71,7 +67,6 @@ public class FrameTimer {
 	 * Change 240 to 0
 	 */
 	public int parseIndex(int rawIndex) {
-
 		return rawIndex % 240;
 	}
 
@@ -79,7 +74,6 @@ public class FrameTimer {
 	 * Return the array of frames
 	 */
 	public long[] getFrames() {
-
 		return frames;
 	}
 

@@ -34,7 +34,6 @@ public class EntityDataManager {
 	private boolean dirty;
 
 	public EntityDataManager(Entity entityIn) {
-
 		entity = entityIn;
 	}
 
@@ -80,7 +79,6 @@ public class EntityDataManager {
 	}
 
 	public static void writeEntries(List<EntityDataManager.DataEntry<?>> entriesIn, PacketBuffer buf) {
-
 		if (entriesIn != null) {
 			int i = 0;
 
@@ -191,7 +189,6 @@ public class EntityDataManager {
 	}
 
 	public boolean isDirty() {
-
 		return dirty;
 	}
 
@@ -229,7 +226,6 @@ public class EntityDataManager {
 	}
 
 	public void writeEntries(PacketBuffer buf) {
-
 		lock.readLock().lock();
 
 		for (EntityDataManager.DataEntry<?> dataentry : entries.values()) {
@@ -259,7 +255,6 @@ public class EntityDataManager {
 	}
 
 	public void setEntryValues(List<EntityDataManager.DataEntry<?>> entriesIn) {
-
 		lock.writeLock().lock();
 
 		for (EntityDataManager.DataEntry<?> dataentry : entriesIn) {
@@ -281,12 +276,10 @@ public class EntityDataManager {
 	}
 
 	public boolean isEmpty() {
-
 		return empty;
 	}
 
 	public void setClean() {
-
 		dirty = false;
 		lock.readLock().lock();
 
@@ -304,34 +297,28 @@ public class EntityDataManager {
 		private boolean dirty;
 
 		public DataEntry(DataParameter<T> keyIn, T valueIn) {
-
 			key = keyIn;
 			value = valueIn;
 			dirty = true;
 		}
 
 		public DataParameter<T> getKey() {
-
 			return key;
 		}
 
 		public T getValue() {
-
 			return value;
 		}
 
 		public void setValue(T valueIn) {
-
 			value = valueIn;
 		}
 
 		public boolean isDirty() {
-
 			return dirty;
 		}
 
 		public void setDirty(boolean dirtyIn) {
-
 			dirty = dirtyIn;
 		}
 

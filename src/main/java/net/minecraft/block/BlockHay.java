@@ -11,7 +11,6 @@ import net.minecraft.world.World;
 public class BlockHay extends BlockRotatedPillar {
 
 	public BlockHay() {
-
 		super(Material.GRASS, MapColor.YELLOW);
 		setDefaultState(blockState.getBaseState().withProperty(AXIS, Facing.Axis.Y));
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
@@ -21,7 +20,6 @@ public class BlockHay extends BlockRotatedPillar {
 	 * Block's chance to react to a living entity falling on it.
 	 */
 	public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
-
 		entityIn.fall(fallDistance, 0.2F);
 	}
 

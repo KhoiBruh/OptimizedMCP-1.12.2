@@ -11,12 +11,10 @@ public class WorldGenBush extends WorldGenerator {
 	private final BlockBush block;
 
 	public WorldGenBush(BlockBush blockIn) {
-
 		block = blockIn;
 	}
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		for (int i = 0; i < 64; ++i) {
 			BlockPos blockpos = position.add(rand.nextInt(8) - rand.nextInt(8), rand.nextInt(4) - rand.nextInt(4), rand.nextInt(8) - rand.nextInt(8));
 

@@ -11,12 +11,10 @@ import net.minecraft.util.math.MathHelper;
 public class RenderTntMinecart extends RenderMinecart<EntityMinecartTNT> {
 
 	public RenderTntMinecart(RenderManager renderManagerIn) {
-
 		super(renderManagerIn);
 	}
 
 	protected void renderCartContents(EntityMinecartTNT p_188319_1_, float partialTicks, IBlockState p_188319_3_) {
-
 		int i = p_188319_1_.getFuseTicks();
 
 		if (i > -1 && (float) i - partialTicks + 1F < 10F) {

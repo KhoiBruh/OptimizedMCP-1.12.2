@@ -22,12 +22,10 @@ public class ServerScoreboard extends Scoreboard {
 	private Runnable[] dirtyRunnables = new Runnable[0];
 
 	public ServerScoreboard(MinecraftServer mcServer) {
-
 		scoreboardMCServer = mcServer;
 	}
 
 	public void onScoreUpdated(Score scoreIn) {
-
 		super.onScoreUpdated(scoreIn);
 
 		if (addedObjectives.contains(scoreIn.getObjective())) {
@@ -38,14 +36,12 @@ public class ServerScoreboard extends Scoreboard {
 	}
 
 	public void broadcastScoreUpdate(String scoreName) {
-
 		super.broadcastScoreUpdate(scoreName);
 		scoreboardMCServer.getPlayerList().sendPacketToAllPlayers(new SPacketUpdateScore(scoreName));
 		markSaveDataDirty();
 	}
 
 	public void broadcastScoreUpdate(String scoreName, ScoreObjective objective) {
-
 		super.broadcastScoreUpdate(scoreName, objective);
 		scoreboardMCServer.getPlayerList().sendPacketToAllPlayers(new SPacketUpdateScore(scoreName, objective));
 		markSaveDataDirty();
@@ -55,7 +51,6 @@ public class ServerScoreboard extends Scoreboard {
 	 * 0 is tab menu, 1 is sidebar, 2 is below name
 	 */
 	public void setObjectiveInDisplaySlot(int objectiveSlot, ScoreObjective objective) {
-
 		ScoreObjective scoreobjective = getObjectiveInDisplaySlot(objectiveSlot);
 		super.setObjectiveInDisplaySlot(objectiveSlot, objective);
 
@@ -82,7 +77,6 @@ public class ServerScoreboard extends Scoreboard {
 	 * Adds a player to the given team
 	 */
 	public boolean addPlayerToTeam(String player, String newTeam) {
-
 		if (super.addPlayerToTeam(player, newTeam)) {
 			ScorePlayerTeam scoreplayerteam = getTeam(newTeam);
 			scoreboardMCServer.getPlayerList().sendPacketToAllPlayers(new SPacketTeams(scoreplayerteam, List.of(player), 3));
@@ -98,7 +92,6 @@ public class ServerScoreboard extends Scoreboard {
 	 * IllegalStateException is thrown.
 	 */
 	public void removePlayerFromTeam(String username, ScorePlayerTeam playerTeam) {
-
 		super.removePlayerFromTeam(username, playerTeam);
 		scoreboardMCServer.getPlayerList().sendPacketToAllPlayers(new SPacketTeams(playerTeam, Collections.singletonList(username), 4));
 		markSaveDataDirty();
@@ -108,13 +101,11 @@ public class ServerScoreboard extends Scoreboard {
 	 * Called when a score objective is added
 	 */
 	public void onScoreObjectiveAdded(ScoreObjective scoreObjectiveIn) {
-
 		super.onScoreObjectiveAdded(scoreObjectiveIn);
 		markSaveDataDirty();
 	}
 
 	public void onObjectiveDisplayNameChanged(ScoreObjective objective) {
-
 		super.onObjectiveDisplayNameChanged(objective);
 
 		if (addedObjectives.contains(objective)) {
@@ -125,7 +116,6 @@ public class ServerScoreboard extends Scoreboard {
 	}
 
 	public void onScoreObjectiveRemoved(ScoreObjective objective) {
-
 		super.onScoreObjectiveRemoved(objective);
 
 		if (addedObjectives.contains(objective)) {
@@ -139,7 +129,6 @@ public class ServerScoreboard extends Scoreboard {
 	 * This packet will notify the players that this team is created, and that will register it on the client
 	 */
 	public void broadcastTeamCreated(ScorePlayerTeam playerTeam) {
-
 		super.broadcastTeamCreated(playerTeam);
 		scoreboardMCServer.getPlayerList().sendPacketToAllPlayers(new SPacketTeams(playerTeam, 0));
 		markSaveDataDirty();
@@ -149,27 +138,23 @@ public class ServerScoreboard extends Scoreboard {
 	 * This packet will notify the players that this team is updated
 	 */
 	public void broadcastTeamInfoUpdate(ScorePlayerTeam playerTeam) {
-
 		super.broadcastTeamInfoUpdate(playerTeam);
 		scoreboardMCServer.getPlayerList().sendPacketToAllPlayers(new SPacketTeams(playerTeam, 2));
 		markSaveDataDirty();
 	}
 
 	public void broadcastTeamRemove(ScorePlayerTeam playerTeam) {
-
 		super.broadcastTeamRemove(playerTeam);
 		scoreboardMCServer.getPlayerList().sendPacketToAllPlayers(new SPacketTeams(playerTeam, 1));
 		markSaveDataDirty();
 	}
 
 	public void addDirtyRunnable(Runnable runnable) {
-
 		dirtyRunnables = Arrays.copyOf(dirtyRunnables, dirtyRunnables.length + 1);
 		dirtyRunnables[dirtyRunnables.length - 1] = runnable;
 	}
 
 	protected void markSaveDataDirty() {
-
 		for (Runnable runnable : dirtyRunnables) {
 			runnable.run();
 		}
@@ -194,7 +179,6 @@ public class ServerScoreboard extends Scoreboard {
 	}
 
 	public void addObjective(ScoreObjective objective) {
-
 		List<Packet<?>> list = getCreatePackets(objective);
 
 		for (EntityPlayerMP entityplayermp : scoreboardMCServer.getPlayerList().getPlayers()) {
@@ -221,7 +205,6 @@ public class ServerScoreboard extends Scoreboard {
 	}
 
 	public void sendDisplaySlotRemovalPackets(ScoreObjective p_96546_1_) {
-
 		List<Packet<?>> list = getDestroyPackets(p_96546_1_);
 
 		for (EntityPlayerMP entityplayermp : scoreboardMCServer.getPlayerList().getPlayers()) {
@@ -234,7 +217,6 @@ public class ServerScoreboard extends Scoreboard {
 	}
 
 	public int getObjectiveDisplaySlotCount(ScoreObjective p_96552_1_) {
-
 		int i = 0;
 
 		for (int j = 0; j < 19; ++j) {

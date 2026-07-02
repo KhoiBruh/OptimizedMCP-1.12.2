@@ -17,11 +17,9 @@ public class SPacketServerInfo implements Packet<INetHandlerStatusClient> {
 	private ServerStatusResponse response;
 
 	public SPacketServerInfo() {
-
 	}
 
 	public SPacketServerInfo(ServerStatusResponse responseIn) {
-
 		response = responseIn;
 	}
 
@@ -29,7 +27,6 @@ public class SPacketServerInfo implements Packet<INetHandlerStatusClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		response = JsonUtils.gsonDeserialize(GSON, buf.readString(32767), ServerStatusResponse.class);
 	}
 
@@ -37,7 +34,6 @@ public class SPacketServerInfo implements Packet<INetHandlerStatusClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeString(GSON.toJson(response));
 	}
 
@@ -45,12 +41,10 @@ public class SPacketServerInfo implements Packet<INetHandlerStatusClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerStatusClient handler) {
-
 		handler.handleServerInfo(this);
 	}
 
 	public ServerStatusResponse getResponse() {
-
 		return response;
 	}
 

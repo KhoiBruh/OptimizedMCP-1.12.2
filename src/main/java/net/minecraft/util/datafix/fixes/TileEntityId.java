@@ -37,12 +37,10 @@ public class TileEntityId implements IFixableData {
 	}
 
 	public int getFixVersion() {
-
 		return 704;
 	}
 
 	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
-
 		String s = OLD_TO_NEW_ID_MAP.get(compound.getString("id"));
 
 		if (s != null) {

@@ -15,11 +15,9 @@ public class CPacketInput implements Packet<INetHandlerPlayServer> {
 	private boolean sneaking;
 
 	public CPacketInput() {
-
 	}
 
 	public CPacketInput(float strafeSpeedIn, float forwardSpeedIn, boolean jumpingIn, boolean sneakingIn) {
-
 		strafeSpeed = strafeSpeedIn;
 		forwardSpeed = forwardSpeedIn;
 		jumping = jumpingIn;
@@ -30,7 +28,6 @@ public class CPacketInput implements Packet<INetHandlerPlayServer> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		strafeSpeed = buf.readFloat();
 		forwardSpeed = buf.readFloat();
 		byte b0 = buf.readByte();
@@ -42,7 +39,6 @@ public class CPacketInput implements Packet<INetHandlerPlayServer> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeFloat(strafeSpeed);
 		buf.writeFloat(forwardSpeed);
 		byte b0 = 0;
@@ -62,27 +58,22 @@ public class CPacketInput implements Packet<INetHandlerPlayServer> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayServer handler) {
-
 		handler.processInput(this);
 	}
 
 	public float getStrafeSpeed() {
-
 		return strafeSpeed;
 	}
 
 	public float getForwardSpeed() {
-
 		return forwardSpeed;
 	}
 
 	public boolean isJumping() {
-
 		return jumping;
 	}
 
 	public boolean isSneaking() {
-
 		return sneaking;
 	}
 

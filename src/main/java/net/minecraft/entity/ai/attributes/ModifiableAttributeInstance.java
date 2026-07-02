@@ -28,7 +28,6 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
 	private double cachedValue;
 
 	public ModifiableAttributeInstance(AbstractAttributeMap attributeMapIn, IAttribute genericAttributeIn) {
-
 		attributeMap = attributeMapIn;
 		genericAttribute = genericAttributeIn;
 		baseValue = genericAttributeIn.getDefaultValue();
@@ -42,17 +41,14 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
 	 * Get the Attribute this is an instance of
 	 */
 	public IAttribute getAttribute() {
-
 		return genericAttribute;
 	}
 
 	public double getBaseValue() {
-
 		return baseValue;
 	}
 
 	public void setBaseValue(double baseValue) {
-
 		if (baseValue != getBaseValue()) {
 			this.baseValue = baseValue;
 			flagForUpdate();
@@ -60,12 +56,10 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
 	}
 
 	public Collection<AttributeModifier> getModifiersByOperation(int operation) {
-
 		return mapByOperation.get(operation);
 	}
 
 	public Collection<AttributeModifier> getModifiers() {
-
 		Set<AttributeModifier> set = Sets.newHashSet();
 
 		for (int i = 0; i < 3; ++i) {
@@ -81,17 +75,14 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
 	 * Returns attribute modifier, if any, by the given UUID
 	 */
 	public AttributeModifier getModifier(UUID uuid) {
-
 		return mapByUUID.get(uuid);
 	}
 
 	public boolean hasModifier(AttributeModifier modifier) {
-
 		return mapByUUID.get(modifier.getID()) != null;
 	}
 
 	public void applyModifier(AttributeModifier modifier) {
-
 		if (getModifier(modifier.getID()) != null) {
 			throw new IllegalArgumentException("Modifier is already applied on this attribute!");
 		} else {
@@ -105,13 +96,11 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
 	}
 
 	protected void flagForUpdate() {
-
 		needsUpdate = true;
 		attributeMap.onAttributeModified(this);
 	}
 
 	public void removeModifier(AttributeModifier modifier) {
-
 		for (int i = 0; i < 3; ++i) {
 			Set<AttributeModifier> set = mapByOperation.get(i);
 			set.remove(modifier);
@@ -132,7 +121,6 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
 	}
 
 	public void removeModifier(UUID p_188479_1_) {
-
 		AttributeModifier attributemodifier = getModifier(p_188479_1_);
 
 		if (attributemodifier != null) {
@@ -141,7 +129,6 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
 	}
 
 	public void removeAllModifiers() {
-
 		Collection<AttributeModifier> collection = getModifiers();
 
 		if (collection != null) {
@@ -152,7 +139,6 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
 	}
 
 	public double getAttributeValue() {
-
 		if (needsUpdate) {
 			cachedValue = computeValue();
 			needsUpdate = false;
@@ -162,7 +148,6 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
 	}
 
 	private double computeValue() {
-
 		double d0 = getBaseValue();
 
 		for (AttributeModifier attributemodifier : getAppliedModifiers(0)) {
@@ -183,7 +168,6 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
 	}
 
 	private Collection<AttributeModifier> getAppliedModifiers(int operation) {
-
 		Set<AttributeModifier> set = Sets.newHashSet(getModifiersByOperation(operation));
 
 		for (IAttribute iattribute = genericAttribute.getParent(); iattribute != null; iattribute = iattribute.getParent()) {

@@ -20,13 +20,11 @@ public class SetNBT extends LootFunction {
 	private final NBTTagCompound tag;
 
 	public SetNBT(LootCondition[] conditionsIn, NBTTagCompound tagIn) {
-
 		super(conditionsIn);
 		tag = tagIn;
 	}
 
 	public ItemStack apply(ItemStack stack, Random rand, LootContext context) {
-
 		NBTTagCompound nbttagcompound = stack.getTagCompound();
 
 		if (nbttagcompound == null) {
@@ -42,17 +40,14 @@ public class SetNBT extends LootFunction {
 	public static class Serializer extends LootFunction.Serializer<SetNBT> {
 
 		public Serializer() {
-
 			super(new ResourceLocation("set_nbt"), SetNBT.class);
 		}
 
 		public void serialize(JsonObject object, SetNBT functionClazz, JsonSerializationContext serializationContext) {
-
 			object.addProperty("tag", functionClazz.tag.toString());
 		}
 
 		public SetNBT deserialize(JsonObject object, JsonDeserializationContext deserializationContext, LootCondition[] conditionsIn) {
-
 			try {
 				NBTTagCompound nbttagcompound = JsonToNBT.getTagFromJson(JsonUtils.getString(object, "tag"));
 				return new SetNBT(conditionsIn, nbttagcompound);

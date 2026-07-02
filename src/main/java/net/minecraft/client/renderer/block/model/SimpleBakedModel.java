@@ -22,7 +22,6 @@ public class SimpleBakedModel implements IBakedModel {
 	protected final ItemOverrideList itemOverrideList;
 
 	public SimpleBakedModel(List<BakedQuad> generalQuadsIn, Map<Facing, List<BakedQuad>> faceQuadsIn, boolean ambientOcclusionIn, boolean gui3dIn, TextureAtlasSprite textureIn, ItemCameraTransforms cameraTransformsIn, ItemOverrideList itemOverrideListIn) {
-
 		generalQuads = generalQuadsIn;
 		faceQuads = faceQuadsIn;
 		ambientOcclusion = ambientOcclusionIn;
@@ -33,37 +32,30 @@ public class SimpleBakedModel implements IBakedModel {
 	}
 
 	public List<BakedQuad> getQuads(IBlockState state, Facing side, long rand) {
-
 		return side == null ? generalQuads : faceQuads.get(side);
 	}
 
 	public boolean isAmbientOcclusion() {
-
 		return ambientOcclusion;
 	}
 
 	public boolean isGui3d() {
-
 		return gui3d;
 	}
 
 	public boolean isBuiltInRenderer() {
-
 		return false;
 	}
 
 	public TextureAtlasSprite getParticleTexture() {
-
 		return texture;
 	}
 
 	public ItemCameraTransforms getItemCameraTransforms() {
-
 		return cameraTransforms;
 	}
 
 	public ItemOverrideList getOverrides() {
-
 		return itemOverrideList;
 	}
 
@@ -78,12 +70,10 @@ public class SimpleBakedModel implements IBakedModel {
 		private TextureAtlasSprite builderTexture;
 
 		public Builder(ModelBlock model, ItemOverrideList overrides) {
-
 			this(model.isAmbientOcclusion(), model.isGui3d(), model.getAllTransforms(), overrides);
 		}
 
 		public Builder(IBlockState state, IBakedModel model, TextureAtlasSprite texture, BlockPos pos) {
-
 			this(model.isAmbientOcclusion(), model.isGui3d(), model.getItemCameraTransforms(), model.getOverrides());
 			builderTexture = model.getParticleTexture();
 			long i = MathHelper.getPositionRandom(pos);
@@ -96,7 +86,6 @@ public class SimpleBakedModel implements IBakedModel {
 		}
 
 		private Builder(boolean ambientOcclusion, boolean gui3d, ItemCameraTransforms transforms, ItemOverrideList overrides) {
-
 			builderGeneralQuads = Lists.newArrayList();
 			builderFaceQuads = Maps.newEnumMap(Facing.class);
 
@@ -111,14 +100,12 @@ public class SimpleBakedModel implements IBakedModel {
 		}
 
 		private void addFaceQuads(IBlockState p_188644_1_, IBakedModel p_188644_2_, TextureAtlasSprite p_188644_3_, Facing p_188644_4_, long p_188644_5_) {
-
 			for (BakedQuad bakedquad : p_188644_2_.getQuads(p_188644_1_, p_188644_4_, p_188644_5_)) {
 				addFaceQuad(p_188644_4_, new BakedQuadRetextured(bakedquad, p_188644_3_));
 			}
 		}
 
 		private void addGeneralQuads(IBlockState p_188645_1_, IBakedModel p_188645_2_, TextureAtlasSprite p_188645_3_, long p_188645_4_) {
-
 			for (BakedQuad bakedquad : p_188645_2_.getQuads(p_188645_1_, null, p_188645_4_)) {
 				addGeneralQuad(new BakedQuadRetextured(bakedquad, p_188645_3_));
 			}
@@ -143,7 +130,6 @@ public class SimpleBakedModel implements IBakedModel {
 		}
 
 		public IBakedModel makeBakedModel() {
-
 			if (builderTexture == null) {
 				throw new RuntimeException("Missing particle!");
 			} else {

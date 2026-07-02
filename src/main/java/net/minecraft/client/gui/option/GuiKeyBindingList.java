@@ -17,7 +17,6 @@ public class GuiKeyBindingList extends GuiListExtended {
 	private int maxListLabelWidth;
 
 	public GuiKeyBindingList(ControlsScreen controls, Minecraft mcIn) {
-
 		super(mcIn, controls.width + 45, controls.height, 63, controls.height - 32, 20);
 		controlsScreen = controls;
 		mc = mcIn;
@@ -46,7 +45,6 @@ public class GuiKeyBindingList extends GuiListExtended {
 	}
 
 	protected int getSize() {
-
 		return listEntries.length;
 	}
 
@@ -59,7 +57,6 @@ public class GuiKeyBindingList extends GuiListExtended {
 	}
 
 	protected int getScrollBarX() {
-
 		return super.getScrollBarX() + 15;
 	}
 
@@ -67,7 +64,6 @@ public class GuiKeyBindingList extends GuiListExtended {
 	 * Gets the width of the list
 	 */
 	public int getListWidth() {
-
 		return super.getListWidth() + 32;
 	}
 
@@ -77,27 +73,22 @@ public class GuiKeyBindingList extends GuiListExtended {
 		private final int labelWidth;
 
 		public CategoryEntry(String name) {
-
 			labelText = I18n.format(name);
 			labelWidth = mc.fontRenderer.getStringWidth(labelText);
 		}
 
 		public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected, float partialTicks) {
-
 			mc.fontRenderer.drawString(labelText, mc.currentScreen.width / 2 - labelWidth / 2, y + slotHeight - mc.fontRenderer.FONT_HEIGHT - 1, 16777215);
 		}
 
 		public boolean mousePressed(int slotIndex, int mouseX, int mouseY, int mouseEvent, int relativeX, int relativeY) {
-
 			return false;
 		}
 
 		public void mouseReleased(int slotIndex, int x, int y, int mouseEvent, int relativeX, int relativeY) {
-
 		}
 
 		public void updatePosition(int slotIndex, int x, int y, float partialTicks) {
-
 		}
 
 	}
@@ -110,7 +101,6 @@ public class GuiKeyBindingList extends GuiListExtended {
 		private final Button btnReset;
 
 		private KeyEntry(KeyBinding name) {
-
 			keybinding = name;
 			keyDesc = I18n.format(name.getDescription());
 			btnChangeKeyBinding = new Button(0, 0, 0, 75, 20, I18n.format(name.getDescription()));
@@ -118,7 +108,6 @@ public class GuiKeyBindingList extends GuiListExtended {
 		}
 
 		public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected, float partialTicks) {
-
 			boolean flag = controlsScreen.buttonId == keybinding;
 			mc.fontRenderer.drawString(keyDesc, x + 90 - maxListLabelWidth, y + slotHeight / 2 - mc.fontRenderer.FONT_HEIGHT / 2, 16777215);
 			btnReset.x = x + 190;
@@ -149,7 +138,6 @@ public class GuiKeyBindingList extends GuiListExtended {
 		}
 
 		public boolean mousePressed(int slotIndex, int mouseX, int mouseY, int mouseEvent, int relativeX, int relativeY) {
-
 			if (btnChangeKeyBinding.mousePressed(mc, mouseX, mouseY)) {
 				controlsScreen.buttonId = keybinding;
 				return true;
@@ -163,13 +151,11 @@ public class GuiKeyBindingList extends GuiListExtended {
 		}
 
 		public void mouseReleased(int slotIndex, int x, int y, int mouseEvent, int relativeX, int relativeY) {
-
 			btnChangeKeyBinding.mouseReleased(x, y);
 			btnReset.mouseReleased(x, y);
 		}
 
 		public void updatePosition(int slotIndex, int x, int y, float partialTicks) {
-
 		}
 
 	}

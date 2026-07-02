@@ -29,7 +29,6 @@ public class VillageSiege {
 	private int spawnZ;
 
 	public VillageSiege(World worldIn) {
-
 		world = worldIn;
 	}
 
@@ -37,7 +36,6 @@ public class VillageSiege {
 	 * Runs a single tick for the village siege
 	 */
 	public void tick() {
-
 		if (world.isDaytime()) {
 			siegeState = 0;
 		} else if (siegeState != 2) {
@@ -82,7 +80,6 @@ public class VillageSiege {
 	}
 
 	private boolean trySetupSiege() {
-
 		List<EntityPlayer> list = world.playerEntities;
 		Iterator<EntityPlayer> iterator = list.iterator();
 
@@ -139,7 +136,6 @@ public class VillageSiege {
 	}
 
 	private boolean spawnZombie() {
-
 		Vec3d vec3d = findRandomSpawnPos(new BlockPos(spawnX, spawnY, spawnZ));
 
 		if (vec3d == null) {
@@ -165,7 +161,6 @@ public class VillageSiege {
 
 	
 	private Vec3d findRandomSpawnPos(BlockPos pos) {
-
 		for (int i = 0; i < 10; ++i) {
 			BlockPos blockpos = pos.add(world.rand.nextInt(16) - 8, world.rand.nextInt(6) - 3, world.rand.nextInt(16) - 8);
 

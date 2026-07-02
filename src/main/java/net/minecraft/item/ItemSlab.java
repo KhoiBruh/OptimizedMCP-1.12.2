@@ -22,7 +22,6 @@ public class ItemSlab extends ItemBlock {
 	private final BlockSlab doubleSlab;
 
 	public ItemSlab(Block block, BlockSlab singleSlab, BlockSlab doubleSlab) {
-
 		super(block);
 		this.singleSlab = singleSlab;
 		this.doubleSlab = doubleSlab;
@@ -35,7 +34,6 @@ public class ItemSlab extends ItemBlock {
 	 * placed as a Block (mostly used with ItemBlocks).
 	 */
 	public int getMetadata(int damage) {
-
 		return damage;
 	}
 
@@ -44,7 +42,6 @@ public class ItemSlab extends ItemBlock {
 	 * different names based on their damage or NBT.
 	 */
 	public String getUnlocalizedName(ItemStack stack) {
-
 		return singleSlab.getUnlocalizedName(stack.getMetadata());
 	}
 
@@ -52,7 +49,6 @@ public class ItemSlab extends ItemBlock {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (!itemstack.isEmpty() && player.canPlayerEdit(pos.offset(facing), facing, itemstack)) {
@@ -89,7 +85,6 @@ public class ItemSlab extends ItemBlock {
 	}
 
 	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Facing side, EntityPlayer player, ItemStack stack) {
-
 		BlockPos blockpos = pos;
 		IProperty<?> iproperty = singleSlab.getVariantProperty();
 		Comparable<?> comparable = singleSlab.getTypeForItem(stack);
@@ -109,7 +104,6 @@ public class ItemSlab extends ItemBlock {
 	}
 
 	private boolean tryPlace(EntityPlayer player, ItemStack stack, World worldIn, BlockPos pos, Object itemSlabType) {
-
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 
 		if (iblockstate.getBlock() == singleSlab) {

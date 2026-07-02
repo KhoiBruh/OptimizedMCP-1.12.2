@@ -33,7 +33,6 @@ public class BlockFlowerPot extends BlockContainer {
 	protected static final AxisAlignedBB FLOWER_POT_AABB = new AxisAlignedBB(0.3125D, 0D, 0.3125D, 0.6875D, 0.375D, 0.6875D);
 
 	public BlockFlowerPot() {
-
 		super(Material.CIRCUITS);
 		setDefaultState(blockState.getBaseState().withProperty(CONTENTS, BlockFlowerPot.FlowerType.EMPTY).withProperty(LEGACY_DATA, 0));
 	}
@@ -42,12 +41,10 @@ public class BlockFlowerPot extends BlockContainer {
 	 * Gets the localized name of this block. Used for the statistics page.
 	 */
 	public String getLocalizedName() {
-
 		return I18n.translateToLocal("item.flowerPot.name");
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return FLOWER_POT_AABB;
 	}
 
@@ -55,7 +52,6 @@ public class BlockFlowerPot extends BlockContainer {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -64,12 +60,10 @@ public class BlockFlowerPot extends BlockContainer {
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
 	public BlockRenderType getRenderType(IBlockState state) {
-
 		return BlockRenderType.MODEL;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -77,7 +71,6 @@ public class BlockFlowerPot extends BlockContainer {
 	 * Called when the block is right clicked by a player.
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		ItemStack itemstack = playerIn.getHeldItem(hand);
 		TileEntityFlowerPot tileentityflowerpot = getTileEntity(worldIn, pos);
 
@@ -114,7 +107,6 @@ public class BlockFlowerPot extends BlockContainer {
 	}
 
 	private boolean canBePotted(ItemStack stack) {
-
 		Block block = Block.getBlockFromItem(stack.getItem());
 
 		if (block != Blocks.YELLOW_FLOWER && block != Blocks.RED_FLOWER && block != Blocks.CACTUS && block != Blocks.BROWN_MUSHROOM && block != Blocks.RED_MUSHROOM && block != Blocks.SAPLING && block != Blocks.DEADBUSH) {
@@ -126,7 +118,6 @@ public class BlockFlowerPot extends BlockContainer {
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		TileEntityFlowerPot tileentityflowerpot = getTileEntity(worldIn, pos);
 
 		if (tileentityflowerpot != null) {
@@ -144,7 +135,6 @@ public class BlockFlowerPot extends BlockContainer {
 	 * Checks if this block can be placed exactly at the given position.
 	 */
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-
 		return super.canPlaceBlockAt(worldIn, pos) && worldIn.getBlockState(pos.down()).isTopSolid();
 	}
 
@@ -154,7 +144,6 @@ public class BlockFlowerPot extends BlockContainer {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (!worldIn.getBlockState(pos.down()).isTopSolid()) {
 			dropBlockAsItem(worldIn, pos, state, 0);
 			worldIn.setBlockToAir(pos);
@@ -165,7 +154,6 @@ public class BlockFlowerPot extends BlockContainer {
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		TileEntityFlowerPot tileentityflowerpot = getTileEntity(worldIn, pos);
 
 		if (tileentityflowerpot != null && tileentityflowerpot.getFlowerPotItem() != null) {
@@ -180,7 +168,6 @@ public class BlockFlowerPot extends BlockContainer {
 	 * collect this block
 	 */
 	public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
-
 		super.onBlockHarvested(worldIn, pos, state, player);
 
 		if (player.capabilities.isCreativeMode) {
@@ -196,13 +183,11 @@ public class BlockFlowerPot extends BlockContainer {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Items.FLOWER_POT;
 	}
 
 	
 	private TileEntityFlowerPot getTileEntity(World worldIn, BlockPos pos) {
-
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 		return tileentity instanceof TileEntityFlowerPot ? (TileEntityFlowerPot) tileentity : null;
 	}
@@ -211,7 +196,6 @@ public class BlockFlowerPot extends BlockContainer {
 	 * Returns a new instance of a block's tile entity class. Called on placing the block.
 	 */
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-
 		Block block = null;
 		int i = 0;
 
@@ -280,7 +264,6 @@ public class BlockFlowerPot extends BlockContainer {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, CONTENTS, LEGACY_DATA);
 	}
 
@@ -288,7 +271,6 @@ public class BlockFlowerPot extends BlockContainer {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(LEGACY_DATA);
 	}
 
@@ -297,7 +279,6 @@ public class BlockFlowerPot extends BlockContainer {
 	 * metadata, such as fence connections.
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		BlockFlowerPot.FlowerType blockflowerpot$enumflowertype = BlockFlowerPot.FlowerType.EMPTY;
 		TileEntity tileentity = worldIn instanceof ChunkCache ? ((ChunkCache) worldIn).getTileEntity(pos, Chunk.CreateEntityType.CHECK) : worldIn.getTileEntity(pos);
 
@@ -358,7 +339,6 @@ public class BlockFlowerPot extends BlockContainer {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.CUTOUT;
 	}
 
@@ -372,7 +352,6 @@ public class BlockFlowerPot extends BlockContainer {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 
@@ -403,17 +382,14 @@ public class BlockFlowerPot extends BlockContainer {
 		private final String name;
 
 		FlowerType(String name) {
-
 			this.name = name;
 		}
 
 		public String toString() {
-
 			return name;
 		}
 
 		public String getName() {
-
 			return name;
 		}
 	}

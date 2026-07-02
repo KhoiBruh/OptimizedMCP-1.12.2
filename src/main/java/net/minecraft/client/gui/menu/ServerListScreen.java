@@ -16,7 +16,6 @@ public class ServerListScreen extends Screen {
 	private GuiTextField ipEdit;
 
 	public ServerListScreen(Screen lastScreenIn, ServerData serverDataIn) {
-
 		lastScreen = lastScreenIn;
 		serverData = serverDataIn;
 	}
@@ -25,7 +24,6 @@ public class ServerListScreen extends Screen {
 	 * Called from the main game loop to update the screen.
 	 */
 	public void update() {
-
 		ipEdit.updateCursorCounter();
 	}
 
@@ -34,7 +32,6 @@ public class ServerListScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		Keyboard.setRepeat(true);
 		buttons.clear();
 		buttons.add(new Button(0, width / 2 - 100, height / 4 + 96 + 12, I18n.format("selectServer.select")));
@@ -50,7 +47,6 @@ public class ServerListScreen extends Screen {
 	 * Called when the screen is unloaded. Used to disable keyboard repeat events
 	 */
 	public void close() {
-
 		Keyboard.setRepeat(false);
 		mc.gameSettings.lastServer = ipEdit.getText();
 		mc.gameSettings.saveOptions();
@@ -60,7 +56,6 @@ public class ServerListScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.enabled) {
 			if (button.id == 1) {
 				lastScreen.confirmClicked(false, 0);
@@ -76,7 +71,6 @@ public class ServerListScreen extends Screen {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) {
-
 		if (ipEdit.textboxKeyTyped(typedChar, keyCode)) {
 			(buttons.getFirst()).enabled = !ipEdit.getText().isEmpty() && ipEdit.getText().split(":").length > 0;
 		} else if (keyCode == 257 || keyCode == 335) {
@@ -88,7 +82,6 @@ public class ServerListScreen extends Screen {
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
-
 		super.mouseClicked(mouseX, mouseY, mouse);
 		ipEdit.mouseClicked(mouseX, mouseY, mouse);
 	}
@@ -97,7 +90,6 @@ public class ServerListScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, I18n.format("selectServer.direct"), width / 2, 20, 16777215);
 		drawString(fontRenderer, I18n.format("addServer.enterIp"), width / 2 - 100, 100, 10526880);

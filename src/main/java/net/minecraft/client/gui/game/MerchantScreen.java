@@ -52,7 +52,6 @@ public class MerchantScreen extends ContainerScreen {
 	private int selectedMerchantRecipe;
 
 	public MerchantScreen(InventoryPlayer p_i45500_1_, IMerchant p_i45500_2_, World worldIn) {
-
 		super(new ContainerMerchant(p_i45500_1_, p_i45500_2_, worldIn));
 		merchant = p_i45500_2_;
 		chatComponent = p_i45500_2_.getDisplayName();
@@ -63,7 +62,6 @@ public class MerchantScreen extends ContainerScreen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		super.init();
 		int i = (width - xSize) / 2;
 		int j = (height - ySize) / 2;
@@ -77,7 +75,6 @@ public class MerchantScreen extends ContainerScreen {
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-
 		String s = chatComponent.getUnformattedText();
 		fontRenderer.drawString(s, xSize / 2 - fontRenderer.getStringWidth(s) / 2, 6, 4210752);
 		fontRenderer.drawString(I18n.format("container.inventory"), 8, ySize - 96 + 2, 4210752);
@@ -87,7 +84,6 @@ public class MerchantScreen extends ContainerScreen {
 	 * Called from the main game loop to update the screen.
 	 */
 	public void update() {
-
 		super.update();
 		MerchantRecipeList merchantrecipelist = merchant.getRecipes(mc.player);
 
@@ -101,7 +97,6 @@ public class MerchantScreen extends ContainerScreen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		boolean flag = false;
 
 		if (button == nextButton) {
@@ -135,7 +130,6 @@ public class MerchantScreen extends ContainerScreen {
 	 * Draws the background layer of this container (behind the items).
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-
 		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(MERCHANT_GUI_TEXTURE);
 		int i = (width - xSize) / 2;
@@ -166,7 +160,6 @@ public class MerchantScreen extends ContainerScreen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		super.draw(mouseX, mouseY, partialTicks);
 		MerchantRecipeList merchantrecipelist = merchant.getRecipes(mc.player);
@@ -219,7 +212,6 @@ public class MerchantScreen extends ContainerScreen {
 	}
 
 	public IMerchant getMerchant() {
-
 		return merchant;
 	}
 
@@ -228,13 +220,11 @@ public class MerchantScreen extends ContainerScreen {
 		private final boolean forward;
 
 		public MerchantButton(int buttonID, int x, int y, boolean p_i1095_4_) {
-
 			super(buttonID, x, y, 12, 19, "");
 			forward = p_i1095_4_;
 		}
 
 		public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
-
 			if (visible) {
 				mc.getTextureManager().bindTexture(MerchantScreen.MERCHANT_GUI_TEXTURE);
 				GLS.color(1F, 1F, 1F, 1F);

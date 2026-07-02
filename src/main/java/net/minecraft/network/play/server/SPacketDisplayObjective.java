@@ -11,11 +11,9 @@ public class SPacketDisplayObjective implements Packet<INetHandlerPlayClient> {
 	private String scoreName;
 
 	public SPacketDisplayObjective() {
-
 	}
 
 	public SPacketDisplayObjective(int positionIn, ScoreObjective objective) {
-
 		position = positionIn;
 
 		if (objective == null) {
@@ -29,7 +27,6 @@ public class SPacketDisplayObjective implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		position = buf.readByte();
 		scoreName = buf.readString(16);
 	}
@@ -38,7 +35,6 @@ public class SPacketDisplayObjective implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeByte(position);
 		buf.writeString(scoreName);
 	}
@@ -47,17 +43,14 @@ public class SPacketDisplayObjective implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleDisplayObjective(this);
 	}
 
 	public int getPosition() {
-
 		return position;
 	}
 
 	public String getName() {
-
 		return scoreName;
 	}
 

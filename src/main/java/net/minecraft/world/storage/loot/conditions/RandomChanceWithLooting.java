@@ -17,13 +17,11 @@ public class RandomChanceWithLooting implements LootCondition {
 	private final float lootingMultiplier;
 
 	public RandomChanceWithLooting(float chanceIn, float lootingMultiplierIn) {
-
 		chance = chanceIn;
 		lootingMultiplier = lootingMultiplierIn;
 	}
 
 	public boolean testCondition(Random rand, LootContext context) {
-
 		int i = 0;
 
 		if (context.getKiller() instanceof EntityLivingBase) {
@@ -36,18 +34,15 @@ public class RandomChanceWithLooting implements LootCondition {
 	public static class Serializer extends LootCondition.Serializer<RandomChanceWithLooting> {
 
 		protected Serializer() {
-
 			super(new ResourceLocation("random_chance_with_looting"), RandomChanceWithLooting.class);
 		}
 
 		public void serialize(JsonObject json, RandomChanceWithLooting value, JsonSerializationContext context) {
-
 			json.addProperty("chance", value.chance);
 			json.addProperty("looting_multiplier", value.lootingMultiplier);
 		}
 
 		public RandomChanceWithLooting deserialize(JsonObject json, JsonDeserializationContext context) {
-
 			return new RandomChanceWithLooting(JsonUtils.getFloat(json, "chance"), JsonUtils.getFloat(json, "looting_multiplier"));
 		}
 

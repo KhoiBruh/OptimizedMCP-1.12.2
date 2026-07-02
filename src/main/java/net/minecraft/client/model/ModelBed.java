@@ -7,7 +7,6 @@ public class ModelBed extends ModelBase {
 	public ModelRenderer[] legs = new ModelRenderer[4];
 
 	public ModelBed() {
-
 		textureWidth = 64;
 		textureHeight = 64;
 		headPiece = new ModelRenderer(this, 0, 0);
@@ -33,12 +32,10 @@ public class ModelBed extends ModelBase {
 	}
 
 	public int getModelVersion() {
-
 		return 51;
 	}
 
 	public void render() {
-
 		headPiece.render(0.0625F);
 		footPiece.render(0.0625F);
 		legs[0].render(0.0625F);
@@ -48,7 +45,6 @@ public class ModelBed extends ModelBase {
 	}
 
 	public void preparePiece(boolean p_193769_1_) {
-
 		headPiece.showModel = p_193769_1_;
 		footPiece.showModel = !p_193769_1_;
 		legs[0].showModel = !p_193769_1_;

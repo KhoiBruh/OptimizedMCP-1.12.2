@@ -6,7 +6,6 @@ import net.minecraft.world.biome.Biome;
 public class GenLayerAddMushroomIsland extends GenLayer {
 
 	public GenLayerAddMushroomIsland(long p_i2120_1_, GenLayer p_i2120_3_) {
-
 		super(p_i2120_1_);
 		parent = p_i2120_3_;
 	}
@@ -16,7 +15,6 @@ public class GenLayerAddMushroomIsland extends GenLayer {
 	 * amounts, or Biome ID's based on the particular GenLayer subclass.
 	 */
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
-
 		int i = areaX - 1;
 		int j = areaY - 1;
 		int k = areaWidth + 2;

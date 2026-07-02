@@ -14,7 +14,6 @@ public class EntityAIVillagerMate extends EntityAIBase {
 	private int matingTimeout;
 
 	public EntityAIVillagerMate(EntityVillager villagerIn) {
-
 		villager = villagerIn;
 		world = villagerIn.world;
 		setMutexBits(3);
@@ -24,7 +23,6 @@ public class EntityAIVillagerMate extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		if (villager.getGrowingAge() != 0) {
 			return false;
 		} else if (villager.getRNG().nextInt(500) != 0) {
@@ -53,7 +51,6 @@ public class EntityAIVillagerMate extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		matingTimeout = 300;
 		villager.setMating(true);
 	}
@@ -62,7 +59,6 @@ public class EntityAIVillagerMate extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		village = null;
 		mate = null;
 		villager.setMating(false);
@@ -72,7 +68,6 @@ public class EntityAIVillagerMate extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		return matingTimeout >= 0 && checkSufficientDoorsPresentForNewVillager() && villager.getGrowingAge() == 0 && villager.getIsWillingToMate(false);
 	}
 
@@ -80,7 +75,6 @@ public class EntityAIVillagerMate extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		--matingTimeout;
 		villager.getLookHelper().setLookPositionWithEntity(mate, 10F, 30F);
 
@@ -96,7 +90,6 @@ public class EntityAIVillagerMate extends EntityAIBase {
 	}
 
 	private boolean checkSufficientDoorsPresentForNewVillager() {
-
 		if (!village.isMatingSeason()) {
 			return false;
 		} else {
@@ -106,7 +99,6 @@ public class EntityAIVillagerMate extends EntityAIBase {
 	}
 
 	private void giveBirth() {
-
 		EntityVillager entityvillager = villager.createChild(mate);
 		mate.setGrowingAge(6000);
 		villager.setGrowingAge(6000);

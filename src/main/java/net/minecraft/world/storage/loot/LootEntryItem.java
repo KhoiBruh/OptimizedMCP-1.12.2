@@ -20,14 +20,12 @@ public class LootEntryItem extends LootEntry {
 	protected final LootFunction[] functions;
 
 	public LootEntryItem(Item itemIn, int weightIn, int qualityIn, LootFunction[] functionsIn, LootCondition[] conditionsIn) {
-
 		super(weightIn, qualityIn, conditionsIn);
 		item = itemIn;
 		functions = functionsIn;
 	}
 
 	public static LootEntryItem deserialize(JsonObject object, JsonDeserializationContext deserializationContext, int weightIn, int qualityIn, LootCondition[] conditionsIn) {
-
 		Item item = JsonUtils.getItem(object, "name");
 		LootFunction[] alootfunction;
 
@@ -41,7 +39,6 @@ public class LootEntryItem extends LootEntry {
 	}
 
 	public void addLoot(Collection<ItemStack> stacks, Random rand, LootContext context) {
-
 		ItemStack itemstack = new ItemStack(item);
 
 		for (LootFunction lootfunction : functions) {
@@ -67,7 +64,6 @@ public class LootEntryItem extends LootEntry {
 	}
 
 	protected void serialize(JsonObject json, JsonSerializationContext context) {
-
 		if (functions != null && functions.length > 0) {
 			json.add("functions", context.serialize(functions));
 		}

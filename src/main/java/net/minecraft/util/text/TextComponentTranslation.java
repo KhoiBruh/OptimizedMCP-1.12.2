@@ -24,7 +24,6 @@ public class TextComponentTranslation extends TextComponentBase {
 	private long lastTranslationUpdateTimeInMilliseconds = -1L;
 
 	public TextComponentTranslation(String translationKey, Object... args) {
-
 		key = translationKey;
 		formatArgs = args;
 
@@ -41,7 +40,6 @@ public class TextComponentTranslation extends TextComponentBase {
 	 * Ensures that all of the children are up to date with the most recent translation mapping.
 	 */
 	synchronized void ensureInitialized() {
-
 		synchronized (syncLock) {
 			long i = I18n.getLastTranslationUpdateTimeInMilliseconds();
 
@@ -70,7 +68,6 @@ public class TextComponentTranslation extends TextComponentBase {
 	 * Initializes the content of this component, substituting in variables.
 	 */
 	protected void initializeFromFormat(String format) {
-
 		boolean flag = false;
 		Matcher matcher = STRING_VARIABLE_PATTERN.matcher(format);
 		int i = 0;
@@ -121,7 +118,6 @@ public class TextComponentTranslation extends TextComponentBase {
 	}
 
 	private ITextComponent getFormatArgumentAsComponent(int index) {
-
 		if (index >= formatArgs.length) {
 			throw new TextComponentTranslationFormatException(this, index);
 		} else {
@@ -143,7 +139,6 @@ public class TextComponentTranslation extends TextComponentBase {
 	 * Sets the style of this component and updates the parent style of all of the sibling components.
 	 */
 	public ITextComponent setStyle(Style style) {
-
 		super.setStyle(style);
 
 		for (Object object : formatArgs) {
@@ -162,7 +157,6 @@ public class TextComponentTranslation extends TextComponentBase {
 	}
 
 	public Iterator<ITextComponent> iterator() {
-
 		ensureInitialized();
 		return Iterators.concat(createDeepCopyIterator(children), createDeepCopyIterator(siblings));
 	}
@@ -173,7 +167,6 @@ public class TextComponentTranslation extends TextComponentBase {
 	 * TextComponentTranslation} and it's the score value for a {@link TextComponentScore}.
 	 */
 	public String getUnformattedComponentText() {
-
 		ensureInitialized();
 		StringBuilder stringbuilder = new StringBuilder();
 
@@ -188,7 +181,6 @@ public class TextComponentTranslation extends TextComponentBase {
 	 * Creates a copy of this component.  Almost a deep copy, except the style is shallow-copied.
 	 */
 	public TextComponentTranslation createCopy() {
-
 		Object[] aobject = new Object[formatArgs.length];
 
 		for (int i = 0; i < formatArgs.length; ++i) {
@@ -210,7 +202,6 @@ public class TextComponentTranslation extends TextComponentBase {
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else if (!(p_equals_1_ instanceof TextComponentTranslation textcomponenttranslation)) {
@@ -221,7 +212,6 @@ public class TextComponentTranslation extends TextComponentBase {
 	}
 
 	public int hashCode() {
-
 		int i = super.hashCode();
 		i = 31 * i + key.hashCode();
 		i = 31 * i + Arrays.hashCode(formatArgs);
@@ -229,7 +219,6 @@ public class TextComponentTranslation extends TextComponentBase {
 	}
 
 	public String toString() {
-
 		return "TranslatableComponent{key='" + key + '\'' + ", args=" + Arrays.toString(formatArgs) + ", siblings=" + siblings + ", style=" + getStyle() + '}';
 	}
 
@@ -237,7 +226,6 @@ public class TextComponentTranslation extends TextComponentBase {
 	 * Gets the key used to translate this component.
 	 */
 	public String getKey() {
-
 		return key;
 	}
 
@@ -245,7 +233,6 @@ public class TextComponentTranslation extends TextComponentBase {
 	 * Gets the object array that is used to translate the key.
 	 */
 	public Object[] getFormatArgs() {
-
 		return formatArgs;
 	}
 

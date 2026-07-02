@@ -13,7 +13,6 @@ public class IntCache {
 	private static int intCacheSize = 256;
 
 	public static synchronized int[] getIntCache(int size) {
-
 		if (size <= 256) {
 			if (freeSmallArrays.isEmpty()) {
 				int[] aint4 = new int[256];
@@ -46,7 +45,6 @@ public class IntCache {
 	 * Mark all pre-allocated arrays as available for re-use by moving them to the appropriate free lists.
 	 */
 	public static synchronized void resetIntCache() {
-
 		if (!freeLargeArrays.isEmpty()) {
 			freeLargeArrays.removeLast();
 		}
@@ -66,7 +64,6 @@ public class IntCache {
 	 * toString.
 	 */
 	public static synchronized String getCacheSizes() {
-
 		return "cache: " + freeLargeArrays.size() + ", tcache: " + freeSmallArrays.size() + ", allocated: " + inUseLargeArrays.size() + ", tallocated: " + inUseSmallArrays.size();
 	}
 

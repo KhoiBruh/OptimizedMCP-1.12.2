@@ -9,7 +9,6 @@ public class WeightedRandom {
 	 * Returns the total weight of all items in a collection.
 	 */
 	public static int getTotalWeight(List<? extends WeightedRandom.Item> collection) {
-
 		int i = 0;
 		int j = 0;
 
@@ -57,7 +56,6 @@ public class WeightedRandom {
 		protected int itemWeight;
 
 		public Item(int itemWeightIn) {
-
 			itemWeight = itemWeightIn;
 		}
 

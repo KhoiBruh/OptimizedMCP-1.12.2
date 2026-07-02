@@ -16,12 +16,10 @@ public class WorldGenSavannaTree extends WorldGenAbstractTree {
 	private static final IBlockState LEAF = Blocks.LEAVES2.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.Type.ACACIA).withProperty(BlockLeaves.CHECK_DECAY, false);
 
 	public WorldGenSavannaTree(boolean doBlockNotify) {
-
 		super(doBlockNotify);
 	}
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		int i = rand.nextInt(3) + rand.nextInt(3) + 5;
 		boolean flag = true;
 
@@ -164,12 +162,10 @@ public class WorldGenSavannaTree extends WorldGenAbstractTree {
 	}
 
 	private void placeLogAt(World worldIn, BlockPos pos) {
-
 		setBlockAndNotifyAdequately(worldIn, pos, TRUNK);
 	}
 
 	private void placeLeafAt(World worldIn, BlockPos pos) {
-
 		Material material = worldIn.getBlockState(pos).getMaterial();
 
 		if (material == Material.AIR || material == Material.LEAVES) {

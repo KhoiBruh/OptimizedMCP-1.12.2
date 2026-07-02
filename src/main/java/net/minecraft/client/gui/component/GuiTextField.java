@@ -70,7 +70,6 @@ public class GuiTextField extends Gui {
 	private Predicate<String> validator = Predicates.alwaysTrue();
 
 	public GuiTextField(int componentId, FontRenderer fontrendererObj, int x, int y, int par5Width, int par6Height) {
-
 		id = componentId;
 		fontRenderer = fontrendererObj;
 		this.x = x;
@@ -83,7 +82,6 @@ public class GuiTextField extends Gui {
 	 * Sets the GuiResponder associated with this text box.
 	 */
 	public void setGuiResponder(GuiPageButtonList.GuiResponder guiResponderIn) {
-
 		guiResponder = guiResponderIn;
 	}
 
@@ -91,7 +89,6 @@ public class GuiTextField extends Gui {
 	 * Increments the cursor counter
 	 */
 	public void updateCursorCounter() {
-
 		++cursorCounter;
 	}
 
@@ -99,7 +96,6 @@ public class GuiTextField extends Gui {
 	 * Returns the contents of the textbox
 	 */
 	public String getText() {
-
 		return text;
 	}
 
@@ -107,7 +103,6 @@ public class GuiTextField extends Gui {
 	 * Sets the text of the textbox, and moves the cursor to the end.
 	 */
 	public void setText(String textIn) {
-
 		if (validator.apply(textIn)) {
 			if (textIn.length() > maxStringLength) {
 				text = textIn.substring(0, maxStringLength);
@@ -123,14 +118,12 @@ public class GuiTextField extends Gui {
 	 * returns the text between the cursor and selectionEnd
 	 */
 	public String getSelectedText() {
-
 		int i = Math.min(cursorPosition, selectionEnd);
 		int j = Math.max(cursorPosition, selectionEnd);
 		return text.substring(i, j);
 	}
 
 	public void setValidator(Predicate<String> theValidator) {
-
 		validator = theValidator;
 	}
 
@@ -138,7 +131,6 @@ public class GuiTextField extends Gui {
 	 * Adds the given text after the cursor, or replaces the currently selected text if there is a selection.
 	 */
 	public void writeText(String textToWrite) {
-
 		String s = "";
 		String s1 = ChatAllowedCharacters.filterAllowedCharacters(textToWrite);
 		int i = Math.min(cursorPosition, selectionEnd);
@@ -174,7 +166,6 @@ public class GuiTextField extends Gui {
 	 * Notifies this text box's {@linkplain GuiPageButtonList.GuiResponder responder} that the text has changed.
 	 */
 	public void setResponderEntryValue(int idIn, String textIn) {
-
 		if (guiResponder != null) {
 			guiResponder.setEntryValue(idIn, textIn);
 		}
@@ -185,7 +176,6 @@ public class GuiTextField extends Gui {
 	 * which case the selection is deleted instead.
 	 */
 	public void deleteWords(int num) {
-
 		if (!text.isEmpty()) {
 			if (selectionEnd != cursorPosition) {
 				writeText("");
@@ -200,7 +190,6 @@ public class GuiTextField extends Gui {
 	 * in which case the selection is deleted instead.
 	 */
 	public void deleteFromCursor(int num) {
-
 		if (!text.isEmpty()) {
 			if (selectionEnd != cursorPosition) {
 				writeText("");
@@ -232,7 +221,6 @@ public class GuiTextField extends Gui {
 	}
 
 	public int getId() {
-
 		return id;
 	}
 
@@ -240,7 +228,6 @@ public class GuiTextField extends Gui {
 	 * Gets the starting index of the word at the specified number of words away from the cursor position.
 	 */
 	public int getNthWordFromCursor(int numWords) {
-
 		return getNthWordFromPos(numWords, getCursorPosition());
 	}
 
@@ -248,7 +235,6 @@ public class GuiTextField extends Gui {
 	 * Gets the starting index of the word at a distance of the specified number of words away from the given position.
 	 */
 	public int getNthWordFromPos(int n, int pos) {
-
 		return getNthWordFromPosWS(n, pos, true);
 	}
 
@@ -256,7 +242,6 @@ public class GuiTextField extends Gui {
 	 * Like getNthWordFromPos (which wraps this), but adds option for skipping consecutive spaces
 	 */
 	public int getNthWordFromPosWS(int n, int pos, boolean skipWs) {
-
 		int i = pos;
 		boolean flag = n < 0;
 		int j = Math.abs(n);
@@ -291,7 +276,6 @@ public class GuiTextField extends Gui {
 	 * Moves the text cursor by a specified number of characters and clears the selection
 	 */
 	public void moveCursorBy(int num) {
-
 		setCursorPosition(selectionEnd + num);
 	}
 
@@ -299,7 +283,6 @@ public class GuiTextField extends Gui {
 	 * Moves the cursor to the very start of this text box.
 	 */
 	public void setCursorPositionZero() {
-
 		setCursorPosition(0);
 	}
 
@@ -307,7 +290,6 @@ public class GuiTextField extends Gui {
 	 * Moves the cursor to the very end of this text box.
 	 */
 	public void setCursorPositionEnd() {
-
 		setCursorPosition(text.length());
 	}
 
@@ -315,7 +297,6 @@ public class GuiTextField extends Gui {
 	 * Call this method from your GuiScreen to process the keys into the textbox
 	 */
 	public boolean textboxKeyTyped(char typedChar, int keyCode) {
-
 		if (!isFocused) {
 			return false;
 		} else if (Screen.isCtrlA(keyCode)) {
@@ -435,7 +416,6 @@ public class GuiTextField extends Gui {
 	 * Called when mouse is clicked, regardless as to whether it is over this button or not.
 	 */
 	public boolean mouseClicked(int mouseX, int mouseY, int mouseButton) {
-
 		boolean flag = mouseX >= x && mouseX < x + width && mouseY >= y && mouseY < y + height;
 
 		if (canLoseFocus) {
@@ -461,7 +441,6 @@ public class GuiTextField extends Gui {
 	 * Draws the textbox
 	 */
 	public void drawTextBox() {
-
 		if (getVisible()) {
 			if (getEnableBackgroundDrawing()) {
 				drawRect(x - 1, y - 1, x + width + 1, y + height + 1, -6250336);
@@ -520,7 +499,6 @@ public class GuiTextField extends Gui {
 	 * Draws the blue selection box.
 	 */
 	private void drawSelectionBox(int startX, int startY, int endX, int endY) {
-
 		if (startX < endX) {
 			int i = startX;
 			startX = endX;
@@ -561,7 +539,6 @@ public class GuiTextField extends Gui {
 	 * returns the maximum number of character that can be contained in this textbox
 	 */
 	public int getMaxStringLength() {
-
 		return maxStringLength;
 	}
 
@@ -570,7 +547,6 @@ public class GuiTextField extends Gui {
 	 * current text will be trimmed.
 	 */
 	public void setMaxStringLength(int length) {
-
 		maxStringLength = length;
 
 		if (text.length() > length) {
@@ -582,7 +558,6 @@ public class GuiTextField extends Gui {
 	 * returns the current position of the cursor
 	 */
 	public int getCursorPosition() {
-
 		return cursorPosition;
 	}
 
@@ -590,7 +565,6 @@ public class GuiTextField extends Gui {
 	 * Sets the current position of the cursor.
 	 */
 	public void setCursorPosition(int pos) {
-
 		cursorPosition = pos;
 		int i = text.length();
 		cursorPosition = MathHelper.clamp(cursorPosition, 0, i);
@@ -601,7 +575,6 @@ public class GuiTextField extends Gui {
 	 * Gets whether the background and outline of this text box should be drawn (true if so).
 	 */
 	public boolean getEnableBackgroundDrawing() {
-
 		return enableBackgroundDrawing;
 	}
 
@@ -609,7 +582,6 @@ public class GuiTextField extends Gui {
 	 * Sets whether or not the background and outline of this text box should be drawn.
 	 */
 	public void setEnableBackgroundDrawing(boolean enableBackgroundDrawingIn) {
-
 		enableBackgroundDrawing = enableBackgroundDrawingIn;
 	}
 
@@ -617,7 +589,6 @@ public class GuiTextField extends Gui {
 	 * Sets the color to use when drawing this text box's text. A different color is used if this text box is disabled.
 	 */
 	public void setTextColor(int color) {
-
 		enabledColor = color;
 	}
 
@@ -625,7 +596,6 @@ public class GuiTextField extends Gui {
 	 * Sets the color to use for text in this text box when this text box is disabled.
 	 */
 	public void setDisabledTextColour(int color) {
-
 		disabledColor = color;
 	}
 
@@ -633,7 +603,6 @@ public class GuiTextField extends Gui {
 	 * Getter for the focused field
 	 */
 	public boolean isFocused() {
-
 		return isFocused;
 	}
 
@@ -641,7 +610,6 @@ public class GuiTextField extends Gui {
 	 * Sets focus to this gui element
 	 */
 	public void setFocused(boolean isFocusedIn) {
-
 		if (isFocusedIn && !isFocused) {
 			cursorCounter = 0;
 		}
@@ -657,7 +625,6 @@ public class GuiTextField extends Gui {
 	 * Sets whether this text box is enabled. Disabled text boxes cannot be typed in.
 	 */
 	public void setEnabled(boolean enabled) {
-
 		isEnabled = enabled;
 	}
 
@@ -665,7 +632,6 @@ public class GuiTextField extends Gui {
 	 * the side of the selection that is not the cursor, may be the same as the cursor
 	 */
 	public int getSelectionEnd() {
-
 		return selectionEnd;
 	}
 
@@ -673,7 +639,6 @@ public class GuiTextField extends Gui {
 	 * returns the width of the textbox depending on if background drawing is enabled
 	 */
 	public int getWidth() {
-
 		return getEnableBackgroundDrawing() ? width - 8 : width;
 	}
 
@@ -682,7 +647,6 @@ public class GuiTextField extends Gui {
 	 * selection). If the anchor is set beyond the bounds of the current text, it will be put back inside.
 	 */
 	public void setSelectionPos(int position) {
-
 		int i = text.length();
 
 		if (position > i) {
@@ -722,7 +686,6 @@ public class GuiTextField extends Gui {
 	 * Sets whether this text box loses focus when something other than it is clicked.
 	 */
 	public void setCanLoseFocus(boolean canLoseFocusIn) {
-
 		canLoseFocus = canLoseFocusIn;
 	}
 
@@ -730,7 +693,6 @@ public class GuiTextField extends Gui {
 	 * returns true if this textbox is visible
 	 */
 	public boolean getVisible() {
-
 		return visible;
 	}
 
@@ -738,7 +700,6 @@ public class GuiTextField extends Gui {
 	 * Sets whether or not this textbox is visible
 	 */
 	public void setVisible(boolean isVisible) {
-
 		visible = isVisible;
 	}
 

@@ -21,14 +21,12 @@ public class ShaderLoader {
 	private int shaderAttachCount;
 
 	private ShaderLoader(ShaderLoader.ShaderType type, int shaderId, String filename) {
-
 		shaderType = type;
 		shader = shaderId;
 		shaderFilename = filename;
 	}
 
 	public static ShaderLoader loadShader(IResourceManager resourceManager, ShaderLoader.ShaderType type, String filename) throws IOException {
-
 		ShaderLoader shaderloader = type.getLoadedShaders().get(filename);
 
 		if (shaderloader == null) {
@@ -61,13 +59,11 @@ public class ShaderLoader {
 	}
 
 	public void attachShader(ShaderManager manager) {
-
 		++shaderAttachCount;
 		OpenGlHelper.glAttachShader(manager.getProgram(), shader);
 	}
 
 	public void deleteShader(ShaderManager manager) {
-
 		--shaderAttachCount;
 
 		if (shaderAttachCount <= 0) {
@@ -77,7 +73,6 @@ public class ShaderLoader {
 	}
 
 	public String getShaderFilename() {
-
 		return shaderFilename;
 	}
 
@@ -91,24 +86,20 @@ public class ShaderLoader {
 		private final Map<String, ShaderLoader> loadedShaders = Maps.newHashMap();
 
 		ShaderType(String shaderNameIn, String shaderExtensionIn, int shaderModeIn) {
-
 			shaderName = shaderNameIn;
 			shaderExtension = shaderExtensionIn;
 			shaderMode = shaderModeIn;
 		}
 
 		public String getShaderName() {
-
 			return shaderName;
 		}
 
 		private String getShaderExtension() {
-
 			return shaderExtension;
 		}
 
 		private int getShaderMode() {
-
 			return shaderMode;
 		}
 

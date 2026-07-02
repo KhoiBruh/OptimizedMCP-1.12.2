@@ -15,11 +15,9 @@ public class SPacketMultiBlockChange implements Packet<INetHandlerPlayClient> {
 	private SPacketMultiBlockChange.BlockUpdateData[] changedBlocks;
 
 	public SPacketMultiBlockChange() {
-
 	}
 
 	public SPacketMultiBlockChange(int p_i46959_1_, short[] p_i46959_2_, Chunk p_i46959_3_) {
-
 		chunkPos = new ChunkPos(p_i46959_3_.x, p_i46959_3_.z);
 		changedBlocks = new SPacketMultiBlockChange.BlockUpdateData[p_i46959_1_];
 
@@ -32,7 +30,6 @@ public class SPacketMultiBlockChange implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		chunkPos = new ChunkPos(buf.readInt(), buf.readInt());
 		changedBlocks = new SPacketMultiBlockChange.BlockUpdateData[buf.readVarInt()];
 
@@ -45,7 +42,6 @@ public class SPacketMultiBlockChange implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeInt(chunkPos.x);
 		buf.writeInt(chunkPos.z);
 		buf.writeVarInt(changedBlocks.length);
@@ -60,7 +56,6 @@ public class SPacketMultiBlockChange implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleMultiBlockChange(this);
 	}
 
@@ -75,29 +70,24 @@ public class SPacketMultiBlockChange implements Packet<INetHandlerPlayClient> {
 		private final IBlockState blockState;
 
 		public BlockUpdateData(short p_i46544_2_, IBlockState p_i46544_3_) {
-
 			offset = p_i46544_2_;
 			blockState = p_i46544_3_;
 		}
 
 		public BlockUpdateData(short p_i46545_2_, Chunk p_i46545_3_) {
-
 			offset = p_i46545_2_;
 			blockState = p_i46545_3_.getBlockState(getPos());
 		}
 
 		public BlockPos getPos() {
-
 			return new BlockPos(chunkPos.getBlock(offset >> 12 & 15, offset & 255, offset >> 8 & 15));
 		}
 
 		public short getOffset() {
-
 			return offset;
 		}
 
 		public IBlockState getBlockState() {
-
 			return blockState;
 		}
 

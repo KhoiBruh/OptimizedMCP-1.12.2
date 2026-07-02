@@ -20,7 +20,6 @@ public class CommandHelp extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "help";
 	}
 
@@ -28,7 +27,6 @@ public class CommandHelp extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 0;
 	}
 
@@ -36,12 +34,10 @@ public class CommandHelp extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.help.usage";
 	}
 
 	public List<String> getAliases() {
-
 		return List.of("?");
 	}
 
@@ -49,7 +45,6 @@ public class CommandHelp extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		if (sender instanceof CommandBlockBaseLogic) {
 			sender.sendMessage((new TextComponentString("Searge says: ")).appendText(SEARGE_SAYS[rand.nextInt(SEARGE_SAYS.length) % SEARGE_SAYS.length]));
 		} else {
@@ -96,7 +91,6 @@ public class CommandHelp extends CommandBase {
 	}
 
 	protected List<ICommand> getSortedPossibleCommands(ICommandSender sender, MinecraftServer server) {
-
 		List<ICommand> list = server.getCommandManager().getPossibleCommands(sender);
 		Collections.sort(list);
 		return list;
@@ -108,7 +102,6 @@ public class CommandHelp extends CommandBase {
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		if (args.length == 1) {
 			Set<String> set = getCommandMap(server).keySet();
 			return getListOfStringsMatchingLastWord(args, set.toArray(new String[0]));

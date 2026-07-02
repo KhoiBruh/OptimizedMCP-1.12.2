@@ -20,7 +20,6 @@ public class TileEntityDispenser extends TileEntityLockableLoot {
 	private NonNullList<ItemStack> stacks = NonNullList.withSize(9, ItemStack.EMPTY);
 
 	public static void registerFixes(DataFixer fixer) {
-
 		fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityDispenser.class, "Items"));
 	}
 
@@ -28,12 +27,10 @@ public class TileEntityDispenser extends TileEntityLockableLoot {
 	 * Returns the number of slots in the inventory.
 	 */
 	public int getSizeInventory() {
-
 		return 9;
 	}
 
 	public boolean isEmpty() {
-
 		for (ItemStack itemstack : stacks) {
 			if (!itemstack.isEmpty()) {
 				return false;
@@ -44,7 +41,6 @@ public class TileEntityDispenser extends TileEntityLockableLoot {
 	}
 
 	public int getDispenseSlot() {
-
 		fillWithLoot(null);
 		int i = -1;
 		int j = 1;
@@ -63,7 +59,6 @@ public class TileEntityDispenser extends TileEntityLockableLoot {
 	 * available.
 	 */
 	public int addItemStack(ItemStack stack) {
-
 		for (int i = 0; i < stacks.size(); ++i) {
 			if (stacks.get(i).isEmpty()) {
 				setInventorySlotContents(i, stack);
@@ -78,12 +73,10 @@ public class TileEntityDispenser extends TileEntityLockableLoot {
 	 * Get the name of this object. For players this returns their username
 	 */
 	public String getName() {
-
 		return hasCustomName() ? customName : "container.dispenser";
 	}
 
 	public void readFromNBT(NBTTagCompound compound) {
-
 		super.readFromNBT(compound);
 		stacks = NonNullList.withSize(getSizeInventory(), ItemStack.EMPTY);
 
@@ -97,7 +90,6 @@ public class TileEntityDispenser extends TileEntityLockableLoot {
 	}
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
 		super.writeToNBT(compound);
 
 		if (!checkLootAndWrite(compound)) {
@@ -115,23 +107,19 @@ public class TileEntityDispenser extends TileEntityLockableLoot {
 	 * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended.
 	 */
 	public int getInventoryStackLimit() {
-
 		return 64;
 	}
 
 	public String guiID() {
-
 		return "minecraft:dispenser";
 	}
 
 	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-
 		fillWithLoot(playerIn);
 		return new ContainerDispenser(playerInventory, this);
 	}
 
 	protected NonNullList<ItemStack> getItems() {
-
 		return stacks;
 	}
 

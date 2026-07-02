@@ -26,7 +26,6 @@ import java.util.Random;
 public class ComponentScatteredFeaturePieces {
 
 	public static void registerScatteredFeaturePieces() {
-
 		MapGenStructureIO.registerStructureComponent(ComponentScatteredFeaturePieces.DesertPyramid.class, "TeDP");
 		MapGenStructureIO.registerStructureComponent(ComponentScatteredFeaturePieces.JunglePyramid.class, "TeJP");
 		MapGenStructureIO.registerStructureComponent(ComponentScatteredFeaturePieces.SwampHut.class, "TeSH");
@@ -38,16 +37,13 @@ public class ComponentScatteredFeaturePieces {
 		private final boolean[] hasPlacedChest = new boolean[4];
 
 		public DesertPyramid() {
-
 		}
 
 		public DesertPyramid(Random p_i2062_1_, int p_i2062_2_, int p_i2062_3_) {
-
 			super(p_i2062_1_, p_i2062_2_, 64, p_i2062_3_, 21, 15, 21);
 		}
 
 		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
 			super.writeStructureToNBT(tagCompound);
 			tagCompound.setBoolean("hasPlacedChest0", hasPlacedChest[0]);
 			tagCompound.setBoolean("hasPlacedChest1", hasPlacedChest[1]);
@@ -56,7 +52,6 @@ public class ComponentScatteredFeaturePieces {
 		}
 
 		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
 			super.readStructureFromNBT(tagCompound, p_143011_2_);
 			hasPlacedChest[0] = tagCompound.getBoolean("hasPlacedChest0");
 			hasPlacedChest[1] = tagCompound.getBoolean("hasPlacedChest1");
@@ -65,7 +60,6 @@ public class ComponentScatteredFeaturePieces {
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, -4, 0, width - 1, 0, depth - 1, Blocks.SANDSTONE.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), false);
 
 			for (int i = 1; i <= 9; ++i) {
@@ -268,11 +262,9 @@ public class ComponentScatteredFeaturePieces {
 		protected int horizontalPos = -1;
 
 		public Feature() {
-
 		}
 
 		protected Feature(Random rand, int x, int y, int z, int sizeX, int sizeY, int sizeZ) {
-
 			super(0);
 			width = sizeX;
 			height = sizeY;
@@ -287,7 +279,6 @@ public class ComponentScatteredFeaturePieces {
 		}
 
 		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
 			tagCompound.setInteger("Width", width);
 			tagCompound.setInteger("Height", height);
 			tagCompound.setInteger("Depth", depth);
@@ -295,7 +286,6 @@ public class ComponentScatteredFeaturePieces {
 		}
 
 		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
 			width = tagCompound.getInteger("Width");
 			height = tagCompound.getInteger("Height");
 			depth = tagCompound.getInteger("Depth");
@@ -303,7 +293,6 @@ public class ComponentScatteredFeaturePieces {
 		}
 
 		protected boolean offsetToAverageGroundLevel(World worldIn, StructureBoundingBox structurebb, int yOffset) {
-
 			if (horizontalPos >= 0) {
 				return true;
 			} else {
@@ -341,16 +330,13 @@ public class ComponentScatteredFeaturePieces {
 		private static final ResourceLocation IGLOO_BOTTOM_ID = new ResourceLocation("igloo/igloo_bottom");
 
 		public Igloo() {
-
 		}
 
 		public Igloo(Random rand, int x, int z) {
-
 			super(rand, x, 64, z, 7, 5, 8);
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			if (!offsetToAverageGroundLevel(worldIn, structureBoundingBoxIn, -1)) {
 				return false;
 			} else {
@@ -408,16 +394,13 @@ public class ComponentScatteredFeaturePieces {
 		private boolean placedTrap2;
 
 		public JunglePyramid() {
-
 		}
 
 		public JunglePyramid(Random rand, int x, int z) {
-
 			super(rand, x, 64, z, 12, 10, 15);
 		}
 
 		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
 			super.writeStructureToNBT(tagCompound);
 			tagCompound.setBoolean("placedMainChest", placedMainChest);
 			tagCompound.setBoolean("placedHiddenChest", placedHiddenChest);
@@ -426,7 +409,6 @@ public class ComponentScatteredFeaturePieces {
 		}
 
 		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
 			super.readStructureFromNBT(tagCompound, p_143011_2_);
 			placedMainChest = tagCompound.getBoolean("placedMainChest");
 			placedHiddenChest = tagCompound.getBoolean("placedHiddenChest");
@@ -435,7 +417,6 @@ public class ComponentScatteredFeaturePieces {
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			if (!offsetToAverageGroundLevel(worldIn, structureBoundingBoxIn, 0)) {
 				return false;
 			} else {
@@ -621,11 +602,9 @@ public class ComponentScatteredFeaturePieces {
 		static class Stones extends StructureComponent.BlockSelector {
 
 			private Stones() {
-
 			}
 
 			public void selectBlocks(Random rand, int x, int y, int z, boolean wall) {
-
 				if (rand.nextFloat() < 0.4F) {
 					blockstate = Blocks.COBBLESTONE.getDefaultState();
 				} else {
@@ -642,28 +621,23 @@ public class ComponentScatteredFeaturePieces {
 		private boolean hasWitch;
 
 		public SwampHut() {
-
 		}
 
 		public SwampHut(Random p_i2066_1_, int p_i2066_2_, int p_i2066_3_) {
-
 			super(p_i2066_1_, p_i2066_2_, 64, p_i2066_3_, 7, 7, 9);
 		}
 
 		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
 			super.writeStructureToNBT(tagCompound);
 			tagCompound.setBoolean("Witch", hasWitch);
 		}
 
 		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
 			super.readStructureFromNBT(tagCompound, p_143011_2_);
 			hasWitch = tagCompound.getBoolean("Witch");
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			if (!offsetToAverageGroundLevel(worldIn, structureBoundingBoxIn, 0)) {
 				return false;
 			} else {

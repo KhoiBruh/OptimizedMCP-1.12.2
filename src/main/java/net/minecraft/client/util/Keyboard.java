@@ -248,7 +248,6 @@ public final class Keyboard {
 	}
 	
 	private record KeyEvent(int key, char character, boolean state, boolean repeat) {
-	
 	}
 	
 }

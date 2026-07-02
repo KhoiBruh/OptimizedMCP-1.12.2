@@ -197,23 +197,19 @@ public enum ConnectionState {
 	private final Map<PacketDirection, BiMap<Integer, Class<? extends Packet<?>>>> directionMaps;
 
 	ConnectionState(int protocolId) {
-
 		directionMaps = Maps.newEnumMap(PacketDirection.class);
 		id = protocolId;
 	}
 
 	public static ConnectionState getById(int stateId) {
-
 		return stateId >= -1 && stateId <= 2 ? STATES_BY_ID[stateId + 1] : null;
 	}
 
 	public static ConnectionState getFromPacket(Packet<?> packetIn) {
-
 		return STATES_BY_CLASS.get(packetIn.getClass());
 	}
 
 	protected ConnectionState registerPacket(PacketDirection direction, Class<? extends Packet<?>> packetClass) {
-
 		BiMap<Integer, Class<? extends Packet<?>>> bimap = directionMaps.computeIfAbsent(direction, k -> HashBiMap.create());
 
 		if (bimap.containsValue(packetClass)) {
@@ -238,7 +234,6 @@ public enum ConnectionState {
 	}
 
 	public int getId() {
-
 		return id;
 	}
 }

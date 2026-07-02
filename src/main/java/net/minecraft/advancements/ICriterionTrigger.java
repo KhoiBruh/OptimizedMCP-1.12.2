@@ -26,24 +26,20 @@ public interface ICriterionTrigger<T extends ICriterionInstance> {
 		private final String criterionName;
 
 		public Listener(T criterionInstanceIn, Advancement advancementIn, String criterionNameIn) {
-
 			criterionInstance = criterionInstanceIn;
 			advancement = advancementIn;
 			criterionName = criterionNameIn;
 		}
 
 		public T getCriterionInstance() {
-
 			return criterionInstance;
 		}
 
 		public void grantCriterion(PlayerAdvancements playerAdvancementsIn) {
-
 			playerAdvancementsIn.grantCriterion(advancement, criterionName);
 		}
 
 		public boolean equals(Object p_equals_1_) {
-
 			if (this == p_equals_1_) {
 				return true;
 			} else if (p_equals_1_ != null && getClass() == p_equals_1_.getClass()) {
@@ -60,7 +56,6 @@ public interface ICriterionTrigger<T extends ICriterionInstance> {
 		}
 
 		public int hashCode() {
-
 			int i = criterionInstance.hashCode();
 			i = 31 * i + advancement.hashCode();
 			i = 31 * i + criterionName.hashCode();

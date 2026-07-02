@@ -18,25 +18,21 @@ public class ItemFishFood extends ItemFood {
 	private final boolean cooked;
 
 	public ItemFishFood(boolean cooked) {
-
 		super(0, 0F, false);
 		this.cooked = cooked;
 	}
 
 	public int getHealAmount(ItemStack stack) {
-
 		ItemFishFood.FishType itemfishfood$fishtype = ItemFishFood.FishType.byItemStack(stack);
 		return cooked && itemfishfood$fishtype.canCook() ? itemfishfood$fishtype.getCookedHealAmount() : itemfishfood$fishtype.getUncookedHealAmount();
 	}
 
 	public float getSaturationModifier(ItemStack stack) {
-
 		ItemFishFood.FishType itemfishfood$fishtype = ItemFishFood.FishType.byItemStack(stack);
 		return cooked && itemfishfood$fishtype.canCook() ? itemfishfood$fishtype.getCookedSaturationModifier() : itemfishfood$fishtype.getUncookedSaturationModifier();
 	}
 
 	protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
-
 		ItemFishFood.FishType itemfishfood$fishtype = ItemFishFood.FishType.byItemStack(stack);
 
 		if (itemfishfood$fishtype == ItemFishFood.FishType.PUFFERFISH) {
@@ -52,7 +48,6 @@ public class ItemFishFood extends ItemFood {
 	 * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
 	 */
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-
 		if (isInCreativeTab(tab)) {
 			for (ItemFishFood.FishType itemfishfood$fishtype : ItemFishFood.FishType.values()) {
 				if (!cooked || itemfishfood$fishtype.canCook()) {
@@ -67,7 +62,6 @@ public class ItemFishFood extends ItemFood {
 	 * different names based on their damage or NBT.
 	 */
 	public String getUnlocalizedName(ItemStack stack) {
-
 		ItemFishFood.FishType itemfishfood$fishtype = ItemFishFood.FishType.byItemStack(stack);
 		return getUnlocalizedName() + "." + itemfishfood$fishtype.getUnlocalizedName() + "." + (cooked && itemfishfood$fishtype.canCook() ? "cooked" : "raw");
 	}
@@ -95,7 +89,6 @@ public class ItemFishFood extends ItemFood {
 		private final boolean cookable;
 
 		FishType(int meta, String unlocalizedName, int uncookedHeal, float uncookedSaturation, int cookedHeal, float cookedSaturation) {
-
 			this.meta = meta;
 			this.unlocalizedName = unlocalizedName;
 			uncookedHealAmount = uncookedHeal;
@@ -106,7 +99,6 @@ public class ItemFishFood extends ItemFood {
 		}
 
 		FishType(int meta, String unlocalizedName, int uncookedHeal, float uncookedSaturation) {
-
 			this.meta = meta;
 			this.unlocalizedName = unlocalizedName;
 			uncookedHealAmount = uncookedHeal;
@@ -128,37 +120,30 @@ public class ItemFishFood extends ItemFood {
 		}
 
 		public int getMetadata() {
-
 			return meta;
 		}
 
 		public String getUnlocalizedName() {
-
 			return unlocalizedName;
 		}
 
 		public int getUncookedHealAmount() {
-
 			return uncookedHealAmount;
 		}
 
 		public float getUncookedSaturationModifier() {
-
 			return uncookedSaturationModifier;
 		}
 
 		public int getCookedHealAmount() {
-
 			return cookedHealAmount;
 		}
 
 		public float getCookedSaturationModifier() {
-
 			return cookedSaturationModifier;
 		}
 
 		public boolean canCook() {
-
 			return cookable;
 		}
 	}

@@ -14,13 +14,11 @@ import java.util.Iterator;
 public class EntityAIWanderAvoidWaterFlying extends EntityAIWanderAvoidWater {
 
 	public EntityAIWanderAvoidWaterFlying(EntityCreature p_i47413_1_, double p_i47413_2_) {
-
 		super(p_i47413_1_, p_i47413_2_);
 	}
 
 	
 	protected Vec3d getPosition() {
-
 		Vec3d vec3d = null;
 
 		if (entity.isInWater() || entity.isOverWater()) {
@@ -36,7 +34,6 @@ public class EntityAIWanderAvoidWaterFlying extends EntityAIWanderAvoidWater {
 
 	
 	private Vec3d getTreePos() {
-
 		BlockPos blockpos = new BlockPos(entity);
 		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 		BlockPos.MutableBlockPos blockpos$mutableblockpos1 = new BlockPos.MutableBlockPos();

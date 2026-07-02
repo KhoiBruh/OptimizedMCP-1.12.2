@@ -24,12 +24,10 @@ public class TeleportToPlayer implements ISpectatorMenuView, ISpectatorMenuObjec
 	private final List<ISpectatorMenuObject> items;
 
 	public TeleportToPlayer() {
-
 		this(PROFILE_ORDER.sortedCopy(Minecraft.getMinecraft().getConnection().getPlayerInfoMap()));
 	}
 
 	public TeleportToPlayer(Collection<NetworkPlayerInfo> profiles) {
-
 		items = Lists.newArrayList();
 
 		for (NetworkPlayerInfo networkplayerinfo : PROFILE_ORDER.sortedCopy(profiles)) {
@@ -40,33 +38,27 @@ public class TeleportToPlayer implements ISpectatorMenuView, ISpectatorMenuObjec
 	}
 
 	public List<ISpectatorMenuObject> getItems() {
-
 		return items;
 	}
 
 	public ITextComponent getPrompt() {
-
 		return new TextComponentTranslation("spectatorMenu.teleport.prompt");
 	}
 
 	public void selectItem(SpectatorMenu menu) {
-
 		menu.selectCategory(this);
 	}
 
 	public ITextComponent getSpectatorName() {
-
 		return new TextComponentTranslation("spectatorMenu.teleport");
 	}
 
 	public void renderIcon(float brightness, int alpha) {
-
 		Minecraft.getMinecraft().getTextureManager().bindTexture(GuiSpectator.SPECTATOR_WIDGETS);
 		Gui.drawModalRectWithCustomSizedTexture(0, 0, 0F, 0F, 16, 16, 256F, 256F);
 	}
 
 	public boolean isEnabled() {
-
 		return !items.isEmpty();
 	}
 

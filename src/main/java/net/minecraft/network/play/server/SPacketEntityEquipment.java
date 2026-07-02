@@ -15,11 +15,9 @@ public class SPacketEntityEquipment implements Packet<INetHandlerPlayClient> {
 	private ItemStack itemStack = ItemStack.EMPTY;
 
 	public SPacketEntityEquipment() {
-
 	}
 
 	public SPacketEntityEquipment(int entityIdIn, EntityEquipmentSlot equipmentSlotIn, ItemStack itemStackIn) {
-
 		entityID = entityIdIn;
 		equipmentSlot = equipmentSlotIn;
 		itemStack = itemStackIn.copy();
@@ -29,7 +27,6 @@ public class SPacketEntityEquipment implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		entityID = buf.readVarInt();
 		equipmentSlot = buf.readEnumValue(EntityEquipmentSlot.class);
 		itemStack = buf.readItemStack();
@@ -39,7 +36,6 @@ public class SPacketEntityEquipment implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeVarInt(entityID);
 		buf.writeEnumValue(equipmentSlot);
 		buf.writeItemStack(itemStack);
@@ -49,22 +45,18 @@ public class SPacketEntityEquipment implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleEntityEquipment(this);
 	}
 
 	public ItemStack getItemStack() {
-
 		return itemStack;
 	}
 
 	public int getEntityID() {
-
 		return entityID;
 	}
 
 	public EntityEquipmentSlot getEquipmentSlot() {
-
 		return equipmentSlot;
 	}
 

@@ -22,7 +22,6 @@ public class BlockCarpet extends Block {
 	protected static final AxisAlignedBB CARPET_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.0625D, 1D);
 
 	protected BlockCarpet() {
-
 		super(Material.CARPET);
 		setDefaultState(blockState.getBaseState().withProperty(COLOR, DyeColor.WHITE));
 		setTickRandomly(true);
@@ -30,7 +29,6 @@ public class BlockCarpet extends Block {
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return CARPET_AABB;
 	}
 
@@ -38,7 +36,6 @@ public class BlockCarpet extends Block {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return MapColor.getBlockColor(state.getValue(COLOR));
 	}
 
@@ -46,12 +43,10 @@ public class BlockCarpet extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -59,7 +54,6 @@ public class BlockCarpet extends Block {
 	 * Checks if this block can be placed exactly at the given position.
 	 */
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-
 		return super.canPlaceBlockAt(worldIn, pos) && canBlockStay(worldIn, pos);
 	}
 
@@ -69,12 +63,10 @@ public class BlockCarpet extends Block {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		checkForDrop(worldIn, pos, state);
 	}
 
 	private boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (!canBlockStay(worldIn, pos)) {
 			dropBlockAsItem(worldIn, pos, state, 0);
 			worldIn.setBlockToAir(pos);
@@ -85,12 +77,10 @@ public class BlockCarpet extends Block {
 	}
 
 	private boolean canBlockStay(World worldIn, BlockPos pos) {
-
 		return !worldIn.isAirBlock(pos.down());
 	}
 
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		if (side == Facing.UP) {
 			return true;
 		} else {
@@ -103,7 +93,6 @@ public class BlockCarpet extends Block {
 	 * returns the metadata of the dropped item based on the old metadata of the block.
 	 */
 	public int damageDropped(IBlockState state) {
-
 		return state.getValue(COLOR).getMetadata();
 	}
 
@@ -111,7 +100,6 @@ public class BlockCarpet extends Block {
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-
 		for (int i = 0; i < 16; ++i) {
 			items.add(new ItemStack(this, 1, i));
 		}
@@ -121,7 +109,6 @@ public class BlockCarpet extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(COLOR, DyeColor.byMetadata(meta));
 	}
 
@@ -129,12 +116,10 @@ public class BlockCarpet extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(COLOR).getMetadata();
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, COLOR);
 	}
 
@@ -148,7 +133,6 @@ public class BlockCarpet extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return face == Facing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 

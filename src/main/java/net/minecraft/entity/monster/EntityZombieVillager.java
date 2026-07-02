@@ -46,29 +46,24 @@ public class EntityZombieVillager extends EntityZombie {
 	private UUID converstionStarter;
 
 	public EntityZombieVillager(World worldIn) {
-
 		super(worldIn);
 	}
 
 	public static void registerFixesZombieVillager(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntityZombieVillager.class);
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(CONVERTING, false);
 		dataManager.register(PROFESSION, 0);
 	}
 
 	public int getProfession() {
-
 		return Math.max(dataManager.get(PROFESSION) % 6, 0);
 	}
 
 	public void setProfession(int profession) {
-
 		dataManager.set(PROFESSION, profession);
 	}
 
@@ -76,7 +71,6 @@ public class EntityZombieVillager extends EntityZombie {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setInteger("Profession", getProfession());
 		compound.setInteger("ConversionTime", isConverting() ? conversionTime : -1);
@@ -90,7 +84,6 @@ public class EntityZombieVillager extends EntityZombie {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		setProfession(compound.getInteger("Profession"));
 
@@ -116,7 +109,6 @@ public class EntityZombieVillager extends EntityZombie {
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-
 		setProfession(world.rand.nextInt(6));
 		return super.onInitialSpawn(difficulty, livingdata);
 	}
@@ -125,7 +117,6 @@ public class EntityZombieVillager extends EntityZombie {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		if (!world.isRemote && isConverting()) {
 			int i = getConversionProgress();
 			conversionTime -= i;
@@ -139,7 +130,6 @@ public class EntityZombieVillager extends EntityZombie {
 	}
 
 	public boolean processInteract(EntityPlayer player, Hand hand) {
-
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (itemstack.getItem() == Items.GOLDEN_APPLE && itemstack.getMetadata() == 0 && isPotionActive(MobEffects.WEAKNESS)) {
@@ -161,7 +151,6 @@ public class EntityZombieVillager extends EntityZombie {
 	 * Determines if an entity can be despawned, used on idle far away entities
 	 */
 	protected boolean canDespawn() {
-
 		return !isConverting();
 	}
 
@@ -169,7 +158,6 @@ public class EntityZombieVillager extends EntityZombie {
 	 * Returns whether this zombie is in the process of converting to a villager
 	 */
 	public boolean isConverting() {
-
 		return getDataManager().get(CONVERTING);
 	}
 
@@ -180,7 +168,6 @@ public class EntityZombieVillager extends EntityZombie {
 	 * @param conversionTimeIn    The time that it will take to finish conversion
 	 */
 	protected void startConverting(UUID conversionStarterIn, int conversionTimeIn) {
-
 		converstionStarter = conversionStarterIn;
 		conversionTime = conversionTimeIn;
 		getDataManager().set(CONVERTING, true);
@@ -193,7 +180,6 @@ public class EntityZombieVillager extends EntityZombie {
 	 * Handler for {@link World#setEntityState}
 	 */
 	public void handleStatusUpdate(byte id) {
-
 		if (id == 16) {
 			if (!isSilent()) {
 				world.playSound(posX + 0.5D, posY + 0.5D, posZ + 0.5D, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, getSoundCategory(), 1F + rand.nextFloat(), rand.nextFloat() * 0.7F + 0.3F, false);
@@ -204,7 +190,6 @@ public class EntityZombieVillager extends EntityZombie {
 	}
 
 	protected void finishConversion() {
-
 		EntityVillager entityvillager = new EntityVillager(world);
 		entityvillager.copyLocationAndAnglesFrom(this);
 		entityvillager.setProfession(getProfession());
@@ -238,7 +223,6 @@ public class EntityZombieVillager extends EntityZombie {
 	}
 
 	protected int getConversionProgress() {
-
 		int i = 1;
 
 		if (rand.nextFloat() < 0.01F) {
@@ -269,38 +253,31 @@ public class EntityZombieVillager extends EntityZombie {
 	 * Gets the pitch of living sounds in living entities.
 	 */
 	protected float getSoundPitch() {
-
 		return isChild() ? (rand.nextFloat() - rand.nextFloat()) * 0.2F + 2F : (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F;
 	}
 
 	public SoundEvent getAmbientSound() {
-
 		return SoundEvents.ENTITY_ZOMBIE_VILLAGER_AMBIENT;
 	}
 
 	public SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_ZOMBIE_VILLAGER_HURT;
 	}
 
 	public SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_ZOMBIE_VILLAGER_DEATH;
 	}
 
 	public SoundEvent getStepSound() {
-
 		return SoundEvents.ENTITY_ZOMBIE_VILLAGER_STEP;
 	}
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_ZOMBIE_VILLAGER;
 	}
 
 	protected ItemStack getSkullDrop() {
-
 		return ItemStack.EMPTY;
 	}
 

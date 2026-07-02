@@ -11,7 +11,6 @@ public class RenderXPOrb extends Render<EntityXPOrb> {
 	private static final ResourceLocation EXPERIENCE_ORB_TEXTURES = new ResourceLocation("textures/entity/experience_orb.png");
 
 	public RenderXPOrb(RenderManager renderManagerIn) {
-
 		super(renderManagerIn);
 		shadowSize = 0.15F;
 		shadowOpaque = 0.75F;
@@ -21,7 +20,6 @@ public class RenderXPOrb extends Render<EntityXPOrb> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(EntityXPOrb entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		if (!renderOutlines) {
 			GLS.pushMatrix();
 			GLS.translate((float) x, (float) y, (float) z);
@@ -69,7 +67,6 @@ public class RenderXPOrb extends Render<EntityXPOrb> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityXPOrb entity) {
-
 		return EXPERIENCE_ORB_TEXTURES;
 	}
 

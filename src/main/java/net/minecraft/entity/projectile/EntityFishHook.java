@@ -45,7 +45,6 @@ public class EntityFishHook extends Entity {
 	private int lureSpeed;
 
 	public EntityFishHook(World worldIn, EntityPlayer p_i47290_2_, double x, double y, double z) {
-
 		super(worldIn);
 		init(p_i47290_2_);
 		setPosition(x, y, z);
@@ -55,14 +54,12 @@ public class EntityFishHook extends Entity {
 	}
 
 	public EntityFishHook(World worldIn, EntityPlayer fishingPlayer) {
-
 		super(worldIn);
 		init(fishingPlayer);
 		shoot();
 	}
 
 	private void init(EntityPlayer p_190626_1_) {
-
 		setSize(0.25F, 0.25F);
 		ignoreFrustumCheck = true;
 		angler = p_190626_1_;
@@ -70,17 +67,14 @@ public class EntityFishHook extends Entity {
 	}
 
 	public void setLureSpeed(int p_191516_1_) {
-
 		lureSpeed = p_191516_1_;
 	}
 
 	public void setLuck(int p_191517_1_) {
-
 		luck = p_191517_1_;
 	}
 
 	private void shoot() {
-
 		float f = angler.prevRotationPitch + (angler.rotationPitch - angler.prevRotationPitch);
 		float f1 = angler.prevRotationYaw + (angler.rotationYaw - angler.prevRotationYaw);
 		float f2 = MathHelper.cos(-f1 * 0.017453292F - (float) Math.PI);
@@ -106,12 +100,10 @@ public class EntityFishHook extends Entity {
 	}
 
 	protected void entityInit() {
-
 		getDataManager().register(DATA_HOOKED_ENTITY, 0);
 	}
 
 	public void notifyDataManagerChange(DataParameter<?> key) {
-
 		if (DATA_HOOKED_ENTITY.equals(key)) {
 			int i = getDataManager().get(DATA_HOOKED_ENTITY);
 			caughtEntity = i > 0 ? world.getEntityByID(i - 1) : null;
@@ -124,7 +116,6 @@ public class EntityFishHook extends Entity {
 	 * Checks if the entity is in range to render.
 	 */
 	public boolean isInRangeToRenderDist(double distance) {
-
 		double d0 = 64D;
 		return distance < 4096D;
 	}
@@ -133,14 +124,12 @@ public class EntityFishHook extends Entity {
 	 * Set the position and rotation values directly without any clamping.
 	 */
 	public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean teleport) {
-
 	}
 
 	/**
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		super.onUpdate();
 
 		if (angler == null) {
@@ -242,7 +231,6 @@ public class EntityFishHook extends Entity {
 	}
 
 	private boolean shouldStopFishing() {
-
 		ItemStack itemstack = angler.getHeldItemMainhand();
 		ItemStack itemstack1 = angler.getHeldItemOffhand();
 		boolean flag = itemstack.getItem() == Items.FISHING_ROD;
@@ -257,7 +245,6 @@ public class EntityFishHook extends Entity {
 	}
 
 	private void updateRotation() {
-
 		float f = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
 		rotationYaw = (float) (MathHelper.atan2(motionX, motionZ) * (180D / Math.PI));
 
@@ -281,7 +268,6 @@ public class EntityFishHook extends Entity {
 	}
 
 	private void checkCollision() {
-
 		Vec3d vec3d = new Vec3d(posX, posY, posZ);
 		Vec3d vec3d1 = new Vec3d(posX + motionX, posY + motionY, posZ + motionZ);
 		RayTraceResult raytraceresult = world.rayTraceBlocks(vec3d, vec3d1, false, true, false);
@@ -327,12 +313,10 @@ public class EntityFishHook extends Entity {
 	}
 
 	private void setHookedEntity() {
-
 		getDataManager().set(DATA_HOOKED_ENTITY, caughtEntity.getEntityId() + 1);
 	}
 
 	private void catchingFish(BlockPos p_190621_1_) {
-
 		WorldServer worldserver = (WorldServer) world;
 		int i = 1;
 		BlockPos blockpos = p_190621_1_.up();
@@ -421,7 +405,6 @@ public class EntityFishHook extends Entity {
 	}
 
 	protected boolean canBeHooked(Entity p_189739_1_) {
-
 		return p_189739_1_.canBeCollidedWith() || p_189739_1_ instanceof EntityItem;
 	}
 
@@ -429,18 +412,15 @@ public class EntityFishHook extends Entity {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 	}
 
 	/**
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 	}
 
 	public int handleHookRetraction() {
-
 		if (!world.isRemote && angler != null) {
 			int i = 0;
 
@@ -489,7 +469,6 @@ public class EntityFishHook extends Entity {
 	 * Handler for {@link World#setEntityState}
 	 */
 	public void handleStatusUpdate(byte id) {
-
 		if (id == 31 && world.isRemote && caughtEntity instanceof EntityPlayer && ((EntityPlayer) caughtEntity).isUser()) {
 			bringInHookedEntity();
 		}
@@ -498,7 +477,6 @@ public class EntityFishHook extends Entity {
 	}
 
 	protected void bringInHookedEntity() {
-
 		if (angler != null) {
 			double d0 = angler.posX - posX;
 			double d1 = angler.posY - posY;
@@ -515,7 +493,6 @@ public class EntityFishHook extends Entity {
 	 * prevent them from trampling crops
 	 */
 	protected boolean canTriggerWalking() {
-
 		return false;
 	}
 
@@ -523,7 +500,6 @@ public class EntityFishHook extends Entity {
 	 * Will get destroyed next tick.
 	 */
 	public void setDead() {
-
 		super.setDead();
 
 		if (angler != null) {
@@ -532,7 +508,6 @@ public class EntityFishHook extends Entity {
 	}
 
 	public EntityPlayer getAngler() {
-
 		return angler;
 	}
 

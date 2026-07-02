@@ -11,7 +11,6 @@ import java.util.Random;
 public class BiomeSavannaMutated extends BiomeSavanna {
 
 	public BiomeSavannaMutated(Biome.BiomeProperties properties) {
-
 		super(properties);
 		decorator.treesPerChunk = 2;
 		decorator.flowersPerChunk = 2;
@@ -19,7 +18,6 @@ public class BiomeSavannaMutated extends BiomeSavanna {
 	}
 
 	public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
-
 		topBlock = Blocks.GRASS.getDefaultState();
 		fillerBlock = Blocks.DIRT.getDefaultState();
 
@@ -34,7 +32,6 @@ public class BiomeSavannaMutated extends BiomeSavanna {
 	}
 
 	public void decorate(World worldIn, Random rand, BlockPos pos) {
-
 		decorator.decorate(worldIn, rand, this, pos);
 	}
 

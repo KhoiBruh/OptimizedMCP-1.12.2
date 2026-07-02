@@ -16,7 +16,6 @@ public class ModelQuadruped extends ModelBase {
 	protected float childZOffset = 4F;
 
 	public ModelQuadruped(int height, float scale) {
-
 		head.addBox(-4F, -4F, -8F, 8, 8, 8, scale);
 		head.setRotationPoint(0F, (float) (18 - height), -6F);
 		body = new ModelRenderer(this, 28, 8);
@@ -40,7 +39,6 @@ public class ModelQuadruped extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
 		if (isChild) {
@@ -74,7 +72,6 @@ public class ModelQuadruped extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		head.rotateAngleX = headPitch * 0.017453292F;
 		head.rotateAngleY = netHeadYaw * 0.017453292F;
 		body.rotateAngleX = ((float) Math.PI / 2F);

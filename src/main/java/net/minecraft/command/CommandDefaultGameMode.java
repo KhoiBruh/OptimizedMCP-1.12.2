@@ -11,7 +11,6 @@ public class CommandDefaultGameMode extends CommandGameMode {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "defaultgamemode";
 	}
 
@@ -19,7 +18,6 @@ public class CommandDefaultGameMode extends CommandGameMode {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.defaultgamemode.usage";
 	}
 
@@ -27,7 +25,6 @@ public class CommandDefaultGameMode extends CommandGameMode {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		if (args.length == 0) {
 			throw new WrongUsageException("commands.defaultgamemode.usage");
 		} else {
@@ -42,7 +39,6 @@ public class CommandDefaultGameMode extends CommandGameMode {
 	 * game mode
 	 */
 	protected void setDefaultGameType(GameType gameType, MinecraftServer server) {
-
 		server.setGameType(gameType);
 
 		if (server.getForceGamemode()) {

@@ -16,17 +16,14 @@ public class Multipart {
 	private BlockStateContainer stateContainer;
 
 	public Multipart(List<Selector> selectorsIn) {
-
 		selectors = selectorsIn;
 	}
 
 	public List<Selector> getSelectors() {
-
 		return selectors;
 	}
 
 	public Set<VariantList> getVariants() {
-
 		Set<VariantList> set = Sets.newHashSet();
 
 		for (Selector selector : selectors) {
@@ -37,22 +34,18 @@ public class Multipart {
 	}
 
 	public BlockStateContainer getStateContainer() {
-
 		return stateContainer;
 	}
 
 	public void setStateContainer(BlockStateContainer stateContainerIn) {
-
 		stateContainer = stateContainerIn;
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else {
 			if (p_equals_1_ instanceof Multipart multipart) {
-
 				if (selectors.equals(multipart.selectors)) {
 					if (stateContainer == null) {
 						return multipart.stateContainer == null;
@@ -67,19 +60,16 @@ public class Multipart {
 	}
 
 	public int hashCode() {
-
 		return 31 * selectors.hashCode() + (stateContainer == null ? 0 : stateContainer.hashCode());
 	}
 
 	public static class Deserializer implements JsonDeserializer<Multipart> {
 
 		public Multipart deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-
 			return new Multipart(getSelectors(p_deserialize_3_, p_deserialize_1_.getAsJsonArray()));
 		}
 
 		private List<Selector> getSelectors(JsonDeserializationContext context, JsonArray elements) {
-
 			List<Selector> list = Lists.newArrayList();
 
 			for (JsonElement jsonelement : elements) {

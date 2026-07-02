@@ -22,7 +22,6 @@ public class MapItemRenderer {
 	private final Map<String, MapItemRenderer.Instance> loadedMaps = Maps.newHashMap();
 
 	public MapItemRenderer(TextureManager textureManagerIn) {
-
 		textureManager = textureManagerIn;
 	}
 
@@ -30,12 +29,10 @@ public class MapItemRenderer {
 	 * Updates a map texture
 	 */
 	public void updateMapTexture(MapData mapdataIn) {
-
 		getMapRendererInstance(mapdataIn).updateMapTexture();
 	}
 
 	public void renderMap(MapData mapdataIn, boolean noOverlayRendering) {
-
 		getMapRendererInstance(mapdataIn).render(noOverlayRendering);
 	}
 
@@ -64,7 +61,6 @@ public class MapItemRenderer {
 	 * Clears the currently loaded maps and removes their corresponding textures
 	 */
 	public void clearLoadedMaps() {
-
 		for (MapItemRenderer.Instance mapitemrenderer$instance : loadedMaps.values()) {
 			textureManager.deleteTexture(mapitemrenderer$instance.location);
 		}
@@ -74,7 +70,6 @@ public class MapItemRenderer {
 
 	
 	public MapData getData(MapItemRenderer.Instance p_191207_1_) {
-
 		return p_191207_1_ != null ? p_191207_1_.mapData : null;
 	}
 
@@ -86,7 +81,6 @@ public class MapItemRenderer {
 		private final int[] mapTextureData;
 
 		private Instance(MapData mapdataIn) {
-
 			mapData = mapdataIn;
 			mapTexture = new DynamicTexture(128, 128);
 			mapTextureData = mapTexture.getTextureData();
@@ -96,7 +90,6 @@ public class MapItemRenderer {
 		}
 
 		private void updateMapTexture() {
-
 			for (int i = 0; i < 16384; ++i) {
 				int j = mapData.colors[i] & 255;
 
@@ -111,7 +104,6 @@ public class MapItemRenderer {
 		}
 
 		private void render(boolean noOverlayRendering) {
-
 			int i = 0;
 			int j = 0;
 			Tessellator tessellator = Tessellator.getInstance();

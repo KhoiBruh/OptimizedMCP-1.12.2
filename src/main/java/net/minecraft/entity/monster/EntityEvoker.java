@@ -28,19 +28,16 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 	private EntitySheep wololoTarget;
 
 	public EntityEvoker(World worldIn) {
-
 		super(worldIn);
 		setSize(0.6F, 1.95F);
 		experienceValue = 10;
 	}
 
 	public static void registerFixesEvoker(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntityEvoker.class);
 	}
 
 	protected void initEntityAI() {
-
 		super.initEntityAI();
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityEvoker.AICastingSpell());
@@ -58,7 +55,6 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5D);
 		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(12D);
@@ -66,7 +62,6 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 	}
 
@@ -74,7 +69,6 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 	}
 
@@ -82,17 +76,14 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 	}
 
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_EVOCATION_ILLAGER;
 	}
 
 	protected void updateAITasks() {
-
 		super.updateAITasks();
 	}
 
@@ -100,7 +91,6 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		super.onUpdate();
 	}
 
@@ -108,7 +98,6 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 	 * Returns whether this Entity is on the same team as the given Entity.
 	 */
 	public boolean isOnSameTeam(Entity entityIn) {
-
 		if (entityIn == null) {
 			return false;
 		} else if (entityIn == this) {
@@ -125,54 +114,44 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		return SoundEvents.ENTITY_EVOCATION_ILLAGER_AMBIENT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.EVOCATION_ILLAGER_DEATH;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_EVOCATION_ILLAGER_HURT;
 	}
 
 	
 	private EntitySheep getWololoTarget() {
-
 		return wololoTarget;
 	}
 
 	private void setWololoTarget(EntitySheep wololoTargetIn) {
-
 		wololoTarget = wololoTargetIn;
 	}
 
 	protected SoundEvent getSpellSound() {
-
 		return SoundEvents.EVOCATION_ILLAGER_CAST_SPELL;
 	}
 
 	class AIAttackSpell extends EntitySpellcasterIllager.AIUseSpell {
 
 		private AIAttackSpell() {
-
 		}
 
 		protected int getCastingTime() {
-
 			return 40;
 		}
 
 		protected int getCastingInterval() {
-
 			return 100;
 		}
 
 		protected void castSpell() {
-
 			EntityLivingBase entitylivingbase = getAttackTarget();
 			double d0 = Math.min(entitylivingbase.posY, posY);
 			double d1 = Math.max(entitylivingbase.posY, posY) + 1D;
@@ -197,7 +176,6 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 		}
 
 		private void spawnFangs(double p_190876_1_, double p_190876_3_, double p_190876_5_, double p_190876_7_, float p_190876_9_, int p_190876_10_) {
-
 			BlockPos blockpos = new BlockPos(p_190876_1_, p_190876_7_, p_190876_3_);
 			boolean flag = false;
 			double d0 = 0D;
@@ -231,7 +209,6 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 		}
 
 		protected SoundEvent getSpellPrepareSound() {
-
 			return SoundEvents.EVOCATION_ILLAGER_PREPARE_ATTACK;
 		}
 
@@ -245,11 +222,9 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 	class AICastingSpell extends EntitySpellcasterIllager.AICastingApell {
 
 		private AICastingSpell() {
-
 		}
 
 		public void updateTask() {
-
 			if (getAttackTarget() != null) {
 				getLookHelper().setLookPositionWithEntity(getAttackTarget(), (float) getHorizontalFaceSpeed(), (float) getVerticalFaceSpeed());
 			} else if (getWololoTarget() != null) {
@@ -262,11 +237,9 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 	class AISummonSpell extends EntitySpellcasterIllager.AIUseSpell {
 
 		private AISummonSpell() {
-
 		}
 
 		public boolean shouldExecute() {
-
 			if (!super.shouldExecute()) {
 				return false;
 			} else {
@@ -276,17 +249,14 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 		}
 
 		protected int getCastingTime() {
-
 			return 100;
 		}
 
 		protected int getCastingInterval() {
-
 			return 340;
 		}
 
 		protected void castSpell() {
-
 			for (int i = 0; i < 3; ++i) {
 				BlockPos blockpos = (new BlockPos(EntityEvoker.this)).add(-2 + rand.nextInt(5), 1, -2 + rand.nextInt(5));
 				EntityVex entityvex = new EntityVex(world);
@@ -300,7 +270,6 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 		}
 
 		protected SoundEvent getSpellPrepareSound() {
-
 			return SoundEvents.EVOCATION_ILLAGER_PREPARE_SUMMON;
 		}
 
@@ -316,11 +285,9 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 		final Predicate<EntitySheep> wololoSelector = p_apply_1_ -> p_apply_1_.getFleeceColor() == DyeColor.BLUE;
 
 		public AIWololoSpell() {
-
 		}
 
 		public boolean shouldExecute() {
-
 			if (getAttackTarget() != null) {
 				return false;
 			} else if (isSpellcasting()) {
@@ -342,18 +309,15 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 		}
 
 		public boolean shouldContinueExecuting() {
-
 			return getWololoTarget() != null && spellWarmup > 0;
 		}
 
 		public void resetTask() {
-
 			super.resetTask();
 			setWololoTarget(null);
 		}
 
 		protected void castSpell() {
-
 			EntitySheep entitysheep = getWololoTarget();
 
 			if (entitysheep != null && entitysheep.isEntityAlive()) {
@@ -362,22 +326,18 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 		}
 
 		protected int getCastWarmupTime() {
-
 			return 40;
 		}
 
 		protected int getCastingTime() {
-
 			return 60;
 		}
 
 		protected int getCastingInterval() {
-
 			return 140;
 		}
 
 		protected SoundEvent getSpellPrepareSound() {
-
 			return SoundEvents.EVOCATION_ILLAGER_PREPARE_WOLOLO;
 		}
 

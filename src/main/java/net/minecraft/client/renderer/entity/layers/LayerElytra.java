@@ -25,12 +25,10 @@ public class LayerElytra implements LayerRenderer<EntityLivingBase> {
 	private final ModelElytra modelElytra = new ModelElytra();
 
 	public LayerElytra(RenderLivingBase<?> p_i47185_1_) {
-
 		renderPlayer = p_i47185_1_;
 	}
 
 	public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		ItemStack itemstack = entitylivingbaseIn.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
 		if (itemstack.getItem() == Items.ELYTRA) {
@@ -39,7 +37,6 @@ public class LayerElytra implements LayerRenderer<EntityLivingBase> {
 			GLS.blendFunc(GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 
 			if (entitylivingbaseIn instanceof AbstractClientPlayer abstractclientplayer) {
-
 				if (abstractclientplayer.isPlayerInfoSet() && abstractclientplayer.getLocationElytra() != null) {
 					renderPlayer.bindTexture(abstractclientplayer.getLocationElytra());
 				} else if (abstractclientplayer.hasPlayerInfo() && abstractclientplayer.getLocationCape() != null && abstractclientplayer.isWearing(PlayerModelParts.CAPE)) {
@@ -66,7 +63,6 @@ public class LayerElytra implements LayerRenderer<EntityLivingBase> {
 	}
 
 	public boolean shouldCombineTextures() {
-
 		return false;
 	}
 

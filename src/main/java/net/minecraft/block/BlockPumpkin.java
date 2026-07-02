@@ -33,7 +33,6 @@ public class BlockPumpkin extends BlockHorizontal {
 	private BlockPattern golemPattern;
 
 	protected BlockPumpkin() {
-
 		super(Material.GOURD, MapColor.ADOBE);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH));
 		setTickRandomly(true);
@@ -44,18 +43,15 @@ public class BlockPumpkin extends BlockHorizontal {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		super.onBlockAdded(worldIn, pos, state);
 		trySpawnGolem(worldIn, pos);
 	}
 
 	public boolean canDispenserPlace(World worldIn, BlockPos pos) {
-
 		return getSnowmanBasePattern().match(worldIn, pos) != null || getGolemBasePattern().match(worldIn, pos) != null;
 	}
 
 	private void trySpawnGolem(World worldIn, BlockPos pos) {
-
 		BlockPattern.PatternHelper blockpattern$patternhelper = getSnowmanPattern().match(worldIn, pos);
 
 		if (blockpattern$patternhelper != null) {
@@ -119,7 +115,6 @@ public class BlockPumpkin extends BlockHorizontal {
 	 * Checks if this block can be placed exactly at the given position.
 	 */
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-
 		return worldIn.getBlockState(pos).getBlock().blockMaterial.isReplaceable() && worldIn.getBlockState(pos.down()).isTopSolid();
 	}
 
@@ -128,7 +123,6 @@ public class BlockPumpkin extends BlockHorizontal {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
@@ -137,7 +131,6 @@ public class BlockPumpkin extends BlockHorizontal {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
 	}
 
@@ -146,7 +139,6 @@ public class BlockPumpkin extends BlockHorizontal {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
 	}
 
@@ -154,7 +146,6 @@ public class BlockPumpkin extends BlockHorizontal {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(FACING, Facing.getHorizontal(meta));
 	}
 
@@ -162,17 +153,14 @@ public class BlockPumpkin extends BlockHorizontal {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(FACING).getHorizontalIndex();
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, FACING);
 	}
 
 	protected BlockPattern getSnowmanBasePattern() {
-
 		if (snowmanBasePattern == null) {
 			snowmanBasePattern = FactoryBlockPattern.start().aisle(" ", "#", "#").where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.SNOW))).build();
 		}
@@ -181,7 +169,6 @@ public class BlockPumpkin extends BlockHorizontal {
 	}
 
 	protected BlockPattern getSnowmanPattern() {
-
 		if (snowmanPattern == null) {
 			snowmanPattern = FactoryBlockPattern.start().aisle("^", "#", "#").where('^', BlockWorldState.hasState(IS_PUMPKIN)).where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.SNOW))).build();
 		}
@@ -190,7 +177,6 @@ public class BlockPumpkin extends BlockHorizontal {
 	}
 
 	protected BlockPattern getGolemBasePattern() {
-
 		if (golemBasePattern == null) {
 			golemBasePattern = FactoryBlockPattern.start().aisle("~ ~", "###", "~#~").where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.IRON_BLOCK))).where('~', BlockWorldState.hasState(BlockMaterialMatcher.forMaterial(Material.AIR))).build();
 		}
@@ -199,7 +185,6 @@ public class BlockPumpkin extends BlockHorizontal {
 	}
 
 	protected BlockPattern getGolemPattern() {
-
 		if (golemPattern == null) {
 			golemPattern = FactoryBlockPattern.start().aisle("~^~", "###", "~#~").where('^', BlockWorldState.hasState(IS_PUMPKIN)).where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.IRON_BLOCK))).where('~', BlockWorldState.hasState(BlockMaterialMatcher.forMaterial(Material.AIR))).build();
 		}

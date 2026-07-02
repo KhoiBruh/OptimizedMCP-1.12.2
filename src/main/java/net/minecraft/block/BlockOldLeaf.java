@@ -19,19 +19,16 @@ public class BlockOldLeaf extends BlockLeaves {
 	public static final PropertyEnum<BlockPlanks.Type> VARIANT = PropertyEnum.create("variant", BlockPlanks.Type.class, p_apply_1_ -> p_apply_1_.getMetadata() < 4);
 
 	public BlockOldLeaf() {
-
 		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockPlanks.Type.OAK).withProperty(CHECK_DECAY, true).withProperty(DECAYABLE, true));
 	}
 
 	protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance) {
-
 		if (state.getValue(VARIANT) == BlockPlanks.Type.OAK && worldIn.rand.nextInt(chance) == 0) {
 			spawnAsEntity(worldIn, pos, new ItemStack(Items.APPLE));
 		}
 	}
 
 	protected int getSaplingDropChance(IBlockState state) {
-
 		return state.getValue(VARIANT) == BlockPlanks.Type.JUNGLE ? 40 : super.getSaplingDropChance(state);
 	}
 
@@ -39,7 +36,6 @@ public class BlockOldLeaf extends BlockLeaves {
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-
 		items.add(new ItemStack(this, 1, BlockPlanks.Type.OAK.getMetadata()));
 		items.add(new ItemStack(this, 1, BlockPlanks.Type.SPRUCE.getMetadata()));
 		items.add(new ItemStack(this, 1, BlockPlanks.Type.BIRCH.getMetadata()));
@@ -47,7 +43,6 @@ public class BlockOldLeaf extends BlockLeaves {
 	}
 
 	protected ItemStack getSilkTouchDrop(IBlockState state) {
-
 		return new ItemStack(Item.getItemFromBlock(this), 1, state.getValue(VARIANT).getMetadata());
 	}
 
@@ -55,7 +50,6 @@ public class BlockOldLeaf extends BlockLeaves {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(VARIANT, getWoodType(meta)).withProperty(DECAYABLE, (meta & 4) == 0).withProperty(CHECK_DECAY, (meta & 8) > 0);
 	}
 
@@ -63,7 +57,6 @@ public class BlockOldLeaf extends BlockLeaves {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 		i = i | state.getValue(VARIANT).getMetadata();
 
@@ -84,7 +77,6 @@ public class BlockOldLeaf extends BlockLeaves {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, VARIANT, CHECK_DECAY, DECAYABLE);
 	}
 
@@ -93,7 +85,6 @@ public class BlockOldLeaf extends BlockLeaves {
 	 * returns the metadata of the dropped item based on the old metadata of the block.
 	 */
 	public int damageDropped(IBlockState state) {
-
 		return state.getValue(VARIANT).getMetadata();
 	}
 
@@ -102,7 +93,6 @@ public class BlockOldLeaf extends BlockLeaves {
 	 * Block.removedByPlayer
 	 */
 	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
-
 		if (!worldIn.isRemote && stack.getItem() == Items.SHEARS) {
 			player.addStat(StatList.getBlockStats(this));
 			spawnAsEntity(worldIn, pos, new ItemStack(Item.getItemFromBlock(this), 1, state.getValue(VARIANT).getMetadata()));

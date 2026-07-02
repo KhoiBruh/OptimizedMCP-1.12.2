@@ -15,7 +15,6 @@ public class SleepMPScreen extends ChatScreen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		super.init();
 		buttons.add(new Button(1, width / 2 - 100, height - 40, I18n.format("multiplayer.stopSleeping")));
 	}
@@ -25,7 +24,6 @@ public class SleepMPScreen extends ChatScreen {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-
 		if (keyCode == 256) {
 			wakeFromSleep();
 		} else if (keyCode != 257 && keyCode != 335) {
@@ -46,7 +44,6 @@ public class SleepMPScreen extends ChatScreen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) throws IOException {
-
 		if (button.id == 1) {
 			wakeFromSleep();
 		} else {
@@ -55,7 +52,6 @@ public class SleepMPScreen extends ChatScreen {
 	}
 
 	private void wakeFromSleep() {
-
 		NetHandlerPlayClient nethandlerplayclient = mc.player.connection;
 		nethandlerplayclient.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SLEEPING));
 	}

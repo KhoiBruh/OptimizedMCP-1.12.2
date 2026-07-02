@@ -18,7 +18,6 @@ public class ItemColors {
 	private final ObjectIntIdentityMap<IItemColor> mapItemColors = new ObjectIntIdentityMap<>(32);
 
 	public static ItemColors init(final BlockColors colors) {
-
 		ItemColors itemcolors = new ItemColors();
 		itemcolors.registerItemColorHandler((stack, tintIndex) -> tintIndex > 0 ? -1 : ((ItemArmor) stack.getItem()).getColor(stack), Items.LEATHER_HELMET, Items.LEATHER_CHESTPLATE, Items.LEATHER_LEGGINGS, Items.LEATHER_BOOTS);
 		itemcolors.registerItemColorHandler((stack, tintIndex) -> {
@@ -81,20 +80,17 @@ public class ItemColors {
 	}
 
 	public int colorMultiplier(ItemStack stack, int tintIndex) {
-
 		IItemColor iitemcolor = mapItemColors.getByValue(Item.REGISTRY.getIDForObject(stack.getItem()));
 		return iitemcolor == null ? -1 : iitemcolor.colorMultiplier(stack, tintIndex);
 	}
 
 	public void registerItemColorHandler(IItemColor itemColor, Block... blocksIn) {
-
 		for (Block block : blocksIn) {
 			mapItemColors.put(itemColor, Item.getIdFromItem(Item.getItemFromBlock(block)));
 		}
 	}
 
 	public void registerItemColorHandler(IItemColor itemColor, Item... itemsIn) {
-
 		for (Item item : itemsIn) {
 			mapItemColors.put(itemColor, Item.getIdFromItem(item));
 		}

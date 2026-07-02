@@ -38,11 +38,9 @@ public class StructureBoundingBox {
 	public int maxZ;
 
 	public StructureBoundingBox() {
-
 	}
 
 	public StructureBoundingBox(int[] coords) {
-
 		if (coords.length == 6) {
 			minX = coords[0];
 			minY = coords[1];
@@ -54,7 +52,6 @@ public class StructureBoundingBox {
 	}
 
 	public StructureBoundingBox(StructureBoundingBox structurebb) {
-
 		minX = structurebb.minX;
 		minY = structurebb.minY;
 		minZ = structurebb.minZ;
@@ -64,7 +61,6 @@ public class StructureBoundingBox {
 	}
 
 	public StructureBoundingBox(int xMin, int yMin, int zMin, int xMax, int yMax, int zMax) {
-
 		minX = xMin;
 		minY = yMin;
 		minZ = zMin;
@@ -74,7 +70,6 @@ public class StructureBoundingBox {
 	}
 
 	public StructureBoundingBox(Vec3i vec1, Vec3i vec2) {
-
 		minX = Math.min(vec1.getX(), vec2.getX());
 		minY = Math.min(vec1.getY(), vec2.getY());
 		minZ = Math.min(vec1.getZ(), vec2.getZ());
@@ -84,7 +79,6 @@ public class StructureBoundingBox {
 	}
 
 	public StructureBoundingBox(int xMin, int zMin, int xMax, int zMax) {
-
 		minX = xMin;
 		minZ = zMin;
 		maxX = xMax;
@@ -97,7 +91,6 @@ public class StructureBoundingBox {
 	 * returns a new StructureBoundingBox with MAX values
 	 */
 	public static StructureBoundingBox getNewBoundingBox() {
-
 		return new StructureBoundingBox(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE);
 	}
 
@@ -106,7 +99,6 @@ public class StructureBoundingBox {
 	 * Bounding Box - to check if it would cut anything already spawned
 	 */
 	public static StructureBoundingBox getComponentToAddBoundingBox(int structureMinX, int structureMinY, int structureMinZ, int xMin, int yMin, int zMin, int xMax, int yMax, int zMax, Facing facing) {
-
 		return switch (facing) {
 			case NORTH ->
 					new StructureBoundingBox(structureMinX + xMin, structureMinY + yMin, structureMinZ - zMax + 1 + zMin, structureMinX + xMax - 1 + xMin, structureMinY + yMax - 1 + yMin, structureMinZ + zMin);
@@ -120,7 +112,6 @@ public class StructureBoundingBox {
 	}
 
 	public static StructureBoundingBox createProper(int x1, int y1, int z1, int x2, int y2, int z2) {
-
 		return new StructureBoundingBox(Math.min(x1, x2), Math.min(y1, y2), Math.min(z1, z2), Math.max(x1, x2), Math.max(y1, y2), Math.max(z1, z2));
 	}
 
@@ -128,7 +119,6 @@ public class StructureBoundingBox {
 	 * Discover if bounding box can fit within the current bounding box object.
 	 */
 	public boolean intersectsWith(StructureBoundingBox structurebb) {
-
 		return maxX >= structurebb.minX && minX <= structurebb.maxX && maxZ >= structurebb.minZ && minZ <= structurebb.maxZ && maxY >= structurebb.minY && minY <= structurebb.maxY;
 	}
 
@@ -136,7 +126,6 @@ public class StructureBoundingBox {
 	 * Discover if a coordinate is inside the bounding box area.
 	 */
 	public boolean intersectsWith(int minXIn, int minZIn, int maxXIn, int maxZIn) {
-
 		return maxX >= minXIn && minX <= maxXIn && maxZ >= minZIn && minZ <= maxZIn;
 	}
 
@@ -144,7 +133,6 @@ public class StructureBoundingBox {
 	 * Expands a bounding box's dimensions to include the supplied bounding box.
 	 */
 	public void expandTo(StructureBoundingBox sbb) {
-
 		minX = Math.min(minX, sbb.minX);
 		minY = Math.min(minY, sbb.minY);
 		minZ = Math.min(minZ, sbb.minZ);
@@ -157,7 +145,6 @@ public class StructureBoundingBox {
 	 * Offsets the current bounding box by the specified amount.
 	 */
 	public void offset(int x, int y, int z) {
-
 		minX += x;
 		minY += y;
 		minZ += z;
@@ -170,12 +157,10 @@ public class StructureBoundingBox {
 	 * Checks if given Vec3i is inside of StructureBoundingBox
 	 */
 	public boolean isVecInside(Vec3i vec) {
-
 		return vec.getX() >= minX && vec.getX() <= maxX && vec.getZ() >= minZ && vec.getZ() <= maxZ && vec.getY() >= minY && vec.getY() <= maxY;
 	}
 
 	public Vec3i getLength() {
-
 		return new Vec3i(maxX - minX, maxY - minY, maxZ - minZ);
 	}
 
@@ -183,7 +168,6 @@ public class StructureBoundingBox {
 	 * Get dimension of the bounding box in the x direction.
 	 */
 	public int getXSize() {
-
 		return maxX - minX + 1;
 	}
 
@@ -191,7 +175,6 @@ public class StructureBoundingBox {
 	 * Get dimension of the bounding box in the y direction.
 	 */
 	public int getYSize() {
-
 		return maxY - minY + 1;
 	}
 
@@ -199,17 +182,14 @@ public class StructureBoundingBox {
 	 * Get dimension of the bounding box in the z direction.
 	 */
 	public int getZSize() {
-
 		return maxZ - minZ + 1;
 	}
 
 	public String toString() {
-
 		return MoreObjects.toStringHelper(this).add("x0", minX).add("y0", minY).add("z0", minZ).add("x1", maxX).add("y1", maxY).add("z1", maxZ).toString();
 	}
 
 	public NBTTagIntArray toNBTTagIntArray() {
-
 		return new NBTTagIntArray(new int[]{minX, minY, minZ, maxX, maxY, maxZ});
 	}
 

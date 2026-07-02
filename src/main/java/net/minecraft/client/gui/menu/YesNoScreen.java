@@ -31,7 +31,6 @@ public class YesNoScreen extends Screen {
 	private int ticksUntilEnable;
 
 	public YesNoScreen(GuiYesNoCallback parentScreenIn, String messageLine1In, String messageLine2In, int parentButtonClickedIdIn) {
-
 		parentScreen = parentScreenIn;
 		messageLine1 = messageLine1In;
 		messageLine2 = messageLine2In;
@@ -41,7 +40,6 @@ public class YesNoScreen extends Screen {
 	}
 
 	public YesNoScreen(GuiYesNoCallback parentScreenIn, String messageLine1In, String messageLine2In, String confirmButtonTextIn, String cancelButtonTextIn, int parentButtonClickedIdIn) {
-
 		parentScreen = parentScreenIn;
 		messageLine1 = messageLine1In;
 		messageLine2 = messageLine2In;
@@ -55,7 +53,6 @@ public class YesNoScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		buttons.add(new OptionButton(0, width / 2 - 155, height / 6 + 96, confirmButtonText));
 		buttons.add(new OptionButton(1, width / 2 - 155 + 160, height / 6 + 96, cancelButtonText));
 		listLines.clear();
@@ -66,7 +63,6 @@ public class YesNoScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		parentScreen.confirmClicked(button.id == 0, parentButtonClickedId);
 	}
 
@@ -74,7 +70,6 @@ public class YesNoScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, messageLine1, width / 2, 70, 16777215);
 		int i = 90;
@@ -91,7 +86,6 @@ public class YesNoScreen extends Screen {
 	 * Sets the number of ticks to wait before enabling the buttons.
 	 */
 	public void setButtonDelay(int ticksUntilEnableIn) {
-
 		ticksUntilEnable = ticksUntilEnableIn;
 
 		for (Button guibutton : buttons) {
@@ -103,7 +97,6 @@ public class YesNoScreen extends Screen {
 	 * Called from the main game loop to update the screen.
 	 */
 	public void update() {
-
 		super.update();
 
 		if (--ticksUntilEnable == 0) {

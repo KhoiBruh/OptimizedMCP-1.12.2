@@ -21,7 +21,6 @@ public class TileEntityEnderChest extends TileEntity implements ITickable {
 	 * Like the old updateEntity(), except more generic.
 	 */
 	public void update() {
-
 		if (++ticksSinceSync % 20 * 4 == 0) {
 			world.addBlockEvent(pos, Blocks.ENDER_CHEST, 1, numPlayersUsing);
 		}
@@ -66,7 +65,6 @@ public class TileEntityEnderChest extends TileEntity implements ITickable {
 	}
 
 	public boolean receiveClientEvent(int id, int type) {
-
 		if (id == 1) {
 			numPlayersUsing = type;
 			return true;
@@ -79,25 +77,21 @@ public class TileEntityEnderChest extends TileEntity implements ITickable {
 	 * invalidates a tile entity
 	 */
 	public void invalidate() {
-
 		updateContainingBlockInfo();
 		super.invalidate();
 	}
 
 	public void openChest() {
-
 		++numPlayersUsing;
 		world.addBlockEvent(pos, Blocks.ENDER_CHEST, 1, numPlayersUsing);
 	}
 
 	public void closeChest() {
-
 		--numPlayersUsing;
 		world.addBlockEvent(pos, Blocks.ENDER_CHEST, 1, numPlayersUsing);
 	}
 
 	public boolean canBeUsed(EntityPlayer player) {
-
 		if (world.getTileEntity(pos) != this) {
 			return false;
 		} else {

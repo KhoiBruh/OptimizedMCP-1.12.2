@@ -10,7 +10,6 @@ import net.minecraft.world.World;
 public class ParticleRain extends Particle {
 
 	protected ParticleRain(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn) {
-
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0D, 0D, 0D);
 		motionX *= 0.30000001192092896D;
 		motionY = Math.random() * 0.20000000298023224D + 0.10000000149011612D;
@@ -25,7 +24,6 @@ public class ParticleRain extends Particle {
 	}
 
 	public void onUpdate() {
-
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
@@ -72,7 +70,6 @@ public class ParticleRain extends Particle {
 	public static class Factory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			return new ParticleRain(worldIn, xCoordIn, yCoordIn, zCoordIn);
 		}
 

@@ -16,7 +16,6 @@ public abstract class BossInfo {
 	protected boolean createFog;
 
 	public BossInfo(UUID uniqueIdIn, ITextComponent nameIn, BossInfo.Color colorIn, BossInfo.Overlay overlayIn) {
-
 		uniqueId = uniqueIdIn;
 		name = nameIn;
 		color = colorIn;
@@ -25,27 +24,22 @@ public abstract class BossInfo {
 	}
 
 	public UUID getUniqueId() {
-
 		return uniqueId;
 	}
 
 	public ITextComponent getName() {
-
 		return name;
 	}
 
 	public void setName(ITextComponent nameIn) {
-
 		name = nameIn;
 	}
 
 	public float getPercent() {
-
 		return percent;
 	}
 
 	public void setPercent(float percentIn) {
-
 		percent = percentIn;
 	}
 
@@ -55,7 +49,6 @@ public abstract class BossInfo {
 	}
 
 	public void setColor(BossInfo.Color colorIn) {
-
 		color = colorIn;
 	}
 
@@ -65,40 +58,33 @@ public abstract class BossInfo {
 	}
 
 	public void setOverlay(BossInfo.Overlay overlayIn) {
-
 		overlay = overlayIn;
 	}
 
 	public boolean shouldDarkenSky() {
-
 		return darkenSky;
 	}
 
 	public BossInfo setDarkenSky(boolean darkenSkyIn) {
-
 		darkenSky = darkenSkyIn;
 		return this;
 	}
 
 	public boolean shouldPlayEndBossMusic() {
-
 		return playEndBossMusic;
 	}
 
 	public BossInfo setPlayEndBossMusic(boolean playEndBossMusicIn) {
-
 		playEndBossMusic = playEndBossMusicIn;
 		return this;
 	}
 
 	public BossInfo setCreateFog(boolean createFogIn) {
-
 		createFog = createFogIn;
 		return this;
 	}
 
 	public boolean shouldCreateFog() {
-
 		return createFog;
 	}
 

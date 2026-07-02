@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 public class ItemElytra extends Item {
 
 	public ItemElytra() {
-
 		maxStackSize = 1;
 		setMaxDamage(432);
 		setCreativeTab(CreativeTabs.TRANSPORTATION);
@@ -24,7 +23,6 @@ public class ItemElytra extends Item {
 	}
 
 	public static boolean isUsable(ItemStack stack) {
-
 		return stack.getItemDamage() < stack.getMaxDamage() - 1;
 	}
 
@@ -35,12 +33,10 @@ public class ItemElytra extends Item {
 	 * @param repair   the {@code ItemStack} being used to perform the repair
 	 */
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-
 		return repair.getItem() == Items.LEATHER;
 	}
 
 	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
-
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		EntityEquipmentSlot entityequipmentslot = EntityLiving.getSlotForItemStack(itemstack);
 		ItemStack itemstack1 = playerIn.getItemStackFromSlot(entityequipmentslot);

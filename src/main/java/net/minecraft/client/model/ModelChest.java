@@ -18,7 +18,6 @@ public class ModelChest extends ModelBase {
 	public ModelRenderer chestKnob;
 
 	public ModelChest() {
-
 		chestLid.addBox(0F, -5F, -14F, 14, 5, 14, 0F);
 		chestLid.rotationPointX = 1F;
 		chestLid.rotationPointY = 7F;
@@ -39,7 +38,6 @@ public class ModelChest extends ModelBase {
 	 * This method renders out all parts of the chest model.
 	 */
 	public void renderAll() {
-
 		chestKnob.rotateAngleX = chestLid.rotateAngleX;
 		chestLid.render(0.0625F);
 		chestKnob.render(0.0625F);

@@ -16,25 +16,21 @@ import java.util.List;
 public class EntityDragonFireball extends EntityFireball {
 
 	public EntityDragonFireball(World worldIn) {
-
 		super(worldIn);
 		setSize(1F, 1F);
 	}
 
 	public EntityDragonFireball(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
-
 		super(worldIn, x, y, z, accelX, accelY, accelZ);
 		setSize(1F, 1F);
 	}
 
 	public EntityDragonFireball(World worldIn, EntityLivingBase shooter, double accelX, double accelY, double accelZ) {
-
 		super(worldIn, shooter, accelX, accelY, accelZ);
 		setSize(1F, 1F);
 	}
 
 	public static void registerFixesDragonFireball(DataFixer fixer) {
-
 		EntityFireball.registerFixesFireball(fixer, "DragonFireball");
 	}
 
@@ -42,7 +38,6 @@ public class EntityDragonFireball extends EntityFireball {
 	 * Called when this EntityFireball hits a block or entity.
 	 */
 	protected void onImpact(RayTraceResult result) {
-
 		if (result.entityHit == null || !result.entityHit.isEntityEqual(shootingEntity)) {
 			if (!world.isRemote) {
 				List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, getEntityBoundingBox().grow(4D, 2D, 4D));
@@ -76,7 +71,6 @@ public class EntityDragonFireball extends EntityFireball {
 	 * Returns true if other Entities should be prevented from moving through this Entity.
 	 */
 	public boolean canBeCollidedWith() {
-
 		return false;
 	}
 
@@ -84,17 +78,14 @@ public class EntityDragonFireball extends EntityFireball {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		return false;
 	}
 
 	protected ParticleTypes getParticleType() {
-
 		return ParticleTypes.DRAGON_BREATH;
 	}
 
 	protected boolean isFireballFiery() {
-
 		return false;
 	}
 

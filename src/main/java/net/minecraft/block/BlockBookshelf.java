@@ -11,7 +11,6 @@ import java.util.Random;
 public class BlockBookshelf extends Block {
 
 	public BlockBookshelf() {
-
 		super(Material.WOOD);
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 	}
@@ -20,7 +19,6 @@ public class BlockBookshelf extends Block {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return 3;
 	}
 
@@ -28,7 +26,6 @@ public class BlockBookshelf extends Block {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Items.BOOK;
 	}
 

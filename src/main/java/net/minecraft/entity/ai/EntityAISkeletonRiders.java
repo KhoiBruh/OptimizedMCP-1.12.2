@@ -16,7 +16,6 @@ public class EntityAISkeletonRiders extends EntityAIBase {
 	private final EntitySkeletonHorse horse;
 
 	public EntityAISkeletonRiders(EntitySkeletonHorse horseIn) {
-
 		horse = horseIn;
 	}
 
@@ -24,7 +23,6 @@ public class EntityAISkeletonRiders extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		return horse.world.isAnyPlayerWithinRangeAt(horse.posX, horse.posY, horse.posZ, 10D);
 	}
 
@@ -32,7 +30,6 @@ public class EntityAISkeletonRiders extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		DifficultyInstance difficultyinstance = horse.world.getDifficultyForLocation(new BlockPos(horse));
 		horse.setTrap(false);
 		horse.setHorseTamed(true);
@@ -50,7 +47,6 @@ public class EntityAISkeletonRiders extends EntityAIBase {
 	}
 
 	private AbstractHorse createHorse(DifficultyInstance p_188515_1_) {
-
 		EntitySkeletonHorse entityskeletonhorse = new EntitySkeletonHorse(horse.world);
 		entityskeletonhorse.onInitialSpawn(p_188515_1_, null);
 		entityskeletonhorse.setPosition(horse.posX, horse.posY, horse.posZ);
@@ -63,7 +59,6 @@ public class EntityAISkeletonRiders extends EntityAIBase {
 	}
 
 	private EntitySkeleton createSkeleton(DifficultyInstance p_188514_1_, AbstractHorse p_188514_2_) {
-
 		EntitySkeleton entityskeleton = new EntitySkeleton(p_188514_2_.world);
 		entityskeleton.onInitialSpawn(p_188514_1_, null);
 		entityskeleton.setPosition(p_188514_2_.posX, p_188514_2_.posY, p_188514_2_.posZ);

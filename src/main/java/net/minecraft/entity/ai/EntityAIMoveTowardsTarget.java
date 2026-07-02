@@ -18,7 +18,6 @@ public class EntityAIMoveTowardsTarget extends EntityAIBase {
 	private double movePosZ;
 
 	public EntityAIMoveTowardsTarget(EntityCreature creature, double speedIn, float targetMaxDistance) {
-
 		this.creature = creature;
 		speed = speedIn;
 		maxTargetDistance = targetMaxDistance;
@@ -29,7 +28,6 @@ public class EntityAIMoveTowardsTarget extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		targetEntity = creature.getAttackTarget();
 
 		if (targetEntity == null) {
@@ -54,7 +52,6 @@ public class EntityAIMoveTowardsTarget extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		return !creature.getNavigator().noPath() && targetEntity.isEntityAlive() && targetEntity.getDistanceSq(creature) < (double) (maxTargetDistance * maxTargetDistance);
 	}
 
@@ -62,7 +59,6 @@ public class EntityAIMoveTowardsTarget extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		targetEntity = null;
 	}
 
@@ -70,7 +66,6 @@ public class EntityAIMoveTowardsTarget extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		creature.getNavigator().tryMoveToXYZ(movePosX, movePosY, movePosZ, speed);
 	}
 

@@ -18,7 +18,6 @@ public class AdvancementToast implements IToast {
 	private boolean hasPlayedSound = false;
 
 	public AdvancementToast(Advancement advancementIn) {
-
 		advancement = advancementIn;
 	}
 

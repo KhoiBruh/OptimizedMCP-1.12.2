@@ -15,7 +15,6 @@ public class BakedQuad {
 	protected final TextureAtlasSprite sprite;
 
 	public BakedQuad(int[] vertexDataIn, int tintIndexIn, Facing faceIn, TextureAtlasSprite spriteIn) {
-
 		vertexData = vertexDataIn;
 		tintIndex = tintIndexIn;
 		face = faceIn;
@@ -23,27 +22,22 @@ public class BakedQuad {
 	}
 
 	public TextureAtlasSprite getSprite() {
-
 		return sprite;
 	}
 
 	public int[] getVertexData() {
-
 		return vertexData;
 	}
 
 	public boolean hasTintIndex() {
-
 		return tintIndex != -1;
 	}
 
 	public int getTintIndex() {
-
 		return tintIndex;
 	}
 
 	public Facing getFace() {
-
 		return face;
 	}
 

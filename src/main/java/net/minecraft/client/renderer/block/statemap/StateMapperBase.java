@@ -14,7 +14,6 @@ public abstract class StateMapperBase implements IStateMapper {
 	protected Map<IBlockState, ModelResourceLocation> mapStateModelLocations = Maps.newLinkedHashMap();
 
 	public String getPropertyString(Map<IProperty<?>, Comparable<?>> values) {
-
 		StringBuilder stringbuilder = new StringBuilder();
 
 		for (Entry<IProperty<?>, Comparable<?>> entry : values.entrySet()) {

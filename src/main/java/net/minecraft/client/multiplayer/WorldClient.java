@@ -56,7 +56,6 @@ public class WorldClient extends World {
 	private int ambienceTicks;
 
 	public WorldClient(NetHandlerPlayClient netHandler, WorldSettings settings, int dimension, Difficulty difficulty, Profiler profilerIn) {
-
 		super(new SaveHandlerMP(), new WorldInfo(settings, "MpServer"), DimensionType.getById(dimension).createDimension(), profilerIn, true);
 		ambienceTicks = rand.nextInt(12000);
 		visibleChunks = Sets.newHashSet();
@@ -74,7 +73,6 @@ public class WorldClient extends World {
 	 * Runs a single tick for the world
 	 */
 	public void tick() {
-
 		super.tick();
 		setTotalWorldTime(getTotalWorldTime() + 1L);
 
@@ -105,25 +103,21 @@ public class WorldClient extends World {
 	 * client-side in the intervening 80 receive ticks.
 	 */
 	public void invalidateBlockReceiveRegion(int x1, int y1, int z1, int x2, int y2, int z2) {
-
 	}
 
 	/**
 	 * Creates the chunk provider for this world. Called in the constructor. Retrieves provider from worldProvider?
 	 */
 	protected IChunkProvider createChunkProvider() {
-
 		clientChunkProvider = new ChunkProviderClient(this);
 		return clientChunkProvider;
 	}
 
 	protected boolean isChunkLoaded(int x, int z, boolean allowEmpty) {
-
 		return allowEmpty || !getChunkProvider().provideChunk(x, z).isEmpty();
 	}
 
 	protected void refreshVisibleChunks() {
-
 		visibleChunks.clear();
 		int i = mc.gameSettings.renderDistanceChunks;
 		profiler.startSection("buildList");
@@ -140,7 +134,6 @@ public class WorldClient extends World {
 	}
 
 	protected void updateBlocks() {
-
 		refreshVisibleChunks();
 
 		if (ambienceTicks > 0) {
@@ -174,7 +167,6 @@ public class WorldClient extends World {
 	}
 
 	public void doPreChunk(int chunkX, int chunkZ, boolean loadChunk) {
-
 		if (loadChunk) {
 			clientChunkProvider.loadChunk(chunkX, chunkZ);
 		} else {
@@ -187,7 +179,6 @@ public class WorldClient extends World {
 	 * Called when an entity is spawned in the world. This includes players.
 	 */
 	public boolean spawnEntity(Entity entityIn) {
-
 		boolean flag = super.spawnEntity(entityIn);
 		entityList.add(entityIn);
 
@@ -206,20 +197,17 @@ public class WorldClient extends World {
 	 * Schedule the entity for removal during the next tick. Marks the entity dead in anticipation.
 	 */
 	public void removeEntity(Entity entityIn) {
-
 		super.removeEntity(entityIn);
 		entityList.remove(entityIn);
 	}
 
 	protected void onEntityAdded(Entity entityIn) {
-
 		super.onEntityAdded(entityIn);
 
 		entitySpawnQueue.remove(entityIn);
 	}
 
 	protected void onEntityRemoved(Entity entityIn) {
-
 		super.onEntityRemoved(entityIn);
 
 		if (entityList.contains(entityIn)) {
@@ -235,7 +223,6 @@ public class WorldClient extends World {
 	 * Add an ID to Entity mapping to entityHashSet
 	 */
 	public void addEntityToWorld(int entityID, Entity entityToSpawn) {
-
 		Entity entity = getEntityByID(entityID);
 
 		if (entity != null) {
@@ -258,12 +245,10 @@ public class WorldClient extends World {
 	 * Returns the Entity with the given ID, or null if it doesn't exist in this World.
 	 */
 	public Entity getEntityByID(int id) {
-
 		return id == mc.player.getEntityId() ? mc.player : super.getEntityByID(id);
 	}
 
 	public Entity removeEntityFromWorld(int entityID) {
-
 		Entity entity = entitiesById.removeObject(entityID);
 
 		if (entity != null) {
@@ -275,7 +260,6 @@ public class WorldClient extends World {
 	}
 
 	public boolean invalidateRegionAndSetBlock(BlockPos pos, IBlockState state) {
-
 		int i = pos.getX();
 		int j = pos.getY();
 		int k = pos.getZ();
@@ -287,7 +271,6 @@ public class WorldClient extends World {
 	 * If on MP, sends a quitting packet.
 	 */
 	public void sendQuittingDisconnectingPacket() {
-
 		connection.getNetworkManager().closeChannel(new TextComponentString("Quitting"));
 	}
 
@@ -295,11 +278,9 @@ public class WorldClient extends World {
 	 * Updates all weather states.
 	 */
 	protected void updateWeather() {
-
 	}
 
 	protected void playMoodSoundAndCheckLight(int p_147467_1_, int p_147467_2_, Chunk chunkIn) {
-
 		super.playMoodSoundAndCheckLight(p_147467_1_, p_147467_2_, chunkIn);
 
 		if (ambienceTicks == 0) {
@@ -325,7 +306,6 @@ public class WorldClient extends World {
 	}
 
 	public void doVoidFogParticles(int posX, int posY, int posZ) {
-
 		int i = 32;
 		Random random = new Random();
 		ItemStack itemstack = mc.player.getHeldItemMainhand();
@@ -339,7 +319,6 @@ public class WorldClient extends World {
 	}
 
 	public void showBarrierParticles(int x, int y, int z, int offset, Random random, boolean holdingBarrier, BlockPos.MutableBlockPos pos) {
-
 		int i = x + rand.nextInt(offset) - rand.nextInt(offset);
 		int j = y + rand.nextInt(offset) - rand.nextInt(offset);
 		int k = z + rand.nextInt(offset) - rand.nextInt(offset);
@@ -356,7 +335,6 @@ public class WorldClient extends World {
 	 * also releases skins.
 	 */
 	public void removeAllEntities() {
-
 		loadedEntityList.removeAll(unloadedEntityList);
 
 		for (Entity entity : unloadedEntityList) {
@@ -404,7 +382,6 @@ public class WorldClient extends World {
 	 * Adds some basic stats of the world to the given crash report.
 	 */
 	public CrashReportCategory addWorldInfoToCrashReport(CrashReport report) {
-
 		CrashReportCategory crashreportcategory = super.addWorldInfoToCrashReport(report);
 		crashreportcategory.addDetail("Forced entities", () -> entityList.size() + " total; " + entityList);
 		crashreportcategory.addDetail("Retry entities", () -> entitySpawnQueue.size() + " total; " + entitySpawnQueue);
@@ -414,19 +391,16 @@ public class WorldClient extends World {
 	}
 
 	public void playSound(EntityPlayer player, double x, double y, double z, SoundEvent soundIn, SoundCategory category, float volume, float pitch) {
-
 		if (player == mc.player) {
 			playSound(x, y, z, soundIn, category, volume, pitch, false);
 		}
 	}
 
 	public void playSound(BlockPos pos, SoundEvent soundIn, SoundCategory category, float volume, float pitch, boolean distanceDelay) {
-
 		playSound((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, soundIn, category, volume, pitch, distanceDelay);
 	}
 
 	public void playSound(double x, double y, double z, SoundEvent soundIn, SoundCategory category, float volume, float pitch, boolean distanceDelay) {
-
 		double d0 = mc.getRenderViewEntity().getDistanceSq(x, y, z);
 		PositionedSoundRecord positionedsoundrecord = new PositionedSoundRecord(soundIn, category, volume, pitch, (float) x, (float) y, (float) z);
 
@@ -439,17 +413,14 @@ public class WorldClient extends World {
 	}
 
 	public void makeFireworks(double x, double y, double z, double motionX, double motionY, double motionZ, NBTTagCompound compound) {
-
 		mc.effectRenderer.addEffect(new ParticleFirework.Starter(this, x, y, z, motionX, motionY, motionZ, mc.effectRenderer, compound));
 	}
 
 	public void sendPacketToServer(Packet<?> packetIn) {
-
 		connection.sendPacket(packetIn);
 	}
 
 	public void setWorldScoreboard(Scoreboard scoreboardIn) {
-
 		worldScoreboard = scoreboardIn;
 	}
 
@@ -457,7 +428,6 @@ public class WorldClient extends World {
 	 * Sets the world time.
 	 */
 	public void setWorldTime(long time) {
-
 		if (time < 0L) {
 			time = -time;
 			getGameRules().setOrCreateGameRule("doDaylightCycle", "false");
@@ -472,7 +442,6 @@ public class WorldClient extends World {
 	 * gets the world's chunk provider
 	 */
 	public ChunkProviderClient getChunkProvider() {
-
 		return (ChunkProviderClient) super.getChunkProvider();
 	}
 

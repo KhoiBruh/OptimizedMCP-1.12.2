@@ -17,7 +17,6 @@ public class RecipesBanners {
 	public static class RecipeAddPattern implements IRecipe {
 
 		public boolean matches(InventoryCrafting inv, World worldIn) {
-
 			boolean flag = false;
 
 			for (int i = 0; i < inv.getSizeInventory(); ++i) {
@@ -44,7 +43,6 @@ public class RecipesBanners {
 		}
 
 		public ItemStack getCraftingResult(InventoryCrafting inv) {
-
 			ItemStack itemstack = ItemStack.EMPTY;
 
 			for (int i = 0; i < inv.getSizeInventory(); ++i) {
@@ -91,12 +89,10 @@ public class RecipesBanners {
 		}
 
 		public ItemStack getRecipeOutput() {
-
 			return ItemStack.EMPTY;
 		}
 
 		public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
-
 			NonNullList<ItemStack> nonnulllist = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
 
 			for (int i = 0; i < nonnulllist.size(); ++i) {
@@ -112,7 +108,6 @@ public class RecipesBanners {
 
 		
 		private BannerPattern matchPatterns(InventoryCrafting p_190933_1_) {
-
 			for (BannerPattern bannerpattern : BannerPattern.values()) {
 				if (bannerpattern.hasPattern()) {
 					boolean flag = true;
@@ -190,12 +185,10 @@ public class RecipesBanners {
 		}
 
 		public boolean isDynamic() {
-
 			return true;
 		}
 
 		public boolean canFit(int width, int height) {
-
 			return width >= 3 && height >= 3;
 		}
 
@@ -204,7 +197,6 @@ public class RecipesBanners {
 	public static class RecipeDuplicatePattern implements IRecipe {
 
 		public boolean matches(InventoryCrafting inv, World worldIn) {
-
 			ItemStack itemstack = ItemStack.EMPTY;
 			ItemStack itemstack1 = ItemStack.EMPTY;
 
@@ -255,7 +247,6 @@ public class RecipesBanners {
 		}
 
 		public ItemStack getCraftingResult(InventoryCrafting inv) {
-
 			for (int i = 0; i < inv.getSizeInventory(); ++i) {
 				ItemStack itemstack = inv.getStackInSlot(i);
 
@@ -270,12 +261,10 @@ public class RecipesBanners {
 		}
 
 		public ItemStack getRecipeOutput() {
-
 			return ItemStack.EMPTY;
 		}
 
 		public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
-
 			NonNullList<ItemStack> nonnulllist = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
 
 			for (int i = 0; i < nonnulllist.size(); ++i) {
@@ -296,12 +285,10 @@ public class RecipesBanners {
 		}
 
 		public boolean isDynamic() {
-
 			return true;
 		}
 
 		public boolean canFit(int width, int height) {
-
 			return width * height >= 2;
 		}
 

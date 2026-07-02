@@ -12,7 +12,6 @@ public class RenderDragonFireball extends Render<EntityDragonFireball> {
 	private static final ResourceLocation DRAGON_FIREBALL_TEXTURE = new ResourceLocation("textures/entity/enderdragon/dragon_fireball.png");
 
 	public RenderDragonFireball(RenderManager renderManagerIn) {
-
 		super(renderManagerIn);
 	}
 
@@ -20,7 +19,6 @@ public class RenderDragonFireball extends Render<EntityDragonFireball> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(EntityDragonFireball entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		GLS.pushMatrix();
 		bindEntityTexture(entity);
 		GLS.translate((float) x, (float) y, (float) z);
@@ -60,7 +58,6 @@ public class RenderDragonFireball extends Render<EntityDragonFireball> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityDragonFireball entity) {
-
 		return DRAGON_FIREBALL_TEXTURE;
 	}
 

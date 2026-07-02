@@ -12,7 +12,6 @@ import java.util.Random;
 public class BlockStaticLiquid extends BlockLiquid {
 
 	protected BlockStaticLiquid(Material materialIn) {
-
 		super(materialIn);
 		setTickRandomly(false);
 
@@ -27,21 +26,18 @@ public class BlockStaticLiquid extends BlockLiquid {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (!checkForMixing(worldIn, pos, state)) {
 			updateLiquid(worldIn, pos, state);
 		}
 	}
 
 	private void updateLiquid(World worldIn, BlockPos pos, IBlockState state) {
-
 		BlockDynamicLiquid blockdynamicliquid = getFlowingBlock(blockMaterial);
 		worldIn.setBlockState(pos, blockdynamicliquid.getDefaultState().withProperty(LEVEL, state.getValue(LEVEL)), 2);
 		worldIn.scheduleUpdate(pos, blockdynamicliquid, tickRate(worldIn));
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if (blockMaterial == Material.LAVA) {
 			if (worldIn.getGameRules().getBoolean("doFireTick")) {
 				int i = rand.nextInt(3);
@@ -85,7 +81,6 @@ public class BlockStaticLiquid extends BlockLiquid {
 	}
 
 	protected boolean isSurroundingBlockFlammable(World worldIn, BlockPos pos) {
-
 		for (Facing enumfacing : Facing.values()) {
 			if (getCanBlockBurn(worldIn, pos.offset(enumfacing))) {
 				return true;
@@ -96,7 +91,6 @@ public class BlockStaticLiquid extends BlockLiquid {
 	}
 
 	private boolean getCanBlockBurn(World worldIn, BlockPos pos) {
-
 		return (pos.getY() < 0 || pos.getY() >= 256 || worldIn.isBlockLoaded(pos)) && worldIn.getBlockState(pos).getMaterial().getCanBurn();
 	}
 

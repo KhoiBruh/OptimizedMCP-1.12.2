@@ -17,12 +17,10 @@ public class DefaultResourcePack implements IResourcePack {
 	private final ResourceIndex resourceIndex;
 
 	public DefaultResourcePack(ResourceIndex resourceIndexIn) {
-
 		resourceIndex = resourceIndexIn;
 	}
 
 	public InputStream getInputStream(ResourceLocation location) throws IOException {
-
 		InputStream inputstream = getInputStreamAssets(location);
 
 		if (inputstream != null) {
@@ -40,14 +38,12 @@ public class DefaultResourcePack implements IResourcePack {
 
 	
 	public InputStream getInputStreamAssets(ResourceLocation location) throws IOException {
-
 		File file1 = resourceIndex.getFile(location);
 		return file1 != null && file1.isFile() ? new FileInputStream(file1) : null;
 	}
 
 	
 	private InputStream getResourceStream(ResourceLocation location) {
-
 		String s = "/assets/" + location.getResourceDomain() + "/" + location.getResourcePath();
 
 		try {
@@ -59,12 +55,10 @@ public class DefaultResourcePack implements IResourcePack {
 	}
 
 	public boolean resourceExists(ResourceLocation location) {
-
 		return getResourceStream(location) != null || resourceIndex.isFileExisting(location);
 	}
 
 	public Set<String> getResourceDomains() {
-
 		return DEFAULT_RESOURCE_DOMAINS;
 	}
 
@@ -80,12 +74,10 @@ public class DefaultResourcePack implements IResourcePack {
 	}
 
 	public BufferedImage getPackImage() throws IOException {
-
 		return TextureUtil.readBufferedImage(DefaultResourcePack.class.getResourceAsStream("/" + (new ResourceLocation("pack.png")).getResourcePath()));
 	}
 
 	public String getPackName() {
-
 		return "Default";
 	}
 

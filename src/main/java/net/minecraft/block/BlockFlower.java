@@ -22,12 +22,10 @@ public abstract class BlockFlower extends BlockBush {
 	protected PropertyEnum<BlockFlower.FlowerType> type;
 
 	protected BlockFlower() {
-
 		setDefaultState(blockState.getBaseState().withProperty(getTypeProperty(), getBlockType() == BlockFlower.FlowerColor.RED ? BlockFlower.FlowerType.POPPY : BlockFlower.FlowerType.DANDELION));
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return super.getBoundingBox(state, source, pos).offset(state.getOffset(source, pos));
 	}
 
@@ -36,7 +34,6 @@ public abstract class BlockFlower extends BlockBush {
 	 * returns the metadata of the dropped item based on the old metadata of the block.
 	 */
 	public int damageDropped(IBlockState state) {
-
 		return state.getValue(getTypeProperty()).getMeta();
 	}
 
@@ -44,7 +41,6 @@ public abstract class BlockFlower extends BlockBush {
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-
 		for (BlockFlower.FlowerType blockflower$enumflowertype : BlockFlower.FlowerType.getTypes(getBlockType())) {
 			items.add(new ItemStack(this, 1, blockflower$enumflowertype.getMeta()));
 		}
@@ -54,7 +50,6 @@ public abstract class BlockFlower extends BlockBush {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(getTypeProperty(), BlockFlower.FlowerType.getType(getBlockType(), meta));
 	}
 
@@ -76,12 +71,10 @@ public abstract class BlockFlower extends BlockBush {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(getTypeProperty()).getMeta();
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, getTypeProperty());
 	}
 
@@ -98,7 +91,6 @@ public abstract class BlockFlower extends BlockBush {
 		RED;
 
 		public BlockFlower getBlock() {
-
 			return this == YELLOW ? Blocks.YELLOW_FLOWER : Blocks.RED_FLOWER;
 		}
 	}
@@ -130,12 +122,10 @@ public abstract class BlockFlower extends BlockBush {
 		private final String unlocalizedName;
 
 		FlowerType(BlockFlower.FlowerColor blockType, int meta, String name) {
-
 			this(blockType, meta, name, name);
 		}
 
 		FlowerType(BlockFlower.FlowerColor blockType, int meta, String name, String unlocalizedName) {
-
 			this.blockType = blockType;
 			this.meta = meta;
 			this.name = name;
@@ -164,22 +154,18 @@ public abstract class BlockFlower extends BlockBush {
 		}
 
 		public int getMeta() {
-
 			return meta;
 		}
 
 		public String toString() {
-
 			return name;
 		}
 
 		public String getName() {
-
 			return name;
 		}
 
 		public String getUnlocalizedName() {
-
 			return unlocalizedName;
 		}
 	}

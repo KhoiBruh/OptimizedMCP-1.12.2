@@ -20,7 +20,6 @@ public class ItemOverride {
 	private final Map<ResourceLocation, Float> mapResourceValues;
 
 	public ItemOverride(ResourceLocation locationIn, Map<ResourceLocation, Float> propertyValues) {
-
 		location = locationIn;
 		mapResourceValues = propertyValues;
 	}
@@ -29,12 +28,10 @@ public class ItemOverride {
 	 * Get the location of the target model
 	 */
 	public ResourceLocation getLocation() {
-
 		return location;
 	}
 
 	boolean matchesItemStack(ItemStack stack, World worldIn, EntityLivingBase livingEntity) {
-
 		Item item = stack.getItem();
 
 		for (Entry<ResourceLocation, Float> entry : mapResourceValues.entrySet()) {
@@ -51,7 +48,6 @@ public class ItemOverride {
 	static class Deserializer implements JsonDeserializer<ItemOverride> {
 
 		public ItemOverride deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-
 			JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
 			ResourceLocation resourcelocation = new ResourceLocation(JsonUtils.getString(jsonobject, "model"));
 			Map<ResourceLocation, Float> map = makeMapResourceValues(jsonobject);

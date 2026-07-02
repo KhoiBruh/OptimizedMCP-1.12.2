@@ -22,7 +22,6 @@ public class BlockQuartz extends Block {
 	public static final PropertyEnum<BlockQuartz.Type> VARIANT = PropertyEnum.create("variant", BlockQuartz.Type.class);
 
 	public BlockQuartz() {
-
 		super(Material.ROCK);
 		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockQuartz.Type.DEFAULT));
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
@@ -33,7 +32,6 @@ public class BlockQuartz extends Block {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		if (meta == BlockQuartz.Type.LINES_Y.getMetadata()) {
 			return switch (facing.getAxis()) {
 				case Z -> getDefaultState().withProperty(VARIANT, Type.LINES_Z);
@@ -50,13 +48,11 @@ public class BlockQuartz extends Block {
 	 * returns the metadata of the dropped item based on the old metadata of the block.
 	 */
 	public int damageDropped(IBlockState state) {
-
 		BlockQuartz.Type blockquartz$enumtype = state.getValue(VARIANT);
 		return blockquartz$enumtype != BlockQuartz.Type.LINES_X && blockquartz$enumtype != BlockQuartz.Type.LINES_Z ? blockquartz$enumtype.getMetadata() : BlockQuartz.Type.LINES_Y.getMetadata();
 	}
 
 	protected ItemStack getSilkTouchDrop(IBlockState state) {
-
 		BlockQuartz.Type blockquartz$enumtype = state.getValue(VARIANT);
 		return blockquartz$enumtype != BlockQuartz.Type.LINES_X && blockquartz$enumtype != BlockQuartz.Type.LINES_Z ? super.getSilkTouchDrop(state) : new ItemStack(Item.getItemFromBlock(this), 1, BlockQuartz.Type.LINES_Y.getMetadata());
 	}
@@ -65,7 +61,6 @@ public class BlockQuartz extends Block {
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-
 		items.add(new ItemStack(this, 1, BlockQuartz.Type.DEFAULT.getMetadata()));
 		items.add(new ItemStack(this, 1, BlockQuartz.Type.CHISELED.getMetadata()));
 		items.add(new ItemStack(this, 1, BlockQuartz.Type.LINES_Y.getMetadata()));
@@ -75,7 +70,6 @@ public class BlockQuartz extends Block {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return MapColor.QUARTZ;
 	}
 
@@ -83,7 +77,6 @@ public class BlockQuartz extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(VARIANT, BlockQuartz.Type.byMetadata(meta));
 	}
 
@@ -91,7 +84,6 @@ public class BlockQuartz extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(VARIANT).getMetadata();
 	}
 
@@ -100,7 +92,6 @@ public class BlockQuartz extends Block {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return switch (rot) {
 			case COUNTERCLOCKWISE_90, CLOCKWISE_90 -> switch (state.getValue(VARIANT)) {
 				case LINES_X -> state.withProperty(VARIANT, Type.LINES_Z);
@@ -112,7 +103,6 @@ public class BlockQuartz extends Block {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, VARIANT);
 	}
 
@@ -136,7 +126,6 @@ public class BlockQuartz extends Block {
 		private final String unlocalizedName;
 
 		Type(int meta, String name, String unlocalizedName) {
-
 			this.meta = meta;
 			serializedName = name;
 			this.unlocalizedName = unlocalizedName;
@@ -152,17 +141,14 @@ public class BlockQuartz extends Block {
 		}
 
 		public int getMetadata() {
-
 			return meta;
 		}
 
 		public String toString() {
-
 			return unlocalizedName;
 		}
 
 		public String getName() {
-
 			return serializedName;
 		}
 	}

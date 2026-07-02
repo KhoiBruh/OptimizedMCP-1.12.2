@@ -22,7 +22,6 @@ public class BiomeForest extends Biome {
 	private final BiomeForest.Type type;
 
 	public BiomeForest(BiomeForest.Type typeIn, Biome.BiomeProperties properties) {
-
 		super(properties);
 		type = typeIn;
 		decorator.treesPerChunk = 10;
@@ -45,7 +44,6 @@ public class BiomeForest extends Biome {
 	}
 
 	public WorldGenAbstractTree getRandomTreeFeature(Random rand) {
-
 		if (type == BiomeForest.Type.ROOFED && rand.nextInt(3) > 0) {
 			return ROOF_TREE;
 		} else if (type != BiomeForest.Type.BIRCH && rand.nextInt(5) != 0) {
@@ -67,7 +65,6 @@ public class BiomeForest extends Biome {
 	}
 
 	public void decorate(World worldIn, Random rand, BlockPos pos) {
-
 		if (type == BiomeForest.Type.ROOFED) {
 			addMushrooms(worldIn, rand, pos);
 		}
@@ -83,7 +80,6 @@ public class BiomeForest extends Biome {
 	}
 
 	protected void addMushrooms(World p_185379_1_, Random p_185379_2_, BlockPos p_185379_3_) {
-
 		for (int i = 0; i < 4; ++i) {
 			for (int j = 0; j < 4; ++j) {
 				int k = i * 4 + 1 + 8 + p_185379_2_.nextInt(3);
@@ -106,7 +102,6 @@ public class BiomeForest extends Biome {
 	}
 
 	protected void addDoublePlants(World p_185378_1_, Random p_185378_2_, BlockPos p_185378_3_, int p_185378_4_) {
-
 		for (int i = 0; i < p_185378_4_; ++i) {
 			int j = p_185378_2_.nextInt(3);
 
@@ -136,7 +131,6 @@ public class BiomeForest extends Biome {
 	}
 
 	public int getGrassColorAtPos(BlockPos pos) {
-
 		int i = super.getGrassColorAtPos(pos);
 		return type == BiomeForest.Type.ROOFED ? (i & 16711422) + 2634762 >> 1 : i;
 	}

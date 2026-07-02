@@ -100,7 +100,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	private NBTTagCompound leashNBTTag;
 
 	public EntityLiving(World worldIn) {
-
 		super(worldIn);
 		tasks = new EntityAITasks(worldIn != null && worldIn.profiler != null ? worldIn.profiler : null);
 		targetTasks = new EntityAITasks(worldIn != null && worldIn.profiler != null ? worldIn.profiler : null);
@@ -119,12 +118,10 @@ public abstract class EntityLiving extends EntityLivingBase {
 	}
 
 	public static void registerFixesMob(DataFixer fixer, Class<?> name) {
-
 		fixer.registerWalker(FixTypes.ENTITY, new ItemStackDataLists(name, "ArmorItems", "HandItems"));
 	}
 
 	public static EntityEquipmentSlot getSlotForItemStack(ItemStack stack) {
-
 		if (stack.getItem() != Item.getItemFromBlock(Blocks.PUMPKIN) && stack.getItem() != Items.SKULL) {
 			if (stack.getItem() instanceof ItemArmor) {
 				return ((ItemArmor) stack.getItem()).armorType;
@@ -140,7 +137,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 
 	
 	public static Item getArmorByChance(EntityEquipmentSlot slotIn, int chance) {
-
 		switch (slotIn) {
 			case HEAD:
 				if (chance == 0) {
@@ -200,17 +196,14 @@ public abstract class EntityLiving extends EntityLivingBase {
 	}
 
 	public static boolean isItemStackInSlot(EntityEquipmentSlot slotIn, ItemStack stack) {
-
 		EntityEquipmentSlot entityequipmentslot = getSlotForItemStack(stack);
 		return entityequipmentslot == slotIn || entityequipmentslot == EntityEquipmentSlot.MAINHAND && slotIn == EntityEquipmentSlot.OFFHAND || entityequipmentslot == EntityEquipmentSlot.OFFHAND && slotIn == EntityEquipmentSlot.MAINHAND;
 	}
 
 	protected void initEntityAI() {
-
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getAttributeMap().registerAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(16D);
 	}
@@ -219,43 +212,35 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Returns new PathNavigateGround instance
 	 */
 	protected PathNavigate createNavigator(World worldIn) {
-
 		return new PathNavigateGround(this, worldIn);
 	}
 
 	public float getPathPriority(PathNodeType nodeType) {
-
 		Float f = mapPathPriority.get(nodeType);
 		return f == null ? nodeType.getPriority() : f;
 	}
 
 	public void setPathPriority(PathNodeType nodeType, float priority) {
-
 		mapPathPriority.put(nodeType, priority);
 	}
 
 	protected EntityBodyHelper createBodyHelper() {
-
 		return new EntityBodyHelper(this);
 	}
 
 	public EntityLookHelper getLookHelper() {
-
 		return lookHelper;
 	}
 
 	public EntityMoveHelper getMoveHelper() {
-
 		return moveHelper;
 	}
 
 	public EntityJumpHelper getJumpHelper() {
-
 		return jumpHelper;
 	}
 
 	public PathNavigate getNavigator() {
-
 		return navigator;
 	}
 
@@ -263,7 +248,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * returns the EntitySenses Object for the EntityLiving
 	 */
 	public EntitySenses getEntitySenses() {
-
 		return senses;
 	}
 
@@ -273,7 +257,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Gets the active target the Task system uses for tracking
 	 */
 	public EntityLivingBase getAttackTarget() {
-
 		return attackTarget;
 	}
 
@@ -281,7 +264,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Sets the active target the Task system uses for tracking
 	 */
 	public void setAttackTarget(EntityLivingBase entitylivingbaseIn) {
-
 		attackTarget = entitylivingbaseIn;
 	}
 
@@ -289,7 +271,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Returns true if this entity can attack entities of the specified class.
 	 */
 	public boolean canAttackClass(Class<? extends EntityLivingBase> cls) {
-
 		return cls != EntityGhast.class;
 	}
 
@@ -298,11 +279,9 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * function is used in the AIEatGrass)
 	 */
 	public void eatGrassBonus() {
-
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(AI_FLAGS, (byte) 0);
 	}
@@ -311,7 +290,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Get number of ticks, at least during which the living entity will be silent.
 	 */
 	public int getTalkInterval() {
-
 		return 80;
 	}
 
@@ -319,7 +297,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Plays living's sound at its position
 	 */
 	public void playLivingSound() {
-
 		SoundEvent soundevent = getAmbientSound();
 
 		if (soundevent != null) {
@@ -331,7 +308,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Gets called every tick from main Entity class
 	 */
 	public void onEntityUpdate() {
-
 		super.onEntityUpdate();
 		world.profiler.startSection("mobBaseTick");
 
@@ -344,13 +320,11 @@ public abstract class EntityLiving extends EntityLivingBase {
 	}
 
 	protected void playHurtSound(DamageSource source) {
-
 		applyEntityAI();
 		super.playHurtSound(source);
 	}
 
 	private void applyEntityAI() {
-
 		livingSoundTime = -getTalkInterval();
 	}
 
@@ -358,7 +332,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Get the experience points the entity currently has.
 	 */
 	protected int getExperiencePoints(EntityPlayer player) {
-
 		if (experienceValue > 0) {
 			int i = experienceValue;
 
@@ -384,7 +357,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Spawns an explosion particle around the Entity's location
 	 */
 	public void spawnExplosionParticle() {
-
 		if (world.isRemote) {
 			for (int i = 0; i < 20; ++i) {
 				double d0 = rand.nextGaussian() * 0.02D;
@@ -402,7 +374,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Handler for {@link World#setEntityState}
 	 */
 	public void handleStatusUpdate(byte id) {
-
 		if (id == 20) {
 			spawnExplosionParticle();
 		} else {
@@ -414,7 +385,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		super.onUpdate();
 
 		if (!world.isRemote) {
@@ -431,20 +401,17 @@ public abstract class EntityLiving extends EntityLivingBase {
 	}
 
 	protected float updateDistance(float p_110146_1_, float p_110146_2_) {
-
 		bodyHelper.updateRenderAngles();
 		return p_110146_2_;
 	}
 
 	
 	protected SoundEvent getAmbientSound() {
-
 		return null;
 	}
 
 	
 	protected Item getDropItem() {
-
 		return null;
 	}
 
@@ -452,7 +419,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Drop 0-2 items of this living's type
 	 */
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-
 		Item item = getDropItem();
 
 		if (item != null) {
@@ -472,7 +438,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setBoolean("CanPickUpLoot", canPickUpLoot());
 		compound.setBoolean("PersistenceRequired", persistenceRequired);
@@ -553,7 +518,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 
 		if (compound.hasKey("CanPickUpLoot", 1)) {
@@ -612,7 +576,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return null;
 	}
 
@@ -620,7 +583,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * drops the loot of this entity upon death
 	 */
 	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
-
 		ResourceLocation resourcelocation = deathLootTable;
 
 		if (resourcelocation == null) {
@@ -647,17 +609,14 @@ public abstract class EntityLiving extends EntityLivingBase {
 	}
 
 	public void setMoveForward(float amount) {
-
 		moveForward = amount;
 	}
 
 	public void setMoveVertical(float amount) {
-
 		moveVertical = amount;
 	}
 
 	public void setMoveStrafing(float amount) {
-
 		moveStrafing = amount;
 	}
 
@@ -665,7 +624,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * set the movespeed used for the new AI system
 	 */
 	public void setAIMoveSpeed(float speedIn) {
-
 		super.setAIMoveSpeed(speedIn);
 		setMoveForward(speedIn);
 	}
@@ -675,7 +633,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
 		super.onLivingUpdate();
 		world.profiler.startSection("looting");
 
@@ -695,7 +652,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * better.
 	 */
 	protected void updateEquipmentIfNeeded(EntityItem itemEntity) {
-
 		ItemStack itemstack = itemEntity.getItem();
 		EntityEquipmentSlot entityequipmentslot = getSlotForItemStack(itemstack);
 		boolean flag = true;
@@ -759,7 +715,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	}
 
 	protected boolean canEquipItem(ItemStack stack) {
-
 		return true;
 	}
 
@@ -767,7 +722,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Determines if an entity can be despawned, used on idle far away entities
 	 */
 	protected boolean canDespawn() {
-
 		return true;
 	}
 
@@ -775,7 +729,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Makes the entity despawn if requirements are reached
 	 */
 	protected void despawnEntity() {
-
 		if (persistenceRequired) {
 			idleTime = 0;
 		} else {
@@ -801,7 +754,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	}
 
 	protected final void updateEntityActionState() {
-
 		++idleTime;
 		world.profiler.startSection("checkDespawn");
 		despawnEntity();
@@ -839,7 +791,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	}
 
 	protected void updateAITasks() {
-
 	}
 
 	/**
@@ -847,12 +798,10 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * use in wolves.
 	 */
 	public int getVerticalFaceSpeed() {
-
 		return 40;
 	}
 
 	public int getHorizontalFaceSpeed() {
-
 		return 10;
 	}
 
@@ -860,7 +809,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Changes pitch and yaw so that the entity calling the function is facing the entity provided as an argument.
 	 */
 	public void faceEntity(Entity entityIn, float maxYawIncrease, float maxPitchIncrease) {
-
 		double d0 = entityIn.posX - posX;
 		double d2 = entityIn.posZ - posZ;
 		double d1;
@@ -882,7 +830,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Arguments: current rotation, intended rotation, max increment.
 	 */
 	private float updateRotation(float angle, float targetAngle, float maxIncrease) {
-
 		float f = MathHelper.wrapDegrees(targetAngle - angle);
 
 		if (f > maxIncrease) {
@@ -900,7 +847,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Checks if the entity's current position is a valid location to spawn this entity.
 	 */
 	public boolean getCanSpawnHere() {
-
 		IBlockState iblockstate = world.getBlockState((new BlockPos(this)).down());
 		return iblockstate.canEntitySpawn(this);
 	}
@@ -909,7 +855,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Checks that the entity is not colliding with any blocks / liquids
 	 */
 	public boolean isNotColliding() {
-
 		return !world.containsAnyLiquid(getEntityBoundingBox()) && world.getCollisionBoxes(this, getEntityBoundingBox()).isEmpty() && world.checkNoEntityCollision(getEntityBoundingBox(), this);
 	}
 
@@ -917,7 +862,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Returns render size modifier
 	 */
 	public float getRenderSizeModifier() {
-
 		return 1F;
 	}
 
@@ -925,7 +869,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Will return how many at most can spawn in a chunk at once.
 	 */
 	public int getMaxSpawnedInChunk() {
-
 		return 4;
 	}
 
@@ -933,7 +876,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * The maximum height from where the entity is alowed to jump (used in pathfinder)
 	 */
 	public int getMaxFallHeight() {
-
 		if (getAttackTarget() == null) {
 			return 3;
 		} else {
@@ -949,17 +891,14 @@ public abstract class EntityLiving extends EntityLivingBase {
 	}
 
 	public Iterable<ItemStack> getHeldEquipment() {
-
 		return inventoryHands;
 	}
 
 	public Iterable<ItemStack> getArmorInventoryList() {
-
 		return inventoryArmor;
 	}
 
 	public ItemStack getItemStackFromSlot(EntityEquipmentSlot slotIn) {
-
 		return switch (slotIn.getSlotType()) {
 			case HAND -> inventoryHands.get(slotIn.getIndex());
 			case ARMOR -> inventoryArmor.get(slotIn.getIndex());
@@ -967,7 +906,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	}
 
 	public void setItemStackToSlot(EntityEquipmentSlot slotIn, ItemStack stack) {
-
 		switch (slotIn.getSlotType()) {
 			case HAND:
 				inventoryHands.set(slotIn.getIndex(), stack);
@@ -982,7 +920,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Drop the equipment for this entity.
 	 */
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-
 		for (EntityEquipmentSlot entityequipmentslot : EntityEquipmentSlot.values()) {
 			ItemStack itemstack = getItemStackFromSlot(entityequipmentslot);
 			double d0 = switch (entityequipmentslot.getSlotType()) {
@@ -1006,7 +943,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Gives armor or weapon for entity based on given DifficultyInstance
 	 */
 	protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
-
 		if (rand.nextFloat() < 0.15F * difficulty.getClampedAdditionalDifficulty()) {
 			int i = rand.nextInt(2);
 			float f = world.getDifficulty() == Difficulty.HARD ? 0.1F : 0.25F;
@@ -1051,7 +987,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Enchants Entity's current equipments based on given DifficultyInstance
 	 */
 	protected void setEnchantmentBasedOnDifficulty(DifficultyInstance difficulty) {
-
 		float f = difficulty.getClampedAdditionalDifficulty();
 
 		if (!getHeldItemMainhand().isEmpty() && rand.nextFloat() < 0.25F * f) {
@@ -1086,7 +1021,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-
 		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", rand.nextGaussian() * 0.05D, 1));
 
 		setLeftHanded(rand.nextFloat() < 0.05F);
@@ -1099,7 +1033,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * by a player and the player is holding a carrot-on-a-stick
 	 */
 	public boolean canBeSteered() {
-
 		return false;
 	}
 
@@ -1107,12 +1040,10 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Enable the Entity persistence
 	 */
 	public void enablePersistence() {
-
 		persistenceRequired = true;
 	}
 
 	public void setDropChance(EntityEquipmentSlot slotIn, float chance) {
-
 		switch (slotIn.getSlotType()) {
 			case HAND:
 				inventoryHandsDropChances[slotIn.getIndex()] = chance;
@@ -1124,12 +1055,10 @@ public abstract class EntityLiving extends EntityLivingBase {
 	}
 
 	public boolean canPickUpLoot() {
-
 		return canPickUpLoot;
 	}
 
 	public void setCanPickUpLoot(boolean canPickup) {
-
 		canPickUpLoot = canPickup;
 	}
 
@@ -1137,12 +1066,10 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Return the persistenceRequired field (whether this entity is allowed to naturally despawn)
 	 */
 	public boolean isNoDespawnRequired() {
-
 		return persistenceRequired;
 	}
 
 	public final boolean processInitialInteract(EntityPlayer player, Hand hand) {
-
 		if (getLeashed() && getLeashHolder() == player) {
 			clearLeashed(true, !player.capabilities.isCreativeMode);
 			return true;
@@ -1160,7 +1087,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	}
 
 	protected boolean processInteract(EntityPlayer player, Hand hand) {
-
 		return false;
 	}
 
@@ -1168,7 +1094,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Applies logic related to leashes, for example dragging the entity or breaking the leash.
 	 */
 	protected void updateLeashedState() {
-
 		if (leashNBTTag != null) {
 			recreateLeash();
 		}
@@ -1188,7 +1113,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Removes the leash from this entity
 	 */
 	public void clearLeashed(boolean sendPacket, boolean dropLead) {
-
 		if (isLeashed) {
 			isLeashed = false;
 			leashHolder = null;
@@ -1204,17 +1128,14 @@ public abstract class EntityLiving extends EntityLivingBase {
 	}
 
 	public boolean canBeLeashedTo(EntityPlayer player) {
-
 		return !getLeashed() && !(this instanceof IMob);
 	}
 
 	public boolean getLeashed() {
-
 		return isLeashed;
 	}
 
 	public Entity getLeashHolder() {
-
 		return leashHolder;
 	}
 
@@ -1222,7 +1143,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Sets the entity to be leashed to.
 	 */
 	public void setLeashHolder(Entity entityIn, boolean sendAttachNotification) {
-
 		isLeashed = true;
 		leashHolder = entityIn;
 
@@ -1236,7 +1156,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	}
 
 	public boolean startRiding(Entity entityIn, boolean force) {
-
 		boolean flag = super.startRiding(entityIn, force);
 
 		if (flag && getLeashed()) {
@@ -1247,7 +1166,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	}
 
 	private void recreateLeash() {
-
 		if (isLeashed && leashNBTTag != null) {
 			if (leashNBTTag.hasUniqueId("UUID")) {
 				UUID uuid = leashNBTTag.getUniqueId("UUID");
@@ -1276,7 +1194,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	}
 
 	public boolean replaceItemInInventory(int inventorySlot, ItemStack itemStackIn) {
-
 		EntityEquipmentSlot entityequipmentslot;
 
 		if (inventorySlot == 98) {
@@ -1306,7 +1223,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	}
 
 	public boolean canPassengerSteer() {
-
 		return canBeSteered() && super.canPassengerSteer();
 	}
 
@@ -1314,7 +1230,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Returns whether the entity is in a server world
 	 */
 	public boolean isServerWorld() {
-
 		return super.isServerWorld() && !isAIDisabled();
 	}
 
@@ -1322,7 +1237,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Set whether this Entity's AI is disabled
 	 */
 	public void setNoAI(boolean disable) {
-
 		byte b0 = dataManager.get(AI_FLAGS);
 		dataManager.set(AI_FLAGS, disable ? (byte) (b0 | 1) : (byte) (b0 & -2));
 	}
@@ -1331,23 +1245,19 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Get whether this Entity's AI is disabled
 	 */
 	public boolean isAIDisabled() {
-
 		return (dataManager.get(AI_FLAGS) & 1) != 0;
 	}
 
 	public boolean isLeftHanded() {
-
 		return (dataManager.get(AI_FLAGS) & 2) != 0;
 	}
 
 	public void setLeftHanded(boolean leftHanded) {
-
 		byte b0 = dataManager.get(AI_FLAGS);
 		dataManager.set(AI_FLAGS, leftHanded ? (byte) (b0 | 2) : (byte) (b0 & -3));
 	}
 
 	public HandSide getPrimaryHand() {
-
 		return isLeftHanded() ? HandSide.LEFT : HandSide.RIGHT;
 	}
 

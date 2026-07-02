@@ -14,7 +14,6 @@ public class ShulkerBoxScreen extends ContainerScreen {
 	private final InventoryPlayer playerInventory;
 
 	public ShulkerBoxScreen(InventoryPlayer p_i47233_1_, IInventory p_i47233_2_) {
-
 		super(new ContainerShulkerBox(p_i47233_1_, p_i47233_2_, Minecraft.getMinecraft().player));
 		playerInventory = p_i47233_1_;
 		inventory = p_i47233_2_;
@@ -25,7 +24,6 @@ public class ShulkerBoxScreen extends ContainerScreen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		super.draw(mouseX, mouseY, partialTicks);
 		renderHoveredToolTip(mouseX, mouseY);
@@ -35,7 +33,6 @@ public class ShulkerBoxScreen extends ContainerScreen {
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-
 		fontRenderer.drawString(inventory.displayName().getUnformattedText(), 8, 6, 4210752);
 		fontRenderer.drawString(playerInventory.displayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
 	}
@@ -44,7 +41,6 @@ public class ShulkerBoxScreen extends ContainerScreen {
 	 * Draws the background layer of this container (behind the items).
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-
 		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(GUI_TEXTURE);
 		int i = (width - xSize) / 2;

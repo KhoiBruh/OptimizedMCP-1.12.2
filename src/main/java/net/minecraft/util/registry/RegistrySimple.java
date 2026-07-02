@@ -20,7 +20,6 @@ public class RegistrySimple<K, V> implements IRegistry<K, V> {
 
 	
 	public V getObject(K name) {
-
 		return registryObjects.get(name);
 	}
 
@@ -28,7 +27,6 @@ public class RegistrySimple<K, V> implements IRegistry<K, V> {
 	 * Register an object on this registry.
 	 */
 	public void putObject(K key, V value) {
-
 		Validate.notNull(key);
 		Validate.notNull(value);
 		values = null;
@@ -41,13 +39,11 @@ public class RegistrySimple<K, V> implements IRegistry<K, V> {
 	}
 
 	public Set<K> getKeys() {
-
 		return Collections.unmodifiableSet(registryObjects.keySet());
 	}
 
 	
 	public V getRandomObject(Random random) {
-
 		if (values == null) {
 			Collection<?> collection = registryObjects.values();
 
@@ -65,12 +61,10 @@ public class RegistrySimple<K, V> implements IRegistry<K, V> {
 	 * Does this registry contain an entry for the given key?
 	 */
 	public boolean containsKey(K key) {
-
 		return registryObjects.containsKey(key);
 	}
 
 	public Iterator<V> iterator() {
-
 		return registryObjects.values().iterator();
 	}
 

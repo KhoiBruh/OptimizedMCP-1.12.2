@@ -32,7 +32,6 @@ public class BlockWall extends Block {
 	protected static final AxisAlignedBB[] CLIP_AABB_BY_INDEX = new AxisAlignedBB[]{AABB_BY_INDEX[0].setMaxY(1.5D), AABB_BY_INDEX[1].setMaxY(1.5D), AABB_BY_INDEX[2].setMaxY(1.5D), AABB_BY_INDEX[3].setMaxY(1.5D), AABB_BY_INDEX[4].setMaxY(1.5D), AABB_BY_INDEX[5].setMaxY(1.5D), AABB_BY_INDEX[6].setMaxY(1.5D), AABB_BY_INDEX[7].setMaxY(1.5D), AABB_BY_INDEX[8].setMaxY(1.5D), AABB_BY_INDEX[9].setMaxY(1.5D), AABB_BY_INDEX[10].setMaxY(1.5D), AABB_BY_INDEX[11].setMaxY(1.5D), AABB_BY_INDEX[12].setMaxY(1.5D), AABB_BY_INDEX[13].setMaxY(1.5D), AABB_BY_INDEX[14].setMaxY(1.5D), AABB_BY_INDEX[15].setMaxY(1.5D)};
 
 	public BlockWall(Block modelBlock) {
-
 		super(modelBlock.blockMaterial);
 		setDefaultState(blockState.getBaseState().withProperty(UP, false).withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false).withProperty(VARIANT, BlockWall.Type.NORMAL));
 		setHardness(modelBlock.blockHardness);
@@ -42,7 +41,6 @@ public class BlockWall extends Block {
 	}
 
 	private static int getAABBIndex(IBlockState state) {
-
 		int i = 0;
 
 		if (state.getValue(NORTH)) {
@@ -65,18 +63,15 @@ public class BlockWall extends Block {
 	}
 
 	protected static boolean isExcepBlockForAttachWithPiston(Block p_194143_0_) {
-
 		return Block.isExceptBlockForAttachWithPiston(p_194143_0_) || p_194143_0_ == Blocks.BARRIER || p_194143_0_ == Blocks.MELON_BLOCK || p_194143_0_ == Blocks.PUMPKIN || p_194143_0_ == Blocks.LIT_PUMPKIN;
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		state = getActualState(state, source, pos);
 		return AABB_BY_INDEX[getAABBIndex(state)];
 	}
 
 	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean isActualState) {
-
 		if (!isActualState) {
 			state = getActualState(state, worldIn, pos);
 		}
@@ -86,7 +81,6 @@ public class BlockWall extends Block {
 
 	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-
 		blockState = getActualState(blockState, worldIn, pos);
 		return CLIP_AABB_BY_INDEX[getAABBIndex(blockState)];
 	}
@@ -95,12 +89,10 @@ public class BlockWall extends Block {
 	 * Gets the localized name of this block. Used for the statistics page.
 	 */
 	public String getLocalizedName() {
-
 		return I18n.translateToLocal(getUnlocalizedName() + "." + BlockWall.Type.NORMAL.getUnlocalizedName() + ".name");
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -108,7 +100,6 @@ public class BlockWall extends Block {
 	 * Determines if an entity can path through this block
 	 */
 	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-
 		return false;
 	}
 
@@ -116,12 +107,10 @@ public class BlockWall extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	private boolean canConnectTo(IBlockAccess worldIn, BlockPos pos, Facing p_176253_3_) {
-
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		Block block = iblockstate.getBlock();
 		BlockFaceShape blockfaceshape = iblockstate.getBlockFaceShape(worldIn, pos, p_176253_3_);
@@ -133,7 +122,6 @@ public class BlockWall extends Block {
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-
 		for (BlockWall.Type blockwall$enumtype : BlockWall.Type.values()) {
 			items.add(new ItemStack(this, 1, blockwall$enumtype.getMetadata()));
 		}
@@ -144,12 +132,10 @@ public class BlockWall extends Block {
 	 * returns the metadata of the dropped item based on the old metadata of the block.
 	 */
 	public int damageDropped(IBlockState state) {
-
 		return state.getValue(VARIANT).getMetadata();
 	}
 
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		return side != Facing.DOWN || super.shouldSideBeRendered(blockState, blockAccess, pos, side);
 	}
 
@@ -157,7 +143,6 @@ public class BlockWall extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(VARIANT, BlockWall.Type.byMetadata(meta));
 	}
 
@@ -165,7 +150,6 @@ public class BlockWall extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(VARIANT).getMetadata();
 	}
 
@@ -174,7 +158,6 @@ public class BlockWall extends Block {
 	 * metadata, such as fence connections.
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		boolean flag = canConnectTo(worldIn, pos.north(), Facing.SOUTH);
 		boolean flag1 = canConnectTo(worldIn, pos.east(), Facing.WEST);
 		boolean flag2 = canConnectTo(worldIn, pos.south(), Facing.NORTH);
@@ -184,7 +167,6 @@ public class BlockWall extends Block {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, UP, NORTH, EAST, WEST, SOUTH, VARIANT);
 	}
 
@@ -198,7 +180,6 @@ public class BlockWall extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return face != Facing.UP && face != Facing.DOWN ? BlockFaceShape.MIDDLE_POLE_THICK : BlockFaceShape.CENTER_BIG;
 	}
 
@@ -219,7 +200,6 @@ public class BlockWall extends Block {
 		private final String unlocalizedName;
 
 		Type(int meta, String name, String unlocalizedName) {
-
 			this.meta = meta;
 			this.name = name;
 			this.unlocalizedName = unlocalizedName;
@@ -235,22 +215,18 @@ public class BlockWall extends Block {
 		}
 
 		public int getMetadata() {
-
 			return meta;
 		}
 
 		public String toString() {
-
 			return name;
 		}
 
 		public String getName() {
-
 			return name;
 		}
 
 		public String getUnlocalizedName() {
-
 			return unlocalizedName;
 		}
 	}

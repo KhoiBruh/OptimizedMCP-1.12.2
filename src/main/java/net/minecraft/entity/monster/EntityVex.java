@@ -33,7 +33,6 @@ public class EntityVex extends EntityMob {
 	private int limitedLifeTicks;
 
 	public EntityVex(World worldIn) {
-
 		super(worldIn);
 		isImmuneToFire = true;
 		moveHelper = new EntityVex.AIMoveControl(this);
@@ -42,7 +41,6 @@ public class EntityVex extends EntityMob {
 	}
 
 	public static void registerFixesVex(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntityVex.class);
 	}
 
@@ -50,7 +48,6 @@ public class EntityVex extends EntityMob {
 	 * Tries to move the entity towards the specified location.
 	 */
 	public void move(MoverType type, double x, double y, double z) {
-
 		super.move(type, x, y, z);
 		doBlockCollisions();
 	}
@@ -59,7 +56,6 @@ public class EntityVex extends EntityMob {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		noClip = true;
 		super.onUpdate();
 		noClip = false;
@@ -72,7 +68,6 @@ public class EntityVex extends EntityMob {
 	}
 
 	protected void initEntityAI() {
-
 		super.initEntityAI();
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(4, new EntityVex.AIChargeAttack());
@@ -85,14 +80,12 @@ public class EntityVex extends EntityMob {
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(14D);
 		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4D);
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(VEX_FLAGS, (byte) 0);
 	}
@@ -101,7 +94,6 @@ public class EntityVex extends EntityMob {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 
 		if (compound.hasKey("BoundX")) {
@@ -117,7 +109,6 @@ public class EntityVex extends EntityMob {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 
 		if (boundOrigin != null) {
@@ -132,34 +123,28 @@ public class EntityVex extends EntityMob {
 	}
 
 	public EntityLiving getOwner() {
-
 		return owner;
 	}
 
 	public void setOwner(EntityLiving ownerIn) {
-
 		owner = ownerIn;
 	}
 
 	
 	public BlockPos getBoundOrigin() {
-
 		return boundOrigin;
 	}
 
 	public void setBoundOrigin(BlockPos boundOriginIn) {
-
 		boundOrigin = boundOriginIn;
 	}
 
 	private boolean getVexFlag(int mask) {
-
 		int i = dataManager.get(VEX_FLAGS);
 		return (i & mask) != 0;
 	}
 
 	private void setVexFlag(int mask, boolean value) {
-
 		int i = dataManager.get(VEX_FLAGS);
 
 		if (value) {
@@ -172,44 +157,36 @@ public class EntityVex extends EntityMob {
 	}
 
 	public boolean isCharging() {
-
 		return getVexFlag(1);
 	}
 
 	public void setCharging(boolean charging) {
-
 		setVexFlag(1, charging);
 	}
 
 	public void setLimitedLife(int limitedLifeTicksIn) {
-
 		limitedLifespan = true;
 		limitedLifeTicks = limitedLifeTicksIn;
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		return SoundEvents.ENTITY_VEX_AMBIENT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_VEX_DEATH;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_VEX_HURT;
 	}
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_VEX;
 	}
 
 	public int getBrightnessForRender() {
-
 		return 15728880;
 	}
 
@@ -217,7 +194,6 @@ public class EntityVex extends EntityMob {
 	 * Gets how bright this entity is.
 	 */
 	public float getBrightness() {
-
 		return 1F;
 	}
 
@@ -238,7 +214,6 @@ public class EntityVex extends EntityMob {
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-
 		setEquipmentBasedOnDifficulty(difficulty);
 		setEnchantmentBasedOnDifficulty(difficulty);
 		return super.onInitialSpawn(difficulty, livingdata);
@@ -248,7 +223,6 @@ public class EntityVex extends EntityMob {
 	 * Gives armor or weapon for entity based on given DifficultyInstance
 	 */
 	protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
-
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
 		setDropChance(EntityEquipmentSlot.MAINHAND, 0F);
 	}
@@ -256,12 +230,10 @@ public class EntityVex extends EntityMob {
 	class AIChargeAttack extends EntityAIBase {
 
 		public AIChargeAttack() {
-
 			setMutexBits(1);
 		}
 
 		public boolean shouldExecute() {
-
 			if (getAttackTarget() != null && !getMoveHelper().isUpdating() && rand.nextInt(7) == 0) {
 				return getDistanceSq(getAttackTarget()) > 4D;
 			} else {
@@ -270,12 +242,10 @@ public class EntityVex extends EntityMob {
 		}
 
 		public boolean shouldContinueExecuting() {
-
 			return getMoveHelper().isUpdating() && isCharging() && getAttackTarget() != null && getAttackTarget().isEntityAlive();
 		}
 
 		public void startExecuting() {
-
 			EntityLivingBase entitylivingbase = getAttackTarget();
 			Vec3d vec3d = entitylivingbase.getPositionEyes(1F);
 			moveHelper.setMoveTo(vec3d.x(), vec3d.y(), vec3d.z(), 1D);
@@ -284,12 +254,10 @@ public class EntityVex extends EntityMob {
 		}
 
 		public void resetTask() {
-
 			setCharging(false);
 		}
 
 		public void updateTask() {
-
 			EntityLivingBase entitylivingbase = getAttackTarget();
 
 			if (getEntityBoundingBox().intersects(entitylivingbase.getEntityBoundingBox())) {
@@ -310,17 +278,14 @@ public class EntityVex extends EntityMob {
 	class AICopyOwnerTarget extends EntityAITarget {
 
 		public AICopyOwnerTarget(EntityCreature creature) {
-
 			super(creature, false);
 		}
 
 		public boolean shouldExecute() {
-
 			return owner != null && owner.getAttackTarget() != null && isSuitableTarget(owner.getAttackTarget(), false);
 		}
 
 		public void startExecuting() {
-
 			setAttackTarget(owner.getAttackTarget());
 			super.startExecuting();
 		}
@@ -330,12 +295,10 @@ public class EntityVex extends EntityMob {
 	class AIMoveControl extends EntityMoveHelper {
 
 		public AIMoveControl(EntityVex vex) {
-
 			super(vex);
 		}
 
 		public void onUpdateMoveHelper() {
-
 			if (action == EntityMoveHelper.Action.MOVE_TO) {
 				double d0 = posX - EntityVex.this.posX;
 				double d1 = posY - EntityVex.this.posY;
@@ -371,22 +334,18 @@ public class EntityVex extends EntityMob {
 	class AIMoveRandom extends EntityAIBase {
 
 		public AIMoveRandom() {
-
 			setMutexBits(1);
 		}
 
 		public boolean shouldExecute() {
-
 			return !getMoveHelper().isUpdating() && rand.nextInt(7) == 0;
 		}
 
 		public boolean shouldContinueExecuting() {
-
 			return false;
 		}
 
 		public void updateTask() {
-
 			BlockPos blockpos = getBoundOrigin();
 
 			if (blockpos == null) {

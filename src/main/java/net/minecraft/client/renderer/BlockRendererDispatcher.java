@@ -23,19 +23,16 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
 	private final BlockFluidRenderer fluidRenderer;
 
 	public BlockRendererDispatcher(BlockModelShapes p_i46577_1_, BlockColors p_i46577_2_) {
-
 		blockModelShapes = p_i46577_1_;
 		blockModelRenderer = new BlockModelRenderer(p_i46577_2_);
 		fluidRenderer = new BlockFluidRenderer(p_i46577_2_);
 	}
 
 	public BlockModelShapes getBlockModelShapes() {
-
 		return blockModelShapes;
 	}
 
 	public void renderBlockDamage(IBlockState state, BlockPos pos, TextureAtlasSprite texture, IBlockAccess blockAccess) {
-
 		if (state.getRenderType() == BlockRenderType.MODEL) {
 			state = state.getActualState(blockAccess, pos);
 			IBakedModel ibakedmodel = blockModelShapes.getModelForState(state);
@@ -45,7 +42,6 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
 	}
 
 	public boolean renderBlock(IBlockState state, BlockPos pos, IBlockAccess blockAccess, BufferBuilder bufferBuilderIn) {
-
 		try {
 			BlockRenderType enumblockrendertype = state.getRenderType();
 
@@ -75,18 +71,15 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
 	}
 
 	public BlockModelRenderer getBlockModelRenderer() {
-
 		return blockModelRenderer;
 	}
 
 	public IBakedModel getModelForState(IBlockState state) {
-
 		return blockModelShapes.getModelForState(state);
 	}
 
 	@SuppressWarnings("incomplete-switch")
 	public void renderBlockBrightness(IBlockState state, float brightness) {
-
 		BlockRenderType enumblockrendertype = state.getRenderType();
 
 		if (enumblockrendertype != BlockRenderType.INVISIBLE) {
@@ -105,7 +98,6 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
 	}
 
 	public void onResourceManagerReload(IResourceManager resourceManager) {
-
 		fluidRenderer.initAtlasSprites();
 	}
 

@@ -16,17 +16,14 @@ public class BlockDynamicLiquid extends BlockLiquid {
 	int adjacentSourceBlocks;
 
 	protected BlockDynamicLiquid(Material materialIn) {
-
 		super(materialIn);
 	}
 
 	private void placeStaticBlock(World worldIn, BlockPos pos, IBlockState currentState) {
-
 		worldIn.setBlockState(pos, getStaticBlock(blockMaterial).getDefaultState().withProperty(LEVEL, currentState.getValue(LEVEL)), 2);
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		int i = state.getValue(LEVEL);
 		int j = 1;
 
@@ -125,7 +122,6 @@ public class BlockDynamicLiquid extends BlockLiquid {
 	}
 
 	private void tryFlowInto(World worldIn, BlockPos pos, IBlockState state, int level) {
-
 		if (canFlowInto(worldIn, pos, state)) {
 			if (state.getMaterial() != Material.AIR) {
 				if (blockMaterial == Material.LAVA) {
@@ -140,7 +136,6 @@ public class BlockDynamicLiquid extends BlockLiquid {
 	}
 
 	private int getSlopeDistance(World worldIn, BlockPos pos, int distance, Facing calculateFlowCost) {
-
 		int i = 1000;
 
 		for (Facing enumfacing : Facing.Plane.HORIZONTAL) {
@@ -168,12 +163,10 @@ public class BlockDynamicLiquid extends BlockLiquid {
 	}
 
 	private int getSlopeFindDistance(World worldIn) {
-
 		return blockMaterial == Material.LAVA && !worldIn.provider.doesWaterVaporize() ? 2 : 4;
 	}
 
 	private Set<Facing> getPossibleFlowDirections(World worldIn, BlockPos pos) {
-
 		int i = 1000;
 		Set<Facing> set = EnumSet.noneOf(Facing.class);
 
@@ -205,7 +198,6 @@ public class BlockDynamicLiquid extends BlockLiquid {
 	}
 
 	private boolean isBlocked(World worldIn, BlockPos pos, IBlockState state) {
-
 		Block block = worldIn.getBlockState(pos).getBlock();
 
 		if (!(block instanceof BlockDoor) && block != Blocks.STANDING_SIGN && block != Blocks.LADDER && block != Blocks.REEDS) {
@@ -216,7 +208,6 @@ public class BlockDynamicLiquid extends BlockLiquid {
 	}
 
 	protected int checkAdjacentBlock(World worldIn, BlockPos pos, int currentMinLevel) {
-
 		int i = getDepth(worldIn.getBlockState(pos));
 
 		if (i < 0) {
@@ -235,7 +226,6 @@ public class BlockDynamicLiquid extends BlockLiquid {
 	}
 
 	private boolean canFlowInto(World worldIn, BlockPos pos, IBlockState state) {
-
 		Material material = state.getMaterial();
 		return material != blockMaterial && material != Material.LAVA && !isBlocked(worldIn, pos, state);
 	}
@@ -244,7 +234,6 @@ public class BlockDynamicLiquid extends BlockLiquid {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (!checkForMixing(worldIn, pos, state)) {
 			worldIn.scheduleUpdate(pos, this, tickRate(worldIn));
 		}

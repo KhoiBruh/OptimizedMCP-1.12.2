@@ -19,7 +19,6 @@ public class CommandTrigger extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "trigger";
 	}
 
@@ -27,7 +26,6 @@ public class CommandTrigger extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 0;
 	}
 
@@ -35,7 +33,6 @@ public class CommandTrigger extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.trigger.usage";
 	}
 
@@ -43,7 +40,6 @@ public class CommandTrigger extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		if (args.length < 3) {
 			throw new WrongUsageException("commands.trigger.usage");
 		} else {
@@ -99,7 +95,6 @@ public class CommandTrigger extends CommandBase {
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		if (args.length == 1) {
 			Scoreboard scoreboard = server.getWorld(0).getScoreboard();
 			List<String> list = Lists.newArrayList();

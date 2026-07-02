@@ -40,18 +40,15 @@ public class EntityIronGolem extends EntityGolem {
 	private int holdRoseTick;
 
 	public EntityIronGolem(World worldIn) {
-
 		super(worldIn);
 		setSize(1.4F, 2.7F);
 	}
 
 	public static void registerFixesIronGolem(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntityIronGolem.class);
 	}
 
 	protected void initEntityAI() {
-
 		tasks.addTask(1, new EntityAIAttackMelee(this, 1D, true));
 		tasks.addTask(2, new EntityAIMoveTowardsTarget(this, 0.9D, 32F));
 		tasks.addTask(3, new EntityAIMoveThroughVillage(this, 0.6D, true));
@@ -66,13 +63,11 @@ public class EntityIronGolem extends EntityGolem {
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(PLAYER_CREATED, (byte) 0);
 	}
 
 	protected void updateAITasks() {
-
 		if (--homeCheckTimer <= 0) {
 			homeCheckTimer = 70 + rand.nextInt(50);
 			village = world.getVillageCollection().getNearestVillage(new BlockPos(this), 32);
@@ -89,7 +84,6 @@ public class EntityIronGolem extends EntityGolem {
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
@@ -100,12 +94,10 @@ public class EntityIronGolem extends EntityGolem {
 	 * Decrements the entity's air supply when underwater
 	 */
 	protected int decreaseAirSupply(int air) {
-
 		return air;
 	}
 
 	protected void collideWithEntity(Entity entityIn) {
-
 		if (entityIn instanceof IMob && !(entityIn instanceof EntityCreeper) && getRNG().nextInt(20) == 0) {
 			setAttackTarget((EntityLivingBase) entityIn);
 		}
@@ -118,7 +110,6 @@ public class EntityIronGolem extends EntityGolem {
 	 * use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
 		super.onLivingUpdate();
 
 		if (attackTimer > 0) {
@@ -145,7 +136,6 @@ public class EntityIronGolem extends EntityGolem {
 	 * Returns true if this entity can attack entities of the specified class.
 	 */
 	public boolean canAttackClass(Class<? extends EntityLivingBase> cls) {
-
 		if (isPlayerCreated() && EntityPlayer.class.isAssignableFrom(cls)) {
 			return false;
 		} else {
@@ -157,7 +147,6 @@ public class EntityIronGolem extends EntityGolem {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setBoolean("PlayerCreated", isPlayerCreated());
 	}
@@ -166,13 +155,11 @@ public class EntityIronGolem extends EntityGolem {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		setPlayerCreated(compound.getBoolean("PlayerCreated"));
 	}
 
 	public boolean attackEntityAsMob(Entity entityIn) {
-
 		attackTimer = 10;
 		world.setEntityState(this, (byte) 4);
 		boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float) (7 + rand.nextInt(15)));
@@ -190,7 +177,6 @@ public class EntityIronGolem extends EntityGolem {
 	 * Handler for {@link World#setEntityState}
 	 */
 	public void handleStatusUpdate(byte id) {
-
 		if (id == 4) {
 			attackTimer = 10;
 			playSound(SoundEvents.ENTITY_IRONGOLEM_ATTACK, 1F, 1F);
@@ -204,17 +190,14 @@ public class EntityIronGolem extends EntityGolem {
 	}
 
 	public Village getVillage() {
-
 		return village;
 	}
 
 	public int getAttackTimer() {
-
 		return attackTimer;
 	}
 
 	public void setHoldingRose(boolean p_70851_1_) {
-
 		if (p_70851_1_) {
 			holdRoseTick = 400;
 			world.setEntityState(this, (byte) 11);
@@ -225,38 +208,31 @@ public class EntityIronGolem extends EntityGolem {
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_IRONGOLEM_HURT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_IRONGOLEM_DEATH;
 	}
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
-
 		playSound(SoundEvents.ENTITY_IRONGOLEM_STEP, 1F, 1F);
 	}
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_IRON_GOLEM;
 	}
 
 	public int getHoldRoseTick() {
-
 		return holdRoseTick;
 	}
 
 	public boolean isPlayerCreated() {
-
 		return (dataManager.get(PLAYER_CREATED) & 1) != 0;
 	}
 
 	public void setPlayerCreated(boolean playerCreated) {
-
 		byte b0 = dataManager.get(PLAYER_CREATED);
 
 		if (playerCreated) {
@@ -270,7 +246,6 @@ public class EntityIronGolem extends EntityGolem {
 	 * Called when the mob's health reaches 0.
 	 */
 	public void onDeath(DamageSource cause) {
-
 		if (!isPlayerCreated() && attackingPlayer != null && village != null) {
 			village.modifyPlayerReputation(attackingPlayer.getName(), -5);
 		}

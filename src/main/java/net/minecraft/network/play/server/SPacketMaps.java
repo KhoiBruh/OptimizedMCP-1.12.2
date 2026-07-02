@@ -21,11 +21,9 @@ public class SPacketMaps implements Packet<INetHandlerPlayClient> {
 	private byte[] mapDataBytes;
 
 	public SPacketMaps() {
-
 	}
 
 	public SPacketMaps(int mapIdIn, byte mapScaleIn, boolean trackingPositionIn, Collection<MapDecoration> iconsIn, byte[] p_i46937_5_, int minXIn, int minZIn, int columnsIn, int rowsIn) {
-
 		mapId = mapIdIn;
 		mapScale = mapScaleIn;
 		trackingPosition = trackingPositionIn;
@@ -47,7 +45,6 @@ public class SPacketMaps implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		mapId = buf.readVarInt();
 		mapScale = buf.readByte();
 		trackingPosition = buf.readBoolean();
@@ -72,7 +69,6 @@ public class SPacketMaps implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeVarInt(mapId);
 		buf.writeByte(mapScale);
 		buf.writeBoolean(trackingPosition);
@@ -98,12 +94,10 @@ public class SPacketMaps implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleMaps(this);
 	}
 
 	public int getMapId() {
-
 		return mapId;
 	}
 
@@ -111,7 +105,6 @@ public class SPacketMaps implements Packet<INetHandlerPlayClient> {
 	 * Sets new MapData from the packet to given MapData param
 	 */
 	public void setMapdataTo(MapData mapdataIn) {
-
 		mapdataIn.scale = mapScale;
 		mapdataIn.trackingPosition = trackingPosition;
 		mapdataIn.mapDecorations.clear();

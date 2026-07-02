@@ -41,11 +41,9 @@ public class CPacketClickWindow implements Packet<INetHandlerPlayServer> {
 	private ClickType mode;
 
 	public CPacketClickWindow() {
-
 	}
 
 	public CPacketClickWindow(int windowIdIn, int slotIdIn, int usedButtonIn, ClickType modeIn, ItemStack clickedItemIn, short actionNumberIn) {
-
 		windowId = windowIdIn;
 		slotId = slotIdIn;
 		packedClickData = usedButtonIn;
@@ -58,7 +56,6 @@ public class CPacketClickWindow implements Packet<INetHandlerPlayServer> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayServer handler) {
-
 		handler.processClickWindow(this);
 	}
 
@@ -66,7 +63,6 @@ public class CPacketClickWindow implements Packet<INetHandlerPlayServer> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		windowId = buf.readByte();
 		slotId = buf.readShort();
 		packedClickData = buf.readByte();
@@ -79,7 +75,6 @@ public class CPacketClickWindow implements Packet<INetHandlerPlayServer> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeByte(windowId);
 		buf.writeShort(slotId);
 		buf.writeByte(packedClickData);
@@ -89,32 +84,26 @@ public class CPacketClickWindow implements Packet<INetHandlerPlayServer> {
 	}
 
 	public int getWindowId() {
-
 		return windowId;
 	}
 
 	public int getSlotId() {
-
 		return slotId;
 	}
 
 	public int getUsedButton() {
-
 		return packedClickData;
 	}
 
 	public short getActionNumber() {
-
 		return actionNumber;
 	}
 
 	public ItemStack getClickedItem() {
-
 		return clickedItem;
 	}
 
 	public ClickType getClickType() {
-
 		return mode;
 	}
 

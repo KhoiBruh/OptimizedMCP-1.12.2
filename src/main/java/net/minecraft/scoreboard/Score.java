@@ -20,7 +20,6 @@ public class Score {
 	private boolean forceUpdate;
 
 	public Score(Scoreboard scoreboard, ScoreObjective objective, String playerName) {
-
 		this.scoreboard = scoreboard;
 		this.objective = objective;
 		scorePlayerName = playerName;
@@ -28,7 +27,6 @@ public class Score {
 	}
 
 	public void increaseScore(int amount) {
-
 		if (objective.getCriteria().isReadOnly()) {
 			throw new IllegalStateException("Cannot modify read-only score");
 		} else {
@@ -37,7 +35,6 @@ public class Score {
 	}
 
 	public void decreaseScore(int amount) {
-
 		if (objective.getCriteria().isReadOnly()) {
 			throw new IllegalStateException("Cannot modify read-only score");
 		} else {
@@ -46,7 +43,6 @@ public class Score {
 	}
 
 	public void incrementScore() {
-
 		if (objective.getCriteria().isReadOnly()) {
 			throw new IllegalStateException("Cannot modify read-only score");
 		} else {
@@ -55,12 +51,10 @@ public class Score {
 	}
 
 	public int getScorePoints() {
-
 		return scorePoints;
 	}
 
 	public void setScorePoints(int points) {
-
 		int i = scorePoints;
 		scorePoints = points;
 
@@ -71,7 +65,6 @@ public class Score {
 	}
 
 	public ScoreObjective getObjective() {
-
 		return objective;
 	}
 
@@ -79,22 +72,18 @@ public class Score {
 	 * Returns the name of the player this score belongs to
 	 */
 	public String getPlayerName() {
-
 		return scorePlayerName;
 	}
 
 	public Scoreboard getScoreScoreboard() {
-
 		return scoreboard;
 	}
 
 	public boolean isLocked() {
-
 		return locked;
 	}
 
 	public void setLocked(boolean locked) {
-
 		this.locked = locked;
 	}
 

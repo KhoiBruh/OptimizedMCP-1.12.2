@@ -37,7 +37,6 @@ public final class WorldSettings {
 	private String generatorOptions;
 
 	public WorldSettings(long seedIn, GameType gameType, boolean enableMapFeatures, boolean hardcoreMode, WorldType worldTypeIn) {
-
 		generatorOptions = "";
 		seed = seedIn;
 		this.gameType = gameType;
@@ -47,7 +46,6 @@ public final class WorldSettings {
 	}
 
 	public WorldSettings(WorldInfo info) {
-
 		this(info.getSeed(), info.getGameType(), info.isMapFeaturesEnabled(), info.isHardcoreModeEnabled(), info.getTerrainType());
 	}
 
@@ -55,7 +53,6 @@ public final class WorldSettings {
 	 * Gets the GameType by ID
 	 */
 	public static GameType getGameTypeById(int id) {
-
 		return GameType.getByID(id);
 	}
 
@@ -63,7 +60,6 @@ public final class WorldSettings {
 	 * Enables the bonus chest.
 	 */
 	public WorldSettings enableBonusChest() {
-
 		bonusChestEnabled = true;
 		return this;
 	}
@@ -72,7 +68,6 @@ public final class WorldSettings {
 	 * Enables Commands (cheats).
 	 */
 	public WorldSettings enableCommands() {
-
 		commandsAllowed = true;
 		return this;
 	}
@@ -81,7 +76,6 @@ public final class WorldSettings {
 	 * Returns true if the Bonus Chest is enabled.
 	 */
 	public boolean isBonusChestEnabled() {
-
 		return bonusChestEnabled;
 	}
 
@@ -89,7 +83,6 @@ public final class WorldSettings {
 	 * Returns the seed for the world.
 	 */
 	public long getSeed() {
-
 		return seed;
 	}
 
@@ -97,7 +90,6 @@ public final class WorldSettings {
 	 * Gets the game type.
 	 */
 	public GameType getGameType() {
-
 		return gameType;
 	}
 
@@ -105,7 +97,6 @@ public final class WorldSettings {
 	 * Returns true if hardcore mode is enabled, otherwise false
 	 */
 	public boolean getHardcoreEnabled() {
-
 		return hardcoreEnabled;
 	}
 
@@ -113,12 +104,10 @@ public final class WorldSettings {
 	 * Get whether the map features (e.g. strongholds) generation is enabled or disabled.
 	 */
 	public boolean isMapFeaturesEnabled() {
-
 		return mapFeaturesEnabled;
 	}
 
 	public WorldType getTerrainType() {
-
 		return terrainType;
 	}
 
@@ -126,17 +115,14 @@ public final class WorldSettings {
 	 * Returns true if Commands (cheats) are allowed.
 	 */
 	public boolean areCommandsAllowed() {
-
 		return commandsAllowed;
 	}
 
 	public String getGeneratorOptions() {
-
 		return generatorOptions;
 	}
 
 	public WorldSettings setGeneratorOptions(String options) {
-
 		generatorOptions = options;
 		return this;
 	}

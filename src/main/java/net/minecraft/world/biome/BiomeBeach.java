@@ -5,7 +5,6 @@ import net.minecraft.init.Blocks;
 public class BiomeBeach extends Biome {
 
 	public BiomeBeach(Biome.BiomeProperties properties) {
-
 		super(properties);
 		spawnableCreatureList.clear();
 		topBlock = Blocks.SAND.getDefaultState();

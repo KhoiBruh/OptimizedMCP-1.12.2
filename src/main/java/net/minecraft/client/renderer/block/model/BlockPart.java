@@ -14,9 +14,7 @@ import java.util.Map.Entry;
 
 public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<Facing, BlockPartFace> mapFaces,
                         BlockPartRotation partRotation, boolean shade) {
-
 	public BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<Facing, BlockPartFace> mapFaces, BlockPartRotation partRotation, boolean shade) {
-
 		this.positionFrom = positionFrom;
 		this.positionTo = positionTo;
 		this.mapFaces = mapFaces;
@@ -26,7 +24,6 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<Facing, 
 	}
 
 	private void setDefaultUvs() {
-
 		for (Entry<Facing, BlockPartFace> entry : mapFaces.entrySet()) {
 			float[] afloat = getFaceUvs(entry.getKey());
 			(entry.getValue()).blockFaceUV().setUvs(afloat);
@@ -34,7 +31,6 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<Facing, 
 	}
 
 	private float[] getFaceUvs(Facing facing) {
-
 		return switch (facing) {
 			case DOWN -> new float[]{positionFrom.x, 16F - positionTo.z, positionTo.x, 16F - positionFrom.z};
 			case UP -> new float[]{positionFrom.x, positionFrom.z, positionTo.x, positionTo.z};
@@ -50,7 +46,6 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<Facing, 
 	static class Deserializer implements JsonDeserializer<BlockPart> {
 
 		public BlockPart deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-
 			JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
 			Vector3f vector3f = parsePositionFrom(jsonobject);
 			Vector3f vector3f1 = parsePositionTo(jsonobject);
@@ -67,7 +62,6 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<Facing, 
 
 		
 		private BlockPartRotation parseRotation(JsonObject object) {
-
 			BlockPartRotation blockpartrotation = null;
 
 			if (object.has("rotation")) {
@@ -84,7 +78,6 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<Facing, 
 		}
 
 		private float parseAngle(JsonObject object) {
-
 			float f = JsonUtils.getFloat(object, "angle");
 
 			if (f != 0F && MathHelper.abs(f) != 22.5F && MathHelper.abs(f) != 45F) {
@@ -131,7 +124,6 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<Facing, 
 		}
 
 		private Facing parseEnumFacing(String name) {
-
 			Facing enumfacing = Facing.byName(name);
 
 			if (enumfacing == null) {
@@ -142,7 +134,6 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<Facing, 
 		}
 
 		private Vector3f parsePositionTo(JsonObject object) {
-
 			Vector3f vector3f = parsePosition(object, "to");
 
 			if (vector3f.x >= -16F && vector3f.y >= -16F && vector3f.z >= -16F && vector3f.x <= 32F && vector3f.y <= 32F && vector3f.z <= 32F) {
@@ -153,7 +144,6 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<Facing, 
 		}
 
 		private Vector3f parsePositionFrom(JsonObject object) {
-
 			Vector3f vector3f = parsePosition(object, "from");
 
 			if (vector3f.x >= -16F && vector3f.y >= -16F && vector3f.z >= -16F && vector3f.x <= 32F && vector3f.y <= 32F && vector3f.z <= 32F) {
@@ -164,7 +154,6 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<Facing, 
 		}
 
 		private Vector3f parsePosition(JsonObject object, String memberName) {
-
 			JsonArray jsonarray = JsonUtils.getJsonArray(object, memberName);
 
 			if (jsonarray.size() != 3) {

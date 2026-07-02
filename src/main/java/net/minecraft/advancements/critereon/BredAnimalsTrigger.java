@@ -22,12 +22,10 @@ public class BredAnimalsTrigger implements ICriterionTrigger<BredAnimalsTrigger.
 	private final Map<PlayerAdvancements, BredAnimalsTrigger.Listeners> listeners = Maps.newHashMap();
 
 	public ResourceLocation getId() {
-
 		return ID;
 	}
 
 	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<BredAnimalsTrigger.Instance> listener) {
-
 		BredAnimalsTrigger.Listeners bredanimalstrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (bredanimalstrigger$listeners == null) {
@@ -39,7 +37,6 @@ public class BredAnimalsTrigger implements ICriterionTrigger<BredAnimalsTrigger.
 	}
 
 	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<BredAnimalsTrigger.Instance> listener) {
-
 		BredAnimalsTrigger.Listeners bredanimalstrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (bredanimalstrigger$listeners != null) {
@@ -52,7 +49,6 @@ public class BredAnimalsTrigger implements ICriterionTrigger<BredAnimalsTrigger.
 	}
 
 	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
-
 		listeners.remove(playerAdvancementsIn);
 	}
 
@@ -68,7 +64,6 @@ public class BredAnimalsTrigger implements ICriterionTrigger<BredAnimalsTrigger.
 	}
 
 	public void trigger(EntityPlayerMP player, EntityAnimal parent1, EntityAnimal parent2, EntityAgeable child) {
-
 		BredAnimalsTrigger.Listeners bredanimalstrigger$listeners = listeners.get(player.getAdvancements());
 
 		if (bredanimalstrigger$listeners != null) {
@@ -83,7 +78,6 @@ public class BredAnimalsTrigger implements ICriterionTrigger<BredAnimalsTrigger.
 		private final EntityPredicate child;
 
 		public Instance(EntityPredicate parent, EntityPredicate partner, EntityPredicate child) {
-
 			super(BredAnimalsTrigger.ID);
 			this.parent = parent;
 			this.partner = partner;
@@ -91,7 +85,6 @@ public class BredAnimalsTrigger implements ICriterionTrigger<BredAnimalsTrigger.
 		}
 
 		public boolean test(EntityPlayerMP player, EntityAnimal parent1In, EntityAnimal parent2In, EntityAgeable childIn) {
-
 			if (!child.test(player, childIn)) {
 				return false;
 			} else {
@@ -107,27 +100,22 @@ public class BredAnimalsTrigger implements ICriterionTrigger<BredAnimalsTrigger.
 		private final Set<ICriterionTrigger.Listener<BredAnimalsTrigger.Instance>> listeners = Sets.newHashSet();
 
 		public Listeners(PlayerAdvancements playerAdvancementsIn) {
-
 			playerAdvancements = playerAdvancementsIn;
 		}
 
 		public boolean isEmpty() {
-
 			return listeners.isEmpty();
 		}
 
 		public void add(ICriterionTrigger.Listener<BredAnimalsTrigger.Instance> listener) {
-
 			listeners.add(listener);
 		}
 
 		public void remove(ICriterionTrigger.Listener<BredAnimalsTrigger.Instance> listener) {
-
 			listeners.remove(listener);
 		}
 
 		public void trigger(EntityPlayerMP player, EntityAnimal parent1, EntityAnimal parent2, EntityAgeable child) {
-
 			List<ICriterionTrigger.Listener<BredAnimalsTrigger.Instance>> list = null;
 
 			for (ICriterionTrigger.Listener<BredAnimalsTrigger.Instance> listener : listeners) {

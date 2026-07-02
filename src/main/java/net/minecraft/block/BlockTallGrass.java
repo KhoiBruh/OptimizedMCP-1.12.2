@@ -27,13 +27,11 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 	protected static final AxisAlignedBB TALL_GRASS_AABB = new AxisAlignedBB(0.09999999403953552D, 0D, 0.09999999403953552D, 0.8999999761581421D, 0.800000011920929D, 0.8999999761581421D);
 
 	protected BlockTallGrass() {
-
 		super(Material.VINE);
 		setDefaultState(blockState.getBaseState().withProperty(TYPE, BlockTallGrass.Type.DEAD_BUSH));
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return TALL_GRASS_AABB;
 	}
 
@@ -41,7 +39,6 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 	 * Whether this Block can be replaced directly by other blocks (true for e.g. tall grass)
 	 */
 	public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
-
 		return true;
 	}
 
@@ -49,7 +46,6 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return rand.nextInt(8) == 0 ? Items.WHEAT_SEEDS : Items.AIR;
 	}
 
@@ -57,7 +53,6 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 	 * Get the quantity dropped based on the given fortune level
 	 */
 	public int quantityDroppedWithBonus(int fortune, Random random) {
-
 		return 1 + random.nextInt(fortune * 2 + 1);
 	}
 
@@ -66,7 +61,6 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 	 * Block.removedByPlayer
 	 */
 	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
-
 		if (!worldIn.isRemote && stack.getItem() == Items.SHEARS) {
 			player.addStat(StatList.getBlockStats(this));
 			spawnAsEntity(worldIn, pos, new ItemStack(Blocks.TALLGRASS, 1, state.getValue(TYPE).getMeta()));
@@ -76,7 +70,6 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return new ItemStack(this, 1, state.getBlock().getMetaFromState(state));
 	}
 
@@ -84,7 +77,6 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-
 		for (int i = 1; i < 3; ++i) {
 			items.add(new ItemStack(this, 1, i));
 		}
@@ -94,17 +86,14 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 	 * Whether this IGrowable can grow
 	 */
 	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
-
 		return state.getValue(TYPE) != BlockTallGrass.Type.DEAD_BUSH;
 	}
 
 	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-
 		return true;
 	}
 
 	public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-
 		BlockDoublePlant.PlantType blockdoubleplant$enumplanttype = BlockDoublePlant.PlantType.GRASS;
 
 		if (state.getValue(TYPE) == BlockTallGrass.Type.FERN) {
@@ -120,7 +109,6 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(TYPE, BlockTallGrass.Type.byMetadata(meta));
 	}
 
@@ -128,12 +116,10 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(TYPE).getMeta();
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, TYPE);
 	}
 
@@ -162,7 +148,6 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 		private final String name;
 
 		Type(int meta, String name) {
-
 			this.meta = meta;
 			this.name = name;
 		}
@@ -177,17 +162,14 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
 		}
 
 		public int getMeta() {
-
 			return meta;
 		}
 
 		public String toString() {
-
 			return name;
 		}
 
 		public String getName() {
-
 			return name;
 		}
 	}

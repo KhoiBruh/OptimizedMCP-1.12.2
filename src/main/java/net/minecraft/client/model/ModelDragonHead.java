@@ -9,7 +9,6 @@ public class ModelDragonHead extends ModelBase {
 	private final ModelRenderer jaw;
 
 	public ModelDragonHead(float p_i46588_1_) {
-
 		textureWidth = 256;
 		textureHeight = 256;
 		setTextureOffset("body.body", 0, 0);
@@ -51,7 +50,6 @@ public class ModelDragonHead extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		jaw.rotateAngleX = (float) (Math.sin(limbSwing * (float) Math.PI * 0.2F) + 1D) * 0.2F;
 		head.rotateAngleY = netHeadYaw * 0.017453292F;
 		head.rotateAngleX = headPitch * 0.017453292F;

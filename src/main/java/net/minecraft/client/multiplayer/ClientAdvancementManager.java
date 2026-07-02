@@ -30,12 +30,10 @@ public class ClientAdvancementManager {
 	private Advancement selectedTab;
 
 	public ClientAdvancementManager(Minecraft p_i47380_1_) {
-
 		mc = p_i47380_1_;
 	}
 
 	public void read(SPacketAdvancementInfo p_192799_1_) {
-
 		if (p_192799_1_.isFirstSync()) {
 			advancementList.clear();
 			advancementToProgress.clear();
@@ -66,12 +64,10 @@ public class ClientAdvancementManager {
 	}
 
 	public AdvancementList getAdvancementList() {
-
 		return advancementList;
 	}
 
 	public void setSelectedTab(Advancement p_194230_1_, boolean tellServer) {
-
 		NetHandlerPlayClient nethandlerplayclient = mc.getConnection();
 
 		if (nethandlerplayclient != null && p_194230_1_ != null && tellServer) {
@@ -88,7 +84,6 @@ public class ClientAdvancementManager {
 	}
 
 	public void setListener(ClientAdvancementManager.IListener p_192798_1_) {
-
 		listener = p_192798_1_;
 		advancementList.setListener(p_192798_1_);
 

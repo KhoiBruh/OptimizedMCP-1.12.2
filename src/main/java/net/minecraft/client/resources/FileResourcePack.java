@@ -21,12 +21,10 @@ public class FileResourcePack extends AbstractResourcePack implements Closeable 
 	private ZipFile resourcePackZipFile;
 
 	public FileResourcePack(File resourcePackFileIn) {
-
 		super(resourcePackFileIn);
 	}
 
 	private ZipFile getResourcePackZipFile() throws IOException {
-
 		if (resourcePackZipFile == null) {
 			resourcePackZipFile = new ZipFile(resourcePackFile);
 		}
@@ -35,7 +33,6 @@ public class FileResourcePack extends AbstractResourcePack implements Closeable 
 	}
 
 	protected InputStream getInputStreamByName(String name) throws IOException {
-
 		ZipFile zipfile = getResourcePackZipFile();
 		ZipEntry zipentry = zipfile.getEntry(name);
 
@@ -47,7 +44,6 @@ public class FileResourcePack extends AbstractResourcePack implements Closeable 
 	}
 
 	public boolean hasResourceName(String name) {
-
 		try {
 			return getResourcePackZipFile().getEntry(name) != null;
 		} catch (IOException var3) {
@@ -56,7 +52,6 @@ public class FileResourcePack extends AbstractResourcePack implements Closeable 
 	}
 
 	public Set<String> getResourceDomains() {
-
 		ZipFile zipfile;
 
 		try {
@@ -91,7 +86,6 @@ public class FileResourcePack extends AbstractResourcePack implements Closeable 
 	}
 
 	public void close() throws IOException {
-
 		if (resourcePackZipFile != null) {
 			resourcePackZipFile.close();
 			resourcePackZipFile = null;

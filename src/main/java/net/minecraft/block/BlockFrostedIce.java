@@ -16,7 +16,6 @@ public class BlockFrostedIce extends BlockIce {
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 3);
 
 	public BlockFrostedIce() {
-
 		setDefaultState(blockState.getBaseState().withProperty(AGE, 0));
 	}
 
@@ -24,7 +23,6 @@ public class BlockFrostedIce extends BlockIce {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(AGE);
 	}
 
@@ -32,12 +30,10 @@ public class BlockFrostedIce extends BlockIce {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(AGE, MathHelper.clamp(meta, 0, 3));
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if ((rand.nextInt(3) == 0 || countNeighbors(worldIn, pos) < 4) && worldIn.getLightFromNeighbors(pos) > 11 - state.getValue(AGE) - state.getLightOpacity()) {
 			slightlyMelt(worldIn, pos, state, rand, true);
 		} else {
@@ -51,7 +47,6 @@ public class BlockFrostedIce extends BlockIce {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (blockIn == this) {
 			int i = countNeighbors(worldIn, pos);
 
@@ -62,7 +57,6 @@ public class BlockFrostedIce extends BlockIce {
 	}
 
 	private int countNeighbors(World worldIn, BlockPos pos) {
-
 		int i = 0;
 
 		for (Facing enumfacing : Facing.values()) {
@@ -79,7 +73,6 @@ public class BlockFrostedIce extends BlockIce {
 	}
 
 	protected void slightlyMelt(World worldIn, BlockPos pos, IBlockState state, Random rand, boolean meltNeighbors) {
-
 		int i = state.getValue(AGE);
 
 		if (i < 3) {
@@ -102,12 +95,10 @@ public class BlockFrostedIce extends BlockIce {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, AGE);
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return ItemStack.EMPTY;
 	}
 

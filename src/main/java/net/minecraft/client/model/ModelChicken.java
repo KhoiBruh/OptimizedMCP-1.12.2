@@ -16,7 +16,6 @@ public class ModelChicken extends ModelBase {
 	public ModelRenderer chin;
 
 	public ModelChicken() {
-
 		int i = 16;
 		head = new ModelRenderer(this, 0, 0);
 		head.addBox(-2F, -6F, -2F, 4, 6, 3, 0F);
@@ -48,7 +47,6 @@ public class ModelChicken extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
 		if (isChild) {
@@ -86,7 +84,6 @@ public class ModelChicken extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		head.rotateAngleX = headPitch * 0.017453292F;
 		head.rotateAngleY = netHeadYaw * 0.017453292F;
 		bill.rotateAngleX = head.rotateAngleX;

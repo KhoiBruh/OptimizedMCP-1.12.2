@@ -64,7 +64,6 @@ public class EntityArmorStand extends EntityLivingBase {
 	private Rotations rightLegRotation;
 
 	public EntityArmorStand(World worldIn) {
-
 		super(worldIn);
 		handItems = NonNullList.withSize(2, ItemStack.EMPTY);
 		armorItems = NonNullList.withSize(4, ItemStack.EMPTY);
@@ -79,13 +78,11 @@ public class EntityArmorStand extends EntityLivingBase {
 	}
 
 	public EntityArmorStand(World worldIn, double posX, double posY, double posZ) {
-
 		this(worldIn);
 		setPosition(posX, posY, posZ);
 	}
 
 	public static void registerFixesArmorStand(DataFixer fixer) {
-
 		fixer.registerWalker(FixTypes.ENTITY, new ItemStackDataLists(EntityArmorStand.class, "ArmorItems", "HandItems"));
 	}
 
@@ -93,7 +90,6 @@ public class EntityArmorStand extends EntityLivingBase {
 	 * Sets the width and height of the entity.
 	 */
 	protected final void setSize(float width, float height) {
-
 		double d0 = posX;
 		double d1 = posY;
 		double d2 = posZ;
@@ -106,12 +102,10 @@ public class EntityArmorStand extends EntityLivingBase {
 	 * Returns whether the entity is in a server world
 	 */
 	public boolean isServerWorld() {
-
 		return super.isServerWorld() && !hasNoGravity();
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(STATUS, (byte) 0);
 		dataManager.register(HEAD_ROTATION, DEFAULT_HEAD_ROTATION);
@@ -123,17 +117,14 @@ public class EntityArmorStand extends EntityLivingBase {
 	}
 
 	public Iterable<ItemStack> getHeldEquipment() {
-
 		return handItems;
 	}
 
 	public Iterable<ItemStack> getArmorInventoryList() {
-
 		return armorItems;
 	}
 
 	public ItemStack getItemStackFromSlot(EntityEquipmentSlot slotIn) {
-
 		return switch (slotIn.getSlotType()) {
 			case HAND -> handItems.get(slotIn.getIndex());
 			case ARMOR -> armorItems.get(slotIn.getIndex());
@@ -141,7 +132,6 @@ public class EntityArmorStand extends EntityLivingBase {
 	}
 
 	public void setItemStackToSlot(EntityEquipmentSlot slotIn, ItemStack stack) {
-
 		switch (slotIn.getSlotType()) {
 			case HAND:
 				playEquipSound(stack);
@@ -155,7 +145,6 @@ public class EntityArmorStand extends EntityLivingBase {
 	}
 
 	public boolean replaceItemInInventory(int inventorySlot, ItemStack itemStackIn) {
-
 		EntityEquipmentSlot entityequipmentslot;
 
 		if (inventorySlot == 98) {
@@ -188,7 +177,6 @@ public class EntityArmorStand extends EntityLivingBase {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		NBTTagList nbttaglist = new NBTTagList();
 
@@ -233,7 +221,6 @@ public class EntityArmorStand extends EntityLivingBase {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 
 		if (compound.hasKey("ArmorItems", 9)) {
@@ -268,7 +255,6 @@ public class EntityArmorStand extends EntityLivingBase {
 	 * Saves the pose to an NBTTagCompound.
 	 */
 	private void writePoseToNBT(NBTTagCompound tagCompound) {
-
 		NBTTagList nbttaglist = tagCompound.getTagList("Head", 5);
 		setHeadRotation(nbttaglist.hasNoTags() ? DEFAULT_HEAD_ROTATION : new Rotations(nbttaglist));
 		NBTTagList nbttaglist1 = tagCompound.getTagList("Body", 5);
@@ -284,7 +270,6 @@ public class EntityArmorStand extends EntityLivingBase {
 	}
 
 	private NBTTagCompound readPoseFromNBT() {
-
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 
 		if (!DEFAULT_HEAD_ROTATION.equals(headRotation)) {
@@ -318,16 +303,13 @@ public class EntityArmorStand extends EntityLivingBase {
 	 * Returns true if this entity should push and be pushed by other entities when colliding.
 	 */
 	public boolean canBePushed() {
-
 		return false;
 	}
 
 	protected void collideWithEntity(Entity entityIn) {
-
 	}
 
 	protected void collideWithNearbyEntities() {
-
 		List<Entity> list = world.getEntitiesInAABBexcluding(this, getEntityBoundingBox(), IS_RIDEABLE_MINECART);
 
 		for (Entity entity : list) {
@@ -341,7 +323,6 @@ public class EntityArmorStand extends EntityLivingBase {
 	 * Applies the given player interaction to this Entity.
 	 */
 	public ActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, Hand hand) {
-
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (!hasMarker() && itemstack.getItem() != Items.NAME_TAG) {
@@ -377,7 +358,6 @@ public class EntityArmorStand extends EntityLivingBase {
 	}
 
 	protected EntityEquipmentSlot getClickedSlot(Vec3d p_190772_1_) {
-
 		EntityEquipmentSlot entityequipmentslot = EntityEquipmentSlot.MAINHAND;
 		boolean flag = isSmall();
 		double d0 = flag ? p_190772_1_.y() * 2D : p_190772_1_.y();
@@ -397,12 +377,10 @@ public class EntityArmorStand extends EntityLivingBase {
 	}
 
 	private boolean isDisabled(EntityEquipmentSlot slotIn) {
-
 		return (disabledSlots & 1 << slotIn.getSlotIndex()) != 0;
 	}
 
 	private void swapItem(EntityPlayer player, EntityEquipmentSlot p_184795_2_, ItemStack p_184795_3_, Hand hand) {
-
 		ItemStack itemstack = getItemStackFromSlot(p_184795_2_);
 
 		if (itemstack.isEmpty() || (disabledSlots & 1 << p_184795_2_.getSlotIndex() + 8) == 0) {
@@ -430,7 +408,6 @@ public class EntityArmorStand extends EntityLivingBase {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		if (!world.isRemote && !isDead) {
 			if (DamageSource.OUT_OF_WORLD.equals(source)) {
 				setDead();
@@ -497,7 +474,6 @@ public class EntityArmorStand extends EntityLivingBase {
 	 * Handler for {@link World#setEntityState}
 	 */
 	public void handleStatusUpdate(byte id) {
-
 		if (id == 32) {
 			if (world.isRemote) {
 				world.playSound(posX, posY, posZ, SoundEvents.ENTITY_ARMORSTAND_HIT, getSoundCategory(), 0.3F, 1F, false);
@@ -512,7 +488,6 @@ public class EntityArmorStand extends EntityLivingBase {
 	 * Checks if the entity is in range to render.
 	 */
 	public boolean isInRangeToRenderDist(double distance) {
-
 		double d0 = getEntityBoundingBox().getAverageEdgeLength() * 4D;
 
 		if (Double.isNaN(d0) || d0 == 0D) {
@@ -524,14 +499,12 @@ public class EntityArmorStand extends EntityLivingBase {
 	}
 
 	private void playParticles() {
-
 		if (world instanceof WorldServer) {
 			((WorldServer) world).spawnParticle(ParticleTypes.BLOCK_DUST, posX, posY + (double) height / 1.5D, posZ, 10, width / 4F, height / 4F, width / 4F, 0.05D, Block.getStateId(Blocks.PLANKS.getDefaultState()));
 		}
 	}
 
 	private void damageArmorStand(float damage) {
-
 		float f = getHealth();
 		f = f - damage;
 
@@ -544,13 +517,11 @@ public class EntityArmorStand extends EntityLivingBase {
 	}
 
 	private void dropBlock() {
-
 		Block.spawnAsEntity(world, new BlockPos(this), new ItemStack(Items.ARMOR_STAND));
 		dropContents();
 	}
 
 	private void dropContents() {
-
 		playBrokenSound();
 
 		for (int i = 0; i < handItems.size(); ++i) {
@@ -573,19 +544,16 @@ public class EntityArmorStand extends EntityLivingBase {
 	}
 
 	private void playBrokenSound() {
-
 		world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_ARMORSTAND_BREAK, getSoundCategory(), 1F, 1F);
 	}
 
 	protected float updateDistance(float p_110146_1_, float p_110146_2_) {
-
 		prevRenderYawOffset = prevRotationYaw;
 		renderYawOffset = rotationYaw;
 		return 0F;
 	}
 
 	public float getEyeHeight() {
-
 		return isChild() ? height * 0.5F : height * 0.9F;
 	}
 
@@ -593,12 +561,10 @@ public class EntityArmorStand extends EntityLivingBase {
 	 * Returns the Y Offset of this entity.
 	 */
 	public double getYOffset() {
-
 		return hasMarker() ? 0D : 0.10000000149011612D;
 	}
 
 	public void travel(float strafe, float vertical, float forward) {
-
 		if (!hasNoGravity()) {
 			super.travel(strafe, vertical, forward);
 		}
@@ -608,7 +574,6 @@ public class EntityArmorStand extends EntityLivingBase {
 	 * Set the render yaw offset
 	 */
 	public void setRenderYawOffset(float offset) {
-
 		prevRenderYawOffset = prevRotationYaw = offset;
 		prevRotationYawHead = rotationYawHead = offset;
 	}
@@ -617,7 +582,6 @@ public class EntityArmorStand extends EntityLivingBase {
 	 * Sets the head's yaw rotation of the entity.
 	 */
 	public void setRotationYawHead(float rotation) {
-
 		prevRenderYawOffset = prevRotationYaw = rotation;
 		prevRotationYawHead = rotationYawHead = rotation;
 	}
@@ -626,7 +590,6 @@ public class EntityArmorStand extends EntityLivingBase {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		super.onUpdate();
 		Rotations rotations = dataManager.get(HEAD_ROTATION);
 
@@ -674,7 +637,6 @@ public class EntityArmorStand extends EntityLivingBase {
 	}
 
 	private void updateBoundingBox(boolean p_181550_1_) {
-
 		if (p_181550_1_) {
 			setSize(0F, 0F);
 		} else {
@@ -687,12 +649,10 @@ public class EntityArmorStand extends EntityLivingBase {
 	 * ambience, and invisibility metadata values
 	 */
 	protected void updatePotionMetadata() {
-
 		setInvisible(canInteract);
 	}
 
 	public void setInvisible(boolean invisible) {
-
 		canInteract = invisible;
 		super.setInvisible(invisible);
 	}
@@ -701,7 +661,6 @@ public class EntityArmorStand extends EntityLivingBase {
 	 * If Animal, checks if the age timer is negative
 	 */
 	public boolean isChild() {
-
 		return isSmall();
 	}
 
@@ -709,48 +668,39 @@ public class EntityArmorStand extends EntityLivingBase {
 	 * Called by the /kill command.
 	 */
 	public void onKillCommand() {
-
 		setDead();
 	}
 
 	public boolean isImmuneToExplosions() {
-
 		return isInvisible();
 	}
 
 	public PushReaction getPushReaction() {
-
 		return hasMarker() ? PushReaction.IGNORE : super.getPushReaction();
 	}
 
 	public boolean isSmall() {
-
 		return (dataManager.get(STATUS) & 1) != 0;
 	}
 
 	private void setSmall(boolean small) {
-
 		dataManager.set(STATUS, setBit(dataManager.get(STATUS), 1, small));
 		setSize(0.5F, 1.975F);
 	}
 
 	public boolean getShowArms() {
-
 		return (dataManager.get(STATUS) & 4) != 0;
 	}
 
 	private void setShowArms(boolean showArms) {
-
 		dataManager.set(STATUS, setBit(dataManager.get(STATUS), 4, showArms));
 	}
 
 	private void setNoBasePlate(boolean noBasePlate) {
-
 		dataManager.set(STATUS, setBit(dataManager.get(STATUS), 8, noBasePlate));
 	}
 
 	public boolean hasNoBasePlate() {
-
 		return (dataManager.get(STATUS) & 8) != 0;
 	}
 
@@ -758,7 +708,6 @@ public class EntityArmorStand extends EntityLivingBase {
 	 * Marker defines where if true, the size is 0 and will not be rendered or intractable.
 	 */
 	private void setMarker(boolean marker) {
-
 		dataManager.set(STATUS, setBit(dataManager.get(STATUS), 16, marker));
 		setSize(0.5F, 1.975F);
 	}
@@ -768,12 +717,10 @@ public class EntityArmorStand extends EntityLivingBase {
 	 * cannot be interacted with.
 	 */
 	public boolean hasMarker() {
-
 		return (dataManager.get(STATUS) & 16) != 0;
 	}
 
 	private byte setBit(byte p_184797_1_, int p_184797_2_, boolean p_184797_3_) {
-
 		if (p_184797_3_) {
 			p_184797_1_ = (byte) (p_184797_1_ | p_184797_2_);
 		} else {
@@ -784,67 +731,55 @@ public class EntityArmorStand extends EntityLivingBase {
 	}
 
 	public Rotations getHeadRotation() {
-
 		return headRotation;
 	}
 
 	public void setHeadRotation(Rotations vec) {
-
 		headRotation = vec;
 		dataManager.set(HEAD_ROTATION, vec);
 	}
 
 	public Rotations getBodyRotation() {
-
 		return bodyRotation;
 	}
 
 	public void setBodyRotation(Rotations vec) {
-
 		bodyRotation = vec;
 		dataManager.set(BODY_ROTATION, vec);
 	}
 
 	public Rotations getLeftArmRotation() {
-
 		return leftArmRotation;
 	}
 
 	public void setLeftArmRotation(Rotations vec) {
-
 		leftArmRotation = vec;
 		dataManager.set(LEFT_ARM_ROTATION, vec);
 	}
 
 	public Rotations getRightArmRotation() {
-
 		return rightArmRotation;
 	}
 
 	public void setRightArmRotation(Rotations vec) {
-
 		rightArmRotation = vec;
 		dataManager.set(RIGHT_ARM_ROTATION, vec);
 	}
 
 	public Rotations getLeftLegRotation() {
-
 		return leftLegRotation;
 	}
 
 	public void setLeftLegRotation(Rotations vec) {
-
 		leftLegRotation = vec;
 		dataManager.set(LEFT_LEG_ROTATION, vec);
 	}
 
 	public Rotations getRightLegRotation() {
-
 		return rightLegRotation;
 	}
 
 	public void setRightLegRotation(Rotations vec) {
-
 		rightLegRotation = vec;
 		dataManager.set(RIGHT_LEG_ROTATION, vec);
 	}
@@ -853,29 +788,24 @@ public class EntityArmorStand extends EntityLivingBase {
 	 * Returns true if other Entities should be prevented from moving through this Entity.
 	 */
 	public boolean canBeCollidedWith() {
-
 		return super.canBeCollidedWith() && !hasMarker();
 	}
 
 	public HandSide getPrimaryHand() {
-
 		return HandSide.RIGHT;
 	}
 
 	protected SoundEvent getFallSound(int heightIn) {
-
 		return SoundEvents.ENTITY_ARMORSTAND_FALL;
 	}
 
 	
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_ARMORSTAND_HIT;
 	}
 
 	
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_ARMORSTAND_BREAK;
 	}
 
@@ -883,19 +813,16 @@ public class EntityArmorStand extends EntityLivingBase {
 	 * Called when a lightning bolt hits the entity.
 	 */
 	public void onStruckByLightning(EntityLightningBolt lightningBolt) {
-
 	}
 
 	/**
 	 * Returns false if the entity is an armor stand. Returns true for all other entity living bases.
 	 */
 	public boolean canBeHitWithPotion() {
-
 		return false;
 	}
 
 	public void notifyDataManagerChange(DataParameter<?> key) {
-
 		if (STATUS.equals(key)) {
 			setSize(0.5F, 1.975F);
 		}
@@ -904,7 +831,6 @@ public class EntityArmorStand extends EntityLivingBase {
 	}
 
 	public boolean attackable() {
-
 		return false;
 	}
 

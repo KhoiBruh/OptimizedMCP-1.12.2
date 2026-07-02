@@ -30,13 +30,11 @@ public class StructureOceanMonument extends MapGenStructure {
 	private int separation;
 
 	public StructureOceanMonument() {
-
 		spacing = 32;
 		separation = 5;
 	}
 
 	public StructureOceanMonument(Map<String, String> p_i45608_1_) {
-
 		this();
 
 		for (Entry<String, String> entry : p_i45608_1_.entrySet()) {
@@ -49,12 +47,10 @@ public class StructureOceanMonument extends MapGenStructure {
 	}
 
 	public String getStructureName() {
-
 		return "Monument";
 	}
 
 	protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
-
 		int i = chunkX;
 		int j = chunkZ;
 
@@ -86,13 +82,11 @@ public class StructureOceanMonument extends MapGenStructure {
 	}
 
 	public BlockPos getNearestStructurePos(World worldIn, BlockPos pos, boolean findUnexplored) {
-
 		world = worldIn;
 		return findNearestStructurePosBySpacing(worldIn, this, pos, spacing, separation, 10387313, true, 100, findUnexplored);
 	}
 
 	protected StructureStart getStructureStart(int chunkX, int chunkZ) {
-
 		return new StructureOceanMonument.StartMonument(world, rand, chunkX, chunkZ);
 	}
 
@@ -107,17 +101,14 @@ public class StructureOceanMonument extends MapGenStructure {
 		private boolean wasCreated;
 
 		public StartMonument() {
-
 		}
 
 		public StartMonument(World worldIn, Random random, int chunkX, int chunkZ) {
-
 			super(chunkX, chunkZ);
 			create(worldIn, random, chunkX, chunkZ);
 		}
 
 		private void create(World worldIn, Random random, int chunkX, int chunkZ) {
-
 			random.setSeed(worldIn.getSeed());
 			long i = random.nextLong();
 			long j = random.nextLong();
@@ -133,7 +124,6 @@ public class StructureOceanMonument extends MapGenStructure {
 		}
 
 		public void generateStructure(World worldIn, Random rand, StructureBoundingBox structurebb) {
-
 			if (!wasCreated) {
 				components.clear();
 				create(worldIn, rand, getChunkPosX(), getChunkPosZ());
@@ -143,18 +133,15 @@ public class StructureOceanMonument extends MapGenStructure {
 		}
 
 		public boolean isValidForPostProcess(ChunkPos pair) {
-
 			return !processed.contains(pair) && super.isValidForPostProcess(pair);
 		}
 
 		public void notifyPostProcessAt(ChunkPos pair) {
-
 			super.notifyPostProcessAt(pair);
 			processed.add(pair);
 		}
 
 		public void writeToNBT(NBTTagCompound tagCompound) {
-
 			super.writeToNBT(tagCompound);
 			NBTTagList nbttaglist = new NBTTagList();
 
@@ -169,7 +156,6 @@ public class StructureOceanMonument extends MapGenStructure {
 		}
 
 		public void readFromNBT(NBTTagCompound tagCompound) {
-
 			super.readFromNBT(tagCompound);
 
 			if (tagCompound.hasKey("Processed", 9)) {

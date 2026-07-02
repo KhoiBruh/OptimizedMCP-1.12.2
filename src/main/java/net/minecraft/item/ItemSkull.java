@@ -28,7 +28,6 @@ public class ItemSkull extends Item {
 	private static final String[] SKULL_TYPES = new String[]{"skeleton", "wither", "zombie", "char", "creeper", "dragon"};
 
 	public ItemSkull() {
-
 		setCreativeTab(CreativeTabs.DECORATIONS);
 		setMaxDamage(0);
 		setHasSubtypes(true);
@@ -38,7 +37,6 @@ public class ItemSkull extends Item {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		if (facing == Facing.DOWN) {
 			return ActionResult.FAIL;
 		} else {
@@ -70,7 +68,6 @@ public class ItemSkull extends Item {
 					TileEntity tileentity = worldIn.getTileEntity(pos);
 
 					if (tileentity instanceof TileEntitySkull tileentityskull) {
-
 						if (itemstack.getMetadata() == 3) {
 							GameProfile gameprofile = null;
 
@@ -110,7 +107,6 @@ public class ItemSkull extends Item {
 	 * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
 	 */
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-
 		if (isInCreativeTab(tab)) {
 			for (int i = 0; i < SKULL_TYPES.length; ++i) {
 				items.add(new ItemStack(this, 1, i));
@@ -123,7 +119,6 @@ public class ItemSkull extends Item {
 	 * placed as a Block (mostly used with ItemBlocks).
 	 */
 	public int getMetadata(int damage) {
-
 		return damage;
 	}
 
@@ -132,7 +127,6 @@ public class ItemSkull extends Item {
 	 * different names based on their damage or NBT.
 	 */
 	public String getUnlocalizedName(ItemStack stack) {
-
 		int i = stack.getMetadata();
 
 		if (i < 0 || i >= SKULL_TYPES.length) {
@@ -143,7 +137,6 @@ public class ItemSkull extends Item {
 	}
 
 	public String getItemStackDisplayName(ItemStack stack) {
-
 		if (stack.getMetadata() == 3 && stack.hasTagCompound()) {
 			if (stack.getTagCompound().hasKey("SkullOwner", 8)) {
 				return I18n.translateToLocalFormatted("item.skull.player.name", stack.getTagCompound().getString("SkullOwner"));
@@ -165,7 +158,6 @@ public class ItemSkull extends Item {
 	 * Called when an ItemStack with NBT data is read to potentially that ItemStack's NBT data
 	 */
 	public boolean updateItemStackNBT(NBTTagCompound nbt) {
-
 		super.updateItemStackNBT(nbt);
 
 		if (nbt.hasKey("SkullOwner", 8) && !nbt.getString("SkullOwner").isBlank()) {

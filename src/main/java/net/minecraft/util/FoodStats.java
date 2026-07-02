@@ -32,13 +32,11 @@ public class FoodStats {
 	 * Add food stats.
 	 */
 	public void addStats(int foodLevelIn, float foodSaturationModifier) {
-
 		foodLevel = Math.min(foodLevelIn + foodLevel, 20);
 		foodSaturationLevel = Math.min(foodSaturationLevel + (float) foodLevelIn * foodSaturationModifier * 2F, (float) foodLevel);
 	}
 
 	public void addStats(ItemFood foodItem, ItemStack stack) {
-
 		addStats(foodItem.getHealAmount(stack), foodItem.getSaturationModifier(stack));
 	}
 
@@ -46,7 +44,6 @@ public class FoodStats {
 	 * Handles the food game logic.
 	 */
 	public void onUpdate(EntityPlayer player) {
-
 		Difficulty enumdifficulty = player.world.getDifficulty();
 		
 		if (foodExhaustionLevel > 4F) {
@@ -97,7 +94,6 @@ public class FoodStats {
 	 * Reads the food data for the player.
 	 */
 	public void readNBT(NBTTagCompound compound) {
-
 		if (compound.hasKey("foodLevel", 99)) {
 			foodLevel = compound.getInteger("foodLevel");
 			foodTimer = compound.getInteger("foodTickTimer");
@@ -110,7 +106,6 @@ public class FoodStats {
 	 * Writes the food data for the player.
 	 */
 	public void writeNBT(NBTTagCompound compound) {
-
 		compound.setInteger("foodLevel", foodLevel);
 		compound.setInteger("foodTickTimer", foodTimer);
 		compound.setFloat("foodSaturationLevel", foodSaturationLevel);
@@ -121,12 +116,10 @@ public class FoodStats {
 	 * Get the player's food level.
 	 */
 	public int getFoodLevel() {
-
 		return foodLevel;
 	}
 
 	public void setFoodLevel(int foodLevelIn) {
-
 		foodLevel = foodLevelIn;
 	}
 
@@ -134,7 +127,6 @@ public class FoodStats {
 	 * Get whether the player must eat food.
 	 */
 	public boolean needFood() {
-
 		return foodLevel < 20;
 	}
 
@@ -142,7 +134,6 @@ public class FoodStats {
 	 * adds input to foodExhaustionLevel to a max of 40
 	 */
 	public void addExhaustion(float exhaustion) {
-
 		foodExhaustionLevel = Math.min(foodExhaustionLevel + exhaustion, 40F);
 	}
 
@@ -150,12 +141,10 @@ public class FoodStats {
 	 * Get the player's food saturation level.
 	 */
 	public float getSaturationLevel() {
-
 		return foodSaturationLevel;
 	}
 
 	public void setFoodSaturationLevel(float foodSaturationLevelIn) {
-
 		foodSaturationLevel = foodSaturationLevelIn;
 	}
 

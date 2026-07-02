@@ -72,7 +72,6 @@ public enum ParticleTypes {
 	private final int argumentCount;
 
 	ParticleTypes(String particleNameIn, int particleIDIn, boolean shouldIgnoreRangeIn, int argumentCountIn) {
-
 		particleName = particleNameIn;
 		particleID = particleIDIn;
 		shouldIgnoreRange = shouldIgnoreRangeIn;
@@ -80,12 +79,10 @@ public enum ParticleTypes {
 	}
 
 	ParticleTypes(String particleNameIn, int particleIDIn, boolean shouldIgnoreRangeIn) {
-
 		this(particleNameIn, particleIDIn, shouldIgnoreRangeIn, 0);
 	}
 
 	public static Set<String> getParticleNames() {
-
 		return BY_NAME.keySet();
 	}
 
@@ -95,33 +92,27 @@ public enum ParticleTypes {
 	 * Gets the relative ParticleTypes by id.
 	 */
 	public static ParticleTypes getParticleFromId(int particleId) {
-
 		return PARTICLES.get(particleId);
 	}
 
 	
 	public static ParticleTypes getByName(String nameIn) {
-
 		return BY_NAME.get(nameIn);
 	}
 
 	public String getParticleName() {
-
 		return particleName;
 	}
 
 	public int getParticleID() {
-
 		return particleID;
 	}
 
 	public int getArgumentCount() {
-
 		return argumentCount;
 	}
 
 	public boolean getShouldIgnoreRange() {
-
 		return shouldIgnoreRange;
 	}
 }

@@ -30,7 +30,6 @@ public class Advancement {
 	private final ITextComponent displayText;
 
 	public Advancement(ResourceLocation id, Advancement parentIn, DisplayInfo displayIn, AdvancementRewards rewardsIn, Map<String, Criterion> criteriaIn, String[][] requirementsIn) {
-
 		this.id = id;
 		display = displayIn;
 		criteria = ImmutableMap.copyOf(criteriaIn);
@@ -77,7 +76,6 @@ public class Advancement {
 	 * Advancement} is a root with no parent.
 	 */
 	public Advancement getParent() {
-
 		return parent;
 	}
 
@@ -89,22 +87,18 @@ public class Advancement {
 	 * invisible {@code Advancement}.
 	 */
 	public DisplayInfo getDisplay() {
-
 		return display;
 	}
 
 	public AdvancementRewards getRewards() {
-
 		return rewards;
 	}
 
 	public String toString() {
-
 		return "SimpleAdvancement{id=" + getId() + ", parent=" + (parent == null ? "null" : parent.getId()) + ", display=" + display + ", rewards=" + rewards + ", criteria=" + criteria + ", requirements=" + Arrays.deepToString(requirements) + '}';
 	}
 
 	public Iterable<Advancement> getChildren() {
-
 		return children;
 	}
 
@@ -120,7 +114,6 @@ public class Advancement {
 	 * @see #getRequirements()
 	 */
 	public int getRequirementCount() {
-
 		return requirements.length;
 	}
 
@@ -130,7 +123,6 @@ public class Advancement {
 	 * @see #getParent()
 	 */
 	public void addChild(Advancement advancementIn) {
-
 		children.add(advancementIn);
 	}
 
@@ -140,12 +132,10 @@ public class Advancement {
 	 * @return this {@code Advancement}'s unique identifier
 	 */
 	public ResourceLocation getId() {
-
 		return id;
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else if (!(p_equals_1_ instanceof Advancement advancement)) {
@@ -156,12 +146,10 @@ public class Advancement {
 	}
 
 	public int hashCode() {
-
 		return id.hashCode();
 	}
 
 	public String[][] getRequirements() {
-
 		return requirements;
 	}
 
@@ -176,7 +164,6 @@ public class Advancement {
 	 * {@linkplain DisplayInfo#getDescription() description}.
 	 */
 	public ITextComponent getDisplayText() {
-
 		return displayText;
 	}
 
@@ -190,7 +177,6 @@ public class Advancement {
 		private Advancement parent;
 
 		Builder(ResourceLocation p_i47414_1_, DisplayInfo p_i47414_2_, AdvancementRewards p_i47414_3_, Map<String, Criterion> p_i47414_4_, String[][] p_i47414_5_) {
-
 			parentId = p_i47414_1_;
 			display = p_i47414_2_;
 			rewards = p_i47414_3_;
@@ -279,7 +265,6 @@ public class Advancement {
 		}
 
 		public boolean resolveParent(Function<ResourceLocation, Advancement> lookup) {
-
 			if (parentId == null) {
 				return true;
 			} else {
@@ -289,12 +274,10 @@ public class Advancement {
 		}
 
 		public Advancement build(ResourceLocation id) {
-
 			return new Advancement(id, parent, display, rewards, criteria, requirements);
 		}
 
 		public void writeTo(PacketBuffer buf) {
-
 			if (parentId == null) {
 				buf.writeBoolean(false);
 			} else {
@@ -322,7 +305,6 @@ public class Advancement {
 		}
 
 		public String toString() {
-
 			return "Task Advancement{parentId=" + parentId + ", display=" + display + ", rewards=" + rewards + ", criteria=" + criteria + ", requirements=" + Arrays.deepToString(requirements) + '}';
 		}
 

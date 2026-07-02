@@ -17,7 +17,6 @@ public class EntityAIPanic extends EntityAIBase {
 	protected double randPosZ;
 
 	public EntityAIPanic(EntityCreature creature, double speedIn) {
-
 		this.creature = creature;
 		speed = speedIn;
 		setMutexBits(1);
@@ -27,7 +26,6 @@ public class EntityAIPanic extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		if (creature.getRevengeTarget() == null && !creature.isBurning()) {
 			return false;
 		} else {
@@ -47,7 +45,6 @@ public class EntityAIPanic extends EntityAIBase {
 	}
 
 	protected boolean findRandomPosition() {
-
 		Vec3d vec3d = RandomPositionGenerator.findRandomTarget(creature, 5, 4);
 
 		if (vec3d == null) {
@@ -64,7 +61,6 @@ public class EntityAIPanic extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		creature.getNavigator().tryMoveToXYZ(randPosX, randPosY, randPosZ, speed);
 	}
 
@@ -72,13 +68,11 @@ public class EntityAIPanic extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		return !creature.getNavigator().noPath();
 	}
 
 	
 	private BlockPos getRandPos(World worldIn, Entity entityIn, int horizontalRange, int verticalRange) {
-
 		BlockPos blockpos = new BlockPos(entityIn);
 		int i = blockpos.getX();
 		int j = blockpos.getY();

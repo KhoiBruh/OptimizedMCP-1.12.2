@@ -13,7 +13,6 @@ public class ModelSign extends ModelBase {
 	public ModelRenderer signStick;
 
 	public ModelSign() {
-
 		signBoard.addBox(-12F, -14F, -1F, 24, 12, 2, 0F);
 		signStick = new ModelRenderer(this, 0, 14);
 		signStick.addBox(-1F, -2F, -1F, 2, 14, 2, 0F);
@@ -23,7 +22,6 @@ public class ModelSign extends ModelBase {
 	 * Renders the sign model through TileEntitySignRenderer
 	 */
 	public void renderSign() {
-
 		signBoard.render(0.0625F);
 		signStick.render(0.0625F);
 	}

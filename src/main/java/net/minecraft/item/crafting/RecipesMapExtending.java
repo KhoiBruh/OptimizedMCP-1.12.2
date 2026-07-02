@@ -12,7 +12,6 @@ import net.minecraft.world.storage.MapDecoration;
 public class RecipesMapExtending extends ShapedRecipes {
 
 	public RecipesMapExtending() {
-
 		super("", 3, 3, NonNullList.from(Ingredient.EMPTY, Ingredient.fromItems(Items.PAPER), Ingredient.fromItems(Items.PAPER), Ingredient.fromItems(Items.PAPER), Ingredient.fromItems(Items.PAPER), Ingredient.fromItem(Items.FILLED_MAP), Ingredient.fromItems(Items.PAPER), Ingredient.fromItems(Items.PAPER), Ingredient.fromItems(Items.PAPER), Ingredient.fromItems(Items.PAPER)), new ItemStack(Items.MAP));
 	}
 
@@ -20,7 +19,6 @@ public class RecipesMapExtending extends ShapedRecipes {
 	 * Used to check if a recipe matches current crafting inventory
 	 */
 	public boolean matches(InventoryCrafting inv, World worldIn) {
-
 		if (!super.matches(inv, worldIn)) {
 			return false;
 		} else {
@@ -51,7 +49,6 @@ public class RecipesMapExtending extends ShapedRecipes {
 	}
 
 	private boolean isExplorationMap(MapData p_190934_1_) {
-
 		if (p_190934_1_.mapDecorations != null) {
 			for (MapDecoration mapdecoration : p_190934_1_.mapDecorations.values()) {
 				if (mapdecoration.type() == MapDecoration.Type.MANSION || mapdecoration.type() == MapDecoration.Type.MONUMENT) {
@@ -67,7 +64,6 @@ public class RecipesMapExtending extends ShapedRecipes {
 	 * Returns an Item that is the result of this recipe
 	 */
 	public ItemStack getCraftingResult(InventoryCrafting inv) {
-
 		ItemStack itemstack = ItemStack.EMPTY;
 
 		for (int i = 0; i < inv.getSizeInventory() && itemstack.isEmpty(); ++i) {
@@ -90,7 +86,6 @@ public class RecipesMapExtending extends ShapedRecipes {
 	}
 
 	public boolean isDynamic() {
-
 		return true;
 	}
 

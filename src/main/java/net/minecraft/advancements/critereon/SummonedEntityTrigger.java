@@ -21,12 +21,10 @@ public class SummonedEntityTrigger implements ICriterionTrigger<SummonedEntityTr
 	private final Map<PlayerAdvancements, SummonedEntityTrigger.Listeners> listeners = Maps.newHashMap();
 
 	public ResourceLocation getId() {
-
 		return ID;
 	}
 
 	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<SummonedEntityTrigger.Instance> listener) {
-
 		SummonedEntityTrigger.Listeners summonedentitytrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (summonedentitytrigger$listeners == null) {
@@ -38,7 +36,6 @@ public class SummonedEntityTrigger implements ICriterionTrigger<SummonedEntityTr
 	}
 
 	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<SummonedEntityTrigger.Instance> listener) {
-
 		SummonedEntityTrigger.Listeners summonedentitytrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (summonedentitytrigger$listeners != null) {
@@ -51,7 +48,6 @@ public class SummonedEntityTrigger implements ICriterionTrigger<SummonedEntityTr
 	}
 
 	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
-
 		listeners.remove(playerAdvancementsIn);
 	}
 
@@ -65,7 +61,6 @@ public class SummonedEntityTrigger implements ICriterionTrigger<SummonedEntityTr
 	}
 
 	public void trigger(EntityPlayerMP player, Entity entity) {
-
 		SummonedEntityTrigger.Listeners summonedentitytrigger$listeners = listeners.get(player.getAdvancements());
 
 		if (summonedentitytrigger$listeners != null) {
@@ -78,13 +73,11 @@ public class SummonedEntityTrigger implements ICriterionTrigger<SummonedEntityTr
 		private final EntityPredicate entity;
 
 		public Instance(EntityPredicate entity) {
-
 			super(SummonedEntityTrigger.ID);
 			this.entity = entity;
 		}
 
 		public boolean test(EntityPlayerMP player, Entity entity) {
-
 			return this.entity.test(player, entity);
 		}
 
@@ -96,27 +89,22 @@ public class SummonedEntityTrigger implements ICriterionTrigger<SummonedEntityTr
 		private final Set<ICriterionTrigger.Listener<SummonedEntityTrigger.Instance>> listeners = Sets.newHashSet();
 
 		public Listeners(PlayerAdvancements playerAdvancementsIn) {
-
 			playerAdvancements = playerAdvancementsIn;
 		}
 
 		public boolean isEmpty() {
-
 			return listeners.isEmpty();
 		}
 
 		public void add(ICriterionTrigger.Listener<SummonedEntityTrigger.Instance> listener) {
-
 			listeners.add(listener);
 		}
 
 		public void remove(ICriterionTrigger.Listener<SummonedEntityTrigger.Instance> listener) {
-
 			listeners.remove(listener);
 		}
 
 		public void trigger(EntityPlayerMP player, Entity entity) {
-
 			List<ICriterionTrigger.Listener<SummonedEntityTrigger.Instance>> list = null;
 
 			for (ICriterionTrigger.Listener<SummonedEntityTrigger.Instance> listener : listeners) {

@@ -21,12 +21,10 @@ import java.util.Map.Entry;
 public class PotionUtils {
 
 	public static List<PotionEffect> getEffectsFromStack(ItemStack stack) {
-
 		return getEffectsFromTag(stack.getTagCompound());
 	}
 
 	public static List<PotionEffect> mergeEffects(PotionType potionIn, Collection<PotionEffect> effects) {
-
 		List<PotionEffect> list = Lists.newArrayList();
 		list.addAll(potionIn.getEffects());
 		list.addAll(effects);
@@ -34,7 +32,6 @@ public class PotionUtils {
 	}
 
 	public static List<PotionEffect> getEffectsFromTag(NBTTagCompound tag) {
-
 		List<PotionEffect> list = Lists.newArrayList();
 		list.addAll(getPotionTypeFromNBT(tag).getEffects());
 		addCustomPotionEffectToList(tag, list);
@@ -42,19 +39,16 @@ public class PotionUtils {
 	}
 
 	public static List<PotionEffect> getFullEffectsFromItem(ItemStack itemIn) {
-
 		return getFullEffectsFromTag(itemIn.getTagCompound());
 	}
 
 	public static List<PotionEffect> getFullEffectsFromTag(NBTTagCompound tag) {
-
 		List<PotionEffect> list = Lists.newArrayList();
 		addCustomPotionEffectToList(tag, list);
 		return list;
 	}
 
 	public static void addCustomPotionEffectToList(NBTTagCompound tag, List<PotionEffect> effectList) {
-
 		if (tag != null && tag.hasKey("CustomPotionEffects", 9)) {
 			NBTTagList nbttaglist = tag.getTagList("CustomPotionEffects", 10);
 
@@ -70,7 +64,6 @@ public class PotionUtils {
 	}
 
 	public static int getColor(ItemStack p_190932_0_) {
-
 		NBTTagCompound nbttagcompound = p_190932_0_.getTagCompound();
 
 		if (nbttagcompound != null && nbttagcompound.hasKey("CustomPotionColor", 99)) {
@@ -81,12 +74,10 @@ public class PotionUtils {
 	}
 
 	public static int getPotionColor(PotionType potionIn) {
-
 		return potionIn == PotionTypes.EMPTY ? 16253176 : getPotionColorFromEffectList(potionIn.getEffects());
 	}
 
 	public static int getPotionColorFromEffectList(Collection<PotionEffect> effects) {
-
 		int i = 3694022;
 
 		if (effects.isEmpty()) {
@@ -120,7 +111,6 @@ public class PotionUtils {
 	}
 
 	public static PotionType getPotionFromItem(ItemStack itemIn) {
-
 		return getPotionTypeFromNBT(itemIn.getTagCompound());
 	}
 
@@ -128,12 +118,10 @@ public class PotionUtils {
 	 * If no correct potion is found, returns the default one : PotionTypes.water
 	 */
 	public static PotionType getPotionTypeFromNBT(NBTTagCompound tag) {
-
 		return tag == null ? PotionTypes.EMPTY : PotionType.getPotionTypeForName(tag.getString("Potion"));
 	}
 
 	public static ItemStack addPotionToItemStack(ItemStack itemIn, PotionType potionIn) {
-
 		ResourceLocation resourcelocation = PotionType.REGISTRY.getNameForObject(potionIn);
 
 		if (potionIn == PotionTypes.EMPTY) {
@@ -155,7 +143,6 @@ public class PotionUtils {
 	}
 
 	public static ItemStack appendEffects(ItemStack itemIn, Collection<PotionEffect> effects) {
-
 		if (effects.isEmpty()) {
 			return itemIn;
 		} else {
@@ -173,7 +160,6 @@ public class PotionUtils {
 	}
 
 	public static void addPotionTooltip(ItemStack itemIn, List<String> lores, float durationFactor) {
-
 		List<PotionEffect> list = getEffectsFromStack(itemIn);
 		List<Tuple<String, AttributeModifier>> list1 = Lists.newArrayList();
 

@@ -7,12 +7,10 @@ import net.minecraft.util.math.MathHelper;
 public class EntityFlyHelper extends EntityMoveHelper {
 
 	public EntityFlyHelper(EntityLiving p_i47418_1_) {
-
 		super(p_i47418_1_);
 	}
 
 	public void onUpdateMoveHelper() {
-
 		if (action == EntityMoveHelper.Action.MOVE_TO) {
 			action = EntityMoveHelper.Action.WAIT;
 			entity.setNoGravity(true);

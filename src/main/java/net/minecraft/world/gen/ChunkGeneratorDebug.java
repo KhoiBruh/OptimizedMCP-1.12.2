@@ -34,12 +34,10 @@ public class ChunkGeneratorDebug implements IChunkGenerator {
 	private final World world;
 
 	public ChunkGeneratorDebug(World worldIn) {
-
 		world = worldIn;
 	}
 
 	public static IBlockState getBlockStateFor(int p_177461_0_, int p_177461_1_) {
-
 		IBlockState iblockstate = AIR;
 
 		if (p_177461_0_ > 0 && p_177461_1_ > 0 && p_177461_0_ % 2 != 0 && p_177461_1_ % 2 != 0) {
@@ -62,7 +60,6 @@ public class ChunkGeneratorDebug implements IChunkGenerator {
 	 * Generates the chunk at the specified position, from scratch
 	 */
 	public Chunk generateChunk(int x, int z) {
-
 		ChunkPrimer chunkprimer = new ChunkPrimer();
 
 		for (int i = 0; i < 16; ++i) {
@@ -98,14 +95,12 @@ public class ChunkGeneratorDebug implements IChunkGenerator {
 	 * @param z Chunk z coordinate
 	 */
 	public void populate(int x, int z) {
-
 	}
 
 	/**
 	 * Called to generate additional structures after initial worldgen, used by ocean monuments
 	 */
 	public boolean generateStructures(Chunk chunkIn, int x, int z) {
-
 		return false;
 	}
 
@@ -117,12 +112,10 @@ public class ChunkGeneratorDebug implements IChunkGenerator {
 
 	
 	public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
-
 		return null;
 	}
 
 	public boolean isInsideStructure(World worldIn, String structureName, BlockPos pos) {
-
 		return false;
 	}
 
@@ -132,6 +125,5 @@ public class ChunkGeneratorDebug implements IChunkGenerator {
 	 * state needed by getPossibleCreatures.
 	 */
 	public void recreateStructures(Chunk chunkIn, int x, int z) {
-
 	}
 }

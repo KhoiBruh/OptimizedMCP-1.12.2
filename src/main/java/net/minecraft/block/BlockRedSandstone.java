@@ -14,7 +14,6 @@ public class BlockRedSandstone extends Block {
 	public static final PropertyEnum<BlockRedSandstone.Type> TYPE = PropertyEnum.create("type", BlockRedSandstone.Type.class);
 
 	public BlockRedSandstone() {
-
 		super(Material.ROCK, BlockSand.Type.RED_SAND.getMapColor());
 		setDefaultState(blockState.getBaseState().withProperty(TYPE, BlockRedSandstone.Type.DEFAULT));
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
@@ -25,7 +24,6 @@ public class BlockRedSandstone extends Block {
 	 * returns the metadata of the dropped item based on the old metadata of the block.
 	 */
 	public int damageDropped(IBlockState state) {
-
 		return state.getValue(TYPE).getMetadata();
 	}
 
@@ -33,7 +31,6 @@ public class BlockRedSandstone extends Block {
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-
 		for (BlockRedSandstone.Type blockredsandstone$enumtype : BlockRedSandstone.Type.values()) {
 			items.add(new ItemStack(this, 1, blockredsandstone$enumtype.getMetadata()));
 		}
@@ -43,7 +40,6 @@ public class BlockRedSandstone extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(TYPE, BlockRedSandstone.Type.byMetadata(meta));
 	}
 
@@ -51,12 +47,10 @@ public class BlockRedSandstone extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(TYPE).getMetadata();
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, TYPE);
 	}
 
@@ -78,7 +72,6 @@ public class BlockRedSandstone extends Block {
 		private final String unlocalizedName;
 
 		Type(int meta, String name, String unlocalizedName) {
-
 			this.meta = meta;
 			this.name = name;
 			this.unlocalizedName = unlocalizedName;
@@ -94,22 +87,18 @@ public class BlockRedSandstone extends Block {
 		}
 
 		public int getMetadata() {
-
 			return meta;
 		}
 
 		public String toString() {
-
 			return name;
 		}
 
 		public String getName() {
-
 			return name;
 		}
 
 		public String getUnlocalizedName() {
-
 			return unlocalizedName;
 		}
 	}

@@ -20,7 +20,6 @@ public class LootPool {
 	private final RandomValueRange bonusRolls;
 
 	public LootPool(LootEntry[] lootEntriesIn, LootCondition[] poolConditionsIn, RandomValueRange rollsIn, RandomValueRange bonusRollsIn) {
-
 		lootEntries = lootEntriesIn;
 		poolConditions = poolConditionsIn;
 		rolls = rollsIn;
@@ -34,7 +33,6 @@ public class LootPool {
 	 * with items with higher weights being more probable.
 	 */
 	protected void createLootRoll(Collection<ItemStack> stacks, Random rand, LootContext context) {
-
 		List<LootEntry> list = Lists.newArrayList();
 		int i = 0;
 
@@ -67,7 +65,6 @@ public class LootPool {
 	 * generates loot and puts it in an inventory
 	 */
 	public void generateLoot(Collection<ItemStack> stacks, Random rand, LootContext context) {
-
 		if (LootConditionManager.testAllConditions(poolConditions, rand, context)) {
 			int i = rolls.generateInt(rand) + MathHelper.floor(bonusRolls.generateFloat(rand) * context.getLuck());
 
@@ -80,7 +77,6 @@ public class LootPool {
 	public static class Serializer implements JsonDeserializer<LootPool>, JsonSerializer<LootPool> {
 
 		public LootPool deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-
 			JsonObject jsonobject = JsonUtils.getJsonObject(p_deserialize_1_, "loot pool");
 			LootEntry[] alootentry = JsonUtils.deserializeClass(jsonobject, "entries", p_deserialize_3_, LootEntry[].class);
 			LootCondition[] alootcondition = JsonUtils.deserializeClass(jsonobject, "conditions", new LootCondition[0], p_deserialize_3_, LootCondition[].class);
@@ -90,7 +86,6 @@ public class LootPool {
 		}
 
 		public JsonElement serialize(LootPool p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
-
 			JsonObject jsonobject = new JsonObject();
 			jsonobject.add("entries", p_serialize_3_.serialize(p_serialize_1_.lootEntries));
 			jsonobject.add("rolls", p_serialize_3_.serialize(p_serialize_1_.rolls));

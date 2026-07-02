@@ -13,12 +13,10 @@ public class LayerMooshroomMushroom implements LayerRenderer<EntityMooshroom> {
 	private final RenderMooshroom mooshroomRenderer;
 
 	public LayerMooshroomMushroom(RenderMooshroom mooshroomRendererIn) {
-
 		mooshroomRenderer = mooshroomRendererIn;
 	}
 
 	public void doRenderLayer(EntityMooshroom entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		if (!entitylivingbaseIn.isChild() && !entitylivingbaseIn.isInvisible()) {
 			BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
 			mooshroomRenderer.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
@@ -53,7 +51,6 @@ public class LayerMooshroomMushroom implements LayerRenderer<EntityMooshroom> {
 	}
 
 	public boolean shouldCombineTextures() {
-
 		return true;
 	}
 

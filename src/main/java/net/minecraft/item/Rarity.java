@@ -20,7 +20,6 @@ public enum Rarity {
 	public final String rarityName;
 
 	Rarity(TextFormat color, String name) {
-
 		rarityColor = color;
 		rarityName = name;
 	}

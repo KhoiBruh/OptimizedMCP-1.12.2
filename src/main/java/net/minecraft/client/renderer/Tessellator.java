@@ -10,12 +10,10 @@ public class Tessellator {
 	private final WorldVertexBufferUploader vboUploader = new WorldVertexBufferUploader();
 
 	public Tessellator(int bufferSize) {
-
 		buffer = new BufferBuilder(bufferSize);
 	}
 
 	public static Tessellator getInstance() {
-
 		return INSTANCE;
 	}
 
@@ -23,13 +21,11 @@ public class Tessellator {
 	 * Draws the data set up in this tessellator and resets the state to prepare for new drawing.
 	 */
 	public void draw() {
-
 		buffer.finishDrawing();
 		vboUploader.draw(buffer);
 	}
 
 	public BufferBuilder getBuffer() {
-
 		return buffer;
 	}
 

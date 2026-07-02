@@ -20,7 +20,6 @@ public class MetadataSerializer {
 	private Gson gson;
 
 	public MetadataSerializer() {
-
 		gsonBuilder.registerTypeHierarchyAdapter(ITextComponent.class, new ITextComponent.Serializer());
 		gsonBuilder.registerTypeHierarchyAdapter(Style.class, new Style.Serializer());
 		gsonBuilder.registerTypeAdapterFactory(new EnumTypeAdapterFactory());
@@ -56,7 +55,6 @@ public class MetadataSerializer {
 	 * Returns a Gson instance with type adapters registered for metadata sections.
 	 */
 	private Gson getGson() {
-
 		if (gson == null) {
 			gson = gsonBuilder.create();
 		}
@@ -70,7 +68,6 @@ public class MetadataSerializer {
 		final Class<T> clazz;
 
 		private Registration(IMetadataSectionSerializer<T> metadataSectionSerializer, Class<T> clazzToRegister) {
-
 			section = metadataSectionSerializer;
 			clazz = clazzToRegister;
 		}

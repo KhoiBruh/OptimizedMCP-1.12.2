@@ -17,7 +17,6 @@ public class IntIdentityHashBiMap<K> implements IObjectIntIterable<K> {
 	private int mapSize;
 
 	public IntIdentityHashBiMap(int initialCapacity) {
-
 		initialCapacity = (int) ((float) initialCapacity / 0.8F);
 		values = (K[]) (new Object[initialCapacity]);
 		intKeys = new int[initialCapacity];
@@ -25,18 +24,15 @@ public class IntIdentityHashBiMap<K> implements IObjectIntIterable<K> {
 	}
 
 	public int getId(K p_186815_1_) {
-
 		return getValue(getIndex(p_186815_1_, hashObject(p_186815_1_)));
 	}
 
 	
 	public K get(int idIn) {
-
 		return idIn >= 0 && idIn < byId.length ? byId[idIn] : null;
 	}
 
 	private int getValue(int p_186805_1_) {
-
 		return p_186805_1_ == -1 ? -1 : intKeys[p_186805_1_];
 	}
 
@@ -44,14 +40,12 @@ public class IntIdentityHashBiMap<K> implements IObjectIntIterable<K> {
 	 * Adds the given object while expanding this map
 	 */
 	public int add(K objectIn) {
-
 		int i = nextId();
 		put(objectIn, i);
 		return i;
 	}
 
 	private int nextId() {
-
 		while (nextFreeIndex < byId.length && byId[nextFreeIndex] != null) {
 			++nextFreeIndex;
 		}
@@ -63,7 +57,6 @@ public class IntIdentityHashBiMap<K> implements IObjectIntIterable<K> {
 	 * Rehashes the map to the new capacity
 	 */
 	private void grow(int capacity) {
-
 		K[] ak = values;
 		int[] aint = intKeys;
 		values = (K[]) (new Object[capacity]);
@@ -83,7 +76,6 @@ public class IntIdentityHashBiMap<K> implements IObjectIntIterable<K> {
 	 * Puts the provided object value with the integer key.
 	 */
 	public void put(K objectIn, int intKey) {
-
 		int i = Math.max(intKey, mapSize + 1);
 
 		if ((float) i >= (float) values.length * 0.8F) {
@@ -107,12 +99,10 @@ public class IntIdentityHashBiMap<K> implements IObjectIntIterable<K> {
 	}
 
 	private int hashObject(K obectIn) {
-
 		return (MathHelper.hash(System.identityHashCode(obectIn)) & Integer.MAX_VALUE) % values.length;
 	}
 
 	private int getIndex(K objectIn, int p_186816_2_) {
-
 		for (int i = p_186816_2_; i < values.length; ++i) {
 			if (values[i] == objectIn) {
 				return i;
@@ -137,7 +127,6 @@ public class IntIdentityHashBiMap<K> implements IObjectIntIterable<K> {
 	}
 
 	private int findEmpty(int p_186806_1_) {
-
 		for (int i = p_186806_1_; i < values.length; ++i) {
 			if (values[i] == EMPTY) {
 				return i;
@@ -154,12 +143,10 @@ public class IntIdentityHashBiMap<K> implements IObjectIntIterable<K> {
 	}
 
 	public Iterator<K> iterator() {
-
 		return Iterators.filter(Iterators.forArray(byId), Predicates.notNull());
 	}
 
 	public void clear() {
-
 		Arrays.fill(values, null);
 		Arrays.fill(byId, null);
 		nextFreeIndex = 0;
@@ -167,7 +154,6 @@ public class IntIdentityHashBiMap<K> implements IObjectIntIterable<K> {
 	}
 
 	public int size() {
-
 		return mapSize;
 	}
 

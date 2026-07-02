@@ -26,7 +26,6 @@ public class ChunkCache implements IBlockAccess {
 	protected World world;
 
 	public ChunkCache(World worldIn, BlockPos posFromIn, BlockPos posToIn, int subIn) {
-
 		world = worldIn;
 		chunkX = posFromIn.getX() - subIn >> 4;
 		chunkZ = posFromIn.getZ() - subIn >> 4;
@@ -56,26 +55,22 @@ public class ChunkCache implements IBlockAccess {
 	 * set by !chunk.getAreLevelsEmpty
 	 */
 	public boolean isEmpty() {
-
 		return empty;
 	}
 
 	
 	public TileEntity getTileEntity(BlockPos pos) {
-
 		return getTileEntity(pos, Chunk.CreateEntityType.IMMEDIATE);
 	}
 
 	
 	public TileEntity getTileEntity(BlockPos pos, Chunk.CreateEntityType p_190300_2_) {
-
 		int i = (pos.getX() >> 4) - chunkX;
 		int j = (pos.getZ() >> 4) - chunkZ;
 		return chunkArray[i][j].getTileEntity(pos, p_190300_2_);
 	}
 
 	public int getCombinedLight(BlockPos pos, int lightValue) {
-
 		int i = getLightForExt(SkyBlock.SKY, pos);
 		int j = getLightForExt(SkyBlock.BLOCK, pos);
 
@@ -87,7 +82,6 @@ public class ChunkCache implements IBlockAccess {
 	}
 
 	public IBlockState getBlockState(BlockPos pos) {
-
 		if (pos.getY() >= 0 && pos.getY() < 256) {
 			int i = (pos.getX() >> 4) - chunkX;
 			int j = (pos.getZ() >> 4) - chunkZ;
@@ -105,14 +99,12 @@ public class ChunkCache implements IBlockAccess {
 	}
 
 	public Biome getBiome(BlockPos pos) {
-
 		int i = (pos.getX() >> 4) - chunkX;
 		int j = (pos.getZ() >> 4) - chunkZ;
 		return chunkArray[i][j].getBiome(pos, world.getBiomeProvider());
 	}
 
 	private int getLightForExt(SkyBlock type, BlockPos pos) {
-
 		if (type == SkyBlock.SKY && !world.provider.hasSkyLight()) {
 			return 0;
 		} else if (pos.getY() >= 0 && pos.getY() < 256) {
@@ -147,12 +139,10 @@ public class ChunkCache implements IBlockAccess {
 	 * material is set to air, meaning it is possible for non-vanilla blocks to still pass this check.
 	 */
 	public boolean isAirBlock(BlockPos pos) {
-
 		return getBlockState(pos).getMaterial() == Material.AIR;
 	}
 
 	public int getLightFor(SkyBlock type, BlockPos pos) {
-
 		if (pos.getY() >= 0 && pos.getY() < 256) {
 			int i = (pos.getX() >> 4) - chunkX;
 			int j = (pos.getZ() >> 4) - chunkZ;
@@ -163,12 +153,10 @@ public class ChunkCache implements IBlockAccess {
 	}
 
 	public int getStrongPower(BlockPos pos, Facing direction) {
-
 		return getBlockState(pos).getStrongPower(this, pos, direction);
 	}
 
 	public WorldType getWorldType() {
-
 		return world.getWorldType();
 	}
 

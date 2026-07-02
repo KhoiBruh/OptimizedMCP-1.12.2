@@ -7,9 +7,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 public record VariantList(List<Variant> variantList) {
-
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else if (p_equals_1_ instanceof VariantList(List<Variant> list)) {
@@ -22,7 +20,6 @@ public record VariantList(List<Variant> variantList) {
 	public static class Deserializer implements JsonDeserializer<VariantList> {
 
 		public VariantList deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-
 			List<Variant> list = Lists.newArrayList();
 
 			if (p_deserialize_1_.isJsonArray()) {

@@ -13,11 +13,9 @@ public class CPacketSpectate implements Packet<INetHandlerPlayServer> {
 	private UUID id;
 
 	public CPacketSpectate() {
-
 	}
 
 	public CPacketSpectate(UUID uniqueIdIn) {
-
 		id = uniqueIdIn;
 	}
 
@@ -25,7 +23,6 @@ public class CPacketSpectate implements Packet<INetHandlerPlayServer> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		id = buf.readUniqueId();
 	}
 
@@ -33,7 +30,6 @@ public class CPacketSpectate implements Packet<INetHandlerPlayServer> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeUniqueId(id);
 	}
 
@@ -41,13 +37,11 @@ public class CPacketSpectate implements Packet<INetHandlerPlayServer> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayServer handler) {
-
 		handler.handleSpectate(this);
 	}
 
 	
 	public Entity getEntity(WorldServer worldIn) {
-
 		return worldIn.getEntityFromUuid(id);
 	}
 

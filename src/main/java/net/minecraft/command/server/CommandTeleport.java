@@ -26,7 +26,6 @@ public class CommandTeleport extends CommandBase {
 	 * @param teleportingEntity the entity being teleported
 	 */
 	private static void doTeleport(Entity teleportingEntity, CommandBase.CoordinateArg argX, CommandBase.CoordinateArg argY, CommandBase.CoordinateArg argZ, CommandBase.CoordinateArg argYaw, CommandBase.CoordinateArg argPitch) {
-
 		if (teleportingEntity instanceof EntityPlayerMP) {
 			Set<SPacketPlayerPosLook.Flags> set = EnumSet.noneOf(SPacketPlayerPosLook.Flags.class);
 			float f = (float) argYaw.getAmount();
@@ -66,7 +65,6 @@ public class CommandTeleport extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "teleport";
 	}
 
@@ -74,7 +72,6 @@ public class CommandTeleport extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 2;
 	}
 
@@ -82,7 +79,6 @@ public class CommandTeleport extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.teleport.usage";
 	}
 
@@ -90,7 +86,6 @@ public class CommandTeleport extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		if (args.length < 4) {
 			throw new WrongUsageException("commands.teleport.usage");
 		} else {
@@ -114,7 +109,6 @@ public class CommandTeleport extends CommandBase {
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		if (args.length == 1) {
 			return getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames());
 		} else {
@@ -126,7 +120,6 @@ public class CommandTeleport extends CommandBase {
 	 * Return whether the specified command parameter index is a username parameter.
 	 */
 	public boolean isUsernameIndex(String[] args, int index) {
-
 		return index == 0;
 	}
 

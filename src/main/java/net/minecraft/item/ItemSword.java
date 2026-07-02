@@ -19,7 +19,6 @@ public class ItemSword extends Item {
 	private final Item.ToolMaterial material;
 
 	public ItemSword(Item.ToolMaterial material) {
-
 		this.material = material;
 		maxStackSize = 1;
 		setMaxDamage(material.getMaxUses());
@@ -31,12 +30,10 @@ public class ItemSword extends Item {
 	 * Returns the amount of damage this item will deal. One heart of damage is equal to 2 damage points.
 	 */
 	public float getAttackDamage() {
-
 		return material.getAttackDamage();
 	}
 
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
-
 		Block block = state.getBlock();
 
 		if (block == Blocks.WEB) {
@@ -52,7 +49,6 @@ public class ItemSword extends Item {
 	 * the damage on the stack.
 	 */
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-
 		stack.damageItem(1, attacker);
 		return true;
 	}
@@ -61,7 +57,6 @@ public class ItemSword extends Item {
 	 * Called when a Block is destroyed using this Item. Return true to trigger the "Use Item" statistic.
 	 */
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-
 		if ((double) state.getBlockHardness(worldIn, pos) != 0D) {
 			stack.damageItem(2, entityLiving);
 		}
@@ -73,7 +68,6 @@ public class ItemSword extends Item {
 	 * Returns True is the item is renderer in full 3D when hold.
 	 */
 	public boolean isFull3D() {
-
 		return true;
 	}
 
@@ -81,7 +75,6 @@ public class ItemSword extends Item {
 	 * Check whether this Item can harvest the given Block
 	 */
 	public boolean canHarvestBlock(IBlockState blockIn) {
-
 		return blockIn.getBlock() == Blocks.WEB;
 	}
 
@@ -89,7 +82,6 @@ public class ItemSword extends Item {
 	 * Return the enchantability factor of the item, most of the time is based on material.
 	 */
 	public int getItemEnchantability() {
-
 		return material.getEnchantability();
 	}
 
@@ -97,7 +89,6 @@ public class ItemSword extends Item {
 	 * Return the name for this tool's material.
 	 */
 	public String getToolMaterialName() {
-
 		return material.toString();
 	}
 
@@ -108,7 +99,6 @@ public class ItemSword extends Item {
 	 * @param repair   the {@code ItemStack} being used to perform the repair
 	 */
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-
 		return material.getRepairItem() == repair.getItem() || super.getIsRepairable(toRepair, repair);
 	}
 

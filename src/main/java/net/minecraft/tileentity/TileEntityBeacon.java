@@ -72,7 +72,6 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 
 	
 	private static Potion isBeaconEffect(int p_184279_0_) {
-
 		Potion potion = Potion.getPotionById(p_184279_0_);
 		return VALID_EFFECTS.contains(potion) ? potion : null;
 	}
@@ -81,14 +80,12 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	 * Like the old updateEntity(), except more generic.
 	 */
 	public void update() {
-
 		if (world.getTotalWorldTime() % 80L == 0L) {
 			updateBeacon();
 		}
 	}
 
 	public void updateBeacon() {
-
 		if (world != null) {
 			updateSegmentColors();
 			addEffectsToPlayers();
@@ -96,7 +93,6 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	}
 
 	private void addEffectsToPlayers() {
-
 		if (isComplete && levels > 0 && !world.isRemote && primaryEffect != null) {
 			double d0 = levels * 10 + 10;
 			int i = 0;
@@ -125,7 +121,6 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	}
 
 	private void updateSegmentColors() {
-
 		int i = pos.getX();
 		int j = pos.getY();
 		int k = pos.getZ();
@@ -217,7 +212,6 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	}
 
 	public float shouldBeamRender() {
-
 		if (!isComplete) {
 			return 0F;
 		} else {
@@ -243,28 +237,23 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	}
 
 	public int getLevels() {
-
 		return levels;
 	}
 
 	
 	public SPacketUpdateTileEntity getUpdatePacket() {
-
 		return new SPacketUpdateTileEntity(pos, 3, getUpdateTag());
 	}
 
 	public NBTTagCompound getUpdateTag() {
-
 		return writeToNBT(new NBTTagCompound());
 	}
 
 	public double getMaxRenderDistanceSquared() {
-
 		return 65536D;
 	}
 
 	public void readFromNBT(NBTTagCompound compound) {
-
 		super.readFromNBT(compound);
 		primaryEffect = isBeaconEffect(compound.getInteger("Primary"));
 		secondaryEffect = isBeaconEffect(compound.getInteger("Secondary"));
@@ -272,7 +261,6 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	}
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
 		super.writeToNBT(compound);
 		compound.setInteger("Primary", Potion.getIdFromPotion(primaryEffect));
 		compound.setInteger("Secondary", Potion.getIdFromPotion(secondaryEffect));
@@ -284,12 +272,10 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	 * Returns the number of slots in the inventory.
 	 */
 	public int getSizeInventory() {
-
 		return 1;
 	}
 
 	public boolean isEmpty() {
-
 		return payment.isEmpty();
 	}
 
@@ -297,7 +283,6 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	 * Returns the stack in the given slot.
 	 */
 	public ItemStack getStackInSlot(int index) {
-
 		return index == 0 ? payment : ItemStack.EMPTY;
 	}
 
@@ -305,7 +290,6 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	 * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
 	 */
 	public ItemStack decrStackSize(int index, int count) {
-
 		if (index == 0 && !payment.isEmpty()) {
 			if (count >= payment.getCount()) {
 				ItemStack itemstack = payment;
@@ -323,7 +307,6 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	 * Removes a stack from the given slot and returns it.
 	 */
 	public ItemStack removeStackFromSlot(int index) {
-
 		if (index == 0) {
 			ItemStack itemstack = payment;
 			payment = ItemStack.EMPTY;
@@ -337,7 +320,6 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	 * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
 	 */
 	public void setInventorySlotContents(int index, ItemStack stack) {
-
 		if (index == 0) {
 			payment = stack;
 		}
@@ -347,12 +329,10 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	 * Get the name of this object. For players this returns their username
 	 */
 	public String getName() {
-
 		return hasCustomName() ? customName : "container.beacon";
 	}
 
 	public void setName(String name) {
-
 		customName = name;
 	}
 
@@ -360,7 +340,6 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	 * Returns true if this thing is named
 	 */
 	public boolean hasCustomName() {
-
 		return customName != null && !customName.isEmpty();
 	}
 
@@ -368,7 +347,6 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	 * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended.
 	 */
 	public int getInventoryStackLimit() {
-
 		return 1;
 	}
 
@@ -376,7 +354,6 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	 * Don't rename this method to canInteractWith due to conflicts with Container
 	 */
 	public boolean isUsableByPlayer(EntityPlayer player) {
-
 		if (world.getTileEntity(pos) != this) {
 			return false;
 		} else {
@@ -385,11 +362,9 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	}
 
 	public void openInventory(EntityPlayer player) {
-
 	}
 
 	public void closeInventory(EntityPlayer player) {
-
 	}
 
 	/**
@@ -397,22 +372,18 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	 * guis use Slot.isItemValid
 	 */
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
-
 		return stack.getItem() == Items.EMERALD || stack.getItem() == Items.DIAMOND || stack.getItem() == Items.GOLD_INGOT || stack.getItem() == Items.IRON_INGOT;
 	}
 
 	public String guiID() {
-
 		return "minecraft:beacon";
 	}
 
 	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-
 		return new ContainerBeacon(playerInventory, this);
 	}
 
 	public int getField(int id) {
-
 		return switch (id) {
 			case 0 -> levels;
 			case 1 -> Potion.getIdFromPotion(primaryEffect);
@@ -422,7 +393,6 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	}
 
 	public void setField(int id, int value) {
-
 		switch (id) {
 			case 0:
 				levels = value;
@@ -438,17 +408,14 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	}
 
 	public int getFieldCount() {
-
 		return 3;
 	}
 
 	public void clear() {
-
 		payment = ItemStack.EMPTY;
 	}
 
 	public boolean receiveClientEvent(int id, int type) {
-
 		if (id == 1) {
 			updateBeacon();
 			return true;
@@ -458,7 +425,6 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	}
 
 	public int[] getSlotsForFace(Facing side) {
-
 		return new int[0];
 	}
 
@@ -466,7 +432,6 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	 * Returns true if automation can insert the given item in the given slot from the given side.
 	 */
 	public boolean canInsertItem(int index, ItemStack itemStackIn, Facing direction) {
-
 		return false;
 	}
 
@@ -474,7 +439,6 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	 * Returns true if automation can extract the given item in the given slot from the given side.
 	 */
 	public boolean canExtractItem(int index, ItemStack stack, Facing direction) {
-
 		return false;
 	}
 
@@ -484,23 +448,19 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 		private int height;
 
 		public BeamSegment(float[] colorsIn) {
-
 			colors = colorsIn;
 			height = 1;
 		}
 
 		protected void incrementHeight() {
-
 			++height;
 		}
 
 		public float[] getColors() {
-
 			return colors;
 		}
 
 		public int getHeight() {
-
 			return height;
 		}
 

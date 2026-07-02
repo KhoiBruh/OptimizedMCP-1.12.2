@@ -16,7 +16,6 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 	private String[][] requirements = new String[0][];
 
 	public static AdvancementProgress fromNetwork(PacketBuffer p_192100_0_) {
-
 		AdvancementProgress advancementprogress = new AdvancementProgress();
 		int i = p_192100_0_.readVarInt();
 
@@ -31,7 +30,6 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 	 * Update this AdvancementProgress' criteria and requirements
 	 */
 	public void update(Map<String, Criterion> criteriaIn, String[][] requirements) {
-
 		Set<String> set = criteriaIn.keySet();
 
 		criteria.entrySet().removeIf(entry -> !set.contains(entry.getKey()));
@@ -46,7 +44,6 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 	}
 
 	public boolean isDone() {
-
 		if (requirements.length == 0) {
 			return false;
 		} else {
@@ -72,7 +69,6 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 	}
 
 	public boolean hasProgress() {
-
 		for (CriterionProgress criterionprogress : criteria.values()) {
 			if (criterionprogress.isObtained()) {
 				return true;
@@ -83,7 +79,6 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 	}
 
 	public boolean grantCriterion(String criterionIn) {
-
 		CriterionProgress criterionprogress = criteria.get(criterionIn);
 
 		if (criterionprogress != null && !criterionprogress.isObtained()) {
@@ -95,7 +90,6 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 	}
 
 	public boolean revokeCriterion(String criterionIn) {
-
 		CriterionProgress criterionprogress = criteria.get(criterionIn);
 
 		if (criterionprogress != null && criterionprogress.isObtained()) {
@@ -107,12 +101,10 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 	}
 
 	public String toString() {
-
 		return "AdvancementProgress{criteria=" + criteria + ", requirements=" + Arrays.deepToString(requirements) + '}';
 	}
 
 	public void serializeToNetwork(PacketBuffer p_192104_1_) {
-
 		p_192104_1_.writeVarInt(criteria.size());
 
 		for (Entry<String, CriterionProgress> entry : criteria.entrySet()) {
@@ -123,12 +115,10 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 
 	
 	public CriterionProgress getCriterionProgress(String criterionIn) {
-
 		return criteria.get(criterionIn);
 	}
 
 	public float getPercent() {
-
 		if (criteria.isEmpty()) {
 			return 0F;
 		} else {
@@ -140,7 +130,6 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 
 	
 	public String getProgressText() {
-
 		if (criteria.isEmpty()) {
 			return null;
 		} else {
@@ -156,7 +145,6 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 	}
 
 	private int countCompletedRequirements() {
-
 		int i = 0;
 
 		for (String[] astring : requirements) {
@@ -180,7 +168,6 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 	}
 
 	public Iterable<String> getRemaningCriteria() {
-
 		List<String> list = Lists.newArrayList();
 
 		for (Entry<String, CriterionProgress> entry : criteria.entrySet()) {
@@ -193,7 +180,6 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 	}
 
 	public Iterable<String> getCompletedCriteria() {
-
 		List<String> list = Lists.newArrayList();
 
 		for (Entry<String, CriterionProgress> entry : criteria.entrySet()) {
@@ -207,7 +193,6 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 
 	
 	public Date getFirstProgressDate() {
-
 		Date date = null;
 
 		for (CriterionProgress criterionprogress : criteria.values()) {
@@ -220,7 +205,6 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 	}
 
 	public int compareTo(AdvancementProgress p_compareTo_1_) {
-
 		Date date = getFirstProgressDate();
 		Date date1 = p_compareTo_1_.getFirstProgressDate();
 
@@ -236,7 +220,6 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 	public static class Serializer implements JsonDeserializer<AdvancementProgress>, JsonSerializer<AdvancementProgress> {
 
 		public JsonElement serialize(AdvancementProgress p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
-
 			JsonObject jsonobject = new JsonObject();
 			JsonObject jsonobject1 = new JsonObject();
 
@@ -257,7 +240,6 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 		}
 
 		public AdvancementProgress deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-
 			JsonObject jsonobject = JsonUtils.getJsonObject(p_deserialize_1_, "advancement");
 			JsonObject jsonobject1 = JsonUtils.getJsonObject(jsonobject, "criteria", new JsonObject());
 			AdvancementProgress advancementprogress = new AdvancementProgress();

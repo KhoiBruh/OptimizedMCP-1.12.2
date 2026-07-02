@@ -16,7 +16,6 @@ public class ViewFrustum {
 	protected int countChunksZ;
 
 	public ViewFrustum(World worldIn, int renderDistanceChunks, RenderGlobal renderGlobalIn, IRenderChunkFactory renderChunkFactory) {
-
 		renderGlobal = renderGlobalIn;
 		world = worldIn;
 		setCountChunksXYZ(renderDistanceChunks);
@@ -24,7 +23,6 @@ public class ViewFrustum {
 	}
 
 	protected void createRenderChunks(IRenderChunkFactory renderChunkFactory) {
-
 		int i = countChunksX * countChunksY * countChunksZ;
 		renderChunks = new RenderChunk[i];
 		int j = 0;
@@ -41,14 +39,12 @@ public class ViewFrustum {
 	}
 
 	public void deleteGlResources() {
-
 		for (RenderChunk renderchunk : renderChunks) {
 			renderchunk.deleteGlResources();
 		}
 	}
 
 	protected void setCountChunksXYZ(int renderDistanceChunks) {
-
 		int i = renderDistanceChunks * 2 + 1;
 		countChunksX = i;
 		countChunksY = 16;
@@ -56,7 +52,6 @@ public class ViewFrustum {
 	}
 
 	public void updateChunkPositions(double viewEntityX, double viewEntityZ) {
-
 		int i = MathHelper.floor(viewEntityX) - 8;
 		int j = MathHelper.floor(viewEntityZ) - 8;
 		int k = countChunksX * 16;
@@ -77,7 +72,6 @@ public class ViewFrustum {
 	}
 
 	private int getBaseCoordinate(int p_178157_1_, int p_178157_2_, int p_178157_3_) {
-
 		int i = p_178157_3_ * 16;
 		int j = i - p_178157_1_ + p_178157_2_ / 2;
 
@@ -89,7 +83,6 @@ public class ViewFrustum {
 	}
 
 	public void markBlocksForUpdate(int minX, int minY, int minZ, int maxX, int maxY, int maxZ, boolean updateImmediately) {
-
 		int i = MathHelper.intFloorDiv(minX, 16);
 		int j = MathHelper.intFloorDiv(minY, 16);
 		int k = MathHelper.intFloorDiv(minZ, 16);
@@ -128,7 +121,6 @@ public class ViewFrustum {
 
 	
 	protected RenderChunk getRenderChunk(BlockPos pos) {
-
 		int i = MathHelper.intFloorDiv(pos.getX(), 16);
 		int j = MathHelper.intFloorDiv(pos.getY(), 16);
 		int k = MathHelper.intFloorDiv(pos.getZ(), 16);

@@ -11,7 +11,6 @@ public class ParticleDragonBreath extends Particle {
 	private boolean hasHitGround;
 
 	protected ParticleDragonBreath(World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-
 		super(worldIn, x, y, z, xSpeed, ySpeed, zSpeed);
 		motionX = xSpeed;
 		motionY = ySpeed;
@@ -26,7 +25,6 @@ public class ParticleDragonBreath extends Particle {
 	}
 
 	public void onUpdate() {
-
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
@@ -65,7 +63,6 @@ public class ParticleDragonBreath extends Particle {
 	 * Renders the particle
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-
 		particleScale = oSize * MathHelper.clamp(((float) particleAge + partialTicks) / (float) particleMaxAge * 32F, 0F, 1F);
 		super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
 	}
@@ -73,7 +70,6 @@ public class ParticleDragonBreath extends Particle {
 	public static class Factory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			return new ParticleDragonBreath(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 		}
 

@@ -9,7 +9,6 @@ import net.minecraft.world.World;
 public class BehaviorDefaultDispenseItem implements IBehaviorDispenseItem {
 
 	public static void doDispense(World worldIn, ItemStack stack, int speed, Facing facing, IPosition position) {
-
 		double d0 = position.x();
 		double d1 = position.y();
 		double d2 = position.z();
@@ -35,7 +34,6 @@ public class BehaviorDefaultDispenseItem implements IBehaviorDispenseItem {
 	 * Dispenses the specified ItemStack from a dispenser.
 	 */
 	public final ItemStack dispense(IBlockSource source, ItemStack stack) {
-
 		ItemStack itemstack = dispenseStack(source, stack);
 		playDispenseSound(source);
 		spawnDispenseParticles(source, source.getBlockState().getValue(BlockDispenser.FACING));
@@ -46,7 +44,6 @@ public class BehaviorDefaultDispenseItem implements IBehaviorDispenseItem {
 	 * Dispense the specified stack, play the dispense sound and spawn particles.
 	 */
 	protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-
 		Facing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
 		IPosition iposition = BlockDispenser.getDispensePosition(source);
 		ItemStack itemstack = stack.splitStack(1);
@@ -58,7 +55,6 @@ public class BehaviorDefaultDispenseItem implements IBehaviorDispenseItem {
 	 * Play the dispense sound from the specified block.
 	 */
 	protected void playDispenseSound(IBlockSource source) {
-
 		source.getWorld().playEvent(1000, source.getBlockPos(), 0);
 	}
 
@@ -66,12 +62,10 @@ public class BehaviorDefaultDispenseItem implements IBehaviorDispenseItem {
 	 * Order clients to display dispense particles from the specified block and facing.
 	 */
 	protected void spawnDispenseParticles(IBlockSource source, Facing facingIn) {
-
 		source.getWorld().playEvent(2000, source.getBlockPos(), getWorldEventDataFrom(facingIn));
 	}
 
 	private int getWorldEventDataFrom(Facing facingIn) {
-
 		return facingIn.getFrontOffsetX() + 1 + (facingIn.getFrontOffsetZ() + 1) * 3;
 	}
 

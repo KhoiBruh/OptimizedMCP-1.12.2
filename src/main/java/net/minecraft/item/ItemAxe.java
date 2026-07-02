@@ -15,14 +15,12 @@ public class ItemAxe extends ItemTool {
 	private static final float[] ATTACK_SPEEDS = new float[]{-3.2F, -3.2F, -3.1F, -3F, -3F};
 
 	protected ItemAxe(Item.ToolMaterial material) {
-
 		super(material, EFFECTIVE_ON);
 		attackDamage = ATTACK_DAMAGES[material.ordinal()];
 		attackSpeed = ATTACK_SPEEDS[material.ordinal()];
 	}
 
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
-
 		Material material = state.getMaterial();
 		return material != Material.WOOD && material != Material.PLANTS && material != Material.VINE ? super.getDestroySpeed(stack, state) : efficiency;
 	}

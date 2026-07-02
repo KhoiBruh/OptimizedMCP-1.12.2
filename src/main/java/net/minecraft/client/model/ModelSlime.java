@@ -26,7 +26,6 @@ public class ModelSlime extends ModelBase {
 	ModelRenderer slimeMouth;
 
 	public ModelSlime(int p_i1157_1_) {
-
 		if (p_i1157_1_ > 0) {
 			slimeBodies = new ModelRenderer(this, 0, p_i1157_1_);
 			slimeBodies.addBox(-3F, 17F, -3F, 6, 6, 6);
@@ -46,7 +45,6 @@ public class ModelSlime extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		GLS.translate(0F, 0.001F, 0F);
 		slimeBodies.render(scale);

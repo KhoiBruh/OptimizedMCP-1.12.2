@@ -66,7 +66,6 @@ public class EntitySelector {
 	private static final Predicate<String> IS_VALID_ARGUMENT = p_apply_1_ -> p_apply_1_ != null && (EntitySelector.VALID_ARGUMENTS.contains(p_apply_1_) || p_apply_1_.length() > "score_".length() && p_apply_1_.startsWith("score_"));
 
 	private static String addArgument(String argument) {
-
 		VALID_ARGUMENTS.add(argument);
 		return argument;
 	}
@@ -77,12 +76,10 @@ public class EntitySelector {
 	 * Returns the one player that matches the given at-token.  Returns null if more than one player matches.
 	 */
 	public static EntityPlayerMP matchOnePlayer(ICommandSender sender, String token) throws CommandException {
-
 		return matchOneEntity(sender, token, EntityPlayerMP.class);
 	}
 
 	public static List<EntityPlayerMP> getPlayers(ICommandSender sender, String token) throws CommandException {
-
 		return matchEntities(sender, token, EntityPlayerMP.class);
 	}
 
@@ -95,7 +92,6 @@ public class EntitySelector {
 
 	
 	public static ITextComponent matchEntitiesToTextComponent(ICommandSender sender, String token) throws CommandException {
-
 		List<Entity> list = matchEntities(sender, token, Entity.class);
 
 		if (list.isEmpty()) {
@@ -179,7 +175,6 @@ public class EntitySelector {
 	}
 
 	private static List<World> getWorlds(ICommandSender sender, Map<String, String> argumentMap) {
-
 		List<World> list = Lists.newArrayList();
 
 		if (hasArgument(argumentMap)) {
@@ -212,7 +207,6 @@ public class EntitySelector {
 	}
 
 	private static List<Predicate<Entity>> getTypePredicates(Map<String, String> params, String type) {
-
 		String s = getArgument(params, ARGUMENT_ENTITY_TYPE);
 
 		if (s == null || !type.equals("e") && !type.equals("r") && !type.equals("s")) {
@@ -225,7 +219,6 @@ public class EntitySelector {
 	}
 
 	private static List<Predicate<Entity>> getXpLevelPredicates(Map<String, String> params) {
-
 		List<Predicate<Entity>> list = Lists.newArrayList();
 		final int i = getInt(params, ARGUMENT_LEVEL_MIN, -1);
 		final int j = getInt(params, ARGUMENT_LEVEL_MAX, -1);
@@ -245,7 +238,6 @@ public class EntitySelector {
 	}
 
 	private static List<Predicate<Entity>> getGamemodePredicates(Map<String, String> params) {
-
 		List<Predicate<Entity>> list = Lists.newArrayList();
 		String s = getArgument(params, ARGUMENT_MODE);
 
@@ -282,7 +274,6 @@ public class EntitySelector {
 	}
 
 	private static List<Predicate<Entity>> getTeamPredicates(Map<String, String> params) {
-
 		List<Predicate<Entity>> list = Lists.newArrayList();
 		String s = getArgument(params, ARGUMENT_TEAM_NAME);
 		final boolean flag = s != null && s.startsWith("!");
@@ -309,7 +300,6 @@ public class EntitySelector {
 	}
 
 	private static List<Predicate<Entity>> getScorePredicates(final ICommandSender sender, Map<String, String> params) {
-
 		final Map<String, Integer> map = getScoreMap(params);
 		return (map.isEmpty() ? Collections.emptyList() : Lists.newArrayList((Predicate<Entity>) p_apply_1_ -> {
 
@@ -357,7 +347,6 @@ public class EntitySelector {
 	}
 
 	private static List<Predicate<Entity>> getNamePredicates(Map<String, String> params) {
-
 		List<Predicate<Entity>> list = Lists.newArrayList();
 		String s = getArgument(params, ARGUMENT_PLAYER_NAME);
 		final boolean flag = s != null && s.startsWith("!");
@@ -375,7 +364,6 @@ public class EntitySelector {
 	}
 
 	private static List<Predicate<Entity>> getTagPredicates(Map<String, String> params) {
-
 		List<Predicate<Entity>> list = Lists.newArrayList();
 		String s = getArgument(params, ARGUMENT_ENTITY_TAG);
 		final boolean flag = s != null && s.startsWith("!");
@@ -402,7 +390,6 @@ public class EntitySelector {
 	}
 
 	private static List<Predicate<Entity>> getRadiusPredicates(Map<String, String> params, final Vec3d pos) {
-
 		double d0 = getInt(params, ARGUMENT_RANGE_MIN, -1);
 		double d1 = getInt(params, ARGUMENT_RANGE_MAX, -1);
 		final boolean flag = d0 < -0.5D;
@@ -428,7 +415,6 @@ public class EntitySelector {
 	}
 
 	private static List<Predicate<Entity>> getRotationsPredicates(Map<String, String> params) {
-
 		List<Predicate<Entity>> list = Lists.newArrayList();
 
 		if (params.containsKey(ARGUMENT_ROTY_MIN) || params.containsKey(ARGUMENT_ROTY_MAX)) {
@@ -546,7 +532,6 @@ public class EntitySelector {
 	}
 
 	private static AxisAlignedBB getAABB(BlockPos pos, int x, int y, int z) {
-
 		boolean flag = x < 0;
 		boolean flag1 = y < 0;
 		boolean flag2 = z < 0;
@@ -560,22 +545,18 @@ public class EntitySelector {
 	}
 
 	private static BlockPos getBlockPosFromArguments(Map<String, String> params, BlockPos pos) {
-
 		return new BlockPos(getInt(params, ARGUMENT_COORDINATE_X, pos.getX()), getInt(params, ARGUMENT_COORDINATE_Y, pos.getY()), getInt(params, ARGUMENT_COORDINATE_Z, pos.getZ()));
 	}
 
 	private static Vec3d getPosFromArguments(Map<String, String> params, Vec3d pos) {
-
 		return new Vec3d(getCoordinate(params, ARGUMENT_COORDINATE_X, pos.x(), true), getCoordinate(params, ARGUMENT_COORDINATE_Y, pos.y(), false), getCoordinate(params, ARGUMENT_COORDINATE_Z, pos.z(), true));
 	}
 
 	private static double getCoordinate(Map<String, String> params, String key, double defaultD, boolean offset) {
-
 		return params.containsKey(key) ? (double) MathHelper.getInt(params.get(key), MathHelper.floor(defaultD)) + (offset ? 0.5D : 0D) : defaultD;
 	}
 
 	private static boolean hasArgument(Map<String, String> params) {
-
 		for (String s : WORLD_BINDING_ARGS) {
 			if (params.containsKey(s)) {
 				return true;
@@ -586,13 +567,11 @@ public class EntitySelector {
 	}
 
 	private static int getInt(Map<String, String> params, String key, int defaultI) {
-
 		return params.containsKey(key) ? MathHelper.getInt(params.get(key), defaultI) : defaultI;
 	}
 
 	
 	private static String getArgument(Map<String, String> params, String key) {
-
 		return params.get(key);
 	}
 
@@ -613,7 +592,6 @@ public class EntitySelector {
 	 * Returns whether the given pattern can match more than one player.
 	 */
 	public static boolean matchesMultiplePlayers(String selectorStr) throws CommandException {
-
 		Matcher matcher = TOKEN_PATTERN.matcher(selectorStr);
 
 		if (!matcher.matches()) {
@@ -630,7 +608,6 @@ public class EntitySelector {
 	 * Returns whether the given string represents a selector.
 	 */
 	public static boolean isSelector(String selectorStr) {
-
 		return TOKEN_PATTERN.matcher(selectorStr).matches();
 	}
 

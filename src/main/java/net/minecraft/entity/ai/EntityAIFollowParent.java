@@ -15,7 +15,6 @@ public class EntityAIFollowParent extends EntityAIBase {
 	private int delayCounter;
 
 	public EntityAIFollowParent(EntityAnimal animal, double speed) {
-
 		childAnimal = animal;
 		moveSpeed = speed;
 	}
@@ -24,7 +23,6 @@ public class EntityAIFollowParent extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		if (childAnimal.getGrowingAge() >= 0) {
 			return false;
 		} else {
@@ -58,7 +56,6 @@ public class EntityAIFollowParent extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		if (childAnimal.getGrowingAge() >= 0) {
 			return false;
 		} else if (!parentAnimal.isEntityAlive()) {
@@ -73,7 +70,6 @@ public class EntityAIFollowParent extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		delayCounter = 0;
 	}
 
@@ -81,7 +77,6 @@ public class EntityAIFollowParent extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		parentAnimal = null;
 	}
 
@@ -89,7 +84,6 @@ public class EntityAIFollowParent extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		if (--delayCounter <= 0) {
 			delayCounter = 10;
 			childAnimal.getNavigator().tryMoveToEntityLiving(parentAnimal, moveSpeed);

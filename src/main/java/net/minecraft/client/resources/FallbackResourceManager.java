@@ -18,27 +18,22 @@ public class FallbackResourceManager implements IResourceManager {
 	private final MetadataSerializer frmMetadataSerializer;
 
 	public FallbackResourceManager(MetadataSerializer frmMetadataSerializerIn) {
-
 		frmMetadataSerializer = frmMetadataSerializerIn;
 	}
 
 	static ResourceLocation getLocationMcmeta(ResourceLocation location) {
-
 		return new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".mcmeta");
 	}
 
 	public void addResourcePack(IResourcePack resourcePack) {
-
 		resourcePacks.add(resourcePack);
 	}
 
 	public Set<String> getResourceDomains() {
-
 		return Collections.emptySet();
 	}
 
 	public IResource getResource(ResourceLocation location) throws IOException {
-
 		checkResourcePath(location);
 		IResourcePack iresourcepack = null;
 		ResourceLocation resourcelocation = getLocationMcmeta(location);
@@ -65,20 +60,17 @@ public class FallbackResourceManager implements IResourceManager {
 	}
 
 	protected InputStream getInputStream(ResourceLocation location, IResourcePack resourcePack) throws IOException {
-
 		InputStream inputstream = resourcePack.getInputStream(location);
 		return LOGGER.isDebugEnabled() ? new InputStreamLeakedResourceLogger(inputstream, location, resourcePack.getPackName()) : inputstream;
 	}
 
 	private void checkResourcePath(ResourceLocation p_188552_1_) throws IOException {
-
 		if (p_188552_1_.getResourcePath().contains("..")) {
 			throw new IOException("Invalid relative path to resource: " + p_188552_1_);
 		}
 	}
 
 	public List<IResource> getAllResources(ResourceLocation location) throws IOException {
-
 		checkResourcePath(location);
 		List<IResource> list = Lists.newArrayList();
 		ResourceLocation resourcelocation = getLocationMcmeta(location);
@@ -104,7 +96,6 @@ public class FallbackResourceManager implements IResourceManager {
 		private boolean isClosed;
 
 		public InputStreamLeakedResourceLogger(InputStream p_i46093_1_, ResourceLocation location, String resourcePack) {
-
 			inputStream = p_i46093_1_;
 			ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
 			(new Exception()).printStackTrace(new PrintStream(bytearrayoutputstream));
@@ -112,13 +103,11 @@ public class FallbackResourceManager implements IResourceManager {
 		}
 
 		public void close() throws IOException {
-
 			inputStream.close();
 			isClosed = true;
 		}
 
 		public int read() throws IOException {
-
 			return inputStream.read();
 		}
 

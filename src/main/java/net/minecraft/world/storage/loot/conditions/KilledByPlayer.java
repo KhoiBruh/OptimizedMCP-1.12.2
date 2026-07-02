@@ -14,12 +14,10 @@ public class KilledByPlayer implements LootCondition {
 	private final boolean inverse;
 
 	public KilledByPlayer(boolean inverseIn) {
-
 		inverse = inverseIn;
 	}
 
 	public boolean testCondition(Random rand, LootContext context) {
-
 		boolean flag = context.getKillerPlayer() != null;
 		return flag == !inverse;
 	}
@@ -27,17 +25,14 @@ public class KilledByPlayer implements LootCondition {
 	public static class Serializer extends LootCondition.Serializer<KilledByPlayer> {
 
 		protected Serializer() {
-
 			super(new ResourceLocation("killed_by_player"), KilledByPlayer.class);
 		}
 
 		public void serialize(JsonObject json, KilledByPlayer value, JsonSerializationContext context) {
-
 			json.addProperty("inverse", value.inverse);
 		}
 
 		public KilledByPlayer deserialize(JsonObject json, JsonDeserializationContext context) {
-
 			return new KilledByPlayer(JsonUtils.getBoolean(json, "inverse", false));
 		}
 

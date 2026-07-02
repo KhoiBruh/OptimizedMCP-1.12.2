@@ -6,17 +6,14 @@ import net.minecraft.entity.item.EntityArmorStand;
 public class ModelArmorStandArmor extends ModelBiped {
 
 	public ModelArmorStandArmor() {
-
 		this(0F);
 	}
 
 	public ModelArmorStandArmor(float modelSize) {
-
 		this(modelSize, 64, 32);
 	}
 
 	protected ModelArmorStandArmor(float modelSize, int textureWidthIn, int textureHeightIn) {
-
 		super(modelSize, 0F, textureWidthIn, textureHeightIn);
 	}
 
@@ -26,7 +23,6 @@ public class ModelArmorStandArmor extends ModelBiped {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		if (entityIn instanceof EntityArmorStand entityarmorstand) {
 			bipedHead.rotateAngleX = 0.017453292F * entityarmorstand.getHeadRotation().x();
 			bipedHead.rotateAngleY = 0.017453292F * entityarmorstand.getHeadRotation().y();

@@ -63,7 +63,6 @@ public class MultiplayerScreen extends Screen {
 	private ResourceLocation backgroundTexture;
 
 	public MultiplayerScreen(Screen parentScreen) {
-
 		this.parentScreen = parentScreen;
 	}
 
@@ -72,7 +71,6 @@ public class MultiplayerScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		Keyboard.setRepeat(true);
 		buttons.clear();
 		viewportTexture = new DynamicTexture(256, 256);
@@ -104,13 +102,11 @@ public class MultiplayerScreen extends Screen {
 	 * Handles mouse input.
 	 */
 	public void handleMouse() throws IOException {
-
 		super.handleMouse();
 		serverListSelector.handleMouseInput();
 	}
 
 	public void createButtons() {
-
 		btnEditServer = addButton(new Button(7, width / 2 - 154, height - 28, 70, 20, I18n.format("selectServer.edit")));
 		btnDeleteServer = addButton(new Button(2, width / 2 - 74, height - 28, 70, 20, I18n.format("selectServer.delete")));
 		btnSelectServer = addButton(new Button(1, width / 2 - 154, height - 52, 100, 20, I18n.format("selectServer.select")));
@@ -125,7 +121,6 @@ public class MultiplayerScreen extends Screen {
 	 * Called from the main game loop to update the screen.
 	 */
 	public void update() {
-
 		super.update();
 
 		if (lanServerList.getWasUpdated()) {
@@ -141,7 +136,6 @@ public class MultiplayerScreen extends Screen {
 	 * Called when the screen is unloaded. Used to disable keyboard repeat events
 	 */
 	public void close() {
-
 		Keyboard.setRepeat(false);
 
 		if (lanServerDetector != null) {
@@ -156,7 +150,6 @@ public class MultiplayerScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.enabled) {
 			GuiListExtended.IGuiListEntry guilistextended$iguilistentry = serverListSelector.getSelected() < 0 ? null : serverListSelector.getListEntry(serverListSelector.getSelected());
 
@@ -197,12 +190,10 @@ public class MultiplayerScreen extends Screen {
 	}
 
 	private void refreshServerList() {
-
 		mc.displayScreen(new MultiplayerScreen(parentScreen));
 	}
 
 	public void confirmClicked(boolean result, int id) {
-
 		GuiListExtended.IGuiListEntry guilistextended$iguilistentry = serverListSelector.getSelected() < 0 ? null : serverListSelector.getListEntry(serverListSelector.getSelected());
 
 		if (deletingServer) {
@@ -255,7 +246,6 @@ public class MultiplayerScreen extends Screen {
 	 * Draws the main menu panorama.
 	 */
 	private void drawPanorama(int mouseX, int mouseY, float partialTicks) {
-
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		GLS.matrixMode(5889);
@@ -335,7 +325,6 @@ public class MultiplayerScreen extends Screen {
 	 * Rotate and blur the skybox view.
 	 */
 	private void rotateAndBlurSkybox() {
-
 		mc.getTextureManager().bindTexture(backgroundTexture);
 		GLS.texParameteri(3553, 10241, 9729);
 		GLS.texParameteri(3553, 10240, 9729);
@@ -368,7 +357,6 @@ public class MultiplayerScreen extends Screen {
 	 * Renders the animated skybox background.
 	 */
 	private void renderSkybox(int mouseX, int mouseY, float partialTicks) {
-
 		mc.getFramebuffer().unbindFramebuffer();
 		GLS.viewport(0, 0, 256, 256);
 		drawPanorama(mouseX, mouseY, partialTicks);
@@ -401,7 +389,6 @@ public class MultiplayerScreen extends Screen {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-
 		int i = serverListSelector.getSelected();
 		GuiListExtended.IGuiListEntry guilistextended$iguilistentry = i < 0 ? null : serverListSelector.getListEntry(i);
 
@@ -470,7 +457,6 @@ public class MultiplayerScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		hoveringText = null;
 		serverListSelector.drawScreen(mouseX, mouseY, partialTicks);
@@ -483,7 +469,6 @@ public class MultiplayerScreen extends Screen {
 	}
 
 	public void connectToSelected() {
-
 		GuiListExtended.IGuiListEntry guilistextended$iguilistentry = serverListSelector.getSelected() < 0 ? null : serverListSelector.getListEntry(serverListSelector.getSelected());
 
 		if (guilistextended$iguilistentry instanceof ServerListEntryNormal) {
@@ -495,12 +480,10 @@ public class MultiplayerScreen extends Screen {
 	}
 
 	private void connectToServer(ServerData server) {
-
 		mc.displayScreen(new ConnectingScreen(this, mc, server));
 	}
 
 	public void selectServer(int index) {
-
 		serverListSelector.setSelectedSlotIndex(index);
 		GuiListExtended.IGuiListEntry guilistextended$iguilistentry = index < 0 ? null : serverListSelector.getListEntry(index);
 		btnSelectServer.enabled = false;
@@ -518,12 +501,10 @@ public class MultiplayerScreen extends Screen {
 	}
 
 	public ServerPinger getOldServerPinger() {
-
 		return oldServerPinger;
 	}
 
 	public void setHoveringText(String p_146793_1_) {
-
 		hoveringText = p_146793_1_;
 	}
 
@@ -531,7 +512,6 @@ public class MultiplayerScreen extends Screen {
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
-
 		super.mouseClicked(mouseX, mouseY, mouse);
 		serverListSelector.mouseClicked(mouseX, mouseY, mouse);
 	}
@@ -540,28 +520,23 @@ public class MultiplayerScreen extends Screen {
 	 * Called when a mouse button is released.
 	 */
 	protected void mouseReleased(int mouseX, int mouseY, int state) {
-
 		super.mouseReleased(mouseX, mouseY, state);
 		serverListSelector.mouseReleased(mouseX, mouseY, state);
 	}
 
 	public ServerList getServerList() {
-
 		return savedServerList;
 	}
 
 	public boolean canMoveUp(ServerListEntryNormal p_175392_1_, int p_175392_2_) {
-
 		return p_175392_2_ > 0;
 	}
 
 	public boolean canMoveDown(ServerListEntryNormal p_175394_1_, int p_175394_2_) {
-
 		return p_175394_2_ < savedServerList.countServers() - 1;
 	}
 
 	public void moveServerUp(ServerListEntryNormal p_175391_1_, int p_175391_2_, boolean p_175391_3_) {
-
 		int i = p_175391_3_ ? 0 : p_175391_2_ - 1;
 		savedServerList.swapServers(p_175391_2_, i);
 
@@ -573,7 +548,6 @@ public class MultiplayerScreen extends Screen {
 	}
 
 	public void moveServerDown(ServerListEntryNormal p_175393_1_, int p_175393_2_, boolean p_175393_3_) {
-
 		int i = p_175393_3_ ? savedServerList.countServers() - 1 : p_175393_2_ + 1;
 		savedServerList.swapServers(p_175393_2_, i);
 

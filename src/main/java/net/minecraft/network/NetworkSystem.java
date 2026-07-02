@@ -37,19 +37,16 @@ public class NetworkSystem {
 	public static final ThreadFactory nettyIOFactory = Thread.ofVirtual().name("Netty Server IO #%d", 0).factory();
 	public static final LazyLoadBase<MultiThreadIoEventLoopGroup> SERVER_NIO_EVENT_LOOP = new LazyLoadBase<>() {
 		protected MultiThreadIoEventLoopGroup load() {
-
 			return new MultiThreadIoEventLoopGroup(0, nettyIOFactory, NioIoHandler.newFactory());
 		}
 	};
 	public static final LazyLoadBase<MultiThreadIoEventLoopGroup> SERVER_LOCAL_EVENT_LOOP = new LazyLoadBase<>() {
 		protected MultiThreadIoEventLoopGroup load() {
-
 			return new MultiThreadIoEventLoopGroup(0, nettyIOFactory, LocalIoHandler.newFactory());
 		}
 	};
 	public static final LazyLoadBase<MultiThreadIoEventLoopGroup> SERVER_EPOLL_EVENT_LOOP = new LazyLoadBase<>() {
 		protected MultiThreadIoEventLoopGroup load() {
-
 			return new MultiThreadIoEventLoopGroup(0, nettyIOFactory, EpollIoHandler.newFactory());
 		}
 	};
@@ -67,7 +64,6 @@ public class NetworkSystem {
 	public volatile boolean isAlive;
 
 	public NetworkSystem(MinecraftServer server) {
-
 		mcServer = server;
 		isAlive = true;
 	}
@@ -76,7 +72,6 @@ public class NetworkSystem {
 	 * Adds a channel that listens on publicly accessible network ports
 	 */
 	public void addLanEndpoint(InetAddress address, int port) {
-
 		synchronized (endpoints) {
 			Class<? extends ServerSocketChannel> oclass;
 			LazyLoadBase<? extends EventLoopGroup> base;
@@ -97,7 +92,6 @@ public class NetworkSystem {
 							.childHandler(
 									new ChannelInitializer<>() {
 										protected void initChannel(Channel channel) {
-
 											channel.config().setOption(ChannelOption.TCP_NODELAY, true);
 
 											NetworkManager manager = new NetworkManager(PacketDirection.SERVERBOUND);
@@ -128,7 +122,6 @@ public class NetworkSystem {
 	 * Adds a channel that listens locally
 	 */
 	public SocketAddress addLocalEndpoint() {
-
 		ChannelFuture future;
 
 		synchronized (endpoints) {
@@ -136,7 +129,6 @@ public class NetworkSystem {
 					.channel(LocalServerChannel.class)
 					.childHandler(new ChannelInitializer<>() {
 						              protected void initChannel(Channel channel) {
-
 							              NetworkManager manager = new NetworkManager(PacketDirection.SERVERBOUND);
 							              manager.setNetHandler(new NetHandlerHandshakeMemory(mcServer, manager));
 							              networkManagers.add(manager);
@@ -159,7 +151,6 @@ public class NetworkSystem {
 	 * Shuts down all open endpoints (with immediate effect?)
 	 */
 	public void terminateEndpoints() {
-
 		isAlive = false;
 
 		for (ChannelFuture future : endpoints) {
@@ -176,7 +167,6 @@ public class NetworkSystem {
 	 * up dead connections
 	 */
 	public void networkTick() {
-
 		synchronized (networkManagers) {
 			Iterator<NetworkManager> iterator = networkManagers.iterator();
 
@@ -210,7 +200,6 @@ public class NetworkSystem {
 	}
 
 	public MinecraftServer getServer() {
-
 		return mcServer;
 	}
 

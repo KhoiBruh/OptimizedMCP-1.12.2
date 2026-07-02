@@ -3,7 +3,6 @@ package net.minecraft.world;
 public class WorldProviderSurface extends WorldProvider {
 
 	public DimensionType getDimensionType() {
-
 		return DimensionType.OVERWORLD;
 	}
 
@@ -12,7 +11,6 @@ public class WorldProviderSurface extends WorldProvider {
 	 * in WorldProviderSurface to prevent spawn chunks from being unloaded.
 	 */
 	public boolean canDropChunk(int x, int z) {
-
 		return !world.isSpawnChunk(x, z);
 	}
 

@@ -20,7 +20,6 @@ public class FurnaceRecipes {
 	private final Map<ItemStack, Float> experienceList = Maps.newHashMap();
 
 	private FurnaceRecipes() {
-
 		addSmeltingRecipeForBlock(Blocks.IRON_ORE, new ItemStack(Items.IRON_INGOT), 0.7F);
 		addSmeltingRecipeForBlock(Blocks.GOLD_ORE, new ItemStack(Items.GOLD_INGOT), 1F);
 		addSmeltingRecipeForBlock(Blocks.DIAMOND_ORE, new ItemStack(Items.DIAMOND), 1F);
@@ -99,7 +98,6 @@ public class FurnaceRecipes {
 	 * Returns an instance of FurnaceRecipes.
 	 */
 	public static FurnaceRecipes instance() {
-
 		return SMELTING_BASE;
 	}
 
@@ -107,7 +105,6 @@ public class FurnaceRecipes {
 	 * Adds a smelting recipe, where the input item is an instance of Block.
 	 */
 	public void addSmeltingRecipeForBlock(Block input, ItemStack stack, float experience) {
-
 		addSmelting(Item.getItemFromBlock(input), stack, experience);
 	}
 
@@ -115,7 +112,6 @@ public class FurnaceRecipes {
 	 * Adds a smelting recipe using an Item as the input item.
 	 */
 	public void addSmelting(Item input, ItemStack stack, float experience) {
-
 		addSmeltingRecipe(new ItemStack(input, 1, 32767), stack, experience);
 	}
 
@@ -123,7 +119,6 @@ public class FurnaceRecipes {
 	 * Adds a smelting recipe using an ItemStack as the input for the recipe.
 	 */
 	public void addSmeltingRecipe(ItemStack input, ItemStack stack, float experience) {
-
 		smeltingList.put(input, stack);
 		experienceList.put(stack, experience);
 	}
@@ -132,7 +127,6 @@ public class FurnaceRecipes {
 	 * Returns the smelting result of an item.
 	 */
 	public ItemStack getSmeltingResult(ItemStack stack) {
-
 		for (Entry<ItemStack, ItemStack> entry : smeltingList.entrySet()) {
 			if (compareItemStacks(stack, entry.getKey())) {
 				return entry.getValue();
@@ -146,7 +140,6 @@ public class FurnaceRecipes {
 	 * Compares two itemstacks to ensure that they are the same. This checks both the item and the metadata of the item.
 	 */
 	private boolean compareItemStacks(ItemStack stack1, ItemStack stack2) {
-
 		return stack2.getItem() == stack1.getItem() && (stack2.getMetadata() == 32767 || stack2.getMetadata() == stack1.getMetadata());
 	}
 
@@ -156,7 +149,6 @@ public class FurnaceRecipes {
 	}
 
 	public float getSmeltingExperience(ItemStack stack) {
-
 		for (Entry<ItemStack, Float> entry : experienceList.entrySet()) {
 			if (compareItemStacks(stack, entry.getKey())) {
 				return entry.getValue();

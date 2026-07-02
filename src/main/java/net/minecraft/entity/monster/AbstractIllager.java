@@ -11,24 +11,20 @@ public abstract class AbstractIllager extends EntityMob {
 	protected static final DataParameter<Byte> AGGRESSIVE = EntityDataManager.createKey(AbstractIllager.class, DataSerializers.BYTE);
 
 	public AbstractIllager(World p_i47509_1_) {
-
 		super(p_i47509_1_);
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(AGGRESSIVE, (byte) 0);
 	}
 
 	protected boolean isAggressive(int mask) {
-
 		int i = dataManager.get(AGGRESSIVE);
 		return (i & mask) != 0;
 	}
 
 	protected void setAggressive(int mask, boolean value) {
-
 		int i = dataManager.get(AGGRESSIVE);
 
 		if (value) {
@@ -44,7 +40,6 @@ public abstract class AbstractIllager extends EntityMob {
 	 * Get this Entity's CreatureAttribute
 	 */
 	public CreatureAttribute getCreatureAttribute() {
-
 		return CreatureAttribute.ILLAGER;
 	}
 

@@ -23,12 +23,10 @@ public class ItemBlock extends Item {
 	protected final Block block;
 
 	public ItemBlock(Block block) {
-
 		this.block = block;
 	}
 
 	public static boolean setTileEntityNBT(World worldIn, EntityPlayer player, BlockPos pos, ItemStack stackIn) {
-
 		MinecraftServer minecraftserver = worldIn.getMinecraftServer();
 
 		if (minecraftserver == null) {
@@ -67,7 +65,6 @@ public class ItemBlock extends Item {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		Block block = iblockstate.getBlock();
 
@@ -105,7 +102,6 @@ public class ItemBlock extends Item {
 	}
 
 	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Facing side, EntityPlayer player, ItemStack stack) {
-
 		Block block = worldIn.getBlockState(pos).getBlock();
 
 		if (block == Blocks.SNOW_LAYER) {
@@ -122,7 +118,6 @@ public class ItemBlock extends Item {
 	 * different names based on their damage or NBT.
 	 */
 	public String getUnlocalizedName(ItemStack stack) {
-
 		return block.getUnlocalizedName();
 	}
 
@@ -130,7 +125,6 @@ public class ItemBlock extends Item {
 	 * Returns the unlocalized name of this item.
 	 */
 	public String getUnlocalizedName() {
-
 		return block.getUnlocalizedName();
 	}
 
@@ -138,7 +132,6 @@ public class ItemBlock extends Item {
 	 * gets the CreativeTab this item is displayed on
 	 */
 	public CreativeTabs getCreativeTab() {
-
 		return block.getCreativeTabToDisplayOn();
 	}
 
@@ -146,7 +139,6 @@ public class ItemBlock extends Item {
 	 * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
 	 */
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-
 		if (isInCreativeTab(tab)) {
 			block.getSubBlocks(tab, items);
 		}
@@ -156,13 +148,11 @@ public class ItemBlock extends Item {
 	 * allows items to add custom lines of information to the mouseover description
 	 */
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 		block.addInformation(stack, worldIn, tooltip, flagIn);
 	}
 
 	public Block getBlock() {
-
 		return block;
 	}
 

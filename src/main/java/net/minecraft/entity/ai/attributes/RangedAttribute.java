@@ -9,7 +9,6 @@ public class RangedAttribute extends BaseAttribute {
 	private String description;
 
 	public RangedAttribute(IAttribute parentIn, String unlocalizedNameIn, double defaultValue, double minimumValueIn, double maximumValueIn) {
-
 		super(parentIn, unlocalizedNameIn, defaultValue);
 		minimumValue = minimumValueIn;
 		maximumValue = maximumValueIn;
@@ -24,18 +23,15 @@ public class RangedAttribute extends BaseAttribute {
 	}
 
 	public String getDescription() {
-
 		return description;
 	}
 
 	public RangedAttribute setDescription(String descriptionIn) {
-
 		description = descriptionIn;
 		return this;
 	}
 
 	public double clampValue(double value) {
-
 		value = MathHelper.clamp(value, minimumValue, maximumValue);
 		return value;
 	}

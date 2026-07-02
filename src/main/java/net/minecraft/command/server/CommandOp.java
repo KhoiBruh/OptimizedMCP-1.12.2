@@ -18,7 +18,6 @@ public class CommandOp extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "op";
 	}
 
@@ -26,7 +25,6 @@ public class CommandOp extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 3;
 	}
 
@@ -34,7 +32,6 @@ public class CommandOp extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.op.usage";
 	}
 
@@ -42,7 +39,6 @@ public class CommandOp extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		if (args.length == 1 && !args[0].isEmpty()) {
 			GameProfile gameprofile = server.getPlayerProfileCache().getGameProfileForUsername(args[0]);
 
@@ -58,7 +54,6 @@ public class CommandOp extends CommandBase {
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		if (args.length == 1) {
 			String s = args[args.length - 1];
 			List<String> list = Lists.newArrayList();

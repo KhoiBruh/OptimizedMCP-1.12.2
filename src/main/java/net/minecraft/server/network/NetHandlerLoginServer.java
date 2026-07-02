@@ -52,7 +52,6 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
 	private EntityPlayerMP player;
 
 	public NetHandlerLoginServer(MinecraftServer serverIn, NetworkManager networkManagerIn) {
-
 		server = serverIn;
 		networkManager = networkManagerIn;
 		RANDOM.nextBytes(verifyToken);
@@ -62,7 +61,6 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
 	 * Like the old updateEntity(), except more generic.
 	 */
 	public void update() {
-
 		if (currentLoginState == NetHandlerLoginServer.LoginState.READY_TO_ACCEPT) {
 			tryAcceptPlayer();
 		} else if (currentLoginState == NetHandlerLoginServer.LoginState.DELAY_ACCEPT) {
@@ -81,7 +79,6 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
 	}
 
 	public void disconnect(ITextComponent reason) {
-
 		try {
 			LOGGER.info("Disconnecting {}: {}", getConnectionInfo(), reason.getUnformattedText());
 			networkManager.sendPacket(new SPacketDisconnect(reason));
@@ -92,7 +89,6 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
 	}
 
 	public void tryAcceptPlayer() {
-
 		if (!loginGameProfile.isComplete()) {
 			loginGameProfile = getOfflineProfile(loginGameProfile);
 		}
@@ -124,17 +120,14 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
 	 * Invoked when disconnecting, the parameter is a ChatComponent describing the reason for termination
 	 */
 	public void onDisconnect(ITextComponent reason) {
-
 		LOGGER.info("{} lost connection: {}", getConnectionInfo(), reason.getUnformattedText());
 	}
 
 	public String getConnectionInfo() {
-
 		return loginGameProfile != null ? loginGameProfile + " (" + networkManager.getRemoteAddress() + ")" : String.valueOf(networkManager.getRemoteAddress());
 	}
 
 	public void processLoginStart(CPacketLoginStart packetIn) {
-
 		Validate.validState(currentLoginState == NetHandlerLoginServer.LoginState.HELLO, "Unexpected hello packet");
 		loginGameProfile = packetIn.getProfile();
 
@@ -147,7 +140,6 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
 	}
 
 	public void processEncryptionResponse(CPacketEncryptionResponse packetIn) {
-
 		Validate.validState(currentLoginState == NetHandlerLoginServer.LoginState.KEY, "Unexpected key packet");
 		PrivateKey privatekey = server.getKeyPair().getPrivate();
 
@@ -159,7 +151,6 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
 			networkManager.enableEncryption(secretKey);
 			(new Thread("User Authenticator #" + AUTHENTICATOR_THREAD_ID.incrementAndGet()) {
 				public void run() {
-
 					GameProfile gameprofile = loginGameProfile;
 
 					try {
@@ -191,7 +182,6 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
 
 				
 				private InetAddress getAddress() {
-
 					SocketAddress socketaddress = networkManager.getRemoteAddress();
 					return server.getPreventProxyConnections() && socketaddress instanceof InetSocketAddress ? ((InetSocketAddress) socketaddress).getAddress() : null;
 				}
@@ -200,7 +190,6 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
 	}
 
 	protected GameProfile getOfflineProfile(GameProfile original) {
-
 		UUID uuid = UUID.nameUUIDFromBytes(("OfflinePlayer:" + original.getName()).getBytes(StandardCharsets.UTF_8));
 		return new GameProfile(uuid, original.getName());
 	}

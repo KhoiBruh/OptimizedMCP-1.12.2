@@ -12,7 +12,6 @@ import java.util.List;
 public final class ProjectileHelper {
 
 	public static RayTraceResult forwardsRaycast(Entity projectile, boolean includeEntities, boolean ignoreExcludedEntity, Entity excludedEntity) {
-
 		double d0 = projectile.posX;
 		double d1 = projectile.posY;
 		double d2 = projectile.posZ;
@@ -58,7 +57,6 @@ public final class ProjectileHelper {
 	}
 
 	public static void rotateTowardsMovement(Entity projectile, float rotationSpeed) {
-
 		double d0 = projectile.motionX;
 		double d1 = projectile.motionY;
 		double d2 = projectile.motionZ;

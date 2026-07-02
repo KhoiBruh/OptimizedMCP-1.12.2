@@ -14,13 +14,11 @@ public class ToggleButton extends Button {
 	protected int yDiffTex;
 
 	public ToggleButton(int buttonId, int xIn, int yIn, int widthIn, int heightIn, boolean buttonText) {
-
 		super(buttonId, xIn, yIn, widthIn, heightIn, "");
 		stateTriggered = buttonText;
 	}
 
 	public void initTextureValues(int xTexStartIn, int yTexStartIn, int xDiffTexIn, int yDiffTexIn, ResourceLocation resourceLocationIn) {
-
 		xTexStart = xTexStartIn;
 		yTexStart = yTexStartIn;
 		xDiffTex = xDiffTexIn;
@@ -29,17 +27,14 @@ public class ToggleButton extends Button {
 	}
 
 	public boolean isStateTriggered() {
-
 		return stateTriggered;
 	}
 
 	public void setStateTriggered(boolean p_191753_1_) {
-
 		stateTriggered = p_191753_1_;
 	}
 
 	public void setPosition(int p_191752_1_, int p_191752_2_) {
-
 		x = p_191752_1_;
 		y = p_191752_2_;
 	}
@@ -48,7 +43,6 @@ public class ToggleButton extends Button {
 	 * Draws this button to the screen.
 	 */
 	public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
-
 		if (visible) {
 			hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 			mc.getTextureManager().bindTexture(resourceLocation);

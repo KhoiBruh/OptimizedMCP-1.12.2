@@ -24,14 +24,12 @@ public class MapGenScatteredFeature extends MapGenStructure {
 	private int maxDistanceBetweenScatteredFeatures;
 
 	public MapGenScatteredFeature() {
-
 		monsters = Lists.newArrayList();
 		maxDistanceBetweenScatteredFeatures = 32;
 		monsters.add(new Biome.SpawnListEntry(EntityWitch.class, 1, 1, 1));
 	}
 
 	public MapGenScatteredFeature(Map<String, String> p_i2061_1_) {
-
 		this();
 
 		for (Entry<String, String> entry : p_i2061_1_.entrySet()) {
@@ -42,12 +40,10 @@ public class MapGenScatteredFeature extends MapGenStructure {
 	}
 
 	public String getStructureName() {
-
 		return "Temple";
 	}
 
 	protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
-
 		int i = chunkX;
 		int j = chunkZ;
 
@@ -85,18 +81,15 @@ public class MapGenScatteredFeature extends MapGenStructure {
 	}
 
 	public BlockPos getNearestStructurePos(World worldIn, BlockPos pos, boolean findUnexplored) {
-
 		world = worldIn;
 		return findNearestStructurePosBySpacing(worldIn, this, pos, maxDistanceBetweenScatteredFeatures, 8, 14357617, false, 100, findUnexplored);
 	}
 
 	protected StructureStart getStructureStart(int chunkX, int chunkZ) {
-
 		return new MapGenScatteredFeature.Start(world, rand, chunkX, chunkZ);
 	}
 
 	public boolean isSwampHut(BlockPos pos) {
-
 		StructureStart structurestart = getStructureAt(pos);
 
 		if (structurestart instanceof Start && !structurestart.components.isEmpty()) {
@@ -115,16 +108,13 @@ public class MapGenScatteredFeature extends MapGenStructure {
 	public static class Start extends StructureStart {
 
 		public Start() {
-
 		}
 
 		public Start(World worldIn, Random random, int chunkX, int chunkZ) {
-
 			this(worldIn, random, chunkX, chunkZ, worldIn.getBiome(new BlockPos(chunkX * 16 + 8, 0, chunkZ * 16 + 8)));
 		}
 
 		public Start(World worldIn, Random random, int chunkX, int chunkZ, Biome biomeIn) {
-
 			super(chunkX, chunkZ);
 
 			if (biomeIn != Biomes.JUNGLE && biomeIn != Biomes.JUNGLE_HILLS) {

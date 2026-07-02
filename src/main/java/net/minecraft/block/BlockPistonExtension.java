@@ -46,7 +46,6 @@ public class BlockPistonExtension extends BlockDirectional {
 	protected static final AxisAlignedBB SHORT_WEST_ARM_AABB = new AxisAlignedBB(0.25D, 0.375D, 0.375D, 1D, 0.625D, 0.625D);
 
 	public BlockPistonExtension() {
-
 		super(Material.PISTON);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(TYPE, BlockPistonExtension.PistonType.DEFAULT).withProperty(SHORT, false));
 		setSoundType(SoundType.STONE);
@@ -55,13 +54,11 @@ public class BlockPistonExtension extends BlockDirectional {
 
 	
 	public static Facing getFacing(int meta) {
-
 		int i = meta & 7;
 		return i > 5 ? null : Facing.getFront(i);
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return switch (state.getValue(FACING)) {
 			case UP -> PISTON_EXTENSION_UP_AABB;
 			case NORTH -> PISTON_EXTENSION_NORTH_AABB;
@@ -73,13 +70,11 @@ public class BlockPistonExtension extends BlockDirectional {
 	}
 
 	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean isActualState) {
-
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, state.getBoundingBox(worldIn, pos));
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, getArmShape(state));
 	}
 
 	private AxisAlignedBB getArmShape(IBlockState state) {
-
 		boolean flag = state.getValue(SHORT);
 
 		return switch (state.getValue(FACING)) {
@@ -96,7 +91,6 @@ public class BlockPistonExtension extends BlockDirectional {
 	 * Determines if the block is solid enough on the top side to support other blocks, like redstone components.
 	 */
 	public boolean isTopSolid(IBlockState state) {
-
 		return state.getValue(FACING) == Facing.UP;
 	}
 
@@ -105,7 +99,6 @@ public class BlockPistonExtension extends BlockDirectional {
 	 * collect this block
 	 */
 	public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
-
 		if (player.capabilities.isCreativeMode) {
 			BlockPos blockpos = pos.offset(state.getValue(FACING).getOpposite());
 			Block block = worldIn.getBlockState(blockpos).getBlock();
@@ -122,7 +115,6 @@ public class BlockPistonExtension extends BlockDirectional {
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		super.breakBlock(worldIn, pos, state);
 		Facing enumfacing = state.getValue(FACING).getOpposite();
 		pos = pos.offset(enumfacing);
@@ -138,12 +130,10 @@ public class BlockPistonExtension extends BlockDirectional {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -151,7 +141,6 @@ public class BlockPistonExtension extends BlockDirectional {
 	 * Checks if this block can be placed exactly at the given position.
 	 */
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-
 		return false;
 	}
 
@@ -159,7 +148,6 @@ public class BlockPistonExtension extends BlockDirectional {
 	 * Check whether this Block can be placed at pos, while aiming at the specified side of an adjacent block
 	 */
 	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Facing side) {
-
 		return false;
 	}
 
@@ -167,7 +155,6 @@ public class BlockPistonExtension extends BlockDirectional {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return 0;
 	}
 
@@ -177,7 +164,6 @@ public class BlockPistonExtension extends BlockDirectional {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		Facing enumfacing = state.getValue(FACING);
 		BlockPos blockpos = pos.offset(enumfacing.getOpposite());
 		IBlockState iblockstate = worldIn.getBlockState(blockpos);
@@ -190,12 +176,10 @@ public class BlockPistonExtension extends BlockDirectional {
 	}
 
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		return true;
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return new ItemStack(state.getValue(TYPE) == BlockPistonExtension.PistonType.STICKY ? Blocks.STICKY_PISTON : Blocks.PISTON);
 	}
 
@@ -203,7 +187,6 @@ public class BlockPistonExtension extends BlockDirectional {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(TYPE, (meta & 8) > 0 ? BlockPistonExtension.PistonType.STICKY : BlockPistonExtension.PistonType.DEFAULT);
 	}
 
@@ -211,7 +194,6 @@ public class BlockPistonExtension extends BlockDirectional {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 		i = i | state.getValue(FACING).getIndex();
 
@@ -227,7 +209,6 @@ public class BlockPistonExtension extends BlockDirectional {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
@@ -236,12 +217,10 @@ public class BlockPistonExtension extends BlockDirectional {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, FACING, TYPE, SHORT);
 	}
 
@@ -255,7 +234,6 @@ public class BlockPistonExtension extends BlockDirectional {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return face == state.getValue(FACING) ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 
@@ -266,17 +244,14 @@ public class BlockPistonExtension extends BlockDirectional {
 		private final String VARIANT;
 
 		PistonType(String name) {
-
 			VARIANT = name;
 		}
 
 		public String toString() {
-
 			return VARIANT;
 		}
 
 		public String getName() {
-
 			return VARIANT;
 		}
 	}

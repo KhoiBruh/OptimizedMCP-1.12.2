@@ -39,7 +39,6 @@ public enum ModelRotation {
 	private final int quartersY;
 
 	ModelRotation(int x, int y) {
-
 		combinedXY = combineXY(x, y);
 		matrix4d = JomlRotationMath.modelRotation(x, y);
 		quartersX = MathHelper.abs(x / 90);
@@ -47,22 +46,18 @@ public enum ModelRotation {
 	}
 
 	private static int combineXY(int p_177521_0_, int p_177521_1_) {
-
 		return p_177521_0_ * 360 + p_177521_1_;
 	}
 
 	public static ModelRotation getModelRotation(int x, int y) {
-
 		return MAP_ROTATIONS.get(combineXY(MathHelper.normalizeAngle(x, 360), MathHelper.normalizeAngle(y, 360)));
 	}
 
 	public Matrix4f getMatrix4d() {
-
 		return matrix4d;
 	}
 
 	public Facing rotateFace(Facing facing) {
-
 		Facing enumfacing = facing;
 
 		for (int i = 0; i < quartersX; ++i) {
@@ -79,7 +74,6 @@ public enum ModelRotation {
 	}
 
 	public int rotateVertex(Facing facing, int vertexIndex) {
-
 		int i = vertexIndex;
 
 		if (facing.getAxis() == Facing.Axis.X) {

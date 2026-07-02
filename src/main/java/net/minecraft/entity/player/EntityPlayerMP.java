@@ -156,7 +156,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	private int currentWindowId;
 
 	public EntityPlayerMP(MinecraftServer server, WorldServer worldIn, GameProfile profile, PlayerInteractionManager interactionManagerIn) {
-
 		super(worldIn, profile);
 		interactionManagerIn.player = this;
 		interactionManager = interactionManagerIn;
@@ -189,7 +188,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	public static void registerFixesPlayerMP(DataFixer p_191522_0_) {
-
 		p_191522_0_.registerWalker(FixTypes.PLAYER, (fixer, compound, versionIn) -> {
 
 			if (compound.hasKey("RootVehicle", 10)) {
@@ -208,7 +206,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 
 		if (compound.hasKey("playerGameType", 99)) {
@@ -235,7 +232,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setInteger("playerGameType", interactionManager.getGameType().getID());
 		compound.setBoolean("seenCredits", seenCredits);
@@ -267,19 +263,16 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Add experience levels to this player.
 	 */
 	public void addExperienceLevel(int levels) {
-
 		super.addExperienceLevel(levels);
 		lastExperience = -1;
 	}
 
 	public void onEnchant(ItemStack enchantedItem, int cost) {
-
 		super.onEnchant(enchantedItem, cost);
 		lastExperience = -1;
 	}
 
 	public void addSelfToInternalCraftingInventory() {
-
 		openContainer.addListener(this);
 	}
 
@@ -287,7 +280,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Sends an ENTER_COMBAT packet to the client
 	 */
 	public void sendEnterCombat() {
-
 		super.sendEnterCombat();
 		connection.sendPacket(new SPacketCombatEvent(getCombatTracker(), SPacketCombatEvent.Event.ENTER_COMBAT));
 	}
@@ -296,18 +288,15 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Sends an END_COMBAT packet to the client
 	 */
 	public void sendEndCombat() {
-
 		super.sendEndCombat();
 		connection.sendPacket(new SPacketCombatEvent(getCombatTracker(), SPacketCombatEvent.Event.END_COMBAT));
 	}
 
 	protected void onInsideBlock(IBlockState p_191955_1_) {
-
 		CriteriaTriggers.ENTER_BLOCK.trigger(this, p_191955_1_);
 	}
 
 	protected CooldownTracker createCooldownTracker() {
-
 		return new CooldownTrackerServer(this);
 	}
 
@@ -315,7 +304,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		interactionManager.updateBlockRemoving();
 		--respawnInvulnerabilityTicks;
 
@@ -369,7 +357,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	public void onUpdateEntity() {
-
 		try {
 			super.onUpdate();
 
@@ -439,7 +426,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	private void updateScorePoints(IScoreCriteria criteria, int points) {
-
 		for (ScoreObjective scoreobjective : getWorldScoreboard().getObjectivesFromCriteria(criteria)) {
 			Score score = getWorldScoreboard().getOrCreateScore(getName(), scoreobjective);
 			score.setScorePoints(points);
@@ -450,7 +436,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Called when the mob's health reaches 0.
 	 */
 	public void onDeath(DamageSource cause) {
-
 		boolean flag = world.getGameRules().getBoolean("showDeathMessages");
 		connection.sendPacket(new SPacketCombatEvent(getCombatTracker(), SPacketCombatEvent.Event.ENTITY_DIED, flag));
 
@@ -500,7 +485,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	public void awardKillScore(Entity p_191956_1_, int p_191956_2_, DamageSource p_191956_3_) {
-
 		if (p_191956_1_ != this) {
 			super.awardKillScore(p_191956_1_, p_191956_2_, p_191956_3_);
 			addScore(p_191956_2_);
@@ -524,7 +508,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	private Collection<ScoreObjective> awardTeamKillScores(Entity p_192038_1_) {
-
 		String s = p_192038_1_ instanceof EntityPlayer ? p_192038_1_.getName() : p_192038_1_.getCachedUniqueIdString();
 		ScorePlayerTeam scoreplayerteam = getWorldScoreboard().getPlayersTeam(getName());
 
@@ -556,7 +539,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		if (isEntityInvulnerable(source)) {
 			return false;
 		} else {
@@ -573,7 +555,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 					}
 
 					if (entity instanceof EntityArrow entityarrow) {
-
 						if (entityarrow.shootingEntity instanceof EntityPlayer && !canAttackPlayer((EntityPlayer) entityarrow.shootingEntity)) {
 							return false;
 						}
@@ -586,7 +567,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	public boolean canAttackPlayer(EntityPlayer other) {
-
 		return canPlayersAttack() && super.canAttackPlayer(other);
 	}
 
@@ -594,13 +574,11 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Returns if other players can attack this player
 	 */
 	private boolean canPlayersAttack() {
-
 		return mcServer.isPVPEnabled();
 	}
 
 	
 	public Entity changeDimension(int dimensionIn) {
-
 		invulnerableDimensionChange = true;
 
 		if (dimension == 0 && dimensionIn == -1) {
@@ -634,7 +612,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	public boolean isSpectatedByPlayer(EntityPlayerMP player) {
-
 		if (player.isSpectator()) {
 			return getSpectatingEntity() == this;
 		} else {
@@ -643,7 +620,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	private void sendTileEntityUpdate(TileEntity p_147097_1_) {
-
 		if (p_147097_1_ != null) {
 			SPacketUpdateTileEntity spacketupdatetileentity = p_147097_1_.getUpdatePacket();
 
@@ -657,7 +633,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Called when the entity picks up an item.
 	 */
 	public void onItemPickup(Entity entityIn, int quantity) {
-
 		super.onItemPickup(entityIn, quantity);
 		openContainer.detectAndSendChanges();
 	}
@@ -682,7 +657,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Wake up the player if they're sleeping.
 	 */
 	public void wakeUpPlayer(boolean immediately, boolean updateWorldFlag, boolean setSpawn) {
-
 		if (isPlayerSleeping()) {
 			getServerWorld().getEntityTracker().sendToTrackingAndSelf(this, new SPacketAnimation(this, 2));
 		}
@@ -695,7 +669,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	public boolean startRiding(Entity entityIn, boolean force) {
-
 		Entity entity = getRidingEntity();
 
 		if (!super.startRiding(entityIn, force)) {
@@ -715,7 +688,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Dismounts this entity from the entity it is riding.
 	 */
 	public void dismountRidingEntity() {
-
 		Entity entity = getRidingEntity();
 		super.dismountRidingEntity();
 		Entity entity1 = getRidingEntity();
@@ -729,16 +701,13 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Returns whether this Entity is invulnerable to the given DamageSource.
 	 */
 	public boolean isEntityInvulnerable(DamageSource source) {
-
 		return super.isEntityInvulnerable(source) || isInvulnerableDimensionChange();
 	}
 
 	protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos) {
-
 	}
 
 	protected void frostWalk(BlockPos pos) {
-
 		if (!isSpectator()) {
 			super.frostWalk(pos);
 		}
@@ -748,7 +717,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * process player falling based on movement packet
 	 */
 	public void handleFalling(double y, boolean onGroundIn) {
-
 		int i = MathHelper.floor(posX);
 		int j = MathHelper.floor(posY - 0.20000000298023224D);
 		int k = MathHelper.floor(posZ);
@@ -770,7 +738,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	public void openEditSign(TileEntitySign signTile) {
-
 		signTile.setPlayer(this);
 		connection.sendPacket(new SPacketSignEditorOpen(signTile.getPos()));
 	}
@@ -779,12 +746,10 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * get the next window id to use
 	 */
 	private void getNextWindowId() {
-
 		currentWindowId = currentWindowId % 100 + 1;
 	}
 
 	public void displayGui(IInteractionObject guiOwner) {
-
 		if (guiOwner instanceof ILootContainer && ((ILootContainer) guiOwner).getLootTable() != null && isSpectator()) {
 			sendStatusMessage((new TextComponentTranslation("container.spectatorCantOpen")).setStyle((new Style()).setColor(TextFormat.RED)), true);
 		} else {
@@ -800,7 +765,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Displays the GUI for interacting with a chest inventory.
 	 */
 	public void displayGUIChest(IInventory chestInventory) {
-
 		if (chestInventory instanceof ILootContainer && ((ILootContainer) chestInventory).getLootTable() != null && isSpectator()) {
 			sendStatusMessage((new TextComponentTranslation("container.spectatorCantOpen")).setStyle((new Style()).setColor(TextFormat.RED)), true);
 		} else {
@@ -809,7 +773,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 			}
 
 			if (chestInventory instanceof ILockableContainer ilockablecontainer) {
-
 				if (ilockablecontainer.isLocked() && !canOpen(ilockablecontainer.getLockCode()) && !isSpectator()) {
 					connection.sendPacket(new SPacketChat(new TextComponentTranslation("container.isLocked", chestInventory.displayName()), ChatType.GAME_INFO));
 					connection.sendPacket(new SPacketSoundEffect(SoundEvents.BLOCK_CHEST_LOCKED, SoundCategory.BLOCKS, posX, posY, posZ, 1F, 1F));
@@ -833,7 +796,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	public void displayVillagerTradeGui(IMerchant villager) {
-
 		getNextWindowId();
 		openContainer = new ContainerMerchant(inventory, villager, world);
 		openContainer.windowId = currentWindowId;
@@ -852,7 +814,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	public void openGuiHorseInventory(AbstractHorse horse, IInventory inventoryIn) {
-
 		if (openContainer != inventoryContainer) {
 			closeScreen();
 		}
@@ -865,7 +826,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	public void openBook(ItemStack stack, Hand hand) {
-
 		Item item = stack.getItem();
 
 		if (item == Items.WRITTEN_BOOK) {
@@ -876,7 +836,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	public void displayGuiCommandBlock(TileEntityCommandBlock commandBlock) {
-
 		commandBlock.setSendToClient(true);
 		sendTileEntityUpdate(commandBlock);
 	}
@@ -886,7 +845,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * contents of that slot.
 	 */
 	public void sendSlotContents(Container containerToSend, int slotInd, ItemStack stack) {
-
 		if (!(containerToSend.getSlot(slotInd) instanceof SlotCrafting)) {
 			if (containerToSend == inventoryContainer) {
 				CriteriaTriggers.INVENTORY_CHANGED.trigger(this, inventory);
@@ -899,7 +857,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	public void sendContainerToPlayer(Container containerIn) {
-
 		sendAllContents(containerIn, containerIn.getInventory());
 	}
 
@@ -907,7 +864,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * update the crafting window inventory with the items in the list
 	 */
 	public void sendAllContents(Container containerToSend, NonNullList<ItemStack> itemsList) {
-
 		connection.sendPacket(new SPacketWindowItems(containerToSend.windowId, itemsList));
 		connection.sendPacket(new SPacketSetSlot(-1, -1, inventory.getItemStack()));
 	}
@@ -918,12 +874,10 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * value. Both are truncated to shorts in non-local SMP.
 	 */
 	public void sendWindowProperty(Container containerIn, int varToUpdate, int newValue) {
-
 		connection.sendPacket(new SPacketWindowProperty(containerIn.windowId, varToUpdate, newValue));
 	}
 
 	public void sendAllWindowProperties(Container containerIn, IInventory inventory) {
-
 		for (int i = 0; i < inventory.getFieldCount(); ++i) {
 			connection.sendPacket(new SPacketWindowProperty(containerIn.windowId, i, inventory.getField(i)));
 		}
@@ -933,7 +887,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * set current crafting inventory back to the 2x2 square
 	 */
 	public void closeScreen() {
-
 		connection.sendPacket(new SPacketCloseWindow(openContainer.windowId));
 		closeContainer();
 	}
@@ -942,7 +895,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * updates item held by mouse
 	 */
 	public void updateHeldItem() {
-
 		if (!isChangingQuantityOnly) {
 			connection.sendPacket(new SPacketSetSlot(-1, -1, inventory.getItemStack()));
 		}
@@ -952,13 +904,11 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Closes the container the player currently has open.
 	 */
 	public void closeContainer() {
-
 		openContainer.onContainerClosed(this);
 		openContainer = inventoryContainer;
 	}
 
 	public void setEntityActionState(float strafe, float forward, boolean jumping, boolean sneaking) {
-
 		if (isRiding()) {
 			if (strafe >= -1F && strafe <= 1F) {
 				moveStrafing = strafe;
@@ -977,7 +927,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Adds a value to a statistic field.
 	 */
 	public void addStat(StatBase stat, int amount) {
-
 		if (stat != null) {
 			statsFile.increaseStat(this, stat, amount);
 
@@ -988,7 +937,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	public void takeStat(StatBase stat) {
-
 		if (stat != null) {
 			statsFile.unlockAchievement(this, stat, 0);
 
@@ -999,12 +947,10 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	public void unlockRecipes(List<IRecipe> p_192021_1_) {
-
 		recipeBook.add(p_192021_1_, this);
 	}
 
 	public void unlockRecipes(ResourceLocation[] p_193102_1_) {
-
 		List<IRecipe> list = Lists.newArrayList();
 
 		for (ResourceLocation resourcelocation : p_193102_1_) {
@@ -1015,12 +961,10 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	public void resetRecipes(List<IRecipe> p_192022_1_) {
-
 		recipeBook.remove(p_192022_1_, this);
 	}
 
 	public void mountEntityAndWakeUp() {
-
 		disconnected = true;
 		removePassengers();
 
@@ -1030,7 +974,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	public boolean hasDisconnected() {
-
 		return disconnected;
 	}
 
@@ -1039,12 +982,10 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * transitions, then reset.
 	 */
 	public void setPlayerHealthUpdated() {
-
 		lastHealth = -1.0E8F;
 	}
 
 	public void sendStatusMessage(ITextComponent chatComponent, boolean actionBar) {
-
 		connection.sendPacket(new SPacketChat(chatComponent, actionBar ? ChatType.GAME_INFO : ChatType.CHAT));
 	}
 
@@ -1052,7 +993,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Used for when item use count runs out, ie: eating completed
 	 */
 	protected void onItemUseFinish() {
-
 		if (!activeItemStack.isEmpty() && isHandActive()) {
 			connection.sendPacket(new SPacketEntityStatus(this, (byte) 9));
 			super.onItemUseFinish();
@@ -1060,7 +1000,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	public void copyFrom(EntityPlayerMP that, boolean keepEverything) {
-
 		if (keepEverything) {
 			inventory.copyInventory(that.inventory);
 			setHealth(that.getHealth());
@@ -1095,7 +1034,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	protected void onNewPotionEffect(PotionEffect id) {
-
 		super.onNewPotionEffect(id);
 		connection.sendPacket(new SPacketEntityEffect(getEntityId(), id));
 
@@ -1108,14 +1046,12 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	protected void onChangedPotionEffect(PotionEffect id, boolean p_70695_2_) {
-
 		super.onChangedPotionEffect(id, p_70695_2_);
 		connection.sendPacket(new SPacketEntityEffect(getEntityId(), id));
 		CriteriaTriggers.EFFECTS_CHANGED.trigger(this);
 	}
 
 	protected void onFinishedPotionEffect(PotionEffect effect) {
-
 		super.onFinishedPotionEffect(effect);
 		connection.sendPacket(new SPacketRemoveEntityEffect(getEntityId(), effect.getPotion()));
 
@@ -1130,7 +1066,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Sets the position of the entity and updates the 'last' variables
 	 */
 	public void setPositionAndUpdate(double x, double y, double z) {
-
 		connection.setPlayerLocation(x, y, z, rotationYaw, rotationPitch);
 	}
 
@@ -1138,12 +1073,10 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Called when the entity is dealt a critical hit.
 	 */
 	public void onCriticalHit(Entity entityHit) {
-
 		getServerWorld().getEntityTracker().sendToTrackingAndSelf(this, new SPacketAnimation(entityHit, 4));
 	}
 
 	public void onEnchantmentCritical(Entity entityHit) {
-
 		getServerWorld().getEntityTracker().sendToTrackingAndSelf(this, new SPacketAnimation(entityHit, 5));
 	}
 
@@ -1151,7 +1084,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Sends the player's abilities to the server (if there is one).
 	 */
 	public void sendPlayerAbilities() {
-
 		if (connection != null) {
 			connection.sendPacket(new SPacketPlayerAbilities(capabilities));
 			updatePotionMetadata();
@@ -1159,7 +1091,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	public WorldServer getServerWorld() {
-
 		return (WorldServer) world;
 	}
 
@@ -1167,7 +1098,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Sets the player's game mode and sends it to them.
 	 */
 	public void setGameType(GameType gameType) {
-
 		interactionManager.setGameType(gameType);
 		connection.sendPacket(new SPacketChangeGameState(3, (float) gameType.getID()));
 
@@ -1186,12 +1116,10 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Returns true if the player is in spectator mode.
 	 */
 	public boolean isSpectator() {
-
 		return interactionManager.getGameType() == GameType.SPECTATOR;
 	}
 
 	public boolean isCreative() {
-
 		return interactionManager.getGameType() == GameType.CREATIVE;
 	}
 
@@ -1199,7 +1127,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Send a chat message to the CommandSender
 	 */
 	public void sendMessage(ITextComponent component) {
-
 		connection.sendPacket(new SPacketChat(component));
 	}
 
@@ -1207,7 +1134,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Returns {@code true} if the CommandSender is allowed to execute the command, {@code false} if not
 	 */
 	public boolean canUseCommand(int permLevel, String commandName) {
-
 		if ("seed".equals(commandName) && !mcServer.isDedicatedServer()) {
 			return true;
 		} else if (!"tell".equals(commandName) && !"help".equals(commandName) && !"me".equals(commandName) && !"trigger".equals(commandName)) {
@@ -1231,7 +1157,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Gets the player's IP address. Used in /banip.
 	 */
 	public String getPlayerIP() {
-
 		String s = connection.netManager.getRemoteAddress().toString();
 		s = s.substring(s.indexOf("/") + 1);
 		s = s.substring(0, s.indexOf(":"));
@@ -1239,7 +1164,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	public void handleClientSettings(CPacketClientSettings packetIn) {
-
 		language = packetIn.getLang();
 		chatVisibility = packetIn.getChatVisibility();
 		chatColours = packetIn.isColorsEnabled();
@@ -1253,12 +1177,10 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	public void loadResourcePack(String url, String hash) {
-
 		connection.sendPacket(new SPacketResourcePackSend(url, hash));
 	}
 
 	public void markPlayerActive() {
-
 		playerLastActiveTime = MinecraftServer.getCurrentTimeMillis();
 	}
 
@@ -1266,12 +1188,10 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Gets the stats file for reading achievements
 	 */
 	public StatisticsManagerServer getStatFile() {
-
 		return statsFile;
 	}
 
 	public RecipeBookServer getRecipeBook() {
-
 		return recipeBook;
 	}
 
@@ -1279,7 +1199,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Sends a packet to the player to remove an entity.
 	 */
 	public void removeEntity(Entity entityIn) {
-
 		if (entityIn instanceof EntityPlayer) {
 			connection.sendPacket(new SPacketDestroyEntities(entityIn.getEntityId()));
 		} else {
@@ -1288,7 +1207,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	public void addEntity(Entity entityIn) {
-
 		entityRemoveQueue.remove(Integer.valueOf(entityIn.getEntityId()));
 	}
 
@@ -1297,7 +1215,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * ambience, and invisibility metadata values
 	 */
 	protected void updatePotionMetadata() {
-
 		if (isSpectator()) {
 			resetPotionEffectMetadata();
 			setInvisible(true);
@@ -1309,12 +1226,10 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	public Entity getSpectatingEntity() {
-
 		return spectatingEntity == null ? this : spectatingEntity;
 	}
 
 	public void setSpectatingEntity(Entity entityToSpectate) {
-
 		Entity entity = getSpectatingEntity();
 		spectatingEntity = entityToSpectate == null ? this : entityToSpectate;
 
@@ -1328,7 +1243,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * Decrements the counter for the remaining time until the entity may use a portal again.
 	 */
 	protected void decrementTimeUntilPortal() {
-
 		if (timeUntilPortal > 0 && !invulnerableDimensionChange) {
 			--timeUntilPortal;
 		}
@@ -1339,7 +1253,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * called on it. Args: targetEntity
 	 */
 	public void attackTargetEntityWithCurrentItem(Entity targetEntity) {
-
 		if (interactionManager.getGameType() == GameType.SPECTATOR) {
 			setSpectatingEntity(targetEntity);
 		} else {
@@ -1348,7 +1261,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	}
 
 	public long getLastActiveTime() {
-
 		return playerLastActiveTime;
 	}
 
@@ -1359,45 +1271,37 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * display the specified text instead of the player's name
 	 */
 	public ITextComponent getTabListDisplayName() {
-
 		return null;
 	}
 
 	public void swingArm(Hand hand) {
-
 		super.swingArm(hand);
 		resetCooldown();
 	}
 
 	public boolean isInvulnerableDimensionChange() {
-
 		return invulnerableDimensionChange;
 	}
 
 	public void clearInvulnerableDimensionChange() {
-
 		invulnerableDimensionChange = false;
 	}
 
 	public void setElytraFlying() {
-
 		setFlag(7, true);
 	}
 
 	public void clearElytraFlying() {
-
 		setFlag(7, true);
 		setFlag(7, false);
 	}
 
 	public PlayerAdvancements getAdvancements() {
-
 		return advancements;
 	}
 
 	
 	public Vec3d getEnteredNetherPosition() {
-
 		return enteredNetherPosition;
 	}
 

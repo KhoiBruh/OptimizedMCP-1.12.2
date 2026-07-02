@@ -16,7 +16,6 @@ public class MapGenRavine extends MapGenBase {
 	private final float[] rs = new float[1024];
 
 	protected void addTunnel(long p_180707_1_, int p_180707_3_, int p_180707_4_, ChunkPrimer p_180707_5_, double p_180707_6_, double p_180707_8_, double p_180707_10_, float p_180707_12_, float p_180707_13_, float p_180707_14_, int p_180707_15_, int p_180707_16_, double p_180707_17_) {
-
 		Random random = new Random(p_180707_1_);
 		double d0 = p_180707_3_ * 16 + 8;
 		double d1 = p_180707_4_ * 16 + 8;
@@ -177,7 +176,6 @@ public class MapGenRavine extends MapGenBase {
 	 * Recursively called by generate()
 	 */
 	protected void recursiveGenerate(World worldIn, int chunkX, int chunkZ, int originalX, int originalZ, ChunkPrimer chunkPrimerIn) {
-
 		if (rand.nextInt(50) == 0) {
 			double d0 = chunkX * 16 + rand.nextInt(16);
 			double d1 = rand.nextInt(rand.nextInt(40) + 8) + 20;

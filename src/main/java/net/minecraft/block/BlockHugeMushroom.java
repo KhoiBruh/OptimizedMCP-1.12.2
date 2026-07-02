@@ -24,7 +24,6 @@ public class BlockHugeMushroom extends Block {
 	private final Block smallBlock;
 
 	public BlockHugeMushroom(Material materialIn, MapColor color, Block smallBlockIn) {
-
 		super(materialIn, color);
 		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockHugeMushroom.Type.ALL_OUTSIDE));
 		smallBlock = smallBlockIn;
@@ -34,7 +33,6 @@ public class BlockHugeMushroom extends Block {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return Math.max(0, random.nextInt(10) - 7);
 	}
 
@@ -42,7 +40,6 @@ public class BlockHugeMushroom extends Block {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return switch (state.getValue(VARIANT)) {
 			case ALL_STEM -> MapColor.CLOTH;
 			case ALL_INSIDE, STEM -> MapColor.SAND;
@@ -54,12 +51,10 @@ public class BlockHugeMushroom extends Block {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Item.getItemFromBlock(smallBlock);
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return new ItemStack(smallBlock);
 	}
 
@@ -68,7 +63,6 @@ public class BlockHugeMushroom extends Block {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		return getDefaultState();
 	}
 
@@ -76,7 +70,6 @@ public class BlockHugeMushroom extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(VARIANT, BlockHugeMushroom.Type.byMetadata(meta));
 	}
 
@@ -84,7 +77,6 @@ public class BlockHugeMushroom extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(VARIANT).getMetadata();
 	}
 
@@ -93,7 +85,6 @@ public class BlockHugeMushroom extends Block {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		switch (rot) {
 			case CLOCKWISE_180:
 				switch (state.getValue(VARIANT)) {
@@ -206,7 +197,6 @@ public class BlockHugeMushroom extends Block {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		BlockHugeMushroom.Type blockhugemushroom$enumtype = state.getValue(VARIANT);
 
 		switch (mirrorIn) {
@@ -252,7 +242,6 @@ public class BlockHugeMushroom extends Block {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, VARIANT);
 	}
 
@@ -283,7 +272,6 @@ public class BlockHugeMushroom extends Block {
 		private final String name;
 
 		Type(int meta, String name) {
-
 			this.meta = meta;
 			this.name = name;
 		}
@@ -299,17 +287,14 @@ public class BlockHugeMushroom extends Block {
 		}
 
 		public int getMetadata() {
-
 			return meta;
 		}
 
 		public String toString() {
-
 			return name;
 		}
 
 		public String getName() {
-
 			return name;
 		}
 	}

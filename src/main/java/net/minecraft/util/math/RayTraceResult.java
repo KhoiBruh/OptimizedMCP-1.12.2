@@ -21,22 +21,18 @@ public class RayTraceResult {
 	private BlockPos blockPos;
 
 	public RayTraceResult(Vec3d hitVecIn, Facing sideHitIn, BlockPos blockPosIn) {
-
 		this(RayTraceResult.Type.BLOCK, hitVecIn, sideHitIn, blockPosIn);
 	}
 
 	public RayTraceResult(Vec3d hitVecIn, Facing sideHitIn) {
-
 		this(RayTraceResult.Type.BLOCK, hitVecIn, sideHitIn, BlockPos.ORIGIN);
 	}
 
 	public RayTraceResult(Entity entityIn) {
-
 		this(entityIn, new Vec3d(entityIn.posX, entityIn.posY, entityIn.posZ));
 	}
 
 	public RayTraceResult(RayTraceResult.Type typeIn, Vec3d hitVecIn, Facing sideHitIn, BlockPos blockPosIn) {
-
 		typeOfHit = typeIn;
 		blockPos = blockPosIn;
 		sideHit = sideHitIn;
@@ -44,19 +40,16 @@ public class RayTraceResult {
 	}
 
 	public RayTraceResult(Entity entityHitIn, Vec3d hitVecIn) {
-
 		typeOfHit = RayTraceResult.Type.ENTITY;
 		entityHit = entityHitIn;
 		hitVec = hitVecIn;
 	}
 
 	public BlockPos getBlockPos() {
-
 		return blockPos;
 	}
 
 	public String toString() {
-
 		return "HitResult{type=" + typeOfHit + ", blockpos=" + blockPos + ", f=" + sideHit + ", pos=" + hitVec + ", entity=" + entityHit + '}';
 	}
 

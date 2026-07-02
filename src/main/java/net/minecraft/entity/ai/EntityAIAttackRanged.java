@@ -33,12 +33,10 @@ public class EntityAIAttackRanged extends EntityAIBase {
 	private int seeTime;
 
 	public EntityAIAttackRanged(IRangedAttackMob attacker, double movespeed, int maxAttackTime, float maxAttackDistanceIn) {
-
 		this(attacker, movespeed, maxAttackTime, maxAttackTime, maxAttackDistanceIn);
 	}
 
 	public EntityAIAttackRanged(IRangedAttackMob attacker, double movespeed, int p_i1650_4_, int maxAttackTime, float maxAttackDistanceIn) {
-
 		rangedAttackTime = -1;
 
 		if (!(attacker instanceof EntityLivingBase)) {
@@ -59,7 +57,6 @@ public class EntityAIAttackRanged extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		EntityLivingBase entitylivingbase = entityHost.getAttackTarget();
 
 		if (entitylivingbase == null) {
@@ -74,7 +71,6 @@ public class EntityAIAttackRanged extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		return shouldExecute() || !entityHost.getNavigator().noPath();
 	}
 
@@ -82,7 +78,6 @@ public class EntityAIAttackRanged extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		attackTarget = null;
 		seeTime = 0;
 		rangedAttackTime = -1;
@@ -92,7 +87,6 @@ public class EntityAIAttackRanged extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		double d0 = entityHost.getDistanceSq(attackTarget.posX, attackTarget.getEntityBoundingBox().minY, attackTarget.posZ);
 		boolean flag = entityHost.getEntitySenses().canSee(attackTarget);
 

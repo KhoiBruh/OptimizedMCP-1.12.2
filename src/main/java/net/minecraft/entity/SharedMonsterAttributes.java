@@ -27,7 +27,6 @@ public class SharedMonsterAttributes {
 	 * Creates an NBTTagList from a BaseAttributeMap, including all its AttributeInstances
 	 */
 	public static NBTTagList writeBaseAttributeMapToNBT(AbstractAttributeMap map) {
-
 		NBTTagList nbttaglist = new NBTTagList();
 
 		for (IAttributeInstance iattributeinstance : map.getAllAttributes()) {
@@ -41,7 +40,6 @@ public class SharedMonsterAttributes {
 	 * Creates an NBTTagCompound from an AttributeInstance, including its AttributeModifiers
 	 */
 	private static NBTTagCompound writeAttributeInstanceToNBT(IAttributeInstance instance) {
-
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 		IAttribute iattribute = instance.getAttribute();
 		nbttagcompound.setString("Name", iattribute.getName());
@@ -67,7 +65,6 @@ public class SharedMonsterAttributes {
 	 * Creates an NBTTagCompound from an AttributeModifier
 	 */
 	public static NBTTagCompound writeAttributeModifierToNBT(AttributeModifier modifier) {
-
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 		nbttagcompound.setString("Name", modifier.getName());
 		nbttagcompound.setDouble("Amount", modifier.getAmount());
@@ -77,7 +74,6 @@ public class SharedMonsterAttributes {
 	}
 
 	public static void setAttributeModifiers(AbstractAttributeMap map, NBTTagList list) {
-
 		for (int i = 0; i < list.tagCount(); ++i) {
 			NBTTagCompound nbttagcompound = list.getCompoundTagAt(i);
 			IAttributeInstance iattributeinstance = map.getAttributeInstanceByName(nbttagcompound.getString("Name"));
@@ -91,7 +87,6 @@ public class SharedMonsterAttributes {
 	}
 
 	private static void applyModifiersToAttributeInstance(IAttributeInstance instance, NBTTagCompound compound) {
-
 		instance.setBaseValue(compound.getDouble("Base"));
 
 		if (compound.hasKey("Modifiers", 9)) {
@@ -119,7 +114,6 @@ public class SharedMonsterAttributes {
 	 * Creates an AttributeModifier from an NBTTagCompound
 	 */
 	public static AttributeModifier readAttributeModifierFromNBT(NBTTagCompound compound) {
-
 		UUID uuid = compound.getUniqueId("UUID");
 
 		try {

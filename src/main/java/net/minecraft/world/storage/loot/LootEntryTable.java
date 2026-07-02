@@ -16,26 +16,22 @@ public class LootEntryTable extends LootEntry {
 	protected final ResourceLocation table;
 
 	public LootEntryTable(ResourceLocation tableIn, int weightIn, int qualityIn, LootCondition[] conditionsIn) {
-
 		super(weightIn, qualityIn, conditionsIn);
 		table = tableIn;
 	}
 
 	public static LootEntryTable deserialize(JsonObject object, JsonDeserializationContext deserializationContext, int weightIn, int qualityIn, LootCondition[] conditionsIn) {
-
 		ResourceLocation resourcelocation = new ResourceLocation(JsonUtils.getString(object, "name"));
 		return new LootEntryTable(resourcelocation, weightIn, qualityIn, conditionsIn);
 	}
 
 	public void addLoot(Collection<ItemStack> stacks, Random rand, LootContext context) {
-
 		LootTable loottable = context.getLootTableManager().getLootTableFromLocation(table);
 		Collection<ItemStack> collection = loottable.generateLootForPools(rand, context);
 		stacks.addAll(collection);
 	}
 
 	protected void serialize(JsonObject json, JsonSerializationContext context) {
-
 		json.addProperty("name", table.toString());
 	}
 

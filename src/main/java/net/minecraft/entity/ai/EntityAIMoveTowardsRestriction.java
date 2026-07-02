@@ -13,7 +13,6 @@ public class EntityAIMoveTowardsRestriction extends EntityAIBase {
 	private double movePosZ;
 
 	public EntityAIMoveTowardsRestriction(EntityCreature creatureIn, double speedIn) {
-
 		creature = creatureIn;
 		movementSpeed = speedIn;
 		setMutexBits(1);
@@ -23,7 +22,6 @@ public class EntityAIMoveTowardsRestriction extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		if (creature.isWithinHomeDistanceCurrentPosition()) {
 			return false;
 		} else {
@@ -45,7 +43,6 @@ public class EntityAIMoveTowardsRestriction extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		return !creature.getNavigator().noPath();
 	}
 
@@ -53,7 +50,6 @@ public class EntityAIMoveTowardsRestriction extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		creature.getNavigator().tryMoveToXYZ(movePosX, movePosY, movePosZ, movementSpeed);
 	}
 

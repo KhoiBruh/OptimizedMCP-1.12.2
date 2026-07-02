@@ -22,7 +22,6 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase {
 	private boolean isAboveDestination;
 
 	public EntityAIMoveToBlock(EntityCreature creature, double speedIn, int length) {
-
 		this.creature = creature;
 		movementSpeed = speedIn;
 		searchLength = length;
@@ -33,7 +32,6 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		if (runDelay > 0) {
 			--runDelay;
 			return false;
@@ -47,7 +45,6 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		return timeoutCounter >= -maxStayTicks && timeoutCounter <= 1200 && shouldMoveTo(creature.world, destinationBlock);
 	}
 
@@ -55,7 +52,6 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		creature.getNavigator().tryMoveToXYZ((double) ((float) destinationBlock.getX()) + 0.5D, destinationBlock.getY() + 1, (double) ((float) destinationBlock.getZ()) + 0.5D, movementSpeed);
 		timeoutCounter = 0;
 		maxStayTicks = creature.getRNG().nextInt(creature.getRNG().nextInt(1200) + 1200) + 1200;
@@ -65,7 +61,6 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		if (creature.getDistanceSqToCenter(destinationBlock.up()) > 1D) {
 			isAboveDestination = false;
 			++timeoutCounter;
@@ -80,7 +75,6 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase {
 	}
 
 	protected boolean getIsAboveDestination() {
-
 		return isAboveDestination;
 	}
 
@@ -90,7 +84,6 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase {
 	 * BlockPos)}) can be found.
 	 */
 	private boolean searchForDestination() {
-
 		int j = 1;
 		BlockPos blockpos = new BlockPos(creature);
 

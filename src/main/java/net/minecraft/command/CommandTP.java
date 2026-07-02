@@ -19,7 +19,6 @@ public class CommandTP extends CommandBase {
 	 * Teleports an entity to the specified coordinates
 	 */
 	private static void teleportEntityToCoordinates(Entity teleportingEntity, CommandBase.CoordinateArg argX, CommandBase.CoordinateArg argY, CommandBase.CoordinateArg argZ, CommandBase.CoordinateArg argYaw, CommandBase.CoordinateArg argPitch) {
-
 		if (teleportingEntity instanceof EntityPlayerMP) {
 			Set<SPacketPlayerPosLook.Flags> set = EnumSet.noneOf(SPacketPlayerPosLook.Flags.class);
 
@@ -76,7 +75,6 @@ public class CommandTP extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "tp";
 	}
 
@@ -84,7 +82,6 @@ public class CommandTP extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 2;
 	}
 
@@ -92,7 +89,6 @@ public class CommandTP extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.tp.usage";
 	}
 
@@ -100,7 +96,6 @@ public class CommandTP extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		if (args.length < 1) {
 			throw new WrongUsageException("commands.tp.usage");
 		} else {
@@ -149,7 +144,6 @@ public class CommandTP extends CommandBase {
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		return args.length != 1 && args.length != 2 ? Collections.emptyList() : getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames());
 	}
 
@@ -157,7 +151,6 @@ public class CommandTP extends CommandBase {
 	 * Return whether the specified command parameter index is a username parameter.
 	 */
 	public boolean isUsernameIndex(String[] args, int index) {
-
 		return index == 0;
 	}
 

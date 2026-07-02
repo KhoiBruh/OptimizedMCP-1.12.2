@@ -54,15 +54,12 @@ public class Bootstrap {
 	 * Is Bootstrap registration already done?
 	 */
 	public static boolean isRegistered() {
-		
 		return alreadyRegistered;
 	}
 	
 	static void registerDispenserBehaviors() {
-		
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.ARROW, new BehaviorProjectileDispense() {
 			protected IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn) {
-				
 				EntityTippedArrow entitytippedarrow = new EntityTippedArrow(worldIn, position.x(), position.y(), position.z());
 				entitytippedarrow.pickupStatus = EntityArrow.PickupStatus.ALLOWED;
 				return entitytippedarrow;
@@ -70,7 +67,6 @@ public class Bootstrap {
 		});
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.TIPPED_ARROW, new BehaviorProjectileDispense() {
 			protected IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn) {
-				
 				EntityTippedArrow entitytippedarrow = new EntityTippedArrow(worldIn, position.x(), position.y(), position.z());
 				entitytippedarrow.setPotionEffect(stackIn);
 				entitytippedarrow.pickupStatus = EntityArrow.PickupStatus.ALLOWED;
@@ -79,7 +75,6 @@ public class Bootstrap {
 		});
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.SPECTRAL_ARROW, new BehaviorProjectileDispense() {
 			protected IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn) {
-				
 				EntityArrow entityarrow = new EntitySpectralArrow(worldIn, position.x(), position.y(), position.z());
 				entityarrow.pickupStatus = EntityArrow.PickupStatus.ALLOWED;
 				return entityarrow;
@@ -87,48 +82,39 @@ public class Bootstrap {
 		});
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.EGG, new BehaviorProjectileDispense() {
 			protected IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn) {
-				
 				return new EntityEgg(worldIn, position.x(), position.y(), position.z());
 			}
 		});
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.SNOWBALL, new BehaviorProjectileDispense() {
 			protected IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn) {
-				
 				return new EntitySnowball(worldIn, position.x(), position.y(), position.z());
 			}
 		});
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.EXPERIENCE_BOTTLE, new BehaviorProjectileDispense() {
 			protected IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn) {
-				
 				return new EntityExpBottle(worldIn, position.x(), position.y(), position.z());
 			}
 			
 			protected float getProjectileInaccuracy() {
-				
 				return super.getProjectileInaccuracy() * 0.5F;
 			}
 			
 			protected float getProjectileVelocity() {
-				
 				return super.getProjectileVelocity() * 1.25F;
 			}
 		});
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.SPLASH_POTION, new IBehaviorDispenseItem() {
 			public ItemStack dispense(IBlockSource source, final ItemStack stack) {
-				
 				return (new BehaviorProjectileDispense() {
 					protected IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn) {
-						
 						return new EntityPotion(worldIn, position.x(), position.y(), position.z(), stack.copy());
 					}
 					
 					protected float getProjectileInaccuracy() {
-						
 						return super.getProjectileInaccuracy() * 0.5F;
 					}
 					
 					protected float getProjectileVelocity() {
-						
 						return super.getProjectileVelocity() * 1.25F;
 					}
 				}).dispense(source, stack);
@@ -136,20 +122,16 @@ public class Bootstrap {
 		});
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.LINGERING_POTION, new IBehaviorDispenseItem() {
 			public ItemStack dispense(IBlockSource source, final ItemStack stack) {
-				
 				return (new BehaviorProjectileDispense() {
 					protected IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn) {
-						
 						return new EntityPotion(worldIn, position.x(), position.y(), position.z(), stack.copy());
 					}
 					
 					protected float getProjectileInaccuracy() {
-						
 						return super.getProjectileInaccuracy() * 0.5F;
 					}
 					
 					protected float getProjectileVelocity() {
-						
 						return super.getProjectileVelocity() * 1.25F;
 					}
 				}).dispense(source, stack);
@@ -157,7 +139,6 @@ public class Bootstrap {
 		});
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.SPAWN_EGG, new BehaviorDefaultDispenseItem() {
 			public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-				
 				Facing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
 				double d0 = source.x() + (double) enumfacing.getFrontOffsetX();
 				double d1 = (float) (source.getBlockPos().getY() + enumfacing.getFrontOffsetY()) + 0.2F;
@@ -175,7 +156,6 @@ public class Bootstrap {
 		});
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.FIREWORKS, new BehaviorDefaultDispenseItem() {
 			public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-				
 				Facing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
 				double d0 = source.x() + (double) enumfacing.getFrontOffsetX();
 				double d1 = (float) source.getBlockPos().getY() + 0.2F;
@@ -187,13 +167,11 @@ public class Bootstrap {
 			}
 			
 			protected void playDispenseSound(IBlockSource source) {
-				
 				source.getWorld().playEvent(1004, source.getBlockPos(), 0);
 			}
 		});
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.FIRE_CHARGE, new BehaviorDefaultDispenseItem() {
 			public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-				
 				Facing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
 				IPosition iposition = BlockDispenser.getDispensePosition(source);
 				double d0 = iposition.x() + (double) ((float) enumfacing.getFrontOffsetX() * 0.3F);
@@ -210,7 +188,6 @@ public class Bootstrap {
 			}
 			
 			protected void playDispenseSound(IBlockSource source) {
-				
 				source.getWorld().playEvent(1018, source.getBlockPos(), 0);
 			}
 		});
@@ -224,7 +201,6 @@ public class Bootstrap {
 			private final BehaviorDefaultDispenseItem dispenseBehavior = new BehaviorDefaultDispenseItem();
 			
 			public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-				
 				ItemBucket itembucket = (ItemBucket) stack.getItem();
 				BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().getValue(BlockDispenser.FACING));
 				return itembucket.tryPlaceContainedLiquid(null, source.getWorld(), blockpos) ? new ItemStack(Items.BUCKET) : dispenseBehavior.dispense(source, stack);
@@ -236,7 +212,6 @@ public class Bootstrap {
 			private final BehaviorDefaultDispenseItem dispenseBehavior = new BehaviorDefaultDispenseItem();
 			
 			public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-				
 				World world = source.getWorld();
 				BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().getValue(BlockDispenser.FACING));
 				IBlockState iblockstate = world.getBlockState(blockpos);
@@ -270,7 +245,6 @@ public class Bootstrap {
 		});
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.FLINT_AND_STEEL, new Bootstrap.BehaviorDispenseOptional() {
 			protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-				
 				World world = source.getWorld();
 				successful = true;
 				BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().getValue(BlockDispenser.FACING));
@@ -294,7 +268,6 @@ public class Bootstrap {
 		});
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.DYE, new Bootstrap.BehaviorDispenseOptional() {
 			protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-				
 				successful = true;
 				
 				if (DyeColor.WHITE == DyeColor.byDyeDamage(stack.getMetadata())) {
@@ -318,7 +291,6 @@ public class Bootstrap {
 		});
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Item.getItemFromBlock(Blocks.TNT), new BehaviorDefaultDispenseItem() {
 			protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-				
 				World world = source.getWorld();
 				BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().getValue(BlockDispenser.FACING));
 				EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, (double) blockpos.getX() + 0.5D, blockpos.getY(), (double) blockpos.getZ() + 0.5D, null);
@@ -330,7 +302,6 @@ public class Bootstrap {
 		});
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.SKULL, new Bootstrap.BehaviorDispenseOptional() {
 			protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-				
 				World world = source.getWorld();
 				Facing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
 				BlockPos blockpos = source.getBlockPos().offset(enumfacing);
@@ -382,7 +353,6 @@ public class Bootstrap {
 		});
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Item.getItemFromBlock(Blocks.PUMPKIN), new Bootstrap.BehaviorDispenseOptional() {
 			protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-				
 				World world = source.getWorld();
 				BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().getValue(BlockDispenser.FACING));
 				BlockPumpkin blockpumpkin = (BlockPumpkin) Blocks.PUMPKIN;
@@ -415,7 +385,6 @@ public class Bootstrap {
 	 * Registers blocks, items, stats, etc.
 	 */
 	public static void register() {
-		
 		if (!alreadyRegistered) {
 			alreadyRegistered = true;
 			redirectOutputToLog();
@@ -456,7 +425,6 @@ public class Bootstrap {
 	 * redirect standard streams to logger
 	 */
 	private static void redirectOutputToLog() {
-		
 		if (LOGGER.isDebugEnabled()) {
 			System.setErr(new DebugLoggingPrintStream("STDERR", System.err));
 			System.setOut(new DebugLoggingPrintStream("STDOUT", SYSOUT));
@@ -467,7 +435,6 @@ public class Bootstrap {
 	}
 	
 	public static void printToSYSOUT(String message) {
-		
 		SYSOUT.println(message);
 	}
 	
@@ -477,12 +444,10 @@ public class Bootstrap {
 		private final EntityBoat.Type boatType;
 		
 		public BehaviorDispenseBoat(EntityBoat.Type boatTypeIn) {
-			
 			boatType = boatTypeIn;
 		}
 		
 		public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-			
 			Facing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
 			World world = source.getWorld();
 			double d0 = source.x() + (double) ((float) enumfacing.getFrontOffsetX() * 1.125F);
@@ -518,7 +483,6 @@ public class Bootstrap {
 		protected boolean successful = true;
 		
 		protected void playDispenseSound(IBlockSource source) {
-			
 			source.getWorld().playEvent(successful ? 1000 : 1001, source.getBlockPos(), 0);
 		}
 		
@@ -527,11 +491,9 @@ public class Bootstrap {
 	static class BehaviorDispenseShulkerBox extends Bootstrap.BehaviorDispenseOptional {
 		
 		private BehaviorDispenseShulkerBox() {
-		
 		}
 		
 		protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-			
 			Block block = Block.getBlockFromItem(stack.getItem());
 			World world = source.getWorld();
 			Facing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);

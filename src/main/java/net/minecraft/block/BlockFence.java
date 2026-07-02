@@ -53,7 +53,6 @@ public class BlockFence extends Block {
 	protected static final AxisAlignedBB[] BOUNDING_BOXES = new AxisAlignedBB[]{new AxisAlignedBB(0.375D, 0D, 0.375D, 0.625D, 1D, 0.625D), new AxisAlignedBB(0.375D, 0D, 0.375D, 0.625D, 1D, 1D), new AxisAlignedBB(0D, 0D, 0.375D, 0.625D, 1D, 0.625D), new AxisAlignedBB(0D, 0D, 0.375D, 0.625D, 1D, 1D), new AxisAlignedBB(0.375D, 0D, 0D, 0.625D, 1D, 0.625D), new AxisAlignedBB(0.375D, 0D, 0D, 0.625D, 1D, 1D), new AxisAlignedBB(0D, 0D, 0D, 0.625D, 1D, 0.625D), new AxisAlignedBB(0D, 0D, 0D, 0.625D, 1D, 1D), new AxisAlignedBB(0.375D, 0D, 0.375D, 1D, 1D, 0.625D), new AxisAlignedBB(0.375D, 0D, 0.375D, 1D, 1D, 1D), new AxisAlignedBB(0D, 0D, 0.375D, 1D, 1D, 0.625D), new AxisAlignedBB(0D, 0D, 0.375D, 1D, 1D, 1D), new AxisAlignedBB(0.375D, 0D, 0D, 1D, 1D, 0.625D), new AxisAlignedBB(0.375D, 0D, 0D, 1D, 1D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 1D, 0.625D), new AxisAlignedBB(0D, 0D, 0D, 1D, 1D, 1D)};
 
 	public BlockFence(Material materialIn, MapColor mapColorIn) {
-
 		super(materialIn, mapColorIn);
 		setDefaultState(blockState.getBaseState().withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false));
 		setCreativeTab(CreativeTabs.DECORATIONS);
@@ -63,7 +62,6 @@ public class BlockFence extends Block {
 	 * Returns the correct index into boundingBoxes, based on what the fence is connected to.
 	 */
 	private static int getBoundingBoxIdx(IBlockState state) {
-
 		int i = 0;
 
 		if (state.getValue(NORTH)) {
@@ -86,12 +84,10 @@ public class BlockFence extends Block {
 	}
 
 	protected static boolean isExcepBlockForAttachWithPiston(Block p_194142_0_) {
-
 		return Block.isExceptBlockForAttachWithPiston(p_194142_0_) || p_194142_0_ == Blocks.BARRIER || p_194142_0_ == Blocks.MELON_BLOCK || p_194142_0_ == Blocks.PUMPKIN || p_194142_0_ == Blocks.LIT_PUMPKIN;
 	}
 
 	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean isActualState) {
-
 		if (!isActualState) {
 			state = state.getActualState(worldIn, pos);
 		}
@@ -116,7 +112,6 @@ public class BlockFence extends Block {
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		state = getActualState(state, source, pos);
 		return BOUNDING_BOXES[getBoundingBoxIdx(state)];
 	}
@@ -125,12 +120,10 @@ public class BlockFence extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -138,12 +131,10 @@ public class BlockFence extends Block {
 	 * Determines if an entity can path through this block
 	 */
 	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-
 		return false;
 	}
 
 	public boolean canConnectTo(IBlockAccess worldIn, BlockPos pos, Facing facing) {
-
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		BlockFaceShape blockfaceshape = iblockstate.getBlockFaceShape(worldIn, pos, facing);
 		Block block = iblockstate.getBlock();
@@ -152,7 +143,6 @@ public class BlockFence extends Block {
 	}
 
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		return true;
 	}
 
@@ -160,7 +150,6 @@ public class BlockFence extends Block {
 	 * Called when the block is right clicked by a player.
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		if (!worldIn.isRemote) {
 			return ItemLead.attachToFence(playerIn, worldIn, pos);
 		} else {
@@ -173,7 +162,6 @@ public class BlockFence extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return 0;
 	}
 
@@ -182,7 +170,6 @@ public class BlockFence extends Block {
 	 * metadata, such as fence connections.
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return state.withProperty(NORTH, canConnectTo(worldIn, pos.north(), Facing.SOUTH)).withProperty(EAST, canConnectTo(worldIn, pos.east(), Facing.WEST)).withProperty(SOUTH, canConnectTo(worldIn, pos.south(), Facing.NORTH)).withProperty(WEST, canConnectTo(worldIn, pos.west(), Facing.EAST));
 	}
 
@@ -191,7 +178,6 @@ public class BlockFence extends Block {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return switch (rot) {
 			case CLOCKWISE_180 ->
 					state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(EAST, state.getValue(WEST)).withProperty(SOUTH, state.getValue(NORTH)).withProperty(WEST, state.getValue(EAST));
@@ -208,7 +194,6 @@ public class BlockFence extends Block {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return switch (mirrorIn) {
 			case LEFT_RIGHT ->
 					state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(NORTH));
@@ -218,7 +203,6 @@ public class BlockFence extends Block {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, NORTH, EAST, WEST, SOUTH);
 	}
 
@@ -232,7 +216,6 @@ public class BlockFence extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return face != Facing.UP && face != Facing.DOWN ? BlockFaceShape.MIDDLE_POLE : BlockFaceShape.CENTER;
 	}
 

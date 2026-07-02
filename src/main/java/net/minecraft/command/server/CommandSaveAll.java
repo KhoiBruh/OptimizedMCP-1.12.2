@@ -18,7 +18,6 @@ public class CommandSaveAll extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "save-all";
 	}
 
@@ -26,7 +25,6 @@ public class CommandSaveAll extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.save.usage";
 	}
 
@@ -34,7 +32,6 @@ public class CommandSaveAll extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
-
 		sender.sendMessage(new TextComponentTranslation("commands.save.start"));
 
 		if (server.getPlayerList() != null) {
@@ -76,7 +73,6 @@ public class CommandSaveAll extends CommandBase {
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		return args.length == 1 ? getListOfStringsMatchingLastWord(args, "flush") : Collections.emptyList();
 	}
 

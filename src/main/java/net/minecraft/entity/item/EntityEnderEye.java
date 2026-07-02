@@ -30,13 +30,11 @@ public class EntityEnderEye extends Entity {
 	private boolean shatterOrDrop;
 
 	public EntityEnderEye(World worldIn) {
-
 		super(worldIn);
 		setSize(0.25F, 0.25F);
 	}
 
 	public EntityEnderEye(World worldIn, double x, double y, double z) {
-
 		super(worldIn);
 		despawnTimer = 0;
 		setSize(0.25F, 0.25F);
@@ -44,14 +42,12 @@ public class EntityEnderEye extends Entity {
 	}
 
 	protected void entityInit() {
-
 	}
 
 	/**
 	 * Checks if the entity is in range to render.
 	 */
 	public boolean isInRangeToRenderDist(double distance) {
-
 		double d0 = getEntityBoundingBox().getAverageEdgeLength() * 4D;
 
 		if (Double.isNaN(d0)) {
@@ -63,7 +59,6 @@ public class EntityEnderEye extends Entity {
 	}
 
 	public void moveTowards(BlockPos pos) {
-
 		double d0 = pos.getX();
 		int i = pos.getY();
 		double d1 = pos.getZ();
@@ -89,7 +84,6 @@ public class EntityEnderEye extends Entity {
 	 * Updates the entity motion clientside, called by packets from the server
 	 */
 	public void setVelocity(double x, double y, double z) {
-
 		motionX = x;
 		motionY = y;
 		motionZ = z;
@@ -107,7 +101,6 @@ public class EntityEnderEye extends Entity {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		lastTickPosX = posX;
 		lastTickPosY = posY;
 		lastTickPosZ = posZ;
@@ -189,26 +182,22 @@ public class EntityEnderEye extends Entity {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 	}
 
 	/**
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 	}
 
 	/**
 	 * Gets how bright this entity is.
 	 */
 	public float getBrightness() {
-
 		return 1F;
 	}
 
 	public int getBrightnessForRender() {
-
 		return 15728880;
 	}
 
@@ -216,7 +205,6 @@ public class EntityEnderEye extends Entity {
 	 * Returns true if it's possible to attack this entity with an item.
 	 */
 	public boolean canBeAttackedWithItem() {
-
 		return false;
 	}
 

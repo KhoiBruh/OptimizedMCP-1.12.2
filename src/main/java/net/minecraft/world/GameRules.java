@@ -10,7 +10,6 @@ public class GameRules {
 	private final TreeMap<String, GameRules.Value> rules = new TreeMap<>();
 
 	public GameRules() {
-
 		addGameRule("doFireTick", "true", GameRules.ValueType.BOOLEAN_VALUE);
 		addGameRule("mobGriefing", "true", GameRules.ValueType.BOOLEAN_VALUE);
 		addGameRule("keepInventory", "false", GameRules.ValueType.BOOLEAN_VALUE);
@@ -38,12 +37,10 @@ public class GameRules {
 	}
 
 	public void addGameRule(String key, String value, GameRules.ValueType type) {
-
 		rules.put(key, new GameRules.Value(value, type));
 	}
 
 	public void setOrCreateGameRule(String key, String ruleValue) {
-
 		GameRules.Value gamerules$value = rules.get(key);
 
 		if (gamerules$value != null) {
@@ -57,7 +54,6 @@ public class GameRules {
 	 * Gets the string Game Rule value.
 	 */
 	public String getString(String name) {
-
 		GameRules.Value gamerules$value = rules.get(name);
 		return gamerules$value != null ? gamerules$value.getString() : "";
 	}
@@ -66,13 +62,11 @@ public class GameRules {
 	 * Gets the boolean Game Rule value.
 	 */
 	public boolean getBoolean(String name) {
-
 		GameRules.Value gamerules$value = rules.get(name);
 		return gamerules$value != null && gamerules$value.getBoolean();
 	}
 
 	public int getInt(String name) {
-
 		GameRules.Value gamerules$value = rules.get(name);
 		return gamerules$value != null ? gamerules$value.getInt() : 0;
 	}
@@ -81,7 +75,6 @@ public class GameRules {
 	 * Return the defined game rules as NBT.
 	 */
 	public NBTTagCompound writeToNBT() {
-
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 
 		for (String s : rules.keySet()) {
@@ -96,7 +89,6 @@ public class GameRules {
 	 * Set defined game rules from NBT.
 	 */
 	public void readFromNBT(NBTTagCompound nbt) {
-
 		for (String s : nbt.getKeySet()) {
 			setOrCreateGameRule(s, nbt.getString(s));
 		}
@@ -106,7 +98,6 @@ public class GameRules {
 	 * Return the defined game rules.
 	 */
 	public String[] getRules() {
-
 		Set<String> set = rules.keySet();
 		return set.toArray(new String[0]);
 	}
@@ -115,12 +106,10 @@ public class GameRules {
 	 * Return whether the specified game rule is defined.
 	 */
 	public boolean hasRule(String name) {
-
 		return rules.containsKey(name);
 	}
 
 	public boolean areSameType(String key, GameRules.ValueType otherValue) {
-
 		GameRules.Value gamerules$value = rules.get(key);
 		return gamerules$value != null && (gamerules$value.getType() == otherValue || otherValue == GameRules.ValueType.ANY_VALUE);
 	}
@@ -141,13 +130,11 @@ public class GameRules {
 		private double valueDouble;
 
 		public Value(String value, GameRules.ValueType type) {
-
 			this.type = type;
 			setValue(value);
 		}
 
 		public void setValue(String value) {
-
 			valueString = value;
 			valueBoolean = Boolean.parseBoolean(value);
 			valueInteger = valueBoolean ? 1 : 0;
@@ -164,17 +151,14 @@ public class GameRules {
 		}
 
 		public String getString() {
-
 			return valueString;
 		}
 
 		public boolean getBoolean() {
-
 			return valueBoolean;
 		}
 
 		public int getInt() {
-
 			return valueInteger;
 		}
 

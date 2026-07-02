@@ -17,12 +17,10 @@ public class CriterionProgress {
 	private Date obtained;
 
 	public CriterionProgress(AdvancementProgress advancementProgressIn) {
-
 		advancementProgress = advancementProgressIn;
 	}
 
 	public static CriterionProgress read(PacketBuffer buf, AdvancementProgress advancementProgressIn) {
-
 		CriterionProgress criterionprogress = new CriterionProgress(advancementProgressIn);
 
 		if (buf.readBoolean()) {
@@ -33,7 +31,6 @@ public class CriterionProgress {
 	}
 
 	public static CriterionProgress fromDateTime(AdvancementProgress advancementProgressIn, String dateTime) {
-
 		CriterionProgress criterionprogress = new CriterionProgress(advancementProgressIn);
 
 		try {
@@ -45,32 +42,26 @@ public class CriterionProgress {
 	}
 
 	public boolean isObtained() {
-
 		return obtained != null;
 	}
 
 	public void obtain() {
-
 		obtained = new Date();
 	}
 
 	public void reset() {
-
 		obtained = null;
 	}
 
 	public Date getObtained() {
-
 		return obtained;
 	}
 
 	public String toString() {
-
 		return "CriterionProgress{obtained=" + (obtained == null ? "false" : obtained) + '}';
 	}
 
 	public void write(PacketBuffer buf) {
-
 		buf.writeBoolean(obtained != null);
 
 		if (obtained != null) {
@@ -79,7 +70,6 @@ public class CriterionProgress {
 	}
 
 	public JsonElement serialize() {
-
 		return obtained != null ? new JsonPrimitive(DATE_TIME_FORMATTER.format(obtained)) : JsonNull.INSTANCE;
 	}
 

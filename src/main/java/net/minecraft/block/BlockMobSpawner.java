@@ -17,7 +17,6 @@ import java.util.Random;
 public class BlockMobSpawner extends BlockContainer {
 
 	protected BlockMobSpawner() {
-
 		super(Material.ROCK);
 	}
 
@@ -25,7 +24,6 @@ public class BlockMobSpawner extends BlockContainer {
 	 * Returns a new instance of a block's tile entity class. Called on placing the block.
 	 */
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-
 		return new TileEntityMobSpawner();
 	}
 
@@ -33,7 +31,6 @@ public class BlockMobSpawner extends BlockContainer {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Items.AIR;
 	}
 
@@ -41,7 +38,6 @@ public class BlockMobSpawner extends BlockContainer {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return 0;
 	}
 
@@ -49,7 +45,6 @@ public class BlockMobSpawner extends BlockContainer {
 	 * Spawns this Block's drops into the World as EntityItems.
 	 */
 	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
-
 		super.dropBlockAsItemWithChance(worldIn, pos, state, chance, fortune);
 		int i = 15 + worldIn.rand.nextInt(15) + worldIn.rand.nextInt(15);
 		dropXpOnBlockBreak(worldIn, pos, i);
@@ -59,7 +54,6 @@ public class BlockMobSpawner extends BlockContainer {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -68,7 +62,6 @@ public class BlockMobSpawner extends BlockContainer {
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
 	public BlockRenderType getRenderType(IBlockState state) {
-
 		return BlockRenderType.MODEL;
 	}
 
@@ -77,12 +70,10 @@ public class BlockMobSpawner extends BlockContainer {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.CUTOUT;
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return ItemStack.EMPTY;
 	}
 

@@ -9,7 +9,6 @@ public class EntityAISwimming extends EntityAIBase {
 	private final EntityLiving entity;
 
 	public EntityAISwimming(EntityLiving entityIn) {
-
 		entity = entityIn;
 		setMutexBits(4);
 
@@ -24,7 +23,6 @@ public class EntityAISwimming extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		return entity.isInWater() || entity.isInLava();
 	}
 
@@ -32,7 +30,6 @@ public class EntityAISwimming extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		if (entity.getRNG().nextFloat() < 0.8F) {
 			entity.getJumpHelper().setJumping();
 		}

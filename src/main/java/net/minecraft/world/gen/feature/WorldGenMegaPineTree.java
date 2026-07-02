@@ -18,13 +18,11 @@ public class WorldGenMegaPineTree extends WorldGenHugeTrees {
 	private final boolean useBaseHeight;
 
 	public WorldGenMegaPineTree(boolean notify, boolean p_i45457_2_) {
-
 		super(notify, 13, 15, TRUNK, LEAF);
 		useBaseHeight = p_i45457_2_;
 	}
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		int i = getHeight(rand);
 
 		if (!ensureGrowable(worldIn, rand, position, i)) {
@@ -65,7 +63,6 @@ public class WorldGenMegaPineTree extends WorldGenHugeTrees {
 	}
 
 	private void createCrown(World worldIn, int x, int z, int y, int p_150541_5_, Random rand) {
-
 		int i = rand.nextInt(5) + (useBaseHeight ? baseHeight : 3);
 		int j = 0;
 
@@ -78,7 +75,6 @@ public class WorldGenMegaPineTree extends WorldGenHugeTrees {
 	}
 
 	public void generateSaplings(World worldIn, Random random, BlockPos pos) {
-
 		placePodzolCircle(worldIn, pos.west().north());
 		placePodzolCircle(worldIn, pos.east(2).north());
 		placePodzolCircle(worldIn, pos.west().south(2));
@@ -96,7 +92,6 @@ public class WorldGenMegaPineTree extends WorldGenHugeTrees {
 	}
 
 	private void placePodzolCircle(World worldIn, BlockPos center) {
-
 		for (int i = -2; i <= 2; ++i) {
 			for (int j = -2; j <= 2; ++j) {
 				if (Math.abs(i) != 2 || Math.abs(j) != 2) {
@@ -107,7 +102,6 @@ public class WorldGenMegaPineTree extends WorldGenHugeTrees {
 	}
 
 	private void placePodzolAt(World worldIn, BlockPos pos) {
-
 		for (int i = 2; i >= -3; --i) {
 			BlockPos blockpos = pos.up(i);
 			IBlockState iblockstate = worldIn.getBlockState(blockpos);

@@ -10,28 +10,23 @@ public class ModelResourceLocation extends ResourceLocation {
 	private final String variant;
 
 	protected ModelResourceLocation(int unused, String... resourceName) {
-
 		super(0, resourceName[0], resourceName[1]);
 		variant = (resourceName[2] == null || resourceName[2].isEmpty()) ? "normal" : resourceName[2].toLowerCase(Locale.ROOT);
 	}
 
 	public ModelResourceLocation(String pathIn) {
-
 		this(0, parsePathString(pathIn));
 	}
 
 	public ModelResourceLocation(ResourceLocation location, String variantIn) {
-
 		this(location.toString(), variantIn);
 	}
 
 	public ModelResourceLocation(String location, String variantIn) {
-
 		this(0, parsePathString(location + '#' + (variantIn == null ? "normal" : variantIn)));
 	}
 
 	protected static String[] parsePathString(String pathIn) {
-
 		String[] astring = new String[]{null, pathIn, null};
 		int i = pathIn.indexOf(35);
 		String s = pathIn;
@@ -49,12 +44,10 @@ public class ModelResourceLocation extends ResourceLocation {
 	}
 
 	public String getVariant() {
-
 		return variant;
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else if (p_equals_1_ instanceof ModelResourceLocation modelresourcelocation && super.equals(p_equals_1_)) {
@@ -65,12 +58,10 @@ public class ModelResourceLocation extends ResourceLocation {
 	}
 
 	public int hashCode() {
-
 		return 31 * super.hashCode() + variant.hashCode();
 	}
 
 	public String toString() {
-
 		return super.toString() + '#' + variant;
 	}
 

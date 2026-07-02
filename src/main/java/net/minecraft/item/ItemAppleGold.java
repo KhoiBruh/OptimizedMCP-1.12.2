@@ -10,7 +10,6 @@ import net.minecraft.world.World;
 public class ItemAppleGold extends ItemFood {
 
 	public ItemAppleGold(int amount, float saturation, boolean isWolfFood) {
-
 		super(amount, saturation, isWolfFood);
 		setHasSubtypes(true);
 	}
@@ -24,7 +23,6 @@ public class ItemAppleGold extends ItemFood {
 	 * the glint for enchanted items. Of course, that is unnecessary if the overwritten version always returns true.
 	 */
 	public boolean hasEffect(ItemStack stack) {
-
 		return super.hasEffect(stack) || stack.getMetadata() > 0;
 	}
 
@@ -32,12 +30,10 @@ public class ItemAppleGold extends ItemFood {
 	 * Return an item rarity from Rarity
 	 */
 	public Rarity getRarity(ItemStack stack) {
-
 		return stack.getMetadata() == 0 ? Rarity.RARE : Rarity.EPIC;
 	}
 
 	protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
-
 		if (!worldIn.isRemote) {
 			if (stack.getMetadata() > 0) {
 				player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 400, 1));
@@ -55,7 +51,6 @@ public class ItemAppleGold extends ItemFood {
 	 * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
 	 */
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-
 		if (isInCreativeTab(tab)) {
 			items.add(new ItemStack(this));
 			items.add(new ItemStack(this, 1, 1));

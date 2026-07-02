@@ -26,26 +26,22 @@ public class GuiNewChat extends Gui {
 	private boolean isScrolled;
 
 	public GuiNewChat(Minecraft mcIn) {
-
 		mc = mcIn;
 	}
 
 	public static int calculateChatboxWidth(float scale) {
-
 		int i = 320;
 		int j = 40;
 		return MathHelper.floor(scale * 280F + 40F);
 	}
 
 	public static int calculateChatboxHeight(float scale) {
-
 		int i = 180;
 		int j = 20;
 		return MathHelper.floor(scale * 160F + 20F);
 	}
 
 	public void drawChat(int updateCounter) {
-
 		if (mc.gameSettings.chatVisibility != EntityPlayer.ChatVisibility.HIDDEN) {
 			int i = getLineCount();
 			int j = drawnChatLines.size();
@@ -121,7 +117,6 @@ public class GuiNewChat extends Gui {
 	 * Clears the chat.
 	 */
 	public void clearChatMessages(boolean p_146231_1_) {
-
 		drawnChatLines.clear();
 		chatLines.clear();
 
@@ -131,7 +126,6 @@ public class GuiNewChat extends Gui {
 	}
 
 	public void printChatMessage(ITextComponent chatComponent) {
-
 		printChatMessageWithOptionalDeletion(chatComponent, 0);
 	}
 
@@ -139,13 +133,11 @@ public class GuiNewChat extends Gui {
 	 * prints the ChatComponent to Chat. If the ID is not 0, deletes an existing Chat Line of that ID from the GUI
 	 */
 	public void printChatMessageWithOptionalDeletion(ITextComponent chatComponent, int chatLineId) {
-
 		setChatLine(chatComponent, chatLineId, mc.ingameGUI.getUpdateCounter(), false);
 		LOGGER.info("[CHAT] {}", chatComponent.getUnformattedText().replaceAll("\r", "\\\\r").replaceAll("\n", "\\\\n"));
 	}
 
 	private void setChatLine(ITextComponent chatComponent, int chatLineId, int updateCounter, boolean displayOnly) {
-
 		if (chatLineId != 0) {
 			deleteChatLine(chatLineId);
 		}
@@ -177,7 +169,6 @@ public class GuiNewChat extends Gui {
 	}
 
 	public void refreshChat() {
-
 		drawnChatLines.clear();
 		resetScroll();
 
@@ -188,7 +179,6 @@ public class GuiNewChat extends Gui {
 	}
 
 	public List<String> getSentMessages() {
-
 		return sentMessages;
 	}
 
@@ -196,7 +186,6 @@ public class GuiNewChat extends Gui {
 	 * Adds this string to the list of sent messages, for recall using the up/down arrow keys
 	 */
 	public void addToSentMessages(String message) {
-
 		if (sentMessages.isEmpty() || !sentMessages.getLast().equals(message)) {
 			sentMessages.add(message);
 		}
@@ -206,7 +195,6 @@ public class GuiNewChat extends Gui {
 	 * Resets the chat scroll (executed when the GUI is closed, among others)
 	 */
 	public void resetScroll() {
-
 		scrollPos = 0;
 		isScrolled = false;
 	}
@@ -215,7 +203,6 @@ public class GuiNewChat extends Gui {
 	 * Scrolls the chat by the given number of lines.
 	 */
 	public void scroll(int amount) {
-
 		scrollPos += amount;
 		int i = drawnChatLines.size();
 
@@ -235,7 +222,6 @@ public class GuiNewChat extends Gui {
 	 * Gets the chat component under the mouse
 	 */
 	public ITextComponent getChatComponent(int mouseX, int mouseY) {
-		
 		if (getChatOpen()) {
 			int i = mc.getWindow().getGuiScale();
 			float f = getChatScale();
@@ -276,7 +262,6 @@ public class GuiNewChat extends Gui {
 	 * Returns true if the chat GUI is open
 	 */
 	public boolean getChatOpen() {
-
 		return mc.currentScreen instanceof ChatScreen;
 	}
 
@@ -284,7 +269,6 @@ public class GuiNewChat extends Gui {
 	 * finds and deletes a Chat line by ID
 	 */
 	public void deleteChatLine(int id) {
-
 		Iterator<ChatLine> iterator = drawnChatLines.iterator();
 
 		while (iterator.hasNext()) {
@@ -308,12 +292,10 @@ public class GuiNewChat extends Gui {
 	}
 
 	public int getChatWidth() {
-
 		return calculateChatboxWidth(mc.gameSettings.chatWidth);
 	}
 
 	public int getChatHeight() {
-
 		return calculateChatboxHeight(getChatOpen() ? mc.gameSettings.chatHeightFocused : mc.gameSettings.chatHeightUnfocused);
 	}
 
@@ -321,12 +303,10 @@ public class GuiNewChat extends Gui {
 	 * Returns the chatscale from mc.gameSettings.chatScale
 	 */
 	public float getChatScale() {
-
 		return mc.gameSettings.chatScale;
 	}
 
 	public int getLineCount() {
-
 		return getChatHeight() / 9;
 	}
 

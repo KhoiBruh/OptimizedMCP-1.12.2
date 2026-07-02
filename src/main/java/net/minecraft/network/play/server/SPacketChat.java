@@ -12,16 +12,13 @@ public class SPacketChat implements Packet<INetHandlerPlayClient> {
 	private ChatType type;
 
 	public SPacketChat() {
-
 	}
 
 	public SPacketChat(ITextComponent componentIn) {
-
 		this(componentIn, ChatType.SYSTEM);
 	}
 
 	public SPacketChat(ITextComponent message, ChatType type) {
-
 		chatComponent = message;
 		this.type = type;
 	}
@@ -30,7 +27,6 @@ public class SPacketChat implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		chatComponent = buf.readTextComponent();
 		type = ChatType.byId(buf.readByte());
 	}
@@ -39,7 +35,6 @@ public class SPacketChat implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeTextComponent(chatComponent);
 		buf.writeByte(type.getId());
 	}
@@ -48,12 +43,10 @@ public class SPacketChat implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleChat(this);
 	}
 
 	public ITextComponent getChatComponent() {
-
 		return chatComponent;
 	}
 
@@ -61,12 +54,10 @@ public class SPacketChat implements Packet<INetHandlerPlayClient> {
 	 * This method returns true if the type is SYSTEM or ABOVE_HOTBAR, and false if CHAT
 	 */
 	public boolean isSystem() {
-
 		return type == ChatType.SYSTEM || type == ChatType.GAME_INFO;
 	}
 
 	public ChatType getType() {
-
 		return type;
 	}
 

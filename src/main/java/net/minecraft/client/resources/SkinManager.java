@@ -35,7 +35,6 @@ public class SkinManager {
 	private final LoadingCache<GameProfile, Map<Type, MinecraftProfileTexture>> skinCacheLoader;
 
 	public SkinManager(TextureManager textureManagerInstance, File skinCacheDirectory, MinecraftSessionService sessionService) {
-
 		textureManager = textureManagerInstance;
 		skinCacheDir = skinCacheDirectory;
 		this.sessionService = sessionService;
@@ -55,7 +54,6 @@ public class SkinManager {
 	 * Used in the Skull renderer to fetch a skin. May download the skin if it's not in the cache
 	 */
 	public ResourceLocation loadSkin(MinecraftProfileTexture profileTexture, Type textureType) {
-
 		return loadSkin(profileTexture, textureType, null);
 	}
 
@@ -63,7 +61,6 @@ public class SkinManager {
 	 * May download the skin if its not in the cache, can be passed a SkinManager#SkinAvailableCallback for handling
 	 */
 	public ResourceLocation loadSkin(final MinecraftProfileTexture profileTexture, final Type textureType, final SkinManager.SkinAvailableCallback skinAvailableCallback) {
-
 		final ResourceLocation resourcelocation = new ResourceLocation("skins/" + profileTexture.getHash());
 		ITextureObject itextureobject = textureManager.getTexture(resourcelocation);
 
@@ -77,7 +74,6 @@ public class SkinManager {
 			final IImageBuffer iimagebuffer = textureType == Type.SKIN ? new ImageBufferDownload() : null;
 			ThreadDownloadImageData threaddownloadimagedata = new ThreadDownloadImageData(file2, profileTexture.getUrl(), DefaultPlayerSkin.getDefaultSkinLegacy(), new IImageBuffer() {
 				public BufferedImage parseUserSkin(BufferedImage image) {
-
 					if (iimagebuffer != null) {
 						image = iimagebuffer.parseUserSkin(image);
 					}
@@ -86,7 +82,6 @@ public class SkinManager {
 				}
 
 				public void skinAvailable() {
-
 					if (iimagebuffer != null) {
 						iimagebuffer.skinAvailable();
 					}
@@ -103,7 +98,6 @@ public class SkinManager {
 	}
 
 	public void loadProfileTextures(final GameProfile profile, final SkinManager.SkinAvailableCallback skinAvailableCallback, final boolean requireSecure) {
-
 		THREAD_POOL.submit(() -> {
 
 			final Map<Type, MinecraftProfileTexture> map = Maps.newHashMap();

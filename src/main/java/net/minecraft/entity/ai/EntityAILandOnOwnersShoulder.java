@@ -11,7 +11,6 @@ public class EntityAILandOnOwnersShoulder extends EntityAIBase {
 	private boolean isSittingOnShoulder;
 
 	public EntityAILandOnOwnersShoulder(EntityShoulderRiding entityIn) {
-
 		entity = entityIn;
 	}
 
@@ -19,7 +18,6 @@ public class EntityAILandOnOwnersShoulder extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		EntityLivingBase entitylivingbase = entity.getOwner();
 		boolean flag = entitylivingbase != null && !((EntityPlayer) entitylivingbase).isSpectator() && !((EntityPlayer) entitylivingbase).capabilities.isFlying && !entitylivingbase.isInWater();
 		return !entity.isSitting() && flag && entity.canSitOnShoulder();
@@ -30,7 +28,6 @@ public class EntityAILandOnOwnersShoulder extends EntityAIBase {
 	 * this value set to true.
 	 */
 	public boolean isInterruptible() {
-
 		return !isSittingOnShoulder;
 	}
 
@@ -38,7 +35,6 @@ public class EntityAILandOnOwnersShoulder extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		owner = (EntityPlayer) entity.getOwner();
 		isSittingOnShoulder = false;
 	}
@@ -47,7 +43,6 @@ public class EntityAILandOnOwnersShoulder extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		if (!isSittingOnShoulder && !entity.isSitting() && !entity.getLeashed()) {
 			if (entity.getEntityBoundingBox().intersects(owner.getEntityBoundingBox())) {
 				isSittingOnShoulder = entity.setEntityOnShoulder(owner);

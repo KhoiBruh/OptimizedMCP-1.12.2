@@ -20,7 +20,6 @@ public class FlatGeneratorInfo {
 	private int biomeToUse;
 
 	private static FlatLayerInfo getLayerFromString(int p_180715_0_, String p_180715_1_, int p_180715_2_) {
-
 		String[] astring = p_180715_0_ >= 3 ? p_180715_1_.split("\\*", 2) : p_180715_1_.split("x", 2);
 		int i = 1;
 		int j = 0;
@@ -90,7 +89,6 @@ public class FlatGeneratorInfo {
 	}
 
 	private static List<FlatLayerInfo> getLayersFromString(int p_180716_0_, String p_180716_1_) {
-
 		if (p_180716_1_ != null && !p_180716_1_.isEmpty()) {
 			List<FlatLayerInfo> list = Lists.newArrayList();
 			String[] astring = p_180716_1_.split(",");
@@ -114,7 +112,6 @@ public class FlatGeneratorInfo {
 	}
 
 	public static FlatGeneratorInfo createFlatGeneratorFromString(String flatGeneratorSettings) {
-
 		if (flatGeneratorSettings == null) {
 			return getDefaultFlatGenerator();
 		} else {
@@ -175,7 +172,6 @@ public class FlatGeneratorInfo {
 	}
 
 	public static FlatGeneratorInfo getDefaultFlatGenerator() {
-
 		FlatGeneratorInfo flatgeneratorinfo = new FlatGeneratorInfo();
 		flatgeneratorinfo.setBiome(Biome.getIdForBiome(Biomes.PLAINS));
 		flatgeneratorinfo.getFlatLayers().add(new FlatLayerInfo(1, Blocks.BEDROCK));
@@ -190,7 +186,6 @@ public class FlatGeneratorInfo {
 	 * Return the biome used on this preset.
 	 */
 	public int getBiome() {
-
 		return biomeToUse;
 	}
 
@@ -198,7 +193,6 @@ public class FlatGeneratorInfo {
 	 * Set the biome used on this preset.
 	 */
 	public void setBiome(int biome) {
-
 		biomeToUse = biome;
 	}
 
@@ -208,12 +202,10 @@ public class FlatGeneratorInfo {
 	}
 
 	public List<FlatLayerInfo> getFlatLayers() {
-
 		return flatLayers;
 	}
 
 	public void updateLayers() {
-
 		int i = 0;
 
 		for (FlatLayerInfo flatlayerinfo : flatLayers) {
@@ -223,7 +215,6 @@ public class FlatGeneratorInfo {
 	}
 
 	public String toString() {
-
 		StringBuilder stringbuilder = new StringBuilder();
 		stringbuilder.append(3);
 		stringbuilder.append(";");

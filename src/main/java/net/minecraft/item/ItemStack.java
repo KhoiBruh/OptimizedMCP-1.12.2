@@ -74,32 +74,26 @@ public final class ItemStack {
 	private boolean canPlaceOnCacheResult;
 
 	public ItemStack(Block blockIn) {
-
 		this(blockIn, 1);
 	}
 
 	public ItemStack(Block blockIn, int amount) {
-
 		this(blockIn, amount, 0);
 	}
 
 	public ItemStack(Block blockIn, int amount, int meta) {
-
 		this(Item.getItemFromBlock(blockIn), amount, meta);
 	}
 
 	public ItemStack(Item itemIn) {
-
 		this(itemIn, 1);
 	}
 
 	public ItemStack(Item itemIn, int amount) {
-
 		this(itemIn, amount, 0);
 	}
 
 	public ItemStack(Item itemIn, int amount, int meta) {
-
 		item = itemIn;
 		itemDamage = meta;
 		stackSize = amount;
@@ -112,7 +106,6 @@ public final class ItemStack {
 	}
 
 	public ItemStack(NBTTagCompound compound) {
-
 		item = Item.getByNameOrId(compound.getString("id"));
 		stackSize = compound.getByte("Count");
 		itemDamage = Math.max(0, compound.getShort("Damage"));
@@ -129,13 +122,11 @@ public final class ItemStack {
 	}
 
 	public static void registerFixes(DataFixer fixer) {
-
 		fixer.registerWalker(FixTypes.ITEM_INSTANCE, new BlockEntityTag());
 		fixer.registerWalker(FixTypes.ITEM_INSTANCE, new EntityTag());
 	}
 
 	public static boolean areItemStackTagsEqual(ItemStack stackA, ItemStack stackB) {
-
 		if (stackA.isEmpty() && stackB.isEmpty()) {
 			return true;
 		} else if (!stackA.isEmpty() && !stackB.isEmpty()) {
@@ -153,7 +144,6 @@ public final class ItemStack {
 	 * compares ItemStack argument1 with ItemStack argument2; returns true if both ItemStacks are equal
 	 */
 	public static boolean areItemStacksEqual(ItemStack stackA, ItemStack stackB) {
-
 		if (stackA.isEmpty() && stackB.isEmpty()) {
 			return true;
 		} else {
@@ -165,7 +155,6 @@ public final class ItemStack {
 	 * Compares Item and damage value of the two stacks
 	 */
 	public static boolean areItemsEqual(ItemStack stackA, ItemStack stackB) {
-
 		if (stackA == stackB) {
 			return true;
 		} else {
@@ -174,7 +163,6 @@ public final class ItemStack {
 	}
 
 	public static boolean areItemsEqualIgnoreDurability(ItemStack stackA, ItemStack stackB) {
-
 		if (stackA == stackB) {
 			return true;
 		} else {
@@ -183,12 +171,10 @@ public final class ItemStack {
 	}
 
 	private void updateEmptyState() {
-
 		isEmpty = isEmpty();
 	}
 
 	public boolean isEmpty() {
-
 		if (this == EMPTY) {
 			return true;
 		} else if (item != null && item != Item.getItemFromBlock(Blocks.AIR)) {
@@ -206,7 +192,6 @@ public final class ItemStack {
 	 * Splits off a stack of the given amount of this stack and reduces this stack by the amount.
 	 */
 	public ItemStack splitStack(int amount) {
-
 		int i = Math.min(amount, stackSize);
 		ItemStack itemstack = copy();
 		itemstack.setCount(i);
@@ -218,7 +203,6 @@ public final class ItemStack {
 	 * Returns the object corresponding to the stack.
 	 */
 	public Item getItem() {
-
 		return isEmpty ? Item.getItemFromBlock(Blocks.AIR) : item;
 	}
 
@@ -227,7 +211,6 @@ public final class ItemStack {
 	 * tryPlaceItemIntoWorld)
 	 */
 	public ActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, Hand hand, Facing side, float hitX, float hitY, float hitZ) {
-
 		ActionResult enumactionresult = getItem().onItemUse(playerIn, worldIn, pos, hand, side, hitX, hitY, hitZ);
 
 		if (enumactionresult == ActionResult.SUCCESS) {
@@ -238,12 +221,10 @@ public final class ItemStack {
 	}
 
 	public float getDestroySpeed(IBlockState blockIn) {
-
 		return getItem().getDestroySpeed(this, blockIn);
 	}
 
 	public TypedActionResult<ItemStack> useItemRightClick(World worldIn, EntityPlayer playerIn, Hand hand) {
-
 		return getItem().onItemRightClick(worldIn, playerIn, hand);
 	}
 
@@ -251,7 +232,6 @@ public final class ItemStack {
 	 * Called when the item in use count reach 0, e.g. item food eaten. Return the new ItemStack. Args : world, entity
 	 */
 	public ItemStack onItemUseFinish(World worldIn, EntityLivingBase entityLiving) {
-
 		return getItem().onItemUseFinish(this, worldIn, entityLiving);
 	}
 
@@ -259,7 +239,6 @@ public final class ItemStack {
 	 * Write the stack fields to a NBT object. Return the new NBT object.
 	 */
 	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
-
 		ResourceLocation resourcelocation = Item.REGISTRY.getNameForObject(item);
 		nbt.setString("id", resourcelocation == null ? "minecraft:air" : resourcelocation.toString());
 		nbt.setByte("Count", (byte) stackSize);
@@ -276,7 +255,6 @@ public final class ItemStack {
 	 * Returns maximum size of the stack.
 	 */
 	public int getMaxStackSize() {
-
 		return getItem().getItemStackLimit();
 	}
 
@@ -284,7 +262,6 @@ public final class ItemStack {
 	 * Returns true if the ItemStack can hold 2 or more units of the item.
 	 */
 	public boolean isStackable() {
-
 		return getMaxStackSize() > 1 && (!isItemStackDamageable() || !isItemDamaged());
 	}
 
@@ -292,7 +269,6 @@ public final class ItemStack {
 	 * true if this itemStack is damageable
 	 */
 	public boolean isItemStackDamageable() {
-
 		if (isEmpty) {
 			return false;
 		} else if (item.getMaxDamage() <= 0) {
@@ -303,7 +279,6 @@ public final class ItemStack {
 	}
 
 	public boolean getHasSubtypes() {
-
 		return getItem().getHasSubtypes();
 	}
 
@@ -311,17 +286,14 @@ public final class ItemStack {
 	 * returns true when a damageable item is damaged
 	 */
 	public boolean isItemDamaged() {
-
 		return isItemStackDamageable() && itemDamage > 0;
 	}
 
 	public int getItemDamage() {
-
 		return itemDamage;
 	}
 
 	public void setItemDamage(int meta) {
-
 		itemDamage = meta;
 
 		if (itemDamage < 0) {
@@ -330,7 +302,6 @@ public final class ItemStack {
 	}
 
 	public int getMetadata() {
-
 		return itemDamage;
 	}
 
@@ -338,7 +309,6 @@ public final class ItemStack {
 	 * Returns the max damage an item in the stack can take.
 	 */
 	public int getMaxDamage() {
-
 		return getItem().getMaxDamage();
 	}
 
@@ -349,7 +319,6 @@ public final class ItemStack {
 	 * negated.
 	 */
 	public boolean attemptDamageItem(int amount, Random rand, EntityPlayerMP damager) {
-
 		if (!isItemStackDamageable()) {
 			return false;
 		} else {
@@ -383,7 +352,6 @@ public final class ItemStack {
 	 * Damages the item in the ItemStack
 	 */
 	public void damageItem(int amount, EntityLivingBase entityIn) {
-
 		if (!(entityIn instanceof EntityPlayer) || !((EntityPlayer) entityIn).capabilities.isCreativeMode) {
 			if (isItemStackDamageable()) {
 				if (attemptDamageItem(amount, entityIn.getRNG(), entityIn instanceof EntityPlayerMP ? (EntityPlayerMP) entityIn : null)) {
@@ -405,7 +373,6 @@ public final class ItemStack {
 	 * increase.
 	 */
 	public void hitEntity(EntityLivingBase entityIn, EntityPlayer playerIn) {
-
 		boolean flag = item.hitEntity(this, entityIn, playerIn);
 
 		if (flag) {
@@ -417,7 +384,6 @@ public final class ItemStack {
 	 * Called when a Block is destroyed using this ItemStack
 	 */
 	public void onBlockDestroyed(World worldIn, IBlockState blockIn, BlockPos pos, EntityPlayer playerIn) {
-
 		boolean flag = getItem().onBlockDestroyed(this, worldIn, blockIn, pos, playerIn);
 
 		if (flag) {
@@ -429,12 +395,10 @@ public final class ItemStack {
 	 * Check whether the given Block can be harvested using this ItemStack.
 	 */
 	public boolean canHarvestBlock(IBlockState blockIn) {
-
 		return getItem().canHarvestBlock(blockIn);
 	}
 
 	public boolean interactWithEntity(EntityPlayer playerIn, EntityLivingBase entityIn, Hand hand) {
-
 		return getItem().itemInteractionForEntity(this, playerIn, entityIn, hand);
 	}
 
@@ -442,7 +406,6 @@ public final class ItemStack {
 	 * Returns a new stack with the same properties.
 	 */
 	public ItemStack copy() {
-
 		ItemStack itemstack = new ItemStack(item, stackSize, itemDamage);
 		itemstack.setAnimationsToGo(getAnimationsToGo());
 
@@ -457,7 +420,6 @@ public final class ItemStack {
 	 * compares ItemStack argument to the instance ItemStack; returns true if both ItemStacks are equal
 	 */
 	private boolean isItemStackEqual(ItemStack other) {
-
 		if (stackSize != other.stackSize) {
 			return false;
 		} else if (getItem() != other.getItem()) {
@@ -476,12 +438,10 @@ public final class ItemStack {
 	 * equal
 	 */
 	public boolean isItemEqual(ItemStack other) {
-
 		return !other.isEmpty() && item == other.item && itemDamage == other.itemDamage;
 	}
 
 	public boolean isItemEqualIgnoreDurability(ItemStack stack) {
-
 		if (!isItemStackDamageable()) {
 			return isItemEqual(stack);
 		} else {
@@ -490,12 +450,10 @@ public final class ItemStack {
 	}
 
 	public String getUnlocalizedName() {
-
 		return getItem().getUnlocalizedName(this);
 	}
 
 	public String toString() {
-
 		return stackSize + "x" + getItem().getUnlocalizedName() + "@" + itemDamage;
 	}
 
@@ -504,7 +462,6 @@ public final class ItemStack {
 	 * maps.
 	 */
 	public void updateAnimation(World worldIn, Entity entityIn, int inventorySlot, boolean isCurrentItem) {
-
 		if (animationsToGo > 0) {
 			--animationsToGo;
 		}
@@ -515,18 +472,15 @@ public final class ItemStack {
 	}
 
 	public void onCrafting(World worldIn, EntityPlayer playerIn, int amount) {
-
 		playerIn.addStat(StatList.getCraftStats(item), amount);
 		getItem().onCreated(this, worldIn, playerIn);
 	}
 
 	public int getMaxItemUseDuration() {
-
 		return getItem().getMaxItemUseDuration(this);
 	}
 
 	public Action getItemUseAction() {
-
 		return getItem().getItemUseAction(this);
 	}
 
@@ -534,7 +488,6 @@ public final class ItemStack {
 	 * Called when the player releases the use item button.
 	 */
 	public void onPlayerStoppedUsing(World worldIn, EntityLivingBase entityLiving, int timeLeft) {
-
 		getItem().onPlayerStoppedUsing(this, worldIn, entityLiving, timeLeft);
 	}
 
@@ -542,7 +495,6 @@ public final class ItemStack {
 	 * Returns true if the ItemStack has an NBTTagCompound. Currently used to store enchantments.
 	 */
 	public boolean hasTagCompound() {
-
 		return !isEmpty && stackTagCompound != null;
 	}
 
@@ -552,7 +504,6 @@ public final class ItemStack {
 	 * Returns the NBTTagCompound of the ItemStack.
 	 */
 	public NBTTagCompound getTagCompound() {
-
 		return stackTagCompound;
 	}
 
@@ -560,12 +511,10 @@ public final class ItemStack {
 	 * Assigns a NBTTagCompound to the ItemStack, minecraft validates that only non-stackable items can have it.
 	 */
 	public void setTagCompound(NBTTagCompound nbt) {
-
 		stackTagCompound = nbt;
 	}
 
 	public NBTTagCompound getOrCreateSubCompound(String key) {
-
 		if (stackTagCompound != null && stackTagCompound.hasKey(key, 10)) {
 			return stackTagCompound.getCompoundTag(key);
 		} else {
@@ -581,19 +530,16 @@ public final class ItemStack {
 	 * Get an NBTTagCompound from this stack's NBT data.
 	 */
 	public NBTTagCompound getSubCompound(String key) {
-
 		return stackTagCompound != null && stackTagCompound.hasKey(key, 10) ? stackTagCompound.getCompoundTag(key) : null;
 	}
 
 	public void removeSubCompound(String key) {
-
 		if (stackTagCompound != null && stackTagCompound.hasKey(key, 10)) {
 			stackTagCompound.removeTag(key);
 		}
 	}
 
 	public NBTTagList getEnchantmentTagList() {
-
 		return stackTagCompound != null ? stackTagCompound.getTagList("ench", 10) : new NBTTagList();
 	}
 
@@ -601,7 +547,6 @@ public final class ItemStack {
 	 * returns the display name of the itemstack
 	 */
 	public String getDisplayName() {
-
 		NBTTagCompound nbttagcompound = getSubCompound("display");
 
 		if (nbttagcompound != null) {
@@ -618,13 +563,11 @@ public final class ItemStack {
 	}
 
 	public ItemStack setTranslatableName(String p_190924_1_) {
-
 		getOrCreateSubCompound("display").setString("LocName", p_190924_1_);
 		return this;
 	}
 
 	public ItemStack setStackDisplayName(String displayName) {
-
 		getOrCreateSubCompound("display").setString("Name", displayName);
 		return this;
 	}
@@ -633,7 +576,6 @@ public final class ItemStack {
 	 * Clear any custom name set for this ItemStack
 	 */
 	public void clearCustomName() {
-
 		NBTTagCompound nbttagcompound = getSubCompound("display");
 
 		if (nbttagcompound != null) {
@@ -653,13 +595,11 @@ public final class ItemStack {
 	 * Returns true if the itemstack has a display name
 	 */
 	public boolean hasDisplayName() {
-
 		NBTTagCompound nbttagcompound = getSubCompound("display");
 		return nbttagcompound != null && nbttagcompound.hasKey("Name", 8);
 	}
 
 	public List<String> getTooltip(EntityPlayer playerIn, ITooltipFlag advanced) {
-
 		List<String> list = Lists.newArrayList();
 		String s = getDisplayName();
 
@@ -839,12 +779,10 @@ public final class ItemStack {
 	}
 
 	public boolean hasEffect() {
-
 		return getItem().hasEffect(this);
 	}
 
 	public Rarity getRarity() {
-
 		return getItem().getRarity(this);
 	}
 
@@ -852,7 +790,6 @@ public final class ItemStack {
 	 * True if it is a tool and has no enchantments to begin with
 	 */
 	public boolean isItemEnchantable() {
-
 		if (!getItem().isEnchantable(this)) {
 			return false;
 		} else {
@@ -864,7 +801,6 @@ public final class ItemStack {
 	 * Adds an enchantment with a desired level on the ItemStack.
 	 */
 	public void addEnchantment(Enchantment ench, int level) {
-
 		if (stackTagCompound == null) {
 			setTagCompound(new NBTTagCompound());
 		}
@@ -884,7 +820,6 @@ public final class ItemStack {
 	 * True if the item has enchantment data
 	 */
 	public boolean isItemEnchanted() {
-
 		if (stackTagCompound != null && stackTagCompound.hasKey("ench", 9)) {
 			return !stackTagCompound.getTagList("ench", 10).hasNoTags();
 		} else {
@@ -893,7 +828,6 @@ public final class ItemStack {
 	}
 
 	public void setTagInfo(String key, NBTBase value) {
-
 		if (stackTagCompound == null) {
 			setTagCompound(new NBTTagCompound());
 		}
@@ -909,7 +843,6 @@ public final class ItemStack {
 	 * @see Item#canItemEditBlocks
 	 */
 	public boolean canEditBlocks() {
-
 		return getItem().canItemEditBlocks();
 	}
 
@@ -917,7 +850,6 @@ public final class ItemStack {
 	 * Return whether this stack is on an item frame.
 	 */
 	public boolean isOnItemFrame() {
-
 		return itemFrame != null;
 	}
 
@@ -927,7 +859,6 @@ public final class ItemStack {
 	 * Return the item frame this stack is on. Returns null if not on an item frame.
 	 */
 	public EntityItemFrame getItemFrame() {
-
 		return isEmpty ? null : itemFrame;
 	}
 
@@ -935,7 +866,6 @@ public final class ItemStack {
 	 * Set the item frame this stack is on.
 	 */
 	public void setItemFrame(EntityItemFrame frame) {
-
 		itemFrame = frame;
 	}
 
@@ -943,7 +873,6 @@ public final class ItemStack {
 	 * Get this stack's repair cost, or 0 if no repair cost is defined.
 	 */
 	public int getRepairCost() {
-
 		return hasTagCompound() && stackTagCompound.hasKey("RepairCost", 3) ? stackTagCompound.getInteger("RepairCost") : 0;
 	}
 
@@ -951,7 +880,6 @@ public final class ItemStack {
 	 * Set this stack's repair cost.
 	 */
 	public void setRepairCost(int cost) {
-
 		if (!hasTagCompound()) {
 			stackTagCompound = new NBTTagCompound();
 		}
@@ -983,7 +911,6 @@ public final class ItemStack {
 	}
 
 	public void addAttributeModifier(String attributeName, AttributeModifier modifier, EntityEquipmentSlot equipmentSlot) {
-
 		if (stackTagCompound == null) {
 			stackTagCompound = new NBTTagCompound();
 		}
@@ -1007,7 +934,6 @@ public final class ItemStack {
 	 * Get a ChatComponent for this Item's display name that shows this Item on hover
 	 */
 	public ITextComponent getTextComponent() {
-
 		TextComponentString textcomponentstring = new TextComponentString(getDisplayName());
 
 		if (hasDisplayName()) {
@@ -1026,7 +952,6 @@ public final class ItemStack {
 	}
 
 	public boolean canDestroy(Block blockIn) {
-
 		if (blockIn == canDestroyCacheBlock) {
 			return canDestroyCacheResult;
 		} else {
@@ -1058,7 +983,6 @@ public final class ItemStack {
 	 * @return whether the {@code "CanPlaceOn"} tag contains the given block.
 	 */
 	public boolean canPlaceOn(Block blockIn) {
-
 		if (blockIn == canPlaceOnCacheBlock) {
 			return canPlaceOnCacheResult;
 		} else {
@@ -1083,33 +1007,27 @@ public final class ItemStack {
 	}
 
 	public int getAnimationsToGo() {
-
 		return animationsToGo;
 	}
 
 	public void setAnimationsToGo(int animations) {
-
 		animationsToGo = animations;
 	}
 
 	public int getCount() {
-
 		return isEmpty ? 0 : stackSize;
 	}
 
 	public void setCount(int size) {
-
 		stackSize = size;
 		updateEmptyState();
 	}
 
 	public void grow(int quantity) {
-
 		setCount(stackSize + quantity);
 	}
 
 	public void shrink(int quantity) {
-
 		grow(-quantity);
 	}
 

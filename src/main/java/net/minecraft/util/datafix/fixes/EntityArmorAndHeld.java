@@ -8,12 +8,10 @@ import net.minecraft.util.datafix.IFixableData;
 public class EntityArmorAndHeld implements IFixableData {
 
 	public int getFixVersion() {
-
 		return 100;
 	}
 
 	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
-
 		NBTTagList nbttaglist = compound.getTagList("Equipment", 10);
 
 		if (!nbttaglist.hasNoTags() && !compound.hasKey("HandItems", 10)) {

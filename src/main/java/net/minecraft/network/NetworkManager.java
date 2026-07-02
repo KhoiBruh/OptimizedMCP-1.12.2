@@ -44,19 +44,16 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	public static final ThreadFactory nettyIOFactory = Thread.ofVirtual().name("Netty IO #%d", 0).factory();
 	public static final LazyLoadBase<MultiThreadIoEventLoopGroup> CLIENT_NIO_EVENT_LOOP = new LazyLoadBase<>() {
 		protected MultiThreadIoEventLoopGroup load() {
-
 			return new MultiThreadIoEventLoopGroup(0, nettyIOFactory, NioIoHandler.newFactory());
 		}
 	};
 	public static final LazyLoadBase<MultiThreadIoEventLoopGroup> CLIENT_LOCAL_EVENT_LOOP = new LazyLoadBase<>() {
 		protected MultiThreadIoEventLoopGroup load() {
-
 			return new MultiThreadIoEventLoopGroup(0, nettyIOFactory, LocalIoHandler.newFactory());
 		}
 	};
 	public static final LazyLoadBase<MultiThreadIoEventLoopGroup> CLIENT_EPOLL_EVENT_LOOP = new LazyLoadBase<>() {
 		protected MultiThreadIoEventLoopGroup load() {
-
 			return new MultiThreadIoEventLoopGroup(0, nettyIOFactory, EpollIoHandler.newFactory());
 		}
 	};
@@ -89,7 +86,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	private boolean disconnected;
 
 	public NetworkManager(PacketDirection packetDirection) {
-
 		direction = packetDirection;
 	}
 
@@ -97,7 +93,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	 * Create a new NetworkManager from the server host and connect it to the server
 	 */
 	public static NetworkManager createNetworkManagerAndConnect(InetAddress address, int serverPort, boolean useNativeTransport) {
-
 		final NetworkManager networkmanager = new NetworkManager(PacketDirection.CLIENTBOUND);
 		Class<? extends SocketChannel> oclass;
 		LazyLoadBase<? extends EventLoopGroup> lazyloadbase;
@@ -115,7 +110,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 				.handler(
 						new ChannelInitializer<>() {
 							protected void initChannel(Channel channel) {
-
 								channel.config().setOption(ChannelOption.TCP_NODELAY, true);
 
 								channel.pipeline()
@@ -139,14 +133,12 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	 * pipeline. Returns the newly created instance.
 	 */
 	public static NetworkManager provideLocalClient(SocketAddress address) {
-
 		final NetworkManager manager = new NetworkManager(PacketDirection.CLIENTBOUND);
 
 		new Bootstrap()
 				.group(CLIENT_LOCAL_EVENT_LOOP.getValue())
 				.handler(new ChannelInitializer<>() {
 					         protected void initChannel(Channel channel) {
-
 						         channel.pipeline().addLast("packet_handler", manager);
 					         }
 				         }
@@ -159,7 +151,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	}
 
 	public void channelActive(ChannelHandlerContext context) throws Exception {
-
 		super.channelActive(context);
 		channel = context.channel();
 		socketAddress = channel.remoteAddress();
@@ -175,19 +166,16 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	 * Sets the new connection state and registers which packets this channel may send and receive
 	 */
 	public void setConnectionState(ConnectionState newState) {
-
 		channel.attr(PROTOCOL_ATTRIBUTE_KEY).set(newState);
 		channel.config().setAutoRead(true);
 		LOGGER.debug("Enabled auto read");
 	}
 
 	public void channelInactive(ChannelHandlerContext context) {
-
 		closeChannel(new TextComponentTranslation("disconnect.endOfStream"));
 	}
 
 	public void exceptionCaught(ChannelHandlerContext context, Throwable throwable) {
-
 		TextComponentTranslation translation;
 
 		if (throwable instanceof TimeoutException) {
@@ -201,7 +189,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	}
 
 	protected void channelRead0(ChannelHandlerContext context, Packet<?> packet) {
-
 		if (channel.isOpen()) {
 			try {
 				((Packet<INetHandler>) packet).processPacket(packetListener);
@@ -211,7 +198,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	}
 
 	public void sendPacket(Packet<?> packetIn) {
-
 		if (isChannelOpen()) {
 			flushOutboundQueue();
 			dispatchPacket(packetIn, null);
@@ -228,7 +214,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 
 	@SafeVarargs
 	public final void sendPacket(Packet<?> packetIn, GenericFutureListener<? extends Future<? super Void>> listener, GenericFutureListener<? extends Future<? super Void>>... listeners) {
-
 		GenericFutureListener<? extends Future<? super Void>>[] futureListeners = new GenericFutureListener[listeners.length + 1];
 		futureListeners[0] = listener;
 		System.arraycopy(listeners, 0, futureListeners, 1, listeners.length);
@@ -252,7 +237,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	 * packet, otherwise it will add a task for the channel eventloop thread to do that.
 	 */
 	private void dispatchPacket(final Packet<?> inPacket, final GenericFutureListener<? extends Future<? super Void>>[] futureListeners) {
-
 		final ConnectionState enumconnectionstate = ConnectionState.getFromPacket(inPacket);
 		final ConnectionState enumconnectionstate1 = channel.attr(PROTOCOL_ATTRIBUTE_KEY).get();
 
@@ -295,7 +279,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	 * Will iterate through the outboundPacketQueue and dispatch all Packets
 	 */
 	private void flushOutboundQueue() {
-
 		if (channel != null && channel.isOpen()) {
 			readWriteLock.readLock().lock();
 
@@ -314,7 +297,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	 * Checks timeouts and processes all packets received
 	 */
 	public void processReceivedPackets() {
-
 		flushOutboundQueue();
 
 		if (packetListener instanceof ITickable) {
@@ -330,7 +312,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	 * Returns the socket address of the remote side. Server-only.
 	 */
 	public SocketAddress getRemoteAddress() {
-
 		return socketAddress;
 	}
 
@@ -338,7 +319,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	 * Closes the channel, the parameter can be used for an exit message (not certain how it gets sent)
 	 */
 	public void closeChannel(ITextComponent message) {
-
 		if (channel.isOpen()) {
 			channel.close().awaitUninterruptibly();
 			terminationReason = message;
@@ -350,7 +330,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	 * connection or simply no active connection at all
 	 */
 	public boolean isLocalChannel() {
-
 		return channel instanceof LocalChannel || channel instanceof LocalServerChannel;
 	}
 
@@ -358,14 +337,12 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	 * Adds an encoder+decoder to the channel pipeline. The parameter is the secret key used for encrypted communication
 	 */
 	public void enableEncryption(SecretKey key) {
-
 		isEncrypted = true;
 		channel.pipeline().addBefore("splitter", "decrypt", new NettyEncryptingDecoder(CryptManager.createNetCipherInstance(2, key)));
 		channel.pipeline().addBefore("prepender", "encrypt", new NettyEncryptingEncoder(CryptManager.createNetCipherInstance(1, key)));
 	}
 
 	public boolean isEncrypted() {
-
 		return isEncrypted;
 	}
 
@@ -373,12 +350,10 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	 * Returns true if this NetworkManager has an active channel, false otherwise
 	 */
 	public boolean isChannelOpen() {
-
 		return channel != null && channel.isOpen();
 	}
 
 	public boolean hasNoChannel() {
-
 		return channel == null;
 	}
 
@@ -386,7 +361,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	 * Gets the current handler for processing packets
 	 */
 	public INetHandler getNetHandler() {
-
 		return packetListener;
 	}
 
@@ -395,7 +369,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	 * connection state (protocol)
 	 */
 	public void setNetHandler(INetHandler handler) {
-
 		Validate.notNull(handler, "packetListener");
 		LOGGER.debug("Set listener of {} to {}", this, handler);
 		packetListener = handler;
@@ -405,7 +378,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	 * If this channel is closed, returns the exit message, null otherwise.
 	 */
 	public ITextComponent getExitMessage() {
-
 		return terminationReason;
 	}
 
@@ -413,12 +385,10 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	 * Switches the channel to manual reading modus
 	 */
 	public void disableAutoRead() {
-
 		channel.config().setAutoRead(false);
 	}
 
 	public void setCompressionThreshold(int threshold) {
-
 		if (threshold >= 0) {
 			if (channel.pipeline().get("decompress") instanceof NettyCompressionDecoder) {
 				((NettyCompressionDecoder) channel.pipeline().get("decompress")).setCompressionThreshold(threshold);
@@ -443,7 +413,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	}
 
 	public void checkDisconnected() {
-
 		if (channel != null && !channel.isOpen()) {
 			if (disconnected) {
 				LOGGER.warn("handleDisconnection() called twice");
@@ -466,7 +435,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 
 		@SafeVarargs
 		public InboundHandlerTuplePacketListener(Packet<?> inPacket, GenericFutureListener<? extends Future<? super Void>>... inFutureListeners) {
-
 			packet = inPacket;
 			futureListeners = inFutureListeners;
 		}

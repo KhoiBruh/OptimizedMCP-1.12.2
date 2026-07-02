@@ -21,7 +21,6 @@ public class ChatAllowedCharacters {
 	 * Checks if the given character is allowed to be put into chat.
 	 */
 	public static boolean isAllowedCharacter(char character) {
-
 		return character != 167 && character >= ' ' && character != 127;
 	}
 
@@ -33,7 +32,6 @@ public class ChatAllowedCharacters {
 	 * @return A filtered version of the input string
 	 */
 	public static String filterAllowedCharacters(String input) {
-
 		StringBuilder stringbuilder = new StringBuilder();
 
 		for (char c0 : input.toCharArray()) {

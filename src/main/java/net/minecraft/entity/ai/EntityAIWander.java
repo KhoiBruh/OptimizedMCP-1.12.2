@@ -14,12 +14,10 @@ public class EntityAIWander extends EntityAIBase {
 	protected boolean mustUpdate;
 
 	public EntityAIWander(EntityCreature creatureIn, double speedIn) {
-
 		this(creatureIn, speedIn, 120);
 	}
 
 	public EntityAIWander(EntityCreature creatureIn, double speedIn, int chance) {
-
 		entity = creatureIn;
 		speed = speedIn;
 		executionChance = chance;
@@ -30,7 +28,6 @@ public class EntityAIWander extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		if (!mustUpdate) {
 			if (entity.getIdleTime() >= 100) {
 				return false;
@@ -56,7 +53,6 @@ public class EntityAIWander extends EntityAIBase {
 
 	
 	protected Vec3d getPosition() {
-
 		return RandomPositionGenerator.findRandomTarget(entity, 10, 7);
 	}
 
@@ -64,7 +60,6 @@ public class EntityAIWander extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		return !entity.getNavigator().noPath();
 	}
 
@@ -72,7 +67,6 @@ public class EntityAIWander extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		entity.getNavigator().tryMoveToXYZ(x, y, z, speed);
 	}
 
@@ -80,7 +74,6 @@ public class EntityAIWander extends EntityAIBase {
 	 * Makes task to bypass chance
 	 */
 	public void makeUpdate() {
-
 		mustUpdate = true;
 	}
 
@@ -88,7 +81,6 @@ public class EntityAIWander extends EntityAIBase {
 	 * Changes task random possibility for execution
 	 */
 	public void setExecutionChance(int newchance) {
-
 		executionChance = newchance;
 	}
 

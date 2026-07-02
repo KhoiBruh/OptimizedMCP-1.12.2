@@ -28,7 +28,6 @@ public class BlockSnow extends Block {
 	protected static final AxisAlignedBB[] SNOW_AABB = new AxisAlignedBB[]{new AxisAlignedBB(0D, 0D, 0D, 1D, 0D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.125D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.25D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.375D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.5D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.625D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.75D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 0.875D, 1D), new AxisAlignedBB(0D, 0D, 0D, 1D, 1D, 1D)};
 
 	protected BlockSnow() {
-
 		super(Material.SNOW);
 		setDefaultState(blockState.getBaseState().withProperty(LAYERS, 1));
 		setTickRandomly(true);
@@ -36,7 +35,6 @@ public class BlockSnow extends Block {
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return SNOW_AABB[state.getValue(LAYERS)];
 	}
 
@@ -44,7 +42,6 @@ public class BlockSnow extends Block {
 	 * Determines if an entity can path through this block
 	 */
 	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-
 		return worldIn.getBlockState(pos).getValue(LAYERS) < 5;
 	}
 
@@ -52,7 +49,6 @@ public class BlockSnow extends Block {
 	 * Determines if the block is solid enough on the top side to support other blocks, like redstone components.
 	 */
 	public boolean isTopSolid(IBlockState state) {
-
 		return state.getValue(LAYERS) == 8;
 	}
 
@@ -66,13 +62,11 @@ public class BlockSnow extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return face == Facing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 
 	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-
 		int i = blockState.getValue(LAYERS) - 1;
 		AxisAlignedBB axisalignedbb = blockState.getBoundingBox(worldIn, pos);
 		return new AxisAlignedBB(axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.minZ, axisalignedbb.maxX, (float) i * 0.125F, axisalignedbb.maxZ);
@@ -82,12 +76,10 @@ public class BlockSnow extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -95,7 +87,6 @@ public class BlockSnow extends Block {
 	 * Checks if this block can be placed exactly at the given position.
 	 */
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-
 		IBlockState iblockstate = worldIn.getBlockState(pos.down());
 		Block block = iblockstate.getBlock();
 
@@ -113,12 +104,10 @@ public class BlockSnow extends Block {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		checkAndDropBlock(worldIn, pos, state);
 	}
 
 	private boolean checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (!canPlaceBlockAt(worldIn, pos)) {
 			dropBlockAsItem(worldIn, pos, state, 0);
 			worldIn.setBlockToAir(pos);
@@ -133,7 +122,6 @@ public class BlockSnow extends Block {
 	 * Block.removedByPlayer
 	 */
 	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
-
 		spawnAsEntity(worldIn, pos, new ItemStack(Items.SNOWBALL, state.getValue(LAYERS) + 1, 0));
 		worldIn.setBlockToAir(pos);
 		player.addStat(StatList.getBlockStats(this));
@@ -143,7 +131,6 @@ public class BlockSnow extends Block {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Items.SNOWBALL;
 	}
 
@@ -151,12 +138,10 @@ public class BlockSnow extends Block {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return 0;
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if (worldIn.getLightFor(SkyBlock.BLOCK, pos) > 11) {
 			dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);
 			worldIn.setBlockToAir(pos);
@@ -164,7 +149,6 @@ public class BlockSnow extends Block {
 	}
 
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		if (side == Facing.UP) {
 			return true;
 		} else {
@@ -177,7 +161,6 @@ public class BlockSnow extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(LAYERS, (meta & 7) + 1);
 	}
 
@@ -185,7 +168,6 @@ public class BlockSnow extends Block {
 	 * Whether this Block can be replaced directly by other blocks (true for e.g. tall grass)
 	 */
 	public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
-
 		return worldIn.getBlockState(pos).getValue(LAYERS) == 1;
 	}
 
@@ -193,12 +175,10 @@ public class BlockSnow extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(LAYERS) - 1;
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, LAYERS);
 	}
 

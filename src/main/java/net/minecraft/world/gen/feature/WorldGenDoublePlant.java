@@ -12,12 +12,10 @@ public class WorldGenDoublePlant extends WorldGenerator {
 	private BlockDoublePlant.PlantType plantType;
 
 	public void setPlantType(BlockDoublePlant.PlantType plantTypeIn) {
-
 		plantType = plantTypeIn;
 	}
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		boolean flag = false;
 
 		for (int i = 0; i < 64; ++i) {

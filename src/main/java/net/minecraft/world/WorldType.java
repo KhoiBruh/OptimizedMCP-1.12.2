@@ -57,12 +57,10 @@ public class WorldType {
 	private boolean hasInfoNotice;
 
 	private WorldType(int id, String name) {
-
 		this(id, name, 0);
 	}
 
 	private WorldType(int id, String name, int version) {
-
 		this.name = name;
 		this.version = version;
 		canBeCreated = true;
@@ -71,7 +69,6 @@ public class WorldType {
 	}
 
 	public static WorldType parseWorldType(String type) {
-
 		for (WorldType worldtype : WORLD_TYPES) {
 			if (worldtype != null && worldtype.name.equalsIgnoreCase(type)) {
 				return worldtype;
@@ -82,7 +79,6 @@ public class WorldType {
 	}
 
 	public String getName() {
-
 		return name;
 	}
 
@@ -90,7 +86,6 @@ public class WorldType {
 	 * Gets the translation key for the name of this world type.
 	 */
 	public String getTranslationKey() {
-
 		return "generator." + name;
 	}
 
@@ -98,7 +93,6 @@ public class WorldType {
 	 * Gets the translation key for the info text for this world type.
 	 */
 	public String getInfoTranslationKey() {
-
 		return getTranslationKey() + ".info";
 	}
 
@@ -106,12 +100,10 @@ public class WorldType {
 	 * Returns generatorVersion.
 	 */
 	public int getVersion() {
-
 		return version;
 	}
 
 	public WorldType getWorldTypeForGeneratorVersion(int version) {
-
 		return this == DEFAULT && version == 0 ? DEFAULT_1_1 : this;
 	}
 
@@ -119,7 +111,6 @@ public class WorldType {
 	 * Sets canBeCreated to the provided value, and returns this.
 	 */
 	private WorldType setCanBeCreated(boolean enable) {
-
 		canBeCreated = enable;
 		return this;
 	}
@@ -128,7 +119,6 @@ public class WorldType {
 	 * Gets whether this WorldType can be used to generate a new world.
 	 */
 	public boolean canBeCreated() {
-
 		return canBeCreated;
 	}
 
@@ -136,7 +126,6 @@ public class WorldType {
 	 * Flags this world type as having an associated version.
 	 */
 	private WorldType setVersioned() {
-
 		versioned = true;
 		return this;
 	}
@@ -145,12 +134,10 @@ public class WorldType {
 	 * Returns true if this world Type has a version associated with it.
 	 */
 	public boolean isVersioned() {
-
 		return versioned;
 	}
 
 	public int getId() {
-
 		return id;
 	}
 
@@ -159,7 +146,6 @@ public class WorldType {
 	 * message
 	 */
 	public boolean hasInfoNotice() {
-
 		return hasInfoNotice;
 	}
 
@@ -167,7 +153,6 @@ public class WorldType {
 	 * enables the display of generator.[worldtype].info message on the customize world menu
 	 */
 	private WorldType enableInfoNotice() {
-
 		hasInfoNotice = true;
 		return this;
 	}

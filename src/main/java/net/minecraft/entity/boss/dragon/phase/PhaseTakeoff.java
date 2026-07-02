@@ -13,7 +13,6 @@ public class PhaseTakeoff extends PhaseBase {
 	private Vec3d targetLocation;
 
 	public PhaseTakeoff(EntityDragon dragonIn) {
-
 		super(dragonIn);
 	}
 
@@ -22,7 +21,6 @@ public class PhaseTakeoff extends PhaseBase {
 	 * Called by dragon's onLivingUpdate. Only used when !worldObj.isRemote.
 	 */
 	public void doLocalUpdate() {
-
 		if (!firstTick && currentPath != null) {
 			BlockPos blockpos = dragon.world.getTopSolidOrLiquidBlock(WorldGenEndPodium.END_PODIUM_LOCATION);
 			double d0 = dragon.getDistanceSqToCenter(blockpos);
@@ -40,14 +38,12 @@ public class PhaseTakeoff extends PhaseBase {
 	 * Called when this phase is set to active
 	 */
 	public void initPhase() {
-
 		firstTick = true;
 		currentPath = null;
 		targetLocation = null;
 	}
 
 	private void findNewTarget() {
-
 		int i = dragon.initPathPoints();
 		Vec3d vec3d = dragon.getHeadLookVec(1F);
 		int j = dragon.getNearestPpIdx(-vec3d.x() * 40D, 105D, -vec3d.z() * 40D);
@@ -73,7 +69,6 @@ public class PhaseTakeoff extends PhaseBase {
 	}
 
 	private void navigateToNextPathNode() {
-
 		Vec3d vec3d = currentPath.getCurrentPos();
 		currentPath.incrementPathIndex();
 		double d0;
@@ -95,12 +90,10 @@ public class PhaseTakeoff extends PhaseBase {
 	 * Returns the location the dragon is flying toward
 	 */
 	public Vec3d getTargetLocation() {
-
 		return targetLocation;
 	}
 
 	public PhaseList<PhaseTakeoff> getType() {
-
 		return PhaseList.TAKEOFF;
 	}
 

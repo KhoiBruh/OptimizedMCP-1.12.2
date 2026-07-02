@@ -18,12 +18,10 @@ public class WorldGenClay extends WorldGenerator {
 	private final int numberOfBlocks;
 
 	public WorldGenClay(int p_i2011_1_) {
-
 		numberOfBlocks = p_i2011_1_;
 	}
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		if (worldIn.getBlockState(position).getMaterial() != Material.WATER) {
 			return false;
 		} else {

@@ -20,7 +20,6 @@ public class InGameMenuScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		saveStep = 0;
 		buttons.clear();
 		int i = -16;
@@ -43,7 +42,6 @@ public class InGameMenuScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		switch (button.id) {
 			case 0:
 				mc.displayScreen(new OptionsScreen(this, mc.gameSettings));
@@ -88,7 +86,6 @@ public class InGameMenuScreen extends Screen {
 	 * Called from the main game loop to update the screen.
 	 */
 	public void update() {
-
 		super.update();
 		++visibleTime;
 	}
@@ -97,7 +94,6 @@ public class InGameMenuScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, I18n.format("menu.game"), width / 2, 40, 16777215);
 		super.draw(mouseX, mouseY, partialTicks);

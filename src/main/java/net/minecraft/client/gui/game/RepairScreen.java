@@ -26,7 +26,6 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 	private GuiTextField nameField;
 
 	public RepairScreen(InventoryPlayer inventoryIn, World worldIn) {
-
 		super(new ContainerRepair(inventoryIn, worldIn, Minecraft.getMinecraft().player));
 		playerInventory = inventoryIn;
 		anvil = (ContainerRepair) inventorySlots;
@@ -37,7 +36,6 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		super.init();
 		Keyboard.setRepeat(true);
 		int i = (width - xSize) / 2;
@@ -55,7 +53,6 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 	 * Called when the screen is unloaded. Used to disable keyboard repeat events
 	 */
 	public void close() {
-
 		super.close();
 		Keyboard.setRepeat(false);
 		inventorySlots.removeListener(this);
@@ -65,7 +62,6 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-
 		GLS.disableLighting();
 		GLS.disableBlend();
 		fontRenderer.drawString(I18n.format("container.repair"), 60, 6, 4210752);
@@ -110,7 +106,6 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-
 		if (nameField.textboxKeyTyped(typedChar, keyCode)) {
 			renameItem();
 		} else {
@@ -119,7 +114,6 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 	}
 
 	private void renameItem() {
-
 		String s = nameField.getText();
 		Slot slot = anvil.getSlot(0);
 
@@ -135,7 +129,6 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
-
 		super.mouseClicked(mouseX, mouseY, mouse);
 		nameField.mouseClicked(mouseX, mouseY, mouse);
 	}
@@ -144,7 +137,6 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		super.draw(mouseX, mouseY, partialTicks);
 		renderHoveredToolTip(mouseX, mouseY);
@@ -157,7 +149,6 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 	 * Draws the background layer of this container (behind the items).
 	 */
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-
 		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(ANVIL_RESOURCE);
 		int i = (width - xSize) / 2;
@@ -174,7 +165,6 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 	 * update the crafting window inventory with the items in the list
 	 */
 	public void sendAllContents(Container containerToSend, NonNullList<ItemStack> itemsList) {
-
 		sendSlotContents(containerToSend, 0, containerToSend.getSlot(0).getStack());
 	}
 
@@ -183,7 +173,6 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 	 * contents of that slot.
 	 */
 	public void sendSlotContents(Container containerToSend, int slotInd, ItemStack stack) {
-
 		if (slotInd == 0) {
 			nameField.setText(stack.isEmpty() ? "" : stack.getDisplayName());
 			nameField.setEnabled(!stack.isEmpty());
@@ -200,11 +189,9 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 	 * value. Both are truncated to shorts in non-local SMP.
 	 */
 	public void sendWindowProperty(Container containerIn, int varToUpdate, int newValue) {
-
 	}
 
 	public void sendAllWindowProperties(Container containerIn, IInventory inventory) {
-
 	}
 
 }

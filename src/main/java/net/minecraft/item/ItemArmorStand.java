@@ -21,7 +21,6 @@ import java.util.Random;
 public class ItemArmorStand extends Item {
 
 	public ItemArmorStand() {
-
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
 
@@ -29,7 +28,6 @@ public class ItemArmorStand extends Item {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		if (facing == Facing.DOWN) {
 			return ActionResult.FAIL;
 		} else {
@@ -76,7 +74,6 @@ public class ItemArmorStand extends Item {
 	}
 
 	private void applyRandomRotations(EntityArmorStand armorStand, Random rand) {
-
 		Rotations rotations = armorStand.getHeadRotation();
 		float f = rand.nextFloat() * 5F;
 		float f1 = rand.nextFloat() * 20F - 10F;

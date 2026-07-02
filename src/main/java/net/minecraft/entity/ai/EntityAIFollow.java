@@ -22,7 +22,6 @@ public class EntityAIFollow extends EntityAIBase {
 	private float oldWaterCost;
 
 	public EntityAIFollow(final EntityLiving p_i47417_1_, double p_i47417_2_, float p_i47417_4_, float p_i47417_5_) {
-
 		entity = p_i47417_1_;
 		followPredicate = p_apply_1_ -> p_apply_1_ != null && p_i47417_1_.getClass() != p_apply_1_.getClass();
 		speedModifier = p_i47417_2_;
@@ -40,7 +39,6 @@ public class EntityAIFollow extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		List<EntityLiving> list = entity.world.getEntitiesWithinAABB(EntityLiving.class, entity.getEntityBoundingBox().grow(areaSize), followPredicate);
 
 		if (!list.isEmpty()) {
@@ -59,7 +57,6 @@ public class EntityAIFollow extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		return followingEntity != null && !navigation.noPath() && entity.getDistanceSq(followingEntity) > (double) (stopDistance * stopDistance);
 	}
 
@@ -67,7 +64,6 @@ public class EntityAIFollow extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		timeToRecalcPath = 0;
 		oldWaterCost = entity.getPathPriority(PathNodeType.WATER);
 		entity.setPathPriority(PathNodeType.WATER, 0F);
@@ -77,7 +73,6 @@ public class EntityAIFollow extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		followingEntity = null;
 		navigation.clearPath();
 		entity.setPathPriority(PathNodeType.WATER, oldWaterCost);
@@ -87,7 +82,6 @@ public class EntityAIFollow extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		if (followingEntity != null && !entity.getLeashed()) {
 			entity.getLookHelper().setLookPositionWithEntity(followingEntity, 10F, (float) entity.getVerticalFaceSpeed());
 

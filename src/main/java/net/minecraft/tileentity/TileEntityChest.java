@@ -60,16 +60,13 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 	private BlockChest.Type cachedChestType;
 
 	public TileEntityChest() {
-
 	}
 
 	public TileEntityChest(BlockChest.Type typeIn) {
-
 		cachedChestType = typeIn;
 	}
 
 	public static void registerFixesChest(DataFixer fixer) {
-
 		fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityChest.class, "Items"));
 	}
 
@@ -77,12 +74,10 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 	 * Returns the number of slots in the inventory.
 	 */
 	public int getSizeInventory() {
-
 		return 27;
 	}
 
 	public boolean isEmpty() {
-
 		for (ItemStack itemstack : chestContents) {
 			if (!itemstack.isEmpty()) {
 				return false;
@@ -96,12 +91,10 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 	 * Get the name of this object. For players this returns their username
 	 */
 	public String getName() {
-
 		return hasCustomName() ? customName : "container.chest";
 	}
 
 	public void readFromNBT(NBTTagCompound compound) {
-
 		super.readFromNBT(compound);
 		chestContents = NonNullList.withSize(getSizeInventory(), ItemStack.EMPTY);
 
@@ -115,7 +108,6 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 	}
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
 		super.writeToNBT(compound);
 
 		if (!checkLootAndWrite(compound)) {
@@ -133,19 +125,16 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 	 * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended.
 	 */
 	public int getInventoryStackLimit() {
-
 		return 64;
 	}
 
 	public void updateContainingBlockInfo() {
-
 		super.updateContainingBlockInfo();
 		adjacentChestChecked = false;
 	}
 
 	@SuppressWarnings("incomplete-switch")
 	private void setNeighbor(TileEntityChest chestTe, Facing side) {
-
 		if (chestTe.isInvalid()) {
 			adjacentChestChecked = false;
 		} else if (adjacentChestChecked) {
@@ -183,7 +172,6 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 	 * Performs the check for adjacent chests to determine if this chest is double or not.
 	 */
 	public void checkForAdjacentChests() {
-
 		if (!adjacentChestChecked) {
 			adjacentChestChecked = true;
 			adjacentChestXNeg = getAdjacentChest(Facing.WEST);
@@ -195,7 +183,6 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 
 	
 	protected TileEntityChest getAdjacentChest(Facing side) {
-
 		BlockPos blockpos = pos.offset(side);
 
 		if (isChestAt(blockpos)) {
@@ -211,7 +198,6 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 	}
 
 	private boolean isChestAt(BlockPos posIn) {
-
 		if (world == null) {
 			return false;
 		} else {
@@ -224,7 +210,6 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 	 * Like the old updateEntity(), except more generic.
 	 */
 	public void update() {
-
 		checkForAdjacentChests();
 		int i = pos.getX();
 		int j = pos.getY();
@@ -301,7 +286,6 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 	}
 
 	public boolean receiveClientEvent(int id, int type) {
-
 		if (id == 1) {
 			numPlayersUsing = type;
 			return true;
@@ -311,7 +295,6 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 	}
 
 	public void openInventory(EntityPlayer player) {
-
 		if (!player.isSpectator()) {
 			if (numPlayersUsing < 0) {
 				numPlayersUsing = 0;
@@ -328,7 +311,6 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 	}
 
 	public void closeInventory(EntityPlayer player) {
-
 		if (!player.isSpectator() && getBlockType() instanceof BlockChest) {
 			--numPlayersUsing;
 			world.addBlockEvent(pos, getBlockType(), 1, numPlayersUsing);
@@ -344,7 +326,6 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 	 * invalidates a tile entity
 	 */
 	public void invalidate() {
-
 		super.invalidate();
 		updateContainingBlockInfo();
 		checkForAdjacentChests();
@@ -364,18 +345,15 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 	}
 
 	public String guiID() {
-
 		return "minecraft:chest";
 	}
 
 	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-
 		fillWithLoot(playerIn);
 		return new ContainerChest(playerInventory, this, playerIn);
 	}
 
 	protected NonNullList<ItemStack> getItems() {
-
 		return chestContents;
 	}
 

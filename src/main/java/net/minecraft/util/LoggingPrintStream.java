@@ -12,23 +12,19 @@ public class LoggingPrintStream extends PrintStream {
 	protected final String domain;
 
 	public LoggingPrintStream(String domainIn, OutputStream outStream) {
-
 		super(outStream);
 		domain = domainIn;
 	}
 
 	public void println(String p_println_1_) {
-
 		logString(p_println_1_);
 	}
 
 	public void println(Object p_println_1_) {
-
 		logString(String.valueOf(p_println_1_));
 	}
 
 	protected void logString(String string) {
-
 		LOGGER.info("[{}]: {}", domain, string);
 	}
 

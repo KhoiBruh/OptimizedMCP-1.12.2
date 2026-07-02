@@ -50,7 +50,6 @@ public class ModelOcelot extends ModelBase {
 	private int state = 1;
 
 	public ModelOcelot() {
-
 		setTextureOffset("head.main", 0, 0);
 		setTextureOffset("head.nose", 0, 24);
 		setTextureOffset("head.ear1", 0, 10);
@@ -89,7 +88,6 @@ public class ModelOcelot extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
 		if (isChild) {
@@ -128,7 +126,6 @@ public class ModelOcelot extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		ocelotHead.rotateAngleX = headPitch * 0.017453292F;
 		ocelotHead.rotateAngleY = netHeadYaw * 0.017453292F;
 
@@ -161,7 +158,6 @@ public class ModelOcelot extends ModelBase {
 	 * and third as in the setRotationAngles method.
 	 */
 	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTickTime) {
-
 		EntityOcelot entityocelot = (EntityOcelot) entitylivingbaseIn;
 		ocelotBody.rotationPointY = 12F;
 		ocelotBody.rotationPointZ = -10F;

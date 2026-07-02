@@ -20,14 +20,12 @@ public class RecipeTabButton extends ToggleButton {
 	private float animationTime;
 
 	public RecipeTabButton(int p_i47588_1_, CreativeTabs p_i47588_2_) {
-
 		super(p_i47588_1_, 0, 0, 35, 27, false);
 		category = p_i47588_2_;
 		initTextureValues(153, 2, 35, 0, GuiRecipeBook.RECIPE_BOOK);
 	}
 
 	public void startAnimation(Minecraft p_193918_1_) {
-
 		RecipeBook recipebook = p_193918_1_.player.getRecipeBook();
 		label21:
 
@@ -55,7 +53,6 @@ public class RecipeTabButton extends ToggleButton {
 	 * Draws this button to the screen.
 	 */
 	public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
-
 		if (visible) {
 			if (animationTime > 0F) {
 				float f = 1F + 0.1F * (float) Math.sin(animationTime / 15F * (float) Math.PI);
@@ -102,7 +99,6 @@ public class RecipeTabButton extends ToggleButton {
 	}
 
 	private void renderIcon(RenderItem p_193920_1_) {
-
 		ItemStack itemstack = category.getIconItemStack();
 
 		if (category == CreativeTabs.TOOLS) {
@@ -117,12 +113,10 @@ public class RecipeTabButton extends ToggleButton {
 	}
 
 	public CreativeTabs getCategory() {
-
 		return category;
 	}
 
 	public boolean updateVisibility() {
-
 		List<RecipeList> list = RecipeBookClient.RECIPES_BY_TAB.get(category);
 		visible = false;
 

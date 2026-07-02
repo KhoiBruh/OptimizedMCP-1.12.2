@@ -16,7 +16,6 @@ public class PhaseSittingFlaming extends PhaseSittingBase {
 	private EntityAreaEffectCloud areaEffectCloud;
 
 	public PhaseSittingFlaming(EntityDragon dragonIn) {
-
 		super(dragonIn);
 	}
 
@@ -25,7 +24,6 @@ public class PhaseSittingFlaming extends PhaseSittingBase {
 	 * Called by dragon's onLivingUpdate. Only used when worldObj.isRemote.
 	 */
 	public void doClientRenderEffects() {
-
 		++flameTicks;
 
 		if (flameTicks % 2 == 0 && flameTicks < 10) {
@@ -54,7 +52,6 @@ public class PhaseSittingFlaming extends PhaseSittingBase {
 	 * Called by dragon's onLivingUpdate. Only used when !worldObj.isRemote.
 	 */
 	public void doLocalUpdate() {
-
 		++flameTicks;
 
 		if (flameTicks >= 200) {
@@ -91,13 +88,11 @@ public class PhaseSittingFlaming extends PhaseSittingBase {
 	 * Called when this phase is set to active
 	 */
 	public void initPhase() {
-
 		flameTicks = 0;
 		++flameCount;
 	}
 
 	public void removeAreaEffect() {
-
 		if (areaEffectCloud != null) {
 			areaEffectCloud.setDead();
 			areaEffectCloud = null;
@@ -105,12 +100,10 @@ public class PhaseSittingFlaming extends PhaseSittingBase {
 	}
 
 	public PhaseList<PhaseSittingFlaming> getType() {
-
 		return PhaseList.SITTING_FLAMING;
 	}
 
 	public void resetFlameCount() {
-
 		flameCount = 0;
 	}
 

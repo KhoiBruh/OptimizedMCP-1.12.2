@@ -21,7 +21,6 @@ public class ModelParrot extends ModelBase {
 	private ModelParrot.State state = ModelParrot.State.STANDING;
 
 	public ModelParrot() {
-
 		textureWidth = 32;
 		textureHeight = 32;
 		body = new ModelRenderer(this, 2, 8);
@@ -67,7 +66,6 @@ public class ModelParrot extends ModelBase {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		body.render(scale);
 		wingLeft.render(scale);
 		wingRight.render(scale);
@@ -83,7 +81,6 @@ public class ModelParrot extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		float f = ageInTicks * 0.3F;
 		head.rotateAngleX = headPitch * 0.017453292F;
 		head.rotateAngleY = netHeadYaw * 0.017453292F;
@@ -141,7 +138,6 @@ public class ModelParrot extends ModelBase {
 	 * and third as in the setRotationAngles method.
 	 */
 	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTickTime) {
-
 		feather.rotateAngleX = -0.2214F;
 		body.rotateAngleX = 0.4937F;
 		wingLeft.rotateAngleX = -((float) Math.PI * 2F / 9F);
@@ -154,7 +150,6 @@ public class ModelParrot extends ModelBase {
 		legRight.rotationPointY = 22F;
 
 		if (entitylivingbaseIn instanceof EntityParrot entityparrot) {
-
 			if (entityparrot.isPartying()) {
 				legLeft.rotateAngleZ = -0.34906584F;
 				legRight.rotateAngleZ = 0.34906584F;

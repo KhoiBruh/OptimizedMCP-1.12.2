@@ -18,7 +18,6 @@ import net.minecraft.world.World;
 public class RenderFallingBlock extends Render<EntityFallingBlock> {
 
 	public RenderFallingBlock(RenderManager renderManagerIn) {
-
 		super(renderManagerIn);
 		shadowSize = 0.5F;
 	}
@@ -27,7 +26,6 @@ public class RenderFallingBlock extends Render<EntityFallingBlock> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(EntityFallingBlock entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		if (entity.getBlock() != null) {
 			IBlockState iblockstate = entity.getBlock();
 
@@ -70,7 +68,6 @@ public class RenderFallingBlock extends Render<EntityFallingBlock> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityFallingBlock entity) {
-
 		return TextureMap.LOCATION_BLOCKS_TEXTURE;
 	}
 

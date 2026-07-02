@@ -25,7 +25,6 @@ public class ParticleExplosionLarge extends Particle {
 	private int life;
 
 	protected ParticleExplosionLarge(TextureManager textureManagerIn, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i1213_9_, double p_i1213_11_, double p_i1213_13_) {
-
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0D, 0D, 0D);
 		textureManager = textureManagerIn;
 		lifeTime = 6 + rand.nextInt(4);
@@ -40,7 +39,6 @@ public class ParticleExplosionLarge extends Particle {
 	 * Renders the particle
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-
 		int i = (int) (((float) life + partialTicks) * 15F / (float) lifeTime);
 
 		if (i <= 15) {
@@ -67,12 +65,10 @@ public class ParticleExplosionLarge extends Particle {
 	}
 
 	public int getBrightnessForRender(float p_189214_1_) {
-
 		return 61680;
 	}
 
 	public void onUpdate() {
-
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
@@ -88,14 +84,12 @@ public class ParticleExplosionLarge extends Particle {
 	 * 1 for the main Texture atlas, and 3 for a custom texture
 	 */
 	public int getFXLayer() {
-
 		return 3;
 	}
 
 	public static class Factory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			return new ParticleExplosionLarge(Minecraft.getMinecraft().getTextureManager(), worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 		}
 

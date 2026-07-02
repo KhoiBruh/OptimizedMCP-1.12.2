@@ -13,12 +13,10 @@ public class ModelArmorStand extends ModelArmorStandArmor {
 	public ModelRenderer standBase;
 
 	public ModelArmorStand() {
-
 		this(0F);
 	}
 
 	public ModelArmorStand(float modelSize) {
-
 		super(modelSize, 64, 64);
 		bipedHead = new ModelRenderer(this, 0, 0);
 		bipedHead.addBox(-1F, -7F, -1F, 2, 7, 2, modelSize);
@@ -62,7 +60,6 @@ public class ModelArmorStand extends ModelArmorStandArmor {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 
 		if (entityIn instanceof EntityArmorStand entityarmorstand) {
@@ -90,7 +87,6 @@ public class ModelArmorStand extends ModelArmorStandArmor {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		GLS.pushMatrix();
 
@@ -117,7 +113,6 @@ public class ModelArmorStand extends ModelArmorStandArmor {
 	}
 
 	public void postRenderArm(float scale, HandSide side) {
-
 		ModelRenderer modelrenderer = getArmForSide(side);
 		boolean flag = modelrenderer.showModel;
 		modelrenderer.showModel = true;

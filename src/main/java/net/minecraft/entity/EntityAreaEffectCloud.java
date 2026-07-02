@@ -43,7 +43,6 @@ public class EntityAreaEffectCloud extends Entity {
 	private UUID ownerUniqueId;
 
 	public EntityAreaEffectCloud(World worldIn) {
-
 		super(worldIn);
 		potion = PotionTypes.EMPTY;
 		effects = Lists.newArrayList();
@@ -57,13 +56,11 @@ public class EntityAreaEffectCloud extends Entity {
 	}
 
 	public EntityAreaEffectCloud(World worldIn, double x, double y, double z) {
-
 		this(worldIn);
 		setPosition(x, y, z);
 	}
 
 	protected void entityInit() {
-
 		getDataManager().register(COLOR, 0);
 		getDataManager().register(RADIUS, 0.5F);
 		getDataManager().register(IGNORE_RADIUS, false);
@@ -73,12 +70,10 @@ public class EntityAreaEffectCloud extends Entity {
 	}
 
 	public float getRadius() {
-
 		return getDataManager().get(RADIUS);
 	}
 
 	public void setRadius(float radiusIn) {
-
 		double d0 = posX;
 		double d1 = posY;
 		double d2 = posZ;
@@ -91,7 +86,6 @@ public class EntityAreaEffectCloud extends Entity {
 	}
 
 	public void setPotion(PotionType potionIn) {
-
 		potion = potionIn;
 
 		if (!colorSet) {
@@ -100,7 +94,6 @@ public class EntityAreaEffectCloud extends Entity {
 	}
 
 	private void updateFixedColor() {
-
 		if (potion == PotionTypes.EMPTY && effects.isEmpty()) {
 			getDataManager().set(COLOR, 0);
 		} else {
@@ -109,7 +102,6 @@ public class EntityAreaEffectCloud extends Entity {
 	}
 
 	public void addEffect(PotionEffect effect) {
-
 		effects.add(effect);
 
 		if (!colorSet) {
@@ -118,43 +110,35 @@ public class EntityAreaEffectCloud extends Entity {
 	}
 
 	public int getColor() {
-
 		return getDataManager().get(COLOR);
 	}
 
 	public void setColor(int colorIn) {
-
 		colorSet = true;
 		getDataManager().set(COLOR, colorIn);
 	}
 
 	public ParticleTypes getParticle() {
-
 		return ParticleTypes.getParticleFromId(getDataManager().get(PARTICLE));
 	}
 
 	public void setParticle(ParticleTypes particleIn) {
-
 		getDataManager().set(PARTICLE, particleIn.getParticleID());
 	}
 
 	public int getParticleParam1() {
-
 		return getDataManager().get(PARTICLE_PARAM_1);
 	}
 
 	public void setParticleParam1(int particleParam) {
-
 		getDataManager().set(PARTICLE_PARAM_1, particleParam);
 	}
 
 	public int getParticleParam2() {
-
 		return getDataManager().get(PARTICLE_PARAM_2);
 	}
 
 	public void setParticleParam2(int particleParam) {
-
 		getDataManager().set(PARTICLE_PARAM_2, particleParam);
 	}
 
@@ -162,7 +146,6 @@ public class EntityAreaEffectCloud extends Entity {
 	 * Sets if the radius should be ignored, and the effect should be shown in a single point instead of an area
 	 */
 	protected void setIgnoreRadius(boolean ignoreRadius) {
-
 		getDataManager().set(IGNORE_RADIUS, ignoreRadius);
 	}
 
@@ -170,17 +153,14 @@ public class EntityAreaEffectCloud extends Entity {
 	 * Returns true if the radius should be ignored, and the effect should be shown in a single point instead of an area
 	 */
 	public boolean shouldIgnoreRadius() {
-
 		return getDataManager().get(IGNORE_RADIUS);
 	}
 
 	public int getDuration() {
-
 		return duration;
 	}
 
 	public void setDuration(int durationIn) {
-
 		duration = durationIn;
 	}
 
@@ -188,7 +168,6 @@ public class EntityAreaEffectCloud extends Entity {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		super.onUpdate();
 		boolean flag = shouldIgnoreRadius();
 		float f = getRadius();
@@ -272,7 +251,6 @@ public class EntityAreaEffectCloud extends Entity {
 			}
 
 			if (ticksExisted % 5 == 0) {
-
 				reapplicationDelayMap.entrySet().removeIf(entry -> ticksExisted >= entry.getValue());
 
 				List<PotionEffect> lstPotions = Lists.newArrayList();
@@ -335,23 +313,19 @@ public class EntityAreaEffectCloud extends Entity {
 	}
 
 	public void setRadiusOnUse(float radiusOnUseIn) {
-
 		radiusOnUse = radiusOnUseIn;
 	}
 
 	public void setRadiusPerTick(float radiusPerTickIn) {
-
 		radiusPerTick = radiusPerTickIn;
 	}
 
 	public void setWaitTime(int waitTimeIn) {
-
 		waitTime = waitTimeIn;
 	}
 
 	
 	public EntityLivingBase getOwner() {
-
 		if (owner == null && ownerUniqueId != null && world instanceof WorldServer) {
 			Entity entity = ((WorldServer) world).getEntityFromUuid(ownerUniqueId);
 
@@ -364,7 +338,6 @@ public class EntityAreaEffectCloud extends Entity {
 	}
 
 	public void setOwner(EntityLivingBase ownerIn) {
-
 		owner = ownerIn;
 		ownerUniqueId = ownerIn == null ? null : ownerIn.getUniqueID();
 	}
@@ -373,7 +346,6 @@ public class EntityAreaEffectCloud extends Entity {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	protected void readEntityFromNBT(NBTTagCompound compound) {
-
 		ticksExisted = compound.getInteger("Age");
 		duration = compound.getInteger("Duration");
 		waitTime = compound.getInteger("WaitTime");
@@ -420,7 +392,6 @@ public class EntityAreaEffectCloud extends Entity {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	protected void writeEntityToNBT(NBTTagCompound compound) {
-
 		compound.setInteger("Age", ticksExisted);
 		compound.setInteger("Duration", duration);
 		compound.setInteger("WaitTime", waitTime);
@@ -457,7 +428,6 @@ public class EntityAreaEffectCloud extends Entity {
 	}
 
 	public void notifyDataManagerChange(DataParameter<?> key) {
-
 		if (RADIUS.equals(key)) {
 			setRadius(getRadius());
 		}
@@ -466,7 +436,6 @@ public class EntityAreaEffectCloud extends Entity {
 	}
 
 	public PushReaction getPushReaction() {
-
 		return PushReaction.IGNORE;
 	}
 

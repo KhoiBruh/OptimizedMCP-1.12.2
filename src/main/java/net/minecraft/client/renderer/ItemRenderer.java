@@ -45,19 +45,16 @@ public class ItemRenderer {
 	private float prevEquippedProgressOffHand;
 
 	public ItemRenderer(Minecraft mcIn) {
-
 		mc = mcIn;
 		renderManager = mcIn.getRenderManager();
 		itemRenderer = mcIn.getRenderItem();
 	}
 
 	public void renderItem(EntityLivingBase entityIn, ItemStack heldStack, ItemCameraTransforms.TransformType transform) {
-
 		renderItemSide(entityIn, heldStack, transform, false);
 	}
 
 	public void renderItemSide(EntityLivingBase entitylivingbaseIn, ItemStack heldStack, ItemCameraTransforms.TransformType transform, boolean leftHanded) {
-
 		if (!heldStack.isEmpty()) {
 			Item item = heldStack.getItem();
 			Block block = Block.getBlockFromItem(item);
@@ -82,7 +79,6 @@ public class ItemRenderer {
 	 * Rotate the render around X and Y
 	 */
 	private void rotateArroundXAndY(float angle, float angleY) {
-
 		GLS.pushMatrix();
 		GLS.rotate(angle, 1F, 0F, 0F);
 		GLS.rotate(angleY, 0F, 1F, 0F);
@@ -91,7 +87,6 @@ public class ItemRenderer {
 	}
 
 	private void setLightmap() {
-
 		AbstractClientPlayer abstractclientplayer = mc.player;
 		int i = mc.world.getCombinedLight(new BlockPos(abstractclientplayer.posX, abstractclientplayer.posY + (double) abstractclientplayer.getEyeHeight(), abstractclientplayer.posZ), 0);
 		float f = (float) (i & 65535);
@@ -100,7 +95,6 @@ public class ItemRenderer {
 	}
 
 	private void rotateArm(float p_187458_1_) {
-
 		EntityPlayerSP entityplayersp = mc.player;
 		float f = entityplayersp.prevRenderArmPitch + (entityplayersp.renderArmPitch - entityplayersp.prevRenderArmPitch) * p_187458_1_;
 		float f1 = entityplayersp.prevRenderArmYaw + (entityplayersp.renderArmYaw - entityplayersp.prevRenderArmYaw) * p_187458_1_;
@@ -112,7 +106,6 @@ public class ItemRenderer {
 	 * Return the angle to render the Map
 	 */
 	private float getMapAngleFromPitch(float pitch) {
-
 		float f = 1F - pitch / 45F + 0.1F;
 		f = MathHelper.clamp(f, 0F, 1F);
 		f = -MathHelper.cos(f * (float) Math.PI) * 0.5F + 0.5F;
@@ -120,7 +113,6 @@ public class ItemRenderer {
 	}
 
 	private void renderArms() {
-
 		if (!mc.player.isInvisible()) {
 			GLS.disableCull();
 			GLS.pushMatrix();
@@ -133,7 +125,6 @@ public class ItemRenderer {
 	}
 
 	private void renderArm(HandSide p_187455_1_) {
-
 		mc.getTextureManager().bindTexture(mc.player.getLocationSkin());
 		Render<AbstractClientPlayer> render = renderManager.getEntityRenderObject(mc.player);
 		RenderPlayer renderplayer = (RenderPlayer) render;
@@ -154,7 +145,6 @@ public class ItemRenderer {
 	}
 
 	private void renderMapFirstPersonSide(float p_187465_1_, HandSide hand, float p_187465_3_, ItemStack stack) {
-
 		float f = hand == HandSide.RIGHT ? 1F : -1F;
 		GLS.translate(f * 0.125F, -0.125F, 0F);
 
@@ -180,7 +170,6 @@ public class ItemRenderer {
 	}
 
 	private void renderMapFirstPerson(float p_187463_1_, float p_187463_2_, float p_187463_3_) {
-
 		float f = MathHelper.sqrt(p_187463_3_);
 		float f1 = -0.2F * MathHelper.sin(p_187463_3_ * (float) Math.PI);
 		float f2 = -0.4F * MathHelper.sin(f * (float) Math.PI);
@@ -196,7 +185,6 @@ public class ItemRenderer {
 	}
 
 	private void renderMapFirstPerson(ItemStack stack) {
-
 		GLS.rotate(180F, 0F, 1F, 0F);
 		GLS.rotate(180F, 0F, 0F, 1F);
 		GLS.scale(0.38F, 0.38F, 0.38F);
@@ -222,7 +210,6 @@ public class ItemRenderer {
 	}
 
 	private void renderArmFirstPerson(float p_187456_1_, float p_187456_2_, HandSide p_187456_3_) {
-
 		boolean flag = p_187456_3_ != HandSide.LEFT;
 		float f = flag ? 1F : -1F;
 		float f1 = MathHelper.sqrt(p_187456_2_);
@@ -255,7 +242,6 @@ public class ItemRenderer {
 	}
 
 	private void transformEatFirstPerson(float p_187454_1_, HandSide hand, ItemStack stack) {
-
 		float f = (float) mc.player.getItemInUseCount() - p_187454_1_ + 1F;
 		float f1 = f / (float) stack.getMaxItemUseDuration();
 
@@ -273,7 +259,6 @@ public class ItemRenderer {
 	}
 
 	private void transformFirstPerson(HandSide hand, float p_187453_2_) {
-
 		int i = hand == HandSide.RIGHT ? 1 : -1;
 		float f = MathHelper.sin(p_187453_2_ * p_187453_2_ * (float) Math.PI);
 		GLS.rotate((float) i * (45F + f * -20F), 0F, 1F, 0F);
@@ -284,7 +269,6 @@ public class ItemRenderer {
 	}
 
 	private void transformSideFirstPerson(HandSide hand, float p_187459_2_) {
-
 		int i = hand == HandSide.RIGHT ? 1 : -1;
 		GLS.translate((float) i * 0.56F, -0.52F + p_187459_2_ * -0.6F, -0.72F);
 	}
@@ -293,7 +277,6 @@ public class ItemRenderer {
 	 * Renders the active item in the player's hand when in first person mode.
 	 */
 	public void renderItemInFirstPerson(float partialTicks) {
-
 		AbstractClientPlayer abstractclientplayer = mc.player;
 		float f = abstractclientplayer.getSwingProgress(partialTicks);
 		Hand enumhand = MoreObjects.firstNonNull(abstractclientplayer.swingingHand, Hand.MAIN_HAND);
@@ -334,7 +317,6 @@ public class ItemRenderer {
 	}
 
 	public void renderItemInFirstPerson(AbstractClientPlayer player, float p_187457_2_, float p_187457_3_, Hand hand, float p_187457_5_, ItemStack stack, float p_187457_7_) {
-
 		boolean flag = hand == Hand.MAIN_HAND;
 		HandSide enumhandside = flag ? player.getPrimaryHand() : player.getPrimaryHand().opposite();
 		GLS.pushMatrix();
@@ -411,7 +393,6 @@ public class ItemRenderer {
 	 * Renders the overlays.
 	 */
 	public void renderOverlays(float partialTicks) {
-
 		GLS.disableAlpha();
 
 		if (mc.player.isEntityInsideOpaqueBlock()) {
@@ -452,7 +433,6 @@ public class ItemRenderer {
 	 * Render the block in the player's hand
 	 */
 	private void renderBlockInHand(TextureAtlasSprite sprite) {
-
 		mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
@@ -483,7 +463,6 @@ public class ItemRenderer {
 	 * before being called. Used for the water overlay.
 	 */
 	private void renderWaterOverlayTexture(float partialTicks) {
-
 		mc.getTextureManager().bindTexture(RES_UNDERWATER_OVERLAY);
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
@@ -515,7 +494,6 @@ public class ItemRenderer {
 	 * Renders the fire on the screen for first person mode. Arg: partialTickTime
 	 */
 	private void renderFireInFirstPerson() {
-
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		GLS.color(1F, 1F, 1F, 0.9F);
@@ -556,7 +534,6 @@ public class ItemRenderer {
 	}
 
 	public void updateEquippedItem() {
-
 		prevEquippedProgressMainHand = equippedProgressMainHand;
 		prevEquippedProgressOffHand = equippedProgressOffHand;
 		EntityPlayerSP entityplayersp = mc.player;
@@ -582,7 +559,6 @@ public class ItemRenderer {
 	}
 
 	public void resetEquippedProgress(Hand hand) {
-
 		if (hand == Hand.MAIN_HAND) {
 			equippedProgressMainHand = 0F;
 		} else {

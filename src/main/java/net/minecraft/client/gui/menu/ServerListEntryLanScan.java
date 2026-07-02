@@ -9,7 +9,6 @@ public class ServerListEntryLanScan implements GuiListExtended.IGuiListEntry {
 	private final Minecraft mc = Minecraft.getMinecraft();
 
 	public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected, float partialTicks) {
-
 		int i = y + slotHeight / 2 - mc.fontRenderer.FONT_HEIGHT / 2;
 		mc.fontRenderer.drawString(I18n.format("lanServer.scanning"), mc.currentScreen.width / 2 - mc.fontRenderer.getStringWidth(I18n.format("lanServer.scanning")) / 2, i, 16777215);
 		String s = switch ((int) (Minecraft.getSystemTime() / 300L % 4L)) {
@@ -22,7 +21,6 @@ public class ServerListEntryLanScan implements GuiListExtended.IGuiListEntry {
 	}
 
 	public void updatePosition(int slotIndex, int x, int y, float partialTicks) {
-
 	}
 
 	/**
@@ -30,7 +28,6 @@ public class ServerListEntryLanScan implements GuiListExtended.IGuiListEntry {
 	 * clicked and the list should not be dragged.
 	 */
 	public boolean mousePressed(int slotIndex, int mouseX, int mouseY, int mouseEvent, int relativeX, int relativeY) {
-
 		return false;
 	}
 
@@ -38,7 +35,6 @@ public class ServerListEntryLanScan implements GuiListExtended.IGuiListEntry {
 	 * Fired when the mouse button is released. Arguments: index, x, y, mouseEvent, relativeX, relativeY
 	 */
 	public void mouseReleased(int slotIndex, int x, int y, int mouseEvent, int relativeX, int relativeY) {
-
 	}
 
 }

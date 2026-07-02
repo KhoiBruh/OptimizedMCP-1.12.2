@@ -10,7 +10,6 @@ public class ImageBufferDownload implements IImageBuffer {
 	private final int imageSize = 64;
 	
 	public BufferedImage parseUserSkin(BufferedImage image) {
-		
 		if (image != null) {
 			BufferedImage bufferedimage = new BufferedImage(imageSize, imageSize, 2);
 			Graphics graphics = bufferedimage.getGraphics();
@@ -49,11 +48,9 @@ public class ImageBufferDownload implements IImageBuffer {
 	}
 
 	public void skinAvailable() {
-
 	}
 
 	private void setAreaTransparent(int x, int y, int width, int height) {
-
 		for (int i = x; i < width; ++i) {
 			for (int j = y; j < height; ++j) {
 				int k = imageData[i + j * imageSize];
@@ -75,7 +72,6 @@ public class ImageBufferDownload implements IImageBuffer {
 	 * Makes the given area of the image opaque
 	 */
 	private void setAreaOpaque(int x, int y, int width, int height) {
-
 		for (int i = x; i < width; ++i) {
 			for (int j = y; j < height; ++j) {
 				imageData[i + j * imageSize] |= -16777216;

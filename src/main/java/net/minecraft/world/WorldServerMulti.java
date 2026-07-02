@@ -13,42 +13,34 @@ public class WorldServerMulti extends WorldServer {
 	private final WorldServer delegate;
 
 	public WorldServerMulti(MinecraftServer server, ISaveHandler saveHandlerIn, int dimensionId, WorldServer delegate, Profiler profilerIn) {
-
 		super(server, saveHandlerIn, new DerivedWorldInfo(delegate.getWorldInfo()), dimensionId, profilerIn);
 		this.delegate = delegate;
 		delegate.getWorldBorder().addListener(new IBorderListener() {
 			public void onSizeChanged(WorldBorder border, double newSize) {
-
 				getWorldBorder().setTransition(newSize);
 			}
 
 			public void onTransitionStarted(WorldBorder border, double oldSize, double newSize, long time) {
-
 				getWorldBorder().setTransition(oldSize, newSize, time);
 			}
 
 			public void onCenterChanged(WorldBorder border, double x, double z) {
-
 				getWorldBorder().setCenter(x, z);
 			}
 
 			public void onWarningTimeChanged(WorldBorder border, int newTime) {
-
 				getWorldBorder().setWarningTime(newTime);
 			}
 
 			public void onWarningDistanceChanged(WorldBorder border, int newDistance) {
-
 				getWorldBorder().setWarningDistance(newDistance);
 			}
 
 			public void onDamageAmountChanged(WorldBorder border, double newAmount) {
-
 				getWorldBorder().setDamageAmount(newAmount);
 			}
 
 			public void onDamageBufferChanged(WorldBorder border, double newSize) {
-
 				getWorldBorder().setDamageBuffer(newSize);
 			}
 		});
@@ -58,11 +50,9 @@ public class WorldServerMulti extends WorldServer {
 	 * Saves the chunks to disk.
 	 */
 	protected void saveLevel() {
-
 	}
 
 	public World init() {
-
 		mapStorage = delegate.getMapStorage();
 		worldScoreboard = delegate.getScoreboard();
 		lootTable = delegate.getLootTableManager();
@@ -86,7 +76,6 @@ public class WorldServerMulti extends WorldServer {
 	 * WorldProviderEnd's data in Vanilla.
 	 */
 	public void saveAdditionalData() {
-
 		provider.onWorldSave();
 	}
 

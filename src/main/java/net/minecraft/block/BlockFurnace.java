@@ -28,14 +28,12 @@ public class BlockFurnace extends BlockContainer {
 	private final boolean isBurning;
 
 	protected BlockFurnace(boolean isBurning) {
-
 		super(Material.ROCK);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH));
 		this.isBurning = isBurning;
 	}
 
 	public static void setState(boolean active, World worldIn, BlockPos pos) {
-
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 		keepInventory = true;
@@ -60,7 +58,6 @@ public class BlockFurnace extends BlockContainer {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Item.getItemFromBlock(Blocks.FURNACE);
 	}
 
@@ -68,12 +65,10 @@ public class BlockFurnace extends BlockContainer {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		setDefaultFacing(worldIn, pos, state);
 	}
 
 	private void setDefaultFacing(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (!worldIn.isRemote) {
 			IBlockState iblockstate = worldIn.getBlockState(pos.north());
 			IBlockState iblockstate1 = worldIn.getBlockState(pos.south());
@@ -97,7 +92,6 @@ public class BlockFurnace extends BlockContainer {
 
 	@SuppressWarnings("incomplete-switch")
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-
 		if (isBurning) {
 			Facing enumfacing = stateIn.getValue(FACING);
 			double d0 = (double) pos.getX() + 0.5D;
@@ -137,7 +131,6 @@ public class BlockFurnace extends BlockContainer {
 	 * Called when the block is right clicked by a player.
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		if (worldIn.isRemote) {
 			return true;
 		} else {
@@ -156,7 +149,6 @@ public class BlockFurnace extends BlockContainer {
 	 * Returns a new instance of a block's tile entity class. Called on placing the block.
 	 */
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-
 		return new TileEntityFurnace();
 	}
 
@@ -165,7 +157,6 @@ public class BlockFurnace extends BlockContainer {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
 	}
 
@@ -173,7 +164,6 @@ public class BlockFurnace extends BlockContainer {
 	 * Called by ItemBlocks after a block is set in the world, to allow post-place logic
 	 */
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-
 		worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
 
 		if (stack.hasDisplayName()) {
@@ -189,7 +179,6 @@ public class BlockFurnace extends BlockContainer {
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (!keepInventory) {
 			TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -203,17 +192,14 @@ public class BlockFurnace extends BlockContainer {
 	}
 
 	public boolean hasComparatorInputOverride(IBlockState state) {
-
 		return true;
 	}
 
 	public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
-
 		return Container.calcRedstone(worldIn.getTileEntity(pos));
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return new ItemStack(Blocks.FURNACE);
 	}
 
@@ -222,7 +208,6 @@ public class BlockFurnace extends BlockContainer {
 	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
 	 */
 	public BlockRenderType getRenderType(IBlockState state) {
-
 		return BlockRenderType.MODEL;
 	}
 
@@ -230,7 +215,6 @@ public class BlockFurnace extends BlockContainer {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		Facing enumfacing = Facing.getFront(meta);
 
 		if (enumfacing.getAxis() == Facing.Axis.Y) {
@@ -244,7 +228,6 @@ public class BlockFurnace extends BlockContainer {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(FACING).getIndex();
 	}
 
@@ -253,7 +236,6 @@ public class BlockFurnace extends BlockContainer {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
@@ -262,12 +244,10 @@ public class BlockFurnace extends BlockContainer {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, FACING);
 	}
 

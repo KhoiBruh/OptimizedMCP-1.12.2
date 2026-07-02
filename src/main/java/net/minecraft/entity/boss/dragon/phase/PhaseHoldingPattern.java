@@ -17,12 +17,10 @@ public class PhaseHoldingPattern extends PhaseBase {
 	private boolean clockwise;
 
 	public PhaseHoldingPattern(EntityDragon dragonIn) {
-
 		super(dragonIn);
 	}
 
 	public PhaseList<PhaseHoldingPattern> getType() {
-
 		return PhaseList.HOLDING_PATTERN;
 	}
 
@@ -31,7 +29,6 @@ public class PhaseHoldingPattern extends PhaseBase {
 	 * Called by dragon's onLivingUpdate. Only used when !worldObj.isRemote.
 	 */
 	public void doLocalUpdate() {
-
 		double d0 = targetLocation == null ? 0D : targetLocation.squareDistanceTo(dragon.posX, dragon.posY, dragon.posZ);
 
 		if (d0 < 100D || d0 > 22500D || dragon.collidedHorizontally || dragon.collidedVertically) {
@@ -43,7 +40,6 @@ public class PhaseHoldingPattern extends PhaseBase {
 	 * Called when this phase is set to active
 	 */
 	public void initPhase() {
-
 		currentPath = null;
 		targetLocation = null;
 	}
@@ -54,12 +50,10 @@ public class PhaseHoldingPattern extends PhaseBase {
 	 * Returns the location the dragon is flying toward
 	 */
 	public Vec3d getTargetLocation() {
-
 		return targetLocation;
 	}
 
 	private void findNewTarget() {
-
 		if (currentPath != null && currentPath.isFinished()) {
 			BlockPos blockpos = dragon.world.getTopSolidOrLiquidBlock(new BlockPos(WorldGenEndPodium.END_PODIUM_LOCATION));
 			int i = dragon.getFightManager() == null ? 0 : dragon.getFightManager().getNumAliveCrystals();
@@ -120,13 +114,11 @@ public class PhaseHoldingPattern extends PhaseBase {
 	}
 
 	private void strafePlayer(EntityPlayer player) {
-
 		dragon.getPhaseManager().setPhase(PhaseList.STRAFE_PLAYER);
 		dragon.getPhaseManager().getPhase(PhaseList.STRAFE_PLAYER).setTarget(player);
 	}
 
 	private void navigateToNextPathNode() {
-
 		if (currentPath != null && !currentPath.isFinished()) {
 			Vec3d vec3d = currentPath.getCurrentPos();
 			currentPath.incrementPathIndex();
@@ -147,7 +139,6 @@ public class PhaseHoldingPattern extends PhaseBase {
 	}
 
 	public void onCrystalDestroyed(EntityEnderCrystal crystal, BlockPos pos, DamageSource dmgSrc, EntityPlayer plyr) {
-
 		if (plyr != null && !plyr.capabilities.disableDamage) {
 			strafePlayer(plyr);
 		}

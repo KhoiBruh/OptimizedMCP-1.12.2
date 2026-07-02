@@ -20,12 +20,10 @@ public class DebugRendererSolidFace implements DebugRenderer.IDebugRenderer {
 	private final Minecraft minecraft;
 
 	public DebugRendererSolidFace(Minecraft minecraftIn) {
-
 		minecraft = minecraftIn;
 	}
 
 	public void render(float partialTicks, long finishTimeNano) {
-
 		EntityPlayer entityplayer = minecraft.player;
 		double d0 = entityplayer.lastTickPosX + (entityplayer.posX - entityplayer.lastTickPosX) * (double) partialTicks;
 		double d1 = entityplayer.lastTickPosY + (entityplayer.posY - entityplayer.lastTickPosY) * (double) partialTicks;

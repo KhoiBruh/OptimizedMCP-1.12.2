@@ -19,13 +19,11 @@ public class BlockGrassPath extends Block {
 	protected static final AxisAlignedBB GRASS_PATH_AABB = new AxisAlignedBB(0D, 0D, 0D, 1D, 0.9375D, 1D);
 
 	protected BlockGrassPath() {
-
 		super(Material.GROUND);
 		setLightOpacity(255);
 	}
 
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		switch (side) {
 			case UP:
 				return true;
@@ -47,20 +45,17 @@ public class BlockGrassPath extends Block {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		super.onBlockAdded(worldIn, pos, state);
 		updateBlockState(worldIn, pos);
 	}
 
 	private void updateBlockState(World worldIn, BlockPos pos) {
-
 		if (worldIn.getBlockState(pos.up()).getMaterial().isSolid()) {
 			BlockFarmland.turnToDirt(worldIn, pos);
 		}
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return GRASS_PATH_AABB;
 	}
 
@@ -68,12 +63,10 @@ public class BlockGrassPath extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -81,12 +74,10 @@ public class BlockGrassPath extends Block {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Blocks.DIRT.getItemDropped(Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT), rand, fortune);
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return new ItemStack(this);
 	}
 
@@ -96,7 +87,6 @@ public class BlockGrassPath extends Block {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
 		updateBlockState(worldIn, pos);
 	}
@@ -111,7 +101,6 @@ public class BlockGrassPath extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return face == Facing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 

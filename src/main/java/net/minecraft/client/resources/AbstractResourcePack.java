@@ -20,17 +20,14 @@ public abstract class AbstractResourcePack implements IResourcePack {
 	protected final File resourcePackFile;
 
 	public AbstractResourcePack(File resourcePackFileIn) {
-
 		resourcePackFile = resourcePackFileIn;
 	}
 
 	private static String locationToName(ResourceLocation location) {
-
 		return String.format("%s/%s/%s", "assets", location.getResourceDomain(), location.getResourcePath());
 	}
 
 	protected static String getRelativeName(File p_110595_0_, File p_110595_1_) {
-
 		return p_110595_0_.toURI().relativize(p_110595_1_.toURI()).getPath();
 	}
 
@@ -49,12 +46,10 @@ public abstract class AbstractResourcePack implements IResourcePack {
 	}
 
 	public InputStream getInputStream(ResourceLocation location) throws IOException {
-
 		return getInputStreamByName(locationToName(location));
 	}
 
 	public boolean resourceExists(ResourceLocation location) {
-
 		return hasResourceName(locationToName(location));
 	}
 
@@ -63,7 +58,6 @@ public abstract class AbstractResourcePack implements IResourcePack {
 	protected abstract boolean hasResourceName(String name);
 
 	protected void logNameNotLowercase(String name) {
-
 		LOGGER.warn("ResourcePack: ignored non-lowercase namespace: {} in {}", name, resourcePackFile);
 	}
 
@@ -73,12 +67,10 @@ public abstract class AbstractResourcePack implements IResourcePack {
 	}
 
 	public BufferedImage getPackImage() throws IOException {
-
 		return TextureUtil.readBufferedImage(getInputStreamByName("pack.png"));
 	}
 
 	public String getPackName() {
-
 		return resourcePackFile.getName();
 	}
 

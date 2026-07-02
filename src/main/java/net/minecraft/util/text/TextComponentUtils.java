@@ -12,7 +12,6 @@ import java.util.List;
 public class TextComponentUtils {
 
 	public static ITextComponent processComponent(ICommandSender commandSender, ITextComponent component, Entity entityIn) throws CommandException {
-
 		ITextComponent itextcomponent;
 
 		switch (component) {

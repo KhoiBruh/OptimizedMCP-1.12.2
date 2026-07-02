@@ -80,24 +80,20 @@ public interface ITextComponent extends Iterable<ITextComponent> {
 		}
 
 		public static String componentToJson(ITextComponent component) {
-
 			return GSON.toJson(component);
 		}
 
 		
 		public static ITextComponent jsonToComponent(String json) {
-
 			return JsonUtils.gsonDeserialize(GSON, json, ITextComponent.class);
 		}
 
 		
 		public static ITextComponent fromJsonLenient(String json) {
-
 			return JsonUtils.gsonDeserialize(GSON, json, ITextComponent.class);
 		}
 
 		public ITextComponent deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-
 			if (p_deserialize_1_.isJsonPrimitive()) {
 				return new TextComponentString(p_deserialize_1_.getAsString());
 			} else if (!p_deserialize_1_.isJsonObject()) {
@@ -136,7 +132,6 @@ public interface ITextComponent extends Iterable<ITextComponent> {
 							aobject[i] = deserialize(jsonarray.get(i), p_deserialize_2_, p_deserialize_3_);
 
 							if (aobject[i] instanceof TextComponentString textcomponentstring) {
-
 								if (textcomponentstring.getStyle().isEmpty() && textcomponentstring.getSiblings().isEmpty()) {
 									aobject[i] = textcomponentstring.getText();
 								}
@@ -187,7 +182,6 @@ public interface ITextComponent extends Iterable<ITextComponent> {
 		}
 
 		private void serializeChatStyle(Style style, JsonObject object, JsonSerializationContext ctx) {
-
 			JsonElement jsonelement = ctx.serialize(style);
 
 			if (jsonelement.isJsonObject()) {
@@ -200,7 +194,6 @@ public interface ITextComponent extends Iterable<ITextComponent> {
 		}
 
 		public JsonElement serialize(ITextComponent p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
-
 			JsonObject jsonobject = new JsonObject();
 
 			if (!p_serialize_1_.getStyle().isEmpty()) {

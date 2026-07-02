@@ -5,7 +5,6 @@ public class TextComponentString extends TextComponentBase {
 	private final String text;
 
 	public TextComponentString(String msg) {
-
 		text = msg;
 	}
 
@@ -15,7 +14,6 @@ public class TextComponentString extends TextComponentBase {
 	 * #getUnformattedComponentText()}.
 	 */
 	public String getText() {
-
 		return text;
 	}
 
@@ -25,7 +23,6 @@ public class TextComponentString extends TextComponentBase {
 	 * TextComponentTranslation} and it's the score value for a {@link TextComponentScore}.
 	 */
 	public String getUnformattedComponentText() {
-
 		return text;
 	}
 
@@ -33,7 +30,6 @@ public class TextComponentString extends TextComponentBase {
 	 * Creates a copy of this component.  Almost a deep copy, except the style is shallow-copied.
 	 */
 	public TextComponentString createCopy() {
-
 		TextComponentString textcomponentstring = new TextComponentString(text);
 		textcomponentstring.setStyle(getStyle().createShallowCopy());
 
@@ -45,7 +41,6 @@ public class TextComponentString extends TextComponentBase {
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else if (!(p_equals_1_ instanceof TextComponentString textcomponentstring)) {
@@ -56,7 +51,6 @@ public class TextComponentString extends TextComponentBase {
 	}
 
 	public String toString() {
-
 		return "TextComponent{text='" + text + '\'' + ", siblings=" + siblings + ", style=" + getStyle() + '}';
 	}
 

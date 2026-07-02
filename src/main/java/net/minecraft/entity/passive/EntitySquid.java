@@ -52,7 +52,6 @@ public class EntitySquid extends EntityWaterMob {
 	private float randomMotionVecZ;
 
 	public EntitySquid(World worldIn) {
-
 		super(worldIn);
 		setSize(0.8F, 0.8F);
 		rand.setSeed(1 + getEntityId());
@@ -60,38 +59,31 @@ public class EntitySquid extends EntityWaterMob {
 	}
 
 	public static void registerFixesSquid(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntitySquid.class);
 	}
 
 	protected void initEntityAI() {
-
 		tasks.addTask(0, new EntitySquid.AIMoveRandom(this));
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10D);
 	}
 
 	public float getEyeHeight() {
-
 		return height * 0.5F;
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		return SoundEvents.ENTITY_SQUID_AMBIENT;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_SQUID_HURT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_SQUID_DEATH;
 	}
 
@@ -99,7 +91,6 @@ public class EntitySquid extends EntityWaterMob {
 	 * Returns the volume for the sounds this mob makes.
 	 */
 	protected float getSoundVolume() {
-
 		return 0.4F;
 	}
 
@@ -108,13 +99,11 @@ public class EntitySquid extends EntityWaterMob {
 	 * prevent them from trampling crops
 	 */
 	protected boolean canTriggerWalking() {
-
 		return false;
 	}
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_SQUID;
 	}
 
@@ -123,7 +112,6 @@ public class EntitySquid extends EntityWaterMob {
 	 * use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
 		super.onLivingUpdate();
 		prevSquidPitch = squidPitch;
 		prevSquidYaw = squidYaw;
@@ -194,7 +182,6 @@ public class EntitySquid extends EntityWaterMob {
 	}
 
 	public void travel(float strafe, float vertical, float forward) {
-
 		move(MoverType.SELF, motionX, motionY, motionZ);
 	}
 
@@ -202,7 +189,6 @@ public class EntitySquid extends EntityWaterMob {
 	 * Checks if the entity's current position is a valid location to spawn this entity.
 	 */
 	public boolean getCanSpawnHere() {
-
 		return posY > 45D && posY < (double) world.getSeaLevel() && super.getCanSpawnHere();
 	}
 
@@ -210,7 +196,6 @@ public class EntitySquid extends EntityWaterMob {
 	 * Handler for {@link World#setEntityState}
 	 */
 	public void handleStatusUpdate(byte id) {
-
 		if (id == 19) {
 			squidRotation = 0F;
 		} else {
@@ -219,14 +204,12 @@ public class EntitySquid extends EntityWaterMob {
 	}
 
 	public void setMovementVector(float randomMotionVecXIn, float randomMotionVecYIn, float randomMotionVecZIn) {
-
 		randomMotionVecX = randomMotionVecXIn;
 		randomMotionVecY = randomMotionVecYIn;
 		randomMotionVecZ = randomMotionVecZIn;
 	}
 
 	public boolean hasMovementVector() {
-
 		return randomMotionVecX != 0F || randomMotionVecY != 0F || randomMotionVecZ != 0F;
 	}
 
@@ -235,17 +218,14 @@ public class EntitySquid extends EntityWaterMob {
 		private final EntitySquid squid;
 
 		public AIMoveRandom(EntitySquid p_i45859_1_) {
-
 			squid = p_i45859_1_;
 		}
 
 		public boolean shouldExecute() {
-
 			return true;
 		}
 
 		public void updateTask() {
-
 			int i = squid.getIdleTime();
 
 			if (i > 100) {

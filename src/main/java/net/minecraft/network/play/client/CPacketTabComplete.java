@@ -14,11 +14,9 @@ public class CPacketTabComplete implements Packet<INetHandlerPlayServer> {
 	private BlockPos targetBlock;
 
 	public CPacketTabComplete() {
-
 	}
 
 	public CPacketTabComplete(String messageIn, BlockPos targetBlockIn, boolean hasTargetBlockIn) {
-
 		message = messageIn;
 		targetBlock = targetBlockIn;
 		hasTargetBlock = hasTargetBlockIn;
@@ -28,7 +26,6 @@ public class CPacketTabComplete implements Packet<INetHandlerPlayServer> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		message = buf.readString(32767);
 		hasTargetBlock = buf.readBoolean();
 		boolean flag = buf.readBoolean();
@@ -42,7 +39,6 @@ public class CPacketTabComplete implements Packet<INetHandlerPlayServer> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeString(message.length() > 32767 ? message.substring(0, 32767) : message);
 		buf.writeBoolean(hasTargetBlock);
 		boolean flag = targetBlock != null;
@@ -57,23 +53,19 @@ public class CPacketTabComplete implements Packet<INetHandlerPlayServer> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayServer handler) {
-
 		handler.processTabComplete(this);
 	}
 
 	public String getMessage() {
-
 		return message;
 	}
 
 	
 	public BlockPos getTargetBlock() {
-
 		return targetBlock;
 	}
 
 	public boolean hasTargetBlock() {
-
 		return hasTargetBlock;
 	}
 

@@ -29,14 +29,12 @@ public class BlockTrapDoor extends Block {
 	protected static final AxisAlignedBB TOP_AABB = new AxisAlignedBB(0D, 0.8125D, 0D, 1D, 1D, 1D);
 
 	protected BlockTrapDoor(Material materialIn) {
-
 		super(materialIn);
 		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(OPEN, false).withProperty(HALF, BlockTrapDoor.DoorHalf.BOTTOM));
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
 	protected static Facing getFacing(int meta) {
-
 		return switch (meta & 3) {
 			case 0 -> Facing.NORTH;
 			case 1 -> Facing.SOUTH;
@@ -46,7 +44,6 @@ public class BlockTrapDoor extends Block {
 	}
 
 	protected static int getMetaForFacing(Facing facing) {
-
 		return switch (facing) {
 			case NORTH -> 0;
 			case SOUTH -> 1;
@@ -56,7 +53,6 @@ public class BlockTrapDoor extends Block {
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		AxisAlignedBB axisalignedbb;
 
 		if (state.getValue(OPEN)) {
@@ -79,12 +75,10 @@ public class BlockTrapDoor extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -92,7 +86,6 @@ public class BlockTrapDoor extends Block {
 	 * Determines if an entity can path through this block
 	 */
 	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-
 		return !worldIn.getBlockState(pos).getValue(OPEN);
 	}
 
@@ -100,7 +93,6 @@ public class BlockTrapDoor extends Block {
 	 * Called when the block is right clicked by a player.
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		if (blockMaterial == Material.IRON) {
 			return false;
 		} else {
@@ -112,7 +104,6 @@ public class BlockTrapDoor extends Block {
 	}
 
 	protected void playSound(EntityPlayer player, World worldIn, BlockPos pos, boolean p_185731_4_) {
-
 		if (p_185731_4_) {
 			int i = blockMaterial == Material.IRON ? 1037 : 1007;
 			worldIn.playEvent(player, i, pos, 0);
@@ -128,7 +119,6 @@ public class BlockTrapDoor extends Block {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (!worldIn.isRemote) {
 			boolean flag = worldIn.isBlockPowered(pos);
 
@@ -148,7 +138,6 @@ public class BlockTrapDoor extends Block {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		IBlockState iblockstate = getDefaultState();
 
 		if (facing.getAxis().isHorizontal()) {
@@ -170,7 +159,6 @@ public class BlockTrapDoor extends Block {
 	 * Check whether this Block can be placed at pos, while aiming at the specified side of an adjacent block
 	 */
 	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Facing side) {
-
 		return true;
 	}
 
@@ -179,7 +167,6 @@ public class BlockTrapDoor extends Block {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.CUTOUT;
 	}
 
@@ -187,7 +174,6 @@ public class BlockTrapDoor extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(OPEN, (meta & 4) != 0).withProperty(HALF, (meta & 8) == 0 ? BlockTrapDoor.DoorHalf.BOTTOM : BlockTrapDoor.DoorHalf.TOP);
 	}
 
@@ -195,7 +181,6 @@ public class BlockTrapDoor extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 		i = i | getMetaForFacing(state.getValue(FACING));
 
@@ -215,7 +200,6 @@ public class BlockTrapDoor extends Block {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
@@ -224,12 +208,10 @@ public class BlockTrapDoor extends Block {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-
 		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, FACING, OPEN, HALF);
 	}
 
@@ -243,7 +225,6 @@ public class BlockTrapDoor extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return (face == Facing.UP && state.getValue(HALF) == BlockTrapDoor.DoorHalf.TOP || face == Facing.DOWN && state.getValue(HALF) == BlockTrapDoor.DoorHalf.BOTTOM) && !state.getValue(OPEN) ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 
@@ -254,17 +235,14 @@ public class BlockTrapDoor extends Block {
 		private final String name;
 
 		DoorHalf(String name) {
-
 			this.name = name;
 		}
 
 		public String toString() {
-
 			return name;
 		}
 
 		public String getName() {
-
 			return name;
 		}
 	}

@@ -17,7 +17,6 @@ public class CommandPlaySound extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "playsound";
 	}
 
@@ -25,7 +24,6 @@ public class CommandPlaySound extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 2;
 	}
 
@@ -33,7 +31,6 @@ public class CommandPlaySound extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.playsound.usage";
 	}
 
@@ -41,7 +38,6 @@ public class CommandPlaySound extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		if (args.length < 2) {
 			throw new WrongUsageException(getUsage(sender));
 		} else {
@@ -90,7 +86,6 @@ public class CommandPlaySound extends CommandBase {
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		if (args.length == 1) {
 			return getListOfStringsMatchingLastWord(args, SoundEvent.REGISTRY.getKeys());
 		} else if (args.length == 2) {
@@ -106,7 +101,6 @@ public class CommandPlaySound extends CommandBase {
 	 * Return whether the specified command parameter index is a username parameter.
 	 */
 	public boolean isUsernameIndex(String[] args, int index) {
-
 		return index == 2;
 	}
 

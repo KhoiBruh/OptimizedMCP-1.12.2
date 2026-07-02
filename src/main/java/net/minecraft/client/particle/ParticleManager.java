@@ -41,7 +41,6 @@ public class ParticleManager {
 	protected World world;
 
 	public ParticleManager(World worldIn, TextureManager rendererIn) {
-
 		world = worldIn;
 		renderer = rendererIn;
 
@@ -57,7 +56,6 @@ public class ParticleManager {
 	}
 
 	private void registerVanillaParticles() {
-
 		registerParticle(ParticleTypes.EXPLOSION_NORMAL.getParticleID(), new ParticleExplosion.Factory());
 		registerParticle(ParticleTypes.SPIT.getParticleID(), new ParticleSpit.Factory());
 		registerParticle(ParticleTypes.WATER_BUBBLE.getParticleID(), new ParticleBubble.Factory());
@@ -109,17 +107,14 @@ public class ParticleManager {
 	}
 
 	public void registerParticle(int id, IParticleFactory particleFactory) {
-
 		particleTypes.put(id, particleFactory);
 	}
 
 	public void emitParticleAtEntity(Entity entityIn, ParticleTypes particleTypes) {
-
 		particleEmitters.add(new ParticleEmitter(world, entityIn, particleTypes));
 	}
 
 	public void emitParticleAtEntity(Entity p_191271_1_, ParticleTypes p_191271_2_, int p_191271_3_) {
-
 		particleEmitters.add(new ParticleEmitter(world, p_191271_1_, p_191271_2_, p_191271_3_));
 	}
 
@@ -129,7 +124,6 @@ public class ParticleManager {
 	 * Spawns the relevant particle according to the particle id.
 	 */
 	public Particle spawnEffectParticle(int particleId, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed, double zSpeed, int... parameters) {
-
 		IParticleFactory iparticlefactory = particleTypes.get(particleId);
 
 		if (iparticlefactory != null) {
@@ -145,12 +139,10 @@ public class ParticleManager {
 	}
 
 	public void addEffect(Particle effect) {
-
 		queue.add(effect);
 	}
 
 	public void updateEffects() {
-
 		for (int i = 0; i < 4; ++i) {
 			updateEffectLayer(i);
 		}
@@ -184,7 +176,6 @@ public class ParticleManager {
 	}
 
 	private void updateEffectLayer(int layer) {
-
 		world.profiler.startSection(String.valueOf(layer));
 
 		for (int i = 0; i < 2; ++i) {
@@ -197,7 +188,6 @@ public class ParticleManager {
 	}
 
 	private void tickParticleList(Queue<Particle> p_187240_1_) {
-
 		if (!p_187240_1_.isEmpty()) {
 			Iterator<Particle> iterator = p_187240_1_.iterator();
 
@@ -213,7 +203,6 @@ public class ParticleManager {
 	}
 
 	private void tickParticle(final Particle particle) {
-
 		try {
 			particle.onUpdate();
 		} catch (Throwable throwable) {
@@ -239,7 +228,6 @@ public class ParticleManager {
 	 * Renders all current particles. Args player, partialTickTime
 	 */
 	public void renderParticles(Entity entityIn, float partialTicks) {
-
 		float f = ActiveRenderInfo.getRotationX();
 		float f1 = ActiveRenderInfo.getRotationZ();
 		float f2 = ActiveRenderInfo.getRotationYZ();
@@ -314,7 +302,6 @@ public class ParticleManager {
 	}
 
 	public void renderLitParticles(Entity entityIn, float partialTick) {
-
 		float f = 0.017453292F;
 		float f1 = MathHelper.cos(entityIn.rotationYaw * 0.017453292F);
 		float f2 = MathHelper.sin(entityIn.rotationYaw * 0.017453292F);
@@ -337,7 +324,6 @@ public class ParticleManager {
 	}
 
 	public void clearEffects(World worldIn) {
-
 		world = worldIn;
 
 		for (int i = 0; i < 4; ++i) {
@@ -350,7 +336,6 @@ public class ParticleManager {
 	}
 
 	public void addBlockDestroyEffects(BlockPos pos, IBlockState state) {
-
 		if (state.getMaterial() != Material.AIR) {
 			state = state.getActualState(world, pos);
 			int i = 4;
@@ -372,7 +357,6 @@ public class ParticleManager {
 	 * Adds block hit particles for the specified block
 	 */
 	public void addBlockHitEffects(BlockPos pos, Facing side) {
-
 		IBlockState iblockstate = world.getBlockState(pos);
 
 		if (iblockstate.getRenderType() != BlockRenderType.INVISIBLE) {
@@ -414,7 +398,6 @@ public class ParticleManager {
 	}
 
 	public String getStatistics() {
-
 		int i = 0;
 
 		for (int j = 0; j < 4; ++j) {

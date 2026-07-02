@@ -24,7 +24,6 @@ public class SlotMerchantResult extends Slot {
 	private int removeCount;
 
 	public SlotMerchantResult(EntityPlayer player, IMerchant merchant, InventoryMerchant merchantInventory, int slotIndex, int xPosition, int yPosition) {
-
 		super(merchantInventory, slotIndex, xPosition, yPosition);
 		this.player = player;
 		this.merchant = merchant;
@@ -35,7 +34,6 @@ public class SlotMerchantResult extends Slot {
 	 * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
 	 */
 	public boolean isItemValid(ItemStack stack) {
-
 		return false;
 	}
 
@@ -44,7 +42,6 @@ public class SlotMerchantResult extends Slot {
 	 * stack.
 	 */
 	public ItemStack decrStackSize(int amount) {
-
 		if (getHasStack()) {
 			removeCount += Math.min(amount, getStack().getCount());
 		}
@@ -57,7 +54,6 @@ public class SlotMerchantResult extends Slot {
 	 * internal count then calls onCrafting(item).
 	 */
 	protected void onCrafting(ItemStack stack, int amount) {
-
 		removeCount += amount;
 		onCrafting(stack);
 	}
@@ -66,13 +62,11 @@ public class SlotMerchantResult extends Slot {
 	 * the itemStack passed in is the output - ie, iron ingots, and pickaxes, not ore and wood.
 	 */
 	protected void onCrafting(ItemStack stack) {
-
 		stack.onCrafting(player.world, player, removeCount);
 		removeCount = 0;
 	}
 
 	public ItemStack onTake(EntityPlayer thePlayer, ItemStack stack) {
-
 		onCrafting(stack);
 		MerchantRecipe merchantrecipe = merchantInventory.getCurrentRecipe();
 
@@ -92,7 +86,6 @@ public class SlotMerchantResult extends Slot {
 	}
 
 	private boolean doTrade(MerchantRecipe trade, ItemStack firstItem, ItemStack secondItem) {
-
 		ItemStack itemstack = trade.getItemToBuy();
 		ItemStack itemstack1 = trade.getSecondItemToBuy();
 

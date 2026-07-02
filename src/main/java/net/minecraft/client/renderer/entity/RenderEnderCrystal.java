@@ -16,7 +16,6 @@ public class RenderEnderCrystal extends Render<EntityEnderCrystal> {
 	private final ModelBase modelEnderCrystalNoBase = new ModelEnderCrystal(0F, false);
 
 	public RenderEnderCrystal(RenderManager renderManagerIn) {
-
 		super(renderManagerIn);
 		shadowSize = 0.5F;
 	}
@@ -25,7 +24,6 @@ public class RenderEnderCrystal extends Render<EntityEnderCrystal> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(EntityEnderCrystal entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		float f = (float) entity.innerRotation + partialTicks;
 		GLS.pushMatrix();
 		GLS.translate((float) x, (float) y, (float) z);
@@ -70,12 +68,10 @@ public class RenderEnderCrystal extends Render<EntityEnderCrystal> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityEnderCrystal entity) {
-
 		return ENDER_CRYSTAL_TEXTURES;
 	}
 
 	public boolean shouldRender(EntityEnderCrystal livingEntity, ICamera camera, double camX, double camY, double camZ) {
-
 		return super.shouldRender(livingEntity, camera, camX, camY, camZ) || livingEntity.getBeamTarget() != null;
 	}
 

@@ -22,14 +22,12 @@ public class ShapelessRecipes implements IRecipe {
 	private final String group;
 
 	public ShapelessRecipes(String group, ItemStack output, NonNullList<Ingredient> ingredients) {
-
 		this.group = group;
 		recipeOutput = output;
 		recipeItems = ingredients;
 	}
 
 	public static ShapelessRecipes deserialize(JsonObject json) {
-
 		String s = JsonUtils.getString(json, "group", "");
 		NonNullList<Ingredient> nonnulllist = deserializeIngredients(JsonUtils.getJsonArray(json, "ingredients"));
 
@@ -44,7 +42,6 @@ public class ShapelessRecipes implements IRecipe {
 	}
 
 	private static NonNullList<Ingredient> deserializeIngredients(JsonArray array) {
-
 		NonNullList<Ingredient> nonnulllist = NonNullList.create();
 
 		for (int i = 0; i < array.size(); ++i) {
@@ -59,22 +56,18 @@ public class ShapelessRecipes implements IRecipe {
 	}
 
 	public String getGroup() {
-
 		return group;
 	}
 
 	public ItemStack getRecipeOutput() {
-
 		return recipeOutput;
 	}
 
 	public NonNullList<Ingredient> getIngredients() {
-
 		return recipeItems;
 	}
 
 	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
-
 		NonNullList<ItemStack> nonnulllist = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
 
 		for (int i = 0; i < nonnulllist.size(); ++i) {
@@ -92,7 +85,6 @@ public class ShapelessRecipes implements IRecipe {
 	 * Used to check if a recipe matches current crafting inventory
 	 */
 	public boolean matches(InventoryCrafting inv, World worldIn) {
-
 		List<Ingredient> list = Lists.newArrayList(recipeItems);
 
 		for (int i = 0; i < inv.getHeight(); ++i) {
@@ -124,7 +116,6 @@ public class ShapelessRecipes implements IRecipe {
 	 * Returns an Item that is the result of this recipe
 	 */
 	public ItemStack getCraftingResult(InventoryCrafting inv) {
-
 		return recipeOutput.copy();
 	}
 
@@ -132,7 +123,6 @@ public class ShapelessRecipes implements IRecipe {
 	 * Used to determine if this recipe can fit in a grid of the given width/height
 	 */
 	public boolean canFit(int width, int height) {
-
 		return width * height >= recipeItems.size();
 	}
 

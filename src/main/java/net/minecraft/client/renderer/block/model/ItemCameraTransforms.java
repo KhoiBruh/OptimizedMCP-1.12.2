@@ -29,12 +29,10 @@ public class ItemCameraTransforms {
 	public final ItemTransformVec3f fixed;
 
 	private ItemCameraTransforms() {
-
 		this(ItemTransformVec3f.DEFAULT, ItemTransformVec3f.DEFAULT, ItemTransformVec3f.DEFAULT, ItemTransformVec3f.DEFAULT, ItemTransformVec3f.DEFAULT, ItemTransformVec3f.DEFAULT, ItemTransformVec3f.DEFAULT, ItemTransformVec3f.DEFAULT);
 	}
 
 	public ItemCameraTransforms(ItemCameraTransforms transforms) {
-
 		thirdperson_left = transforms.thirdperson_left;
 		thirdperson_right = transforms.thirdperson_right;
 		firstperson_left = transforms.firstperson_left;
@@ -46,7 +44,6 @@ public class ItemCameraTransforms {
 	}
 
 	public ItemCameraTransforms(ItemTransformVec3f thirdperson_leftIn, ItemTransformVec3f thirdperson_rightIn, ItemTransformVec3f firstperson_leftIn, ItemTransformVec3f firstperson_rightIn, ItemTransformVec3f headIn, ItemTransformVec3f guiIn, ItemTransformVec3f groundIn, ItemTransformVec3f fixedIn) {
-
 		thirdperson_left = thirdperson_leftIn;
 		thirdperson_right = thirdperson_rightIn;
 		firstperson_left = firstperson_leftIn;
@@ -58,7 +55,6 @@ public class ItemCameraTransforms {
 	}
 
 	public static void applyTransformSide(ItemTransformVec3f vec, boolean leftHand) {
-
 		if (vec != ItemTransformVec3f.DEFAULT) {
 			int i = leftHand ? -1 : 1;
 			GLS.translate((float) i * (offsetTranslateX + vec.translation().x), offsetTranslateY + vec.translation().y, offsetTranslateZ + vec.translation().z);
@@ -77,7 +73,6 @@ public class ItemCameraTransforms {
 	}
 
 	private static Quaternionf makeQuaternion(float p_188035_0_, float p_188035_1_, float p_188035_2_) {
-
 		float f = p_188035_0_ * 0.017453292F;
 		float f1 = p_188035_1_ * 0.017453292F;
 		float f2 = p_188035_2_ * 0.017453292F;
@@ -91,12 +86,10 @@ public class ItemCameraTransforms {
 	}
 
 	public void applyTransform(ItemCameraTransforms.TransformType type) {
-
 		applyTransformSide(getTransform(type), false);
 	}
 
 	public ItemTransformVec3f getTransform(ItemCameraTransforms.TransformType type) {
-
 		return switch (type) {
 			case THIRD_PERSON_LEFT_HAND -> thirdperson_left;
 			case THIRD_PERSON_RIGHT_HAND -> thirdperson_right;
@@ -111,7 +104,6 @@ public class ItemCameraTransforms {
 	}
 
 	public boolean hasCustomTransform(ItemCameraTransforms.TransformType type) {
-
 		return getTransform(type) != ItemTransformVec3f.DEFAULT;
 	}
 
@@ -130,7 +122,6 @@ public class ItemCameraTransforms {
 	static class Deserializer implements JsonDeserializer<ItemCameraTransforms> {
 
 		public ItemCameraTransforms deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-
 			JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
 			ItemTransformVec3f itemtransformvec3f = getTransform(p_deserialize_3_, jsonobject, "thirdperson_righthand");
 			ItemTransformVec3f itemtransformvec3f1 = getTransform(p_deserialize_3_, jsonobject, "thirdperson_lefthand");
@@ -154,7 +145,6 @@ public class ItemCameraTransforms {
 		}
 
 		private ItemTransformVec3f getTransform(JsonDeserializationContext p_181683_1_, JsonObject p_181683_2_, String p_181683_3_) {
-
 			return p_181683_2_.has(p_181683_3_) ? (ItemTransformVec3f) p_181683_1_.deserialize(p_181683_2_.get(p_181683_3_), ItemTransformVec3f.class) : ItemTransformVec3f.DEFAULT;
 		}
 

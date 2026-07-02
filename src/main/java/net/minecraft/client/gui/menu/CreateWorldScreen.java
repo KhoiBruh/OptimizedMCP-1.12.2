@@ -63,7 +63,6 @@ public class CreateWorldScreen extends Screen {
 	private int selectedIndex;
 
 	public CreateWorldScreen(Screen p_i46320_1_) {
-
 		parentScreen = p_i46320_1_;
 		worldSeed = "";
 		worldName = I18n.format("selectWorld.newWorld");
@@ -74,7 +73,6 @@ public class CreateWorldScreen extends Screen {
 	 * Returns the name, possibly modified to avoid collisions.
 	 */
 	public static String getUncollidingSaveDirName(ISaveFormat saveLoader, String name) {
-
 		StringBuilder nameBuilder = new StringBuilder(name.replaceAll("[\\./\"]", "_"));
 		for (String s : DISALLOWED_FILENAMES) {
 			if (nameBuilder.toString().equalsIgnoreCase(s)) {
@@ -94,7 +92,6 @@ public class CreateWorldScreen extends Screen {
 	 * Called from the main game loop to update the screen.
 	 */
 	public void update() {
-
 		worldNameField.updateCursorCounter();
 		worldSeedField.updateCursorCounter();
 	}
@@ -104,7 +101,6 @@ public class CreateWorldScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		Keyboard.setRepeat(true);
 		buttons.clear();
 		buttons.add(new Button(0, width / 2 - 155, height - 28, 150, 20, I18n.format("selectWorld.create")));
@@ -135,7 +131,6 @@ public class CreateWorldScreen extends Screen {
 	 * Determine a save-directory name from the world name
 	 */
 	private void calcSaveDirName() {
-
 		saveDirName = worldNameField.getText().trim();
 
 		for (char c0 : ChatAllowedCharacters.ILLEGAL_FILE_CHARACTERS) {
@@ -151,7 +146,6 @@ public class CreateWorldScreen extends Screen {
 	 * Sets displayed GUI elements according to the current settings state
 	 */
 	private void updateDisplayState() {
-
 		btnGameMode.displayString = I18n.format("selectWorld.gameMode") + ": " + I18n.format("selectWorld.gameMode." + gameMode);
 		gameModeDesc1 = I18n.format("selectWorld.gameMode." + gameMode + ".line1");
 		gameModeDesc2 = I18n.format("selectWorld.gameMode." + gameMode + ".line2");
@@ -185,7 +179,6 @@ public class CreateWorldScreen extends Screen {
 	 * Called when the screen is unloaded. Used to disable keyboard repeat events
 	 */
 	public void close() {
-
 		Keyboard.setRepeat(false);
 	}
 
@@ -193,7 +186,6 @@ public class CreateWorldScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.enabled) {
 			if (button.id == 1) {
 				mc.displayScreen(parentScreen);
@@ -313,7 +305,6 @@ public class CreateWorldScreen extends Screen {
 	 * Used to hide the "debug" world type unless the shift key is depressed.
 	 */
 	private boolean canSelectCurWorldType() {
-
 		WorldType worldtype = WorldType.WORLD_TYPES[selectedIndex];
 
 		if (worldtype != null && worldtype.canBeCreated()) {
@@ -329,7 +320,6 @@ public class CreateWorldScreen extends Screen {
 	 * display).
 	 */
 	private void toggleMoreWorldOptions() {
-
 		showMoreWorldOptions(!inMoreWorldOptionsDisplay);
 	}
 
@@ -337,7 +327,6 @@ public class CreateWorldScreen extends Screen {
 	 * Shows additional world-creation options if toggle is true, otherwise shows main world-creation elements
 	 */
 	private void showMoreWorldOptions(boolean toggle) {
-
 		inMoreWorldOptionsDisplay = toggle;
 
 		if (WorldType.WORLD_TYPES[selectedIndex] == WorldType.DEBUG_ALL_BLOCK_STATES) {
@@ -384,7 +373,6 @@ public class CreateWorldScreen extends Screen {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) {
-
 		if (worldNameField.isFocused() && !inMoreWorldOptionsDisplay) {
 			worldNameField.textboxKeyTyped(typedChar, keyCode);
 			worldName = worldNameField.getText();
@@ -405,7 +393,6 @@ public class CreateWorldScreen extends Screen {
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
-
 		super.mouseClicked(mouseX, mouseY, mouse);
 
 		if (inMoreWorldOptionsDisplay) {
@@ -419,7 +406,6 @@ public class CreateWorldScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, I18n.format("selectWorld.create"), width / 2, 20, -1);
 
@@ -457,7 +443,6 @@ public class CreateWorldScreen extends Screen {
 	 * Called after construction when a user selects the "Recreate" button.
 	 */
 	public void recreateFromExistingWorld(WorldInfo original) {
-
 		worldName = I18n.format("selectWorld.newWorld.copyOf", original.getWorldName());
 		worldSeed = original.getSeed() + "";
 		selectedIndex = original.getTerrainType().getId();

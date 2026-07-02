@@ -27,12 +27,10 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 	private final IResourceManager resourceManager;
 
 	public TextureManager(IResourceManager resourceManager) {
-
 		this.resourceManager = resourceManager;
 	}
 
 	public void bindTexture(ResourceLocation resource) {
-
 		ITextureObject itextureobject = mapTextureObjects.get(resource);
 
 		if (itextureobject == null) {
@@ -44,7 +42,6 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 	}
 
 	public boolean loadTickableTexture(ResourceLocation textureLocation, ITickableTextureObject textureObj) {
-
 		if (loadTexture(textureLocation, textureObj)) {
 			listTickables.add(textureObj);
 			return true;
@@ -54,7 +51,6 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 	}
 
 	public boolean loadTexture(ResourceLocation textureLocation, ITextureObject textureObj) {
-
 		boolean flag = true;
 
 		try {
@@ -81,12 +77,10 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 	}
 
 	public ITextureObject getTexture(ResourceLocation textureLocation) {
-
 		return mapTextureObjects.get(textureLocation);
 	}
 
 	public ResourceLocation getDynamicTextureLocation(String name, DynamicTexture texture) {
-
 		Integer integer = mapTextureCounters.get(name);
 
 		if (integer == null) {
@@ -102,14 +96,12 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 	}
 
 	public void tick() {
-
 		for (ITickable itickable : listTickables) {
 			itickable.tick();
 		}
 	}
 
 	public void deleteTexture(ResourceLocation textureLocation) {
-
 		ITextureObject itextureobject = getTexture(textureLocation);
 
 		if (itextureobject != null) {
@@ -118,7 +110,6 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 	}
 
 	public void onResourceManagerReload(IResourceManager resourceManager) {
-
 		Iterator<Entry<ResourceLocation, ITextureObject>> iterator = mapTextureObjects.entrySet().iterator();
 
 		while (iterator.hasNext()) {

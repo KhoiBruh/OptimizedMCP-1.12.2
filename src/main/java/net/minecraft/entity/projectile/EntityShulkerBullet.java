@@ -45,14 +45,12 @@ public class EntityShulkerBullet extends Entity {
 	private BlockPos targetBlockPos;
 
 	public EntityShulkerBullet(World worldIn) {
-
 		super(worldIn);
 		setSize(0.3125F, 0.3125F);
 		noClip = true;
 	}
 
 	public EntityShulkerBullet(World worldIn, double x, double y, double z, double motionXIn, double motionYIn, double motionZIn) {
-
 		this(worldIn);
 		setLocationAndAngles(x, y, z, rotationYaw, rotationPitch);
 		motionX = motionXIn;
@@ -61,7 +59,6 @@ public class EntityShulkerBullet extends Entity {
 	}
 
 	public EntityShulkerBullet(World worldIn, EntityLivingBase ownerIn, Entity targetIn, Facing.Axis p_i46772_4_) {
-
 		this(worldIn);
 		owner = ownerIn;
 		BlockPos blockpos = new BlockPos(ownerIn);
@@ -75,7 +72,6 @@ public class EntityShulkerBullet extends Entity {
 	}
 
 	public SoundCategory getSoundCategory() {
-
 		return SoundCategory.HOSTILE;
 	}
 
@@ -83,7 +79,6 @@ public class EntityShulkerBullet extends Entity {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	protected void writeEntityToNBT(NBTTagCompound compound) {
-
 		if (owner != null) {
 			BlockPos blockpos = new BlockPos(owner);
 			NBTTagCompound nbttagcompound = NBTUtil.createUUIDTag(owner.getUniqueID());
@@ -116,7 +111,6 @@ public class EntityShulkerBullet extends Entity {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	protected void readEntityFromNBT(NBTTagCompound compound) {
-
 		steps = compound.getInteger("Steps");
 		targetDeltaX = compound.getDouble("TXD");
 		targetDeltaY = compound.getDouble("TYD");
@@ -140,16 +134,13 @@ public class EntityShulkerBullet extends Entity {
 	}
 
 	protected void entityInit() {
-
 	}
 
 	private void setDirection(Facing directionIn) {
-
 		direction = directionIn;
 	}
 
 	private void selectNextMoveDirection(Facing.Axis p_184569_1_) {
-
 		double d0 = 0.5D;
 		BlockPos blockpos;
 
@@ -232,7 +223,6 @@ public class EntityShulkerBullet extends Entity {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		if (!world.isRemote && world.getDifficulty() == Difficulty.PEACEFUL) {
 			setDead();
 		} else {
@@ -317,7 +307,6 @@ public class EntityShulkerBullet extends Entity {
 	 * Returns true if the entity is on fire. Used by render to add the fire effect on rendering.
 	 */
 	public boolean isBurning() {
-
 		return false;
 	}
 
@@ -325,7 +314,6 @@ public class EntityShulkerBullet extends Entity {
 	 * Checks if the entity is in range to render.
 	 */
 	public boolean isInRangeToRenderDist(double distance) {
-
 		return distance < 16384D;
 	}
 
@@ -333,17 +321,14 @@ public class EntityShulkerBullet extends Entity {
 	 * Gets how bright this entity is.
 	 */
 	public float getBrightness() {
-
 		return 1F;
 	}
 
 	public int getBrightnessForRender() {
-
 		return 15728880;
 	}
 
 	protected void bulletHit(RayTraceResult result) {
-
 		if (result.entityHit == null) {
 			((WorldServer) world).spawnParticle(ParticleTypes.EXPLOSION_LARGE, posX, posY, posZ, 2, 0.2D, 0.2D, 0.2D, 0D);
 			playSound(SoundEvents.ENTITY_SHULKER_BULLET_HIT, 1F, 1F);
@@ -366,7 +351,6 @@ public class EntityShulkerBullet extends Entity {
 	 * Returns true if other Entities should be prevented from moving through this Entity.
 	 */
 	public boolean canBeCollidedWith() {
-
 		return true;
 	}
 
@@ -374,7 +358,6 @@ public class EntityShulkerBullet extends Entity {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		if (!world.isRemote) {
 			playSound(SoundEvents.ENTITY_SHULKER_BULLET_HURT, 1F, 1F);
 			((WorldServer) world).spawnParticle(ParticleTypes.CRIT, posX, posY, posZ, 15, 0.2D, 0.2D, 0.2D, 0D);

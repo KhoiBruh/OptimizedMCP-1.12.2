@@ -14,11 +14,9 @@ public class ItemOverrideList {
 	private final List<ItemOverride> overrides = Lists.newArrayList();
 
 	private ItemOverrideList() {
-
 	}
 
 	public ItemOverrideList(List<ItemOverride> overridesIn) {
-
 		for (int i = overridesIn.size() - 1; i >= 0; --i) {
 			overrides.add(overridesIn.get(i));
 		}
@@ -26,7 +24,6 @@ public class ItemOverrideList {
 
 	
 	public ResourceLocation applyOverride(ItemStack stack, World worldIn, EntityLivingBase entityIn) {
-
 		if (!overrides.isEmpty()) {
 			for (ItemOverride itemoverride : overrides) {
 				if (itemoverride.matchesItemStack(stack, worldIn, entityIn)) {

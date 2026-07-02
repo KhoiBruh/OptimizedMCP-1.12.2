@@ -13,7 +13,6 @@ public class GLAllocation {
 	 * Generates the specified number of display lists and returns the first index.
 	 */
 	public static synchronized int generateDisplayLists(int range) {
-
 		int i = GLS.genLists(range);
 
 		if (i == 0) {
@@ -31,12 +30,10 @@ public class GLAllocation {
 	}
 
 	public static synchronized void deleteDisplayLists(int list, int range) {
-
 		GLS.deleteLists(list, range);
 	}
 
 	public static synchronized void deleteDisplayLists(int list) {
-
 		deleteDisplayLists(list, 1);
 	}
 
@@ -44,7 +41,6 @@ public class GLAllocation {
 	 * Creates and returns a direct byte buffer with the specified capacity. Applies native ordering to speed up access.
 	 */
 	public static synchronized ByteBuffer createDirectByteBuffer(int capacity) {
-
 		return ByteBuffer.allocateDirect(capacity).order(ByteOrder.nativeOrder());
 	}
 
@@ -52,7 +48,6 @@ public class GLAllocation {
 	 * Creates and returns a direct int buffer with the specified capacity. Applies native ordering to speed up access.
 	 */
 	public static IntBuffer createDirectIntBuffer(int capacity) {
-
 		return createDirectByteBuffer(capacity << 2).asIntBuffer();
 	}
 
@@ -61,7 +56,6 @@ public class GLAllocation {
 	 * access.
 	 */
 	public static FloatBuffer createDirectFloatBuffer(int capacity) {
-
 		return createDirectByteBuffer(capacity << 2).asFloatBuffer();
 	}
 

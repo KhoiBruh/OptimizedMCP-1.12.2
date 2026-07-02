@@ -222,7 +222,6 @@ public abstract class EntityLivingBase extends Entity {
 	private long lastDamageStamp;
 
 	public EntityLivingBase(World worldIn) {
-
 		super(worldIn);
 		applyEntityAttributes();
 		setHealth(getMaxHealth());
@@ -239,7 +238,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Returns true if all of the potion effects in the specified collection are ambient.
 	 */
 	public static boolean areAllPotionsAmbient(Collection<PotionEffect> potionEffects) {
-
 		for (PotionEffect potioneffect : potionEffects) {
 			if (!potioneffect.getIsAmbient()) {
 				return false;
@@ -253,12 +251,10 @@ public abstract class EntityLivingBase extends Entity {
 	 * Called by the /kill command.
 	 */
 	public void onKillCommand() {
-
 		attackEntityFrom(DamageSource.OUT_OF_WORLD, Float.MAX_VALUE);
 	}
 
 	protected void entityInit() {
-
 		dataManager.register(HAND_STATES, (byte) 0);
 		dataManager.register(POTION_EFFECTS, 0);
 		dataManager.register(HIDE_PARTICLES, false);
@@ -267,7 +263,6 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	protected void applyEntityAttributes() {
-
 		getAttributeMap().registerAttribute(SharedMonsterAttributes.MAX_HEALTH);
 		getAttributeMap().registerAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE);
 		getAttributeMap().registerAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
@@ -276,7 +271,6 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos) {
-
 		if (!isInWater()) {
 			handleWaterMovement();
 		}
@@ -295,7 +289,6 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	public boolean canBreatheUnderwater() {
-
 		return false;
 	}
 
@@ -303,7 +296,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Gets called every tick from main Entity class
 	 */
 	public void onEntityUpdate() {
-
 		prevSwingProgress = swingProgress;
 		super.onEntityUpdate();
 		world.profiler.startSection("livingEntityBaseTick");
@@ -413,7 +405,6 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	protected void frostWalk(BlockPos pos) {
-
 		int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.FROST_WALKER, this);
 
 		if (i > 0) {
@@ -425,7 +416,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * If Animal, checks if the age timer is negative
 	 */
 	public boolean isChild() {
-
 		return false;
 	}
 
@@ -433,7 +423,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * handles entity death timer, experience orb and particle creation
 	 */
 	protected void onDeathUpdate() {
-
 		++deathTime;
 
 		if (deathTime == 20) {
@@ -462,7 +451,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Entity won't drop items or experience points if this returns false
 	 */
 	protected boolean canDropLoot() {
-
 		return !isChild();
 	}
 
@@ -470,7 +458,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Decrements the entity's air supply when underwater
 	 */
 	protected int decreaseAirSupply(int air) {
-
 		int i = EnchantmentHelper.getRespirationModifier(this);
 		return i > 0 && rand.nextInt(i + 1) > 0 ? air : air - 1;
 	}
@@ -479,7 +466,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Get the experience points the entity currently has.
 	 */
 	protected int getExperiencePoints(EntityPlayer player) {
-
 		return 0;
 	}
 
@@ -487,18 +473,15 @@ public abstract class EntityLivingBase extends Entity {
 	 * Only use is to identify if class is an instance of player for experience dropping
 	 */
 	protected boolean isPlayer() {
-
 		return false;
 	}
 
 	public Random getRNG() {
-
 		return rand;
 	}
 
 	
 	public EntityLivingBase getRevengeTarget() {
-
 		return revengeTarget;
 	}
 
@@ -507,23 +490,19 @@ public abstract class EntityLivingBase extends Entity {
 	 * change our actual active target (for example if we are currently busy attacking someone else)
 	 */
 	public void setRevengeTarget(EntityLivingBase livingBase) {
-
 		revengeTarget = livingBase;
 		revengeTimer = ticksExisted;
 	}
 
 	public int getRevengeTimer() {
-
 		return revengeTimer;
 	}
 
 	public EntityLivingBase getLastAttackedEntity() {
-
 		return lastAttackedEntity;
 	}
 
 	public void setLastAttackedEntity(Entity entityIn) {
-
 		if (entityIn instanceof EntityLivingBase) {
 			lastAttackedEntity = (EntityLivingBase) entityIn;
 		} else {
@@ -534,17 +513,14 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	public int getLastAttackedEntityTime() {
-
 		return lastAttackedEntityTime;
 	}
 
 	public int getIdleTime() {
-
 		return idleTime;
 	}
 
 	protected void playEquipSound(ItemStack stack) {
-
 		if (!stack.isEmpty()) {
 			SoundEvent soundevent = SoundEvents.ITEM_ARMOR_EQUIP_GENERIC;
 			Item item = stack.getItem();
@@ -563,7 +539,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		compound.setFloat("Health", getHealth());
 		compound.setShort("HurtTime", (short) hurtTime);
 		compound.setInteger("HurtByTimestamp", revengeTimer);
@@ -605,7 +580,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		setAbsorptionAmount(compound.getFloat("AbsorptionAmount"));
 
 		if (compound.hasKey("Attributes", 9) && world != null && !world.isRemote) {
@@ -648,7 +622,6 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	protected void updatePotionEffects() {
-
 		Iterator<Potion> iterator = activePotionsMap.keySet().iterator();
 
 		try {
@@ -706,7 +679,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * ambience, and invisibility metadata values
 	 */
 	protected void updatePotionMetadata() {
-
 		if (activePotionsMap.isEmpty()) {
 			resetPotionEffectMetadata();
 			setInvisible(false);
@@ -722,13 +694,11 @@ public abstract class EntityLivingBase extends Entity {
 	 * Resets the potion effect color and ambience metadata values
 	 */
 	protected void resetPotionEffectMetadata() {
-
 		dataManager.set(HIDE_PARTICLES, false);
 		dataManager.set(POTION_EFFECTS, 0);
 	}
 
 	public void clearActivePotions() {
-
 		if (!world.isRemote) {
 			Iterator<PotionEffect> iterator = activePotionsMap.values().iterator();
 
@@ -740,7 +710,6 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	public Collection<PotionEffect> getActivePotionEffects() {
-
 		return activePotionsMap.values();
 	}
 
@@ -750,7 +719,6 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	public boolean isPotionActive(Potion potionIn) {
-
 		return activePotionsMap.containsKey(potionIn);
 	}
 
@@ -760,7 +728,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * returns the PotionEffect for the supplied Potion if it is active, null otherwise.
 	 */
 	public PotionEffect getActivePotionEffect(Potion potionIn) {
-
 		return activePotionsMap.get(potionIn);
 	}
 
@@ -768,7 +735,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * adds a PotionEffect to the entity
 	 */
 	public void addPotionEffect(PotionEffect potioneffectIn) {
-
 		if (isPotionApplicable(potioneffectIn)) {
 			PotionEffect potioneffect = activePotionsMap.get(potioneffectIn.getPotion());
 
@@ -783,7 +749,6 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-
 		if (getCreatureAttribute() == CreatureAttribute.UNDEAD) {
 			Potion potion = potioneffectIn.getPotion();
 
@@ -797,7 +762,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Returns true if this entity is undead.
 	 */
 	public boolean isEntityUndead() {
-
 		return getCreatureAttribute() == CreatureAttribute.UNDEAD;
 	}
 
@@ -808,7 +772,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * the end of the potion effect.
 	 */
 	public PotionEffect removeActivePotionEffect(Potion potioneffectin) {
-
 		return activePotionsMap.remove(potioneffectin);
 	}
 
@@ -816,7 +779,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Removes the given potion effect.
 	 */
 	public void removePotionEffect(Potion potionIn) {
-
 		PotionEffect potioneffect = removeActivePotionEffect(potionIn);
 
 		if (potioneffect != null) {
@@ -825,7 +787,6 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	protected void onNewPotionEffect(PotionEffect id) {
-
 		potionsNeedUpdate = true;
 
 		if (!world.isRemote) {
@@ -834,7 +795,6 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	protected void onChangedPotionEffect(PotionEffect id, boolean p_70695_2_) {
-
 		potionsNeedUpdate = true;
 
 		if (p_70695_2_ && !world.isRemote) {
@@ -845,7 +805,6 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	protected void onFinishedPotionEffect(PotionEffect effect) {
-
 		potionsNeedUpdate = true;
 
 		if (!world.isRemote) {
@@ -857,7 +816,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Heal living entity (param: amount of half-hearts)
 	 */
 	public void heal(float healAmount) {
-
 		float f = getHealth();
 
 		if (f > 0F) {
@@ -866,12 +824,10 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	public final float getHealth() {
-
 		return dataManager.get(HEALTH);
 	}
 
 	public void setHealth(float health) {
-
 		dataManager.set(HEALTH, MathHelper.clamp(health, 0F, getMaxHealth()));
 	}
 
@@ -879,7 +835,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		if (isEntityInvulnerable(source)) {
 			return false;
 		} else if (world.isRemote) {
@@ -1028,12 +983,10 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	protected void blockUsingShield(EntityLivingBase p_190629_1_) {
-
 		p_190629_1_.knockBack(this, 0.5F, posX - p_190629_1_.posX, posZ - p_190629_1_.posZ);
 	}
 
 	private boolean checkTotemDeathProtection(DamageSource p_190628_1_) {
-
 		if (p_190628_1_.canHarmInCreative()) {
 			return false;
 		} else {
@@ -1068,7 +1021,6 @@ public abstract class EntityLivingBase extends Entity {
 
 	
 	public DamageSource getLastDamageSource() {
-
 		if (world.getTotalWorldTime() - lastDamageStamp > 40L) {
 			lastDamageSource = null;
 		}
@@ -1077,7 +1029,6 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	protected void playHurtSound(DamageSource source) {
-
 		SoundEvent soundevent = getHurtSound(source);
 
 		if (soundevent != null) {
@@ -1090,7 +1041,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * damage source is blockable, and whether the entity is blocking.
 	 */
 	private boolean canBlockDamageSource(DamageSource damageSourceIn) {
-
 		if (!damageSourceIn.isUnblockable() && isActiveItemStackBlocking()) {
 			Vec3d vec3d = damageSourceIn.getDamageLocation();
 
@@ -1110,7 +1060,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Renders broken item particles using the given ItemStack
 	 */
 	public void renderBrokenItemStack(ItemStack stack) {
-
 		playSound(SoundEvents.ENTITY_ITEM_BREAK, 0.8F, 0.8F + world.rand.nextFloat() * 0.4F);
 
 		for (int i = 0; i < 5; ++i) {
@@ -1130,7 +1079,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Called when the mob's health reaches 0.
 	 */
 	public void onDeath(DamageSource cause) {
-
 		if (!dead) {
 			Entity entity = cause.getTrueSource();
 			EntityLivingBase entitylivingbase = getAttackingEntity();
@@ -1167,7 +1115,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * drops the loot of this entity upon death
 	 */
 	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source) {
-
 		dropFewItems(wasRecentlyHit, lootingModifier);
 		dropEquipment(wasRecentlyHit, lootingModifier);
 	}
@@ -1176,7 +1123,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Drop the equipment for this entity.
 	 */
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
-
 	}
 
 	/**
@@ -1187,7 +1133,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * The entity's existing horizontal velocity is halved, and if the entity is on the ground the Y-velocity is too.
 	 */
 	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
-
 		if (rand.nextDouble() >= getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getAttributeValue()) {
 			isAirBorne = true;
 			float f = MathHelper.sqrt(xRatio * xRatio + zRatio * zRatio);
@@ -1209,18 +1154,15 @@ public abstract class EntityLivingBase extends Entity {
 
 	
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_GENERIC_HURT;
 	}
 
 	
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_GENERIC_DEATH;
 	}
 
 	protected SoundEvent getFallSound(int heightIn) {
-
 		return heightIn > 4 ? SoundEvents.ENTITY_GENERIC_BIG_FALL : SoundEvents.ENTITY_GENERIC_SMALL_FALL;
 	}
 
@@ -1228,7 +1170,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Drop 0-2 items of this living's type
 	 */
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-
 	}
 
 	/**
@@ -1236,7 +1177,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * for AI reasons)
 	 */
 	public boolean isOnLadder() {
-
 		int i = MathHelper.floor(posX);
 		int j = MathHelper.floor(getEntityBoundingBox().minY);
 		int k = MathHelper.floor(posZ);
@@ -1257,7 +1197,6 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	private boolean canGoThroughtTrapDoorOnLadder(BlockPos pos, IBlockState state) {
-
 		if (state.getValue(BlockTrapDoor.OPEN)) {
 			IBlockState iblockstate = world.getBlockState(pos.down());
 
@@ -1271,12 +1210,10 @@ public abstract class EntityLivingBase extends Entity {
 	 * Checks whether target entity is alive.
 	 */
 	public boolean isEntityAlive() {
-
 		return !isDead && getHealth() > 0F;
 	}
 
 	public void fall(float distance, float damageMultiplier) {
-
 		super.fall(distance, damageMultiplier);
 		PotionEffect potioneffect = getActivePotionEffect(MobEffects.JUMP_BOOST);
 		float f = potioneffect == null ? 0F : (float) (potioneffect.getAmplifier() + 1);
@@ -1301,7 +1238,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Setups the entity to do the hurt animation. Only used by packets in multiplayer.
 	 */
 	public void performHurtAnimation() {
-
 		maxHurtTime = 10;
 		hurtTime = maxHurtTime;
 		attackedAtYaw = 0F;
@@ -1311,24 +1247,20 @@ public abstract class EntityLivingBase extends Entity {
 	 * Returns the current armor value as determined by a call to InventoryPlayer.getTotalArmorValue
 	 */
 	public int getTotalArmorValue() {
-
 		IAttributeInstance iattributeinstance = getEntityAttribute(SharedMonsterAttributes.ARMOR);
 		return MathHelper.floor(iattributeinstance.getAttributeValue());
 	}
 
 	protected void damageArmor(float damage) {
-
 	}
 
 	protected void damageShield(float damage) {
-
 	}
 
 	/**
 	 * Reduces damage, depending on armor
 	 */
 	protected float applyArmorCalculations(DamageSource source, float damage) {
-
 		if (!source.isUnblockable()) {
 			damageArmor(damage);
 			damage = CombatRules.getDamageAfterAbsorb(damage, (float) getTotalArmorValue(), (float) getEntityAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).getAttributeValue());
@@ -1341,7 +1273,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Reduces damage, depending on potions
 	 */
 	protected float applyPotionDamageCalculations(DamageSource source, float damage) {
-
 		if (source.isDamageAbsolute()) {
 			return damage;
 		} else {
@@ -1371,7 +1302,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * bar.
 	 */
 	protected void damageEntity(DamageSource damageSrc, float damageAmount) {
-
 		if (!isEntityInvulnerable(damageSrc)) {
 			damageAmount = applyArmorCalculations(damageSrc, damageAmount);
 			damageAmount = applyPotionDamageCalculations(damageSrc, damageAmount);
@@ -1392,13 +1322,11 @@ public abstract class EntityLivingBase extends Entity {
 	 * 1.8.9
 	 */
 	public CombatTracker getCombatTracker() {
-
 		return combatTracker;
 	}
 
 	
 	public EntityLivingBase getAttackingEntity() {
-
 		if (combatTracker.getBestAttacker() != null) {
 			return combatTracker.getBestAttacker();
 		} else if (attackingPlayer != null) {
@@ -1412,7 +1340,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Returns the maximum health of the entity (what it is able to regenerate up to, what it spawned with, etc)
 	 */
 	public final float getMaxHealth() {
-
 		return (float) getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getAttributeValue();
 	}
 
@@ -1420,7 +1347,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * counts the amount of arrows stuck in the entity. getting hit by arrows increases this, used in rendering
 	 */
 	public final int getArrowCountInEntity() {
-
 		return dataManager.get(ARROW_COUNT_IN_ENTITY);
 	}
 
@@ -1428,7 +1354,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * sets the amount of arrows stuck in the entity. used for rendering those
 	 */
 	public final void setArrowCountInEntity(int count) {
-
 		dataManager.set(ARROW_COUNT_IN_ENTITY, count);
 	}
 
@@ -1437,7 +1362,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * progress indicator. Takes dig speed enchantments into account.
 	 */
 	private int getArmSwingAnimationEnd() {
-
 		if (isPotionActive(MobEffects.HASTE)) {
 			return 6 - (1 + getActivePotionEffect(MobEffects.HASTE).getAmplifier());
 		} else {
@@ -1446,7 +1370,6 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	public void swingArm(Hand hand) {
-
 		if (!isSwingInProgress || swingProgressInt >= getArmSwingAnimationEnd() / 2 || swingProgressInt < 0) {
 			swingProgressInt = -1;
 			isSwingInProgress = true;
@@ -1462,7 +1385,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Handler for {@link World#setEntityState}
 	 */
 	public void handleStatusUpdate(byte id) {
-
 		boolean flag = id == 33;
 		boolean flag1 = id == 36;
 		boolean flag2 = id == 37;
@@ -1519,7 +1441,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * sets the dead flag. Used when you fall off the bottom of the world.
 	 */
 	protected void outOfWorld() {
-
 		attackEntityFrom(DamageSource.OUT_OF_WORLD, 4F);
 	}
 
@@ -1527,7 +1448,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Updates the arm swing progress counters and animation progress
 	 */
 	protected void updateArmSwingProgress() {
-
 		int i = getArmSwingAnimationEnd();
 
 		if (isSwingInProgress) {
@@ -1545,7 +1465,6 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	public IAttributeInstance getEntityAttribute(IAttribute attribute) {
-
 		return getAttributeMap().getAttributeInstance(attribute);
 	}
 
@@ -1553,7 +1472,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Returns this entity's attribute map (where all its attributes are stored)
 	 */
 	public AbstractAttributeMap getAttributeMap() {
-
 		if (attributeMap == null) {
 			attributeMap = new AttributeMap();
 		}
@@ -1565,22 +1483,18 @@ public abstract class EntityLivingBase extends Entity {
 	 * Get this Entity's CreatureAttribute
 	 */
 	public CreatureAttribute getCreatureAttribute() {
-
 		return CreatureAttribute.UNDEFINED;
 	}
 
 	public ItemStack getHeldItemMainhand() {
-
 		return getItemStackFromSlot(EntityEquipmentSlot.MAINHAND);
 	}
 
 	public ItemStack getHeldItemOffhand() {
-
 		return getItemStackFromSlot(EntityEquipmentSlot.OFFHAND);
 	}
 
 	public ItemStack getHeldItem(Hand hand) {
-
 		if (hand == Hand.MAIN_HAND) {
 			return getItemStackFromSlot(EntityEquipmentSlot.MAINHAND);
 		} else if (hand == Hand.OFF_HAND) {
@@ -1591,7 +1505,6 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	public void setHeldItem(Hand hand, ItemStack stack) {
-
 		if (hand == Hand.MAIN_HAND) {
 			setItemStackToSlot(EntityEquipmentSlot.MAINHAND, stack);
 		} else {
@@ -1604,7 +1517,6 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	public boolean hasItemInSlot(EntityEquipmentSlot p_190630_1_) {
-
 		return !getItemStackFromSlot(p_190630_1_).isEmpty();
 	}
 
@@ -1618,7 +1530,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Set sprinting switch for Entity.
 	 */
 	public void setSprinting(boolean sprinting) {
-
 		super.setSprinting(sprinting);
 		IAttributeInstance iattributeinstance = getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
 
@@ -1635,7 +1546,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Returns the volume for the sounds this mob makes.
 	 */
 	protected float getSoundVolume() {
-
 		return 1F;
 	}
 
@@ -1643,7 +1553,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Gets the pitch of living sounds in living entities.
 	 */
 	protected float getSoundPitch() {
-
 		return isChild() ? (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.5F : (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F;
 	}
 
@@ -1651,7 +1560,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Dead and sleeping entities cannot move
 	 */
 	protected boolean isMovementBlocked() {
-
 		return getHealth() <= 0F;
 	}
 
@@ -1659,7 +1567,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Moves the entity to a position out of the way of its mount.
 	 */
 	public void dismountEntity(Entity entityIn) {
-
 		if (!(entityIn instanceof EntityBoat) && !(entityIn instanceof AbstractHorse)) {
 			double d1 = entityIn.posX;
 			double d13 = entityIn.getEntityBoundingBox().minY + (double) entityIn.height;
@@ -1732,7 +1639,6 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	protected float getJumpUpwardsMotion() {
-
 		return 0.42F;
 	}
 
@@ -1740,7 +1646,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Causes this entity to do an upwards motion (jumping).
 	 */
 	protected void jump() {
-
 		motionY = getJumpUpwardsMotion();
 
 		if (isPotionActive(MobEffects.JUMP_BOOST)) {
@@ -1760,22 +1665,18 @@ public abstract class EntityLivingBase extends Entity {
 	 * Handles the jump when the entity is in water
 	 */
 	protected void handleJumpWater() {
-
 		motionY += 0.03999999910593033D;
 	}
 
 	protected void handleJumpLava() {
-
 		motionY += 0.03999999910593033D;
 	}
 
 	protected float getWaterSlowDown() {
-
 		return 0.8F;
 	}
 
 	public void travel(float strafe, float vertical, float forward) {
-
 		if (isServerWorld() || canPassengerSteer()) {
 			if (!isInWater() || this instanceof EntityPlayer && ((EntityPlayer) this).capabilities.isFlying) {
 				if (!isInLava() || this instanceof EntityPlayer && ((EntityPlayer) this).capabilities.isFlying) {
@@ -1968,7 +1869,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * the movespeed used for the new AI system
 	 */
 	public float getAIMoveSpeed() {
-
 		return landMovementFactor;
 	}
 
@@ -1976,12 +1876,10 @@ public abstract class EntityLivingBase extends Entity {
 	 * set the movespeed used for the new AI system
 	 */
 	public void setAIMoveSpeed(float speedIn) {
-
 		landMovementFactor = speedIn;
 	}
 
 	public boolean attackEntityAsMob(Entity entityIn) {
-
 		setLastAttackedEntity(entityIn);
 		return false;
 	}
@@ -1990,7 +1888,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Returns whether player is sleeping or not
 	 */
 	public boolean isPlayerSleeping() {
-
 		return false;
 	}
 
@@ -1998,7 +1895,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		super.onUpdate();
 		updateActiveHand();
 
@@ -2149,7 +2045,6 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	protected float updateDistance(float p_110146_1_, float p_110146_2_) {
-
 		float f = MathHelper.wrapDegrees(p_110146_1_ - renderYawOffset);
 		renderYawOffset += f * 0.3F;
 		float f1 = MathHelper.wrapDegrees(rotationYaw - renderYawOffset);
@@ -2181,7 +2076,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
 		if (jumpTicks > 0) {
 			--jumpTicks;
 		}
@@ -2260,7 +2154,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Called each tick. Updates state for the elytra.
 	 */
 	private void updateElytra() {
-
 		boolean flag = getFlag(7);
 
 		if (flag && !onGround && !isRiding()) {
@@ -2285,11 +2178,9 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	protected void updateEntityActionState() {
-
 	}
 
 	protected void collideWithNearbyEntities() {
-
 		List<Entity> list = world.getEntitiesInAABBexcluding(this, getEntityBoundingBox(), EntitySelectors.getTeamCollisionPredicate(this));
 
 		if (!list.isEmpty()) {
@@ -2316,7 +2207,6 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	protected void collideWithEntity(Entity entityIn) {
-
 		entityIn.applyEntityCollision(this);
 	}
 
@@ -2324,7 +2214,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Dismounts this entity from the entity it is riding.
 	 */
 	public void dismountRidingEntity() {
-
 		Entity entity = getRidingEntity();
 		super.dismountRidingEntity();
 
@@ -2337,7 +2226,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Handles updating while riding another entity
 	 */
 	public void updateRidden() {
-
 		super.updateRidden();
 		prevOnGroundSpeedFactor = onGroundSpeedFactor;
 		onGroundSpeedFactor = 0F;
@@ -2348,7 +2236,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Set the position and rotation values directly without any clamping.
 	 */
 	public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean teleport) {
-
 		interpTargetX = x;
 		interpTargetY = y;
 		interpTargetZ = z;
@@ -2358,7 +2245,6 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	public void setJumping(boolean jumping) {
-
 		isJumping = jumping;
 	}
 
@@ -2366,7 +2252,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Called when the entity picks up an item.
 	 */
 	public void onItemPickup(Entity entityIn, int quantity) {
-
 		if (!entityIn.isDead && !world.isRemote) {
 			EntityTracker entitytracker = ((WorldServer) world).getEntityTracker();
 
@@ -2380,7 +2265,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * returns true if the entity provided in the argument can be seen. (Raytrace)
 	 */
 	public boolean canEntityBeSeen(Entity entityIn) {
-
 		return world.rayTraceBlocks(new Vec3d(posX, posY + (double) getEyeHeight(), posZ), new Vec3d(entityIn.posX, entityIn.posY + (double) entityIn.getEyeHeight(), entityIn.posZ), false, true, false) == null;
 	}
 
@@ -2388,7 +2272,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * interpolated look vector
 	 */
 	public Vec3d getLook(float partialTicks) {
-
 		if (partialTicks == 1F) {
 			return getVectorForRotation(rotationPitch, rotationYawHead);
 		} else {
@@ -2402,7 +2285,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Gets the progression of the swing animation, ranges from 0.0 to 1.0.
 	 */
 	public float getSwingProgress(float partialTickTime) {
-
 		float f = swingProgress - prevSwingProgress;
 
 		if (f < 0F) {
@@ -2416,7 +2298,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Returns whether the entity is in a server world
 	 */
 	public boolean isServerWorld() {
-
 		return !world.isRemote;
 	}
 
@@ -2424,7 +2305,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Returns true if other Entities should be prevented from moving through this Entity.
 	 */
 	public boolean canBeCollidedWith() {
-
 		return !isDead;
 	}
 
@@ -2432,7 +2312,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Returns true if this entity should push and be pushed by other entities when colliding.
 	 */
 	public boolean canBePushed() {
-
 		return isEntityAlive() && !isOnLadder();
 	}
 
@@ -2440,12 +2319,10 @@ public abstract class EntityLivingBase extends Entity {
 	 * Marks this entity's velocity as changed, so that it can be re-synced with the client later
 	 */
 	protected void markVelocityChanged() {
-
 		velocityChanged = rand.nextDouble() >= getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getAttributeValue();
 	}
 
 	public float getRotationYawHead() {
-
 		return rotationYawHead;
 	}
 
@@ -2453,7 +2330,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Sets the head's yaw rotation of the entity.
 	 */
 	public void setRotationYawHead(float rotation) {
-
 		rotationYawHead = rotation;
 	}
 
@@ -2461,7 +2337,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Set the render yaw offset
 	 */
 	public void setRenderYawOffset(float offset) {
-
 		renderYawOffset = offset;
 	}
 
@@ -2469,12 +2344,10 @@ public abstract class EntityLivingBase extends Entity {
 	 * Returns the amount of health added by the Absorption effect.
 	 */
 	public float getAbsorptionAmount() {
-
 		return absorptionAmount;
 	}
 
 	public void setAbsorptionAmount(float amount) {
-
 		if (amount < 0F) {
 			amount = 0F;
 		}
@@ -2486,35 +2359,29 @@ public abstract class EntityLivingBase extends Entity {
 	 * Sends an ENTER_COMBAT packet to the client
 	 */
 	public void sendEnterCombat() {
-
 	}
 
 	/**
 	 * Sends an END_COMBAT packet to the client
 	 */
 	public void sendEndCombat() {
-
 	}
 
 	protected void markPotionsDirty() {
-
 		potionsNeedUpdate = true;
 	}
 
 	public abstract HandSide getPrimaryHand();
 
 	public boolean isHandActive() {
-
 		return (dataManager.get(HAND_STATES) & 1) > 0;
 	}
 
 	public Hand getActiveHand() {
-
 		return (dataManager.get(HAND_STATES) & 2) > 0 ? Hand.OFF_HAND : Hand.MAIN_HAND;
 	}
 
 	public void setActiveHand(Hand hand) {
-
 		ItemStack itemstack = getHeldItem(hand);
 
 		if (!itemstack.isEmpty() && !isHandActive()) {
@@ -2534,7 +2401,6 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	protected void updateActiveHand() {
-
 		if (isHandActive()) {
 			ItemStack itemstack = getHeldItem(getActiveHand());
 
@@ -2553,7 +2419,6 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	public void notifyDataManagerChange(DataParameter<?> key) {
-
 		super.notifyDataManagerChange(key);
 
 		if (HAND_STATES.equals(key) && world.isRemote) {
@@ -2574,7 +2439,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Plays sounds and makes particles for item in use state
 	 */
 	protected void updateItemUse(ItemStack stack, int eatingParticleCount) {
-
 		if (!stack.isEmpty() && isHandActive()) {
 			if (stack.getItemUseAction() == Action.DRINK) {
 				playSound(SoundEvents.ENTITY_GENERIC_DRINK, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
@@ -2607,7 +2471,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Used for when item use count runs out, ie: eating completed
 	 */
 	protected void onItemUseFinish() {
-
 		if (!activeItemStack.isEmpty() && isHandActive()) {
 			updateItemUse(activeItemStack, 16);
 			setHeldItem(getActiveHand(), activeItemStack.onItemUseFinish(world, this));
@@ -2616,22 +2479,18 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	public ItemStack getActiveItemStack() {
-
 		return activeItemStack;
 	}
 
 	public int getItemInUseCount() {
-
 		return activeItemStackUseCount;
 	}
 
 	public int getItemInUseMaxCount() {
-
 		return isHandActive() ? activeItemStack.getMaxItemUseDuration() - getItemInUseCount() : 0;
 	}
 
 	public void stopActiveHand() {
-
 		if (!activeItemStack.isEmpty()) {
 			activeItemStack.onPlayerStoppedUsing(world, this, getItemInUseCount());
 		}
@@ -2640,7 +2499,6 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	public void resetActiveHand() {
-
 		if (!world.isRemote) {
 			dataManager.set(HAND_STATES, (byte) 0);
 		}
@@ -2650,7 +2508,6 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	public boolean isActiveItemStackBlocking() {
-
 		if (isHandActive() && !activeItemStack.isEmpty()) {
 			Item item = activeItemStack.getItem();
 
@@ -2665,12 +2522,10 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	public boolean isElytraFlying() {
-
 		return getFlag(7);
 	}
 
 	public int getTicksElytraFlying() {
-
 		return ticksElytraFlying;
 	}
 
@@ -2678,7 +2533,6 @@ public abstract class EntityLivingBase extends Entity {
 	 * Teleports the entity to the specified location. Used for Enderman and Chorus Fruit teleportation
 	 */
 	public boolean attemptTeleport(double x, double y, double z) {
-
 		double d0 = posX;
 		double d1 = posY;
 		double d2 = posZ;
@@ -2743,17 +2597,14 @@ public abstract class EntityLivingBase extends Entity {
 	 * Returns false if the entity is an armor stand. Returns true for all other entity living bases.
 	 */
 	public boolean canBeHitWithPotion() {
-
 		return true;
 	}
 
 	public boolean attackable() {
-
 		return true;
 	}
 
 	public void setPartying(BlockPos pos, boolean p_191987_2_) {
-
 	}
 
 }

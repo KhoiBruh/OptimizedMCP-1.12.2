@@ -24,19 +24,16 @@ public class Shader {
 	private Matrix4f projectionMatrix;
 
 	public Shader(IResourceManager resourceManager, String programName, Framebuffer framebufferInIn, Framebuffer framebufferOutIn) throws IOException {
-
 		manager = new ShaderManager(resourceManager, programName);
 		framebufferIn = framebufferInIn;
 		framebufferOut = framebufferOutIn;
 	}
 
 	public void deleteShader() {
-
 		manager.deleteShader();
 	}
 
 	public void addAuxFramebuffer(String auxName, Object auxFramebufferIn, int width, int height) {
-
 		listAuxNames.add(listAuxNames.size(), auxName);
 		listAuxFramebuffers.add(listAuxFramebuffers.size(), auxFramebufferIn);
 		listAuxWidths.add(listAuxWidths.size(), width);
@@ -44,7 +41,6 @@ public class Shader {
 	}
 
 	private void preRender() {
-
 		GLS.color(1F, 1F, 1F, 1F);
 		GLS.disableBlend();
 		GLS.disableDepth();
@@ -57,12 +53,10 @@ public class Shader {
 	}
 
 	public void setProjectionMatrix(Matrix4f projectionMatrixIn) {
-
 		projectionMatrix = projectionMatrixIn;
 	}
 
 	public void render(float partialTicks) {
-
 		preRender();
 		framebufferIn.unbindFramebuffer();
 		float f = (float) framebufferOut.framebufferTextureWidth;
@@ -108,7 +102,6 @@ public class Shader {
 	}
 
 	public ShaderManager getShaderManager() {
-
 		return manager;
 	}
 

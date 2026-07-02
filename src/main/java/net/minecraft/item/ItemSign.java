@@ -20,7 +20,6 @@ import net.minecraft.world.World;
 public class ItemSign extends Item {
 
 	public ItemSign() {
-
 		maxStackSize = 16;
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
@@ -29,7 +28,6 @@ public class ItemSign extends Item {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		boolean flag = iblockstate.getBlock().isReplaceable(worldIn, pos);
 

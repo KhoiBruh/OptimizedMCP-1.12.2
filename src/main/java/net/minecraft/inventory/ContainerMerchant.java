@@ -20,7 +20,6 @@ public class ContainerMerchant extends Container {
 	private final World world;
 
 	public ContainerMerchant(InventoryPlayer playerInventory, IMerchant merchant, World worldIn) {
-
 		this.merchant = merchant;
 		world = worldIn;
 		merchantInventory = new InventoryMerchant(playerInventory.player, merchant);
@@ -40,7 +39,6 @@ public class ContainerMerchant extends Container {
 	}
 
 	public InventoryMerchant getMerchantInventory() {
-
 		return merchantInventory;
 	}
 
@@ -48,13 +46,11 @@ public class ContainerMerchant extends Container {
 	 * Callback for when the crafting matrix is changed.
 	 */
 	public void onCraftMatrixChanged(IInventory inventoryIn) {
-
 		merchantInventory.resetRecipeAndSlots();
 		super.onCraftMatrixChanged(inventoryIn);
 	}
 
 	public void setCurrentRecipeIndex(int currentRecipeIndex) {
-
 		merchantInventory.setCurrentRecipeIndex(currentRecipeIndex);
 	}
 
@@ -62,7 +58,6 @@ public class ContainerMerchant extends Container {
 	 * Determines whether supplied player can use this container
 	 */
 	public boolean canInteractWith(EntityPlayer playerIn) {
-
 		return merchant.getCustomer() == playerIn;
 	}
 
@@ -71,7 +66,6 @@ public class ContainerMerchant extends Container {
 	 * inventory and the other inventory(s).
 	 */
 	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = inventorySlots.get(index);
 
@@ -117,7 +111,6 @@ public class ContainerMerchant extends Container {
 	 * Called when the container is closed.
 	 */
 	public void onContainerClosed(EntityPlayer playerIn) {
-
 		super.onContainerClosed(playerIn);
 		merchant.setCustomer(null);
 		super.onContainerClosed(playerIn);

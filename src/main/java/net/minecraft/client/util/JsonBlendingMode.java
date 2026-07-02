@@ -18,7 +18,6 @@ public class JsonBlendingMode {
 	private final boolean opaque;
 
 	private JsonBlendingMode(boolean separateBlendIn, boolean opaqueIn, int srcColorFactorIn, int destColorFactorIn, int srcAlphaFactorIn, int destAlphaFactorIn, int blendFunctionIn) {
-
 		separateBlend = separateBlendIn;
 		srcColorFactor = srcColorFactorIn;
 		destColorFactor = destColorFactorIn;
@@ -29,22 +28,18 @@ public class JsonBlendingMode {
 	}
 
 	public JsonBlendingMode() {
-
 		this(false, true, 1, 0, 1, 0, 32774);
 	}
 
 	public JsonBlendingMode(int srcFactor, int dstFactor, int blendFunctionIn) {
-
 		this(false, false, srcFactor, dstFactor, srcFactor, dstFactor, blendFunctionIn);
 	}
 
 	public JsonBlendingMode(int srcColorFactorIn, int destColorFactorIn, int srcAlphaFactorIn, int destAlphaFactorIn, int blendFunctionIn) {
-
 		this(true, false, srcColorFactorIn, destColorFactorIn, srcAlphaFactorIn, destAlphaFactorIn, blendFunctionIn);
 	}
 
 	public static JsonBlendingMode parseBlendNode(JsonObject json) {
-
 		if (json == null) {
 			return new JsonBlendingMode();
 		} else {
@@ -112,7 +107,6 @@ public class JsonBlendingMode {
 	 * Converts a blend function name to an id, returning add (32774) if not recognized.
 	 */
 	private static int stringToBlendFunction(String funcName) {
-
 		String s = funcName.trim().toLowerCase(Locale.ROOT);
 
 		return switch (s) {
@@ -125,7 +119,6 @@ public class JsonBlendingMode {
 	}
 
 	private static int stringToBlendFactor(String factorName) {
-
 		String s = factorName.trim().toLowerCase(Locale.ROOT);
 		s = s.replaceAll("_", "");
 		s = s.replaceAll("one", "1");
@@ -147,7 +140,6 @@ public class JsonBlendingMode {
 	}
 
 	public void apply() {
-
 		if (!equals(lastApplied)) {
 			if (lastApplied == null || opaque != lastApplied.isOpaque()) {
 				lastApplied = this;
@@ -171,7 +163,6 @@ public class JsonBlendingMode {
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else if (!(p_equals_1_ instanceof JsonBlendingMode jsonblendingmode)) {
@@ -197,7 +188,6 @@ public class JsonBlendingMode {
 	}
 
 	public int hashCode() {
-
 		int i = srcColorFactor;
 		i = 31 * i + srcAlphaFactor;
 		i = 31 * i + destColorFactor;
@@ -209,7 +199,6 @@ public class JsonBlendingMode {
 	}
 
 	public boolean isOpaque() {
-
 		return opaque;
 	}
 

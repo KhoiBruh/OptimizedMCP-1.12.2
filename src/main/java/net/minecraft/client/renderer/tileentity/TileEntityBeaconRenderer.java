@@ -15,12 +15,10 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
 	public static final ResourceLocation TEXTURE_BEACON_BEAM = new ResourceLocation("textures/entity/beacon_beam.png");
 
 	public static void renderBeamSegment(double x, double y, double z, double partialTicks, double textureScale, double totalWorldTime, int yOffset, int height, float[] colors) {
-
 		renderBeamSegment(x, y, z, partialTicks, textureScale, totalWorldTime, yOffset, height, colors, 0.2D, 0.25D);
 	}
 
 	public static void renderBeamSegment(double x, double y, double z, double partialTicks, double textureScale, double totalWorldTime, int yOffset, int height, float[] colors, double beamRadius, double glowRadius) {
-
 		int i = yOffset + height;
 		GLS.texParameteri(3553, 10242, 10497);
 		GLS.texParameteri(3553, 10243, 10497);
@@ -105,12 +103,10 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
 	}
 
 	public void render(TileEntityBeacon te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-
 		renderBeacon(x, y, z, partialTicks, te.shouldBeamRender(), te.getBeamSegments(), (double) te.getWorld().getTotalWorldTime());
 	}
 
 	public void renderBeacon(double x, double y, double z, double partialTicks, double textureScale, List<TileEntityBeacon.BeamSegment> beamSegments, double totalWorldTime) {
-
 		GLS.alphaFunc(516, 0.1F);
 		bindTexture(TEXTURE_BEACON_BEAM);
 
@@ -128,7 +124,6 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
 	}
 
 	public boolean isGlobalRenderer(TileEntityBeacon te) {
-
 		return true;
 	}
 

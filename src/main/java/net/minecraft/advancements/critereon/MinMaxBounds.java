@@ -11,13 +11,11 @@ public class MinMaxBounds {
 	private final Float max;
 
 	public MinMaxBounds(Float min, Float max) {
-
 		this.min = min;
 		this.max = max;
 	}
 
 	public static MinMaxBounds deserialize(JsonElement element) {
-
 		if (element != null && !element.isJsonNull()) {
 			if (JsonUtils.isNumber(element)) {
 				float f2 = JsonUtils.getFloat(element, "value");
@@ -34,7 +32,6 @@ public class MinMaxBounds {
 	}
 
 	public boolean test(float value) {
-
 		if (min != null && min > value) {
 			return false;
 		} else {
@@ -43,7 +40,6 @@ public class MinMaxBounds {
 	}
 
 	public boolean testSquare(double value) {
-
 		if (min != null && (double) (min * min) > value) {
 			return false;
 		} else {

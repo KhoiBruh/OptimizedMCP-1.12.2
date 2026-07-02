@@ -22,12 +22,10 @@ public class NetherTravelTrigger implements ICriterionTrigger<NetherTravelTrigge
 	private final Map<PlayerAdvancements, NetherTravelTrigger.Listeners> listeners = Maps.newHashMap();
 
 	public ResourceLocation getId() {
-
 		return ID;
 	}
 
 	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<NetherTravelTrigger.Instance> listener) {
-
 		NetherTravelTrigger.Listeners nethertraveltrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (nethertraveltrigger$listeners == null) {
@@ -39,7 +37,6 @@ public class NetherTravelTrigger implements ICriterionTrigger<NetherTravelTrigge
 	}
 
 	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<NetherTravelTrigger.Instance> listener) {
-
 		NetherTravelTrigger.Listeners nethertraveltrigger$listeners = listeners.get(playerAdvancementsIn);
 
 		if (nethertraveltrigger$listeners != null) {
@@ -52,7 +49,6 @@ public class NetherTravelTrigger implements ICriterionTrigger<NetherTravelTrigge
 	}
 
 	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
-
 		listeners.remove(playerAdvancementsIn);
 	}
 
@@ -68,7 +64,6 @@ public class NetherTravelTrigger implements ICriterionTrigger<NetherTravelTrigge
 	}
 
 	public void trigger(EntityPlayerMP player, Vec3d enteredNetherPosition) {
-
 		NetherTravelTrigger.Listeners nethertraveltrigger$listeners = listeners.get(player.getAdvancements());
 
 		if (nethertraveltrigger$listeners != null) {
@@ -83,7 +78,6 @@ public class NetherTravelTrigger implements ICriterionTrigger<NetherTravelTrigge
 		private final DistancePredicate distance;
 
 		public Instance(LocationPredicate enteredIn, LocationPredicate exitedIn, DistancePredicate distanceIn) {
-
 			super(NetherTravelTrigger.ID);
 			entered = enteredIn;
 			exited = exitedIn;
@@ -91,7 +85,6 @@ public class NetherTravelTrigger implements ICriterionTrigger<NetherTravelTrigge
 		}
 
 		public boolean test(WorldServer world, Vec3d enteredNetherPosition, double x, double y, double z) {
-
 			if (!entered.test(world, enteredNetherPosition.x(), enteredNetherPosition.y(), enteredNetherPosition.z())) {
 				return false;
 			} else if (!exited.test(world, x, y, z)) {
@@ -109,27 +102,22 @@ public class NetherTravelTrigger implements ICriterionTrigger<NetherTravelTrigge
 		private final Set<ICriterionTrigger.Listener<NetherTravelTrigger.Instance>> listeners = Sets.newHashSet();
 
 		public Listeners(PlayerAdvancements playerAdvancementsIn) {
-
 			playerAdvancements = playerAdvancementsIn;
 		}
 
 		public boolean isEmpty() {
-
 			return listeners.isEmpty();
 		}
 
 		public void add(ICriterionTrigger.Listener<NetherTravelTrigger.Instance> listener) {
-
 			listeners.add(listener);
 		}
 
 		public void remove(ICriterionTrigger.Listener<NetherTravelTrigger.Instance> listener) {
-
 			listeners.remove(listener);
 		}
 
 		public void trigger(WorldServer world, Vec3d enteredNetherPosition, double x, double y, double z) {
-
 			List<ICriterionTrigger.Listener<NetherTravelTrigger.Instance>> list = null;
 
 			for (ICriterionTrigger.Listener<NetherTravelTrigger.Instance> listener : listeners) {

@@ -15,7 +15,6 @@ import java.util.Random;
 public class BiomeDesert extends Biome {
 
 	public BiomeDesert(Biome.BiomeProperties properties) {
-
 		super(properties);
 		spawnableCreatureList.clear();
 		topBlock = Blocks.SAND.getDefaultState();
@@ -34,7 +33,6 @@ public class BiomeDesert extends Biome {
 	}
 
 	public void decorate(World worldIn, Random rand, BlockPos pos) {
-
 		super.decorate(worldIn, rand, pos);
 
 		if (rand.nextInt(1000) == 0) {

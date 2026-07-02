@@ -17,7 +17,6 @@ public class BlockDropper extends BlockDispenser {
 	private final IBehaviorDispenseItem dropBehavior = new BehaviorDefaultDispenseItem();
 
 	protected IBehaviorDispenseItem getBehavior(ItemStack stack) {
-
 		return dropBehavior;
 	}
 
@@ -25,12 +24,10 @@ public class BlockDropper extends BlockDispenser {
 	 * Returns a new instance of a block's tile entity class. Called on placing the block.
 	 */
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-
 		return new TileEntityDropper();
 	}
 
 	protected void dispense(World worldIn, BlockPos pos) {
-
 		BlockSourceImpl blocksourceimpl = new BlockSourceImpl(worldIn, pos);
 		TileEntityDispenser tileentitydispenser = blocksourceimpl.getBlockTileEntity();
 

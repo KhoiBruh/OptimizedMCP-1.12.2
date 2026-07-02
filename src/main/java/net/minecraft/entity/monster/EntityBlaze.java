@@ -35,7 +35,6 @@ public class EntityBlaze extends EntityMob {
 	private int heightOffsetUpdateTime;
 
 	public EntityBlaze(World worldIn) {
-
 		super(worldIn);
 		setPathPriority(PathNodeType.WATER, -1F);
 		setPathPriority(PathNodeType.LAVA, 8F);
@@ -46,12 +45,10 @@ public class EntityBlaze extends EntityMob {
 	}
 
 	public static void registerFixesBlaze(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntityBlaze.class);
 	}
 
 	protected void initEntityAI() {
-
 		tasks.addTask(4, new EntityBlaze.AIFireballAttack(this));
 		tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1D));
 		tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1D, 0F));
@@ -62,7 +59,6 @@ public class EntityBlaze extends EntityMob {
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.23000000417232513D);
@@ -70,28 +66,23 @@ public class EntityBlaze extends EntityMob {
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(ON_FIRE, (byte) 0);
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		return SoundEvents.ENTITY_BLAZE_AMBIENT;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_BLAZE_HURT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_BLAZE_DEATH;
 	}
 
 	public int getBrightnessForRender() {
-
 		return 15728880;
 	}
 
@@ -99,7 +90,6 @@ public class EntityBlaze extends EntityMob {
 	 * Gets how bright this entity is.
 	 */
 	public float getBrightness() {
-
 		return 1F;
 	}
 
@@ -108,7 +98,6 @@ public class EntityBlaze extends EntityMob {
 	 * use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
 		if (!onGround && motionY < 0D) {
 			motionY *= 0.6D;
 		}
@@ -127,7 +116,6 @@ public class EntityBlaze extends EntityMob {
 	}
 
 	protected void updateAITasks() {
-
 		if (isWet()) {
 			attackEntityFrom(DamageSource.DROWN, 1F);
 		}
@@ -150,30 +138,25 @@ public class EntityBlaze extends EntityMob {
 	}
 
 	public void fall(float distance, float damageMultiplier) {
-
 	}
 
 	/**
 	 * Returns true if the entity is on fire. Used by render to add the fire effect on rendering.
 	 */
 	public boolean isBurning() {
-
 		return isCharged();
 	}
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_BLAZE;
 	}
 
 	public boolean isCharged() {
-
 		return (dataManager.get(ON_FIRE) & 1) != 0;
 	}
 
 	public void setOnFire(boolean onFire) {
-
 		byte b0 = dataManager.get(ON_FIRE);
 
 		if (onFire) {
@@ -189,7 +172,6 @@ public class EntityBlaze extends EntityMob {
 	 * Checks to make sure the light is not too bright where the mob is spawning
 	 */
 	protected boolean isValidLightLevel() {
-
 		return true;
 	}
 
@@ -200,29 +182,24 @@ public class EntityBlaze extends EntityMob {
 		private int attackTime;
 
 		public AIFireballAttack(EntityBlaze blazeIn) {
-
 			blaze = blazeIn;
 			setMutexBits(3);
 		}
 
 		public boolean shouldExecute() {
-
 			EntityLivingBase entitylivingbase = blaze.getAttackTarget();
 			return entitylivingbase != null && entitylivingbase.isEntityAlive();
 		}
 
 		public void startExecuting() {
-
 			attackStep = 0;
 		}
 
 		public void resetTask() {
-
 			blaze.setOnFire(false);
 		}
 
 		public void updateTask() {
-
 			--attackTime;
 			EntityLivingBase entitylivingbase = blaze.getAttackTarget();
 			double d0 = blaze.getDistanceSq(entitylivingbase);
@@ -275,7 +252,6 @@ public class EntityBlaze extends EntityMob {
 		}
 
 		private double getFollowDistance() {
-
 			IAttributeInstance iattributeinstance = blaze.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
 			return iattributeinstance == null ? 16D : iattributeinstance.getAttributeValue();
 		}

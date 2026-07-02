@@ -25,7 +25,6 @@ public class SlotCrafting extends Slot {
 	private int amountCrafted;
 
 	public SlotCrafting(EntityPlayer player, InventoryCrafting craftingInventory, IInventory inventoryIn, int slotIndex, int xPosition, int yPosition) {
-
 		super(inventoryIn, slotIndex, xPosition, yPosition);
 		this.player = player;
 		craftMatrix = craftingInventory;
@@ -35,7 +34,6 @@ public class SlotCrafting extends Slot {
 	 * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
 	 */
 	public boolean isItemValid(ItemStack stack) {
-
 		return false;
 	}
 
@@ -44,7 +42,6 @@ public class SlotCrafting extends Slot {
 	 * stack.
 	 */
 	public ItemStack decrStackSize(int amount) {
-
 		if (getHasStack()) {
 			amountCrafted += Math.min(amount, getStack().getCount());
 		}
@@ -57,13 +54,11 @@ public class SlotCrafting extends Slot {
 	 * internal count then calls onCrafting(item).
 	 */
 	protected void onCrafting(ItemStack stack, int amount) {
-
 		amountCrafted += amount;
 		onCrafting(stack);
 	}
 
 	protected void onSwapCraft(int p_190900_1_) {
-
 		amountCrafted += p_190900_1_;
 	}
 
@@ -71,7 +66,6 @@ public class SlotCrafting extends Slot {
 	 * the itemStack passed in is the output - ie, iron ingots, and pickaxes, not ore and wood.
 	 */
 	protected void onCrafting(ItemStack stack) {
-
 		if (amountCrafted > 0) {
 			stack.onCrafting(player.world, player, amountCrafted);
 		}
@@ -87,7 +81,6 @@ public class SlotCrafting extends Slot {
 	}
 
 	public ItemStack onTake(EntityPlayer thePlayer, ItemStack stack) {
-
 		onCrafting(stack);
 		NonNullList<ItemStack> nonnulllist = CraftingManager.getRemainingItems(craftMatrix, thePlayer.world);
 

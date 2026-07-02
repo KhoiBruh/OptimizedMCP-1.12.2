@@ -14,13 +14,11 @@ import net.minecraft.world.World;
 public class ItemSnowball extends Item {
 
 	public ItemSnowball() {
-
 		maxStackSize = 16;
 		setCreativeTab(CreativeTabs.MISC);
 	}
 
 	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
-
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
 		if (!playerIn.capabilities.isCreativeMode) {

@@ -16,12 +16,10 @@ public class DebugRendererHeightMap implements DebugRenderer.IDebugRenderer {
 	private final Minecraft minecraft;
 
 	public DebugRendererHeightMap(Minecraft minecraftIn) {
-
 		minecraft = minecraftIn;
 	}
 
 	public void render(float partialTicks, long finishTimeNano) {
-
 		EntityPlayer entityplayer = minecraft.player;
 		World world = minecraft.world;
 		double d0 = entityplayer.lastTickPosX + (entityplayer.posX - entityplayer.lastTickPosX) * (double) partialTicks;

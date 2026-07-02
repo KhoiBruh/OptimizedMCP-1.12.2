@@ -26,7 +26,6 @@ public class ItemRecord extends Item {
 	private final String displayName;
 
 	protected ItemRecord(String p_i46742_1_, SoundEvent soundIn) {
-
 		displayName = "item.record." + p_i46742_1_ + ".desc";
 		sound = soundIn;
 		maxStackSize = 1;
@@ -36,7 +35,6 @@ public class ItemRecord extends Item {
 
 	
 	public static ItemRecord getBySound(SoundEvent soundIn) {
-
 		return RECORDS.get(soundIn);
 	}
 
@@ -44,7 +42,6 @@ public class ItemRecord extends Item {
 	 * Called when a Block is right-clicked with this Item
 	 */
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 
 		if (iblockstate.getBlock() == Blocks.JUKEBOX && !iblockstate.getValue(BlockJukebox.HAS_RECORD)) {
@@ -66,12 +63,10 @@ public class ItemRecord extends Item {
 	 * allows items to add custom lines of information to the mouseover description
 	 */
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-
 		tooltip.add(getRecordNameLocal());
 	}
 
 	public String getRecordNameLocal() {
-
 		return I18n.translateToLocal(displayName);
 	}
 
@@ -79,12 +74,10 @@ public class ItemRecord extends Item {
 	 * Return an item rarity from Rarity
 	 */
 	public Rarity getRarity(ItemStack stack) {
-
 		return Rarity.RARE;
 	}
 
 	public SoundEvent getSound() {
-
 		return sound;
 	}
 

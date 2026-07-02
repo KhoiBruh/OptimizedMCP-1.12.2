@@ -10,7 +10,6 @@ public class ErrorScreen extends Screen {
 	private final String message;
 
 	public ErrorScreen(String titleIn, String messageIn) {
-
 		title = titleIn;
 		message = messageIn;
 	}
@@ -20,7 +19,6 @@ public class ErrorScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		super.init();
 		buttons.add(new Button(0, width / 2 - 100, 140, I18n.format("gui.cancel")));
 	}
@@ -29,7 +27,6 @@ public class ErrorScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawGradientRect(0, 0, width, height, -12574688, -11530224);
 		drawCenteredString(fontRenderer, title, width / 2, 90, 16777215);
 		drawCenteredString(fontRenderer, message, width / 2, 110, 16777215);
@@ -41,14 +38,12 @@ public class ErrorScreen extends Screen {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) {
-
 	}
 
 	/**
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		mc.displayScreen(null);
 	}
 

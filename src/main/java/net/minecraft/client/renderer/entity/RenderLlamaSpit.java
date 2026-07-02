@@ -11,7 +11,6 @@ public class RenderLlamaSpit extends Render<EntityLlamaSpit> {
 	private final ModelLlamaSpit model = new ModelLlamaSpit();
 
 	public RenderLlamaSpit(RenderManager p_i47202_1_) {
-
 		super(p_i47202_1_);
 	}
 
@@ -19,7 +18,6 @@ public class RenderLlamaSpit extends Render<EntityLlamaSpit> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(EntityLlamaSpit entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		GLS.pushMatrix();
 		GLS.translate((float) x, (float) y + 0.15F, (float) z);
 		GLS.rotate(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks - 90F, 0F, 1F, 0F);
@@ -46,7 +44,6 @@ public class RenderLlamaSpit extends Render<EntityLlamaSpit> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityLlamaSpit entity) {
-
 		return LLAMA_SPIT_TEXTURE;
 	}
 

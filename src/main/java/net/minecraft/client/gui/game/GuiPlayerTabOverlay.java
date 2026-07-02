@@ -41,7 +41,6 @@ public class GuiPlayerTabOverlay extends Gui {
 	private boolean isBeingRendered;
 
 	public GuiPlayerTabOverlay(Minecraft mcIn, GuiIngame guiIngameIn) {
-
 		mc = mcIn;
 		guiIngame = guiIngameIn;
 	}
@@ -50,7 +49,6 @@ public class GuiPlayerTabOverlay extends Gui {
 	 * Returns the name that should be renderd for the player supplied
 	 */
 	public String getPlayerName(NetworkPlayerInfo networkPlayerInfoIn) {
-
 		return networkPlayerInfoIn.getDisplayName() != null ? networkPlayerInfoIn.getDisplayName().getFormattedText() : ScorePlayerTeam.formatPlayerName(networkPlayerInfoIn.getPlayerTeam(), networkPlayerInfoIn.getGameProfile().getName());
 	}
 
@@ -59,7 +57,6 @@ public class GuiPlayerTabOverlay extends Gui {
 	 * however.
 	 */
 	public void updatePlayerList(boolean willBeRendered) {
-
 		if (willBeRendered && !isBeingRendered) {
 			lastTimeOpened = Minecraft.getSystemTime();
 		}
@@ -71,7 +68,6 @@ public class GuiPlayerTabOverlay extends Gui {
 	 * Renders the playerlist, its background, headers and footers.
 	 */
 	public void renderPlayerlist(int width, Scoreboard scoreboardIn, ScoreObjective scoreObjectiveIn) {
-
 		NetHandlerPlayClient nethandlerplayclient = mc.player.connection;
 		List<NetworkPlayerInfo> list = ENTRY_ORDERING.sortedCopy(nethandlerplayclient.getPlayerInfoMap());
 		int i = 0;
@@ -213,7 +209,6 @@ public class GuiPlayerTabOverlay extends Gui {
 	}
 
 	protected void drawPing(int p_175245_1_, int p_175245_2_, int p_175245_3_, NetworkPlayerInfo networkPlayerInfoIn) {
-
 		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(ICONS);
 		int i = 0;
@@ -239,7 +234,6 @@ public class GuiPlayerTabOverlay extends Gui {
 	}
 
 	private void drawScoreboardValues(ScoreObjective objective, int p_175247_2_, String name, int p_175247_4_, int p_175247_5_, NetworkPlayerInfo info) {
-
 		int i = objective.getScoreboard().getOrCreateScore(name, objective).getScorePoints();
 
 		if (objective.getRenderType() == IScoreCriteria.RenderType.HEARTS) {
@@ -315,17 +309,14 @@ public class GuiPlayerTabOverlay extends Gui {
 	}
 
 	public void setFooter(ITextComponent footerIn) {
-
 		footer = footerIn;
 	}
 
 	public void setHeader(ITextComponent headerIn) {
-
 		header = headerIn;
 	}
 
 	public void resetFooterHeader() {
-
 		header = null;
 		footer = null;
 	}
@@ -333,11 +324,9 @@ public class GuiPlayerTabOverlay extends Gui {
 	static class PlayerComparator implements Comparator<NetworkPlayerInfo> {
 
 		private PlayerComparator() {
-
 		}
 
 		public int compare(NetworkPlayerInfo p_compare_1_, NetworkPlayerInfo p_compare_2_) {
-
 			ScorePlayerTeam scoreplayerteam = p_compare_1_.getPlayerTeam();
 			ScorePlayerTeam scoreplayerteam1 = p_compare_2_.getPlayerTeam();
 			return ComparisonChain.start().compareTrueFirst(p_compare_1_.getGameType() != GameType.SPECTATOR, p_compare_2_.getGameType() != GameType.SPECTATOR).compare(scoreplayerteam != null ? scoreplayerteam.getName() : "", scoreplayerteam1 != null ? scoreplayerteam1.getName() : "").compare(p_compare_1_.getGameProfile().getName(), p_compare_2_.getGameProfile().getName()).result();

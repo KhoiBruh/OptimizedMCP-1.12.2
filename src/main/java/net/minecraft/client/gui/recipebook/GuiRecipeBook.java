@@ -56,7 +56,6 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 	private int timesInventoryChanged;
 
 	public void func_194303_a(int p_194303_1_, int p_194303_2_, Minecraft p_194303_3_, boolean p_194303_4_, InventoryCrafting p_194303_5_) {
-
 		mc = p_194303_3_;
 		width = p_194303_1_;
 		height = p_194303_2_;
@@ -74,7 +73,6 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 	}
 
 	public void initVisuals(boolean p_193014_1_, InventoryCrafting p_193014_2_) {
-
 		xOffset = p_193014_1_ ? 0 : 86;
 		int i = (width - 147) / 2 - xOffset;
 		int j = (height - 166) / 2;
@@ -95,12 +93,10 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 	}
 
 	public void removed() {
-
 		Keyboard.setRepeat(false);
 	}
 
 	public int updateScreenPosition(boolean p_193011_1_, int p_193011_2_, int p_193011_3_) {
-
 		int i;
 
 		if (isVisible() && !p_193011_1_) {
@@ -113,17 +109,14 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 	}
 
 	public void toggleVisibility() {
-
 		setVisible(!isVisible());
 	}
 
 	public boolean isVisible() {
-
 		return recipeBook.isGuiOpen();
 	}
 
 	private void setVisible(boolean p_193006_1_) {
-
 		recipeBook.setGuiOpen(p_193006_1_);
 
 		if (!p_193006_1_) {
@@ -134,7 +127,6 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 	}
 
 	public void slotClicked(Slot slotIn) {
-
 		if (slotIn != null && slotIn.slotNumber <= 9) {
 			ghostRecipe.clear();
 
@@ -145,7 +137,6 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 	}
 
 	private void updateCollections(boolean p_193003_1_) {
-
 		List<RecipeList> list = RecipeBookClient.RECIPES_BY_TAB.get(currentTab.getCategory());
 		list.forEach((p_193944_1_) ->
 				p_193944_1_.canCraft(stackedContents, craftingSlots.getWidth(), craftingSlots.getHeight(), recipeBook));
@@ -171,7 +162,6 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 	}
 
 	private void updateTabs() {
-
 		int i = (width - 147) / 2 - xOffset - 30;
 		int j = (height - 166) / 2 + 3;
 		int k = 27;
@@ -191,7 +181,6 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 	}
 
 	public void tick() {
-
 		if (isVisible()) {
 			if (timesInventoryChanged != mc.player.inventory.getTimesChanged()) {
 				updateStackedContents();
@@ -201,7 +190,6 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 	}
 
 	private void updateStackedContents() {
-
 		stackedContents.clear();
 		mc.player.inventory.fillStackedContents(stackedContents, false);
 		craftingSlots.fillStackedContents(stackedContents);
@@ -209,7 +197,6 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 	}
 
 	public void render(int mouseX, int mouseY, float partialTicks) {
-
 		if (isVisible()) {
 			RenderHelper.enableGUIStandardItemLighting();
 			GLS.disableLighting();
@@ -234,7 +221,6 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 	}
 
 	public void renderTooltip(int p_191876_1_, int p_191876_2_, int p_191876_3_, int p_191876_4_) {
-
 		if (isVisible()) {
 			recipeBookPage.renderTooltip(p_191876_3_, p_191876_4_);
 
@@ -251,7 +237,6 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 	}
 
 	private void renderGhostRecipeTooltip(int p_193015_1_, int p_193015_2_, int p_193015_3_, int p_193015_4_) {
-
 		ItemStack itemstack = null;
 
 		for (int i = 0; i < ghostRecipe.size(); ++i) {
@@ -270,12 +255,10 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 	}
 
 	public void renderGhostRecipe(int p_191864_1_, int p_191864_2_, boolean p_191864_3_, float p_191864_4_) {
-
 		ghostRecipe.render(mc, p_191864_1_, p_191864_2_, p_191864_3_, p_191864_4_);
 	}
 
 	public boolean mouseClicked(int p_191862_1_, int p_191862_2_, int p_191862_3_) {
-
 		if (isVisible() && !mc.player.isSpectator()) {
 			if (recipeBookPage.mouseClicked(p_191862_1_, p_191862_2_, p_191862_3_, (width - 147) / 2 - xOffset, (height - 166) / 2, 147, 166)) {
 				IRecipe irecipe = recipeBookPage.getLastClickedRecipe();
@@ -330,7 +313,6 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 	}
 
 	public boolean hasClickedOutside(int p_193955_1_, int p_193955_2_, int p_193955_3_, int p_193955_4_, int p_193955_5_, int p_193955_6_) {
-
 		if (!isVisible()) {
 			return true;
 		} else {
@@ -341,7 +323,6 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 	}
 
 	public boolean keyPressed(char typedChar, int keycode) {
-
 		if (isVisible() && !mc.player.isSpectator()) {
 			if (keycode == 256 && !isOffsetNextToMainGUI()) {
 				setVisible(false);
@@ -374,7 +355,6 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 	 * @param text 'if equal to "excitedze", activate the easter egg'
 	 */
 	private void pirateRecipe(String text) {
-
 		if ("excitedze".equals(text)) {
 			LanguageManager languagemanager = mc.getLanguageManager();
 			Language language = languagemanager.getLanguage("en_pt");
@@ -393,12 +373,10 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 	}
 
 	private boolean isOffsetNextToMainGUI() {
-
 		return xOffset == 86;
 	}
 
 	public void recipesUpdated() {
-
 		updateTabs();
 
 		if (isVisible()) {
@@ -407,14 +385,12 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 	}
 
 	public void recipesShown(List<IRecipe> recipes) {
-
 		for (IRecipe irecipe : recipes) {
 			mc.player.removeRecipeHighlight(irecipe);
 		}
 	}
 
 	public void setupGhostRecipe(IRecipe p_193951_1_, List<Slot> p_193951_2_) {
-
 		ItemStack itemstack = p_193951_1_.getRecipeOutput();
 		ghostRecipe.setRecipe(p_193951_1_);
 		ghostRecipe.addIngredient(Ingredient.fromStacks(itemstack), (p_193951_2_.getFirst()).xPos, (p_193951_2_.getFirst()).yPos);
@@ -447,7 +423,6 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 	}
 
 	private void sendUpdateSettings() {
-
 		if (mc.getConnection() != null) {
 			mc.getConnection().sendPacket(new CPacketRecipeInfo(isVisible(), recipeBook.isFilteringCraftable()));
 		}

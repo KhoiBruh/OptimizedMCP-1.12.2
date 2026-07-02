@@ -12,14 +12,12 @@ public enum FrameType {
 	private final TextFormat format;
 
 	FrameType(String nameIn, int iconIn, TextFormat formatIn) {
-
 		name = nameIn;
 		icon = iconIn;
 		format = formatIn;
 	}
 
 	public static FrameType byName(String nameIn) {
-
 		for (FrameType frametype : values()) {
 			if (frametype.name.equals(nameIn)) {
 				return frametype;
@@ -30,17 +28,14 @@ public enum FrameType {
 	}
 
 	public String getName() {
-
 		return name;
 	}
 
 	public int getIcon() {
-
 		return icon;
 	}
 
 	public TextFormat getFormat() {
-
 		return format;
 	}
 }

@@ -12,7 +12,6 @@ public class CommandSaveOff extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "save-off";
 	}
 
@@ -20,7 +19,6 @@ public class CommandSaveOff extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.save-off.usage";
 	}
 
@@ -28,7 +26,6 @@ public class CommandSaveOff extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		boolean flag = false;
 
 		for (int i = 0; i < server.worlds.length; ++i) {

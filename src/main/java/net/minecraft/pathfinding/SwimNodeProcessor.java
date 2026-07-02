@@ -11,7 +11,6 @@ import net.minecraft.world.IBlockAccess;
 public class SwimNodeProcessor extends NodeProcessor {
 
 	public PathPoint getStart() {
-
 		return openPoint(MathHelper.floor(entity.getEntityBoundingBox().minX), MathHelper.floor(entity.getEntityBoundingBox().minY + 0.5D), MathHelper.floor(entity.getEntityBoundingBox().minZ));
 	}
 
@@ -19,12 +18,10 @@ public class SwimNodeProcessor extends NodeProcessor {
 	 * Returns PathPoint for given coordinates
 	 */
 	public PathPoint getPathPointToCoords(double x, double y, double z) {
-
 		return openPoint(MathHelper.floor(x - (double) (entity.width / 2F)), MathHelper.floor(y + 0.5D), MathHelper.floor(z - (double) (entity.width / 2F)));
 	}
 
 	public int findPathOptions(PathPoint[] pathOptions, PathPoint currentPoint, PathPoint targetPoint, float maxDistance) {
-
 		int i = 0;
 
 		for (Facing enumfacing : Facing.values()) {
@@ -39,24 +36,20 @@ public class SwimNodeProcessor extends NodeProcessor {
 	}
 
 	public PathNodeType getPathNodeType(IBlockAccess blockaccessIn, int x, int y, int z, EntityLiving entitylivingIn, int xSize, int ySize, int zSize, boolean canBreakDoorsIn, boolean canEnterDoorsIn) {
-
 		return PathNodeType.WATER;
 	}
 
 	public PathNodeType getPathNodeType(IBlockAccess blockaccessIn, int x, int y, int z) {
-
 		return PathNodeType.WATER;
 	}
 
 	
 	private PathPoint getWaterNode(int p_186328_1_, int p_186328_2_, int p_186328_3_) {
-
 		PathNodeType pathnodetype = isFree(p_186328_1_, p_186328_2_, p_186328_3_);
 		return pathnodetype == PathNodeType.WATER ? openPoint(p_186328_1_, p_186328_2_, p_186328_3_) : null;
 	}
 
 	private PathNodeType isFree(int p_186327_1_, int p_186327_2_, int p_186327_3_) {
-
 		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
 		for (int i = p_186327_1_; i < p_186327_1_ + entitySizeX; ++i) {

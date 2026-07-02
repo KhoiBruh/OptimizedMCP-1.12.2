@@ -15,12 +15,10 @@ public class WorldGenEndPodium extends WorldGenerator {
 	private final boolean activePortal;
 
 	public WorldGenEndPodium(boolean activePortalIn) {
-
 		activePortal = activePortalIn;
 	}
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		for (BlockPos.MutableBlockPos blockpos$mutableblockpos : BlockPos.getAllInBoxMutable(new BlockPos(position.getX() - 4, position.getY() - 1, position.getZ() - 4), new BlockPos(position.getX() + 4, position.getY() + 32, position.getZ() + 4))) {
 			double d0 = blockpos$mutableblockpos.getDistance(position.getX(), blockpos$mutableblockpos.getY(), position.getZ());
 

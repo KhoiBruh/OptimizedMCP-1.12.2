@@ -12,7 +12,6 @@ public class Ingredient implements Predicate<ItemStack> {
 
 	public static final Ingredient EMPTY = new Ingredient() {
 		public boolean apply(ItemStack p_apply_1_) {
-
 			return p_apply_1_.isEmpty();
 		}
 	};
@@ -20,17 +19,14 @@ public class Ingredient implements Predicate<ItemStack> {
 	private IntList matchingStacksPacked;
 
 	private Ingredient(ItemStack... p_i47503_1_) {
-
 		matchingStacks = p_i47503_1_;
 	}
 
 	public static Ingredient fromItem(Item p_193367_0_) {
-
 		return fromStacks(new ItemStack(p_193367_0_, 1, 32767));
 	}
 
 	public static Ingredient fromItems(Item... items) {
-
 		ItemStack[] aitemstack = new ItemStack[items.length];
 
 		for (int i = 0; i < items.length; ++i) {
@@ -41,7 +37,6 @@ public class Ingredient implements Predicate<ItemStack> {
 	}
 
 	public static Ingredient fromStacks(ItemStack... stacks) {
-
 		for (ItemStack itemstack : stacks) {
 			if (!itemstack.isEmpty()) {
 				return new Ingredient(stacks);
@@ -52,12 +47,10 @@ public class Ingredient implements Predicate<ItemStack> {
 	}
 
 	public ItemStack[] getMatchingStacks() {
-
 		return matchingStacks;
 	}
 
 	public boolean apply(ItemStack p_apply_1_) {
-
 		if (p_apply_1_ == null) {
 			return false;
 		} else {
@@ -76,7 +69,6 @@ public class Ingredient implements Predicate<ItemStack> {
 	}
 
 	public IntList getValidItemStacksPacked() {
-
 		if (matchingStacksPacked == null) {
 			matchingStacksPacked = new IntArrayList(matchingStacks.length);
 

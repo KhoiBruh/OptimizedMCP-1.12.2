@@ -9,21 +9,17 @@ import net.minecraft.nbt.NBTTagList;
  * @param z Rotation on the Z axis
  */
 public record Rotations(float x, float y, float z) {
-
 	public Rotations(float x, float y, float z) {
-
 		this.x = !Float.isInfinite(x) && !Float.isNaN(x) ? x % 360F : 0F;
 		this.y = !Float.isInfinite(y) && !Float.isNaN(y) ? y % 360F : 0F;
 		this.z = !Float.isInfinite(z) && !Float.isNaN(z) ? z % 360F : 0F;
 	}
 
 	public Rotations(NBTTagList nbt) {
-
 		this(nbt.getFloatAt(0), nbt.getFloatAt(1), nbt.getFloatAt(2));
 	}
 
 	public NBTTagList writeToNBT() {
-
 		NBTTagList nbttaglist = new NBTTagList();
 		nbttaglist.appendTag(new NBTTagFloat(x));
 		nbttaglist.appendTag(new NBTTagFloat(y));
@@ -32,7 +28,6 @@ public record Rotations(float x, float y, float z) {
 	}
 
 	public boolean equals(Object other) {
-		
 		if (other instanceof Rotations(float x1, float y1, float z1)) {
 			return x == x1 && y == y1 && z == z1;
 		}
@@ -45,7 +40,6 @@ public record Rotations(float x, float y, float z) {
 	 */
 	@Override
 	public float x() {
-
 		return x;
 	}
 
@@ -54,7 +48,6 @@ public record Rotations(float x, float y, float z) {
 	 */
 	@Override
 	public float y() {
-
 		return y;
 	}
 
@@ -63,7 +56,6 @@ public record Rotations(float x, float y, float z) {
 	 */
 	@Override
 	public float z() {
-
 		return z;
 	}
 

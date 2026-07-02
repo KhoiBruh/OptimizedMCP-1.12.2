@@ -23,11 +23,9 @@ public class SPacketAdvancementInfo implements Packet<INetHandlerPlayClient> {
 	private Map<ResourceLocation, AdvancementProgress> progressUpdates;
 
 	public SPacketAdvancementInfo() {
-
 	}
 
 	public SPacketAdvancementInfo(boolean p_i47519_1_, Collection<Advancement> p_i47519_2_, Set<ResourceLocation> p_i47519_3_, Map<ResourceLocation, AdvancementProgress> p_i47519_4_) {
-
 		firstSync = p_i47519_1_;
 		advancementsToAdd = Maps.newHashMap();
 
@@ -43,7 +41,6 @@ public class SPacketAdvancementInfo implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleAdvancementInfo(this);
 	}
 
@@ -51,7 +48,6 @@ public class SPacketAdvancementInfo implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) throws IOException {
-
 		firstSync = buf.readBoolean();
 		advancementsToAdd = Maps.newHashMap();
 		advancementsToRemove = Sets.newLinkedHashSet();
@@ -83,7 +79,6 @@ public class SPacketAdvancementInfo implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeBoolean(firstSync);
 		buf.writeVarInt(advancementsToAdd.size());
 
@@ -114,7 +109,6 @@ public class SPacketAdvancementInfo implements Packet<INetHandlerPlayClient> {
 	}
 
 	public Set<ResourceLocation> getAdvancementsToRemove() {
-
 		return advancementsToRemove;
 	}
 
@@ -124,7 +118,6 @@ public class SPacketAdvancementInfo implements Packet<INetHandlerPlayClient> {
 	}
 
 	public boolean isFirstSync() {
-
 		return firstSync;
 	}
 

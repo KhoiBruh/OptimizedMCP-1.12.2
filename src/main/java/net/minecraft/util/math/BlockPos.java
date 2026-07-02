@@ -27,27 +27,22 @@ public class BlockPos extends Vec3i {
 	private static final long X_MASK = (1L << NUM_X_BITS) - 1L;
 
 	public BlockPos(int x, int y, int z) {
-
 		super(x, y, z);
 	}
 
 	public BlockPos(double x, double y, double z) {
-
 		super(x, y, z);
 	}
 
 	public BlockPos(Entity source) {
-
 		this(source.posX, source.posY, source.posZ);
 	}
 
 	public BlockPos(Vec3d vec) {
-
 		this(vec.x(), vec.y(), vec.z());
 	}
 
 	public BlockPos(Vec3i source) {
-
 		this(source.getX(), source.getY(), source.getZ());
 	}
 
@@ -55,7 +50,6 @@ public class BlockPos extends Vec3i {
 	 * Create a BlockPos from a serialized long value (created by toLong)
 	 */
 	public static BlockPos fromLong(long serialized) {
-
 		int i = (int) (serialized << 64 - X_SHIFT - NUM_X_BITS >> 64 - NUM_X_BITS);
 		int j = (int) (serialized << 64 - Y_SHIFT - NUM_Y_BITS >> 64 - NUM_Y_BITS);
 		int k = (int) (serialized << 64 - NUM_Z_BITS >> 64 - NUM_Z_BITS);
@@ -63,12 +57,10 @@ public class BlockPos extends Vec3i {
 	}
 
 	public static Iterable<BlockPos> getAllInBox(BlockPos from, BlockPos to) {
-
 		return getAllInBox(Math.min(from.getX(), to.getX()), Math.min(from.getY(), to.getY()), Math.min(from.getZ(), to.getZ()), Math.max(from.getX(), to.getX()), Math.max(from.getY(), to.getY()), Math.max(from.getZ(), to.getZ()));
 	}
 
 	public static Iterable<BlockPos> getAllInBox(final int x1, final int y1, final int z1, final int x2, final int y2, final int z2) {
-
 		return () -> new AbstractIterator<>() {
 			private boolean first = true;
 			private int lastPosX;
@@ -76,7 +68,6 @@ public class BlockPos extends Vec3i {
 			private int lastPosZ;
 
 			protected BlockPos computeNext() {
-
 				if (first) {
 					first = false;
 					lastPosX = x1;
@@ -114,7 +105,6 @@ public class BlockPos extends Vec3i {
 			private MutableBlockPos pos;
 
 			protected MutableBlockPos computeNext() {
-
 				if (pos == null) {
 					pos = new MutableBlockPos(x1, y1, z1);
 					return pos;
@@ -142,7 +132,6 @@ public class BlockPos extends Vec3i {
 	 * Add the given coordinates to the coordinates of this BlockPos
 	 */
 	public BlockPos add(double x, double y, double z) {
-
 		return x == 0D && y == 0D && z == 0D ? this : new BlockPos((double) getX() + x, (double) getY() + y, (double) getZ() + z);
 	}
 
@@ -150,7 +139,6 @@ public class BlockPos extends Vec3i {
 	 * Add the given coordinates to the coordinates of this BlockPos
 	 */
 	public BlockPos add(int x, int y, int z) {
-
 		return x == 0 && y == 0 && z == 0 ? this : new BlockPos(getX() + x, getY() + y, getZ() + z);
 	}
 
@@ -158,7 +146,6 @@ public class BlockPos extends Vec3i {
 	 * Add the given Vector to this BlockPos
 	 */
 	public BlockPos add(Vec3i vec) {
-
 		return add(vec.getX(), vec.getY(), vec.getZ());
 	}
 
@@ -166,7 +153,6 @@ public class BlockPos extends Vec3i {
 	 * Subtract the given Vector from this BlockPos
 	 */
 	public BlockPos subtract(Vec3i vec) {
-
 		return add(-vec.getX(), -vec.getY(), -vec.getZ());
 	}
 
@@ -174,7 +160,6 @@ public class BlockPos extends Vec3i {
 	 * Offset this BlockPos 1 block up
 	 */
 	public BlockPos up() {
-
 		return up(1);
 	}
 
@@ -182,7 +167,6 @@ public class BlockPos extends Vec3i {
 	 * Offset this BlockPos n blocks up
 	 */
 	public BlockPos up(int n) {
-
 		return offset(Facing.UP, n);
 	}
 
@@ -190,7 +174,6 @@ public class BlockPos extends Vec3i {
 	 * Offset this BlockPos 1 block down
 	 */
 	public BlockPos down() {
-
 		return down(1);
 	}
 
@@ -198,7 +181,6 @@ public class BlockPos extends Vec3i {
 	 * Offset this BlockPos n blocks down
 	 */
 	public BlockPos down(int n) {
-
 		return offset(Facing.DOWN, n);
 	}
 
@@ -206,7 +188,6 @@ public class BlockPos extends Vec3i {
 	 * Offset this BlockPos 1 block in northern direction
 	 */
 	public BlockPos north() {
-
 		return north(1);
 	}
 
@@ -214,7 +195,6 @@ public class BlockPos extends Vec3i {
 	 * Offset this BlockPos n blocks in northern direction
 	 */
 	public BlockPos north(int n) {
-
 		return offset(Facing.NORTH, n);
 	}
 
@@ -222,7 +202,6 @@ public class BlockPos extends Vec3i {
 	 * Offset this BlockPos 1 block in southern direction
 	 */
 	public BlockPos south() {
-
 		return south(1);
 	}
 
@@ -230,7 +209,6 @@ public class BlockPos extends Vec3i {
 	 * Offset this BlockPos n blocks in southern direction
 	 */
 	public BlockPos south(int n) {
-
 		return offset(Facing.SOUTH, n);
 	}
 
@@ -238,7 +216,6 @@ public class BlockPos extends Vec3i {
 	 * Offset this BlockPos 1 block in western direction
 	 */
 	public BlockPos west() {
-
 		return west(1);
 	}
 
@@ -246,7 +223,6 @@ public class BlockPos extends Vec3i {
 	 * Offset this BlockPos n blocks in western direction
 	 */
 	public BlockPos west(int n) {
-
 		return offset(Facing.WEST, n);
 	}
 
@@ -254,7 +230,6 @@ public class BlockPos extends Vec3i {
 	 * Offset this BlockPos 1 block in eastern direction
 	 */
 	public BlockPos east() {
-
 		return east(1);
 	}
 
@@ -262,7 +237,6 @@ public class BlockPos extends Vec3i {
 	 * Offset this BlockPos n blocks in eastern direction
 	 */
 	public BlockPos east(int n) {
-
 		return offset(Facing.EAST, n);
 	}
 
@@ -270,7 +244,6 @@ public class BlockPos extends Vec3i {
 	 * Offset this BlockPos 1 block in the given direction
 	 */
 	public BlockPos offset(Facing facing) {
-
 		return offset(facing, 1);
 	}
 
@@ -278,12 +251,10 @@ public class BlockPos extends Vec3i {
 	 * Offsets this BlockPos n blocks in the given direction
 	 */
 	public BlockPos offset(Facing facing, int n) {
-
 		return n == 0 ? this : new BlockPos(getX() + facing.getFrontOffsetX() * n, getY() + facing.getFrontOffsetY() * n, getZ() + facing.getFrontOffsetZ() * n);
 	}
 
 	public BlockPos rotate(Rotation rotationIn) {
-
 		return switch (rotationIn) {
 			case CLOCKWISE_90 -> new BlockPos(-getZ(), getY(), getX());
 			case CLOCKWISE_180 -> new BlockPos(-getX(), getY(), -getZ());
@@ -296,7 +267,6 @@ public class BlockPos extends Vec3i {
 	 * Calculate the cross product of this and the given Vector
 	 */
 	public BlockPos crossProduct(Vec3i vec) {
-
 		return new BlockPos(getY() * vec.getZ() - getZ() * vec.getY(), getZ() * vec.getX() - getX() * vec.getZ(), getX() * vec.getY() - getY() * vec.getX());
 	}
 
@@ -304,7 +274,6 @@ public class BlockPos extends Vec3i {
 	 * Serialize this BlockPos into a long value
 	 */
 	public long toLong() {
-
 		return ((long) getX() & X_MASK) << X_SHIFT | ((long) getY() & Y_MASK) << Y_SHIFT | ((long) getZ() & Z_MASK);
 	}
 
@@ -315,7 +284,6 @@ public class BlockPos extends Vec3i {
 	 * use this in case the value is changed internally.</p>
 	 */
 	public BlockPos toImmutable() {
-
 		return this;
 	}
 
@@ -326,17 +294,14 @@ public class BlockPos extends Vec3i {
 		protected int z;
 
 		public MutableBlockPos() {
-
 			this(0, 0, 0);
 		}
 
 		public MutableBlockPos(BlockPos pos) {
-
 			this(pos.getX(), pos.getY(), pos.getZ());
 		}
 
 		public MutableBlockPos(int x_, int y_, int z_) {
-
 			super(0, 0, 0);
 			x = x_;
 			y = y_;
@@ -344,42 +309,34 @@ public class BlockPos extends Vec3i {
 		}
 
 		public BlockPos add(double x, double y, double z) {
-
 			return super.add(x, y, z).toImmutable();
 		}
 
 		public BlockPos add(int x, int y, int z) {
-
 			return super.add(x, y, z).toImmutable();
 		}
 
 		public BlockPos offset(Facing facing, int n) {
-
 			return super.offset(facing, n).toImmutable();
 		}
 
 		public BlockPos rotate(Rotation rotationIn) {
-
 			return super.rotate(rotationIn).toImmutable();
 		}
 
 		public int getX() {
-
 			return x;
 		}
 
 		public int getY() {
-
 			return y;
 		}
 
 		public void setY(int yIn) {
-
 			y = yIn;
 		}
 
 		public int getZ() {
-
 			return z;
 		}
 
@@ -417,7 +374,6 @@ public class BlockPos extends Vec3i {
 		}
 
 		public BlockPos toImmutable() {
-
 			return new BlockPos(this);
 		}
 
@@ -429,7 +385,6 @@ public class BlockPos extends Vec3i {
 		private boolean released;
 
 		private PooledMutableBlockPos(int xIn, int yIn, int zIn) {
-
 			super(xIn, yIn, zIn);
 		}
 
@@ -466,7 +421,6 @@ public class BlockPos extends Vec3i {
 		}
 
 		public void release() {
-
 			synchronized (POOL) {
 				if (POOL.size() < 100) {
 					POOL.add(this);

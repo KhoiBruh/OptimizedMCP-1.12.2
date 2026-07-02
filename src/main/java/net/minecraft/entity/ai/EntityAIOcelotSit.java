@@ -15,7 +15,6 @@ public class EntityAIOcelotSit extends EntityAIMoveToBlock {
 	private final EntityOcelot ocelot;
 
 	public EntityAIOcelotSit(EntityOcelot ocelotIn, double p_i45315_2_) {
-
 		super(ocelotIn, p_i45315_2_, 8);
 		ocelot = ocelotIn;
 	}
@@ -24,7 +23,6 @@ public class EntityAIOcelotSit extends EntityAIMoveToBlock {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		return ocelot.isTamed() && !ocelot.isSitting() && super.shouldExecute();
 	}
 
@@ -32,7 +30,6 @@ public class EntityAIOcelotSit extends EntityAIMoveToBlock {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		super.startExecuting();
 		ocelot.getAISit().setSitting(false);
 	}
@@ -41,7 +38,6 @@ public class EntityAIOcelotSit extends EntityAIMoveToBlock {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		super.resetTask();
 		ocelot.setSitting(false);
 	}
@@ -50,7 +46,6 @@ public class EntityAIOcelotSit extends EntityAIMoveToBlock {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		super.updateTask();
 		ocelot.getAISit().setSitting(false);
 
@@ -65,7 +60,6 @@ public class EntityAIOcelotSit extends EntityAIMoveToBlock {
 	 * Return true to set given position as destination
 	 */
 	protected boolean shouldMoveTo(World worldIn, BlockPos pos) {
-
 		if (!worldIn.isAirBlock(pos.up())) {
 			return false;
 		} else {

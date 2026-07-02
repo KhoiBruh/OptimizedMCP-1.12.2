@@ -23,7 +23,6 @@ import java.util.Random;
 public class BlockWeb extends Block {
 
 	public BlockWeb() {
-
 		super(Material.WEB);
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
@@ -32,7 +31,6 @@ public class BlockWeb extends Block {
 	 * Called When an Entity Collided with the Block
 	 */
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-
 		entityIn.setInWeb();
 	}
 
@@ -40,18 +38,15 @@ public class BlockWeb extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-
 		return NULL_AABB;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -59,12 +54,10 @@ public class BlockWeb extends Block {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Items.STRING;
 	}
 
 	protected boolean canSilkHarvest() {
-
 		return true;
 	}
 
@@ -73,7 +66,6 @@ public class BlockWeb extends Block {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.CUTOUT;
 	}
 
@@ -82,7 +74,6 @@ public class BlockWeb extends Block {
 	 * Block.removedByPlayer
 	 */
 	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
-
 		if (!worldIn.isRemote && stack.getItem() == Items.SHEARS) {
 			player.addStat(StatList.getBlockStats(this));
 			spawnAsEntity(worldIn, pos, new ItemStack(Item.getItemFromBlock(this), 1));
@@ -101,7 +92,6 @@ public class BlockWeb extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

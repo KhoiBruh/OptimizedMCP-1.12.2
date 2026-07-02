@@ -55,7 +55,6 @@ public class EntitySheep extends EntityAnimal {
 	 */
 	private final InventoryCrafting inventoryCrafting = new InventoryCrafting(new Container() {
 		public boolean canInteractWith(EntityPlayer playerIn) {
-
 			return false;
 		}
 	}, 2, 1);
@@ -67,7 +66,6 @@ public class EntitySheep extends EntityAnimal {
 	private EntityAIEatGrass entityAIEatGrass;
 
 	public EntitySheep(World worldIn) {
-
 		super(worldIn);
 		setSize(0.9F, 1.3F);
 		inventoryCrafting.setInventorySlotContents(0, new ItemStack(Items.DYE));
@@ -75,19 +73,16 @@ public class EntitySheep extends EntityAnimal {
 	}
 
 	private static float[] createSheepColor(DyeColor p_192020_0_) {
-
 		float[] afloat = p_192020_0_.getColorComponentValues();
 		float f = 0.75F;
 		return new float[]{afloat[0] * 0.75F, afloat[1] * 0.75F, afloat[2] * 0.75F};
 	}
 
 	public static float[] getDyeRgb(DyeColor dyeColor) {
-
 		return DYE_TO_RGB.get(dyeColor);
 	}
 
 	public static void registerFixesSheep(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntitySheep.class);
 	}
 
@@ -95,7 +90,6 @@ public class EntitySheep extends EntityAnimal {
 	 * Chooses a "vanilla" sheep color based on the provided random.
 	 */
 	public static DyeColor getRandomSheepColor(Random random) {
-
 		int i = random.nextInt(100);
 
 		if (i < 5) {
@@ -112,7 +106,6 @@ public class EntitySheep extends EntityAnimal {
 	}
 
 	protected void initEntityAI() {
-
 		entityAIEatGrass = new EntityAIEatGrass(this);
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAIPanic(this, 1.25D));
@@ -126,7 +119,6 @@ public class EntitySheep extends EntityAnimal {
 	}
 
 	protected void updateAITasks() {
-
 		sheepTimer = entityAIEatGrass.getEatingGrassTimer();
 		super.updateAITasks();
 	}
@@ -136,7 +128,6 @@ public class EntitySheep extends EntityAnimal {
 	 * use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
 		if (world.isRemote) {
 			sheepTimer = Math.max(0, sheepTimer - 1);
 		}
@@ -145,21 +136,18 @@ public class EntitySheep extends EntityAnimal {
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.23000000417232513D);
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(DYE_COLOR, (byte) 0);
 	}
 
 	
 	protected ResourceLocation getLootTable() {
-
 		if (getSheared()) {
 			return LootTableList.ENTITIES_SHEEP;
 		} else {
@@ -188,7 +176,6 @@ public class EntitySheep extends EntityAnimal {
 	 * Handler for {@link World#setEntityState}
 	 */
 	public void handleStatusUpdate(byte id) {
-
 		if (id == 10) {
 			sheepTimer = 40;
 		} else {
@@ -197,7 +184,6 @@ public class EntitySheep extends EntityAnimal {
 	}
 
 	public float getHeadRotationPointY(float p_70894_1_) {
-
 		if (sheepTimer <= 0) {
 			return 0F;
 		} else if (sheepTimer >= 4 && sheepTimer <= 36) {
@@ -208,7 +194,6 @@ public class EntitySheep extends EntityAnimal {
 	}
 
 	public float getHeadRotationAngleX(float p_70890_1_) {
-
 		if (sheepTimer > 4 && sheepTimer <= 36) {
 			float f = ((float) (sheepTimer - 4) - p_70890_1_) / 32F;
 			return ((float) Math.PI / 5F) + ((float) Math.PI * 7F / 100F) * MathHelper.sin(f * 28.7F);
@@ -218,7 +203,6 @@ public class EntitySheep extends EntityAnimal {
 	}
 
 	public boolean processInteract(EntityPlayer player, Hand hand) {
-
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (itemstack.getItem() == Items.SHEARS && !getSheared() && !isChild()) {
@@ -245,7 +229,6 @@ public class EntitySheep extends EntityAnimal {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setBoolean("Sheared", getSheared());
 		compound.setByte("Color", (byte) getFleeceColor().getMetadata());
@@ -255,29 +238,24 @@ public class EntitySheep extends EntityAnimal {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		setSheared(compound.getBoolean("Sheared"));
 		setFleeceColor(DyeColor.byMetadata(compound.getByte("Color")));
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		return SoundEvents.ENTITY_SHEEP_AMBIENT;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_SHEEP_HURT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_SHEEP_DEATH;
 	}
 
 	protected void playStepSound(BlockPos pos, Block blockIn) {
-
 		playSound(SoundEvents.ENTITY_SHEEP_STEP, 0.15F, 1F);
 	}
 
@@ -285,7 +263,6 @@ public class EntitySheep extends EntityAnimal {
 	 * Gets the wool color of this sheep.
 	 */
 	public DyeColor getFleeceColor() {
-
 		return DyeColor.byMetadata(dataManager.get(DYE_COLOR) & 15);
 	}
 
@@ -293,7 +270,6 @@ public class EntitySheep extends EntityAnimal {
 	 * Sets the wool color of this sheep
 	 */
 	public void setFleeceColor(DyeColor color) {
-
 		byte b0 = dataManager.get(DYE_COLOR);
 		dataManager.set(DYE_COLOR, (byte) (b0 & 240 | color.getMetadata() & 15));
 	}
@@ -302,7 +278,6 @@ public class EntitySheep extends EntityAnimal {
 	 * returns true if a sheeps wool has been sheared
 	 */
 	public boolean getSheared() {
-
 		return (dataManager.get(DYE_COLOR) & 16) != 0;
 	}
 
@@ -310,7 +285,6 @@ public class EntitySheep extends EntityAnimal {
 	 * make a sheep sheared if set to true
 	 */
 	public void setSheared(boolean sheared) {
-
 		byte b0 = dataManager.get(DYE_COLOR);
 
 		if (sheared) {
@@ -321,7 +295,6 @@ public class EntitySheep extends EntityAnimal {
 	}
 
 	public EntitySheep createChild(EntityAgeable ageable) {
-
 		EntitySheep entitysheep = (EntitySheep) ageable;
 		EntitySheep entitysheep1 = new EntitySheep(world);
 		entitysheep1.setFleeceColor(getDyeColorMixFromParents(this, entitysheep));
@@ -333,7 +306,6 @@ public class EntitySheep extends EntityAnimal {
 	 * function is used in the AIEatGrass)
 	 */
 	public void eatGrassBonus() {
-
 		setSheared(false);
 
 		if (isChild()) {
@@ -358,7 +330,6 @@ public class EntitySheep extends EntityAnimal {
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 		setFleeceColor(getRandomSheepColor(world.rand));
 		return livingdata;
@@ -368,7 +339,6 @@ public class EntitySheep extends EntityAnimal {
 	 * Attempts to mix both parent sheep to come up with a mixed dye color.
 	 */
 	private DyeColor getDyeColorMixFromParents(EntityAnimal father, EntityAnimal mother) {
-
 		int i = ((EntitySheep) father).getFleeceColor().getDyeDamage();
 		int j = ((EntitySheep) mother).getFleeceColor().getDyeDamage();
 		inventoryCrafting.getStackInSlot(0).setItemDamage(i);
@@ -386,7 +356,6 @@ public class EntitySheep extends EntityAnimal {
 	}
 
 	public float getEyeHeight() {
-
 		return 0.95F * height;
 	}
 }

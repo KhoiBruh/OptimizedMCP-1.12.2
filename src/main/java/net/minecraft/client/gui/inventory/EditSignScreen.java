@@ -37,7 +37,6 @@ public class EditSignScreen extends Screen {
 	private Button doneBtn;
 
 	public EditSignScreen(TileEntitySign teSign) {
-
 		tileSign = teSign;
 	}
 
@@ -46,7 +45,6 @@ public class EditSignScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		buttons.clear();
 		Keyboard.setRepeat(true);
 		doneBtn = addButton(new Button(0, width / 2 - 100, height / 4 + 120, I18n.format("gui.done")));
@@ -57,7 +55,6 @@ public class EditSignScreen extends Screen {
 	 * Called when the screen is unloaded. Used to disable keyboard repeat events
 	 */
 	public void close() {
-
 		Keyboard.setRepeat(false);
 		NetHandlerPlayClient nethandlerplayclient = mc.getConnection();
 
@@ -72,7 +69,6 @@ public class EditSignScreen extends Screen {
 	 * Called from the main game loop to update the screen.
 	 */
 	public void update() {
-
 		++updateCounter;
 	}
 
@@ -80,7 +76,6 @@ public class EditSignScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.enabled) {
 			if (button.id == 0) {
 				tileSign.markDirty();
@@ -94,7 +89,6 @@ public class EditSignScreen extends Screen {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) {
-
 		if (keyCode == 265) {
 			editLine = editLine - 1 & 3;
 		}
@@ -124,7 +118,6 @@ public class EditSignScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, I18n.format("sign.edit"), width / 2, 40, 16777215);
 		GLS.color(1F, 1F, 1F, 1F);

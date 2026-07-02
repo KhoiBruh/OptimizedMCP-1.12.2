@@ -26,7 +26,6 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
 	private final RenderItem itemRenderer;
 
 	public RenderItemFrame(RenderManager renderManagerIn, RenderItem itemRendererIn) {
-
 		super(renderManagerIn);
 		itemRenderer = itemRendererIn;
 	}
@@ -35,7 +34,6 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(EntityItemFrame entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		GLS.pushMatrix();
 		BlockPos blockpos = entity.getHangingPosition();
 		double d0 = (double) blockpos.getX() - entity.posX + x;
@@ -82,12 +80,10 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityItemFrame entity) {
-
 		return null;
 	}
 
 	private void renderItem(EntityItemFrame itemFrame) {
-
 		ItemStack itemstack = itemFrame.getDisplayedItem();
 
 		if (!itemstack.isEmpty()) {
@@ -124,7 +120,6 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
 	}
 
 	protected void renderName(EntityItemFrame entity, double x, double y, double z) {
-
 		if (Minecraft.isGuiEnabled() && !entity.getDisplayedItem().isEmpty() && entity.getDisplayedItem().hasDisplayName() && renderManager.pointedEntity == entity) {
 			double d0 = entity.getDistanceSq(renderManager.renderViewEntity);
 			float f = entity.isSneaking() ? 32F : 64F;

@@ -9,7 +9,6 @@ public class ContainerChest extends Container {
 	private final int numRows;
 
 	public ContainerChest(IInventory playerInventory, IInventory chestInventory, EntityPlayer player) {
-
 		lowerChestInventory = chestInventory;
 		numRows = chestInventory.getSizeInventory() / 9;
 		chestInventory.openInventory(player);
@@ -36,7 +35,6 @@ public class ContainerChest extends Container {
 	 * Determines whether supplied player can use this container
 	 */
 	public boolean canInteractWith(EntityPlayer playerIn) {
-
 		return lowerChestInventory.isUsableByPlayer(playerIn);
 	}
 
@@ -45,7 +43,6 @@ public class ContainerChest extends Container {
 	 * inventory and the other inventory(s).
 	 */
 	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = inventorySlots.get(index);
 
@@ -75,7 +72,6 @@ public class ContainerChest extends Container {
 	 * Called when the container is closed.
 	 */
 	public void onContainerClosed(EntityPlayer playerIn) {
-
 		super.onContainerClosed(playerIn);
 		lowerChestInventory.closeInventory(playerIn);
 	}
@@ -84,7 +80,6 @@ public class ContainerChest extends Container {
 	 * Return this chest container's lower chest inventory.
 	 */
 	public IInventory getLowerChestInventory() {
-
 		return lowerChestInventory;
 	}
 

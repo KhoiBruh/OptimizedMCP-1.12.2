@@ -21,7 +21,6 @@ public class BlockRedstoneOre extends Block {
 	private final boolean isOn;
 
 	public BlockRedstoneOre(boolean isOn) {
-
 		super(Material.ROCK);
 
 		if (isOn) {
@@ -35,12 +34,10 @@ public class BlockRedstoneOre extends Block {
 	 * How many world ticks before ticking
 	 */
 	public int tickRate(World worldIn) {
-
 		return 30;
 	}
 
 	public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn) {
-
 		activate(worldIn, pos);
 		super.onBlockClicked(worldIn, pos, playerIn);
 	}
@@ -49,7 +46,6 @@ public class BlockRedstoneOre extends Block {
 	 * Called when the given entity walks on this Block
 	 */
 	public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
-
 		activate(worldIn, pos);
 		super.onEntityWalk(worldIn, pos, entityIn);
 	}
@@ -58,13 +54,11 @@ public class BlockRedstoneOre extends Block {
 	 * Called when the block is right clicked by a player.
 	 */
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
-
 		activate(worldIn, pos);
 		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
 	}
 
 	private void activate(World worldIn, BlockPos pos) {
-
 		spawnParticles(worldIn, pos);
 
 		if (this == Blocks.REDSTONE_ORE) {
@@ -73,7 +67,6 @@ public class BlockRedstoneOre extends Block {
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if (this == Blocks.LIT_REDSTONE_ORE) {
 			worldIn.setBlockState(pos, Blocks.REDSTONE_ORE.getDefaultState());
 		}
@@ -83,7 +76,6 @@ public class BlockRedstoneOre extends Block {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Items.REDSTONE;
 	}
 
@@ -91,7 +83,6 @@ public class BlockRedstoneOre extends Block {
 	 * Get the quantity dropped based on the given fortune level
 	 */
 	public int quantityDroppedWithBonus(int fortune, Random random) {
-
 		return quantityDropped(random) + random.nextInt(fortune + 1);
 	}
 
@@ -99,7 +90,6 @@ public class BlockRedstoneOre extends Block {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return 4 + random.nextInt(2);
 	}
 
@@ -107,7 +97,6 @@ public class BlockRedstoneOre extends Block {
 	 * Spawns this Block's drops into the World as EntityItems.
 	 */
 	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
-
 		super.dropBlockAsItemWithChance(worldIn, pos, state, chance, fortune);
 
 		if (getItemDropped(state, worldIn.rand, fortune) != Item.getItemFromBlock(this)) {
@@ -117,14 +106,12 @@ public class BlockRedstoneOre extends Block {
 	}
 
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-
 		if (isOn) {
 			spawnParticles(worldIn, pos);
 		}
 	}
 
 	private void spawnParticles(World worldIn, BlockPos pos) {
-
 		Random random = worldIn.rand;
 		double d0 = 0.0625D;
 
@@ -164,12 +151,10 @@ public class BlockRedstoneOre extends Block {
 	}
 
 	protected ItemStack getSilkTouchDrop(IBlockState state) {
-
 		return new ItemStack(Blocks.REDSTONE_ORE);
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return new ItemStack(Item.getItemFromBlock(Blocks.REDSTONE_ORE), 1, damageDropped(state));
 	}
 

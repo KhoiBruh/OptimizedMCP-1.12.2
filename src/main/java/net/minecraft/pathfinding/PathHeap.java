@@ -16,7 +16,6 @@ public class PathHeap {
 	 * Adds a point to the path
 	 */
 	public PathPoint addPoint(PathPoint point) {
-
 		if (point.index >= 0) {
 			throw new IllegalStateException("OW KNOWS!");
 		} else {
@@ -37,7 +36,6 @@ public class PathHeap {
 	 * Clears the path
 	 */
 	public void clearPath() {
-
 		count = 0;
 	}
 
@@ -45,7 +43,6 @@ public class PathHeap {
 	 * Returns and removes the first point in the path
 	 */
 	public PathPoint dequeue() {
-
 		PathPoint pathpoint = pathPoints[0];
 		pathPoints[0] = pathPoints[--count];
 		pathPoints[count] = null;
@@ -62,7 +59,6 @@ public class PathHeap {
 	 * Changes the provided point's distance to target
 	 */
 	public void changeDistance(PathPoint point, float distance) {
-
 		float f = point.distanceToTarget;
 		point.distanceToTarget = distance;
 
@@ -77,7 +73,6 @@ public class PathHeap {
 	 * Sorts a point to the left
 	 */
 	private void sortBack(int index) {
-
 		PathPoint pathpoint = pathPoints[index];
 		int i;
 
@@ -101,7 +96,6 @@ public class PathHeap {
 	 * Sorts a point to the right
 	 */
 	private void sortForward(int index) {
-
 		PathPoint pathpoint = pathPoints[index];
 		float f = pathpoint.distanceToTarget;
 
@@ -153,7 +147,6 @@ public class PathHeap {
 	 * Returns true if this path contains no points
 	 */
 	public boolean isPathEmpty() {
-
 		return count == 0;
 	}
 

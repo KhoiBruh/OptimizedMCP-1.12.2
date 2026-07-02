@@ -6,7 +6,6 @@ import net.minecraft.init.Blocks;
 public class BiomeEnd extends Biome {
 
 	public BiomeEnd(Biome.BiomeProperties properties) {
-
 		super(properties);
 		spawnableMonsterList.clear();
 		spawnableCreatureList.clear();
@@ -22,7 +21,6 @@ public class BiomeEnd extends Biome {
 	 * takes temperature, returns color
 	 */
 	public int getSkyColorByTemp(float currentTemperature) {
-
 		return 0;
 	}
 

@@ -31,7 +31,6 @@ public class WorldSelectScreen extends Screen {
 	private GuiListWorldSelection selectionList;
 
 	public WorldSelectScreen(Screen screenIn) {
-
 		prevScreen = screenIn;
 	}
 
@@ -40,7 +39,6 @@ public class WorldSelectScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		title = I18n.format("selectWorld.title");
 		selectionList = new GuiListWorldSelection(this, mc, width, height, 32, height - 64, 36);
 		postInit();
@@ -50,13 +48,11 @@ public class WorldSelectScreen extends Screen {
 	 * Handles mouse input.
 	 */
 	public void handleMouse() throws IOException {
-
 		super.handleMouse();
 		selectionList.handleMouseInput();
 	}
 
 	public void postInit() {
-
 		selectButton = addButton(new Button(1, width / 2 - 154, height - 52, 150, 20, I18n.format("selectWorld.select")));
 		addButton(new Button(3, width / 2 + 4, height - 52, 150, 20, I18n.format("selectWorld.create")));
 		renameButton = addButton(new Button(4, width / 2 - 154, height - 28, 72, 20, I18n.format("selectWorld.edit")));
@@ -73,7 +69,6 @@ public class WorldSelectScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.enabled) {
 			GuiListWorldSelectionEntry guilistworldselectionentry = selectionList.getSelectedWorld();
 
@@ -117,7 +112,6 @@ public class WorldSelectScreen extends Screen {
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
-
 		super.mouseClicked(mouseX, mouseY, mouse);
 		selectionList.mouseClicked(mouseX, mouseY, mouse);
 	}
@@ -126,7 +120,6 @@ public class WorldSelectScreen extends Screen {
 	 * Called when a mouse button is released.
 	 */
 	protected void mouseReleased(int mouseX, int mouseY, int state) {
-
 		super.mouseReleased(mouseX, mouseY, state);
 		selectionList.mouseReleased(mouseX, mouseY, state);
 	}
@@ -135,12 +128,10 @@ public class WorldSelectScreen extends Screen {
 	 * Called back by selectionList when we call its drawScreen method, from ours.
 	 */
 	public void setVersionTooltip(String p_184861_1_) {
-
 		worldVersTooltip = p_184861_1_;
 	}
 
 	public void selectWorld(GuiListWorldSelectionEntry entry) {
-
 		boolean flag = entry != null;
 		selectButton.enabled = flag;
 		deleteButton.enabled = flag;

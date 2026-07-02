@@ -19,12 +19,10 @@ public class MapGenCaves extends MapGenBase {
 	protected static final IBlockState BLK_RED_SANDSTONE = Blocks.RED_SANDSTONE.getDefaultState();
 
 	protected void addRoom(long p_180703_1_, int p_180703_3_, int p_180703_4_, ChunkPrimer p_180703_5_, double p_180703_6_, double p_180703_8_, double p_180703_10_) {
-
 		addTunnel(p_180703_1_, p_180703_3_, p_180703_4_, p_180703_5_, p_180703_6_, p_180703_8_, p_180703_10_, 1F + rand.nextFloat() * 6F, 0F, 0F, -1, -1, 0.5D);
 	}
 
 	protected void addTunnel(long p_180702_1_, int p_180702_3_, int p_180702_4_, ChunkPrimer p_180702_5_, double p_180702_6_, double p_180702_8_, double p_180702_10_, float p_180702_12_, float p_180702_13_, float p_180702_14_, int p_180702_15_, int p_180702_16_, double p_180702_17_) {
-
 		double d0 = p_180702_3_ * 16 + 8;
 		double d1 = p_180702_4_ * 16 + 8;
 		float f = 0F;
@@ -185,7 +183,6 @@ public class MapGenCaves extends MapGenBase {
 	}
 
 	protected boolean canReplaceBlock(IBlockState p_175793_1_, IBlockState p_175793_2_) {
-
 		if (p_175793_1_.getBlock() == Blocks.STONE) {
 			return true;
 		} else if (p_175793_1_.getBlock() == Blocks.DIRT) {
@@ -213,7 +210,6 @@ public class MapGenCaves extends MapGenBase {
 	 * Recursively called by generate()
 	 */
 	protected void recursiveGenerate(World worldIn, int chunkX, int chunkZ, int originalX, int originalZ, ChunkPrimer chunkPrimerIn) {
-
 		int i = rand.nextInt(rand.nextInt(rand.nextInt(15) + 1) + 1);
 
 		if (rand.nextInt(7) != 0) {

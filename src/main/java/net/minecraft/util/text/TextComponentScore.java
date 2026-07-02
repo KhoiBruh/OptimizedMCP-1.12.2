@@ -18,7 +18,6 @@ public class TextComponentScore extends TextComponentBase {
 	private String value = "";
 
 	public TextComponentScore(String nameIn, String objectiveIn) {
-
 		name = nameIn;
 		objective = objectiveIn;
 	}
@@ -27,7 +26,6 @@ public class TextComponentScore extends TextComponentBase {
 	 * Gets the name of the entity who owns this score.
 	 */
 	public String getName() {
-
 		return name;
 	}
 
@@ -35,7 +33,6 @@ public class TextComponentScore extends TextComponentBase {
 	 * Gets the name of the objective for this score.
 	 */
 	public String getObjective() {
-
 		return objective;
 	}
 
@@ -44,7 +41,6 @@ public class TextComponentScore extends TextComponentBase {
 	 * automatically. (If you want to manually set text, use a {@link TextComponentString})
 	 */
 	public void setValue(String valueIn) {
-
 		value = valueIn;
 	}
 
@@ -54,7 +50,6 @@ public class TextComponentScore extends TextComponentBase {
 	 * TextComponentTranslation} and it's the score value for a {@link TextComponentScore}.
 	 */
 	public String getUnformattedComponentText() {
-
 		return value;
 	}
 
@@ -62,7 +57,6 @@ public class TextComponentScore extends TextComponentBase {
 	 * Resolves the value of the score on this component.
 	 */
 	public void resolve(ICommandSender sender) {
-
 		MinecraftServer minecraftserver = sender.getServer();
 
 		if (minecraftserver != null && minecraftserver.isAnvilFileSet() && StringUtils.isNullOrEmpty(value)) {
@@ -82,7 +76,6 @@ public class TextComponentScore extends TextComponentBase {
 	 * Creates a copy of this component.  Almost a deep copy, except the style is shallow-copied.
 	 */
 	public TextComponentScore createCopy() {
-
 		TextComponentScore textcomponentscore = new TextComponentScore(name, objective);
 		textcomponentscore.setValue(value);
 		textcomponentscore.setStyle(getStyle().createShallowCopy());
@@ -95,7 +88,6 @@ public class TextComponentScore extends TextComponentBase {
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else if (!(p_equals_1_ instanceof TextComponentScore textcomponentscore)) {
@@ -106,7 +98,6 @@ public class TextComponentScore extends TextComponentBase {
 	}
 
 	public String toString() {
-
 		return "ScoreComponent{name='" + name + '\'' + "objective='" + objective + '\'' + ", siblings=" + siblings + ", style=" + getStyle() + '}';
 	}
 

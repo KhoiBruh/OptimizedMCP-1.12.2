@@ -16,7 +16,6 @@ public abstract class BlockLog extends BlockRotatedPillar {
 	public static final PropertyEnum<BlockLog.Axis> LOG_AXIS = PropertyEnum.create("axis", BlockLog.Axis.class);
 
 	public BlockLog() {
-
 		super(Material.WOOD);
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 		setHardness(2F);
@@ -27,7 +26,6 @@ public abstract class BlockLog extends BlockRotatedPillar {
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (worldIn.isAreaLoaded(pos.add(-5, -5, -5), pos.add(5, 5, 5))) {
 			for (BlockPos blockpos : BlockPos.getAllInBox(pos.add(-4, -4, -4), pos.add(4, 4, 4))) {
 				IBlockState iblockstate = worldIn.getBlockState(blockpos);
@@ -44,7 +42,6 @@ public abstract class BlockLog extends BlockRotatedPillar {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-
 		return getStateFromMeta(meta).withProperty(LOG_AXIS, BlockLog.Axis.fromFacingAxis(facing.getAxis()));
 	}
 
@@ -53,7 +50,6 @@ public abstract class BlockLog extends BlockRotatedPillar {
 	 * blockstate.
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-
 		return switch (rot) {
 			case COUNTERCLOCKWISE_90, CLOCKWISE_90 -> switch (state.getValue(LOG_AXIS)) {
 				case X -> state.withProperty(LOG_AXIS, Axis.Z);
@@ -73,7 +69,6 @@ public abstract class BlockLog extends BlockRotatedPillar {
 		private final String name;
 
 		Axis(String name) {
-
 			this.name = name;
 		}
 
@@ -87,12 +82,10 @@ public abstract class BlockLog extends BlockRotatedPillar {
 		}
 
 		public String toString() {
-
 			return name;
 		}
 
 		public String getName() {
-
 			return name;
 		}
 	}

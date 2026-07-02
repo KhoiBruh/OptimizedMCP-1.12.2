@@ -45,7 +45,6 @@ public enum DyeColor implements IStringSerializable {
 	private final float[] colorComponentValues;
 	
 	DyeColor(int metaIn, int dyeDamageIn, String nameIn, String unlocalizedNameIn, int colorValueIn) {
-
 		meta = metaIn;
 		dyeDamage = dyeDamageIn;
 		name = nameIn;
@@ -58,7 +57,6 @@ public enum DyeColor implements IStringSerializable {
 	}
 
 	public static DyeColor byDyeDamage(int damage) {
-
 		if (damage < 0 || damage >= DYE_DMG_LOOKUP.length) {
 			damage = 0;
 		}
@@ -67,7 +65,6 @@ public enum DyeColor implements IStringSerializable {
 	}
 
 	public static DyeColor byMetadata(int meta) {
-
 		if (meta < 0 || meta >= META_LOOKUP.length) {
 			meta = 0;
 		}
@@ -76,22 +73,18 @@ public enum DyeColor implements IStringSerializable {
 	}
 
 	public int getMetadata() {
-
 		return meta;
 	}
 
 	public int getDyeDamage() {
-
 		return dyeDamage;
 	}
 
 	public String getDyeColorName() {
-
 		return name;
 	}
 
 	public String getUnlocalizedName() {
-
 		return unlocalizedName;
 	}
 
@@ -99,7 +92,6 @@ public enum DyeColor implements IStringSerializable {
 	 * Gets the RGB color corresponding to this dye color.
 	 */
 	public int getColorValue() {
-
 		return colorValue;
 	}
 
@@ -108,17 +100,14 @@ public enum DyeColor implements IStringSerializable {
 	 * corresponding color.
 	 */
 	public float[] getColorComponentValues() {
-
 		return colorComponentValues;
 	}
 
 	public String toString() {
-
 		return unlocalizedName;
 	}
 
 	public String getName() {
-
 		return name;
 	}
 }

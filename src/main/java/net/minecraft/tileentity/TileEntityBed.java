@@ -12,12 +12,10 @@ public class TileEntityBed extends TileEntity {
 	private DyeColor color = DyeColor.RED;
 
 	public void setItemValues(ItemStack p_193051_1_) {
-
 		setColor(DyeColor.byMetadata(p_193051_1_.getMetadata()));
 	}
 
 	public void readFromNBT(NBTTagCompound compound) {
-
 		super.readFromNBT(compound);
 
 		if (compound.hasKey("color")) {
@@ -26,40 +24,33 @@ public class TileEntityBed extends TileEntity {
 	}
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
 		super.writeToNBT(compound);
 		compound.setInteger("color", color.getMetadata());
 		return compound;
 	}
 
 	public NBTTagCompound getUpdateTag() {
-
 		return writeToNBT(new NBTTagCompound());
 	}
 
 	public SPacketUpdateTileEntity getUpdatePacket() {
-
 		return new SPacketUpdateTileEntity(pos, 11, getUpdateTag());
 	}
 
 	public DyeColor getColor() {
-
 		return color;
 	}
 
 	public void setColor(DyeColor color) {
-
 		this.color = color;
 		markDirty();
 	}
 
 	public boolean isHeadPiece() {
-
 		return BlockBed.isHeadPiece(getBlockMetadata());
 	}
 
 	public ItemStack getItemStack() {
-
 		return new ItemStack(Items.BED, 1, color.getMetadata());
 	}
 

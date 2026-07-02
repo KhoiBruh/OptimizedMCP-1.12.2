@@ -35,7 +35,6 @@ public abstract class Render<T extends Entity> {
 	protected boolean renderOutlines;
 
 	protected Render(RenderManager renderManager) {
-
 		this.renderManager = renderManager;
 	}
 
@@ -43,7 +42,6 @@ public abstract class Render<T extends Entity> {
 	 * Renders a white box with the bounds of the AABB trasnlated by an offset.
 	 */
 	public static void renderOffsetAABB(AxisAlignedBB boundingBox, double x, double y, double z) {
-
 		GLS.disableTexture2D();
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
@@ -80,12 +78,10 @@ public abstract class Render<T extends Entity> {
 	}
 
 	public void setRenderOutlines(boolean renderOutlinesIn) {
-
 		renderOutlines = renderOutlinesIn;
 	}
 
 	public boolean shouldRender(T livingEntity, ICamera camera, double camX, double camY, double camZ) {
-
 		AxisAlignedBB axisalignedbb = livingEntity.getRenderBoundingBox().grow(0.5D);
 
 		if (axisalignedbb.hasNaN() || axisalignedbb.getAverageEdgeLength() == 0D) {
@@ -99,14 +95,12 @@ public abstract class Render<T extends Entity> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		if (!renderOutlines) {
 			renderName(entity, x, y, z);
 		}
 	}
 
 	protected int getTeamColor(T entityIn) {
-
 		int i = 16777215;
 		ScorePlayerTeam scoreplayerteam = (ScorePlayerTeam) entityIn.getTeam();
 
@@ -122,19 +116,16 @@ public abstract class Render<T extends Entity> {
 	}
 
 	protected void renderName(T entity, double x, double y, double z) {
-
 		if (canRenderName(entity)) {
 			renderLivingLabel(entity, entity.getDisplayName().getFormattedText(), x, y, z, 64);
 		}
 	}
 
 	protected boolean canRenderName(T entity) {
-
 		return entity.getAlwaysRenderNameTagForRender() && entity.hasCustomName();
 	}
 
 	protected void renderEntityName(T entityIn, double x, double y, double z, String name, double distanceSq) {
-
 		renderLivingLabel(entityIn, name, x, y, z, 64);
 	}
 
@@ -146,7 +137,6 @@ public abstract class Render<T extends Entity> {
 	protected abstract ResourceLocation getEntityTexture(T entity);
 
 	protected boolean bindEntityTexture(T entity) {
-
 		ResourceLocation resourcelocation = getEntityTexture(entity);
 
 		if (resourcelocation == null) {
@@ -158,7 +148,6 @@ public abstract class Render<T extends Entity> {
 	}
 
 	public void bindTexture(ResourceLocation location) {
-
 		renderManager.renderEngine.bindTexture(location);
 	}
 
@@ -166,7 +155,6 @@ public abstract class Render<T extends Entity> {
 	 * Renders a layer of fire on top of an entity.
 	 */
 	private void renderEntityOnFire(Entity entity, double x, double y, double z, float partialTicks) {
-
 		GLS.disableLighting();
 		TextureMap texturemap = Minecraft.getMinecraft().getBlockTextures();
 		TextureAtlasSprite textureatlassprite = texturemap.getAtlasSprite("minecraft:blocks/fire_layer_0");
@@ -222,7 +210,6 @@ public abstract class Render<T extends Entity> {
 	 * Renders the entities shadow.
 	 */
 	private void renderShadow(Entity entityIn, double x, double y, double z, float shadowAlpha, float partialTicks) {
-
 		GLS.enableBlend();
 		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA);
 		renderManager.renderEngine.bindTexture(SHADOW_TEXTURES);
@@ -272,12 +259,10 @@ public abstract class Render<T extends Entity> {
 	 * Returns the render manager's world object
 	 */
 	private World getWorldFromRenderManager() {
-
 		return renderManager.world;
 	}
 
 	private void renderShadowSingle(IBlockState state, double p_188299_2_, double p_188299_4_, double p_188299_6_, BlockPos p_188299_8_, float p_188299_9_, float p_188299_10_, double p_188299_11_, double p_188299_13_, double p_188299_15_) {
-
 		if (state.isFullCube()) {
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferbuilder = tessellator.getBuffer();
@@ -310,7 +295,6 @@ public abstract class Render<T extends Entity> {
 	 * Renders the entity's shadow and fire (if its on fire). Args: entity, x, y, z, yaw, partialTickTime
 	 */
 	public void doRenderShadowAndFire(Entity entityIn, double x, double y, double z, float yaw, float partialTicks) {
-
 		if (renderManager.options != null) {
 			if (renderManager.options.entityShadows && shadowSize > 0F && !entityIn.isInvisible() && renderManager.isRenderShadow()) {
 				double d0 = renderManager.getDistanceToCamera(entityIn.posX, entityIn.posY, entityIn.posZ);
@@ -331,7 +315,6 @@ public abstract class Render<T extends Entity> {
 	 * Returns the font renderer from the set render manager
 	 */
 	public FontRenderer getFontRendererFromRenderManager() {
-
 		return renderManager.getFontRenderer();
 	}
 
@@ -339,7 +322,6 @@ public abstract class Render<T extends Entity> {
 	 * Renders an entity's name above its head
 	 */
 	protected void renderLivingLabel(T entityIn, String str, double x, double y, double z, int maxDistance) {
-
 		double d0 = entityIn.getDistanceSq(renderManager.renderViewEntity);
 
 		if (d0 <= (double) (maxDistance * maxDistance)) {
@@ -354,17 +336,14 @@ public abstract class Render<T extends Entity> {
 	}
 
 	public RenderManager getRenderManager() {
-
 		return renderManager;
 	}
 
 	public boolean isMultipass() {
-
 		return false;
 	}
 
 	public void renderMultipass(T p_188300_1_, double p_188300_2_, double p_188300_4_, double p_188300_6_, float p_188300_8_, float p_188300_9_) {
-
 	}
 
 }

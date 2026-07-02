@@ -61,14 +61,12 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	private double velocityZ;
 
 	public EntityMinecart(World worldIn) {
-
 		super(worldIn);
 		preventEntitySpawning = true;
 		setSize(0.98F, 0.7F);
 	}
 
 	public EntityMinecart(World worldIn, double x, double y, double z) {
-
 		this(worldIn);
 		setPosition(x, y, z);
 		motionX = 0D;
@@ -80,7 +78,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	}
 
 	public static EntityMinecart create(World worldIn, double x, double y, double z, EntityMinecart.Type typeIn) {
-
 		return switch (typeIn) {
 			case CHEST -> new EntityMinecartChest(worldIn, x, y, z);
 			case FURNACE -> new EntityMinecartFurnace(worldIn, x, y, z);
@@ -93,7 +90,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	}
 
 	public static void registerFixesMinecart(DataFixer fixer, Class<?> name) {
-
 	}
 
 	/**
@@ -101,12 +97,10 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 * prevent them from trampling crops
 	 */
 	protected boolean canTriggerWalking() {
-
 		return false;
 	}
 
 	protected void entityInit() {
-
 		dataManager.register(ROLLING_AMPLITUDE, 0);
 		dataManager.register(ROLLING_DIRECTION, 1);
 		dataManager.register(DAMAGE, 0F);
@@ -122,7 +116,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 * pushable on contact, like boats or minecarts.
 	 */
 	public AxisAlignedBB getCollisionBox(Entity entityIn) {
-
 		return entityIn.canBePushed() ? entityIn.getEntityBoundingBox() : null;
 	}
 
@@ -130,7 +123,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 * Returns true if this entity should push and be pushed by other entities when colliding.
 	 */
 	public boolean canBePushed() {
-
 		return true;
 	}
 
@@ -138,7 +130,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 * Returns the Y offset from the entity's position for any entity riding this one.
 	 */
 	public double getMountedYOffset() {
-
 		return 0D;
 	}
 
@@ -146,7 +137,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		if (!world.isRemote && !isDead) {
 			if (isEntityInvulnerable(source)) {
 				return false;
@@ -175,7 +165,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	}
 
 	public void killMinecart(DamageSource source) {
-
 		setDead();
 
 		if (world.getGameRules().getBoolean("doEntityDrops")) {
@@ -193,7 +182,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 * Setups the entity to do the hurt animation. Only used by packets in multiplayer.
 	 */
 	public void performHurtAnimation() {
-
 		setRollingDirection(-getRollingDirection());
 		setRollingAmplitude(10);
 		setDamage(getDamage() + getDamage() * 10F);
@@ -203,7 +191,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 * Returns true if other Entities should be prevented from moving through this Entity.
 	 */
 	public boolean canBeCollidedWith() {
-
 		return !isDead;
 	}
 
@@ -212,7 +199,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 * account.
 	 */
 	public Facing getAdjustedHorizontalFacing() {
-
 		return isInReverse ? getHorizontalFacing().getOpposite().rotateY() : getHorizontalFacing().rotateY();
 	}
 
@@ -220,7 +206,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		if (getRollingAmplitude() > 0) {
 			setRollingAmplitude(getRollingAmplitude() - 1);
 		}
@@ -368,7 +353,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 * Get's the maximum speed for a minecart
 	 */
 	protected double getMaximumSpeed() {
-
 		return 0.4D;
 	}
 
@@ -376,14 +360,12 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 * Called every tick the minecart is on an activator rail.
 	 */
 	public void onActivatorRailPass(int x, int y, int z, boolean receivingPower) {
-
 	}
 
 	/**
 	 * Moves a minecart that is not attached to a rail
 	 */
 	protected void moveDerailedMinecart() {
-
 		double d0 = getMaximumSpeed();
 		motionX = MathHelper.clamp(motionX, -d0, d0);
 		motionZ = MathHelper.clamp(motionZ, -d0, d0);
@@ -405,7 +387,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 
 	@SuppressWarnings("incomplete-switch")
 	protected void moveAlongTrack(BlockPos pos, IBlockState state) {
-
 		fallDistance = 0F;
 		Vec3d vec3d = getPos(posX, posY, posZ);
 		posY = pos.getY();
@@ -583,7 +564,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	}
 
 	protected void applyDrag() {
-
 		if (isBeingRidden()) {
 			motionX *= 0.996999979019165D;
 			motionY *= 0D;
@@ -597,7 +577,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 
 	
 	public Vec3d getPosOffset(double x, double y, double z, double offset) {
-
 		int i = MathHelper.floor(x);
 		int j = MathHelper.floor(y);
 		int k = MathHelper.floor(z);
@@ -639,7 +618,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 
 	
 	public Vec3d getPos(double p_70489_1_, double p_70489_3_, double p_70489_5_) {
-
 		int i = MathHelper.floor(p_70489_1_);
 		int j = MathHelper.floor(p_70489_3_);
 		int k = MathHelper.floor(p_70489_5_);
@@ -697,7 +675,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 * by a minecart, such as a command block).
 	 */
 	public AxisAlignedBB getRenderBoundingBox() {
-
 		AxisAlignedBB axisalignedbb = getEntityBoundingBox();
 		return hasDisplayTile() ? axisalignedbb.grow((double) Math.abs(getDisplayTileOffset()) / 16D) : axisalignedbb;
 	}
@@ -706,7 +683,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	protected void readEntityFromNBT(NBTTagCompound compound) {
-
 		if (compound.getBoolean("CustomDisplayTile")) {
 			Block block;
 
@@ -726,7 +702,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	protected void writeEntityToNBT(NBTTagCompound compound) {
-
 		if (hasDisplayTile()) {
 			compound.setBoolean("CustomDisplayTile", true);
 			IBlockState iblockstate = getDisplayTile();
@@ -741,7 +716,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 * Applies a velocity to the entities, to push them away from eachother.
 	 */
 	public void applyEntityCollision(Entity entityIn) {
-
 		if (!world.isRemote) {
 			if (!entityIn.noClip && !noClip) {
 				if (!isPassenger(entityIn)) {
@@ -818,7 +792,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 * Set the position and rotation values directly without any clamping.
 	 */
 	public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean teleport) {
-
 		minecartX = x;
 		minecartY = y;
 		minecartZ = z;
@@ -834,7 +807,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 * Updates the entity motion clientside, called by packets from the server
 	 */
 	public void setVelocity(double x, double y, double z) {
-
 		motionX = x;
 		motionY = y;
 		motionZ = z;
@@ -848,7 +820,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 * 40.
 	 */
 	public float getDamage() {
-
 		return dataManager.get(DAMAGE);
 	}
 
@@ -857,7 +828,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 * 40.
 	 */
 	public void setDamage(float damage) {
-
 		dataManager.set(DAMAGE, damage);
 	}
 
@@ -865,7 +835,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 * Gets the rolling amplitude the cart rolls while being attacked.
 	 */
 	public int getRollingAmplitude() {
-
 		return dataManager.get(ROLLING_AMPLITUDE);
 	}
 
@@ -873,7 +842,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 * Sets the rolling amplitude the cart rolls while being attacked.
 	 */
 	public void setRollingAmplitude(int rollingAmplitude) {
-
 		dataManager.set(ROLLING_AMPLITUDE, rollingAmplitude);
 	}
 
@@ -881,7 +849,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 * Gets the rolling direction the cart rolls while being attacked. Can be 1 or -1.
 	 */
 	public int getRollingDirection() {
-
 		return dataManager.get(ROLLING_DIRECTION);
 	}
 
@@ -889,51 +856,42 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 * Sets the rolling direction the cart rolls while being attacked. Can be 1 or -1.
 	 */
 	public void setRollingDirection(int rollingDirection) {
-
 		dataManager.set(ROLLING_DIRECTION, rollingDirection);
 	}
 
 	public abstract EntityMinecart.Type getType();
 
 	public IBlockState getDisplayTile() {
-
 		return !hasDisplayTile() ? getDefaultDisplayTile() : Block.getStateById(getDataManager().get(DISPLAY_TILE));
 	}
 
 	public void setDisplayTile(IBlockState displayTile) {
-
 		getDataManager().set(DISPLAY_TILE, Block.getStateId(displayTile));
 		setHasDisplayTile(true);
 	}
 
 	public IBlockState getDefaultDisplayTile() {
-
 		return Blocks.AIR.getDefaultState();
 	}
 
 	public int getDisplayTileOffset() {
-
 		return !hasDisplayTile() ? getDefaultDisplayTileOffset() : getDataManager().get(DISPLAY_TILE_OFFSET);
 	}
 
 	public void setDisplayTileOffset(int displayTileOffset) {
-
 		getDataManager().set(DISPLAY_TILE_OFFSET, displayTileOffset);
 		setHasDisplayTile(true);
 	}
 
 	public int getDefaultDisplayTileOffset() {
-
 		return 6;
 	}
 
 	public boolean hasDisplayTile() {
-
 		return getDataManager().get(SHOW_BLOCK);
 	}
 
 	public void setHasDisplayTile(boolean showBlock) {
-
 		getDataManager().set(SHOW_BLOCK, showBlock);
 	}
 
@@ -958,7 +916,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 		private final String name;
 
 		Type(int idIn, String nameIn) {
-
 			id = idIn;
 			name = nameIn;
 		}
@@ -970,12 +927,10 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 		}
 
 		public int getId() {
-
 			return id;
 		}
 
 		public String getName() {
-
 			return name;
 		}
 	}

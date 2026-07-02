@@ -9,7 +9,6 @@ public class StringUtils {
 	 * Returns the time elapsed for the given number of ticks, in "mm:ss" format.
 	 */
 	public static String ticksToElapsedTime(int ticks) {
-
 		int i = ticks / 20;
 		int j = i / 60;
 		i = i % 60;
@@ -17,7 +16,6 @@ public class StringUtils {
 	}
 
 	public static String stripControlCodes(String text) {
-
 		return PATTERN_CONTROL_CODE.matcher(text).replaceAll("");
 	}
 
@@ -25,7 +23,6 @@ public class StringUtils {
 	 * Returns a value indicating whether the given string is null or empty.
 	 */
 	public static boolean isNullOrEmpty(String string) {
-
 		return string == null || string.isEmpty();
 	}
 

@@ -17,7 +17,6 @@ public class BlockSandStone extends Block {
 	public static final PropertyEnum<BlockSandStone.Type> TYPE = PropertyEnum.create("type", BlockSandStone.Type.class);
 
 	public BlockSandStone() {
-
 		super(Material.ROCK);
 		setDefaultState(blockState.getBaseState().withProperty(TYPE, BlockSandStone.Type.DEFAULT));
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
@@ -28,7 +27,6 @@ public class BlockSandStone extends Block {
 	 * returns the metadata of the dropped item based on the old metadata of the block.
 	 */
 	public int damageDropped(IBlockState state) {
-
 		return state.getValue(TYPE).getMetadata();
 	}
 
@@ -36,7 +34,6 @@ public class BlockSandStone extends Block {
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-
 		for (BlockSandStone.Type blocksandstone$enumtype : BlockSandStone.Type.values()) {
 			items.add(new ItemStack(this, 1, blocksandstone$enumtype.getMetadata()));
 		}
@@ -46,7 +43,6 @@ public class BlockSandStone extends Block {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return MapColor.SAND;
 	}
 
@@ -54,7 +50,6 @@ public class BlockSandStone extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(TYPE, BlockSandStone.Type.byMetadata(meta));
 	}
 
@@ -62,12 +57,10 @@ public class BlockSandStone extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(TYPE).getMetadata();
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, TYPE);
 	}
 
@@ -89,7 +82,6 @@ public class BlockSandStone extends Block {
 		private final String unlocalizedName;
 
 		Type(int meta, String name, String unlocalizedName) {
-
 			metadata = meta;
 			this.name = name;
 			this.unlocalizedName = unlocalizedName;
@@ -105,22 +97,18 @@ public class BlockSandStone extends Block {
 		}
 
 		public int getMetadata() {
-
 			return metadata;
 		}
 
 		public String toString() {
-
 			return name;
 		}
 
 		public String getName() {
-
 			return name;
 		}
 
 		public String getUnlocalizedName() {
-
 			return unlocalizedName;
 		}
 	}

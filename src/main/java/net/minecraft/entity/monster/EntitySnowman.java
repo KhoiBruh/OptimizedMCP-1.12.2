@@ -31,18 +31,15 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 	private static final DataParameter<Byte> PUMPKIN_EQUIPPED = EntityDataManager.createKey(EntitySnowman.class, DataSerializers.BYTE);
 
 	public EntitySnowman(World worldIn) {
-
 		super(worldIn);
 		setSize(0.7F, 1.9F);
 	}
 
 	public static void registerFixesSnowman(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntitySnowman.class);
 	}
 
 	protected void initEntityAI() {
-
 		tasks.addTask(1, new EntityAIAttackRanged(this, 1.25D, 20, 10F));
 		tasks.addTask(2, new EntityAIWanderAvoidWater(this, 1D, 1.0000001E-5F));
 		tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 6F));
@@ -51,14 +48,12 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(PUMPKIN_EQUIPPED, (byte) 16);
 	}
@@ -67,7 +62,6 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setBoolean("Pumpkin", isPumpkinEquipped());
 	}
@@ -76,7 +70,6 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 
 		if (compound.hasKey("Pumpkin")) {
@@ -89,7 +82,6 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 	 * use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
 		super.onLivingUpdate();
 
 		if (!world.isRemote) {
@@ -124,7 +116,6 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_SNOWMAN;
 	}
 
@@ -132,7 +123,6 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 	 * Attack the specified entity using a ranged attack.
 	 */
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
-
 		EntitySnowball entitysnowball = new EntitySnowball(world, this);
 		double d0 = target.posY + (double) target.getEyeHeight() - 1.100000023841858D;
 		double d1 = target.posX - posX;
@@ -145,12 +135,10 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 	}
 
 	public float getEyeHeight() {
-
 		return 1.7F;
 	}
 
 	protected boolean processInteract(EntityPlayer player, Hand hand) {
-
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (itemstack.getItem() == Items.SHEARS && isPumpkinEquipped() && !world.isRemote) {
@@ -162,12 +150,10 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 	}
 
 	public boolean isPumpkinEquipped() {
-
 		return (dataManager.get(PUMPKIN_EQUIPPED) & 16) != 0;
 	}
 
 	public void setPumpkinEquipped(boolean pumpkinEquipped) {
-
 		byte b0 = dataManager.get(PUMPKIN_EQUIPPED);
 
 		if (pumpkinEquipped) {
@@ -179,24 +165,20 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 
 	
 	protected SoundEvent getAmbientSound() {
-
 		return SoundEvents.ENTITY_SNOWMAN_AMBIENT;
 	}
 
 	
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_SNOWMAN_HURT;
 	}
 
 	
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_SNOWMAN_DEATH;
 	}
 
 	public void setSwingingArms(boolean swingingArms) {
-
 	}
 
 }

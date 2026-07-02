@@ -10,7 +10,6 @@ public class ModelLlama extends ModelQuadruped {
 	private final ModelRenderer chest2;
 
 	public ModelLlama(float p_i47226_1_) {
-
 		super(15, p_i47226_1_);
 		textureWidth = 128;
 		textureHeight = 64;
@@ -60,7 +59,6 @@ public class ModelLlama extends ModelQuadruped {
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		AbstractChestHorse abstractchesthorse = (AbstractChestHorse) entityIn;
 		boolean flag = !abstractchesthorse.isChild() && abstractchesthorse.hasChest();
 		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);

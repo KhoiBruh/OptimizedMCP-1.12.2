@@ -16,7 +16,6 @@ public class BiomeSavanna extends Biome {
 	private static final WorldGenSavannaTree SAVANNA_TREE = new WorldGenSavannaTree(false);
 
 	protected BiomeSavanna(Biome.BiomeProperties properties) {
-
 		super(properties);
 		spawnableCreatureList.add(new Biome.SpawnListEntry(EntityHorse.class, 1, 2, 6));
 		spawnableCreatureList.add(new Biome.SpawnListEntry(EntityDonkey.class, 1, 1, 1));
@@ -31,12 +30,10 @@ public class BiomeSavanna extends Biome {
 	}
 
 	public WorldGenAbstractTree getRandomTreeFeature(Random rand) {
-
 		return rand.nextInt(5) > 0 ? SAVANNA_TREE : TREE_FEATURE;
 	}
 
 	public void decorate(World worldIn, Random rand, BlockPos pos) {
-
 		DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.PlantType.GRASS);
 
 		for (int i = 0; i < 7; ++i) {

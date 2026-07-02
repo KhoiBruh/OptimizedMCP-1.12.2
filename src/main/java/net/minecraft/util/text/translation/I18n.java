@@ -14,7 +14,6 @@ public class I18n {
 	 * Translates a Stat name
 	 */
 	public static String translateToLocal(String key) {
-
 		return localizedName.translateKey(key);
 	}
 
@@ -23,7 +22,6 @@ public class I18n {
 	 * Translates a Stat name with format args
 	 */
 	public static String translateToLocalFormatted(String key, Object... format) {
-
 		return localizedName.translateKeyFormat(key, format);
 	}
 
@@ -32,7 +30,6 @@ public class I18n {
 	 * translateToLocal fails.
 	 */
 	public static String translateToFallback(String key) {
-
 		return fallbackTranslator.translateKey(key);
 	}
 
@@ -40,7 +37,6 @@ public class I18n {
 	 * Determines whether or not translateToLocal will find a translation for the given key.
 	 */
 	public static boolean canTranslate(String key) {
-
 		return localizedName.isKeyTranslated(key);
 	}
 
@@ -48,7 +44,6 @@ public class I18n {
 	 * Gets the time, in milliseconds since epoch, that the translation mapping was last updated
 	 */
 	public static long getLastTranslationUpdateTimeInMilliseconds() {
-
 		return localizedName.getLastUpdateTimeInMilliseconds();
 	}
 

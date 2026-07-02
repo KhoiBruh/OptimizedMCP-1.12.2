@@ -22,7 +22,6 @@ public abstract class EntityAgeable extends EntityCreature {
 	private float ageHeight;
 
 	public EntityAgeable(World worldIn) {
-
 		super(worldIn);
 	}
 
@@ -30,7 +29,6 @@ public abstract class EntityAgeable extends EntityCreature {
 	public abstract EntityAgeable createChild(EntityAgeable ageable);
 
 	public boolean processInteract(EntityPlayer player, Hand hand) {
-
 		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (itemstack.getItem() == Items.SPAWN_EGG) {
@@ -66,7 +64,6 @@ public abstract class EntityAgeable extends EntityCreature {
 	 * Checks if the given item is a spawn egg that spawns the given class of entity.
 	 */
 	protected boolean holdingSpawnEggOfClass(ItemStack stack, Class<? extends Entity> entityClass) {
-
 		if (stack.getItem() != Items.SPAWN_EGG) {
 			return false;
 		} else {
@@ -76,7 +73,6 @@ public abstract class EntityAgeable extends EntityCreature {
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		dataManager.register(BABY, false);
 	}
@@ -87,7 +83,6 @@ public abstract class EntityAgeable extends EntityCreature {
 	 * Entity is considered a child.
 	 */
 	public int getGrowingAge() {
-
 		if (world.isRemote) {
 			return dataManager.get(BABY) ? -1 : 1;
 		} else {
@@ -100,7 +95,6 @@ public abstract class EntityAgeable extends EntityCreature {
 	 * positive, it get's decremented each tick. With a negative value the Entity is considered a child.
 	 */
 	public void setGrowingAge(int age) {
-
 		dataManager.set(BABY, age < 0);
 		growingAge = age;
 		setScaleForAge(isChild());
@@ -115,7 +109,6 @@ public abstract class EntityAgeable extends EntityCreature {
 	 * @param updateForcedAge If true, updates {@link #forcedAge} and {@link #forcedAgeTimer}
 	 */
 	public void ageUp(int growthSeconds, boolean updateForcedAge) {
-
 		int i = getGrowingAge();
 		int j = i;
 		i = i + growthSeconds * 20;
@@ -149,7 +142,6 @@ public abstract class EntityAgeable extends EntityCreature {
 	 * the entity's age will be set to {@link #forcedAge}. This method does not update {@link #forcedAge}.
 	 */
 	public void addGrowth(int growth) {
-
 		ageUp(growth, false);
 	}
 
@@ -157,7 +149,6 @@ public abstract class EntityAgeable extends EntityCreature {
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setInteger("Age", getGrowingAge());
 		compound.setInteger("ForcedAge", forcedAge);
@@ -167,14 +158,12 @@ public abstract class EntityAgeable extends EntityCreature {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 		setGrowingAge(compound.getInteger("Age"));
 		forcedAge = compound.getInteger("ForcedAge");
 	}
 
 	public void notifyDataManagerChange(DataParameter<?> key) {
-
 		if (BABY.equals(key)) {
 			setScaleForAge(isChild());
 		}
@@ -187,7 +176,6 @@ public abstract class EntityAgeable extends EntityCreature {
 	 * use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
 		super.onLivingUpdate();
 
 		if (world.isRemote) {
@@ -220,14 +208,12 @@ public abstract class EntityAgeable extends EntityCreature {
 	 * an adult)
 	 */
 	protected void onGrowingAdult() {
-
 	}
 
 	/**
 	 * If Animal, checks if the age timer is negative
 	 */
 	public boolean isChild() {
-
 		return getGrowingAge() < 0;
 	}
 
@@ -235,7 +221,6 @@ public abstract class EntityAgeable extends EntityCreature {
 	 * "Sets the scale for an ageable entity according to the boolean parameter, which says if it's a child."
 	 */
 	public void setScaleForAge(boolean child) {
-
 		setScale(child ? 0.5F : 1F);
 	}
 
@@ -243,7 +228,6 @@ public abstract class EntityAgeable extends EntityCreature {
 	 * Sets the width and height of the entity.
 	 */
 	protected final void setSize(float width, float height) {
-
 		boolean flag = ageWidth > 0F;
 		ageWidth = width;
 		ageHeight = height;
@@ -254,7 +238,6 @@ public abstract class EntityAgeable extends EntityCreature {
 	}
 
 	protected final void setScale(float scale) {
-
 		super.setSize(ageWidth * scale, ageHeight * scale);
 	}
 

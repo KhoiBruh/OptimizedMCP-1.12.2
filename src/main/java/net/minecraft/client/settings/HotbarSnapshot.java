@@ -12,7 +12,6 @@ public class HotbarSnapshot extends ArrayList<ItemStack> {
 	public static final int HOTBAR_SIZE = InventoryPlayer.getHotbarSize();
 
 	public HotbarSnapshot() {
-
 		ensureCapacity(HOTBAR_SIZE);
 
 		for (int i = 0; i < HOTBAR_SIZE; ++i) {
@@ -21,7 +20,6 @@ public class HotbarSnapshot extends ArrayList<ItemStack> {
 	}
 
 	public NBTTagList createTag() {
-
 		NBTTagList nbttaglist = new NBTTagList();
 
 		for (int i = 0; i < HOTBAR_SIZE; ++i) {
@@ -32,14 +30,12 @@ public class HotbarSnapshot extends ArrayList<ItemStack> {
 	}
 
 	public void fromTag(NBTTagList p_192833_1_) {
-
 		for (int i = 0; i < HOTBAR_SIZE; ++i) {
 			set(i, new ItemStack(p_192833_1_.getCompoundTagAt(i)));
 		}
 	}
 
 	public boolean isEmpty() {
-
 		for (int i = 0; i < HOTBAR_SIZE; ++i) {
 			if (!get(i).isEmpty()) {
 				return false;

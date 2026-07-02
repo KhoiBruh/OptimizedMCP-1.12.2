@@ -28,7 +28,6 @@ public abstract class EntityAIDoorInteract extends EntityAIBase {
 	float entityPositionZ;
 
 	public EntityAIDoorInteract(EntityLiving entityIn) {
-
 		entity = entityIn;
 
 		if (!(entityIn.getNavigator() instanceof PathNavigateGround)) {
@@ -40,7 +39,6 @@ public abstract class EntityAIDoorInteract extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		if (!entity.collidedHorizontally) {
 			return false;
 		} else {
@@ -74,7 +72,6 @@ public abstract class EntityAIDoorInteract extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		return !hasStoppedDoorInteraction;
 	}
 
@@ -82,7 +79,6 @@ public abstract class EntityAIDoorInteract extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		hasStoppedDoorInteraction = false;
 		entityPositionX = (float) ((double) ((float) doorPosition.getX() + 0.5F) - entity.posX);
 		entityPositionZ = (float) ((double) ((float) doorPosition.getZ() + 0.5F) - entity.posZ);
@@ -92,7 +88,6 @@ public abstract class EntityAIDoorInteract extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		float f = (float) ((double) ((float) doorPosition.getX() + 0.5F) - entity.posX);
 		float f1 = (float) ((double) ((float) doorPosition.getZ() + 0.5F) - entity.posZ);
 		float f2 = entityPositionX * f + entityPositionZ * f1;
@@ -103,7 +98,6 @@ public abstract class EntityAIDoorInteract extends EntityAIBase {
 	}
 
 	private BlockDoor getBlockDoor(BlockPos pos) {
-
 		IBlockState iblockstate = entity.world.getBlockState(pos);
 		Block block = iblockstate.getBlock();
 		return block instanceof BlockDoor && iblockstate.getMaterial() == Material.WOOD ? (BlockDoor) block : null;

@@ -20,21 +20,18 @@ public class BlockConcretePowder extends BlockFalling {
 	public static final PropertyEnum<DyeColor> COLOR = PropertyEnum.create("color", DyeColor.class);
 
 	public BlockConcretePowder() {
-
 		super(Material.SAND);
 		setDefaultState(blockState.getBaseState().withProperty(COLOR, DyeColor.WHITE));
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 	}
 
 	public void onEndFalling(World worldIn, BlockPos pos, IBlockState p_176502_3_, IBlockState p_176502_4_) {
-
 		if (p_176502_4_.getMaterial().isLiquid()) {
 			worldIn.setBlockState(pos, Blocks.CONCRETE.getDefaultState().withProperty(BlockColored.COLOR, p_176502_3_.getValue(COLOR)), 3);
 		}
 	}
 
 	protected boolean tryTouchWater(World worldIn, BlockPos pos, IBlockState state) {
-
 		boolean flag = false;
 
 		for (Facing enumfacing : Facing.values()) {
@@ -61,7 +58,6 @@ public class BlockConcretePowder extends BlockFalling {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (!tryTouchWater(worldIn, pos, state)) {
 			super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
 		}
@@ -71,7 +67,6 @@ public class BlockConcretePowder extends BlockFalling {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (!tryTouchWater(worldIn, pos, state)) {
 			super.onBlockAdded(worldIn, pos, state);
 		}
@@ -82,7 +77,6 @@ public class BlockConcretePowder extends BlockFalling {
 	 * returns the metadata of the dropped item based on the old metadata of the block.
 	 */
 	public int damageDropped(IBlockState state) {
-
 		return state.getValue(COLOR).getMetadata();
 	}
 
@@ -90,7 +84,6 @@ public class BlockConcretePowder extends BlockFalling {
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-
 		for (DyeColor enumdyecolor : DyeColor.values()) {
 			items.add(new ItemStack(this, 1, enumdyecolor.getMetadata()));
 		}
@@ -100,7 +93,6 @@ public class BlockConcretePowder extends BlockFalling {
 	 * Get the MapColor for this Block and the given BlockState
 	 */
 	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-
 		return MapColor.getBlockColor(state.getValue(COLOR));
 	}
 
@@ -108,7 +100,6 @@ public class BlockConcretePowder extends BlockFalling {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(COLOR, DyeColor.byMetadata(meta));
 	}
 
@@ -116,12 +107,10 @@ public class BlockConcretePowder extends BlockFalling {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(COLOR).getMetadata();
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, COLOR);
 	}
 

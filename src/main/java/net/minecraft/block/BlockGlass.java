@@ -10,7 +10,6 @@ import java.util.Random;
 public class BlockGlass extends BlockBreakable {
 
 	public BlockGlass(Material materialIn, boolean ignoreSimilarity) {
-
 		super(materialIn, ignoreSimilarity);
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 	}
@@ -19,7 +18,6 @@ public class BlockGlass extends BlockBreakable {
 	 * Returns the quantity of items to drop on block destruction.
 	 */
 	public int quantityDropped(Random random) {
-
 		return 0;
 	}
 
@@ -28,17 +26,14 @@ public class BlockGlass extends BlockBreakable {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.CUTOUT;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
 	protected boolean canSilkHarvest() {
-
 		return true;
 	}
 

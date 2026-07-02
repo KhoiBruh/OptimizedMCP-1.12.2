@@ -17,11 +17,9 @@ public class SPacketEntityProperties implements Packet<INetHandlerPlayClient> {
 	private int entityId;
 
 	public SPacketEntityProperties() {
-
 	}
 
 	public SPacketEntityProperties(int entityIdIn, Collection<IAttributeInstance> instances) {
-
 		entityId = entityIdIn;
 
 		for (IAttributeInstance iattributeinstance : instances) {
@@ -33,7 +31,6 @@ public class SPacketEntityProperties implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		entityId = buf.readVarInt();
 		int i = buf.readInt();
 
@@ -56,7 +53,6 @@ public class SPacketEntityProperties implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeVarInt(entityId);
 		buf.writeInt(snapshots.size());
 
@@ -77,12 +73,10 @@ public class SPacketEntityProperties implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleEntityProperties(this);
 	}
 
 	public int getEntityId() {
-
 		return entityId;
 	}
 
@@ -98,24 +92,20 @@ public class SPacketEntityProperties implements Packet<INetHandlerPlayClient> {
 		private final Collection<AttributeModifier> modifiers;
 
 		public Snapshot(String nameIn, double baseValueIn, Collection<AttributeModifier> modifiersIn) {
-
 			name = nameIn;
 			baseValue = baseValueIn;
 			modifiers = modifiersIn;
 		}
 
 		public String getName() {
-
 			return name;
 		}
 
 		public double getBaseValue() {
-
 			return baseValue;
 		}
 
 		public Collection<AttributeModifier> getModifiers() {
-
 			return modifiers;
 		}
 

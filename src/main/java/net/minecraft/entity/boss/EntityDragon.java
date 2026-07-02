@@ -110,7 +110,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	private int sittingDamageReceived;
 
 	public EntityDragon(World worldIn) {
-
 		super(worldIn);
 		dragonPartArray = new MultiPartEntityPart[]{dragonPartHead, dragonPartNeck, dragonPartBody, dragonPartTail1, dragonPartTail2, dragonPartTail3, dragonPartWing1, dragonPartWing2};
 		setHealth(getMaxHealth());
@@ -130,18 +129,15 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	}
 
 	public static void registerFixesDragon(DataFixer fixer) {
-
 		EntityLiving.registerFixesMob(fixer, EntityDragon.class);
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(200D);
 	}
 
 	protected void entityInit() {
-
 		super.entityInit();
 		getDataManager().register(PHASE, PhaseList.HOVER.getId());
 	}
@@ -151,7 +147,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 * offset, [1] = y offset, [2] = unused, always 0. Parameters: buffer index offset, partial ticks.
 	 */
 	public double[] getMovementOffsets(int p_70974_1_, float p_70974_2_) {
-
 		if (getHealth() <= 0F) {
 			p_70974_2_ = 0F;
 		}
@@ -175,7 +170,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 * use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
 		if (world.isRemote) {
 			setHealth(getHealth());
 
@@ -388,7 +382,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	}
 
 	private float getHeadYOffset(float p_184662_1_) {
-
 		double d0;
 
 		if (phaseManager.getCurrentPhase().getIsStationary()) {
@@ -406,7 +399,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 * Updates the state of the enderdragon's current endercrystal.
 	 */
 	private void updateDragonEnderCrystal() {
-
 		if (healingEnderCrystal != null) {
 			if (healingEnderCrystal.isDead) {
 				healingEnderCrystal = null;
@@ -437,7 +429,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 * Pushes all entities inside the list away from the enderdragon.
 	 */
 	private void collideWithEntities(List<Entity> p_70970_1_) {
-
 		double d0 = (dragonPartBody.getEntityBoundingBox().minX + dragonPartBody.getEntityBoundingBox().maxX) / 2D;
 		double d1 = (dragonPartBody.getEntityBoundingBox().minZ + dragonPartBody.getEntityBoundingBox().maxZ) / 2D;
 
@@ -460,7 +451,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 * Attacks all entities inside this list, dealing 5 hearts of damage.
 	 */
 	private void attackEntitiesInList(List<Entity> p_70971_1_) {
-
 		for (Entity entity : p_70971_1_) {
 			if (entity instanceof EntityLivingBase) {
 				entity.attackEntityFrom(DamageSource.causeMobDamage(this), 10F);
@@ -473,7 +463,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 * Simplifies the value of a number by adding/subtracting 180 to the point that the number is between -180 and 180.
 	 */
 	private float simplifyAngle(double p_70973_1_) {
-
 		return (float) MathHelper.wrapDegrees(p_70973_1_);
 	}
 
@@ -481,7 +470,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 * Destroys all blocks that aren't associated with 'The End' inside the given bounding box.
 	 */
 	private boolean destroyBlocksInAABB(AxisAlignedBB p_70972_1_) {
-
 		int i = MathHelper.floor(p_70972_1_.minX);
 		int j = MathHelper.floor(p_70972_1_.minY);
 		int k = MathHelper.floor(p_70972_1_.minZ);
@@ -526,7 +514,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	}
 
 	public boolean attackEntityFromPart(MultiPartEntityPart dragonPart, DamageSource source, float damage) {
-
 		damage = phaseManager.getCurrentPhase().getAdjustedDamage(dragonPart, source, damage);
 
 		if (dragonPart != dragonPartHead) {
@@ -563,7 +550,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		if (source instanceof EntityDamageSource && ((EntityDamageSource) source).getIsThornsDamage()) {
 			attackEntityFromPart(dragonPartBody, source, amount);
 		}
@@ -575,7 +561,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 * Provides a way to cause damage to an ender dragon.
 	 */
 	protected boolean attackDragonFrom(DamageSource source, float amount) {
-
 		return super.attackEntityFrom(source, amount);
 	}
 
@@ -583,7 +568,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 * Called by the /kill command.
 	 */
 	public void onKillCommand() {
-
 		setDead();
 
 		if (fightManager != null) {
@@ -596,7 +580,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 * handles entity death timer, experience orb and particle creation
 	 */
 	protected void onDeathUpdate() {
-
 		if (fightManager != null) {
 			fightManager.dragonUpdate(this);
 		}
@@ -645,7 +628,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	}
 
 	private void dropExperience(int p_184668_1_) {
-
 		while (p_184668_1_ > 0) {
 			int i = EntityXPOrb.getXPSplit(p_184668_1_);
 			p_184668_1_ -= i;
@@ -658,7 +640,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 * specified position.
 	 */
 	public int initPathPoints() {
-
 		if (pathPoints[0] == null) {
 			for (int i = 0; i < 24; ++i) {
 				int j = 5;
@@ -716,7 +697,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 * Returns the index into pathPoints of the nearest PathPoint.
 	 */
 	public int getNearestPpIdx(double x, double y, double z) {
-
 		float f = 10000F;
 		int i = 0;
 		PathPoint pathpoint = new PathPoint(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z));
@@ -750,7 +730,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 * until it reaches pathPoint[finishIdx], at which point it calls makePath to seal the deal.
 	 */
 	public Path findPath(int startIdx, int finishIdx, PathPoint andThen) {
-
 		for (int i = 0; i < 24; ++i) {
 			PathPoint pathpoint = pathPoints[i];
 			pathpoint.visited = false;
@@ -844,7 +823,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 * made by the caller, findPath.
 	 */
 	private Path makePath(PathPoint start, PathPoint finish) {
-
 		int i = 1;
 
 		for (PathPoint pathpoint = finish; pathpoint.previous != null; pathpoint = pathpoint.previous) {
@@ -867,7 +845,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	public void writeEntityToNBT(NBTTagCompound compound) {
-
 		super.writeEntityToNBT(compound);
 		compound.setInteger("DragonPhase", phaseManager.getCurrentPhase().getType().getId());
 	}
@@ -876,7 +853,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	public void readEntityFromNBT(NBTTagCompound compound) {
-
 		super.readEntityFromNBT(compound);
 
 		if (compound.hasKey("DragonPhase")) {
@@ -888,14 +864,12 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 * Makes the entity despawn if requirements are reached
 	 */
 	protected void despawnEntity() {
-
 	}
 
 	/**
 	 * Return the Entity parts making up this Entity (currently only for dragons)
 	 */
 	public Entity[] getParts() {
-
 		return dragonPartArray;
 	}
 
@@ -903,27 +877,22 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 * Returns true if other Entities should be prevented from moving through this Entity.
 	 */
 	public boolean canBeCollidedWith() {
-
 		return false;
 	}
 
 	public World getWorld() {
-
 		return world;
 	}
 
 	public SoundCategory getSoundCategory() {
-
 		return SoundCategory.HOSTILE;
 	}
 
 	protected SoundEvent getAmbientSound() {
-
 		return SoundEvents.ENTITY_ENDERDRAGON_AMBIENT;
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_ENDERDRAGON_HURT;
 	}
 
@@ -931,18 +900,15 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 * Returns the volume for the sounds this mob makes.
 	 */
 	protected float getSoundVolume() {
-
 		return 5F;
 	}
 
 	
 	protected ResourceLocation getLootTable() {
-
 		return LootTableList.ENTITIES_ENDER_DRAGON;
 	}
 
 	public float getHeadPartYOffset(int p_184667_1_, double[] p_184667_2_, double[] p_184667_3_) {
-
 		IPhase iphase = phaseManager.getCurrentPhase();
 		PhaseList<? extends IPhase> phaselist = iphase.getType();
 		double d0;
@@ -965,7 +931,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	}
 
 	public Vec3d getHeadLookVec(float p_184665_1_) {
-
 		IPhase iphase = phaseManager.getCurrentPhase();
 		PhaseList<? extends IPhase> phaselist = iphase.getType();
 		Vec3d vec3d;
@@ -995,7 +960,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	}
 
 	public void onCrystalDestroyed(EntityEnderCrystal crystal, BlockPos pos, DamageSource dmgSrc) {
-
 		EntityPlayer entityplayer;
 
 		if (dmgSrc.getTrueSource() instanceof EntityPlayer) {
@@ -1012,7 +976,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	}
 
 	public void notifyDataManagerChange(DataParameter<?> key) {
-
 		if (PHASE.equals(key) && world.isRemote) {
 			phaseManager.setPhase(PhaseList.getById(getDataManager().get(PHASE)));
 		}
@@ -1021,13 +984,11 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	}
 
 	public PhaseManager getPhaseManager() {
-
 		return phaseManager;
 	}
 
 	
 	public DragonFightManager getFightManager() {
-
 		return fightManager;
 	}
 
@@ -1035,11 +996,9 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 * adds a PotionEffect to the entity
 	 */
 	public void addPotionEffect(PotionEffect potioneffectIn) {
-
 	}
 
 	protected boolean canBeRidden(Entity entityIn) {
-
 		return false;
 	}
 
@@ -1047,7 +1006,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 * Returns false if this Entity is a boss, true otherwise.
 	 */
 	public boolean isNonBoss() {
-
 		return false;
 	}
 

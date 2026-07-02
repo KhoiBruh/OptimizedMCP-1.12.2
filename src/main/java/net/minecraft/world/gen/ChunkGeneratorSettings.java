@@ -91,7 +91,6 @@ public class ChunkGeneratorSettings {
 	public final int lapisSpread;
 
 	private ChunkGeneratorSettings(ChunkGeneratorSettings.Factory settingsFactory) {
-
 		coordinateScale = settingsFactory.coordinateScale;
 		heightScale = settingsFactory.heightScale;
 		upperLimitScale = settingsFactory.upperLimitScale;
@@ -258,7 +257,6 @@ public class ChunkGeneratorSettings {
 		public int lapisSpread = 16;
 
 		public Factory() {
-
 			setDefaults();
 		}
 
@@ -276,12 +274,10 @@ public class ChunkGeneratorSettings {
 		}
 
 		public String toString() {
-
 			return JSON_ADAPTER.toJson(this);
 		}
 
 		public void setDefaults() {
-
 			coordinateScale = 684.412F;
 			heightScale = 684.412F;
 			upperLimitScale = 512F;
@@ -364,7 +360,6 @@ public class ChunkGeneratorSettings {
 		}
 
 		public boolean equals(Object p_equals_1_) {
-
 			if (this == p_equals_1_) {
 				return true;
 			} else if (p_equals_1_ != null && getClass() == p_equals_1_.getClass()) {
@@ -535,7 +530,6 @@ public class ChunkGeneratorSettings {
 		}
 
 		public int hashCode() {
-
 			int i = coordinateScale == 0F ? 0 : Float.floatToIntBits(coordinateScale);
 			i = 31 * i + (heightScale == 0F ? 0 : Float.floatToIntBits(heightScale));
 			i = 31 * i + (upperLimitScale == 0F ? 0 : Float.floatToIntBits(upperLimitScale));
@@ -619,7 +613,6 @@ public class ChunkGeneratorSettings {
 		}
 
 		public ChunkGeneratorSettings build() {
-
 			return new ChunkGeneratorSettings(this);
 		}
 
@@ -728,7 +721,6 @@ public class ChunkGeneratorSettings {
 		}
 
 		public JsonElement serialize(ChunkGeneratorSettings.Factory p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
-
 			JsonObject jsonobject = new JsonObject();
 			jsonobject.addProperty("coordinateScale", p_serialize_1_.coordinateScale);
 			jsonobject.addProperty("heightScale", p_serialize_1_.heightScale);

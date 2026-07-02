@@ -29,19 +29,16 @@ public abstract class BlockBasePressurePlate extends Block {
 	protected static final AxisAlignedBB PRESSURE_AABB = new AxisAlignedBB(0.125D, 0D, 0.125D, 0.875D, 0.25D, 0.875D);
 
 	protected BlockBasePressurePlate(Material materialIn) {
-
 		this(materialIn, materialIn.getMaterialMapColor());
 	}
 
 	protected BlockBasePressurePlate(Material materialIn, MapColor mapColorIn) {
-
 		super(materialIn, mapColorIn);
 		setCreativeTab(CreativeTabs.REDSTONE);
 		setTickRandomly(true);
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		boolean flag = getRedstoneStrength(state) > 0;
 		return flag ? PRESSED_AABB : UNPRESSED_AABB;
 	}
@@ -50,13 +47,11 @@ public abstract class BlockBasePressurePlate extends Block {
 	 * How many world ticks before ticking
 	 */
 	public int tickRate(World worldIn) {
-
 		return 20;
 	}
 
 	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-
 		return NULL_AABB;
 	}
 
@@ -64,12 +59,10 @@ public abstract class BlockBasePressurePlate extends Block {
 	 * Used to determine ambient occlusion and culling when rebuilding chunks for render
 	 */
 	public boolean isOpaqueCube(IBlockState state) {
-
 		return false;
 	}
 
 	public boolean isFullCube(IBlockState state) {
-
 		return false;
 	}
 
@@ -77,7 +70,6 @@ public abstract class BlockBasePressurePlate extends Block {
 	 * Determines if an entity can path through this block
 	 */
 	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-
 		return true;
 	}
 
@@ -85,7 +77,6 @@ public abstract class BlockBasePressurePlate extends Block {
 	 * Return true if an entity can be spawned inside the block (used to get the player's bed spawn location)
 	 */
 	public boolean canSpawnInBlock() {
-
 		return true;
 	}
 
@@ -93,7 +84,6 @@ public abstract class BlockBasePressurePlate extends Block {
 	 * Checks if this block can be placed exactly at the given position.
 	 */
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-
 		return canBePlacedOn(worldIn, pos.down());
 	}
 
@@ -103,7 +93,6 @@ public abstract class BlockBasePressurePlate extends Block {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (!canBePlacedOn(worldIn, pos.down())) {
 			dropBlockAsItem(worldIn, pos, state, 0);
 			worldIn.setBlockToAir(pos);
@@ -111,7 +100,6 @@ public abstract class BlockBasePressurePlate extends Block {
 	}
 
 	private boolean canBePlacedOn(World worldIn, BlockPos pos) {
-
 		return worldIn.getBlockState(pos).isTopSolid() || worldIn.getBlockState(pos).getBlock() instanceof BlockFence;
 	}
 
@@ -119,11 +107,9 @@ public abstract class BlockBasePressurePlate extends Block {
 	 * Called randomly when setTickRandomly is set to true (used by e.g. crops to grow, etc.)
 	 */
 	public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
-
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if (!worldIn.isRemote) {
 			int i = getRedstoneStrength(state);
 
@@ -137,7 +123,6 @@ public abstract class BlockBasePressurePlate extends Block {
 	 * Called When an Entity Collided with the Block
 	 */
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-
 		if (!worldIn.isRemote) {
 			int i = getRedstoneStrength(state);
 
@@ -151,7 +136,6 @@ public abstract class BlockBasePressurePlate extends Block {
 	 * Updates the pressure plate when stepped on
 	 */
 	protected void updateState(World worldIn, BlockPos pos, IBlockState state, int oldRedstoneStrength) {
-
 		int i = computeRedstoneStrength(worldIn, pos);
 		boolean flag = oldRedstoneStrength > 0;
 		boolean flag1 = i > 0;
@@ -182,7 +166,6 @@ public abstract class BlockBasePressurePlate extends Block {
 	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
 	 */
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (getRedstoneStrength(state) > 0) {
 			updateNeighbors(worldIn, pos);
 		}
@@ -194,18 +177,15 @@ public abstract class BlockBasePressurePlate extends Block {
 	 * Notify block and block below of changes
 	 */
 	protected void updateNeighbors(World worldIn, BlockPos pos) {
-
 		worldIn.notifyNeighborsOfStateChange(pos, this, false);
 		worldIn.notifyNeighborsOfStateChange(pos.down(), this, false);
 	}
 
 	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		return getRedstoneStrength(blockState);
 	}
 
 	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-
 		return side == Facing.UP ? getRedstoneStrength(blockState) : 0;
 	}
 
@@ -213,12 +193,10 @@ public abstract class BlockBasePressurePlate extends Block {
 	 * Can this block provide power. Only wire currently seems to have this change based on its state.
 	 */
 	public boolean canProvidePower(IBlockState state) {
-
 		return true;
 	}
 
 	public PushReaction getMobilityFlag(IBlockState state) {
-
 		return PushReaction.DESTROY;
 	}
 
@@ -238,7 +216,6 @@ public abstract class BlockBasePressurePlate extends Block {
 	 * @return an approximation of the form of the given face
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
-
 		return BlockFaceShape.UNDEFINED;
 	}
 

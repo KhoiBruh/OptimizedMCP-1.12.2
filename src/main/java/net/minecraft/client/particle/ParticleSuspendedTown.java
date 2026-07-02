@@ -5,7 +5,6 @@ import net.minecraft.world.World;
 public class ParticleSuspendedTown extends Particle {
 
 	protected ParticleSuspendedTown(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double speedIn) {
-
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, speedIn);
 		float f = rand.nextFloat() * 0.1F + 0.2F;
 		particleRed = f;
@@ -21,13 +20,11 @@ public class ParticleSuspendedTown extends Particle {
 	}
 
 	public void move(double x, double y, double z) {
-
 		setBoundingBox(getBoundingBox().offset(x, y, z));
 		resetPositionToBB();
 	}
 
 	public void onUpdate() {
-
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
@@ -44,7 +41,6 @@ public class ParticleSuspendedTown extends Particle {
 	public static class Factory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			return new ParticleSuspendedTown(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 		}
 
@@ -53,7 +49,6 @@ public class ParticleSuspendedTown extends Particle {
 	public static class HappyVillagerFactory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			Particle particle = new ParticleSuspendedTown(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 			particle.setParticleTextureIndex(82);
 			particle.setRBGColorF(1F, 1F, 1F);

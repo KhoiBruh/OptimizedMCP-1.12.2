@@ -21,7 +21,6 @@ public abstract class BlockPurpurSlab extends BlockSlab {
 	public static final PropertyEnum<BlockPurpurSlab.Variant> VARIANT = PropertyEnum.create("variant", BlockPurpurSlab.Variant.class);
 
 	public BlockPurpurSlab() {
-
 		super(Material.ROCK, MapColor.MAGENTA);
 		IBlockState iblockstate = blockState.getBaseState();
 
@@ -37,12 +36,10 @@ public abstract class BlockPurpurSlab extends BlockSlab {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Item.getItemFromBlock(Blocks.PURPUR_SLAB);
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return new ItemStack(Blocks.PURPUR_SLAB);
 	}
 
@@ -50,7 +47,6 @@ public abstract class BlockPurpurSlab extends BlockSlab {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		IBlockState iblockstate = getDefaultState().withProperty(VARIANT, BlockPurpurSlab.Variant.DEFAULT);
 
 		if (!isDouble()) {
@@ -64,7 +60,6 @@ public abstract class BlockPurpurSlab extends BlockSlab {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 
 		if (!isDouble() && state.getValue(HALF) == BlockSlab.BlockHalf.TOP) {
@@ -75,7 +70,6 @@ public abstract class BlockPurpurSlab extends BlockSlab {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return isDouble() ? new BlockStateContainer(this, VARIANT) : new BlockStateContainer(this, HALF, VARIANT);
 	}
 
@@ -83,7 +77,6 @@ public abstract class BlockPurpurSlab extends BlockSlab {
 	 * Returns the slab block name with the type associated with it
 	 */
 	public String getUnlocalizedName(int meta) {
-
 		return super.getUnlocalizedName();
 	}
 
@@ -101,7 +94,6 @@ public abstract class BlockPurpurSlab extends BlockSlab {
 		DEFAULT;
 
 		public String getName() {
-
 			return "default";
 		}
 	}
@@ -109,7 +101,6 @@ public abstract class BlockPurpurSlab extends BlockSlab {
 	public static class Double extends BlockPurpurSlab {
 
 		public boolean isDouble() {
-
 			return true;
 		}
 
@@ -118,7 +109,6 @@ public abstract class BlockPurpurSlab extends BlockSlab {
 	public static class Half extends BlockPurpurSlab {
 
 		public boolean isDouble() {
-
 			return false;
 		}
 

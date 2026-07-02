@@ -12,7 +12,6 @@ import net.minecraft.world.World;
 public class BlockSlime extends BlockBreakable {
 
 	public BlockSlime() {
-
 		super(Material.CLAY, false, MapColor.GRASS);
 		setCreativeTab(CreativeTabs.DECORATIONS);
 		slipperiness = 0.8F;
@@ -23,7 +22,6 @@ public class BlockSlime extends BlockBreakable {
 	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
 	 */
 	public BlockRenderLayer getBlockLayer() {
-
 		return BlockRenderLayer.TRANSLUCENT;
 	}
 
@@ -31,7 +29,6 @@ public class BlockSlime extends BlockBreakable {
 	 * Block's chance to react to a living entity falling on it.
 	 */
 	public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
-
 		if (entityIn.isSneaking()) {
 			super.onFallenUpon(worldIn, pos, entityIn, fallDistance);
 		} else {
@@ -44,7 +41,6 @@ public class BlockSlime extends BlockBreakable {
 	 * on its own
 	 */
 	public void onLanded(World worldIn, Entity entityIn) {
-
 		if (entityIn.isSneaking()) {
 			super.onLanded(worldIn, entityIn);
 		} else if (entityIn.motionY < 0D) {
@@ -60,7 +56,6 @@ public class BlockSlime extends BlockBreakable {
 	 * Called when the given entity walks on this Block
 	 */
 	public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
-
 		if (Math.abs(entityIn.motionY) < 0.1D && !entityIn.isSneaking()) {
 			double d0 = 0.4D + Math.abs(entityIn.motionY) * 0.2D;
 			entityIn.motionX *= d0;

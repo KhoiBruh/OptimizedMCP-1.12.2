@@ -33,7 +33,6 @@ public class ItemArmor extends Item {
 	public static final String[] EMPTY_SLOT_NAMES = new String[]{"minecraft:items/empty_armor_slot_boots", "minecraft:items/empty_armor_slot_leggings", "minecraft:items/empty_armor_slot_chestplate", "minecraft:items/empty_armor_slot_helmet"};
 	public static final IBehaviorDispenseItem DISPENSER_BEHAVIOR = new BehaviorDefaultDispenseItem() {
 		protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-
 			ItemStack itemstack = ItemArmor.dispenseArmor(source, stack);
 			return itemstack.isEmpty() ? super.dispenseStack(source, stack) : itemstack;
 		}
@@ -66,7 +65,6 @@ public class ItemArmor extends Item {
 	private final ItemArmor.ArmorMaterial material;
 
 	public ItemArmor(ItemArmor.ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn) {
-
 		material = materialIn;
 		armorType = equipmentSlotIn;
 		renderIndex = renderIndexIn;
@@ -79,7 +77,6 @@ public class ItemArmor extends Item {
 	}
 
 	public static ItemStack dispenseArmor(IBlockSource blockSource, ItemStack stack) {
-
 		BlockPos blockpos = blockSource.getBlockPos().offset(blockSource.getBlockState().getValue(BlockDispenser.FACING));
 		List<EntityLivingBase> list = blockSource.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(blockpos), Predicates.and(EntitySelectors.NOT_SPECTATING, new EntitySelectors.ArmoredMob(stack)));
 
@@ -103,7 +100,6 @@ public class ItemArmor extends Item {
 	 * Gets the equipment slot of this armor piece (formerly known as armor type)
 	 */
 	public EntityEquipmentSlot getEquipmentSlot() {
-
 		return armorType;
 	}
 
@@ -111,7 +107,6 @@ public class ItemArmor extends Item {
 	 * Return the enchantability factor of the item, most of the time is based on material.
 	 */
 	public int getItemEnchantability() {
-
 		return material.getEnchantability();
 	}
 
@@ -127,7 +122,6 @@ public class ItemArmor extends Item {
 	 * Return whether the specified armor ItemStack has a color.
 	 */
 	public boolean hasColor(ItemStack stack) {
-
 		if (material != ItemArmor.ArmorMaterial.LEATHER) {
 			return false;
 		} else {
@@ -140,7 +134,6 @@ public class ItemArmor extends Item {
 	 * Return the color for the specified armor ItemStack.
 	 */
 	public int getColor(ItemStack stack) {
-
 		if (material != ItemArmor.ArmorMaterial.LEATHER) {
 			return 16777215;
 		} else {
@@ -162,7 +155,6 @@ public class ItemArmor extends Item {
 	 * Remove the color from the specified armor ItemStack.
 	 */
 	public void removeColor(ItemStack stack) {
-
 		if (material == ItemArmor.ArmorMaterial.LEATHER) {
 			NBTTagCompound nbttagcompound = stack.getTagCompound();
 
@@ -180,7 +172,6 @@ public class ItemArmor extends Item {
 	 * Sets the color of the specified armor ItemStack
 	 */
 	public void setColor(ItemStack stack, int color) {
-
 		if (material != ItemArmor.ArmorMaterial.LEATHER) {
 			throw new UnsupportedOperationException("Can't dye non-leather!");
 		} else {
@@ -208,12 +199,10 @@ public class ItemArmor extends Item {
 	 * @param repair   the {@code ItemStack} being used to perform the repair
 	 */
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-
 		return material.getRepairItem() == repair.getItem() || super.getIsRepairable(toRepair, repair);
 	}
 
 	public TypedActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, Hand handIn) {
-
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		EntityEquipmentSlot entityequipmentslot = EntityLiving.getSlotForItemStack(itemstack);
 		ItemStack itemstack1 = playerIn.getItemStackFromSlot(entityequipmentslot);
@@ -254,7 +243,6 @@ public class ItemArmor extends Item {
 		private final float toughness;
 
 		ArmorMaterial(String nameIn, int maxDamageFactorIn, int[] damageReductionAmountArrayIn, int enchantabilityIn, SoundEvent soundEventIn, float toughnessIn) {
-
 			name = nameIn;
 			maxDamageFactor = maxDamageFactorIn;
 			damageReductionAmountArray = damageReductionAmountArrayIn;
@@ -264,27 +252,22 @@ public class ItemArmor extends Item {
 		}
 
 		public int getDurability(EntityEquipmentSlot armorType) {
-
 			return ItemArmor.MAX_DAMAGE_ARRAY[armorType.getIndex()] * maxDamageFactor;
 		}
 
 		public int getDamageReductionAmount(EntityEquipmentSlot armorType) {
-
 			return damageReductionAmountArray[armorType.getIndex()];
 		}
 
 		public int getEnchantability() {
-
 			return enchantability;
 		}
 
 		public SoundEvent getSoundEvent() {
-
 			return soundEvent;
 		}
 
 		public Item getRepairItem() {
-
 			if (this == LEATHER) {
 				return Items.LEATHER;
 			} else if (this == CHAIN) {
@@ -299,12 +282,10 @@ public class ItemArmor extends Item {
 		}
 
 		public String getName() {
-
 			return name;
 		}
 
 		public float getToughness() {
-
 			return toughness;
 		}
 	}

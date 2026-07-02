@@ -14,7 +14,6 @@ public class ShulkerBoxRecipes {
 	public static class ShulkerBoxColoring implements IRecipe {
 
 		public boolean matches(InventoryCrafting inv, World worldIn) {
-
 			int i = 0;
 			int j = 0;
 
@@ -42,7 +41,6 @@ public class ShulkerBoxRecipes {
 		}
 
 		public ItemStack getCraftingResult(InventoryCrafting inv) {
-
 			ItemStack itemstack = ItemStack.EMPTY;
 			ItemStack itemstack1 = ItemStack.EMPTY;
 
@@ -68,12 +66,10 @@ public class ShulkerBoxRecipes {
 		}
 
 		public ItemStack getRecipeOutput() {
-
 			return ItemStack.EMPTY;
 		}
 
 		public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
-
 			NonNullList<ItemStack> nonnulllist = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
 
 			for (int i = 0; i < nonnulllist.size(); ++i) {
@@ -88,12 +84,10 @@ public class ShulkerBoxRecipes {
 		}
 
 		public boolean isDynamic() {
-
 			return true;
 		}
 
 		public boolean canFit(int width, int height) {
-
 			return width * height >= 2;
 		}
 

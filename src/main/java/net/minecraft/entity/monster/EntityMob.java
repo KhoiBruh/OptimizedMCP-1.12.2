@@ -22,13 +22,11 @@ import net.minecraft.world.World;
 public abstract class EntityMob extends EntityCreature implements IMob {
 
 	public EntityMob(World worldIn) {
-
 		super(worldIn);
 		experienceValue = 5;
 	}
 
 	public SoundCategory getSoundCategory() {
-
 		return SoundCategory.HOSTILE;
 	}
 
@@ -37,7 +35,6 @@ public abstract class EntityMob extends EntityCreature implements IMob {
 	 * use this to react to sunlight and start to burn.
 	 */
 	public void onLivingUpdate() {
-
 		updateArmSwingProgress();
 		float f = getBrightness();
 
@@ -52,7 +49,6 @@ public abstract class EntityMob extends EntityCreature implements IMob {
 	 * Called to update the entity's position/logic.
 	 */
 	public void onUpdate() {
-
 		super.onUpdate();
 
 		if (!world.isRemote && world.getDifficulty() == Difficulty.PEACEFUL) {
@@ -61,12 +57,10 @@ public abstract class EntityMob extends EntityCreature implements IMob {
 	}
 
 	protected SoundEvent getSwimSound() {
-
 		return SoundEvents.ENTITY_HOSTILE_SWIM;
 	}
 
 	protected SoundEvent getSplashSound() {
-
 		return SoundEvents.ENTITY_HOSTILE_SPLASH;
 	}
 
@@ -74,27 +68,22 @@ public abstract class EntityMob extends EntityCreature implements IMob {
 	 * Called when the entity is attacked.
 	 */
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-
 		return !isEntityInvulnerable(source) && super.attackEntityFrom(source, amount);
 	}
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-
 		return SoundEvents.ENTITY_HOSTILE_HURT;
 	}
 
 	protected SoundEvent getDeathSound() {
-
 		return SoundEvents.ENTITY_HOSTILE_DEATH;
 	}
 
 	protected SoundEvent getFallSound(int heightIn) {
-
 		return heightIn > 4 ? SoundEvents.ENTITY_HOSTILE_BIG_FALL : SoundEvents.ENTITY_HOSTILE_SMALL_FALL;
 	}
 
 	public boolean attackEntityAsMob(Entity entityIn) {
-
 		float f = (float) getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
 		int i = 0;
 
@@ -139,7 +128,6 @@ public abstract class EntityMob extends EntityCreature implements IMob {
 	}
 
 	public float getBlockPathWeight(BlockPos pos) {
-
 		return 0.5F - world.getLightBrightness(pos);
 	}
 
@@ -147,7 +135,6 @@ public abstract class EntityMob extends EntityCreature implements IMob {
 	 * Checks to make sure the light is not too bright where the mob is spawning
 	 */
 	protected boolean isValidLightLevel() {
-
 		BlockPos blockpos = new BlockPos(posX, getEntityBoundingBox().minY, posZ);
 
 		if (world.getLightFor(SkyBlock.SKY, blockpos) > rand.nextInt(32)) {
@@ -170,12 +157,10 @@ public abstract class EntityMob extends EntityCreature implements IMob {
 	 * Checks if the entity's current position is a valid location to spawn this entity.
 	 */
 	public boolean getCanSpawnHere() {
-
 		return world.getDifficulty() != Difficulty.PEACEFUL && isValidLightLevel() && super.getCanSpawnHere();
 	}
 
 	protected void applyEntityAttributes() {
-
 		super.applyEntityAttributes();
 		getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
 	}
@@ -184,12 +169,10 @@ public abstract class EntityMob extends EntityCreature implements IMob {
 	 * Entity won't drop items or experience points if this returns false
 	 */
 	protected boolean canDropLoot() {
-
 		return true;
 	}
 
 	public boolean isPreventingPlayerRest(EntityPlayer playerIn) {
-
 		return true;
 	}
 

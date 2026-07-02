@@ -22,7 +22,6 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
 	private final ModelSign model = new ModelSign();
 
 	public void render(TileEntitySign te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-
 		Block block = te.getBlockType();
 		GLS.pushMatrix();
 		float f = 0.6666667F;

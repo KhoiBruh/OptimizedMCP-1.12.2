@@ -18,11 +18,9 @@ public class SPacketRecipeBook implements Packet<INetHandlerPlayClient> {
 	private boolean filteringCraftable;
 
 	public SPacketRecipeBook() {
-
 	}
 
 	public SPacketRecipeBook(SPacketRecipeBook.State stateIn, List<IRecipe> recipesIn, List<IRecipe> displayedRecipesIn, boolean isGuiOpen, boolean p_i47597_5_) {
-
 		state = stateIn;
 		recipes = recipesIn;
 		displayedRecipes = displayedRecipesIn;
@@ -34,7 +32,6 @@ public class SPacketRecipeBook implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleRecipeBook(this);
 	}
 
@@ -42,7 +39,6 @@ public class SPacketRecipeBook implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		state = buf.readEnumValue(State.class);
 		guiOpen = buf.readBoolean();
 		filteringCraftable = buf.readBoolean();
@@ -67,7 +63,6 @@ public class SPacketRecipeBook implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeEnumValue(state);
 		buf.writeBoolean(guiOpen);
 		buf.writeBoolean(filteringCraftable);
@@ -87,22 +82,18 @@ public class SPacketRecipeBook implements Packet<INetHandlerPlayClient> {
 	}
 
 	public List<IRecipe> getRecipes() {
-
 		return recipes;
 	}
 
 	public List<IRecipe> getDisplayedRecipes() {
-
 		return displayedRecipes;
 	}
 
 	public boolean isGuiOpen() {
-
 		return guiOpen;
 	}
 
 	public boolean isFilteringCraftable() {
-
 		return filteringCraftable;
 	}
 

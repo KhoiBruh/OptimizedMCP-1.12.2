@@ -30,18 +30,15 @@ public class LootTableManager {
 	private final File baseFolder;
 
 	public LootTableManager(File folder) {
-
 		baseFolder = folder;
 		reloadLootTables();
 	}
 
 	public LootTable getLootTableFromLocation(ResourceLocation ressources) {
-
 		return registeredLootTables.getUnchecked(ressources);
 	}
 
 	public void reloadLootTables() {
-
 		registeredLootTables.invalidateAll();
 
 		for (ResourceLocation resourcelocation : LootTableList.getAll()) {
@@ -52,11 +49,9 @@ public class LootTableManager {
 	class Loader extends CacheLoader<ResourceLocation, LootTable> {
 
 		private Loader() {
-
 		}
 
 		public LootTable load(ResourceLocation p_load_1_) {
-
 			if (p_load_1_.getResourcePath().contains(".")) {
 				LootTableManager.LOGGER.debug("Invalid loot table name '{}' (can't contain periods)", p_load_1_);
 				return LootTable.EMPTY_LOOT_TABLE;
@@ -78,7 +73,6 @@ public class LootTableManager {
 
 		
 		private LootTable loadLootTable(ResourceLocation resource) {
-
 			if (baseFolder == null) {
 				return null;
 			} else {
@@ -113,7 +107,6 @@ public class LootTableManager {
 
 		
 		private LootTable loadBuiltinLootTable(ResourceLocation resource) {
-
 			URL url = LootTableManager.class.getResource("/assets/" + resource.getResourceDomain() + "/loot_tables/" + resource.getResourcePath() + ".json");
 
 			if (url != null) {

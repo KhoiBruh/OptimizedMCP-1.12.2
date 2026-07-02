@@ -28,7 +28,6 @@ public class GuiLabel extends Gui {
 	private boolean centered;
 
 	public GuiLabel(FontRenderer fontRendererObj, int p_i45540_2_, int p_i45540_3_, int p_i45540_4_, int p_i45540_5_, int p_i45540_6_, int p_i45540_7_) {
-
 		fontRenderer = fontRendererObj;
 		id = p_i45540_2_;
 		x = p_i45540_3_;
@@ -46,7 +45,6 @@ public class GuiLabel extends Gui {
 	}
 
 	public void addLine(String p_175202_1_) {
-
 		labels.add(I18n.format(p_175202_1_));
 	}
 
@@ -54,13 +52,11 @@ public class GuiLabel extends Gui {
 	 * Sets the Label to be centered
 	 */
 	public GuiLabel setCentered() {
-
 		centered = true;
 		return this;
 	}
 
 	public void drawLabel(Minecraft mc, int mouseX, int mouseY) {
-
 		if (visible) {
 			GLS.enableBlend();
 			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
@@ -79,7 +75,6 @@ public class GuiLabel extends Gui {
 	}
 
 	protected void drawLabelBackground(Minecraft mcIn, int mouseX, int mouseY) {
-
 		if (labelBgEnabled) {
 			int i = width + border * 2;
 			int j = height + border * 2;

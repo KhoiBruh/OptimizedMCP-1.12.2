@@ -12,7 +12,6 @@ public class RenderWither extends RenderLiving<EntityWither> {
 	private static final ResourceLocation WITHER_TEXTURES = new ResourceLocation("textures/entity/wither/wither.png");
 
 	public RenderWither(RenderManager renderManagerIn) {
-
 		super(renderManagerIn, new ModelWither(0F), 1F);
 		addLayer(new LayerWitherAura(this));
 	}
@@ -21,7 +20,6 @@ public class RenderWither extends RenderLiving<EntityWither> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(EntityWither entity) {
-
 		int i = entity.getInvulTime();
 		return i > 0 && (i > 80 || i / 5 % 2 != 1) ? INVULNERABLE_WITHER_TEXTURES : WITHER_TEXTURES;
 	}
@@ -30,7 +28,6 @@ public class RenderWither extends RenderLiving<EntityWither> {
 	 * Allows the render to do state modifications necessary before the model is rendered.
 	 */
 	protected void preRenderCallback(EntityWither entitylivingbaseIn, float partialTickTime) {
-
 		float f = 2F;
 		int i = entitylivingbaseIn.getInvulTime();
 

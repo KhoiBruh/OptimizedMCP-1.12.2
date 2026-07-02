@@ -15,7 +15,6 @@ public class BiomePlains extends Biome {
 	protected boolean sunflowers;
 
 	protected BiomePlains(boolean p_i46699_1_, Biome.BiomeProperties properties) {
-
 		super(properties);
 		sunflowers = p_i46699_1_;
 		spawnableCreatureList.add(new Biome.SpawnListEntry(EntityHorse.class, 5, 2, 6));
@@ -53,7 +52,6 @@ public class BiomePlains extends Biome {
 	}
 
 	public void decorate(World worldIn, Random rand, BlockPos pos) {
-
 		double d0 = GRASS_COLOR_NOISE.getValue((double) (pos.getX() + 8) / 200D, (double) (pos.getZ() + 8) / 200D);
 
 		if (d0 < -0.8D) {
@@ -87,7 +85,6 @@ public class BiomePlains extends Biome {
 	}
 
 	public WorldGenAbstractTree getRandomTreeFeature(Random rand) {
-
 		return rand.nextInt(3) == 0 ? BIG_TREE_FEATURE : TREE_FEATURE;
 	}
 

@@ -14,17 +14,14 @@ public class LegacyV2Adapter implements IResourcePack {
 	private final IResourcePack pack;
 
 	public LegacyV2Adapter(IResourcePack packIn) {
-
 		pack = packIn;
 	}
 
 	public InputStream getInputStream(ResourceLocation location) throws IOException {
-
 		return pack.getInputStream(fudgePath(location));
 	}
 
 	private ResourceLocation fudgePath(ResourceLocation p_191382_1_) {
-
 		String s = p_191382_1_.getResourcePath();
 
 		if (!"lang/swg_de.lang".equals(s) && s.startsWith("lang/") && s.endsWith(".lang")) {
@@ -34,7 +31,6 @@ public class LegacyV2Adapter implements IResourcePack {
 				final String s1 = s.substring(0, i + 1) + s.substring(i + 1, s.indexOf(46, i)).toUpperCase() + ".lang";
 				return new ResourceLocation(p_191382_1_.getResourceDomain(), "") {
 					public String getResourcePath() {
-
 						return s1;
 					}
 				};
@@ -45,12 +41,10 @@ public class LegacyV2Adapter implements IResourcePack {
 	}
 
 	public boolean resourceExists(ResourceLocation location) {
-
 		return pack.resourceExists(fudgePath(location));
 	}
 
 	public Set<String> getResourceDomains() {
-
 		return pack.getResourceDomains();
 	}
 
@@ -61,12 +55,10 @@ public class LegacyV2Adapter implements IResourcePack {
 	}
 
 	public BufferedImage getPackImage() throws IOException {
-
 		return pack.getPackImage();
 	}
 
 	public String getPackName() {
-
 		return pack.getPackName();
 	}
 

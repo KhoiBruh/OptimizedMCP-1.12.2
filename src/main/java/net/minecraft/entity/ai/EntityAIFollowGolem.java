@@ -13,7 +13,6 @@ public class EntityAIFollowGolem extends EntityAIBase {
 	private boolean tookGolemRose;
 
 	public EntityAIFollowGolem(EntityVillager villagerIn) {
-
 		villager = villagerIn;
 		setMutexBits(3);
 	}
@@ -22,7 +21,6 @@ public class EntityAIFollowGolem extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-
 		if (villager.getGrowingAge() >= 0) {
 			return false;
 		} else if (!villager.world.isDaytime()) {
@@ -49,7 +47,6 @@ public class EntityAIFollowGolem extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-
 		return ironGolem.getHoldRoseTick() > 0;
 	}
 
@@ -57,7 +54,6 @@ public class EntityAIFollowGolem extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-
 		takeGolemRoseTick = villager.getRNG().nextInt(320);
 		tookGolemRose = false;
 		ironGolem.getNavigator().clearPath();
@@ -67,7 +63,6 @@ public class EntityAIFollowGolem extends EntityAIBase {
 	 * Reset the task's internal state. Called when this task is interrupted by another one
 	 */
 	public void resetTask() {
-
 		ironGolem = null;
 		villager.getNavigator().clearPath();
 	}
@@ -76,7 +71,6 @@ public class EntityAIFollowGolem extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-
 		villager.getLookHelper().setLookPositionWithEntity(ironGolem, 30F, 30F);
 
 		if (ironGolem.getHoldRoseTick() == takeGolemRoseTick) {

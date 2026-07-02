@@ -17,11 +17,9 @@ public class CPacketPlayerTryUseItemOnBlock implements Packet<INetHandlerPlaySer
 	private float facingZ;
 
 	public CPacketPlayerTryUseItemOnBlock() {
-
 	}
 
 	public CPacketPlayerTryUseItemOnBlock(BlockPos posIn, Facing placedBlockDirectionIn, Hand handIn, float facingXIn, float facingYIn, float facingZIn) {
-
 		position = posIn;
 		placedBlockDirection = placedBlockDirectionIn;
 		hand = handIn;
@@ -34,7 +32,6 @@ public class CPacketPlayerTryUseItemOnBlock implements Packet<INetHandlerPlaySer
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		position = buf.readBlockPos();
 		placedBlockDirection = buf.readEnumValue(Facing.class);
 		hand = buf.readEnumValue(Hand.class);
@@ -47,7 +44,6 @@ public class CPacketPlayerTryUseItemOnBlock implements Packet<INetHandlerPlaySer
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeBlockPos(position);
 		buf.writeEnumValue(placedBlockDirection);
 		buf.writeEnumValue(hand);
@@ -60,37 +56,30 @@ public class CPacketPlayerTryUseItemOnBlock implements Packet<INetHandlerPlaySer
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayServer handler) {
-
 		handler.processTryUseItemOnBlock(this);
 	}
 
 	public BlockPos getPos() {
-
 		return position;
 	}
 
 	public Facing getDirection() {
-
 		return placedBlockDirection;
 	}
 
 	public Hand getHand() {
-
 		return hand;
 	}
 
 	public float getFacingX() {
-
 		return facingX;
 	}
 
 	public float getFacingY() {
-
 		return facingY;
 	}
 
 	public float getFacingZ() {
-
 		return facingZ;
 	}
 

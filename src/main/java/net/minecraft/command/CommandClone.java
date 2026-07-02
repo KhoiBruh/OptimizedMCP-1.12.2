@@ -24,7 +24,6 @@ public class CommandClone extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "clone";
 	}
 
@@ -32,7 +31,6 @@ public class CommandClone extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 2;
 	}
 
@@ -40,7 +38,6 @@ public class CommandClone extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.clone.usage";
 	}
 
@@ -48,7 +45,6 @@ public class CommandClone extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		if (args.length < 9) {
 			throw new WrongUsageException("commands.clone.usage");
 		} else {
@@ -215,7 +211,6 @@ public class CommandClone extends CommandBase {
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		if (args.length > 0 && args.length <= 3) {
 			return getTabCompletionCoordinate(args, 0, targetPos);
 		} else if (args.length > 3 && args.length <= 6) {
@@ -232,7 +227,6 @@ public class CommandClone extends CommandBase {
 	}
 
 	record StaticCloneData(BlockPos pos, IBlockState blockState, NBTTagCompound nbt) {
-
 	}
 
 }

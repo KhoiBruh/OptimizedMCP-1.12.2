@@ -71,7 +71,6 @@ public abstract class GuiSlot {
 	private boolean enabled = true;
 
 	public GuiSlot(Minecraft mcIn, int width, int height, int topIn, int bottomIn, int slotHeightIn) {
-
 		mc = mcIn;
 		this.width = width;
 		this.height = height;
@@ -83,7 +82,6 @@ public abstract class GuiSlot {
 	}
 
 	public void setDimensions(int widthIn, int heightIn, int topIn, int bottomIn) {
-
 		width = widthIn;
 		height = heightIn;
 		top = topIn;
@@ -93,7 +91,6 @@ public abstract class GuiSlot {
 	}
 
 	public void setShowSelectionBox(boolean showSelectionBoxIn) {
-
 		showSelectionBox = showSelectionBoxIn;
 	}
 
@@ -102,7 +99,6 @@ public abstract class GuiSlot {
 	 * is set to 0.
 	 */
 	protected void setHasListHeader(boolean hasListHeaderIn, int headerPaddingIn) {
-
 		hasListHeader = hasListHeaderIn;
 		headerPadding = headerPaddingIn;
 
@@ -127,14 +123,12 @@ public abstract class GuiSlot {
 	 * Return the height of the content being scrolled
 	 */
 	protected int getContentHeight() {
-
 		return getSize() * slotHeight + headerPadding;
 	}
 
 	protected abstract void drawBackground();
 
 	protected void updateItemPos(int entryID, int insideLeft, int yPos, float partialTicks) {
-
 	}
 
 	protected abstract void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks);
@@ -143,19 +137,15 @@ public abstract class GuiSlot {
 	 * Handles drawing a list's header row.
 	 */
 	protected void drawListHeader(int insideLeft, int insideTop, Tessellator tessellatorIn) {
-
 	}
 
 	protected void clickedHeader(int p_148132_1_, int p_148132_2_) {
-
 	}
 
 	protected void renderDecorations(int mouseXIn, int mouseYIn) {
-
 	}
 
 	public int getSlotIndexFromScreenCoords(int posX, int posY) {
-
 		int i = left + width / 2 - getListWidth() / 2;
 		int j = left + width / 2 + getListWidth() / 2;
 		int k = posY - top - headerPadding + (int) amountScrolled - 4;
@@ -167,7 +157,6 @@ public abstract class GuiSlot {
 	 * Registers the IDs that can be used for the scrollbar's up/down buttons.
 	 */
 	public void registerScrollButtons(int scrollUpButtonIDIn, int scrollDownButtonIDIn) {
-
 		scrollUpButtonID = scrollUpButtonIDIn;
 		scrollDownButtonID = scrollDownButtonIDIn;
 	}
@@ -176,12 +165,10 @@ public abstract class GuiSlot {
 	 * Stop the thing from scrolling out of bounds
 	 */
 	protected void bindAmountScrolled() {
-
 		amountScrolled = MathHelper.clamp(amountScrolled, 0F, (float) getMaxScroll());
 	}
 
 	public int getMaxScroll() {
-
 		return Math.max(0, getContentHeight() - (bottom - top - 4));
 	}
 
@@ -189,12 +176,10 @@ public abstract class GuiSlot {
 	 * Returns the amountScrolled field as an integer.
 	 */
 	public int getAmountScrolled() {
-
 		return (int) amountScrolled;
 	}
 
 	public boolean isMouseYWithinSlotBounds(int p_148141_1_) {
-
 		return p_148141_1_ >= top && p_148141_1_ <= bottom && mouseX >= left && mouseX <= right;
 	}
 
@@ -202,14 +187,12 @@ public abstract class GuiSlot {
 	 * Scrolls the slot by the given amount. A positive value scrolls down, and a negative value scrolls up.
 	 */
 	public void scrollBy(int amount) {
-
 		amountScrolled += (float) amount;
 		bindAmountScrolled();
 		initialClickY = -2;
 	}
 
 	public void actionPerformed(Button button) {
-
 		if (button.enabled) {
 			if (button.id == scrollUpButtonID) {
 				amountScrolled -= (float) (slotHeight * 2 / 3);
@@ -224,7 +207,6 @@ public abstract class GuiSlot {
 	}
 
 	public void drawScreen(int mouseXIn, int mouseYIn, float partialTicks) {
-
 		if (visible) {
 			mouseX = mouseXIn;
 			mouseY = mouseYIn;
@@ -309,7 +291,6 @@ public abstract class GuiSlot {
 	}
 
 	public void handleMouseInput() {
-
 		if (isMouseYWithinSlotBounds(mouseY)) {
 			if (Mouse.getEventButton() == 0 && Mouse.getEventButtonState() && mouseY >= top && mouseY <= bottom) {
 				int i = (width - getListWidth()) / 2;
@@ -394,12 +375,10 @@ public abstract class GuiSlot {
 	}
 
 	public boolean getEnabled() {
-
 		return enabled;
 	}
 
 	public void setEnabled(boolean enabledIn) {
-
 		enabled = enabledIn;
 	}
 
@@ -407,7 +386,6 @@ public abstract class GuiSlot {
 	 * Gets the width of the list
 	 */
 	public int getListWidth() {
-
 		return 220;
 	}
 
@@ -415,7 +393,6 @@ public abstract class GuiSlot {
 	 * Draws the selection box around the selected slot element.
 	 */
 	protected void drawSelectionBox(int insideLeft, int insideTop, int mouseXIn, int mouseYIn, float partialTicks) {
-
 		int i = getSize();
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
@@ -451,12 +428,10 @@ public abstract class GuiSlot {
 	}
 
 	protected int getScrollBarX() {
-
 		return width / 2 + 124;
 	}
 
 	protected void enableScissor(int leftIn, int topIn, int rightIn, int bottomIn) {
-
 		int scaleFactor = mc.getWindow().getGuiScale();
 		int left = leftIn * scaleFactor;
 		int bottom = mc.getWindow().getHeight() - bottomIn * scaleFactor;
@@ -467,7 +442,6 @@ public abstract class GuiSlot {
 	}
 
 	protected void disableScissor() {
-
 		GL11.glDisable(GL11.GL_SCISSOR_TEST);
 	}
 
@@ -475,13 +449,11 @@ public abstract class GuiSlot {
 	 * Sets the left and right bounds of the slot. Param is the left bound, right is calculated as left + width.
 	 */
 	public void setSlotXBoundsFromLeft(int leftIn) {
-
 		left = leftIn;
 		right = leftIn + width;
 	}
 
 	public int getSlotHeight() {
-
 		return slotHeight;
 	}
 

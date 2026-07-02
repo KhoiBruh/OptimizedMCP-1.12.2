@@ -79,7 +79,6 @@ public class BookScreen extends Screen {
 	private Button buttonCancel;
 
 	public BookScreen(EntityPlayer player, ItemStack book, boolean isUnsigned) {
-
 		editingPlayer = player;
 		this.book = book;
 		bookIsUnsigned = isUnsigned;
@@ -105,7 +104,6 @@ public class BookScreen extends Screen {
 	 * Called from the main game loop to update the screen.
 	 */
 	public void update() {
-
 		super.update();
 		++updateCount;
 	}
@@ -115,7 +113,6 @@ public class BookScreen extends Screen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		buttons.clear();
 		Keyboard.setRepeat(true);
 
@@ -139,12 +136,10 @@ public class BookScreen extends Screen {
 	 * Called when the screen is unloaded. Used to disable keyboard repeat events
 	 */
 	public void close() {
-
 		Keyboard.setRepeat(false);
 	}
 
 	private void updateButtons() {
-
 		buttonNextPage.visible = !bookGettingSigned && (currPage < bookTotalPages - 1 || bookIsUnsigned);
 		buttonPreviousPage.visible = !bookGettingSigned && currPage > 0;
 		buttonDone.visible = !bookIsUnsigned || !bookGettingSigned;
@@ -158,7 +153,6 @@ public class BookScreen extends Screen {
 	}
 
 	private void sendBookToServer(boolean publish) {
-
 		if (bookIsUnsigned && bookIsModified) {
 			if (bookPages != null) {
 				while (bookPages.tagCount() > 1) {
@@ -197,7 +191,6 @@ public class BookScreen extends Screen {
 	 * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
 	 */
 	protected void action(Button button) {
-
 		if (button.enabled) {
 			if (button.id == 0) {
 				mc.displayScreen(null);
@@ -230,7 +223,6 @@ public class BookScreen extends Screen {
 	}
 
 	private void addNewPage() {
-
 		if (bookPages != null && bookPages.tagCount() < 50) {
 			bookPages.appendTag(new NBTTagString(""));
 			++bookTotalPages;
@@ -243,7 +235,6 @@ public class BookScreen extends Screen {
 	 * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
 	 */
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-
 		super.keyTyped(typedChar, keyCode);
 
 		if (bookIsUnsigned) {
@@ -259,7 +250,6 @@ public class BookScreen extends Screen {
 	 * Processes keystrokes when editing the text of a book
 	 */
 	private void keyTypedInBook(char typedChar, int keyCode) {
-
 		if (Screen.isCtrlV(keyCode)) {
 			pageInsertIntoCurrent(Screen.getClipboard());
 		} else {
@@ -293,7 +283,6 @@ public class BookScreen extends Screen {
 	 * Processes keystrokes when editing the title of a book
 	 */
 	private void keyTypedInTitle(char typedChar, int keyCode) {
-
 		switch (keyCode) {
 			case 14:
 			case GLFW_KEY_BACKSPACE:
@@ -328,7 +317,6 @@ public class BookScreen extends Screen {
 	 * Returns the entire text of the current page as determined by currPage
 	 */
 	private String pageGetCurrent() {
-
 		return bookPages != null && currPage >= 0 && currPage < bookPages.tagCount() ? bookPages.getStringTagAt(currPage) : "";
 	}
 
@@ -336,7 +324,6 @@ public class BookScreen extends Screen {
 	 * Sets the text of the current page as determined by currPage
 	 */
 	private void pageSetCurrent(String p_146457_1_) {
-
 		if (bookPages != null && currPage >= 0 && currPage < bookPages.tagCount()) {
 			bookPages.set(currPage, new NBTTagString(p_146457_1_));
 			bookIsModified = true;
@@ -347,7 +334,6 @@ public class BookScreen extends Screen {
 	 * Processes any text getting inserted into the current page, enforcing the page size limit
 	 */
 	private void pageInsertIntoCurrent(String p_146459_1_) {
-
 		String s = pageGetCurrent();
 		String s1 = s + p_146459_1_;
 		int i = fontRenderer.getWordWrappedHeight(s1 + TextFormat.BLACK + "_", 118);
@@ -361,7 +347,6 @@ public class BookScreen extends Screen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(BOOK_GUI_TEXTURES);
 		int i = (width - 192) / 2;
@@ -449,7 +434,6 @@ public class BookScreen extends Screen {
 	 * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
 	 */
 	protected void mouseClicked(int mouseX, int mouseY, int mouse) throws IOException {
-
 		if (mouse == 0) {
 			ITextComponent itextcomponent = getClickedComponentAt(mouseX, mouseY);
 
@@ -465,7 +449,6 @@ public class BookScreen extends Screen {
 	 * Executes the click event specified by the given chat component
 	 */
 	public boolean handleComponentClick(ITextComponent component) {
-
 		ClickEvent clickevent = component.getStyle().getClickEvent();
 
 		if (clickevent == null) {
@@ -498,7 +481,6 @@ public class BookScreen extends Screen {
 
 	
 	public ITextComponent getClickedComponentAt(int p_175385_1_, int p_175385_2_) {
-
 		if (cachedComponents == null) {
 			return null;
 		} else {
@@ -541,13 +523,11 @@ public class BookScreen extends Screen {
 		private final boolean isForward;
 
 		public NextPageButton(int buttonId, int x, int y, boolean isForwardIn) {
-
 			super(buttonId, x, y, 23, 13, "");
 			isForward = isForwardIn;
 		}
 
 		public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
-
 			if (visible) {
 				boolean flag = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 				GLS.color(1F, 1F, 1F, 1F);

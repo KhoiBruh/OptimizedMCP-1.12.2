@@ -13,11 +13,9 @@ public class SPacketSetPassengers implements Packet<INetHandlerPlayClient> {
 	private int[] passengerIds;
 
 	public SPacketSetPassengers() {
-
 	}
 
 	public SPacketSetPassengers(Entity entityIn) {
-
 		entityId = entityIn.getEntityId();
 		List<Entity> list = entityIn.getPassengers();
 		passengerIds = new int[list.size()];
@@ -31,7 +29,6 @@ public class SPacketSetPassengers implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		entityId = buf.readVarInt();
 		passengerIds = buf.readVarIntArray();
 	}
@@ -40,7 +37,6 @@ public class SPacketSetPassengers implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeVarInt(entityId);
 		buf.writeVarIntArray(passengerIds);
 	}
@@ -49,17 +45,14 @@ public class SPacketSetPassengers implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleSetPassengers(this);
 	}
 
 	public int[] getPassengerIds() {
-
 		return passengerIds;
 	}
 
 	public int getEntityId() {
-
 		return entityId;
 	}
 

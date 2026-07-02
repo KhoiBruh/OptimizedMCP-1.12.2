@@ -25,17 +25,14 @@ public class EntityMoveHelper {
 	protected float moveStrafe;
 
 	public EntityMoveHelper(EntityLiving entitylivingIn) {
-
 		entity = entitylivingIn;
 	}
 
 	public boolean isUpdating() {
-
 		return action == EntityMoveHelper.Action.MOVE_TO;
 	}
 
 	public double getSpeed() {
-
 		return speed;
 	}
 
@@ -43,7 +40,6 @@ public class EntityMoveHelper {
 	 * Sets the speed and location to move to
 	 */
 	public void setMoveTo(double x, double y, double z, double speedIn) {
-
 		posX = x;
 		posY = y;
 		posZ = z;
@@ -52,7 +48,6 @@ public class EntityMoveHelper {
 	}
 
 	public void strafe(float forward, float strafe) {
-
 		action = EntityMoveHelper.Action.STRAFE;
 		moveForward = forward;
 		moveStrafe = strafe;
@@ -60,7 +55,6 @@ public class EntityMoveHelper {
 	}
 
 	public void read(EntityMoveHelper that) {
-
 		action = that.action;
 		posX = that.posX;
 		posY = that.posY;
@@ -71,7 +65,6 @@ public class EntityMoveHelper {
 	}
 
 	public void onUpdateMoveHelper() {
-
 		if (action == EntityMoveHelper.Action.STRAFE) {
 			float f = (float) entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue();
 			float f1 = (float) speed * f;
@@ -142,7 +135,6 @@ public class EntityMoveHelper {
 	 * be third parameter
 	 */
 	protected float limitAngle(float sourceAngle, float targetAngle, float maximumChange) {
-
 		float f = MathHelper.wrapDegrees(targetAngle - sourceAngle);
 
 		if (f > maximumChange) {
@@ -165,17 +157,14 @@ public class EntityMoveHelper {
 	}
 
 	public double getX() {
-
 		return posX;
 	}
 
 	public double getY() {
-
 		return posY;
 	}
 
 	public double getZ() {
-
 		return posZ;
 	}
 

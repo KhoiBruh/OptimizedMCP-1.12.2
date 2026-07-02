@@ -19,13 +19,11 @@ public class WorldGenBirchTree extends WorldGenAbstractTree {
 	private final boolean useExtraRandomHeight;
 
 	public WorldGenBirchTree(boolean notify, boolean useExtraRandomHeightIn) {
-
 		super(notify);
 		useExtraRandomHeight = useExtraRandomHeightIn;
 	}
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		int i = rand.nextInt(3) + 5;
 
 		if (useExtraRandomHeight) {

@@ -15,7 +15,6 @@ public class RenderSnowball<T extends Entity> extends Render<T> {
 	private final RenderItem itemRenderer;
 
 	public RenderSnowball(RenderManager renderManagerIn, Item itemIn, RenderItem itemRendererIn) {
-
 		super(renderManagerIn);
 		item = itemIn;
 		itemRenderer = itemRendererIn;
@@ -25,7 +24,6 @@ public class RenderSnowball<T extends Entity> extends Render<T> {
 	 * Renders the desired {@code T} type Entity.
 	 */
 	public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
-
 		GLS.pushMatrix();
 		GLS.translate((float) x, (float) y, (float) z);
 		GLS.enableRescaleNormal();
@@ -52,7 +50,6 @@ public class RenderSnowball<T extends Entity> extends Render<T> {
 	}
 
 	public ItemStack getStackToRender(T entityIn) {
-
 		return new ItemStack(item);
 	}
 
@@ -60,7 +57,6 @@ public class RenderSnowball<T extends Entity> extends Render<T> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	protected ResourceLocation getEntityTexture(Entity entity) {
-
 		return TextureMap.LOCATION_BLOCKS_TEXTURE;
 	}
 

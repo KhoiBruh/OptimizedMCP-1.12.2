@@ -10,7 +10,6 @@ public class BiomeColorHelper {
 	private static final BiomeColorHelper.ColorResolver WATER_COLOR = (biome, blockPosition) -> biome.getWaterColor();
 
 	private static int getColorAtPos(IBlockAccess blockAccess, BlockPos pos, BiomeColorHelper.ColorResolver colorResolver) {
-
 		int i = 0;
 		int j = 0;
 		int k = 0;
@@ -26,17 +25,14 @@ public class BiomeColorHelper {
 	}
 
 	public static int getGrassColorAtPos(IBlockAccess blockAccess, BlockPos pos) {
-
 		return getColorAtPos(blockAccess, pos, GRASS_COLOR);
 	}
 
 	public static int getFoliageColorAtPos(IBlockAccess blockAccess, BlockPos pos) {
-
 		return getColorAtPos(blockAccess, pos, FOLIAGE_COLOR);
 	}
 
 	public static int getWaterColorAtPos(IBlockAccess blockAccess, BlockPos pos) {
-
 		return getColorAtPos(blockAccess, pos, WATER_COLOR);
 	}
 

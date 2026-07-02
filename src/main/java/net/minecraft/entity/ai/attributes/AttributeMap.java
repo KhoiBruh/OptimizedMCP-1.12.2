@@ -13,12 +13,10 @@ public class AttributeMap extends AbstractAttributeMap {
 	private final Set<IAttributeInstance> dirtyInstances = Sets.newHashSet();
 
 	public ModifiableAttributeInstance getAttributeInstance(IAttribute attribute) {
-
 		return (ModifiableAttributeInstance) super.getAttributeInstance(attribute);
 	}
 
 	public ModifiableAttributeInstance getAttributeInstanceByName(String attributeName) {
-
 		IAttributeInstance iattributeinstance = super.getAttributeInstanceByName(attributeName);
 
 		if (iattributeinstance == null) {
@@ -32,7 +30,6 @@ public class AttributeMap extends AbstractAttributeMap {
 	 * Registers an attribute with this AttributeMap, returns a modifiable AttributeInstance associated with this map
 	 */
 	public IAttributeInstance registerAttribute(IAttribute attribute) {
-
 		IAttributeInstance iattributeinstance = super.registerAttribute(attribute);
 
 		if (attribute instanceof RangedAttribute && ((RangedAttribute) attribute).getDescription() != null) {
@@ -43,12 +40,10 @@ public class AttributeMap extends AbstractAttributeMap {
 	}
 
 	protected IAttributeInstance createInstance(IAttribute attribute) {
-
 		return new ModifiableAttributeInstance(this, attribute);
 	}
 
 	public void onAttributeModified(IAttributeInstance instance) {
-
 		if (instance.getAttribute().getShouldWatch()) {
 			dirtyInstances.add(instance);
 		}
@@ -63,12 +58,10 @@ public class AttributeMap extends AbstractAttributeMap {
 	}
 
 	public Set<IAttributeInstance> getDirtyInstances() {
-
 		return dirtyInstances;
 	}
 
 	public Collection<IAttributeInstance> getWatchedAttributes() {
-
 		Set<IAttributeInstance> set = Sets.newHashSet();
 
 		for (IAttributeInstance iattributeinstance : getAllAttributes()) {

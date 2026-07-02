@@ -9,12 +9,10 @@ public class LayerDeadmau5Head implements LayerRenderer<AbstractClientPlayer> {
 	private final RenderPlayer playerRenderer;
 
 	public LayerDeadmau5Head(RenderPlayer playerRendererIn) {
-
 		playerRenderer = playerRendererIn;
 	}
 
 	public void doRenderLayer(AbstractClientPlayer entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		if ("deadmau5".equals(entitylivingbaseIn.getName()) && entitylivingbaseIn.hasSkin() && !entitylivingbaseIn.isInvisible()) {
 			playerRenderer.bindTexture(entitylivingbaseIn.getLocationSkin());
 
@@ -37,7 +35,6 @@ public class LayerDeadmau5Head implements LayerRenderer<AbstractClientPlayer> {
 	}
 
 	public boolean shouldCombineTextures() {
-
 		return true;
 	}
 

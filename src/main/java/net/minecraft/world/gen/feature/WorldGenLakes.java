@@ -15,12 +15,10 @@ public class WorldGenLakes extends WorldGenerator {
 	private final Block block;
 
 	public WorldGenLakes(Block blockIn) {
-
 		block = blockIn;
 	}
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		for (position = position.add(-8, 0, -8); position.getY() > 5 && worldIn.isAirBlock(position); position = position.down()) {
 		}
 

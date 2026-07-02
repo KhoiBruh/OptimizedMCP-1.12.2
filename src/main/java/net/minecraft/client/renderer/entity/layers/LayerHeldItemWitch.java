@@ -16,12 +16,10 @@ public class LayerHeldItemWitch implements LayerRenderer<EntityWitch> {
 	private final RenderWitch witchRenderer;
 
 	public LayerHeldItemWitch(RenderWitch witchRendererIn) {
-
 		witchRenderer = witchRendererIn;
 	}
 
 	public void doRenderLayer(EntityWitch entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		ItemStack itemstack = entitylivingbaseIn.getHeldItemMainhand();
 
 		if (!itemstack.isEmpty()) {
@@ -82,7 +80,6 @@ public class LayerHeldItemWitch implements LayerRenderer<EntityWitch> {
 	}
 
 	public boolean shouldCombineTextures() {
-
 		return false;
 	}
 

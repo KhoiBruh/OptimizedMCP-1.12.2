@@ -3,7 +3,6 @@ package net.minecraft.world.gen.layer;
 public class GenLayerIsland extends GenLayer {
 
 	public GenLayerIsland(long p_i2124_1_) {
-
 		super(p_i2124_1_);
 	}
 
@@ -12,7 +11,6 @@ public class GenLayerIsland extends GenLayer {
 	 * amounts, or Biome ID's based on the particular GenLayer subclass.
 	 */
 	public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight) {
-
 		int[] aint = IntCache.getIntCache(areaWidth * areaHeight);
 
 		for (int i = 0; i < areaHeight; ++i) {

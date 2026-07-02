@@ -22,17 +22,14 @@ public class TileEntitySkull extends TileEntity implements ITickable {
 	private boolean dragonAnimated;
 
 	public static void setProfileCache(PlayerProfileCache profileCacheIn) {
-
 		profileCache = profileCacheIn;
 	}
 
 	public static void setSessionService(MinecraftSessionService sessionServiceIn) {
-
 		sessionService = sessionServiceIn;
 	}
 
 	public static GameProfile updateGameprofile(GameProfile input) {
-
 		if (input != null && !StringUtils.isNullOrEmpty(input.getName())) {
 			if (input.isComplete() && input.getProperties().containsKey("textures")) {
 				return input;
@@ -59,7 +56,6 @@ public class TileEntitySkull extends TileEntity implements ITickable {
 	}
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
 		super.writeToNBT(compound);
 		compound.setByte("SkullType", (byte) (skullType & 255));
 		compound.setByte("Rot", (byte) (skullRotation & 255));
@@ -74,7 +70,6 @@ public class TileEntitySkull extends TileEntity implements ITickable {
 	}
 
 	public void readFromNBT(NBTTagCompound compound) {
-
 		super.readFromNBT(compound);
 		skullType = compound.getByte("SkullType");
 		skullRotation = compound.getByte("Rot");
@@ -97,7 +92,6 @@ public class TileEntitySkull extends TileEntity implements ITickable {
 	 * Like the old updateEntity(), except more generic.
 	 */
 	public void update() {
-
 		if (skullType == 5) {
 			if (world.isBlockPowered(pos)) {
 				dragonAnimated = true;
@@ -109,18 +103,15 @@ public class TileEntitySkull extends TileEntity implements ITickable {
 	}
 
 	public float getAnimationProgress(float p_184295_1_) {
-
 		return dragonAnimated ? (float) dragonAnimatedTicks + p_184295_1_ : (float) dragonAnimatedTicks;
 	}
 
 	
 	public GameProfile getPlayerProfile() {
-
 		return playerProfile;
 	}
 
 	public void setPlayerProfile(GameProfile playerProfile) {
-
 		skullType = 3;
 		this.playerProfile = playerProfile;
 		updatePlayerProfile();
@@ -128,51 +119,42 @@ public class TileEntitySkull extends TileEntity implements ITickable {
 
 	
 	public SPacketUpdateTileEntity getUpdatePacket() {
-
 		return new SPacketUpdateTileEntity(pos, 4, getUpdateTag());
 	}
 
 	public NBTTagCompound getUpdateTag() {
-
 		return writeToNBT(new NBTTagCompound());
 	}
 
 	public void setType(int type) {
-
 		skullType = type;
 		playerProfile = null;
 	}
 
 	private void updatePlayerProfile() {
-
 		playerProfile = updateGameprofile(playerProfile);
 		markDirty();
 	}
 
 	public int getSkullType() {
-
 		return skullType;
 	}
 
 	public int getSkullRotation() {
-
 		return skullRotation;
 	}
 
 	public void setSkullRotation(int rotation) {
-
 		skullRotation = rotation;
 	}
 
 	public void mirror(Mirror mirrorIn) {
-
 		if (world != null && world.getBlockState(getPos()).getValue(BlockSkull.FACING) == Facing.UP) {
 			skullRotation = mirrorIn.mirrorRotation(skullRotation, 16);
 		}
 	}
 
 	public void rotate(Rotation rotationIn) {
-
 		if (world != null && world.getBlockState(getPos()).getValue(BlockSkull.FACING) == Facing.UP) {
 			skullRotation = rotationIn.rotate(skullRotation, 16);
 		}

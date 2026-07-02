@@ -24,13 +24,11 @@ public class BlockSapling extends BlockBush implements IGrowable {
 	protected static final AxisAlignedBB SAPLING_AABB = new AxisAlignedBB(0.09999999403953552D, 0D, 0.09999999403953552D, 0.8999999761581421D, 0.800000011920929D, 0.8999999761581421D);
 
 	protected BlockSapling() {
-
 		setDefaultState(blockState.getBaseState().withProperty(TYPE, BlockPlanks.Type.OAK).withProperty(STAGE, 0));
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-
 		return SAPLING_AABB;
 	}
 
@@ -38,12 +36,10 @@ public class BlockSapling extends BlockBush implements IGrowable {
 	 * Gets the localized name of this block. Used for the statistics page.
 	 */
 	public String getLocalizedName() {
-
 		return I18n.translateToLocal(getUnlocalizedName() + "." + BlockPlanks.Type.OAK.getUnlocalizedName() + ".name");
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if (!worldIn.isRemote) {
 			super.updateTick(worldIn, pos, state, rand);
 
@@ -54,7 +50,6 @@ public class BlockSapling extends BlockBush implements IGrowable {
 	}
 
 	public void grow(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if (state.getValue(STAGE) == 0) {
 			worldIn.setBlockState(pos, state.cycleProperty(STAGE), 4);
 		} else {
@@ -63,7 +58,6 @@ public class BlockSapling extends BlockBush implements IGrowable {
 	}
 
 	public void generateTree(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		WorldGenerator worldgenerator = rand.nextInt(10) == 0 ? new WorldGenBigTree(true) : new WorldGenTrees(true);
 		int i = 0;
 		int j = 0;
@@ -164,7 +158,6 @@ public class BlockSapling extends BlockBush implements IGrowable {
 	}
 
 	private boolean isTwoByTwoOfType(World worldIn, BlockPos pos, int p_181624_3_, int p_181624_4_, BlockPlanks.Type type) {
-
 		return isTypeAt(worldIn, pos.add(p_181624_3_, 0, p_181624_4_), type) && isTypeAt(worldIn, pos.add(p_181624_3_ + 1, 0, p_181624_4_), type) && isTypeAt(worldIn, pos.add(p_181624_3_, 0, p_181624_4_ + 1), type) && isTypeAt(worldIn, pos.add(p_181624_3_ + 1, 0, p_181624_4_ + 1), type);
 	}
 
@@ -172,7 +165,6 @@ public class BlockSapling extends BlockBush implements IGrowable {
 	 * Check whether the given BlockPos has a Sapling of the given type
 	 */
 	public boolean isTypeAt(World worldIn, BlockPos pos, BlockPlanks.Type type) {
-
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		return iblockstate.getBlock() == this && iblockstate.getValue(TYPE) == type;
 	}
@@ -182,7 +174,6 @@ public class BlockSapling extends BlockBush implements IGrowable {
 	 * returns the metadata of the dropped item based on the old metadata of the block.
 	 */
 	public int damageDropped(IBlockState state) {
-
 		return state.getValue(TYPE).getMetadata();
 	}
 
@@ -190,7 +181,6 @@ public class BlockSapling extends BlockBush implements IGrowable {
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-
 		for (BlockPlanks.Type blockplanks$enumtype : BlockPlanks.Type.values()) {
 			items.add(new ItemStack(this, 1, blockplanks$enumtype.getMetadata()));
 		}
@@ -200,17 +190,14 @@ public class BlockSapling extends BlockBush implements IGrowable {
 	 * Whether this IGrowable can grow
 	 */
 	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
-
 		return true;
 	}
 
 	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-
 		return (double) worldIn.rand.nextFloat() < 0.45D;
 	}
 
 	public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-
 		grow(worldIn, pos, state, rand);
 	}
 
@@ -218,7 +205,6 @@ public class BlockSapling extends BlockBush implements IGrowable {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(TYPE, BlockPlanks.Type.byMetadata(meta & 7)).withProperty(STAGE, (meta & 8) >> 3);
 	}
 
@@ -226,7 +212,6 @@ public class BlockSapling extends BlockBush implements IGrowable {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		int i = 0;
 		i = i | state.getValue(TYPE).getMetadata();
 		i = i | state.getValue(STAGE) << 3;
@@ -234,7 +219,6 @@ public class BlockSapling extends BlockBush implements IGrowable {
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, TYPE, STAGE);
 	}
 

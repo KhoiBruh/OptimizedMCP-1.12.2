@@ -25,7 +25,6 @@ public class StructureNetherBridgePieces {
 	private static final StructureNetherBridgePieces.PieceWeight[] SECONDARY_COMPONENTS = new StructureNetherBridgePieces.PieceWeight[]{new StructureNetherBridgePieces.PieceWeight(StructureNetherBridgePieces.Corridor5.class, 25, 0, true), new StructureNetherBridgePieces.PieceWeight(StructureNetherBridgePieces.Crossing2.class, 15, 5), new StructureNetherBridgePieces.PieceWeight(StructureNetherBridgePieces.Corridor2.class, 5, 10), new StructureNetherBridgePieces.PieceWeight(StructureNetherBridgePieces.Corridor.class, 5, 10), new StructureNetherBridgePieces.PieceWeight(StructureNetherBridgePieces.Corridor3.class, 10, 3, true), new StructureNetherBridgePieces.PieceWeight(StructureNetherBridgePieces.Corridor4.class, 7, 2), new StructureNetherBridgePieces.PieceWeight(StructureNetherBridgePieces.NetherStalkRoom.class, 5, 2)};
 
 	public static void registerNetherFortressPieces() {
-
 		MapGenStructureIO.registerStructureComponent(StructureNetherBridgePieces.Crossing3.class, "NeBCr");
 		MapGenStructureIO.registerStructureComponent(StructureNetherBridgePieces.End.class, "NeBEF");
 		MapGenStructureIO.registerStructureComponent(StructureNetherBridgePieces.Straight.class, "NeBS");
@@ -84,11 +83,9 @@ public class StructureNetherBridgePieces {
 		private boolean chest;
 
 		public Corridor() {
-
 		}
 
 		public Corridor(int p_i45615_1_, Random p_i45615_2_, StructureBoundingBox p_i45615_3_, Facing p_i45615_4_) {
-
 			super(p_i45615_1_);
 			setCoordBaseMode(p_i45615_4_);
 			boundingBox = p_i45615_3_;
@@ -102,24 +99,20 @@ public class StructureNetherBridgePieces {
 		}
 
 		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
 			super.readStructureFromNBT(tagCompound, p_143011_2_);
 			chest = tagCompound.getBoolean("Chest");
 		}
 
 		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
 			super.writeStructureToNBT(tagCompound);
 			tagCompound.setBoolean("Chest", chest);
 		}
 
 		public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
-
 			getNextComponentX((StructureNetherBridgePieces.Start) componentIn, listIn, rand, 0, 1, true);
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 0, 0, 4, 1, 4, Blocks.NETHER_BRICK.getDefaultState(), Blocks.NETHER_BRICK.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 2, 0, 4, 5, 4, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 4, 2, 0, 4, 5, 4, Blocks.NETHER_BRICK.getDefaultState(), Blocks.NETHER_BRICK.getDefaultState(), false);
@@ -153,11 +146,9 @@ public class StructureNetherBridgePieces {
 		private boolean chest;
 
 		public Corridor2() {
-
 		}
 
 		public Corridor2(int p_i45613_1_, Random p_i45613_2_, StructureBoundingBox p_i45613_3_, Facing p_i45613_4_) {
-
 			super(p_i45613_1_);
 			setCoordBaseMode(p_i45613_4_);
 			boundingBox = p_i45613_3_;
@@ -171,24 +162,20 @@ public class StructureNetherBridgePieces {
 		}
 
 		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
 			super.readStructureFromNBT(tagCompound, p_143011_2_);
 			chest = tagCompound.getBoolean("Chest");
 		}
 
 		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
 			super.writeStructureToNBT(tagCompound);
 			tagCompound.setBoolean("Chest", chest);
 		}
 
 		public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
-
 			getNextComponentZ((StructureNetherBridgePieces.Start) componentIn, listIn, rand, 0, 1, true);
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 0, 0, 4, 1, 4, Blocks.NETHER_BRICK.getDefaultState(), Blocks.NETHER_BRICK.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 2, 0, 4, 5, 4, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 2, 0, 0, 5, 4, Blocks.NETHER_BRICK.getDefaultState(), Blocks.NETHER_BRICK.getDefaultState(), false);
@@ -220,11 +207,9 @@ public class StructureNetherBridgePieces {
 	public static class Corridor3 extends StructureNetherBridgePieces.Piece {
 
 		public Corridor3() {
-
 		}
 
 		public Corridor3(int p_i45619_1_, Random p_i45619_2_, StructureBoundingBox p_i45619_3_, Facing p_i45619_4_) {
-
 			super(p_i45619_1_);
 			setCoordBaseMode(p_i45619_4_);
 			boundingBox = p_i45619_3_;
@@ -237,12 +222,10 @@ public class StructureNetherBridgePieces {
 		}
 
 		public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
-
 			getNextComponentNormal((StructureNetherBridgePieces.Start) componentIn, listIn, rand, 1, 0, true);
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			IBlockState iblockstate = Blocks.NETHER_BRICK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.SOUTH);
 
 			for (int i = 0; i <= 9; ++i) {
@@ -279,11 +262,9 @@ public class StructureNetherBridgePieces {
 	public static class Corridor4 extends StructureNetherBridgePieces.Piece {
 
 		public Corridor4() {
-
 		}
 
 		public Corridor4(int p_i45618_1_, Random p_i45618_2_, StructureBoundingBox p_i45618_3_, Facing p_i45618_4_) {
-
 			super(p_i45618_1_);
 			setCoordBaseMode(p_i45618_4_);
 			boundingBox = p_i45618_3_;
@@ -296,7 +277,6 @@ public class StructureNetherBridgePieces {
 		}
 
 		public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
-
 			int i = 1;
 			Facing enumfacing = getCoordBaseMode();
 
@@ -309,7 +289,6 @@ public class StructureNetherBridgePieces {
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 0, 0, 8, 1, 8, Blocks.NETHER_BRICK.getDefaultState(), Blocks.NETHER_BRICK.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 2, 0, 8, 5, 8, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 6, 0, 8, 6, 5, Blocks.NETHER_BRICK.getDefaultState(), Blocks.NETHER_BRICK.getDefaultState(), false);
@@ -344,11 +323,9 @@ public class StructureNetherBridgePieces {
 	public static class Corridor5 extends StructureNetherBridgePieces.Piece {
 
 		public Corridor5() {
-
 		}
 
 		public Corridor5(int p_i45614_1_, Random p_i45614_2_, StructureBoundingBox p_i45614_3_, Facing p_i45614_4_) {
-
 			super(p_i45614_1_);
 			setCoordBaseMode(p_i45614_4_);
 			boundingBox = p_i45614_3_;
@@ -361,12 +338,10 @@ public class StructureNetherBridgePieces {
 		}
 
 		public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
-
 			getNextComponentNormal((StructureNetherBridgePieces.Start) componentIn, listIn, rand, 1, 0, true);
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 0, 0, 4, 1, 4, Blocks.NETHER_BRICK.getDefaultState(), Blocks.NETHER_BRICK.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 2, 0, 4, 5, 4, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 2, 0, 0, 5, 4, Blocks.NETHER_BRICK.getDefaultState(), Blocks.NETHER_BRICK.getDefaultState(), false);
@@ -391,11 +366,9 @@ public class StructureNetherBridgePieces {
 	public static class Crossing extends StructureNetherBridgePieces.Piece {
 
 		public Crossing() {
-
 		}
 
 		public Crossing(int p_i45610_1_, Random p_i45610_2_, StructureBoundingBox p_i45610_3_, Facing p_i45610_4_) {
-
 			super(p_i45610_1_);
 			setCoordBaseMode(p_i45610_4_);
 			boundingBox = p_i45610_3_;
@@ -408,14 +381,12 @@ public class StructureNetherBridgePieces {
 		}
 
 		public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
-
 			getNextComponentNormal((StructureNetherBridgePieces.Start) componentIn, listIn, rand, 2, 0, false);
 			getNextComponentX((StructureNetherBridgePieces.Start) componentIn, listIn, rand, 0, 2, false);
 			getNextComponentZ((StructureNetherBridgePieces.Start) componentIn, listIn, rand, 0, 2, false);
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 0, 0, 6, 1, 6, Blocks.NETHER_BRICK.getDefaultState(), Blocks.NETHER_BRICK.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 2, 0, 6, 7, 6, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 2, 0, 1, 6, 0, Blocks.NETHER_BRICK.getDefaultState(), Blocks.NETHER_BRICK.getDefaultState(), false);
@@ -449,11 +420,9 @@ public class StructureNetherBridgePieces {
 	public static class Crossing2 extends StructureNetherBridgePieces.Piece {
 
 		public Crossing2() {
-
 		}
 
 		public Crossing2(int p_i45616_1_, Random p_i45616_2_, StructureBoundingBox p_i45616_3_, Facing p_i45616_4_) {
-
 			super(p_i45616_1_);
 			setCoordBaseMode(p_i45616_4_);
 			boundingBox = p_i45616_3_;
@@ -466,14 +435,12 @@ public class StructureNetherBridgePieces {
 		}
 
 		public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
-
 			getNextComponentNormal((StructureNetherBridgePieces.Start) componentIn, listIn, rand, 1, 0, true);
 			getNextComponentX((StructureNetherBridgePieces.Start) componentIn, listIn, rand, 0, 1, true);
 			getNextComponentZ((StructureNetherBridgePieces.Start) componentIn, listIn, rand, 0, 1, true);
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 0, 0, 4, 1, 4, Blocks.NETHER_BRICK.getDefaultState(), Blocks.NETHER_BRICK.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 2, 0, 4, 5, 4, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 2, 0, 0, 5, 0, Blocks.NETHER_BRICK.getDefaultState(), Blocks.NETHER_BRICK.getDefaultState(), false);
@@ -496,18 +463,15 @@ public class StructureNetherBridgePieces {
 	public static class Crossing3 extends StructureNetherBridgePieces.Piece {
 
 		public Crossing3() {
-
 		}
 
 		public Crossing3(int p_i45622_1_, Random p_i45622_2_, StructureBoundingBox p_i45622_3_, Facing p_i45622_4_) {
-
 			super(p_i45622_1_);
 			setCoordBaseMode(p_i45622_4_);
 			boundingBox = p_i45622_3_;
 		}
 
 		protected Crossing3(Random p_i2042_1_, int p_i2042_2_, int p_i2042_3_) {
-
 			super(0);
 			setCoordBaseMode(Facing.Plane.HORIZONTAL.random(p_i2042_1_));
 
@@ -525,14 +489,12 @@ public class StructureNetherBridgePieces {
 		}
 
 		public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
-
 			getNextComponentNormal((StructureNetherBridgePieces.Start) componentIn, listIn, rand, 8, 3, false);
 			getNextComponentX((StructureNetherBridgePieces.Start) componentIn, listIn, rand, 3, 8, false);
 			getNextComponentZ((StructureNetherBridgePieces.Start) componentIn, listIn, rand, 3, 8, false);
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 7, 3, 0, 11, 4, 18, Blocks.NETHER_BRICK.getDefaultState(), Blocks.NETHER_BRICK.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 3, 7, 18, 4, 11, Blocks.NETHER_BRICK.getDefaultState(), Blocks.NETHER_BRICK.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 8, 5, 0, 10, 7, 18, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
@@ -579,11 +541,9 @@ public class StructureNetherBridgePieces {
 		private int fillSeed;
 
 		public End() {
-
 		}
 
 		public End(int p_i45621_1_, Random p_i45621_2_, StructureBoundingBox p_i45621_3_, Facing p_i45621_4_) {
-
 			super(p_i45621_1_);
 			setCoordBaseMode(p_i45621_4_);
 			boundingBox = p_i45621_3_;
@@ -597,19 +557,16 @@ public class StructureNetherBridgePieces {
 		}
 
 		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
 			super.readStructureFromNBT(tagCompound, p_143011_2_);
 			fillSeed = tagCompound.getInteger("Seed");
 		}
 
 		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
 			super.writeStructureToNBT(tagCompound);
 			tagCompound.setInteger("Seed", fillSeed);
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			Random random = new Random(fillSeed);
 
 			for (int i = 0; i <= 4; ++i) {
@@ -644,11 +601,9 @@ public class StructureNetherBridgePieces {
 	public static class Entrance extends StructureNetherBridgePieces.Piece {
 
 		public Entrance() {
-
 		}
 
 		public Entrance(int p_i45617_1_, Random p_i45617_2_, StructureBoundingBox p_i45617_3_, Facing p_i45617_4_) {
-
 			super(p_i45617_1_);
 			setCoordBaseMode(p_i45617_4_);
 			boundingBox = p_i45617_3_;
@@ -661,12 +616,10 @@ public class StructureNetherBridgePieces {
 		}
 
 		public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
-
 			getNextComponentNormal((StructureNetherBridgePieces.Start) componentIn, listIn, rand, 5, 3, true);
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 3, 0, 12, 4, 12, Blocks.NETHER_BRICK.getDefaultState(), Blocks.NETHER_BRICK.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 5, 0, 12, 13, 12, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 5, 0, 1, 12, 12, Blocks.NETHER_BRICK.getDefaultState(), Blocks.NETHER_BRICK.getDefaultState(), false);
@@ -745,11 +698,9 @@ public class StructureNetherBridgePieces {
 	public static class NetherStalkRoom extends StructureNetherBridgePieces.Piece {
 
 		public NetherStalkRoom() {
-
 		}
 
 		public NetherStalkRoom(int p_i45612_1_, Random p_i45612_2_, StructureBoundingBox p_i45612_3_, Facing p_i45612_4_) {
-
 			super(p_i45612_1_);
 			setCoordBaseMode(p_i45612_4_);
 			boundingBox = p_i45612_3_;
@@ -762,13 +713,11 @@ public class StructureNetherBridgePieces {
 		}
 
 		public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
-
 			getNextComponentNormal((StructureNetherBridgePieces.Start) componentIn, listIn, rand, 5, 3, true);
 			getNextComponentNormal((StructureNetherBridgePieces.Start) componentIn, listIn, rand, 5, 11, true);
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 3, 0, 12, 4, 12, Blocks.NETHER_BRICK.getDefaultState(), Blocks.NETHER_BRICK.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 5, 0, 12, 13, 12, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 5, 0, 1, 12, 12, Blocks.NETHER_BRICK.getDefaultState(), Blocks.NETHER_BRICK.getDefaultState(), false);
@@ -882,29 +831,23 @@ public class StructureNetherBridgePieces {
 	abstract static class Piece extends StructureComponent {
 
 		public Piece() {
-
 		}
 
 		protected Piece(int p_i2054_1_) {
-
 			super(p_i2054_1_);
 		}
 
 		protected static boolean isAboveGround(StructureBoundingBox p_74964_0_) {
-
 			return p_74964_0_ != null && p_74964_0_.minY > 10;
 		}
 
 		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
 		}
 
 		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
 		}
 
 		private int getTotalWeight(List<StructureNetherBridgePieces.PieceWeight> p_74960_1_) {
-
 			boolean flag = false;
 			int i = 0;
 
@@ -957,7 +900,6 @@ public class StructureNetherBridgePieces {
 		}
 
 		private StructureComponent generateAndAddPiece(StructureNetherBridgePieces.Start p_175870_1_, List<StructureComponent> p_175870_2_, Random p_175870_3_, int p_175870_4_, int p_175870_5_, int p_175870_6_, Facing p_175870_7_, int p_175870_8_, boolean p_175870_9_) {
-
 			if (Math.abs(p_175870_4_ - p_175870_1_.getBoundingBox().minX) <= 112 && Math.abs(p_175870_6_ - p_175870_1_.getBoundingBox().minZ) <= 112) {
 				List<StructureNetherBridgePieces.PieceWeight> list = p_175870_1_.primaryWeights;
 
@@ -980,7 +922,6 @@ public class StructureNetherBridgePieces {
 
 		
 		protected StructureComponent getNextComponentNormal(StructureNetherBridgePieces.Start p_74963_1_, List<StructureComponent> p_74963_2_, Random p_74963_3_, int p_74963_4_, int p_74963_5_, boolean p_74963_6_) {
-
 			Facing enumfacing = getCoordBaseMode();
 
 			if (enumfacing != null) {
@@ -1004,7 +945,6 @@ public class StructureNetherBridgePieces {
 
 		
 		protected StructureComponent getNextComponentX(StructureNetherBridgePieces.Start p_74961_1_, List<StructureComponent> p_74961_2_, Random p_74961_3_, int p_74961_4_, int p_74961_5_, boolean p_74961_6_) {
-
 			Facing enumfacing = getCoordBaseMode();
 
 			if (enumfacing != null) {
@@ -1022,7 +962,6 @@ public class StructureNetherBridgePieces {
 
 		
 		protected StructureComponent getNextComponentZ(StructureNetherBridgePieces.Start p_74965_1_, List<StructureComponent> p_74965_2_, Random p_74965_3_, int p_74965_4_, int p_74965_5_, boolean p_74965_6_) {
-
 			Facing enumfacing = getCoordBaseMode();
 
 			if (enumfacing != null) {
@@ -1049,7 +988,6 @@ public class StructureNetherBridgePieces {
 		public boolean allowInRow;
 
 		public PieceWeight(Class<? extends StructureNetherBridgePieces.Piece> p_i2055_1_, int p_i2055_2_, int p_i2055_3_, boolean p_i2055_4_) {
-
 			weightClass = p_i2055_1_;
 			weight = p_i2055_2_;
 			maxPlaceCount = p_i2055_3_;
@@ -1057,17 +995,14 @@ public class StructureNetherBridgePieces {
 		}
 
 		public PieceWeight(Class<? extends StructureNetherBridgePieces.Piece> p_i2056_1_, int p_i2056_2_, int p_i2056_3_) {
-
 			this(p_i2056_1_, p_i2056_2_, p_i2056_3_, false);
 		}
 
 		public boolean doPlace(int p_78822_1_) {
-
 			return maxPlaceCount == 0 || placeCount < maxPlaceCount;
 		}
 
 		public boolean isValid() {
-
 			return maxPlaceCount == 0 || placeCount < maxPlaceCount;
 		}
 
@@ -1076,11 +1011,9 @@ public class StructureNetherBridgePieces {
 	public static class Stairs extends StructureNetherBridgePieces.Piece {
 
 		public Stairs() {
-
 		}
 
 		public Stairs(int p_i45609_1_, Random p_i45609_2_, StructureBoundingBox p_i45609_3_, Facing p_i45609_4_) {
-
 			super(p_i45609_1_);
 			setCoordBaseMode(p_i45609_4_);
 			boundingBox = p_i45609_3_;
@@ -1093,12 +1026,10 @@ public class StructureNetherBridgePieces {
 		}
 
 		public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
-
 			getNextComponentZ((StructureNetherBridgePieces.Start) componentIn, listIn, rand, 6, 2, false);
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 0, 0, 6, 1, 6, Blocks.NETHER_BRICK.getDefaultState(), Blocks.NETHER_BRICK.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 2, 0, 6, 10, 6, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 2, 0, 1, 8, 0, Blocks.NETHER_BRICK.getDefaultState(), Blocks.NETHER_BRICK.getDefaultState(), false);
@@ -1138,11 +1069,9 @@ public class StructureNetherBridgePieces {
 		public List<StructureComponent> pendingChildren = Lists.newArrayList();
 
 		public Start() {
-
 		}
 
 		public Start(Random p_i2059_1_, int p_i2059_2_, int p_i2059_3_) {
-
 			super(p_i2059_1_, p_i2059_2_, p_i2059_3_);
 			primaryWeights = Lists.newArrayList();
 
@@ -1164,11 +1093,9 @@ public class StructureNetherBridgePieces {
 	public static class Straight extends StructureNetherBridgePieces.Piece {
 
 		public Straight() {
-
 		}
 
 		public Straight(int p_i45620_1_, Random p_i45620_2_, StructureBoundingBox p_i45620_3_, Facing p_i45620_4_) {
-
 			super(p_i45620_1_);
 			setCoordBaseMode(p_i45620_4_);
 			boundingBox = p_i45620_3_;
@@ -1181,12 +1108,10 @@ public class StructureNetherBridgePieces {
 		}
 
 		public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
-
 			getNextComponentNormal((StructureNetherBridgePieces.Start) componentIn, listIn, rand, 1, 3, false);
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 3, 0, 4, 4, 18, Blocks.NETHER_BRICK.getDefaultState(), Blocks.NETHER_BRICK.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 5, 0, 3, 7, 18, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 5, 0, 0, 5, 18, Blocks.NETHER_BRICK.getDefaultState(), Blocks.NETHER_BRICK.getDefaultState(), false);
@@ -1221,11 +1146,9 @@ public class StructureNetherBridgePieces {
 		private boolean hasSpawner;
 
 		public Throne() {
-
 		}
 
 		public Throne(int p_i45611_1_, Random p_i45611_2_, StructureBoundingBox p_i45611_3_, Facing p_i45611_4_) {
-
 			super(p_i45611_1_);
 			setCoordBaseMode(p_i45611_4_);
 			boundingBox = p_i45611_3_;
@@ -1238,19 +1161,16 @@ public class StructureNetherBridgePieces {
 		}
 
 		protected void readStructureFromNBT(NBTTagCompound tagCompound, TemplateManager p_143011_2_) {
-
 			super.readStructureFromNBT(tagCompound, p_143011_2_);
 			hasSpawner = tagCompound.getBoolean("Mob");
 		}
 
 		protected void writeStructureToNBT(NBTTagCompound tagCompound) {
-
 			super.writeStructureToNBT(tagCompound);
 			tagCompound.setBoolean("Mob", hasSpawner);
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 2, 0, 6, 7, 7, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 0, 0, 5, 1, 7, Blocks.NETHER_BRICK.getDefaultState(), Blocks.NETHER_BRICK.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 2, 1, 5, 2, 7, Blocks.NETHER_BRICK.getDefaultState(), Blocks.NETHER_BRICK.getDefaultState(), false);

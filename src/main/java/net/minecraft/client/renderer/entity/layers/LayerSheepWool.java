@@ -14,12 +14,10 @@ public class LayerSheepWool implements LayerRenderer<EntitySheep> {
 	private final ModelSheep1 sheepModel = new ModelSheep1();
 
 	public LayerSheepWool(RenderSheep sheepRendererIn) {
-
 		sheepRenderer = sheepRendererIn;
 	}
 
 	public void doRenderLayer(EntitySheep entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		if (!entitylivingbaseIn.getSheared() && !entitylivingbaseIn.isInvisible()) {
 			sheepRenderer.bindTexture(TEXTURE);
 
@@ -45,7 +43,6 @@ public class LayerSheepWool implements LayerRenderer<EntitySheep> {
 	}
 
 	public boolean shouldCombineTextures() {
-
 		return true;
 	}
 

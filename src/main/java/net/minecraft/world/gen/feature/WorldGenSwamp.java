@@ -16,12 +16,10 @@ public class WorldGenSwamp extends WorldGenAbstractTree {
 	private static final IBlockState LEAF = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.Type.OAK).withProperty(BlockOldLeaf.CHECK_DECAY, false);
 
 	public WorldGenSwamp() {
-
 		super(false);
 	}
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		int i;
 
 		for (i = rand.nextInt(4) + 5; worldIn.getBlockState(position.down()).getMaterial() == Material.WATER; position = position.down()) {
@@ -147,7 +145,6 @@ public class WorldGenSwamp extends WorldGenAbstractTree {
 	}
 
 	private void addVine(World worldIn, BlockPos pos, PropertyBool prop) {
-
 		IBlockState iblockstate = Blocks.VINE.getDefaultState().withProperty(prop, true);
 		setBlockAndNotifyAdequately(worldIn, pos, iblockstate);
 		int i = 4;

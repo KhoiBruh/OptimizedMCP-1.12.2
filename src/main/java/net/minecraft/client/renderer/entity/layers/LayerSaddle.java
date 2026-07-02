@@ -12,12 +12,10 @@ public class LayerSaddle implements LayerRenderer<EntityPig> {
 	private final ModelPig pigModel = new ModelPig(0.5F);
 
 	public LayerSaddle(RenderPig pigRendererIn) {
-
 		pigRenderer = pigRendererIn;
 	}
 
 	public void doRenderLayer(EntityPig entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		if (entitylivingbaseIn.getSaddled()) {
 			pigRenderer.bindTexture(TEXTURE);
 			pigModel.setModelAttributes(pigRenderer.getMainModel());
@@ -26,7 +24,6 @@ public class LayerSaddle implements LayerRenderer<EntityPig> {
 	}
 
 	public boolean shouldCombineTextures() {
-
 		return false;
 	}
 

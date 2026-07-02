@@ -31,20 +31,17 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
 	private final ModelSkeletonHead humanoidHead = new ModelHumanoidHead();
 
 	public void render(TileEntitySkull te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-
 		Facing enumfacing = Facing.getFront(te.getBlockMetadata() & 7);
 		float f = te.getAnimationProgress(partialTicks);
 		renderSkull((float) x, (float) y, (float) z, enumfacing, (float) (te.getSkullRotation() * 360) / 16F, te.getSkullType(), te.getPlayerProfile(), destroyStage, f);
 	}
 
 	public void setRendererDispatcher(TileEntityRendererDispatcher rendererDispatcherIn) {
-
 		super.setRendererDispatcher(rendererDispatcherIn);
 		instance = this;
 	}
 
 	public void renderSkull(float x, float y, float z, Facing facing, float rotationIn, int skullType, GameProfile profile, int destroyStage, float animateTicks) {
-
 		ModelBase modelbase = skeletonHead;
 
 		if (destroyStage >= 0) {

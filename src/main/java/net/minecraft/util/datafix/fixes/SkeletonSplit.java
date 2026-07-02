@@ -6,12 +6,10 @@ import net.minecraft.util.datafix.IFixableData;
 public class SkeletonSplit implements IFixableData {
 
 	public int getFixVersion() {
-
 		return 701;
 	}
 
 	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
-
 		String s = compound.getString("id");
 
 		if ("Skeleton".equals(s)) {

@@ -22,7 +22,6 @@ public class BlockPistonStructureHelper {
 	private final List<BlockPos> toDestroy = Lists.newArrayList();
 
 	public BlockPistonStructureHelper(World worldIn, BlockPos posIn, Facing pistonFacing, boolean extending) {
-
 		world = worldIn;
 		pistonPos = posIn;
 
@@ -36,7 +35,6 @@ public class BlockPistonStructureHelper {
 	}
 
 	public boolean canMove() {
-
 		toMove.clear();
 		toDestroy.clear();
 		IBlockState iblockstate = world.getBlockState(blockToMove);
@@ -62,7 +60,6 @@ public class BlockPistonStructureHelper {
 	}
 
 	private boolean addBlockLine(BlockPos origin, Facing p_177251_2_) {
-
 		IBlockState iblockstate = world.getBlockState(origin);
 		Block block = iblockstate.getBlock();
 
@@ -151,7 +148,6 @@ public class BlockPistonStructureHelper {
 	}
 
 	private void reorderListAtCollision(int p_177255_1_, int p_177255_2_) {
-
 		List<BlockPos> list = Lists.newArrayList();
 		List<BlockPos> list1 = Lists.newArrayList();
 		List<BlockPos> list2 = Lists.newArrayList();
@@ -165,7 +161,6 @@ public class BlockPistonStructureHelper {
 	}
 
 	private boolean addBranchingBlocks(BlockPos fromPos) {
-
 		for (Facing enumfacing : Facing.values()) {
 			if (enumfacing.getAxis() != moveDirection.getAxis() && !addBlockLine(fromPos.offset(enumfacing), enumfacing)) {
 				return false;
@@ -176,12 +171,10 @@ public class BlockPistonStructureHelper {
 	}
 
 	public List<BlockPos> getBlocksToMove() {
-
 		return toMove;
 	}
 
 	public List<BlockPos> getBlocksToDestroy() {
-
 		return toDestroy;
 	}
 

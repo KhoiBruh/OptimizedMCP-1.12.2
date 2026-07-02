@@ -79,12 +79,10 @@ public class SpawnEggNames implements IFixableData {
 	}
 
 	public int getFixVersion() {
-
 		return 105;
 	}
 
 	public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
-
 		if ("minecraft:spawn_egg".equals(compound.getString("id"))) {
 			NBTTagCompound nbttagcompound = compound.getCompoundTag("tag");
 			NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("EntityTag");

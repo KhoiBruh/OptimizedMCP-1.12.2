@@ -14,7 +14,6 @@ public class CommandDifficulty extends CommandBase {
 	 * Gets the name of the command
 	 */
 	public String getName() {
-
 		return "difficulty";
 	}
 
@@ -22,7 +21,6 @@ public class CommandDifficulty extends CommandBase {
 	 * Return the required permission level for this command.
 	 */
 	public int getRequiredPermissionLevel() {
-
 		return 2;
 	}
 
@@ -30,7 +28,6 @@ public class CommandDifficulty extends CommandBase {
 	 * Gets the usage string for the command.
 	 */
 	public String getUsage(ICommandSender sender) {
-
 		return "commands.difficulty.usage";
 	}
 
@@ -38,7 +35,6 @@ public class CommandDifficulty extends CommandBase {
 	 * Callback for when the command is executed
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
 		if (args.length == 0) {
 			throw new WrongUsageException("commands.difficulty.usage");
 		} else {
@@ -49,7 +45,6 @@ public class CommandDifficulty extends CommandBase {
 	}
 
 	protected Difficulty getDifficultyFromCommand(String difficultyString) throws CommandException {
-
 		if (!"peaceful".equalsIgnoreCase(difficultyString) && !"p".equalsIgnoreCase(difficultyString)) {
 			if (!"easy".equalsIgnoreCase(difficultyString) && !"e".equalsIgnoreCase(difficultyString)) {
 				if (!"normal".equalsIgnoreCase(difficultyString) && !"n".equalsIgnoreCase(difficultyString)) {
@@ -66,7 +61,6 @@ public class CommandDifficulty extends CommandBase {
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-
 		return args.length == 1 ? getListOfStringsMatchingLastWord(args, "peaceful", "easy", "normal", "hard") : Collections.emptyList();
 	}
 

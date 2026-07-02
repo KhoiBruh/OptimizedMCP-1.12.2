@@ -13,14 +13,12 @@ public class WorldGenBlockBlob extends WorldGenerator {
 	private final int startRadius;
 
 	public WorldGenBlockBlob(Block blockIn, int startRadiusIn) {
-
 		super(false);
 		block = blockIn;
 		startRadius = startRadiusIn;
 	}
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-
 		while (true) {
 			label50:
 			{

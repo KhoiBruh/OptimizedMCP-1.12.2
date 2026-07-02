@@ -33,7 +33,6 @@ public class MerchantRecipe {
 	private boolean rewardsExp;
 
 	public MerchantRecipe(NBTTagCompound tagCompound) {
-
 		itemToBuy = ItemStack.EMPTY;
 		secondItemToBuy = ItemStack.EMPTY;
 		itemToSell = ItemStack.EMPTY;
@@ -41,12 +40,10 @@ public class MerchantRecipe {
 	}
 
 	public MerchantRecipe(ItemStack buy1, ItemStack buy2, ItemStack sell) {
-
 		this(buy1, buy2, sell, 0, 7);
 	}
 
 	public MerchantRecipe(ItemStack buy1, ItemStack buy2, ItemStack sell, int toolUsesIn, int maxTradeUsesIn) {
-
 		itemToBuy = ItemStack.EMPTY;
 		secondItemToBuy = ItemStack.EMPTY;
 		itemToSell = ItemStack.EMPTY;
@@ -59,12 +56,10 @@ public class MerchantRecipe {
 	}
 
 	public MerchantRecipe(ItemStack buy1, ItemStack sell) {
-
 		this(buy1, ItemStack.EMPTY, sell);
 	}
 
 	public MerchantRecipe(ItemStack buy1, Item sellItem) {
-
 		this(buy1, new ItemStack(sellItem));
 	}
 
@@ -72,7 +67,6 @@ public class MerchantRecipe {
 	 * Gets the itemToBuy.
 	 */
 	public ItemStack getItemToBuy() {
-
 		return itemToBuy;
 	}
 
@@ -80,7 +74,6 @@ public class MerchantRecipe {
 	 * Gets secondItemToBuy.
 	 */
 	public ItemStack getSecondItemToBuy() {
-
 		return secondItemToBuy;
 	}
 
@@ -88,7 +81,6 @@ public class MerchantRecipe {
 	 * Gets if Villager has secondItemToBuy.
 	 */
 	public boolean hasSecondItemToBuy() {
-
 		return !secondItemToBuy.isEmpty();
 	}
 
@@ -96,32 +88,26 @@ public class MerchantRecipe {
 	 * Gets itemToSell.
 	 */
 	public ItemStack getItemToSell() {
-
 		return itemToSell;
 	}
 
 	public int getToolUses() {
-
 		return toolUses;
 	}
 
 	public int getMaxTradeUses() {
-
 		return maxTradeUses;
 	}
 
 	public void incrementToolUses() {
-
 		++toolUses;
 	}
 
 	public void increaseMaxTradeUses(int increment) {
-
 		maxTradeUses += increment;
 	}
 
 	public boolean isRecipeDisabled() {
-
 		return toolUses >= maxTradeUses;
 	}
 
@@ -130,17 +116,14 @@ public class MerchantRecipe {
 	 * net.minecraft.village.MerchantRecipe#maxTradeUses maxTradeUses}
 	 */
 	public void compensateToolUses() {
-
 		toolUses = maxTradeUses;
 	}
 
 	public boolean getRewardsExp() {
-
 		return rewardsExp;
 	}
 
 	public void readFromTags(NBTTagCompound tagCompound) {
-
 		NBTTagCompound nbttagcompound = tagCompound.getCompoundTag("buy");
 		itemToBuy = new ItemStack(nbttagcompound);
 		NBTTagCompound nbttagcompound1 = tagCompound.getCompoundTag("sell");
@@ -168,7 +151,6 @@ public class MerchantRecipe {
 	}
 
 	public NBTTagCompound writeToTags() {
-
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 		nbttagcompound.setTag("buy", itemToBuy.writeToNBT(new NBTTagCompound()));
 		nbttagcompound.setTag("sell", itemToSell.writeToNBT(new NBTTagCompound()));

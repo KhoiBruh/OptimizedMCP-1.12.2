@@ -121,7 +121,6 @@ public abstract class Biome {
 	protected List<Biome.SpawnListEntry> spawnableCaveCreatureList = Lists.newArrayList();
 
 	protected Biome(Biome.BiomeProperties properties) {
-
 		biomeName = properties.biomeName;
 		baseHeight = properties.baseHeight;
 		heightVariation = properties.heightVariation;
@@ -149,19 +148,16 @@ public abstract class Biome {
 	}
 
 	public static int getIdForBiome(Biome biome) {
-
 		return REGISTRY.getIDForObject(biome);
 	}
 
 	
 	public static Biome getBiomeForId(int id) {
-
 		return REGISTRY.getObjectById(id);
 	}
 
 	
 	public static Biome getMutationForBiome(Biome biome) {
-
 		return MUTATION_TO_BASE_ID_MAP.getByValue(getIdForBiome(biome));
 	}
 
@@ -171,12 +167,10 @@ public abstract class Biome {
 	 * return the biome specified by biomeID, or 0 (ocean) if out of bounds
 	 */
 	public static Biome getBiome(int id) {
-
 		return getBiome(id, null);
 	}
 
 	public static Biome getBiome(int biomeId, Biome fallback) {
-
 		Biome biome = getBiomeForId(biomeId);
 		return biome == null ? fallback : biome;
 	}
@@ -185,7 +179,6 @@ public abstract class Biome {
 	 * Registers all of the vanilla biomes.
 	 */
 	public static void registerBiomes() {
-
 		registerBiome(0, "ocean", new BiomeOcean((new Biome.BiomeProperties("Ocean")).setBaseHeight(-1F).setHeightVariation(0.1F)));
 		registerBiome(1, "plains", new BiomePlains(false, (new Biome.BiomeProperties("Plains")).setBaseHeight(0.125F).setHeightVariation(0.05F).setTemperature(0.8F).setRainfall(0.4F)));
 		registerBiome(2, "desert", new BiomeDesert((new Biome.BiomeProperties("Desert")).setBaseHeight(0.125F).setHeightVariation(0.05F).setTemperature(2F).setRainfall(0F).setRainDisabled()));
@@ -254,7 +247,6 @@ public abstract class Biome {
 	 * Registers a new biome into the registry.
 	 */
 	private static void registerBiome(int id, String name, Biome biome) {
-
 		REGISTRY.register(id, new ResourceLocation(name), biome);
 
 		if (biome.isMutation()) {
@@ -266,17 +258,14 @@ public abstract class Biome {
 	 * Allocate a new BiomeDecorator for this BiomeGenBase
 	 */
 	protected BiomeDecorator createBiomeDecorator() {
-
 		return new BiomeDecorator();
 	}
 
 	public boolean isMutation() {
-
 		return baseBiomeRegName != null;
 	}
 
 	public WorldGenAbstractTree getRandomTreeFeature(Random rand) {
-
 		return rand.nextInt(10) == 0 ? BIG_TREE_FEATURE : TREE_FEATURE;
 	}
 
@@ -284,7 +273,6 @@ public abstract class Biome {
 	 * Gets a WorldGen appropriate for this biome.
 	 */
 	public WorldGenerator getRandomWorldGenForGrass(Random rand) {
-
 		return new WorldGenTallGrass(BlockTallGrass.Type.GRASS);
 	}
 
@@ -297,7 +285,6 @@ public abstract class Biome {
 	 * takes temperature, returns color
 	 */
 	public int getSkyColorByTemp(float currentTemperature) {
-
 		currentTemperature = currentTemperature / 3F;
 		currentTemperature = MathHelper.clamp(currentTemperature, -1F, 1F);
 		return MathHelper.hsvToRGB(0.62222224F - currentTemperature * 0.05F, 0.5F + currentTemperature * 0.1F, 1F);
@@ -317,7 +304,6 @@ public abstract class Biome {
 	 * Returns true if the biome have snowfall instead a normal rain.
 	 */
 	public boolean getEnableSnow() {
-
 		return isSnowyBiome();
 	}
 
@@ -325,7 +311,6 @@ public abstract class Biome {
 	 * Check if rain can occur in biome
 	 */
 	public boolean canRain() {
-
 		return !isSnowyBiome() && enableRain;
 	}
 
@@ -333,7 +318,6 @@ public abstract class Biome {
 	 * Checks to see if the rainfall level of the biome is extremely high
 	 */
 	public boolean isHighHumidity() {
-
 		return getRainfall() > 0.85F;
 	}
 
@@ -341,7 +325,6 @@ public abstract class Biome {
 	 * returns the chance a creature has to spawn.
 	 */
 	public float getSpawningChance() {
-
 		return 0.1F;
 	}
 
@@ -350,7 +333,6 @@ public abstract class Biome {
 	 * position, and {@linkplain #TEMPERATURE_NOISE} some random perlin noise.
 	 */
 	public final float getTemperature(BlockPos pos) {
-
 		if (pos.getY() > 64) {
 			float f = (float) (TEMPERATURE_NOISE.getValue((float) pos.getX() / 8F, (float) pos.getZ() / 8F) * 4D);
 			return getDefaultTemperature() - (f + (float) pos.getY() - 64F) * 0.05F / 30F;
@@ -360,26 +342,22 @@ public abstract class Biome {
 	}
 
 	public void decorate(World worldIn, Random rand, BlockPos pos) {
-
 		decorator.decorate(worldIn, rand, this, pos);
 	}
 
 	public int getGrassColorAtPos(BlockPos pos) {
-
 		double d0 = MathHelper.clamp(getTemperature(pos), 0F, 1F);
 		double d1 = MathHelper.clamp(getRainfall(), 0F, 1F);
 		return ColorizerGrass.getGrassColor(d0, d1);
 	}
 
 	public int getFoliageColorAtPos(BlockPos pos) {
-
 		double d0 = MathHelper.clamp(getTemperature(pos), 0F, 1F);
 		double d1 = MathHelper.clamp(getRainfall(), 0F, 1F);
 		return ColorizerFoliage.getFoliageColor(d0, d1);
 	}
 
 	public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
-
 		generateBiomeTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
 	}
 
@@ -394,7 +372,6 @@ public abstract class Biome {
 	 * If this.fillerBlock is red sand, we replace some of that with red sandstone.
 	 */
 	public final void generateBiomeTerrain(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
-
 		int i = worldIn.getSeaLevel();
 		IBlockState iblockstate = topBlock;
 		IBlockState iblockstate1 = fillerBlock;
@@ -470,12 +447,10 @@ public abstract class Biome {
 	}
 
 	public boolean ignorePlayerSpawnSuitability() {
-
 		return false;
 	}
 
 	public final float getBaseHeight() {
-
 		return baseHeight;
 	}
 
@@ -483,17 +458,14 @@ public abstract class Biome {
 	 * Gets a floating point representation of this biome's rainfall
 	 */
 	public final float getRainfall() {
-
 		return rainfall;
 	}
 
 	public final String getBiomeName() {
-
 		return biomeName;
 	}
 
 	public final float getHeightVariation() {
-
 		return heightVariation;
 	}
 
@@ -501,17 +473,14 @@ public abstract class Biome {
 	 * Gets the constant default temperature for this biome.
 	 */
 	public final float getDefaultTemperature() {
-
 		return temperature;
 	}
 
 	public final int getWaterColor() {
-
 		return waterColor;
 	}
 
 	public final boolean isSnowyBiome() {
-
 		return enableSnow;
 	}
 
@@ -537,7 +506,6 @@ public abstract class Biome {
 		private String baseBiomeRegName;
 
 		public BiomeProperties(String nameIn) {
-
 			biomeName = nameIn;
 		}
 
@@ -602,7 +570,6 @@ public abstract class Biome {
 		public int maxGroupCount;
 
 		public SpawnListEntry(Class<? extends EntityLiving> entityclassIn, int weight, int groupCountMin, int groupCountMax) {
-
 			super(weight);
 			entityClass = entityclassIn;
 			minGroupCount = groupCountMin;
@@ -610,7 +577,6 @@ public abstract class Biome {
 		}
 
 		public String toString() {
-
 			return entityClass.getSimpleName() + "*(" + minGroupCount + "-" + maxGroupCount + "):" + itemWeight;
 		}
 

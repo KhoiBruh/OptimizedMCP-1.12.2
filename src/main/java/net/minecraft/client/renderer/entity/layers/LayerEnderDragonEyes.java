@@ -13,12 +13,10 @@ public class LayerEnderDragonEyes implements LayerRenderer<EntityDragon> {
 	private final RenderDragon dragonRenderer;
 
 	public LayerEnderDragonEyes(RenderDragon dragonRendererIn) {
-
 		dragonRenderer = dragonRendererIn;
 	}
 
 	public void doRenderLayer(EntityDragon entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		dragonRenderer.bindTexture(TEXTURE);
 		GLS.enableBlend();
 		GLS.disableAlpha();
@@ -41,7 +39,6 @@ public class LayerEnderDragonEyes implements LayerRenderer<EntityDragon> {
 	}
 
 	public boolean shouldCombineTextures() {
-
 		return false;
 	}
 

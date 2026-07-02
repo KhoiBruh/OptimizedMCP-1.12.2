@@ -44,11 +44,9 @@ public class Cartesian {
 	static class GetList<T> implements Function<Object[], List<T>> {
 
 		private GetList() {
-
 		}
 
 		public List<T> apply(Object[] p_apply_1_) {
-
 			return Arrays.asList((T[]) p_apply_1_);
 		}
 
@@ -60,13 +58,11 @@ public class Cartesian {
 		private final Iterable<? extends T>[] iterables;
 
 		private Product(Class<T> clazz, Iterable<? extends T>[] iterables) {
-
 			this.clazz = clazz;
 			this.iterables = iterables;
 		}
 
 		public Iterator<T[]> iterator() {
-
 			return iterables.length == 0 ? Collections.singletonList(Cartesian.createArray(clazz, 0)).iterator() : new ProductIterator<>(clazz, iterables);
 		}
 
@@ -78,7 +74,6 @@ public class Cartesian {
 			private int index;
 
 			private ProductIterator(Class<T> clazz, Iterable<? extends T>[] iterables) {
-
 				index = -2;
 				this.iterables = iterables;
 				iterators = Cartesian.createArray(Iterator.class, this.iterables.length);
@@ -91,14 +86,12 @@ public class Cartesian {
 			}
 
 			private void endOfData() {
-
 				index = -1;
 				Arrays.fill(iterators, null);
 				Arrays.fill(results, null);
 			}
 
 			public boolean hasNext() {
-
 				if (index == -2) {
 					index = 0;
 
@@ -139,7 +132,6 @@ public class Cartesian {
 			}
 
 			public T[] next() {
-
 				if (!hasNext()) {
 					throw new NoSuchElementException();
 				} else {

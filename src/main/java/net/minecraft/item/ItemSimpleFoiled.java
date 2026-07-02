@@ -11,7 +11,6 @@ public class ItemSimpleFoiled extends Item {
 	 * the glint for enchanted items. Of course, that is unnecessary if the overwritten version always returns true.
 	 */
 	public boolean hasEffect(ItemStack stack) {
-
 		return true;
 	}
 

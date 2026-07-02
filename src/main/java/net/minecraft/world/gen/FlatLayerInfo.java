@@ -16,19 +16,16 @@ public class FlatLayerInfo {
 	private int layerMinimumY;
 
 	public FlatLayerInfo(int p_i45467_1_, Block layerMaterialIn) {
-
 		this(3, p_i45467_1_, layerMaterialIn);
 	}
 
 	public FlatLayerInfo(int p_i45627_1_, int height, Block layerMaterialIn) {
-
 		version = p_i45627_1_;
 		layerCount = height;
 		layerMaterial = layerMaterialIn.getDefaultState();
 	}
 
 	public FlatLayerInfo(int p_i45628_1_, int p_i45628_2_, Block layerMaterialIn, int p_i45628_4_) {
-
 		this(p_i45628_1_, p_i45628_2_, layerMaterialIn);
 		layerMaterial = layerMaterialIn.getStateFromMeta(p_i45628_4_);
 	}
@@ -37,17 +34,14 @@ public class FlatLayerInfo {
 	 * Return the amount of layers for this set of layers.
 	 */
 	public int getLayerCount() {
-
 		return layerCount;
 	}
 
 	public IBlockState getLayerMaterial() {
-
 		return layerMaterial;
 	}
 
 	private Block getLayerMaterialBlock() {
-
 		return layerMaterial.getBlock();
 	}
 
@@ -55,7 +49,6 @@ public class FlatLayerInfo {
 	 * Return the block metadata used on this set of layers.
 	 */
 	private int getFillBlockMeta() {
-
 		return layerMaterial.getBlock().getMetaFromState(layerMaterial);
 	}
 
@@ -63,7 +56,6 @@ public class FlatLayerInfo {
 	 * Return the minimum Y coordinate for this layer, set during generation.
 	 */
 	public int getMinY() {
-
 		return layerMinimumY;
 	}
 
@@ -71,12 +63,10 @@ public class FlatLayerInfo {
 	 * Set the minimum Y coordinate for this layer.
 	 */
 	public void setMinY(int minY) {
-
 		layerMinimumY = minY;
 	}
 
 	public String toString() {
-
 		String s;
 
 		if (version >= 3) {

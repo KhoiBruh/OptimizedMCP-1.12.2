@@ -65,7 +65,6 @@ public class ActiveRenderInfo {
 	 * Updates the current render info and camera location based on entity look angles and 1st/3rd person view mode
 	 */
 	public static void updateRenderInfo(EntityPlayer entityplayerIn, boolean p_74583_1_) {
-
 		GLS.getFloat(2982, MODELVIEW);
 		GLS.getFloat(2983, PROJECTION);
 		GLS.getInteger(2978, VIEWPORT);
@@ -84,7 +83,6 @@ public class ActiveRenderInfo {
 	}
 
 	public static Vec3d projectViewFromEntity(Entity entityIn, double p_178806_1_) {
-
 		double d0 = entityIn.prevPosX + (entityIn.posX - entityIn.prevPosX) * p_178806_1_;
 		double d1 = entityIn.prevPosY + (entityIn.posY - entityIn.prevPosY) * p_178806_1_;
 		double d2 = entityIn.prevPosZ + (entityIn.posZ - entityIn.prevPosZ) * p_178806_1_;
@@ -95,7 +93,6 @@ public class ActiveRenderInfo {
 	}
 
 	public static IBlockState getBlockStateAtEntityViewpoint(World worldIn, Entity entityIn, float p_186703_2_) {
-
 		Vec3d vec3d = projectViewFromEntity(entityIn, p_186703_2_);
 		BlockPos blockpos = new BlockPos(vec3d);
 		IBlockState iblockstate = worldIn.getBlockState(blockpos);
@@ -118,27 +115,22 @@ public class ActiveRenderInfo {
 	}
 
 	public static float getRotationX() {
-
 		return rotationX;
 	}
 
 	public static float getRotationXZ() {
-
 		return rotationXZ;
 	}
 
 	public static float getRotationZ() {
-
 		return rotationZ;
 	}
 
 	public static float getRotationYZ() {
-
 		return rotationYZ;
 	}
 
 	public static float getRotationXY() {
-
 		return rotationXY;
 	}
 

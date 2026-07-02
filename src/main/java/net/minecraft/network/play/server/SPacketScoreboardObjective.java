@@ -14,11 +14,9 @@ public class SPacketScoreboardObjective implements Packet<INetHandlerPlayClient>
 	private int action;
 
 	public SPacketScoreboardObjective() {
-
 	}
 
 	public SPacketScoreboardObjective(ScoreObjective objective, int actionIn) {
-
 		objectiveName = objective.getName();
 		objectiveValue = objective.getDisplayName();
 		type = objective.getCriteria().getRenderType();
@@ -29,7 +27,6 @@ public class SPacketScoreboardObjective implements Packet<INetHandlerPlayClient>
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		objectiveName = buf.readString(16);
 		action = buf.readByte();
 
@@ -43,7 +40,6 @@ public class SPacketScoreboardObjective implements Packet<INetHandlerPlayClient>
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeString(objectiveName);
 		buf.writeByte(action);
 
@@ -57,22 +53,18 @@ public class SPacketScoreboardObjective implements Packet<INetHandlerPlayClient>
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleScoreboardObjective(this);
 	}
 
 	public String getObjectiveName() {
-
 		return objectiveName;
 	}
 
 	public String getObjectiveValue() {
-
 		return objectiveValue;
 	}
 
 	public int getAction() {
-
 		return action;
 	}
 

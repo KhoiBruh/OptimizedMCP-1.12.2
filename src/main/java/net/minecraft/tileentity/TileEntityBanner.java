@@ -36,7 +36,6 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable {
 	 * Retrieves the amount of patterns stored on an ItemStack. If the tag does not exist this value will be 0.
 	 */
 	public static int getPatterns(ItemStack stack) {
-
 		NBTTagCompound nbttagcompound = stack.getSubCompound("BlockEntityTag");
 		return nbttagcompound != null && nbttagcompound.hasKey("Patterns") ? nbttagcompound.getTagList("Patterns", 10).tagCount() : 0;
 	}
@@ -45,7 +44,6 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable {
 	 * Removes all the banner related data from a provided instance of ItemStack.
 	 */
 	public static void removeBannerData(ItemStack stack) {
-
 		NBTTagCompound nbttagcompound = stack.getSubCompound("BlockEntityTag");
 
 		if (nbttagcompound != null && nbttagcompound.hasKey("Patterns", 9)) {
@@ -66,13 +64,11 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable {
 	}
 
 	public static DyeColor getColor(ItemStack p_190616_0_) {
-
 		NBTTagCompound nbttagcompound = p_190616_0_.getSubCompound("BlockEntityTag");
 		return nbttagcompound != null && nbttagcompound.hasKey("Base") ? DyeColor.byDyeDamage(nbttagcompound.getInteger("Base")) : DyeColor.BLACK;
 	}
 
 	public void setItemValues(ItemStack stack, boolean p_175112_2_) {
-
 		patterns = null;
 		NBTTagCompound nbttagcompound = stack.getSubCompound("BlockEntityTag");
 
@@ -92,7 +88,6 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable {
 	 * Get the name of this object. For players this returns their username
 	 */
 	public String getName() {
-
 		return hasCustomName() ? name : "banner";
 	}
 
@@ -100,7 +95,6 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable {
 	 * Returns true if this thing is named
 	 */
 	public boolean hasCustomName() {
-
 		return name != null && !name.isEmpty();
 	}
 
@@ -108,12 +102,10 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable {
 	 * Get the formatted ChatComponent that will be used for the sender's username in chat
 	 */
 	public ITextComponent displayName() {
-
 		return hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName());
 	}
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
 		super.writeToNBT(compound);
 		compound.setInteger("Base", baseColor.getDyeDamage());
 
@@ -129,7 +121,6 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable {
 	}
 
 	public void readFromNBT(NBTTagCompound compound) {
-
 		super.readFromNBT(compound);
 
 		if (compound.hasKey("CustomName", 8)) {
@@ -146,29 +137,24 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable {
 
 	
 	public SPacketUpdateTileEntity getUpdatePacket() {
-
 		return new SPacketUpdateTileEntity(pos, 6, getUpdateTag());
 	}
 
 	public NBTTagCompound getUpdateTag() {
-
 		return writeToNBT(new NBTTagCompound());
 	}
 
 	public List<BannerPattern> getPatternList() {
-
 		initializeBannerData();
 		return patternList;
 	}
 
 	public List<DyeColor> getColorList() {
-
 		initializeBannerData();
 		return colorList;
 	}
 
 	public String getPatternResourceLocation() {
-
 		initializeBannerData();
 		return patternResourceLocation;
 	}
@@ -178,7 +164,6 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable {
 	 * tag compounds.
 	 */
 	private void initializeBannerData() {
-
 		if (patternList == null || colorList == null || patternResourceLocation == null) {
 			if (!patternDataSet) {
 				patternResourceLocation = "";
@@ -207,7 +192,6 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable {
 	}
 
 	public ItemStack getItem() {
-
 		ItemStack itemstack = ItemBanner.makeBanner(baseColor, patterns);
 
 		if (hasCustomName()) {

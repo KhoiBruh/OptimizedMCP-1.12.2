@@ -13,13 +13,11 @@ public class NettyCompressionEncoder extends MessageToByteEncoder<ByteBuf> {
 	private int threshold;
 
 	public NettyCompressionEncoder(int thresholdIn) {
-
 		threshold = thresholdIn;
 		deflater = new Deflater();
 	}
 
 	protected void encode(ChannelHandlerContext p_encode_1_, ByteBuf p_encode_2_, ByteBuf p_encode_3_) {
-
 		int i = p_encode_2_.readableBytes();
 		PacketBuffer packetbuffer = new PacketBuffer(p_encode_3_);
 
@@ -43,7 +41,6 @@ public class NettyCompressionEncoder extends MessageToByteEncoder<ByteBuf> {
 	}
 
 	public void setCompressionThreshold(int thresholdIn) {
-
 		threshold = thresholdIn;
 	}
 

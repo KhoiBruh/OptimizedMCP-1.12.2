@@ -74,7 +74,6 @@ public class Particle {
 	private AxisAlignedBB boundingBox;
 
 	protected Particle(World worldIn, double posXIn, double posYIn, double posZIn) {
-
 		boundingBox = EMPTY_AABB;
 		width = 0.6F;
 		height = 1.8F;
@@ -98,7 +97,6 @@ public class Particle {
 	}
 
 	public Particle(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
-
 		this(worldIn, xCoordIn, yCoordIn, zCoordIn);
 		motionX = xSpeedIn + (Math.random() * 2D - 1D) * 0.4000000059604645D;
 		motionY = ySpeedIn + (Math.random() * 2D - 1D) * 0.4000000059604645D;
@@ -111,7 +109,6 @@ public class Particle {
 	}
 
 	public Particle multiplyVelocity(float multiplier) {
-
 		motionX *= multiplier;
 		motionY = (motionY - 0.10000000149011612D) * (double) multiplier + 0.10000000149011612D;
 		motionZ *= multiplier;
@@ -119,14 +116,12 @@ public class Particle {
 	}
 
 	public Particle multipleParticleScaleBy(float scale) {
-
 		setSize(0.2F * scale, 0.2F * scale);
 		particleScale *= scale;
 		return this;
 	}
 
 	public void setRBGColorF(float particleRedIn, float particleGreenIn, float particleBlueIn) {
-
 		particleRed = particleRedIn;
 		particleGreen = particleGreenIn;
 		particleBlue = particleBlueIn;
@@ -136,37 +131,30 @@ public class Particle {
 	 * Sets the particle alpha (float)
 	 */
 	public void setAlphaF(float alpha) {
-
 		particleAlpha = alpha;
 	}
 
 	public boolean shouldDisableDepth() {
-
 		return false;
 	}
 
 	public float getRedColorF() {
-
 		return particleRed;
 	}
 
 	public float getGreenColorF() {
-
 		return particleGreen;
 	}
 
 	public float getBlueColorF() {
-
 		return particleBlue;
 	}
 
 	public void setMaxAge(int p_187114_1_) {
-
 		particleMaxAge = p_187114_1_;
 	}
 
 	public void onUpdate() {
-
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
@@ -191,7 +179,6 @@ public class Particle {
 	 * Renders the particle
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-
 		float f = (float) particleTextureIndexX / 16F;
 		float f1 = f + 0.0624375F;
 		float f2 = (float) particleTextureIndexY / 16F;
@@ -237,7 +224,6 @@ public class Particle {
 	 * 1 for the main Texture atlas, and 3 for a custom texture
 	 */
 	public int getFXLayer() {
-
 		return 0;
 	}
 
@@ -245,7 +231,6 @@ public class Particle {
 	 * Sets the texture used by the particle.
 	 */
 	public void setParticleTexture(TextureAtlasSprite texture) {
-
 		int i = getFXLayer();
 
 		if (i == 1) {
@@ -259,7 +244,6 @@ public class Particle {
 	 * Public method to set private field particleTextureIndex.
 	 */
 	public void setParticleTextureIndex(int particleTextureIndex) {
-
 		if (getFXLayer() != 0) {
 			throw new RuntimeException("Invalid call to Particle.setMiscTex");
 		} else {
@@ -269,12 +253,10 @@ public class Particle {
 	}
 
 	public void nextTextureIndexX() {
-
 		++particleTextureIndexX;
 	}
 
 	public String toString() {
-
 		return getClass().getSimpleName() + ", Pos (" + posX + "," + posY + "," + posZ + "), RGBA (" + particleRed + "," + particleGreen + "," + particleBlue + "," + particleAlpha + "), Age " + particleAge;
 	}
 
@@ -282,12 +264,10 @@ public class Particle {
 	 * Called to indicate that this particle effect has expired and should be discontinued.
 	 */
 	public void setExpired() {
-
 		isExpired = true;
 	}
 
 	protected void setSize(float p_187115_1_, float p_187115_2_) {
-
 		if (p_187115_1_ != width || p_187115_2_ != height) {
 			width = p_187115_1_;
 			height = p_187115_2_;
@@ -297,7 +277,6 @@ public class Particle {
 	}
 
 	public void setPosition(double p_187109_1_, double p_187109_3_, double p_187109_5_) {
-
 		posX = p_187109_1_;
 		posY = p_187109_3_;
 		posZ = p_187109_5_;
@@ -307,7 +286,6 @@ public class Particle {
 	}
 
 	public void move(double x, double y, double z) {
-
 		double d0 = y;
 
 		if (canCollide) {
@@ -347,7 +325,6 @@ public class Particle {
 	}
 
 	protected void resetPositionToBB() {
-
 		AxisAlignedBB axisalignedbb = getBoundingBox();
 		posX = (axisalignedbb.minX + axisalignedbb.maxX) / 2D;
 		posY = axisalignedbb.minY;
@@ -355,7 +332,6 @@ public class Particle {
 	}
 
 	public int getBrightnessForRender(float p_189214_1_) {
-
 		BlockPos blockpos = new BlockPos(posX, posY, posZ);
 		return world.isBlockLoaded(blockpos) ? world.getCombinedLight(blockpos, 0) : 0;
 	}
@@ -364,17 +340,14 @@ public class Particle {
 	 * Returns true if this effect has not yet expired. "I feel happy! I feel happy!"
 	 */
 	public boolean isAlive() {
-
 		return !isExpired;
 	}
 
 	public AxisAlignedBB getBoundingBox() {
-
 		return boundingBox;
 	}
 
 	public void setBoundingBox(AxisAlignedBB bb) {
-
 		boundingBox = bb;
 	}
 

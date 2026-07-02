@@ -15,7 +15,6 @@ public class BlockRedstoneLight extends Block {
 	private final boolean isOn;
 
 	public BlockRedstoneLight(boolean isOn) {
-
 		super(Material.REDSTONE_LIGHT);
 		this.isOn = isOn;
 
@@ -28,7 +27,6 @@ public class BlockRedstoneLight extends Block {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (!worldIn.isRemote) {
 			if (isOn && !worldIn.isBlockPowered(pos)) {
 				worldIn.setBlockState(pos, Blocks.REDSTONE_LAMP.getDefaultState(), 2);
@@ -44,7 +42,6 @@ public class BlockRedstoneLight extends Block {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		if (!worldIn.isRemote) {
 			if (isOn && !worldIn.isBlockPowered(pos)) {
 				worldIn.scheduleUpdate(pos, this, 4);
@@ -55,7 +52,6 @@ public class BlockRedstoneLight extends Block {
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-
 		if (!worldIn.isRemote) {
 			if (isOn && !worldIn.isBlockPowered(pos)) {
 				worldIn.setBlockState(pos, Blocks.REDSTONE_LAMP.getDefaultState(), 2);
@@ -67,17 +63,14 @@ public class BlockRedstoneLight extends Block {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-
 		return Item.getItemFromBlock(Blocks.REDSTONE_LAMP);
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-
 		return new ItemStack(Blocks.REDSTONE_LAMP);
 	}
 
 	protected ItemStack getSilkTouchDrop(IBlockState state) {
-
 		return new ItemStack(Blocks.REDSTONE_LAMP);
 	}
 

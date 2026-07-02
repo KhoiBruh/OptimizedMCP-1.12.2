@@ -25,7 +25,6 @@ public class BlockSponge extends Block {
 	public static final PropertyBool WET = PropertyBool.create("wet");
 
 	protected BlockSponge() {
-
 		super(Material.SPONGE);
 		setDefaultState(blockState.getBaseState().withProperty(WET, false));
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
@@ -35,7 +34,6 @@ public class BlockSponge extends Block {
 	 * Gets the localized name of this block. Used for the statistics page.
 	 */
 	public String getLocalizedName() {
-
 		return I18n.translateToLocal(getUnlocalizedName() + ".dry.name");
 	}
 
@@ -44,7 +42,6 @@ public class BlockSponge extends Block {
 	 * returns the metadata of the dropped item based on the old metadata of the block.
 	 */
 	public int damageDropped(IBlockState state) {
-
 		return state.getValue(WET) ? 1 : 0;
 	}
 
@@ -52,7 +49,6 @@ public class BlockSponge extends Block {
 	 * Called after the block is set in the Chunk data, but before the Tile Entity is set
 	 */
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-
 		tryAbsorb(worldIn, pos, state);
 	}
 
@@ -62,13 +58,11 @@ public class BlockSponge extends Block {
 	 * block, etc.
 	 */
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-
 		tryAbsorb(worldIn, pos, state);
 		super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
 	}
 
 	protected void tryAbsorb(World worldIn, BlockPos pos, IBlockState state) {
-
 		if (!state.getValue(WET) && absorb(worldIn, pos)) {
 			worldIn.setBlockState(pos, state.withProperty(WET, true), 2);
 			worldIn.playEvent(2001, pos, Block.getIdFromBlock(Blocks.WATER));
@@ -76,7 +70,6 @@ public class BlockSponge extends Block {
 	}
 
 	private boolean absorb(World worldIn, BlockPos pos) {
-
 		Queue<Tuple<BlockPos, Integer>> queue = Lists.newLinkedList();
 		List<BlockPos> list = Lists.newArrayList();
 		queue.add(new Tuple<>(pos, 0));
@@ -117,7 +110,6 @@ public class BlockSponge extends Block {
 	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-
 		items.add(new ItemStack(this, 1, 0));
 		items.add(new ItemStack(this, 1, 1));
 	}
@@ -126,7 +118,6 @@ public class BlockSponge extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-
 		return getDefaultState().withProperty(WET, (meta & 1) == 1);
 	}
 
@@ -134,17 +125,14 @@ public class BlockSponge extends Block {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-
 		return state.getValue(WET) ? 1 : 0;
 	}
 
 	protected BlockStateContainer createBlockState() {
-
 		return new BlockStateContainer(this, WET);
 	}
 
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-
 		if (stateIn.getValue(WET)) {
 			Facing enumfacing = Facing.random(rand);
 

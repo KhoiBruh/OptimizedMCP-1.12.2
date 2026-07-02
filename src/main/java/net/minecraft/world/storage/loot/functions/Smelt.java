@@ -18,12 +18,10 @@ public class Smelt extends LootFunction {
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	public Smelt(LootCondition[] conditionsIn) {
-
 		super(conditionsIn);
 	}
 
 	public ItemStack apply(ItemStack stack, Random rand, LootContext context) {
-
 		if (stack.isEmpty()) {
 			return stack;
 		} else {
@@ -43,16 +41,13 @@ public class Smelt extends LootFunction {
 	public static class Serializer extends LootFunction.Serializer<Smelt> {
 
 		protected Serializer() {
-
 			super(new ResourceLocation("furnace_smelt"), Smelt.class);
 		}
 
 		public void serialize(JsonObject object, Smelt functionClazz, JsonSerializationContext serializationContext) {
-
 		}
 
 		public Smelt deserialize(JsonObject object, JsonDeserializationContext deserializationContext, LootCondition[] conditionsIn) {
-
 			return new Smelt(conditionsIn);
 		}
 

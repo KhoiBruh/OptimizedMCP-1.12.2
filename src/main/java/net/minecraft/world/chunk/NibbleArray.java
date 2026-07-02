@@ -5,14 +5,11 @@ package net.minecraft.world.chunk;
  *             pieces.
  */
 public record NibbleArray(byte[] data) {
-
 	public NibbleArray() {
-
 		this(new byte[2048]);
 	}
 
 	public NibbleArray(byte[] data) {
-
 		this.data = data;
 
 		if (data.length != 2048) {
@@ -24,7 +21,6 @@ public record NibbleArray(byte[] data) {
 	 * Returns the nibble of data corresponding to the passed in x, y, z. y is at most 6 bits, z is at most 4.
 	 */
 	public int get(int x, int y, int z) {
-
 		return getFromIndex(getCoordinateIndex(x, y, z));
 	}
 
@@ -32,23 +28,19 @@ public record NibbleArray(byte[] data) {
 	 * Arguments are x, y, z, val. Sets the nibble of data at x << 11 | z << 7 | y to val.
 	 */
 	public void set(int x, int y, int z, int value) {
-
 		setIndex(getCoordinateIndex(x, y, z), value);
 	}
 
 	private int getCoordinateIndex(int x, int y, int z) {
-
 		return y << 8 | z << 4 | x;
 	}
 
 	public int getFromIndex(int index) {
-
 		int i = getNibbleIndex(index);
 		return isLowerNibble(index) ? data[i] & 15 : data[i] >> 4 & 15;
 	}
 
 	public void setIndex(int index, int value) {
-
 		int i = getNibbleIndex(index);
 
 		if (isLowerNibble(index)) {
@@ -59,12 +51,10 @@ public record NibbleArray(byte[] data) {
 	}
 
 	private boolean isLowerNibble(int index) {
-
 		return (index & 1) == 0;
 	}
 
 	private int getNibbleIndex(int index) {
-
 		return index >> 1;
 	}
 

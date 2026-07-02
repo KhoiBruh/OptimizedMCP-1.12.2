@@ -9,11 +9,9 @@ public class CPacketHeldItemChange implements Packet<INetHandlerPlayServer> {
 	private int slotId;
 
 	public CPacketHeldItemChange() {
-
 	}
 
 	public CPacketHeldItemChange(int slotIdIn) {
-
 		slotId = slotIdIn;
 	}
 
@@ -21,7 +19,6 @@ public class CPacketHeldItemChange implements Packet<INetHandlerPlayServer> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		slotId = buf.readShort();
 	}
 
@@ -29,7 +26,6 @@ public class CPacketHeldItemChange implements Packet<INetHandlerPlayServer> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeShort(slotId);
 	}
 
@@ -37,12 +33,10 @@ public class CPacketHeldItemChange implements Packet<INetHandlerPlayServer> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayServer handler) {
-
 		handler.processHeldItemChange(this);
 	}
 
 	public int getSlotId() {
-
 		return slotId;
 	}
 

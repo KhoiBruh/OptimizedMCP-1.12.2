@@ -17,7 +17,6 @@ public abstract class InventoryEffectRenderer extends ContainerScreen {
 	protected boolean hasActivePotionEffects;
 
 	public InventoryEffectRenderer(Container inventorySlotsIn) {
-
 		super(inventorySlotsIn);
 	}
 
@@ -26,13 +25,11 @@ public abstract class InventoryEffectRenderer extends ContainerScreen {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-
 		super.init();
 		updateActivePotionEffects();
 	}
 
 	protected void updateActivePotionEffects() {
-
 		if (mc.player.getActivePotionEffects().isEmpty()) {
 			guiLeft = (width - xSize) / 2;
 			hasActivePotionEffects = false;
@@ -46,7 +43,6 @@ public abstract class InventoryEffectRenderer extends ContainerScreen {
 	 * Draws the screen and all the components in it.
 	 */
 	public void draw(int mouseX, int mouseY, float partialTicks) {
-
 		super.draw(mouseX, mouseY, partialTicks);
 
 		if (hasActivePotionEffects) {
@@ -58,7 +54,6 @@ public abstract class InventoryEffectRenderer extends ContainerScreen {
 	 * Display the potion effects list
 	 */
 	private void drawActivePotionEffects() {
-
 		int i = guiLeft - 124;
 		int j = guiTop;
 		int k = 166;

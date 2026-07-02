@@ -13,12 +13,10 @@ public class LayerSnowmanHead implements LayerRenderer<EntitySnowman> {
 	private final RenderSnowMan snowManRenderer;
 
 	public LayerSnowmanHead(RenderSnowMan snowManRendererIn) {
-
 		snowManRenderer = snowManRendererIn;
 	}
 
 	public void doRenderLayer(EntitySnowman entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
 		if (!entitylivingbaseIn.isInvisible() && entitylivingbaseIn.isPumpkinEquipped()) {
 			GLS.pushMatrix();
 			snowManRenderer.getMainModel().head.postRender(0.0625F);
@@ -32,7 +30,6 @@ public class LayerSnowmanHead implements LayerRenderer<EntitySnowman> {
 	}
 
 	public boolean shouldCombineTextures() {
-
 		return true;
 	}
 

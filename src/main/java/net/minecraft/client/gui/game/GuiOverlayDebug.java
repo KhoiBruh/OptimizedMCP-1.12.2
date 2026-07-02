@@ -49,7 +49,6 @@ public class GuiOverlayDebug extends Gui {
 	private final String version;
 
 	public GuiOverlayDebug(Minecraft mc) {
-
 		this.mc = mc;
 		fontRenderer = mc.fontRenderer;
 		vendor = GLS.getString(GL11.GL_VENDOR);
@@ -58,12 +57,10 @@ public class GuiOverlayDebug extends Gui {
 	}
 
 	private static long bytesToMb(long bytes) {
-
 		return bytes / 1024L / 1024L;
 	}
 
 	private static String getFacingDescription(Facing facing) {
-
 		return switch (facing) {
 			case NORTH -> "Towards negative Z";
 			case SOUTH -> "Towards positive Z";
@@ -74,7 +71,6 @@ public class GuiOverlayDebug extends Gui {
 	}
 
 	private static String formatProperty(IProperty<?> property, Comparable<?> value) {
-
 		String valueName = getPropertyValueName(property, value);
 
 		if (Boolean.TRUE.equals(value)) {
@@ -88,17 +84,14 @@ public class GuiOverlayDebug extends Gui {
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	private static String getPropertyValueName(IProperty property, Comparable value) {
-
 		return property.getName(value);
 	}
 
 	private static int getFrameColor(int value, int warningValue, int maxValue) {
-
 		return value < warningValue ? blendColors(FRAME_COLOR_FAST, FRAME_COLOR_MEDIUM, (float) value / (float) warningValue) : blendColors(FRAME_COLOR_MEDIUM, FRAME_COLOR_SLOW, (float) (value - warningValue) / (float) (maxValue - warningValue));
 	}
 
 	private static int blendColors(int firstColor, int secondColor, float ratio) {
-
 		int firstAlpha = firstColor >> 24 & 255;
 		int firstRed = firstColor >> 16 & 255;
 		int firstGreen = firstColor >> 8 & 255;
@@ -115,7 +108,6 @@ public class GuiOverlayDebug extends Gui {
 	}
 
 	public void renderDebugInfo() {
-
 		mc.profiler.startSection("debug");
 		try {
 			GLS.pushMatrix();
@@ -135,7 +127,6 @@ public class GuiOverlayDebug extends Gui {
 	}
 
 	protected void renderDebugInfoLeft() {
-
 		List<String> list = call();
 		list.add("");
 		list.add("Debug: Pie [shift]: " + (mc.gameSettings.showDebugProfilerChart ? "visible" : "hidden") + " FPS [alt]: " + (mc.gameSettings.showLagometer ? "visible" : "hidden"));
@@ -144,12 +135,10 @@ public class GuiOverlayDebug extends Gui {
 	}
 
 	protected void renderDebugInfoRight() {
-
 		drawDebugText(getDebugInfoRight(), mc.getWindow().getScaledWidth() - DEBUG_MARGIN, true);
 	}
 
 	private void drawDebugText(List<String> lines, int xAnchor, boolean alignRight) {
-
 		for (int i = 0; i < lines.size(); ++i) {
 			String line = lines.get(i);
 
@@ -165,12 +154,10 @@ public class GuiOverlayDebug extends Gui {
 	}
 
 	protected List<String> call() {
-
 		return getDebugInfoLeft();
 	}
 
 	protected List<String> getDebugInfoLeft() {
-
 		Entity entity = mc.getRenderViewEntity();
 		BlockPos blockpos = new BlockPos(entity.posX, entity.getEntityBoundingBox().minY, entity.posZ);
 
@@ -230,7 +217,6 @@ public class GuiOverlayDebug extends Gui {
 	}
 
 	private List<String> getDebugInfoHeader(boolean includeVersionType) {
-
 		return Lists.newArrayList(
 				getVersionLine(includeVersionType),
 				mc.debug,
@@ -242,13 +228,11 @@ public class GuiOverlayDebug extends Gui {
 	}
 
 	private String getVersionLine(boolean includeVersionType) {
-
 		String versionType = includeVersionType && !"release".equalsIgnoreCase(mc.getVersionType()) ? "/" + mc.getVersionType() : "";
 		return "Minecraft 1.12.2 (" + mc.getVersion() + "/" + ClientBrandRetriever.getClientModName() + versionType + ")";
 	}
 
 	protected List<String> getDebugInfoRight() {
-
 		Runtime runtime = Runtime.getRuntime();
 		long maxMemory = runtime.maxMemory();
 		long totalMemory = runtime.totalMemory();
@@ -273,7 +257,6 @@ public class GuiOverlayDebug extends Gui {
 	}
 
 	private void addBlockStateDebugInfo(List<String> list, BlockPos blockpos) {
-
 		IBlockState iblockstate = mc.world.getBlockState(blockpos);
 
 		if (mc.world.getWorldType() != WorldType.DEBUG_ALL_BLOCK_STATES) {
@@ -289,7 +272,6 @@ public class GuiOverlayDebug extends Gui {
 	}
 
 	private void renderLagometer() {
-
 		GLS.disableDepth();
 		FrameTimer frametimer = mc.getFrameTimer();
 		int i = frametimer.getLastIndex();
@@ -324,7 +306,6 @@ public class GuiOverlayDebug extends Gui {
 	}
 
 	private void drawLagometerLabel(String text, int y) {
-
 		drawRect(1, y + 1, 14, y + 10, DEBUG_BACKGROUND_COLOR);
 		fontRenderer.drawString(text, 2, y + 2, DEBUG_TEXT_COLOR);
 		drawHorizontalLine(0, LAGOMETER_WIDTH - 1, y, LAGOMETER_BORDER_COLOR);

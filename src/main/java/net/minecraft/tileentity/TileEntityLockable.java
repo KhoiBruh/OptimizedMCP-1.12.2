@@ -12,13 +12,11 @@ public abstract class TileEntityLockable extends TileEntity implements ILockable
 	private LockCode code = LockCode.EMPTY_CODE;
 
 	public void readFromNBT(NBTTagCompound compound) {
-
 		super.readFromNBT(compound);
 		code = LockCode.fromNBT(compound);
 	}
 
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
 		super.writeToNBT(compound);
 
 		if (code != null) {
@@ -29,17 +27,14 @@ public abstract class TileEntityLockable extends TileEntity implements ILockable
 	}
 
 	public boolean isLocked() {
-
 		return code != null && !code.isEmpty();
 	}
 
 	public LockCode getLockCode() {
-
 		return code;
 	}
 
 	public void setLockCode(LockCode code) {
-
 		this.code = code;
 	}
 
@@ -47,7 +42,6 @@ public abstract class TileEntityLockable extends TileEntity implements ILockable
 	 * Get the formatted ChatComponent that will be used for the sender's username in chat
 	 */
 	public ITextComponent displayName() {
-
 		return hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName());
 	}
 

@@ -10,11 +10,9 @@ public class CPacketPlayerTryUseItem implements Packet<INetHandlerPlayServer> {
 	private Hand hand;
 
 	public CPacketPlayerTryUseItem() {
-
 	}
 
 	public CPacketPlayerTryUseItem(Hand handIn) {
-
 		hand = handIn;
 	}
 
@@ -22,7 +20,6 @@ public class CPacketPlayerTryUseItem implements Packet<INetHandlerPlayServer> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		hand = buf.readEnumValue(Hand.class);
 	}
 
@@ -30,7 +27,6 @@ public class CPacketPlayerTryUseItem implements Packet<INetHandlerPlayServer> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeEnumValue(hand);
 	}
 
@@ -38,12 +34,10 @@ public class CPacketPlayerTryUseItem implements Packet<INetHandlerPlayServer> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayServer handler) {
-
 		handler.processTryUseItem(this);
 	}
 
 	public Hand getHand() {
-
 		return hand;
 	}
 

@@ -14,11 +14,9 @@ public class SPacketBlockAction implements Packet<INetHandlerPlayClient> {
 	private Block block;
 
 	public SPacketBlockAction() {
-
 	}
 
 	public SPacketBlockAction(BlockPos pos, Block blockIn, int instrumentIn, int pitchIn) {
-
 		blockPosition = pos;
 		instrument = instrumentIn;
 		pitch = pitchIn;
@@ -29,7 +27,6 @@ public class SPacketBlockAction implements Packet<INetHandlerPlayClient> {
 	 * Reads the raw packet data from the data stream.
 	 */
 	public void readPacketData(PacketBuffer buf) {
-
 		blockPosition = buf.readBlockPos();
 		instrument = buf.readUnsignedByte();
 		pitch = buf.readUnsignedByte();
@@ -40,7 +37,6 @@ public class SPacketBlockAction implements Packet<INetHandlerPlayClient> {
 	 * Writes the raw packet data to the data stream.
 	 */
 	public void writePacketData(PacketBuffer buf) {
-
 		buf.writeBlockPos(blockPosition);
 		buf.writeByte(instrument);
 		buf.writeByte(pitch);
@@ -51,12 +47,10 @@ public class SPacketBlockAction implements Packet<INetHandlerPlayClient> {
 	 * Passes this Packet on to the NetHandler for processing.
 	 */
 	public void processPacket(INetHandlerPlayClient handler) {
-
 		handler.handleBlockAction(this);
 	}
 
 	public BlockPos getBlockPosition() {
-
 		return blockPosition;
 	}
 
@@ -64,7 +58,6 @@ public class SPacketBlockAction implements Packet<INetHandlerPlayClient> {
 	 * instrument data for noteblocks
 	 */
 	public int getData1() {
-
 		return instrument;
 	}
 
@@ -72,12 +65,10 @@ public class SPacketBlockAction implements Packet<INetHandlerPlayClient> {
 	 * pitch data for noteblocks
 	 */
 	public int getData2() {
-
 		return pitch;
 	}
 
 	public Block getBlockType() {
-
 		return block;
 	}
 

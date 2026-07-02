@@ -15,7 +15,6 @@ import java.util.List;
 public class ItemEnchantedBook extends Item {
 
 	public static NBTTagList getEnchantments(ItemStack p_92110_0_) {
-
 		NBTTagCompound nbttagcompound = p_92110_0_.getTagCompound();
 		return nbttagcompound != null ? nbttagcompound.getTagList("StoredEnchantments", 10) : new NBTTagList();
 	}
@@ -24,7 +23,6 @@ public class ItemEnchantedBook extends Item {
 	 * Adds an stored enchantment to an enchanted book ItemStack
 	 */
 	public static void addEnchantment(ItemStack p_92115_0_, EnchantmentData stack) {
-
 		NBTTagList nbttaglist = getEnchantments(p_92115_0_);
 		boolean flag = true;
 
@@ -59,7 +57,6 @@ public class ItemEnchantedBook extends Item {
 	 * Returns the ItemStack of an enchanted version of this item.
 	 */
 	public static ItemStack getEnchantedItemStack(EnchantmentData p_92111_0_) {
-
 		ItemStack itemstack = new ItemStack(Items.ENCHANTED_BOOK);
 		addEnchantment(itemstack, p_92111_0_);
 		return itemstack;
@@ -74,7 +71,6 @@ public class ItemEnchantedBook extends Item {
 	 * the glint for enchanted items. Of course, that is unnecessary if the overwritten version always returns true.
 	 */
 	public boolean hasEffect(ItemStack stack) {
-
 		return true;
 	}
 
@@ -82,7 +78,6 @@ public class ItemEnchantedBook extends Item {
 	 * Checks isDamagable and if it cannot be stacked
 	 */
 	public boolean isEnchantable(ItemStack stack) {
-
 		return false;
 	}
 
@@ -90,7 +85,6 @@ public class ItemEnchantedBook extends Item {
 	 * Return an item rarity from Rarity
 	 */
 	public Rarity getRarity(ItemStack stack) {
-
 		return getEnchantments(stack).hasNoTags() ? super.getRarity(stack) : Rarity.UNCOMMON;
 	}
 
@@ -98,7 +92,6 @@ public class ItemEnchantedBook extends Item {
 	 * allows items to add custom lines of information to the mouseover description
 	 */
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 		NBTTagList nbttaglist = getEnchantments(stack);
 
@@ -117,7 +110,6 @@ public class ItemEnchantedBook extends Item {
 	 * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
 	 */
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-
 		if (tab == CreativeTabs.SEARCH) {
 			for (Enchantment enchantment : Enchantment.REGISTRY) {
 				if (enchantment.type != null) {

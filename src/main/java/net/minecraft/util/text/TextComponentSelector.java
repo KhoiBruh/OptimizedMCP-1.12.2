@@ -8,7 +8,6 @@ public class TextComponentSelector extends TextComponentBase {
 	private final String selector;
 
 	public TextComponentSelector(String selectorIn) {
-
 		selector = selectorIn;
 	}
 
@@ -16,7 +15,6 @@ public class TextComponentSelector extends TextComponentBase {
 	 * Gets the selector of this component, in plain text.
 	 */
 	public String getSelector() {
-
 		return selector;
 	}
 
@@ -26,7 +24,6 @@ public class TextComponentSelector extends TextComponentBase {
 	 * TextComponentTranslation} and it's the score value for a {@link TextComponentScore}.
 	 */
 	public String getUnformattedComponentText() {
-
 		return selector;
 	}
 
@@ -34,7 +31,6 @@ public class TextComponentSelector extends TextComponentBase {
 	 * Creates a copy of this component.  Almost a deep copy, except the style is shallow-copied.
 	 */
 	public TextComponentSelector createCopy() {
-
 		TextComponentSelector textcomponentselector = new TextComponentSelector(selector);
 		textcomponentselector.setStyle(getStyle().createShallowCopy());
 
@@ -46,7 +42,6 @@ public class TextComponentSelector extends TextComponentBase {
 	}
 
 	public boolean equals(Object p_equals_1_) {
-
 		if (this == p_equals_1_) {
 			return true;
 		} else if (!(p_equals_1_ instanceof TextComponentSelector textcomponentselector)) {
@@ -57,7 +52,6 @@ public class TextComponentSelector extends TextComponentBase {
 	}
 
 	public String toString() {
-
 		return "SelectorComponent{pattern='" + selector + '\'' + ", siblings=" + siblings + ", style=" + getStyle() + '}';
 	}
 

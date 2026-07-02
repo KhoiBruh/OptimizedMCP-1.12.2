@@ -5,7 +5,6 @@ import net.minecraft.world.World;
 public class ParticleExplosion extends Particle {
 
 	protected ParticleExplosion(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
-
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 		motionX = xSpeedIn + (Math.random() * 2D - 1D) * 0.05000000074505806D;
 		motionY = ySpeedIn + (Math.random() * 2D - 1D) * 0.05000000074505806D;
@@ -19,7 +18,6 @@ public class ParticleExplosion extends Particle {
 	}
 
 	public void onUpdate() {
-
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
@@ -44,7 +42,6 @@ public class ParticleExplosion extends Particle {
 	public static class Factory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-
 			return new ParticleExplosion(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 		}
 
