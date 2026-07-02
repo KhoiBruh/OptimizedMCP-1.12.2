@@ -73,7 +73,6 @@ public class OpenGlHelper {
 	public static boolean extBlendFuncSeparate;
 	public static boolean openGL21;
 	public static boolean shadersSupported;
-	public static boolean vboSupported;
 	public static int GL_ARRAY_BUFFER;
 	public static int GL_STATIC_DRAW;
 	private static OpenGlHelper.FboMode framebufferType;
@@ -228,19 +227,16 @@ public class OpenGlHelper {
 		String s = GL11.glGetString(GL11.GL_VENDOR).toLowerCase(Locale.ROOT);
 		nvidia = s.contains("nvidia");
 		arbVbo = !contextcapabilities.OpenGL15 && contextcapabilities.GL_ARB_vertex_buffer_object;
-		vboSupported = contextcapabilities.OpenGL15 || arbVbo;
-		logText = logText + "VBOs are " + (vboSupported ? "" : "not ") + "available because ";
+		logText = logText + "VBOs are available because ";
 
-		if (vboSupported) {
-			if (arbVbo) {
-				logText = logText + "ARB_vertex_buffer_object is supported.\n";
-			} else {
-				logText = logText + "OpenGL 1.5 is supported.\n";
-			}
-
-			GL_STATIC_DRAW = 35044;
-			GL_ARRAY_BUFFER = 34962;
+		if (arbVbo) {
+			logText = logText + "ARB_vertex_buffer_object is supported.\n";
+		} else {
+			logText = logText + "OpenGL 1.5 is supported.\n";
 		}
+
+		GL_STATIC_DRAW = 35044;
+		GL_ARRAY_BUFFER = 34962;
 
 		CentralProcessor processor = new SystemInfo().getHardware().getProcessor();
 		cpu = String.format("%dx %s", processor.getLogicalProcessorCount(), processor.getProcessorIdentifier()
@@ -470,10 +466,6 @@ public class OpenGlHelper {
 		} else {
 			GL15.glDeleteBuffers(buffer);
 		}
-	}
-
-	public static boolean useVbo() {
-		return vboSupported;
 	}
 
 	public static void glBindFramebuffer(int target, int framebufferIn) {

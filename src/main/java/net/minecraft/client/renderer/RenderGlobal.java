@@ -921,42 +921,37 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		return l;
 	}
 
-	@SuppressWarnings("incomplete-switch")
 	private void renderBlockLayer(BlockRenderLayer blockLayerIn) {
 		mc.entityRenderer.enableLightmap();
 
-		if (OpenGlHelper.useVbo()) {
-			GLS.enableClientState(32884);
-			OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
-			GLS.enableClientState(32888);
-			OpenGlHelper.setClientActiveTexture(OpenGlHelper.lightmapTexUnit);
-			GLS.enableClientState(32888);
-			OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
-			GLS.enableClientState(32886);
-		}
+		GLS.enableClientState(32884);
+		OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
+		GLS.enableClientState(32888);
+		OpenGlHelper.setClientActiveTexture(OpenGlHelper.lightmapTexUnit);
+		GLS.enableClientState(32888);
+		OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
+		GLS.enableClientState(32886);
 
 		renderContainer.renderChunkLayer(blockLayerIn);
 
-		if (OpenGlHelper.useVbo()) {
-			for (VertexFormatElement vertexformatelement : DefaultVertexFormats.BLOCK.getElements()) {
-				VertexFormatElement.Usage vertexformatelement$enumusage = vertexformatelement.getUsage();
-				int k1 = vertexformatelement.getIndex();
+		for (VertexFormatElement vertexformatelement : DefaultVertexFormats.BLOCK.getElements()) {
+			VertexFormatElement.Usage vertexformatelement$enumusage = vertexformatelement.getUsage();
+			int k1 = vertexformatelement.getIndex();
 
-				switch (vertexformatelement$enumusage) {
-					case POSITION:
-						GLS.disableClientState(32884);
-						break;
+			switch (vertexformatelement$enumusage) {
+				case POSITION:
+					GLS.disableClientState(32884);
+					break;
 
-					case UV:
-						OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit + k1);
-						GLS.disableClientState(32888);
-						OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
-						break;
+				case UV:
+					OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit + k1);
+					GLS.disableClientState(32888);
+					OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
+					break;
 
-					case COLOR:
-						GLS.disableClientState(32886);
-						GLS.resetColor();
-				}
+				case COLOR:
+					GLS.disableClientState(32886);
+					GLS.resetColor();
 			}
 		}
 
