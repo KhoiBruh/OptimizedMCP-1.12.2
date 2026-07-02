@@ -5,3 +5,5 @@ README.md
 /out/
 /.idea/
 /run/
+/bin/
+/.*
