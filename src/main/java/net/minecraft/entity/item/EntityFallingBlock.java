@@ -137,7 +137,8 @@ public class EntityFallingBlock extends Entity {
 				if (flag && d0 > 1D) {
 					RayTraceResult raytraceresult = world.rayTraceBlocks(new Vec3d(prevPosX, prevPosY, prevPosZ), new Vec3d(posX, posY, posZ), true);
 
-					if (raytraceresult != null && world.getBlockState(raytraceresult.getBlockPos()).getMaterial() == Material.WATER) {
+					if (raytraceresult != null && world.getBlockState(raytraceresult.getBlockPos())
+					                                   .getMaterial() == Material.WATER) {
 						blockpos1 = raytraceresult.getBlockPos();
 						flag1 = true;
 					}
@@ -317,7 +318,6 @@ public class EntityFallingBlock extends Entity {
 		}
 	}
 
-	
 	public IBlockState getBlock() {
 		return fallTile;
 	}

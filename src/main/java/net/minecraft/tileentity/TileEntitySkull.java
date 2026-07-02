@@ -39,7 +39,8 @@ public class TileEntitySkull extends TileEntity implements ITickable {
 				if (gameprofile == null) {
 					return input;
 				} else {
-					Property property = (Property) Iterables.getFirst(gameprofile.getProperties().get("textures"), (Object) null);
+					Property property = (Property) Iterables.getFirst(gameprofile.getProperties()
+					                                                             .get("textures"), (Object) null);
 
 					if (property == null) {
 						gameprofile = sessionService.fillProfileProperties(gameprofile, true);
@@ -106,7 +107,6 @@ public class TileEntitySkull extends TileEntity implements ITickable {
 		return dragonAnimated ? (float) dragonAnimatedTicks + p_184295_1_ : (float) dragonAnimatedTicks;
 	}
 
-	
 	public GameProfile getPlayerProfile() {
 		return playerProfile;
 	}
@@ -117,7 +117,6 @@ public class TileEntitySkull extends TileEntity implements ITickable {
 		updatePlayerProfile();
 	}
 
-	
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		return new SPacketUpdateTileEntity(pos, 4, getUpdateTag());
 	}

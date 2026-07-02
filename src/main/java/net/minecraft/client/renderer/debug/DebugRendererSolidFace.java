@@ -40,7 +40,9 @@ public class DebugRendererSolidFace implements DebugRenderer.IDebugRenderer {
 			IBlockState iblockstate = world.getBlockState(blockpos);
 
 			if (iblockstate.getBlock() != Blocks.AIR) {
-				AxisAlignedBB axisalignedbb = iblockstate.getSelectedBoundingBox(world, blockpos).grow(0.002D).offset(-d0, -d1, -d2);
+				AxisAlignedBB axisalignedbb = iblockstate.getSelectedBoundingBox(world, blockpos)
+				                                         .grow(0.002D)
+				                                         .offset(-d0, -d1, -d2);
 				double d3 = axisalignedbb.minX;
 				double d4 = axisalignedbb.minY;
 				double d5 = axisalignedbb.minZ;

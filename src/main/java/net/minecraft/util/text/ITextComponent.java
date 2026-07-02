@@ -83,12 +83,10 @@ public interface ITextComponent extends Iterable<ITextComponent> {
 			return GSON.toJson(component);
 		}
 
-		
 		public static ITextComponent jsonToComponent(String json) {
 			return JsonUtils.gsonDeserialize(GSON, json, ITextComponent.class);
 		}
 
-		
 		public static ITextComponent fromJsonLenient(String json) {
 			return JsonUtils.gsonDeserialize(GSON, json, ITextComponent.class);
 		}
@@ -132,7 +130,8 @@ public interface ITextComponent extends Iterable<ITextComponent> {
 							aobject[i] = deserialize(jsonarray.get(i), p_deserialize_2_, p_deserialize_3_);
 
 							if (aobject[i] instanceof TextComponentString textcomponentstring) {
-								if (textcomponentstring.getStyle().isEmpty() && textcomponentstring.getSiblings().isEmpty()) {
+								if (textcomponentstring.getStyle().isEmpty() && textcomponentstring.getSiblings()
+								                                                                   .isEmpty()) {
 									aobject[i] = textcomponentstring.getText();
 								}
 							}
@@ -237,7 +236,7 @@ public interface ITextComponent extends Iterable<ITextComponent> {
 					jsonobject.add("score", jsonobject1);
 				}
 				case TextComponentSelector textcomponentselector ->
-						jsonobject.addProperty("selector", textcomponentselector.getSelector());
+					jsonobject.addProperty("selector", textcomponentselector.getSelector());
 				default -> {
 					if (!(p_serialize_1_ instanceof TextComponentKeybind textcomponentkeybind)) {
 						throw new IllegalArgumentException("Don't know how to serialize " + p_serialize_1_ + " as a Component");
@@ -249,6 +248,7 @@ public interface ITextComponent extends Iterable<ITextComponent> {
 
 			return jsonobject;
 		}
+
 	}
 
 }

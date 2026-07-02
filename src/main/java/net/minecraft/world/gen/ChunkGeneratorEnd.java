@@ -338,7 +338,8 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 					if (j1 > 0) {
 						int k1 = j1 - 1;
 
-						if (world.isAirBlock(blockpos.add(l, k1 + 1, i1)) && world.getBlockState(blockpos.add(l, k1, i1)).getBlock() == Blocks.END_STONE) {
+						if (world.isAirBlock(blockpos.add(l, k1 + 1, i1)) && world.getBlockState(blockpos.add(l, k1, i1))
+						                                                          .getBlock() == Blocks.END_STONE) {
 							BlockChorusFlower.generatePlant(world, blockpos.add(l, k1 + 1, i1), rand, 8);
 						}
 					}
@@ -378,7 +379,6 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 		return world.getBiome(pos).getSpawnableList(creatureType);
 	}
 
-	
 	public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
 		return "EndCity".equals(structureName) && endCityGen != null ? endCityGen.getNearestStructurePos(worldIn, position, findUnexplored) : null;
 	}

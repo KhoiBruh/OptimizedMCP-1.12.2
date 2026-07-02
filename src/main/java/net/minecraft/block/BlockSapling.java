@@ -89,8 +89,11 @@ public class BlockSapling extends BlockBush implements IGrowable {
 				break;
 
 			case JUNGLE:
-				IBlockState iblockstate = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.Type.JUNGLE);
-				IBlockState iblockstate1 = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.Type.JUNGLE).withProperty(BlockLeaves.CHECK_DECAY, false);
+				IBlockState iblockstate = Blocks.LOG.getDefaultState()
+				                                    .withProperty(BlockOldLog.VARIANT, BlockPlanks.Type.JUNGLE);
+				IBlockState iblockstate1 = Blocks.LEAVES.getDefaultState()
+				                                        .withProperty(BlockOldLeaf.VARIANT, BlockPlanks.Type.JUNGLE)
+				                                        .withProperty(BlockLeaves.CHECK_DECAY, false);
 				label82:
 
 				for (i = 0; i >= -1; --i) {
@@ -205,7 +208,8 @@ public class BlockSapling extends BlockBush implements IGrowable {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(TYPE, BlockPlanks.Type.byMetadata(meta & 7)).withProperty(STAGE, (meta & 8) >> 3);
+		return getDefaultState().withProperty(TYPE, BlockPlanks.Type.byMetadata(meta & 7))
+		                        .withProperty(STAGE, (meta & 8) >> 3);
 	}
 
 	/**

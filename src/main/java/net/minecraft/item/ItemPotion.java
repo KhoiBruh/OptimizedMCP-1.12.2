@@ -50,7 +50,8 @@ public class ItemPotion extends Item {
 		if (!worldIn.isRemote) {
 			for (PotionEffect potioneffect : PotionUtils.getEffectsFromStack(stack)) {
 				if (potioneffect.getPotion().isInstant()) {
-					potioneffect.getPotion().affectEntity(entityplayer, entityplayer, entityLiving, potioneffect.getAmplifier(), 1D);
+					potioneffect.getPotion()
+					            .affectEntity(entityplayer, entityplayer, entityLiving, potioneffect.getAmplifier(), 1D);
 				} else {
 					entityLiving.addPotionEffect(new PotionEffect(potioneffect));
 				}

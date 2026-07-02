@@ -74,7 +74,8 @@ public class BlockFarmland extends Block {
 	 * Block's chance to react to a living entity falling on it.
 	 */
 	public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
-		if (!worldIn.isRemote && worldIn.rand.nextFloat() < fallDistance - 0.5F && entityIn instanceof EntityLivingBase && (entityIn instanceof EntityPlayer || worldIn.getGameRules().getBoolean("mobGriefing")) && entityIn.width * entityIn.width * entityIn.height > 0.512F) {
+		if (!worldIn.isRemote && worldIn.rand.nextFloat() < fallDistance - 0.5F && entityIn instanceof EntityLivingBase && (entityIn instanceof EntityPlayer || worldIn.getGameRules()
+		                                                                                                                                                               .getBoolean("mobGriefing")) && entityIn.width * entityIn.width * entityIn.height > 0.512F) {
 			turnToDirt(worldIn, pos);
 		}
 
@@ -142,7 +143,8 @@ public class BlockFarmland extends Block {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Blocks.DIRT.getItemDropped(Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT), rand, fortune);
+		return Blocks.DIRT.getItemDropped(Blocks.DIRT.getDefaultState()
+		                                             .withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT), rand, fortune);
 	}
 
 	/**

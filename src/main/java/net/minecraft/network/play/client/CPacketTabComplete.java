@@ -10,7 +10,6 @@ public class CPacketTabComplete implements Packet<INetHandlerPlayServer> {
 	private String message;
 	private boolean hasTargetBlock;
 
-	
 	private BlockPos targetBlock;
 
 	public CPacketTabComplete() {
@@ -60,7 +59,6 @@ public class CPacketTabComplete implements Packet<INetHandlerPlayServer> {
 		return message;
 	}
 
-	
 	public BlockPos getTargetBlock() {
 		return targetBlock;
 	}

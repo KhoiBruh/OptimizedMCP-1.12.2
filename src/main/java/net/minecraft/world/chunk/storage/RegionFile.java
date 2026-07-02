@@ -16,7 +16,7 @@ public class RegionFile {
 	private final int[] chunkTimestamps = new int[1024];
 	private RandomAccessFile dataFile;
 	private List<Boolean> sectorFree;
-	
+
 	public RegionFile(File fileNameIn) {
 		try {
 
@@ -63,8 +63,6 @@ public class RegionFile {
 			ioexception.printStackTrace();
 		}
 	}
-
-	
 
 	/**
 	 * Returns an uncompressed chunk stream from the region file.
@@ -114,8 +112,6 @@ public class RegionFile {
 			}
 		}
 	}
-
-	
 
 	/**
 	 * Returns an output stream used to write chunk data. Data is on disk when the returned stream is closed.
@@ -184,7 +180,7 @@ public class RegionFile {
 						dataFile.write(EMPTY_SECTOR);
 						sectorFree.add(false);
 					}
-					
+
 					write(j, data, length);
 					setOffset(x, z, j << 8 | l);
 				}

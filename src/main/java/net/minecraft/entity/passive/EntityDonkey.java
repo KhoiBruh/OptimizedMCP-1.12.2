@@ -19,7 +19,6 @@ public class EntityDonkey extends AbstractChestHorse {
 		AbstractChestHorse.registerFixesAbstractChestHorse(fixer, EntityDonkey.class);
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_DONKEY;
 	}

@@ -49,7 +49,6 @@ public class GuiAdvancementTab extends Gui {
 		addGuiAdvancement(root, p_i47589_5_);
 	}
 
-	
 	public static GuiAdvancementTab create(Minecraft p_193936_0_, AdvancementsScreen p_193936_1_, int p_193936_2_, Advancement p_193936_3_) {
 		if (p_193936_3_.getDisplay() == null) {
 			return null;
@@ -94,7 +93,8 @@ public class GuiAdvancementTab extends Gui {
 		GLS.depthFunc(515);
 		ResourceLocation resourcelocation = display.getBackground();
 
-		minecraft.getTextureManager().bindTexture(Objects.requireNonNullElse(resourcelocation, TextureManager.RESOURCE_LOCATION_EMPTY));
+		minecraft.getTextureManager()
+		         .bindTexture(Objects.requireNonNullElse(resourcelocation, TextureManager.RESOURCE_LOCATION_EMPTY));
 
 		GLS.color(1F, 1F, 1F, 1F);
 		int i = scrollX % 16;
@@ -173,7 +173,6 @@ public class GuiAdvancementTab extends Gui {
 		}
 	}
 
-	
 	public GuiAdvancement getAdvancementGui(Advancement p_191794_1_) {
 		return guis.get(p_191794_1_);
 	}

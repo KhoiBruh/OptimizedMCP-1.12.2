@@ -52,7 +52,8 @@ public class EntityAIMoveTowardsTarget extends EntityAIBase {
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	public boolean shouldContinueExecuting() {
-		return !creature.getNavigator().noPath() && targetEntity.isEntityAlive() && targetEntity.getDistanceSq(creature) < (double) (maxTargetDistance * maxTargetDistance);
+		return !creature.getNavigator()
+		                .noPath() && targetEntity.isEntityAlive() && targetEntity.getDistanceSq(creature) < (double) (maxTargetDistance * maxTargetDistance);
 	}
 
 	/**

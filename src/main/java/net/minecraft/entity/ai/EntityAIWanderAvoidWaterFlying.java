@@ -17,7 +17,6 @@ public class EntityAIWanderAvoidWaterFlying extends EntityAIWanderAvoidWater {
 		super(p_i47413_1_, p_i47413_2_);
 	}
 
-	
 	protected Vec3d getPosition() {
 		Vec3d vec3d = null;
 
@@ -32,7 +31,6 @@ public class EntityAIWanderAvoidWaterFlying extends EntityAIWanderAvoidWater {
 		return vec3d == null ? super.getPosition() : vec3d;
 	}
 
-	
 	private Vec3d getTreePos() {
 		BlockPos blockpos = new BlockPos(entity);
 		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
@@ -49,10 +47,12 @@ public class EntityAIWanderAvoidWaterFlying extends EntityAIWanderAvoidWater {
 			blockpos1 = iterator.next();
 
 			if (!blockpos.equals(blockpos1)) {
-				Block block = entity.world.getBlockState(blockpos$mutableblockpos1.setPos(blockpos1).move(Facing.DOWN)).getBlock();
+				Block block = entity.world.getBlockState(blockpos$mutableblockpos1.setPos(blockpos1).move(Facing.DOWN))
+				                          .getBlock();
 				boolean flag = block instanceof BlockLeaves || block == Blocks.LOG || block == Blocks.LOG2;
 
-				if (flag && entity.world.isAirBlock(blockpos1) && entity.world.isAirBlock(blockpos$mutableblockpos.setPos(blockpos1).move(Facing.UP))) {
+				if (flag && entity.world.isAirBlock(blockpos1) && entity.world.isAirBlock(blockpos$mutableblockpos.setPos(blockpos1)
+				                                                                                                  .move(Facing.UP))) {
 					break;
 				}
 			}

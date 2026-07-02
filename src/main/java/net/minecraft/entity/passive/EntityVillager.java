@@ -66,14 +66,14 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant {
 	private boolean isMating;
 	private boolean isPlaying;
 
-	
-
-	/** This villager's current customer. */
+	/**
+	 * This villager's current customer.
+	 */
 	private EntityPlayer buyingPlayer;
 
-	
-
-	/** Initialises the MerchantRecipeList.java */
+	/**
+	 * Initialises the MerchantRecipeList.java
+	 */
 	private MerchantRecipeList buyingList;
 	private int timeUntilReset;
 	/**
@@ -114,7 +114,8 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant {
 		fixer.registerWalker(FixTypes.ENTITY, new ItemStackDataLists(EntityVillager.class, "Inventory"));
 		fixer.registerWalker(FixTypes.ENTITY, (fixer1, compound, versionIn) -> {
 
-			if (EntityList.getKey(EntityVillager.class).equals(new ResourceLocation(compound.getString("id"))) && compound.hasKey("Offers", 10)) {
+			if (EntityList.getKey(EntityVillager.class)
+			              .equals(new ResourceLocation(compound.getString("id"))) && compound.hasKey("Offers", 10)) {
 				NBTTagCompound nbttagcompound = compound.getCompoundTag("Offers");
 
 				if (nbttagcompound.hasKey("Recipes", 9)) {
@@ -341,7 +342,6 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant {
 		return SoundEvents.ENTITY_VILLAGER_DEATH;
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_VILLAGER;
 	}
@@ -421,7 +421,6 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant {
 		super.onDeath(cause);
 	}
 
-	
 	public EntityPlayer getCustomer() {
 		return buyingPlayer;
 	}
@@ -513,7 +512,6 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant {
 		}
 	}
 
-	
 	public MerchantRecipeList getRecipes(EntityPlayer player) {
 		if (buyingList == null) {
 			populateBuyingList();
@@ -677,21 +675,18 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant {
 		}
 	}
 
-	
-
 	/**
 	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
 	 * when entity is reloaded from nbt. Mainly used for initializing attributes and inventory.
-	 *
+	 * <p>
 	 * The livingdata parameter is used to pass data between all instances during a pack spawn. It will be null on the
 	 * first call. Subclasses may check if it's null, and then create a new one and return it if so, initializing all
 	 * entities in the pack with the contained data.
 	 *
-	 * @return The IEntityLivingData to pass to this method for other instances of this entity class within the same
-	 * pack
-	 *
 	 * @param difficulty The current local difficulty
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
+	 * @return The IEntityLivingData to pass to this method for other instances of this entity class within the same
+	 * pack
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		return finalizeMobSpawn(difficulty, livingdata, true);

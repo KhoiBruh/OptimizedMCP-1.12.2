@@ -45,7 +45,6 @@ public class SimpleResource implements IResource {
 		return mcmetaInputStream != null;
 	}
 
-	
 	public <T extends IMetadataSection> T getMetadata(String sectionName) {
 
 		if (!hasMetadata()) {

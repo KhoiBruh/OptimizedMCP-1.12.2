@@ -156,14 +156,14 @@ public class VillageCollection extends WorldSavedData {
 		}
 	}
 
-	
-
 	/**
 	 * returns the VillageDoorInfo if it exists in any village or in the newDoor list, otherwise returns null
 	 */
 	private VillageDoorInfo checkDoorExistence(BlockPos doorBlock) {
 		for (VillageDoorInfo villagedoorinfo : newDoors) {
-			if (villagedoorinfo.getDoorBlockPos().getX() == doorBlock.getX() && villagedoorinfo.getDoorBlockPos().getZ() == doorBlock.getZ() && Math.abs(villagedoorinfo.getDoorBlockPos().getY() - doorBlock.getY()) <= 1) {
+			if (villagedoorinfo.getDoorBlockPos().getX() == doorBlock.getX() && villagedoorinfo.getDoorBlockPos()
+			                                                                                   .getZ() == doorBlock.getZ() && Math.abs(villagedoorinfo.getDoorBlockPos()
+			                                                                                                                                          .getY() - doorBlock.getY()) <= 1) {
 				return villagedoorinfo;
 			}
 		}

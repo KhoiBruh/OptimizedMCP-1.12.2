@@ -50,7 +50,6 @@ public class Enchantments {
 		}
 	}
 
-	
 	private static Enchantment getRegisteredEnchantment(String id) {
 		Enchantment enchantment = Enchantment.REGISTRY.getObject(new ResourceLocation(id));
 
@@ -60,4 +59,5 @@ public class Enchantments {
 			return enchantment;
 		}
 	}
+
 }

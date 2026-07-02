@@ -38,7 +38,9 @@ public class LayerHeldItemWitch implements LayerRenderer<EntityWitch> {
 			Item item = itemstack.getItem();
 			Minecraft minecraft = Minecraft.getMinecraft();
 
-			if (Block.getBlockFromItem(item).getDefaultState().getRenderType() == BlockRenderType.ENTITYBLOCK_ANIMATED) {
+			if (Block.getBlockFromItem(item)
+			         .getDefaultState()
+			         .getRenderType() == BlockRenderType.ENTITYBLOCK_ANIMATED) {
 				GLS.translate(0F, 0.0625F, -0.25F);
 				GLS.rotate(30F, 1F, 0F, 0F);
 				GLS.rotate(-5F, 0F, 1F, 0F);
@@ -74,7 +76,8 @@ public class LayerHeldItemWitch implements LayerRenderer<EntityWitch> {
 
 			GLS.rotate(-15F, 1F, 0F, 0F);
 			GLS.rotate(40F, 0F, 0F, 1F);
-			minecraft.getItemRenderer().renderItem(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND);
+			minecraft.getItemRenderer()
+			         .renderItem(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND);
 			GLS.popMatrix();
 		}
 	}

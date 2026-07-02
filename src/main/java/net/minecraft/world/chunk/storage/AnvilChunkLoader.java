@@ -77,7 +77,6 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 		});
 	}
 
-	
 	public static Entity readChunkEntity(NBTTagCompound compound, World worldIn, Chunk chunkIn) {
 		Entity entity = createEntityFromNBT(compound, worldIn);
 
@@ -102,7 +101,6 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 		}
 	}
 
-	
 	public static Entity readWorldEntityPos(NBTTagCompound compound, World worldIn, double x, double y, double z, boolean attemptSpawn) {
 		Entity entity = createEntityFromNBT(compound, worldIn);
 
@@ -131,7 +129,6 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 		}
 	}
 
-	
 	protected static Entity createEntityFromNBT(NBTTagCompound compound, World worldIn) {
 		try {
 			return EntityList.createEntityFromNBT(compound, worldIn);
@@ -148,7 +145,6 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 		}
 	}
 
-	
 	public static Entity readWorldEntity(NBTTagCompound compound, World worldIn, boolean p_186051_2_) {
 		Entity entity = createEntityFromNBT(compound, worldIn);
 
@@ -172,8 +168,6 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 			return entity;
 		}
 	}
-
-	
 
 	/**
 	 * Loads the specified(XZ) chunk into the specified world.
@@ -200,8 +194,6 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 		NBTTagCompound nbttagcompound = chunksToSave.get(chunkpos);
 		return nbttagcompound != null || RegionFileCache.chunkExists(chunkSaveLocation, x, z);
 	}
-
-	
 
 	/**
 	 * Wraps readChunkFromNBT. Checks the coordinates and several NBT tags.
@@ -359,7 +351,8 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 				if (flag) {
 					nbttagcompound.setByteArray("SkyLight", extendedblockstorage.getSkyLight().data());
 				} else {
-					nbttagcompound.setByteArray("SkyLight", new byte[extendedblockstorage.getBlockLight().data().length]);
+					nbttagcompound.setByteArray("SkyLight", new byte[extendedblockstorage.getBlockLight()
+					                                                                     .data().length]);
 				}
 
 				nbttaglist.appendTag(nbttagcompound);

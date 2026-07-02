@@ -24,7 +24,10 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 
 	protected BlockRedstoneRepeater(boolean powered) {
 		super(powered);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(DELAY, 1).withProperty(LOCKED, false));
+		setDefaultState(blockState.getBaseState()
+		                          .withProperty(FACING, Facing.NORTH)
+		                          .withProperty(DELAY, 1)
+		                          .withProperty(LOCKED, false));
 	}
 
 	/**
@@ -78,14 +81,20 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 		Integer integer = unpoweredState.getValue(DELAY);
 		Boolean obool = unpoweredState.getValue(LOCKED);
 		Facing enumfacing = unpoweredState.getValue(FACING);
-		return Blocks.POWERED_REPEATER.getDefaultState().withProperty(FACING, enumfacing).withProperty(DELAY, integer).withProperty(LOCKED, obool);
+		return Blocks.POWERED_REPEATER.getDefaultState()
+		                              .withProperty(FACING, enumfacing)
+		                              .withProperty(DELAY, integer)
+		                              .withProperty(LOCKED, obool);
 	}
 
 	protected IBlockState getUnpoweredState(IBlockState poweredState) {
 		Integer integer = poweredState.getValue(DELAY);
 		Boolean obool = poweredState.getValue(LOCKED);
 		Facing enumfacing = poweredState.getValue(FACING);
-		return Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(FACING, enumfacing).withProperty(DELAY, integer).withProperty(LOCKED, obool);
+		return Blocks.UNPOWERED_REPEATER.getDefaultState()
+		                                .withProperty(FACING, enumfacing)
+		                                .withProperty(DELAY, integer)
+		                                .withProperty(LOCKED, obool);
 	}
 
 	/**
@@ -138,7 +147,9 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(FACING, Facing.getHorizontal(meta)).withProperty(LOCKED, false).withProperty(DELAY, 1 + (meta >> 2));
+		return getDefaultState().withProperty(FACING, Facing.getHorizontal(meta))
+		                        .withProperty(LOCKED, false)
+		                        .withProperty(DELAY, 1 + (meta >> 2));
 	}
 
 	/**

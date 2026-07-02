@@ -100,4 +100,5 @@ public class TileEntityBedRenderer extends TileEntitySpecialRenderer<TileEntityB
 		GLS.color(1F, 1F, 1F, alpha);
 		GLS.popMatrix();
 	}
+
 }

@@ -9,7 +9,8 @@ public class Score {
 		if (p_compare_1_.getScorePoints() > p_compare_2_.getScorePoints()) {
 			return 1;
 		} else {
-			return p_compare_1_.getScorePoints() < p_compare_2_.getScorePoints() ? -1 : p_compare_2_.getPlayerName().compareToIgnoreCase(p_compare_1_.getPlayerName());
+			return p_compare_1_.getScorePoints() < p_compare_2_.getScorePoints() ? -1 : p_compare_2_.getPlayerName()
+			                                                                                        .compareToIgnoreCase(p_compare_1_.getPlayerName());
 		}
 	};
 	private final Scoreboard scoreboard;

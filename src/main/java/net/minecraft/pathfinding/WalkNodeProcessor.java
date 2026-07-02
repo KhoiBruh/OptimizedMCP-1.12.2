@@ -41,7 +41,9 @@ public class WalkNodeProcessor extends NodeProcessor {
 			i = (int) entity.getEntityBoundingBox().minY;
 			BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(entity.posX), i, MathHelper.floor(entity.posZ));
 
-			for (Block block = blockaccess.getBlockState(blockpos$mutableblockpos).getBlock(); block == Blocks.FLOWING_WATER || block == Blocks.WATER; block = blockaccess.getBlockState(blockpos$mutableblockpos).getBlock()) {
+			for (Block block = blockaccess.getBlockState(blockpos$mutableblockpos)
+			                              .getBlock(); block == Blocks.FLOWING_WATER || block == Blocks.WATER; block = blockaccess.getBlockState(blockpos$mutableblockpos)
+			                                                                                                                      .getBlock()) {
 				++i;
 				blockpos$mutableblockpos.setPos(MathHelper.floor(entity.posX), i, MathHelper.floor(entity.posZ));
 			}
@@ -50,7 +52,10 @@ public class WalkNodeProcessor extends NodeProcessor {
 		} else {
 			BlockPos blockpos;
 
-			for (blockpos = new BlockPos(entity); (blockaccess.getBlockState(blockpos).getMaterial() == Material.AIR || blockaccess.getBlockState(blockpos).getBlock().isPassable(blockaccess, blockpos)) && blockpos.getY() > 0; blockpos = blockpos.down()) {
+			for (blockpos = new BlockPos(entity); (blockaccess.getBlockState(blockpos)
+			                                                  .getMaterial() == Material.AIR || blockaccess.getBlockState(blockpos)
+			                                                                                               .getBlock()
+			                                                                                               .isPassable(blockaccess, blockpos)) && blockpos.getY() > 0; blockpos = blockpos.down()) {
 			}
 
 			i = blockpos.up().getY();
@@ -95,7 +100,8 @@ public class WalkNodeProcessor extends NodeProcessor {
 		}
 
 		BlockPos blockpos = (new BlockPos(currentPoint.x, currentPoint.y, currentPoint.z)).down();
-		double d0 = (double) currentPoint.y - (1D - blockaccess.getBlockState(blockpos).getBoundingBox(blockaccess, blockpos).maxY);
+		double d0 = (double) currentPoint.y - (1D - blockaccess.getBlockState(blockpos)
+		                                                       .getBoundingBox(blockaccess, blockpos).maxY);
 		PathPoint pathpoint = getSafePoint(currentPoint.x, currentPoint.y, currentPoint.z + 1, j, d0, Facing.SOUTH);
 		PathPoint pathpoint1 = getSafePoint(currentPoint.x - 1, currentPoint.y, currentPoint.z, j, d0, Facing.WEST);
 		PathPoint pathpoint2 = getSafePoint(currentPoint.x + 1, currentPoint.y, currentPoint.z, j, d0, Facing.EAST);
@@ -157,8 +163,6 @@ public class WalkNodeProcessor extends NodeProcessor {
 		return i;
 	}
 
-	
-
 	/**
 	 * Returns a point that the entity can safely move to
 	 */
@@ -166,7 +170,8 @@ public class WalkNodeProcessor extends NodeProcessor {
 		PathPoint pathpoint = null;
 		BlockPos blockpos = new BlockPos(x, y, z);
 		BlockPos blockpos1 = blockpos.down();
-		double d0 = (double) y - (1D - blockaccess.getBlockState(blockpos1).getBoundingBox(blockaccess, blockpos1).maxY);
+		double d0 = (double) y - (1D - blockaccess.getBlockState(blockpos1)
+		                                          .getBoundingBox(blockaccess, blockpos1).maxY);
 
 		if (d0 - p_186332_5_ > 1.125D) {
 			return null;
@@ -191,7 +196,8 @@ public class WalkNodeProcessor extends NodeProcessor {
 						double d2 = (double) (x - facing.getFrontOffsetX()) + 0.5D;
 						double d3 = (double) (z - facing.getFrontOffsetZ()) + 0.5D;
 						AxisAlignedBB axisalignedbb = new AxisAlignedBB(d2 - d1, (double) y + 0.001D, d3 - d1, d2 + d1, (float) y + entity.height, d3 + d1);
-						AxisAlignedBB axisalignedbb1 = blockaccess.getBlockState(blockpos).getBoundingBox(blockaccess, blockpos);
+						AxisAlignedBB axisalignedbb1 = blockaccess.getBlockState(blockpos)
+						                                          .getBoundingBox(blockaccess, blockpos);
 						AxisAlignedBB axisalignedbb2 = axisalignedbb.expand(0D, axisalignedbb1.maxY - 0.002D, 0D);
 
 						if (entity.world.collidesWithAnyBlock(axisalignedbb2)) {
@@ -295,7 +301,9 @@ public class WalkNodeProcessor extends NodeProcessor {
 						pathnodetype = PathNodeType.BLOCKED;
 					}
 
-					if (pathnodetype == PathNodeType.RAIL && !(p_193577_1_.getBlockState(p_193577_12_).getBlock() instanceof BlockRailBase) && !(p_193577_1_.getBlockState(p_193577_12_.down()).getBlock() instanceof BlockRailBase)) {
+					if (pathnodetype == PathNodeType.RAIL && !(p_193577_1_.getBlockState(p_193577_12_)
+					                                                      .getBlock() instanceof BlockRailBase) && !(p_193577_1_.getBlockState(p_193577_12_.down())
+					                                                                                                            .getBlock() instanceof BlockRailBase)) {
 						pathnodetype = PathNodeType.FENCE;
 					}
 
@@ -347,7 +355,8 @@ public class WalkNodeProcessor extends NodeProcessor {
 			for (int i = -1; i <= 1; ++i) {
 				for (int j = -1; j <= 1; ++j) {
 					if (i != 0 || j != 0) {
-						Block block = p_193578_1_.getBlockState(blockpos$pooledmutableblockpos.setPos(i + p_193578_2_, p_193578_3_, j + p_193578_4_)).getBlock();
+						Block block = p_193578_1_.getBlockState(blockpos$pooledmutableblockpos.setPos(i + p_193578_2_, p_193578_3_, j + p_193578_4_))
+						                         .getBlock();
 
 						if (block == Blocks.CACTUS) {
 							p_193578_5_ = PathNodeType.DANGER_CACTUS;

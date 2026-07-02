@@ -60,7 +60,6 @@ public enum HorseArmorType {
 		return protection;
 	}
 
-	
 	public String getTextureName() {
 		return textureName;
 	}

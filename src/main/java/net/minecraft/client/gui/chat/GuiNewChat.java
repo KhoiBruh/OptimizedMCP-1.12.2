@@ -134,7 +134,9 @@ public class GuiNewChat extends Gui {
 	 */
 	public void printChatMessageWithOptionalDeletion(ITextComponent chatComponent, int chatLineId) {
 		setChatLine(chatComponent, chatLineId, mc.ingameGUI.getUpdateCounter(), false);
-		LOGGER.info("[CHAT] {}", chatComponent.getUnformattedText().replaceAll("\r", "\\\\r").replaceAll("\n", "\\\\n"));
+		LOGGER.info("[CHAT] {}", chatComponent.getUnformattedText()
+		                                      .replaceAll("\r", "\\\\r")
+		                                      .replaceAll("\n", "\\\\n"));
 	}
 
 	private void setChatLine(ITextComponent chatComponent, int chatLineId, int updateCounter, boolean displayOnly) {
@@ -216,8 +218,6 @@ public class GuiNewChat extends Gui {
 		}
 	}
 
-	
-
 	/**
 	 * Gets the chat component under the mouse
 	 */
@@ -250,11 +250,11 @@ public class GuiNewChat extends Gui {
 							}
 						}
 					}
-					
+
 				}
 			}
 		}
-		
+
 		return null;
 	}
 

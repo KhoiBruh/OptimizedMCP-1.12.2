@@ -68,7 +68,8 @@ public class PlayerInteractionManager {
 		gameType = type;
 		type.configurePlayerCapabilities(player.capabilities);
 		player.sendPlayerAbilities();
-		player.mcServer.getPlayerList().sendPacketToAllPlayers(new SPacketPlayerListItem(SPacketPlayerListItem.Action.UPDATE_GAME_MODE, player));
+		player.mcServer.getPlayerList()
+		               .sendPacketToAllPlayers(new SPacketPlayerListItem(SPacketPlayerListItem.Action.UPDATE_GAME_MODE, player));
 		world.updateAllPlayersSleepingFlag();
 	}
 
@@ -238,7 +239,8 @@ public class PlayerInteractionManager {
 	 * Attempts to harvest a block
 	 */
 	public boolean tryHarvestBlock(BlockPos pos) {
-		if (gameType.isCreative() && !player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() instanceof ItemSword) {
+		if (gameType.isCreative() && !player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand()
+		                                                                              .getItem() instanceof ItemSword) {
 			return false;
 		} else {
 			IBlockState iblockstate = world.getBlockState(pos);
@@ -352,10 +354,12 @@ public class PlayerInteractionManager {
 
 			return ActionResult.PASS;
 		} else {
-			if (!player.isSneaking() || player.getHeldItemMainhand().isEmpty() && player.getHeldItemOffhand().isEmpty()) {
+			if (!player.isSneaking() || player.getHeldItemMainhand().isEmpty() && player.getHeldItemOffhand()
+			                                                                            .isEmpty()) {
 				IBlockState iblockstate = worldIn.getBlockState(pos);
 
-				if (iblockstate.getBlock().onBlockActivated(worldIn, pos, iblockstate, player, hand, facing, hitX, hitY, hitZ)) {
+				if (iblockstate.getBlock()
+				               .onBlockActivated(worldIn, pos, iblockstate, player, hand, facing, hitX, hitY, hitZ)) {
 					return ActionResult.SUCCESS;
 				}
 			}

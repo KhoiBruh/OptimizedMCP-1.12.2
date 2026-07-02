@@ -43,7 +43,8 @@ public class DragonFightManager {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final Predicate<EntityPlayerMP> VALID_PLAYER = Predicates.and(EntitySelectors.IS_ALIVE, EntitySelectors.withinRange(0D, 128D, 0D, 192D));
-	private final BossInfoServer bossInfo = (BossInfoServer) (new BossInfoServer(new TextComponentTranslation("entity.EnderDragon.name"), BossInfo.Color.PINK, BossInfo.Overlay.PROGRESS)).setPlayEndBossMusic(true).setCreateFog(true);
+	private final BossInfoServer bossInfo = (BossInfoServer) (new BossInfoServer(new TextComponentTranslation("entity.EnderDragon.name"), BossInfo.Color.PINK, BossInfo.Overlay.PROGRESS)).setPlayEndBossMusic(true)
+	                                                                                                                                                                                      .setCreateFog(true);
 	private final WorldServer world;
 	private final List<Integer> gateways = Lists.newArrayList();
 	private final BlockPattern portalPattern;
@@ -94,7 +95,14 @@ public class DragonFightManager {
 			Collections.shuffle(gateways, new Random(worldIn.getSeed()));
 		}
 
-		portalPattern = FactoryBlockPattern.start().aisle("       ", "       ", "       ", "   #   ", "       ", "       ", "       ").aisle("       ", "       ", "       ", "   #   ", "       ", "       ", "       ").aisle("       ", "       ", "       ", "   #   ", "       ", "       ", "       ").aisle("  ###  ", " #   # ", "#     #", "#  #  #", "#     #", " #   # ", "  ###  ").aisle("       ", "  ###  ", " ##### ", " ##### ", " ##### ", "  ###  ", "       ").where('#', BlockWorldState.hasState(BlockMatcher.forBlock(Blocks.BEDROCK))).build();
+		portalPattern = FactoryBlockPattern.start()
+		                                   .aisle("       ", "       ", "       ", "   #   ", "       ", "       ", "       ")
+		                                   .aisle("       ", "       ", "       ", "   #   ", "       ", "       ", "       ")
+		                                   .aisle("       ", "       ", "       ", "   #   ", "       ", "       ", "       ")
+		                                   .aisle("  ###  ", " #   # ", "#     #", "#  #  #", "#     #", " #   # ", "  ###  ")
+		                                   .aisle("       ", "  ###  ", " ##### ", " ##### ", " ##### ", "  ###  ", "       ")
+		                                   .where('#', BlockWorldState.hasState(BlockMatcher.forBlock(Blocks.BEDROCK)))
+		                                   .build();
 	}
 
 	public NBTTagCompound getCompound() {
@@ -237,7 +245,6 @@ public class DragonFightManager {
 		return false;
 	}
 
-	
 	private BlockPattern.PatternHelper findExitPortal() {
 
 		for (int i = -8; i <= 8; ++i) {
@@ -308,7 +315,8 @@ public class DragonFightManager {
 		aliveCrystals = 0;
 
 		for (WorldGenSpikes.EndSpike worldgenspikes$endspike : BiomeEndDecorator.getSpikesForWorld(world)) {
-			aliveCrystals += world.getEntitiesWithinAABB(EntityEnderCrystal.class, worldgenspikes$endspike.getTopBoundingBox()).size();
+			aliveCrystals += world.getEntitiesWithinAABB(EntityEnderCrystal.class, worldgenspikes$endspike.getTopBoundingBox())
+			                      .size();
 		}
 
 		LOGGER.debug("Found {} end crystals still alive", aliveCrystals);
@@ -348,7 +356,9 @@ public class DragonFightManager {
 		WorldGenEndPodium worldgenendpodium = new WorldGenEndPodium(active);
 
 		if (exitPortalLocation == null) {
-			for (exitPortalLocation = world.getTopSolidOrLiquidBlock(WorldGenEndPodium.END_PODIUM_LOCATION).down(); world.getBlockState(exitPortalLocation).getBlock() == Blocks.BEDROCK && exitPortalLocation.getY() > world.getSeaLevel(); exitPortalLocation = exitPortalLocation.down()) {
+			for (exitPortalLocation = world.getTopSolidOrLiquidBlock(WorldGenEndPodium.END_PODIUM_LOCATION)
+			                               .down(); world.getBlockState(exitPortalLocation)
+			                                             .getBlock() == Blocks.BEDROCK && exitPortalLocation.getY() > world.getSeaLevel(); exitPortalLocation = exitPortalLocation.down()) {
 			}
 		}
 
@@ -445,7 +455,9 @@ public class DragonFightManager {
 						for (int k = 0; k < portalPattern.getFingerLength(); ++k) {
 							BlockWorldState blockworldstate = blockpattern$patternhelper.translateOffset(i, j, k);
 
-							if (blockworldstate.getBlockState().getBlock() == Blocks.BEDROCK || blockworldstate.getBlockState().getBlock() == Blocks.END_PORTAL) {
+							if (blockworldstate.getBlockState()
+							                   .getBlock() == Blocks.BEDROCK || blockworldstate.getBlockState()
+							                                                                   .getBlock() == Blocks.END_PORTAL) {
 								world.setBlockState(blockworldstate.getPos(), Blocks.END_STONE.getDefaultState());
 							}
 						}

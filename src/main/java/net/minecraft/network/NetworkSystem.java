@@ -87,33 +87,33 @@ public class NetworkSystem {
 			}
 
 			endpoints.add(
-					new ServerBootstrap()
-							.channel(oclass)
-							.childHandler(
-									new ChannelInitializer<>() {
-										protected void initChannel(Channel channel) {
-											channel.config().setOption(ChannelOption.TCP_NODELAY, true);
+				new ServerBootstrap()
+					.channel(oclass)
+					.childHandler(
+						new ChannelInitializer<>() {
+							protected void initChannel(Channel channel) {
+								channel.config().setOption(ChannelOption.TCP_NODELAY, true);
 
-											NetworkManager manager = new NetworkManager(PacketDirection.SERVERBOUND);
-											networkManagers.add(manager);
+								NetworkManager manager = new NetworkManager(PacketDirection.SERVERBOUND);
+								networkManagers.add(manager);
 
-											channel.pipeline()
-													.addLast("timeout", new ReadTimeoutHandler(30))
-													.addLast("legacy_query", new LegacyPingHandler(NetworkSystem.this))
-													.addLast("splitter", new NettyVarint21FrameDecoder())
-													.addLast("decoder", new NettyPacketDecoder(PacketDirection.SERVERBOUND))
-													.addLast("prepender", new NettyVarint21FrameEncoder())
-													.addLast("encoder", new NettyPacketEncoder(PacketDirection.CLIENTBOUND))
-													.addLast("packet_handler", manager);
+								channel.pipeline()
+								       .addLast("timeout", new ReadTimeoutHandler(30))
+								       .addLast("legacy_query", new LegacyPingHandler(NetworkSystem.this))
+								       .addLast("splitter", new NettyVarint21FrameDecoder())
+								       .addLast("decoder", new NettyPacketDecoder(PacketDirection.SERVERBOUND))
+								       .addLast("prepender", new NettyVarint21FrameEncoder())
+								       .addLast("encoder", new NettyPacketEncoder(PacketDirection.CLIENTBOUND))
+								       .addLast("packet_handler", manager);
 
-											manager.setNetHandler(new NetHandlerHandshakeTCP(mcServer, manager));
-										}
-									}
-							)
-							.group(base.getValue())
-							.localAddress(address, port)
-							.bind()
-							.syncUninterruptibly()
+								manager.setNetHandler(new NetHandlerHandshakeTCP(mcServer, manager));
+							}
+						}
+					)
+					.group(base.getValue())
+					.localAddress(address, port)
+					.bind()
+					.syncUninterruptibly()
 			);
 		}
 	}
@@ -126,20 +126,20 @@ public class NetworkSystem {
 
 		synchronized (endpoints) {
 			future = new ServerBootstrap()
-					.channel(LocalServerChannel.class)
-					.childHandler(new ChannelInitializer<>() {
-						              protected void initChannel(Channel channel) {
-							              NetworkManager manager = new NetworkManager(PacketDirection.SERVERBOUND);
-							              manager.setNetHandler(new NetHandlerHandshakeMemory(mcServer, manager));
-							              networkManagers.add(manager);
-							              channel.pipeline().addLast("packet_handler", manager);
-						              }
+				.channel(LocalServerChannel.class)
+				.childHandler(new ChannelInitializer<>() {
+					              protected void initChannel(Channel channel) {
+						              NetworkManager manager = new NetworkManager(PacketDirection.SERVERBOUND);
+						              manager.setNetHandler(new NetHandlerHandshakeMemory(mcServer, manager));
+						              networkManagers.add(manager);
+						              channel.pipeline().addLast("packet_handler", manager);
 					              }
-					)
-					.group(SERVER_LOCAL_EVENT_LOOP.getValue())
-					.localAddress(LocalAddress.ANY)
-					.bind()
-					.syncUninterruptibly();
+				              }
+				)
+				.group(SERVER_LOCAL_EVENT_LOOP.getValue())
+				.localAddress(LocalAddress.ANY)
+				.bind()
+				.syncUninterruptibly();
 
 			endpoints.add(future);
 		}

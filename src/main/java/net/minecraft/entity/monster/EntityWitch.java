@@ -185,7 +185,6 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
 		return damage;
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_WITCH;
 	}

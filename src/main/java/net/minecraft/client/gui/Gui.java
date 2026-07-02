@@ -60,7 +60,9 @@ public class Gui {
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
 		bufferbuilder.pos(x, y + height, 0D).tex(u * f, (v + (float) height) * f1).endVertex();
-		bufferbuilder.pos(x + width, y + height, 0D).tex((u + (float) width) * f, (v + (float) height) * f1).endVertex();
+		bufferbuilder.pos(x + width, y + height, 0D)
+		             .tex((u + (float) width) * f, (v + (float) height) * f1)
+		             .endVertex();
 		bufferbuilder.pos(x + width, y, 0D).tex((u + (float) width) * f, v * f1).endVertex();
 		bufferbuilder.pos(x, y, 0D).tex(u * f, v * f1).endVertex();
 		tessellator.draw();
@@ -76,7 +78,9 @@ public class Gui {
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
 		bufferbuilder.pos(x, y + height, 0D).tex(u * f, (v + (float) vHeight) * f1).endVertex();
-		bufferbuilder.pos(x + width, y + height, 0D).tex((u + (float) uWidth) * f, (v + (float) vHeight) * f1).endVertex();
+		bufferbuilder.pos(x + width, y + height, 0D)
+		             .tex((u + (float) uWidth) * f, (v + (float) vHeight) * f1)
+		             .endVertex();
 		bufferbuilder.pos(x + width, y, 0D).tex((u + (float) uWidth) * f, v * f1).endVertex();
 		bufferbuilder.pos(x, y, 0D).tex(u * f, v * f1).endVertex();
 		tessellator.draw();
@@ -163,10 +167,18 @@ public class Gui {
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-		bufferbuilder.pos(x, y + height, zLevel).tex((float) (textureX) * 0.00390625F, (float) (textureY + height) * 0.00390625F).endVertex();
-		bufferbuilder.pos(x + width, y + height, zLevel).tex((float) (textureX + width) * 0.00390625F, (float) (textureY + height) * 0.00390625F).endVertex();
-		bufferbuilder.pos(x + width, y, zLevel).tex((float) (textureX + width) * 0.00390625F, (float) (textureY) * 0.00390625F).endVertex();
-		bufferbuilder.pos(x, y, zLevel).tex((float) (textureX) * 0.00390625F, (float) (textureY) * 0.00390625F).endVertex();
+		bufferbuilder.pos(x, y + height, zLevel)
+		             .tex((float) (textureX) * 0.00390625F, (float) (textureY + height) * 0.00390625F)
+		             .endVertex();
+		bufferbuilder.pos(x + width, y + height, zLevel)
+		             .tex((float) (textureX + width) * 0.00390625F, (float) (textureY + height) * 0.00390625F)
+		             .endVertex();
+		bufferbuilder.pos(x + width, y, zLevel)
+		             .tex((float) (textureX + width) * 0.00390625F, (float) (textureY) * 0.00390625F)
+		             .endVertex();
+		bufferbuilder.pos(x, y, zLevel)
+		             .tex((float) (textureX) * 0.00390625F, (float) (textureY) * 0.00390625F)
+		             .endVertex();
 		tessellator.draw();
 	}
 
@@ -179,10 +191,18 @@ public class Gui {
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-		bufferbuilder.pos(xCoord + 0F, yCoord + (float) maxV, zLevel).tex((float) (minU) * 0.00390625F, (float) (minV + maxV) * 0.00390625F).endVertex();
-		bufferbuilder.pos(xCoord + (float) maxU, yCoord + (float) maxV, zLevel).tex((float) (minU + maxU) * 0.00390625F, (float) (minV + maxV) * 0.00390625F).endVertex();
-		bufferbuilder.pos(xCoord + (float) maxU, yCoord + 0F, zLevel).tex((float) (minU + maxU) * 0.00390625F, (float) (minV) * 0.00390625F).endVertex();
-		bufferbuilder.pos(xCoord + 0F, yCoord + 0F, zLevel).tex((float) (minU) * 0.00390625F, (float) (minV) * 0.00390625F).endVertex();
+		bufferbuilder.pos(xCoord + 0F, yCoord + (float) maxV, zLevel)
+		             .tex((float) (minU) * 0.00390625F, (float) (minV + maxV) * 0.00390625F)
+		             .endVertex();
+		bufferbuilder.pos(xCoord + (float) maxU, yCoord + (float) maxV, zLevel)
+		             .tex((float) (minU + maxU) * 0.00390625F, (float) (minV + maxV) * 0.00390625F)
+		             .endVertex();
+		bufferbuilder.pos(xCoord + (float) maxU, yCoord + 0F, zLevel)
+		             .tex((float) (minU + maxU) * 0.00390625F, (float) (minV) * 0.00390625F)
+		             .endVertex();
+		bufferbuilder.pos(xCoord + 0F, yCoord + 0F, zLevel)
+		             .tex((float) (minU) * 0.00390625F, (float) (minV) * 0.00390625F)
+		             .endVertex();
 		tessellator.draw();
 	}
 
@@ -193,9 +213,15 @@ public class Gui {
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-		bufferbuilder.pos(xCoord, yCoord + heightIn, zLevel).tex(textureSprite.getMinU(), textureSprite.getMaxV()).endVertex();
-		bufferbuilder.pos(xCoord + widthIn, yCoord + heightIn, zLevel).tex(textureSprite.getMaxU(), textureSprite.getMaxV()).endVertex();
-		bufferbuilder.pos(xCoord + widthIn, yCoord, zLevel).tex(textureSprite.getMaxU(), textureSprite.getMinV()).endVertex();
+		bufferbuilder.pos(xCoord, yCoord + heightIn, zLevel)
+		             .tex(textureSprite.getMinU(), textureSprite.getMaxV())
+		             .endVertex();
+		bufferbuilder.pos(xCoord + widthIn, yCoord + heightIn, zLevel)
+		             .tex(textureSprite.getMaxU(), textureSprite.getMaxV())
+		             .endVertex();
+		bufferbuilder.pos(xCoord + widthIn, yCoord, zLevel)
+		             .tex(textureSprite.getMaxU(), textureSprite.getMinV())
+		             .endVertex();
 		bufferbuilder.pos(xCoord, yCoord, zLevel).tex(textureSprite.getMinU(), textureSprite.getMinV()).endVertex();
 		tessellator.draw();
 	}

@@ -36,7 +36,6 @@ public class EntityLeashKnot extends EntityHanging {
 		return entityleashknot;
 	}
 
-	
 	public static EntityLeashKnot getKnotForPosition(World worldIn, BlockPos pos) {
 		int i = pos.getX();
 		int j = pos.getY();

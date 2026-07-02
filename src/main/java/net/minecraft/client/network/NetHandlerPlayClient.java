@@ -90,7 +90,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
@@ -135,7 +134,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 	 * reset upon respawning
 	 */
 	private boolean doneLoadingTerrain;
-	
+
 	public NetHandlerPlayClient(Minecraft mcIn, Screen p_i46300_2_, NetworkManager networkManagerIn, GameProfile profileIn) {
 		gameController = mcIn;
 		serverScreen = p_i46300_2_;
@@ -593,7 +592,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 	 */
 	public void onDisconnect(ITextComponent reason) {
 		gameController.loadWorld(null);
-		if (serverScreen == null) gameController.displayScreen(new DisconnectedScreen(new MultiplayerScreen(new MainMenuScreen()), "disconnect.lost", reason));
+		if (serverScreen == null)
+			gameController.displayScreen(new DisconnectedScreen(new MultiplayerScreen(new MainMenuScreen()), "disconnect.lost", reason));
 	}
 
 	public void sendPacket(Packet<?> packetIn) {
@@ -809,7 +809,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		if (packetIn.getDimensionID() != gameController.player.dimension) {
 			doneLoadingTerrain = false;
 			Scoreboard scoreboard = clientWorldController.getScoreboard();
-			clientWorldController = new WorldClient(this, new WorldSettings(0L, packetIn.getGameType(), false, gameController.world.getWorldInfo().isHardcoreModeEnabled(), packetIn.getWorldType()), packetIn.getDimensionID(), packetIn.getDifficulty(), gameController.profiler);
+			clientWorldController = new WorldClient(this, new WorldSettings(0L, packetIn.getGameType(), false, gameController.world.getWorldInfo()
+			                                                                                                                       .isHardcoreModeEnabled(), packetIn.getWorldType()), packetIn.getDimensionID(), packetIn.getDifficulty(), gameController.profiler);
 			clientWorldController.setWorldScoreboard(scoreboard);
 			gameController.loadWorld(clientWorldController);
 			gameController.player.dimension = packetIn.getDimensionID();
@@ -1043,7 +1044,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 				gameController.displayScreen(new DownloadTerrainScreen());
 			} else if (j == 1) {
 				gameController.displayScreen(new WinGameScreen(true, () ->
-						gameController.player.connection.sendPacket(new CPacketClientStatus(CPacketClientStatus.State.PERFORM_RESPAWN))));
+					gameController.player.connection.sendPacket(new CPacketClientStatus(CPacketClientStatus.State.PERFORM_RESPAWN))));
 			}
 		} else if (i == 6) {
 			clientWorldController.playSound(entityplayer, entityplayer.posX, entityplayer.posY + (double) entityplayer.getEyeHeight(), entityplayer.posZ, SoundEvents.ENTITY_ARROW_HIT_PLAYER, SoundCategory.PLAYERS, 0.18F, 0.45F);
@@ -1123,7 +1124,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 			int k = entry.getValue();
 			gameController.player.getStatFileWriter().unlockAchievement(gameController.player, statbase, k);
 		}
-		
+
 		if (gameController.currentScreen instanceof IProgressMeter) {
 			((IProgressMeter) gameController.currentScreen).onStatsUpdated();
 		}
@@ -1158,15 +1159,15 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 
 			case ADD:
 				packetIn.getRecipes().forEach((p_194025_2_) ->
-				{
-					recipebook.unlock(p_194025_2_);
-					recipebook.markNew(p_194025_2_);
-					RecipeToast.addOrUpdate(gameController.getToastGui(), p_194025_2_);
-				});
+				                              {
+					                              recipebook.unlock(p_194025_2_);
+					                              recipebook.markNew(p_194025_2_);
+					                              RecipeToast.addOrUpdate(gameController.getToastGui(), p_194025_2_);
+				                              });
 		}
 
 		RecipeBookClient.ALL_RECIPES.forEach((p_194023_1_) ->
-				p_194023_1_.updateKnownRecipes(recipebook));
+			                                     p_194023_1_.updateKnownRecipes(recipebook));
 
 		if (gameController.currentScreen instanceof IRecipeShownListener) {
 			((IRecipeShownListener) gameController.currentScreen).recipesUpdated();
@@ -1251,8 +1252,14 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 	}
 
 	public void handlePlayerListHeaderFooter(SPacketPlayerListHeaderFooter packetIn) {
-		gameController.ingameGUI.getTabList().setHeader(packetIn.getHeader().getFormattedText().isEmpty() ? null : packetIn.getHeader());
-		gameController.ingameGUI.getTabList().setFooter(packetIn.getFooter().getFormattedText().isEmpty() ? null : packetIn.getFooter());
+		gameController.ingameGUI.getTabList()
+		                        .setHeader(packetIn.getHeader()
+		                                           .getFormattedText()
+		                                           .isEmpty() ? null : packetIn.getHeader());
+		gameController.ingameGUI.getTabList()
+		                        .setFooter(packetIn.getFooter()
+		                                           .getFormattedText()
+		                                           .isEmpty() ? null : packetIn.getFooter());
 	}
 
 	public void handleRemoveEntityEffect(SPacketRemoveEntityEffect packetIn) {
@@ -1272,7 +1279,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 			if (packetIn.getAction() == SPacketPlayerListItem.Action.REMOVE_PLAYER) {
 				playerInfoMap.remove(spacketplayerlistitem$addplayerdata.getProfile().getId());
 			} else {
-				NetworkPlayerInfo networkplayerinfo = playerInfoMap.get(spacketplayerlistitem$addplayerdata.getProfile().getId());
+				NetworkPlayerInfo networkplayerinfo = playerInfoMap.get(spacketplayerlistitem$addplayerdata.getProfile()
+				                                                                                           .getId());
 
 				if (packetIn.getAction() == SPacketPlayerListItem.Action.ADD_PLAYER) {
 					networkplayerinfo = new NetworkPlayerInfo(spacketplayerlistitem$addplayerdata);
@@ -1337,7 +1345,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 
 	public void handleCustomSound(SPacketCustomSound packetIn) {
 		PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, gameController);
-		gameController.getSoundHandler().playSound(new PositionedSoundRecord(new ResourceLocation(packetIn.getSoundName()), packetIn.getCategory(), packetIn.getVolume(), packetIn.getPitch(), false, 0, ISound.AttenuationType.LINEAR, (float) packetIn.getX(), (float) packetIn.getY(), (float) packetIn.getZ()));
+		gameController.getSoundHandler()
+		              .playSound(new PositionedSoundRecord(new ResourceLocation(packetIn.getSoundName()), packetIn.getCategory(), packetIn.getVolume(), packetIn.getPitch(), false, 0, ISound.AttenuationType.LINEAR, (float) packetIn.getX(), (float) packetIn.getY(), (float) packetIn.getZ()));
 	}
 
 	public void handleResourcePack(SPacketResourcePackSend packetIn) {
@@ -1352,7 +1361,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 
 				if (file2.isFile()) {
 					netManager.sendPacket(new CPacketResourcePackStatus(CPacketResourcePackStatus.Action.ACCEPTED));
-					Futures.addCallback(gameController.getResourcePackRepository().setServerResourcePack(file2), createDownloadCallback(), MoreExecutors.directExecutor());
+					Futures.addCallback(gameController.getResourcePackRepository()
+					                                  .setServerResourcePack(file2), createDownloadCallback(), MoreExecutors.directExecutor());
 					return;
 				}
 
@@ -1362,7 +1372,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 
 				if (serverdata != null && serverdata.getResourceMode() == ServerData.ServerResourceMode.ENABLED) {
 					netManager.sendPacket(new CPacketResourcePackStatus(CPacketResourcePackStatus.Action.ACCEPTED));
-					Futures.addCallback(gameController.getResourcePackRepository().downloadResourcePack(s, s1), createDownloadCallback(), MoreExecutors.directExecutor());
+					Futures.addCallback(gameController.getResourcePackRepository()
+					                                  .downloadResourcePack(s, s1), createDownloadCallback(), MoreExecutors.directExecutor());
 				} else if (serverdata != null && serverdata.getResourceMode() != ServerData.ServerResourceMode.PROMPT) {
 					netManager.sendPacket(new CPacketResourcePackStatus(CPacketResourcePackStatus.Action.DECLINED));
 				} else {
@@ -1377,7 +1388,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 							}
 
 							netManager.sendPacket(new CPacketResourcePackStatus(CPacketResourcePackStatus.Action.ACCEPTED));
-							Futures.addCallback(gameController.getResourcePackRepository().downloadResourcePack(s, s1), createDownloadCallback(), MoreExecutors.directExecutor());
+							Futures.addCallback(gameController.getResourcePackRepository()
+							                                  .downloadResourcePack(s, s1), createDownloadCallback(), MoreExecutors.directExecutor());
 						} else {
 							if (serverdata1 != null) {
 								serverdata1.setResourceMode(ServerData.ServerResourceMode.DISABLED);
@@ -1707,8 +1719,6 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 	public NetworkPlayerInfo getPlayerInfo(UUID uniqueId) {
 		return playerInfoMap.get(uniqueId);
 	}
-
-	
 
 	/**
 	 * Gets the client's description information about another player on the server.

@@ -140,9 +140,9 @@ public class FaceBakery {
 		Vector3f vector3f3 = new Vector3f(vector3f.x - vector3f1.x, vector3f.y - vector3f1.y, vector3f.z - vector3f1.z);
 		Vector3f vector3f4 = new Vector3f(vector3f2.x - vector3f1.x, vector3f2.y - vector3f1.y, vector3f2.z - vector3f1.z);
 		Vector3f vector3f5 = new Vector3f(
-				vector3f4.y * vector3f3.z - vector3f4.z * vector3f3.y,
-				vector3f4.z * vector3f3.x - vector3f4.x * vector3f3.z,
-				vector3f4.x * vector3f3.y - vector3f4.y * vector3f3.x
+			vector3f4.y * vector3f3.z - vector3f4.z * vector3f3.y,
+			vector3f4.z * vector3f3.x - vector3f4.x * vector3f3.z,
+			vector3f4.x * vector3f3.y - vector3f4.y * vector3f3.x
 		);
 		float dist = vector3f5.lengthSquared();
 		vector3f5.div(dist);
@@ -235,7 +235,8 @@ public class FaceBakery {
 	private void fillVertexData(int[] p_188015_1_, int p_188015_2_, Facing p_188015_3_, BlockFaceUV p_188015_4_, float[] p_188015_5_, TextureAtlasSprite p_188015_6_, ModelRotation p_188015_7_, BlockPartRotation p_188015_8_, boolean p_188015_9_) {
 		Facing enumfacing = p_188015_7_.rotateFace(p_188015_3_);
 		int i = p_188015_9_ ? getFaceShadeColor(enumfacing) : -1;
-		FaceDirection.VertexInformation enumfacedirection$vertexinformation = FaceDirection.getFacing(p_188015_3_).getVertexInformation(p_188015_2_);
+		FaceDirection.VertexInformation enumfacedirection$vertexinformation = FaceDirection.getFacing(p_188015_3_)
+		                                                                                   .getVertexInformation(p_188015_2_);
 		Vector3f vector3f = new Vector3f(p_188015_5_[enumfacedirection$vertexinformation.xIndex], p_188015_5_[enumfacedirection$vertexinformation.yIndex], p_188015_5_[enumfacedirection$vertexinformation.zIndex]);
 		rotatePart(vector3f, p_188015_8_);
 		int j = rotateVertex(vector3f, p_188015_3_, p_188015_2_, p_188015_7_);

@@ -66,15 +66,18 @@ public class Shader {
 
 		for (int i = 0; i < listAuxFramebuffers.size(); ++i) {
 			manager.addSamplerTexture(listAuxNames.get(i), listAuxFramebuffers.get(i));
-			manager.getShaderUniformOrDefault("AuxSize" + i).set((float) listAuxWidths.get(i), (float) listAuxHeights.get(i));
+			manager.getShaderUniformOrDefault("AuxSize" + i)
+			       .set((float) listAuxWidths.get(i), (float) listAuxHeights.get(i));
 		}
 
 		manager.getShaderUniformOrDefault("ProjMat").set(projectionMatrix);
-		manager.getShaderUniformOrDefault("InSize").set((float) framebufferIn.framebufferTextureWidth, (float) framebufferIn.framebufferTextureHeight);
+		manager.getShaderUniformOrDefault("InSize")
+		       .set((float) framebufferIn.framebufferTextureWidth, (float) framebufferIn.framebufferTextureHeight);
 		manager.getShaderUniformOrDefault("OutSize").set(f, f1);
 		manager.getShaderUniformOrDefault("Time").set(partialTicks);
 		Minecraft minecraft = Minecraft.getMinecraft();
-			manager.getShaderUniformOrDefault("ScreenSize").set((float) minecraft.getWindow().getWidth(), (float) minecraft.getWindow().getHeight());
+		manager.getShaderUniformOrDefault("ScreenSize")
+		       .set((float) minecraft.getWindow().getWidth(), (float) minecraft.getWindow().getHeight());
 		manager.useShader();
 		framebufferOut.framebufferClear();
 		framebufferOut.bindFramebuffer(false);

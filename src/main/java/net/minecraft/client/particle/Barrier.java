@@ -44,10 +44,26 @@ public class Barrier extends Particle {
 		int i = getBrightnessForRender(partialTicks);
 		int j = i >> 16 & 65535;
 		int k = i & 65535;
-		buffer.pos(f5 - rotationX * 0.5F - rotationXY * 0.5F, f6 - rotationZ * 0.5F, f7 - rotationYZ * 0.5F - rotationXZ * 0.5F).tex(f1, f3).color(particleRed, particleGreen, particleBlue, 1F).lightmap(j, k).endVertex();
-		buffer.pos(f5 - rotationX * 0.5F + rotationXY * 0.5F, f6 + rotationZ * 0.5F, f7 - rotationYZ * 0.5F + rotationXZ * 0.5F).tex(f1, f2).color(particleRed, particleGreen, particleBlue, 1F).lightmap(j, k).endVertex();
-		buffer.pos(f5 + rotationX * 0.5F + rotationXY * 0.5F, f6 + rotationZ * 0.5F, f7 + rotationYZ * 0.5F + rotationXZ * 0.5F).tex(f, f2).color(particleRed, particleGreen, particleBlue, 1F).lightmap(j, k).endVertex();
-		buffer.pos(f5 + rotationX * 0.5F - rotationXY * 0.5F, f6 - rotationZ * 0.5F, f7 + rotationYZ * 0.5F - rotationXZ * 0.5F).tex(f, f3).color(particleRed, particleGreen, particleBlue, 1F).lightmap(j, k).endVertex();
+		buffer.pos(f5 - rotationX * 0.5F - rotationXY * 0.5F, f6 - rotationZ * 0.5F, f7 - rotationYZ * 0.5F - rotationXZ * 0.5F)
+		      .tex(f1, f3)
+		      .color(particleRed, particleGreen, particleBlue, 1F)
+		      .lightmap(j, k)
+		      .endVertex();
+		buffer.pos(f5 - rotationX * 0.5F + rotationXY * 0.5F, f6 + rotationZ * 0.5F, f7 - rotationYZ * 0.5F + rotationXZ * 0.5F)
+		      .tex(f1, f2)
+		      .color(particleRed, particleGreen, particleBlue, 1F)
+		      .lightmap(j, k)
+		      .endVertex();
+		buffer.pos(f5 + rotationX * 0.5F + rotationXY * 0.5F, f6 + rotationZ * 0.5F, f7 + rotationYZ * 0.5F + rotationXZ * 0.5F)
+		      .tex(f, f2)
+		      .color(particleRed, particleGreen, particleBlue, 1F)
+		      .lightmap(j, k)
+		      .endVertex();
+		buffer.pos(f5 + rotationX * 0.5F - rotationXY * 0.5F, f6 - rotationZ * 0.5F, f7 + rotationYZ * 0.5F - rotationXZ * 0.5F)
+		      .tex(f, f3)
+		      .color(particleRed, particleGreen, particleBlue, 1F)
+		      .lightmap(j, k)
+		      .endVertex();
 	}
 
 	public static class Factory implements IParticleFactory {

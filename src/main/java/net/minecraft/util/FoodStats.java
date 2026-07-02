@@ -27,7 +27,7 @@ public class FoodStats {
 	 * The player's food timer value.
 	 */
 	private int foodTimer;
-	
+
 	/**
 	 * Add food stats.
 	 */
@@ -45,7 +45,7 @@ public class FoodStats {
 	 */
 	public void onUpdate(EntityPlayer player) {
 		Difficulty enumdifficulty = player.world.getDifficulty();
-		
+
 		if (foodExhaustionLevel > 4F) {
 			foodExhaustionLevel -= 4F;
 

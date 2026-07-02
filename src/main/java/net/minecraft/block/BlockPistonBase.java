@@ -51,7 +51,6 @@ public class BlockPistonBase extends BlockDirectional {
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
-	
 	public static Facing getFacing(int meta) {
 		int i = meta & 7;
 		return i > 5 ? null : Facing.getFront(i);
@@ -170,7 +169,8 @@ public class BlockPistonBase extends BlockDirectional {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-		return getDefaultState().withProperty(FACING, Facing.getDirectionFromEntityLiving(pos, placer)).withProperty(EXTENDED, false);
+		return getDefaultState().withProperty(FACING, Facing.getDirectionFromEntityLiving(pos, placer))
+		                        .withProperty(EXTENDED, false);
 	}
 
 	private void checkForMove(World worldIn, BlockPos pos, IBlockState state) {
@@ -243,7 +243,9 @@ public class BlockPistonBase extends BlockDirectional {
 				((TileEntityPiston) tileentity1).clearPistonTileEntity();
 			}
 
-			worldIn.setBlockState(pos, Blocks.PISTON_EXTENSION.getDefaultState().withProperty(BlockPistonMoving.FACING, enumfacing).withProperty(BlockPistonMoving.TYPE, isSticky ? BlockPistonExtension.PistonType.STICKY : BlockPistonExtension.PistonType.DEFAULT), 3);
+			worldIn.setBlockState(pos, Blocks.PISTON_EXTENSION.getDefaultState()
+			                                                  .withProperty(BlockPistonMoving.FACING, enumfacing)
+			                                                  .withProperty(BlockPistonMoving.TYPE, isSticky ? BlockPistonExtension.PistonType.STICKY : BlockPistonExtension.PistonType.DEFAULT), 3);
 			worldIn.setTileEntity(pos, BlockPistonMoving.createTilePiston(getStateFromMeta(param), enumfacing, false, true));
 
 			if (isSticky) {
@@ -316,7 +318,8 @@ public class BlockPistonBase extends BlockDirectional {
 				IBlockState iblockstate2 = worldIn.getBlockState(blockpos3);
 				worldIn.setBlockState(blockpos3, Blocks.AIR.getDefaultState(), 2);
 				blockpos3 = blockpos3.offset(enumfacing);
-				worldIn.setBlockState(blockpos3, Blocks.PISTON_EXTENSION.getDefaultState().withProperty(FACING, direction), 4);
+				worldIn.setBlockState(blockpos3, Blocks.PISTON_EXTENSION.getDefaultState()
+				                                                        .withProperty(FACING, direction), 4);
 				worldIn.setTileEntity(blockpos3, BlockPistonMoving.createTilePiston(list1.get(l), direction, extending, false));
 				--k;
 				aiblockstate[k] = iblockstate2;
@@ -326,8 +329,12 @@ public class BlockPistonBase extends BlockDirectional {
 
 			if (extending) {
 				BlockPistonExtension.PistonType blockpistonextension$enumpistontype = isSticky ? BlockPistonExtension.PistonType.STICKY : BlockPistonExtension.PistonType.DEFAULT;
-				IBlockState iblockstate3 = Blocks.PISTON_HEAD.getDefaultState().withProperty(BlockPistonExtension.FACING, direction).withProperty(BlockPistonExtension.TYPE, blockpistonextension$enumpistontype);
-				IBlockState iblockstate1 = Blocks.PISTON_EXTENSION.getDefaultState().withProperty(BlockPistonMoving.FACING, direction).withProperty(BlockPistonMoving.TYPE, isSticky ? BlockPistonExtension.PistonType.STICKY : BlockPistonExtension.PistonType.DEFAULT);
+				IBlockState iblockstate3 = Blocks.PISTON_HEAD.getDefaultState()
+				                                             .withProperty(BlockPistonExtension.FACING, direction)
+				                                             .withProperty(BlockPistonExtension.TYPE, blockpistonextension$enumpistontype);
+				IBlockState iblockstate1 = Blocks.PISTON_EXTENSION.getDefaultState()
+				                                                  .withProperty(BlockPistonMoving.FACING, direction)
+				                                                  .withProperty(BlockPistonMoving.TYPE, isSticky ? BlockPistonExtension.PistonType.STICKY : BlockPistonExtension.PistonType.DEFAULT);
 				worldIn.setBlockState(blockpos2, iblockstate1, 4);
 				worldIn.setTileEntity(blockpos2, BlockPistonMoving.createTilePiston(iblockstate3, direction, true, true));
 			}

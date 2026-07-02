@@ -52,7 +52,7 @@ public class RenderChunk {
 
 		world = worldIn;
 		renderGlobal = renderGlobalIn;
-		
+
 		if (OpenGlHelper.useVbo()) {
 			for (int j = 0; j < BlockRenderLayer.values().length; ++j) {
 				vertexBuffers[j] = new VertexBuffer(DefaultVertexFormats.BLOCK);
@@ -94,9 +94,13 @@ public class RenderChunk {
 		CompiledChunk compiledchunk = generator.getCompiledChunk();
 
 		if (compiledchunk.getState() != null && !compiledchunk.isLayerEmpty(BlockRenderLayer.TRANSLUCENT)) {
-			preRenderBlocks(generator.getRegionRenderCacheBuilder().getWorldRendererByLayer(BlockRenderLayer.TRANSLUCENT), position);
-			generator.getRegionRenderCacheBuilder().getWorldRendererByLayer(BlockRenderLayer.TRANSLUCENT).setVertexState(compiledchunk.getState());
-			postRenderBlocks(BlockRenderLayer.TRANSLUCENT, x, y, z, generator.getRegionRenderCacheBuilder().getWorldRendererByLayer(BlockRenderLayer.TRANSLUCENT), compiledchunk);
+			preRenderBlocks(generator.getRegionRenderCacheBuilder()
+			                         .getWorldRendererByLayer(BlockRenderLayer.TRANSLUCENT), position);
+			generator.getRegionRenderCacheBuilder()
+			         .getWorldRendererByLayer(BlockRenderLayer.TRANSLUCENT)
+			         .setVertexState(compiledchunk.getState());
+			postRenderBlocks(BlockRenderLayer.TRANSLUCENT, x, y, z, generator.getRegionRenderCacheBuilder()
+			                                                                 .getWorldRendererByLayer(BlockRenderLayer.TRANSLUCENT), compiledchunk);
 		}
 	}
 
@@ -170,7 +174,8 @@ public class RenderChunk {
 				}
 
 				if (compiledchunk.isLayerStarted(blockrenderlayer)) {
-					postRenderBlocks(blockrenderlayer, x, y, z, generator.getRegionRenderCacheBuilder().getWorldRendererByLayer(blockrenderlayer), compiledchunk);
+					postRenderBlocks(blockrenderlayer, x, y, z, generator.getRegionRenderCacheBuilder()
+					                                                     .getWorldRendererByLayer(blockrenderlayer), compiledchunk);
 				}
 			}
 		}
@@ -229,7 +234,6 @@ public class RenderChunk {
 		worldView = new ChunkCache(world, position.add(-1, -1, -1), position.add(16, 16, 16), 1);
 	}
 
-	
 	public ChunkCompileTaskGenerator makeCompileTaskTransparency() {
 		lockCompileTask.lock();
 		ChunkCompileTaskGenerator chunkcompiletaskgenerator;

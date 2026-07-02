@@ -12,6 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.event.HoverEvent;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
@@ -67,11 +68,10 @@ public class Advancement {
 		return new Advancement.Builder(parent == null ? null : parent.getId(), display, rewards, criteria, requirements);
 	}
 
-	
-
 	/**
 	 * Get the {@code Advancement} that is this {@code Advancement}'s parent. This determines the tree structure that
 	 * appears in the {@linkplain GuiScreenAdvancements GUI}.
+	 *
 	 * @return the parent {@code Advancement} of this {@code Advancement}, or {@code null} to signify that this {@code
 	 * Advancement} is a root with no parent.
 	 */
@@ -79,10 +79,9 @@ public class Advancement {
 		return parent;
 	}
 
-	
-
 	/**
 	 * Get information that defines this {@code Advancement}'s appearance in GUIs.
+	 *
 	 * @return information that defines this {@code Advancement}'s appearance in GUIs. If {@code null}, signifies an
 	 * invisible {@code Advancement}.
 	 */

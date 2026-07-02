@@ -109,7 +109,8 @@ public class BlockChest extends BlockContainer {
 	 * Called by ItemBlocks after a block is set in the world, to allow post-place logic
 	 */
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-		Facing enumfacing = Facing.getHorizontal(MathHelper.floor((double) (placer.rotationYaw * 4F / 360F) + 0.5D) & 3).getOpposite();
+		Facing enumfacing = Facing.getHorizontal(MathHelper.floor((double) (placer.rotationYaw * 4F / 360F) + 0.5D) & 3)
+		                          .getOpposite();
 		state = state.withProperty(FACING, enumfacing);
 		BlockPos blockpos = pos.north();
 		BlockPos blockpos1 = pos.south();
@@ -373,12 +374,10 @@ public class BlockChest extends BlockContainer {
 		}
 	}
 
-	
 	public ILockableContainer getLockableContainer(World worldIn, BlockPos pos) {
 		return getContainer(worldIn, pos, false);
 	}
 
-	
 	public ILockableContainer getContainer(World worldIn, BlockPos pos, boolean allowBlocking) {
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 

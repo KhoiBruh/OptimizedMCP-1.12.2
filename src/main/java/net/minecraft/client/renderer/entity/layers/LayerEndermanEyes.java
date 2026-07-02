@@ -30,7 +30,8 @@ public class LayerEndermanEyes implements LayerRenderer<EntityEnderman> {
 		GLS.enableLighting();
 		GLS.color(1F, 1F, 1F, 1F);
 		Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
-		endermanRenderer.getMainModel().render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+		endermanRenderer.getMainModel()
+		                .render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		Minecraft.getMinecraft().entityRenderer.setupFogColor(false);
 		endermanRenderer.setLightmap(entitylivingbaseIn);
 		GLS.depthMask(true);

@@ -290,7 +290,6 @@ public class EntityRabbit extends EntityAnimal {
 		return !isEntityInvulnerable(source) && super.attackEntityFrom(source, amount);
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_RABBIT;
 	}
@@ -343,21 +342,18 @@ public class EntityRabbit extends EntityAnimal {
 		dataManager.set(RABBIT_TYPE, rabbitTypeId);
 	}
 
-	
-
 	/**
 	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
 	 * when entity is reloaded from nbt. Mainly used for initializing attributes and inventory.
-	 *
+	 * <p>
 	 * The livingdata parameter is used to pass data between all instances during a pack spawn. It will be null on the
 	 * first call. Subclasses may check if it's null, and then create a new one and return it if so, initializing all
 	 * entities in the pack with the contained data.
 	 *
-	 * @return The IEntityLivingData to pass to this method for other instances of this entity class within the same
-	 * pack
-	 *
 	 * @param difficulty The current local difficulty
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
+	 * @return The IEntityLivingData to pass to this method for other instances of this entity class within the same
+	 * pack
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
@@ -493,7 +489,8 @@ public class EntityRabbit extends EntityAnimal {
 
 		public void updateTask() {
 			super.updateTask();
-			rabbit.getLookHelper().setLookPosition((double) destinationBlock.getX() + 0.5D, destinationBlock.getY() + 1, (double) destinationBlock.getZ() + 0.5D, 10F, (float) rabbit.getVerticalFaceSpeed());
+			rabbit.getLookHelper()
+			      .setLookPosition((double) destinationBlock.getX() + 0.5D, destinationBlock.getY() + 1, (double) destinationBlock.getZ() + 0.5D, 10F, (float) rabbit.getVerticalFaceSpeed());
 
 			if (getIsAboveDestination()) {
 				World world = rabbit.world;

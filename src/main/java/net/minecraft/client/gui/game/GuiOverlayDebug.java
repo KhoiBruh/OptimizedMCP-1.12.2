@@ -218,12 +218,12 @@ public class GuiOverlayDebug extends Gui {
 
 	private List<String> getDebugInfoHeader(boolean includeVersionType) {
 		return Lists.newArrayList(
-				getVersionLine(includeVersionType),
-				mc.debug,
-				mc.renderGlobal.getDebugInfoRenders(),
-				mc.renderGlobal.getDebugInfoEntities(),
-				"P: " + mc.effectRenderer.getStatistics() + ". T: " + mc.world.getDebugLoadedEntities(),
-				mc.world.getProviderName()
+			getVersionLine(includeVersionType),
+			mc.debug,
+			mc.renderGlobal.getDebugInfoRenders(),
+			mc.renderGlobal.getDebugInfoEntities(),
+			"P: " + mc.effectRenderer.getStatistics() + ". T: " + mc.world.getDebugLoadedEntities(),
+			mc.world.getProviderName()
 		);
 	}
 
@@ -239,12 +239,16 @@ public class GuiOverlayDebug extends Gui {
 		long freeMemory = runtime.freeMemory();
 		long usedMemory = totalMemory - freeMemory;
 		List<String> list = Lists.newArrayList(
-				String.format("Java: %s", System.getProperty("java.version")),
-				String.format("Mem: % 2d%% %03d/%03dMB", usedMemory * 100L / maxMemory, bytesToMb(usedMemory), bytesToMb(maxMemory)),
-				String.format("Allocated: % 2d%% %03dMB", totalMemory * 100L / maxMemory, bytesToMb(totalMemory)), "",
-				String.format("CPU: %s", OpenGlHelper.getCpu()), "",
-				String.format("Display: %dx%d (%s)", Minecraft.getMinecraft().getWindow().getWidth(), Minecraft.getMinecraft().getWindow().getHeight(), vendor),
-				renderer, version
+			String.format("Java: %s", System.getProperty("java.version")),
+			String.format("Mem: % 2d%% %03d/%03dMB", usedMemory * 100L / maxMemory, bytesToMb(usedMemory), bytesToMb(maxMemory)),
+			String.format("Allocated: % 2d%% %03dMB", totalMemory * 100L / maxMemory, bytesToMb(totalMemory)), "",
+			String.format("CPU: %s", OpenGlHelper.getCpu()), "",
+			String.format("Display: %dx%d (%s)", Minecraft.getMinecraft()
+			                                              .getWindow()
+			                                              .getWidth(), Minecraft.getMinecraft()
+			                                                                    .getWindow()
+			                                                                    .getHeight(), vendor),
+			renderer, version
 		);
 
 		if (!mc.isReducedDebug()) {

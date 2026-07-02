@@ -140,28 +140,34 @@ public class ContainerEnchantment extends Container {
 					for (int j = -1; j <= 1; ++j) {
 						for (int k = -1; k <= 1; ++k) {
 							if ((j != 0 || k != 0) && worldPointer.isAirBlock(position.add(k, 0, j)) && worldPointer.isAirBlock(position.add(k, 1, j))) {
-								if (worldPointer.getBlockState(position.add(k * 2, 0, j * 2)).getBlock() == Blocks.BOOKSHELF) {
+								if (worldPointer.getBlockState(position.add(k * 2, 0, j * 2))
+								                .getBlock() == Blocks.BOOKSHELF) {
 									++l;
 								}
 
-								if (worldPointer.getBlockState(position.add(k * 2, 1, j * 2)).getBlock() == Blocks.BOOKSHELF) {
+								if (worldPointer.getBlockState(position.add(k * 2, 1, j * 2))
+								                .getBlock() == Blocks.BOOKSHELF) {
 									++l;
 								}
 
 								if (k != 0 && j != 0) {
-									if (worldPointer.getBlockState(position.add(k * 2, 0, j)).getBlock() == Blocks.BOOKSHELF) {
+									if (worldPointer.getBlockState(position.add(k * 2, 0, j))
+									                .getBlock() == Blocks.BOOKSHELF) {
 										++l;
 									}
 
-									if (worldPointer.getBlockState(position.add(k * 2, 1, j)).getBlock() == Blocks.BOOKSHELF) {
+									if (worldPointer.getBlockState(position.add(k * 2, 1, j))
+									                .getBlock() == Blocks.BOOKSHELF) {
 										++l;
 									}
 
-									if (worldPointer.getBlockState(position.add(k, 0, j * 2)).getBlock() == Blocks.BOOKSHELF) {
+									if (worldPointer.getBlockState(position.add(k, 0, j * 2))
+									                .getBlock() == Blocks.BOOKSHELF) {
 										++l;
 									}
 
-									if (worldPointer.getBlockState(position.add(k, 1, j * 2)).getBlock() == Blocks.BOOKSHELF) {
+									if (worldPointer.getBlockState(position.add(k, 1, j * 2))
+									                .getBlock() == Blocks.BOOKSHELF) {
 										++l;
 									}
 								}
@@ -334,7 +340,8 @@ public class ContainerEnchantment extends Container {
 					inventorySlots.getFirst().putStack(itemstack1.copy());
 					itemstack1.setCount(0);
 				} else if (!itemstack1.isEmpty()) {
-					inventorySlots.getFirst().putStack(new ItemStack(itemstack1.getItem(), 1, itemstack1.getMetadata()));
+					inventorySlots.getFirst()
+					              .putStack(new ItemStack(itemstack1.getItem(), 1, itemstack1.getMetadata()));
 					itemstack1.shrink(1);
 				}
 			}

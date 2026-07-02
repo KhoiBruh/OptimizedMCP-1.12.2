@@ -77,7 +77,8 @@ public class EntityEnderPearl extends EntityThrowable {
 
 		if (!world.isRemote) {
 			if (entitylivingbase instanceof EntityPlayerMP entityplayermp) {
-				if (entityplayermp.connection.getNetworkManager().isChannelOpen() && entityplayermp.world == world && !entityplayermp.isPlayerSleeping()) {
+				if (entityplayermp.connection.getNetworkManager()
+				                             .isChannelOpen() && entityplayermp.world == world && !entityplayermp.isPlayerSleeping()) {
 					if (rand.nextFloat() < 0.05F && world.getGameRules().getBoolean("doMobSpawning")) {
 						EntityEndermite entityendermite = new EntityEndermite(world);
 						entityendermite.setSpawnedByPlayer(true);
@@ -115,7 +116,6 @@ public class EntityEnderPearl extends EntityThrowable {
 		}
 	}
 
-	
 	public Entity changeDimension(int dimensionIn) {
 		if (thrower.dimension != dimensionIn) {
 			thrower = null;

@@ -233,7 +233,8 @@ public abstract class BlockLeaves extends Block {
 	public abstract BlockPlanks.Type getWoodType(int meta);
 
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-		return (leavesFancy || blockAccess.getBlockState(pos.offset(side)).getBlock() != this) && super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+		return (leavesFancy || blockAccess.getBlockState(pos.offset(side))
+		                                  .getBlock() != this) && super.shouldSideBeRendered(blockState, blockAccess, pos, side);
 	}
 
 }

@@ -4,7 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 
 public class ModelWitch extends ModelVillager {
-	
+
 	public boolean holdingItem;
 
 	public ModelWitch(float scale) {

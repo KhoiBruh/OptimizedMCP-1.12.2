@@ -14,7 +14,7 @@ import java.util.Map;
 public class ItemModelGenerator {
 
 	public static final List<String> LAYERS = Lists.newArrayList("layer0", "layer1", "layer2", "layer3", "layer4");
-	
+
 	public ModelBlock makeItemModel(TextureMap textureMapIn, ModelBlock blockModel) {
 		Map<String, String> map = Maps.newHashMap();
 		List<BlockPart> list = Lists.newArrayList();
@@ -110,9 +110,9 @@ public class ItemModelGenerator {
 		map.put(Facing.DOWN, new BlockPartFace(null, layer, key, new BlockFaceUV(new float[]{x / xRatio, (y - 1) / yRatio, (x + 1) / xRatio, y / yRatio}, 0)));
 
 		return new BlockPart(
-				new Vector3f(x / xRatio, (height - y) / yRatio, 7.5f),
-				new Vector3f((x + 1) / xRatio, (height - (y - size)) / yRatio, 8.5F),
-				map, null, true
+			new Vector3f(x / xRatio, (height - y) / yRatio, 7.5f),
+			new Vector3f((x + 1) / xRatio, (height - (y - size)) / yRatio, 8.5F),
+			map, null, true
 		);
 	}
 
@@ -124,9 +124,9 @@ public class ItemModelGenerator {
 		map.put(Facing.EAST, new BlockPartFace(null, layer, key, new BlockFaceUV(new float[]{(x - 1) / xRatio, y / yRatio, x / xRatio, (y + 1) / yRatio}, 0)));
 
 		return new BlockPart(
-				new Vector3f((x - size) / xRatio, (height - (y + 1)) / yRatio, 7.5f),
-				new Vector3f(x / xRatio, (height - y) / yRatio, 8.5F),
-				map, null, true
+			new Vector3f((x - size) / xRatio, (height - (y + 1)) / yRatio, 7.5f),
+			new Vector3f(x / xRatio, (height - y) / yRatio, 8.5F),
+			map, null, true
 		);
 	}
 

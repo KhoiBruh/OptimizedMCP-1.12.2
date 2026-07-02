@@ -128,4 +128,5 @@ public class MapColor {
 		int l = (colorValue & 255) * i / 255;
 		return -16777216 | j << 16 | k << 8 | l;
 	}
+
 }

@@ -111,7 +111,9 @@ public class PlayerProfileCache {
 
 		if (uuidToProfileEntryMap.containsKey(uuid)) {
 			PlayerProfileCache.ProfileEntry playerprofilecache$profileentry1 = uuidToProfileEntryMap.get(uuid);
-			usernameToProfileEntryMap.remove(playerprofilecache$profileentry1.getGameProfile().getName().toLowerCase(Locale.ROOT));
+			usernameToProfileEntryMap.remove(playerprofilecache$profileentry1.getGameProfile()
+			                                                                 .getName()
+			                                                                 .toLowerCase(Locale.ROOT));
 			gameProfiles.remove(gameProfile);
 		}
 
@@ -120,8 +122,6 @@ public class PlayerProfileCache {
 		gameProfiles.addFirst(gameProfile);
 		save();
 	}
-
-	
 
 	/**
 	 * Get a player's GameProfile given their username. Mojang's server's will be contacted if the entry is not cached
@@ -133,7 +133,9 @@ public class PlayerProfileCache {
 
 		if (playerprofilecache$profileentry != null && (new Date()).getTime() >= playerprofilecache$profileentry.expirationDate.getTime()) {
 			uuidToProfileEntryMap.remove(playerprofilecache$profileentry.getGameProfile().getId());
-			usernameToProfileEntryMap.remove(playerprofilecache$profileentry.getGameProfile().getName().toLowerCase(Locale.ROOT));
+			usernameToProfileEntryMap.remove(playerprofilecache$profileentry.getGameProfile()
+			                                                                .getName()
+			                                                                .toLowerCase(Locale.ROOT));
 			gameProfiles.remove(playerprofilecache$profileentry.getGameProfile());
 			playerprofilecache$profileentry = null;
 		}
@@ -162,8 +164,6 @@ public class PlayerProfileCache {
 		List<String> list = Lists.newArrayList(usernameToProfileEntryMap.keySet());
 		return list.toArray(new String[0]);
 	}
-
-	
 
 	/**
 	 * Get a player's {@link GameProfile} given their UUID

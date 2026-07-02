@@ -38,16 +38,20 @@ public class SkinManager {
 		textureManager = textureManagerInstance;
 		skinCacheDir = skinCacheDirectory;
 		this.sessionService = sessionService;
-		skinCacheLoader = CacheBuilder.newBuilder().expireAfterAccess(Duration.ofSeconds(15L)).build(new CacheLoader<>() {
-			public Map<Type, MinecraftProfileTexture> load(GameProfile p_load_1_) {
+		skinCacheLoader = CacheBuilder.newBuilder()
+		                              .expireAfterAccess(Duration.ofSeconds(15L))
+		                              .build(new CacheLoader<>() {
+			                              public Map<Type, MinecraftProfileTexture> load(GameProfile p_load_1_) {
 
-				try {
-					return Minecraft.getMinecraft().getSessionService().getTextures(p_load_1_, false);
-				} catch (Throwable var3) {
-					return Maps.newHashMap();
-				}
-			}
-		});
+				                              try {
+					                              return Minecraft.getMinecraft()
+					                                              .getSessionService()
+					                                              .getTextures(p_load_1_, false);
+				                              } catch (Throwable var3) {
+					                              return Maps.newHashMap();
+				                              }
+			                              }
+		                              });
 	}
 
 	/**
@@ -69,7 +73,8 @@ public class SkinManager {
 				skinAvailableCallback.skinAvailable(textureType, resourcelocation, profileTexture);
 			}
 		} else {
-			File file1 = new File(skinCacheDir, profileTexture.getHash().length() > 2 ? profileTexture.getHash().substring(0, 2) : "xx");
+			File file1 = new File(skinCacheDir, profileTexture.getHash().length() > 2 ? profileTexture.getHash()
+			                                                                                          .substring(0, 2) : "xx");
 			File file2 = new File(file1, profileTexture.getHash());
 			final IImageBuffer iimagebuffer = textureType == Type.SKIN ? new ImageBufferDownload() : null;
 			ThreadDownloadImageData threaddownloadimagedata = new ThreadDownloadImageData(file2, profileTexture.getUrl(), DefaultPlayerSkin.getDefaultSkinLegacy(), new IImageBuffer() {

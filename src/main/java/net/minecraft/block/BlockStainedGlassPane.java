@@ -21,7 +21,12 @@ public class BlockStainedGlassPane extends BlockPane {
 
 	public BlockStainedGlassPane() {
 		super(Material.GLASS, false);
-		setDefaultState(blockState.getBaseState().withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false).withProperty(COLOR, DyeColor.WHITE));
+		setDefaultState(blockState.getBaseState()
+		                          .withProperty(NORTH, false)
+		                          .withProperty(EAST, false)
+		                          .withProperty(SOUTH, false)
+		                          .withProperty(WEST, false)
+		                          .withProperty(COLOR, DyeColor.WHITE));
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
 
@@ -78,7 +83,7 @@ public class BlockStainedGlassPane extends BlockPane {
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
 		return switch (mirrorIn) {
 			case LEFT_RIGHT ->
-					state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(NORTH));
+				state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(NORTH));
 			case FRONT_BACK -> state.withProperty(EAST, state.getValue(WEST)).withProperty(WEST, state.getValue(EAST));
 			default -> super.withMirror(state, mirrorIn);
 		};

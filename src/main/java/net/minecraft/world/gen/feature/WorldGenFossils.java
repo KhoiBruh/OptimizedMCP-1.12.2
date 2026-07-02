@@ -46,7 +46,9 @@ public class WorldGenFossils extends WorldGenerator {
 		Template template1 = templatemanager.getTemplate(minecraftserver, FOSSILS_COAL[i]);
 		ChunkPos chunkpos = new ChunkPos(position);
 		StructureBoundingBox structureboundingbox = new StructureBoundingBox(chunkpos.getXStart(), 0, chunkpos.getZStart(), chunkpos.getXEnd(), 256, chunkpos.getZEnd());
-		PlacementSettings placementsettings = (new PlacementSettings()).setRotation(rotation).setBoundingBox(structureboundingbox).setRandom(random);
+		PlacementSettings placementsettings = (new PlacementSettings()).setRotation(rotation)
+		                                                               .setBoundingBox(structureboundingbox)
+		                                                               .setRandom(random);
 		BlockPos blockpos = template.transformedSize(rotation);
 		int j = random.nextInt(16 - blockpos.getX());
 		int k = random.nextInt(16 - blockpos.getZ());

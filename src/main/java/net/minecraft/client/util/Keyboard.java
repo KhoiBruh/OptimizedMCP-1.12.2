@@ -13,34 +13,26 @@ import java.util.Map;
 import static org.lwjgl.glfw.GLFW.*;
 
 public final class Keyboard {
-	
+
 	private static final int MAX_KEY = GLFW_KEY_LAST + 1;
-	
+
 	private static final boolean[] states = new boolean[MAX_KEY];
 	private static final Map<Integer, String> keyNames = new HashMap<>();
-	
+
 	private static final Deque<KeyEvent> eventQueue = new ArrayDeque<>();
 	private static KeyEvent pendingKeyEvent;
 	private static KeyEvent currentEvent;
 
-	private static void flushPending() {
-		if (pendingKeyEvent != null) {
-			eventQueue.addLast(pendingKeyEvent);
-			pendingKeyEvent = null;
-		}
-	}
-	
 	@Getter
 	@Setter
 	private static boolean repeat;
-	
+
 	@Getter
 	private static boolean created;
-	
 	private static Window window;
 	private static GLFWKeyCallback keyCb;
 	private static GLFWCharCallback charCb;
-	
+
 	static {
 		putKey(GLFW_KEY_UNKNOWN, "NONE");
 		putKey(GLFW_KEY_SPACE, "SPACE");
@@ -149,50 +141,57 @@ public final class Keyboard {
 		putKey(GLFW_KEY_RIGHT_SUPER, "RMETA");
 		putKey(GLFW_KEY_MENU, "APPS");
 	}
-	
+
 	private Keyboard() {
 	}
-	
+
+	private static void flushPending() {
+		if (pendingKeyEvent != null) {
+			eventQueue.addLast(pendingKeyEvent);
+			pendingKeyEvent = null;
+		}
+	}
+
 	private static void putKey(int key, String name) {
 		keyNames.put(key, name);
 	}
-	
+
 	public static void init(Window window) {
 		Keyboard.window = window;
 		long handle = window.getHandle();
 		created = true;
-		
+
 		charCb = GLFWCharCallback.create((win, codepoint) -> {
 			if (pendingKeyEvent != null) {
 				pendingKeyEvent = new KeyEvent(pendingKeyEvent.key, (char) codepoint, pendingKeyEvent.state, pendingKeyEvent.repeat);
 				flushPending();
 			}
 		});
-		
+
 		keyCb = GLFWKeyCallback.create((win, key, scancode, action, mods) -> {
 			if (key < 0 || key >= MAX_KEY) return;
-			
+
 			boolean pressed = (action != GLFW_RELEASE);
 			boolean isRepeat = (action == GLFW_REPEAT);
-			
+
 			states[key] = pressed;
-			
+
 			if (!isRepeat || repeat) {
 				flushPending();
 				pendingKeyEvent = new KeyEvent(key, '\0', pressed, isRepeat);
 				if (!pressed) flushPending();
 			}
 		});
-		
+
 		glfwSetKeyCallback(handle, keyCb);
 		glfwSetCharCallback(handle, charCb);
 	}
-	
+
 	public static void removeCallbacks() {
 		long handle = window != null ? window.getHandle() : 0L;
 		glfwSetKeyCallback(handle, null);
 		glfwSetCharCallback(handle, null);
-		
+
 		if (keyCb != null) {
 			keyCb.free();
 			keyCb = null;
@@ -201,27 +200,27 @@ public final class Keyboard {
 			charCb.free();
 			charCb = null;
 		}
-		
+
 		created = false;
 	}
-	
+
 	public static void poll() {
 		flushPending();
 		currentEvent = null;
 	}
-	
+
 	public static boolean isKeyDown(int key) {
 		if (key < 0 || key >= MAX_KEY) return false;
 		return states[key];
 	}
-	
+
 	public static String getKeyName(int key) {
 		String name = keyNames.get(key);
 		if (name != null) return name;
 		String glfwName = glfwGetKeyName(key, 0);
 		return glfwName != null ? glfwName.toUpperCase() : "UNKNOWN";
 	}
-	
+
 	public static boolean next() {
 		if (eventQueue.isEmpty()) {
 			currentEvent = null;
@@ -230,24 +229,25 @@ public final class Keyboard {
 		currentEvent = eventQueue.pollFirst();
 		return true;
 	}
-	
+
 	public static int getEventKey() {
 		return (currentEvent != null) ? currentEvent.key : GLFW_KEY_UNKNOWN;
 	}
-	
+
 	public static char getEventCharacter() {
 		return (currentEvent != null) ? currentEvent.character : '\0';
 	}
-	
+
 	public static boolean getEventKeyState() {
 		return currentEvent != null && currentEvent.state;
 	}
-	
+
 	public static boolean isRepeatEvent() {
 		return currentEvent != null && currentEvent.repeat;
 	}
-	
+
 	private record KeyEvent(int key, char character, boolean state, boolean repeat) {
+
 	}
-	
+
 }

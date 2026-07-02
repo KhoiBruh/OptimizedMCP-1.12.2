@@ -7,6 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import java.lang.reflect.Type;
 
 public record Variant(ResourceLocation modelLocation, ModelRotation rotation, boolean uvLock, int weight) {
+
 	public String toString() {
 		return "Variant{modelLocation=" + modelLocation + ", rotation=" + rotation + ", uvLock=" + uvLock + ", weight=" + weight + '}';
 	}
@@ -15,7 +16,7 @@ public record Variant(ResourceLocation modelLocation, ModelRotation rotation, bo
 		if (this == p_equals_1_) {
 			return true;
 		} else if (!(p_equals_1_ instanceof Variant(
-				ResourceLocation location, ModelRotation rotation1, boolean lock, int weight1
+			ResourceLocation location, ModelRotation rotation1, boolean lock, int weight1
 		))) {
 			return false;
 		} else {

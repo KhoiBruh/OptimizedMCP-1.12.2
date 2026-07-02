@@ -7,7 +7,6 @@ import net.minecraft.util.ResourceLocation;
 
 public class SPacketSelectAdvancementsTab implements Packet<INetHandlerPlayClient> {
 
-	
 	private ResourceLocation tab;
 
 	public SPacketSelectAdvancementsTab() {
@@ -44,7 +43,6 @@ public class SPacketSelectAdvancementsTab implements Packet<INetHandlerPlayClien
 		}
 	}
 
-	
 	public ResourceLocation getTab() {
 		return tab;
 	}

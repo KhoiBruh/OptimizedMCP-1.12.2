@@ -149,7 +149,8 @@ public class EntityTrackerEntry {
 			sendMetadata();
 		}
 
-		if (updateCounter % updateFrequency == 0 || trackedEntity.isAirBorne || trackedEntity.getDataManager().isDirty()) {
+		if (updateCounter % updateFrequency == 0 || trackedEntity.isAirBorne || trackedEntity.getDataManager()
+		                                                                                     .isDirty()) {
 			if (trackedEntity.isRiding()) {
 				int j1 = MathHelper.floor(trackedEntity.rotationYaw * 256F / 360F);
 				int l1 = MathHelper.floor(trackedEntity.rotationPitch * 256F / 360F);
@@ -397,7 +398,9 @@ public class EntityTrackerEntry {
 	}
 
 	private boolean isPlayerWatchingThisChunk(EntityPlayerMP playerMP) {
-		return playerMP.getServerWorld().getPlayerChunkMap().isPlayerWatchingChunk(playerMP, trackedEntity.chunkCoordX, trackedEntity.chunkCoordZ);
+		return playerMP.getServerWorld()
+		               .getPlayerChunkMap()
+		               .isPlayerWatchingChunk(playerMP, trackedEntity.chunkCoordX, trackedEntity.chunkCoordZ);
 	}
 
 	public void updatePlayerEntities(List<EntityPlayer> players) {

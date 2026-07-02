@@ -13,7 +13,7 @@ public class Session {
 	private final String username;
 	private final String playerID;
 	private final String token;
-	
+
 	public Session(String usernameIn, String playerIDIn, String tokenIn, String sessionTypeIn) {
 		username = usernameIn;
 		playerID = playerIDIn;
@@ -64,7 +64,6 @@ public class Session {
 			sessionType = sessionTypeIn;
 		}
 
-		
 		public static Session.Type setSessionType(String sessionTypeIn) {
 
 			return SESSION_TYPES.get(sessionTypeIn.toLowerCase(Locale.ROOT));

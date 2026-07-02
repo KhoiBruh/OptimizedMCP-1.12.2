@@ -12,8 +12,11 @@ import java.util.Random;
 
 public class WorldGenSavannaTree extends WorldGenAbstractTree {
 
-	private static final IBlockState TRUNK = Blocks.LOG2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.Type.ACACIA);
-	private static final IBlockState LEAF = Blocks.LEAVES2.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.Type.ACACIA).withProperty(BlockLeaves.CHECK_DECAY, false);
+	private static final IBlockState TRUNK = Blocks.LOG2.getDefaultState()
+	                                                    .withProperty(BlockNewLog.VARIANT, BlockPlanks.Type.ACACIA);
+	private static final IBlockState LEAF = Blocks.LEAVES2.getDefaultState()
+	                                                      .withProperty(BlockNewLeaf.VARIANT, BlockPlanks.Type.ACACIA)
+	                                                      .withProperty(BlockLeaves.CHECK_DECAY, false);
 
 	public WorldGenSavannaTree(boolean doBlockNotify) {
 		super(doBlockNotify);
@@ -40,7 +43,8 @@ public class WorldGenSavannaTree extends WorldGenAbstractTree {
 				for (int l = position.getX() - k; l <= position.getX() + k && flag; ++l) {
 					for (int i1 = position.getZ() - k; i1 <= position.getZ() + k && flag; ++i1) {
 						if (j >= 0 && j < 256) {
-							if (!canGrowInto(worldIn.getBlockState(blockpos$mutableblockpos.setPos(l, j, i1)).getBlock())) {
+							if (!canGrowInto(worldIn.getBlockState(blockpos$mutableblockpos.setPos(l, j, i1))
+							                        .getBlock())) {
 								flag = false;
 							}
 						} else {

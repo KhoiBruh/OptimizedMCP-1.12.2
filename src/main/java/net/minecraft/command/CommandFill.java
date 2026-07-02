@@ -108,7 +108,9 @@ public class CommandFill extends CommandBase {
 									} else if ("replace".equals(args[8]) && !block.hasTileEntity() && args.length > 9) {
 										Block block1 = CommandBase.getBlockByText(sender, args[9]);
 
-										if (world.getBlockState(blockpos4).getBlock() != block1 || args.length > 10 && !"-1".equals(args[10]) && !"*".equals(args[10]) && !CommandBase.convertArgToBlockStatePredicate(block1, args[10]).apply(world.getBlockState(blockpos4))) {
+										if (world.getBlockState(blockpos4)
+										         .getBlock() != block1 || args.length > 10 && !"-1".equals(args[10]) && !"*".equals(args[10]) && !CommandBase.convertArgToBlockStatePredicate(block1, args[10])
+										                                                                                                                     .apply(world.getBlockState(blockpos4))) {
 											continue;
 										}
 									}

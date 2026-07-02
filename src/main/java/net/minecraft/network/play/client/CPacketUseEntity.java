@@ -77,7 +77,6 @@ public class CPacketUseEntity implements Packet<INetHandlerPlayServer> {
 		handler.processUseEntity(this);
 	}
 
-	
 	public Entity getEntityFromWorld(World worldIn) {
 		return worldIn.getEntityByID(entityId);
 	}

@@ -49,4 +49,5 @@ public class TileEntityId implements IFixableData {
 
 		return compound;
 	}
+
 }

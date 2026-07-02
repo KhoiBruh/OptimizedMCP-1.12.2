@@ -31,7 +31,10 @@ public class BlockDoublePlant extends BlockBush implements IGrowable {
 
 	public BlockDoublePlant() {
 		super(Material.VINE);
-		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockDoublePlant.PlantType.SUNFLOWER).withProperty(HALF, BlockDoublePlant.BlockHalf.LOWER).withProperty(FACING, Facing.NORTH));
+		setDefaultState(blockState.getBaseState()
+		                          .withProperty(VARIANT, BlockDoublePlant.PlantType.SUNFLOWER)
+		                          .withProperty(HALF, BlockDoublePlant.BlockHalf.LOWER)
+		                          .withProperty(FACING, Facing.NORTH));
 		setHardness(0F);
 		setSoundType(SoundType.PLANT);
 		setUnlocalizedName("doublePlant");
@@ -67,7 +70,8 @@ public class BlockDoublePlant extends BlockBush implements IGrowable {
 		if (iblockstate.getBlock() != this) {
 			return true;
 		} else {
-			BlockDoublePlant.PlantType blockdoubleplant$enumplanttype = iblockstate.getActualState(worldIn, pos).getValue(VARIANT);
+			BlockDoublePlant.PlantType blockdoubleplant$enumplanttype = iblockstate.getActualState(worldIn, pos)
+			                                                                       .getValue(VARIANT);
 			return blockdoubleplant$enumplanttype == BlockDoublePlant.PlantType.FERN || blockdoubleplant$enumplanttype == BlockDoublePlant.PlantType.GRASS;
 		}
 	}
@@ -127,11 +131,13 @@ public class BlockDoublePlant extends BlockBush implements IGrowable {
 	 * returns the metadata of the dropped item based on the old metadata of the block.
 	 */
 	public int damageDropped(IBlockState state) {
-		return state.getValue(HALF) != BlockDoublePlant.BlockHalf.UPPER && state.getValue(VARIANT) != BlockDoublePlant.PlantType.GRASS ? state.getValue(VARIANT).getMeta() : 0;
+		return state.getValue(HALF) != BlockDoublePlant.BlockHalf.UPPER && state.getValue(VARIANT) != BlockDoublePlant.PlantType.GRASS ? state.getValue(VARIANT)
+		                                                                                                                                      .getMeta() : 0;
 	}
 
 	public void placeAt(World worldIn, BlockPos lowerPos, BlockDoublePlant.PlantType variant, int flags) {
-		worldIn.setBlockState(lowerPos, getDefaultState().withProperty(HALF, BlockDoublePlant.BlockHalf.LOWER).withProperty(VARIANT, variant), flags);
+		worldIn.setBlockState(lowerPos, getDefaultState().withProperty(HALF, BlockDoublePlant.BlockHalf.LOWER)
+		                                                 .withProperty(VARIANT, variant), flags);
 		worldIn.setBlockState(lowerPos.up(), getDefaultState().withProperty(HALF, BlockDoublePlant.BlockHalf.UPPER), flags);
 	}
 
@@ -169,7 +175,8 @@ public class BlockDoublePlant extends BlockBush implements IGrowable {
 						worldIn.destroyBlock(pos.down(), true);
 					} else if (worldIn.isRemote) {
 						worldIn.setBlockToAir(pos.down());
-					} else if (!player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() == Items.SHEARS) {
+					} else if (!player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand()
+					                                                            .getItem() == Items.SHEARS) {
 						onHarvest(worldIn, pos, iblockstate, player);
 						worldIn.setBlockToAir(pos.down());
 					} else {
@@ -230,7 +237,8 @@ public class BlockDoublePlant extends BlockBush implements IGrowable {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-		return (meta & 8) > 0 ? getDefaultState().withProperty(HALF, BlockDoublePlant.BlockHalf.UPPER) : getDefaultState().withProperty(HALF, BlockDoublePlant.BlockHalf.LOWER).withProperty(VARIANT, BlockDoublePlant.PlantType.byMetadata(meta & 7));
+		return (meta & 8) > 0 ? getDefaultState().withProperty(HALF, BlockDoublePlant.BlockHalf.UPPER) : getDefaultState().withProperty(HALF, BlockDoublePlant.BlockHalf.LOWER)
+		                                                                                                                  .withProperty(VARIANT, BlockDoublePlant.PlantType.byMetadata(meta & 7));
 	}
 
 	/**
@@ -253,7 +261,9 @@ public class BlockDoublePlant extends BlockBush implements IGrowable {
 	 * Convert the BlockState into the correct metadata value
 	 */
 	public int getMetaFromState(IBlockState state) {
-		return state.getValue(HALF) == BlockDoublePlant.BlockHalf.UPPER ? 8 | state.getValue(FACING).getHorizontalIndex() : state.getValue(VARIANT).getMeta();
+		return state.getValue(HALF) == BlockDoublePlant.BlockHalf.UPPER ? 8 | state.getValue(FACING)
+		                                                                           .getHorizontalIndex() : state.getValue(VARIANT)
+		                                                                                                        .getMeta();
 	}
 
 	protected BlockStateContainer createBlockState() {

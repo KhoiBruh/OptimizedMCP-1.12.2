@@ -53,7 +53,6 @@ public class MapGenStructureIO {
 		return componentClassToNameMap.get(component.getClass());
 	}
 
-	
 	public static StructureStart getStructureStart(NBTTagCompound tagCompound, World worldIn) {
 		StructureStart structurestart = null;
 
@@ -99,4 +98,5 @@ public class MapGenStructureIO {
 
 		return structurecomponent;
 	}
+
 }

@@ -34,7 +34,8 @@ public abstract class EntityFlying extends EntityLiving {
 			float f = 0.91F;
 
 			if (onGround) {
-				f = world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(getEntityBoundingBox().minY) - 1, MathHelper.floor(posZ))).getBlock().slipperiness * 0.91F;
+				f = world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(getEntityBoundingBox().minY) - 1, MathHelper.floor(posZ)))
+				         .getBlock().slipperiness * 0.91F;
 			}
 
 			float f1 = 0.16277136F / (f * f * f);
@@ -42,7 +43,8 @@ public abstract class EntityFlying extends EntityLiving {
 			f = 0.91F;
 
 			if (onGround) {
-				f = world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(getEntityBoundingBox().minY) - 1, MathHelper.floor(posZ))).getBlock().slipperiness * 0.91F;
+				f = world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(getEntityBoundingBox().minY) - 1, MathHelper.floor(posZ)))
+				         .getBlock().slipperiness * 0.91F;
 			}
 
 			move(MoverType.SELF, motionX, motionY, motionZ);

@@ -64,7 +64,6 @@ public class EntityAIFleeSun extends EntityAIBase {
 		creature.getNavigator().tryMoveToXYZ(shelterX, shelterY, shelterZ, movementSpeed);
 	}
 
-	
 	private Vec3d findPossibleShelter() {
 		Random random = creature.getRNG();
 		BlockPos blockpos = new BlockPos(creature.posX, creature.getEntityBoundingBox().minY, creature.posZ);

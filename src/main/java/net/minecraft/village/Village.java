@@ -214,7 +214,19 @@ public class Village {
 				BlockPos blockpos = villagedoorinfo1.getDoorBlockPos();
 				Facing enumfacing = villagedoorinfo1.getInsideDirection();
 
-				if (world.getBlockState(blockpos.offset(enumfacing, 1)).getBlock().isPassable(world, blockpos.offset(enumfacing, 1)) && world.getBlockState(blockpos.offset(enumfacing, -1)).getBlock().isPassable(world, blockpos.offset(enumfacing, -1)) && world.getBlockState(blockpos.up().offset(enumfacing, 1)).getBlock().isPassable(world, blockpos.up().offset(enumfacing, 1)) && world.getBlockState(blockpos.up().offset(enumfacing, -1)).getBlock().isPassable(world, blockpos.up().offset(enumfacing, -1))) {
+				if (world.getBlockState(blockpos.offset(enumfacing, 1))
+				         .getBlock()
+				         .isPassable(world, blockpos.offset(enumfacing, 1)) && world.getBlockState(blockpos.offset(enumfacing, -1))
+				                                                                    .getBlock()
+				                                                                    .isPassable(world, blockpos.offset(enumfacing, -1)) && world.getBlockState(blockpos.up()
+				                                                                                                                                                       .offset(enumfacing, 1))
+				                                                                                                                                .getBlock()
+				                                                                                                                                .isPassable(world, blockpos.up()
+				                                                                                                                                                           .offset(enumfacing, 1)) && world.getBlockState(blockpos.up()
+				                                                                                                                                                                                                                  .offset(enumfacing, -1))
+				                                                                                                                                                                                           .getBlock()
+				                                                                                                                                                                                           .isPassable(world, blockpos.up()
+				                                                                                                                                                                                                                      .offset(enumfacing, -1))) {
 					villagedoorinfo = villagedoorinfo1;
 					i = j;
 				}
@@ -224,8 +236,6 @@ public class Village {
 		return villagedoorinfo;
 	}
 
-	
-
 	/**
 	 * if door not existed in this village, null will be returned
 	 */
@@ -234,7 +244,9 @@ public class Village {
 			return null;
 		} else {
 			for (VillageDoorInfo villagedoorinfo : villageDoorInfoList) {
-				if (villagedoorinfo.getDoorBlockPos().getX() == doorBlock.getX() && villagedoorinfo.getDoorBlockPos().getZ() == doorBlock.getZ() && Math.abs(villagedoorinfo.getDoorBlockPos().getY() - doorBlock.getY()) <= 1) {
+				if (villagedoorinfo.getDoorBlockPos().getX() == doorBlock.getX() && villagedoorinfo.getDoorBlockPos()
+				                                                                                   .getZ() == doorBlock.getZ() && Math.abs(villagedoorinfo.getDoorBlockPos()
+				                                                                                                                                          .getY() - doorBlock.getY()) <= 1) {
 					return villagedoorinfo;
 				}
 			}
@@ -268,7 +280,6 @@ public class Village {
 		villageAgressors.add(new Village.VillageAggressor(entitylivingbaseIn, tickCounter));
 	}
 
-	
 	public EntityLivingBase findNearestVillageAggressor(EntityLivingBase entitylivingbaseIn) {
 		double d0 = Double.MAX_VALUE;
 		Village.VillageAggressor village$villageaggressor = null;

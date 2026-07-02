@@ -25,6 +25,18 @@ public abstract class TabCompleter {
 		hasTargetBlock = hasTargetBlockIn;
 	}
 
+	private static String getCommonPrefix(String... strs) {
+		if (strs == null || strs.length == 0) return "";
+		String prefix = strs[0];
+		for (int i = 1; i < strs.length; i++) {
+			while (strs[i].indexOf(prefix) != 0) {
+				prefix = prefix.substring(0, prefix.length() - 1);
+				if (prefix.isEmpty()) return "";
+			}
+		}
+		return prefix;
+	}
+
 	/**
 	 * Called when tab key pressed. If it's the first time we tried to complete this string, we ask the server for
 	 * completions. When the server responds, this method gets called again (via setCompletions).
@@ -62,7 +74,6 @@ public abstract class TabCompleter {
 		}
 	}
 
-	
 	public abstract BlockPos getTargetBlockPos();
 
 	/**
@@ -79,7 +90,8 @@ public abstract class TabCompleter {
 				}
 			}
 
-			String s1 = textField.getText().substring(textField.getNthWordFromPosWS(-1, textField.getCursorPosition(), false));
+			String s1 = textField.getText()
+			                     .substring(textField.getNthWordFromPosWS(-1, textField.getCursorPosition(), false));
 			String s2 = getCommonPrefix(newCompl);
 
 			if (!s2.isEmpty() && !s1.equalsIgnoreCase(s2)) {
@@ -102,18 +114,6 @@ public abstract class TabCompleter {
 
 	public void resetRequested() {
 		requestedCompletions = false;
-	}
-
-	private static String getCommonPrefix(String... strs) {
-		if (strs == null || strs.length == 0) return "";
-		String prefix = strs[0];
-		for (int i = 1; i < strs.length; i++) {
-			while (strs[i].indexOf(prefix) != 0) {
-				prefix = prefix.substring(0, prefix.length() - 1);
-				if (prefix.isEmpty()) return "";
-			}
-		}
-		return prefix;
 	}
 
 }

@@ -147,7 +147,6 @@ public class EntityBlaze extends EntityMob {
 		return isCharged();
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_BLAZE;
 	}
@@ -210,7 +209,8 @@ public class EntityBlaze extends EntityMob {
 					blaze.attackEntityAsMob(entitylivingbase);
 				}
 
-				blaze.getMoveHelper().setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 1D);
+				blaze.getMoveHelper()
+				     .setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 1D);
 			} else if (d0 < getFollowDistance() * getFollowDistance()) {
 				double d1 = entitylivingbase.posX - blaze.posX;
 				double d2 = entitylivingbase.getEntityBoundingBox().minY + (double) (entitylivingbase.height / 2F) - (blaze.posY + (double) (blaze.height / 2F));
@@ -235,7 +235,9 @@ public class EntityBlaze extends EntityMob {
 						blaze.world.playEvent(null, 1018, new BlockPos((int) blaze.posX, (int) blaze.posY, (int) blaze.posZ), 0);
 
 						for (int i = 0; i < 1; ++i) {
-							EntitySmallFireball entitysmallfireball = new EntitySmallFireball(blaze.world, blaze, d1 + blaze.getRNG().nextGaussian() * (double) f, d2, d3 + blaze.getRNG().nextGaussian() * (double) f);
+							EntitySmallFireball entitysmallfireball = new EntitySmallFireball(blaze.world, blaze, d1 + blaze.getRNG()
+							                                                                                                .nextGaussian() * (double) f, d2, d3 + blaze.getRNG()
+							                                                                                                                                            .nextGaussian() * (double) f);
 							entitysmallfireball.posY = blaze.posY + (double) (blaze.height / 2F) + 0.5D;
 							blaze.world.spawnEntity(entitysmallfireball);
 						}
@@ -245,7 +247,8 @@ public class EntityBlaze extends EntityMob {
 				blaze.getLookHelper().setLookPositionWithEntity(entitylivingbase, 10F, 10F);
 			} else {
 				blaze.getNavigator().clearPath();
-				blaze.getMoveHelper().setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 1D);
+				blaze.getMoveHelper()
+				     .setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 1D);
 			}
 
 			super.updateTask();

@@ -7,8 +7,6 @@ public interface IBlockStatePalette {
 
 	int idFor(IBlockState state);
 
-	
-
 	/**
 	 * Gets the block state by the palette id.
 	 */

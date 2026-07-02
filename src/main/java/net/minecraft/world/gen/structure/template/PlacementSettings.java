@@ -15,29 +15,25 @@ public class PlacementSettings {
 	private Rotation rotation = Rotation.NONE;
 	private boolean ignoreEntities;
 
-	
-
 	/**
 	 * the type of block in the world that will get replaced by the structure
 	 */
 	private Block replacedBlock;
 
-	
-
-	/** the chunk the structure is within */
+	/**
+	 * the chunk the structure is within
+	 */
 	private ChunkPos chunk;
 
-	
-
-	/** the bounds the structure is contained within */
+	/**
+	 * the bounds the structure is contained within
+	 */
 	private StructureBoundingBox boundingBox;
 	private boolean ignoreStructureBlock = true;
 	private float integrity = 1F;
 
-	
 	private Random random;
 
-	
 	private Long setSeed;
 
 	public PlacementSettings copy() {
@@ -120,7 +116,6 @@ public class PlacementSettings {
 		return this;
 	}
 
-	
 	public Block getReplacedBlock() {
 		return replacedBlock;
 	}
@@ -130,7 +125,6 @@ public class PlacementSettings {
 		return this;
 	}
 
-	
 	public StructureBoundingBox getBoundingBox() {
 		if (boundingBox == null && chunk != null) {
 			setBoundingBoxFromChunk();
@@ -157,7 +151,6 @@ public class PlacementSettings {
 		boundingBox = getBoundingBoxFromChunk(chunk);
 	}
 
-	
 	private StructureBoundingBox getBoundingBoxFromChunk(ChunkPos pos) {
 		if (pos == null) {
 			return null;

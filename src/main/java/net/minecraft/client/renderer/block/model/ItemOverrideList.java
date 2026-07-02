@@ -22,7 +22,6 @@ public class ItemOverrideList {
 		}
 	}
 
-	
 	public ResourceLocation applyOverride(ItemStack stack, World worldIn, EntityLivingBase entityIn) {
 		if (!overrides.isEmpty()) {
 			for (ItemOverride itemoverride : overrides) {

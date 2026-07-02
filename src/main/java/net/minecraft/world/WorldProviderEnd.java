@@ -27,7 +27,8 @@ public class WorldProviderEnd extends WorldProvider {
 	}
 
 	public IChunkGenerator createChunkGenerator() {
-		return new ChunkGeneratorEnd(world, world.getWorldInfo().isMapFeaturesEnabled(), world.getSeed(), getSpawnCoordinate());
+		return new ChunkGeneratorEnd(world, world.getWorldInfo()
+		                                         .isMapFeaturesEnabled(), world.getSeed(), getSpawnCoordinate());
 	}
 
 	/**
@@ -36,8 +37,6 @@ public class WorldProviderEnd extends WorldProvider {
 	public float calculateCelestialAngle(long worldTime, float partialTicks) {
 		return 0F;
 	}
-
-	
 
 	/**
 	 * Returns array with sunrise/sunset colors
@@ -130,7 +129,6 @@ public class WorldProviderEnd extends WorldProvider {
 		}
 	}
 
-	
 	public DragonFightManager getDragonFightManager() {
 		return dragonFightManager;
 	}

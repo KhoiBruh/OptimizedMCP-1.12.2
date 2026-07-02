@@ -69,14 +69,15 @@ public class ParticleFallingDust extends Particle {
 
 	public static class Factory implements IParticleFactory {
 
-		
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
 			IBlockState iblockstate = Block.getStateById(p_178902_15_[0]);
 
 			if (iblockstate.getBlock() != Blocks.AIR && iblockstate.getRenderType() == BlockRenderType.INVISIBLE) {
 				return null;
 			} else {
-				int i = Minecraft.getMinecraft().getBlockColors().getColor(iblockstate, worldIn, new BlockPos(xCoordIn, yCoordIn, zCoordIn));
+				int i = Minecraft.getMinecraft()
+				                 .getBlockColors()
+				                 .getColor(iblockstate, worldIn, new BlockPos(xCoordIn, yCoordIn, zCoordIn));
 
 				if (iblockstate.getBlock() instanceof BlockFalling) {
 					i = ((BlockFalling) iblockstate.getBlock()).getDustColor(iblockstate);

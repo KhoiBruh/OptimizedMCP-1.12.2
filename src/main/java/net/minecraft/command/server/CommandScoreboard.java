@@ -466,7 +466,8 @@ public class CommandScoreboard extends CommandBase {
 			sender.sendMessage(textcomponenttranslation1);
 
 			for (ScorePlayerTeam scoreplayerteam1 : collection1) {
-				sender.sendMessage(new TextComponentTranslation("commands.scoreboard.teams.list.entry", scoreplayerteam1.getName(), scoreplayerteam1.getDisplayName(), scoreplayerteam1.getMembershipCollection().size()));
+				sender.sendMessage(new TextComponentTranslation("commands.scoreboard.teams.list.entry", scoreplayerteam1.getName(), scoreplayerteam1.getDisplayName(), scoreplayerteam1.getMembershipCollection()
+				                                                                                                                                                                       .size()));
 			}
 		}
 	}
@@ -609,7 +610,8 @@ public class CommandScoreboard extends CommandBase {
 			sender.sendMessage(textcomponenttranslation);
 
 			for (ScoreObjective scoreobjective : collection) {
-				sender.sendMessage(new TextComponentTranslation("commands.scoreboard.objectives.list.entry", scoreobjective.getName(), scoreobjective.getDisplayName(), scoreobjective.getCriteria().getName()));
+				sender.sendMessage(new TextComponentTranslation("commands.scoreboard.objectives.list.entry", scoreobjective.getName(), scoreobjective.getDisplayName(), scoreobjective.getCriteria()
+				                                                                                                                                                                      .getName()));
 			}
 		}
 	}
@@ -654,7 +656,9 @@ public class CommandScoreboard extends CommandBase {
 			sender.sendMessage(textcomponenttranslation);
 
 			for (Score score : map.values()) {
-				sender.sendMessage(new TextComponentTranslation("commands.scoreboard.players.list.player.entry", score.getScorePoints(), score.getObjective().getDisplayName(), score.getObjective().getName()));
+				sender.sendMessage(new TextComponentTranslation("commands.scoreboard.players.list.player.entry", score.getScorePoints(), score.getObjective()
+				                                                                                                                              .getDisplayName(), score.getObjective()
+				                                                                                                                                                      .getName()));
 			}
 		} else {
 			Collection<String> collection = scoreboard.getObjectiveNames();

@@ -18,7 +18,6 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.Facing;
 
-
 public class TileEntityItemStackRenderer {
 
 	private static final TileEntityShulkerBox[] SHULKER_BOXES = new TileEntityShulkerBox[16];
@@ -56,7 +55,9 @@ public class TileEntityItemStackRenderer {
 		} else if (item == Items.SHIELD) {
 			if (p_192838_1_.getSubCompound("BlockEntityTag") != null) {
 				banner.setItemValues(p_192838_1_, true);
-				Minecraft.getMinecraft().getTextureManager().bindTexture(BannerTextures.SHIELD_DESIGNS.getResourceLocation(banner.getPatternResourceLocation(), banner.getPatternList(), banner.getColorList()));
+				Minecraft.getMinecraft()
+				         .getTextureManager()
+				         .bindTexture(BannerTextures.SHIELD_DESIGNS.getResourceLocation(banner.getPatternResourceLocation(), banner.getPatternList(), banner.getColorList()));
 			} else {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(BannerTextures.SHIELD_BASE_TEXTURE);
 			}
@@ -73,7 +74,8 @@ public class TileEntityItemStackRenderer {
 
 				if (nbttagcompound.hasKey("SkullOwner", 10)) {
 					gameprofile = NBTUtil.readGameProfileFromNBT(nbttagcompound.getCompoundTag("SkullOwner"));
-				} else if (nbttagcompound.hasKey("SkullOwner", 8) && !nbttagcompound.getString("SkullOwner").isBlank()) {
+				} else if (nbttagcompound.hasKey("SkullOwner", 8) && !nbttagcompound.getString("SkullOwner")
+				                                                                    .isBlank()) {
 					GameProfile gameprofile1 = new GameProfile(null, nbttagcompound.getString("SkullOwner"));
 					gameprofile = TileEntitySkull.updateGameprofile(gameprofile1);
 					nbttagcompound.removeTag("SkullOwner");
@@ -93,9 +95,11 @@ public class TileEntityItemStackRenderer {
 		} else if (item == Item.getItemFromBlock(Blocks.TRAPPED_CHEST)) {
 			TileEntityRendererDispatcher.instance.render(chestTrap, 0D, 0D, 0D, 0F, partialTicks);
 		} else if (Block.getBlockFromItem(item) instanceof BlockShulkerBox) {
-			TileEntityRendererDispatcher.instance.render(SHULKER_BOXES[BlockShulkerBox.getColorFromItem(item).getMetadata()], 0D, 0D, 0D, 0F, partialTicks);
+			TileEntityRendererDispatcher.instance.render(SHULKER_BOXES[BlockShulkerBox.getColorFromItem(item)
+			                                                                          .getMetadata()], 0D, 0D, 0D, 0F, partialTicks);
 		} else {
 			TileEntityRendererDispatcher.instance.render(chestBasic, 0D, 0D, 0D, 0F, partialTicks);
 		}
 	}
+
 }

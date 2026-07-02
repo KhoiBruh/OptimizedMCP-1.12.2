@@ -36,7 +36,13 @@ public class BlockFire extends Block {
 
 	protected BlockFire() {
 		super(Material.FIRE);
-		setDefaultState(blockState.getBaseState().withProperty(AGE, 0).withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false).withProperty(UPPER, false));
+		setDefaultState(blockState.getBaseState()
+		                          .withProperty(AGE, 0)
+		                          .withProperty(NORTH, false)
+		                          .withProperty(EAST, false)
+		                          .withProperty(SOUTH, false)
+		                          .withProperty(WEST, false)
+		                          .withProperty(UPPER, false));
 		setTickRandomly(true);
 	}
 
@@ -85,7 +91,12 @@ public class BlockFire extends Block {
 	 * metadata, such as fence connections.
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-		return !worldIn.getBlockState(pos.down()).isTopSolid() && !Blocks.FIRE.canCatchFire(worldIn, pos.down()) ? state.withProperty(NORTH, canCatchFire(worldIn, pos.north())).withProperty(EAST, canCatchFire(worldIn, pos.east())).withProperty(SOUTH, canCatchFire(worldIn, pos.south())).withProperty(WEST, canCatchFire(worldIn, pos.west())).withProperty(UPPER, canCatchFire(worldIn, pos.up())) : getDefaultState();
+		return !worldIn.getBlockState(pos.down())
+		               .isTopSolid() && !Blocks.FIRE.canCatchFire(worldIn, pos.down()) ? state.withProperty(NORTH, canCatchFire(worldIn, pos.north()))
+		                                                                                      .withProperty(EAST, canCatchFire(worldIn, pos.east()))
+		                                                                                      .withProperty(SOUTH, canCatchFire(worldIn, pos.south()))
+		                                                                                      .withProperty(WEST, canCatchFire(worldIn, pos.west()))
+		                                                                                      .withProperty(UPPER, canCatchFire(worldIn, pos.up())) : getDefaultState();
 	}
 
 	public void setFireInfo(Block blockIn, int encouragement, int flammability) {
@@ -93,7 +104,6 @@ public class BlockFire extends Block {
 		flammabilities.put(blockIn, flammability);
 	}
 
-	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return NULL_AABB;
 	}

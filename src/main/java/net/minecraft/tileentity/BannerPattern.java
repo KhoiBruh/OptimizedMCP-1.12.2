@@ -70,7 +70,6 @@ public enum BannerPattern {
 		patterns[2] = p_i47247_7_;
 	}
 
-	
 	public static BannerPattern byHash(String hash) {
 		for (BannerPattern bannerpattern : values()) {
 			if (bannerpattern.hashname.equals(hash)) {

@@ -1,6 +1,5 @@
 package net.minecraft.client.renderer;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -112,8 +111,6 @@ public class BlockModelRenderer {
 			if (bakedquad.hasTintIndex()) {
 				int k = blockColors.colorMultiplier(stateIn, blockAccessIn, posIn, bakedquad.getTintIndex());
 
-
-
 				float f = (float) (k >> 16 & 255) / 255F;
 				float f1 = (float) (k >> 8 & 255) / 255F;
 				float f2 = (float) (k & 255) / 255F;
@@ -222,8 +219,6 @@ public class BlockModelRenderer {
 			if (bakedquad.hasTintIndex()) {
 				int k = blockColors.colorMultiplier(stateIn, blockAccessIn, posIn, bakedquad.getTintIndex());
 
-
-
 				float f = (float) (k >> 16 & 255) / 255F;
 				float f1 = (float) (k >> 8 & 255) / 255F;
 				float f2 = (float) (k & 255) / 255F;
@@ -253,8 +248,6 @@ public class BlockModelRenderer {
 		state.getBlock();
 		GLS.rotate(90F, 0F, 1F, 0F);
 		int i = blockColors.colorMultiplier(state, null, null, 0);
-
-
 
 		float f = (float) (i >> 16 & 255) / 255F;
 		float f1 = (float) (i >> 8 & 255) / 255F;
@@ -397,10 +390,14 @@ public class BlockModelRenderer {
 			BlockPos blockpos = shapeState.get(0) ? centerPos.offset(direction) : centerPos;
 			BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
 			BlockModelRenderer.NeighborInfo blockmodelrenderer$enumneighborinfo = BlockModelRenderer.NeighborInfo.getNeighbourInfo(direction);
-			BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos1 = BlockPos.PooledMutableBlockPos.retain(blockpos).move(blockmodelrenderer$enumneighborinfo.corners[0]);
-			BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos2 = BlockPos.PooledMutableBlockPos.retain(blockpos).move(blockmodelrenderer$enumneighborinfo.corners[1]);
-			BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos3 = BlockPos.PooledMutableBlockPos.retain(blockpos).move(blockmodelrenderer$enumneighborinfo.corners[2]);
-			BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos4 = BlockPos.PooledMutableBlockPos.retain(blockpos).move(blockmodelrenderer$enumneighborinfo.corners[3]);
+			BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos1 = BlockPos.PooledMutableBlockPos.retain(blockpos)
+			                                                                                               .move(blockmodelrenderer$enumneighborinfo.corners[0]);
+			BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos2 = BlockPos.PooledMutableBlockPos.retain(blockpos)
+			                                                                                               .move(blockmodelrenderer$enumneighborinfo.corners[1]);
+			BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos3 = BlockPos.PooledMutableBlockPos.retain(blockpos)
+			                                                                                               .move(blockmodelrenderer$enumneighborinfo.corners[2]);
+			BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos4 = BlockPos.PooledMutableBlockPos.retain(blockpos)
+			                                                                                               .move(blockmodelrenderer$enumneighborinfo.corners[3]);
 			int i = state.getPackedLightmapCoords(worldIn, blockpos$pooledmutableblockpos1);
 			int j = state.getPackedLightmapCoords(worldIn, blockpos$pooledmutableblockpos2);
 			int k = state.getPackedLightmapCoords(worldIn, blockpos$pooledmutableblockpos3);
@@ -409,10 +406,14 @@ public class BlockModelRenderer {
 			float f1 = worldIn.getBlockState(blockpos$pooledmutableblockpos2).getAmbientOcclusionLightValue();
 			float f2 = worldIn.getBlockState(blockpos$pooledmutableblockpos3).getAmbientOcclusionLightValue();
 			float f3 = worldIn.getBlockState(blockpos$pooledmutableblockpos4).getAmbientOcclusionLightValue();
-			boolean flag = worldIn.getBlockState(blockpos$pooledmutableblockpos.setPos(blockpos$pooledmutableblockpos1).move(direction)).isTranslucent();
-			boolean flag1 = worldIn.getBlockState(blockpos$pooledmutableblockpos.setPos(blockpos$pooledmutableblockpos2).move(direction)).isTranslucent();
-			boolean flag2 = worldIn.getBlockState(blockpos$pooledmutableblockpos.setPos(blockpos$pooledmutableblockpos3).move(direction)).isTranslucent();
-			boolean flag3 = worldIn.getBlockState(blockpos$pooledmutableblockpos.setPos(blockpos$pooledmutableblockpos4).move(direction)).isTranslucent();
+			boolean flag = worldIn.getBlockState(blockpos$pooledmutableblockpos.setPos(blockpos$pooledmutableblockpos1)
+			                                                                   .move(direction)).isTranslucent();
+			boolean flag1 = worldIn.getBlockState(blockpos$pooledmutableblockpos.setPos(blockpos$pooledmutableblockpos2)
+			                                                                    .move(direction)).isTranslucent();
+			boolean flag2 = worldIn.getBlockState(blockpos$pooledmutableblockpos.setPos(blockpos$pooledmutableblockpos3)
+			                                                                    .move(direction)).isTranslucent();
+			boolean flag3 = worldIn.getBlockState(blockpos$pooledmutableblockpos.setPos(blockpos$pooledmutableblockpos4)
+			                                                                    .move(direction)).isTranslucent();
 			float f4;
 			int i1;
 
@@ -420,7 +421,8 @@ public class BlockModelRenderer {
 				f4 = f;
 				i1 = i;
 			} else {
-				BlockPos blockpos1 = blockpos$pooledmutableblockpos.setPos(blockpos$pooledmutableblockpos1).move(blockmodelrenderer$enumneighborinfo.corners[2]);
+				BlockPos blockpos1 = blockpos$pooledmutableblockpos.setPos(blockpos$pooledmutableblockpos1)
+				                                                   .move(blockmodelrenderer$enumneighborinfo.corners[2]);
 				f4 = worldIn.getBlockState(blockpos1).getAmbientOcclusionLightValue();
 				i1 = state.getPackedLightmapCoords(worldIn, blockpos1);
 			}
@@ -432,7 +434,8 @@ public class BlockModelRenderer {
 				f5 = f;
 				j1 = i;
 			} else {
-				BlockPos blockpos2 = blockpos$pooledmutableblockpos.setPos(blockpos$pooledmutableblockpos1).move(blockmodelrenderer$enumneighborinfo.corners[3]);
+				BlockPos blockpos2 = blockpos$pooledmutableblockpos.setPos(blockpos$pooledmutableblockpos1)
+				                                                   .move(blockmodelrenderer$enumneighborinfo.corners[3]);
 				f5 = worldIn.getBlockState(blockpos2).getAmbientOcclusionLightValue();
 				j1 = state.getPackedLightmapCoords(worldIn, blockpos2);
 			}
@@ -444,7 +447,8 @@ public class BlockModelRenderer {
 				f6 = f1;
 				k1 = j;
 			} else {
-				BlockPos blockpos3 = blockpos$pooledmutableblockpos.setPos(blockpos$pooledmutableblockpos2).move(blockmodelrenderer$enumneighborinfo.corners[2]);
+				BlockPos blockpos3 = blockpos$pooledmutableblockpos.setPos(blockpos$pooledmutableblockpos2)
+				                                                   .move(blockmodelrenderer$enumneighborinfo.corners[2]);
 				f6 = worldIn.getBlockState(blockpos3).getAmbientOcclusionLightValue();
 				k1 = state.getPackedLightmapCoords(worldIn, blockpos3);
 			}
@@ -456,7 +460,8 @@ public class BlockModelRenderer {
 				f7 = f1;
 				l1 = j;
 			} else {
-				BlockPos blockpos4 = blockpos$pooledmutableblockpos.setPos(blockpos$pooledmutableblockpos2).move(blockmodelrenderer$enumneighborinfo.corners[3]);
+				BlockPos blockpos4 = blockpos$pooledmutableblockpos.setPos(blockpos$pooledmutableblockpos2)
+				                                                   .move(blockmodelrenderer$enumneighborinfo.corners[3]);
 				f7 = worldIn.getBlockState(blockpos4).getAmbientOcclusionLightValue();
 				l1 = state.getPackedLightmapCoords(worldIn, blockpos4);
 			}
@@ -467,7 +472,9 @@ public class BlockModelRenderer {
 				i3 = state.getPackedLightmapCoords(worldIn, centerPos.offset(direction));
 			}
 
-			float f8 = shapeState.get(0) ? worldIn.getBlockState(blockpos).getAmbientOcclusionLightValue() : worldIn.getBlockState(centerPos).getAmbientOcclusionLightValue();
+			float f8 = shapeState.get(0) ? worldIn.getBlockState(blockpos)
+			                                      .getAmbientOcclusionLightValue() : worldIn.getBlockState(centerPos)
+			                                                                                .getAmbientOcclusionLightValue();
 			BlockModelRenderer.VertexTranslations blockmodelrenderer$vertextranslations = BlockModelRenderer.VertexTranslations.getVertexTranslations(direction);
 			blockpos$pooledmutableblockpos.release();
 			blockpos$pooledmutableblockpos1.release();

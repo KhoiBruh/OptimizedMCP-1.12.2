@@ -49,7 +49,8 @@ public class ItemSpade extends ItemTool {
 			IBlockState iblockstate = worldIn.getBlockState(pos);
 			Block block = iblockstate.getBlock();
 
-			if (facing != Facing.DOWN && worldIn.getBlockState(pos.up()).getMaterial() == Material.AIR && block == Blocks.GRASS) {
+			if (facing != Facing.DOWN && worldIn.getBlockState(pos.up())
+			                                    .getMaterial() == Material.AIR && block == Blocks.GRASS) {
 				IBlockState iblockstate1 = Blocks.GRASS_PATH.getDefaultState();
 				worldIn.playSound(player, pos, SoundEvents.ITEM_SHOVEL_FLATTEN, SoundCategory.BLOCKS, 1F, 1F);
 

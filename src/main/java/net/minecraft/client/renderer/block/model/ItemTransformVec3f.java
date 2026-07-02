@@ -8,6 +8,7 @@ import org.joml.Vector3f;
 import java.lang.reflect.Type;
 
 public record ItemTransformVec3f(Vector3f rotation, Vector3f translation, Vector3f scale) {
+
 	public static final ItemTransformVec3f DEFAULT = new ItemTransformVec3f(new Vector3f(), new Vector3f(), new Vector3f(1F, 1F, 1F));
 
 	public ItemTransformVec3f(Vector3f rotation, Vector3f translation, Vector3f scale) {

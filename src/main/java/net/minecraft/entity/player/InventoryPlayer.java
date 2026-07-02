@@ -143,7 +143,9 @@ public class InventoryPlayer implements IInventory {
 		for (int i = 0; i < mainInventory.size(); ++i) {
 			ItemStack itemstack = mainInventory.get(i);
 
-			if (!mainInventory.get(i).isEmpty() && stackEqualExact(p_194014_1_, mainInventory.get(i)) && !mainInventory.get(i).isItemDamaged() && !itemstack.isItemEnchanted() && !itemstack.hasDisplayName()) {
+			if (!mainInventory.get(i)
+			                  .isEmpty() && stackEqualExact(p_194014_1_, mainInventory.get(i)) && !mainInventory.get(i)
+			                                                                                                    .isItemDamaged() && !itemstack.isItemEnchanted() && !itemstack.hasDisplayName()) {
 				return i;
 			}
 		}
@@ -435,7 +437,8 @@ public class InventoryPlayer implements IInventory {
 			index -= nonnulllist.size();
 		}
 
-		return list != null && !list.get(index).isEmpty() ? ItemStackHelper.getAndSplit(list, index, count) : ItemStack.EMPTY;
+		return list != null && !list.get(index)
+		                            .isEmpty() ? ItemStackHelper.getAndSplit(list, index, count) : ItemStack.EMPTY;
 	}
 
 	public void deleteStack(ItemStack stack) {

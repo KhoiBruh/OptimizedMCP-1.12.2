@@ -33,7 +33,13 @@ public class BlockChorusPlant extends Block {
 	protected BlockChorusPlant() {
 		super(Material.PLANTS, MapColor.PURPLE);
 		setCreativeTab(CreativeTabs.DECORATIONS);
-		setDefaultState(blockState.getBaseState().withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false).withProperty(UP, false).withProperty(DOWN, false));
+		setDefaultState(blockState.getBaseState()
+		                          .withProperty(NORTH, false)
+		                          .withProperty(EAST, false)
+		                          .withProperty(SOUTH, false)
+		                          .withProperty(WEST, false)
+		                          .withProperty(UP, false)
+		                          .withProperty(DOWN, false));
 	}
 
 	/**
@@ -47,7 +53,12 @@ public class BlockChorusPlant extends Block {
 		Block block3 = worldIn.getBlockState(pos.east()).getBlock();
 		Block block4 = worldIn.getBlockState(pos.south()).getBlock();
 		Block block5 = worldIn.getBlockState(pos.west()).getBlock();
-		return state.withProperty(DOWN, block == this || block == Blocks.CHORUS_FLOWER || block == Blocks.END_STONE).withProperty(UP, block1 == this || block1 == Blocks.CHORUS_FLOWER).withProperty(NORTH, block2 == this || block2 == Blocks.CHORUS_FLOWER).withProperty(EAST, block3 == this || block3 == Blocks.CHORUS_FLOWER).withProperty(SOUTH, block4 == this || block4 == Blocks.CHORUS_FLOWER).withProperty(WEST, block5 == this || block5 == Blocks.CHORUS_FLOWER);
+		return state.withProperty(DOWN, block == this || block == Blocks.CHORUS_FLOWER || block == Blocks.END_STONE)
+		            .withProperty(UP, block1 == this || block1 == Blocks.CHORUS_FLOWER)
+		            .withProperty(NORTH, block2 == this || block2 == Blocks.CHORUS_FLOWER)
+		            .withProperty(EAST, block3 == this || block3 == Blocks.CHORUS_FLOWER)
+		            .withProperty(SOUTH, block4 == this || block4 == Blocks.CHORUS_FLOWER)
+		            .withProperty(WEST, block5 == this || block5 == Blocks.CHORUS_FLOWER);
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {

@@ -53,7 +53,6 @@ public class ResourceIndex {
 		}
 	}
 
-	
 	public File getFile(ResourceLocation location) {
 		String s = location.toString();
 		return resourceMap.get(s);

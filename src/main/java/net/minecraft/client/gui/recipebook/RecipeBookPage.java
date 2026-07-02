@@ -113,12 +113,10 @@ public class RecipeBookPage {
 		}
 	}
 
-	
 	public IRecipe getLastClickedRecipe() {
 		return lastClickedRecipe;
 	}
 
-	
 	public RecipeList getLastClickedRecipeList() {
 		return lastClickedRecipeList;
 	}

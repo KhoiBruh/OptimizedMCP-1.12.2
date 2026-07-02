@@ -138,7 +138,9 @@ public class PlayerControllerMP {
 			}
 		}
 
-		if (currentGameType.isCreative() && !mc.player.getHeldItemMainhand().isEmpty() && mc.player.getHeldItemMainhand().getItem() instanceof ItemSword) {
+		if (currentGameType.isCreative() && !mc.player.getHeldItemMainhand()
+		                                              .isEmpty() && mc.player.getHeldItemMainhand()
+		                                                                     .getItem() instanceof ItemSword) {
 			return false;
 		} else {
 			World world = mc.world;
@@ -271,11 +273,12 @@ public class PlayerControllerMP {
 
 				if (stepSoundTickCounter % 4F == 0F) {
 					SoundType soundtype = block.getSoundType();
-					mc.getSoundHandler().playSound(new PositionedSoundRecord(soundtype.hitSound(), SoundCategory.NEUTRAL, (soundtype.volume() + 1F) / 8F, soundtype.pitch() * 0.5F, posBlock));
+					mc.getSoundHandler()
+					  .playSound(new PositionedSoundRecord(soundtype.hitSound(), SoundCategory.NEUTRAL, (soundtype.volume() + 1F) / 8F, soundtype.pitch() * 0.5F, posBlock));
 				}
 
 				++stepSoundTickCounter;
-	
+
 				if (curBlockDamageMP >= 1F) {
 					isHittingBlock = false;
 					connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, posBlock, directionFacing));
@@ -347,7 +350,9 @@ public class PlayerControllerMP {
 			if (currentGameType != GameType.SPECTATOR) {
 				IBlockState iblockstate = worldIn.getBlockState(pos);
 
-				if ((!player.isSneaking() || player.getHeldItemMainhand().isEmpty() && player.getHeldItemOffhand().isEmpty()) && iblockstate.getBlock().onBlockActivated(worldIn, pos, iblockstate, player, hand, direction, f, f1, f2)) {
+				if ((!player.isSneaking() || player.getHeldItemMainhand().isEmpty() && player.getHeldItemOffhand()
+				                                                                             .isEmpty()) && iblockstate.getBlock()
+				                                                                                                       .onBlockActivated(worldIn, pos, iblockstate, player, hand, direction, f, f1, f2)) {
 					flag = true;
 				}
 

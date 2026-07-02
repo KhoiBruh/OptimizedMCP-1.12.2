@@ -39,11 +39,15 @@ public class BlockFurnace extends BlockContainer {
 		keepInventory = true;
 
 		if (active) {
-			worldIn.setBlockState(pos, Blocks.LIT_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
-			worldIn.setBlockState(pos, Blocks.LIT_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+			worldIn.setBlockState(pos, Blocks.LIT_FURNACE.getDefaultState()
+			                                             .withProperty(FACING, iblockstate.getValue(FACING)), 3);
+			worldIn.setBlockState(pos, Blocks.LIT_FURNACE.getDefaultState()
+			                                             .withProperty(FACING, iblockstate.getValue(FACING)), 3);
 		} else {
-			worldIn.setBlockState(pos, Blocks.FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
-			worldIn.setBlockState(pos, Blocks.FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+			worldIn.setBlockState(pos, Blocks.FURNACE.getDefaultState()
+			                                         .withProperty(FACING, iblockstate.getValue(FACING)), 3);
+			worldIn.setBlockState(pos, Blocks.FURNACE.getDefaultState()
+			                                         .withProperty(FACING, iblockstate.getValue(FACING)), 3);
 		}
 
 		keepInventory = false;

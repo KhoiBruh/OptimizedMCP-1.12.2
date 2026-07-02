@@ -19,16 +19,12 @@ public class EntityDamageSourceIndirect extends EntityDamageSource {
 		indirectEntity = indirectEntityIn;
 	}
 
-	
-
 	/**
 	 * Retrieves the immediate causer of the damage, e.g. the arrow entity, not its shooter
 	 */
 	public Entity getImmediateSource() {
 		return damageSourceEntity;
 	}
-
-	
 
 	/**
 	 * Retrieves the true causer of the damage, e.g. the player who fired an arrow, the shulker who fired the bullet,

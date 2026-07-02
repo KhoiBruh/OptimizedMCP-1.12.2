@@ -43,9 +43,11 @@ public class ItemSign extends Item {
 
 					if (facing == Facing.UP) {
 						int i = MathHelper.floor((double) ((player.rotationYaw + 180F) * 16F / 360F) + 0.5D) & 15;
-						worldIn.setBlockState(pos, Blocks.STANDING_SIGN.getDefaultState().withProperty(BlockStandingSign.ROTATION, i), 11);
+						worldIn.setBlockState(pos, Blocks.STANDING_SIGN.getDefaultState()
+						                                               .withProperty(BlockStandingSign.ROTATION, i), 11);
 					} else {
-						worldIn.setBlockState(pos, Blocks.WALL_SIGN.getDefaultState().withProperty(BlockWallSign.FACING, facing), 11);
+						worldIn.setBlockState(pos, Blocks.WALL_SIGN.getDefaultState()
+						                                           .withProperty(BlockWallSign.FACING, facing), 11);
 					}
 
 					TileEntity tileentity = worldIn.getTileEntity(pos);

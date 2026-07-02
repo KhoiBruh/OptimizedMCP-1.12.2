@@ -125,7 +125,9 @@ public class DebugRendererPathfinding implements DebugRenderer.IDebugRenderer {
 				int k = j >> 16 & 255;
 				int l = j >> 8 & 255;
 				int i1 = j & 255;
-				bufferbuilder.pos((double) pathpoint.x - xo + 0.5D, (double) pathpoint.y - yo + 0.5D, (double) pathpoint.z - zo + 0.5D).color(k, l, i1, 255).endVertex();
+				bufferbuilder.pos((double) pathpoint.x - xo + 0.5D, (double) pathpoint.y - yo + 0.5D, (double) pathpoint.z - zo + 0.5D)
+				             .color(k, l, i1, 255)
+				             .endVertex();
 			}
 		}
 

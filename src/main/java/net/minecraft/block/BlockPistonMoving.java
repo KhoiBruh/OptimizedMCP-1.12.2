@@ -34,15 +34,15 @@ public class BlockPistonMoving extends BlockContainer {
 
 	public BlockPistonMoving() {
 		super(Material.PISTON);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(TYPE, BlockPistonExtension.PistonType.DEFAULT));
+		setDefaultState(blockState.getBaseState()
+		                          .withProperty(FACING, Facing.NORTH)
+		                          .withProperty(TYPE, BlockPistonExtension.PistonType.DEFAULT));
 		setHardness(-1F);
 	}
 
 	public static TileEntity createTilePiston(IBlockState blockStateIn, Facing facingIn, boolean extendingIn, boolean shouldHeadBeRenderedIn) {
 		return new TileEntityPiston(blockStateIn, facingIn, extendingIn, shouldHeadBeRenderedIn);
 	}
-
-	
 
 	/**
 	 * Returns a new instance of a block's tile entity class. Called on placing the block.
@@ -134,8 +134,6 @@ public class BlockPistonMoving extends BlockContainer {
 		}
 	}
 
-	
-
 	/**
 	 * Ray traces through the blocks collision from start vector to end vector returning a ray trace hit.
 	 */
@@ -154,7 +152,6 @@ public class BlockPistonMoving extends BlockContainer {
 		}
 	}
 
-	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		TileEntityPiston tileentitypiston = getTilePistonAt(worldIn, pos);
 		return tileentitypiston == null ? null : tileentitypiston.getAABB(worldIn, pos);
@@ -173,8 +170,6 @@ public class BlockPistonMoving extends BlockContainer {
 		return tileentitypiston != null ? tileentitypiston.getAABB(source, pos) : FULL_BLOCK_AABB;
 	}
 
-	
-
 	/**
 	 * Gets a TileEntityPiston at the given position. Returns null if the tile is not an instance of TileEntityPiston.
 	 */
@@ -191,7 +186,8 @@ public class BlockPistonMoving extends BlockContainer {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(FACING, BlockPistonExtension.getFacing(meta)).withProperty(TYPE, (meta & 8) > 0 ? BlockPistonExtension.PistonType.STICKY : BlockPistonExtension.PistonType.DEFAULT);
+		return getDefaultState().withProperty(FACING, BlockPistonExtension.getFacing(meta))
+		                        .withProperty(TYPE, (meta & 8) > 0 ? BlockPistonExtension.PistonType.STICKY : BlockPistonExtension.PistonType.DEFAULT);
 	}
 
 	/**

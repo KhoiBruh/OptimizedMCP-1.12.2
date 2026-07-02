@@ -67,8 +67,6 @@ public class BlockPattern {
 		return palmLength;
 	}
 
-	
-
 	/**
 	 * checks that the given pattern & rotation is at the block co-ordinates.
 	 */
@@ -86,8 +84,6 @@ public class BlockPattern {
 
 		return new BlockPattern.PatternHelper(pos, finger, thumb, lcache, palmLength, thumbLength);
 	}
-
-	
 
 	/**
 	 * Calculates whether the given world position matches the pattern. Warning, fairly heavy function. @return a
@@ -139,7 +135,7 @@ public class BlockPattern {
 		private final LoadingCache<BlockPos, BlockWorldState> lcache;
 		private final int width;
 		private final int height;
-		
+
 		public PatternHelper(BlockPos posIn, Facing fingerIn, Facing thumbIn, LoadingCache<BlockPos, BlockWorldState> lcacheIn, int widthIn, int heightIn) {
 			frontTopLeft = posIn;
 			forwards = fingerIn;
@@ -174,7 +170,11 @@ public class BlockPattern {
 		}
 
 		public String toString() {
-			return MoreObjects.toStringHelper(this).add("up", up).add("forwards", forwards).add("frontTopLeft", frontTopLeft).toString();
+			return MoreObjects.toStringHelper(this)
+			                  .add("up", up)
+			                  .add("forwards", forwards)
+			                  .add("frontTopLeft", frontTopLeft)
+			                  .toString();
 		}
 
 	}

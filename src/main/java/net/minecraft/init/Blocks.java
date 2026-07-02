@@ -7,7 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import java.util.Set;
 
 public class Blocks {
-	
+
 	public static final Block AIR;
 	public static final Block STONE;
 	public static final BlockGrass GRASS;
@@ -263,7 +263,7 @@ public class Blocks {
 	public static final Block CONCRETE_POWDER;
 	public static final Block STRUCTURE_BLOCK;
 	private static final Set<Block> CACHE;
-	
+
 	static {
 		if (!Bootstrap.isRegistered()) {
 			throw new RuntimeException("Accessed Blocks before Bootstrap!");
@@ -526,18 +526,18 @@ public class Blocks {
 			CACHE.clear();
 		}
 	}
-	
+
 	/**
 	 * Returns the Block in the blockRegistry with the specified name.
 	 */
 	private static Block getRegisteredBlock(String blockName) {
 		Block block = Block.REGISTRY.getObject(new ResourceLocation(blockName));
-		
+
 		if (!CACHE.add(block)) {
 			throw new IllegalStateException("Invalid Block requested: " + blockName);
 		} else {
 			return block;
 		}
 	}
-	
+
 }

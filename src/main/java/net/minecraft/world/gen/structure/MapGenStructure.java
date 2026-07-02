@@ -121,7 +121,8 @@ public abstract class MapGenStructure extends MapGenBase {
 		boolean flag = false;
 
 		for (StructureStart structurestart : structureMap.values()) {
-			if (structurestart.isSizeableStructure() && structurestart.isValidForPostProcess(chunkCoord) && structurestart.getBoundingBox().intersectsWith(i, j, i + 15, j + 15)) {
+			if (structurestart.isSizeableStructure() && structurestart.isValidForPostProcess(chunkCoord) && structurestart.getBoundingBox()
+			                                                                                                              .intersectsWith(i, j, i + 15, j + 15)) {
 				structurestart.generateStructure(worldIn, randomIn, new StructureBoundingBox(i, j, i + 15, j + 15));
 				structurestart.notifyPostProcessAt(chunkCoord);
 				flag = true;
@@ -141,7 +142,6 @@ public abstract class MapGenStructure extends MapGenBase {
 		}
 	}
 
-	
 	protected StructureStart getStructureAt(BlockPos pos) {
 		ObjectIterator<StructureStart> objectiterator = structureMap.values().iterator();
 		label31:
@@ -183,7 +183,6 @@ public abstract class MapGenStructure extends MapGenBase {
 		return false;
 	}
 
-	
 	public abstract BlockPos getNearestStructurePos(World worldIn, BlockPos pos, boolean findUnexplored);
 
 	protected void initializeStructureData(World worldIn) {

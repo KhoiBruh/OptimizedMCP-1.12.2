@@ -16,7 +16,11 @@ public class WorldGenVines extends WorldGenerator {
 			if (worldIn.isAirBlock(position)) {
 				for (Facing enumfacing : Facing.Plane.HORIZONTAL.facings()) {
 					if (Blocks.VINE.canPlaceBlockOnSide(worldIn, position, enumfacing)) {
-						IBlockState iblockstate = Blocks.VINE.getDefaultState().withProperty(BlockVine.NORTH, enumfacing == Facing.NORTH).withProperty(BlockVine.EAST, enumfacing == Facing.EAST).withProperty(BlockVine.SOUTH, enumfacing == Facing.SOUTH).withProperty(BlockVine.WEST, enumfacing == Facing.WEST);
+						IBlockState iblockstate = Blocks.VINE.getDefaultState()
+						                                     .withProperty(BlockVine.NORTH, enumfacing == Facing.NORTH)
+						                                     .withProperty(BlockVine.EAST, enumfacing == Facing.EAST)
+						                                     .withProperty(BlockVine.SOUTH, enumfacing == Facing.SOUTH)
+						                                     .withProperty(BlockVine.WEST, enumfacing == Facing.WEST);
 						worldIn.setBlockState(position, iblockstate, 2);
 						break;
 					}

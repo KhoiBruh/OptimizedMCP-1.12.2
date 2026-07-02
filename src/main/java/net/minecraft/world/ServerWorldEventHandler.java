@@ -61,7 +61,9 @@ public class ServerWorldEventHandler implements IWorldEventListener {
 	}
 
 	public void playSoundToAllNearExcept(EntityPlayer player, SoundEvent soundIn, SoundCategory category, double x, double y, double z, float volume, float pitch) {
-		mcServer.getPlayerList().sendToAllNearExcept(player, x, y, z, volume > 1F ? (double) (16F * volume) : 16D, world.provider.getDimensionType().getId(), new SPacketSoundEffect(soundIn, category, x, y, z, volume, pitch));
+		mcServer.getPlayerList()
+		        .sendToAllNearExcept(player, x, y, z, volume > 1F ? (double) (16F * volume) : 16D, world.provider.getDimensionType()
+		                                                                                                         .getId(), new SPacketSoundEffect(soundIn, category, x, y, z, volume, pitch));
 	}
 
 	/**
@@ -81,7 +83,9 @@ public class ServerWorldEventHandler implements IWorldEventListener {
 	}
 
 	public void playEvent(EntityPlayer player, int type, BlockPos blockPosIn, int data) {
-		mcServer.getPlayerList().sendToAllNearExcept(player, blockPosIn.getX(), blockPosIn.getY(), blockPosIn.getZ(), 64D, world.provider.getDimensionType().getId(), new SPacketEffect(type, blockPosIn, data, false));
+		mcServer.getPlayerList()
+		        .sendToAllNearExcept(player, blockPosIn.getX(), blockPosIn.getY(), blockPosIn.getZ(), 64D, world.provider.getDimensionType()
+		                                                                                                                 .getId(), new SPacketEffect(type, blockPosIn, data, false));
 	}
 
 	public void broadcastSound(int soundID, BlockPos pos, int data) {

@@ -41,8 +41,6 @@ public interface IPhase {
 
 	PhaseList<? extends IPhase> getType();
 
-	
-
 	/**
 	 * Returns the location the dragon is flying toward
 	 */

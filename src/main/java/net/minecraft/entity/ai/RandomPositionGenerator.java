@@ -17,8 +17,6 @@ public class RandomPositionGenerator {
 	 */
 	private static Vec3d staticVector = Vec3d.ZERO;
 
-	
-
 	/**
 	 * finds a random target within par1(x,z) and par2 (y) blocks
 	 */
@@ -26,12 +24,9 @@ public class RandomPositionGenerator {
 		return findRandomTargetBlock(entitycreatureIn, xz, y, null);
 	}
 
-	
 	public static Vec3d getLandPos(EntityCreature p_191377_0_, int p_191377_1_, int p_191377_2_) {
 		return generateRandomPos(p_191377_0_, p_191377_1_, p_191377_2_, null, false);
 	}
-
-	
 
 	/**
 	 * finds a random target within par1(x,z) and par2 (y) blocks in the direction of the point par3
@@ -41,8 +36,6 @@ public class RandomPositionGenerator {
 		return findRandomTargetBlock(entitycreatureIn, xz, y, staticVector);
 	}
 
-	
-
 	/**
 	 * finds a random target within par1(x,z) and par2 (y) blocks in the reverse direction of the point par3
 	 */
@@ -50,8 +43,6 @@ public class RandomPositionGenerator {
 		staticVector = (new Vec3d(entitycreatureIn.posX, entitycreatureIn.posY, entitycreatureIn.posZ)).subtract(targetVec3);
 		return findRandomTargetBlock(entitycreatureIn, xz, y, staticVector);
 	}
-
-	
 
 	/**
 	 * searches 10 blocks at random in a within par1(x,z) and par2 (y) distance, ignores those not in the direction of
@@ -61,14 +52,14 @@ public class RandomPositionGenerator {
 		return generateRandomPos(entitycreatureIn, xz, y, targetVec3, true);
 	}
 
-	
 	private static Vec3d generateRandomPos(EntityCreature p_191379_0_, int p_191379_1_, int p_191379_2_, Vec3d p_191379_3_, boolean p_191379_4_) {
 		PathNavigate pathnavigate = p_191379_0_.getNavigator();
 		Random random = p_191379_0_.getRNG();
 		boolean flag;
 
 		if (p_191379_0_.hasHome()) {
-			double d0 = p_191379_0_.getHomePosition().distanceSq(MathHelper.floor(p_191379_0_.posX), MathHelper.floor(p_191379_0_.posY), MathHelper.floor(p_191379_0_.posZ)) + 4D;
+			double d0 = p_191379_0_.getHomePosition()
+			                       .distanceSq(MathHelper.floor(p_191379_0_.posX), MathHelper.floor(p_191379_0_.posY), MathHelper.floor(p_191379_0_.posZ)) + 4D;
 			double d1 = p_191379_0_.getMaximumHomeDistance() + (float) p_191379_1_;
 			flag = d0 < d1 * d1;
 		} else {
@@ -140,7 +131,9 @@ public class RandomPositionGenerator {
 		} else {
 			BlockPos blockpos;
 
-			for (blockpos = p_191378_0_.up(); blockpos.getY() < p_191378_1_.world.getHeight() && p_191378_1_.world.getBlockState(blockpos).getMaterial().isSolid(); blockpos = blockpos.up()) {
+			for (blockpos = p_191378_0_.up(); blockpos.getY() < p_191378_1_.world.getHeight() && p_191378_1_.world.getBlockState(blockpos)
+			                                                                                                      .getMaterial()
+			                                                                                                      .isSolid(); blockpos = blockpos.up()) {
 			}
 
 			return blockpos;

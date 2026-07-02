@@ -18,7 +18,6 @@ public class EntityMule extends AbstractChestHorse {
 		AbstractChestHorse.registerFixesAbstractChestHorse(fixer, EntityMule.class);
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_MULE;
 	}

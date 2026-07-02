@@ -159,7 +159,6 @@ public class VillageSiege {
 		}
 	}
 
-	
 	private Vec3d findRandomSpawnPos(BlockPos pos) {
 		for (int i = 0; i < 10; ++i) {
 			BlockPos blockpos = pos.add(world.rand.nextInt(16) - 8, world.rand.nextInt(6) - 3, world.rand.nextInt(16) - 8);

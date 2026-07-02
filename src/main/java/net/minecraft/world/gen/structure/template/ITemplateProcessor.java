@@ -5,7 +5,6 @@ import net.minecraft.world.World;
 
 public interface ITemplateProcessor {
 
-	
 	Template.BlockInfo processBlock(World worldIn, BlockPos pos, Template.BlockInfo blockInfoIn);
 
 }

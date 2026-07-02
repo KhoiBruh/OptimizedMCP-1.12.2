@@ -37,7 +37,6 @@ public class TemplateManager {
 		return template;
 	}
 
-	
 	public Template get(MinecraftServer server, ResourceLocation templatePath) {
 		String s = templatePath.getResourcePath();
 

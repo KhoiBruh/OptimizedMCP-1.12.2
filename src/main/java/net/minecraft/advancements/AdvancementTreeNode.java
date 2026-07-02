@@ -54,7 +54,6 @@ public class AdvancementTreeNode {
 		}
 	}
 
-	
 	private AdvancementTreeNode buildSubTree(Advancement advancementIn, AdvancementTreeNode previous) {
 		if (advancementIn.getDisplay() != null) {
 			previous = new AdvancementTreeNode(advancementIn, this, previous, children.size() + 1, x + 1);
@@ -131,7 +130,6 @@ public class AdvancementTreeNode {
 		}
 	}
 
-	
 	private AdvancementTreeNode getFirstChild() {
 		if (thread != null) {
 			return thread;
@@ -140,7 +138,6 @@ public class AdvancementTreeNode {
 		}
 	}
 
-	
 	private AdvancementTreeNode getLastChild() {
 		if (thread != null) {
 			return thread;

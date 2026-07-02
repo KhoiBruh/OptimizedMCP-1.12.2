@@ -86,6 +86,29 @@ public class ResourcePackRepository {
 		return map;
 	}
 
+	private static String sha1Hex(String data) {
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-1");
+			return HexFormat.of().formatHex(md.digest(data.getBytes(StandardCharsets.UTF_8)));
+		} catch (NoSuchAlgorithmException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	private static String sha1Hex(File file) {
+		try (InputStream in = new FileInputStream(file)) {
+			MessageDigest md = MessageDigest.getInstance("SHA-1");
+			byte[] buffer = new byte[8192];
+			int len;
+			while ((len = in.read(buffer)) != -1) {
+				md.update(buffer, 0, len);
+			}
+			return HexFormat.of().formatHex(md.digest());
+		} catch (NoSuchAlgorithmException | IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	private void fixDirResourcepacks() {
 		if (dirResourcepacks.exists()) {
 			if (!dirResourcepacks.isDirectory() && (!dirResourcepacks.delete() || !dirResourcepacks.mkdirs())) {
@@ -152,7 +175,6 @@ public class ResourcePackRepository {
 		repositoryEntriesAll = list;
 	}
 
-	
 	public ResourcePackRepository.Entry getResourcePackEntry() {
 
 		if (serverResourcePack != null) {
@@ -293,8 +315,6 @@ public class ResourcePackRepository {
 		}
 	}
 
-	
-
 	/**
 	 * Getter for the IResourcePack instance associated with this ResourcePackRepository
 	 */
@@ -318,29 +338,6 @@ public class ResourcePackRepository {
 			}
 		} finally {
 			lock.unlock();
-		}
-	}
-
-	private static String sha1Hex(String data) {
-		try {
-			MessageDigest md = MessageDigest.getInstance("SHA-1");
-			return HexFormat.of().formatHex(md.digest(data.getBytes(StandardCharsets.UTF_8)));
-		} catch (NoSuchAlgorithmException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	private static String sha1Hex(File file) {
-		try (InputStream in = new FileInputStream(file)) {
-			MessageDigest md = MessageDigest.getInstance("SHA-1");
-			byte[] buffer = new byte[8192];
-			int len;
-			while ((len = in.read(buffer)) != -1) {
-				md.update(buffer, 0, len);
-			}
-			return HexFormat.of().formatHex(md.digest());
-		} catch (NoSuchAlgorithmException | IOException e) {
-			throw new RuntimeException(e);
 		}
 	}
 
@@ -373,7 +370,10 @@ public class ResourcePackRepository {
 
 			if (bufferedimage == null) {
 				try {
-					bufferedimage = TextureUtil.readBufferedImage(Minecraft.getMinecraft().getResourceManager().getResource(ResourcePackRepository.UNKNOWN_PACK_TEXTURE).getInputStream());
+					bufferedimage = TextureUtil.readBufferedImage(Minecraft.getMinecraft()
+					                                                       .getResourceManager()
+					                                                       .getResource(ResourcePackRepository.UNKNOWN_PACK_TEXTURE)
+					                                                       .getInputStream());
 				} catch (IOException ioexception) {
 					throw new Error("Couldn't bind resource pack icon", ioexception);
 				}
@@ -403,7 +403,8 @@ public class ResourcePackRepository {
 		}
 
 		public String getTexturePackDescription() {
-			return rePackMetadataSection == null ? TextFormat.RED + "Invalid pack.mcmeta (or missing 'pack' section)" : rePackMetadataSection.packDescription().getFormattedText();
+			return rePackMetadataSection == null ? TextFormat.RED + "Invalid pack.mcmeta (or missing 'pack' section)" : rePackMetadataSection.packDescription()
+			                                                                                                                                 .getFormattedText();
 		}
 
 		public int getPackFormat() {

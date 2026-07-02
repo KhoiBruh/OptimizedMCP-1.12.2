@@ -83,7 +83,8 @@ public class WinGameScreen extends Screen {
 				int i = 274;
 
 				if (poem) {
-					try (IResource iresource = mc.getResourceManager().getResource(new ResourceLocation("texts/end.txt"))) {
+					try (IResource iresource = mc.getResourceManager()
+					                             .getResource(new ResourceLocation("texts/end.txt"))) {
 						InputStream inputstream = iresource.getInputStream();
 						BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(inputstream, StandardCharsets.UTF_8));
 						Random random = new Random(8124371L);
@@ -93,7 +94,8 @@ public class WinGameScreen extends Screen {
 							String s2;
 							String s3;
 
-							for (s1 = s1.replaceAll("PLAYERNAME", mc.getSession().getUsername()); s1.contains(s); s1 = s2 + TextFormat.WHITE + TextFormat.OBFUSCATED + "XXXXXXXX".substring(0, random.nextInt(4) + 3) + s3) {
+							for (s1 = s1.replaceAll("PLAYERNAME", mc.getSession()
+							                                        .getUsername()); s1.contains(s); s1 = s2 + TextFormat.WHITE + TextFormat.OBFUSCATED + "XXXXXXXX".substring(0, random.nextInt(4) + 3) + s3) {
 								int j = s1.indexOf(s);
 								s2 = s1.substring(0, j);
 								s3 = s1.substring(j + s.length());
@@ -111,7 +113,9 @@ public class WinGameScreen extends Screen {
 					}
 				}
 
-				InputStream inputstream1 = mc.getResourceManager().getResource(new ResourceLocation("texts/credits.txt")).getInputStream();
+				InputStream inputstream1 = mc.getResourceManager()
+				                             .getResource(new ResourceLocation("texts/credits.txt"))
+				                             .getInputStream();
 				BufferedReader bufferedreader1 = new BufferedReader(new InputStreamReader(inputstream1, StandardCharsets.UTF_8));
 				String s4;
 
@@ -154,7 +158,10 @@ public class WinGameScreen extends Screen {
 		f3 = f3 * f3;
 		f3 = f3 * 96F / 255F;
 		bufferbuilder.pos(0D, height, zLevel).tex(0D, f * 0.015625F).color(f3, f3, f3, 1F).endVertex();
-		bufferbuilder.pos(i, height, zLevel).tex((float) i * 0.015625F, f * 0.015625F).color(f3, f3, f3, 1F).endVertex();
+		bufferbuilder.pos(i, height, zLevel)
+		             .tex((float) i * 0.015625F, f * 0.015625F)
+		             .color(f3, f3, f3, 1F)
+		             .endVertex();
 		bufferbuilder.pos(i, 0D, zLevel).tex((float) i * 0.015625F, f1 * 0.015625F).color(f3, f3, f3, 1F).endVertex();
 		bufferbuilder.pos(0D, 0D, zLevel).tex(0D, f1 * 0.015625F).color(f3, f3, f3, 1F).endVertex();
 		tessellator.draw();

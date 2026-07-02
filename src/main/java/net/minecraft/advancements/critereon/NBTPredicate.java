@@ -15,7 +15,6 @@ public class NBTPredicate {
 	 */
 	public static final NBTPredicate ANY = new NBTPredicate(null);
 
-	
 	private final NBTTagCompound tag;
 
 	public NBTPredicate(NBTTagCompound tag) {

@@ -7,6 +7,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 public record VariantList(List<Variant> variantList) {
+
 	public boolean equals(Object p_equals_1_) {
 		if (this == p_equals_1_) {
 			return true;

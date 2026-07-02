@@ -170,7 +170,8 @@ public class BlockDispenser extends BlockContainer {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-		return getDefaultState().withProperty(FACING, Facing.getDirectionFromEntityLiving(pos, placer)).withProperty(TRIGGERED, false);
+		return getDefaultState().withProperty(FACING, Facing.getDirectionFromEntityLiving(pos, placer))
+		                        .withProperty(TRIGGERED, false);
 	}
 
 	/**
@@ -222,7 +223,8 @@ public class BlockDispenser extends BlockContainer {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(FACING, Facing.getFront(meta & 7)).withProperty(TRIGGERED, (meta & 8) > 0);
+		return getDefaultState().withProperty(FACING, Facing.getFront(meta & 7))
+		                        .withProperty(TRIGGERED, (meta & 8) > 0);
 	}
 
 	/**

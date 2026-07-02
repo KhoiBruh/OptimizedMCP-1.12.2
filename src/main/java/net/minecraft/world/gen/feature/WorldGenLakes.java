@@ -65,7 +65,8 @@ public class WorldGenLakes extends WorldGenerator {
 								return false;
 							}
 
-							if (k < 4 && !material.isSolid() && worldIn.getBlockState(position.add(k1, k, l2)).getBlock() != block) {
+							if (k < 4 && !material.isSolid() && worldIn.getBlockState(position.add(k1, k, l2))
+							                                           .getBlock() != block) {
 								return false;
 							}
 						}
@@ -89,7 +90,8 @@ public class WorldGenLakes extends WorldGenerator {
 						if (aboolean[(i2 * 16 + j3) * 8 + j4]) {
 							BlockPos blockpos = position.add(i2, j4 - 1, j3);
 
-							if (worldIn.getBlockState(blockpos).getBlock() == Blocks.DIRT && worldIn.getLightFor(SkyBlock.SKY, position.add(i2, j4, j3)) > 0) {
+							if (worldIn.getBlockState(blockpos)
+							           .getBlock() == Blocks.DIRT && worldIn.getLightFor(SkyBlock.SKY, position.add(i2, j4, j3)) > 0) {
 								Biome biome = worldIn.getBiome(blockpos);
 
 								if (biome.topBlock.getBlock() == Blocks.MYCELIUM) {
@@ -109,7 +111,9 @@ public class WorldGenLakes extends WorldGenerator {
 						for (int k4 = 0; k4 < 8; ++k4) {
 							boolean flag1 = !aboolean[(j2 * 16 + k3) * 8 + k4] && (j2 < 15 && aboolean[((j2 + 1) * 16 + k3) * 8 + k4] || j2 > 0 && aboolean[((j2 - 1) * 16 + k3) * 8 + k4] || k3 < 15 && aboolean[(j2 * 16 + k3 + 1) * 8 + k4] || k3 > 0 && aboolean[(j2 * 16 + (k3 - 1)) * 8 + k4] || k4 < 7 && aboolean[(j2 * 16 + k3) * 8 + k4 + 1] || k4 > 0 && aboolean[(j2 * 16 + k3) * 8 + (k4 - 1)]);
 
-							if (flag1 && (k4 < 4 || rand.nextInt(2) != 0) && worldIn.getBlockState(position.add(j2, k4, k3)).getMaterial().isSolid()) {
+							if (flag1 && (k4 < 4 || rand.nextInt(2) != 0) && worldIn.getBlockState(position.add(j2, k4, k3))
+							                                                        .getMaterial()
+							                                                        .isSolid()) {
 								worldIn.setBlockState(position.add(j2, k4, k3), Blocks.STONE.getDefaultState(), 2);
 							}
 						}

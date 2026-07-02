@@ -63,7 +63,8 @@ public class BlockGrass extends Block implements IGrowable {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Blocks.DIRT.getItemDropped(Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT), rand, fortune);
+		return Blocks.DIRT.getItemDropped(Blocks.DIRT.getDefaultState()
+		                                             .withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT), rand, fortune);
 	}
 
 	/**
@@ -88,15 +89,18 @@ public class BlockGrass extends Block implements IGrowable {
 				if (j >= i / 16) {
 					if (worldIn.getBlockState(blockpos1).getBlock().blockMaterial == Material.AIR) {
 						if (rand.nextInt(8) == 0) {
-							BlockFlower.FlowerType blockflower$enumflowertype = worldIn.getBiome(blockpos1).pickRandomFlower(rand, blockpos1);
+							BlockFlower.FlowerType blockflower$enumflowertype = worldIn.getBiome(blockpos1)
+							                                                           .pickRandomFlower(rand, blockpos1);
 							BlockFlower blockflower = blockflower$enumflowertype.getBlockType().getBlock();
-							IBlockState iblockstate = blockflower.getDefaultState().withProperty(blockflower.getTypeProperty(), blockflower$enumflowertype);
+							IBlockState iblockstate = blockflower.getDefaultState()
+							                                     .withProperty(blockflower.getTypeProperty(), blockflower$enumflowertype);
 
 							if (blockflower.canBlockStay(worldIn, blockpos1, iblockstate)) {
 								worldIn.setBlockState(blockpos1, iblockstate, 3);
 							}
 						} else {
-							IBlockState iblockstate1 = Blocks.TALLGRASS.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.Type.GRASS);
+							IBlockState iblockstate1 = Blocks.TALLGRASS.getDefaultState()
+							                                           .withProperty(BlockTallGrass.TYPE, BlockTallGrass.Type.GRASS);
 
 							if (Blocks.TALLGRASS.canBlockStay(worldIn, blockpos1, iblockstate1)) {
 								worldIn.setBlockState(blockpos1, iblockstate1, 3);
@@ -109,7 +113,8 @@ public class BlockGrass extends Block implements IGrowable {
 
 				blockpos1 = blockpos1.add(rand.nextInt(3) - 1, (rand.nextInt(3) - 1) * rand.nextInt(3) / 2, rand.nextInt(3) - 1);
 
-				if (worldIn.getBlockState(blockpos1.down()).getBlock() != Blocks.GRASS || worldIn.getBlockState(blockpos1).isNormalCube()) {
+				if (worldIn.getBlockState(blockpos1.down())
+				           .getBlock() != Blocks.GRASS || worldIn.getBlockState(blockpos1).isNormalCube()) {
 					break;
 				}
 

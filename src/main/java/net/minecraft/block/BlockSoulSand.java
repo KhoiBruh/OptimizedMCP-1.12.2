@@ -19,7 +19,6 @@ public class BlockSoulSand extends Block {
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 	}
 
-	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return SOUL_SAND_AABB;
 	}

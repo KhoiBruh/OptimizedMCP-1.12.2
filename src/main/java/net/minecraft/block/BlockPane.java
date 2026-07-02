@@ -33,7 +33,11 @@ public class BlockPane extends Block {
 
 	protected BlockPane(Material materialIn, boolean canDrop) {
 		super(materialIn);
-		setDefaultState(blockState.getBaseState().withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false));
+		setDefaultState(blockState.getBaseState()
+		                          .withProperty(NORTH, false)
+		                          .withProperty(EAST, false)
+		                          .withProperty(SOUTH, false)
+		                          .withProperty(WEST, false));
 		this.canDrop = canDrop;
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
@@ -102,7 +106,10 @@ public class BlockPane extends Block {
 	 * metadata, such as fence connections.
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-		return state.withProperty(NORTH, attachesTo(worldIn, worldIn.getBlockState(pos.north()), pos.north(), Facing.SOUTH)).withProperty(SOUTH, attachesTo(worldIn, worldIn.getBlockState(pos.south()), pos.south(), Facing.NORTH)).withProperty(WEST, attachesTo(worldIn, worldIn.getBlockState(pos.west()), pos.west(), Facing.EAST)).withProperty(EAST, attachesTo(worldIn, worldIn.getBlockState(pos.east()), pos.east(), Facing.WEST));
+		return state.withProperty(NORTH, attachesTo(worldIn, worldIn.getBlockState(pos.north()), pos.north(), Facing.SOUTH))
+		            .withProperty(SOUTH, attachesTo(worldIn, worldIn.getBlockState(pos.south()), pos.south(), Facing.NORTH))
+		            .withProperty(WEST, attachesTo(worldIn, worldIn.getBlockState(pos.west()), pos.west(), Facing.EAST))
+		            .withProperty(EAST, attachesTo(worldIn, worldIn.getBlockState(pos.east()), pos.east(), Facing.WEST));
 	}
 
 	/**
@@ -124,7 +131,8 @@ public class BlockPane extends Block {
 	}
 
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, Facing side) {
-		return blockAccess.getBlockState(pos.offset(side)).getBlock() != this && super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+		return blockAccess.getBlockState(pos.offset(side))
+		                  .getBlock() != this && super.shouldSideBeRendered(blockState, blockAccess, pos, side);
 	}
 
 	public final boolean attachesTo(IBlockAccess p_193393_1_, IBlockState state, BlockPos pos, Facing facing) {
@@ -158,12 +166,18 @@ public class BlockPane extends Block {
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
 		return switch (rot) {
-			case CLOCKWISE_180 ->
-					state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(EAST, state.getValue(WEST)).withProperty(SOUTH, state.getValue(NORTH)).withProperty(WEST, state.getValue(EAST));
-			case COUNTERCLOCKWISE_90 ->
-					state.withProperty(NORTH, state.getValue(EAST)).withProperty(EAST, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(WEST)).withProperty(WEST, state.getValue(NORTH));
-			case CLOCKWISE_90 ->
-					state.withProperty(NORTH, state.getValue(WEST)).withProperty(EAST, state.getValue(NORTH)).withProperty(SOUTH, state.getValue(EAST)).withProperty(WEST, state.getValue(SOUTH));
+			case CLOCKWISE_180 -> state.withProperty(NORTH, state.getValue(SOUTH))
+			                           .withProperty(EAST, state.getValue(WEST))
+			                           .withProperty(SOUTH, state.getValue(NORTH))
+			                           .withProperty(WEST, state.getValue(EAST));
+			case COUNTERCLOCKWISE_90 -> state.withProperty(NORTH, state.getValue(EAST))
+			                                 .withProperty(EAST, state.getValue(SOUTH))
+			                                 .withProperty(SOUTH, state.getValue(WEST))
+			                                 .withProperty(WEST, state.getValue(NORTH));
+			case CLOCKWISE_90 -> state.withProperty(NORTH, state.getValue(WEST))
+			                          .withProperty(EAST, state.getValue(NORTH))
+			                          .withProperty(SOUTH, state.getValue(EAST))
+			                          .withProperty(WEST, state.getValue(SOUTH));
 			default -> state;
 		};
 	}
@@ -175,7 +189,7 @@ public class BlockPane extends Block {
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
 		return switch (mirrorIn) {
 			case LEFT_RIGHT ->
-					state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(NORTH));
+				state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(NORTH));
 			case FRONT_BACK -> state.withProperty(EAST, state.getValue(WEST)).withProperty(WEST, state.getValue(EAST));
 			default -> super.withMirror(state, mirrorIn);
 		};

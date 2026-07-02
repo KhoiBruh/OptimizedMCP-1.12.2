@@ -73,8 +73,6 @@ public enum Facing implements IStringSerializable {
 		directionVec = directionVecIn;
 	}
 
-	
-
 	/**
 	 * Get the facing specified by the given name
 	 */
@@ -333,7 +331,6 @@ public enum Facing implements IStringSerializable {
 			this.plane = plane;
 		}
 
-		
 		public static Facing.Axis byName(String name) {
 
 			return name == null ? null : NAME_LOOKUP.get(name.toLowerCase(Locale.ROOT));
@@ -396,8 +393,7 @@ public enum Facing implements IStringSerializable {
 
 		public Facing[] facings() {
 			return switch (this) {
-				case HORIZONTAL ->
-						new Facing[]{Facing.NORTH, Facing.EAST, Facing.SOUTH, Facing.WEST};
+				case HORIZONTAL -> new Facing[]{Facing.NORTH, Facing.EAST, Facing.SOUTH, Facing.WEST};
 				case VERTICAL -> new Facing[]{Facing.UP, Facing.DOWN};
 			};
 		}

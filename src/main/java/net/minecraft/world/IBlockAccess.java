@@ -8,7 +8,6 @@ import net.minecraft.world.biome.Biome;
 
 public interface IBlockAccess {
 
-	
 	TileEntity getTileEntity(BlockPos pos);
 
 	int getCombinedLight(BlockPos pos, int lightValue);

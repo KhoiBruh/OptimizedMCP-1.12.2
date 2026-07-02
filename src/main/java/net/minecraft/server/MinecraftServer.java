@@ -219,8 +219,6 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 		}
 	}
 
-	
-
 	public synchronized String getUserMessage() {
 		return userMessage;
 	}
@@ -381,7 +379,9 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 		for (WorldServer worldserver : worlds) {
 			if (worldserver != null) {
 				if (!isSilent) {
-					LOGGER.info("Saving chunks for level '{}'/{}", worldserver.getWorldInfo().getWorldName(), worldserver.provider.getDimensionType().getName());
+					LOGGER.info("Saving chunks for level '{}'/{}", worldserver.getWorldInfo()
+					                                                          .getWorldName(), worldserver.provider.getDimensionType()
+					                                                                                               .getName());
 				}
 
 				try {
@@ -624,11 +624,13 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 			if (j == 0 || getAllowNether()) {
 				WorldServer worldserver = worlds[j];
 				profiler.func_194340_a(() ->
-						worldserver.getWorldInfo().getWorldName());
+					                       worldserver.getWorldInfo().getWorldName());
 
 				if (tickCounter % 20 == 0) {
 					profiler.startSection("timeSync");
-					playerList.sendPacketToAllPlayersInDimension(new SPacketTimeUpdate(worldserver.getTotalWorldTime(), worldserver.getWorldTime(), worldserver.getGameRules().getBoolean("doDaylightCycle")), worldserver.provider.getDimensionType().getId());
+					playerList.sendPacketToAllPlayersInDimension(new SPacketTimeUpdate(worldserver.getTotalWorldTime(), worldserver.getWorldTime(), worldserver.getGameRules()
+					                                                                                                                                           .getBoolean("doDaylightCycle")), worldserver.provider.getDimensionType()
+					                                                                                                                                                                                                .getId());
 					profiler.endSection();
 				}
 
@@ -752,10 +754,12 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 	 * Adds the server info, including from theWorldServer, to the crash report.
 	 */
 	public CrashReport addServerInfoToCrashReport(CrashReport report) {
-		report.getCategory().addDetail("Profiler Position", () -> profiler.profilingEnabled ? profiler.getNameOfLastSection() : "N/A (disabled)");
+		report.getCategory()
+		      .addDetail("Profiler Position", () -> profiler.profilingEnabled ? profiler.getNameOfLastSection() : "N/A (disabled)");
 
 		if (playerList != null) {
-			report.getCategory().addDetail("Player Count", () -> playerList.getCurrentPlayerCount() + " / " + playerList.getMaxPlayers() + "; " + playerList.getPlayers());
+			report.getCategory()
+			      .addDetail("Player Count", () -> playerList.getCurrentPlayerCount() + " / " + playerList.getMaxPlayers() + "; " + playerList.getPlayers());
 		}
 
 		return report;
@@ -1075,7 +1079,6 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 		nanoTimeSinceStatusRefresh = 0L;
 	}
 
-	
 	public Entity getEntityFromUuid(UUID uuid) {
 		for (WorldServer worldserver1 : worlds) {
 			if (worldserver1 != null) {

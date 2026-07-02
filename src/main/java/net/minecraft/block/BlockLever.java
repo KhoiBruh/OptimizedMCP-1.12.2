@@ -29,7 +29,9 @@ public class BlockLever extends Block {
 
 	protected BlockLever() {
 		super(Material.CIRCUITS);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, BlockLever.Orientation.NORTH).withProperty(POWERED, false));
+		setDefaultState(blockState.getBaseState()
+		                          .withProperty(FACING, BlockLever.Orientation.NORTH)
+		                          .withProperty(POWERED, false));
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
@@ -37,7 +39,6 @@ public class BlockLever extends Block {
 		return BlockButton.canPlaceBlock(worldIn, p_181090_1_, p_181090_2_);
 	}
 
-	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return NULL_AABB;
 	}
@@ -184,7 +185,8 @@ public class BlockLever extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(FACING, BlockLever.Orientation.byMetadata(meta & 7)).withProperty(POWERED, (meta & 8) > 0);
+		return getDefaultState().withProperty(FACING, BlockLever.Orientation.byMetadata(meta & 7))
+		                        .withProperty(POWERED, (meta & 8) > 0);
 	}
 
 	/**
@@ -307,13 +309,13 @@ public class BlockLever extends Block {
 					case X -> DOWN_X;
 					case Z -> DOWN_Z;
 					default ->
-							throw new IllegalArgumentException("Invalid entityFacing " + entityFacing + " for facing " + clickedSide);
+						throw new IllegalArgumentException("Invalid entityFacing " + entityFacing + " for facing " + clickedSide);
 				};
 				case UP -> switch (entityFacing.getAxis()) {
 					case X -> UP_X;
 					case Z -> UP_Z;
 					default ->
-							throw new IllegalArgumentException("Invalid entityFacing " + entityFacing + " for facing " + clickedSide);
+						throw new IllegalArgumentException("Invalid entityFacing " + entityFacing + " for facing " + clickedSide);
 				};
 				case NORTH -> NORTH;
 				case SOUTH -> SOUTH;

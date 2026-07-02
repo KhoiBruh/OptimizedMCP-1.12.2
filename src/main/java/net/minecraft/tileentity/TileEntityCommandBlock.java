@@ -74,7 +74,6 @@ public class TileEntityCommandBlock extends TileEntity {
 		setAuto(compound.getBoolean("auto"));
 	}
 
-	
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		if (isSendToClient()) {
 			setSendToClient(false);
@@ -135,7 +134,8 @@ public class TileEntityCommandBlock extends TileEntity {
 
 			if (world.getBlockState(blockpos).getBlock() instanceof BlockCommandBlock) {
 				TileEntity tileentity = world.getTileEntity(blockpos);
-				conditionMet = tileentity instanceof TileEntityCommandBlock && ((TileEntityCommandBlock) tileentity).getCommandBlockLogic().getSuccessCount() > 0;
+				conditionMet = tileentity instanceof TileEntityCommandBlock && ((TileEntityCommandBlock) tileentity).getCommandBlockLogic()
+				                                                                                                    .getSuccessCount() > 0;
 			} else {
 				conditionMet = false;
 			}

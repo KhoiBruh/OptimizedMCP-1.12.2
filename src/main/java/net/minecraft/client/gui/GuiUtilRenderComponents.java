@@ -35,7 +35,8 @@ public class GuiUtilRenderComponents {
 				flag = true;
 			}
 
-			String s4 = removeTextColorsIfConfigured(itextcomponent1.getStyle().getFormattingCode() + s, forceTextColor);
+			String s4 = removeTextColorsIfConfigured(itextcomponent1.getStyle()
+			                                                        .getFormattingCode() + s, forceTextColor);
 			String s5 = s4.endsWith("\n") ? s4.substring(0, s4.length() - 1) : s4;
 			int i1 = fontRendererIn.getStringWidth(s5);
 			TextComponentString textcomponentstring = new TextComponentString(s5);

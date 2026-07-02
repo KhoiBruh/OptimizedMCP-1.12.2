@@ -381,7 +381,8 @@ public class ChunkGeneratorHell implements IChunkGenerator {
 				return genNetherBridge.getSpawnList();
 			}
 
-			if (genNetherBridge.isPositionInStructure(world, pos) && world.getBlockState(pos.down()).getBlock() == Blocks.NETHER_BRICK) {
+			if (genNetherBridge.isPositionInStructure(world, pos) && world.getBlockState(pos.down())
+			                                                              .getBlock() == Blocks.NETHER_BRICK) {
 				return genNetherBridge.getSpawnList();
 			}
 		}
@@ -390,7 +391,6 @@ public class ChunkGeneratorHell implements IChunkGenerator {
 		return biome.getSpawnableList(creatureType);
 	}
 
-	
 	public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
 		return "Fortress".equals(structureName) && genNetherBridge != null ? genNetherBridge.getNearestStructurePos(worldIn, position, findUnexplored) : null;
 	}

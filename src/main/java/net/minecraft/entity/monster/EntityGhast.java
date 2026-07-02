@@ -121,7 +121,6 @@ public class EntityGhast extends EntityFlying implements IMob {
 		return SoundEvents.ENTITY_GHAST_DEATH;
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_GHAST;
 	}

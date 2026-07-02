@@ -134,14 +134,13 @@ public class GuiPageButtonList extends GuiListExtended {
 		}
 	}
 
-	
 	private Gui createEntry(GuiPageButtonList.GuiListEntry p_178058_1_, int p_178058_2_, boolean p_178058_3_) {
 		return switch (p_178058_1_) {
 			case GuiSlideEntry guiSlideEntry -> createSlider(width / 2 - 155 + p_178058_2_, 0, guiSlideEntry);
 			case GuiButtonEntry guiButtonEntry -> createButton(width / 2 - 155 + p_178058_2_, 0, guiButtonEntry);
 			case EditBoxEntry editBoxEntry -> createTextField(width / 2 - 155 + p_178058_2_, 0, editBoxEntry);
 			default ->
-					p_178058_1_ instanceof GuiLabelEntry ? createLabel(width / 2 - 155 + p_178058_2_, 0, (GuiLabelEntry) p_178058_1_, p_178058_3_) : null;
+				p_178058_1_ instanceof GuiLabelEntry ? createLabel(width / 2 - 155 + p_178058_2_, 0, (GuiLabelEntry) p_178058_1_, p_178058_3_) : null;
 		};
 	}
 
@@ -360,7 +359,7 @@ public class GuiPageButtonList extends GuiListExtended {
 			if (p_192636_1_ != null) {
 				switch (p_192636_1_) {
 					case Button button ->
-							renderButton(button, p_192636_2_, p_192636_3_, p_192636_4_, p_192636_5_, p_192636_6_);
+						renderButton(button, p_192636_2_, p_192636_3_, p_192636_4_, p_192636_5_, p_192636_6_);
 					case GuiTextField guiTextField -> renderTextField(guiTextField, p_192636_2_, p_192636_5_);
 					case GuiLabel guiLabel -> renderLabel(guiLabel, p_192636_2_, p_192636_3_, p_192636_4_, p_192636_5_);
 					default -> {

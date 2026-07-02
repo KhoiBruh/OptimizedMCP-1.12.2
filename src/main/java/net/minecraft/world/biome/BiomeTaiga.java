@@ -84,7 +84,8 @@ public class BiomeTaiga extends Biome {
 			fillerBlock = Blocks.DIRT.getDefaultState();
 
 			if (noiseVal > 1.75D) {
-				topBlock = Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT);
+				topBlock = Blocks.DIRT.getDefaultState()
+				                      .withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT);
 			} else if (noiseVal > -0.95D) {
 				topBlock = Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL);
 			}

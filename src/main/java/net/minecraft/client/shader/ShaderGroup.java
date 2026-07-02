@@ -48,7 +48,8 @@ public class ShaderGroup {
 
 	public void parseGroup(TextureManager p_152765_1_, ResourceLocation p_152765_2_) throws IOException, JsonSyntaxException {
 		try (IResource iresource = resourceManager.getResource(p_152765_2_)) {
-			JsonObject jsonobject = JsonParser.parseString(IOUtils.toString(iresource.getInputStream(), StandardCharsets.UTF_8)).getAsJsonObject();
+			JsonObject jsonobject = JsonParser.parseString(IOUtils.toString(iresource.getInputStream(), StandardCharsets.UTF_8))
+			                                  .getAsJsonObject();
 
 			if (JsonUtils.isJsonArray(jsonobject, "targets")) {
 				JsonArray jsonarray = jsonobject.getAsJsonArray("targets");

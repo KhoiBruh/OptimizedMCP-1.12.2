@@ -242,7 +242,9 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	}
 
 	private void readGlyphSizes() {
-		try (IResource iresource = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("font/glyph_sizes.bin"))) {
+		try (IResource iresource = Minecraft.getMinecraft()
+		                                    .getResourceManager()
+		                                    .getResource(new ResourceLocation("font/glyph_sizes.bin"))) {
 			iresource.getInputStream().read(glyphWidth);
 		} catch (IOException ioexception) {
 			throw new RuntimeException(ioexception);
@@ -396,7 +398,9 @@ public class FontRenderer implements IResourceManagerReloadListener {
 			char c0 = text.charAt(i);
 
 			if (c0 == 167 && i + 1 < text.length()) {
-				int i1 = "0123456789abcdefklmnor".indexOf(String.valueOf(text.charAt(i + 1)).toLowerCase(Locale.ROOT).charAt(0));
+				int i1 = "0123456789abcdefklmnor".indexOf(String.valueOf(text.charAt(i + 1))
+				                                                .toLowerCase(Locale.ROOT)
+				                                                .charAt(0));
 
 				if (i1 < 16) {
 					randomStyle = false;

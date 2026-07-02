@@ -8,6 +8,7 @@ import java.util.ArrayDeque;
 import java.util.List;
 
 public record FunctionObject(Entry[] entries) {
+
 	/**
 	 * Create a Function from the given function definition.
 	 */
@@ -50,7 +51,6 @@ public record FunctionObject(Entry[] entries) {
 
 		public static final CacheableFunction EMPTY = new CacheableFunction((ResourceLocation) null);
 
-		
 		private final ResourceLocation id;
 		private boolean isValid;
 		private FunctionObject function;
@@ -64,7 +64,6 @@ public record FunctionObject(Entry[] entries) {
 			function = functionIn;
 		}
 
-		
 		public FunctionObject get(FunctionManager functionManagerIn) {
 			if (!isValid) {
 				if (id != null) {

@@ -139,23 +139,24 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 	private void updateCollections(boolean p_193003_1_) {
 		List<RecipeList> list = RecipeBookClient.RECIPES_BY_TAB.get(currentTab.getCategory());
 		list.forEach((p_193944_1_) ->
-				p_193944_1_.canCraft(stackedContents, craftingSlots.getWidth(), craftingSlots.getHeight(), recipeBook));
+			             p_193944_1_.canCraft(stackedContents, craftingSlots.getWidth(), craftingSlots.getHeight(), recipeBook));
 		List<RecipeList> list1 = Lists.newArrayList(list);
 		list1.removeIf((p_193952_0_) ->
-				!p_193952_0_.isNotEmpty());
+			               !p_193952_0_.isNotEmpty());
 		list1.removeIf((p_193953_0_) ->
-				!p_193953_0_.containsValidRecipes());
+			               !p_193953_0_.containsValidRecipes());
 		String s = searchBar.getText();
 
 		if (!s.isEmpty()) {
-			ObjectSet<RecipeList> objectset = new ObjectLinkedOpenHashSet<>(mc.getSearchTree(SearchTreeManager.RECIPES).search(s.toLowerCase(Locale.ROOT)));
+			ObjectSet<RecipeList> objectset = new ObjectLinkedOpenHashSet<>(mc.getSearchTree(SearchTreeManager.RECIPES)
+			                                                                  .search(s.toLowerCase(Locale.ROOT)));
 			list1.removeIf((p_193947_1_) ->
-					!objectset.contains(p_193947_1_));
+				               !objectset.contains(p_193947_1_));
 		}
 
 		if (recipeBook.isFilteringCraftable()) {
 			list1.removeIf((p_193958_0_) ->
-					!p_193958_0_.containsCraftableRecipes());
+				               !p_193958_0_.containsCraftableRecipes());
 		}
 
 		recipeBookPage.updateLists(list1, p_193003_1_);
@@ -366,7 +367,8 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 			languagemanager.setCurrentLanguage(language);
 			mc.gameSettings.language = language.getLanguageCode();
 			mc.refreshResources();
-			mc.fontRenderer.setUnicodeFlag(mc.getLanguageManager().isCurrentLocaleUnicode() || mc.gameSettings.forceUnicodeFont);
+			mc.fontRenderer.setUnicodeFlag(mc.getLanguageManager()
+			                                 .isCurrentLocaleUnicode() || mc.gameSettings.forceUnicodeFont);
 			mc.fontRenderer.setBidiFlag(languagemanager.isCurrentLanguageBidirectional());
 			mc.gameSettings.saveOptions();
 		}

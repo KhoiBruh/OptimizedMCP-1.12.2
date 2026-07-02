@@ -103,7 +103,8 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
 	}
 
 	public void render(TileEntityBeacon te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-		renderBeacon(x, y, z, partialTicks, te.shouldBeamRender(), te.getBeamSegments(), (double) te.getWorld().getTotalWorldTime());
+		renderBeacon(x, y, z, partialTicks, te.shouldBeamRender(), te.getBeamSegments(), (double) te.getWorld()
+		                                                                                            .getTotalWorldTime());
 	}
 
 	public void renderBeacon(double x, double y, double z, double partialTicks, double textureScale, List<TileEntityBeacon.BeamSegment> beamSegments, double totalWorldTime) {

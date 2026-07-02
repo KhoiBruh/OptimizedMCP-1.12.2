@@ -12,8 +12,11 @@ import java.util.Random;
 
 public class WorldGenCanopyTree extends WorldGenAbstractTree {
 
-	private static final IBlockState DARK_OAK_LOG = Blocks.LOG2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.Type.DARK_OAK);
-	private static final IBlockState DARK_OAK_LEAVES = Blocks.LEAVES2.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.Type.DARK_OAK).withProperty(BlockLeaves.CHECK_DECAY, false);
+	private static final IBlockState DARK_OAK_LOG = Blocks.LOG2.getDefaultState()
+	                                                           .withProperty(BlockNewLog.VARIANT, BlockPlanks.Type.DARK_OAK);
+	private static final IBlockState DARK_OAK_LEAVES = Blocks.LEAVES2.getDefaultState()
+	                                                                 .withProperty(BlockNewLeaf.VARIANT, BlockPlanks.Type.DARK_OAK)
+	                                                                 .withProperty(BlockLeaves.CHECK_DECAY, false);
 
 	public WorldGenCanopyTree(boolean notify) {
 		super(notify);
@@ -149,7 +152,8 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree {
 
 			for (int j1 = -i1; j1 <= i1; ++j1) {
 				for (int k1 = -i1; k1 <= i1; ++k1) {
-					if (!canGrowInto(worldIn.getBlockState(blockpos$mutableblockpos.setPos(i + j1, j + l, k + k1)).getBlock())) {
+					if (!canGrowInto(worldIn.getBlockState(blockpos$mutableblockpos.setPos(i + j1, j + l, k + k1))
+					                        .getBlock())) {
 						return false;
 					}
 				}

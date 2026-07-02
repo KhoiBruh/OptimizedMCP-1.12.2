@@ -59,7 +59,8 @@ public class CommandOp extends CommandBase {
 			List<String> list = Lists.newArrayList();
 
 			for (GameProfile gameprofile : server.getOnlinePlayerProfiles()) {
-				if (!server.getPlayerList().canSendCommands(gameprofile) && doesStringStartWith(s, gameprofile.getName())) {
+				if (!server.getPlayerList()
+				           .canSendCommands(gameprofile) && doesStringStartWith(s, gameprofile.getName())) {
 					list.add(gameprofile.getName());
 				}
 			}

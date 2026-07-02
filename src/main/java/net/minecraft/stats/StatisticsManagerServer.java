@@ -48,7 +48,8 @@ public class StatisticsManagerServer extends StatisticsManager {
 				try {
 					jsonobject1.add("progress", entry.getValue().getJsonSerializableValue().getSerializableElement());
 				} catch (Throwable throwable) {
-					LOGGER.warn("Couldn't save statistic {}: error serializing progress", entry.getKey().getStatName(), throwable);
+					LOGGER.warn("Couldn't save statistic {}: error serializing progress", entry.getKey()
+					                                                                           .getStatName(), throwable);
 				}
 
 				jsonobject.add((entry.getKey()).statId, jsonobject1);
@@ -116,13 +117,18 @@ public class StatisticsManagerServer extends StatisticsManager {
 					} else if (entry.getValue().isJsonObject()) {
 						JsonObject jsonobject1 = entry.getValue().getAsJsonObject();
 
-						if (jsonobject1.has("value") && jsonobject1.get("value").isJsonPrimitive() && jsonobject1.get("value").getAsJsonPrimitive().isNumber()) {
-							tupleintjsonserializable.setIntegerValue(jsonobject1.getAsJsonPrimitive("value").getAsInt());
+						if (jsonobject1.has("value") && jsonobject1.get("value")
+						                                           .isJsonPrimitive() && jsonobject1.get("value")
+						                                                                            .getAsJsonPrimitive()
+						                                                                            .isNumber()) {
+							tupleintjsonserializable.setIntegerValue(jsonobject1.getAsJsonPrimitive("value")
+							                                                    .getAsInt());
 						}
 
 						if (jsonobject1.has("progress") && statbase.getSerializableClazz() != null) {
 							try {
-								Constructor<? extends IJsonSerializable> constructor = statbase.getSerializableClazz().getConstructor();
+								Constructor<? extends IJsonSerializable> constructor = statbase.getSerializableClazz()
+								                                                               .getConstructor();
 								IJsonSerializable ijsonserializable = constructor.newInstance();
 								ijsonserializable.fromJson(jsonobject1.get("progress"));
 								tupleintjsonserializable.setJsonSerializableValue(ijsonserializable);

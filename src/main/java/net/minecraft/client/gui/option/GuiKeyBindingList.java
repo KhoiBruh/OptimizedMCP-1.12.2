@@ -7,6 +7,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.util.text.TextFormat;
+
 import java.util.Arrays;
 
 public class GuiKeyBindingList extends GuiListExtended {

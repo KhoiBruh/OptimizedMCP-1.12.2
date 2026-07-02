@@ -55,14 +55,14 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	 */
 	private int levels = -1;
 
-	
-
-	/** Primary potion effect given by this beacon. */
+	/**
+	 * Primary potion effect given by this beacon.
+	 */
 	private Potion primaryEffect;
 
-	
-
-	/** Secondary potion effect given by this beacon. */
+	/**
+	 * Secondary potion effect given by this beacon.
+	 */
 	private Potion secondaryEffect;
 	/**
 	 * Item given to this beacon as payment.
@@ -70,7 +70,6 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 	private ItemStack payment = ItemStack.EMPTY;
 	private String customName;
 
-	
 	private static Potion isBeaconEffect(int p_184279_0_) {
 		Potion potion = Potion.getPotionById(p_184279_0_);
 		return VALID_EFFECTS.contains(potion) ? potion : null;
@@ -105,7 +104,8 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 			int k = pos.getX();
 			int l = pos.getY();
 			int i1 = pos.getZ();
-			AxisAlignedBB axisalignedbb = (new AxisAlignedBB(k, l, i1, k + 1, l + 1, i1 + 1)).grow(d0).expand(0D, world.getHeight(), 0D);
+			AxisAlignedBB axisalignedbb = (new AxisAlignedBB(k, l, i1, k + 1, l + 1, i1 + 1)).grow(d0)
+			                                                                                 .expand(0D, world.getHeight(), 0D);
 			List<EntityPlayer> list = world.getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
 
 			for (EntityPlayer entityplayer : list) {
@@ -240,7 +240,6 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
 		return levels;
 	}
 
-	
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		return new SPacketUpdateTileEntity(pos, 3, getUpdateTag());
 	}

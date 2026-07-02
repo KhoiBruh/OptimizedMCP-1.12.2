@@ -102,7 +102,6 @@ public class EntitySquid extends EntityWaterMob {
 		return false;
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_SQUID;
 	}

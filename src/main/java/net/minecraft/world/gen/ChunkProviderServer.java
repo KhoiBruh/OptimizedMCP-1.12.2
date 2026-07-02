@@ -68,7 +68,6 @@ public class ChunkProviderServer implements IChunkProvider {
 		}
 	}
 
-	
 	public Chunk getLoadedChunk(int x, int z) {
 		long i = ChunkPos.asLong(x, z);
 		Chunk chunk = id2ChunkMap.get(i);
@@ -80,7 +79,6 @@ public class ChunkProviderServer implements IChunkProvider {
 		return chunk;
 	}
 
-	
 	public Chunk loadChunk(int x, int z) {
 		Chunk chunk = getLoadedChunk(x, z);
 
@@ -122,7 +120,6 @@ public class ChunkProviderServer implements IChunkProvider {
 		return chunk;
 	}
 
-	
 	private Chunk loadChunkFromFile(int x, int z) {
 		try {
 			Chunk chunk = chunkLoader.loadChunk(world, x, z);
@@ -233,7 +230,6 @@ public class ChunkProviderServer implements IChunkProvider {
 		return chunkGenerator.getPossibleCreatures(creatureType, pos);
 	}
 
-	
 	public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
 		return chunkGenerator.getNearestStructurePos(worldIn, structureName, position, findUnexplored);
 	}

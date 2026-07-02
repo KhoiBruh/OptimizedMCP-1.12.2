@@ -13,218 +13,218 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 public final class Window {
 
-    @Getter
-    private long handle = NULL;
+	@Getter
+	private long handle = NULL;
 
-    @Getter
-    private int width;
+	@Getter
+	private int width;
 
-    @Getter
-    private int height;
-	
+	@Getter
+	private int height;
+
 	@Getter
 	private int scaledWidth;
-	
+
 	@Getter
 	private int scaledHeight;
-	
+
 	@Getter
 	private int guiScale;
-	
+
 	@Getter
 	private boolean fullscreen;
-	
+
 	@Getter
 	private boolean resized = false;
 
-    private String title;
+	private String title;
 
-    private long lastFrameTime = 0L;
+	private long lastFrameTime = 0L;
 
-    public Window(String title, int width, int height, boolean fullscreen) {
-        this.title = title;
-        this.width = Math.max(width, 1);
-        this.height = Math.max(height, 1);
-        this.fullscreen = fullscreen;
-    }
-	
-    public void setGuiScale(int setting, boolean unicode) {
-        int scale = 1;
-        int maxScale = setting == 0 ? 100 : setting;
+	public Window(String title, int width, int height, boolean fullscreen) {
+		this.title = title;
+		this.width = Math.max(width, 1);
+		this.height = Math.max(height, 1);
+		this.fullscreen = fullscreen;
+	}
 
-        while (scale < maxScale && width >= (scale + 1) * 320 && height >= (scale + 1) * 240) scale++;
+	public void setGuiScale(int setting, boolean unicode) {
+		int scale = 1;
+		int maxScale = setting == 0 ? 100 : setting;
 
-        if (unicode && scale > 1 && (scale & 1) == 1) scale--;
+		while (scale < maxScale && width >= (scale + 1) * 320 && height >= (scale + 1) * 240) scale++;
 
-        guiScale = scale;
-        scaledWidth = width / scale;
-        scaledHeight = height / scale;
-    }
-	
+		if (unicode && scale > 1 && (scale & 1) == 1) scale--;
+
+		guiScale = scale;
+		scaledWidth = width / scale;
+		scaledHeight = height / scale;
+	}
+
 	public void create(int depthBits) throws Exception {
-        if (!glfwInit()) throw new Exception("Failed to initialise GLFW");
+		if (!glfwInit()) throw new Exception("Failed to initialise GLFW");
 
-        glfwDefaultWindowHints();
-        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+		glfwDefaultWindowHints();
+		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
 
-        if (depthBits > 0) glfwWindowHint(GLFW_DEPTH_BITS, depthBits);
+		if (depthBits > 0) glfwWindowHint(GLFW_DEPTH_BITS, depthBits);
 
-        long monitor = fullscreen ? glfwGetPrimaryMonitor() : NULL;
+		long monitor = fullscreen ? glfwGetPrimaryMonitor() : NULL;
 
-        handle = glfwCreateWindow(width, height, title, monitor, NULL);
-        if (handle == NULL) throw new Exception("Failed to create GLFW window");
+		handle = glfwCreateWindow(width, height, title, monitor, NULL);
+		if (handle == NULL) throw new Exception("Failed to create GLFW window");
 
-        if (!fullscreen) {
-            GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-            if (vidMode != null) glfwSetWindowPos(
-                    handle,
-                    (vidMode.width() - width) / 2,
-                    (vidMode.height() - height) / 2
-            );
-        }
+		if (!fullscreen) {
+			GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+			if (vidMode != null) glfwSetWindowPos(
+				handle,
+				(vidMode.width() - width) / 2,
+				(vidMode.height() - height) / 2
+			);
+		}
 
-        glfwMakeContextCurrent(handle);
-        GL.createCapabilities();
+		glfwMakeContextCurrent(handle);
+		GL.createCapabilities();
 
-        glfwSetFramebufferSizeCallback(handle, (win, w, h) -> {
-            setWindowedSize(w, h);
-            resized = true;
-            glViewport(0, 0, w, h);
-        });
+		glfwSetFramebufferSizeCallback(handle, (win, w, h) -> {
+			setWindowedSize(w, h);
+			resized = true;
+			glViewport(0, 0, w, h);
+		});
 
-        Mouse.init(this);
-        Keyboard.init(this);
-        glfwShowWindow(handle);
+		Mouse.init(this);
+		Keyboard.init(this);
+		glfwShowWindow(handle);
 
-        lastFrameTime = System.nanoTime();
-    }
+		lastFrameTime = System.nanoTime();
+	}
 
-    public void destroy() {
-        if (handle != NULL) {
-            Mouse.removeCallbacks();
-            Keyboard.removeCallbacks();
-            glfwDestroyWindow(handle);
-            handle = NULL;
-        }
-        glfwTerminate();
-    }
+	public void destroy() {
+		if (handle != NULL) {
+			Mouse.removeCallbacks();
+			Keyboard.removeCallbacks();
+			glfwDestroyWindow(handle);
+			handle = NULL;
+		}
+		glfwTerminate();
+	}
 
-    public void update() {
-        resized = false;
-        glfwSwapBuffers(handle);
-        Mouse.poll();
-        Keyboard.poll();
-        glfwPollEvents();
-    }
-	
+	public void update() {
+		resized = false;
+		glfwSwapBuffers(handle);
+		Mouse.poll();
+		Keyboard.poll();
+		glfwPollEvents();
+	}
+
 	public void sync(int fps) {
-        if (fps <= 0) return;
+		if (fps <= 0) return;
 
-        long targetNanos = 1_000_000_000L / fps;
-        long now = System.nanoTime();
-        long elapsed = now - lastFrameTime;
-        long sleepNanos = targetNanos - elapsed;
+		long targetNanos = 1_000_000_000L / fps;
+		long now = System.nanoTime();
+		long elapsed = now - lastFrameTime;
+		long sleepNanos = targetNanos - elapsed;
 
-        if (sleepNanos > 0) {
-            try {
-                Thread.sleep(sleepNanos / 1_000_000L, (int) (sleepNanos % 1_000_000L));
-            } catch (InterruptedException ignored) {
-                Thread.currentThread().interrupt();
-            }
-        }
+		if (sleepNanos > 0) {
+			try {
+				Thread.sleep(sleepNanos / 1_000_000L, (int) (sleepNanos % 1_000_000L));
+			} catch (InterruptedException ignored) {
+				Thread.currentThread().interrupt();
+			}
+		}
 
-        lastFrameTime = System.nanoTime();
-    }
+		lastFrameTime = System.nanoTime();
+	}
 
-    public boolean isCloseRequested() {
-        return handle != NULL && glfwWindowShouldClose(handle);
-    }
+	public boolean isCloseRequested() {
+		return handle != NULL && glfwWindowShouldClose(handle);
+	}
 
-    public boolean isActive() {
-        if (handle == NULL) return false;
-        return glfwGetWindowAttrib(handle, GLFW_FOCUSED) == GLFW_TRUE;
-    }
+	public boolean isActive() {
+		if (handle == NULL) return false;
+		return glfwGetWindowAttrib(handle, GLFW_FOCUSED) == GLFW_TRUE;
+	}
 
-    public boolean isVisible() {
-        if (handle == NULL) return false;
-        return glfwGetWindowAttrib(handle, GLFW_VISIBLE) == GLFW_TRUE;
-    }
-	
+	public boolean isVisible() {
+		if (handle == NULL) return false;
+		return glfwGetWindowAttrib(handle, GLFW_VISIBLE) == GLFW_TRUE;
+	}
+
 	public int getX() {
-        if (handle == NULL) return 0;
-        int[] x = new int[1];
-        int[] y = new int[1];
-        glfwGetWindowPos(handle, x, y);
-        return x[0];
-    }
+		if (handle == NULL) return 0;
+		int[] x = new int[1];
+		int[] y = new int[1];
+		glfwGetWindowPos(handle, x, y);
+		return x[0];
+	}
 
-    public int getY() {
-        if (handle == NULL) return 0;
-        int[] x = new int[1];
-        int[] y = new int[1];
-        glfwGetWindowPos(handle, x, y);
-        return y[0];
-    }
+	public int getY() {
+		if (handle == NULL) return 0;
+		int[] x = new int[1];
+		int[] y = new int[1];
+		glfwGetWindowPos(handle, x, y);
+		return y[0];
+	}
 
-    public void setWindowSize(int width, int height) {
-        this.width = Math.max(width, 1);
-        this.height = Math.max(height, 1);
-        if (handle != NULL) glfwSetWindowSize(handle, this.width, this.height);
-    }
+	public void setWindowSize(int width, int height) {
+		this.width = Math.max(width, 1);
+		this.height = Math.max(height, 1);
+		if (handle != NULL) glfwSetWindowSize(handle, this.width, this.height);
+	}
 
-    public void setWindowedSize(int width, int height) {
-        this.width = Math.max(width, 1);
-        this.height = Math.max(height, 1);
-    }
+	public void setWindowedSize(int width, int height) {
+		this.width = Math.max(width, 1);
+		this.height = Math.max(height, 1);
+	}
 
-    public int getRefreshRate() {
-        GLFWVidMode vm = glfwGetVideoMode(glfwGetPrimaryMonitor());
-        return vm != null ? vm.refreshRate() : 60;
-    }
+	public int getRefreshRate() {
+		GLFWVidMode vm = glfwGetVideoMode(glfwGetPrimaryMonitor());
+		return vm != null ? vm.refreshRate() : 60;
+	}
 
-    public void applyDesktopSize() {
-        GLFWVidMode vm = glfwGetVideoMode(glfwGetPrimaryMonitor());
-        if (vm != null) setWindowSize(vm.width(), vm.height());
-    }
+	public void applyDesktopSize() {
+		GLFWVidMode vm = glfwGetVideoMode(glfwGetPrimaryMonitor());
+		if (vm != null) setWindowSize(vm.width(), vm.height());
+	}
 
-    public void setFullscreen(boolean fullscreen) {
-        this.fullscreen = fullscreen;
-        if (handle == NULL) return;
+	public void setFullscreen(boolean fullscreen) {
+		this.fullscreen = fullscreen;
+		if (handle == NULL) return;
 
-        if (fullscreen) {
-            long monitor = glfwGetPrimaryMonitor();
-            GLFWVidMode vm = glfwGetVideoMode(monitor);
-            if (vm != null) glfwSetWindowMonitor(handle, monitor, 0, 0, vm.width(), vm.height(), vm.refreshRate());
-        } else {
-            glfwSetWindowMonitor(handle, NULL, 100, 100, width, height, GLFW_DONT_CARE);
-        }
-    }
+		if (fullscreen) {
+			long monitor = glfwGetPrimaryMonitor();
+			GLFWVidMode vm = glfwGetVideoMode(monitor);
+			if (vm != null) glfwSetWindowMonitor(handle, monitor, 0, 0, vm.width(), vm.height(), vm.refreshRate());
+		} else {
+			glfwSetWindowMonitor(handle, NULL, 100, 100, width, height, GLFW_DONT_CARE);
+		}
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-        if (handle != NULL) glfwSetWindowTitle(handle, title);
-    }
+	public void setTitle(String title) {
+		this.title = title;
+		if (handle != NULL) glfwSetWindowTitle(handle, title);
+	}
 
-    public void setVSync(boolean vsync) {
-        if (handle != NULL) glfwSwapInterval(vsync ? 1 : 0);
-    }
-	
+	public void setVSync(boolean vsync) {
+		if (handle != NULL) glfwSwapInterval(vsync ? 1 : 0);
+	}
+
 	public void setIcon(ByteBuffer[] icons) {
-        if (handle == NULL || icons == null || icons.length == 0) return;
+		if (handle == NULL || icons == null || icons.length == 0) return;
 
-        GLFWImage.Buffer buffer = GLFWImage.malloc(icons.length);
-        for (int i = 0; i < icons.length; i++) {
-            ByteBuffer buf = icons[i];
-            buf.rewind();
-            int w = buf.getInt();
-            int h = buf.getInt();
-            GLFWImage image = GLFWImage.malloc();
-            image.set(w, h, buf.slice());
-            buffer.put(i, image);
-            image.free();
-        }
-        glfwSetWindowIcon(handle, buffer);
-        buffer.free();
-    }
+		GLFWImage.Buffer buffer = GLFWImage.malloc(icons.length);
+		for (int i = 0; i < icons.length; i++) {
+			ByteBuffer buf = icons[i];
+			buf.rewind();
+			int w = buf.getInt();
+			int h = buf.getInt();
+			GLFWImage image = GLFWImage.malloc();
+			image.set(w, h, buf.slice());
+			buffer.put(i, image);
+			image.free();
+		}
+		glfwSetWindowIcon(handle, buffer);
+		buffer.free();
+	}
 
 }

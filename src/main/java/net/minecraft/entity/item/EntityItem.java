@@ -134,7 +134,8 @@ public class EntityItem extends Entity {
 			float f = 0.98F;
 
 			if (onGround) {
-				f = world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(getEntityBoundingBox().minY) - 1, MathHelper.floor(posZ))).getBlock().slipperiness * 0.98F;
+				f = world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(getEntityBoundingBox().minY) - 1, MathHelper.floor(posZ)))
+				         .getBlock().slipperiness * 0.98F;
 			}
 
 			motionX *= f;
@@ -194,11 +195,13 @@ public class EntityItem extends Entity {
 						return false;
 					} else if (itemstack1.hasTagCompound() ^ itemstack.hasTagCompound()) {
 						return false;
-					} else if (itemstack1.hasTagCompound() && !itemstack1.getTagCompound().equals(itemstack.getTagCompound())) {
+					} else if (itemstack1.hasTagCompound() && !itemstack1.getTagCompound()
+					                                                     .equals(itemstack.getTagCompound())) {
 						return false;
 					} else if (itemstack1.getItem() == null) {
 						return false;
-					} else if (itemstack1.getItem().getHasSubtypes() && itemstack1.getMetadata() != itemstack.getMetadata()) {
+					} else if (itemstack1.getItem()
+					                     .getHasSubtypes() && itemstack1.getMetadata() != itemstack.getMetadata()) {
 						return false;
 					} else if (itemstack1.getCount() < itemstack.getCount()) {
 						return other.combineItems(this);
@@ -359,7 +362,6 @@ public class EntityItem extends Entity {
 		return false;
 	}
 
-	
 	public Entity changeDimension(int dimensionIn) {
 		Entity entity = super.changeDimension(dimensionIn);
 

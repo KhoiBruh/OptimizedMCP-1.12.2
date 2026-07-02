@@ -176,7 +176,8 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 		}
 
 		Entity entity = null;
-		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(motionX, motionY, motionZ).grow(1D));
+		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(motionX, motionY, motionZ)
+		                                                                                           .grow(1D));
 		double d0 = 0D;
 		boolean flag = false;
 
@@ -217,7 +218,8 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 		}
 
 		if (raytraceresult != null) {
-			if (raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK && world.getBlockState(raytraceresult.getBlockPos()).getBlock() == Blocks.PORTAL) {
+			if (raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK && world.getBlockState(raytraceresult.getBlockPos())
+			                                                                  .getBlock() == Blocks.PORTAL) {
 				setPortal(raytraceresult.getBlockPos());
 			} else {
 				onImpact(raytraceresult);
@@ -327,7 +329,6 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 		thrower = getThrower();
 	}
 
-	
 	public EntityLivingBase getThrower() {
 		if (thrower == null && throwerName != null && !throwerName.isEmpty()) {
 			thrower = world.getPlayerEntityByName(throwerName);

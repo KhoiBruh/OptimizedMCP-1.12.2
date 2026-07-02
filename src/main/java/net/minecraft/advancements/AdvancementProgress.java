@@ -113,7 +113,6 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 		}
 	}
 
-	
 	public CriterionProgress getCriterionProgress(String criterionIn) {
 		return criteria.get(criterionIn);
 	}
@@ -128,7 +127,6 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 		}
 	}
 
-	
 	public String getProgressText() {
 		if (criteria.isEmpty()) {
 			return null;
@@ -191,7 +189,6 @@ public class AdvancementProgress implements Comparable<AdvancementProgress> {
 		return list;
 	}
 
-	
 	public Date getFirstProgressDate() {
 		Date date = null;
 

@@ -340,4 +340,5 @@ public class ItemIntIDToString implements IFixableData {
 
 		return compound;
 	}
+
 }

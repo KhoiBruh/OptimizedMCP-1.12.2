@@ -24,7 +24,8 @@ public class EntityAIMoveIndoors extends EntityAIBase {
 	public boolean shouldExecute() {
 		BlockPos blockpos = new BlockPos(entity);
 
-		if ((!entity.world.isDaytime() || entity.world.isRaining() && !entity.world.getBiome(blockpos).canRain()) && entity.world.provider.hasSkyLight()) {
+		if ((!entity.world.isDaytime() || entity.world.isRaining() && !entity.world.getBiome(blockpos)
+		                                                                           .canRain()) && entity.world.provider.hasSkyLight()) {
 			if (entity.getRNG().nextInt(50) != 0) {
 				return false;
 			} else if (insidePosX != -1 && entity.getDistanceSq(insidePosX, entity.posY, insidePosZ) < 4D) {

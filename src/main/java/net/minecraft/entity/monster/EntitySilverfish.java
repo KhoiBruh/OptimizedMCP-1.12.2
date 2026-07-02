@@ -102,7 +102,6 @@ public class EntitySilverfish extends EntityMob {
 		}
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_SILVERFISH;
 	}
@@ -200,7 +199,8 @@ public class EntitySilverfish extends EntityMob {
 				IBlockState iblockstate = world.getBlockState(blockpos);
 
 				if (BlockSilverfish.canContainSilverfish(iblockstate)) {
-					world.setBlockState(blockpos, Blocks.MONSTER_EGG.getDefaultState().withProperty(BlockSilverfish.VARIANT, BlockSilverfish.Type.forModelBlock(iblockstate)), 3);
+					world.setBlockState(blockpos, Blocks.MONSTER_EGG.getDefaultState()
+					                                                .withProperty(BlockSilverfish.VARIANT, BlockSilverfish.Type.forModelBlock(iblockstate)), 3);
 					entity.spawnExplosionParticle();
 					entity.setDead();
 				}
@@ -246,7 +246,8 @@ public class EntitySilverfish extends EntityMob {
 								if (world.getGameRules().getBoolean("mobGriefing")) {
 									world.destroyBlock(blockpos1, true);
 								} else {
-									world.setBlockState(blockpos1, iblockstate.getValue(BlockSilverfish.VARIANT).getModelBlock(), 3);
+									world.setBlockState(blockpos1, iblockstate.getValue(BlockSilverfish.VARIANT)
+									                                          .getModelBlock(), 3);
 								}
 
 								if (random.nextBoolean()) {

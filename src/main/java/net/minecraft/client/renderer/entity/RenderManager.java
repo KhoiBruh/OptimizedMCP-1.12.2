@@ -181,7 +181,6 @@ public class RenderManager {
 		return render;
 	}
 
-	
 	public <T extends Entity> Render<T> getEntityRenderObject(Entity entityIn) {
 
 		if (entityIn instanceof AbstractClientPlayer) {
@@ -298,7 +297,8 @@ public class RenderManager {
 					throw new ReportedException(CrashReport.makeCrashReport(throwable2, "Post-rendering entity in world"));
 				}
 
-				if (debugBoundingBox && !entityIn.isInvisible() && !p_188391_10_ && !Minecraft.getMinecraft().isReducedDebug()) {
+				if (debugBoundingBox && !entityIn.isInvisible() && !p_188391_10_ && !Minecraft.getMinecraft()
+				                                                                              .isReducedDebug()) {
 					try {
 						renderDebugBoundingBox(entityIn, x, y, z, yaw, partialTicks);
 					} catch (Throwable throwable) {
@@ -381,7 +381,9 @@ public class RenderManager {
 		Vec3d vec3d = entityIn.getLook(partialTicks);
 		bufferbuilder.begin(3, DefaultVertexFormats.POSITION_COLOR);
 		bufferbuilder.pos(x, y + (double) entityIn.getEyeHeight(), z).color(0, 0, 255, 255).endVertex();
-		bufferbuilder.pos(x + vec3d.x() * 2D, y + (double) entityIn.getEyeHeight() + vec3d.y() * 2D, z + vec3d.z() * 2D).color(0, 0, 255, 255).endVertex();
+		bufferbuilder.pos(x + vec3d.x() * 2D, y + (double) entityIn.getEyeHeight() + vec3d.y() * 2D, z + vec3d.z() * 2D)
+		             .color(0, 0, 255, 255)
+		             .endVertex();
 		tessellator.draw();
 		GLS.enableTexture2D();
 		GLS.enableLighting();

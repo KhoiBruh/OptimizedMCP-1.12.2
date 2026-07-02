@@ -36,8 +36,6 @@ public class BlockWorldState {
 		return state;
 	}
 
-	
-
 	/**
 	 * Gets the tile entity as currently held, or (if it has not gotten it from the world) loads it from the world.
 	 */

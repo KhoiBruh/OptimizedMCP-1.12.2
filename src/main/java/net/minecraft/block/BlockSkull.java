@@ -47,7 +47,8 @@ public class BlockSkull extends BlockContainer {
 	protected static final AxisAlignedBB SOUTH_AABB = new AxisAlignedBB(0.25D, 0.25D, 0D, 0.75D, 0.75D, 0.5D);
 	protected static final AxisAlignedBB WEST_AABB = new AxisAlignedBB(0.5D, 0.25D, 0.25D, 1D, 0.75D, 0.75D);
 	protected static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(0D, 0.25D, 0.25D, 0.5D, 0.75D, 0.75D);
-	private static final Predicate<BlockWorldState> IS_WITHER_SKELETON = p_apply_1_ -> p_apply_1_.getBlockState() != null && p_apply_1_.getBlockState().getBlock() == Blocks.SKULL && p_apply_1_.getTileEntity() instanceof TileEntitySkull && ((TileEntitySkull) p_apply_1_.getTileEntity()).getSkullType() == 1;
+	private static final Predicate<BlockWorldState> IS_WITHER_SKELETON = p_apply_1_ -> p_apply_1_.getBlockState() != null && p_apply_1_.getBlockState()
+	                                                                                                                                   .getBlock() == Blocks.SKULL && p_apply_1_.getTileEntity() instanceof TileEntitySkull && ((TileEntitySkull) p_apply_1_.getTileEntity()).getSkullType() == 1;
 	private BlockPattern witherBasePattern;
 	private BlockPattern witherPattern;
 
@@ -182,7 +183,8 @@ public class BlockSkull extends BlockContainer {
 			if (blockpattern$patternhelper != null) {
 				for (int i = 0; i < 3; ++i) {
 					BlockWorldState blockworldstate = blockpattern$patternhelper.translateOffset(i, 0, 0);
-					worldIn.setBlockState(blockworldstate.getPos(), blockworldstate.getBlockState().withProperty(NODROP, true), 2);
+					worldIn.setBlockState(blockworldstate.getPos(), blockworldstate.getBlockState()
+					                                                               .withProperty(NODROP, true), 2);
 				}
 
 				for (int j = 0; j < blockpattern.getPalmLength(); ++j) {
@@ -195,11 +197,14 @@ public class BlockSkull extends BlockContainer {
 				BlockPos blockpos = blockpattern$patternhelper.translateOffset(1, 0, 0).getPos();
 				EntityWither entitywither = new EntityWither(worldIn);
 				BlockPos blockpos1 = blockpattern$patternhelper.translateOffset(1, 2, 0).getPos();
-				entitywither.setLocationAndAngles((double) blockpos1.getX() + 0.5D, (double) blockpos1.getY() + 0.55D, (double) blockpos1.getZ() + 0.5D, blockpattern$patternhelper.getForwards().getAxis() == Facing.Axis.X ? 0F : 90F, 0F);
-				entitywither.renderYawOffset = blockpattern$patternhelper.getForwards().getAxis() == Facing.Axis.X ? 0F : 90F;
+				entitywither.setLocationAndAngles((double) blockpos1.getX() + 0.5D, (double) blockpos1.getY() + 0.55D, (double) blockpos1.getZ() + 0.5D, blockpattern$patternhelper.getForwards()
+				                                                                                                                                                                   .getAxis() == Facing.Axis.X ? 0F : 90F, 0F);
+				entitywither.renderYawOffset = blockpattern$patternhelper.getForwards()
+				                                                         .getAxis() == Facing.Axis.X ? 0F : 90F;
 				entitywither.ignite();
 
-				for (EntityPlayerMP entityplayermp : worldIn.getEntitiesWithinAABB(EntityPlayerMP.class, entitywither.getEntityBoundingBox().grow(50D))) {
+				for (EntityPlayerMP entityplayermp : worldIn.getEntitiesWithinAABB(EntityPlayerMP.class, entitywither.getEntityBoundingBox()
+				                                                                                                     .grow(50D))) {
 					CriteriaTriggers.SUMMONED_ENTITY.trigger(entityplayermp, entitywither);
 				}
 
@@ -262,7 +267,11 @@ public class BlockSkull extends BlockContainer {
 
 	protected BlockPattern getWitherBasePattern() {
 		if (witherBasePattern == null) {
-			witherBasePattern = FactoryBlockPattern.start().aisle("   ", "###", "~#~").where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.SOUL_SAND))).where('~', BlockWorldState.hasState(BlockMaterialMatcher.forMaterial(Material.AIR))).build();
+			witherBasePattern = FactoryBlockPattern.start()
+			                                       .aisle("   ", "###", "~#~")
+			                                       .where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.SOUL_SAND)))
+			                                       .where('~', BlockWorldState.hasState(BlockMaterialMatcher.forMaterial(Material.AIR)))
+			                                       .build();
 		}
 
 		return witherBasePattern;
@@ -270,7 +279,12 @@ public class BlockSkull extends BlockContainer {
 
 	protected BlockPattern getWitherPattern() {
 		if (witherPattern == null) {
-			witherPattern = FactoryBlockPattern.start().aisle("^^^", "###", "~#~").where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.SOUL_SAND))).where('^', IS_WITHER_SKELETON).where('~', BlockWorldState.hasState(BlockMaterialMatcher.forMaterial(Material.AIR))).build();
+			witherPattern = FactoryBlockPattern.start()
+			                                   .aisle("^^^", "###", "~#~")
+			                                   .where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.SOUL_SAND)))
+			                                   .where('^', IS_WITHER_SKELETON)
+			                                   .where('~', BlockWorldState.hasState(BlockMaterialMatcher.forMaterial(Material.AIR)))
+			                                   .build();
 		}
 
 		return witherPattern;

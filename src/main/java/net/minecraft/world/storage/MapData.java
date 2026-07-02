@@ -230,7 +230,6 @@ public class MapData extends WorldSavedData {
 		mapDecorations.put(decorationName, new MapDecoration(type, b0, b1, b2));
 	}
 
-	
 	public Packet<?> getMapPacket(ItemStack mapStack, World worldIn, EntityPlayer player) {
 
 		MapData.MapInfo mapdata$mapinfo = playersHashMap.get(player);
@@ -273,7 +272,6 @@ public class MapData extends WorldSavedData {
 			this.player = player;
 		}
 
-		
 		public Packet<?> getPacket(ItemStack stack) {
 
 			if (isDirty) {

@@ -104,8 +104,6 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData {
 		throw new RuntimeException("Old Chunk Storage is no longer supported.");
 	}
 
-	
-
 	/**
 	 * Loads and returns the world info
 	 */
@@ -184,8 +182,6 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData {
 			LOGGER.warn("Failed to save player data for {}", player.getName());
 		}
 	}
-
-	
 
 	/**
 	 * Reads the player data from disk into the specified PlayerEntityMP.

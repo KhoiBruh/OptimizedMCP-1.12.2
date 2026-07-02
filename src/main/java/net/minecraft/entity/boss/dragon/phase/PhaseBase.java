@@ -54,8 +54,6 @@ public abstract class PhaseBase implements IPhase {
 		return 0.6F;
 	}
 
-	
-
 	/**
 	 * Returns the location the dragon is flying toward
 	 */

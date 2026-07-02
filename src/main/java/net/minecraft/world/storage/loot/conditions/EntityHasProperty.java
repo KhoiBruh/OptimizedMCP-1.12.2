@@ -65,7 +65,8 @@ public class EntityHasProperty implements LootCondition {
 			int i = 0;
 
 			for (Entry<String, JsonElement> entry : set) {
-				aentityproperty[i++] = EntityPropertyManager.getSerializerForName(new ResourceLocation(entry.getKey())).deserialize(entry.getValue(), context);
+				aentityproperty[i++] = EntityPropertyManager.getSerializerForName(new ResourceLocation(entry.getKey()))
+				                                            .deserialize(entry.getValue(), context);
 			}
 
 			return new EntityHasProperty(aentityproperty, JsonUtils.deserializeClass(json, "entity", context, LootContext.EntityTarget.class));

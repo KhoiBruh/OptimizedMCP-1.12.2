@@ -35,12 +35,10 @@ public class CombatEntry {
 		return damageSrc.getTrueSource() instanceof EntityLivingBase;
 	}
 
-	
 	public String getFallSuffix() {
 		return fallSuffix;
 	}
 
-	
 	public ITextComponent getDamageSrcDisplayName() {
 		return getDamageSrc().getTrueSource() == null ? null : getDamageSrc().getTrueSource().getDisplayName();
 	}

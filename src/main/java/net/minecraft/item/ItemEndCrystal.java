@@ -40,8 +40,12 @@ public class ItemEndCrystal extends Item {
 				return ActionResult.FAIL;
 			} else {
 				BlockPos blockpos1 = blockpos.up();
-				boolean flag = !worldIn.isAirBlock(blockpos) && !worldIn.getBlockState(blockpos).getBlock().isReplaceable(worldIn, blockpos);
-				flag = flag | (!worldIn.isAirBlock(blockpos1) && !worldIn.getBlockState(blockpos1).getBlock().isReplaceable(worldIn, blockpos1));
+				boolean flag = !worldIn.isAirBlock(blockpos) && !worldIn.getBlockState(blockpos)
+				                                                        .getBlock()
+				                                                        .isReplaceable(worldIn, blockpos);
+				flag = flag | (!worldIn.isAirBlock(blockpos1) && !worldIn.getBlockState(blockpos1)
+				                                                         .getBlock()
+				                                                         .isReplaceable(worldIn, blockpos1));
 
 				if (flag) {
 					return ActionResult.FAIL;

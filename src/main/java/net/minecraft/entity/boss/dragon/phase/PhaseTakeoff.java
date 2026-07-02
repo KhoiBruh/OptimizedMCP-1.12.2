@@ -84,8 +84,6 @@ public class PhaseTakeoff extends PhaseBase {
 		targetLocation = new Vec3d(vec3d.x(), d0, vec3d.z());
 	}
 
-	
-
 	/**
 	 * Returns the location the dragon is flying toward
 	 */

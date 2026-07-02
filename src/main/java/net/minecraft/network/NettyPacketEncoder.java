@@ -13,7 +13,8 @@ import java.io.IOException;
 public class NettyPacketEncoder extends MessageToByteEncoder<Packet<?>> {
 
 	private static final Logger LOGGER = LogManager.getLogger();
-	private static final Marker RECEIVED_PACKET_MARKER = MarkerManager.getMarker("PACKET_SENT").setParents(NetworkManager.NETWORK_PACKETS_MARKER);
+	private static final Marker RECEIVED_PACKET_MARKER = MarkerManager.getMarker("PACKET_SENT")
+	                                                                  .setParents(NetworkManager.NETWORK_PACKETS_MARKER);
 	private final PacketDirection direction;
 
 	public NettyPacketEncoder(PacketDirection direction) {
@@ -29,7 +30,10 @@ public class NettyPacketEncoder extends MessageToByteEncoder<Packet<?>> {
 			Integer integer = enumconnectionstate.getPacketId(direction, p_encode_2_);
 
 			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug(RECEIVED_PACKET_MARKER, "OUT: [{}:{}] {}", p_encode_1_.channel().attr(NetworkManager.PROTOCOL_ATTRIBUTE_KEY).get(), integer, p_encode_2_.getClass().getName());
+				LOGGER.debug(RECEIVED_PACKET_MARKER, "OUT: [{}:{}] {}", p_encode_1_.channel()
+				                                                                   .attr(NetworkManager.PROTOCOL_ATTRIBUTE_KEY)
+				                                                                   .get(), integer, p_encode_2_.getClass()
+				                                                                                               .getName());
 			}
 
 			if (integer == null) {

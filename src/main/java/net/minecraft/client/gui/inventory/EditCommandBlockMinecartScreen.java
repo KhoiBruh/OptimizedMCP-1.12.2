@@ -59,7 +59,7 @@ public class EditCommandBlockMinecartScreen extends Screen implements ITabComple
 		updateCommandOutput();
 		doneButton.enabled = !commandField.getText().trim().isEmpty();
 		tabCompleter = new TabCompleter(commandField, true) {
-			
+
 			public BlockPos getTargetBlockPos() {
 				return commandBlockLogic.getPosition();
 			}

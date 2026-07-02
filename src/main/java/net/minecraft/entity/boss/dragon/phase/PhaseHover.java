@@ -39,8 +39,6 @@ public class PhaseHover extends PhaseBase {
 		return 1F;
 	}
 
-	
-
 	/**
 	 * Returns the location the dragon is flying toward
 	 */

@@ -75,7 +75,8 @@ public class CommandEnchant extends CommandBase {
 								Enchantment enchantment1 = Enchantment.getEnchantmentByID(k);
 
 								if (!enchantment.isCompatibleWith(enchantment1)) {
-									throw new CommandException("commands.enchant.cantCombine", enchantment.getTranslatedName(i), enchantment1.getTranslatedName(nbttaglist.getCompoundTagAt(j).getShort("lvl")));
+									throw new CommandException("commands.enchant.cantCombine", enchantment.getTranslatedName(i), enchantment1.getTranslatedName(nbttaglist.getCompoundTagAt(j)
+									                                                                                                                                      .getShort("lvl")));
 								}
 							}
 						}

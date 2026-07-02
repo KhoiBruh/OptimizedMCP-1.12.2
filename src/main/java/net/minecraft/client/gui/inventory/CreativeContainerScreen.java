@@ -149,7 +149,8 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 				if (slotIn == destroyItemSlot) {
 					mc.player.inventory.setItemStack(ItemStack.EMPTY);
 				} else if (type == ClickType.THROW && slotIn != null && slotIn.getHasStack()) {
-					ItemStack itemstack = slotIn.decrStackSize(mouseButton == 0 ? 1 : slotIn.getStack().getMaxStackSize());
+					ItemStack itemstack = slotIn.decrStackSize(mouseButton == 0 ? 1 : slotIn.getStack()
+					                                                                        .getMaxStackSize());
 					ItemStack itemstack1 = slotIn.getStack();
 					mc.player.dropItem(itemstack, true);
 					mc.playerController.sendPacketDropItem(itemstack);
@@ -222,7 +223,8 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 					inventoryplayer.getItemStack().shrink(1);
 				}
 			} else if (inventorySlots != null) {
-				ItemStack itemstack3 = slotIn == null ? ItemStack.EMPTY : inventorySlots.getSlot(slotIn.slotNumber).getStack();
+				ItemStack itemstack3 = slotIn == null ? ItemStack.EMPTY : inventorySlots.getSlot(slotIn.slotNumber)
+				                                                                        .getStack();
 				inventorySlots.slotClick(slotIn == null ? slotId : slotIn.slotNumber, mouseButton, type, mc.player);
 
 				if (Container.getDragEvent(mouseButton) == 2) {
@@ -331,7 +333,9 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 				item.getSubItems(CreativeTabs.SEARCH, guicontainercreative$containercreative.itemList);
 			}
 		} else {
-			guicontainercreative$containercreative.itemList.addAll(mc.getSearchTree(SearchTreeManager.ITEMS).search(searchField.getText().toLowerCase(Locale.ROOT)));
+			guicontainercreative$containercreative.itemList.addAll(mc.getSearchTree(SearchTreeManager.ITEMS)
+			                                                         .search(searchField.getText()
+			                                                                            .toLowerCase(Locale.ROOT)));
 		}
 
 		currentScroll = 0F;
@@ -617,7 +621,8 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 			}
 		}
 
-		mc.getTextureManager().bindTexture(new ResourceLocation("textures/gui/container/creative_inventory/tab_" + creativetabs.getBackgroundImageName()));
+		mc.getTextureManager()
+		  .bindTexture(new ResourceLocation("textures/gui/container/creative_inventory/tab_" + creativetabs.getBackgroundImageName()));
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 		searchField.drawTextBox();
 		GLS.color(1F, 1F, 1F, 1F);
@@ -881,7 +886,6 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 			return slot.getItemStackLimit(stack);
 		}
 
-		
 		public String getSlotTexture() {
 			return slot.getSlotTexture();
 		}

@@ -135,7 +135,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 		}
 	}
 
-	
 	public static Item getArmorByChance(EntityEquipmentSlot slotIn, int chance) {
 		switch (slotIn) {
 			case HEAD:
@@ -250,8 +249,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 	public EntitySenses getEntitySenses() {
 		return senses;
 	}
-
-	
 
 	/**
 	 * Gets the active target the Task system uses for tracking
@@ -405,12 +402,10 @@ public abstract class EntityLiving extends EntityLivingBase {
 		return p_110146_2_;
 	}
 
-	
 	protected SoundEvent getAmbientSound() {
 		return null;
 	}
 
-	
 	protected Item getDropItem() {
 		return null;
 	}
@@ -574,7 +569,6 @@ public abstract class EntityLiving extends EntityLivingBase {
 		setNoAI(compound.getBoolean("NoAI"));
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return null;
 	}
@@ -592,10 +586,12 @@ public abstract class EntityLiving extends EntityLivingBase {
 		if (resourcelocation != null) {
 			LootTable loottable = world.getLootTableManager().getLootTableFromLocation(resourcelocation);
 			deathLootTable = null;
-			LootContext.Builder lootcontext$builder = (new LootContext.Builder((WorldServer) world)).withLootedEntity(this).withDamageSource(source);
+			LootContext.Builder lootcontext$builder = (new LootContext.Builder((WorldServer) world)).withLootedEntity(this)
+			                                                                                        .withDamageSource(source);
 
 			if (wasRecentlyHit && attackingPlayer != null) {
-				lootcontext$builder = lootcontext$builder.withPlayer(attackingPlayer).withLuck(attackingPlayer.getLuck());
+				lootcontext$builder = lootcontext$builder.withPlayer(attackingPlayer)
+				                                         .withLuck(attackingPlayer.getLuck());
 			}
 
 			for (ItemStack itemstack : loottable.generateLootForPools(deathLootTableSeed == 0L ? rand : new Random(deathLootTableSeed), lootcontext$builder.build())) {
@@ -855,7 +851,8 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Checks that the entity is not colliding with any blocks / liquids
 	 */
 	public boolean isNotColliding() {
-		return !world.containsAnyLiquid(getEntityBoundingBox()) && world.getCollisionBoxes(this, getEntityBoundingBox()).isEmpty() && world.checkNoEntityCollision(getEntityBoundingBox(), this);
+		return !world.containsAnyLiquid(getEntityBoundingBox()) && world.getCollisionBoxes(this, getEntityBoundingBox())
+		                                                                .isEmpty() && world.checkNoEntityCollision(getEntityBoundingBox(), this);
 	}
 
 	/**
@@ -1004,21 +1001,18 @@ public abstract class EntityLiving extends EntityLivingBase {
 		}
 	}
 
-	
-
 	/**
 	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
 	 * when entity is reloaded from nbt. Mainly used for initializing attributes and inventory.
-	 *
+	 * <p>
 	 * The livingdata parameter is used to pass data between all instances during a pack spawn. It will be null on the
 	 * first call. Subclasses may check if it's null, and then create a new one and return it if so, initializing all
 	 * entities in the pack with the contained data.
 	 *
-	 * @return The IEntityLivingData to pass to this method for other instances of this entity class within the same
-	 * pack
-	 *
 	 * @param difficulty The current local difficulty
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
+	 * @return The IEntityLivingData to pass to this method for other instances of this entity class within the same
+	 * pack
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", rand.nextGaussian() * 0.05D, 1));

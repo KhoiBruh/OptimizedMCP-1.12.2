@@ -498,8 +498,6 @@ public final class ItemStack {
 		return !isEmpty && stackTagCompound != null;
 	}
 
-	
-
 	/**
 	 * Returns the NBTTagCompound of the ItemStack.
 	 */
@@ -523,8 +521,6 @@ public final class ItemStack {
 			return nbttagcompound;
 		}
 	}
-
-	
 
 	/**
 	 * Get an NBTTagCompound from this stack's NBT data.
@@ -771,7 +767,8 @@ public final class ItemStack {
 			list.add(TextFormat.DARK_GRAY + Item.REGISTRY.getNameForObject(item).toString());
 
 			if (hasTagCompound()) {
-				list.add(TextFormat.DARK_GRAY + I18n.translateToLocalFormatted("item.nbt_tags", getTagCompound().getKeySet().size()));
+				list.add(TextFormat.DARK_GRAY + I18n.translateToLocalFormatted("item.nbt_tags", getTagCompound().getKeySet()
+				                                                                                                .size()));
 			}
 		}
 
@@ -853,8 +850,6 @@ public final class ItemStack {
 		return itemFrame != null;
 	}
 
-	
-
 	/**
 	 * Return the item frame this stack is on. Returns null if not on an item frame.
 	 */
@@ -899,7 +894,10 @@ public final class ItemStack {
 				NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
 				AttributeModifier attributemodifier = SharedMonsterAttributes.readAttributeModifierFromNBT(nbttagcompound);
 
-				if (attributemodifier != null && (!nbttagcompound.hasKey("Slot", 8) || nbttagcompound.getString("Slot").equals(equipmentSlot.getName())) && attributemodifier.getID().getLeastSignificantBits() != 0L && attributemodifier.getID().getMostSignificantBits() != 0L) {
+				if (attributemodifier != null && (!nbttagcompound.hasKey("Slot", 8) || nbttagcompound.getString("Slot")
+				                                                                                     .equals(equipmentSlot.getName())) && attributemodifier.getID()
+				                                                                                                                                           .getLeastSignificantBits() != 0L && attributemodifier.getID()
+				                                                                                                                                                                                                .getMostSignificantBits() != 0L) {
 					multimap.put(nbttagcompound.getString("AttributeName"), attributemodifier);
 				}
 			}
@@ -940,11 +938,13 @@ public final class ItemStack {
 			textcomponentstring.getStyle().setItalic(true);
 		}
 
-		ITextComponent itextcomponent = (new TextComponentString("[")).appendSibling(textcomponentstring).appendText("]");
+		ITextComponent itextcomponent = (new TextComponentString("[")).appendSibling(textcomponentstring)
+		                                                              .appendText("]");
 
 		if (!isEmpty) {
 			NBTTagCompound nbttagcompound = writeToNBT(new NBTTagCompound());
-			itextcomponent.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new TextComponentString(nbttagcompound.toString())));
+			itextcomponent.getStyle()
+			              .setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new TextComponentString(nbttagcompound.toString())));
 			itextcomponent.getStyle().setColor(getRarity().rarityColor);
 		}
 

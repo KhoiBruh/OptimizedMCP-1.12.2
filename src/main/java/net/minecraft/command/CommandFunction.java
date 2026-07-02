@@ -69,7 +69,11 @@ public class CommandFunction extends CommandBase {
 					}
 				}
 
-				int i = server.getFunctionManager().execute(functionobject, CommandSenderWrapper.create(sender).computePositionVector().withPermissionLevel(2).withSendCommandFeedback(false));
+				int i = server.getFunctionManager()
+				              .execute(functionobject, CommandSenderWrapper.create(sender)
+				                                                           .computePositionVector()
+				                                                           .withPermissionLevel(2)
+				                                                           .withSendCommandFeedback(false));
 				notifyCommandListener(sender, this, "commands.function.success", resourcelocation, i);
 			}
 		}

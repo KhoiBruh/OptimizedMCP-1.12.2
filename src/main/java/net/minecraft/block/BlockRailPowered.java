@@ -17,7 +17,9 @@ public class BlockRailPowered extends BlockRailBase {
 
 	protected BlockRailPowered() {
 		super(true);
-		setDefaultState(blockState.getBaseState().withProperty(SHAPE, BlockRailBase.RailDirection.NORTH_SOUTH).withProperty(POWERED, false));
+		setDefaultState(blockState.getBaseState()
+		                          .withProperty(SHAPE, BlockRailBase.RailDirection.NORTH_SOUTH)
+		                          .withProperty(POWERED, false));
 	}
 
 	@SuppressWarnings("incomplete-switch")
@@ -153,7 +155,8 @@ public class BlockRailPowered extends BlockRailBase {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(SHAPE, BlockRailBase.RailDirection.byMetadata(meta & 7)).withProperty(POWERED, (meta & 8) > 0);
+		return getDefaultState().withProperty(SHAPE, BlockRailBase.RailDirection.byMetadata(meta & 7))
+		                        .withProperty(POWERED, (meta & 8) > 0);
 	}
 
 	/**

@@ -76,7 +76,6 @@ public class TileEntityMobSpawner extends TileEntity implements ITickable {
 		spawnerLogic.updateSpawner();
 	}
 
-	
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		return new SPacketUpdateTileEntity(pos, 1, getUpdateTag());
 	}

@@ -10,7 +10,6 @@ public interface IAttribute {
 
 	boolean getShouldWatch();
 
-	
 	IAttribute getParent();
 
 }

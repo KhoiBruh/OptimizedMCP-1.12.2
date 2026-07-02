@@ -278,12 +278,10 @@ public class TextureUtil {
 	}
 
 	public static BufferedImage readBufferedImage(InputStream imageStream) throws IOException {
-		try(imageStream) {
+		try (imageStream) {
 			return ImageIO.read(imageStream);
 		}
 	}
-
-
 
 	public static void processPixelValues(int[] p_147953_0_, int p_147953_1_, int p_147953_2_) {
 		int[] aint = new int[p_147953_1_];
@@ -295,4 +293,5 @@ public class TextureUtil {
 			System.arraycopy(aint, 0, p_147953_0_, (p_147953_2_ - 1 - j) * p_147953_1_, p_147953_1_);
 		}
 	}
+
 }

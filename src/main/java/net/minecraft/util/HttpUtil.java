@@ -21,7 +21,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class HttpUtil {
 
 	public static final ListeningExecutorService DOWNLOADER_EXECUTOR = MoreExecutors.listeningDecorator(
-			Executors.newCachedThreadPool(new ThreadFactoryBuilder().setDaemon(true).setNameFormat("Downloader %d").build())
+		Executors.newCachedThreadPool(new ThreadFactoryBuilder().setDaemon(true).setNameFormat("Downloader %d").build())
 	);
 
 	/**

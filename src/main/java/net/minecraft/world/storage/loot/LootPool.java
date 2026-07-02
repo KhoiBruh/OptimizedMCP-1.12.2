@@ -7,6 +7,7 @@ import net.minecraft.util.JsonUtils;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
+
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;

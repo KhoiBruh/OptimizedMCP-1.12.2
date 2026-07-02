@@ -48,7 +48,8 @@ public class WorldGenEndPodium extends WorldGenerator {
 		BlockPos blockpos = position.up(2);
 
 		for (Facing enumfacing : Facing.Plane.HORIZONTAL) {
-			setBlockAndNotifyAdequately(worldIn, blockpos.offset(enumfacing), Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, enumfacing));
+			setBlockAndNotifyAdequately(worldIn, blockpos.offset(enumfacing), Blocks.TORCH.getDefaultState()
+			                                                                              .withProperty(BlockTorch.FACING, enumfacing));
 		}
 
 		return true;

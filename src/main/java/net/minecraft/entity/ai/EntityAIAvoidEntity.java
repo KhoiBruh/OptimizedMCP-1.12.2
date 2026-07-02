@@ -38,7 +38,8 @@ public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase {
 	}
 
 	public EntityAIAvoidEntity(EntityCreature entityIn, Class<T> classToAvoidIn, Predicate<? super T> avoidTargetSelectorIn, float avoidDistanceIn, double farSpeedIn, double nearSpeedIn) {
-		canBeSeenSelector = p_apply_1_ -> p_apply_1_.isEntityAlive() && entity.getEntitySenses().canSee(p_apply_1_) && !entity.isOnSameTeam(p_apply_1_);
+		canBeSeenSelector = p_apply_1_ -> p_apply_1_.isEntityAlive() && entity.getEntitySenses()
+		                                                                      .canSee(p_apply_1_) && !entity.isOnSameTeam(p_apply_1_);
 		entity = entityIn;
 		classToAvoid = classToAvoidIn;
 		avoidTargetSelector = avoidTargetSelectorIn;
@@ -53,7 +54,8 @@ public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-		List<T> list = entity.world.getEntitiesWithinAABB(classToAvoid, entity.getEntityBoundingBox().grow(avoidDistance, 3D, avoidDistance), Predicates.and(EntitySelectors.CAN_AI_TARGET, canBeSeenSelector, avoidTargetSelector));
+		List<T> list = entity.world.getEntitiesWithinAABB(classToAvoid, entity.getEntityBoundingBox()
+		                                                                      .grow(avoidDistance, 3D, avoidDistance), Predicates.and(EntitySelectors.CAN_AI_TARGET, canBeSeenSelector, avoidTargetSelector));
 
 		if (list.isEmpty()) {
 			return false;

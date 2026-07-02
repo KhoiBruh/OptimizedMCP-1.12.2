@@ -30,7 +30,10 @@ import java.util.stream.Stream;
 public class PlayerAdvancements {
 
 	private static final Logger LOGGER = LogManager.getLogger();
-	private static final Gson GSON = (new GsonBuilder()).registerTypeAdapter(AdvancementProgress.class, new AdvancementProgress.Serializer()).registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer()).setPrettyPrinting().create();
+	private static final Gson GSON = (new GsonBuilder()).registerTypeAdapter(AdvancementProgress.class, new AdvancementProgress.Serializer())
+	                                                    .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
+	                                                    .setPrettyPrinting()
+	                                                    .create();
 	private static final TypeToken<Map<ResourceLocation, AdvancementProgress>> MAP_TOKEN = new TypeToken<>() {
 	};
 	private final MinecraftServer server;
@@ -41,7 +44,6 @@ public class PlayerAdvancements {
 	private final Set<Advancement> progressChanged = Sets.newLinkedHashSet();
 	private EntityPlayerMP player;
 
-	
 	private Advancement lastSelectedTab;
 	private boolean isFirstPacket = true;
 
@@ -113,7 +115,9 @@ public class PlayerAdvancements {
 					throw new JsonParseException("Found null for advancements");
 				}
 
-				Stream<Entry<ResourceLocation, AdvancementProgress>> stream = map.entrySet().stream().sorted(Entry.comparingByValue());
+				Stream<Entry<ResourceLocation, AdvancementProgress>> stream = map.entrySet()
+				                                                                 .stream()
+				                                                                 .sorted(Entry.comparingByValue());
 
 				for (Entry<ResourceLocation, AdvancementProgress> entry : stream.toList()) {
 					Advancement advancement = server.getAdvancementManager().getAdvancement(entry.getKey());
@@ -171,8 +175,13 @@ public class PlayerAdvancements {
 			if (!flag1 && advancementprogress.isDone()) {
 				p_192750_1_.getRewards().apply(player);
 
-				if (p_192750_1_.getDisplay() != null && p_192750_1_.getDisplay().shouldAnnounceToChat() && player.world.getGameRules().getBoolean("announceAdvancements")) {
-					server.getPlayerList().sendMessage(new TextComponentTranslation("chat.type.advancement." + p_192750_1_.getDisplay().getFrame().getName(), player.getDisplayName(), p_192750_1_.getDisplayText()));
+				if (p_192750_1_.getDisplay() != null && p_192750_1_.getDisplay()
+				                                                   .shouldAnnounceToChat() && player.world.getGameRules()
+				                                                                                          .getBoolean("announceAdvancements")) {
+					server.getPlayerList()
+					      .sendMessage(new TextComponentTranslation("chat.type.advancement." + p_192750_1_.getDisplay()
+					                                                                                      .getFrame()
+					                                                                                      .getName(), player.getDisplayName(), p_192750_1_.getDisplayText()));
 				}
 			}
 		}

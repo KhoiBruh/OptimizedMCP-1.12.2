@@ -20,7 +20,8 @@ public class BlockDynamicLiquid extends BlockLiquid {
 	}
 
 	private void placeStaticBlock(World worldIn, BlockPos pos, IBlockState currentState) {
-		worldIn.setBlockState(pos, getStaticBlock(blockMaterial).getDefaultState().withProperty(LEVEL, currentState.getValue(LEVEL)), 2);
+		worldIn.setBlockState(pos, getStaticBlock(blockMaterial).getDefaultState()
+		                                                        .withProperty(LEVEL, currentState.getValue(LEVEL)), 2);
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {

@@ -45,7 +45,6 @@ public class ItemMap extends ItemMapBase {
 		return itemstack;
 	}
 
-	
 	public static MapData loadMapData(int mapId, World worldIn) {
 		String s = "map_" + mapId;
 		return (MapData) worldIn.loadData(MapData.class, s);
@@ -63,7 +62,8 @@ public class ItemMap extends ItemMapBase {
 					int i = 1 << mapdata.scale;
 					int j = mapdata.xCenter;
 					int k = mapdata.zCenter;
-					Biome[] abiome = worldIn.getBiomeProvider().getBiomes(null, (j / i - 64) * i, (k / i - 64) * i, 128 * i, 128 * i, false);
+					Biome[] abiome = worldIn.getBiomeProvider()
+					                        .getBiomes(null, (j / i - 64) * i, (k / i - 64) * i, 128 * i, 128 * i, false);
 
 					for (int l = 0; l < 128; ++l) {
 						for (int i1 = 0; i1 < 128; ++i1) {
@@ -191,7 +191,6 @@ public class ItemMap extends ItemMapBase {
 		}
 	}
 
-	
 	public MapData getMapData(ItemStack stack, World worldIn) {
 		String s = "map_" + stack.getMetadata();
 		MapData mapdata = (MapData) worldIn.loadData(MapData.class, s);
@@ -201,7 +200,8 @@ public class ItemMap extends ItemMapBase {
 			s = "map_" + stack.getMetadata();
 			mapdata = new MapData(s);
 			mapdata.scale = 3;
-			mapdata.calculateMapCenter(worldIn.getWorldInfo().getSpawnX(), worldIn.getWorldInfo().getSpawnZ(), mapdata.scale);
+			mapdata.calculateMapCenter(worldIn.getWorldInfo().getSpawnX(), worldIn.getWorldInfo()
+			                                                                      .getSpawnZ(), mapdata.scale);
 			mapdata.dimension = (byte) worldIn.provider.getDimensionType().getId();
 			mapdata.markDirty();
 			worldIn.setData(s, mapdata);
@@ -253,9 +253,13 @@ public class ItemMap extends ItemMapBase {
 									l3 = l3 * l3 * 31287121 + l3 * 11;
 
 									if ((l3 >> 20 & 1) == 0) {
-										multiset.add(Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT).getMapColor(worldIn, BlockPos.ORIGIN), 10);
+										multiset.add(Blocks.DIRT.getDefaultState()
+										                        .withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT)
+										                        .getMapColor(worldIn, BlockPos.ORIGIN), 10);
 									} else {
-										multiset.add(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.Type.STONE).getMapColor(worldIn, BlockPos.ORIGIN), 100);
+										multiset.add(Blocks.STONE.getDefaultState()
+										                         .withProperty(BlockStone.VARIANT, BlockStone.Type.STONE)
+										                         .getMapColor(worldIn, BlockPos.ORIGIN), 100);
 									}
 
 									d1 = 100D;
@@ -368,7 +372,6 @@ public class ItemMap extends ItemMapBase {
 		}
 	}
 
-	
 	public Packet<?> createMapDataPacket(ItemStack stack, World worldIn, EntityPlayer player) {
 
 		return getMapData(stack, worldIn).getMapPacket(stack, worldIn, player);

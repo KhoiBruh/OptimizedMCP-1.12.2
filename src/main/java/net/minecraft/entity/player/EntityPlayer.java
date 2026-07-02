@@ -149,8 +149,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 */
 	public float experience;
 
-	
-
 	/**
 	 * An instance of a fishing rod's hook. If this isn't null, the icon image of the fishing rod is slightly different
 	 */
@@ -212,8 +210,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 			return compound;
 		});
 	}
-
-	
 
 	/**
 	 * Return null if bed is invalid
@@ -702,17 +698,15 @@ public abstract class EntityPlayer extends EntityLivingBase {
 		return SoundEvents.ENTITY_PLAYER_DEATH;
 	}
 
-	
-
 	/**
 	 * Drop one item out of the currently selected stack if {@code dropAll} is false. If {@code dropItem} is true the
 	 * entire stack is dropped.
 	 */
 	public EntityItem dropItem(boolean dropAll) {
-		return dropItem(inventory.decrStackSize(inventory.currentItem, dropAll && !inventory.getCurrentItem().isEmpty() ? inventory.getCurrentItem().getCount() : 1), false, true);
+		return dropItem(inventory.decrStackSize(inventory.currentItem, dropAll && !inventory.getCurrentItem()
+		                                                                                    .isEmpty() ? inventory.getCurrentItem()
+		                                                                                                          .getCount() : 1), false, true);
 	}
-
-	
 
 	/**
 	 * Drops an item into the world.
@@ -721,7 +715,6 @@ public abstract class EntityPlayer extends EntityLivingBase {
 		return dropItem(itemStackIn, false, unused);
 	}
 
-	
 	public EntityItem dropItem(ItemStack droppedItem, boolean dropAround, boolean traceItem) {
 		if (droppedItem.isEmpty()) {
 			return null;
@@ -1188,7 +1181,8 @@ public abstract class EntityPlayer extends EntityLivingBase {
 						if (flag3) {
 							float f3 = 1F + EnchantmentHelper.getSweepingDamageRatio(this) * f;
 
-							for (EntityLivingBase entitylivingbase : world.getEntitiesWithinAABB(EntityLivingBase.class, targetEntity.getEntityBoundingBox().grow(1D, 0.25D, 1D))) {
+							for (EntityLivingBase entitylivingbase : world.getEntitiesWithinAABB(EntityLivingBase.class, targetEntity.getEntityBoundingBox()
+							                                                                                                         .grow(1D, 0.25D, 1D))) {
 								if (entitylivingbase != this && entitylivingbase != targetEntity && !isOnSameTeam(entitylivingbase) && getDistanceSq(entitylivingbase) < 9D) {
 									entitylivingbase.knockBack(this, 0.4F, MathHelper.sin(rotationYaw * 0.017453292F), -MathHelper.cos(rotationYaw * 0.017453292F));
 									entitylivingbase.attackEntityFrom(DamageSource.causePlayerDamage(this), f3);
@@ -1995,7 +1989,8 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 */
 	public ITextComponent getDisplayName() {
 		ITextComponent itextcomponent = new TextComponentString(ScorePlayerTeam.formatPlayerName(getTeam(), getName()));
-		itextcomponent.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/msg " + getName() + " "));
+		itextcomponent.getStyle()
+		              .setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/msg " + getName() + " "));
 		itextcomponent.getStyle().setHoverEvent(getHoverEvent());
 		itextcomponent.getStyle().setInsertion(getName());
 		return itextcomponent;

@@ -41,7 +41,6 @@ public class EntityElderGuardian extends EntityGuardian {
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80D);
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_ELDER_GUARDIAN;
 	}
@@ -83,7 +82,9 @@ public class EntityElderGuardian extends EntityGuardian {
 			int l = 1200;
 
 			for (EntityPlayerMP entityplayermp : list) {
-				if (!entityplayermp.isPotionActive(potion) || entityplayermp.getActivePotionEffect(potion).getAmplifier() < 2 || entityplayermp.getActivePotionEffect(potion).getDuration() < 1200) {
+				if (!entityplayermp.isPotionActive(potion) || entityplayermp.getActivePotionEffect(potion)
+				                                                            .getAmplifier() < 2 || entityplayermp.getActivePotionEffect(potion)
+				                                                                                                 .getDuration() < 1200) {
 					entityplayermp.connection.sendPacket(new SPacketChangeGameState(10, 0F));
 					entityplayermp.addPotionEffect(new PotionEffect(potion, 6000, 2));
 				}

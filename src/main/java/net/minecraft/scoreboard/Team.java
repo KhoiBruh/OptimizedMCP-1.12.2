@@ -88,7 +88,6 @@ public abstract class Team {
 			return nameMap.keySet().toArray(new String[0]);
 		}
 
-		
 		public static Team.CollisionRule getByName(String nameIn) {
 
 			return nameMap.get(nameIn);
@@ -121,7 +120,6 @@ public abstract class Team {
 			return nameMap.keySet().toArray(new String[0]);
 		}
 
-		
 		public static Team.Visible getByName(String nameIn) {
 
 			return nameMap.get(nameIn);

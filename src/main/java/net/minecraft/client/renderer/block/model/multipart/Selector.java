@@ -78,11 +78,9 @@ public class Selector {
 			}
 		}
 
-		private static final Function<JsonElement, ICondition> FUNCTION_OR_AND = element -> element == null ? null : getOrAndCondition(element.getAsJsonObject());
-
 		private static ConditionPropertyValue makePropertyValue(Entry<String, JsonElement> entry) {
 			return new ConditionPropertyValue(entry.getKey(), entry.getValue().getAsString());
-		}
+		}		private static final Function<JsonElement, ICondition> FUNCTION_OR_AND = element -> element == null ? null : getOrAndCondition(element.getAsJsonObject());
 
 		public Selector deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
 			JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();

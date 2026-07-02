@@ -34,7 +34,8 @@ public class IntegratedPlayerList extends PlayerList {
 	 * checks ban-lists, then white-lists, then space for the server. Returns null on success, or an error message
 	 */
 	public String allowUserToConnect(SocketAddress address, GameProfile profile) {
-		return profile.getName().equalsIgnoreCase(getServerInstance().getServerOwner()) && getPlayerByUsername(profile.getName()) != null ? "That name is already taken." : super.allowUserToConnect(address, profile);
+		return profile.getName()
+		              .equalsIgnoreCase(getServerInstance().getServerOwner()) && getPlayerByUsername(profile.getName()) != null ? "That name is already taken." : super.allowUserToConnect(address, profile);
 	}
 
 	public IntegratedServer getServerInstance() {

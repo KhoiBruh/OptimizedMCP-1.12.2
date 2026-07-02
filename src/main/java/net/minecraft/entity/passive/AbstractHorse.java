@@ -43,7 +43,8 @@ import java.util.UUID;
 
 public abstract class AbstractHorse extends EntityAnimal implements IInventoryChangedListener, IJumpingMount {
 
-	protected static final IAttribute JUMP_STRENGTH = (new RangedAttribute(null, "horse.jumpStrength", 0.7D, 0D, 2D)).setDescription("Jump Strength").setShouldWatch(true);
+	protected static final IAttribute JUMP_STRENGTH = (new RangedAttribute(null, "horse.jumpStrength", 0.7D, 0D, 2D)).setDescription("Jump Strength")
+	                                                                                                                 .setShouldWatch(true);
 	private static final DataParameter<Byte> STATUS = EntityDataManager.createKey(AbstractHorse.class, DataSerializers.BYTE);
 	private static final Predicate<Entity> IS_HORSE_BREEDING = p_apply_1_ -> p_apply_1_ instanceof AbstractHorse && ((AbstractHorse) p_apply_1_).isBreeding();
 	private static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager.createKey(AbstractHorse.class, DataSerializers.OPTIONAL_UNIQUE_ID);
@@ -119,7 +120,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		return getHorseWatchableBoolean(2);
 	}
 
-	
 	public UUID getOwnerUniqueId() {
 		return dataManager.get(OWNER_UNIQUE_ID).orNull();
 	}
@@ -299,12 +299,12 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		}
 	}
 
-	
 	protected AbstractHorse getClosestHorse(Entity entityIn, double distance) {
 		double d0 = Double.MAX_VALUE;
 		Entity entity = null;
 
-		for (Entity entity1 : world.getEntitiesInAABBexcluding(entityIn, entityIn.getEntityBoundingBox().expand(distance, distance, distance), IS_HORSE_BREEDING)) {
+		for (Entity entity1 : world.getEntitiesInAABBexcluding(entityIn, entityIn.getEntityBoundingBox()
+		                                                                         .expand(distance, distance, distance), IS_HORSE_BREEDING)) {
 			double d1 = entity1.getDistanceSq(entityIn.posX, entityIn.posY, entityIn.posZ);
 
 			if (d1 < d0) {
@@ -320,13 +320,11 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		return getEntityAttribute(JUMP_STRENGTH).getAttributeValue();
 	}
 
-	
 	protected SoundEvent getDeathSound() {
 		openHorseMouth();
 		return null;
 	}
 
-	
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
 		openHorseMouth();
 
@@ -337,7 +335,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		return null;
 	}
 
-	
 	protected SoundEvent getAmbientSound() {
 		openHorseMouth();
 
@@ -360,7 +357,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		setHorseWatchableBoolean(4, saddled);
 	}
 
-	
 	protected SoundEvent getAngrySound() {
 		openHorseMouth();
 		makeHorseRear();
@@ -570,7 +566,8 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 			}
 
 			if (canEatGrass()) {
-				if (!isEatingHaystack() && !isBeingRidden() && rand.nextInt(300) == 0 && world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(posY) - 1, MathHelper.floor(posZ))).getBlock() == Blocks.GRASS) {
+				if (!isEatingHaystack() && !isBeingRidden() && rand.nextInt(300) == 0 && world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(posY) - 1, MathHelper.floor(posZ)))
+				                                                                              .getBlock() == Blocks.GRASS) {
 					setEatingHaystack(true);
 				}
 
@@ -861,17 +858,19 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		return !isBeingRidden() && !isRiding() && isTame() && !isChild() && getHealth() >= getMaxHealth() && isInLove();
 	}
 
-	
 	public EntityAgeable createChild(EntityAgeable ageable) {
 		return null;
 	}
 
 	protected void setOffspringAttributes(EntityAgeable p_190681_1_, AbstractHorse p_190681_2_) {
-		double d0 = getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() + p_190681_1_.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() + (double) getModifiedMaxHealth();
+		double d0 = getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue() + p_190681_1_.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH)
+		                                                                                               .getBaseValue() + (double) getModifiedMaxHealth();
 		p_190681_2_.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(d0 / 3D);
-		double d1 = getEntityAttribute(JUMP_STRENGTH).getBaseValue() + p_190681_1_.getEntityAttribute(JUMP_STRENGTH).getBaseValue() + getModifiedJumpStrength();
+		double d1 = getEntityAttribute(JUMP_STRENGTH).getBaseValue() + p_190681_1_.getEntityAttribute(JUMP_STRENGTH)
+		                                                                          .getBaseValue() + getModifiedJumpStrength();
 		p_190681_2_.getEntityAttribute(JUMP_STRENGTH).setBaseValue(d1 / 3D);
-		double d2 = getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getBaseValue() + p_190681_1_.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getBaseValue() + getModifiedMovementSpeed();
+		double d2 = getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getBaseValue() + p_190681_1_.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
+		                                                                                                   .getBaseValue() + getModifiedMovementSpeed();
 		p_190681_2_.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(d2 / 3D);
 	}
 
@@ -1037,8 +1036,6 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		}
 	}
 
-	
-
 	/**
 	 * For vehicles, the first passenger is generally considered the controller and "drives" the vehicle. For example,
 	 * Pigs, Horses, and Boats are generally "steered" by the controlling passenger.
@@ -1047,21 +1044,18 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		return getPassengers().isEmpty() ? null : getPassengers().getFirst();
 	}
 
-	
-
 	/**
 	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
 	 * when entity is reloaded from nbt. Mainly used for initializing attributes and inventory.
-	 *
+	 * <p>
 	 * The livingdata parameter is used to pass data between all instances during a pack spawn. It will be null on the
 	 * first call. Subclasses may check if it's null, and then create a new one and return it if so, initializing all
 	 * entities in the pack with the contained data.
 	 *
-	 * @return The IEntityLivingData to pass to this method for other instances of this entity class within the same
-	 * pack
-	 *
 	 * @param difficulty The current local difficulty
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
+	 * @return The IEntityLivingData to pass to this method for other instances of this entity class within the same
+	 * pack
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);

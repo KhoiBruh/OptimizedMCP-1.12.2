@@ -137,7 +137,9 @@ public abstract class PlayerList {
 		WorldInfo worldinfo = worldserver.getWorldInfo();
 		setPlayerGameTypeBasedOnOther(playerIn, null, worldserver);
 		NetHandlerPlayServer nethandlerplayserver = new NetHandlerPlayServer(mcServer, netManager, playerIn);
-		nethandlerplayserver.sendPacket(new SPacketJoinGame(playerIn.getEntityId(), playerIn.interactionManager.getGameType(), worldinfo.isHardcoreModeEnabled(), worldserver.provider.getDimensionType().getId(), worldserver.getDifficulty(), getMaxPlayers(), worldinfo.getTerrainType(), worldserver.getGameRules().getBoolean("reducedDebugInfo")));
+		nethandlerplayserver.sendPacket(new SPacketJoinGame(playerIn.getEntityId(), playerIn.interactionManager.getGameType(), worldinfo.isHardcoreModeEnabled(), worldserver.provider.getDimensionType()
+		                                                                                                                                                                              .getId(), worldserver.getDifficulty(), getMaxPlayers(), worldinfo.getTerrainType(), worldserver.getGameRules()
+		                                                                                                                                                                                                                                                                             .getBoolean("reducedDebugInfo")));
 		nethandlerplayserver.sendPacket(new SPacketCustomPayload("MC|Brand", (new PacketBuffer(Unpooled.buffer())).writeString(getServerInstance().getServerModName())));
 		nethandlerplayserver.sendPacket(new SPacketServerDifficulty(worldinfo.getDifficulty(), worldinfo.isDifficultyLocked()));
 		nethandlerplayserver.sendPacket(new SPacketPlayerAbilities(playerIn.capabilities));
@@ -277,8 +279,6 @@ public abstract class PlayerList {
 	public int getEntityViewDistance() {
 		return PlayerChunkMap.getFurthestViewableBlock(getViewDistance());
 	}
-
-	
 
 	/**
 	 * called during player login. reads the player information from disk.
@@ -479,11 +479,13 @@ public abstract class PlayerList {
 
 		worldserver.getChunkProvider().provideChunk((int) entityplayermp.posX >> 4, (int) entityplayermp.posZ >> 4);
 
-		while (!worldserver.getCollisionBoxes(entityplayermp, entityplayermp.getEntityBoundingBox()).isEmpty() && entityplayermp.posY < 256D) {
+		while (!worldserver.getCollisionBoxes(entityplayermp, entityplayermp.getEntityBoundingBox())
+		                   .isEmpty() && entityplayermp.posY < 256D) {
 			entityplayermp.setPosition(entityplayermp.posX, entityplayermp.posY + 1D, entityplayermp.posZ);
 		}
 
-		entityplayermp.connection.sendPacket(new SPacketRespawn(entityplayermp.dimension, entityplayermp.world.getDifficulty(), entityplayermp.world.getWorldInfo().getTerrainType(), entityplayermp.interactionManager.getGameType()));
+		entityplayermp.connection.sendPacket(new SPacketRespawn(entityplayermp.dimension, entityplayermp.world.getDifficulty(), entityplayermp.world.getWorldInfo()
+		                                                                                                                                            .getTerrainType(), entityplayermp.interactionManager.getGameType()));
 		BlockPos blockpos2 = worldserver.getSpawnPoint();
 		entityplayermp.connection.setPlayerLocation(entityplayermp.posX, entityplayermp.posY, entityplayermp.posZ, entityplayermp.rotationYaw, entityplayermp.rotationPitch);
 		entityplayermp.connection.sendPacket(new SPacketSpawnPosition(blockpos2));
@@ -512,7 +514,8 @@ public abstract class PlayerList {
 		WorldServer worldserver = mcServer.getWorld(player.dimension);
 		player.dimension = dimensionIn;
 		WorldServer worldserver1 = mcServer.getWorld(player.dimension);
-		player.connection.sendPacket(new SPacketRespawn(player.dimension, player.world.getDifficulty(), player.world.getWorldInfo().getTerrainType(), player.interactionManager.getGameType()));
+		player.connection.sendPacket(new SPacketRespawn(player.dimension, player.world.getDifficulty(), player.world.getWorldInfo()
+		                                                                                                            .getTerrainType(), player.interactionManager.getGameType()));
 		updatePermissionLevel(player);
 		worldserver.removeEntityDangerously(player);
 		player.isDead = false;
@@ -540,16 +543,20 @@ public abstract class PlayerList {
 		oldWorldIn.profiler.startSection("moving");
 
 		if (entityIn.dimension == -1) {
-			d0 = MathHelper.clamp(d0 / 8D, toWorldIn.getWorldBorder().minX() + 16D, toWorldIn.getWorldBorder().maxX() - 16D);
-			d1 = MathHelper.clamp(d1 / 8D, toWorldIn.getWorldBorder().minZ() + 16D, toWorldIn.getWorldBorder().maxZ() - 16D);
+			d0 = MathHelper.clamp(d0 / 8D, toWorldIn.getWorldBorder().minX() + 16D, toWorldIn.getWorldBorder()
+			                                                                                 .maxX() - 16D);
+			d1 = MathHelper.clamp(d1 / 8D, toWorldIn.getWorldBorder().minZ() + 16D, toWorldIn.getWorldBorder()
+			                                                                                 .maxZ() - 16D);
 			entityIn.setLocationAndAngles(d0, entityIn.posY, d1, entityIn.rotationYaw, entityIn.rotationPitch);
 
 			if (entityIn.isEntityAlive()) {
 				oldWorldIn.updateEntityWithOptionalForce(entityIn, false);
 			}
 		} else if (entityIn.dimension == 0) {
-			d0 = MathHelper.clamp(d0 * 8D, toWorldIn.getWorldBorder().minX() + 16D, toWorldIn.getWorldBorder().maxX() - 16D);
-			d1 = MathHelper.clamp(d1 * 8D, toWorldIn.getWorldBorder().minZ() + 16D, toWorldIn.getWorldBorder().maxZ() - 16D);
+			d0 = MathHelper.clamp(d0 * 8D, toWorldIn.getWorldBorder().minX() + 16D, toWorldIn.getWorldBorder()
+			                                                                                 .maxX() - 16D);
+			d1 = MathHelper.clamp(d1 * 8D, toWorldIn.getWorldBorder().minZ() + 16D, toWorldIn.getWorldBorder()
+			                                                                                 .maxZ() - 16D);
 			entityIn.setLocationAndAngles(d0, entityIn.posY, d1, entityIn.rotationYaw, entityIn.rotationPitch);
 
 			if (entityIn.isEntityAlive()) {
@@ -731,10 +738,11 @@ public abstract class PlayerList {
 	}
 
 	public boolean canSendCommands(GameProfile profile) {
-		return ops.hasEntry(profile) || mcServer.isSinglePlayer() && mcServer.worlds[0].getWorldInfo().areCommandsAllowed() && mcServer.getServerOwner().equalsIgnoreCase(profile.getName()) || commandsAllowedForAll;
+		return ops.hasEntry(profile) || mcServer.isSinglePlayer() && mcServer.worlds[0].getWorldInfo()
+		                                                                               .areCommandsAllowed() && mcServer.getServerOwner()
+		                                                                                                                .equalsIgnoreCase(profile.getName()) || commandsAllowedForAll;
 	}
 
-	
 	public EntityPlayerMP getPlayerByUsername(String username) {
 		for (EntityPlayerMP entityplayermp : playerEntityList) {
 			if (entityplayermp.getName().equalsIgnoreCase(username)) {
@@ -805,7 +813,8 @@ public abstract class PlayerList {
 	public void updateTimeAndWeatherForPlayer(EntityPlayerMP playerIn, WorldServer worldIn) {
 		WorldBorder worldborder = mcServer.worlds[0].getWorldBorder();
 		playerIn.connection.sendPacket(new SPacketWorldBorder(worldborder, SPacketWorldBorder.Action.INITIALIZE));
-		playerIn.connection.sendPacket(new SPacketTimeUpdate(worldIn.getTotalWorldTime(), worldIn.getWorldTime(), worldIn.getGameRules().getBoolean("doDaylightCycle")));
+		playerIn.connection.sendPacket(new SPacketTimeUpdate(worldIn.getTotalWorldTime(), worldIn.getWorldTime(), worldIn.getGameRules()
+		                                                                                                                 .getBoolean("doDaylightCycle")));
 		BlockPos blockpos = worldIn.getSpawnPoint();
 		playerIn.connection.sendPacket(new SPacketSpawnPosition(blockpos));
 

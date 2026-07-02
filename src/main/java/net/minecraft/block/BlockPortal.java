@@ -55,11 +55,14 @@ public class BlockPortal extends BlockBreakable {
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 		super.updateTick(worldIn, pos, state, rand);
 
-		if (worldIn.provider.isSurfaceWorld() && worldIn.getGameRules().getBoolean("doMobSpawning") && rand.nextInt(2000) < worldIn.getDifficulty().getDifficultyId()) {
+		if (worldIn.provider.isSurfaceWorld() && worldIn.getGameRules()
+		                                                .getBoolean("doMobSpawning") && rand.nextInt(2000) < worldIn.getDifficulty()
+		                                                                                                            .getDifficultyId()) {
 			int i = pos.getY();
 			BlockPos blockpos;
 
-			for (blockpos = pos; !worldIn.getBlockState(blockpos).isTopSolid() && blockpos.getY() > 0; blockpos = blockpos.down()) {
+			for (blockpos = pos; !worldIn.getBlockState(blockpos)
+			                             .isTopSolid() && blockpos.getY() > 0; blockpos = blockpos.down()) {
 			}
 
 			if (i > 0 && !worldIn.getBlockState(blockpos.up()).isNormalCube()) {
@@ -72,7 +75,6 @@ public class BlockPortal extends BlockBreakable {
 		}
 	}
 
-	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return NULL_AABB;
 	}
@@ -142,10 +144,14 @@ public class BlockPortal extends BlockBreakable {
 			}
 		}
 
-		boolean flag = blockAccess.getBlockState(pos.west()).getBlock() == this && blockAccess.getBlockState(pos.west(2)).getBlock() != this;
-		boolean flag1 = blockAccess.getBlockState(pos.east()).getBlock() == this && blockAccess.getBlockState(pos.east(2)).getBlock() != this;
-		boolean flag2 = blockAccess.getBlockState(pos.north()).getBlock() == this && blockAccess.getBlockState(pos.north(2)).getBlock() != this;
-		boolean flag3 = blockAccess.getBlockState(pos.south()).getBlock() == this && blockAccess.getBlockState(pos.south(2)).getBlock() != this;
+		boolean flag = blockAccess.getBlockState(pos.west())
+		                          .getBlock() == this && blockAccess.getBlockState(pos.west(2)).getBlock() != this;
+		boolean flag1 = blockAccess.getBlockState(pos.east())
+		                           .getBlock() == this && blockAccess.getBlockState(pos.east(2)).getBlock() != this;
+		boolean flag2 = blockAccess.getBlockState(pos.north())
+		                           .getBlock() == this && blockAccess.getBlockState(pos.north(2)).getBlock() != this;
+		boolean flag3 = blockAccess.getBlockState(pos.south())
+		                           .getBlock() == this && blockAccess.getBlockState(pos.south(2)).getBlock() != this;
 		boolean flag4 = flag || flag1 || enumfacing$axis == Facing.Axis.X;
 		boolean flag5 = flag2 || flag3 || enumfacing$axis == Facing.Axis.Z;
 
@@ -198,7 +204,8 @@ public class BlockPortal extends BlockBreakable {
 			double d5 = ((double) rand.nextFloat() - 0.5D) * 0.5D;
 			int j = rand.nextInt(2) * 2 - 1;
 
-			if (worldIn.getBlockState(pos.west()).getBlock() != this && worldIn.getBlockState(pos.east()).getBlock() != this) {
+			if (worldIn.getBlockState(pos.west()).getBlock() != this && worldIn.getBlockState(pos.east())
+			                                                                   .getBlock() != this) {
 				d0 = (double) pos.getX() + 0.5D + 0.25D * (double) j;
 				d3 = rand.nextFloat() * 2F * (float) j;
 			} else {
@@ -272,7 +279,8 @@ public class BlockPortal extends BlockBreakable {
 					for (int j = 0; j < blockportal$size.getHeight(); ++j) {
 						BlockWorldState blockworldstate = blockpattern$patternhelper.translateOffset(i, j, 1);
 
-						if (blockworldstate.getBlockState() != null && blockworldstate.getBlockState().getMaterial() != Material.AIR) {
+						if (blockworldstate.getBlockState() != null && blockworldstate.getBlockState()
+						                                                              .getMaterial() != Material.AIR) {
 							++aint[enumfacing$axisdirection.ordinal()];
 						}
 					}
@@ -327,7 +335,8 @@ public class BlockPortal extends BlockBreakable {
 				rightDir = Facing.SOUTH;
 			}
 
-			for (BlockPos blockpos = p_i45694_2_; p_i45694_2_.getY() > blockpos.getY() - 21 && p_i45694_2_.getY() > 0 && isEmptyBlock(worldIn.getBlockState(p_i45694_2_.down()).getBlock()); p_i45694_2_ = p_i45694_2_.down()) {
+			for (BlockPos blockpos = p_i45694_2_; p_i45694_2_.getY() > blockpos.getY() - 21 && p_i45694_2_.getY() > 0 && isEmptyBlock(worldIn.getBlockState(p_i45694_2_.down())
+			                                                                                                                                 .getBlock()); p_i45694_2_ = p_i45694_2_.down()) {
 			}
 
 			int i = getDistanceUntilEdge(p_i45694_2_, leftDir) - 1;
@@ -353,7 +362,8 @@ public class BlockPortal extends BlockBreakable {
 			for (i = 0; i < 22; ++i) {
 				BlockPos blockpos = p_180120_1_.offset(p_180120_2_, i);
 
-				if (!isEmptyBlock(world.getBlockState(blockpos).getBlock()) || world.getBlockState(blockpos.down()).getBlock() != Blocks.OBSIDIAN) {
+				if (!isEmptyBlock(world.getBlockState(blockpos).getBlock()) || world.getBlockState(blockpos.down())
+				                                                                    .getBlock() != Blocks.OBSIDIAN) {
 					break;
 				}
 			}
@@ -432,7 +442,8 @@ public class BlockPortal extends BlockBreakable {
 				BlockPos blockpos = bottomLeft.offset(rightDir, i);
 
 				for (int j = 0; j < height; ++j) {
-					world.setBlockState(blockpos.up(j), Blocks.PORTAL.getDefaultState().withProperty(BlockPortal.AXIS, axis), 2);
+					world.setBlockState(blockpos.up(j), Blocks.PORTAL.getDefaultState()
+					                                                 .withProperty(BlockPortal.AXIS, axis), 2);
 				}
 			}
 		}

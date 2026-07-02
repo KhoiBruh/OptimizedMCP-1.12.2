@@ -108,8 +108,12 @@ public class RenderLightningBolt extends Render<EntityLightningBolt> {
 							d11 += d7 * 2D;
 						}
 
-						bufferbuilder.pos(d10 + d2, y + (double) (i1 * 16), d11 + d3).color(0.45F, 0.45F, 0.5F, 0.3F).endVertex();
-						bufferbuilder.pos(d8 + d4, y + (double) ((i1 + 1) * 16), d9 + d5).color(0.45F, 0.45F, 0.5F, 0.3F).endVertex();
+						bufferbuilder.pos(d10 + d2, y + (double) (i1 * 16), d11 + d3)
+						             .color(0.45F, 0.45F, 0.5F, 0.3F)
+						             .endVertex();
+						bufferbuilder.pos(d8 + d4, y + (double) ((i1 + 1) * 16), d9 + d5)
+						             .color(0.45F, 0.45F, 0.5F, 0.3F)
+						             .endVertex();
 					}
 
 					tessellator.draw();
@@ -121,8 +125,6 @@ public class RenderLightningBolt extends Render<EntityLightningBolt> {
 		GLS.enableLighting();
 		GLS.enableTexture2D();
 	}
-
-	
 
 	/**
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.

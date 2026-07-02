@@ -12,7 +12,7 @@ import java.util.List;
 public class DebugRendererCollisionBox implements DebugRenderer.IDebugRenderer {
 
 	private final Minecraft minecraft;
-	
+
 	public DebugRendererCollisionBox(Minecraft minecraftIn) {
 		minecraft = minecraftIn;
 	}
@@ -31,7 +31,8 @@ public class DebugRendererCollisionBox implements DebugRenderer.IDebugRenderer {
 		GLS.depthMask(false);
 
 		for (AxisAlignedBB axisalignedbb : list) {
-			RenderGlobal.drawSelectionBoundingBox(axisalignedbb.grow(0.002D).offset(-renderPosX, -renderPosY, -renderPosZ), 1F, 1F, 1F, 1F);
+			RenderGlobal.drawSelectionBoundingBox(axisalignedbb.grow(0.002D)
+			                                                   .offset(-renderPosX, -renderPosY, -renderPosZ), 1F, 1F, 1F, 1F);
 		}
 
 		GLS.depthMask(true);

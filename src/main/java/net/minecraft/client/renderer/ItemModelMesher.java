@@ -53,7 +53,6 @@ public class ItemModelMesher {
 		return stack.getMaxDamage() > 0 ? 0 : stack.getMetadata();
 	}
 
-	
 	protected IBakedModel getItemModel(Item item, int meta) {
 		return simpleShapesCache.get(getIndex(item, meta));
 	}

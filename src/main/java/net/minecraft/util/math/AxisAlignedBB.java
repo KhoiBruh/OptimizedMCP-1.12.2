@@ -437,7 +437,6 @@ public class AxisAlignedBB {
 		return grow(-value);
 	}
 
-	
 	public RayTraceResult calculateIntercept(Vec3d vecA, Vec3d vecB) {
 		Vec3d vec3d = collideWithXPlane(minX, vecA, vecB);
 		Facing enumfacing = Facing.WEST;
@@ -484,21 +483,18 @@ public class AxisAlignedBB {
 		return p_186661_2_ == null || p_186661_1_.squareDistanceTo(p_186661_3_) < p_186661_1_.squareDistanceTo(p_186661_2_);
 	}
 
-	
 	@VisibleForTesting
 	Vec3d collideWithXPlane(double p_186671_1_, Vec3d p_186671_3_, Vec3d p_186671_4_) {
 		Vec3d vec3d = p_186671_3_.getIntermediateWithXValue(p_186671_4_, p_186671_1_);
 		return vec3d != null && intersectsWithYZ(vec3d) ? vec3d : null;
 	}
 
-	
 	@VisibleForTesting
 	Vec3d collideWithYPlane(double p_186663_1_, Vec3d p_186663_3_, Vec3d p_186663_4_) {
 		Vec3d vec3d = p_186663_3_.getIntermediateWithYValue(p_186663_4_, p_186663_1_);
 		return vec3d != null && intersectsWithXZ(vec3d) ? vec3d : null;
 	}
 
-	
 	@VisibleForTesting
 	Vec3d collideWithZPlane(double p_186665_1_, Vec3d p_186665_3_, Vec3d p_186665_4_) {
 		Vec3d vec3d = p_186665_3_.getIntermediateWithZValue(p_186665_4_, p_186665_1_);

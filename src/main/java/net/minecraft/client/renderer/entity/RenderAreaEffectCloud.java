@@ -9,8 +9,6 @@ public class RenderAreaEffectCloud extends Render<EntityAreaEffectCloud> {
 		super(manager);
 	}
 
-	
-
 	/**
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */

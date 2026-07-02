@@ -24,7 +24,9 @@ import java.util.concurrent.ThreadFactory;
 public class ChunkRenderDispatcher {
 
 	private static final Logger LOGGER = LogManager.getLogger();
-	private static final ThreadFactory THREAD_FACTORY = (new ThreadFactoryBuilder()).setNameFormat("Chunk Batcher %d").setDaemon(true).build();
+	private static final ThreadFactory THREAD_FACTORY = (new ThreadFactoryBuilder()).setNameFormat("Chunk Batcher %d")
+	                                                                                .setDaemon(true)
+	                                                                                .build();
 	private final int countRenderBuilders;
 	private final List<Thread> listWorkerThreads = Lists.newArrayList();
 	private final List<ChunkRenderWorker> listThreadedWorkers = Lists.newArrayList();

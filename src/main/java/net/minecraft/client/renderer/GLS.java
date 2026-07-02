@@ -880,7 +880,7 @@ public class GLS {
 		FRONT(GL11.GL_FRONT),
 		BACK(GL11.GL_BACK),
 		FRONT_AND_BACK(GL11.GL_FRONT_AND_BACK);
-		
+
 		public final int mode;
 
 		CullFace(int modeIn) {

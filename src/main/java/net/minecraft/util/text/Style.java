@@ -12,7 +12,7 @@ public class Style {
 	 * The base of the ChatStyle hierarchy.  All ChatStyle instances are implicitly children of this.
 	 */
 	private static final Style ROOT = new Style() {
-		
+
 		public TextFormat getColor() {
 			return null;
 		}
@@ -37,17 +37,14 @@ public class Style {
 			return false;
 		}
 
-		
 		public ClickEvent getClickEvent() {
 			return null;
 		}
 
-		
 		public HoverEvent getHoverEvent() {
 			return null;
 		}
 
-		
 		public String getInsertion() {
 			return null;
 		}
@@ -117,8 +114,6 @@ public class Style {
 	private ClickEvent clickEvent;
 	private HoverEvent hoverEvent;
 	private String insertion;
-
-	
 
 	/**
 	 * Gets the effective color of this ChatStyle.
@@ -223,8 +218,6 @@ public class Style {
 		return bold == null && italic == null && strikethrough == null && underlined == null && obfuscated == null && color == null && clickEvent == null && hoverEvent == null && insertion == null;
 	}
 
-	
-
 	/**
 	 * The effective chat click event.
 	 */
@@ -240,8 +233,6 @@ public class Style {
 		return this;
 	}
 
-	
-
 	/**
 	 * The effective chat hover event.
 	 */
@@ -256,8 +247,6 @@ public class Style {
 		hoverEvent = event;
 		return this;
 	}
-
-	
 
 	/**
 	 * Get the text to be inserted into Chat when the component is shift-clicked
@@ -433,7 +422,6 @@ public class Style {
 
 	public static class Serializer implements JsonDeserializer<Style>, JsonSerializer<Style> {
 
-		
 		public Style deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
 			if (p_deserialize_1_.isJsonObject()) {
 				Style style = new Style();
@@ -506,7 +494,6 @@ public class Style {
 			}
 		}
 
-		
 		public JsonElement serialize(Style p_serialize_1_, Type p_serialize_2_, JsonSerializationContext p_serialize_3_) {
 			if (p_serialize_1_.isEmpty()) {
 				return null;

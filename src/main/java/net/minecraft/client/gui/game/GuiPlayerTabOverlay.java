@@ -49,7 +49,9 @@ public class GuiPlayerTabOverlay extends Gui {
 	 * Returns the name that should be renderd for the player supplied
 	 */
 	public String getPlayerName(NetworkPlayerInfo networkPlayerInfoIn) {
-		return networkPlayerInfoIn.getDisplayName() != null ? networkPlayerInfoIn.getDisplayName().getFormattedText() : ScorePlayerTeam.formatPlayerName(networkPlayerInfoIn.getPlayerTeam(), networkPlayerInfoIn.getGameProfile().getName());
+		return networkPlayerInfoIn.getDisplayName() != null ? networkPlayerInfoIn.getDisplayName()
+		                                                                         .getFormattedText() : ScorePlayerTeam.formatPlayerName(networkPlayerInfoIn.getPlayerTeam(), networkPlayerInfoIn.getGameProfile()
+		                                                                                                                                                                                        .getName());
 	}
 
 	/**
@@ -78,7 +80,9 @@ public class GuiPlayerTabOverlay extends Gui {
 			i = Math.max(i, k);
 
 			if (scoreObjectiveIn != null && scoreObjectiveIn.getRenderType() != IScoreCriteria.RenderType.HEARTS) {
-				k = mc.fontRenderer.getStringWidth(" " + scoreboardIn.getOrCreateScore(networkplayerinfo.getGameProfile().getName(), scoreObjectiveIn).getScorePoints());
+				k = mc.fontRenderer.getStringWidth(" " + scoreboardIn.getOrCreateScore(networkplayerinfo.getGameProfile()
+				                                                                                        .getName(), scoreObjectiveIn)
+				                                                     .getScorePoints());
 				j = Math.max(j, k);
 			}
 		}
@@ -329,7 +333,12 @@ public class GuiPlayerTabOverlay extends Gui {
 		public int compare(NetworkPlayerInfo p_compare_1_, NetworkPlayerInfo p_compare_2_) {
 			ScorePlayerTeam scoreplayerteam = p_compare_1_.getPlayerTeam();
 			ScorePlayerTeam scoreplayerteam1 = p_compare_2_.getPlayerTeam();
-			return ComparisonChain.start().compareTrueFirst(p_compare_1_.getGameType() != GameType.SPECTATOR, p_compare_2_.getGameType() != GameType.SPECTATOR).compare(scoreplayerteam != null ? scoreplayerteam.getName() : "", scoreplayerteam1 != null ? scoreplayerteam1.getName() : "").compare(p_compare_1_.getGameProfile().getName(), p_compare_2_.getGameProfile().getName()).result();
+			return ComparisonChain.start()
+			                      .compareTrueFirst(p_compare_1_.getGameType() != GameType.SPECTATOR, p_compare_2_.getGameType() != GameType.SPECTATOR)
+			                      .compare(scoreplayerteam != null ? scoreplayerteam.getName() : "", scoreplayerteam1 != null ? scoreplayerteam1.getName() : "")
+			                      .compare(p_compare_1_.getGameProfile().getName(), p_compare_2_.getGameProfile()
+			                                                                                    .getName())
+			                      .result();
 		}
 
 	}

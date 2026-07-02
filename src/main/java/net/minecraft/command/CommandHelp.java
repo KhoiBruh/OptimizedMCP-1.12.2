@@ -78,7 +78,8 @@ public class CommandHelp extends CommandBase {
 			for (int i1 = k * 7; i1 < l; ++i1) {
 				ICommand icommand1 = list.get(i1);
 				TextComponentTranslation textcomponenttranslation = new TextComponentTranslation(icommand1.getUsage(sender));
-				textcomponenttranslation.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/" + icommand1.getName() + " "));
+				textcomponenttranslation.getStyle()
+				                        .setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/" + icommand1.getName() + " "));
 				sender.sendMessage(textcomponenttranslation);
 			}
 

@@ -81,8 +81,6 @@ public class Scoreboard {
 		return displaySlots;
 	}
 
-	
-
 	/**
 	 * Returns a ScoreObjective for the objective name
 	 */
@@ -248,8 +246,6 @@ public class Scoreboard {
 		objectiveDisplaySlots[objectiveSlot] = objective;
 	}
 
-	
-
 	/**
 	 * 0 is tab menu, 1 is sidebar, 2 is below name
 	 */
@@ -346,8 +342,6 @@ public class Scoreboard {
 	public Collection<ScorePlayerTeam> getTeams() {
 		return teams.values();
 	}
-
-	
 
 	/**
 	 * Gets the ScorePlayerTeam object for the given username.

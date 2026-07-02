@@ -53,7 +53,6 @@ public class FunctionManager implements ITickable {
 		reload();
 	}
 
-	
 	public FunctionObject getFunction(ResourceLocation id) {
 		return functions.get(id);
 	}

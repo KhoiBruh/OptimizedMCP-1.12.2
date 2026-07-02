@@ -155,7 +155,8 @@ public class BlockModelShapes {
 	public void reloadModels() {
 		bakedModelStore.clear();
 
-		for (Entry<IBlockState, ModelResourceLocation> entry : blockStateMapper.putAllStateModelLocations().entrySet()) {
+		for (Entry<IBlockState, ModelResourceLocation> entry : blockStateMapper.putAllStateModelLocations()
+		                                                                       .entrySet()) {
 			bakedModelStore.put(entry.getKey(), modelManager.getModel(entry.getValue()));
 		}
 	}
@@ -171,26 +172,49 @@ public class BlockModelShapes {
 	private void registerAllBlocks() {
 		registerBuiltInBlocks(Blocks.AIR, Blocks.FLOWING_WATER, Blocks.WATER, Blocks.FLOWING_LAVA, Blocks.LAVA, Blocks.PISTON_EXTENSION, Blocks.CHEST, Blocks.ENDER_CHEST, Blocks.TRAPPED_CHEST, Blocks.STANDING_SIGN, Blocks.SKULL, Blocks.END_PORTAL, Blocks.BARRIER, Blocks.WALL_SIGN, Blocks.WALL_BANNER, Blocks.STANDING_BANNER, Blocks.END_GATEWAY, Blocks.STRUCTURE_VOID, Blocks.WHITE_SHULKER_BOX, Blocks.ORANGE_SHULKER_BOX, Blocks.MAGENTA_SHULKER_BOX, Blocks.LIGHT_BLUE_SHULKER_BOX, Blocks.YELLOW_SHULKER_BOX, Blocks.LIME_SHULKER_BOX, Blocks.PINK_SHULKER_BOX, Blocks.GRAY_SHULKER_BOX, Blocks.SILVER_SHULKER_BOX, Blocks.CYAN_SHULKER_BOX, Blocks.PURPLE_SHULKER_BOX, Blocks.BLUE_SHULKER_BOX, Blocks.BROWN_SHULKER_BOX, Blocks.GREEN_SHULKER_BOX, Blocks.RED_SHULKER_BOX, Blocks.BLACK_SHULKER_BOX, Blocks.BED);
 		registerBlockWithStateMapper(Blocks.STONE, (new StateMap.Builder()).withName(BlockStone.VARIANT).build());
-		registerBlockWithStateMapper(Blocks.PRISMARINE, (new StateMap.Builder()).withName(BlockPrismarine.VARIANT).build());
-		registerBlockWithStateMapper(Blocks.LEAVES, (new StateMap.Builder()).withName(BlockOldLeaf.VARIANT).withSuffix("_leaves").ignore(BlockLeaves.CHECK_DECAY, BlockLeaves.DECAYABLE).build());
-		registerBlockWithStateMapper(Blocks.LEAVES2, (new StateMap.Builder()).withName(BlockNewLeaf.VARIANT).withSuffix("_leaves").ignore(BlockLeaves.CHECK_DECAY, BlockLeaves.DECAYABLE).build());
+		registerBlockWithStateMapper(Blocks.PRISMARINE, (new StateMap.Builder()).withName(BlockPrismarine.VARIANT)
+		                                                                        .build());
+		registerBlockWithStateMapper(Blocks.LEAVES, (new StateMap.Builder()).withName(BlockOldLeaf.VARIANT)
+		                                                                    .withSuffix("_leaves")
+		                                                                    .ignore(BlockLeaves.CHECK_DECAY, BlockLeaves.DECAYABLE)
+		                                                                    .build());
+		registerBlockWithStateMapper(Blocks.LEAVES2, (new StateMap.Builder()).withName(BlockNewLeaf.VARIANT)
+		                                                                     .withSuffix("_leaves")
+		                                                                     .ignore(BlockLeaves.CHECK_DECAY, BlockLeaves.DECAYABLE)
+		                                                                     .build());
 		registerBlockWithStateMapper(Blocks.CACTUS, (new StateMap.Builder()).ignore(BlockCactus.AGE).build());
 		registerBlockWithStateMapper(Blocks.REEDS, (new StateMap.Builder()).ignore(BlockReed.AGE).build());
 		registerBlockWithStateMapper(Blocks.JUKEBOX, (new StateMap.Builder()).ignore(BlockJukebox.HAS_RECORD).build());
-		registerBlockWithStateMapper(Blocks.COBBLESTONE_WALL, (new StateMap.Builder()).withName(BlockWall.VARIANT).withSuffix("_wall").build());
-		registerBlockWithStateMapper(Blocks.DOUBLE_PLANT, (new StateMap.Builder()).withName(BlockDoublePlant.VARIANT).ignore(BlockDoublePlant.FACING).build());
-		registerBlockWithStateMapper(Blocks.OAK_FENCE_GATE, (new StateMap.Builder()).ignore(BlockFenceGate.POWERED).build());
-		registerBlockWithStateMapper(Blocks.SPRUCE_FENCE_GATE, (new StateMap.Builder()).ignore(BlockFenceGate.POWERED).build());
-		registerBlockWithStateMapper(Blocks.BIRCH_FENCE_GATE, (new StateMap.Builder()).ignore(BlockFenceGate.POWERED).build());
-		registerBlockWithStateMapper(Blocks.JUNGLE_FENCE_GATE, (new StateMap.Builder()).ignore(BlockFenceGate.POWERED).build());
-		registerBlockWithStateMapper(Blocks.DARK_OAK_FENCE_GATE, (new StateMap.Builder()).ignore(BlockFenceGate.POWERED).build());
-		registerBlockWithStateMapper(Blocks.ACACIA_FENCE_GATE, (new StateMap.Builder()).ignore(BlockFenceGate.POWERED).build());
-		registerBlockWithStateMapper(Blocks.TRIPWIRE, (new StateMap.Builder()).ignore(BlockTripWire.DISARMED, BlockTripWire.POWERED).build());
-		registerBlockWithStateMapper(Blocks.DOUBLE_WOODEN_SLAB, (new StateMap.Builder()).withName(BlockPlanks.VARIANT).withSuffix("_double_slab").build());
-		registerBlockWithStateMapper(Blocks.WOODEN_SLAB, (new StateMap.Builder()).withName(BlockPlanks.VARIANT).withSuffix("_slab").build());
+		registerBlockWithStateMapper(Blocks.COBBLESTONE_WALL, (new StateMap.Builder()).withName(BlockWall.VARIANT)
+		                                                                              .withSuffix("_wall")
+		                                                                              .build());
+		registerBlockWithStateMapper(Blocks.DOUBLE_PLANT, (new StateMap.Builder()).withName(BlockDoublePlant.VARIANT)
+		                                                                          .ignore(BlockDoublePlant.FACING)
+		                                                                          .build());
+		registerBlockWithStateMapper(Blocks.OAK_FENCE_GATE, (new StateMap.Builder()).ignore(BlockFenceGate.POWERED)
+		                                                                            .build());
+		registerBlockWithStateMapper(Blocks.SPRUCE_FENCE_GATE, (new StateMap.Builder()).ignore(BlockFenceGate.POWERED)
+		                                                                               .build());
+		registerBlockWithStateMapper(Blocks.BIRCH_FENCE_GATE, (new StateMap.Builder()).ignore(BlockFenceGate.POWERED)
+		                                                                              .build());
+		registerBlockWithStateMapper(Blocks.JUNGLE_FENCE_GATE, (new StateMap.Builder()).ignore(BlockFenceGate.POWERED)
+		                                                                               .build());
+		registerBlockWithStateMapper(Blocks.DARK_OAK_FENCE_GATE, (new StateMap.Builder()).ignore(BlockFenceGate.POWERED)
+		                                                                                 .build());
+		registerBlockWithStateMapper(Blocks.ACACIA_FENCE_GATE, (new StateMap.Builder()).ignore(BlockFenceGate.POWERED)
+		                                                                               .build());
+		registerBlockWithStateMapper(Blocks.TRIPWIRE, (new StateMap.Builder()).ignore(BlockTripWire.DISARMED, BlockTripWire.POWERED)
+		                                                                      .build());
+		registerBlockWithStateMapper(Blocks.DOUBLE_WOODEN_SLAB, (new StateMap.Builder()).withName(BlockPlanks.VARIANT)
+		                                                                                .withSuffix("_double_slab")
+		                                                                                .build());
+		registerBlockWithStateMapper(Blocks.WOODEN_SLAB, (new StateMap.Builder()).withName(BlockPlanks.VARIANT)
+		                                                                         .withSuffix("_slab")
+		                                                                         .build());
 		registerBlockWithStateMapper(Blocks.TNT, (new StateMap.Builder()).ignore(BlockTNT.EXPLODE).build());
 		registerBlockWithStateMapper(Blocks.FIRE, (new StateMap.Builder()).ignore(BlockFire.AGE).build());
-		registerBlockWithStateMapper(Blocks.REDSTONE_WIRE, (new StateMap.Builder()).ignore(BlockRedstoneWire.POWER).build());
+		registerBlockWithStateMapper(Blocks.REDSTONE_WIRE, (new StateMap.Builder()).ignore(BlockRedstoneWire.POWER)
+		                                                                           .build());
 		registerBlockWithStateMapper(Blocks.OAK_DOOR, (new StateMap.Builder()).ignore(BlockDoor.POWERED).build());
 		registerBlockWithStateMapper(Blocks.SPRUCE_DOOR, (new StateMap.Builder()).ignore(BlockDoor.POWERED).build());
 		registerBlockWithStateMapper(Blocks.BIRCH_DOOR, (new StateMap.Builder()).ignore(BlockDoor.POWERED).build());
@@ -198,31 +222,65 @@ public class BlockModelShapes {
 		registerBlockWithStateMapper(Blocks.ACACIA_DOOR, (new StateMap.Builder()).ignore(BlockDoor.POWERED).build());
 		registerBlockWithStateMapper(Blocks.DARK_OAK_DOOR, (new StateMap.Builder()).ignore(BlockDoor.POWERED).build());
 		registerBlockWithStateMapper(Blocks.IRON_DOOR, (new StateMap.Builder()).ignore(BlockDoor.POWERED).build());
-		registerBlockWithStateMapper(Blocks.WOOL, (new StateMap.Builder()).withName(BlockColored.COLOR).withSuffix("_wool").build());
-		registerBlockWithStateMapper(Blocks.CARPET, (new StateMap.Builder()).withName(BlockColored.COLOR).withSuffix("_carpet").build());
-		registerBlockWithStateMapper(Blocks.STAINED_HARDENED_CLAY, (new StateMap.Builder()).withName(BlockColored.COLOR).withSuffix("_stained_hardened_clay").build());
-		registerBlockWithStateMapper(Blocks.STAINED_GLASS_PANE, (new StateMap.Builder()).withName(BlockColored.COLOR).withSuffix("_stained_glass_pane").build());
-		registerBlockWithStateMapper(Blocks.STAINED_GLASS, (new StateMap.Builder()).withName(BlockColored.COLOR).withSuffix("_stained_glass").build());
+		registerBlockWithStateMapper(Blocks.WOOL, (new StateMap.Builder()).withName(BlockColored.COLOR)
+		                                                                  .withSuffix("_wool")
+		                                                                  .build());
+		registerBlockWithStateMapper(Blocks.CARPET, (new StateMap.Builder()).withName(BlockColored.COLOR)
+		                                                                    .withSuffix("_carpet")
+		                                                                    .build());
+		registerBlockWithStateMapper(Blocks.STAINED_HARDENED_CLAY, (new StateMap.Builder()).withName(BlockColored.COLOR)
+		                                                                                   .withSuffix("_stained_hardened_clay")
+		                                                                                   .build());
+		registerBlockWithStateMapper(Blocks.STAINED_GLASS_PANE, (new StateMap.Builder()).withName(BlockColored.COLOR)
+		                                                                                .withSuffix("_stained_glass_pane")
+		                                                                                .build());
+		registerBlockWithStateMapper(Blocks.STAINED_GLASS, (new StateMap.Builder()).withName(BlockColored.COLOR)
+		                                                                           .withSuffix("_stained_glass")
+		                                                                           .build());
 		registerBlockWithStateMapper(Blocks.SANDSTONE, (new StateMap.Builder()).withName(BlockSandStone.TYPE).build());
-		registerBlockWithStateMapper(Blocks.RED_SANDSTONE, (new StateMap.Builder()).withName(BlockRedSandstone.TYPE).build());
+		registerBlockWithStateMapper(Blocks.RED_SANDSTONE, (new StateMap.Builder()).withName(BlockRedSandstone.TYPE)
+		                                                                           .build());
 		registerBlockWithStateMapper(Blocks.TALLGRASS, (new StateMap.Builder()).withName(BlockTallGrass.TYPE).build());
-		registerBlockWithStateMapper(Blocks.YELLOW_FLOWER, (new StateMap.Builder()).withName(Blocks.YELLOW_FLOWER.getTypeProperty()).build());
-		registerBlockWithStateMapper(Blocks.RED_FLOWER, (new StateMap.Builder()).withName(Blocks.RED_FLOWER.getTypeProperty()).build());
-		registerBlockWithStateMapper(Blocks.STONE_SLAB, (new StateMap.Builder()).withName(BlockStoneSlab.VARIANT).withSuffix("_slab").build());
-		registerBlockWithStateMapper(Blocks.STONE_SLAB2, (new StateMap.Builder()).withName(BlockStoneSlabNew.VARIANT).withSuffix("_slab").build());
-		registerBlockWithStateMapper(Blocks.MONSTER_EGG, (new StateMap.Builder()).withName(BlockSilverfish.VARIANT).withSuffix("_monster_egg").build());
-		registerBlockWithStateMapper(Blocks.STONEBRICK, (new StateMap.Builder()).withName(BlockStoneBrick.VARIANT).build());
-		registerBlockWithStateMapper(Blocks.DISPENSER, (new StateMap.Builder()).ignore(BlockDispenser.TRIGGERED).build());
+		registerBlockWithStateMapper(Blocks.YELLOW_FLOWER, (new StateMap.Builder()).withName(Blocks.YELLOW_FLOWER.getTypeProperty())
+		                                                                           .build());
+		registerBlockWithStateMapper(Blocks.RED_FLOWER, (new StateMap.Builder()).withName(Blocks.RED_FLOWER.getTypeProperty())
+		                                                                        .build());
+		registerBlockWithStateMapper(Blocks.STONE_SLAB, (new StateMap.Builder()).withName(BlockStoneSlab.VARIANT)
+		                                                                        .withSuffix("_slab")
+		                                                                        .build());
+		registerBlockWithStateMapper(Blocks.STONE_SLAB2, (new StateMap.Builder()).withName(BlockStoneSlabNew.VARIANT)
+		                                                                         .withSuffix("_slab")
+		                                                                         .build());
+		registerBlockWithStateMapper(Blocks.MONSTER_EGG, (new StateMap.Builder()).withName(BlockSilverfish.VARIANT)
+		                                                                         .withSuffix("_monster_egg")
+		                                                                         .build());
+		registerBlockWithStateMapper(Blocks.STONEBRICK, (new StateMap.Builder()).withName(BlockStoneBrick.VARIANT)
+		                                                                        .build());
+		registerBlockWithStateMapper(Blocks.DISPENSER, (new StateMap.Builder()).ignore(BlockDispenser.TRIGGERED)
+		                                                                       .build());
 		registerBlockWithStateMapper(Blocks.DROPPER, (new StateMap.Builder()).ignore(BlockDropper.TRIGGERED).build());
-		registerBlockWithStateMapper(Blocks.LOG, (new StateMap.Builder()).withName(BlockOldLog.VARIANT).withSuffix("_log").build());
-		registerBlockWithStateMapper(Blocks.LOG2, (new StateMap.Builder()).withName(BlockNewLog.VARIANT).withSuffix("_log").build());
-		registerBlockWithStateMapper(Blocks.PLANKS, (new StateMap.Builder()).withName(BlockPlanks.VARIANT).withSuffix("_planks").build());
-		registerBlockWithStateMapper(Blocks.SAPLING, (new StateMap.Builder()).withName(BlockSapling.TYPE).withSuffix("_sapling").build());
+		registerBlockWithStateMapper(Blocks.LOG, (new StateMap.Builder()).withName(BlockOldLog.VARIANT)
+		                                                                 .withSuffix("_log")
+		                                                                 .build());
+		registerBlockWithStateMapper(Blocks.LOG2, (new StateMap.Builder()).withName(BlockNewLog.VARIANT)
+		                                                                  .withSuffix("_log")
+		                                                                  .build());
+		registerBlockWithStateMapper(Blocks.PLANKS, (new StateMap.Builder()).withName(BlockPlanks.VARIANT)
+		                                                                    .withSuffix("_planks")
+		                                                                    .build());
+		registerBlockWithStateMapper(Blocks.SAPLING, (new StateMap.Builder()).withName(BlockSapling.TYPE)
+		                                                                     .withSuffix("_sapling")
+		                                                                     .build());
 		registerBlockWithStateMapper(Blocks.SAND, (new StateMap.Builder()).withName(BlockSand.VARIANT).build());
 		registerBlockWithStateMapper(Blocks.HOPPER, (new StateMap.Builder()).ignore(BlockHopper.ENABLED).build());
-		registerBlockWithStateMapper(Blocks.FLOWER_POT, (new StateMap.Builder()).ignore(BlockFlowerPot.LEGACY_DATA).build());
-		registerBlockWithStateMapper(Blocks.CONCRETE, (new StateMap.Builder()).withName(BlockColored.COLOR).withSuffix("_concrete").build());
-		registerBlockWithStateMapper(Blocks.CONCRETE_POWDER, (new StateMap.Builder()).withName(BlockColored.COLOR).withSuffix("_concrete_powder").build());
+		registerBlockWithStateMapper(Blocks.FLOWER_POT, (new StateMap.Builder()).ignore(BlockFlowerPot.LEGACY_DATA)
+		                                                                        .build());
+		registerBlockWithStateMapper(Blocks.CONCRETE, (new StateMap.Builder()).withName(BlockColored.COLOR)
+		                                                                      .withSuffix("_concrete")
+		                                                                      .build());
+		registerBlockWithStateMapper(Blocks.CONCRETE_POWDER, (new StateMap.Builder()).withName(BlockColored.COLOR)
+		                                                                             .withSuffix("_concrete_powder")
+		                                                                             .build());
 		registerBlockWithStateMapper(Blocks.QUARTZ_BLOCK, new StateMapperBase() {
 			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
 				BlockQuartz.Type blockquartz$enumtype = state.getValue(BlockQuartz.VARIANT);

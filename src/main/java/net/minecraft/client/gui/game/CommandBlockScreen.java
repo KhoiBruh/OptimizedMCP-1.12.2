@@ -77,7 +77,7 @@ public class CommandBlockScreen extends Screen implements ITabCompleter {
 		conditionalBtn.enabled = false;
 		autoExecBtn.enabled = false;
 		tabCompleter = new TabCompleter(commandTextField, true) {
-			
+
 			public BlockPos getTargetBlockPos() {
 				return commandblockbaselogic.getPosition();
 			}

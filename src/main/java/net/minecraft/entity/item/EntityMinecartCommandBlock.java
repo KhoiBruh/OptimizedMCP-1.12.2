@@ -79,7 +79,8 @@ public class EntityMinecartCommandBlock extends EntityMinecart {
 		EntityMinecart.registerFixesMinecart(fixer, EntityMinecartCommandBlock.class);
 		fixer.registerWalker(FixTypes.ENTITY, (fixer1, compound, versionIn) -> {
 
-			if (TileEntity.getKey(TileEntityCommandBlock.class).equals(new ResourceLocation(compound.getString("id")))) {
+			if (TileEntity.getKey(TileEntityCommandBlock.class)
+			              .equals(new ResourceLocation(compound.getString("id")))) {
 				compound.setString("id", "Control");
 				fixer1.process(FixTypes.BLOCK_ENTITY, compound, versionIn);
 				compound.setString("id", "MinecartCommandBlock");

@@ -44,8 +44,6 @@ public class PhaseHoldingPattern extends PhaseBase {
 		targetLocation = null;
 	}
 
-	
-
 	/**
 	 * Returns the location the dragon is flying toward
 	 */
@@ -70,7 +68,8 @@ public class PhaseHoldingPattern extends PhaseBase {
 				d0 = entityplayer.getDistanceSqToCenter(blockpos) / 512D;
 			}
 
-			if (entityplayer != null && (dragon.getRNG().nextInt(MathHelper.abs((int) d0) + 2) == 0 || dragon.getRNG().nextInt(i + 2) == 0)) {
+			if (entityplayer != null && (dragon.getRNG().nextInt(MathHelper.abs((int) d0) + 2) == 0 || dragon.getRNG()
+			                                                                                                 .nextInt(i + 2) == 0)) {
 				strafePlayer(entityplayer);
 				return;
 			}

@@ -106,10 +106,12 @@ public class BlockStateContainer {
 	}
 
 	public String toString() {
-		return MoreObjects.toStringHelper(this).add("block", Block.REGISTRY.getNameForObject(block)).add("properties", Iterables.transform(properties.values(), GET_NAME_FUNC)).toString();
+		return MoreObjects.toStringHelper(this)
+		                  .add("block", Block.REGISTRY.getNameForObject(block))
+		                  .add("properties", Iterables.transform(properties.values(), GET_NAME_FUNC))
+		                  .toString();
 	}
 
-	
 	public IProperty<?> getProperty(String propertyName) {
 
 		return properties.get(propertyName);
@@ -317,7 +319,6 @@ public class BlockStateContainer {
 			return block.isOpaqueCube(this);
 		}
 
-		
 		public AxisAlignedBB getCollisionBoundingBox(IBlockAccess worldIn, BlockPos pos) {
 			return block.getCollisionBoundingBox(this, worldIn, pos);
 		}

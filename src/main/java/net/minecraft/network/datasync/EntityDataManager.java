@@ -105,7 +105,6 @@ public class EntityDataManager {
 		}
 	}
 
-	
 	public static List<EntityDataManager.DataEntry<?>> readEntries(PacketBuffer buf) throws IOException {
 
 		List<EntityDataManager.DataEntry<?>> list = null;
@@ -192,7 +191,6 @@ public class EntityDataManager {
 		return dirty;
 	}
 
-	
 	public List<EntityDataManager.DataEntry<?>> getDirty() {
 
 		List<EntityDataManager.DataEntry<?>> list = null;
@@ -236,7 +234,6 @@ public class EntityDataManager {
 		buf.writeByte(255);
 	}
 
-	
 	public List<EntityDataManager.DataEntry<?>> getAll() {
 
 		List<EntityDataManager.DataEntry<?>> list = null;

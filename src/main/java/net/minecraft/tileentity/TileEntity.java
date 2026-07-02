@@ -66,12 +66,10 @@ public abstract class TileEntity {
 		REGISTRY.putObject(new ResourceLocation(id), clazz);
 	}
 
-	
 	public static ResourceLocation getKey(Class<? extends TileEntity> clazz) {
 		return REGISTRY.getNameForObject(clazz);
 	}
 
-	
 	public static TileEntity create(World worldIn, NBTTagCompound compound) {
 		TileEntity tileentity = null;
 		String s = compound.getString("id");
@@ -205,7 +203,6 @@ public abstract class TileEntity {
 		return blockType;
 	}
 
-	
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		return null;
 	}
@@ -251,7 +248,10 @@ public abstract class TileEntity {
 				int i = Block.getIdFromBlock(world.getBlockState(pos).getBlock());
 
 				try {
-					return String.format("ID #%d (%s // %s)", i, Block.getBlockById(i).getUnlocalizedName(), Block.getBlockById(i).getClass().getCanonicalName());
+					return String.format("ID #%d (%s // %s)", i, Block.getBlockById(i)
+					                                                  .getUnlocalizedName(), Block.getBlockById(i)
+					                                                                              .getClass()
+					                                                                              .getCanonicalName());
 				} catch (Throwable var3) {
 					return "ID #" + i;
 				}
@@ -275,8 +275,6 @@ public abstract class TileEntity {
 		return false;
 	}
 
-	
-
 	/**
 	 * Get the formatted ChatComponent that will be used for the sender's username in chat
 	 */
@@ -289,4 +287,5 @@ public abstract class TileEntity {
 
 	public void mirror(Mirror mirrorIn) {
 	}
+
 }

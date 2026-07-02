@@ -23,8 +23,6 @@ public class MapStorage {
 		loadIdCounts();
 	}
 
-	
-
 	/**
 	 * Loads an existing MapDataBase corresponding to the given id from disk, instantiating the given Class, or returns
 	 * null if none such file exists.

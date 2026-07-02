@@ -175,7 +175,8 @@ public class EntityXPOrb extends Entity {
 		float f = 0.98F;
 
 		if (onGround) {
-			f = world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(getEntityBoundingBox().minY) - 1, MathHelper.floor(posZ))).getBlock().slipperiness * 0.98F;
+			f = world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(getEntityBoundingBox().minY) - 1, MathHelper.floor(posZ)))
+			         .getBlock().slipperiness * 0.98F;
 		}
 
 		motionX *= f;

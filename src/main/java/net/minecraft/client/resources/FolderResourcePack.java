@@ -41,7 +41,6 @@ public class FolderResourcePack extends AbstractResourcePack {
 		return getFile(name) != null;
 	}
 
-	
 	private File getFile(String p_191385_1_) {
 		try {
 			File file1 = new File(resourcePackFile, p_191385_1_);

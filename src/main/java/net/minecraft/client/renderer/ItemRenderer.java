@@ -505,7 +505,8 @@ public class ItemRenderer {
 
 		for (int i = 0; i < 2; ++i) {
 			GLS.pushMatrix();
-			TextureAtlasSprite textureatlassprite = mc.getBlockTextures().getAtlasSprite("minecraft:blocks/fire_layer_1");
+			TextureAtlasSprite textureatlassprite = mc.getBlockTextures()
+			                                          .getAtlasSprite("minecraft:blocks/fire_layer_1");
 			mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			float f1 = textureatlassprite.getMinU();
 			float f2 = textureatlassprite.getMaxU();

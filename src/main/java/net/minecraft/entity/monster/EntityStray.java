@@ -31,7 +31,6 @@ public class EntityStray extends AbstractSkeleton {
 		return super.getCanSpawnHere() && world.canSeeSky(new BlockPos(this));
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_STRAY;
 	}

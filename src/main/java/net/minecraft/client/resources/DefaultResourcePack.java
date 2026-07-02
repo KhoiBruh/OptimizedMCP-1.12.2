@@ -36,13 +36,11 @@ public class DefaultResourcePack implements IResourcePack {
 		}
 	}
 
-	
 	public InputStream getInputStreamAssets(ResourceLocation location) throws IOException {
 		File file1 = resourceIndex.getFile(location);
 		return file1 != null && file1.isFile() ? new FileInputStream(file1) : null;
 	}
 
-	
 	private InputStream getResourceStream(ResourceLocation location) {
 		String s = "/assets/" + location.getResourceDomain() + "/" + location.getResourcePath();
 
@@ -62,7 +60,6 @@ public class DefaultResourcePack implements IResourcePack {
 		return DEFAULT_RESOURCE_DOMAINS;
 	}
 
-	
 	public <T extends IMetadataSection> T getPackMetadata(MetadataSerializer metadataSerializer, String metadataSectionName) {
 
 		try {

@@ -82,10 +82,12 @@ public class BlockDaylightDetector extends BlockContainer {
 				return true;
 			} else {
 				if (inverted) {
-					worldIn.setBlockState(pos, Blocks.DAYLIGHT_DETECTOR.getDefaultState().withProperty(POWER, state.getValue(POWER)), 4);
+					worldIn.setBlockState(pos, Blocks.DAYLIGHT_DETECTOR.getDefaultState()
+					                                                   .withProperty(POWER, state.getValue(POWER)), 4);
 					Blocks.DAYLIGHT_DETECTOR.updatePower(worldIn, pos);
 				} else {
-					worldIn.setBlockState(pos, Blocks.DAYLIGHT_DETECTOR_INVERTED.getDefaultState().withProperty(POWER, state.getValue(POWER)), 4);
+					worldIn.setBlockState(pos, Blocks.DAYLIGHT_DETECTOR_INVERTED.getDefaultState()
+					                                                            .withProperty(POWER, state.getValue(POWER)), 4);
 					Blocks.DAYLIGHT_DETECTOR_INVERTED.updatePower(worldIn, pos);
 				}
 

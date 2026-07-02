@@ -11,9 +11,13 @@ public class Material {
 	public static final Material ANVIL = (new Material(MapColor.IRON)).setRequiresTool().setImmovableMobility();
 	public static final Material WATER = (new MaterialLiquid(MapColor.WATER)).setNoPushMobility();
 	public static final Material LAVA = (new MaterialLiquid(MapColor.TNT)).setNoPushMobility();
-	public static final Material LEAVES = (new Material(MapColor.FOLIAGE)).setBurning().setTranslucent().setNoPushMobility();
+	public static final Material LEAVES = (new Material(MapColor.FOLIAGE)).setBurning()
+	                                                                      .setTranslucent()
+	                                                                      .setNoPushMobility();
 	public static final Material PLANTS = (new MaterialLogic(MapColor.FOLIAGE)).setNoPushMobility();
-	public static final Material VINE = (new MaterialLogic(MapColor.FOLIAGE)).setBurning().setNoPushMobility().setReplaceable();
+	public static final Material VINE = (new MaterialLogic(MapColor.FOLIAGE)).setBurning()
+	                                                                         .setNoPushMobility()
+	                                                                         .setReplaceable();
 	public static final Material SPONGE = new Material(MapColor.YELLOW);
 	public static final Material CLOTH = (new Material(MapColor.CLOTH)).setBurning();
 	public static final Material FIRE = (new MaterialTransparent(MapColor.AIR)).setNoPushMobility();
@@ -26,7 +30,10 @@ public class Material {
 	public static final Material CORAL = (new Material(MapColor.FOLIAGE)).setNoPushMobility();
 	public static final Material ICE = (new Material(MapColor.ICE)).setTranslucent().setAdventureModeExempt();
 	public static final Material PACKED_ICE = (new Material(MapColor.ICE)).setAdventureModeExempt();
-	public static final Material SNOW = (new MaterialLogic(MapColor.SNOW)).setReplaceable().setTranslucent().setRequiresTool().setNoPushMobility();
+	public static final Material SNOW = (new MaterialLogic(MapColor.SNOW)).setReplaceable()
+	                                                                      .setTranslucent()
+	                                                                      .setRequiresTool()
+	                                                                      .setNoPushMobility();
 
 	/**
 	 * The material for crafted snow.

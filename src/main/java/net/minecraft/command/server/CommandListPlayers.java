@@ -36,7 +36,8 @@ public class CommandListPlayers extends CommandBase {
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
 		int i = server.getCurrentPlayerCount();
 		sender.sendMessage(new TextComponentTranslation("commands.players.list", i, server.getMaxPlayers()));
-		sender.sendMessage(new TextComponentString(server.getPlayerList().getFormattedListOfPlayers(args.length > 0 && "uuids".equalsIgnoreCase(args[0]))));
+		sender.sendMessage(new TextComponentString(server.getPlayerList()
+		                                                 .getFormattedListOfPlayers(args.length > 0 && "uuids".equalsIgnoreCase(args[0]))));
 		sender.setCommandStat(CommandResultStats.Type.QUERY_RESULT, i);
 	}
 

@@ -39,7 +39,6 @@ public abstract class BlockRailBase extends Block {
 		return block == Blocks.RAIL || block == Blocks.GOLDEN_RAIL || block == Blocks.DETECTOR_RAIL || block == Blocks.ACTIVATOR_RAIL;
 	}
 
-	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return NULL_AABB;
 	}
@@ -103,13 +102,17 @@ public abstract class BlockRailBase extends Block {
 			BlockRailBase.RailDirection blockrailbase$enumraildirection = state.getValue(getShapeProperty());
 			boolean flag = !worldIn.getBlockState(pos.down()).isTopSolid();
 
-			if (blockrailbase$enumraildirection == BlockRailBase.RailDirection.ASCENDING_EAST && !worldIn.getBlockState(pos.east()).isTopSolid()) {
+			if (blockrailbase$enumraildirection == BlockRailBase.RailDirection.ASCENDING_EAST && !worldIn.getBlockState(pos.east())
+			                                                                                             .isTopSolid()) {
 				flag = true;
-			} else if (blockrailbase$enumraildirection == BlockRailBase.RailDirection.ASCENDING_WEST && !worldIn.getBlockState(pos.west()).isTopSolid()) {
+			} else if (blockrailbase$enumraildirection == BlockRailBase.RailDirection.ASCENDING_WEST && !worldIn.getBlockState(pos.west())
+			                                                                                                    .isTopSolid()) {
 				flag = true;
-			} else if (blockrailbase$enumraildirection == BlockRailBase.RailDirection.ASCENDING_NORTH && !worldIn.getBlockState(pos.north()).isTopSolid()) {
+			} else if (blockrailbase$enumraildirection == BlockRailBase.RailDirection.ASCENDING_NORTH && !worldIn.getBlockState(pos.north())
+			                                                                                                     .isTopSolid()) {
 				flag = true;
-			} else if (blockrailbase$enumraildirection == BlockRailBase.RailDirection.ASCENDING_SOUTH && !worldIn.getBlockState(pos.south()).isTopSolid()) {
+			} else if (blockrailbase$enumraildirection == BlockRailBase.RailDirection.ASCENDING_SOUTH && !worldIn.getBlockState(pos.south())
+			                                                                                                     .isTopSolid()) {
 				flag = true;
 			}
 
@@ -126,7 +129,8 @@ public abstract class BlockRailBase extends Block {
 	}
 
 	protected IBlockState updateDir(World worldIn, BlockPos pos, IBlockState state, boolean initialPlacement) {
-		return worldIn.isRemote ? state : (new BlockRailBase.Rail(worldIn, pos, state)).place(worldIn.isBlockPowered(pos), initialPlacement).getBlockState();
+		return worldIn.isRemote ? state : (new BlockRailBase.Rail(worldIn, pos, state)).place(worldIn.isBlockPowered(pos), initialPlacement)
+		                                                                               .getBlockState();
 	}
 
 	public PushReaction getMobilityFlag(IBlockState state) {
@@ -307,7 +311,6 @@ public abstract class BlockRailBase extends Block {
 			return BlockRailBase.isRailBlock(world, pos) || BlockRailBase.isRailBlock(world, pos.up()) || BlockRailBase.isRailBlock(world, pos.down());
 		}
 
-		
 		private BlockRailBase.Rail findRailAt(BlockPos pos) {
 
 			IBlockState iblockstate = world.getBlockState(pos);

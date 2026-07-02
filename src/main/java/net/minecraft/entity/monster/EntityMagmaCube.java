@@ -39,7 +39,8 @@ public class EntityMagmaCube extends EntitySlime {
 	 * Checks that the entity is not colliding with any blocks / liquids
 	 */
 	public boolean isNotColliding() {
-		return world.checkNoEntityCollision(getEntityBoundingBox(), this) && world.getCollisionBoxes(this, getEntityBoundingBox()).isEmpty() && !world.containsAnyLiquid(getEntityBoundingBox());
+		return world.checkNoEntityCollision(getEntityBoundingBox(), this) && world.getCollisionBoxes(this, getEntityBoundingBox())
+		                                                                          .isEmpty() && !world.containsAnyLiquid(getEntityBoundingBox());
 	}
 
 	protected void setSlimeSize(int size, boolean resetHealth) {
@@ -66,7 +67,6 @@ public class EntityMagmaCube extends EntitySlime {
 		return new EntityMagmaCube(world);
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return isSmallSlime() ? LootTableList.EMPTY : LootTableList.ENTITIES_MAGMA_CUBE;
 	}

@@ -8,8 +8,6 @@ import java.io.IOException;
 
 public interface IChunkLoader {
 
-	
-
 	/**
 	 * Loads the specified(XZ) chunk into the specified world.
 	 */

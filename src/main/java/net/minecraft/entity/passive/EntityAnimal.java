@@ -71,7 +71,8 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 	}
 
 	public float getBlockPathWeight(BlockPos pos) {
-		return world.getBlockState(pos.down()).getBlock() == spawnableBlock ? 10F : world.getLightBrightness(pos) - 0.5F;
+		return world.getBlockState(pos.down())
+		            .getBlock() == spawnableBlock ? 10F : world.getLightBrightness(pos) - 0.5F;
 	}
 
 	/**
@@ -110,7 +111,8 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 		int j = MathHelper.floor(getEntityBoundingBox().minY);
 		int k = MathHelper.floor(posZ);
 		BlockPos blockpos = new BlockPos(i, j, k);
-		return world.getBlockState(blockpos.down()).getBlock() == spawnableBlock && world.getLight(blockpos) > 8 && super.getCanSpawnHere();
+		return world.getBlockState(blockpos.down())
+		            .getBlock() == spawnableBlock && world.getLight(blockpos) > 8 && super.getCanSpawnHere();
 	}
 
 	/**
@@ -171,7 +173,6 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 		}
 	}
 
-	
 	public EntityPlayerMP getLoveCause() {
 		if (playerInLove == null) {
 			return null;

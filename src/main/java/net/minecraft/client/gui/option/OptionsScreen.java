@@ -123,12 +123,15 @@ public class OptionsScreen extends Screen {
 			}
 
 			if (button.id == 108) {
-				mc.world.getWorldInfo().setDifficulty(Difficulty.getDifficultyEnum(mc.world.getDifficulty().getDifficultyId() + 1));
+				mc.world.getWorldInfo()
+				        .setDifficulty(Difficulty.getDifficultyEnum(mc.world.getDifficulty().getDifficultyId() + 1));
 				difficultyButton.displayString = getDifficultyText(mc.world.getDifficulty());
 			}
 
 			if (button.id == 109) {
-				mc.displayScreen(new YesNoScreen(this, (new TextComponentTranslation("difficulty.lock.title")).getFormattedText(), (new TextComponentTranslation("difficulty.lock.question", new TextComponentTranslation(mc.world.getWorldInfo().getDifficulty().getDifficultyResourceKey()))).getFormattedText(), 109));
+				mc.displayScreen(new YesNoScreen(this, (new TextComponentTranslation("difficulty.lock.title")).getFormattedText(), (new TextComponentTranslation("difficulty.lock.question", new TextComponentTranslation(mc.world.getWorldInfo()
+				                                                                                                                                                                                                                  .getDifficulty()
+				                                                                                                                                                                                                                  .getDifficultyResourceKey()))).getFormattedText(), 109));
 			}
 
 			if (button.id == 110) {

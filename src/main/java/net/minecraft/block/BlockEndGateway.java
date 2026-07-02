@@ -37,7 +37,6 @@ public class BlockEndGateway extends BlockContainer {
 		return !iblockstate.isOpaqueCube() && block != Blocks.END_GATEWAY;
 	}
 
-	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return NULL_AABB;
 	}

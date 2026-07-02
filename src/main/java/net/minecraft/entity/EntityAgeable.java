@@ -25,7 +25,6 @@ public abstract class EntityAgeable extends EntityCreature {
 		super(worldIn);
 	}
 
-	
 	public abstract EntityAgeable createChild(EntityAgeable ageable);
 
 	public boolean processInteract(EntityPlayer player, Hand hand) {

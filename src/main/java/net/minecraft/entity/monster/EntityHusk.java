@@ -52,7 +52,6 @@ public class EntityHusk extends EntityZombie {
 		return SoundEvents.ENTITY_HUSK_STEP;
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_HUSK;
 	}

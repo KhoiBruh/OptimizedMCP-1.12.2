@@ -47,7 +47,6 @@ public class SetAttributes extends LootFunction {
 		private final int operation;
 		private final RandomValueRange amount;
 
-		
 		private final UUID uuid;
 		private final EntityEquipmentSlot[] slots;
 
@@ -117,7 +116,7 @@ public class SetAttributes extends LootFunction {
 				case "multiply_base" -> 1;
 				case "multiply_total" -> 2;
 				case null, default ->
-						throw new JsonSyntaxException("Unknown attribute modifier operation " + operationIn);
+					throw new JsonSyntaxException("Unknown attribute modifier operation " + operationIn);
 			};
 		}
 

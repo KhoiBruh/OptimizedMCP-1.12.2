@@ -36,7 +36,8 @@ public class CombatTracker {
 		resetFallSuffix();
 
 		if (fighter.isOnLadder()) {
-			Block block = fighter.world.getBlockState(new BlockPos(fighter.posX, fighter.getEntityBoundingBox().minY, fighter.posZ)).getBlock();
+			Block block = fighter.world.getBlockState(new BlockPos(fighter.posX, fighter.getEntityBoundingBox().minY, fighter.posZ))
+			                           .getBlock();
 
 			if (block == Blocks.LADDER) {
 				fallSuffix = "ladder";
@@ -112,7 +113,6 @@ public class CombatTracker {
 		}
 	}
 
-	
 	public EntityLivingBase getBestAttacker() {
 		EntityLivingBase entitylivingbase = null;
 		EntityPlayer entityplayer = null;
@@ -120,12 +120,14 @@ public class CombatTracker {
 		float f1 = 0F;
 
 		for (CombatEntry combatentry : combatEntries) {
-			if (combatentry.getDamageSrc().getTrueSource() instanceof EntityPlayer && (entityplayer == null || combatentry.getDamage() > f1)) {
+			if (combatentry.getDamageSrc()
+			               .getTrueSource() instanceof EntityPlayer && (entityplayer == null || combatentry.getDamage() > f1)) {
 				f1 = combatentry.getDamage();
 				entityplayer = (EntityPlayer) combatentry.getDamageSrc().getTrueSource();
 			}
 
-			if (combatentry.getDamageSrc().getTrueSource() instanceof EntityLivingBase && (entitylivingbase == null || combatentry.getDamage() > f)) {
+			if (combatentry.getDamageSrc()
+			               .getTrueSource() instanceof EntityLivingBase && (entitylivingbase == null || combatentry.getDamage() > f)) {
 				f = combatentry.getDamage();
 				entitylivingbase = (EntityLivingBase) combatentry.getDamageSrc().getTrueSource();
 			}
@@ -138,7 +140,6 @@ public class CombatTracker {
 		}
 	}
 
-	
 	private CombatEntry getBestCombatEntry() {
 		CombatEntry combatentry = null;
 		CombatEntry combatentry1 = null;

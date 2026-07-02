@@ -59,21 +59,18 @@ public class EntityShulker extends EntityGolem implements IMob {
 		EntityLiving.registerFixesMob(fixer, EntityShulker.class);
 	}
 
-	
-
 	/**
 	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
 	 * when entity is reloaded from nbt. Mainly used for initializing attributes and inventory.
-	 *
+	 * <p>
 	 * The livingdata parameter is used to pass data between all instances during a pack spawn. It will be null on the
 	 * first call. Subclasses may check if it's null, and then create a new one and return it if so, initializing all
 	 * entities in the pack with the contained data.
 	 *
-	 * @return The IEntityLivingData to pass to this method for other instances of this entity class within the same
-	 * pack
-	 *
 	 * @param difficulty The current local difficulty
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
+	 * @return The IEntityLivingData to pass to this method for other instances of this entity class within the same
+	 * pack
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		renderYawOffset = 180F;
@@ -370,7 +367,8 @@ public class EntityShulker extends EntityGolem implements IMob {
 			for (int i = 0; i < 5; ++i) {
 				BlockPos blockpos1 = blockpos.add(8 - rand.nextInt(17), 8 - rand.nextInt(17), 8 - rand.nextInt(17));
 
-				if (blockpos1.getY() > 0 && world.isAirBlock(blockpos1) && world.isInsideWorldBorder(this) && world.getCollisionBoxes(this, new AxisAlignedBB(blockpos1)).isEmpty()) {
+				if (blockpos1.getY() > 0 && world.isAirBlock(blockpos1) && world.isInsideWorldBorder(this) && world.getCollisionBoxes(this, new AxisAlignedBB(blockpos1))
+				                                                                                                   .isEmpty()) {
 					boolean flag = false;
 
 					for (Facing enumfacing : Facing.values()) {
@@ -471,12 +469,10 @@ public class EntityShulker extends EntityGolem implements IMob {
 		return getPeekTick() == 0;
 	}
 
-	
-
 	/**
 	 * Returns the <b>solid</b> collision bounding box for this entity. Used to make (e.g.) boats solid. Return null if
 	 * this entity is not solid.
-	 *
+	 * <p>
 	 * For general purposes, use {@link #width} and {@link #height}.
 	 *
 	 * @see getEntityBoundingBox
@@ -489,7 +485,6 @@ public class EntityShulker extends EntityGolem implements IMob {
 		return dataManager.get(ATTACHED_FACE);
 	}
 
-	
 	public BlockPos getAttachmentPos() {
 		return dataManager.get(ATTACHED_BLOCK_POS).orNull();
 	}
@@ -558,7 +553,6 @@ public class EntityShulker extends EntityGolem implements IMob {
 		return currentAttachmentPosition != null && getAttachmentPos() != null;
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_SHULKER;
 	}
@@ -583,7 +577,9 @@ public class EntityShulker extends EntityGolem implements IMob {
 			if (enumfacing.getAxis() == Facing.Axis.X) {
 				return taskOwner.getEntityBoundingBox().grow(4D, targetDistance, targetDistance);
 			} else {
-				return enumfacing.getAxis() == Facing.Axis.Z ? taskOwner.getEntityBoundingBox().grow(targetDistance, targetDistance, 4D) : taskOwner.getEntityBoundingBox().grow(targetDistance, 4D, targetDistance);
+				return enumfacing.getAxis() == Facing.Axis.Z ? taskOwner.getEntityBoundingBox()
+				                                                        .grow(targetDistance, targetDistance, 4D) : taskOwner.getEntityBoundingBox()
+				                                                                                                             .grow(targetDistance, 4D, targetDistance);
 			}
 		}
 
@@ -656,7 +652,9 @@ public class EntityShulker extends EntityGolem implements IMob {
 			if (enumfacing.getAxis() == Facing.Axis.X) {
 				return taskOwner.getEntityBoundingBox().grow(4D, targetDistance, targetDistance);
 			} else {
-				return enumfacing.getAxis() == Facing.Axis.Z ? taskOwner.getEntityBoundingBox().grow(targetDistance, targetDistance, 4D) : taskOwner.getEntityBoundingBox().grow(targetDistance, 4D, targetDistance);
+				return enumfacing.getAxis() == Facing.Axis.Z ? taskOwner.getEntityBoundingBox()
+				                                                        .grow(targetDistance, targetDistance, 4D) : taskOwner.getEntityBoundingBox()
+				                                                                                                             .grow(targetDistance, 4D, targetDistance);
 			}
 		}
 

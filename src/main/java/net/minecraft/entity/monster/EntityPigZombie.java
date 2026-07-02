@@ -110,7 +110,8 @@ public class EntityPigZombie extends EntityZombie {
 	 * Checks that the entity is not colliding with any blocks / liquids
 	 */
 	public boolean isNotColliding() {
-		return world.checkNoEntityCollision(getEntityBoundingBox(), this) && world.getCollisionBoxes(this, getEntityBoundingBox()).isEmpty() && !world.containsAnyLiquid(getEntityBoundingBox());
+		return world.checkNoEntityCollision(getEntityBoundingBox(), this) && world.getCollisionBoxes(this, getEntityBoundingBox())
+		                                                                          .isEmpty() && !world.containsAnyLiquid(getEntityBoundingBox());
 	}
 
 	/**
@@ -192,7 +193,6 @@ public class EntityPigZombie extends EntityZombie {
 		return SoundEvents.ENTITY_ZOMBIE_PIG_DEATH;
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_ZOMBIE_PIGMAN;
 	}

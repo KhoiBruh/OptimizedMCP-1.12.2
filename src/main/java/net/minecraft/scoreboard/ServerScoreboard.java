@@ -56,7 +56,8 @@ public class ServerScoreboard extends Scoreboard {
 
 		if (scoreobjective != objective && scoreobjective != null) {
 			if (getObjectiveDisplaySlotCount(scoreobjective) > 0) {
-				scoreboardMCServer.getPlayerList().sendPacketToAllPlayers(new SPacketDisplayObjective(objectiveSlot, objective));
+				scoreboardMCServer.getPlayerList()
+				                  .sendPacketToAllPlayers(new SPacketDisplayObjective(objectiveSlot, objective));
 			} else {
 				sendDisplaySlotRemovalPackets(scoreobjective);
 			}
@@ -64,7 +65,8 @@ public class ServerScoreboard extends Scoreboard {
 
 		if (objective != null) {
 			if (addedObjectives.contains(objective)) {
-				scoreboardMCServer.getPlayerList().sendPacketToAllPlayers(new SPacketDisplayObjective(objectiveSlot, objective));
+				scoreboardMCServer.getPlayerList()
+				                  .sendPacketToAllPlayers(new SPacketDisplayObjective(objectiveSlot, objective));
 			} else {
 				addObjective(objective);
 			}
@@ -79,7 +81,8 @@ public class ServerScoreboard extends Scoreboard {
 	public boolean addPlayerToTeam(String player, String newTeam) {
 		if (super.addPlayerToTeam(player, newTeam)) {
 			ScorePlayerTeam scoreplayerteam = getTeam(newTeam);
-			scoreboardMCServer.getPlayerList().sendPacketToAllPlayers(new SPacketTeams(scoreplayerteam, List.of(player), 3));
+			scoreboardMCServer.getPlayerList()
+			                  .sendPacketToAllPlayers(new SPacketTeams(scoreplayerteam, List.of(player), 3));
 			markSaveDataDirty();
 			return true;
 		} else {
@@ -93,7 +96,8 @@ public class ServerScoreboard extends Scoreboard {
 	 */
 	public void removePlayerFromTeam(String username, ScorePlayerTeam playerTeam) {
 		super.removePlayerFromTeam(username, playerTeam);
-		scoreboardMCServer.getPlayerList().sendPacketToAllPlayers(new SPacketTeams(playerTeam, Collections.singletonList(username), 4));
+		scoreboardMCServer.getPlayerList()
+		                  .sendPacketToAllPlayers(new SPacketTeams(playerTeam, Collections.singletonList(username), 4));
 		markSaveDataDirty();
 	}
 

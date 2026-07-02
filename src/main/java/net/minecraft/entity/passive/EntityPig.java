@@ -67,8 +67,6 @@ public class EntityPig extends EntityAnimal {
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
 	}
 
-	
-
 	/**
 	 * For vehicles, the first passenger is generally considered the controller and "drives" the vehicle. For example,
 	 * Pigs, Horses, and Boats are generally "steered" by the controlling passenger.
@@ -87,7 +85,9 @@ public class EntityPig extends EntityAnimal {
 		if (!(entity instanceof EntityPlayer entityplayer)) {
 			return false;
 		} else {
-			return entityplayer.getHeldItemMainhand().getItem() == Items.CARROT_ON_A_STICK || entityplayer.getHeldItemOffhand().getItem() == Items.CARROT_ON_A_STICK;
+			return entityplayer.getHeldItemMainhand()
+			                   .getItem() == Items.CARROT_ON_A_STICK || entityplayer.getHeldItemOffhand()
+			                                                                        .getItem() == Items.CARROT_ON_A_STICK;
 		}
 	}
 
@@ -176,7 +176,6 @@ public class EntityPig extends EntityAnimal {
 		}
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_PIG;
 	}

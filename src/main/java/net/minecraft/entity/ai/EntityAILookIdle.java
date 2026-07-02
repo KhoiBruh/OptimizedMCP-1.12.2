@@ -58,7 +58,8 @@ public class EntityAILookIdle extends EntityAIBase {
 	 */
 	public void updateTask() {
 		--idleTime;
-		idleEntity.getLookHelper().setLookPosition(idleEntity.posX + lookX, idleEntity.posY + (double) idleEntity.getEyeHeight(), idleEntity.posZ + lookZ, (float) idleEntity.getHorizontalFaceSpeed(), (float) idleEntity.getVerticalFaceSpeed());
+		idleEntity.getLookHelper()
+		          .setLookPosition(idleEntity.posX + lookX, idleEntity.posY + (double) idleEntity.getEyeHeight(), idleEntity.posZ + lookZ, (float) idleEntity.getHorizontalFaceSpeed(), (float) idleEntity.getVerticalFaceSpeed());
 	}
 
 }

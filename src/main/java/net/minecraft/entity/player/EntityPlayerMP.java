@@ -247,7 +247,8 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 		Entity entity1 = getLowestRidingEntity();
 		Entity entity = getRidingEntity();
 
-		if (entity != null && entity1 != this && entity1.getRecursivePassengersByType(EntityPlayerMP.class).size() == 1) {
+		if (entity != null && entity1 != this && entity1.getRecursivePassengersByType(EntityPlayerMP.class)
+		                                                .size() == 1) {
 			NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 			NBTTagCompound nbttagcompound2 = new NBTTagCompound();
 			entity1.writeToNBTOptional(nbttagcompound2);
@@ -460,7 +461,8 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 			inventory.dropAllItems();
 		}
 
-		for (ScoreObjective scoreobjective : world.getScoreboard().getObjectivesFromCriteria(IScoreCriteria.DEATH_COUNT)) {
+		for (ScoreObjective scoreobjective : world.getScoreboard()
+		                                          .getObjectivesFromCriteria(IScoreCriteria.DEATH_COUNT)) {
 			Score score = getWorldScoreboard().getOrCreateScore(getName(), scoreobjective);
 			score.incrementScore();
 		}
@@ -577,7 +579,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 		return mcServer.isPVPEnabled();
 	}
 
-	
 	public Entity changeDimension(int dimensionIn) {
 		invulnerableDimensionChange = true;
 
@@ -1138,7 +1139,9 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 			return true;
 		} else if (!"tell".equals(commandName) && !"help".equals(commandName) && !"me".equals(commandName) && !"trigger".equals(commandName)) {
 			if (mcServer.getPlayerList().canSendCommands(getGameProfile())) {
-				UserListOpsEntry userlistopsentry = mcServer.getPlayerList().getOppedPlayers().getEntry(getGameProfile());
+				UserListOpsEntry userlistopsentry = mcServer.getPlayerList()
+				                                            .getOppedPlayers()
+				                                            .getEntry(getGameProfile());
 
 				if (userlistopsentry != null) {
 					return userlistopsentry.getPermissionLevel() >= permLevel;
@@ -1264,8 +1267,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 		return playerLastActiveTime;
 	}
 
-	
-
 	/**
 	 * Returns null which indicates the tab list should just display the player's name, return a different value to
 	 * display the specified text instead of the player's name
@@ -1300,7 +1301,6 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 		return advancements;
 	}
 
-	
 	public Vec3d getEnteredNetherPosition() {
 		return enteredNetherPosition;
 	}

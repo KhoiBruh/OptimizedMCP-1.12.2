@@ -110,8 +110,12 @@ public abstract class RenderLiving<T extends EntityLiving> extends RenderLivingB
 				}
 
 				float f3 = (float) j / 24F;
-				bufferbuilder.pos(x + d13 * (double) f3 + 0D, y + d14 * (double) (f3 * f3 + f3) * 0.5D + (double) ((24F - (float) j) / 18F + 0.125F), z + d15 * (double) f3).color(f, f1, f2, 1F).endVertex();
-				bufferbuilder.pos(x + d13 * (double) f3 + 0.025D, y + d14 * (double) (f3 * f3 + f3) * 0.5D + (double) ((24F - (float) j) / 18F + 0.125F) + 0.025D, z + d15 * (double) f3).color(f, f1, f2, 1F).endVertex();
+				bufferbuilder.pos(x + d13 * (double) f3 + 0D, y + d14 * (double) (f3 * f3 + f3) * 0.5D + (double) ((24F - (float) j) / 18F + 0.125F), z + d15 * (double) f3)
+				             .color(f, f1, f2, 1F)
+				             .endVertex();
+				bufferbuilder.pos(x + d13 * (double) f3 + 0.025D, y + d14 * (double) (f3 * f3 + f3) * 0.5D + (double) ((24F - (float) j) / 18F + 0.125F) + 0.025D, z + d15 * (double) f3)
+				             .color(f, f1, f2, 1F)
+				             .endVertex();
 			}
 
 			tessellator.draw();
@@ -129,8 +133,12 @@ public abstract class RenderLiving<T extends EntityLiving> extends RenderLivingB
 				}
 
 				float f7 = (float) k / 24F;
-				bufferbuilder.pos(x + d13 * (double) f7 + 0D, y + d14 * (double) (f7 * f7 + f7) * 0.5D + (double) ((24F - (float) k) / 18F + 0.125F) + 0.025D, z + d15 * (double) f7).color(f4, f5, f6, 1F).endVertex();
-				bufferbuilder.pos(x + d13 * (double) f7 + 0.025D, y + d14 * (double) (f7 * f7 + f7) * 0.5D + (double) ((24F - (float) k) / 18F + 0.125F), z + d15 * (double) f7 + 0.025D).color(f4, f5, f6, 1F).endVertex();
+				bufferbuilder.pos(x + d13 * (double) f7 + 0D, y + d14 * (double) (f7 * f7 + f7) * 0.5D + (double) ((24F - (float) k) / 18F + 0.125F) + 0.025D, z + d15 * (double) f7)
+				             .color(f4, f5, f6, 1F)
+				             .endVertex();
+				bufferbuilder.pos(x + d13 * (double) f7 + 0.025D, y + d14 * (double) (f7 * f7 + f7) * 0.5D + (double) ((24F - (float) k) / 18F + 0.125F), z + d15 * (double) f7 + 0.025D)
+				             .color(f4, f5, f6, 1F)
+				             .endVertex();
 			}
 
 			tessellator.draw();

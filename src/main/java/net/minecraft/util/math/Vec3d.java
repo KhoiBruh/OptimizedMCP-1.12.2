@@ -6,6 +6,7 @@ package net.minecraft.util.math;
  * @param z Z coordinate of Vec3D
  */
 public record Vec3d(double x, double y, double z) {
+
 	public static final Vec3d ZERO = new Vec3d(0D, 0D, 0D);
 
 	public Vec3d {
@@ -134,8 +135,6 @@ public record Vec3d(double x, double y, double z) {
 		return x * x + y * y + z * z;
 	}
 
-	
-
 	/**
 	 * Returns a new vector with x value equal to the second parameter, along the line between this vector and the
 	 * passed in vector, or null if not possible.
@@ -153,8 +152,6 @@ public record Vec3d(double x, double y, double z) {
 		}
 	}
 
-	
-
 	/**
 	 * Returns a new vector with y value equal to the second parameter, along the line between this vector and the
 	 * passed in vector, or null if not possible.
@@ -171,8 +168,6 @@ public record Vec3d(double x, double y, double z) {
 			return d3 >= 0D && d3 <= 1D ? new Vec3d(x + d0 * d3, this.y + d1 * d3, z + d2 * d3) : null;
 		}
 	}
-
-	
 
 	/**
 	 * Returns a new vector with z value equal to the second parameter, along the line between this vector and the

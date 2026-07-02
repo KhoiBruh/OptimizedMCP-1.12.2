@@ -150,7 +150,6 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
 		}
 	}
 
-	
 	public UUID getOwnerId() {
 		return dataManager.get(OWNER_UNIQUE_ID).orNull();
 	}
@@ -168,7 +167,6 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
 		}
 	}
 
-	
 	public EntityLivingBase getOwner() {
 		try {
 			UUID uuid = getOwnerId();
@@ -228,7 +226,8 @@ public abstract class EntityTameable extends EntityAnimal implements IEntityOwna
 	 * Called when the mob's health reaches 0.
 	 */
 	public void onDeath(DamageSource cause) {
-		if (!world.isRemote && world.getGameRules().getBoolean("showDeathMessages") && getOwner() instanceof EntityPlayerMP) {
+		if (!world.isRemote && world.getGameRules()
+		                            .getBoolean("showDeathMessages") && getOwner() instanceof EntityPlayerMP) {
 			getOwner().sendMessage(getCombatTracker().getDeathMessage());
 		}
 

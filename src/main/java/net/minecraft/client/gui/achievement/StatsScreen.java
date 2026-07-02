@@ -184,7 +184,9 @@ public class StatsScreen extends Screen implements IProgressMeter {
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
 		bufferbuilder.pos(x, y + 18, zLevel).tex((float) (u) * 0.0078125F, (float) (v + 18) * 0.0078125F).endVertex();
-		bufferbuilder.pos(x + 18, y + 18, zLevel).tex((float) (u + 18) * 0.0078125F, (float) (v + 18) * 0.0078125F).endVertex();
+		bufferbuilder.pos(x + 18, y + 18, zLevel)
+		             .tex((float) (u + 18) * 0.0078125F, (float) (v + 18) * 0.0078125F)
+		             .endVertex();
 		bufferbuilder.pos(x + 18, y, zLevel).tex((float) (u + 18) * 0.0078125F, (float) (v) * 0.0078125F).endVertex();
 		bufferbuilder.pos(x, y, zLevel).tex((float) (u) * 0.0078125F, (float) (v) * 0.0078125F).endVertex();
 		tessellator.draw();
@@ -557,7 +559,8 @@ public class StatsScreen extends Screen implements IProgressMeter {
 
 		protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks) {
 			StatBase statbase = StatList.BASIC_STATS.get(slotIndex);
-			drawString(fontRenderer, statbase.getStatName().getUnformattedText(), xPos + 2, yPos + 1, slotIndex % 2 == 0 ? 16777215 : 9474192);
+			drawString(fontRenderer, statbase.getStatName()
+			                                 .getUnformattedText(), xPos + 2, yPos + 1, slotIndex % 2 == 0 ? 16777215 : 9474192);
 			String s = statbase.format(stats.readStat(statbase));
 			drawString(fontRenderer, s, xPos + 2 + 213 - fontRenderer.getStringWidth(s), yPos + 1, slotIndex % 2 == 0 ? 16777215 : 9474192);
 		}

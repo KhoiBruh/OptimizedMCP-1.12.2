@@ -22,7 +22,8 @@ public abstract class BlockFlower extends BlockBush {
 	protected PropertyEnum<BlockFlower.FlowerType> type;
 
 	protected BlockFlower() {
-		setDefaultState(blockState.getBaseState().withProperty(getTypeProperty(), getBlockType() == BlockFlower.FlowerColor.RED ? BlockFlower.FlowerType.POPPY : BlockFlower.FlowerType.DANDELION));
+		setDefaultState(blockState.getBaseState()
+		                          .withProperty(getTypeProperty(), getBlockType() == BlockFlower.FlowerColor.RED ? BlockFlower.FlowerType.POPPY : BlockFlower.FlowerType.DANDELION));
 	}
 
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {

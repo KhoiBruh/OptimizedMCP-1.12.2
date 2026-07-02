@@ -188,7 +188,6 @@ public abstract class World implements IBlockAccess {
 		worldInfo.setServerInitialized(true);
 	}
 
-	
 	public MinecraftServer getMinecraftServer() {
 		return null;
 	}
@@ -482,7 +481,8 @@ public abstract class World implements IBlockAccess {
 				crashreportcategory.addDetail("Source block type", () -> {
 
 					try {
-						return String.format("ID #%d (%s // %s)", Block.getIdFromBlock(blockIn), blockIn.getUnlocalizedName(), blockIn.getClass().getCanonicalName());
+						return String.format("ID #%d (%s // %s)", Block.getIdFromBlock(blockIn), blockIn.getUnlocalizedName(), blockIn.getClass()
+						                                                                                                              .getCanonicalName());
 					} catch (Throwable var2) {
 						return "ID #" + Block.getIdFromBlock(blockIn);
 					}
@@ -506,7 +506,8 @@ public abstract class World implements IBlockAccess {
 					crashreportcategory.addDetail("Source block type", () -> {
 
 						try {
-							return String.format("ID #%d (%s // %s)", Block.getIdFromBlock(p_190529_2_), p_190529_2_.getUnlocalizedName(), p_190529_2_.getClass().getCanonicalName());
+							return String.format("ID #%d (%s // %s)", Block.getIdFromBlock(p_190529_2_), p_190529_2_.getUnlocalizedName(), p_190529_2_.getClass()
+							                                                                                                                          .getCanonicalName());
 						} catch (Throwable var2) {
 							return "ID #" + Block.getIdFromBlock(p_190529_2_);
 						}
@@ -752,8 +753,6 @@ public abstract class World implements IBlockAccess {
 		return skylightSubtracted < 4;
 	}
 
-	
-
 	/**
 	 * ray traces all blocks, including non-collideable ones
 	 */
@@ -761,12 +760,9 @@ public abstract class World implements IBlockAccess {
 		return rayTraceBlocks(start, end, false, false, false);
 	}
 
-	
 	public RayTraceResult rayTraceBlocks(Vec3d start, Vec3d end, boolean stopOnLiquid) {
 		return rayTraceBlocks(start, end, stopOnLiquid, false, false);
 	}
-
-	
 
 	/**
 	 * Performs a raycast against all blocks in the world. Args : Vec1, Vec2, stopOnLiquid,
@@ -1498,7 +1494,7 @@ public abstract class World implements IBlockAccess {
 				if (isBlockLoaded(blockpos) && worldBorder.contains(blockpos)) {
 					try {
 						profiler.func_194340_a(() ->
-								String.valueOf(TileEntity.getKey(tileentity.getClass())));
+							                       String.valueOf(TileEntity.getKey(tileentity.getClass())));
 						((ITickable) tileentity).update();
 						profiler.endSection();
 					} catch (Throwable throwable) {
@@ -1933,7 +1929,6 @@ public abstract class World implements IBlockAccess {
 		return chunkProvider.makeString();
 	}
 
-	
 	public TileEntity getTileEntity(BlockPos pos) {
 		if (isOutsideBuildHeight(pos)) {
 			return null;
@@ -1956,7 +1951,6 @@ public abstract class World implements IBlockAccess {
 		}
 	}
 
-	
 	private TileEntity getPendingTileEntityAt(BlockPos pos) {
 		for (TileEntity tileentity2 : addedTileEntityList) {
 			if (!tileentity2.isInvalid() && tileentity2.getPos().equals(pos)) {
@@ -2410,12 +2404,10 @@ public abstract class World implements IBlockAccess {
 		return false;
 	}
 
-	
 	public List<NextTickListEntry> getPendingBlockUpdates(Chunk chunkIn, boolean remove) {
 		return null;
 	}
 
-	
 	public List<NextTickListEntry> getPendingBlockUpdates(StructureBoundingBox structureBB, boolean remove) {
 		return null;
 	}
@@ -2492,7 +2484,6 @@ public abstract class World implements IBlockAccess {
 		return list;
 	}
 
-	
 	public <T extends Entity> T findNearestEntityWithinAABB(Class<? extends T> entityType, AxisAlignedBB aabb, T closestTo) {
 
 		List<T> list = getEntitiesWithinAABB(entityType, aabb);
@@ -2512,8 +2503,6 @@ public abstract class World implements IBlockAccess {
 
 		return t;
 	}
-
-	
 
 	/**
 	 * Returns the Entity with the given ID, or null if it doesn't exist in this World.
@@ -2565,7 +2554,8 @@ public abstract class World implements IBlockAccess {
 	 */
 	public boolean mayPlace(Block blockIn, BlockPos pos, boolean skipCollisionCheck, Facing sidePlacedOn, Entity placer) {
 		IBlockState iblockstate1 = getBlockState(pos);
-		AxisAlignedBB axisalignedbb = skipCollisionCheck ? null : blockIn.getDefaultState().getCollisionBoundingBox(this, pos);
+		AxisAlignedBB axisalignedbb = skipCollisionCheck ? null : blockIn.getDefaultState()
+		                                                                 .getCollisionBoundingBox(this, pos);
 
 		if (axisalignedbb != Block.NULL_AABB && !checkNoEntityCollision(axisalignedbb.offset(pos), placer)) {
 			return false;
@@ -2681,8 +2671,6 @@ public abstract class World implements IBlockAccess {
 		return j2;
 	}
 
-	
-
 	/**
 	 * Gets the closest player to the entity within the specified distance.
 	 */
@@ -2690,18 +2678,15 @@ public abstract class World implements IBlockAccess {
 		return getClosestPlayer(entityIn.posX, entityIn.posY, entityIn.posZ, distance, false);
 	}
 
-	
 	public EntityPlayer getNearestPlayerNotCreative(Entity entityIn, double distance) {
 		return getClosestPlayer(entityIn.posX, entityIn.posY, entityIn.posZ, distance, true);
 	}
 
-	
 	public EntityPlayer getClosestPlayer(double posX, double posY, double posZ, double distance, boolean spectator) {
 		Predicate<Entity> predicate = spectator ? EntitySelectors.CAN_AI_TARGET : EntitySelectors.NOT_SPECTATING;
 		return getClosestPlayer(posX, posY, posZ, distance, predicate);
 	}
 
-	
 	public EntityPlayer getClosestPlayer(double x, double y, double z, double p_190525_7_, Predicate<Entity> p_190525_9_) {
 		double d0 = -1D;
 		EntityPlayer entityplayer = null;
@@ -2734,17 +2719,14 @@ public abstract class World implements IBlockAccess {
 		return false;
 	}
 
-	
 	public EntityPlayer getNearestAttackablePlayer(Entity entityIn, double maxXZDistance, double maxYDistance) {
 		return getNearestAttackablePlayer(entityIn.posX, entityIn.posY, entityIn.posZ, maxXZDistance, maxYDistance, null, null);
 	}
 
-	
 	public EntityPlayer getNearestAttackablePlayer(BlockPos pos, double maxXZDistance, double maxYDistance) {
 		return getNearestAttackablePlayer((float) pos.getX() + 0.5F, (float) pos.getY() + 0.5F, (float) pos.getZ() + 0.5F, maxXZDistance, maxYDistance, null, null);
 	}
 
-	
 	public EntityPlayer getNearestAttackablePlayer(double posX, double posY, double posZ, double maxXZDistance, double maxYDistance, Function<EntityPlayer, Double> playerToDouble, Predicate<EntityPlayer> p_184150_12_) {
 		double d0 = -1D;
 		EntityPlayer entityplayer = null;
@@ -2782,8 +2764,6 @@ public abstract class World implements IBlockAccess {
 		return entityplayer;
 	}
 
-	
-
 	/**
 	 * Find a player by name in this world.
 	 */
@@ -2797,7 +2777,6 @@ public abstract class World implements IBlockAccess {
 		return null;
 	}
 
-	
 	public EntityPlayer getPlayerEntityByUUID(UUID uuid) {
 		for (EntityPlayer entityplayer : playerEntities) {
 			if (uuid.equals(entityplayer.getUniqueID())) {
@@ -2998,7 +2977,6 @@ public abstract class World implements IBlockAccess {
 		return biome.isHighHumidity();
 	}
 
-	
 	public MapStorage getMapStorage() {
 		return mapStorage;
 	}
@@ -3010,8 +2988,6 @@ public abstract class World implements IBlockAccess {
 	public void setData(String dataID, WorldSavedData worldSavedDataIn) {
 		mapStorage.setData(dataID, worldSavedDataIn);
 	}
-
-	
 
 	/**
 	 * Loads an existing MapDataBase corresponding to the given String id from disk using the MapStorage, instantiating
@@ -3207,7 +3183,6 @@ public abstract class World implements IBlockAccess {
 		return lootTable;
 	}
 
-	
 	public BlockPos findNearestStructure(String p_190528_1_, BlockPos p_190528_2_, boolean p_190528_3_) {
 		return null;
 	}

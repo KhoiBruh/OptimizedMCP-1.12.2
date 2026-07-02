@@ -74,7 +74,6 @@ public class EntityMooshroom extends EntityCow {
 		return new EntityMooshroom(world);
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_MUSHROOM_COW;
 	}

@@ -30,7 +30,9 @@ public class BlockRailDetector extends BlockRailBase {
 
 	public BlockRailDetector() {
 		super(true);
-		setDefaultState(blockState.getBaseState().withProperty(POWERED, false).withProperty(SHAPE, BlockRailBase.RailDirection.NORTH_SOUTH));
+		setDefaultState(blockState.getBaseState()
+		                          .withProperty(POWERED, false)
+		                          .withProperty(SHAPE, BlockRailBase.RailDirection.NORTH_SOUTH));
 		setTickRandomly(true);
 	}
 
@@ -177,7 +179,8 @@ public class BlockRailDetector extends BlockRailBase {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(SHAPE, BlockRailBase.RailDirection.byMetadata(meta & 7)).withProperty(POWERED, (meta & 8) > 0);
+		return getDefaultState().withProperty(SHAPE, BlockRailBase.RailDirection.byMetadata(meta & 7))
+		                        .withProperty(POWERED, (meta & 8) > 0);
 	}
 
 	/**

@@ -63,7 +63,8 @@ public class EntityAIBeg extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-		wolf.getLookHelper().setLookPosition(player.posX, player.posY + (double) player.getEyeHeight(), player.posZ, 10F, (float) wolf.getVerticalFaceSpeed());
+		wolf.getLookHelper()
+		    .setLookPosition(player.posX, player.posY + (double) player.getEyeHeight(), player.posZ, 10F, (float) wolf.getVerticalFaceSpeed());
 		--timeoutCounter;
 	}
 

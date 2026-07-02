@@ -19,7 +19,6 @@ public abstract class AbstractAttributeMap {
 		return attributes.get(attribute);
 	}
 
-	
 	public IAttributeInstance getAttributeInstanceByName(String attributeName) {
 		return attributesByName.get(attributeName);
 	}

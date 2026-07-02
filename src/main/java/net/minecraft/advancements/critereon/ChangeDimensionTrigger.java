@@ -72,10 +72,8 @@ public class ChangeDimensionTrigger implements ICriterionTrigger<ChangeDimension
 
 	public static class Instance extends AbstractCriterionInstance {
 
-		
 		private final DimensionType from;
 
-		
 		private final DimensionType to;
 
 		public Instance(DimensionType from, DimensionType to) {

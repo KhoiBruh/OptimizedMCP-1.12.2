@@ -422,7 +422,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 				pointedEntity = null;
 				Vec3d vec3d3 = null;
 				float f = 1F;
-				List<Entity> list = mc.world.getEntitiesInAABBexcluding(entity, entity.getEntityBoundingBox().expand(vec3d1.x() * d0, vec3d1.y() * d0, vec3d1.z() * d0).grow(1D, 1D, 1D), Predicates.and(EntitySelectors.NOT_SPECTATING, p_apply_1_ -> p_apply_1_ != null && p_apply_1_.canBeCollidedWith()));
+				List<Entity> list = mc.world.getEntitiesInAABBexcluding(entity, entity.getEntityBoundingBox()
+				                                                                      .expand(vec3d1.x() * d0, vec3d1.y() * d0, vec3d1.z() * d0)
+				                                                                      .grow(1D, 1D, 1D), Predicates.and(EntitySelectors.NOT_SPECTATING, p_apply_1_ -> p_apply_1_ != null && p_apply_1_.canBeCollidedWith()));
 				double d2 = d1;
 
 				for (Entity entity1 : list) {
@@ -668,7 +670,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			GLS.scale(cameraZoom, cameraZoom, 1D);
 		}
 
-		Projection.perspective(getFOVModifier(partialTicks, true), (float) mc.getWindow().getWidth() / (float) mc.getWindow().getHeight(), 0.05F, farPlaneDistance * MathHelper.SQRT_2);
+		Projection.perspective(getFOVModifier(partialTicks, true), (float) mc.getWindow()
+		                                                                     .getWidth() / (float) mc.getWindow()
+		                                                                                             .getHeight(), 0.05F, farPlaneDistance * MathHelper.SQRT_2);
 		GLS.matrixMode(5888);
 		GLS.loadIdentity();
 
@@ -729,7 +733,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			GLS.loadIdentity();
 			float f = 0.07F;
 
-			Projection.perspective(getFOVModifier(partialTicks, false), (float) mc.getWindow().getWidth() / (float) mc.getWindow().getHeight(), 0.05F, farPlaneDistance * 2F);
+			Projection.perspective(getFOVModifier(partialTicks, false), (float) mc.getWindow()
+			                                                                      .getWidth() / (float) mc.getWindow()
+			                                                                                              .getHeight(), 0.05F, farPlaneDistance * 2F);
 			GLS.matrixMode(5888);
 			GLS.loadIdentity();
 
@@ -1037,7 +1043,12 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 					CrashReportCategory crashreportcategory = crashreport.makeCategory("Screen render details");
 					crashreportcategory.addDetail("Screen name", () -> mc.currentScreen.getClass().getCanonicalName());
 					crashreportcategory.addDetail("Mouse location", () -> String.format("Scaled: (%d, %d). Absolute: (%d, %d)", k1, l1, Mouse.getX(), Mouse.getY()));
-					crashreportcategory.addDetail("Screen size", () -> String.format("Scaled: (%d, %d). Absolute: (%d, %d). Scale factor of %d", mc.getWindow().getScaledWidth(), mc.getWindow().getScaledHeight(), mc.getWindow().getWidth(), mc.getWindow().getHeight(), mc.getWindow().getGuiScale()));
+					crashreportcategory.addDetail("Screen size", () -> String.format("Scaled: (%d, %d). Absolute: (%d, %d). Scale factor of %d", mc.getWindow()
+					                                                                                                                               .getScaledWidth(), mc.getWindow()
+					                                                                                                                                                    .getScaledHeight(), mc.getWindow()
+					                                                                                                                                                                          .getWidth(), mc.getWindow()
+					                                                                                                                                                                                         .getHeight(), mc.getWindow()
+					                                                                                                                                                                                                         .getGuiScale()));
 					throw new ReportedException(crashreport);
 				}
 			}
@@ -1045,8 +1056,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	private void createWorldIcon() {
-		if (mc.renderGlobal.getRenderedChunks() > 10 && mc.renderGlobal.hasNoChunkUpdates() && !mc.getIntegratedServer().isWorldIconSet()) {
-			BufferedImage bufferedimage = ScreenShotHelper.createScreenshot(mc.getWindow().getWidth(), mc.getWindow().getHeight(), mc.getFramebuffer());
+		if (mc.renderGlobal.getRenderedChunks() > 10 && mc.renderGlobal.hasNoChunkUpdates() && !mc.getIntegratedServer()
+		                                                                                          .isWorldIconSet()) {
+			BufferedImage bufferedimage = ScreenShotHelper.createScreenshot(mc.getWindow().getWidth(), mc.getWindow()
+			                                                                                             .getHeight(), mc.getFramebuffer());
 			int i = bufferedimage.getWidth();
 			int j = bufferedimage.getHeight();
 			int k = 0;
@@ -1145,12 +1158,16 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			mc.profiler.endStartSection("sky");
 			GLS.matrixMode(5889);
 			GLS.loadIdentity();
-			Projection.perspective(getFOVModifier(partialTicks, true), (float) mc.getWindow().getWidth() / (float) mc.getWindow().getHeight(), 0.05F, farPlaneDistance * 2F);
+			Projection.perspective(getFOVModifier(partialTicks, true), (float) mc.getWindow()
+			                                                                     .getWidth() / (float) mc.getWindow()
+			                                                                                             .getHeight(), 0.05F, farPlaneDistance * 2F);
 			GLS.matrixMode(5888);
 			renderglobal.renderSky(partialTicks, pass);
 			GLS.matrixMode(5889);
 			GLS.loadIdentity();
-			Projection.perspective(getFOVModifier(partialTicks, true), (float) mc.getWindow().getWidth() / (float) mc.getWindow().getHeight(), 0.05F, farPlaneDistance * MathHelper.SQRT_2);
+			Projection.perspective(getFOVModifier(partialTicks, true), (float) mc.getWindow()
+			                                                                     .getWidth() / (float) mc.getWindow()
+			                                                                                             .getHeight(), 0.05F, farPlaneDistance * MathHelper.SQRT_2);
 			GLS.matrixMode(5888);
 		}
 
@@ -1216,7 +1233,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		GLS.enableBlend();
 		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 		mc.getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false);
-		renderglobal.drawBlockDamageTexture(Tessellator.getInstance(), Tessellator.getInstance().getBuffer(), entity, partialTicks);
+		renderglobal.drawBlockDamageTexture(Tessellator.getInstance(), Tessellator.getInstance()
+		                                                                          .getBuffer(), entity, partialTicks);
 		mc.getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap();
 		GLS.disableBlend();
 
@@ -1272,7 +1290,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			mc.profiler.endStartSection("clouds");
 			GLS.matrixMode(5889);
 			GLS.loadIdentity();
-			Projection.perspective(getFOVModifier(partialTicks, true), (float) mc.getWindow().getWidth() / (float) mc.getWindow().getHeight(), 0.05F, farPlaneDistance * 4F);
+			Projection.perspective(getFOVModifier(partialTicks, true), (float) mc.getWindow()
+			                                                                     .getWidth() / (float) mc.getWindow()
+			                                                                                             .getHeight(), 0.05F, farPlaneDistance * 4F);
 			GLS.matrixMode(5888);
 			GLS.pushMatrix();
 			setupFog(0, partialTicks);
@@ -1281,7 +1301,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			GLS.popMatrix();
 			GLS.matrixMode(5889);
 			GLS.loadIdentity();
-			Projection.perspective(getFOVModifier(partialTicks, true), (float) mc.getWindow().getWidth() / (float) mc.getWindow().getHeight(), 0.05F, farPlaneDistance * MathHelper.SQRT_2);
+			Projection.perspective(getFOVModifier(partialTicks, true), (float) mc.getWindow()
+			                                                                     .getWidth() / (float) mc.getWindow()
+			                                                                                             .getHeight(), 0.05F, farPlaneDistance * MathHelper.SQRT_2);
 			GLS.matrixMode(5888);
 		}
 	}
@@ -1343,7 +1365,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			if (j > 0 && random.nextInt(3) < rainSoundCounter++) {
 				rainSoundCounter = 0;
 
-				if (d1 > (double) (blockpos.getY() + 1) && world.getPrecipitationHeight(blockpos).getY() > MathHelper.floor((float) blockpos.getY())) {
+				if (d1 > (double) (blockpos.getY() + 1) && world.getPrecipitationHeight(blockpos)
+				                                                .getY() > MathHelper.floor((float) blockpos.getY())) {
 					mc.world.playSound(d0, d1, d2, SoundEvents.WEATHER_RAIN_ABOVE, SoundCategory.WEATHER, 0.1F, 0.5F, false);
 				} else {
 					mc.world.playSound(d0, d1, d2, SoundEvents.WEATHER_RAIN, SoundCategory.WEATHER, 0.2F, 1F, false);
@@ -1436,10 +1459,26 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 								int j3 = world.getCombinedLight(blockpos$mutableblockpos, 0);
 								int k3 = j3 >> 16 & 65535;
 								int l3 = j3 & 65535;
-								bufferbuilder.pos((double) l1 - d3 + 0.5D, l2, (double) k1 - d4 + 0.5D).tex(0D, (double) k2 * 0.25D + d5).color(1F, 1F, 1F, f4).lightmap(k3, l3).endVertex();
-								bufferbuilder.pos((double) l1 + d3 + 0.5D, l2, (double) k1 + d4 + 0.5D).tex(1D, (double) k2 * 0.25D + d5).color(1F, 1F, 1F, f4).lightmap(k3, l3).endVertex();
-								bufferbuilder.pos((double) l1 + d3 + 0.5D, k2, (double) k1 + d4 + 0.5D).tex(1D, (double) l2 * 0.25D + d5).color(1F, 1F, 1F, f4).lightmap(k3, l3).endVertex();
-								bufferbuilder.pos((double) l1 - d3 + 0.5D, k2, (double) k1 - d4 + 0.5D).tex(0D, (double) l2 * 0.25D + d5).color(1F, 1F, 1F, f4).lightmap(k3, l3).endVertex();
+								bufferbuilder.pos((double) l1 - d3 + 0.5D, l2, (double) k1 - d4 + 0.5D)
+								             .tex(0D, (double) k2 * 0.25D + d5)
+								             .color(1F, 1F, 1F, f4)
+								             .lightmap(k3, l3)
+								             .endVertex();
+								bufferbuilder.pos((double) l1 + d3 + 0.5D, l2, (double) k1 + d4 + 0.5D)
+								             .tex(1D, (double) k2 * 0.25D + d5)
+								             .color(1F, 1F, 1F, f4)
+								             .lightmap(k3, l3)
+								             .endVertex();
+								bufferbuilder.pos((double) l1 + d3 + 0.5D, k2, (double) k1 + d4 + 0.5D)
+								             .tex(1D, (double) l2 * 0.25D + d5)
+								             .color(1F, 1F, 1F, f4)
+								             .lightmap(k3, l3)
+								             .endVertex();
+								bufferbuilder.pos((double) l1 - d3 + 0.5D, k2, (double) k1 - d4 + 0.5D)
+								             .tex(0D, (double) l2 * 0.25D + d5)
+								             .color(1F, 1F, 1F, f4)
+								             .lightmap(k3, l3)
+								             .endVertex();
 							} else {
 								if (j1 != 1) {
 									if (j1 == 0) {
@@ -1462,10 +1501,26 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 								int i4 = (world.getCombinedLight(blockpos$mutableblockpos, 0) * 3 + 15728880) / 4;
 								int j4 = i4 >> 16 & 65535;
 								int k4 = i4 & 65535;
-								bufferbuilder.pos((double) l1 - d3 + 0.5D, l2, (double) k1 - d4 + 0.5D).tex(0D + d9, (double) k2 * 0.25D + d8 + d10).color(1F, 1F, 1F, f5).lightmap(j4, k4).endVertex();
-								bufferbuilder.pos((double) l1 + d3 + 0.5D, l2, (double) k1 + d4 + 0.5D).tex(1D + d9, (double) k2 * 0.25D + d8 + d10).color(1F, 1F, 1F, f5).lightmap(j4, k4).endVertex();
-								bufferbuilder.pos((double) l1 + d3 + 0.5D, k2, (double) k1 + d4 + 0.5D).tex(1D + d9, (double) l2 * 0.25D + d8 + d10).color(1F, 1F, 1F, f5).lightmap(j4, k4).endVertex();
-								bufferbuilder.pos((double) l1 - d3 + 0.5D, k2, (double) k1 - d4 + 0.5D).tex(0D + d9, (double) l2 * 0.25D + d8 + d10).color(1F, 1F, 1F, f5).lightmap(j4, k4).endVertex();
+								bufferbuilder.pos((double) l1 - d3 + 0.5D, l2, (double) k1 - d4 + 0.5D)
+								             .tex(0D + d9, (double) k2 * 0.25D + d8 + d10)
+								             .color(1F, 1F, 1F, f5)
+								             .lightmap(j4, k4)
+								             .endVertex();
+								bufferbuilder.pos((double) l1 + d3 + 0.5D, l2, (double) k1 + d4 + 0.5D)
+								             .tex(1D + d9, (double) k2 * 0.25D + d8 + d10)
+								             .color(1F, 1F, 1F, f5)
+								             .lightmap(j4, k4)
+								             .endVertex();
+								bufferbuilder.pos((double) l1 + d3 + 0.5D, k2, (double) k1 + d4 + 0.5D)
+								             .tex(1D + d9, (double) l2 * 0.25D + d8 + d10)
+								             .color(1F, 1F, 1F, f5)
+								             .lightmap(j4, k4)
+								             .endVertex();
+								bufferbuilder.pos((double) l1 - d3 + 0.5D, k2, (double) k1 - d4 + 0.5D)
+								             .tex(0D + d9, (double) l2 * 0.25D + d8 + d10)
+								             .color(1F, 1F, 1F, f5)
+								             .lightmap(j4, k4)
+								             .endVertex();
 							}
 						}
 					}
@@ -1635,8 +1690,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			fogColorBlue = fogColorBlue * (1F - f15) + fogColorBlue * f6 * f15;
 		}
 
-
-
 		GLS.clearColor(fogColorRed, fogColorGreen, fogColorBlue, 0F);
 	}
 
@@ -1701,12 +1754,13 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 				GLS.setFogStart(f * 0.75F);
 				GLS.setFogEnd(f);
 			}
-			
+
 			if (GL.getCapabilities().GL_NV_fog_distance) {
 				GLS.fog(34138, 34139);
 			}
 
-			if (mc.world.provider.doesXZShowFog((int) entity.posX, (int) entity.posZ) || mc.ingameGUI.getBossOverlay().shouldCreateFog()) {
+			if (mc.world.provider.doesXZShowFog((int) entity.posX, (int) entity.posZ) || mc.ingameGUI.getBossOverlay()
+			                                                                                         .shouldCreateFog()) {
 				GLS.setFogStart(f * 0.05F);
 				GLS.setFogEnd(Math.min(f, 192F) * 0.5F);
 			}

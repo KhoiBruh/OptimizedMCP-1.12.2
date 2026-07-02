@@ -117,7 +117,9 @@ public class SPacketPlayerListItem implements Packet<INetHandlerPlayClient> {
 					buf.writeString(spacketplayerlistitem$addplayerdata.getProfile().getName());
 					buf.writeVarInt(spacketplayerlistitem$addplayerdata.getProfile().getProperties().size());
 
-					for (Property property : spacketplayerlistitem$addplayerdata.getProfile().getProperties().values()) {
+					for (Property property : spacketplayerlistitem$addplayerdata.getProfile()
+					                                                            .getProperties()
+					                                                            .values()) {
 						buf.writeString(property.getName());
 						buf.writeString(property.getValue());
 
@@ -224,13 +226,17 @@ public class SPacketPlayerListItem implements Packet<INetHandlerPlayClient> {
 			return gamemode;
 		}
 
-		
 		public ITextComponent getDisplayName() {
 			return displayName;
 		}
 
 		public String toString() {
-			return MoreObjects.toStringHelper(this).add("latency", ping).add("gameMode", gamemode).add("profile", profile).add("displayName", displayName == null ? null : ITextComponent.Serializer.componentToJson(displayName)).toString();
+			return MoreObjects.toStringHelper(this)
+			                  .add("latency", ping)
+			                  .add("gameMode", gamemode)
+			                  .add("profile", profile)
+			                  .add("displayName", displayName == null ? null : ITextComponent.Serializer.componentToJson(displayName))
+			                  .toString();
 		}
 
 	}

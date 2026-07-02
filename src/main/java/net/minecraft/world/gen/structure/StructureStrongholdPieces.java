@@ -432,7 +432,8 @@ public class StructureStrongholdPieces {
 				fillWithBlocks(worldIn, structureBoundingBoxIn, 4, 5, 7, 4, 5, 9, Blocks.STONE_SLAB.getDefaultState(), Blocks.STONE_SLAB.getDefaultState(), false);
 				fillWithBlocks(worldIn, structureBoundingBoxIn, 8, 5, 7, 8, 5, 9, Blocks.STONE_SLAB.getDefaultState(), Blocks.STONE_SLAB.getDefaultState(), false);
 				fillWithBlocks(worldIn, structureBoundingBoxIn, 5, 5, 7, 7, 5, 9, Blocks.DOUBLE_STONE_SLAB.getDefaultState(), Blocks.DOUBLE_STONE_SLAB.getDefaultState(), false);
-				setBlockState(worldIn, Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, Facing.SOUTH), 6, 5, 6, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.TORCH.getDefaultState()
+				                                   .withProperty(BlockTorch.FACING, Facing.SOUTH), 6, 5, 6, structureBoundingBoxIn);
 				return true;
 			}
 		}
@@ -547,8 +548,10 @@ public class StructureStrongholdPieces {
 					if ((l - 1) % 4 == 0) {
 						fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 1, l, 1, 4, l, Blocks.PLANKS.getDefaultState(), Blocks.PLANKS.getDefaultState(), false);
 						fillWithBlocks(worldIn, structureBoundingBoxIn, 12, 1, l, 12, 4, l, Blocks.PLANKS.getDefaultState(), Blocks.PLANKS.getDefaultState(), false);
-						setBlockState(worldIn, Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, Facing.EAST), 2, 3, l, structureBoundingBoxIn);
-						setBlockState(worldIn, Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, Facing.WEST), 11, 3, l, structureBoundingBoxIn);
+						setBlockState(worldIn, Blocks.TORCH.getDefaultState()
+						                                   .withProperty(BlockTorch.FACING, Facing.EAST), 2, 3, l, structureBoundingBoxIn);
+						setBlockState(worldIn, Blocks.TORCH.getDefaultState()
+						                                   .withProperty(BlockTorch.FACING, Facing.WEST), 11, 3, l, structureBoundingBoxIn);
 
 						if (isLargeRoom) {
 							fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 6, l, 1, 9, l, Blocks.PLANKS.getDefaultState(), Blocks.PLANKS.getDefaultState(), false);
@@ -586,7 +589,8 @@ public class StructureStrongholdPieces {
 					setBlockState(worldIn, Blocks.OAK_FENCE.getDefaultState(), 9, 6, 11, structureBoundingBoxIn);
 					setBlockState(worldIn, Blocks.OAK_FENCE.getDefaultState(), 8, 6, 11, structureBoundingBoxIn);
 					setBlockState(worldIn, Blocks.OAK_FENCE.getDefaultState(), 9, 6, 10, structureBoundingBoxIn);
-					IBlockState iblockstate1 = Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, Facing.SOUTH);
+					IBlockState iblockstate1 = Blocks.LADDER.getDefaultState()
+					                                        .withProperty(BlockLadder.FACING, Facing.SOUTH);
 					setBlockState(worldIn, iblockstate1, 10, 1, 13, structureBoundingBoxIn);
 					setBlockState(worldIn, iblockstate1, 10, 2, 13, structureBoundingBoxIn);
 					setBlockState(worldIn, iblockstate1, 10, 3, 13, structureBoundingBoxIn);
@@ -712,7 +716,8 @@ public class StructureStrongholdPieces {
 				fillWithBlocks(worldIn, structureBoundingBoxIn, i1, 3, 15, i1, 4, 15, Blocks.IRON_BARS.getDefaultState(), Blocks.IRON_BARS.getDefaultState(), false);
 			}
 
-			IBlockState iblockstate3 = Blocks.STONE_BRICK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH);
+			IBlockState iblockstate3 = Blocks.STONE_BRICK_STAIRS.getDefaultState()
+			                                                    .withProperty(BlockStairs.FACING, Facing.NORTH);
 			fillWithRandomizedBlocks(worldIn, structureBoundingBoxIn, 4, 1, 5, 6, 1, 7, false, randomIn, StructureStrongholdPieces.STRONGHOLD_STONES);
 			fillWithRandomizedBlocks(worldIn, structureBoundingBoxIn, 4, 2, 6, 6, 2, 7, false, randomIn, StructureStrongholdPieces.STRONGHOLD_STONES);
 			fillWithRandomizedBlocks(worldIn, structureBoundingBoxIn, 4, 3, 7, 6, 3, 7, false, randomIn, StructureStrongholdPieces.STRONGHOLD_STONES);
@@ -723,10 +728,14 @@ public class StructureStrongholdPieces {
 				setBlockState(worldIn, iblockstate3, k, 3, 6, structureBoundingBoxIn);
 			}
 
-			IBlockState iblockstate4 = Blocks.END_PORTAL_FRAME.getDefaultState().withProperty(BlockEndPortalFrame.FACING, Facing.NORTH);
-			IBlockState iblockstate = Blocks.END_PORTAL_FRAME.getDefaultState().withProperty(BlockEndPortalFrame.FACING, Facing.SOUTH);
-			IBlockState iblockstate1 = Blocks.END_PORTAL_FRAME.getDefaultState().withProperty(BlockEndPortalFrame.FACING, Facing.EAST);
-			IBlockState iblockstate2 = Blocks.END_PORTAL_FRAME.getDefaultState().withProperty(BlockEndPortalFrame.FACING, Facing.WEST);
+			IBlockState iblockstate4 = Blocks.END_PORTAL_FRAME.getDefaultState()
+			                                                  .withProperty(BlockEndPortalFrame.FACING, Facing.NORTH);
+			IBlockState iblockstate = Blocks.END_PORTAL_FRAME.getDefaultState()
+			                                                 .withProperty(BlockEndPortalFrame.FACING, Facing.SOUTH);
+			IBlockState iblockstate1 = Blocks.END_PORTAL_FRAME.getDefaultState()
+			                                                  .withProperty(BlockEndPortalFrame.FACING, Facing.EAST);
+			IBlockState iblockstate2 = Blocks.END_PORTAL_FRAME.getDefaultState()
+			                                                  .withProperty(BlockEndPortalFrame.FACING, Facing.WEST);
 			boolean flag = true;
 			boolean[] aboolean = new boolean[12];
 
@@ -771,7 +780,8 @@ public class StructureStrongholdPieces {
 					TileEntity tileentity = worldIn.getTileEntity(blockpos);
 
 					if (tileentity instanceof TileEntityMobSpawner) {
-						((TileEntityMobSpawner) tileentity).getSpawnerBaseLogic().setEntityId(EntityList.getKey(EntitySilverfish.class));
+						((TileEntityMobSpawner) tileentity).getSpawnerBaseLogic()
+						                                   .setEntityId(EntityList.getKey(EntitySilverfish.class));
 					}
 				}
 			}
@@ -818,8 +828,11 @@ public class StructureStrongholdPieces {
 				fillWithBlocks(worldIn, structureBoundingBoxIn, 5, 1, 5, 7, 3, 5, Blocks.IRON_BARS.getDefaultState(), Blocks.IRON_BARS.getDefaultState(), false);
 				setBlockState(worldIn, Blocks.IRON_BARS.getDefaultState(), 4, 3, 2, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.IRON_BARS.getDefaultState(), 4, 3, 8, structureBoundingBoxIn);
-				IBlockState iblockstate = Blocks.IRON_DOOR.getDefaultState().withProperty(BlockDoor.FACING, Facing.WEST);
-				IBlockState iblockstate1 = Blocks.IRON_DOOR.getDefaultState().withProperty(BlockDoor.FACING, Facing.WEST).withProperty(BlockDoor.HALF, BlockDoor.DoorHalf.UPPER);
+				IBlockState iblockstate = Blocks.IRON_DOOR.getDefaultState()
+				                                          .withProperty(BlockDoor.FACING, Facing.WEST);
+				IBlockState iblockstate1 = Blocks.IRON_DOOR.getDefaultState()
+				                                           .withProperty(BlockDoor.FACING, Facing.WEST)
+				                                           .withProperty(BlockDoor.HALF, BlockDoor.DoorHalf.UPPER);
 				setBlockState(worldIn, iblockstate, 4, 1, 2, structureBoundingBoxIn);
 				setBlockState(worldIn, iblockstate1, 4, 2, 2, structureBoundingBoxIn);
 				setBlockState(worldIn, iblockstate, 4, 1, 8, structureBoundingBoxIn);
@@ -914,10 +927,14 @@ public class StructureStrongholdPieces {
 						setBlockState(worldIn, Blocks.STONEBRICK.getDefaultState(), 5, 1, 5, structureBoundingBoxIn);
 						setBlockState(worldIn, Blocks.STONEBRICK.getDefaultState(), 5, 2, 5, structureBoundingBoxIn);
 						setBlockState(worldIn, Blocks.STONEBRICK.getDefaultState(), 5, 3, 5, structureBoundingBoxIn);
-						setBlockState(worldIn, Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, Facing.WEST), 4, 3, 5, structureBoundingBoxIn);
-						setBlockState(worldIn, Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, Facing.EAST), 6, 3, 5, structureBoundingBoxIn);
-						setBlockState(worldIn, Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, Facing.SOUTH), 5, 3, 4, structureBoundingBoxIn);
-						setBlockState(worldIn, Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, Facing.NORTH), 5, 3, 6, structureBoundingBoxIn);
+						setBlockState(worldIn, Blocks.TORCH.getDefaultState()
+						                                   .withProperty(BlockTorch.FACING, Facing.WEST), 4, 3, 5, structureBoundingBoxIn);
+						setBlockState(worldIn, Blocks.TORCH.getDefaultState()
+						                                   .withProperty(BlockTorch.FACING, Facing.EAST), 6, 3, 5, structureBoundingBoxIn);
+						setBlockState(worldIn, Blocks.TORCH.getDefaultState()
+						                                   .withProperty(BlockTorch.FACING, Facing.SOUTH), 5, 3, 4, structureBoundingBoxIn);
+						setBlockState(worldIn, Blocks.TORCH.getDefaultState()
+						                                   .withProperty(BlockTorch.FACING, Facing.NORTH), 5, 3, 6, structureBoundingBoxIn);
 						setBlockState(worldIn, Blocks.STONE_SLAB.getDefaultState(), 4, 1, 4, structureBoundingBoxIn);
 						setBlockState(worldIn, Blocks.STONE_SLAB.getDefaultState(), 4, 1, 5, structureBoundingBoxIn);
 						setBlockState(worldIn, Blocks.STONE_SLAB.getDefaultState(), 4, 1, 6, structureBoundingBoxIn);
@@ -985,7 +1002,8 @@ public class StructureStrongholdPieces {
 							setBlockState(worldIn, Blocks.PLANKS.getDefaultState(), 8, 3, l, structureBoundingBoxIn);
 						}
 
-						IBlockState iblockstate = Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, Facing.WEST);
+						IBlockState iblockstate = Blocks.LADDER.getDefaultState()
+						                                       .withProperty(BlockLadder.FACING, Facing.WEST);
 						setBlockState(worldIn, iblockstate, 9, 1, 3, structureBoundingBoxIn);
 						setBlockState(worldIn, iblockstate, 9, 2, 3, structureBoundingBoxIn);
 						setBlockState(worldIn, iblockstate, 9, 3, 3, structureBoundingBoxIn);
@@ -1124,7 +1142,8 @@ public class StructureStrongholdPieces {
 				fillWithRandomizedBlocks(worldIn, structureBoundingBoxIn, 0, 0, 0, 4, 10, 7, true, randomIn, StructureStrongholdPieces.STRONGHOLD_STONES);
 				placeDoor(worldIn, randomIn, structureBoundingBoxIn, entryDoor, 1, 7, 0);
 				placeDoor(worldIn, randomIn, structureBoundingBoxIn, StructureStrongholdPieces.Stronghold.Door.OPENING, 1, 1, 7);
-				IBlockState iblockstate = Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.SOUTH);
+				IBlockState iblockstate = Blocks.STONE_STAIRS.getDefaultState()
+				                                             .withProperty(BlockStairs.FACING, Facing.SOUTH);
 
 				for (int i = 0; i < 6; ++i) {
 					setBlockState(worldIn, iblockstate, 1, 6 - i, 1 + i, structureBoundingBoxIn);
@@ -1282,7 +1301,8 @@ public class StructureStrongholdPieces {
 					setBlockState(worldIn, Blocks.STONEBRICK.getDefaultState(), p_74990_5_ + 2, p_74990_6_ + 1, p_74990_7_, p_74990_3_);
 					setBlockState(worldIn, Blocks.STONEBRICK.getDefaultState(), p_74990_5_ + 2, p_74990_6_, p_74990_7_, p_74990_3_);
 					setBlockState(worldIn, Blocks.OAK_DOOR.getDefaultState(), p_74990_5_ + 1, p_74990_6_, p_74990_7_, p_74990_3_);
-					setBlockState(worldIn, Blocks.OAK_DOOR.getDefaultState().withProperty(BlockDoor.HALF, BlockDoor.DoorHalf.UPPER), p_74990_5_ + 1, p_74990_6_ + 1, p_74990_7_, p_74990_3_);
+					setBlockState(worldIn, Blocks.OAK_DOOR.getDefaultState()
+					                                      .withProperty(BlockDoor.HALF, BlockDoor.DoorHalf.UPPER), p_74990_5_ + 1, p_74990_6_ + 1, p_74990_7_, p_74990_3_);
 					break;
 
 				case GRATES:
@@ -1306,9 +1326,12 @@ public class StructureStrongholdPieces {
 					setBlockState(worldIn, Blocks.STONEBRICK.getDefaultState(), p_74990_5_ + 2, p_74990_6_ + 1, p_74990_7_, p_74990_3_);
 					setBlockState(worldIn, Blocks.STONEBRICK.getDefaultState(), p_74990_5_ + 2, p_74990_6_, p_74990_7_, p_74990_3_);
 					setBlockState(worldIn, Blocks.IRON_DOOR.getDefaultState(), p_74990_5_ + 1, p_74990_6_, p_74990_7_, p_74990_3_);
-					setBlockState(worldIn, Blocks.IRON_DOOR.getDefaultState().withProperty(BlockDoor.HALF, BlockDoor.DoorHalf.UPPER), p_74990_5_ + 1, p_74990_6_ + 1, p_74990_7_, p_74990_3_);
-					setBlockState(worldIn, Blocks.STONE_BUTTON.getDefaultState().withProperty(BlockButton.FACING, Facing.NORTH), p_74990_5_ + 2, p_74990_6_ + 1, p_74990_7_ + 1, p_74990_3_);
-					setBlockState(worldIn, Blocks.STONE_BUTTON.getDefaultState().withProperty(BlockButton.FACING, Facing.SOUTH), p_74990_5_ + 2, p_74990_6_ + 1, p_74990_7_ - 1, p_74990_3_);
+					setBlockState(worldIn, Blocks.IRON_DOOR.getDefaultState()
+					                                       .withProperty(BlockDoor.HALF, BlockDoor.DoorHalf.UPPER), p_74990_5_ + 1, p_74990_6_ + 1, p_74990_7_, p_74990_3_);
+					setBlockState(worldIn, Blocks.STONE_BUTTON.getDefaultState()
+					                                          .withProperty(BlockButton.FACING, Facing.NORTH), p_74990_5_ + 2, p_74990_6_ + 1, p_74990_7_ + 1, p_74990_3_);
+					setBlockState(worldIn, Blocks.STONE_BUTTON.getDefaultState()
+					                                          .withProperty(BlockButton.FACING, Facing.SOUTH), p_74990_5_ + 2, p_74990_6_ + 1, p_74990_7_ - 1, p_74990_3_);
 			}
 		}
 
@@ -1324,7 +1347,6 @@ public class StructureStrongholdPieces {
 			};
 		}
 
-		
 		protected StructureComponent getNextComponentNormal(StructureStrongholdPieces.Stairs2 p_74986_1_, List<StructureComponent> p_74986_2_, Random p_74986_3_, int p_74986_4_, int p_74986_5_) {
 			Facing enumfacing = getCoordBaseMode();
 
@@ -1347,7 +1369,6 @@ public class StructureStrongholdPieces {
 			return null;
 		}
 
-		
 		protected StructureComponent getNextComponentX(StructureStrongholdPieces.Stairs2 p_74989_1_, List<StructureComponent> p_74989_2_, Random p_74989_3_, int p_74989_4_, int p_74989_5_) {
 			Facing enumfacing = getCoordBaseMode();
 
@@ -1364,7 +1385,6 @@ public class StructureStrongholdPieces {
 			return null;
 		}
 
-		
 		protected StructureComponent getNextComponentZ(StructureStrongholdPieces.Stairs2 p_74987_1_, List<StructureComponent> p_74987_2_, Random p_74987_3_, int p_74987_4_, int p_74987_5_) {
 			Facing enumfacing = getCoordBaseMode();
 

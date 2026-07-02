@@ -34,7 +34,7 @@ import java.util.*;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class GameSettings {
-	
+
 	public static final Splitter COLON_SPLITTER = Splitter.on(':');
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final Gson GSON = new Gson();
@@ -42,11 +42,11 @@ public class GameSettings {
 		public Type @NonNull [] getActualTypeArguments() {
 			return new Type[]{String.class};
 		}
-		
+
 		public @NonNull Type getRawType() {
 			return List.class;
 		}
-		
+
 		public Type getOwnerType() {
 			return null;
 		}
@@ -59,10 +59,10 @@ public class GameSettings {
 	private static final String[] AMBIENT_OCCLUSIONS = new String[]{"options.ao.off", "options.ao.min", "options.ao.max"};
 	private static final String[] CLOUDS_TYPES = new String[]{"options.off", "options.clouds.fast", "options.clouds.fancy"};
 	private static final String[] ATTACK_INDICATORS = new String[]{"options.off", "options.attack.crosshair", "options.attack.hotbar"};
-	
+
 	private final Set<PlayerModelParts> modelParts = new HashSet<>(List.of(PlayerModelParts.values()));
 	private final Map<SoundCategory, Float> soundLevels = new EnumMap<>(SoundCategory.class);
-	
+
 	public float mouseSensitivity = 0.5F;
 	public boolean invertMouse;
 	public int renderDistanceChunks = 8;
@@ -114,7 +114,7 @@ public class GameSettings {
 	public boolean enableWeakAttacks;
 	public boolean showSubtitles;
 	public boolean autoJump = true;
-	
+
 	public KeyBinding keyForward = new KeyBinding("key.forward", GLFW_KEY_W, "key.categories.movement");
 	public KeyBinding keyLeft = new KeyBinding("key.left", GLFW_KEY_A, "key.categories.movement");
 	public KeyBinding keyBack = new KeyBinding("key.back", GLFW_KEY_S, "key.categories.movement");
@@ -137,22 +137,22 @@ public class GameSettings {
 	public KeyBinding keyFullscreen = new KeyBinding("key.fullscreen", GLFW_KEY_F11, "key.categories.misc");
 	public KeyBinding keySpectatorOutlines = new KeyBinding("key.spectatorOutlines", GLFW_KEY_UNKNOWN, "key.categories.misc");
 	public KeyBinding keyAdvancements = new KeyBinding("key.advancements", GLFW_KEY_L, "key.categories.misc");
-	
+
 	public KeyBinding[] keyHotbar = new KeyBinding[]{
-			new KeyBinding("key.hotbar.1", GLFW_KEY_1, "key.categories.inventory"),
-			new KeyBinding("key.hotbar.2", GLFW_KEY_2, "key.categories.inventory"),
-			new KeyBinding("key.hotbar.3", GLFW_KEY_3, "key.categories.inventory"),
-			new KeyBinding("key.hotbar.4", GLFW_KEY_4, "key.categories.inventory"),
-			new KeyBinding("key.hotbar.5", GLFW_KEY_5, "key.categories.inventory"),
-			new KeyBinding("key.hotbar.6", GLFW_KEY_6, "key.categories.inventory"),
-			new KeyBinding("key.hotbar.7", GLFW_KEY_7, "key.categories.inventory"),
-			new KeyBinding("key.hotbar.8", GLFW_KEY_8, "key.categories.inventory"),
-			new KeyBinding("key.hotbar.9", GLFW_KEY_9, "key.categories.inventory")
+		new KeyBinding("key.hotbar.1", GLFW_KEY_1, "key.categories.inventory"),
+		new KeyBinding("key.hotbar.2", GLFW_KEY_2, "key.categories.inventory"),
+		new KeyBinding("key.hotbar.3", GLFW_KEY_3, "key.categories.inventory"),
+		new KeyBinding("key.hotbar.4", GLFW_KEY_4, "key.categories.inventory"),
+		new KeyBinding("key.hotbar.5", GLFW_KEY_5, "key.categories.inventory"),
+		new KeyBinding("key.hotbar.6", GLFW_KEY_6, "key.categories.inventory"),
+		new KeyBinding("key.hotbar.7", GLFW_KEY_7, "key.categories.inventory"),
+		new KeyBinding("key.hotbar.8", GLFW_KEY_8, "key.categories.inventory"),
+		new KeyBinding("key.hotbar.9", GLFW_KEY_9, "key.categories.inventory")
 	};
-	
+
 	public KeyBinding keySaveToolbar = new KeyBinding("key.saveToolbarActivator", GLFW_KEY_UNKNOWN, "key.categories.creative");
 	public KeyBinding keyLoadToolbar = new KeyBinding("key.loadToolbarActivator", GLFW_KEY_UNKNOWN, "key.categories.creative");
-	
+
 	public KeyBinding[] keyBindings;
 	public Difficulty difficulty;
 	public boolean hideGUI;
@@ -190,7 +190,7 @@ public class GameSettings {
 	public boolean forceUnicodeFont;
 	protected Minecraft mc;
 	private File optionsFile;
-	
+
 	public GameSettings(Minecraft mcIn, File mcDataDir) {
 		KeyBinding[] akeybinding = new KeyBinding[]{keyAttack, keyUseItem, keyForward, keyLeft, keyBack, keyRight, keyJump, keySneak, keySprint, keyDrop, keyInventory, keyChat, keyPlayerList, keyPickBlock, keyCommand, keyScreenshot, keyTogglePerspective, keySmoothCamera, keyFullscreen, keySpectatorOutlines, keySwapHands, keySaveToolbar, keyLoadToolbar, keyAdvancements};
 		keyBindings = new KeyBinding[akeybinding.length + keyHotbar.length];
@@ -202,10 +202,10 @@ public class GameSettings {
 		language = "en_us";
 		mc = mcIn;
 		optionsFile = new File(mcDataDir, "options.txt");
-		
+
 		loadOptions();
 	}
-	
+
 	public GameSettings() {
 		KeyBinding[] akeybinding = new KeyBinding[]{keyAttack, keyUseItem, keyForward, keyLeft, keyBack, keyRight, keyJump, keySneak, keySprint, keyDrop, keyInventory, keyChat, keyPlayerList, keyPickBlock, keyCommand, keyScreenshot, keyTogglePerspective, keySmoothCamera, keyFullscreen, keySpectatorOutlines, keySwapHands, keySaveToolbar, keyLoadToolbar, keyAdvancements};
 		keyBindings = new KeyBinding[akeybinding.length + keyHotbar.length];
@@ -216,7 +216,7 @@ public class GameSettings {
 		fovSetting = 70F;
 		language = "en_us";
 	}
-	
+
 	/**
 	 * Gets the display name for a key.
 	 */
@@ -240,7 +240,7 @@ public class GameSettings {
 			return String.format("%c", (char) (key - 256)).toUpperCase();
 		}
 	}
-	
+
 	/**
 	 * Returns whether the specified key binding is currently being pressed.
 	 */
@@ -250,17 +250,17 @@ public class GameSettings {
 		if (i < 0) return Mouse.isButtonDown(i + 100);
 		return Keyboard.isKeyDown(i);
 	}
-	
+
 	/**
 	 * Returns the translation of the given index in the given String array. If the index is smaller than 0 or greater
 	 * than/equal to the length of the String array, it is changed to 0.
 	 */
 	private static String getTranslation(String[] strArray, int index) {
 		if (index < 0 || index >= strArray.length) index = 0;
-		
+
 		return I18n.format(strArray[index]);
 	}
-	
+
 	/**
 	 * Sets a key binding and then saves all settings.
 	 */
@@ -268,7 +268,7 @@ public class GameSettings {
 		key.setKeyCode(keyCode);
 		saveOptions();
 	}
-	
+
 	/**
 	 * If the specified option is controlled by a slider (float value), this will set the float value.
 	 */
@@ -316,14 +316,14 @@ public class GameSettings {
 			}
 		}
 	}
-	
+
 	/**
 	 * For non-float options. Toggles the option on/off, or cycles through the list i.e. render distances.
 	 */
 	public void setOptionValue(GameSettings.Options options, int value) {
 		switch (options) {
 			case RENDER_DISTANCE ->
-					setOptionFloatValue(options, MathHelper.clamp((float) (renderDistanceChunks + value), options.min, options.max));
+				setOptionFloatValue(options, MathHelper.clamp((float) (renderDistanceChunks + value), options.min, options.max));
 			case MAIN_HAND -> mainHand = mainHand.opposite();
 			case INVERT_MOUSE -> invertMouse = !invertMouse;
 			case GUI_SCALE -> {
@@ -347,7 +347,7 @@ public class GameSettings {
 				mc.renderGlobal.loadRenderers();
 			}
 			case CHAT_VISIBILITY ->
-					chatVisibility = EntityPlayer.ChatVisibility.getEnumChatVisibility((chatVisibility.getChatVisibility() + value) % 3);
+				chatVisibility = EntityPlayer.ChatVisibility.getEnumChatVisibility((chatVisibility.getChatVisibility() + value) % 3);
 			case CHAT_COLOR -> chatColours = !chatColours;
 			case CHAT_LINKS -> chatLinks = !chatLinks;
 			case CHAT_LINKS_PROMPT -> chatLinksPrompt = !chatLinksPrompt;
@@ -369,12 +369,13 @@ public class GameSettings {
 			case ATTACK_INDICATOR -> attackIndicator = (attackIndicator + value) % 3;
 			case SHOW_SUBTITLES -> showSubtitles = !showSubtitles;
 			case AUTO_JUMP -> autoJump = !autoJump;
-			default -> {}
+			default -> {
+			}
 		}
-		
+
 		saveOptions();
 	}
-	
+
 	public float getOptionFloatValue(GameSettings.Options options) {
 		return switch (options) {
 			case FOV -> fovSetting;
@@ -392,7 +393,7 @@ public class GameSettings {
 			default -> 0;
 		};
 	}
-	
+
 	public boolean getOptionOrdinalValue(GameSettings.Options options) {
 		return switch (options) {
 			case INVERT_MOUSE -> invertMouse;
@@ -414,17 +415,17 @@ public class GameSettings {
 			default -> false;
 		};
 	}
-	
+
 	/**
 	 * Gets a key binding.
 	 */
 	public String getKeyBinding(GameSettings.Options options) {
 		String s = I18n.format(options.getTranslation()) + ": ";
-		
+
 		if (options.isFloat()) {
 			float f1 = getOptionFloatValue(options);
 			float f = options.normalize(f1);
-			
+
 			return switch (options) {
 				case SENSITIVITY -> {
 					if (f == 0F) yield s + I18n.format("options.sensitivity.min");
@@ -437,9 +438,9 @@ public class GameSettings {
 					else yield s + (int) f1;
 				}
 				case FRAMERATE_LIMIT ->
-						f1 == options.max ? s + I18n.format("options.framerateLimit.max") : s + I18n.format("options.framerate", (int) f1);
+					f1 == options.max ? s + I18n.format("options.framerateLimit.max") : s + I18n.format("options.framerate", (int) f1);
 				case RENDER_CLOUDS ->
-						f1 == options.min ? s + I18n.format("options.cloudHeight.min") : s + ((int) f1 + 128);
+					f1 == options.min ? s + I18n.format("options.cloudHeight.min") : s + ((int) f1 + 128);
 				case GAMMA -> {
 					if (f == 0F) yield s + I18n.format("options.gamma.min");
 					else if (f == 1F) yield s + I18n.format("options.gamma.max");
@@ -464,24 +465,25 @@ public class GameSettings {
 				case PARTICLES -> s + getTranslation(PARTICLES, particleSetting);
 				case AMBIENT_OCCLUSION -> s + getTranslation(AMBIENT_OCCLUSIONS, ambientOcclusion);
 				case RENDER_CLOUDS -> s + getTranslation(CLOUDS_TYPES, clouds);
-				case GRAPHICS -> fancyGraphics ? s + I18n.format("options.graphics.fancy") : s + I18n.format("options.graphics.fast");
+				case GRAPHICS ->
+					fancyGraphics ? s + I18n.format("options.graphics.fancy") : s + I18n.format("options.graphics.fast");
 				case ATTACK_INDICATOR -> s + getTranslation(ATTACK_INDICATORS, attackIndicator);
 				default -> s;
 			};
 		}
 	}
-	
+
 	/**
 	 * Loads the options from the options file. It appears that this has replaced the previous 'loadOptions'
 	 */
 	public void loadOptions() {
 		try {
 			if (!optionsFile.exists()) return;
-			
+
 			soundLevels.clear();
 			List<String> options = IOUtils.readLines(new FileInputStream(optionsFile), StandardCharsets.UTF_8);
 			NBTTagCompound compound = new NBTTagCompound();
-			
+
 			for (String s : options) {
 				try {
 					Iterator<String> iterator = COLON_SPLITTER.omitEmptyStrings().limit(2).split(s).iterator();
@@ -490,12 +492,12 @@ public class GameSettings {
 					LOGGER.warn("Skipping bad option: {}", s);
 				}
 			}
-			
+
 			compound = dataFix(compound);
-			
+
 			for (String s1 : compound.getKeySet()) {
 				String s2 = compound.getString(s1);
-				
+
 				try {
 					switch (s1) {
 						case "mouseSensitivity" -> mouseSensitivity = parseFloat(s2);
@@ -533,7 +535,7 @@ public class GameSettings {
 						case "lastServer" -> lastServer = s2;
 						case "lang" -> language = s2;
 						case "chatVisibility" ->
-								chatVisibility = EntityPlayer.ChatVisibility.getEnumChatVisibility(Integer.parseInt(s2));
+							chatVisibility = EntityPlayer.ChatVisibility.getEnumChatVisibility(Integer.parseInt(s2));
 						case "chatColors" -> chatColours = "true".equals(s2);
 						case "chatLinks" -> chatLinks = "true".equals(s2);
 						case "chatLinksPrompt" -> chatLinksPrompt = "true".equals(s2);
@@ -564,19 +566,19 @@ public class GameSettings {
 						default -> {
 						}
 					}
-					
+
 					for (KeyBinding keybinding : keyBindings) {
 						if (s1.equals("key_" + keybinding.getDescription())) {
 							keybinding.setKeyCode(Integer.parseInt(s2));
 						}
 					}
-					
+
 					for (SoundCategory soundcategory : SoundCategory.values()) {
 						if (s1.equals("soundCategory_" + soundcategory.getName())) {
 							soundLevels.put(soundcategory, parseFloat(s2));
 						}
 					}
-					
+
 					for (PlayerModelParts enumplayermodelparts : PlayerModelParts.values()) {
 						if (s1.equals("modelPart_" + enumplayermodelparts.getPartName())) {
 							setModelPartEnabled(enumplayermodelparts, "true".equals(s2));
@@ -586,24 +588,24 @@ public class GameSettings {
 					LOGGER.warn("Skipping bad option: {}:{}", s1, s2);
 				}
 			}
-			
+
 			KeyBinding.resetKeyBindingArrayAndHash();
 		} catch (Exception e) {
 			LOGGER.error("Failed to load options", e);
 		}
 	}
-	
+
 	private NBTTagCompound dataFix(NBTTagCompound compound) {
 		int i = 0;
-		
+
 		try {
 			i = Integer.parseInt(compound.getString("version"));
 		} catch (RuntimeException ignored) {
 		}
-		
+
 		return mc.getDataFixer().process(FixTypes.OPTIONS, compound, i);
 	}
-	
+
 	/**
 	 * Parses a string into a float.
 	 */
@@ -614,7 +616,7 @@ public class GameSettings {
 			return str.equals("false") ? 0F : Float.parseFloat(str);
 		}
 	}
-	
+
 	/**
 	 * Saves the options to the options file.
 	 */
@@ -635,13 +637,13 @@ public class GameSettings {
 			writer.println("difficulty:" + difficulty.getDifficultyId());
 			writer.println("fancyGraphics:" + fancyGraphics);
 			writer.println("ao:" + ambientOcclusion);
-			
+
 			switch (clouds) {
 				case 0 -> writer.println("renderClouds:false");
 				case 1 -> writer.println("renderClouds:fast");
 				case 2 -> writer.println("renderClouds:true");
 			}
-			
+
 			writer.println("resourcePacks:" + GSON.toJson(resourcePacks));
 			writer.println("incompatibleResourcePacks:" + GSON.toJson(incompatibleResourcePacks));
 			writer.println("lastServer:" + lastServer);
@@ -675,87 +677,87 @@ public class GameSettings {
 			writer.println("showSubtitles:" + showSubtitles);
 			writer.println("enableWeakAttacks:" + enableWeakAttacks);
 			writer.println("autoJump:" + autoJump);
-			
+
 			for (KeyBinding key : keyBindings) {
 				writer.println("key_" + key.getDescription() + ":" + key.getKeyCode());
 			}
-			
+
 			for (SoundCategory sound : SoundCategory.values()) {
 				writer.println("soundCategory_" + sound.getName() + ":" + getSoundLevel(sound));
 			}
-			
+
 			for (PlayerModelParts parts : PlayerModelParts.values()) {
 				writer.println("modelPart_" + parts.getPartName() + ":" + modelParts.contains(parts));
 			}
 		} catch (Exception exception) {
 			LOGGER.error("Failed to save options", exception);
 		}
-		
+
 		sendSettingsToServer();
 	}
-	
+
 	public float getSoundLevel(SoundCategory category) {
 		return soundLevels.getOrDefault(category, 1F);
 	}
-	
+
 	public void setSoundLevel(SoundCategory category, float volume) {
 		mc.getSoundHandler().setSoundLevel(category, volume);
 		soundLevels.put(category, volume);
 	}
-	
+
 	/**
 	 * Send a client info packet with settings information to the server
 	 */
 	public void sendSettingsToServer() {
 		if (mc.player != null) {
 			int i = 0;
-			
+
 			for (PlayerModelParts parts : modelParts) {
 				i |= parts.getPartMask();
 			}
-			
+
 			mc.player.connection.sendPacket(new CPacketClientSettings(language, renderDistanceChunks, chatVisibility, chatColours, i, mainHand));
 		}
 	}
-	
+
 	public Set<PlayerModelParts> getModelParts() {
 		return ImmutableSet.copyOf(modelParts);
 	}
-	
+
 	public void setModelPartEnabled(PlayerModelParts parts, boolean enable) {
 		if (enable) {
 			modelParts.add(parts);
 		} else {
 			modelParts.remove(parts);
 		}
-		
+
 		sendSettingsToServer();
 	}
-	
+
 	public void switchModelPartEnabled(PlayerModelParts parts) {
 		if (getModelParts().contains(parts)) {
 			modelParts.remove(parts);
 		} else {
 			modelParts.add(parts);
 		}
-		
+
 		sendSettingsToServer();
 	}
-	
+
 	/**
 	 * Return true if the clouds should be rendered
 	 */
 	public int shouldRenderClouds() {
 		return renderDistanceChunks >= 4 ? clouds : 0;
 	}
-	
+
 	/**
 	 * Return true if the client connect to a server using the native transport system
 	 */
 	public boolean isUsingNativeTransport() {
 		return useNativeTransport;
 	}
-	
+
 	@Getter
 	public enum Options {
 		INVERT_MOUSE("options.invertMouse", false, true),
@@ -794,18 +796,18 @@ public class GameSettings {
 		ENABLE_WEAK_ATTACKS("options.enableWeakAttacks", false, true),
 		SHOW_SUBTITLES("options.showSubtitles", false, true),
 		AUTO_JUMP("options.autoJump", false, true);
-		
+
 		private final boolean isFloat;
 		private final boolean isBoolean;
 		private final String translation;
 		private final float step;
 		private final float min;
 		private final float max;
-		
+
 		Options(String translation, boolean isFloat, boolean isBoolean) {
 			this(translation, isFloat, isBoolean, 0F, 1F, 0F);
 		}
-		
+
 		Options(String translation, boolean isFloat, boolean isBoolean, float min, float max, float step) {
 			this.translation = translation;
 			this.isFloat = isFloat;
@@ -814,32 +816,32 @@ public class GameSettings {
 			this.max = max;
 			this.step = step;
 		}
-		
+
 		public static GameSettings.Options byOrdinal(int ordinal) {
 			for (GameSettings.Options options : values()) {
 				if (options.ordinal() == ordinal) return options;
 			}
-			
+
 			return null;
 		}
-		
+
 		public float normalize(float value) {
 			return MathHelper.clamp((stepClamp(value) - min) / (max - min), 0F, 1F);
 		}
-		
+
 		public float denormalize(float value) {
 			return stepClamp(min + (max - min) * MathHelper.clamp(value, 0F, 1F));
 		}
-		
+
 		public float stepClamp(float value) {
 			value = snapStep(value);
 			return MathHelper.clamp(value, min, max);
 		}
-		
+
 		private float snapStep(float value) {
 			if (step > 0F) value = step * Math.round(value / step);
 			return value;
 		}
 	}
-	
+
 }

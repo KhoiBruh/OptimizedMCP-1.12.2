@@ -110,7 +110,6 @@ public class ChunkGeneratorDebug implements IChunkGenerator {
 		return biome.getSpawnableList(creatureType);
 	}
 
-	
 	public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
 		return null;
 	}
@@ -126,4 +125,5 @@ public class ChunkGeneratorDebug implements IChunkGenerator {
 	 */
 	public void recreateStructures(Chunk chunkIn, int x, int z) {
 	}
+
 }

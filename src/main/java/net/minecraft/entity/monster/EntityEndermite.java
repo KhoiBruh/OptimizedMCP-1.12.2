@@ -77,7 +77,6 @@ public class EntityEndermite extends EntityMob {
 		playSound(SoundEvents.ENTITY_ENDERMITE_STEP, 0.15F, 1F);
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_ENDERMITE;
 	}

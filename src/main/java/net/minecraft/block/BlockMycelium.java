@@ -38,7 +38,8 @@ public class BlockMycelium extends Block {
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 		if (!worldIn.isRemote) {
 			if (worldIn.getLightFromNeighbors(pos.up()) < 4 && worldIn.getBlockState(pos.up()).getLightOpacity() > 2) {
-				worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
+				worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState()
+				                                      .withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
 			} else {
 				if (worldIn.getLightFromNeighbors(pos.up()) >= 9) {
 					for (int i = 0; i < 4; ++i) {
@@ -67,7 +68,8 @@ public class BlockMycelium extends Block {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Blocks.DIRT.getItemDropped(Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT), rand, fortune);
+		return Blocks.DIRT.getItemDropped(Blocks.DIRT.getDefaultState()
+		                                             .withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT), rand, fortune);
 	}
 
 	/**

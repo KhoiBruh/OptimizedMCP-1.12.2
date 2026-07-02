@@ -51,7 +51,8 @@ public class EntityAIWatchClosest extends EntityAIBase {
 			if (watchedClass == EntityPlayer.class) {
 				closestEntity = entity.world.getClosestPlayer(entity.posX, entity.posY, entity.posZ, maxDistanceForPlayer, Predicates.and(EntitySelectors.NOT_SPECTATING, EntitySelectors.notRiding(entity)));
 			} else {
-				closestEntity = entity.world.findNearestEntityWithinAABB(watchedClass, entity.getEntityBoundingBox().grow(maxDistanceForPlayer, 3D, maxDistanceForPlayer), entity);
+				closestEntity = entity.world.findNearestEntityWithinAABB(watchedClass, entity.getEntityBoundingBox()
+				                                                                             .grow(maxDistanceForPlayer, 3D, maxDistanceForPlayer), entity);
 			}
 
 			return closestEntity != null;
@@ -89,7 +90,8 @@ public class EntityAIWatchClosest extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-		entity.getLookHelper().setLookPosition(closestEntity.posX, closestEntity.posY + (double) closestEntity.getEyeHeight(), closestEntity.posZ, (float) entity.getHorizontalFaceSpeed(), (float) entity.getVerticalFaceSpeed());
+		entity.getLookHelper()
+		      .setLookPosition(closestEntity.posX, closestEntity.posY + (double) closestEntity.getEyeHeight(), closestEntity.posZ, (float) entity.getHorizontalFaceSpeed(), (float) entity.getVerticalFaceSpeed());
 		--lookTime;
 	}
 

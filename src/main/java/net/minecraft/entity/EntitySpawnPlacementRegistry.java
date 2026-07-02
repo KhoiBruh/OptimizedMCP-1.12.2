@@ -60,4 +60,5 @@ public class EntitySpawnPlacementRegistry {
 
 		return ENTITY_PLACEMENTS.get(entityClass);
 	}
+
 }

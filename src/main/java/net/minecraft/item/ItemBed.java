@@ -52,8 +52,12 @@ public class ItemBed extends Item {
 				boolean flag2 = flag || worldIn.isAirBlock(pos);
 				boolean flag3 = flag1 || worldIn.isAirBlock(blockpos);
 
-				if (flag2 && flag3 && worldIn.getBlockState(pos.down()).isTopSolid() && worldIn.getBlockState(blockpos.down()).isTopSolid()) {
-					IBlockState iblockstate2 = Blocks.BED.getDefaultState().withProperty(BlockBed.OCCUPIED, false).withProperty(BlockBed.FACING, enumfacing).withProperty(BlockBed.PART, BlockBed.PartType.FOOT);
+				if (flag2 && flag3 && worldIn.getBlockState(pos.down())
+				                             .isTopSolid() && worldIn.getBlockState(blockpos.down()).isTopSolid()) {
+					IBlockState iblockstate2 = Blocks.BED.getDefaultState()
+					                                     .withProperty(BlockBed.OCCUPIED, false)
+					                                     .withProperty(BlockBed.FACING, enumfacing)
+					                                     .withProperty(BlockBed.PART, BlockBed.PartType.FOOT);
 					worldIn.setBlockState(pos, iblockstate2, 10);
 					worldIn.setBlockState(blockpos, iblockstate2.withProperty(BlockBed.PART, BlockBed.PartType.HEAD), 10);
 					SoundType soundtype = iblockstate2.getBlock().getSoundType();

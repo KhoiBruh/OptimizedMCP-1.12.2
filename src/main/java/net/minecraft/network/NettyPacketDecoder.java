@@ -14,7 +14,8 @@ import java.util.List;
 public class NettyPacketDecoder extends ByteToMessageDecoder {
 
 	private static final Logger LOGGER = LogManager.getLogger();
-	private static final Marker RECEIVED_PACKET_MARKER = MarkerManager.getMarker("PACKET_RECEIVED").setParents(NetworkManager.NETWORK_PACKETS_MARKER);
+	private static final Marker RECEIVED_PACKET_MARKER = MarkerManager.getMarker("PACKET_RECEIVED")
+	                                                                  .setParents(NetworkManager.NETWORK_PACKETS_MARKER);
 	private final PacketDirection direction;
 
 	public NettyPacketDecoder(PacketDirection direction) {
@@ -25,7 +26,10 @@ public class NettyPacketDecoder extends ByteToMessageDecoder {
 		if (p_decode_2_.readableBytes() != 0) {
 			PacketBuffer packetbuffer = new PacketBuffer(p_decode_2_);
 			int i = packetbuffer.readVarInt();
-			Packet<?> packet = p_decode_1_.channel().attr(NetworkManager.PROTOCOL_ATTRIBUTE_KEY).get().getPacket(direction, i);
+			Packet<?> packet = p_decode_1_.channel()
+			                              .attr(NetworkManager.PROTOCOL_ATTRIBUTE_KEY)
+			                              .get()
+			                              .getPacket(direction, i);
 
 			if (packet == null) {
 				throw new IOException("Bad packet id " + i);
@@ -33,12 +37,19 @@ public class NettyPacketDecoder extends ByteToMessageDecoder {
 				packet.readPacketData(packetbuffer);
 
 				if (packetbuffer.readableBytes() > 0) {
-					throw new IOException("Packet " + p_decode_1_.channel().attr(NetworkManager.PROTOCOL_ATTRIBUTE_KEY).get().getId() + "/" + i + " (" + packet.getClass().getSimpleName() + ") was larger than I expected, found " + packetbuffer.readableBytes() + " bytes extra whilst reading packet " + i);
+					throw new IOException("Packet " + p_decode_1_.channel()
+					                                             .attr(NetworkManager.PROTOCOL_ATTRIBUTE_KEY)
+					                                             .get()
+					                                             .getId() + "/" + i + " (" + packet.getClass()
+					                                                                               .getSimpleName() + ") was larger than I expected, found " + packetbuffer.readableBytes() + " bytes extra whilst reading packet " + i);
 				} else {
 					p_decode_3_.add(packet);
 
 					if (LOGGER.isDebugEnabled()) {
-						LOGGER.debug(RECEIVED_PACKET_MARKER, " IN: [{}:{}] {}", p_decode_1_.channel().attr(NetworkManager.PROTOCOL_ATTRIBUTE_KEY).get(), i, packet.getClass().getName());
+						LOGGER.debug(RECEIVED_PACKET_MARKER, " IN: [{}:{}] {}", p_decode_1_.channel()
+						                                                                   .attr(NetworkManager.PROTOCOL_ATTRIBUTE_KEY)
+						                                                                   .get(), i, packet.getClass()
+						                                                                                    .getName());
 					}
 				}
 			}

@@ -142,7 +142,10 @@ public class BlockStairs extends Block {
 
 	protected BlockStairs(IBlockState modelState) {
 		super(modelState.getBlock().blockMaterial);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(HALF, BlockStairs.Half.BOTTOM).withProperty(SHAPE, BlockStairs.Shape.STRAIGHT));
+		setDefaultState(blockState.getBaseState()
+		                          .withProperty(FACING, Facing.NORTH)
+		                          .withProperty(HALF, BlockStairs.Half.BOTTOM)
+		                          .withProperty(SHAPE, BlockStairs.Shape.STRAIGHT));
 		modelBlock = modelState.getBlock();
 		this.modelState = modelState;
 		setHardness(modelBlock.blockHardness);
@@ -216,7 +219,8 @@ public class BlockStairs extends Block {
 		if (isBlockStairs(iblockstate) && p_185706_0_.getValue(HALF) == iblockstate.getValue(HALF)) {
 			Facing enumfacing1 = iblockstate.getValue(FACING);
 
-			if (enumfacing1.getAxis() != p_185706_0_.getValue(FACING).getAxis() && isDifferentStairs(p_185706_0_, p_185706_1_, p_185706_2_, enumfacing1.getOpposite())) {
+			if (enumfacing1.getAxis() != p_185706_0_.getValue(FACING)
+			                                        .getAxis() && isDifferentStairs(p_185706_0_, p_185706_1_, p_185706_2_, enumfacing1.getOpposite())) {
 				if (enumfacing1 == enumfacing.rotateYCCW()) {
 					return BlockStairs.Shape.OUTER_LEFT;
 				}
@@ -230,7 +234,8 @@ public class BlockStairs extends Block {
 		if (isBlockStairs(iblockstate1) && p_185706_0_.getValue(HALF) == iblockstate1.getValue(HALF)) {
 			Facing enumfacing2 = iblockstate1.getValue(FACING);
 
-			if (enumfacing2.getAxis() != p_185706_0_.getValue(FACING).getAxis() && isDifferentStairs(p_185706_0_, p_185706_1_, p_185706_2_, enumfacing2)) {
+			if (enumfacing2.getAxis() != p_185706_0_.getValue(FACING)
+			                                        .getAxis() && isDifferentStairs(p_185706_0_, p_185706_1_, p_185706_2_, enumfacing2)) {
 				if (enumfacing2 == enumfacing.rotateYCCW()) {
 					return BlockStairs.Shape.INNER_LEFT;
 				}
@@ -283,9 +288,9 @@ public class BlockStairs extends Block {
 
 				return switch (blockstairs$enumshape) {
 					case INNER_RIGHT ->
-							enumfacing != face && enumfacing != face.rotateYCCW() ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
+						enumfacing != face && enumfacing != face.rotateYCCW() ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
 					case INNER_LEFT ->
-							enumfacing != face && enumfacing != face.rotateY() ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
+						enumfacing != face && enumfacing != face.rotateY() ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
 					case STRAIGHT -> enumfacing == face ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 					default -> BlockFaceShape.UNDEFINED;
 				};
@@ -437,11 +442,10 @@ public class BlockStairs extends Block {
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 		IBlockState iblockstate = super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
-		iblockstate = iblockstate.withProperty(FACING, placer.getHorizontalFacing()).withProperty(SHAPE, BlockStairs.Shape.STRAIGHT);
+		iblockstate = iblockstate.withProperty(FACING, placer.getHorizontalFacing())
+		                         .withProperty(SHAPE, BlockStairs.Shape.STRAIGHT);
 		return facing != Facing.DOWN && (facing == Facing.UP || (double) hitY <= 0.5D) ? iblockstate.withProperty(HALF, BlockStairs.Half.BOTTOM) : iblockstate.withProperty(HALF, BlockStairs.Half.TOP);
 	}
-
-	
 
 	/**
 	 * Ray traces through the blocks collision from start vector to end vector returning a ray trace hit.
@@ -524,13 +528,13 @@ public class BlockStairs extends Block {
 				if (enumfacing.getAxis() == Facing.Axis.Z) {
 					return switch (blockstairs$enumshape) {
 						case OUTER_LEFT ->
-								state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, Shape.OUTER_RIGHT);
+							state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, Shape.OUTER_RIGHT);
 						case OUTER_RIGHT ->
-								state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, Shape.OUTER_LEFT);
+							state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, Shape.OUTER_LEFT);
 						case INNER_RIGHT ->
-								state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, Shape.INNER_LEFT);
+							state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, Shape.INNER_LEFT);
 						case INNER_LEFT ->
-								state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, Shape.INNER_RIGHT);
+							state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, Shape.INNER_RIGHT);
 						default -> state.withRotation(Rotation.CLOCKWISE_180);
 					};
 				}
@@ -541,13 +545,13 @@ public class BlockStairs extends Block {
 				if (enumfacing.getAxis() == Facing.Axis.X) {
 					return switch (blockstairs$enumshape) {
 						case OUTER_LEFT ->
-								state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, Shape.OUTER_RIGHT);
+							state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, Shape.OUTER_RIGHT);
 						case OUTER_RIGHT ->
-								state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, Shape.OUTER_LEFT);
+							state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, Shape.OUTER_LEFT);
 						case INNER_RIGHT ->
-								state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, Shape.INNER_RIGHT);
+							state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, Shape.INNER_RIGHT);
 						case INNER_LEFT ->
-								state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, Shape.INNER_LEFT);
+							state.withRotation(Rotation.CLOCKWISE_180).withProperty(SHAPE, Shape.INNER_LEFT);
 						case STRAIGHT -> state.withRotation(Rotation.CLOCKWISE_180);
 					};
 				}

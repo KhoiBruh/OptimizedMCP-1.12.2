@@ -83,7 +83,8 @@ public class BlockStem extends BlockBush implements IGrowable {
 					pos = pos.offset(Facing.Plane.HORIZONTAL.random(rand));
 					Block block = worldIn.getBlockState(pos.down()).getBlock();
 
-					if (worldIn.getBlockState(pos).getBlock().blockMaterial == Material.AIR && (block == Blocks.FARMLAND || block == Blocks.DIRT || block == Blocks.GRASS)) {
+					if (worldIn.getBlockState(pos)
+					           .getBlock().blockMaterial == Material.AIR && (block == Blocks.FARMLAND || block == Blocks.DIRT || block == Blocks.GRASS)) {
 						worldIn.setBlockState(pos, crop.getDefaultState());
 					}
 				}
@@ -117,7 +118,6 @@ public class BlockStem extends BlockBush implements IGrowable {
 		}
 	}
 
-	
 	protected Item getSeedItem() {
 		if (crop == Blocks.PUMPKIN) {
 			return Items.PUMPKIN_SEEDS;

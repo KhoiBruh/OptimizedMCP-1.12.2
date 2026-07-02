@@ -84,7 +84,8 @@ public class ChunkGeneratorOverworld implements IChunkGenerator {
 	}
 
 	public void setBlocksInChunk(int x, int z, ChunkPrimer primer) {
-		biomesForGeneration = world.getBiomeProvider().getBiomesForGeneration(biomesForGeneration, x * 4 - 2, z * 4 - 2, 10, 10);
+		biomesForGeneration = world.getBiomeProvider()
+		                           .getBiomesForGeneration(biomesForGeneration, x * 4 - 2, z * 4 - 2, 10, 10);
 		generateHeightmap(x * 4, 0, z * 4);
 
 		for (int i = 0; i < 4; ++i) {
@@ -451,7 +452,6 @@ public class ChunkGeneratorOverworld implements IChunkGenerator {
 		}
 	}
 
-	
 	public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
 		if (!mapFeaturesEnabled) {
 			return null;

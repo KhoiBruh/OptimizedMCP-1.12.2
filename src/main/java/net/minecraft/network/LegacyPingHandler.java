@@ -52,7 +52,8 @@ public class LegacyPingHandler extends ChannelInboundHandlerAdapter {
 					default:
 						boolean flag1 = bytebuf.readUnsignedByte() == 1;
 						flag1 = flag1 & bytebuf.readUnsignedByte() == 250;
-						flag1 = flag1 & "MC|PingHost".equals(new String(bytebuf.readBytes(bytebuf.readShort() * 2).array(), StandardCharsets.UTF_16BE));
+						flag1 = flag1 & "MC|PingHost".equals(new String(bytebuf.readBytes(bytebuf.readShort() * 2)
+						                                                       .array(), StandardCharsets.UTF_16BE));
 						int j = bytebuf.readUnsignedShort();
 						flag1 = flag1 & bytebuf.readUnsignedByte() >= 73;
 						flag1 = flag1 & 3 + bytebuf.readBytes(bytebuf.readShort() * 2).array().length + 4 == j;

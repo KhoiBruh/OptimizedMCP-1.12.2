@@ -152,7 +152,8 @@ public class LanguageScreen extends Screen {
 
 		protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks) {
 			fontRenderer.setBidiFlag(true);
-			drawCenteredString(fontRenderer, languageMap.get(langCodeList.get(slotIndex)).toString(), width / 2, yPos + 1, 16777215);
+			drawCenteredString(fontRenderer, languageMap.get(langCodeList.get(slotIndex))
+			                                            .toString(), width / 2, yPos + 1, 16777215);
 			fontRenderer.setBidiFlag(languageManager.getCurrentLanguage().isBidirectional());
 		}
 

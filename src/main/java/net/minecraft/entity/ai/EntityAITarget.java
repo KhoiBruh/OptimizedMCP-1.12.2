@@ -66,7 +66,8 @@ public abstract class EntityAITarget extends EntityAIBase {
 			return false;
 		} else {
 			if (attacker instanceof IEntityOwnable && ((IEntityOwnable) attacker).getOwnerId() != null) {
-				if (target instanceof IEntityOwnable && ((IEntityOwnable) attacker).getOwnerId().equals(((IEntityOwnable) target).getOwnerId())) {
+				if (target instanceof IEntityOwnable && ((IEntityOwnable) attacker).getOwnerId()
+				                                                                   .equals(((IEntityOwnable) target).getOwnerId())) {
 					return false;
 				}
 

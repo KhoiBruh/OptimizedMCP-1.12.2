@@ -23,7 +23,6 @@ public class PlayerChunkMapEntry {
 	private final ChunkPos pos;
 	private final short[] changedBlocks = new short[64];
 
-	
 	private Chunk chunk;
 	private int changes;
 	private int changedSectionFilter;
@@ -233,7 +232,6 @@ public class PlayerChunkMapEntry {
 		return sentToPlayers;
 	}
 
-	
 	public Chunk getChunk() {
 		return chunk;
 	}

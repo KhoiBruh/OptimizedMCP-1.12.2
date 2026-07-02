@@ -24,6 +24,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
+
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -534,7 +535,6 @@ public abstract class CommandBase implements ICommand {
 		}
 	}
 
-	
 	private static <T extends Comparable<T>> T getValueHelper(IProperty<T> p_190792_0_, String p_190792_1_) {
 
 		return p_190792_0_.parseValue(p_190792_1_).orNull();

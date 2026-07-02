@@ -68,7 +68,8 @@ public abstract class BlockLiquid extends Block {
 
 	public static float getBlockLiquidHeight(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 		int i = state.getValue(LEVEL);
-		return (i & 7) == 0 && worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER ? 1F : 1F - getLiquidHeightPercent(i);
+		return (i & 7) == 0 && worldIn.getBlockState(pos.up())
+		                              .getMaterial() == Material.WATER ? 1F : 1F - getLiquidHeightPercent(i);
 	}
 
 	public static float getLiquidHeight(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
@@ -274,7 +275,9 @@ public abstract class BlockLiquid extends Block {
 			}
 		}
 
-		if (blockMaterial == Material.LAVA && worldIn.getBlockState(pos.up()).getMaterial() == Material.AIR && !worldIn.getBlockState(pos.up()).isOpaqueCube()) {
+		if (blockMaterial == Material.LAVA && worldIn.getBlockState(pos.up())
+		                                             .getMaterial() == Material.AIR && !worldIn.getBlockState(pos.up())
+		                                                                                       .isOpaqueCube()) {
 			if (rand.nextInt(100) == 0) {
 				double d8 = d0 + (double) rand.nextFloat();
 				double d4 = d1 + stateIn.getBoundingBox(worldIn, pos).maxY;
@@ -326,7 +329,8 @@ public abstract class BlockLiquid extends Block {
 			boolean flag = false;
 
 			for (Facing enumfacing : Facing.values()) {
-				if (enumfacing != Facing.DOWN && worldIn.getBlockState(pos.offset(enumfacing)).getMaterial() == Material.WATER) {
+				if (enumfacing != Facing.DOWN && worldIn.getBlockState(pos.offset(enumfacing))
+				                                        .getMaterial() == Material.WATER) {
 					flag = true;
 					break;
 				}

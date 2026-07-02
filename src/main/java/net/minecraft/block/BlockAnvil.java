@@ -76,7 +76,9 @@ public class BlockAnvil extends BlockFalling {
 		Facing enumfacing = placer.getHorizontalFacing().rotateY();
 
 		try {
-			return super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(FACING, enumfacing).withProperty(DAMAGE, meta >> 2);
+			return super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer)
+			            .withProperty(FACING, enumfacing)
+			            .withProperty(DAMAGE, meta >> 2);
 		} catch (IllegalArgumentException var11) {
 			if (!worldIn.isRemote) {
 				LOGGER.warn("Invalid damage property for anvil at {}. Found {}, must be in [0, 1, 2]", pos, meta >> 2);
@@ -86,7 +88,9 @@ public class BlockAnvil extends BlockFalling {
 				}
 			}
 
-			return super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, 0, placer).withProperty(FACING, enumfacing).withProperty(DAMAGE, 0);
+			return super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, 0, placer)
+			            .withProperty(FACING, enumfacing)
+			            .withProperty(DAMAGE, 0);
 		}
 	}
 
@@ -143,7 +147,8 @@ public class BlockAnvil extends BlockFalling {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(FACING, Facing.getHorizontal(meta & 3)).withProperty(DAMAGE, (meta & 15) >> 2);
+		return getDefaultState().withProperty(FACING, Facing.getHorizontal(meta & 3))
+		                        .withProperty(DAMAGE, (meta & 15) >> 2);
 	}
 
 	/**

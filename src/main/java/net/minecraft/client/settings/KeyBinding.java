@@ -32,13 +32,13 @@ public class KeyBinding implements Comparable<KeyBinding> {
 
 	@Getter
 	private final String description;
-	
+
 	@Getter
 	private final int defaultKeyCode;
-	
+
 	@Getter
 	private final String category;
-	
+
 	@Setter
 	@Getter
 	private int keyCode;
@@ -115,7 +115,7 @@ public class KeyBinding implements Comparable<KeyBinding> {
 	public boolean isDown() {
 		return pressed;
 	}
-	
+
 	public boolean isPressed() {
 		if (pressTime == 0) {
 			return false;
@@ -129,10 +129,11 @@ public class KeyBinding implements Comparable<KeyBinding> {
 		pressTime = 0;
 		pressed = false;
 	}
-	
+
 	public int compareTo(KeyBinding other) {
 		return category.equals(other.category) ?
-				I18n.format(description).compareTo(I18n.format(other.description)) :
-				CATEGORY_ORDER.get(category).compareTo(CATEGORY_ORDER.get(other.category));
+			I18n.format(description).compareTo(I18n.format(other.description)) :
+			CATEGORY_ORDER.get(category).compareTo(CATEGORY_ORDER.get(other.category));
 	}
+
 }

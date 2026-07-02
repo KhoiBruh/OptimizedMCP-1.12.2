@@ -13,8 +13,11 @@ import java.util.Random;
 
 public class WorldGenTrees extends WorldGenAbstractTree {
 
-	private static final IBlockState DEFAULT_TRUNK = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.Type.OAK);
-	private static final IBlockState DEFAULT_LEAF = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.Type.OAK).withProperty(BlockLeaves.CHECK_DECAY, false);
+	private static final IBlockState DEFAULT_TRUNK = Blocks.LOG.getDefaultState()
+	                                                           .withProperty(BlockOldLog.VARIANT, BlockPlanks.Type.OAK);
+	private static final IBlockState DEFAULT_LEAF = Blocks.LEAVES.getDefaultState()
+	                                                             .withProperty(BlockOldLeaf.VARIANT, BlockPlanks.Type.OAK)
+	                                                             .withProperty(BlockLeaves.CHECK_DECAY, false);
 
 	/**
 	 * The minimum height of a generated tree.
@@ -69,7 +72,8 @@ public class WorldGenTrees extends WorldGenAbstractTree {
 				for (int l = position.getX() - k; l <= position.getX() + k && flag; ++l) {
 					for (int i1 = position.getZ() - k; i1 <= position.getZ() + k && flag; ++i1) {
 						if (j >= 0 && j < 256) {
-							if (!canGrowInto(worldIn.getBlockState(blockpos$mutableblockpos.setPos(l, j, i1)).getBlock())) {
+							if (!canGrowInto(worldIn.getBlockState(blockpos$mutableblockpos.setPos(l, j, i1))
+							                        .getBlock())) {
 								flag = false;
 							}
 						} else {
@@ -147,25 +151,30 @@ public class WorldGenTrees extends WorldGenAbstractTree {
 								for (int i5 = position.getZ() - k4; i5 <= position.getZ() + k4; ++i5) {
 									blockpos$mutableblockpos1.setPos(l4, k3, i5);
 
-									if (worldIn.getBlockState(blockpos$mutableblockpos1).getMaterial() == Material.LEAVES) {
+									if (worldIn.getBlockState(blockpos$mutableblockpos1)
+									           .getMaterial() == Material.LEAVES) {
 										BlockPos blockpos2 = blockpos$mutableblockpos1.west();
 										BlockPos blockpos3 = blockpos$mutableblockpos1.east();
 										BlockPos blockpos4 = blockpos$mutableblockpos1.north();
 										BlockPos blockpos1 = blockpos$mutableblockpos1.south();
 
-										if (rand.nextInt(4) == 0 && worldIn.getBlockState(blockpos2).getMaterial() == Material.AIR) {
+										if (rand.nextInt(4) == 0 && worldIn.getBlockState(blockpos2)
+										                                   .getMaterial() == Material.AIR) {
 											addHangingVine(worldIn, blockpos2, BlockVine.EAST);
 										}
 
-										if (rand.nextInt(4) == 0 && worldIn.getBlockState(blockpos3).getMaterial() == Material.AIR) {
+										if (rand.nextInt(4) == 0 && worldIn.getBlockState(blockpos3)
+										                                   .getMaterial() == Material.AIR) {
 											addHangingVine(worldIn, blockpos3, BlockVine.WEST);
 										}
 
-										if (rand.nextInt(4) == 0 && worldIn.getBlockState(blockpos4).getMaterial() == Material.AIR) {
+										if (rand.nextInt(4) == 0 && worldIn.getBlockState(blockpos4)
+										                                   .getMaterial() == Material.AIR) {
 											addHangingVine(worldIn, blockpos4, BlockVine.SOUTH);
 										}
 
-										if (rand.nextInt(4) == 0 && worldIn.getBlockState(blockpos1).getMaterial() == Material.AIR) {
+										if (rand.nextInt(4) == 0 && worldIn.getBlockState(blockpos1)
+										                                   .getMaterial() == Material.AIR) {
 											addHangingVine(worldIn, blockpos1, BlockVine.NORTH);
 										}
 									}
@@ -196,7 +205,9 @@ public class WorldGenTrees extends WorldGenAbstractTree {
 	}
 
 	private void placeCocoa(World worldIn, int p_181652_2_, BlockPos pos, Facing side) {
-		setBlockAndNotifyAdequately(worldIn, pos, Blocks.COCOA.getDefaultState().withProperty(BlockCocoa.AGE, p_181652_2_).withProperty(BlockCocoa.FACING, side));
+		setBlockAndNotifyAdequately(worldIn, pos, Blocks.COCOA.getDefaultState()
+		                                                      .withProperty(BlockCocoa.AGE, p_181652_2_)
+		                                                      .withProperty(BlockCocoa.FACING, side));
 	}
 
 	private void addVine(World worldIn, BlockPos pos, PropertyBool prop) {
@@ -207,7 +218,8 @@ public class WorldGenTrees extends WorldGenAbstractTree {
 		addVine(worldIn, pos, prop);
 		int i = 4;
 
-		for (BlockPos blockpos = pos.down(); worldIn.getBlockState(blockpos).getMaterial() == Material.AIR && i > 0; --i) {
+		for (BlockPos blockpos = pos.down(); worldIn.getBlockState(blockpos)
+		                                            .getMaterial() == Material.AIR && i > 0; --i) {
 			addVine(worldIn, blockpos, prop);
 			blockpos = blockpos.down();
 		}

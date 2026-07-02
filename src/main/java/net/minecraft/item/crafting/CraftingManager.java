@@ -144,7 +144,6 @@ public class CraftingManager {
 		return ItemStack.EMPTY;
 	}
 
-	
 	public static IRecipe findMatchingRecipe(InventoryCrafting craftMatrix, World worldIn) {
 		for (IRecipe irecipe : REGISTRY) {
 			if (irecipe.matches(craftMatrix, worldIn)) {
@@ -171,7 +170,6 @@ public class CraftingManager {
 		return nonnulllist;
 	}
 
-	
 	public static IRecipe getRecipe(ResourceLocation name) {
 		return REGISTRY.getObject(name);
 	}
@@ -180,7 +178,6 @@ public class CraftingManager {
 		return REGISTRY.getIDForObject(recipe);
 	}
 
-	
 	public static IRecipe getRecipeById(int id) {
 		return REGISTRY.getObjectById(id);
 	}

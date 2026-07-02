@@ -117,7 +117,6 @@ public class GameOverScreen extends Screen {
 		super.draw(mouseX, mouseY, partialTicks);
 	}
 
-	
 	public ITextComponent getClickedComponentAt(int p_184870_1_) {
 		if (causeOfDeath == null) {
 			return null;

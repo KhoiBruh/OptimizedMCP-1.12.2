@@ -137,7 +137,8 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 	 */
 	void generateLeafNode(BlockPos pos) {
 		for (int i = 0; i < leafDistanceLimit; ++i) {
-			crosSection(pos.up(i), leafSize(i), Blocks.LEAVES.getDefaultState().withProperty(BlockLeaves.CHECK_DECAY, false));
+			crosSection(pos.up(i), leafSize(i), Blocks.LEAVES.getDefaultState()
+			                                                 .withProperty(BlockLeaves.CHECK_DECAY, false));
 		}
 	}
 
@@ -151,7 +152,8 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 		for (int j = 0; j <= i; ++j) {
 			BlockPos blockpos1 = p_175937_1_.add(0.5F + (float) j * f, 0.5F + (float) j * f1, 0.5F + (float) j * f2);
 			BlockLog.Axis blocklog$enumaxis = getLogAxis(p_175937_1_, blockpos1);
-			setBlockAndNotifyAdequately(world, blockpos1, p_175937_3_.getDefaultState().withProperty(BlockLog.LOG_AXIS, blocklog$enumaxis));
+			setBlockAndNotifyAdequately(world, blockpos1, p_175937_3_.getDefaultState()
+			                                                         .withProperty(BlockLog.LOG_AXIS, blocklog$enumaxis));
 		}
 	}
 

@@ -65,7 +65,6 @@ public class BlockSnow extends Block {
 		return face == Facing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 
-	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		int i = blockState.getValue(LAYERS) - 1;
 		AxisAlignedBB axisalignedbb = blockState.getBoundingBox(worldIn, pos);

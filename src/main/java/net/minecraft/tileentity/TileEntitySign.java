@@ -88,7 +88,6 @@ public class TileEntitySign extends TileEntity {
 		stats.readStatsFromNBT(compound);
 	}
 
-	
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		return new SPacketUpdateTileEntity(pos, 9, getUpdateTag());
 	}

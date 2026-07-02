@@ -213,7 +213,8 @@ public enum ConnectionState {
 		BiMap<Integer, Class<? extends Packet<?>>> bimap = directionMaps.computeIfAbsent(direction, k -> HashBiMap.create());
 
 		if (bimap.containsValue(packetClass)) {
-			String s = direction + " packet " + packetClass + " is already known to ID " + bimap.inverse().get(packetClass);
+			String s = direction + " packet " + packetClass + " is already known to ID " + bimap.inverse()
+			                                                                                    .get(packetClass);
 			LogManager.getLogger().fatal(s);
 			throw new IllegalArgumentException(s);
 		} else {
@@ -226,7 +227,6 @@ public enum ConnectionState {
 		return directionMaps.get(direction).inverse().get(packetIn.getClass());
 	}
 
-	
 	public Packet<?> getPacket(PacketDirection direction, int packetId) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 
 		Class<? extends Packet<?>> oclass = directionMaps.get(direction).get(packetId);

@@ -29,16 +29,19 @@ public class AdvancementToast implements IToast {
 		toastGui.drawTexturedModalRect(0, 0, 0, 0, 160, 32);
 
 		if (displayinfo != null) {
-			List<String> list = toastGui.getMinecraft().fontRenderer.formatToWidth(displayinfo.getTitle().getFormattedText(), 125);
+			List<String> list = toastGui.getMinecraft().fontRenderer.formatToWidth(displayinfo.getTitle()
+			                                                                                  .getFormattedText(), 125);
 			int i = displayinfo.getFrame() == FrameType.CHALLENGE ? 16746751 : 16776960;
 
 			if (list.size() == 1) {
-				toastGui.getMinecraft().fontRenderer.drawString(I18n.format("advancements.toast." + displayinfo.getFrame().getName()), 30, 7, i | -16777216);
+				toastGui.getMinecraft().fontRenderer.drawString(I18n.format("advancements.toast." + displayinfo.getFrame()
+				                                                                                               .getName()), 30, 7, i | -16777216);
 				toastGui.getMinecraft().fontRenderer.drawString(displayinfo.getTitle().getFormattedText(), 30, 18, -1);
 			} else {
 				if (delta < 1500L) {
 					int k = MathHelper.floor(MathHelper.clamp((float) (1500L - delta) / 300F, 0F, 1F) * 255F) << 24 | 67108864;
-					toastGui.getMinecraft().fontRenderer.drawString(I18n.format("advancements.toast." + displayinfo.getFrame().getName()), 30, 11, i | k);
+					toastGui.getMinecraft().fontRenderer.drawString(I18n.format("advancements.toast." + displayinfo.getFrame()
+					                                                                                               .getName()), 30, 11, i | k);
 				} else {
 					int i1 = MathHelper.floor(MathHelper.clamp((float) (delta - 1500L) / 300F, 0F, 1F) * 252F) << 24 | 67108864;
 					int l = 16 - list.size() * toastGui.getMinecraft().fontRenderer.FONT_HEIGHT / 2;
@@ -54,7 +57,9 @@ public class AdvancementToast implements IToast {
 				hasPlayedSound = true;
 
 				if (displayinfo.getFrame() == FrameType.CHALLENGE) {
-					toastGui.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getRecord(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, 1F, 1F));
+					toastGui.getMinecraft()
+					        .getSoundHandler()
+					        .playSound(PositionedSoundRecord.getRecord(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, 1F, 1F));
 				}
 			}
 

@@ -22,7 +22,7 @@ public class NonNullList<E> extends AbstractList<E> {
 	}
 
 	public static <E> NonNullList<E> withSize(int size, E fill) {
-		
+
 		Objects.requireNonNull(fill);
 		Object[] aobject = new Object[size];
 		Arrays.fill(aobject, fill);
@@ -34,6 +34,7 @@ public class NonNullList<E> extends AbstractList<E> {
 
 		return new NonNullList<>(Arrays.asList(elements), defaultElementIn);
 	}
+
 	public E get(int index) {
 		return delegate.get(index);
 	}

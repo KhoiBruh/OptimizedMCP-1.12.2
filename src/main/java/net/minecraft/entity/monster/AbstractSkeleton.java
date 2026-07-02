@@ -138,21 +138,18 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 	}
 
-	
-
 	/**
 	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
 	 * when entity is reloaded from nbt. Mainly used for initializing attributes and inventory.
-	 *
+	 * <p>
 	 * The livingdata parameter is used to pass data between all instances during a pack spawn. It will be null on the
 	 * first call. Subclasses may check if it's null, and then create a new one and return it if so, initializing all
 	 * entities in the pack with the contained data.
 	 *
-	 * @return The IEntityLivingData to pass to this method for other instances of this entity class within the same
-	 * pack
-	 *
 	 * @param difficulty The current local difficulty
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
+	 * @return The IEntityLivingData to pass to this method for other instances of this entity class within the same
+	 * pack
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
@@ -206,7 +203,8 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 		double d1 = target.getEntityBoundingBox().minY + (double) (target.height / 3F) - entityarrow.posY;
 		double d2 = target.posZ - posZ;
 		double d3 = MathHelper.sqrt(d0 * d0 + d2 * d2);
-		entityarrow.shoot(d0, d1 + d3 * 0.20000000298023224D, d2, 1.6F, (float) (14 - world.getDifficulty().getDifficultyId() * 4));
+		entityarrow.shoot(d0, d1 + d3 * 0.20000000298023224D, d2, 1.6F, (float) (14 - world.getDifficulty()
+		                                                                                   .getDifficultyId() * 4));
 		playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1F, 1F / (getRNG().nextFloat() * 0.4F + 0.8F));
 		world.spawnEntity(entityarrow);
 	}

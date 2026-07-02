@@ -269,8 +269,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 		}
 	}
 
-	
-
 	/**
 	 * Drop one item out of the currently selected stack if {@code dropAll} is false. If {@code dropItem} is true the
 	 * entire stack is dropped.
@@ -737,7 +735,8 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 			}
 
 			if (timeInPortal == 0F) {
-				mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.BLOCK_PORTAL_TRIGGER, rand.nextFloat() * 0.4F + 0.8F));
+				mc.getSoundHandler()
+				  .playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.BLOCK_PORTAL_TRIGGER, rand.nextFloat() * 0.4F + 0.8F));
 			}
 
 			timeInPortal += 0.0125F;
@@ -904,8 +903,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	public boolean isRowingBoat() {
 		return rowingBoat;
 	}
-
-	
 
 	/**
 	 * Removes the given potion effect from the active potion map and returns it. Does not call cleanup callbacks for

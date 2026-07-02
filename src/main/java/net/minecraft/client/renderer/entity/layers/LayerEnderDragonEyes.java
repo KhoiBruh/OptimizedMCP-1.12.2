@@ -30,7 +30,8 @@ public class LayerEnderDragonEyes implements LayerRenderer<EntityDragon> {
 		GLS.enableLighting();
 		GLS.color(1F, 1F, 1F, 1F);
 		Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
-		dragonRenderer.getMainModel().render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+		dragonRenderer.getMainModel()
+		              .render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		Minecraft.getMinecraft().entityRenderer.setupFogColor(false);
 		dragonRenderer.setLightmap(entitylivingbaseIn);
 		GLS.disableBlend();

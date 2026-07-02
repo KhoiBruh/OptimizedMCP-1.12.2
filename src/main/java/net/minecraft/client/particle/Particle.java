@@ -209,14 +209,32 @@ public class Particle {
 			Vec3d vec3d = new Vec3d(f10, f11, f12);
 
 			for (int l = 0; l < 4; ++l) {
-				avec3d[l] = vec3d.scale(2D * avec3d[l].dotProduct(vec3d)).add(avec3d[l].scale((double) (f9 * f9) - vec3d.dotProduct(vec3d))).add(vec3d.crossProduct(avec3d[l]).scale(2F * f9));
+				avec3d[l] = vec3d.scale(2D * avec3d[l].dotProduct(vec3d))
+				                 .add(avec3d[l].scale((double) (f9 * f9) - vec3d.dotProduct(vec3d)))
+				                 .add(vec3d.crossProduct(avec3d[l]).scale(2F * f9));
 			}
 		}
 
-		buffer.pos((double) f5 + avec3d[0].x(), (double) f6 + avec3d[0].y(), (double) f7 + avec3d[0].z()).tex(f1, f3).color(particleRed, particleGreen, particleBlue, particleAlpha).lightmap(j, k).endVertex();
-		buffer.pos((double) f5 + avec3d[1].x(), (double) f6 + avec3d[1].y(), (double) f7 + avec3d[1].z()).tex(f1, f2).color(particleRed, particleGreen, particleBlue, particleAlpha).lightmap(j, k).endVertex();
-		buffer.pos((double) f5 + avec3d[2].x(), (double) f6 + avec3d[2].y(), (double) f7 + avec3d[2].z()).tex(f, f2).color(particleRed, particleGreen, particleBlue, particleAlpha).lightmap(j, k).endVertex();
-		buffer.pos((double) f5 + avec3d[3].x(), (double) f6 + avec3d[3].y(), (double) f7 + avec3d[3].z()).tex(f, f3).color(particleRed, particleGreen, particleBlue, particleAlpha).lightmap(j, k).endVertex();
+		buffer.pos((double) f5 + avec3d[0].x(), (double) f6 + avec3d[0].y(), (double) f7 + avec3d[0].z())
+		      .tex(f1, f3)
+		      .color(particleRed, particleGreen, particleBlue, particleAlpha)
+		      .lightmap(j, k)
+		      .endVertex();
+		buffer.pos((double) f5 + avec3d[1].x(), (double) f6 + avec3d[1].y(), (double) f7 + avec3d[1].z())
+		      .tex(f1, f2)
+		      .color(particleRed, particleGreen, particleBlue, particleAlpha)
+		      .lightmap(j, k)
+		      .endVertex();
+		buffer.pos((double) f5 + avec3d[2].x(), (double) f6 + avec3d[2].y(), (double) f7 + avec3d[2].z())
+		      .tex(f, f2)
+		      .color(particleRed, particleGreen, particleBlue, particleAlpha)
+		      .lightmap(j, k)
+		      .endVertex();
+		buffer.pos((double) f5 + avec3d[3].x(), (double) f6 + avec3d[3].y(), (double) f7 + avec3d[3].z())
+		      .tex(f, f3)
+		      .color(particleRed, particleGreen, particleBlue, particleAlpha)
+		      .lightmap(j, k)
+		      .endVertex();
 	}
 
 	/**

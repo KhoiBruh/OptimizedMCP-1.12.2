@@ -143,7 +143,8 @@ public class EntityAITempt extends EntityAIBase {
 	 * Keep ticking a continuous task that has already been started
 	 */
 	public void updateTask() {
-		temptedEntity.getLookHelper().setLookPositionWithEntity(temptingPlayer, (float) (temptedEntity.getHorizontalFaceSpeed() + 20), (float) temptedEntity.getVerticalFaceSpeed());
+		temptedEntity.getLookHelper()
+		             .setLookPositionWithEntity(temptingPlayer, (float) (temptedEntity.getHorizontalFaceSpeed() + 20), (float) temptedEntity.getVerticalFaceSpeed());
 
 		if (temptedEntity.getDistanceSq(temptingPlayer) < 6.25D) {
 			temptedEntity.getNavigator().clearPath();

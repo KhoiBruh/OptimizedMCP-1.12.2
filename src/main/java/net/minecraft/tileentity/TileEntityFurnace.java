@@ -331,7 +331,9 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
 				itemstack2.grow(1);
 			}
 
-			if (itemstack.getItem() == Item.getItemFromBlock(Blocks.SPONGE) && itemstack.getMetadata() == 1 && !furnaceItemStacks.get(1).isEmpty() && furnaceItemStacks.get(1).getItem() == Items.BUCKET) {
+			if (itemstack.getItem() == Item.getItemFromBlock(Blocks.SPONGE) && itemstack.getMetadata() == 1 && !furnaceItemStacks.get(1)
+			                                                                                                                     .isEmpty() && furnaceItemStacks.get(1)
+			                                                                                                                                                    .getItem() == Items.BUCKET) {
 				furnaceItemStacks.set(1, new ItemStack(Items.WATER_BUCKET));
 			}
 

@@ -23,10 +23,8 @@ public class ClientAdvancementManager {
 	private final AdvancementList advancementList = new AdvancementList();
 	private final Map<Advancement, AdvancementProgress> advancementToProgress = Maps.newHashMap();
 
-	
 	private ClientAdvancementManager.IListener listener;
 
-	
 	private Advancement selectedTab;
 
 	public ClientAdvancementManager(Minecraft p_i47380_1_) {
@@ -54,7 +52,8 @@ public class ClientAdvancementManager {
 					listener.onUpdateAdvancementProgress(advancement, advancementprogress);
 				}
 
-				if (!p_192799_1_.isFirstSync() && advancementprogress.isDone() && advancement.getDisplay() != null && advancement.getDisplay().shouldShowToast()) {
+				if (!p_192799_1_.isFirstSync() && advancementprogress.isDone() && advancement.getDisplay() != null && advancement.getDisplay()
+				                                                                                                                 .shouldShowToast()) {
 					mc.getToastGui().add(new AdvancementToast(advancement));
 				}
 			} else {

@@ -32,7 +32,10 @@ public class BlockTripWireHook extends Block {
 
 	public BlockTripWireHook() {
 		super(Material.CIRCUITS);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(POWERED, false).withProperty(ATTACHED, false));
+		setDefaultState(blockState.getBaseState()
+		                          .withProperty(FACING, Facing.NORTH)
+		                          .withProperty(POWERED, false)
+		                          .withProperty(ATTACHED, false));
 		setCreativeTab(CreativeTabs.REDSTONE);
 		setTickRandomly(true);
 	}
@@ -46,7 +49,6 @@ public class BlockTripWireHook extends Block {
 		};
 	}
 
-	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return NULL_AABB;
 	}
@@ -70,7 +72,8 @@ public class BlockTripWireHook extends Block {
 		BlockPos blockpos = pos.offset(enumfacing);
 		IBlockState iblockstate = worldIn.getBlockState(blockpos);
 		boolean flag = isExceptBlockForAttachWithPiston(iblockstate.getBlock());
-		return !flag && side.getAxis().isHorizontal() && iblockstate.getBlockFaceShape(worldIn, blockpos, side) == BlockFaceShape.SOLID && !iblockstate.canProvidePower();
+		return !flag && side.getAxis()
+		                    .isHorizontal() && iblockstate.getBlockFaceShape(worldIn, blockpos, side) == BlockFaceShape.SOLID && !iblockstate.canProvidePower();
 	}
 
 	/**
@@ -287,7 +290,9 @@ public class BlockTripWireHook extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(FACING, Facing.getHorizontal(meta & 3)).withProperty(POWERED, (meta & 8) > 0).withProperty(ATTACHED, (meta & 4) > 0);
+		return getDefaultState().withProperty(FACING, Facing.getHorizontal(meta & 3))
+		                        .withProperty(POWERED, (meta & 8) > 0)
+		                        .withProperty(ATTACHED, (meta & 4) > 0);
 	}
 
 	/**

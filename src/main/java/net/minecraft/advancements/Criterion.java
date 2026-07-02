@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public record Criterion(ICriterionInstance criterionInstance) {
+
 	public Criterion() {
 		this(null);
 	}
@@ -88,7 +89,7 @@ public record Criterion(ICriterionInstance criterionInstance) {
 	}
 
 	@Override
-	
+
 	public ICriterionInstance criterionInstance() {
 		return criterionInstance;
 	}

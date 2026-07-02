@@ -29,18 +29,15 @@ public class EntityShulkerBullet extends Entity {
 	private EntityLivingBase owner;
 	private Entity target;
 
-	
 	private Facing direction;
 	private int steps;
 	private double targetDeltaX;
 	private double targetDeltaY;
 	private double targetDeltaZ;
 
-	
 	private UUID ownerUniqueId;
 	private BlockPos ownerBlockPos;
 
-	
 	private UUID targetUniqueId;
 	private BlockPos targetBlockPos;
 
@@ -333,7 +330,8 @@ public class EntityShulkerBullet extends Entity {
 			((WorldServer) world).spawnParticle(ParticleTypes.EXPLOSION_LARGE, posX, posY, posZ, 2, 0.2D, 0.2D, 0.2D, 0D);
 			playSound(SoundEvents.ENTITY_SHULKER_BULLET_HIT, 1F, 1F);
 		} else {
-			boolean flag = result.entityHit.attackEntityFrom(DamageSource.causeIndirectDamage(this, owner).setProjectile(), 4F);
+			boolean flag = result.entityHit.attackEntityFrom(DamageSource.causeIndirectDamage(this, owner)
+			                                                             .setProjectile(), 4F);
 
 			if (flag) {
 				applyEnchantments(owner, result.entityHit);

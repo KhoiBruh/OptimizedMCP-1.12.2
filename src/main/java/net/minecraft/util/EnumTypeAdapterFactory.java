@@ -15,7 +15,6 @@ import java.util.Map;
 
 public class EnumTypeAdapterFactory implements TypeAdapterFactory {
 
-	
 	public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
 
 		Class<T> oclass = (Class<T>) typeToken.getRawType();
@@ -38,7 +37,6 @@ public class EnumTypeAdapterFactory implements TypeAdapterFactory {
 					}
 				}
 
-				
 				public T read(JsonReader p_read_1_) throws IOException {
 					if (p_read_1_.peek() == JsonToken.NULL) {
 						p_read_1_.nextNull();
@@ -52,7 +50,8 @@ public class EnumTypeAdapterFactory implements TypeAdapterFactory {
 	}
 
 	private String getName(Object objectIn) {
-		return objectIn instanceof Enum ? ((Enum<?>) objectIn).name().toLowerCase(Locale.ROOT) : objectIn.toString().toLowerCase(Locale.ROOT);
+		return objectIn instanceof Enum ? ((Enum<?>) objectIn).name().toLowerCase(Locale.ROOT) : objectIn.toString()
+		                                                                                                 .toLowerCase(Locale.ROOT);
 	}
 
 }

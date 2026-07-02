@@ -161,9 +161,11 @@ public class MapGenCaves extends MapGenBase {
 												} else {
 													p_180702_5_.setBlockState(j3, j2, i2, BLK_AIR);
 
-													if (flag1 && p_180702_5_.getBlockState(j3, j2 - 1, i2).getBlock() == Blocks.DIRT) {
+													if (flag1 && p_180702_5_.getBlockState(j3, j2 - 1, i2)
+													                        .getBlock() == Blocks.DIRT) {
 														blockpos$mutableblockpos.setPos(j3 + p_180702_3_ * 16, 0, i2 + p_180702_4_ * 16);
-														p_180702_5_.setBlockState(j3, j2 - 1, i2, world.getBiome(blockpos$mutableblockpos).topBlock.getBlock().getDefaultState());
+														p_180702_5_.setBlockState(j3, j2 - 1, i2, world.getBiome(blockpos$mutableblockpos).topBlock.getBlock()
+														                                                                                           .getDefaultState());
 													}
 												}
 											}

@@ -204,7 +204,6 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 
 		protected abstract int getCastingInterval();
 
-		
 		protected abstract SoundEvent getSpellPrepareSound();
 
 		protected abstract EntitySpellcasterIllager.SpellType getSpellType();

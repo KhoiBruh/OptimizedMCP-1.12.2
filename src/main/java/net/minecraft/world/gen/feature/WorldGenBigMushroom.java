@@ -55,7 +55,8 @@ public class WorldGenBigMushroom extends WorldGenerator {
 				for (int l = position.getX() - k; l <= position.getX() + k && flag; ++l) {
 					for (int i1 = position.getZ() - k; i1 <= position.getZ() + k && flag; ++i1) {
 						if (j >= 0 && j < 256) {
-							Material material = worldIn.getBlockState(blockpos$mutableblockpos.setPos(l, j, i1)).getMaterial();
+							Material material = worldIn.getBlockState(blockpos$mutableblockpos.setPos(l, j, i1))
+							                           .getMaterial();
 
 							if (material != Material.AIR && material != Material.LEAVES) {
 								flag = false;
@@ -161,7 +162,8 @@ public class WorldGenBigMushroom extends WorldGenerator {
 									BlockPos blockpos = new BlockPos(l1, l2, i2);
 
 									if (!worldIn.getBlockState(blockpos).isFullBlock()) {
-										setBlockAndNotifyAdequately(worldIn, blockpos, block.getDefaultState().withProperty(BlockHugeMushroom.VARIANT, blockhugemushroom$enumtype));
+										setBlockAndNotifyAdequately(worldIn, blockpos, block.getDefaultState()
+										                                                    .withProperty(BlockHugeMushroom.VARIANT, blockhugemushroom$enumtype));
 									}
 								}
 							}
@@ -172,7 +174,8 @@ public class WorldGenBigMushroom extends WorldGenerator {
 						IBlockState iblockstate = worldIn.getBlockState(position.up(i3));
 
 						if (!iblockstate.isFullBlock()) {
-							setBlockAndNotifyAdequately(worldIn, position.up(i3), block.getDefaultState().withProperty(BlockHugeMushroom.VARIANT, BlockHugeMushroom.Type.STEM));
+							setBlockAndNotifyAdequately(worldIn, position.up(i3), block.getDefaultState()
+							                                                           .withProperty(BlockHugeMushroom.VARIANT, BlockHugeMushroom.Type.STEM));
 						}
 					}
 

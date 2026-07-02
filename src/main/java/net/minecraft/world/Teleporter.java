@@ -91,7 +91,8 @@ public class Teleporter {
 						blockpos2 = blockpos1.down();
 
 						if (world.getBlockState(blockpos1).getBlock() == Blocks.PORTAL) {
-							for (blockpos2 = blockpos1.down(); world.getBlockState(blockpos2).getBlock() == Blocks.PORTAL; blockpos2 = blockpos2.down()) {
+							for (blockpos2 = blockpos1.down(); world.getBlockState(blockpos2)
+							                                        .getBlock() == Blocks.PORTAL; blockpos2 = blockpos2.down()) {
 								blockpos1 = blockpos2;
 							}
 
@@ -115,18 +116,32 @@ public class Teleporter {
 			double d5 = (double) blockpos.getX() + 0.5D;
 			double d7 = (double) blockpos.getZ() + 0.5D;
 			BlockPattern.PatternHelper blockpattern$patternhelper = Blocks.PORTAL.createPatternHelper(world, blockpos);
-			boolean flag1 = blockpattern$patternhelper.getForwards().rotateY().getAxisDirection() == Facing.AxisDirection.NEGATIVE;
-			double d2 = blockpattern$patternhelper.getForwards().getAxis() == Facing.Axis.X ? (double) blockpattern$patternhelper.getFrontTopLeft().getZ() : (double) blockpattern$patternhelper.getFrontTopLeft().getX();
-			double d6 = (double) (blockpattern$patternhelper.getFrontTopLeft().getY() + 1) - entityIn.getLastPortalVec().y() * (double) blockpattern$patternhelper.getHeight();
+			boolean flag1 = blockpattern$patternhelper.getForwards()
+			                                          .rotateY()
+			                                          .getAxisDirection() == Facing.AxisDirection.NEGATIVE;
+			double d2 = blockpattern$patternhelper.getForwards()
+			                                      .getAxis() == Facing.Axis.X ? (double) blockpattern$patternhelper.getFrontTopLeft()
+			                                                                                                       .getZ() : (double) blockpattern$patternhelper.getFrontTopLeft()
+			                                                                                                                                                    .getX();
+			double d6 = (double) (blockpattern$patternhelper.getFrontTopLeft().getY() + 1) - entityIn.getLastPortalVec()
+			                                                                                         .y() * (double) blockpattern$patternhelper.getHeight();
 
 			if (flag1) {
 				++d2;
 			}
 
 			if (blockpattern$patternhelper.getForwards().getAxis() == Facing.Axis.X) {
-				d7 = d2 + (1D - entityIn.getLastPortalVec().x()) * (double) blockpattern$patternhelper.getWidth() * (double) blockpattern$patternhelper.getForwards().rotateY().getAxisDirection().getOffset();
+				d7 = d2 + (1D - entityIn.getLastPortalVec()
+				                        .x()) * (double) blockpattern$patternhelper.getWidth() * (double) blockpattern$patternhelper.getForwards()
+				                                                                                                                    .rotateY()
+				                                                                                                                    .getAxisDirection()
+				                                                                                                                    .getOffset();
 			} else {
-				d5 = d2 + (1D - entityIn.getLastPortalVec().x()) * (double) blockpattern$patternhelper.getWidth() * (double) blockpattern$patternhelper.getForwards().rotateY().getAxisDirection().getOffset();
+				d5 = d2 + (1D - entityIn.getLastPortalVec()
+				                        .x()) * (double) blockpattern$patternhelper.getWidth() * (double) blockpattern$patternhelper.getForwards()
+				                                                                                                                    .rotateY()
+				                                                                                                                    .getAxisDirection()
+				                                                                                                                    .getOffset();
 			}
 
 			float f = 0F;
@@ -137,10 +152,12 @@ public class Teleporter {
 			if (blockpattern$patternhelper.getForwards().getOpposite() == entityIn.getTeleportDirection()) {
 				f = 1F;
 				f1 = 1F;
-			} else if (blockpattern$patternhelper.getForwards().getOpposite() == entityIn.getTeleportDirection().getOpposite()) {
+			} else if (blockpattern$patternhelper.getForwards().getOpposite() == entityIn.getTeleportDirection()
+			                                                                             .getOpposite()) {
 				f = -1F;
 				f1 = -1F;
-			} else if (blockpattern$patternhelper.getForwards().getOpposite() == entityIn.getTeleportDirection().rotateY()) {
+			} else if (blockpattern$patternhelper.getForwards().getOpposite() == entityIn.getTeleportDirection()
+			                                                                             .rotateY()) {
 				f2 = 1F;
 				f3 = -1F;
 			} else {
@@ -152,7 +169,10 @@ public class Teleporter {
 			double d4 = entityIn.motionZ;
 			entityIn.motionX = d3 * (double) f + d4 * (double) f3;
 			entityIn.motionZ = d3 * (double) f2 + d4 * (double) f1;
-			entityIn.rotationYaw = rotationYaw - (float) (entityIn.getTeleportDirection().getOpposite().getHorizontalIndex() * 90) + (float) (blockpattern$patternhelper.getForwards().getHorizontalIndex() * 90);
+			entityIn.rotationYaw = rotationYaw - (float) (entityIn.getTeleportDirection()
+			                                                      .getOpposite()
+			                                                      .getHorizontalIndex() * 90) + (float) (blockpattern$patternhelper.getForwards()
+			                                                                                                                       .getHorizontalIndex() * 90);
 
 			if (entityIn instanceof EntityPlayerMP) {
 				((EntityPlayerMP) entityIn).connection.setPlayerLocation(d5, d6, d7, entityIn.rotationYaw, entityIn.rotationPitch);
@@ -209,7 +229,9 @@ public class Teleporter {
 										int k5 = l2 + (k4 - 1) * i4 - j4 * l3;
 										blockpos$mutableblockpos.setPos(i5, j5, k5);
 
-										if (l4 < 0 && !world.getBlockState(blockpos$mutableblockpos).getMaterial().isSolid() || l4 >= 0 && !world.isAirBlock(blockpos$mutableblockpos)) {
+										if (l4 < 0 && !world.getBlockState(blockpos$mutableblockpos)
+										                    .getMaterial()
+										                    .isSolid() || l4 >= 0 && !world.isAirBlock(blockpos$mutableblockpos)) {
 											continue label293;
 										}
 									}
@@ -257,7 +279,9 @@ public class Teleporter {
 										int j13 = j6 + (j10 - 1) * j9;
 										blockpos$mutableblockpos.setPos(j12, i13, j13);
 
-										if (j11 < 0 && !world.getBlockState(blockpos$mutableblockpos).getMaterial().isSolid() || j11 >= 0 && !world.isAirBlock(blockpos$mutableblockpos)) {
+										if (j11 < 0 && !world.getBlockState(blockpos$mutableblockpos)
+										                     .getMaterial()
+										                     .isSolid() || j11 >= 0 && !world.isAirBlock(blockpos$mutableblockpos)) {
 											continue label231;
 										}
 									}
@@ -308,7 +332,8 @@ public class Teleporter {
 			}
 		}
 
-		IBlockState iblockstate = Blocks.PORTAL.getDefaultState().withProperty(BlockPortal.AXIS, l6 == 0 ? Facing.Axis.Z : Facing.Axis.X);
+		IBlockState iblockstate = Blocks.PORTAL.getDefaultState()
+		                                       .withProperty(BlockPortal.AXIS, l6 == 0 ? Facing.Axis.Z : Facing.Axis.X);
 
 		for (int i8 = 0; i8 < 4; ++i8) {
 			for (int l8 = 0; l8 < 4; ++l8) {
@@ -343,7 +368,8 @@ public class Teleporter {
 		if (worldTime % 100L == 0L) {
 			long i = worldTime - 300L;
 
-			destinationCoordinateCache.values().removeIf(teleporter$portalposition -> teleporter$portalposition == null || teleporter$portalposition.lastUpdateTime < i);
+			destinationCoordinateCache.values()
+			                          .removeIf(teleporter$portalposition -> teleporter$portalposition == null || teleporter$portalposition.lastUpdateTime < i);
 		}
 	}
 

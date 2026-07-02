@@ -13,8 +13,10 @@ public class SoundEventAccessor implements ISoundEventAccessor<Sound> {
 
 	private final List<ISoundEventAccessor<Sound>> accessors = new ArrayList<>();
 	private final Random rnd = new Random();
+
 	@Getter
 	private final ResourceLocation location;
+
 	@Getter
 	private final ITextComponent subtitle;
 

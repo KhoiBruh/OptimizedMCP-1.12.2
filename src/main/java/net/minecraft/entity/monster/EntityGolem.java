@@ -15,12 +15,10 @@ public abstract class EntityGolem extends EntityCreature implements IAnimals {
 	public void fall(float distance, float damageMultiplier) {
 	}
 
-	
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
 		return null;
 	}
 
-	
 	protected SoundEvent getDeathSound() {
 		return null;
 	}

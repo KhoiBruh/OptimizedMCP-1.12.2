@@ -7,7 +7,7 @@ import net.minecraft.client.gui.spectator.SpectatorMenu;
 import java.util.List;
 
 public class SpectatorDetails {
-	
+
 	private final List<ISpectatorMenuObject> items;
 	private final int selectedSlot;
 

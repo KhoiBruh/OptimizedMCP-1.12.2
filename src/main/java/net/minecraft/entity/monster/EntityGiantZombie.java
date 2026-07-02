@@ -34,7 +34,6 @@ public class EntityGiantZombie extends EntityMob {
 		return world.getLightBrightness(pos) - 0.5F;
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_GIANT;
 	}

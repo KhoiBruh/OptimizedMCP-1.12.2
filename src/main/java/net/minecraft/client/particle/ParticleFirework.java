@@ -44,10 +44,26 @@ public class ParticleFirework {
 			int i = getBrightnessForRender(partialTicks);
 			int j = i >> 16 & 65535;
 			int k = i & 65535;
-			buffer.pos(f5 - rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4, f7 - rotationYZ * f4 - rotationXZ * f4).tex(0.5D, 0.375D).color(particleRed, particleGreen, particleBlue, particleAlpha).lightmap(j, k).endVertex();
-			buffer.pos(f5 - rotationX * f4 + rotationXY * f4, f6 + rotationZ * f4, f7 - rotationYZ * f4 + rotationXZ * f4).tex(0.5D, 0.125D).color(particleRed, particleGreen, particleBlue, particleAlpha).lightmap(j, k).endVertex();
-			buffer.pos(f5 + rotationX * f4 + rotationXY * f4, f6 + rotationZ * f4, f7 + rotationYZ * f4 + rotationXZ * f4).tex(0.25D, 0.125D).color(particleRed, particleGreen, particleBlue, particleAlpha).lightmap(j, k).endVertex();
-			buffer.pos(f5 + rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4, f7 + rotationYZ * f4 - rotationXZ * f4).tex(0.25D, 0.375D).color(particleRed, particleGreen, particleBlue, particleAlpha).lightmap(j, k).endVertex();
+			buffer.pos(f5 - rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4, f7 - rotationYZ * f4 - rotationXZ * f4)
+			      .tex(0.5D, 0.375D)
+			      .color(particleRed, particleGreen, particleBlue, particleAlpha)
+			      .lightmap(j, k)
+			      .endVertex();
+			buffer.pos(f5 - rotationX * f4 + rotationXY * f4, f6 + rotationZ * f4, f7 - rotationYZ * f4 + rotationXZ * f4)
+			      .tex(0.5D, 0.125D)
+			      .color(particleRed, particleGreen, particleBlue, particleAlpha)
+			      .lightmap(j, k)
+			      .endVertex();
+			buffer.pos(f5 + rotationX * f4 + rotationXY * f4, f6 + rotationZ * f4, f7 + rotationYZ * f4 + rotationXZ * f4)
+			      .tex(0.25D, 0.125D)
+			      .color(particleRed, particleGreen, particleBlue, particleAlpha)
+			      .lightmap(j, k)
+			      .endVertex();
+			buffer.pos(f5 + rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4, f7 + rotationYZ * f4 - rotationXZ * f4)
+			      .tex(0.25D, 0.375D)
+			      .color(particleRed, particleGreen, particleBlue, particleAlpha)
+			      .lightmap(j, k)
+			      .endVertex();
 		}
 
 	}
@@ -226,7 +242,8 @@ public class ParticleFirework {
 
 		private boolean isFarFromCamera() {
 			Minecraft minecraft = Minecraft.getMinecraft();
-			return minecraft == null || minecraft.getRenderViewEntity() == null || minecraft.getRenderViewEntity().getDistanceSq(posX, posY, posZ) >= 256D;
+			return minecraft == null || minecraft.getRenderViewEntity() == null || minecraft.getRenderViewEntity()
+			                                                                                .getDistanceSq(posX, posY, posZ) >= 256D;
 		}
 
 		private void createParticle(double p_92034_1_, double p_92034_3_, double p_92034_5_, double p_92034_7_, double p_92034_9_, double p_92034_11_, int[] p_92034_13_, int[] p_92034_14_, boolean p_92034_15_, boolean p_92034_16_) {

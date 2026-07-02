@@ -87,9 +87,11 @@ public class ItemBanner extends ItemBlock {
 
 					if (facing == Facing.UP) {
 						int i = MathHelper.floor((double) ((player.rotationYaw + 180F) * 16F / 360F) + 0.5D) & 15;
-						worldIn.setBlockState(pos, Blocks.STANDING_BANNER.getDefaultState().withProperty(BlockStandingSign.ROTATION, i), 3);
+						worldIn.setBlockState(pos, Blocks.STANDING_BANNER.getDefaultState()
+						                                                 .withProperty(BlockStandingSign.ROTATION, i), 3);
 					} else {
-						worldIn.setBlockState(pos, Blocks.WALL_BANNER.getDefaultState().withProperty(BlockWallSign.FACING, facing), 3);
+						worldIn.setBlockState(pos, Blocks.WALL_BANNER.getDefaultState()
+						                                             .withProperty(BlockWallSign.FACING, facing), 3);
 					}
 
 					TileEntity tileentity = worldIn.getTileEntity(pos);

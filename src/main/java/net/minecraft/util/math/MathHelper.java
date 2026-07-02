@@ -393,7 +393,7 @@ public class MathHelper {
 	public static double pct(double p_181160_0_, double p_181160_2_, double p_181160_4_) {
 		return (p_181160_0_ - p_181160_2_) / (p_181160_4_ - p_181160_2_);
 	}
-	
+
 	public static float atan2(float y, float x) {
 		return (float) Math.atan2(y, x);
 	}
@@ -530,4 +530,5 @@ public class MathHelper {
 		value = value ^ value >>> 16;
 		return value;
 	}
+
 }

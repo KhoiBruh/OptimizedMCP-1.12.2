@@ -28,7 +28,6 @@ public class PotionType {
 		effects = ImmutableList.copyOf(p_i46740_2_);
 	}
 
-	
 	public static PotionType getPotionTypeForName(String p_185168_0_) {
 		return REGISTRY.getObject(new ResourceLocation(p_185168_0_));
 	}
@@ -82,7 +81,8 @@ public class PotionType {
 	 * Gets the name of this PotionType with a prefix (such as "Splash" or "Lingering") prepended
 	 */
 	public String getNamePrefixed(String p_185174_1_) {
-		return baseName == null ? p_185174_1_ + REGISTRY.getNameForObject(this).getResourcePath() : p_185174_1_ + baseName;
+		return baseName == null ? p_185174_1_ + REGISTRY.getNameForObject(this)
+		                                                .getResourcePath() : p_185174_1_ + baseName;
 	}
 
 	public List<PotionEffect> getEffects() {

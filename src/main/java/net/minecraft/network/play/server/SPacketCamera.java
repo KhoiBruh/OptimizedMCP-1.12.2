@@ -38,7 +38,6 @@ public class SPacketCamera implements Packet<INetHandlerPlayClient> {
 		handler.handleCamera(this);
 	}
 
-	
 	public Entity getEntity(World worldIn) {
 		return worldIn.getEntityByID(entityId);
 	}

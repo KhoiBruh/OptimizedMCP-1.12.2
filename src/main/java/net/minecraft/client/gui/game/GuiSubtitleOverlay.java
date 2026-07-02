@@ -37,8 +37,10 @@ public class GuiSubtitleOverlay extends Gui implements ISoundEventListener {
 			GLS.enableBlend();
 			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 			Vec3d vec3d = new Vec3d(client.player.posX, client.player.posY + (double) client.player.getEyeHeight(), client.player.posZ);
-			Vec3d vec3d1 = (new Vec3d(0D, 0D, -1D)).rotatePitch(-client.player.rotationPitch * 0.017453292F).rotateYaw(-client.player.rotationYaw * 0.017453292F);
-			Vec3d vec3d2 = (new Vec3d(0D, 1D, 0D)).rotatePitch(-client.player.rotationPitch * 0.017453292F).rotateYaw(-client.player.rotationYaw * 0.017453292F);
+			Vec3d vec3d1 = (new Vec3d(0D, 0D, -1D)).rotatePitch(-client.player.rotationPitch * 0.017453292F)
+			                                       .rotateYaw(-client.player.rotationYaw * 0.017453292F);
+			Vec3d vec3d2 = (new Vec3d(0D, 1D, 0D)).rotatePitch(-client.player.rotationPitch * 0.017453292F)
+			                                      .rotateYaw(-client.player.rotationYaw * 0.017453292F);
 			Vec3d vec3d3 = vec3d1.crossProduct(vec3d2);
 			int i = 0;
 			int j = 0;
@@ -71,7 +73,8 @@ public class GuiSubtitleOverlay extends Gui implements ISoundEventListener {
 				int l1 = MathHelper.floor(MathHelper.clampedLerp(255D, 75D, (float) (Minecraft.getSystemTime() - guisubtitleoverlay$subtitle1.getStartTime()) / 3000F));
 				int i2 = l1 << 16 | l1 << 8 | l1;
 				GLS.pushMatrix();
-				GLS.translate((float) client.getWindow().getScaledWidth() - (float) l - 2F, (float) (client.getWindow().getScaledHeight() - 30) - (float) (i * (i1 + 1)), 0F);
+				GLS.translate((float) client.getWindow().getScaledWidth() - (float) l - 2F, (float) (client.getWindow()
+				                                                                                           .getScaledHeight() - 30) - (float) (i * (i1 + 1)), 0F);
 				GLS.scale(1F, 1F, 1F);
 				drawRect(-l - 1, -j1 - 1, l + 1, j1 + 1, -872415232);
 				GLS.enableBlend();

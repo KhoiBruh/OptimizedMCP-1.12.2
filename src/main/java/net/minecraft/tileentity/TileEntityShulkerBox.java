@@ -341,7 +341,6 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 		return color;
 	}
 
-	
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		return new SPacketUpdateTileEntity(pos, 10, getUpdateTag());
 	}

@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 public class DebugRendererWater implements DebugRenderer.IDebugRenderer {
 
 	private final Minecraft minecraft;
-	
+
 	public DebugRendererWater(Minecraft minecraftIn) {
 		minecraft = minecraftIn;
 	}

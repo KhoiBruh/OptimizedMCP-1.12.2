@@ -195,7 +195,8 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
 		double d1 = target.getEntityBoundingBox().minY + (double) (target.height / 3F) - entityarrow.posY;
 		double d2 = target.posZ - posZ;
 		double d3 = MathHelper.sqrt(d0 * d0 + d2 * d2);
-		entityarrow.shoot(d0, d1 + d3 * 0.20000000298023224D, d2, 1.6F, (float) (14 - world.getDifficulty().getDifficultyId() * 4));
+		entityarrow.shoot(d0, d1 + d3 * 0.20000000298023224D, d2, 1.6F, (float) (14 - world.getDifficulty()
+		                                                                                   .getDifficultyId() * 4));
 		playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1F, 1F / (getRNG().nextFloat() * 0.4F + 0.8F));
 		world.spawnEntity(entityarrow);
 	}
@@ -238,7 +239,8 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
 			} else if (getAttackTarget().getEntityId() == lastTargetId) {
 				return false;
 			} else {
-				return world.getDifficultyForLocation(new BlockPos(EntityIllusionIllager.this)).isHarderThan((float) Difficulty.NORMAL.ordinal());
+				return world.getDifficultyForLocation(new BlockPos(EntityIllusionIllager.this))
+				            .isHarderThan((float) Difficulty.NORMAL.ordinal());
 			}
 		}
 
@@ -295,7 +297,6 @@ public class EntityIllusionIllager extends EntitySpellcasterIllager implements I
 			addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 1200));
 		}
 
-		
 		protected SoundEvent getSpellPrepareSound() {
 			return SoundEvents.ENTITY_ILLAGER_PREPARE_MIRROR;
 		}

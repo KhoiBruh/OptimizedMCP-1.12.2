@@ -453,7 +453,7 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 					case ALWAYS -> flag;
 					case NEVER -> false;
 					case HIDE_FOR_OTHER_TEAMS ->
-							team1 == null ? flag : team.isSameTeam(team1) && (team.getSeeFriendlyInvisiblesEnabled() || flag);
+						team1 == null ? flag : team.isSameTeam(team1) && (team.getSeeFriendlyInvisiblesEnabled() || flag);
 					case HIDE_FOR_OWN_TEAM -> team1 == null ? flag : !team.isSameTeam(team1) && flag;
 				};
 			}
@@ -461,4 +461,5 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 
 		return Minecraft.isGuiEnabled() && entity != renderManager.renderViewEntity && flag && !entity.isBeingRidden();
 	}
+
 }

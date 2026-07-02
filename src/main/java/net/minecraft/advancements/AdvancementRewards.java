@@ -45,9 +45,13 @@ public class AdvancementRewards {
 		boolean flag = false;
 
 		for (ResourceLocation resourcelocation : loot) {
-			for (ItemStack itemstack : player.world.getLootTableManager().getLootTableFromLocation(resourcelocation).generateLootForPools(player.getRNG(), lootcontext)) {
+			for (ItemStack itemstack : player.world.getLootTableManager()
+			                                       .getLootTableFromLocation(resourcelocation)
+			                                       .generateLootForPools(player.getRNG(), lootcontext)) {
 				if (player.addItemStackToInventory(itemstack)) {
-					player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((player.getRNG().nextFloat() - player.getRNG().nextFloat()) * 0.7F + 1F) * 2F);
+					player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((player.getRNG()
+					                                                                                                                                         .nextFloat() - player.getRNG()
+					                                                                                                                                                              .nextFloat()) * 0.7F + 1F) * 2F);
 					flag = true;
 				} else {
 					EntityItem entityitem = player.dropItem(itemstack, false);

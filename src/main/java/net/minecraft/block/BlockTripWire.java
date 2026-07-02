@@ -37,7 +37,14 @@ public class BlockTripWire extends Block {
 
 	public BlockTripWire() {
 		super(Material.CIRCUITS);
-		setDefaultState(blockState.getBaseState().withProperty(POWERED, false).withProperty(ATTACHED, false).withProperty(DISARMED, false).withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false));
+		setDefaultState(blockState.getBaseState()
+		                          .withProperty(POWERED, false)
+		                          .withProperty(ATTACHED, false)
+		                          .withProperty(DISARMED, false)
+		                          .withProperty(NORTH, false)
+		                          .withProperty(EAST, false)
+		                          .withProperty(SOUTH, false)
+		                          .withProperty(WEST, false));
 		setTickRandomly(true);
 	}
 
@@ -63,10 +70,12 @@ public class BlockTripWire extends Block {
 	 * metadata, such as fence connections.
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-		return state.withProperty(NORTH, isConnectedTo(worldIn, pos, state, Facing.NORTH)).withProperty(EAST, isConnectedTo(worldIn, pos, state, Facing.EAST)).withProperty(SOUTH, isConnectedTo(worldIn, pos, state, Facing.SOUTH)).withProperty(WEST, isConnectedTo(worldIn, pos, state, Facing.WEST));
+		return state.withProperty(NORTH, isConnectedTo(worldIn, pos, state, Facing.NORTH))
+		            .withProperty(EAST, isConnectedTo(worldIn, pos, state, Facing.EAST))
+		            .withProperty(SOUTH, isConnectedTo(worldIn, pos, state, Facing.SOUTH))
+		            .withProperty(WEST, isConnectedTo(worldIn, pos, state, Facing.WEST));
 	}
 
-	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return NULL_AABB;
 	}
@@ -178,7 +187,8 @@ public class BlockTripWire extends Block {
 		IBlockState iblockstate = worldIn.getBlockState(pos);
 		boolean flag = iblockstate.getValue(POWERED);
 		boolean flag1 = false;
-		List<? extends Entity> list = worldIn.getEntitiesWithinAABBExcludingEntity(null, iblockstate.getBoundingBox(worldIn, pos).offset(pos));
+		List<? extends Entity> list = worldIn.getEntitiesWithinAABBExcludingEntity(null, iblockstate.getBoundingBox(worldIn, pos)
+		                                                                                            .offset(pos));
 
 		if (!list.isEmpty()) {
 			for (Entity entity : list) {
@@ -204,7 +214,9 @@ public class BlockTripWire extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(POWERED, (meta & 1) > 0).withProperty(ATTACHED, (meta & 4) > 0).withProperty(DISARMED, (meta & 8) > 0);
+		return getDefaultState().withProperty(POWERED, (meta & 1) > 0)
+		                        .withProperty(ATTACHED, (meta & 4) > 0)
+		                        .withProperty(DISARMED, (meta & 8) > 0);
 	}
 
 	/**
@@ -234,12 +246,18 @@ public class BlockTripWire extends Block {
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
 		return switch (rot) {
-			case CLOCKWISE_180 ->
-					state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(EAST, state.getValue(WEST)).withProperty(SOUTH, state.getValue(NORTH)).withProperty(WEST, state.getValue(EAST));
-			case COUNTERCLOCKWISE_90 ->
-					state.withProperty(NORTH, state.getValue(EAST)).withProperty(EAST, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(WEST)).withProperty(WEST, state.getValue(NORTH));
-			case CLOCKWISE_90 ->
-					state.withProperty(NORTH, state.getValue(WEST)).withProperty(EAST, state.getValue(NORTH)).withProperty(SOUTH, state.getValue(EAST)).withProperty(WEST, state.getValue(SOUTH));
+			case CLOCKWISE_180 -> state.withProperty(NORTH, state.getValue(SOUTH))
+			                           .withProperty(EAST, state.getValue(WEST))
+			                           .withProperty(SOUTH, state.getValue(NORTH))
+			                           .withProperty(WEST, state.getValue(EAST));
+			case COUNTERCLOCKWISE_90 -> state.withProperty(NORTH, state.getValue(EAST))
+			                                 .withProperty(EAST, state.getValue(SOUTH))
+			                                 .withProperty(SOUTH, state.getValue(WEST))
+			                                 .withProperty(WEST, state.getValue(NORTH));
+			case CLOCKWISE_90 -> state.withProperty(NORTH, state.getValue(WEST))
+			                          .withProperty(EAST, state.getValue(NORTH))
+			                          .withProperty(SOUTH, state.getValue(EAST))
+			                          .withProperty(WEST, state.getValue(SOUTH));
 			default -> state;
 		};
 	}
@@ -251,7 +269,7 @@ public class BlockTripWire extends Block {
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
 		return switch (mirrorIn) {
 			case LEFT_RIGHT ->
-					state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(NORTH));
+				state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(NORTH));
 			case FRONT_BACK -> state.withProperty(EAST, state.getValue(WEST)).withProperty(WEST, state.getValue(EAST));
 			default -> super.withMirror(state, mirrorIn);
 		};

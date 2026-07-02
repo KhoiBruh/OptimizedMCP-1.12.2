@@ -29,7 +29,9 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 
 	public static final Sound MISSING_SOUND = new Sound("meta:missing_sound", 1F, 1F, 1, Sound.Type.FILE, false);
 	private static final Logger LOGGER = LogManager.getLogger();
-	private static final Gson GSON = (new GsonBuilder()).registerTypeHierarchyAdapter(ITextComponent.class, new ITextComponent.Serializer()).registerTypeAdapter(SoundList.class, new SoundListSerializer()).create();
+	private static final Gson GSON = (new GsonBuilder()).registerTypeHierarchyAdapter(ITextComponent.class, new ITextComponent.Serializer())
+	                                                    .registerTypeAdapter(SoundList.class, new SoundListSerializer())
+	                                                    .create();
 	private static final ParameterizedType TYPE = new ParameterizedType() {
 		public Type @NonNull [] getActualTypeArguments() {
 			return new Type[]{String.class, SoundList.class};
@@ -91,7 +93,6 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 		soundManager.reloadSoundSystem();
 	}
 
-	
 	protected Map<String, SoundList> getSoundMap(InputStream stream) {
 
 		try (InputStream s = stream) {
@@ -137,7 +138,8 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 							return SoundHandler.MISSING_SOUND;
 						} else {
 							Sound other = accessor.cloneEntry();
-							return new Sound(other.name().toString(), other.volume() * sound.volume(), other.pitch() * sound.pitch(), sound.weight(), Sound.Type.FILE, other.streaming() || sound.streaming());
+							return new Sound(other.name()
+							                      .toString(), other.volume() * sound.volume(), other.pitch() * sound.pitch(), sound.weight(), Sound.Type.FILE, other.streaming() || sound.streaming());
 						}
 					}
 				};
@@ -165,7 +167,6 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 		return false;
 	}
 
-	
 	public SoundEventAccessor getAccessor(ResourceLocation location) {
 		return soundRegistry.getObject(location);
 	}

@@ -109,7 +109,8 @@ public class BlockRedstoneTorch extends BlockTorch {
 
 		if (isOn) {
 			if (flag) {
-				worldIn.setBlockState(pos, Blocks.UNLIT_REDSTONE_TORCH.getDefaultState().withProperty(FACING, state.getValue(FACING)), 3);
+				worldIn.setBlockState(pos, Blocks.UNLIT_REDSTONE_TORCH.getDefaultState()
+				                                                      .withProperty(FACING, state.getValue(FACING)), 3);
 
 				if (isBurnedOut(worldIn, pos, true)) {
 					worldIn.playSound(null, pos, SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT, SoundCategory.BLOCKS, 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
@@ -125,7 +126,8 @@ public class BlockRedstoneTorch extends BlockTorch {
 				}
 			}
 		} else if (!flag && !isBurnedOut(worldIn, pos, false)) {
-			worldIn.setBlockState(pos, Blocks.REDSTONE_TORCH.getDefaultState().withProperty(FACING, state.getValue(FACING)), 3);
+			worldIn.setBlockState(pos, Blocks.REDSTONE_TORCH.getDefaultState()
+			                                                .withProperty(FACING, state.getValue(FACING)), 3);
 		}
 	}
 

@@ -47,7 +47,8 @@ public class BlockStateMapper {
 			} else {
 				Set<ResourceLocation> set = Sets.newHashSet();
 
-				for (ModelResourceLocation modelresourcelocation : istatemapper.putStateModelLocations(blockIn).values()) {
+				for (ModelResourceLocation modelresourcelocation : istatemapper.putStateModelLocations(blockIn)
+				                                                               .values()) {
 					set.add(new ResourceLocation(modelresourcelocation.getResourceDomain(), modelresourcelocation.getResourcePath()));
 				}
 
@@ -58,7 +59,8 @@ public class BlockStateMapper {
 
 	public Map<IBlockState, ModelResourceLocation> getVariants(Block blockIn) {
 
-		return setBuiltInBlocks.contains(blockIn) ? Collections.emptyMap() : MoreObjects.firstNonNull(blockStateMap.get(blockIn), new DefaultStateMapper()).putStateModelLocations(blockIn);
+		return setBuiltInBlocks.contains(blockIn) ? Collections.emptyMap() : MoreObjects.firstNonNull(blockStateMap.get(blockIn), new DefaultStateMapper())
+		                                                                                .putStateModelLocations(blockIn);
 	}
 
 }

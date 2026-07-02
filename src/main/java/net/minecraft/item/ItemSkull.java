@@ -22,7 +22,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
-
 public class ItemSkull extends Item {
 
 	private static final String[] SKULL_TYPES = new String[]{"skeleton", "wither", "zombie", "char", "creeper", "dragon"};
@@ -58,7 +57,8 @@ public class ItemSkull extends Item {
 				if (worldIn.isRemote) {
 					return ActionResult.SUCCESS;
 				} else {
-					worldIn.setBlockState(pos, Blocks.SKULL.getDefaultState().withProperty(BlockSkull.FACING, facing), 11);
+					worldIn.setBlockState(pos, Blocks.SKULL.getDefaultState()
+					                                       .withProperty(BlockSkull.FACING, facing), 11);
 					int i = 0;
 
 					if (facing == Facing.UP) {
@@ -76,7 +76,8 @@ public class ItemSkull extends Item {
 
 								if (nbttagcompound.hasKey("SkullOwner", 10)) {
 									gameprofile = NBTUtil.readGameProfileFromNBT(nbttagcompound.getCompoundTag("SkullOwner"));
-								} else if (nbttagcompound.hasKey("SkullOwner", 8) && !nbttagcompound.getString("SkullOwner").isBlank()) {
+								} else if (nbttagcompound.hasKey("SkullOwner", 8) && !nbttagcompound.getString("SkullOwner")
+								                                                                    .isBlank()) {
 									gameprofile = new GameProfile(null, nbttagcompound.getString("SkullOwner"));
 								}
 							}
@@ -139,7 +140,8 @@ public class ItemSkull extends Item {
 	public String getItemStackDisplayName(ItemStack stack) {
 		if (stack.getMetadata() == 3 && stack.hasTagCompound()) {
 			if (stack.getTagCompound().hasKey("SkullOwner", 8)) {
-				return I18n.translateToLocalFormatted("item.skull.player.name", stack.getTagCompound().getString("SkullOwner"));
+				return I18n.translateToLocalFormatted("item.skull.player.name", stack.getTagCompound()
+				                                                                     .getString("SkullOwner"));
 			}
 
 			if (stack.getTagCompound().hasKey("SkullOwner", 10)) {

@@ -18,7 +18,6 @@ public class RegistrySimple<K, V> implements IRegistry<K, V> {
 		return Maps.newHashMap();
 	}
 
-	
 	public V getObject(K name) {
 		return registryObjects.get(name);
 	}
@@ -42,7 +41,6 @@ public class RegistrySimple<K, V> implements IRegistry<K, V> {
 		return Collections.unmodifiableSet(registryObjects.keySet());
 	}
 
-	
 	public V getRandomObject(Random random) {
 		if (values == null) {
 			Collection<?> collection = registryObjects.values();

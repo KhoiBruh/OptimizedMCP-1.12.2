@@ -113,14 +113,16 @@ public class EntityMoveHelper {
 
 			float f9 = (float) (MathHelper.atan2(d1, d0) * (180D / Math.PI)) - 90F;
 			entity.rotationYaw = limitAngle(entity.rotationYaw, f9, 90F);
-			entity.setAIMoveSpeed((float) (speed * entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue()));
+			entity.setAIMoveSpeed((float) (speed * entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
+			                                             .getAttributeValue()));
 
 			if (d2 > (double) entity.stepHeight && d0 * d0 + d1 * d1 < (double) Math.max(1F, entity.width)) {
 				entity.getJumpHelper().setJumping();
 				action = EntityMoveHelper.Action.JUMPING;
 			}
 		} else if (action == EntityMoveHelper.Action.JUMPING) {
-			entity.setAIMoveSpeed((float) (speed * entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue()));
+			entity.setAIMoveSpeed((float) (speed * entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
+			                                             .getAttributeValue()));
 
 			if (entity.onGround) {
 				action = EntityMoveHelper.Action.WAIT;

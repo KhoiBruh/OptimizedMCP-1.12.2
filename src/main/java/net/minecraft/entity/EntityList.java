@@ -34,16 +34,12 @@ public class EntityList {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final List<String> OLD_NAMES = Lists.newArrayList();
 
-	
-
 	/**
 	 * Gets the {@link ResourceLocation} that identifies the given entity's type.
 	 */
 	public static ResourceLocation getKey(Entity entityIn) {
 		return getKey(entityIn.getClass());
 	}
-
-	
 
 	/**
 	 * Gets the {@link ResourceLocation} that identifies the given entity's type.
@@ -53,8 +49,6 @@ public class EntityList {
 	public static ResourceLocation getKey(Class<? extends Entity> entityIn) {
 		return REGISTRY.getNameForObject(entityIn);
 	}
-
-	
 
 	/**
 	 * Gets the original name for the entity, used in versions prior to 1.11. This name is also used for translation
@@ -66,8 +60,6 @@ public class EntityList {
 		int i = REGISTRY.getIDForObject(entityIn.getClass());
 		return i == -1 ? null : OLD_NAMES.get(i);
 	}
-
-	
 
 	/**
 	 * Gets the original name for the given entity type, used in versions prior to 1.11. Note that even entities added
@@ -84,19 +76,15 @@ public class EntityList {
 		return i == -1 ? null : OLD_NAMES.get(i);
 	}
 
-	
 	public static Class<? extends Entity> getClassFromID(int entityID) {
 
 		return REGISTRY.getObjectById(entityID);
 	}
 
-	
 	public static Class<? extends Entity> getClassFromName(String p_192839_0_) {
 
 		return REGISTRY.getObject(new ResourceLocation(p_192839_0_));
 	}
-
-	
 
 	/**
 	 * Creates a new entity of the given type in the given world.
@@ -116,8 +104,6 @@ public class EntityList {
 		}
 	}
 
-	
-
 	/**
 	 * Creates a new entity with the given numeric networked entity type ID in the given world.
 	 *
@@ -127,8 +113,6 @@ public class EntityList {
 		return newEntity(getClassFromID(entityID), worldIn);
 	}
 
-	
-
 	/**
 	 * Creates a new entity of the given type in the given world.
 	 *
@@ -137,8 +121,6 @@ public class EntityList {
 	public static Entity createEntityByIDFromName(ResourceLocation name, World worldIn) {
 		return newEntity(REGISTRY.getObject(name), worldIn);
 	}
-
-	
 
 	/**
 	 * Creates a new entity from the given NBT data in the given world.

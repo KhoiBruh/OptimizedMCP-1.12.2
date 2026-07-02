@@ -16,13 +16,13 @@ public class EntityAIWanderAvoidWater extends EntityAIWander {
 		probability = p_i47302_4_;
 	}
 
-	
 	protected Vec3d getPosition() {
 		if (entity.isInWater()) {
 			Vec3d vec3d = RandomPositionGenerator.getLandPos(entity, 15, 7);
 			return vec3d == null ? super.getPosition() : vec3d;
 		} else {
-			return entity.getRNG().nextFloat() >= probability ? RandomPositionGenerator.getLandPos(entity, 10, 7) : super.getPosition();
+			return entity.getRNG()
+			             .nextFloat() >= probability ? RandomPositionGenerator.getLandPos(entity, 10, 7) : super.getPosition();
 		}
 	}
 

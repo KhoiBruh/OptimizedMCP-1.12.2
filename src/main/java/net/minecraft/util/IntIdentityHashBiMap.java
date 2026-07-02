@@ -27,7 +27,6 @@ public class IntIdentityHashBiMap<K> implements IObjectIntIterable<K> {
 		return getValue(getIndex(p_186815_1_, hashObject(p_186815_1_)));
 	}
 
-	
 	public K get(int idIn) {
 		return idIn >= 0 && idIn < byId.length ? byId[idIn] : null;
 	}

@@ -43,7 +43,6 @@ public class TileEntityFlowerPot extends TileEntity {
 		flowerPotData = compound.getInteger("Data");
 	}
 
-	
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		return new SPacketUpdateTileEntity(pos, 5, getUpdateTag());
 	}
@@ -61,7 +60,6 @@ public class TileEntityFlowerPot extends TileEntity {
 		return flowerPotItem == null ? ItemStack.EMPTY : new ItemStack(flowerPotItem, 1, flowerPotData);
 	}
 
-	
 	public Item getFlowerPotItem() {
 		return flowerPotItem;
 	}

@@ -101,13 +101,13 @@ public class StructureBoundingBox {
 	public static StructureBoundingBox getComponentToAddBoundingBox(int structureMinX, int structureMinY, int structureMinZ, int xMin, int yMin, int zMin, int xMax, int yMax, int zMax, Facing facing) {
 		return switch (facing) {
 			case NORTH ->
-					new StructureBoundingBox(structureMinX + xMin, structureMinY + yMin, structureMinZ - zMax + 1 + zMin, structureMinX + xMax - 1 + xMin, structureMinY + yMax - 1 + yMin, structureMinZ + zMin);
+				new StructureBoundingBox(structureMinX + xMin, structureMinY + yMin, structureMinZ - zMax + 1 + zMin, structureMinX + xMax - 1 + xMin, structureMinY + yMax - 1 + yMin, structureMinZ + zMin);
 			case WEST ->
-					new StructureBoundingBox(structureMinX - zMax + 1 + zMin, structureMinY + yMin, structureMinZ + xMin, structureMinX + zMin, structureMinY + yMax - 1 + yMin, structureMinZ + xMax - 1 + xMin);
+				new StructureBoundingBox(structureMinX - zMax + 1 + zMin, structureMinY + yMin, structureMinZ + xMin, structureMinX + zMin, structureMinY + yMax - 1 + yMin, structureMinZ + xMax - 1 + xMin);
 			case EAST ->
-					new StructureBoundingBox(structureMinX + zMin, structureMinY + yMin, structureMinZ + xMin, structureMinX + zMax - 1 + zMin, structureMinY + yMax - 1 + yMin, structureMinZ + xMax - 1 + xMin);
+				new StructureBoundingBox(structureMinX + zMin, structureMinY + yMin, structureMinZ + xMin, structureMinX + zMax - 1 + zMin, structureMinY + yMax - 1 + yMin, structureMinZ + xMax - 1 + xMin);
 			default ->
-					new StructureBoundingBox(structureMinX + xMin, structureMinY + yMin, structureMinZ + zMin, structureMinX + xMax - 1 + xMin, structureMinY + yMax - 1 + yMin, structureMinZ + zMax - 1 + zMin);
+				new StructureBoundingBox(structureMinX + xMin, structureMinY + yMin, structureMinZ + zMin, structureMinX + xMax - 1 + xMin, structureMinY + yMax - 1 + yMin, structureMinZ + zMax - 1 + zMin);
 		};
 	}
 
@@ -186,7 +186,14 @@ public class StructureBoundingBox {
 	}
 
 	public String toString() {
-		return MoreObjects.toStringHelper(this).add("x0", minX).add("y0", minY).add("z0", minZ).add("x1", maxX).add("y1", maxY).add("z1", maxZ).toString();
+		return MoreObjects.toStringHelper(this)
+		                  .add("x0", minX)
+		                  .add("y0", minY)
+		                  .add("z0", minZ)
+		                  .add("x1", maxX)
+		                  .add("y1", maxY)
+		                  .add("z1", maxZ)
+		                  .toString();
 	}
 
 	public NBTTagIntArray toNBTTagIntArray() {

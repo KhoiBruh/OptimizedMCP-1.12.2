@@ -106,7 +106,6 @@ public class RecipesBanners {
 			return nonnulllist;
 		}
 
-		
 		private BannerPattern matchPatterns(InventoryCrafting p_190933_1_) {
 			for (BannerPattern bannerpattern : BannerPattern.values()) {
 				if (bannerpattern.hasPattern()) {

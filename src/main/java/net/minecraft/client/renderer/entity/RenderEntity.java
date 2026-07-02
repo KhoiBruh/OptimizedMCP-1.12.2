@@ -20,8 +20,6 @@ public class RenderEntity extends Render<Entity> {
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);
 	}
 
-	
-
 	/**
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */

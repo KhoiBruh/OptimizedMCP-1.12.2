@@ -61,14 +61,15 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 			if (!loadingSuccess) {
 				throw new MinecraftError();
 			}
-		} 		else {
+		} else {
 			GLS.clear(256);
 			GLS.matrixMode(5889);
 			GLS.loadIdentity();
 
 			if (OpenGlHelper.isFramebufferEnabled()) {
 				int factor = mc.getWindow().getGuiScale();
-				GLS.ortho(0D, mc.getWindow().getScaledWidth() * factor, mc.getWindow().getScaledHeight() * factor, 0D, 100D, 300D);
+				GLS.ortho(0D, mc.getWindow().getScaledWidth() * factor, mc.getWindow()
+				                                                          .getScaledHeight() * factor, 0D, 100D, 300D);
 			} else {
 				GLS.ortho(0D, mc.getWindow().getScaledWidth(), mc.getWindow().getScaledHeight(), 0, 100, 300);
 			}

@@ -19,7 +19,10 @@ public class BlockNewLeaf extends BlockLeaves {
 	public static final PropertyEnum<BlockPlanks.Type> VARIANT = PropertyEnum.create("variant", BlockPlanks.Type.class, p_apply_1_ -> p_apply_1_.getMetadata() >= 4);
 
 	public BlockNewLeaf() {
-		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockPlanks.Type.ACACIA).withProperty(CHECK_DECAY, true).withProperty(DECAYABLE, true));
+		setDefaultState(blockState.getBaseState()
+		                          .withProperty(VARIANT, BlockPlanks.Type.ACACIA)
+		                          .withProperty(CHECK_DECAY, true)
+		                          .withProperty(DECAYABLE, true));
 	}
 
 	protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance) {
@@ -56,7 +59,9 @@ public class BlockNewLeaf extends BlockLeaves {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(VARIANT, getWoodType(meta)).withProperty(DECAYABLE, (meta & 4) == 0).withProperty(CHECK_DECAY, (meta & 8) > 0);
+		return getDefaultState().withProperty(VARIANT, getWoodType(meta))
+		                        .withProperty(DECAYABLE, (meta & 4) == 0)
+		                        .withProperty(CHECK_DECAY, (meta & 8) > 0);
 	}
 
 	/**
@@ -93,7 +98,8 @@ public class BlockNewLeaf extends BlockLeaves {
 	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
 		if (!worldIn.isRemote && stack.getItem() == Items.SHEARS) {
 			player.addStat(StatList.getBlockStats(this));
-			spawnAsEntity(worldIn, pos, new ItemStack(Item.getItemFromBlock(this), 1, state.getValue(VARIANT).getMetadata() - 4));
+			spawnAsEntity(worldIn, pos, new ItemStack(Item.getItemFromBlock(this), 1, state.getValue(VARIANT)
+			                                                                               .getMetadata() - 4));
 		} else {
 			super.harvestBlock(worldIn, player, pos, state, te, stack);
 		}

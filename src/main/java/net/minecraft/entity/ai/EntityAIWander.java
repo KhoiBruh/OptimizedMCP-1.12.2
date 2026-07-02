@@ -51,7 +51,6 @@ public class EntityAIWander extends EntityAIBase {
 		}
 	}
 
-	
 	protected Vec3d getPosition() {
 		return RandomPositionGenerator.findRandomTarget(entity, 10, 7);
 	}

@@ -30,9 +30,14 @@ public class AdvancementManager {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final Gson GSON = (new GsonBuilder()).registerTypeHierarchyAdapter(Advancement.Builder.class, (JsonDeserializer<Advancement.Builder>) (p_deserialize_1_, p_deserialize_2_, p_deserialize_3_) -> {
 
-		JsonObject jsonobject = JsonUtils.getJsonObject(p_deserialize_1_, "advancement");
-		return Advancement.Builder.deserialize(jsonobject, p_deserialize_3_);
-	}).registerTypeAdapter(AdvancementRewards.class, new AdvancementRewards.Deserializer()).registerTypeHierarchyAdapter(ITextComponent.class, new ITextComponent.Serializer()).registerTypeHierarchyAdapter(Style.class, new Style.Serializer()).registerTypeAdapterFactory(new EnumTypeAdapterFactory()).create();
+		                                                    JsonObject jsonobject = JsonUtils.getJsonObject(p_deserialize_1_, "advancement");
+		                                                    return Advancement.Builder.deserialize(jsonobject, p_deserialize_3_);
+	                                                    })
+	                                                    .registerTypeAdapter(AdvancementRewards.class, new AdvancementRewards.Deserializer())
+	                                                    .registerTypeHierarchyAdapter(ITextComponent.class, new ITextComponent.Serializer())
+	                                                    .registerTypeHierarchyAdapter(Style.class, new Style.Serializer())
+	                                                    .registerTypeAdapterFactory(new EnumTypeAdapterFactory())
+	                                                    .create();
 	private static final AdvancementList ADVANCEMENT_LIST = new AdvancementList();
 
 	/**
@@ -161,7 +166,6 @@ public class AdvancementManager {
 		}
 	}
 
-	
 	public Advancement getAdvancement(ResourceLocation id) {
 		return ADVANCEMENT_LIST.getAdvancement(id);
 	}

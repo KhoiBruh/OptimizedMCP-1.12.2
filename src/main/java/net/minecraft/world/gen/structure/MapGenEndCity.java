@@ -104,7 +104,8 @@ public class MapGenEndCity extends MapGenStructure {
 				isSizeable = false;
 			} else {
 				BlockPos blockpos = new BlockPos(chunkX * 16 + 8, i, chunkZ * 16 + 8);
-				StructureEndCityPieces.startHouseTower(worldIn.getSaveHandler().getStructureTemplateManager(), blockpos, rotation, components, rnd);
+				StructureEndCityPieces.startHouseTower(worldIn.getSaveHandler()
+				                                              .getStructureTemplateManager(), blockpos, rotation, components, rnd);
 				updateBoundingBox();
 				isSizeable = true;
 			}

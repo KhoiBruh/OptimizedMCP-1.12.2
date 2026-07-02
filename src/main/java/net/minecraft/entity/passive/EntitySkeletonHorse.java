@@ -66,7 +66,6 @@ public class EntitySkeletonHorse extends AbstractHorse {
 		return super.getMountedYOffset() - 0.1875D;
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_SKELETON_HORSE;
 	}

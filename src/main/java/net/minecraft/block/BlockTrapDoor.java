@@ -30,7 +30,10 @@ public class BlockTrapDoor extends Block {
 
 	protected BlockTrapDoor(Material materialIn) {
 		super(materialIn);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(OPEN, false).withProperty(HALF, BlockTrapDoor.DoorHalf.BOTTOM));
+		setDefaultState(blockState.getBaseState()
+		                          .withProperty(FACING, Facing.NORTH)
+		                          .withProperty(OPEN, false)
+		                          .withProperty(HALF, BlockTrapDoor.DoorHalf.BOTTOM));
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
@@ -144,7 +147,8 @@ public class BlockTrapDoor extends Block {
 			iblockstate = iblockstate.withProperty(FACING, facing).withProperty(OPEN, false);
 			iblockstate = iblockstate.withProperty(HALF, hitY > 0.5F ? BlockTrapDoor.DoorHalf.TOP : BlockTrapDoor.DoorHalf.BOTTOM);
 		} else {
-			iblockstate = iblockstate.withProperty(FACING, placer.getHorizontalFacing().getOpposite()).withProperty(OPEN, false);
+			iblockstate = iblockstate.withProperty(FACING, placer.getHorizontalFacing().getOpposite())
+			                         .withProperty(OPEN, false);
 			iblockstate = iblockstate.withProperty(HALF, facing == Facing.UP ? BlockTrapDoor.DoorHalf.BOTTOM : BlockTrapDoor.DoorHalf.TOP);
 		}
 
@@ -174,7 +178,9 @@ public class BlockTrapDoor extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(OPEN, (meta & 4) != 0).withProperty(HALF, (meta & 8) == 0 ? BlockTrapDoor.DoorHalf.BOTTOM : BlockTrapDoor.DoorHalf.TOP);
+		return getDefaultState().withProperty(FACING, getFacing(meta))
+		                        .withProperty(OPEN, (meta & 4) != 0)
+		                        .withProperty(HALF, (meta & 8) == 0 ? BlockTrapDoor.DoorHalf.BOTTOM : BlockTrapDoor.DoorHalf.TOP);
 	}
 
 	/**

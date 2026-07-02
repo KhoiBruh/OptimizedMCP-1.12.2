@@ -15,7 +15,6 @@ public class BlockRotationProcessor implements ITemplateProcessor {
 		random = settings.getRandom(pos);
 	}
 
-	
 	public Template.BlockInfo processBlock(World worldIn, BlockPos pos, Template.BlockInfo blockInfoIn) {
 
 		return chance < 1F && random.nextFloat() > chance ? null : blockInfoIn;

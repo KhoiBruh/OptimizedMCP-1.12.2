@@ -175,7 +175,8 @@ public class ChunkGeneratorSettings {
 	public static class Factory {
 
 		@VisibleForTesting
-		static final Gson JSON_ADAPTER = (new GsonBuilder()).registerTypeAdapter(ChunkGeneratorSettings.Factory.class, new ChunkGeneratorSettings.Serializer()).create();
+		static final Gson JSON_ADAPTER = (new GsonBuilder()).registerTypeAdapter(ChunkGeneratorSettings.Factory.class, new ChunkGeneratorSettings.Serializer())
+		                                                    .create();
 		public float coordinateScale = 684.412F;
 		public float heightScale = 684.412F;
 		public float upperLimitScale = 512F;

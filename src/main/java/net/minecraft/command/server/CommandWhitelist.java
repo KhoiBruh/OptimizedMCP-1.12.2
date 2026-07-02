@@ -50,7 +50,9 @@ public class CommandWhitelist extends CommandBase {
 				server.getPlayerList().setWhiteListEnabled(false);
 				notifyCommandListener(sender, this, "commands.whitelist.disabled");
 			} else if ("list".equals(args[0])) {
-				sender.sendMessage(new TextComponentTranslation("commands.whitelist.list", server.getPlayerList().getWhitelistedPlayerNames().length, server.getPlayerList().getAvailablePlayerDat().length));
+				sender.sendMessage(new TextComponentTranslation("commands.whitelist.list", server.getPlayerList()
+				                                                                                 .getWhitelistedPlayerNames().length, server.getPlayerList()
+				                                                                                                                            .getAvailablePlayerDat().length));
 				String[] astring = server.getPlayerList().getWhitelistedPlayerNames();
 				sender.sendMessage(new TextComponentString(joinNiceString(astring)));
 			} else if ("add".equals(args[0])) {

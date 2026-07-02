@@ -84,7 +84,6 @@ public class GuiListWorldSelection extends GuiListExtended {
 		return slotIndex == selectedIdx;
 	}
 
-	
 	public GuiListWorldSelectionEntry getSelectedWorld() {
 		return selectedIdx >= 0 && selectedIdx < getSize() ? getListEntry(selectedIdx) : null;
 	}

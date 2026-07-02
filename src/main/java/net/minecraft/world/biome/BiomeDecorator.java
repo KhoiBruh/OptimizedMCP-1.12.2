@@ -133,13 +133,17 @@ public class BiomeDecorator {
 		if (decorating) {
 			throw new RuntimeException("Already decorating");
 		} else {
-			chunkProviderSettings = ChunkGeneratorSettings.Factory.jsonToFactory(worldIn.getWorldInfo().getGeneratorOptions()).build();
+			chunkProviderSettings = ChunkGeneratorSettings.Factory.jsonToFactory(worldIn.getWorldInfo()
+			                                                                            .getGeneratorOptions()).build();
 			chunkPos = pos;
 			dirtGen = new WorldGenMinable(Blocks.DIRT.getDefaultState(), chunkProviderSettings.dirtSize);
 			gravelOreGen = new WorldGenMinable(Blocks.GRAVEL.getDefaultState(), chunkProviderSettings.gravelSize);
-			graniteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.Type.GRANITE), chunkProviderSettings.graniteSize);
-			dioriteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.Type.DIORITE), chunkProviderSettings.dioriteSize);
-			andesiteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.Type.ANDESITE), chunkProviderSettings.andesiteSize);
+			graniteGen = new WorldGenMinable(Blocks.STONE.getDefaultState()
+			                                             .withProperty(BlockStone.VARIANT, BlockStone.Type.GRANITE), chunkProviderSettings.graniteSize);
+			dioriteGen = new WorldGenMinable(Blocks.STONE.getDefaultState()
+			                                             .withProperty(BlockStone.VARIANT, BlockStone.Type.DIORITE), chunkProviderSettings.dioriteSize);
+			andesiteGen = new WorldGenMinable(Blocks.STONE.getDefaultState()
+			                                              .withProperty(BlockStone.VARIANT, BlockStone.Type.ANDESITE), chunkProviderSettings.andesiteSize);
 			coalGen = new WorldGenMinable(Blocks.COAL_ORE.getDefaultState(), chunkProviderSettings.coalSize);
 			ironGen = new WorldGenMinable(Blocks.IRON_ORE.getDefaultState(), chunkProviderSettings.ironSize);
 			goldGen = new WorldGenMinable(Blocks.GOLD_ORE.getDefaultState(), chunkProviderSettings.goldSize);

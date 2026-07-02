@@ -21,10 +21,10 @@ public class ModelSilverfish extends ModelBase {
 	 * The wings (dust-looking sprites) on the silverfish's model.
 	 */
 	private final ModelRenderer[] silverfishWings;
-	
+
 	public ModelSilverfish() {
 		float f = -3.5F;
-		
+
 		float[] zPlacement = new float[7];
 		for (int i = 0; i < silverfishBodyParts.length; ++i) {
 			silverfishBodyParts[i] = new ModelRenderer(this, SILVERFISH_TEXTURE_POSITIONS[i][0], SILVERFISH_TEXTURE_POSITIONS[i][1]);

@@ -34,7 +34,6 @@ public abstract class BaseAttribute implements IAttribute {
 		return this;
 	}
 
-	
 	public IAttribute getParent() {
 		return parent;
 	}

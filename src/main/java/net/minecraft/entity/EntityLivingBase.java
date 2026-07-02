@@ -426,7 +426,8 @@ public abstract class EntityLivingBase extends Entity {
 		++deathTime;
 
 		if (deathTime == 20) {
-			if (!world.isRemote && (isPlayer() || recentlyHit > 0 && canDropLoot() && world.getGameRules().getBoolean("doMobLoot"))) {
+			if (!world.isRemote && (isPlayer() || recentlyHit > 0 && canDropLoot() && world.getGameRules()
+			                                                                               .getBoolean("doMobLoot"))) {
 				int i = getExperiencePoints(attackingPlayer);
 
 				while (i > 0) {
@@ -480,7 +481,6 @@ public abstract class EntityLivingBase extends Entity {
 		return rand;
 	}
 
-	
 	public EntityLivingBase getRevengeTarget() {
 		return revengeTarget;
 	}
@@ -722,8 +722,6 @@ public abstract class EntityLivingBase extends Entity {
 		return activePotionsMap.containsKey(potionIn);
 	}
 
-	
-
 	/**
 	 * returns the PotionEffect for the supplied Potion if it is active, null otherwise.
 	 */
@@ -764,8 +762,6 @@ public abstract class EntityLivingBase extends Entity {
 	public boolean isEntityUndead() {
 		return getCreatureAttribute() == CreatureAttribute.UNDEAD;
 	}
-
-	
 
 	/**
 	 * Removes the given potion effect from the active potion map and returns it. Does not call cleanup callbacks for
@@ -1019,7 +1015,6 @@ public abstract class EntityLivingBase extends Entity {
 		}
 	}
 
-	
 	public DamageSource getLastDamageSource() {
 		if (world.getTotalWorldTime() - lastDamageStamp > 40L) {
 			lastDamageSource = null;
@@ -1152,12 +1147,10 @@ public abstract class EntityLivingBase extends Entity {
 		}
 	}
 
-	
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
 		return SoundEvents.ENTITY_GENERIC_HURT;
 	}
 
-	
 	protected SoundEvent getDeathSound() {
 		return SoundEvents.ENTITY_GENERIC_DEATH;
 	}
@@ -1325,7 +1318,6 @@ public abstract class EntityLivingBase extends Entity {
 		return combatTracker;
 	}
 
-	
 	public EntityLivingBase getAttackingEntity() {
 		if (combatTracker.getBestAttacker() != null) {
 			return combatTracker.getBestAttacker();
@@ -1376,7 +1368,8 @@ public abstract class EntityLivingBase extends Entity {
 			swingingHand = hand;
 
 			if (world instanceof WorldServer) {
-				((WorldServer) world).getEntityTracker().sendToTracking(this, new SPacketAnimation(this, hand == Hand.MAIN_HAND ? 0 : 3));
+				((WorldServer) world).getEntityTracker()
+				                     .sendToTracking(this, new SPacketAnimation(this, hand == Hand.MAIN_HAND ? 0 : 3));
 			}
 		}
 	}
@@ -1597,12 +1590,14 @@ public abstract class EntityLivingBase extends Entity {
 
 						BlockPos blockpos = new BlockPos(d11, posY - 1D, d12);
 
-						if (world.getBlockState(blockpos).isTopSolid() || world.getBlockState(blockpos).getMaterial() == Material.WATER) {
+						if (world.getBlockState(blockpos).isTopSolid() || world.getBlockState(blockpos)
+						                                                       .getMaterial() == Material.WATER) {
 							d1 = d11;
 							d13 = posY + 1D;
 							d14 = d12;
 						}
-					} else if (!world.collidesWithAnyBlock(axisalignedbb1.offset(0D, 1D, 0D)) && world.getBlockState(new BlockPos(d11, posY + 1D, d12)).isTopSolid()) {
+					} else if (!world.collidesWithAnyBlock(axisalignedbb1.offset(0D, 1D, 0D)) && world.getBlockState(new BlockPos(d11, posY + 1D, d12))
+					                                                                                  .isTopSolid()) {
 						d1 = d11;
 						d13 = posY + 2D;
 						d14 = d12;
@@ -1753,7 +1748,8 @@ public abstract class EntityLivingBase extends Entity {
 						f6 = 0.91F;
 
 						if (onGround) {
-							f6 = world.getBlockState(blockpos$pooledmutableblockpos.setPos(posX, getEntityBoundingBox().minY - 1D, posZ)).getBlock().slipperiness * 0.91F;
+							f6 = world.getBlockState(blockpos$pooledmutableblockpos.setPos(posX, getEntityBoundingBox().minY - 1D, posZ))
+							          .getBlock().slipperiness * 0.91F;
 						}
 
 						if (isOnLadder()) {
@@ -1784,7 +1780,8 @@ public abstract class EntityLivingBase extends Entity {
 						} else {
 							blockpos$pooledmutableblockpos.setPos(posX, 0D, posZ);
 
-							if (!world.isRemote || world.isBlockLoaded(blockpos$pooledmutableblockpos) && world.getChunkFromBlockCoords(blockpos$pooledmutableblockpos).isLoaded()) {
+							if (!world.isRemote || world.isBlockLoaded(blockpos$pooledmutableblockpos) && world.getChunkFromBlockCoords(blockpos$pooledmutableblockpos)
+							                                                                                   .isLoaded()) {
 								if (!hasNoGravity()) {
 									motionY -= 0.08D;
 								}
@@ -1932,7 +1929,8 @@ public abstract class EntityLivingBase extends Entity {
 				ItemStack itemstack1 = getItemStackFromSlot(entityequipmentslot);
 
 				if (!ItemStack.areItemStacksEqual(itemstack1, itemstack)) {
-					((WorldServer) world).getEntityTracker().sendToTracking(this, new SPacketEntityEquipment(getEntityId(), entityequipmentslot, itemstack1));
+					((WorldServer) world).getEntityTracker()
+					                     .sendToTracking(this, new SPacketEntityEquipment(getEntityId(), entityequipmentslot, itemstack1));
 
 					if (!itemstack.isEmpty()) {
 						getAttributeMap().removeAttributeModifiers(itemstack.getAttributeModifiers(entityequipmentslot));
@@ -2562,7 +2560,8 @@ public abstract class EntityLivingBase extends Entity {
 			if (flag1) {
 				setPositionAndUpdate(posX, posY, posZ);
 
-				if (world.getCollisionBoxes(this, getEntityBoundingBox()).isEmpty() && !world.containsAnyLiquid(getEntityBoundingBox())) {
+				if (world.getCollisionBoxes(this, getEntityBoundingBox())
+				         .isEmpty() && !world.containsAnyLiquid(getEntityBoundingBox())) {
 					flag = true;
 				}
 			}

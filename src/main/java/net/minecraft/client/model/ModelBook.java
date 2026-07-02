@@ -18,22 +18,26 @@ public class ModelBook extends ModelBase {
 	/**
 	 * The right pages renderer (when facing the book)
 	 */
-	public ModelRenderer pagesRight = (new ModelRenderer(this)).setTextureOffset(0, 10).addBox(0F, -4F, -0.99F, 5, 8, 1);
+	public ModelRenderer pagesRight = (new ModelRenderer(this)).setTextureOffset(0, 10)
+	                                                           .addBox(0F, -4F, -0.99F, 5, 8, 1);
 
 	/**
 	 * The left pages renderer (when facing the book)
 	 */
-	public ModelRenderer pagesLeft = (new ModelRenderer(this)).setTextureOffset(12, 10).addBox(0F, -4F, -0.01F, 5, 8, 1);
+	public ModelRenderer pagesLeft = (new ModelRenderer(this)).setTextureOffset(12, 10)
+	                                                          .addBox(0F, -4F, -0.01F, 5, 8, 1);
 
 	/**
 	 * Right cover renderer (when facing the book)
 	 */
-	public ModelRenderer flippingPageRight = (new ModelRenderer(this)).setTextureOffset(24, 10).addBox(0F, -4F, 0F, 5, 8, 0);
+	public ModelRenderer flippingPageRight = (new ModelRenderer(this)).setTextureOffset(24, 10)
+	                                                                  .addBox(0F, -4F, 0F, 5, 8, 0);
 
 	/**
 	 * Right cover renderer (when facing the book)
 	 */
-	public ModelRenderer flippingPageLeft = (new ModelRenderer(this)).setTextureOffset(24, 10).addBox(0F, -4F, 0F, 5, 8, 0);
+	public ModelRenderer flippingPageLeft = (new ModelRenderer(this)).setTextureOffset(24, 10)
+	                                                                 .addBox(0F, -4F, 0F, 5, 8, 0);
 
 	/**
 	 * The renderer of spine of the book

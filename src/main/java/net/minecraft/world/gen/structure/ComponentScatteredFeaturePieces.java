@@ -74,10 +74,14 @@ public class ComponentScatteredFeaturePieces {
 				}
 			}
 
-			IBlockState iblockstate1 = Blocks.SANDSTONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH);
-			IBlockState iblockstate2 = Blocks.SANDSTONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.SOUTH);
-			IBlockState iblockstate3 = Blocks.SANDSTONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.EAST);
-			IBlockState iblockstate = Blocks.SANDSTONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.WEST);
+			IBlockState iblockstate1 = Blocks.SANDSTONE_STAIRS.getDefaultState()
+			                                                  .withProperty(BlockStairs.FACING, Facing.NORTH);
+			IBlockState iblockstate2 = Blocks.SANDSTONE_STAIRS.getDefaultState()
+			                                                  .withProperty(BlockStairs.FACING, Facing.SOUTH);
+			IBlockState iblockstate3 = Blocks.SANDSTONE_STAIRS.getDefaultState()
+			                                                  .withProperty(BlockStairs.FACING, Facing.EAST);
+			IBlockState iblockstate = Blocks.SANDSTONE_STAIRS.getDefaultState()
+			                                                 .withProperty(BlockStairs.FACING, Facing.WEST);
 			int l = ~DyeColor.ORANGE.getDyeDamage() & 15;
 			int i1 = ~DyeColor.BLUE.getDyeDamage() & 15;
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 0, 0, 4, 9, 4, Blocks.SANDSTONE.getDefaultState(), Blocks.AIR.getDefaultState(), false);
@@ -305,7 +309,8 @@ public class ComponentScatteredFeaturePieces {
 						blockpos$mutableblockpos.setPos(l, 64, k);
 
 						if (structurebb.isVecInside(blockpos$mutableblockpos)) {
-							i += Math.max(worldIn.getTopSolidOrLiquidBlock(blockpos$mutableblockpos).getY(), worldIn.provider.getAverageGroundLevel());
+							i += Math.max(worldIn.getTopSolidOrLiquidBlock(blockpos$mutableblockpos)
+							                     .getY(), worldIn.provider.getAverageGroundLevel());
 							++j;
 						}
 					}
@@ -345,7 +350,9 @@ public class ComponentScatteredFeaturePieces {
 				Rotation[] arotation = Rotation.values();
 				MinecraftServer minecraftserver = worldIn.getMinecraftServer();
 				TemplateManager templatemanager = worldIn.getSaveHandler().getStructureTemplateManager();
-				PlacementSettings placementsettings = (new PlacementSettings()).setRotation(arotation[randomIn.nextInt(arotation.length)]).setReplacedBlock(Blocks.STRUCTURE_VOID).setBoundingBox(structureboundingbox);
+				PlacementSettings placementsettings = (new PlacementSettings()).setRotation(arotation[randomIn.nextInt(arotation.length)])
+				                                                               .setReplacedBlock(Blocks.STRUCTURE_VOID)
+				                                                               .setBoundingBox(structureboundingbox);
 				Template template = templatemanager.getTemplate(minecraftserver, IGLOO_TOP_ID);
 				template.addBlocksToWorldChunk(worldIn, blockpos, placementsettings);
 
@@ -474,10 +481,14 @@ public class ComponentScatteredFeaturePieces {
 				fillWithRandomizedBlocks(worldIn, structureBoundingBoxIn, 4, 9, 10, 4, 9, 10, false, randomIn, cobblestoneSelector);
 				fillWithRandomizedBlocks(worldIn, structureBoundingBoxIn, 7, 9, 10, 7, 9, 10, false, randomIn, cobblestoneSelector);
 				fillWithRandomizedBlocks(worldIn, structureBoundingBoxIn, 5, 9, 7, 6, 9, 7, false, randomIn, cobblestoneSelector);
-				IBlockState iblockstate2 = Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.EAST);
-				IBlockState iblockstate3 = Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.WEST);
-				IBlockState iblockstate = Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.SOUTH);
-				IBlockState iblockstate1 = Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH);
+				IBlockState iblockstate2 = Blocks.STONE_STAIRS.getDefaultState()
+				                                              .withProperty(BlockStairs.FACING, Facing.EAST);
+				IBlockState iblockstate3 = Blocks.STONE_STAIRS.getDefaultState()
+				                                              .withProperty(BlockStairs.FACING, Facing.WEST);
+				IBlockState iblockstate = Blocks.STONE_STAIRS.getDefaultState()
+				                                             .withProperty(BlockStairs.FACING, Facing.SOUTH);
+				IBlockState iblockstate1 = Blocks.STONE_STAIRS.getDefaultState()
+				                                              .withProperty(BlockStairs.FACING, Facing.NORTH);
 				setBlockState(worldIn, iblockstate1, 5, 9, 6, structureBoundingBoxIn);
 				setBlockState(worldIn, iblockstate1, 6, 9, 6, structureBoundingBoxIn);
 				setBlockState(worldIn, iblockstate, 5, 9, 8, structureBoundingBoxIn);
@@ -521,10 +532,16 @@ public class ComponentScatteredFeaturePieces {
 				fillWithRandomizedBlocks(worldIn, structureBoundingBoxIn, 7, -2, 1, 9, -2, 1, false, randomIn, cobblestoneSelector);
 				fillWithRandomizedBlocks(worldIn, structureBoundingBoxIn, 6, -3, 1, 6, -3, 1, false, randomIn, cobblestoneSelector);
 				fillWithRandomizedBlocks(worldIn, structureBoundingBoxIn, 6, -1, 1, 6, -1, 1, false, randomIn, cobblestoneSelector);
-				setBlockState(worldIn, Blocks.TRIPWIRE_HOOK.getDefaultState().withProperty(BlockTripWireHook.FACING, Facing.EAST).withProperty(BlockTripWireHook.ATTACHED, true), 1, -3, 8, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.TRIPWIRE_HOOK.getDefaultState().withProperty(BlockTripWireHook.FACING, Facing.WEST).withProperty(BlockTripWireHook.ATTACHED, true), 4, -3, 8, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.TRIPWIRE.getDefaultState().withProperty(BlockTripWire.ATTACHED, true), 2, -3, 8, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.TRIPWIRE.getDefaultState().withProperty(BlockTripWire.ATTACHED, true), 3, -3, 8, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.TRIPWIRE_HOOK.getDefaultState()
+				                                           .withProperty(BlockTripWireHook.FACING, Facing.EAST)
+				                                           .withProperty(BlockTripWireHook.ATTACHED, true), 1, -3, 8, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.TRIPWIRE_HOOK.getDefaultState()
+				                                           .withProperty(BlockTripWireHook.FACING, Facing.WEST)
+				                                           .withProperty(BlockTripWireHook.ATTACHED, true), 4, -3, 8, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.TRIPWIRE.getDefaultState()
+				                                      .withProperty(BlockTripWire.ATTACHED, true), 2, -3, 8, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.TRIPWIRE.getDefaultState()
+				                                      .withProperty(BlockTripWire.ATTACHED, true), 3, -3, 8, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.REDSTONE_WIRE.getDefaultState(), 5, -3, 7, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.REDSTONE_WIRE.getDefaultState(), 5, -3, 6, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.REDSTONE_WIRE.getDefaultState(), 5, -3, 5, structureBoundingBoxIn);
@@ -539,12 +556,20 @@ public class ComponentScatteredFeaturePieces {
 					placedTrap1 = createDispenser(worldIn, structureBoundingBoxIn, randomIn, 3, -2, 1, Facing.NORTH, LootTableList.CHESTS_JUNGLE_TEMPLE_DISPENSER);
 				}
 
-				setBlockState(worldIn, Blocks.VINE.getDefaultState().withProperty(BlockVine.SOUTH, true), 3, -2, 2, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.TRIPWIRE_HOOK.getDefaultState().withProperty(BlockTripWireHook.FACING, Facing.NORTH).withProperty(BlockTripWireHook.ATTACHED, true), 7, -3, 1, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.TRIPWIRE_HOOK.getDefaultState().withProperty(BlockTripWireHook.FACING, Facing.SOUTH).withProperty(BlockTripWireHook.ATTACHED, true), 7, -3, 5, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.TRIPWIRE.getDefaultState().withProperty(BlockTripWire.ATTACHED, true), 7, -3, 2, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.TRIPWIRE.getDefaultState().withProperty(BlockTripWire.ATTACHED, true), 7, -3, 3, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.TRIPWIRE.getDefaultState().withProperty(BlockTripWire.ATTACHED, true), 7, -3, 4, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.VINE.getDefaultState()
+				                                  .withProperty(BlockVine.SOUTH, true), 3, -2, 2, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.TRIPWIRE_HOOK.getDefaultState()
+				                                           .withProperty(BlockTripWireHook.FACING, Facing.NORTH)
+				                                           .withProperty(BlockTripWireHook.ATTACHED, true), 7, -3, 1, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.TRIPWIRE_HOOK.getDefaultState()
+				                                           .withProperty(BlockTripWireHook.FACING, Facing.SOUTH)
+				                                           .withProperty(BlockTripWireHook.ATTACHED, true), 7, -3, 5, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.TRIPWIRE.getDefaultState()
+				                                      .withProperty(BlockTripWire.ATTACHED, true), 7, -3, 2, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.TRIPWIRE.getDefaultState()
+				                                      .withProperty(BlockTripWire.ATTACHED, true), 7, -3, 3, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.TRIPWIRE.getDefaultState()
+				                                      .withProperty(BlockTripWire.ATTACHED, true), 7, -3, 4, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.REDSTONE_WIRE.getDefaultState(), 8, -3, 6, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.REDSTONE_WIRE.getDefaultState(), 9, -3, 6, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.REDSTONE_WIRE.getDefaultState(), 9, -3, 5, structureBoundingBoxIn);
@@ -555,8 +580,10 @@ public class ComponentScatteredFeaturePieces {
 					placedTrap2 = createDispenser(worldIn, structureBoundingBoxIn, randomIn, 9, -2, 3, Facing.WEST, LootTableList.CHESTS_JUNGLE_TEMPLE_DISPENSER);
 				}
 
-				setBlockState(worldIn, Blocks.VINE.getDefaultState().withProperty(BlockVine.EAST, true), 8, -1, 3, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.VINE.getDefaultState().withProperty(BlockVine.EAST, true), 8, -2, 3, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.VINE.getDefaultState()
+				                                  .withProperty(BlockVine.EAST, true), 8, -1, 3, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.VINE.getDefaultState()
+				                                  .withProperty(BlockVine.EAST, true), 8, -2, 3, structureBoundingBoxIn);
 
 				if (!placedMainChest) {
 					placedMainChest = generateChest(worldIn, structureBoundingBoxIn, randomIn, 8, -3, 3, LootTableList.CHESTS_JUNGLE_TEMPLE);
@@ -576,7 +603,8 @@ public class ComponentScatteredFeaturePieces {
 				setBlockState(worldIn, Blocks.STONEBRICK.getStateFromMeta(BlockStoneBrick.CHISELED_META), 8, -2, 11, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.STONEBRICK.getStateFromMeta(BlockStoneBrick.CHISELED_META), 9, -2, 11, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.STONEBRICK.getStateFromMeta(BlockStoneBrick.CHISELED_META), 10, -2, 11, structureBoundingBoxIn);
-				IBlockState iblockstate4 = Blocks.LEVER.getDefaultState().withProperty(BlockLever.FACING, BlockLever.Orientation.NORTH);
+				IBlockState iblockstate4 = Blocks.LEVER.getDefaultState()
+				                                       .withProperty(BlockLever.FACING, BlockLever.Orientation.NORTH);
 				setBlockState(worldIn, iblockstate4, 8, -2, 12, structureBoundingBoxIn);
 				setBlockState(worldIn, iblockstate4, 9, -2, 12, structureBoundingBoxIn);
 				setBlockState(worldIn, iblockstate4, 10, -2, 12, structureBoundingBoxIn);
@@ -586,10 +614,14 @@ public class ComponentScatteredFeaturePieces {
 				setBlockState(worldIn, Blocks.REDSTONE_WIRE.getDefaultState(), 8, -2, 9, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.REDSTONE_WIRE.getDefaultState(), 8, -2, 10, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.REDSTONE_WIRE.getDefaultState(), 10, -1, 9, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.STICKY_PISTON.getDefaultState().withProperty(BlockPistonBase.FACING, Facing.UP), 9, -2, 8, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.STICKY_PISTON.getDefaultState().withProperty(BlockPistonBase.FACING, Facing.WEST), 10, -2, 8, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.STICKY_PISTON.getDefaultState().withProperty(BlockPistonBase.FACING, Facing.WEST), 10, -1, 8, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.UNPOWERED_REPEATER.getDefaultState().withProperty(BlockRedstoneRepeater.FACING, Facing.NORTH), 10, -2, 10, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.STICKY_PISTON.getDefaultState()
+				                                           .withProperty(BlockPistonBase.FACING, Facing.UP), 9, -2, 8, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.STICKY_PISTON.getDefaultState()
+				                                           .withProperty(BlockPistonBase.FACING, Facing.WEST), 10, -2, 8, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.STICKY_PISTON.getDefaultState()
+				                                           .withProperty(BlockPistonBase.FACING, Facing.WEST), 10, -1, 8, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.UNPOWERED_REPEATER.getDefaultState()
+				                                                .withProperty(BlockRedstoneRepeater.FACING, Facing.NORTH), 10, -2, 10, structureBoundingBoxIn);
 
 				if (!placedHiddenChest) {
 					placedHiddenChest = generateChest(worldIn, structureBoundingBoxIn, randomIn, 9, -3, 10, LootTableList.CHESTS_JUNGLE_TEMPLE);
@@ -657,15 +689,20 @@ public class ComponentScatteredFeaturePieces {
 				setBlockState(worldIn, Blocks.AIR.getDefaultState(), 1, 3, 4, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.AIR.getDefaultState(), 5, 3, 4, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.AIR.getDefaultState(), 5, 3, 5, structureBoundingBoxIn);
-				setBlockState(worldIn, Blocks.FLOWER_POT.getDefaultState().withProperty(BlockFlowerPot.CONTENTS, BlockFlowerPot.FlowerType.MUSHROOM_RED), 1, 3, 5, structureBoundingBoxIn);
+				setBlockState(worldIn, Blocks.FLOWER_POT.getDefaultState()
+				                                        .withProperty(BlockFlowerPot.CONTENTS, BlockFlowerPot.FlowerType.MUSHROOM_RED), 1, 3, 5, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.CRAFTING_TABLE.getDefaultState(), 3, 2, 6, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.CAULDRON.getDefaultState(), 4, 2, 6, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.OAK_FENCE.getDefaultState(), 1, 2, 1, structureBoundingBoxIn);
 				setBlockState(worldIn, Blocks.OAK_FENCE.getDefaultState(), 5, 2, 1, structureBoundingBoxIn);
-				IBlockState iblockstate = Blocks.SPRUCE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH);
-				IBlockState iblockstate1 = Blocks.SPRUCE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.EAST);
-				IBlockState iblockstate2 = Blocks.SPRUCE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.WEST);
-				IBlockState iblockstate3 = Blocks.SPRUCE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.SOUTH);
+				IBlockState iblockstate = Blocks.SPRUCE_STAIRS.getDefaultState()
+				                                              .withProperty(BlockStairs.FACING, Facing.NORTH);
+				IBlockState iblockstate1 = Blocks.SPRUCE_STAIRS.getDefaultState()
+				                                               .withProperty(BlockStairs.FACING, Facing.EAST);
+				IBlockState iblockstate2 = Blocks.SPRUCE_STAIRS.getDefaultState()
+				                                               .withProperty(BlockStairs.FACING, Facing.WEST);
+				IBlockState iblockstate3 = Blocks.SPRUCE_STAIRS.getDefaultState()
+				                                               .withProperty(BlockStairs.FACING, Facing.SOUTH);
 				fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 4, 1, 6, 4, 1, iblockstate, iblockstate, false);
 				fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 4, 2, 0, 4, 7, iblockstate1, iblockstate1, false);
 				fillWithBlocks(worldIn, structureBoundingBoxIn, 6, 4, 2, 6, 4, 7, iblockstate2, iblockstate2, false);

@@ -78,7 +78,6 @@ public class TileEntityRendererDispatcher {
 		return tileentityspecialrenderer;
 	}
 
-	
 	public <T extends TileEntity> TileEntitySpecialRenderer<T> getRenderer(TileEntity tileEntityIn) {
 
 		return tileEntityIn == null ? null : getRenderer(tileEntityIn.getClass());

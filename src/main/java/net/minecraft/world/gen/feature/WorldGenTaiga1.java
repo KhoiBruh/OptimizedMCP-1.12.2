@@ -11,8 +11,11 @@ import java.util.Random;
 
 public class WorldGenTaiga1 extends WorldGenAbstractTree {
 
-	private static final IBlockState TRUNK = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.Type.SPRUCE);
-	private static final IBlockState LEAF = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.Type.SPRUCE).withProperty(BlockLeaves.CHECK_DECAY, false);
+	private static final IBlockState TRUNK = Blocks.LOG.getDefaultState()
+	                                                   .withProperty(BlockOldLog.VARIANT, BlockPlanks.Type.SPRUCE);
+	private static final IBlockState LEAF = Blocks.LEAVES.getDefaultState()
+	                                                     .withProperty(BlockOldLeaf.VARIANT, BlockPlanks.Type.SPRUCE)
+	                                                     .withProperty(BlockLeaves.CHECK_DECAY, false);
 
 	public WorldGenTaiga1() {
 		super(false);
@@ -41,7 +44,8 @@ public class WorldGenTaiga1 extends WorldGenAbstractTree {
 				for (int k1 = position.getX() - j1; k1 <= position.getX() + j1 && flag; ++k1) {
 					for (int l1 = position.getZ() - j1; l1 <= position.getZ() + j1 && flag; ++l1) {
 						if (i1 >= 0 && i1 < 256) {
-							if (!canGrowInto(worldIn.getBlockState(blockpos$mutableblockpos.setPos(k1, i1, l1)).getBlock())) {
+							if (!canGrowInto(worldIn.getBlockState(blockpos$mutableblockpos.setPos(k1, i1, l1))
+							                        .getBlock())) {
 								flag = false;
 							}
 						} else {

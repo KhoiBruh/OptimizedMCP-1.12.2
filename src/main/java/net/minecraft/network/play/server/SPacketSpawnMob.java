@@ -121,7 +121,6 @@ public class SPacketSpawnMob implements Packet<INetHandlerPlayClient> {
 		handler.handleSpawnMob(this);
 	}
 
-	
 	public List<EntityDataManager.DataEntry<?>> getDataManagerEntries() {
 
 		return dataManagerEntries;

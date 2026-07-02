@@ -151,7 +151,9 @@ public class EntityTracker {
 				return s;
 			});
 			entityIn.addEntityCrashInfo(crashreportcategory);
-			trackedEntityHashTable.lookup(entityIn.getEntityId()).getTrackedEntity().addEntityCrashInfo(crashreport.makeCategory("Entity That Is Already Tracked"));
+			trackedEntityHashTable.lookup(entityIn.getEntityId())
+			                      .getTrackedEntity()
+			                      .addEntityCrashInfo(crashreport.makeCategory("Entity That Is Already Tracked"));
 
 			try {
 				throw new ReportedException(crashreport);

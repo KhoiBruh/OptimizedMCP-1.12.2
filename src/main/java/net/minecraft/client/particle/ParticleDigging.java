@@ -17,7 +17,10 @@ public class ParticleDigging extends Particle {
 	protected ParticleDigging(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, IBlockState state) {
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 		sourceState = state;
-		setParticleTexture(Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getTexture(state));
+		setParticleTexture(Minecraft.getMinecraft()
+		                            .getBlockRendererDispatcher()
+		                            .getBlockModelShapes()
+		                            .getTexture(state));
 		particleGravity = state.getBlock().blockParticleGravity;
 		particleRed = 0.6F;
 		particleGreen = 0.6F;
@@ -89,10 +92,26 @@ public class ParticleDigging extends Particle {
 		int i = getBrightnessForRender(partialTicks);
 		int j = i >> 16 & 65535;
 		int k = i & 65535;
-		buffer.pos(f5 - rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4, f7 - rotationYZ * f4 - rotationXZ * f4).tex(f, f3).color(particleRed, particleGreen, particleBlue, 1F).lightmap(j, k).endVertex();
-		buffer.pos(f5 - rotationX * f4 + rotationXY * f4, f6 + rotationZ * f4, f7 - rotationYZ * f4 + rotationXZ * f4).tex(f, f2).color(particleRed, particleGreen, particleBlue, 1F).lightmap(j, k).endVertex();
-		buffer.pos(f5 + rotationX * f4 + rotationXY * f4, f6 + rotationZ * f4, f7 + rotationYZ * f4 + rotationXZ * f4).tex(f1, f2).color(particleRed, particleGreen, particleBlue, 1F).lightmap(j, k).endVertex();
-		buffer.pos(f5 + rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4, f7 + rotationYZ * f4 - rotationXZ * f4).tex(f1, f3).color(particleRed, particleGreen, particleBlue, 1F).lightmap(j, k).endVertex();
+		buffer.pos(f5 - rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4, f7 - rotationYZ * f4 - rotationXZ * f4)
+		      .tex(f, f3)
+		      .color(particleRed, particleGreen, particleBlue, 1F)
+		      .lightmap(j, k)
+		      .endVertex();
+		buffer.pos(f5 - rotationX * f4 + rotationXY * f4, f6 + rotationZ * f4, f7 - rotationYZ * f4 + rotationXZ * f4)
+		      .tex(f, f2)
+		      .color(particleRed, particleGreen, particleBlue, 1F)
+		      .lightmap(j, k)
+		      .endVertex();
+		buffer.pos(f5 + rotationX * f4 + rotationXY * f4, f6 + rotationZ * f4, f7 + rotationYZ * f4 + rotationXZ * f4)
+		      .tex(f1, f2)
+		      .color(particleRed, particleGreen, particleBlue, 1F)
+		      .lightmap(j, k)
+		      .endVertex();
+		buffer.pos(f5 + rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4, f7 + rotationYZ * f4 - rotationXZ * f4)
+		      .tex(f1, f3)
+		      .color(particleRed, particleGreen, particleBlue, 1F)
+		      .lightmap(j, k)
+		      .endVertex();
 	}
 
 	public int getBrightnessForRender(float p_189214_1_) {

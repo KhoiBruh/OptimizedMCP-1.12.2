@@ -278,7 +278,8 @@ public class EntityAreaEffectCloud extends Entity {
 
 									for (PotionEffect potioneffect : lstPotions) {
 										if (potioneffect.getPotion().isInstant()) {
-											potioneffect.getPotion().affectEntity(this, getOwner(), entitylivingbase, potioneffect.getAmplifier(), 0.5D);
+											potioneffect.getPotion()
+											            .affectEntity(this, getOwner(), entitylivingbase, potioneffect.getAmplifier(), 0.5D);
 										} else {
 											entitylivingbase.addPotionEffect(new PotionEffect(potioneffect));
 										}
@@ -324,7 +325,6 @@ public class EntityAreaEffectCloud extends Entity {
 		waitTime = waitTimeIn;
 	}
 
-	
 	public EntityLivingBase getOwner() {
 		if (owner == null && ownerUniqueId != null && world instanceof WorldServer) {
 			Entity entity = ((WorldServer) world).getEntityFromUuid(ownerUniqueId);

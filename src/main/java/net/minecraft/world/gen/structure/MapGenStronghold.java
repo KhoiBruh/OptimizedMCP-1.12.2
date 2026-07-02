@@ -44,7 +44,7 @@ public class MapGenStronghold extends MapGenStructure {
 			switch (entry.getKey()) {
 				case "distance" -> distance = MathHelper.getDouble(entry.getValue(), distance, 1D);
 				case "count" ->
-						structureCoords = new ChunkPos[MathHelper.getInt(entry.getValue(), structureCoords.length, 1)];
+					structureCoords = new ChunkPos[MathHelper.getInt(entry.getValue(), structureCoords.length, 1)];
 				case "spread" -> spread = MathHelper.getInt(entry.getValue(), spread, 1);
 			}
 		}
@@ -117,7 +117,8 @@ public class MapGenStronghold extends MapGenStructure {
 				double d0 = 4D * distance + distance * (double) j * 6D + (random.nextDouble() - 0.5D) * distance * 2.5D;
 				int j1 = (int) Math.round(Math.cos(d1) * d0);
 				int k1 = (int) Math.round(Math.sin(d1) * d0);
-				BlockPos blockpos = world.getBiomeProvider().findBiomePosition((j1 << 4) + 8, (k1 << 4) + 8, 112, allowedBiomes, random);
+				BlockPos blockpos = world.getBiomeProvider()
+				                         .findBiomePosition((j1 << 4) + 8, (k1 << 4) + 8, 112, allowedBiomes, random);
 
 				if (blockpos != null) {
 					j1 = blockpos.getX() >> 4;
@@ -145,7 +146,9 @@ public class MapGenStronghold extends MapGenStructure {
 	protected StructureStart getStructureStart(int chunkX, int chunkZ) {
 		MapGenStronghold.Start mapgenstronghold$start;
 
-		for (mapgenstronghold$start = new MapGenStronghold.Start(world, rand, chunkX, chunkZ); mapgenstronghold$start.getComponents().isEmpty() || ((StructureStrongholdPieces.Stairs2) mapgenstronghold$start.getComponents().getFirst()).strongholdPortalRoom == null; mapgenstronghold$start = new MapGenStronghold.Start(world, rand, chunkX, chunkZ)) {
+		for (mapgenstronghold$start = new MapGenStronghold.Start(world, rand, chunkX, chunkZ); mapgenstronghold$start.getComponents()
+		                                                                                                             .isEmpty() || ((StructureStrongholdPieces.Stairs2) mapgenstronghold$start.getComponents()
+		                                                                                                                                                                                      .getFirst()).strongholdPortalRoom == null; mapgenstronghold$start = new MapGenStronghold.Start(world, rand, chunkX, chunkZ)) {
 		}
 
 		return mapgenstronghold$start;

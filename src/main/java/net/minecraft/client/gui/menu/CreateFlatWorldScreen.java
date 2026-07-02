@@ -121,7 +121,8 @@ public class CreateFlatWorldScreen extends Screen {
 			mc.displayScreen(new FlatPresetsScreen(this));
 		} else if (button.id == 4 && hasSelectedLayer()) {
 			generatorInfo.getFlatLayers().remove(i);
-			createFlatWorldListSlotGui.selectedLayer = Math.min(createFlatWorldListSlotGui.selectedLayer, generatorInfo.getFlatLayers().size() - 1);
+			createFlatWorldListSlotGui.selectedLayer = Math.min(createFlatWorldListSlotGui.selectedLayer, generatorInfo.getFlatLayers()
+			                                                                                                           .size() - 1);
 		}
 
 		generatorInfo.updateLayers();
@@ -144,7 +145,8 @@ public class CreateFlatWorldScreen extends Screen {
 	 * Returns whether there is a valid layer selection
 	 */
 	private boolean hasSelectedLayer() {
-		return createFlatWorldListSlotGui.selectedLayer > -1 && createFlatWorldListSlotGui.selectedLayer < generatorInfo.getFlatLayers().size();
+		return createFlatWorldListSlotGui.selectedLayer > -1 && createFlatWorldListSlotGui.selectedLayer < generatorInfo.getFlatLayers()
+		                                                                                                                .size();
 	}
 
 	/**
@@ -195,10 +197,18 @@ public class CreateFlatWorldScreen extends Screen {
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferbuilder = tessellator.getBuffer();
 			bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-			bufferbuilder.pos(x, z + 18, zLevel).tex((float) (textureX) * 0.0078125F, (float) (textureY + 18) * 0.0078125F).endVertex();
-			bufferbuilder.pos(x + 18, z + 18, zLevel).tex((float) (textureX + 18) * 0.0078125F, (float) (textureY + 18) * 0.0078125F).endVertex();
-			bufferbuilder.pos(x + 18, z, zLevel).tex((float) (textureX + 18) * 0.0078125F, (float) (textureY) * 0.0078125F).endVertex();
-			bufferbuilder.pos(x, z, zLevel).tex((float) (textureX) * 0.0078125F, (float) (textureY) * 0.0078125F).endVertex();
+			bufferbuilder.pos(x, z + 18, zLevel)
+			             .tex((float) (textureX) * 0.0078125F, (float) (textureY + 18) * 0.0078125F)
+			             .endVertex();
+			bufferbuilder.pos(x + 18, z + 18, zLevel)
+			             .tex((float) (textureX + 18) * 0.0078125F, (float) (textureY + 18) * 0.0078125F)
+			             .endVertex();
+			bufferbuilder.pos(x + 18, z, zLevel)
+			             .tex((float) (textureX + 18) * 0.0078125F, (float) (textureY) * 0.0078125F)
+			             .endVertex();
+			bufferbuilder.pos(x, z, zLevel)
+			             .tex((float) (textureX) * 0.0078125F, (float) (textureY) * 0.0078125F)
+			             .endVertex();
 			tessellator.draw();
 		}
 
@@ -219,7 +229,8 @@ public class CreateFlatWorldScreen extends Screen {
 		}
 
 		protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks) {
-			FlatLayerInfo flatlayerinfo = generatorInfo.getFlatLayers().get(generatorInfo.getFlatLayers().size() - slotIndex - 1);
+			FlatLayerInfo flatlayerinfo = generatorInfo.getFlatLayers()
+			                                           .get(generatorInfo.getFlatLayers().size() - slotIndex - 1);
 			IBlockState iblockstate = flatlayerinfo.getLayerMaterial();
 			Block block = iblockstate.getBlock();
 			Item item = Item.getItemFromBlock(block);

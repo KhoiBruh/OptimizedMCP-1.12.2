@@ -22,7 +22,9 @@ public class BlockDirt extends Block {
 
 	protected BlockDirt() {
 		super(Material.GROUND);
-		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockDirt.DirtType.DIRT).withProperty(SNOWY, false));
+		setDefaultState(blockState.getBaseState()
+		                          .withProperty(VARIANT, BlockDirt.DirtType.DIRT)
+		                          .withProperty(SNOWY, false));
 		setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 	}
 

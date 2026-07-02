@@ -54,7 +54,11 @@ public class BlockFence extends Block {
 
 	public BlockFence(Material materialIn, MapColor mapColorIn) {
 		super(materialIn, mapColorIn);
-		setDefaultState(blockState.getBaseState().withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false));
+		setDefaultState(blockState.getBaseState()
+		                          .withProperty(NORTH, false)
+		                          .withProperty(EAST, false)
+		                          .withProperty(SOUTH, false)
+		                          .withProperty(WEST, false));
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
 
@@ -170,7 +174,10 @@ public class BlockFence extends Block {
 	 * metadata, such as fence connections.
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-		return state.withProperty(NORTH, canConnectTo(worldIn, pos.north(), Facing.SOUTH)).withProperty(EAST, canConnectTo(worldIn, pos.east(), Facing.WEST)).withProperty(SOUTH, canConnectTo(worldIn, pos.south(), Facing.NORTH)).withProperty(WEST, canConnectTo(worldIn, pos.west(), Facing.EAST));
+		return state.withProperty(NORTH, canConnectTo(worldIn, pos.north(), Facing.SOUTH))
+		            .withProperty(EAST, canConnectTo(worldIn, pos.east(), Facing.WEST))
+		            .withProperty(SOUTH, canConnectTo(worldIn, pos.south(), Facing.NORTH))
+		            .withProperty(WEST, canConnectTo(worldIn, pos.west(), Facing.EAST));
 	}
 
 	/**
@@ -179,12 +186,18 @@ public class BlockFence extends Block {
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
 		return switch (rot) {
-			case CLOCKWISE_180 ->
-					state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(EAST, state.getValue(WEST)).withProperty(SOUTH, state.getValue(NORTH)).withProperty(WEST, state.getValue(EAST));
-			case COUNTERCLOCKWISE_90 ->
-					state.withProperty(NORTH, state.getValue(EAST)).withProperty(EAST, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(WEST)).withProperty(WEST, state.getValue(NORTH));
-			case CLOCKWISE_90 ->
-					state.withProperty(NORTH, state.getValue(WEST)).withProperty(EAST, state.getValue(NORTH)).withProperty(SOUTH, state.getValue(EAST)).withProperty(WEST, state.getValue(SOUTH));
+			case CLOCKWISE_180 -> state.withProperty(NORTH, state.getValue(SOUTH))
+			                           .withProperty(EAST, state.getValue(WEST))
+			                           .withProperty(SOUTH, state.getValue(NORTH))
+			                           .withProperty(WEST, state.getValue(EAST));
+			case COUNTERCLOCKWISE_90 -> state.withProperty(NORTH, state.getValue(EAST))
+			                                 .withProperty(EAST, state.getValue(SOUTH))
+			                                 .withProperty(SOUTH, state.getValue(WEST))
+			                                 .withProperty(WEST, state.getValue(NORTH));
+			case CLOCKWISE_90 -> state.withProperty(NORTH, state.getValue(WEST))
+			                          .withProperty(EAST, state.getValue(NORTH))
+			                          .withProperty(SOUTH, state.getValue(EAST))
+			                          .withProperty(WEST, state.getValue(SOUTH));
 			default -> state;
 		};
 	}
@@ -196,7 +209,7 @@ public class BlockFence extends Block {
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
 		return switch (mirrorIn) {
 			case LEFT_RIGHT ->
-					state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(NORTH));
+				state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(NORTH));
 			case FRONT_BACK -> state.withProperty(EAST, state.getValue(WEST)).withProperty(WEST, state.getValue(EAST));
 			default -> super.withMirror(state, mirrorIn);
 		};

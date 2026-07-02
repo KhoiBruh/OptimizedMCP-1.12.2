@@ -36,7 +36,8 @@ public abstract class StructureStart {
 	 * Keeps iterating Structure Pieces and spawning them until the checks tell it to stop
 	 */
 	public void generateStructure(World worldIn, Random rand, StructureBoundingBox structurebb) {
-		components.removeIf(structurecomponent -> structurecomponent.getBoundingBox().intersectsWith(structurebb) && !structurecomponent.addComponentParts(worldIn, rand, structurebb));
+		components.removeIf(structurecomponent -> structurecomponent.getBoundingBox()
+		                                                            .intersectsWith(structurebb) && !structurecomponent.addComponentParts(worldIn, rand, structurebb));
 	}
 
 	/**

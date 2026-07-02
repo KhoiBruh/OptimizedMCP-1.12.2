@@ -172,7 +172,6 @@ public class EntityWolf extends EntityTameable {
 		return 0.4F;
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_WOLF;
 	}

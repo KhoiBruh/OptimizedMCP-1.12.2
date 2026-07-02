@@ -170,7 +170,6 @@ public class BiomeProvider {
 		}
 	}
 
-	
 	public BlockPos findBiomePosition(int x, int z, int range, List<Biome> biomes, Random random) {
 		IntCache.resetIntCache();
 		int i = x - range >> 2;

@@ -42,8 +42,8 @@ public class EntityBoat extends Entity {
 	private static final DataParameter<Float> DAMAGE_TAKEN = EntityDataManager.createKey(EntityBoat.class, DataSerializers.FLOAT);
 	private static final DataParameter<Integer> BOAT_TYPE = EntityDataManager.createKey(EntityBoat.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean>[] DATA_ID_PADDLE = new DataParameter[]{
-			EntityDataManager.createKey(EntityBoat.class, DataSerializers.BOOLEAN),
-			EntityDataManager.createKey(EntityBoat.class, DataSerializers.BOOLEAN)
+		EntityDataManager.createKey(EntityBoat.class, DataSerializers.BOOLEAN),
+		EntityDataManager.createKey(EntityBoat.class, DataSerializers.BOOLEAN)
 	};
 	private final float[] paddlePositions;
 
@@ -111,8 +111,6 @@ public class EntityBoat extends Entity {
 		}
 	}
 
-	
-
 	/**
 	 * Returns a boundingBox used to collide the entity with other entities and blocks. This enables the entity to be
 	 * pushable on contact, like boats or minecarts.
@@ -121,12 +119,10 @@ public class EntityBoat extends Entity {
 		return entityIn.canBePushed() ? entityIn.getEntityBoundingBox() : null;
 	}
 
-	
-
 	/**
 	 * Returns the <b>solid</b> collision bounding box for this entity. Used to make (e.g.) boats solid. Return null if
 	 * this entity is not solid.
-	 *
+	 * <p>
 	 * For general purposes, use {@link #width} and {@link #height}.
 	 *
 	 * @see getEntityBoundingBox
@@ -327,7 +323,6 @@ public class EntityBoat extends Entity {
 		}
 	}
 
-	
 	protected SoundEvent getPaddleSound() {
 		return switch (getBoatStatus()) {
 			case IN_WATER, UNDER_WATER, UNDER_FLOWING_WATER -> SoundEvents.ENTITY_BOAT_PADDLE_WATER;
@@ -512,8 +507,6 @@ public class EntityBoat extends Entity {
 
 		return flag;
 	}
-
-	
 
 	/**
 	 * Decides whether the boat is currently underwater.
@@ -809,8 +802,6 @@ public class EntityBoat extends Entity {
 	protected boolean canFitPassenger(Entity passenger) {
 		return getPassengers().size() < 2;
 	}
-
-	
 
 	/**
 	 * For vehicles, the first passenger is generally considered the controller and "drives" the vehicle. For example,

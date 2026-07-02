@@ -188,7 +188,6 @@ public abstract class Container {
 		return false;
 	}
 
-	
 	public Slot getSlotFromInventory(IInventory inv, int slotIn) {
 		for (Slot slot : inventorySlots) {
 			if (slot.isHere(inv, slotIn)) {
@@ -417,7 +416,8 @@ public abstract class Container {
 					}
 				}
 			}
-		} else if (clickTypeIn == ClickType.CLONE && player.capabilities.isCreativeMode && inventoryplayer.getItemStack().isEmpty() && slotId >= 0) {
+		} else if (clickTypeIn == ClickType.CLONE && player.capabilities.isCreativeMode && inventoryplayer.getItemStack()
+		                                                                                                  .isEmpty() && slotId >= 0) {
 			Slot slot3 = inventorySlots.get(slotId);
 
 			if (slot3 != null && slot3.getHasStack()) {
@@ -670,7 +670,9 @@ public abstract class Container {
 			ItemStack itemstack = ItemStack.EMPTY;
 			IRecipe irecipe = CraftingManager.findMatchingRecipe(p_192389_3_, p_192389_1_);
 
-			if (irecipe != null && (irecipe.isDynamic() || !p_192389_1_.getGameRules().getBoolean("doLimitedCrafting") || entityplayermp.getRecipeBook().isUnlocked(irecipe))) {
+			if (irecipe != null && (irecipe.isDynamic() || !p_192389_1_.getGameRules()
+			                                                           .getBoolean("doLimitedCrafting") || entityplayermp.getRecipeBook()
+			                                                                                                             .isUnlocked(irecipe))) {
 				p_192389_4_.setRecipeUsed(irecipe);
 				itemstack = irecipe.getCraftingResult(p_192389_3_);
 			}

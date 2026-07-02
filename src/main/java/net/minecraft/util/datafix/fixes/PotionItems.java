@@ -164,4 +164,5 @@ public class PotionItems implements IFixableData {
 
 		return compound;
 	}
+
 }

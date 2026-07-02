@@ -84,7 +84,8 @@ public class BlockCarpet extends Block {
 		if (side == Facing.UP) {
 			return true;
 		} else {
-			return blockAccess.getBlockState(pos.offset(side)).getBlock() == this || super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+			return blockAccess.getBlockState(pos.offset(side))
+			                  .getBlock() == this || super.shouldSideBeRendered(blockState, blockAccess, pos, side);
 		}
 	}
 

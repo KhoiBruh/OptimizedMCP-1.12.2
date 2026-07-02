@@ -27,12 +27,9 @@ public class RegistryNamespaced<K, V> extends RegistrySimple<K, V> implements IO
 		return HashBiMap.create();
 	}
 
-	
 	public V getObject(K name) {
 		return super.getObject(name);
 	}
-
-	
 
 	/**
 	 * Gets the name we use to identify the given object.
@@ -54,8 +51,6 @@ public class RegistryNamespaced<K, V> extends RegistrySimple<K, V> implements IO
 	public int getIDForObject(V value) {
 		return underlyingIntegerMap.getId(value);
 	}
-
-	
 
 	/**
 	 * Gets the object identified by the given ID.

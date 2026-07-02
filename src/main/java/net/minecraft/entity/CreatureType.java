@@ -14,7 +14,7 @@ public enum CreatureType {
 
 	private final Class<? extends IAnimals> creatureClass;
 	private final int maxNumberOfCreature;
-	
+
 	/**
 	 * A flag indicating whether this creature type is peaceful.
 	 */

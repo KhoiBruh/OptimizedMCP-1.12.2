@@ -16,7 +16,9 @@ public class BlockNewLog extends BlockLog {
 	public static final PropertyEnum<BlockPlanks.Type> VARIANT = PropertyEnum.create("variant", BlockPlanks.Type.class, p_apply_1_ -> p_apply_1_.getMetadata() >= 4);
 
 	public BlockNewLog() {
-		setDefaultState(blockState.getBaseState().withProperty(VARIANT, BlockPlanks.Type.ACACIA).withProperty(LOG_AXIS, BlockLog.Axis.Y));
+		setDefaultState(blockState.getBaseState()
+		                          .withProperty(VARIANT, BlockPlanks.Type.ACACIA)
+		                          .withProperty(LOG_AXIS, BlockLog.Axis.Y));
 	}
 
 	/**

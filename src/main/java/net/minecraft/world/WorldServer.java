@@ -199,7 +199,6 @@ public class WorldServer extends World implements IThreadListener {
 		sendQueuedBlockEvents();
 	}
 
-	
 	public Biome.SpawnListEntry getSpawnListEntryForTypeAt(CreatureType creatureType, BlockPos pos) {
 
 		List<Biome.SpawnListEntry> list = getChunkProvider().getPossibleCreatures(creatureType, pos);
@@ -634,7 +633,6 @@ public class WorldServer extends World implements IThreadListener {
 		}
 	}
 
-	
 	public List<NextTickListEntry> getPendingBlockUpdates(Chunk chunkIn, boolean remove) {
 		ChunkPos chunkpos = chunkIn.getPos();
 		int i = (chunkpos.x << 4) - 2;
@@ -644,7 +642,6 @@ public class WorldServer extends World implements IThreadListener {
 		return getPendingBlockUpdates(new StructureBoundingBox(i, 0, k, j, 256, l), remove);
 	}
 
-	
 	public List<NextTickListEntry> getPendingBlockUpdates(StructureBoundingBox structureBB, boolean remove) {
 		List<NextTickListEntry> list = null;
 
@@ -819,8 +816,6 @@ public class WorldServer extends World implements IThreadListener {
 		}
 	}
 
-	
-
 	/**
 	 * Returns null for anything other than the End
 	 */
@@ -966,7 +961,9 @@ public class WorldServer extends World implements IThreadListener {
 	 */
 	public boolean addWeatherEffect(Entity entityIn) {
 		if (super.addWeatherEffect(entityIn)) {
-			mcServer.getPlayerList().sendToAllNearExcept(null, entityIn.posX, entityIn.posY, entityIn.posZ, 512D, provider.getDimensionType().getId(), new SPacketSpawnGlobalEntity(entityIn));
+			mcServer.getPlayerList()
+			        .sendToAllNearExcept(null, entityIn.posX, entityIn.posY, entityIn.posZ, 512D, provider.getDimensionType()
+			                                                                                              .getId(), new SPacketSpawnGlobalEntity(entityIn));
 			return true;
 		} else {
 			return false;
@@ -1001,7 +998,8 @@ public class WorldServer extends World implements IThreadListener {
 
 		for (EntityPlayer entityplayer : playerEntities) {
 			if (entityplayer.getDistanceSq(x, y, z) < 4096D) {
-				((EntityPlayerMP) entityplayer).connection.sendPacket(new SPacketExplosion(x, y, z, strength, explosion.getAffectedBlockPositions(), explosion.getPlayerKnockbackMap().get(entityplayer)));
+				((EntityPlayerMP) entityplayer).connection.sendPacket(new SPacketExplosion(x, y, z, strength, explosion.getAffectedBlockPositions(), explosion.getPlayerKnockbackMap()
+				                                                                                                                                              .get(entityplayer)));
 			}
 		}
 
@@ -1027,7 +1025,11 @@ public class WorldServer extends World implements IThreadListener {
 
 			for (BlockEventData blockeventdata : blockEventQueue[i]) {
 				if (fireBlockEvent(blockeventdata)) {
-					mcServer.getPlayerList().sendToAllNearExcept(null, blockeventdata.getPosition().getX(), blockeventdata.getPosition().getY(), blockeventdata.getPosition().getZ(), 64D, provider.getDimensionType().getId(), new SPacketBlockAction(blockeventdata.getPosition(), blockeventdata.getBlock(), blockeventdata.getEventID(), blockeventdata.getEventParameter()));
+					mcServer.getPlayerList()
+					        .sendToAllNearExcept(null, blockeventdata.getPosition().getX(), blockeventdata.getPosition()
+					                                                                                      .getY(), blockeventdata.getPosition()
+					                                                                                                             .getZ(), 64D, provider.getDimensionType()
+					                                                                                                                                   .getId(), new SPacketBlockAction(blockeventdata.getPosition(), blockeventdata.getBlock(), blockeventdata.getEventID(), blockeventdata.getEventParameter()));
 				}
 			}
 
@@ -1055,11 +1057,15 @@ public class WorldServer extends World implements IThreadListener {
 		super.updateWeather();
 
 		if (prevRainingStrength != rainingStrength) {
-			mcServer.getPlayerList().sendPacketToAllPlayersInDimension(new SPacketChangeGameState(7, rainingStrength), provider.getDimensionType().getId());
+			mcServer.getPlayerList()
+			        .sendPacketToAllPlayersInDimension(new SPacketChangeGameState(7, rainingStrength), provider.getDimensionType()
+			                                                                                                   .getId());
 		}
 
 		if (prevThunderingStrength != thunderingStrength) {
-			mcServer.getPlayerList().sendPacketToAllPlayersInDimension(new SPacketChangeGameState(8, thunderingStrength), provider.getDimensionType().getId());
+			mcServer.getPlayerList()
+			        .sendPacketToAllPlayersInDimension(new SPacketChangeGameState(8, thunderingStrength), provider.getDimensionType()
+			                                                                                                      .getId());
 		}
 
 		if (flag != isRaining()) {
@@ -1074,7 +1080,6 @@ public class WorldServer extends World implements IThreadListener {
 		}
 	}
 
-	
 	public MinecraftServer getMinecraftServer() {
 		return mcServer;
 	}
@@ -1134,7 +1139,6 @@ public class WorldServer extends World implements IThreadListener {
 		}
 	}
 
-	
 	public Entity getEntityFromUuid(UUID uuid) {
 		return entitiesByUuid.get(uuid);
 	}
@@ -1147,7 +1151,6 @@ public class WorldServer extends World implements IThreadListener {
 		return mcServer.isCallingFromMinecraftThread();
 	}
 
-	
 	public BlockPos findNearestStructure(String p_190528_1_, BlockPos p_190528_2_, boolean p_190528_3_) {
 		return getChunkProvider().getNearestStructurePos(this, p_190528_1_, p_190528_2_, p_190528_3_);
 	}

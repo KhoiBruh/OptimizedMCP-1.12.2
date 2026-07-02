@@ -42,7 +42,6 @@ public class BlockTorch extends Block {
 		};
 	}
 
-	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return NULL_AABB;
 	}
@@ -142,7 +141,8 @@ public class BlockTorch extends Block {
 			BlockPos blockpos = pos.offset(enumfacing1);
 			boolean flag = false;
 
-			if (enumfacing$axis.isHorizontal() && worldIn.getBlockState(blockpos).getBlockFaceShape(worldIn, blockpos, enumfacing) != BlockFaceShape.SOLID) {
+			if (enumfacing$axis.isHorizontal() && worldIn.getBlockState(blockpos)
+			                                             .getBlockFaceShape(worldIn, blockpos, enumfacing) != BlockFaceShape.SOLID) {
 				flag = true;
 			} else if (enumfacing$axis.isVertical() && !canPlaceOn(worldIn, blockpos)) {
 				flag = true;

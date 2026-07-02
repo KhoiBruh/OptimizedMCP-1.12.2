@@ -56,7 +56,6 @@ public class BiomeProviderSingle extends BiomeProvider {
 		return getBiomes(listToReuse, x, z, width, length);
 	}
 
-	
 	public BlockPos findBiomePosition(int x, int z, int range, List<Biome> biomes, Random random) {
 		return biomes.contains(biome) ? new BlockPos(x - range + random.nextInt(range * 2 + 1), 0, z - range + random.nextInt(range * 2 + 1)) : null;
 	}

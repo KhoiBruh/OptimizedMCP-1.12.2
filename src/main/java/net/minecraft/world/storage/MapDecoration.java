@@ -3,6 +3,7 @@ package net.minecraft.world.storage;
 import net.minecraft.util.math.MathHelper;
 
 public record MapDecoration(Type type, byte x, byte y, byte rotation) {
+
 	public byte getImage() {
 		return type.getIcon();
 	}

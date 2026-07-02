@@ -56,7 +56,8 @@ public class WorldClient extends World {
 	private int ambienceTicks;
 
 	public WorldClient(NetHandlerPlayClient netHandler, WorldSettings settings, int dimension, Difficulty difficulty, Profiler profilerIn) {
-		super(new SaveHandlerMP(), new WorldInfo(settings, "MpServer"), DimensionType.getById(dimension).createDimension(), profilerIn, true);
+		super(new SaveHandlerMP(), new WorldInfo(settings, "MpServer"), DimensionType.getById(dimension)
+		                                                                             .createDimension(), profilerIn, true);
 		ambienceTicks = rand.nextInt(12000);
 		visibleChunks = Sets.newHashSet();
 		connection = netHandler;
@@ -238,8 +239,6 @@ public class WorldClient extends World {
 
 		entitiesById.addKey(entityID, entityToSpawn);
 	}
-
-	
 
 	/**
 	 * Returns the Entity with the given ID, or null if it doesn't exist in this World.

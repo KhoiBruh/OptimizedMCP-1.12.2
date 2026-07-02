@@ -213,9 +213,12 @@ public class StructureVillagePieces {
 			}
 
 			IBlockState iblockstate = Blocks.COBBLESTONE.getDefaultState();
-			IBlockState iblockstate1 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH));
-			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.WEST));
-			IBlockState iblockstate3 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.EAST));
+			IBlockState iblockstate1 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState()
+			                                                                         .withProperty(BlockStairs.FACING, Facing.NORTH));
+			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState()
+			                                                                         .withProperty(BlockStairs.FACING, Facing.WEST));
+			IBlockState iblockstate3 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState()
+			                                                                         .withProperty(BlockStairs.FACING, Facing.EAST));
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 1, 1, 3, 3, 7, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 5, 1, 3, 9, 3, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 0, 0, 3, 0, 8, iblockstate, iblockstate, false);
@@ -536,9 +539,12 @@ public class StructureVillagePieces {
 			}
 
 			IBlockState iblockstate = getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
-			IBlockState iblockstate1 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH));
-			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.SOUTH));
-			IBlockState iblockstate3 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.WEST));
+			IBlockState iblockstate1 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState()
+			                                                                       .withProperty(BlockStairs.FACING, Facing.NORTH));
+			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState()
+			                                                                       .withProperty(BlockStairs.FACING, Facing.SOUTH));
+			IBlockState iblockstate3 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState()
+			                                                                       .withProperty(BlockStairs.FACING, Facing.WEST));
 			IBlockState iblockstate4 = getBiomeSpecificBlockState(Blocks.PLANKS.getDefaultState());
 			IBlockState iblockstate5 = getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
 			IBlockState iblockstate6 = getBiomeSpecificBlockState(Blocks.OAK_FENCE.getDefaultState());
@@ -655,11 +661,15 @@ public class StructureVillagePieces {
 			}
 
 			IBlockState iblockstate = getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
-			IBlockState iblockstate1 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH));
-			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.SOUTH));
-			IBlockState iblockstate3 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.EAST));
+			IBlockState iblockstate1 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState()
+			                                                                       .withProperty(BlockStairs.FACING, Facing.NORTH));
+			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState()
+			                                                                       .withProperty(BlockStairs.FACING, Facing.SOUTH));
+			IBlockState iblockstate3 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState()
+			                                                                       .withProperty(BlockStairs.FACING, Facing.EAST));
 			IBlockState iblockstate4 = getBiomeSpecificBlockState(Blocks.PLANKS.getDefaultState());
-			IBlockState iblockstate5 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH));
+			IBlockState iblockstate5 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState()
+			                                                                         .withProperty(BlockStairs.FACING, Facing.NORTH));
 			IBlockState iblockstate6 = getBiomeSpecificBlockState(Blocks.OAK_FENCE.getDefaultState());
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 1, 1, 7, 5, 4, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 0, 0, 8, 0, 5, iblockstate, iblockstate, false);
@@ -788,10 +798,13 @@ public class StructureVillagePieces {
 			}
 
 			IBlockState iblockstate = Blocks.COBBLESTONE.getDefaultState();
-			IBlockState iblockstate1 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH));
-			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.WEST));
+			IBlockState iblockstate1 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState()
+			                                                                       .withProperty(BlockStairs.FACING, Facing.NORTH));
+			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState()
+			                                                                       .withProperty(BlockStairs.FACING, Facing.WEST));
 			IBlockState iblockstate3 = getBiomeSpecificBlockState(Blocks.PLANKS.getDefaultState());
-			IBlockState iblockstate4 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH));
+			IBlockState iblockstate4 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState()
+			                                                                         .withProperty(BlockStairs.FACING, Facing.NORTH));
 			IBlockState iblockstate5 = getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
 			IBlockState iblockstate6 = getBiomeSpecificBlockState(Blocks.OAK_FENCE.getDefaultState());
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 1, 0, 9, 4, 6, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
@@ -891,10 +904,14 @@ public class StructureVillagePieces {
 			}
 
 			IBlockState iblockstate = getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
-			IBlockState iblockstate1 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH));
-			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.SOUTH));
-			IBlockState iblockstate3 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.EAST));
-			IBlockState iblockstate4 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.WEST));
+			IBlockState iblockstate1 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState()
+			                                                                       .withProperty(BlockStairs.FACING, Facing.NORTH));
+			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState()
+			                                                                       .withProperty(BlockStairs.FACING, Facing.SOUTH));
+			IBlockState iblockstate3 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState()
+			                                                                       .withProperty(BlockStairs.FACING, Facing.EAST));
+			IBlockState iblockstate4 = getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState()
+			                                                                       .withProperty(BlockStairs.FACING, Facing.WEST));
 			IBlockState iblockstate5 = getBiomeSpecificBlockState(Blocks.PLANKS.getDefaultState());
 			IBlockState iblockstate6 = getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 1, 1, 7, 4, 4, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
@@ -1053,7 +1070,8 @@ public class StructureVillagePieces {
 
 			IBlockState iblockstate = getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
 			IBlockState iblockstate1 = getBiomeSpecificBlockState(Blocks.PLANKS.getDefaultState());
-			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH));
+			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState()
+			                                                                         .withProperty(BlockStairs.FACING, Facing.NORTH));
 			IBlockState iblockstate3 = getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
 			IBlockState iblockstate4 = getBiomeSpecificBlockState(Blocks.OAK_FENCE.getDefaultState());
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 0, 0, 4, 0, 4, iblockstate, iblockstate, false);
@@ -1115,7 +1133,8 @@ public class StructureVillagePieces {
 			}
 
 			if (isRoofAccessible) {
-				IBlockState iblockstate5 = Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, Facing.SOUTH);
+				IBlockState iblockstate5 = Blocks.LADDER.getDefaultState()
+				                                        .withProperty(BlockLadder.FACING, Facing.SOUTH);
 				setBlockState(worldIn, iblockstate5, 3, 1, 3, structureBoundingBoxIn);
 				setBlockState(worldIn, iblockstate5, 3, 2, 3, structureBoundingBoxIn);
 				setBlockState(worldIn, iblockstate5, 3, 3, 3, structureBoundingBoxIn);
@@ -1435,32 +1454,30 @@ public class StructureVillagePieces {
 			isZombieInfested = tagCompound.getBoolean("Zombie");
 		}
 
-		
 		protected StructureComponent getNextComponentNN(StructureVillagePieces.Start start, List<StructureComponent> structureComponents, Random rand, int p_74891_4_, int p_74891_5_) {
 			Facing enumfacing = getCoordBaseMode();
 
 			if (enumfacing != null) {
 				return switch (enumfacing) {
 					case WEST, EAST ->
-							StructureVillagePieces.generateAndAddComponent(start, structureComponents, rand, boundingBox.minX + p_74891_5_, boundingBox.minY + p_74891_4_, boundingBox.minZ - 1, Facing.NORTH, getComponentType());
+						StructureVillagePieces.generateAndAddComponent(start, structureComponents, rand, boundingBox.minX + p_74891_5_, boundingBox.minY + p_74891_4_, boundingBox.minZ - 1, Facing.NORTH, getComponentType());
 					default ->
-							StructureVillagePieces.generateAndAddComponent(start, structureComponents, rand, boundingBox.minX - 1, boundingBox.minY + p_74891_4_, boundingBox.minZ + p_74891_5_, Facing.WEST, getComponentType());
+						StructureVillagePieces.generateAndAddComponent(start, structureComponents, rand, boundingBox.minX - 1, boundingBox.minY + p_74891_4_, boundingBox.minZ + p_74891_5_, Facing.WEST, getComponentType());
 				};
 			} else {
 				return null;
 			}
 		}
 
-		
 		protected StructureComponent getNextComponentPP(StructureVillagePieces.Start start, List<StructureComponent> structureComponents, Random rand, int p_74894_4_, int p_74894_5_) {
 			Facing enumfacing = getCoordBaseMode();
 
 			if (enumfacing != null) {
 				return switch (enumfacing) {
 					case WEST, EAST ->
-							StructureVillagePieces.generateAndAddComponent(start, structureComponents, rand, boundingBox.minX + p_74894_5_, boundingBox.minY + p_74894_4_, boundingBox.maxZ + 1, Facing.SOUTH, getComponentType());
+						StructureVillagePieces.generateAndAddComponent(start, structureComponents, rand, boundingBox.minX + p_74894_5_, boundingBox.minY + p_74894_4_, boundingBox.maxZ + 1, Facing.SOUTH, getComponentType());
 					default ->
-							StructureVillagePieces.generateAndAddComponent(start, structureComponents, rand, boundingBox.maxX + 1, boundingBox.minY + p_74894_4_, boundingBox.minZ + p_74894_5_, Facing.EAST, getComponentType());
+						StructureVillagePieces.generateAndAddComponent(start, structureComponents, rand, boundingBox.maxX + 1, boundingBox.minY + p_74894_4_, boundingBox.minZ + p_74894_5_, Facing.EAST, getComponentType());
 				};
 			} else {
 				return null;
@@ -1477,7 +1494,8 @@ public class StructureVillagePieces {
 					blockpos$mutableblockpos.setPos(l, 64, k);
 
 					if (structurebb.isVecInside(blockpos$mutableblockpos)) {
-						i += Math.max(worldIn.getTopSolidOrLiquidBlock(blockpos$mutableblockpos).getY(), worldIn.provider.getAverageGroundLevel() - 1);
+						i += Math.max(worldIn.getTopSolidOrLiquidBlock(blockpos$mutableblockpos)
+						                     .getY(), worldIn.provider.getAverageGroundLevel() - 1);
 						++j;
 					}
 				}
@@ -1540,11 +1558,13 @@ public class StructureVillagePieces {
 				}
 
 				if (blockstateIn.getBlock() == Blocks.OAK_STAIRS) {
-					return Blocks.SANDSTONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, blockstateIn.getValue(BlockStairs.FACING));
+					return Blocks.SANDSTONE_STAIRS.getDefaultState()
+					                              .withProperty(BlockStairs.FACING, blockstateIn.getValue(BlockStairs.FACING));
 				}
 
 				if (blockstateIn.getBlock() == Blocks.STONE_STAIRS) {
-					return Blocks.SANDSTONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, blockstateIn.getValue(BlockStairs.FACING));
+					return Blocks.SANDSTONE_STAIRS.getDefaultState()
+					                              .withProperty(BlockStairs.FACING, blockstateIn.getValue(BlockStairs.FACING));
 				}
 
 				if (blockstateIn.getBlock() == Blocks.GRAVEL) {
@@ -1552,7 +1572,9 @@ public class StructureVillagePieces {
 				}
 			} else if (structureType == 3) {
 				if (blockstateIn.getBlock() == Blocks.LOG || blockstateIn.getBlock() == Blocks.LOG2) {
-					return Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.Type.SPRUCE).withProperty(BlockLog.LOG_AXIS, blockstateIn.getValue(BlockLog.LOG_AXIS));
+					return Blocks.LOG.getDefaultState()
+					                 .withProperty(BlockOldLog.VARIANT, BlockPlanks.Type.SPRUCE)
+					                 .withProperty(BlockLog.LOG_AXIS, blockstateIn.getValue(BlockLog.LOG_AXIS));
 				}
 
 				if (blockstateIn.getBlock() == Blocks.PLANKS) {
@@ -1560,7 +1582,8 @@ public class StructureVillagePieces {
 				}
 
 				if (blockstateIn.getBlock() == Blocks.OAK_STAIRS) {
-					return Blocks.SPRUCE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, blockstateIn.getValue(BlockStairs.FACING));
+					return Blocks.SPRUCE_STAIRS.getDefaultState()
+					                           .withProperty(BlockStairs.FACING, blockstateIn.getValue(BlockStairs.FACING));
 				}
 
 				if (blockstateIn.getBlock() == Blocks.OAK_FENCE) {
@@ -1568,7 +1591,9 @@ public class StructureVillagePieces {
 				}
 			} else if (structureType == 2) {
 				if (blockstateIn.getBlock() == Blocks.LOG || blockstateIn.getBlock() == Blocks.LOG2) {
-					return Blocks.LOG2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.Type.ACACIA).withProperty(BlockLog.LOG_AXIS, blockstateIn.getValue(BlockLog.LOG_AXIS));
+					return Blocks.LOG2.getDefaultState()
+					                  .withProperty(BlockNewLog.VARIANT, BlockPlanks.Type.ACACIA)
+					                  .withProperty(BlockLog.LOG_AXIS, blockstateIn.getValue(BlockLog.LOG_AXIS));
 				}
 
 				if (blockstateIn.getBlock() == Blocks.PLANKS) {
@@ -1576,11 +1601,14 @@ public class StructureVillagePieces {
 				}
 
 				if (blockstateIn.getBlock() == Blocks.OAK_STAIRS) {
-					return Blocks.ACACIA_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, blockstateIn.getValue(BlockStairs.FACING));
+					return Blocks.ACACIA_STAIRS.getDefaultState()
+					                           .withProperty(BlockStairs.FACING, blockstateIn.getValue(BlockStairs.FACING));
 				}
 
 				if (blockstateIn.getBlock() == Blocks.COBBLESTONE) {
-					return Blocks.LOG2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.Type.ACACIA).withProperty(BlockLog.LOG_AXIS, BlockLog.Axis.Y);
+					return Blocks.LOG2.getDefaultState()
+					                  .withProperty(BlockNewLog.VARIANT, BlockPlanks.Type.ACACIA)
+					                  .withProperty(BlockLog.LOG_AXIS, BlockLog.Axis.Y);
 				}
 
 				if (blockstateIn.getBlock() == Blocks.OAK_FENCE) {
@@ -1607,7 +1635,8 @@ public class StructureVillagePieces {
 
 		protected void placeTorch(World p_189926_1_, Facing p_189926_2_, int p_189926_3_, int p_189926_4_, int p_189926_5_, StructureBoundingBox p_189926_6_) {
 			if (!isZombieInfested) {
-				setBlockState(p_189926_1_, Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, p_189926_2_), p_189926_3_, p_189926_4_, p_189926_5_, p_189926_6_);
+				setBlockState(p_189926_1_, Blocks.TORCH.getDefaultState()
+				                                       .withProperty(BlockTorch.FACING, p_189926_2_), p_189926_3_, p_189926_4_, p_189926_5_, p_189926_6_);
 			}
 		}
 
@@ -1734,7 +1763,8 @@ public class StructureVillagePieces {
 
 			IBlockState iblockstate = getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
 			IBlockState iblockstate1 = getBiomeSpecificBlockState(Blocks.PLANKS.getDefaultState());
-			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH));
+			IBlockState iblockstate2 = getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState()
+			                                                                         .withProperty(BlockStairs.FACING, Facing.NORTH));
 			IBlockState iblockstate3 = getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
 			IBlockState iblockstate4 = getBiomeSpecificBlockState(Blocks.OAK_FENCE.getDefaultState());
 			fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 1, 1, 3, 5, 4, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);

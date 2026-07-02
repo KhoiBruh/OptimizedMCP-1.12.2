@@ -109,8 +109,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 		dataManager.register(SHOW_BLOCK, false);
 	}
 
-	
-
 	/**
 	 * Returns a boundingBox used to collide the entity with other entities and blocks. This enables the entity to be
 	 * pushable on contact, like boats or minecarts.
@@ -575,7 +573,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 		}
 	}
 
-	
 	public Vec3d getPosOffset(double x, double y, double z, double offset) {
 		int i = MathHelper.floor(x);
 		int j = MathHelper.floor(y);
@@ -616,7 +613,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 		}
 	}
 
-	
 	public Vec3d getPos(double p_70489_1_, double p_70489_3_, double p_70489_5_) {
 		int i = MathHelper.floor(p_70489_1_);
 		int j = MathHelper.floor(p_70489_3_);

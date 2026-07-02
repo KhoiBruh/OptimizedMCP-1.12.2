@@ -67,7 +67,9 @@ public class BlockEndPortal extends BlockContainer {
 	 * Called When an Entity Collided with the Block
 	 */
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-		if (!worldIn.isRemote && !entityIn.isRiding() && !entityIn.isBeingRidden() && entityIn.isNonBoss() && entityIn.getEntityBoundingBox().intersects(state.getBoundingBox(worldIn, pos).offset(pos))) {
+		if (!worldIn.isRemote && !entityIn.isRiding() && !entityIn.isBeingRidden() && entityIn.isNonBoss() && entityIn.getEntityBoundingBox()
+		                                                                                                              .intersects(state.getBoundingBox(worldIn, pos)
+		                                                                                                                               .offset(pos))) {
 			entityIn.changeDimension(1);
 		}
 	}

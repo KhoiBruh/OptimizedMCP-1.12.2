@@ -71,15 +71,18 @@ public class RecipeCommand extends CommandBase {
 
 						if (flag == entityplayermp.getRecipeBook().isUnlocked(irecipe)) {
 							String s = flag ? "commands.recipe.alreadyHave" : "commands.recipe.dontHave";
-							throw new CommandException(s, entityplayermp.getName(), irecipe.getRecipeOutput().getDisplayName());
+							throw new CommandException(s, entityplayermp.getName(), irecipe.getRecipeOutput()
+							                                                               .getDisplayName());
 						}
 
 						if (flag) {
 							entityplayermp.unlockRecipes(list);
-							notifyCommandListener(sender, this, "commands.recipe.give.success.one", entityplayermp.getName(), irecipe.getRecipeOutput().getDisplayName());
+							notifyCommandListener(sender, this, "commands.recipe.give.success.one", entityplayermp.getName(), irecipe.getRecipeOutput()
+							                                                                                                         .getDisplayName());
 						} else {
 							entityplayermp.resetRecipes(list);
-							notifyCommandListener(sender, this, "commands.recipe.take.success.one", irecipe.getRecipeOutput().getDisplayName(), entityplayermp.getName());
+							notifyCommandListener(sender, this, "commands.recipe.take.success.one", irecipe.getRecipeOutput()
+							                                                                               .getDisplayName(), entityplayermp.getName());
 						}
 					}
 				}

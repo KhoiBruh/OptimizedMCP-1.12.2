@@ -10,8 +10,6 @@ public interface IPlayerFileData {
 	 */
 	void writePlayerData(EntityPlayer player);
 
-	
-
 	/**
 	 * Reads the player data from disk into the specified PlayerEntityMP.
 	 */

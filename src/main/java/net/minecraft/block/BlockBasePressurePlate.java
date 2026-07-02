@@ -50,7 +50,6 @@ public abstract class BlockBasePressurePlate extends Block {
 		return 20;
 	}
 
-	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return NULL_AABB;
 	}

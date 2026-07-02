@@ -119,7 +119,6 @@ public class MobEffects {
 		}
 	}
 
-	
 	private static Potion getRegisteredMobEffect(String id) {
 		Potion potion = Potion.REGISTRY.getObject(new ResourceLocation(id));
 
@@ -129,4 +128,5 @@ public class MobEffects {
 			return potion;
 		}
 	}
+
 }

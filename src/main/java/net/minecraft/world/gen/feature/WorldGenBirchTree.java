@@ -14,8 +14,11 @@ import java.util.Random;
 
 public class WorldGenBirchTree extends WorldGenAbstractTree {
 
-	private static final IBlockState LOG = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.Type.BIRCH);
-	private static final IBlockState LEAF = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.Type.BIRCH).withProperty(BlockOldLeaf.CHECK_DECAY, false);
+	private static final IBlockState LOG = Blocks.LOG.getDefaultState()
+	                                                 .withProperty(BlockOldLog.VARIANT, BlockPlanks.Type.BIRCH);
+	private static final IBlockState LEAF = Blocks.LEAVES.getDefaultState()
+	                                                     .withProperty(BlockOldLeaf.VARIANT, BlockPlanks.Type.BIRCH)
+	                                                     .withProperty(BlockOldLeaf.CHECK_DECAY, false);
 	private final boolean useExtraRandomHeight;
 
 	public WorldGenBirchTree(boolean notify, boolean useExtraRandomHeightIn) {
@@ -49,7 +52,8 @@ public class WorldGenBirchTree extends WorldGenAbstractTree {
 				for (int l = position.getX() - k; l <= position.getX() + k && flag; ++l) {
 					for (int i1 = position.getZ() - k; i1 <= position.getZ() + k && flag; ++i1) {
 						if (j >= 0 && j < 256) {
-							if (!canGrowInto(worldIn.getBlockState(blockpos$mutableblockpos.setPos(l, j, i1)).getBlock())) {
+							if (!canGrowInto(worldIn.getBlockState(blockpos$mutableblockpos.setPos(l, j, i1))
+							                        .getBlock())) {
 								flag = false;
 							}
 						} else {

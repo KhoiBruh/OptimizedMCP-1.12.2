@@ -232,7 +232,7 @@ public class ModelBakery {
 			}
 
 			try (IResource iresource = resourceManager.getResource(getModelLocation(location));
-				 Reader reader = new InputStreamReader(iresource.getInputStream(), StandardCharsets.UTF_8)) {
+			     Reader reader = new InputStreamReader(iresource.getInputStream(), StandardCharsets.UTF_8)) {
 				ModelBlock modelblock = ModelBlock.deserialize(reader);
 				modelblock.name = location.toString();
 				return modelblock;
@@ -379,7 +379,6 @@ public class ModelBakery {
 		}
 	}
 
-	
 	private IBakedModel createRandomModelForVariantList(VariantList variantsIn, String modelLocation) {
 		if (variantsIn.variantList().isEmpty()) {
 			return null;
@@ -469,7 +468,9 @@ public class ModelBakery {
 					ModelBlock modelblock1 = models.get(variant1.modelLocation());
 
 					if (modelblock1 == null) {
-						LOGGER.warn("Missing model for: {}", Block.REGISTRY.getNameForObject(modelblockdefinition.getMultipartData().getStateContainer().getBlock()));
+						LOGGER.warn("Missing model for: {}", Block.REGISTRY.getNameForObject(modelblockdefinition.getMultipartData()
+						                                                                                         .getStateContainer()
+						                                                                                         .getBlock()));
 					} else {
 						set.addAll(getTextureLocations(modelblock1));
 					}
@@ -481,7 +482,6 @@ public class ModelBakery {
 		return set;
 	}
 
-	
 	private IBakedModel bakeModel(ModelBlock modelBlockIn, ModelRotation modelRotationIn, boolean uvLocked) {
 		TextureAtlasSprite textureatlassprite = sprites.get(new ResourceLocation(modelBlockIn.resolveTextureName("particle")));
 		SimpleBakedModel.Builder simplebakedmodel$builder = (new SimpleBakedModel.Builder(modelBlockIn, modelBlockIn.createOverrides())).setTexture(textureatlassprite);
@@ -567,7 +567,6 @@ public class ModelBakery {
 		return list;
 	}
 
-	
 	private ResourceLocation getParentLocation(ResourceLocation p_177576_1_) {
 		for (Entry<ResourceLocation, ModelBlock> entry : models.entrySet()) {
 			ModelBlock modelblock = entry.getValue();
@@ -680,4 +679,5 @@ public class ModelBakery {
 	private ModelBlock makeItemModel(ModelBlock p_177582_1_) {
 		return itemModelGenerator.makeItemModel(textureMap, p_177582_1_);
 	}
+
 }

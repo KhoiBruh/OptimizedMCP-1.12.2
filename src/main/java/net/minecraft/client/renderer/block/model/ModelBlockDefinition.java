@@ -18,7 +18,12 @@ import java.util.Set;
 public class ModelBlockDefinition {
 
 	@VisibleForTesting
-	static final Gson GSON = (new GsonBuilder()).registerTypeAdapter(ModelBlockDefinition.class, new ModelBlockDefinition.Deserializer()).registerTypeAdapter(Variant.class, new Variant.Deserializer()).registerTypeAdapter(VariantList.class, new VariantList.Deserializer()).registerTypeAdapter(Multipart.class, new Multipart.Deserializer()).registerTypeAdapter(Selector.class, new Selector.Deserializer()).create();
+	static final Gson GSON = (new GsonBuilder()).registerTypeAdapter(ModelBlockDefinition.class, new ModelBlockDefinition.Deserializer())
+	                                            .registerTypeAdapter(Variant.class, new Variant.Deserializer())
+	                                            .registerTypeAdapter(VariantList.class, new VariantList.Deserializer())
+	                                            .registerTypeAdapter(Multipart.class, new Multipart.Deserializer())
+	                                            .registerTypeAdapter(Selector.class, new Selector.Deserializer())
+	                                            .create();
 	private final Map<String, VariantList> mapVariants = Maps.newHashMap();
 	private Multipart multipart;
 
@@ -127,7 +132,6 @@ public class ModelBlockDefinition {
 			return map;
 		}
 
-		
 		protected Multipart parseMultipart(JsonDeserializationContext deserializationContext, JsonObject object) {
 			if (!object.has("multipart")) {
 				return null;

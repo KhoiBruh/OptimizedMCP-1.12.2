@@ -64,7 +64,6 @@ public abstract class BlockButton extends BlockDirectional {
 		}
 	}
 
-	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return NULL_AABB;
 	}
@@ -112,7 +111,9 @@ public abstract class BlockButton extends BlockDirectional {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-		return canPlaceBlock(worldIn, pos, facing) ? getDefaultState().withProperty(FACING, facing).withProperty(POWERED, false) : getDefaultState().withProperty(FACING, Facing.DOWN).withProperty(POWERED, false);
+		return canPlaceBlock(worldIn, pos, facing) ? getDefaultState().withProperty(FACING, facing)
+		                                                              .withProperty(POWERED, false) : getDefaultState().withProperty(FACING, Facing.DOWN)
+		                                                                                                               .withProperty(POWERED, false);
 	}
 
 	/**
@@ -236,7 +237,8 @@ public abstract class BlockButton extends BlockDirectional {
 	}
 
 	private void checkPressed(IBlockState state, World worldIn, BlockPos pos) {
-		List<? extends Entity> list = worldIn.<Entity>getEntitiesWithinAABB(EntityArrow.class, state.getBoundingBox(worldIn, pos).offset(pos));
+		List<? extends Entity> list = worldIn.<Entity>getEntitiesWithinAABB(EntityArrow.class, state.getBoundingBox(worldIn, pos)
+		                                                                                            .offset(pos));
 		boolean flag = !list.isEmpty();
 		boolean flag1 = state.getValue(POWERED);
 

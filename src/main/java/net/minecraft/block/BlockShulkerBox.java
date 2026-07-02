@@ -128,7 +128,8 @@ public class BlockShulkerBox extends BlockContainer {
 				boolean flag;
 
 				if (((TileEntityShulkerBox) tileentity).getAnimationStatus() == TileEntityShulkerBox.AnimationStatus.CLOSED) {
-					AxisAlignedBB axisalignedbb = FULL_BLOCK_AABB.expand(0.5F * (float) enumfacing.getFrontOffsetX(), 0.5F * (float) enumfacing.getFrontOffsetY(), 0.5F * (float) enumfacing.getFrontOffsetZ()).contract(enumfacing.getFrontOffsetX(), enumfacing.getFrontOffsetY(), enumfacing.getFrontOffsetZ());
+					AxisAlignedBB axisalignedbb = FULL_BLOCK_AABB.expand(0.5F * (float) enumfacing.getFrontOffsetX(), 0.5F * (float) enumfacing.getFrontOffsetY(), 0.5F * (float) enumfacing.getFrontOffsetZ())
+					                                             .contract(enumfacing.getFrontOffsetX(), enumfacing.getFrontOffsetY(), enumfacing.getFrontOffsetZ());
 					flag = !worldIn.collidesWithAnyBlock(axisalignedbb.offset(pos.offset(enumfacing)));
 				} else {
 					flag = true;

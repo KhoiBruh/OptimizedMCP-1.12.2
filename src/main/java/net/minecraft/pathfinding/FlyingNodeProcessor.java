@@ -35,7 +35,9 @@ public class FlyingNodeProcessor extends WalkNodeProcessor {
 			i = (int) entity.getEntityBoundingBox().minY;
 			BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(entity.posX), i, MathHelper.floor(entity.posZ));
 
-			for (Block block = blockaccess.getBlockState(blockpos$mutableblockpos).getBlock(); block == Blocks.FLOWING_WATER || block == Blocks.WATER; block = blockaccess.getBlockState(blockpos$mutableblockpos).getBlock()) {
+			for (Block block = blockaccess.getBlockState(blockpos$mutableblockpos)
+			                              .getBlock(); block == Blocks.FLOWING_WATER || block == Blocks.WATER; block = blockaccess.getBlockState(blockpos$mutableblockpos)
+			                                                                                                                      .getBlock()) {
 				++i;
 				blockpos$mutableblockpos.setPos(MathHelper.floor(entity.posX), i, MathHelper.floor(entity.posZ));
 			}
@@ -203,8 +205,6 @@ public class FlyingNodeProcessor extends WalkNodeProcessor {
 
 		return i;
 	}
-
-	
 
 	/**
 	 * Returns a mapped point or creates and adds one

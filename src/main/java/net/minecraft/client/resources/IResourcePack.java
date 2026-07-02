@@ -17,7 +17,6 @@ public interface IResourcePack {
 
 	Set<String> getResourceDomains();
 
-	
 	<T extends IMetadataSection> T getPackMetadata(MetadataSerializer metadataSerializer, String metadataSectionName) throws IOException;
 
 	BufferedImage getPackImage() throws IOException;

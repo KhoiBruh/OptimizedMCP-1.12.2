@@ -267,8 +267,6 @@ public class PacketBuffer extends ByteBuf {
 		return this;
 	}
 
-	
-
 	/**
 	 * Reads a compressed NBTTagCompound from this buffer
 	 */

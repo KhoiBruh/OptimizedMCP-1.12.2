@@ -111,7 +111,9 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
 				currentLoginState = NetHandlerLoginServer.LoginState.DELAY_ACCEPT;
 				player = server.getPlayerList().createPlayerForUser(loginGameProfile);
 			} else {
-				server.getPlayerList().initializeConnectionToPlayer(networkManager, server.getPlayerList().createPlayerForUser(loginGameProfile));
+				server.getPlayerList()
+				      .initializeConnectionToPlayer(networkManager, server.getPlayerList()
+				                                                          .createPlayerForUser(loginGameProfile));
 			}
 		}
 	}
@@ -154,8 +156,10 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
 					GameProfile gameprofile = loginGameProfile;
 
 					try {
-						String s = (new BigInteger(CryptManager.getServerIdHash("", server.getKeyPair().getPublic(), secretKey))).toString(16);
-						loginGameProfile = server.getMinecraftSessionService().hasJoinedServer(new GameProfile(null, gameprofile.getName()), s, getAddress());
+						String s = (new BigInteger(CryptManager.getServerIdHash("", server.getKeyPair()
+						                                                                  .getPublic(), secretKey))).toString(16);
+						loginGameProfile = server.getMinecraftSessionService()
+						                         .hasJoinedServer(new GameProfile(null, gameprofile.getName()), s, getAddress());
 
 						if (loginGameProfile != null) {
 							NetHandlerLoginServer.LOGGER.info("UUID of player {} is {}", loginGameProfile.getName(), loginGameProfile.getId());
@@ -180,7 +184,6 @@ public class NetHandlerLoginServer implements INetHandlerLoginServer, ITickable 
 					}
 				}
 
-				
 				private InetAddress getAddress() {
 					SocketAddress socketaddress = networkManager.getRemoteAddress();
 					return server.getPreventProxyConnections() && socketaddress instanceof InetSocketAddress ? ((InetSocketAddress) socketaddress).getAddress() : null;

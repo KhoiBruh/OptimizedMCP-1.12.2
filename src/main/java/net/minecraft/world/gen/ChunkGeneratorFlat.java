@@ -98,7 +98,8 @@ public class ChunkGeneratorFlat implements IChunkGenerator {
 		}
 
 		worldIn.setSeaLevel(j);
-		hasDecoration = (!flag || flatWorldGenInfo.getBiome() == Biome.getIdForBiome(Biomes.VOID)) && flatWorldGenInfo.getWorldFeatures().containsKey("decoration");
+		hasDecoration = (!flag || flatWorldGenInfo.getBiome() == Biome.getIdForBiome(Biomes.VOID)) && flatWorldGenInfo.getWorldFeatures()
+		                                                                                                              .containsKey("decoration");
 	}
 
 	/**
@@ -197,7 +198,6 @@ public class ChunkGeneratorFlat implements IChunkGenerator {
 		return biome.getSpawnableList(creatureType);
 	}
 
-	
 	public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
 		MapGenStructure mapgenstructure = structureGenerators.get(structureName);
 		return mapgenstructure != null ? mapgenstructure.getNearestStructurePos(worldIn, position, findUnexplored) : null;

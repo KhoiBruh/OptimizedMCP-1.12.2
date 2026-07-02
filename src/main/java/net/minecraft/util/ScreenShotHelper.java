@@ -62,7 +62,8 @@ public class ScreenShotHelper {
 
 			ImageIO.write(bufferedimage, "png", file2);
 			ITextComponent itextcomponent = new TextComponentString(file2.getName());
-			itextcomponent.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, file2.getAbsolutePath()));
+			itextcomponent.getStyle()
+			              .setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, file2.getAbsolutePath()));
 			itextcomponent.getStyle().setUnderlined(true);
 			return new TextComponentTranslation("screenshot.success", itextcomponent);
 		} catch (Exception exception) {

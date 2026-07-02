@@ -33,7 +33,6 @@ public class ItemRecord extends Item {
 		RECORDS.put(sound, this);
 	}
 
-	
 	public static ItemRecord getBySound(SoundEvent soundIn) {
 		return RECORDS.get(soundIn);
 	}

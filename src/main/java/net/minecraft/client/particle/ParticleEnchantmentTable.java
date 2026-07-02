@@ -3,7 +3,7 @@ package net.minecraft.client.particle;
 import net.minecraft.world.World;
 
 public class ParticleEnchantmentTable extends Particle {
-	
+
 	private final double coordX;
 	private final double coordY;
 	private final double coordZ;

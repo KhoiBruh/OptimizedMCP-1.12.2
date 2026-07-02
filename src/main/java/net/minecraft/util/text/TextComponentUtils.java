@@ -48,9 +48,9 @@ public class TextComponentUtils {
 				}
 			}
 			case TextComponentString iTextComponents ->
-					itextcomponent = new TextComponentString(iTextComponents.getText());
+				itextcomponent = new TextComponentString(iTextComponents.getText());
 			case TextComponentKeybind iTextComponents ->
-					itextcomponent = new TextComponentKeybind(iTextComponents.getKeybind());
+				itextcomponent = new TextComponentKeybind(iTextComponents.getKeybind());
 			default -> {
 				if (!(component instanceof TextComponentTranslation)) {
 					return component;

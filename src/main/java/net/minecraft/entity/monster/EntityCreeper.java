@@ -212,7 +212,6 @@ public class EntityCreeper extends EntityMob {
 		return ((float) lastActiveTime + (float) (timeSinceIgnited - lastActiveTime) * p_70831_1_) / (float) (fuseTime - 2);
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_CREEPER;
 	}

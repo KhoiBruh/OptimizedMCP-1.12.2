@@ -108,7 +108,6 @@ public class BlockEntityTag implements IDataWalker {
 		map.put("minecraft:shield", "minecraft:shield");
 	}
 
-	
 	private static String getBlockEntityID(int blockID, String p_188267_1_) {
 		return blockID < 515 ? NEW_TO_OLD_ID_MAP.get((new ResourceLocation(p_188267_1_)).toString()) : ITEM_ID_TO_BLOCK_ENTITY_ID.get((new ResourceLocation(p_188267_1_)).toString());
 	}
@@ -143,4 +142,5 @@ public class BlockEntityTag implements IDataWalker {
 			return compound;
 		}
 	}
+
 }

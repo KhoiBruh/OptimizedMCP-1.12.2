@@ -69,8 +69,6 @@ public class PhaseLanding extends PhaseBase {
 		targetLocation = null;
 	}
 
-	
-
 	/**
 	 * Returns the location the dragon is flying toward
 	 */

@@ -79,7 +79,8 @@ public class CrashReportCategory {
 		category.addDetail("Block type", () -> {
 
 			try {
-				return String.format("ID #%d (%s // %s)", i, blockIn.getUnlocalizedName(), blockIn.getClass().getCanonicalName());
+				return String.format("ID #%d (%s // %s)", i, blockIn.getUnlocalizedName(), blockIn.getClass()
+				                                                                                  .getCanonicalName());
 			} catch (Throwable var2) {
 				return "ID #" + i;
 			}
@@ -151,7 +152,10 @@ public class CrashReportCategory {
 		if (stackTrace.length != 0 && s1 != null) {
 			StackTraceElement stacktraceelement = stackTrace[0];
 
-			if (stacktraceelement.isNativeMethod() == s1.isNativeMethod() && stacktraceelement.getClassName().equals(s1.getClassName()) && stacktraceelement.getFileName().equals(s1.getFileName()) && stacktraceelement.getMethodName().equals(s1.getMethodName())) {
+			if (stacktraceelement.isNativeMethod() == s1.isNativeMethod() && stacktraceelement.getClassName()
+			                                                                                  .equals(s1.getClassName()) && stacktraceelement.getFileName()
+			                                                                                                                                 .equals(s1.getFileName()) && stacktraceelement.getMethodName()
+			                                                                                                                                                                               .equals(s1.getMethodName())) {
 				if (s2 == null == stackTrace.length > 1) {
 					return false;
 				} else if (s2 != null && !stackTrace[1].equals(s2)) {
@@ -203,6 +207,7 @@ public class CrashReportCategory {
 	}
 
 	record Entry(String key, Object value) {
+
 		Entry(String key, Object value) {
 			this.key = key;
 

@@ -19,7 +19,8 @@ public class LayerWolfCollar implements LayerRenderer<EntityWolf> {
 			wolfRenderer.bindTexture(WOLF_COLLAR);
 			float[] afloat = entitylivingbaseIn.getCollarColor().getColorComponentValues();
 			GLS.color(afloat[0], afloat[1], afloat[2]);
-			wolfRenderer.getMainModel().render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+			wolfRenderer.getMainModel()
+			            .render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		}
 	}
 

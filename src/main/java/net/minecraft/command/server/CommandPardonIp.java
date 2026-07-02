@@ -57,7 +57,9 @@ public class CommandPardonIp extends CommandBase {
 	}
 
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-		return args.length == 1 ? getListOfStringsMatchingLastWord(args, server.getPlayerList().getBannedIPs().getKeys()) : Collections.emptyList();
+		return args.length == 1 ? getListOfStringsMatchingLastWord(args, server.getPlayerList()
+		                                                                       .getBannedIPs()
+		                                                                       .getKeys()) : Collections.emptyList();
 	}
 
 }

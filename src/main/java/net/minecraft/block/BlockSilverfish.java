@@ -28,7 +28,8 @@ public class BlockSilverfish extends Block {
 
 	public static boolean canContainSilverfish(IBlockState blockState) {
 		Block block = blockState.getBlock();
-		return blockState == Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.Type.STONE) || block == Blocks.COBBLESTONE || block == Blocks.STONEBRICK;
+		return blockState == Blocks.STONE.getDefaultState()
+		                                 .withProperty(BlockStone.VARIANT, BlockStone.Type.STONE) || block == Blocks.COBBLESTONE || block == Blocks.STONEBRICK;
 	}
 
 	/**
@@ -43,10 +44,9 @@ public class BlockSilverfish extends Block {
 			case COBBLESTONE -> new ItemStack(Blocks.COBBLESTONE);
 			case STONEBRICK -> new ItemStack(Blocks.STONEBRICK);
 			case MOSSY_STONEBRICK -> new ItemStack(Blocks.STONEBRICK, 1, BlockStoneBrick.Type.MOSSY.getMetadata());
-			case CRACKED_STONEBRICK ->
-					new ItemStack(Blocks.STONEBRICK, 1, BlockStoneBrick.Type.CRACKED.getMetadata());
+			case CRACKED_STONEBRICK -> new ItemStack(Blocks.STONEBRICK, 1, BlockStoneBrick.Type.CRACKED.getMetadata());
 			case CHISELED_STONEBRICK ->
-					new ItemStack(Blocks.STONEBRICK, 1, BlockStoneBrick.Type.CHISELED.getMetadata());
+				new ItemStack(Blocks.STONEBRICK, 1, BlockStoneBrick.Type.CHISELED.getMetadata());
 			default -> new ItemStack(Blocks.STONE);
 		};
 	}
@@ -107,22 +107,26 @@ public class BlockSilverfish extends Block {
 		},
 		STONEBRICK(2, "stone_brick", "brick") {
 			public IBlockState getModelBlock() {
-				return Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.Type.DEFAULT);
+				return Blocks.STONEBRICK.getDefaultState()
+				                        .withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.Type.DEFAULT);
 			}
 		},
 		MOSSY_STONEBRICK(3, "mossy_brick", "mossybrick") {
 			public IBlockState getModelBlock() {
-				return Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.Type.MOSSY);
+				return Blocks.STONEBRICK.getDefaultState()
+				                        .withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.Type.MOSSY);
 			}
 		},
 		CRACKED_STONEBRICK(4, "cracked_brick", "crackedbrick") {
 			public IBlockState getModelBlock() {
-				return Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.Type.CRACKED);
+				return Blocks.STONEBRICK.getDefaultState()
+				                        .withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.Type.CRACKED);
 			}
 		},
 		CHISELED_STONEBRICK(5, "chiseled_brick", "chiseledbrick") {
 			public IBlockState getModelBlock() {
-				return Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.Type.CHISELED);
+				return Blocks.STONEBRICK.getDefaultState()
+				                        .withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.Type.CHISELED);
 			}
 		};
 

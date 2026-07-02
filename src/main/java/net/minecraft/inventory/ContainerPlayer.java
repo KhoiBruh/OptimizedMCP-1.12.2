@@ -48,7 +48,6 @@ public class ContainerPlayer extends Container {
 					return (itemstack.isEmpty() || playerIn.isCreative() || !EnchantmentHelper.hasBindingCurse(itemstack)) && super.canTakeStack(playerIn);
 				}
 
-				
 				public String getSlotTexture() {
 					return ItemArmor.EMPTY_SLOT_NAMES[entityequipmentslot.getIndex()];
 				}
@@ -125,7 +124,8 @@ public class ContainerPlayer extends Container {
 				if (!mergeItemStack(itemstack1, 9, 45, false)) {
 					return ItemStack.EMPTY;
 				}
-			} else if (entityequipmentslot.getSlotType() == EntityEquipmentSlot.Type.ARMOR && !inventorySlots.get(8 - entityequipmentslot.getIndex()).getHasStack()) {
+			} else if (entityequipmentslot.getSlotType() == EntityEquipmentSlot.Type.ARMOR && !inventorySlots.get(8 - entityequipmentslot.getIndex())
+			                                                                                                 .getHasStack()) {
 				int i = 8 - entityequipmentslot.getIndex();
 
 				if (!mergeItemStack(itemstack1, i, i + 1, false)) {

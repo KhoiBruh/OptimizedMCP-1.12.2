@@ -84,7 +84,6 @@ public interface IBlockProperties {
 
 	boolean isOpaqueCube();
 
-	
 	AxisAlignedBB getCollisionBoundingBox(IBlockAccess worldIn, BlockPos pos);
 
 	void addCollisionBoxToList(World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean p_185908_6_);

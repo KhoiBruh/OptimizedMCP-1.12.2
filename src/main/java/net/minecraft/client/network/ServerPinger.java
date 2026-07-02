@@ -77,9 +77,12 @@ public class ServerPinger {
 					}
 
 					if (serverstatusresponse.getPlayers() != null) {
-						server.populationInfo = TextFormat.GRAY + "" + serverstatusresponse.getPlayers().getOnlinePlayerCount() + TextFormat.DARK_GRAY + "/" + TextFormat.GRAY + serverstatusresponse.getPlayers().getMaxPlayers();
+						server.populationInfo = TextFormat.GRAY + "" + serverstatusresponse.getPlayers()
+						                                                                   .getOnlinePlayerCount() + TextFormat.DARK_GRAY + "/" + TextFormat.GRAY + serverstatusresponse.getPlayers()
+						                                                                                                                                                                .getMaxPlayers();
 
-						if (serverstatusresponse.getPlayers().getPlayers() != null && serverstatusresponse.getPlayers().getPlayers().length > 0) {
+						if (serverstatusresponse.getPlayers().getPlayers() != null && serverstatusresponse.getPlayers()
+						                                                                                  .getPlayers().length > 0) {
 							StringBuilder stringbuilder = new StringBuilder();
 
 							for (GameProfile gameprofile : serverstatusresponse.getPlayers().getPlayers()) {
@@ -90,12 +93,16 @@ public class ServerPinger {
 								stringbuilder.append(gameprofile.getName());
 							}
 
-							if (serverstatusresponse.getPlayers().getPlayers().length < serverstatusresponse.getPlayers().getOnlinePlayerCount()) {
+							if (serverstatusresponse.getPlayers()
+							                        .getPlayers().length < serverstatusresponse.getPlayers()
+							                                                                   .getOnlinePlayerCount()) {
 								if (!stringbuilder.isEmpty()) {
 									stringbuilder.append("\n");
 								}
 
-								stringbuilder.append(I18n.format("multiplayer.status.and_more", serverstatusresponse.getPlayers().getOnlinePlayerCount() - serverstatusresponse.getPlayers().getPlayers().length));
+								stringbuilder.append(I18n.format("multiplayer.status.and_more", serverstatusresponse.getPlayers()
+								                                                                                    .getOnlinePlayerCount() - serverstatusresponse.getPlayers()
+								                                                                                                                                  .getPlayers().length));
 							}
 
 							server.playerList = stringbuilder.toString();
@@ -182,7 +189,9 @@ public class ServerPinger {
 							}
 
 							bytebuf.writeInt(serveraddress.getPort());
-							p_channelActive_1_.channel().writeAndFlush(bytebuf).addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
+							p_channelActive_1_.channel()
+							                  .writeAndFlush(bytebuf)
+							                  .addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
 						} finally {
 							bytebuf.release();
 						}
@@ -192,7 +201,8 @@ public class ServerPinger {
 						short short1 = p_channelRead0_2_.readUnsignedByte();
 
 						if (short1 == 255) {
-							String s = new String(p_channelRead0_2_.readBytes(p_channelRead0_2_.readShort() * 2).array(), StandardCharsets.UTF_16BE);
+							String s = new String(p_channelRead0_2_.readBytes(p_channelRead0_2_.readShort() * 2)
+							                                       .array(), StandardCharsets.UTF_16BE);
 							String[] astring = Iterables.toArray(ServerPinger.PING_RESPONSE_SPLITTER.split(s), String.class);
 
 							if ("§1".equals(astring[0])) {

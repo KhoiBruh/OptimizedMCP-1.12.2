@@ -78,7 +78,8 @@ public class ParticleFootStep extends Particle {
 	public static class Factory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-			return new ParticleFootStep(Minecraft.getMinecraft().getTextureManager(), worldIn, xCoordIn, yCoordIn, zCoordIn);
+			return new ParticleFootStep(Minecraft.getMinecraft()
+			                                     .getTextureManager(), worldIn, xCoordIn, yCoordIn, zCoordIn);
 		}
 
 	}

@@ -18,9 +18,9 @@ public abstract class EntityHanging extends Entity {
 
 	private static final Predicate<Entity> IS_HANGING_ENTITY = p_apply_1_ -> p_apply_1_ instanceof EntityHanging;
 
-	
-
-	/** The direction the entity is facing */
+	/**
+	 * The direction the entity is facing
+	 */
 	public Facing facingDirection;
 	protected BlockPos hangingPosition;
 	private int tickCounter1;

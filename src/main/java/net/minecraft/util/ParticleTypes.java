@@ -86,8 +86,6 @@ public enum ParticleTypes {
 		return BY_NAME.keySet();
 	}
 
-	
-
 	/**
 	 * Gets the relative ParticleTypes by id.
 	 */
@@ -95,7 +93,6 @@ public enum ParticleTypes {
 		return PARTICLES.get(particleId);
 	}
 
-	
 	public static ParticleTypes getByName(String nameIn) {
 		return BY_NAME.get(nameIn);
 	}

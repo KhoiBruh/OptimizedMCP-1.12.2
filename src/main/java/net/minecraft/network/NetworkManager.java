@@ -38,7 +38,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 
 	public static final Marker NETWORK_MARKER = MarkerManager.getMarker("NETWORK");
-	public static final Marker NETWORK_PACKETS_MARKER = MarkerManager.getMarker("NETWORK_PACKETS").setParents(NETWORK_MARKER);
+	public static final Marker NETWORK_PACKETS_MARKER = MarkerManager.getMarker("NETWORK_PACKETS")
+	                                                                 .setParents(NETWORK_MARKER);
 	public static final AttributeKey<ConnectionState> PROTOCOL_ATTRIBUTE_KEY = AttributeKey.valueOf("protocol");
 
 	public static final ThreadFactory nettyIOFactory = Thread.ofVirtual().name("Netty IO #%d", 0).factory();
@@ -106,25 +107,25 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 		}
 
 		new Bootstrap()
-				.group(lazyloadbase.getValue())
-				.handler(
-						new ChannelInitializer<>() {
-							protected void initChannel(Channel channel) {
-								channel.config().setOption(ChannelOption.TCP_NODELAY, true);
+			.group(lazyloadbase.getValue())
+			.handler(
+				new ChannelInitializer<>() {
+					protected void initChannel(Channel channel) {
+						channel.config().setOption(ChannelOption.TCP_NODELAY, true);
 
-								channel.pipeline()
-										.addLast("timeout", new ReadTimeoutHandler(30))
-										.addLast("splitter", new NettyVarint21FrameDecoder())
-										.addLast("decoder", new NettyPacketDecoder(PacketDirection.CLIENTBOUND))
-										.addLast("prepender", new NettyVarint21FrameEncoder())
-										.addLast("encoder", new NettyPacketEncoder(PacketDirection.SERVERBOUND))
-										.addLast("packet_handler", networkmanager);
-							}
-						}
-				)
-				.channel(oclass)
-				.connect(address, serverPort)
-				.syncUninterruptibly();
+						channel.pipeline()
+						       .addLast("timeout", new ReadTimeoutHandler(30))
+						       .addLast("splitter", new NettyVarint21FrameDecoder())
+						       .addLast("decoder", new NettyPacketDecoder(PacketDirection.CLIENTBOUND))
+						       .addLast("prepender", new NettyVarint21FrameEncoder())
+						       .addLast("encoder", new NettyPacketEncoder(PacketDirection.SERVERBOUND))
+						       .addLast("packet_handler", networkmanager);
+					}
+				}
+			)
+			.channel(oclass)
+			.connect(address, serverPort)
+			.syncUninterruptibly();
 		return networkmanager;
 	}
 
@@ -136,16 +137,16 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 		final NetworkManager manager = new NetworkManager(PacketDirection.CLIENTBOUND);
 
 		new Bootstrap()
-				.group(CLIENT_LOCAL_EVENT_LOOP.getValue())
-				.handler(new ChannelInitializer<>() {
-					         protected void initChannel(Channel channel) {
-						         channel.pipeline().addLast("packet_handler", manager);
-					         }
+			.group(CLIENT_LOCAL_EVENT_LOOP.getValue())
+			.handler(new ChannelInitializer<>() {
+				         protected void initChannel(Channel channel) {
+					         channel.pipeline().addLast("packet_handler", manager);
 				         }
-				)
-				.channel(LocalChannel.class)
-				.connect(address)
-				.syncUninterruptibly();
+			         }
+			)
+			.channel(LocalChannel.class)
+			.connect(address)
+			.syncUninterruptibly();
 
 		return manager;
 	}
@@ -338,8 +339,10 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	 */
 	public void enableEncryption(SecretKey key) {
 		isEncrypted = true;
-		channel.pipeline().addBefore("splitter", "decrypt", new NettyEncryptingDecoder(CryptManager.createNetCipherInstance(2, key)));
-		channel.pipeline().addBefore("prepender", "encrypt", new NettyEncryptingEncoder(CryptManager.createNetCipherInstance(1, key)));
+		channel.pipeline()
+		       .addBefore("splitter", "decrypt", new NettyEncryptingDecoder(CryptManager.createNetCipherInstance(2, key)));
+		channel.pipeline()
+		       .addBefore("prepender", "encrypt", new NettyEncryptingEncoder(CryptManager.createNetCipherInstance(1, key)));
 	}
 
 	public boolean isEncrypted() {

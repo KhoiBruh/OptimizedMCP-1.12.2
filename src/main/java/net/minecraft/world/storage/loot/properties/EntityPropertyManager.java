@@ -50,4 +50,5 @@ public class EntityPropertyManager {
 			return (EntityProperty.Serializer<T>) serializer;
 		}
 	}
+
 }

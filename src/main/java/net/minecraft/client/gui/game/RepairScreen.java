@@ -117,7 +117,8 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 		String s = nameField.getText();
 		Slot slot = anvil.getSlot(0);
 
-		if (slot != null && slot.getHasStack() && !slot.getStack().hasDisplayName() && s.equals(slot.getStack().getDisplayName())) {
+		if (slot != null && slot.getHasStack() && !slot.getStack().hasDisplayName() && s.equals(slot.getStack()
+		                                                                                            .getDisplayName())) {
 			s = "";
 		}
 

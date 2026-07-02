@@ -1,6 +1,5 @@
 package net.minecraft.entity.monster;
 
-import com.google.common.base.Predicate;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -30,7 +29,6 @@ public class EntityIronGolem extends EntityGolem {
 
 	protected static final DataParameter<Byte> PLAYER_CREATED = EntityDataManager.createKey(EntityIronGolem.class, DataSerializers.BYTE);
 
-	
 	Village village;
 	/**
 	 * deincrements, and a distance-to-home check is done at 0
@@ -219,7 +217,6 @@ public class EntityIronGolem extends EntityGolem {
 		playSound(SoundEvents.ENTITY_IRONGOLEM_STEP, 1F, 1F);
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_IRON_GOLEM;
 	}

@@ -13,19 +13,14 @@ public class CommandSenderWrapper implements ICommandSender {
 
 	private final ICommandSender delegate;
 
-	
 	private final Vec3d positionVector;
 
-	
 	private final BlockPos position;
 
-	
 	private final Integer permissionLevel;
 
-	
 	private final Entity entity;
 
-	
 	private final Boolean sendCommandFeedback;
 
 	public CommandSenderWrapper(ICommandSender delegateIn, Vec3d positionVectorIn, BlockPos positionIn, Integer permissionLevelIn, Entity entityIn, Boolean sendCommandFeedbackIn) {
@@ -119,8 +114,6 @@ public class CommandSenderWrapper implements ICommandSender {
 		return entity != null ? entity.getEntityWorld() : delegate.getEntityWorld();
 	}
 
-	
-
 	/**
 	 * Returns the entity associated with the command sender. MAY BE NULL!
 	 */
@@ -142,8 +135,6 @@ public class CommandSenderWrapper implements ICommandSender {
 			delegate.setCommandStat(type, amount);
 		}
 	}
-
-	
 
 	/**
 	 * Get the Minecraft server instance

@@ -5,6 +5,7 @@ import com.google.common.collect.Maps;
 import java.util.Map;
 
 public record ClickEvent(Action action, String value) {
+
 	/**
 	 * Gets the action to perform when this event is raised.
 	 */

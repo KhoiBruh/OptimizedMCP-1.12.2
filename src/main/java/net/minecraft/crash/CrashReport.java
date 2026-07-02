@@ -239,7 +239,7 @@ public class CrashReport {
 				toFile.getParentFile().mkdirs();
 			}
 
-				try (Writer writer = new OutputStreamWriter(new FileOutputStream(toFile), StandardCharsets.UTF_8)) {
+			try (Writer writer = new OutputStreamWriter(new FileOutputStream(toFile), StandardCharsets.UTF_8)) {
 				writer.write(getCompleteReport());
 				crashReportFile = toFile;
 				return true;

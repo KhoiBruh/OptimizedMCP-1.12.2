@@ -237,13 +237,14 @@ public class OpenGlHelper {
 			} else {
 				logText = logText + "OpenGL 1.5 is supported.\n";
 			}
-			
+
 			GL_STATIC_DRAW = 35044;
 			GL_ARRAY_BUFFER = 34962;
 		}
 
 		CentralProcessor processor = new SystemInfo().getHardware().getProcessor();
-		cpu = String.format("%dx %s", processor.getLogicalProcessorCount(), processor.getProcessorIdentifier().getName());
+		cpu = String.format("%dx %s", processor.getLogicalProcessorCount(), processor.getProcessorIdentifier()
+		                                                                             .getName());
 	}
 
 	public static boolean areShadersSupported() {
@@ -726,7 +727,7 @@ public class OpenGlHelper {
 				LOGGER.error("Couldn't open file", ioexception1);
 			}
 		} else if (Util.getOSType() == Util.OS.WINDOWS) {
-			String[] cmd = new String[]{"cmd.exe", "/C", "start", "Open file", s };
+			String[] cmd = new String[]{"cmd.exe", "/C", "start", "Open file", s};
 
 			try {
 				Runtime.getRuntime().exec(cmd);
@@ -750,7 +751,7 @@ public class OpenGlHelper {
 			try {
 				Desktop.getDesktop().browse(new URI("file://" + s));
 			} catch (IOException | URISyntaxException ignore) {
-			
+
 			}
 		}
 	}

@@ -30,9 +30,11 @@ public class EntityFlyHelper extends EntityMoveHelper {
 			float f1;
 
 			if (entity.onGround) {
-				f1 = (float) (speed * entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
+				f1 = (float) (speed * entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
+				                            .getAttributeValue());
 			} else {
-				f1 = (float) (speed * entity.getEntityAttribute(SharedMonsterAttributes.FLYING_SPEED).getAttributeValue());
+				f1 = (float) (speed * entity.getEntityAttribute(SharedMonsterAttributes.FLYING_SPEED)
+				                            .getAttributeValue());
 			}
 
 			entity.setAIMoveSpeed(f1);

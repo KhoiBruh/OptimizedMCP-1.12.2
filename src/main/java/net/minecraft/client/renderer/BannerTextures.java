@@ -39,7 +39,6 @@ public class BannerTextures {
 			cacheResourceBase = resourcePath;
 		}
 
-		
 		public ResourceLocation getResourceLocation(String id, List<BannerPattern> patternList, List<DyeColor> colorList) {
 			if (id.isEmpty()) {
 				return null;
@@ -60,7 +59,9 @@ public class BannerTextures {
 
 					bannertextures$cacheentry = new BannerTextures.CacheEntry();
 					bannertextures$cacheentry.textureLocation = new ResourceLocation(id);
-					Minecraft.getMinecraft().getTextureManager().loadTexture(bannertextures$cacheentry.textureLocation, new LayeredColorMaskTexture(cacheResourceLocation, list, colorList));
+					Minecraft.getMinecraft()
+					         .getTextureManager()
+					         .loadTexture(bannertextures$cacheentry.textureLocation, new LayeredColorMaskTexture(cacheResourceLocation, list, colorList));
 					cacheMap.put(id, bannertextures$cacheentry);
 				}
 
@@ -78,7 +79,9 @@ public class BannerTextures {
 				BannerTextures.CacheEntry bannertextures$cacheentry = cacheMap.get(s);
 
 				if (i - bannertextures$cacheentry.lastUseMillis > 5000L) {
-					Minecraft.getMinecraft().getTextureManager().deleteTexture(bannertextures$cacheentry.textureLocation);
+					Minecraft.getMinecraft()
+					         .getTextureManager()
+					         .deleteTexture(bannertextures$cacheentry.textureLocation);
 					iterator.remove();
 					return true;
 				}

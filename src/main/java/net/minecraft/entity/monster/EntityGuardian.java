@@ -102,7 +102,6 @@ public class EntityGuardian extends EntityMob {
 		return dataManager.get(TARGET_ENTITY) != 0;
 	}
 
-	
 	public EntityLivingBase getTargetedEntity() {
 		if (!hasTargetedEntity()) {
 			return null;
@@ -169,7 +168,8 @@ public class EntityGuardian extends EntityMob {
 	}
 
 	public float getBlockPathWeight(BlockPos pos) {
-		return world.getBlockState(pos).getMaterial() == Material.WATER ? 10F + world.getLightBrightness(pos) - 0.5F : super.getBlockPathWeight(pos);
+		return world.getBlockState(pos)
+		            .getMaterial() == Material.WATER ? 10F + world.getLightBrightness(pos) - 0.5F : super.getBlockPathWeight(pos);
 	}
 
 	/**
@@ -279,7 +279,6 @@ public class EntityGuardian extends EntityMob {
 		return ((float) clientSideAttackTime + p_175477_1_) / (float) getAttackDuration();
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_GUARDIAN;
 	}
@@ -295,7 +294,8 @@ public class EntityGuardian extends EntityMob {
 	 * Checks that the entity is not colliding with any blocks / liquids
 	 */
 	public boolean isNotColliding() {
-		return world.checkNoEntityCollision(getEntityBoundingBox(), this) && world.getCollisionBoxes(this, getEntityBoundingBox()).isEmpty();
+		return world.checkNoEntityCollision(getEntityBoundingBox(), this) && world.getCollisionBoxes(this, getEntityBoundingBox())
+		                                                                          .isEmpty();
 	}
 
 	/**
@@ -406,7 +406,8 @@ public class EntityGuardian extends EntityMob {
 					}
 
 					entitylivingbase.attackEntityFrom(DamageSource.causeIndirectMagicDamage(guardian, guardian), f);
-					entitylivingbase.attackEntityFrom(DamageSource.causeMobDamage(guardian), (float) guardian.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue());
+					entitylivingbase.attackEntityFrom(DamageSource.causeMobDamage(guardian), (float) guardian.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE)
+					                                                                                         .getAttributeValue());
 					guardian.setAttackTarget(null);
 				}
 
@@ -435,7 +436,8 @@ public class EntityGuardian extends EntityMob {
 				float f = (float) (MathHelper.atan2(d2, d0) * (180D / Math.PI)) - 90F;
 				entityGuardian.rotationYaw = limitAngle(entityGuardian.rotationYaw, f, 90F);
 				entityGuardian.renderYawOffset = entityGuardian.rotationYaw;
-				float f1 = (float) (speed * entityGuardian.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
+				float f1 = (float) (speed * entityGuardian.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
+				                                          .getAttributeValue());
 				entityGuardian.setAIMoveSpeed(entityGuardian.getAIMoveSpeed() + (f1 - entityGuardian.getAIMoveSpeed()) * 0.125F);
 				double d4 = Math.sin((double) (entityGuardian.ticksExisted + entityGuardian.getEntityId()) * 0.5D) * 0.05D;
 				double d5 = Math.cos(entityGuardian.rotationYaw * 0.017453292F);
@@ -459,7 +461,8 @@ public class EntityGuardian extends EntityMob {
 					d12 = d9;
 				}
 
-				entityGuardian.getLookHelper().setLookPosition(d10 + (d7 - d10) * 0.125D, d11 + (d8 - d11) * 0.125D, d12 + (d9 - d12) * 0.125D, 10F, 40F);
+				entityGuardian.getLookHelper()
+				              .setLookPosition(d10 + (d7 - d10) * 0.125D, d11 + (d8 - d11) * 0.125D, d12 + (d9 - d12) * 0.125D, 10F, 40F);
 				entityGuardian.setMoving(true);
 			} else {
 				entityGuardian.setAIMoveSpeed(0F);

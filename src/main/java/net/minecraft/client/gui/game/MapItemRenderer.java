@@ -51,7 +51,6 @@ public class MapItemRenderer {
 		return mapitemrenderer$instance;
 	}
 
-	
 	public MapItemRenderer.Instance getMapInstanceIfExists(String p_191205_1_) {
 
 		return loadedMaps.get(p_191205_1_);
@@ -68,7 +67,6 @@ public class MapItemRenderer {
 		loadedMaps.clear();
 	}
 
-	
 	public MapData getData(MapItemRenderer.Instance p_191207_1_) {
 		return p_191207_1_ != null ? p_191207_1_.mapData : null;
 	}

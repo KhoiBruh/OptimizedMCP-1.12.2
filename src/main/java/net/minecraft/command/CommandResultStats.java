@@ -217,7 +217,6 @@ public class CommandResultStats {
 			return astring;
 		}
 
-		
 		public static CommandResultStats.Type getTypeByName(String name) {
 
 			for (CommandResultStats.Type commandresultstats$type : values()) {

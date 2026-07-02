@@ -48,7 +48,8 @@ public class ShaderManager {
 		ResourceLocation resourcelocation = new ResourceLocation("shaders/program/" + programName + ".json");
 		programFilename = programName;
 		try (IResource iresource = resourceManager.getResource(resourcelocation)) {
-			JsonObject jsonobject = JsonParser.parseString(IOUtils.toString(iresource.getInputStream(), StandardCharsets.UTF_8)).getAsJsonObject();
+			JsonObject jsonobject = JsonParser.parseString(IOUtils.toString(iresource.getInputStream(), StandardCharsets.UTF_8))
+			                                  .getAsJsonObject();
 			String s = JsonUtils.getString(jsonobject, "vertex");
 			String s1 = JsonUtils.getString(jsonobject, "fragment");
 			JsonArray jsonarray = JsonUtils.getJsonArray(jsonobject, "samplers", null);
@@ -70,7 +71,7 @@ public class ShaderManager {
 			}
 
 			JsonArray jsonarray1 = JsonUtils.getJsonArray(jsonobject, "attributes", null);
-			
+
 			List<Integer> attribLocations;
 			List<String> attributes;
 			if (jsonarray1 != null) {
@@ -143,7 +144,7 @@ public class ShaderManager {
 		OpenGlHelper.glUseProgram(0);
 		currentProgram = -1;
 		staticShaderManager = null;
-		
+
 		for (int i = 0; i < shaderSamplerLocations.size(); ++i) {
 			if (shaderSamplers.get(samplerNames.get(i)) != null) {
 				GLS.setActiveTexture(OpenGlHelper.defaultTexUnit + i);
@@ -198,8 +199,6 @@ public class ShaderManager {
 	public void markDirty() {
 		isDirty = true;
 	}
-
-	
 
 	/**
 	 * gets a shader uniform for the name given. null if not found.

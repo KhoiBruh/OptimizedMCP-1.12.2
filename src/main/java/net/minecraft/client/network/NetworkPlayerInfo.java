@@ -87,13 +87,10 @@ public class NetworkPlayerInfo {
 		return MoreObjects.firstNonNull(playerTextures.get(Type.SKIN), DefaultPlayerSkin.getDefaultSkin(gameProfile.getId()));
 	}
 
-	
 	public ResourceLocation getLocationCape() {
 		loadPlayerTextures();
 		return playerTextures.get(Type.CAPE);
 	}
-
-	
 
 	/**
 	 * Gets the special Elytra texture for the player.
@@ -103,7 +100,6 @@ public class NetworkPlayerInfo {
 		return playerTextures.get(Type.ELYTRA);
 	}
 
-	
 	public ScorePlayerTeam getPlayerTeam() {
 		return Minecraft.getMinecraft().world.getScoreboard().getPlayersTeam(getGameProfile().getName());
 	}
@@ -112,32 +108,33 @@ public class NetworkPlayerInfo {
 		synchronized (this) {
 			if (!playerTexturesLoaded) {
 				playerTexturesLoaded = true;
-				Minecraft.getMinecraft().getSkinManager().loadProfileTextures(gameProfile, (typeIn, location, profileTexture) -> {
+				Minecraft.getMinecraft()
+				         .getSkinManager()
+				         .loadProfileTextures(gameProfile, (typeIn, location, profileTexture) -> {
 
-					switch (typeIn) {
-						case SKIN:
-							playerTextures.put(Type.SKIN, location);
-							skinType = profileTexture.getMetadata("model");
+					         switch (typeIn) {
+						         case SKIN:
+							         playerTextures.put(Type.SKIN, location);
+							         skinType = profileTexture.getMetadata("model");
 
-							if (skinType == null) {
-								skinType = "default";
-							}
+							         if (skinType == null) {
+								         skinType = "default";
+							         }
 
-							break;
+							         break;
 
-						case CAPE:
-							playerTextures.put(Type.CAPE, location);
-							break;
+						         case CAPE:
+							         playerTextures.put(Type.CAPE, location);
+							         break;
 
-						case ELYTRA:
-							playerTextures.put(Type.ELYTRA, location);
-					}
-				}, true);
+						         case ELYTRA:
+							         playerTextures.put(Type.ELYTRA, location);
+					         }
+				         }, true);
 			}
 		}
 	}
 
-	
 	public ITextComponent getDisplayName() {
 		return displayName;
 	}

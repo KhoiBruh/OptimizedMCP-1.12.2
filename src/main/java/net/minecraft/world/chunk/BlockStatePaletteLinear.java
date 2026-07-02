@@ -35,8 +35,6 @@ public class BlockStatePaletteLinear implements IBlockStatePalette {
 		}
 	}
 
-	
-
 	/**
 	 * Gets the block state by the palette id.
 	 */

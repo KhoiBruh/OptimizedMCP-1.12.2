@@ -27,7 +27,6 @@ public class BlockStructureVoid extends Block {
 		return BlockRenderType.INVISIBLE;
 	}
 
-	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return NULL_AABB;
 	}

@@ -10,8 +10,6 @@ import java.io.File;
 
 public interface ISaveHandler {
 
-	
-
 	/**
 	 * Loads and returns the world info
 	 */

@@ -8,7 +8,9 @@ final class JomlRotationMath {
 	}
 
 	static Matrix4f modelRotation(int xDegrees, int yDegrees) {
-		return new Matrix4f().identity().rotateY((float) Math.toRadians(-yDegrees)).rotateX((float) Math.toRadians(-xDegrees));
+		return new Matrix4f().identity()
+		                     .rotateY((float) Math.toRadians(-yDegrees))
+		                     .rotateX((float) Math.toRadians(-xDegrees));
 	}
 
 }

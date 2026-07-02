@@ -37,7 +37,12 @@ public class BlockDoor extends Block {
 
 	protected BlockDoor(Material materialIn) {
 		super(materialIn);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(OPEN, false).withProperty(HINGE, BlockDoor.HingePosition.LEFT).withProperty(POWERED, false).withProperty(HALF, BlockDoor.DoorHalf.LOWER));
+		setDefaultState(blockState.getBaseState()
+		                          .withProperty(FACING, Facing.NORTH)
+		                          .withProperty(OPEN, false)
+		                          .withProperty(HINGE, BlockDoor.HingePosition.LEFT)
+		                          .withProperty(POWERED, false)
+		                          .withProperty(HALF, BlockDoor.DoorHalf.LOWER));
 	}
 
 	public static int combineMetadata(IBlockAccess worldIn, BlockPos pos) {
@@ -225,7 +230,8 @@ public class BlockDoor extends Block {
 			} else {
 				boolean flag = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(blockpos1);
 
-				if (blockIn != this && (flag || blockIn.getDefaultState().canProvidePower()) && flag != iblockstate1.getValue(POWERED)) {
+				if (blockIn != this && (flag || blockIn.getDefaultState()
+				                                       .canProvidePower()) && flag != iblockstate1.getValue(POWERED)) {
 					worldIn.setBlockState(blockpos1, iblockstate1.withProperty(POWERED, flag), 2);
 
 					if (flag != state.getValue(OPEN)) {
@@ -252,7 +258,8 @@ public class BlockDoor extends Block {
 		if (pos.getY() >= 255) {
 			return false;
 		} else {
-			return worldIn.getBlockState(pos.down()).isTopSolid() && super.canPlaceBlockAt(worldIn, pos) && super.canPlaceBlockAt(worldIn, pos.up());
+			return worldIn.getBlockState(pos.down())
+			              .isTopSolid() && super.canPlaceBlockAt(worldIn, pos) && super.canPlaceBlockAt(worldIn, pos.up());
 		}
 	}
 
@@ -288,7 +295,8 @@ public class BlockDoor extends Block {
 		BlockPos blockpos = pos.down();
 		BlockPos blockpos1 = pos.up();
 
-		if (player.capabilities.isCreativeMode && state.getValue(HALF) == BlockDoor.DoorHalf.UPPER && worldIn.getBlockState(blockpos).getBlock() == this) {
+		if (player.capabilities.isCreativeMode && state.getValue(HALF) == BlockDoor.DoorHalf.UPPER && worldIn.getBlockState(blockpos)
+		                                                                                                     .getBlock() == this) {
 			worldIn.setBlockToAir(blockpos);
 		}
 
@@ -318,13 +326,15 @@ public class BlockDoor extends Block {
 			IBlockState iblockstate = worldIn.getBlockState(pos.up());
 
 			if (iblockstate.getBlock() == this) {
-				state = state.withProperty(HINGE, iblockstate.getValue(HINGE)).withProperty(POWERED, iblockstate.getValue(POWERED));
+				state = state.withProperty(HINGE, iblockstate.getValue(HINGE))
+				             .withProperty(POWERED, iblockstate.getValue(POWERED));
 			}
 		} else {
 			IBlockState iblockstate1 = worldIn.getBlockState(pos.down());
 
 			if (iblockstate1.getBlock() == this) {
-				state = state.withProperty(FACING, iblockstate1.getValue(FACING)).withProperty(OPEN, iblockstate1.getValue(OPEN));
+				state = state.withProperty(FACING, iblockstate1.getValue(FACING))
+				             .withProperty(OPEN, iblockstate1.getValue(OPEN));
 			}
 		}
 
@@ -344,14 +354,20 @@ public class BlockDoor extends Block {
 	 * blockstate.
 	 */
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-		return mirrorIn == Mirror.NONE ? state : state.withRotation(mirrorIn.toRotation(state.getValue(FACING))).cycleProperty(HINGE);
+		return mirrorIn == Mirror.NONE ? state : state.withRotation(mirrorIn.toRotation(state.getValue(FACING)))
+		                                              .cycleProperty(HINGE);
 	}
 
 	/**
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-		return (meta & 8) > 0 ? getDefaultState().withProperty(HALF, BlockDoor.DoorHalf.UPPER).withProperty(HINGE, (meta & 1) > 0 ? BlockDoor.HingePosition.RIGHT : BlockDoor.HingePosition.LEFT).withProperty(POWERED, (meta & 2) > 0) : getDefaultState().withProperty(HALF, BlockDoor.DoorHalf.LOWER).withProperty(FACING, Facing.getHorizontal(meta & 3).rotateYCCW()).withProperty(OPEN, (meta & 4) > 0);
+		return (meta & 8) > 0 ? getDefaultState().withProperty(HALF, BlockDoor.DoorHalf.UPPER)
+		                                         .withProperty(HINGE, (meta & 1) > 0 ? BlockDoor.HingePosition.RIGHT : BlockDoor.HingePosition.LEFT)
+		                                         .withProperty(POWERED, (meta & 2) > 0) : getDefaultState().withProperty(HALF, BlockDoor.DoorHalf.LOWER)
+		                                                                                                   .withProperty(FACING, Facing.getHorizontal(meta & 3)
+		                                                                                                                               .rotateYCCW())
+		                                                                                                   .withProperty(OPEN, (meta & 4) > 0);
 	}
 
 	/**

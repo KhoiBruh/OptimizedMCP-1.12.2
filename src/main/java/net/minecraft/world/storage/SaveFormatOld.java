@@ -35,7 +35,6 @@ public class SaveFormatOld implements ISaveFormat {
 		savesDirectory = savesDirectoryIn;
 	}
 
-	
 	public static WorldInfo getWorldData(File p_186353_0_, DataFixer dataFixerIn) {
 		try {
 			NBTTagCompound nbttagcompound = CompressedStreamTools.readCompressed(new FileInputStream(p_186353_0_));
@@ -92,8 +91,6 @@ public class SaveFormatOld implements ISaveFormat {
 
 	public void flushCache() {
 	}
-
-	
 
 	/**
 	 * Returns the world's WorldInfo object

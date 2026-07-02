@@ -13,7 +13,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<Facing, BlockPartFace> mapFaces,
-                        BlockPartRotation partRotation, boolean shade) {
+                        BlockPartRotation partRotation, boolean shade
+) {
+
 	public BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<Facing, BlockPartFace> mapFaces, BlockPartRotation partRotation, boolean shade) {
 		this.positionFrom = positionFrom;
 		this.positionTo = positionTo;
@@ -37,9 +39,8 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<Facing, 
 			case SOUTH -> new float[]{positionFrom.x, 16F - positionTo.y, positionTo.x, 16F - positionFrom.y};
 			case WEST -> new float[]{positionFrom.z, 16F - positionTo.y, positionTo.z, 16F - positionFrom.y};
 			case EAST ->
-					new float[]{16F - positionTo.z, 16F - positionTo.y, 16F - positionFrom.z, 16F - positionFrom.y};
-			default ->
-					new float[]{16F - positionTo.x, 16F - positionTo.y, 16F - positionFrom.x, 16F - positionFrom.y};
+				new float[]{16F - positionTo.z, 16F - positionTo.y, 16F - positionFrom.z, 16F - positionFrom.y};
+			default -> new float[]{16F - positionTo.x, 16F - positionTo.y, 16F - positionFrom.x, 16F - positionFrom.y};
 		};
 	}
 
@@ -60,7 +61,6 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<Facing, 
 			}
 		}
 
-		
 		private BlockPartRotation parseRotation(JsonObject object) {
 			BlockPartRotation blockpartrotation = null;
 

@@ -221,10 +221,18 @@ public class FlatPresetsScreen extends Screen {
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferbuilder = tessellator.getBuffer();
 			bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-			bufferbuilder.pos(p_148171_1_, p_148171_2_ + 18, zLevel).tex((float) (p_148171_3_) * 0.0078125F, (float) (p_148171_4_ + 18) * 0.0078125F).endVertex();
-			bufferbuilder.pos(p_148171_1_ + 18, p_148171_2_ + 18, zLevel).tex((float) (p_148171_3_ + 18) * 0.0078125F, (float) (p_148171_4_ + 18) * 0.0078125F).endVertex();
-			bufferbuilder.pos(p_148171_1_ + 18, p_148171_2_, zLevel).tex((float) (p_148171_3_ + 18) * 0.0078125F, (float) (p_148171_4_) * 0.0078125F).endVertex();
-			bufferbuilder.pos(p_148171_1_, p_148171_2_, zLevel).tex((float) (p_148171_3_) * 0.0078125F, (float) (p_148171_4_) * 0.0078125F).endVertex();
+			bufferbuilder.pos(p_148171_1_, p_148171_2_ + 18, zLevel)
+			             .tex((float) (p_148171_3_) * 0.0078125F, (float) (p_148171_4_ + 18) * 0.0078125F)
+			             .endVertex();
+			bufferbuilder.pos(p_148171_1_ + 18, p_148171_2_ + 18, zLevel)
+			             .tex((float) (p_148171_3_ + 18) * 0.0078125F, (float) (p_148171_4_ + 18) * 0.0078125F)
+			             .endVertex();
+			bufferbuilder.pos(p_148171_1_ + 18, p_148171_2_, zLevel)
+			             .tex((float) (p_148171_3_ + 18) * 0.0078125F, (float) (p_148171_4_) * 0.0078125F)
+			             .endVertex();
+			bufferbuilder.pos(p_148171_1_, p_148171_2_, zLevel)
+			             .tex((float) (p_148171_3_) * 0.0078125F, (float) (p_148171_4_) * 0.0078125F)
+			             .endVertex();
 			tessellator.draw();
 		}
 

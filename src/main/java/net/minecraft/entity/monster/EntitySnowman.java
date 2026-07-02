@@ -107,14 +107,14 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 				k = MathHelper.floor(posZ + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
 				BlockPos blockpos = new BlockPos(i, j, k);
 
-				if (world.getBlockState(blockpos).getMaterial() == Material.AIR && world.getBiome(blockpos).getTemperature(blockpos) < 0.8F && Blocks.SNOW_LAYER.canPlaceBlockAt(world, blockpos)) {
+				if (world.getBlockState(blockpos).getMaterial() == Material.AIR && world.getBiome(blockpos)
+				                                                                        .getTemperature(blockpos) < 0.8F && Blocks.SNOW_LAYER.canPlaceBlockAt(world, blockpos)) {
 					world.setBlockState(blockpos, Blocks.SNOW_LAYER.getDefaultState());
 				}
 			}
 		}
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_SNOWMAN;
 	}
@@ -163,17 +163,14 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 		}
 	}
 
-	
 	protected SoundEvent getAmbientSound() {
 		return SoundEvents.ENTITY_SNOWMAN_AMBIENT;
 	}
 
-	
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
 		return SoundEvents.ENTITY_SNOWMAN_HURT;
 	}
 
-	
 	protected SoundEvent getDeathSound() {
 		return SoundEvents.ENTITY_SNOWMAN_DEATH;
 	}

@@ -42,4 +42,5 @@ public class ChatAllowedCharacters {
 
 		return stringbuilder.toString();
 	}
+
 }

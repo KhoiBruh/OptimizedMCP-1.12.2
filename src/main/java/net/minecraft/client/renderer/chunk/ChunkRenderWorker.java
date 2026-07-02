@@ -46,7 +46,8 @@ public class ChunkRenderWorker implements Runnable {
 				return;
 			} catch (Throwable throwable) {
 				CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Batching chunks");
-				Minecraft.getMinecraft().crashed(Minecraft.getMinecraft().addGraphicsAndWorldToCrashReport(crashreport));
+				Minecraft.getMinecraft()
+				         .crashed(Minecraft.getMinecraft().addGraphicsAndWorldToCrashReport(crashreport));
 				return;
 			}
 		}
@@ -74,7 +75,11 @@ public class ChunkRenderWorker implements Runnable {
 				World world = generator.getRenderChunk().getWorld();
 				BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(blockpos1);
 
-				if (!isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(Facing.WEST, 16), world) || !isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(Facing.NORTH, 16), world) || !isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(Facing.EAST, 16), world) || !isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1).move(Facing.SOUTH, 16), world)) {
+				if (!isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1)
+				                                             .move(Facing.WEST, 16), world) || !isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1)
+				                                                                                                                        .move(Facing.NORTH, 16), world) || !isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1)
+				                                                                                                                                                                                                    .move(Facing.EAST, 16), world) || !isChunkExisting(blockpos$mutableblockpos.setPos(blockpos1)
+				                                                                                                                                                                                                                                                                               .move(Facing.SOUTH, 16), world)) {
 					return;
 				}
 			}
@@ -124,11 +129,13 @@ public class ChunkRenderWorker implements Runnable {
 			if (chunkcompiletaskgenerator$type == ChunkCompileTaskGenerator.Type.REBUILD_CHUNK) {
 				for (BlockRenderLayer blockrenderlayer : BlockRenderLayer.values()) {
 					if (compiledchunk.isLayerStarted(blockrenderlayer)) {
-						arraylist.add(chunkRenderDispatcher.uploadChunk(blockrenderlayer, generator.getRegionRenderCacheBuilder().getWorldRendererByLayer(blockrenderlayer), generator.getRenderChunk(), compiledchunk, generator.getDistanceSq()));
+						arraylist.add(chunkRenderDispatcher.uploadChunk(blockrenderlayer, generator.getRegionRenderCacheBuilder()
+						                                                                           .getWorldRendererByLayer(blockrenderlayer), generator.getRenderChunk(), compiledchunk, generator.getDistanceSq()));
 					}
 				}
 			} else if (chunkcompiletaskgenerator$type == ChunkCompileTaskGenerator.Type.RESORT_TRANSPARENCY) {
-				arraylist.add(chunkRenderDispatcher.uploadChunk(BlockRenderLayer.TRANSLUCENT, generator.getRegionRenderCacheBuilder().getWorldRendererByLayer(BlockRenderLayer.TRANSLUCENT), generator.getRenderChunk(), compiledchunk, generator.getDistanceSq()));
+				arraylist.add(chunkRenderDispatcher.uploadChunk(BlockRenderLayer.TRANSLUCENT, generator.getRegionRenderCacheBuilder()
+				                                                                                       .getWorldRendererByLayer(BlockRenderLayer.TRANSLUCENT), generator.getRenderChunk(), compiledchunk, generator.getDistanceSq()));
 			}
 
 			final ListenableFuture<List<Object>> listenablefuture = Futures.allAsList(arraylist);
@@ -161,7 +168,8 @@ public class ChunkRenderWorker implements Runnable {
 					freeRenderBuilder(generator);
 
 					if (!(p_onFailure_1_ instanceof CancellationException) && !(p_onFailure_1_ instanceof InterruptedException)) {
-						Minecraft.getMinecraft().crashed(CrashReport.makeCrashReport(p_onFailure_1_, "Rendering chunk"));
+						Minecraft.getMinecraft()
+						         .crashed(CrashReport.makeCrashReport(p_onFailure_1_, "Rendering chunk"));
 					}
 				}
 			}, MoreExecutors.directExecutor());

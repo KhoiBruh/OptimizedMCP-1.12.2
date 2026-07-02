@@ -24,9 +24,9 @@ public abstract class Enchantment {
 	private final EntityEquipmentSlot[] applicableEquipmentTypes;
 	private final Enchantment.Rarity rarity;
 
-	
-
-	/** The EnchantmentType given to this Enchantment. */
+	/**
+	 * The EnchantmentType given to this Enchantment.
+	 */
 	public EnchantmentType type;
 
 	/**
@@ -39,8 +39,6 @@ public abstract class Enchantment {
 		type = typeIn;
 		applicableEquipmentTypes = slots;
 	}
-
-	
 
 	/**
 	 * Gets an Enchantment from the registry, based on a numeric ID.
@@ -55,8 +53,6 @@ public abstract class Enchantment {
 	public static int getEnchantmentID(Enchantment enchantmentIn) {
 		return REGISTRY.getIDForObject(enchantmentIn);
 	}
-
-	
 
 	/**
 	 * Retrieves an enchantment by using its location name.

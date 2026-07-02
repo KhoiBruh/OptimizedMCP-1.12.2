@@ -98,7 +98,8 @@ public class Explosion {
 							IBlockState iblockstate = world.getBlockState(blockpos);
 
 							if (iblockstate.getMaterial() != Material.AIR) {
-								float f2 = exploder != null ? exploder.getExplosionResistance(this, world, blockpos, iblockstate) : iblockstate.getBlock().getExplosionResistance(null);
+								float f2 = exploder != null ? exploder.getExplosionResistance(this, world, blockpos, iblockstate) : iblockstate.getBlock()
+								                                                                                                               .getExplosionResistance(null);
 								f -= (f2 + 0.3F) * 0.3F;
 							}
 
@@ -214,7 +215,9 @@ public class Explosion {
 
 		if (causesFire) {
 			for (BlockPos blockpos1 : affectedBlockPositions) {
-				if (world.getBlockState(blockpos1).getMaterial() == Material.AIR && world.getBlockState(blockpos1.down()).isFullBlock() && random.nextInt(3) == 0) {
+				if (world.getBlockState(blockpos1)
+				         .getMaterial() == Material.AIR && world.getBlockState(blockpos1.down())
+				                                                .isFullBlock() && random.nextInt(3) == 0) {
 					world.setBlockState(blockpos1, Blocks.FIRE.getDefaultState());
 				}
 			}
@@ -225,8 +228,6 @@ public class Explosion {
 
 		return playerKnockbackMap;
 	}
-
-	
 
 	/**
 	 * Returns either the entity that placed the explosive block, the entity that caused the explosion or null.

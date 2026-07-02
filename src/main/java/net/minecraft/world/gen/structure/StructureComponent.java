@@ -29,9 +29,9 @@ public abstract class StructureComponent {
 	 */
 	protected int componentType;
 
-	
-
-	/** switches the Coordinate System base off the Bounding Box */
+	/**
+	 * switches the Coordinate System base off the Bounding Box
+	 */
 	private Facing coordBaseMode;
 	private Mirror mirror;
 	private Rotation rotation;
@@ -48,7 +48,8 @@ public abstract class StructureComponent {
 	 */
 	public static StructureComponent findIntersecting(List<StructureComponent> listIn, StructureBoundingBox boundingboxIn) {
 		for (StructureComponent structurecomponent : listIn) {
-			if (structurecomponent.getBoundingBox() != null && structurecomponent.getBoundingBox().intersectsWith(boundingboxIn)) {
+			if (structurecomponent.getBoundingBox() != null && structurecomponent.getBoundingBox()
+			                                                                     .intersectsWith(boundingboxIn)) {
 				return structurecomponent;
 			}
 		}
@@ -362,7 +363,9 @@ public abstract class StructureComponent {
 		int k = getZWithOffset(x, z);
 
 		if (boundingboxIn.isVecInside(new BlockPos(i, j, k))) {
-			while ((worldIn.isAirBlock(new BlockPos(i, j, k)) || worldIn.getBlockState(new BlockPos(i, j, k)).getMaterial().isLiquid()) && j > 1) {
+			while ((worldIn.isAirBlock(new BlockPos(i, j, k)) || worldIn.getBlockState(new BlockPos(i, j, k))
+			                                                            .getMaterial()
+			                                                            .isLiquid()) && j > 1) {
 				worldIn.setBlockState(new BlockPos(i, j, k), blockstateIn, 2);
 				--j;
 			}
@@ -400,7 +403,8 @@ public abstract class StructureComponent {
 		BlockPos blockpos = new BlockPos(getXWithOffset(x, z), getYWithOffset(y), getZWithOffset(x, z));
 
 		if (sbb.isVecInside(blockpos) && worldIn.getBlockState(blockpos).getBlock() != Blocks.DISPENSER) {
-			setBlockState(worldIn, Blocks.DISPENSER.getDefaultState().withProperty(BlockDispenser.FACING, facing), x, y, z, sbb);
+			setBlockState(worldIn, Blocks.DISPENSER.getDefaultState()
+			                                       .withProperty(BlockDispenser.FACING, facing), x, y, z, sbb);
 			TileEntity tileentity = worldIn.getTileEntity(blockpos);
 
 			if (tileentity instanceof TileEntityDispenser) {
@@ -415,14 +419,15 @@ public abstract class StructureComponent {
 
 	protected void generateDoor(World worldIn, StructureBoundingBox sbb, Random rand, int x, int y, int z, Facing facing, BlockDoor door) {
 		setBlockState(worldIn, door.getDefaultState().withProperty(BlockDoor.FACING, facing), x, y, z, sbb);
-		setBlockState(worldIn, door.getDefaultState().withProperty(BlockDoor.FACING, facing).withProperty(BlockDoor.HALF, BlockDoor.DoorHalf.UPPER), x, y + 1, z, sbb);
+		setBlockState(worldIn, door.getDefaultState()
+		                           .withProperty(BlockDoor.FACING, facing)
+		                           .withProperty(BlockDoor.HALF, BlockDoor.DoorHalf.UPPER), x, y + 1, z, sbb);
 	}
 
 	public void offset(int x, int y, int z) {
 		boundingBox.offset(x, y, z);
 	}
 
-	
 	public Facing getCoordBaseMode() {
 		return coordBaseMode;
 	}

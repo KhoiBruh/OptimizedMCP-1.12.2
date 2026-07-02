@@ -52,7 +52,8 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	public void startExecuting() {
-		creature.getNavigator().tryMoveToXYZ((double) ((float) destinationBlock.getX()) + 0.5D, destinationBlock.getY() + 1, (double) ((float) destinationBlock.getZ()) + 0.5D, movementSpeed);
+		creature.getNavigator()
+		        .tryMoveToXYZ((double) ((float) destinationBlock.getX()) + 0.5D, destinationBlock.getY() + 1, (double) ((float) destinationBlock.getZ()) + 0.5D, movementSpeed);
 		timeoutCounter = 0;
 		maxStayTicks = creature.getRNG().nextInt(creature.getRNG().nextInt(1200) + 1200) + 1200;
 	}
@@ -66,7 +67,8 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase {
 			++timeoutCounter;
 
 			if (timeoutCounter % 40 == 0) {
-				creature.getNavigator().tryMoveToXYZ((double) ((float) destinationBlock.getX()) + 0.5D, destinationBlock.getY() + 1, (double) ((float) destinationBlock.getZ()) + 0.5D, movementSpeed);
+				creature.getNavigator()
+				        .tryMoveToXYZ((double) ((float) destinationBlock.getX()) + 0.5D, destinationBlock.getY() + 1, (double) ((float) destinationBlock.getZ()) + 0.5D, movementSpeed);
 			}
 		} else {
 			isAboveDestination = true;

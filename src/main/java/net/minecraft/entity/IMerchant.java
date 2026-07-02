@@ -10,12 +10,10 @@ import net.minecraft.world.World;
 
 public interface IMerchant {
 
-	
 	EntityPlayer getCustomer();
 
 	void setCustomer(EntityPlayer player);
 
-	
 	MerchantRecipeList getRecipes(EntityPlayer player);
 
 	void setRecipes(MerchantRecipeList recipeList);

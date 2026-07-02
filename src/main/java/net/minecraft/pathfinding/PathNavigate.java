@@ -24,9 +24,9 @@ public abstract class PathNavigate {
 	protected EntityLiving entity;
 	protected World world;
 
-	
-
-	/** The PathEntity being followed. */
+	/**
+	 * The PathEntity being followed.
+	 */
 	protected Path currentPath;
 	protected double speed;
 	/**
@@ -95,16 +95,12 @@ public abstract class PathNavigate {
 		}
 	}
 
-	
-
 	/**
 	 * Returns the path to the given coordinates. Args : x, y, z
 	 */
 	public final Path getPathToXYZ(double x, double y, double z) {
 		return getPathToPos(new BlockPos(x, y, z));
 	}
-
-	
 
 	/**
 	 * Returns path to given BlockPos
@@ -126,8 +122,6 @@ public abstract class PathNavigate {
 			return path;
 		}
 	}
-
-	
 
 	/**
 	 * Returns the path to the given EntityLiving. Args : entity
@@ -195,8 +189,6 @@ public abstract class PathNavigate {
 			}
 		}
 	}
-
-	
 
 	/**
 	 * gets the actively used PathEntity

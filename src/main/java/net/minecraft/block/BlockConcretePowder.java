@@ -27,7 +27,8 @@ public class BlockConcretePowder extends BlockFalling {
 
 	public void onEndFalling(World worldIn, BlockPos pos, IBlockState p_176502_3_, IBlockState p_176502_4_) {
 		if (p_176502_4_.getMaterial().isLiquid()) {
-			worldIn.setBlockState(pos, Blocks.CONCRETE.getDefaultState().withProperty(BlockColored.COLOR, p_176502_3_.getValue(COLOR)), 3);
+			worldIn.setBlockState(pos, Blocks.CONCRETE.getDefaultState()
+			                                          .withProperty(BlockColored.COLOR, p_176502_3_.getValue(COLOR)), 3);
 		}
 	}
 
@@ -46,7 +47,8 @@ public class BlockConcretePowder extends BlockFalling {
 		}
 
 		if (flag) {
-			worldIn.setBlockState(pos, Blocks.CONCRETE.getDefaultState().withProperty(BlockColored.COLOR, state.getValue(COLOR)), 3);
+			worldIn.setBlockState(pos, Blocks.CONCRETE.getDefaultState()
+			                                          .withProperty(BlockColored.COLOR, state.getValue(COLOR)), 3);
 		}
 
 		return flag;

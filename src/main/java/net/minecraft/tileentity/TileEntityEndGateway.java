@@ -57,7 +57,6 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 		return worldIn.getChunkFromChunkCoords(MathHelper.floor(vec3.x() / 16D), MathHelper.floor(vec3.z() / 16D));
 	}
 
-	
 	private static BlockPos findSpawnpointInChunk(Chunk chunkIn) {
 		BlockPos blockpos = new BlockPos(chunkIn.x * 16, 30, chunkIn.z * 16);
 		int i = chunkIn.getTopFilledSegment() + 16 - 1;
@@ -68,7 +67,9 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 		for (BlockPos blockpos3 : BlockPos.getAllInBox(blockpos, blockpos1)) {
 			IBlockState iblockstate = chunkIn.getBlockState(blockpos3);
 
-			if (iblockstate.getBlock() == Blocks.END_STONE && !chunkIn.getBlockState(blockpos3.up(1)).isBlockNormalCube() && !chunkIn.getBlockState(blockpos3.up(2)).isBlockNormalCube()) {
+			if (iblockstate.getBlock() == Blocks.END_STONE && !chunkIn.getBlockState(blockpos3.up(1))
+			                                                          .isBlockNormalCube() && !chunkIn.getBlockState(blockpos3.up(2))
+			                                                                                          .isBlockNormalCube()) {
 				double d1 = blockpos3.distanceSqToCenter(0D, 0D, 0D);
 
 				if (blockpos2 == null || d1 < d0) {
@@ -154,7 +155,6 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 		return 1F - MathHelper.clamp(((float) teleportCooldown - p_184305_1_) / 40F, 0F, 1F);
 	}
 
-	
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		return new SPacketUpdateTileEntity(pos, 8, getUpdateTag());
 	}

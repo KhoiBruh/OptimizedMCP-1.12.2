@@ -33,7 +33,13 @@ public class BlockWall extends Block {
 
 	public BlockWall(Block modelBlock) {
 		super(modelBlock.blockMaterial);
-		setDefaultState(blockState.getBaseState().withProperty(UP, false).withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false).withProperty(VARIANT, BlockWall.Type.NORMAL));
+		setDefaultState(blockState.getBaseState()
+		                          .withProperty(UP, false)
+		                          .withProperty(NORTH, false)
+		                          .withProperty(EAST, false)
+		                          .withProperty(SOUTH, false)
+		                          .withProperty(WEST, false)
+		                          .withProperty(VARIANT, BlockWall.Type.NORMAL));
 		setHardness(modelBlock.blockHardness);
 		setResistance(modelBlock.blockResistance / 3F);
 		setSoundType(modelBlock.blockSoundType);
@@ -79,7 +85,6 @@ public class BlockWall extends Block {
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, CLIP_AABB_BY_INDEX[getAABBIndex(state)]);
 	}
 
-	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		blockState = getActualState(blockState, worldIn, pos);
 		return CLIP_AABB_BY_INDEX[getAABBIndex(blockState)];
@@ -163,7 +168,11 @@ public class BlockWall extends Block {
 		boolean flag2 = canConnectTo(worldIn, pos.south(), Facing.NORTH);
 		boolean flag3 = canConnectTo(worldIn, pos.west(), Facing.EAST);
 		boolean flag4 = flag && !flag1 && flag2 && !flag3 || !flag && flag1 && !flag2 && flag3;
-		return state.withProperty(UP, !flag4 || !worldIn.isAirBlock(pos.up())).withProperty(NORTH, flag).withProperty(EAST, flag1).withProperty(SOUTH, flag2).withProperty(WEST, flag3);
+		return state.withProperty(UP, !flag4 || !worldIn.isAirBlock(pos.up()))
+		            .withProperty(NORTH, flag)
+		            .withProperty(EAST, flag1)
+		            .withProperty(SOUTH, flag2)
+		            .withProperty(WEST, flag3);
 	}
 
 	protected BlockStateContainer createBlockState() {

@@ -76,7 +76,6 @@ public class BlockBush extends Block {
 		return BUSH_AABB;
 	}
 
-	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return NULL_AABB;
 	}

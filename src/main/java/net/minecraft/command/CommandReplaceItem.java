@@ -209,4 +209,5 @@ public class CommandReplaceItem extends CommandBase {
 	public boolean isUsernameIndex(String[] args, int index) {
 		return args.length > 0 && "entity".equals(args[0]) && index == 1;
 	}
+
 }

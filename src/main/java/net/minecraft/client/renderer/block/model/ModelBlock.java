@@ -22,7 +22,14 @@ import java.util.Set;
 public class ModelBlock {
 
 	@VisibleForTesting
-	static final Gson SERIALIZER = (new GsonBuilder()).registerTypeAdapter(ModelBlock.class, new ModelBlock.Deserializer()).registerTypeAdapter(BlockPart.class, new BlockPart.Deserializer()).registerTypeAdapter(BlockPartFace.class, new BlockPartFace.Deserializer()).registerTypeAdapter(BlockFaceUV.class, new BlockFaceUV.Deserializer()).registerTypeAdapter(ItemTransformVec3f.class, new ItemTransformVec3f.Deserializer()).registerTypeAdapter(ItemCameraTransforms.class, new ItemCameraTransforms.Deserializer()).registerTypeAdapter(ItemOverride.class, new ItemOverride.Deserializer()).create();
+	static final Gson SERIALIZER = (new GsonBuilder()).registerTypeAdapter(ModelBlock.class, new ModelBlock.Deserializer())
+	                                                  .registerTypeAdapter(BlockPart.class, new BlockPart.Deserializer())
+	                                                  .registerTypeAdapter(BlockPartFace.class, new BlockPartFace.Deserializer())
+	                                                  .registerTypeAdapter(BlockFaceUV.class, new BlockFaceUV.Deserializer())
+	                                                  .registerTypeAdapter(ItemTransformVec3f.class, new ItemTransformVec3f.Deserializer())
+	                                                  .registerTypeAdapter(ItemCameraTransforms.class, new ItemCameraTransforms.Deserializer())
+	                                                  .registerTypeAdapter(ItemOverride.class, new ItemOverride.Deserializer())
+	                                                  .create();
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	@VisibleForTesting
@@ -158,7 +165,6 @@ public class ModelBlock {
 		return hash.charAt(0) == '#';
 	}
 
-	
 	public ResourceLocation getParentLocation() {
 		return parentLocation;
 	}

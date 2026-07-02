@@ -120,7 +120,6 @@ public class WoodlandMansionPieces {
 			return (floorRooms[p_191114_4_].get(p_191114_2_, p_191114_3_) & 65535) == p_191114_5_;
 		}
 
-		
 		public Facing get1x2RoomDirection(WoodlandMansionPieces.SimpleGrid p_191113_1_, int p_191113_2_, int p_191113_3_, int p_191113_4_, int p_191113_5_) {
 			for (Facing enumfacing : Facing.Plane.HORIZONTAL.facings()) {
 				if (isRoomId(p_191113_1_, p_191113_2_ + enumfacing.getFrontOffsetX(), p_191113_3_ + enumfacing.getFrontOffsetZ(), p_191113_4_, p_191113_5_)) {
@@ -371,7 +370,9 @@ public class WoodlandMansionPieces {
 
 		private void loadTemplate(TemplateManager p_191081_1_) {
 			Template template = p_191081_1_.getTemplate(null, new ResourceLocation("mansion/" + templateName));
-			PlacementSettings placementsettings = (new PlacementSettings()).setIgnoreEntities(true).setRotation(rotation).setMirror(mirror);
+			PlacementSettings placementsettings = (new PlacementSettings()).setIgnoreEntities(true)
+			                                                               .setRotation(rotation)
+			                                                               .setMirror(mirror);
 			setup(template, templatePosition, placementsettings);
 		}
 
@@ -511,19 +512,24 @@ public class WoodlandMansionPieces {
 							p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "corridor_floor", blockpos1, p_191125_2_));
 
 							if (woodlandmansionpieces$simplegrid3.get(j1, i1 - 1) == 1 || (woodlandmansionpieces$simplegrid2.get(j1, i1 - 1) & 8388608) == 8388608) {
-								p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "carpet_north", blockpos1.offset(p_191125_2_.rotate(Facing.EAST), 1).up(), p_191125_2_));
+								p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "carpet_north", blockpos1.offset(p_191125_2_.rotate(Facing.EAST), 1)
+								                                                                                                    .up(), p_191125_2_));
 							}
 
 							if (woodlandmansionpieces$simplegrid3.get(j1 + 1, i1) == 1 || (woodlandmansionpieces$simplegrid2.get(j1 + 1, i1) & 8388608) == 8388608) {
-								p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "carpet_east", blockpos1.offset(p_191125_2_.rotate(Facing.SOUTH), 1).offset(p_191125_2_.rotate(Facing.EAST), 5).up(), p_191125_2_));
+								p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, "carpet_east", blockpos1.offset(p_191125_2_.rotate(Facing.SOUTH), 1)
+								                                                                                                   .offset(p_191125_2_.rotate(Facing.EAST), 5)
+								                                                                                                   .up(), p_191125_2_));
 							}
 
 							if (woodlandmansionpieces$simplegrid3.get(j1, i1 + 1) == 1 || (woodlandmansionpieces$simplegrid2.get(j1, i1 + 1) & 8388608) == 8388608) {
-								p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, s, blockpos1.offset(p_191125_2_.rotate(Facing.SOUTH), 5).offset(p_191125_2_.rotate(Facing.WEST), 1), p_191125_2_));
+								p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, s, blockpos1.offset(p_191125_2_.rotate(Facing.SOUTH), 5)
+								                                                                                       .offset(p_191125_2_.rotate(Facing.WEST), 1), p_191125_2_));
 							}
 
 							if (woodlandmansionpieces$simplegrid3.get(j1 - 1, i1) == 1 || (woodlandmansionpieces$simplegrid2.get(j1 - 1, i1) & 8388608) == 8388608) {
-								p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, s1, blockpos1.offset(p_191125_2_.rotate(Facing.WEST), 1).offset(p_191125_2_.rotate(Facing.NORTH), 1), p_191125_2_));
+								p_191125_3_.add(new WoodlandMansionPieces.MansionTemplate(templateManager, s1, blockpos1.offset(p_191125_2_.rotate(Facing.WEST), 1)
+								                                                                                        .offset(p_191125_2_.rotate(Facing.NORTH), 1), p_191125_2_));
 							}
 						}
 					}
@@ -620,7 +626,9 @@ public class WoodlandMansionPieces {
 					if (i != p_191130_7_ || j != p_191130_8_ || enumfacing != p_191130_4_) {
 						traverseWallPiece(p_191130_1_, p_191130_2_);
 					}
-				} else if (WoodlandMansionPieces.Grid.isHouse(p_191130_3_, i + p_191130_4_.getFrontOffsetX(), j + p_191130_4_.getFrontOffsetZ()) && WoodlandMansionPieces.Grid.isHouse(p_191130_3_, i + p_191130_4_.getFrontOffsetX() + p_191130_4_.rotateYCCW().getFrontOffsetX(), j + p_191130_4_.getFrontOffsetZ() + p_191130_4_.rotateYCCW().getFrontOffsetZ())) {
+				} else if (WoodlandMansionPieces.Grid.isHouse(p_191130_3_, i + p_191130_4_.getFrontOffsetX(), j + p_191130_4_.getFrontOffsetZ()) && WoodlandMansionPieces.Grid.isHouse(p_191130_3_, i + p_191130_4_.getFrontOffsetX() + p_191130_4_.rotateYCCW()
+				                                                                                                                                                                                                                                   .getFrontOffsetX(), j + p_191130_4_.getFrontOffsetZ() + p_191130_4_.rotateYCCW()
+				                                                                                                                                                                                                                                                                                                      .getFrontOffsetZ())) {
 					traverseInnerTurn(p_191130_1_, p_191130_2_);
 					i += p_191130_4_.getFrontOffsetX();
 					j += p_191130_4_.getFrontOffsetZ();

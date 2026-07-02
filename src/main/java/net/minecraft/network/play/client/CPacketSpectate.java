@@ -40,7 +40,6 @@ public class CPacketSpectate implements Packet<INetHandlerPlayServer> {
 		handler.handleSpectate(this);
 	}
 
-	
 	public Entity getEntity(WorldServer worldIn) {
 		return worldIn.getEntityFromUuid(id);
 	}

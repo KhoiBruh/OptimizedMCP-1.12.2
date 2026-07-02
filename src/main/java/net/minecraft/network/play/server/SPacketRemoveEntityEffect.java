@@ -43,12 +43,10 @@ public class SPacketRemoveEntityEffect implements Packet<INetHandlerPlayClient> 
 		handler.handleRemoveEntityEffect(this);
 	}
 
-	
 	public Entity getEntity(World worldIn) {
 		return worldIn.getEntityByID(entityId);
 	}
 
-	
 	public Potion getPotion() {
 		return effectId;
 	}

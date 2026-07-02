@@ -26,17 +26,14 @@ public class PathFinder {
 		nodeProcessor = processor;
 	}
 
-	
 	public Path findPath(IBlockAccess worldIn, EntityLiving entitylivingIn, Entity targetEntity, float maxDistance) {
 		return findPath(worldIn, entitylivingIn, targetEntity.posX, targetEntity.getEntityBoundingBox().minY, targetEntity.posZ, maxDistance);
 	}
 
-	
 	public Path findPath(IBlockAccess worldIn, EntityLiving entitylivingIn, BlockPos targetPos, float maxDistance) {
 		return findPath(worldIn, entitylivingIn, (float) targetPos.getX() + 0.5F, (float) targetPos.getY() + 0.5F, (float) targetPos.getZ() + 0.5F, maxDistance);
 	}
 
-	
 	private Path findPath(IBlockAccess worldIn, EntityLiving entitylivingIn, double x, double y, double z, float maxDistance) {
 		path.clearPath();
 		nodeProcessor.init(worldIn, entitylivingIn);
@@ -47,7 +44,6 @@ public class PathFinder {
 		return path;
 	}
 
-	
 	private Path findPath(PathPoint pathFrom, PathPoint pathTo, float maxDistance) {
 		pathFrom.totalPathDistance = 0F;
 		pathFrom.distanceToNext = pathFrom.distanceManhattan(pathTo);

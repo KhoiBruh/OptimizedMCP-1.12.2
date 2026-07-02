@@ -70,8 +70,6 @@ public class EntitySelector {
 		return argument;
 	}
 
-	
-
 	/**
 	 * Returns the one player that matches the given at-token.  Returns null if more than one player matches.
 	 */
@@ -83,14 +81,12 @@ public class EntitySelector {
 		return matchEntities(sender, token, EntityPlayerMP.class);
 	}
 
-	
 	public static <T extends Entity> T matchOneEntity(ICommandSender sender, String token, Class<? extends T> targetClass) throws CommandException {
 
 		List<T> list = matchEntities(sender, token, targetClass);
 		return (T) (list.size() == 1 ? (Entity) list.getFirst() : null);
 	}
 
-	
 	public static ITextComponent matchEntitiesToTextComponent(ICommandSender sender, String token) throws CommandException {
 		List<Entity> list = matchEntities(sender, token, Entity.class);
 
@@ -511,7 +507,9 @@ public class EntitySelector {
 				Collections.shuffle(matchingEntities);
 			}
 		} else {
-			matchingEntities.sort((Comparator<Entity>) (p_compare_1_, p_compare_2_) -> ComparisonChain.start().compare(p_compare_1_.getDistanceSq(pos.x(), pos.y(), pos.z()), p_compare_2_.getDistanceSq(pos.x(), pos.y(), pos.z())).result());
+			matchingEntities.sort((Comparator<Entity>) (p_compare_1_, p_compare_2_) -> ComparisonChain.start()
+			                                                                                          .compare(p_compare_1_.getDistanceSq(pos.x(), pos.y(), pos.z()), p_compare_2_.getDistanceSq(pos.x(), pos.y(), pos.z()))
+			                                                                                          .result());
 		}
 
 		Entity entity = sender.getCommandSenderEntity();
@@ -570,7 +568,6 @@ public class EntitySelector {
 		return params.containsKey(key) ? MathHelper.getInt(params.get(key), defaultI) : defaultI;
 	}
 
-	
 	private static String getArgument(Map<String, String> params, String key) {
 		return params.get(key);
 	}

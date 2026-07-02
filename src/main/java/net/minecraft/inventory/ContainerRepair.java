@@ -95,7 +95,8 @@ public class ContainerRepair extends Container {
 				maximumCost = 0;
 				IBlockState iblockstate = worldIn.getBlockState(blockPosIn);
 
-				if (!thePlayer.capabilities.isCreativeMode && !worldIn.isRemote && iblockstate.getBlock() == Blocks.ANVIL && thePlayer.getRNG().nextFloat() < 0.12F) {
+				if (!thePlayer.capabilities.isCreativeMode && !worldIn.isRemote && iblockstate.getBlock() == Blocks.ANVIL && thePlayer.getRNG()
+				                                                                                                                      .nextFloat() < 0.12F) {
 					int l = iblockstate.getValue(BlockAnvil.DAMAGE);
 					++l;
 
@@ -157,7 +158,8 @@ public class ContainerRepair extends Container {
 			materialCost = 0;
 
 			if (!itemstack2.isEmpty()) {
-				boolean flag = itemstack2.getItem() == Items.ENCHANTED_BOOK && !ItemEnchantedBook.getEnchantments(itemstack2).hasNoTags();
+				boolean flag = itemstack2.getItem() == Items.ENCHANTED_BOOK && !ItemEnchantedBook.getEnchantments(itemstack2)
+				                                                                                 .hasNoTags();
 
 				if (itemstack1.isItemStackDamageable() && itemstack1.getItem().getIsRepairable(itemstack, itemstack2)) {
 					int l2 = Math.min(itemstack1.getItemDamage(), itemstack1.getMaxDamage() / 4);

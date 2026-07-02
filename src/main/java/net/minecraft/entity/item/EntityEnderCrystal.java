@@ -142,7 +142,6 @@ public class EntityEnderCrystal extends Entity {
 		}
 	}
 
-	
 	public BlockPos getBeamTarget() {
 		return getDataManager().get(BEAM_TARGET).orNull();
 	}

@@ -1,7 +1,6 @@
 package net.minecraft.entity.monster;
 
 import com.google.common.base.Optional;
-import com.google.common.base.Predicate;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -167,9 +166,11 @@ public class EntityEnderman extends EntityMob {
 		IBlockState iblockstate;
 
 		if (compound.hasKey("carried", 8)) {
-			iblockstate = Block.getBlockFromName(compound.getString("carried")).getStateFromMeta(compound.getShort("carriedData") & 65535);
+			iblockstate = Block.getBlockFromName(compound.getString("carried"))
+			                   .getStateFromMeta(compound.getShort("carriedData") & 65535);
 		} else {
-			iblockstate = Block.getBlockById(compound.getShort("carried")).getStateFromMeta(compound.getShort("carriedData") & 65535);
+			iblockstate = Block.getBlockById(compound.getShort("carried"))
+			                   .getStateFromMeta(compound.getShort("carriedData") & 65535);
 		}
 
 		if (iblockstate == null || iblockstate.getBlock() == null || iblockstate.getMaterial() == Material.AIR) {
@@ -296,12 +297,9 @@ public class EntityEnderman extends EntityMob {
 		}
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_ENDERMAN;
 	}
-
-	
 
 	/**
 	 * Gets this enderman's held block state

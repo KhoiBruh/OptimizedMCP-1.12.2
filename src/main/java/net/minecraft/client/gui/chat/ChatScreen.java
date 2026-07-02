@@ -238,11 +238,11 @@ public class ChatScreen extends Screen implements ITabCompleter {
 					stringbuilder.append(s);
 				}
 
-				client.ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new TextComponentString(stringbuilder.toString()), 1);
+				client.ingameGUI.getChatGUI()
+				                .printChatMessageWithOptionalDeletion(new TextComponentString(stringbuilder.toString()), 1);
 			}
 		}
 
-		
 		public BlockPos getTargetBlockPos() {
 			BlockPos blockpos = null;
 

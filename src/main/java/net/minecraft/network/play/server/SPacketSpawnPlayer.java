@@ -71,7 +71,6 @@ public class SPacketSpawnPlayer implements Packet<INetHandlerPlayClient> {
 		handler.handleSpawnPlayer(this);
 	}
 
-	
 	public List<EntityDataManager.DataEntry<?>> getDataManagerEntries() {
 
 		return dataManagerEntries;

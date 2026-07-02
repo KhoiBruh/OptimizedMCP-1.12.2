@@ -105,4 +105,5 @@ public class SpawnEggNames implements IFixableData {
 
 		return compound;
 	}
+
 }

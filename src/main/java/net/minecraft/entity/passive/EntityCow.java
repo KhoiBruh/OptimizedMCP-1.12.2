@@ -69,7 +69,6 @@ public class EntityCow extends EntityAnimal {
 		return 0.4F;
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_COW;
 	}

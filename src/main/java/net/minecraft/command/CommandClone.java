@@ -188,7 +188,8 @@ public class CommandClone extends CommandBase {
 								for (NextTickListEntry nextticklistentry : list5) {
 									if (structureboundingbox.isVecInside(nextticklistentry.position)) {
 										BlockPos blockpos8 = nextticklistentry.position.add(blockpos3);
-										world.scheduleBlockUpdate(blockpos8, nextticklistentry.getBlock(), (int) (nextticklistentry.scheduledTime - world.getWorldInfo().getWorldTotalTime()), nextticklistentry.priority);
+										world.scheduleBlockUpdate(blockpos8, nextticklistentry.getBlock(), (int) (nextticklistentry.scheduledTime - world.getWorldInfo()
+										                                                                                                                 .getWorldTotalTime()), nextticklistentry.priority);
 									}
 								}
 							}
@@ -227,6 +228,7 @@ public class CommandClone extends CommandBase {
 	}
 
 	record StaticCloneData(BlockPos pos, IBlockState blockState, NBTTagCompound nbt) {
+
 	}
 
 }

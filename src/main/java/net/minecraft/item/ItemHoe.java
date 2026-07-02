@@ -60,7 +60,8 @@ public class ItemHoe extends Item {
 							return ActionResult.SUCCESS;
 
 						case COARSE_DIRT:
-							setBlock(itemstack, player, worldIn, pos, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
+							setBlock(itemstack, player, worldIn, pos, Blocks.DIRT.getDefaultState()
+							                                                     .withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
 							return ActionResult.SUCCESS;
 					}
 				}

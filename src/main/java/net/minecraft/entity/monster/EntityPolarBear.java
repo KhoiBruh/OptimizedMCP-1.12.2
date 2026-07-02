@@ -88,7 +88,6 @@ public class EntityPolarBear extends EntityAnimal {
 		}
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_POLAR_BEAR;
 	}

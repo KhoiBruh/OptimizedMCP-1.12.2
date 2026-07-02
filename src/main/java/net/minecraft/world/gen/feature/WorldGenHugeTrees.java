@@ -66,7 +66,8 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree {
 
 				for (int k = -j; k <= j && flag; ++k) {
 					for (int l = -j; l <= j && flag; ++l) {
-						if (leavesPos.getY() + i < 0 || leavesPos.getY() + i >= 256 || !canGrowInto(worldIn.getBlockState(leavesPos.add(k, i, l)).getBlock())) {
+						if (leavesPos.getY() + i < 0 || leavesPos.getY() + i >= 256 || !canGrowInto(worldIn.getBlockState(leavesPos.add(k, i, l))
+						                                                                                   .getBlock())) {
 							flag = false;
 						}
 					}

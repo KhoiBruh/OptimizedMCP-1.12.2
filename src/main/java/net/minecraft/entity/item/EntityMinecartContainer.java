@@ -149,7 +149,6 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
 		return 64;
 	}
 
-	
 	public Entity changeDimension(int dimensionIn) {
 		dropContentsWhenDead = false;
 		return super.changeDimension(dimensionIn);

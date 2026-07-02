@@ -25,7 +25,6 @@ public class EntitySkeleton extends AbstractSkeleton {
 		EntityLiving.registerFixesMob(fixer, EntitySkeleton.class);
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_SKELETON;
 	}

@@ -22,17 +22,13 @@ public class ThreadDownloadImageData extends SimpleTexture {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final AtomicInteger TEXTURE_DOWNLOADER_THREAD_ID = new AtomicInteger(0);
 
-	
 	private final File cacheFile;
 	private final String imageUrl;
 
-	
 	private final IImageBuffer imageBuffer;
 
-	
 	private BufferedImage bufferedImage;
 
-	
 	private Thread imageThread;
 	private boolean textureUploaded;
 
@@ -101,7 +97,9 @@ public class ThreadDownloadImageData extends SimpleTexture {
 				ThreadDownloadImageData.LOGGER.debug("Downloading http texture from {} to {}", imageUrl, cacheFile);
 
 				try {
-					httpurlconnection = (HttpURLConnection) URI.create(imageUrl).toURL().openConnection(Minecraft.getMinecraft().getProxy());
+					httpurlconnection = (HttpURLConnection) URI.create(imageUrl)
+					                                           .toURL()
+					                                           .openConnection(Minecraft.getMinecraft().getProxy());
 					httpurlconnection.setDoInput(true);
 					httpurlconnection.setDoOutput(false);
 					httpurlconnection.connect();

@@ -79,7 +79,6 @@ public class EmptyChunk extends Chunk {
 		return false;
 	}
 
-	
 	public TileEntity getTileEntity(BlockPos pos, Chunk.CreateEntityType creationMode) {
 		return null;
 	}

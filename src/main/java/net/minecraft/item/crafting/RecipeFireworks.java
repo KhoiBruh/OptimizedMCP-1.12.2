@@ -73,7 +73,8 @@ public class RecipeFireworks implements IRecipe {
 					for (int k2 = 0; k2 < inv.getSizeInventory(); ++k2) {
 						ItemStack itemstack3 = inv.getStackInSlot(k2);
 
-						if (itemstack3.getItem() == Items.FIREWORK_CHARGE && itemstack3.hasTagCompound() && itemstack3.getTagCompound().hasKey("Explosion", 10)) {
+						if (itemstack3.getItem() == Items.FIREWORK_CHARGE && itemstack3.hasTagCompound() && itemstack3.getTagCompound()
+						                                                                                              .hasKey("Explosion", 10)) {
 							nbttaglist.appendTag(itemstack3.getTagCompound().getCompoundTag("Explosion"));
 						}
 					}

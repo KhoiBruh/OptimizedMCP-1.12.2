@@ -72,7 +72,8 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 		RenderHelper.enableGUIStandardItemLighting();
 
 		for (int i = 0; i < 9; ++i) {
-			renderSlot(i, mc.getWindow().getScaledWidth() / 2 - 90 + i * 20 + 2, p_175258_4_ + 3F, p_175258_2_, p_175258_5_.getObject(i));
+			renderSlot(i, mc.getWindow()
+			                .getScaledWidth() / 2 - 90 + i * 20 + 2, p_175258_4_ + 3F, p_175258_2_, p_175258_5_.getObject(i));
 		}
 
 		RenderHelper.disableStandardItemLighting();
@@ -104,7 +105,10 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 
 		if (i > 3 && menu != null) {
 			ISpectatorMenuObject ispectatormenuobject = menu.getSelectedItem();
-			String s = ispectatormenuobject == SpectatorMenu.EMPTY_SLOT ? menu.getSelectedCategory().getPrompt().getFormattedText() : ispectatormenuobject.getSpectatorName().getFormattedText();
+			String s = ispectatormenuobject == SpectatorMenu.EMPTY_SLOT ? menu.getSelectedCategory()
+			                                                                  .getPrompt()
+			                                                                  .getFormattedText() : ispectatormenuobject.getSpectatorName()
+			                                                                                                            .getFormattedText();
 
 			if (s != null) {
 				int j = (mc.getWindow().getScaledWidth() - mc.fontRenderer.getStringWidth(s)) / 2;
@@ -131,7 +135,8 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 	public void onMouseScroll(int p_175259_1_) {
 		int i;
 
-		for (i = menu.getSelectedSlot() + p_175259_1_; i >= 0 && i <= 8 && (menu.getItem(i) == SpectatorMenu.EMPTY_SLOT || !menu.getItem(i).isEnabled()); i += p_175259_1_) {
+		for (i = menu.getSelectedSlot() + p_175259_1_; i >= 0 && i <= 8 && (menu.getItem(i) == SpectatorMenu.EMPTY_SLOT || !menu.getItem(i)
+		                                                                                                                        .isEnabled()); i += p_175259_1_) {
 		}
 
 		if (i >= 0 && i <= 8) {

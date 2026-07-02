@@ -31,8 +31,6 @@ public class BlockStatePaletteHashMap implements IBlockStatePalette {
 		return i;
 	}
 
-	
-
 	/**
 	 * Gets the block state by the palette id.
 	 */

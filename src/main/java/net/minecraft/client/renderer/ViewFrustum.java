@@ -119,7 +119,6 @@ public class ViewFrustum {
 		}
 	}
 
-	
 	protected RenderChunk getRenderChunk(BlockPos pos) {
 		int i = MathHelper.intFloorDiv(pos.getX(), 16);
 		int j = MathHelper.intFloorDiv(pos.getY(), 16);

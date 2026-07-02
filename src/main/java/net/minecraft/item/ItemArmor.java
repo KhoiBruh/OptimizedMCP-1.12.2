@@ -77,8 +77,10 @@ public class ItemArmor extends Item {
 	}
 
 	public static ItemStack dispenseArmor(IBlockSource blockSource, ItemStack stack) {
-		BlockPos blockpos = blockSource.getBlockPos().offset(blockSource.getBlockState().getValue(BlockDispenser.FACING));
-		List<EntityLivingBase> list = blockSource.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(blockpos), Predicates.and(EntitySelectors.NOT_SPECTATING, new EntitySelectors.ArmoredMob(stack)));
+		BlockPos blockpos = blockSource.getBlockPos()
+		                               .offset(blockSource.getBlockState().getValue(BlockDispenser.FACING));
+		List<EntityLivingBase> list = blockSource.getWorld()
+		                                         .getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(blockpos), Predicates.and(EntitySelectors.NOT_SPECTATING, new EntitySelectors.ArmoredMob(stack)));
 
 		if (list.isEmpty()) {
 			return ItemStack.EMPTY;
@@ -126,7 +128,8 @@ public class ItemArmor extends Item {
 			return false;
 		} else {
 			NBTTagCompound nbttagcompound = stack.getTagCompound();
-			return nbttagcompound != null && nbttagcompound.hasKey("display", 10) && nbttagcompound.getCompoundTag("display").hasKey("color", 3);
+			return nbttagcompound != null && nbttagcompound.hasKey("display", 10) && nbttagcompound.getCompoundTag("display")
+			                                                                                       .hasKey("color", 3);
 		}
 	}
 

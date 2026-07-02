@@ -14,7 +14,6 @@ public interface IResource extends Closeable {
 
 	boolean hasMetadata();
 
-	
 	<T extends IMetadataSection> T getMetadata(String sectionName);
 
 	String getResourcePackName();

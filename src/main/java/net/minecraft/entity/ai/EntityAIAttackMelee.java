@@ -113,7 +113,9 @@ public class EntityAIAttackMelee extends EntityAIBase {
 		double d0 = attacker.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ);
 		--delayCounter;
 
-		if ((longMemory || attacker.getEntitySenses().canSee(entitylivingbase)) && delayCounter <= 0 && (targetX == 0D && targetY == 0D && targetZ == 0D || entitylivingbase.getDistanceSq(targetX, targetY, targetZ) >= 1D || attacker.getRNG().nextFloat() < 0.05F)) {
+		if ((longMemory || attacker.getEntitySenses()
+		                           .canSee(entitylivingbase)) && delayCounter <= 0 && (targetX == 0D && targetY == 0D && targetZ == 0D || entitylivingbase.getDistanceSq(targetX, targetY, targetZ) >= 1D || attacker.getRNG()
+		                                                                                                                                                                                                             .nextFloat() < 0.05F)) {
 			targetX = entitylivingbase.posX;
 			targetY = entitylivingbase.getEntityBoundingBox().minY;
 			targetZ = entitylivingbase.posZ;

@@ -66,7 +66,6 @@ public class BlockFaceUV {
 			}
 		}
 
-		
 		private float[] parseUV(JsonObject object) {
 			if (!object.has("uv")) {
 				return null;

@@ -58,7 +58,8 @@ public final class GuiPanoramaBackground {
 
 	private static void ensureBackgroundTexture(Minecraft mc) {
 		if (backgroundTexture == null) {
-			backgroundTexture = mc.getTextureManager().getDynamicTextureLocation("shared_menu_panorama", VIEWPORT_TEXTURE);
+			backgroundTexture = mc.getTextureManager()
+			                      .getDynamicTextureLocation("shared_menu_panorama", VIEWPORT_TEXTURE);
 		}
 	}
 
@@ -155,4 +156,5 @@ public final class GuiPanoramaBackground {
 		GLS.enableAlpha();
 		GLS.colorMask(true, true, true, true);
 	}
+
 }

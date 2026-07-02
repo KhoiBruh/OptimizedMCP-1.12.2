@@ -324,10 +324,16 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 				dragonPartWing2.setLocationAndAngles(posX - (double) (f18 * 4.5F), posY + 2D, posZ - (double) (f3 * 4.5F), 0F, 0F);
 
 				if (!world.isRemote && hurtTime == 0) {
-					collideWithEntities(world.getEntitiesWithinAABBExcludingEntity(this, dragonPartWing1.getEntityBoundingBox().grow(4D, 2D, 4D).offset(0D, -2D, 0D)));
-					collideWithEntities(world.getEntitiesWithinAABBExcludingEntity(this, dragonPartWing2.getEntityBoundingBox().grow(4D, 2D, 4D).offset(0D, -2D, 0D)));
-					attackEntitiesInList(world.getEntitiesWithinAABBExcludingEntity(this, dragonPartHead.getEntityBoundingBox().grow(1D)));
-					attackEntitiesInList(world.getEntitiesWithinAABBExcludingEntity(this, dragonPartNeck.getEntityBoundingBox().grow(1D)));
+					collideWithEntities(world.getEntitiesWithinAABBExcludingEntity(this, dragonPartWing1.getEntityBoundingBox()
+					                                                                                    .grow(4D, 2D, 4D)
+					                                                                                    .offset(0D, -2D, 0D)));
+					collideWithEntities(world.getEntitiesWithinAABBExcludingEntity(this, dragonPartWing2.getEntityBoundingBox()
+					                                                                                    .grow(4D, 2D, 4D)
+					                                                                                    .offset(0D, -2D, 0D)));
+					attackEntitiesInList(world.getEntitiesWithinAABBExcludingEntity(this, dragonPartHead.getEntityBoundingBox()
+					                                                                                    .grow(1D)));
+					attackEntitiesInList(world.getEntitiesWithinAABBExcludingEntity(this, dragonPartNeck.getEntityBoundingBox()
+					                                                                                    .grow(1D)));
 				}
 
 				double[] adouble = getMovementOffsets(5, 1F);
@@ -439,7 +445,8 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 				double d4 = d2 * d2 + d3 * d3;
 				entity.addVelocity(d2 / d4 * 4D, 0.20000000298023224D, d3 / d4 * 4D);
 
-				if (!phaseManager.getCurrentPhase().getIsStationary() && ((EntityLivingBase) entity).getRevengeTimer() < entity.ticksExisted - 2) {
+				if (!phaseManager.getCurrentPhase()
+				                 .getIsStationary() && ((EntityLivingBase) entity).getRevengeTimer() < entity.ticksExisted - 2) {
 					entity.attackEntityFrom(DamageSource.causeMobDamage(this), 5F);
 					applyEnchantments(this, entity);
 				}
@@ -660,7 +667,8 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 					i1 = (int) (20F * MathHelper.sin(2F * (-(float) Math.PI + ((float) Math.PI / 4F) * (float) k1)));
 				}
 
-				int j1 = Math.max(world.getSeaLevel() + 10, world.getTopSolidOrLiquidBlock(new BlockPos(l, 0, i1)).getY() + j);
+				int j1 = Math.max(world.getSeaLevel() + 10, world.getTopSolidOrLiquidBlock(new BlockPos(l, 0, i1))
+				                                                 .getY() + j);
 				pathPoints[i] = new PathPoint(l, j1, i1);
 			}
 
@@ -720,12 +728,10 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 		return i;
 	}
 
-	
-
 	/**
 	 * Find and return a path among the circles described by pathPoints, or null if the shortest path would just be
 	 * directly between the start and finish with no intermediate points.
-	 *
+	 * <p>
 	 * Starting with pathPoint[startIdx], it searches the neighboring points (and their neighboring points, and so on)
 	 * until it reaches pathPoint[finishIdx], at which point it calls makePath to seal the deal.
 	 */
@@ -903,7 +909,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 		return 5F;
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_ENDER_DRAGON;
 	}
@@ -987,7 +992,6 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 		return phaseManager;
 	}
 
-	
 	public DragonFightManager getFightManager() {
 		return fightManager;
 	}

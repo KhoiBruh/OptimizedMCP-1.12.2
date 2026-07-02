@@ -237,8 +237,11 @@ public class StructureMineshaftPieces {
 		protected boolean generateChest(World worldIn, StructureBoundingBox structurebb, Random randomIn, int x, int y, int z, ResourceLocation loot) {
 			BlockPos blockpos = new BlockPos(getXWithOffset(x, z), getYWithOffset(y), getZWithOffset(x, z));
 
-			if (structurebb.isVecInside(blockpos) && worldIn.getBlockState(blockpos).getMaterial() == Material.AIR && worldIn.getBlockState(blockpos.down()).getMaterial() != Material.AIR) {
-				IBlockState iblockstate = Blocks.RAIL.getDefaultState().withProperty(BlockRail.SHAPE, randomIn.nextBoolean() ? BlockRailBase.RailDirection.NORTH_SOUTH : BlockRailBase.RailDirection.EAST_WEST);
+			if (structurebb.isVecInside(blockpos) && worldIn.getBlockState(blockpos)
+			                                                .getMaterial() == Material.AIR && worldIn.getBlockState(blockpos.down())
+			                                                                                         .getMaterial() != Material.AIR) {
+				IBlockState iblockstate = Blocks.RAIL.getDefaultState()
+				                                     .withProperty(BlockRail.SHAPE, randomIn.nextBoolean() ? BlockRailBase.RailDirection.NORTH_SOUTH : BlockRailBase.RailDirection.EAST_WEST);
 				setBlockState(worldIn, iblockstate, x, y, z, structurebb);
 				EntityMinecartChest entityminecartchest = new EntityMinecartChest(worldIn, (float) blockpos.getX() + 0.5F, (float) blockpos.getY() + 0.5F, (float) blockpos.getZ() + 0.5F);
 				entityminecartchest.setLootTable(loot, randomIn.nextLong());
@@ -299,7 +302,8 @@ public class StructureMineshaftPieces {
 							TileEntity tileentity = worldIn.getTileEntity(blockpos);
 
 							if (tileentity instanceof TileEntityMobSpawner) {
-								((TileEntityMobSpawner) tileentity).getSpawnerBaseLogic().setEntityId(EntityList.getKey(EntityCaveSpider.class));
+								((TileEntityMobSpawner) tileentity).getSpawnerBaseLogic()
+								                                   .setEntityId(EntityList.getKey(EntityCaveSpider.class));
 							}
 						}
 					}
@@ -318,7 +322,8 @@ public class StructureMineshaftPieces {
 				}
 
 				if (hasRails) {
-					IBlockState iblockstate1 = Blocks.RAIL.getDefaultState().withProperty(BlockRail.SHAPE, BlockRailBase.RailDirection.NORTH_SOUTH);
+					IBlockState iblockstate1 = Blocks.RAIL.getDefaultState()
+					                                      .withProperty(BlockRail.SHAPE, BlockRailBase.RailDirection.NORTH_SOUTH);
 
 					for (int j3 = 0; j3 <= i1; ++j3) {
 						IBlockState iblockstate2 = getBlockStateFromPos(worldIn, 1, -1, j3, structureBoundingBoxIn);
@@ -347,8 +352,10 @@ public class StructureMineshaftPieces {
 					fillWithBlocks(p_189921_1_, p_189921_2_, p_189921_7_, p_189921_6_, p_189921_5_, p_189921_7_, p_189921_6_, p_189921_5_, iblockstate, iblockstate2, false);
 				} else {
 					fillWithBlocks(p_189921_1_, p_189921_2_, p_189921_3_, p_189921_6_, p_189921_5_, p_189921_7_, p_189921_6_, p_189921_5_, iblockstate, iblockstate2, false);
-					randomlyPlaceBlock(p_189921_1_, p_189921_2_, p_189921_8_, 0.05F, p_189921_3_ + 1, p_189921_6_, p_189921_5_ - 1, Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, Facing.NORTH));
-					randomlyPlaceBlock(p_189921_1_, p_189921_2_, p_189921_8_, 0.05F, p_189921_3_ + 1, p_189921_6_, p_189921_5_ + 1, Blocks.TORCH.getDefaultState().withProperty(BlockTorch.FACING, Facing.SOUTH));
+					randomlyPlaceBlock(p_189921_1_, p_189921_2_, p_189921_8_, 0.05F, p_189921_3_ + 1, p_189921_6_, p_189921_5_ - 1, Blocks.TORCH.getDefaultState()
+					                                                                                                                            .withProperty(BlockTorch.FACING, Facing.NORTH));
+					randomlyPlaceBlock(p_189921_1_, p_189921_2_, p_189921_8_, 0.05F, p_189921_3_ + 1, p_189921_6_, p_189921_5_ + 1, Blocks.TORCH.getDefaultState()
+					                                                                                                                            .withProperty(BlockTorch.FACING, Facing.SOUTH));
 				}
 			}
 		}
@@ -537,7 +544,7 @@ public class StructureMineshaftPieces {
 		protected IBlockState getPlanksBlock() {
 			return switch (mineShaftType) {
 				case MESA ->
-						Blocks.PLANKS.getDefaultState().withProperty(BlockPlanks.VARIANT, BlockPlanks.Type.DARK_OAK);
+					Blocks.PLANKS.getDefaultState().withProperty(BlockPlanks.VARIANT, BlockPlanks.Type.DARK_OAK);
 				default -> Blocks.PLANKS.getDefaultState();
 			};
 		}

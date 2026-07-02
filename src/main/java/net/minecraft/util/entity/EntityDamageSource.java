@@ -12,7 +12,6 @@ import net.minecraft.util.text.translation.I18n;
 
 public class EntityDamageSource extends DamageSource {
 
-	
 	protected Entity damageSourceEntity;
 
 	/**
@@ -36,8 +35,6 @@ public class EntityDamageSource extends DamageSource {
 	public boolean getIsThornsDamage() {
 		return isThornsDamage;
 	}
-
-	
 
 	/**
 	 * Retrieves the true causer of the damage, e.g. the player who fired an arrow, the shulker who fired the bullet,
@@ -63,8 +60,6 @@ public class EntityDamageSource extends DamageSource {
 	public boolean isDifficultyScaled() {
 		return damageSourceEntity != null && damageSourceEntity instanceof EntityLivingBase && !(damageSourceEntity instanceof EntityPlayer);
 	}
-
-	
 
 	/**
 	 * Gets the location from which the damage originates.

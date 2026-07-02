@@ -129,8 +129,6 @@ public abstract class Render<T extends Entity> {
 		renderLivingLabel(entityIn, name, x, y, z, 64);
 	}
 
-	
-
 	/**
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */

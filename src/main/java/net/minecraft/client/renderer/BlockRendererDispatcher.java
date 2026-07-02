@@ -37,7 +37,8 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
 			state = state.getActualState(blockAccess, pos);
 			IBakedModel ibakedmodel = blockModelShapes.getModelForState(state);
 			IBakedModel ibakedmodel1 = (new SimpleBakedModel.Builder(state, ibakedmodel, texture, pos)).makeBakedModel();
-			blockModelRenderer.renderModel(blockAccess, ibakedmodel1, state, pos, Tessellator.getInstance().getBuffer(), true);
+			blockModelRenderer.renderModel(blockAccess, ibakedmodel1, state, pos, Tessellator.getInstance()
+			                                                                                 .getBuffer(), true);
 		}
 	}
 
@@ -57,7 +58,7 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
 
 				return switch (enumblockrendertype) {
 					case MODEL ->
-							blockModelRenderer.renderModel(blockAccess, getModelForState(state), state, pos, bufferBuilderIn, true);
+						blockModelRenderer.renderModel(blockAccess, getModelForState(state), state, pos, bufferBuilderIn, true);
 					case LIQUID -> fluidRenderer.renderFluid(blockAccess, state, pos, bufferBuilderIn);
 					default -> false;
 				};
@@ -65,7 +66,8 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
 		} catch (Throwable throwable) {
 			CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Tesselating block in world");
 			CrashReportCategory crashreportcategory = crashreport.makeCategory("Block being tesselated");
-			CrashReportCategory.addBlockInfo(crashreportcategory, pos, state.getBlock(), state.getBlock().getMetaFromState(state));
+			CrashReportCategory.addBlockInfo(crashreportcategory, pos, state.getBlock(), state.getBlock()
+			                                                                                  .getMetaFromState(state));
 			throw new ReportedException(crashreport);
 		}
 	}

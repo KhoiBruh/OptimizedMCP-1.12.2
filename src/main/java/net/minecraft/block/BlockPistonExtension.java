@@ -47,12 +47,14 @@ public class BlockPistonExtension extends BlockDirectional {
 
 	public BlockPistonExtension() {
 		super(Material.PISTON);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, Facing.NORTH).withProperty(TYPE, BlockPistonExtension.PistonType.DEFAULT).withProperty(SHORT, false));
+		setDefaultState(blockState.getBaseState()
+		                          .withProperty(FACING, Facing.NORTH)
+		                          .withProperty(TYPE, BlockPistonExtension.PistonType.DEFAULT)
+		                          .withProperty(SHORT, false));
 		setSoundType(SoundType.STONE);
 		setHardness(0.5F);
 	}
 
-	
 	public static Facing getFacing(int meta) {
 		int i = meta & 7;
 		return i > 5 ? null : Facing.getFront(i);
@@ -187,7 +189,8 @@ public class BlockPistonExtension extends BlockDirectional {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(TYPE, (meta & 8) > 0 ? BlockPistonExtension.PistonType.STICKY : BlockPistonExtension.PistonType.DEFAULT);
+		return getDefaultState().withProperty(FACING, getFacing(meta))
+		                        .withProperty(TYPE, (meta & 8) > 0 ? BlockPistonExtension.PistonType.STICKY : BlockPistonExtension.PistonType.DEFAULT);
 	}
 
 	/**

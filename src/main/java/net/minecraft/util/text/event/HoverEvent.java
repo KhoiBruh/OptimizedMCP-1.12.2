@@ -6,6 +6,7 @@ import net.minecraft.util.text.ITextComponent;
 import java.util.Map;
 
 public record HoverEvent(Action action, ITextComponent value) {
+
 	/**
 	 * Gets the action to perform when this event is raised.
 	 */

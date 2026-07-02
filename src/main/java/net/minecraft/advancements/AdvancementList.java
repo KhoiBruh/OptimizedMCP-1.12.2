@@ -126,7 +126,6 @@ public class AdvancementList {
 		return advancements.values();
 	}
 
-	
 	public Advancement getAdvancement(ResourceLocation id) {
 		return advancements.get(id);
 	}

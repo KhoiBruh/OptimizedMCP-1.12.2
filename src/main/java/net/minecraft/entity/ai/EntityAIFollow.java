@@ -39,7 +39,8 @@ public class EntityAIFollow extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean shouldExecute() {
-		List<EntityLiving> list = entity.world.getEntitiesWithinAABB(EntityLiving.class, entity.getEntityBoundingBox().grow(areaSize), followPredicate);
+		List<EntityLiving> list = entity.world.getEntitiesWithinAABB(EntityLiving.class, entity.getEntityBoundingBox()
+		                                                                                       .grow(areaSize), followPredicate);
 
 		if (!list.isEmpty()) {
 			for (EntityLiving entityliving : list) {
@@ -83,7 +84,8 @@ public class EntityAIFollow extends EntityAIBase {
 	 */
 	public void updateTask() {
 		if (followingEntity != null && !entity.getLeashed()) {
-			entity.getLookHelper().setLookPositionWithEntity(followingEntity, 10F, (float) entity.getVerticalFaceSpeed());
+			entity.getLookHelper()
+			      .setLookPositionWithEntity(followingEntity, 10F, (float) entity.getVerticalFaceSpeed());
 
 			if (--timeToRecalcPath <= 0) {
 				timeToRecalcPath = 10;

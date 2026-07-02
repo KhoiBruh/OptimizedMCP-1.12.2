@@ -1,9 +1,9 @@
 package net.minecraft.util.registry;
+
 import java.util.Set;
 
 public interface IRegistry<K, V> extends Iterable<V> {
 
-	
 	V getObject(K name);
 
 	/**

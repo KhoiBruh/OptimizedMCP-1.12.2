@@ -76,7 +76,8 @@ public class CommandTestForBlock extends CommandBase {
 
 					if (block1 != block) {
 						throw new CommandException("commands.testforblock.failed.tile", blockpos.getX(), blockpos.getY(), blockpos.getZ(), block1.getLocalizedName(), block.getLocalizedName());
-					} else if (args.length >= 5 && !CommandBase.convertArgToBlockStatePredicate(block, args[4]).apply(iblockstate)) {
+					} else if (args.length >= 5 && !CommandBase.convertArgToBlockStatePredicate(block, args[4])
+					                                           .apply(iblockstate)) {
 						try {
 							int i = iblockstate.getBlock().getMetaFromState(iblockstate);
 							throw new CommandException("commands.testforblock.failed.data", blockpos.getX(), blockpos.getY(), blockpos.getZ(), i, Integer.parseInt(args[4]));

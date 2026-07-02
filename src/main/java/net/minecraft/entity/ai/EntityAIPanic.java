@@ -71,7 +71,6 @@ public class EntityAIPanic extends EntityAIBase {
 		return !creature.getNavigator().noPath();
 	}
 
-	
 	private BlockPos getRandPos(World worldIn, Entity entityIn, int horizontalRange, int verticalRange) {
 		BlockPos blockpos = new BlockPos(entityIn);
 		int i = blockpos.getX();

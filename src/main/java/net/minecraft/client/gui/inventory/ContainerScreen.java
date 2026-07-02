@@ -247,7 +247,9 @@ public abstract class ContainerScreen extends Screen {
 			if (Container.canAddItemToSlot(slotIn, itemstack1, true) && inventorySlots.canDragIntoSlot(slotIn)) {
 				itemstack = itemstack1.copy();
 				flag = true;
-				Container.computeStackSize(dragSplittingSlots, dragSplittingLimit, itemstack, slotIn.getStack().isEmpty() ? 0 : slotIn.getStack().getCount());
+				Container.computeStackSize(dragSplittingSlots, dragSplittingLimit, itemstack, slotIn.getStack()
+				                                                                                    .isEmpty() ? 0 : slotIn.getStack()
+				                                                                                                           .getCount());
 				int k = Math.min(itemstack.getMaxStackSize(), slotIn.getItemStackLimit(itemstack));
 
 				if (itemstack.getCount() > k) {
@@ -379,7 +381,8 @@ public abstract class ContainerScreen extends Screen {
 							ClickType clicktype = ClickType.PICKUP;
 
 							if (flag2) {
-								shiftClickedSlot = slot != null && slot.getHasStack() ? slot.getStack().copy() : ItemStack.EMPTY;
+								shiftClickedSlot = slot != null && slot.getHasStack() ? slot.getStack()
+								                                                            .copy() : ItemStack.EMPTY;
 								clicktype = ClickType.QUICK_MOVE;
 							} else if (l == -999) {
 								clicktype = ClickType.THROW;
@@ -546,7 +549,8 @@ public abstract class ContainerScreen extends Screen {
 					boolean flag1 = k != -999 && (Keyboard.isKeyDown(340) || Keyboard.isKeyDown(344));
 
 					if (flag1) {
-						shiftClickedSlot = slot != null && slot.getHasStack() ? slot.getStack().copy() : ItemStack.EMPTY;
+						shiftClickedSlot = slot != null && slot.getHasStack() ? slot.getStack()
+						                                                            .copy() : ItemStack.EMPTY;
 					}
 
 					handleMouseClick(slot, k, state, flag1 ? ClickType.QUICK_MOVE : ClickType.PICKUP);

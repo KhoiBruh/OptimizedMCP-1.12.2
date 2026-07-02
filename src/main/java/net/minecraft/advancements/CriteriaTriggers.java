@@ -48,7 +48,6 @@ public class CriteriaTriggers {
 		}
 	}
 
-	
 	public static <T extends ICriterionInstance> ICriterionTrigger<T> get(ResourceLocation id) {
 
 		return (ICriterionTrigger<T>) REGISTRY.get(id);

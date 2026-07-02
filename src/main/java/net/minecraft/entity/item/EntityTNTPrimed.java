@@ -14,7 +14,6 @@ public class EntityTNTPrimed extends Entity {
 
 	private static final DataParameter<Integer> FUSE = EntityDataManager.createKey(EntityTNTPrimed.class, DataSerializers.VARINT);
 
-	
 	private EntityLivingBase tntPlacedBy;
 
 	/**
@@ -118,8 +117,6 @@ public class EntityTNTPrimed extends Entity {
 	protected void readEntityFromNBT(NBTTagCompound compound) {
 		setFuse(compound.getShort("Fuse"));
 	}
-
-	
 
 	/**
 	 * returns null or the entityliving it was placed or ignited by

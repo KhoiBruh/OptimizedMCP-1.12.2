@@ -30,41 +30,60 @@ public class StatList {
 	/**
 	 * number of times you've left a game
 	 */
-	public static final StatBase LEAVE_GAME = (new StatBasic("stat.leaveGame", new TextComponentTranslation("stat.leaveGame"))).initIndependentStat().registerStat();
-	public static final StatBase PLAY_ONE_MINUTE = (new StatBasic("stat.playOneMinute", new TextComponentTranslation("stat.playOneMinute"), StatBase.timeStatType)).initIndependentStat().registerStat();
-	public static final StatBase TIME_SINCE_DEATH = (new StatBasic("stat.timeSinceDeath", new TextComponentTranslation("stat.timeSinceDeath"), StatBase.timeStatType)).initIndependentStat().registerStat();
-	public static final StatBase SNEAK_TIME = (new StatBasic("stat.sneakTime", new TextComponentTranslation("stat.sneakTime"), StatBase.timeStatType)).initIndependentStat().registerStat();
-	public static final StatBase WALK_ONE_CM = (new StatBasic("stat.walkOneCm", new TextComponentTranslation("stat.walkOneCm"), StatBase.distanceStatType)).initIndependentStat().registerStat();
-	public static final StatBase CROUCH_ONE_CM = (new StatBasic("stat.crouchOneCm", new TextComponentTranslation("stat.crouchOneCm"), StatBase.distanceStatType)).initIndependentStat().registerStat();
-	public static final StatBase SPRINT_ONE_CM = (new StatBasic("stat.sprintOneCm", new TextComponentTranslation("stat.sprintOneCm"), StatBase.distanceStatType)).initIndependentStat().registerStat();
+	public static final StatBase LEAVE_GAME = (new StatBasic("stat.leaveGame", new TextComponentTranslation("stat.leaveGame"))).initIndependentStat()
+	                                                                                                                           .registerStat();
+	public static final StatBase PLAY_ONE_MINUTE = (new StatBasic("stat.playOneMinute", new TextComponentTranslation("stat.playOneMinute"), StatBase.timeStatType)).initIndependentStat()
+	                                                                                                                                                               .registerStat();
+	public static final StatBase TIME_SINCE_DEATH = (new StatBasic("stat.timeSinceDeath", new TextComponentTranslation("stat.timeSinceDeath"), StatBase.timeStatType)).initIndependentStat()
+	                                                                                                                                                                  .registerStat();
+	public static final StatBase SNEAK_TIME = (new StatBasic("stat.sneakTime", new TextComponentTranslation("stat.sneakTime"), StatBase.timeStatType)).initIndependentStat()
+	                                                                                                                                                  .registerStat();
+	public static final StatBase WALK_ONE_CM = (new StatBasic("stat.walkOneCm", new TextComponentTranslation("stat.walkOneCm"), StatBase.distanceStatType)).initIndependentStat()
+	                                                                                                                                                       .registerStat();
+	public static final StatBase CROUCH_ONE_CM = (new StatBasic("stat.crouchOneCm", new TextComponentTranslation("stat.crouchOneCm"), StatBase.distanceStatType)).initIndependentStat()
+	                                                                                                                                                             .registerStat();
+	public static final StatBase SPRINT_ONE_CM = (new StatBasic("stat.sprintOneCm", new TextComponentTranslation("stat.sprintOneCm"), StatBase.distanceStatType)).initIndependentStat()
+	                                                                                                                                                             .registerStat();
 
 	/**
 	 * distance you have swam
 	 */
-	public static final StatBase SWIM_ONE_CM = (new StatBasic("stat.swimOneCm", new TextComponentTranslation("stat.swimOneCm"), StatBase.distanceStatType)).initIndependentStat().registerStat();
+	public static final StatBase SWIM_ONE_CM = (new StatBasic("stat.swimOneCm", new TextComponentTranslation("stat.swimOneCm"), StatBase.distanceStatType)).initIndependentStat()
+	                                                                                                                                                       .registerStat();
 
 	/**
 	 * the distance you have fallen
 	 */
-	public static final StatBase FALL_ONE_CM = (new StatBasic("stat.fallOneCm", new TextComponentTranslation("stat.fallOneCm"), StatBase.distanceStatType)).initIndependentStat().registerStat();
-	public static final StatBase CLIMB_ONE_CM = (new StatBasic("stat.climbOneCm", new TextComponentTranslation("stat.climbOneCm"), StatBase.distanceStatType)).initIndependentStat().registerStat();
-	public static final StatBase FLY_ONE_CM = (new StatBasic("stat.flyOneCm", new TextComponentTranslation("stat.flyOneCm"), StatBase.distanceStatType)).initIndependentStat().registerStat();
-	public static final StatBase DIVE_ONE_CM = (new StatBasic("stat.diveOneCm", new TextComponentTranslation("stat.diveOneCm"), StatBase.distanceStatType)).initIndependentStat().registerStat();
-	public static final StatBase MINECART_ONE_CM = (new StatBasic("stat.minecartOneCm", new TextComponentTranslation("stat.minecartOneCm"), StatBase.distanceStatType)).initIndependentStat().registerStat();
-	public static final StatBase BOAT_ONE_CM = (new StatBasic("stat.boatOneCm", new TextComponentTranslation("stat.boatOneCm"), StatBase.distanceStatType)).initIndependentStat().registerStat();
-	public static final StatBase PIG_ONE_CM = (new StatBasic("stat.pigOneCm", new TextComponentTranslation("stat.pigOneCm"), StatBase.distanceStatType)).initIndependentStat().registerStat();
-	public static final StatBase HORSE_ONE_CM = (new StatBasic("stat.horseOneCm", new TextComponentTranslation("stat.horseOneCm"), StatBase.distanceStatType)).initIndependentStat().registerStat();
-	public static final StatBase AVIATE_ONE_CM = (new StatBasic("stat.aviateOneCm", new TextComponentTranslation("stat.aviateOneCm"), StatBase.distanceStatType)).initIndependentStat().registerStat();
+	public static final StatBase FALL_ONE_CM = (new StatBasic("stat.fallOneCm", new TextComponentTranslation("stat.fallOneCm"), StatBase.distanceStatType)).initIndependentStat()
+	                                                                                                                                                       .registerStat();
+	public static final StatBase CLIMB_ONE_CM = (new StatBasic("stat.climbOneCm", new TextComponentTranslation("stat.climbOneCm"), StatBase.distanceStatType)).initIndependentStat()
+	                                                                                                                                                          .registerStat();
+	public static final StatBase FLY_ONE_CM = (new StatBasic("stat.flyOneCm", new TextComponentTranslation("stat.flyOneCm"), StatBase.distanceStatType)).initIndependentStat()
+	                                                                                                                                                    .registerStat();
+	public static final StatBase DIVE_ONE_CM = (new StatBasic("stat.diveOneCm", new TextComponentTranslation("stat.diveOneCm"), StatBase.distanceStatType)).initIndependentStat()
+	                                                                                                                                                       .registerStat();
+	public static final StatBase MINECART_ONE_CM = (new StatBasic("stat.minecartOneCm", new TextComponentTranslation("stat.minecartOneCm"), StatBase.distanceStatType)).initIndependentStat()
+	                                                                                                                                                                   .registerStat();
+	public static final StatBase BOAT_ONE_CM = (new StatBasic("stat.boatOneCm", new TextComponentTranslation("stat.boatOneCm"), StatBase.distanceStatType)).initIndependentStat()
+	                                                                                                                                                       .registerStat();
+	public static final StatBase PIG_ONE_CM = (new StatBasic("stat.pigOneCm", new TextComponentTranslation("stat.pigOneCm"), StatBase.distanceStatType)).initIndependentStat()
+	                                                                                                                                                    .registerStat();
+	public static final StatBase HORSE_ONE_CM = (new StatBasic("stat.horseOneCm", new TextComponentTranslation("stat.horseOneCm"), StatBase.distanceStatType)).initIndependentStat()
+	                                                                                                                                                          .registerStat();
+	public static final StatBase AVIATE_ONE_CM = (new StatBasic("stat.aviateOneCm", new TextComponentTranslation("stat.aviateOneCm"), StatBase.distanceStatType)).initIndependentStat()
+	                                                                                                                                                             .registerStat();
 
 	/**
 	 * the times you've jumped
 	 */
-	public static final StatBase JUMP = (new StatBasic("stat.jump", new TextComponentTranslation("stat.jump"))).initIndependentStat().registerStat();
+	public static final StatBase JUMP = (new StatBasic("stat.jump", new TextComponentTranslation("stat.jump"))).initIndependentStat()
+	                                                                                                           .registerStat();
 
 	/**
 	 * the distance you've dropped (or times you've fallen?)
 	 */
-	public static final StatBase DROP = (new StatBasic("stat.drop", new TextComponentTranslation("stat.drop"))).initIndependentStat().registerStat();
+	public static final StatBase DROP = (new StatBasic("stat.drop", new TextComponentTranslation("stat.drop"))).initIndependentStat()
+	                                                                                                           .registerStat();
 	public static final StatBase DAMAGE_DEALT = (new StatBasic("stat.damageDealt", new TextComponentTranslation("stat.damageDealt"), StatBase.divideByTen)).registerStat();
 	public static final StatBase DAMAGE_TAKEN = (new StatBasic("stat.damageTaken", new TextComponentTranslation("stat.damageTaken"), StatBase.divideByTen)).registerStat();
 	public static final StatBase DEATHS = (new StatBasic("stat.deaths", new TextComponentTranslation("stat.deaths"))).registerStat();
@@ -119,32 +138,26 @@ public class StatList {
 	private static final StatBase[] OBJECTS_PICKED_UP_STATS = new StatBase[32000];
 	private static final StatBase[] OBJECTS_DROPPED_STATS = new StatBase[32000];
 
-	
 	public static StatBase getBlockStats(Block blockIn) {
 		return BLOCKS_STATS[Block.getIdFromBlock(blockIn)];
 	}
 
-	
 	public static StatBase getCraftStats(Item itemIn) {
 		return CRAFTS_STATS[Item.getIdFromItem(itemIn)];
 	}
 
-	
 	public static StatBase getObjectUseStats(Item itemIn) {
 		return OBJECT_USE_STATS[Item.getIdFromItem(itemIn)];
 	}
 
-	
 	public static StatBase getObjectBreakStats(Item itemIn) {
 		return OBJECT_BREAK_STATS[Item.getIdFromItem(itemIn)];
 	}
 
-	
 	public static StatBase getObjectsPickedUpStats(Item itemIn) {
 		return OBJECTS_PICKED_UP_STATS[Item.getIdFromItem(itemIn)];
 	}
 
-	
 	public static StatBase getDroppedObjectStats(Item itemIn) {
 		return OBJECTS_DROPPED_STATS[Item.getIdFromItem(itemIn)];
 	}
@@ -310,7 +323,6 @@ public class StatList {
 		return s == null ? null : (new StatBase("stat.entityKilledBy." + s, new TextComponentTranslation("stat.entityKilledBy", new TextComponentTranslation("entity." + s + ".name")))).registerStat();
 	}
 
-	
 	public static StatBase getOneShotStat(String statName) {
 		return ID_TO_STAT_MAP.get(statName);
 	}

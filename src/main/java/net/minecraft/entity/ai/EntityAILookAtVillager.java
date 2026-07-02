@@ -23,7 +23,8 @@ public class EntityAILookAtVillager extends EntityAIBase {
 		} else if (ironGolem.getRNG().nextInt(8000) != 0) {
 			return false;
 		} else {
-			villager = (EntityVillager) ironGolem.world.findNearestEntityWithinAABB(EntityVillager.class, ironGolem.getEntityBoundingBox().grow(6D, 2D, 6D), ironGolem);
+			villager = (EntityVillager) ironGolem.world.findNearestEntityWithinAABB(EntityVillager.class, ironGolem.getEntityBoundingBox()
+			                                                                                                       .grow(6D, 2D, 6D), ironGolem);
 			return villager != null;
 		}
 	}

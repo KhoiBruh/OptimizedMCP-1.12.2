@@ -48,7 +48,8 @@ public class BlockDropper extends BlockDispenser {
 					if (iinventory == null) {
 						itemstack1 = dropBehavior.dispense(blocksourceimpl, itemstack);
 					} else {
-						itemstack1 = TileEntityHopper.putStackInInventoryAllSlots(tileentitydispenser, iinventory, itemstack.copy().splitStack(1), enumfacing.getOpposite());
+						itemstack1 = TileEntityHopper.putStackInInventoryAllSlots(tileentitydispenser, iinventory, itemstack.copy()
+						                                                                                                    .splitStack(1), enumfacing.getOpposite());
 
 						if (itemstack1.isEmpty()) {
 							itemstack1 = itemstack.copy();

@@ -74,7 +74,8 @@ public class BlockGrassPath extends Block {
 	 * Get the Item that this Block should drop when harvested.
 	 */
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Blocks.DIRT.getItemDropped(Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT), rand, fortune);
+		return Blocks.DIRT.getItemDropped(Blocks.DIRT.getDefaultState()
+		                                             .withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT), rand, fortune);
 	}
 
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {

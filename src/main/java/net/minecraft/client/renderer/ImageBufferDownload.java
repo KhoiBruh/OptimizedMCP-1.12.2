@@ -6,9 +6,9 @@ import java.awt.image.DataBufferInt;
 
 public class ImageBufferDownload implements IImageBuffer {
 
-	private int[] imageData;
 	private final int imageSize = 64;
-	
+	private int[] imageData;
+
 	public BufferedImage parseUserSkin(BufferedImage image) {
 		if (image != null) {
 			BufferedImage bufferedimage = new BufferedImage(imageSize, imageSize, 2);

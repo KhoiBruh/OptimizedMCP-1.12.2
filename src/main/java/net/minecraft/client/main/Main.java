@@ -26,8 +26,8 @@ public class Main {
 	private static final String DEFAULT_VERSION_TYPE = "release";
 	private static final String DEFAULT_PROPERTIES = "{}";
 	private static final Gson GSON = new GsonBuilder()
-			.registerTypeAdapter(PropertyMap.class, new Serializer())
-			.create();
+		.registerTypeAdapter(PropertyMap.class, new Serializer())
+		.create();
 
 	public static void main(String[] args) {
 		LaunchOptions options = parseLaunchOptions(args);
@@ -41,10 +41,10 @@ public class Main {
 		PropertyMap profileProperties = JsonUtils.gsonDeserialize(GSON, options.profileProperties, PropertyMap.class);
 
 		GameConfig config = new GameConfig(
-				new GameConfig.User(session, userProperties, profileProperties, proxy),
-				new GameConfig.Display(options.width, options.height, options.fullscreen),
-				new GameConfig.Folder(options.gameDir, options.resourcePackDir, options.assetsDir, options.assetIndex),
-				new GameConfig.Game(options.version, options.versionType)
+			new GameConfig.User(session, userProperties, profileProperties, proxy),
+			new GameConfig.Display(options.width, options.height, options.fullscreen),
+			new GameConfig.Folder(options.gameDir, options.resourcePackDir, options.assetsDir, options.assetIndex),
+			new GameConfig.Game(options.version, options.versionType)
 		);
 
 		Runtime.getRuntime().addShutdownHook(new Thread("Client Shutdown Thread") {

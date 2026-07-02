@@ -69,8 +69,10 @@ public class EntityAISkeletonRiders extends EntityAIBase {
 			entityskeleton.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(Items.IRON_HELMET));
 		}
 
-		entityskeleton.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, EnchantmentHelper.addRandomEnchantment(entityskeleton.getRNG(), entityskeleton.getHeldItemMainhand(), (int) (5F + p_188514_1_.getClampedAdditionalDifficulty() * (float) entityskeleton.getRNG().nextInt(18)), false));
-		entityskeleton.setItemStackToSlot(EntityEquipmentSlot.HEAD, EnchantmentHelper.addRandomEnchantment(entityskeleton.getRNG(), entityskeleton.getItemStackFromSlot(EntityEquipmentSlot.HEAD), (int) (5F + p_188514_1_.getClampedAdditionalDifficulty() * (float) entityskeleton.getRNG().nextInt(18)), false));
+		entityskeleton.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, EnchantmentHelper.addRandomEnchantment(entityskeleton.getRNG(), entityskeleton.getHeldItemMainhand(), (int) (5F + p_188514_1_.getClampedAdditionalDifficulty() * (float) entityskeleton.getRNG()
+		                                                                                                                                                                                                                                                       .nextInt(18)), false));
+		entityskeleton.setItemStackToSlot(EntityEquipmentSlot.HEAD, EnchantmentHelper.addRandomEnchantment(entityskeleton.getRNG(), entityskeleton.getItemStackFromSlot(EntityEquipmentSlot.HEAD), (int) (5F + p_188514_1_.getClampedAdditionalDifficulty() * (float) entityskeleton.getRNG()
+		                                                                                                                                                                                                                                                                            .nextInt(18)), false));
 		entityskeleton.world.spawnEntity(entityskeleton);
 		return entityskeleton;
 	}

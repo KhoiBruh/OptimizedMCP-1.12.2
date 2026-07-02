@@ -22,8 +22,6 @@ public interface ISaveFormat {
 
 	void flushCache();
 
-	
-
 	/**
 	 * Returns the world's WorldInfo object
 	 */

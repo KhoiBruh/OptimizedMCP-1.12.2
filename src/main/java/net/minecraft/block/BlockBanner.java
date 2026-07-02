@@ -40,7 +40,6 @@ public class BlockBanner extends BlockContainer {
 		return I18n.translateToLocal("item.banner.white.name");
 	}
 
-	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return NULL_AABB;
 	}

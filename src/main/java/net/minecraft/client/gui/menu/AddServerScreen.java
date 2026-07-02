@@ -61,7 +61,9 @@ public class AddServerScreen extends Screen {
 		buttons.clear();
 		buttons.add(new Button(0, width / 2 - 100, height / 4 + 96 + 18, I18n.format("addServer.add")));
 		buttons.add(new Button(1, width / 2 - 100, height / 4 + 120 + 18, I18n.format("gui.cancel")));
-		serverResourcePacks = addButton(new Button(2, width / 2 - 100, height / 4 + 72, I18n.format("addServer.resourcePack") + ": " + serverData.getResourceMode().getMotd().getFormattedText()));
+		serverResourcePacks = addButton(new Button(2, width / 2 - 100, height / 4 + 72, I18n.format("addServer.resourcePack") + ": " + serverData.getResourceMode()
+		                                                                                                                                         .getMotd()
+		                                                                                                                                         .getFormattedText()));
 		serverNameField = new GuiTextField(0, fontRenderer, width / 2 - 100, 66, 200, 20);
 		serverNameField.setFocused(true);
 		serverNameField.setText(serverData.serverName);
@@ -69,7 +71,9 @@ public class AddServerScreen extends Screen {
 		serverIPField.setMaxStringLength(128);
 		serverIPField.setText(serverData.serverIP);
 		serverIPField.setValidator(addressFilter);
-		(buttons.getFirst()).enabled = !serverIPField.getText().isEmpty() && serverIPField.getText().split(":").length > 0 && !serverNameField.getText().isEmpty();
+		(buttons.getFirst()).enabled = !serverIPField.getText().isEmpty() && serverIPField.getText()
+		                                                                                  .split(":").length > 0 && !serverNameField.getText()
+		                                                                                                                            .isEmpty();
 	}
 
 	/**
@@ -85,8 +89,11 @@ public class AddServerScreen extends Screen {
 	protected void action(Button button) {
 		if (button.enabled) {
 			if (button.id == 2) {
-				serverData.setResourceMode(ServerData.ServerResourceMode.values()[(serverData.getResourceMode().ordinal() + 1) % ServerData.ServerResourceMode.values().length]);
-				serverResourcePacks.displayString = I18n.format("addServer.resourcePack") + ": " + serverData.getResourceMode().getMotd().getFormattedText();
+				serverData.setResourceMode(ServerData.ServerResourceMode.values()[(serverData.getResourceMode()
+				                                                                             .ordinal() + 1) % ServerData.ServerResourceMode.values().length]);
+				serverResourcePacks.displayString = I18n.format("addServer.resourcePack") + ": " + serverData.getResourceMode()
+				                                                                                             .getMotd()
+				                                                                                             .getFormattedText();
 			} else if (button.id == 1) {
 				parentScreen.confirmClicked(false, 0);
 			} else if (button.id == 0) {
@@ -114,7 +121,9 @@ public class AddServerScreen extends Screen {
 			action(buttons.getFirst());
 		}
 
-		(buttons.getFirst()).enabled = !serverIPField.getText().isEmpty() && serverIPField.getText().split(":").length > 0 && !serverNameField.getText().isEmpty();
+		(buttons.getFirst()).enabled = !serverIPField.getText().isEmpty() && serverIPField.getText()
+		                                                                                  .split(":").length > 0 && !serverNameField.getText()
+		                                                                                                                            .isEmpty();
 	}
 
 	/**

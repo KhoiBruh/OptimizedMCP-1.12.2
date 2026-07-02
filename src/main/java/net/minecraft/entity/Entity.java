@@ -711,7 +711,8 @@ public abstract class Entity implements ICommandSender {
 			double d4 = z;
 
 			if ((type == MoverType.SELF || type == MoverType.PLAYER) && onGround && isSneaking() && this instanceof EntityPlayer) {
-				for (double d5 = 0.05D; x != 0D && world.getCollisionBoxes(this, getEntityBoundingBox().offset(x, -stepHeight, 0D)).isEmpty(); d2 = x) {
+				for (double d5 = 0.05D; x != 0D && world.getCollisionBoxes(this, getEntityBoundingBox().offset(x, -stepHeight, 0D))
+				                                        .isEmpty(); d2 = x) {
 					if (x < 0.05D && x >= -0.05D) {
 						x = 0D;
 					} else if (x > 0D) {
@@ -721,7 +722,8 @@ public abstract class Entity implements ICommandSender {
 					}
 				}
 
-				for (; z != 0D && world.getCollisionBoxes(this, getEntityBoundingBox().offset(0D, -stepHeight, z)).isEmpty(); d4 = z) {
+				for (; z != 0D && world.getCollisionBoxes(this, getEntityBoundingBox().offset(0D, -stepHeight, z))
+				                       .isEmpty(); d4 = z) {
 					if (z < 0.05D && z >= -0.05D) {
 						z = 0D;
 					} else if (z > 0D) {
@@ -731,7 +733,8 @@ public abstract class Entity implements ICommandSender {
 					}
 				}
 
-				for (; x != 0D && z != 0D && world.getCollisionBoxes(this, getEntityBoundingBox().offset(x, -stepHeight, z)).isEmpty(); d4 = z) {
+				for (; x != 0D && z != 0D && world.getCollisionBoxes(this, getEntityBoundingBox().offset(x, -stepHeight, z))
+				                                  .isEmpty(); d4 = z) {
 					if (x < 0.05D && x >= -0.05D) {
 						x = 0D;
 					} else if (x > 0D) {
@@ -1024,7 +1027,8 @@ public abstract class Entity implements ICommandSender {
 						IBlockState iblockstate = world.getBlockState(blockpos$pooledmutableblockpos2);
 
 						try {
-							iblockstate.getBlock().onEntityCollidedWithBlock(world, blockpos$pooledmutableblockpos2, iblockstate, this);
+							iblockstate.getBlock()
+							           .onEntityCollidedWithBlock(world, blockpos$pooledmutableblockpos2, iblockstate, this);
 							onInsideBlock(iblockstate);
 						} catch (Throwable throwable) {
 							CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Colliding entity with block");
@@ -1112,12 +1116,10 @@ public abstract class Entity implements ICommandSender {
 		}
 	}
 
-	
-
 	/**
 	 * Returns the <b>solid</b> collision bounding box for this entity. Used to make (e.g.) boats solid. Return null if
 	 * this entity is not solid.
-	 *
+	 * <p>
 	 * For general purposes, use {@link #width} and {@link #height}.
 	 *
 	 * @see getEntityBoundingBox
@@ -1175,7 +1177,8 @@ public abstract class Entity implements ICommandSender {
 	}
 
 	public boolean isOverWater() {
-		return world.handleMaterialAcceleration(getEntityBoundingBox().grow(0D, -20D, 0D).shrink(0.001D), Material.WATER, this);
+		return world.handleMaterialAcceleration(getEntityBoundingBox().grow(0D, -20D, 0D)
+		                                                              .shrink(0.001D), Material.WATER, this);
 	}
 
 	/**
@@ -1184,7 +1187,8 @@ public abstract class Entity implements ICommandSender {
 	public boolean handleWaterMovement() {
 		if (getRidingEntity() instanceof EntityBoat) {
 			inWater = false;
-		} else if (world.handleMaterialAcceleration(getEntityBoundingBox().grow(0D, -0.4000000059604645D, 0D).shrink(0.001D), Material.WATER, this)) {
+		} else if (world.handleMaterialAcceleration(getEntityBoundingBox().grow(0D, -0.4000000059604645D, 0D)
+		                                                                  .shrink(0.001D), Material.WATER, this)) {
 			if (!inWater && !firstUpdate) {
 				doWaterSplashEffect();
 			}
@@ -1261,7 +1265,8 @@ public abstract class Entity implements ICommandSender {
 			IBlockState iblockstate = world.getBlockState(blockpos);
 
 			if (iblockstate.getMaterial() == materialIn) {
-				float f = BlockLiquid.getLiquidHeightPercent(iblockstate.getBlock().getMetaFromState(iblockstate)) - 0.11111111F;
+				float f = BlockLiquid.getLiquidHeightPercent(iblockstate.getBlock()
+				                                                        .getMetaFromState(iblockstate)) - 0.11111111F;
 				float f1 = (float) (blockpos.getY() + 1) - f;
 				return d0 < (double) f1;
 			} else {
@@ -1536,7 +1541,6 @@ public abstract class Entity implements ICommandSender {
 		}
 	}
 
-	
 	public RayTraceResult rayTrace(double blockReachDistance, float partialTicks) {
 		Vec3d vec3d = getPositionEyes(partialTicks);
 		Vec3d vec3d1 = getLook(partialTicks);
@@ -1790,8 +1794,6 @@ public abstract class Entity implements ICommandSender {
 		return true;
 	}
 
-	
-
 	/**
 	 * Returns the string that identifies this Entity's class
 	 */
@@ -1836,17 +1838,13 @@ public abstract class Entity implements ICommandSender {
 		return nbttaglist;
 	}
 
-	
 	public EntityItem dropItem(Item itemIn, int size) {
 		return dropItemWithOffset(itemIn, size, 0F);
 	}
 
-	
 	public EntityItem dropItemWithOffset(Item itemIn, int size, float offsetY) {
 		return entityDropItem(new ItemStack(itemIn, size, 0), offsetY);
 	}
-
-	
 
 	/**
 	 * Drops an item at the position of the entity.
@@ -1901,8 +1899,6 @@ public abstract class Entity implements ICommandSender {
 	public boolean processInitialInteract(EntityPlayer player, Hand hand) {
 		return false;
 	}
-
-	
 
 	/**
 	 * Returns a boundingBox used to collide the entity with other entities and blocks. This enables the entity to be
@@ -2072,10 +2068,17 @@ public abstract class Entity implements ICommandSender {
 			if (!world.isRemote && !pos.equals(lastPortalPos)) {
 				lastPortalPos = new BlockPos(pos);
 				BlockPattern.PatternHelper blockpattern$patternhelper = Blocks.PORTAL.createPatternHelper(world, lastPortalPos);
-				double d0 = blockpattern$patternhelper.getForwards().getAxis() == Facing.Axis.X ? (double) blockpattern$patternhelper.getFrontTopLeft().getZ() : (double) blockpattern$patternhelper.getFrontTopLeft().getX();
+				double d0 = blockpattern$patternhelper.getForwards()
+				                                      .getAxis() == Facing.Axis.X ? (double) blockpattern$patternhelper.getFrontTopLeft()
+				                                                                                                       .getZ() : (double) blockpattern$patternhelper.getFrontTopLeft()
+				                                                                                                                                                    .getX();
 				double d1 = blockpattern$patternhelper.getForwards().getAxis() == Facing.Axis.X ? posZ : posX;
-				d1 = Math.abs(MathHelper.pct(d1 - (double) (blockpattern$patternhelper.getForwards().rotateY().getAxisDirection() == Facing.AxisDirection.NEGATIVE ? 1 : 0), d0, d0 - (double) blockpattern$patternhelper.getWidth()));
-				double d2 = MathHelper.pct(posY - 1D, blockpattern$patternhelper.getFrontTopLeft().getY(), blockpattern$patternhelper.getFrontTopLeft().getY() - blockpattern$patternhelper.getHeight());
+				d1 = Math.abs(MathHelper.pct(d1 - (double) (blockpattern$patternhelper.getForwards()
+				                                                                      .rotateY()
+				                                                                      .getAxisDirection() == Facing.AxisDirection.NEGATIVE ? 1 : 0), d0, d0 - (double) blockpattern$patternhelper.getWidth()));
+				double d2 = MathHelper.pct(posY - 1D, blockpattern$patternhelper.getFrontTopLeft()
+				                                                                .getY(), blockpattern$patternhelper.getFrontTopLeft()
+				                                                                                                   .getY() - blockpattern$patternhelper.getHeight());
 				lastPortalVec = new Vec3d(d1, d2, 0D);
 				teleportDirection = blockpattern$patternhelper.getForwards();
 			}
@@ -2208,7 +2211,6 @@ public abstract class Entity implements ICommandSender {
 		}
 	}
 
-	
 	public Team getTeam() {
 		return world.getScoreboard().getPlayersTeam(getCachedUniqueIdString());
 	}
@@ -2356,8 +2358,6 @@ public abstract class Entity implements ICommandSender {
 		}
 	}
 
-	
-
 	/**
 	 * Return the Entity parts making up this Entity (currently only for dragons)
 	 */
@@ -2403,7 +2403,8 @@ public abstract class Entity implements ICommandSender {
 	}
 
 	public String toString() {
-		return String.format("%s['%s'/%d, l='%s', x=%.2f, y=%.2f, z=%.2f]", getClass().getSimpleName(), getName(), entityId, world == null ? "~NULL~" : world.getWorldInfo().getWorldName(), posX, posY, posZ);
+		return String.format("%s['%s'/%d, l='%s', x=%.2f, y=%.2f, z=%.2f]", getClass().getSimpleName(), getName(), entityId, world == null ? "~NULL~" : world.getWorldInfo()
+		                                                                                                                                                     .getWorldName(), posX, posY, posZ);
 	}
 
 	/**
@@ -2444,7 +2445,6 @@ public abstract class Entity implements ICommandSender {
 		teleportDirection = entityIn.teleportDirection;
 	}
 
-	
 	public Entity changeDimension(int dimensionIn) {
 		if (!world.isRemote && !isDead) {
 			world.profiler.startSection("changeDimension");
@@ -2472,11 +2472,19 @@ public abstract class Entity implements ICommandSender {
 				double d2 = 8D;
 
 				if (dimensionIn == -1) {
-					d0 = MathHelper.clamp(d0 / 8D, worldserver1.getWorldBorder().minX() + 16D, worldserver1.getWorldBorder().maxX() - 16D);
-					d1 = MathHelper.clamp(d1 / 8D, worldserver1.getWorldBorder().minZ() + 16D, worldserver1.getWorldBorder().maxZ() - 16D);
+					d0 = MathHelper.clamp(d0 / 8D, worldserver1.getWorldBorder()
+					                                           .minX() + 16D, worldserver1.getWorldBorder()
+					                                                                      .maxX() - 16D);
+					d1 = MathHelper.clamp(d1 / 8D, worldserver1.getWorldBorder()
+					                                           .minZ() + 16D, worldserver1.getWorldBorder()
+					                                                                      .maxZ() - 16D);
 				} else if (dimensionIn == 0) {
-					d0 = MathHelper.clamp(d0 * 8D, worldserver1.getWorldBorder().minX() + 16D, worldserver1.getWorldBorder().maxX() - 16D);
-					d1 = MathHelper.clamp(d1 * 8D, worldserver1.getWorldBorder().minZ() + 16D, worldserver1.getWorldBorder().maxZ() - 16D);
+					d0 = MathHelper.clamp(d0 * 8D, worldserver1.getWorldBorder()
+					                                           .minX() + 16D, worldserver1.getWorldBorder()
+					                                                                      .maxX() - 16D);
+					d1 = MathHelper.clamp(d1 * 8D, worldserver1.getWorldBorder()
+					                                           .minZ() + 16D, worldserver1.getWorldBorder()
+					                                                                      .maxZ() - 16D);
 				}
 
 				d0 = MathHelper.clamp((int) d0, -29999872, 29999872);
@@ -2771,8 +2779,6 @@ public abstract class Entity implements ICommandSender {
 		}
 	}
 
-	
-
 	/**
 	 * Get the Minecraft server instance
 	 */
@@ -2861,8 +2867,6 @@ public abstract class Entity implements ICommandSender {
 		return flag;
 	}
 
-	
-
 	/**
 	 * For vehicles, the first passenger is generally considered the controller and "drives" the vehicle. For example,
 	 * Pigs, Horses, and Boats are generally "steered" by the controlling passenger.
@@ -2945,8 +2949,6 @@ public abstract class Entity implements ICommandSender {
 			return !world.isRemote;
 		}
 	}
-
-	
 
 	/**
 	 * Get entity this is riding

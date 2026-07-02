@@ -103,7 +103,6 @@ public class BlockReed extends Block {
 		return canPlaceBlockAt(worldIn, pos);
 	}
 
-	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return NULL_AABB;
 	}

@@ -53,8 +53,6 @@ public class PhaseChargingPlayer extends PhaseBase {
 		return 3F;
 	}
 
-	
-
 	/**
 	 * Returns the location the dragon is flying toward
 	 */

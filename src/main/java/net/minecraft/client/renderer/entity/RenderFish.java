@@ -118,7 +118,9 @@ public class RenderFish extends Render<EntityFishHook> {
 
 			for (int i1 = 0; i1 <= 16; ++i1) {
 				float f11 = (float) i1 / 16F;
-				bufferbuilder.pos(x + d10 * (double) f11, y + d11 * (double) (f11 * f11 + f11) * 0.5D + 0.25D, z + d12 * (double) f11).color(0, 0, 0, 255).endVertex();
+				bufferbuilder.pos(x + d10 * (double) f11, y + d11 * (double) (f11 * f11 + f11) * 0.5D + 0.25D, z + d12 * (double) f11)
+				             .color(0, 0, 0, 255)
+				             .endVertex();
 			}
 
 			tessellator.draw();

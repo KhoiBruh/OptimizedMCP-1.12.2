@@ -22,7 +22,9 @@ import java.util.Set;
 public class PlayerChunkMap {
 
 	private static final Predicate<EntityPlayerMP> NOT_SPECTATOR = p_apply_1_ -> p_apply_1_ != null && !p_apply_1_.isSpectator();
-	private static final Predicate<EntityPlayerMP> CAN_GENERATE_CHUNKS = p_apply_1_ -> p_apply_1_ != null && (!p_apply_1_.isSpectator() || p_apply_1_.getServerWorld().getGameRules().getBoolean("spectatorsGenerateChunks"));
+	private static final Predicate<EntityPlayerMP> CAN_GENERATE_CHUNKS = p_apply_1_ -> p_apply_1_ != null && (!p_apply_1_.isSpectator() || p_apply_1_.getServerWorld()
+	                                                                                                                                                 .getGameRules()
+	                                                                                                                                                 .getBoolean("spectatorsGenerateChunks"));
 	private final WorldServer world;
 	private final List<EntityPlayerMP> players = Lists.newArrayList();
 	private final Long2ObjectMap<PlayerChunkMapEntry> entryMap = new Long2ObjectOpenHashMap<>(4096);
@@ -125,12 +127,16 @@ public class PlayerChunkMap {
 
 		if (sortMissingChunks && i % 4L == 0L) {
 			sortMissingChunks = false;
-			entriesWithoutChunks.sort((p_compare_1_, p_compare_2_) -> ComparisonChain.start().compare(p_compare_1_.getClosestPlayerDistance(), p_compare_2_.getClosestPlayerDistance()).result());
+			entriesWithoutChunks.sort((p_compare_1_, p_compare_2_) -> ComparisonChain.start()
+			                                                                         .compare(p_compare_1_.getClosestPlayerDistance(), p_compare_2_.getClosestPlayerDistance())
+			                                                                         .result());
 		}
 
 		if (sortSendToPlayers && i % 4L == 2L) {
 			sortSendToPlayers = false;
-			pendingSendToPlayers.sort((p_compare_1_, p_compare_2_) -> ComparisonChain.start().compare(p_compare_1_.getClosestPlayerDistance(), p_compare_2_.getClosestPlayerDistance()).result());
+			pendingSendToPlayers.sort((p_compare_1_, p_compare_2_) -> ComparisonChain.start()
+			                                                                         .compare(p_compare_1_.getClosestPlayerDistance(), p_compare_2_.getClosestPlayerDistance())
+			                                                                         .result());
 		}
 
 		if (!entriesWithoutChunks.isEmpty()) {
@@ -193,7 +199,6 @@ public class PlayerChunkMap {
 		return entryMap.get(i) != null;
 	}
 
-	
 	public PlayerChunkMapEntry getEntry(int x, int z) {
 		return entryMap.get(getIndex(x, z));
 	}

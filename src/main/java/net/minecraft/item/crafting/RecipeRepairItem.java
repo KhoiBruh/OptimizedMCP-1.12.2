@@ -26,7 +26,8 @@ public class RecipeRepairItem implements IRecipe {
 				if (list.size() > 1) {
 					ItemStack itemstack1 = list.getFirst();
 
-					if (itemstack.getItem() != itemstack1.getItem() || itemstack1.getCount() != 1 || itemstack.getCount() != 1 || !itemstack1.getItem().isDamageable()) {
+					if (itemstack.getItem() != itemstack1.getItem() || itemstack1.getCount() != 1 || itemstack.getCount() != 1 || !itemstack1.getItem()
+					                                                                                                                         .isDamageable()) {
 						return false;
 					}
 				}
@@ -51,7 +52,8 @@ public class RecipeRepairItem implements IRecipe {
 				if (list.size() > 1) {
 					ItemStack itemstack1 = list.getFirst();
 
-					if (itemstack.getItem() != itemstack1.getItem() || itemstack1.getCount() != 1 || itemstack.getCount() != 1 || !itemstack1.getItem().isDamageable()) {
+					if (itemstack.getItem() != itemstack1.getItem() || itemstack1.getCount() != 1 || itemstack.getCount() != 1 || !itemstack1.getItem()
+					                                                                                                                         .isDamageable()) {
 						return ItemStack.EMPTY;
 					}
 				}
@@ -62,7 +64,8 @@ public class RecipeRepairItem implements IRecipe {
 			ItemStack itemstack2 = list.get(0);
 			ItemStack itemstack3 = list.get(1);
 
-			if (itemstack2.getItem() == itemstack3.getItem() && itemstack2.getCount() == 1 && itemstack3.getCount() == 1 && itemstack2.getItem().isDamageable()) {
+			if (itemstack2.getItem() == itemstack3.getItem() && itemstack2.getCount() == 1 && itemstack3.getCount() == 1 && itemstack2.getItem()
+			                                                                                                                          .isDamageable()) {
 				Item item = itemstack2.getItem();
 				int j = item.getMaxDamage() - itemstack2.getItemDamage();
 				int k = item.getMaxDamage() - itemstack3.getItemDamage();

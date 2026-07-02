@@ -45,8 +45,6 @@ public interface ICommandSender {
 	 */
 	World getEntityWorld();
 
-	
-
 	default Entity getCommandSenderEntity() {
 
 		return null;
@@ -60,8 +58,6 @@ public interface ICommandSender {
 	default void setCommandStat(CommandResultStats.Type type, int amount) {
 
 	}
-
-	
 
 	/**
 	 * Get the Minecraft server instance

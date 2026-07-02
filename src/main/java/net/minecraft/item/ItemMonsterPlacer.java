@@ -43,7 +43,8 @@ public class ItemMonsterPlacer extends Item {
 			NBTTagCompound nbttagcompound = stack.getTagCompound();
 
 			if (nbttagcompound != null && nbttagcompound.hasKey("EntityTag", 10)) {
-				if (!entityWorld.isRemote && targetEntity.ignoreItemEntityData() && (player == null || !minecraftserver.getPlayerList().canSendCommands(player.getGameProfile()))) {
+				if (!entityWorld.isRemote && targetEntity.ignoreItemEntityData() && (player == null || !minecraftserver.getPlayerList()
+				                                                                                                       .canSendCommands(player.getGameProfile()))) {
 					return;
 				}
 
@@ -55,8 +56,6 @@ public class ItemMonsterPlacer extends Item {
 			}
 		}
 	}
-
-	
 
 	/**
 	 * Spawns the creature specified by the egg's type in the location specified by the last three parameters.
@@ -95,8 +94,6 @@ public class ItemMonsterPlacer extends Item {
 		nbttagcompound.setTag("EntityTag", nbttagcompound1);
 		stack.setTagCompound(nbttagcompound);
 	}
-
-	
 
 	/**
 	 * Gets the entity type ID from the given itemstack.

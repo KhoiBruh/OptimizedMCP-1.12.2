@@ -87,7 +87,6 @@ public class GuiAdvancement extends Gui {
 		}
 	}
 
-	
 	private GuiAdvancement getFirstVisibleParent(Advancement advancementIn) {
 		while (true) {
 			advancementIn = advancementIn.getParent();
@@ -148,9 +147,11 @@ public class GuiAdvancement extends Gui {
 			minecraft.getTextureManager().bindTexture(WIDGETS);
 			GLS.color(1F, 1F, 1F, 1F);
 			GLS.enableBlend();
-			drawTexturedModalRect(p_191817_1_ + x + 3, p_191817_2_ + y, displayInfo.getFrame().getIcon(), 128 + advancementstate.getId() * 26, 26, 26);
+			drawTexturedModalRect(p_191817_1_ + x + 3, p_191817_2_ + y, displayInfo.getFrame()
+			                                                                       .getIcon(), 128 + advancementstate.getId() * 26, 26, 26);
 			RenderHelper.enableGUIStandardItemLighting();
-			minecraft.getRenderItem().renderItemAndEffectIntoGUI(null, displayInfo.getIcon(), p_191817_1_ + x + 8, p_191817_2_ + y + 5);
+			minecraft.getRenderItem()
+			         .renderItemAndEffectIntoGUI(null, displayInfo.getIcon(), p_191817_1_ + x + 8, p_191817_2_ + y + 5);
 		}
 
 		for (GuiAdvancement guiadvancement : children) {
@@ -223,7 +224,8 @@ public class GuiAdvancement extends Gui {
 
 		drawTexturedModalRect(i1, l, 0, advancementstate.getId() * 26, j, 26);
 		drawTexturedModalRect(i1 + j, l, 200 - k, advancementstate1.getId() * 26, k, 26);
-		drawTexturedModalRect(p_191821_1_ + x + 3, p_191821_2_ + y, displayInfo.getFrame().getIcon(), 128 + advancementstate2.getId() * 26, 26, 26);
+		drawTexturedModalRect(p_191821_1_ + x + 3, p_191821_2_ + y, displayInfo.getFrame()
+		                                                                       .getIcon(), 128 + advancementstate2.getId() * 26, 26, 26);
 
 		if (flag) {
 			minecraft.fontRenderer.drawString(title, (float) (i1 + 5), (float) (p_191821_2_ + y + 9), -1, true);
@@ -250,7 +252,8 @@ public class GuiAdvancement extends Gui {
 		}
 
 		RenderHelper.enableGUIStandardItemLighting();
-		minecraft.getRenderItem().renderItemAndEffectIntoGUI(null, displayInfo.getIcon(), p_191821_1_ + x + 8, p_191821_2_ + y + 5);
+		minecraft.getRenderItem()
+		         .renderItemAndEffectIntoGUI(null, displayInfo.getIcon(), p_191821_1_ + x + 8, p_191821_2_ + y + 5);
 	}
 
 	protected void render9Sprite(int p_192994_1_, int p_192994_2_, int p_192994_3_, int p_192994_4_, int p_192994_5_, int p_192994_6_, int p_192994_7_, int p_192994_8_, int p_192994_9_) {

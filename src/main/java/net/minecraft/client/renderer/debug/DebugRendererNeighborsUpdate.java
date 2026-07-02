@@ -69,7 +69,10 @@ public class DebugRendererNeighborsUpdate implements DebugRenderer.IDebugRendere
 					Integer integer = entry1.getValue();
 
 					if (set.add(blockpos)) {
-						RenderGlobal.drawSelectionBoundingBox((new AxisAlignedBB(BlockPos.ORIGIN)).grow(0.002D).shrink(0.0025D * (double) k).offset(blockpos.getX(), blockpos.getY(), blockpos.getZ()).offset(-d0, -d1, -d2), 1F, 1F, 1F, 1F);
+						RenderGlobal.drawSelectionBoundingBox((new AxisAlignedBB(BlockPos.ORIGIN)).grow(0.002D)
+						                                                                          .shrink(0.0025D * (double) k)
+						                                                                          .offset(blockpos.getX(), blockpos.getY(), blockpos.getZ())
+						                                                                          .offset(-d0, -d1, -d2), 1F, 1F, 1F, 1F);
 						map.put(blockpos, integer);
 					}
 				}

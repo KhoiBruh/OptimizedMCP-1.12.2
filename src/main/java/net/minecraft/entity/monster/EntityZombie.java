@@ -93,7 +93,8 @@ public class EntityZombie extends EntityMob {
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.23000000417232513D);
 		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3D);
 		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2D);
-		getAttributeMap().registerAttribute(SPAWN_REINFORCEMENTS_CHANCE).setBaseValue(rand.nextDouble() * 0.10000000149011612D);
+		getAttributeMap().registerAttribute(SPAWN_REINFORCEMENTS_CHANCE)
+		                 .setBaseValue(rand.nextDouble() * 0.10000000149011612D);
 	}
 
 	protected void entityInit() {
@@ -224,7 +225,8 @@ public class EntityZombie extends EntityMob {
 				entitylivingbase = (EntityLivingBase) source.getTrueSource();
 			}
 
-			if (entitylivingbase != null && world.getDifficulty() == Difficulty.HARD && (double) rand.nextFloat() < getEntityAttribute(SPAWN_REINFORCEMENTS_CHANCE).getAttributeValue() && world.getGameRules().getBoolean("doMobSpawning")) {
+			if (entitylivingbase != null && world.getDifficulty() == Difficulty.HARD && (double) rand.nextFloat() < getEntityAttribute(SPAWN_REINFORCEMENTS_CHANCE).getAttributeValue() && world.getGameRules()
+			                                                                                                                                                                                    .getBoolean("doMobSpawning")) {
 				int i = MathHelper.floor(posX);
 				int j = MathHelper.floor(posY);
 				int k = MathHelper.floor(posZ);
@@ -235,15 +237,18 @@ public class EntityZombie extends EntityMob {
 					int j1 = j + MathHelper.getInt(rand, 7, 40) * MathHelper.getInt(rand, -1, 1);
 					int k1 = k + MathHelper.getInt(rand, 7, 40) * MathHelper.getInt(rand, -1, 1);
 
-					if (world.getBlockState(new BlockPos(i1, j1 - 1, k1)).isTopSolid() && world.getLightFromNeighbors(new BlockPos(i1, j1, k1)) < 10) {
+					if (world.getBlockState(new BlockPos(i1, j1 - 1, k1))
+					         .isTopSolid() && world.getLightFromNeighbors(new BlockPos(i1, j1, k1)) < 10) {
 						entityzombie.setPosition(i1, j1, k1);
 
-						if (!world.isAnyPlayerWithinRangeAt(i1, j1, k1, 7D) && world.checkNoEntityCollision(entityzombie.getEntityBoundingBox(), entityzombie) && world.getCollisionBoxes(entityzombie, entityzombie.getEntityBoundingBox()).isEmpty() && !world.containsAnyLiquid(entityzombie.getEntityBoundingBox())) {
+						if (!world.isAnyPlayerWithinRangeAt(i1, j1, k1, 7D) && world.checkNoEntityCollision(entityzombie.getEntityBoundingBox(), entityzombie) && world.getCollisionBoxes(entityzombie, entityzombie.getEntityBoundingBox())
+						                                                                                                                                               .isEmpty() && !world.containsAnyLiquid(entityzombie.getEntityBoundingBox())) {
 							world.spawnEntity(entityzombie);
 							entityzombie.setAttackTarget(entitylivingbase);
 							entityzombie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entityzombie)), null);
 							getEntityAttribute(SPAWN_REINFORCEMENTS_CHANCE).applyModifier(new AttributeModifier("Zombie reinforcement caller charge", -0.05000000074505806D, 0));
-							entityzombie.getEntityAttribute(SPAWN_REINFORCEMENTS_CHANCE).applyModifier(new AttributeModifier("Zombie reinforcement callee charge", -0.05000000074505806D, 0));
+							entityzombie.getEntityAttribute(SPAWN_REINFORCEMENTS_CHANCE)
+							            .applyModifier(new AttributeModifier("Zombie reinforcement callee charge", -0.05000000074505806D, 0));
 							break;
 						}
 					}
@@ -297,7 +302,6 @@ public class EntityZombie extends EntityMob {
 		return CreatureAttribute.UNDEAD;
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_ZOMBIE;
 	}
@@ -388,21 +392,18 @@ public class EntityZombie extends EntityMob {
 		return (stack.getItem() != Items.EGG || !isChild() || !isRiding()) && super.canEquipItem(stack);
 	}
 
-	
-
 	/**
 	 * Called only once on an entity when first time spawned, via egg, mob spawner, natural spawning etc, but not called
 	 * when entity is reloaded from nbt. Mainly used for initializing attributes and inventory.
-	 *
+	 * <p>
 	 * The livingdata parameter is used to pass data between all instances during a pack spawn. It will be null on the
 	 * first call. Subclasses may check if it's null, and then create a new one and return it if so, initializing all
 	 * entities in the pack with the contained data.
 	 *
-	 * @return The IEntityLivingData to pass to this method for other instances of this entity class within the same
-	 * pack
-	 *
 	 * @param difficulty The current local difficulty
 	 * @param livingdata Shared spawn data. Will usually be null. (See return value for more information)
+	 * @return The IEntityLivingData to pass to this method for other instances of this entity class within the same
+	 * pack
 	 */
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);

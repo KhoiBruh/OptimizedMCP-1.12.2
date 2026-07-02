@@ -226,7 +226,8 @@ public class StructureNetherBridgePieces {
 		}
 
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-			IBlockState iblockstate = Blocks.NETHER_BRICK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.SOUTH);
+			IBlockState iblockstate = Blocks.NETHER_BRICK_STAIRS.getDefaultState()
+			                                                    .withProperty(BlockStairs.FACING, Facing.SOUTH);
 
 			for (int i = 0; i <= 9; ++i) {
 				int j = Math.max(1, 7 - i);
@@ -755,7 +756,8 @@ public class StructureNetherBridgePieces {
 				fillWithBlocks(worldIn, structureBoundingBoxIn, 11, 7, j1, 11, 8, j1, Blocks.NETHER_BRICK_FENCE.getDefaultState(), Blocks.NETHER_BRICK_FENCE.getDefaultState(), false);
 			}
 
-			IBlockState iblockstate = Blocks.NETHER_BRICK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, Facing.NORTH);
+			IBlockState iblockstate = Blocks.NETHER_BRICK_STAIRS.getDefaultState()
+			                                                    .withProperty(BlockStairs.FACING, Facing.NORTH);
 
 			for (int j = 0; j <= 6; ++j) {
 				int k = j + 4;
@@ -920,7 +922,6 @@ public class StructureNetherBridgePieces {
 			}
 		}
 
-		
 		protected StructureComponent getNextComponentNormal(StructureNetherBridgePieces.Start p_74963_1_, List<StructureComponent> p_74963_2_, Random p_74963_3_, int p_74963_4_, int p_74963_5_, boolean p_74963_6_) {
 			Facing enumfacing = getCoordBaseMode();
 
@@ -943,7 +944,6 @@ public class StructureNetherBridgePieces {
 			return null;
 		}
 
-		
 		protected StructureComponent getNextComponentX(StructureNetherBridgePieces.Start p_74961_1_, List<StructureComponent> p_74961_2_, Random p_74961_3_, int p_74961_4_, int p_74961_5_, boolean p_74961_6_) {
 			Facing enumfacing = getCoordBaseMode();
 
@@ -960,7 +960,6 @@ public class StructureNetherBridgePieces {
 			return null;
 		}
 
-		
 		protected StructureComponent getNextComponentZ(StructureNetherBridgePieces.Start p_74965_1_, List<StructureComponent> p_74965_2_, Random p_74965_3_, int p_74965_4_, int p_74965_5_, boolean p_74965_6_) {
 			Facing enumfacing = getCoordBaseMode();
 
@@ -1199,7 +1198,8 @@ public class StructureNetherBridgePieces {
 					TileEntity tileentity = worldIn.getTileEntity(blockpos);
 
 					if (tileentity instanceof TileEntityMobSpawner) {
-						((TileEntityMobSpawner) tileentity).getSpawnerBaseLogic().setEntityId(EntityList.getKey(EntityBlaze.class));
+						((TileEntityMobSpawner) tileentity).getSpawnerBaseLogic()
+						                                   .setEntityId(EntityList.getKey(EntityBlaze.class));
 					}
 				}
 			}

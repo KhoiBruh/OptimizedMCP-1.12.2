@@ -112,7 +112,8 @@ public class BlockPistonStructureHelper {
 						for (int l = 0; l <= k + i1; ++l) {
 							BlockPos blockpos2 = toMove.get(l);
 
-							if (world.getBlockState(blockpos2).getBlock() == Blocks.SLIME_BLOCK && !addBranchingBlocks(blockpos2)) {
+							if (world.getBlockState(blockpos2)
+							         .getBlock() == Blocks.SLIME_BLOCK && !addBranchingBlocks(blockpos2)) {
 								return false;
 							}
 						}

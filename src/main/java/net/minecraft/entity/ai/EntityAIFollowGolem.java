@@ -26,7 +26,8 @@ public class EntityAIFollowGolem extends EntityAIBase {
 		} else if (!villager.world.isDaytime()) {
 			return false;
 		} else {
-			List<EntityIronGolem> list = villager.world.getEntitiesWithinAABB(EntityIronGolem.class, villager.getEntityBoundingBox().grow(6D, 2D, 6D));
+			List<EntityIronGolem> list = villager.world.getEntitiesWithinAABB(EntityIronGolem.class, villager.getEntityBoundingBox()
+			                                                                                                 .grow(6D, 2D, 6D));
 
 			if (list.isEmpty()) {
 				return false;

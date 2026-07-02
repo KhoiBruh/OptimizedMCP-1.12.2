@@ -34,7 +34,9 @@ public class BlockFlowerPot extends BlockContainer {
 
 	public BlockFlowerPot() {
 		super(Material.CIRCUITS);
-		setDefaultState(blockState.getBaseState().withProperty(CONTENTS, BlockFlowerPot.FlowerType.EMPTY).withProperty(LEGACY_DATA, 0));
+		setDefaultState(blockState.getBaseState()
+		                          .withProperty(CONTENTS, BlockFlowerPot.FlowerType.EMPTY)
+		                          .withProperty(LEGACY_DATA, 0));
 	}
 
 	/**
@@ -186,7 +188,6 @@ public class BlockFlowerPot extends BlockContainer {
 		return Items.FLOWER_POT;
 	}
 
-	
 	private TileEntityFlowerPot getTileEntity(World worldIn, BlockPos pos) {
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 		return tileentity instanceof TileEntityFlowerPot ? (TileEntityFlowerPot) tileentity : null;

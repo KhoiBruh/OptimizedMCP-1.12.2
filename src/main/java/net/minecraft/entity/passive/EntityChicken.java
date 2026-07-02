@@ -118,7 +118,6 @@ public class EntityChicken extends EntityAnimal {
 		playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.15F, 1F);
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_CHICKEN;
 	}

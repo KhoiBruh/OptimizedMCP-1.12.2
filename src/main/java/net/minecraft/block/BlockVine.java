@@ -41,7 +41,12 @@ public class BlockVine extends Block {
 
 	public BlockVine() {
 		super(Material.VINE);
-		setDefaultState(blockState.getBaseState().withProperty(UP, false).withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false));
+		setDefaultState(blockState.getBaseState()
+		                          .withProperty(UP, false)
+		                          .withProperty(NORTH, false)
+		                          .withProperty(EAST, false)
+		                          .withProperty(SOUTH, false)
+		                          .withProperty(WEST, false));
 		setTickRandomly(true);
 		setCreativeTab(CreativeTabs.DECORATIONS);
 	}
@@ -73,7 +78,6 @@ public class BlockVine extends Block {
 		return i;
 	}
 
-	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return NULL_AABB;
 	}
@@ -117,7 +121,8 @@ public class BlockVine extends Block {
 	 */
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 		BlockPos blockpos = pos.up();
-		return state.withProperty(UP, worldIn.getBlockState(blockpos).getBlockFaceShape(worldIn, blockpos, Facing.DOWN) == BlockFaceShape.SOLID);
+		return state.withProperty(UP, worldIn.getBlockState(blockpos)
+		                                     .getBlockFaceShape(worldIn, blockpos, Facing.DOWN) == BlockFaceShape.SOLID);
 	}
 
 	/**
@@ -304,8 +309,13 @@ public class BlockVine extends Block {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-		IBlockState iblockstate = getDefaultState().withProperty(UP, false).withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false);
-		return facing.getAxis().isHorizontal() ? iblockstate.withProperty(getPropertyFor(facing.getOpposite()), true) : iblockstate;
+		IBlockState iblockstate = getDefaultState().withProperty(UP, false)
+		                                           .withProperty(NORTH, false)
+		                                           .withProperty(EAST, false)
+		                                           .withProperty(SOUTH, false)
+		                                           .withProperty(WEST, false);
+		return facing.getAxis()
+		             .isHorizontal() ? iblockstate.withProperty(getPropertyFor(facing.getOpposite()), true) : iblockstate;
 	}
 
 	/**
@@ -347,7 +357,10 @@ public class BlockVine extends Block {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(SOUTH, (meta & 1) > 0).withProperty(WEST, (meta & 2) > 0).withProperty(NORTH, (meta & 4) > 0).withProperty(EAST, (meta & 8) > 0);
+		return getDefaultState().withProperty(SOUTH, (meta & 1) > 0)
+		                        .withProperty(WEST, (meta & 2) > 0)
+		                        .withProperty(NORTH, (meta & 4) > 0)
+		                        .withProperty(EAST, (meta & 8) > 0);
 	}
 
 	/**
@@ -385,12 +398,18 @@ public class BlockVine extends Block {
 	 */
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
 		return switch (rot) {
-			case CLOCKWISE_180 ->
-					state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(EAST, state.getValue(WEST)).withProperty(SOUTH, state.getValue(NORTH)).withProperty(WEST, state.getValue(EAST));
-			case COUNTERCLOCKWISE_90 ->
-					state.withProperty(NORTH, state.getValue(EAST)).withProperty(EAST, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(WEST)).withProperty(WEST, state.getValue(NORTH));
-			case CLOCKWISE_90 ->
-					state.withProperty(NORTH, state.getValue(WEST)).withProperty(EAST, state.getValue(NORTH)).withProperty(SOUTH, state.getValue(EAST)).withProperty(WEST, state.getValue(SOUTH));
+			case CLOCKWISE_180 -> state.withProperty(NORTH, state.getValue(SOUTH))
+			                           .withProperty(EAST, state.getValue(WEST))
+			                           .withProperty(SOUTH, state.getValue(NORTH))
+			                           .withProperty(WEST, state.getValue(EAST));
+			case COUNTERCLOCKWISE_90 -> state.withProperty(NORTH, state.getValue(EAST))
+			                                 .withProperty(EAST, state.getValue(SOUTH))
+			                                 .withProperty(SOUTH, state.getValue(WEST))
+			                                 .withProperty(WEST, state.getValue(NORTH));
+			case CLOCKWISE_90 -> state.withProperty(NORTH, state.getValue(WEST))
+			                          .withProperty(EAST, state.getValue(NORTH))
+			                          .withProperty(SOUTH, state.getValue(EAST))
+			                          .withProperty(WEST, state.getValue(SOUTH));
 			default -> state;
 		};
 	}
@@ -402,7 +421,7 @@ public class BlockVine extends Block {
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
 		return switch (mirrorIn) {
 			case LEFT_RIGHT ->
-					state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(NORTH));
+				state.withProperty(NORTH, state.getValue(SOUTH)).withProperty(SOUTH, state.getValue(NORTH));
 			case FRONT_BACK -> state.withProperty(EAST, state.getValue(WEST)).withProperty(WEST, state.getValue(EAST));
 			default -> super.withMirror(state, mirrorIn);
 		};

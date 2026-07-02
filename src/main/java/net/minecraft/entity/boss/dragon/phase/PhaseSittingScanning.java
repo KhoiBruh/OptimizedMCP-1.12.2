@@ -52,7 +52,9 @@ public class PhaseSittingScanning extends PhaseSittingBase {
 
 			if (entitylivingbase != null) {
 				dragon.getPhaseManager().setPhase(PhaseList.CHARGING_PLAYER);
-				dragon.getPhaseManager().getPhase(PhaseList.CHARGING_PLAYER).setTarget(new Vec3d(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ));
+				dragon.getPhaseManager()
+				      .getPhase(PhaseList.CHARGING_PLAYER)
+				      .setTarget(new Vec3d(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ));
 			}
 		}
 	}

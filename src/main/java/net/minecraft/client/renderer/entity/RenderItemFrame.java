@@ -74,8 +74,6 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
 		renderName(entity, x + (double) ((float) entity.facingDirection.getFrontOffsetX() * 0.3F), y - 0.25D, z + (double) ((float) entity.facingDirection.getFrontOffsetZ() * 0.3F));
 	}
 
-	
-
 	/**
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
@@ -120,7 +118,8 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
 	}
 
 	protected void renderName(EntityItemFrame entity, double x, double y, double z) {
-		if (Minecraft.isGuiEnabled() && !entity.getDisplayedItem().isEmpty() && entity.getDisplayedItem().hasDisplayName() && renderManager.pointedEntity == entity) {
+		if (Minecraft.isGuiEnabled() && !entity.getDisplayedItem().isEmpty() && entity.getDisplayedItem()
+		                                                                              .hasDisplayName() && renderManager.pointedEntity == entity) {
 			double d0 = entity.getDistanceSq(renderManager.renderViewEntity);
 			float f = entity.isSneaking() ? 32F : 64F;
 

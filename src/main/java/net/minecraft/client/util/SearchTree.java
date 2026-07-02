@@ -60,9 +60,9 @@ public class SearchTree<T> implements ISearchTree<T> {
 	 */
 	private void index(T element) {
 		(idFunc.apply(element)).forEach((p_194039_2_) ->
-				byName.add(element, p_194039_2_.toString().toLowerCase(Locale.ROOT)));
+			                                byName.add(element, p_194039_2_.toString().toLowerCase(Locale.ROOT)));
 		(nameFunc.apply(element)).forEach((p_194041_2_) ->
-				byId.add(element, p_194041_2_.toLowerCase(Locale.ROOT)));
+			                                  byId.add(element, p_194041_2_.toLowerCase(Locale.ROOT)));
 	}
 
 	public List<T> search(String searchText) {

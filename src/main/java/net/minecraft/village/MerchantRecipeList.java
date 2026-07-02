@@ -6,7 +6,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.PacketBuffer;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class MerchantRecipeList extends ArrayList<MerchantRecipe> {
@@ -46,20 +45,22 @@ public class MerchantRecipeList extends ArrayList<MerchantRecipe> {
 		return merchantrecipelist;
 	}
 
-	
-
 	/**
 	 * can par1,par2 be used to in crafting recipe par3
 	 */
 	public MerchantRecipe canRecipeBeUsed(ItemStack stack0, ItemStack stack1, int index) {
 		if (index > 0 && index < size()) {
 			MerchantRecipe merchantrecipe1 = get(index);
-			return !areItemStacksExactlyEqual(stack0, merchantrecipe1.getItemToBuy()) || (!stack1.isEmpty() || merchantrecipe1.hasSecondItemToBuy()) && (!merchantrecipe1.hasSecondItemToBuy() || !areItemStacksExactlyEqual(stack1, merchantrecipe1.getSecondItemToBuy())) || stack0.getCount() < merchantrecipe1.getItemToBuy().getCount() || merchantrecipe1.hasSecondItemToBuy() && stack1.getCount() < merchantrecipe1.getSecondItemToBuy().getCount() ? null : merchantrecipe1;
+			return !areItemStacksExactlyEqual(stack0, merchantrecipe1.getItemToBuy()) || (!stack1.isEmpty() || merchantrecipe1.hasSecondItemToBuy()) && (!merchantrecipe1.hasSecondItemToBuy() || !areItemStacksExactlyEqual(stack1, merchantrecipe1.getSecondItemToBuy())) || stack0.getCount() < merchantrecipe1.getItemToBuy()
+			                                                                                                                                                                                                                                                                                                      .getCount() || merchantrecipe1.hasSecondItemToBuy() && stack1.getCount() < merchantrecipe1.getSecondItemToBuy()
+			                                                                                                                                                                                                                                                                                                                                                                                                .getCount() ? null : merchantrecipe1;
 		} else {
 			for (int i = 0; i < size(); ++i) {
 				MerchantRecipe merchantrecipe = get(i);
 
-				if (areItemStacksExactlyEqual(stack0, merchantrecipe.getItemToBuy()) && stack0.getCount() >= merchantrecipe.getItemToBuy().getCount() && (!merchantrecipe.hasSecondItemToBuy() && stack1.isEmpty() || merchantrecipe.hasSecondItemToBuy() && areItemStacksExactlyEqual(stack1, merchantrecipe.getSecondItemToBuy()) && stack1.getCount() >= merchantrecipe.getSecondItemToBuy().getCount())) {
+				if (areItemStacksExactlyEqual(stack0, merchantrecipe.getItemToBuy()) && stack0.getCount() >= merchantrecipe.getItemToBuy()
+				                                                                                                           .getCount() && (!merchantrecipe.hasSecondItemToBuy() && stack1.isEmpty() || merchantrecipe.hasSecondItemToBuy() && areItemStacksExactlyEqual(stack1, merchantrecipe.getSecondItemToBuy()) && stack1.getCount() >= merchantrecipe.getSecondItemToBuy()
+				                                                                                                                                                                                                                                                                                                                                           .getCount())) {
 					return merchantrecipe;
 				}
 			}

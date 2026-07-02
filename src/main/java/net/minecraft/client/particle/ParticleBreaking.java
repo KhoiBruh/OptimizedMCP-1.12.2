@@ -65,10 +65,26 @@ public class ParticleBreaking extends Particle {
 		int i = getBrightnessForRender(partialTicks);
 		int j = i >> 16 & 65535;
 		int k = i & 65535;
-		buffer.pos(f5 - rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4, f7 - rotationYZ * f4 - rotationXZ * f4).tex(f, f3).color(particleRed, particleGreen, particleBlue, 1F).lightmap(j, k).endVertex();
-		buffer.pos(f5 - rotationX * f4 + rotationXY * f4, f6 + rotationZ * f4, f7 - rotationYZ * f4 + rotationXZ * f4).tex(f, f2).color(particleRed, particleGreen, particleBlue, 1F).lightmap(j, k).endVertex();
-		buffer.pos(f5 + rotationX * f4 + rotationXY * f4, f6 + rotationZ * f4, f7 + rotationYZ * f4 + rotationXZ * f4).tex(f1, f2).color(particleRed, particleGreen, particleBlue, 1F).lightmap(j, k).endVertex();
-		buffer.pos(f5 + rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4, f7 + rotationYZ * f4 - rotationXZ * f4).tex(f1, f3).color(particleRed, particleGreen, particleBlue, 1F).lightmap(j, k).endVertex();
+		buffer.pos(f5 - rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4, f7 - rotationYZ * f4 - rotationXZ * f4)
+		      .tex(f, f3)
+		      .color(particleRed, particleGreen, particleBlue, 1F)
+		      .lightmap(j, k)
+		      .endVertex();
+		buffer.pos(f5 - rotationX * f4 + rotationXY * f4, f6 + rotationZ * f4, f7 - rotationYZ * f4 + rotationXZ * f4)
+		      .tex(f, f2)
+		      .color(particleRed, particleGreen, particleBlue, 1F)
+		      .lightmap(j, k)
+		      .endVertex();
+		buffer.pos(f5 + rotationX * f4 + rotationXY * f4, f6 + rotationZ * f4, f7 + rotationYZ * f4 + rotationXZ * f4)
+		      .tex(f1, f2)
+		      .color(particleRed, particleGreen, particleBlue, 1F)
+		      .lightmap(j, k)
+		      .endVertex();
+		buffer.pos(f5 + rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4, f7 + rotationYZ * f4 - rotationXZ * f4)
+		      .tex(f1, f3)
+		      .color(particleRed, particleGreen, particleBlue, 1F)
+		      .lightmap(j, k)
+		      .endVertex();
 	}
 
 	public static class Factory implements IParticleFactory {

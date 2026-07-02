@@ -3,7 +3,7 @@ package net.minecraft.client.renderer;
 import net.minecraft.util.math.BlockPos;
 
 public class DestroyBlockProgress {
-	
+
 	private final BlockPos position;
 
 	/**

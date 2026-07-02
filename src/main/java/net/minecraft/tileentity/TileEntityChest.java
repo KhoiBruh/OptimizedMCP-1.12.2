@@ -181,7 +181,6 @@ public class TileEntityChest extends TileEntityLockableLoot implements ITickable
 		}
 	}
 
-	
 	protected TileEntityChest getAdjacentChest(Facing side) {
 		BlockPos blockpos = pos.offset(side);
 

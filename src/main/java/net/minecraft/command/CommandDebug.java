@@ -122,7 +122,11 @@ public class CommandDebug extends CommandBase {
 		stringbuilder.append("\n\n");
 		stringbuilder.append("Time span: ").append(timeSpan).append(" ms\n");
 		stringbuilder.append("Tick span: ").append(tickSpan).append(" ticks\n");
-		stringbuilder.append("// This is approximately ").append(String.format("%.2f", (float) tickSpan / ((float) timeSpan / 1000F))).append(" ticks per second. It should be ").append(20).append(" ticks per second\n\n");
+		stringbuilder.append("// This is approximately ")
+		             .append(String.format("%.2f", (float) tickSpan / ((float) timeSpan / 1000F)))
+		             .append(" ticks per second. It should be ")
+		             .append(20)
+		             .append(" ticks per second\n\n");
 		stringbuilder.append("--- BEGIN PROFILE DUMP ---\n\n");
 		appendProfilerResults(0, "root", stringbuilder, server);
 		stringbuilder.append("--- END PROFILE DUMP ---\n\n");
@@ -139,7 +143,12 @@ public class CommandDebug extends CommandBase {
 
 				builder.append("|   ".repeat(Math.max(0, depth)));
 
-				builder.append(profiler$result.profilerName).append(" - ").append(String.format("%.2f", profiler$result.usePercentage)).append("%/").append(String.format("%.2f", profiler$result.totalUsePercentage)).append("%\n");
+				builder.append(profiler$result.profilerName)
+				       .append(" - ")
+				       .append(String.format("%.2f", profiler$result.usePercentage))
+				       .append("%/")
+				       .append(String.format("%.2f", profiler$result.totalUsePercentage))
+				       .append("%\n");
 
 				if (!"unspecified".equals(profiler$result.profilerName)) {
 					try {

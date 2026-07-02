@@ -42,7 +42,8 @@ public class PathNavigateGround extends PathNavigate {
 		if (world.getBlockState(pos).getMaterial() == Material.AIR) {
 			BlockPos blockpos;
 
-			for (blockpos = pos.down(); blockpos.getY() > 0 && world.getBlockState(blockpos).getMaterial() == Material.AIR; blockpos = blockpos.down()) {
+			for (blockpos = pos.down(); blockpos.getY() > 0 && world.getBlockState(blockpos)
+			                                                        .getMaterial() == Material.AIR; blockpos = blockpos.down()) {
 			}
 
 			if (blockpos.getY() > 0) {
@@ -61,7 +62,9 @@ public class PathNavigateGround extends PathNavigate {
 		} else {
 			BlockPos blockpos1;
 
-			for (blockpos1 = pos.up(); blockpos1.getY() < world.getHeight() && world.getBlockState(blockpos1).getMaterial().isSolid(); blockpos1 = blockpos1.up()) {
+			for (blockpos1 = pos.up(); blockpos1.getY() < world.getHeight() && world.getBlockState(blockpos1)
+			                                                                        .getMaterial()
+			                                                                        .isSolid(); blockpos1 = blockpos1.up()) {
 			}
 
 			return super.getPathToPos(blockpos1);
@@ -81,12 +84,14 @@ public class PathNavigateGround extends PathNavigate {
 	private int getPathablePosY() {
 		if (entity.isInWater() && getCanSwim()) {
 			int i = (int) entity.getEntityBoundingBox().minY;
-			Block block = world.getBlockState(new BlockPos(MathHelper.floor(entity.posX), i, MathHelper.floor(entity.posZ))).getBlock();
+			Block block = world.getBlockState(new BlockPos(MathHelper.floor(entity.posX), i, MathHelper.floor(entity.posZ)))
+			                   .getBlock();
 			int j = 0;
 
 			while (block == Blocks.FLOWING_WATER || block == Blocks.WATER) {
 				++i;
-				block = world.getBlockState(new BlockPos(MathHelper.floor(entity.posX), i, MathHelper.floor(entity.posZ))).getBlock();
+				block = world.getBlockState(new BlockPos(MathHelper.floor(entity.posX), i, MathHelper.floor(entity.posZ)))
+				             .getBlock();
 				++j;
 
 				if (j > 16) {

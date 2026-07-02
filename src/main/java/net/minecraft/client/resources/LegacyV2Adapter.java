@@ -48,7 +48,6 @@ public class LegacyV2Adapter implements IResourcePack {
 		return pack.getResourceDomains();
 	}
 
-	
 	public <T extends IMetadataSection> T getPackMetadata(MetadataSerializer metadataSerializer, String metadataSectionName) throws IOException {
 
 		return pack.getPackMetadata(metadataSerializer, metadataSectionName);

@@ -17,7 +17,6 @@ public class I18n {
 		return localizedName.translateKey(key);
 	}
 
-
 	/**
 	 * Translates a Stat name with format args
 	 */

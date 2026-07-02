@@ -22,7 +22,8 @@ public class EntityAILlamaFollowCaravan extends EntityAIBase {
 	 */
 	public boolean shouldExecute() {
 		if (!llama.getLeashed() && !llama.inCaravan()) {
-			List<EntityLlama> list = llama.world.getEntitiesWithinAABB(llama.getClass(), llama.getEntityBoundingBox().grow(9D, 4D, 9D));
+			List<EntityLlama> list = llama.world.getEntitiesWithinAABB(llama.getClass(), llama.getEntityBoundingBox()
+			                                                                                  .grow(9D, 4D, 9D));
 			EntityLlama entityllama = null;
 			double d0 = Double.MAX_VALUE;
 
@@ -110,8 +111,10 @@ public class EntityAILlamaFollowCaravan extends EntityAIBase {
 			EntityLlama entityllama = llama.getCaravanHead();
 			double d0 = llama.getDistance(entityllama);
 			float f = 2F;
-			Vec3d vec3d = (new Vec3d(entityllama.posX - llama.posX, entityllama.posY - llama.posY, entityllama.posZ - llama.posZ)).normalize().scale(Math.max(d0 - 2D, 0D));
-			llama.getNavigator().tryMoveToXYZ(llama.posX + vec3d.x(), llama.posY + vec3d.y(), llama.posZ + vec3d.z(), speedModifier);
+			Vec3d vec3d = (new Vec3d(entityllama.posX - llama.posX, entityllama.posY - llama.posY, entityllama.posZ - llama.posZ)).normalize()
+			                                                                                                                      .scale(Math.max(d0 - 2D, 0D));
+			llama.getNavigator()
+			     .tryMoveToXYZ(llama.posX + vec3d.x(), llama.posY + vec3d.y(), llama.posZ + vec3d.z(), speedModifier);
 		}
 	}
 

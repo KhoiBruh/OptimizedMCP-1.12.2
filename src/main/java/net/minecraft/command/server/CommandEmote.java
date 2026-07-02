@@ -43,7 +43,8 @@ public class CommandEmote extends CommandBase {
 			throw new WrongUsageException("commands.me.usage");
 		} else {
 			ITextComponent itextcomponent = getChatComponentFromNthArg(sender, args, 0, !(sender instanceof EntityPlayer));
-			server.getPlayerList().sendMessage(new TextComponentTranslation("chat.type.emote", sender.getDisplayName(), itextcomponent));
+			server.getPlayerList()
+			      .sendMessage(new TextComponentTranslation("chat.type.emote", sender.getDisplayName(), itextcomponent));
 		}
 	}
 

@@ -30,7 +30,9 @@ public class CommandListBans extends CommandBase {
 	 * Check if the given ICommandSender has permission to execute this command
 	 */
 	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-		return (server.getPlayerList().getBannedIPs().isLanServer() || server.getPlayerList().getBannedPlayers().isLanServer()) && super.checkPermission(server, sender);
+		return (server.getPlayerList().getBannedIPs().isLanServer() || server.getPlayerList()
+		                                                                     .getBannedPlayers()
+		                                                                     .isLanServer()) && super.checkPermission(server, sender);
 	}
 
 	/**
@@ -45,11 +47,19 @@ public class CommandListBans extends CommandBase {
 	 */
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
 		if (args.length >= 1 && "ips".equalsIgnoreCase(args[0])) {
-			sender.sendMessage(new TextComponentTranslation("commands.banlist.ips", server.getPlayerList().getBannedIPs().getKeys().length));
-			sender.sendMessage(new TextComponentString(joinNiceString(server.getPlayerList().getBannedIPs().getKeys())));
+			sender.sendMessage(new TextComponentTranslation("commands.banlist.ips", server.getPlayerList()
+			                                                                              .getBannedIPs()
+			                                                                              .getKeys().length));
+			sender.sendMessage(new TextComponentString(joinNiceString(server.getPlayerList()
+			                                                                .getBannedIPs()
+			                                                                .getKeys())));
 		} else {
-			sender.sendMessage(new TextComponentTranslation("commands.banlist.players", server.getPlayerList().getBannedPlayers().getKeys().length));
-			sender.sendMessage(new TextComponentString(joinNiceString(server.getPlayerList().getBannedPlayers().getKeys())));
+			sender.sendMessage(new TextComponentTranslation("commands.banlist.players", server.getPlayerList()
+			                                                                                  .getBannedPlayers()
+			                                                                                  .getKeys().length));
+			sender.sendMessage(new TextComponentString(joinNiceString(server.getPlayerList()
+			                                                                .getBannedPlayers()
+			                                                                .getKeys())));
 		}
 	}
 

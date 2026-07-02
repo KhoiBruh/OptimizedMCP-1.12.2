@@ -221,7 +221,8 @@ public class GuiRecipeOverlay extends Gui {
 							int j2 = (int) ((float) (y + j1) / 0.42F - 3F);
 							GLS.scale(0.42F, 0.42F, 1F);
 							GLS.enableLighting();
-							mc.getRenderItem().renderItemAndEffectIntoGUI(aitemstack[MathHelper.floor(time / 30F) % aitemstack.length], i2, j2);
+							mc.getRenderItem()
+							  .renderItemAndEffectIntoGUI(aitemstack[MathHelper.floor(time / 30F) % aitemstack.length], i2, j2);
 							GLS.disableLighting();
 							GLS.popMatrix();
 						}

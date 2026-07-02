@@ -254,13 +254,15 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 				double d9 = entity.motionX * entity.motionX + entity.motionY * entity.motionY + entity.motionZ * entity.motionZ;
 				double d10 = d6 * d6 + d7 * d7 + d8 * d8;
 
-				if (d10 - d9 > 100D && (!serverController.isSinglePlayer() || !serverController.getServerOwner().equals(entity.getName()))) {
+				if (d10 - d9 > 100D && (!serverController.isSinglePlayer() || !serverController.getServerOwner()
+				                                                                               .equals(entity.getName()))) {
 					LOGGER.warn("{} (vehicle of {}) moved too quickly! {},{},{}", entity.getName(), player.getName(), d6, d7, d8);
 					netManager.sendPacket(new SPacketMoveVehicle(entity));
 					return;
 				}
 
-				boolean flag = worldserver.getCollisionBoxes(entity, entity.getEntityBoundingBox().shrink(0.0625D)).isEmpty();
+				boolean flag = worldserver.getCollisionBoxes(entity, entity.getEntityBoundingBox().shrink(0.0625D))
+				                          .isEmpty();
 				d6 = d3 - lowestRiddenX1;
 				d7 = d4 - lowestRiddenY1 - 1.0E-6D;
 				d8 = d5 - lowestRiddenZ1;
@@ -283,7 +285,8 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 				}
 
 				entity.setPositionAndRotation(d3, d4, d5, f, f1);
-				boolean flag2 = worldserver.getCollisionBoxes(entity, entity.getEntityBoundingBox().shrink(0.0625D)).isEmpty();
+				boolean flag2 = worldserver.getCollisionBoxes(entity, entity.getEntityBoundingBox().shrink(0.0625D))
+				                           .isEmpty();
 
 				if (flag && (flag1 || !flag2)) {
 					entity.setPositionAndRotation(d0, d1, d2, f, f1);
@@ -293,7 +296,9 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
 				serverController.getPlayerList().serverUpdateMovingPlayer(player);
 				player.addMovementStat(player.posX - d0, player.posY - d1, player.posZ - d2);
-				vehicleFloating = d11 >= -0.03125D && !serverController.isFlightAllowed() && !worldserver.checkBlockCollision(entity.getEntityBoundingBox().grow(0.0625D).expand(0D, -0.55D, 0D));
+				vehicleFloating = d11 >= -0.03125D && !serverController.isFlightAllowed() && !worldserver.checkBlockCollision(entity.getEntityBoundingBox()
+				                                                                                                                    .grow(0.0625D)
+				                                                                                                                    .expand(0D, -0.55D, 0D));
 				lowestRiddenX1 = entity.posX;
 				lowestRiddenY1 = entity.posY;
 				lowestRiddenZ1 = entity.posZ;
@@ -398,17 +403,21 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 								i = 1;
 							}
 
-							if (!player.isInvulnerableDimensionChange() && (!player.getServerWorld().getGameRules().getBoolean("disableElytraMovementCheck") || !player.isElytraFlying())) {
+							if (!player.isInvulnerableDimensionChange() && (!player.getServerWorld()
+							                                                       .getGameRules()
+							                                                       .getBoolean("disableElytraMovementCheck") || !player.isElytraFlying())) {
 								float f2 = player.isElytraFlying() ? 300F : 100F;
 
-								if (d11 - d10 > (double) (f2 * (float) i) && (!serverController.isSinglePlayer() || !serverController.getServerOwner().equals(player.getName()))) {
+								if (d11 - d10 > (double) (f2 * (float) i) && (!serverController.isSinglePlayer() || !serverController.getServerOwner()
+								                                                                                                     .equals(player.getName()))) {
 									LOGGER.warn("{} moved too quickly! {},{},{}", player.getName(), d7, d8, d9);
 									setPlayerLocation(player.posX, player.posY, player.posZ, player.rotationYaw, player.rotationPitch);
 									return;
 								}
 							}
 
-							boolean flag2 = worldserver.getCollisionBoxes(player, player.getEntityBoundingBox().shrink(0.0625D)).isEmpty();
+							boolean flag2 = worldserver.getCollisionBoxes(player, player.getEntityBoundingBox()
+							                                                            .shrink(0.0625D)).isEmpty();
 							d7 = d4 - lastGoodX;
 							d8 = d5 - lastGoodY;
 							d9 = d6 - lastGoodZ;
@@ -440,7 +449,8 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 							player.addMovementStat(player.posX - d0, player.posY - d1, player.posZ - d2);
 
 							if (!player.noClip && !player.isPlayerSleeping()) {
-								boolean flag1 = worldserver.getCollisionBoxes(player, player.getEntityBoundingBox().shrink(0.0625D)).isEmpty();
+								boolean flag1 = worldserver.getCollisionBoxes(player, player.getEntityBoundingBox()
+								                                                            .shrink(0.0625D)).isEmpty();
 
 								if (flag2 && (flag || !flag1)) {
 									setPlayerLocation(d0, d1, d2, f, f1);
@@ -450,7 +460,9 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
 							floating = d12 >= -0.03125D;
 							floating &= !serverController.isFlightAllowed() && !player.capabilities.allowFlying;
-							floating &= !player.isPotionActive(MobEffects.LEVITATION) && !player.isElytraFlying() && !worldserver.checkBlockCollision(player.getEntityBoundingBox().grow(0.0625D).expand(0D, -0.55D, 0D));
+							floating &= !player.isPotionActive(MobEffects.LEVITATION) && !player.isElytraFlying() && !worldserver.checkBlockCollision(player.getEntityBoundingBox()
+							                                                                                                                                .grow(0.0625D)
+							                                                                                                                                .expand(0D, -0.55D, 0D));
 							player.onGround = packetIn.isOnGround();
 							serverController.getPlayerList().serverUpdateMovingPlayer(player);
 							player.handleFalling(player.posY - d3, packetIn.isOnGround());
@@ -547,7 +559,8 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 					return;
 				} else {
 					if (packetIn.getAction() == CPacketPlayerDigging.Action.START_DESTROY_BLOCK) {
-						if (!serverController.isBlockProtected(worldserver, blockpos, player) && worldserver.getWorldBorder().contains(blockpos)) {
+						if (!serverController.isBlockProtected(worldserver, blockpos, player) && worldserver.getWorldBorder()
+						                                                                                    .contains(blockpos)) {
 							player.interactionManager.onBlockClicked(blockpos, packetIn.getFacing());
 						} else {
 							player.connection.sendPacket(new SPacketBlockChange(worldserver, blockpos));
@@ -582,7 +595,8 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 		player.markPlayerActive();
 
 		if (blockpos.getY() < serverController.getBuildLimit() - 1 || enumfacing != Facing.UP && blockpos.getY() < serverController.getBuildLimit()) {
-			if (targetPos == null && player.getDistanceSq((double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.5D, (double) blockpos.getZ() + 0.5D) < 64D && !serverController.isBlockProtected(worldserver, blockpos, player) && worldserver.getWorldBorder().contains(blockpos)) {
+			if (targetPos == null && player.getDistanceSq((double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.5D, (double) blockpos.getZ() + 0.5D) < 64D && !serverController.isBlockProtected(worldserver, blockpos, player) && worldserver.getWorldBorder()
+			                                                                                                                                                                                                                                          .contains(blockpos)) {
 				player.interactionManager.processRightClickBlock(player, worldserver, itemstack, enumhand, blockpos, enumfacing, packetIn.getFacingX(), packetIn.getFacingY(), packetIn.getFacingZ());
 			}
 		} else {
@@ -636,7 +650,8 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 					WorldServer worldserver1 = player.getServerWorld();
 					WorldServer worldserver2 = (WorldServer) entity.world;
 					player.dimension = entity.dimension;
-					sendPacket(new SPacketRespawn(player.dimension, worldserver1.getDifficulty(), worldserver1.getWorldInfo().getTerrainType(), player.interactionManager.getGameType()));
+					sendPacket(new SPacketRespawn(player.dimension, worldserver1.getDifficulty(), worldserver1.getWorldInfo()
+					                                                                                          .getTerrainType(), player.interactionManager.getGameType()));
 					serverController.getPlayerList().updatePermissionLevel(player);
 					worldserver1.removeEntityDangerously(player);
 					player.isDead = false;
@@ -757,7 +772,8 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 
 			chatSpamThresholdCount += 20;
 
-			if (chatSpamThresholdCount > 200 && !serverController.getPlayerList().canSendCommands(player.getGameProfile())) {
+			if (chatSpamThresholdCount > 200 && !serverController.getPlayerList()
+			                                                     .canSendCommands(player.getGameProfile())) {
 				disconnect(new TextComponentTranslation("disconnect.spam"));
 			}
 		}
@@ -1010,7 +1026,8 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 			boolean flag = packetIn.getSlotId() < 0;
 			ItemStack itemstack = packetIn.getStack();
 
-			if (!itemstack.isEmpty() && itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey("BlockEntityTag", 10)) {
+			if (!itemstack.isEmpty() && itemstack.hasTagCompound() && itemstack.getTagCompound()
+			                                                                   .hasKey("BlockEntityTag", 10)) {
 				NBTTagCompound nbttagcompound = itemstack.getTagCompound().getCompoundTag("BlockEntityTag");
 
 				if (nbttagcompound.hasKey("x") && nbttagcompound.hasKey("y") && nbttagcompound.hasKey("z")) {
@@ -1306,17 +1323,20 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 					switch (tileentitycommandblock$mode) {
 						case SEQUENCE:
 							IBlockState iblockstate3 = Blocks.CHAIN_COMMAND_BLOCK.getDefaultState();
-							player.world.setBlockState(blockpos1, iblockstate3.withProperty(BlockCommandBlock.FACING, enumfacing).withProperty(BlockCommandBlock.CONDITIONAL, flag), 2);
+							player.world.setBlockState(blockpos1, iblockstate3.withProperty(BlockCommandBlock.FACING, enumfacing)
+							                                                  .withProperty(BlockCommandBlock.CONDITIONAL, flag), 2);
 							break;
 
 						case AUTO:
 							IBlockState iblockstate2 = Blocks.REPEATING_COMMAND_BLOCK.getDefaultState();
-							player.world.setBlockState(blockpos1, iblockstate2.withProperty(BlockCommandBlock.FACING, enumfacing).withProperty(BlockCommandBlock.CONDITIONAL, flag), 2);
+							player.world.setBlockState(blockpos1, iblockstate2.withProperty(BlockCommandBlock.FACING, enumfacing)
+							                                                  .withProperty(BlockCommandBlock.CONDITIONAL, flag), 2);
 							break;
 
 						case REDSTONE:
 							IBlockState iblockstate = Blocks.COMMAND_BLOCK.getDefaultState();
-							player.world.setBlockState(blockpos1, iblockstate.withProperty(BlockCommandBlock.FACING, enumfacing).withProperty(BlockCommandBlock.CONDITIONAL, flag), 2);
+							player.world.setBlockState(blockpos1, iblockstate.withProperty(BlockCommandBlock.FACING, enumfacing)
+							                                                 .withProperty(BlockCommandBlock.CONDITIONAL, flag), 2);
 					}
 
 					tileentity2.validate();
@@ -1360,7 +1380,8 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 		} else if ("MC|ItemName".equals(s)) {
 			if (player.openContainer instanceof ContainerRepair containerrepair) {
 				if (packetIn.getBufferData() != null && packetIn.getBufferData().readableBytes() >= 1) {
-					String s5 = ChatAllowedCharacters.filterAllowedCharacters(packetIn.getBufferData().readString(32767));
+					String s5 = ChatAllowedCharacters.filterAllowedCharacters(packetIn.getBufferData()
+					                                                                  .readString(32767));
 
 					if (s5.length() <= 35) {
 						containerrepair.updateItemName(s5);

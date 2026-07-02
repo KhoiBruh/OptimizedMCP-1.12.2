@@ -160,7 +160,8 @@ public class AdvancementCommand extends CommandBase {
 
 	private void testCriterion(ICommandSender p_192554_1_, EntityPlayerMP p_192554_2_, Advancement p_192554_3_, String p_192554_4_) throws CommandException {
 		PlayerAdvancements playeradvancements = p_192554_2_.getAdvancements();
-		CriterionProgress criterionprogress = playeradvancements.getProgress(p_192554_3_).getCriterionProgress(p_192554_4_);
+		CriterionProgress criterionprogress = playeradvancements.getProgress(p_192554_3_)
+		                                                        .getCriterionProgress(p_192554_4_);
 
 		if (criterionprogress == null) {
 			throw new CommandException("commands.advancement.criterionNotFound", p_192554_3_.getId(), p_192554_4_);
@@ -204,7 +205,8 @@ public class AdvancementCommand extends CommandBase {
 					}
 
 					if (args.length == 5 && advancementcommand$mode == AdvancementCommand.Mode.ONLY) {
-						Advancement advancement = server.getAdvancementManager().getAdvancement(new ResourceLocation(args[3]));
+						Advancement advancement = server.getAdvancementManager()
+						                                .getAdvancement(new ResourceLocation(args[3]));
 
 						if (advancement != null) {
 							return getListOfStringsMatchingLastWord(args, advancement.getCriteria().keySet());
@@ -223,7 +225,8 @@ public class AdvancementCommand extends CommandBase {
 				}
 
 				if (args.length == 4) {
-					Advancement advancement1 = server.getAdvancementManager().getAdvancement(new ResourceLocation(args[2]));
+					Advancement advancement1 = server.getAdvancementManager()
+					                                 .getAdvancement(new ResourceLocation(args[2]));
 
 					if (advancement1 != null) {
 						return getListOfStringsMatchingLastWord(args, advancement1.getCriteria().keySet());
@@ -300,7 +303,6 @@ public class AdvancementCommand extends CommandBase {
 			baseTranslationKey = "commands.advancement." + nameIn;
 		}
 
-		
 		static AdvancementCommand.ActionType byName(String nameIn) {
 
 			for (AdvancementCommand.ActionType advancementcommand$actiontype : values()) {
@@ -358,7 +360,6 @@ public class AdvancementCommand extends CommandBase {
 			children = p_i47556_5_;
 		}
 
-		
 		static AdvancementCommand.Mode byName(String nameIn) {
 
 			for (AdvancementCommand.Mode advancementcommand$mode : values()) {

@@ -345,7 +345,8 @@ public class GuiIngame extends Gui {
 		GLS.popMatrix();
 		scoreobjective1 = scoreboard.getObjectiveInDisplaySlot(0);
 
-		if (!mc.gameSettings.keyPlayerList.isDown() || mc.isIntegratedServerRunning() && mc.player.connection.getPlayerInfoMap().size() <= 1 && scoreobjective1 == null) {
+		if (!mc.gameSettings.keyPlayerList.isDown() || mc.isIntegratedServerRunning() && mc.player.connection.getPlayerInfoMap()
+		                                                                                                     .size() <= 1 && scoreobjective1 == null) {
 			overlayPlayerList.updatePlayerList(false);
 		} else {
 			overlayPlayerList.updatePlayerList(true);
@@ -370,7 +371,9 @@ public class GuiIngame extends Gui {
 
 				BlockPos blockpos = raytraceresult.getBlockPos();
 
-				if (!mc.world.getBlockState(blockpos).getBlock().hasTileEntity() || !(mc.world.getTileEntity(blockpos) instanceof IInventory)) {
+				if (!mc.world.getBlockState(blockpos)
+				             .getBlock()
+				             .hasTileEntity() || !(mc.world.getTileEntity(blockpos) instanceof IInventory)) {
 					return;
 				}
 			}
@@ -476,7 +479,8 @@ public class GuiIngame extends Gui {
 			int k = 91;
 			zLevel = -90F;
 			drawTexturedModalRect(i - 91, mc.getWindow().getScaledHeight() - 22, 0, 0, 182, 22);
-			drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20, mc.getWindow().getScaledHeight() - 22 - 1, 0, 22, 24, 22);
+			drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20, mc.getWindow()
+			                                                                              .getScaledHeight() - 22 - 1, 0, 22, 24, 22);
 
 			if (!itemstack.isEmpty()) {
 				if (enumhandside == HandSide.LEFT) {
@@ -620,7 +624,8 @@ public class GuiIngame extends Gui {
 	private void renderScoreboard(ScoreObjective objective) {
 		Scoreboard scoreboard = objective.getScoreboard();
 		Collection<Score> collection = scoreboard.getSortedScores(objective);
-		List<Score> list = Lists.newArrayList(Iterables.filter(collection, p_apply_1_ -> p_apply_1_.getPlayerName() != null && !p_apply_1_.getPlayerName().startsWith("#")));
+		List<Score> list = Lists.newArrayList(Iterables.filter(collection, p_apply_1_ -> p_apply_1_.getPlayerName() != null && !p_apply_1_.getPlayerName()
+		                                                                                                                                  .startsWith("#")));
 
 		if (list.size() > 15) {
 			collection = Lists.newArrayList(Iterables.skip(list, collection.size() - 15));
@@ -897,7 +902,9 @@ public class GuiIngame extends Gui {
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
 		bufferbuilder.pos(0D, mc.getWindow().getScaledHeight(), -90D).tex(0D, 1D).endVertex();
-		bufferbuilder.pos(mc.getWindow().getScaledWidth(), mc.getWindow().getScaledHeight(), -90D).tex(1D, 1D).endVertex();
+		bufferbuilder.pos(mc.getWindow().getScaledWidth(), mc.getWindow().getScaledHeight(), -90D)
+		             .tex(1D, 1D)
+		             .endVertex();
 		bufferbuilder.pos(mc.getWindow().getScaledWidth(), 0D, -90D).tex(1D, 0D).endVertex();
 		bufferbuilder.pos(0D, 0D, -90D).tex(0D, 0D).endVertex();
 		tessellator.draw();
@@ -940,7 +947,9 @@ public class GuiIngame extends Gui {
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
 		bufferbuilder.pos(0D, mc.getWindow().getScaledHeight(), -90D).tex(0D, 1D).endVertex();
-		bufferbuilder.pos(mc.getWindow().getScaledWidth(), mc.getWindow().getScaledHeight(), -90D).tex(1D, 1D).endVertex();
+		bufferbuilder.pos(mc.getWindow().getScaledWidth(), mc.getWindow().getScaledHeight(), -90D)
+		             .tex(1D, 1D)
+		             .endVertex();
 		bufferbuilder.pos(mc.getWindow().getScaledWidth(), 0D, -90D).tex(1D, 0D).endVertex();
 		bufferbuilder.pos(0D, 0D, -90D).tex(0D, 0D).endVertex();
 		tessellator.draw();
@@ -963,7 +972,9 @@ public class GuiIngame extends Gui {
 		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 		GLS.color(1F, 1F, 1F, timeInPortal);
 		mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-		TextureAtlasSprite textureatlassprite = mc.getBlockRendererDispatcher().getBlockModelShapes().getTexture(Blocks.PORTAL.getDefaultState());
+		TextureAtlasSprite textureatlassprite = mc.getBlockRendererDispatcher()
+		                                          .getBlockModelShapes()
+		                                          .getTexture(Blocks.PORTAL.getDefaultState());
 		float f = textureatlassprite.getMinU();
 		float f1 = textureatlassprite.getMinV();
 		float f2 = textureatlassprite.getMaxU();
@@ -972,7 +983,9 @@ public class GuiIngame extends Gui {
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
 		bufferbuilder.pos(0D, mc.getWindow().getScaledHeight(), -90D).tex(f, f3).endVertex();
-		bufferbuilder.pos(mc.getWindow().getScaledWidth(), mc.getWindow().getScaledHeight(), -90D).tex(f2, f3).endVertex();
+		bufferbuilder.pos(mc.getWindow().getScaledWidth(), mc.getWindow().getScaledHeight(), -90D)
+		             .tex(f2, f3)
+		             .endVertex();
 		bufferbuilder.pos(mc.getWindow().getScaledWidth(), 0D, -90D).tex(f2, f1).endVertex();
 		bufferbuilder.pos(0D, 0D, -90D).tex(f, f1).endVertex();
 		tessellator.draw();

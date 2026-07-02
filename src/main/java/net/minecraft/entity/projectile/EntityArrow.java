@@ -191,7 +191,8 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 		if (iblockstate.getMaterial() != Material.AIR) {
 			AxisAlignedBB axisalignedbb = iblockstate.getCollisionBoundingBox(world, blockpos);
 
-			if (axisalignedbb != Block.NULL_AABB && axisalignedbb.offset(blockpos).contains(new Vec3d(posX, posY, posZ))) {
+			if (axisalignedbb != Block.NULL_AABB && axisalignedbb.offset(blockpos)
+			                                                     .contains(new Vec3d(posX, posY, posZ))) {
 				inGround = true;
 			}
 		}
@@ -417,10 +418,10 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 	protected void arrowHit(EntityLivingBase living) {
 	}
 
-	
 	protected Entity findEntityOnPath(Vec3d start, Vec3d end) {
 		Entity entity = null;
-		List<Entity> list = world.getEntitiesInAABBexcluding(this, getEntityBoundingBox().expand(motionX, motionY, motionZ).grow(1D), ARROW_TARGETS);
+		List<Entity> list = world.getEntitiesInAABBexcluding(this, getEntityBoundingBox().expand(motionX, motionY, motionZ)
+		                                                                                 .grow(1D), ARROW_TARGETS);
 		double d0 = 0D;
 
 		for (Entity entity1 : list) {
@@ -570,7 +571,8 @@ public abstract class EntityArrow extends Entity implements IProjectile {
 	public void setEnchantmentEffectsFromEntity(EntityLivingBase p_190547_1_, float p_190547_2_) {
 		int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.POWER, p_190547_1_);
 		int j = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.PUNCH, p_190547_1_);
-		setDamage((double) (p_190547_2_ * 2F) + rand.nextGaussian() * 0.25D + (double) ((float) world.getDifficulty().getDifficultyId() * 0.11F));
+		setDamage((double) (p_190547_2_ * 2F) + rand.nextGaussian() * 0.25D + (double) ((float) world.getDifficulty()
+		                                                                                             .getDifficultyId() * 0.11F));
 
 		if (i > 0) {
 			setDamage(getDamage() + (double) i * 0.5D + 0.5D);

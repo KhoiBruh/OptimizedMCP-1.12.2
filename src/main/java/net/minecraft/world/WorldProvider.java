@@ -82,7 +82,8 @@ public abstract class WorldProvider {
 		WorldType worldtype = world.getWorldInfo().getTerrainType();
 
 		if (worldtype == WorldType.FLAT) {
-			FlatGeneratorInfo flatgeneratorinfo = FlatGeneratorInfo.createFlatGeneratorFromString(world.getWorldInfo().getGeneratorOptions());
+			FlatGeneratorInfo flatgeneratorinfo = FlatGeneratorInfo.createFlatGeneratorFromString(world.getWorldInfo()
+			                                                                                           .getGeneratorOptions());
 			biomeProvider = new BiomeProviderSingle(Biome.getBiome(flatgeneratorinfo.getBiome(), Biomes.DEFAULT));
 		} else if (worldtype == WorldType.DEBUG_ALL_BLOCK_STATES) {
 			biomeProvider = new BiomeProviderSingle(Biomes.PLAINS);
@@ -93,11 +94,13 @@ public abstract class WorldProvider {
 
 	public IChunkGenerator createChunkGenerator() {
 		if (terrainType == WorldType.FLAT) {
-			return new ChunkGeneratorFlat(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorSettings);
+			return new ChunkGeneratorFlat(world, world.getSeed(), world.getWorldInfo()
+			                                                           .isMapFeaturesEnabled(), generatorSettings);
 		} else if (terrainType == WorldType.DEBUG_ALL_BLOCK_STATES) {
 			return new ChunkGeneratorDebug(world);
 		} else {
-			return new ChunkGeneratorOverworld(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorSettings);
+			return new ChunkGeneratorOverworld(world, world.getSeed(), world.getWorldInfo()
+			                                                                .isMapFeaturesEnabled(), generatorSettings);
 		}
 	}
 
@@ -144,8 +147,6 @@ public abstract class WorldProvider {
 	public boolean isSurfaceWorld() {
 		return true;
 	}
-
-	
 
 	/**
 	 * Returns array with sunrise/sunset colors
@@ -202,7 +203,6 @@ public abstract class WorldProvider {
 		return true;
 	}
 
-	
 	public BlockPos getSpawnCoordinate() {
 		return null;
 	}

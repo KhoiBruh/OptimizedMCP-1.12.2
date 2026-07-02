@@ -43,7 +43,6 @@ public class SwimNodeProcessor extends NodeProcessor {
 		return PathNodeType.WATER;
 	}
 
-	
 	private PathPoint getWaterNode(int p_186328_1_, int p_186328_2_, int p_186328_3_) {
 		PathNodeType pathnodetype = isFree(p_186328_1_, p_186328_2_, p_186328_3_);
 		return pathnodetype == PathNodeType.WATER ? openPoint(p_186328_1_, p_186328_2_, p_186328_3_) : null;

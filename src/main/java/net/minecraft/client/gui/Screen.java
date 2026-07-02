@@ -220,7 +220,8 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 			HoverEvent event = component.getStyle().getHoverEvent();
 
 			switch (event.action()) {
-				case SHOW_TEXT -> drawHoveringText(mc.fontRenderer.formatToWidth(event.value().getFormattedText(), Math.max(width / 2, 200)), x, y);
+				case SHOW_TEXT -> drawHoveringText(mc.fontRenderer.formatToWidth(event.value()
+				                                                                      .getFormattedText(), Math.max(width / 2, 200)), x, y);
 				case SHOW_ITEM -> {
 					ItemStack item = ItemStack.EMPTY;
 
@@ -425,8 +426,14 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 		mc.getTextureManager().bindTexture(OPTIONS_BACKGROUND);
 		GLS.color(1F, 1F, 1F, 1F);
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-		bufferbuilder.pos(0D, height, 0D).tex(0D, (float) height / 32F + (float) tint).color(64, 64, 64, 255).endVertex();
-		bufferbuilder.pos(width, height, 0D).tex((float) width / 32F, (float) height / 32F + (float) tint).color(64, 64, 64, 255).endVertex();
+		bufferbuilder.pos(0D, height, 0D)
+		             .tex(0D, (float) height / 32F + (float) tint)
+		             .color(64, 64, 64, 255)
+		             .endVertex();
+		bufferbuilder.pos(width, height, 0D)
+		             .tex((float) width / 32F, (float) height / 32F + (float) tint)
+		             .color(64, 64, 64, 255)
+		             .endVertex();
 		bufferbuilder.pos(width, 0D, 0D).tex((float) width / 32F, tint).color(64, 64, 64, 255).endVertex();
 		bufferbuilder.pos(0D, 0D, 0D).tex(0D, tint).color(64, 64, 64, 255).endVertex();
 		tessellator.draw();

@@ -18,4 +18,5 @@ public class IntegerCache {
 	public static Integer getInteger(int value) {
 		return value > 0 && value < CACHE.length ? CACHE[value] : value;
 	}
+
 }

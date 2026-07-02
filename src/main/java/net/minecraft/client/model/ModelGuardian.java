@@ -101,7 +101,8 @@ public class ModelGuardian extends ModelBase {
 
 			Vec3d vec3d2 = entityIn.getLook(0F);
 			vec3d2 = new Vec3d(vec3d2.x(), 0D, vec3d2.z());
-			Vec3d vec3d3 = (new Vec3d(vec3d1.x() - vec3d.x(), 0D, vec3d1.z() - vec3d.z())).normalize().rotateYaw(((float) Math.PI / 2F));
+			Vec3d vec3d3 = (new Vec3d(vec3d1.x() - vec3d.x(), 0D, vec3d1.z() - vec3d.z())).normalize()
+			                                                                              .rotateYaw(((float) Math.PI / 2F));
 			double d1 = vec3d2.dotProduct(vec3d3);
 			guardianEye.rotationPointX = MathHelper.sqrt((float) Math.abs(d1)) * 2F * (float) Math.signum(d1);
 		}

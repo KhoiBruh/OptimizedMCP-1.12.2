@@ -44,4 +44,5 @@ public class RenderAbstractHorse extends RenderLiving<AbstractHorse> {
 	protected ResourceLocation getEntityTexture(AbstractHorse entity) {
 		return MAP.get(entity.getClass());
 	}
+
 }

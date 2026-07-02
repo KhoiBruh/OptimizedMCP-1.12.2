@@ -114,7 +114,11 @@ public class EnchantScreen extends ContainerScreen {
 		GLS.matrixMode(5889);
 		GLS.pushMatrix();
 		GLS.loadIdentity();
-		GLS.viewport((mc.getWindow().getScaledWidth() - 320) / 2 * mc.getWindow().getGuiScale(), (mc.getWindow().getScaledHeight() - 240) / 2 * mc.getWindow().getGuiScale(), 320 * mc.getWindow().getGuiScale(), 240 * mc.getWindow().getGuiScale());
+		GLS.viewport((mc.getWindow().getScaledWidth() - 320) / 2 * mc.getWindow().getGuiScale(), (mc.getWindow()
+		                                                                                            .getScaledHeight() - 240) / 2 * mc.getWindow()
+		                                                                                                                              .getGuiScale(), 320 * mc.getWindow()
+		                                                                                                                                                      .getGuiScale(), 240 * mc.getWindow()
+		                                                                                                                                                                              .getGuiScale());
 		GLS.translate(-0.34F, 0.23F, 0F);
 		Projection.perspective(90F, 1.3333334F, 9F, 80F);
 		float f = 1F;

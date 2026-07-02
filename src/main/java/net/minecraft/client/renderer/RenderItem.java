@@ -191,8 +191,10 @@ public class RenderItem implements IResourceManagerReloadListener {
 		Item item = stack.getItem();
 
 		if (item != null && item.hasCustomProperties()) {
-			ResourceLocation resourcelocation = ibakedmodel.getOverrides().applyOverride(stack, worldIn, entitylivingbaseIn);
-			return resourcelocation == null ? ibakedmodel : itemModelMesher.getModelManager().getModel(new ModelResourceLocation(resourcelocation, "inventory"));
+			ResourceLocation resourcelocation = ibakedmodel.getOverrides()
+			                                               .applyOverride(stack, worldIn, entitylivingbaseIn);
+			return resourcelocation == null ? ibakedmodel : itemModelMesher.getModelManager()
+			                                                               .getModel(new ModelResourceLocation(resourcelocation, "inventory"));
 		} else {
 			return ibakedmodel;
 		}
@@ -343,7 +345,9 @@ public class RenderItem implements IResourceManagerReloadListener {
 			}
 
 			EntityPlayerSP entityplayersp = Minecraft.getMinecraft().player;
-			float f3 = entityplayersp == null ? 0F : entityplayersp.getCooldownTracker().getCooldown(stack.getItem(), Minecraft.getMinecraft().getRenderPartialTicks());
+			float f3 = entityplayersp == null ? 0F : entityplayersp.getCooldownTracker()
+			                                                       .getCooldown(stack.getItem(), Minecraft.getMinecraft()
+			                                                                                              .getRenderPartialTicks());
 
 			if (f3 > 0F) {
 				GLS.disableLighting();

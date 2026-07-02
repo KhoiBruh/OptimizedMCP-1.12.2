@@ -172,7 +172,8 @@ public class EntityMinecartFurnace extends EntityMinecart {
 	}
 
 	public IBlockState getDefaultDisplayTile() {
-		return (isMinecartPowered() ? Blocks.LIT_FURNACE : Blocks.FURNACE).getDefaultState().withProperty(BlockFurnace.FACING, Facing.NORTH);
+		return (isMinecartPowered() ? Blocks.LIT_FURNACE : Blocks.FURNACE).getDefaultState()
+		                                                                  .withProperty(BlockFurnace.FACING, Facing.NORTH);
 	}
 
 }

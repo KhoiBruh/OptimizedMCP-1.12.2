@@ -19,7 +19,8 @@ public class BlockRail extends BlockRailBase {
 	}
 
 	protected void updateState(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
-		if (blockIn.getDefaultState().canProvidePower() && (new BlockRailBase.Rail(worldIn, pos, state)).countAdjacentRails() == 3) {
+		if (blockIn.getDefaultState()
+		           .canProvidePower() && (new BlockRailBase.Rail(worldIn, pos, state)).countAdjacentRails() == 3) {
 			updateDir(worldIn, pos, state, false);
 		}
 	}

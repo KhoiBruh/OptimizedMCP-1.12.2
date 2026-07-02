@@ -13,7 +13,13 @@ import net.minecraft.util.text.Style;
 
 public class SPacketServerInfo implements Packet<INetHandlerStatusClient> {
 
-	private static final Gson GSON = (new GsonBuilder()).registerTypeAdapter(ServerStatusResponse.Version.class, new ServerStatusResponse.Version.Serializer()).registerTypeAdapter(ServerStatusResponse.Players.class, new ServerStatusResponse.Players.Serializer()).registerTypeAdapter(ServerStatusResponse.class, new ServerStatusResponse.Serializer()).registerTypeHierarchyAdapter(ITextComponent.class, new ITextComponent.Serializer()).registerTypeHierarchyAdapter(Style.class, new Style.Serializer()).registerTypeAdapterFactory(new EnumTypeAdapterFactory()).create();
+	private static final Gson GSON = (new GsonBuilder()).registerTypeAdapter(ServerStatusResponse.Version.class, new ServerStatusResponse.Version.Serializer())
+	                                                    .registerTypeAdapter(ServerStatusResponse.Players.class, new ServerStatusResponse.Players.Serializer())
+	                                                    .registerTypeAdapter(ServerStatusResponse.class, new ServerStatusResponse.Serializer())
+	                                                    .registerTypeHierarchyAdapter(ITextComponent.class, new ITextComponent.Serializer())
+	                                                    .registerTypeHierarchyAdapter(Style.class, new Style.Serializer())
+	                                                    .registerTypeAdapterFactory(new EnumTypeAdapterFactory())
+	                                                    .create();
 	private ServerStatusResponse response;
 
 	public SPacketServerInfo() {

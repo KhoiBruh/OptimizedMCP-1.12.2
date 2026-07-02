@@ -105,7 +105,8 @@ public class ServerCommandManager extends CommandHandler implements ICommandList
 
 		if (flag) {
 			for (EntityPlayer entityplayer : minecraftserver.getPlayerList().getPlayers()) {
-				if (entityplayer != sender && minecraftserver.getPlayerList().canSendCommands(entityplayer.getGameProfile()) && command.checkPermission(server, sender)) {
+				if (entityplayer != sender && minecraftserver.getPlayerList()
+				                                             .canSendCommands(entityplayer.getGameProfile()) && command.checkPermission(server, sender)) {
 					boolean flag1 = sender instanceof MinecraftServer && server.shouldBroadcastConsoleToOps();
 					boolean flag2 = sender instanceof RConConsoleSource && server.shouldBroadcastRconToOps();
 

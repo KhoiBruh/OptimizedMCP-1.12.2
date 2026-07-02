@@ -15,8 +15,11 @@ import java.util.Random;
 
 public class WorldGenDesertWells extends WorldGenerator {
 
-	private static final BlockStateMatcher IS_SAND = BlockStateMatcher.forBlock(Blocks.SAND).where(BlockSand.VARIANT, Predicates.equalTo(BlockSand.Type.SAND));
-	private final IBlockState sandSlab = Blocks.STONE_SLAB.getDefaultState().withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.Type.SAND).withProperty(BlockSlab.HALF, BlockSlab.BlockHalf.BOTTOM);
+	private static final BlockStateMatcher IS_SAND = BlockStateMatcher.forBlock(Blocks.SAND)
+	                                                                  .where(BlockSand.VARIANT, Predicates.equalTo(BlockSand.Type.SAND));
+	private final IBlockState sandSlab = Blocks.STONE_SLAB.getDefaultState()
+	                                                      .withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.Type.SAND)
+	                                                      .withProperty(BlockSlab.HALF, BlockSlab.BlockHalf.BOTTOM);
 	private final IBlockState sandstone = Blocks.SANDSTONE.getDefaultState();
 	private final IBlockState water = Blocks.FLOWING_WATER.getDefaultState();
 

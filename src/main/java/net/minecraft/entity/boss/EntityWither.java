@@ -224,7 +224,8 @@ public class EntityWither extends EntityMob implements IRangedAttackMob {
 			int j1 = getInvulTime() - 1;
 
 			if (j1 <= 0) {
-				world.newExplosion(this, posX, posY + (double) getEyeHeight(), posZ, 7F, false, world.getGameRules().getBoolean("mobGriefing"));
+				world.newExplosion(this, posX, posY + (double) getEyeHeight(), posZ, 7F, false, world.getGameRules()
+				                                                                                     .getBoolean("mobGriefing"));
 				world.playBroadcastSound(1023, new BlockPos(this), 0);
 			}
 

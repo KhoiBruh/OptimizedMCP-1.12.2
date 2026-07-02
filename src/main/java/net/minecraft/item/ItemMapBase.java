@@ -13,7 +13,6 @@ public class ItemMapBase extends Item {
 		return true;
 	}
 
-	
 	public Packet<?> createMapDataPacket(ItemStack stack, World worldIn, EntityPlayer player) {
 
 		return null;

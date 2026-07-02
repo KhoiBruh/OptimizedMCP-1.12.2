@@ -38,15 +38,18 @@ public class EntityLightningBolt extends EntityWeatherEffect {
 		effectOnly = effectOnlyIn;
 		BlockPos blockpos = new BlockPos(this);
 
-		if (!effectOnlyIn && !worldIn.isRemote && worldIn.getGameRules().getBoolean("doFireTick") && (worldIn.getDifficulty() == Difficulty.NORMAL || worldIn.getDifficulty() == Difficulty.HARD) && worldIn.isAreaLoaded(blockpos, 10)) {
-			if (worldIn.getBlockState(blockpos).getMaterial() == Material.AIR && Blocks.FIRE.canPlaceBlockAt(worldIn, blockpos)) {
+		if (!effectOnlyIn && !worldIn.isRemote && worldIn.getGameRules()
+		                                                 .getBoolean("doFireTick") && (worldIn.getDifficulty() == Difficulty.NORMAL || worldIn.getDifficulty() == Difficulty.HARD) && worldIn.isAreaLoaded(blockpos, 10)) {
+			if (worldIn.getBlockState(blockpos)
+			           .getMaterial() == Material.AIR && Blocks.FIRE.canPlaceBlockAt(worldIn, blockpos)) {
 				worldIn.setBlockState(blockpos, Blocks.FIRE.getDefaultState());
 			}
 
 			for (int i = 0; i < 4; ++i) {
 				BlockPos blockpos1 = blockpos.add(rand.nextInt(3) - 1, rand.nextInt(3) - 1, rand.nextInt(3) - 1);
 
-				if (worldIn.getBlockState(blockpos1).getMaterial() == Material.AIR && Blocks.FIRE.canPlaceBlockAt(worldIn, blockpos1)) {
+				if (worldIn.getBlockState(blockpos1)
+				           .getMaterial() == Material.AIR && Blocks.FIRE.canPlaceBlockAt(worldIn, blockpos1)) {
 					worldIn.setBlockState(blockpos1, Blocks.FIRE.getDefaultState());
 				}
 			}
@@ -81,7 +84,9 @@ public class EntityLightningBolt extends EntityWeatherEffect {
 					boltVertex = rand.nextLong();
 					BlockPos blockpos = new BlockPos(this);
 
-					if (world.getGameRules().getBoolean("doFireTick") && world.isAreaLoaded(blockpos, 10) && world.getBlockState(blockpos).getMaterial() == Material.AIR && Blocks.FIRE.canPlaceBlockAt(world, blockpos)) {
+					if (world.getGameRules()
+					         .getBoolean("doFireTick") && world.isAreaLoaded(blockpos, 10) && world.getBlockState(blockpos)
+					                                                                               .getMaterial() == Material.AIR && Blocks.FIRE.canPlaceBlockAt(world, blockpos)) {
 						world.setBlockState(blockpos, Blocks.FIRE.getDefaultState());
 					}
 				}

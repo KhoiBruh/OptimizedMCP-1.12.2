@@ -279,7 +279,8 @@ public class EntityFishHook extends Entity {
 		}
 
 		Entity entity = null;
-		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(motionX, motionY, motionZ).grow(1D));
+		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(motionX, motionY, motionZ)
+		                                                                                           .grow(1D));
 		double d0 = 0D;
 
 		for (Entity entity1 : list) {
@@ -432,7 +433,9 @@ public class EntityFishHook extends Entity {
 				LootContext.Builder lootcontext$builder = new LootContext.Builder((WorldServer) world);
 				lootcontext$builder.withLuck((float) luck + angler.getLuck());
 
-				for (ItemStack itemstack : world.getLootTableManager().getLootTableFromLocation(LootTableList.GAMEPLAY_FISHING).generateLootForPools(rand, lootcontext$builder.build())) {
+				for (ItemStack itemstack : world.getLootTableManager()
+				                                .getLootTableFromLocation(LootTableList.GAMEPLAY_FISHING)
+				                                .generateLootForPools(rand, lootcontext$builder.build())) {
 					EntityItem entityitem = new EntityItem(world, posX, posY, posZ, itemstack);
 					double d0 = angler.posX - posX;
 					double d1 = angler.posY - posY;

@@ -68,9 +68,13 @@ public class WorldGenDungeons extends WorldGenerator {
 							if (worldIn.getBlockState(blockpos1).getBlock() != Blocks.CHEST) {
 								worldIn.setBlockToAir(blockpos1);
 							}
-						} else if (blockpos1.getY() >= 0 && !worldIn.getBlockState(blockpos1.down()).getMaterial().isSolid()) {
+						} else if (blockpos1.getY() >= 0 && !worldIn.getBlockState(blockpos1.down())
+						                                            .getMaterial()
+						                                            .isSolid()) {
 							worldIn.setBlockToAir(blockpos1);
-						} else if (worldIn.getBlockState(blockpos1).getMaterial().isSolid() && worldIn.getBlockState(blockpos1).getBlock() != Blocks.CHEST) {
+						} else if (worldIn.getBlockState(blockpos1)
+						                  .getMaterial()
+						                  .isSolid() && worldIn.getBlockState(blockpos1).getBlock() != Blocks.CHEST) {
 							if (i4 == -1 && rand.nextInt(4) != 0) {
 								worldIn.setBlockState(blockpos1, Blocks.MOSSY_COBBLESTONE.getDefaultState(), 2);
 							} else {

@@ -53,7 +53,6 @@ public class EntityZombieHorse extends AbstractHorse {
 		return SoundEvents.ENTITY_ZOMBIE_HORSE_HURT;
 	}
 
-	
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_ZOMBIE_HORSE;
 	}

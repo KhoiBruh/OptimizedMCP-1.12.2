@@ -33,7 +33,6 @@ public class NpcMerchant implements IMerchant {
 		merchantInventory = new InventoryMerchant(customerIn, this);
 	}
 
-	
 	public EntityPlayer getCustomer() {
 		return customer;
 	}
@@ -41,7 +40,6 @@ public class NpcMerchant implements IMerchant {
 	public void setCustomer(EntityPlayer player) {
 	}
 
-	
 	public MerchantRecipeList getRecipes(EntityPlayer player) {
 		return recipeList;
 	}

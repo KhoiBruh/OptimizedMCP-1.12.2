@@ -37,7 +37,6 @@ public class ObjectIntIdentityMap<T> implements IObjectIntIterable<T> {
 		return integer == null ? -1 : integer;
 	}
 
-	
 	public final T getByValue(int value) {
 		return value >= 0 && value < objectList.size() ? objectList.get(value) : null;
 	}

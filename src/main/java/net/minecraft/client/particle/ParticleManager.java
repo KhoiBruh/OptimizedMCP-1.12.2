@@ -118,8 +118,6 @@ public class ParticleManager {
 		particleEmitters.add(new ParticleEmitter(world, p_191271_1_, p_191271_2_, p_191271_3_));
 	}
 
-	
-
 	/**
 	 * Spawns the relevant particle according to the particle id.
 	 */
@@ -393,7 +391,9 @@ public class ParticleManager {
 				d0 = (double) i + axisalignedbb.maxX + 0.10000000149011612D;
 			}
 
-			addEffect((new ParticleDigging(world, d0, d1, d2, 0D, 0D, 0D, iblockstate)).setBlockPos(pos).multiplyVelocity(0.2F).multipleParticleScaleBy(0.6F));
+			addEffect((new ParticleDigging(world, d0, d1, d2, 0D, 0D, 0D, iblockstate)).setBlockPos(pos)
+			                                                                           .multiplyVelocity(0.2F)
+			                                                                           .multipleParticleScaleBy(0.6F));
 		}
 	}
 

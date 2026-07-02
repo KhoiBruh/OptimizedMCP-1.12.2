@@ -26,7 +26,8 @@ public class EntityAIFollowParent extends EntityAIBase {
 		if (childAnimal.getGrowingAge() >= 0) {
 			return false;
 		} else {
-			List<EntityAnimal> list = childAnimal.world.getEntitiesWithinAABB(childAnimal.getClass(), childAnimal.getEntityBoundingBox().grow(8D, 4D, 8D));
+			List<EntityAnimal> list = childAnimal.world.getEntitiesWithinAABB(childAnimal.getClass(), childAnimal.getEntityBoundingBox()
+			                                                                                                     .grow(8D, 4D, 8D));
 			EntityAnimal entityanimal = null;
 			double d0 = Double.MAX_VALUE;
 

@@ -86,8 +86,6 @@ public enum TextFormat {
 		return p_175745_0_.toLowerCase(Locale.ROOT).replaceAll("[^a-z]", "");
 	}
 
-	
-
 	/**
 	 * Returns a copy of the given string, with formatting codes stripped away.
 	 */
@@ -95,16 +93,12 @@ public enum TextFormat {
 		return text == null ? null : FORMATTING_CODE_PATTERN.matcher(text).replaceAll("");
 	}
 
-	
-
 	/**
 	 * Gets a value by its friendly name; null if the given name does not map to a defined value.
 	 */
 	public static TextFormat getValueByName(String friendlyName) {
 		return friendlyName == null ? null : NAME_MAPPING.get(lowercaseAlpha(friendlyName));
 	}
-
-	
 
 	/**
 	 * Get a TextFormatting from it's color index

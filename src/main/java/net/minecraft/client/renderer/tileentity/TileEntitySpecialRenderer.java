@@ -19,7 +19,8 @@ public abstract class TileEntitySpecialRenderer<T extends TileEntity> {
 	public void render(T te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 		ITextComponent itextcomponent = te.getDisplayName();
 
-		if (itextcomponent != null && rendererDispatcher.cameraHitResult != null && te.getPos().equals(rendererDispatcher.cameraHitResult.getBlockPos())) {
+		if (itextcomponent != null && rendererDispatcher.cameraHitResult != null && te.getPos()
+		                                                                              .equals(rendererDispatcher.cameraHitResult.getBlockPos())) {
 			setLightmapDisabled(true);
 			drawNameplate(te, itextcomponent.getFormattedText(), x, y, z, 12);
 			setLightmapDisabled(false);

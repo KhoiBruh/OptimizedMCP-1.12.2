@@ -14,16 +14,13 @@ public class LocationPredicate {
 
 	public static LocationPredicate ANY = new LocationPredicate(MinMaxBounds.UNBOUNDED, MinMaxBounds.UNBOUNDED, MinMaxBounds.UNBOUNDED, null, null, null);
 
-	
 	final Biome biome;
 	private final MinMaxBounds x;
 	private final MinMaxBounds y;
 	private final MinMaxBounds z;
 
-	
 	private final String feature;
 
-	
 	private final DimensionType dimension;
 
 	public LocationPredicate(MinMaxBounds x, MinMaxBounds y, MinMaxBounds z, Biome biome, String feature, DimensionType dimension) {

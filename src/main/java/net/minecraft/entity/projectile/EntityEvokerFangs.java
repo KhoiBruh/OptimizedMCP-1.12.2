@@ -37,7 +37,6 @@ public class EntityEvokerFangs extends Entity {
 	protected void entityInit() {
 	}
 
-	
 	public EntityLivingBase getCaster() {
 		if (caster == null && casterUuid != null && world instanceof WorldServer) {
 			Entity entity = ((WorldServer) world).getEntityFromUuid(casterUuid);

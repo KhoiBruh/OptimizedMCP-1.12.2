@@ -23,7 +23,8 @@ public class ItemBow extends Item {
 			if (entityIn == null) {
 				return 0F;
 			} else {
-				return entityIn.getActiveItemStack().getItem() != Items.BOW ? 0F : (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20F;
+				return entityIn.getActiveItemStack()
+				               .getItem() != Items.BOW ? 0F : (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20F;
 			}
 		});
 		addPropertyOverride(new ResourceLocation("pulling"), (stack, worldIn, entityIn) -> entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1F : 0F);

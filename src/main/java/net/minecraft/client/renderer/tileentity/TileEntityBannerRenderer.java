@@ -65,7 +65,6 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEnti
 		GLS.popMatrix();
 	}
 
-	
 	private ResourceLocation getBannerResourceLocation(TileEntityBanner bannerObj) {
 		return BannerTextures.BANNER_DESIGNS.getResourceLocation(bannerObj.getPatternResourceLocation(), bannerObj.getPatternList(), bannerObj.getColorList());
 	}

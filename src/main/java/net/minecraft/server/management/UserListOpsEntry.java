@@ -19,7 +19,8 @@ public class UserListOpsEntry extends UserListEntry<GameProfile> {
 	public UserListOpsEntry(JsonObject p_i1150_1_) {
 		super(constructProfile(p_i1150_1_), p_i1150_1_);
 		permissionLevel = p_i1150_1_.has("level") ? p_i1150_1_.get("level").getAsInt() : 0;
-		bypassesPlayerLimit = p_i1150_1_.has("bypassesPlayerLimit") && p_i1150_1_.get("bypassesPlayerLimit").getAsBoolean();
+		bypassesPlayerLimit = p_i1150_1_.has("bypassesPlayerLimit") && p_i1150_1_.get("bypassesPlayerLimit")
+		                                                                         .getAsBoolean();
 	}
 
 	private static GameProfile constructProfile(JsonObject p_152643_0_) {

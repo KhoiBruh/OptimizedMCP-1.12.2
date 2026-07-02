@@ -29,7 +29,9 @@ public final class ProjectileHelper {
 			}
 
 			Entity entity = null;
-			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(projectile, projectile.getEntityBoundingBox().expand(d3, d4, d5).grow(1D));
+			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(projectile, projectile.getEntityBoundingBox()
+			                                                                                     .expand(d3, d4, d5)
+			                                                                                     .grow(1D));
 			double d6 = 0D;
 
 			for (Entity entity1 : list) {

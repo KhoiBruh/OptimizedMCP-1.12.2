@@ -25,8 +25,16 @@ import java.nio.charset.StandardCharsets;
 public class LootTableManager {
 
 	private static final Logger LOGGER = LogManager.getLogger();
-	private static final Gson GSON_INSTANCE = (new GsonBuilder()).registerTypeAdapter(RandomValueRange.class, new RandomValueRange.Serializer()).registerTypeAdapter(LootPool.class, new LootPool.Serializer()).registerTypeAdapter(LootTable.class, new LootTable.Serializer()).registerTypeHierarchyAdapter(LootEntry.class, new LootEntry.Serializer()).registerTypeHierarchyAdapter(LootFunction.class, new LootFunctionManager.Serializer()).registerTypeHierarchyAdapter(LootCondition.class, new LootConditionManager.Serializer()).registerTypeHierarchyAdapter(LootContext.EntityTarget.class, new LootContext.EntityTarget.Serializer()).create();
-	private final LoadingCache<ResourceLocation, LootTable> registeredLootTables = CacheBuilder.newBuilder().build(new LootTableManager.Loader());
+	private static final Gson GSON_INSTANCE = (new GsonBuilder()).registerTypeAdapter(RandomValueRange.class, new RandomValueRange.Serializer())
+	                                                             .registerTypeAdapter(LootPool.class, new LootPool.Serializer())
+	                                                             .registerTypeAdapter(LootTable.class, new LootTable.Serializer())
+	                                                             .registerTypeHierarchyAdapter(LootEntry.class, new LootEntry.Serializer())
+	                                                             .registerTypeHierarchyAdapter(LootFunction.class, new LootFunctionManager.Serializer())
+	                                                             .registerTypeHierarchyAdapter(LootCondition.class, new LootConditionManager.Serializer())
+	                                                             .registerTypeHierarchyAdapter(LootContext.EntityTarget.class, new LootContext.EntityTarget.Serializer())
+	                                                             .create();
+	private final LoadingCache<ResourceLocation, LootTable> registeredLootTables = CacheBuilder.newBuilder()
+	                                                                                           .build(new LootTableManager.Loader());
 	private final File baseFolder;
 
 	public LootTableManager(File folder) {
@@ -71,7 +79,6 @@ public class LootTableManager {
 			}
 		}
 
-		
 		private LootTable loadLootTable(ResourceLocation resource) {
 			if (baseFolder == null) {
 				return null;
@@ -105,7 +112,6 @@ public class LootTableManager {
 			}
 		}
 
-		
 		private LootTable loadBuiltinLootTable(ResourceLocation resource) {
 			URL url = LootTableManager.class.getResource("/assets/" + resource.getResourceDomain() + "/loot_tables/" + resource.getResourcePath() + ".json");
 

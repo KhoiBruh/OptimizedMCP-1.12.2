@@ -31,10 +31,9 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private final Minecraft mc;
 
-	
 	private final Screen lastScreen;
 	private final NetworkManager networkManager;
-	
+
 	public NetHandlerLoginClient(NetworkManager networkManagerIn, Minecraft mcIn, Screen previousScreenIn) {
 		networkManager = networkManagerIn;
 		mc = mcIn;

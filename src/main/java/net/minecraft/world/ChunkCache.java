@@ -58,12 +58,10 @@ public class ChunkCache implements IBlockAccess {
 		return empty;
 	}
 
-	
 	public TileEntity getTileEntity(BlockPos pos) {
 		return getTileEntity(pos, Chunk.CreateEntityType.IMMEDIATE);
 	}
 
-	
 	public TileEntity getTileEntity(BlockPos pos, Chunk.CreateEntityType p_190300_2_) {
 		int i = (pos.getX() >> 4) - chunkX;
 		int j = (pos.getZ() >> 4) - chunkZ;

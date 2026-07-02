@@ -5,6 +5,7 @@ package net.minecraft.world.chunk;
  *             pieces.
  */
 public record NibbleArray(byte[] data) {
+
 	public NibbleArray() {
 		this(new byte[2048]);
 	}

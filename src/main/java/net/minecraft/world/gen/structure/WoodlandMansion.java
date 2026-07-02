@@ -106,7 +106,8 @@ public class WoodlandMansion extends MapGenStructure {
 			} else {
 				BlockPos blockpos = new BlockPos(p_191092_4_ * 16 + 8, k1 + 1, p_191092_5_ * 16 + 8);
 				List<WoodlandMansionPieces.MansionTemplate> list = Lists.newLinkedList();
-				WoodlandMansionPieces.generateMansion(p_191092_1_.getSaveHandler().getStructureTemplateManager(), blockpos, rotation, list, p_191092_3_);
+				WoodlandMansionPieces.generateMansion(p_191092_1_.getSaveHandler()
+				                                                 .getStructureTemplateManager(), blockpos, rotation, list, p_191092_3_);
 				components.addAll(list);
 				updateBoundingBox();
 				isValid = true;
@@ -135,7 +136,9 @@ public class WoodlandMansion extends MapGenStructure {
 							for (int l = i - 1; l > 1; --l) {
 								BlockPos blockpos1 = new BlockPos(j, l, k);
 
-								if (!worldIn.isAirBlock(blockpos1) && !worldIn.getBlockState(blockpos1).getMaterial().isLiquid()) {
+								if (!worldIn.isAirBlock(blockpos1) && !worldIn.getBlockState(blockpos1)
+								                                              .getMaterial()
+								                                              .isLiquid()) {
 									break;
 								}
 

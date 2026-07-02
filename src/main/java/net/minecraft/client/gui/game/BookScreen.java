@@ -479,7 +479,6 @@ public class BookScreen extends Screen {
 		}
 	}
 
-	
 	public ITextComponent getClickedComponentAt(int p_175385_1_, int p_175385_2_) {
 		if (cachedComponents == null) {
 			return null;

@@ -102,16 +102,48 @@ public class BlockFluidRenderer {
 				int k2 = blockStateIn.getPackedLightmapCoords(blockAccess, blockPosIn);
 				int l2 = k2 >> 16 & 65535;
 				int i3 = k2 & 65535;
-				bufferBuilderIn.pos(d0 + 0D, d1 + (double) f7, d2 + 0D).color(f, f1, f2, 1F).tex(f13, f17).lightmap(l2, i3).endVertex();
-				bufferBuilderIn.pos(d0 + 0D, d1 + (double) f8, d2 + 1D).color(f, f1, f2, 1F).tex(f14, f18).lightmap(l2, i3).endVertex();
-				bufferBuilderIn.pos(d0 + 1D, d1 + (double) f9, d2 + 1D).color(f, f1, f2, 1F).tex(f15, f19).lightmap(l2, i3).endVertex();
-				bufferBuilderIn.pos(d0 + 1D, d1 + (double) f10, d2 + 0D).color(f, f1, f2, 1F).tex(f16, f20).lightmap(l2, i3).endVertex();
+				bufferBuilderIn.pos(d0 + 0D, d1 + (double) f7, d2 + 0D)
+				               .color(f, f1, f2, 1F)
+				               .tex(f13, f17)
+				               .lightmap(l2, i3)
+				               .endVertex();
+				bufferBuilderIn.pos(d0 + 0D, d1 + (double) f8, d2 + 1D)
+				               .color(f, f1, f2, 1F)
+				               .tex(f14, f18)
+				               .lightmap(l2, i3)
+				               .endVertex();
+				bufferBuilderIn.pos(d0 + 1D, d1 + (double) f9, d2 + 1D)
+				               .color(f, f1, f2, 1F)
+				               .tex(f15, f19)
+				               .lightmap(l2, i3)
+				               .endVertex();
+				bufferBuilderIn.pos(d0 + 1D, d1 + (double) f10, d2 + 0D)
+				               .color(f, f1, f2, 1F)
+				               .tex(f16, f20)
+				               .lightmap(l2, i3)
+				               .endVertex();
 
 				if (blockliquid.shouldRenderSides(blockAccess, blockPosIn.up())) {
-					bufferBuilderIn.pos(d0 + 0D, d1 + (double) f7, d2 + 0D).color(f, f1, f2, 1F).tex(f13, f17).lightmap(l2, i3).endVertex();
-					bufferBuilderIn.pos(d0 + 1D, d1 + (double) f10, d2 + 0D).color(f, f1, f2, 1F).tex(f16, f20).lightmap(l2, i3).endVertex();
-					bufferBuilderIn.pos(d0 + 1D, d1 + (double) f9, d2 + 1D).color(f, f1, f2, 1F).tex(f15, f19).lightmap(l2, i3).endVertex();
-					bufferBuilderIn.pos(d0 + 0D, d1 + (double) f8, d2 + 1D).color(f, f1, f2, 1F).tex(f14, f18).lightmap(l2, i3).endVertex();
+					bufferBuilderIn.pos(d0 + 0D, d1 + (double) f7, d2 + 0D)
+					               .color(f, f1, f2, 1F)
+					               .tex(f13, f17)
+					               .lightmap(l2, i3)
+					               .endVertex();
+					bufferBuilderIn.pos(d0 + 1D, d1 + (double) f10, d2 + 0D)
+					               .color(f, f1, f2, 1F)
+					               .tex(f16, f20)
+					               .lightmap(l2, i3)
+					               .endVertex();
+					bufferBuilderIn.pos(d0 + 1D, d1 + (double) f9, d2 + 1D)
+					               .color(f, f1, f2, 1F)
+					               .tex(f15, f19)
+					               .lightmap(l2, i3)
+					               .endVertex();
+					bufferBuilderIn.pos(d0 + 0D, d1 + (double) f8, d2 + 1D)
+					               .color(f, f1, f2, 1F)
+					               .tex(f14, f18)
+					               .lightmap(l2, i3)
+					               .endVertex();
 				}
 			}
 
@@ -123,10 +155,22 @@ public class BlockFluidRenderer {
 				int l1 = blockStateIn.getPackedLightmapCoords(blockAccess, blockPosIn.down());
 				int i2 = l1 >> 16 & 65535;
 				int j2 = l1 & 65535;
-				bufferBuilderIn.pos(d0, d1, d2 + 1D).color(0.5F, 0.5F, 0.5F, 1F).tex(f35, f38).lightmap(i2, j2).endVertex();
+				bufferBuilderIn.pos(d0, d1, d2 + 1D)
+				               .color(0.5F, 0.5F, 0.5F, 1F)
+				               .tex(f35, f38)
+				               .lightmap(i2, j2)
+				               .endVertex();
 				bufferBuilderIn.pos(d0, d1, d2).color(0.5F, 0.5F, 0.5F, 1F).tex(f35, f37).lightmap(i2, j2).endVertex();
-				bufferBuilderIn.pos(d0 + 1D, d1, d2).color(0.5F, 0.5F, 0.5F, 1F).tex(f36, f37).lightmap(i2, j2).endVertex();
-				bufferBuilderIn.pos(d0 + 1D, d1, d2 + 1D).color(0.5F, 0.5F, 0.5F, 1F).tex(f36, f38).lightmap(i2, j2).endVertex();
+				bufferBuilderIn.pos(d0 + 1D, d1, d2)
+				               .color(0.5F, 0.5F, 0.5F, 1F)
+				               .tex(f36, f37)
+				               .lightmap(i2, j2)
+				               .endVertex();
+				bufferBuilderIn.pos(d0 + 1D, d1, d2 + 1D)
+				               .color(0.5F, 0.5F, 0.5F, 1F)
+				               .tex(f36, f38)
+				               .lightmap(i2, j2)
+				               .endVertex();
 				flag3 = true;
 			}
 
@@ -212,16 +256,48 @@ public class BlockFluidRenderer {
 					float f32 = 1F * f31 * f;
 					float f33 = 1F * f31 * f1;
 					float f34 = 1F * f31 * f2;
-					bufferBuilderIn.pos(d3, d1 + (double) f39, d4).color(f32, f33, f34, 1F).tex(f41, f28).lightmap(k, l).endVertex();
-					bufferBuilderIn.pos(d5, d1 + (double) f40, d6).color(f32, f33, f34, 1F).tex(f27, f29).lightmap(k, l).endVertex();
-					bufferBuilderIn.pos(d5, d1 + 0D, d6).color(f32, f33, f34, 1F).tex(f27, f30).lightmap(k, l).endVertex();
-					bufferBuilderIn.pos(d3, d1 + 0D, d4).color(f32, f33, f34, 1F).tex(f41, f30).lightmap(k, l).endVertex();
+					bufferBuilderIn.pos(d3, d1 + (double) f39, d4)
+					               .color(f32, f33, f34, 1F)
+					               .tex(f41, f28)
+					               .lightmap(k, l)
+					               .endVertex();
+					bufferBuilderIn.pos(d5, d1 + (double) f40, d6)
+					               .color(f32, f33, f34, 1F)
+					               .tex(f27, f29)
+					               .lightmap(k, l)
+					               .endVertex();
+					bufferBuilderIn.pos(d5, d1 + 0D, d6)
+					               .color(f32, f33, f34, 1F)
+					               .tex(f27, f30)
+					               .lightmap(k, l)
+					               .endVertex();
+					bufferBuilderIn.pos(d3, d1 + 0D, d4)
+					               .color(f32, f33, f34, 1F)
+					               .tex(f41, f30)
+					               .lightmap(k, l)
+					               .endVertex();
 
 					if (textureatlassprite1 != atlasSpriteWaterOverlay) {
-						bufferBuilderIn.pos(d3, d1 + 0D, d4).color(f32, f33, f34, 1F).tex(f41, f30).lightmap(k, l).endVertex();
-						bufferBuilderIn.pos(d5, d1 + 0D, d6).color(f32, f33, f34, 1F).tex(f27, f30).lightmap(k, l).endVertex();
-						bufferBuilderIn.pos(d5, d1 + (double) f40, d6).color(f32, f33, f34, 1F).tex(f27, f29).lightmap(k, l).endVertex();
-						bufferBuilderIn.pos(d3, d1 + (double) f39, d4).color(f32, f33, f34, 1F).tex(f41, f28).lightmap(k, l).endVertex();
+						bufferBuilderIn.pos(d3, d1 + 0D, d4)
+						               .color(f32, f33, f34, 1F)
+						               .tex(f41, f30)
+						               .lightmap(k, l)
+						               .endVertex();
+						bufferBuilderIn.pos(d5, d1 + 0D, d6)
+						               .color(f32, f33, f34, 1F)
+						               .tex(f27, f30)
+						               .lightmap(k, l)
+						               .endVertex();
+						bufferBuilderIn.pos(d5, d1 + (double) f40, d6)
+						               .color(f32, f33, f34, 1F)
+						               .tex(f27, f29)
+						               .lightmap(k, l)
+						               .endVertex();
+						bufferBuilderIn.pos(d3, d1 + (double) f39, d4)
+						               .color(f32, f33, f34, 1F)
+						               .tex(f41, f28)
+						               .lightmap(k, l)
+						               .endVertex();
 					}
 				}
 			}

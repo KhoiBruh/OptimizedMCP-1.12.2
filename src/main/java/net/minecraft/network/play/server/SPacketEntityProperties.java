@@ -23,7 +23,8 @@ public class SPacketEntityProperties implements Packet<INetHandlerPlayClient> {
 		entityId = entityIdIn;
 
 		for (IAttributeInstance iattributeinstance : instances) {
-			snapshots.add(new SPacketEntityProperties.Snapshot(iattributeinstance.getAttribute().getName(), iattributeinstance.getBaseValue(), iattributeinstance.getModifiers()));
+			snapshots.add(new SPacketEntityProperties.Snapshot(iattributeinstance.getAttribute()
+			                                                                     .getName(), iattributeinstance.getBaseValue(), iattributeinstance.getModifiers()));
 		}
 	}
 

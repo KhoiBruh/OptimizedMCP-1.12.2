@@ -185,7 +185,8 @@ public class BlockCommandBlock extends BlockContainer {
 
 	public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
 		TileEntity tileentity = worldIn.getTileEntity(pos);
-		return tileentity instanceof TileEntityCommandBlock ? ((TileEntityCommandBlock) tileentity).getCommandBlockLogic().getSuccessCount() : 0;
+		return tileentity instanceof TileEntityCommandBlock ? ((TileEntityCommandBlock) tileentity).getCommandBlockLogic()
+		                                                                                           .getSuccessCount() : 0;
 	}
 
 	/**
@@ -236,7 +237,8 @@ public class BlockCommandBlock extends BlockContainer {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(FACING, Facing.getFront(meta & 7)).withProperty(CONDITIONAL, (meta & 8) != 0);
+		return getDefaultState().withProperty(FACING, Facing.getFront(meta & 7))
+		                        .withProperty(CONDITIONAL, (meta & 8) != 0);
 	}
 
 	/**
@@ -271,7 +273,8 @@ public class BlockCommandBlock extends BlockContainer {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-		return getDefaultState().withProperty(FACING, Facing.getDirectionFromEntityLiving(pos, placer)).withProperty(CONDITIONAL, false);
+		return getDefaultState().withProperty(FACING, Facing.getDirectionFromEntityLiving(pos, placer))
+		                        .withProperty(CONDITIONAL, false);
 	}
 
 }

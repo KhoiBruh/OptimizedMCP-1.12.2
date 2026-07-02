@@ -548,7 +548,6 @@ public class Template {
 			return i;
 		}
 
-		
 		public IBlockState stateFor(int id) {
 			IBlockState iblockstate = ids.getByValue(id);
 			return iblockstate == null ? DEFAULT_BLOCK_STATE : iblockstate;
@@ -565,9 +564,11 @@ public class Template {
 	}
 
 	public record BlockInfo(BlockPos pos, IBlockState blockState, NBTTagCompound tileentityData) {
+
 	}
 
 	public record EntityInfo(Vec3d pos, BlockPos blockPos, NBTTagCompound entityData) {
+
 	}
 
 }

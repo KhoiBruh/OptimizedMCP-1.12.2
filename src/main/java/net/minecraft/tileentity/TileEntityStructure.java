@@ -122,7 +122,6 @@ public class TileEntityStructure extends TileEntity {
 		}
 	}
 
-	
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		return new SPacketUpdateTileEntity(pos, 7, getUpdateTag());
 	}
@@ -433,7 +432,12 @@ public class TileEntityStructure extends TileEntity {
 				if (requireMatchingSize && !flag) {
 					return false;
 				} else {
-					PlacementSettings placementsettings = (new PlacementSettings()).setMirror(mirror).setRotation(rotation).setIgnoreEntities(ignoreEntities).setChunk(null).setReplacedBlock(null).setIgnoreStructureBlock(false);
+					PlacementSettings placementsettings = (new PlacementSettings()).setMirror(mirror)
+					                                                               .setRotation(rotation)
+					                                                               .setIgnoreEntities(ignoreEntities)
+					                                                               .setChunk(null)
+					                                                               .setReplacedBlock(null)
+					                                                               .setIgnoreStructureBlock(false);
 
 					if (integrity < 1F) {
 						placementsettings.setIntegrity(MathHelper.clamp(integrity, 0F, 1F)).setSeed(seed);
@@ -488,8 +492,6 @@ public class TileEntityStructure extends TileEntity {
 	public void setShowBoundingBox(boolean showBoundingBoxIn) {
 		showBoundingBox = showBoundingBoxIn;
 	}
-
-	
 
 	/**
 	 * Get the formatted ChatComponent that will be used for the sender's username in chat

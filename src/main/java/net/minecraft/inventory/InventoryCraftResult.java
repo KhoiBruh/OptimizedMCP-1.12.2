@@ -129,7 +129,6 @@ public class InventoryCraftResult implements IInventory {
 		stackResult.clear();
 	}
 
-	
 	public IRecipe getRecipeUsed() {
 		return recipeUsed;
 	}

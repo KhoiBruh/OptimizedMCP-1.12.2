@@ -52,7 +52,6 @@ public class ChunkProviderClient implements IChunkProvider {
 		chunkMapping.remove(ChunkPos.asLong(x, z));
 	}
 
-	
 	public Chunk getLoadedChunk(int x, int z) {
 		return chunkMapping.get(ChunkPos.asLong(x, z));
 	}

@@ -43,7 +43,7 @@ public enum DyeColor implements IStringSerializable {
 	 * color.
 	 */
 	private final float[] colorComponentValues;
-	
+
 	DyeColor(int metaIn, int dyeDamageIn, String nameIn, String unlocalizedNameIn, int colorValueIn) {
 		meta = metaIn;
 		dyeDamage = dyeDamageIn;

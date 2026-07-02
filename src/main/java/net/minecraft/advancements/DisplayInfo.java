@@ -10,8 +10,6 @@ import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
-import java.io.IOException;
-
 public class DisplayInfo {
 
 	private final ITextComponent title;
@@ -94,7 +92,6 @@ public class DisplayInfo {
 		return icon;
 	}
 
-	
 	public ResourceLocation getBackground() {
 		return background;
 	}

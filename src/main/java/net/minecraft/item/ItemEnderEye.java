@@ -49,7 +49,8 @@ public class ItemEnderEye extends Item {
 				}
 
 				worldIn.playSound(null, pos, SoundEvents.BLOCK_END_PORTAL_FRAME_FILL, SoundCategory.BLOCKS, 1F, 1F);
-				BlockPattern.PatternHelper blockpattern$patternhelper = BlockEndPortalFrame.getOrCreatePortalShape().match(worldIn, pos);
+				BlockPattern.PatternHelper blockpattern$patternhelper = BlockEndPortalFrame.getOrCreatePortalShape()
+				                                                                           .match(worldIn, pos);
 
 				if (blockpattern$patternhelper != null) {
 					BlockPos blockpos = blockpattern$patternhelper.getFrontTopLeft().add(-3, 0, -3);
@@ -74,13 +75,15 @@ public class ItemEnderEye extends Item {
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, false);
 
-		if (raytraceresult != null && raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK && worldIn.getBlockState(raytraceresult.getBlockPos()).getBlock() == Blocks.END_PORTAL_FRAME) {
+		if (raytraceresult != null && raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK && worldIn.getBlockState(raytraceresult.getBlockPos())
+		                                                                                              .getBlock() == Blocks.END_PORTAL_FRAME) {
 			return new TypedActionResult<>(ActionResult.PASS, itemstack);
 		} else {
 			playerIn.setActiveHand(handIn);
 
 			if (!worldIn.isRemote) {
-				BlockPos blockpos = ((WorldServer) worldIn).getChunkProvider().getNearestStructurePos(worldIn, "Stronghold", new BlockPos(playerIn), false);
+				BlockPos blockpos = ((WorldServer) worldIn).getChunkProvider()
+				                                           .getNearestStructurePos(worldIn, "Stronghold", new BlockPos(playerIn), false);
 
 				if (blockpos != null) {
 					EntityEnderEye entityendereye = new EntityEnderEye(worldIn, playerIn.posX, playerIn.posY + (double) (playerIn.height / 2F), playerIn.posZ);

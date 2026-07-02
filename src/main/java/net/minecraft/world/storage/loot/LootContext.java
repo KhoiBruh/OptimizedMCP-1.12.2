@@ -29,17 +29,14 @@ public class LootContext {
 		damageSource = damageSourceIn;
 	}
 
-	
 	public Entity getLootedEntity() {
 		return lootedEntity;
 	}
 
-	
 	public Entity getKillerPlayer() {
 		return player;
 	}
 
-	
 	public Entity getKiller() {
 		return damageSource == null ? null : damageSource.getTrueSource();
 	}
@@ -60,7 +57,6 @@ public class LootContext {
 		return luck;
 	}
 
-	
 	public Entity getEntity(LootContext.EntityTarget target) {
 		return switch (target) {
 			case THIS -> getLootedEntity();

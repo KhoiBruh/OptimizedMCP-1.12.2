@@ -148,7 +148,8 @@ public abstract class CommandHandler implements ICommandManager {
 			List<String> list = Lists.newArrayList();
 
 			for (Entry<String, ICommand> entry : commandMap.entrySet()) {
-				if (CommandBase.doesStringStartWith(s, entry.getKey()) && entry.getValue().checkPermission(getServer(), sender)) {
+				if (CommandBase.doesStringStartWith(s, entry.getKey()) && entry.getValue()
+				                                                               .checkPermission(getServer(), sender)) {
 					list.add(entry.getKey());
 				}
 			}

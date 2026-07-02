@@ -12,7 +12,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Rotations;
 import net.minecraft.util.text.ITextComponent;
 
-import java.io.IOException;
 import java.util.UUID;
 
 public class DataSerializers {
@@ -293,7 +292,6 @@ public class DataSerializers {
 		REGISTRY.add(serializer);
 	}
 
-	
 	public static DataSerializer<?> getSerializer(int id) {
 
 		return REGISTRY.get(id);
@@ -302,4 +300,5 @@ public class DataSerializers {
 	public static int getSerializerId(DataSerializer<?> serializer) {
 		return REGISTRY.getId(serializer);
 	}
+
 }

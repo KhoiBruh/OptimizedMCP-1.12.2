@@ -51,7 +51,6 @@ public abstract class MobSpawnerBaseLogic {
 	 */
 	private int spawnRange = 4;
 
-	
 	private ResourceLocation getEntityId() {
 		String s = spawnData.getNbt().getString("id");
 		return StringUtils.isNullOrEmpty(s) ? null : new ResourceLocation(s);
@@ -116,7 +115,8 @@ public abstract class MobSpawnerBaseLogic {
 						return;
 					}
 
-					int k = world.getEntitiesWithinAABB(entity.getClass(), (new AxisAlignedBB(blockpos.getX(), blockpos.getY(), blockpos.getZ(), blockpos.getX() + 1, blockpos.getY() + 1, blockpos.getZ() + 1)).grow(spawnRange)).size();
+					int k = world.getEntitiesWithinAABB(entity.getClass(), (new AxisAlignedBB(blockpos.getX(), blockpos.getY(), blockpos.getZ(), blockpos.getX() + 1, blockpos.getY() + 1, blockpos.getZ() + 1)).grow(spawnRange))
+					             .size();
 
 					if (k >= maxNearbyEntities) {
 						resetTimer();
@@ -127,7 +127,8 @@ public abstract class MobSpawnerBaseLogic {
 					entity.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, world.rand.nextFloat() * 360F, 0F);
 
 					if (entityliving == null || entityliving.getCanSpawnHere() && entityliving.isNotColliding()) {
-						if (spawnData.getNbt().getSize() == 1 && spawnData.getNbt().hasKey("id", 8) && entity instanceof EntityLiving) {
+						if (spawnData.getNbt().getSize() == 1 && spawnData.getNbt()
+						                                                  .hasKey("id", 8) && entity instanceof EntityLiving) {
 							((EntityLiving) entity).onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), null);
 						}
 
@@ -235,7 +236,8 @@ public abstract class MobSpawnerBaseLogic {
 		if (cachedEntity == null) {
 			cachedEntity = AnvilChunkLoader.readWorldEntity(spawnData.getNbt(), getSpawnerWorld(), false);
 
-			if (spawnData.getNbt().getSize() == 1 && spawnData.getNbt().hasKey("id", 8) && cachedEntity instanceof EntityLiving) {
+			if (spawnData.getNbt().getSize() == 1 && spawnData.getNbt()
+			                                                  .hasKey("id", 8) && cachedEntity instanceof EntityLiving) {
 				((EntityLiving) cachedEntity).onInitialSpawn(getSpawnerWorld().getDifficultyForLocation(new BlockPos(cachedEntity)), null);
 			}
 		}

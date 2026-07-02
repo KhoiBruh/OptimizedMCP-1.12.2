@@ -56,7 +56,8 @@ public class PathNavigateClimber extends PathNavigateGround {
 				double d0 = entity.width * entity.width;
 
 				if (entity.getDistanceSqToCenter(targetPosition) >= d0 && (entity.posY <= (double) targetPosition.getY() || entity.getDistanceSqToCenter(new BlockPos(targetPosition.getX(), MathHelper.floor(entity.posY), targetPosition.getZ())) >= d0)) {
-					entity.getMoveHelper().setMoveTo(targetPosition.getX(), targetPosition.getY(), targetPosition.getZ(), speed);
+					entity.getMoveHelper()
+					      .setMoveTo(targetPosition.getX(), targetPosition.getY(), targetPosition.getZ(), speed);
 				} else {
 					targetPosition = null;
 				}

@@ -125,7 +125,6 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 		return SoundEvents.ENTITY_EVOCATION_ILLAGER_HURT;
 	}
 
-	
 	private EntitySheep getWololoTarget() {
 		return wololoTarget;
 	}

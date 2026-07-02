@@ -19,7 +19,6 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.Facing;
 
-
 public class LayerCustomHead implements LayerRenderer<EntityLivingBase> {
 
 	private final ModelRenderer modelRenderer;
@@ -89,7 +88,8 @@ public class LayerCustomHead implements LayerRenderer<EntityLivingBase> {
 					GLS.translate(0F, 0.1875F, 0F);
 				}
 
-				minecraft.getItemRenderer().renderItem(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.HEAD);
+				minecraft.getItemRenderer()
+				         .renderItem(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.HEAD);
 			}
 
 			GLS.popMatrix();

@@ -32,7 +32,10 @@ public class BlockFenceGate extends BlockHorizontal {
 
 	public BlockFenceGate(BlockPlanks.Type p_i46394_1_) {
 		super(Material.WOOD, p_i46394_1_.getMapColor());
-		setDefaultState(blockState.getBaseState().withProperty(OPEN, false).withProperty(POWERED, false).withProperty(IN_WALL, false));
+		setDefaultState(blockState.getBaseState()
+		                          .withProperty(OPEN, false)
+		                          .withProperty(POWERED, false)
+		                          .withProperty(IN_WALL, false));
 		setCreativeTab(CreativeTabs.REDSTONE);
 	}
 
@@ -40,7 +43,8 @@ public class BlockFenceGate extends BlockHorizontal {
 		state = getActualState(state, source, pos);
 
 		if (state.getValue(IN_WALL)) {
-			return state.getValue(FACING).getAxis() == Facing.Axis.X ? AABB_HITBOX_XAXIS_INWALL : AABB_HITBOX_ZAXIS_INWALL;
+			return state.getValue(FACING)
+			            .getAxis() == Facing.Axis.X ? AABB_HITBOX_XAXIS_INWALL : AABB_HITBOX_ZAXIS_INWALL;
 		} else {
 			return state.getValue(FACING).getAxis() == Facing.Axis.X ? AABB_HITBOX_XAXIS : AABB_HITBOX_ZAXIS;
 		}
@@ -53,7 +57,11 @@ public class BlockFenceGate extends BlockHorizontal {
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 		Facing.Axis enumfacing$axis = state.getValue(FACING).getAxis();
 
-		if (enumfacing$axis == Facing.Axis.Z && (worldIn.getBlockState(pos.west()).getBlock() == Blocks.COBBLESTONE_WALL || worldIn.getBlockState(pos.east()).getBlock() == Blocks.COBBLESTONE_WALL) || enumfacing$axis == Facing.Axis.X && (worldIn.getBlockState(pos.north()).getBlock() == Blocks.COBBLESTONE_WALL || worldIn.getBlockState(pos.south()).getBlock() == Blocks.COBBLESTONE_WALL)) {
+		if (enumfacing$axis == Facing.Axis.Z && (worldIn.getBlockState(pos.west())
+		                                                .getBlock() == Blocks.COBBLESTONE_WALL || worldIn.getBlockState(pos.east())
+		                                                                                                 .getBlock() == Blocks.COBBLESTONE_WALL) || enumfacing$axis == Facing.Axis.X && (worldIn.getBlockState(pos.north())
+		                                                                                                                                                                                        .getBlock() == Blocks.COBBLESTONE_WALL || worldIn.getBlockState(pos.south())
+		                                                                                                                                                                                                                                         .getBlock() == Blocks.COBBLESTONE_WALL)) {
 			state = state.withProperty(IN_WALL, true);
 		}
 
@@ -83,12 +91,12 @@ public class BlockFenceGate extends BlockHorizontal {
 		return worldIn.getBlockState(pos.down()).getMaterial().isSolid() && super.canPlaceBlockAt(worldIn, pos);
 	}
 
-	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		if (blockState.getValue(OPEN)) {
 			return NULL_AABB;
 		} else {
-			return blockState.getValue(FACING).getAxis() == Facing.Axis.Z ? AABB_COLLISION_BOX_ZAXIS : AABB_COLLISION_BOX_XAXIS;
+			return blockState.getValue(FACING)
+			                 .getAxis() == Facing.Axis.Z ? AABB_COLLISION_BOX_ZAXIS : AABB_COLLISION_BOX_XAXIS;
 		}
 	}
 
@@ -116,7 +124,10 @@ public class BlockFenceGate extends BlockHorizontal {
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 		boolean flag = worldIn.isBlockPowered(pos);
-		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing()).withProperty(OPEN, flag).withProperty(POWERED, flag).withProperty(IN_WALL, false);
+		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing())
+		                        .withProperty(OPEN, flag)
+		                        .withProperty(POWERED, flag)
+		                        .withProperty(IN_WALL, false);
 	}
 
 	/**
@@ -168,7 +179,9 @@ public class BlockFenceGate extends BlockHorizontal {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(FACING, Facing.getHorizontal(meta)).withProperty(OPEN, (meta & 4) != 0).withProperty(POWERED, (meta & 8) != 0);
+		return getDefaultState().withProperty(FACING, Facing.getHorizontal(meta))
+		                        .withProperty(OPEN, (meta & 4) != 0)
+		                        .withProperty(POWERED, (meta & 8) != 0);
 	}
 
 	/**
@@ -204,7 +217,8 @@ public class BlockFenceGate extends BlockHorizontal {
 	 */
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, Facing face) {
 		if (face != Facing.UP && face != Facing.DOWN) {
-			return state.getValue(FACING).getAxis() == face.rotateY().getAxis() ? BlockFaceShape.MIDDLE_POLE : BlockFaceShape.UNDEFINED;
+			return state.getValue(FACING).getAxis() == face.rotateY()
+			                                               .getAxis() ? BlockFaceShape.MIDDLE_POLE : BlockFaceShape.UNDEFINED;
 		} else {
 			return BlockFaceShape.UNDEFINED;
 		}

@@ -69,8 +69,6 @@ public class ModifiableAttributeInstance implements IAttributeInstance {
 		return set;
 	}
 
-	
-
 	/**
 	 * Returns attribute modifier, if any, by the given UUID
 	 */

@@ -30,7 +30,6 @@ public interface IChunkGenerator {
 
 	List<Biome.SpawnListEntry> getPossibleCreatures(CreatureType creatureType, BlockPos pos);
 
-	
 	BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored);
 
 	/**

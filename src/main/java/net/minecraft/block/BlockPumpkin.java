@@ -65,7 +65,8 @@ public class BlockPumpkin extends BlockHorizontal {
 			entitysnowman.setLocationAndAngles((double) blockpos1.getX() + 0.5D, (double) blockpos1.getY() + 0.05D, (double) blockpos1.getZ() + 0.5D, 0F, 0F);
 			worldIn.spawnEntity(entitysnowman);
 
-			for (EntityPlayerMP entityplayermp : worldIn.getEntitiesWithinAABB(EntityPlayerMP.class, entitysnowman.getEntityBoundingBox().grow(5D))) {
+			for (EntityPlayerMP entityplayermp : worldIn.getEntitiesWithinAABB(EntityPlayerMP.class, entitysnowman.getEntityBoundingBox()
+			                                                                                                      .grow(5D))) {
 				CriteriaTriggers.SUMMONED_ENTITY.trigger(entityplayermp, entitysnowman);
 			}
 
@@ -83,7 +84,8 @@ public class BlockPumpkin extends BlockHorizontal {
 			if (blockpattern$patternhelper != null) {
 				for (int j = 0; j < getGolemPattern().getPalmLength(); ++j) {
 					for (int k = 0; k < getGolemPattern().getThumbLength(); ++k) {
-						worldIn.setBlockState(blockpattern$patternhelper.translateOffset(j, k, 0).getPos(), Blocks.AIR.getDefaultState(), 2);
+						worldIn.setBlockState(blockpattern$patternhelper.translateOffset(j, k, 0)
+						                                                .getPos(), Blocks.AIR.getDefaultState(), 2);
 					}
 				}
 
@@ -93,7 +95,8 @@ public class BlockPumpkin extends BlockHorizontal {
 				entityirongolem.setLocationAndAngles((double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.05D, (double) blockpos.getZ() + 0.5D, 0F, 0F);
 				worldIn.spawnEntity(entityirongolem);
 
-				for (EntityPlayerMP entityplayermp1 : worldIn.getEntitiesWithinAABB(EntityPlayerMP.class, entityirongolem.getEntityBoundingBox().grow(5D))) {
+				for (EntityPlayerMP entityplayermp1 : worldIn.getEntitiesWithinAABB(EntityPlayerMP.class, entityirongolem.getEntityBoundingBox()
+				                                                                                                         .grow(5D))) {
 					CriteriaTriggers.SUMMONED_ENTITY.trigger(entityplayermp1, entityirongolem);
 				}
 
@@ -115,7 +118,8 @@ public class BlockPumpkin extends BlockHorizontal {
 	 * Checks if this block can be placed exactly at the given position.
 	 */
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-		return worldIn.getBlockState(pos).getBlock().blockMaterial.isReplaceable() && worldIn.getBlockState(pos.down()).isTopSolid();
+		return worldIn.getBlockState(pos).getBlock().blockMaterial.isReplaceable() && worldIn.getBlockState(pos.down())
+		                                                                                     .isTopSolid();
 	}
 
 	/**
@@ -162,7 +166,10 @@ public class BlockPumpkin extends BlockHorizontal {
 
 	protected BlockPattern getSnowmanBasePattern() {
 		if (snowmanBasePattern == null) {
-			snowmanBasePattern = FactoryBlockPattern.start().aisle(" ", "#", "#").where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.SNOW))).build();
+			snowmanBasePattern = FactoryBlockPattern.start()
+			                                        .aisle(" ", "#", "#")
+			                                        .where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.SNOW)))
+			                                        .build();
 		}
 
 		return snowmanBasePattern;
@@ -170,7 +177,11 @@ public class BlockPumpkin extends BlockHorizontal {
 
 	protected BlockPattern getSnowmanPattern() {
 		if (snowmanPattern == null) {
-			snowmanPattern = FactoryBlockPattern.start().aisle("^", "#", "#").where('^', BlockWorldState.hasState(IS_PUMPKIN)).where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.SNOW))).build();
+			snowmanPattern = FactoryBlockPattern.start()
+			                                    .aisle("^", "#", "#")
+			                                    .where('^', BlockWorldState.hasState(IS_PUMPKIN))
+			                                    .where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.SNOW)))
+			                                    .build();
 		}
 
 		return snowmanPattern;
@@ -178,7 +189,11 @@ public class BlockPumpkin extends BlockHorizontal {
 
 	protected BlockPattern getGolemBasePattern() {
 		if (golemBasePattern == null) {
-			golemBasePattern = FactoryBlockPattern.start().aisle("~ ~", "###", "~#~").where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.IRON_BLOCK))).where('~', BlockWorldState.hasState(BlockMaterialMatcher.forMaterial(Material.AIR))).build();
+			golemBasePattern = FactoryBlockPattern.start()
+			                                      .aisle("~ ~", "###", "~#~")
+			                                      .where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.IRON_BLOCK)))
+			                                      .where('~', BlockWorldState.hasState(BlockMaterialMatcher.forMaterial(Material.AIR)))
+			                                      .build();
 		}
 
 		return golemBasePattern;
@@ -186,7 +201,12 @@ public class BlockPumpkin extends BlockHorizontal {
 
 	protected BlockPattern getGolemPattern() {
 		if (golemPattern == null) {
-			golemPattern = FactoryBlockPattern.start().aisle("~^~", "###", "~#~").where('^', BlockWorldState.hasState(IS_PUMPKIN)).where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.IRON_BLOCK))).where('~', BlockWorldState.hasState(BlockMaterialMatcher.forMaterial(Material.AIR))).build();
+			golemPattern = FactoryBlockPattern.start()
+			                                  .aisle("~^~", "###", "~#~")
+			                                  .where('^', BlockWorldState.hasState(IS_PUMPKIN))
+			                                  .where('#', BlockWorldState.hasState(BlockStateMatcher.forBlock(Blocks.IRON_BLOCK)))
+			                                  .where('~', BlockWorldState.hasState(BlockMaterialMatcher.forMaterial(Material.AIR)))
+			                                  .build();
 		}
 
 		return golemPattern;

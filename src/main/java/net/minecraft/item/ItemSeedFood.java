@@ -29,7 +29,8 @@ public class ItemSeedFood extends ItemFood {
 	public ActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, Hand hand, Facing facing, float hitX, float hitY, float hitZ) {
 		ItemStack itemstack = player.getHeldItem(hand);
 
-		if (facing == Facing.UP && player.canPlayerEdit(pos.offset(facing), facing, itemstack) && worldIn.getBlockState(pos).getBlock() == soilId && worldIn.isAirBlock(pos.up())) {
+		if (facing == Facing.UP && player.canPlayerEdit(pos.offset(facing), facing, itemstack) && worldIn.getBlockState(pos)
+		                                                                                                 .getBlock() == soilId && worldIn.isAirBlock(pos.up())) {
 			worldIn.setBlockState(pos.up(), crops.getDefaultState(), 11);
 			itemstack.shrink(1);
 			return ActionResult.SUCCESS;

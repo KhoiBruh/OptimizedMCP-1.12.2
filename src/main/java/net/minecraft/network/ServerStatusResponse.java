@@ -178,6 +178,7 @@ public class ServerStatusResponse {
 	}
 
 	public record Version(String name, int protocol) {
+
 		public static class Serializer implements JsonDeserializer<Version>, JsonSerializer<Version> {
 
 			public Version deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {

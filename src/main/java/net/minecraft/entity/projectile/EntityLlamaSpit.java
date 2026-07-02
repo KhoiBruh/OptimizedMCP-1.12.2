@@ -137,10 +137,10 @@ public class EntityLlamaSpit extends Entity implements IProjectile {
 		}
 	}
 
-	
 	private Entity getHitEntity(Vec3d p_190538_1_, Vec3d p_190538_2_) {
 		Entity entity = null;
-		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(motionX, motionY, motionZ).grow(1D));
+		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(motionX, motionY, motionZ)
+		                                                                                           .grow(1D));
 		double d0 = 0D;
 
 		for (Entity entity1 : list) {

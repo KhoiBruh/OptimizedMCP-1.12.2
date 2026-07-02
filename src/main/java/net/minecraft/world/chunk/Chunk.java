@@ -176,7 +176,6 @@ public class Chunk {
 		return heightMap[z << 4 | x];
 	}
 
-	
 	private ExtendedBlockStorage getLastExtendedBlockStorage() {
 		for (int i = storageArrays.length - 1; i >= 0; --i) {
 			if (storageArrays[i] != NULL_BLOCK_STORAGE) {
@@ -491,7 +490,6 @@ public class Chunk {
 		}
 	}
 
-	
 	public IBlockState setBlockState(BlockPos pos, IBlockState state) {
 		int i = pos.getX() & 15;
 		int j = pos.getY();
@@ -704,14 +702,13 @@ public class Chunk {
 		return j >= heightMap[k << 4 | i];
 	}
 
-	
 	private TileEntity createNewTileEntity(BlockPos pos) {
 		IBlockState iblockstate = getBlockState(pos);
 		Block block = iblockstate.getBlock();
-		return !block.hasTileEntity() ? null : ((ITileEntityProvider) block).createNewTileEntity(world, iblockstate.getBlock().getMetaFromState(iblockstate));
+		return !block.hasTileEntity() ? null : ((ITileEntityProvider) block).createNewTileEntity(world, iblockstate.getBlock()
+		                                                                                                           .getMetaFromState(iblockstate));
 	}
 
-	
 	public TileEntity getTileEntity(BlockPos pos, Chunk.CreateEntityType creationMode) {
 		TileEntity tileentity = tileEntities.get(pos);
 
@@ -817,7 +814,8 @@ public class Chunk {
 
 						if (aentity != null) {
 							for (Entity entity1 : aentity) {
-								if (entity1 != entityIn && entity1.getEntityBoundingBox().intersects(aabb) && (filter == null || filter.apply(entity1))) {
+								if (entity1 != entityIn && entity1.getEntityBoundingBox()
+								                                  .intersects(aabb) && (filter == null || filter.apply(entity1))) {
 									listToFill.add(entity1);
 								}
 							}
@@ -948,7 +946,8 @@ public class Chunk {
 		while (!tileEntityPosQueue.isEmpty()) {
 			BlockPos blockpos = tileEntityPosQueue.poll();
 
-			if (getTileEntity(blockpos, Chunk.CreateEntityType.CHECK) == null && getBlockState(blockpos).getBlock().hasTileEntity()) {
+			if (getTileEntity(blockpos, Chunk.CreateEntityType.CHECK) == null && getBlockState(blockpos).getBlock()
+			                                                                                            .hasTileEntity()) {
 				TileEntity tileentity = createNewTileEntity(blockpos);
 				world.setTileEntity(blockpos, tileentity);
 				world.markBlockRangeForRenderUpdate(blockpos, blockpos);
@@ -1116,7 +1115,8 @@ public class Chunk {
 					BlockPos blockpos1 = blockpos.add(k, (j << 4) + i1, l);
 					boolean flag = i1 == 0 || i1 == 15 || k == 0 || k == 15 || l == 0 || l == 15;
 
-					if (storageArrays[j] == NULL_BLOCK_STORAGE && flag || storageArrays[j] != NULL_BLOCK_STORAGE && storageArrays[j].get(k, i1, l).getMaterial() == Material.AIR) {
+					if (storageArrays[j] == NULL_BLOCK_STORAGE && flag || storageArrays[j] != NULL_BLOCK_STORAGE && storageArrays[j].get(k, i1, l)
+					                                                                                                                .getMaterial() == Material.AIR) {
 						for (Facing enumfacing : Facing.values()) {
 							BlockPos blockpos2 = blockpos1.offset(enumfacing);
 
@@ -1153,7 +1153,8 @@ public class Chunk {
 				if (isLightPopulated) {
 					for (Facing enumfacing : Facing.Plane.HORIZONTAL) {
 						int k = enumfacing.getAxisDirection() == Facing.AxisDirection.POSITIVE ? 16 : 1;
-						world.getChunkFromBlockCoords(blockpos.offset(enumfacing, k)).checkLightSide(enumfacing.getOpposite());
+						world.getChunkFromBlockCoords(blockpos.offset(enumfacing, k))
+						     .checkLightSide(enumfacing.getOpposite());
 					}
 
 					setSkylightUpdated();

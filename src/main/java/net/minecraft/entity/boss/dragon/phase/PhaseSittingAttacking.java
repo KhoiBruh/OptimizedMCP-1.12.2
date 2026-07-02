@@ -16,7 +16,8 @@ public class PhaseSittingAttacking extends PhaseSittingBase {
 	 * Called by dragon's onLivingUpdate. Only used when worldObj.isRemote.
 	 */
 	public void doClientRenderEffects() {
-		dragon.world.playSound(dragon.posX, dragon.posY, dragon.posZ, SoundEvents.ENTITY_ENDERDRAGON_GROWL, dragon.getSoundCategory(), 2.5F, 0.8F + dragon.getRNG().nextFloat() * 0.3F, false);
+		dragon.world.playSound(dragon.posX, dragon.posY, dragon.posZ, SoundEvents.ENTITY_ENDERDRAGON_GROWL, dragon.getSoundCategory(), 2.5F, 0.8F + dragon.getRNG()
+		                                                                                                                                                  .nextFloat() * 0.3F, false);
 	}
 
 	/**

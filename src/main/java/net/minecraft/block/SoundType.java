@@ -11,7 +11,9 @@ import net.minecraft.util.SoundEvent;
  * @param fallSound  The sound played when a block gets fallen upon.
  */
 public record SoundType(float volume, float pitch, SoundEvent breakSound, SoundEvent stepSound, SoundEvent placeSound,
-                        SoundEvent hitSound, SoundEvent fallSound) {
+                        SoundEvent hitSound, SoundEvent fallSound
+) {
+
 	public static final SoundType WOOD = new SoundType(1F, 1F, SoundEvents.BLOCK_WOOD_BREAK, SoundEvents.BLOCK_WOOD_STEP, SoundEvents.BLOCK_WOOD_PLACE, SoundEvents.BLOCK_WOOD_HIT, SoundEvents.BLOCK_WOOD_FALL);
 	public static final SoundType GROUND = new SoundType(1F, 1F, SoundEvents.BLOCK_GRAVEL_BREAK, SoundEvents.BLOCK_GRAVEL_STEP, SoundEvents.BLOCK_GRAVEL_PLACE, SoundEvents.BLOCK_GRAVEL_HIT, SoundEvents.BLOCK_GRAVEL_FALL);
 	public static final SoundType PLANT = new SoundType(1F, 1F, SoundEvents.BLOCK_GRASS_BREAK, SoundEvents.BLOCK_GRASS_STEP, SoundEvents.BLOCK_GRASS_PLACE, SoundEvents.BLOCK_GRASS_HIT, SoundEvents.BLOCK_GRASS_FALL);

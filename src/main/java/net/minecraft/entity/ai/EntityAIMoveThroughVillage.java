@@ -63,7 +63,10 @@ public class EntityAIMoveThroughVillage extends EntityAIBase {
 					if (path != null) {
 						return true;
 					} else {
-						Vec3d vec3d = RandomPositionGenerator.findRandomTargetBlockTowards(entity, 10, 7, new Vec3d(doorInfo.getDoorBlockPos().getX(), doorInfo.getDoorBlockPos().getY(), doorInfo.getDoorBlockPos().getZ()));
+						Vec3d vec3d = RandomPositionGenerator.findRandomTargetBlockTowards(entity, 10, 7, new Vec3d(doorInfo.getDoorBlockPos()
+						                                                                                                    .getX(), doorInfo.getDoorBlockPos()
+						                                                                                                                     .getY(), doorInfo.getDoorBlockPos()
+						                                                                                                                                      .getZ()));
 
 						if (vec3d == null) {
 							return false;

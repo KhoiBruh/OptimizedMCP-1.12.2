@@ -51,12 +51,16 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 	 * Returns true if the player is in spectator mode.
 	 */
 	public boolean isSpectator() {
-		NetworkPlayerInfo networkplayerinfo = Minecraft.getMinecraft().getConnection().getPlayerInfo(getGameProfile().getId());
+		NetworkPlayerInfo networkplayerinfo = Minecraft.getMinecraft()
+		                                               .getConnection()
+		                                               .getPlayerInfo(getGameProfile().getId());
 		return networkplayerinfo != null && networkplayerinfo.getGameType() == GameType.SPECTATOR;
 	}
 
 	public boolean isCreative() {
-		NetworkPlayerInfo networkplayerinfo = Minecraft.getMinecraft().getConnection().getPlayerInfo(getGameProfile().getId());
+		NetworkPlayerInfo networkplayerinfo = Minecraft.getMinecraft()
+		                                               .getConnection()
+		                                               .getPlayerInfo(getGameProfile().getId());
 		return networkplayerinfo != null && networkplayerinfo.getGameType() == GameType.CREATIVE;
 	}
 
@@ -67,7 +71,6 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 		return getPlayerInfo() != null;
 	}
 
-	
 	protected NetworkPlayerInfo getPlayerInfo() {
 		if (playerInfo == null) {
 			playerInfo = Minecraft.getMinecraft().getConnection().getPlayerInfo(getUniqueID());
@@ -92,7 +95,6 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 		return networkplayerinfo == null ? DefaultPlayerSkin.getDefaultSkin(getUniqueID()) : networkplayerinfo.getLocationSkin();
 	}
 
-	
 	public ResourceLocation getLocationCape() {
 		NetworkPlayerInfo networkplayerinfo = getPlayerInfo();
 		return networkplayerinfo == null ? null : networkplayerinfo.getLocationCape();
@@ -101,8 +103,6 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 	public boolean isPlayerInfoSet() {
 		return getPlayerInfo() != null;
 	}
-
-	
 
 	/**
 	 * Gets the special Elytra texture for the player.

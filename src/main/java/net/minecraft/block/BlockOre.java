@@ -54,7 +54,8 @@ public class BlockOre extends Block {
 	 * Get the quantity dropped based on the given fortune level
 	 */
 	public int quantityDroppedWithBonus(int fortune, Random random) {
-		if (fortune > 0 && Item.getItemFromBlock(this) != getItemDropped(getBlockState().getValidStates().getFirst(), random, fortune)) {
+		if (fortune > 0 && Item.getItemFromBlock(this) != getItemDropped(getBlockState().getValidStates()
+		                                                                                .getFirst(), random, fortune)) {
 			int i = random.nextInt(fortune + 2) - 1;
 
 			if (i < 0) {

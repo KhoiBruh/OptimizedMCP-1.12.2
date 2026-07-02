@@ -115,7 +115,6 @@ public class Slot {
 		return getSlotStackLimit();
 	}
 
-	
 	public String getSlotTexture() {
 		return null;
 	}

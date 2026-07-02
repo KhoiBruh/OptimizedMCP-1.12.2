@@ -37,7 +37,8 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable {
 	 */
 	public static int getPatterns(ItemStack stack) {
 		NBTTagCompound nbttagcompound = stack.getSubCompound("BlockEntityTag");
-		return nbttagcompound != null && nbttagcompound.hasKey("Patterns") ? nbttagcompound.getTagList("Patterns", 10).tagCount() : 0;
+		return nbttagcompound != null && nbttagcompound.hasKey("Patterns") ? nbttagcompound.getTagList("Patterns", 10)
+		                                                                                   .tagCount() : 0;
 	}
 
 	/**
@@ -135,7 +136,6 @@ public class TileEntityBanner extends TileEntity implements IWorldNameable {
 		patternDataSet = true;
 	}
 
-	
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		return new SPacketUpdateTileEntity(pos, 6, getUpdateTag());
 	}

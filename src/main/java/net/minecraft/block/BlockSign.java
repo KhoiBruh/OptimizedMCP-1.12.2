@@ -30,7 +30,6 @@ public class BlockSign extends BlockContainer {
 		return SIGN_AABB;
 	}
 
-	
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return NULL_AABB;
 	}

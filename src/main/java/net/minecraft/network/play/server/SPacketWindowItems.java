@@ -6,7 +6,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.util.NonNullList;
 
-import java.io.IOException;
 import java.util.List;
 
 public class SPacketWindowItems implements Packet<INetHandlerPlayClient> {

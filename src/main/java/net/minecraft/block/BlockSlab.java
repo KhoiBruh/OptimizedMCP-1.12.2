@@ -89,7 +89,8 @@ public abstract class BlockSlab extends Block {
 	 * IBlockstate
 	 */
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Facing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-		IBlockState iblockstate = super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(HALF, BlockSlab.BlockHalf.BOTTOM);
+		IBlockState iblockstate = super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer)
+		                               .withProperty(HALF, BlockSlab.BlockHalf.BOTTOM);
 
 		if (isDouble()) {
 			return iblockstate;

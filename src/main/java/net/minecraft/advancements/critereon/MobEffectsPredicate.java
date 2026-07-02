@@ -83,10 +83,8 @@ public class MobEffectsPredicate {
 		private final MinMaxBounds amplifier;
 		private final MinMaxBounds duration;
 
-		
 		private final Boolean ambient;
 
-		
 		private final Boolean visible;
 
 		public InstancePredicate(MinMaxBounds amplifier, MinMaxBounds duration, Boolean ambient, Boolean visible) {

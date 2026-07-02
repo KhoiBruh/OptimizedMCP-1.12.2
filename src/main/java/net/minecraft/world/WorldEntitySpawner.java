@@ -56,7 +56,9 @@ public final class WorldEntitySpawner {
 			IBlockState iblockstate = worldIn.getBlockState(pos);
 
 			if (spawnPlacementTypeIn == EntityLiving.SpawnPlacementType.IN_WATER) {
-				return iblockstate.getMaterial() == Material.WATER && worldIn.getBlockState(pos.down()).getMaterial() == Material.WATER && !worldIn.getBlockState(pos.up()).isNormalCube();
+				return iblockstate.getMaterial() == Material.WATER && worldIn.getBlockState(pos.down())
+				                                                             .getMaterial() == Material.WATER && !worldIn.getBlockState(pos.up())
+				                                                                                                         .isNormalCube();
 			} else {
 				BlockPos blockpos = pos.down();
 
@@ -102,7 +104,8 @@ public final class WorldEntitySpawner {
 							EntityLiving entityliving;
 
 							try {
-								entityliving = biome$spawnlistentry.entityClass.getConstructor(World.class).newInstance(worldIn);
+								entityliving = biome$spawnlistentry.entityClass.getConstructor(World.class)
+								                                               .newInstance(worldIn);
 							} catch (Exception exception) {
 								exception.printStackTrace();
 								continue;
@@ -151,7 +154,8 @@ public final class WorldEntitySpawner {
 								++i;
 
 								if (!flag && worldServerIn.getWorldBorder().contains(chunkpos)) {
-									PlayerChunkMapEntry playerchunkmapentry = worldServerIn.getPlayerChunkMap().getEntry(chunkpos.x, chunkpos.z);
+									PlayerChunkMapEntry playerchunkmapentry = worldServerIn.getPlayerChunkMap()
+									                                                       .getEntry(chunkpos.x, chunkpos.z);
 
 									if (playerchunkmapentry != null && playerchunkmapentry.isSentToPlayers()) {
 										eligibleChunksForSpawning.add(chunkpos);
@@ -215,7 +219,8 @@ public final class WorldEntitySpawner {
 												EntityLiving entityliving;
 
 												try {
-													entityliving = biome$spawnlistentry.entityClass.getConstructor(World.class).newInstance(worldServerIn);
+													entityliving = biome$spawnlistentry.entityClass.getConstructor(World.class)
+													                                               .newInstance(worldServerIn);
 												} catch (Exception exception) {
 													exception.printStackTrace();
 													return j4;

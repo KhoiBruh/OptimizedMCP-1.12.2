@@ -23,11 +23,13 @@ public class DamageSource {
 	public static final DamageSource IN_WALL = (new DamageSource("inWall")).setDamageBypassesArmor();
 	public static final DamageSource CRAMMING = (new DamageSource("cramming")).setDamageBypassesArmor();
 	public static final DamageSource DROWN = (new DamageSource("drown")).setDamageBypassesArmor();
-	public static final DamageSource STARVE = (new DamageSource("starve")).setDamageBypassesArmor().setDamageIsAbsolute();
+	public static final DamageSource STARVE = (new DamageSource("starve")).setDamageBypassesArmor()
+	                                                                      .setDamageIsAbsolute();
 	public static final DamageSource CACTUS = new DamageSource("cactus");
 	public static final DamageSource FALL = (new DamageSource("fall")).setDamageBypassesArmor();
 	public static final DamageSource FLY_INTO_WALL = (new DamageSource("flyIntoWall")).setDamageBypassesArmor();
-	public static final DamageSource OUT_OF_WORLD = (new DamageSource("outOfWorld")).setDamageBypassesArmor().setDamageAllowedInCreativeMode();
+	public static final DamageSource OUT_OF_WORLD = (new DamageSource("outOfWorld")).setDamageBypassesArmor()
+	                                                                                .setDamageAllowedInCreativeMode();
 	public static final DamageSource GENERIC = (new DamageSource("generic")).setDamageBypassesArmor();
 	public static final DamageSource MAGIC = (new DamageSource("magic")).setDamageBypassesArmor().setMagicDamage();
 	public static final DamageSource WITHER = (new DamageSource("wither")).setDamageBypassesArmor();
@@ -94,7 +96,9 @@ public class DamageSource {
 	 * returns EntityDamageSourceIndirect of a fireball
 	 */
 	public static DamageSource causeFireballDamage(EntityFireball fireball, Entity indirectEntityIn) {
-		return indirectEntityIn == null ? (new EntityDamageSourceIndirect("onFire", fireball, fireball)).setFireDamage().setProjectile() : (new EntityDamageSourceIndirect("fireball", fireball, indirectEntityIn)).setFireDamage().setProjectile();
+		return indirectEntityIn == null ? (new EntityDamageSourceIndirect("onFire", fireball, fireball)).setFireDamage()
+		                                                                                                .setProjectile() : (new EntityDamageSourceIndirect("fireball", fireball, indirectEntityIn)).setFireDamage()
+		                                                                                                                                                                                           .setProjectile();
 	}
 
 	public static DamageSource causeThrownDamage(Entity source, Entity indirectEntityIn) {
@@ -102,7 +106,8 @@ public class DamageSource {
 	}
 
 	public static DamageSource causeIndirectMagicDamage(Entity source, Entity indirectEntityIn) {
-		return (new EntityDamageSourceIndirect("indirectMagic", source, indirectEntityIn)).setDamageBypassesArmor().setMagicDamage();
+		return (new EntityDamageSourceIndirect("indirectMagic", source, indirectEntityIn)).setDamageBypassesArmor()
+		                                                                                  .setMagicDamage();
 	}
 
 	/**
@@ -113,11 +118,15 @@ public class DamageSource {
 	}
 
 	public static DamageSource causeExplosionDamage(Explosion explosionIn) {
-		return explosionIn != null && explosionIn.getExplosivePlacedBy() != null ? (new EntityDamageSource("explosion.player", explosionIn.getExplosivePlacedBy())).setDifficultyScaled().setExplosion() : (new DamageSource("explosion")).setDifficultyScaled().setExplosion();
+		return explosionIn != null && explosionIn.getExplosivePlacedBy() != null ? (new EntityDamageSource("explosion.player", explosionIn.getExplosivePlacedBy())).setDifficultyScaled()
+		                                                                                                                                                           .setExplosion() : (new DamageSource("explosion")).setDifficultyScaled()
+		                                                                                                                                                                                                            .setExplosion();
 	}
 
 	public static DamageSource causeExplosionDamage(EntityLivingBase entityLivingBaseIn) {
-		return entityLivingBaseIn != null ? (new EntityDamageSource("explosion.player", entityLivingBaseIn)).setDifficultyScaled().setExplosion() : (new DamageSource("explosion")).setDifficultyScaled().setExplosion();
+		return entityLivingBaseIn != null ? (new EntityDamageSource("explosion.player", entityLivingBaseIn)).setDifficultyScaled()
+		                                                                                                    .setExplosion() : (new DamageSource("explosion")).setDifficultyScaled()
+		                                                                                                                                                     .setExplosion();
 	}
 
 	/**
@@ -166,16 +175,12 @@ public class DamageSource {
 		return damageIsAbsolute;
 	}
 
-	
-
 	/**
 	 * Retrieves the immediate causer of the damage, e.g. the arrow entity, not its shooter
 	 */
 	public Entity getImmediateSource() {
 		return getTrueSource();
 	}
-
-	
 
 	/**
 	 * Retrieves the true causer of the damage, e.g. the player who fired an arrow, the shulker who fired the bullet,
@@ -272,8 +277,6 @@ public class DamageSource {
 		Entity entity = getTrueSource();
 		return entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode;
 	}
-
-	
 
 	/**
 	 * Gets the location from which the damage originates.

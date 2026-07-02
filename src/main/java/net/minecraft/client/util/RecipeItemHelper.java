@@ -88,7 +88,7 @@ public class RecipeItemHelper {
 			recipe = p_i47608_2_;
 			ingredients.addAll(p_i47608_2_.getIngredients());
 			ingredients.removeIf((p_194103_0_) ->
-					p_194103_0_ == Ingredient.EMPTY);
+				                     p_194103_0_ == Ingredient.EMPTY);
 			ingredientCount = ingredients.size();
 			possessedIngredientStacks = getUniqueAvailIngredientItems();
 			possessedIngredientStackCount = possessedIngredientStacks.length;
@@ -289,7 +289,8 @@ public class RecipeItemHelper {
 				int l = 0;
 				int i1;
 
-				for (IntListIterator intlistiterator = ingredient.getValidItemStacksPacked().iterator(); intlistiterator.hasNext(); l = Math.max(l, itemToCount.get(i1))) {
+				for (IntListIterator intlistiterator = ingredient.getValidItemStacksPacked()
+				                                                 .iterator(); intlistiterator.hasNext(); l = Math.max(l, itemToCount.get(i1))) {
 					i1 = intlistiterator.nextInt();
 				}
 

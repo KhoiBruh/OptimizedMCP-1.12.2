@@ -54,7 +54,8 @@ public class EntityHasScore implements LootCondition {
 			return false;
 		} else {
 			String s = entityIn instanceof EntityPlayerMP ? entityIn.getName() : entityIn.getCachedUniqueIdString();
-			return scoreboardIn.entityHasObjective(s, scoreobjective) && rand.isInRange(scoreboardIn.getOrCreateScore(s, scoreobjective).getScorePoints());
+			return scoreboardIn.entityHasObjective(s, scoreobjective) && rand.isInRange(scoreboardIn.getOrCreateScore(s, scoreobjective)
+			                                                                                        .getScorePoints());
 		}
 	}
 

@@ -93,7 +93,6 @@ public class BlockStateContainer implements IBlockStatePaletteResizer {
 		buf.writeLongArray(storage.getBackingLongArray());
 	}
 
-	
 	public NibbleArray getDataForNBT(byte[] blockIds, NibbleArray data) {
 		NibbleArray nibblearray = null;
 

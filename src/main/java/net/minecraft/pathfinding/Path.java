@@ -72,8 +72,6 @@ public class Path {
 		return currentPathIndex >= pathLength;
 	}
 
-	
-
 	/**
 	 * returns the last PathPoint of the Array
 	 */

@@ -15,7 +15,12 @@ import net.minecraft.world.World;
 public class ParticleSweepAttack extends Particle {
 
 	private static final ResourceLocation SWEEP_TEXTURE = new ResourceLocation("textures/entity/sweep.png");
-	private static final VertexFormat VERTEX_FORMAT = (new VertexFormat()).addElement(DefaultVertexFormats.POSITION_3F).addElement(DefaultVertexFormats.TEX_2F).addElement(DefaultVertexFormats.COLOR_4UB).addElement(DefaultVertexFormats.TEX_2S).addElement(DefaultVertexFormats.NORMAL_3B).addElement(DefaultVertexFormats.PADDING_1B);
+	private static final VertexFormat VERTEX_FORMAT = (new VertexFormat()).addElement(DefaultVertexFormats.POSITION_3F)
+	                                                                      .addElement(DefaultVertexFormats.TEX_2F)
+	                                                                      .addElement(DefaultVertexFormats.COLOR_4UB)
+	                                                                      .addElement(DefaultVertexFormats.TEX_2S)
+	                                                                      .addElement(DefaultVertexFormats.NORMAL_3B)
+	                                                                      .addElement(DefaultVertexFormats.PADDING_1B);
 	private final int lifeTime;
 	private final TextureManager textureManager;
 	private final float size;
@@ -52,10 +57,30 @@ public class ParticleSweepAttack extends Particle {
 			GLS.disableLighting();
 			RenderHelper.disableStandardItemLighting();
 			buffer.begin(7, VERTEX_FORMAT);
-			buffer.pos(f5 - rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4 * 0.5F, f7 - rotationYZ * f4 - rotationXZ * f4).tex(f1, f3).color(particleRed, particleGreen, particleBlue, 1F).lightmap(0, 240).normal(0F, 1F, 0F).endVertex();
-			buffer.pos(f5 - rotationX * f4 + rotationXY * f4, f6 + rotationZ * f4 * 0.5F, f7 - rotationYZ * f4 + rotationXZ * f4).tex(f1, f2).color(particleRed, particleGreen, particleBlue, 1F).lightmap(0, 240).normal(0F, 1F, 0F).endVertex();
-			buffer.pos(f5 + rotationX * f4 + rotationXY * f4, f6 + rotationZ * f4 * 0.5F, f7 + rotationYZ * f4 + rotationXZ * f4).tex(f, f2).color(particleRed, particleGreen, particleBlue, 1F).lightmap(0, 240).normal(0F, 1F, 0F).endVertex();
-			buffer.pos(f5 + rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4 * 0.5F, f7 + rotationYZ * f4 - rotationXZ * f4).tex(f, f3).color(particleRed, particleGreen, particleBlue, 1F).lightmap(0, 240).normal(0F, 1F, 0F).endVertex();
+			buffer.pos(f5 - rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4 * 0.5F, f7 - rotationYZ * f4 - rotationXZ * f4)
+			      .tex(f1, f3)
+			      .color(particleRed, particleGreen, particleBlue, 1F)
+			      .lightmap(0, 240)
+			      .normal(0F, 1F, 0F)
+			      .endVertex();
+			buffer.pos(f5 - rotationX * f4 + rotationXY * f4, f6 + rotationZ * f4 * 0.5F, f7 - rotationYZ * f4 + rotationXZ * f4)
+			      .tex(f1, f2)
+			      .color(particleRed, particleGreen, particleBlue, 1F)
+			      .lightmap(0, 240)
+			      .normal(0F, 1F, 0F)
+			      .endVertex();
+			buffer.pos(f5 + rotationX * f4 + rotationXY * f4, f6 + rotationZ * f4 * 0.5F, f7 + rotationYZ * f4 + rotationXZ * f4)
+			      .tex(f, f2)
+			      .color(particleRed, particleGreen, particleBlue, 1F)
+			      .lightmap(0, 240)
+			      .normal(0F, 1F, 0F)
+			      .endVertex();
+			buffer.pos(f5 + rotationX * f4 - rotationXY * f4, f6 - rotationZ * f4 * 0.5F, f7 + rotationYZ * f4 - rotationXZ * f4)
+			      .tex(f, f3)
+			      .color(particleRed, particleGreen, particleBlue, 1F)
+			      .lightmap(0, 240)
+			      .normal(0F, 1F, 0F)
+			      .endVertex();
 			Tessellator.getInstance().draw();
 			GLS.enableLighting();
 		}
@@ -87,7 +112,8 @@ public class ParticleSweepAttack extends Particle {
 	public static class Factory implements IParticleFactory {
 
 		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
-			return new ParticleSweepAttack(Minecraft.getMinecraft().getTextureManager(), worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
+			return new ParticleSweepAttack(Minecraft.getMinecraft()
+			                                        .getTextureManager(), worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 		}
 
 	}
