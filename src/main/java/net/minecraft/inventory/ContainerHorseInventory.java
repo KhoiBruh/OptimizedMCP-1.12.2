@@ -11,7 +11,7 @@ public class ContainerHorseInventory extends Container {
 	private final IInventory horseInventory;
 	private final AbstractHorse horse;
 
-	public ContainerHorseInventory(IInventory playerInventory, IInventory horseInventoryIn, final AbstractHorse horse, EntityPlayer player) {
+	public ContainerHorseInventory(IInventory playerInventory, IInventory horseInventoryIn, AbstractHorse horse, EntityPlayer player) {
 		horseInventory = horseInventoryIn;
 		this.horse = horse;
 		int i = 3;

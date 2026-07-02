@@ -15,7 +15,7 @@ public class ItemMultiTexture extends ItemBlock {
 		setHasSubtypes(true);
 	}
 
-	public ItemMultiTexture(Block block, Block block2, final String[] namesByMeta) {
+	public ItemMultiTexture(Block block, Block block2, String[] namesByMeta) {
 		this(block, block2, p_apply_1_ -> {
 
 			int i = p_apply_1_.getMetadata();

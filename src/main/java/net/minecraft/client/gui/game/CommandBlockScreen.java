@@ -55,7 +55,7 @@ public class CommandBlockScreen extends Screen implements ITabCompleter {
 	 * window resizes, the buttonList is cleared beforehand.
 	 */
 	public void init() {
-		final CommandBlockBaseLogic commandblockbaselogic = commandBlock.getCommandBlockLogic();
+		CommandBlockBaseLogic commandblockbaselogic = commandBlock.getCommandBlockLogic();
 		Keyboard.setRepeat(true);
 		buttons.clear();
 		doneBtn = addButton(new Button(0, width / 2 - 4 - 150, height / 4 + 120 + 12, 150, 20, I18n.format("gui.done")));

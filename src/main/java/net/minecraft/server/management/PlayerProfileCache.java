@@ -57,7 +57,7 @@ public class PlayerProfileCache {
 	}
 
 	private static GameProfile lookupProfile(GameProfileRepository profileRepoIn, String name) {
-		final GameProfile[] agameprofile = new GameProfile[1];
+		GameProfile[] agameprofile = new GameProfile[1];
 		ProfileLookupCallback profilelookupcallback = new ProfileLookupCallback() {
 			public void onProfileLookupSucceeded(GameProfile p_onProfileLookupSucceeded_1_) {
 				agameprofile[0] = p_onProfileLookupSucceeded_1_;

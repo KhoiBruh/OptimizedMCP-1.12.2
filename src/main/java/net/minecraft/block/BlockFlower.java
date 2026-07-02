@@ -111,7 +111,7 @@ public abstract class BlockFlower extends BlockBush {
 		private static final BlockFlower.FlowerType[][] TYPES_FOR_BLOCK = new BlockFlower.FlowerType[BlockFlower.FlowerColor.values().length][];
 
 		static {
-			for (final BlockFlower.FlowerColor blockflower$enumflowercolor : BlockFlower.FlowerColor.values()) {
+			for (BlockFlower.FlowerColor blockflower$enumflowercolor : BlockFlower.FlowerColor.values()) {
 				Collection<BlockFlower.FlowerType> collection = Collections2.filter(Lists.newArrayList(values()), p_apply_1_ -> p_apply_1_.getBlockType() == blockflower$enumflowercolor);
 				TYPES_FOR_BLOCK[blockflower$enumflowercolor.ordinal()] = collection.toArray(new FlowerType[0]);
 			}

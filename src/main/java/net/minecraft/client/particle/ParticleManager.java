@@ -200,13 +200,13 @@ public class ParticleManager {
 		}
 	}
 
-	private void tickParticle(final Particle particle) {
+	private void tickParticle(Particle particle) {
 		try {
 			particle.onUpdate();
 		} catch (Throwable throwable) {
 			CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Ticking Particle");
 			CrashReportCategory crashreportcategory = crashreport.makeCategory("Particle being ticked");
-			final int i = particle.getFXLayer();
+			int i = particle.getFXLayer();
 			crashreportcategory.addDetail("Particle", particle::toString);
 			crashreportcategory.addDetail("Particle Type", () -> {
 
@@ -240,7 +240,7 @@ public class ParticleManager {
 		GLS.alphaFunc(516, 0.003921569F);
 
 		for (int i_nf = 0; i_nf < 3; ++i_nf) {
-			final int i = i_nf;
+			int i = i_nf;
 
 			for (int j = 0; j < 2; ++j) {
 				if (!fxLayers[i][j].isEmpty()) {
@@ -268,7 +268,7 @@ public class ParticleManager {
 					BufferBuilder bufferbuilder = tessellator.getBuffer();
 					bufferbuilder.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
 
-					for (final Particle particle : fxLayers[i][j]) {
+					for (Particle particle : fxLayers[i][j]) {
 						try {
 							particle.renderParticle(bufferbuilder, entityIn, partialTicks, f, f4, f1, f2, f3);
 						} catch (Throwable throwable) {

@@ -171,7 +171,7 @@ public class NetworkSystem {
 			Iterator<NetworkManager> iterator = networkManagers.iterator();
 
 			while (iterator.hasNext()) {
-				final NetworkManager manager = iterator.next();
+				NetworkManager manager = iterator.next();
 
 				if (!manager.hasNoChannel()) {
 					if (manager.isChannelOpen()) {
@@ -186,7 +186,7 @@ public class NetworkSystem {
 							}
 
 							LOGGER.warn("Failed to handle packet for {}", manager.getRemoteAddress(), exception);
-							final TextComponentString textcomponentstring = new TextComponentString("Internal server error");
+							TextComponentString textcomponentstring = new TextComponentString("Internal server error");
 							manager.sendPacket(new SPacketDisconnect(textcomponentstring), p_operationComplete_1_ -> manager.closeChannel(textcomponentstring));
 							manager.disableAutoRead();
 						}

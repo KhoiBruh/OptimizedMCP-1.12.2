@@ -53,7 +53,7 @@ public class ChunkRenderWorker implements Runnable {
 		}
 	}
 
-	protected void processTask(final ChunkCompileTaskGenerator generator) throws InterruptedException {
+	protected void processTask(ChunkCompileTaskGenerator generator) throws InterruptedException {
 		generator.getLock().lock();
 
 		try {
@@ -123,7 +123,7 @@ public class ChunkRenderWorker implements Runnable {
 				generator.getLock().unlock();
 			}
 
-			final CompiledChunk compiledchunk = generator.getCompiledChunk();
+			CompiledChunk compiledchunk = generator.getCompiledChunk();
 			ArrayList<ListenableFuture<Object>> arraylist = Lists.newArrayList();
 
 			if (chunkcompiletaskgenerator$type == ChunkCompileTaskGenerator.Type.REBUILD_CHUNK) {
@@ -138,7 +138,7 @@ public class ChunkRenderWorker implements Runnable {
 				                                                                                       .getWorldRendererByLayer(BlockRenderLayer.TRANSLUCENT), generator.getRenderChunk(), compiledchunk, generator.getDistanceSq()));
 			}
 
-			final ListenableFuture<List<Object>> listenablefuture = Futures.allAsList(arraylist);
+			ListenableFuture<List<Object>> listenablefuture = Futures.allAsList(arraylist);
 			generator.addFinishRunnable(() -> listenablefuture.cancel(false));
 			Futures.addCallback(listenablefuture, new FutureCallback<>() {
 				public void onSuccess(List<Object> p_onSuccess_1_) {

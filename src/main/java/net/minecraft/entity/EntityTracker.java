@@ -126,7 +126,7 @@ public class EntityTracker {
 	/**
 	 * Args : Entity, trackingRange, updateFrequency, sendVelocityUpdates
 	 */
-	public void track(Entity entityIn, int trackingRange, final int updateFrequency, boolean sendVelocityUpdates) {
+	public void track(Entity entityIn, int trackingRange, int updateFrequency, boolean sendVelocityUpdates) {
 		try {
 			if (trackedEntityHashTable.containsItem(entityIn.getEntityId())) {
 				throw new IllegalStateException("Entity is already tracked!");

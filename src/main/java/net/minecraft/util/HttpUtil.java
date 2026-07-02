@@ -101,7 +101,7 @@ public class HttpUtil {
 		}
 	}
 
-	public static ListenableFuture<Object> downloadResourcePack(final File saveFile, final String packUrl, final Map<String, String> p_180192_2_, final int maxSize, final IProgressUpdate p_180192_4_, final Proxy p_180192_5_) {
+	public static ListenableFuture<Object> downloadResourcePack(File saveFile, String packUrl, Map<String, String> p_180192_2_, int maxSize, IProgressUpdate p_180192_4_, Proxy p_180192_5_) {
 		ListenableFuture<?> listenablefuture = DOWNLOADER_EXECUTOR.submit(() -> {
 
 			HttpURLConnection httpurlconnection = null;

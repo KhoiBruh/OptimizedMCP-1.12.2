@@ -65,7 +65,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 			mapTextureObjects.put(textureLocation, textureObj);
 			flag = false;
 		} catch (Throwable throwable) {
-			final ITextureObject textureObjf = textureObj;
+			ITextureObject textureObjf = textureObj;
 			CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Registering texture");
 			CrashReportCategory crashreportcategory = crashreport.makeCategory("Resource location being registered");
 			crashreportcategory.addCrashSection("Resource location", textureLocation);

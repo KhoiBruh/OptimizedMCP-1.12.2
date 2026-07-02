@@ -21,7 +21,7 @@ public class EntityAIFollow extends EntityAIBase {
 	private int timeToRecalcPath;
 	private float oldWaterCost;
 
-	public EntityAIFollow(final EntityLiving p_i47417_1_, double p_i47417_2_, float p_i47417_4_, float p_i47417_5_) {
+	public EntityAIFollow(EntityLiving p_i47417_1_, double p_i47417_2_, float p_i47417_4_, float p_i47417_5_) {
 		entity = p_i47417_1_;
 		followPredicate = p_apply_1_ -> p_apply_1_ != null && p_i47417_1_.getClass() != p_apply_1_.getClass();
 		speedModifier = p_i47417_2_;

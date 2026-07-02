@@ -82,7 +82,7 @@ public class ModelBakery {
 		BlockStateMapper blockstatemapper = blockModelShapes.getBlockStateMapper();
 
 		for (Block block : Block.REGISTRY) {
-			for (final ResourceLocation resourcelocation : blockstatemapper.getBlockstateLocations(block)) {
+			for (ResourceLocation resourcelocation : blockstatemapper.getBlockstateLocations(block)) {
 				try {
 					ModelBlockDefinition modelblockdefinition = getModelBlockDefinition(resourcelocation);
 					Map<IBlockState, ModelResourceLocation> map = blockstatemapper.getVariants(block);
@@ -594,7 +594,7 @@ public class ModelBakery {
 	}
 
 	private void loadSprites() {
-		final Set<ResourceLocation> set = getVariantsTextureLocations();
+		Set<ResourceLocation> set = getVariantsTextureLocations();
 		set.addAll(getItemsTextureLocations());
 		set.remove(TextureMap.LOCATION_MISSING_TEXTURE);
 		ITextureMapPopulator itexturemappopulator = textureMapIn -> {

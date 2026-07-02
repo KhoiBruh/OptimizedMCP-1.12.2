@@ -53,8 +53,8 @@ public class SuffixArray<T> {
 	public void generate() {
 		int i = chars.size();
 		int[] aint = new int[i];
-		final int[] aint1 = new int[i];
-		final int[] aint2 = new int[i];
+		int[] aint1 = new int[i];
+		int[] aint2 = new int[i];
 		int[] aint3 = new int[i];
 		IntComparator comparator = (one, another) -> aint1[one] == aint1[another] ? Integer.compare(aint2[one], aint2[another]) : Integer.compare(aint1[one], aint1[another]);
 		Swapper swapper = (p_194054_3_, p_194054_4_) -> {

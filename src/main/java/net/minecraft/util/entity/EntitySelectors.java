@@ -19,16 +19,16 @@ public final class EntitySelectors {
 	public static final Predicate<Entity> CAN_AI_TARGET = p_apply_1_ -> !(p_apply_1_ instanceof EntityPlayer) || !((EntityPlayer) p_apply_1_).isSpectator() && !((EntityPlayer) p_apply_1_).isCreative();
 	public static final Predicate<Entity> NOT_SPECTATING = p_apply_1_ -> !(p_apply_1_ instanceof EntityPlayer) || !((EntityPlayer) p_apply_1_).isSpectator();
 
-	public static <T extends Entity> Predicate<T> withinRange(final double x, final double y, final double z, double range) {
+	public static <T extends Entity> Predicate<T> withinRange(double x, double y, double z, double range) {
 
-		final double d0 = range * range;
+		double d0 = range * range;
 		return p_apply_1_ -> p_apply_1_ != null && p_apply_1_.getDistanceSq(x, y, z) <= d0;
 	}
 
-	public static <T extends Entity> Predicate<T> getTeamCollisionPredicate(final Entity entityIn) {
+	public static <T extends Entity> Predicate<T> getTeamCollisionPredicate(Entity entityIn) {
 
-		final Team team = entityIn.getTeam();
-		final Team.CollisionRule team$collisionrule = team == null ? Team.CollisionRule.ALWAYS : team.getCollisionRule();
+		Team team = entityIn.getTeam();
+		Team.CollisionRule team$collisionrule = team == null ? Team.CollisionRule.ALWAYS : team.getCollisionRule();
 		Predicate<?> ret = team$collisionrule == Team.CollisionRule.NEVER ? Predicates.alwaysFalse() : Predicates.and(NOT_SPECTATING, p_apply_1_ -> {
 
 			if (!p_apply_1_.canBePushed()) {
@@ -55,7 +55,7 @@ public final class EntitySelectors {
 		return (Predicate<T>) ret;
 	}
 
-	public static Predicate<Entity> notRiding(final Entity p_191324_0_) {
+	public static Predicate<Entity> notRiding(Entity p_191324_0_) {
 		return p_apply_1_ -> {
 
 			while (true) {

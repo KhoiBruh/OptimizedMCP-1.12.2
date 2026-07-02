@@ -94,7 +94,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	 * Create a new NetworkManager from the server host and connect it to the server
 	 */
 	public static NetworkManager createNetworkManagerAndConnect(InetAddress address, int serverPort, boolean useNativeTransport) {
-		final NetworkManager networkmanager = new NetworkManager(PacketDirection.CLIENTBOUND);
+		NetworkManager networkmanager = new NetworkManager(PacketDirection.CLIENTBOUND);
 		Class<? extends SocketChannel> oclass;
 		LazyLoadBase<? extends EventLoopGroup> lazyloadbase;
 
@@ -134,7 +134,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	 * pipeline. Returns the newly created instance.
 	 */
 	public static NetworkManager provideLocalClient(SocketAddress address) {
-		final NetworkManager manager = new NetworkManager(PacketDirection.CLIENTBOUND);
+		NetworkManager manager = new NetworkManager(PacketDirection.CLIENTBOUND);
 
 		new Bootstrap()
 			.group(CLIENT_LOCAL_EVENT_LOOP.getValue())
@@ -237,9 +237,9 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
 	 * Will commit the packet to the channel. If the current thread 'owns' the channel it will write and flush the
 	 * packet, otherwise it will add a task for the channel eventloop thread to do that.
 	 */
-	private void dispatchPacket(final Packet<?> inPacket, final GenericFutureListener<? extends Future<? super Void>>[] futureListeners) {
-		final ConnectionState enumconnectionstate = ConnectionState.getFromPacket(inPacket);
-		final ConnectionState enumconnectionstate1 = channel.attr(PROTOCOL_ATTRIBUTE_KEY).get();
+	private void dispatchPacket(Packet<?> inPacket, GenericFutureListener<? extends Future<? super Void>>[] futureListeners) {
+		ConnectionState enumconnectionstate = ConnectionState.getFromPacket(inPacket);
+		ConnectionState enumconnectionstate1 = channel.attr(PROTOCOL_ATTRIBUTE_KEY).get();
 
 		if (enumconnectionstate1 != enumconnectionstate) {
 			LOGGER.debug("Disabled auto read");

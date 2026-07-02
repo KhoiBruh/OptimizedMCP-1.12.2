@@ -17,7 +17,7 @@ public class ItemColors {
 
 	private final ObjectIntIdentityMap<IItemColor> mapItemColors = new ObjectIntIdentityMap<>(32);
 
-	public static ItemColors init(final BlockColors colors) {
+	public static ItemColors init(BlockColors colors) {
 		ItemColors itemcolors = new ItemColors();
 		itemcolors.registerItemColorHandler((stack, tintIndex) -> tintIndex > 0 ? -1 : ((ItemArmor) stack.getItem()).getColor(stack), Items.LEATHER_HELMET, Items.LEATHER_CHESTPLATE, Items.LEATHER_LEGGINGS, Items.LEATHER_BOOTS);
 		itemcolors.registerItemColorHandler((stack, tintIndex) -> {

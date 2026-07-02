@@ -142,7 +142,7 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
 		if (showHoverOverlay() && relativeX <= 32) {
 			if (canMoveRight()) {
 				resourcePacksGUI.markChanged();
-				final int j = resourcePacksGUI.getSelectedResourcePacks().getFirst().isServerPack() ? 1 : 0;
+				int j = resourcePacksGUI.getSelectedResourcePacks().getFirst().isServerPack() ? 1 : 0;
 				int l = getResourcePackFormat();
 
 				if (l == 3) {

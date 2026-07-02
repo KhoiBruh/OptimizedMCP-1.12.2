@@ -343,7 +343,7 @@ public class InventoryPlayer implements IInventory {
 		return add(-1, itemStackIn);
 	}
 
-	public boolean add(int p_191971_1_, final ItemStack p_191971_2_) {
+	public boolean add(int p_191971_1_, ItemStack p_191971_2_) {
 		if (p_191971_2_.isEmpty()) {
 			return false;
 		} else {

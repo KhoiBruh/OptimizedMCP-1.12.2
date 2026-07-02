@@ -20,7 +20,7 @@ public class BlockWorldState {
 		forceLoad = forceLoadIn;
 	}
 
-	public static Predicate<BlockWorldState> hasState(final Predicate<IBlockState> predicatesIn) {
+	public static Predicate<BlockWorldState> hasState(Predicate<IBlockState> predicatesIn) {
 		return p_apply_1_ -> p_apply_1_ != null && predicatesIn.apply(p_apply_1_.getBlockState());
 	}
 

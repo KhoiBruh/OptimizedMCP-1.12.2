@@ -115,8 +115,8 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 			soundRegistry.add(accessor);
 		}
 
-		for (final Sound sound : sounds.getSounds()) {
-			final ResourceLocation name = sound.name();
+		for (Sound sound : sounds.getSounds()) {
+			ResourceLocation name = sound.name();
 			ISoundEventAccessor<Sound> eventAccessor;
 
 			switch (sound.type()) {

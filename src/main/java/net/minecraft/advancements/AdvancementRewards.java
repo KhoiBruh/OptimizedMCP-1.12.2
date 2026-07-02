@@ -39,7 +39,7 @@ public class AdvancementRewards {
 		this.function = function;
 	}
 
-	public void apply(final EntityPlayerMP player) {
+	public void apply(EntityPlayerMP player) {
 		player.addExperience(experience);
 		LootContext lootcontext = (new LootContext.Builder(player.getServerWorld())).withLootedEntity(player).build();
 		boolean flag = false;
@@ -72,7 +72,7 @@ public class AdvancementRewards {
 			player.unlockRecipes(recipes);
 		}
 
-		final MinecraftServer minecraftserver = player.mcServer;
+		MinecraftServer minecraftserver = player.mcServer;
 		FunctionObject functionobject = function.get(minecraftserver.getFunctionManager());
 
 		if (functionobject != null) {

@@ -283,7 +283,7 @@ public class RenderItem implements IResourceManagerReloadListener {
 		renderItemAndEffectIntoGUI(Minecraft.getMinecraft().player, stack, xPosition, yPosition);
 	}
 
-	public void renderItemAndEffectIntoGUI(EntityLivingBase p_184391_1_, final ItemStack p_184391_2_, int p_184391_3_, int p_184391_4_) {
+	public void renderItemAndEffectIntoGUI(EntityLivingBase p_184391_1_, ItemStack p_184391_2_, int p_184391_3_, int p_184391_4_) {
 		if (!p_184391_2_.isEmpty()) {
 			zLevel += 50F;
 

@@ -215,7 +215,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 	/**
 	 * Disconnect the player with a specified reason
 	 */
-	public void disconnect(final ITextComponent textComponent) {
+	public void disconnect(ITextComponent textComponent) {
 		netManager.sendPacket(new SPacketDisconnect(textComponent), p_operationComplete_1_ -> netManager.closeChannel(textComponent));
 		netManager.disableAutoRead();
 		Futures.getUnchecked(serverController.addScheduledTask(netManager::checkDisconnected));
@@ -704,7 +704,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 		}
 	}
 
-	public void sendPacket(final Packet<?> packetIn) {
+	public void sendPacket(Packet<?> packetIn) {
 		if (packetIn instanceof SPacketChat spacketchat) {
 			EntityPlayer.ChatVisibility entityplayer$enumchatvisibility = player.getChatVisibility();
 

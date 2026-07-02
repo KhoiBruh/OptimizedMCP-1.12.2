@@ -104,7 +104,7 @@ public class Bootstrap {
 			}
 		});
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.SPLASH_POTION, new IBehaviorDispenseItem() {
-			public ItemStack dispense(IBlockSource source, final ItemStack stack) {
+			public ItemStack dispense(IBlockSource source, ItemStack stack) {
 				return (new BehaviorProjectileDispense() {
 					protected IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn) {
 						return new EntityPotion(worldIn, position.x(), position.y(), position.z(), stack.copy());
@@ -121,7 +121,7 @@ public class Bootstrap {
 			}
 		});
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.LINGERING_POTION, new IBehaviorDispenseItem() {
-			public ItemStack dispense(IBlockSource source, final ItemStack stack) {
+			public ItemStack dispense(IBlockSource source, ItemStack stack) {
 				return (new BehaviorProjectileDispense() {
 					protected IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn) {
 						return new EntityPotion(worldIn, position.x(), position.y(), position.z(), stack.copy());

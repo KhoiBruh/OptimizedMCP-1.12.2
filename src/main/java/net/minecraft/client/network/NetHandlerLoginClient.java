@@ -41,7 +41,7 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
 	}
 
 	public void handleEncryptionRequest(SPacketEncryptionRequest packetIn) {
-		final SecretKey secretkey = CryptManager.createNewSharedKey();
+		SecretKey secretkey = CryptManager.createNewSharedKey();
 		String s = packetIn.getServerId();
 		PublicKey publickey = packetIn.getPublicKey();
 		String s1 = (new BigInteger(CryptManager.getServerIdHash(s, publickey, secretkey))).toString(16);

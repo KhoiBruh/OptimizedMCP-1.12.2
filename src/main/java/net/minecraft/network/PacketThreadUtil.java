@@ -4,7 +4,7 @@ import net.minecraft.util.IThreadListener;
 
 public class PacketThreadUtil {
 
-	public static <T extends INetHandler> void checkThreadAndEnqueue(final Packet<T> packetIn, final T processor, IThreadListener scheduler) throws ThreadQuickExitException {
+	public static <T extends INetHandler> void checkThreadAndEnqueue(Packet<T> packetIn, T processor, IThreadListener scheduler) throws ThreadQuickExitException {
 
 		if (!scheduler.isCallingFromMinecraftThread()) {
 			scheduler.addScheduledTask(() -> packetIn.processPacket(processor));

@@ -298,7 +298,7 @@ public class TextureAtlasSprite {
 		List<int[][]> list = Lists.newArrayList();
 
 		for (int i = 0; i < framesTextureData.size(); ++i) {
-			final int[][] aint = framesTextureData.get(i);
+			int[][] aint = framesTextureData.get(i);
 
 			if (aint != null) {
 				try {

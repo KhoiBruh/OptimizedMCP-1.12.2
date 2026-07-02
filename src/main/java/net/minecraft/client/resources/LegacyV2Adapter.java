@@ -28,7 +28,7 @@ public class LegacyV2Adapter implements IResourcePack {
 			int i = s.indexOf(95);
 
 			if (i != -1) {
-				final String s1 = s.substring(0, i + 1) + s.substring(i + 1, s.indexOf(46, i)).toUpperCase() + ".lang";
+				String s1 = s.substring(0, i + 1) + s.substring(i + 1, s.indexOf(46, i)).toUpperCase() + ".lang";
 				return new ResourceLocation(p_191382_1_.getResourceDomain(), "") {
 					public String getResourcePath() {
 						return s1;

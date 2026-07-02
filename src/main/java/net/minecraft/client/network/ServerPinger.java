@@ -43,9 +43,9 @@ public class ServerPinger {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private final List<NetworkManager> pingDestinations = Collections.synchronizedList(Lists.newArrayList());
 
-	public void ping(final ServerData server) throws UnknownHostException {
+	public void ping(ServerData server) throws UnknownHostException {
 		ServerAddress serveraddress = ServerAddress.fromString(server.serverIP);
-		final NetworkManager networkmanager = NetworkManager.createNetworkManagerAndConnect(InetAddress.getByName(serveraddress.getIP()), serveraddress.getPort(), false);
+		NetworkManager networkmanager = NetworkManager.createNetworkManagerAndConnect(InetAddress.getByName(serveraddress.getIP()), serveraddress.getPort(), false);
 		pingDestinations.add(networkmanager);
 		server.serverMOTD = I18n.format("multiplayer.status.pinging");
 		server.pingToServer = -1L;
@@ -154,8 +154,8 @@ public class ServerPinger {
 		}
 	}
 
-	private void tryCompatibilityPing(final ServerData server) {
-		final ServerAddress serveraddress = ServerAddress.fromString(server.serverIP);
+	private void tryCompatibilityPing(ServerData server) {
+		ServerAddress serveraddress = ServerAddress.fromString(server.serverIP);
 		(new Bootstrap()).group(NetworkManager.CLIENT_NIO_EVENT_LOOP.getValue()).handler(new ChannelInitializer<>() {
 			protected void initChannel(Channel p_initChannel_1_) {
 				try {

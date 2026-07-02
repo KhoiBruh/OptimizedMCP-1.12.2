@@ -1350,8 +1350,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 	}
 
 	public void handleResourcePack(SPacketResourcePackSend packetIn) {
-		final String s = packetIn.getURL();
-		final String s1 = packetIn.getHash();
+		String s = packetIn.getURL();
+		String s1 = packetIn.getHash();
 
 		if (validateResourcePackUrl(s)) {
 			if (s.startsWith("level://")) {

@@ -33,7 +33,7 @@ public class ContainerPlayer extends Container {
 		}
 
 		for (int k = 0; k < 4; ++k) {
-			final EntityEquipmentSlot entityequipmentslot = VALID_EQUIPMENT_SLOTS[k];
+			EntityEquipmentSlot entityequipmentslot = VALID_EQUIPMENT_SLOTS[k];
 			addSlotToContainer(new Slot(playerInventory, 36 + (3 - k), 8, 8 + k * 18) {
 				public int getSlotStackLimit() {
 					return 1;

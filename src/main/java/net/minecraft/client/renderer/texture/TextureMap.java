@@ -146,7 +146,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 		}
 	}
 
-	private boolean generateMipmaps(IResourceManager resourceManager, final TextureAtlasSprite texture) {
+	private boolean generateMipmaps(IResourceManager resourceManager, TextureAtlasSprite texture) {
 		ResourceLocation resourcelocation = getResourceLocation(texture);
 		label62:
 		{

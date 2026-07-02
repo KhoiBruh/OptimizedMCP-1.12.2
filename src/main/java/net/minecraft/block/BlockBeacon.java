@@ -25,13 +25,13 @@ public class BlockBeacon extends BlockContainer {
 		setCreativeTab(CreativeTabs.MISC);
 	}
 
-	public static void updateColorAsync(final World worldIn, final BlockPos glassPos) {
+	public static void updateColorAsync(World worldIn, BlockPos glassPos) {
 		HttpUtil.DOWNLOADER_EXECUTOR.submit(() -> {
 
 			Chunk chunk = worldIn.getChunkFromBlockCoords(glassPos);
 
 			for (int i = glassPos.getY() - 1; i >= 0; --i) {
-				final BlockPos blockpos = new BlockPos(glassPos.getX(), i, glassPos.getZ());
+				BlockPos blockpos = new BlockPos(glassPos.getX(), i, glassPos.getZ());
 
 				if (!chunk.canSeeSky(blockpos)) {
 					break;

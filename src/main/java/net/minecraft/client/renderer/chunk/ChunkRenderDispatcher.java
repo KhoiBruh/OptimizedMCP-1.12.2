@@ -105,7 +105,7 @@ public class ChunkRenderDispatcher {
 		boolean flag1;
 
 		try {
-			final ChunkCompileTaskGenerator chunkcompiletaskgenerator = chunkRenderer.makeCompileTaskChunk();
+			ChunkCompileTaskGenerator chunkcompiletaskgenerator = chunkRenderer.makeCompileTaskChunk();
 			chunkcompiletaskgenerator.addFinishRunnable(() -> queueChunkUpdates.remove(chunkcompiletaskgenerator));
 			boolean flag = queueChunkUpdates.offer(chunkcompiletaskgenerator);
 
@@ -174,7 +174,7 @@ public class ChunkRenderDispatcher {
 		boolean flag;
 
 		try {
-			final ChunkCompileTaskGenerator chunkcompiletaskgenerator = chunkRenderer.makeCompileTaskTransparency();
+			ChunkCompileTaskGenerator chunkcompiletaskgenerator = chunkRenderer.makeCompileTaskTransparency();
 
 			if (chunkcompiletaskgenerator == null) {
 				flag = true;
@@ -190,7 +190,7 @@ public class ChunkRenderDispatcher {
 		return flag;
 	}
 
-	public ListenableFuture<Object> uploadChunk(final BlockRenderLayer layer, final BufferBuilder bufferBuilder, final RenderChunk chunk, final CompiledChunk compiledChunk, final double v) {
+	public ListenableFuture<Object> uploadChunk(BlockRenderLayer layer, BufferBuilder bufferBuilder, RenderChunk chunk, CompiledChunk compiledChunk, double v) {
 		if (Minecraft.getMinecraft().isCallingFromMinecraftThread()) {
 			if (OpenGlHelper.useVbo()) {
 				uploadVertexBuffer(bufferBuilder, chunk.getVertexBufferByLayer(layer.ordinal()));

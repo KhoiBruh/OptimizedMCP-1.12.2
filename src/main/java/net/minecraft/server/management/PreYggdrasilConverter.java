@@ -38,14 +38,14 @@ public class PreYggdrasilConverter {
 		}
 	}
 
-	public static String convertMobOwnerIfNeeded(final MinecraftServer server, String username) {
+	public static String convertMobOwnerIfNeeded(MinecraftServer server, String username) {
 		if (!StringUtils.isNullOrEmpty(username) && username.length() <= 16) {
 			GameProfile gameprofile = server.getPlayerProfileCache().getGameProfileForUsername(username);
 
 			if (gameprofile != null && gameprofile.getId() != null) {
 				return gameprofile.getId().toString();
 			} else if (!server.isSinglePlayer() && server.isServerInOnlineMode()) {
-				final List<GameProfile> list = Lists.newArrayList();
+				List<GameProfile> list = Lists.newArrayList();
 				ProfileLookupCallback profilelookupcallback = new ProfileLookupCallback() {
 					public void onProfileLookupSucceeded(GameProfile p_onProfileLookupSucceeded_1_) {
 						server.getPlayerProfileCache().addEntry(p_onProfileLookupSucceeded_1_);

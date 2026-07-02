@@ -91,7 +91,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T> {
 		return Iterators.contains(getByClass(p_contains_1_.getClass()).iterator(), p_contains_1_);
 	}
 
-	public <S> Iterable<S> getByClass(final Class<S> clazz) {
+	public <S> Iterable<S> getByClass(Class<S> clazz) {
 
 		return () -> {
 

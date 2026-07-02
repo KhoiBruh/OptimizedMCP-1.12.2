@@ -69,7 +69,7 @@ public class PlayerChunkMap {
 	}
 
 	public Iterator<Chunk> getChunkIterator() {
-		final Iterator<PlayerChunkMapEntry> iterator = entries.iterator();
+		Iterator<PlayerChunkMapEntry> iterator = entries.iterator();
 		return new AbstractIterator<>() {
 			protected Chunk computeNext() {
 				while (true) {

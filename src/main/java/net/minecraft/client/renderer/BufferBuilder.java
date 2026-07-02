@@ -80,7 +80,7 @@ public class BufferBuilder {
 
 	public void sortVertexData(float p_181674_1_, float p_181674_2_, float p_181674_3_) {
 		int i = vertexCount / 4;
-		final float[] afloat = new float[i];
+		float[] afloat = new float[i];
 
 		for (int j = 0; j < i; ++j) {
 			afloat[j] = getDistanceSq(rawFloatBuffer, (float) ((double) p_181674_1_ + xOffset), (float) ((double) p_181674_2_ + yOffset), (float) ((double) p_181674_3_ + zOffset), vertexFormat.getIntegerSize(), j * vertexFormat.getNextOffset());

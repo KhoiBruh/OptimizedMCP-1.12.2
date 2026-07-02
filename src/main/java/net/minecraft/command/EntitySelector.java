@@ -208,16 +208,16 @@ public class EntitySelector {
 		if (s == null || !type.equals("e") && !type.equals("r") && !type.equals("s")) {
 			return !type.equals("e") && !type.equals("s") ? Collections.singletonList((Predicate<Entity>) p_apply_1_ -> p_apply_1_ instanceof EntityPlayer) : Collections.emptyList();
 		} else {
-			final boolean flag = s.startsWith("!");
-			final ResourceLocation resourcelocation = new ResourceLocation(flag ? s.substring(1) : s);
+			boolean flag = s.startsWith("!");
+			ResourceLocation resourcelocation = new ResourceLocation(flag ? s.substring(1) : s);
 			return Collections.singletonList(p_apply_1_ -> EntityList.isMatchingName(p_apply_1_, resourcelocation) != flag);
 		}
 	}
 
 	private static List<Predicate<Entity>> getXpLevelPredicates(Map<String, String> params) {
 		List<Predicate<Entity>> list = Lists.newArrayList();
-		final int i = getInt(params, ARGUMENT_LEVEL_MIN, -1);
-		final int j = getInt(params, ARGUMENT_LEVEL_MAX, -1);
+		int i = getInt(params, ARGUMENT_LEVEL_MIN, -1);
+		int j = getInt(params, ARGUMENT_LEVEL_MAX, -1);
 
 		if (i > -1 || j > -1) {
 			list.add(p_apply_1_ -> {
@@ -240,7 +240,7 @@ public class EntitySelector {
 		if (s == null) {
 			return list;
 		} else {
-			final boolean flag = s.startsWith("!");
+			boolean flag = s.startsWith("!");
 
 			if (flag) {
 				s = s.substring(1);
@@ -255,7 +255,7 @@ public class EntitySelector {
 				gametype = GameType.parseGameTypeWithDefault(s, GameType.NOT_SET);
 			}
 
-			final GameType type = gametype;
+			GameType type = gametype;
 			list.add(p_apply_1_ -> {
 
 				if (!(p_apply_1_ instanceof EntityPlayerMP entityplayermp)) {
@@ -272,14 +272,14 @@ public class EntitySelector {
 	private static List<Predicate<Entity>> getTeamPredicates(Map<String, String> params) {
 		List<Predicate<Entity>> list = Lists.newArrayList();
 		String s = getArgument(params, ARGUMENT_TEAM_NAME);
-		final boolean flag = s != null && s.startsWith("!");
+		boolean flag = s != null && s.startsWith("!");
 
 		if (flag) {
 			s = s.substring(1);
 		}
 
 		if (s != null) {
-			final String s_f_ = s;
+			String s_f_ = s;
 			list.add(p_apply_1_ -> {
 
 				if (!(p_apply_1_ instanceof EntityLivingBase entitylivingbase)) {
@@ -295,8 +295,8 @@ public class EntitySelector {
 		return list;
 	}
 
-	private static List<Predicate<Entity>> getScorePredicates(final ICommandSender sender, Map<String, String> params) {
-		final Map<String, Integer> map = getScoreMap(params);
+	private static List<Predicate<Entity>> getScorePredicates(ICommandSender sender, Map<String, String> params) {
+		Map<String, Integer> map = getScoreMap(params);
 		return (map.isEmpty() ? Collections.emptyList() : Lists.newArrayList((Predicate<Entity>) p_apply_1_ -> {
 
 			if (p_apply_1_ == null) {
@@ -345,14 +345,14 @@ public class EntitySelector {
 	private static List<Predicate<Entity>> getNamePredicates(Map<String, String> params) {
 		List<Predicate<Entity>> list = Lists.newArrayList();
 		String s = getArgument(params, ARGUMENT_PLAYER_NAME);
-		final boolean flag = s != null && s.startsWith("!");
+		boolean flag = s != null && s.startsWith("!");
 
 		if (flag) {
 			s = s.substring(1);
 		}
 
 		if (s != null) {
-			final String s_f_ = s;
+			String s_f_ = s;
 			list.add(p_apply_1_ -> p_apply_1_ != null && p_apply_1_.getName().equals(s_f_) != flag);
 		}
 
@@ -362,14 +362,14 @@ public class EntitySelector {
 	private static List<Predicate<Entity>> getTagPredicates(Map<String, String> params) {
 		List<Predicate<Entity>> list = Lists.newArrayList();
 		String s = getArgument(params, ARGUMENT_ENTITY_TAG);
-		final boolean flag = s != null && s.startsWith("!");
+		boolean flag = s != null && s.startsWith("!");
 
 		if (flag) {
 			s = s.substring(1);
 		}
 
 		if (s != null) {
-			final String s_f_ = s;
+			String s_f_ = s;
 			list.add(p_apply_1_ -> {
 
 				if (p_apply_1_ == null) {
@@ -385,19 +385,19 @@ public class EntitySelector {
 		return list;
 	}
 
-	private static List<Predicate<Entity>> getRadiusPredicates(Map<String, String> params, final Vec3d pos) {
+	private static List<Predicate<Entity>> getRadiusPredicates(Map<String, String> params, Vec3d pos) {
 		double d0 = getInt(params, ARGUMENT_RANGE_MIN, -1);
 		double d1 = getInt(params, ARGUMENT_RANGE_MAX, -1);
-		final boolean flag = d0 < -0.5D;
-		final boolean flag1 = d1 < -0.5D;
+		boolean flag = d0 < -0.5D;
+		boolean flag1 = d1 < -0.5D;
 
 		if (flag && flag1) {
 			return Collections.emptyList();
 		} else {
 			double d2 = Math.max(d0, 1.0E-4D);
-			final double d3 = d2 * d2;
+			double d3 = d2 * d2;
 			double d4 = Math.max(d1, 1.0E-4D);
-			final double d5 = d4 * d4;
+			double d5 = d4 * d4;
 			return Lists.newArrayList(p_apply_1_ -> {
 
 				if (p_apply_1_ == null) {
@@ -414,8 +414,8 @@ public class EntitySelector {
 		List<Predicate<Entity>> list = Lists.newArrayList();
 
 		if (params.containsKey(ARGUMENT_ROTY_MIN) || params.containsKey(ARGUMENT_ROTY_MAX)) {
-			final int i = MathHelper.wrapDegrees(getInt(params, ARGUMENT_ROTY_MIN, 0));
-			final int j = MathHelper.wrapDegrees(getInt(params, ARGUMENT_ROTY_MAX, 359));
+			int i = MathHelper.wrapDegrees(getInt(params, ARGUMENT_ROTY_MIN, 0));
+			int j = MathHelper.wrapDegrees(getInt(params, ARGUMENT_ROTY_MAX, 359));
 			list.add(p_apply_1_ -> {
 
 				if (p_apply_1_ == null) {
@@ -433,8 +433,8 @@ public class EntitySelector {
 		}
 
 		if (params.containsKey(ARGUMENT_ROTX_MIN) || params.containsKey(ARGUMENT_ROTX_MAX)) {
-			final int k = MathHelper.wrapDegrees(getInt(params, ARGUMENT_ROTX_MIN, 0));
-			final int l = MathHelper.wrapDegrees(getInt(params, ARGUMENT_ROTX_MAX, 359));
+			int k = MathHelper.wrapDegrees(getInt(params, ARGUMENT_ROTX_MIN, 0));
+			int l = MathHelper.wrapDegrees(getInt(params, ARGUMENT_ROTX_MAX, 359));
 			list.add(p_apply_1_ -> {
 
 				if (p_apply_1_ == null) {
@@ -485,7 +485,7 @@ public class EntitySelector {
 				list.addAll(worldIn.getPlayers(entityClass, predicate1));
 			}
 		} else {
-			final AxisAlignedBB axisalignedbb = getAABB(position, i, j, k);
+			AxisAlignedBB axisalignedbb = getAABB(position, i, j, k);
 
 			if (flag && !flag1) {
 				Predicate<Entity> predicate2 = p_apply_1_ -> p_apply_1_ != null && axisalignedbb.intersects(p_apply_1_.getEntityBoundingBox());
@@ -498,7 +498,7 @@ public class EntitySelector {
 		return list;
 	}
 
-	private static <T extends Entity> List<T> getEntitiesFromPredicates(List<T> matchingEntities, Map<String, String> params, ICommandSender sender, Class<? extends T> targetClass, String type, final Vec3d pos) {
+	private static <T extends Entity> List<T> getEntitiesFromPredicates(List<T> matchingEntities, Map<String, String> params, ICommandSender sender, Class<? extends T> targetClass, String type, Vec3d pos) {
 
 		int i = getInt(params, ARGUMENT_COUNT, !type.equals("a") && !type.equals("e") ? 1 : 0);
 

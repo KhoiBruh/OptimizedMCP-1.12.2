@@ -20,7 +20,7 @@ public class BlockColors {
 	private final ObjectIntIdentityMap<IBlockColor> mapBlockColors = new ObjectIntIdentityMap<>(32);
 
 	public static BlockColors init() {
-		final BlockColors blockcolors = new BlockColors();
+		BlockColors blockcolors = new BlockColors();
 		blockcolors.registerBlockColorHandler((state, worldIn, pos, tintIndex) -> {
 
 			BlockDoublePlant.PlantType blockdoubleplant$enumplanttype = state.getValue(BlockDoublePlant.VARIANT);

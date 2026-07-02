@@ -457,7 +457,7 @@ public class Chunk {
 		return getBlockState(pos.getX(), pos.getY(), pos.getZ());
 	}
 
-	public IBlockState getBlockState(final int x, final int y, final int z) {
+	public IBlockState getBlockState(int x, int y, int z) {
 		if (world.getWorldType() == WorldType.DEBUG_ALL_BLOCK_STATES) {
 			IBlockState iblockstate = null;
 

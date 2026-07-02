@@ -975,8 +975,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		if (!mc.skipRenderWorld) {
 			int i1 = mc.getWindow().getScaledWidth();
 			int j1 = mc.getWindow().getScaledHeight();
-			final int k1 = Mouse.getX() * i1 / mc.getWindow().getWidth();
-			final int l1 = j1 - Mouse.getY() * j1 / mc.getWindow().getHeight() - 1;
+			int k1 = Mouse.getX() * i1 / mc.getWindow().getWidth();
+			int l1 = j1 - Mouse.getY() * j1 / mc.getWindow().getHeight() - 1;
 			int i2 = mc.gameSettings.limitFramerate;
 
 			if (mc.world != null) {

@@ -43,7 +43,7 @@ public class ConnectingScreen extends Screen {
 		connect(hostName, port);
 	}
 
-	private void connect(final String ip, final int port) {
+	private void connect(String ip, int port) {
 		LOGGER.info("Connecting to {}, {}", ip, port);
 		(new Thread("Server Connector #" + CONNECTION_ID.incrementAndGet()) {
 			public void run() {

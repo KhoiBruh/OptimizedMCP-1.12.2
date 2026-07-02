@@ -74,7 +74,7 @@ public class Main {
 		}
 	}
 
-	private static void proxyAuth(Proxy proxy, final String username, final String password) {
+	private static void proxyAuth(Proxy proxy, String username, String password) {
 		if (!proxy.equals(Proxy.NO_PROXY) && isNotNullOrEmpty(username) && isNotNullOrEmpty(password)) {
 			Authenticator.setDefault(new Authenticator() {
 				protected PasswordAuthentication getPasswordAuthentication() {

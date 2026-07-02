@@ -20,7 +20,7 @@ public class ConditionPropertyValue implements ICondition {
 	}
 
 	public Predicate<IBlockState> getPredicate(BlockStateContainer blockState) {
-		final IProperty<?> iproperty = blockState.getProperty(key);
+		IProperty<?> iproperty = blockState.getProperty(key);
 
 		if (iproperty == null) {
 			throw new RuntimeException(this + ": Definition: " + blockState + " has no property: " + key);
@@ -50,8 +50,8 @@ public class ConditionPropertyValue implements ICondition {
 		}
 	}
 
-	private Predicate<IBlockState> makePredicate(final IProperty<?> property, String valueIn) {
-		final Optional<?> optional = property.parseValue(valueIn);
+	private Predicate<IBlockState> makePredicate(IProperty<?> property, String valueIn) {
+		Optional<?> optional = property.parseValue(valueIn);
 
 		if (!optional.isPresent()) {
 			throw new RuntimeException(this + ": has an unknown value: " + value);

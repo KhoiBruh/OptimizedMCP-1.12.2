@@ -444,7 +444,7 @@ public class NBTTagCompound extends NBTBase {
 	/**
 	 * Create a crash report which indicates a NBT read error.
 	 */
-	private CrashReport createCrashReport(final String key, final int expectedType, ClassCastException ex) {
+	private CrashReport createCrashReport(String key, int expectedType, ClassCastException ex) {
 		CrashReport crashreport = CrashReport.makeCrashReport(ex, "Reading NBT data");
 		CrashReportCategory crashreportcategory = crashreport.makeCategoryDepth("Corrupt NBT tag", 1);
 		crashreportcategory.addDetail("Tag type found", () -> NBTBase.NBT_TYPES[tagMap.get(key).getId()]);

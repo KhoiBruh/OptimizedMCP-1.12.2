@@ -37,7 +37,7 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
 		this(creature, classTarget, 10, checkSight, onlyNearby, null);
 	}
 
-	public EntityAINearestAttackableTarget(EntityCreature creature, Class<T> classTarget, int chance, boolean checkSight, boolean onlyNearby, final Predicate<? super T> targetSelector) {
+	public EntityAINearestAttackableTarget(EntityCreature creature, Class<T> classTarget, int chance, boolean checkSight, boolean onlyNearby, Predicate<? super T> targetSelector) {
 		super(creature, checkSight, onlyNearby);
 		targetClass = classTarget;
 		targetChance = chance;

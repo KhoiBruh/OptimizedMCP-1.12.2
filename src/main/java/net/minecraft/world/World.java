@@ -158,7 +158,7 @@ public abstract class World implements IBlockAccess {
 		return this;
 	}
 
-	public Biome getBiome(final BlockPos pos) {
+	public Biome getBiome(BlockPos pos) {
 		if (isBlockLoaded(pos)) {
 			Chunk chunk = getChunkFromBlockCoords(pos);
 
@@ -469,7 +469,7 @@ public abstract class World implements IBlockAccess {
 		}
 	}
 
-	public void neighborChanged(BlockPos pos, final Block blockIn, BlockPos fromPos) {
+	public void neighborChanged(BlockPos pos, Block blockIn, BlockPos fromPos) {
 		if (!isRemote) {
 			IBlockState iblockstate = getBlockState(pos);
 
@@ -493,7 +493,7 @@ public abstract class World implements IBlockAccess {
 		}
 	}
 
-	public void observedNeighborChanged(BlockPos pos, final Block p_190529_2_, BlockPos p_190529_3_) {
+	public void observedNeighborChanged(BlockPos pos, Block p_190529_2_, BlockPos p_190529_3_) {
 		if (!isRemote) {
 			IBlockState iblockstate = getBlockState(pos);
 

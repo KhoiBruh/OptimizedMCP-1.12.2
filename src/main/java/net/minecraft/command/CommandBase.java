@@ -467,13 +467,13 @@ public abstract class CommandBase implements ICommand {
 		return p_190793_0_.withProperty(p_190793_1_, (T) p_190793_2_);
 	}
 
-	public static Predicate<IBlockState> convertArgToBlockStatePredicate(final Block p_190791_0_, String p_190791_1_) throws InvalidBlockStateException {
+	public static Predicate<IBlockState> convertArgToBlockStatePredicate(Block p_190791_0_, String p_190791_1_) throws InvalidBlockStateException {
 		if (!"*".equals(p_190791_1_) && !"-1".equals(p_190791_1_)) {
 			try {
-				final int i = Integer.parseInt(p_190791_1_);
+				int i = Integer.parseInt(p_190791_1_);
 				return p_apply_1_ -> i == p_apply_1_.getBlock().getMetaFromState(p_apply_1_);
 			} catch (RuntimeException var3) {
-				final Map<IProperty<?>, Comparable<?>> map = getBlockStatePropertyValueMap(p_190791_0_, p_190791_1_);
+				Map<IProperty<?>, Comparable<?>> map = getBlockStatePropertyValueMap(p_190791_0_, p_190791_1_);
 				return p_apply_1_ -> {
 
 					if (p_apply_1_ != null && p_190791_0_ == p_apply_1_.getBlock()) {

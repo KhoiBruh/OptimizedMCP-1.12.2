@@ -123,7 +123,7 @@ public class TileEntitySign extends TileEntity {
 		player = playerIn;
 	}
 
-	public boolean executeCommand(final EntityPlayer playerIn) {
+	public boolean executeCommand(EntityPlayer playerIn) {
 		ICommandSender icommandsender = new ICommandSender() {
 			public String getName() {
 				return playerIn.getName();

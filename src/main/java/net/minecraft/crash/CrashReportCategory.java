@@ -74,8 +74,8 @@ public class CrashReportCategory {
 		return stringbuilder.toString();
 	}
 
-	public static void addBlockInfo(CrashReportCategory category, final BlockPos pos, final Block blockIn, final int blockData) {
-		final int i = Block.getIdFromBlock(blockIn);
+	public static void addBlockInfo(CrashReportCategory category, BlockPos pos, Block blockIn, int blockData) {
+		int i = Block.getIdFromBlock(blockIn);
 		category.addDetail("Block type", () -> {
 
 			try {
@@ -97,7 +97,7 @@ public class CrashReportCategory {
 		category.addDetail("Block location", () -> CrashReportCategory.getCoordinateInfo(pos));
 	}
 
-	public static void addBlockInfo(CrashReportCategory category, final BlockPos pos, final IBlockState state) {
+	public static void addBlockInfo(CrashReportCategory category, BlockPos pos, IBlockState state) {
 		category.addDetail("Block", state::toString);
 		category.addDetail("Block location", () -> CrashReportCategory.getCoordinateInfo(pos));
 	}

@@ -60,7 +60,7 @@ public class BlockPos extends Vec3i {
 		return getAllInBox(Math.min(from.getX(), to.getX()), Math.min(from.getY(), to.getY()), Math.min(from.getZ(), to.getZ()), Math.max(from.getX(), to.getX()), Math.max(from.getY(), to.getY()), Math.max(from.getZ(), to.getZ()));
 	}
 
-	public static Iterable<BlockPos> getAllInBox(final int x1, final int y1, final int z1, final int x2, final int y2, final int z2) {
+	public static Iterable<BlockPos> getAllInBox(int x1, int y1, int z1, int x2, int y2, int z2) {
 		return () -> new AbstractIterator<>() {
 			private boolean first = true;
 			private int lastPosX;
@@ -99,7 +99,7 @@ public class BlockPos extends Vec3i {
 		return getAllInBoxMutable(Math.min(from.getX(), to.getX()), Math.min(from.getY(), to.getY()), Math.min(from.getZ(), to.getZ()), Math.max(from.getX(), to.getX()), Math.max(from.getY(), to.getY()), Math.max(from.getZ(), to.getZ()));
 	}
 
-	public static Iterable<BlockPos.MutableBlockPos> getAllInBoxMutable(final int x1, final int y1, final int z1, final int x2, final int y2, final int z2) {
+	public static Iterable<BlockPos.MutableBlockPos> getAllInBoxMutable(int x1, int y1, int z1, int x2, int y2, int z2) {
 
 		return () -> new AbstractIterator<>() {
 			private MutableBlockPos pos;

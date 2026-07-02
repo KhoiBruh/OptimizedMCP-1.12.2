@@ -140,7 +140,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
 		return i;
 	}
 
-	private EntityItemFrame findItemFrame(World worldIn, final Facing facing, BlockPos pos) {
+	private EntityItemFrame findItemFrame(World worldIn, Facing facing, BlockPos pos) {
 		List<EntityItemFrame> list = worldIn.getEntitiesWithinAABB(EntityItemFrame.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1), (Predicate<Entity>) p_apply_1_ -> p_apply_1_ != null && p_apply_1_.getHorizontalFacing() == facing);
 		return list.size() == 1 ? list.getFirst() : null;
 	}

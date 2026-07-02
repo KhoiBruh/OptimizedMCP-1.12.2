@@ -87,7 +87,7 @@ public abstract class MapGenStructure extends MapGenBase {
 	/**
 	 * Recursively called by generate()
 	 */
-	protected final synchronized void recursiveGenerate(World worldIn, final int chunkX, final int chunkZ, int originalX, int originalZ, ChunkPrimer chunkPrimerIn) {
+	protected final synchronized void recursiveGenerate(World worldIn, int chunkX, int chunkZ, int originalX, int originalZ, ChunkPrimer chunkPrimerIn) {
 		initializeStructureData(worldIn);
 
 		if (!structureMap.containsKey(ChunkPos.asLong(chunkX, chunkZ))) {

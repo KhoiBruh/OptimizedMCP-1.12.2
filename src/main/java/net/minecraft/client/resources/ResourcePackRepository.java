@@ -211,8 +211,8 @@ public class ResourcePackRepository {
 
 	public ListenableFuture<Object> downloadResourcePack(String url, String hash) {
 		String s = sha1Hex(url);
-		final String s1 = SHA1.matcher(hash).matches() ? hash : "";
-		final File file1 = new File(dirServerResourcepacks, s);
+		String s1 = SHA1.matcher(hash).matches() ? hash : "";
+		File file1 = new File(dirServerResourcepacks, s);
 		lock.lock();
 
 		try {
@@ -228,11 +228,11 @@ public class ResourcePackRepository {
 			}
 
 			deleteOldServerResourcesPacks();
-			final WorkingScreen guiscreenworking = new WorkingScreen();
+			WorkingScreen guiscreenworking = new WorkingScreen();
 			Map<String, String> map = getDownloadHeaders();
-			final Minecraft minecraft = Minecraft.getMinecraft();
+			Minecraft minecraft = Minecraft.getMinecraft();
 			Futures.getUnchecked(minecraft.addScheduledTask(() -> minecraft.displayScreen(guiscreenworking)));
-			final SettableFuture<Object> settablefuture = SettableFuture.create();
+			SettableFuture<Object> settablefuture = SettableFuture.create();
 			downloadingPacks = HttpUtil.downloadResourcePack(file1, url, map, 52428800, guiscreenworking, minecraft.getProxy());
 			Futures.addCallback(downloadingPacks, new FutureCallback<>() {
 				public void onSuccess(Object p_onSuccess_1_) {

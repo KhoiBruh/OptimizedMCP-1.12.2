@@ -50,7 +50,7 @@ public class ContainerRepair extends Container {
 		this(playerInventory, worldIn, BlockPos.ORIGIN, player);
 	}
 
-	public ContainerRepair(InventoryPlayer playerInventory, final World worldIn, final BlockPos blockPosIn, EntityPlayer player) {
+	public ContainerRepair(InventoryPlayer playerInventory, World worldIn, BlockPos blockPosIn, EntityPlayer player) {
 		outputSlot = new InventoryCraftResult();
 		inputSlots = new InventoryBasic("Repair", true, 2) {
 			public void markDirty() {

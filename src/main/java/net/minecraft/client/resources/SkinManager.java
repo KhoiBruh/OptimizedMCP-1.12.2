@@ -64,8 +64,8 @@ public class SkinManager {
 	/**
 	 * May download the skin if its not in the cache, can be passed a SkinManager#SkinAvailableCallback for handling
 	 */
-	public ResourceLocation loadSkin(final MinecraftProfileTexture profileTexture, final Type textureType, final SkinManager.SkinAvailableCallback skinAvailableCallback) {
-		final ResourceLocation resourcelocation = new ResourceLocation("skins/" + profileTexture.getHash());
+	public ResourceLocation loadSkin(MinecraftProfileTexture profileTexture, Type textureType, SkinManager.SkinAvailableCallback skinAvailableCallback) {
+		ResourceLocation resourcelocation = new ResourceLocation("skins/" + profileTexture.getHash());
 		ITextureObject itextureobject = textureManager.getTexture(resourcelocation);
 
 		if (itextureobject != null) {
@@ -76,7 +76,7 @@ public class SkinManager {
 			File file1 = new File(skinCacheDir, profileTexture.getHash().length() > 2 ? profileTexture.getHash()
 			                                                                                          .substring(0, 2) : "xx");
 			File file2 = new File(file1, profileTexture.getHash());
-			final IImageBuffer iimagebuffer = textureType == Type.SKIN ? new ImageBufferDownload() : null;
+			IImageBuffer iimagebuffer = textureType == Type.SKIN ? new ImageBufferDownload() : null;
 			ThreadDownloadImageData threaddownloadimagedata = new ThreadDownloadImageData(file2, profileTexture.getUrl(), DefaultPlayerSkin.getDefaultSkinLegacy(), new IImageBuffer() {
 				public NativeImage parseUserSkin(NativeImage image) {
 					if (iimagebuffer != null) {
@@ -102,10 +102,10 @@ public class SkinManager {
 		return resourcelocation;
 	}
 
-	public void loadProfileTextures(final GameProfile profile, final SkinManager.SkinAvailableCallback skinAvailableCallback, final boolean requireSecure) {
+	public void loadProfileTextures(GameProfile profile, SkinManager.SkinAvailableCallback skinAvailableCallback, boolean requireSecure) {
 		THREAD_POOL.submit(() -> {
 
-			final Map<Type, MinecraftProfileTexture> map = Maps.newHashMap();
+			Map<Type, MinecraftProfileTexture> map = Maps.newHashMap();
 
 			try {
 				map.putAll(sessionService.getTextures(profile, requireSecure));

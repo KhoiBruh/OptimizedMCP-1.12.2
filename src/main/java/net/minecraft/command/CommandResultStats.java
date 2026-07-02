@@ -74,7 +74,7 @@ public class CommandResultStats {
 		}
 	}
 
-	public void setCommandStatForSender(MinecraftServer server, final ICommandSender sender, CommandResultStats.Type typeIn, int p_184932_4_) {
+	public void setCommandStatForSender(MinecraftServer server, ICommandSender sender, CommandResultStats.Type typeIn, int p_184932_4_) {
 		String s = entitiesID[typeIn.getTypeID()];
 
 		if (s != null) {
