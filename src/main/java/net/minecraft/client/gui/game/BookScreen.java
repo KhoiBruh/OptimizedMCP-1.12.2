@@ -383,7 +383,7 @@ public class BookScreen extends Screen {
 			}
 
 			if (bookIsUnsigned) {
-				if (fontRenderer.getBidiFlag()) {
+				if (fontRenderer.isBidi()) {
 					s5 = s5 + "_";
 				} else if (updateCount / 6 % 2 == 0) {
 					s5 = s5 + TextFormat.BLACK + "_";

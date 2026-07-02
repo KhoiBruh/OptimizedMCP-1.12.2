@@ -85,7 +85,7 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 				int k = xSize - 8 - fontRenderer.getStringWidth(s);
 				int l = 67;
 
-				if (fontRenderer.getUnicodeFlag()) {
+				if (fontRenderer.isUnicode()) {
 					drawRect(k - 3, 65, xSize - 7, 77, -16777216);
 					drawRect(k - 2, 66, xSize - 8, 76, -12895429);
 				} else {

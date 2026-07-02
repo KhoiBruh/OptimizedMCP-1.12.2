@@ -367,9 +367,9 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener {
 			languagemanager.setCurrentLanguage(language);
 			mc.gameSettings.language = language.getLanguageCode();
 			mc.refreshResources();
-			mc.fontRenderer.setUnicodeFlag(mc.getLanguageManager()
-			                                 .isCurrentLocaleUnicode() || mc.gameSettings.forceUnicodeFont);
-			mc.fontRenderer.setBidiFlag(languagemanager.isCurrentLanguageBidirectional());
+			mc.fontRenderer.setUnicode(mc.getLanguageManager()
+			                             .isCurrentLocaleUnicode() || mc.gameSettings.forceUnicodeFont);
+			mc.fontRenderer.setBidi(languagemanager.isCurrentLanguageBidirectional());
 			mc.gameSettings.saveOptions();
 		}
 	}

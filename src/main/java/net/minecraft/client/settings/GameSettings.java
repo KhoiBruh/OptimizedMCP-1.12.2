@@ -335,7 +335,7 @@ public class GameSettings {
 			case RENDER_CLOUDS -> clouds = (clouds + value) % 3;
 			case FORCE_UNICODE_FONT -> {
 				forceUnicodeFont = !forceUnicodeFont;
-				mc.fontRenderer.setUnicodeFlag(mc.getLanguageManager().isCurrentLocaleUnicode() || forceUnicodeFont);
+				mc.fontRenderer.setUnicode(mc.getLanguageManager().isCurrentLocaleUnicode() || forceUnicodeFont);
 			}
 			case FBO_ENABLE -> fboEnable = !fboEnable;
 			case GRAPHICS -> {

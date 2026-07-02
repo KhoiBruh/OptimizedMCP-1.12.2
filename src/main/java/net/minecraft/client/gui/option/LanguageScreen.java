@@ -131,8 +131,8 @@ public class LanguageScreen extends Screen {
 			languageManager.setCurrentLanguage(language);
 			game_settings_3.language = language.getLanguageCode();
 			mc.refreshResources();
-			fontRenderer.setUnicodeFlag(languageManager.isCurrentLocaleUnicode() || game_settings_3.forceUnicodeFont);
-			fontRenderer.setBidiFlag(languageManager.isCurrentLanguageBidirectional());
+			fontRenderer.setUnicode(languageManager.isCurrentLocaleUnicode() || game_settings_3.forceUnicodeFont);
+			fontRenderer.setBidi(languageManager.isCurrentLanguageBidirectional());
 			confirmSettingsBtn.displayString = I18n.format("gui.done");
 			forceUnicodeFontBtn.displayString = game_settings_3.getKeyBinding(GameSettings.Options.FORCE_UNICODE_FONT);
 			game_settings_3.saveOptions();
@@ -151,10 +151,10 @@ public class LanguageScreen extends Screen {
 		}
 
 		protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks) {
-			fontRenderer.setBidiFlag(true);
+			fontRenderer.setBidi(true);
 			drawCenteredString(fontRenderer, languageMap.get(langCodeList.get(slotIndex))
 			                                            .toString(), width / 2, yPos + 1, 16777215);
-			fontRenderer.setBidiFlag(languageManager.getCurrentLanguage().isBidirectional());
+			fontRenderer.setBidi(languageManager.getCurrentLanguage().isBidirectional());
 		}
 
 	}

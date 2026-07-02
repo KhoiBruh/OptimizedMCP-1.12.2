@@ -394,14 +394,14 @@ public class Minecraft implements IThreadListener {
 		soundHandler = new SoundHandler(resourceManager, gameSettings);
 		resourceManager.registerReloadListener(soundHandler);
 		musicTicker = new MusicTicker(this);
-		fontRenderer = new FontRenderer(gameSettings, new ResourceLocation("textures/font/ascii.png"), renderEngine, false);
+		fontRenderer = new FontRenderer(new ResourceLocation("textures/font/ascii.png"), renderEngine, false);
 
 		if (gameSettings.language != null) {
-			fontRenderer.setUnicodeFlag(isUnicode());
-			fontRenderer.setBidiFlag(languageManager.isCurrentLanguageBidirectional());
+			fontRenderer.setUnicode(isUnicode());
+			fontRenderer.setBidi(languageManager.isCurrentLanguageBidirectional());
 		}
 
-		sgaFontRenderer = new FontRenderer(gameSettings, new ResourceLocation("textures/font/ascii_sga.png"), renderEngine, false);
+		sgaFontRenderer = new FontRenderer(new ResourceLocation("textures/font/ascii_sga.png"), renderEngine, false);
 		resourceManager.registerReloadListener(fontRenderer);
 		resourceManager.registerReloadListener(sgaFontRenderer);
 		resourceManager.registerReloadListener(new GrassColorReloadListener());
