@@ -14,7 +14,7 @@ public class SearchTreeManager implements IResourceManagerReloadListener {
 	public static final SearchTreeManager.Key<RecipeList> RECIPES = new SearchTreeManager.Key<>();
 	private final Map<SearchTreeManager.Key<?>, SearchTree<?>> trees = Maps.newHashMap();
 
-	public void onResourceManagerReload(IResourceManager resourceManager) {
+	public void reload(IResourceManager resourceManager) {
 		for (SearchTree<?> searchtree : trees.values()) {
 			searchtree.recalculate();
 		}

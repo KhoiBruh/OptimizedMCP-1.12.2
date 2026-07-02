@@ -38,18 +38,18 @@ public class GuiUtilRenderComponents {
 			String s4 = removeTextColorsIfConfigured(itextcomponent1.getStyle()
 			                                                        .getFormattingCode() + s, forceTextColor);
 			String s5 = s4.endsWith("\n") ? s4.substring(0, s4.length() - 1) : s4;
-			int i1 = fontRendererIn.getStringWidth(s5);
+			int i1 = fontRendererIn.getWidth(s5);
 			TextComponentString textcomponentstring = new TextComponentString(s5);
 			textcomponentstring.setStyle(itextcomponent1.getStyle().createShallowCopy());
 
 			if (i + i1 > maxTextLenght) {
-				String s2 = fontRendererIn.trimStringToWidth(s4, maxTextLenght - i, false);
+				String s2 = fontRendererIn.trimToWidth(s4, maxTextLenght - i, false);
 				String s3 = s2.length() < s4.length() ? s4.substring(s2.length()) : null;
 
 				if (s3 != null && !s3.isEmpty()) {
 					int l = s2.lastIndexOf(32);
 
-					if (l >= 0 && fontRendererIn.getStringWidth(s4.substring(0, l)) > 0) {
+					if (l >= 0 && fontRendererIn.getWidth(s4.substring(0, l)) > 0) {
 						s2 = s4.substring(0, l);
 
 						if (p_178908_3_) {
@@ -67,7 +67,7 @@ public class GuiUtilRenderComponents {
 					list1.add(j + 1, textcomponentstring1);
 				}
 
-				i1 = fontRendererIn.getStringWidth(s2);
+				i1 = fontRendererIn.getWidth(s2);
 				textcomponentstring = new TextComponentString(s2);
 				textcomponentstring.setStyle(itextcomponent1.getStyle().createShallowCopy());
 				flag = true;

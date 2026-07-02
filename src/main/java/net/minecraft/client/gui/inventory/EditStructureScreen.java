@@ -616,7 +616,7 @@ public class EditStructureScreen extends Screen {
 			posYEdit.drawTextBox();
 			posZEdit.drawTextBox();
 			String s = I18n.format("structure_block.include_entities");
-			int i = fontRenderer.getStringWidth(s);
+			int i = fontRenderer.getWidth(s);
 			drawString(fontRenderer, s, width / 2 + 154 - i, 150, 10526880);
 		}
 
@@ -626,10 +626,10 @@ public class EditStructureScreen extends Screen {
 			sizeYEdit.drawTextBox();
 			sizeZEdit.drawTextBox();
 			String s2 = I18n.format("structure_block.detect_size");
-			int k = fontRenderer.getStringWidth(s2);
+			int k = fontRenderer.getWidth(s2);
 			drawString(fontRenderer, s2, width / 2 + 154 - k, 110, 10526880);
 			String s1 = I18n.format("structure_block.show_air");
-			int j = fontRenderer.getStringWidth(s1);
+			int j = fontRenderer.getWidth(s1);
 			drawString(fontRenderer, s1, width / 2 + 154 - j, 70, 10526880);
 		}
 
@@ -638,7 +638,7 @@ public class EditStructureScreen extends Screen {
 			integrityEdit.drawTextBox();
 			seedEdit.drawTextBox();
 			String s3 = I18n.format("structure_block.show_boundingbox");
-			int l = fontRenderer.getStringWidth(s3);
+			int l = fontRenderer.getWidth(s3);
 			drawString(fontRenderer, s3, width / 2 + 154 - l, 70, 10526880);
 		}
 

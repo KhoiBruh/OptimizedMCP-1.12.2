@@ -170,7 +170,7 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 			int i = 0;
 
 			for (String s : textLines) {
-				int j = fontRenderer.getStringWidth(s);
+				int j = fontRenderer.getWidth(s);
 
 				if (j > i) i = j;
 			}
@@ -199,7 +199,7 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 
 			for (int k1 = 0; k1 < textLines.size(); ++k1) {
 				String s1 = textLines.get(k1);
-				fontRenderer.drawStringWithShadow(s1, (float) l1, (float) i2, -1);
+				fontRenderer.drawShadowText(s1, (float) l1, (float) i2, -1);
 
 				if (k1 == 0) i2 += 2;
 

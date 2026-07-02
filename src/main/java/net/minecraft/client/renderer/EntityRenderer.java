@@ -49,8 +49,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL;
 
-import javax.imageio.ImageIO;
-import net.minecraft.client.renderer.NativeImage;
 import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.util.List;
@@ -223,7 +221,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
 		GLS.enableBlend();
 		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
-		int i = fontRendererIn.getStringWidth(str) / 2;
+		int i = fontRendererIn.getWidth(str) / 2;
 		GLS.disableTexture2D();
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
@@ -236,12 +234,12 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		GLS.enableTexture2D();
 
 		if (!isSneaking) {
-			fontRendererIn.drawString(str, -fontRendererIn.getStringWidth(str) / 2, verticalShift, 553648127);
+			fontRendererIn.drawText(str, -fontRendererIn.getWidth(str) / 2, verticalShift, 553648127);
 			GLS.enableDepth();
 		}
 
 		GLS.depthMask(true);
-		fontRendererIn.drawString(str, -fontRendererIn.getStringWidth(str) / 2, verticalShift, isSneaking ? 553648127 : -1);
+		fontRendererIn.drawText(str, -fontRendererIn.getWidth(str) / 2, verticalShift, isSneaking ? 553648127 : -1);
 		GLS.enableLighting();
 		GLS.disableBlend();
 		GLS.color(1F, 1F, 1F, 1F);
@@ -298,7 +296,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		}
 	}
 
-	public void onResourceManagerReload(IResourceManager resourceManager) {
+	public void reload(IResourceManager resourceManager) {
 		if (shaderGroup != null) {
 			shaderGroup.deleteShaderGroup();
 		}

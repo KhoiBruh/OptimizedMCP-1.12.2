@@ -317,7 +317,7 @@ public class RenderItem implements IResourceManagerReloadListener {
 				GLS.disableLighting();
 				GLS.disableDepth();
 				GLS.disableBlend();
-				fr.drawStringWithShadow(s, (float) (xPosition + 19 - 2 - fr.getStringWidth(s)), (float) (yPosition + 6 + 3), 16777215);
+				fr.drawShadowText(s, (float) (xPosition + 19 - 2 - fr.getWidth(s)), (float) (yPosition + 6 + 3), 16777215);
 				GLS.enableLighting();
 				GLS.enableDepth();
 			}
@@ -972,7 +972,7 @@ public class RenderItem implements IResourceManagerReloadListener {
 		registerBlock(Blocks.STRUCTURE_BLOCK, TileEntityStructure.Mode.DATA.getModeId(), "structure_block");
 	}
 
-	public void onResourceManagerReload(IResourceManager resourceManager) {
+	public void reload(IResourceManager resourceManager) {
 		itemModelMesher.rebuildCache();
 	}
 

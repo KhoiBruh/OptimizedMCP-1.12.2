@@ -38,18 +38,18 @@ public class GuiAdvancement extends Gui {
 		advancement = p_i47385_3_;
 		displayInfo = p_i47385_4_;
 		minecraft = p_i47385_2_;
-		title = p_i47385_2_.fontRenderer.trimStringToWidth(p_i47385_4_.getTitle().getFormattedText(), 163);
+		title = p_i47385_2_.fontRenderer.trimToWidth(p_i47385_4_.getTitle().getFormattedText(), 163);
 		x = MathHelper.floor(p_i47385_4_.getX() * 28F);
 		y = MathHelper.floor(p_i47385_4_.getY() * 27F);
 		int i = p_i47385_3_.getRequirementCount();
 		int j = String.valueOf(i).length();
-		int k = i > 1 ? p_i47385_2_.fontRenderer.getStringWidth("  ") + p_i47385_2_.fontRenderer.getStringWidth("0") * j * 2 + p_i47385_2_.fontRenderer.getStringWidth("/") : 0;
-		int l = 29 + p_i47385_2_.fontRenderer.getStringWidth(title) + k;
+		int k = i > 1 ? p_i47385_2_.fontRenderer.getWidth("  ") + p_i47385_2_.fontRenderer.getWidth("0") * j * 2 + p_i47385_2_.fontRenderer.getWidth("/") : 0;
+		int l = 29 + p_i47385_2_.fontRenderer.getWidth(title) + k;
 		String s = p_i47385_4_.getDescription().getFormattedText();
 		description = findOptimalLines(s, l);
 
 		for (String s1 : description) {
-			l = Math.max(l, p_i47385_2_.fontRenderer.getStringWidth(s1));
+			l = Math.max(l, p_i47385_2_.fontRenderer.getWidth(s1));
 		}
 
 		width = l + 3 + 5;
@@ -66,7 +66,7 @@ public class GuiAdvancement extends Gui {
 			} else {
 				String s = list.get(0);
 				String s1 = list.get(1);
-				int i = minecraft.fontRenderer.getStringWidth(s + ' ' + s1.split(" ")[0]);
+				int i = minecraft.fontRenderer.getWidth(s + ' ' + s1.split(" ")[0]);
 
 				if (i - p_192995_2_ <= 10) {
 					return minecraft.fontRenderer.formatToWidth(p_192995_1_, i);
@@ -74,7 +74,7 @@ public class GuiAdvancement extends Gui {
 					Matcher matcher = PATTERN.matcher(s);
 
 					if (matcher.matches()) {
-						int j = minecraft.fontRenderer.getStringWidth(matcher.group(1));
+						int j = minecraft.fontRenderer.getWidth(matcher.group(1));
 
 						if (p_192995_2_ - j <= 10) {
 							return minecraft.fontRenderer.formatToWidth(p_192995_1_, j);
@@ -170,7 +170,7 @@ public class GuiAdvancement extends Gui {
 	public void drawHover(int p_191821_1_, int p_191821_2_, float p_191821_3_, int p_191821_4_, int p_191821_5_) {
 		boolean flag = p_191821_4_ + p_191821_1_ + x + width + 26 >= guiAdvancementTab.getScreen().width;
 		String s = advancementProgress == null ? null : advancementProgress.getProgressText();
-		int i = s == null ? 0 : minecraft.fontRenderer.getStringWidth(s);
+		int i = s == null ? 0 : minecraft.fontRenderer.getWidth(s);
 		boolean flag1 = 113 - p_191821_2_ - y - 26 <= 6 + description.size() * minecraft.fontRenderer.FONT_HEIGHT;
 		float f = advancementProgress == null ? 0F : advancementProgress.getPercent();
 		int j = MathHelper.floor(f * (float) width);
@@ -228,26 +228,26 @@ public class GuiAdvancement extends Gui {
 		                                                                       .getIcon(), 128 + advancementstate2.getId() * 26, 26, 26);
 
 		if (flag) {
-			minecraft.fontRenderer.drawString(title, (float) (i1 + 5), (float) (p_191821_2_ + y + 9), -1, true);
+			minecraft.fontRenderer.drawText(title, (float) (i1 + 5), (float) (p_191821_2_ + y + 9), -1, true);
 
 			if (s != null) {
-				minecraft.fontRenderer.drawString(s, (float) (p_191821_1_ + x - i), (float) (p_191821_2_ + y + 9), -1, true);
+				minecraft.fontRenderer.drawText(s, (float) (p_191821_1_ + x - i), (float) (p_191821_2_ + y + 9), -1, true);
 			}
 		} else {
-			minecraft.fontRenderer.drawString(title, (float) (p_191821_1_ + x + 32), (float) (p_191821_2_ + y + 9), -1, true);
+			minecraft.fontRenderer.drawText(title, (float) (p_191821_1_ + x + 32), (float) (p_191821_2_ + y + 9), -1, true);
 
 			if (s != null) {
-				minecraft.fontRenderer.drawString(s, (float) (p_191821_1_ + x + width - i - 5), (float) (p_191821_2_ + y + 9), -1, true);
+				minecraft.fontRenderer.drawText(s, (float) (p_191821_1_ + x + width - i - 5), (float) (p_191821_2_ + y + 9), -1, true);
 			}
 		}
 
 		if (flag1) {
 			for (int k1 = 0; k1 < description.size(); ++k1) {
-				minecraft.fontRenderer.drawString(description.get(k1), (float) (i1 + 5), (float) (l + 26 - j1 + 7 + k1 * minecraft.fontRenderer.FONT_HEIGHT), -5592406, false);
+				minecraft.fontRenderer.drawText(description.get(k1), (float) (i1 + 5), (float) (l + 26 - j1 + 7 + k1 * minecraft.fontRenderer.FONT_HEIGHT), -5592406, false);
 			}
 		} else {
 			for (int l1 = 0; l1 < description.size(); ++l1) {
-				minecraft.fontRenderer.drawString(description.get(l1), (float) (i1 + 5), (float) (p_191821_2_ + y + 9 + 17 + l1 * minecraft.fontRenderer.FONT_HEIGHT), -5592406, false);
+				minecraft.fontRenderer.drawText(description.get(l1), (float) (i1 + 5), (float) (p_191821_2_ + y + 9 + 17 + l1 * minecraft.fontRenderer.FONT_HEIGHT), -5592406, false);
 			}
 		}
 

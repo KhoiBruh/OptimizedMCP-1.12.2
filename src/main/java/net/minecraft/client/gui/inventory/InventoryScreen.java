@@ -116,7 +116,7 @@ public class InventoryScreen extends InventoryEffectRenderer implements IRecipeS
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		fontRenderer.drawString(I18n.format("container.crafting"), 97, 8, 4210752);
+		fontRenderer.drawText(I18n.format("container.crafting"), 97, 8, 4210752);
 	}
 
 	/**

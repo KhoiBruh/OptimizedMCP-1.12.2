@@ -103,7 +103,7 @@ public class EditSignScreen extends Screen {
 			s = s.substring(0, s.length() - 1);
 		}
 
-		if (ChatAllowedCharacters.isAllowedCharacter(typedChar) && fontRenderer.getStringWidth(s + typedChar) <= 90) {
+		if (ChatAllowedCharacters.isAllowedCharacter(typedChar) && fontRenderer.getWidth(s + typedChar) <= 90) {
 			s = s + typedChar;
 		}
 

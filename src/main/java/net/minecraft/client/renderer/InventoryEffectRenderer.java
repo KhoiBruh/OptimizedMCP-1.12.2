@@ -89,9 +89,9 @@ public abstract class InventoryEffectRenderer extends ContainerScreen {
 					s1 = s1 + " " + I18n.format("enchantment.level.4");
 				}
 
-				fontRenderer.drawStringWithShadow(s1, (float) (i + 10 + 18), (float) (j + 6), 16777215);
+				fontRenderer.drawShadowText(s1, (float) (i + 10 + 18), (float) (j + 6), 16777215);
 				String s = Potion.getPotionDurationString(potioneffect, 1F);
-				fontRenderer.drawStringWithShadow(s, (float) (i + 10 + 18), (float) (j + 6 + 10), 8355711);
+				fontRenderer.drawShadowText(s, (float) (i + 10 + 18), (float) (j + 6 + 10), 8355711);
 				j += l;
 			}
 		}

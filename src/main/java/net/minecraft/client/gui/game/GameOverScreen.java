@@ -121,14 +121,14 @@ public class GameOverScreen extends Screen {
 		if (causeOfDeath == null) {
 			return null;
 		} else {
-			int i = mc.fontRenderer.getStringWidth(causeOfDeath.getFormattedText());
+			int i = mc.fontRenderer.getWidth(causeOfDeath.getFormattedText());
 			int j = width / 2 - i / 2;
 			int k = width / 2 + i / 2;
 			int l = j;
 
 			if (p_184870_1_ >= j && p_184870_1_ <= k) {
 				for (ITextComponent itextcomponent : causeOfDeath) {
-					l += mc.fontRenderer.getStringWidth(GuiUtilRenderComponents.removeTextColorsIfConfigured(itextcomponent.getUnformattedComponentText(), false));
+					l += mc.fontRenderer.getWidth(GuiUtilRenderComponents.removeTextColorsIfConfigured(itextcomponent.getUnformattedComponentText(), false));
 
 					if (l > p_184870_1_) {
 						return itextcomponent;

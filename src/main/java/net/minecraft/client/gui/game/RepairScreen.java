@@ -64,7 +64,7 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		GLS.disableLighting();
 		GLS.disableBlend();
-		fontRenderer.drawString(I18n.format("container.repair"), 60, 6, 4210752);
+		fontRenderer.drawText(I18n.format("container.repair"), 60, 6, 4210752);
 
 		if (anvil.maximumCost > 0) {
 			int i = 8453920;
@@ -82,19 +82,19 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 
 			if (flag) {
 				int j = -16777216 | (i & 16579836) >> 2 | i & -16777216;
-				int k = xSize - 8 - fontRenderer.getStringWidth(s);
+				int k = xSize - 8 - fontRenderer.getWidth(s);
 				int l = 67;
 
 				if (fontRenderer.isUnicode()) {
 					drawRect(k - 3, 65, xSize - 7, 77, -16777216);
 					drawRect(k - 2, 66, xSize - 8, 76, -12895429);
 				} else {
-					fontRenderer.drawString(s, k, 68, j);
-					fontRenderer.drawString(s, k + 1, 67, j);
-					fontRenderer.drawString(s, k + 1, 68, j);
+					fontRenderer.drawText(s, k, 68, j);
+					fontRenderer.drawText(s, k + 1, 67, j);
+					fontRenderer.drawText(s, k + 1, 68, j);
 				}
 
-				fontRenderer.drawString(s, k, 67, i);
+				fontRenderer.drawText(s, k, 67, i);
 			}
 		}
 

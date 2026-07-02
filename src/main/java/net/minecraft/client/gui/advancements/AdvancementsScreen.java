@@ -123,9 +123,9 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 		if (guiadvancementtab == null) {
 			drawRect(p_191936_3_ + 9, p_191936_4_ + 18, p_191936_3_ + 9 + 234, p_191936_4_ + 18 + 113, -16777216);
 			String s = I18n.format("advancements.empty");
-			int i = fontRenderer.getStringWidth(s);
-			fontRenderer.drawString(s, p_191936_3_ + 9 + 117 - i / 2, p_191936_4_ + 18 + 56 - fontRenderer.FONT_HEIGHT / 2, -1);
-			fontRenderer.drawString(":(", p_191936_3_ + 9 + 117 - fontRenderer.getStringWidth(":(") / 2, p_191936_4_ + 18 + 113 - fontRenderer.FONT_HEIGHT, -1);
+			int i = fontRenderer.getWidth(s);
+			fontRenderer.drawText(s, p_191936_3_ + 9 + 117 - i / 2, p_191936_4_ + 18 + 56 - fontRenderer.FONT_HEIGHT / 2, -1);
+			fontRenderer.drawText(":(", p_191936_3_ + 9 + 117 - fontRenderer.getWidth(":(") / 2, p_191936_4_ + 18 + 113 - fontRenderer.FONT_HEIGHT, -1);
 		} else {
 			GLS.pushMatrix();
 			GLS.translate((float) (p_191936_3_ + 9), (float) (p_191936_4_ + 18), -400F);
@@ -162,7 +162,7 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 			GLS.disableBlend();
 		}
 
-		fontRenderer.drawString(I18n.format("gui.advancements"), p_191934_1_ + 8, p_191934_2_ + 6, 4210752);
+		fontRenderer.drawText(I18n.format("gui.advancements"), p_191934_1_ + 8, p_191934_2_ + 6, 4210752);
 	}
 
 	private void renderToolTips(int p_191937_1_, int p_191937_2_, int p_191937_3_, int p_191937_4_) {

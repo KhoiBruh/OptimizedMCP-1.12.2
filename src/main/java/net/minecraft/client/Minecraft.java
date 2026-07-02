@@ -1061,9 +1061,9 @@ public class Minecraft implements IThreadListener {
 				s = s + profiler$result.profilerName + ' ';
 			}
 
-			fontRenderer.drawStringWithShadow(s, (float) (j - 160), (float) (k - 80 - 16), 16777215);
+			fontRenderer.drawShadowText(s, (float) (j - 160), (float) (k - 80 - 16), 16777215);
 			s = decimalformat.format(profiler$result.totalUsePercentage) + "%";
-			fontRenderer.drawStringWithShadow(s, (float) (j + 160 - fontRenderer.getStringWidth(s)), (float) (k - 80 - 16), 16777215);
+			fontRenderer.drawShadowText(s, (float) (j + 160 - fontRenderer.getWidth(s)), (float) (k - 80 - 16), 16777215);
 
 			for (int k2 = 0; k2 < list.size(); k2++) {
 				Profiler.Result profiler$result2 = list.get(k2);
@@ -1076,11 +1076,11 @@ public class Minecraft implements IThreadListener {
 				}
 
 				String s1 = stringbuilder.append(profiler$result2.profilerName).toString();
-				fontRenderer.drawStringWithShadow(s1, (float) (j - 160), (float) (k + 80 + k2 * 8 + 20), profiler$result2.getColor());
+				fontRenderer.drawShadowText(s1, (float) (j - 160), (float) (k + 80 + k2 * 8 + 20), profiler$result2.getColor());
 				s1 = decimalformat.format(profiler$result2.usePercentage) + "%";
-				fontRenderer.drawStringWithShadow(s1, (float) (j + 160 - 50 - fontRenderer.getStringWidth(s1)), (float) (k + 80 + k2 * 8 + 20), profiler$result2.getColor());
+				fontRenderer.drawShadowText(s1, (float) (j + 160 - 50 - fontRenderer.getWidth(s1)), (float) (k + 80 + k2 * 8 + 20), profiler$result2.getColor());
 				s1 = decimalformat.format(profiler$result2.totalUsePercentage) + "%";
-				fontRenderer.drawStringWithShadow(s1, (float) (j + 160 - fontRenderer.getStringWidth(s1)), (float) (k + 80 + k2 * 8 + 20), profiler$result2.getColor());
+				fontRenderer.drawShadowText(s1, (float) (j + 160 - fontRenderer.getWidth(s1)), (float) (k + 80 + k2 * 8 + 20), profiler$result2.getColor());
 			}
 		}
 	}

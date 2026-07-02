@@ -85,12 +85,12 @@ public class SimpleReloadableResourceManager implements IReloadableResourceManag
 
 	public void registerReloadListener(IResourceManagerReloadListener reloadListener) {
 		reloadListeners.add(reloadListener);
-		reloadListener.onResourceManagerReload(this);
+		reloadListener.reload(this);
 	}
 
 	private void notifyReloadListeners() {
 		for (IResourceManagerReloadListener iresourcemanagerreloadlistener : reloadListeners) {
-			iresourcemanagerreloadlistener.onResourceManagerReload(this);
+			iresourcemanagerreloadlistener.reload(this);
 		}
 	}
 

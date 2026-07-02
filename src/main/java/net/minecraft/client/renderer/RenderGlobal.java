@@ -250,7 +250,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		builder.pos(p_189693_7_, p_189693_9_, p_189693_11_).color(red, green, blue, alpha).endVertex();
 	}
 
-	public void onResourceManagerReload(IResourceManager resourceManager) {
+	public void reload(IResourceManager resourceManager) {
 		updateDestroyBlockIcons();
 	}
 

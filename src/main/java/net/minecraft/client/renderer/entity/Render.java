@@ -105,7 +105,7 @@ public abstract class Render<T extends Entity> {
 		ScorePlayerTeam scoreplayerteam = (ScorePlayerTeam) entityIn.getTeam();
 
 		if (scoreplayerteam != null) {
-			String s = FontRenderer.getFormatFromString(scoreplayerteam.getPrefix());
+			String s = FontRenderer.getFormat(scoreplayerteam.getPrefix());
 
 			if (s.length() >= 2) {
 				i = getFontRendererFromRenderManager().getColorCode(s.charAt(1));

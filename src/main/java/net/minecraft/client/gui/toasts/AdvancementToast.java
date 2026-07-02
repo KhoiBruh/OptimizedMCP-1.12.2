@@ -34,20 +34,20 @@ public class AdvancementToast implements IToast {
 			int i = displayinfo.getFrame() == FrameType.CHALLENGE ? 16746751 : 16776960;
 
 			if (list.size() == 1) {
-				toastGui.getMinecraft().fontRenderer.drawString(I18n.format("advancements.toast." + displayinfo.getFrame()
-				                                                                                               .getName()), 30, 7, i | -16777216);
-				toastGui.getMinecraft().fontRenderer.drawString(displayinfo.getTitle().getFormattedText(), 30, 18, -1);
+				toastGui.getMinecraft().fontRenderer.drawText(I18n.format("advancements.toast." + displayinfo.getFrame()
+				                                                                                             .getName()), 30, 7, i | -16777216);
+				toastGui.getMinecraft().fontRenderer.drawText(displayinfo.getTitle().getFormattedText(), 30, 18, -1);
 			} else {
 				if (delta < 1500L) {
 					int k = MathHelper.floor(MathHelper.clamp((float) (1500L - delta) / 300F, 0F, 1F) * 255F) << 24 | 67108864;
-					toastGui.getMinecraft().fontRenderer.drawString(I18n.format("advancements.toast." + displayinfo.getFrame()
-					                                                                                               .getName()), 30, 11, i | k);
+					toastGui.getMinecraft().fontRenderer.drawText(I18n.format("advancements.toast." + displayinfo.getFrame()
+					                                                                                             .getName()), 30, 11, i | k);
 				} else {
 					int i1 = MathHelper.floor(MathHelper.clamp((float) (delta - 1500L) / 300F, 0F, 1F) * 252F) << 24 | 67108864;
 					int l = 16 - list.size() * toastGui.getMinecraft().fontRenderer.FONT_HEIGHT / 2;
 
 					for (String s : list) {
-						toastGui.getMinecraft().fontRenderer.drawString(s, 30, l, 16777215 | i1);
+						toastGui.getMinecraft().fontRenderer.drawText(s, 30, l, 16777215 | i1);
 						l += toastGui.getMinecraft().fontRenderer.FONT_HEIGHT;
 					}
 				}

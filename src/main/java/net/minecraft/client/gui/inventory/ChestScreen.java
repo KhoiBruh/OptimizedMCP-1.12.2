@@ -44,8 +44,8 @@ public class ChestScreen extends ContainerScreen {
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		fontRenderer.drawString(lowerChestInventory.displayName().getUnformattedText(), 8, 6, 4210752);
-		fontRenderer.drawString(upperChestInventory.displayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
+		fontRenderer.drawText(lowerChestInventory.displayName().getUnformattedText(), 8, 6, 4210752);
+		fontRenderer.drawText(upperChestInventory.displayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
 	}
 
 	/**

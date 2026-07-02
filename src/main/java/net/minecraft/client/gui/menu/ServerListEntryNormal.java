@@ -74,16 +74,16 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
 		boolean flag = server.version > 340;
 		boolean flag1 = server.version < 340;
 		boolean flag2 = flag || flag1;
-		mc.fontRenderer.drawString(server.serverName, x + 32 + 3, y + 1, 16777215);
+		mc.fontRenderer.drawText(server.serverName, x + 32 + 3, y + 1, 16777215);
 		List<String> list = mc.fontRenderer.formatToWidth(server.serverMOTD, listWidth - 32 - 2);
 
 		for (int i = 0; i < Math.min(list.size(), 2); ++i) {
-			mc.fontRenderer.drawString(list.get(i), x + 32 + 3, y + 12 + mc.fontRenderer.FONT_HEIGHT * i, 8421504);
+			mc.fontRenderer.drawText(list.get(i), x + 32 + 3, y + 12 + mc.fontRenderer.FONT_HEIGHT * i, 8421504);
 		}
 
 		String s2 = flag2 ? TextFormat.DARK_RED + server.gameVersion : server.populationInfo;
-		int j = mc.fontRenderer.getStringWidth(s2);
-		mc.fontRenderer.drawString(s2, x + listWidth - j - 15 - 2, y + 1, 8421504);
+		int j = mc.fontRenderer.getWidth(s2);
+		mc.fontRenderer.drawText(s2, x + listWidth - j - 15 - 2, y + 1, 8421504);
 		int k = 0;
 		String s = null;
 		int l;

@@ -91,9 +91,9 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 			}
 		}
 
-		client.fontRenderer.drawString(s, x + 32 + 3, y + 1, 16777215);
-		client.fontRenderer.drawString(s1, x + 32 + 3, y + client.fontRenderer.FONT_HEIGHT + 3, 8421504);
-		client.fontRenderer.drawString(s2, x + 32 + 3, y + client.fontRenderer.FONT_HEIGHT + client.fontRenderer.FONT_HEIGHT + 3, 8421504);
+		client.fontRenderer.drawText(s, x + 32 + 3, y + 1, 16777215);
+		client.fontRenderer.drawText(s1, x + 32 + 3, y + client.fontRenderer.FONT_HEIGHT + 3, 8421504);
+		client.fontRenderer.drawText(s2, x + 32 + 3, y + client.fontRenderer.FONT_HEIGHT + client.fontRenderer.FONT_HEIGHT + 3, 8421504);
 		GLS.color(1F, 1F, 1F, 1F);
 		client.getTextureManager().bindTexture(icon != null ? iconLocation : ICON_MISSING);
 		GLS.enableBlend();

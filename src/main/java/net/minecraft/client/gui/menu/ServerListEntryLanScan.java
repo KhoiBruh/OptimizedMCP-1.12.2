@@ -10,14 +10,14 @@ public class ServerListEntryLanScan implements GuiListExtended.IGuiListEntry {
 
 	public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected, float partialTicks) {
 		int i = y + slotHeight / 2 - mc.fontRenderer.FONT_HEIGHT / 2;
-		mc.fontRenderer.drawString(I18n.format("lanServer.scanning"), mc.currentScreen.width / 2 - mc.fontRenderer.getStringWidth(I18n.format("lanServer.scanning")) / 2, i, 16777215);
+		mc.fontRenderer.drawText(I18n.format("lanServer.scanning"), mc.currentScreen.width / 2 - mc.fontRenderer.getWidth(I18n.format("lanServer.scanning")) / 2, i, 16777215);
 		String s = switch ((int) (Minecraft.getSystemTime() / 300L % 4L)) {
 			case 1, 3 -> "o O o";
 			case 2 -> "o o O";
 			default -> "O o o";
 		};
 
-		mc.fontRenderer.drawString(s, mc.currentScreen.width / 2 - mc.fontRenderer.getStringWidth(s) / 2, i + mc.fontRenderer.FONT_HEIGHT, 8421504);
+		mc.fontRenderer.drawText(s, mc.currentScreen.width / 2 - mc.fontRenderer.getWidth(s) / 2, i + mc.fontRenderer.FONT_HEIGHT, 8421504);
 	}
 
 	public void updatePosition(int slotIndex, int x, int y, float partialTicks) {

@@ -54,7 +54,7 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
 		soundManager = new SoundManager(this, settings);
 	}
 
-	public void onResourceManagerReload(IResourceManager manager) {
+	public void reload(IResourceManager manager) {
 		soundRegistry.clearMap();
 
 		for (String s : manager.getResourceDomains()) {

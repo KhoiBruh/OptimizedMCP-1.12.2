@@ -144,11 +144,11 @@ public class GuiOverlayDebug extends Gui {
 
 			if (!Strings.isNullOrEmpty(line)) {
 				int lineHeight = fontRenderer.FONT_HEIGHT;
-				int width = fontRenderer.getStringWidth(line);
+				int width = fontRenderer.getWidth(line);
 				int x = alignRight ? xAnchor - width : xAnchor;
 				int y = DEBUG_MARGIN + lineHeight * i;
 				drawRect(x - 1, y - 1, x + width + 1, y + lineHeight - 1, DEBUG_BACKGROUND_COLOR);
-				fontRenderer.drawString(line, x, y, DEBUG_TEXT_COLOR);
+				fontRenderer.drawText(line, x, y, DEBUG_TEXT_COLOR);
 			}
 		}
 	}
@@ -311,7 +311,7 @@ public class GuiOverlayDebug extends Gui {
 
 	private void drawLagometerLabel(String text, int y) {
 		drawRect(1, y + 1, 14, y + 10, DEBUG_BACKGROUND_COLOR);
-		fontRenderer.drawString(text, 2, y + 2, DEBUG_TEXT_COLOR);
+		fontRenderer.drawText(text, 2, y + 2, DEBUG_TEXT_COLOR);
 		drawHorizontalLine(0, LAGOMETER_WIDTH - 1, y, LAGOMETER_BORDER_COLOR);
 	}
 

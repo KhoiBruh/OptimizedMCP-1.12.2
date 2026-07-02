@@ -26,7 +26,7 @@ public abstract class GuiResourcePackList extends GuiListExtended {
 	 */
 	protected void drawListHeader(int insideLeft, int insideTop, Tessellator tessellatorIn) {
 		String s = TextFormat.UNDERLINE + "" + TextFormat.BOLD + getListHeader();
-		mc.fontRenderer.drawString(s, insideLeft + width / 2 - mc.fontRenderer.getStringWidth(s) / 2, Math.min(top + 3, insideTop), 16777215);
+		mc.fontRenderer.drawText(s, insideLeft + width / 2 - mc.fontRenderer.getWidth(s) / 2, Math.min(top + 3, insideTop), 16777215);
 	}
 
 	protected abstract String getListHeader();

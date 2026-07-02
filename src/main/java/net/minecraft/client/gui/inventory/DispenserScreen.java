@@ -40,8 +40,8 @@ public class DispenserScreen extends ContainerScreen {
 	 */
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		String s = dispenserInventory.displayName().getUnformattedText();
-		fontRenderer.drawString(s, xSize / 2 - fontRenderer.getStringWidth(s) / 2, 6, 4210752);
-		fontRenderer.drawString(playerInventory.displayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
+		fontRenderer.drawText(s, xSize / 2 - fontRenderer.getWidth(s) / 2, 6, 4210752);
+		fontRenderer.drawText(playerInventory.displayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
 	}
 
 	/**

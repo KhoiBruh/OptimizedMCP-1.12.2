@@ -102,7 +102,7 @@ public class TeleportToTeam implements ISpectatorMenuView, ISpectatorMenuObject 
 
 		public void renderIcon(float brightness, int alpha) {
 			int i = -1;
-			String s = FontRenderer.getFormatFromString(team.getPrefix());
+			String s = FontRenderer.getFormat(team.getPrefix());
 
 			if (s.length() >= 2) {
 				i = Minecraft.getMinecraft().fontRenderer.getColorCode(s.charAt(1));

@@ -99,7 +99,7 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener {
 		}
 	}
 
-	public void onResourceManagerReload(IResourceManager resourceManager) {
+	public void reload(IResourceManager resourceManager) {
 		fluidRenderer.initAtlasSprites();
 	}
 

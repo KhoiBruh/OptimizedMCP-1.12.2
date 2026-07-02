@@ -76,13 +76,13 @@ public class GuiPlayerTabOverlay extends Gui {
 		int j = 0;
 
 		for (NetworkPlayerInfo networkplayerinfo : list) {
-			int k = mc.fontRenderer.getStringWidth(getPlayerName(networkplayerinfo));
+			int k = mc.fontRenderer.getWidth(getPlayerName(networkplayerinfo));
 			i = Math.max(i, k);
 
 			if (scoreObjectiveIn != null && scoreObjectiveIn.getRenderType() != IScoreCriteria.RenderType.HEARTS) {
-				k = mc.fontRenderer.getStringWidth(" " + scoreboardIn.getOrCreateScore(networkplayerinfo.getGameProfile()
-				                                                                                        .getName(), scoreObjectiveIn)
-				                                                     .getScorePoints());
+				k = mc.fontRenderer.getWidth(" " + scoreboardIn.getOrCreateScore(networkplayerinfo.getGameProfile()
+				                                                                                  .getName(), scoreObjectiveIn)
+				                                               .getScorePoints());
 				j = Math.max(j, k);
 			}
 		}
@@ -119,7 +119,7 @@ public class GuiPlayerTabOverlay extends Gui {
 			list1 = mc.fontRenderer.formatToWidth(header.getFormattedText(), width - 50);
 
 			for (String s : list1) {
-				l1 = Math.max(l1, mc.fontRenderer.getStringWidth(s));
+				l1 = Math.max(l1, mc.fontRenderer.getWidth(s));
 			}
 		}
 
@@ -129,7 +129,7 @@ public class GuiPlayerTabOverlay extends Gui {
 			list2 = mc.fontRenderer.formatToWidth(footer.getFormattedText(), width - 50);
 
 			for (String s1 : list2) {
-				l1 = Math.max(l1, mc.fontRenderer.getStringWidth(s1));
+				l1 = Math.max(l1, mc.fontRenderer.getWidth(s1));
 			}
 		}
 
@@ -137,8 +137,8 @@ public class GuiPlayerTabOverlay extends Gui {
 			drawRect(width / 2 - l1 / 2 - 1, k1 - 1, width / 2 + l1 / 2 + 1, k1 + list1.size() * mc.fontRenderer.FONT_HEIGHT, Integer.MIN_VALUE);
 
 			for (String s2 : list1) {
-				int i2 = mc.fontRenderer.getStringWidth(s2);
-				mc.fontRenderer.drawStringWithShadow(s2, (float) (width / 2 - i2 / 2), (float) k1, -1);
+				int i2 = mc.fontRenderer.getWidth(s2);
+				mc.fontRenderer.drawShadowText(s2, (float) (width / 2 - i2 / 2), (float) k1, -1);
 				k1 += mc.fontRenderer.FONT_HEIGHT;
 			}
 
@@ -182,9 +182,9 @@ public class GuiPlayerTabOverlay extends Gui {
 				String s4 = getPlayerName(networkplayerinfo1);
 
 				if (networkplayerinfo1.getGameType() == GameType.SPECTATOR) {
-					mc.fontRenderer.drawStringWithShadow(TextFormat.ITALIC + s4, (float) j2, (float) k2, -1862270977);
+					mc.fontRenderer.drawShadowText(TextFormat.ITALIC + s4, (float) j2, (float) k2, -1862270977);
 				} else {
-					mc.fontRenderer.drawStringWithShadow(s4, (float) j2, (float) k2, -1);
+					mc.fontRenderer.drawShadowText(s4, (float) j2, (float) k2, -1);
 				}
 
 				if (scoreObjectiveIn != null && networkplayerinfo1.getGameType() != GameType.SPECTATOR) {
@@ -205,8 +205,8 @@ public class GuiPlayerTabOverlay extends Gui {
 			drawRect(width / 2 - l1 / 2 - 1, k1 - 1, width / 2 + l1 / 2 + 1, k1 + list2.size() * mc.fontRenderer.FONT_HEIGHT, Integer.MIN_VALUE);
 
 			for (String s3 : list2) {
-				int j5 = mc.fontRenderer.getStringWidth(s3);
-				mc.fontRenderer.drawStringWithShadow(s3, (float) (width / 2 - j5 / 2), (float) k1, -1);
+				int j5 = mc.fontRenderer.getWidth(s3);
+				mc.fontRenderer.drawShadowText(s3, (float) (width / 2 - j5 / 2), (float) k1, -1);
 				k1 += mc.fontRenderer.FONT_HEIGHT;
 			}
 		}
@@ -299,16 +299,16 @@ public class GuiPlayerTabOverlay extends Gui {
 					int i1 = (int) ((1F - f1) * 255F) << 16 | (int) (f1 * 255F) << 8;
 					String s = "" + (float) i / 2F;
 
-					if (p_175247_5_ - mc.fontRenderer.getStringWidth(s + "hp") >= p_175247_4_) {
+					if (p_175247_5_ - mc.fontRenderer.getWidth(s + "hp") >= p_175247_4_) {
 						s = s + "hp";
 					}
 
-					mc.fontRenderer.drawStringWithShadow(s, (float) ((p_175247_5_ + p_175247_4_) / 2 - mc.fontRenderer.getStringWidth(s) / 2), (float) p_175247_2_, i1);
+					mc.fontRenderer.drawShadowText(s, (float) ((p_175247_5_ + p_175247_4_) / 2 - mc.fontRenderer.getWidth(s) / 2), (float) p_175247_2_, i1);
 				}
 			}
 		} else {
 			String s1 = TextFormat.YELLOW + "" + i;
-			mc.fontRenderer.drawStringWithShadow(s1, (float) (p_175247_5_ - mc.fontRenderer.getStringWidth(s1)), (float) p_175247_2_, 16777215);
+			mc.fontRenderer.drawShadowText(s1, (float) (p_175247_5_ - mc.fontRenderer.getWidth(s1)), (float) p_175247_2_, 16777215);
 		}
 	}
 

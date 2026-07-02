@@ -215,7 +215,7 @@ public class CustomizePresetsScreen extends Screen {
 		protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks) {
 			CustomizePresetsScreen.Info guiscreencustomizepresets$info = CustomizePresetsScreen.PRESETS.get(slotIndex);
 			blitIcon(xPos, yPos, guiscreencustomizepresets$info.texture);
-			fontRenderer.drawString(guiscreencustomizepresets$info.name, xPos + 32 + 10, yPos + 14, 16777215);
+			fontRenderer.drawText(guiscreencustomizepresets$info.name, xPos + 32 + 10, yPos + 14, 16777215);
 		}
 
 	}

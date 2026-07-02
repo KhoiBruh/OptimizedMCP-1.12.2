@@ -158,7 +158,7 @@ public class CreateFlatWorldScreen extends Screen {
 		drawCenteredString(fontRenderer, flatWorldTitle, width / 2, 8, 16777215);
 		int i = width / 2 - 92 - 16;
 		drawString(fontRenderer, materialText, i, 32, 16777215);
-		drawString(fontRenderer, heightText, i + 2 + 213 - fontRenderer.getStringWidth(heightText), 32, 16777215);
+		drawString(fontRenderer, heightText, i + 2 + 213 - fontRenderer.getWidth(heightText), 32, 16777215);
 		super.draw(mouseX, mouseY, partialTicks);
 	}
 
@@ -248,7 +248,7 @@ public class CreateFlatWorldScreen extends Screen {
 			ItemStack itemstack = new ItemStack(item, 1, item.getHasSubtypes() ? block.getMetaFromState(iblockstate) : 0);
 			String s = item.getItemStackDisplayName(itemstack);
 			drawItem(xPos, yPos, itemstack);
-			fontRenderer.drawString(s, xPos + 18 + 5, yPos + 3, 16777215);
+			fontRenderer.drawText(s, xPos + 18 + 5, yPos + 3, 16777215);
 			String s1;
 
 			if (slotIndex == 0) {
@@ -259,7 +259,7 @@ public class CreateFlatWorldScreen extends Screen {
 				s1 = I18n.format("createWorld.customize.flat.layer", flatlayerinfo.getLayerCount());
 			}
 
-			fontRenderer.drawString(s1, xPos + 2 + 213 - fontRenderer.getStringWidth(s1), yPos + 3, 16777215);
+			fontRenderer.drawText(s1, xPos + 2 + 213 - fontRenderer.getWidth(s1), yPos + 3, 16777215);
 		}
 
 		protected int getScrollBarX() {

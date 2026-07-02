@@ -46,8 +46,8 @@ public class HopperScreen extends ContainerScreen {
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		fontRenderer.drawString(hopperInventory.displayName().getUnformattedText(), 8, 6, 4210752);
-		fontRenderer.drawString(playerInventory.displayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
+		fontRenderer.drawText(hopperInventory.displayName().getUnformattedText(), 8, 6, 4210752);
+		fontRenderer.drawText(playerInventory.displayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
 	}
 
 	/**

@@ -95,7 +95,7 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 			String s = String.valueOf(GameSettings.getKeyDisplayString(mc.gameSettings.keyHotbar[p_175266_1_].getKeyCode()));
 
 			if (i > 3 && p_175266_5_.isEnabled()) {
-				mc.fontRenderer.drawStringWithShadow(s, (float) (p_175266_2_ + 19 - 2 - mc.fontRenderer.getStringWidth(s)), p_175266_3_ + 6F + 3F, 16777215 + (i << 24));
+				mc.fontRenderer.drawShadowText(s, (float) (p_175266_2_ + 19 - 2 - mc.fontRenderer.getWidth(s)), p_175266_3_ + 6F + 3F, 16777215 + (i << 24));
 			}
 		}
 	}
@@ -111,12 +111,12 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 			                                                                                                            .getFormattedText();
 
 			if (s != null) {
-				int j = (mc.getWindow().getScaledWidth() - mc.fontRenderer.getStringWidth(s)) / 2;
+				int j = (mc.getWindow().getScaledWidth() - mc.fontRenderer.getWidth(s)) / 2;
 				int k = mc.getWindow().getScaledHeight() - 35;
 				GLS.pushMatrix();
 				GLS.enableBlend();
 				GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
-				mc.fontRenderer.drawStringWithShadow(s, (float) j, (float) k, 16777215 + (i << 24));
+				mc.fontRenderer.drawShadowText(s, (float) j, (float) k, 16777215 + (i << 24));
 				GLS.disableBlend();
 				GLS.popMatrix();
 			}

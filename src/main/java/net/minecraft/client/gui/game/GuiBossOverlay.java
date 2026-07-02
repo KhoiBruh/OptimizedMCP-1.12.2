@@ -32,7 +32,7 @@ public class GuiBossOverlay extends Gui {
 				client.getTextureManager().bindTexture(GUI_BARS_TEXTURES);
 				render(k, j, bossinfoclient);
 				String s = bossinfoclient.getName().getFormattedText();
-				client.fontRenderer.drawStringWithShadow(s, (float) (i / 2 - client.fontRenderer.getStringWidth(s) / 2), (float) (j - 9), 16777215);
+				client.fontRenderer.drawShadowText(s, (float) (i / 2 - client.fontRenderer.getWidth(s) / 2), (float) (j - 9), 16777215);
 				j += 10 + client.fontRenderer.FONT_HEIGHT;
 
 				if (j >= client.getWindow().getScaledHeight() / 3) {

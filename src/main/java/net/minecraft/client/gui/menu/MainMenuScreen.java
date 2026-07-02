@@ -151,7 +151,7 @@ public class MainMenuScreen extends Screen {
 	 */
 	public void init() {
 		viewportTexture = new DynamicTexture(256, 256);
-		widthCopyright = fontRenderer.getStringWidth("Copyright Mojang AB. Do not distribute!");
+		widthCopyright = fontRenderer.getWidth("Copyright Mojang AB. Do not distribute!");
 		widthCopyrightRest = width - widthCopyright - 2;
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(new Date());
@@ -173,8 +173,8 @@ public class MainMenuScreen extends Screen {
 		buttons.add(new LanguageButton(5, width / 2 - 124, j + 72 + 12));
 
 		synchronized (threadLock) {
-			openGLWarning1Width = fontRenderer.getStringWidth(openGLWarning1);
-			openGLWarning2Width = fontRenderer.getStringWidth(openGLWarning2);
+			openGLWarning1Width = fontRenderer.getWidth(openGLWarning1);
+			openGLWarning2Width = fontRenderer.getWidth(openGLWarning2);
 			int k = Math.max(openGLWarning1Width, openGLWarning2Width);
 			openGLWarningX1 = (width - k) / 2;
 			openGLWarningY1 = (buttons.getFirst()).y - 24;
@@ -258,7 +258,7 @@ public class MainMenuScreen extends Screen {
 		GLS.translate((float) (width / 2 + 90), 70F, 0F);
 		GLS.rotate(-20F, 0F, 0F, 1F);
 		float f = 1.8F - MathHelper.abs(MathHelper.sin((float) (Minecraft.getSystemTime() % 1000L) / 1000F * ((float) Math.PI * 2F)) * 0.1F);
-		f = f * 100F / (float) (fontRenderer.getStringWidth(splashText) + 32);
+		f = f * 100F / (float) (fontRenderer.getWidth(splashText) + 32);
 		GLS.scale(f, f, f);
 		drawCenteredString(fontRenderer, splashText, 0, -8, -256);
 		GLS.popMatrix();

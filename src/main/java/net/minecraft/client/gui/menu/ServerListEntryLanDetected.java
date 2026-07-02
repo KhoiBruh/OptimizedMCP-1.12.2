@@ -19,13 +19,13 @@ public class ServerListEntryLanDetected implements GuiListExtended.IGuiListEntry
 	}
 
 	public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected, float partialTicks) {
-		mc.fontRenderer.drawString(I18n.format("lanServer.title"), x + 32 + 3, y + 1, 16777215);
-		mc.fontRenderer.drawString(serverData.getServerMotd(), x + 32 + 3, y + 12, 8421504);
+		mc.fontRenderer.drawText(I18n.format("lanServer.title"), x + 32 + 3, y + 1, 16777215);
+		mc.fontRenderer.drawText(serverData.getServerMotd(), x + 32 + 3, y + 12, 8421504);
 
 		if (mc.gameSettings.hideServerAddress) {
-			mc.fontRenderer.drawString(I18n.format("selectServer.hiddenAddress"), x + 32 + 3, y + 12 + 11, 3158064);
+			mc.fontRenderer.drawText(I18n.format("selectServer.hiddenAddress"), x + 32 + 3, y + 12 + 11, 3158064);
 		} else {
-			mc.fontRenderer.drawString(serverData.getServerIpPort(), x + 32 + 3, y + 12 + 11, 3158064);
+			mc.fontRenderer.drawText(serverData.getServerIpPort(), x + 32 + 3, y + 12 + 11, 3158064);
 		}
 	}
 

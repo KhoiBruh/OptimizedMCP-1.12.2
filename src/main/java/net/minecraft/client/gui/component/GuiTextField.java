@@ -429,8 +429,8 @@ public class GuiTextField extends Gui {
 				i -= 4;
 			}
 
-			String s = fontRenderer.trimStringToWidth(text.substring(lineScrollOffset), getWidth());
-			setCursorPosition(fontRenderer.trimStringToWidth(s, i).length() + lineScrollOffset);
+			String s = fontRenderer.trimToWidth(text.substring(lineScrollOffset), getWidth());
+			setCursorPosition(fontRenderer.trimToWidth(s, i).length() + lineScrollOffset);
 			return true;
 		} else {
 			return false;
@@ -450,7 +450,7 @@ public class GuiTextField extends Gui {
 			int i = isEnabled ? enabledColor : disabledColor;
 			int j = cursorPosition - lineScrollOffset;
 			int k = selectionEnd - lineScrollOffset;
-			String s = fontRenderer.trimStringToWidth(text.substring(lineScrollOffset), getWidth());
+			String s = fontRenderer.trimToWidth(text.substring(lineScrollOffset), getWidth());
 			boolean flag = j >= 0 && j <= s.length();
 			boolean flag1 = isFocused && cursorCounter / 6 % 2 == 0 && flag;
 			int l = enableBackgroundDrawing ? x + 4 : x;
@@ -463,7 +463,7 @@ public class GuiTextField extends Gui {
 
 			if (!s.isEmpty()) {
 				String s1 = flag ? s.substring(0, j) : s;
-				j1 = fontRenderer.drawStringWithShadow(s1, (float) l, (float) i1, i);
+				j1 = fontRenderer.drawShadowText(s1, (float) l, (float) i1, i);
 			}
 
 			boolean flag2 = cursorPosition < text.length() || text.length() >= getMaxStringLength();
@@ -477,19 +477,19 @@ public class GuiTextField extends Gui {
 			}
 
 			if (!s.isEmpty() && flag && j < s.length()) {
-				fontRenderer.drawStringWithShadow(s.substring(j), (float) j1, (float) i1, i);
+				fontRenderer.drawShadowText(s.substring(j), (float) j1, (float) i1, i);
 			}
 
 			if (flag1) {
 				if (flag2) {
 					Gui.drawRect(k1, i1 - 1, k1 + 1, i1 + 1 + fontRenderer.FONT_HEIGHT, -3092272);
 				} else {
-					fontRenderer.drawStringWithShadow("_", (float) k1, (float) i1, i);
+					fontRenderer.drawShadowText("_", (float) k1, (float) i1, i);
 				}
 			}
 
 			if (k != j) {
-				int l1 = l + fontRenderer.getStringWidth(s.substring(0, k));
+				int l1 = l + fontRenderer.getWidth(s.substring(0, k));
 				drawSelectionBox(k1, i1 - 1, l1 - 1, i1 + 1 + fontRenderer.FONT_HEIGHT);
 			}
 		}
@@ -665,11 +665,11 @@ public class GuiTextField extends Gui {
 			}
 
 			int j = getWidth();
-			String s = fontRenderer.trimStringToWidth(text.substring(lineScrollOffset), j);
+			String s = fontRenderer.trimToWidth(text.substring(lineScrollOffset), j);
 			int k = s.length() + lineScrollOffset;
 
 			if (position == lineScrollOffset) {
-				lineScrollOffset -= fontRenderer.trimStringToWidth(text, j, true).length();
+				lineScrollOffset -= fontRenderer.trimToWidth(text, j, true).length();
 			}
 
 			if (position > k) {

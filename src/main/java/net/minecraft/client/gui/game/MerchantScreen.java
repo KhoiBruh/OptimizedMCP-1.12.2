@@ -76,8 +76,8 @@ public class MerchantScreen extends ContainerScreen {
 	 */
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		String s = chatComponent.getUnformattedText();
-		fontRenderer.drawString(s, xSize / 2 - fontRenderer.getStringWidth(s) / 2, 6, 4210752);
-		fontRenderer.drawString(I18n.format("container.inventory"), 8, ySize - 96 + 2, 4210752);
+		fontRenderer.drawText(s, xSize / 2 - fontRenderer.getWidth(s) / 2, 6, 4210752);
+		fontRenderer.drawText(I18n.format("container.inventory"), 8, ySize - 96 + 2, 4210752);
 	}
 
 	/**

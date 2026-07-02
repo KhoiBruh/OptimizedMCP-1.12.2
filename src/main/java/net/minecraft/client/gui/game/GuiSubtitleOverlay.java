@@ -52,11 +52,11 @@ public class GuiSubtitleOverlay extends Gui implements ISoundEventListener {
 				if (guisubtitleoverlay$subtitle.getStartTime() + 3000L <= Minecraft.getSystemTime()) {
 					iterator.remove();
 				} else {
-					j = Math.max(j, client.fontRenderer.getStringWidth(guisubtitleoverlay$subtitle.getString()));
+					j = Math.max(j, client.fontRenderer.getWidth(guisubtitleoverlay$subtitle.getString()));
 				}
 			}
 
-			j = j + client.fontRenderer.getStringWidth("<") + client.fontRenderer.getStringWidth(" ") + client.fontRenderer.getStringWidth(">") + client.fontRenderer.getStringWidth(" ");
+			j = j + client.fontRenderer.getWidth("<") + client.fontRenderer.getWidth(" ") + client.fontRenderer.getWidth(">") + client.fontRenderer.getWidth(" ");
 
 			for (GuiSubtitleOverlay.Subtitle guisubtitleoverlay$subtitle1 : subtitles) {
 				int k = 255;
@@ -69,7 +69,7 @@ public class GuiSubtitleOverlay extends Gui implements ISoundEventListener {
 				int i1 = client.fontRenderer.FONT_HEIGHT;
 				int j1 = i1 / 2;
 				float f = 1F;
-				int k1 = client.fontRenderer.getStringWidth(s);
+				int k1 = client.fontRenderer.getWidth(s);
 				int l1 = MathHelper.floor(MathHelper.clampedLerp(255D, 75D, (float) (Minecraft.getSystemTime() - guisubtitleoverlay$subtitle1.getStartTime()) / 3000F));
 				int i2 = l1 << 16 | l1 << 8 | l1;
 				GLS.pushMatrix();
@@ -81,13 +81,13 @@ public class GuiSubtitleOverlay extends Gui implements ISoundEventListener {
 
 				if (!flag) {
 					if (d0 > 0D) {
-						client.fontRenderer.drawString(">", l - client.fontRenderer.getStringWidth(">"), -j1, i2 - 16777216);
+						client.fontRenderer.drawText(">", l - client.fontRenderer.getWidth(">"), -j1, i2 - 16777216);
 					} else if (d0 < 0D) {
-						client.fontRenderer.drawString("<", -l, -j1, i2 - 16777216);
+						client.fontRenderer.drawText("<", -l, -j1, i2 - 16777216);
 					}
 				}
 
-				client.fontRenderer.drawString(s, -k1 / 2, -j1, i2 - 16777216);
+				client.fontRenderer.drawText(s, -k1 / 2, -j1, i2 - 16777216);
 				GLS.popMatrix();
 				++i;
 			}

@@ -18,7 +18,7 @@ public class ModelManager implements IResourceManagerReloadListener {
 		modelProvider = new BlockModelShapes(this);
 	}
 
-	public void onResourceManagerReload(IResourceManager resourceManager) {
+	public void reload(IResourceManager resourceManager) {
 		ModelBakery modelbakery = new ModelBakery(resourceManager, texMap, modelProvider);
 		modelRegistry = modelbakery.setupModelRegistry();
 		defaultModel = modelRegistry.getObject(ModelBakery.MODEL_MISSING);

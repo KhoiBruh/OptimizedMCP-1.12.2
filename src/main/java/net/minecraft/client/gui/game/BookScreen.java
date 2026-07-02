@@ -336,7 +336,7 @@ public class BookScreen extends Screen {
 	private void pageInsertIntoCurrent(String p_146459_1_) {
 		String s = pageGetCurrent();
 		String s1 = s + p_146459_1_;
-		int i = fontRenderer.getWordWrappedHeight(s1 + TextFormat.BLACK + "_", 118);
+		int i = fontRenderer.getWrappedHeight(s1 + TextFormat.BLACK + "_", 118);
 
 		if (i <= 128 && s1.length() < 256) {
 			pageSetCurrent(s1);
@@ -365,15 +365,15 @@ public class BookScreen extends Screen {
 			}
 
 			String s1 = I18n.format("book.editTitle");
-			int k = fontRenderer.getStringWidth(s1);
-			fontRenderer.drawString(s1, i + 36 + (116 - k) / 2, 34, 0);
-			int l = fontRenderer.getStringWidth(s);
-			fontRenderer.drawString(s, i + 36 + (116 - l) / 2, 50, 0);
+			int k = fontRenderer.getWidth(s1);
+			fontRenderer.drawText(s1, i + 36 + (116 - k) / 2, 34, 0);
+			int l = fontRenderer.getWidth(s);
+			fontRenderer.drawText(s, i + 36 + (116 - l) / 2, 50, 0);
 			String s2 = I18n.format("book.byAuthor", editingPlayer.getName());
-			int i1 = fontRenderer.getStringWidth(s2);
-			fontRenderer.drawString(TextFormat.DARK_GRAY + s2, i + 36 + (116 - i1) / 2, 60, 0);
+			int i1 = fontRenderer.getWidth(s2);
+			fontRenderer.drawText(TextFormat.DARK_GRAY + s2, i + 36 + (116 - i1) / 2, 60, 0);
 			String s3 = I18n.format("book.finalizeWarning");
-			fontRenderer.drawSplitString(s3, i + 36, 82, 116, 0);
+			fontRenderer.drawSplit(s3, i + 36, 82, 116, 0);
 		} else {
 			String s4 = I18n.format("book.pageIndicator", currPage + 1, bookTotalPages);
 			String s5 = "";
@@ -406,17 +406,17 @@ public class BookScreen extends Screen {
 				cachedPage = currPage;
 			}
 
-			int j1 = fontRenderer.getStringWidth(s4);
-			fontRenderer.drawString(s4, i - j1 + 192 - 44, 18, 0);
+			int j1 = fontRenderer.getWidth(s4);
+			fontRenderer.drawText(s4, i - j1 + 192 - 44, 18, 0);
 
 			if (cachedComponents == null) {
-				fontRenderer.drawSplitString(s5, i + 36, 34, 116, 0);
+				fontRenderer.drawSplit(s5, i + 36, 34, 116, 0);
 			} else {
 				int k1 = Math.min(128 / fontRenderer.FONT_HEIGHT, cachedComponents.size());
 
 				for (int l1 = 0; l1 < k1; ++l1) {
 					ITextComponent itextcomponent2 = cachedComponents.get(l1);
-					fontRenderer.drawString(itextcomponent2.getUnformattedText(), i + 36, 34 + l1 * fontRenderer.FONT_HEIGHT, 0);
+					fontRenderer.drawText(itextcomponent2.getUnformattedText(), i + 36, 34 + l1 * fontRenderer.FONT_HEIGHT, 0);
 				}
 
 				ITextComponent itextcomponent1 = getClickedComponentAt(mouseX, mouseY);
@@ -498,7 +498,7 @@ public class BookScreen extends Screen {
 
 						for (ITextComponent itextcomponent1 : itextcomponent) {
 							if (itextcomponent1 instanceof TextComponentString) {
-								i1 += mc.fontRenderer.getStringWidth(((TextComponentString) itextcomponent1).getText());
+								i1 += mc.fontRenderer.getWidth(((TextComponentString) itextcomponent1).getText());
 
 								if (i1 > i) {
 									return itextcomponent1;

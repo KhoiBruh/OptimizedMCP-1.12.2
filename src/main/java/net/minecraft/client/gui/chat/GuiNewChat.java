@@ -84,7 +84,7 @@ public class GuiNewChat extends Gui {
 								drawRect(-2, j2 - 9, k + 4, j2, l1 / 2 << 24);
 								String s = chatline.getChatComponent().getFormattedText();
 								GLS.enableBlend();
-								mc.fontRenderer.drawStringWithShadow(s, 0F, (float) (j2 - 8), 16777215 + (l1 << 24));
+								mc.fontRenderer.drawShadowText(s, 0F, (float) (j2 - 8), 16777215 + (l1 << 24));
 								GLS.disableAlpha();
 								GLS.disableBlend();
 							}
@@ -242,7 +242,7 @@ public class GuiNewChat extends Gui {
 
 						for (ITextComponent itextcomponent : chatline.getChatComponent()) {
 							if (itextcomponent instanceof TextComponentString) {
-								j1 += mc.fontRenderer.getStringWidth(GuiUtilRenderComponents.removeTextColorsIfConfigured(((TextComponentString) itextcomponent).getText(), false));
+								j1 += mc.fontRenderer.getWidth(GuiUtilRenderComponents.removeTextColorsIfConfigured(((TextComponentString) itextcomponent).getText(), false));
 
 								if (j1 > j) {
 									return itextcomponent;

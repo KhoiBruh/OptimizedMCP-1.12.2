@@ -88,17 +88,17 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
 			}
 		}
 
-		int i1 = mc.fontRenderer.getStringWidth(s);
+		int i1 = mc.fontRenderer.getWidth(s);
 
 		if (i1 > 157) {
-			s = mc.fontRenderer.trimStringToWidth(s, 157 - mc.fontRenderer.getStringWidth("...")) + "...";
+			s = mc.fontRenderer.trimToWidth(s, 157 - mc.fontRenderer.getWidth("...")) + "...";
 		}
 
-		mc.fontRenderer.drawStringWithShadow(s, (float) (x + 32 + 2), (float) (y + 1), 16777215);
+		mc.fontRenderer.drawShadowText(s, (float) (x + 32 + 2), (float) (y + 1), 16777215);
 		List<String> list = mc.fontRenderer.formatToWidth(s1, 157);
 
 		for (int l = 0; l < 2 && l < list.size(); ++l) {
-			mc.fontRenderer.drawStringWithShadow(list.get(l), (float) (x + 32 + 2), (float) (y + 12 + 10 * l), 8421504);
+			mc.fontRenderer.drawShadowText(list.get(l), (float) (x + 32 + 2), (float) (y + 12 + 10 * l), 8421504);
 		}
 	}
 

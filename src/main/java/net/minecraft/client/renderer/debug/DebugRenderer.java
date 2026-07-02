@@ -58,7 +58,7 @@ public class DebugRenderer {
 			GLS.enableDepth();
 			GLS.depthMask(true);
 			GLS.scale(-1F, 1F, 1F);
-			fontrenderer.drawString(str, -fontrenderer.getStringWidth(str) / 2, 0, color);
+			fontrenderer.drawText(str, -fontrenderer.getWidth(str) / 2, 0, color);
 			GLS.enableLighting();
 			GLS.color(1F, 1F, 1F, 1F);
 			GLS.popMatrix();

@@ -2,6 +2,6 @@ package net.minecraft.client.resources;
 
 public interface IResourceManagerReloadListener {
 
-	void onResourceManagerReload(IResourceManager resourceManager);
+	void reload(IResourceManager resourceManager);
 
 }

@@ -71,8 +71,8 @@ public class EnchantScreen extends ContainerScreen {
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		fontRenderer.drawString(nameable.displayName().getUnformattedText(), 12, 5, 4210752);
-		fontRenderer.drawString(playerInventory.displayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
+		fontRenderer.drawText(nameable.displayName().getUnformattedText(), 12, 5, 4210752);
+		fontRenderer.drawText(playerInventory.displayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
 	}
 
 	/**
@@ -183,7 +183,7 @@ public class EnchantScreen extends ContainerScreen {
 				drawTexturedModalRect(i1, j + 14 + 19 * l, 0, 185, 108, 19);
 			} else {
 				String s = "" + k1;
-				int l1 = 86 - fontRenderer.getStringWidth(s);
+				int l1 = 86 - fontRenderer.getWidth(s);
 				String s1 = EnchantmentNameParts.getInstance().generateNewRandomName(fontRenderer, l1);
 				FontRenderer fontrenderer = mc.sgaFontRenderer;
 				int i2 = 6839882;
@@ -191,7 +191,7 @@ public class EnchantScreen extends ContainerScreen {
 				if ((k < l + 1 || mc.player.experienceLevel < k1) && !mc.player.capabilities.isCreativeMode) {
 					drawTexturedModalRect(i1, j + 14 + 19 * l, 0, 185, 108, 19);
 					drawTexturedModalRect(i1 + 1, j + 15 + 19 * l, 16 * l, 239, 16, 16);
-					fontrenderer.drawSplitString(s1, j1, j + 16 + 19 * l, l1, (i2 & 16711422) >> 1);
+					fontrenderer.drawSplit(s1, j1, j + 16 + 19 * l, l1, (i2 & 16711422) >> 1);
 					i2 = 4226832;
 				} else {
 					int j2 = mouseX - (i + 60);
@@ -205,12 +205,12 @@ public class EnchantScreen extends ContainerScreen {
 					}
 
 					drawTexturedModalRect(i1 + 1, j + 15 + 19 * l, 16 * l, 223, 16, 16);
-					fontrenderer.drawSplitString(s1, j1, j + 16 + 19 * l, l1, i2);
+					fontrenderer.drawSplit(s1, j1, j + 16 + 19 * l, l1, i2);
 					i2 = 8453920;
 				}
 
 				fontrenderer = mc.fontRenderer;
-				fontrenderer.drawStringWithShadow(s, (float) (j1 + 86 - fontrenderer.getStringWidth(s)), (float) (j + 16 + 19 * l + 7), i2);
+				fontrenderer.drawShadowText(s, (float) (j1 + 86 - fontrenderer.getWidth(s)), (float) (j + 16 + 19 * l + 7), i2);
 			}
 		}
 	}

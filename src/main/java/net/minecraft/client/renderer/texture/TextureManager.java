@@ -110,7 +110,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 		}
 	}
 
-	public void onResourceManagerReload(IResourceManager resourceManager) {
+	public void reload(IResourceManager resourceManager) {
 		Iterator<Entry<ResourceLocation, ITextureObject>> iterator = mapTextureObjects.entrySet().iterator();
 
 		while (iterator.hasNext()) {

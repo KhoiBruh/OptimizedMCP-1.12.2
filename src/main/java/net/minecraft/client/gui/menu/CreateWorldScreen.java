@@ -423,7 +423,7 @@ public class CreateWorldScreen extends Screen {
 			worldSeedField.drawTextBox();
 
 			if (WorldType.WORLD_TYPES[selectedIndex].hasInfoNotice()) {
-				fontRenderer.drawSplitString(I18n.format(WorldType.WORLD_TYPES[selectedIndex].getInfoTranslationKey()), btnMapType.x + 2, btnMapType.y + 22, btnMapType.getButtonWidth(), 10526880);
+				fontRenderer.drawSplit(I18n.format(WorldType.WORLD_TYPES[selectedIndex].getInfoTranslationKey()), btnMapType.x + 2, btnMapType.y + 22, btnMapType.getButtonWidth(), 10526880);
 			}
 		} else {
 			drawString(fontRenderer, I18n.format("selectWorld.enterName"), width / 2 - 100, 47, -6250336);

@@ -316,10 +316,10 @@ public class StatsScreen extends Screen implements IProgressMeter {
 		protected void renderStat(StatBase p_148209_1_, int p_148209_2_, int p_148209_3_, boolean p_148209_4_) {
 			if (p_148209_1_ != null) {
 				String s = p_148209_1_.format(stats.readStat(p_148209_1_));
-				drawString(fontRenderer, s, p_148209_2_ - fontRenderer.getStringWidth(s), p_148209_3_ + 5, p_148209_4_ ? 16777215 : 9474192);
+				drawString(fontRenderer, s, p_148209_2_ - fontRenderer.getWidth(s), p_148209_3_ + 5, p_148209_4_ ? 16777215 : 9474192);
 			} else {
 				String s1 = "-";
-				drawString(fontRenderer, "-", p_148209_2_ - fontRenderer.getStringWidth("-"), p_148209_3_ + 5, p_148209_4_ ? 16777215 : 9474192);
+				drawString(fontRenderer, "-", p_148209_2_ - fontRenderer.getWidth("-"), p_148209_3_ + 5, p_148209_4_ ? 16777215 : 9474192);
 			}
 		}
 
@@ -359,9 +359,9 @@ public class StatsScreen extends Screen implements IProgressMeter {
 					if (!s.isEmpty()) {
 						int k = mouseXIn + 12;
 						int l = mouseYIn - 12;
-						int i1 = fontRenderer.getStringWidth(s);
+						int i1 = fontRenderer.getWidth(s);
 						drawGradientRect(k - 3, l - 3, k + i1 + 3, l + 8 + 3, -1073741824, -1073741824);
-						fontRenderer.drawStringWithShadow(s, (float) k, (float) l, -1);
+						fontRenderer.drawShadowText(s, (float) k, (float) l, -1);
 					}
 				}
 			}
@@ -377,9 +377,9 @@ public class StatsScreen extends Screen implements IProgressMeter {
 				if (!s1.isEmpty()) {
 					int i = p_148213_2_ + 12;
 					int j = p_148213_3_ - 12;
-					int k = fontRenderer.getStringWidth(s1);
+					int k = fontRenderer.getWidth(s1);
 					drawGradientRect(i - 3, j - 3, i + k + 3, j + 8 + 3, -1073741824, -1073741824);
-					fontRenderer.drawStringWithShadow(s1, (float) i, (float) j, -1);
+					fontRenderer.drawShadowText(s1, (float) i, (float) j, -1);
 				}
 			}
 		}
@@ -562,7 +562,7 @@ public class StatsScreen extends Screen implements IProgressMeter {
 			drawString(fontRenderer, statbase.getStatName()
 			                                 .getUnformattedText(), xPos + 2, yPos + 1, slotIndex % 2 == 0 ? 16777215 : 9474192);
 			String s = statbase.format(stats.readStat(statbase));
-			drawString(fontRenderer, s, xPos + 2 + 213 - fontRenderer.getStringWidth(s), yPos + 1, slotIndex % 2 == 0 ? 16777215 : 9474192);
+			drawString(fontRenderer, s, xPos + 2 + 213 - fontRenderer.getWidth(s), yPos + 1, slotIndex % 2 == 0 ? 16777215 : 9474192);
 		}
 
 	}

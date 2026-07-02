@@ -35,7 +35,7 @@ public class GuiKeyBindingList extends GuiListExtended {
 				listEntries[i++] = new GuiKeyBindingList.CategoryEntry(s1);
 			}
 
-			int j = mcIn.fontRenderer.getStringWidth(I18n.format(keybinding.getDescription()));
+			int j = mcIn.fontRenderer.getWidth(I18n.format(keybinding.getDescription()));
 
 			if (j > maxListLabelWidth) {
 				maxListLabelWidth = j;
@@ -75,11 +75,11 @@ public class GuiKeyBindingList extends GuiListExtended {
 
 		public CategoryEntry(String name) {
 			labelText = I18n.format(name);
-			labelWidth = mc.fontRenderer.getStringWidth(labelText);
+			labelWidth = mc.fontRenderer.getWidth(labelText);
 		}
 
 		public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected, float partialTicks) {
-			mc.fontRenderer.drawString(labelText, mc.currentScreen.width / 2 - labelWidth / 2, y + slotHeight - mc.fontRenderer.FONT_HEIGHT - 1, 16777215);
+			mc.fontRenderer.drawText(labelText, mc.currentScreen.width / 2 - labelWidth / 2, y + slotHeight - mc.fontRenderer.FONT_HEIGHT - 1, 16777215);
 		}
 
 		public boolean mousePressed(int slotIndex, int mouseX, int mouseY, int mouseEvent, int relativeX, int relativeY) {
@@ -110,7 +110,7 @@ public class GuiKeyBindingList extends GuiListExtended {
 
 		public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected, float partialTicks) {
 			boolean flag = controlsScreen.buttonId == keybinding;
-			mc.fontRenderer.drawString(keyDesc, x + 90 - maxListLabelWidth, y + slotHeight / 2 - mc.fontRenderer.FONT_HEIGHT / 2, 16777215);
+			mc.fontRenderer.drawText(keyDesc, x + 90 - maxListLabelWidth, y + slotHeight / 2 - mc.fontRenderer.FONT_HEIGHT / 2, 16777215);
 			btnReset.x = x + 190;
 			btnReset.y = y;
 			btnReset.enabled = keybinding.getKeyCode() != keybinding.getDefaultKeyCode();

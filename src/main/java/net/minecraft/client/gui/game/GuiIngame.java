@@ -269,7 +269,7 @@ public class GuiIngame extends Gui {
 					l = MathHelper.hsvToRGB(f2 / 50F, 0.7F, 0.6F) & 16777215;
 				}
 
-				fontrenderer.drawString(overlayMessage, -fontrenderer.getStringWidth(overlayMessage) / 2, -4, l + (l1 << 24 & -16777216));
+				fontrenderer.drawText(overlayMessage, -fontrenderer.getWidth(overlayMessage) / 2, -4, l + (l1 << 24 & -16777216));
 				GLS.disableBlend();
 				GLS.popMatrix();
 			}
@@ -303,11 +303,11 @@ public class GuiIngame extends Gui {
 				GLS.pushMatrix();
 				GLS.scale(4F, 4F, 4F);
 				int j2 = i2 << 24 & -16777216;
-				fontrenderer.drawString(displayedTitle, (float) (-fontrenderer.getStringWidth(displayedTitle) / 2), -10F, 16777215 | j2, true);
+				fontrenderer.drawText(displayedTitle, (float) (-fontrenderer.getWidth(displayedTitle) / 2), -10F, 16777215 | j2, true);
 				GLS.popMatrix();
 				GLS.pushMatrix();
 				GLS.scale(2F, 2F, 2F);
-				fontrenderer.drawString(displayedSubTitle, (float) (-fontrenderer.getStringWidth(displayedSubTitle) / 2), 5F, 16777215 | j2, true);
+				fontrenderer.drawText(displayedSubTitle, (float) (-fontrenderer.getWidth(displayedSubTitle) / 2), 5F, 16777215 | j2, true);
 				GLS.popMatrix();
 				GLS.disableBlend();
 				GLS.popMatrix();
@@ -574,13 +574,13 @@ public class GuiIngame extends Gui {
 		if (mc.player.experienceLevel > 0) {
 			mc.profiler.startSection("expLevel");
 			String s = "" + mc.player.experienceLevel;
-			int i1 = (mc.getWindow().getScaledWidth() - getFontRenderer().getStringWidth(s)) / 2;
+			int i1 = (mc.getWindow().getScaledWidth() - getFontRenderer().getWidth(s)) / 2;
 			int j1 = mc.getWindow().getScaledHeight() - 31 - 4;
-			getFontRenderer().drawString(s, i1 + 1, j1, 0);
-			getFontRenderer().drawString(s, i1 - 1, j1, 0);
-			getFontRenderer().drawString(s, i1, j1 + 1, 0);
-			getFontRenderer().drawString(s, i1, j1 - 1, 0);
-			getFontRenderer().drawString(s, i1, j1, 8453920);
+			getFontRenderer().drawText(s, i1 + 1, j1, 0);
+			getFontRenderer().drawText(s, i1 - 1, j1, 0);
+			getFontRenderer().drawText(s, i1, j1 + 1, 0);
+			getFontRenderer().drawText(s, i1, j1 - 1, 0);
+			getFontRenderer().drawText(s, i1, j1, 8453920);
 			mc.profiler.endSection();
 		}
 	}
@@ -595,7 +595,7 @@ public class GuiIngame extends Gui {
 				s = TextFormat.ITALIC + s;
 			}
 
-			int i = (mc.getWindow().getScaledWidth() - getFontRenderer().getStringWidth(s)) / 2;
+			int i = (mc.getWindow().getScaledWidth() - getFontRenderer().getWidth(s)) / 2;
 			int j = mc.getWindow().getScaledHeight() - 59;
 
 			if (!mc.playerController.shouldDrawHUD()) {
@@ -612,7 +612,7 @@ public class GuiIngame extends Gui {
 				GLS.pushMatrix();
 				GLS.enableBlend();
 				GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
-				getFontRenderer().drawStringWithShadow(s, (float) i, (float) j, 16777215 + (k << 24));
+				getFontRenderer().drawShadowText(s, (float) i, (float) j, 16777215 + (k << 24));
 				GLS.disableBlend();
 				GLS.popMatrix();
 			}
@@ -633,12 +633,12 @@ public class GuiIngame extends Gui {
 			collection = list;
 		}
 
-		int i = getFontRenderer().getStringWidth(objective.getDisplayName());
+		int i = getFontRenderer().getWidth(objective.getDisplayName());
 
 		for (Score score : collection) {
 			ScorePlayerTeam scoreplayerteam = scoreboard.getPlayersTeam(score.getPlayerName());
 			String s = ScorePlayerTeam.formatPlayerName(scoreplayerteam, score.getPlayerName()) + ": " + TextFormat.RED + score.getScorePoints();
-			i = Math.max(i, getFontRenderer().getStringWidth(s));
+			i = Math.max(i, getFontRenderer().getWidth(s));
 		}
 
 		int i1 = collection.size() * getFontRenderer().FONT_HEIGHT;
@@ -655,14 +655,14 @@ public class GuiIngame extends Gui {
 			int k = j1 - j * getFontRenderer().FONT_HEIGHT;
 			int l = mc.getWindow().getScaledWidth() - 3 + 2;
 			drawRect(l1 - 2, k, l, k + getFontRenderer().FONT_HEIGHT, 1342177280);
-			getFontRenderer().drawString(s1, l1, k, 553648127);
-			getFontRenderer().drawString(s2, l - getFontRenderer().getStringWidth(s2), k, 553648127);
+			getFontRenderer().drawText(s1, l1, k, 553648127);
+			getFontRenderer().drawText(s2, l - getFontRenderer().getWidth(s2), k, 553648127);
 
 			if (j == collection.size()) {
 				String s3 = objective.getDisplayName();
 				drawRect(l1 - 2, k - getFontRenderer().FONT_HEIGHT - 1, l, k - 1, 1610612736);
 				drawRect(l1 - 2, k - 1, l, k, 1342177280);
-				getFontRenderer().drawString(s3, l1 + i / 2 - getFontRenderer().getStringWidth(s3) / 2, k - getFontRenderer().FONT_HEIGHT, 553648127);
+				getFontRenderer().drawText(s3, l1 + i / 2 - getFontRenderer().getWidth(s3) / 2, k - getFontRenderer().FONT_HEIGHT, 553648127);
 			}
 		}
 	}

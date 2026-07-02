@@ -204,10 +204,10 @@ public class WinGameScreen extends Screen {
 				String s = lines.get(i1);
 
 				if (s.startsWith("[C]")) {
-					fontRenderer.drawStringWithShadow(s.substring(3), (float) (j + (274 - fontRenderer.getStringWidth(s.substring(3))) / 2), (float) l, 16777215);
+					fontRenderer.drawShadowText(s.substring(3), (float) (j + (274 - fontRenderer.getWidth(s.substring(3))) / 2), (float) l, 16777215);
 				} else {
 					fontRenderer.fontRandom.setSeed((long) ((float) ((long) i1 * 4238972211L) + time / 4F));
-					fontRenderer.drawStringWithShadow(s, (float) j, (float) l, 16777215);
+					fontRenderer.drawShadowText(s, (float) j, (float) l, 16777215);
 				}
 			}
 

@@ -350,7 +350,7 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 
 		if (creativetabs.drawInForegroundOfTab()) {
 			GLS.disableBlend();
-			fontRenderer.drawString(I18n.format(creativetabs.getTranslatedTabLabel()), 8, 6, 4210752);
+			fontRenderer.drawText(I18n.format(creativetabs.getTranslatedTabLabel()), 8, 6, 4210752);
 		}
 	}
 

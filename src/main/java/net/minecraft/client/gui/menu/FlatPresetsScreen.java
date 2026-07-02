@@ -256,7 +256,7 @@ public class FlatPresetsScreen extends Screen {
 		protected void drawSlot(int slotIndex, int xPos, int yPos, int heightIn, int mouseXIn, int mouseYIn, float partialTicks) {
 			FlatPresetsScreen.LayerItem guiflatpresets$layeritem = FlatPresetsScreen.FLAT_WORLD_PRESETS.get(slotIndex);
 			renderIcon(xPos, yPos, guiflatpresets$layeritem.icon, guiflatpresets$layeritem.iconMetadata);
-			fontRenderer.drawString(guiflatpresets$layeritem.name, xPos + 18 + 5, yPos + 6, 16777215);
+			fontRenderer.drawText(guiflatpresets$layeritem.name, xPos + 18 + 5, yPos + 6, 16777215);
 		}
 
 	}

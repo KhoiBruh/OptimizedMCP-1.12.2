@@ -87,8 +87,8 @@ public class RecipeBookPage {
 	public void render(int p_194191_1_, int p_194191_2_, int p_194191_3_, int p_194191_4_, float p_194191_5_) {
 		if (totalPages > 1) {
 			String s = currentPage + 1 + "/" + totalPages;
-			int i = minecraft.fontRenderer.getStringWidth(s);
-			minecraft.fontRenderer.drawString(s, p_194191_1_ - i / 2 + 73, p_194191_2_ + 141, -1);
+			int i = minecraft.fontRenderer.getWidth(s);
+			minecraft.fontRenderer.drawText(s, p_194191_1_ - i / 2 + 73, p_194191_2_ + 141, -1);
 		}
 
 		RenderHelper.disableStandardItemLighting();
