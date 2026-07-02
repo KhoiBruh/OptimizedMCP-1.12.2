@@ -19,8 +19,8 @@ import net.minecraft.world.storage.WorldSummary;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
+
+import net.minecraft.client.renderer.NativeImage;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -207,10 +207,10 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 		boolean flag = iconFile != null && iconFile.isFile();
 
 		if (flag) {
-			BufferedImage bufferedimage;
+			NativeImage bufferedimage;
 
 			try {
-				bufferedimage = ImageIO.read(iconFile);
+				bufferedimage = NativeImage.read(iconFile);
 				Validate.validState(bufferedimage.getWidth() == 64, "Must be 64 pixels wide");
 				Validate.validState(bufferedimage.getHeight() == 64, "Must be 64 pixels high");
 			} catch (Throwable throwable) {
@@ -225,6 +225,7 @@ public class GuiListWorldSelectionEntry implements GuiListExtended.IGuiListEntry
 			}
 
 			bufferedimage.getRGB(0, 0, bufferedimage.getWidth(), bufferedimage.getHeight(), icon.getTextureData(), 0, bufferedimage.getWidth());
+						bufferedimage.close();
 			icon.updateDynamicTexture();
 		} else {
 			client.getTextureManager().deleteTexture(iconLocation);

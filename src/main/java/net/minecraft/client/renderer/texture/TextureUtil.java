@@ -8,8 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
+import net.minecraft.client.renderer.NativeImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.IntBuffer;
@@ -49,20 +48,12 @@ public class TextureUtil {
 		return COLOR_GAMMAS[p_188543_0_ & 255];
 	}
 
-	public static int glGenTextures() {
-		return GLS.generateTexture();
-	}
-
-	public static void deleteTexture(int textureId) {
-		GLS.deleteTexture(textureId);
-	}
-
-	public static int uploadTextureImage(int textureId, BufferedImage texture) {
+	public static int uploadTextureImage(int textureId, NativeImage texture) {
 		return uploadTextureImageAllocate(textureId, texture, false, false);
 	}
 
 	public static void uploadTexture(int textureId, int[] p_110988_1_, int p_110988_2_, int p_110988_3_) {
-		bindTexture(textureId);
+		GLS.bindTexture(textureId);
 		uploadTextureSub(0, p_110988_1_, p_110988_2_, p_110988_3_, 0, 0, false, false, false);
 	}
 
@@ -179,7 +170,7 @@ public class TextureUtil {
 		}
 	}
 
-	public static int uploadTextureImageAllocate(int textureId, BufferedImage texture, boolean blur, boolean clamp) {
+	public static int uploadTextureImageAllocate(int textureId, NativeImage texture, boolean blur, boolean clamp) {
 		allocateTexture(textureId, texture.getWidth(), texture.getHeight());
 		return uploadTextureImageSub(textureId, texture, 0, 0, blur, clamp);
 	}
@@ -189,8 +180,8 @@ public class TextureUtil {
 	}
 
 	public static void allocateTextureImpl(int glTextureId, int mipmapLevels, int width, int height) {
-		deleteTexture(glTextureId);
-		bindTexture(glTextureId);
+		GLS.deleteTexture(glTextureId);
+		GLS.bindTexture(glTextureId);
 
 		if (mipmapLevels >= 0) {
 			GLS.texParameteri(3553, 33085, mipmapLevels);
@@ -204,28 +195,16 @@ public class TextureUtil {
 		}
 	}
 
-	public static int uploadTextureImageSub(int textureId, BufferedImage p_110995_1_, int p_110995_2_, int p_110995_3_, boolean p_110995_4_, boolean p_110995_5_) {
-		bindTexture(textureId);
+	public static int uploadTextureImageSub(int textureId, NativeImage p_110995_1_, int p_110995_2_, int p_110995_3_, boolean p_110995_4_, boolean p_110995_5_) {
+		GLS.bindTexture(textureId);
 		uploadTextureImageSubImpl(p_110995_1_, p_110995_2_, p_110995_3_, p_110995_4_, p_110995_5_);
 		return textureId;
 	}
 
-	private static void uploadTextureImageSubImpl(BufferedImage p_110993_0_, int p_110993_1_, int p_110993_2_, boolean p_110993_3_, boolean p_110993_4_) {
-		int i = p_110993_0_.getWidth();
-		int j = p_110993_0_.getHeight();
-		int k = 4194304 / i;
-		int[] aint = new int[k * i];
+	private static void uploadTextureImageSubImpl(NativeImage p_110993_0_, int p_110993_1_, int p_110993_2_, boolean p_110993_3_, boolean p_110993_4_) {
 		setTextureBlurred(p_110993_3_);
 		setTextureClamped(p_110993_4_);
-
-		for (int l = 0; l < i * j; l += i * k) {
-			int i1 = l / i;
-			int j1 = Math.min(k, j - i1);
-			int k1 = i * j1;
-			p_110993_0_.getRGB(0, i1, i, j1, aint, 0, i);
-			copyToBuffer(aint, k1);
-			GLS.texSubImage2D(3553, 0, p_110993_1_, p_110993_2_ + i1, i, j1, 32993, 33639, DATA_BUFFER);
-		}
+		GLS.texSubImage2D(3553, 0, p_110993_1_, p_110993_2_, p_110993_0_.getWidth(), p_110993_0_.getHeight(), 6408, 5121, p_110993_0_.getBuffer());
 	}
 
 	private static void setTextureClamped(boolean p_110997_0_) {
@@ -252,45 +231,27 @@ public class TextureUtil {
 		}
 	}
 
-	private static void copyToBuffer(int[] p_110990_0_, int p_110990_1_) {
-		copyToBufferPos(p_110990_0_, 0, p_110990_1_);
-	}
-
 	private static void copyToBufferPos(int[] p_110994_0_, int p_110994_1_, int p_110994_2_) {
 		DATA_BUFFER.clear();
 		DATA_BUFFER.put(p_110994_0_, p_110994_1_, p_110994_2_);
 		DATA_BUFFER.position(0).limit(p_110994_2_);
 	}
 
-	static void bindTexture(int p_94277_0_) {
-		GLS.bindTexture(p_94277_0_);
-	}
-
 	public static int[] readImageData(IResourceManager resourceManager, ResourceLocation imageLocation) throws IOException {
-		try (IResource iresource = resourceManager.getResource(imageLocation)) {
-			BufferedImage bufferedimage = readBufferedImage(iresource.getInputStream());
-			int i = bufferedimage.getWidth();
-			int j = bufferedimage.getHeight();
+		try (IResource resource = resourceManager.getResource(imageLocation)) {
+			NativeImage image = readImage(resource.getInputStream());
+			int i = image.getWidth();
+			int j = image.getHeight();
 			int[] aint = new int[i * j];
-			bufferedimage.getRGB(0, 0, i, j, aint, 0, i);
+			image.getRGB(0, 0, i, j, aint, 0, i);
+			image.close();
 			return aint;
 		}
 	}
 
-	public static BufferedImage readBufferedImage(InputStream imageStream) throws IOException {
-		try (imageStream) {
-			return ImageIO.read(imageStream);
-		}
-	}
-
-	public static void processPixelValues(int[] p_147953_0_, int p_147953_1_, int p_147953_2_) {
-		int[] aint = new int[p_147953_1_];
-		int i = p_147953_2_ / 2;
-
-		for (int j = 0; j < i; ++j) {
-			System.arraycopy(p_147953_0_, j * p_147953_1_, aint, 0, p_147953_1_);
-			System.arraycopy(p_147953_0_, (p_147953_2_ - 1 - j) * p_147953_1_, p_147953_0_, j * p_147953_1_, p_147953_1_);
-			System.arraycopy(aint, 0, p_147953_0_, (p_147953_2_ - 1 - j) * p_147953_1_, p_147953_1_);
+	public static NativeImage readImage(InputStream stream) throws IOException {
+		try (stream) {
+			return NativeImage.read(stream);
 		}
 	}
 

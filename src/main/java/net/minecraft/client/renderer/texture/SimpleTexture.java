@@ -7,7 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.awt.image.BufferedImage;
+import net.minecraft.client.renderer.NativeImage;
 import java.io.IOException;
 
 public class SimpleTexture extends AbstractTexture {
@@ -22,7 +22,7 @@ public class SimpleTexture extends AbstractTexture {
 	public void loadTexture(IResourceManager resourceManager) throws IOException {
 		deleteGlTexture();
 		try (IResource iresource = resourceManager.getResource(textureLocation)) {
-			BufferedImage bufferedimage = TextureUtil.readBufferedImage(iresource.getInputStream());
+			NativeImage bufferedimage = TextureUtil.readImage(iresource.getInputStream());
 			boolean flag = false;
 			boolean flag1 = false;
 
@@ -40,6 +40,7 @@ public class SimpleTexture extends AbstractTexture {
 			}
 
 			TextureUtil.uploadTextureImageAllocate(getGlTextureId(), bufferedimage, flag, flag1);
+			bufferedimage.close();
 		}
 	}
 

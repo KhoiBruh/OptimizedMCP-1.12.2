@@ -7,7 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.awt.image.BufferedImage;
+import net.minecraft.client.renderer.NativeImage;
 import java.io.IOException;
 import java.util.List;
 
@@ -22,19 +22,20 @@ public class LayeredTexture extends AbstractTexture {
 
 	public void loadTexture(IResourceManager resourceManager) {
 		deleteGlTexture();
-		BufferedImage bufferedimage = null;
+		NativeImage bufferedimage = null;
 
 		for (String s : layeredTextureNames) {
 			try {
 				if (s != null) {
 					try (IResource iresource = resourceManager.getResource(new ResourceLocation(s))) {
-						BufferedImage bufferedimage1 = TextureUtil.readBufferedImage(iresource.getInputStream());
+						NativeImage bufferedimage1 = TextureUtil.readImage(iresource.getInputStream());
 
 						if (bufferedimage == null) {
-							bufferedimage = new BufferedImage(bufferedimage1.getWidth(), bufferedimage1.getHeight(), 2);
+							bufferedimage = new NativeImage(bufferedimage1.getWidth(), bufferedimage1.getHeight(), true);
 						}
 
-						bufferedimage.getGraphics().drawImage(bufferedimage1, 0, 0, null);
+						bufferedimage.drawImage(bufferedimage1, 0, 0);
+						bufferedimage1.close();
 					}
 				}
 
@@ -46,7 +47,10 @@ public class LayeredTexture extends AbstractTexture {
 			return;
 		}
 
-		TextureUtil.uploadTextureImage(getGlTextureId(), bufferedimage);
+		if (bufferedimage != null) {
+			TextureUtil.uploadTextureImage(getGlTextureId(), bufferedimage);
+			bufferedimage.close();
+		}
 	}
 
 }

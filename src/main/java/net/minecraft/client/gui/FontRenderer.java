@@ -16,7 +16,7 @@ import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.ResourceLocation;
 
-import java.awt.image.BufferedImage;
+import net.minecraft.client.renderer.NativeImage;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -191,10 +191,10 @@ public class FontRenderer implements IResourceManagerReloadListener {
 	}
 
 	private void readFontTexture() {
-		BufferedImage bufferedimage;
+		NativeImage bufferedimage;
 
 		try (IResource iresource = Minecraft.getMinecraft().getResourceManager().getResource(locationFontTexture)) {
-			bufferedimage = TextureUtil.readBufferedImage(iresource.getInputStream());
+			bufferedimage = TextureUtil.readImage(iresource.getInputStream());
 		} catch (IOException ioexception) {
 			throw new RuntimeException(ioexception);
 		}
@@ -203,6 +203,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
 		int lvt_4_1_ = bufferedimage.getHeight();
 		int[] lvt_5_1_ = new int[lvt_3_2_ * lvt_4_1_];
 		bufferedimage.getRGB(0, 0, lvt_3_2_, lvt_4_1_, lvt_5_1_, 0, lvt_3_2_);
+				bufferedimage.close();
 		int lvt_6_1_ = lvt_4_1_ / 16;
 		int lvt_7_1_ = lvt_3_2_ / 16;
 		boolean lvt_8_1_ = true;

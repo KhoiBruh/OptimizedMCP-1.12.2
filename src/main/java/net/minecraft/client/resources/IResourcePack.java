@@ -4,7 +4,7 @@ import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.MetadataSerializer;
 import net.minecraft.util.ResourceLocation;
 
-import java.awt.image.BufferedImage;
+import net.minecraft.client.renderer.NativeImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
@@ -19,7 +19,7 @@ public interface IResourcePack {
 
 	<T extends IMetadataSection> T getPackMetadata(MetadataSerializer metadataSerializer, String metadataSectionName) throws IOException;
 
-	BufferedImage getPackImage() throws IOException;
+	NativeImage getPackImage() throws IOException;
 
 	String getPackName();
 

@@ -50,8 +50,7 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
+import net.minecraft.client.renderer.NativeImage;
 import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.util.List;
@@ -1058,8 +1057,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	private void createWorldIcon() {
 		if (mc.renderGlobal.getRenderedChunks() > 10 && mc.renderGlobal.hasNoChunkUpdates() && !mc.getIntegratedServer()
 		                                                                                          .isWorldIconSet()) {
-			BufferedImage bufferedimage = ScreenShotHelper.createScreenshot(mc.getWindow().getWidth(), mc.getWindow()
-			                                                                                             .getHeight(), mc.getFramebuffer());
+			NativeImage bufferedimage = ScreenShotHelper.createScreenshot(mc.getWindow().getWidth(), mc.getWindow()
+			                                                                                           .getHeight(), mc.getFramebuffer());
 			int i = bufferedimage.getWidth();
 			int j = bufferedimage.getHeight();
 			int k = 0;
@@ -1073,12 +1072,12 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			}
 
 			try {
-				BufferedImage bufferedimage1 = new BufferedImage(64, 64, 1);
-				Graphics graphics = bufferedimage1.createGraphics();
-				graphics.drawImage(bufferedimage, 0, 0, 64, 64, k, l, k + i, l + i, null);
-				graphics.dispose();
-				ImageIO.write(bufferedimage1, "png", mc.getIntegratedServer().getWorldIconFile());
-			} catch (IOException ioexception) {
+						NativeImage bufferedimage1 = new NativeImage(64, 64, false);
+						bufferedimage1.drawImageScaled(bufferedimage, k, l, i, i, 0, 0, 64, 64);
+						bufferedimage1.write(mc.getIntegratedServer().getWorldIconFile());
+						bufferedimage1.close();
+						bufferedimage.close();
+					} catch (Exception ioexception) {
 				LOGGER.warn("Couldn't save auto screenshot", ioexception);
 			}
 		}

@@ -8,8 +8,7 @@ import net.minecraft.util.math.MathHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
+import net.minecraft.client.renderer.NativeImage;
 import java.io.IOException;
 import java.util.List;
 
@@ -35,24 +34,21 @@ public class LayeredColorMaskTexture extends AbstractTexture {
 
 	public void loadTexture(IResourceManager resourceManager) {
 		deleteGlTexture();
-		BufferedImage bufferedimage;
+		NativeImage bufferedimage;
 		label255:
 		{
 			try (IResource iresource = resourceManager.getResource(textureLocation)) {
-				BufferedImage bufferedimage1 = TextureUtil.readBufferedImage(iresource.getInputStream());
-				int i = bufferedimage1.getType();
+				NativeImage bufferedimage1 = TextureUtil.readImage(iresource.getInputStream());
+				int i = bufferedimage1.getFormat();
 
-				if (i == 0) {
-					i = 6;
-				}
-
-				bufferedimage = new BufferedImage(bufferedimage1.getWidth(), bufferedimage1.getHeight(), i);
-				Graphics graphics = bufferedimage.getGraphics();
-				graphics.drawImage(bufferedimage1, 0, 0, null);
+				bufferedimage = new NativeImage(bufferedimage1.getWidth(), bufferedimage1.getHeight(), i == NativeImage.FORMAT_RGBA);
+				bufferedimage.drawImage(bufferedimage1, 0, 0);
+				// Need bufferedimage1 later for l1 = bufferedimage1.getPixel(i1, l);
 				int j = 0;
 
 				while (true) {
 					if (j >= 17 || j >= listTextures.size() || j >= listDyeColors.size()) {
+						bufferedimage1.close();
 						break label255;
 					}
 
@@ -61,23 +57,24 @@ public class LayeredColorMaskTexture extends AbstractTexture {
 						int k = listDyeColors.get(j).getColorValue();
 
 						if (s != null) {
-							BufferedImage bufferedimage2 = TextureUtil.readBufferedImage(iresource1.getInputStream());
+							NativeImage bufferedimage2 = TextureUtil.readImage(iresource1.getInputStream());
 
-							if (bufferedimage2.getWidth() == bufferedimage.getWidth() && bufferedimage2.getHeight() == bufferedimage.getHeight() && bufferedimage2.getType() == 6) {
+							if (bufferedimage2.getWidth() == bufferedimage.getWidth() && bufferedimage2.getHeight() == bufferedimage.getHeight() && bufferedimage2.getFormat() == NativeImage.FORMAT_RGBA) {
 								for (int l = 0; l < bufferedimage2.getHeight(); ++l) {
 									for (int i1 = 0; i1 < bufferedimage2.getWidth(); ++i1) {
-										int j1 = bufferedimage2.getRGB(i1, l);
+										int j1 = bufferedimage2.getPixel(i1, l);
 
 										if ((j1 & -16777216) != 0) {
 											int k1 = (j1 & 16711680) << 8 & -16777216;
-											int l1 = bufferedimage1.getRGB(i1, l);
+											int l1 = bufferedimage1.getPixel(i1, l);
 											int i2 = MathHelper.multiplyColor(l1, k) & 16777215;
-											bufferedimage2.setRGB(i1, l, k1 | i2);
+											bufferedimage2.setPixel(i1, l, k1 | i2);
 										}
 									}
 								}
 
-								bufferedimage.getGraphics().drawImage(bufferedimage2, 0, 0, null);
+								bufferedimage.drawImage(bufferedimage2, 0, 0);
+								bufferedimage2.close();
 							}
 						}
 					}
@@ -90,7 +87,11 @@ public class LayeredColorMaskTexture extends AbstractTexture {
 
 			return;
 		}
-		TextureUtil.uploadTextureImage(getGlTextureId(), bufferedimage);
+		if (bufferedimage != null) {
+			TextureUtil.uploadTextureImage(getGlTextureId(), bufferedimage);
+			bufferedimage.close();
+		}
+		
 	}
 
 }

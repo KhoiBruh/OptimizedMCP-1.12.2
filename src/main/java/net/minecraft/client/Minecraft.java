@@ -107,8 +107,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.Version;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
+import net.minecraft.client.renderer.NativeImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -257,8 +256,7 @@ public class Minecraft implements IThreadListener {
 		tempDisplayHeight = h;
 		integratedServer = null;
 
-		ImageIO.setUseCache(false);
-		Locale.setDefault(Locale.ROOT);
+				Locale.setDefault(Locale.ROOT);
 		Bootstrap.register();
 		TextComponentKeybind.displaySupplierFunction = KeyBinding::getDisplayString;
 		dataFixer = DataFixesManager.createFixer();
@@ -643,15 +641,11 @@ public class Minecraft implements IThreadListener {
 	}
 
 	private ByteBuffer readImageToBuffer(InputStream imageStream) throws IOException {
-		BufferedImage bufferedimage = ImageIO.read(imageStream);
-		int[] aint = bufferedimage.getRGB(0, 0, bufferedimage.getWidth(), bufferedimage.getHeight(), null, 0, bufferedimage.getWidth());
-		ByteBuffer bytebuffer = ByteBuffer.allocate(4 * aint.length);
-
-		for (int i : aint) {
-			bytebuffer.putInt(i << 8 | i >> 24 & 255);
-		}
-
+		NativeImage bufferedimage = NativeImage.read(imageStream);
+		ByteBuffer bytebuffer = ByteBuffer.allocate(bufferedimage.getBuffer().capacity());
+		bytebuffer.put(bufferedimage.getBuffer());
 		bytebuffer.flip();
+		bufferedimage.close();
 		return bytebuffer;
 	}
 
@@ -674,7 +668,7 @@ public class Minecraft implements IThreadListener {
 		GLS.disableDepth();
 		GLS.enableTexture2D();
 		try (InputStream inputstream = defaultResourcePack.getInputStream(LOCATION_MOJANG_PNG)) {
-			mojangLogo = textureManagerInstance.getDynamicTextureLocation("logo", new DynamicTexture(ImageIO.read(inputstream)));
+			mojangLogo = textureManagerInstance.getDynamicTextureLocation("logo", new DynamicTexture(NativeImage.read(inputstream)));
 			textureManagerInstance.bindTexture(mojangLogo);
 		} catch (IOException ioexception) {
 			LOGGER.error("Unable to load logo: {}", LOCATION_MOJANG_PNG, ioexception);

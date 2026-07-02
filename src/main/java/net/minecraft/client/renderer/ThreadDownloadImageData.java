@@ -9,8 +9,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -27,7 +25,7 @@ public class ThreadDownloadImageData extends SimpleTexture {
 
 	private final IImageBuffer imageBuffer;
 
-	private BufferedImage bufferedImage;
+	private NativeImage bufferedImage;
 
 	private Thread imageThread;
 	private boolean textureUploaded;
@@ -47,6 +45,8 @@ public class ThreadDownloadImageData extends SimpleTexture {
 				}
 
 				TextureUtil.uploadTextureImage(super.getGlTextureId(), bufferedImage);
+				bufferedImage.close();
+				bufferedImage = null;
 				textureUploaded = true;
 			}
 		}
@@ -57,7 +57,7 @@ public class ThreadDownloadImageData extends SimpleTexture {
 		return super.getGlTextureId();
 	}
 
-	public void setBufferedImage(BufferedImage bufferedImageIn) {
+	public void setBufferedImage(NativeImage bufferedImageIn) {
 		bufferedImage = bufferedImageIn;
 
 		if (imageBuffer != null) {
@@ -75,7 +75,7 @@ public class ThreadDownloadImageData extends SimpleTexture {
 				LOGGER.debug("Loading http texture from local cache ({})", cacheFile);
 
 				try {
-					bufferedImage = ImageIO.read(cacheFile);
+					bufferedImage = NativeImage.read(cacheFile);
 
 					if (imageBuffer != null) {
 						setBufferedImage(imageBuffer.parseUserSkin(bufferedImage));
@@ -105,13 +105,13 @@ public class ThreadDownloadImageData extends SimpleTexture {
 					httpurlconnection.connect();
 
 					if (httpurlconnection.getResponseCode() / 100 == 2) {
-						BufferedImage bufferedimage;
+						NativeImage bufferedimage;
 
 						if (cacheFile != null) {
 							FileUtils.copyInputStreamToFile(httpurlconnection.getInputStream(), cacheFile);
-							bufferedimage = ImageIO.read(cacheFile);
+							bufferedimage = NativeImage.read(cacheFile);
 						} else {
-							bufferedimage = TextureUtil.readBufferedImage(httpurlconnection.getInputStream());
+							bufferedimage = TextureUtil.readImage(httpurlconnection.getInputStream());
 						}
 
 						if (imageBuffer != null) {

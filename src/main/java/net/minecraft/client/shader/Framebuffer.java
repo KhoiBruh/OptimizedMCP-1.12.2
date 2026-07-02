@@ -61,7 +61,7 @@ public class Framebuffer {
 			}
 
 			if (framebufferTexture > -1) {
-				TextureUtil.deleteTexture(framebufferTexture);
+				GLS.deleteTexture(framebufferTexture);
 				framebufferTexture = -1;
 			}
 
@@ -83,7 +83,7 @@ public class Framebuffer {
 			framebufferClear();
 		} else {
 			framebufferObject = OpenGlHelper.glGenFramebuffers();
-			framebufferTexture = TextureUtil.glGenTextures();
+			framebufferTexture = GLS.genTextures();
 
 			if (useDepth) {
 				depthBuffer = OpenGlHelper.glGenRenderbuffers();

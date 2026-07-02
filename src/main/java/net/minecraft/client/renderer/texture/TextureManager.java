@@ -2,6 +2,7 @@ package net.minecraft.client.renderer.texture;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.crash.CrashReport;
@@ -38,7 +39,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 			loadTexture(resource, itextureobject);
 		}
 
-		TextureUtil.bindTexture(itextureobject.getGlTextureId());
+		GLS.bindTexture(itextureobject.getGlTextureId());
 	}
 
 	public boolean loadTickableTexture(ResourceLocation textureLocation, ITickableTextureObject textureObj) {
@@ -105,7 +106,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 		ITextureObject itextureobject = getTexture(textureLocation);
 
 		if (itextureobject != null) {
-			TextureUtil.deleteTexture(itextureobject.getGlTextureId());
+			GLS.deleteTexture(itextureobject.getGlTextureId());
 		}
 	}
 

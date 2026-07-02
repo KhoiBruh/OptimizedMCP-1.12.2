@@ -40,7 +40,7 @@ public abstract class AbstractTexture implements ITextureObject {
 
 	public int getGlTextureId() {
 		if (glTextureId == -1) {
-			glTextureId = TextureUtil.glGenTextures();
+			glTextureId = GLS.genTextures();
 		}
 
 		return glTextureId;
@@ -48,7 +48,7 @@ public abstract class AbstractTexture implements ITextureObject {
 
 	public void deleteGlTexture() {
 		if (glTextureId != -1) {
-			TextureUtil.deleteTexture(glTextureId);
+			GLS.deleteTexture(glTextureId);
 			glTextureId = -1;
 		}
 	}

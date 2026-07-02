@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.awt.image.BufferedImage;
+import net.minecraft.client.renderer.NativeImage;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
@@ -66,8 +66,8 @@ public abstract class AbstractResourcePack implements IResourcePack {
 		return readMetadata(metadataSerializer, getInputStreamByName("pack.mcmeta"), metadataSectionName);
 	}
 
-	public BufferedImage getPackImage() throws IOException {
-		return TextureUtil.readBufferedImage(getInputStreamByName("pack.png"));
+	public NativeImage getPackImage() throws IOException {
+		return TextureUtil.readImage(getInputStreamByName("pack.png"));
 	}
 
 	public String getPackName() {

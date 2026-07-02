@@ -4,7 +4,7 @@ import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.MetadataSerializer;
 import net.minecraft.util.ResourceLocation;
 
-import java.awt.image.BufferedImage;
+import net.minecraft.client.renderer.NativeImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
@@ -53,7 +53,7 @@ public class LegacyV2Adapter implements IResourcePack {
 		return pack.getPackMetadata(metadataSerializer, metadataSectionName);
 	}
 
-	public BufferedImage getPackImage() throws IOException {
+	public NativeImage getPackImage() throws IOException {
 		return pack.getPackImage();
 	}
 

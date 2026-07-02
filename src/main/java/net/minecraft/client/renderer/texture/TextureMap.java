@@ -3,6 +3,7 @@ package net.minecraft.client.renderer.texture;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.crash.CrashReport;
@@ -196,7 +197,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 	}
 
 	public void updateAnimations() {
-		TextureUtil.bindTexture(getGlTextureId());
+		GLS.bindTexture(getGlTextureId());
 
 		for (TextureAtlasSprite textureatlassprite : listAnimatedSprites) {
 			textureatlassprite.updateAnimation();

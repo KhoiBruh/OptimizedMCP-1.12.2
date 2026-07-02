@@ -42,8 +42,7 @@ import net.minecraft.world.storage.WorldInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
+import net.minecraft.client.renderer.NativeImage;
 import java.io.File;
 import java.net.Proxy;
 import java.net.URLEncoder;
@@ -524,10 +523,11 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 			ByteBuf bytebuf = Unpooled.buffer();
 
 			try {
-				BufferedImage bufferedimage = ImageIO.read(file1);
-				Validate.validState(bufferedimage.getWidth() == 64, "Must be 64 pixels wide");
-				Validate.validState(bufferedimage.getHeight() == 64, "Must be 64 pixels high");
-				ImageIO.write(bufferedimage, "PNG", new ByteBufOutputStream(bytebuf));
+					NativeImage bufferedimage = NativeImage.read(file1);
+					Validate.validState(bufferedimage.getWidth() == 64, "Must be 64 pixels wide");
+					Validate.validState(bufferedimage.getHeight() == 64, "Must be 64 pixels high");
+					bytebuf.writeBytes(bufferedimage.getBytes());
+					bufferedimage.close();
 				ByteBuf bytebuf1 = Base64.encode(bytebuf);
 				response.setFavicon("data:image/png;base64," + bytebuf1.toString(StandardCharsets.UTF_8));
 			} catch (Exception exception) {

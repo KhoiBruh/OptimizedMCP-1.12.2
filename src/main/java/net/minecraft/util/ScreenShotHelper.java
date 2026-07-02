@@ -12,10 +12,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.BufferUtils;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
+import net.minecraft.client.renderer.NativeImage;
 import java.io.File;
 import java.nio.IntBuffer;
+import org.lwjgl.opengl.GL11;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -51,7 +51,7 @@ public class ScreenShotHelper {
 		try {
 			File file1 = new File(gameDirectory, "screenshots");
 			file1.mkdir();
-			BufferedImage bufferedimage = createScreenshot(width, height, buffer);
+			NativeImage bufferedimage = createScreenshot(width, height, buffer);
 			File file2;
 
 			if (screenshotName == null) {
@@ -60,7 +60,8 @@ public class ScreenShotHelper {
 				file2 = new File(file1, screenshotName);
 			}
 
-			ImageIO.write(bufferedimage, "png", file2);
+			bufferedimage.write(file2);
+			bufferedimage.close();
 			ITextComponent itextcomponent = new TextComponentString(file2.getName());
 			itextcomponent.getStyle()
 			              .setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, file2.getAbsolutePath()));
@@ -72,35 +73,26 @@ public class ScreenShotHelper {
 		}
 	}
 
-	public static BufferedImage createScreenshot(int width, int height, Framebuffer framebufferIn) {
+	public static NativeImage createScreenshot(int width, int height, Framebuffer framebufferIn) {
 		if (OpenGlHelper.isFramebufferEnabled()) {
 			width = framebufferIn.framebufferTextureWidth;
 			height = framebufferIn.framebufferTextureHeight;
 		}
 
-		int i = width * height;
-
-		if (pixelBuffer == null || pixelBuffer.capacity() < i) {
-			pixelBuffer = BufferUtils.createIntBuffer(i);
-			pixelValues = new int[i];
-		}
+		NativeImage nativeImage = new NativeImage(width, height, false);
 
 		GLS.pixelStorei(3333, 1);
 		GLS.pixelStorei(3317, 1);
-		pixelBuffer.clear();
 
 		if (OpenGlHelper.isFramebufferEnabled()) {
 			GLS.bindTexture(framebufferIn.framebufferTexture);
-			GLS.getTexImage(3553, 0, 32993, 33639, pixelBuffer);
+			GL11.glGetTexImage(3553, 0, 6408, 5121, nativeImage.getBuffer());
 		} else {
-			GLS.readPixels(0, 0, width, height, 32993, 33639, pixelBuffer);
+			GL11.glReadPixels(0, 0, width, height, 6408, 5121, nativeImage.getBuffer());
 		}
 
-		pixelBuffer.get(pixelValues);
-		TextureUtil.processPixelValues(pixelValues, width, height);
-		BufferedImage bufferedimage = new BufferedImage(width, height, 1);
-		bufferedimage.setRGB(0, 0, width, height, pixelValues, 0, width);
-		return bufferedimage;
+		nativeImage.flipVertically();
+		return nativeImage;
 	}
 
 	/**

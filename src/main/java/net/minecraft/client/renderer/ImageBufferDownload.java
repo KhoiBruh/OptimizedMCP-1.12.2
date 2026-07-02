@@ -1,46 +1,42 @@
 package net.minecraft.client.renderer;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferInt;
+import net.minecraft.client.renderer.NativeImage;
 
 public class ImageBufferDownload implements IImageBuffer {
 
 	private final int imageSize = 64;
-	private int[] imageData;
+	
 
-	public BufferedImage parseUserSkin(BufferedImage image) {
+	public NativeImage parseUserSkin(NativeImage image) {
 		if (image != null) {
-			BufferedImage bufferedimage = new BufferedImage(imageSize, imageSize, 2);
-			Graphics graphics = bufferedimage.getGraphics();
-			graphics.drawImage(image, 0, 0, null);
+			NativeImage bufferedimage = new NativeImage(imageSize, imageSize, true);
+			bufferedimage.drawImage(image, 0, 0);
 			boolean flag = image.getHeight() == 32;
 
 			if (flag) {
-				graphics.setColor(new Color(0, 0, 0, 0));
-				graphics.fillRect(0, 32, 64, 32);
-				graphics.drawImage(bufferedimage, 24, 48, 20, 52, 4, 16, 8, 20, null);
-				graphics.drawImage(bufferedimage, 28, 48, 24, 52, 8, 16, 12, 20, null);
-				graphics.drawImage(bufferedimage, 20, 52, 16, 64, 8, 20, 12, 32, null);
-				graphics.drawImage(bufferedimage, 24, 52, 20, 64, 4, 20, 8, 32, null);
-				graphics.drawImage(bufferedimage, 28, 52, 24, 64, 0, 20, 4, 32, null);
-				graphics.drawImage(bufferedimage, 32, 52, 28, 64, 12, 20, 16, 32, null);
-				graphics.drawImage(bufferedimage, 40, 48, 36, 52, 44, 16, 48, 20, null);
-				graphics.drawImage(bufferedimage, 44, 48, 40, 52, 48, 16, 52, 20, null);
-				graphics.drawImage(bufferedimage, 36, 52, 32, 64, 48, 20, 52, 32, null);
-				graphics.drawImage(bufferedimage, 40, 52, 36, 64, 44, 20, 48, 32, null);
-				graphics.drawImage(bufferedimage, 44, 52, 40, 64, 40, 20, 44, 32, null);
-				graphics.drawImage(bufferedimage, 48, 52, 44, 64, 52, 20, 56, 32, null);
+				bufferedimage.fillRect(0, 32, 64, 32, 0);
+				bufferedimage.copyArea(4, 16, 20, 48, 4, 4, true, false);
+				bufferedimage.copyArea(8, 16, 24, 48, 4, 4, true, false);
+				bufferedimage.copyArea(8, 20, 16, 52, 4, 12, true, false);
+				bufferedimage.copyArea(4, 20, 20, 52, 4, 12, true, false);
+				bufferedimage.copyArea(0, 20, 24, 52, 4, 12, true, false);
+				bufferedimage.copyArea(12, 20, 28, 52, 4, 12, true, false);
+				bufferedimage.copyArea(44, 16, 36, 48, 4, 4, true, false);
+				bufferedimage.copyArea(48, 16, 40, 48, 4, 4, true, false);
+				bufferedimage.copyArea(48, 20, 32, 52, 4, 12, true, false);
+				bufferedimage.copyArea(44, 20, 36, 52, 4, 12, true, false);
+				bufferedimage.copyArea(40, 20, 40, 52, 4, 12, true, false);
+				bufferedimage.copyArea(52, 20, 44, 52, 4, 12, true, false);
 			}
 
-			graphics.dispose();
-			imageData = ((DataBufferInt) bufferedimage.getRaster().getDataBuffer()).getData();
-			setAreaOpaque(0, 0, 32, 16);
+			
+			
+			setAreaOpaque(bufferedimage, 0, 0, 32, 16);
 
-			if (flag) setAreaTransparent(32, 0, 64, 32);
+			if (flag) setAreaTransparent(bufferedimage, 32, 0, 64, 32);
 
-			setAreaOpaque(0, 16, 64, 32);
-			setAreaOpaque(16, 48, 48, 64);
+			setAreaOpaque(bufferedimage, 0, 16, 64, 32);
+			setAreaOpaque(bufferedimage, 16, 48, 48, 64);
 			return bufferedimage;
 		} else {
 			return null;
@@ -50,10 +46,10 @@ public class ImageBufferDownload implements IImageBuffer {
 	public void skinAvailable() {
 	}
 
-	private void setAreaTransparent(int x, int y, int width, int height) {
+	private void setAreaTransparent(NativeImage image, int x, int y, int width, int height) {
 		for (int i = x; i < width; ++i) {
 			for (int j = y; j < height; ++j) {
-				int k = imageData[i + j * imageSize];
+				int k = image.getPixel(i, j);
 
 				if ((k >> 24 & 255) < 128) {
 					return;
@@ -63,7 +59,7 @@ public class ImageBufferDownload implements IImageBuffer {
 
 		for (int l = x; l < width; ++l) {
 			for (int i1 = y; i1 < height; ++i1) {
-				imageData[l + i1 * imageSize] &= 16777215;
+				image.setPixel(l, i1, image.getPixel(l, i1) & 16777215);
 			}
 		}
 	}
@@ -71,10 +67,10 @@ public class ImageBufferDownload implements IImageBuffer {
 	/**
 	 * Makes the given area of the image opaque
 	 */
-	private void setAreaOpaque(int x, int y, int width, int height) {
+	private void setAreaOpaque(NativeImage image, int x, int y, int width, int height) {
 		for (int i = x; i < width; ++i) {
 			for (int j = y; j < height; ++j) {
-				imageData[i + j * imageSize] |= -16777216;
+				image.setPixel(i, j, image.getPixel(i, j) | -16777216);
 			}
 		}
 	}

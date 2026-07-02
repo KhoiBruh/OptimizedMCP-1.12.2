@@ -9,7 +9,7 @@ import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;
 
-import java.awt.image.BufferedImage;
+import net.minecraft.client.renderer.NativeImage;
 import java.io.IOException;
 import java.util.List;
 
@@ -256,7 +256,7 @@ public class TextureAtlasSprite {
 	}
 
 	public void loadSpriteFrames(IResource resource, int mipmaplevels) throws IOException {
-		BufferedImage bufferedimage = TextureUtil.readBufferedImage(resource.getInputStream());
+		NativeImage bufferedimage = TextureUtil.readImage(resource.getInputStream());
 		AnimationMetadataSection animationmetadatasection = resource.getMetadata("animation");
 		int[][] aint = new int[mipmaplevels][];
 		aint[0] = new int[bufferedimage.getWidth() * bufferedimage.getHeight()];

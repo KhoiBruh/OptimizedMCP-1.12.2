@@ -21,7 +21,7 @@ import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.awt.image.BufferedImage;
+import net.minecraft.client.renderer.NativeImage;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -361,7 +361,7 @@ public class ResourcePackRepository {
 		}
 
 		public void bindTexturePackIcon(TextureManager textureManagerIn) {
-			BufferedImage bufferedimage = null;
+			NativeImage bufferedimage = null;
 
 			try {
 				bufferedimage = reResourcePack.getPackImage();
@@ -370,10 +370,10 @@ public class ResourcePackRepository {
 
 			if (bufferedimage == null) {
 				try {
-					bufferedimage = TextureUtil.readBufferedImage(Minecraft.getMinecraft()
-					                                                       .getResourceManager()
-					                                                       .getResource(ResourcePackRepository.UNKNOWN_PACK_TEXTURE)
-					                                                       .getInputStream());
+					bufferedimage = TextureUtil.readImage(Minecraft.getMinecraft()
+					                                               .getResourceManager()
+					                                               .getResource(ResourcePackRepository.UNKNOWN_PACK_TEXTURE)
+					                                               .getInputStream());
 				} catch (IOException ioexception) {
 					throw new Error("Couldn't bind resource pack icon", ioexception);
 				}

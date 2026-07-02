@@ -552,7 +552,7 @@ public class GLS {
 		return GL11.glGetTexLevelParameteri(target, level, param);
 	}
 
-	public static int generateTexture() {
+	public static int genTextures() {
 		return GL11.glGenTextures();
 	}
 
@@ -577,6 +577,10 @@ public class GLS {
 	}
 
 	public static void texSubImage2D(int target, int level, int xOffset, int yOffset, int width, int height, int format, int type, IntBuffer pixels) {
+		GL11.glTexSubImage2D(target, level, xOffset, yOffset, width, height, format, type, pixels);
+	}
+
+	public static void texSubImage2D(int target, int level, int xOffset, int yOffset, int width, int height, int format, int type, java.nio.ByteBuffer pixels) {
 		GL11.glTexSubImage2D(target, level, xOffset, yOffset, width, height, format, type, pixels);
 	}
 

@@ -20,7 +20,7 @@ import net.minecraft.util.text.TextFormat;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.awt.image.BufferedImage;
+import net.minecraft.client.renderer.NativeImage;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -201,12 +201,12 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
 		} else {
 			ByteBuf bytebuf = Unpooled.copiedBuffer(server.getBase64EncodedIconData(), StandardCharsets.UTF_8);
 			ByteBuf bytebuf1 = null;
-			BufferedImage bufferedimage;
+			NativeImage bufferedimage;
 			label99:
 			{
 				try {
 					bytebuf1 = Base64.decode(bytebuf);
-					bufferedimage = TextureUtil.readBufferedImage(new ByteBufInputStream(bytebuf1));
+					bufferedimage = TextureUtil.readImage(new ByteBufInputStream(bytebuf1));
 					Validate.validState(bufferedimage.getWidth() == 64, "Must be 64 pixels wide");
 					Validate.validState(bufferedimage.getHeight() == 64, "Must be 64 pixels high");
 					break label99;
@@ -230,6 +230,7 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
 			}
 
 			bufferedimage.getRGB(0, 0, bufferedimage.getWidth(), bufferedimage.getHeight(), icon.getTextureData(), 0, bufferedimage.getWidth());
+											bufferedimage.close();
 			icon.updateDynamicTexture();
 		}
 	}
