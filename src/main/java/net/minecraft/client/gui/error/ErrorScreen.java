@@ -1,5 +1,6 @@
 package net.minecraft.client.gui.error;
 
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.resources.I18n;
@@ -26,11 +27,11 @@ public class ErrorScreen extends Screen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawGradientRect(0, 0, width, height, -12574688, -11530224);
 		drawCenteredString(fontRenderer, title, width / 2, 90, 16777215);
 		drawCenteredString(fontRenderer, message, width / 2, 110, 16777215);
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 
 	/**

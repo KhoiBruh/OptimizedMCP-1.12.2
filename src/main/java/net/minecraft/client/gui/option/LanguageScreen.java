@@ -3,6 +3,7 @@ package net.minecraft.client.gui.option;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.GuiSlot;
@@ -101,11 +102,11 @@ public class LanguageScreen extends Screen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		list.drawScreen(mouseX, mouseY, partialTicks);
 		drawCenteredString(fontRenderer, I18n.format("options.language"), width / 2, 16, 16777215);
 		drawCenteredString(fontRenderer, "(" + I18n.format("options.languageWarning") + ")", width / 2, height - 56, 8421504);
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 
 	class List extends GuiSlot {

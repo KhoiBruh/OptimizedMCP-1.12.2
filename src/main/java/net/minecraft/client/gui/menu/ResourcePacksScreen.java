@@ -1,6 +1,7 @@
 package net.minecraft.client.gui.menu;
 
 import com.google.common.collect.Lists;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.OptionButton;
@@ -160,13 +161,13 @@ public class ResourcePacksScreen extends Screen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		availableResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
 		selectedResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
 		drawCenteredString(fontRenderer, I18n.format("resourcePack.title"), width / 2, 16, 16777215);
 		drawCenteredString(fontRenderer, I18n.format("resourcePack.folder"), width / 2 - 77, height - 26, 8421504);
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 
 	/**

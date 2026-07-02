@@ -112,7 +112,7 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 		return key == 65 && isCtrlDown() && !isShiftDown() && !isAltDown();
 	}
 
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		for (Button button : buttons) {
 			button.drawButton(mc, mouseX, mouseY, partialTicks);
 		}

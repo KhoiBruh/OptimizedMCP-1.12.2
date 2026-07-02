@@ -1,5 +1,6 @@
 package net.minecraft.client.gui.inventory;
 
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.ImageButton;
 import net.minecraft.client.gui.recipebook.GuiRecipeBook;
@@ -56,7 +57,7 @@ public class CraftingScreen extends ContainerScreen implements IRecipeShownListe
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 
 		if (recipeBookGui.isVisible() && widthTooNarrow) {
@@ -64,7 +65,7 @@ public class CraftingScreen extends ContainerScreen implements IRecipeShownListe
 			recipeBookGui.render(mouseX, mouseY, partialTicks);
 		} else {
 			recipeBookGui.render(mouseX, mouseY, partialTicks);
-			super.draw(mouseX, mouseY, partialTicks);
+			super.draw(context, mouseX, mouseY, partialTicks);
 			recipeBookGui.renderGhostRecipe(guiLeft, guiTop, true, partialTicks);
 		}
 

@@ -3,6 +3,7 @@ package net.minecraft.client.gui.menu;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.block.BlockTallGrass;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.Button;
@@ -148,14 +149,14 @@ public class FlatPresetsScreen extends Screen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		list.drawScreen(mouseX, mouseY, partialTicks);
 		drawCenteredString(fontRenderer, presetsTitle, width / 2, 8, 16777215);
 		drawString(fontRenderer, presetsShare, 50, 30, 10526880);
 		drawString(fontRenderer, listText, 50, 70, 10526880);
 		export.drawTextBox();
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 
 	/**

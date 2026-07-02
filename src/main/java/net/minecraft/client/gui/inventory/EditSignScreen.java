@@ -1,6 +1,7 @@
 package net.minecraft.client.gui.inventory;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.network.NetHandlerPlayClient;
@@ -117,7 +118,7 @@ public class EditSignScreen extends Screen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, I18n.format("sign.edit"), width / 2, 40, 16777215);
 		GLS.color(1F, 1F, 1F, 1F);
@@ -159,7 +160,7 @@ public class EditSignScreen extends Screen {
 		TileEntityRendererDispatcher.instance.render(tileSign, -0.5D, -0.75D, -0.5D, 0F);
 		tileSign.lineBeingEdited = -1;
 		GLS.popMatrix();
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 
 }

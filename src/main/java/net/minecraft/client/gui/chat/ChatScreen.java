@@ -1,6 +1,7 @@
 package net.minecraft.client.gui.chat;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.GuiTextField;
 import net.minecraft.client.util.Keyboard;
@@ -190,7 +191,7 @@ public class ChatScreen extends Screen implements ITabCompleter {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawRect(2, height - 14, width - 2, height - 2, Integer.MIN_VALUE);
 		inputField.drawTextBox();
 		ITextComponent itextcomponent = mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());
@@ -199,7 +200,7 @@ public class ChatScreen extends Screen implements ITabCompleter {
 			handleComponentHover(itextcomponent, mouseX, mouseY);
 		}
 
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 
 	/**

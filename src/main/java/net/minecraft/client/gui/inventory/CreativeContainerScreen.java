@@ -3,6 +3,7 @@ package net.minecraft.client.gui.inventory;
 import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.achievement.StatsScreen;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.GuiTextField;
@@ -524,7 +525,7 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		boolean flag = Mouse.isButtonDown(0);
 		int i = guiLeft;
@@ -550,7 +551,7 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 			((CreativeContainerScreen.ContainerCreative) inventorySlots).scrollTo(currentScroll);
 		}
 
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 
 		for (CreativeTabs creativetabs : CreativeTabs.CREATIVE_TAB_ARRAY) {
 			if (renderCreativeInventoryHoveringText(creativetabs, mouseX, mouseY)) {

@@ -2,6 +2,7 @@ package net.minecraft.client.gui.inventory;
 
 import com.google.common.collect.Lists;
 import io.netty.buffer.Unpooled;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.GuiTextField;
@@ -600,7 +601,7 @@ public class EditStructureScreen extends Screen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		TileEntityStructure.Mode tileentitystructure$mode = tileStructure.getMode();
 		drawCenteredString(fontRenderer, I18n.format("tile.structureBlock.name"), width / 2, 10, 16777215);
@@ -649,7 +650,7 @@ public class EditStructureScreen extends Screen {
 
 		String s4 = "structure_block.mode_info." + tileentitystructure$mode.getName();
 		drawString(fontRenderer, I18n.format(s4), width / 2 - 153, 174, 10526880);
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 
 	/**

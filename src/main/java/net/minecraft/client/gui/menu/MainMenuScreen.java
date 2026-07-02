@@ -3,6 +3,7 @@ package net.minecraft.client.gui.menu;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.Runnables;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.LanguageButton;
@@ -156,7 +157,7 @@ public class MainMenuScreen extends Screen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		int j = width / 2 - 137;
 		mc.getTextureManager().bindTexture(MINECRAFT_TITLE_TEXTURES);
@@ -194,7 +195,7 @@ public class MainMenuScreen extends Screen {
 			drawRect(widthCopyrightRest, height - 1, widthCopyrightRest + widthCopyright, height, -1);
 		}
 
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 
 	/**

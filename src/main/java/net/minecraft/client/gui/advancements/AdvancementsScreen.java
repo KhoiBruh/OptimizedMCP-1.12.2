@@ -3,6 +3,7 @@ package net.minecraft.client.gui.advancements;
 import com.google.common.collect.Maps;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.multiplayer.ClientAdvancementManager;
 import net.minecraft.client.network.NetHandlerPlayClient;
@@ -94,7 +95,7 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		int i = (width - 252) / 2;
 		int j = (height - 140) / 2;
 

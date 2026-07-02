@@ -2,6 +2,7 @@ package net.minecraft.client.gui.menu;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.Button;
@@ -152,14 +153,14 @@ public class CreateFlatWorldScreen extends Screen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		createFlatWorldListSlotGui.drawScreen(mouseX, mouseY, partialTicks);
 		drawCenteredString(fontRenderer, flatWorldTitle, width / 2, 8, 16777215);
 		int i = width / 2 - 92 - 16;
 		drawString(fontRenderer, materialText, i, 32, 16777215);
 		drawString(fontRenderer, heightText, i + 2 + 213 - fontRenderer.getWidth(heightText), 32, 16777215);
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 
 	class Details extends GuiSlot {

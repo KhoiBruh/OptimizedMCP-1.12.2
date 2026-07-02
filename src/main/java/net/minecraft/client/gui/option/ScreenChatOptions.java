@@ -1,5 +1,6 @@
 package net.minecraft.client.gui.option;
 
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.OptionButton;
@@ -75,10 +76,10 @@ public class ScreenChatOptions extends Screen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, chatTitle, width / 2, 20, 16777215);
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 
 }

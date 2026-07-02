@@ -1,5 +1,6 @@
 package net.minecraft.client.gui.menu;
 
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.GuiYesNoCallback;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.resources.I18n;
@@ -60,8 +61,8 @@ public class ConfirmOpenLinkScreen extends YesNoScreen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
-		super.draw(mouseX, mouseY, partialTicks);
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
+		super.draw(context, mouseX, mouseY, partialTicks);
 
 		if (showSecurityWarning) {
 			drawCenteredString(fontRenderer, openLinkWarning, width / 2, 110, 16764108);

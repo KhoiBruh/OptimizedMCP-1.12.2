@@ -10,12 +10,14 @@ import com.mojang.authlib.GameProfileRepository;
 import com.mojang.authlib.minecraft.MinecraftSessionService;
 import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
+import lombok.Getter;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.audio.MusicTicker;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.advancements.AdvancementsScreen;
@@ -163,6 +165,9 @@ public class Minecraft implements IThreadListener {
 	private final int tempDisplayWidth;
 	private final Timer timer = new Timer(20F);
 	private final GuiToast toastGui;
+
+	@Getter
+	private DrawContext drawContext;
 
 	// Public instance fields
 	public CreativeSettings creativeSettings;
@@ -395,7 +400,7 @@ public class Minecraft implements IThreadListener {
 		resourceManager.registerReloadListener(soundHandler);
 		musicTicker = new MusicTicker(this);
 
-
+		drawContext = new DrawContext();
 
 		fontRenderer = new FontRenderer(new ResourceLocation("textures/font/ascii.png"), renderEngine, false);
 
@@ -803,6 +808,7 @@ public class Minecraft implements IThreadListener {
 
 			soundHandler.unloadSounds();
 		} finally {
+			drawContext.close();
 			window.destroy();
 
 			if (!crashed) {

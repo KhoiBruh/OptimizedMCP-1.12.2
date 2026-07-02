@@ -1,6 +1,7 @@
 package net.minecraft.client.gui.game;
 
 import com.google.common.collect.Lists;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -170,7 +171,7 @@ public class WinGameScreen extends Screen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawWinGameScreen(mouseX, mouseY, partialTicks);
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
@@ -227,7 +228,7 @@ public class WinGameScreen extends Screen {
 		bufferbuilder.pos(0D, 0D, zLevel).tex(0D, 0D).color(1F, 1F, 1F, 1F).endVertex();
 		tessellator.draw();
 		GLS.disableBlend();
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 
 }

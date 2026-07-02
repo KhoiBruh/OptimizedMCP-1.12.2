@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.gson.JsonParseException;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.GuiUtilRenderComponents;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.Button;
@@ -346,7 +347,7 @@ public class BookScreen extends Screen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		GLS.color(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindTexture(BOOK_GUI_TEXTURES);
 		int i = (width - 192) / 2;
@@ -427,7 +428,7 @@ public class BookScreen extends Screen {
 			}
 		}
 
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 
 	/**

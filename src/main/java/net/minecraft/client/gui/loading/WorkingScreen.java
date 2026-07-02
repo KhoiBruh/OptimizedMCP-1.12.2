@@ -1,5 +1,6 @@
 package net.minecraft.client.gui.loading;
 
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.util.IProgressUpdate;
 
@@ -48,14 +49,14 @@ public class WorkingScreen extends Screen implements IProgressUpdate {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		if (doneWorking) {
 			mc.displayScreen(null);
 		} else {
 			drawDefaultBackground();
 			drawCenteredString(fontRenderer, title, width / 2, 70, 16777215);
 			drawCenteredString(fontRenderer, stage + " " + progress + "%", width / 2, 90, 16777215);
-			super.draw(mouseX, mouseY, partialTicks);
+			super.draw(context, mouseX, mouseY, partialTicks);
 		}
 	}
 

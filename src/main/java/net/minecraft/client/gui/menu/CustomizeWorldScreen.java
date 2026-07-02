@@ -2,6 +2,7 @@ package net.minecraft.client.gui.menu;
 
 import com.google.common.base.Predicate;
 import com.google.common.primitives.Floats;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.*;
@@ -893,13 +894,13 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		list.drawScreen(mouseX, mouseY, partialTicks);
 		drawCenteredString(fontRenderer, title, width / 2, 2, 16777215);
 		drawCenteredString(fontRenderer, subtitle, width / 2, 12, 16777215);
 		drawCenteredString(fontRenderer, pageTitle, width / 2, 22, 16777215);
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 
 		if (confirmMode != 0) {
 			drawRect(0, 0, width, height, Integer.MIN_VALUE);

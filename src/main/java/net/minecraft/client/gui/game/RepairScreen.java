@@ -2,6 +2,7 @@ package net.minecraft.client.gui.game;
 
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.component.GuiTextField;
 import net.minecraft.client.gui.inventory.ContainerScreen;
 import net.minecraft.client.renderer.GLS;
@@ -137,9 +138,9 @@ public class RepairScreen extends ContainerScreen implements IContainerListener 
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 		renderHoveredToolTip(mouseX, mouseY);
 		GLS.disableLighting();
 		GLS.disableBlend();

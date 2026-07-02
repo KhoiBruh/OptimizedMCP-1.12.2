@@ -1,5 +1,6 @@
 package net.minecraft.client.gui.game;
 
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.resources.I18n;
@@ -51,7 +52,7 @@ public class DisconnectedScreen extends Screen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, reason, width / 2, height / 2 - textHeight / 2 - fontRenderer.FONT_HEIGHT * 2, 11184810);
 		int i = height / 2 - textHeight / 2;
@@ -63,7 +64,7 @@ public class DisconnectedScreen extends Screen {
 			}
 		}
 
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 
 }

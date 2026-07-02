@@ -1,5 +1,6 @@
 package net.minecraft.client.gui.game;
 
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.GuiUtilRenderComponents;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.Button;
@@ -92,7 +93,7 @@ public class GameOverScreen extends Screen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		boolean flag = mc.world.getWorldInfo().isHardcoreModeEnabled();
 		drawGradientRect(0, 0, width, height, 1615855616, -1602211792);
 		GLS.pushMatrix();
@@ -114,7 +115,7 @@ public class GameOverScreen extends Screen {
 			}
 		}
 
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 
 	public ITextComponent getClickedComponentAt(int p_184870_1_) {

@@ -2,6 +2,7 @@ package net.minecraft.client.gui.inventory;
 
 import com.google.common.collect.Sets;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -105,7 +106,7 @@ public abstract class ContainerScreen extends Screen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		int i = guiLeft;
 		int j = guiTop;
 		drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
@@ -113,7 +114,7 @@ public abstract class ContainerScreen extends Screen {
 		RenderHelper.disableStandardItemLighting();
 		GLS.disableLighting();
 		GLS.disableDepth();
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 		RenderHelper.enableGUIStandardItemLighting();
 		GLS.pushMatrix();
 		GLS.translate((float) i, (float) j, 0F);

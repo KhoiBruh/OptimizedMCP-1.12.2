@@ -1,6 +1,7 @@
 package net.minecraft.client.gui.inventory;
 
 import io.netty.buffer.Unpooled;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.GuiTextField;
@@ -139,7 +140,7 @@ public class EditCommandBlockMinecartScreen extends Screen implements ITabComple
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, I18n.format("advMode.setCommand"), width / 2, 20, 16777215);
 		drawString(fontRenderer, I18n.format("advMode.command"), width / 2 - 150, 40, 10526880);
@@ -158,7 +159,7 @@ public class EditCommandBlockMinecartScreen extends Screen implements ITabComple
 			previousEdit.drawTextBox();
 		}
 
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 
 	private void updateCommandOutput() {

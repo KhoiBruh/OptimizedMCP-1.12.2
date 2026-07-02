@@ -2,6 +2,7 @@ package net.minecraft.client.gui.menu;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.GuiListExtended;
@@ -456,12 +457,12 @@ public class MultiplayerScreen extends Screen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		hoveringText = null;
 		serverListSelector.drawScreen(mouseX, mouseY, partialTicks);
 		drawCenteredString(fontRenderer, I18n.format("multiplayer.title"), width / 2, 20, 16777215);
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 
 		if (hoveringText != null) {
 			drawHoveringText(Lists.newArrayList(Splitter.on("\n").split(hoveringText)), mouseX, mouseY);

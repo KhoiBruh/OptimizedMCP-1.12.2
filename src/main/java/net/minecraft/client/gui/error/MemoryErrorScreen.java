@@ -1,5 +1,6 @@
 package net.minecraft.client.gui.error;
 
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.OptionButton;
@@ -39,7 +40,7 @@ public class MemoryErrorScreen extends Screen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, "Out of memory!", width / 2, height / 4 - 60 + 20, 16777215);
 		drawString(fontRenderer, "Minecraft has run out of memory.", width / 2 - 140, height / 4 - 60 + 60, 10526880);
@@ -50,7 +51,7 @@ public class MemoryErrorScreen extends Screen {
 		drawString(fontRenderer, "We've tried to free up enough memory to let you go back to", width / 2 - 140, height / 4 - 60 + 60 + 63, 10526880);
 		drawString(fontRenderer, "the main menu and back to playing, but this may not have worked.", width / 2 - 140, height / 4 - 60 + 60 + 72, 10526880);
 		drawString(fontRenderer, "Please restart the game if you see this message again.", width / 2 - 140, height / 4 - 60 + 60 + 81, 10526880);
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 
 }

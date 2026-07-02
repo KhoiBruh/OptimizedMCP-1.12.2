@@ -1,6 +1,7 @@
 package net.minecraft.client.gui.game;
 
 import com.google.common.collect.Lists;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.ContainerScreen;
 import net.minecraft.client.model.ModelBook;
@@ -218,10 +219,10 @@ public class EnchantScreen extends ContainerScreen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		partialTicks = mc.getTickLength();
 		drawDefaultBackground();
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 		renderHoveredToolTip(mouseX, mouseY);
 		boolean flag = mc.player.capabilities.isCreativeMode;
 		int i = container.getLapisAmount();

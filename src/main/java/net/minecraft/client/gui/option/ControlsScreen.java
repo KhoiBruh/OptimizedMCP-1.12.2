@@ -1,6 +1,7 @@
 package net.minecraft.client.gui.option;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.OptionButton;
@@ -132,7 +133,7 @@ public class ControlsScreen extends Screen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		keyBindingList.drawScreen(mouseX, mouseY, partialTicks);
 		drawCenteredString(fontRenderer, screenTitle, width / 2, 8, 16777215);
@@ -146,7 +147,7 @@ public class ControlsScreen extends Screen {
 		}
 
 		buttonReset.enabled = flag;
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 
 }

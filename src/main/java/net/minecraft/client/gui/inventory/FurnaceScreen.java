@@ -1,5 +1,6 @@
 package net.minecraft.client.gui.inventory;
 
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ContainerFurnace;
@@ -26,9 +27,9 @@ public class FurnaceScreen extends ContainerScreen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 		renderHoveredToolTip(mouseX, mouseY);
 	}
 

@@ -1,5 +1,6 @@
 package net.minecraft.client.gui.menu;
 
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.GuiTextField;
@@ -103,12 +104,12 @@ public class WorldEditScreen extends Screen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, I18n.format("selectWorld.edit.title"), width / 2, 20, 16777215);
 		drawString(fontRenderer, I18n.format("selectWorld.enterName"), width / 2 - 100, 47, 10526880);
 		nameEdit.drawTextBox();
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 
 }

@@ -1,6 +1,7 @@
 package net.minecraft.client.gui.menu;
 
 import com.google.common.collect.Lists;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.GuiYesNoCallback;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.Button;
@@ -69,7 +70,7 @@ public class YesNoScreen extends Screen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		drawCenteredString(fontRenderer, messageLine1, width / 2, 70, 16777215);
 		int i = 90;
@@ -79,7 +80,7 @@ public class YesNoScreen extends Screen {
 			i += fontRenderer.FONT_HEIGHT;
 		}
 
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 
 	/**

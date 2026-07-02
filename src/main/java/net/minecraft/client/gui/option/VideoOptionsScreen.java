@@ -1,10 +1,10 @@
 package net.minecraft.client.gui.option;
 
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.component.Button;
 import net.minecraft.client.gui.component.GuiListExtended;
 import net.minecraft.client.gui.component.GuiOptionsRowList;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 
@@ -112,11 +112,11 @@ public class VideoOptionsScreen extends Screen {
 	/**
 	 * Draws the screen and all the components in it.
 	 */
-	public void draw(int mouseX, int mouseY, float partialTicks) {
+	public void draw(DrawContext context, int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		optionsRowList.drawScreen(mouseX, mouseY, partialTicks);
 		drawCenteredString(fontRenderer, screenTitle, width / 2, 5, 16777215);
-		super.draw(mouseX, mouseY, partialTicks);
+		super.draw(context, mouseX, mouseY, partialTicks);
 	}
 
 }
