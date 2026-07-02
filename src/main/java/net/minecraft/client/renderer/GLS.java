@@ -416,88 +416,88 @@ public class GLS {
 
 	public static void enableTexGenCoord(GLS.TexGen texGen) {
 		switch (texGen) {
-			case S:
+			case S -> {
 				if (!texGenS) {
 					texGenS = true;
 					GL11.glEnable(GL11.GL_TEXTURE_GEN_S);
 				}
-				break;
-			case T:
+			}
+			case T -> {
 				if (!texGenT) {
 					texGenT = true;
 					GL11.glEnable(GL11.GL_TEXTURE_GEN_T);
 				}
-				break;
-			case R:
+			}
+			case R -> {
 				if (!texGenR) {
 					texGenR = true;
 					GL11.glEnable(GL11.GL_TEXTURE_GEN_R);
 				}
-				break;
-			case Q:
+			}
+			case Q -> {
 				if (!texGenQ) {
 					texGenQ = true;
 					GL11.glEnable(GL11.GL_TEXTURE_GEN_Q);
 				}
-				break;
+			}
 		}
 	}
 
 	public static void disableTexGenCoord(GLS.TexGen texGen) {
 		switch (texGen) {
-			case S:
+			case S -> {
 				if (texGenS) {
 					texGenS = false;
 					GL11.glDisable(GL11.GL_TEXTURE_GEN_S);
 				}
-				break;
-			case T:
+			}
+			case T -> {
 				if (texGenT) {
 					texGenT = false;
 					GL11.glDisable(GL11.GL_TEXTURE_GEN_T);
 				}
-				break;
-			case R:
+			}
+			case R -> {
 				if (texGenR) {
 					texGenR = false;
 					GL11.glDisable(GL11.GL_TEXTURE_GEN_R);
 				}
-				break;
-			case Q:
+			}
+			case Q -> {
 				if (texGenQ) {
 					texGenQ = false;
 					GL11.glDisable(GL11.GL_TEXTURE_GEN_Q);
 				}
-				break;
+			}
 		}
 	}
 
 	public static void texGen(GLS.TexGen texGen, int param) {
 		switch (texGen) {
-			case S:
+			case S -> {
 				if (param != texGenSMode) {
 					texGenSMode = param;
 					GL11.glTexGeni(GL11.GL_TEXTURE_GEN_S, GL11.GL_TEXTURE_GEN_MODE, param);
 				}
-				break;
-			case T:
+			}
+			case T -> {
 				if (param != texGenTMode) {
 					texGenTMode = param;
 					GL11.glTexGeni(GL11.GL_TEXTURE_GEN_T, GL11.GL_TEXTURE_GEN_MODE, param);
 				}
-				break;
-			case R:
+			}
+			case R -> {
 				if (param != texGenRMode) {
 					texGenRMode = param;
 					GL11.glTexGeni(GL11.GL_TEXTURE_GEN_R, GL11.GL_TEXTURE_GEN_MODE, param);
 				}
-				break;
-			case Q:
+			}
+			case Q -> {
 				if (param != texGenQMode) {
 					texGenQMode = param;
 					GL11.glTexGeni(GL11.GL_TEXTURE_GEN_Q, GL11.GL_TEXTURE_GEN_MODE, param);
 				}
-				break;
+			}
 		}
 	}
 
@@ -588,7 +588,7 @@ public class GLS {
 		GL11.glCopyTexSubImage2D(target, level, xOffset, yOffset, x, y, width, height);
 	}
 
-	public static void getTexImage(int target, int level, int format, int type, IntBuffer pixels) {
+	public static void getTexImage(int target, int level, int format, int type, ByteBuffer pixels) {
 		GL11.glGetTexImage(target, level, format, type, pixels);
 	}
 
@@ -849,10 +849,6 @@ public class GLS {
 
 	public static void pixelStorei(int name, int param) {
 		GL11.glPixelStorei(name, param);
-	}
-
-	public static void readPixels(int x, int y, int width, int height, int format, int type, IntBuffer pixels) {
-		GL11.glReadPixels(x, y, width, height, format, type, pixels);
 	}
 
 	public static int getError() {

@@ -80,7 +80,7 @@ public class ScreenShotHelper {
 		GLS.pixelStorei(3317, 1);
 
 		GLS.bindTexture(framebuffer.texture);
-		GL11.glGetTexImage(3553, 0, 6408, 5121, nativeImage.getBuffer());
+		GLS.getTexImage(3553, 0, 6408, 5121, nativeImage.getBuffer());
 
 		nativeImage.flipVertically();
 		return nativeImage;
