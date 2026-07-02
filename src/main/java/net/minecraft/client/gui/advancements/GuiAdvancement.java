@@ -151,7 +151,7 @@ public class GuiAdvancement extends Gui {
 			                                                                       .getIcon(), 128 + advancementstate.getId() * 26, 26, 26);
 			RenderHelper.enableGUIStandardItemLighting();
 			minecraft.getRenderItem()
-			         .renderItemAndEffectIntoGUI(null, displayInfo.getIcon(), p_191817_1_ + x + 8, p_191817_2_ + y + 5);
+			         .renderItemAndEffectIntoGUI(minecraft.getDrawContext(), null, displayInfo.getIcon(), p_191817_1_ + x + 8, p_191817_2_ + y + 5);
 		}
 
 		for (GuiAdvancement guiadvancement : children) {
@@ -253,7 +253,7 @@ public class GuiAdvancement extends Gui {
 
 		RenderHelper.enableGUIStandardItemLighting();
 		minecraft.getRenderItem()
-		         .renderItemAndEffectIntoGUI(null, displayInfo.getIcon(), p_191821_1_ + x + 8, p_191821_2_ + y + 5);
+		         .renderItemAndEffectIntoGUI(minecraft.getDrawContext(), null, displayInfo.getIcon(), p_191821_1_ + x + 8, p_191821_2_ + y + 5);
 	}
 
 	protected void render9Sprite(int p_192994_1_, int p_192994_2_, int p_192994_3_, int p_192994_4_, int p_192994_5_, int p_192994_6_, int p_192994_7_, int p_192994_8_, int p_192994_9_) {

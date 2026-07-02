@@ -93,11 +93,11 @@ public class RecipeButton extends Button {
 			int k = 4;
 
 			if (this.list.hasSingleResultItem() && getOrderedRecipes().size() > 1) {
-				mc.getRenderItem().renderItemAndEffectIntoGUI(itemstack, x + k + 1, y + k + 1);
+				mc.getRenderItem().renderItemAndEffectIntoGUI(mc.getDrawContext(), itemstack, x + k + 1, y + k + 1);
 				--k;
 			}
 
-			mc.getRenderItem().renderItemAndEffectIntoGUI(itemstack, x + k, y + k);
+			mc.getRenderItem().renderItemAndEffectIntoGUI(mc.getDrawContext(), itemstack, x + k, y + k);
 
 			if (flag) {
 				GLS.popMatrix();

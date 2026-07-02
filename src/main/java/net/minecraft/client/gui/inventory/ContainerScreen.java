@@ -130,7 +130,7 @@ public abstract class ContainerScreen extends Screen {
 			Slot slot = inventorySlots.inventorySlots.get(i1);
 
 			if (slot.isEnabled()) {
-				drawSlot(slot);
+				drawSlot(context, slot);
 			}
 
 			if (isMouseOverSlot(slot, mouseX, mouseY) && slot.isEnabled()) {
@@ -170,7 +170,7 @@ public abstract class ContainerScreen extends Screen {
 				}
 			}
 
-			drawItemStack(itemstack, mouseX - i - 8, mouseY - j - k2, s);
+			drawItemStack(context, itemstack, mouseX - i - 8, mouseY - j - k2, s);
 		}
 
 		if (!returningStack.isEmpty()) {
@@ -185,7 +185,7 @@ public abstract class ContainerScreen extends Screen {
 			int i3 = returningStackDestSlot.yPos - touchUpY;
 			int l1 = touchUpX + (int) ((float) l2 * f);
 			int i2 = touchUpY + (int) ((float) i3 * f);
-			drawItemStack(returningStack, l1, i2, null);
+			drawItemStack(context, returningStack, l1, i2, null);
 		}
 
 		GLS.popMatrix();
@@ -205,12 +205,12 @@ public abstract class ContainerScreen extends Screen {
 	 * <p>
 	 * The z index is increased by 32 (and not decreased afterwards), and the item is then rendered at z=200.
 	 */
-	private void drawItemStack(ItemStack stack, int x, int y, String altText) {
+	private void drawItemStack(DrawContext context, ItemStack stack, int x, int y, String altText) {
 		GLS.translate(0F, 0F, 32F);
 		zLevel = 200F;
 		itemRender.zLevel = 200F;
-		itemRender.renderItemAndEffectIntoGUI(stack, x, y);
-		itemRender.renderItemOverlayIntoGUI(fontRenderer, stack, x, y - (draggedStack.isEmpty() ? 0 : 8), altText);
+		itemRender.renderItemAndEffectIntoGUI(context, stack, x, y);
+		itemRender.renderItemOverlayIntoGUI(context, fontRenderer, stack, x, y - (draggedStack.isEmpty() ? 0 : 8), altText);
 		zLevel = 0F;
 		itemRender.zLevel = 0F;
 	}
@@ -229,7 +229,7 @@ public abstract class ContainerScreen extends Screen {
 	/**
 	 * Draws the given slot: any item in it, the slot's background, the hovered highlight, etc.
 	 */
-	private void drawSlot(Slot slotIn) {
+	private void drawSlot(DrawContext context, Slot slotIn) {
 		int i = slotIn.xPos;
 		int j = slotIn.yPos;
 		ItemStack itemstack = slotIn.getStack();
@@ -274,7 +274,7 @@ public abstract class ContainerScreen extends Screen {
 				TextureAtlasSprite textureatlassprite = mc.getBlockTextures().getAtlasSprite(s1);
 				GLS.disableLighting();
 				mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-				mc.getDrawContext().blit(i, j, textureatlassprite, 16, 16);
+				context.blit(i, j, textureatlassprite, 16, 16);
 				GLS.enableLighting();
 				flag1 = true;
 			}
@@ -282,12 +282,12 @@ public abstract class ContainerScreen extends Screen {
 
 		if (!flag1) {
 			if (flag) {
-				mc.getDrawContext().fill(i, j, i + 16, j + 16, -2130706433);
+				context.fill(i, j, i + 16, j + 16, -2130706433);
 			}
 
 			GLS.enableDepth();
-			itemRender.renderItemAndEffectIntoGUI(mc.player, itemstack, i, j);
-			itemRender.renderItemOverlayIntoGUI(fontRenderer, itemstack, i, j, s);
+			itemRender.renderItemAndEffectIntoGUI(context, mc.player, itemstack, i, j);
+			itemRender.renderItemOverlayIntoGUI(context, fontRenderer, itemstack, i, j, s);
 		}
 
 		itemRender.zLevel = 0F;

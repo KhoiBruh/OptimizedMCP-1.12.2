@@ -1,5 +1,6 @@
 package net.minecraft.client.gui.advancements;
 
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.item.ItemStack;
@@ -55,7 +56,7 @@ enum AdvancementTabType {
 		guiIn.drawTexturedModalRect(x + getX(p_192651_5_), y + getY(p_192651_5_), i, j, width, height);
 	}
 
-	public void drawIcon(int p_192652_1_, int p_192652_2_, int p_192652_3_, RenderItem renderItemIn, ItemStack stack) {
+	public void drawIcon(DrawContext context, int p_192652_1_, int p_192652_2_, int p_192652_3_, RenderItem renderItemIn, ItemStack stack) {
 		int i = p_192652_1_ + getX(p_192652_3_);
 		int j = p_192652_2_ + getY(p_192652_3_);
 
@@ -80,7 +81,7 @@ enum AdvancementTabType {
 				j += 5;
 		}
 
-		renderItemIn.renderItemAndEffectIntoGUI(null, stack, i, j);
+		renderItemIn.renderItemAndEffectIntoGUI(context, null, stack, i, j);
 	}
 
 	public int getX(int p_192648_1_) {

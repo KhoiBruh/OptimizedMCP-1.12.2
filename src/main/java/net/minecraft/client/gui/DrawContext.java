@@ -64,8 +64,10 @@ public class DrawContext implements AutoCloseable {
 	public void flush() {
 		if (vertecies == 0) return;
 
+		boolean disabledTexture = false;
 		if (currentMode == BatchMode.COLOR) {
 			GLS.disableTexture2D();
+			disabledTexture = true;
 			GLS.enableBlend();
 			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 		} else if (currentMode == BatchMode.TEXTURE) {
@@ -77,7 +79,7 @@ public class DrawContext implements AutoCloseable {
 
 		floatBuffer.flip();
 		GLS.bindBuffer(GLS.GL_ARRAY_BUFFER, vbo);
-		
+
 		byteBuffer.limit(floatBuffer.limit() * 4);
 		byteBuffer.position(0);
 		GLS.bufferSubData(GLS.GL_ARRAY_BUFFER, 0, byteBuffer);
@@ -97,6 +99,11 @@ public class DrawContext implements AutoCloseable {
 		GLS.disableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
 
 		GLS.bindBuffer(GLS.GL_ARRAY_BUFFER, 0);
+
+		if (disabledTexture) {
+			GLS.enableTexture2D();
+			GLS.disableBlend();
+		}
 
 		floatBuffer.clear();
 		byteBuffer.clear();

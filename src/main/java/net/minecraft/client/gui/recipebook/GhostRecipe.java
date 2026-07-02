@@ -69,13 +69,13 @@ public class GhostRecipe {
 			GLS.disableLighting();
 			ItemStack itemstack = ghostrecipe$ghostingredient.getItem();
 			RenderItem renderitem = p_194188_1_.getRenderItem();
-			renderitem.renderItemAndEffectIntoGUI(p_194188_1_.player, itemstack, j, k);
+			renderitem.renderItemAndEffectIntoGUI(p_194188_1_.getDrawContext(), p_194188_1_.player, itemstack, j, k);
 			GLS.depthFunc(516);
 			Gui.drawRect(j, k, j + 16, k + 16, 822083583);
 			GLS.depthFunc(515);
 
 			if (i == 0) {
-				renderitem.renderItemOverlays(p_194188_1_.fontRenderer, itemstack, j, k);
+				renderitem.renderItemOverlays(p_194188_1_.getDrawContext(), p_194188_1_.fontRenderer, itemstack, j, k);
 			}
 
 			GLS.enableLighting();

@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderItem;
@@ -77,8 +78,8 @@ public class GuiAdvancementTab extends Gui {
 		type.draw(this, p_191798_1_, p_191798_2_, p_191798_3_, index);
 	}
 
-	public void drawIcon(int p_191796_1_, int p_191796_2_, RenderItem p_191796_3_) {
-		type.drawIcon(p_191796_1_, p_191796_2_, index, p_191796_3_, icon);
+	public void drawIcon(DrawContext context, int p_191796_1_, int p_191796_2_, RenderItem p_191796_3_) {
+		type.drawIcon(context, p_191796_1_, p_191796_2_, index, p_191796_3_, icon);
 	}
 
 	public void drawContents() {

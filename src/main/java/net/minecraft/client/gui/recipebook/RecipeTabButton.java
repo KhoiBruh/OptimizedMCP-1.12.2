@@ -1,6 +1,7 @@
 package net.minecraft.client.gui.recipebook;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.component.ToggleButton;
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
@@ -87,7 +88,7 @@ public class RecipeTabButton extends ToggleButton {
 			GLS.enableDepth();
 			RenderHelper.enableGUIStandardItemLighting();
 			GLS.disableLighting();
-			renderIcon(mc.getRenderItem());
+			renderIcon(mc.getDrawContext(), mc.getRenderItem());
 			GLS.enableLighting();
 			RenderHelper.disableStandardItemLighting();
 
@@ -98,17 +99,17 @@ public class RecipeTabButton extends ToggleButton {
 		}
 	}
 
-	private void renderIcon(RenderItem p_193920_1_) {
+	private void renderIcon(DrawContext context, RenderItem p_193920_1_) {
 		ItemStack itemstack = category.getIconItemStack();
 
 		if (category == CreativeTabs.TOOLS) {
-			p_193920_1_.renderItemAndEffectIntoGUI(itemstack, x + 3, y + 5);
-			p_193920_1_.renderItemAndEffectIntoGUI(CreativeTabs.COMBAT.getIconItemStack(), x + 14, y + 5);
+			p_193920_1_.renderItemAndEffectIntoGUI(context, itemstack, x + 3, y + 5);
+			p_193920_1_.renderItemAndEffectIntoGUI(context, CreativeTabs.COMBAT.getIconItemStack(), x + 14, y + 5);
 		} else if (category == CreativeTabs.MISC) {
-			p_193920_1_.renderItemAndEffectIntoGUI(itemstack, x + 3, y + 5);
-			p_193920_1_.renderItemAndEffectIntoGUI(CreativeTabs.FOOD.getIconItemStack(), x + 14, y + 5);
+			p_193920_1_.renderItemAndEffectIntoGUI(context, itemstack, x + 3, y + 5);
+			p_193920_1_.renderItemAndEffectIntoGUI(context, CreativeTabs.FOOD.getIconItemStack(), x + 14, y + 5);
 		} else {
-			p_193920_1_.renderItemAndEffectIntoGUI(itemstack, x + 9, y + 5);
+			p_193920_1_.renderItemAndEffectIntoGUI(context, itemstack, x + 9, y + 5);
 		}
 	}
 

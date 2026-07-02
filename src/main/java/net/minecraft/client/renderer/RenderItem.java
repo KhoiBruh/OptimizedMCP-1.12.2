@@ -2,6 +2,7 @@ package net.minecraft.client.renderer;
 
 import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.block.model.*;
@@ -279,12 +280,13 @@ public class RenderItem implements IResourceManagerReloadListener {
 		}
 	}
 
-	public void renderItemAndEffectIntoGUI(ItemStack stack, int xPosition, int yPosition) {
-		renderItemAndEffectIntoGUI(Minecraft.getMinecraft().player, stack, xPosition, yPosition);
+	public void renderItemAndEffectIntoGUI(DrawContext context, ItemStack stack, int xPosition, int yPosition) {
+		renderItemAndEffectIntoGUI(context, Minecraft.getMinecraft().player, stack, xPosition, yPosition);
 	}
 
-	public void renderItemAndEffectIntoGUI(EntityLivingBase p_184391_1_, ItemStack p_184391_2_, int p_184391_3_, int p_184391_4_) {
+	public void renderItemAndEffectIntoGUI(DrawContext context, EntityLivingBase p_184391_1_, ItemStack p_184391_2_, int p_184391_3_, int p_184391_4_) {
 		if (!p_184391_2_.isEmpty()) {
+			context.flush();
 			zLevel += 50F;
 
 			try {
@@ -303,21 +305,21 @@ public class RenderItem implements IResourceManagerReloadListener {
 		}
 	}
 
-	public void renderItemOverlays(FontRenderer fr, ItemStack stack, int xPosition, int yPosition) {
-		renderItemOverlayIntoGUI(fr, stack, xPosition, yPosition, null);
+	public void renderItemOverlays(DrawContext context, FontRenderer fr, ItemStack stack, int xPosition, int yPosition) {
+		renderItemOverlayIntoGUI(context, fr, stack, xPosition, yPosition, null);
 	}
 
 	/**
 	 * Renders the stack size and/or damage bar for the given ItemStack.
 	 */
-	public void renderItemOverlayIntoGUI(FontRenderer fr, ItemStack stack, int xPosition, int yPosition, String text) {
+	public void renderItemOverlayIntoGUI(DrawContext context, FontRenderer fr, ItemStack stack, int xPosition, int yPosition, String text) {
 		if (!stack.isEmpty()) {
 			if (stack.getCount() != 1 || text != null) {
 				String s = text == null ? String.valueOf(stack.getCount()) : text;
 				GLS.disableLighting();
 				GLS.disableDepth();
 				GLS.disableBlend();
-				fr.drawShadowText(s, (float) (xPosition + 19 - 2 - fr.getWidth(s)), (float) (yPosition + 6 + 3), 16777215);
+				context.drawString(fr, s, xPosition + 19 - 2 - fr.getWidth(s), yPosition + 6 + 3, 16777215);
 				GLS.enableLighting();
 				GLS.enableDepth();
 			}
@@ -328,15 +330,13 @@ public class RenderItem implements IResourceManagerReloadListener {
 				GLS.disableTexture2D();
 				GLS.disableAlpha();
 				GLS.disableBlend();
-				Tessellator tessellator = Tessellator.getInstance();
-				BufferBuilder bufferbuilder = tessellator.getBuffer();
 				float f = (float) stack.getItemDamage();
 				float f1 = (float) stack.getMaxDamage();
 				float f2 = Math.max(0F, (f1 - f) / f1);
 				int i = Math.round(13F - f * 13F / f1);
 				int j = Maths.hsvToRGB(f2 / 3F, 1F, 1F);
-				draw(bufferbuilder, xPosition + 2, yPosition + 13, 13, 2, 0, 0, 0, 255);
-				draw(bufferbuilder, xPosition + 2, yPosition + 13, i, 1, j >> 16 & 255, j >> 8 & 255, j & 255, 255);
+				context.fill(xPosition + 2, yPosition + 13, xPosition + 2 + 13, yPosition + 13 + 2, 255 << 24);
+				context.fill(xPosition + 2, yPosition + 13, xPosition + 2 + i, yPosition + 13 + 1, 255 << 24 | j);
 				GLS.enableBlend();
 				GLS.enableAlpha();
 				GLS.enableTexture2D();
@@ -353,26 +353,12 @@ public class RenderItem implements IResourceManagerReloadListener {
 				GLS.disableLighting();
 				GLS.disableDepth();
 				GLS.disableTexture2D();
-				Tessellator tessellator1 = Tessellator.getInstance();
-				BufferBuilder bufferbuilder1 = tessellator1.getBuffer();
-				draw(bufferbuilder1, xPosition, yPosition + Maths.floor(16F * (1F - f3)), 16, Maths.ceil(16F * f3), 255, 255, 255, 127);
+				context.fill(xPosition, yPosition + Maths.floor(16F * (1F - f3)), xPosition + 16, yPosition + Maths.floor(16F * (1F - f3)) + Maths.ceil(16F * f3), 127 << 24 | 0xFFFFFF);
 				GLS.enableTexture2D();
 				GLS.enableLighting();
 				GLS.enableDepth();
 			}
 		}
-	}
-
-	/**
-	 * Draw with the WorldRenderer
-	 */
-	private void draw(BufferBuilder renderer, int x, int y, int width, int height, int red, int green, int blue, int alpha) {
-		renderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-		renderer.pos(x, y, 0D).color(red, green, blue, alpha).endVertex();
-		renderer.pos(x, y + height, 0D).color(red, green, blue, alpha).endVertex();
-		renderer.pos(x + width, y + height, 0D).color(red, green, blue, alpha).endVertex();
-		renderer.pos(x + width, y, 0D).color(red, green, blue, alpha).endVertex();
-		Tessellator.getInstance().draw();
 	}
 
 	private void registerItems() {

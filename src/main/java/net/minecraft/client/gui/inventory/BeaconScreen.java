@@ -177,10 +177,10 @@ public class BeaconScreen extends ContainerScreen {
 		int j = (height - ySize) / 2;
 		mc.getDrawContext().blit(i, j, 0, 0, xSize, ySize);
 		itemRender.zLevel = 100F;
-		itemRender.renderItemAndEffectIntoGUI(new ItemStack(Items.EMERALD), i + 42, j + 109);
-		itemRender.renderItemAndEffectIntoGUI(new ItemStack(Items.DIAMOND), i + 42 + 22, j + 109);
-		itemRender.renderItemAndEffectIntoGUI(new ItemStack(Items.GOLD_INGOT), i + 42 + 44, j + 109);
-		itemRender.renderItemAndEffectIntoGUI(new ItemStack(Items.IRON_INGOT), i + 42 + 66, j + 109);
+		itemRender.renderItemAndEffectIntoGUI(mc.getDrawContext(), new ItemStack(Items.EMERALD), i + 42, j + 109);
+		itemRender.renderItemAndEffectIntoGUI(mc.getDrawContext(), new ItemStack(Items.DIAMOND), i + 42 + 22, j + 109);
+		itemRender.renderItemAndEffectIntoGUI(mc.getDrawContext(), new ItemStack(Items.GOLD_INGOT), i + 42 + 44, j + 109);
+		itemRender.renderItemAndEffectIntoGUI(mc.getDrawContext(), new ItemStack(Items.IRON_INGOT), i + 42 + 66, j + 109);
 		itemRender.zLevel = 0F;
 	}
 

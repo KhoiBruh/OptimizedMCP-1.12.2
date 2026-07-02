@@ -64,7 +64,7 @@ public class AdvancementToast implements IToast {
 			}
 
 			RenderHelper.enableGUIStandardItemLighting();
-			toastGui.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(null, displayinfo.getIcon(), 8, 8);
+			toastGui.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(toastGui.getMinecraft().getDrawContext(), null, displayinfo.getIcon(), 8, 8);
 			return delta >= 5000L ? IToast.Visibility.HIDE : IToast.Visibility.SHOW;
 		} else {
 			return IToast.Visibility.HIDE;

@@ -180,16 +180,16 @@ public class MerchantScreen extends ContainerScreen {
 			GLS.enableColorMaterial();
 			GLS.enableLighting();
 			itemRender.zLevel = 100F;
-			itemRender.renderItemAndEffectIntoGUI(itemstack, i + 36, j + 24);
-			itemRender.renderItemOverlays(fontRenderer, itemstack, i + 36, j + 24);
+			itemRender.renderItemAndEffectIntoGUI(mc.getDrawContext(), itemstack, i + 36, j + 24);
+			itemRender.renderItemOverlays(mc.getDrawContext(), fontRenderer, itemstack, i + 36, j + 24);
 
 			if (!itemstack1.isEmpty()) {
-				itemRender.renderItemAndEffectIntoGUI(itemstack1, i + 62, j + 24);
-				itemRender.renderItemOverlays(fontRenderer, itemstack1, i + 62, j + 24);
+				itemRender.renderItemAndEffectIntoGUI(mc.getDrawContext(), itemstack1, i + 62, j + 24);
+				itemRender.renderItemOverlays(mc.getDrawContext(), fontRenderer, itemstack1, i + 62, j + 24);
 			}
 
-			itemRender.renderItemAndEffectIntoGUI(itemstack2, i + 120, j + 24);
-			itemRender.renderItemOverlays(fontRenderer, itemstack2, i + 120, j + 24);
+			itemRender.renderItemAndEffectIntoGUI(mc.getDrawContext(), itemstack2, i + 120, j + 24);
+			itemRender.renderItemOverlays(mc.getDrawContext(), fontRenderer, itemstack2, i + 120, j + 24);
 			itemRender.zLevel = 0F;
 			GLS.disableLighting();
 

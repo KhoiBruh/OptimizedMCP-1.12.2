@@ -114,7 +114,7 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 
 		drawDefaultBackground();
 		renderInside(mouseX, mouseY, i, j);
-		renderWindow(i, j);
+		renderWindow(context, i, j);
 		renderToolTips(mouseX, mouseY, i, j);
 	}
 
@@ -138,12 +138,12 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 		}
 	}
 
-	public void renderWindow(int p_191934_1_, int p_191934_2_) {
+	public void renderWindow(DrawContext context, int p_191934_1_, int p_191934_2_) {
 		GLS.color(1F, 1F, 1F, 1F);
 		GLS.enableBlend();
 		RenderHelper.disableStandardItemLighting();
 		mc.getTextureManager().bindTexture(WINDOW);
-		mc.getDrawContext().blit(p_191934_1_, p_191934_2_, 0, 0, 252, 140);
+		context.blit(p_191934_1_, p_191934_2_, 0, 0, 252, 140);
 
 		if (tabs.size() > 1) {
 			mc.getTextureManager().bindTexture(TABS);
@@ -157,7 +157,7 @@ public class AdvancementsScreen extends Screen implements ClientAdvancementManag
 			RenderHelper.enableGUIStandardItemLighting();
 
 			for (GuiAdvancementTab guiadvancementtab1 : tabs.values()) {
-				guiadvancementtab1.drawIcon(p_191934_1_, p_191934_2_, itemRender);
+				guiadvancementtab1.drawIcon(context, p_191934_1_, p_191934_2_, itemRender);
 			}
 
 			GLS.disableBlend();

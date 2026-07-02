@@ -1007,13 +1007,13 @@ public class GuiIngame extends Gui {
 				GLS.translate((float) (-(p_184044_1_ + 8)), (float) (-(p_184044_2_ + 12)), 0F);
 			}
 
-			itemRenderer.renderItemAndEffectIntoGUI(player, stack, p_184044_1_, p_184044_2_);
+			itemRenderer.renderItemAndEffectIntoGUI(mc.getDrawContext(), player, stack, p_184044_1_, p_184044_2_);
 
 			if (f > 0F) {
 				GLS.popMatrix();
 			}
 
-			itemRenderer.renderItemOverlays(mc.fontRenderer, stack, p_184044_1_, p_184044_2_);
+			itemRenderer.renderItemOverlays(mc.getDrawContext(), mc.fontRenderer, stack, p_184044_1_, p_184044_2_);
 		}
 	}
 

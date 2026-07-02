@@ -735,8 +735,8 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 		GLS.enableLighting();
 		GLS.enableRescaleNormal();
 		ItemStack itemstack = tab.getIconItemStack();
-		itemRender.renderItemAndEffectIntoGUI(itemstack, l, i1);
-		itemRender.renderItemOverlays(fontRenderer, itemstack, l, i1);
+		itemRender.renderItemAndEffectIntoGUI(mc.getDrawContext(), itemstack, l, i1);
+		itemRender.renderItemOverlays(mc.getDrawContext(), fontRenderer, itemstack, l, i1);
 		GLS.disableLighting();
 		itemRender.zLevel = 0F;
 		zLevel = 0F;

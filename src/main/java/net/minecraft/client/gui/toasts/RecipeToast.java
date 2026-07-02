@@ -47,7 +47,7 @@ public class RecipeToast implements IToast {
 			RenderHelper.enableGUIStandardItemLighting();
 			toastGui.getMinecraft()
 			        .getRenderItem()
-			        .renderItemAndEffectIntoGUI(null, recipesOutputs.get((int) (delta / (5000L / (long) recipesOutputs.size()) % (long) recipesOutputs.size())), 8, 8);
+			        .renderItemAndEffectIntoGUI(toastGui.getMinecraft().getDrawContext(), null, recipesOutputs.get((int) (delta / (5000L / (long) recipesOutputs.size()) % (long) recipesOutputs.size())), 8, 8);
 			return delta - firstDrawTime >= 5000L ? IToast.Visibility.HIDE : IToast.Visibility.SHOW;
 		}
 	}
