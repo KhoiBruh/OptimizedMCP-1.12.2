@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
-import org.lwjgl.opengl.GL13;
+
 
 public class ParticleItemPickup extends Particle {
 
@@ -44,7 +44,7 @@ public class ParticleItemPickup extends Particle {
 		int i = getBrightnessForRender(partialTicks);
 		int j = i % 65536;
 		int k = i / 65536;
-		GL13.glMultiTexCoord2f(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
+		GLS.multiTexCoord2f(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
 		GLS.color(1F, 1F, 1F, 1F);
 		d6 = d6 - interpPosX;
 		d7 = d7 - interpPosY;

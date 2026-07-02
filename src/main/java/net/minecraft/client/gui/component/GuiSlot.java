@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.util.Mouse;
 import net.minecraft.util.math.MathHelper;
-import org.lwjgl.opengl.GL11;
+
 
 public abstract class GuiSlot {
 
@@ -437,12 +437,12 @@ public abstract class GuiSlot {
 		int bottom = mc.getWindow().getHeight() - bottomIn * scaleFactor;
 		int right = (rightIn - leftIn) * scaleFactor;
 		int top = (bottomIn - topIn) * scaleFactor;
-		GL11.glEnable(GL11.GL_SCISSOR_TEST);
-		GL11.glScissor(left, bottom, right, top);
+		GLS.enableScissor();
+		GLS.scissor(left, bottom, right, top);
 	}
 
 	protected void disableScissor() {
-		GL11.glDisable(GL11.GL_SCISSOR_TEST);
+		GLS.disableScissor();
 	}
 
 	/**

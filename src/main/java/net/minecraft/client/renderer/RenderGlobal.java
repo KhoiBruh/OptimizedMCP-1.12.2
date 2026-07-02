@@ -51,7 +51,7 @@ import net.minecraft.world.chunk.Chunk;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joml.Vector3f;
-import org.lwjgl.opengl.GL13;
+
 
 import java.io.IOException;
 import java.util.*;
@@ -915,11 +915,11 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		mc.entityRenderer.enableLightmap();
 
 		GLS.enableClientState(32884);
-		GL13.glClientActiveTexture(OpenGlHelper.defaultTexUnit);
+		GLS.clientActiveTexture(OpenGlHelper.defaultTexUnit);
 		GLS.enableClientState(32888);
-		GL13.glClientActiveTexture(OpenGlHelper.lightmapTexUnit);
+		GLS.clientActiveTexture(OpenGlHelper.lightmapTexUnit);
 		GLS.enableClientState(32888);
-		GL13.glClientActiveTexture(OpenGlHelper.defaultTexUnit);
+		GLS.clientActiveTexture(OpenGlHelper.defaultTexUnit);
 		GLS.enableClientState(32886);
 
 		renderContainer.renderChunkLayer(blockLayerIn);
@@ -934,9 +934,9 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 					break;
 
 				case UV:
-					GL13.glClientActiveTexture(OpenGlHelper.defaultTexUnit + k1);
+					GLS.clientActiveTexture(OpenGlHelper.defaultTexUnit + k1);
 					GLS.disableClientState(32888);
-					GL13.glClientActiveTexture(OpenGlHelper.defaultTexUnit);
+					GLS.clientActiveTexture(OpenGlHelper.defaultTexUnit);
 					break;
 
 				case COLOR:

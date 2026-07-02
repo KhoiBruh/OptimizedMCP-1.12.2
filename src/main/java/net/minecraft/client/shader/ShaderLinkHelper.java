@@ -1,10 +1,9 @@
 package net.minecraft.client.shader;
 
-import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.util.JsonException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.opengl.GL20;
 
 public class ShaderLinkHelper {
 
@@ -22,11 +21,11 @@ public class ShaderLinkHelper {
 	public void deleteShader(ShaderManager manager) {
 		manager.getFragmentShaderLoader().deleteShader(manager);
 		manager.getVertexShaderLoader().deleteShader(manager);
-		GL20.glDeleteProgram(manager.getProgram());
+		GLS.deleteProgram(manager.getProgram());
 	}
 
 	public int createProgram() throws JsonException {
-		int i = GL20.glCreateProgram();
+		int i = GLS.createProgram();
 
 		if (i <= 0) {
 			throw new JsonException("Could not create shader program (returned program ID " + i + ")");
@@ -38,8 +37,8 @@ public class ShaderLinkHelper {
 	public void linkProgram(ShaderManager manager) {
 		manager.getFragmentShaderLoader().attachShader(manager);
 		manager.getVertexShaderLoader().attachShader(manager);
-		GL20.glLinkProgram(manager.getProgram());
-		int i = GL20.glGetProgrami(manager.getProgram(), GL20.GL_LINK_STATUS);
+		GLS.linkProgram(manager.getProgram());
+		int i = GLS.getProgrami(manager.getProgram(), GLS.GL_LINK_STATUS);
 
 		if (i == 0) {
 			LOGGER.warn(
@@ -47,7 +46,7 @@ public class ShaderLinkHelper {
 				manager.getVertexShaderLoader().getShaderFilename(),
 				manager.getFragmentShaderLoader().getShaderFilename()
 			);
-			LOGGER.warn(GL20.glGetProgramInfoLog(manager.getProgram(), 32768));
+			LOGGER.warn(GLS.getProgramInfoLog(manager.getProgram(), 32768));
 		}
 	}
 

@@ -1,17 +1,13 @@
 package net.minecraft.client.shader;
 
 import com.google.common.collect.Maps;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.util.JsonException;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL20;
+import net.minecraft.client.renderer.GLS;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.util.Map;
 
 public class ShaderLoader {
@@ -35,12 +31,12 @@ public class ShaderLoader {
 			try (IResource resource = resourceManager.getResource(resourcelocation)) {
 				String src = resource.getInputStream().toString();
 
-				int i = GL20.glCreateShader(type.getShaderMode());
-				GL20.glShaderSource(i, src);
-				GL20.glCompileShader(i);
-
-				if (GL20.glGetShaderi(i, GL20.GL_COMPILE_STATUS) == 0) {
-					String s = GL20.glGetShaderInfoLog(i, 32768);
+				int i = GLS.createShader(type.getShaderMode());
+				GLS.shaderSource(i, src);
+				GLS.compileShader(i);
+ 
+				if (GLS.getShader(i, GLS.GL_COMPILE_STATUS) == 0) {
+					String s = GLS.getShaderInfoLog(i, 32768);
 					if (s != null) {
 						s = s.trim();
 					}
@@ -59,14 +55,14 @@ public class ShaderLoader {
 
 	public void attachShader(ShaderManager manager) {
 		++shaderAttachCount;
-		GL20.glAttachShader(manager.getProgram(), shader);
+		GLS.attachShader(manager.getProgram(), shader);
 	}
 
 	public void deleteShader(ShaderManager manager) {
 		--shaderAttachCount;
 
 		if (shaderAttachCount <= 0) {
-			GL20.glDeleteShader(shader);
+			GLS.deleteShader(shader);
 			shaderType.getLoadedShaders().remove(shaderFilename);
 		}
 	}
@@ -76,8 +72,8 @@ public class ShaderLoader {
 	}
 
 	public enum ShaderType {
-		VERTEX("vertex", ".vsh", GL20.GL_VERTEX_SHADER),
-		FRAGMENT("fragment", ".fsh", GL20.GL_FRAGMENT_SHADER);
+		VERTEX("vertex", ".vsh", GLS.GL_VERTEX_SHADER),
+		FRAGMENT("fragment", ".fsh", GLS.GL_FRAGMENT_SHADER);
 
 		private final String shaderName;
 		private final String shaderExtension;

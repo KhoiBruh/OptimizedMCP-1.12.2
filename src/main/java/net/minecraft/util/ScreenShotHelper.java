@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 import net.minecraft.client.renderer.NativeImage;
 import java.io.File;
 import java.nio.IntBuffer;
-import org.lwjgl.opengl.GL11;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;

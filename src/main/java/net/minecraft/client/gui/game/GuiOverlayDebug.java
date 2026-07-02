@@ -23,7 +23,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.SkyBlock;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.Chunk;
-import org.lwjgl.opengl.GL11;
+
 
 import java.util.List;
 import java.util.Map.Entry;
@@ -51,9 +51,9 @@ public class GuiOverlayDebug extends Gui {
 	public GuiOverlayDebug(Minecraft mc) {
 		this.mc = mc;
 		fontRenderer = mc.fontRenderer;
-		vendor = GLS.getString(GL11.GL_VENDOR);
-		renderer = GLS.getString(GL11.GL_RENDERER);
-		version = GLS.getString(GL11.GL_VERSION);
+		vendor = GLS.getGlVendor();
+		renderer = GLS.getGlRenderer();
+		version = GLS.getGlVersion();
 	}
 
 	private static long bytesToMb(long bytes) {

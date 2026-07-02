@@ -18,7 +18,7 @@ import net.minecraft.util.ResourceLocation;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.opengl.GL20;
+
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -124,7 +124,7 @@ public class ShaderManager {
 
 			if (attributes != null) {
 				for (String s2 : attributes) {
-					int l = GL20.glGetAttribLocation(program, s2);
+					int l = GLS.getAttribLocation(program, s2);
 					attribLocations.add(l);
 				}
 			}
@@ -142,7 +142,7 @@ public class ShaderManager {
 	}
 
 	public void endShader() {
-		GL20.glUseProgram(0);
+		GLS.useProgram(0);
 		currentProgram = -1;
 		staticShaderManager = null;
 
@@ -160,7 +160,7 @@ public class ShaderManager {
 		blendingMode.apply();
 
 		if (program != currentProgram) {
-			GL20.glUseProgram(program);
+			GLS.useProgram(program);
 			currentProgram = program;
 		}
 
@@ -187,7 +187,7 @@ public class ShaderManager {
 
 				if (j != -1) {
 					GLS.bindTexture(j);
-					GL20.glUniform1i(GL20.glGetUniformLocation(program, samplerNames.get(i)), i);
+					GLS.uniform1i(GLS.getUniformLocation(program, samplerNames.get(i)), i);
 				}
 			}
 		}
@@ -224,7 +224,7 @@ public class ShaderManager {
 
 		for (int j = 0; i < samplerNames.size(); ++j) {
 			String s = samplerNames.get(i);
-			int k = GL20.glGetUniformLocation(program, s);
+			int k = GLS.getUniformLocation(program, s);
 
 			if (k == -1) {
 				LOGGER.warn("Shader {}could not find sampler named {} in the specified shader program.", programFilename, s);
@@ -240,7 +240,7 @@ public class ShaderManager {
 
 		for (ShaderUniform shaderuniform : shaderUniforms) {
 			String s1 = shaderuniform.getShaderName();
-			int l = GL20.glGetUniformLocation(program, s1);
+			int l = GLS.getUniformLocation(program, s1);
 
 			if (l == -1) {
 				LOGGER.warn("Could not find uniform named {} in the specified shader program.", s1);

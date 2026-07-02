@@ -15,7 +15,7 @@ import net.minecraft.util.ReportedException;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import org.lwjgl.opengl.GL13;
+
 
 import java.util.Map;
 
@@ -106,7 +106,7 @@ public class TileEntityRendererDispatcher {
 			int i = world.getCombinedLight(tileentityIn.getPos(), 0);
 			int j = i % 65536;
 			int k = i / 65536;
-			GL13.glMultiTexCoord2f(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
+			GLS.multiTexCoord2f(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
 			GLS.color(1F, 1F, 1F, 1F);
 			BlockPos blockpos = tileentityIn.getPos();
 			render(tileentityIn, (double) blockpos.getX() - staticPlayerX, (double) blockpos.getY() - staticPlayerY, (double) blockpos.getZ() - staticPlayerZ, partialTicks, destroyStage, 1F);

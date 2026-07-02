@@ -2,11 +2,9 @@ package net.minecraft.client.shader;
 
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GLS;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import org.lwjgl.opengl.GL13;
-import org.lwjgl.opengl.GL30;
+
 
 public class Framebuffer {
 
@@ -45,48 +43,48 @@ public class Framebuffer {
 		textureWidth = width;
 		textureHeight = height;
 
-		id = GL30.glGenFramebuffers();
+		id = GLS.genFramebuffers();
 		texture = GLS.genTextures();
-
-		if (depth) depthBuffer = GL30.glGenRenderbuffers();
-
+ 
+		if (depth) depthBuffer = GLS.genRenderbuffers();
+ 
 		setFilter(9728);
 		GLS.bindTexture(texture);
 		GLS.texImage2D(3553, 0, 32856, textureWidth, textureHeight, 0, 6408, 5121, null);
-
-		GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, id);
-		GL30.glFramebufferTexture2D(GL30.GL_FRAMEBUFFER, GL30.GL_COLOR_ATTACHMENT0, 3553, texture, 0);
-
+ 
+		GLS.bindFramebuffer(GLS.GL_FRAMEBUFFER, id);
+		GLS.framebufferTexture2D(GLS.GL_FRAMEBUFFER, GLS.GL_COLOR_ATTACHMENT0, 3553, texture, 0);
+ 
 		if (depth) {
-			GL30.glBindRenderbuffer(GL30.GL_RENDERBUFFER, depthBuffer);
-			GL30.glRenderbufferStorage(GL30.GL_RENDERBUFFER, 33190, textureWidth, textureHeight);
-			GL30.glFramebufferRenderbuffer(GL30.GL_FRAMEBUFFER, GL30.GL_DEPTH_ATTACHMENT, GL30.GL_RENDERBUFFER, depthBuffer);
+			GLS.bindRenderbuffer(GLS.GL_RENDERBUFFER, depthBuffer);
+			GLS.renderbufferStorage(GLS.GL_RENDERBUFFER, 33190, textureWidth, textureHeight);
+			GLS.framebufferRenderbuffer(GLS.GL_FRAMEBUFFER, GLS.GL_DEPTH_ATTACHMENT, GLS.GL_RENDERBUFFER, depthBuffer);
 		}
-
+ 
 		clear();
 		unbindTexture();
-
+ 
 		check();
-		GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);
+		GLS.bindFramebuffer(GLS.GL_FRAMEBUFFER, 0);
 	}
-
+ 
 	public void delete() {
 		unbindTexture();
 		unbind();
-
+ 
 		if (depthBuffer > -1) {
-			GL30.glDeleteRenderbuffers(depthBuffer);
+			GLS.deleteRenderbuffers(depthBuffer);
 			depthBuffer = -1;
 		}
-
+ 
 		if (texture > -1) {
 			GLS.deleteTexture(texture);
 			texture = -1;
 		}
-
+ 
 		if (id > -1) {
-			GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);
-			GL30.glDeleteFramebuffers(id);
+			GLS.bindFramebuffer(GLS.GL_FRAMEBUFFER, 0);
+			GLS.deleteFramebuffers(id);
 			id = -1;
 		}
 	}
@@ -102,16 +100,16 @@ public class Framebuffer {
 	}
 
 	public void check() {
-		int i = GL30.glCheckFramebufferStatus(GL30.GL_FRAMEBUFFER);
+		int i = GLS.checkFramebufferStatus(GLS.GL_FRAMEBUFFER);
 
-		if (i != GL30.GL_FRAMEBUFFER_COMPLETE) {
-			if (i == GL30.GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT) {
+		if (i != GLS.GL_FRAMEBUFFER_COMPLETE) {
+			if (i == GLS.GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT) {
 				throw new RuntimeException("GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT");
-			} else if (i == GL30.GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT) {
+			} else if (i == GLS.GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT) {
 				throw new RuntimeException("GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT");
-			} else if (i == GL30.GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER) {
+			} else if (i == GLS.GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER) {
 				throw new RuntimeException("GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER");
-			} else if (i == GL30.GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER) {
+			} else if (i == GLS.GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER) {
 				throw new RuntimeException("GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER");
 			} else {
 				throw new RuntimeException("glCheckFramebufferStatus returned unknown status:" + i);
@@ -128,12 +126,12 @@ public class Framebuffer {
 	}
 
 	public void bind(boolean viewport) {
-		GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, id);
+		GLS.bindFramebuffer(GLS.GL_FRAMEBUFFER, id);
 		if (viewport) GLS.viewport(0, 0, width, height);
 	}
 
 	public void unbind() {
-		GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);
+		GLS.bindFramebuffer(GLS.GL_FRAMEBUFFER, 0);
 	}
 
 	public void setColor(float red, float green, float blue, float alpha) {

@@ -10,7 +10,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityElderGuardian;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import org.lwjgl.opengl.GL13;
+
 
 public class ParticleMobAppearance extends Particle {
 
@@ -60,7 +60,7 @@ public class ParticleMobAppearance extends Particle {
 			GLS.enableDepth();
 			GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA);
 			float f2 = 240F;
-			GL13.glMultiTexCoord2f(OpenGlHelper.lightmapTexUnit, 240F, 240F);
+			GLS.multiTexCoord2f(OpenGlHelper.lightmapTexUnit, 240F, 240F);
 			GLS.pushMatrix();
 			float f3 = 0.05F + 0.5F * MathHelper.sin(f1 * (float) Math.PI);
 			GLS.color(1F, 1F, 1F, f3);

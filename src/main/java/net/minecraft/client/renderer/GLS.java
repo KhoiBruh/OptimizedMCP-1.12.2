@@ -10,12 +10,27 @@ import java.nio.IntBuffer;
 
 public class GLS {
 
+	// Constants
+	public static final int GL_ARRAY_BUFFER = 34962;
+	public static final int GL_STATIC_DRAW = 35044;
+	public static final int GL_FRAMEBUFFER = 36160;
+	public static final int GL_RENDERBUFFER = 36161;
+	public static final int GL_COLOR_ATTACHMENT0 = 36064;
+	public static final int GL_DEPTH_ATTACHMENT = 36096;
+	public static final int GL_FRAMEBUFFER_COMPLETE = 36053;
+	public static final int GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT = 36054;
+	public static final int GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT = 36055;
+	public static final int GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER = 36059;
+	public static final int GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER = 36060;
+	public static final int GL_LINK_STATUS = 35714;
+	public static final int GL_COMPILE_STATUS = 35713;
+	public static final int GL_VERTEX_SHADER = 35633;
+	public static final int GL_FRAGMENT_SHADER = 35632;
+
 	private static final FloatBuffer FLOAT_16 = BufferUtils.createFloatBuffer(16);
 	private static final FloatBuffer FLOAT_4 = BufferUtils.createFloatBuffer(4);
 
 	private static final boolean[] light = new boolean[8];
-
-	// Texture State
 	private static final boolean[] texture2D = new boolean[8];
 	private static final int[] texture = new int[8];
 
@@ -23,47 +38,38 @@ public class GLS {
 	private static boolean alphaTest;
 	private static int alphaTestFunc = GL11.GL_ALWAYS;
 	private static float alphaTestRef = -1F;
-
 	// Lighting State
 	private static boolean lightingEnabled;
-
 	// ColorMaterial State
 	private static boolean colorMaterial;
 	private static int colorMaterialFace = GL11.GL_FRONT_AND_BACK;
 	private static int colorMaterialMode = GL11.GL_AMBIENT_AND_DIFFUSE;
-
 	// Blend State
 	private static boolean blend;
 	private static int blendSrcFactor = GL11.GL_ONE;
 	private static int blendDstFactor = GL11.GL_ZERO;
 	private static int blendSrcFactorAlpha = GL11.GL_ONE;
 	private static int blendDstFactorAlpha = GL11.GL_ZERO;
-
 	// Depth State
 	private static boolean depthTest;
 	private static boolean depthMask = true;
 	private static int depthFunc = GL11.GL_LESS;
-
 	// Fog State
 	private static boolean fog;
 	private static int fogMode = GL11.GL_EXP;
 	private static float fogDensity = 1F;
 	private static float fogStart;
 	private static float fogEnd = 1F;
-
 	// Cull State
 	private static boolean cullFace;
 	private static int cullFaceMode = GL11.GL_BACK;
-
 	// PolygonOffset State
 	private static boolean polygonOffsetFill;
 	private static float polygonOffsetFactor;
 	private static float polygonOffsetUnits;
-
 	// ColorLogic State
 	private static boolean colorLogicOp;
 	private static int colorLogicOpcode = GL11.GL_COPY;
-
 	// TexGen State
 	private static boolean texGenS;
 	private static boolean texGenT;
@@ -73,31 +79,58 @@ public class GLS {
 	private static int texGenTMode = -1;
 	private static int texGenRMode = -1;
 	private static int texGenQMode = -1;
-
 	// Clear State
 	private static double clearDepth = 1D;
 	private static float clearRed;
 	private static float clearGreen;
 	private static float clearBlue;
 	private static float clearColorAlpha;
-
 	// Normalize State
 	private static boolean normalize;
 	private static int activeTextureUnit;
 	private static int activeShadeModel = GL11.GL_SMOOTH;
 	private static boolean rescaleNormal;
-
 	// ColorMask State
 	private static boolean colorMaskRed = true;
 	private static boolean colorMaskGreen = true;
 	private static boolean colorMaskBlue = true;
 	private static boolean colorMaskAlpha = true;
-
 	// Color State
 	private static float colorStateRed = -1F;
 	private static float colorStateGreen = -1F;
 	private static float colorStateBlue = -1F;
 	private static float colorStateAlpha = -1F;
+	private static boolean scissorTest;
+
+	public static void enableScissor() {
+		if (!scissorTest) {
+			scissorTest = true;
+			GL11.glEnable(GL11.GL_SCISSOR_TEST);
+		}
+	}
+
+	public static void disableScissor() {
+		if (scissorTest) {
+			scissorTest = false;
+			GL11.glDisable(GL11.GL_SCISSOR_TEST);
+		}
+	}
+
+	public static void scissor(int x, int y, int width, int height) {
+		GL11.glScissor(x, y, width, height);
+	}
+
+	public static String getGlVendor() {
+		return getString(7936);
+	}
+
+	public static String getGlRenderer() {
+		return getString(7937);
+	}
+
+	public static String getGlVersion() {
+		return getString(7938);
+	}
 
 	public static void pushAttrib() {
 		GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
@@ -874,6 +907,182 @@ public class GLS {
 
 	public static void disableBlendProfile(GLS.Profile profile) {
 		profile.clean();
+	}
+
+	// VBO Wrappers
+	public static int genBuffers() {
+		return GL15.glGenBuffers();
+	}
+
+	public static void bindBuffer(int target, int buffer) {
+		GL15.glBindBuffer(target, buffer);
+	}
+
+	public static void bufferData(int target, ByteBuffer data, int usage) {
+		GL15.glBufferData(target, data, usage);
+	}
+
+	public static void deleteBuffers(int buffer) {
+		GL15.glDeleteBuffers(buffer);
+	}
+
+	// FBO Wrappers
+	public static int genFramebuffers() {
+		return GL30.glGenFramebuffers();
+	}
+
+	public static int genRenderbuffers() {
+		return GL30.glGenRenderbuffers();
+	}
+
+	public static void bindFramebuffer(int target, int framebuffer) {
+		GL30.glBindFramebuffer(target, framebuffer);
+	}
+
+	public static void framebufferTexture2D(int target, int attachment, int textarget, int texture, int level) {
+		GL30.glFramebufferTexture2D(target, attachment, textarget, texture, level);
+	}
+
+	public static void bindRenderbuffer(int target, int renderbuffer) {
+		GL30.glBindRenderbuffer(target, renderbuffer);
+	}
+
+	public static void renderbufferStorage(int target, int internalFormat, int width, int height) {
+		GL30.glRenderbufferStorage(target, internalFormat, width, height);
+	}
+
+	public static void framebufferRenderbuffer(int target, int attachment, int renderBufferTarget, int renderBuffer) {
+		GL30.glFramebufferRenderbuffer(target, attachment, renderBufferTarget, renderBuffer);
+	}
+
+	public static void deleteRenderbuffers(int renderbuffer) {
+		GL30.glDeleteRenderbuffers(renderbuffer);
+	}
+
+	public static void deleteFramebuffers(int framebuffer) {
+		GL30.glDeleteFramebuffers(framebuffer);
+	}
+
+	public static int checkFramebufferStatus(int target) {
+		return GL30.glCheckFramebufferStatus(target);
+	}
+
+	// Shader Wrappers
+	public static void deleteProgram(int program) {
+		GL20.glDeleteProgram(program);
+	}
+
+	public static int createProgram() {
+		return GL20.glCreateProgram();
+	}
+
+	public static void linkProgram(int program) {
+		GL20.glLinkProgram(program);
+	}
+
+	public static int getProgrami(int program, int pname) {
+		return GL20.glGetProgrami(program, pname);
+	}
+
+	public static String getProgramInfoLog(int program, int maxLength) {
+		return GL20.glGetProgramInfoLog(program, maxLength);
+	}
+
+	public static int createShader(int type) {
+		return GL20.glCreateShader(type);
+	}
+
+	public static void shaderSource(int shader, String source) {
+		GL20.glShaderSource(shader, source);
+	}
+
+	public static void compileShader(int shader) {
+		GL20.glCompileShader(shader);
+	}
+
+	public static int getShader(int shader, int pname) {
+		return GL20.glGetShaderi(shader, pname);
+	}
+
+	public static String getShaderInfoLog(int shader, int maxLength) {
+		return GL20.glGetShaderInfoLog(shader, maxLength);
+	}
+
+	public static void attachShader(int program, int shader) {
+		GL20.glAttachShader(program, shader);
+	}
+
+	public static void deleteShader(int shader) {
+		GL20.glDeleteShader(shader);
+	}
+
+	public static int getAttribLocation(int program, CharSequence name) {
+		return GL20.glGetAttribLocation(program, name);
+	}
+
+	public static void useProgram(int program) {
+		GL20.glUseProgram(program);
+	}
+
+	public static void uniform1i(int location, int v0) {
+		GL20.glUniform1i(location, v0);
+	}
+
+	public static int getUniformLocation(int program, CharSequence name) {
+		return GL20.glGetUniformLocation(program, name);
+	}
+
+	public static void uniform1iv(int location, IntBuffer values) {
+		GL20.glUniform1iv(location, values);
+	}
+
+	public static void uniform2iv(int location, IntBuffer values) {
+		GL20.glUniform2iv(location, values);
+	}
+
+	public static void uniform3iv(int location, IntBuffer values) {
+		GL20.glUniform3iv(location, values);
+	}
+
+	public static void uniform4iv(int location, IntBuffer values) {
+		GL20.glUniform4iv(location, values);
+	}
+
+	public static void uniform1fv(int location, FloatBuffer values) {
+		GL20.glUniform1fv(location, values);
+	}
+
+	public static void uniform2fv(int location, FloatBuffer values) {
+		GL20.glUniform2fv(location, values);
+	}
+
+	public static void uniform3fv(int location, FloatBuffer values) {
+		GL20.glUniform3fv(location, values);
+	}
+
+	public static void uniform4fv(int location, FloatBuffer values) {
+		GL20.glUniform4fv(location, values);
+	}
+
+	public static void uniformMatrix2fv(int location, boolean transpose, FloatBuffer matrices) {
+		GL20.glUniformMatrix2fv(location, transpose, matrices);
+	}
+
+	public static void uniformMatrix3fv(int location, boolean transpose, FloatBuffer matrices) {
+		GL20.glUniformMatrix3fv(location, transpose, matrices);
+	}
+
+	public static void uniformMatrix4fv(int location, boolean transpose, FloatBuffer matrices) {
+		GL20.glUniformMatrix4fv(location, transpose, matrices);
+	}
+
+	// Multitexture Wrappers
+	public static void multiTexCoord2f(int target, float s, float t) {
+		GL13.glMultiTexCoord2f(target, s, t);
+	}
+
+	public static void clientActiveTexture(int texture) {
+		GL13.glClientActiveTexture(texture);
 	}
 
 	public enum CullFace {

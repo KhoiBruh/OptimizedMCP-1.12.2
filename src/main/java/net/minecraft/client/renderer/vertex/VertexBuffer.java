@@ -1,8 +1,6 @@
 package net.minecraft.client.renderer.vertex;
 
 import net.minecraft.client.renderer.GLS;
-import net.minecraft.client.renderer.OpenGlHelper;
-import org.lwjgl.opengl.GL15;
 
 import java.nio.ByteBuffer;
 
@@ -14,16 +12,16 @@ public class VertexBuffer {
 
 	public VertexBuffer(VertexFormat vertexFormatIn) {
 		vertexFormat = vertexFormatIn;
-		glBufferId = GL15.glGenBuffers();
+		glBufferId = GLS.genBuffers();
 	}
 
 	public void bindBuffer() {
-		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, glBufferId);
+		GLS.bindBuffer(GLS.GL_ARRAY_BUFFER, glBufferId);
 	}
 
 	public void bufferData(ByteBuffer data) {
 		bindBuffer();
-		GL15.glBufferData(GL15.GL_ARRAY_BUFFER, data, 35044);
+		GLS.bufferData(GLS.GL_ARRAY_BUFFER, data, GLS.GL_STATIC_DRAW);
 		unbindBuffer();
 		count = data.limit() / vertexFormat.getNextOffset();
 	}
@@ -33,12 +31,12 @@ public class VertexBuffer {
 	}
 
 	public void unbindBuffer() {
-		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+		GLS.bindBuffer(GLS.GL_ARRAY_BUFFER, 0);
 	}
 
 	public void deleteGlBuffers() {
 		if (glBufferId >= 0) {
-			GL15.glDeleteBuffers(glBufferId);
+			GLS.deleteBuffers(glBufferId);
 			glBufferId = -1;
 		}
 	}

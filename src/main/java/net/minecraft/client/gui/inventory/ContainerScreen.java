@@ -17,7 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormat;
-import org.lwjgl.opengl.GL13;
+
 
 import java.io.IOException;
 import java.util.Set;
@@ -122,7 +122,7 @@ public abstract class ContainerScreen extends Screen {
 		hoveredSlot = null;
 		int k = 240;
 		int l = 240;
-		GL13.glMultiTexCoord2f(OpenGlHelper.lightmapTexUnit, 240F, 240F);
+		GLS.multiTexCoord2f(OpenGlHelper.lightmapTexUnit, 240F, 240F);
 		GLS.color(1F, 1F, 1F, 1F);
 
 		for (int i1 = 0; i1 < inventorySlots.inventorySlots.size(); ++i1) {

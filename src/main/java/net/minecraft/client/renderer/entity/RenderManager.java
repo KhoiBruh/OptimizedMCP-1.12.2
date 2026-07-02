@@ -32,7 +32,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import org.lwjgl.opengl.GL13;
+
 
 import java.util.Map;
 
@@ -271,7 +271,7 @@ public class RenderManager {
 
 		int j = i % 65536;
 		int k = i / 65536;
-		GL13.glMultiTexCoord2f(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
+		GLS.multiTexCoord2f(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
 		GLS.color(1F, 1F, 1F, 1F);
 		renderEntity(entityIn, d0 - renderPosX, d1 - renderPosY, d2 - renderPosZ, f, partialTicks, p_188388_3_);
 	}
@@ -339,7 +339,7 @@ public class RenderManager {
 
 		int j = i % 65536;
 		int k = i / 65536;
-		GL13.glMultiTexCoord2f(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
+		GLS.multiTexCoord2f(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
 		GLS.color(1F, 1F, 1F, 1F);
 		Render<Entity> render = getEntityRenderObject(p_188389_1_);
 

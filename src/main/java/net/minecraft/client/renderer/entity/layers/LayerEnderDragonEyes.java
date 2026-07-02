@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderDragon;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL13;
+
 
 public class LayerEnderDragonEyes implements LayerRenderer<EntityDragon> {
 
@@ -27,7 +27,7 @@ public class LayerEnderDragonEyes implements LayerRenderer<EntityDragon> {
 		int i = 61680;
 		int j = 61680;
 		int k = 0;
-		GL13.glMultiTexCoord2f(OpenGlHelper.lightmapTexUnit, 61680F, 0F);
+		GLS.multiTexCoord2f(OpenGlHelper.lightmapTexUnit, 61680F, 0F);
 		GLS.enableLighting();
 		GLS.color(1F, 1F, 1F, 1F);
 		Minecraft.getMinecraft().entityRenderer.setupFogColor(true);

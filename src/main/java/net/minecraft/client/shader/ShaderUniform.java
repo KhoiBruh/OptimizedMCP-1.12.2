@@ -1,11 +1,11 @@
 package net.minecraft.client.shader;
 
 import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.GLS;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL20;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -210,61 +210,61 @@ public class ShaderUniform {
 	private void uploadInt() {
 		switch (uniformType) {
 			case 0:
-				GL20.glUniform1iv(uniformLocation, uniformIntBuffer);
+				GLS.uniform1iv(uniformLocation, uniformIntBuffer);
 				break;
-
+ 
 			case 1:
-				GL20.glUniform2iv(uniformLocation, uniformIntBuffer);
+				GLS.uniform2iv(uniformLocation, uniformIntBuffer);
 				break;
-
+ 
 			case 2:
-				GL20.glUniform3iv(uniformLocation, uniformIntBuffer);
+				GLS.uniform3iv(uniformLocation, uniformIntBuffer);
 				break;
-
+ 
 			case 3:
-				GL20.glUniform4iv(uniformLocation, uniformIntBuffer);
+				GLS.uniform4iv(uniformLocation, uniformIntBuffer);
 				break;
-
+ 
 			default:
 				LOGGER.warn("Uniform.upload called, but count value ({}) is  not in the range of 1 to 4. Ignoring.", uniformCount);
 		}
 	}
-
+ 
 	private void uploadFloat() {
 		switch (uniformType) {
 			case 4:
-				GL20.glUniform1fv(uniformLocation, uniformFloatBuffer);
+				GLS.uniform1fv(uniformLocation, uniformFloatBuffer);
 				break;
-
+ 
 			case 5:
-				GL20.glUniform2fv(uniformLocation, uniformFloatBuffer);
+				GLS.uniform2fv(uniformLocation, uniformFloatBuffer);
 				break;
-
+ 
 			case 6:
-				GL20.glUniform3fv(uniformLocation, uniformFloatBuffer);
+				GLS.uniform3fv(uniformLocation, uniformFloatBuffer);
 				break;
-
+ 
 			case 7:
-				GL20.glUniform4fv(uniformLocation, uniformFloatBuffer);
+				GLS.uniform4fv(uniformLocation, uniformFloatBuffer);
 				break;
-
+ 
 			default:
 				LOGGER.warn("Uniform.upload called, but count value ({}) is not in the range of 1 to 4. Ignoring.", uniformCount);
 		}
 	}
-
+ 
 	private void uploadFloatMatrix() {
 		switch (uniformType) {
 			case 8:
-				GL20.glUniformMatrix2fv(uniformLocation, true, uniformFloatBuffer);
+				GLS.uniformMatrix2fv(uniformLocation, true, uniformFloatBuffer);
 				break;
-
+ 
 			case 9:
-				GL20.glUniformMatrix3fv(uniformLocation, true, uniformFloatBuffer);
+				GLS.uniformMatrix3fv(uniformLocation, true, uniformFloatBuffer);
 				break;
-
+ 
 			case 10:
-				GL20.glUniformMatrix4fv(uniformLocation, true, uniformFloatBuffer);
+				GLS.uniformMatrix4fv(uniformLocation, true, uniformFloatBuffer);
 		}
 	}
 

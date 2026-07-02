@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityHanging;
 import net.minecraft.entity.EntityLiving;
-import org.lwjgl.opengl.GL13;
+
 
 public abstract class RenderLiving<T extends EntityLiving> extends RenderLivingBase<T> {
 
@@ -48,7 +48,7 @@ public abstract class RenderLiving<T extends EntityLiving> extends RenderLivingB
 		int i = entityLivingIn.getBrightnessForRender();
 		int j = i % 65536;
 		int k = i / 65536;
-		GL13.glMultiTexCoord2f(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
+		GLS.multiTexCoord2f(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
 	}
 
 	/**

@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderSpider;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL13;
+
 
 public class LayerSpiderEyes<T extends EntitySpider> implements LayerRenderer<T> {
 
@@ -28,7 +28,7 @@ public class LayerSpiderEyes<T extends EntitySpider> implements LayerRenderer<T>
 		int i = 61680;
 		int j = i % 65536;
 		int k = i / 65536;
-		GL13.glMultiTexCoord2f(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
+		GLS.multiTexCoord2f(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
 		GLS.color(1F, 1F, 1F, 1F);
 		Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
 		spiderRenderer.getMainModel()
@@ -37,7 +37,7 @@ public class LayerSpiderEyes<T extends EntitySpider> implements LayerRenderer<T>
 		i = entitylivingbaseIn.getBrightnessForRender();
 		j = i % 65536;
 		k = i / 65536;
-		GL13.glMultiTexCoord2f(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
+		GLS.multiTexCoord2f(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
 		spiderRenderer.setLightmap(entitylivingbaseIn);
 		GLS.disableBlend();
 		GLS.enableAlpha();
