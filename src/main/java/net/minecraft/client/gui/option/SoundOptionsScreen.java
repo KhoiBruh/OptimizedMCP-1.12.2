@@ -10,7 +10,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 import java.io.IOException;
 
@@ -120,7 +120,7 @@ public class SoundOptionsScreen extends Screen {
 			if (visible) {
 				if (pressed) {
 					volume = (float) (mouseX - (x + 4)) / (float) (width - 8);
-					volume = MathHelper.clamp(volume, 0F, 1F);
+					volume = Maths.clamp(volume, 0F, 1F);
 					mc.gameSettings.setSoundLevel(category, volume);
 					mc.gameSettings.saveOptions();
 					displayString = categoryName + ": " + getDisplayString(category);
@@ -135,7 +135,7 @@ public class SoundOptionsScreen extends Screen {
 		public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
 			if (super.mousePressed(mc, mouseX, mouseY)) {
 				volume = (float) (mouseX - (x + 4)) / (float) (width - 8);
-				volume = MathHelper.clamp(volume, 0F, 1F);
+				volume = Maths.clamp(volume, 0F, 1F);
 				mc.gameSettings.setSoundLevel(category, volume);
 				mc.gameSettings.saveOptions();
 				displayString = categoryName + ": " + getDisplayString(category);

@@ -13,7 +13,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityBed;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 public class ItemBed extends Item {
@@ -41,7 +41,7 @@ public class ItemBed extends Item {
 				pos = pos.up();
 			}
 
-			int i = MathHelper.floor((double) (player.rotationYaw * 4F / 360F) + 0.5D) & 3;
+			int i = Maths.floor((double) (player.rotationYaw * 4F / 360F) + 0.5D) & 3;
 			Facing enumfacing = Facing.getHorizontal(i);
 			BlockPos blockpos = pos.offset(enumfacing);
 			ItemStack itemstack = player.getHeldItem(hand);

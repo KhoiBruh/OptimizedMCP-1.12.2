@@ -77,9 +77,9 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 	 * Sets throwable heading based on an entity that's throwing it
 	 */
 	public void shoot(Entity entityThrower, float rotationPitchIn, float rotationYawIn, float pitchOffset, float velocity, float inaccuracy) {
-		float f = -MathHelper.sin(rotationYawIn * 0.017453292F) * MathHelper.cos(rotationPitchIn * 0.017453292F);
-		float f1 = -MathHelper.sin((rotationPitchIn + pitchOffset) * 0.017453292F);
-		float f2 = MathHelper.cos(rotationYawIn * 0.017453292F) * MathHelper.cos(rotationPitchIn * 0.017453292F);
+		float f = -Maths.sin(rotationYawIn * 0.017453292F) * Maths.cos(rotationPitchIn * 0.017453292F);
+		float f1 = -Maths.sin((rotationPitchIn + pitchOffset) * 0.017453292F);
+		float f2 = Maths.cos(rotationYawIn * 0.017453292F) * Maths.cos(rotationPitchIn * 0.017453292F);
 		shoot(f, f1, f2, velocity, inaccuracy);
 		motionX += entityThrower.motionX;
 		motionZ += entityThrower.motionZ;
@@ -93,7 +93,7 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 	 * Similar to setArrowHeading, it's point the throwable entity to a x, y, z direction.
 	 */
 	public void shoot(double x, double y, double z, float velocity, float inaccuracy) {
-		float f = MathHelper.sqrt(x * x + y * y + z * z);
+		float f = Maths.sqrt(x * x + y * y + z * z);
 		x = x / (double) f;
 		y = y / (double) f;
 		z = z / (double) f;
@@ -106,9 +106,9 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 		motionX = x;
 		motionY = y;
 		motionZ = z;
-		float f1 = MathHelper.sqrt(x * x + z * z);
-		rotationYaw = (float) (MathHelper.atan2(x, z) * (180D / Math.PI));
-		rotationPitch = (float) (MathHelper.atan2(y, f1) * (180D / Math.PI));
+		float f1 = Maths.sqrt(x * x + z * z);
+		rotationYaw = (float) (Maths.atan2(x, z) * (180D / Math.PI));
+		rotationPitch = (float) (Maths.atan2(y, f1) * (180D / Math.PI));
 		prevRotationYaw = rotationYaw;
 		prevRotationPitch = rotationPitch;
 		ticksInGround = 0;
@@ -123,9 +123,9 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 		motionZ = z;
 
 		if (prevRotationPitch == 0F && prevRotationYaw == 0F) {
-			float f = MathHelper.sqrt(x * x + z * z);
-			rotationYaw = (float) (MathHelper.atan2(x, z) * (180D / Math.PI));
-			rotationPitch = (float) (MathHelper.atan2(y, f) * (180D / Math.PI));
+			float f = Maths.sqrt(x * x + z * z);
+			rotationYaw = (float) (Maths.atan2(x, z) * (180D / Math.PI));
+			rotationPitch = (float) (Maths.atan2(y, f) * (180D / Math.PI));
 			prevRotationYaw = rotationYaw;
 			prevRotationPitch = rotationPitch;
 		}
@@ -229,10 +229,10 @@ public abstract class EntityThrowable extends Entity implements IProjectile {
 		posX += motionX;
 		posY += motionY;
 		posZ += motionZ;
-		float f = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
-		rotationYaw = (float) (MathHelper.atan2(motionX, motionZ) * (180D / Math.PI));
+		float f = Maths.sqrt(motionX * motionX + motionZ * motionZ);
+		rotationYaw = (float) (Maths.atan2(motionX, motionZ) * (180D / Math.PI));
 
-		for (rotationPitch = (float) (MathHelper.atan2(motionY, f) * (180D / Math.PI)); rotationPitch - prevRotationPitch < -180F; prevRotationPitch -= 360F) {
+		for (rotationPitch = (float) (Maths.atan2(motionY, f) * (180D / Math.PI)); rotationPitch - prevRotationPitch < -180F; prevRotationPitch -= 360F) {
 		}
 
 		while (rotationPitch - prevRotationPitch >= 180F) {

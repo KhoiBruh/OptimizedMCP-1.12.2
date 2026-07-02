@@ -48,7 +48,7 @@ import net.minecraft.util.datafix.DataFixesManager;
 import net.minecraft.util.datafix.FixTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.event.ClickEvent;
@@ -332,8 +332,8 @@ public abstract class EntityPlayer extends EntityLivingBase {
 		}
 
 		int i = 29999999;
-		double d0 = MathHelper.clamp(posX, -2.9999999E7D, 2.9999999E7D);
-		double d1 = MathHelper.clamp(posZ, -2.9999999E7D, 2.9999999E7D);
+		double d0 = Maths.clamp(posX, -2.9999999E7D, 2.9999999E7D);
+		double d1 = Maths.clamp(posZ, -2.9999999E7D, 2.9999999E7D);
 
 		if (d0 != posX || d1 != posZ) {
 			setPosition(d0, posY, d1);
@@ -567,7 +567,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 		}
 
 		setAIMoveSpeed((float) iattributeinstance.getAttributeValue());
-		float f = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
+		float f = Maths.sqrt(motionX * motionX + motionZ * motionZ);
 		float f1 = (float) (Math.atan(-motionY * 0.20000000298023224D) * 15D);
 
 		if (f > 0.1F) {
@@ -663,8 +663,8 @@ public abstract class EntityPlayer extends EntityLivingBase {
 		}
 
 		if (cause != null) {
-			motionX = -MathHelper.cos((attackedAtYaw + rotationYaw) * 0.017453292F) * 0.1F;
-			motionZ = -MathHelper.sin((attackedAtYaw + rotationYaw) * 0.017453292F) * 0.1F;
+			motionX = -Maths.cos((attackedAtYaw + rotationYaw) * 0.017453292F) * 0.1F;
+			motionZ = -Maths.sin((attackedAtYaw + rotationYaw) * 0.017453292F) * 0.1F;
 		} else {
 			motionX = 0D;
 			motionZ = 0D;
@@ -730,14 +730,14 @@ public abstract class EntityPlayer extends EntityLivingBase {
 			if (dropAround) {
 				float f = rand.nextFloat() * 0.5F;
 				float f1 = rand.nextFloat() * ((float) Math.PI * 2F);
-				entityitem.motionX = -MathHelper.sin(f1) * f;
-				entityitem.motionZ = MathHelper.cos(f1) * f;
+				entityitem.motionX = -Maths.sin(f1) * f;
+				entityitem.motionZ = Maths.cos(f1) * f;
 				entityitem.motionY = 0.20000000298023224D;
 			} else {
 				float f2 = 0.3F;
-				entityitem.motionX = -MathHelper.sin(rotationYaw * 0.017453292F) * MathHelper.cos(rotationPitch * 0.017453292F) * f2;
-				entityitem.motionZ = MathHelper.cos(rotationYaw * 0.017453292F) * MathHelper.cos(rotationPitch * 0.017453292F) * f2;
-				entityitem.motionY = -MathHelper.sin(rotationPitch * 0.017453292F) * f2 + 0.1F;
+				entityitem.motionX = -Maths.sin(rotationYaw * 0.017453292F) * Maths.cos(rotationPitch * 0.017453292F) * f2;
+				entityitem.motionZ = Maths.cos(rotationYaw * 0.017453292F) * Maths.cos(rotationPitch * 0.017453292F) * f2;
+				entityitem.motionY = -Maths.sin(rotationPitch * 0.017453292F) * f2 + 0.1F;
 				float f3 = rand.nextFloat() * ((float) Math.PI * 2F);
 				f2 = 0.02F * rand.nextFloat();
 				entityitem.motionX += Math.cos(f3) * (double) f2;
@@ -955,7 +955,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
 	protected void damageShield(float damage) {
 		if (damage >= 3F && activeItemStack.getItem() == Items.SHIELD) {
-			int i = 1 + MathHelper.floor(damage);
+			int i = 1 + Maths.floor(damage);
 			activeItemStack.damageItem(i, this);
 
 			if (activeItemStack.isEmpty()) {
@@ -1168,9 +1168,9 @@ public abstract class EntityPlayer extends EntityLivingBase {
 					if (flag5) {
 						if (i > 0) {
 							if (targetEntity instanceof EntityLivingBase) {
-								((EntityLivingBase) targetEntity).knockBack(this, (float) i * 0.5F, MathHelper.sin(rotationYaw * 0.017453292F), -MathHelper.cos(rotationYaw * 0.017453292F));
+								((EntityLivingBase) targetEntity).knockBack(this, (float) i * 0.5F, Maths.sin(rotationYaw * 0.017453292F), -Maths.cos(rotationYaw * 0.017453292F));
 							} else {
-								targetEntity.addVelocity(-MathHelper.sin(rotationYaw * 0.017453292F) * (float) i * 0.5F, 0.1D, MathHelper.cos(rotationYaw * 0.017453292F) * (float) i * 0.5F);
+								targetEntity.addVelocity(-Maths.sin(rotationYaw * 0.017453292F) * (float) i * 0.5F, 0.1D, Maths.cos(rotationYaw * 0.017453292F) * (float) i * 0.5F);
 							}
 
 							motionX *= 0.6D;
@@ -1184,7 +1184,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 							for (EntityLivingBase entitylivingbase : world.getEntitiesWithinAABB(EntityLivingBase.class, targetEntity.getEntityBoundingBox()
 							                                                                                                         .grow(1D, 0.25D, 1D))) {
 								if (entitylivingbase != this && entitylivingbase != targetEntity && !isOnSameTeam(entitylivingbase) && getDistanceSq(entitylivingbase) < 9D) {
-									entitylivingbase.knockBack(this, 0.4F, MathHelper.sin(rotationYaw * 0.017453292F), -MathHelper.cos(rotationYaw * 0.017453292F));
+									entitylivingbase.knockBack(this, 0.4F, Maths.sin(rotationYaw * 0.017453292F), -Maths.cos(rotationYaw * 0.017453292F));
 									entitylivingbase.attackEntityFrom(DamageSource.causePlayerDamage(this), f3);
 								}
 							}
@@ -1295,8 +1295,8 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	}
 
 	public void spawnSweepParticles() {
-		double d0 = -MathHelper.sin(rotationYaw * 0.017453292F);
-		double d1 = MathHelper.cos(rotationYaw * 0.017453292F);
+		double d0 = -Maths.sin(rotationYaw * 0.017453292F);
+		double d1 = Maths.cos(rotationYaw * 0.017453292F);
 
 		if (world instanceof WorldServer) {
 			((WorldServer) world).spawnParticle(ParticleTypes.SWEEP_ATTACK, posX + d0, posY + (double) height * 0.5D, posZ + d1, 0, d0, 0D, d1, 0D);
@@ -1585,14 +1585,14 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	public void addMovementStat(double p_71000_1_, double p_71000_3_, double p_71000_5_) {
 		if (!isRiding()) {
 			if (isInsideOfMaterial(Material.WATER)) {
-				int i = Math.round(MathHelper.sqrt(p_71000_1_ * p_71000_1_ + p_71000_3_ * p_71000_3_ + p_71000_5_ * p_71000_5_) * 100F);
+				int i = Math.round(Maths.sqrt(p_71000_1_ * p_71000_1_ + p_71000_3_ * p_71000_3_ + p_71000_5_ * p_71000_5_) * 100F);
 
 				if (i > 0) {
 					addStat(StatList.DIVE_ONE_CM, i);
 					addExhaustion(0.01F * (float) i * 0.01F);
 				}
 			} else if (isInWater()) {
-				int j = Math.round(MathHelper.sqrt(p_71000_1_ * p_71000_1_ + p_71000_5_ * p_71000_5_) * 100F);
+				int j = Math.round(Maths.sqrt(p_71000_1_ * p_71000_1_ + p_71000_5_ * p_71000_5_) * 100F);
 
 				if (j > 0) {
 					addStat(StatList.SWIM_ONE_CM, j);
@@ -1603,7 +1603,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 					addStat(StatList.CLIMB_ONE_CM, (int) Math.round(p_71000_3_ * 100D));
 				}
 			} else if (onGround) {
-				int k = Math.round(MathHelper.sqrt(p_71000_1_ * p_71000_1_ + p_71000_5_ * p_71000_5_) * 100F);
+				int k = Math.round(Maths.sqrt(p_71000_1_ * p_71000_1_ + p_71000_5_ * p_71000_5_) * 100F);
 
 				if (k > 0) {
 					if (isSprinting()) {
@@ -1618,10 +1618,10 @@ public abstract class EntityPlayer extends EntityLivingBase {
 					}
 				}
 			} else if (isElytraFlying()) {
-				int l = Math.round(MathHelper.sqrt(p_71000_1_ * p_71000_1_ + p_71000_3_ * p_71000_3_ + p_71000_5_ * p_71000_5_) * 100F);
+				int l = Math.round(Maths.sqrt(p_71000_1_ * p_71000_1_ + p_71000_3_ * p_71000_3_ + p_71000_5_ * p_71000_5_) * 100F);
 				addStat(StatList.AVIATE_ONE_CM, l);
 			} else {
-				int i1 = Math.round(MathHelper.sqrt(p_71000_1_ * p_71000_1_ + p_71000_5_ * p_71000_5_) * 100F);
+				int i1 = Math.round(Maths.sqrt(p_71000_1_ * p_71000_1_ + p_71000_5_ * p_71000_5_) * 100F);
 
 				if (i1 > 25) {
 					addStat(StatList.FLY_ONE_CM, i1);
@@ -1635,7 +1635,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 */
 	private void addMountedMovementStat(double p_71015_1_, double p_71015_3_, double p_71015_5_) {
 		if (isRiding()) {
-			int i = Math.round(MathHelper.sqrt(p_71015_1_ * p_71015_1_ + p_71015_3_ * p_71015_3_ + p_71015_5_ * p_71015_5_) * 100F);
+			int i = Math.round(Maths.sqrt(p_71015_1_ * p_71015_1_ + p_71015_3_ * p_71015_3_ + p_71015_5_ * p_71015_5_) * 100F);
 
 			if (i > 0) {
 				if (getRidingEntity() instanceof EntityMinecart) {
@@ -2144,7 +2144,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 	 * Returns the percentage of attack power available based on the cooldown (zero to one).
 	 */
 	public float getCooledAttackStrength(float adjustTicks) {
-		return MathHelper.clamp(((float) ticksSinceLastSwing + adjustTicks) / getCooldownPeriod(), 0F, 1F);
+		return Maths.clamp(((float) ticksSinceLastSwing + adjustTicks) / getCooldownPeriod(), 0F, 1F);
 	}
 
 	public void resetCooldown() {

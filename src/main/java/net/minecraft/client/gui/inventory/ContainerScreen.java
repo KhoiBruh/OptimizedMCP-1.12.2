@@ -15,7 +15,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.text.TextFormat;
 
 
@@ -159,7 +159,7 @@ public abstract class ContainerScreen extends Screen {
 
 			if (!draggedStack.isEmpty() && isRightMouseClick) {
 				itemstack = itemstack.copy();
-				itemstack.setCount(MathHelper.ceil((float) itemstack.getCount() / 2F));
+				itemstack.setCount(Maths.ceil((float) itemstack.getCount() / 2F));
 			} else if (dragSplitting && dragSplittingSlots.size() > 1) {
 				itemstack = itemstack.copy();
 				itemstack.setCount(dragSplittingRemnant);

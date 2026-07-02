@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.entity.layers.LayerCreeperCharge;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class RenderCreeper extends RenderLiving<EntityCreeper> {
 
@@ -21,8 +21,8 @@ public class RenderCreeper extends RenderLiving<EntityCreeper> {
 	 */
 	protected void preRenderCallback(EntityCreeper entitylivingbaseIn, float partialTickTime) {
 		float f = entitylivingbaseIn.getCreeperFlashIntensity(partialTickTime);
-		float f1 = 1F + MathHelper.sin(f * 100F) * f * 0.01F;
-		f = MathHelper.clamp(f, 0F, 1F);
+		float f1 = 1F + Maths.sin(f * 100F) * f * 0.01F;
+		f = Maths.clamp(f, 0F, 1F);
 		f = f * f;
 		f = f * f;
 		float f2 = (1F + f * 0.4F) * f1;
@@ -40,7 +40,7 @@ public class RenderCreeper extends RenderLiving<EntityCreeper> {
 			return 0;
 		} else {
 			int i = (int) (f * 0.2F * 255F);
-			i = MathHelper.clamp(i, 0, 255);
+			i = Maths.clamp(i, 0, 255);
 			return i << 24 | 822083583;
 		}
 	}

@@ -1,7 +1,7 @@
 package net.minecraft.pathfinding;
 
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class PathPoint {
 
@@ -103,7 +103,7 @@ public class PathPoint {
 		float f = (float) (pathpointIn.x - x);
 		float f1 = (float) (pathpointIn.y - y);
 		float f2 = (float) (pathpointIn.z - z);
-		return MathHelper.sqrt(f * f + f1 * f1 + f2 * f2);
+		return Maths.sqrt(f * f + f1 * f1 + f2 * f2);
 	}
 
 	/**

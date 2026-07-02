@@ -13,7 +13,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.ParticleTypes;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
@@ -188,9 +188,9 @@ public class EntityAreaEffectCloud extends Entity {
 				if (rand.nextBoolean()) {
 					for (int i = 0; i < 2; ++i) {
 						float f1 = rand.nextFloat() * ((float) Math.PI * 2F);
-						float f2 = MathHelper.sqrt(rand.nextFloat()) * 0.2F;
-						float f3 = MathHelper.cos(f1) * f2;
-						float f4 = MathHelper.sin(f1) * f2;
+						float f2 = Maths.sqrt(rand.nextFloat()) * 0.2F;
+						float f3 = Maths.cos(f1) * f2;
+						float f4 = Maths.sin(f1) * f2;
 
 						if (enumparticletypes == ParticleTypes.SPELL_MOB) {
 							int j = rand.nextBoolean() ? 16777215 : getColor();
@@ -208,9 +208,9 @@ public class EntityAreaEffectCloud extends Entity {
 
 				for (int k1 = 0; (float) k1 < f5; ++k1) {
 					float f6 = rand.nextFloat() * ((float) Math.PI * 2F);
-					float f7 = MathHelper.sqrt(rand.nextFloat()) * f;
-					float f8 = MathHelper.cos(f6) * f7;
-					float f9 = MathHelper.sin(f6) * f7;
+					float f7 = Maths.sqrt(rand.nextFloat()) * f;
+					float f8 = Maths.cos(f6) * f7;
+					float f9 = Maths.sin(f6) * f7;
 
 					if (enumparticletypes == ParticleTypes.SPELL_MOB) {
 						int l1 = getColor();

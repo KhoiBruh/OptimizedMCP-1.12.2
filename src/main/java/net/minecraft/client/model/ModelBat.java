@@ -2,7 +2,7 @@ package net.minecraft.client.model;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityBat;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class ModelBat extends ModelBase {
 
@@ -102,9 +102,9 @@ public class ModelBat extends ModelBase {
 			batHead.setRotationPoint(0F, 0F, 0F);
 			batRightWing.setRotationPoint(0F, 0F, 0F);
 			batLeftWing.setRotationPoint(0F, 0F, 0F);
-			batBody.rotateAngleX = ((float) Math.PI / 4F) + MathHelper.cos(ageInTicks * 0.1F) * 0.15F;
+			batBody.rotateAngleX = ((float) Math.PI / 4F) + Maths.cos(ageInTicks * 0.1F) * 0.15F;
 			batBody.rotateAngleY = 0F;
-			batRightWing.rotateAngleY = MathHelper.cos(ageInTicks * 1.3F) * (float) Math.PI * 0.25F;
+			batRightWing.rotateAngleY = Maths.cos(ageInTicks * 1.3F) * (float) Math.PI * 0.25F;
 			batLeftWing.rotateAngleY = -batRightWing.rotateAngleY;
 			batOuterRightWing.rotateAngleY = batRightWing.rotateAngleY * 0.5F;
 			batOuterLeftWing.rotateAngleY = -batRightWing.rotateAngleY * 0.5F;

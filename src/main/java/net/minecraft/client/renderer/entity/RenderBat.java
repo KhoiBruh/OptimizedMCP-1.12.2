@@ -4,7 +4,7 @@ import net.minecraft.client.model.ModelBat;
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class RenderBat extends RenderLiving<EntityBat> {
 
@@ -32,7 +32,7 @@ public class RenderBat extends RenderLiving<EntityBat> {
 		if (entityLiving.getIsBatHanging()) {
 			GLS.translate(0F, -0.1F, 0F);
 		} else {
-			GLS.translate(0F, MathHelper.cos(p_77043_2_ * 0.3F) * 0.1F, 0F);
+			GLS.translate(0F, Maths.cos(p_77043_2_ * 0.3F) * 0.1F, 0F);
 		}
 
 		super.applyRotations(entityLiving, p_77043_2_, rotationYaw, partialTicks);

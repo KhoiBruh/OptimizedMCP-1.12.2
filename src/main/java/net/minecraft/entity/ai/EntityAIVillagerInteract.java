@@ -6,7 +6,7 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class EntityAIVillagerInteract extends EntityAIWatchClosest2 {
 
@@ -75,9 +75,9 @@ public class EntityAIVillagerInteract extends EntityAIWatchClosest2 {
 						float f = 0.3F;
 						float f1 = villager.rotationYawHead;
 						float f2 = villager.rotationPitch;
-						entityitem.motionX = -MathHelper.sin(f1 * 0.017453292F) * MathHelper.cos(f2 * 0.017453292F) * 0.3F;
-						entityitem.motionZ = MathHelper.cos(f1 * 0.017453292F) * MathHelper.cos(f2 * 0.017453292F) * 0.3F;
-						entityitem.motionY = -MathHelper.sin(f2 * 0.017453292F) * 0.3F + 0.1F;
+						entityitem.motionX = -Maths.sin(f1 * 0.017453292F) * Maths.cos(f2 * 0.017453292F) * 0.3F;
+						entityitem.motionZ = Maths.cos(f1 * 0.017453292F) * Maths.cos(f2 * 0.017453292F) * 0.3F;
+						entityitem.motionY = -Maths.sin(f2 * 0.017453292F) * 0.3F + 0.1F;
 						entityitem.setDefaultPickupDelay();
 						villager.world.spawnEntity(entityitem);
 						break;

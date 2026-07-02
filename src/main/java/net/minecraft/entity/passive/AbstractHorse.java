@@ -35,7 +35,7 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.datafix.FixTypes;
 import net.minecraft.util.datafix.walkers.ItemStackData;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
@@ -198,7 +198,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 	}
 
 	public int increaseTemper(int p_110198_1_) {
-		int i = MathHelper.clamp(getTemper() + p_110198_1_, 0, getMaxTemper());
+		int i = Maths.clamp(getTemper() + p_110198_1_, 0, getMaxTemper());
 		setTemper(i);
 		return i;
 	}
@@ -231,7 +231,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 			playSound(SoundEvents.ENTITY_HORSE_LAND, 0.4F, 1F);
 		}
 
-		int i = MathHelper.ceil((distance * 0.5F - 3F) * damageMultiplier);
+		int i = Maths.ceil((distance * 0.5F - 3F) * damageMultiplier);
 
 		if (i > 0) {
 			attackEntityFrom(DamageSource.FALL, (float) i);
@@ -566,7 +566,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 			}
 
 			if (canEatGrass()) {
-				if (!isEatingHaystack() && !isBeingRidden() && rand.nextInt(300) == 0 && world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(posY) - 1, MathHelper.floor(posZ)))
+				if (!isEatingHaystack() && !isBeingRidden() && rand.nextInt(300) == 0 && world.getBlockState(new BlockPos(Maths.floor(posX), Maths.floor(posY) - 1, Maths.floor(posZ)))
 				                                                                              .getBlock() == Blocks.GRASS) {
 					setEatingHaystack(true);
 				}
@@ -743,8 +743,8 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 				isAirBorne = true;
 
 				if (forward > 0F) {
-					float f = MathHelper.sin(rotationYaw * 0.017453292F);
-					float f1 = MathHelper.cos(rotationYaw * 0.017453292F);
+					float f = Maths.sin(rotationYaw * 0.017453292F);
+					float f1 = Maths.cos(rotationYaw * 0.017453292F);
 					motionX += -0.4F * f * jumpPower;
 					motionZ += 0.4F * f1 * jumpPower;
 					playSound(SoundEvents.ENTITY_HORSE_JUMP, 0.4F, 1F);
@@ -772,7 +772,7 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 			prevLimbSwingAmount = limbSwingAmount;
 			double d1 = posX - prevPosX;
 			double d0 = posZ - prevPosZ;
-			float f2 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4F;
+			float f2 = Maths.sqrt(d1 * d1 + d0 * d0) * 4F;
 
 			if (f2 > 1F) {
 				f2 = 1F;
@@ -958,8 +958,8 @@ public abstract class AbstractHorse extends EntityAnimal implements IInventoryCh
 		}
 
 		if (prevRearingAmount > 0F) {
-			float f3 = MathHelper.sin(renderYawOffset * 0.017453292F);
-			float f = MathHelper.cos(renderYawOffset * 0.017453292F);
+			float f3 = Maths.sin(renderYawOffset * 0.017453292F);
+			float f = Maths.cos(renderYawOffset * 0.017453292F);
 			float f1 = 0.7F * prevRearingAmount;
 			float f2 = 0.15F * prevRearingAmount;
 			passenger.setPosition(posX + (double) (f1 * f3), posY + getMountedYOffset() + passenger.getYOffset() + (double) f2, posZ - (double) (f1 * f));

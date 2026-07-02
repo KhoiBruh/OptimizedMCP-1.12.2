@@ -51,7 +51,7 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.datafix.FixTypes;
 import net.minecraft.util.entity.EntityDamageSource;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.*;
 import net.minecraft.village.MerchantRecipeList;
@@ -163,7 +163,7 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 
 		if (worldIn.provider.hasSkyLight() && worldIn.getWorldInfo().getGameType() != GameType.ADVENTURE) {
 			int i = Math.max(0, server.getSpawnRadius(worldIn));
-			int j = MathHelper.floor(worldIn.getWorldBorder().getClosestDistance(blockpos.getX(), blockpos.getZ()));
+			int j = Maths.floor(worldIn.getWorldBorder().getClosestDistance(blockpos.getX(), blockpos.getZ()));
 
 			if (j < i) {
 				i = j;
@@ -382,32 +382,32 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 
 			if (getHealth() + getAbsorptionAmount() != lastHealthScore) {
 				lastHealthScore = getHealth() + getAbsorptionAmount();
-				updateScorePoints(IScoreCriteria.HEALTH, MathHelper.ceil(lastHealthScore));
+				updateScorePoints(IScoreCriteria.HEALTH, Maths.ceil(lastHealthScore));
 			}
 
 			if (foodStats.getFoodLevel() != lastFoodScore) {
 				lastFoodScore = foodStats.getFoodLevel();
-				updateScorePoints(IScoreCriteria.FOOD, MathHelper.ceil((float) lastFoodScore));
+				updateScorePoints(IScoreCriteria.FOOD, Maths.ceil((float) lastFoodScore));
 			}
 
 			if (getAir() != lastAirScore) {
 				lastAirScore = getAir();
-				updateScorePoints(IScoreCriteria.AIR, MathHelper.ceil((float) lastAirScore));
+				updateScorePoints(IScoreCriteria.AIR, Maths.ceil((float) lastAirScore));
 			}
 
 			if (getTotalArmorValue() != lastArmorScore) {
 				lastArmorScore = getTotalArmorValue();
-				updateScorePoints(IScoreCriteria.ARMOR, MathHelper.ceil((float) lastArmorScore));
+				updateScorePoints(IScoreCriteria.ARMOR, Maths.ceil((float) lastArmorScore));
 			}
 
 			if (experienceTotal != lastExperienceScore) {
 				lastExperienceScore = experienceTotal;
-				updateScorePoints(IScoreCriteria.XP, MathHelper.ceil((float) lastExperienceScore));
+				updateScorePoints(IScoreCriteria.XP, Maths.ceil((float) lastExperienceScore));
 			}
 
 			if (experienceLevel != lastLevelScore) {
 				lastLevelScore = experienceLevel;
-				updateScorePoints(IScoreCriteria.LEVEL, MathHelper.ceil((float) lastLevelScore));
+				updateScorePoints(IScoreCriteria.LEVEL, Maths.ceil((float) lastLevelScore));
 			}
 
 			if (experienceTotal != lastExperience) {
@@ -718,9 +718,9 @@ public class EntityPlayerMP extends EntityPlayer implements IContainerListener {
 	 * process player falling based on movement packet
 	 */
 	public void handleFalling(double y, boolean onGroundIn) {
-		int i = MathHelper.floor(posX);
-		int j = MathHelper.floor(posY - 0.20000000298023224D);
-		int k = MathHelper.floor(posZ);
+		int i = Maths.floor(posX);
+		int j = Maths.floor(posY - 0.20000000298023224D);
+		int k = Maths.floor(posZ);
 		BlockPos blockpos = new BlockPos(i, j, k);
 		IBlockState iblockstate = world.getBlockState(blockpos);
 

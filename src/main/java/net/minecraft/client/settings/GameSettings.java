@@ -18,7 +18,7 @@ import net.minecraft.util.HandSide;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.datafix.FixTypes;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.Difficulty;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
@@ -322,7 +322,7 @@ public class GameSettings {
 	public void setOptionValue(GameSettings.Options options, int value) {
 		switch (options) {
 			case RENDER_DISTANCE ->
-				setOptionFloatValue(options, MathHelper.clamp((float) (renderDistanceChunks + value), options.min, options.max));
+				setOptionFloatValue(options, Maths.clamp((float) (renderDistanceChunks + value), options.min, options.max));
 			case MAIN_HAND -> mainHand = mainHand.opposite();
 			case INVERT_MOUSE -> invertMouse = !invertMouse;
 			case GUI_SCALE -> {
@@ -817,16 +817,16 @@ public class GameSettings {
 		}
 
 		public float normalize(float value) {
-			return MathHelper.clamp((stepClamp(value) - min) / (max - min), 0F, 1F);
+			return Maths.clamp((stepClamp(value) - min) / (max - min), 0F, 1F);
 		}
 
 		public float denormalize(float value) {
-			return stepClamp(min + (max - min) * MathHelper.clamp(value, 0F, 1F));
+			return stepClamp(min + (max - min) * Maths.clamp(value, 0F, 1F));
 		}
 
 		public float stepClamp(float value) {
 			value = snapStep(value);
-			return MathHelper.clamp(value, min, max);
+			return Maths.clamp(value, min, max);
 		}
 
 		private float snapStep(float value) {

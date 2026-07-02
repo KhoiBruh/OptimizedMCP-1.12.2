@@ -2,23 +2,13 @@ package net.minecraft.util.math;
 
 import java.util.Random;
 
-public class MathHelper {
+public class Maths {
 
 	public static final float SQRT_2 = sqrt(2F);
 
-	/**
-	 * A table of sin values computed from 0 (inclusive) to 2*pi (exclusive), with steps of 2*PI / 65536.
-	 */
 	private static final float[] SIN_TABLE = new float[65536];
 	private static final Random RANDOM = new Random();
 
-	/**
-	 * Though it looks like an array, this is really more like a mapping.  Key (index of this array) is the upper 5 bits
-	 * of the result of multiplying a 32-bit unsigned integer by the B(2, 5) De Bruijn sequence 0x077CB531.  Value
-	 * (value stored in the array) is the unique index (from the right) of the leftmost one-bit in a 32-bit unsigned
-	 * integer that can cause the upper 5 bits to get that value.  Used for highly optimized "find the log-base-2 of
-	 * this number" calculations.
-	 */
 	private static final int[] MULTIPLY_DE_BRUIJN_BIT_POSITION;
 	private static final double FRAC_BIAS;
 	private static final double[] ASINE_TAB;
@@ -42,16 +32,10 @@ public class MathHelper {
 		}
 	}
 
-	/**
-	 * sin looked up in a table
-	 */
 	public static float sin(float value) {
 		return SIN_TABLE[(int) (value * 10430.378F) & 65535];
 	}
 
-	/**
-	 * cos looked up in the sin table with the appropriate offset
-	 */
 	public static float cos(float value) {
 		return SIN_TABLE[(int) (value * 10430.378F + 16384F) & 65535];
 	}
@@ -64,32 +48,20 @@ public class MathHelper {
 		return (float) Math.sqrt(value);
 	}
 
-	/**
-	 * Returns the greatest integer less than or equal to the float argument
-	 */
 	public static int floor(float value) {
 		int i = (int) value;
 		return value < (float) i ? i - 1 : i;
 	}
 
-	/**
-	 * returns par0 cast as an int, and no greater than Integer.MAX_VALUE-1024
-	 */
 	public static int fastFloor(double value) {
 		return (int) (value + 1024D) - 1024;
 	}
 
-	/**
-	 * Returns the greatest integer less than or equal to the double argument
-	 */
 	public static int floor(double value) {
 		int i = (int) value;
 		return value < (double) i ? i - 1 : i;
 	}
 
-	/**
-	 * Long version of floor()
-	 */
 	public static long lfloor(double value) {
 		long i = (long) value;
 		return value < (double) i ? i - 1L : i;
@@ -99,9 +71,6 @@ public class MathHelper {
 		return value >= 0F ? value : -value;
 	}
 
-	/**
-	 * Returns the unsigned value of an int.
-	 */
 	public static int abs(int value) {
 		return value >= 0 ? value : -value;
 	}
@@ -116,10 +85,6 @@ public class MathHelper {
 		return value > (double) i ? i + 1 : i;
 	}
 
-	/**
-	 * Returns the value of the first parameter, clamped to be within the lower and upper limits given by the second and
-	 * third parameters.
-	 */
 	public static int clamp(int num, int min, int max) {
 		if (num < min) {
 			return min;
@@ -128,10 +93,6 @@ public class MathHelper {
 		}
 	}
 
-	/**
-	 * Returns the value of the first parameter, clamped to be within the lower and upper limits given by the second and
-	 * third parameters
-	 */
 	public static float clamp(float num, float min, float max) {
 		if (num < min) {
 			return min;
@@ -156,9 +117,6 @@ public class MathHelper {
 		}
 	}
 
-	/**
-	 * Maximum of the absolute value of two numbers.
-	 */
 	public static double absMax(double p_76132_0_, double p_76132_2_) {
 		if (p_76132_0_ < 0D) {
 			p_76132_0_ = -p_76132_0_;
@@ -171,9 +129,6 @@ public class MathHelper {
 		return Math.max(p_76132_0_, p_76132_2_);
 	}
 
-	/**
-	 * Buckets an integer with specifed bucket sizes.
-	 */
 	public static int intFloorDiv(int p_76137_0_, int p_76137_1_) {
 		return p_76137_0_ < 0 ? -((-p_76137_0_ - 1) / p_76137_1_) - 1 : p_76137_0_ / p_76137_1_;
 	}
@@ -188,16 +143,6 @@ public class MathHelper {
 
 	public static double nextDouble(Random random, double minimum, double maximum) {
 		return minimum >= maximum ? minimum : random.nextDouble() * (maximum - minimum) + minimum;
-	}
-
-	public static double average(long[] values) {
-		long i = 0L;
-
-		for (long j : values) {
-			i += j;
-		}
-
-		return (double) i / (double) values.length;
 	}
 
 	public static boolean epsilonEquals(float p_180185_0_, float p_180185_1_) {
@@ -216,33 +161,24 @@ public class MathHelper {
 		return (numerator % denominator + denominator) % denominator;
 	}
 
-	/**
-	 * the angle is reduced to an angle between -180 and +180 by mod, and a 360 check
-	 */
 	public static float wrapDegrees(float value) {
-		value = value % 360F;
+		value = value % 360;
 
-		if (value >= 180F) value -= 360F;
-		if (value < -180F) value += 360F;
+		if (value >= 180) value -= 360;
+		if (value < -180) value += 360;
 
 		return value;
 	}
 
-	/**
-	 * the angle is reduced to an angle between -180 and +180 by mod, and a 360 check
-	 */
 	public static double wrapDegrees(double value) {
-		value = value % 360D;
+		value = value % 360;
 
-		if (value >= 180D) value -= 360D;
-		if (value < -180D) value += 360D;
+		if (value >= 180) value -= 360;
+		if (value < -180) value += 360;
 
 		return value;
 	}
 
-	/**
-	 * Adjust the angle so that his value is in range [-180;180[
-	 */
 	public static int wrapDegrees(int angle) {
 		angle = angle % 360;
 
@@ -252,9 +188,6 @@ public class MathHelper {
 		return angle;
 	}
 
-	/**
-	 * parses the string as integer or returns the second parameter if it fails
-	 */
 	public static int getInt(String value, int defaultValue) {
 		try {
 			return Integer.parseInt(value);
@@ -263,16 +196,10 @@ public class MathHelper {
 		}
 	}
 
-	/**
-	 * parses the string as integer or returns the second parameter if it fails. this value is capped to par2
-	 */
 	public static int getInt(String value, int defaultValue, int max) {
 		return Math.max(max, getInt(value, defaultValue));
 	}
 
-	/**
-	 * parses the string as double or returns the second parameter if it fails.
-	 */
 	public static double getDouble(String value, double defaultValue) {
 		try {
 			return Double.parseDouble(value);
@@ -285,9 +212,6 @@ public class MathHelper {
 		return Math.max(max, getDouble(value, defaultValue));
 	}
 
-	/**
-	 * Returns the input value rounded up to the next highest power of two.
-	 */
 	public static int smallestEncompassingPowerOfTwo(int value) {
 		int i = value - 1;
 		i = i | i >> 1;
@@ -298,37 +222,19 @@ public class MathHelper {
 		return i + 1;
 	}
 
-	/**
-	 * Is the given value a power of two?  (1, 2, 4, 8, 16, ...)
-	 */
 	private static boolean isPowerOfTwo(int value) {
 		return value != 0 && (value & value - 1) == 0;
 	}
 
-	/**
-	 * Uses a B(2, 5) De Bruijn sequence and a lookup table to efficiently calculate the log-base-two of the given
-	 * value. Optimized for cases where the input value is a power-of-two. If the input value is not a power-of-two,
-	 * then subtract 1 from the return value.
-	 */
 	public static int log2DeBruijn(int value) {
 		value = isPowerOfTwo(value) ? value : smallestEncompassingPowerOfTwo(value);
 		return MULTIPLY_DE_BRUIJN_BIT_POSITION[(int) ((long) value * 125613361L >> 27) & 31];
 	}
 
-	/**
-	 * Efficiently calculates the floor of the base-2 log of an integer value.  This is effectively the index of the
-	 * highest bit that is set.  For example, if the number in binary is 0...100101, this will return 5.
-	 */
 	public static int log2(int value) {
 		return log2DeBruijn(value) - (isPowerOfTwo(value) ? 0 : 1);
 	}
 
-	/**
-	 * Rounds the first parameter up to the next interval of the second parameter.
-	 * <p>
-	 * For instance, {@code roundUp(1, 4)} returns 4; {@code roundUp(0, 4)} returns 0; and {@code roundUp(4, 4)} returns
-	 * 4.
-	 */
 	public static int roundUp(int number, int interval) {
 		if (interval == 0) {
 			return 0;
@@ -344,16 +250,10 @@ public class MathHelper {
 		}
 	}
 
-	/**
-	 * Makes an integer color from the given red, green, and blue float values
-	 */
 	public static int rgb(float rIn, float gIn, float bIn) {
 		return rgb(floor(rIn * 255F), floor(gIn * 255F), floor(bIn * 255F));
 	}
 
-	/**
-	 * Makes a single int color with the given red, green, and blue values.
-	 */
 	public static int rgb(int rIn, int gIn, int bIn) {
 		int lvt_3_1_ = (rIn << 8) + gIn;
 		lvt_3_1_ = (lvt_3_1_ << 8) + bIn;
@@ -373,9 +273,6 @@ public class MathHelper {
 		return p_180188_0_ & -16777216 | k1 << 16 | l1 << 8 | i2;
 	}
 
-	/**
-	 * Gets the decimal portion of the given double. For instance, {@code frac(5.5)} returns {@code .5}.
-	 */
 	public static double frac(double number) {
 		return number - Math.floor(number);
 	}

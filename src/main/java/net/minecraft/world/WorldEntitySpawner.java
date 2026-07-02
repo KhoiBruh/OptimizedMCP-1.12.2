@@ -15,7 +15,7 @@ import net.minecraft.server.management.PlayerChunkMapEntry;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 
@@ -32,7 +32,7 @@ public final class WorldEntitySpawner {
 		Chunk chunk = worldIn.getChunkFromChunkCoords(x, z);
 		int i = x * 16 + worldIn.rand.nextInt(16);
 		int j = z * 16 + worldIn.rand.nextInt(16);
-		int k = MathHelper.roundUp(chunk.getHeight(new BlockPos(i, 0, j)) + 1, 16);
+		int k = Maths.roundUp(chunk.getHeight(new BlockPos(i, 0, j)) + 1, 16);
 		int l = worldIn.rand.nextInt(k > 0 ? k : chunk.getTopFilledSegment() + 16 - 1);
 		return new BlockPos(i, l, j);
 	}
@@ -141,8 +141,8 @@ public final class WorldEntitySpawner {
 
 			for (EntityPlayer entityplayer : worldServerIn.playerEntities) {
 				if (!entityplayer.isSpectator()) {
-					int j = MathHelper.floor(entityplayer.posX / 16D);
-					int k = MathHelper.floor(entityplayer.posZ / 16D);
+					int j = Maths.floor(entityplayer.posX / 16D);
+					int k = Maths.floor(entityplayer.posZ / 16D);
 					int l = 8;
 
 					for (int i1 = -8; i1 <= 8; ++i1) {
@@ -196,7 +196,7 @@ public final class WorldEntitySpawner {
 									int k3 = 6;
 									Biome.SpawnListEntry biome$spawnlistentry = null;
 									IEntityLivingData ientitylivingdata = null;
-									int l3 = MathHelper.ceil(Math.random() * 4D);
+									int l3 = Maths.ceil(Math.random() * 4D);
 
 									for (int i4 = 0; i4 < l3; ++i4) {
 										l2 += worldServerIn.rand.nextInt(6) - worldServerIn.rand.nextInt(6);

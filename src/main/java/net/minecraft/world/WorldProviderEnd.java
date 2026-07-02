@@ -3,7 +3,7 @@ package net.minecraft.world;
 import net.minecraft.init.Biomes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.biome.BiomeProviderSingle;
 import net.minecraft.world.end.DragonFightManager;
@@ -50,8 +50,8 @@ public class WorldProviderEnd extends WorldProvider {
 	 */
 	public Vec3d getFogColor(float p_76562_1_, float p_76562_2_) {
 		int i = 10518688;
-		float f = MathHelper.cos(p_76562_1_ * ((float) Math.PI * 2F)) * 2F + 0.5F;
-		f = MathHelper.clamp(f, 0F, 1F);
+		float f = Maths.cos(p_76562_1_ * ((float) Math.PI * 2F)) * 2F + 0.5F;
+		f = Maths.clamp(f, 0F, 1F);
 		float f1 = 0.627451F;
 		float f2 = 0.5019608F;
 		float f3 = 0.627451F;

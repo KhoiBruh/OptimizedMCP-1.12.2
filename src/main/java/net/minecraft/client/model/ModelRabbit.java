@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityRabbit;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class ModelRabbit extends ModelBase {
 
@@ -206,7 +206,7 @@ public class ModelRabbit extends ModelBase {
 		rabbitHead.rotateAngleY = netHeadYaw * 0.017453292F;
 		rabbitRightEar.rotateAngleY = rabbitNose.rotateAngleY - 0.2617994F;
 		rabbitLeftEar.rotateAngleY = rabbitNose.rotateAngleY + 0.2617994F;
-		jumpRotation = MathHelper.sin(entityrabbit.getJumpCompletion(f) * (float) Math.PI);
+		jumpRotation = Maths.sin(entityrabbit.getJumpCompletion(f) * (float) Math.PI);
 		rabbitLeftThigh.rotateAngleX = (jumpRotation * 50F - 21F) * 0.017453292F;
 		rabbitRightThigh.rotateAngleX = (jumpRotation * 50F - 21F) * 0.017453292F;
 		rabbitLeftFoot.rotateAngleX = jumpRotation * 50F * 0.017453292F;
@@ -221,7 +221,7 @@ public class ModelRabbit extends ModelBase {
 	 */
 	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTickTime) {
 		super.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTickTime);
-		jumpRotation = MathHelper.sin(((EntityRabbit) entitylivingbaseIn).getJumpCompletion(partialTickTime) * (float) Math.PI);
+		jumpRotation = Maths.sin(((EntityRabbit) entitylivingbaseIn).getJumpCompletion(partialTickTime) * (float) Math.PI);
 	}
 
 }

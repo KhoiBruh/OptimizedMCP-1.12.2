@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityOcelot;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class ModelOcelot extends ModelBase {
 
@@ -133,21 +133,21 @@ public class ModelOcelot extends ModelBase {
 			ocelotBody.rotateAngleX = ((float) Math.PI / 2F);
 
 			if (state == 2) {
-				ocelotBackLeftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * limbSwingAmount;
-				ocelotBackRightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + 0.3F) * limbSwingAmount;
-				ocelotFrontLeftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI + 0.3F) * limbSwingAmount;
-				ocelotFrontRightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * limbSwingAmount;
-				ocelotTail2.rotateAngleX = 1.7278761F + ((float) Math.PI / 10F) * MathHelper.cos(limbSwing) * limbSwingAmount;
+				ocelotBackLeftLeg.rotateAngleX = Maths.cos(limbSwing * 0.6662F) * limbSwingAmount;
+				ocelotBackRightLeg.rotateAngleX = Maths.cos(limbSwing * 0.6662F + 0.3F) * limbSwingAmount;
+				ocelotFrontLeftLeg.rotateAngleX = Maths.cos(limbSwing * 0.6662F + (float) Math.PI + 0.3F) * limbSwingAmount;
+				ocelotFrontRightLeg.rotateAngleX = Maths.cos(limbSwing * 0.6662F + (float) Math.PI) * limbSwingAmount;
+				ocelotTail2.rotateAngleX = 1.7278761F + ((float) Math.PI / 10F) * Maths.cos(limbSwing) * limbSwingAmount;
 			} else {
-				ocelotBackLeftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * limbSwingAmount;
-				ocelotBackRightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * limbSwingAmount;
-				ocelotFrontLeftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * limbSwingAmount;
-				ocelotFrontRightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * limbSwingAmount;
+				ocelotBackLeftLeg.rotateAngleX = Maths.cos(limbSwing * 0.6662F) * limbSwingAmount;
+				ocelotBackRightLeg.rotateAngleX = Maths.cos(limbSwing * 0.6662F + (float) Math.PI) * limbSwingAmount;
+				ocelotFrontLeftLeg.rotateAngleX = Maths.cos(limbSwing * 0.6662F + (float) Math.PI) * limbSwingAmount;
+				ocelotFrontRightLeg.rotateAngleX = Maths.cos(limbSwing * 0.6662F) * limbSwingAmount;
 
 				if (state == 1) {
-					ocelotTail2.rotateAngleX = 1.7278761F + ((float) Math.PI / 4F) * MathHelper.cos(limbSwing) * limbSwingAmount;
+					ocelotTail2.rotateAngleX = 1.7278761F + ((float) Math.PI / 4F) * Maths.cos(limbSwing) * limbSwingAmount;
 				} else {
-					ocelotTail2.rotateAngleX = 1.7278761F + 0.47123894F * MathHelper.cos(limbSwing) * limbSwingAmount;
+					ocelotTail2.rotateAngleX = 1.7278761F + 0.47123894F * Maths.cos(limbSwing) * limbSwingAmount;
 				}
 			}
 		}

@@ -8,7 +8,7 @@ import net.minecraft.util.Facing;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -54,7 +54,7 @@ public class EntityLeashKnot extends EntityHanging {
 	 * Sets the x,y,z of the entity from the given parameters. Also seems to set up a bounding box.
 	 */
 	public void setPosition(double x, double y, double z) {
-		super.setPosition((double) MathHelper.floor(x) + 0.5D, (double) MathHelper.floor(y) + 0.5D, (double) MathHelper.floor(z) + 0.5D);
+		super.setPosition((double) Maths.floor(x) + 0.5D, (double) Maths.floor(y) + 0.5D, (double) Maths.floor(z) + 0.5D);
 	}
 
 	/**

@@ -31,7 +31,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		LaunchOptions options = parseLaunchOptions(args);
-		System.out.println("Completely ignored arguments: " + options.unmatcheds);
+		if (!options.unmatcheds.isEmpty()) System.out.println("Completely ignored arguments: " + options.unmatcheds);
 
 		Proxy proxy = createProxy(options.proxyHost, options.proxyPort);
 		proxyAuth(proxy, options.proxyUser, options.proxyPass);

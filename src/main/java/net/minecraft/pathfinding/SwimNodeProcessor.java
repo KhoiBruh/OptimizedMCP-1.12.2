@@ -5,20 +5,20 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.IBlockAccess;
 
 public class SwimNodeProcessor extends NodeProcessor {
 
 	public PathPoint getStart() {
-		return openPoint(MathHelper.floor(entity.getEntityBoundingBox().minX), MathHelper.floor(entity.getEntityBoundingBox().minY + 0.5D), MathHelper.floor(entity.getEntityBoundingBox().minZ));
+		return openPoint(Maths.floor(entity.getEntityBoundingBox().minX), Maths.floor(entity.getEntityBoundingBox().minY + 0.5D), Maths.floor(entity.getEntityBoundingBox().minZ));
 	}
 
 	/**
 	 * Returns PathPoint for given coordinates
 	 */
 	public PathPoint getPathPointToCoords(double x, double y, double z) {
-		return openPoint(MathHelper.floor(x - (double) (entity.width / 2F)), MathHelper.floor(y + 0.5D), MathHelper.floor(z - (double) (entity.width / 2F)));
+		return openPoint(Maths.floor(x - (double) (entity.width / 2F)), Maths.floor(y + 0.5D), Maths.floor(z - (double) (entity.width / 2F)));
 	}
 
 	public int findPathOptions(PathPoint[] pathOptions, PathPoint currentPoint, PathPoint targetPoint, float maxDistance) {

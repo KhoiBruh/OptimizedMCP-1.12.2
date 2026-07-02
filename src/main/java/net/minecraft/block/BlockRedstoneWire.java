@@ -15,7 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -113,9 +113,9 @@ public class BlockRedstoneWire extends Block {
 			f3 = 0F;
 		}
 
-		int i = MathHelper.clamp((int) (f1 * 255F), 0, 255);
-		int j = MathHelper.clamp((int) (f2 * 255F), 0, 255);
-		int k = MathHelper.clamp((int) (f3 * 255F), 0, 255);
+		int i = Maths.clamp((int) (f1 * 255F), 0, 255);
+		int j = Maths.clamp((int) (f2 * 255F), 0, 255);
+		int k = Maths.clamp((int) (f3 * 255F), 0, 255);
 		return -16777216 | i << 16 | j << 8 | k;
 	}
 

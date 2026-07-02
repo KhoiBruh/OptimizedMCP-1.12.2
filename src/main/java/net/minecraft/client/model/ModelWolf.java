@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityWolf;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class ModelWolf extends ModelBase {
 
@@ -126,7 +126,7 @@ public class ModelWolf extends ModelBase {
 		if (entitywolf.isAngry()) {
 			wolfTail.rotateAngleY = 0F;
 		} else {
-			wolfTail.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+			wolfTail.rotateAngleY = Maths.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
 		}
 
 		if (entitywolf.isSitting()) {
@@ -154,10 +154,10 @@ public class ModelWolf extends ModelBase {
 			wolfLeg2.setRotationPoint(0.5F, 16F, 7F);
 			wolfLeg3.setRotationPoint(-2.5F, 16F, -4F);
 			wolfLeg4.setRotationPoint(0.5F, 16F, -4F);
-			wolfLeg1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-			wolfLeg2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
-			wolfLeg3.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
-			wolfLeg4.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+			wolfLeg1.rotateAngleX = Maths.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+			wolfLeg2.rotateAngleX = Maths.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+			wolfLeg3.rotateAngleX = Maths.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+			wolfLeg4.rotateAngleX = Maths.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
 		}
 
 		wolfHeadMain.rotateAngleZ = entitywolf.getInterestedAngle(partialTickTime) + entitywolf.getShakeAngle(partialTickTime, 0F);

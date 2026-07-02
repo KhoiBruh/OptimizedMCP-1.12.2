@@ -2,7 +2,7 @@ package net.minecraft.client.gui.game;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.server.SPacketUpdateBossInfo;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.BossInfo;
 
 public class BossInfoClient extends BossInfo {
@@ -22,7 +22,7 @@ public class BossInfoClient extends BossInfo {
 
 	public float getPercent() {
 		long i = Minecraft.getSystemTime() - percentSetTime;
-		float f = MathHelper.clamp((float) i / 100F, 0F, 1F);
+		float f = Maths.clamp((float) i / 100F, 0F, 1F);
 		return percent + (rawPercent - percent) * f;
 	}
 

@@ -6,7 +6,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiUtilRenderComponents;
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import org.apache.logging.log4j.LogManager;
@@ -32,13 +32,13 @@ public class GuiNewChat extends Gui {
 	public static int calculateChatboxWidth(float scale) {
 		int i = 320;
 		int j = 40;
-		return MathHelper.floor(scale * 280F + 40F);
+		return Maths.floor(scale * 280F + 40F);
 	}
 
 	public static int calculateChatboxHeight(float scale) {
 		int i = 180;
 		int j = 20;
-		return MathHelper.floor(scale * 160F + 20F);
+		return Maths.floor(scale * 160F + 20F);
 	}
 
 	public void drawChat(int updateCounter) {
@@ -51,7 +51,7 @@ public class GuiNewChat extends Gui {
 				boolean flag = getChatOpen();
 
 				float f1 = getChatScale();
-				int k = MathHelper.ceil((float) getChatWidth() / f1);
+				int k = Maths.ceil((float) getChatWidth() / f1);
 				GLS.pushMatrix();
 				GLS.translate(2F, 8F, 0F);
 				GLS.scale(f1, f1, 1F);
@@ -67,7 +67,7 @@ public class GuiNewChat extends Gui {
 							double d0 = (double) j1 / 200D;
 							d0 = 1D - d0;
 							d0 = d0 * 10D;
-							d0 = MathHelper.clamp(d0, 0D, 1D);
+							d0 = Maths.clamp(d0, 0D, 1D);
 							d0 = d0 * d0;
 							int l1 = (int) (255D * d0);
 
@@ -144,7 +144,7 @@ public class GuiNewChat extends Gui {
 			deleteChatLine(chatLineId);
 		}
 
-		int i = MathHelper.floor((float) getChatWidth() / getChatScale());
+		int i = Maths.floor((float) getChatWidth() / getChatScale());
 		List<ITextComponent> list = GuiUtilRenderComponents.splitText(chatComponent, i, mc.fontRenderer, false, false);
 		boolean flag = getChatOpen();
 
@@ -227,13 +227,13 @@ public class GuiNewChat extends Gui {
 			float f = getChatScale();
 			int j = mouseX / i - 2;
 			int k = mouseY / i - 40;
-			j = MathHelper.floor((float) j / f);
-			k = MathHelper.floor((float) k / f);
+			j = Maths.floor((float) j / f);
+			k = Maths.floor((float) k / f);
 
 			if (j >= 0 && k >= 0) {
 				int l = Math.min(getLineCount(), drawnChatLines.size());
 
-				if (j <= MathHelper.floor((float) getChatWidth() / getChatScale()) && k < mc.fontRenderer.FONT_HEIGHT * l + l) {
+				if (j <= Maths.floor((float) getChatWidth() / getChatScale()) && k < mc.fontRenderer.FONT_HEIGHT * l + l) {
 					int i1 = k / mc.fontRenderer.FONT_HEIGHT + scrollPos;
 
 					if (i1 >= 0 && i1 < drawnChatLines.size()) {

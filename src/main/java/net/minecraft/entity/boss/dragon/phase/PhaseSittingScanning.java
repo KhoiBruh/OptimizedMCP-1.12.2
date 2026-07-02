@@ -2,7 +2,7 @@ package net.minecraft.entity.boss.dragon.phase;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragon;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 
 public class PhaseSittingScanning extends PhaseSittingBase {
@@ -26,16 +26,16 @@ public class PhaseSittingScanning extends PhaseSittingBase {
 				dragon.getPhaseManager().setPhase(PhaseList.SITTING_ATTACKING);
 			} else {
 				Vec3d vec3d = (new Vec3d(entitylivingbase.posX - dragon.posX, 0D, entitylivingbase.posZ - dragon.posZ)).normalize();
-				Vec3d vec3d1 = (new Vec3d(MathHelper.sin(dragon.rotationYaw * 0.017453292F), 0D, -MathHelper.cos(dragon.rotationYaw * 0.017453292F))).normalize();
+				Vec3d vec3d1 = (new Vec3d(Maths.sin(dragon.rotationYaw * 0.017453292F), 0D, -Maths.cos(dragon.rotationYaw * 0.017453292F))).normalize();
 				float f = (float) vec3d1.dotProduct(vec3d);
 				float f1 = (float) (Math.acos(f) * (180D / Math.PI)) + 0.5F;
 
 				if (f1 < 0F || f1 > 10F) {
 					double d0 = entitylivingbase.posX - dragon.dragonPartHead.posX;
 					double d1 = entitylivingbase.posZ - dragon.dragonPartHead.posZ;
-					double d2 = MathHelper.clamp(MathHelper.wrapDegrees(180D - MathHelper.atan2(d0, d1) * (180D / Math.PI) - (double) dragon.rotationYaw), -100D, 100D);
+					double d2 = Maths.clamp(Maths.wrapDegrees(180D - Maths.atan2(d0, d1) * (180D / Math.PI) - (double) dragon.rotationYaw), -100D, 100D);
 					dragon.randomYawVelocity *= 0.8F;
-					float f2 = MathHelper.sqrt(d0 * d0 + d1 * d1) + 1F;
+					float f2 = Maths.sqrt(d0 * d0 + d1 * d1) + 1F;
 					float f3 = f2;
 
 					if (f2 > 40F) {

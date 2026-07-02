@@ -22,7 +22,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
@@ -85,9 +85,9 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 		super.onLivingUpdate();
 
 		if (!world.isRemote) {
-			int i = MathHelper.floor(posX);
-			int j = MathHelper.floor(posY);
-			int k = MathHelper.floor(posZ);
+			int i = Maths.floor(posX);
+			int j = Maths.floor(posY);
+			int k = Maths.floor(posZ);
 
 			if (isWet()) {
 				attackEntityFrom(DamageSource.DROWN, 1F);
@@ -102,9 +102,9 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 			}
 
 			for (int l = 0; l < 4; ++l) {
-				i = MathHelper.floor(posX + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
-				j = MathHelper.floor(posY);
-				k = MathHelper.floor(posZ + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
+				i = Maths.floor(posX + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
+				j = Maths.floor(posY);
+				k = Maths.floor(posZ + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
 				BlockPos blockpos = new BlockPos(i, j, k);
 
 				if (world.getBlockState(blockpos).getMaterial() == Material.AIR && world.getBiome(blockpos)
@@ -128,7 +128,7 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob {
 		double d1 = target.posX - posX;
 		double d2 = d0 - entitysnowball.posY;
 		double d3 = target.posZ - posZ;
-		float f = MathHelper.sqrt(d1 * d1 + d3 * d3) * 0.2F;
+		float f = Maths.sqrt(d1 * d1 + d3 * d3) * 0.2F;
 		entitysnowball.shoot(d1, d2 + (double) f, d3, 1.6F, 12F);
 		playSound(SoundEvents.ENTITY_SNOWMAN_SHOOT, 1F, 1F / (getRNG().nextFloat() * 0.4F + 0.8F));
 		world.spawnEntity(entitysnowball);

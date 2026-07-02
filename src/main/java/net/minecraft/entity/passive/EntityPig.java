@@ -25,7 +25,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
@@ -239,7 +239,7 @@ public class EntityPig extends EntityAnimal {
 				float f = (float) getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() * 0.225F;
 
 				if (boosting) {
-					f += f * 1.15F * MathHelper.sin((float) boostTime / (float) totalBoostTime * (float) Math.PI);
+					f += f * 1.15F * Maths.sin((float) boostTime / (float) totalBoostTime * (float) Math.PI);
 				}
 
 				setAIMoveSpeed(f);
@@ -253,7 +253,7 @@ public class EntityPig extends EntityAnimal {
 			prevLimbSwingAmount = limbSwingAmount;
 			double d1 = posX - prevPosX;
 			double d0 = posZ - prevPosZ;
-			float f1 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4F;
+			float f1 = Maths.sqrt(d1 * d1 + d0 * d0) * 4F;
 
 			if (f1 > 1F) {
 				f1 = 1F;

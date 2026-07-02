@@ -14,7 +14,7 @@ import net.minecraft.scoreboard.IScoreCriteria;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormat;
 import net.minecraft.world.GameType;
@@ -261,8 +261,8 @@ public class GuiPlayerTabOverlay extends Gui {
 
 			info.setRenderVisibilityId(lastTimeOpened);
 			info.setLastHealth(i);
-			int j = MathHelper.ceil((float) Math.max(i, info.getDisplayHealth()) / 2F);
-			int k = Math.max(MathHelper.ceil((float) (i / 2)), Math.max(MathHelper.ceil((float) (info.getDisplayHealth() / 2)), 10));
+			int j = Maths.ceil((float) Math.max(i, info.getDisplayHealth()) / 2F);
+			int k = Math.max(Maths.ceil((float) (i / 2)), Math.max(Maths.ceil((float) (info.getDisplayHealth() / 2)), 10));
 			boolean flag = info.getHealthBlinkTime() > (long) guiIngame.getUpdateCounter() && (info.getHealthBlinkTime() - (long) guiIngame.getUpdateCounter()) / 3L % 2L == 1L;
 
 			if (j > 0) {
@@ -295,7 +295,7 @@ public class GuiPlayerTabOverlay extends Gui {
 						}
 					}
 				} else {
-					float f1 = MathHelper.clamp((float) i / 20F, 0F, 1F);
+					float f1 = Maths.clamp((float) i / 20F, 0F, 1F);
 					int i1 = (int) ((1F - f1) * 255F) << 16 | (int) (f1 * 255F) << 8;
 					String s = "" + (float) i / 2F;
 

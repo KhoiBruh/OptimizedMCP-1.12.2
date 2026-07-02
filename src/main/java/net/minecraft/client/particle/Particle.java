@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -102,7 +102,7 @@ public class Particle {
 		motionY = ySpeedIn + (Math.random() * 2D - 1D) * 0.4000000059604645D;
 		motionZ = zSpeedIn + (Math.random() * 2D - 1D) * 0.4000000059604645D;
 		float f = (float) (Math.random() + Math.random() + 1D) * 0.15F;
-		float f1 = MathHelper.sqrt(motionX * motionX + motionY * motionY + motionZ * motionZ);
+		float f1 = Maths.sqrt(motionX * motionX + motionY * motionY + motionZ * motionZ);
 		motionX = motionX / (double) f1 * (double) f * 0.4000000059604645D;
 		motionY = motionY / (double) f1 * (double) f * 0.4000000059604645D + 0.10000000149011612D;
 		motionZ = motionZ / (double) f1 * (double) f * 0.4000000059604645D;
@@ -202,10 +202,10 @@ public class Particle {
 
 		if (particleAngle != 0F) {
 			float f8 = particleAngle + (particleAngle - prevParticleAngle) * partialTicks;
-			float f9 = MathHelper.cos(f8 * 0.5F);
-			float f10 = MathHelper.sin(f8 * 0.5F) * (float) cameraViewDir.x();
-			float f11 = MathHelper.sin(f8 * 0.5F) * (float) cameraViewDir.y();
-			float f12 = MathHelper.sin(f8 * 0.5F) * (float) cameraViewDir.z();
+			float f9 = Maths.cos(f8 * 0.5F);
+			float f10 = Maths.sin(f8 * 0.5F) * (float) cameraViewDir.x();
+			float f11 = Maths.sin(f8 * 0.5F) * (float) cameraViewDir.y();
+			float f12 = Maths.sin(f8 * 0.5F) * (float) cameraViewDir.z();
 			Vec3d vec3d = new Vec3d(f10, f11, f12);
 
 			for (int l = 0; l < 4; ++l) {

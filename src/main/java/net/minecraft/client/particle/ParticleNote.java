@@ -2,7 +2,7 @@ package net.minecraft.client.particle;
 
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 public class ParticleNote extends Particle {
@@ -19,9 +19,9 @@ public class ParticleNote extends Particle {
 		motionY *= 0.009999999776482582D;
 		motionZ *= 0.009999999776482582D;
 		motionY += 0.2D;
-		particleRed = MathHelper.sin(((float) p_i1217_8_ + 0F) * ((float) Math.PI * 2F)) * 0.65F + 0.35F;
-		particleGreen = MathHelper.sin(((float) p_i1217_8_ + 0.33333334F) * ((float) Math.PI * 2F)) * 0.65F + 0.35F;
-		particleBlue = MathHelper.sin(((float) p_i1217_8_ + 0.6666667F) * ((float) Math.PI * 2F)) * 0.65F + 0.35F;
+		particleRed = Maths.sin(((float) p_i1217_8_ + 0F) * ((float) Math.PI * 2F)) * 0.65F + 0.35F;
+		particleGreen = Maths.sin(((float) p_i1217_8_ + 0.33333334F) * ((float) Math.PI * 2F)) * 0.65F + 0.35F;
+		particleBlue = Maths.sin(((float) p_i1217_8_ + 0.6666667F) * ((float) Math.PI * 2F)) * 0.65F + 0.35F;
 		particleScale *= 0.75F;
 		particleScale *= p_i1217_14_;
 		noteParticleScale = particleScale;
@@ -34,7 +34,7 @@ public class ParticleNote extends Particle {
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
 		float f = ((float) particleAge + partialTicks) / (float) particleMaxAge * 32F;
-		f = MathHelper.clamp(f, 0F, 1F);
+		f = Maths.clamp(f, 0F, 1F);
 		particleScale = noteParticleScale * f;
 		super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
 	}

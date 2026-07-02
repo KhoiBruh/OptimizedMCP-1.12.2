@@ -28,7 +28,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
@@ -195,7 +195,7 @@ public class EntitySheep extends EntityAnimal {
 	public float getHeadRotationAngleX(float p_70890_1_) {
 		if (sheepTimer > 4 && sheepTimer <= 36) {
 			float f = ((float) (sheepTimer - 4) - p_70890_1_) / 32F;
-			return ((float) Math.PI / 5F) + ((float) Math.PI * 7F / 100F) * MathHelper.sin(f * 28.7F);
+			return ((float) Math.PI / 5F) + ((float) Math.PI * 7F / 100F) * Maths.sin(f * 28.7F);
 		} else {
 			return sheepTimer > 0 ? ((float) Math.PI / 5F) : rotationPitch * 0.017453292F;
 		}

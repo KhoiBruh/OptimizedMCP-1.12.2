@@ -9,7 +9,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.Facing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.IBlockAccess;
 
 import java.util.EnumSet;
@@ -39,16 +39,16 @@ public class WalkNodeProcessor extends NodeProcessor {
 
 		if (getCanSwim() && entity.isInWater()) {
 			i = (int) entity.getEntityBoundingBox().minY;
-			BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(entity.posX), i, MathHelper.floor(entity.posZ));
+			BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(Maths.floor(entity.posX), i, Maths.floor(entity.posZ));
 
 			for (Block block = blockaccess.getBlockState(blockpos$mutableblockpos)
 			                              .getBlock(); block == Blocks.FLOWING_WATER || block == Blocks.WATER; block = blockaccess.getBlockState(blockpos$mutableblockpos)
 			                                                                                                                      .getBlock()) {
 				++i;
-				blockpos$mutableblockpos.setPos(MathHelper.floor(entity.posX), i, MathHelper.floor(entity.posZ));
+				blockpos$mutableblockpos.setPos(Maths.floor(entity.posX), i, Maths.floor(entity.posZ));
 			}
 		} else if (entity.onGround) {
-			i = MathHelper.floor(entity.getEntityBoundingBox().minY + 0.5D);
+			i = Maths.floor(entity.getEntityBoundingBox().minY + 0.5D);
 		} else {
 			BlockPos blockpos;
 
@@ -87,7 +87,7 @@ public class WalkNodeProcessor extends NodeProcessor {
 	 * Returns PathPoint for given coordinates
 	 */
 	public PathPoint getPathPointToCoords(double x, double y, double z) {
-		return openPoint(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z));
+		return openPoint(Maths.floor(x), Maths.floor(y), Maths.floor(z));
 	}
 
 	public int findPathOptions(PathPoint[] pathOptions, PathPoint currentPoint, PathPoint targetPoint, float maxDistance) {
@@ -96,7 +96,7 @@ public class WalkNodeProcessor extends NodeProcessor {
 		PathNodeType pathnodetype = getPathNodeType(entity, currentPoint.x, currentPoint.y + 1, currentPoint.z);
 
 		if (entity.getPathPriority(pathnodetype) >= 0F) {
-			j = MathHelper.floor(Math.max(1F, entity.stepHeight));
+			j = Maths.floor(Math.max(1F, entity.stepHeight));
 		}
 
 		BlockPos blockpos = (new BlockPos(currentPoint.x, currentPoint.y, currentPoint.z)).down();

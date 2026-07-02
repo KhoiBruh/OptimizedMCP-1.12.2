@@ -3,7 +3,7 @@ package net.minecraft.world.gen.structure;
 import net.minecraft.init.Biomes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
@@ -28,9 +28,9 @@ public class MapGenVillage extends MapGenStructure {
 
 		for (Entry<String, String> entry : map.entrySet()) {
 			if (entry.getKey().equals("size")) {
-				size = MathHelper.getInt(entry.getValue(), size, 0);
+				size = Maths.getInt(entry.getValue(), size, 0);
 			} else if (entry.getKey().equals("distance")) {
-				distance = MathHelper.getInt(entry.getValue(), distance, 9);
+				distance = Maths.getInt(entry.getValue(), distance, 9);
 			}
 		}
 	}

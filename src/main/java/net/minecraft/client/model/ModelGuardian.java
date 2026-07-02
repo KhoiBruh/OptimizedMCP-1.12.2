@@ -3,7 +3,7 @@ package net.minecraft.client.model;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityGuardian;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 
 public class ModelGuardian extends ModelBase {
@@ -76,9 +76,9 @@ public class ModelGuardian extends ModelBase {
 			guardianSpines[i].rotateAngleX = (float) Math.PI * afloat[i];
 			guardianSpines[i].rotateAngleY = (float) Math.PI * afloat1[i];
 			guardianSpines[i].rotateAngleZ = (float) Math.PI * afloat2[i];
-			guardianSpines[i].rotationPointX = afloat3[i] * (1F + MathHelper.cos(ageInTicks * 1.5F + (float) i) * 0.01F - f1);
-			guardianSpines[i].rotationPointY = 16F + afloat4[i] * (1F + MathHelper.cos(ageInTicks * 1.5F + (float) i) * 0.01F - f1);
-			guardianSpines[i].rotationPointZ = afloat5[i] * (1F + MathHelper.cos(ageInTicks * 1.5F + (float) i) * 0.01F - f1);
+			guardianSpines[i].rotationPointX = afloat3[i] * (1F + Maths.cos(ageInTicks * 1.5F + (float) i) * 0.01F - f1);
+			guardianSpines[i].rotationPointY = 16F + afloat4[i] * (1F + Maths.cos(ageInTicks * 1.5F + (float) i) * 0.01F - f1);
+			guardianSpines[i].rotationPointZ = afloat5[i] * (1F + Maths.cos(ageInTicks * 1.5F + (float) i) * 0.01F - f1);
 		}
 
 		guardianEye.rotationPointZ = -8.25F;
@@ -104,17 +104,17 @@ public class ModelGuardian extends ModelBase {
 			Vec3d vec3d3 = (new Vec3d(vec3d1.x() - vec3d.x(), 0D, vec3d1.z() - vec3d.z())).normalize()
 			                                                                              .rotateYaw(((float) Math.PI / 2F));
 			double d1 = vec3d2.dotProduct(vec3d3);
-			guardianEye.rotationPointX = MathHelper.sqrt((float) Math.abs(d1)) * 2F * (float) Math.signum(d1);
+			guardianEye.rotationPointX = Maths.sqrt((float) Math.abs(d1)) * 2F * (float) Math.signum(d1);
 		}
 
 		guardianEye.showModel = true;
 		float f2 = entityguardian.getTailAnimation(f);
-		guardianTail[0].rotateAngleY = MathHelper.sin(f2) * (float) Math.PI * 0.05F;
-		guardianTail[1].rotateAngleY = MathHelper.sin(f2) * (float) Math.PI * 0.1F;
+		guardianTail[0].rotateAngleY = Maths.sin(f2) * (float) Math.PI * 0.05F;
+		guardianTail[1].rotateAngleY = Maths.sin(f2) * (float) Math.PI * 0.1F;
 		guardianTail[1].rotationPointX = -1.5F;
 		guardianTail[1].rotationPointY = 0.5F;
 		guardianTail[1].rotationPointZ = 14F;
-		guardianTail[2].rotateAngleY = MathHelper.sin(f2) * (float) Math.PI * 0.15F;
+		guardianTail[2].rotateAngleY = Maths.sin(f2) * (float) Math.PI * 0.15F;
 		guardianTail[2].rotationPointX = 0.5F;
 		guardianTail[2].rotationPointY = 0.5F;
 		guardianTail[2].rotationPointZ = 6F;

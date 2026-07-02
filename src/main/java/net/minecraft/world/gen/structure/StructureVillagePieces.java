@@ -12,7 +12,7 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.structure.template.TemplateManager;
@@ -42,15 +42,15 @@ public class StructureVillagePieces {
 	public static List<StructureVillagePieces.PieceWeight> getStructureVillageWeightedPieceList(Random random, int size) {
 
 		List<StructureVillagePieces.PieceWeight> list = Lists.newArrayList();
-		list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House4Garden.class, 4, MathHelper.getInt(random, 2 + size, 4 + size * 2)));
-		list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Church.class, 20, MathHelper.getInt(random, size, 1 + size)));
-		list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House1.class, 20, MathHelper.getInt(random, size, 2 + size)));
-		list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.WoodHut.class, 3, MathHelper.getInt(random, 2 + size, 5 + size * 3)));
-		list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Hall.class, 15, MathHelper.getInt(random, size, 2 + size)));
-		list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Field1.class, 3, MathHelper.getInt(random, 1 + size, 4 + size)));
-		list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Field2.class, 3, MathHelper.getInt(random, 2 + size, 4 + size * 2)));
-		list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House2.class, 15, MathHelper.getInt(random, 0, 1 + size)));
-		list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House3.class, 8, MathHelper.getInt(random, size, 3 + size * 2)));
+		list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House4Garden.class, 4, Maths.getInt(random, 2 + size, 4 + size * 2)));
+		list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Church.class, 20, Maths.getInt(random, size, 1 + size)));
+		list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House1.class, 20, Maths.getInt(random, size, 2 + size)));
+		list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.WoodHut.class, 3, Maths.getInt(random, 2 + size, 5 + size * 3)));
+		list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Hall.class, 15, Maths.getInt(random, size, 2 + size)));
+		list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Field1.class, 3, Maths.getInt(random, 1 + size, 4 + size)));
+		list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Field2.class, 3, Maths.getInt(random, 2 + size, 4 + size * 2)));
+		list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House2.class, 15, Maths.getInt(random, 0, 1 + size)));
+		list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House3.class, 8, Maths.getInt(random, size, 3 + size * 2)));
 
 		list.removeIf(pieceWeight -> (pieceWeight).villagePiecesLimit == 0);
 
@@ -395,20 +395,20 @@ public class StructureVillagePieces {
 			for (int i = 1; i <= 7; ++i) {
 				int j = ((BlockCrops) cropTypeA).getMaxAge();
 				int k = j / 3;
-				setBlockState(worldIn, cropTypeA.getStateFromMeta(MathHelper.getInt(randomIn, k, j)), 1, 1, i, structureBoundingBoxIn);
-				setBlockState(worldIn, cropTypeA.getStateFromMeta(MathHelper.getInt(randomIn, k, j)), 2, 1, i, structureBoundingBoxIn);
+				setBlockState(worldIn, cropTypeA.getStateFromMeta(Maths.getInt(randomIn, k, j)), 1, 1, i, structureBoundingBoxIn);
+				setBlockState(worldIn, cropTypeA.getStateFromMeta(Maths.getInt(randomIn, k, j)), 2, 1, i, structureBoundingBoxIn);
 				int l = ((BlockCrops) cropTypeB).getMaxAge();
 				int i1 = l / 3;
-				setBlockState(worldIn, cropTypeB.getStateFromMeta(MathHelper.getInt(randomIn, i1, l)), 4, 1, i, structureBoundingBoxIn);
-				setBlockState(worldIn, cropTypeB.getStateFromMeta(MathHelper.getInt(randomIn, i1, l)), 5, 1, i, structureBoundingBoxIn);
+				setBlockState(worldIn, cropTypeB.getStateFromMeta(Maths.getInt(randomIn, i1, l)), 4, 1, i, structureBoundingBoxIn);
+				setBlockState(worldIn, cropTypeB.getStateFromMeta(Maths.getInt(randomIn, i1, l)), 5, 1, i, structureBoundingBoxIn);
 				int j1 = ((BlockCrops) cropTypeC).getMaxAge();
 				int k1 = j1 / 3;
-				setBlockState(worldIn, cropTypeC.getStateFromMeta(MathHelper.getInt(randomIn, k1, j1)), 7, 1, i, structureBoundingBoxIn);
-				setBlockState(worldIn, cropTypeC.getStateFromMeta(MathHelper.getInt(randomIn, k1, j1)), 8, 1, i, structureBoundingBoxIn);
+				setBlockState(worldIn, cropTypeC.getStateFromMeta(Maths.getInt(randomIn, k1, j1)), 7, 1, i, structureBoundingBoxIn);
+				setBlockState(worldIn, cropTypeC.getStateFromMeta(Maths.getInt(randomIn, k1, j1)), 8, 1, i, structureBoundingBoxIn);
 				int l1 = ((BlockCrops) cropTypeD).getMaxAge();
 				int i2 = l1 / 3;
-				setBlockState(worldIn, cropTypeD.getStateFromMeta(MathHelper.getInt(randomIn, i2, l1)), 10, 1, i, structureBoundingBoxIn);
-				setBlockState(worldIn, cropTypeD.getStateFromMeta(MathHelper.getInt(randomIn, i2, l1)), 11, 1, i, structureBoundingBoxIn);
+				setBlockState(worldIn, cropTypeD.getStateFromMeta(Maths.getInt(randomIn, i2, l1)), 10, 1, i, structureBoundingBoxIn);
+				setBlockState(worldIn, cropTypeD.getStateFromMeta(Maths.getInt(randomIn, i2, l1)), 11, 1, i, structureBoundingBoxIn);
 			}
 
 			for (int j2 = 0; j2 < 9; ++j2) {
@@ -490,12 +490,12 @@ public class StructureVillagePieces {
 			for (int i = 1; i <= 7; ++i) {
 				int j = ((BlockCrops) cropTypeA).getMaxAge();
 				int k = j / 3;
-				setBlockState(worldIn, cropTypeA.getStateFromMeta(MathHelper.getInt(randomIn, k, j)), 1, 1, i, structureBoundingBoxIn);
-				setBlockState(worldIn, cropTypeA.getStateFromMeta(MathHelper.getInt(randomIn, k, j)), 2, 1, i, structureBoundingBoxIn);
+				setBlockState(worldIn, cropTypeA.getStateFromMeta(Maths.getInt(randomIn, k, j)), 1, 1, i, structureBoundingBoxIn);
+				setBlockState(worldIn, cropTypeA.getStateFromMeta(Maths.getInt(randomIn, k, j)), 2, 1, i, structureBoundingBoxIn);
 				int l = ((BlockCrops) cropTypeB).getMaxAge();
 				int i1 = l / 3;
-				setBlockState(worldIn, cropTypeB.getStateFromMeta(MathHelper.getInt(randomIn, i1, l)), 4, 1, i, structureBoundingBoxIn);
-				setBlockState(worldIn, cropTypeB.getStateFromMeta(MathHelper.getInt(randomIn, i1, l)), 5, 1, i, structureBoundingBoxIn);
+				setBlockState(worldIn, cropTypeB.getStateFromMeta(Maths.getInt(randomIn, i1, l)), 4, 1, i, structureBoundingBoxIn);
+				setBlockState(worldIn, cropTypeB.getStateFromMeta(Maths.getInt(randomIn, i1, l)), 5, 1, i, structureBoundingBoxIn);
 			}
 
 			for (int j1 = 0; j1 < 9; ++j1) {
@@ -1171,7 +1171,7 @@ public class StructureVillagePieces {
 		}
 
 		public static StructureBoundingBox findPieceBox(StructureVillagePieces.Start start, List<StructureComponent> p_175848_1_, Random rand, int p_175848_3_, int p_175848_4_, int p_175848_5_, Facing facing) {
-			for (int i = 7 * MathHelper.getInt(rand, 3, 5); i >= 7; i -= 7) {
+			for (int i = 7 * Maths.getInt(rand, 3, 5); i >= 7; i -= 7) {
 				StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175848_3_, p_175848_4_, p_175848_5_, 0, 0, 0, 3, 3, i, facing);
 
 				if (StructureComponent.findIntersecting(p_175848_1_, structureboundingbox) == null) {

@@ -5,7 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 import java.util.Random;
 
@@ -26,12 +26,12 @@ public class MusicTicker implements ITickable {
 		if (currentMusic != null) {
 			if (!musicType.getMusicLocation().soundName().equals(currentMusic.getSoundLocation())) {
 				mc.getSoundHandler().stopSound(currentMusic);
-				nextMusicTime = MathHelper.getInt(rand, 0, musicType.getMinDelay() / 2);
+				nextMusicTime = Maths.getInt(rand, 0, musicType.getMinDelay() / 2);
 			}
 
 			if (!mc.getSoundHandler().isSoundPlaying(currentMusic)) {
 				currentMusic = null;
-				nextMusicTime = Math.min(MathHelper.getInt(rand, musicType.getMinDelay(), musicType.getMaxDelay()), nextMusicTime);
+				nextMusicTime = Math.min(Maths.getInt(rand, musicType.getMinDelay(), musicType.getMaxDelay()), nextMusicTime);
 			}
 		}
 

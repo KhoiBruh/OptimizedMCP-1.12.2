@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.util.Projection;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public final class GuiPanoramaBackground {
 
@@ -92,7 +92,7 @@ public final class GuiPanoramaBackground {
 			float f = ((float) (j % 8) / 8F - 0.5F) / 64F;
 			float f1 = ((float) (j / 8) / 8F - 0.5F) / 64F;
 			GLS.translate(f, f1, 0F);
-			GLS.rotate(MathHelper.sin(panoramaTimer / 400F) * 25F + 20F, 1F, 0F, 0F);
+			GLS.rotate(Maths.sin(panoramaTimer / 400F) * 25F + 20F, 1F, 0F, 0F);
 			GLS.rotate(-panoramaTimer * 0.1F, 0F, 1F, 0F);
 
 			for (int k = 0; k < 6; ++k) {

@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
@@ -417,11 +417,11 @@ public class SoundManager {
 	}
 
 	private float getClampedPitch(ISound soundIn) {
-		return MathHelper.clamp(soundIn.getPitch(), 0.5F, 2F);
+		return Maths.clamp(soundIn.getPitch(), 0.5F, 2F);
 	}
 
 	private float getClampedVolume(ISound soundIn) {
-		return MathHelper.clamp(soundIn.getVolume() * getVolume(soundIn.getCategory()), 0F, 1F);
+		return Maths.clamp(soundIn.getVolume() * getVolume(soundIn.getCategory()), 0F, 1F);
 	}
 
 	public void pauseAllSounds() {
@@ -466,12 +466,12 @@ public class SoundManager {
 			double d1 = player.prevPosY + (player.posY - player.prevPosY) * (double) partialTicks + (double) player.getEyeHeight();
 			double d2 = player.prevPosZ + (player.posZ - player.prevPosZ) * (double) partialTicks;
 
-			float f2 = MathHelper.cos((f1 + 90F) * 0.017453292F);
-			float f3 = MathHelper.sin((f1 + 90F) * 0.017453292F);
-			float f4 = MathHelper.cos(-f * 0.017453292F);
-			float f5 = MathHelper.sin(-f * 0.017453292F);
-			float f6 = MathHelper.cos((-f + 90F) * 0.017453292F);
-			float f7 = MathHelper.sin((-f + 90F) * 0.017453292F);
+			float f2 = Maths.cos((f1 + 90F) * 0.017453292F);
+			float f3 = Maths.sin((f1 + 90F) * 0.017453292F);
+			float f4 = Maths.cos(-f * 0.017453292F);
+			float f5 = Maths.sin(-f * 0.017453292F);
+			float f6 = Maths.cos((-f + 90F) * 0.017453292F);
+			float f7 = Maths.sin((-f + 90F) * 0.017453292F);
 
 			float f8 = f2 * f4;
 			float f9 = f3 * f4;

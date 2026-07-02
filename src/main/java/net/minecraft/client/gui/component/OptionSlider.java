@@ -3,7 +3,7 @@ package net.minecraft.client.gui.component;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class OptionSlider extends Button {
 
@@ -43,7 +43,7 @@ public class OptionSlider extends Button {
 		if (visible) {
 			if (dragging) {
 				sliderValue = (float) (mouseX - (x + 4)) / (float) (width - 8);
-				sliderValue = MathHelper.clamp(sliderValue, 0F, 1F);
+				sliderValue = Maths.clamp(sliderValue, 0F, 1F);
 				float f = options.denormalize(sliderValue);
 				mc.gameSettings.setOptionFloatValue(options, f);
 				sliderValue = options.normalize(f);
@@ -64,7 +64,7 @@ public class OptionSlider extends Button {
 	public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
 		if (super.mousePressed(mc, mouseX, mouseY)) {
 			sliderValue = (float) (mouseX - (x + 4)) / (float) (width - 8);
-			sliderValue = MathHelper.clamp(sliderValue, 0F, 1F);
+			sliderValue = Maths.clamp(sliderValue, 0F, 1F);
 			mc.gameSettings.setOptionFloatValue(options, options.denormalize(sliderValue));
 			displayString = mc.gameSettings.getKeyBinding(options);
 			dragging = true;

@@ -4,7 +4,7 @@ import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class SlotFurnaceOutput extends Slot {
 
@@ -66,9 +66,9 @@ public class SlotFurnaceOutput extends Slot {
 			if (f == 0F) {
 				i = 0;
 			} else if (f < 1F) {
-				int j = MathHelper.floor((float) i * f);
+				int j = Maths.floor((float) i * f);
 
-				if (j < MathHelper.ceil((float) i * f) && Math.random() < (double) ((float) i * f - (float) j)) {
+				if (j < Maths.ceil((float) i * f) && Math.random() < (double) ((float) i * f - (float) j)) {
 					++j;
 				}
 

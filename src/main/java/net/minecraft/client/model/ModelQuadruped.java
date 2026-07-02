@@ -2,7 +2,7 @@ package net.minecraft.client.model;
 
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class ModelQuadruped extends ModelBase {
 
@@ -75,10 +75,10 @@ public class ModelQuadruped extends ModelBase {
 		head.rotateAngleX = headPitch * 0.017453292F;
 		head.rotateAngleY = netHeadYaw * 0.017453292F;
 		body.rotateAngleX = ((float) Math.PI / 2F);
-		leg1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-		leg2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
-		leg3.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
-		leg4.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+		leg1.rotateAngleX = Maths.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+		leg2.rotateAngleX = Maths.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+		leg3.rotateAngleX = Maths.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+		leg4.rotateAngleX = Maths.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
 	}
 
 }

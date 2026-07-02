@@ -13,13 +13,11 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.PlayerModelParts;
 import net.minecraft.scoreboard.Team;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.text.TextFormat;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.opengl.GL12;
 import org.lwjgl.opengl.GL13;
-import org.lwjgl.opengl.GL20;
 
 import java.nio.FloatBuffer;
 import java.util.List;
@@ -98,7 +96,7 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 			if (entity.isRiding() && entity.getRidingEntity() instanceof EntityLivingBase entitylivingbase) {
 				f = interpolateRotation(entitylivingbase.prevRenderYawOffset, entitylivingbase.renderYawOffset, partialTicks);
 				f2 = f1 - f;
-				float f3 = MathHelper.wrapDegrees(f2);
+				float f3 = Maths.wrapDegrees(f2);
 
 				if (f3 < -85F) {
 					f3 = -85F;
@@ -369,7 +367,7 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 
 		if (entityLiving.deathTime > 0) {
 			float f = ((float) entityLiving.deathTime + partialTicks - 1F) / 20F * 1.6F;
-			f = MathHelper.sqrt(f);
+			f = Maths.sqrt(f);
 
 			if (f > 1F) {
 				f = 1F;

@@ -7,7 +7,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.HandSide;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class ModelSkeleton extends ModelBiped {
 
@@ -67,8 +67,8 @@ public class ModelSkeleton extends ModelBiped {
 		AbstractSkeleton abstractskeleton = (AbstractSkeleton) entityIn;
 
 		if (abstractskeleton.isSwingingArms() && (itemstack.isEmpty() || itemstack.getItem() != Items.BOW)) {
-			float f = MathHelper.sin(swingProgress * (float) Math.PI);
-			float f1 = MathHelper.sin((1F - (1F - swingProgress) * (1F - swingProgress)) * (float) Math.PI);
+			float f = Maths.sin(swingProgress * (float) Math.PI);
+			float f1 = Maths.sin((1F - (1F - swingProgress) * (1F - swingProgress)) * (float) Math.PI);
 			bipedRightArm.rotateAngleZ = 0F;
 			bipedLeftArm.rotateAngleZ = 0F;
 			bipedRightArm.rotateAngleY = -(0.1F - f * 0.6F);
@@ -77,10 +77,10 @@ public class ModelSkeleton extends ModelBiped {
 			bipedLeftArm.rotateAngleX = -((float) Math.PI / 2F);
 			bipedRightArm.rotateAngleX -= f * 1.2F - f1 * 0.4F;
 			bipedLeftArm.rotateAngleX -= f * 1.2F - f1 * 0.4F;
-			bipedRightArm.rotateAngleZ += MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
-			bipedLeftArm.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
-			bipedRightArm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
-			bipedLeftArm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
+			bipedRightArm.rotateAngleZ += Maths.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
+			bipedLeftArm.rotateAngleZ -= Maths.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
+			bipedRightArm.rotateAngleX += Maths.sin(ageInTicks * 0.067F) * 0.05F;
+			bipedLeftArm.rotateAngleX -= Maths.sin(ageInTicks * 0.067F) * 0.05F;
 		}
 	}
 

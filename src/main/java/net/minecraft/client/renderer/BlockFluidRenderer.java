@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.IBlockAccess;
 
 public class BlockFluidRenderer {
@@ -87,8 +87,8 @@ public class BlockFluidRenderer {
 					f16 = f15;
 					f20 = f17;
 				} else {
-					float f21 = MathHelper.sin(f12) * 0.25F;
-					float f22 = MathHelper.cos(f12) * 0.25F;
+					float f21 = Maths.sin(f12) * 0.25F;
+					float f22 = Maths.cos(f12) * 0.25F;
 					f13 = textureatlassprite.getInterpolatedU(8F + (-f22 - f21) * 16F);
 					f17 = textureatlassprite.getInterpolatedV(8F + (-f22 + f21) * 16F);
 					f14 = textureatlassprite.getInterpolatedU(8F + (-f22 + f21) * 16F);

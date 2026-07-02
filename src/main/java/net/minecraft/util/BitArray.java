@@ -1,6 +1,6 @@
 package net.minecraft.util;
 
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class BitArray {
 
@@ -30,7 +30,7 @@ public class BitArray {
 		arraySize = arraySizeIn;
 		bitsPerEntry = bitsPerEntryIn;
 		maxEntryValue = (1L << bitsPerEntryIn) - 1L;
-		longArray = new long[MathHelper.roundUp(arraySizeIn * bitsPerEntryIn, 64) / 64];
+		longArray = new long[Maths.roundUp(arraySizeIn * bitsPerEntryIn, 64) / 64];
 	}
 
 	/**

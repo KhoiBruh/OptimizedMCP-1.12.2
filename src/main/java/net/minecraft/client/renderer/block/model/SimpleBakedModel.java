@@ -6,7 +6,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 import java.util.List;
 import java.util.Map;
@@ -76,7 +76,7 @@ public class SimpleBakedModel implements IBakedModel {
 		public Builder(IBlockState state, IBakedModel model, TextureAtlasSprite texture, BlockPos pos) {
 			this(model.isAmbientOcclusion(), model.isGui3d(), model.getItemCameraTransforms(), model.getOverrides());
 			builderTexture = model.getParticleTexture();
-			long i = MathHelper.getPositionRandom(pos);
+			long i = Maths.getPositionRandom(pos);
 
 			for (Facing enumfacing : Facing.values()) {
 				addFaceQuads(state, model, texture, enumfacing, i);

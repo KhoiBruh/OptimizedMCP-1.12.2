@@ -27,7 +27,7 @@ import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
@@ -198,7 +198,7 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
 			double d1 = target.posX + target.motionX - posX;
 			double d2 = d0 - posY;
 			double d3 = target.posZ + target.motionZ - posZ;
-			float f = MathHelper.sqrt(d1 * d1 + d3 * d3);
+			float f = Maths.sqrt(d1 * d1 + d3 * d3);
 			PotionType potiontype = PotionTypes.HARMING;
 
 			if (f >= 8F && !target.isPotionActive(MobEffects.SLOWNESS)) {

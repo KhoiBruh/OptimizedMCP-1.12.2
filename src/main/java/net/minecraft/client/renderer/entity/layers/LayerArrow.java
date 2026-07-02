@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityTippedArrow;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 import java.util.Random;
 
@@ -46,7 +46,7 @@ public class LayerArrow implements LayerRenderer<EntityLivingBase> {
 				f = f * -1F;
 				f1 = f1 * -1F;
 				f2 = f2 * -1F;
-				float f6 = MathHelper.sqrt(f * f + f2 * f2);
+				float f6 = Maths.sqrt(f * f + f2 * f2);
 				entity.rotationYaw = (float) (Math.atan2(f, f2) * (180D / Math.PI));
 				entity.rotationPitch = (float) (Math.atan2(f1, f6) * (180D / Math.PI));
 				entity.prevRotationYaw = entity.rotationYaw;

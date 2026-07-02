@@ -18,7 +18,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
@@ -431,9 +431,9 @@ public class EntityGuardian extends EntityMob {
 				double d0 = posX - entityGuardian.posX;
 				double d1 = posY - entityGuardian.posY;
 				double d2 = posZ - entityGuardian.posZ;
-				double d3 = MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+				double d3 = Maths.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
 				d1 = d1 / d3;
-				float f = (float) (MathHelper.atan2(d2, d0) * (180D / Math.PI)) - 90F;
+				float f = (float) (Maths.atan2(d2, d0) * (180D / Math.PI)) - 90F;
 				entityGuardian.rotationYaw = limitAngle(entityGuardian.rotationYaw, f, 90F);
 				entityGuardian.renderYawOffset = entityGuardian.rotationYaw;
 				float f1 = (float) (speed * entityGuardian.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)

@@ -4,7 +4,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEntitySpawner;
@@ -100,9 +100,9 @@ public class VillageSiege {
 
 					for (int i = 0; i < 10; ++i) {
 						float f1 = world.rand.nextFloat() * ((float) Math.PI * 2F);
-						spawnX = blockpos.getX() + (int) ((double) (MathHelper.cos(f1) * f) * 0.9D);
+						spawnX = blockpos.getX() + (int) ((double) (Maths.cos(f1) * f) * 0.9D);
 						spawnY = blockpos.getY();
-						spawnZ = blockpos.getZ() + (int) ((double) (MathHelper.sin(f1) * f) * 0.9D);
+						spawnZ = blockpos.getZ() + (int) ((double) (Maths.sin(f1) * f) * 0.9D);
 						flag = false;
 
 						for (Village village : world.getVillageCollection().getVillageList()) {

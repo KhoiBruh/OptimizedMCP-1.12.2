@@ -13,7 +13,7 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.WorldServer;
@@ -69,13 +69,13 @@ public class TileEntityStructure extends TileEntity {
 		setName(compound.getString("name"));
 		author = compound.getString("author");
 		metadata = compound.getString("metadata");
-		int i = MathHelper.clamp(compound.getInteger("posX"), -32, 32);
-		int j = MathHelper.clamp(compound.getInteger("posY"), -32, 32);
-		int k = MathHelper.clamp(compound.getInteger("posZ"), -32, 32);
+		int i = Maths.clamp(compound.getInteger("posX"), -32, 32);
+		int j = Maths.clamp(compound.getInteger("posY"), -32, 32);
+		int k = Maths.clamp(compound.getInteger("posZ"), -32, 32);
 		position = new BlockPos(i, j, k);
-		int l = MathHelper.clamp(compound.getInteger("sizeX"), 0, 32);
-		int i1 = MathHelper.clamp(compound.getInteger("sizeY"), 0, 32);
-		int j1 = MathHelper.clamp(compound.getInteger("sizeZ"), 0, 32);
+		int l = Maths.clamp(compound.getInteger("sizeX"), 0, 32);
+		int i1 = Maths.clamp(compound.getInteger("sizeY"), 0, 32);
+		int j1 = Maths.clamp(compound.getInteger("sizeZ"), 0, 32);
 		size = new BlockPos(l, i1, j1);
 
 		try {
@@ -440,7 +440,7 @@ public class TileEntityStructure extends TileEntity {
 					                                                               .setIgnoreStructureBlock(false);
 
 					if (integrity < 1F) {
-						placementsettings.setIntegrity(MathHelper.clamp(integrity, 0F, 1F)).setSeed(seed);
+						placementsettings.setIntegrity(Maths.clamp(integrity, 0F, 1F)).setSeed(seed);
 					}
 
 					template.addBlocksToWorldChunk(world, blockpos1, placementsettings);

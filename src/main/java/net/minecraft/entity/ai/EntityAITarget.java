@@ -7,7 +7,7 @@ import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public abstract class EntityAITarget extends EntityAIBase {
 
@@ -190,8 +190,8 @@ public abstract class EntityAITarget extends EntityAIBase {
 			if (pathpoint == null) {
 				return false;
 			} else {
-				int i = pathpoint.x - MathHelper.floor(target.posX);
-				int j = pathpoint.z - MathHelper.floor(target.posZ);
+				int i = pathpoint.x - Maths.floor(target.posX);
+				int j = pathpoint.z - Maths.floor(target.posZ);
 				return (double) (i * i + j * j) <= 2.25D;
 			}
 		}

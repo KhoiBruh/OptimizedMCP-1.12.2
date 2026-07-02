@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Facing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -93,7 +93,7 @@ public class BlockStem extends BlockBush implements IGrowable {
 	}
 
 	public void growStem(World worldIn, BlockPos pos, IBlockState state) {
-		int i = state.getValue(AGE) + MathHelper.getInt(worldIn.rand, 2, 5);
+		int i = state.getValue(AGE) + Maths.getInt(worldIn.rand, 2, 5);
 		worldIn.setBlockState(pos, state.withProperty(AGE, Math.min(7, i)), 2);
 	}
 

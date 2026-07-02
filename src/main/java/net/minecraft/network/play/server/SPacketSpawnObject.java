@@ -5,7 +5,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 import java.util.UUID;
 
@@ -37,14 +37,14 @@ public class SPacketSpawnObject implements Packet<INetHandlerPlayClient> {
 		x = entityIn.posX;
 		y = entityIn.posY;
 		z = entityIn.posZ;
-		pitch = MathHelper.floor(entityIn.rotationPitch * 256F / 360F);
-		yaw = MathHelper.floor(entityIn.rotationYaw * 256F / 360F);
+		pitch = Maths.floor(entityIn.rotationPitch * 256F / 360F);
+		yaw = Maths.floor(entityIn.rotationYaw * 256F / 360F);
 		type = typeIn;
 		data = dataIn;
 		double d0 = 3.9D;
-		speedX = (int) (MathHelper.clamp(entityIn.motionX, -3.9D, 3.9D) * 8000D);
-		speedY = (int) (MathHelper.clamp(entityIn.motionY, -3.9D, 3.9D) * 8000D);
-		speedZ = (int) (MathHelper.clamp(entityIn.motionZ, -3.9D, 3.9D) * 8000D);
+		speedX = (int) (Maths.clamp(entityIn.motionX, -3.9D, 3.9D) * 8000D);
+		speedY = (int) (Maths.clamp(entityIn.motionY, -3.9D, 3.9D) * 8000D);
+		speedZ = (int) (Maths.clamp(entityIn.motionZ, -3.9D, 3.9D) * 8000D);
 	}
 
 	public SPacketSpawnObject(Entity entityIn, int typeIn, int dataIn, BlockPos pos) {

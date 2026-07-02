@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.util.Mouse;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 
 public abstract class GuiSlot {
@@ -165,7 +165,7 @@ public abstract class GuiSlot {
 	 * Stop the thing from scrolling out of bounds
 	 */
 	protected void bindAmountScrolled() {
-		amountScrolled = MathHelper.clamp(amountScrolled, 0F, (float) getMaxScroll());
+		amountScrolled = Maths.clamp(amountScrolled, 0F, (float) getMaxScroll());
 	}
 
 	public int getMaxScroll() {
@@ -252,7 +252,7 @@ public abstract class GuiSlot {
 
 				if (j1 > 0) {
 					int k1 = (bottom - top) * (bottom - top) / getContentHeight();
-					k1 = MathHelper.clamp(k1, 32, bottom - top - 8);
+					k1 = Maths.clamp(k1, 32, bottom - top - 8);
 					int l1 = (int) amountScrolled * (bottom - top - k1) / j1 + top;
 
 					if (l1 < top) {
@@ -338,7 +338,7 @@ public abstract class GuiSlot {
 							}
 
 							int l1 = (int) ((float) ((bottom - top) * (bottom - top)) / (float) getContentHeight());
-							l1 = MathHelper.clamp(l1, 32, bottom - top - 8);
+							l1 = Maths.clamp(l1, 32, bottom - top - 8);
 							scrollMultiplier /= (float) (bottom - top - l1) / (float) k1;
 						} else {
 							scrollMultiplier = 1F;

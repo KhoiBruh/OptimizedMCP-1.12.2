@@ -8,7 +8,7 @@ import net.minecraft.entity.CreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
@@ -297,7 +297,7 @@ public class ChunkGeneratorHell implements IChunkGenerator {
 
 					if ((double) k < 0D) {
 						double d10 = (0D - (double) k) / 4D;
-						d10 = MathHelper.clamp(d10, 0D, 1D);
+						d10 = Maths.clamp(d10, 0D, 1D);
 						d8 = d8 * (1D - d10) + -10D * d10;
 					}
 

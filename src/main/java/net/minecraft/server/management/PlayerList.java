@@ -25,7 +25,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.stats.StatList;
 import net.minecraft.stats.StatisticsManagerServer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.text.ChatType;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -543,20 +543,20 @@ public abstract class PlayerList {
 		oldWorldIn.profiler.startSection("moving");
 
 		if (entityIn.dimension == -1) {
-			d0 = MathHelper.clamp(d0 / 8D, toWorldIn.getWorldBorder().minX() + 16D, toWorldIn.getWorldBorder()
-			                                                                                 .maxX() - 16D);
-			d1 = MathHelper.clamp(d1 / 8D, toWorldIn.getWorldBorder().minZ() + 16D, toWorldIn.getWorldBorder()
-			                                                                                 .maxZ() - 16D);
+			d0 = Maths.clamp(d0 / 8D, toWorldIn.getWorldBorder().minX() + 16D, toWorldIn.getWorldBorder()
+			                                                                            .maxX() - 16D);
+			d1 = Maths.clamp(d1 / 8D, toWorldIn.getWorldBorder().minZ() + 16D, toWorldIn.getWorldBorder()
+			                                                                            .maxZ() - 16D);
 			entityIn.setLocationAndAngles(d0, entityIn.posY, d1, entityIn.rotationYaw, entityIn.rotationPitch);
 
 			if (entityIn.isEntityAlive()) {
 				oldWorldIn.updateEntityWithOptionalForce(entityIn, false);
 			}
 		} else if (entityIn.dimension == 0) {
-			d0 = MathHelper.clamp(d0 * 8D, toWorldIn.getWorldBorder().minX() + 16D, toWorldIn.getWorldBorder()
-			                                                                                 .maxX() - 16D);
-			d1 = MathHelper.clamp(d1 * 8D, toWorldIn.getWorldBorder().minZ() + 16D, toWorldIn.getWorldBorder()
-			                                                                                 .maxZ() - 16D);
+			d0 = Maths.clamp(d0 * 8D, toWorldIn.getWorldBorder().minX() + 16D, toWorldIn.getWorldBorder()
+			                                                                            .maxX() - 16D);
+			d1 = Maths.clamp(d1 * 8D, toWorldIn.getWorldBorder().minZ() + 16D, toWorldIn.getWorldBorder()
+			                                                                            .maxZ() - 16D);
 			entityIn.setLocationAndAngles(d0, entityIn.posY, d1, entityIn.rotationYaw, entityIn.rotationPitch);
 
 			if (entityIn.isEntityAlive()) {
@@ -585,8 +585,8 @@ public abstract class PlayerList {
 
 		if (lastDimension != 1) {
 			oldWorldIn.profiler.startSection("placing");
-			d0 = MathHelper.clamp((int) d0, -29999872, 29999872);
-			d1 = MathHelper.clamp((int) d1, -29999872, 29999872);
+			d0 = Maths.clamp((int) d0, -29999872, 29999872);
+			d1 = Maths.clamp((int) d1, -29999872, 29999872);
 
 			if (entityIn.isEntityAlive()) {
 				entityIn.setLocationAndAngles(d0, entityIn.posY, d1, entityIn.rotationYaw, entityIn.rotationPitch);

@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -112,7 +112,7 @@ public class TeleportToTeam implements ISpectatorMenuView, ISpectatorMenuObject 
 				float f = (float) (i >> 16 & 255) / 255F;
 				float f1 = (float) (i >> 8 & 255) / 255F;
 				float f2 = (float) (i & 255) / 255F;
-				Gui.drawRect(1, 1, 15, 15, MathHelper.rgb(f * brightness, f1 * brightness, f2 * brightness) | alpha << 24);
+				Gui.drawRect(1, 1, 15, 15, Maths.rgb(f * brightness, f1 * brightness, f2 * brightness) | alpha << 24);
 			}
 
 			Minecraft.getMinecraft().getTextureManager().bindTexture(location);

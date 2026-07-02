@@ -17,7 +17,7 @@ public class BlockPos extends Vec3i {
 	 */
 	public static final BlockPos ORIGIN = new BlockPos(0, 0, 0);
 	private static final Logger LOGGER = LogManager.getLogger();
-	private static final int NUM_X_BITS = 1 + MathHelper.log2(MathHelper.smallestEncompassingPowerOfTwo(30000000));
+	private static final int NUM_X_BITS = 1 + Maths.log2(Maths.smallestEncompassingPowerOfTwo(30000000));
 	private static final int NUM_Z_BITS = NUM_X_BITS;
 	private static final int NUM_Y_BITS = 64 - NUM_X_BITS - NUM_Z_BITS;
 	private static final long Y_MASK = (1L << NUM_Y_BITS) - 1L;
@@ -355,7 +355,7 @@ public class BlockPos extends Vec3i {
 
 		public BlockPos.MutableBlockPos setPos(double xIn, double yIn, double zIn) {
 
-			return setPos(MathHelper.floor(xIn), MathHelper.floor(yIn), MathHelper.floor(zIn));
+			return setPos(Maths.floor(xIn), Maths.floor(yIn), Maths.floor(zIn));
 		}
 
 		public BlockPos.MutableBlockPos setPos(Vec3i vec) {
@@ -395,7 +395,7 @@ public class BlockPos extends Vec3i {
 
 		public static BlockPos.PooledMutableBlockPos retain(double xIn, double yIn, double zIn) {
 
-			return retain(MathHelper.floor(xIn), MathHelper.floor(yIn), MathHelper.floor(zIn));
+			return retain(Maths.floor(xIn), Maths.floor(yIn), Maths.floor(zIn));
 		}
 
 		public static BlockPos.PooledMutableBlockPos retain(Vec3i vec) {

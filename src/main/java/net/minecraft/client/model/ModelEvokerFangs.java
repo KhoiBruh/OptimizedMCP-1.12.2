@@ -1,7 +1,7 @@
 package net.minecraft.client.model;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class ModelEvokerFangs extends ModelBase {
 
@@ -34,7 +34,7 @@ public class ModelEvokerFangs extends ModelBase {
 		upperJaw.rotateAngleZ = (float) Math.PI - f * 0.35F * (float) Math.PI;
 		lowerJaw.rotateAngleZ = (float) Math.PI + f * 0.35F * (float) Math.PI;
 		lowerJaw.rotateAngleY = (float) Math.PI;
-		float f1 = (limbSwing + MathHelper.sin(limbSwing * 2.7F)) * 0.6F * 12F;
+		float f1 = (limbSwing + Maths.sin(limbSwing * 2.7F)) * 0.6F * 12F;
 		upperJaw.rotationPointY = 24F - f1;
 		lowerJaw.rotationPointY = upperJaw.rotationPointY;
 		base.rotationPointY = upperJaw.rotationPointY;

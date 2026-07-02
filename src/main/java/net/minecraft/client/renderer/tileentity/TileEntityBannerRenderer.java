@@ -7,7 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntityBanner;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEntityBanner> {
 
@@ -49,7 +49,7 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEnti
 
 		BlockPos blockpos = te.getPos();
 		float f3 = (float) (blockpos.getX() * 7 + blockpos.getY() * 9 + blockpos.getZ() * 13) + (float) j + partialTicks;
-		bannerModel.bannerSlate.rotateAngleX = (-0.0125F + 0.01F * MathHelper.cos(f3 * (float) Math.PI * 0.02F)) * (float) Math.PI;
+		bannerModel.bannerSlate.rotateAngleX = (-0.0125F + 0.01F * Maths.cos(f3 * (float) Math.PI * 0.02F)) * (float) Math.PI;
 		GLS.enableRescaleNormal();
 		ResourceLocation resourcelocation = getBannerResourceLocation(te);
 

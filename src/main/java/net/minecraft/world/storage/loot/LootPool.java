@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.gson.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.JsonUtils;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
 
@@ -67,7 +67,7 @@ public class LootPool {
 	 */
 	public void generateLoot(Collection<ItemStack> stacks, Random rand, LootContext context) {
 		if (LootConditionManager.testAllConditions(poolConditions, rand, context)) {
-			int i = rolls.generateInt(rand) + MathHelper.floor(bonusRolls.generateFloat(rand) * context.getLuck());
+			int i = rolls.generateInt(rand) + Maths.floor(bonusRolls.generateFloat(rand) * context.getLuck());
 
 			for (int j = 0; j < i; ++j) {
 				createLootRoll(stacks, rand, context);

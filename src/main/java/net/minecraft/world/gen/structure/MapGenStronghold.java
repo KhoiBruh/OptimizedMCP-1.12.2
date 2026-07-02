@@ -3,7 +3,7 @@ package net.minecraft.world.gen.structure;
 import com.google.common.collect.Lists;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
@@ -42,10 +42,10 @@ public class MapGenStronghold extends MapGenStructure {
 
 		for (Entry<String, String> entry : p_i2068_1_.entrySet()) {
 			switch (entry.getKey()) {
-				case "distance" -> distance = MathHelper.getDouble(entry.getValue(), distance, 1D);
+				case "distance" -> distance = Maths.getDouble(entry.getValue(), distance, 1D);
 				case "count" ->
-					structureCoords = new ChunkPos[MathHelper.getInt(entry.getValue(), structureCoords.length, 1)];
-				case "spread" -> spread = MathHelper.getInt(entry.getValue(), spread, 1);
+					structureCoords = new ChunkPos[Maths.getInt(entry.getValue(), structureCoords.length, 1)];
+				case "spread" -> spread = Maths.getInt(entry.getValue(), spread, 1);
 			}
 		}
 	}

@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class RenderEnderCrystal extends Render<EntityEnderCrystal> {
 
@@ -28,7 +28,7 @@ public class RenderEnderCrystal extends Render<EntityEnderCrystal> {
 		GLS.pushMatrix();
 		GLS.translate((float) x, (float) y, (float) z);
 		bindTexture(ENDER_CRYSTAL_TEXTURES);
-		float f1 = MathHelper.sin(f * 0.2F) / 2F + 0.5F;
+		float f1 = Maths.sin(f * 0.2F) / 2F + 0.5F;
 		f1 = f1 * f1 + f1;
 
 		if (renderOutlines) {

@@ -9,7 +9,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
@@ -39,9 +39,9 @@ public class StructureOceanMonument extends MapGenStructure {
 
 		for (Entry<String, String> entry : p_i45608_1_.entrySet()) {
 			if (entry.getKey().equals("spacing")) {
-				spacing = MathHelper.getInt(entry.getValue(), spacing, 1);
+				spacing = Maths.getInt(entry.getValue(), spacing, 1);
 			} else if (entry.getKey().equals("separation")) {
-				separation = MathHelper.getInt(entry.getValue(), separation, 1);
+				separation = Maths.getInt(entry.getValue(), separation, 1);
 			}
 		}
 	}

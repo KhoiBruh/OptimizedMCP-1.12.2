@@ -16,7 +16,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.datafix.FixTypes;
 import net.minecraft.util.datafix.walkers.ItemStackData;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -97,9 +97,9 @@ public class EntityFireworkRocket extends Entity {
 		motionZ = z;
 
 		if (prevRotationPitch == 0F && prevRotationYaw == 0F) {
-			float f = MathHelper.sqrt(x * x + z * z);
-			rotationYaw = (float) (MathHelper.atan2(x, z) * (180D / Math.PI));
-			rotationPitch = (float) (MathHelper.atan2(y, f) * (180D / Math.PI));
+			float f = Maths.sqrt(x * x + z * z);
+			rotationYaw = (float) (Maths.atan2(x, z) * (180D / Math.PI));
+			rotationPitch = (float) (Maths.atan2(y, f) * (180D / Math.PI));
 			prevRotationYaw = rotationYaw;
 			prevRotationPitch = rotationPitch;
 		}
@@ -145,10 +145,10 @@ public class EntityFireworkRocket extends Entity {
 			move(MoverType.SELF, motionX, motionY, motionZ);
 		}
 
-		float f = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
-		rotationYaw = (float) (MathHelper.atan2(motionX, motionZ) * (180D / Math.PI));
+		float f = Maths.sqrt(motionX * motionX + motionZ * motionZ);
+		rotationYaw = (float) (Maths.atan2(motionX, motionZ) * (180D / Math.PI));
 
-		for (rotationPitch = (float) (MathHelper.atan2(motionY, f) * (180D / Math.PI)); rotationPitch - prevRotationPitch < -180F; prevRotationPitch -= 360F) {
+		for (rotationPitch = (float) (Maths.atan2(motionY, f) * (180D / Math.PI)); rotationPitch - prevRotationPitch < -180F; prevRotationPitch -= 360F) {
 		}
 
 		while (rotationPitch - prevRotationPitch >= 180F) {

@@ -22,7 +22,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
@@ -133,8 +133,8 @@ public class EntitySlime extends EntityLiving implements IMob {
 			for (int j = 0; j < i * 8; ++j) {
 				float f = rand.nextFloat() * ((float) Math.PI * 2F);
 				float f1 = rand.nextFloat() * 0.5F + 0.5F;
-				float f2 = MathHelper.sin(f) * (float) i * 0.5F * f1;
-				float f3 = MathHelper.cos(f) * (float) i * 0.5F * f1;
+				float f2 = Maths.sin(f) * (float) i * 0.5F * f1;
+				float f3 = Maths.cos(f) * (float) i * 0.5F * f1;
 				World world = this.world;
 				ParticleTypes enumparticletypes = getParticleType();
 				double d0 = posX + (double) f2;
@@ -284,7 +284,7 @@ public class EntitySlime extends EntityLiving implements IMob {
 	 * Checks if the entity's current position is a valid location to spawn this entity.
 	 */
 	public boolean getCanSpawnHere() {
-		BlockPos blockpos = new BlockPos(MathHelper.floor(posX), 0, MathHelper.floor(posZ));
+		BlockPos blockpos = new BlockPos(Maths.floor(posX), 0, Maths.floor(posZ));
 		Chunk chunk = world.getChunkFromBlockCoords(blockpos);
 
 		if (world.getWorldInfo().getTerrainType() == WorldType.FLAT && rand.nextInt(4) != 1) {

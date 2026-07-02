@@ -5,7 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -72,7 +72,7 @@ public class WorldGenMegaPineTree extends WorldGenHugeTrees {
 
 		for (int k = y - i; k <= y; ++k) {
 			int l = y - k;
-			int i1 = p_150541_5_ + MathHelper.floor((float) l / (float) i * 3.5F);
+			int i1 = p_150541_5_ + Maths.floor((float) l / (float) i * 3.5F);
 			growLeavesLayerStrict(worldIn, new BlockPos(x, k, z), i1 + (l > 0 && i1 == j && (k & 1) == 0 ? 1 : 0));
 			j = i1;
 		}

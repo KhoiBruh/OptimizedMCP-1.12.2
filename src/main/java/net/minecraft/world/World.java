@@ -771,12 +771,12 @@ public abstract class World implements IBlockAccess {
 	public RayTraceResult rayTraceBlocks(Vec3d vec31, Vec3d vec32, boolean stopOnLiquid, boolean ignoreBlockWithoutBoundingBox, boolean returnLastUncollidableBlock) {
 		if (!Double.isNaN(vec31.x()) && !Double.isNaN(vec31.y()) && !Double.isNaN(vec31.z())) {
 			if (!Double.isNaN(vec32.x()) && !Double.isNaN(vec32.y()) && !Double.isNaN(vec32.z())) {
-				int i = MathHelper.floor(vec32.x());
-				int j = MathHelper.floor(vec32.y());
-				int k = MathHelper.floor(vec32.z());
-				int l = MathHelper.floor(vec31.x());
-				int i1 = MathHelper.floor(vec31.y());
-				int j1 = MathHelper.floor(vec31.z());
+				int i = Maths.floor(vec32.x());
+				int j = Maths.floor(vec32.y());
+				int k = Maths.floor(vec32.z());
+				int l = Maths.floor(vec31.x());
+				int i1 = Maths.floor(vec31.y());
+				int j1 = Maths.floor(vec31.z());
 				BlockPos blockpos = new BlockPos(l, i1, j1);
 				IBlockState iblockstate = getBlockState(blockpos);
 				Block block = iblockstate.getBlock();
@@ -876,9 +876,9 @@ public abstract class World implements IBlockAccess {
 						vec31 = new Vec3d(vec31.x() + d6 * d5, vec31.y() + d7 * d5, d2);
 					}
 
-					l = MathHelper.floor(vec31.x()) - (enumfacing == Facing.EAST ? 1 : 0);
-					i1 = MathHelper.floor(vec31.y()) - (enumfacing == Facing.UP ? 1 : 0);
-					j1 = MathHelper.floor(vec31.z()) - (enumfacing == Facing.SOUTH ? 1 : 0);
+					l = Maths.floor(vec31.x()) - (enumfacing == Facing.EAST ? 1 : 0);
+					i1 = Maths.floor(vec31.y()) - (enumfacing == Facing.UP ? 1 : 0);
+					j1 = Maths.floor(vec31.z()) - (enumfacing == Facing.SOUTH ? 1 : 0);
 					blockpos = new BlockPos(l, i1, j1);
 					IBlockState iblockstate1 = getBlockState(blockpos);
 					Block block1 = iblockstate1.getBlock();
@@ -963,8 +963,8 @@ public abstract class World implements IBlockAccess {
 	 * Called when an entity is spawned in the world. This includes players.
 	 */
 	public boolean spawnEntity(Entity entityIn) {
-		int i = MathHelper.floor(entityIn.posX / 16D);
-		int j = MathHelper.floor(entityIn.posZ / 16D);
+		int i = Maths.floor(entityIn.posX / 16D);
+		int j = Maths.floor(entityIn.posZ / 16D);
 		boolean flag = entityIn.forceSpawn;
 
 		if (entityIn instanceof EntityPlayer) {
@@ -1067,12 +1067,12 @@ public abstract class World implements IBlockAccess {
 	 * @return true if any box intersects (i.e. resultList is not empty)
 	 */
 	private boolean getCollisionBoxes(Entity entityIn, AxisAlignedBB aabb, boolean p_191504_3_, List<AxisAlignedBB> outList) {
-		int i = MathHelper.floor(aabb.minX) - 1;
-		int j = MathHelper.ceil(aabb.maxX) + 1;
-		int k = MathHelper.floor(aabb.minY) - 1;
-		int l = MathHelper.ceil(aabb.maxY) + 1;
-		int i1 = MathHelper.floor(aabb.minZ) - 1;
-		int j1 = MathHelper.ceil(aabb.maxZ) + 1;
+		int i = Maths.floor(aabb.minX) - 1;
+		int j = Maths.ceil(aabb.maxX) + 1;
+		int k = Maths.floor(aabb.minY) - 1;
+		int l = Maths.ceil(aabb.maxY) + 1;
+		int i1 = Maths.floor(aabb.minZ) - 1;
+		int j1 = Maths.ceil(aabb.maxZ) + 1;
 		WorldBorder worldborder = getWorldBorder();
 		boolean flag = entityIn != null && entityIn.isOutsideBorder();
 		boolean flag1 = entityIn != null && isInsideWorldBorder(entityIn);
@@ -1182,8 +1182,8 @@ public abstract class World implements IBlockAccess {
 	 */
 	public int calculateSkylightSubtracted(float partialTicks) {
 		float f = getCelestialAngle(partialTicks);
-		float f1 = 1F - (MathHelper.cos(f * ((float) Math.PI * 2F)) * 2F + 0.5F);
-		f1 = MathHelper.clamp(f1, 0F, 1F);
+		float f1 = 1F - (Maths.cos(f * ((float) Math.PI * 2F)) * 2F + 0.5F);
+		f1 = Maths.clamp(f1, 0F, 1F);
 		f1 = 1F - f1;
 		f1 = (float) ((double) f1 * (1D - (double) (getRainStrength(partialTicks) * 5F) / 16D));
 		f1 = (float) ((double) f1 * (1D - (double) (getThunderStrength(partialTicks) * 5F) / 16D));
@@ -1196,8 +1196,8 @@ public abstract class World implements IBlockAccess {
 	 */
 	public float getSunBrightness(float partialTicks) {
 		float f = getCelestialAngle(partialTicks);
-		float f1 = 1F - (MathHelper.cos(f * ((float) Math.PI * 2F)) * 2F + 0.2F);
-		f1 = MathHelper.clamp(f1, 0F, 1F);
+		float f1 = 1F - (Maths.cos(f * ((float) Math.PI * 2F)) * 2F + 0.2F);
+		f1 = Maths.clamp(f1, 0F, 1F);
 		f1 = 1F - f1;
 		f1 = (float) ((double) f1 * (1D - (double) (getRainStrength(partialTicks) * 5F) / 16D));
 		f1 = (float) ((double) f1 * (1D - (double) (getThunderStrength(partialTicks) * 5F) / 16D));
@@ -1209,11 +1209,11 @@ public abstract class World implements IBlockAccess {
 	 */
 	public Vec3d getSkyColor(Entity entityIn, float partialTicks) {
 		float f = getCelestialAngle(partialTicks);
-		float f1 = MathHelper.cos(f * ((float) Math.PI * 2F)) * 2F + 0.5F;
-		f1 = MathHelper.clamp(f1, 0F, 1F);
-		int i = MathHelper.floor(entityIn.posX);
-		int j = MathHelper.floor(entityIn.posY);
-		int k = MathHelper.floor(entityIn.posZ);
+		float f1 = Maths.cos(f * ((float) Math.PI * 2F)) * 2F + 0.5F;
+		f1 = Maths.clamp(f1, 0F, 1F);
+		int i = Maths.floor(entityIn.posX);
+		int j = Maths.floor(entityIn.posY);
+		int k = Maths.floor(entityIn.posZ);
 		BlockPos blockpos = new BlockPos(i, j, k);
 		Biome biome = getBiome(blockpos);
 		float f2 = biome.getTemperature(blockpos);
@@ -1288,8 +1288,8 @@ public abstract class World implements IBlockAccess {
 
 	public Vec3d getCloudColour(float partialTicks) {
 		float f = getCelestialAngle(partialTicks);
-		float f1 = MathHelper.cos(f * ((float) Math.PI * 2F)) * 2F + 0.5F;
-		f1 = MathHelper.clamp(f1, 0F, 1F);
+		float f1 = Maths.cos(f * ((float) Math.PI * 2F)) * 2F + 0.5F;
+		f1 = Maths.clamp(f1, 0F, 1F);
 		float f2 = 1F;
 		float f3 = 1F;
 		float f4 = 1F;
@@ -1356,8 +1356,8 @@ public abstract class World implements IBlockAccess {
 	 */
 	public float getStarBrightness(float partialTicks) {
 		float f = getCelestialAngle(partialTicks);
-		float f1 = 1F - (MathHelper.cos(f * ((float) Math.PI * 2F)) * 2F + 0.25F);
-		f1 = MathHelper.clamp(f1, 0F, 1F);
+		float f1 = 1F - (Maths.cos(f * ((float) Math.PI * 2F)) * 2F + 0.25F);
+		f1 = Maths.clamp(f1, 0F, 1F);
 		return f1 * f1 * 0.5F;
 	}
 
@@ -1583,8 +1583,8 @@ public abstract class World implements IBlockAccess {
 	 */
 	public void updateEntityWithOptionalForce(Entity entityIn, boolean forceUpdate) {
 		if (!(entityIn instanceof EntityPlayer)) {
-			int j2 = MathHelper.floor(entityIn.posX);
-			int k2 = MathHelper.floor(entityIn.posZ);
+			int j2 = Maths.floor(entityIn.posX);
+			int k2 = Maths.floor(entityIn.posZ);
 			int l2 = 32;
 
 			if (forceUpdate && !isAreaLoaded(j2 - 32, 0, k2 - 32, j2 + 32, 0, k2 + 32, true)) {
@@ -1630,9 +1630,9 @@ public abstract class World implements IBlockAccess {
 			entityIn.rotationYaw = entityIn.prevRotationYaw;
 		}
 
-		int i3 = MathHelper.floor(entityIn.posX / 16D);
-		int j3 = MathHelper.floor(entityIn.posY / 16D);
-		int k3 = MathHelper.floor(entityIn.posZ / 16D);
+		int i3 = Maths.floor(entityIn.posX / 16D);
+		int j3 = Maths.floor(entityIn.posY / 16D);
+		int k3 = Maths.floor(entityIn.posZ / 16D);
 
 		if (!entityIn.addedToChunk || entityIn.chunkCoordX != i3 || entityIn.chunkCoordY != j3 || entityIn.chunkCoordZ != k3) {
 			if (entityIn.addedToChunk && isChunkLoaded(entityIn.chunkCoordX, entityIn.chunkCoordZ, true)) {
@@ -1685,12 +1685,12 @@ public abstract class World implements IBlockAccess {
 	 * Returns true if there are any blocks in the region constrained by an AxisAlignedBB
 	 */
 	public boolean checkBlockCollision(AxisAlignedBB bb) {
-		int j2 = MathHelper.floor(bb.minX);
-		int k2 = MathHelper.ceil(bb.maxX);
-		int l2 = MathHelper.floor(bb.minY);
-		int i3 = MathHelper.ceil(bb.maxY);
-		int j3 = MathHelper.floor(bb.minZ);
-		int k3 = MathHelper.ceil(bb.maxZ);
+		int j2 = Maths.floor(bb.minX);
+		int k2 = Maths.ceil(bb.maxX);
+		int l2 = Maths.floor(bb.minY);
+		int i3 = Maths.ceil(bb.maxY);
+		int j3 = Maths.floor(bb.minZ);
+		int k3 = Maths.ceil(bb.maxZ);
 		BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
 
 		for (int l3 = j2; l3 < k2; ++l3) {
@@ -1714,12 +1714,12 @@ public abstract class World implements IBlockAccess {
 	 * Checks if any of the blocks within the aabb are liquids.
 	 */
 	public boolean containsAnyLiquid(AxisAlignedBB bb) {
-		int j2 = MathHelper.floor(bb.minX);
-		int k2 = MathHelper.ceil(bb.maxX);
-		int l2 = MathHelper.floor(bb.minY);
-		int i3 = MathHelper.ceil(bb.maxY);
-		int j3 = MathHelper.floor(bb.minZ);
-		int k3 = MathHelper.ceil(bb.maxZ);
+		int j2 = Maths.floor(bb.minX);
+		int k2 = Maths.ceil(bb.maxX);
+		int l2 = Maths.floor(bb.minY);
+		int i3 = Maths.ceil(bb.maxY);
+		int j3 = Maths.floor(bb.minZ);
+		int k3 = Maths.ceil(bb.maxZ);
 		BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
 
 		for (int l3 = j2; l3 < k2; ++l3) {
@@ -1740,12 +1740,12 @@ public abstract class World implements IBlockAccess {
 	}
 
 	public boolean isFlammableWithin(AxisAlignedBB bb) {
-		int j2 = MathHelper.floor(bb.minX);
-		int k2 = MathHelper.ceil(bb.maxX);
-		int l2 = MathHelper.floor(bb.minY);
-		int i3 = MathHelper.ceil(bb.maxY);
-		int j3 = MathHelper.floor(bb.minZ);
-		int k3 = MathHelper.ceil(bb.maxZ);
+		int j2 = Maths.floor(bb.minX);
+		int k2 = Maths.ceil(bb.maxX);
+		int l2 = Maths.floor(bb.minY);
+		int i3 = Maths.ceil(bb.maxY);
+		int j3 = Maths.floor(bb.minZ);
+		int k3 = Maths.ceil(bb.maxZ);
 
 		if (isAreaLoaded(j2, l2, j3, k2, i3, k3, true)) {
 			BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
@@ -1773,12 +1773,12 @@ public abstract class World implements IBlockAccess {
 	 * handles the acceleration of an object whilst in water. Not sure if it is used elsewhere.
 	 */
 	public boolean handleMaterialAcceleration(AxisAlignedBB bb, Material materialIn, Entity entityIn) {
-		int j2 = MathHelper.floor(bb.minX);
-		int k2 = MathHelper.ceil(bb.maxX);
-		int l2 = MathHelper.floor(bb.minY);
-		int i3 = MathHelper.ceil(bb.maxY);
-		int j3 = MathHelper.floor(bb.minZ);
-		int k3 = MathHelper.ceil(bb.maxZ);
+		int j2 = Maths.floor(bb.minX);
+		int k2 = Maths.ceil(bb.maxX);
+		int l2 = Maths.floor(bb.minY);
+		int i3 = Maths.ceil(bb.maxY);
+		int j3 = Maths.floor(bb.minZ);
+		int k3 = Maths.ceil(bb.maxZ);
 
 		if (!isAreaLoaded(j2, l2, j3, k2, i3, k3, true)) {
 			return false;
@@ -1824,12 +1824,12 @@ public abstract class World implements IBlockAccess {
 	 * Returns true if the given bounding box contains the given material
 	 */
 	public boolean isMaterialInBB(AxisAlignedBB bb, Material materialIn) {
-		int j2 = MathHelper.floor(bb.minX);
-		int k2 = MathHelper.ceil(bb.maxX);
-		int l2 = MathHelper.floor(bb.minY);
-		int i3 = MathHelper.ceil(bb.maxY);
-		int j3 = MathHelper.floor(bb.minZ);
-		int k3 = MathHelper.ceil(bb.maxZ);
+		int j2 = Maths.floor(bb.minX);
+		int k2 = Maths.ceil(bb.maxX);
+		int l2 = Maths.floor(bb.minY);
+		int i3 = Maths.ceil(bb.maxY);
+		int j3 = Maths.floor(bb.minZ);
+		int k3 = Maths.ceil(bb.maxZ);
 		BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
 
 		for (int l3 = j2; l3 < k2; ++l3) {
@@ -2133,7 +2133,7 @@ public abstract class World implements IBlockAccess {
 					thunderingStrength = (float) ((double) thunderingStrength - 0.01D);
 				}
 
-				thunderingStrength = MathHelper.clamp(thunderingStrength, 0F, 1F);
+				thunderingStrength = Maths.clamp(thunderingStrength, 0F, 1F);
 				prevRainingStrength = rainingStrength;
 
 				if (worldInfo.isRaining()) {
@@ -2142,7 +2142,7 @@ public abstract class World implements IBlockAccess {
 					rainingStrength = (float) ((double) rainingStrength - 0.01D);
 				}
 
-				rainingStrength = MathHelper.clamp(rainingStrength, 0F, 1F);
+				rainingStrength = Maths.clamp(rainingStrength, 0F, 1F);
 			}
 		}
 	}
@@ -2313,9 +2313,9 @@ public abstract class World implements IBlockAccess {
 						setLightFor(lightType, blockpos1, 0);
 
 						if (i5 > 0) {
-							int k5 = MathHelper.abs(j4 - j3);
-							int l5 = MathHelper.abs(k4 - k3);
-							int i6 = MathHelper.abs(l4 - l3);
+							int k5 = Maths.abs(j4 - j3);
+							int l5 = Maths.abs(k4 - k3);
+							int i6 = Maths.abs(l4 - l3);
 
 							if (k5 + l5 + i6 < 17) {
 								BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
@@ -2418,10 +2418,10 @@ public abstract class World implements IBlockAccess {
 
 	public List<Entity> getEntitiesInAABBexcluding(Entity entityIn, AxisAlignedBB boundingBox, Predicate<? super Entity> predicate) {
 		List<Entity> list = Lists.newArrayList();
-		int j2 = MathHelper.floor((boundingBox.minX - 2D) / 16D);
-		int k2 = MathHelper.floor((boundingBox.maxX + 2D) / 16D);
-		int l2 = MathHelper.floor((boundingBox.minZ - 2D) / 16D);
-		int i3 = MathHelper.floor((boundingBox.maxZ + 2D) / 16D);
+		int j2 = Maths.floor((boundingBox.minX - 2D) / 16D);
+		int k2 = Maths.floor((boundingBox.maxX + 2D) / 16D);
+		int l2 = Maths.floor((boundingBox.minZ - 2D) / 16D);
+		int i3 = Maths.floor((boundingBox.maxZ + 2D) / 16D);
 
 		for (int j3 = j2; j3 <= k2; ++j3) {
 			for (int k3 = l2; k3 <= i3; ++k3) {
@@ -2467,10 +2467,10 @@ public abstract class World implements IBlockAccess {
 
 	public <T extends Entity> List<T> getEntitiesWithinAABB(Class<? extends T> clazz, AxisAlignedBB aabb, Predicate<? super T> filter) {
 
-		int j2 = MathHelper.floor((aabb.minX - 2D) / 16D);
-		int k2 = MathHelper.ceil((aabb.maxX + 2D) / 16D);
-		int l2 = MathHelper.floor((aabb.minZ - 2D) / 16D);
-		int i3 = MathHelper.ceil((aabb.maxZ + 2D) / 16D);
+		int j2 = Maths.floor((aabb.minX - 2D) / 16D);
+		int k2 = Maths.ceil((aabb.maxX + 2D) / 16D);
+		int l2 = Maths.floor((aabb.minZ - 2D) / 16D);
+		int i3 = Maths.ceil((aabb.maxZ + 2D) / 16D);
 		List<T> list = Lists.newArrayList();
 
 		for (int j3 = j2; j3 < k2; ++j3) {
@@ -2847,8 +2847,8 @@ public abstract class World implements IBlockAccess {
 	 * spwans an entity and loads surrounding chunks
 	 */
 	public void joinEntityInSurroundings(Entity entityIn) {
-		int j2 = MathHelper.floor(entityIn.posX / 16D);
-		int k2 = MathHelper.floor(entityIn.posZ / 16D);
+		int j2 = Maths.floor(entityIn.posX / 16D);
+		int k2 = Maths.floor(entityIn.posZ / 16D);
 		int l2 = 2;
 
 		for (int i3 = -2; i3 <= 2; ++i3) {

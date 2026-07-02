@@ -11,7 +11,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.network.play.server.SPacketSetSlot;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -83,7 +83,7 @@ public abstract class Container {
 	public static void computeStackSize(Set<Slot> dragSlotsIn, int dragModeIn, ItemStack stack, int slotStackSize) {
 		switch (dragModeIn) {
 			case 0:
-				stack.setCount(MathHelper.floor((float) stack.getCount() / (float) dragSlotsIn.size()));
+				stack.setCount(Maths.floor((float) stack.getCount() / (float) dragSlotsIn.size()));
 				break;
 
 			case 1:
@@ -121,7 +121,7 @@ public abstract class Container {
 			}
 
 			f = f / (float) inv.getSizeInventory();
-			return MathHelper.floor(f * 14F) + (i > 0 ? 1 : 0);
+			return Maths.floor(f * 14F) + (i > 0 ? 1 : 0);
 		}
 	}
 

@@ -7,7 +7,7 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEntitySpawner;
 import net.minecraft.world.WorldType;
@@ -71,7 +71,7 @@ public class ChunkGeneratorOverworld implements IChunkGenerator {
 
 		for (int i = -2; i <= 2; ++i) {
 			for (int j = -2; j <= 2; ++j) {
-				float f = 10F / MathHelper.sqrt((float) (i * i + j * j) + 0.2F);
+				float f = 10F / Maths.sqrt((float) (i * i + j * j) + 0.2F);
 				biomeWeights[i + 2 + (j + 2) * 5] = f;
 			}
 		}
@@ -297,7 +297,7 @@ public class ChunkGeneratorOverworld implements IChunkGenerator {
 					double d2 = minLimitRegion[i] / (double) settings.lowerLimitScale;
 					double d3 = maxLimitRegion[i] / (double) settings.upperLimitScale;
 					double d4 = (mainNoiseRegion[i] / 10D + 1D) / 2D;
-					double d5 = MathHelper.clampedLerp(d2, d3, d4) - d1;
+					double d5 = Maths.clampedLerp(d2, d3, d4) - d1;
 
 					if (l1 > 29) {
 						double d6 = (float) (l1 - 29) / 3F;

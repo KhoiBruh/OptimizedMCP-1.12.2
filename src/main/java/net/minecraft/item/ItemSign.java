@@ -14,7 +14,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Facing;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 public class ItemSign extends Item {
@@ -42,7 +42,7 @@ public class ItemSign extends Item {
 					pos = flag ? pos.down() : pos;
 
 					if (facing == Facing.UP) {
-						int i = MathHelper.floor((double) ((player.rotationYaw + 180F) * 16F / 360F) + 0.5D) & 15;
+						int i = Maths.floor((double) ((player.rotationYaw + 180F) * 16F / 360F) + 0.5D) & 15;
 						worldIn.setBlockState(pos, Blocks.STANDING_SIGN.getDefaultState()
 						                                               .withProperty(BlockStandingSign.ROTATION, i), 11);
 					} else {

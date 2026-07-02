@@ -9,7 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 
@@ -202,7 +202,7 @@ public class CommandSpreadPlayers extends CommandBase {
 				commandspreadplayers$position = p_110671_3_[i++];
 			}
 
-			entity.setPositionAndUpdate((float) MathHelper.floor(commandspreadplayers$position.x) + 0.5F, commandspreadplayers$position.getSpawnY(worldIn), (double) MathHelper.floor(commandspreadplayers$position.z) + 0.5D);
+			entity.setPositionAndUpdate((float) Maths.floor(commandspreadplayers$position.x) + 0.5F, commandspreadplayers$position.getSpawnY(worldIn), (double) Maths.floor(commandspreadplayers$position.z) + 0.5D);
 			double d2 = Double.MAX_VALUE;
 
 			for (Position commandspreadplayers$position1 : p_110671_3_) {
@@ -262,7 +262,7 @@ public class CommandSpreadPlayers extends CommandBase {
 		}
 
 		float getLength() {
-			return MathHelper.sqrt(x * x + z * z);
+			return Maths.sqrt(x * x + z * z);
 		}
 
 		public void moveAway(CommandSpreadPlayers.Position pos) {
@@ -322,8 +322,8 @@ public class CommandSpreadPlayers extends CommandBase {
 		}
 
 		public void randomize(Random rand, double p_111097_2_, double p_111097_4_, double p_111097_6_, double p_111097_8_) {
-			x = MathHelper.nextDouble(rand, p_111097_2_, p_111097_6_);
-			z = MathHelper.nextDouble(rand, p_111097_4_, p_111097_8_);
+			x = Maths.nextDouble(rand, p_111097_2_, p_111097_6_);
+			z = Maths.nextDouble(rand, p_111097_4_, p_111097_8_);
 		}
 
 	}

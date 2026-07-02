@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.entity.RenderWither;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class LayerWitherAura implements LayerRenderer<EntityWither> {
 
@@ -25,7 +25,7 @@ public class LayerWitherAura implements LayerRenderer<EntityWither> {
 			GLS.matrixMode(5890);
 			GLS.loadIdentity();
 			float f = (float) entitylivingbaseIn.ticksExisted + partialTicks;
-			float f1 = MathHelper.cos(f * 0.02F) * 3F;
+			float f1 = Maths.cos(f * 0.02F) * 3F;
 			float f2 = f * 0.01F;
 			GLS.translate(f1, f2, 0F);
 			GLS.matrixMode(5888);

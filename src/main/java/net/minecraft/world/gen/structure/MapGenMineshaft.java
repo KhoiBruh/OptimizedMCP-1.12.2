@@ -1,7 +1,7 @@
 package net.minecraft.world.gen.structure;
 
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeMesa;
@@ -19,7 +19,7 @@ public class MapGenMineshaft extends MapGenStructure {
 	public MapGenMineshaft(Map<String, String> p_i2034_1_) {
 		for (Entry<String, String> entry : p_i2034_1_.entrySet()) {
 			if (entry.getKey().equals("chance")) {
-				chance = MathHelper.getDouble(entry.getValue(), chance);
+				chance = Maths.getDouble(entry.getValue(), chance);
 			}
 		}
 	}

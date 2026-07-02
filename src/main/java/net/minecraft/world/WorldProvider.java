@@ -4,7 +4,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeProvider;
@@ -153,12 +153,12 @@ public abstract class WorldProvider {
 	 */
 	public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks) {
 		float f = 0.4F;
-		float f1 = MathHelper.cos(celestialAngle * ((float) Math.PI * 2F)) - 0F;
+		float f1 = Maths.cos(celestialAngle * ((float) Math.PI * 2F)) - 0F;
 		float f2 = -0F;
 
 		if (f1 >= -0.4F && f1 <= 0.4F) {
 			float f3 = (f1 + 0F) / 0.4F * 0.5F + 0.5F;
-			float f4 = 1F - (1F - MathHelper.sin(f3 * (float) Math.PI)) * 0.99F;
+			float f4 = 1F - (1F - Maths.sin(f3 * (float) Math.PI)) * 0.99F;
 			f4 = f4 * f4;
 			colorsSunriseSunset[0] = f3 * 0.3F + 0.7F;
 			colorsSunriseSunset[1] = f3 * f3 * 0.7F + 0.2F;
@@ -174,8 +174,8 @@ public abstract class WorldProvider {
 	 * Return Vec3D with biome specific fog color
 	 */
 	public Vec3d getFogColor(float p_76562_1_, float p_76562_2_) {
-		float f = MathHelper.cos(p_76562_1_ * ((float) Math.PI * 2F)) * 2F + 0.5F;
-		f = MathHelper.clamp(f, 0F, 1F);
+		float f = Maths.cos(p_76562_1_ * ((float) Math.PI * 2F)) * 2F + 0.5F;
+		f = Maths.clamp(f, 0F, 1F);
 		float f1 = 0.7529412F;
 		float f2 = 0.84705883F;
 		float f3 = 1F;

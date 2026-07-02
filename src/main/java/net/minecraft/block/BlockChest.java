@@ -20,7 +20,7 @@ import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.ILockableContainer;
 import net.minecraft.world.World;
@@ -109,7 +109,7 @@ public class BlockChest extends BlockContainer {
 	 * Called by ItemBlocks after a block is set in the world, to allow post-place logic
 	 */
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-		Facing enumfacing = Facing.getHorizontal(MathHelper.floor((double) (placer.rotationYaw * 4F / 360F) + 0.5D) & 3)
+		Facing enumfacing = Facing.getHorizontal(Maths.floor((double) (placer.rotationYaw * 4F / 360F) + 0.5D) & 3)
 		                          .getOpposite();
 		state = state.withProperty(FACING, enumfacing);
 		BlockPos blockpos = pos.north();
@@ -440,7 +440,7 @@ public class BlockChest extends BlockContainer {
 				i = ((TileEntityChest) tileentity).numPlayersUsing;
 			}
 
-			return MathHelper.clamp(i, 0, 15);
+			return Maths.clamp(i, 0, 15);
 		}
 	}
 

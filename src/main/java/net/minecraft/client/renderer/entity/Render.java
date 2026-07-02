@@ -19,7 +19,7 @@ import net.minecraft.util.BlockRenderType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 public abstract class Render<T extends Entity> {
@@ -226,12 +226,12 @@ public abstract class Render<T extends Entity> {
 		double d5 = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * (double) partialTicks;
 		double d0 = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * (double) partialTicks;
 		double d1 = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * (double) partialTicks;
-		int i = MathHelper.floor(d5 - (double) f);
-		int j = MathHelper.floor(d5 + (double) f);
-		int k = MathHelper.floor(d0 - (double) f);
-		int l = MathHelper.floor(d0);
-		int i1 = MathHelper.floor(d1 - (double) f);
-		int j1 = MathHelper.floor(d1 + (double) f);
+		int i = Maths.floor(d5 - (double) f);
+		int j = Maths.floor(d5 + (double) f);
+		int k = Maths.floor(d0 - (double) f);
+		int l = Maths.floor(d0);
+		int i1 = Maths.floor(d1 - (double) f);
+		int j1 = Maths.floor(d1 + (double) f);
 		double d2 = x - d5;
 		double d3 = y - d0;
 		double d4 = z - d1;

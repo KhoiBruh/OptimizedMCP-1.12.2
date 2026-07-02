@@ -6,7 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -84,13 +84,13 @@ public class PathNavigateGround extends PathNavigate {
 	private int getPathablePosY() {
 		if (entity.isInWater() && getCanSwim()) {
 			int i = (int) entity.getEntityBoundingBox().minY;
-			Block block = world.getBlockState(new BlockPos(MathHelper.floor(entity.posX), i, MathHelper.floor(entity.posZ)))
+			Block block = world.getBlockState(new BlockPos(Maths.floor(entity.posX), i, Maths.floor(entity.posZ)))
 			                   .getBlock();
 			int j = 0;
 
 			while (block == Blocks.FLOWING_WATER || block == Blocks.WATER) {
 				++i;
-				block = world.getBlockState(new BlockPos(MathHelper.floor(entity.posX), i, MathHelper.floor(entity.posZ)))
+				block = world.getBlockState(new BlockPos(Maths.floor(entity.posX), i, Maths.floor(entity.posZ)))
 				             .getBlock();
 				++j;
 
@@ -112,7 +112,7 @@ public class PathNavigateGround extends PathNavigate {
 		super.removeSunnyPath();
 
 		if (shouldAvoidSun) {
-			if (world.canSeeSky(new BlockPos(MathHelper.floor(entity.posX), (int) (entity.getEntityBoundingBox().minY + 0.5D), MathHelper.floor(entity.posZ)))) {
+			if (world.canSeeSky(new BlockPos(Maths.floor(entity.posX), (int) (entity.getEntityBoundingBox().minY + 0.5D), Maths.floor(entity.posZ)))) {
 				return;
 			}
 
@@ -131,8 +131,8 @@ public class PathNavigateGround extends PathNavigate {
 	 * Checks if the specified entity can safely walk to the specified location.
 	 */
 	protected boolean isDirectPathBetweenPoints(Vec3d posVec31, Vec3d posVec32, int sizeX, int sizeY, int sizeZ) {
-		int i = MathHelper.floor(posVec31.x());
-		int j = MathHelper.floor(posVec31.z());
+		int i = Maths.floor(posVec31.x());
+		int j = Maths.floor(posVec31.z());
 		double d0 = posVec32.x() - posVec31.x();
 		double d1 = posVec32.z() - posVec31.z();
 		double d2 = d0 * d0 + d1 * d1;
@@ -168,8 +168,8 @@ public class PathNavigateGround extends PathNavigate {
 				d7 = d7 / d1;
 				int k = d0 < 0D ? -1 : 1;
 				int l = d1 < 0D ? -1 : 1;
-				int i1 = MathHelper.floor(posVec32.x());
-				int j1 = MathHelper.floor(posVec32.z());
+				int i1 = Maths.floor(posVec32.x());
+				int j1 = Maths.floor(posVec32.z());
 				int k1 = i1 - i;
 				int l1 = j1 - j;
 

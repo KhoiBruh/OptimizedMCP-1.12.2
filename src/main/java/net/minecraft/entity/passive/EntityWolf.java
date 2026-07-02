@@ -21,7 +21,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.*;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
@@ -230,7 +230,7 @@ public class EntityWolf extends EntityTameable {
 
 			if (timeWolfIsShaking > 0.4F) {
 				float f = (float) getEntityBoundingBox().minY;
-				int i = (int) (MathHelper.sin((timeWolfIsShaking - 0.4F) * (float) Math.PI) * 7F);
+				int i = (int) (Maths.sin((timeWolfIsShaking - 0.4F) * (float) Math.PI) * 7F);
 
 				for (int j = 0; j < i; ++j) {
 					float f1 = (rand.nextFloat() * 2F - 1F) * width * 0.5F;
@@ -264,7 +264,7 @@ public class EntityWolf extends EntityTameable {
 			f = 1F;
 		}
 
-		return MathHelper.sin(f * (float) Math.PI) * MathHelper.sin(f * (float) Math.PI * 11F) * 0.15F * (float) Math.PI;
+		return Maths.sin(f * (float) Math.PI) * Maths.sin(f * (float) Math.PI * 11F) * 0.15F * (float) Math.PI;
 	}
 
 	public float getInterestedAngle(float p_70917_1_) {

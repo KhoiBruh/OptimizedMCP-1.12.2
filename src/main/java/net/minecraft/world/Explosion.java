@@ -18,7 +18,7 @@ import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.List;
@@ -118,12 +118,12 @@ public class Explosion {
 
 		affectedBlockPositions.addAll(set);
 		float f3 = size * 2F;
-		int k1 = MathHelper.floor(x - (double) f3 - 1D);
-		int l1 = MathHelper.floor(x + (double) f3 + 1D);
-		int i2 = MathHelper.floor(y - (double) f3 - 1D);
-		int i1 = MathHelper.floor(y + (double) f3 + 1D);
-		int j2 = MathHelper.floor(z - (double) f3 - 1D);
-		int j1 = MathHelper.floor(z + (double) f3 + 1D);
+		int k1 = Maths.floor(x - (double) f3 - 1D);
+		int l1 = Maths.floor(x + (double) f3 + 1D);
+		int i2 = Maths.floor(y - (double) f3 - 1D);
+		int i1 = Maths.floor(y + (double) f3 + 1D);
+		int j2 = Maths.floor(z - (double) f3 - 1D);
+		int j1 = Maths.floor(z + (double) f3 + 1D);
 		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(exploder, new AxisAlignedBB(k1, i2, j2, l1, i1, j1));
 		Vec3d vec3d = new Vec3d(x, y, z);
 
@@ -135,7 +135,7 @@ public class Explosion {
 					double d5 = entity.posX - x;
 					double d7 = entity.posY + (double) entity.getEyeHeight() - y;
 					double d9 = entity.posZ - z;
-					double d13 = MathHelper.sqrt(d5 * d5 + d7 * d7 + d9 * d9);
+					double d13 = Maths.sqrt(d5 * d5 + d7 * d7 + d9 * d9);
 
 					if (d13 != 0D) {
 						d5 = d5 / d13;
@@ -189,7 +189,7 @@ public class Explosion {
 					double d3 = d0 - x;
 					double d4 = d1 - y;
 					double d5 = d2 - z;
-					double d6 = MathHelper.sqrt(d3 * d3 + d4 * d4 + d5 * d5);
+					double d6 = Maths.sqrt(d3 * d3 + d4 * d4 + d5 * d5);
 					d3 = d3 / d6;
 					d4 = d4 / d6;
 					d5 = d5 / d6;

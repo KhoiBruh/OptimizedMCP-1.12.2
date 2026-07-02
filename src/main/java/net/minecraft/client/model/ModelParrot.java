@@ -3,7 +3,7 @@ package net.minecraft.client.model;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityParrot;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class ModelParrot extends ModelBase {
 
@@ -97,13 +97,13 @@ public class ModelParrot extends ModelBase {
 			}
 
 			if (state == ModelParrot.State.PARTY) {
-				float f1 = MathHelper.cos((float) entityIn.ticksExisted);
-				float f2 = MathHelper.sin((float) entityIn.ticksExisted);
+				float f1 = Maths.cos((float) entityIn.ticksExisted);
+				float f2 = Maths.sin((float) entityIn.ticksExisted);
 				head.rotationPointX = f1;
 				head.rotationPointY = 15.69F + f2;
 				head.rotateAngleX = 0F;
 				head.rotateAngleY = 0F;
-				head.rotateAngleZ = MathHelper.sin((float) entityIn.ticksExisted) * 0.4F;
+				head.rotateAngleZ = Maths.sin((float) entityIn.ticksExisted) * 0.4F;
 				body.rotationPointX = f1;
 				body.rotationPointY = 16.5F + f2;
 				wingLeft.rotateAngleZ = -0.0873F - ageInTicks;
@@ -117,12 +117,12 @@ public class ModelParrot extends ModelBase {
 				return;
 			}
 
-			legLeft.rotateAngleX += MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-			legRight.rotateAngleX += MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+			legLeft.rotateAngleX += Maths.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+			legRight.rotateAngleX += Maths.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
 		}
 
 		head.rotationPointY = 15.69F + f;
-		tail.rotateAngleX = 1.015F + MathHelper.cos(limbSwing * 0.6662F) * 0.3F * limbSwingAmount;
+		tail.rotateAngleX = 1.015F + Maths.cos(limbSwing * 0.6662F) * 0.3F * limbSwingAmount;
 		tail.rotationPointY = 21.07F + f;
 		body.rotationPointY = 16.5F + f;
 		wingLeft.rotateAngleZ = -0.0873F - ageInTicks;

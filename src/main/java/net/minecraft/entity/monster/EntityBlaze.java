@@ -18,7 +18,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
@@ -231,7 +231,7 @@ public class EntityBlaze extends EntityMob {
 					}
 
 					if (attackStep > 1) {
-						float f = MathHelper.sqrt(MathHelper.sqrt(d0)) * 0.5F;
+						float f = Maths.sqrt(Maths.sqrt(d0)) * 0.5F;
 						blaze.world.playEvent(null, 1018, new BlockPos((int) blaze.posX, (int) blaze.posY, (int) blaze.posZ), 0);
 
 						for (int i = 0; i < 1; ++i) {

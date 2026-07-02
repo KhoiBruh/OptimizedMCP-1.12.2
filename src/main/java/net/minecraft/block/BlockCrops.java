@@ -9,7 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -139,7 +139,7 @@ public class BlockCrops extends BlockBush implements IGrowable {
 	}
 
 	protected int getBonemealAgeIncrease(World worldIn) {
-		return MathHelper.getInt(worldIn.rand, 2, 5);
+		return Maths.getInt(worldIn.rand, 2, 5);
 	}
 
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {

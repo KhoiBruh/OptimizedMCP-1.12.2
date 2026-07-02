@@ -26,7 +26,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.entity.EntitySelectors;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
@@ -227,15 +227,15 @@ public class EntityZombie extends EntityMob {
 
 			if (entitylivingbase != null && world.getDifficulty() == Difficulty.HARD && (double) rand.nextFloat() < getEntityAttribute(SPAWN_REINFORCEMENTS_CHANCE).getAttributeValue() && world.getGameRules()
 			                                                                                                                                                                                    .getBoolean("doMobSpawning")) {
-				int i = MathHelper.floor(posX);
-				int j = MathHelper.floor(posY);
-				int k = MathHelper.floor(posZ);
+				int i = Maths.floor(posX);
+				int j = Maths.floor(posY);
+				int k = Maths.floor(posZ);
 				EntityZombie entityzombie = new EntityZombie(world);
 
 				for (int l = 0; l < 50; ++l) {
-					int i1 = i + MathHelper.getInt(rand, 7, 40) * MathHelper.getInt(rand, -1, 1);
-					int j1 = j + MathHelper.getInt(rand, 7, 40) * MathHelper.getInt(rand, -1, 1);
-					int k1 = k + MathHelper.getInt(rand, 7, 40) * MathHelper.getInt(rand, -1, 1);
+					int i1 = i + Maths.getInt(rand, 7, 40) * Maths.getInt(rand, -1, 1);
+					int j1 = j + Maths.getInt(rand, 7, 40) * Maths.getInt(rand, -1, 1);
+					int k1 = k + Maths.getInt(rand, 7, 40) * Maths.getInt(rand, -1, 1);
 
 					if (world.getBlockState(new BlockPos(i1, j1 - 1, k1))
 					         .isTopSolid() && world.getLightFromNeighbors(new BlockPos(i1, j1, k1)) < 10) {

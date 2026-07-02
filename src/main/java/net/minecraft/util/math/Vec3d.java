@@ -40,10 +40,10 @@ public record Vec3d(double x, double y, double z) {
 	 * returns a Vec3d from given pitch and yaw degrees
 	 */
 	public static Vec3d fromPitchYaw(float p_189986_0_, float p_189986_1_) {
-		float f = MathHelper.cos(-p_189986_1_ * 0.017453292F - (float) Math.PI);
-		float f1 = MathHelper.sin(-p_189986_1_ * 0.017453292F - (float) Math.PI);
-		float f2 = -MathHelper.cos(-p_189986_0_ * 0.017453292F);
-		float f3 = MathHelper.sin(-p_189986_0_ * 0.017453292F);
+		float f = Maths.cos(-p_189986_1_ * 0.017453292F - (float) Math.PI);
+		float f1 = Maths.sin(-p_189986_1_ * 0.017453292F - (float) Math.PI);
+		float f2 = -Maths.cos(-p_189986_0_ * 0.017453292F);
+		float f3 = Maths.sin(-p_189986_0_ * 0.017453292F);
 		return new Vec3d(f1 * f2, f3, f * f2);
 	}
 
@@ -58,7 +58,7 @@ public record Vec3d(double x, double y, double z) {
 	 * Normalizes the vector to a length of 1 (except if it is the zero vector)
 	 */
 	public Vec3d normalize() {
-		double d0 = MathHelper.sqrt(x * x + y * y + z * z);
+		double d0 = Maths.sqrt(x * x + y * y + z * z);
 		return d0 < 1.0E-4D ? ZERO : new Vec3d(x / d0, y / d0, z / d0);
 	}
 
@@ -100,7 +100,7 @@ public record Vec3d(double x, double y, double z) {
 		double d0 = vec.x - x;
 		double d1 = vec.y - y;
 		double d2 = vec.z - z;
-		return MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+		return Maths.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
 	}
 
 	/**
@@ -128,7 +128,7 @@ public record Vec3d(double x, double y, double z) {
 	 * Returns the length of the vector.
 	 */
 	public double lengthVector() {
-		return MathHelper.sqrt(x * x + y * y + z * z);
+		return Maths.sqrt(x * x + y * y + z * z);
 	}
 
 	public double lengthSquared() {
@@ -215,16 +215,16 @@ public record Vec3d(double x, double y, double z) {
 	}
 
 	public Vec3d rotatePitch(float pitch) {
-		float f = MathHelper.cos(pitch);
-		float f1 = MathHelper.sin(pitch);
+		float f = Maths.cos(pitch);
+		float f1 = Maths.sin(pitch);
 		double d1 = y * (double) f + z * (double) f1;
 		double d2 = z * (double) f - y * (double) f1;
 		return new Vec3d(x, d1, d2);
 	}
 
 	public Vec3d rotateYaw(float yaw) {
-		float f = MathHelper.cos(yaw);
-		float f1 = MathHelper.sin(yaw);
+		float f = Maths.cos(yaw);
+		float f1 = Maths.sin(yaw);
 		double d0 = x * (double) f + z * (double) f1;
 		double d2 = z * (double) f - x * (double) f1;
 		return new Vec3d(d0, y, d2);

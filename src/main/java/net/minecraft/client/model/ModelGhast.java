@@ -2,7 +2,7 @@ package net.minecraft.client.model;
 
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 import java.util.Random;
 
@@ -37,7 +37,7 @@ public class ModelGhast extends ModelBase {
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		for (int i = 0; i < tentacles.length; ++i) {
-			tentacles[i].rotateAngleX = 0.2F * MathHelper.sin(ageInTicks * 0.3F + (float) i) + 0.4F;
+			tentacles[i].rotateAngleX = 0.2F * Maths.sin(ageInTicks * 0.3F + (float) i) + 0.4F;
 		}
 	}
 

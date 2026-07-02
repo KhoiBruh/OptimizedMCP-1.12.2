@@ -20,7 +20,7 @@ import net.minecraft.util.ReportedException;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.SkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
@@ -648,15 +648,15 @@ public class Chunk {
 	 */
 	public void addEntity(Entity entityIn) {
 		hasEntities = true;
-		int i = MathHelper.floor(entityIn.posX / 16D);
-		int j = MathHelper.floor(entityIn.posZ / 16D);
+		int i = Maths.floor(entityIn.posX / 16D);
+		int j = Maths.floor(entityIn.posZ / 16D);
 
 		if (i != x || j != z) {
 			LOGGER.warn("Wrong location! ({}, {}) should be ({}, {}), {}", i, j, x, z, entityIn);
 			entityIn.setDead();
 		}
 
-		int k = MathHelper.floor(entityIn.posY / 16D);
+		int k = Maths.floor(entityIn.posY / 16D);
 
 		if (k < 0) {
 			k = 0;
@@ -797,10 +797,10 @@ public class Chunk {
 	 * Fills the given list of all entities that intersect within the given bounding box that aren't the passed entity.
 	 */
 	public void getEntitiesWithinAABBForEntity(Entity entityIn, AxisAlignedBB aabb, List<Entity> listToFill, Predicate<? super Entity> filter) {
-		int i = MathHelper.floor((aabb.minY - 2D) / 16D);
-		int j = MathHelper.floor((aabb.maxY + 2D) / 16D);
-		i = MathHelper.clamp(i, 0, entityLists.length - 1);
-		j = MathHelper.clamp(j, 0, entityLists.length - 1);
+		int i = Maths.floor((aabb.minY - 2D) / 16D);
+		int j = Maths.floor((aabb.maxY + 2D) / 16D);
+		i = Maths.clamp(i, 0, entityLists.length - 1);
+		j = Maths.clamp(j, 0, entityLists.length - 1);
 
 		for (int k = i; k <= j; ++k) {
 			if (!entityLists[k].isEmpty()) {
@@ -828,10 +828,10 @@ public class Chunk {
 
 	public <T extends Entity> void getEntitiesOfTypeWithinAABB(Class<? extends T> entityClass, AxisAlignedBB aabb, List<T> listToFill, Predicate<? super T> filter) {
 
-		int i = MathHelper.floor((aabb.minY - 2D) / 16D);
-		int j = MathHelper.floor((aabb.maxY + 2D) / 16D);
-		i = MathHelper.clamp(i, 0, entityLists.length - 1);
-		j = MathHelper.clamp(j, 0, entityLists.length - 1);
+		int i = Maths.floor((aabb.minY - 2D) / 16D);
+		int j = Maths.floor((aabb.maxY + 2D) / 16D);
+		i = Maths.clamp(i, 0, entityLists.length - 1);
+		j = Maths.clamp(j, 0, entityLists.length - 1);
 
 		for (int k = i; k <= j; ++k) {
 			for (T t : entityLists[k].getByClass(entityClass)) {

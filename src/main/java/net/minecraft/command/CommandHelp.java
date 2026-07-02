@@ -3,7 +3,7 @@ package net.minecraft.command;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.CommandBlockBaseLogic;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormat;
@@ -63,7 +63,7 @@ public class CommandHelp extends CommandBase {
 					throw new WrongUsageException(icommand.getUsage(sender));
 				}
 
-				if (MathHelper.getInt(args[0], -1) == -1 && MathHelper.getInt(args[0], -2) == -2) {
+				if (Maths.getInt(args[0], -1) == -1 && Maths.getInt(args[0], -2) == -2) {
 					throw new CommandNotFoundException();
 				}
 

@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.entity.layers.LayerElytra;
 import net.minecraft.client.renderer.entity.layers.LayerHeldItem;
 import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class RenderArmorStand extends RenderLivingBase<EntityArmorStand> {
 
@@ -48,7 +48,7 @@ public class RenderArmorStand extends RenderLivingBase<EntityArmorStand> {
 		float f = (float) (entityLiving.world.getTotalWorldTime() - entityLiving.punchCooldown) + partialTicks;
 
 		if (f < 5F) {
-			GLS.rotate(MathHelper.sin(f / 1.5F * (float) Math.PI) * 3F, 0F, 1F, 0F);
+			GLS.rotate(Maths.sin(f / 1.5F * (float) Math.PI) * 3F, 0F, 1F, 0F);
 		}
 	}
 

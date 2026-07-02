@@ -9,7 +9,7 @@ import net.minecraft.entity.item.EntityPainting;
 import net.minecraft.util.Facing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 
 public class RenderPainting extends Render<EntityPainting> {
@@ -118,25 +118,25 @@ public class RenderPainting extends Render<EntityPainting> {
 	}
 
 	private void setLightmap(EntityPainting painting, float p_77008_2_, float p_77008_3_) {
-		int i = MathHelper.floor(painting.posX);
-		int j = MathHelper.floor(painting.posY + (double) (p_77008_3_ / 16F));
-		int k = MathHelper.floor(painting.posZ);
+		int i = Maths.floor(painting.posX);
+		int j = Maths.floor(painting.posY + (double) (p_77008_3_ / 16F));
+		int k = Maths.floor(painting.posZ);
 		Facing enumfacing = painting.facingDirection;
 
 		if (enumfacing == Facing.NORTH) {
-			i = MathHelper.floor(painting.posX + (double) (p_77008_2_ / 16F));
+			i = Maths.floor(painting.posX + (double) (p_77008_2_ / 16F));
 		}
 
 		if (enumfacing == Facing.WEST) {
-			k = MathHelper.floor(painting.posZ - (double) (p_77008_2_ / 16F));
+			k = Maths.floor(painting.posZ - (double) (p_77008_2_ / 16F));
 		}
 
 		if (enumfacing == Facing.SOUTH) {
-			i = MathHelper.floor(painting.posX - (double) (p_77008_2_ / 16F));
+			i = Maths.floor(painting.posX - (double) (p_77008_2_ / 16F));
 		}
 
 		if (enumfacing == Facing.EAST) {
-			k = MathHelper.floor(painting.posZ + (double) (p_77008_2_ / 16F));
+			k = Maths.floor(painting.posZ + (double) (p_77008_2_ / 16F));
 		}
 
 		int l = renderManager.world.getCombinedLight(new BlockPos(i, j, k), 0);

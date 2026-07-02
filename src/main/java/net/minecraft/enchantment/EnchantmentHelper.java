@@ -16,7 +16,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Util;
 import net.minecraft.util.WeightedRandom;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 import java.util.List;
 import java.util.Map;
@@ -335,7 +335,7 @@ public class EnchantmentHelper {
 		} else {
 			level = level + 1 + randomIn.nextInt(i / 4 + 1) + randomIn.nextInt(i / 4 + 1);
 			float f = (randomIn.nextFloat() + randomIn.nextFloat() - 1F) * 0.15F;
-			level = MathHelper.clamp(Math.round((float) level + (float) level * f), 1, Integer.MAX_VALUE);
+			level = Maths.clamp(Math.round((float) level + (float) level * f), 1, Integer.MAX_VALUE);
 			List<EnchantmentData> list1 = getEnchantmentDatas(level, itemStackIn, allowTreasure);
 
 			if (!list1.isEmpty()) {

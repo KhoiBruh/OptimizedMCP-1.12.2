@@ -11,7 +11,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.HandSide;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 
 public class RenderFish extends Render<EntityFishHook> {
@@ -75,10 +75,10 @@ public class RenderFish extends Render<EntityFishHook> {
 			}
 
 			float f7 = entityplayer.getSwingProgress(partialTicks);
-			float f8 = MathHelper.sin(MathHelper.sqrt(f7) * (float) Math.PI);
+			float f8 = Maths.sin(Maths.sqrt(f7) * (float) Math.PI);
 			float f9 = (entityplayer.prevRenderYawOffset + (entityplayer.renderYawOffset - entityplayer.prevRenderYawOffset) * partialTicks) * 0.017453292F;
-			double d0 = MathHelper.sin(f9);
-			double d1 = MathHelper.cos(f9);
+			double d0 = Maths.sin(f9);
+			double d1 = Maths.cos(f9);
 			double d2 = (double) k * 0.35D;
 			double d3 = 0.8D;
 			double d4;

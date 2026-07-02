@@ -3,7 +3,7 @@ package net.minecraft.client.renderer;
 import com.google.common.primitives.Floats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -60,9 +60,9 @@ public class BufferBuilder {
 	}
 
 	private void growBuffer(int p_181670_1_) {
-		if (MathHelper.roundUp(p_181670_1_, 4) / 4 > rawIntBuffer.remaining() || vertexCount * vertexFormat.getNextOffset() + p_181670_1_ > byteBuffer.capacity()) {
+		if (Maths.roundUp(p_181670_1_, 4) / 4 > rawIntBuffer.remaining() || vertexCount * vertexFormat.getNextOffset() + p_181670_1_ > byteBuffer.capacity()) {
 			int i = byteBuffer.capacity();
-			int j = i + MathHelper.roundUp(p_181670_1_, 2097152);
+			int j = i + Maths.roundUp(p_181670_1_, 2097152);
 			LOGGER.debug("Needed to grow BufferBuilder buffer: Old size {} bytes, new size {} bytes.", i, j);
 			int k = rawIntBuffer.position();
 			ByteBuffer bytebuffer = GLAllocation.createDirectByteBuffer(j);
@@ -301,9 +301,9 @@ public class BufferBuilder {
 
 	public void putColorRGB_F(float red, float green, float blue, int vertexIndex) {
 		int i = getColorIndex(vertexIndex);
-		int j = MathHelper.clamp((int) (red * 255F), 0, 255);
-		int k = MathHelper.clamp((int) (green * 255F), 0, 255);
-		int l = MathHelper.clamp((int) (blue * 255F), 0, 255);
+		int j = Maths.clamp((int) (red * 255F), 0, 255);
+		int k = Maths.clamp((int) (green * 255F), 0, 255);
+		int l = Maths.clamp((int) (blue * 255F), 0, 255);
 		putColorRGBA(i, j, k, l);
 	}
 

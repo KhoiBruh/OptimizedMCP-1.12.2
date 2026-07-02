@@ -14,7 +14,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.SkyBlock;
 import net.minecraft.world.World;
@@ -96,7 +96,7 @@ public abstract class EntityMob extends EntityCreature implements IMob {
 
 		if (flag) {
 			if (i > 0 && entityIn instanceof EntityLivingBase) {
-				((EntityLivingBase) entityIn).knockBack(this, (float) i * 0.5F, MathHelper.sin(rotationYaw * 0.017453292F), -MathHelper.cos(rotationYaw * 0.017453292F));
+				((EntityLivingBase) entityIn).knockBack(this, (float) i * 0.5F, Maths.sin(rotationYaw * 0.017453292F), -Maths.cos(rotationYaw * 0.017453292F));
 				motionX *= 0.6D;
 				motionZ *= 0.6D;
 			}

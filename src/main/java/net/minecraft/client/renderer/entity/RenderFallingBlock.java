@@ -12,7 +12,7 @@ import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.util.BlockRenderType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 public class RenderFallingBlock extends Render<EntityFallingBlock> {
@@ -50,7 +50,7 @@ public class RenderFallingBlock extends Render<EntityFallingBlock> {
 					BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft()
 					                                                           .getBlockRendererDispatcher();
 					blockrendererdispatcher.getBlockModelRenderer()
-					                       .renderModel(world, blockrendererdispatcher.getModelForState(iblockstate), iblockstate, blockpos, bufferbuilder, false, MathHelper.getPositionRandom(entity.getOrigin()));
+					                       .renderModel(world, blockrendererdispatcher.getModelForState(iblockstate), iblockstate, blockpos, bufferbuilder, false, Maths.getPositionRandom(entity.getOrigin()));
 					tessellator.draw();
 
 					if (renderOutlines) {

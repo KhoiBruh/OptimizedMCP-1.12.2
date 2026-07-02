@@ -3,7 +3,7 @@ package net.minecraft.client.audio;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class ElytraSound extends MovingSound {
 
@@ -28,11 +28,11 @@ public class ElytraSound extends MovingSound {
 			x = (float) player.posX;
 			y = (float) player.posY;
 			z = (float) player.posZ;
-			float f = MathHelper.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ + player.motionY * player.motionY);
+			float f = Maths.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ + player.motionY * player.motionY);
 			float f1 = f / 2F;
 
 			if ((double) f >= 0.01D) {
-				volume = MathHelper.clamp(f1 * f1, 0F, 1F);
+				volume = Maths.clamp(f1 * f1, 0F, 1F);
 			} else {
 				volume = 0F;
 			}

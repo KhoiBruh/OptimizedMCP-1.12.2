@@ -6,7 +6,7 @@ import com.google.gson.JsonSerializationContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.RandomValueRange;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
@@ -28,7 +28,7 @@ public class SetDamage extends LootFunction {
 	public ItemStack apply(ItemStack stack, Random rand, LootContext context) {
 		if (stack.isItemStackDamageable()) {
 			float f = 1F - damageRange.generateFloat(rand);
-			stack.setItemDamage(MathHelper.floor(f * (float) stack.getMaxDamage()));
+			stack.setItemDamage(Maths.floor(f * (float) stack.getMaxDamage()));
 		} else {
 			LOGGER.warn("Couldn't set damage of loot item {}", stack);
 		}

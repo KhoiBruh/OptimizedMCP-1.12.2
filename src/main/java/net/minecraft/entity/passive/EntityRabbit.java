@@ -20,7 +20,7 @@ import net.minecraft.pathfinding.Path;
 import net.minecraft.util.*;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.DifficultyInstance;
@@ -190,7 +190,7 @@ public class EntityRabbit extends EntityAnimal {
 	}
 
 	private void calculateRotationYaw(double x, double z) {
-		rotationYaw = (float) (MathHelper.atan2(z - posZ, x - posX) * (180D / Math.PI)) - 90F;
+		rotationYaw = (float) (Maths.atan2(z - posZ, x - posX) * (180D / Math.PI)) - 90F;
 	}
 
 	private void enableJumpControl() {

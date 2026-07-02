@@ -17,7 +17,7 @@ import net.minecraft.network.play.server.SPacketEntityAttach;
 import net.minecraft.network.play.server.SPacketSetPassengers;
 import net.minecraft.util.IntHashMap;
 import net.minecraft.util.ReportedException;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 import org.apache.logging.log4j.LogManager;
@@ -40,7 +40,7 @@ public class EntityTracker {
 	}
 
 	public static long getPositionLong(double value) {
-		return MathHelper.lfloor(value * 4096D);
+		return Maths.lfloor(value * 4096D);
 	}
 
 	public static void updateServerPosition(Entity entityIn, double x, double y, double z) {

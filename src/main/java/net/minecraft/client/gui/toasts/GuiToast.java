@@ -5,7 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 import java.util.Arrays;
 import java.util.Deque;
@@ -90,7 +90,7 @@ public class GuiToast extends Gui {
 		}
 
 		private float getVisibility(long p_193686_1_) {
-			float f = MathHelper.clamp((float) (p_193686_1_ - animationTime) / 600F, 0F, 1F);
+			float f = Maths.clamp((float) (p_193686_1_ - animationTime) / 600F, 0F, 1F);
 			f = f * f;
 			return visibility == IToast.Visibility.HIDE ? 1F - f : f;
 		}

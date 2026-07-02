@@ -29,7 +29,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.entity.EntityDamageSourceIndirect;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -432,9 +432,9 @@ public class EntityEnderman extends EntityMob {
 		public void updateTask() {
 			Random random = enderman.getRNG();
 			World world = enderman.world;
-			int i = MathHelper.floor(enderman.posX - 1D + random.nextDouble() * 2D);
-			int j = MathHelper.floor(enderman.posY + random.nextDouble() * 2D);
-			int k = MathHelper.floor(enderman.posZ - 1D + random.nextDouble() * 2D);
+			int i = Maths.floor(enderman.posX - 1D + random.nextDouble() * 2D);
+			int j = Maths.floor(enderman.posY + random.nextDouble() * 2D);
+			int k = Maths.floor(enderman.posZ - 1D + random.nextDouble() * 2D);
 			BlockPos blockpos = new BlockPos(i, j, k);
 			IBlockState iblockstate = world.getBlockState(blockpos);
 			IBlockState iblockstate1 = world.getBlockState(blockpos.down());
@@ -481,13 +481,13 @@ public class EntityEnderman extends EntityMob {
 		public void updateTask() {
 			Random random = enderman.getRNG();
 			World world = enderman.world;
-			int i = MathHelper.floor(enderman.posX - 2D + random.nextDouble() * 4D);
-			int j = MathHelper.floor(enderman.posY + random.nextDouble() * 3D);
-			int k = MathHelper.floor(enderman.posZ - 2D + random.nextDouble() * 4D);
+			int i = Maths.floor(enderman.posX - 2D + random.nextDouble() * 4D);
+			int j = Maths.floor(enderman.posY + random.nextDouble() * 3D);
+			int k = Maths.floor(enderman.posZ - 2D + random.nextDouble() * 4D);
 			BlockPos blockpos = new BlockPos(i, j, k);
 			IBlockState iblockstate = world.getBlockState(blockpos);
 			Block block = iblockstate.getBlock();
-			RayTraceResult raytraceresult = world.rayTraceBlocks(new Vec3d((float) MathHelper.floor(enderman.posX) + 0.5F, (float) j + 0.5F, (float) MathHelper.floor(enderman.posZ) + 0.5F), new Vec3d((float) i + 0.5F, (float) j + 0.5F, (float) k + 0.5F), false, true, false);
+			RayTraceResult raytraceresult = world.rayTraceBlocks(new Vec3d((float) Maths.floor(enderman.posX) + 0.5F, (float) j + 0.5F, (float) Maths.floor(enderman.posZ) + 0.5F), new Vec3d((float) i + 0.5F, (float) j + 0.5F, (float) k + 0.5F), false, true, false);
 			boolean flag = raytraceresult != null && raytraceresult.getBlockPos().equals(blockpos);
 
 			if (EntityEnderman.CARRIABLE_BLOCKS.contains(block) && flag) {

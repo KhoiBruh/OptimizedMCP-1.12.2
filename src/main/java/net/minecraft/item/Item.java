@@ -24,7 +24,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.IRegistry;
@@ -45,7 +45,7 @@ public class Item {
 	protected static final UUID ATTACK_SPEED_MODIFIER = UUID.fromString("FA233E1C-4180-4865-B01B-BCCE9785ACA3");
 	private static final Map<Block, Item> BLOCK_TO_ITEM = Maps.newHashMap();
 	private static final IItemPropertyGetter DAMAGED_GETTER = (stack, worldIn, entityIn) -> stack.isItemDamaged() ? 1F : 0F;
-	private static final IItemPropertyGetter DAMAGE_GETTER = (stack, worldIn, entityIn) -> MathHelper.clamp((float) stack.getItemDamage() / (float) stack.getMaxDamage(), 0F, 1F);
+	private static final IItemPropertyGetter DAMAGE_GETTER = (stack, worldIn, entityIn) -> Maths.clamp((float) stack.getItemDamage() / (float) stack.getMaxDamage(), 0F, 1F);
 	private static final IItemPropertyGetter LEFTHANDED_GETTER = (stack, worldIn, entityIn) -> entityIn != null && entityIn.getPrimaryHand() != HandSide.RIGHT ? 1F : 0F;
 	private static final IItemPropertyGetter COOLDOWN_GETTER = (stack, worldIn, entityIn) -> entityIn instanceof EntityPlayer ? ((EntityPlayer) entityIn).getCooldownTracker()
 	                                                                                                                                                     .getCooldown(stack.getItem(), 0F) : 0F;
@@ -918,10 +918,10 @@ public class Item {
 		double d1 = playerIn.posY + (double) playerIn.getEyeHeight();
 		double d2 = playerIn.posZ;
 		Vec3d vec3d = new Vec3d(d0, d1, d2);
-		float f2 = MathHelper.cos(-f1 * 0.017453292F - (float) Math.PI);
-		float f3 = MathHelper.sin(-f1 * 0.017453292F - (float) Math.PI);
-		float f4 = -MathHelper.cos(-f * 0.017453292F);
-		float f5 = MathHelper.sin(-f * 0.017453292F);
+		float f2 = Maths.cos(-f1 * 0.017453292F - (float) Math.PI);
+		float f3 = Maths.sin(-f1 * 0.017453292F - (float) Math.PI);
+		float f4 = -Maths.cos(-f * 0.017453292F);
+		float f5 = Maths.sin(-f * 0.017453292F);
 		float f6 = f3 * f4;
 		float f7 = f2 * f4;
 		double d3 = 5D;

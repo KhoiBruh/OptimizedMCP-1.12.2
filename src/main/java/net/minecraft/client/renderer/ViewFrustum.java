@@ -3,7 +3,7 @@ package net.minecraft.client.renderer;
 import net.minecraft.client.renderer.chunk.IRenderChunkFactory;
 import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 public class ViewFrustum {
@@ -52,8 +52,8 @@ public class ViewFrustum {
 	}
 
 	public void updateChunkPositions(double viewEntityX, double viewEntityZ) {
-		int i = MathHelper.floor(viewEntityX) - 8;
-		int j = MathHelper.floor(viewEntityZ) - 8;
+		int i = Maths.floor(viewEntityX) - 8;
+		int j = Maths.floor(viewEntityZ) - 8;
 		int k = countChunksX * 16;
 
 		for (int l = 0; l < countChunksX; ++l) {
@@ -83,12 +83,12 @@ public class ViewFrustum {
 	}
 
 	public void markBlocksForUpdate(int minX, int minY, int minZ, int maxX, int maxY, int maxZ, boolean updateImmediately) {
-		int i = MathHelper.intFloorDiv(minX, 16);
-		int j = MathHelper.intFloorDiv(minY, 16);
-		int k = MathHelper.intFloorDiv(minZ, 16);
-		int l = MathHelper.intFloorDiv(maxX, 16);
-		int i1 = MathHelper.intFloorDiv(maxY, 16);
-		int j1 = MathHelper.intFloorDiv(maxZ, 16);
+		int i = Maths.intFloorDiv(minX, 16);
+		int j = Maths.intFloorDiv(minY, 16);
+		int k = Maths.intFloorDiv(minZ, 16);
+		int l = Maths.intFloorDiv(maxX, 16);
+		int i1 = Maths.intFloorDiv(maxY, 16);
+		int j1 = Maths.intFloorDiv(maxZ, 16);
 
 		for (int k1 = i; k1 <= l; ++k1) {
 			int l1 = k1 % countChunksX;
@@ -120,9 +120,9 @@ public class ViewFrustum {
 	}
 
 	protected RenderChunk getRenderChunk(BlockPos pos) {
-		int i = MathHelper.intFloorDiv(pos.getX(), 16);
-		int j = MathHelper.intFloorDiv(pos.getY(), 16);
-		int k = MathHelper.intFloorDiv(pos.getZ(), 16);
+		int i = Maths.intFloorDiv(pos.getX(), 16);
+		int j = Maths.intFloorDiv(pos.getY(), 16);
+		int k = Maths.intFloorDiv(pos.getZ(), 16);
 
 		if (j >= 0 && j < countChunksY) {
 			i = i % countChunksX;

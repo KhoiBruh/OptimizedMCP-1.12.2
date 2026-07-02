@@ -6,7 +6,7 @@ import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 
 public abstract class PhaseBase implements IPhase {
@@ -70,7 +70,7 @@ public abstract class PhaseBase implements IPhase {
 	}
 
 	public float getYawFactor() {
-		float f = MathHelper.sqrt(dragon.motionX * dragon.motionX + dragon.motionZ * dragon.motionZ) + 1F;
+		float f = Maths.sqrt(dragon.motionX * dragon.motionX + dragon.motionZ * dragon.motionZ) + 1F;
 		float f1 = Math.min(f, 40F);
 		return 0.7F / f1 / f;
 	}

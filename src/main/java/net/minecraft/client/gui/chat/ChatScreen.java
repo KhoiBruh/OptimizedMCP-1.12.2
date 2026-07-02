@@ -8,7 +8,7 @@ import net.minecraft.client.util.Mouse;
 import net.minecraft.util.ITabCompleter;
 import net.minecraft.util.TabCompleter;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
@@ -170,7 +170,7 @@ public class ChatScreen extends Screen implements ITabCompleter {
 	public void getSentHistory(int msgPos) {
 		int i = sentHistoryCursor + msgPos;
 		int j = mc.ingameGUI.getChatGUI().getSentMessages().size();
-		i = MathHelper.clamp(i, 0, j);
+		i = Maths.clamp(i, 0, j);
 
 		if (i != sentHistoryCursor) {
 			if (i == j) {

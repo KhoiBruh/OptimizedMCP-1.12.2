@@ -2,7 +2,7 @@ package net.minecraft.entity.ai;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class EntityFlyHelper extends EntityMoveHelper {
 
@@ -25,7 +25,7 @@ public class EntityFlyHelper extends EntityMoveHelper {
 				return;
 			}
 
-			float f = (float) (MathHelper.atan2(d2, d0) * (180D / Math.PI)) - 90F;
+			float f = (float) (Maths.atan2(d2, d0) * (180D / Math.PI)) - 90F;
 			entity.rotationYaw = limitAngle(entity.rotationYaw, f, 10F);
 			float f1;
 
@@ -38,8 +38,8 @@ public class EntityFlyHelper extends EntityMoveHelper {
 			}
 
 			entity.setAIMoveSpeed(f1);
-			double d4 = MathHelper.sqrt(d0 * d0 + d2 * d2);
-			float f2 = (float) (-(MathHelper.atan2(d1, d4) * (180D / Math.PI)));
+			double d4 = Maths.sqrt(d0 * d0 + d2 * d2);
+			float f2 = (float) (-(Maths.atan2(d1, d4) * (180D / Math.PI)));
 			entity.rotationPitch = limitAngle(entity.rotationPitch, f2, 10F);
 			entity.setMoveVertical(d1 > 0D ? f1 : -f1);
 		} else {

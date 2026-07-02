@@ -92,7 +92,7 @@ import net.minecraft.util.Timer;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.datafix.DataFixesManager;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.*;
 import net.minecraft.world.Difficulty;
@@ -1015,7 +1015,7 @@ public class Minecraft implements IThreadListener {
 			double d0 = 0D;
 
 			for (Profiler.Result profiler$result1 : list) {
-				int i1 = MathHelper.floor(profiler$result1.usePercentage / 4D) + 1;
+				int i1 = Maths.floor(profiler$result1.usePercentage / 4D) + 1;
 				bufferbuilder.begin(6, DefaultVertexFormats.POSITION_COLOR);
 				int j1 = profiler$result1.getColor();
 				int k1 = j1 >> 16 & 255;
@@ -1025,8 +1025,8 @@ public class Minecraft implements IThreadListener {
 
 				for (int j2 = i1; j2 >= 0; j2--) {
 					float f = (float) ((d0 + profiler$result1.usePercentage * (double) j2 / (double) i1) * (Math.PI * 2D) / 100D);
-					float f1 = MathHelper.sin(f) * 160F;
-					float f2 = MathHelper.cos(f) * 160F * 0.5F;
+					float f1 = Maths.sin(f) * 160F;
+					float f2 = Maths.cos(f) * 160F * 0.5F;
 					bufferbuilder.pos((float) j + f1, (float) k - f2, 0D).color(k1, l1, i2, 255).endVertex();
 				}
 
@@ -1035,8 +1035,8 @@ public class Minecraft implements IThreadListener {
 
 				for (int i3 = i1; i3 >= 0; i3--) {
 					float f3 = (float) ((d0 + profiler$result1.usePercentage * (double) i3 / (double) i1) * (Math.PI * 2D) / 100D);
-					float f4 = MathHelper.sin(f3) * 160F;
-					float f5 = MathHelper.cos(f3) * 160F * 0.5F;
+					float f4 = Maths.sin(f3) * 160F;
+					float f5 = Maths.cos(f3) * 160F * 0.5F;
 					bufferbuilder.pos((float) j + f4, (float) k - f5, 0D)
 					             .color(k1 >> 1, l1 >> 1, i2 >> 1, 255)
 					             .endVertex();
@@ -1410,7 +1410,7 @@ public class Minecraft implements IThreadListener {
 			profiler.endStartSection("animateTick");
 
 			if (!paused && world != null)
-				world.doVoidFogParticles(MathHelper.floor(player.posX), MathHelper.floor(player.posY), MathHelper.floor(player.posZ));
+				world.doVoidFogParticles(Maths.floor(player.posX), Maths.floor(player.posY), Maths.floor(player.posZ));
 
 			profiler.endStartSection("particles");
 
@@ -1679,7 +1679,7 @@ public class Minecraft implements IThreadListener {
 						if (ingameGUI.getSpectatorGui().isMenuActive()) {
 							ingameGUI.getSpectatorGui().onMouseScroll(-k);
 						} else {
-							float f = MathHelper.clamp(player.capabilities.getFlySpeed() + (float) k * 0.005F, 0F, 0.2F);
+							float f = Maths.clamp(player.capabilities.getFlySpeed() + (float) k * 0.005F, 0F, 0.2F);
 							player.capabilities.setFlySpeed(f);
 						}
 					} else {

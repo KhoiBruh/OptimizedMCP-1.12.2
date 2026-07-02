@@ -4,7 +4,7 @@ import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 public class ParticleRain extends Particle {
@@ -59,7 +59,7 @@ public class ParticleRain extends Particle {
 				d0 = iblockstate.getBoundingBox(world, blockpos).maxY;
 			}
 
-			double d1 = (double) MathHelper.floor(posY) + d0;
+			double d1 = (double) Maths.floor(posY) + d0;
 
 			if (posY < d1) {
 				setExpired();

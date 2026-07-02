@@ -9,7 +9,7 @@ import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.ChunkCache;
 import net.minecraft.world.World;
@@ -211,7 +211,7 @@ public abstract class PathNavigate {
 				Vec3d vec3d = getEntityPosition();
 				Vec3d vec3d1 = currentPath.getVectorFromIndex(entity, currentPath.getCurrentPathIndex());
 
-				if (vec3d.y() > vec3d1.y() && !entity.onGround && MathHelper.floor(vec3d.x()) == MathHelper.floor(vec3d1.x()) && MathHelper.floor(vec3d.z()) == MathHelper.floor(vec3d1.z())) {
+				if (vec3d.y() > vec3d1.y() && !entity.onGround && Maths.floor(vec3d.x()) == Maths.floor(vec3d1.x()) && Maths.floor(vec3d.z()) == Maths.floor(vec3d1.z())) {
 					currentPath.setCurrentPathIndex(currentPath.getCurrentPathIndex() + 1);
 				}
 			}
@@ -245,12 +245,12 @@ public abstract class PathNavigate {
 		maxDistanceToWaypoint = entity.width > 0.75F ? entity.width / 2F : 0.75F - entity.width / 2F;
 		Vec3d vec3d1 = currentPath.getCurrentPos();
 
-		if (MathHelper.abs((float) (entity.posX - (vec3d1.x() + 0.5D))) < maxDistanceToWaypoint && MathHelper.abs((float) (entity.posZ - (vec3d1.z() + 0.5D))) < maxDistanceToWaypoint && Math.abs(entity.posY - vec3d1.y()) < 1D) {
+		if (Maths.abs((float) (entity.posX - (vec3d1.x() + 0.5D))) < maxDistanceToWaypoint && Maths.abs((float) (entity.posZ - (vec3d1.z() + 0.5D))) < maxDistanceToWaypoint && Math.abs(entity.posY - vec3d1.y()) < 1D) {
 			currentPath.setCurrentPathIndex(currentPath.getCurrentPathIndex() + 1);
 		}
 
-		int k = MathHelper.ceil(entity.width);
-		int l = MathHelper.ceil(entity.height);
+		int k = Maths.ceil(entity.width);
+		int l = Maths.ceil(entity.height);
 
 		for (int j1 = i - 1; j1 >= currentPath.getCurrentPathIndex(); --j1) {
 			if (isDirectPathBetweenPoints(vec3d, currentPath.getVectorFromIndex(entity, j1), k, l, k)) {

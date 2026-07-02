@@ -1,7 +1,7 @@
 package net.minecraft.client.model;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class ModelSpider extends ModelBase {
 
@@ -143,14 +143,14 @@ public class ModelSpider extends ModelBase {
 		spiderLeg6.rotateAngleY = 0.3926991F;
 		spiderLeg7.rotateAngleY = -((float) Math.PI / 4F);
 		spiderLeg8.rotateAngleY = ((float) Math.PI / 4F);
-		float f3 = -(MathHelper.cos(limbSwing * 0.6662F * 2F + 0F) * 0.4F) * limbSwingAmount;
-		float f4 = -(MathHelper.cos(limbSwing * 0.6662F * 2F + (float) Math.PI) * 0.4F) * limbSwingAmount;
-		float f5 = -(MathHelper.cos(limbSwing * 0.6662F * 2F + ((float) Math.PI / 2F)) * 0.4F) * limbSwingAmount;
-		float f6 = -(MathHelper.cos(limbSwing * 0.6662F * 2F + ((float) Math.PI * 3F / 2F)) * 0.4F) * limbSwingAmount;
-		float f7 = Math.abs(MathHelper.sin(limbSwing * 0.6662F + 0F) * 0.4F) * limbSwingAmount;
-		float f8 = Math.abs(MathHelper.sin(limbSwing * 0.6662F + (float) Math.PI) * 0.4F) * limbSwingAmount;
-		float f9 = Math.abs(MathHelper.sin(limbSwing * 0.6662F + ((float) Math.PI / 2F)) * 0.4F) * limbSwingAmount;
-		float f10 = Math.abs(MathHelper.sin(limbSwing * 0.6662F + ((float) Math.PI * 3F / 2F)) * 0.4F) * limbSwingAmount;
+		float f3 = -(Maths.cos(limbSwing * 0.6662F * 2F + 0F) * 0.4F) * limbSwingAmount;
+		float f4 = -(Maths.cos(limbSwing * 0.6662F * 2F + (float) Math.PI) * 0.4F) * limbSwingAmount;
+		float f5 = -(Maths.cos(limbSwing * 0.6662F * 2F + ((float) Math.PI / 2F)) * 0.4F) * limbSwingAmount;
+		float f6 = -(Maths.cos(limbSwing * 0.6662F * 2F + ((float) Math.PI * 3F / 2F)) * 0.4F) * limbSwingAmount;
+		float f7 = Math.abs(Maths.sin(limbSwing * 0.6662F + 0F) * 0.4F) * limbSwingAmount;
+		float f8 = Math.abs(Maths.sin(limbSwing * 0.6662F + (float) Math.PI) * 0.4F) * limbSwingAmount;
+		float f9 = Math.abs(Maths.sin(limbSwing * 0.6662F + ((float) Math.PI / 2F)) * 0.4F) * limbSwingAmount;
+		float f10 = Math.abs(Maths.sin(limbSwing * 0.6662F + ((float) Math.PI * 3F / 2F)) * 0.4F) * limbSwingAmount;
 		spiderLeg1.rotateAngleY += f3;
 		spiderLeg2.rotateAngleY -= f3;
 		spiderLeg3.rotateAngleY += f4;

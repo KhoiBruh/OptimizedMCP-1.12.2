@@ -3,7 +3,7 @@ package net.minecraft.pathfinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -50,7 +50,7 @@ public class PathNavigateFlying extends PathNavigate {
 			} else if (currentPath != null && currentPath.getCurrentPathIndex() < currentPath.getCurrentPathLength()) {
 				Vec3d vec3d = currentPath.getVectorFromIndex(entity, currentPath.getCurrentPathIndex());
 
-				if (MathHelper.floor(entity.posX) == MathHelper.floor(vec3d.x()) && MathHelper.floor(entity.posY) == MathHelper.floor(vec3d.y()) && MathHelper.floor(entity.posZ) == MathHelper.floor(vec3d.z())) {
+				if (Maths.floor(entity.posX) == Maths.floor(vec3d.x()) && Maths.floor(entity.posY) == Maths.floor(vec3d.y()) && Maths.floor(entity.posZ) == Maths.floor(vec3d.z())) {
 					currentPath.setCurrentPathIndex(currentPath.getCurrentPathIndex() + 1);
 				}
 			}
@@ -68,9 +68,9 @@ public class PathNavigateFlying extends PathNavigate {
 	 * Checks if the specified entity can safely walk to the specified location.
 	 */
 	protected boolean isDirectPathBetweenPoints(Vec3d posVec31, Vec3d posVec32, int sizeX, int sizeY, int sizeZ) {
-		int i = MathHelper.floor(posVec31.x());
-		int j = MathHelper.floor(posVec31.y());
-		int k = MathHelper.floor(posVec31.z());
+		int i = Maths.floor(posVec31.x());
+		int j = Maths.floor(posVec31.y());
+		int k = Maths.floor(posVec31.z());
 		double d0 = posVec32.x() - posVec31.x();
 		double d1 = posVec32.y() - posVec31.y();
 		double d2 = posVec32.z() - posVec31.z();
@@ -108,9 +108,9 @@ public class PathNavigateFlying extends PathNavigate {
 			int l = d0 < 0D ? -1 : 1;
 			int i1 = d1 < 0D ? -1 : 1;
 			int j1 = d2 < 0D ? -1 : 1;
-			int k1 = MathHelper.floor(posVec32.x());
-			int l1 = MathHelper.floor(posVec32.y());
-			int i2 = MathHelper.floor(posVec32.z());
+			int k1 = Maths.floor(posVec32.x());
+			int l1 = Maths.floor(posVec32.y());
+			int i2 = Maths.floor(posVec32.z());
 			int j2 = k1 - i;
 			int k2 = l1 - j;
 			int l2 = i2 - k;

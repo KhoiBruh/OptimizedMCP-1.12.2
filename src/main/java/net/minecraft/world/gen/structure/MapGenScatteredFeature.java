@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.init.Biomes;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
@@ -34,7 +34,7 @@ public class MapGenScatteredFeature extends MapGenStructure {
 
 		for (Entry<String, String> entry : p_i2061_1_.entrySet()) {
 			if (entry.getKey().equals("distance")) {
-				maxDistanceBetweenScatteredFeatures = MathHelper.getInt(entry.getValue(), maxDistanceBetweenScatteredFeatures, 9);
+				maxDistanceBetweenScatteredFeatures = Maths.getInt(entry.getValue(), maxDistanceBetweenScatteredFeatures, 9);
 			}
 		}
 	}

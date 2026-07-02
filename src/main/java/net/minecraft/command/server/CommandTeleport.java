@@ -10,7 +10,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.play.server.SPacketPlayerPosLook;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.Collections;
@@ -33,7 +33,7 @@ public class CommandTeleport extends CommandBase {
 			if (argYaw.isRelative()) {
 				set.add(SPacketPlayerPosLook.Flags.Y_ROT);
 			} else {
-				f = MathHelper.wrapDegrees(f);
+				f = Maths.wrapDegrees(f);
 			}
 
 			float f1 = (float) argPitch.getAmount();
@@ -41,16 +41,16 @@ public class CommandTeleport extends CommandBase {
 			if (argPitch.isRelative()) {
 				set.add(SPacketPlayerPosLook.Flags.X_ROT);
 			} else {
-				f1 = MathHelper.wrapDegrees(f1);
+				f1 = Maths.wrapDegrees(f1);
 			}
 
 			teleportingEntity.dismountRidingEntity();
 			((EntityPlayerMP) teleportingEntity).connection.setPlayerLocation(argX.getResult(), argY.getResult(), argZ.getResult(), f, f1, set);
 			teleportingEntity.setRotationYawHead(f);
 		} else {
-			float f2 = (float) MathHelper.wrapDegrees(argYaw.getResult());
-			float f3 = (float) MathHelper.wrapDegrees(argPitch.getResult());
-			f3 = MathHelper.clamp(f3, -90F, 90F);
+			float f2 = (float) Maths.wrapDegrees(argYaw.getResult());
+			float f3 = (float) Maths.wrapDegrees(argPitch.getResult());
+			f3 = Maths.clamp(f3, -90F, 90F);
 			teleportingEntity.setLocationAndAngles(argX.getResult(), argY.getResult(), argZ.getResult(), f2, f3);
 			teleportingEntity.setRotationYawHead(f2);
 		}

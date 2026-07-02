@@ -3,7 +3,7 @@ package net.minecraft.entity.ai;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IRangedAttackMob;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class EntityAIAttackRanged extends EntityAIBase {
 
@@ -109,13 +109,13 @@ public class EntityAIAttackRanged extends EntityAIBase {
 				return;
 			}
 
-			float f = MathHelper.sqrt(d0) / attackRadius;
-			float lvt_5_1_ = MathHelper.clamp(f, 0.1F, 1F);
+			float f = Maths.sqrt(d0) / attackRadius;
+			float lvt_5_1_ = Maths.clamp(f, 0.1F, 1F);
 			rangedAttackEntityHost.attackEntityWithRangedAttack(attackTarget, lvt_5_1_);
-			rangedAttackTime = MathHelper.floor(f * (float) (maxRangedAttackTime - attackIntervalMin) + (float) attackIntervalMin);
+			rangedAttackTime = Maths.floor(f * (float) (maxRangedAttackTime - attackIntervalMin) + (float) attackIntervalMin);
 		} else if (rangedAttackTime < 0) {
-			float f2 = MathHelper.sqrt(d0) / attackRadius;
-			rangedAttackTime = MathHelper.floor(f2 * (float) (maxRangedAttackTime - attackIntervalMin) + (float) attackIntervalMin);
+			float f2 = Maths.sqrt(d0) / attackRadius;
+			rangedAttackTime = Maths.floor(f2 * (float) (maxRangedAttackTime - attackIntervalMin) + (float) attackIntervalMin);
 		}
 	}
 

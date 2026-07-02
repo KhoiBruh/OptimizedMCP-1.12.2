@@ -3,7 +3,7 @@ package net.minecraft.client.model;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityVex;
 import net.minecraft.util.HandSide;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class ModelVex extends ModelBiped {
 
@@ -59,7 +59,7 @@ public class ModelVex extends ModelBiped {
 		leftWing.rotationPointZ = 2F;
 		rightWing.rotationPointY = 1F;
 		leftWing.rotationPointY = 1F;
-		rightWing.rotateAngleY = 0.47123894F + MathHelper.cos(ageInTicks * 0.8F) * (float) Math.PI * 0.05F;
+		rightWing.rotateAngleY = 0.47123894F + Maths.cos(ageInTicks * 0.8F) * (float) Math.PI * 0.05F;
 		leftWing.rotateAngleY = -rightWing.rotateAngleY;
 		leftWing.rotateAngleZ = -0.47123894F;
 		leftWing.rotateAngleX = 0.47123894F;

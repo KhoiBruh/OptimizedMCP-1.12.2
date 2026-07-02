@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 public class EntityEnderEye extends Entity {
@@ -64,7 +64,7 @@ public class EntityEnderEye extends Entity {
 		double d1 = pos.getZ();
 		double d2 = d0 - posX;
 		double d3 = d1 - posZ;
-		float f = MathHelper.sqrt(d2 * d2 + d3 * d3);
+		float f = Maths.sqrt(d2 * d2 + d3 * d3);
 
 		if (f > 12F) {
 			targetX = posX + d2 / (double) f * 12D;
@@ -89,9 +89,9 @@ public class EntityEnderEye extends Entity {
 		motionZ = z;
 
 		if (prevRotationPitch == 0F && prevRotationYaw == 0F) {
-			float f = MathHelper.sqrt(x * x + z * z);
-			rotationYaw = (float) (MathHelper.atan2(x, z) * (180D / Math.PI));
-			rotationPitch = (float) (MathHelper.atan2(y, f) * (180D / Math.PI));
+			float f = Maths.sqrt(x * x + z * z);
+			rotationYaw = (float) (Maths.atan2(x, z) * (180D / Math.PI));
+			rotationPitch = (float) (Maths.atan2(y, f) * (180D / Math.PI));
 			prevRotationYaw = rotationYaw;
 			prevRotationPitch = rotationPitch;
 		}
@@ -108,10 +108,10 @@ public class EntityEnderEye extends Entity {
 		posX += motionX;
 		posY += motionY;
 		posZ += motionZ;
-		float f = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
-		rotationYaw = (float) (MathHelper.atan2(motionX, motionZ) * (180D / Math.PI));
+		float f = Maths.sqrt(motionX * motionX + motionZ * motionZ);
+		rotationYaw = (float) (Maths.atan2(motionX, motionZ) * (180D / Math.PI));
 
-		for (rotationPitch = (float) (MathHelper.atan2(motionY, f) * (180D / Math.PI)); rotationPitch - prevRotationPitch < -180F; prevRotationPitch -= 360F) {
+		for (rotationPitch = (float) (Maths.atan2(motionY, f) * (180D / Math.PI)); rotationPitch - prevRotationPitch < -180F; prevRotationPitch -= 360F) {
 		}
 
 		while (rotationPitch - prevRotationPitch >= 180F) {
@@ -133,7 +133,7 @@ public class EntityEnderEye extends Entity {
 			double d0 = targetX - posX;
 			double d1 = targetZ - posZ;
 			float f1 = (float) Math.sqrt(d0 * d0 + d1 * d1);
-			float f2 = (float) MathHelper.atan2(d1, d0);
+			float f2 = (float) Maths.atan2(d1, d0);
 			double d2 = (double) f + (double) (f1 - f) * 0.0025D;
 
 			if (f1 < 1F) {

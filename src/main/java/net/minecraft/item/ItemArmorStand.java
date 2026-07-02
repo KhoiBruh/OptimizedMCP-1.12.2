@@ -11,7 +11,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Rotations;
 import net.minecraft.world.World;
 
@@ -61,7 +61,7 @@ public class ItemArmorStand extends Item {
 							worldIn.setBlockToAir(blockpos);
 							worldIn.setBlockToAir(blockpos1);
 							EntityArmorStand entityarmorstand = new EntityArmorStand(worldIn, d0 + 0.5D, d1, d2 + 0.5D);
-							float f = (float) MathHelper.floor((MathHelper.wrapDegrees(player.rotationYaw - 180F) + 22.5F) / 45F) * 45F;
+							float f = (float) Maths.floor((Maths.wrapDegrees(player.rotationYaw - 180F) + 22.5F) / 45F) * 45F;
 							entityarmorstand.setLocationAndAngles(d0 + 0.5D, d1, d2 + 0.5D, f, 0F);
 							applyRandomRotations(entityarmorstand, worldIn.rand);
 							ItemMonsterPlacer.applyItemEntityDataToEntity(worldIn, player, itemstack, entityarmorstand);

@@ -2,7 +2,7 @@ package net.minecraft.entity.boss.dragon.phase;
 
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.util.ParticleTypes;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.gen.feature.WorldGenEndPodium;
 
@@ -57,7 +57,7 @@ public class PhaseLanding extends PhaseBase {
 	}
 
 	public float getYawFactor() {
-		float f = MathHelper.sqrt(dragon.motionX * dragon.motionX + dragon.motionZ * dragon.motionZ) + 1F;
+		float f = Maths.sqrt(dragon.motionX * dragon.motionX + dragon.motionZ * dragon.motionZ) + 1F;
 		float f1 = Math.min(f, 40F);
 		return f1 / f;
 	}

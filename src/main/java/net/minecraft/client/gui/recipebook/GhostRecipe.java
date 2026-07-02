@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 import java.util.List;
 
@@ -106,7 +106,7 @@ public class GhostRecipe {
 
 		public ItemStack getItem() {
 			ItemStack[] aitemstack = ingredient.getMatchingStacks();
-			return aitemstack[MathHelper.floor(time / 30F) % aitemstack.length];
+			return aitemstack[Maths.floor(time / 30F) % aitemstack.length];
 		}
 
 	}

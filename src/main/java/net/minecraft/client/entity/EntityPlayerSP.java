@@ -376,7 +376,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	}
 
 	protected void sendHorseJump() {
-		connection.sendPacket(new CPacketEntityAction(this, CPacketEntityAction.Action.START_RIDING_JUMP, MathHelper.floor(getHorseJumpPower() * 100F)));
+		connection.sendPacket(new CPacketEntityAction(this, CPacketEntityAction.Action.START_RIDING_JUMP, Maths.floor(getHorseJumpPower() * 100F)));
 	}
 
 	public void sendHorseInventory() {
@@ -861,7 +861,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
 			if (flag && !input.jump) {
 				horseJumpPowerCounter = -10;
-				ijumpingmount.setJumpPower(MathHelper.floor(getHorseJumpPower() * 100F));
+				ijumpingmount.setJumpPower(Maths.floor(getHorseJumpPower() * 100F));
 				sendHorseJump();
 			} else if (!flag && input.jump) {
 				horseJumpPowerCounter = 0;
@@ -948,8 +948,8 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 					if (f1 <= 0.001F) {
 						float f2 = f * vec2f.x();
 						float f3 = f * vec2f.y();
-						float f4 = MathHelper.sin(rotationYaw * 0.017453292F);
-						float f5 = MathHelper.cos(rotationYaw * 0.017453292F);
+						float f4 = Maths.sin(rotationYaw * 0.017453292F);
+						float f5 = Maths.cos(rotationYaw * 0.017453292F);
 						vec3d2 = new Vec3d(f2 * f5 - f3 * f4, vec3d2.y(), f3 * f5 + f2 * f4);
 						f1 = (float) vec3d2.lengthSquared();
 
@@ -958,7 +958,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 						}
 					}
 
-					float f12 = (float) MathHelper.fastInvSqrt(f1);
+					float f12 = (float) Maths.fastInvSqrt(f1);
 					Vec3d vec3d12 = vec3d2.scale(f12);
 					Vec3d vec3d13 = getForward();
 					float f13 = (float) (vec3d13.x() * vec3d12.x() + vec3d13.z() * vec3d12.z());

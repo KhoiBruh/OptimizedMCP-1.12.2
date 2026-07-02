@@ -8,7 +8,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -32,7 +32,7 @@ public abstract class EntityFireball extends Entity {
 		setSize(1F, 1F);
 		setLocationAndAngles(x, y, z, rotationYaw, rotationPitch);
 		setPosition(x, y, z);
-		double d0 = MathHelper.sqrt(accelX * accelX + accelY * accelY + accelZ * accelZ);
+		double d0 = Maths.sqrt(accelX * accelX + accelY * accelY + accelZ * accelZ);
 		accelerationX = accelX / d0 * 0.1D;
 		accelerationY = accelY / d0 * 0.1D;
 		accelerationZ = accelZ / d0 * 0.1D;
@@ -50,7 +50,7 @@ public abstract class EntityFireball extends Entity {
 		accelX = accelX + rand.nextGaussian() * 0.4D;
 		accelY = accelY + rand.nextGaussian() * 0.4D;
 		accelZ = accelZ + rand.nextGaussian() * 0.4D;
-		double d0 = MathHelper.sqrt(accelX * accelX + accelY * accelY + accelZ * accelZ);
+		double d0 = Maths.sqrt(accelX * accelX + accelY * accelY + accelZ * accelZ);
 		accelerationX = accelX / d0 * 0.1D;
 		accelerationY = accelY / d0 * 0.1D;
 		accelerationZ = accelZ / d0 * 0.1D;

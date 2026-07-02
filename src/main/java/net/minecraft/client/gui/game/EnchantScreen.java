@@ -14,7 +14,7 @@ import net.minecraft.inventory.ContainerEnchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.entity.EnchantmentNameParts;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.text.TextFormat;
 import net.minecraft.world.IWorldNameable;
 import net.minecraft.world.World;
@@ -138,8 +138,8 @@ public class EnchantScreen extends ContainerScreen {
 		GLS.rotate(180F, 1F, 0F, 0F);
 		float f3 = oFlip + (flip - oFlip) * partialTicks + 0.25F;
 		float f4 = oFlip + (flip - oFlip) * partialTicks + 0.75F;
-		f3 = (f3 - (float) MathHelper.fastFloor(f3)) * 1.6F - 0.3F;
-		f4 = (f4 - (float) MathHelper.fastFloor(f4)) * 1.6F - 0.3F;
+		f3 = (f3 - (float) Maths.fastFloor(f3)) * 1.6F - 0.3F;
+		f4 = (f4 - (float) Maths.fastFloor(f4)) * 1.6F - 0.3F;
 
 		if (f3 < 0F) {
 			f3 = 0F;
@@ -302,10 +302,10 @@ public class EnchantScreen extends ContainerScreen {
 			open -= 0.2F;
 		}
 
-		open = MathHelper.clamp(open, 0F, 1F);
+		open = Maths.clamp(open, 0F, 1F);
 		float f1 = (flipT - flip) * 0.4F;
 		float f = 0.2F;
-		f1 = MathHelper.clamp(f1, -0.2F, 0.2F);
+		f1 = Maths.clamp(f1, -0.2F, 0.2F);
 		flipA += (f1 - flipA) * 0.9F;
 		flip += flipA;
 	}

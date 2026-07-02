@@ -6,7 +6,7 @@ import net.minecraft.client.util.Projection;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -75,11 +75,11 @@ public class ActiveRenderInfo {
 		int i = p_74583_1_ ? 1 : 0;
 		float f2 = entityplayerIn.rotationPitch;
 		float f3 = entityplayerIn.rotationYaw;
-		rotationX = MathHelper.cos(f3 * 0.017453292F) * (float) (1 - i * 2);
-		rotationZ = MathHelper.sin(f3 * 0.017453292F) * (float) (1 - i * 2);
-		rotationYZ = -rotationZ * MathHelper.sin(f2 * 0.017453292F) * (float) (1 - i * 2);
-		rotationXY = rotationX * MathHelper.sin(f2 * 0.017453292F) * (float) (1 - i * 2);
-		rotationXZ = MathHelper.cos(f2 * 0.017453292F);
+		rotationX = Maths.cos(f3 * 0.017453292F) * (float) (1 - i * 2);
+		rotationZ = Maths.sin(f3 * 0.017453292F) * (float) (1 - i * 2);
+		rotationYZ = -rotationZ * Maths.sin(f2 * 0.017453292F) * (float) (1 - i * 2);
+		rotationXY = rotationX * Maths.sin(f2 * 0.017453292F) * (float) (1 - i * 2);
+		rotationXZ = Maths.cos(f2 * 0.017453292F);
 	}
 
 	public static Vec3d projectViewFromEntity(Entity entityIn, double p_178806_1_) {

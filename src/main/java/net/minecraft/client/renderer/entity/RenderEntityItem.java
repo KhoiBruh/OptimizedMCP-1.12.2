@@ -10,7 +10,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 import java.util.Random;
 
@@ -36,7 +36,7 @@ public class RenderEntityItem extends Render<EntityItem> {
 			boolean flag = p_177077_9_.isGui3d();
 			int i = getModelCount(itemstack);
 			float f = 0.25F;
-			float f1 = MathHelper.sin(((float) itemIn.getAge() + p_177077_8_) / 10F + itemIn.hoverStart) * 0.1F + 0.1F;
+			float f1 = Maths.sin(((float) itemIn.getAge() + p_177077_8_) / 10F + itemIn.hoverStart) * 0.1F + 0.1F;
 			float f2 = p_177077_9_.getItemCameraTransforms()
 			                      .getTransform(ItemCameraTransforms.TransformType.GROUND)
 			                      .scale().y;

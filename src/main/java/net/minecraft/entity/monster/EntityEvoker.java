@@ -17,7 +17,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
@@ -154,22 +154,22 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 			EntityLivingBase entitylivingbase = getAttackTarget();
 			double d0 = Math.min(entitylivingbase.posY, posY);
 			double d1 = Math.max(entitylivingbase.posY, posY) + 1D;
-			float f = (float) MathHelper.atan2(entitylivingbase.posZ - posZ, entitylivingbase.posX - posX);
+			float f = (float) Maths.atan2(entitylivingbase.posZ - posZ, entitylivingbase.posX - posX);
 
 			if (getDistanceSq(entitylivingbase) < 9D) {
 				for (int i = 0; i < 5; ++i) {
 					float f1 = f + (float) i * (float) Math.PI * 0.4F;
-					spawnFangs(posX + (double) MathHelper.cos(f1) * 1.5D, posZ + (double) MathHelper.sin(f1) * 1.5D, d0, d1, f1, 0);
+					spawnFangs(posX + (double) Maths.cos(f1) * 1.5D, posZ + (double) Maths.sin(f1) * 1.5D, d0, d1, f1, 0);
 				}
 
 				for (int k = 0; k < 8; ++k) {
 					float f2 = f + (float) k * (float) Math.PI * 2F / 8F + ((float) Math.PI * 2F / 5F);
-					spawnFangs(posX + (double) MathHelper.cos(f2) * 2.5D, posZ + (double) MathHelper.sin(f2) * 2.5D, d0, d1, f2, 3);
+					spawnFangs(posX + (double) Maths.cos(f2) * 2.5D, posZ + (double) Maths.sin(f2) * 2.5D, d0, d1, f2, 3);
 				}
 			} else {
 				for (int l = 0; l < 16; ++l) {
 					double d2 = 1.25D * (double) (l + 1);
-					spawnFangs(posX + (double) MathHelper.cos(f) * d2, posZ + (double) MathHelper.sin(f) * d2, d0, d1, f, l);
+					spawnFangs(posX + (double) Maths.cos(f) * d2, posZ + (double) Maths.sin(f) * d2, d0, d1, f, l);
 				}
 			}
 		}
@@ -196,7 +196,7 @@ public class EntityEvoker extends EntitySpellcasterIllager {
 
 				blockpos = blockpos.down();
 
-				if (blockpos.getY() < MathHelper.floor(p_190876_5_) - 1) {
+				if (blockpos.getY() < Maths.floor(p_190876_5_) - 1) {
 					break;
 				}
 			}

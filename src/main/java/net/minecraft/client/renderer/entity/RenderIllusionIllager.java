@@ -8,7 +8,7 @@ import net.minecraft.entity.monster.EntityIllusionIllager;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.util.HandSide;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 
 public class RenderIllusionIllager extends RenderLiving<EntityMob> {
@@ -55,7 +55,7 @@ public class RenderIllusionIllager extends RenderLiving<EntityMob> {
 			float f = handleRotationFloat(entity, partialTicks);
 
 			for (int i = 0; i < avec3d.length; ++i) {
-				super.doRender(entity, x + avec3d[i].x() + (double) MathHelper.cos((float) i + f * 0.5F) * 0.025D, y + avec3d[i].y() + (double) MathHelper.cos((float) i + f * 0.75F) * 0.0125D, z + avec3d[i].z() + (double) MathHelper.cos((float) i + f * 0.7F) * 0.025D, entityYaw, partialTicks);
+				super.doRender(entity, x + avec3d[i].x() + (double) Maths.cos((float) i + f * 0.5F) * 0.025D, y + avec3d[i].y() + (double) Maths.cos((float) i + f * 0.75F) * 0.0125D, z + avec3d[i].z() + (double) Maths.cos((float) i + f * 0.7F) * 0.025D, entityYaw, partialTicks);
 			}
 		} else {
 			super.doRender(entity, x, y, z, entityYaw, partialTicks);

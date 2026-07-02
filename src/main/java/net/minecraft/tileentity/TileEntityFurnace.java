@@ -17,7 +17,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.datafix.FixTypes;
 import net.minecraft.util.datafix.walkers.ItemStackDataLists;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class TileEntityFurnace extends TileEntityLockable implements ITickable, ISidedInventory {
 
@@ -271,7 +271,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
 					cookTime = 0;
 				}
 			} else if (!isBurning() && cookTime > 0) {
-				cookTime = MathHelper.clamp(cookTime - 2, 0, totalCookTime);
+				cookTime = Maths.clamp(cookTime - 2, 0, totalCookTime);
 			}
 
 			if (flag != isBurning()) {

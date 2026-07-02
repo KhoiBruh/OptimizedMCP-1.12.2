@@ -4,7 +4,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.Random;
@@ -59,7 +59,7 @@ public class RandomPositionGenerator {
 
 		if (p_191379_0_.hasHome()) {
 			double d0 = p_191379_0_.getHomePosition()
-			                       .distanceSq(MathHelper.floor(p_191379_0_.posX), MathHelper.floor(p_191379_0_.posY), MathHelper.floor(p_191379_0_.posZ)) + 4D;
+			                       .distanceSq(Maths.floor(p_191379_0_.posX), Maths.floor(p_191379_0_.posY), Maths.floor(p_191379_0_.posZ)) + 4D;
 			double d1 = p_191379_0_.getMaximumHomeDistance() + (float) p_191379_1_;
 			flag = d0 < d1 * d1;
 		} else {

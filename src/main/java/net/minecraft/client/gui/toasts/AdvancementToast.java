@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 import java.util.List;
 
@@ -39,11 +39,11 @@ public class AdvancementToast implements IToast {
 				toastGui.getMinecraft().fontRenderer.drawText(displayinfo.getTitle().getFormattedText(), 30, 18, -1);
 			} else {
 				if (delta < 1500L) {
-					int k = MathHelper.floor(MathHelper.clamp((float) (1500L - delta) / 300F, 0F, 1F) * 255F) << 24 | 67108864;
+					int k = Maths.floor(Maths.clamp((float) (1500L - delta) / 300F, 0F, 1F) * 255F) << 24 | 67108864;
 					toastGui.getMinecraft().fontRenderer.drawText(I18n.format("advancements.toast." + displayinfo.getFrame()
 					                                                                                             .getName()), 30, 11, i | k);
 				} else {
-					int i1 = MathHelper.floor(MathHelper.clamp((float) (delta - 1500L) / 300F, 0F, 1F) * 252F) << 24 | 67108864;
+					int i1 = Maths.floor(Maths.clamp((float) (delta - 1500L) / 300F, 0F, 1F) * 252F) << 24 | 67108864;
 					int l = 16 - list.size() * toastGui.getMinecraft().fontRenderer.FONT_HEIGHT / 2;
 
 					for (String s : list) {

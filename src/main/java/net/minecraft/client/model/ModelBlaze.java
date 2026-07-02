@@ -1,7 +1,7 @@
 package net.minecraft.client.model;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class ModelBlaze extends ModelBase {
 
@@ -42,27 +42,27 @@ public class ModelBlaze extends ModelBase {
 		float f = ageInTicks * (float) Math.PI * -0.1F;
 
 		for (int i = 0; i < 4; ++i) {
-			blazeSticks[i].rotationPointY = -2F + MathHelper.cos(((float) (i * 2) + ageInTicks) * 0.25F);
-			blazeSticks[i].rotationPointX = MathHelper.cos(f) * 9F;
-			blazeSticks[i].rotationPointZ = MathHelper.sin(f) * 9F;
+			blazeSticks[i].rotationPointY = -2F + Maths.cos(((float) (i * 2) + ageInTicks) * 0.25F);
+			blazeSticks[i].rotationPointX = Maths.cos(f) * 9F;
+			blazeSticks[i].rotationPointZ = Maths.sin(f) * 9F;
 			++f;
 		}
 
 		f = ((float) Math.PI / 4F) + ageInTicks * (float) Math.PI * 0.03F;
 
 		for (int j = 4; j < 8; ++j) {
-			blazeSticks[j].rotationPointY = 2F + MathHelper.cos(((float) (j * 2) + ageInTicks) * 0.25F);
-			blazeSticks[j].rotationPointX = MathHelper.cos(f) * 7F;
-			blazeSticks[j].rotationPointZ = MathHelper.sin(f) * 7F;
+			blazeSticks[j].rotationPointY = 2F + Maths.cos(((float) (j * 2) + ageInTicks) * 0.25F);
+			blazeSticks[j].rotationPointX = Maths.cos(f) * 7F;
+			blazeSticks[j].rotationPointZ = Maths.sin(f) * 7F;
 			++f;
 		}
 
 		f = 0.47123894F + ageInTicks * (float) Math.PI * -0.05F;
 
 		for (int k = 8; k < 12; ++k) {
-			blazeSticks[k].rotationPointY = 11F + MathHelper.cos(((float) k * 1.5F + ageInTicks) * 0.5F);
-			blazeSticks[k].rotationPointX = MathHelper.cos(f) * 5F;
-			blazeSticks[k].rotationPointZ = MathHelper.sin(f) * 5F;
+			blazeSticks[k].rotationPointY = 11F + Maths.cos(((float) k * 1.5F + ageInTicks) * 0.5F);
+			blazeSticks[k].rotationPointX = Maths.cos(f) * 5F;
+			blazeSticks[k].rotationPointZ = Maths.sin(f) * 5F;
 			++f;
 		}
 

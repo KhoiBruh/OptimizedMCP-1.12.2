@@ -22,7 +22,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
@@ -255,9 +255,9 @@ public class EntityShulker extends EntityGolem implements IMob {
 		prevPeekAmount = peekAmount;
 
 		if (peekAmount > f1) {
-			peekAmount = MathHelper.clamp(peekAmount - 0.05F, f1, 1F);
+			peekAmount = Maths.clamp(peekAmount - 0.05F, f1, 1F);
 		} else if (peekAmount < f1) {
-			peekAmount = MathHelper.clamp(peekAmount + 0.05F, 0F, f1);
+			peekAmount = Maths.clamp(peekAmount + 0.05F, 0F, f1);
 		}
 
 		if (blockpos != null) {
@@ -278,8 +278,8 @@ public class EntityShulker extends EntityGolem implements IMob {
 			lastTickPosX = posX;
 			lastTickPosY = posY;
 			lastTickPosZ = posZ;
-			double d3 = 0.5D - (double) MathHelper.sin((0.5F + peekAmount) * (float) Math.PI) * 0.5D;
-			double d4 = 0.5D - (double) MathHelper.sin((0.5F + prevPeekAmount) * (float) Math.PI) * 0.5D;
+			double d3 = 0.5D - (double) Maths.sin((0.5F + peekAmount) * (float) Math.PI) * 0.5D;
+			double d4 = 0.5D - (double) Maths.sin((0.5F + prevPeekAmount) * (float) Math.PI) * 0.5D;
 			double d5 = d3 - d4;
 			double d0 = 0D;
 			double d1 = 0D;

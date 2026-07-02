@@ -10,7 +10,7 @@ import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -95,7 +95,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 			int j1 = Math.min(Integer.lowestOneBit(textureatlassprite.getIconWidth()), Integer.lowestOneBit(textureatlassprite.getIconHeight()));
 
 			if (j1 < k) {
-				LOGGER.warn("Texture {} with size {}x{} limits mip level from {} to {}", resourcelocation, textureatlassprite.getIconWidth(), textureatlassprite.getIconHeight(), MathHelper.log2(k), MathHelper.log2(j1));
+				LOGGER.warn("Texture {} with size {}x{} limits mip level from {} to {}", resourcelocation, textureatlassprite.getIconWidth(), textureatlassprite.getIconHeight(), Maths.log2(k), Maths.log2(j1));
 				k = j1;
 			}
 
@@ -103,7 +103,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 		}
 
 		int l = Math.min(j, k);
-		int i1 = MathHelper.log2(l);
+		int i1 = Maths.log2(l);
 
 		if (i1 < mipmapLevels) {
 			LOGGER.warn("{}: dropping miplevel from {} to {}, because of minimum power of two: {}", basePath, mipmapLevels, i1, l);

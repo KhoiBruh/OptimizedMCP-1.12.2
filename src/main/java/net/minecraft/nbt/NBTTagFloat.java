@@ -1,6 +1,6 @@
 package net.minecraft.nbt;
 
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -63,15 +63,15 @@ public class NBTTagFloat extends NBTPrimitive {
 	}
 
 	public int getInt() {
-		return MathHelper.floor(data);
+		return Maths.floor(data);
 	}
 
 	public short getShort() {
-		return (short) (MathHelper.floor(data) & 65535);
+		return (short) (Maths.floor(data) & 65535);
 	}
 
 	public byte getByte() {
-		return (byte) (MathHelper.floor(data) & 255);
+		return (byte) (Maths.floor(data) & 255);
 	}
 
 	public double getDouble() {

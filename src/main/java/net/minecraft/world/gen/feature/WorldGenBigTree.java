@@ -8,7 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -112,7 +112,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 		} else {
 			float f = (float) heightLimit / 2F;
 			float f1 = f - (float) y;
-			float f2 = MathHelper.sqrt(f * f - f1 * f1);
+			float f2 = Maths.sqrt(f * f - f1 * f1);
 
 			if (f1 == 0F) {
 				f2 = f;
@@ -161,9 +161,9 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
 	 * Returns the absolute greatest distance in the BlockPos object.
 	 */
 	private int getGreatestDistance(BlockPos posIn) {
-		int i = MathHelper.abs(posIn.getX());
-		int j = MathHelper.abs(posIn.getY());
-		int k = MathHelper.abs(posIn.getZ());
+		int i = Maths.abs(posIn.getX());
+		int j = Maths.abs(posIn.getY());
+		int k = Maths.abs(posIn.getZ());
 
 		if (k > i && k > j) {
 			return k;

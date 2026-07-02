@@ -11,7 +11,7 @@ import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.util.Facing;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.IBlockAccess;
@@ -28,7 +28,7 @@ public class BlockModelRenderer {
 	}
 
 	public boolean renderModel(IBlockAccess blockAccessIn, IBakedModel modelIn, IBlockState blockStateIn, BlockPos blockPosIn, BufferBuilder buffer, boolean checkSides) {
-		return renderModel(blockAccessIn, modelIn, blockStateIn, blockPosIn, buffer, checkSides, MathHelper.getPositionRandom(blockPosIn));
+		return renderModel(blockAccessIn, modelIn, blockStateIn, blockPosIn, buffer, checkSides, Maths.getPositionRandom(blockPosIn));
 	}
 
 	public boolean renderModel(IBlockAccess worldIn, IBakedModel modelIn, IBlockState stateIn, BlockPos posIn, BufferBuilder buffer, boolean checkSides, long rand) {

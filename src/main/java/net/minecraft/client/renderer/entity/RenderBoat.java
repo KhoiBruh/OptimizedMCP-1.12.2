@@ -6,7 +6,7 @@ import net.minecraft.client.model.ModelBoat;
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class RenderBoat extends Render<EntityBoat> {
 
@@ -57,7 +57,7 @@ public class RenderBoat extends Render<EntityBoat> {
 		}
 
 		if (f > 0F) {
-			GLS.rotate(MathHelper.sin(f) * f * f1 / 10F * (float) p_188311_1_.getForwardDirection(), 1F, 0F, 0F);
+			GLS.rotate(Maths.sin(f) * f * f1 / 10F * (float) p_188311_1_.getForwardDirection(), 1F, 0F, 0F);
 		}
 
 		GLS.scale(-1F, -1F, 1F);

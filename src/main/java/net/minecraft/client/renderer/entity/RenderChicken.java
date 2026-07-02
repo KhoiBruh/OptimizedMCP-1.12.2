@@ -3,7 +3,7 @@ package net.minecraft.client.renderer.entity;
 import net.minecraft.client.model.ModelChicken;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class RenderChicken extends RenderLiving<EntityChicken> {
 
@@ -26,7 +26,7 @@ public class RenderChicken extends RenderLiving<EntityChicken> {
 	protected float handleRotationFloat(EntityChicken livingBase, float partialTicks) {
 		float f = livingBase.oFlap + (livingBase.wingRotation - livingBase.oFlap) * partialTicks;
 		float f1 = livingBase.oFlapSpeed + (livingBase.destPos - livingBase.oFlapSpeed) * partialTicks;
-		return (MathHelper.sin(f) + 1F) * f1;
+		return (Maths.sin(f) + 1F) * f1;
 	}
 
 }

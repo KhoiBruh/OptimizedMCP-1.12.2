@@ -713,7 +713,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		mc.profiler.endStartSection("culling");
 		BlockPos blockpos1 = new BlockPos(d3, d4 + (double) viewEntity.getEyeHeight(), d5);
 		RenderChunk renderchunk = viewFrustum.getRenderChunk(blockpos1);
-		BlockPos blockpos = new BlockPos(MathHelper.floor(d3 / 16D) * 16, MathHelper.floor(d4 / 16D) * 16, MathHelper.floor(d5 / 16D) * 16);
+		BlockPos blockpos = new BlockPos(Maths.floor(d3 / 16D) * 16, Maths.floor(d4 / 16D) * 16, Maths.floor(d5 / 16D) * 16);
 		displayListEntitiesDirty = displayListEntitiesDirty || !chunksToUpdate.isEmpty() || viewEntity.posX != lastViewEntityX || viewEntity.posY != lastViewEntityY || viewEntity.posZ != lastViewEntityZ || (double) viewEntity.rotationPitch != lastViewEntityPitch || (double) viewEntity.rotationYaw != lastViewEntityYaw;
 		lastViewEntityX = viewEntity.posX;
 		lastViewEntityY = viewEntity.posY;
@@ -726,7 +726,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			displayListEntitiesDirty = false;
 			renderInfos = Lists.newArrayList();
 			Queue<RenderGlobal.ContainerLocalRenderInformation> queue = Queues.newArrayDeque();
-			Entity.setRenderDistanceWeight(MathHelper.clamp((double) mc.gameSettings.renderDistanceChunks / 8D, 1D, 2.5D));
+			Entity.setRenderDistanceWeight(Maths.clamp((double) mc.gameSettings.renderDistanceChunks / 8D, 1D, 2.5D));
 			boolean flag1 = mc.renderChunksMany;
 
 			if (renderchunk != null) {
@@ -839,10 +839,10 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 	private RenderChunk getRenderChunkOffset(BlockPos playerPos, RenderChunk renderChunkBase, Facing facing) {
 		BlockPos blockpos = renderChunkBase.getBlockPosOffset16(facing);
 
-		if (MathHelper.abs(playerPos.getX() - blockpos.getX()) > renderDistanceChunks * 16) {
+		if (Maths.abs(playerPos.getX() - blockpos.getX()) > renderDistanceChunks * 16) {
 			return null;
 		} else if (blockpos.getY() >= 0 && blockpos.getY() < 256) {
-			return MathHelper.abs(playerPos.getZ() - blockpos.getZ()) > renderDistanceChunks * 16 ? null : viewFrustum.getRenderChunk(blockpos);
+			return Maths.abs(playerPos.getZ() - blockpos.getZ()) > renderDistanceChunks * 16 ? null : viewFrustum.getRenderChunk(blockpos);
 		} else {
 			return null;
 		}
@@ -856,10 +856,10 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			f += 180F;
 		}
 
-		float f2 = MathHelper.cos(-f1 * 0.017453292F - (float) Math.PI);
-		float f3 = MathHelper.sin(-f1 * 0.017453292F - (float) Math.PI);
-		float f4 = -MathHelper.cos(-f * 0.017453292F);
-		float f5 = MathHelper.sin(-f * 0.017453292F);
+		float f2 = Maths.cos(-f1 * 0.017453292F - (float) Math.PI);
+		float f3 = Maths.sin(-f1 * 0.017453292F - (float) Math.PI);
+		float f4 = -Maths.cos(-f * 0.017453292F);
+		float f5 = Maths.sin(-f * 0.017453292F);
 		return new Vector3f(f3 * f4, f5, f2 * f4);
 	}
 
@@ -1064,7 +1064,7 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 				GLS.shadeModel(7425);
 				GLS.pushMatrix();
 				GLS.rotate(90F, 1F, 0F, 0F);
-				GLS.rotate(MathHelper.sin(world.getCelestialAngleRadians(partialTicks)) < 0F ? 180F : 0F, 0F, 0F, 1F);
+				GLS.rotate(Maths.sin(world.getCelestialAngleRadians(partialTicks)) < 0F ? 180F : 0F, 0F, 0F, 1F);
 				GLS.rotate(90F, 0F, 0F, 1F);
 				float f6 = afloat[0];
 				float f7 = afloat[1];
@@ -1076,8 +1076,8 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 
 				for (int j2 = 0; j2 <= 16; ++j2) {
 					float f21 = (float) j2 * ((float) Math.PI * 2F) / 16F;
-					float f12 = MathHelper.sin(f21);
-					float f13 = MathHelper.cos(f21);
+					float f12 = Maths.sin(f21);
+					float f13 = Maths.cos(f21);
 					bufferbuilder.pos(f12 * 120F, f13 * 120F, -f13 * 40F * afloat[3])
 					             .color(afloat[0], afloat[1], afloat[2], 0F)
 					             .endVertex();
@@ -1221,8 +1221,8 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 				float f9 = 4.8828125E-4F;
 				double d5 = (float) cloudTickCounter + partialTicks;
 				double d3 = p_180447_3_ + d5 * 0.029999999329447746D;
-				int i2 = MathHelper.floor(d3 / 2048D);
-				int j2 = MathHelper.floor(p_180447_7_ / 2048D);
+				int i2 = Maths.floor(d3 / 2048D);
+				int j2 = Maths.floor(p_180447_7_ / 2048D);
 				d3 = d3 - (double) (i2 * 2048);
 				double lvt_22_1_ = p_180447_7_ - (double) (j2 * 2048);
 				float f6 = world.provider.getCloudHeight() - (float) p_180447_5_ + 0.33F;
@@ -1276,8 +1276,8 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		double d4 = (x + d3 * 0.029999999329447746D) / 12D;
 		double d5 = z / 12D + 0.33000001311302185D;
 		float f2 = world.provider.getCloudHeight() - (float) y + 0.33F;
-		int k1 = MathHelper.floor(d4 / 2048D);
-		int l1 = MathHelper.floor(d5 / 2048D);
+		int k1 = Maths.floor(d4 / 2048D);
+		int l1 = Maths.floor(d5 / 2048D);
 		d4 = d4 - (double) (k1 * 2048);
 		d5 = d5 - (double) (l1 * 2048);
 		renderEngine.bindTexture(CLOUDS_TEXTURES);
@@ -1298,10 +1298,10 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		float f13 = f4 * 0.8F;
 		float f14 = f5 * 0.8F;
 		float f15 = 0.00390625F;
-		float f16 = (float) MathHelper.floor(d4) * 0.00390625F;
-		float f17 = (float) MathHelper.floor(d5) * 0.00390625F;
-		float f18 = (float) (d4 - (double) MathHelper.floor(d4));
-		float f19 = (float) (d5 - (double) MathHelper.floor(d5));
+		float f16 = (float) Maths.floor(d4) * 0.00390625F;
+		float f17 = (float) Maths.floor(d5) * 0.00390625F;
+		float f18 = (float) (d4 - (double) Maths.floor(d4));
+		float f19 = (float) (d5 - (double) Maths.floor(d5));
 		int i2 = 8;
 		int j2 = 4;
 		float f20 = 9.765625E-4F;
@@ -1542,8 +1542,8 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			float f6 = 128F;
 			bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
 			bufferbuilder.setTranslation(-d5, -d6, -d7);
-			double d8 = Math.max(MathHelper.floor(d7 - d3), worldborder.minZ());
-			double d9 = Math.min(MathHelper.ceil(d7 + d3), worldborder.maxZ());
+			double d8 = Math.max(Maths.floor(d7 - d3), worldborder.minZ());
+			double d9 = Math.min(Maths.ceil(d7 + d3), worldborder.maxZ());
 
 			if (d5 > worldborder.maxX() - d3) {
 				float f7 = 0F;
@@ -1573,8 +1573,8 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 				}
 			}
 
-			d8 = Math.max(MathHelper.floor(d5 - d3), worldborder.minX());
-			d9 = Math.min(MathHelper.ceil(d5 + d3), worldborder.maxX());
+			d8 = Math.max(Maths.floor(d5 - d3), worldborder.minX());
+			d9 = Math.min(Maths.ceil(d5 + d3), worldborder.maxX());
 
 			if (d7 > worldborder.maxZ() - d3) {
 				float f10 = 0F;
@@ -2134,9 +2134,9 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 				for (int i2 = 0; i2 < 200; ++i2) {
 					float f2 = random.nextFloat() * 4F;
 					float f3 = random.nextFloat() * ((float) Math.PI * 2F);
-					double d6 = MathHelper.cos(f3) * f2;
+					double d6 = Maths.cos(f3) * f2;
 					double d7 = 0.01D + random.nextDouble() * 0.5D;
-					double d8 = MathHelper.sin(f3) * f2;
+					double d8 = Maths.sin(f3) * f2;
 					Particle particle = spawnParticle0(ParticleTypes.DRAGON_BREATH.getParticleID(), false, (double) blockPosIn.getX() + d6 * 0.1D, (double) blockPosIn.getY() + 0.3D, (double) blockPosIn.getZ() + d8 * 0.1D, d6, d7, d8);
 
 					if (particle != null) {

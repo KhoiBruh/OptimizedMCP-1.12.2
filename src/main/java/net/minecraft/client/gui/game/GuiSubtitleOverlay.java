@@ -7,7 +7,7 @@ import net.minecraft.client.audio.ISoundEventListener;
 import net.minecraft.client.audio.SoundEventAccessor;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GLS;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.Iterator;
@@ -70,7 +70,7 @@ public class GuiSubtitleOverlay extends Gui implements ISoundEventListener {
 				int j1 = i1 / 2;
 				float f = 1F;
 				int k1 = client.fontRenderer.getWidth(s);
-				int l1 = MathHelper.floor(MathHelper.clampedLerp(255D, 75D, (float) (Minecraft.getSystemTime() - guisubtitleoverlay$subtitle1.getStartTime()) / 3000F));
+				int l1 = Maths.floor(Maths.clampedLerp(255D, 75D, (float) (Minecraft.getSystemTime() - guisubtitleoverlay$subtitle1.getStartTime()) / 3000F));
 				int i2 = l1 << 16 | l1 << 8 | l1;
 				GLS.pushMatrix();
 				GLS.translate((float) client.getWindow().getScaledWidth() - (float) l - 2F, (float) (client.getWindow()

@@ -2,7 +2,7 @@ package net.minecraft.util;
 
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterators;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -98,7 +98,7 @@ public class IntIdentityHashBiMap<K> implements IObjectIntIterable<K> {
 	}
 
 	private int hashObject(K obectIn) {
-		return (MathHelper.hash(System.identityHashCode(obectIn)) & Integer.MAX_VALUE) % values.length;
+		return (Maths.hash(System.identityHashCode(obectIn)) & Integer.MAX_VALUE) % values.length;
 	}
 
 	private int getIndex(K objectIn, int p_186816_2_) {

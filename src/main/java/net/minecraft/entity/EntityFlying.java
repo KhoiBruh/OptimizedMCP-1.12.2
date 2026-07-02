@@ -2,7 +2,7 @@ package net.minecraft.entity;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 public abstract class EntityFlying extends EntityLiving {
@@ -34,7 +34,7 @@ public abstract class EntityFlying extends EntityLiving {
 			float f = 0.91F;
 
 			if (onGround) {
-				f = world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(getEntityBoundingBox().minY) - 1, MathHelper.floor(posZ)))
+				f = world.getBlockState(new BlockPos(Maths.floor(posX), Maths.floor(getEntityBoundingBox().minY) - 1, Maths.floor(posZ)))
 				         .getBlock().slipperiness * 0.91F;
 			}
 
@@ -43,7 +43,7 @@ public abstract class EntityFlying extends EntityLiving {
 			f = 0.91F;
 
 			if (onGround) {
-				f = world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(getEntityBoundingBox().minY) - 1, MathHelper.floor(posZ)))
+				f = world.getBlockState(new BlockPos(Maths.floor(posX), Maths.floor(getEntityBoundingBox().minY) - 1, Maths.floor(posZ)))
 				         .getBlock().slipperiness * 0.91F;
 			}
 
@@ -56,7 +56,7 @@ public abstract class EntityFlying extends EntityLiving {
 		prevLimbSwingAmount = limbSwingAmount;
 		double d1 = posX - prevPosX;
 		double d0 = posZ - prevPosZ;
-		float f2 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4F;
+		float f2 = Maths.sqrt(d1 * d1 + d0 * d0) * 4F;
 
 		if (f2 > 1F) {
 			f2 = 1F;

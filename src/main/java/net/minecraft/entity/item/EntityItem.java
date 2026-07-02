@@ -18,7 +18,7 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.datafix.FixTypes;
 import net.minecraft.util.datafix.walkers.ItemStackData;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
@@ -134,7 +134,7 @@ public class EntityItem extends Entity {
 			float f = 0.98F;
 
 			if (onGround) {
-				f = world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(getEntityBoundingBox().minY) - 1, MathHelper.floor(posZ)))
+				f = world.getBlockState(new BlockPos(Maths.floor(posX), Maths.floor(getEntityBoundingBox().minY) - 1, Maths.floor(posZ)))
 				         .getBlock().slipperiness * 0.98F;
 			}
 

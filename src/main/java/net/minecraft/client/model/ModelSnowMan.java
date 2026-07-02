@@ -1,7 +1,7 @@
 package net.minecraft.client.model;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class ModelSnowMan extends ModelBase {
 
@@ -41,8 +41,8 @@ public class ModelSnowMan extends ModelBase {
 		head.rotateAngleY = netHeadYaw * 0.017453292F;
 		head.rotateAngleX = headPitch * 0.017453292F;
 		body.rotateAngleY = netHeadYaw * 0.017453292F * 0.25F;
-		float f = MathHelper.sin(body.rotateAngleY);
-		float f1 = MathHelper.cos(body.rotateAngleY);
+		float f = Maths.sin(body.rotateAngleY);
+		float f1 = Maths.cos(body.rotateAngleY);
 		rightHand.rotateAngleZ = 1F;
 		leftHand.rotateAngleZ = -1F;
 		rightHand.rotateAngleY = 0F + body.rotateAngleY;

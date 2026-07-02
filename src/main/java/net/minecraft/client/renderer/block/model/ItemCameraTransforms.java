@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.block.model;
 
 import com.google.gson.*;
 import net.minecraft.client.renderer.GLS;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import org.joml.Quaternionf;
 
 import java.lang.reflect.Type;
@@ -76,12 +76,12 @@ public class ItemCameraTransforms {
 		float f = p_188035_0_ * 0.017453292F;
 		float f1 = p_188035_1_ * 0.017453292F;
 		float f2 = p_188035_2_ * 0.017453292F;
-		float f3 = MathHelper.sin(0.5F * f);
-		float f4 = MathHelper.cos(0.5F * f);
-		float f5 = MathHelper.sin(0.5F * f1);
-		float f6 = MathHelper.cos(0.5F * f1);
-		float f7 = MathHelper.sin(0.5F * f2);
-		float f8 = MathHelper.cos(0.5F * f2);
+		float f3 = Maths.sin(0.5F * f);
+		float f4 = Maths.cos(0.5F * f);
+		float f5 = Maths.sin(0.5F * f1);
+		float f6 = Maths.cos(0.5F * f1);
+		float f7 = Maths.sin(0.5F * f2);
+		float f8 = Maths.cos(0.5F * f2);
 		return new Quaternionf(f3 * f6 * f8 + f4 * f5 * f7, f4 * f5 * f8 - f3 * f6 * f7, f3 * f5 * f8 + f4 * f6 * f7, f4 * f6 * f8 - f3 * f5 * f7);
 	}
 

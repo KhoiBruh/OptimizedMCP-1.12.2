@@ -2,7 +2,7 @@ package net.minecraft.pathfinding;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.IntHashMap;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.IBlockAccess;
 
 public abstract class NodeProcessor {
@@ -21,9 +21,9 @@ public abstract class NodeProcessor {
 		blockaccess = sourceIn;
 		entity = mob;
 		pointMap.clearMap();
-		entitySizeX = MathHelper.floor(mob.width + 1F);
-		entitySizeY = MathHelper.floor(mob.height + 1F);
-		entitySizeZ = MathHelper.floor(mob.width + 1F);
+		entitySizeX = Maths.floor(mob.width + 1F);
+		entitySizeY = Maths.floor(mob.height + 1F);
+		entitySizeZ = Maths.floor(mob.width + 1F);
 	}
 
 	/**

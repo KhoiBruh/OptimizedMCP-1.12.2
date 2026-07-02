@@ -32,7 +32,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
@@ -222,7 +222,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying {
 		oFlap = flap;
 		oFlapSpeed = flapSpeed;
 		flapSpeed = (float) ((double) flapSpeed + (double) (onGround ? -1 : 4) * 0.3D);
-		flapSpeed = MathHelper.clamp(flapSpeed, 0F, 1F);
+		flapSpeed = Maths.clamp(flapSpeed, 0F, 1F);
 
 		if (!onGround && flapping < 1F) {
 			flapping = 1F;
@@ -294,9 +294,9 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying {
 	 * Checks if the entity's current position is a valid location to spawn this entity.
 	 */
 	public boolean getCanSpawnHere() {
-		int i = MathHelper.floor(posX);
-		int j = MathHelper.floor(getEntityBoundingBox().minY);
-		int k = MathHelper.floor(posZ);
+		int i = Maths.floor(posX);
+		int j = Maths.floor(getEntityBoundingBox().minY);
+		int k = Maths.floor(posZ);
 		BlockPos blockpos = new BlockPos(i, j, k);
 		Block block = world.getBlockState(blockpos.down()).getBlock();
 		return block instanceof BlockLeaves || block == Blocks.GRASS || block instanceof BlockLog || block == Blocks.AIR && world.getLight(blockpos) > 8 && super.getCanSpawnHere();
@@ -384,7 +384,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying {
 	}
 
 	public int getVariant() {
-		return MathHelper.clamp(dataManager.get(VARIANT), 0, 4);
+		return Maths.clamp(dataManager.get(VARIANT), 0, 4);
 	}
 
 	public void setVariant(int p_191997_1_) {

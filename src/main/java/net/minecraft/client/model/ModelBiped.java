@@ -5,7 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.Hand;
 import net.minecraft.util.HandSide;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class ModelBiped extends ModelBase {
 
@@ -151,12 +151,12 @@ public class ModelBiped extends ModelBase {
 			f = 1F;
 		}
 
-		bipedRightArm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 2F * limbSwingAmount * 0.5F / f;
-		bipedLeftArm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 2F * limbSwingAmount * 0.5F / f;
+		bipedRightArm.rotateAngleX = Maths.cos(limbSwing * 0.6662F + (float) Math.PI) * 2F * limbSwingAmount * 0.5F / f;
+		bipedLeftArm.rotateAngleX = Maths.cos(limbSwing * 0.6662F) * 2F * limbSwingAmount * 0.5F / f;
 		bipedRightArm.rotateAngleZ = 0F;
 		bipedLeftArm.rotateAngleZ = 0F;
-		bipedRightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount / f;
-		bipedLeftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount / f;
+		bipedRightLeg.rotateAngleX = Maths.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount / f;
+		bipedLeftLeg.rotateAngleX = Maths.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount / f;
 		bipedRightLeg.rotateAngleY = 0F;
 		bipedLeftLeg.rotateAngleY = 0F;
 		bipedRightLeg.rotateAngleZ = 0F;
@@ -210,16 +210,16 @@ public class ModelBiped extends ModelBase {
 			HandSide enumhandside = getMainHand(entityIn);
 			ModelRenderer modelrenderer = getArmForSide(enumhandside);
 			float f1 = swingProgress;
-			bipedBody.rotateAngleY = MathHelper.sin(MathHelper.sqrt(f1) * ((float) Math.PI * 2F)) * 0.2F;
+			bipedBody.rotateAngleY = Maths.sin(Maths.sqrt(f1) * ((float) Math.PI * 2F)) * 0.2F;
 
 			if (enumhandside == HandSide.LEFT) {
 				bipedBody.rotateAngleY *= -1F;
 			}
 
-			bipedRightArm.rotationPointZ = MathHelper.sin(bipedBody.rotateAngleY) * 5F;
-			bipedRightArm.rotationPointX = -MathHelper.cos(bipedBody.rotateAngleY) * 5F;
-			bipedLeftArm.rotationPointZ = -MathHelper.sin(bipedBody.rotateAngleY) * 5F;
-			bipedLeftArm.rotationPointX = MathHelper.cos(bipedBody.rotateAngleY) * 5F;
+			bipedRightArm.rotationPointZ = Maths.sin(bipedBody.rotateAngleY) * 5F;
+			bipedRightArm.rotationPointX = -Maths.cos(bipedBody.rotateAngleY) * 5F;
+			bipedLeftArm.rotationPointZ = -Maths.sin(bipedBody.rotateAngleY) * 5F;
+			bipedLeftArm.rotationPointX = Maths.cos(bipedBody.rotateAngleY) * 5F;
 			bipedRightArm.rotateAngleY += bipedBody.rotateAngleY;
 			bipedLeftArm.rotateAngleY += bipedBody.rotateAngleY;
 			bipedLeftArm.rotateAngleX += bipedBody.rotateAngleY;
@@ -227,11 +227,11 @@ public class ModelBiped extends ModelBase {
 			f1 = f1 * f1;
 			f1 = f1 * f1;
 			f1 = 1F - f1;
-			float f2 = MathHelper.sin(f1 * (float) Math.PI);
-			float f3 = MathHelper.sin(swingProgress * (float) Math.PI) * -(bipedHead.rotateAngleX - 0.7F) * 0.75F;
+			float f2 = Maths.sin(f1 * (float) Math.PI);
+			float f3 = Maths.sin(swingProgress * (float) Math.PI) * -(bipedHead.rotateAngleX - 0.7F) * 0.75F;
 			modelrenderer.rotateAngleX = (float) ((double) modelrenderer.rotateAngleX - ((double) f2 * 1.2D + (double) f3));
 			modelrenderer.rotateAngleY += bipedBody.rotateAngleY * 2F;
-			modelrenderer.rotateAngleZ += MathHelper.sin(swingProgress * (float) Math.PI) * -0.4F;
+			modelrenderer.rotateAngleZ += Maths.sin(swingProgress * (float) Math.PI) * -0.4F;
 		}
 
 		if (isSneak) {
@@ -252,10 +252,10 @@ public class ModelBiped extends ModelBase {
 			bipedHead.rotationPointY = 0F;
 		}
 
-		bipedRightArm.rotateAngleZ += MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
-		bipedLeftArm.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
-		bipedRightArm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
-		bipedLeftArm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
+		bipedRightArm.rotateAngleZ += Maths.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
+		bipedLeftArm.rotateAngleZ -= Maths.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
+		bipedRightArm.rotateAngleX += Maths.sin(ageInTicks * 0.067F) * 0.05F;
+		bipedLeftArm.rotateAngleX -= Maths.sin(ageInTicks * 0.067F) * 0.05F;
 
 		if (rightArmPose == ModelBiped.ArmPose.BOW_AND_ARROW) {
 			bipedRightArm.rotateAngleY = -0.1F + bipedHead.rotateAngleY;

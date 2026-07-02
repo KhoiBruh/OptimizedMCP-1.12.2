@@ -5,7 +5,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ContainerBrewingStand;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class BrewingStandScreen extends ContainerScreen {
 
@@ -52,7 +52,7 @@ public class BrewingStandScreen extends ContainerScreen {
 		int j = (height - ySize) / 2;
 		drawTexturedModalRect(i, j, 0, 0, xSize, ySize);
 		int k = tileBrewingStand.getField(1);
-		int l = MathHelper.clamp((18 * k + 20 - 1) / 20, 0, 18);
+		int l = Maths.clamp((18 * k + 20 - 1) / 20, 0, 18);
 
 		if (l > 0) {
 			drawTexturedModalRect(i + 60, j + 44, 176, 29, l, 4);

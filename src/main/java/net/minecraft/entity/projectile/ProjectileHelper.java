@@ -2,7 +2,7 @@ package net.minecraft.entity.projectile;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -62,10 +62,10 @@ public final class ProjectileHelper {
 		double d0 = projectile.motionX;
 		double d1 = projectile.motionY;
 		double d2 = projectile.motionZ;
-		float f = MathHelper.sqrt(d0 * d0 + d2 * d2);
-		projectile.rotationYaw = (float) (MathHelper.atan2(d2, d0) * (180D / Math.PI)) + 90F;
+		float f = Maths.sqrt(d0 * d0 + d2 * d2);
+		projectile.rotationYaw = (float) (Maths.atan2(d2, d0) * (180D / Math.PI)) + 90F;
 
-		for (projectile.rotationPitch = (float) (MathHelper.atan2(f, d1) * (180D / Math.PI)) - 90F; projectile.rotationPitch - projectile.prevRotationPitch < -180F; projectile.prevRotationPitch -= 360F) {
+		for (projectile.rotationPitch = (float) (Maths.atan2(f, d1) * (180D / Math.PI)) - 90F; projectile.rotationPitch - projectile.prevRotationPitch < -180F; projectile.prevRotationPitch -= 360F) {
 		}
 
 		while (projectile.rotationPitch - projectile.prevRotationPitch >= 180F) {

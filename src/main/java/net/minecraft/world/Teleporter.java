@@ -11,7 +11,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 import java.util.Random;
 
@@ -40,9 +40,9 @@ public class Teleporter {
 				placeInExistingPortal(entityIn, rotationYaw);
 			}
 		} else {
-			int i = MathHelper.floor(entityIn.posX);
-			int j = MathHelper.floor(entityIn.posY) - 1;
-			int k = MathHelper.floor(entityIn.posZ);
+			int i = Maths.floor(entityIn.posX);
+			int j = Maths.floor(entityIn.posY) - 1;
+			int k = Maths.floor(entityIn.posZ);
 			int l = 1;
 			int i1 = 0;
 
@@ -68,8 +68,8 @@ public class Teleporter {
 	public boolean placeInExistingPortal(Entity entityIn, float rotationYaw) {
 		int i = 128;
 		double d0 = -1D;
-		int j = MathHelper.floor(entityIn.posX);
-		int k = MathHelper.floor(entityIn.posZ);
+		int j = Maths.floor(entityIn.posX);
+		int k = Maths.floor(entityIn.posZ);
 		boolean flag = true;
 		BlockPos blockpos = BlockPos.ORIGIN;
 		long l = ChunkPos.asLong(j, k);
@@ -189,9 +189,9 @@ public class Teleporter {
 	public boolean makePortal(Entity entityIn) {
 		int i = 16;
 		double d0 = -1D;
-		int j = MathHelper.floor(entityIn.posX);
-		int k = MathHelper.floor(entityIn.posY);
-		int l = MathHelper.floor(entityIn.posZ);
+		int j = Maths.floor(entityIn.posX);
+		int k = Maths.floor(entityIn.posY);
+		int l = Maths.floor(entityIn.posZ);
 		int i1 = j;
 		int j1 = k;
 		int k1 = l;
@@ -316,7 +316,7 @@ public class Teleporter {
 		}
 
 		if (d0 < 0D) {
-			j1 = MathHelper.clamp(j1, 70, world.getActualHeight() - 10);
+			j1 = Maths.clamp(j1, 70, world.getActualHeight() - 10);
 			k2 = j1;
 
 			for (int j7 = -1; j7 <= 1; ++j7) {

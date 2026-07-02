@@ -22,7 +22,7 @@ import net.minecraft.network.status.client.CPacketPing;
 import net.minecraft.network.status.client.CPacketServerQuery;
 import net.minecraft.network.status.server.SPacketPong;
 import net.minecraft.network.status.server.SPacketServerInfo;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -206,11 +206,11 @@ public class ServerPinger {
 							String[] astring = Iterables.toArray(ServerPinger.PING_RESPONSE_SPLITTER.split(s), String.class);
 
 							if ("§1".equals(astring[0])) {
-								int i = MathHelper.getInt(astring[1], 0);
+								int i = Maths.getInt(astring[1], 0);
 								String s1 = astring[2];
 								String s2 = astring[3];
-								int j = MathHelper.getInt(astring[4], -1);
-								int k = MathHelper.getInt(astring[5], -1);
+								int j = Maths.getInt(astring[4], -1);
+								int k = Maths.getInt(astring[5], -1);
 								server.version = -1;
 								server.gameVersion = s1;
 								server.serverMOTD = s2;

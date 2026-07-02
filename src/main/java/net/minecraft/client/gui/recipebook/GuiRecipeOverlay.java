@@ -11,7 +11,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.stats.RecipeBook;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -53,14 +53,14 @@ public class GuiRecipeOverlay extends Gui {
 		float f3 = (float) (p_191845_6_ + 50);
 
 		if (f2 > f3) {
-			y = (int) ((float) y - p_191845_7_ * (float) MathHelper.ceil((f2 - f3) / p_191845_7_));
+			y = (int) ((float) y - p_191845_7_ * (float) Maths.ceil((f2 - f3) / p_191845_7_));
 		}
 
 		float f4 = (float) y;
 		float f5 = (float) (p_191845_6_ - 100);
 
 		if (f4 < f5) {
-			y = (int) ((float) y - p_191845_7_ * (float) MathHelper.ceil((f4 - f5) / p_191845_7_));
+			y = (int) ((float) y - p_191845_7_ * (float) Maths.ceil((f4 - f5) / p_191845_7_));
 		}
 
 		visible = true;
@@ -108,7 +108,7 @@ public class GuiRecipeOverlay extends Gui {
 			GLS.translate(0F, 0F, 170F);
 			int i = buttonList.size() <= 16 ? 4 : 5;
 			int j = Math.min(buttonList.size(), i);
-			int k = MathHelper.ceil((float) buttonList.size() / (float) i);
+			int k = Maths.ceil((float) buttonList.size() / (float) i);
 			int l = 24;
 			int i1 = 4;
 			int j1 = 82;
@@ -222,7 +222,7 @@ public class GuiRecipeOverlay extends Gui {
 							GLS.scale(0.42F, 0.42F, 1F);
 							GLS.enableLighting();
 							mc.getRenderItem()
-							  .renderItemAndEffectIntoGUI(aitemstack[MathHelper.floor(time / 30F) % aitemstack.length], i2, j2);
+							  .renderItemAndEffectIntoGUI(aitemstack[Maths.floor(time / 30F) % aitemstack.length], i2, j2);
 							GLS.disableLighting();
 							GLS.popMatrix();
 						}

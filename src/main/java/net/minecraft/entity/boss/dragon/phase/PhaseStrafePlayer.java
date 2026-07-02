@@ -6,7 +6,7 @@ import net.minecraft.entity.projectile.EntityDragonFireball;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,7 +38,7 @@ public class PhaseStrafePlayer extends PhaseBase {
 				double d1 = attackTarget.posZ;
 				double d2 = d0 - dragon.posX;
 				double d3 = d1 - dragon.posZ;
-				double d4 = MathHelper.sqrt(d2 * d2 + d3 * d3);
+				double d4 = Maths.sqrt(d2 * d2 + d3 * d3);
 				double d5 = Math.min(0.4000000059604645D + d4 / 80D - 1D, 10D);
 				targetLocation = new Vec3d(d0, attackTarget.posY + d5, d1);
 			}
@@ -55,7 +55,7 @@ public class PhaseStrafePlayer extends PhaseBase {
 				if (dragon.canEntityBeSeen(attackTarget)) {
 					++fireballCharge;
 					Vec3d vec3d1 = (new Vec3d(attackTarget.posX - dragon.posX, 0D, attackTarget.posZ - dragon.posZ)).normalize();
-					Vec3d vec3d = (new Vec3d(MathHelper.sin(dragon.rotationYaw * 0.017453292F), 0D, -MathHelper.cos(dragon.rotationYaw * 0.017453292F))).normalize();
+					Vec3d vec3d = (new Vec3d(Maths.sin(dragon.rotationYaw * 0.017453292F), 0D, -Maths.cos(dragon.rotationYaw * 0.017453292F))).normalize();
 					float f1 = (float) vec3d.dotProduct(vec3d1);
 					float f = (float) (Math.acos(f1) * (180D / Math.PI));
 					f = f + 0.5F;
@@ -164,13 +164,13 @@ public class PhaseStrafePlayer extends PhaseBase {
 		attackTarget = p_188686_1_;
 		int i = dragon.initPathPoints();
 		int j = dragon.getNearestPpIdx(attackTarget.posX, attackTarget.posY, attackTarget.posZ);
-		int k = MathHelper.floor(attackTarget.posX);
-		int l = MathHelper.floor(attackTarget.posZ);
+		int k = Maths.floor(attackTarget.posX);
+		int l = Maths.floor(attackTarget.posZ);
 		double d0 = (double) k - dragon.posX;
 		double d1 = (double) l - dragon.posZ;
-		double d2 = MathHelper.sqrt(d0 * d0 + d1 * d1);
+		double d2 = Maths.sqrt(d0 * d0 + d1 * d1);
 		double d3 = Math.min(0.4000000059604645D + d2 / 80D - 1D, 10D);
-		int i1 = MathHelper.floor(attackTarget.posY + d3);
+		int i1 = Maths.floor(attackTarget.posY + d3);
 		PathPoint pathpoint = new PathPoint(k, i1, l);
 		currentPath = dragon.findPath(i, j, pathpoint);
 

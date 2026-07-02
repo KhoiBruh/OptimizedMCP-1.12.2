@@ -5,7 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.BitArray;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class BlockStateContainer implements IBlockStatePaletteResizer {
 
@@ -34,7 +34,7 @@ public class BlockStateContainer implements IBlockStatePaletteResizer {
 				palette = new BlockStatePaletteHashMap(bits, this);
 			} else {
 				palette = REGISTRY_BASED_PALETTE;
-				bits = MathHelper.log2DeBruijn(Block.BLOCK_STATE_IDS.size());
+				bits = Maths.log2DeBruijn(Block.BLOCK_STATE_IDS.size());
 			}
 
 			palette.idFor(AIR_BLOCK_STATE);

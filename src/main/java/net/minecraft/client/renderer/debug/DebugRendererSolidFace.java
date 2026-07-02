@@ -12,7 +12,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.Facing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 public class DebugRendererSolidFace implements DebugRenderer.IDebugRenderer {
@@ -29,7 +29,7 @@ public class DebugRendererSolidFace implements DebugRenderer.IDebugRenderer {
 		double d1 = entityplayer.lastTickPosY + (entityplayer.posY - entityplayer.lastTickPosY) * (double) partialTicks;
 		double d2 = entityplayer.lastTickPosZ + (entityplayer.posZ - entityplayer.lastTickPosZ) * (double) partialTicks;
 		World world = minecraft.player.world;
-		Iterable<BlockPos> iterable = BlockPos.getAllInBox(MathHelper.floor(entityplayer.posX - 6D), MathHelper.floor(entityplayer.posY - 6D), MathHelper.floor(entityplayer.posZ - 6D), MathHelper.floor(entityplayer.posX + 6D), MathHelper.floor(entityplayer.posY + 6D), MathHelper.floor(entityplayer.posZ + 6D));
+		Iterable<BlockPos> iterable = BlockPos.getAllInBox(Maths.floor(entityplayer.posX - 6D), Maths.floor(entityplayer.posY - 6D), Maths.floor(entityplayer.posZ - 6D), Maths.floor(entityplayer.posX + 6D), Maths.floor(entityplayer.posY + 6D), Maths.floor(entityplayer.posZ + 6D));
 		GLS.enableBlend();
 		GLS.blendFunc(GLS.SourceFactor.SRC_ALPHA, GLS.DestFactor.ONE_MINUS_SRC_ALPHA, GLS.SourceFactor.ONE, GLS.DestFactor.ZERO);
 		GLS.lineWidth(2F);

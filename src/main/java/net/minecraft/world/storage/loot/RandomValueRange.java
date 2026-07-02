@@ -2,7 +2,7 @@ package net.minecraft.world.storage.loot;
 
 import com.google.gson.*;
 import net.minecraft.util.JsonUtils;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 import java.lang.reflect.Type;
 import java.util.Random;
@@ -31,11 +31,11 @@ public class RandomValueRange {
 	}
 
 	public int generateInt(Random rand) {
-		return MathHelper.getInt(rand, MathHelper.floor(min), MathHelper.floor(max));
+		return Maths.getInt(rand, Maths.floor(min), Maths.floor(max));
 	}
 
 	public float generateFloat(Random rand) {
-		return MathHelper.nextFloat(rand, min, max);
+		return Maths.nextFloat(rand, min, max);
 	}
 
 	public boolean isInRange(int value) {

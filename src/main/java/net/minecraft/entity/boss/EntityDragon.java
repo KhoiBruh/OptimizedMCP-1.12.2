@@ -26,7 +26,7 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.entity.EntityDamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderEnd;
@@ -156,7 +156,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 		int j = ringBufferIndex - p_70974_1_ - 1 & 63;
 		double[] adouble = new double[3];
 		double d0 = ringBuffer[i][0];
-		double d1 = MathHelper.wrapDegrees(ringBuffer[j][0] - d0);
+		double d1 = Maths.wrapDegrees(ringBuffer[j][0] - d0);
 		adouble[0] = d0 + d1 * (double) p_70974_2_;
 		d0 = ringBuffer[i][1];
 		d1 = ringBuffer[j][1] - d0;
@@ -174,8 +174,8 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 			setHealth(getHealth());
 
 			if (!isSilent()) {
-				float f = MathHelper.cos(animTime * ((float) Math.PI * 2F));
-				float f1 = MathHelper.cos(prevAnimTime * ((float) Math.PI * 2F));
+				float f = Maths.cos(animTime * ((float) Math.PI * 2F));
+				float f1 = Maths.cos(prevAnimTime * ((float) Math.PI * 2F));
 
 				if (f1 <= -0.3F && f >= -0.3F) {
 					world.playSound(posX, posY, posZ, SoundEvents.ENTITY_ENDERDRAGON_FLAP, getSoundCategory(), 5F, 0.8F + rand.nextFloat() * 0.3F, false);
@@ -197,7 +197,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 			world.spawnParticle(ParticleTypes.EXPLOSION_LARGE, posX + (double) f12, posY + 2D + (double) f13, posZ + (double) f15, 0D, 0D, 0D);
 		} else {
 			updateDragonEnderCrystal();
-			float f11 = 0.2F / (MathHelper.sqrt(motionX * motionX + motionZ * motionZ) * 10F + 1F);
+			float f11 = 0.2F / (Maths.sqrt(motionX * motionX + motionZ * motionZ) * 10F + 1F);
 			f11 = f11 * (float) Math.pow(2D, motionY);
 
 			if (phaseManager.getCurrentPhase().getIsStationary()) {
@@ -208,7 +208,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 				animTime += f11;
 			}
 
-			rotationYaw = MathHelper.wrapDegrees(rotationYaw);
+			rotationYaw = Maths.wrapDegrees(rotationYaw);
 
 			if (isAIDisabled()) {
 				animTime = 0.5F;
@@ -232,7 +232,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 						double d5 = posX + (interpTargetX - posX) / (double) newPosRotationIncrements;
 						double d0 = posY + (interpTargetY - posY) / (double) newPosRotationIncrements;
 						double d1 = posZ + (interpTargetZ - posZ) / (double) newPosRotationIncrements;
-						double d2 = MathHelper.wrapDegrees(interpTargetYaw - (double) rotationYaw);
+						double d2 = Maths.wrapDegrees(interpTargetYaw - (double) rotationYaw);
 						rotationYaw = (float) ((double) rotationYaw + d2 / (double) newPosRotationIncrements);
 						rotationPitch = (float) ((double) rotationPitch + (interpTargetPitch - (double) rotationPitch) / (double) newPosRotationIncrements);
 						--newPosRotationIncrements;
@@ -258,12 +258,12 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 						double d8 = vec3d.z() - posZ;
 						double d3 = d6 * d6 + d7 * d7 + d8 * d8;
 						float f5 = iphase.getMaxRiseOrFall();
-						d7 = MathHelper.clamp(d7 / (double) MathHelper.sqrt(d6 * d6 + d8 * d8), -f5, f5);
+						d7 = Maths.clamp(d7 / (double) Maths.sqrt(d6 * d6 + d8 * d8), -f5, f5);
 						motionY += d7 * 0.10000000149011612D;
-						rotationYaw = MathHelper.wrapDegrees(rotationYaw);
-						double d4 = MathHelper.clamp(MathHelper.wrapDegrees(180D - MathHelper.atan2(d6, d8) * (180D / Math.PI) - (double) rotationYaw), -50D, 50D);
+						rotationYaw = Maths.wrapDegrees(rotationYaw);
+						double d4 = Maths.clamp(Maths.wrapDegrees(180D - Maths.atan2(d6, d8) * (180D / Math.PI) - (double) rotationYaw), -50D, 50D);
 						Vec3d vec3d1 = (new Vec3d(vec3d.x() - posX, vec3d.y() - posY, vec3d.z() - posZ)).normalize();
-						Vec3d vec3d2 = (new Vec3d(MathHelper.sin(rotationYaw * 0.017453292F), motionY, -MathHelper.cos(rotationYaw * 0.017453292F))).normalize();
+						Vec3d vec3d2 = (new Vec3d(Maths.sin(rotationYaw * 0.017453292F), motionY, -Maths.cos(rotationYaw * 0.017453292F))).normalize();
 						float f7 = Math.max(((float) vec3d2.dotProduct(vec3d1) + 0.5F) / 1.5F, 0F);
 						randomYawVelocity *= 0.8F;
 						randomYawVelocity = (float) ((double) randomYawVelocity + d4 * (double) iphase.getYawFactor());
@@ -311,11 +311,11 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 				}
 
 				float f14 = (float) (getMovementOffsets(5, 1F)[1] - getMovementOffsets(10, 1F)[1]) * 10F * 0.017453292F;
-				float f16 = MathHelper.cos(f14);
-				float f2 = MathHelper.sin(f14);
+				float f16 = Maths.cos(f14);
+				float f2 = Maths.sin(f14);
 				float f17 = rotationYaw * 0.017453292F;
-				float f3 = MathHelper.sin(f17);
-				float f18 = MathHelper.cos(f17);
+				float f3 = Maths.sin(f17);
+				float f18 = Maths.cos(f17);
 				dragonPartBody.onUpdate();
 				dragonPartBody.setLocationAndAngles(posX + (double) (f3 * 0.5F), posY, posZ - (double) (f18 * 0.5F), 0F, 0F);
 				dragonPartWing1.onUpdate();
@@ -337,8 +337,8 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 				}
 
 				double[] adouble = getMovementOffsets(5, 1F);
-				float f19 = MathHelper.sin(rotationYaw * 0.017453292F - randomYawVelocity * 0.01F);
-				float f4 = MathHelper.cos(rotationYaw * 0.017453292F - randomYawVelocity * 0.01F);
+				float f19 = Maths.sin(rotationYaw * 0.017453292F - randomYawVelocity * 0.01F);
+				float f4 = Maths.cos(rotationYaw * 0.017453292F - randomYawVelocity * 0.01F);
 				dragonPartHead.onUpdate();
 				dragonPartNeck.onUpdate();
 				float f20 = getHeadYOffset(1F);
@@ -362,8 +362,8 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 
 					double[] adouble1 = getMovementOffsets(12 + k * 2, 1F);
 					float f21 = rotationYaw * 0.017453292F + simplifyAngle(adouble1[0] - adouble[0]) * 0.017453292F;
-					float f6 = MathHelper.sin(f21);
-					float f22 = MathHelper.cos(f21);
+					float f6 = Maths.sin(f21);
+					float f22 = Maths.cos(f21);
 					float f23 = 1.5F;
 					float f24 = (float) (k + 1) * 2F;
 					multipartentitypart.onUpdate();
@@ -470,19 +470,19 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	 * Simplifies the value of a number by adding/subtracting 180 to the point that the number is between -180 and 180.
 	 */
 	private float simplifyAngle(double p_70973_1_) {
-		return (float) MathHelper.wrapDegrees(p_70973_1_);
+		return (float) Maths.wrapDegrees(p_70973_1_);
 	}
 
 	/**
 	 * Destroys all blocks that aren't associated with 'The End' inside the given bounding box.
 	 */
 	private boolean destroyBlocksInAABB(AxisAlignedBB p_70972_1_) {
-		int i = MathHelper.floor(p_70972_1_.minX);
-		int j = MathHelper.floor(p_70972_1_.minY);
-		int k = MathHelper.floor(p_70972_1_.minZ);
-		int l = MathHelper.floor(p_70972_1_.maxX);
-		int i1 = MathHelper.floor(p_70972_1_.maxY);
-		int j1 = MathHelper.floor(p_70972_1_.maxZ);
+		int i = Maths.floor(p_70972_1_.minX);
+		int j = Maths.floor(p_70972_1_.minY);
+		int k = Maths.floor(p_70972_1_.minZ);
+		int l = Maths.floor(p_70972_1_.maxX);
+		int i1 = Maths.floor(p_70972_1_.maxY);
+		int j1 = Maths.floor(p_70972_1_.maxZ);
 		boolean flag = false;
 		boolean flag1 = false;
 
@@ -609,7 +609,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 
 		if (!world.isRemote) {
 			if (deathTicks > 150 && deathTicks % 5 == 0 && flag) {
-				dropExperience(MathHelper.floor((float) i * 0.08F));
+				dropExperience(Maths.floor((float) i * 0.08F));
 			}
 
 			if (deathTicks == 1) {
@@ -623,7 +623,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 
 		if (deathTicks == 200 && !world.isRemote) {
 			if (flag) {
-				dropExperience(MathHelper.floor((float) i * 0.2F));
+				dropExperience(Maths.floor((float) i * 0.2F));
 			}
 
 			if (fightManager != null) {
@@ -654,17 +654,17 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 				int i1;
 
 				if (i < 12) {
-					l = (int) (60F * MathHelper.cos(2F * (-(float) Math.PI + 0.2617994F * (float) i)));
-					i1 = (int) (60F * MathHelper.sin(2F * (-(float) Math.PI + 0.2617994F * (float) i)));
+					l = (int) (60F * Maths.cos(2F * (-(float) Math.PI + 0.2617994F * (float) i)));
+					i1 = (int) (60F * Maths.sin(2F * (-(float) Math.PI + 0.2617994F * (float) i)));
 				} else if (i < 20) {
 					int lvt_3_1_ = i - 12;
-					l = (int) (40F * MathHelper.cos(2F * (-(float) Math.PI + 0.3926991F * (float) lvt_3_1_)));
-					i1 = (int) (40F * MathHelper.sin(2F * (-(float) Math.PI + 0.3926991F * (float) lvt_3_1_)));
+					l = (int) (40F * Maths.cos(2F * (-(float) Math.PI + 0.3926991F * (float) lvt_3_1_)));
+					i1 = (int) (40F * Maths.sin(2F * (-(float) Math.PI + 0.3926991F * (float) lvt_3_1_)));
 					j += 10;
 				} else {
 					int k1 = i - 20;
-					l = (int) (20F * MathHelper.cos(2F * (-(float) Math.PI + ((float) Math.PI / 4F) * (float) k1)));
-					i1 = (int) (20F * MathHelper.sin(2F * (-(float) Math.PI + ((float) Math.PI / 4F) * (float) k1)));
+					l = (int) (20F * Maths.cos(2F * (-(float) Math.PI + ((float) Math.PI / 4F) * (float) k1)));
+					i1 = (int) (20F * Maths.sin(2F * (-(float) Math.PI + ((float) Math.PI / 4F) * (float) k1)));
 				}
 
 				int j1 = Math.max(world.getSeaLevel() + 10, world.getTopSolidOrLiquidBlock(new BlockPos(l, 0, i1))
@@ -707,7 +707,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 	public int getNearestPpIdx(double x, double y, double z) {
 		float f = 10000F;
 		int i = 0;
-		PathPoint pathpoint = new PathPoint(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z));
+		PathPoint pathpoint = new PathPoint(Maths.floor(x), Maths.floor(y), Maths.floor(z));
 		int j = 0;
 
 		if (fightManager == null || fightManager.getNumAliveCrystals() == 0) {
@@ -928,7 +928,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 			}
 		} else {
 			BlockPos blockpos = world.getTopSolidOrLiquidBlock(WorldGenEndPodium.END_PODIUM_LOCATION);
-			float f = Math.max(MathHelper.sqrt(getDistanceSqToCenter(blockpos)) / 4F, 1F);
+			float f = Math.max(Maths.sqrt(getDistanceSqToCenter(blockpos)) / 4F, 1F);
 			d0 = (float) p_184667_1_ / f;
 		}
 
@@ -952,7 +952,7 @@ public class EntityDragon extends EntityLiving implements IEntityMultiPart, IMob
 			}
 		} else {
 			BlockPos blockpos = world.getTopSolidOrLiquidBlock(WorldGenEndPodium.END_PODIUM_LOCATION);
-			float f = Math.max(MathHelper.sqrt(getDistanceSqToCenter(blockpos)) / 4F, 1F);
+			float f = Math.max(Maths.sqrt(getDistanceSqToCenter(blockpos)) / 4F, 1F);
 			float f1 = 6F / f;
 			float f2 = rotationPitch;
 			float f3 = 1.5F;

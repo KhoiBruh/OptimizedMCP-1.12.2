@@ -4,7 +4,7 @@ import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class MovingSoundMinecartRiding extends MovingSound {
 
@@ -22,10 +22,10 @@ public class MovingSoundMinecartRiding extends MovingSound {
 
 	public void update() {
 		if (!minecart.isDead && player.isRiding() && player.getRidingEntity() == minecart) {
-			float f = MathHelper.sqrt(minecart.motionX * minecart.motionX + minecart.motionZ * minecart.motionZ);
+			float f = Maths.sqrt(minecart.motionX * minecart.motionX + minecart.motionZ * minecart.motionZ);
 
 			if (f >= 0.01) {
-				volume = MathHelper.clamp(f, 0, 1) * 0.75F;
+				volume = Maths.clamp(f, 0, 1) * 0.75F;
 			} else {
 				volume = 0;
 			}

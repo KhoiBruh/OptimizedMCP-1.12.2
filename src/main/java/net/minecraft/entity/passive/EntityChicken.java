@@ -16,7 +16,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
@@ -78,7 +78,7 @@ public class EntityChicken extends EntityAnimal {
 		oFlap = wingRotation;
 		oFlapSpeed = destPos;
 		destPos = (float) ((double) destPos + (double) (onGround ? -1 : 4) * 0.3D);
-		destPos = MathHelper.clamp(destPos, 0F, 1F);
+		destPos = Maths.clamp(destPos, 0F, 1F);
 
 		if (!onGround && wingRotDelta < 1F) {
 			wingRotDelta = 1F;
@@ -171,8 +171,8 @@ public class EntityChicken extends EntityAnimal {
 
 	public void updatePassenger(Entity passenger) {
 		super.updatePassenger(passenger);
-		float f = MathHelper.sin(renderYawOffset * 0.017453292F);
-		float f1 = MathHelper.cos(renderYawOffset * 0.017453292F);
+		float f = Maths.sin(renderYawOffset * 0.017453292F);
+		float f1 = Maths.cos(renderYawOffset * 0.017453292F);
 		float f2 = 0.1F;
 		float f3 = 0F;
 		passenger.setPosition(posX + (double) (0.1F * f), posY + (double) (height * 0.5F) + passenger.getYOffset() + 0D, posZ - (double) (0.1F * f1));

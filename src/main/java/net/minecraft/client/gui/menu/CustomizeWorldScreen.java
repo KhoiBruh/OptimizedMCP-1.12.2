@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Biomes;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGeneratorSettings;
 
@@ -141,67 +141,67 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 
 		float f1 = switch (id) {
 			case 132 -> {
-				settings.mainNoiseScaleX = MathHelper.clamp(f, 1F, 5000F);
+				settings.mainNoiseScaleX = Maths.clamp(f, 1F, 5000F);
 				yield settings.mainNoiseScaleX;
 			}
 			case 133 -> {
-				settings.mainNoiseScaleY = MathHelper.clamp(f, 1F, 5000F);
+				settings.mainNoiseScaleY = Maths.clamp(f, 1F, 5000F);
 				yield settings.mainNoiseScaleY;
 			}
 			case 134 -> {
-				settings.mainNoiseScaleZ = MathHelper.clamp(f, 1F, 5000F);
+				settings.mainNoiseScaleZ = Maths.clamp(f, 1F, 5000F);
 				yield settings.mainNoiseScaleZ;
 			}
 			case 135 -> {
-				settings.depthNoiseScaleX = MathHelper.clamp(f, 1F, 2000F);
+				settings.depthNoiseScaleX = Maths.clamp(f, 1F, 2000F);
 				yield settings.depthNoiseScaleX;
 			}
 			case 136 -> {
-				settings.depthNoiseScaleZ = MathHelper.clamp(f, 1F, 2000F);
+				settings.depthNoiseScaleZ = Maths.clamp(f, 1F, 2000F);
 				yield settings.depthNoiseScaleZ;
 			}
 			case 137 -> {
-				settings.depthNoiseScaleExponent = MathHelper.clamp(f, 0.01F, 20F);
+				settings.depthNoiseScaleExponent = Maths.clamp(f, 0.01F, 20F);
 				yield settings.depthNoiseScaleExponent;
 			}
 			case 138 -> {
-				settings.baseSize = MathHelper.clamp(f, 1F, 25F);
+				settings.baseSize = Maths.clamp(f, 1F, 25F);
 				yield settings.baseSize;
 			}
 			case 139 -> {
-				settings.coordinateScale = MathHelper.clamp(f, 1F, 6000F);
+				settings.coordinateScale = Maths.clamp(f, 1F, 6000F);
 				yield settings.coordinateScale;
 			}
 			case 140 -> {
-				settings.heightScale = MathHelper.clamp(f, 1F, 6000F);
+				settings.heightScale = Maths.clamp(f, 1F, 6000F);
 				yield settings.heightScale;
 			}
 			case 141 -> {
-				settings.stretchY = MathHelper.clamp(f, 0.01F, 50F);
+				settings.stretchY = Maths.clamp(f, 0.01F, 50F);
 				yield settings.stretchY;
 			}
 			case 142 -> {
-				settings.upperLimitScale = MathHelper.clamp(f, 1F, 5000F);
+				settings.upperLimitScale = Maths.clamp(f, 1F, 5000F);
 				yield settings.upperLimitScale;
 			}
 			case 143 -> {
-				settings.lowerLimitScale = MathHelper.clamp(f, 1F, 5000F);
+				settings.lowerLimitScale = Maths.clamp(f, 1F, 5000F);
 				yield settings.lowerLimitScale;
 			}
 			case 144 -> {
-				settings.biomeDepthWeight = MathHelper.clamp(f, 1F, 20F);
+				settings.biomeDepthWeight = Maths.clamp(f, 1F, 20F);
 				yield settings.biomeDepthWeight;
 			}
 			case 145 -> {
-				settings.biomeDepthOffset = MathHelper.clamp(f, 0F, 20F);
+				settings.biomeDepthOffset = Maths.clamp(f, 0F, 20F);
 				yield settings.biomeDepthOffset;
 			}
 			case 146 -> {
-				settings.biomeScaleWeight = MathHelper.clamp(f, 1F, 20F);
+				settings.biomeScaleWeight = Maths.clamp(f, 1F, 20F);
 				yield settings.biomeScaleWeight;
 			}
 			case 147 -> {
-				settings.biomeScaleOffset = MathHelper.clamp(f, 0F, 20F);
+				settings.biomeScaleOffset = Maths.clamp(f, 0F, 20F);
 				yield settings.biomeScaleOffset;
 			}
 			default -> 0F;
@@ -713,7 +713,7 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 						if (gui instanceof Button guibutton) {
 							if (guibutton instanceof Slider) {
 								float f = ((Slider) guibutton).getSliderPosition() * (0.75F + random.nextFloat() * 0.5F) + (random.nextFloat() * 0.1F - 0.05F);
-								((Slider) guibutton).setSliderPosition(MathHelper.clamp(f, 0F, 1F));
+								((Slider) guibutton).setSliderPosition(Maths.clamp(f, 0F, 1F));
 							} else if (guibutton instanceof ButtonList) {
 								((ButtonList) guibutton).setValue(random.nextBoolean());
 							}
@@ -724,7 +724,7 @@ public class CustomizeWorldScreen extends Screen implements Slider.FormatHelper,
 						if (gui1 instanceof Button guibutton1) {
 							if (guibutton1 instanceof Slider) {
 								float f1 = ((Slider) guibutton1).getSliderPosition() * (0.75F + random.nextFloat() * 0.5F) + (random.nextFloat() * 0.1F - 0.05F);
-								((Slider) guibutton1).setSliderPosition(MathHelper.clamp(f1, 0F, 1F));
+								((Slider) guibutton1).setSliderPosition(Maths.clamp(f1, 0F, 1F));
 							} else if (guibutton1 instanceof ButtonList) {
 								((ButtonList) guibutton1).setValue(random.nextBoolean());
 							}

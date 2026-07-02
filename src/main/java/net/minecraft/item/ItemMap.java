@@ -16,7 +16,7 @@ import net.minecraft.init.Items;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -111,7 +111,7 @@ public class ItemMap extends ItemMapBase {
 									mapcolor = MapColor.ADOBE;
 
 									if (i2 > 7 && i1 % 2 == 0) {
-										l1 = (l + (int) (MathHelper.sin((float) i1 + 0F) * 7F)) / 8 % 5;
+										l1 = (l + (int) (Maths.sin((float) i1 + 0F) * 7F)) / 8 % 5;
 
 										if (l1 == 3) {
 											l1 = 1;
@@ -155,7 +155,7 @@ public class ItemMap extends ItemMapBase {
 		MapData mapdata1 = new MapData("map_" + p_185063_0_.getMetadata());
 
 		if (mapdata != null) {
-			mapdata1.scale = (byte) MathHelper.clamp(mapdata.scale + p_185063_2_, 0, 4);
+			mapdata1.scale = (byte) Maths.clamp(mapdata.scale + p_185063_2_, 0, 4);
 			mapdata1.trackingPosition = mapdata.trackingPosition;
 			mapdata1.calculateMapCenter(mapdata.xCenter, mapdata.zCenter, mapdata1.scale);
 			mapdata1.dimension = mapdata.dimension;
@@ -215,8 +215,8 @@ public class ItemMap extends ItemMapBase {
 			int i = 1 << data.scale;
 			int j = data.xCenter;
 			int k = data.zCenter;
-			int l = MathHelper.floor(viewer.posX - (double) j) / i + 64;
-			int i1 = MathHelper.floor(viewer.posZ - (double) k) / i + 64;
+			int l = Maths.floor(viewer.posX - (double) j) / i + 64;
+			int i1 = Maths.floor(viewer.posZ - (double) k) / i + 64;
 			int j1 = 128 / i;
 
 			if (worldIn.provider.isNether()) {

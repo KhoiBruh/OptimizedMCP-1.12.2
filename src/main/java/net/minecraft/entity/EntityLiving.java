@@ -29,7 +29,7 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.datafix.FixTypes;
 import net.minecraft.util.datafix.walkers.ItemStackDataLists;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
@@ -815,9 +815,9 @@ public abstract class EntityLiving extends EntityLivingBase {
 			d1 = (entityIn.getEntityBoundingBox().minY + entityIn.getEntityBoundingBox().maxY) / 2D - (posY + (double) getEyeHeight());
 		}
 
-		double d3 = MathHelper.sqrt(d0 * d0 + d2 * d2);
-		float f = (float) (MathHelper.atan2(d2, d0) * (180D / Math.PI)) - 90F;
-		float f1 = (float) (-(MathHelper.atan2(d1, d3) * (180D / Math.PI)));
+		double d3 = Maths.sqrt(d0 * d0 + d2 * d2);
+		float f = (float) (Maths.atan2(d2, d0) * (180D / Math.PI)) - 90F;
+		float f1 = (float) (-(Maths.atan2(d1, d3) * (180D / Math.PI)));
 		rotationPitch = updateRotation(rotationPitch, f1, maxPitchIncrease);
 		rotationYaw = updateRotation(rotationYaw, f, maxYawIncrease);
 	}
@@ -826,7 +826,7 @@ public abstract class EntityLiving extends EntityLivingBase {
 	 * Arguments: current rotation, intended rotation, max increment.
 	 */
 	private float updateRotation(float angle, float targetAngle, float maxIncrease) {
-		float f = MathHelper.wrapDegrees(targetAngle - angle);
+		float f = Maths.wrapDegrees(targetAngle - angle);
 
 		if (f > maxIncrease) {
 			f = maxIncrease;

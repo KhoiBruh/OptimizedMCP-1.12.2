@@ -21,7 +21,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
@@ -241,7 +241,7 @@ public class EntityGhast extends EntityFlying implements IMob {
 
 		public void updateTask() {
 			if (parentEntity.getAttackTarget() == null) {
-				parentEntity.rotationYaw = -((float) MathHelper.atan2(parentEntity.motionX, parentEntity.motionZ)) * (180F / (float) Math.PI);
+				parentEntity.rotationYaw = -((float) Maths.atan2(parentEntity.motionX, parentEntity.motionZ)) * (180F / (float) Math.PI);
 				parentEntity.renderYawOffset = parentEntity.rotationYaw;
 			} else {
 				EntityLivingBase entitylivingbase = parentEntity.getAttackTarget();
@@ -250,7 +250,7 @@ public class EntityGhast extends EntityFlying implements IMob {
 				if (entitylivingbase.getDistanceSq(parentEntity) < 4096D) {
 					double d1 = entitylivingbase.posX - parentEntity.posX;
 					double d2 = entitylivingbase.posZ - parentEntity.posZ;
-					parentEntity.rotationYaw = -((float) MathHelper.atan2(d1, d2)) * (180F / (float) Math.PI);
+					parentEntity.rotationYaw = -((float) Maths.atan2(d1, d2)) * (180F / (float) Math.PI);
 					parentEntity.renderYawOffset = parentEntity.rotationYaw;
 				}
 			}
@@ -314,7 +314,7 @@ public class EntityGhast extends EntityFlying implements IMob {
 
 				if (courseChangeCooldown-- <= 0) {
 					courseChangeCooldown += parentEntity.getRNG().nextInt(5) + 2;
-					d3 = MathHelper.sqrt(d3);
+					d3 = Maths.sqrt(d3);
 
 					if (isNotColliding(posX, posY, posZ, d3)) {
 						parentEntity.motionX += d0 / d3 * 0.1D;

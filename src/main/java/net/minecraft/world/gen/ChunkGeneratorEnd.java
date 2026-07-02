@@ -10,7 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityEndGateway;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
@@ -197,7 +197,7 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 	private float getIslandHeightValue(int p_185960_1_, int p_185960_2_, int p_185960_3_, int p_185960_4_) {
 		float f = (float) (p_185960_1_ * 2 + p_185960_3_);
 		float f1 = (float) (p_185960_2_ * 2 + p_185960_4_);
-		float f2 = 100F - MathHelper.sqrt(f * f + f1 * f1) * 8F;
+		float f2 = 100F - Maths.sqrt(f * f + f1 * f1) * 8F;
 
 		if (f2 > 80F) {
 			f2 = 80F;
@@ -213,10 +213,10 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 				long l = p_185960_2_ + j;
 
 				if (k * k + l * l > 4096L && islandNoise.getValue((double) k, (double) l) < -0.8999999761581421D) {
-					float f3 = (MathHelper.abs((float) k) * 3439F + MathHelper.abs((float) l) * 147F) % 13F + 9F;
+					float f3 = (Maths.abs((float) k) * 3439F + Maths.abs((float) l) * 147F) % 13F + 9F;
 					f = (float) (p_185960_3_ - i * 2);
 					f1 = (float) (p_185960_4_ - j * 2);
-					float f4 = 100F - MathHelper.sqrt(f * f + f1 * f1) * f3;
+					float f4 = 100F - Maths.sqrt(f * f + f1 * f1) * f3;
 
 					if (f4 > 80F) {
 						f4 = 80F;
@@ -279,7 +279,7 @@ public class ChunkGeneratorEnd implements IChunkGenerator {
 
 					if (j1 > p_185963_6_ / 2 - k1) {
 						double d6 = (float) (j1 - (p_185963_6_ / 2 - k1)) / 64F;
-						d6 = MathHelper.clamp(d6, 0D, 1D);
+						d6 = Maths.clamp(d6, 0D, 1D);
 						d4 = d4 * (1D - d6) + -3000D * d6;
 					}
 

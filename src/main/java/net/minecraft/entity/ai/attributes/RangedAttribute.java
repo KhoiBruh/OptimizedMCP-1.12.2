@@ -1,6 +1,6 @@
 package net.minecraft.entity.ai.attributes;
 
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class RangedAttribute extends BaseAttribute {
 
@@ -32,7 +32,7 @@ public class RangedAttribute extends BaseAttribute {
 	}
 
 	public double clampValue(double value) {
-		value = MathHelper.clamp(value, minimumValue, maximumValue);
+		value = Maths.clamp(value, minimumValue, maximumValue);
 		return value;
 	}
 

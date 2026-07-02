@@ -41,7 +41,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.*;
 import net.minecraft.world.DimensionType;
@@ -1407,13 +1407,13 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 					String s8 = packetbuffer5.readString(32);
 					tileentitystructure.setMode(TileEntityStructure.Mode.valueOf(s8));
 					tileentitystructure.setName(packetbuffer5.readString(64));
-					int i2 = MathHelper.clamp(packetbuffer5.readInt(), -32, 32);
-					int j2 = MathHelper.clamp(packetbuffer5.readInt(), -32, 32);
-					int k2 = MathHelper.clamp(packetbuffer5.readInt(), -32, 32);
+					int i2 = Maths.clamp(packetbuffer5.readInt(), -32, 32);
+					int j2 = Maths.clamp(packetbuffer5.readInt(), -32, 32);
+					int k2 = Maths.clamp(packetbuffer5.readInt(), -32, 32);
 					tileentitystructure.setPosition(new BlockPos(i2, j2, k2));
-					int l2 = MathHelper.clamp(packetbuffer5.readInt(), 0, 32);
-					int i3 = MathHelper.clamp(packetbuffer5.readInt(), 0, 32);
-					int j = MathHelper.clamp(packetbuffer5.readInt(), 0, 32);
+					int l2 = Maths.clamp(packetbuffer5.readInt(), 0, 32);
+					int i3 = Maths.clamp(packetbuffer5.readInt(), 0, 32);
+					int j = Maths.clamp(packetbuffer5.readInt(), 0, 32);
 					tileentitystructure.setSize(new BlockPos(l2, i3, j));
 					String s2 = packetbuffer5.readString(32);
 					tileentitystructure.setMirror(Mirror.valueOf(s2));
@@ -1423,7 +1423,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
 					tileentitystructure.setIgnoresEntities(packetbuffer5.readBoolean());
 					tileentitystructure.setShowAir(packetbuffer5.readBoolean());
 					tileentitystructure.setShowBoundingBox(packetbuffer5.readBoolean());
-					tileentitystructure.setIntegrity(MathHelper.clamp(packetbuffer5.readFloat(), 0F, 1F));
+					tileentitystructure.setIntegrity(Maths.clamp(packetbuffer5.readFloat(), 0F, 1F));
 					tileentitystructure.setSeed(packetbuffer5.readVarLong());
 					String s4 = tileentitystructure.getName();
 

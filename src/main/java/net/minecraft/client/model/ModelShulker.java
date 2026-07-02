@@ -2,7 +2,7 @@ package net.minecraft.client.model;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityShulker;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class ModelShulker extends ModelBase {
 
@@ -33,14 +33,14 @@ public class ModelShulker extends ModelBase {
 		EntityShulker entityshulker = (EntityShulker) entityIn;
 		float f = ageInTicks - (float) entityshulker.ticksExisted;
 		float f1 = (0.5F + entityshulker.getClientPeekAmount(f)) * (float) Math.PI;
-		float f2 = -1F + MathHelper.sin(f1);
+		float f2 = -1F + Maths.sin(f1);
 		float f3 = 0F;
 
 		if (f1 > (float) Math.PI) {
-			f3 = MathHelper.sin(ageInTicks * 0.1F) * 0.7F;
+			f3 = Maths.sin(ageInTicks * 0.1F) * 0.7F;
 		}
 
-		lid.setRotationPoint(0F, 16F + MathHelper.sin(f1) * 8F + f3, 0F);
+		lid.setRotationPoint(0F, 16F + Maths.sin(f1) * 8F + f3, 0F);
 
 		if (entityshulker.getClientPeekAmount(f) > 0.3F) {
 			lid.rotateAngleY = f2 * f2 * f2 * f2 * (float) Math.PI * 0.125F;

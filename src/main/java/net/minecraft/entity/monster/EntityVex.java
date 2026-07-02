@@ -16,7 +16,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
@@ -298,7 +298,7 @@ public class EntityVex extends EntityMob {
 				double d1 = posY - EntityVex.this.posY;
 				double d2 = posZ - EntityVex.this.posZ;
 				double d3 = d0 * d0 + d1 * d1 + d2 * d2;
-				d3 = MathHelper.sqrt(d3);
+				d3 = Maths.sqrt(d3);
 
 				if (d3 < getEntityBoundingBox().getAverageEdgeLength()) {
 					action = EntityMoveHelper.Action.WAIT;
@@ -311,12 +311,12 @@ public class EntityVex extends EntityMob {
 					motionZ += d2 / d3 * 0.05D * speed;
 
 					if (getAttackTarget() == null) {
-						rotationYaw = -((float) MathHelper.atan2(motionX, motionZ)) * (180F / (float) Math.PI);
+						rotationYaw = -((float) Maths.atan2(motionX, motionZ)) * (180F / (float) Math.PI);
 						renderYawOffset = rotationYaw;
 					} else {
 						double d4 = getAttackTarget().posX - EntityVex.this.posX;
 						double d5 = getAttackTarget().posZ - EntityVex.this.posZ;
-						rotationYaw = -((float) MathHelper.atan2(d4, d5)) * (180F / (float) Math.PI);
+						rotationYaw = -((float) Maths.atan2(d4, d5)) * (180F / (float) Math.PI);
 						renderYawOffset = rotationYaw;
 					}
 				}

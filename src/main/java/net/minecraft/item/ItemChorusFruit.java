@@ -4,7 +4,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 public class ItemChorusFruit extends ItemFood {
@@ -27,8 +27,8 @@ public class ItemChorusFruit extends ItemFood {
 
 			for (int i = 0; i < 16; ++i) {
 				double d3 = entityLiving.posX + (entityLiving.getRNG().nextDouble() - 0.5D) * 16D;
-				double d4 = MathHelper.clamp(entityLiving.posY + (double) (entityLiving.getRNG()
-				                                                                       .nextInt(16) - 8), 0D, worldIn.getActualHeight() - 1);
+				double d4 = Maths.clamp(entityLiving.posY + (double) (entityLiving.getRNG()
+				                                                                  .nextInt(16) - 8), 0D, worldIn.getActualHeight() - 1);
 				double d5 = entityLiving.posZ + (entityLiving.getRNG().nextDouble() - 0.5D) * 16D;
 
 				if (entityLiving.isRiding()) {

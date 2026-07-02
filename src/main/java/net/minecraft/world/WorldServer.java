@@ -31,7 +31,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.village.VillageCollection;
 import net.minecraft.village.VillageSiege;
 import net.minecraft.world.biome.Biome;
@@ -307,9 +307,9 @@ public class WorldServer extends World implements IThreadListener {
 		if (!playerEntities.isEmpty()) {
 			int i = rand.nextInt(playerEntities.size());
 			EntityPlayer entityplayer = playerEntities.get(i);
-			int j = MathHelper.floor(entityplayer.posX) + rand.nextInt(11) - 5;
-			int k = MathHelper.floor(entityplayer.posY) + rand.nextInt(11) - 5;
-			int l = MathHelper.floor(entityplayer.posZ) + rand.nextInt(11) - 5;
+			int j = Maths.floor(entityplayer.posX) + rand.nextInt(11) - 5;
+			int k = Maths.floor(entityplayer.posY) + rand.nextInt(11) - 5;
+			int l = Maths.floor(entityplayer.posZ) + rand.nextInt(11) - 5;
 			checkLight(new BlockPos(j, k, l));
 		}
 

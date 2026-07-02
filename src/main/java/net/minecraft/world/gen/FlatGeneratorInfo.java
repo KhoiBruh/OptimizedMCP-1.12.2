@@ -5,7 +5,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.biome.Biome;
 
 import java.util.List;
@@ -116,7 +116,7 @@ public class FlatGeneratorInfo {
 			return getDefaultFlatGenerator();
 		} else {
 			String[] astring = flatGeneratorSettings.split(";", -1);
-			int i = astring.length == 1 ? 0 : MathHelper.getInt(astring[0], 0);
+			int i = astring.length == 1 ? 0 : Maths.getInt(astring[0], 0);
 
 			if (i >= 0 && i <= 3) {
 				FlatGeneratorInfo flatgeneratorinfo = new FlatGeneratorInfo();
@@ -129,7 +129,7 @@ public class FlatGeneratorInfo {
 					int k = Biome.getIdForBiome(Biomes.PLAINS);
 
 					if (i > 0 && astring.length > j) {
-						k = MathHelper.getInt(astring[j++], k);
+						k = Maths.getInt(astring[j++], k);
 					}
 
 					flatgeneratorinfo.setBiome(k);

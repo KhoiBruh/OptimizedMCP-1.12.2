@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.layers.LayerEnderDragonEyes;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class RenderDragon extends RenderLiving<EntityDragon> {
 
@@ -28,8 +28,8 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
 		float f = (float) (p_188325_14_ - p_188325_7_);
 		float f1 = (float) (p_188325_16_ - 1D - p_188325_9_);
 		float f2 = (float) (p_188325_18_ - p_188325_11_);
-		float f3 = MathHelper.sqrt(f * f + f2 * f2);
-		float f4 = MathHelper.sqrt(f * f + f1 * f1 + f2 * f2);
+		float f3 = Maths.sqrt(f * f + f2 * f2);
+		float f4 = Maths.sqrt(f * f + f1 * f1 + f2 * f2);
 		GLS.pushMatrix();
 		GLS.translate((float) p_188325_0_, (float) p_188325_2_ + 2F, (float) p_188325_4_);
 		GLS.rotate((float) (-Math.atan2(f2, f)) * (180F / (float) Math.PI) - 90F, 0F, 1F, 0F);
@@ -40,13 +40,13 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
 		GLS.disableCull();
 		GLS.shadeModel(7425);
 		float f5 = 0F - ((float) p_188325_13_ + p_188325_6_) * 0.01F;
-		float f6 = MathHelper.sqrt(f * f + f1 * f1 + f2 * f2) / 32F - ((float) p_188325_13_ + p_188325_6_) * 0.01F;
+		float f6 = Maths.sqrt(f * f + f1 * f1 + f2 * f2) / 32F - ((float) p_188325_13_ + p_188325_6_) * 0.01F;
 		bufferbuilder.begin(5, DefaultVertexFormats.POSITION_TEX_COLOR);
 		int i = 8;
 
 		for (int j = 0; j <= 8; ++j) {
-			float f7 = MathHelper.sin((float) (j % 8) * ((float) Math.PI * 2F) / 8F) * 0.75F;
-			float f8 = MathHelper.cos((float) (j % 8) * ((float) Math.PI * 2F) / 8F) * 0.75F;
+			float f7 = Maths.sin((float) (j % 8) * ((float) Math.PI * 2F) / 8F) * 0.75F;
+			float f8 = Maths.cos((float) (j % 8) * ((float) Math.PI * 2F) / 8F) * 0.75F;
 			float f9 = (float) (j % 8) / 8F;
 			bufferbuilder.pos(f7 * 0.2F, f8 * 0.2F, 0D).tex(f9, f5).color(0, 0, 0, 255).endVertex();
 			bufferbuilder.pos(f7, f8, f4).tex(f9, f6).color(255, 255, 255, 255).endVertex();
@@ -68,7 +68,7 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
 
 		if (entityLiving.deathTime > 0) {
 			float f2 = ((float) entityLiving.deathTime + partialTicks - 1F) / 20F * 1.6F;
-			f2 = MathHelper.sqrt(f2);
+			f2 = Maths.sqrt(f2);
 
 			if (f2 > 1F) {
 				f2 = 1F;
@@ -117,7 +117,7 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
 
 		if (entity.healingEnderCrystal != null) {
 			bindTexture(ENDERCRYSTAL_BEAM_TEXTURES);
-			float f = MathHelper.sin(((float) entity.healingEnderCrystal.ticksExisted + partialTicks) * 0.2F) / 2F + 0.5F;
+			float f = Maths.sin(((float) entity.healingEnderCrystal.ticksExisted + partialTicks) * 0.2F) / 2F + 0.5F;
 			f = (f * f + f) * 0.2F;
 			renderCrystalBeams(x, y, z, partialTicks, entity.posX + (entity.prevPosX - entity.posX) * (double) (1F - partialTicks), entity.posY + (entity.prevPosY - entity.posY) * (double) (1F - partialTicks), entity.posZ + (entity.prevPosZ - entity.posZ) * (double) (1F - partialTicks), entity.ticksExisted, entity.healingEnderCrystal.posX, (double) f + entity.healingEnderCrystal.posY, entity.healingEnderCrystal.posZ);
 		}

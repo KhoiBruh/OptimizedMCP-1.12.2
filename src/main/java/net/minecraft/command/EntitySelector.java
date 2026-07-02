@@ -20,7 +20,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.entity.EntitySelectors;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -414,14 +414,14 @@ public class EntitySelector {
 		List<Predicate<Entity>> list = Lists.newArrayList();
 
 		if (params.containsKey(ARGUMENT_ROTY_MIN) || params.containsKey(ARGUMENT_ROTY_MAX)) {
-			int i = MathHelper.wrapDegrees(getInt(params, ARGUMENT_ROTY_MIN, 0));
-			int j = MathHelper.wrapDegrees(getInt(params, ARGUMENT_ROTY_MAX, 359));
+			int i = Maths.wrapDegrees(getInt(params, ARGUMENT_ROTY_MIN, 0));
+			int j = Maths.wrapDegrees(getInt(params, ARGUMENT_ROTY_MAX, 359));
 			list.add(p_apply_1_ -> {
 
 				if (p_apply_1_ == null) {
 					return false;
 				} else {
-					int i1 = MathHelper.wrapDegrees(MathHelper.floor(p_apply_1_.rotationYaw));
+					int i1 = Maths.wrapDegrees(Maths.floor(p_apply_1_.rotationYaw));
 
 					if (i > j) {
 						return i1 >= i || i1 <= j;
@@ -433,14 +433,14 @@ public class EntitySelector {
 		}
 
 		if (params.containsKey(ARGUMENT_ROTX_MIN) || params.containsKey(ARGUMENT_ROTX_MAX)) {
-			int k = MathHelper.wrapDegrees(getInt(params, ARGUMENT_ROTX_MIN, 0));
-			int l = MathHelper.wrapDegrees(getInt(params, ARGUMENT_ROTX_MAX, 359));
+			int k = Maths.wrapDegrees(getInt(params, ARGUMENT_ROTX_MIN, 0));
+			int l = Maths.wrapDegrees(getInt(params, ARGUMENT_ROTX_MAX, 359));
 			list.add(p_apply_1_ -> {
 
 				if (p_apply_1_ == null) {
 					return false;
 				} else {
-					int i1 = MathHelper.wrapDegrees(MathHelper.floor(p_apply_1_.rotationPitch));
+					int i1 = Maths.wrapDegrees(Maths.floor(p_apply_1_.rotationPitch));
 
 					if (k > l) {
 						return i1 >= k || i1 <= l;
@@ -551,7 +551,7 @@ public class EntitySelector {
 	}
 
 	private static double getCoordinate(Map<String, String> params, String key, double defaultD, boolean offset) {
-		return params.containsKey(key) ? (double) MathHelper.getInt(params.get(key), MathHelper.floor(defaultD)) + (offset ? 0.5D : 0D) : defaultD;
+		return params.containsKey(key) ? (double) Maths.getInt(params.get(key), Maths.floor(defaultD)) + (offset ? 0.5D : 0D) : defaultD;
 	}
 
 	private static boolean hasArgument(Map<String, String> params) {
@@ -565,7 +565,7 @@ public class EntitySelector {
 	}
 
 	private static int getInt(Map<String, String> params, String key, int defaultI) {
-		return params.containsKey(key) ? MathHelper.getInt(params.get(key), defaultI) : defaultI;
+		return params.containsKey(key) ? Maths.getInt(params.get(key), defaultI) : defaultI;
 	}
 
 	private static String getArgument(Map<String, String> params, String key) {
@@ -578,7 +578,7 @@ public class EntitySelector {
 
 		for (String s : params.keySet()) {
 			if (s.startsWith("score_") && s.length() > "score_".length()) {
-				map.put(s.substring("score_".length()), MathHelper.getInt(params.get(s), 1));
+				map.put(s.substring("score_".length()), Maths.getInt(params.get(s), 1));
 			}
 		}
 

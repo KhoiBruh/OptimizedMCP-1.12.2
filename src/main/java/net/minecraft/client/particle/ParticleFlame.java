@@ -2,7 +2,7 @@ package net.minecraft.client.particle;
 
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 public class ParticleFlame extends Particle {
@@ -44,7 +44,7 @@ public class ParticleFlame extends Particle {
 
 	public int getBrightnessForRender(float p_189214_1_) {
 		float f = ((float) particleAge + p_189214_1_) / (float) particleMaxAge;
-		f = MathHelper.clamp(f, 0F, 1F);
+		f = Maths.clamp(f, 0F, 1F);
 		int i = super.getBrightnessForRender(p_189214_1_);
 		int j = i & 255;
 		int k = i >> 16 & 255;

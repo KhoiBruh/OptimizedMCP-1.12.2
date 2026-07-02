@@ -29,7 +29,7 @@ import net.minecraft.util.entity.EntityDamageSourceIndirect;
 import net.minecraft.util.entity.EntitySelectors;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -336,7 +336,7 @@ public class EntityBoat extends Entity {
 			double d0 = posX + (lerpX - posX) / (double) lerpSteps;
 			double d1 = posY + (lerpY - posY) / (double) lerpSteps;
 			double d2 = posZ + (lerpZ - posZ) / (double) lerpSteps;
-			double d3 = MathHelper.wrapDegrees(lerpYaw - (double) rotationYaw);
+			double d3 = Maths.wrapDegrees(lerpYaw - (double) rotationYaw);
 			rotationYaw = (float) ((double) rotationYaw + d3 / (double) lerpSteps);
 			rotationPitch = (float) ((double) rotationPitch + (lerpPitch - (double) rotationPitch) / (double) lerpSteps);
 			--lerpSteps;
@@ -351,7 +351,7 @@ public class EntityBoat extends Entity {
 	}
 
 	public float getRowingTime(int side, float limbSwing) {
-		return getPaddleState(side) ? (float) MathHelper.clampedLerp((double) paddlePositions[side] - 0.39269909262657166D, paddlePositions[side], limbSwing) : 0F;
+		return getPaddleState(side) ? (float) Maths.clampedLerp((double) paddlePositions[side] - 0.39269909262657166D, paddlePositions[side], limbSwing) : 0F;
 	}
 
 	/**
@@ -380,12 +380,12 @@ public class EntityBoat extends Entity {
 
 	public float getWaterLevelAbove() {
 		AxisAlignedBB axisalignedbb = getEntityBoundingBox();
-		int i = MathHelper.floor(axisalignedbb.minX);
-		int j = MathHelper.ceil(axisalignedbb.maxX);
-		int k = MathHelper.floor(axisalignedbb.maxY);
-		int l = MathHelper.ceil(axisalignedbb.maxY - lastYd);
-		int i1 = MathHelper.floor(axisalignedbb.minZ);
-		int j1 = MathHelper.ceil(axisalignedbb.maxZ);
+		int i = Maths.floor(axisalignedbb.minX);
+		int j = Maths.ceil(axisalignedbb.maxX);
+		int k = Maths.floor(axisalignedbb.maxY);
+		int l = Maths.ceil(axisalignedbb.maxY - lastYd);
+		int i1 = Maths.floor(axisalignedbb.minZ);
+		int j1 = Maths.ceil(axisalignedbb.maxZ);
 		BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
 
 		try {
@@ -433,12 +433,12 @@ public class EntityBoat extends Entity {
 	public float getBoatGlide() {
 		AxisAlignedBB axisalignedbb = getEntityBoundingBox();
 		AxisAlignedBB axisalignedbb1 = new AxisAlignedBB(axisalignedbb.minX, axisalignedbb.minY - 0.001D, axisalignedbb.minZ, axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.maxZ);
-		int i = MathHelper.floor(axisalignedbb1.minX) - 1;
-		int j = MathHelper.ceil(axisalignedbb1.maxX) + 1;
-		int k = MathHelper.floor(axisalignedbb1.minY) - 1;
-		int l = MathHelper.ceil(axisalignedbb1.maxY) + 1;
-		int i1 = MathHelper.floor(axisalignedbb1.minZ) - 1;
-		int j1 = MathHelper.ceil(axisalignedbb1.maxZ) + 1;
+		int i = Maths.floor(axisalignedbb1.minX) - 1;
+		int j = Maths.ceil(axisalignedbb1.maxX) + 1;
+		int k = Maths.floor(axisalignedbb1.minY) - 1;
+		int l = Maths.ceil(axisalignedbb1.maxY) + 1;
+		int i1 = Maths.floor(axisalignedbb1.minZ) - 1;
+		int j1 = Maths.ceil(axisalignedbb1.maxZ) + 1;
 		List<AxisAlignedBB> list = Lists.newArrayList();
 		float f = 0F;
 		int k1 = 0;
@@ -476,12 +476,12 @@ public class EntityBoat extends Entity {
 
 	private boolean checkInWater() {
 		AxisAlignedBB axisalignedbb = getEntityBoundingBox();
-		int i = MathHelper.floor(axisalignedbb.minX);
-		int j = MathHelper.ceil(axisalignedbb.maxX);
-		int k = MathHelper.floor(axisalignedbb.minY);
-		int l = MathHelper.ceil(axisalignedbb.minY + 0.001D);
-		int i1 = MathHelper.floor(axisalignedbb.minZ);
-		int j1 = MathHelper.ceil(axisalignedbb.maxZ);
+		int i = Maths.floor(axisalignedbb.minX);
+		int j = Maths.ceil(axisalignedbb.maxX);
+		int k = Maths.floor(axisalignedbb.minY);
+		int l = Maths.ceil(axisalignedbb.minY + 0.001D);
+		int i1 = Maths.floor(axisalignedbb.minZ);
+		int j1 = Maths.ceil(axisalignedbb.maxZ);
 		boolean flag = false;
 		waterLevel = Double.MIN_VALUE;
 		BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
@@ -515,12 +515,12 @@ public class EntityBoat extends Entity {
 
 		AxisAlignedBB axisalignedbb = getEntityBoundingBox();
 		double d0 = axisalignedbb.maxY + 0.001D;
-		int i = MathHelper.floor(axisalignedbb.minX);
-		int j = MathHelper.ceil(axisalignedbb.maxX);
-		int k = MathHelper.floor(axisalignedbb.maxY);
-		int l = MathHelper.ceil(d0);
-		int i1 = MathHelper.floor(axisalignedbb.minZ);
-		int j1 = MathHelper.ceil(axisalignedbb.maxZ);
+		int i = Maths.floor(axisalignedbb.minX);
+		int j = Maths.ceil(axisalignedbb.maxX);
+		int k = Maths.floor(axisalignedbb.maxY);
+		int l = Maths.ceil(d0);
+		int i1 = Maths.floor(axisalignedbb.minZ);
+		int j1 = Maths.ceil(axisalignedbb.maxZ);
 		boolean flag = false;
 		BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
 
@@ -623,8 +623,8 @@ public class EntityBoat extends Entity {
 				f -= 0.005F;
 			}
 
-			motionX += MathHelper.sin(-rotationYaw * 0.017453292F) * f;
-			motionZ += MathHelper.cos(rotationYaw * 0.017453292F) * f;
+			motionX += Maths.sin(-rotationYaw * 0.017453292F) * f;
+			motionZ += Maths.cos(rotationYaw * 0.017453292F) * f;
 			setPaddleState(rightInputDown && !leftInputDown || forwardInputDown, leftInputDown && !rightInputDown || forwardInputDown);
 		}
 	}
@@ -667,8 +667,8 @@ public class EntityBoat extends Entity {
 	 */
 	protected void applyYawToEntity(Entity entityToUpdate) {
 		entityToUpdate.setRenderYawOffset(rotationYaw);
-		float f = MathHelper.wrapDegrees(entityToUpdate.rotationYaw - rotationYaw);
-		float f1 = MathHelper.clamp(f, -105F, 105F);
+		float f = Maths.wrapDegrees(entityToUpdate.rotationYaw - rotationYaw);
+		float f1 = Maths.clamp(f, -105F, 105F);
 		entityToUpdate.prevRotationYaw += f1 - f;
 		entityToUpdate.rotationYaw += f1 - f;
 		entityToUpdate.setRotationYawHead(entityToUpdate.rotationYaw);

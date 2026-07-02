@@ -11,7 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.VertexBuffer;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -38,8 +38,8 @@ public class ChunkRenderDispatcher {
 
 	public ChunkRenderDispatcher() {
 		int i = Math.max(1, (int) ((double) Runtime.getRuntime().maxMemory() * 0.3D) / 10485760);
-		int j = Math.max(1, MathHelper.clamp(Runtime.getRuntime().availableProcessors(), 1, i / 5));
-		countRenderBuilders = MathHelper.clamp(j * 10, 1, i);
+		int j = Math.max(1, Maths.clamp(Runtime.getRuntime().availableProcessors(), 1, i / 5));
+		countRenderBuilders = Maths.clamp(j * 10, 1, i);
 
 		if (j > 1) {
 			for (int k = 0; k < j; ++k) {

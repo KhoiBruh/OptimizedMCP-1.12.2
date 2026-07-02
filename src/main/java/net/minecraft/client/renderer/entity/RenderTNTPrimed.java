@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class RenderTNTPrimed extends Render<EntityTNTPrimed> {
 
@@ -26,7 +26,7 @@ public class RenderTNTPrimed extends Render<EntityTNTPrimed> {
 
 		if ((float) entity.getFuse() - partialTicks + 1F < 10F) {
 			float f = 1F - ((float) entity.getFuse() - partialTicks + 1F) / 10F;
-			f = MathHelper.clamp(f, 0F, 1F);
+			f = Maths.clamp(f, 0F, 1F);
 			f = f * f;
 			f = f * f;
 			float f1 = 1F + f * 0.3F;

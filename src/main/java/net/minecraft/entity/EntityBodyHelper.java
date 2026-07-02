@@ -1,6 +1,6 @@
 package net.minecraft.entity;
 
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class EntityBodyHelper {
 
@@ -57,7 +57,7 @@ public class EntityBodyHelper {
 	 * angle2, angleMax
 	 */
 	private float computeAngleWithBound(float p_75665_1_, float p_75665_2_, float p_75665_3_) {
-		float f = MathHelper.wrapDegrees(p_75665_1_ - p_75665_2_);
+		float f = Maths.wrapDegrees(p_75665_1_ - p_75665_2_);
 
 		if (f < -p_75665_3_) {
 			f = -p_75665_3_;

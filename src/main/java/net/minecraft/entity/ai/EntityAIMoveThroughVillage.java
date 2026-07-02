@@ -5,7 +5,7 @@ import net.minecraft.entity.EntityCreature;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.village.Village;
 import net.minecraft.village.VillageDoorInfo;
@@ -115,7 +115,7 @@ public class EntityAIMoveThroughVillage extends EntityAIBase {
 		int i = Integer.MAX_VALUE;
 
 		for (VillageDoorInfo villagedoorinfo1 : villageIn.getVillageDoorInfoList()) {
-			int j = villagedoorinfo1.getDistanceSquared(MathHelper.floor(entity.posX), MathHelper.floor(entity.posY), MathHelper.floor(entity.posZ));
+			int j = villagedoorinfo1.getDistanceSquared(Maths.floor(entity.posX), Maths.floor(entity.posY), Maths.floor(entity.posZ));
 
 			if (j < i && !doesDoorListContain(villagedoorinfo1)) {
 				villagedoorinfo = villagedoorinfo1;

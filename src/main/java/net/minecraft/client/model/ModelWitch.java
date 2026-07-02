@@ -1,7 +1,7 @@
 package net.minecraft.client.model;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class ModelWitch extends ModelVillager {
 
@@ -48,9 +48,9 @@ public class ModelWitch extends ModelVillager {
 		villagerNose.offsetY = 0F;
 		villagerNose.offsetZ = 0F;
 		float f = 0.01F * (float) (entityIn.getEntityId() % 10);
-		villagerNose.rotateAngleX = MathHelper.sin((float) entityIn.ticksExisted * f) * 4.5F * 0.017453292F;
+		villagerNose.rotateAngleX = Maths.sin((float) entityIn.ticksExisted * f) * 4.5F * 0.017453292F;
 		villagerNose.rotateAngleY = 0F;
-		villagerNose.rotateAngleZ = MathHelper.cos((float) entityIn.ticksExisted * f) * 2.5F * 0.017453292F;
+		villagerNose.rotateAngleZ = Maths.cos((float) entityIn.ticksExisted * f) * 2.5F * 0.017453292F;
 
 		if (holdingItem) {
 			villagerNose.rotateAngleX = -0.9F;

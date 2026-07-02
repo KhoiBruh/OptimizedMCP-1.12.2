@@ -1,6 +1,6 @@
 package net.minecraft.world.storage;
 
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public record MapDecoration(Type type, byte x, byte y, byte rotation) {
 
@@ -66,7 +66,7 @@ public record MapDecoration(Type type, byte x, byte y, byte rotation) {
 		}
 
 		public static Type byIcon(byte p_191159_0_) {
-			return values()[MathHelper.clamp(p_191159_0_, 0, values().length - 1)];
+			return values()[Maths.clamp(p_191159_0_, 0, values().length - 1)];
 		}
 
 		public byte getIcon() {

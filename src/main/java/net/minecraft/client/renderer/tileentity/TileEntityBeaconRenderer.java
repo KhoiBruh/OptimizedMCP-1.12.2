@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 import java.util.List;
 
@@ -31,7 +31,7 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		double d0 = totalWorldTime + partialTicks;
 		double d1 = height < 0 ? d0 : -d0;
-		double d2 = MathHelper.frac(d1 * 0.2D - (double) MathHelper.floor(d1 * 0.1D));
+		double d2 = Maths.frac(d1 * 0.2D - (double) Maths.floor(d1 * 0.1D));
 		float f = colors[0];
 		float f1 = colors[1];
 		float f2 = colors[2];

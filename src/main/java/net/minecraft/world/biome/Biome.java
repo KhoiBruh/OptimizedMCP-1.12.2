@@ -15,7 +15,7 @@ import net.minecraft.util.ObjectIntIdentityMap;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.registry.RegistryNamespaced;
 import net.minecraft.world.ColorizerFoliage;
 import net.minecraft.world.ColorizerGrass;
@@ -483,8 +483,8 @@ public abstract class Biome {
 	 */
 	public int getSkyColorByTemp(float currentTemperature) {
 		currentTemperature = currentTemperature / 3F;
-		currentTemperature = MathHelper.clamp(currentTemperature, -1F, 1F);
-		return MathHelper.hsvToRGB(0.62222224F - currentTemperature * 0.05F, 0.5F + currentTemperature * 0.1F, 1F);
+		currentTemperature = Maths.clamp(currentTemperature, -1F, 1F);
+		return Maths.hsvToRGB(0.62222224F - currentTemperature * 0.05F, 0.5F + currentTemperature * 0.1F, 1F);
 	}
 
 	public List<Biome.SpawnListEntry> getSpawnableList(CreatureType creatureType) {
@@ -543,14 +543,14 @@ public abstract class Biome {
 	}
 
 	public int getGrassColorAtPos(BlockPos pos) {
-		double d0 = MathHelper.clamp(getTemperature(pos), 0F, 1F);
-		double d1 = MathHelper.clamp(getRainfall(), 0F, 1F);
+		double d0 = Maths.clamp(getTemperature(pos), 0F, 1F);
+		double d1 = Maths.clamp(getRainfall(), 0F, 1F);
 		return ColorizerGrass.getGrassColor(d0, d1);
 	}
 
 	public int getFoliageColorAtPos(BlockPos pos) {
-		double d0 = MathHelper.clamp(getTemperature(pos), 0F, 1F);
-		double d1 = MathHelper.clamp(getRainfall(), 0F, 1F);
+		double d0 = Maths.clamp(getTemperature(pos), 0F, 1F);
+		double d1 = Maths.clamp(getRainfall(), 0F, 1F);
 		return ColorizerFoliage.getFoliageColor(d0, d1);
 	}
 

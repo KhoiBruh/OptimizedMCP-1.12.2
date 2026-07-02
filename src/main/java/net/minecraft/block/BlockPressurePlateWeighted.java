@@ -9,7 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 public class BlockPressurePlateWeighted extends BlockBasePressurePlate {
@@ -32,7 +32,7 @@ public class BlockPressurePlateWeighted extends BlockBasePressurePlate {
 
 		if (i > 0) {
 			float f = (float) Math.min(maxWeight, i) / (float) maxWeight;
-			return MathHelper.ceil(f * 15F);
+			return Maths.ceil(f * 15F);
 		} else {
 			return 0;
 		}

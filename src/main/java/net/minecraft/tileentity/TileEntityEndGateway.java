@@ -10,7 +10,7 @@ import net.minecraft.util.Facing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderEnd;
@@ -54,7 +54,7 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 	}
 
 	private static Chunk getChunk(World worldIn, Vec3d vec3) {
-		return worldIn.getChunkFromChunkCoords(MathHelper.floor(vec3.x() / 16D), MathHelper.floor(vec3.z() / 16D));
+		return worldIn.getChunkFromChunkCoords(Maths.floor(vec3.x() / 16D), Maths.floor(vec3.z() / 16D));
 	}
 
 	private static BlockPos findSpawnpointInChunk(Chunk chunkIn) {
@@ -148,11 +148,11 @@ public class TileEntityEndGateway extends TileEntityEndPortal implements ITickab
 	}
 
 	public float getSpawnPercent(float p_184302_1_) {
-		return MathHelper.clamp(((float) age + p_184302_1_) / 200F, 0F, 1F);
+		return Maths.clamp(((float) age + p_184302_1_) / 200F, 0F, 1F);
 	}
 
 	public float getCooldownPercent(float p_184305_1_) {
-		return 1F - MathHelper.clamp(((float) teleportCooldown - p_184305_1_) / 40F, 0F, 1F);
+		return 1F - Maths.clamp(((float) teleportCooldown - p_184305_1_) / 40F, 0F, 1F);
 	}
 
 	public SPacketUpdateTileEntity getUpdatePacket() {

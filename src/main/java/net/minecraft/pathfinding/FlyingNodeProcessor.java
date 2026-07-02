@@ -5,7 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.IBlockAccess;
 
 import java.util.EnumSet;
@@ -33,16 +33,16 @@ public class FlyingNodeProcessor extends WalkNodeProcessor {
 
 		if (getCanSwim() && entity.isInWater()) {
 			i = (int) entity.getEntityBoundingBox().minY;
-			BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(entity.posX), i, MathHelper.floor(entity.posZ));
+			BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(Maths.floor(entity.posX), i, Maths.floor(entity.posZ));
 
 			for (Block block = blockaccess.getBlockState(blockpos$mutableblockpos)
 			                              .getBlock(); block == Blocks.FLOWING_WATER || block == Blocks.WATER; block = blockaccess.getBlockState(blockpos$mutableblockpos)
 			                                                                                                                      .getBlock()) {
 				++i;
-				blockpos$mutableblockpos.setPos(MathHelper.floor(entity.posX), i, MathHelper.floor(entity.posZ));
+				blockpos$mutableblockpos.setPos(Maths.floor(entity.posX), i, Maths.floor(entity.posZ));
 			}
 		} else {
-			i = MathHelper.floor(entity.getEntityBoundingBox().minY + 0.5D);
+			i = Maths.floor(entity.getEntityBoundingBox().minY + 0.5D);
 		}
 
 		BlockPos blockpos1 = new BlockPos(entity);

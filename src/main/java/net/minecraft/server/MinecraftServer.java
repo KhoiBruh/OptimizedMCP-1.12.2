@@ -10,7 +10,6 @@ import com.mojang.authlib.GameProfileRepository;
 import com.mojang.authlib.minecraft.MinecraftSessionService;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufOutputStream;
 import io.netty.buffer.Unpooled;
 import io.netty.handler.codec.base64.Base64;
 import net.minecraft.advancements.AdvancementManager;
@@ -31,7 +30,7 @@ import net.minecraft.server.management.PlayerProfileCache;
 import net.minecraft.util.*;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.*;
@@ -583,7 +582,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 			nanoTimeSinceStatusRefresh = i;
 			statusResponse.setPlayers(new ServerStatusResponse.Players(getMaxPlayers(), getCurrentPlayerCount()));
 			GameProfile[] agameprofile = new GameProfile[Math.min(getCurrentPlayerCount(), 12)];
-			int j = MathHelper.getInt(random, 0, getCurrentPlayerCount() - agameprofile.length);
+			int j = Maths.getInt(random, 0, getCurrentPlayerCount() - agameprofile.length);
 
 			for (int k = 0; k < agameprofile.length; ++k) {
 				agameprofile[k] = playerList.getPlayers().get(j + k).getGameProfile();

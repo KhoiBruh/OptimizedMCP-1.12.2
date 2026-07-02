@@ -11,7 +11,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 public abstract class EntityHanging extends Entity {
@@ -275,7 +275,7 @@ public abstract class EntityHanging extends Entity {
 			}
 		}
 
-		float f = MathHelper.wrapDegrees(rotationYaw);
+		float f = Maths.wrapDegrees(rotationYaw);
 
 		return switch (transformRotation) {
 			case CLOCKWISE_180 -> f + 180F;

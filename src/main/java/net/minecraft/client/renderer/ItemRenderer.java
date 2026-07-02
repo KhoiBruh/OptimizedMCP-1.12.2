@@ -21,7 +21,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.storage.MapData;
 
 
@@ -108,8 +108,8 @@ public class ItemRenderer {
 	 */
 	private float getMapAngleFromPitch(float pitch) {
 		float f = 1F - pitch / 45F + 0.1F;
-		f = MathHelper.clamp(f, 0F, 1F);
-		f = -MathHelper.cos(f * (float) Math.PI) * 0.5F + 0.5F;
+		f = Maths.clamp(f, 0F, 1F);
+		f = -Maths.cos(f * (float) Math.PI) * 0.5F + 0.5F;
 		return f;
 	}
 
@@ -158,11 +158,11 @@ public class ItemRenderer {
 
 		GLS.pushMatrix();
 		GLS.translate(f * 0.51F, -0.08F + p_187465_1_ * -1.2F, -0.75F);
-		float f1 = MathHelper.sqrt(p_187465_3_);
-		float f2 = MathHelper.sin(f1 * (float) Math.PI);
+		float f1 = Maths.sqrt(p_187465_3_);
+		float f2 = Maths.sin(f1 * (float) Math.PI);
 		float f3 = -0.5F * f2;
-		float f4 = 0.4F * MathHelper.sin(f1 * ((float) Math.PI * 2F));
-		float f5 = -0.3F * MathHelper.sin(p_187465_3_ * (float) Math.PI);
+		float f4 = 0.4F * Maths.sin(f1 * ((float) Math.PI * 2F));
+		float f5 = -0.3F * Maths.sin(p_187465_3_ * (float) Math.PI);
 		GLS.translate(f * f3, f4 - 0.3F * f2, f5);
 		GLS.rotate(f2 * -45F, 1F, 0F, 0F);
 		GLS.rotate(f * f2 * -30F, 0F, 1F, 0F);
@@ -171,15 +171,15 @@ public class ItemRenderer {
 	}
 
 	private void renderMapFirstPerson(float p_187463_1_, float p_187463_2_, float p_187463_3_) {
-		float f = MathHelper.sqrt(p_187463_3_);
-		float f1 = -0.2F * MathHelper.sin(p_187463_3_ * (float) Math.PI);
-		float f2 = -0.4F * MathHelper.sin(f * (float) Math.PI);
+		float f = Maths.sqrt(p_187463_3_);
+		float f1 = -0.2F * Maths.sin(p_187463_3_ * (float) Math.PI);
+		float f2 = -0.4F * Maths.sin(f * (float) Math.PI);
 		GLS.translate(0F, -f1 / 2F, f2);
 		float f3 = getMapAngleFromPitch(p_187463_1_);
 		GLS.translate(0F, 0.04F + p_187463_2_ * -1.2F + f3 * -0.5F, -0.72F);
 		GLS.rotate(f3 * -85F, 1F, 0F, 0F);
 		renderArms();
-		float f4 = MathHelper.sin(f * (float) Math.PI);
+		float f4 = Maths.sin(f * (float) Math.PI);
 		GLS.rotate(f4 * 20F, 1F, 0F, 0F);
 		GLS.scale(2F, 2F, 2F);
 		renderMapFirstPerson(itemStackMainHand);
@@ -213,14 +213,14 @@ public class ItemRenderer {
 	private void renderArmFirstPerson(float p_187456_1_, float p_187456_2_, HandSide p_187456_3_) {
 		boolean flag = p_187456_3_ != HandSide.LEFT;
 		float f = flag ? 1F : -1F;
-		float f1 = MathHelper.sqrt(p_187456_2_);
-		float f2 = -0.3F * MathHelper.sin(f1 * (float) Math.PI);
-		float f3 = 0.4F * MathHelper.sin(f1 * ((float) Math.PI * 2F));
-		float f4 = -0.4F * MathHelper.sin(p_187456_2_ * (float) Math.PI);
+		float f1 = Maths.sqrt(p_187456_2_);
+		float f2 = -0.3F * Maths.sin(f1 * (float) Math.PI);
+		float f3 = 0.4F * Maths.sin(f1 * ((float) Math.PI * 2F));
+		float f4 = -0.4F * Maths.sin(p_187456_2_ * (float) Math.PI);
 		GLS.translate(f * (f2 + 0.64000005F), f3 - 0.6F + p_187456_1_ * -0.6F, f4 - 0.71999997F);
 		GLS.rotate(f * 45F, 0F, 1F, 0F);
-		float f5 = MathHelper.sin(p_187456_2_ * p_187456_2_ * (float) Math.PI);
-		float f6 = MathHelper.sin(f1 * (float) Math.PI);
+		float f5 = Maths.sin(p_187456_2_ * p_187456_2_ * (float) Math.PI);
+		float f6 = Maths.sin(f1 * (float) Math.PI);
 		GLS.rotate(f * f6 * 70F, 0F, 1F, 0F);
 		GLS.rotate(f * f5 * -20F, 0F, 0F, 1F);
 		AbstractClientPlayer abstractclientplayer = mc.player;
@@ -247,7 +247,7 @@ public class ItemRenderer {
 		float f1 = f / (float) stack.getMaxItemUseDuration();
 
 		if (f1 < 0.8F) {
-			float f2 = MathHelper.abs(MathHelper.cos(f / 4F * (float) Math.PI) * 0.1F);
+			float f2 = Maths.abs(Maths.cos(f / 4F * (float) Math.PI) * 0.1F);
 			GLS.translate(0F, f2, 0F);
 		}
 
@@ -261,9 +261,9 @@ public class ItemRenderer {
 
 	private void transformFirstPerson(HandSide hand, float p_187453_2_) {
 		int i = hand == HandSide.RIGHT ? 1 : -1;
-		float f = MathHelper.sin(p_187453_2_ * p_187453_2_ * (float) Math.PI);
+		float f = Maths.sin(p_187453_2_ * p_187453_2_ * (float) Math.PI);
 		GLS.rotate((float) i * (45F + f * -20F), 0F, 1F, 0F);
-		float f1 = MathHelper.sin(MathHelper.sqrt(p_187453_2_) * (float) Math.PI);
+		float f1 = Maths.sin(Maths.sqrt(p_187453_2_) * (float) Math.PI);
 		GLS.rotate((float) i * f1 * -20F, 0F, 0F, 1F);
 		GLS.rotate(f1 * -80F, 1F, 0F, 0F);
 		GLS.rotate((float) i * -45F, 0F, 1F, 0F);
@@ -364,7 +364,7 @@ public class ItemRenderer {
 						}
 
 						if (f6 > 0.1F) {
-							float f7 = MathHelper.sin((f5 - 0.1F) * 1.3F);
+							float f7 = Maths.sin((f5 - 0.1F) * 1.3F);
 							float f3 = f6 - 0.1F;
 							float f4 = f7 * f3;
 							GLS.translate(f4 * 0F, f4 * 0.004F, f4 * 0F);
@@ -375,9 +375,9 @@ public class ItemRenderer {
 						GLS.rotate((float) j * 45F, 0F, -1F, 0F);
 				}
 			} else {
-				float f = -0.4F * MathHelper.sin(MathHelper.sqrt(p_187457_5_) * (float) Math.PI);
-				float f1 = 0.2F * MathHelper.sin(MathHelper.sqrt(p_187457_5_) * ((float) Math.PI * 2F));
-				float f2 = -0.2F * MathHelper.sin(p_187457_5_ * (float) Math.PI);
+				float f = -0.4F * Maths.sin(Maths.sqrt(p_187457_5_) * (float) Math.PI);
+				float f1 = 0.2F * Maths.sin(Maths.sqrt(p_187457_5_) * ((float) Math.PI * 2F));
+				float f2 = -0.2F * Maths.sin(p_187457_5_ * (float) Math.PI);
 				int i = flag1 ? 1 : -1;
 				GLS.translate((float) i * f, f1, f2);
 				transformSideFirstPerson(enumhandside, p_187457_7_);
@@ -543,12 +543,12 @@ public class ItemRenderer {
 		ItemStack itemstack1 = entityplayersp.getHeldItemOffhand();
 
 		if (entityplayersp.isRowingBoat()) {
-			equippedProgressMainHand = MathHelper.clamp(equippedProgressMainHand - 0.4F, 0F, 1F);
-			equippedProgressOffHand = MathHelper.clamp(equippedProgressOffHand - 0.4F, 0F, 1F);
+			equippedProgressMainHand = Maths.clamp(equippedProgressMainHand - 0.4F, 0F, 1F);
+			equippedProgressOffHand = Maths.clamp(equippedProgressOffHand - 0.4F, 0F, 1F);
 		} else {
 			float f = entityplayersp.getCooledAttackStrength(1F);
-			equippedProgressMainHand += MathHelper.clamp((Objects.equals(itemStackMainHand, itemstack) ? f * f * f : 0F) - equippedProgressMainHand, -0.4F, 0.4F);
-			equippedProgressOffHand += MathHelper.clamp((float) (Objects.equals(itemStackOffHand, itemstack1) ? 1 : 0) - equippedProgressOffHand, -0.4F, 0.4F);
+			equippedProgressMainHand += Maths.clamp((Objects.equals(itemStackMainHand, itemstack) ? f * f * f : 0F) - equippedProgressMainHand, -0.4F, 0.4F);
+			equippedProgressOffHand += Maths.clamp((float) (Objects.equals(itemStackOffHand, itemstack1) ? 1 : 0) - equippedProgressOffHand, -0.4F, 0.4F);
 		}
 
 		if (equippedProgressMainHand < 0.1F) {

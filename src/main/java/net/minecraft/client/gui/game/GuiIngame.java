@@ -39,7 +39,7 @@ import net.minecraft.util.FoodStats;
 import net.minecraft.util.HandSide;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ChatType;
 import net.minecraft.util.text.ITextComponent;
@@ -266,7 +266,7 @@ public class GuiIngame extends Gui {
 				int l = 16777215;
 
 				if (animateOverlayMessageColor) {
-					l = MathHelper.hsvToRGB(f2 / 50F, 0.7F, 0.6F) & 16777215;
+					l = Maths.hsvToRGB(f2 / 50F, 0.7F, 0.6F) & 16777215;
 				}
 
 				fontrenderer.drawText(overlayMessage, -fontrenderer.getWidth(overlayMessage) / 2, -4, l + (l1 << 24 & -16777216));
@@ -293,7 +293,7 @@ public class GuiIngame extends Gui {
 				i2 = (int) (f3 * 255F / (float) titleFadeOut);
 			}
 
-			i2 = MathHelper.clamp(i2, 0, 255);
+			i2 = Maths.clamp(i2, 0, 255);
 
 			if (i2 > 8) {
 				GLS.pushMatrix();
@@ -456,7 +456,7 @@ public class GuiIngame extends Gui {
 
 						if (potioneffect.getDuration() <= 200) {
 							int j1 = 10 - potioneffect.getDuration() / 20;
-							f = MathHelper.clamp((float) potioneffect.getDuration() / 10F / 5F * 0.5F, 0F, 0.5F) + MathHelper.cos((float) potioneffect.getDuration() * (float) Math.PI / 5F) * MathHelper.clamp((float) j1 / 10F * 0.25F, 0F, 0.25F);
+							f = Maths.clamp((float) potioneffect.getDuration() / 10F / 5F * 0.5F, 0F, 0.5F) + Maths.cos((float) potioneffect.getDuration() * (float) Math.PI / 5F) * Maths.clamp((float) j1 / 10F * 0.25F, 0F, 0.25F);
 						}
 					}
 
@@ -669,7 +669,7 @@ public class GuiIngame extends Gui {
 
 	private void renderPlayerStats() {
 		if (mc.getRenderViewEntity() instanceof EntityPlayer entityplayer) {
-			int i = MathHelper.ceil(entityplayer.getHealth());
+			int i = Maths.ceil(entityplayer.getHealth());
 			boolean flag = healthUpdateCounter > (long) updateCounter && (healthUpdateCounter - (long) updateCounter) / 3L % 2L == 1L;
 
 			if (i < playerHealth && entityplayer.hurtResistantTime > 0) {
@@ -696,8 +696,8 @@ public class GuiIngame extends Gui {
 			int i1 = mc.getWindow().getScaledWidth() / 2 + 91;
 			int j1 = mc.getWindow().getScaledHeight() - 39;
 			float f = (float) iattributeinstance.getAttributeValue();
-			int k1 = MathHelper.ceil(entityplayer.getAbsorptionAmount());
-			int l1 = MathHelper.ceil((f + (float) k1) / 2F / 10F);
+			int k1 = Maths.ceil(entityplayer.getAbsorptionAmount());
+			int l1 = Maths.ceil((f + (float) k1) / 2F / 10F);
 			int i2 = Math.max(10 - (l1 - 2), 3);
 			int j2 = j1 - (l1 - 1) * i2 - 10;
 			int k2 = j1 - 10;
@@ -706,7 +706,7 @@ public class GuiIngame extends Gui {
 			int j3 = -1;
 
 			if (entityplayer.isPotionActive(MobEffects.REGENERATION)) {
-				j3 = updateCounter % MathHelper.ceil(f + 5F);
+				j3 = updateCounter % Maths.ceil(f + 5F);
 			}
 
 			mc.profiler.startSection("armor");
@@ -731,7 +731,7 @@ public class GuiIngame extends Gui {
 
 			mc.profiler.endStartSection("health");
 
-			for (int j5 = MathHelper.ceil((f + (float) k1) / 2F) - 1; j5 >= 0; --j5) {
+			for (int j5 = Maths.ceil((f + (float) k1) / 2F) - 1; j5 >= 0; --j5) {
 				int k5 = 16;
 
 				if (entityplayer.isPotionActive(MobEffects.POISON)) {
@@ -746,7 +746,7 @@ public class GuiIngame extends Gui {
 					i4 = 1;
 				}
 
-				int j4 = MathHelper.ceil((float) (j5 + 1) / 10F) - 1;
+				int j4 = Maths.ceil((float) (j5 + 1) / 10F) - 1;
 				int k4 = l + j5 % 10 * 8;
 				int l4 = j1 - j4 * i2;
 
@@ -831,8 +831,8 @@ public class GuiIngame extends Gui {
 
 			if (entityplayer.isInsideOfMaterial(Material.WATER)) {
 				int i6 = mc.player.getAir();
-				int k6 = MathHelper.ceil((double) (i6 - 2) * 10D / 300D);
-				int i7 = MathHelper.ceil((double) i6 * 10D / 300D) - k6;
+				int k6 = Maths.ceil((double) (i6 - 2) * 10D / 300D);
+				int i7 = Maths.ceil((double) i6 * 10D / 300D) - k6;
 
 				for (int k7 = 0; k7 < k6 + i7; ++k7) {
 					if (k7 < k6) {
@@ -919,7 +919,7 @@ public class GuiIngame extends Gui {
 	 */
 	private void renderVignette(float lightLevel) {
 		lightLevel = 1F - lightLevel;
-		lightLevel = MathHelper.clamp(lightLevel, 0F, 1F);
+		lightLevel = Maths.clamp(lightLevel, 0F, 1F);
 		WorldBorder worldborder = mc.world.getWorldBorder();
 		float f = (float) worldborder.getClosestDistance(mc.player);
 		double d0 = Math.min(worldborder.getResizeSpeed() * (double) worldborder.getWarningTime() * 1000D, Math.abs(worldborder.getTargetSize() - worldborder.getDiameter()));

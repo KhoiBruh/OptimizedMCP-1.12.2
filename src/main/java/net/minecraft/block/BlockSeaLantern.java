@@ -7,7 +7,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.IBlockAccess;
 
 import java.util.Random;
@@ -30,7 +30,7 @@ public class BlockSeaLantern extends Block {
 	 * Get the quantity dropped based on the given fortune level
 	 */
 	public int quantityDroppedWithBonus(int fortune, Random random) {
-		return MathHelper.clamp(quantityDropped(random) + random.nextInt(fortune + 1), 1, 5);
+		return Maths.clamp(quantityDropped(random) + random.nextInt(fortune + 1), 1, 5);
 	}
 
 	/**

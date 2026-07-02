@@ -25,7 +25,7 @@ import net.minecraft.tileentity.TileEntityStructure;
 import net.minecraft.util.Facing;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
@@ -334,7 +334,7 @@ public class RenderItem implements IResourceManagerReloadListener {
 				float f1 = (float) stack.getMaxDamage();
 				float f2 = Math.max(0F, (f1 - f) / f1);
 				int i = Math.round(13F - f * 13F / f1);
-				int j = MathHelper.hsvToRGB(f2 / 3F, 1F, 1F);
+				int j = Maths.hsvToRGB(f2 / 3F, 1F, 1F);
 				draw(bufferbuilder, xPosition + 2, yPosition + 13, 13, 2, 0, 0, 0, 255);
 				draw(bufferbuilder, xPosition + 2, yPosition + 13, i, 1, j >> 16 & 255, j >> 8 & 255, j & 255, 255);
 				GLS.enableBlend();
@@ -355,7 +355,7 @@ public class RenderItem implements IResourceManagerReloadListener {
 				GLS.disableTexture2D();
 				Tessellator tessellator1 = Tessellator.getInstance();
 				BufferBuilder bufferbuilder1 = tessellator1.getBuffer();
-				draw(bufferbuilder1, xPosition, yPosition + MathHelper.floor(16F * (1F - f3)), 16, MathHelper.ceil(16F * f3), 255, 255, 255, 127);
+				draw(bufferbuilder1, xPosition, yPosition + Maths.floor(16F * (1F - f3)), 16, Maths.ceil(16F * f3), 255, 255, 255, 127);
 				GLS.enableTexture2D();
 				GLS.enableLighting();
 				GLS.enableDepth();

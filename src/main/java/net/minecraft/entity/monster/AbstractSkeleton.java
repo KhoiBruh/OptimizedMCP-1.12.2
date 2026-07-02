@@ -19,7 +19,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
@@ -202,7 +202,7 @@ public abstract class AbstractSkeleton extends EntityMob implements IRangedAttac
 		double d0 = target.posX - posX;
 		double d1 = target.getEntityBoundingBox().minY + (double) (target.height / 3F) - entityarrow.posY;
 		double d2 = target.posZ - posZ;
-		double d3 = MathHelper.sqrt(d0 * d0 + d2 * d2);
+		double d3 = Maths.sqrt(d0 * d0 + d2 * d2);
 		entityarrow.shoot(d0, d1 + d3 * 0.20000000298023224D, d2, 1.6F, (float) (14 - world.getDifficulty()
 		                                                                                   .getDifficultyId() * 4));
 		playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1F, 1F / (getRNG().nextFloat() * 0.4F + 0.8F));

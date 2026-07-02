@@ -6,7 +6,7 @@ import net.minecraft.entity.EntityCreature;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.Iterator;
@@ -35,7 +35,7 @@ public class EntityAIWanderAvoidWaterFlying extends EntityAIWanderAvoidWater {
 		BlockPos blockpos = new BlockPos(entity);
 		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 		BlockPos.MutableBlockPos blockpos$mutableblockpos1 = new BlockPos.MutableBlockPos();
-		Iterable<BlockPos.MutableBlockPos> iterable = BlockPos.MutableBlockPos.getAllInBoxMutable(MathHelper.floor(entity.posX - 3D), MathHelper.floor(entity.posY - 6D), MathHelper.floor(entity.posZ - 3D), MathHelper.floor(entity.posX + 3D), MathHelper.floor(entity.posY + 6D), MathHelper.floor(entity.posZ + 3D));
+		Iterable<BlockPos.MutableBlockPos> iterable = BlockPos.MutableBlockPos.getAllInBoxMutable(Maths.floor(entity.posX - 3D), Maths.floor(entity.posY - 6D), Maths.floor(entity.posZ - 3D), Maths.floor(entity.posX + 3D), Maths.floor(entity.posY + 6D), Maths.floor(entity.posZ + 3D));
 		Iterator<BlockPos.MutableBlockPos> iterator = iterable.iterator();
 		BlockPos blockpos1;
 

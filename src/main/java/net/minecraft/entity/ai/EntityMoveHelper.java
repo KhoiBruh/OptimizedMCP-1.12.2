@@ -5,7 +5,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.pathfinding.NodeProcessor;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNodeType;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class EntityMoveHelper {
 
@@ -70,7 +70,7 @@ public class EntityMoveHelper {
 			float f1 = (float) speed * f;
 			float f2 = moveForward;
 			float f3 = moveStrafe;
-			float f4 = MathHelper.sqrt(f2 * f2 + f3 * f3);
+			float f4 = Maths.sqrt(f2 * f2 + f3 * f3);
 
 			if (f4 < 1F) {
 				f4 = 1F;
@@ -79,8 +79,8 @@ public class EntityMoveHelper {
 			f4 = f1 / f4;
 			f2 = f2 * f4;
 			f3 = f3 * f4;
-			float f5 = MathHelper.sin(entity.rotationYaw * 0.017453292F);
-			float f6 = MathHelper.cos(entity.rotationYaw * 0.017453292F);
+			float f5 = Maths.sin(entity.rotationYaw * 0.017453292F);
+			float f6 = Maths.cos(entity.rotationYaw * 0.017453292F);
 			float f7 = f2 * f6 - f3 * f5;
 			float f8 = f3 * f6 + f2 * f5;
 			PathNavigate pathnavigate = entity.getNavigator();
@@ -88,7 +88,7 @@ public class EntityMoveHelper {
 			if (pathnavigate != null) {
 				NodeProcessor nodeprocessor = pathnavigate.getNodeProcessor();
 
-				if (nodeprocessor != null && nodeprocessor.getPathNodeType(entity.world, MathHelper.floor(entity.posX + (double) f7), MathHelper.floor(entity.posY), MathHelper.floor(entity.posZ + (double) f8)) != PathNodeType.WALKABLE) {
+				if (nodeprocessor != null && nodeprocessor.getPathNodeType(entity.world, Maths.floor(entity.posX + (double) f7), Maths.floor(entity.posY), Maths.floor(entity.posZ + (double) f8)) != PathNodeType.WALKABLE) {
 					moveForward = 1F;
 					moveStrafe = 0F;
 					f1 = f;
@@ -111,7 +111,7 @@ public class EntityMoveHelper {
 				return;
 			}
 
-			float f9 = (float) (MathHelper.atan2(d1, d0) * (180D / Math.PI)) - 90F;
+			float f9 = (float) (Maths.atan2(d1, d0) * (180D / Math.PI)) - 90F;
 			entity.rotationYaw = limitAngle(entity.rotationYaw, f9, 90F);
 			entity.setAIMoveSpeed((float) (speed * entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED)
 			                                             .getAttributeValue()));
@@ -137,7 +137,7 @@ public class EntityMoveHelper {
 	 * be third parameter
 	 */
 	protected float limitAngle(float sourceAngle, float targetAngle, float maximumChange) {
-		float f = MathHelper.wrapDegrees(targetAngle - sourceAngle);
+		float f = Maths.wrapDegrees(targetAngle - sourceAngle);
 
 		if (f > maximumChange) {
 			f = maximumChange;

@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public abstract class RenderArrow<T extends EntityArrow> extends Render<T> {
 
@@ -40,7 +40,7 @@ public abstract class RenderArrow<T extends EntityArrow> extends Render<T> {
 		float f9 = (float) entity.arrowShake - partialTicks;
 
 		if (f9 > 0F) {
-			float f10 = -MathHelper.sin(f9 * 3F) * f9;
+			float f10 = -Maths.sin(f9 * 3F) * f9;
 			GLS.rotate(f10, 0F, 0F, 1F);
 		}
 

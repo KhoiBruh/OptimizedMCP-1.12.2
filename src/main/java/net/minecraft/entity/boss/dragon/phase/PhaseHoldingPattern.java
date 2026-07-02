@@ -6,7 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.gen.feature.WorldGenEndPodium;
 
@@ -68,8 +68,8 @@ public class PhaseHoldingPattern extends PhaseBase {
 				d0 = entityplayer.getDistanceSqToCenter(blockpos) / 512D;
 			}
 
-			if (entityplayer != null && (dragon.getRNG().nextInt(MathHelper.abs((int) d0) + 2) == 0 || dragon.getRNG()
-			                                                                                                 .nextInt(i + 2) == 0)) {
+			if (entityplayer != null && (dragon.getRNG().nextInt(Maths.abs((int) d0) + 2) == 0 || dragon.getRNG()
+			                                                                                            .nextInt(i + 2) == 0)) {
 				strafePlayer(entityplayer);
 				return;
 			}

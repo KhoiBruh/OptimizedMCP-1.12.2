@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.block.model;
 
 import com.google.common.collect.Maps;
 import net.minecraft.util.Facing;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import org.joml.Matrix4f;
 
 import java.util.Map;
@@ -41,8 +41,8 @@ public enum ModelRotation {
 	ModelRotation(int x, int y) {
 		combinedXY = combineXY(x, y);
 		matrix4d = JomlRotationMath.modelRotation(x, y);
-		quartersX = MathHelper.abs(x / 90);
-		quartersY = MathHelper.abs(y / 90);
+		quartersX = Maths.abs(x / 90);
+		quartersY = Maths.abs(y / 90);
 	}
 
 	private static int combineXY(int p_177521_0_, int p_177521_1_) {
@@ -50,7 +50,7 @@ public enum ModelRotation {
 	}
 
 	public static ModelRotation getModelRotation(int x, int y) {
-		return MAP_ROTATIONS.get(combineXY(MathHelper.normalizeAngle(x, 360), MathHelper.normalizeAngle(y, 360)));
+		return MAP_ROTATIONS.get(combineXY(Maths.normalizeAngle(x, 360), Maths.normalizeAngle(y, 360)));
 	}
 
 	public Matrix4f getMatrix4d() {

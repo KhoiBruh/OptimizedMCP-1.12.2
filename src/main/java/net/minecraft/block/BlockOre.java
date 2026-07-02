@@ -10,7 +10,7 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -78,15 +78,15 @@ public class BlockOre extends Block {
 			int i = 0;
 
 			if (this == Blocks.COAL_ORE) {
-				i = MathHelper.getInt(worldIn.rand, 0, 2);
+				i = Maths.getInt(worldIn.rand, 0, 2);
 			} else if (this == Blocks.DIAMOND_ORE) {
-				i = MathHelper.getInt(worldIn.rand, 3, 7);
+				i = Maths.getInt(worldIn.rand, 3, 7);
 			} else if (this == Blocks.EMERALD_ORE) {
-				i = MathHelper.getInt(worldIn.rand, 3, 7);
+				i = Maths.getInt(worldIn.rand, 3, 7);
 			} else if (this == Blocks.LAPIS_ORE) {
-				i = MathHelper.getInt(worldIn.rand, 2, 5);
+				i = Maths.getInt(worldIn.rand, 2, 5);
 			} else if (this == Blocks.QUARTZ_ORE) {
-				i = MathHelper.getInt(worldIn.rand, 2, 5);
+				i = Maths.getInt(worldIn.rand, 2, 5);
 			}
 
 			dropXpOnBlockBreak(worldIn, pos, i);

@@ -4,7 +4,7 @@ import com.mojang.authlib.GameProfile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 
@@ -66,7 +66,7 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
 		prevLimbSwingAmount = limbSwingAmount;
 		double d0 = posX - prevPosX;
 		double d1 = posZ - prevPosZ;
-		float f = MathHelper.sqrt(d0 * d0 + d1 * d1) * 4F;
+		float f = Maths.sqrt(d0 * d0 + d1 * d1) * 4F;
 
 		if (f > 1F) {
 			f = 1F;
@@ -103,7 +103,7 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer {
 
 		prevCameraYaw = cameraYaw;
 		updateArmSwingProgress();
-		float f1 = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
+		float f1 = Maths.sqrt(motionX * motionX + motionZ * motionZ);
 		float f = (float) Math.atan(-motionY * 0.20000000298023224D) * 15F;
 
 		if (f1 > 0.1F) {

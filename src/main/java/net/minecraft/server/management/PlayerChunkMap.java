@@ -10,7 +10,7 @@ import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
@@ -336,7 +336,7 @@ public class PlayerChunkMap {
 	}
 
 	public void setPlayerViewRadius(int radius) {
-		radius = MathHelper.clamp(radius, 3, 32);
+		radius = Maths.clamp(radius, 3, 32);
 
 		if (radius != playerViewRadius) {
 			int i = radius - playerViewRadius;

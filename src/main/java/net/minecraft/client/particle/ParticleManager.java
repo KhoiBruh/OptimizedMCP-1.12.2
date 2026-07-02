@@ -18,7 +18,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 import java.util.*;
@@ -301,11 +301,11 @@ public class ParticleManager {
 
 	public void renderLitParticles(Entity entityIn, float partialTick) {
 		float f = 0.017453292F;
-		float f1 = MathHelper.cos(entityIn.rotationYaw * 0.017453292F);
-		float f2 = MathHelper.sin(entityIn.rotationYaw * 0.017453292F);
-		float f3 = -f2 * MathHelper.sin(entityIn.rotationPitch * 0.017453292F);
-		float f4 = f1 * MathHelper.sin(entityIn.rotationPitch * 0.017453292F);
-		float f5 = MathHelper.cos(entityIn.rotationPitch * 0.017453292F);
+		float f1 = Maths.cos(entityIn.rotationYaw * 0.017453292F);
+		float f2 = Maths.sin(entityIn.rotationYaw * 0.017453292F);
+		float f3 = -f2 * Maths.sin(entityIn.rotationPitch * 0.017453292F);
+		float f4 = f1 * Maths.sin(entityIn.rotationPitch * 0.017453292F);
+		float f5 = Maths.cos(entityIn.rotationPitch * 0.017453292F);
 
 		for (int i = 0; i < 2; ++i) {
 			Queue<Particle> queue = fxLayers[3][i];

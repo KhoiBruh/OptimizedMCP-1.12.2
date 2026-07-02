@@ -5,7 +5,7 @@ import net.minecraft.block.BlockStone;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -32,10 +32,10 @@ public class WorldGenMinable extends WorldGenerator {
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
 		float f = rand.nextFloat() * (float) Math.PI;
-		double d0 = (float) (position.getX() + 8) + MathHelper.sin(f) * (float) numberOfBlocks / 8F;
-		double d1 = (float) (position.getX() + 8) - MathHelper.sin(f) * (float) numberOfBlocks / 8F;
-		double d2 = (float) (position.getZ() + 8) + MathHelper.cos(f) * (float) numberOfBlocks / 8F;
-		double d3 = (float) (position.getZ() + 8) - MathHelper.cos(f) * (float) numberOfBlocks / 8F;
+		double d0 = (float) (position.getX() + 8) + Maths.sin(f) * (float) numberOfBlocks / 8F;
+		double d1 = (float) (position.getX() + 8) - Maths.sin(f) * (float) numberOfBlocks / 8F;
+		double d2 = (float) (position.getZ() + 8) + Maths.cos(f) * (float) numberOfBlocks / 8F;
+		double d3 = (float) (position.getZ() + 8) - Maths.cos(f) * (float) numberOfBlocks / 8F;
 		double d4 = position.getY() + rand.nextInt(3) - 2;
 		double d5 = position.getY() + rand.nextInt(3) - 2;
 
@@ -45,14 +45,14 @@ public class WorldGenMinable extends WorldGenerator {
 			double d7 = d4 + (d5 - d4) * (double) f1;
 			double d8 = d2 + (d3 - d2) * (double) f1;
 			double d9 = rand.nextDouble() * (double) numberOfBlocks / 16D;
-			double d10 = (double) (MathHelper.sin((float) Math.PI * f1) + 1F) * d9 + 1D;
-			double d11 = (double) (MathHelper.sin((float) Math.PI * f1) + 1F) * d9 + 1D;
-			int j = MathHelper.floor(d6 - d10 / 2D);
-			int k = MathHelper.floor(d7 - d11 / 2D);
-			int l = MathHelper.floor(d8 - d10 / 2D);
-			int i1 = MathHelper.floor(d6 + d10 / 2D);
-			int j1 = MathHelper.floor(d7 + d11 / 2D);
-			int k1 = MathHelper.floor(d8 + d10 / 2D);
+			double d10 = (double) (Maths.sin((float) Math.PI * f1) + 1F) * d9 + 1D;
+			double d11 = (double) (Maths.sin((float) Math.PI * f1) + 1F) * d9 + 1D;
+			int j = Maths.floor(d6 - d10 / 2D);
+			int k = Maths.floor(d7 - d11 / 2D);
+			int l = Maths.floor(d8 - d10 / 2D);
+			int i1 = Maths.floor(d6 + d10 / 2D);
+			int j1 = Maths.floor(d7 + d11 / 2D);
+			int k1 = Maths.floor(d8 + d10 / 2D);
 
 			for (int l1 = j; l1 <= i1; ++l1) {
 				double d12 = ((double) l1 + 0.5D - d6) / (d10 / 2D);

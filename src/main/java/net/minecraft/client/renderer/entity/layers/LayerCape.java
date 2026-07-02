@@ -7,7 +7,7 @@ import net.minecraft.entity.player.PlayerModelParts;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class LayerCape implements LayerRenderer<AbstractClientPlayer> {
 
@@ -30,10 +30,10 @@ public class LayerCape implements LayerRenderer<AbstractClientPlayer> {
 				double d1 = entitylivingbaseIn.prevChasingPosY + (entitylivingbaseIn.chasingPosY - entitylivingbaseIn.prevChasingPosY) * (double) partialTicks - (entitylivingbaseIn.prevPosY + (entitylivingbaseIn.posY - entitylivingbaseIn.prevPosY) * (double) partialTicks);
 				double d2 = entitylivingbaseIn.prevChasingPosZ + (entitylivingbaseIn.chasingPosZ - entitylivingbaseIn.prevChasingPosZ) * (double) partialTicks - (entitylivingbaseIn.prevPosZ + (entitylivingbaseIn.posZ - entitylivingbaseIn.prevPosZ) * (double) partialTicks);
 				float f = entitylivingbaseIn.prevRenderYawOffset + (entitylivingbaseIn.renderYawOffset - entitylivingbaseIn.prevRenderYawOffset) * partialTicks;
-				double d3 = MathHelper.sin(f * 0.017453292F);
-				double d4 = -MathHelper.cos(f * 0.017453292F);
+				double d3 = Maths.sin(f * 0.017453292F);
+				double d4 = -Maths.cos(f * 0.017453292F);
 				float f1 = (float) d1 * 10F;
-				f1 = MathHelper.clamp(f1, -6F, 32F);
+				f1 = Maths.clamp(f1, -6F, 32F);
 				float f2 = (float) (d0 * d3 + d2 * d4) * 100F;
 				float f3 = (float) (d0 * d4 - d2 * d3) * 100F;
 
@@ -42,7 +42,7 @@ public class LayerCape implements LayerRenderer<AbstractClientPlayer> {
 				}
 
 				float f4 = entitylivingbaseIn.prevCameraYaw + (entitylivingbaseIn.cameraYaw - entitylivingbaseIn.prevCameraYaw) * partialTicks;
-				f1 = f1 + MathHelper.sin((entitylivingbaseIn.prevDistanceWalkedModified + (entitylivingbaseIn.distanceWalkedModified - entitylivingbaseIn.prevDistanceWalkedModified) * partialTicks) * 6F) * 32F * f4;
+				f1 = f1 + Maths.sin((entitylivingbaseIn.prevDistanceWalkedModified + (entitylivingbaseIn.distanceWalkedModified - entitylivingbaseIn.prevDistanceWalkedModified) * partialTicks) * 6F) * 32F * f4;
 
 				if (entitylivingbaseIn.isSneaking()) {
 					f1 += 25F;

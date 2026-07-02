@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityBoat;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class ModelBoat extends ModelBase implements IMultipassModel {
 
@@ -94,8 +94,8 @@ public class ModelBoat extends ModelBase implements IMultipassModel {
 	protected void renderPaddle(EntityBoat boat, int paddle, float scale, float limbSwing) {
 		float f = boat.getRowingTime(paddle, limbSwing);
 		ModelRenderer modelrenderer = paddles[paddle];
-		modelrenderer.rotateAngleX = (float) MathHelper.clampedLerp(-1.0471975803375244D, -0.2617993950843811D, (MathHelper.sin(-f) + 1F) / 2F);
-		modelrenderer.rotateAngleY = (float) MathHelper.clampedLerp(-(Math.PI / 4D), (Math.PI / 4D), (MathHelper.sin(-f + 1F) + 1F) / 2F);
+		modelrenderer.rotateAngleX = (float) Maths.clampedLerp(-1.0471975803375244D, -0.2617993950843811D, (Maths.sin(-f) + 1F) / 2F);
+		modelrenderer.rotateAngleY = (float) Maths.clampedLerp(-(Math.PI / 4D), (Math.PI / 4D), (Maths.sin(-f + 1F) + 1F) / 2F);
 
 		if (paddle == 1) {
 			modelrenderer.rotateAngleY = (float) Math.PI - modelrenderer.rotateAngleY;

@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
@@ -112,7 +112,7 @@ public class EntityBat extends EntityAmbientCreature {
 			motionX = 0D;
 			motionY = 0D;
 			motionZ = 0D;
-			posY = (double) MathHelper.floor(posY) + 1D - (double) height;
+			posY = (double) Maths.floor(posY) + 1D - (double) height;
 		} else {
 			motionY *= 0.6000000238418579D;
 		}
@@ -152,8 +152,8 @@ public class EntityBat extends EntityAmbientCreature {
 			motionX += (Math.signum(d0) * 0.5D - motionX) * 0.10000000149011612D;
 			motionY += (Math.signum(d1) * 0.699999988079071D - motionY) * 0.10000000149011612D;
 			motionZ += (Math.signum(d2) * 0.5D - motionZ) * 0.10000000149011612D;
-			float f = (float) (MathHelper.atan2(motionZ, motionX) * (180D / Math.PI)) - 90F;
-			float f1 = MathHelper.wrapDegrees(f - rotationYaw);
+			float f = (float) (Maths.atan2(motionZ, motionX) * (180D / Math.PI)) - 90F;
+			float f1 = Maths.wrapDegrees(f - rotationYaw);
 			moveForward = 0.5F;
 			rotationYaw += f1;
 

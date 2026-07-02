@@ -7,7 +7,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 public abstract class EntitySpellcasterIllager extends AbstractIllager {
@@ -83,9 +83,9 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager {
 			double d0 = entityspellcasterillager$spelltype.particleSpeed[0];
 			double d1 = entityspellcasterillager$spelltype.particleSpeed[1];
 			double d2 = entityspellcasterillager$spelltype.particleSpeed[2];
-			float f = renderYawOffset * 0.017453292F + MathHelper.cos((float) ticksExisted * 0.6662F) * 0.25F;
-			float f1 = MathHelper.cos(f);
-			float f2 = MathHelper.sin(f);
+			float f = renderYawOffset * 0.017453292F + Maths.cos((float) ticksExisted * 0.6662F) * 0.25F;
+			float f1 = Maths.cos(f);
+			float f2 = Maths.sin(f);
 			world.spawnParticle(ParticleTypes.SPELL_MOB, posX + (double) f1 * 0.6D, posY + 1.8D, posZ + (double) f2 * 0.6D, d0, d1, d2);
 			world.spawnParticle(ParticleTypes.SPELL_MOB, posX - (double) f1 * 0.6D, posY + 1.8D, posZ - (double) f2 * 0.6D, d0, d1, d2);
 		}

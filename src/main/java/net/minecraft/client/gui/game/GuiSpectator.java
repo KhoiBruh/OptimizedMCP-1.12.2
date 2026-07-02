@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 
@@ -36,7 +36,7 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 
 	private float getHotbarAlpha() {
 		long i = lastSelectionTime - Minecraft.getSystemTime() + 5000L;
-		return MathHelper.clamp((float) i / 2000F, 0F, 1F);
+		return Maths.clamp((float) i / 2000F, 0F, 1F);
 	}
 
 	public void renderTooltip(float p_175264_2_) {

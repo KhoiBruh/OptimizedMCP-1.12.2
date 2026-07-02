@@ -12,7 +12,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 import java.util.UUID;
@@ -107,9 +107,9 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals {
 	 * Checks if the entity's current position is a valid location to spawn this entity.
 	 */
 	public boolean getCanSpawnHere() {
-		int i = MathHelper.floor(posX);
-		int j = MathHelper.floor(getEntityBoundingBox().minY);
-		int k = MathHelper.floor(posZ);
+		int i = Maths.floor(posX);
+		int j = Maths.floor(getEntityBoundingBox().minY);
+		int k = Maths.floor(posZ);
 		BlockPos blockpos = new BlockPos(i, j, k);
 		return world.getBlockState(blockpos.down())
 		            .getBlock() == spawnableBlock && world.getLight(blockpos) > 8 && super.getCanSpawnHere();

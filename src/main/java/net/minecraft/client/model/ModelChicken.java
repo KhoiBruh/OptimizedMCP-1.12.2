@@ -2,7 +2,7 @@ package net.minecraft.client.model;
 
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class ModelChicken extends ModelBase {
 
@@ -91,8 +91,8 @@ public class ModelChicken extends ModelBase {
 		chin.rotateAngleX = head.rotateAngleX;
 		chin.rotateAngleY = head.rotateAngleY;
 		body.rotateAngleX = ((float) Math.PI / 2F);
-		rightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-		leftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+		rightLeg.rotateAngleX = Maths.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+		leftLeg.rotateAngleX = Maths.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
 		rightWing.rotateAngleZ = ageInTicks;
 		leftWing.rotateAngleZ = -ageInTicks;
 	}

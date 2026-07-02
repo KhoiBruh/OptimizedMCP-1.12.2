@@ -5,7 +5,7 @@ import com.google.common.collect.Iterators;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3i;
 
 import java.util.Iterator;
@@ -84,21 +84,21 @@ public enum Facing implements IStringSerializable {
 	 * Get a Facing by it's index (0-5). The order is D-U-N-S-W-E. Named getFront for legacy reasons.
 	 */
 	public static Facing getFront(int index) {
-		return VALUES[MathHelper.abs(index % VALUES.length)];
+		return VALUES[Maths.abs(index % VALUES.length)];
 	}
 
 	/**
 	 * Get a Facing by it's horizontal index (0-3). The order is S-W-N-E.
 	 */
 	public static Facing getHorizontal(int horizontalIndexIn) {
-		return HORIZONTALS[MathHelper.abs(horizontalIndexIn % HORIZONTALS.length)];
+		return HORIZONTALS[Maths.abs(horizontalIndexIn % HORIZONTALS.length)];
 	}
 
 	/**
 	 * Get the Facing corresponding to the given angle (0-360). An angle of 0 is SOUTH, an angle of 90 would be WEST.
 	 */
 	public static Facing fromAngle(double angle) {
-		return getHorizontal(MathHelper.floor(angle / 90D + 0.5D) & 3);
+		return getHorizontal(Maths.floor(angle / 90D + 0.5D) & 3);
 	}
 
 	/**

@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityElderGuardian;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 
@@ -62,7 +62,7 @@ public class ParticleMobAppearance extends Particle {
 			float f2 = 240F;
 			GLS.multiTexCoord2f(OpenGlHelper.lightmapTexUnit, 240F, 240F);
 			GLS.pushMatrix();
-			float f3 = 0.05F + 0.5F * MathHelper.sin(f1 * (float) Math.PI);
+			float f3 = 0.05F + 0.5F * Maths.sin(f1 * (float) Math.PI);
 			GLS.color(1F, 1F, 1F, f3);
 			GLS.translate(0F, 1.8F, 0F);
 			GLS.rotate(180F - entityIn.rotationYaw, 0F, 1F, 0F);

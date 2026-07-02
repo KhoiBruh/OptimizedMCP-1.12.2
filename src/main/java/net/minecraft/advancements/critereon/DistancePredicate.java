@@ -3,7 +3,7 @@ package net.minecraft.advancements.critereon;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.util.JsonUtils;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class DistancePredicate {
 
@@ -44,7 +44,7 @@ public class DistancePredicate {
 		float f1 = (float) (y1 - y2);
 		float f2 = (float) (z1 - z2);
 
-		if (x.test(MathHelper.abs(f)) && y.test(MathHelper.abs(f1)) && z.test(MathHelper.abs(f2))) {
+		if (x.test(Maths.abs(f)) && y.test(Maths.abs(f1)) && z.test(Maths.abs(f2))) {
 			if (!horizontal.testSquare(f * f + f2 * f2)) {
 				return false;
 			} else {

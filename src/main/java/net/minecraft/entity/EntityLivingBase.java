@@ -40,7 +40,7 @@ import net.minecraft.util.entity.EntityDamageSource;
 import net.minecraft.util.entity.EntitySelectors;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -276,7 +276,7 @@ public abstract class EntityLivingBase extends Entity {
 		}
 
 		if (!world.isRemote && fallDistance > 3F && onGroundIn) {
-			float f = (float) MathHelper.ceil(fallDistance - 3F);
+			float f = (float) Maths.ceil(fallDistance - 3F);
 
 			if (state.getMaterial() != Material.AIR) {
 				double d0 = Math.min(0.2F + f / 15F, 2.5D);
@@ -311,7 +311,7 @@ public abstract class EntityLivingBase extends Entity {
 					double d1 = world.getWorldBorder().getDamageAmount();
 
 					if (d1 > 0D) {
-						attackEntityFrom(DamageSource.IN_WALL, (float) Math.max(1, MathHelper.floor(-d0 * d1)));
+						attackEntityFrom(DamageSource.IN_WALL, (float) Math.max(1, Maths.floor(-d0 * d1)));
 					}
 				}
 			}
@@ -824,7 +824,7 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	public void setHealth(float health) {
-		dataManager.set(HEALTH, MathHelper.clamp(health, 0F, getMaxHealth()));
+		dataManager.set(HEALTH, Maths.clamp(health, 0F, getMaxHealth()));
 	}
 
 	/**
@@ -937,7 +937,7 @@ public abstract class EntityLivingBase extends Entity {
 							d1 = (Math.random() - Math.random()) * 0.01D;
 						}
 
-						attackedAtYaw = (float) (MathHelper.atan2(d0, d1) * (180D / Math.PI) - (double) rotationYaw);
+						attackedAtYaw = (float) (Maths.atan2(d0, d1) * (180D / Math.PI) - (double) rotationYaw);
 						knockBack(entity1, 0.4F, d1, d0);
 					} else {
 						attackedAtYaw = (float) ((int) (Math.random() * 2D) * 180);
@@ -1130,7 +1130,7 @@ public abstract class EntityLivingBase extends Entity {
 	public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
 		if (rand.nextDouble() >= getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).getAttributeValue()) {
 			isAirBorne = true;
-			float f = MathHelper.sqrt(xRatio * xRatio + zRatio * zRatio);
+			float f = Maths.sqrt(xRatio * xRatio + zRatio * zRatio);
 			motionX /= 2D;
 			motionZ /= 2D;
 			motionX -= xRatio / (double) f * (double) strength;
@@ -1170,9 +1170,9 @@ public abstract class EntityLivingBase extends Entity {
 	 * for AI reasons)
 	 */
 	public boolean isOnLadder() {
-		int i = MathHelper.floor(posX);
-		int j = MathHelper.floor(getEntityBoundingBox().minY);
-		int k = MathHelper.floor(posZ);
+		int i = Maths.floor(posX);
+		int j = Maths.floor(getEntityBoundingBox().minY);
+		int k = Maths.floor(posZ);
 
 		if (this instanceof EntityPlayer && ((EntityPlayer) this).isSpectator()) {
 			return false;
@@ -1210,14 +1210,14 @@ public abstract class EntityLivingBase extends Entity {
 		super.fall(distance, damageMultiplier);
 		PotionEffect potioneffect = getActivePotionEffect(MobEffects.JUMP_BOOST);
 		float f = potioneffect == null ? 0F : (float) (potioneffect.getAmplifier() + 1);
-		int i = MathHelper.ceil((distance - 3F - f) * damageMultiplier);
+		int i = Maths.ceil((distance - 3F - f) * damageMultiplier);
 
 		if (i > 0) {
 			playSound(getFallSound(i), 1F, 1F);
 			attackEntityFrom(DamageSource.FALL, (float) i);
-			int j = MathHelper.floor(posX);
-			int k = MathHelper.floor(posY - 0.20000000298023224D);
-			int l = MathHelper.floor(posZ);
+			int j = Maths.floor(posX);
+			int k = Maths.floor(posY - 0.20000000298023224D);
+			int l = Maths.floor(posZ);
 			IBlockState iblockstate = world.getBlockState(new BlockPos(j, k, l));
 
 			if (iblockstate.getMaterial() != Material.AIR) {
@@ -1241,7 +1241,7 @@ public abstract class EntityLivingBase extends Entity {
 	 */
 	public int getTotalArmorValue() {
 		IAttributeInstance iattributeinstance = getEntityAttribute(SharedMonsterAttributes.ARMOR);
-		return MathHelper.floor(iattributeinstance.getAttributeValue());
+		return Maths.floor(iattributeinstance.getAttributeValue());
 	}
 
 	protected void damageArmor(float damage) {
@@ -1616,8 +1616,8 @@ public abstract class EntityLivingBase extends Entity {
 				f = ((float) Math.PI / 2F) * (float) (getPrimaryHand() == HandSide.RIGHT ? -1 : 1);
 			}
 
-			float f1 = -MathHelper.sin(-rotationYaw * 0.017453292F - (float) Math.PI + f);
-			float f2 = -MathHelper.cos(-rotationYaw * 0.017453292F - (float) Math.PI + f);
+			float f1 = -Maths.sin(-rotationYaw * 0.017453292F - (float) Math.PI + f);
+			float f2 = -Maths.cos(-rotationYaw * 0.017453292F - (float) Math.PI + f);
 			double d2 = Math.abs(f1) > Math.abs(f2) ? d0 / (double) Math.abs(f1) : d0 / (double) Math.abs(f2);
 			double d3 = posX + (double) f1 * d2;
 			double d4 = posZ + (double) f2 * d2;
@@ -1649,8 +1649,8 @@ public abstract class EntityLivingBase extends Entity {
 
 		if (isSprinting()) {
 			float f = rotationYaw * 0.017453292F;
-			motionX -= MathHelper.sin(f) * 0.2F;
-			motionZ += MathHelper.cos(f) * 0.2F;
+			motionX -= Maths.sin(f) * 0.2F;
+			motionZ += Maths.cos(f) * 0.2F;
 		}
 
 		isAirBorne = true;
@@ -1685,7 +1685,7 @@ public abstract class EntityLivingBase extends Entity {
 						double d6 = Math.sqrt(vec3d.x() * vec3d.x() + vec3d.z() * vec3d.z());
 						double d8 = Math.sqrt(motionX * motionX + motionZ * motionZ);
 						double d1 = vec3d.lengthVector();
-						float f4 = MathHelper.cos(f);
+						float f4 = Maths.cos(f);
 						f4 = (float) ((double) f4 * (double) f4 * Math.min(1D, d1 / 0.4D));
 						motionY += -0.08D + (double) f4 * 0.06D;
 
@@ -1697,7 +1697,7 @@ public abstract class EntityLivingBase extends Entity {
 						}
 
 						if (f < 0F) {
-							double d10 = d8 * (double) (-MathHelper.sin(f)) * 0.04D;
+							double d10 = d8 * (double) (-Maths.sin(f)) * 0.04D;
 							motionY += d10 * 3.2D;
 							motionX -= vec3d.x() * d10 / d6;
 							motionZ -= vec3d.z() * d10 / d6;
@@ -1754,8 +1754,8 @@ public abstract class EntityLivingBase extends Entity {
 
 						if (isOnLadder()) {
 							float f9 = 0.15F;
-							motionX = MathHelper.clamp(motionX, -0.15000000596046448D, 0.15000000596046448D);
-							motionZ = MathHelper.clamp(motionZ, -0.15000000596046448D, 0.15000000596046448D);
+							motionX = Maths.clamp(motionX, -0.15000000596046448D, 0.15000000596046448D);
+							motionZ = Maths.clamp(motionZ, -0.15000000596046448D, 0.15000000596046448D);
 							fallDistance = 0F;
 
 							if (motionY < -0.15D) {
@@ -1852,7 +1852,7 @@ public abstract class EntityLivingBase extends Entity {
 		double d5 = posX - prevPosX;
 		double d7 = posZ - prevPosZ;
 		double d9 = this instanceof net.minecraft.entity.passive.EntityFlying ? posY - prevPosY : 0D;
-		float f10 = MathHelper.sqrt(d5 * d5 + d9 * d9 + d7 * d7) * 4F;
+		float f10 = Maths.sqrt(d5 * d5 + d9 * d9 + d7 * d7) * 4F;
 
 		if (f10 > 1F) {
 			f10 = 1F;
@@ -1976,8 +1976,8 @@ public abstract class EntityLivingBase extends Entity {
 		if (f3 > 0.0025000002F) {
 			f = 1F;
 			f5 = (float) Math.sqrt(f3) * 3F;
-			float f1 = (float) MathHelper.atan2(d1, d0) * (180F / (float) Math.PI) - 90F;
-			float f2 = MathHelper.abs(MathHelper.wrapDegrees(rotationYaw) - f1);
+			float f1 = (float) Maths.atan2(d1, d0) * (180F / (float) Math.PI) - 90F;
+			float f2 = Maths.abs(Maths.wrapDegrees(rotationYaw) - f1);
 
 			if (95F < f2 && f2 < 265F) {
 				f4 = f1 - 180F;
@@ -2043,9 +2043,9 @@ public abstract class EntityLivingBase extends Entity {
 	}
 
 	protected float updateDistance(float p_110146_1_, float p_110146_2_) {
-		float f = MathHelper.wrapDegrees(p_110146_1_ - renderYawOffset);
+		float f = Maths.wrapDegrees(p_110146_1_ - renderYawOffset);
 		renderYawOffset += f * 0.3F;
-		float f1 = MathHelper.wrapDegrees(rotationYaw - renderYawOffset);
+		float f1 = Maths.wrapDegrees(rotationYaw - renderYawOffset);
 		boolean flag = f1 < -90F || f1 >= 90F;
 
 		if (f1 < -75F) {
@@ -2082,7 +2082,7 @@ public abstract class EntityLivingBase extends Entity {
 			double d0 = posX + (interpTargetX - posX) / (double) newPosRotationIncrements;
 			double d1 = posY + (interpTargetY - posY) / (double) newPosRotationIncrements;
 			double d2 = posZ + (interpTargetZ - posZ) / (double) newPosRotationIncrements;
-			double d3 = MathHelper.wrapDegrees(interpTargetYaw - (double) rotationYaw);
+			double d3 = Maths.wrapDegrees(interpTargetYaw - (double) rotationYaw);
 			rotationYaw = (float) ((double) rotationYaw + d3 / (double) newPosRotationIncrements);
 			rotationPitch = (float) ((double) rotationPitch + (interpTargetPitch - (double) rotationPitch) / (double) newPosRotationIncrements);
 			--newPosRotationIncrements;

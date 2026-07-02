@@ -16,7 +16,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 public class EntityMinecartFurnace extends EntityMinecart {
@@ -90,7 +90,7 @@ public class EntityMinecartFurnace extends EntityMinecart {
 		double d0 = pushX * pushX + pushZ * pushZ;
 
 		if (d0 > 1.0E-4D && motionX * motionX + motionZ * motionZ > 0.001D) {
-			d0 = MathHelper.sqrt(d0);
+			d0 = Maths.sqrt(d0);
 			pushX /= d0;
 			pushZ /= d0;
 
@@ -109,7 +109,7 @@ public class EntityMinecartFurnace extends EntityMinecart {
 		double d0 = pushX * pushX + pushZ * pushZ;
 
 		if (d0 > 1.0E-4D) {
-			d0 = MathHelper.sqrt(d0);
+			d0 = Maths.sqrt(d0);
 			pushX /= d0;
 			pushZ /= d0;
 			double d1 = 1D;

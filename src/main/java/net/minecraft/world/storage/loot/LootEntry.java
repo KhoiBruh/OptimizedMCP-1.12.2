@@ -3,7 +3,7 @@ package net.minecraft.world.storage.loot;
 import com.google.gson.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.JsonUtils;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 
 import java.lang.reflect.Type;
@@ -26,7 +26,7 @@ public abstract class LootEntry {
 	 * Gets the effective weight based on the loot entry's weight and quality multiplied by looter's luck.
 	 */
 	public int getEffectiveWeight(float luck) {
-		return Math.max(MathHelper.floor((float) weight + (float) quality * luck), 0);
+		return Math.max(Maths.floor((float) weight + (float) quality * luck), 0);
 	}
 
 	public abstract void addLoot(Collection<ItemStack> stacks, Random rand, LootContext context);

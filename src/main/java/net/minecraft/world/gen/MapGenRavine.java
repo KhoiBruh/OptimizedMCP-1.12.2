@@ -3,7 +3,7 @@ package net.minecraft.world.gen;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
@@ -45,15 +45,15 @@ public class MapGenRavine extends MapGenBase {
 		}
 
 		for (; p_180707_15_ < p_180707_16_; ++p_180707_15_) {
-			double d9 = 1.5D + (double) (MathHelper.sin((float) p_180707_15_ * (float) Math.PI / (float) p_180707_16_) * p_180707_12_);
+			double d9 = 1.5D + (double) (Maths.sin((float) p_180707_15_ * (float) Math.PI / (float) p_180707_16_) * p_180707_12_);
 			double d2 = d9 * p_180707_17_;
 			d9 = d9 * ((double) random.nextFloat() * 0.25D + 0.75D);
 			d2 = d2 * ((double) random.nextFloat() * 0.25D + 0.75D);
-			float f3 = MathHelper.cos(p_180707_14_);
-			float f4 = MathHelper.sin(p_180707_14_);
-			p_180707_6_ += MathHelper.cos(p_180707_13_) * f3;
+			float f3 = Maths.cos(p_180707_14_);
+			float f4 = Maths.sin(p_180707_14_);
+			p_180707_6_ += Maths.cos(p_180707_13_) * f3;
 			p_180707_8_ += f4;
-			p_180707_10_ += MathHelper.sin(p_180707_13_) * f3;
+			p_180707_10_ += Maths.sin(p_180707_13_) * f3;
 			p_180707_14_ = p_180707_14_ * 0.7F;
 			p_180707_14_ = p_180707_14_ + f1 * 0.05F;
 			p_180707_13_ += f * 0.05F;
@@ -73,12 +73,12 @@ public class MapGenRavine extends MapGenBase {
 				}
 
 				if (p_180707_6_ >= d0 - 16D - d9 * 2D && p_180707_10_ >= d1 - 16D - d9 * 2D && p_180707_6_ <= d0 + 16D + d9 * 2D && p_180707_10_ <= d1 + 16D + d9 * 2D) {
-					int k2 = MathHelper.floor(p_180707_6_ - d9) - p_180707_3_ * 16 - 1;
-					int k = MathHelper.floor(p_180707_6_ + d9) - p_180707_3_ * 16 + 1;
-					int l2 = MathHelper.floor(p_180707_8_ - d2) - 1;
-					int l = MathHelper.floor(p_180707_8_ + d2) + 1;
-					int i3 = MathHelper.floor(p_180707_10_ - d9) - p_180707_4_ * 16 - 1;
-					int i1 = MathHelper.floor(p_180707_10_ + d9) - p_180707_4_ * 16 + 1;
+					int k2 = Maths.floor(p_180707_6_ - d9) - p_180707_3_ * 16 - 1;
+					int k = Maths.floor(p_180707_6_ + d9) - p_180707_3_ * 16 + 1;
+					int l2 = Maths.floor(p_180707_8_ - d2) - 1;
+					int l = Maths.floor(p_180707_8_ + d2) + 1;
+					int i3 = Maths.floor(p_180707_10_ - d9) - p_180707_4_ * 16 - 1;
+					int i1 = Maths.floor(p_180707_10_ + d9) - p_180707_4_ * 16 + 1;
 
 					if (k2 < 0) {
 						k2 = 0;

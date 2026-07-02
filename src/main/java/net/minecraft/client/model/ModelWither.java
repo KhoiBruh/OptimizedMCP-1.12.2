@@ -3,7 +3,7 @@ package net.minecraft.client.model;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityWither;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class ModelWither extends ModelBase {
 
@@ -58,9 +58,9 @@ public class ModelWither extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-		float f = MathHelper.cos(ageInTicks * 0.1F);
+		float f = Maths.cos(ageInTicks * 0.1F);
 		upperBodyParts[1].rotateAngleX = (0.065F + 0.05F * f) * (float) Math.PI;
-		upperBodyParts[2].setRotationPoint(-2F, 6.9F + MathHelper.cos(upperBodyParts[1].rotateAngleX) * 10F, -0.5F + MathHelper.sin(upperBodyParts[1].rotateAngleX) * 10F);
+		upperBodyParts[2].setRotationPoint(-2F, 6.9F + Maths.cos(upperBodyParts[1].rotateAngleX) * 10F, -0.5F + Maths.sin(upperBodyParts[1].rotateAngleX) * 10F);
 		upperBodyParts[2].rotateAngleX = (0.265F + 0.1F * f) * (float) Math.PI;
 		heads[0].rotateAngleY = netHeadYaw * 0.017453292F;
 		heads[0].rotateAngleX = headPitch * 0.017453292F;

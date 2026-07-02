@@ -6,7 +6,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 
 public class PhaseSittingFlaming extends PhaseSittingBase {
@@ -66,14 +66,14 @@ public class PhaseSittingFlaming extends PhaseSittingBase {
 			double d0 = dragon.dragonPartHead.posX + vec3d.x() * 5D / 2D;
 			double d1 = dragon.dragonPartHead.posZ + vec3d.z() * 5D / 2D;
 			double d2 = dragon.dragonPartHead.posY + (double) (dragon.dragonPartHead.height / 2F);
-			BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(d0), MathHelper.floor(d2), MathHelper.floor(d1));
+			BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(Maths.floor(d0), Maths.floor(d2), Maths.floor(d1));
 
 			while (dragon.world.isAirBlock(blockpos$mutableblockpos)) {
 				--d2;
-				blockpos$mutableblockpos.setPos(MathHelper.floor(d0), MathHelper.floor(d2), MathHelper.floor(d1));
+				blockpos$mutableblockpos.setPos(Maths.floor(d0), Maths.floor(d2), Maths.floor(d1));
 			}
 
-			d2 = MathHelper.floor(d2) + 1;
+			d2 = Maths.floor(d2) + 1;
 			areaEffectCloud = new EntityAreaEffectCloud(dragon.world, d0, d2, d1);
 			areaEffectCloud.setOwner(dragon);
 			areaEffectCloud.setRadius(5F);

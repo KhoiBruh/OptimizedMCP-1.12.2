@@ -24,7 +24,7 @@ import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
@@ -114,7 +114,7 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	}
 
 	public int getVariant() {
-		return MathHelper.clamp(dataManager.get(DATA_VARIANT_ID), 0, 3);
+		return Maths.clamp(dataManager.get(DATA_VARIANT_ID), 0, 3);
 	}
 
 	public void setVariant(int variantIn) {
@@ -127,8 +127,8 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 
 	public void updatePassenger(Entity passenger) {
 		if (isPassenger(passenger)) {
-			float f = MathHelper.cos(renderYawOffset * 0.017453292F);
-			float f1 = MathHelper.sin(renderYawOffset * 0.017453292F);
+			float f = Maths.cos(renderYawOffset * 0.017453292F);
+			float f1 = Maths.sin(renderYawOffset * 0.017453292F);
 			float f2 = 0.3F;
 			passenger.setPosition(posX + (double) (0.3F * f1), posY + getMountedYOffset() + passenger.getYOffset(), posZ - (double) (0.3F * f));
 		}
@@ -364,7 +364,7 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 		double d0 = target.posX - posX;
 		double d1 = target.getEntityBoundingBox().minY + (double) (target.height / 3F) - entityllamaspit.posY;
 		double d2 = target.posZ - posZ;
-		float f = MathHelper.sqrt(d0 * d0 + d2 * d2) * 0.2F;
+		float f = Maths.sqrt(d0 * d0 + d2 * d2) * 0.2F;
 		entityllamaspit.shoot(d0, d1 + (double) f, d2, 1.5F, 10F);
 		world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_LLAMA_SPIT, getSoundCategory(), 1F, 1F + (rand.nextFloat() - rand.nextFloat()) * 0.2F);
 		world.spawnEntity(entityllamaspit);
@@ -376,7 +376,7 @@ public class EntityLlama extends AbstractChestHorse implements IRangedAttackMob 
 	}
 
 	public void fall(float distance, float damageMultiplier) {
-		int i = MathHelper.ceil((distance * 0.5F - 3F) * damageMultiplier);
+		int i = Maths.ceil((distance * 0.5F - 3F) * damageMultiplier);
 
 		if (i > 0) {
 			if (distance >= 6F) {

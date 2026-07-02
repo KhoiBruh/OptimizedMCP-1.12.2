@@ -1,7 +1,7 @@
 package net.minecraft.client.model;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class ModelBook extends ModelBase {
 
@@ -70,17 +70,17 @@ public class ModelBook extends ModelBase {
 	 * "far" arms and legs can swing at most.
 	 */
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-		float f = (MathHelper.sin(limbSwing * 0.02F) * 0.1F + 1.25F) * netHeadYaw;
+		float f = (Maths.sin(limbSwing * 0.02F) * 0.1F + 1.25F) * netHeadYaw;
 		coverRight.rotateAngleY = (float) Math.PI + f;
 		coverLeft.rotateAngleY = -f;
 		pagesRight.rotateAngleY = f;
 		pagesLeft.rotateAngleY = -f;
 		flippingPageRight.rotateAngleY = f - f * 2F * limbSwingAmount;
 		flippingPageLeft.rotateAngleY = f - f * 2F * ageInTicks;
-		pagesRight.rotationPointX = MathHelper.sin(f);
-		pagesLeft.rotationPointX = MathHelper.sin(f);
-		flippingPageRight.rotationPointX = MathHelper.sin(f);
-		flippingPageLeft.rotationPointX = MathHelper.sin(f);
+		pagesRight.rotationPointX = Maths.sin(f);
+		pagesLeft.rotationPointX = Maths.sin(f);
+		flippingPageRight.rotationPointX = Maths.sin(f);
+		flippingPageLeft.rotationPointX = Maths.sin(f);
 	}
 
 }

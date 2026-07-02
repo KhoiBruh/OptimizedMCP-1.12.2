@@ -6,7 +6,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 public class TileEntityNote extends TileEntity {
@@ -31,7 +31,7 @@ public class TileEntityNote extends TileEntity {
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
 		note = compound.getByte("note");
-		note = (byte) MathHelper.clamp(note, 0, 24);
+		note = (byte) Maths.clamp(note, 0, 24);
 		previousRedstoneState = compound.getBoolean("powered");
 	}
 

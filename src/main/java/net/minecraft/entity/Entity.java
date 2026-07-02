@@ -451,7 +451,7 @@ public abstract class Entity implements ICommandSender {
 		float f1 = rotationYaw;
 		rotationYaw = (float) ((double) rotationYaw + (double) yaw * 0.15D);
 		rotationPitch = (float) ((double) rotationPitch - (double) pitch * 0.15D);
-		rotationPitch = MathHelper.clamp(rotationPitch, -90F, 90F);
+		rotationPitch = Maths.clamp(rotationPitch, -90F, 90F);
 		prevRotationPitch += rotationPitch - f;
 		prevRotationYaw += rotationYaw - f1;
 
@@ -659,7 +659,7 @@ public abstract class Entity implements ICommandSender {
 
 				if (x != 0D) {
 					int j = Facing.Axis.X.ordinal();
-					double d0 = MathHelper.clamp(x + pistonDeltas[j], -0.51D, 0.51D);
+					double d0 = Maths.clamp(x + pistonDeltas[j], -0.51D, 0.51D);
 					x = d0 - pistonDeltas[j];
 					pistonDeltas[j] = d0;
 
@@ -668,7 +668,7 @@ public abstract class Entity implements ICommandSender {
 					}
 				} else if (y != 0D) {
 					int l4 = Facing.Axis.Y.ordinal();
-					double d12 = MathHelper.clamp(y + pistonDeltas[l4], -0.51D, 0.51D);
+					double d12 = Maths.clamp(y + pistonDeltas[l4], -0.51D, 0.51D);
 					y = d12 - pistonDeltas[l4];
 					pistonDeltas[l4] = d12;
 
@@ -681,7 +681,7 @@ public abstract class Entity implements ICommandSender {
 					}
 
 					int i5 = Facing.Axis.Z.ordinal();
-					double d13 = MathHelper.clamp(z + pistonDeltas[i5], -0.51D, 0.51D);
+					double d13 = Maths.clamp(z + pistonDeltas[i5], -0.51D, 0.51D);
 					z = d13 - pistonDeltas[i5];
 					pistonDeltas[i5] = d13;
 
@@ -891,9 +891,9 @@ public abstract class Entity implements ICommandSender {
 			collidedVertically = d3 != y;
 			onGround = collidedVertically && d3 < 0D;
 			collided = collidedHorizontally || collidedVertically;
-			int j6 = MathHelper.floor(posX);
-			int i1 = MathHelper.floor(posY - 0.20000000298023224D);
-			int k6 = MathHelper.floor(posZ);
+			int j6 = Maths.floor(posX);
+			int i1 = Maths.floor(posY - 0.20000000298023224D);
+			int k6 = Maths.floor(posZ);
 			BlockPos blockpos = new BlockPos(j6, i1, k6);
 			IBlockState iblockstate = world.getBlockState(blockpos);
 
@@ -937,8 +937,8 @@ public abstract class Entity implements ICommandSender {
 					block.onEntityWalk(world, blockpos, this);
 				}
 
-				distanceWalkedModified = (float) ((double) distanceWalkedModified + (double) MathHelper.sqrt(d15 * d15 + d17 * d17) * 0.6D);
-				distanceWalkedOnStepModified = (float) ((double) distanceWalkedOnStepModified + (double) MathHelper.sqrt(d15 * d15 + d16 * d16 + d17 * d17) * 0.6D);
+				distanceWalkedModified = (float) ((double) distanceWalkedModified + (double) Maths.sqrt(d15 * d15 + d17 * d17) * 0.6D);
+				distanceWalkedOnStepModified = (float) ((double) distanceWalkedOnStepModified + (double) Maths.sqrt(d15 * d15 + d16 * d16 + d17 * d17) * 0.6D);
 
 				if (distanceWalkedOnStepModified > (float) nextStepDistance && iblockstate.getMaterial() != Material.AIR) {
 					nextStepDistance = (int) distanceWalkedOnStepModified + 1;
@@ -946,7 +946,7 @@ public abstract class Entity implements ICommandSender {
 					if (isInWater()) {
 						Entity entity = isBeingRidden() && getControllingPassenger() != null ? getControllingPassenger() : this;
 						float f = entity == this ? 0.35F : 0.4F;
-						float f1 = MathHelper.sqrt(entity.motionX * entity.motionX * 0.20000000298023224D + entity.motionY * entity.motionY + entity.motionZ * entity.motionZ * 0.20000000298023224D) * f;
+						float f1 = Maths.sqrt(entity.motionX * entity.motionX * 0.20000000298023224D + entity.motionY * entity.motionY + entity.motionZ * entity.motionZ * 0.20000000298023224D) * f;
 
 						if (f1 > 1F) {
 							f1 = 1F;
@@ -1210,14 +1210,14 @@ public abstract class Entity implements ICommandSender {
 	protected void doWaterSplashEffect() {
 		Entity entity = isBeingRidden() && getControllingPassenger() != null ? getControllingPassenger() : this;
 		float f = entity == this ? 0.2F : 0.9F;
-		float f1 = MathHelper.sqrt(entity.motionX * entity.motionX * 0.20000000298023224D + entity.motionY * entity.motionY + entity.motionZ * entity.motionZ * 0.20000000298023224D) * f;
+		float f1 = Maths.sqrt(entity.motionX * entity.motionX * 0.20000000298023224D + entity.motionY * entity.motionY + entity.motionZ * entity.motionZ * 0.20000000298023224D) * f;
 
 		if (f1 > 1F) {
 			f1 = 1F;
 		}
 
 		playSound(getSplashSound(), f1, 1F + (rand.nextFloat() - rand.nextFloat()) * 0.4F);
-		float f2 = (float) MathHelper.floor(getEntityBoundingBox().minY);
+		float f2 = (float) Maths.floor(getEntityBoundingBox().minY);
 
 		for (int i = 0; (float) i < 1F + width * 20F; ++i) {
 			float f3 = (rand.nextFloat() * 2F - 1F) * width;
@@ -1242,9 +1242,9 @@ public abstract class Entity implements ICommandSender {
 	}
 
 	protected void createRunningParticles() {
-		int i = MathHelper.floor(posX);
-		int j = MathHelper.floor(posY - 0.20000000298023224D);
-		int k = MathHelper.floor(posZ);
+		int i = Maths.floor(posX);
+		int j = Maths.floor(posY - 0.20000000298023224D);
+		int k = Maths.floor(posZ);
 		BlockPos blockpos = new BlockPos(i, j, k);
 		IBlockState iblockstate = world.getBlockState(blockpos);
 
@@ -1283,7 +1283,7 @@ public abstract class Entity implements ICommandSender {
 		float f = strafe * strafe + up * up + forward * forward;
 
 		if (f >= 1.0E-4F) {
-			f = MathHelper.sqrt(f);
+			f = Maths.sqrt(f);
 
 			if (f < 1F) {
 				f = 1F;
@@ -1293,8 +1293,8 @@ public abstract class Entity implements ICommandSender {
 			strafe = strafe * f;
 			up = up * f;
 			forward = forward * f;
-			float f1 = MathHelper.sin(rotationYaw * 0.017453292F);
-			float f2 = MathHelper.cos(rotationYaw * 0.017453292F);
+			float f1 = Maths.sin(rotationYaw * 0.017453292F);
+			float f2 = Maths.cos(rotationYaw * 0.017453292F);
 			motionX += strafe * f2 - forward * f1;
 			motionY += up;
 			motionZ += forward * f2 + strafe * f1;
@@ -1302,10 +1302,10 @@ public abstract class Entity implements ICommandSender {
 	}
 
 	public int getBrightnessForRender() {
-		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(posX), 0, MathHelper.floor(posZ));
+		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(Maths.floor(posX), 0, Maths.floor(posZ));
 
 		if (world.isBlockLoaded(blockpos$mutableblockpos)) {
-			blockpos$mutableblockpos.setY(MathHelper.floor(posY + (double) getEyeHeight()));
+			blockpos$mutableblockpos.setY(Maths.floor(posY + (double) getEyeHeight()));
 			return world.getCombinedLight(blockpos$mutableblockpos, 0);
 		} else {
 			return 0;
@@ -1316,10 +1316,10 @@ public abstract class Entity implements ICommandSender {
 	 * Gets how bright this entity is.
 	 */
 	public float getBrightness() {
-		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(posX), 0, MathHelper.floor(posZ));
+		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(Maths.floor(posX), 0, Maths.floor(posZ));
 
 		if (world.isBlockLoaded(blockpos$mutableblockpos)) {
-			blockpos$mutableblockpos.setY(MathHelper.floor(posY + (double) getEyeHeight()));
+			blockpos$mutableblockpos.setY(Maths.floor(posY + (double) getEyeHeight()));
 			return world.getLightBrightness(blockpos$mutableblockpos);
 		} else {
 			return 0F;
@@ -1337,13 +1337,13 @@ public abstract class Entity implements ICommandSender {
 	 * Sets position and rotation, clamping and wrapping params to valid values. Used by network code.
 	 */
 	public void setPositionAndRotation(double x, double y, double z, float yaw, float pitch) {
-		posX = MathHelper.clamp(x, -3.0E7D, 3.0E7D);
+		posX = Maths.clamp(x, -3.0E7D, 3.0E7D);
 		posY = y;
-		posZ = MathHelper.clamp(z, -3.0E7D, 3.0E7D);
+		posZ = Maths.clamp(z, -3.0E7D, 3.0E7D);
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
-		pitch = MathHelper.clamp(pitch, -90F, 90F);
+		pitch = Maths.clamp(pitch, -90F, 90F);
 		rotationYaw = yaw;
 		rotationPitch = pitch;
 		prevRotationYaw = rotationYaw;
@@ -1391,7 +1391,7 @@ public abstract class Entity implements ICommandSender {
 		float f = (float) (posX - entityIn.posX);
 		float f1 = (float) (posY - entityIn.posY);
 		float f2 = (float) (posZ - entityIn.posZ);
-		return MathHelper.sqrt(f * f + f1 * f1 + f2 * f2);
+		return Maths.sqrt(f * f + f1 * f1 + f2 * f2);
 	}
 
 	/**
@@ -1419,7 +1419,7 @@ public abstract class Entity implements ICommandSender {
 		double d0 = posX - x;
 		double d1 = posY - y;
 		double d2 = posZ - z;
-		return MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+		return Maths.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
 	}
 
 	/**
@@ -1446,10 +1446,10 @@ public abstract class Entity implements ICommandSender {
 			if (!entityIn.noClip && !noClip) {
 				double d0 = entityIn.posX - posX;
 				double d1 = entityIn.posZ - posZ;
-				double d2 = MathHelper.absMax(d0, d1);
+				double d2 = Maths.absMax(d0, d1);
 
 				if (d2 >= 0.009999999776482582D) {
-					d2 = MathHelper.sqrt(d2);
+					d2 = Maths.sqrt(d2);
 					d0 = d0 / d2;
 					d1 = d1 / d2;
 					double d3 = 1D / d2;
@@ -1523,10 +1523,10 @@ public abstract class Entity implements ICommandSender {
 	 * Creates a Vec3 using the pitch and yaw of the entities rotation.
 	 */
 	protected final Vec3d getVectorForRotation(float pitch, float yaw) {
-		float f = MathHelper.cos(-yaw * 0.017453292F - (float) Math.PI);
-		float f1 = MathHelper.sin(-yaw * 0.017453292F - (float) Math.PI);
-		float f2 = -MathHelper.cos(-pitch * 0.017453292F);
-		float f3 = MathHelper.sin(-pitch * 0.017453292F);
+		float f = Maths.cos(-yaw * 0.017453292F - (float) Math.PI);
+		float f1 = Maths.sin(-yaw * 0.017453292F - (float) Math.PI);
+		float f2 = -Maths.cos(-pitch * 0.017453292F);
+		float f3 = Maths.sin(-pitch * 0.017453292F);
 		return new Vec3d(f1 * f2, f3, f * f2);
 	}
 
@@ -1877,9 +1877,9 @@ public abstract class Entity implements ICommandSender {
 			BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
 
 			for (int i = 0; i < 8; ++i) {
-				int j = MathHelper.floor(posY + (double) (((float) ((i) % 2) - 0.5F) * 0.1F) + (double) getEyeHeight());
-				int k = MathHelper.floor(posX + (double) (((float) ((i >> 1) % 2) - 0.5F) * width * 0.8F));
-				int l = MathHelper.floor(posZ + (double) (((float) ((i >> 2) % 2) - 0.5F) * width * 0.8F));
+				int j = Maths.floor(posY + (double) (((float) ((i) % 2) - 0.5F) * 0.1F) + (double) getEyeHeight());
+				int k = Maths.floor(posX + (double) (((float) ((i >> 1) % 2) - 0.5F) * width * 0.8F));
+				int l = Maths.floor(posZ + (double) (((float) ((i >> 2) % 2) - 0.5F) * width * 0.8F));
 
 				if (blockpos$pooledmutableblockpos.getX() != k || blockpos$pooledmutableblockpos.getY() != j || blockpos$pooledmutableblockpos.getZ() != l) {
 					blockpos$pooledmutableblockpos.setPos(k, j, l);
@@ -2073,11 +2073,11 @@ public abstract class Entity implements ICommandSender {
 				                                                                                                       .getZ() : (double) blockpattern$patternhelper.getFrontTopLeft()
 				                                                                                                                                                    .getX();
 				double d1 = blockpattern$patternhelper.getForwards().getAxis() == Facing.Axis.X ? posZ : posX;
-				d1 = Math.abs(MathHelper.pct(d1 - (double) (blockpattern$patternhelper.getForwards()
-				                                                                      .rotateY()
-				                                                                      .getAxisDirection() == Facing.AxisDirection.NEGATIVE ? 1 : 0), d0, d0 - (double) blockpattern$patternhelper.getWidth()));
-				double d2 = MathHelper.pct(posY - 1D, blockpattern$patternhelper.getFrontTopLeft()
-				                                                                .getY(), blockpattern$patternhelper.getFrontTopLeft()
+				d1 = Math.abs(Maths.pct(d1 - (double) (blockpattern$patternhelper.getForwards()
+				                                                                 .rotateY()
+				                                                                 .getAxisDirection() == Facing.AxisDirection.NEGATIVE ? 1 : 0), d0, d0 - (double) blockpattern$patternhelper.getWidth()));
+				double d2 = Maths.pct(posY - 1D, blockpattern$patternhelper.getFrontTopLeft()
+				                                                           .getY(), blockpattern$patternhelper.getFrontTopLeft()
 				                                                                                                   .getY() - blockpattern$patternhelper.getHeight());
 				lastPortalVec = new Vec3d(d1, d2, 0D);
 				teleportDirection = blockpattern$patternhelper.getForwards();
@@ -2472,23 +2472,23 @@ public abstract class Entity implements ICommandSender {
 				double d2 = 8D;
 
 				if (dimensionIn == -1) {
-					d0 = MathHelper.clamp(d0 / 8D, worldserver1.getWorldBorder()
-					                                           .minX() + 16D, worldserver1.getWorldBorder()
+					d0 = Maths.clamp(d0 / 8D, worldserver1.getWorldBorder()
+					                                      .minX() + 16D, worldserver1.getWorldBorder()
 					                                                                      .maxX() - 16D);
-					d1 = MathHelper.clamp(d1 / 8D, worldserver1.getWorldBorder()
-					                                           .minZ() + 16D, worldserver1.getWorldBorder()
+					d1 = Maths.clamp(d1 / 8D, worldserver1.getWorldBorder()
+					                                      .minZ() + 16D, worldserver1.getWorldBorder()
 					                                                                      .maxZ() - 16D);
 				} else if (dimensionIn == 0) {
-					d0 = MathHelper.clamp(d0 * 8D, worldserver1.getWorldBorder()
-					                                           .minX() + 16D, worldserver1.getWorldBorder()
+					d0 = Maths.clamp(d0 * 8D, worldserver1.getWorldBorder()
+					                                      .minX() + 16D, worldserver1.getWorldBorder()
 					                                                                      .maxX() - 16D);
-					d1 = MathHelper.clamp(d1 * 8D, worldserver1.getWorldBorder()
-					                                           .minZ() + 16D, worldserver1.getWorldBorder()
+					d1 = Maths.clamp(d1 * 8D, worldserver1.getWorldBorder()
+					                                      .minZ() + 16D, worldserver1.getWorldBorder()
 					                                                                      .maxZ() - 16D);
 				}
 
-				d0 = MathHelper.clamp((int) d0, -29999872, 29999872);
-				d1 = MathHelper.clamp((int) d1, -29999872, 29999872);
+				d0 = Maths.clamp((int) d0, -29999872, 29999872);
+				d1 = Maths.clamp((int) d1, -29999872, 29999872);
 				float f = rotationYaw;
 				setLocationAndAngles(d0, posY, d1, 90F, 0F);
 				Teleporter teleporter = worldserver1.getDefaultTeleporter();
@@ -2573,7 +2573,7 @@ public abstract class Entity implements ICommandSender {
 		category.addCrashSection("Entity ID", entityId);
 		category.addDetail("Entity Name", this::getName);
 		category.addCrashSection("Entity's Exact location", String.format("%.2f, %.2f, %.2f", posX, posY, posZ));
-		category.addCrashSection("Entity's Block location", CrashReportCategory.getCoordinateInfo(MathHelper.floor(posX), MathHelper.floor(posY), MathHelper.floor(posZ)));
+		category.addCrashSection("Entity's Block location", CrashReportCategory.getCoordinateInfo(Maths.floor(posX), Maths.floor(posY), Maths.floor(posZ)));
 		category.addCrashSection("Entity's Momentum", String.format("%.2f, %.2f, %.2f", motionX, motionY, motionZ));
 		category.addDetail("Entity's Passengers", () -> getPassengers().toString());
 		category.addDetail("Entity's Vehicle", () -> getRidingEntity().toString());
@@ -2662,7 +2662,7 @@ public abstract class Entity implements ICommandSender {
 	 * Gets the horizontal facing direction of this Entity.
 	 */
 	public Facing getHorizontalFacing() {
-		return Facing.getHorizontal(MathHelper.floor((double) (rotationYaw * 4F / 360F) + 0.5D) & 3);
+		return Facing.getHorizontal(Maths.floor((double) (rotationYaw * 4F / 360F) + 0.5D) & 3);
 	}
 
 	/**
@@ -2834,7 +2834,7 @@ public abstract class Entity implements ICommandSender {
 	 * Transforms the entity's current yaw with the given Rotation and returns it. This does not have a side-effect.
 	 */
 	public float getRotatedYaw(Rotation transformRotation) {
-		float f = MathHelper.wrapDegrees(rotationYaw);
+		float f = Maths.wrapDegrees(rotationYaw);
 
 		return switch (transformRotation) {
 			case CLOCKWISE_180 -> f + 180F;
@@ -2848,7 +2848,7 @@ public abstract class Entity implements ICommandSender {
 	 * Transforms the entity's current yaw with the given Mirror and returns it. This does not have a side-effect.
 	 */
 	public float getMirroredYaw(Mirror transformMirror) {
-		float f = MathHelper.wrapDegrees(rotationYaw);
+		float f = Maths.wrapDegrees(rotationYaw);
 
 		return switch (transformMirror) {
 			case LEFT_RIGHT -> -f;

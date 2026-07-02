@@ -2,7 +2,7 @@ package net.minecraft.command;
 
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.border.WorldBorder;
 
@@ -153,7 +153,7 @@ public class CommandWorldBorder extends CommandBase {
 					}
 
 					double d7 = worldborder.getDiameter();
-					sender.setCommandStat(CommandResultStats.Type.QUERY_RESULT, MathHelper.floor(d7 + 0.5D));
+					sender.setCommandStat(CommandResultStats.Type.QUERY_RESULT, Maths.floor(d7 + 0.5D));
 					sender.sendMessage(new TextComponentTranslation("commands.worldborder.get.success", String.format("%.0f", d7)));
 				}
 			}

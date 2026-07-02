@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 import java.util.Map;
 import java.util.Objects;
@@ -114,7 +114,7 @@ public class GuiAdvancementTab extends Gui {
 	public void drawToolTips(int p_192991_1_, int p_192991_2_, int p_192991_3_, int p_192991_4_) {
 		GLS.pushMatrix();
 		GLS.translate(0F, 0F, 200F);
-		drawRect(0, 0, 234, 113, MathHelper.floor(fade * 255F) << 24);
+		drawRect(0, 0, 234, 113, Maths.floor(fade * 255F) << 24);
 		boolean flag = false;
 
 		if (p_192991_1_ > 0 && p_192991_1_ < 234 && p_192991_2_ > 0 && p_192991_2_ < 113) {
@@ -130,9 +130,9 @@ public class GuiAdvancementTab extends Gui {
 		GLS.popMatrix();
 
 		if (flag) {
-			fade = MathHelper.clamp(fade + 0.02F, 0F, 0.3F);
+			fade = Maths.clamp(fade + 0.02F, 0F, 0.3F);
 		} else {
-			fade = MathHelper.clamp(fade - 0.04F, 0F, 1F);
+			fade = Maths.clamp(fade - 0.04F, 0F, 1F);
 		}
 	}
 
@@ -142,11 +142,11 @@ public class GuiAdvancementTab extends Gui {
 
 	public void scroll(int p_191797_1_, int p_191797_2_) {
 		if (maxX - minX > 234) {
-			scrollX = MathHelper.clamp(scrollX + p_191797_1_, -(maxX - 234), 0);
+			scrollX = Maths.clamp(scrollX + p_191797_1_, -(maxX - 234), 0);
 		}
 
 		if (maxY - minY > 113) {
-			scrollY = MathHelper.clamp(scrollY + p_191797_2_, -(maxY - 113), 0);
+			scrollY = Maths.clamp(scrollY + p_191797_2_, -(maxY - 113), 0);
 		}
 	}
 

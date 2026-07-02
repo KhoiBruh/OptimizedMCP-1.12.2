@@ -1,7 +1,7 @@
 package net.minecraft.client.model;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class ModelVillager extends ModelBase {
 
@@ -84,8 +84,8 @@ public class ModelVillager extends ModelBase {
 		villagerArms.rotationPointY = 3F;
 		villagerArms.rotationPointZ = -1F;
 		villagerArms.rotateAngleX = -0.75F;
-		rightVillagerLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount * 0.5F;
-		leftVillagerLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount * 0.5F;
+		rightVillagerLeg.rotateAngleX = Maths.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount * 0.5F;
+		leftVillagerLeg.rotateAngleX = Maths.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount * 0.5F;
 		rightVillagerLeg.rotateAngleY = 0F;
 		leftVillagerLeg.rotateAngleY = 0F;
 	}

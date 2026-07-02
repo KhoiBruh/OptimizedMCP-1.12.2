@@ -8,7 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -28,7 +28,7 @@ public class EntityLlamaSpit extends Entity implements IProjectile {
 	public EntityLlamaSpit(World worldIn, EntityLlama p_i47273_2_) {
 		super(worldIn);
 		owner = p_i47273_2_;
-		setPosition(p_i47273_2_.posX - (double) (p_i47273_2_.width + 1F) * 0.5D * (double) MathHelper.sin(p_i47273_2_.renderYawOffset * 0.017453292F), p_i47273_2_.posY + (double) p_i47273_2_.getEyeHeight() - 0.10000000149011612D, p_i47273_2_.posZ + (double) (p_i47273_2_.width + 1F) * 0.5D * (double) MathHelper.cos(p_i47273_2_.renderYawOffset * 0.017453292F));
+		setPosition(p_i47273_2_.posX - (double) (p_i47273_2_.width + 1F) * 0.5D * (double) Maths.sin(p_i47273_2_.renderYawOffset * 0.017453292F), p_i47273_2_.posY + (double) p_i47273_2_.getEyeHeight() - 0.10000000149011612D, p_i47273_2_.posZ + (double) (p_i47273_2_.width + 1F) * 0.5D * (double) Maths.cos(p_i47273_2_.renderYawOffset * 0.017453292F));
 		setSize(0.25F, 0.25F);
 	}
 
@@ -79,10 +79,10 @@ public class EntityLlamaSpit extends Entity implements IProjectile {
 		posX += motionX;
 		posY += motionY;
 		posZ += motionZ;
-		float f = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
-		rotationYaw = (float) (MathHelper.atan2(motionX, motionZ) * (180D / Math.PI));
+		float f = Maths.sqrt(motionX * motionX + motionZ * motionZ);
+		rotationYaw = (float) (Maths.atan2(motionX, motionZ) * (180D / Math.PI));
 
-		for (rotationPitch = (float) (MathHelper.atan2(motionY, f) * (180D / Math.PI)); rotationPitch - prevRotationPitch < -180F; prevRotationPitch -= 360F) {
+		for (rotationPitch = (float) (Maths.atan2(motionY, f) * (180D / Math.PI)); rotationPitch - prevRotationPitch < -180F; prevRotationPitch -= 360F) {
 		}
 
 		while (rotationPitch - prevRotationPitch >= 180F) {
@@ -128,9 +128,9 @@ public class EntityLlamaSpit extends Entity implements IProjectile {
 		motionZ = z;
 
 		if (prevRotationPitch == 0F && prevRotationYaw == 0F) {
-			float f = MathHelper.sqrt(x * x + z * z);
-			rotationPitch = (float) (MathHelper.atan2(y, f) * (180D / Math.PI));
-			rotationYaw = (float) (MathHelper.atan2(x, z) * (180D / Math.PI));
+			float f = Maths.sqrt(x * x + z * z);
+			rotationPitch = (float) (Maths.atan2(y, f) * (180D / Math.PI));
+			rotationYaw = (float) (Maths.atan2(x, z) * (180D / Math.PI));
 			prevRotationPitch = rotationPitch;
 			prevRotationYaw = rotationYaw;
 			setLocationAndAngles(posX, posY, posZ, rotationYaw, rotationPitch);
@@ -166,7 +166,7 @@ public class EntityLlamaSpit extends Entity implements IProjectile {
 	 * Similar to setArrowHeading, it's point the throwable entity to a x, y, z direction.
 	 */
 	public void shoot(double x, double y, double z, float velocity, float inaccuracy) {
-		float f = MathHelper.sqrt(x * x + y * y + z * z);
+		float f = Maths.sqrt(x * x + y * y + z * z);
 		x = x / (double) f;
 		y = y / (double) f;
 		z = z / (double) f;
@@ -179,9 +179,9 @@ public class EntityLlamaSpit extends Entity implements IProjectile {
 		motionX = x;
 		motionY = y;
 		motionZ = z;
-		float f1 = MathHelper.sqrt(x * x + z * z);
-		rotationYaw = (float) (MathHelper.atan2(x, z) * (180D / Math.PI));
-		rotationPitch = (float) (MathHelper.atan2(y, f1) * (180D / Math.PI));
+		float f1 = Maths.sqrt(x * x + z * z);
+		rotationYaw = (float) (Maths.atan2(x, z) * (180D / Math.PI));
+		rotationPitch = (float) (Maths.atan2(y, f1) * (180D / Math.PI));
 		prevRotationYaw = rotationYaw;
 		prevRotationPitch = rotationPitch;
 	}

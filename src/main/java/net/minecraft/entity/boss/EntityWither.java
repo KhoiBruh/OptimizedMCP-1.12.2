@@ -28,7 +28,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.entity.EntitySelectors;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.BossInfo;
 import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.Difficulty;
@@ -156,7 +156,7 @@ public class EntityWither extends EntityMob implements IRangedAttackMob {
 				double d3 = d0 * d0 + d1 * d1;
 
 				if (d3 > 9D) {
-					double d5 = MathHelper.sqrt(d3);
+					double d5 = Maths.sqrt(d3);
 					motionX += (d0 / d5 * 0.5D - motionX) * 0.6000000238418579D;
 					motionZ += (d1 / d5 * 0.5D - motionZ) * 0.6000000238418579D;
 				}
@@ -164,7 +164,7 @@ public class EntityWither extends EntityMob implements IRangedAttackMob {
 		}
 
 		if (motionX * motionX + motionZ * motionZ > 0.05000000074505806D) {
-			rotationYaw = (float) MathHelper.atan2(motionZ, motionX) * (180F / (float) Math.PI) - 90F;
+			rotationYaw = (float) Maths.atan2(motionZ, motionX) * (180F / (float) Math.PI) - 90F;
 		}
 
 		super.onLivingUpdate();
@@ -189,9 +189,9 @@ public class EntityWither extends EntityMob implements IRangedAttackMob {
 				double d6 = entity1.posX - d11;
 				double d7 = entity1.posY + (double) entity1.getEyeHeight() - d12;
 				double d8 = entity1.posZ - d13;
-				double d9 = MathHelper.sqrt(d6 * d6 + d8 * d8);
-				float f = (float) (MathHelper.atan2(d8, d6) * (180D / Math.PI)) - 90F;
-				float f1 = (float) (-(MathHelper.atan2(d7, d9) * (180D / Math.PI)));
+				double d9 = Maths.sqrt(d6 * d6 + d8 * d8);
+				float f = (float) (Maths.atan2(d8, d6) * (180D / Math.PI)) - 90F;
+				float f1 = (float) (-(Maths.atan2(d7, d9) * (180D / Math.PI)));
 				xRotationHeads[j] = rotlerp(xRotationHeads[j], f1, 40F);
 				yRotationHeads[j] = rotlerp(yRotationHeads[j], f, 10F);
 			} else {
@@ -249,9 +249,9 @@ public class EntityWither extends EntityMob implements IRangedAttackMob {
 						if (k3 > 15) {
 							float f = 10F;
 							float f1 = 5F;
-							double d0 = MathHelper.nextDouble(rand, posX - 10D, posX + 10D);
-							double d1 = MathHelper.nextDouble(rand, posY - 5D, posY + 5D);
-							double d2 = MathHelper.nextDouble(rand, posZ - 10D, posZ + 10D);
+							double d0 = Maths.nextDouble(rand, posX - 10D, posX + 10D);
+							double d1 = Maths.nextDouble(rand, posY - 5D, posY + 5D);
+							double d2 = Maths.nextDouble(rand, posZ - 10D, posZ + 10D);
 							launchWitherSkullToCoords(i + 1, d0, d1, d2, true);
 							idleHeadUpdates[i - 1] = 0;
 						}
@@ -307,9 +307,9 @@ public class EntityWither extends EntityMob implements IRangedAttackMob {
 				--blockBreakCounter;
 
 				if (blockBreakCounter == 0 && world.getGameRules().getBoolean("mobGriefing")) {
-					int i1 = MathHelper.floor(posY);
-					int l1 = MathHelper.floor(posX);
-					int i2 = MathHelper.floor(posZ);
+					int i1 = Maths.floor(posY);
+					int l1 = Maths.floor(posX);
+					int i2 = Maths.floor(posZ);
 					boolean flag = false;
 
 					for (int k2 = -1; k2 <= 1; ++k2) {
@@ -380,7 +380,7 @@ public class EntityWither extends EntityMob implements IRangedAttackMob {
 			return posX;
 		} else {
 			float f = (renderYawOffset + (float) (180 * (p_82214_1_ - 1))) * 0.017453292F;
-			float f1 = MathHelper.cos(f);
+			float f1 = Maths.cos(f);
 			return posX + (double) f1 * 1.3D;
 		}
 	}
@@ -394,13 +394,13 @@ public class EntityWither extends EntityMob implements IRangedAttackMob {
 			return posZ;
 		} else {
 			float f = (renderYawOffset + (float) (180 * (p_82213_1_ - 1))) * 0.017453292F;
-			float f1 = MathHelper.sin(f);
+			float f1 = Maths.sin(f);
 			return posZ + (double) f1 * 1.3D;
 		}
 	}
 
 	private float rotlerp(float p_82204_1_, float p_82204_2_, float p_82204_3_) {
-		float f = MathHelper.wrapDegrees(p_82204_2_ - p_82204_1_);
+		float f = Maths.wrapDegrees(p_82204_2_ - p_82204_1_);
 
 		if (f > p_82204_3_) {
 			f = p_82204_3_;

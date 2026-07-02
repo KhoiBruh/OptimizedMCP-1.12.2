@@ -6,7 +6,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerEnchantment;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -58,7 +58,7 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
 		if (entityplayer != null) {
 			double d0 = entityplayer.posX - (double) ((float) pos.getX() + 0.5F);
 			double d1 = entityplayer.posZ - (double) ((float) pos.getZ() + 0.5F);
-			tRot = (float) MathHelper.atan2(d1, d0);
+			tRot = (float) Maths.atan2(d1, d0);
 			bookSpread += 0.1F;
 
 			if (bookSpread < 0.5F || rand.nextInt(40) == 0) {
@@ -103,12 +103,12 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
 		}
 
 		bookRotation += f2 * 0.4F;
-		bookSpread = MathHelper.clamp(bookSpread, 0F, 1F);
+		bookSpread = Maths.clamp(bookSpread, 0F, 1F);
 		++tickCount;
 		pageFlipPrev = pageFlip;
 		float f = (flipT - pageFlip) * 0.4F;
 		float f3 = 0.2F;
-		f = MathHelper.clamp(f, -0.2F, 0.2F);
+		f = Maths.clamp(f, -0.2F, 0.2F);
 		flipA += (f - flipA) * 0.9F;
 		pageFlip += flipA;
 	}

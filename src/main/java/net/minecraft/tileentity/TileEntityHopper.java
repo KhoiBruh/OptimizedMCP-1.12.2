@@ -19,7 +19,7 @@ import net.minecraft.util.datafix.walkers.ItemStackDataLists;
 import net.minecraft.util.entity.EntitySelectors;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -249,9 +249,9 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 	 */
 	public static IInventory getInventoryAtPosition(World worldIn, double x, double y, double z) {
 		IInventory iinventory = null;
-		int i = MathHelper.floor(x);
-		int j = MathHelper.floor(y);
-		int k = MathHelper.floor(z);
+		int i = Maths.floor(x);
+		int j = Maths.floor(y);
+		int k = Maths.floor(z);
 		BlockPos blockpos = new BlockPos(i, j, k);
 		Block block = worldIn.getBlockState(blockpos).getBlock();
 

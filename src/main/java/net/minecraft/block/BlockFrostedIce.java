@@ -6,7 +6,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -30,14 +30,14 @@ public class BlockFrostedIce extends BlockIce {
 	 * Convert the given metadata into a BlockState for this Block
 	 */
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(AGE, MathHelper.clamp(meta, 0, 3));
+		return getDefaultState().withProperty(AGE, Maths.clamp(meta, 0, 3));
 	}
 
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 		if ((rand.nextInt(3) == 0 || countNeighbors(worldIn, pos) < 4) && worldIn.getLightFromNeighbors(pos) > 11 - state.getValue(AGE) - state.getLightOpacity()) {
 			slightlyMelt(worldIn, pos, state, rand, true);
 		} else {
-			worldIn.scheduleUpdate(pos, this, MathHelper.getInt(rand, 20, 40));
+			worldIn.scheduleUpdate(pos, this, Maths.getInt(rand, 20, 40));
 		}
 	}
 
@@ -77,7 +77,7 @@ public class BlockFrostedIce extends BlockIce {
 
 		if (i < 3) {
 			worldIn.setBlockState(pos, state.withProperty(AGE, i + 1), 2);
-			worldIn.scheduleUpdate(pos, this, MathHelper.getInt(rand, 20, 40));
+			worldIn.scheduleUpdate(pos, this, Maths.getInt(rand, 20, 40));
 		} else {
 			turnIntoWater(worldIn, pos);
 

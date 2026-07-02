@@ -5,7 +5,7 @@ import com.google.gson.*;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.JsonUtils;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -81,8 +81,8 @@ public class LootTable {
 		p_186463_2_ = p_186463_2_ - stacks.size();
 
 		while (p_186463_2_ > 0 && !list.isEmpty()) {
-			ItemStack itemstack2 = list.remove(MathHelper.getInt(rand, 0, list.size() - 1));
-			int i = MathHelper.getInt(rand, 1, itemstack2.getCount() / 2);
+			ItemStack itemstack2 = list.remove(Maths.getInt(rand, 0, list.size() - 1));
+			int i = Maths.getInt(rand, 1, itemstack2.getCount() / 2);
 			ItemStack itemstack1 = itemstack2.splitStack(i);
 
 			if (itemstack2.getCount() > 1 && rand.nextBoolean()) {

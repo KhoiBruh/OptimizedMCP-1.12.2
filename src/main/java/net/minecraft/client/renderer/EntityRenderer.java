@@ -198,7 +198,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			for (int j = 0; j < 32; ++j) {
 				float f = (float) (j - 16);
 				float f1 = (float) (i - 16);
-				float f2 = MathHelper.sqrt(f * f + f1 * f1);
+				float f2 = Maths.sqrt(f * f + f1 * f1);
 				rainXCoords[i << 5 | j] = -f1 / f2;
 				rainYCoords[i << 5 | j] = f / f2;
 			}
@@ -530,7 +530,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			}
 
 			f = f / (float) entitylivingbase.maxHurtTime;
-			f = MathHelper.sin(f * f * f * f * (float) Math.PI);
+			f = Maths.sin(f * f * f * f * (float) Math.PI);
 			float f2 = entitylivingbase.attackedAtYaw;
 			GLS.rotate(-f2, 0F, 1F, 0F);
 			GLS.rotate(-f * 14F, 0F, 0F, 1F);
@@ -547,9 +547,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			float f1 = -(entityplayer.distanceWalkedModified + f * partialTicks);
 			float f2 = entityplayer.prevCameraYaw + (entityplayer.cameraYaw - entityplayer.prevCameraYaw) * partialTicks;
 			float f3 = entityplayer.prevCameraPitch + (entityplayer.cameraPitch - entityplayer.prevCameraPitch) * partialTicks;
-			GLS.translate(MathHelper.sin(f1 * (float) Math.PI) * f2 * 0.5F, -Math.abs(MathHelper.cos(f1 * (float) Math.PI) * f2), 0F);
-			GLS.rotate(MathHelper.sin(f1 * (float) Math.PI) * f2 * 3F, 0F, 0F, 1F);
-			GLS.rotate(Math.abs(MathHelper.cos(f1 * (float) Math.PI - 0.2F) * f2) * 5F, 1F, 0F, 0F);
+			GLS.translate(Maths.sin(f1 * (float) Math.PI) * f2 * 0.5F, -Math.abs(Maths.cos(f1 * (float) Math.PI) * f2), 0F);
+			GLS.rotate(Maths.sin(f1 * (float) Math.PI) * f2 * 3F, 0F, 0F, 1F);
+			GLS.rotate(Math.abs(Maths.cos(f1 * (float) Math.PI - 0.2F) * f2) * 5F, 1F, 0F, 0F);
 			GLS.rotate(f3, 1F, 0F, 0F);
 		}
 	}
@@ -594,9 +594,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 					f2 += 180F;
 				}
 
-				double d4 = (double) (-MathHelper.sin(f1 * 0.017453292F) * MathHelper.cos(f2 * 0.017453292F)) * d3;
-				double d5 = (double) (MathHelper.cos(f1 * 0.017453292F) * MathHelper.cos(f2 * 0.017453292F)) * d3;
-				double d6 = (double) (-MathHelper.sin(f2 * 0.017453292F)) * d3;
+				double d4 = (double) (-Maths.sin(f1 * 0.017453292F) * Maths.cos(f2 * 0.017453292F)) * d3;
+				double d5 = (double) (Maths.cos(f1 * 0.017453292F) * Maths.cos(f2 * 0.017453292F)) * d3;
+				double d6 = (double) (-Maths.sin(f2 * 0.017453292F)) * d3;
 
 				for (int i = 0; i < 8; ++i) {
 					float f3 = (float) ((i & 1) * 2 - 1);
@@ -663,7 +663,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
 		Projection.perspective(getFOVModifier(partialTicks, true), (float) mc.getWindow()
 		                                                                     .getWidth() / (float) mc.getWindow()
-		                                                                                             .getHeight(), 0.05F, farPlaneDistance * MathHelper.SQRT_2);
+		                                                                                             .getHeight(), 0.05F, farPlaneDistance * Maths.SQRT_2);
 		GLS.matrixMode(5888);
 		GLS.loadIdentity();
 
@@ -916,7 +916,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
 	private float getNightVisionBrightness(EntityLivingBase entitylivingbaseIn, float partialTicks) {
 		int i = entitylivingbaseIn.getActivePotionEffect(MobEffects.NIGHT_VISION).getDuration();
-		return i > 200 ? 1F : 0.7F + MathHelper.sin(((float) i - partialTicks) * (float) Math.PI * 0.2F) * 0.3F;
+		return i > 200 ? 1F : 0.7F + Maths.sin(((float) i - partialTicks) * (float) Math.PI * 0.2F) * 0.3F;
 	}
 
 	public void updateCameraAndRender(float partialTicks, long nanoTime) {
@@ -1155,7 +1155,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			GLS.loadIdentity();
 			Projection.perspective(getFOVModifier(partialTicks, true), (float) mc.getWindow()
 			                                                                     .getWidth() / (float) mc.getWindow()
-			                                                                                             .getHeight(), 0.05F, farPlaneDistance * MathHelper.SQRT_2);
+			                                                                                             .getHeight(), 0.05F, farPlaneDistance * Maths.SQRT_2);
 			GLS.matrixMode(5888);
 		}
 
@@ -1291,7 +1291,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			GLS.loadIdentity();
 			Projection.perspective(getFOVModifier(partialTicks, true), (float) mc.getWindow()
 			                                                                     .getWidth() / (float) mc.getWindow()
-			                                                                                             .getHeight(), 0.05F, farPlaneDistance * MathHelper.SQRT_2);
+			                                                                                             .getHeight(), 0.05F, farPlaneDistance * Maths.SQRT_2);
 			GLS.matrixMode(5888);
 		}
 	}
@@ -1354,7 +1354,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 				rainSoundCounter = 0;
 
 				if (d1 > (double) (blockpos.getY() + 1) && world.getPrecipitationHeight(blockpos)
-				                                                .getY() > MathHelper.floor((float) blockpos.getY())) {
+				                                                .getY() > Maths.floor((float) blockpos.getY())) {
 					mc.world.playSound(d0, d1, d2, SoundEvents.WEATHER_RAIN_ABOVE, SoundCategory.WEATHER, 0.1F, 0.5F, false);
 				} else {
 					mc.world.playSound(d0, d1, d2, SoundEvents.WEATHER_RAIN, SoundCategory.WEATHER, 0.2F, 1F, false);
@@ -1373,9 +1373,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			enableLightmap();
 			Entity entity = mc.getRenderViewEntity();
 			World world = mc.world;
-			int i = MathHelper.floor(entity.posX);
-			int j = MathHelper.floor(entity.posY);
-			int k = MathHelper.floor(entity.posZ);
+			int i = Maths.floor(entity.posX);
+			int j = Maths.floor(entity.posY);
+			int k = Maths.floor(entity.posZ);
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferbuilder = tessellator.getBuffer();
 			GLS.disableCull();
@@ -1386,7 +1386,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double) partialTicks;
 			double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double) partialTicks;
 			double d2 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * (double) partialTicks;
-			int l = MathHelper.floor(d1);
+			int l = Maths.floor(d1);
 			int i1 = 5;
 
 			if (mc.gameSettings.fancyGraphics) {
@@ -1441,7 +1441,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 								double d5 = -((double) (rendererUpdateCount + l1 * l1 * 3121 + l1 * 45238971 + k1 * k1 * 418711 + k1 * 13761 & 31) + (double) partialTicks) / 32D * (3D + random.nextDouble());
 								double d6 = (double) ((float) l1 + 0.5F) - entity.posX;
 								double d7 = (double) ((float) k1 + 0.5F) - entity.posZ;
-								float f3 = MathHelper.sqrt(d6 * d6 + d7 * d7) / (float) i1;
+								float f3 = Maths.sqrt(d6 * d6 + d7 * d7) / (float) i1;
 								float f4 = ((1F - f3 * f3) * 0.5F + 0.5F) * f;
 								blockpos$mutableblockpos.setPos(l1, i3, k1);
 								int j3 = world.getCombinedLight(blockpos$mutableblockpos, 0);
@@ -1483,7 +1483,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 								double d10 = random.nextDouble() + (double) (f1 * (float) random.nextGaussian()) * 0.001D;
 								double d11 = (double) ((float) l1 + 0.5F) - entity.posX;
 								double d12 = (double) ((float) k1 + 0.5F) - entity.posZ;
-								float f6 = MathHelper.sqrt(d11 * d11 + d12 * d12) / (float) i1;
+								float f6 = Maths.sqrt(d11 * d11 + d12 * d12) / (float) i1;
 								float f5 = ((1F - f6 * f6) * 0.3F + 0.5F) * f;
 								blockpos$mutableblockpos.setPos(l1, i3, k1);
 								int i4 = (world.getCombinedLight(blockpos$mutableblockpos, 0) * 3 + 15728880) / 4;
@@ -1558,7 +1558,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		fogColorBlue = (float) vec3d1.z();
 
 		if (mc.gameSettings.renderDistanceChunks >= 4) {
-			double d0 = MathHelper.sin(world.getCelestialAngleRadians(partialTicks)) > 0F ? -1D : 1D;
+			double d0 = Maths.sin(world.getCelestialAngleRadians(partialTicks)) > 0F ? -1D : 1D;
 			Vec3d vec3d2 = new Vec3d(d0, 0D, 0D);
 			float f5 = (float) entity.getLook(partialTicks).dotProduct(vec3d2);
 
@@ -1809,12 +1809,12 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			GLS.enableDepth();
 			GLS.disableCull();
 			RenderHelper.enableStandardItemLighting();
-			GLS.translate((float) (p_190563_1_ / 2) + f5 * MathHelper.abs(MathHelper.sin(f4 * 2F)), (float) (p_190563_2_ / 2) + f6 * MathHelper.abs(MathHelper.sin(f4 * 2F)), -50F);
-			float f7 = 50F + 175F * MathHelper.sin(f4);
+			GLS.translate((float) (p_190563_1_ / 2) + f5 * Maths.abs(Maths.sin(f4 * 2F)), (float) (p_190563_2_ / 2) + f6 * Maths.abs(Maths.sin(f4 * 2F)), -50F);
+			float f7 = 50F + 175F * Maths.sin(f4);
 			GLS.scale(f7, -f7, f7);
-			GLS.rotate(900F * MathHelper.abs(MathHelper.sin(f4)), 0F, 1F, 0F);
-			GLS.rotate(6F * MathHelper.cos(f * 8F), 1F, 0F, 0F);
-			GLS.rotate(6F * MathHelper.cos(f * 8F), 0F, 0F, 1F);
+			GLS.rotate(900F * Maths.abs(Maths.sin(f4)), 0F, 1F, 0F);
+			GLS.rotate(6F * Maths.cos(f * 8F), 1F, 0F, 0F);
+			GLS.rotate(6F * Maths.cos(f * 8F), 0F, 0F, 1F);
 			mc.getRenderItem().renderItem(itemActivationItem, ItemCameraTransforms.TransformType.FIXED);
 			GLS.popAttrib();
 			GLS.popMatrix();

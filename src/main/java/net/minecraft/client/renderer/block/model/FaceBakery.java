@@ -3,7 +3,7 @@ package net.minecraft.client.renderer.block.model;
 import net.minecraft.client.renderer.FaceDirection;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.Facing;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3i;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -208,7 +208,7 @@ public class FaceBakery {
 
 	private int getFaceShadeColor(Facing facing) {
 		float f = getFaceBrightness(facing);
-		int i = MathHelper.clamp((int) (f * 255F), 0, 255);
+		int i = Maths.clamp((int) (f * 255F), 0, 255);
 		return -16777216 | i << 16 | i << 8 | i;
 	}
 
@@ -382,7 +382,7 @@ public class FaceBakery {
 				float f6 = Float.intBitsToFloat(aint[l + 1]);
 				float f7 = Float.intBitsToFloat(aint[l + 2]);
 
-				if (MathHelper.epsilonEquals(f8, f5) && MathHelper.epsilonEquals(f3, f6) && MathHelper.epsilonEquals(f4, f7)) {
+				if (Maths.epsilonEquals(f8, f5) && Maths.epsilonEquals(f3, f6) && Maths.epsilonEquals(f4, f7)) {
 					p_178408_1_[j1 + 4] = aint[l + 4];
 					p_178408_1_[j1 + 4 + 1] = aint[l + 4 + 1];
 				}

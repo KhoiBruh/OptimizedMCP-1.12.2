@@ -19,7 +19,7 @@ import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
@@ -69,7 +69,7 @@ public class ItemMonsterPlacer extends Item {
 				entity = EntityList.createEntityByIDFromName(entityID, worldIn);
 
 				if (entity instanceof EntityLiving entityliving) {
-					entity.setLocationAndAngles(x, y, z, MathHelper.wrapDegrees(worldIn.rand.nextFloat() * 360F), 0F);
+					entity.setLocationAndAngles(x, y, z, Maths.wrapDegrees(worldIn.rand.nextFloat() * 360F), 0F);
 					entityliving.rotationYawHead = entityliving.rotationYaw;
 					entityliving.renderYawOffset = entityliving.rotationYaw;
 					entityliving.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityliving)), null);

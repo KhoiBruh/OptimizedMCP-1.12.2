@@ -5,7 +5,7 @@ import net.minecraft.block.BlockFlower;
 import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenBigMushroom;
@@ -56,7 +56,7 @@ public class BiomeForest extends Biome {
 	public BlockFlower.FlowerType pickRandomFlower(Random rand, BlockPos pos) {
 
 		if (type == BiomeForest.Type.FLOWER) {
-			double d0 = MathHelper.clamp((1D + GRASS_COLOR_NOISE.getValue((double) pos.getX() / 48D, (double) pos.getZ() / 48D)) / 2D, 0D, 0.9999D);
+			double d0 = Maths.clamp((1D + GRASS_COLOR_NOISE.getValue((double) pos.getX() / 48D, (double) pos.getZ() / 48D)) / 2D, 0D, 0.9999D);
 			BlockFlower.FlowerType blockflower$enumflowertype = BlockFlower.FlowerType.values()[(int) (d0 * (double) BlockFlower.FlowerType.values().length)];
 			return blockflower$enumflowertype == BlockFlower.FlowerType.BLUE_ORCHID ? BlockFlower.FlowerType.POPPY : blockflower$enumflowertype;
 		} else {

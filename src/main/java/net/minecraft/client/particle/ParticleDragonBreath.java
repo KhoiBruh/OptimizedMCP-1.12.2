@@ -2,7 +2,7 @@ package net.minecraft.client.particle;
 
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 public class ParticleDragonBreath extends Particle {
@@ -15,9 +15,9 @@ public class ParticleDragonBreath extends Particle {
 		motionX = xSpeed;
 		motionY = ySpeed;
 		motionZ = zSpeed;
-		particleRed = MathHelper.nextFloat(rand, 0.7176471F, 0.8745098F);
-		particleGreen = MathHelper.nextFloat(rand, 0F, 0F);
-		particleBlue = MathHelper.nextFloat(rand, 0.8235294F, 0.9764706F);
+		particleRed = Maths.nextFloat(rand, 0.7176471F, 0.8745098F);
+		particleGreen = Maths.nextFloat(rand, 0F, 0F);
+		particleBlue = Maths.nextFloat(rand, 0.8235294F, 0.9764706F);
 		particleScale *= 0.75F;
 		oSize = particleScale;
 		particleMaxAge = (int) (20D / ((double) rand.nextFloat() * 0.8D + 0.2D));
@@ -63,7 +63,7 @@ public class ParticleDragonBreath extends Particle {
 	 * Renders the particle
 	 */
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-		particleScale = oSize * MathHelper.clamp(((float) particleAge + partialTicks) / (float) particleMaxAge * 32F, 0F, 1F);
+		particleScale = oSize * Maths.clamp(((float) particleAge + partialTicks) / (float) particleMaxAge * 32F, 0F, 1F);
 		super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
 	}
 

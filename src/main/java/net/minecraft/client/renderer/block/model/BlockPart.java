@@ -4,7 +4,7 @@ import com.google.common.collect.Maps;
 import com.google.gson.*;
 import net.minecraft.util.Facing;
 import net.minecraft.util.JsonUtils;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import org.joml.Vector3f;
 
 import java.lang.reflect.Type;
@@ -80,7 +80,7 @@ public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<Facing, 
 		private float parseAngle(JsonObject object) {
 			float f = JsonUtils.getFloat(object, "angle");
 
-			if (f != 0F && MathHelper.abs(f) != 22.5F && MathHelper.abs(f) != 45F) {
+			if (f != 0F && Maths.abs(f) != 22.5F && Maths.abs(f) != 45F) {
 				throw new JsonParseException("Invalid rotation " + f + " found, only -45/-22.5/0/22.5/45 allowed");
 			} else {
 				return f;

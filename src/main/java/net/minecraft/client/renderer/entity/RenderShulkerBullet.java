@@ -4,7 +4,7 @@ import net.minecraft.client.model.ModelShulkerBullet;
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.projectile.EntityShulkerBullet;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class RenderShulkerBullet extends Render<EntityShulkerBullet> {
 
@@ -37,9 +37,9 @@ public class RenderShulkerBullet extends Render<EntityShulkerBullet> {
 		float f1 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
 		float f2 = (float) entity.ticksExisted + partialTicks;
 		GLS.translate((float) x, (float) y + 0.15F, (float) z);
-		GLS.rotate(MathHelper.sin(f2 * 0.1F) * 180F, 0F, 1F, 0F);
-		GLS.rotate(MathHelper.cos(f2 * 0.1F) * 180F, 1F, 0F, 0F);
-		GLS.rotate(MathHelper.sin(f2 * 0.15F) * 360F, 0F, 0F, 1F);
+		GLS.rotate(Maths.sin(f2 * 0.1F) * 180F, 0F, 1F, 0F);
+		GLS.rotate(Maths.cos(f2 * 0.1F) * 180F, 1F, 0F, 0F);
+		GLS.rotate(Maths.sin(f2 * 0.15F) * 360F, 0F, 0F, 1F);
 		float f3 = 0.03125F;
 		GLS.enableRescaleNormal();
 		GLS.scale(-1F, -1F, 1F);

@@ -4,7 +4,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Enchantments;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class EnchantmentProtection extends Enchantment {
 
@@ -30,7 +30,7 @@ public class EnchantmentProtection extends Enchantment {
 		int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.FIRE_PROTECTION, p_92093_0_);
 
 		if (i > 0) {
-			p_92093_1_ -= MathHelper.floor((float) p_92093_1_ * (float) i * 0.15F);
+			p_92093_1_ -= Maths.floor((float) p_92093_1_ * (float) i * 0.15F);
 		}
 
 		return p_92093_1_;
@@ -40,7 +40,7 @@ public class EnchantmentProtection extends Enchantment {
 		int i = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.BLAST_PROTECTION, entityLivingBaseIn);
 
 		if (i > 0) {
-			damage -= MathHelper.floor(damage * (double) ((float) i * 0.15F));
+			damage -= Maths.floor(damage * (double) ((float) i * 0.15F));
 		}
 
 		return damage;

@@ -26,7 +26,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.*;
 import net.minecraft.world.chunk.Chunk;
@@ -122,8 +122,8 @@ public class WorldClient extends World {
 		visibleChunks.clear();
 		int i = mc.gameSettings.renderDistanceChunks;
 		profiler.startSection("buildList");
-		int j = MathHelper.floor(mc.player.posX / 16D);
-		int k = MathHelper.floor(mc.player.posZ / 16D);
+		int j = Maths.floor(mc.player.posX / 16D);
+		int k = Maths.floor(mc.player.posZ / 16D);
 
 		for (int l = -i; l <= i; ++l) {
 			for (int i1 = -i; i1 <= i; ++i1) {

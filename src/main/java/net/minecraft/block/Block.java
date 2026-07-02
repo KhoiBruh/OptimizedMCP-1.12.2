@@ -1789,7 +1789,7 @@ public class Block {
 		if (block$enumoffsettype == Block.OffsetType.NONE) {
 			return Vec3d.ZERO;
 		} else {
-			long i = MathHelper.getCoordinateRandom(pos.getX(), 0, pos.getZ());
+			long i = Maths.getCoordinateRandom(pos.getX(), 0, pos.getZ());
 			return new Vec3d(((double) ((float) (i >> 16 & 15L) / 15F) - 0.5D) * 0.5D, block$enumoffsettype == Block.OffsetType.XYZ ? ((double) ((float) (i >> 20 & 15L) / 15F) - 1D) * 0.2D : 0D, ((double) ((float) (i >> 24 & 15L) / 15F) - 0.5D) * 0.5D);
 		}
 	}

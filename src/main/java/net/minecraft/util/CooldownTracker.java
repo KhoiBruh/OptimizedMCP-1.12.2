@@ -2,7 +2,7 @@ package net.minecraft.util;
 
 import com.google.common.collect.Maps;
 import net.minecraft.item.Item;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -23,7 +23,7 @@ public class CooldownTracker {
 		if (cooldowntracker$cooldown != null) {
 			float f = (float) (cooldowntracker$cooldown.expireTicks - cooldowntracker$cooldown.createTicks);
 			float f1 = (float) cooldowntracker$cooldown.expireTicks - ((float) ticks + partialTicks);
-			return MathHelper.clamp(f1 / f, 0F, 1F);
+			return Maths.clamp(f1 / f, 0F, 1F);
 		} else {
 			return 0F;
 		}

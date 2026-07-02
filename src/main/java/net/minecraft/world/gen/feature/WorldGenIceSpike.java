@@ -5,7 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -30,13 +30,13 @@ public class WorldGenIceSpike extends WorldGenerator {
 
 			for (int k = 0; k < i; ++k) {
 				float f = (1F - (float) k / (float) i) * (float) j;
-				int l = MathHelper.ceil(f);
+				int l = Maths.ceil(f);
 
 				for (int i1 = -l; i1 <= l; ++i1) {
-					float f1 = (float) MathHelper.abs(i1) - 0.25F;
+					float f1 = (float) Maths.abs(i1) - 0.25F;
 
 					for (int j1 = -l; j1 <= l; ++j1) {
-						float f2 = (float) MathHelper.abs(j1) - 0.25F;
+						float f2 = (float) Maths.abs(j1) - 0.25F;
 
 						if ((i1 == 0 && j1 == 0 || f1 * f1 + f2 * f2 <= f * f) && (i1 != -l && i1 != l && j1 != -l && j1 != l || rand.nextFloat() <= 0.75F)) {
 							IBlockState iblockstate = worldIn.getBlockState(position.add(i1, k, j1));

@@ -3,7 +3,7 @@ package net.minecraft.item;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 public class ItemClock extends Item {
@@ -42,10 +42,10 @@ public class ItemClock extends Item {
 				if (p_185087_1_.getTotalWorldTime() != lastUpdateTick) {
 					lastUpdateTick = p_185087_1_.getTotalWorldTime();
 					double d0 = p_185087_2_ - rotation;
-					d0 = MathHelper.positiveModulo(d0 + 0.5D, 1D) - 0.5D;
+					d0 = Maths.positiveModulo(d0 + 0.5D, 1D) - 0.5D;
 					rota += d0 * 0.1D;
 					rota *= 0.9D;
-					rotation = MathHelper.positiveModulo(rotation + rota, 1D);
+					rotation = Maths.positiveModulo(rotation + rota, 1D);
 				}
 
 				return rotation;

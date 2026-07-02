@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ChatAllowedCharacters;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -567,7 +567,7 @@ public class GuiTextField extends Gui {
 	public void setCursorPosition(int pos) {
 		cursorPosition = pos;
 		int i = text.length();
-		cursorPosition = MathHelper.clamp(cursorPosition, 0, i);
+		cursorPosition = Maths.clamp(cursorPosition, 0, i);
 		setSelectionPos(cursorPosition);
 	}
 
@@ -678,7 +678,7 @@ public class GuiTextField extends Gui {
 				lineScrollOffset -= lineScrollOffset - position;
 			}
 
-			lineScrollOffset = MathHelper.clamp(lineScrollOffset, 0, i);
+			lineScrollOffset = Maths.clamp(lineScrollOffset, 0, i);
 		}
 	}
 

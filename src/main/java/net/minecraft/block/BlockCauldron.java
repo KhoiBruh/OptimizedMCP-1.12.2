@@ -24,7 +24,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -197,7 +197,7 @@ public class BlockCauldron extends Block {
 	}
 
 	public void setWaterLevel(World worldIn, BlockPos pos, IBlockState state, int level) {
-		worldIn.setBlockState(pos, state.withProperty(LEVEL, MathHelper.clamp(level, 0, 3)), 2);
+		worldIn.setBlockState(pos, state.withProperty(LEVEL, Maths.clamp(level, 0, 3)), 2);
 		worldIn.updateComparatorOutputLevel(pos, this);
 	}
 

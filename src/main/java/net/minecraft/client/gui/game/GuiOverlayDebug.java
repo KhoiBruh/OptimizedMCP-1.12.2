@@ -16,7 +16,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.Facing;
 import net.minecraft.util.FrameTimer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormat;
 import net.minecraft.world.DifficultyInstance;
@@ -100,10 +100,10 @@ public class GuiOverlayDebug extends Gui {
 		int secondRed = secondColor >> 16 & 255;
 		int secondGreen = secondColor >> 8 & 255;
 		int secondBlue = secondColor & 255;
-		int alpha = MathHelper.clamp((int) ((float) firstAlpha + (float) (secondAlpha - firstAlpha) * ratio), 0, 255);
-		int red = MathHelper.clamp((int) ((float) firstRed + (float) (secondRed - firstRed) * ratio), 0, 255);
-		int green = MathHelper.clamp((int) ((float) firstGreen + (float) (secondGreen - firstGreen) * ratio), 0, 255);
-		int blue = MathHelper.clamp((int) ((float) firstBlue + (float) (secondBlue - firstBlue) * ratio), 0, 255);
+		int alpha = Maths.clamp((int) ((float) firstAlpha + (float) (secondAlpha - firstAlpha) * ratio), 0, 255);
+		int red = Maths.clamp((int) ((float) firstRed + (float) (secondRed - firstRed) * ratio), 0, 255);
+		int green = Maths.clamp((int) ((float) firstGreen + (float) (secondGreen - firstGreen) * ratio), 0, 255);
+		int blue = Maths.clamp((int) ((float) firstBlue + (float) (secondBlue - firstBlue) * ratio), 0, 255);
 		return alpha << 24 | red << 16 | green << 8 | blue;
 	}
 
@@ -173,7 +173,7 @@ public class GuiOverlayDebug extends Gui {
 			list.add(String.format("XYZ: %.3f / %.5f / %.3f", entity.posX, entity.getEntityBoundingBox().minY, entity.posZ));
 			list.add(String.format("Block: %d %d %d", blockpos.getX(), blockpos.getY(), blockpos.getZ()));
 			list.add(String.format("Chunk: %d %d %d in %d %d %d", blockpos.getX() & 15, blockpos.getY() & 15, blockpos.getZ() & 15, blockpos.getX() >> 4, blockpos.getY() >> 4, blockpos.getZ() >> 4));
-			list.add(String.format("Facing: %s (%s) (%.1f / %.1f)", enumfacing, getFacingDescription(enumfacing), MathHelper.wrapDegrees(entity.rotationYaw), MathHelper.wrapDegrees(entity.rotationPitch)));
+			list.add(String.format("Facing: %s (%s) (%.1f / %.1f)", enumfacing, getFacingDescription(enumfacing), Maths.wrapDegrees(entity.rotationYaw), Maths.wrapDegrees(entity.rotationPitch)));
 
 			if (mc.world != null) {
 				Chunk chunk = mc.world.getChunkFromBlockCoords(blockpos);
@@ -290,7 +290,7 @@ public class GuiOverlayDebug extends Gui {
 
 		while (k != j) {
 			int i1 = frametimer.getLagometerValue(along[k], 30);
-			int j1 = getFrameColor(MathHelper.clamp(i1, 0, LAGOMETER_HEIGHT), LAGOMETER_MID_HEIGHT, LAGOMETER_HEIGHT);
+			int j1 = getFrameColor(Maths.clamp(i1, 0, LAGOMETER_HEIGHT), LAGOMETER_MID_HEIGHT, LAGOMETER_HEIGHT);
 			drawVerticalLine(l, scaledHeight, scaledHeight - i1, j1);
 			++l;
 			k = frametimer.parseIndex(k + 1);

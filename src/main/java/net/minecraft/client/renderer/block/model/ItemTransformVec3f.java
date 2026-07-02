@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.block.model;
 
 import com.google.gson.*;
 import net.minecraft.util.JsonUtils;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import org.joml.Vector3f;
 
 import java.lang.reflect.Type;
@@ -39,13 +39,13 @@ public record ItemTransformVec3f(Vector3f rotation, Vector3f translation, Vector
 			Vector3f vector3f = parseVector3f(jsonobject, "rotation", ROTATION_DEFAULT);
 			Vector3f vector3f1 = parseVector3f(jsonobject, "translation", TRANSLATION_DEFAULT);
 			vector3f1.mul(0.0625F);
-			vector3f1.x = MathHelper.clamp(vector3f1.x, -5F, 5F);
-			vector3f1.y = MathHelper.clamp(vector3f1.y, -5F, 5F);
-			vector3f1.z = MathHelper.clamp(vector3f1.z, -5F, 5F);
+			vector3f1.x = Maths.clamp(vector3f1.x, -5F, 5F);
+			vector3f1.y = Maths.clamp(vector3f1.y, -5F, 5F);
+			vector3f1.z = Maths.clamp(vector3f1.z, -5F, 5F);
 			Vector3f vector3f2 = parseVector3f(jsonobject, "scale", SCALE_DEFAULT);
-			vector3f2.x = MathHelper.clamp(vector3f2.x, -4F, 4F);
-			vector3f2.y = MathHelper.clamp(vector3f2.y, -4F, 4F);
-			vector3f2.z = MathHelper.clamp(vector3f2.z, -4F, 4F);
+			vector3f2.x = Maths.clamp(vector3f2.x, -4F, 4F);
+			vector3f2.y = Maths.clamp(vector3f2.y, -4F, 4F);
+			vector3f2.z = Maths.clamp(vector3f2.z, -4F, 4F);
 			return new ItemTransformVec3f(vector3f, vector3f1, vector3f2);
 		}
 

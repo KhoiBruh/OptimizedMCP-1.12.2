@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.entity.item.EntityMinecartTNT;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class RenderTntMinecart extends RenderMinecart<EntityMinecartTNT> {
 
@@ -19,7 +19,7 @@ public class RenderTntMinecart extends RenderMinecart<EntityMinecartTNT> {
 
 		if (i > -1 && (float) i - partialTicks + 1F < 10F) {
 			float f = 1F - ((float) i - partialTicks + 1F) / 10F;
-			f = MathHelper.clamp(f, 0F, 1F);
+			f = Maths.clamp(f, 0F, 1F);
 			f = f * f;
 			f = f * f;
 			float f1 = 1F + f * 0.3F;

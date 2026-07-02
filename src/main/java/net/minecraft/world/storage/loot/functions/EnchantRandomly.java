@@ -9,7 +9,7 @@ import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 import org.apache.logging.log4j.LogManager;
@@ -51,7 +51,7 @@ public class EnchantRandomly extends LootFunction {
 			enchantment = enchantments.get(rand.nextInt(enchantments.size()));
 		}
 
-		int i = MathHelper.getInt(rand, enchantment.getMinLevel(), enchantment.getMaxLevel());
+		int i = Maths.getInt(rand, enchantment.getMinLevel(), enchantment.getMaxLevel());
 
 		if (stack.getItem() == Items.BOOK) {
 			stack = new ItemStack(Items.ENCHANTED_BOOK);

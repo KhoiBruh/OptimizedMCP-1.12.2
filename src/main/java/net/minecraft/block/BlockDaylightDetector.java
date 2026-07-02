@@ -18,7 +18,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.SkyBlock;
 import net.minecraft.world.World;
@@ -62,10 +62,10 @@ public class BlockDaylightDetector extends BlockContainer {
 			if (i > 0 && !inverted) {
 				float f1 = f < (float) Math.PI ? 0F : ((float) Math.PI * 2F);
 				f = f + (f1 - f) * 0.2F;
-				i = Math.round((float) i * MathHelper.cos(f));
+				i = Math.round((float) i * Maths.cos(f));
 			}
 
-			i = MathHelper.clamp(i, 0, 15);
+			i = Maths.clamp(i, 0, 15);
 
 			if (iblockstate.getValue(POWER) != i) {
 				worldIn.setBlockState(pos, iblockstate.withProperty(POWER, i), 3);

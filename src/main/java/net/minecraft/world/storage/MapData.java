@@ -10,7 +10,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketMaps;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -63,8 +63,8 @@ public class MapData extends WorldSavedData {
 
 	public void calculateMapCenter(double x, double z, int mapScale) {
 		int i = 128 * (1 << mapScale);
-		int j = MathHelper.floor((x + 64D) / (double) i);
-		int k = MathHelper.floor((z + 64D) / (double) i);
+		int j = Maths.floor((x + 64D) / (double) i);
+		int k = Maths.floor((z + 64D) / (double) i);
 		xCenter = j * i + i / 2 - 64;
 		zCenter = k * i + i / 2 - 64;
 	}
@@ -77,7 +77,7 @@ public class MapData extends WorldSavedData {
 		xCenter = nbt.getInteger("xCenter");
 		zCenter = nbt.getInteger("zCenter");
 		scale = nbt.getByte("scale");
-		scale = (byte) MathHelper.clamp(scale, 0, 4);
+		scale = (byte) Maths.clamp(scale, 0, 4);
 
 		if (nbt.hasKey("trackingPosition", 1)) {
 			trackingPosition = nbt.getBoolean("trackingPosition");

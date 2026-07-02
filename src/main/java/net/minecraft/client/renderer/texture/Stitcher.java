@@ -3,7 +3,7 @@ package net.minecraft.client.renderer.texture;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.client.renderer.StitcherException;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 import java.util.Arrays;
 import java.util.List;
@@ -66,8 +66,8 @@ public class Stitcher {
 			}
 		}
 
-		currentWidth = MathHelper.smallestEncompassingPowerOfTwo(currentWidth);
-		currentHeight = MathHelper.smallestEncompassingPowerOfTwo(currentHeight);
+		currentWidth = Maths.smallestEncompassingPowerOfTwo(currentWidth);
+		currentHeight = Maths.smallestEncompassingPowerOfTwo(currentHeight);
 	}
 
 	public List<TextureAtlasSprite> getStichSlots() {
@@ -121,10 +121,10 @@ public class Stitcher {
 	private boolean expandAndAllocateSlot(Stitcher.Holder p_94311_1_) {
 		int i = Math.min(p_94311_1_.getWidth(), p_94311_1_.getHeight());
 		int j = Math.max(p_94311_1_.getWidth(), p_94311_1_.getHeight());
-		int k = MathHelper.smallestEncompassingPowerOfTwo(currentWidth);
-		int l = MathHelper.smallestEncompassingPowerOfTwo(currentHeight);
-		int i1 = MathHelper.smallestEncompassingPowerOfTwo(currentWidth + i);
-		int j1 = MathHelper.smallestEncompassingPowerOfTwo(currentHeight + i);
+		int k = Maths.smallestEncompassingPowerOfTwo(currentWidth);
+		int l = Maths.smallestEncompassingPowerOfTwo(currentHeight);
+		int i1 = Maths.smallestEncompassingPowerOfTwo(currentWidth + i);
+		int j1 = Maths.smallestEncompassingPowerOfTwo(currentHeight + i);
 		boolean flag1 = i1 <= maxWidth;
 		boolean flag2 = j1 <= maxHeight;
 

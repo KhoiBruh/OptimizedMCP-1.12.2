@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.stats.RecipeBook;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 import java.util.List;
 
@@ -88,7 +88,7 @@ public class RecipeButton extends Button {
 
 			drawTexturedModalRect(x, y, i, j, width, height);
 			List<IRecipe> list = getOrderedRecipes();
-			currentIndex = MathHelper.floor(time / 30F) % list.size();
+			currentIndex = Maths.floor(time / 30F) % list.size();
 			ItemStack itemstack = list.get(currentIndex).getRecipeOutput();
 			int k = 4;
 

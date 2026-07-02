@@ -3,7 +3,7 @@ package net.minecraft.entity.ai;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class EntityLookHelper {
 
@@ -72,16 +72,16 @@ public class EntityLookHelper {
 			double d0 = posX - entity.posX;
 			double d1 = posY - (entity.posY + (double) entity.getEyeHeight());
 			double d2 = posZ - entity.posZ;
-			double d3 = MathHelper.sqrt(d0 * d0 + d2 * d2);
-			float f = (float) (MathHelper.atan2(d2, d0) * (180D / Math.PI)) - 90F;
-			float f1 = (float) (-(MathHelper.atan2(d1, d3) * (180D / Math.PI)));
+			double d3 = Maths.sqrt(d0 * d0 + d2 * d2);
+			float f = (float) (Maths.atan2(d2, d0) * (180D / Math.PI)) - 90F;
+			float f1 = (float) (-(Maths.atan2(d1, d3) * (180D / Math.PI)));
 			entity.rotationPitch = updateRotation(entity.rotationPitch, f1, deltaLookPitch);
 			entity.rotationYawHead = updateRotation(entity.rotationYawHead, f, deltaLookYaw);
 		} else {
 			entity.rotationYawHead = updateRotation(entity.rotationYawHead, entity.renderYawOffset, 10F);
 		}
 
-		float f2 = MathHelper.wrapDegrees(entity.rotationYawHead - entity.renderYawOffset);
+		float f2 = Maths.wrapDegrees(entity.rotationYawHead - entity.renderYawOffset);
 
 		if (!entity.getNavigator().noPath()) {
 			if (f2 < -75F) {
@@ -95,7 +95,7 @@ public class EntityLookHelper {
 	}
 
 	private float updateRotation(float p_75652_1_, float p_75652_2_, float p_75652_3_) {
-		float f = MathHelper.wrapDegrees(p_75652_2_ - p_75652_1_);
+		float f = Maths.wrapDegrees(p_75652_2_ - p_75652_1_);
 
 		if (f > p_75652_3_) {
 			f = p_75652_3_;

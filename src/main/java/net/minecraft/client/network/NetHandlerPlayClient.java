@@ -75,7 +75,7 @@ import net.minecraft.stats.StatBase;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormat;
@@ -202,7 +202,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 			entity = new EntityItemFrame(clientWorldController, new BlockPos(d0, d1, d2), Facing.getHorizontal(packetIn.getData()));
 			packetIn.setData(0);
 		} else if (packetIn.getType() == 77) {
-			entity = new EntityLeashKnot(clientWorldController, new BlockPos(MathHelper.floor(d0), MathHelper.floor(d1), MathHelper.floor(d2)));
+			entity = new EntityLeashKnot(clientWorldController, new BlockPos(Maths.floor(d0), Maths.floor(d1), Maths.floor(d2)));
 			packetIn.setData(0);
 		} else if (packetIn.getType() == 65) {
 			entity = new EntityEnderPearl(clientWorldController, d0, d1, d2);
@@ -1024,7 +1024,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 		EntityPlayer entityplayer = gameController.player;
 		int i = packetIn.getGameState();
 		float f = packetIn.getValue();
-		int j = MathHelper.floor(f + 0.5F);
+		int j = Maths.floor(f + 0.5F);
 
 		if (i >= 0 && i < SPacketChangeGameState.MESSAGE_NAMES.length && SPacketChangeGameState.MESSAGE_NAMES[i] != null) {
 			entityplayer.sendStatusMessage(new TextComponentTranslation(SPacketChangeGameState.MESSAGE_NAMES[i]), false);

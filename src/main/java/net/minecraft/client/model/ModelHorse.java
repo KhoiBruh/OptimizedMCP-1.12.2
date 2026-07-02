@@ -5,7 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.AbstractChestHorse;
 import net.minecraft.entity.passive.AbstractHorse;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class ModelHorse extends ModelBase {
 
@@ -354,7 +354,7 @@ public class ModelHorse extends ModelBase {
 		}
 
 		if (limbSwingAmount > 0.2F) {
-			f4 += MathHelper.cos(limbSwing * 0.4F) * 0.15F * limbSwingAmount;
+			f4 += Maths.cos(limbSwing * 0.4F) * 0.15F * limbSwingAmount;
 		}
 
 		AbstractHorse abstracthorse = (AbstractHorse) entitylivingbaseIn;
@@ -366,7 +366,7 @@ public class ModelHorse extends ModelBase {
 		boolean flag1 = abstracthorse.isHorseSaddled();
 		boolean flag2 = abstracthorse.isBeingRidden();
 		float f9 = (float) entitylivingbaseIn.ticksExisted + partialTickTime;
-		float f10 = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI);
+		float f10 = Maths.cos(limbSwing * 0.6662F + (float) Math.PI);
 		float f11 = f10 * 0.8F * limbSwingAmount;
 		head.rotationPointY = 4F;
 		head.rotationPointZ = -10F;
@@ -421,21 +421,21 @@ public class ModelHorse extends ModelBase {
 		muleLeftChest.rotateAngleX = f11 / 5F;
 		muleRightChest.rotateAngleX = -f11 / 5F;
 		float f12 = 0.2617994F * f6;
-		float f13 = MathHelper.cos(f9 * 0.6F + (float) Math.PI);
+		float f13 = Maths.cos(f9 * 0.6F + (float) Math.PI);
 		frontLeftLeg.rotationPointY = -2F * f6 + 9F * f7;
 		frontLeftLeg.rotationPointZ = -2F * f6 + -8F * f7;
 		frontRightLeg.rotationPointY = frontLeftLeg.rotationPointY;
 		frontRightLeg.rotationPointZ = frontLeftLeg.rotationPointZ;
-		backLeftShin.rotationPointY = backLeftLeg.rotationPointY + MathHelper.sin(((float) Math.PI / 2F) + f12 + f7 * -f10 * 0.5F * limbSwingAmount) * 7F;
-		backLeftShin.rotationPointZ = backLeftLeg.rotationPointZ + MathHelper.cos(-((float) Math.PI / 2F) + f12 + f7 * -f10 * 0.5F * limbSwingAmount) * 7F;
-		backRightShin.rotationPointY = backRightLeg.rotationPointY + MathHelper.sin(((float) Math.PI / 2F) + f12 + f7 * f10 * 0.5F * limbSwingAmount) * 7F;
-		backRightShin.rotationPointZ = backRightLeg.rotationPointZ + MathHelper.cos(-((float) Math.PI / 2F) + f12 + f7 * f10 * 0.5F * limbSwingAmount) * 7F;
+		backLeftShin.rotationPointY = backLeftLeg.rotationPointY + Maths.sin(((float) Math.PI / 2F) + f12 + f7 * -f10 * 0.5F * limbSwingAmount) * 7F;
+		backLeftShin.rotationPointZ = backLeftLeg.rotationPointZ + Maths.cos(-((float) Math.PI / 2F) + f12 + f7 * -f10 * 0.5F * limbSwingAmount) * 7F;
+		backRightShin.rotationPointY = backRightLeg.rotationPointY + Maths.sin(((float) Math.PI / 2F) + f12 + f7 * f10 * 0.5F * limbSwingAmount) * 7F;
+		backRightShin.rotationPointZ = backRightLeg.rotationPointZ + Maths.cos(-((float) Math.PI / 2F) + f12 + f7 * f10 * 0.5F * limbSwingAmount) * 7F;
 		float f14 = (-1.0471976F + f13) * f6 + f11 * f7;
 		float f15 = (-1.0471976F - f13) * f6 + -f11 * f7;
-		frontLeftShin.rotationPointY = frontLeftLeg.rotationPointY + MathHelper.sin(((float) Math.PI / 2F) + f14) * 7F;
-		frontLeftShin.rotationPointZ = frontLeftLeg.rotationPointZ + MathHelper.cos(-((float) Math.PI / 2F) + f14) * 7F;
-		frontRightShin.rotationPointY = frontRightLeg.rotationPointY + MathHelper.sin(((float) Math.PI / 2F) + f15) * 7F;
-		frontRightShin.rotationPointZ = frontRightLeg.rotationPointZ + MathHelper.cos(-((float) Math.PI / 2F) + f15) * 7F;
+		frontLeftShin.rotationPointY = frontLeftLeg.rotationPointY + Maths.sin(((float) Math.PI / 2F) + f14) * 7F;
+		frontLeftShin.rotationPointZ = frontLeftLeg.rotationPointZ + Maths.cos(-((float) Math.PI / 2F) + f14) * 7F;
+		frontRightShin.rotationPointY = frontRightLeg.rotationPointY + Maths.sin(((float) Math.PI / 2F) + f15) * 7F;
+		frontRightShin.rotationPointZ = frontRightLeg.rotationPointZ + Maths.cos(-((float) Math.PI / 2F) + f15) * 7F;
 		backLeftLeg.rotateAngleX = f12 + -f10 * 0.5F * limbSwingAmount * f7;
 		backLeftShin.rotateAngleX = -0.08726646F * f6 + (-f10 * 0.5F * limbSwingAmount - Math.max(0F, f10 * 0.5F * limbSwingAmount)) * f7;
 		backLeftHoof.rotateAngleX = backLeftShin.rotateAngleX;
@@ -526,7 +526,7 @@ public class ModelHorse extends ModelBase {
 		}
 
 		if (flag) {
-			tailBase.rotateAngleY = MathHelper.cos(f9 * 0.7F);
+			tailBase.rotateAngleY = Maths.cos(f9 * 0.7F);
 			f12 = 0F;
 		} else {
 			tailBase.rotateAngleY = 0F;

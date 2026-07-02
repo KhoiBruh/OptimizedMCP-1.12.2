@@ -1,6 +1,6 @@
 package net.minecraft.world;
 
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class DifficultyInstance {
 
@@ -34,11 +34,11 @@ public class DifficultyInstance {
 		} else {
 			boolean flag = difficulty == Difficulty.HARD;
 			float f = 0.75F;
-			float f1 = MathHelper.clamp(((float) worldTime - 72000F) / 1440000F, 0F, 1F) * 0.25F;
+			float f1 = Maths.clamp(((float) worldTime - 72000F) / 1440000F, 0F, 1F) * 0.25F;
 			f = f + f1;
 			float f2 = 0F;
-			f2 = f2 + MathHelper.clamp((float) chunkInhabitedTime / 3600000F, 0F, 1F) * (flag ? 1F : 0.75F);
-			f2 = f2 + MathHelper.clamp(moonPhaseFactor * 0.25F, 0F, f1);
+			f2 = f2 + Maths.clamp((float) chunkInhabitedTime / 3600000F, 0F, 1F) * (flag ? 1F : 0.75F);
+			f2 = f2 + Maths.clamp(moonPhaseFactor * 0.25F, 0F, f1);
 
 			if (difficulty == Difficulty.EASY) {
 				f2 *= 0.5F;

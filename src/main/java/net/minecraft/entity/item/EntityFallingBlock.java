@@ -23,7 +23,7 @@ import net.minecraft.util.Facing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -211,7 +211,7 @@ public class EntityFallingBlock extends Entity {
 		Block block = fallTile.getBlock();
 
 		if (hurtEntities) {
-			int i = MathHelper.ceil(distance - 1F);
+			int i = Maths.ceil(distance - 1F);
 
 			if (i > 0) {
 				List<Entity> list = Lists.newArrayList(world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox()));
@@ -219,7 +219,7 @@ public class EntityFallingBlock extends Entity {
 				DamageSource damagesource = flag ? DamageSource.ANVIL : DamageSource.FALLING_BLOCK;
 
 				for (Entity entity : list) {
-					entity.attackEntityFrom(damagesource, (float) Math.min(MathHelper.floor((float) i * fallHurtAmount), fallHurtMax));
+					entity.attackEntityFrom(damagesource, (float) Math.min(Maths.floor((float) i * fallHurtAmount), fallHurtMax));
 				}
 
 				if (flag && (double) rand.nextFloat() < 0.05000000074505806D + (double) i * 0.05D) {

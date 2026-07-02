@@ -20,7 +20,7 @@ import net.minecraft.util.Facing;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
@@ -86,7 +86,7 @@ public class ItemBanner extends ItemBlock {
 					pos = flag ? pos.down() : pos;
 
 					if (facing == Facing.UP) {
-						int i = MathHelper.floor((double) ((player.rotationYaw + 180F) * 16F / 360F) + 0.5D) & 15;
+						int i = Maths.floor((double) ((player.rotationYaw + 180F) * 16F / 360F) + 0.5D) & 15;
 						worldIn.setBlockState(pos, Blocks.STANDING_BANNER.getDefaultState()
 						                                                 .withProperty(BlockStandingSign.ROTATION, i), 3);
 					} else {

@@ -25,7 +25,7 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.entity.EntitySelectors;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IWorldNameable;
 import net.minecraft.world.World;
@@ -261,7 +261,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 				double d4 = posX + (minecartX - posX) / (double) turnProgress;
 				double d5 = posY + (minecartY - posY) / (double) turnProgress;
 				double d6 = posZ + (minecartZ - posZ) / (double) turnProgress;
-				double d1 = MathHelper.wrapDegrees(minecartYaw - (double) rotationYaw);
+				double d1 = Maths.wrapDegrees(minecartYaw - (double) rotationYaw);
 				rotationYaw = (float) ((double) rotationYaw + d1 / (double) turnProgress);
 				rotationPitch = (float) ((double) rotationPitch + (minecartPitch - (double) rotationPitch) / (double) turnProgress);
 				--turnProgress;
@@ -280,9 +280,9 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 				motionY -= 0.03999999910593033D;
 			}
 
-			int k = MathHelper.floor(posX);
-			int l = MathHelper.floor(posY);
-			int i1 = MathHelper.floor(posZ);
+			int k = Maths.floor(posX);
+			int l = Maths.floor(posY);
+			int i1 = Maths.floor(posZ);
 
 			if (BlockRailBase.isRailBlock(world, new BlockPos(k, l - 1, i1))) {
 				--l;
@@ -307,14 +307,14 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 			double d2 = prevPosZ - posZ;
 
 			if (d0 * d0 + d2 * d2 > 0.001D) {
-				rotationYaw = (float) (MathHelper.atan2(d2, d0) * 180D / Math.PI);
+				rotationYaw = (float) (Maths.atan2(d2, d0) * 180D / Math.PI);
 
 				if (isInReverse) {
 					rotationYaw += 180F;
 				}
 			}
 
-			double d3 = MathHelper.wrapDegrees(rotationYaw - prevRotationYaw);
+			double d3 = Maths.wrapDegrees(rotationYaw - prevRotationYaw);
 
 			if (d3 < -170D || d3 >= 170D) {
 				rotationYaw += 180F;
@@ -365,8 +365,8 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	 */
 	protected void moveDerailedMinecart() {
 		double d0 = getMaximumSpeed();
-		motionX = MathHelper.clamp(motionX, -d0, d0);
-		motionZ = MathHelper.clamp(motionZ, -d0, d0);
+		motionX = Maths.clamp(motionX, -d0, d0);
+		motionZ = Maths.clamp(motionZ, -d0, d0);
 
 		if (onGround) {
 			motionX *= 0.5D;
@@ -504,13 +504,13 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 		}
 
 		double d13 = getMaximumSpeed();
-		d22 = MathHelper.clamp(d22, -d13, d13);
-		d23 = MathHelper.clamp(d23, -d13, d13);
+		d22 = Maths.clamp(d22, -d13, d13);
+		d23 = Maths.clamp(d23, -d13, d13);
 		move(MoverType.SELF, d22, 0D, d23);
 
-		if (aint[0][1] != 0 && MathHelper.floor(posX) - pos.getX() == aint[0][0] && MathHelper.floor(posZ) - pos.getZ() == aint[0][2]) {
+		if (aint[0][1] != 0 && Maths.floor(posX) - pos.getX() == aint[0][0] && Maths.floor(posZ) - pos.getZ() == aint[0][2]) {
 			setPosition(posX, posY + (double) aint[0][1], posZ);
-		} else if (aint[1][1] != 0 && MathHelper.floor(posX) - pos.getX() == aint[1][0] && MathHelper.floor(posZ) - pos.getZ() == aint[1][2]) {
+		} else if (aint[1][1] != 0 && Maths.floor(posX) - pos.getX() == aint[1][0] && Maths.floor(posZ) - pos.getZ() == aint[1][2]) {
 			setPosition(posX, posY + (double) aint[1][1], posZ);
 		}
 
@@ -529,8 +529,8 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 			setPosition(posX, vec3d1.y(), posZ);
 		}
 
-		int j = MathHelper.floor(posX);
-		int i = MathHelper.floor(posZ);
+		int j = Maths.floor(posX);
+		int i = Maths.floor(posZ);
 
 		if (j != pos.getX() || i != pos.getZ()) {
 			d5 = Math.sqrt(motionX * motionX + motionZ * motionZ);
@@ -574,9 +574,9 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	}
 
 	public Vec3d getPosOffset(double x, double y, double z, double offset) {
-		int i = MathHelper.floor(x);
-		int j = MathHelper.floor(y);
-		int k = MathHelper.floor(z);
+		int i = Maths.floor(x);
+		int j = Maths.floor(y);
+		int k = Maths.floor(z);
 
 		if (BlockRailBase.isRailBlock(world, new BlockPos(i, j - 1, k))) {
 			--j;
@@ -601,9 +601,9 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 			x = x + d0 * offset;
 			z = z + d1 * offset;
 
-			if (aint[0][1] != 0 && MathHelper.floor(x) - i == aint[0][0] && MathHelper.floor(z) - k == aint[0][2]) {
+			if (aint[0][1] != 0 && Maths.floor(x) - i == aint[0][0] && Maths.floor(z) - k == aint[0][2]) {
 				y += aint[0][1];
-			} else if (aint[1][1] != 0 && MathHelper.floor(x) - i == aint[1][0] && MathHelper.floor(z) - k == aint[1][2]) {
+			} else if (aint[1][1] != 0 && Maths.floor(x) - i == aint[1][0] && Maths.floor(z) - k == aint[1][2]) {
 				y += aint[1][1];
 			}
 
@@ -614,9 +614,9 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 	}
 
 	public Vec3d getPos(double p_70489_1_, double p_70489_3_, double p_70489_5_) {
-		int i = MathHelper.floor(p_70489_1_);
-		int j = MathHelper.floor(p_70489_3_);
-		int k = MathHelper.floor(p_70489_5_);
+		int i = Maths.floor(p_70489_1_);
+		int j = Maths.floor(p_70489_3_);
+		int k = Maths.floor(p_70489_5_);
 
 		if (BlockRailBase.isRailBlock(world, new BlockPos(i, j - 1, k))) {
 			--j;
@@ -720,7 +720,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 					double d2 = d0 * d0 + d1 * d1;
 
 					if (d2 >= 9.999999747378752E-5D) {
-						d2 = MathHelper.sqrt(d2);
+						d2 = Maths.sqrt(d2);
 						d0 = d0 / d2;
 						d1 = d1 / d2;
 						double d3 = 1D / d2;
@@ -742,7 +742,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
 							double d4 = entityIn.posX - posX;
 							double d5 = entityIn.posZ - posZ;
 							Vec3d vec3d = (new Vec3d(d4, 0D, d5)).normalize();
-							Vec3d vec3d1 = (new Vec3d(MathHelper.cos(rotationYaw * 0.017453292F), 0D, MathHelper.sin(rotationYaw * 0.017453292F))).normalize();
+							Vec3d vec3d1 = (new Vec3d(Maths.cos(rotationYaw * 0.017453292F), 0D, Maths.sin(rotationYaw * 0.017453292F))).normalize();
 							double d6 = Math.abs(vec3d.dotProduct(vec3d1));
 
 							if (d6 < 0.800000011920929D) {

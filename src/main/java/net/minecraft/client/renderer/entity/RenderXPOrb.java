@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 
 public class RenderXPOrb extends Render<EntityXPOrb> {
@@ -41,9 +41,9 @@ public class RenderXPOrb extends Render<EntityXPOrb> {
 			GLS.color(1F, 1F, 1F, 1F);
 			float f8 = 255F;
 			float f9 = ((float) entity.xpColor + partialTicks) / 2F;
-			l = (int) ((MathHelper.sin(f9 + 0F) + 1F) * 0.5F * 255F);
+			l = (int) ((Maths.sin(f9 + 0F) + 1F) * 0.5F * 255F);
 			int i1 = 255;
-			int j1 = (int) ((MathHelper.sin(f9 + 4.1887903F) + 1F) * 0.1F * 255F);
+			int j1 = (int) ((Maths.sin(f9 + 4.1887903F) + 1F) * 0.1F * 255F);
 			GLS.translate(0F, 0.1F, 0F);
 			GLS.rotate(180F - renderManager.playerViewY, 0F, 1F, 0F);
 			GLS.rotate((float) (renderManager.options.thirdPersonView == 2 ? -1 : 1) * -renderManager.playerViewX, 1F, 0F, 0F);

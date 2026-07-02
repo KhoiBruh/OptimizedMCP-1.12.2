@@ -9,7 +9,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 public class ParticleFirework {
@@ -36,7 +36,7 @@ public class ParticleFirework {
 			float f1 = 0.5F;
 			float f2 = 0.125F;
 			float f3 = 0.375F;
-			float f4 = 7.1F * MathHelper.sin(((float) particleAge + partialTicks - 1F) * 0.25F * (float) Math.PI);
+			float f4 = 7.1F * Maths.sin(((float) particleAge + partialTicks - 1F) * 0.25F * (float) Math.PI);
 			setAlphaF(0.6F - ((float) particleAge + partialTicks - 1F) * 0.25F * 0.5F);
 			float f5 = (float) (prevPosX + (posX - prevPosX) * (double) partialTicks - interpPosX);
 			float f6 = (float) (prevPosY + (posY - prevPosY) * (double) partialTicks - interpPosY);
@@ -272,7 +272,7 @@ public class ParticleFirework {
 						double d3 = (double) j + (rand.nextDouble() - rand.nextDouble()) * 0.5D;
 						double d4 = (double) i + (rand.nextDouble() - rand.nextDouble()) * 0.5D;
 						double d5 = (double) k + (rand.nextDouble() - rand.nextDouble()) * 0.5D;
-						double d6 = (double) MathHelper.sqrt(d3 * d3 + d4 * d4 + d5 * d5) / speed + rand.nextGaussian() * 0.05D;
+						double d6 = (double) Maths.sqrt(d3 * d3 + d4 * d4 + d5 * d5) / speed + rand.nextGaussian() * 0.05D;
 						createParticle(d0, d1, d2, d3 / d6, d4 / d6, d5 / d6, colours, fadeColours, trail, twinkleIn);
 
 						if (i != -size && i != size && j != -size && j != size) {

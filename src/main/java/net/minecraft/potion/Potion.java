@@ -13,7 +13,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.registry.RegistryNamespaced;
 
 import java.util.Map;
@@ -81,7 +81,7 @@ public class Potion {
 		if (effect.getIsPotionDurationMax()) {
 			return "**:**";
 		} else {
-			int i = MathHelper.floor((float) effect.getDuration() * durationFactor);
+			int i = Maths.floor((float) effect.getDuration() * durationFactor);
 			return StringUtils.ticksToElapsedTime(i);
 		}
 	}

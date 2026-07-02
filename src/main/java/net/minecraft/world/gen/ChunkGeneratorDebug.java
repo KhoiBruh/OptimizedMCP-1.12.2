@@ -6,7 +6,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.CreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
@@ -27,8 +27,8 @@ public class ChunkGeneratorDebug implements IChunkGenerator {
 			ALL_VALID_STATES.addAll(block.getBlockState().getValidStates());
 		}
 
-		GRID_WIDTH = MathHelper.ceil(MathHelper.sqrt((float) ALL_VALID_STATES.size()));
-		GRID_HEIGHT = MathHelper.ceil((float) ALL_VALID_STATES.size() / (float) GRID_WIDTH);
+		GRID_WIDTH = Maths.ceil(Maths.sqrt((float) ALL_VALID_STATES.size()));
+		GRID_HEIGHT = Maths.ceil((float) ALL_VALID_STATES.size() / (float) GRID_WIDTH);
 	}
 
 	private final World world;
@@ -45,7 +45,7 @@ public class ChunkGeneratorDebug implements IChunkGenerator {
 			p_177461_1_ = p_177461_1_ / 2;
 
 			if (p_177461_0_ <= GRID_WIDTH && p_177461_1_ <= GRID_HEIGHT) {
-				int i = MathHelper.abs(p_177461_0_ * GRID_WIDTH + p_177461_1_);
+				int i = Maths.abs(p_177461_0_ * GRID_WIDTH + p_177461_1_);
 
 				if (i < ALL_VALID_STATES.size()) {
 					iblockstate = ALL_VALID_STATES.get(i);

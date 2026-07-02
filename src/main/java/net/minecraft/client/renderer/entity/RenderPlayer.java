@@ -13,7 +13,7 @@ import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.util.HandSide;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 
 public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
@@ -200,7 +200,7 @@ public class RenderPlayer extends RenderLivingBase<AbstractClientPlayer> {
 		} else if (entityLiving.isElytraFlying()) {
 			super.applyRotations(entityLiving, p_77043_2_, rotationYaw, partialTicks);
 			float f = (float) entityLiving.getTicksElytraFlying() + partialTicks;
-			float f1 = MathHelper.clamp(f * f / 100F, 0F, 1F);
+			float f1 = Maths.clamp(f * f / 100F, 0F, 1F);
 			GLS.rotate(f1 * (-90F - entityLiving.rotationPitch), 1F, 0F, 0F);
 			Vec3d vec3d = entityLiving.getLook(partialTicks);
 			double d0 = entityLiving.motionX * entityLiving.motionX + entityLiving.motionZ * entityLiving.motionZ;

@@ -28,7 +28,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormat;
 
@@ -516,7 +516,7 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 			}
 
 			currentScroll = (float) ((double) currentScroll - (double) i / (double) j);
-			currentScroll = MathHelper.clamp(currentScroll, 0F, 1F);
+			currentScroll = Maths.clamp(currentScroll, 0F, 1F);
 			((CreativeContainerScreen.ContainerCreative) inventorySlots).scrollTo(currentScroll);
 		}
 	}
@@ -546,7 +546,7 @@ public class CreativeContainerScreen extends InventoryEffectRenderer {
 
 		if (isScrolling) {
 			currentScroll = ((float) (mouseY - l) - 7.5F) / ((float) (j1 - l) - 15F);
-			currentScroll = MathHelper.clamp(currentScroll, 0F, 1F);
+			currentScroll = Maths.clamp(currentScroll, 0F, 1F);
 			((CreativeContainerScreen.ContainerCreative) inventorySlots).scrollTo(currentScroll);
 		}
 

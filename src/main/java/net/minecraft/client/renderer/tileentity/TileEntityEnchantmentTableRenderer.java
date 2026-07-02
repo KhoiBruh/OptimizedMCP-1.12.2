@@ -4,7 +4,7 @@ import net.minecraft.client.model.ModelBook;
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.tileentity.TileEntityEnchantmentTable;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class TileEntityEnchantmentTableRenderer extends TileEntitySpecialRenderer<TileEntityEnchantmentTable> {
 
@@ -18,7 +18,7 @@ public class TileEntityEnchantmentTableRenderer extends TileEntitySpecialRendere
 		GLS.pushMatrix();
 		GLS.translate((float) x + 0.5F, (float) y + 0.75F, (float) z + 0.5F);
 		float f = (float) te.tickCount + partialTicks;
-		GLS.translate(0F, 0.1F + MathHelper.sin(f * 0.1F) * 0.01F, 0F);
+		GLS.translate(0F, 0.1F + Maths.sin(f * 0.1F) * 0.01F, 0F);
 		float f1;
 
 		for (f1 = te.bookRotation - te.bookRotationPrev; f1 >= (float) Math.PI; f1 -= ((float) Math.PI * 2F)) {
@@ -34,8 +34,8 @@ public class TileEntityEnchantmentTableRenderer extends TileEntitySpecialRendere
 		bindTexture(TEXTURE_BOOK);
 		float f3 = te.pageFlipPrev + (te.pageFlip - te.pageFlipPrev) * partialTicks + 0.25F;
 		float f4 = te.pageFlipPrev + (te.pageFlip - te.pageFlipPrev) * partialTicks + 0.75F;
-		f3 = (f3 - (float) MathHelper.fastFloor(f3)) * 1.6F - 0.3F;
-		f4 = (f4 - (float) MathHelper.fastFloor(f4)) * 1.6F - 0.3F;
+		f3 = (f3 - (float) Maths.fastFloor(f3)) * 1.6F - 0.3F;
+		f4 = (f4 - (float) Maths.fastFloor(f4)) * 1.6F - 0.3F;
 
 		if (f3 < 0F) {
 			f3 = 0F;

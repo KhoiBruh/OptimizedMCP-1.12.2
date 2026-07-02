@@ -20,7 +20,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.village.Village;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
@@ -119,9 +119,9 @@ public class EntityIronGolem extends EntityGolem {
 		}
 
 		if (motionX * motionX + motionZ * motionZ > 2.500000277905201E-7D && rand.nextInt(5) == 0) {
-			int i = MathHelper.floor(posX);
-			int j = MathHelper.floor(posY - 0.20000000298023224D);
-			int k = MathHelper.floor(posZ);
+			int i = Maths.floor(posX);
+			int j = Maths.floor(posY - 0.20000000298023224D);
+			int k = Maths.floor(posZ);
 			IBlockState iblockstate = world.getBlockState(new BlockPos(i, j, k));
 
 			if (iblockstate.getMaterial() != Material.AIR) {

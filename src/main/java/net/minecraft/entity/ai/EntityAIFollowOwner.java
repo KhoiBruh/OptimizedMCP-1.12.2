@@ -11,7 +11,7 @@ import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.Facing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 public class EntityAIFollowOwner extends EntityAIBase {
@@ -98,9 +98,9 @@ public class EntityAIFollowOwner extends EntityAIBase {
 				if (!petPathfinder.tryMoveToEntityLiving(owner, followSpeed)) {
 					if (!tameable.getLeashed() && !tameable.isRiding()) {
 						if (tameable.getDistanceSq(owner) >= 144D) {
-							int i = MathHelper.floor(owner.posX) - 2;
-							int j = MathHelper.floor(owner.posZ) - 2;
-							int k = MathHelper.floor(owner.getEntityBoundingBox().minY);
+							int i = Maths.floor(owner.posX) - 2;
+							int j = Maths.floor(owner.posZ) - 2;
+							int k = Maths.floor(owner.getEntityBoundingBox().minY);
 
 							for (int l = 0; l <= 4; ++l) {
 								for (int i1 = 0; i1 <= 4; ++i1) {

@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.util.BlockRenderType;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 
 public class RenderMinecart<T extends EntityMinecart> extends Render<T> {
@@ -80,7 +80,7 @@ public class RenderMinecart<T extends EntityMinecart> extends Render<T> {
 		}
 
 		if (f5 > 0F) {
-			GLS.rotate(MathHelper.sin(f5) * f5 * f6 / 10F * (float) entity.getRollingDirection(), 1F, 0F, 0F);
+			GLS.rotate(Maths.sin(f5) * f5 * f6 / 10F * (float) entity.getRollingDirection(), 1F, 0F, 0F);
 		}
 
 		int j = entity.getDisplayTileOffset();

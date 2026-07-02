@@ -15,7 +15,7 @@ import net.minecraft.util.ParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
@@ -200,7 +200,7 @@ public class EntityShulkerBullet extends Entity {
 		double d6 = d1 - posX;
 		double d7 = d2 - posY;
 		double d4 = d3 - posZ;
-		double d5 = MathHelper.sqrt(d6 * d6 + d7 * d7 + d4 * d4);
+		double d5 = Maths.sqrt(d6 * d6 + d7 * d7 + d4 * d4);
 
 		if (d5 == 0D) {
 			targetDeltaX = 0D;
@@ -253,9 +253,9 @@ public class EntityShulkerBullet extends Entity {
 						motionY -= 0.04D;
 					}
 				} else {
-					targetDeltaX = MathHelper.clamp(targetDeltaX * 1.025D, -1D, 1D);
-					targetDeltaY = MathHelper.clamp(targetDeltaY * 1.025D, -1D, 1D);
-					targetDeltaZ = MathHelper.clamp(targetDeltaZ * 1.025D, -1D, 1D);
+					targetDeltaX = Maths.clamp(targetDeltaX * 1.025D, -1D, 1D);
+					targetDeltaY = Maths.clamp(targetDeltaY * 1.025D, -1D, 1D);
+					targetDeltaZ = Maths.clamp(targetDeltaZ * 1.025D, -1D, 1D);
 					motionX += (targetDeltaX - motionX) * 0.2D;
 					motionY += (targetDeltaY - motionY) * 0.2D;
 					motionZ += (targetDeltaZ - motionZ) * 0.2D;

@@ -14,7 +14,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
@@ -107,9 +107,9 @@ public class EntityPolarBear extends EntityAnimal {
 			clientSideStandAnimation0 = clientSideStandAnimation;
 
 			if (isStanding()) {
-				clientSideStandAnimation = MathHelper.clamp(clientSideStandAnimation + 1F, 0F, 6F);
+				clientSideStandAnimation = Maths.clamp(clientSideStandAnimation + 1F, 0F, 6F);
 			} else {
-				clientSideStandAnimation = MathHelper.clamp(clientSideStandAnimation - 1F, 0F, 6F);
+				clientSideStandAnimation = Maths.clamp(clientSideStandAnimation - 1F, 0F, 6F);
 			}
 		}
 

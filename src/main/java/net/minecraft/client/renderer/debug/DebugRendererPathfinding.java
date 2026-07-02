@@ -11,7 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 import java.util.Map;
 
@@ -121,7 +121,7 @@ public class DebugRendererPathfinding implements DebugRenderer.IDebugRenderer {
 
 			if (addDistanceToPlayer(pathpoint) <= 40F) {
 				float f = (float) i / (float) pathIn.getCurrentPathLength() * 0.33F;
-				int j = i == 0 ? 0 : MathHelper.hsvToRGB(f, 0.9F, 0.9F);
+				int j = i == 0 ? 0 : Maths.hsvToRGB(f, 0.9F, 0.9F);
 				int k = j >> 16 & 255;
 				int l = j >> 8 & 255;
 				int i1 = j & 255;

@@ -13,7 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -43,7 +43,7 @@ public abstract class BlockLiquid extends Block {
 
 	public static float getSlopeAngle(IBlockAccess worldIn, BlockPos pos, Material materialIn, IBlockState state) {
 		Vec3d vec3d = getFlowingBlock(materialIn).getFlow(worldIn, pos, state);
-		return vec3d.x() == 0D && vec3d.z() == 0D ? -1000F : (float) MathHelper.atan2(vec3d.z(), vec3d.x()) - ((float) Math.PI / 2F);
+		return vec3d.x() == 0D && vec3d.z() == 0D ? -1000F : (float) Maths.atan2(vec3d.z(), vec3d.x()) - ((float) Math.PI / 2F);
 	}
 
 	public static BlockDynamicLiquid getFlowingBlock(Material materialIn) {

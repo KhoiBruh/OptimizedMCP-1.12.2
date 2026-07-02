@@ -5,7 +5,7 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -26,12 +26,12 @@ public class WorldGenMegaJungle extends WorldGenHugeTrees {
 
 			for (int j = position.getY() + i - 2 - rand.nextInt(4); j > position.getY() + i / 2; j -= 2 + rand.nextInt(4)) {
 				float f = rand.nextFloat() * ((float) Math.PI * 2F);
-				int k = position.getX() + (int) (0.5F + MathHelper.cos(f) * 4F);
-				int l = position.getZ() + (int) (0.5F + MathHelper.sin(f) * 4F);
+				int k = position.getX() + (int) (0.5F + Maths.cos(f) * 4F);
+				int l = position.getZ() + (int) (0.5F + Maths.sin(f) * 4F);
 
 				for (int i1 = 0; i1 < 5; ++i1) {
-					k = position.getX() + (int) (1.5F + MathHelper.cos(f) * (float) i1);
-					l = position.getZ() + (int) (1.5F + MathHelper.sin(f) * (float) i1);
+					k = position.getX() + (int) (1.5F + Maths.cos(f) * (float) i1);
+					l = position.getZ() + (int) (1.5F + Maths.sin(f) * (float) i1);
 					setBlockAndNotifyAdequately(worldIn, new BlockPos(k, j - 3 + i1 / 2, l), woodMetadata);
 				}
 

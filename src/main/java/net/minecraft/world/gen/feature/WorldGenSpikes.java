@@ -4,7 +4,7 @@ import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -40,7 +40,7 @@ public class WorldGenSpikes extends WorldGenerator {
 			if (spike.isGuarded()) {
 				for (int j = -2; j <= 2; ++j) {
 					for (int k = -2; k <= 2; ++k) {
-						if (MathHelper.abs(j) == 2 || MathHelper.abs(k) == 2) {
+						if (Maths.abs(j) == 2 || Maths.abs(k) == 2) {
 							setBlockAndNotifyAdequately(worldIn, new BlockPos(position.getX() + j, spike.getHeight(), position.getZ() + k), Blocks.IRON_BARS.getDefaultState());
 							setBlockAndNotifyAdequately(worldIn, new BlockPos(position.getX() + j, spike.getHeight() + 1, position.getZ() + k), Blocks.IRON_BARS.getDefaultState());
 							setBlockAndNotifyAdequately(worldIn, new BlockPos(position.getX() + j, spike.getHeight() + 2, position.getZ() + k), Blocks.IRON_BARS.getDefaultState());

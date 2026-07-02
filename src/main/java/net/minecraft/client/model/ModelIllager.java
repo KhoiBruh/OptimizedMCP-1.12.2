@@ -4,7 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.AbstractIllager;
 import net.minecraft.util.HandSide;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 public class ModelIllager extends ModelBase {
 
@@ -88,43 +88,43 @@ public class ModelIllager extends ModelBase {
 		arms.rotationPointY = 3F;
 		arms.rotationPointZ = -1F;
 		arms.rotateAngleX = -0.75F;
-		leg0.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount * 0.5F;
-		leg1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount * 0.5F;
+		leg0.rotateAngleX = Maths.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount * 0.5F;
+		leg1.rotateAngleX = Maths.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount * 0.5F;
 		leg0.rotateAngleY = 0F;
 		leg1.rotateAngleY = 0F;
 		AbstractIllager.IllagerArmPose abstractillager$illagerarmpose = ((AbstractIllager) entityIn).getArmPose();
 
 		if (abstractillager$illagerarmpose == AbstractIllager.IllagerArmPose.ATTACKING) {
-			float f = MathHelper.sin(swingProgress * (float) Math.PI);
-			float f1 = MathHelper.sin((1F - (1F - swingProgress) * (1F - swingProgress)) * (float) Math.PI);
+			float f = Maths.sin(swingProgress * (float) Math.PI);
+			float f1 = Maths.sin((1F - (1F - swingProgress) * (1F - swingProgress)) * (float) Math.PI);
 			rightArm.rotateAngleZ = 0F;
 			leftArm.rotateAngleZ = 0F;
 			rightArm.rotateAngleY = 0.15707964F;
 			leftArm.rotateAngleY = -0.15707964F;
 
 			if (((EntityLivingBase) entityIn).getPrimaryHand() == HandSide.RIGHT) {
-				rightArm.rotateAngleX = -1.8849558F + MathHelper.cos(ageInTicks * 0.09F) * 0.15F;
-				leftArm.rotateAngleX = -0F + MathHelper.cos(ageInTicks * 0.19F) * 0.5F;
+				rightArm.rotateAngleX = -1.8849558F + Maths.cos(ageInTicks * 0.09F) * 0.15F;
+				leftArm.rotateAngleX = -0F + Maths.cos(ageInTicks * 0.19F) * 0.5F;
 				rightArm.rotateAngleX += f * 2.2F - f1 * 0.4F;
 				leftArm.rotateAngleX += f * 1.2F - f1 * 0.4F;
 			} else {
-				rightArm.rotateAngleX = -0F + MathHelper.cos(ageInTicks * 0.19F) * 0.5F;
-				leftArm.rotateAngleX = -1.8849558F + MathHelper.cos(ageInTicks * 0.09F) * 0.15F;
+				rightArm.rotateAngleX = -0F + Maths.cos(ageInTicks * 0.19F) * 0.5F;
+				leftArm.rotateAngleX = -1.8849558F + Maths.cos(ageInTicks * 0.09F) * 0.15F;
 				rightArm.rotateAngleX += f * 1.2F - f1 * 0.4F;
 				leftArm.rotateAngleX += f * 2.2F - f1 * 0.4F;
 			}
 
-			rightArm.rotateAngleZ += MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
-			leftArm.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
-			rightArm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
-			leftArm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
+			rightArm.rotateAngleZ += Maths.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
+			leftArm.rotateAngleZ -= Maths.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
+			rightArm.rotateAngleX += Maths.sin(ageInTicks * 0.067F) * 0.05F;
+			leftArm.rotateAngleX -= Maths.sin(ageInTicks * 0.067F) * 0.05F;
 		} else if (abstractillager$illagerarmpose == AbstractIllager.IllagerArmPose.SPELLCASTING) {
 			rightArm.rotationPointZ = 0F;
 			rightArm.rotationPointX = -5F;
 			leftArm.rotationPointZ = 0F;
 			leftArm.rotationPointX = 5F;
-			rightArm.rotateAngleX = MathHelper.cos(ageInTicks * 0.6662F) * 0.25F;
-			leftArm.rotateAngleX = MathHelper.cos(ageInTicks * 0.6662F) * 0.25F;
+			rightArm.rotateAngleX = Maths.cos(ageInTicks * 0.6662F) * 0.25F;
+			leftArm.rotateAngleX = Maths.cos(ageInTicks * 0.6662F) * 0.25F;
 			rightArm.rotateAngleZ = 2.3561945F;
 			leftArm.rotateAngleZ = -2.3561945F;
 			rightArm.rotateAngleY = 0F;

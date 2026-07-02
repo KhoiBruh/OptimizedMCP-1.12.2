@@ -9,7 +9,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GLS;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 
 import java.util.Collections;
 import java.util.List;
@@ -39,8 +39,8 @@ public class GuiAdvancement extends Gui {
 		displayInfo = p_i47385_4_;
 		minecraft = p_i47385_2_;
 		title = p_i47385_2_.fontRenderer.trimToWidth(p_i47385_4_.getTitle().getFormattedText(), 163);
-		x = MathHelper.floor(p_i47385_4_.getX() * 28F);
-		y = MathHelper.floor(p_i47385_4_.getY() * 27F);
+		x = Maths.floor(p_i47385_4_.getX() * 28F);
+		y = Maths.floor(p_i47385_4_.getY() * 27F);
 		int i = p_i47385_3_.getRequirementCount();
 		int j = String.valueOf(i).length();
 		int k = i > 1 ? p_i47385_2_.fontRenderer.getWidth("  ") + p_i47385_2_.fontRenderer.getWidth("0") * j * 2 + p_i47385_2_.fontRenderer.getWidth("/") : 0;
@@ -173,7 +173,7 @@ public class GuiAdvancement extends Gui {
 		int i = s == null ? 0 : minecraft.fontRenderer.getWidth(s);
 		boolean flag1 = 113 - p_191821_2_ - y - 26 <= 6 + description.size() * minecraft.fontRenderer.FONT_HEIGHT;
 		float f = advancementProgress == null ? 0F : advancementProgress.getPercent();
-		int j = MathHelper.floor(f * (float) width);
+		int j = Maths.floor(f * (float) width);
 		AdvancementState advancementstate;
 		AdvancementState advancementstate1;
 		AdvancementState advancementstate2;

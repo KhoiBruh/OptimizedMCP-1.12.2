@@ -3,7 +3,7 @@ package net.minecraft.pathfinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 
 public class PathNavigateClimber extends PathNavigateGround {
@@ -55,7 +55,7 @@ public class PathNavigateClimber extends PathNavigateGround {
 			if (targetPosition != null) {
 				double d0 = entity.width * entity.width;
 
-				if (entity.getDistanceSqToCenter(targetPosition) >= d0 && (entity.posY <= (double) targetPosition.getY() || entity.getDistanceSqToCenter(new BlockPos(targetPosition.getX(), MathHelper.floor(entity.posY), targetPosition.getZ())) >= d0)) {
+				if (entity.getDistanceSqToCenter(targetPosition) >= d0 && (entity.posY <= (double) targetPosition.getY() || entity.getDistanceSqToCenter(new BlockPos(targetPosition.getX(), Maths.floor(entity.posY), targetPosition.getZ())) >= d0)) {
 					entity.getMoveHelper()
 					      .setMoveTo(targetPosition.getX(), targetPosition.getY(), targetPosition.getZ(), speed);
 				} else {

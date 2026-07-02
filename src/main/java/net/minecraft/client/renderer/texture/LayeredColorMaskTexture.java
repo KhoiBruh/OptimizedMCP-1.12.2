@@ -4,7 +4,7 @@ import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.item.DyeColor;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -67,7 +67,7 @@ public class LayeredColorMaskTexture extends AbstractTexture {
 										if ((j1 & -16777216) != 0) {
 											int k1 = (j1 & 16711680) << 8 & -16777216;
 											int l1 = bufferedimage1.getPixel(i1, l);
-											int i2 = MathHelper.multiplyColor(l1, k) & 16777215;
+											int i2 = Maths.multiplyColor(l1, k) & 16777215;
 											bufferedimage2.setPixel(i1, l, k1 | i2);
 										}
 									}

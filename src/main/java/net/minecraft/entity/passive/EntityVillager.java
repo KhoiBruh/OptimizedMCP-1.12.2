@@ -34,7 +34,7 @@ import net.minecraft.util.datafix.DataFixesManager;
 import net.minecraft.util.datafix.FixTypes;
 import net.minecraft.util.datafix.walkers.ItemStackDataLists;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -894,7 +894,7 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant {
 
 		public void addMerchantRecipe(IMerchant merchant, MerchantRecipeList recipeList, Random random) {
 			Enchantment enchantment = Enchantment.REGISTRY.getRandomObject(random);
-			int i = MathHelper.getInt(random, enchantment.getMinLevel(), enchantment.getMaxLevel());
+			int i = Maths.getInt(random, enchantment.getMinLevel(), enchantment.getMaxLevel());
 			ItemStack itemstack = ItemEnchantedBook.getEnchantedItemStack(new EnchantmentData(enchantment, i));
 			int j = 2 + random.nextInt(5 + i * 10) + 3 * i;
 

@@ -10,7 +10,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
@@ -135,7 +135,7 @@ public class EntitySquid extends EntityWaterMob {
 		if (inWater) {
 			if (squidRotation < (float) Math.PI) {
 				float f = squidRotation / (float) Math.PI;
-				tentacleAngle = MathHelper.sin(f * f * (float) Math.PI) * (float) Math.PI * 0.25F;
+				tentacleAngle = Maths.sin(f * f * (float) Math.PI) * (float) Math.PI * 0.25F;
 
 				if ((double) f > 0.75D) {
 					randomMotionSpeed = 1F;
@@ -155,13 +155,13 @@ public class EntitySquid extends EntityWaterMob {
 				motionZ = randomMotionVecZ * randomMotionSpeed;
 			}
 
-			float f1 = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
-			renderYawOffset += (-((float) MathHelper.atan2(motionX, motionZ)) * (180F / (float) Math.PI) - renderYawOffset) * 0.1F;
+			float f1 = Maths.sqrt(motionX * motionX + motionZ * motionZ);
+			renderYawOffset += (-((float) Maths.atan2(motionX, motionZ)) * (180F / (float) Math.PI) - renderYawOffset) * 0.1F;
 			rotationYaw = renderYawOffset;
 			squidYaw = (float) ((double) squidYaw + Math.PI * (double) rotateSpeed * 1.5D);
-			squidPitch += (-((float) MathHelper.atan2(f1, motionY)) * (180F / (float) Math.PI) - squidPitch) * 0.1F;
+			squidPitch += (-((float) Maths.atan2(f1, motionY)) * (180F / (float) Math.PI) - squidPitch) * 0.1F;
 		} else {
-			tentacleAngle = MathHelper.abs(MathHelper.sin(squidRotation)) * (float) Math.PI * 0.25F;
+			tentacleAngle = Maths.abs(Maths.sin(squidRotation)) * (float) Math.PI * 0.25F;
 
 			if (!world.isRemote) {
 				motionX = 0D;
@@ -231,9 +231,9 @@ public class EntitySquid extends EntityWaterMob {
 				squid.setMovementVector(0F, 0F, 0F);
 			} else if (squid.getRNG().nextInt(50) == 0 || !squid.inWater || !squid.hasMovementVector()) {
 				float f = squid.getRNG().nextFloat() * ((float) Math.PI * 2F);
-				float f1 = MathHelper.cos(f) * 0.2F;
+				float f1 = Maths.cos(f) * 0.2F;
 				float f2 = -0.1F + squid.getRNG().nextFloat() * 0.2F;
-				float f3 = MathHelper.sin(f) * 0.2F;
+				float f3 = Maths.sin(f) * 0.2F;
 				squid.setMovementVector(f1, f2, f3);
 			}
 		}

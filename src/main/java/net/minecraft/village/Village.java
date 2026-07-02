@@ -17,7 +17,7 @@ import net.minecraft.server.management.PlayerProfileCache;
 import net.minecraft.util.Facing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Maths;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -390,7 +390,7 @@ public class Village {
 	 */
 	public int modifyPlayerReputation(String playerName, int reputation) {
 		int i = getPlayerReputation(playerName);
-		int j = MathHelper.clamp(i + reputation, -30, 10);
+		int j = Maths.clamp(i + reputation, -30, 10);
 		playerReputation.put(playerName, j);
 		return j;
 	}
