@@ -53,10 +53,8 @@ public class RenderChunk {
 		world = worldIn;
 		renderGlobal = renderGlobalIn;
 
-		if (OpenGlHelper.useVbo()) {
-			for (int j = 0; j < BlockRenderLayer.values().length; ++j) {
-				vertexBuffers[j] = new VertexBuffer(DefaultVertexFormats.BLOCK);
-			}
+		for (int j = 0; j < BlockRenderLayer.values().length; ++j) {
+			vertexBuffers[j] = new VertexBuffer(DefaultVertexFormats.BLOCK);
 		}
 	}
 

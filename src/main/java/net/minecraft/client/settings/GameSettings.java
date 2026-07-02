@@ -360,10 +360,6 @@ public class GameSettings {
 				enableVsync = !enableVsync;
 				mc.getWindow().setVSync(enableVsync);
 			}
-			case USE_VBO -> {
-				useVbo = !useVbo;
-				mc.renderGlobal.loadRenderers();
-			}
 			case REDUCED_DEBUG_INFO -> reducedDebugInfo = !reducedDebugInfo;
 			case ENTITY_SHADOWS -> entityShadows = !entityShadows;
 			case ATTACK_INDICATOR -> attackIndicator = (attackIndicator + value) % 3;
@@ -404,7 +400,6 @@ public class GameSettings {
 			case CHAT_LINKS_PROMPT -> chatLinksPrompt;
 			case USE_FULLSCREEN -> fullScreen;
 			case ENABLE_VSYNC -> enableVsync;
-			case USE_VBO -> useVbo;
 			case TOUCHSCREEN -> touchscreen;
 			case FORCE_UNICODE_FONT -> forceUnicodeFont;
 			case REDUCED_DEBUG_INFO -> reducedDebugInfo;
@@ -781,7 +776,6 @@ public class GameSettings {
 		CHAT_LINKS_PROMPT("options.chat.links.prompt", false, true),
 		USE_FULLSCREEN("options.fullscreen", false, true),
 		ENABLE_VSYNC("options.vsync", false, true),
-		USE_VBO("options.vbo", false, true),
 		TOUCHSCREEN("options.touchscreen", false, true),
 		CHAT_SCALE("options.chat.scale", true, false),
 		CHAT_WIDTH("options.chat.width", true, false),

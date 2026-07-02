@@ -85,18 +85,6 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 	private Set<RenderChunk> chunksToUpdate = Sets.newLinkedHashSet();
 	private List<RenderGlobal.ContainerLocalRenderInformation> renderInfos = Lists.newArrayListWithCapacity(69696);
 	private ViewFrustum viewFrustum;
-	/**
-	 * The star GL Call list
-	 */
-	private int starGLCallList = -1;
-	/**
-	 * OpenGL sky list
-	 */
-	private int glSkyList = -1;
-	/**
-	 * OpenGL sky list 2
-	 */
-	private int glSkyList2 = -1;
 	private VertexBuffer starVBO;
 	private VertexBuffer skyVBO;
 	private VertexBuffer sky2VBO;
@@ -139,7 +127,6 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 	 * Count entities hidden
 	 */
 	private int countEntitiesHidden;
-	private boolean vboEnabled;
 	private double prevRenderSortX;
 	private double prevRenderSortY;
 	private double prevRenderSortZ;
@@ -155,15 +142,8 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 		GLS.texParameteri(3553, 10243, 10497);
 		GLS.bindTexture(0);
 		updateDestroyBlockIcons();
-		vboEnabled = OpenGlHelper.useVbo();
-
-		if (vboEnabled) {
-			renderContainer = new VboRenderList();
-			renderChunkFactory = new VboChunkFactory();
-		} else {
-			renderContainer = new RenderList();
-			renderChunkFactory = new ListChunkFactory();
-		}
+		renderContainer = new VboRenderList();
+		renderChunkFactory = new VboChunkFactory();
 
 		vertexBufferFormat = new VertexFormat();
 		vertexBufferFormat.addElement(new VertexFormatElement(0, VertexFormatElement.Type.FLOAT, VertexFormatElement.Usage.POSITION, 3));
@@ -309,24 +289,11 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			sky2VBO.deleteGlBuffers();
 		}
 
-		if (glSkyList2 >= 0) {
-			GLAllocation.deleteDisplayLists(glSkyList2);
-			glSkyList2 = -1;
-		}
-
-		if (vboEnabled) {
-			sky2VBO = new VertexBuffer(vertexBufferFormat);
-			renderSky(bufferbuilder, -16F, true);
-			bufferbuilder.finishDrawing();
-			bufferbuilder.reset();
-			sky2VBO.bufferData(bufferbuilder.getByteBuffer());
-		} else {
-			glSkyList2 = GLAllocation.generateDisplayLists(1);
-			GLS.newList(glSkyList2, 4864);
-			renderSky(bufferbuilder, -16F, true);
-			tessellator.draw();
-			GLS.endList();
-		}
+		sky2VBO = new VertexBuffer(vertexBufferFormat);
+		renderSky(bufferbuilder, -16F, true);
+		bufferbuilder.finishDrawing();
+		bufferbuilder.reset();
+		sky2VBO.bufferData(bufferbuilder.getByteBuffer());
 	}
 
 	private void generateSky() {
@@ -337,24 +304,11 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			skyVBO.deleteGlBuffers();
 		}
 
-		if (glSkyList >= 0) {
-			GLAllocation.deleteDisplayLists(glSkyList);
-			glSkyList = -1;
-		}
-
-		if (vboEnabled) {
-			skyVBO = new VertexBuffer(vertexBufferFormat);
-			renderSky(bufferbuilder, 16F, false);
-			bufferbuilder.finishDrawing();
-			bufferbuilder.reset();
-			skyVBO.bufferData(bufferbuilder.getByteBuffer());
-		} else {
-			glSkyList = GLAllocation.generateDisplayLists(1);
-			GLS.newList(glSkyList, 4864);
-			renderSky(bufferbuilder, 16F, false);
-			tessellator.draw();
-			GLS.endList();
-		}
+		skyVBO = new VertexBuffer(vertexBufferFormat);
+		renderSky(bufferbuilder, 16F, false);
+		bufferbuilder.finishDrawing();
+		bufferbuilder.reset();
+		skyVBO.bufferData(bufferbuilder.getByteBuffer());
 	}
 
 	private void renderSky(BufferBuilder bufferBuilderIn, float posY, boolean reverseX) {
@@ -388,26 +342,11 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			starVBO.deleteGlBuffers();
 		}
 
-		if (starGLCallList >= 0) {
-			GLAllocation.deleteDisplayLists(starGLCallList);
-			starGLCallList = -1;
-		}
-
-		if (vboEnabled) {
-			starVBO = new VertexBuffer(vertexBufferFormat);
-			renderStars(bufferbuilder);
-			bufferbuilder.finishDrawing();
-			bufferbuilder.reset();
-			starVBO.bufferData(bufferbuilder.getByteBuffer());
-		} else {
-			starGLCallList = GLAllocation.generateDisplayLists(1);
-			GLS.pushMatrix();
-			GLS.newList(starGLCallList, 4864);
-			renderStars(bufferbuilder);
-			tessellator.draw();
-			GLS.endList();
-			GLS.popMatrix();
-		}
+		starVBO = new VertexBuffer(vertexBufferFormat);
+		renderStars(bufferbuilder);
+		bufferbuilder.finishDrawing();
+		bufferbuilder.reset();
+		starVBO.bufferData(bufferbuilder.getByteBuffer());
 	}
 
 	private void renderStars(BufferBuilder bufferBuilderIn) {
@@ -506,22 +445,6 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			Blocks.LEAVES.setGraphicsLevel(mc.gameSettings.fancyGraphics);
 			Blocks.LEAVES2.setGraphicsLevel(mc.gameSettings.fancyGraphics);
 			renderDistanceChunks = mc.gameSettings.renderDistanceChunks;
-			boolean flag = vboEnabled;
-			vboEnabled = OpenGlHelper.useVbo();
-
-			if (flag && !vboEnabled) {
-				renderContainer = new RenderList();
-				renderChunkFactory = new ListChunkFactory();
-			} else if (!flag && vboEnabled) {
-				renderContainer = new VboRenderList();
-				renderChunkFactory = new VboChunkFactory();
-			}
-
-			if (flag != vboEnabled) {
-				generateStars();
-				generateSky();
-				generateSky2();
-			}
 
 			if (viewFrustum != null) {
 				viewFrustum.deleteGlResources();
@@ -1137,16 +1060,12 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			GLS.enableFog();
 			GLS.color(f, f1, f2);
 
-			if (vboEnabled) {
-				skyVBO.bindBuffer();
-				GLS.enableClientState(32884);
-				GLS.vertexPointer(3, 5126, 12, 0);
-				skyVBO.drawArrays(7);
-				skyVBO.unbindBuffer();
-				GLS.disableClientState(32884);
-			} else {
-				GLS.callList(glSkyList);
-			}
+			skyVBO.bindBuffer();
+			GLS.enableClientState(32884);
+			GLS.vertexPointer(3, 5126, 12, 0);
+			skyVBO.drawArrays(7);
+			skyVBO.unbindBuffer();
+			GLS.disableClientState(32884);
 
 			GLS.disableFog();
 			GLS.disableAlpha();
@@ -1220,16 +1139,12 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 			if (f15 > 0F) {
 				GLS.color(f15, f15, f15, f15);
 
-				if (vboEnabled) {
-					starVBO.bindBuffer();
-					GLS.enableClientState(32884);
-					GLS.vertexPointer(3, 5126, 12, 0);
-					starVBO.drawArrays(7);
-					starVBO.unbindBuffer();
-					GLS.disableClientState(32884);
-				} else {
-					GLS.callList(starGLCallList);
-				}
+				starVBO.bindBuffer();
+				GLS.enableClientState(32884);
+				GLS.vertexPointer(3, 5126, 12, 0);
+				starVBO.drawArrays(7);
+				starVBO.unbindBuffer();
+				GLS.disableClientState(32884);
 			}
 
 			GLS.color(1F, 1F, 1F, 1F);
@@ -1245,16 +1160,12 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 				GLS.pushMatrix();
 				GLS.translate(0F, 12F, 0F);
 
-				if (vboEnabled) {
-					sky2VBO.bindBuffer();
-					GLS.enableClientState(32884);
-					GLS.vertexPointer(3, 5126, 12, 0);
-					sky2VBO.drawArrays(7);
-					sky2VBO.unbindBuffer();
-					GLS.disableClientState(32884);
-				} else {
-					GLS.callList(glSkyList2);
-				}
+				sky2VBO.bindBuffer();
+				GLS.enableClientState(32884);
+				GLS.vertexPointer(3, 5126, 12, 0);
+				sky2VBO.drawArrays(7);
+				sky2VBO.unbindBuffer();
+				GLS.disableClientState(32884);
 
 				GLS.popMatrix();
 				float f18 = 1F;
@@ -1292,7 +1203,12 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 
 			GLS.pushMatrix();
 			GLS.translate(0F, -((float) (d3 - 16D)), 0F);
-			GLS.callList(glSkyList2);
+			sky2VBO.bindBuffer();
+			GLS.enableClientState(32884);
+			GLS.vertexPointer(3, 5126, 12, 0);
+			sky2VBO.drawArrays(7);
+			sky2VBO.unbindBuffer();
+			GLS.disableClientState(32884);
 			GLS.popMatrix();
 			GLS.enableTexture2D();
 			GLS.depthMask(true);

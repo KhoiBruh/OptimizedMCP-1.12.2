@@ -901,7 +901,7 @@ public class Minecraft implements IThreadListener {
 
 		while (getSystemTime() >= debugUpdateTime + 1000L) {
 			debugFPS = fpsCounter;
-			debug = String.format("%d fps (%d chunk update%s) T: %s%s%s%s%s", debugFPS, RenderChunk.renderChunksUpdated, RenderChunk.renderChunksUpdated == 1 ? "" : "s", (float) gameSettings.limitFramerate == GameSettings.Options.FRAMERATE_LIMIT.getMax() ? "inf" : gameSettings.limitFramerate, gameSettings.enableVsync ? " vsync" : "", gameSettings.fancyGraphics ? "" : " fast", gameSettings.clouds == 0 ? "" : (gameSettings.clouds == 1 ? " fast-clouds" : " fancy-clouds"), OpenGlHelper.useVbo() ? " vbo" : "");
+			debug = String.format("%d fps (%d chunk update%s) T: %s%s%s%s", debugFPS, RenderChunk.renderChunksUpdated, RenderChunk.renderChunksUpdated == 1 ? "" : "s", (float) gameSettings.limitFramerate == GameSettings.Options.FRAMERATE_LIMIT.getMax() ? "inf" : gameSettings.limitFramerate, gameSettings.enableVsync ? " vsync" : "", gameSettings.fancyGraphics ? "" : " fast", gameSettings.clouds == 0 ? "" : (gameSettings.clouds == 1 ? " fast-clouds" : " fancy-clouds"));
 			RenderChunk.renderChunksUpdated = 0;
 			debugUpdateTime += 1000L;
 			fpsCounter = 0;

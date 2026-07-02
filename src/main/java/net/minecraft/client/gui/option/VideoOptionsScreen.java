@@ -23,7 +23,7 @@ public class VideoOptionsScreen extends Screen {
 		GameSettings.Options.GAMMA, GameSettings.Options.RENDER_CLOUDS,
 		GameSettings.Options.PARTICLES, GameSettings.Options.USE_FULLSCREEN,
 		GameSettings.Options.ENABLE_VSYNC, GameSettings.Options.MIPMAP_LEVELS,
-		GameSettings.Options.USE_VBO, GameSettings.Options.ENTITY_SHADOWS
+		GameSettings.Options.ENTITY_SHADOWS
 	};
 	private final Screen parentScreen;
 	private final GameSettings guiGameSettings;
@@ -44,23 +44,7 @@ public class VideoOptionsScreen extends Screen {
 		buttons.clear();
 		buttons.add(new Button(200, width / 2 - 100, height - 27, I18n.format("gui.done")));
 
-		if (OpenGlHelper.vboSupported) {
-			optionsRowList = new GuiOptionsRowList(mc, width, height, 32, height - 32, 25, VIDEO_OPTIONS);
-		} else {
-			GameSettings.Options[] agamesettings$options = new GameSettings.Options[VIDEO_OPTIONS.length - 1];
-			int i = 0;
-
-			for (GameSettings.Options gamesettings$options : VIDEO_OPTIONS) {
-				if (gamesettings$options == GameSettings.Options.USE_VBO) {
-					break;
-				}
-
-				agamesettings$options[i] = gamesettings$options;
-				++i;
-			}
-
-			optionsRowList = new GuiOptionsRowList(mc, width, height, 32, height - 32, 25, agamesettings$options);
-		}
+		optionsRowList = new GuiOptionsRowList(mc, width, height, 32, height - 32, 25, VIDEO_OPTIONS);
 	}
 
 	/**

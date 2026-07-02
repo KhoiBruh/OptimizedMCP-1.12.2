@@ -32,7 +32,6 @@ public class ChunkRenderDispatcher {
 	private final List<ChunkRenderWorker> listThreadedWorkers = Lists.newArrayList();
 	private final PriorityBlockingQueue<ChunkCompileTaskGenerator> queueChunkUpdates = Queues.newPriorityBlockingQueue();
 	private final BlockingQueue<RegionRenderCacheBuilder> queueFreeRenderBuilders;
-	private final WorldVertexBufferUploader worldVertexUploader = new WorldVertexBufferUploader();
 	private final VertexBufferUploader vertexUploader = new VertexBufferUploader();
 	private final Queue<ChunkRenderDispatcher.PendingUpload> queueChunkUploads = Queues.newPriorityQueue();
 	private final ChunkRenderWorker renderWorker;
@@ -192,11 +191,7 @@ public class ChunkRenderDispatcher {
 
 	public ListenableFuture<Object> uploadChunk(BlockRenderLayer layer, BufferBuilder bufferBuilder, RenderChunk chunk, CompiledChunk compiledChunk, double v) {
 		if (Minecraft.getMinecraft().isCallingFromMinecraftThread()) {
-			if (OpenGlHelper.useVbo()) {
-				uploadVertexBuffer(bufferBuilder, chunk.getVertexBufferByLayer(layer.ordinal()));
-			} else {
-				uploadDisplayList(bufferBuilder, ((ListedRenderChunk) chunk).getDisplayList(layer, compiledChunk), chunk);
-			}
+			uploadVertexBuffer(bufferBuilder, chunk.getVertexBufferByLayer(layer.ordinal()));
 
 			bufferBuilder.setTranslation(0D, 0D, 0D);
 			return Futures.immediateFuture(null);
@@ -208,15 +203,6 @@ public class ChunkRenderDispatcher {
 				return listenablefuturetask;
 			}
 		}
-	}
-
-	private void uploadDisplayList(BufferBuilder bufferBuilderIn, int list, RenderChunk chunkRenderer) {
-		GLS.newList(list, 4864);
-		GLS.pushMatrix();
-		chunkRenderer.multModelviewMatrix();
-		worldVertexUploader.draw(bufferBuilderIn);
-		GLS.popMatrix();
-		GLS.endList();
 	}
 
 	private void uploadVertexBuffer(BufferBuilder p_178506_1_, VertexBuffer vertexBufferIn) {
