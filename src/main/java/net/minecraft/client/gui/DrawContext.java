@@ -112,17 +112,17 @@ public class DrawContext implements AutoCloseable {
 	// Shape Drawing Methods
 	// ==========================================
 
-	public void fill(int left, int top, int right, int bottom, int color) {
-		if (left < right) {
-			int i = left;
-			left = right;
-			right = i;
+	public void fill(int x, int y, int width, int height, int color) {
+		if (x < width) {
+			int i = x;
+			x = width;
+			width = i;
 		}
 
-		if (top < bottom) {
-			int j = top;
-			top = bottom;
-			bottom = j;
+		if (y < height) {
+			int j = y;
+			y = height;
+			height = j;
 		}
 
 		float a = (float) (color >> 24 & 255) / 255F;
@@ -132,10 +132,10 @@ public class DrawContext implements AutoCloseable {
 
 		ensureMode(BatchMode.COLOR, -1);
 
-		vertex(left, bottom, zLevel, 0, 0, r, g, b, a);
-		vertex(right, bottom, zLevel, 0, 0, r, g, b, a);
-		vertex(right, top, zLevel, 0, 0, r, g, b, a);
-		vertex(left, top, zLevel, 0, 0, r, g, b, a);
+		vertex(x, height, zLevel, 0, 0, r, g, b, a);
+		vertex(width, height, zLevel, 0, 0, r, g, b, a);
+		vertex(width, y, zLevel, 0, 0, r, g, b, a);
+		vertex(x, y, zLevel, 0, 0, r, g, b, a);
 	}
 
 	public void fillGradient(int left, int top, int right, int bottom, int startColor, int endColor) {

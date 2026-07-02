@@ -973,6 +973,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			int l1 = j1 - Mouse.getY() * j1 / mc.getWindow().getHeight() - 1;
 			int i2 = mc.gameSettings.limitFramerate;
 
+			var context = mc.getDrawContext();
+
 			if (mc.world != null) {
 				mc.profiler.startSection("level");
 				int j = Math.min(Minecraft.getDebugFPS(), i2);
@@ -1026,9 +1028,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 				GLS.clear(256);
 
 				try {
-					var context = mc.getDrawContext();
 					mc.currentScreen.draw(context, k1, l1, mc.getTickLength());
-					context.flush();
 				} catch (Throwable throwable) {
 					CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Rendering screen");
 					CrashReportCategory crashreportcategory = crashreport.makeCategory("Screen render details");
@@ -1049,6 +1049,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 					throw new ReportedException(crashreport);
 				}
 			}
+
+			context.flush();
 		}
 	}
 

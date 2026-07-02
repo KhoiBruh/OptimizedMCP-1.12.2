@@ -116,6 +116,9 @@ public abstract class Screen extends Gui implements GuiYesNoCallback {
 		for (Button button : buttons) {
 			button.drawButton(mc, mouseX, mouseY, partialTicks);
 		}
+
+		// tested, it worked perfectly!!
+		context.fill(50, 50, 400, 200, new Color(0, 0, 0, 100).getRGB());
 	}
 
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
