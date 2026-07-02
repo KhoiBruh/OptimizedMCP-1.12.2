@@ -178,9 +178,9 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 			LOGGER.error("Couldn't render entity", exception);
 		}
 
-		GLS.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+		GLS.activeTexture(OpenGlHelper.lightmapTexUnit);
 		GLS.enableTexture2D();
-		GLS.setActiveTexture(OpenGlHelper.defaultTexUnit);
+		GLS.activeTexture(OpenGlHelper.defaultTexUnit);
 		GLS.enableCull();
 		GLS.popMatrix();
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);
@@ -197,17 +197,17 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 
 	protected boolean setScoreTeamColor(T entityLivingBaseIn) {
 		GLS.disableLighting();
-		GLS.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+		GLS.activeTexture(OpenGlHelper.lightmapTexUnit);
 		GLS.disableTexture2D();
-		GLS.setActiveTexture(OpenGlHelper.defaultTexUnit);
+		GLS.activeTexture(OpenGlHelper.defaultTexUnit);
 		return true;
 	}
 
 	protected void unsetScoreTeamColor() {
 		GLS.enableLighting();
-		GLS.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+		GLS.activeTexture(OpenGlHelper.lightmapTexUnit);
 		GLS.enableTexture2D();
-		GLS.setActiveTexture(OpenGlHelper.defaultTexUnit);
+		GLS.activeTexture(OpenGlHelper.defaultTexUnit);
 	}
 
 	/**
@@ -253,7 +253,7 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 		} else if (!flag && !combineTextures) {
 			return false;
 		} else {
-			GLS.setActiveTexture(OpenGlHelper.defaultTexUnit);
+			GLS.activeTexture(OpenGlHelper.defaultTexUnit);
 			GLS.enableTexture2D();
 			GLS.texEnv(8960, 8704, OpenGlHelper.GL_COMBINE);
 			GLS.texEnv(8960, OpenGlHelper.GL_COMBINE_RGB, 8448);
@@ -264,7 +264,7 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 			GLS.texEnv(8960, OpenGlHelper.GL_COMBINE_ALPHA, 7681);
 			GLS.texEnv(8960, OpenGlHelper.GL_SOURCE0_ALPHA, OpenGlHelper.defaultTexUnit);
 			GLS.texEnv(8960, OpenGlHelper.GL_OPERAND0_ALPHA, 770);
-			GLS.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+			GLS.activeTexture(OpenGlHelper.lightmapTexUnit);
 			GLS.enableTexture2D();
 			GLS.texEnv(8960, 8704, OpenGlHelper.GL_COMBINE);
 			GLS.texEnv(8960, OpenGlHelper.GL_COMBINE_RGB, OpenGlHelper.GL_INTERPOLATE);
@@ -297,7 +297,7 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 
 			brightnessBuffer.flip();
 			GLS.texEnv(8960, 8705, brightnessBuffer);
-			GLS.setActiveTexture(OpenGlHelper.GL_TEXTURE2);
+			GLS.activeTexture(OpenGlHelper.GL_TEXTURE2);
 			GLS.enableTexture2D();
 			GLS.bindTexture(TEXTURE_BRIGHTNESS.getGlTextureId());
 			GLS.texEnv(8960, 8704, OpenGlHelper.GL_COMBINE);
@@ -309,13 +309,13 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 			GLS.texEnv(8960, OpenGlHelper.GL_COMBINE_ALPHA, 7681);
 			GLS.texEnv(8960, OpenGlHelper.GL_SOURCE0_ALPHA, OpenGlHelper.GL_PREVIOUS);
 			GLS.texEnv(8960, OpenGlHelper.GL_OPERAND0_ALPHA, 770);
-			GLS.setActiveTexture(OpenGlHelper.defaultTexUnit);
+			GLS.activeTexture(OpenGlHelper.defaultTexUnit);
 			return true;
 		}
 	}
 
 	protected void unsetBrightness() {
-		GLS.setActiveTexture(OpenGlHelper.defaultTexUnit);
+		GLS.activeTexture(OpenGlHelper.defaultTexUnit);
 		GLS.enableTexture2D();
 		GLS.texEnv(8960, 8704, OpenGlHelper.GL_COMBINE);
 		GLS.texEnv(8960, OpenGlHelper.GL_COMBINE_RGB, 8448);
@@ -328,7 +328,7 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 		GLS.texEnv(8960, OpenGlHelper.GL_SOURCE1_ALPHA, OpenGlHelper.GL_PRIMARY_COLOR);
 		GLS.texEnv(8960, OpenGlHelper.GL_OPERAND0_ALPHA, 770);
 		GLS.texEnv(8960, OpenGlHelper.GL_OPERAND1_ALPHA, 770);
-		GLS.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+		GLS.activeTexture(OpenGlHelper.lightmapTexUnit);
 		GLS.texEnv(8960, 8704, OpenGlHelper.GL_COMBINE);
 		GLS.texEnv(8960, OpenGlHelper.GL_COMBINE_RGB, 8448);
 		GLS.texEnv(8960, OpenGlHelper.GL_OPERAND0_RGB, 768);
@@ -339,7 +339,7 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 		GLS.texEnv(8960, OpenGlHelper.GL_OPERAND0_ALPHA, 770);
 		GLS.texEnv(8960, OpenGlHelper.GL_SOURCE0_ALPHA, 5890);
 		GLS.color(1F, 1F, 1F, 1F);
-		GLS.setActiveTexture(OpenGlHelper.GL_TEXTURE2);
+		GLS.activeTexture(OpenGlHelper.GL_TEXTURE2);
 		GLS.disableTexture2D();
 		GLS.bindTexture(0);
 		GLS.texEnv(8960, 8704, OpenGlHelper.GL_COMBINE);
@@ -351,7 +351,7 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 		GLS.texEnv(8960, OpenGlHelper.GL_COMBINE_ALPHA, 8448);
 		GLS.texEnv(8960, OpenGlHelper.GL_OPERAND0_ALPHA, 770);
 		GLS.texEnv(8960, OpenGlHelper.GL_SOURCE0_ALPHA, 5890);
-		GLS.setActiveTexture(OpenGlHelper.defaultTexUnit);
+		GLS.activeTexture(OpenGlHelper.defaultTexUnit);
 	}
 
 	/**

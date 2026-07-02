@@ -147,7 +147,7 @@ public class ShaderManager {
 
 		for (int i = 0; i < shaderSamplerLocations.size(); ++i) {
 			if (shaderSamplers.get(samplerNames.get(i)) != null) {
-				GLS.setActiveTexture(OpenGlHelper.defaultTexUnit + i);
+				GLS.activeTexture(OpenGlHelper.defaultTexUnit + i);
 				GLS.bindTexture(0);
 			}
 		}
@@ -171,7 +171,7 @@ public class ShaderManager {
 
 		for (int i = 0; i < shaderSamplerLocations.size(); ++i) {
 			if (shaderSamplers.get(samplerNames.get(i)) != null) {
-				GLS.setActiveTexture(OpenGlHelper.defaultTexUnit + i);
+				GLS.activeTexture(OpenGlHelper.defaultTexUnit + i);
 				GLS.enableTexture2D();
 				Object object = shaderSamplers.get(samplerNames.get(i));
 				int j = -1;

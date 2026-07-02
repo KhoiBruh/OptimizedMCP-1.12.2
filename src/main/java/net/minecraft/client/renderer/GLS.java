@@ -255,7 +255,7 @@ public class GLS {
 			blendDstFactor = dstFactor;
 			blendSrcFactorAlpha = srcFactorAlpha;
 			blendDstFactorAlpha = dstFactorAlpha;
-			OpenGlHelper.glBlendFunc(srcFactor, dstFactor, srcFactorAlpha, dstFactorAlpha);
+			GL14.glBlendFuncSeparate(srcFactor, dstFactor, srcFactorAlpha, dstFactorAlpha);
 		}
 	}
 
@@ -511,10 +511,10 @@ public class GLS {
 		GL11.glTexGenfv(coord, pname, params);
 	}
 
-	public static void setActiveTexture(int texture) {
+	public static void activeTexture(int texture) {
 		if (activeTextureUnit != texture - OpenGlHelper.defaultTexUnit) {
 			activeTextureUnit = texture - OpenGlHelper.defaultTexUnit;
-			OpenGlHelper.setActiveTexture(texture);
+			GL13.glActiveTexture(texture);
 		}
 	}
 
@@ -1003,7 +1003,7 @@ public class GLS {
 				texGen(GLS.TexGen.Q, GL11.GL_TEXTURE_GEN_MODE);
 				texGen(GLS.TexGen.Q, GL11.GL_OBJECT_PLANE, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
 				texGen(GLS.TexGen.Q, GL11.GL_EYE_PLANE, RenderHelper.setColorBuffer(0F, 0F, 0F, 0F));
-				setActiveTexture(0);
+				activeTexture(0);
 				GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
 				GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST_MIPMAP_LINEAR);
 				GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);

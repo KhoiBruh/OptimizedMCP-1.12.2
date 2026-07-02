@@ -1,6 +1,5 @@
 package net.minecraft.client.renderer;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.Util;
 import org.apache.logging.log4j.LogManager;
@@ -17,15 +16,12 @@ import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
-import java.util.Locale;
+import java.nio.charset.StandardCharsets;
 
 public class OpenGlHelper {
 
-	/**
-	 * The logger used by {@link OpenGlHelper} in the event of an error
-	 */
 	private static final Logger LOGGER = LogManager.getLogger();
-	public static boolean nvidia;
+
 	public static int GL_FRAMEBUFFER;
 	public static int GL_RENDERBUFFER;
 	public static int GL_COLOR_ATTACHMENT0;
@@ -35,21 +31,14 @@ public class OpenGlHelper {
 	public static int GL_FB_INCOMPLETE_MISS_ATTACH;
 	public static int GL_FB_INCOMPLETE_DRAW_BUFFER;
 	public static int GL_FB_INCOMPLETE_READ_BUFFER;
-	public static boolean framebufferSupported;
 	public static int GL_LINK_STATUS;
 	public static int GL_COMPILE_STATUS;
 	public static int GL_VERTEX_SHADER;
 	public static int GL_FRAGMENT_SHADER;
-	/**
-	 * An OpenGL constant corresponding to GL_TEXTURE0, used when setting data pertaining to auxiliary OpenGL texture
-	 * units.
-	 */
+
 	public static int defaultTexUnit;
-	/**
-	 * An OpenGL constant corresponding to GL_TEXTURE1, used when setting data pertaining to auxiliary OpenGL texture
-	 * units.
-	 */
 	public static int lightmapTexUnit;
+
 	public static int GL_TEXTURE2;
 	public static int GL_COMBINE;
 	public static int GL_INTERPOLATE;
@@ -70,27 +59,17 @@ public class OpenGlHelper {
 	public static int GL_OPERAND0_ALPHA;
 	public static int GL_OPERAND1_ALPHA;
 	public static int GL_OPERAND2_ALPHA;
-	public static boolean extBlendFuncSeparate;
-	public static boolean openGL21;
-	public static boolean shadersSupported;
+	public static boolean shadersSupported = true;
 	public static int GL_ARRAY_BUFFER;
 	public static int GL_STATIC_DRAW;
-	private static OpenGlHelper.FboMode framebufferType;
-	private static boolean openGL14;
-	private static String logText = "";
+
 	private static String cpu;
 
-	/**
-	 * Initializes the texture constants to be used when rendering lightmap values
-	 */
 	public static void initializeTextures() {
-		GLCapabilities caps = GL.getCapabilities();
-		logText = logText + "Using GL 1.3 multitexturing.\n";
 		defaultTexUnit = 33984;
 		lightmapTexUnit = 33985;
 		GL_TEXTURE2 = 33986;
 
-		logText = logText + "Using GL 1.3 texture combiners.\n";
 		GL_COMBINE = 34160;
 		GL_INTERPOLATE = 34165;
 		GL_PRIMARY_COLOR = 34167;
@@ -111,78 +90,29 @@ public class OpenGlHelper {
 		GL_OPERAND1_ALPHA = 34201;
 		GL_OPERAND2_ALPHA = 34202;
 
-		extBlendFuncSeparate = caps.GL_EXT_blend_func_separate && !caps.OpenGL14;
-		openGL14 = caps.OpenGL14 || caps.GL_EXT_blend_func_separate;
-		framebufferSupported = openGL14 && (caps.GL_EXT_framebuffer_object || caps.OpenGL30);
+		GL_FRAMEBUFFER = 36160;
+		GL_RENDERBUFFER = 36161;
+		GL_COLOR_ATTACHMENT0 = 36064;
+		GL_DEPTH_ATTACHMENT = 36096;
+		GL_FRAMEBUFFER_COMPLETE = 36053;
+		GL_FB_INCOMPLETE_ATTACHMENT = 36054;
+		GL_FB_INCOMPLETE_MISS_ATTACH = 36055;
+		GL_FB_INCOMPLETE_DRAW_BUFFER = 36059;
+		GL_FB_INCOMPLETE_READ_BUFFER = 36060;
 
-		if (framebufferSupported) {
-			logText = logText + "Using framebuffer objects because ";
-
-			if (caps.OpenGL30) {
-				logText = logText + "OpenGL 3.0 is supported and separate blending is supported.\n";
-				framebufferType = OpenGlHelper.FboMode.BASE;
-				GL_FRAMEBUFFER = 36160;
-				GL_RENDERBUFFER = 36161;
-				GL_COLOR_ATTACHMENT0 = 36064;
-				GL_DEPTH_ATTACHMENT = 36096;
-				GL_FRAMEBUFFER_COMPLETE = 36053;
-				GL_FB_INCOMPLETE_ATTACHMENT = 36054;
-				GL_FB_INCOMPLETE_MISS_ATTACH = 36055;
-			} else {
-				logText = logText + "EXT_framebuffer_object is supported.\n";
-				framebufferType = FboMode.EXT;
-				GL_FRAMEBUFFER = 36160;
-				GL_RENDERBUFFER = 36161;
-				GL_COLOR_ATTACHMENT0 = 36064;
-				GL_DEPTH_ATTACHMENT = 36096;
-				GL_FRAMEBUFFER_COMPLETE = 36053;
-				GL_FB_INCOMPLETE_MISS_ATTACH = 36055;
-				GL_FB_INCOMPLETE_ATTACHMENT = 36054;
-			}
-
-			GL_FB_INCOMPLETE_DRAW_BUFFER = 36059;
-			GL_FB_INCOMPLETE_READ_BUFFER = 36060;
-		} else {
-			logText = logText + "Not using framebuffer objects because ";
-			logText = logText + "OpenGL 1.4 is " + (caps.OpenGL14 ? "" : "not ") + "supported, ";
-			logText = logText + "EXT_blend_func_separate is " + (caps.GL_EXT_blend_func_separate ? "" : "not ") + "supported, and ";
-			logText = logText + "OpenGL 3.0 is " + (caps.OpenGL30 ? "" : "not ") + "supported.\n";
-		}
-
-		openGL21 = caps.OpenGL21;
-		boolean shadersAvailable = openGL21;
-		logText = logText + "Shaders are " + (shadersAvailable ? "" : "not ") + "available because ";
-
-		if (shadersAvailable) {
-			logText = logText + "OpenGL 2.1 is supported.\n";
-			GL_LINK_STATUS = 35714;
-			GL_COMPILE_STATUS = 35713;
-			GL_VERTEX_SHADER = 35633;
-			GL_FRAGMENT_SHADER = 35632;
-		} else {
-			logText = logText + "OpenGL 2.1 is not supported.\n";
-		}
-
-		shadersSupported = framebufferSupported && shadersAvailable;
-		String s = GL11.glGetString(GL11.GL_VENDOR).toLowerCase(Locale.ROOT);
-		nvidia = s.contains("nvidia");
-		logText = logText + "VBOs are available because ";
-		logText = logText + "OpenGL 1.5 is supported.\n";
-
+		GL_LINK_STATUS = 35714;
+		GL_COMPILE_STATUS = 35713;
+		GL_VERTEX_SHADER = 35633;
+		GL_FRAGMENT_SHADER = 35632;
 		GL_STATIC_DRAW = 35044;
 		GL_ARRAY_BUFFER = 34962;
 
 		CentralProcessor processor = new SystemInfo().getHardware().getProcessor();
-		cpu = String.format("%dx %s", processor.getLogicalProcessorCount(), processor.getProcessorIdentifier()
-		                                                                             .getName());
+		cpu = String.format("%dx %s", processor.getLogicalProcessorCount(), processor.getProcessorIdentifier().getName());
 	}
 
 	public static boolean areShadersSupported() {
 		return shadersSupported;
-	}
-
-	public static String getLogText() {
-		return logText;
 	}
 
 	public static int glGetProgrami(int program, int pname) {
@@ -197,15 +127,12 @@ public class OpenGlHelper {
 		GL20.glDeleteShader(shaderIn);
 	}
 
-	/**
-	 * creates a shader with the given mode and returns the GL id. params: mode
-	 */
 	public static int glCreateShader(int type) {
 		return GL20.glCreateShader(type);
 	}
 
 	public static void glShaderSource(int shaderIn, ByteBuffer string) {
-		CharSequence source = java.nio.charset.StandardCharsets.UTF_8.decode(string);
+		CharSequence source = StandardCharsets.UTF_8.decode(string);
 		GL20.glShaderSource(shaderIn, source);
 	}
 
@@ -314,171 +241,59 @@ public class OpenGlHelper {
 	}
 
 	public static void glBindFramebuffer(int target, int framebufferIn) {
-		if (framebufferSupported) {
-			switch (framebufferType) {
-				case BASE:
-					GL30.glBindFramebuffer(target, framebufferIn);
-					break;
-
-				case EXT:
-					EXTFramebufferObject.glBindFramebufferEXT(target, framebufferIn);
-			}
-		}
+		GL30.glBindFramebuffer(target, framebufferIn);
 	}
 
 	public static void glBindRenderbuffer(int target, int renderbuffer) {
-		if (framebufferSupported) {
-			switch (framebufferType) {
-				case BASE:
-					GL30.glBindRenderbuffer(target, renderbuffer);
-					break;
-
-				case EXT:
-					EXTFramebufferObject.glBindRenderbufferEXT(target, renderbuffer);
-			}
-		}
+		GL30.glBindRenderbuffer(target, renderbuffer);
 	}
 
 	public static void glDeleteRenderbuffers(int renderbuffer) {
-		if (framebufferSupported) {
-			switch (framebufferType) {
-				case BASE:
-					GL30.glDeleteRenderbuffers(renderbuffer);
-					break;
-
-				case EXT:
-					EXTFramebufferObject.glDeleteRenderbuffersEXT(renderbuffer);
-			}
-		}
+		GL30.glDeleteRenderbuffers(renderbuffer);
 	}
 
 	public static void glDeleteFramebuffers(int framebufferIn) {
-		if (framebufferSupported) {
-			switch (framebufferType) {
-				case BASE:
-					GL30.glDeleteFramebuffers(framebufferIn);
-					break;
-
-				case EXT:
-					EXTFramebufferObject.glDeleteFramebuffersEXT(framebufferIn);
-			}
-		}
+		GL30.glDeleteFramebuffers(framebufferIn);
 	}
 
-	/**
-	 * Calls the appropriate glGenFramebuffers method and returns the newly created fbo, or returns -1 if not supported.
-	 */
 	public static int glGenFramebuffers() {
-		if (!framebufferSupported) {
-			return -1;
-		} else {
-			return switch (framebufferType) {
-				case BASE -> GL30.glGenFramebuffers();
-				case EXT -> EXTFramebufferObject.glGenFramebuffersEXT();
-			};
-		}
+		return GL30.glGenFramebuffers();
 	}
 
 	public static int glGenRenderbuffers() {
-		if (!framebufferSupported) {
-			return -1;
-		} else {
-			return switch (framebufferType) {
-				case BASE -> GL30.glGenRenderbuffers();
-				case EXT -> EXTFramebufferObject.glGenRenderbuffersEXT();
-			};
-		}
+		return GL30.glGenRenderbuffers();
 	}
 
 	public static void glRenderbufferStorage(int target, int internalFormat, int width, int height) {
-		if (framebufferSupported) {
-			switch (framebufferType) {
-				case BASE:
-					GL30.glRenderbufferStorage(target, internalFormat, width, height);
-					break;
-
-				case EXT:
-					EXTFramebufferObject.glRenderbufferStorageEXT(target, internalFormat, width, height);
-			}
-		}
+		GL30.glRenderbufferStorage(target, internalFormat, width, height);
 	}
 
 	public static void glFramebufferRenderbuffer(int target, int attachment, int renderBufferTarget, int renderBuffer) {
-		if (framebufferSupported) {
-			switch (framebufferType) {
-				case BASE:
-					GL30.glFramebufferRenderbuffer(target, attachment, renderBufferTarget, renderBuffer);
-					break;
-
-				case EXT:
-					EXTFramebufferObject.glFramebufferRenderbufferEXT(target, attachment, renderBufferTarget, renderBuffer);
-			}
-		}
+		GL30.glFramebufferRenderbuffer(target, attachment, renderBufferTarget, renderBuffer);
 	}
 
 	public static int glCheckFramebufferStatus(int target) {
-		if (!framebufferSupported) {
-			return -1;
-		} else {
-			return switch (framebufferType) {
-				case BASE -> GL30.glCheckFramebufferStatus(target);
-				case EXT -> EXTFramebufferObject.glCheckFramebufferStatusEXT(target);
-			};
-		}
+		return GL30.glCheckFramebufferStatus(target);
 	}
 
 	public static void glFramebufferTexture2D(int target, int attachment, int textarget, int texture, int level) {
-		if (framebufferSupported) {
-			switch (framebufferType) {
-				case BASE:
-					GL30.glFramebufferTexture2D(target, attachment, textarget, texture, level);
-					break;
-
-				case EXT:
-					EXTFramebufferObject.glFramebufferTexture2DEXT(target, attachment, textarget, texture, level);
-			}
-		}
+		GL30.glFramebufferTexture2D(target, attachment, textarget, texture, level);
 	}
 
-	/**
-	 * Sets the current lightmap texture to the specified OpenGL constant
-	 */
-	public static void setActiveTexture(int texture) {
-		GL13.glActiveTexture(texture);
-	}
-
-	/**
-	 * Sets the current lightmap texture to the specified OpenGL constant
-	 */
 	public static void setClientActiveTexture(int texture) {
 		GL13.glClientActiveTexture(texture);
 	}
 
-	/**
-	 * Sets the current coordinates of the given lightmap texture
-	 */
 	public static void setLightmapTextureCoords(int target, float x, float y) {
 		GL13.glMultiTexCoord2f(target, x, y);
 	}
 
-	public static void glBlendFunc(int sFactorRGB, int dFactorRGB, int sfactorAlpha, int dfactorAlpha) {
-		if (openGL14) {
-			if (extBlendFuncSeparate) {
-				EXTBlendFuncSeparate.glBlendFuncSeparateEXT(sFactorRGB, dFactorRGB, sfactorAlpha, dfactorAlpha);
-			} else {
-				GL14.glBlendFuncSeparate(sFactorRGB, dFactorRGB, sfactorAlpha, dfactorAlpha);
-			}
-		} else {
-			GL11.glBlendFunc(sFactorRGB, dFactorRGB);
-		}
-	}
-
 	public static boolean isFramebufferEnabled() {
-		return framebufferSupported && Minecraft.getMinecraft().gameSettings.fboEnable;
+		return true;
 	}
 
 	public static String getCpu() {
-		return cpu == null ? "<unknown>" : cpu;
+		return cpu == null ? "unknown" : cpu;
 	}
 
 	public static void renderDirections(int p_188785_0_) {
@@ -509,8 +324,8 @@ public class OpenGlHelper {
 		GLS.enableTexture2D();
 	}
 
-	public static void openFile(File fileIn) {
-		String s = fileIn.getAbsolutePath();
+	public static void openFile(File file) {
+		String s = file.getAbsolutePath();
 
 		if (Util.getOSType() == Util.OS.OSX) {
 			try {
@@ -521,7 +336,7 @@ public class OpenGlHelper {
 				LOGGER.error("Couldn't open file", ioexception1);
 			}
 		} else if (Util.getOSType() == Util.OS.WINDOWS) {
-			String[] cmd = new String[]{"cmd.exe", "/C", "start", "Open file", s};
+			String[] cmd = {"cmd.exe", "/C", "start", "Open file", s};
 
 			try {
 				Runtime.getRuntime().exec(cmd);
@@ -534,7 +349,7 @@ public class OpenGlHelper {
 		boolean flag = false;
 
 		try {
-			Desktop.getDesktop().browse(fileIn.toURI());
+			Desktop.getDesktop().browse(file.toURI());
 		} catch (Throwable throwable) {
 			LOGGER.error("Couldn't open link", throwable);
 			flag = true;
@@ -548,11 +363,6 @@ public class OpenGlHelper {
 
 			}
 		}
-	}
-
-	enum FboMode {
-		BASE,
-		EXT
 	}
 
 }

@@ -76,9 +76,9 @@ public class InventoryScreen extends InventoryEffectRenderer implements IRecipeS
 		GLS.popMatrix();
 		RenderHelper.disableStandardItemLighting();
 		GLS.disableRescaleNormal();
-		GLS.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+		GLS.activeTexture(OpenGlHelper.lightmapTexUnit);
 		GLS.disableTexture2D();
-		GLS.setActiveTexture(OpenGlHelper.defaultTexUnit);
+		GLS.activeTexture(OpenGlHelper.defaultTexUnit);
 	}
 
 	/**

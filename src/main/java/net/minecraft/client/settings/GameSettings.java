@@ -87,7 +87,6 @@ public class GameSettings {
 	public float chatOpacity = 1F;
 	public boolean fullScreen;
 	public boolean enableVsync = true;
-	public boolean useVbo = true;
 	public boolean reducedDebugInfo;
 	public boolean hideServerAddress;
 	/**
@@ -537,7 +536,6 @@ public class GameSettings {
 						case "chatOpacity" -> chatOpacity = parseFloat(s2);
 						case "fullscreen" -> fullScreen = "true".equals(s2);
 						case "enableVsync" -> enableVsync = "true".equals(s2);
-						case "useVbo" -> useVbo = "true".equals(s2);
 						case "hideServerAddress" -> hideServerAddress = "true".equals(s2);
 						case "advancedItemTooltips" -> advancedItemTooltips = "true".equals(s2);
 						case "pauseOnLostFocus" -> pauseOnLostFocus = "true".equals(s2);
@@ -650,7 +648,6 @@ public class GameSettings {
 			writer.println("chatOpacity:" + chatOpacity);
 			writer.println("fullscreen:" + fullScreen);
 			writer.println("enableVsync:" + enableVsync);
-			writer.println("useVbo:" + useVbo);
 			writer.println("hideServerAddress:" + hideServerAddress);
 			writer.println("advancedItemTooltips:" + advancedItemTooltips);
 			writer.println("pauseOnLostFocus:" + pauseOnLostFocus);

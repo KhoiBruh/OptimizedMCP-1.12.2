@@ -1998,17 +1998,6 @@ public class Minecraft implements IThreadListener {
 			                               " GL version " + GLS.getString(7938) +
 			                               ", " + GLS.getString(7936)
 		);
-		report.getCategory().addDetail("GL Caps", OpenGlHelper::getLogText);
-		report.getCategory().addDetail("Using VBOs", () -> gameSettings.useVbo ? "Yes" : "No");
-		report.getCategory().addDetail("Is Modded", () -> {
-			String s = ClientBrandRetriever.getClientModName();
-
-			if (!"vanilla".equals(s)) {
-				return "Definitely; Client brand changed to '" + s + "'";
-			} else {
-				return Minecraft.class.getSigners() == null ? "Very likely; Jar signature invalidated" : "Probably not. Jar signature remains and client brand is untouched.";
-			}
-		});
 		report.getCategory().addDetail("Type", () -> "Client (map_client.txt)");
 		report.getCategory().addDetail("Resource Packs", () -> {
 			StringBuilder builder = new StringBuilder();

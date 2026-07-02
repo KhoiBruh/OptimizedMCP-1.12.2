@@ -32,7 +32,7 @@ public abstract class TileEntitySpecialRenderer<T extends TileEntity> {
 	 * useful for floating text, e.g.
 	 */
 	protected void setLightmapDisabled(boolean disabled) {
-		GLS.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+		GLS.activeTexture(OpenGlHelper.lightmapTexUnit);
 
 		if (disabled) {
 			GLS.disableTexture2D();
@@ -40,7 +40,7 @@ public abstract class TileEntitySpecialRenderer<T extends TileEntity> {
 			GLS.enableTexture2D();
 		}
 
-		GLS.setActiveTexture(OpenGlHelper.defaultTexUnit);
+		GLS.activeTexture(OpenGlHelper.defaultTexUnit);
 	}
 
 	protected void bindTexture(ResourceLocation location) {

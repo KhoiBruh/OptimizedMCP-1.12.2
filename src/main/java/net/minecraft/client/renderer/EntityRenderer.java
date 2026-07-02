@@ -765,13 +765,13 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	}
 
 	public void disableLightmap() {
-		GLS.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+		GLS.activeTexture(OpenGlHelper.lightmapTexUnit);
 		GLS.disableTexture2D();
-		GLS.setActiveTexture(OpenGlHelper.defaultTexUnit);
+		GLS.activeTexture(OpenGlHelper.defaultTexUnit);
 	}
 
 	public void enableLightmap() {
-		GLS.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+		GLS.activeTexture(OpenGlHelper.lightmapTexUnit);
 		GLS.matrixMode(5890);
 		GLS.loadIdentity();
 		float f = 0.00390625F;
@@ -785,7 +785,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		GLS.texParameteri(3553, 10243, 10496);
 		GLS.color(1F, 1F, 1F, 1F);
 		GLS.enableTexture2D();
-		GLS.setActiveTexture(OpenGlHelper.defaultTexUnit);
+		GLS.activeTexture(OpenGlHelper.defaultTexUnit);
 	}
 
 	/**
